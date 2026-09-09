@@ -29850,6 +29850,7 @@
   "@roblox/globaltype/Decal": {
     "documentation": "Applies an image texture to a face of a parent <code>BasePart</code>.",
     "keys": {
+      "AutoLocalize": "@roblox/globaltype/Decal.AutoLocalize",
       "Color3": "@roblox/globaltype/Decal.Color3",
       "ColorMap": "@roblox/globaltype/Decal.ColorMap",
       "ColorMapContent": "@roblox/globaltype/Decal.ColorMapContent",
@@ -29865,12 +29866,18 @@
       "Specular": "@roblox/globaltype/Decal.Specular",
       "Texture": "@roblox/globaltype/Decal.Texture",
       "TextureContent": "@roblox/globaltype/Decal.TextureContent",
+      "TexturePackContent": "@roblox/globaltype/Decal.TexturePackContent",
       "Transparency": "@roblox/globaltype/Decal.Transparency",
       "UVOffset": "@roblox/globaltype/Decal.UVOffset",
       "UVScale": "@roblox/globaltype/Decal.UVScale",
       "ZIndex": "@roblox/globaltype/Decal.ZIndex"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.AutoLocalize": {
+    "documentation": "When set to <code>true</code>, the decal's image asset is eligible for automatic localization capture.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#AutoLocalize",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Color3": {
@@ -29894,22 +29901,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMap": {
-    "documentation": "",
+    "documentation": "Content ID that determines the metalness map of the surface.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> object that determines the metalness map of the surface.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMap": {
-    "documentation": "",
+    "documentation": "Content ID that determines the normal map of the surface.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> object that determines the normal map of the surface.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMapContent",
     "code_sample": ""
   },
@@ -29919,22 +29926,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMap": {
-    "documentation": "",
+    "documentation": "Content ID that determines the roughness map of the surface.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> object that determines the roughness map of the surface.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Shiny": {
-    "documentation": "<strong>Deprecated:</strong> This non-functional property is deprecated and should not be used in new work.",
+    "documentation": "<strong>Deprecated:</strong> This non-functional property is deprecated and should not be used in new work.<br>Deprecated property that previously set the shininess of the decal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Shiny",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Specular": {
-    "documentation": "<strong>Deprecated:</strong> This property no longer functions correctly and is deprecated. It should not be used in new work.",
+    "documentation": "<strong>Deprecated:</strong> This property no longer functions correctly and is deprecated. It should not be used in new work.<br>Deprecated property that previously set the specularity of the decal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Specular",
     "code_sample": ""
   },
@@ -29946,6 +29953,11 @@
   "@roblox/globaltype/Decal.TextureContent": {
     "documentation": "The texture content displayed by the <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.TexturePackContent": {
+    "documentation": "Engine-managed <code>Content</code> that stores the compressed runtime texture-pack data for PBR decals.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TexturePackContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Transparency": {
@@ -46154,19 +46166,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UIGradient": {
-    "documentation": "Applies a color and transparency gradient to the UI elements rendered by the parent <code>GuiObject</code>.",
+    "documentation": "Applies a color and transparency gradient to the parent <code>GuiObject</code>.",
     "keys": {
       "Color": "@roblox/globaltype/UIGradient.Color",
       "Enabled": "@roblox/globaltype/UIGradient.Enabled",
       "Offset": "@roblox/globaltype/UIGradient.Offset",
       "Rotation": "@roblox/globaltype/UIGradient.Rotation",
-      "Transparency": "@roblox/globaltype/UIGradient.Transparency"
+      "Scale": "@roblox/globaltype/UIGradient.Scale",
+      "TileMode": "@roblox/globaltype/UIGradient.TileMode",
+      "Transparency": "@roblox/globaltype/UIGradient.Transparency",
+      "Type": "@roblox/globaltype/UIGradient.Type"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient",
     "code_sample": ""
   },
   "@roblox/globaltype/UIGradient.Color": {
-    "documentation": "Determines the color blended with the parent GuiObject along the length of the gradient.",
+    "documentation": "Determines the color blended with the parent <code>GuiObject</code> along the length of the gradient.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Color",
     "code_sample": ""
   },
@@ -46176,7 +46191,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UIGradient.Offset": {
-    "documentation": "Determines the scalar translation of the gradient from the center of the parent GuiObject.",
+    "documentation": "Determines the scalar translation of the gradient from the center of the parent <code>GuiObject</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Offset",
     "code_sample": ""
   },
@@ -46185,9 +46200,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Rotation",
     "code_sample": ""
   },
+  "@roblox/globaltype/UIGradient.Scale": {
+    "documentation": "Multiplies the extent of the gradient, controlling how much of the color/transparency sequence is visible within the element.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Scale",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.TileMode": {
+    "documentation": "Determines how the gradient repeats.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#TileMode",
+    "code_sample": ""
+  },
   "@roblox/globaltype/UIGradient.Transparency": {
-    "documentation": "Determines how much the parent GuiObject can be seen through along the length of the gradient.",
+    "documentation": "Determines how much the parent <code>GuiObject</code> can be seen through along the length of the gradient.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Transparency",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Type": {
+    "documentation": "Determines the shape of the gradient as linear, radial, or conical.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Type",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation": {
@@ -47184,31 +47214,6 @@
   "@roblox/globaltype/TerrainDetail.StudsPerTile": {
     "documentation": "Determines the scale of textures.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#StudsPerTile",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping": {
-    "documentation": "",
-    "keys": {
-      "FlattenTree": "@roblox/globaltype/PatchMapping.FlattenTree",
-      "PatchId": "@roblox/globaltype/PatchMapping.PatchId",
-      "TargetPath": "@roblox/globaltype/PatchMapping.TargetPath"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.FlattenTree": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#FlattenTree",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.PatchId": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#PatchId",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.TargetPath": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#TargetPath",
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
@@ -52876,6 +52881,7 @@
       "GetPredictionStatus": "@roblox/globaltype/RunService.GetPredictionStatus",
       "IsClient": "@roblox/globaltype/RunService.IsClient",
       "IsEdit": "@roblox/globaltype/RunService.IsEdit",
+      "IsResimulating": "@roblox/globaltype/RunService.IsResimulating",
       "IsRunMode": "@roblox/globaltype/RunService.IsRunMode",
       "IsRunning": "@roblox/globaltype/RunService.IsRunning",
       "IsServer": "@roblox/globaltype/RunService.IsServer",
@@ -52896,7 +52902,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.RunState": {
-    "documentation": "",
+    "documentation": "The current run state of the game's simulation.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#RunState",
     "code_sample": ""
   },
@@ -52949,7 +52955,7 @@
     "documentation": "Optional priority of the binding as an integer; it determines the order in which bound functions are called within a simulation step. Lower numbers are called first. If two bindings have the same priority, the order between them is unspecified. Defaults to 2000."
   },
   "@roblox/globaltype/RunService.BindToSimulation/return/0": {
-    "documentation": ""
+    "documentation": "An <code>RBXScriptConnection</code> that can be disconnected to unbind the function from the simulation step."
   },
   "@roblox/globaltype/RunService.BindToSimulation": {
     "documentation": "Binds a custom function to be called at a fixed frequency which is independent of the frame rate.",
@@ -52984,7 +52990,7 @@
     "documentation": "The <code>Instance</code> for which to check prediction status."
   },
   "@roblox/globaltype/RunService.GetPredictionStatus/return/0": {
-    "documentation": ""
+    "documentation": "The <code>PredictionStatus</code> of the given instance, indicating whether it is predicted, authoritative, or not participating in prediction."
   },
   "@roblox/globaltype/RunService.GetPredictionStatus": {
     "documentation": "Checks the <code>PredictionStatus</code> of a specific context instance, useful for debugging scripts affecting multiple instances where some might be predicted and others might not.",
@@ -53042,6 +53048,26 @@
       "@roblox/globaltype/RunService.IsEdit/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsEdit",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RunService.IsResimulating/param/0": {
+    "documentation": "Service responsible for all runtime activity and progression of time."
+  },
+  "@roblox/globaltype/RunService.IsResimulating/return/0": {
+    "documentation": "Whether the engine is currently resimulating."
+  },
+  "@roblox/globaltype/RunService.IsResimulating": {
+    "documentation": "Returns whether the client is currently in a resimulation step after a misprediction in the server authority model.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.IsResimulating/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RunService.IsResimulating/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsResimulating",
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.IsRunMode/param/0": {
@@ -79423,6 +79449,7 @@
       "LogCustomEvent": "@roblox/globaltype/AnalyticsService.LogCustomEvent",
       "LogEconomyEvent": "@roblox/globaltype/AnalyticsService.LogEconomyEvent",
       "LogFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent",
+      "LogJourneyEvent": "@roblox/globaltype/AnalyticsService.LogJourneyEvent",
       "LogOnboardingFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent",
       "LogProgressionCompleteEvent": "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent",
       "LogProgressionEvent": "@roblox/globaltype/AnalyticsService.LogProgressionEvent",
@@ -79878,6 +79905,56 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogFunnelStepEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0": {
+    "documentation": "Collection of methods that allows you to track how users interact with your experiences."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1": {
+    "documentation": "The player who triggered the journey event."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2": {
+    "documentation": "The name of the journey. This should be the same for all nodes in the journey. Cannot be empty and cannot contain a comma <code>,</code>, double quote <code>\"</code>, single quote <code>'</code>, or newline character."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3": {
+    "documentation": "The name of the node the player reached in the journey. Cannot be empty, cannot contain a comma <code>,</code>, double quote <code>\"</code>, single quote <code>'</code>, or newline character, and cannot start with <code>__</code> (double underscore), which is reserved."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4": {
+    "documentation": "Optional unique identifier for the journey session. This should be the same for all nodes in a single session of the journey. If provided, cannot contain a comma <code>,</code>, double quote <code>\"</code>, single quote <code>'</code>, or newline character."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5": {
+    "documentation": "Optional dictionary of custom fields that will provide breakdowns in Roblox-provided charts. Only specific keys, provided by <code>AnalyticsCustomFieldKeys</code>, will be used for these breakdowns. Limited to 8,000 unique combinations of values across the three custom fields per experience."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent": {
+    "documentation": "Logs a journey event used to track non-linear player paths through an experience.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1"
+      },
+      {
+        "name": "journeyName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2"
+      },
+      {
+        "name": "nodeName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3"
+      },
+      {
+        "name": "journeySessionId",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4"
+      },
+      {
+        "name": "customFields",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogJourneyEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/0": {
     "documentation": "Collection of methods that allows you to track how users interact with your experiences."
   },
@@ -79928,16 +80005,16 @@
     "documentation": "The player who triggered the event."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/2": {
-    "documentation": ""
+    "documentation": "The name of the progression path this event belongs to, such as a world, chapter, or level group. This groups related progression events together. Cannot be empty and cannot contain a comma <code>,</code>, double quote <code>\"</code>, single quote <code>'</code>, or newline character."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/3": {
-    "documentation": ""
+    "documentation": "The numeric level the player is progressing through within the progression path."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/4": {
-    "documentation": ""
+    "documentation": "The name of the level associated with this event. This field is used for display purposes in Roblox-provided charts."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/5": {
-    "documentation": ""
+    "documentation": "Optional dictionary of custom fields that will provide breakdowns in Roblox-provided charts. Only specific keys, provided by <code>AnalyticsCustomFieldKeys</code>, will be used for these breakdowns. Limited to 8,000 unique combinations of values across the three custom fields per experience."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent": {
     "documentation": "Logs an event for when a user has completed a level attempt.",
@@ -79978,19 +80055,19 @@
     "documentation": "The player who triggered the event."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/2": {
-    "documentation": ""
+    "documentation": "The name of the progression path this event belongs to, such as a world, chapter, or level group. This groups related progression events together. Cannot be empty and cannot contain a comma <code>,</code>, double quote <code>\"</code>, single quote <code>'</code>, or newline character."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/3": {
-    "documentation": ""
+    "documentation": "The progression status to record, provided as an <code>AnalyticsProgressionType</code> value such as <code>Start</code>, <code>Complete</code>, or <code>Fail</code>. The <code>AnalyticsService:LogProgressionStartEvent()</code>, <code>AnalyticsService:LogProgressionCompleteEvent()</code>, and <code>AnalyticsService:LogProgressionFailEvent()</code> methods are shortcuts that set this status for you."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/4": {
-    "documentation": ""
+    "documentation": "The numeric level the player is progressing through within the progression path."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/5": {
-    "documentation": ""
+    "documentation": "The name of the level associated with this event. This field is used for display purposes in Roblox-provided charts."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/6": {
-    "documentation": ""
+    "documentation": "Optional dictionary of custom fields that will provide breakdowns in Roblox-provided charts. Only specific keys, provided by <code>AnalyticsCustomFieldKeys</code>, will be used for these breakdowns. Limited to 8,000 unique combinations of values across the three custom fields per experience."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent": {
     "documentation": "Logs an event for when a user has started, completed, or failed a level attempt.",
@@ -80035,16 +80112,16 @@
     "documentation": "The user who triggered the event."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/2": {
-    "documentation": ""
+    "documentation": "The name of the progression path this event belongs to, such as a world, chapter, or level group. This groups related progression events together. Cannot be empty and cannot contain a comma <code>,</code>, double quote <code>\"</code>, single quote <code>'</code>, or newline character."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/3": {
-    "documentation": ""
+    "documentation": "The numeric level the player is progressing through within the progression path."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/4": {
-    "documentation": ""
+    "documentation": "The name of the level associated with this event. This field is used for display purposes in Roblox-provided charts."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/5": {
-    "documentation": ""
+    "documentation": "Optional dictionary of custom fields that will provide breakdowns in Roblox-provided charts. Only specific keys, provided by <code>AnalyticsCustomFieldKeys</code>, will be used for these breakdowns. Limited to 8,000 unique combinations of values across the three custom fields per experience."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent": {
     "documentation": "Logs an event for when a user has failed a level attempt.",
@@ -80085,16 +80162,16 @@
     "documentation": "The player who triggered the event."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/2": {
-    "documentation": ""
+    "documentation": "The name of the progression path this event belongs to, such as a world, chapter, or level group. This groups related progression events together. Cannot be empty and cannot contain a comma <code>,</code>, double quote <code>\"</code>, single quote <code>'</code>, or newline character."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/3": {
-    "documentation": ""
+    "documentation": "The numeric level the player is progressing through within the progression path."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/4": {
-    "documentation": ""
+    "documentation": "The name of the level associated with this event. This field is used for display purposes in Roblox-provided charts."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/5": {
-    "documentation": ""
+    "documentation": "Optional dictionary of custom fields that will provide breakdowns in Roblox-provided charts. Only specific keys, provided by <code>AnalyticsCustomFieldKeys</code>, will be used for these breakdowns. Limited to 8,000 unique combinations of values across the three custom fields per experience."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent": {
     "documentation": "Logs an event for when a user has started a level attempt.",
@@ -85853,7 +85930,6 @@
     "documentation": "Creates an animatable joint between two <code>BaseParts</code>. Superseded by <code>AnimationConstraint</code> for avatar/character rigs. Motor6D is no longer used by default for player characters when <code>AvatarJointUpgrade</code> is enabled.",
     "keys": {
       "ChildName": "@roblox/globaltype/Motor6D.ChildName",
-      "EnableSkinning": "@roblox/globaltype/Motor6D.EnableSkinning",
       "ParentName": "@roblox/globaltype/Motor6D.ParentName",
       "Transform": "@roblox/globaltype/Motor6D.Transform"
     },
@@ -85863,11 +85939,6 @@
   "@roblox/globaltype/Motor6D.ChildName": {
     "documentation": "Read-only name of the joint's child part, mirroring the <code>Name</code> of <code>Part1</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Motor6D#ChildName",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Motor6D.EnableSkinning": {
-    "documentation": "Internal-only (<code>RobloxScript</code>); whether this joint is included in the mesh skinning skeleton for the model it belongs to.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Motor6D#EnableSkinning",
     "code_sample": ""
   },
   "@roblox/globaltype/Motor6D.ParentName": {
@@ -107118,7 +107189,7 @@
     "code_sample": ""
   },
   "@roblox/enum/GradientTileMode.Clamp": {
-    "documentation": "Extends the gradient's terminal colors beyond the defined sequence range without repeating.",
+    "documentation": "Default mode where the color/transparency values at the start and end of the sequence extend infinitely, so the start values fill any area before the gradient and the end values fill any area after it.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107128,7 +107199,7 @@
     "code_sample": ""
   },
   "@roblox/enum/GradientTileMode.Repeat": {
-    "documentation": "Repeats the gradient sequence from the start each time it reaches the end, producing a tiled pattern.",
+    "documentation": "The gradient repeats by wrapping the color/transparency sequence tiles seamlessly from end back to start. This can produce a visible seam if the first and last color/transparency values in the sequence differ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107138,7 +107209,7 @@
     "code_sample": ""
   },
   "@roblox/enum/GradientTileMode.Mirror": {
-    "documentation": "Repeats the gradient by reversing direction with each tile, producing a mirrored pattern.",
+    "documentation": "The gradient reflects at each boundary so the color/transparency sequence ping-pongs. This produces a smooth repetition with no seam, since the direction reverses at each tile edge.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107148,7 +107219,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.GradientTileMode": {
-    "documentation": "Controls how a <code>UIGradient</code> tiles when its gradient sequence doesn't span the full render area.",
+    "documentation": "Used alongside <code>UIGradient.TileMode</code> to set how the gradient repeats.",
     "keys": {
       "Clamp": "@roblox/enum/GradientTileMode.Clamp",
       "Repeat": "@roblox/enum/GradientTileMode.Repeat",
@@ -114684,7 +114755,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsLogLevel.Information": {
-    "documentation": "",
+    "documentation": "Used for general informational messages that highlight progress or state changes during normal operation.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114724,7 +114795,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsLogLevel": {
-    "documentation": "",
+    "documentation": "Specifies the severity level of an analytics log event passed to <code>AnalyticsService:FireLogEvent()</code>.",
     "keys": {
       "Trace": "@roblox/enum/AnalyticsLogLevel.Trace",
       "Debug": "@roblox/enum/AnalyticsLogLevel.Debug",
@@ -123217,7 +123288,7 @@
     "code_sample": ""
   },
   "@roblox/enum/GradientType.Linear": {
-    "documentation": "Colors transition along a straight line across the UI element.",
+    "documentation": "The color/transparency sequence transitions in a straight line across the element. The direction is controlled by <code>Rotation</code> and the position by <code>Offset</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123227,7 +123298,7 @@
     "code_sample": ""
   },
   "@roblox/enum/GradientType.Radial": {
-    "documentation": "Colors radiate outward from a center point in concentric rings.",
+    "documentation": "The color/transparency sequence radiates outward from the element's center, optionally shifted by <code>Offset</code>. The radius is defined by the average of the element's width and height divided by two, effectively <code>(width+height)/4</code>. <code>Rotation</code> has no effect on a radial gradient.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123237,7 +123308,7 @@
     "code_sample": ""
   },
   "@roblox/enum/GradientType.Conical": {
-    "documentation": "Colors sweep angularly around a center point, producing a cone-like or pie-chart gradient.",
+    "documentation": "The color/transparency sequence sweeps clockwise around the center of the element, optionally shifted by <code>Offset</code>. <code>Rotation</code> controls the starting angle of the sweep.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123247,7 +123318,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.GradientType": {
-    "documentation": "Specifies the shape of a gradient applied by a <code>UIGradient</code>.",
+    "documentation": "Used alongside <code>UIGradient.Type</code> to set the shape of the gradient.",
     "keys": {
       "Linear": "@roblox/enum/GradientType.Linear",
       "Radial": "@roblox/enum/GradientType.Radial",
@@ -128163,57 +128234,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SurfaceType",
     "code_sample": ""
   },
-  "@roblox/enum/WebSocketState.Connecting": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Connecting",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Open": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Open",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closing": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closing",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closed": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closed",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.WebSocketState": {
-    "documentation": "",
-    "keys": {
-      "Connecting": "@roblox/enum/WebSocketState.Connecting",
-      "Open": "@roblox/enum/WebSocketState.Open",
-      "Closing": "@roblox/enum/WebSocketState.Closing",
-      "Closed": "@roblox/enum/WebSocketState.Closed"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState",
-    "code_sample": ""
-  },
   "@roblox/enum/RecommendationActionType.AddReaction": {
     "documentation": "The user added a reaction to the item, such as a \"like\".",
     "keys": {
@@ -129611,7 +129631,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField01": {
-    "documentation": "",
+    "documentation": "The first custom field key, used to provide a breakdown dimension in Roblox-provided analytics charts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129621,7 +129641,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField02": {
-    "documentation": "",
+    "documentation": "The second custom field key, used to provide a breakdown dimension in Roblox-provided analytics charts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129631,7 +129651,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField03": {
-    "documentation": "",
+    "documentation": "The third custom field key, used to provide a breakdown dimension in Roblox-provided analytics charts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132633,7 +132653,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Default": {
-    "documentation": "",
+    "documentation": "Fallback foreground color used for script text that does not match any more specific syntax category.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132643,7 +132663,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Operator": {
-    "documentation": "",
+    "documentation": "Color applied to operator tokens such as <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>==</code>, and <code>..</code> in scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132653,7 +132673,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Number": {
-    "documentation": "",
+    "documentation": "Color applied to numeric literal tokens in scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132663,7 +132683,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.String": {
-    "documentation": "",
+    "documentation": "Color applied to string literal tokens, including quoted strings and long-string literals.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132673,7 +132693,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Comment": {
-    "documentation": "",
+    "documentation": "Color applied to comment tokens (single-line <code>--</code> and block <code>--[[ ]]</code> comments) in scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132683,7 +132703,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Keyword": {
-    "documentation": "",
+    "documentation": "Color applied to Luau reserved keywords such as <code>if</code>, <code>then</code>, <code>else</code>, <code>do</code>, <code>end</code>, <code>return</code>, and <code>while</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132693,7 +132713,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Builtin": {
-    "documentation": "",
+    "documentation": "Color applied to Luau built-in functions and standard library identifiers in scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132703,7 +132723,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Method": {
-    "documentation": "",
+    "documentation": "Color applied to method call identifiers in scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132713,7 +132733,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Property": {
-    "documentation": "",
+    "documentation": "Color applied to property access identifiers (tokens following a <code>.</code> operator) in scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132723,7 +132743,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Nil": {
-    "documentation": "",
+    "documentation": "Color applied to the <code>nil</code> literal token in scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132733,7 +132753,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bool": {
-    "documentation": "",
+    "documentation": "Foreground color used to highlight boolean literals (<code>true</code> and <code>false</code>) in scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132743,7 +132763,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Function": {
-    "documentation": "",
+    "documentation": "Color applied to the <code>function</code> keyword token in function declarations.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132753,7 +132773,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Local": {
-    "documentation": "",
+    "documentation": "Color applied to the <code>local</code> keyword token in local variable and function declarations.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132763,7 +132783,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Self": {
-    "documentation": "",
+    "documentation": "Color applied to the <code>self</code> identifier token in method bodies.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132773,7 +132793,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.LuauKeyword": {
-    "documentation": "",
+    "documentation": "Color applied to Luau-specific type annotation keywords such as <code>type</code> and <code>typeof</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132783,7 +132803,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FunctionName": {
-    "documentation": "",
+    "documentation": "Color applied to the identifier that names a function in its declaration.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132793,7 +132813,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.TODO": {
-    "documentation": "",
+    "documentation": "Color applied to <code>TODO</code> markers found inside comments in scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132803,7 +132823,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Background": {
-    "documentation": "",
+    "documentation": "Main background color of the Script Editor canvas.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132813,7 +132833,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionText": {
-    "documentation": "",
+    "documentation": "Foreground color for text within the currently selected range in the Script Editor.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132823,7 +132843,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionBackground": {
-    "documentation": "",
+    "documentation": "Background highlight color for the currently selected text range in the Script Editor.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132833,7 +132853,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FindSelectionBackground": {
-    "documentation": "",
+    "documentation": "Background highlight color applied to text ranges matched by a Find or Replace operation.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132843,7 +132863,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MatchingWordBackground": {
-    "documentation": "",
+    "documentation": "Background highlight color applied to all occurrences of the word under the cursor when word-highlight is active.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132853,7 +132873,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Warning": {
-    "documentation": "",
+    "documentation": "Color used for warning-severity diagnostic markers and underlines in scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132863,7 +132883,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Error": {
-    "documentation": "",
+    "documentation": "Color used for error-severity diagnostic markers and underlines in scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132873,7 +132893,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Info": {
-    "documentation": "",
+    "documentation": "Color used for information-severity diagnostic markers in scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132883,7 +132903,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Hint": {
-    "documentation": "",
+    "documentation": "Color used for hint-severity diagnostic markers in scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132893,7 +132913,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Whitespace": {
-    "documentation": "",
+    "documentation": "Color used to render visible whitespace characters (spaces and tabs) when that display option is enabled.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132903,7 +132923,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.ActiveLine": {
-    "documentation": "",
+    "documentation": "Background highlight color applied to the line that currently contains the text cursor.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132913,7 +132933,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerCurrentLine": {
-    "documentation": "",
+    "documentation": "Background highlight color for the line the debugger is currently paused on.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132923,7 +132943,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerErrorLine": {
-    "documentation": "",
+    "documentation": "Background highlight color for a line that caused a runtime error during a debugging session.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132933,7 +132953,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Ruler": {
-    "documentation": "",
+    "documentation": "Color of the vertical column ruler line drawn at the configured character-width limit in the Script Editor.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132943,7 +132963,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bracket": {
-    "documentation": "",
+    "documentation": "Color applied to bracket characters such as <code>(</code>, <code>)</code>, <code>[</code>, <code>]</code>, <code>{</code>, and <code>}</code> in scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132953,7 +132973,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Type": {
-    "documentation": "",
+    "documentation": "Color applied to Luau type name tokens in type annotations and declarations.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132963,7 +132983,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuPrimaryText": {
-    "documentation": "",
+    "documentation": "Primary text color for items listed in autocomplete and context-menu popups.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132973,7 +132993,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSecondaryText": {
-    "documentation": "",
+    "documentation": "Secondary text color (for example, type annotations or documentation hints) in autocomplete popups.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132983,7 +133003,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedText": {
-    "documentation": "",
+    "documentation": "Text color of the currently highlighted item in autocomplete and context-menu popups.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132993,7 +133013,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBackground": {
-    "documentation": "",
+    "documentation": "Background color for autocomplete and context-menu popups in the Script Editor.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133003,7 +133023,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedBackground": {
-    "documentation": "",
+    "documentation": "Background color of the currently highlighted item in autocomplete and context-menu popups.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133013,7 +133033,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarBackground": {
-    "documentation": "",
+    "documentation": "Background color of the scrollbar track inside autocomplete and context-menu popups.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133023,7 +133043,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarHandle": {
-    "documentation": "",
+    "documentation": "Color of the scrollbar thumb (handle) inside autocomplete and context-menu popups.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133033,7 +133053,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBorder": {
-    "documentation": "",
+    "documentation": "Border color for autocomplete and context-menu popups in the Script Editor.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133043,7 +133063,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DocViewCodeBackground": {
-    "documentation": "",
+    "documentation": "Background color for inline code blocks rendered in the documentation viewer panel within Studio.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133053,7 +133073,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayText": {
-    "documentation": "",
+    "documentation": "Text color for labels displayed in the AI Code Overlay panel.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133063,7 +133083,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackground": {
-    "documentation": "",
+    "documentation": "Background color for AI Code Overlay action buttons in their default (idle) state.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133073,7 +133093,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundHover": {
-    "documentation": "",
+    "documentation": "Background color for AI Code Overlay action buttons when the pointer hovers over them.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133083,7 +133103,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundPressed": {
-    "documentation": "",
+    "documentation": "Background color for AI Code Overlay action buttons while they are being pressed.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133093,7 +133113,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.IndentationRuler": {
-    "documentation": "",
+    "documentation": "Color of the vertical guide lines drawn at each indentation level in the script editor gutter.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133103,7 +133123,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.StudioScriptEditorColorCategories": {
-    "documentation": "",
+    "documentation": "Color categories used to theme the Script Editor in Roblox Studio.",
     "keys": {
       "Default": "@roblox/enum/StudioScriptEditorColorCategories.Default",
       "Operator": "@roblox/enum/StudioScriptEditorColorCategories.Operator",
@@ -135412,7 +135432,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyTransactionType": {
-    "documentation": "",
+    "documentation": "Categorizes the context of an in-experience economic transaction for use with <code>AnalyticsService:LogEconomyEvent()</code>.",
     "keys": {
       "IAP": "@roblox/enum/AnalyticsEconomyTransactionType.IAP",
       "Shop": "@roblox/enum/AnalyticsEconomyTransactionType.Shop",
@@ -135622,7 +135642,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Custom": {
-    "documentation": "",
+    "documentation": "A custom progression status for events outside the standard start/fail/complete lifecycle.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135632,7 +135652,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Start": {
-    "documentation": "",
+    "documentation": "The player started the level attempt.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135642,7 +135662,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Fail": {
-    "documentation": "",
+    "documentation": "The player failed the level attempt.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135652,7 +135672,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Complete": {
-    "documentation": "",
+    "documentation": "The player completed the level successfully.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135662,7 +135682,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsProgressionType": {
-    "documentation": "",
+    "documentation": "Specifies the player's progression status in a level-progression event logged by <code>AnalyticsService:LogProgressionEvent()</code>.",
     "keys": {
       "Custom": "@roblox/enum/AnalyticsProgressionType.Custom",
       "Start": "@roblox/enum/AnalyticsProgressionType.Start",
@@ -137055,7 +137075,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyFlowType": {
-    "documentation": "",
+    "documentation": "Specifies the direction of currency flow in an economy event logged by <code>AnalyticsService:LogEconomyEvent()</code>.",
     "keys": {
       "Sink": "@roblox/enum/AnalyticsEconomyFlowType.Sink",
       "Source": "@roblox/enum/AnalyticsEconomyFlowType.Source"
@@ -138723,7 +138743,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyAction": {
-    "documentation": "",
+    "documentation": "Describes the type of economic transaction in <code>AnalyticsService:FireInGameEconomyEvent()</code>.",
     "keys": {
       "Default": "@roblox/enum/AnalyticsEconomyAction.Default",
       "Acquire": "@roblox/enum/AnalyticsEconomyAction.Acquire",

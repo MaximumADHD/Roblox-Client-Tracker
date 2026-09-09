@@ -24207,10 +24207,10 @@
     "documentation": "Mendukung pembelian dunia nyata yang dapat Anda bundel dengan manfaat digital."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/param/1": {
-    "documentation": ""
+    "documentation": "Pengidentifikasi produk perdagangan yang akan dicari, baik ID numerik atau bentuk lengkap yang diawali <code>COM-</code>."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah kamus informasi tentang produk perdagangan, termasuk apakah itu <code>IsForSale</code>, sub-tabel <code>Item</code> dari detail tampilan (<code>Name</code>, <code>Description</code>, <code>IconImageAssetId</code>, <code>DisplayPrice</code>, dan <code>IsPurchasable</code>), dan <code>Benefits</code> yang diberikan dengan membelinya."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync": {
     "documentation": "Mengambil informasi tentang produk perdagangan yang Anda jual dalam pengalaman.",
@@ -24234,10 +24234,10 @@
     "documentation": "Mendukung pembelian dunia nyata yang dapat Anda bundel dengan manfaat digital."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/1": {
-    "documentation": ""
+    "documentation": "<code>Player</code> yang akan diprompt dengan alur pembelian. Ketika dipanggil dari skrip klien, ini harus menjadi pemain lokal."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/2": {
-    "documentation": ""
+    "documentation": "Pengidentifikasi produk perdagangan yang akan dibeli, baik ID numerik atau bentuk lengkap yang diawali <code>COM-</code>."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase": {
     "documentation": "Mengajak pengguna untuk membeli produk perdagangan menggunakan <code>commerceProductId</code> yang diberikan. Membuka webview yang membimbing pengguna melalui alur pembelian.",
@@ -24263,13 +24263,13 @@
     "documentation": "Mendukung pembelian dunia nyata yang dapat Anda bundel dengan manfaat digital."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/1": {
-    "documentation": ""
+    "documentation": "<code>Player</code> untuk siapa browser dibuka. Ketika dipanggil dari skrip klien, ini harus menjadi pemain lokal."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/2": {
-    "documentation": ""
+    "documentation": "URL perdagangan dunia nyata yang akan dibuka. URL harus ada dalam allowlist perdagangan, atau permintaan akan diabaikan."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser": {
-    "documentation": "",
+    "documentation": "Endpoint lama yang membuka browser dalam pengalaman ke URL perdagangan dunia nyata untuk pemain yang ditentukan; digantikan oleh <code>CommerceService:PromptCommerceProductPurchase()</code>.",
     "params": [
       {
         "name": "self",
@@ -24292,10 +24292,10 @@
     "documentation": "Mendukung pembelian dunia nyata yang dapat Anda bundel dengan manfaat digital."
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync/return/0": {
-    "documentation": ""
+    "documentation": "<code>true</code> jika pengguna saat ini memenuhi syarat untuk perdagangan dunia nyata."
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync": {
-    "documentation": "",
+    "documentation": "Endpoint lama yang mengembalikan apakah pengguna saat ini memenuhi syarat untuk perdagangan dunia nyata; digantikan oleh <code>PolicyService</code>.",
     "params": [
       {
         "name": "self",
@@ -24408,7 +24408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatCommand.AutocompleteVisible": {
-    "documentation": "",
+    "documentation": "Menentukan apakah <code>TextChatCommand</code> ditampilkan sebagai saran di menu autocomplete chat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatCommand#AutocompleteVisible",
     "code_sample": ""
   },
@@ -29850,6 +29850,7 @@
   "@roblox/globaltype/Decal": {
     "documentation": "Menerapkan tekstur gambar pada permukaan dari <code>BasePart</code> induk.",
     "keys": {
+      "AutoLocalize": "@roblox/globaltype/Decal.AutoLocalize",
       "Color3": "@roblox/globaltype/Decal.Color3",
       "ColorMap": "@roblox/globaltype/Decal.ColorMap",
       "ColorMapContent": "@roblox/globaltype/Decal.ColorMapContent",
@@ -29865,12 +29866,18 @@
       "Specular": "@roblox/globaltype/Decal.Specular",
       "Texture": "@roblox/globaltype/Decal.Texture",
       "TextureContent": "@roblox/globaltype/Decal.TextureContent",
+      "TexturePackContent": "@roblox/globaltype/Decal.TexturePackContent",
       "Transparency": "@roblox/globaltype/Decal.Transparency",
       "UVOffset": "@roblox/globaltype/Decal.UVOffset",
       "UVScale": "@roblox/globaltype/Decal.UVScale",
       "ZIndex": "@roblox/globaltype/Decal.ZIndex"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.AutoLocalize": {
+    "documentation": "Ketika diatur ke <code>true</code>, aset gambar decal memenuhi syarat untuk pengambilan lokal otomatis.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#AutoLocalize",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Color3": {
@@ -29884,68 +29891,73 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ColorMapContent": {
-    "documentation": "Objek <code>Content</code> yang menentukan warna dan opasitas permukaan.",
+    "documentation": "<code>Content</code> objek yang menentukan warna dan opasitas permukaan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.LocalTransparencyModifier": {
-    "documentation": "Bertindak sebagai pengali untuk properti <code>Transparency</code> dekals. Efeknya hanya terlihat oleh pemain lokal.",
+    "documentation": "Bertindak sebagai pengali untuk properti <code>Transparency</code> dari decal. Efeknya hanya terlihat oleh pemain lokal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#LocalTransparencyModifier",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMap": {
-    "documentation": "",
+    "documentation": "ID konten yang menentukan peta metalness dari permukaan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> objek yang menentukan peta metalness dari permukaan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMap": {
-    "documentation": "",
+    "documentation": "ID konten yang menentukan peta normal dari permukaan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> objek yang menentukan peta normal dari permukaan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Rotation": {
-    "documentation": "Memutar tekstur dekals.",
+    "documentation": "Memutar tekstur decal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Rotation",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMap": {
-    "documentation": "",
+    "documentation": "ID konten yang menentukan peta roughness dari permukaan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> objek yang menentukan peta roughness dari permukaan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Shiny": {
-    "documentation": "<strong>Deprecated:</strong> Properti non-fungsional ini telah kadaluarsa dan tidak boleh digunakan dalam pekerjaan baru.",
+    "documentation": "<strong>Deprecated:</strong> Properti yang tidak berfungsi ini sudah tidak digunakan lagi dan tidak boleh digunakan dalam pekerjaan baru.<br>Properti yang sudah tidak digunakan lagi yang sebelumnya mengatur kilau dari decal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Shiny",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Specular": {
-    "documentation": "<strong>Deprecated:</strong> Properti ini tidak lagi berfungsi dengan benar dan telah kadaluarsa. Ini tidak boleh digunakan dalam pekerjaan baru.",
+    "documentation": "<strong>Deprecated:</strong> Properti ini tidak lagi berfungsi dengan benar dan sudah tidak digunakan lagi. Ini tidak boleh  digunakan dalam pekerjaan baru.<br>Properti yang sudah tidak digunakan lagi yang sebelumnya mengatur spekularitas dari decal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Specular",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Texture": {
-    "documentation": "ID konten gambar yang akan diterapkan oleh <code>Decal</code>.",
+    "documentation": "ID konten dari gambar yang akan diterapkan oleh <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Texture",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.TextureContent": {
     "documentation": "Konten tekstur yang ditampilkan oleh <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.TexturePackContent": {
+    "documentation": "<code>Content</code> yang dikelola oleh engine yang menyimpan data kemasan tekstur runtime terkompresi untuk decal PBR.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TexturePackContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Transparency": {
@@ -29959,7 +29971,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.UVScale": {
-    "documentation": "Merentangkan atau mengompresi koordinat UV dengan mengalikan faktor skala.",
+    "documentation": "Meregangkan atau mengompresi koordinat UV dengan mengalikan faktor skala.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVScale",
     "code_sample": ""
   },
@@ -33842,12 +33854,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "Referensi ke <code>BubbleChatMessageProperties</code> yang menimpa penampilan gelembung obrolan pesan ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#BubbleChatMessageProperties",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "Referensi ke <code>ChatWindowMessageProperties</code> yang menimpa penampilan pesan ini di jendela obrolan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#ChatWindowMessageProperties",
     "code_sample": ""
   },
@@ -44704,7 +44716,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VisibilityCheckDispatcher": {
-    "documentation": "",
+    "documentation": "Layanan yang menjadwalkan dan menjalankan pemeriksaan keterlihatan untuk instance iklan imersif di suatu tempat.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisibilityCheckDispatcher",
     "code_sample": ""
@@ -47184,31 +47196,6 @@
   "@roblox/globaltype/TerrainDetail.StudsPerTile": {
     "documentation": "Menentukan skala tekstur.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#StudsPerTile",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping": {
-    "documentation": "",
-    "keys": {
-      "FlattenTree": "@roblox/globaltype/PatchMapping.FlattenTree",
-      "PatchId": "@roblox/globaltype/PatchMapping.PatchId",
-      "TargetPath": "@roblox/globaltype/PatchMapping.TargetPath"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.FlattenTree": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#FlattenTree",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.PatchId": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#PatchId",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.TargetPath": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#TargetPath",
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
@@ -51151,7 +51138,7 @@
     "documentation": "Mewakili saluran obrolan teks."
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester/param/1": {
-    "documentation": ""
+    "documentation": "<code>Player</code> yang izin pesan langsungnya mengatur saluran; hanya pengguna yang dapat mengirim pesan langsung kepada pemain ini yang akan menerima pesan di saluran tersebut."
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester": {
     "documentation": "Mengatur <code>DirectChatRequester</code> untuk <code>TextChannel</code>. <code>TextChannel</code> hanya akan mengirimkan pesan kepada pengguna yang dapat mengirim pesan langsung kepada <code>DirectChatRequester</code>.",
@@ -51196,7 +51183,7 @@
     "documentation": "<code>TextSource</code> pengguna yang akan menerima pesan tersebut."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah nilai yang benar (seperti <code>true</code>, <code>1</code>, atau string tidak kosong) untuk mengirim pesan ke klien yang diberikan, atau nilai yang salah (termasuk <code>nil</code>) untuk menahannya dari klien tersebut."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback": {
     "documentation": "Ditelepon untuk setiap klien ketika <code>TextChannel</code> menerima pesan masuk untuk menentukan apakah pesan tersebut harus dikirim ke klien tersebut atau tidak.",
@@ -52876,6 +52863,7 @@
       "GetPredictionStatus": "@roblox/globaltype/RunService.GetPredictionStatus",
       "IsClient": "@roblox/globaltype/RunService.IsClient",
       "IsEdit": "@roblox/globaltype/RunService.IsEdit",
+      "IsResimulating": "@roblox/globaltype/RunService.IsResimulating",
       "IsRunMode": "@roblox/globaltype/RunService.IsRunMode",
       "IsRunning": "@roblox/globaltype/RunService.IsRunning",
       "IsServer": "@roblox/globaltype/RunService.IsServer",
@@ -52896,7 +52884,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.RunState": {
-    "documentation": "",
+    "documentation": "Status jalannya simulasi permainan saat ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#RunState",
     "code_sample": ""
   },
@@ -52949,7 +52937,7 @@
     "documentation": "Prioritas opsional pengikatan sebagai integer; ini menentukan  urutan fungsi yang terikat dipanggil dalam langkah simulasi.  Angka yang lebih rendah akan dipanggil lebih dulu. Jika dua pengikatan memiliki prioritas yang sama, urutan di antara mereka tidak ditentukan. Default ke 2000."
   },
   "@roblox/globaltype/RunService.BindToSimulation/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah <code>RBXScriptConnection</code> yang dapat diputuskan untuk melepaskan fungsi dari langkah simulasi."
   },
   "@roblox/globaltype/RunService.BindToSimulation": {
     "documentation": "Mengikat fungsi kustom yang akan dipanggil dengan frekuensi tetap yang independen dari frame rate.",
@@ -52984,7 +52972,7 @@
     "documentation": "Instansi <code>Instance</code> untuk memeriksa status prediksi."
   },
   "@roblox/globaltype/RunService.GetPredictionStatus/return/0": {
-    "documentation": ""
+    "documentation": "Status <code>PredictionStatus</code> dari instance yang diberikan, menunjukkan apakah itu diprediksi, otoritatif, atau tidak berpartisipasi dalam prediksi."
   },
   "@roblox/globaltype/RunService.GetPredictionStatus": {
     "documentation": "Memeriksa <code>PredictionStatus</code> dari instansi konteks tertentu, berguna untuk debugging skrip yang mempengaruhi beberapa instansi di mana beberapa mungkin diprediksi dan yang lainnya mungkin tidak.",
@@ -53044,14 +53032,34 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsEdit",
     "code_sample": ""
   },
+  "@roblox/globaltype/RunService.IsResimulating/param/0": {
+    "documentation": "Layanan yang bertanggung jawab untuk semua aktivitas runtime dan kemajuan waktu."
+  },
+  "@roblox/globaltype/RunService.IsResimulating/return/0": {
+    "documentation": "Apakah mesin saat ini sedang melakukan resimulasi."
+  },
+  "@roblox/globaltype/RunService.IsResimulating": {
+    "documentation": "Mengembalikan apakah klien saat ini berada dalam langkah resimulasi setelah misprediksi dalam model otoritas server.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.IsResimulating/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RunService.IsResimulating/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsResimulating",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RunService.IsRunMode/param/0": {
     "documentation": "Layanan yang bertanggung jawab untuk semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.IsRunMode/return/0": {
-    "documentation": "Apakah <strong>Uji Jalankan</strong> telah dimulai di Studio."
+    "documentation": "Apakah <strong>Run</strong> playtest telah dimulai di Studio."
   },
   "@roblox/globaltype/RunService.IsRunMode": {
-    "documentation": "Mengembalikan apakah <strong>Uji Jalankan</strong> telah dimulai di Studio.",
+    "documentation": "Mengembalikan apakah <strong>Run</strong> playtest telah dimulai di Studio.",
     "params": [
       {
         "name": "self",
@@ -53128,7 +53136,7 @@
     "documentation": "Layanan yang bertanggung jawab untuk semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.Pause": {
-    "documentation": "Menjeda simulasi pengalaman jika sedang berjalan, menghentikan fisika  dan skrip.",
+    "documentation": "Menjeda simulasi pengalaman jika sedang berjalan, menangguhkan fisika dan skrip.",
     "params": [
       {
         "name": "self",
@@ -53143,7 +53151,7 @@
     "documentation": "Layanan yang bertanggung jawab untuk semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.Reset": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah usang dan tidak boleh digunakan dalam pekerjaan baru.<br>Mengatur ulang permainan saat ini ke titik waypoint yang ditetapkan saat <code>RunService:Run()</code> dipanggil.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan dan sebaiknya tidak digunakan dalam pekerjaan baru.<br>Mengatur ulang permainan saat ini ke titik waypoint yang ditetapkan saat <code>RunService:Run()</code> dipanggil.",
     "params": [
       {
         "name": "self",
@@ -53173,13 +53181,13 @@
     "documentation": "Layanan yang bertanggung jawab untuk semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.SetPredictionMode/param/1": {
-    "documentation": "Instansi <code>Instance</code> yang akan diatur mode prediksinya."
+    "documentation": "<code>Instance</code> yang akan diatur mode prediksinya."
   },
   "@roblox/globaltype/RunService.SetPredictionMode/param/2": {
-    "documentation": "<code>PredictionMode</code> yang diatur untuk instansi konteks."
+    "documentation": "Nilai <code>PredictionMode</code> yang akan diatur untuk instance konteks."
   },
   "@roblox/globaltype/RunService.SetPredictionMode": {
-    "documentation": "Mengatur mode prediksi untuk sebuah <code>Instance</code> ke nilai  <code>PredictionMode</code>.",
+    "documentation": "Mengatur mode prediksi untuk <code>Instance</code> ke nilai <code>PredictionMode</code>.",
     "params": [
       {
         "name": "self",
@@ -53220,7 +53228,7 @@
     "documentation": "Nama fungsi yang sedang dilepaskan."
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep": {
-    "documentation": "Melepaskan fungsi yang terikat pada pengulangan render menggunakan <code>RunService:BindToRenderStep()</code>.",
+    "documentation": "Melepaskan fungsi yang terikat pada loop render menggunakan <code>RunService:BindToRenderStep()</code>.",
     "params": [
       {
         "name": "self",
@@ -57937,7 +57945,7 @@
     "documentation": "Mengkonfigurasi properti dari jendela obrolan default."
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah instance baru <code>ChatWindowMessageProperties</code> yang nilainya dapat Anda modifikasi dan kembalikan dari callback <code>TextChatService.OnChatWindowAdded</code> untuk menyesuaikan bagaimana pesan individu muncul di jendela chat."
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties": {
     "documentation": "Membuat instance baru <code>ChatWindowMessageProperties</code> yang dapat digunakan untuk menyesuaikan tampilan pesan di jendela obrolan.",
@@ -63252,7 +63260,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "Mengganti properti <code>BubbleChatConfiguration</code> untuk pesan chat bubble individu.",
     "keys": {
       "BackgroundColor3": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundColor3",
       "BackgroundTransparency": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundTransparency",
@@ -63280,7 +63288,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties.TailVisible": {
-    "documentation": "",
+    "documentation": "Menentukan apakah ekor di bagian bawah bubble chat terlihat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BubbleChatMessageProperties#TailVisible",
     "code_sample": ""
   },
@@ -69742,11 +69750,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui": {
-    "documentation": "",
+    "documentation": "GUI berbasis permukaan yang menampilkan iklan imersif di salah satu sisi <code>Part</code> di dunia 3D.",
     "keys": {
       "AdShape": "@roblox/globaltype/AdGui.AdShape",
       "EnableVideoAds": "@roblox/globaltype/AdGui.EnableVideoAds",
       "FallbackImage": "@roblox/globaltype/AdGui.FallbackImage",
+      "FallbackImageContent": "@roblox/globaltype/AdGui.FallbackImageContent",
       "Status": "@roblox/globaltype/AdGui.Status",
       "OnAdEvent": "@roblox/globaltype/AdGui.OnAdEvent"
     },
@@ -69754,7 +69763,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.AdShape": {
-    "documentation": "",
+    "documentation": "Menentukan bentuk iklan yang ditampilkan oleh <code>AdGui</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#AdShape",
     "code_sample": ""
   },
@@ -69764,12 +69773,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.FallbackImage": {
-    "documentation": "",
+    "documentation": "Gambar yang ditampilkan oleh <code>AdGui</code> ketika tidak ada iklan yang tersedia untuk disajikan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImage",
     "code_sample": ""
   },
+  "@roblox/globaltype/AdGui.FallbackImageContent": {
+    "documentation": "Setara dengan <code>Content</code> dari <code>AdGui.FallbackImage</code> yang mendukung URI aset dan objek <code>EditableImage</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImageContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AdGui.Status": {
-    "documentation": "",
+    "documentation": "Menunjukkan apakah <code>AdGui</code> saat ini menampilkan iklan yang disajikan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#Status",
     "code_sample": ""
   },
@@ -70493,7 +70507,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal": {
-    "documentation": "",
+    "documentation": "Sebuah portal yang memindahkan pemain ke pengalaman yang disponsori sebagai bagian dari iklan imersif.",
     "keys": {
       "PortalInvalidReason": "@roblox/globaltype/AdPortal.PortalInvalidReason",
       "Status": "@roblox/globaltype/AdPortal.Status"
@@ -70502,12 +70516,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.PortalInvalidReason": {
-    "documentation": "",
+    "documentation": "Pesan yang ditujukan untuk kreator yang menjelaskan mengapa portal saat ini tidak valid, jika memang demikian.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#PortalInvalidReason",
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.Status": {
-    "documentation": "",
+    "documentation": "Menunjukkan apakah portal saat ini aktif dan dapat memindahkan pemain.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#Status",
     "code_sample": ""
   },
@@ -77514,7 +77528,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBoxService": {
-    "documentation": "",
+    "documentation": "Sebuah layanan yang mengelola status <code>TextBox</code> pengguna selama permainan.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBoxService",
     "code_sample": ""
@@ -79417,6 +79431,7 @@
       "LogCustomEvent": "@roblox/globaltype/AnalyticsService.LogCustomEvent",
       "LogEconomyEvent": "@roblox/globaltype/AnalyticsService.LogEconomyEvent",
       "LogFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent",
+      "LogJourneyEvent": "@roblox/globaltype/AnalyticsService.LogJourneyEvent",
       "LogOnboardingFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent",
       "LogProgressionCompleteEvent": "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent",
       "LogProgressionEvent": "@roblox/globaltype/AnalyticsService.LogProgressionEvent",
@@ -79872,23 +79887,73 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogFunnelStepEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0": {
+    "documentation": "Kumpulan metode yang memungkinkan Anda untuk melacak bagaimana pengguna berinteraksi dengan pengalaman Anda."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1": {
+    "documentation": "Pemain yang memicu event perjalanan."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2": {
+    "documentation": "Nama perjalanan. Ini harus sama untuk semua node dalam perjalanan. Tidak boleh kosong dan tidak boleh mengandung koma <code>,</code>, tanda kutip ganda <code>\"</code>, tanda kutip tunggal <code>'</code>, atau karakter newline."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3": {
+    "documentation": "Nama node yang dicapai pemain dalam perjalanan. Tidak boleh kosong, tidak boleh mengandung koma <code>,</code>, tanda kutip ganda <code>\"</code>, tanda kutip tunggal <code>'</code>, atau karakter newline, dan tidak boleh dimulai dengan <code>__</code> (dua garis bawah), yang dicadangkan."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4": {
+    "documentation": "Identifikasi unik opsional untuk sesi perjalanan. Ini harus sama untuk semua node dalam satu sesi perjalanan. Jika diberikan, tidak boleh mengandung koma <code>,</code>, tanda kutip ganda <code>\"</code>, tanda kutip tunggal <code>'</code>, atau karakter newline."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5": {
+    "documentation": "Kamus opsional dari field kustom yang akan memberikan pemecahan dalam grafik yang disediakan oleh Roblox. Hanya kunci tertentu, yang disediakan oleh <code>AnalyticsCustomFieldKeys</code>, yang akan digunakan untuk pemecahan ini. Terbatas pada 8.000 kombinasi unik nilai di seluruh tiga field kustom per pengalaman."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent": {
+    "documentation": "Mencatat sebuah event perjalanan yang digunakan untuk melacak jalur pemain non-linier melalui sebuah pengalaman.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1"
+      },
+      {
+        "name": "journeyName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2"
+      },
+      {
+        "name": "nodeName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3"
+      },
+      {
+        "name": "journeySessionId",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4"
+      },
+      {
+        "name": "customFields",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogJourneyEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/0": {
     "documentation": "Kumpulan metode yang memungkinkan Anda untuk melacak bagaimana pengguna berinteraksi dengan pengalaman Anda."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/1": {
-    "documentation": "Pengguna yang memicu peristiwa."
+    "documentation": "Pengguna yang memicu event."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/2": {
-    "documentation": "Nomor langkah dalam saluran. Ini harus unik untuk setiap langkah dalam saluran. Semua saluran dimulai dari langkah 1. Terbatas pada langkah 1-100. Perlu dicatat bahwa jika ada langkah yang dilewatkan, langkah-langkah antara akan dianggap telah selesai."
+    "documentation": "Nomor langkah dalam funnel. Ini harus unik untuk setiap langkah dalam funnel. Semua funnel dimulai dari langkah 1. Terbatas pada langkah 1-100. Perhatikan bahwa jika ada langkah yang dilewati, langkah-langkah antara akan dianggap selesai."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/3": {
-    "documentation": "Nama opsional langkah dalam saluran. Field ini hanya digunakan untuk keperluan tampilan dalam diagram yang disediakan oleh Roblox."
+    "documentation": "Nama opsional dari langkah dalam funnel. Field ini hanya digunakan untuk keperluan tampilan dalam grafik yang disediakan oleh Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/4": {
-    "documentation": "Kamus opsional dari bidang kustom yang akan memberikan pemecahan dalam diagram yang disediakan oleh Roblox. Hanya kunci tertentu, yang disediakan oleh <code>AnalyticsCustomFieldKeys</code>, yang akan digunakan untuk pemecahan ini. Terbatas pada 8.000 kombinasi unik nilai di seluruh tiga bidang kustom per pengalaman."
+    "documentation": "Kamus opsional dari field kustom yang akan memberikan pemecahan dalam grafik yang disediakan oleh Roblox. Hanya kunci tertentu, yang disediakan oleh <code>AnalyticsCustomFieldKeys</code>, yang akan digunakan untuk pemecahan ini. Terbatas pada 8.000 kombinasi unik nilai di seluruh tiga field kustom per pengalaman."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent": {
-    "documentation": "Mencatat sebuah peristiwa yang digunakan untuk melacak aksi pengguna yang melalui saluran on-boarding.",
+    "documentation": "Mencatat sebuah event yang digunakan untuk melacak tindakan pengguna yang melangkah melalui sebuah funnel onboarding.",
     "params": [
       {
         "name": "self",
@@ -79919,22 +79984,22 @@
     "documentation": "Kumpulan metode yang memungkinkan Anda untuk melacak bagaimana pengguna berinteraksi dengan pengalaman Anda."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/1": {
-    "documentation": "Pemain yang memicu acara."
+    "documentation": "Pemain yang memicu peristiwa."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/2": {
-    "documentation": ""
+    "documentation": "Nama jalur progresi yang menjadi milik event ini, seperti sebuah dunia, bab, atau kelompok level. Ini mengelompokkan event progresi terkait d bersama. Tidak boleh kosong dan tidak boleh mengandung koma <code>,</code>, tanda kutip ganda <code>\"</code>, tanda kutip tunggal <code>'</code>, atau karakter newline."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/3": {
-    "documentation": ""
+    "documentation": "Level numerik yang sedang dilalui pemain dalam jalur progresi."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/4": {
-    "documentation": ""
+    "documentation": "Nama level yang terkait dengan event ini. Field ini digunakan untuk keperluan tampilan dalam grafik yang disediakan oleh Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/5": {
-    "documentation": ""
+    "documentation": "Kamus opsional dari field kustom yang akan memberikan pemecahan dalam grafik yang disediakan oleh Roblox. Hanya kunci tertentu, yang disediakan oleh <code>AnalyticsCustomFieldKeys</code>, yang akan digunakan untuk pemecahan ini. Terbatas pada 8.000 kombinasi unik nilai di seluruh tiga field kustom per pengalaman."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent": {
-    "documentation": "Mencatat sebuah peristiwa saat pengguna telah menyelesaikan percobaan level.",
+    "documentation": "Mencatat sebuah event ketika pengguna telah menyelesaikan percobaan level.",
     "params": [
       {
         "name": "self",
@@ -79969,25 +80034,25 @@
     "documentation": "Kumpulan metode yang memungkinkan Anda untuk melacak bagaimana pengguna berinteraksi dengan pengalaman Anda."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/1": {
-    "documentation": "Pemain yang memicu peristiwa."
+    "documentation": "Pemain yang memicu event."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/2": {
-    "documentation": ""
+    "documentation": "Nama jalur progresi yang menjadi milik event ini, seperti sebuah dunia, bab, atau kelompok level. Ini mengelompokkan event progresi terkait d bersama. Tidak boleh kosong dan tidak boleh mengandung koma <code>,</code>, tanda kutip ganda <code>\"</code>, tanda kutip tunggal <code>'</code>, atau karakter newline."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/3": {
-    "documentation": ""
+    "documentation": "Status progresi yang akan dicatat, disediakan sebagai nilai <code>AnalyticsProgressionType</code> seperti <code>Start</code>, <code>Complete</code>, atau <code>Fail</code>. Metode <code>AnalyticsService:LogProgressionStartEvent()</code>, <code>AnalyticsService:LogProgressionCompleteEvent()</code>, dan <code>AnalyticsService:LogProgressionFailEvent()</code> adalah jalan pintas yang mengatur status ini untuk Anda."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/4": {
-    "documentation": ""
+    "documentation": "Level numerik yang sedang dilalui pemain dalam jalur progresi."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/5": {
-    "documentation": ""
+    "documentation": "Nama level yang terkait dengan event ini. Field ini digunakan untuk keperluan tampilan dalam grafik yang disediakan oleh Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/6": {
-    "documentation": ""
+    "documentation": "Kamus opsional dari field kustom yang akan memberikan pemecahan dalam grafik yang disediakan oleh Roblox. Hanya kunci tertentu, yang disediakan oleh <code>AnalyticsCustomFieldKeys</code>, yang akan digunakan untuk pemecahan ini. Terbatas pada 8.000 kombinasi unik nilai di seluruh tiga field kustom per pengalaman."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent": {
-    "documentation": "Mencatat sebuah peristiwa saat pengguna telah memulai, menyelesaikan, atau gagal dalam percobaan level.",
+    "documentation": "Mencatat sebuah event ketika pengguna telah memulai, menyelesaikan, atau gagal dalam percobaan level.",
     "params": [
       {
         "name": "self",
@@ -80026,22 +80091,22 @@
     "documentation": "Kumpulan metode yang memungkinkan Anda untuk melacak bagaimana pengguna berinteraksi dengan pengalaman Anda."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/1": {
-    "documentation": "Pengguna yang memicu peristiwa."
+    "documentation": "Pengguna yang memicu event."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/2": {
-    "documentation": ""
+    "documentation": "Nama jalur progresi yang menjadi milik event ini, seperti sebuah dunia, bab, atau kelompok level. Ini mengelompokkan event progresi terkait d bersama. Tidak boleh kosong dan tidak boleh mengandung koma <code>,</code>, tanda kutip ganda <code>\"</code>, tanda kutip tunggal <code>'</code>, atau karakter newline."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/3": {
-    "documentation": ""
+    "documentation": "Level numerik yang sedang dilalui pemain dalam jalur progresi."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/4": {
-    "documentation": ""
+    "documentation": "Nama level yang terkait dengan event ini. Field ini digunakan untuk keperluan tampilan dalam grafik yang disediakan oleh Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/5": {
-    "documentation": ""
+    "documentation": "Kamus opsional dari field kustom yang akan memberikan pemecahan dalam grafik yang disediakan oleh Roblox. Hanya kunci tertentu, yang disediakan oleh <code>AnalyticsCustomFieldKeys</code>, yang akan digunakan untuk pemecahan ini. Terbatas pada 8.000 kombinasi unik nilai di seluruh tiga field kustom per pengalaman."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent": {
-    "documentation": "Mencatat sebuah peristiwa saat pengguna telah gagal dalam percobaan level.",
+    "documentation": "Mencatat sebuah event ketika pengguna telah gagal dalam percobaan level.",
     "params": [
       {
         "name": "self",
@@ -80076,22 +80141,22 @@
     "documentation": "Kumpulan metode yang memungkinkan Anda untuk melacak bagaimana pengguna berinteraksi dengan pengalaman Anda."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/1": {
-    "documentation": "Pemain yang memicu peristiwa."
+    "documentation": "Pemain yang memicu event."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/2": {
-    "documentation": ""
+    "documentation": "Nama jalur progresi yang menjadi milik event ini, seperti sebuah dunia, bab, atau kelompok level. Ini mengelompokkan event progresi terkait d bersama. Tidak boleh kosong dan tidak boleh mengandung koma <code>,</code>, tanda kutip ganda <code>\"</code>, tanda kutip tunggal <code>'</code>, atau karakter newline."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/3": {
-    "documentation": ""
+    "documentation": "Level numerik yang sedang dilalui pemain dalam jalur progresi."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/4": {
-    "documentation": ""
+    "documentation": "Nama level yang terkait dengan event ini. Field ini digunakan untuk keperluan tampilan dalam grafik yang disediakan oleh Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/5": {
-    "documentation": ""
+    "documentation": "Kamus opsional dari field kustom yang akan memberikan pemecahan dalam grafik yang disediakan oleh Roblox. Hanya kunci tertentu, yang disediakan oleh <code>AnalyticsCustomFieldKeys</code>, yang akan digunakan untuk pemecahan ini. Terbatas pada 8.000 kombinasi unik nilai di seluruh tiga field kustom per pengalaman."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent": {
-    "documentation": "Mencatat sebuah peristiwa saat pengguna telah memulai percobaan level.",
+    "documentation": "Mencatat sebuah event ketika pengguna telah memulai percobaan level.",
     "params": [
       {
         "name": "self",
@@ -80129,30 +80194,29 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService": {
-    "documentation": "",
+    "documentation": "Layanan sisi server untuk mengirimkan tangkapan pemain untuk moderasi konten ulasan dan menerima hasilnya secara asinkron.",
     "keys": {
       "BindReviewableContentEventProcessor": "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor",
       "CreateReviewableContentAsync": "@roblox/globaltype/ModerationService.CreateReviewableContentAsync",
-      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey",
-      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync"
+      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService",
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/0": {
-    "documentation": ""
+    "documentation": "Layanan sisi server untuk mengirimkan tangkapan pemain untuk moderasi konten ulasan dan menerima hasilnya secara asinkron."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/1": {
-    "documentation": ""
+    "documentation": "Menentukan urutan di mana pemroses ini dipanggil relatif terhadap pemroses terikat lainnya."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/2": {
-    "documentation": ""
+    "documentation": "Fungsi yang dipanggil untuk setiap peristiwa konten yang dapat diulas. Ini menerima sebuah tabel yang menggambarkan peristiwa dan harus mengembalikan <code>true</code> untuk mengakui peristiwa atau <code>false</code> untuk membiarkannya untuk pengiriman ulang."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah koneksi yang dapat diputus untuk membatalkan pendaftaran pemroses."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor": {
-    "documentation": "",
+    "documentation": "Mendaftarkan pemroses sisi server, diurutkan berdasarkan <code>priority</code>, yang dipanggil untuk setiap peristiwa ulasan moderasi pada konten yang dapat diulas.",
     "params": [
       {
         "name": "self",
@@ -80174,16 +80238,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/0": {
-    "documentation": ""
+    "documentation": "Layanan sisi server untuk mengirimkan tangkapan pemain untuk moderasi konten ulasan dan menerima hasilnya secara asinkron."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah tabel parameter yang menggambarkan konten untuk diulas, termasuk <code>Id</code> opsional, <code>Ref</code> opsional, dan daftar <code>Content</code> item gambar atau video."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/return/0": {
-    "documentation": ""
+    "documentation": "ID dari konten yang dapat diulas yang dibuat."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync": {
-    "documentation": "",
+    "documentation": "Mendaftarkan tangkapan yang dihasilkan pengguna untuk ulasan moderasi dan memicu klien pemilik untuk mengunggahnya, mengembalikan ID konten yang dapat diulas.",
     "params": [
       {
         "name": "self",
@@ -80201,16 +80265,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/0": {
-    "documentation": ""
+    "documentation": "Layanan sisi server untuk mengirimkan tangkapan pemain untuk moderasi konten ulasan dan menerima hasilnya secara asinkron."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah <code>Content</code> yang merujuk pada tangkapan layar atau video (URI sementara dari <code>CaptureService:CaptureScreenshot()</code>, objek <code>ScreenshotCapture</code>, atau objek <code>VideoCapture</code>)."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0": {
-    "documentation": ""
+    "documentation": "Kunci konten opak yang mengidentifikasi tangkapan tersebut."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey": {
-    "documentation": "",
+    "documentation": "Mengembalikan kunci opak yang mengidentifikasi tangkapan layar atau video untuk  digunakan dengan <code>CreateReviewableContentAsync()</code>.",
     "params": [
       {
         "name": "self",
@@ -80225,28 +80289,6 @@
       "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#CreateReviewableContentKey",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0"
-      },
-      {
-        "name": "config",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalRequestReviewableContentReviewAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation": {
@@ -87366,7 +87408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "Mengubah tampilan dari pesan obrolan teks individu yang ditampilkan di jendela obrolan.",
     "keys": {
       "FontFace": "@roblox/globaltype/ChatWindowMessageProperties.FontFace",
       "PrefixTextProperties": "@roblox/globaltype/ChatWindowMessageProperties.PrefixTextProperties",
@@ -97381,6 +97423,7 @@
       "ChatVersion": "@roblox/globaltype/TextChatService.ChatVersion",
       "CreateDefaultCommands": "@roblox/globaltype/TextChatService.CreateDefaultCommands",
       "CreateDefaultTextChannels": "@roblox/globaltype/TextChatService.CreateDefaultTextChannels",
+      "PlatformIntegratedChat": "@roblox/globaltype/TextChatService.PlatformIntegratedChat",
       "CanUserChatAsync": "@roblox/globaltype/TextChatService.CanUserChatAsync",
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
       "CanUsersDirectChatAsync": "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync",
@@ -97413,14 +97456,19 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#CreateDefaultTextChannels",
     "code_sample": ""
   },
+  "@roblox/globaltype/TextChatService.PlatformIntegratedChat": {
+    "documentation": "Menentukan apakah obrolan terintegrasi platform diaktifkan untuk pengalaman. Memerlukan keamanan <code>RobloxScript</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#PlatformIntegratedChat",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/0": {
     "documentation": "Layanan yang mengelola obrolan teks dalam pengalaman."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "<code>Player.UserId</code> dari pengguna yang izin obrolannya sedang periksa."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah boolean yang menunjukkan apakah pengguna memiliki izin untuk berobrol."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync": {
     "documentation": "Menentukan apakah pengguna memiliki izin untuk mengobrol dalam pengalaman.",
@@ -97444,13 +97492,13 @@
     "documentation": "Layanan yang mengelola obrolan teks dalam pengalaman."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "<code>Player.UserId</code> dari pengirim pesan potensial."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": ""
+    "documentation": "<code>Player.UserId</code> dari penerima pesan potensial."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah boolean yang menunjukkan apakah kedua pengguna dapat bertukar pesan."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync": {
     "documentation": "Menentukan apakah dua pengguna dapat menerima pesan satu sama lain.",
@@ -99965,7 +100013,7 @@
     "documentation": "ID produk pengembang yang ingin Anda berikan sebagai imbalan."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah <code>AdReward</code> yang dikonfigurasi sebagai hadiah produk pengembang untuk produk yang ditentukan."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
     "documentation": "Membuat <code>AdReward</code> untuk memberikan kepada pengguna yang menonton iklan video.",
@@ -100050,7 +100098,7 @@
     "documentation": "Layanan yang bertanggung jawab untuk iklan dalam pengalaman."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/1": {
-    "documentation": ""
+    "documentation": "<code>GuiButton</code> yang akan dilacak sebagai peluang iklan video yang diberi hadiah. Harus merupakan keturunan dari <code>ScreenGui</code>."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/2": {
     "documentation": "ID penempatan iklan video yang diberi imbalan di dalam pengalaman. Memungkinkan pelaporan kinerja penempatan iklan individual."
@@ -100164,10 +100212,10 @@
     "documentation": "Layanan yang bertanggung jawab untuk iklan dalam pengalaman."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/1": {
-    "documentation": ""
+    "documentation": "Instance yang akan dihentikan pelacakannya. Ini harus merupakan instance yang sebelumnya Anda berikan ke <code>RegisterAdOpportunityAsync()</code>."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity": {
-    "documentation": "",
+    "documentation": "Menghentikan pelacakan instance yang sebelumnya terdaftar dengan <code>RegisterAdOpportunityAsync</code>.",
     "params": [
       {
         "name": "self",
@@ -107666,7 +107714,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.AdLabelClicked": {
-    "documentation": "",
+    "documentation": "Pemain mengklik label \"Disponsori\" pada overlay iklan, yang membuka prompt pengungkapan iklan yang menunjukkan informasi pengiklan dan pembayar.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107676,7 +107724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.VolumeButtonClicked": {
-    "documentation": "",
+    "documentation": "Pemain mengklik tombol toggle volume pada overlay iklan, yang membisukan atau menghidupkan suara iklan video.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107686,7 +107734,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.FullscreenButtonClicked": {
-    "documentation": "",
+    "documentation": "Pemain mengklik tombol toggle layar penuh, yang dengan mulus memperbesar kamera ke tampilan terpusat dari permukaan iklan dan mengaktifkan audio.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107696,7 +107744,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayButtonClicked": {
-    "documentation": "",
+    "documentation": "Pemain mengklik tombol putar pada overlay iklan. Jika iklan sudah berada dalam mode layar penuh, pemutaran dilanjutkan; jika tidak, ia masuk ke mode layar penuh yang juga memulai (atau melanjutkan) video.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107706,7 +107754,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseButtonClicked": {
-    "documentation": "",
+    "documentation": "Pemain mengklik tombol jeda saat iklan video diputar dalam mode layar penuh, yang menjeda pemutaran video.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107716,7 +107764,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.CloseButtonClicked": {
-    "documentation": "",
+    "documentation": "Pemain mengklik tombol tutup pada tampilan iklan video layar penuh, yang keluar dari mode layar penuh dan kembali ke posisi kamera normal.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107726,7 +107774,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.WhyThisAdClicked": {
-    "documentation": "",
+    "documentation": "Pemain mengklik tautan \"Mengapa iklan ini?\", yang menampilkan EUDSA (Pasal Layanan Digital Eropa) prompt pengungkapan yang menunjukkan nama pengiklan  dan pembayar untuk iklan kreatif saat ini.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107736,7 +107784,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayEventTriggered": {
-    "documentation": "",
+    "documentation": "Peristiwa putar/lanjutkan yang diinisiasi sistem yang menghapus status paksa-jeda dan melanjutkan pemutaran video jika aliran terbuka.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107746,7 +107794,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseEventTriggered": {
-    "documentation": "",
+    "documentation": "Peristiwa jeda yang diinisiasi sistem, digunakan ketika mesin perlu memaksa-jeda video (misalnya, ketika menu dropdown terbuka di atas iklan). Mencegah pemutaran otomatis berbasis tampilan dari melanjutkan pemutaran hingga peristiwa sistem yang sesuai menghapus jeda tersebut.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107756,7 +107804,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIEventType": {
-    "documentation": "",
+    "documentation": "Menjelaskan jenis interaksi pengguna atau peristiwa sistem yang terjadi pada overlay UI iklan imersif dari <code>AdGui</code>.",
     "keys": {
       "AdLabelClicked": "@roblox/enum/AdUIEventType.AdLabelClicked",
       "VolumeButtonClicked": "@roblox/enum/AdUIEventType.VolumeButtonClicked",
@@ -111383,7 +111431,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ShowAdResult.InsufficientMemory": {
-    "documentation": "",
+    "documentation": "Perangkat tidak memiliki memori video yang cukup tersedia untuk menampilkan iklan.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -111393,7 +111441,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ShowAdResult": {
-    "documentation": "",
+    "documentation": "Kode hasil yang dikembalikan oleh <code>AdService:ShowRewardedVideoAdAsync()</code> yang menunjukkan apakah iklan video yang diberi imbalan selesai dengan sukses atau mengapa tidak.",
     "keys": {
       "ShowCompleted": "@roblox/enum/ShowAdResult.ShowCompleted",
       "AdNotReady": "@roblox/enum/ShowAdResult.AdNotReady",
@@ -114689,7 +114737,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsLogLevel.Information": {
-    "documentation": "",
+    "documentation": "Digunakan untuk pesan informasi umum yang menyoroti kemajuan atau perubahan status selama operasi normal.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114729,7 +114777,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsLogLevel": {
-    "documentation": "",
+    "documentation": "Menentukan tingkat keparahan dari sebuah peristiwa log analitik yang diteruskan ke <code>AnalyticsService:FireLogEvent()</code>.",
     "keys": {
       "Trace": "@roblox/enum/AnalyticsLogLevel.Trace",
       "Debug": "@roblox/enum/AnalyticsLogLevel.Debug",
@@ -114815,7 +114863,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PublicChat": {
-    "documentation": "",
+    "documentation": "Menunjukkan bahwa string akan terlihat oleh semua pemain atau audiens publik yang luas,  menerapkan tingkat penyaringan teks yang paling ketat.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114825,7 +114873,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PrivateChat": {
-    "documentation": "",
+    "documentation": "Menunjukkan bahwa string adalah bagian dari percakapan pribadi antara pengguna tertentu,  menerapkan penyaringan yang sesuai untuk pertukaran satu lawan satu atau kelompok kecil.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114835,7 +114883,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.TextFilterContext": {
-    "documentation": "",
+    "documentation": "Menunjukkan apakah teks yang dikirim ke <code>TextService:FilterStringAsync()</code> atau <code>TextService:FilterAndTranslateStringAsync()</code> ditujukan untuk audiens publik atau pribadi, mengontrol ketatnya backend penyaringan teks.",
     "keys": {
       "PublicChat": "@roblox/enum/TextFilterContext.PublicChat",
       "PrivateChat": "@roblox/enum/TextFilterContext.PrivateChat"
@@ -115938,38 +115986,28 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#None",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.LOD": {
-    "documentation": "Mewarnai setiap mesh berdasarkan tingkat detailnya saat ini menggunakan peta panas biru-ke-merah. Biru menunjukkan detail terendah dan warna yang lebih hangat menunjukkan detail yang lebih tinggi. Berguna untuk memverifikasi bahwa mesh yang jauh sedang streaming dengan fidelitas yang berkurang.",
+  "@roblox/enum/SlimTintMode.LevelOfDetail": {
+    "documentation": "Mewarnai setiap mesh berdasarkan tingkat detailnya saat ini. Biru adalah yang paling kasar, merah adalah yang paling halus, dan setiap peringkat di antara keduanya dipetakan ke warna tetap. Sebuah warna tertentu selalu berarti peringkat LOD yang sama di setiap mesh, dengan pengecualian bahwa LOD tertinggi yang tersedia untuk setiap mesh selalu ditampilkan dengan warna merah.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LOD",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LevelOfDetail",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.Meshes": {
-    "documentation": "Memberikan warna yang berbeda untuk setiap mesh individu dalam sebuah model. Berguna untuk mengidentifikasi batas mesh dan memverifikasi bagaimana sebuah model dibagi menjadi bagian mesh yang terpisah.",
+  "@roblox/enum/SlimTintMode.DataModelState": {
+    "documentation": "Mewarnai model SLIM berdasarkan apakah instance DataModel mereka sedang di-stream in atau out. Hijau menunjukkan di-stream in (DataModel penuh hadir); kuning menunjukkan di-stream out (sebuah placeholder). Keduanya masih dirender melalui SLIM.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Meshes",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTintMode.Zone": {
-    "documentation": "Mewarnai mesh berdasarkan zona streaming. Hijau menunjukkan zona fidelitas tinggi di mana DataModel hadir; kuning menunjukkan zona fidelitas rendah di mana DataModel tidak ada).",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Zone",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#DataModelState",
     "code_sample": ""
   },
   "@roblox/enum/SlimTintMode.TranscoderStatus": {
-    "documentation": "Mewarnai setiap model SLIM berdasarkan <code>SlimTranscoderStatus</code>-nya. Ikuti tautan untuk melihat warna mana yang sesuai dengan setiap status.",
+    "documentation": "Mewarnai setiap model SLIM berdasarkan <code>SlimTranscoderStatus</code>-nya. Ikuti tautan untuk melihat warna mana yang dipetakan ke setiap status.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -115982,9 +116020,8 @@
     "documentation": "Menentukan mode pengkodean warna yang digunakan oleh overlay tint debug SLIM di Konsol Pengembang.",
     "keys": {
       "None": "@roblox/enum/SlimTintMode.None",
-      "LOD": "@roblox/enum/SlimTintMode.LOD",
-      "Meshes": "@roblox/enum/SlimTintMode.Meshes",
-      "Zone": "@roblox/enum/SlimTintMode.Zone",
+      "LevelOfDetail": "@roblox/enum/SlimTintMode.LevelOfDetail",
+      "DataModelState": "@roblox/enum/SlimTintMode.DataModelState",
       "TranscoderStatus": "@roblox/enum/SlimTintMode.TranscoderStatus"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode",
@@ -116315,7 +116352,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnCreatingChatWindow": {
-    "documentation": "",
+    "documentation": "Callback hanya untuk klien yang dipanggil sebelum jendela chat dibangun, memungkinkan pengaturan kustom untuk disuplai.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116325,7 +116362,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientSendingMessage": {
-    "documentation": "",
+    "documentation": "Callback hanya untuk klien yang dicadangkan untuk saat klien mengirim pesan; tidak sedang dipanggil saat ini.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116335,7 +116372,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientFormattingMessage": {
-    "documentation": "",
+    "documentation": "Callback hanya untuk klien yang dipanggil sebelum pesan ditampilkan, memungkinkan data tampilan untuk dimodifikasi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116345,7 +116382,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnServerReceivingMessage": {
-    "documentation": "",
+    "documentation": "Callback hanya untuk server yang dipanggil ketika server menerima pesan dari pembicara, memungkinkan pesan untuk dimodifikasi atau ditekan.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116355,7 +116392,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatCallbackType": {
-    "documentation": "",
+    "documentation": "Mengidentifikasi titik hook dalam pipeline chat Luau legacy untuk digunakan dengan <code>Chat:RegisterChatCallback()</code> dan <code>Chat:InvokeChatCallback()</code>.",
     "keys": {
       "OnCreatingChatWindow": "@roblox/enum/ChatCallbackType.OnCreatingChatWindow",
       "OnClientSendingMessage": "@roblox/enum/ChatCallbackType.OnClientSendingMessage",
@@ -120765,7 +120802,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.None": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> tidak memiliki kreatif iklan yang dimuat dan tidak merender konten iklan.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120775,7 +120812,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Image": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> sedang merender kreatif iklan gambar statis.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120785,7 +120822,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Video": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> sedang merender kreatif iklan video.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120795,7 +120832,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIType": {
-    "documentation": "",
+    "documentation": "Menjelaskan jenis kreatif iklan yang saat ini dirender oleh <code>AdGui</code>.",
     "keys": {
       "None": "@roblox/enum/AdUIType.None",
       "Image": "@roblox/enum/AdUIType.Image",
@@ -123706,7 +123743,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Unknown": {
-    "documentation": "",
+    "documentation": "Status pembatasan obrolan platform untuk pengguna belum ditentukan; ini adalah nilai default untuk semua properti ChatRestrictionStatus.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123716,7 +123753,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.NotRestricted": {
-    "documentation": "",
+    "documentation": "Platform pihak ketiga telah mengonfirmasi bahwa pengguna tidak memiliki pembatasan obrolan yang berlaku.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123726,7 +123763,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Restricted": {
-    "documentation": "",
+    "documentation": "Platform pihak ketiga telah melaporkan bahwa pengguna dibatasi dari obrolan, biasanya karena kontrol orang tua atau pengaturan komunikasi platform.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123736,7 +123773,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatRestrictionStatus": {
-    "documentation": "",
+    "documentation": "Menjelaskan status pembatasan obrolan yang dilaporkan oleh platform pihak ketiga untuk seorang pengguna.",
     "keys": {
       "Unknown": "@roblox/enum/ChatRestrictionStatus.Unknown",
       "NotRestricted": "@roblox/enum/ChatRestrictionStatus.NotRestricted",
@@ -128179,57 +128216,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SurfaceType",
     "code_sample": ""
   },
-  "@roblox/enum/WebSocketState.Connecting": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Connecting",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Open": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Open",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closing": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closing",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closed": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closed",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.WebSocketState": {
-    "documentation": "",
-    "keys": {
-      "Connecting": "@roblox/enum/WebSocketState.Connecting",
-      "Open": "@roblox/enum/WebSocketState.Open",
-      "Closing": "@roblox/enum/WebSocketState.Closing",
-      "Closed": "@roblox/enum/WebSocketState.Closed"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState",
-    "code_sample": ""
-  },
   "@roblox/enum/RecommendationActionType.AddReaction": {
     "documentation": "Pengguna menambahkan reaksi terhadap item, seperti \"suka\".",
     "keys": {
@@ -129627,7 +129613,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField01": {
-    "documentation": "",
+    "documentation": "Kunci bidang kustom pertama, digunakan untuk memberikan dimensi pemecahan dalam grafik analitik yang disediakan oleh Roblox.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129637,7 +129623,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField02": {
-    "documentation": "",
+    "documentation": "Kunci bidang kustom kedua, digunakan untuk memberikan dimensi pemecahan dalam grafik analitik yang disediakan oleh Roblox.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129647,7 +129633,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField03": {
-    "documentation": "",
+    "documentation": "Kunci bidang kustom ketiga, digunakan untuk memberikan dimensi pemecahan dalam grafik analitik yang disediakan oleh Roblox.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131738,7 +131724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextChatMessageStatus.ModerationTimeout": {
-    "documentation": "",
+    "documentation": "Pesan tidak dapat dikirim karena pengguna memiliki waktu moderasi aktif di chat.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131863,7 +131849,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdAvailabilityResult": {
-    "documentation": "",
+    "documentation": "Menunjukkan apakah iklan tersedia atau alasan mengapa iklan tidak dapat ditampilkan.",
     "keys": {
       "IsAvailable": "@roblox/enum/AdAvailabilityResult.IsAvailable",
       "DeviceIneligible": "@roblox/enum/AdAvailabilityResult.DeviceIneligible",
@@ -132649,7 +132635,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Default": {
-    "documentation": "",
+    "documentation": "Warna foreground cadangan yang digunakan untuk teks skrip yang tidak cocok dengan kategori sintaksis yang lebih spesifik.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132659,7 +132645,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Operator": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada token operator seperti <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>==</code>, dan <code>..</code> dalam skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132669,7 +132655,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Number": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada token literal numerik dalam skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132679,7 +132665,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.String": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada token literal string, termasuk string yang diberi kutipan dan literal string panjang.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132689,7 +132675,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Comment": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada token komentar (komentar satu baris <code>--</code> dan blok komentar <code>--[[ ]]</code>) dalam skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132699,7 +132685,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Keyword": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada kata kunci yang dicadangkan Luau seperti <code>if</code>, <code>then</code>, <code>else</code>, <code>do</code>, <code>end</code>, <code>return</code>, dan <code>while</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132709,7 +132695,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Builtin": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada fungsi bawaan Luau dan pengidentifikasi pustaka standar dalam skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132719,7 +132705,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Method": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada pengidentifikasi pemanggilan metode dalam skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132729,7 +132715,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Property": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada pengidentifikasi akses properti (token yang mengikuti <code>.</code> operator) dalam skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132739,7 +132725,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Nil": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada token literal <code>nil</code> dalam skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132749,7 +132735,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bool": {
-    "documentation": "",
+    "documentation": "Warna foreground yang digunakan untuk menyoroti literal boolean (<code>true</code> dan <code>false</code>) dalam skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132759,7 +132745,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Function": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada token kata kunci <code>function</code> dalam deklarasi fungsi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132769,7 +132755,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Local": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada token kata kunci <code>local</code> dalam deklarasi variabel lokal dan fungsi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132779,7 +132765,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Self": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada token pengidentifikasi <code>self</code> dalam tubuh metode.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132789,7 +132775,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.LuauKeyword": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada kata kunci anotasi tipe khusus Luau seperti <code>type</code> dan <code>typeof</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132799,7 +132785,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FunctionName": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada pengidentifikasi yang menamai fungsi dalam deklarasinya.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132809,7 +132795,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.TODO": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada penanda <code>TODO</code> yang ditemukan di dalam komentar dalam skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132819,7 +132805,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Background": {
-    "documentation": "",
+    "documentation": "Warna latar belakang utama dari kanvas Editor Skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132829,7 +132815,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionText": {
-    "documentation": "",
+    "documentation": "Warna foreground untuk teks dalam rentang yang saat ini dipilih di Editor Skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132839,7 +132825,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionBackground": {
-    "documentation": "",
+    "documentation": "Warna sorotan latar belakang untuk rentang teks yang saat ini dipilih di Editor Skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132849,7 +132835,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FindSelectionBackground": {
-    "documentation": "",
+    "documentation": "Warna sorotan latar belakang yang diterapkan pada rentang teks yang cocok dengan operasi Temukan atau Ganti.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132859,7 +132845,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MatchingWordBackground": {
-    "documentation": "",
+    "documentation": "Warna sorotan latar belakang yang diterapkan pada semua kemunculan kata di bawah kursor saat sorotan kata aktif.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132869,7 +132855,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Warning": {
-    "documentation": "",
+    "documentation": "Warna yang digunakan untuk penanda dan garis bawah diagnostik tingkat peringatan dalam skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132879,7 +132865,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Error": {
-    "documentation": "",
+    "documentation": "Warna yang digunakan untuk penanda dan garis bawah diagnostik tingkat kesalahan dalam skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132889,7 +132875,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Info": {
-    "documentation": "",
+    "documentation": "Warna yang digunakan untuk penanda diagnostik tingkat informasi dalam skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132899,7 +132885,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Hint": {
-    "documentation": "",
+    "documentation": "Warna yang digunakan untuk penanda diagnostik tingkat petunjuk dalam skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132909,7 +132895,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Whitespace": {
-    "documentation": "",
+    "documentation": "Warna yang digunakan untuk merender karakter spasi yang terlihat (spasi dan tab) saat opsi tampilan itu diaktifkan.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132919,7 +132905,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.ActiveLine": {
-    "documentation": "",
+    "documentation": "Warna sorotan latar belakang yang diterapkan pada baris yang saat ini berisi kursor teks.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132929,7 +132915,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerCurrentLine": {
-    "documentation": "",
+    "documentation": "Warna sorotan latar belakang untuk baris tempat debugger saat ini terhenti.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132939,7 +132925,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerErrorLine": {
-    "documentation": "",
+    "documentation": "Warna sorotan latar belakang untuk baris yang menyebabkan kesalahan runtime selama sesi debugging.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132949,7 +132935,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Ruler": {
-    "documentation": "",
+    "documentation": "Warna garis penggaris kolom vertikal yang digambar pada batas lebar karakter yang terkonfigurasi di Editor Skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132959,7 +132945,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bracket": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada karakter kurung seperti <code>(</code>, <code>)</code>, <code>[</code>, <code>]</code>, <code>{</code>, dan <code>}</code> dalam skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132969,7 +132955,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Type": {
-    "documentation": "",
+    "documentation": "Warna yang diterapkan pada token nama tipe Luau dalam anotasi tipe dan declarasi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132979,7 +132965,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuPrimaryText": {
-    "documentation": "",
+    "documentation": "Warna teks utama untuk item yang terdaftar dalam popup autocomplete dan menu konteks.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132989,7 +132975,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSecondaryText": {
-    "documentation": "",
+    "documentation": "Warna teks sekunder (misalnya, anotasi tipe atau petunjuk dokumentasi) dalam popup autocomplete.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132999,7 +132985,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedText": {
-    "documentation": "",
+    "documentation": "Warna teks dari item yang saat ini disorot dalam popup autocomplete dan menu konteks.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133009,7 +132995,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBackground": {
-    "documentation": "",
+    "documentation": "Warna latar belakang untuk popup autocomplete dan menu konteks di Editor Skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133019,7 +133005,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedBackground": {
-    "documentation": "",
+    "documentation": "Warna latar belakang dari item yang saat ini disorot dalam popup autocomplete dan menu konteks.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133029,7 +133015,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarBackground": {
-    "documentation": "",
+    "documentation": "Warna latar belakang dari jalur gulir di dalam popup autocomplete dan menu konteks.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133039,7 +133025,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarHandle": {
-    "documentation": "",
+    "documentation": "Warna dari pegangan gulir (thumb) di dalam popup autocomplete dan menu konteks.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133049,7 +133035,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBorder": {
-    "documentation": "",
+    "documentation": "Warna batas untuk popup autocomplete dan menu konteks di Editor Skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133059,7 +133045,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DocViewCodeBackground": {
-    "documentation": "",
+    "documentation": "Warna latar belakang untuk blok kode inline yang dirender di panel penampil dokumentasi dalam Studio.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133069,7 +133055,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayText": {
-    "documentation": "",
+    "documentation": "Warna teks untuk label yang ditampilkan di panel AI Code Overlay.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133079,7 +133065,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackground": {
-    "documentation": "",
+    "documentation": "Warna latar belakang untuk tombol aksi AI Code Overlay dalam keadaan default (idle).",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133089,7 +133075,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundHover": {
-    "documentation": "",
+    "documentation": "Warna latar belakang untuk tombol aksi AI Code Overlay saat pointer melayang di atasnya.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133099,7 +133085,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundPressed": {
-    "documentation": "",
+    "documentation": "Warna latar belakang untuk tombol aksi AI Code Overlay saat tombol tersebut tekan.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133109,7 +133095,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.IndentationRuler": {
-    "documentation": "",
+    "documentation": "Warna garis panduan vertikal yang digambar pada setiap tingkat indentasi di gutter editor skrip.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133119,7 +133105,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.StudioScriptEditorColorCategories": {
-    "documentation": "",
+    "documentation": "Kategori warna yang digunakan untuk tema Editor Skrip di Roblox Studio.",
     "keys": {
       "Default": "@roblox/enum/StudioScriptEditorColorCategories.Default",
       "Operator": "@roblox/enum/StudioScriptEditorColorCategories.Operator",
@@ -133364,7 +133350,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptPublishAssetResult": {
-    "documentation": "Menjelaskan hasil dari panggilan <code>AssetService:PromptCreateAssetAsync()</code>.",
+    "documentation": "Enum hasil yang sudah tidak digunakan untuk event <code>OpenPublishResultModal</code>.",
     "keys": {
       "Success": "@roblox/enum/PromptPublishAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptPublishAssetResult.PermissionDenied",
@@ -135428,7 +135414,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyTransactionType": {
-    "documentation": "",
+    "documentation": "Mengategorikan konteks dari transaksi ekonomi dalam pengalaman untuk digunakan dengan <code>AnalyticsService:LogEconomyEvent()</code>.",
     "keys": {
       "IAP": "@roblox/enum/AnalyticsEconomyTransactionType.IAP",
       "Shop": "@roblox/enum/AnalyticsEconomyTransactionType.Shop",
@@ -135621,7 +135607,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptCreateAssetResult": {
-    "documentation": "Menjelaskan hasil dari panggilan <code>AssetService:PromptCreateAssetAsync()</code>.",
+    "documentation": "Menjelaskan hasil dari <code>AvatarCreationService:PromptCreateAvatarAssetAsync()</code> call.",
     "keys": {
       "Success": "@roblox/enum/PromptCreateAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptCreateAssetResult.PermissionDenied",
@@ -135638,7 +135624,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Custom": {
-    "documentation": "",
+    "documentation": "Status kemajuan kustom untuk acara di luar siklus hidup standar mulai/gagal/selesai.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135648,7 +135634,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Start": {
-    "documentation": "",
+    "documentation": "Pemain memulai percobaan level.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135658,7 +135644,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Fail": {
-    "documentation": "",
+    "documentation": "Pemain gagal dalam percobaan level.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135668,7 +135654,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Complete": {
-    "documentation": "",
+    "documentation": "Pemain berhasil menyelesaikan level.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135678,7 +135664,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsProgressionType": {
-    "documentation": "",
+    "documentation": "Menentukan status kemajuan pemain dalam acara kemajuan level yang dicatat oleh <code>AnalyticsService:LogProgressionEvent()</code>.",
     "keys": {
       "Custom": "@roblox/enum/AnalyticsProgressionType.Custom",
       "Start": "@roblox/enum/AnalyticsProgressionType.Start",
@@ -136217,7 +136203,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdFormat.RewardedVideo": {
-    "documentation": "Format iklan video yang diberi imbalan.",
+    "documentation": "Iklan video layar penuh yang diputar hingga selesai dan memberikan imbalan kepada penonton, digunakan sebagai argumen <code>adFormat</code> untuk metode <code>AdService</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136227,7 +136213,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdFormat": {
-    "documentation": "",
+    "documentation": "Menentukan format iklan yang digunakan dengan metode <code>AdService</code>.",
     "keys": {
       "RewardedVideo": "@roblox/enum/AdFormat.RewardedVideo"
     },
@@ -136337,7 +136323,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Unknown": {
-    "documentation": "Status transcoding belum ditentukan. Ini adalah status awal sebelum model query dilakukan. Ditampilkan sebagai magenta dalam overlay tint debug.",
+    "documentation": "Status transcoding belum ditentukan. Ini adalah keadaan awal sebelum model query dilakukan. Ditampilkan sebagai kuning di overlay tint debug.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136346,48 +136332,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Unknown",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTranscoderStatus.NoHash": {
-    "documentation": "Model diaktifkan SLIM tetapi belum memiliki hash yang dihasilkan, jadi transcoding belum diminta. Ditampilkan sebagai cyan dalam overlay tint debug.",
+  "@roblox/enum/SlimTranscoderStatus.Transcoding": {
+    "documentation": "Transcoding SLIM saat ini sedang berlangsung di backend. Model diharapkan bertransisi ke Succeeded atau Failed setelah transcoding selesai. Ditampilkan sebagai biru di overlay tint debug.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NoHash",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.NotUploaded": {
-    "documentation": "Model belum diunggah ke jaringan pengiriman konten. Ditampilkan sebagai oranye dalam overlay tint debug.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NotUploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.Uploaded": {
-    "documentation": "Model telah diunggah ke jaringan pengiriman konten tetapi belum ditrascoding menjadi aset SLIM. Ditampilkan sebagai kuning dalam overlay tint debug.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Uploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.InProgress": {
-    "documentation": "Transcoding SLIM saat ini sedang berlangsung di backend. Model diharapkan bertransisi ke Succeeded atau Failed setelah transcoding selesai. Ditampilkan sebagai biru dalam overlay tint debug.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#InProgress",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Transcoding",
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Succeeded": {
-    "documentation": "Transcoding selesai dengan sukses dan aset SLIM tersedia untuk streaming. Ditampilkan sebagai hijau dalam overlay tint debug.",
+    "documentation": "Transcoding selesai dengan sukses dan aset SLIM tersedia untuk streaming. Ditampilkan sebagai hijau di overlay tint debug.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136397,7 +136353,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Failed": {
-    "documentation": "Transcoding tidak selesai dengan sukses. Ditampilkan sebagai merah dalam overlay tint debug.",
+    "documentation": "Transcoding tidak selesai dengan sukses. Ditampilkan sebagai merah di overlay tint debug.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136410,10 +136366,7 @@
     "documentation": "Menggambarkan status transcoding backend dari model SLIM, dari unggahan melalui transcoding hingga sukses atau gagal.",
     "keys": {
       "Unknown": "@roblox/enum/SlimTranscoderStatus.Unknown",
-      "NoHash": "@roblox/enum/SlimTranscoderStatus.NoHash",
-      "NotUploaded": "@roblox/enum/SlimTranscoderStatus.NotUploaded",
-      "Uploaded": "@roblox/enum/SlimTranscoderStatus.Uploaded",
-      "InProgress": "@roblox/enum/SlimTranscoderStatus.InProgress",
+      "Transcoding": "@roblox/enum/SlimTranscoderStatus.Transcoding",
       "Succeeded": "@roblox/enum/SlimTranscoderStatus.Succeeded",
       "Failed": "@roblox/enum/SlimTranscoderStatus.Failed"
     },
@@ -137104,7 +137057,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyFlowType": {
-    "documentation": "",
+    "documentation": "Menentukan arah aliran mata uang dalam sebuah peristiwa ekonomi yang dicatat oleh <code>AnalyticsService:LogEconomyEvent()</code>.",
     "keys": {
       "Sink": "@roblox/enum/AnalyticsEconomyFlowType.Sink",
       "Source": "@roblox/enum/AnalyticsEconomyFlowType.Source"
@@ -138772,7 +138725,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyAction": {
-    "documentation": "",
+    "documentation": "Menjelaskan jenis transaksi ekonomi dalam <code>AnalyticsService:FireInGameEconomyEvent()</code>.",
     "keys": {
       "Default": "@roblox/enum/AnalyticsEconomyAction.Default",
       "Acquire": "@roblox/enum/AnalyticsEconomyAction.Acquire",
@@ -139004,7 +138957,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Blue": {
-    "documentation": "Warna obrolan biru.",
+    "documentation": "Warna obrolan biru; nilai default yang diteruskan ke <code>Chat()</code> dan <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139014,7 +138967,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Green": {
-    "documentation": "Warna obrolan hijau.",
+    "documentation": "Warna obrolan hijau, diteruskan sebagai argumen <code>color</code> ke <code>Chat()</code> atau <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139024,7 +138977,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Red": {
-    "documentation": "Warna obrolan merah.",
+    "documentation": "Warna obrolan merah, diteruskan sebagai argumen <code>color</code> ke <code>Chat()</code> atau <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139034,7 +138987,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.White": {
-    "documentation": "Warna obrolan putih.",
+    "documentation": "Warna obrolan putih, diteruskan sebagai argumen <code>color</code> ke <code>Chat()</code> atau <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140537,7 +140490,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.Undefined": {
-    "documentation": "",
+    "documentation": "Nilai sentinel default yang tidak diinisialisasi yang menunjukkan bahwa tidak ada metode teleportasi yang telah ditentukan.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140547,7 +140500,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.PortalForward": {
-    "documentation": "",
+    "documentation": "Pemain melakukan teleportasi maju ke pengalaman tujuan pengiklan dengan berjalan ke dalam <code>AdPortal</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140557,7 +140510,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.InGameMenuBackButton": {
-    "documentation": "",
+    "documentation": "Pemain memulai teleportasi kembali ke pengalaman penerbit dengan menekan tombol kembali di menu dalam permainan.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140567,7 +140520,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.UIBackButton": {
-    "documentation": "",
+    "documentation": "Pemain memulai teleportasi kembali ke pengalaman penerbit dengan menekan tombol kembali yang ditampilkan di overlay UI tujuan iklan.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140577,7 +140530,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdTeleportMethod": {
-    "documentation": "",
+    "documentation": "Menjelaskan metode di mana seorang pemain melakukan teleportasi selama alur portal iklan yang imersif .",
     "keys": {
       "Undefined": "@roblox/enum/AdTeleportMethod.Undefined",
       "PortalForward": "@roblox/enum/AdTeleportMethod.PortalForward",

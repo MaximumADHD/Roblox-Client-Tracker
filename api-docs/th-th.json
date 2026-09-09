@@ -24207,10 +24207,10 @@
     "documentation": "สนับสนุนการซื้อในโลกจริงที่คุณสามารถรวมเข้ากับสิทธิประโยชน์ดิจิทัล。"
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/param/1": {
-    "documentation": ""
+    "documentation": "ตัวระบุของผลิตภัณฑ์การค้าที่จะค้นหา ซึ่งอาจเป็นหมายเลข ID หรือรูปแบบที่มี <code>COM-</code> นำหน้าเต็มรูปแบบ"
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/return/0": {
-    "documentation": ""
+    "documentation": "พจนานุกรมของข้อมูลเกี่ยวกับผลิตภัณฑ์การค้า รวมถึง ว่ามัน <code>IsForSale</code>, ตารางย่อย <code>Item</code> ของรายละเอียดการแสดง (<code>Name</code>, <code>Description</code>, <code>IconImageAssetId</code>, <code>DisplayPrice</code>, และ <code>IsPurchasable</code>), และ <code>Benefits</code> ที่ได้รับจากการซื้อมัน"
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync": {
     "documentation": "ดึงข้อมูลเกี่ยวกับผลิตภัณฑ์การค้าที่คุณกำลังขายในประสบการณ์。",
@@ -24234,10 +24234,10 @@
     "documentation": "สนับสนุนการซื้อในโลกจริงที่คุณสามารถรวมเข้ากับสิทธิประโยชน์ดิจิทัล。"
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/1": {
-    "documentation": ""
+    "documentation": "<code>Player</code> ที่จะถูกกระตุ้นด้วยกระบวนการซื้อ เมื่อเรียกจาก สคริปต์ของไคลเอนต์ จะต้องเป็นผู้เล่นท้องถิ่น"
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/2": {
-    "documentation": ""
+    "documentation": "ตัวระบุของผลิตภัณฑ์การค้าที่จะซื้อ ซึ่งอาจเป็นหมายเลข ID หรือรูปแบบที่มี <code>COM-</code> นำหน้าเต็มรูปแบบ"
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase": {
     "documentation": "กระตุ้นให้ผู้ใช้ซื้อผลิตภัณฑ์การค้าด้วย <code>commerceProductId</code> ที่ให้มา เปิดเว็บวิวที่แนะนำผู้ใช้ผ่านกระบวนการซื้อ。",
@@ -24263,13 +24263,13 @@
     "documentation": "สนับสนุนการซื้อในโลกจริงที่คุณสามารถรวมเข้ากับสิทธิประโยชน์ดิจิทัล。"
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/1": {
-    "documentation": ""
+    "documentation": "<code>Player</code> ที่เบราว์เซอร์เปิดให้ เมื่อเรียกจาก สคริปต์ของไคลเอนต์ จะต้องเป็นผู้เล่นท้องถิ่น"
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/2": {
-    "documentation": ""
+    "documentation": "URL การค้าในโลกจริงที่จะเปิด URL ต้องอยู่ในรายการอนุญาตการค้า หรือคำขอจะถูกละเลย"
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser": {
-    "documentation": "",
+    "documentation": "จุดสิ้นสุดเก่าที่เปิดเบราว์เซอร์ในประสบการณ์ไปยัง URL การค้าในโลกจริงสำหรับผู้เล่นที่ระบุ; ถูกแทนที่โดย <code>CommerceService:PromptCommerceProductPurchase()</code>.",
     "params": [
       {
         "name": "self",
@@ -24292,10 +24292,10 @@
     "documentation": "สนับสนุนการซื้อในโลกจริงที่คุณสามารถรวมเข้ากับสิทธิประโยชน์ดิจิทัล。"
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync/return/0": {
-    "documentation": ""
+    "documentation": "<code>true</code> หากผู้ใช้ปัจจุบันมีสิทธิ์ในการค้าในโลกจริง"
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync": {
-    "documentation": "",
+    "documentation": "จุดสิ้นสุดเก่าที่ส่งคืนว่าผู้ใช้ปัจจุบันมีสิทธิ์ในการค้าในโลกจริงหรือไม่; ถูกแทนที่โดย <code>PolicyService</code>.",
     "params": [
       {
         "name": "self",
@@ -24408,7 +24408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatCommand.AutocompleteVisible": {
-    "documentation": "",
+    "documentation": "กำหนดว่าคำสั่ง <code>TextChatCommand</code> จะแสดงเป็นคำแนะนำในเมนูเติมข้อความแชทหรือไม่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatCommand#AutocompleteVisible",
     "code_sample": ""
   },
@@ -29850,6 +29850,7 @@
   "@roblox/globaltype/Decal": {
     "documentation": "นำภาพพื้นผิวไปใช้กับหน้าของ <code>BasePart</code> ที่เป็นพ่อ",
     "keys": {
+      "AutoLocalize": "@roblox/globaltype/Decal.AutoLocalize",
       "Color3": "@roblox/globaltype/Decal.Color3",
       "ColorMap": "@roblox/globaltype/Decal.ColorMap",
       "ColorMapContent": "@roblox/globaltype/Decal.ColorMapContent",
@@ -29865,6 +29866,7 @@
       "Specular": "@roblox/globaltype/Decal.Specular",
       "Texture": "@roblox/globaltype/Decal.Texture",
       "TextureContent": "@roblox/globaltype/Decal.TextureContent",
+      "TexturePackContent": "@roblox/globaltype/Decal.TexturePackContent",
       "Transparency": "@roblox/globaltype/Decal.Transparency",
       "UVOffset": "@roblox/globaltype/Decal.UVOffset",
       "UVScale": "@roblox/globaltype/Decal.UVScale",
@@ -29873,73 +29875,78 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.AutoLocalize": {
+    "documentation": "เมื่อถูกตั้งค่าเป็น <code>true</code> สินทรัพย์ภาพของ decal จะมีสิทธิ์ในการจับภาพการแปลภาษาอัตโนมัติ",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#AutoLocalize",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Color3": {
     "documentation": "สี <code>Color3</code> ของ <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Color3",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ColorMap": {
-    "documentation": "รหัสเนื้อหาที่กำหนดสีและความทึบของพื้นผิว.",
+    "documentation": "Content ID ที่กำหนดสีและความทึบของพื้นผิว.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ColorMapContent": {
-    "documentation": "<code>Content</code> วัตถุที่กำหนดสีและความทึบของ พื้นผิว.",
+    "documentation": "<code>Content</code> ที่กำหนดสีและความทึบของพื้นผิว.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.LocalTransparencyModifier": {
-    "documentation": "ทำหน้าที่เป็นตัวคูณสำหรับคุณสมบัติ <code>Transparency</code> ของ decal ความเหล่านั้นจะมองเห็นได้เฉพาะ สำหรับผู้เล่นท้องถิ่น.",
+    "documentation": "ทำหน้าที่เป็นตัวคูณสำหรับคุณสมบัติ <code>Transparency</code> ของ decal. ผลกระทบจะมองเห็นได้เฉพาะสำหรับผู้เล่นท้องถิ่น.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#LocalTransparencyModifier",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMap": {
-    "documentation": "",
+    "documentation": "Content ID ที่กำหนดแผนที่ความเป็นโลหะของพื้นผิว.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> ที่กำหนดแผนที่ความเป็นโลหะของพื้นผิว.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMap": {
-    "documentation": "",
+    "documentation": "Content ID ที่กำหนดแผนที่ปกติของพื้นผิว.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> ที่กำหนดแผนที่ปกติของพื้นผิว.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Rotation": {
-    "documentation": "หมุนภาพพื้นผิว decal.",
+    "documentation": "หมุนแผนที่ decal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Rotation",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMap": {
-    "documentation": "",
+    "documentation": "Content ID ที่กำหนดแผนที่ความหยาบของพื้นผิว.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> ที่กำหนดแผนที่ความหยาบของพื้นผิว.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Shiny": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัติที่ไม่ทำงานนี้ถูกเลิกใช้และไม่ควรใช้ในการทำงานใหม่.",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ไม่มีฟังก์ชันและถูกเลิกใช้งานแล้ว ควรหลีกเลี่ยงการใช้งานในงานใหม่.<br>คุณสมบัติที่เลิกใช้งานซึ่งเคยตั้งค่าความมันวาวของ decal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Shiny",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Specular": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ไม่ได้ทำงานอย่างถูกต้องและถูกเลิกใช้. ไม่ควร ใช้ในการทำงานใหม่.",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ไม่ทำงานอย่างถูกต้องอีกต่อไปและถูกเลิกใช้งานแล้ว ควรหลีกเลี่ยงการใช้งานในงานใหม่.<br>คุณสมบัติที่เลิกใช้งานซึ่งเคยตั้งค่าความสะท้อนของ decal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Specular",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Texture": {
-    "documentation": "รหัสเนื้อหาของภาพที่จะนำไปใช้โดย <code>Decal</code>.",
+    "documentation": "Content ID ของภาพที่จะถูกนำไปใช้โดย <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Texture",
     "code_sample": ""
   },
@@ -29948,23 +29955,28 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.TexturePackContent": {
+    "documentation": "จัดการโดยเอนจิน <code>Content</code> ที่เก็บข้อมูลแพ็คพื้นผิวที่บีบอัดสำหรับ PBR decals.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TexturePackContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Transparency": {
-    "documentation": "กำหนดความโปร่งใสของ <code>Decal</code>。",
+    "documentation": "กำหนดความโปร่งใสของ <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.UVOffset": {
-    "documentation": "เลื่อนพิกัด UV โดยการเพิ่มออฟเซ็ตก่อนการแมพเทกซ์เจอร์。",
+    "documentation": "เลื่อนพิกัด UV โดยการเพิ่มออฟเซ็ตก่อนการแมพพื้นผิว.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVOffset",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.UVScale": {
-    "documentation": "ยืดหรือบีบพิกัด UV โดยการคูณกับตัวแปรขนาด。",
+    "documentation": "ยืดหรือบีบพิกัด UV โดยการคูณด้วยปัจจัยการปรับขนาด.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVScale",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ZIndex": {
-    "documentation": "กำหนดลำดับการเรนเดอร์เมื่อมี decal หลายตัวที่ถูกกำหนดให้กับเดียวกัน หน้า。",
+    "documentation": "กำหนดลำดับการเรนเดอร์เมื่อมีหลาย decal ถูกกำหนดให้กับหน้าเดียวกัน.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
     "code_sample": ""
   },
@@ -33842,12 +33854,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "การอ้างอิงถึง <code>BubbleChatMessageProperties</code> ที่แทนที่ ลักษณะของฟองข้อความนี้ในแชท.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#BubbleChatMessageProperties",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "การอ้างอิงถึง <code>ChatWindowMessageProperties</code> ที่แทนที่ ลักษณะของข้อความนี้ในหน้าต่างแชท.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#ChatWindowMessageProperties",
     "code_sample": ""
   },
@@ -44704,7 +44716,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VisibilityCheckDispatcher": {
-    "documentation": "",
+    "documentation": "บริการที่กำหนดเวลาและดำเนินการตรวจสอบการมองเห็นสำหรับโฆษณาแบบ immersive ในสถานที่.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisibilityCheckDispatcher",
     "code_sample": ""
@@ -47184,31 +47196,6 @@
   "@roblox/globaltype/TerrainDetail.StudsPerTile": {
     "documentation": "กำหนดขนาดของพื้นผิว。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#StudsPerTile",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping": {
-    "documentation": "",
-    "keys": {
-      "FlattenTree": "@roblox/globaltype/PatchMapping.FlattenTree",
-      "PatchId": "@roblox/globaltype/PatchMapping.PatchId",
-      "TargetPath": "@roblox/globaltype/PatchMapping.TargetPath"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.FlattenTree": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#FlattenTree",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.PatchId": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#PatchId",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.TargetPath": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#TargetPath",
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
@@ -51151,7 +51138,7 @@
     "documentation": "แทนที่ช่องแชทข้อความ."
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester/param/1": {
-    "documentation": ""
+    "documentation": "ผู้เล่น <code>Player</code> ที่สิทธิ์การส่งข้อความโดยตรงของเขากำหนดช่องทาง; เฉพาะผู้ใช้ที่สามารถส่งข้อความโดยตรงไปยังผู้เล่นนี้เท่านั้นที่จะได้รับ ข้อความในช่องทางนี้。"
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester": {
     "documentation": "ตั้งค่า <code>DirectChatRequester</code> สำหรับ <code>TextChannel</code>. ช่อง <code>TextChannel</code> จะส่งข้อความไปยังผู้ใช้ที่สามารถ ส่ง direct messages ไปยัง <code>DirectChatRequester</code> เท่านั้น.",
@@ -51196,7 +51183,7 @@
     "documentation": "<code>TextSource</code> ของผู้ที่กำลังจะได้รับข้อความ."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/return/0": {
-    "documentation": ""
+    "documentation": "ค่าที่เป็นจริง (เช่น <code>true</code>, <code>1</code>, หรือสตริงที่ไม่ว่าง) เพื่อส่ง ข้อความไปยังไคลเอนต์ที่กำหนด หรือค่าที่ไม่เป็นจริง (รวมถึง <code>nil</code>) เพื่อ ไม่ส่งข้อความไปยังไคลเอนต์นั้น。"
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback": {
     "documentation": "ถูกเรียกสำหรับแต่ละ client เมื่อต้องรับข้อความเข้าจาก <code>TextChannel</code> เพื่อกำหนดว่าควรส่งข้อความให้ client นั้นหรือไม่.",
@@ -52876,6 +52863,7 @@
       "GetPredictionStatus": "@roblox/globaltype/RunService.GetPredictionStatus",
       "IsClient": "@roblox/globaltype/RunService.IsClient",
       "IsEdit": "@roblox/globaltype/RunService.IsEdit",
+      "IsResimulating": "@roblox/globaltype/RunService.IsResimulating",
       "IsRunMode": "@roblox/globaltype/RunService.IsRunMode",
       "IsRunning": "@roblox/globaltype/RunService.IsRunning",
       "IsServer": "@roblox/globaltype/RunService.IsServer",
@@ -52896,7 +52884,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.RunState": {
-    "documentation": "",
+    "documentation": "สถานะการทำงานปัจจุบันของการจำลองเกม。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#RunState",
     "code_sample": ""
   },
@@ -52949,7 +52937,7 @@
     "documentation": "ระดับความสำคัญของการผูกเป็นจำนวนเต็มที่เลือกได้ มันกำหนดลำดับที่จะเรียกใช้ฟังก์ชันที่ผูกไว้ภายในขั้นตอนการจำลอง หมายเลขที่ต่ำกว่าจะถูกเรียกก่อน หากมีการผูกสองครั้งที่มีระดับความสำคัญเดียวกัน ลำดับระหว่างพวกเขาจะไม่ถูกกำหนด ค่าเริ่มต้นคือ 2000。"
   },
   "@roblox/globaltype/RunService.BindToSimulation/return/0": {
-    "documentation": ""
+    "documentation": "ค่าของ <code>RBXScriptConnection</code> ที่สามารถถูกตัดการเชื่อมต่อเพื่อยกเลิก การผูกฟังก์ชันจากขั้นตอนการจำลอง。"
   },
   "@roblox/globaltype/RunService.BindToSimulation": {
     "documentation": "ผูกฟังก์ชันที่กำหนดเองเพื่อเรียกใช้ในความถี่ที่แน่นอนซึ่งไม่ขึ้นกับอัตราเฟรม。",
@@ -52984,7 +52972,7 @@
     "documentation": "<code>Instance</code> ที่จะตรวจสอบสถานะการคาดการณ์。"
   },
   "@roblox/globaltype/RunService.GetPredictionStatus/return/0": {
-    "documentation": ""
+    "documentation": "สถานะ <code>PredictionStatus</code> ของอินสแตนซ์ที่กำหนด ซึ่งบ่งบอกว่ามัน ถูกคาดการณ์, มีอำนาจ, หรือไม่เข้าร่วมในการคาดการณ์。"
   },
   "@roblox/globaltype/RunService.GetPredictionStatus": {
     "documentation": "ตรวจสอบ <code>PredictionStatus</code> ของอินสแตนซ์บริบทเฉพาะ ใช้เพื่อแก้ไขข้อผิดพลาดของสคริปต์ที่มีผลกระทบต่อหลายอินสแตนซ์ซึ่งบางอย่างอาจถูกคาดการณ์และบางอย่างอาจไม่ถูก。",
@@ -53044,14 +53032,34 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsEdit",
     "code_sample": ""
   },
+  "@roblox/globaltype/RunService.IsResimulating/param/0": {
+    "documentation": "บริการที่รับผิดชอบสำหรับการทำงานทั้งหมดในระหว่างการทำงานและความก้าวหน้าของเวลา。"
+  },
+  "@roblox/globaltype/RunService.IsResimulating/return/0": {
+    "documentation": "ว่าเอนจินกำลังทำการจำลองใหม่อยู่หรือไม่。"
+  },
+  "@roblox/globaltype/RunService.IsResimulating": {
+    "documentation": "คืนค่าว่าคลไคลเอนต์กำลังอยู่ในขั้นตอนการจำลองใหม่หลังจาก การคาดการณ์ผิดในโมเดลอำนาจของเซิร์ฟเวอร์。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.IsResimulating/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RunService.IsResimulating/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsResimulating",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RunService.IsRunMode/param/0": {
     "documentation": "บริการที่รับผิดชอบสำหรับการทำงานทั้งหมดในระหว่างการทำงานและความก้าวหน้าของเวลา。"
   },
   "@roblox/globaltype/RunService.IsRunMode/return/0": {
-    "documentation": "ว่าการทดสอบเล่น <strong>Run</strong> ถูกเริ่มต้นใน Studio หรือไม่。"
+    "documentation": "ว่าได้เริ่มต้นการทดสอบเล่น <strong>Run</strong> ใน Studio หรือไม่。"
   },
   "@roblox/globaltype/RunService.IsRunMode": {
-    "documentation": "คืนค่าหากการทดสอบเล่น <strong>Run</strong> ถูกเริ่มต้นใน Studio。",
+    "documentation": "คืนค่าว่าการทดสอบเล่น <strong>Run</strong> ได้เริ่มต้นขึ้นใน Studio หรือไม่。",
     "params": [
       {
         "name": "self",
@@ -53068,10 +53076,10 @@
     "documentation": "บริการที่รับผิดชอบสำหรับการทำงานทั้งหมดในระหว่างการทำงานและความก้าวหน้าของเวลา。"
   },
   "@roblox/globaltype/RunService.IsRunning/return/0": {
-    "documentation": "ว่าประสบการณ์กำลังทำงานอยู่ในปัจจุบันหรือไม่。"
+    "documentation": "ว่าในขณะนี้ประสบการณ์กำลังทำงานอยู่หรือไม่。"
   },
   "@roblox/globaltype/RunService.IsRunning": {
-    "documentation": "คืนค่าหากประสบการณ์กำลังทำงานอยู่ในปัจจุบัน。",
+    "documentation": "คืนค่าว่าประสบการณ์กำลังทำงานอยู่หรือไม่。",
     "params": [
       {
         "name": "self",
@@ -53088,10 +53096,10 @@
     "documentation": "บริการที่รับผิดชอบสำหรับการทำงานทั้งหมดในระหว่างการทำงานและความก้าวหน้าของเวลา。"
   },
   "@roblox/globaltype/RunService.IsServer/return/0": {
-    "documentation": "ว่าความสภาพแวดล้อมปัจจุบันกำลังทำงานอยู่บนเซิร์ฟเวอร์หรือไม่。"
+    "documentation": "ว่าในขณะนี้สภาพแวดล้อมกำลังทำงานบนเซิร์ฟเวอร์หรือไม่。"
   },
   "@roblox/globaltype/RunService.IsServer": {
-    "documentation": "คืนค่าหากสภาพแวดล้อมปัจจุบันกำลังทำงานอยู่บนเซิร์ฟเวอร์。",
+    "documentation": "คืนค่าว่าสภาพแวดล้อมปัจจุบันกำลังทำงานบนเซิร์ฟเวอร์หรือไม่。",
     "params": [
       {
         "name": "self",
@@ -53108,10 +53116,10 @@
     "documentation": "บริการที่รับผิดชอบสำหรับการทำงานทั้งหมดในระหว่างการทำงานและความก้าวหน้าของเวลา。"
   },
   "@roblox/globaltype/RunService.IsStudio/return/0": {
-    "documentation": "ว่าความสภาพแวดล้อมปัจจุบันกำลังทำงานอยู่ใน Studio หรือไม่。"
+    "documentation": "ว่าในขณะนี้สภาพแวดล้อมกำลังทำงานใน Studio หรือไม่。"
   },
   "@roblox/globaltype/RunService.IsStudio": {
-    "documentation": "คืนค่าหากสภาพแวดล้อมปัจจุบันกำลังทำงานอยู่ใน Studio。",
+    "documentation": "คืนค่าว่าสภาพแวดล้อมปัจจุบันกำลังทำงานใน Studio หรือไม่。",
     "params": [
       {
         "name": "self",
@@ -53128,7 +53136,7 @@
     "documentation": "บริการที่รับผิดชอบสำหรับการทำงานทั้งหมดในระหว่างการทำงานและความก้าวหน้าของเวลา。"
   },
   "@roblox/globaltype/RunService.Pause": {
-    "documentation": "หยุดการจำลองประสบการณ์ หากมันกำลังทำงานอยู่ หยุดฟิสิกส์และสคริปต์。",
+    "documentation": "หยุดการจำลองของประสบการณ์หากมันกำลังทำงานอยู่ โดยระงับฟิสิกส์ และสคริปต์。",
     "params": [
       {
         "name": "self",
@@ -53143,7 +53151,7 @@
     "documentation": "บริการที่รับผิดชอบสำหรับการทำงานทั้งหมดในระหว่างการทำงานและความก้าวหน้าของเวลา。"
   },
   "@roblox/globaltype/RunService.Reset": {
-    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกยกเลิกและไม่ควรใช้ในงานใหม่。<br>รีเซ็ตเกมปัจจุบันไปยังจุดที่ตั้งเมื่อมีการเรียกใช้ <code>RunService:Run()</code>。",
+    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกเลิกใช้และไม่ควรใช้ในงานใหม่。<br>รีเซ็ตเกมปัจจุบันไปยังจุดที่ตั้งไว้เมื่อ <code>RunService:Run()</code> ถูกเรียก。",
     "params": [
       {
         "name": "self",
@@ -53158,7 +53166,7 @@
     "documentation": "บริการที่รับผิดชอบสำหรับการทำงานทั้งหมดในระหว่างการทำงานและความก้าวหน้าของเวลา。"
   },
   "@roblox/globaltype/RunService.Run": {
-    "documentation": "เรียกใช้การจำลองของเกม เรียกใช้ฟิสิกส์และสคริปต์。",
+    "documentation": "ทำการจำลองเกม โดยทำงานฟิสิกส์และสคริปต์。",
     "params": [
       {
         "name": "self",
@@ -53173,13 +53181,13 @@
     "documentation": "บริการที่รับผิดชอบสำหรับการทำงานทั้งหมดในระหว่างการทำงานและความก้าวหน้าของเวลา。"
   },
   "@roblox/globaltype/RunService.SetPredictionMode/param/1": {
-    "documentation": "<code>Instance</code> ซึ่งจะตั้งค่าระดับการคาดการณ์。"
+    "documentation": "อินสแตนซ์ <code>Instance</code> ที่จะตั้งค่าโหมดการคาดการณ์。"
   },
   "@roblox/globaltype/RunService.SetPredictionMode/param/2": {
-    "documentation": "<code>PredictionMode</code> ที่จะตั้งค่าสำหรับอินสแตนซ์บริบท。"
+    "documentation": "ค่าของ <code>PredictionMode</code> ที่จะตั้งค่าสำหรับอินสแตนซ์บริบท。"
   },
   "@roblox/globaltype/RunService.SetPredictionMode": {
-    "documentation": "ตั้งค่าระดับการคาดการณ์สำหรับ <code>Instance</code> เป็นค่า <code>PredictionMode</code>。",
+    "documentation": "ตั้งค่าโหมดการคาดการณ์สำหรับ <code>Instance</code> เป็น ค่าของ <code>PredictionMode</code>。",
     "params": [
       {
         "name": "self",
@@ -53202,7 +53210,7 @@
     "documentation": "บริการที่รับผิดชอบสำหรับการทำงานทั้งหมดในระหว่างการทำงานและความก้าวหน้าของเวลา。"
   },
   "@roblox/globaltype/RunService.Stop": {
-    "documentation": "หยุดการจำลองของประสบการณ์หากมันทำงานอยู่。",
+    "documentation": "หยุดการจำลองของประสบการณ์หากมันกำลังทำงานอยู่。",
     "params": [
       {
         "name": "self",
@@ -53220,7 +53228,7 @@
     "documentation": "ชื่อของฟังก์ชันที่ถูกยกเลิกการผูก。"
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep": {
-    "documentation": "ยกเลิกการผูกฟังก์ชันที่ถูกผูกไว้กับลูปการเรนเดอร์โดยการใช้ <code>RunService:BindToRenderStep()</code>。",
+    "documentation": "ยกเลิกการผูกฟังก์ชันที่ถูกผูกกับลูปการเรนเดอร์โดยใช้ <code>RunService:BindToRenderStep()</code>。",
     "params": [
       {
         "name": "self",
@@ -54388,7 +54396,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.RobloxLocked": {
-    "documentation": "คุณสมบัติที่ถูกเลิกใช้ซึ่งเคยปกป้องวัตถุ <code>CoreGui</code>。",
+    "documentation": "คุณสมบัติที่ถูกเลิกใช้ซึ่งเคยใช้เพื่อปกป้องวัตถุ <code>CoreGui</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#RobloxLocked",
     "code_sample": ""
   },
@@ -54503,7 +54511,7 @@
     "documentation": "<code>Instance</code> เป็นคลาสพื้นฐานสำหรับคลาสทั้งหมดในลำดับชั้นคลาสของ Roblox ซึ่งสามารถเป็นส่วนหนึ่งของต้นไม้ <code>DataModel</code>。"
   },
   "@roblox/globaltype/Instance.Destroy": {
-    "documentation": "ตั้งค่า <code>Instance.Parent</code> เป็น <code>nil</code> ล็อค คุณสมบัติ <code>Instance.Parent</code> ตัดการเชื่อมต่อทั้งหมด และเรียก <code>Destroy()</code> บนลูกทั้งหมด。",
+    "documentation": "ตั้งค่าคุณสมบัติ <code>Instance.Parent</code> เป็น <code>nil</code> ล็อค คุณสมบัติ <code>Instance.Parent</code> ตัดการเชื่อมต่อทั้งหมด และเรียก <code>Destroy()</code> บนลูกทั้งหมด。",
     "params": [
       {
         "name": "self",
@@ -54793,7 +54801,7 @@
     "documentation": "ชื่อของคุณสมบัติที่ถูกดึงข้อมูล。"
   },
   "@roblox/globaltype/Instance.GetAttribute/return/0": {
-    "documentation": "ค่าที่ถูกกำหนดให้กับชื่อคุณสมบัติที่กำหนด หากไม่มี คุณสมบัติใดถูกกำหนด จะส่งคืน <code>nil</code>。"
+    "documentation": "ค่าที่ถูกกำหนดให้กับชื่อคุณสมบัติที่กำหนด หากไม่มี คุณสมบัติถูกกำหนด จะส่งคืน <code>nil</code>。"
   },
   "@roblox/globaltype/Instance.GetAttribute": {
     "documentation": "ส่งคืนค่าที่ถูกกำหนดให้กับชื่อคุณสมบัติที่กำหนด。",
@@ -54817,7 +54825,7 @@
     "documentation": "<code>Instance</code> เป็นคลาสพื้นฐานสำหรับคลาสทั้งหมดในลำดับชั้นคลาสของ Roblox ซึ่งสามารถเป็นส่วนหนึ่งของต้นไม้ <code>DataModel</code>。"
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/1": {
-    "documentation": "ชื่อของคุณสมบัติที่ระบุซึ่งสัญญาณการเปลี่ยนแปลงจะถูกส่งคืน。"
+    "documentation": "ชื่อของคุณสมบัติที่ระบุซึ่งสัญญาณการเปลี่ยนแปลง กำลังถูกส่งคืน。"
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/return/0": {
     "documentation": "เหตุการณ์ที่เกิดขึ้นเมื่อคุณสมบัติที่กำหนดมีการเปลี่ยนแปลง。"
@@ -54907,7 +54915,7 @@
     "documentation": "ความยาวของขอบเขต。"
   },
   "@roblox/globaltype/Instance.GetDebugId/return/0": {
-    "documentation": "สตริง Debug ID。"
+    "documentation": "สตริง ID ดีบัก。"
   },
   "@roblox/globaltype/Instance.GetDebugId": {
     "documentation": "ส่งคืนสตริงที่เข้ารหัสของ ID ดีบักที่ใช้ภายในโดย Roblox。",
@@ -54974,13 +54982,13 @@
     "documentation": "ชื่อของคุณสมบัติที่จะสอบถาม。"
   },
   "@roblox/globaltype/Instance.GetStyled/param/2": {
-    "documentation": "ตัวเลือกสำหรับตัวเลือกเสมือนที่คุณกำลังมุ่งเป้าไปที่อินสแตนซ์。"
+    "documentation": "ตัวเลือกสำหรับอินสแตนซ์เสมือนที่คุณกำลังมุ่งเป้าไปที่อินสแตนซ์。"
   },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
-    "documentation": "ค่าที่ถูกจัดรูปแบบหรือแก้ไขอย่างชัดเจนของคุณสมบัติที่ระบุ หรือ ค่าคุณสมบัติเริ่มต้นหากมันยังไม่ได้ถูกจัดรูปแบบ/แก้ไข。"
+    "documentation": "ค่าที่ถูกจัดรูปแบบหรือแก้ไขอย่างชัดเจนของคุณสมบัติที่กำหนด หรือค่าคุณสมบัติเริ่มต้นหากมันยังไม่ได้ถูกจัดรูปแบบ/แก้ไข。"
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "ส่งคืนค่าที่ถูกจัดรูปแบบหรือแก้ไขอย่างชัดเจนของคุณสมบัติที่ระบุ หรือค่าคุณสมบัติเริ่มต้นหากมันยังไม่ได้ถูกจัดรูปแบบ/แก้ไข。",
+    "documentation": "ส่งคืนค่าที่ถูกจัดรูปแบบหรือแก้ไขอย่างชัดเจนของคุณสมบัติที่กำหนด หรือค่าคุณสมบัติเริ่มต้นหากมันยังไม่ได้ถูกจัดรูปแบบ/แก้ไข。",
     "params": [
       {
         "name": "self",
@@ -55011,7 +55019,7 @@
     "documentation": "เหตุการณ์ที่เกิดขึ้นเมื่อคุณสมบัติสไตล์ที่กำหนดมีการเปลี่ยนแปลง。"
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal": {
-    "documentation": "ส่งคืนเหตุการณ์ที่เกิดขึ้นเมื่อคุณสมบัติสไตล์ที่กำหนดมีการเปลี่ยนแปลงบนอินสแตนซ์。",
+    "documentation": "ส่งคืนเหตุการณ์ที่เกิดขึ้นเมื่อคุณสมบัติสไตล์ที่กำหนดมีการเปลี่ยนแปลงบน อินสแตนซ์。",
     "params": [
       {
         "name": "self",
@@ -55163,10 +55171,10 @@
     "documentation": "ชื่อของคุณสมบัติที่จะสอบถาม。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Boolean ที่ระบุว่าคุณสมบัตินั้นถูกแก้ไขจากค่าเริ่มต้นที่สร้างจากโค้ดหรือไม่。"
+    "documentation": "Boolean ที่บ่งชี้ว่าคุณสมบัตินั้นถูกแก้ไขจาก ค่าที่ถูกสร้างขึ้นจากโค้ดเริ่มต้นหรือไม่。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "ส่งคืน <code>true</code> หากค่าที่เก็บไว้ในคุณสมบัติที่ระบุไม่เท่ากับค่าเริ่มต้นที่สร้างจากโค้ด。",
+    "documentation": "ส่งคืน <code>true</code> หากค่าที่เก็บไว้ในคุณสมบัติที่กำหนดไม่เท่ากับ ค่าที่ถูกสร้างขึ้นจากโค้ดเริ่มต้น。",
     "params": [
       {
         "name": "self",
@@ -55214,7 +55222,7 @@
     "documentation": "<code>Instance</code> เป็นคลาสพื้นฐานสำหรับคลาสทั้งหมดในลำดับชั้นคลาสของ Roblox ซึ่งสามารถเป็นส่วนหนึ่งของต้นไม้ <code>DataModel</code>。"
   },
   "@roblox/globaltype/Instance.Remove": {
-    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกเลิกใช้เพื่อสนับสนุน <code>Instance:Destroy()</code> และ <code>Instance:ClearAllChildren()</code> หากคุณต้องลบวัตถุออกจากเกมและต้องการใช้วัตถุในภายหลัง ให้ตั้งค่าคุณสมบัติ <code>Parent</code> เป็น <code>nil</code> แทนการใช้วิธีนี้.<br>ตั้งค่า <code>Parent</code> ของวัตถุเป็น <code>nil</code> และทำเช่นเดียวกันกับลูกหลานทั้งหมด.",
+    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกเลิกใช้เพื่อสนับสนุน <code>Instance:Destroy()</code> และ <code>Instance:ClearAllChildren()</code> หากคุณต้องการลบวัตถุออกจากเกมและต้องการใช้วัตถุในภายหลัง ให้ตั้งค่าคุณสมบัติ <code>Parent</code> เป็น <code>nil</code> แทนการใช้วิธีนี้.<br>ตั้งค่า <code>Parent</code> ของวัตถุเป็น <code>nil</code> และทำเช่นเดียวกันกับลูกหลานทั้งหมด.",
     "params": [
       {
         "name": "self",
@@ -55288,10 +55296,10 @@
     "documentation": "<code>Instance</code> เป็นคลาสพื้นฐานสำหรับคลาสทั้งหมดในลำดับชั้นคลาสของ Roblox ซึ่งสามารถเป็นส่วนหนึ่งของต้นไม้ <code>DataModel</code>。"
   },
   "@roblox/globaltype/Instance.SetAttribute/param/1": {
-    "documentation": "ชื่อของแอตทริบิวต์ที่กำหนด."
+    "documentation": "ชื่อของแอตทริบิวต์ที่กำลังตั้งค่า."
   },
   "@roblox/globaltype/Instance.SetAttribute/param/2": {
-    "documentation": "ค่าที่จะตั้งค่าให้กับแอตทริบิวต์ที่กำหนด."
+    "documentation": "ค่าที่จะตั้งค่าแอตทริบิวต์ที่ระบุ."
   },
   "@roblox/globaltype/Instance.SetAttribute": {
     "documentation": "ตั้งค่าแอตทริบิวต์ที่มีชื่อที่กำหนดเป็นค่าที่กำหนด.",
@@ -55865,7 +55873,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.DescendantAdded": {
-    "documentation": "เกิดขึ้นหลังจากลูกหลานถูกเพิ่มไปยัง <code>Instance</code>.",
+    "documentation": "เกิดขึ้นหลังจากลูกหลานถูกเพิ่มเข้ามาใน <code>Instance</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.DescendantAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.DescendantAdded.ConnectParallel",
@@ -57937,7 +57945,7 @@
     "documentation": "กำหนดคุณสมบัติของหน้าต่างแชทเริ่มต้น。"
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties/return/0": {
-    "documentation": ""
+    "documentation": "อินสแตนซ์ใหม่ของ <code>ChatWindowMessageProperties</code> ที่คุณสามารถปรับเปลี่ยนค่าและส่งคืนจาก <code>TextChatService.OnChatWindowAdded</code> callback เพื่อปรับแต่งวิธีที่ข้อความแต่ละข้อความปรากฏในหน้าต่างแชท"
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties": {
     "documentation": "สร้างอินสแตนซ์ใหม่ของ <code>ChatWindowMessageProperties</code> ที่สามารถ ใช้เพื่อปรับแต่งลักษณะของข้อความในหน้าต่างแชท。",
@@ -63252,7 +63260,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "แทนที่คุณสมบัติ <code>BubbleChatConfiguration</code> สำหรับข้อความแชทฟองแต่ละข้อความ",
     "keys": {
       "BackgroundColor3": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundColor3",
       "BackgroundTransparency": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundTransparency",
@@ -63280,7 +63288,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties.TailVisible": {
-    "documentation": "",
+    "documentation": "กำหนดว่าหางที่ด้านล่างของฟองแชทจะแสดงหรือไม่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BubbleChatMessageProperties#TailVisible",
     "code_sample": ""
   },
@@ -69742,11 +69750,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui": {
-    "documentation": "",
+    "documentation": "GUI ที่อยู่บนพื้นผิวซึ่งแสดงโฆษณาที่ดื่มด่ำบนด้านหนึ่งของ <code>Part</code> ใน โลก 3D。",
     "keys": {
       "AdShape": "@roblox/globaltype/AdGui.AdShape",
       "EnableVideoAds": "@roblox/globaltype/AdGui.EnableVideoAds",
       "FallbackImage": "@roblox/globaltype/AdGui.FallbackImage",
+      "FallbackImageContent": "@roblox/globaltype/AdGui.FallbackImageContent",
       "Status": "@roblox/globaltype/AdGui.Status",
       "OnAdEvent": "@roblox/globaltype/AdGui.OnAdEvent"
     },
@@ -69754,7 +69763,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.AdShape": {
-    "documentation": "",
+    "documentation": "กำหนดรูปร่างของโฆษณาที่แสดงโดย <code>AdGui</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#AdShape",
     "code_sample": ""
   },
@@ -69764,12 +69773,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.FallbackImage": {
-    "documentation": "",
+    "documentation": "ภาพที่ <code>AdGui</code> แสดงเมื่อไม่มีโฆษณาให้แสดง。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImage",
     "code_sample": ""
   },
+  "@roblox/globaltype/AdGui.FallbackImageContent": {
+    "documentation": "เทียบเท่าของ <code>AdGui.FallbackImage</code> ที่เป็น <code>Content</code> ซึ่ง รองรับ URI ของทรัพย์สินและวัตถุ <code>EditableImage</code>。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImageContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AdGui.Status": {
-    "documentation": "",
+    "documentation": "ระบุว่า <code>AdGui</code> กำลังแสดงโฆษณาที่ให้บริการอยู่หรือไม่。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#Status",
     "code_sample": ""
   },
@@ -70493,7 +70507,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal": {
-    "documentation": "",
+    "documentation": "พอร์ทัลที่ส่งผู้เล่นไปยังประสบการณ์ที่ได้รับการสนับสนุนเป็นส่วนหนึ่งของโฆษณาที่ดื่มด่ำ",
     "keys": {
       "PortalInvalidReason": "@roblox/globaltype/AdPortal.PortalInvalidReason",
       "Status": "@roblox/globaltype/AdPortal.Status"
@@ -70502,12 +70516,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.PortalInvalidReason": {
-    "documentation": "",
+    "documentation": "ข้อความที่มองเห็นได้สำหรับผู้สร้างอธิบายว่าทำไมพอร์ทัลจึงไม่ถูกต้องในขณะนี้ หากเป็นเช่นนั้น",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#PortalInvalidReason",
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.Status": {
-    "documentation": "",
+    "documentation": "ระบุว่าพอร์ทัลกำลังทำงานอยู่และสามารถส่งผู้เล่นได้หรือไม่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#Status",
     "code_sample": ""
   },
@@ -77514,7 +77528,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBoxService": {
-    "documentation": "",
+    "documentation": "บริการที่จัดการสถานะของ <code>TextBox</code> ของผู้ใช้ระหว่างการเล่นเกม。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBoxService",
     "code_sample": ""
@@ -79417,6 +79431,7 @@
       "LogCustomEvent": "@roblox/globaltype/AnalyticsService.LogCustomEvent",
       "LogEconomyEvent": "@roblox/globaltype/AnalyticsService.LogEconomyEvent",
       "LogFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent",
+      "LogJourneyEvent": "@roblox/globaltype/AnalyticsService.LogJourneyEvent",
       "LogOnboardingFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent",
       "LogProgressionCompleteEvent": "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent",
       "LogProgressionEvent": "@roblox/globaltype/AnalyticsService.LogProgressionEvent",
@@ -79872,23 +79887,73 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogFunnelStepEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0": {
+    "documentation": "ชุดของวิธีการที่ช่วยให้คุณติดตามว่าผู้ใช้มีปฏิสัมพันธ์กับประสบการณ์ของคุณอย่างไร"
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1": {
+    "documentation": "ผู้เล่นที่กระตุ้นเหตุการณ์การเดินทาง."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2": {
+    "documentation": "ชื่อของการเดินทาง ควรจะเหมือนกันสำหรับทุกโหนดใน การเดินทาง ไม่สามารถว่างเปล่าและไม่สามารถมีเครื่องหมายจุลภาค <code>,</code>, เครื่องหมายคำพูดคู่ <code>\"</code>, เครื่องหมายคำพูดเดี่ยว <code>'</code>, หรืออักขระขึ้นบรรทัดใหม่."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3": {
+    "documentation": "ชื่อของโหนดที่ผู้เล่นไปถึงในระหว่างการเดินทาง ไม่สามารถว่างเปล่า ไม่สามารถมีเครื่องหมายจุลภาค <code>,</code>, เครื่องหมายคำพูดคู่ <code>\"</code>, เครื่องหมายคำพูดเดี่ยว <code>'</code>, หรืออักขระขึ้นบรรทัดใหม่ และไม่สามารถเริ่มต้นด้วย <code>__</code> (ขีดล่างคู่) ซึ่งสงวนไว้."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4": {
+    "documentation": "รหัสประจำตัวที่ไม่ซ้ำกันสำหรับเซสชันการเดินทาง ซึ่งควรจะเหมือนกันสำหรับทุกโหนดในเซสชันเดียวของการเดินทาง หากให้มา ไม่สามารถมีเครื่องหมายจุลภาค <code>,</code>, เครื่องหมายคำพูดคู่ <code>\"</code>, เครื่องหมายคำพูดเดี่ยว <code>'</code>, หรือ อักขระขึ้นบรรทัดใหม่."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5": {
+    "documentation": "พจนานุกรมที่กำหนดเองที่ไม่บังคับซึ่งจะให้การแบ่งประเภทใน กราฟที่จัดทำโดย Roblox เท่านั้น คีย์เฉพาะบางอย่างที่จัดทำโดย <code>AnalyticsCustomFieldKeys</code> จะถูกใช้สำหรับการแบ่งประเภทเหล่านี้. จำกัดที่ 8,000 การรวมกันที่ไม่ซ้ำกันของค่าในสามฟิลด์ที่กำหนดเองต่อประสบการณ์."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent": {
+    "documentation": "บันทึกเหตุการณ์การเดินทางที่ใช้ติดตามเส้นทางผู้เล่นที่ไม่เป็นเชิงเส้นผ่าน ประสบการณ์.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1"
+      },
+      {
+        "name": "journeyName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2"
+      },
+      {
+        "name": "nodeName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3"
+      },
+      {
+        "name": "journeySessionId",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4"
+      },
+      {
+        "name": "customFields",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogJourneyEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/0": {
     "documentation": "ชุดของวิธีการที่ช่วยให้คุณติดตามว่าผู้ใช้มีปฏิสัมพันธ์กับประสบการณ์ของคุณอย่างไร"
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/1": {
-    "documentation": "ผู้ใช้ที่กระตุ้นเหตุการณ์"
+    "documentation": "ผู้ใช้ที่กระตุ้นเหตุการณ์."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/2": {
-    "documentation": "หมายเลขขั้นตอนในฟันเนล ควรมีลักษณะที่ไม่ซ้ำกันสำหรับแต่ละขั้นตอนใน ฟันเนล ฟันเนลทั้งหมดเริ่มตั้งแต่ขั้นตอนที่ 1 จำกัดที่ขั้นตอน 1-100. โปรดทราบว่าถ้าขั้นตอนใดๆ ถูกข้าม ขั้นตอนกลางจะถือว่าเสร็จสิ้น"
+    "documentation": "หมายเลขขั้นตอนในฟunnel ควรจะไม่ซ้ำกันสำหรับแต่ละขั้นตอนใน ฟunnel ฟunnel ทุกตัวเริ่มต้นที่ขั้นตอนที่ 1 จำกัดที่ขั้นตอน 1-100. โปรดทราบว่าหากมีการข้ามขั้นตอนใด ๆ ขั้นตอนกลางจะถือว่าทำเสร็จแล้ว."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/3": {
-    "documentation": "ชื่อขั้นตอนในฟันเนลที่เลือกใช้ ฟิลด์นี้ใช้เฉพาะสำหรับวัตถุประสงค์ในการแสดงใน กราฟที่ให้โดย Roblox"
+    "documentation": "ชื่อของขั้นตอนในฟunnel ที่ไม่บังคับ ฟิลด์นี้ใช้สำหรับ วัตถุประสงค์ในการแสดงในกราฟที่จัดทำโดย Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/4": {
-    "documentation": "พจนานุกรมที่เลือกใช้สำหรับฟิลด์กำหนดเองที่จะให้การแบ่งที่แสดงใน กราฟที่ให้โดย Roblox จะใช้เฉพาะคีย์เฉพาะที่จัดเตรียมโดย <code>AnalyticsCustomFieldKeys</code> สำหรับการแบ่งนี้ จำกัดที่ 8,000 การรวมที่ไม่ซ้ำกันของค่าในแต่ละฟิลด์กำหนดเองสามฟิลด์ต่อประสบการณ์"
+    "documentation": "พจนานุกรมที่กำหนดเองที่ไม่บังคับซึ่งจะให้การแบ่งประเภทใน กราฟที่จัดทำโดย Roblox เท่านั้น คีย์เฉพาะบางอย่างที่จัดทำโดย <code>AnalyticsCustomFieldKeys</code> จะถูกใช้สำหรับการแบ่งประเภทเหล่านี้. จำกัดที่ 8,000 การรวมกันที่ไม่ซ้ำกันของค่าในสามฟิลด์ที่กำหนดเองต่อประสบการณ์."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent": {
-    "documentation": "บันทึกเหตุการณ์ที่ใช้เพื่อติดตามการกระทำของผู้ใช้ที่ก้าวผ่านฟันเนลการแนะนำ",
+    "documentation": "บันทึกเหตุการณ์ที่ใช้ติดตามการกระทำของผู้ใช้ที่ก้าวผ่าน ฟunnel การเริ่มต้น.",
     "params": [
       {
         "name": "self",
@@ -79919,22 +79984,22 @@
     "documentation": "ชุดของวิธีการที่ช่วยให้คุณติดตามว่าผู้ใช้มีปฏิสัมพันธ์กับประสบการณ์ของคุณอย่างไร"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/1": {
-    "documentation": "ผู้เล่นที่ทำให้เกิดเหตุการณ์"
+    "documentation": "ผู้เล่นที่กระตุ้นเหตุการณ์"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/2": {
-    "documentation": ""
+    "documentation": "ชื่อของเส้นทางความก้าวหน้าที่เหตุการณ์นี้เป็นของ เช่น โลก, บท, หรือกลุ่มระดับ ซึ่งจะรวมเหตุการณ์ความก้าวหน้าที่เกี่ยวข้องเข้าด้วยกัน ไม่สามารถว่างเปล่าและไม่สามารถมีเครื่องหมายจุลภาค <code>,</code>, เครื่องหมายคำพูดคู่ <code>\"</code>, เครื่องหมายคำพูดเดี่ยว <code>'</code>, หรืออักขระขึ้นบรรทัดใหม่."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/3": {
-    "documentation": ""
+    "documentation": "ระดับตัวเลขที่ผู้เล่นกำลังดำเนินการอยู่ภายใน เส้นทางความก้าวหน้า."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/4": {
-    "documentation": ""
+    "documentation": "ชื่อของระดับที่เกี่ยวข้องกับเหตุการณ์นี้ ฟิลด์นี้ใช้ สำหรับวัตถุประสงค์ในการแสดงในกราฟที่จัดทำโดย Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/5": {
-    "documentation": ""
+    "documentation": "พจนานุกรมที่กำหนดเองที่ไม่บังคับซึ่งจะให้การแบ่งประเภทใน กราฟที่จัดทำโดย Roblox เท่านั้น คีย์เฉพาะบางอย่างที่จัดทำโดย <code>AnalyticsCustomFieldKeys</code> จะถูกใช้สำหรับการแบ่งประเภทเหล่านี้. จำกัดที่ 8,000 การรวมกันที่ไม่ซ้ำกันของค่าในสามฟิลด์ที่กำหนดเองต่อประสบการณ์."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent": {
-    "documentation": "บันทึกเหตุการณ์เมื่อผู้ใช้เสร็จสิ้นการพยายามระดับ",
+    "documentation": "บันทึกเหตุการณ์เมื่อผู้ใช้ได้ทำการพยายามระดับเสร็จสิ้น.",
     "params": [
       {
         "name": "self",
@@ -79969,25 +80034,25 @@
     "documentation": "ชุดของวิธีการที่ช่วยให้คุณติดตามว่าผู้ใช้มีปฏิสัมพันธ์กับประสบการณ์ของคุณอย่างไร"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/1": {
-    "documentation": "ผู้เล่นที่กระตุ้นเหตุการณ์"
+    "documentation": "ผู้เล่นที่กระตุ้นเหตุการณ์."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/2": {
-    "documentation": ""
+    "documentation": "ชื่อของเส้นทางความก้าวหน้าที่เหตุการณ์นี้เป็นของ เช่น โลก, บท, หรือกลุ่มระดับ ซึ่งจะรวมเหตุการณ์ความก้าวหน้าที่เกี่ยวข้องเข้าด้วยกัน ไม่สามารถว่างเปล่าและไม่สามารถมีเครื่องหมายจุลภาค <code>,</code>, เครื่องหมายคำพูดคู่ <code>\"</code>, เครื่องหมายคำพูดเดี่ยว <code>'</code>, หรืออักขระขึ้นบรรทัดใหม่."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/3": {
-    "documentation": ""
+    "documentation": "สถานะความก้าวหน้าที่จะบันทึก ซึ่งให้เป็นค่า <code>AnalyticsProgressionType</code> เช่น <code>Start</code>, <code>Complete</code>, หรือ <code>Fail</code>. วิธีการ <code>AnalyticsService:LogProgressionStartEvent()</code>, <code>AnalyticsService:LogProgressionCompleteEvent()</code>, และ <code>AnalyticsService:LogProgressionFailEvent()</code> เป็น ทางลัดที่ตั้งค่าสถานะนี้ให้คุณ."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/4": {
-    "documentation": ""
+    "documentation": "ระดับตัวเลขที่ผู้เล่นกำลังดำเนินการอยู่ภายใน เส้นทางความก้าวหน้า."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/5": {
-    "documentation": ""
+    "documentation": "ชื่อของระดับที่เกี่ยวข้องกับเหตุการณ์นี้ ฟิลด์นี้ใช้ สำหรับวัตถุประสงค์ในการแสดงในกราฟที่จัดทำโดย Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/6": {
-    "documentation": ""
+    "documentation": "พจนานุกรมที่กำหนดเองที่ไม่บังคับซึ่งจะให้การแบ่งประเภทใน กราฟที่จัดทำโดย Roblox เท่านั้น คีย์เฉพาะบางอย่างที่จัดทำโดย <code>AnalyticsCustomFieldKeys</code> จะถูกใช้สำหรับการแบ่งประเภทเหล่านี้. จำกัดที่ 8,000 การรวมกันที่ไม่ซ้ำกันของค่าในสามฟิลด์ที่กำหนดเองต่อประสบการณ์."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent": {
-    "documentation": "บันทึกเหตุการณ์เมื่อผู้ใช้เริ่ม เสร็จสิ้น หรือล้มเหลวในการพยายามระดับ",
+    "documentation": "บันทึกเหตุการณ์เมื่อผู้ใช้ได้เริ่ม, เสร็จสิ้น, หรือล้มเหลวในการพยายามระดับ.",
     "params": [
       {
         "name": "self",
@@ -80026,22 +80091,22 @@
     "documentation": "ชุดของวิธีการที่ช่วยให้คุณติดตามว่าผู้ใช้มีปฏิสัมพันธ์กับประสบการณ์ของคุณอย่างไร"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/1": {
-    "documentation": "ผู้ใช้ที่กระตุ้นเหตุการณ์"
+    "documentation": "ผู้ใช้ที่กระตุ้นเหตุการณ์."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/2": {
-    "documentation": ""
+    "documentation": "ชื่อของเส้นทางความก้าวหน้าที่เหตุการณ์นี้เป็นของ เช่น โลก, บท, หรือกลุ่มระดับ ซึ่งจะรวมเหตุการณ์ความก้าวหน้าที่เกี่ยวข้องเข้าด้วยกัน ไม่สามารถว่างเปล่าและไม่สามารถมีเครื่องหมายจุลภาค <code>,</code>, เครื่องหมายคำพูดคู่ <code>\"</code>, เครื่องหมายคำพูดเดี่ยว <code>'</code>, หรืออักขระขึ้นบรรทัดใหม่."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/3": {
-    "documentation": ""
+    "documentation": "ระดับตัวเลขที่ผู้เล่นกำลังดำเนินการอยู่ภายใน เส้นทางความก้าวหน้า."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/4": {
-    "documentation": ""
+    "documentation": "ชื่อของระดับที่เกี่ยวข้องกับเหตุการณ์นี้ ฟิลด์นี้ใช้ สำหรับวัตถุประสงค์ในการแสดงในกราฟที่จัดทำโดย Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/5": {
-    "documentation": ""
+    "documentation": "พจนานุกรมที่กำหนดเองที่ไม่บังคับซึ่งจะให้การแบ่งประเภทใน กราฟที่จัดทำโดย Roblox เท่านั้น คีย์เฉพาะบางอย่างที่จัดทำโดย <code>AnalyticsCustomFieldKeys</code> จะถูกใช้สำหรับการแบ่งประเภทเหล่านี้. จำกัดที่ 8,000 การรวมกันที่ไม่ซ้ำกันของค่าในสามฟิลด์ที่กำหนดเองต่อประสบการณ์."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent": {
-    "documentation": "บันทึกเหตุการณ์เมื่อผู้ใช้ล้มเหลวในการพยายามระดับ",
+    "documentation": "บันทึกเหตุการณ์เมื่อผู้ใช้ได้ล้มเหลวในการพยายามระดับ.",
     "params": [
       {
         "name": "self",
@@ -80076,22 +80141,22 @@
     "documentation": "ชุดของวิธีการที่ช่วยให้คุณติดตามว่าผู้ใช้มีปฏิสัมพันธ์กับประสบการณ์ของคุณอย่างไร"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/1": {
-    "documentation": "ผู้เล่นที่กระตุ้นเหตุการณ์"
+    "documentation": "ผู้เล่นที่กระตุ้นเหตุการณ์."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/2": {
-    "documentation": ""
+    "documentation": "ชื่อของเส้นทางความก้าวหน้าที่เหตุการณ์นี้เป็นของ เช่น โลก, บท, หรือกลุ่มระดับ ซึ่งจะรวมเหตุการณ์ความก้าวหน้าที่เกี่ยวข้องเข้าด้วยกัน ไม่สามารถว่างเปล่าและไม่สามารถมีเครื่องหมายจุลภาค <code>,</code>, เครื่องหมายคำพูดคู่ <code>\"</code>, เครื่องหมายคำพูดเดี่ยว <code>'</code>, หรืออักขระขึ้นบรรทัดใหม่."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/3": {
-    "documentation": ""
+    "documentation": "ระดับตัวเลขที่ผู้เล่นกำลังดำเนินการอยู่ภายใน เส้นทางความก้าวหน้า."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/4": {
-    "documentation": ""
+    "documentation": "ชื่อของระดับที่เกี่ยวข้องกับเหตุการณ์นี้ ฟิลด์นี้ใช้ สำหรับวัตถุประสงค์ในการแสดงในกราฟที่จัดทำโดย Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/5": {
-    "documentation": ""
+    "documentation": "พจนานุกรมที่กำหนดเองที่ไม่บังคับซึ่งจะให้การแบ่งประเภทใน กราฟที่จัดทำโดย Roblox เท่านั้น คีย์เฉพาะบางอย่างที่จัดทำโดย <code>AnalyticsCustomFieldKeys</code> จะถูกใช้สำหรับการแบ่งประเภทเหล่านี้. จำกัดที่ 8,000 การรวมกันที่ไม่ซ้ำกันของค่าในสามฟิลด์ที่กำหนดเองต่อประสบการณ์."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent": {
-    "documentation": "บันทึกเหตุการณ์เมื่อผู้ใช้เริ่มการพยายามระดับ",
+    "documentation": "บันทึกเหตุการณ์เมื่อผู้ใช้ได้เริ่มการพยายามระดับ.",
     "params": [
       {
         "name": "self",
@@ -80129,30 +80194,29 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService": {
-    "documentation": "",
+    "documentation": "บริการด้านเซิร์ฟเวอร์สำหรับการส่งการจับภาพของผู้เล่นไปยังการตรวจสอบเนื้อหา และรับผลลัพธ์แบบอะซิงโครนัส",
     "keys": {
       "BindReviewableContentEventProcessor": "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor",
       "CreateReviewableContentAsync": "@roblox/globaltype/ModerationService.CreateReviewableContentAsync",
-      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey",
-      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync"
+      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService",
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/0": {
-    "documentation": ""
+    "documentation": "บริการด้านเซิร์ฟเวอร์สำหรับการส่งการจับภาพของผู้เล่นไปยังการตรวจสอบเนื้อหา และรับผลลัพธ์แบบอะซิงโครนัส"
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/1": {
-    "documentation": ""
+    "documentation": "กำหนดลำดับที่โปรเซสเซอร์นี้ถูกเรียกใช้เมื่อเปรียบเทียบกับ โปรเซสเซอร์ที่ผูกไว้ตัวอื่น"
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/2": {
-    "documentation": ""
+    "documentation": "ฟังก์ชันที่ถูกเรียกใช้สำหรับแต่ละเหตุการณ์เนื้อหาที่สามารถตรวจสอบได้ มันจะได้รับ ตารางที่อธิบายเหตุการณ์และควรคืนค่า <code>true</code> เพื่อยอมรับเหตุการณ์ หรือ <code>false</code> เพื่อทิ้งไว้สำหรับการส่งคืน"
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/return/0": {
-    "documentation": ""
+    "documentation": "การเชื่อมต่อที่สามารถถูกตัดการเชื่อมต่อเพื่อยกเลิกการลงทะเบียนโปรเซสเซอร์"
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor": {
-    "documentation": "",
+    "documentation": "ลงทะเบียนโปรเซสเซอร์ด้านเซิร์ฟเวอร์ โดยเรียงตาม <code>priority</code> ซึ่งจะถูกเรียกใช้ สำหรับแต่ละเหตุการณ์การตรวจสอบเนื้อหาที่สามารถตรวจสอบได้",
     "params": [
       {
         "name": "self",
@@ -80174,16 +80238,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/0": {
-    "documentation": ""
+    "documentation": "บริการด้านเซิร์ฟเวอร์สำหรับการส่งการจับภาพของผู้เล่นไปยังการตรวจสอบเนื้อหา และรับผลลัพธ์แบบอะซิงโครนัส"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/1": {
-    "documentation": ""
+    "documentation": "ตารางของพารามิเตอร์ที่อธิบายเนื้อหาที่จะตรวจสอบ รวมถึง <code>Id</code> ที่เป็นทางเลือก, <code>Ref</code> ที่เป็นทางเลือก และรายการ <code>Content</code> ของรายการภาพหรือ วิดีโอ"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/return/0": {
-    "documentation": ""
+    "documentation": "ID ของเนื้อหาที่สามารถตรวจสอบได้ที่สร้างขึ้น"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync": {
-    "documentation": "",
+    "documentation": "ลงทะเบียนการจับภาพที่สร้างโดยผู้ใช้สำหรับการตรวจสอบเนื้อหาและกระตุ้นให้ ลูกค้าที่เป็นเจ้าของอัปโหลดมัน โดยคืนค่า ID ของเนื้อหาที่สามารถตรวจสอบได้",
     "params": [
       {
         "name": "self",
@@ -80201,16 +80265,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/0": {
-    "documentation": ""
+    "documentation": "บริการด้านเซิร์ฟเวอร์สำหรับการส่งการจับภาพของผู้เล่นไปยังการตรวจสอบเนื้อหา และรับผลลัพธ์แบบอะซิงโครนัส"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/1": {
-    "documentation": ""
+    "documentation": "ประเภท <code>Content</code> ที่อ้างถึงการจับภาพภาพหน้าจอหรือวิดีโอ (URI ชั่วคราวจาก <code>CaptureService:CaptureScreenshot()</code>, <code>ScreenshotCapture</code>, หรือ <code>VideoCapture</code>)."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0": {
-    "documentation": ""
+    "documentation": "คีย์เนื้อหาที่ไม่โปร่งใสซึ่งระบุการจับภาพ"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey": {
-    "documentation": "",
+    "documentation": "คืนค่าคีย์ที่ไม่โปร่งใสซึ่งระบุการจับภาพภาพหน้าจอหรือวิดีโอสำหรับ ใช้กับ <code>CreateReviewableContentAsync()</code>.",
     "params": [
       {
         "name": "self",
@@ -80225,28 +80289,6 @@
       "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#CreateReviewableContentKey",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0"
-      },
-      {
-        "name": "config",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalRequestReviewableContentReviewAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation": {
@@ -87366,7 +87408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "ปรับแต่งลักษณะของข้อความแชทข้อความเดียวที่แสดงใน หน้าต่างแชท。",
     "keys": {
       "FontFace": "@roblox/globaltype/ChatWindowMessageProperties.FontFace",
       "PrefixTextProperties": "@roblox/globaltype/ChatWindowMessageProperties.PrefixTextProperties",
@@ -97381,6 +97423,7 @@
       "ChatVersion": "@roblox/globaltype/TextChatService.ChatVersion",
       "CreateDefaultCommands": "@roblox/globaltype/TextChatService.CreateDefaultCommands",
       "CreateDefaultTextChannels": "@roblox/globaltype/TextChatService.CreateDefaultTextChannels",
+      "PlatformIntegratedChat": "@roblox/globaltype/TextChatService.PlatformIntegratedChat",
       "CanUserChatAsync": "@roblox/globaltype/TextChatService.CanUserChatAsync",
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
       "CanUsersDirectChatAsync": "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync",
@@ -97413,14 +97456,19 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#CreateDefaultTextChannels",
     "code_sample": ""
   },
+  "@roblox/globaltype/TextChatService.PlatformIntegratedChat": {
+    "documentation": "กำหนดว่าการแชทที่รวมเข้ากับแพลตฟอร์มเปิดใช้งานสำหรับประสบการณ์หรือไม่ ต้องการความปลอดภัยของ <code>RobloxScript</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#PlatformIntegratedChat",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/0": {
     "documentation": "บริการจัดการการสนทนาแบบข้อความภายในประสบการณ์."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "หมายเลขผู้ใช้ <code>Player.UserId</code> ของผู้ใช้ที่กำลังตรวจสอบสิทธิ์การแชท."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "ค่าบูลีนที่บ่งชี้ว่าผู้ใช้มีสิทธิ์ในการแชทหรือไม่."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync": {
     "documentation": "กำหนดว่าผู้ใช้มีสิทธิ์ในการแชทในประสบการณ์หรือไม่.",
@@ -97444,13 +97492,13 @@
     "documentation": "บริการจัดการการสนทนาแบบข้อความภายในประสบการณ์."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "หมายเลขผู้ใช้ <code>Player.UserId</code> ของผู้ส่งข้อความที่เป็นไปได้."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": ""
+    "documentation": "หมายเลขผู้ใช้ <code>Player.UserId</code> ของผู้รับข้อความที่เป็นไปได้."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "ค่าบูลีนที่บ่งชี้ว่าผู้ใช้ทั้งสองสามารถแลกเปลี่ยนข้อความได้หรือไม่."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync": {
     "documentation": "กำหนดว่าผู้ใช้สองคนสามารถรับข้อความจากกันและกันได้หรือไม่.",
@@ -99965,7 +100013,7 @@
     "documentation": "ไอดีของผลิตภัณฑ์นักพัฒนาที่คุณต้องการมอบเป็นรางวัล。"
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/return/0": {
-    "documentation": ""
+    "documentation": "เป็น <code>AdReward</code> ที่กำหนดค่าเป็นรางวัลผลิตภัณฑ์นักพัฒนาสำหรับ ผลิตภัณฑ์ที่ระบุ."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
     "documentation": "สร้าง <code>AdReward</code> เพื่อมอบให้กับผู้ใช้ที่รับชมโฆษณาวิดีโอ。",
@@ -100050,7 +100098,7 @@
     "documentation": "บริการที่รับผิดชอบการโฆษณาภายในประสบการณ์。"
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/1": {
-    "documentation": ""
+    "documentation": "<code>GuiButton</code> ที่จะติดตามเป็นโอกาสโฆษณาวิดีโอที่ได้รับรางวัล. ต้องเป็นลูกหลานของ <code>ScreenGui</code>."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/2": {
     "documentation": "ไอดีของตำแหน่งของโฆษณาวิดีโอที่มีรางวัลภายใน ประสบการณ์ อนุญาตให้รายงานเกี่ยวกับประสิทธิภาพของตำแหน่งโฆษณาแต่ละอัน。"
@@ -100164,10 +100212,10 @@
     "documentation": "บริการที่รับผิดชอบการโฆษณาภายในประสบการณ์。"
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/1": {
-    "documentation": ""
+    "documentation": "อินสแตนซ์ที่ต้องหยุดการติดตาม นี่ควรเป็นอินสแตนซ์ที่คุณ เคยส่งไปยัง <code>RegisterAdOpportunityAsync()</code>."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity": {
-    "documentation": "",
+    "documentation": "หยุดการติดตาม <code>instance</code> ที่เคยลงทะเบียนกับ <code>RegisterAdOpportunityAsync</code>.",
     "params": [
       {
         "name": "self",
@@ -107666,7 +107714,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.AdLabelClicked": {
-    "documentation": "",
+    "documentation": "ผู้เล่นคลิกที่ป้าย \"Sponsored\" บนการแสดงผลโฆษณา ซึ่งเปิด หน้าต่างการเปิดเผยข้อมูลโฆษณาที่แสดงข้อมูลผู้โฆษณาและผู้จ่ายเงิน.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107676,7 +107724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.VolumeButtonClicked": {
-    "documentation": "",
+    "documentation": "ผู้เล่นคลิกที่ปุ่มเปลี่ยนเสียงบนการแสดงผลโฆษณา ซึ่งจะปิดเสียง หรือเปิดเสียงของโฆษณาวิดีโอ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107686,7 +107734,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.FullscreenButtonClicked": {
-    "documentation": "",
+    "documentation": "ผู้เล่นคลิกที่ปุ่มเปลี่ยนเป็นโหมดเต็มหน้าจอ ซึ่งจะซูมกล้อง ไปยังมุมมองที่อยู่กลางของพื้นผิวโฆษณาและเปิดเสียง.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107696,7 +107744,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayButtonClicked": {
-    "documentation": "",
+    "documentation": "ผู้เล่นคลิกที่ปุ่มเล่นบนการแสดงผลโฆษณา หากโฆษณาอยู่ในโหมดเต็มหน้าจอแล้ว การเล่นจะกลับมา; มิฉะนั้นจะเข้าสู่โหมดเต็มหน้าจอซึ่ง จะเริ่ม (หรือกลับมา) วิดีโอ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107706,7 +107754,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseButtonClicked": {
-    "documentation": "",
+    "documentation": "ผู้เล่นคลิกที่ปุ่มหยุดชั่วคราวในขณะที่โฆษณาวิดีโอกำลังเล่นใน โหมดเต็มหน้าจอ ซึ่งจะหยุดการเล่นวิดีโอ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107716,7 +107764,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.CloseButtonClicked": {
-    "documentation": "",
+    "documentation": "ผู้เล่นคลิกที่ปุ่มปิดบนการแสดงผลวิดีโอเต็มหน้าจอ ซึ่ง ออกจากโหมดเต็มหน้าจอและกลับไปยังตำแหน่งกล้องปกติ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107726,7 +107774,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.WhyThisAdClicked": {
-    "documentation": "",
+    "documentation": "ผู้เล่นคลิกที่ลิงก์ \"ทำไมถึงเป็นโฆษณานี้?\" ซึ่งแสดงหน้าต่างการเปิดเผย EUDSA (European Digital Services Act) ที่แสดงชื่อผู้โฆษณา และผู้จ่ายเงินสำหรับโฆษณาในปัจจุบัน.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107736,7 +107784,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayEventTriggered": {
-    "documentation": "",
+    "documentation": "เหตุการณ์เล่น/กลับมาเริ่มที่ระบบเริ่มต้นซึ่งล้างสถานะการหยุดชั่วคราว และกลับมาเล่นวิดีโอหากสตรีมเปิดอยู่.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107746,7 +107794,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseEventTriggered": {
-    "documentation": "",
+    "documentation": "เหตุการณ์หยุดชั่วคราวที่เริ่มต้นโดยระบบ ซึ่งใช้เมื่อเอนจินต้องการหยุดชั่วคราว วิดีโอ (เช่น เมื่อเมนูแบบเลื่อนเปิดขึ้นเหนือโฆษณา). ป้องกัน การเล่นอัตโนมัติตามการมองเห็นจากการกลับมาเล่นจนกว่าจะมีเหตุการณ์ระบบที่เกี่ยวข้อง ล้างการหยุดชั่วคราวนั้น.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107756,7 +107804,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIEventType": {
-    "documentation": "",
+    "documentation": "อธิบายประเภทของการโต้ตอบของผู้ใช้หรือเหตุการณ์ของระบบที่เกิดขึ้นบน การแสดงผลโฆษณาแบบ immersive ของ <code>AdGui</code>.",
     "keys": {
       "AdLabelClicked": "@roblox/enum/AdUIEventType.AdLabelClicked",
       "VolumeButtonClicked": "@roblox/enum/AdUIEventType.VolumeButtonClicked",
@@ -111383,7 +111431,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ShowAdResult.InsufficientMemory": {
-    "documentation": "",
+    "documentation": "อุปกรณ์ไม่มีหน่วยความจำวิดีโอเพียงพอที่จะแสดงโฆษณา",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -111393,7 +111441,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ShowAdResult": {
-    "documentation": "",
+    "documentation": "รหัสผลลัพธ์ที่ส่งคืนโดย <code>AdService:ShowRewardedVideoAdAsync()</code> แสดงถึงว่าโฆษณาวิดีโอที่ได้รับรางวัลเสร็จสมบูรณ์อย่างสำเร็จหรือไม่ หรือทำไมถึงไม่เสร็จสมบูรณ์",
     "keys": {
       "ShowCompleted": "@roblox/enum/ShowAdResult.ShowCompleted",
       "AdNotReady": "@roblox/enum/ShowAdResult.AdNotReady",
@@ -114689,7 +114737,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsLogLevel.Information": {
-    "documentation": "",
+    "documentation": "ใช้สำหรับข้อความข้อมูลทั่วไปที่เน้นความก้าวหน้าหรือการเปลี่ยนแปลงสถานะ ระหว่างการทำงานปกติ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114729,7 +114777,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsLogLevel": {
-    "documentation": "",
+    "documentation": "ระบุระดับความรุนแรงของเหตุการณ์บันทึกการวิเคราะห์ที่ส่งไปยัง <code>AnalyticsService:FireLogEvent()</code>.",
     "keys": {
       "Trace": "@roblox/enum/AnalyticsLogLevel.Trace",
       "Debug": "@roblox/enum/AnalyticsLogLevel.Debug",
@@ -114815,7 +114863,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PublicChat": {
-    "documentation": "",
+    "documentation": "ระบุว่าสตริงจะมองเห็นได้สำหรับผู้เล่นทุกคนหรือผู้ชมสาธารณะกว้าง โดยใช้ระดับความเข้มงวดสูงสุดในการกรองข้อความ",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114825,7 +114873,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PrivateChat": {
-    "documentation": "",
+    "documentation": "ระบุว่าสตริงเป็นส่วนหนึ่งของการสนทนาส่วนตัวระหว่างผู้ใช้เฉพาะ โดยใช้การกรองที่เหมาะสมสำหรับการแลกเปลี่ยนแบบหนึ่งต่อหนึ่งหรือกลุ่มเล็ก",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114835,7 +114883,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.TextFilterContext": {
-    "documentation": "",
+    "documentation": "ระบุว่าข้อความที่ส่งไปยัง <code>TextService:FilterStringAsync()</code> หรือ <code>TextService:FilterAndTranslateStringAsync()</code> มีจุดประสงค์สำหรับผู้ชมสาธารณะ หรือส่วนตัว โดยควบคุมความเข้มงวดของการกรองข้อความในเบื้องหลัง",
     "keys": {
       "PublicChat": "@roblox/enum/TextFilterContext.PublicChat",
       "PrivateChat": "@roblox/enum/TextFilterContext.PrivateChat"
@@ -115938,38 +115986,28 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#None",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.LOD": {
-    "documentation": "จัดสีแต่ละเมชตามระดับรายละเอียดปัจจุบันโดยใช้แผนที่ความร้อนจากน้ำเงินไปแดง. สีน้ำเงินแสดงถึงรายละเอียดต่ำสุดและสีที่อบอุ่นแสดงถึง รายละเอียดที่สูงขึ้น มีประโยชน์ในการตรวจสอบว่าเมชที่อยู่ไกล กำลังสตรีมที่ความละเอียดต่ำ.",
+  "@roblox/enum/SlimTintMode.LevelOfDetail": {
+    "documentation": "สีแต่ละเมชตามระดับความละเอียดปัจจุบันของมัน สีน้ำเงินคือระดับที่หยาบที่สุด สีแดงคือระดับที่ละเอียดที่สุด และระดับอื่น ๆ ระหว่างนั้นจะถูกแมพไปยังสีที่กำหนด สีที่กำหนดจะหมายถึงระดับ LOD เดียวกันในทุกเมช โดยมีข้อยกเว้นว่า LOD ที่สูงที่สุดที่มีอยู่ของแต่ละเมชจะแสดงเป็นสีแดงเสมอ",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LOD",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LevelOfDetail",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.Meshes": {
-    "documentation": "กำหนดสีที่แตกต่างกันให้กับแต่ละเมชภายในโมเดล มีประโยชน์ ในการระบุขอบเขตของเมชและตรวจสอบว่าโมเดลถูกแบ่งออกเป็น ส่วนเมชแยกต่างหากอย่างไร.",
+  "@roblox/enum/SlimTintMode.DataModelState": {
+    "documentation": "สีโมเดล SLIM ตามว่าตัวอย่าง DataModel ของพวกเขาถูกสตรีมเข้าหรือออก สีเขียวแสดงว่าถูกสตรีมเข้า (DataModel เต็มรูปแบบมีอยู่); สีเหลืองแสดงว่าถูกสตรีมออก (เป็นเพียงตัวแทน) ทั้งสองยังคงถูกเรนเดอร์ผ่าน SLIM.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Meshes",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTintMode.Zone": {
-    "documentation": "จัดสีเมชตามโซนการสตรีม สีเขียวแสดงถึงโซนความละเอียดสูง ที่ DataModel มีอยู่; สีเหลืองแสดงถึงโซนความละเอียดต่ำ ที่ DataModel ไม่มีอยู่).",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Zone",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#DataModelState",
     "code_sample": ""
   },
   "@roblox/enum/SlimTintMode.TranscoderStatus": {
-    "documentation": "กำหนดสีให้กับโมเดล SLIM แต่ละตัวตาม <code>SlimTranscoderStatus</code> ของมัน ติดตามลิงก์ เพื่อดูว่าสีใดตรงกับสถานะใด.",
+    "documentation": "สีโมเดล SLIM แต่ละตัวตาม <code>SlimTranscoderStatus</code> ของมัน ติดตามลิงก์เพื่อดูว่าสีใดแมพไปยังสถานะใด.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -115982,9 +116020,8 @@
     "documentation": "กำหนดโหมดการจัดสีที่ใช้โดย SLIM debug tint overlay ใน Developer Console.",
     "keys": {
       "None": "@roblox/enum/SlimTintMode.None",
-      "LOD": "@roblox/enum/SlimTintMode.LOD",
-      "Meshes": "@roblox/enum/SlimTintMode.Meshes",
-      "Zone": "@roblox/enum/SlimTintMode.Zone",
+      "LevelOfDetail": "@roblox/enum/SlimTintMode.LevelOfDetail",
+      "DataModelState": "@roblox/enum/SlimTintMode.DataModelState",
       "TranscoderStatus": "@roblox/enum/SlimTintMode.TranscoderStatus"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode",
@@ -116315,7 +116352,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnCreatingChatWindow": {
-    "documentation": "",
+    "documentation": "การเรียกกลับเฉพาะไคลเอนต์ที่ถูกเรียกก่อนที่หน้าต่างแชทจะถูกสร้าง, อนุญาตให้มีการตั้งค่าที่กำหนดเอง.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116325,7 +116362,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientSendingMessage": {
-    "documentation": "",
+    "documentation": "การเรียกกลับเฉพาะไคลเอนต์ที่สงวนไว้สำหรับเมื่อไคลเอนต์ส่งข้อความ; ไม่ ถูกเรียกใช้งานในขณะนี้.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116335,7 +116372,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientFormattingMessage": {
-    "documentation": "",
+    "documentation": "การเรียกกลับเฉพาะไคลเอนต์ที่ถูกเรียกก่อนที่ข้อความจะแสดง, อนุญาตให้มีการ ปรับเปลี่ยนข้อมูลการแสดงผล.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116345,7 +116382,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnServerReceivingMessage": {
-    "documentation": "",
+    "documentation": "การเรียกกลับเฉพาะเซิร์ฟเวอร์ที่ถูกเรียกเมื่อเซิร์ฟเวอร์ได้รับข้อความจาก ผู้พูด, อนุญาตให้มีการปรับเปลี่ยนหรือระงับข้อความ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116355,7 +116392,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatCallbackType": {
-    "documentation": "",
+    "documentation": "ระบุจุดเชื่อมต่อในระบบแชท Luau เก่าที่ใช้กับ <code>Chat:RegisterChatCallback()</code> และ <code>Chat:InvokeChatCallback()</code>.",
     "keys": {
       "OnCreatingChatWindow": "@roblox/enum/ChatCallbackType.OnCreatingChatWindow",
       "OnClientSendingMessage": "@roblox/enum/ChatCallbackType.OnClientSendingMessage",
@@ -120765,7 +120802,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.None": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> ไม่มีโฆษณาที่สร้างสรรค์โหลดและไม่ได้แสดงเนื้อหาโฆษณา。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120775,7 +120812,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Image": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> กำลังแสดงโฆษณาที่สร้างสรรค์เป็นภาพนิ่ง。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120785,7 +120822,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Video": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> กำลังแสดงโฆษณาที่สร้างสรรค์เป็นวิดีโอ。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120795,7 +120832,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIType": {
-    "documentation": "",
+    "documentation": "อธิบายประเภทของโฆษณาที่สร้างสรรค์ซึ่งกำลังแสดงโดย <code>AdGui</code>。",
     "keys": {
       "None": "@roblox/enum/AdUIType.None",
       "Image": "@roblox/enum/AdUIType.Image",
@@ -123706,7 +123743,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Unknown": {
-    "documentation": "",
+    "documentation": "สถานะการจำกัดการแชทของแพลตฟอร์มสำหรับผู้ใช้ยังไม่ได้รับการกำหนด; นี่คือค่าดีฟอลต์สำหรับคุณสมบัติ ChatRestrictionStatus ทั้งหมด。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123716,7 +123753,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.NotRestricted": {
-    "documentation": "",
+    "documentation": "แพลตฟอร์มของบุคคลที่สามได้ยืนยันว่าผู้ใช้ไม่มีการจำกัดการแชทที่มีผลบังคับใช้。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123726,7 +123763,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Restricted": {
-    "documentation": "",
+    "documentation": "แพลตฟอร์มของบุคคลที่สามได้รายงานว่าผู้ใช้ถูกจำกัดจากการแชท โดยปกติจะเกิดจากการควบคุมของผู้ปกครองหรือการตั้งค่าการสื่อสารของแพลตฟอร์ม。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123736,7 +123773,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatRestrictionStatus": {
-    "documentation": "",
+    "documentation": "อธิบายสถานะการจำกัดการแชทที่แพลตฟอร์มของบุคคลที่สามรายงานสำหรับผู้ใช้。",
     "keys": {
       "Unknown": "@roblox/enum/ChatRestrictionStatus.Unknown",
       "NotRestricted": "@roblox/enum/ChatRestrictionStatus.NotRestricted",
@@ -128179,57 +128216,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SurfaceType",
     "code_sample": ""
   },
-  "@roblox/enum/WebSocketState.Connecting": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Connecting",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Open": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Open",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closing": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closing",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closed": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closed",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.WebSocketState": {
-    "documentation": "",
-    "keys": {
-      "Connecting": "@roblox/enum/WebSocketState.Connecting",
-      "Open": "@roblox/enum/WebSocketState.Open",
-      "Closing": "@roblox/enum/WebSocketState.Closing",
-      "Closed": "@roblox/enum/WebSocketState.Closed"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState",
-    "code_sample": ""
-  },
   "@roblox/enum/RecommendationActionType.AddReaction": {
     "documentation": "ผู้ใช้ได้เพิ่มปฏิกิริยาต่อสิ่งของ เช่น \"ชอบ\".",
     "keys": {
@@ -129627,7 +129613,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField01": {
-    "documentation": "",
+    "documentation": "คีย์ฟิลด์ที่กำหนดเองแรก ใช้เพื่อให้มิติการแยกย่อยใน กราฟวิเคราะห์ที่จัดเตรียมโดย Roblox。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129637,7 +129623,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField02": {
-    "documentation": "",
+    "documentation": "คีย์ฟิลด์ที่กำหนดเองที่สอง ใช้เพื่อให้มิติการแยกย่อยใน กราฟวิเคราะห์ที่จัดเตรียมโดย Roblox。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129647,7 +129633,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField03": {
-    "documentation": "",
+    "documentation": "คีย์ฟิลด์ที่กำหนดเองที่สาม ใช้เพื่อให้มิติการแยกย่อยใน กราฟวิเคราะห์ที่จัดเตรียมโดย Roblox。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131738,7 +131724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextChatMessageStatus.ModerationTimeout": {
-    "documentation": "",
+    "documentation": "ไม่สามารถส่งข้อความได้เนื่องจากผู้ใช้มีการหมดเวลาการควบคุมที่ใช้งานอยู่ในแชท.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131863,7 +131849,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdAvailabilityResult": {
-    "documentation": "",
+    "documentation": "ระบุว่าโฆษณามีให้บริการหรือเหตุผลที่ไม่สามารถแสดงได้。",
     "keys": {
       "IsAvailable": "@roblox/enum/AdAvailabilityResult.IsAvailable",
       "DeviceIneligible": "@roblox/enum/AdAvailabilityResult.DeviceIneligible",
@@ -132649,7 +132635,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Default": {
-    "documentation": "",
+    "documentation": "สีพื้นฐานที่ใช้สำหรับข้อความสคริปต์ที่ไม่ตรงกับหมวดหมู่ไวยากรณ์ที่เฉพาะเจาะจงใด ๆ。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132659,7 +132645,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Operator": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับโทเค็นตัวดำเนินการเช่น <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>==</code>, และ <code>..</code> ในสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132669,7 +132655,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Number": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับโทเค็นตัวเลขในสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132679,7 +132665,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.String": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับโทเค็นสตริงลิเทอรัล รวมถึงสตริงที่มีเครื่องหมายคำพูดและลิเทอรัลสตริงยาว。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132689,7 +132675,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Comment": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับโทเค็นความคิดเห็น (ความคิดเห็นแบบบรรทัดเดียว <code>--</code> และความคิดเห็นแบบบล็อก <code>--[[ ]]</code>) ในสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132699,7 +132685,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Keyword": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับคำสำคัญที่สงวนไว้ของ Luau เช่น <code>if</code>, <code>then</code>, <code>else</code>, <code>do</code>, <code>end</code>, <code>return</code>, และ <code>while</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132709,7 +132695,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Builtin": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับฟังก์ชันในตัวและตัวระบุของไลบรารีมาตรฐานในสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132719,7 +132705,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Method": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับตัวระบุการเรียกใช้เมธอดในสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132729,7 +132715,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Property": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับตัวระบุการเข้าถึงคุณสมบัติ (โทเค็นที่ตามหลังตัวดำเนินการ <code>.</code>) ในสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132739,7 +132725,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Nil": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับโทเค็นลิเทอรัล <code>nil</code> ในสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132749,7 +132735,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bool": {
-    "documentation": "",
+    "documentation": "สีพื้นฐานที่ใช้เพื่อเน้นลิเทอรัลบูลีน (<code>true</code> และ <code>false</code>) ในสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132759,7 +132745,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Function": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับโทเค็นคำสำคัญ <code>function</code> ในการประกาศฟังก์ชัน。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132769,7 +132755,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Local": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับโทเค็นคำสำคัญ <code>local</code> ในการประกาศตัวแปรและฟังก์ชันท้องถิ่น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132779,7 +132765,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Self": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับโทเค็นตัวระบุ <code>self</code> ในร่างกายของเมธอด。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132789,7 +132775,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.LuauKeyword": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับคำสำคัญการอนุญาตประเภทเฉพาะของ Luau เช่น <code>type</code> และ <code>typeof</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132799,7 +132785,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FunctionName": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับตัวระบุที่ตั้งชื่อฟังก์ชันในการประกาศของมัน。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132809,7 +132795,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.TODO": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับเครื่องหมาย <code>TODO</code> ที่พบภายในความคิดเห็นในสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132819,7 +132805,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Background": {
-    "documentation": "",
+    "documentation": "สีพื้นหลังหลักของแคนวาส Script Editor。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132829,7 +132815,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionText": {
-    "documentation": "",
+    "documentation": "สีพื้นหน้าสำหรับข้อความภายในช่วงที่เลือกใน Script Editor。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132839,7 +132825,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionBackground": {
-    "documentation": "",
+    "documentation": "สีพื้นหลังที่เน้นสำหรับช่วงข้อความที่เลือกใน Script Editor。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132849,7 +132835,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FindSelectionBackground": {
-    "documentation": "",
+    "documentation": "สีพื้นหลังที่เน้นที่ใช้กับช่วงข้อความที่ตรงกันจากการค้นหาหรือการแทนที่。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132859,7 +132845,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MatchingWordBackground": {
-    "documentation": "",
+    "documentation": "สีพื้นหลังที่เน้นที่ใช้กับการเกิดขึ้นทั้งหมดของคำที่อยู่ใต้เคอร์เซอร์เมื่อการเน้นคำเปิดใช้งาน。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132869,7 +132855,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Warning": {
-    "documentation": "",
+    "documentation": "สีที่ใช้สำหรับเครื่องหมายการวินิจฉัยที่มีความรุนแรงเตือนและเส้นใต้ในสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132879,7 +132865,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Error": {
-    "documentation": "",
+    "documentation": "สีที่ใช้สำหรับเครื่องหมายการวินิจฉัยที่มีความรุนแรงผิดพลาดและเส้นใต้ในสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132889,7 +132875,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Info": {
-    "documentation": "",
+    "documentation": "สีที่ใช้สำหรับเครื่องหมายการวินิจฉัยที่มีความรุนแรงข้อมูลในสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132899,7 +132885,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Hint": {
-    "documentation": "",
+    "documentation": "สีที่ใช้สำหรับเครื่องหมายการวินิจฉัยที่มีความรุนแรงคำแนะนำในสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132909,7 +132895,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Whitespace": {
-    "documentation": "",
+    "documentation": "สีที่ใช้ในการแสดงอักขระช่องว่างที่มองเห็นได้ (ช่องว่างและแท็บ) เมื่อเปิดใช้งานตัวเลือกการแสดงนั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132919,7 +132905,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.ActiveLine": {
-    "documentation": "",
+    "documentation": "สีพื้นหลังที่เน้นที่ใช้กับบรรทัดที่มีเคอร์เซอร์ข้อความอยู่ในขณะนี้。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132929,7 +132915,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerCurrentLine": {
-    "documentation": "",
+    "documentation": "สีพื้นหลังที่เน้นสำหรับบรรทัดที่ดีบักเกอร์หยุดชั่วคราวอยู่ในขณะนี้。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132939,7 +132925,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerErrorLine": {
-    "documentation": "",
+    "documentation": "สีพื้นหลังที่เน้นสำหรับบรรทัดที่ทำให้เกิดข้อผิดพลาดระหว่างการดีบัก。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132949,7 +132935,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Ruler": {
-    "documentation": "",
+    "documentation": "สีของเส้นแนวตั้งที่วาดที่ขีดจำกัดความกว้างของอักขระที่กำหนดใน Script Editor。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132959,7 +132945,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bracket": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับอักขระวงเล็บเช่น <code>(</code>, <code>)</code>, <code>[</code>, <code>]</code>, <code>{</code>, และ <code>}</code> ในสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132969,7 +132955,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Type": {
-    "documentation": "",
+    "documentation": "สีที่ใช้กับโทเค็นชื่อประเภทของ Luau ในการอนุญาตและการประกาศประเภท。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132979,7 +132965,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuPrimaryText": {
-    "documentation": "",
+    "documentation": "สีข้อความหลักสำหรับรายการที่แสดงในป๊อปอัพการเติมอัตโนมัติและเมนูบริบท。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132989,7 +132975,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSecondaryText": {
-    "documentation": "",
+    "documentation": "สีข้อความรอง (เช่น การอนุญาตประเภทหรือคำแนะนำเอกสาร) ในป๊อปอัพการเติมอัตโนมัติ。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132999,7 +132985,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedText": {
-    "documentation": "",
+    "documentation": "สีข้อความของรายการที่ถูกเน้นในป๊อปอัพการเติมอัตโนมัติและเมนูบริบทในขณะนี้。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133009,7 +132995,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBackground": {
-    "documentation": "",
+    "documentation": "สีพื้นหลังสำหรับป๊อปอัพการเติมอัตโนมัติและเมนูบริบทใน Script Editor。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133019,7 +133005,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedBackground": {
-    "documentation": "",
+    "documentation": "สีพื้นหลังของรายการที่ถูกเน้นในป๊อปอัพการเติมอัตโนมัติและเมนูบริบทในขณะนี้。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133029,7 +133015,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarBackground": {
-    "documentation": "",
+    "documentation": "สีพื้นหลังของแทร็กเลื่อนภายในป๊อปอัพการเติมอัตโนมัติและเมนูบริบท。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133039,7 +133025,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarHandle": {
-    "documentation": "",
+    "documentation": "สีของมือจับเลื่อนภายในป๊อปอัพการเติมอัตโนมัติและเมนูบริบท。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133049,7 +133035,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBorder": {
-    "documentation": "",
+    "documentation": "สีขอบสำหรับป๊อปอัพการเติมอัตโนมัติและเมนูบริบทใน Script Editor。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133059,7 +133045,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DocViewCodeBackground": {
-    "documentation": "",
+    "documentation": "สีพื้นหลังสำหรับบล็อกโค้ดในบรรทัดที่แสดงในแผงผู้ดูเอกสารภายใน Studio。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133069,7 +133055,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayText": {
-    "documentation": "",
+    "documentation": "สีข้อความสำหรับป้ายที่แสดงในแผง AI Code Overlay。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133079,7 +133065,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackground": {
-    "documentation": "",
+    "documentation": "สีพื้นหลังสำหรับปุ่มการกระทำ AI Code Overlay ในสถานะเริ่มต้น (ไม่ทำงาน) ของพวกเขา。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133089,7 +133075,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundHover": {
-    "documentation": "",
+    "documentation": "สีพื้นหลังสำหรับปุ่มการกระทำ AI Code Overlay เมื่อเคอร์เซอร์ชี้ไปที่พวกเขา。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133099,7 +133085,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundPressed": {
-    "documentation": "",
+    "documentation": "สีพื้นหลังสำหรับปุ่มการกระทำ AI Code Overlay ขณะที่พวกเขาถูกกด。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133109,7 +133095,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.IndentationRuler": {
-    "documentation": "",
+    "documentation": "สีของเส้นแนวทางแนวตั้งที่วาดที่แต่ละระดับการเยื้องในก้นของตัวแก้ไขสคริปต์。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133119,7 +133105,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.StudioScriptEditorColorCategories": {
-    "documentation": "",
+    "documentation": "หมวดหมู่สีที่ใช้ในการปรับธีมของ Script Editor ใน Roblox Studio。",
     "keys": {
       "Default": "@roblox/enum/StudioScriptEditorColorCategories.Default",
       "Operator": "@roblox/enum/StudioScriptEditorColorCategories.Operator",
@@ -133364,7 +133350,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptPublishAssetResult": {
-    "documentation": "อธิบายผลลัพธ์ของการเรียก <code>AssetService:PromptCreateAssetAsync()</code>。",
+    "documentation": "อีเนมผลลัพธ์ที่เลิกใช้งานสำหรับเหตุการณ์ <code>OpenPublishResultModal</code>。",
     "keys": {
       "Success": "@roblox/enum/PromptPublishAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptPublishAssetResult.PermissionDenied",
@@ -135428,7 +135414,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyTransactionType": {
-    "documentation": "",
+    "documentation": "จัดประเภทบริบทของการทำธุรกรรมทางเศรษฐกิจในประสบการณ์เพื่อใช้กับ <code>AnalyticsService:LogEconomyEvent()</code>.",
     "keys": {
       "IAP": "@roblox/enum/AnalyticsEconomyTransactionType.IAP",
       "Shop": "@roblox/enum/AnalyticsEconomyTransactionType.Shop",
@@ -135621,7 +135607,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptCreateAssetResult": {
-    "documentation": "อธิบายผลลัพธ์ของการเรียก <code>AssetService:PromptCreateAssetAsync()</code>",
+    "documentation": "อธิบายผลลัพธ์ของการเรียก <code>AvatarCreationService:PromptCreateAvatarAssetAsync()</code>",
     "keys": {
       "Success": "@roblox/enum/PromptCreateAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptCreateAssetResult.PermissionDenied",
@@ -135638,7 +135624,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Custom": {
-    "documentation": "",
+    "documentation": "สถานะความก้าวหน้าที่กำหนดเองสำหรับเหตุการณ์ที่อยู่นอก วงจรชีวิตเริ่มต้น/ล้มเหลว/เสร็จสิ้น.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135648,7 +135634,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Start": {
-    "documentation": "",
+    "documentation": "ผู้เล่นเริ่มต้นการพยายามระดับ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135658,7 +135644,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Fail": {
-    "documentation": "",
+    "documentation": "ผู้เล่นล้มเหลวในการพยายามระดับ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135668,7 +135654,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Complete": {
-    "documentation": "",
+    "documentation": "ผู้เล่นเสร็จสิ้นระดับอย่างสำเร็จ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135678,7 +135664,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsProgressionType": {
-    "documentation": "",
+    "documentation": "ระบุสถานะความก้าวหน้าของผู้เล่นในเหตุการณ์ความก้าวหน้าระดับที่บันทึกโดย <code>AnalyticsService:LogProgressionEvent()</code>.",
     "keys": {
       "Custom": "@roblox/enum/AnalyticsProgressionType.Custom",
       "Start": "@roblox/enum/AnalyticsProgressionType.Start",
@@ -136217,7 +136203,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdFormat.RewardedVideo": {
-    "documentation": "รูปแบบของโฆษณาวิดีโอที่ได้รับรางวัล。",
+    "documentation": "โฆษณาวิดีโอแบบเต็มหน้าจอที่เล่นจนจบและให้รางวัลแก่ผู้ชม， ใช้เป็นอาร์กิวเมนต์ <code>adFormat</code> สำหรับวิธีการของ <code>AdService</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136227,7 +136213,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdFormat": {
-    "documentation": "",
+    "documentation": "ระบุรูปแบบของโฆษณาที่ใช้กับวิธีการของ <code>AdService</code>。",
     "keys": {
       "RewardedVideo": "@roblox/enum/AdFormat.RewardedVideo"
     },
@@ -136337,7 +136323,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Unknown": {
-    "documentation": "สถานะการแปลงรหัสยังไม่ได้ถูกกำหนด นี่คือสถานะเริ่มต้น ก่อนที่โมเดลจะถูกสอบถาม แสดงเป็นสีม่วงในเลเยอร์สีดีบัก",
+    "documentation": "สถานะการแปลงรหัสยังไม่ได้รับการกำหนด นี่คือสถานะเริ่มต้น ก่อนที่โมเดลจะถูกสอบถาม แสดงเป็นสีเหลืองในเลเยอร์ทินต์ดีบัก",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136346,48 +136332,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Unknown",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTranscoderStatus.NoHash": {
-    "documentation": "โมเดลได้รับการเปิดใช้งาน SLIM แต่ยังไม่มีแฮชที่สร้างขึ้น ดังนั้น การแปลงรหัสยังไม่ได้ถูกขอ แสดงเป็นสีฟ้าในเลเยอร์สีดีบัก",
+  "@roblox/enum/SlimTranscoderStatus.Transcoding": {
+    "documentation": "การแปลงรหัส SLIM กำลังดำเนินการอยู่ในแบ็คเอนด์ โมเดลคาดว่าจะเปลี่ยนไปเป็น Succeeded หรือ Failed เมื่อการแปลงรหัสเสร็จสิ้น แสดงเป็นสีน้ำเงินในเลเยอร์ทินต์ดีบัก",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NoHash",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.NotUploaded": {
-    "documentation": "โมเดลยังไม่ได้ถูกอัปโหลดไปยังเครือข่ายการจัดส่งเนื้อหา แสดงเป็น สีส้มในเลเยอร์ทินต์ดีบัก",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NotUploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.Uploaded": {
-    "documentation": "โมเดลได้ถูกอัปโหลดไปยังเครือข่ายการจัดส่งเนื้อหาแล้ว แต่ยังไม่ได้ ถูกถอดรหัสเป็นสินทรัพย์ SLIM แสดงเป็นสีเหลืองในเลเยอร์ทินต์ดีบัก",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Uploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.InProgress": {
-    "documentation": "การแปลงรหัส SLIM กำลังดำเนินการอยู่ในด้านหลัง คาดว่าโมเดลจะ เปลี่ยนไปเป็น Succeeded หรือ Failed เมื่อการแปลงรหัสเสร็จสิ้น แสดงเป็นสีน้ำเงินในเลเยอร์สีดีบัก",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#InProgress",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Transcoding",
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Succeeded": {
-    "documentation": "การแปลงรหัสเสร็จสิ้นอย่างสำเร็จและสินทรัพย์ SLIM พร้อมสำหรับ การสตรีม แสดงเป็นสีเขียวในเลเยอร์สีดีบัก",
+    "documentation": "การแปลงรหัสเสร็จสมบูรณ์อย่างสำเร็จและทรัพย์สิน SLIM พร้อมสำหรับ การสตรีม แสดงเป็นสีเขียวในเลเยอร์ทินต์ดีบัก",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136397,7 +136353,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Failed": {
-    "documentation": "การแปลงรหัสไม่เสร็จสิ้นอย่างสำเร็จ แสดงเป็นสีแดงในเลเยอร์สีดีบัก",
+    "documentation": "การแปลงรหัสไม่เสร็จสมบูรณ์อย่างสำเร็จ แสดงเป็นสีแดงในเลเยอร์ทินต์",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136410,10 +136366,7 @@
     "documentation": "อธิบายสถานะการแปลงรหัสด้านหลังของโมเดล SLIM ตั้งแต่การอัปโหลดไปจนถึง การแปลงรหัสจนสำเร็จหรือไม่สำเร็จ",
     "keys": {
       "Unknown": "@roblox/enum/SlimTranscoderStatus.Unknown",
-      "NoHash": "@roblox/enum/SlimTranscoderStatus.NoHash",
-      "NotUploaded": "@roblox/enum/SlimTranscoderStatus.NotUploaded",
-      "Uploaded": "@roblox/enum/SlimTranscoderStatus.Uploaded",
-      "InProgress": "@roblox/enum/SlimTranscoderStatus.InProgress",
+      "Transcoding": "@roblox/enum/SlimTranscoderStatus.Transcoding",
       "Succeeded": "@roblox/enum/SlimTranscoderStatus.Succeeded",
       "Failed": "@roblox/enum/SlimTranscoderStatus.Failed"
     },
@@ -137104,7 +137057,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyFlowType": {
-    "documentation": "",
+    "documentation": "ระบุทิศทางของการไหลของสกุลเงินในเหตุการณ์ทางเศรษฐกิจที่บันทึกโดย <code>AnalyticsService:LogEconomyEvent()</code>.",
     "keys": {
       "Sink": "@roblox/enum/AnalyticsEconomyFlowType.Sink",
       "Source": "@roblox/enum/AnalyticsEconomyFlowType.Source"
@@ -138772,7 +138725,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyAction": {
-    "documentation": "",
+    "documentation": "อธิบายประเภทของการทำธุรกรรมทางเศรษฐกิจใน <code>AnalyticsService:FireInGameEconomyEvent()</code>.",
     "keys": {
       "Default": "@roblox/enum/AnalyticsEconomyAction.Default",
       "Acquire": "@roblox/enum/AnalyticsEconomyAction.Acquire",
@@ -139004,7 +138957,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Blue": {
-    "documentation": "สีการแชทฟ้า。",
+    "documentation": "สีแชทสีน้ำเงิน; ค่าดีฟอลต์ที่ส่งไปยัง <code>Chat()</code> และ <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139014,7 +138967,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Green": {
-    "documentation": "สีการแชทเขียว。",
+    "documentation": "สีแชทสีเขียว ที่ส่งเป็นอาร์กิวเมนต์ <code>color</code> ไปยัง <code>Chat()</code> หรือ <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139024,7 +138977,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Red": {
-    "documentation": "สีการแชทแดง。",
+    "documentation": "สีแชทสีแดง ที่ส่งเป็นอาร์กิวเมนต์ <code>color</code> ไปยัง <code>Chat()</code> หรือ <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139034,7 +138987,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.White": {
-    "documentation": "สีการแชทขาว。",
+    "documentation": "สีแชทสีขาว ที่ส่งเป็นอาร์กิวเมนต์ <code>color</code> ไปยัง <code>Chat()</code> หรือ <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140537,7 +140490,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.Undefined": {
-    "documentation": "",
+    "documentation": "ค่าเซนทิเนลเริ่มต้นที่ไม่ได้กำหนดค่าแสดงว่ามีวิธีการโทรที่ยังไม่ได้กำหนด",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140547,7 +140500,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.PortalForward": {
-    "documentation": "",
+    "documentation": "ผู้เล่นได้โทรไปข้างหน้าสู่ประสบการณ์ปลายทางของผู้โฆษณา โดยการเดินเข้าไปใน <code>AdPortal</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140557,7 +140510,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.InGameMenuBackButton": {
-    "documentation": "",
+    "documentation": "ผู้เล่นได้เริ่มต้นการโทรกลับไปยังประสบการณ์ของผู้เผยแพร่โดย การกดปุ่มย้อนกลับในเมนูในเกม.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140567,7 +140520,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.UIBackButton": {
-    "documentation": "",
+    "documentation": "ผู้เล่นได้เริ่มต้นการโทรกลับไปยังประสบการณ์ของผู้เผยแพร่โดย การกดปุ่มย้อนกลับที่แสดงใน UI overlay ของปลายทางโฆษณา.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140577,7 +140530,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdTeleportMethod": {
-    "documentation": "",
+    "documentation": "อธิบายวิธีการที่ผู้เล่นสามารถโทรไปยังพอร์ทัลโฆษณาที่มีส่วนร่วม",
     "keys": {
       "Undefined": "@roblox/enum/AdTeleportMethod.Undefined",
       "PortalForward": "@roblox/enum/AdTeleportMethod.PortalForward",

@@ -48,6 +48,8 @@
             "AICOOverlayButtonBackgroundHover": "#E6E7EA",
             "AICOOverlayButtonBackgroundPressed": "#BCBEC8",
             "IndentationRuler": "#BCBEC8",
+            "ReviewableChangeAddedText": "#D0FBE3",
+            "ReviewableChangeRemovedText": "#FFDFDE",
             "Type": "#0C9B5A"
         },
         "Extra1": {
@@ -97,6 +99,8 @@
             "AICOOverlayButtonBackgroundHover": "#E6E7EA",
             "AICOOverlayButtonBackgroundPressed": "#BCBEC8",
             "IndentationRuler": "#BCBEC8",
+            "ReviewableChangeAddedText": "#D0FBE3",
+            "ReviewableChangeRemovedText": "#FFDFDE",
             "Type": "#0C9B5A"
         },
         "Extra2": {
@@ -146,6 +150,8 @@
             "AICOOverlayButtonBackgroundHover": "#353741",
             "AICOOverlayButtonBackgroundPressed": "#353741",
             "IndentationRuler": "#BCBEC8",
+            "ReviewableChangeAddedText": "#D0FBE3",
+            "ReviewableChangeRemovedText": "#FFDFDE",
             "Type": "#528BFF"
         },
         "Custom": {
@@ -195,6 +201,8 @@
             "AICOOverlayButtonBackgroundHover": "#E6E7EA",
             "AICOOverlayButtonBackgroundPressed": "#BCBEC8",
             "IndentationRuler": "#BCBEC8",
+            "ReviewableChangeAddedText": "#D0FBE3",
+            "ReviewableChangeRemovedText": "#FFDFDE",
             "Type": "#0C9B5A"
         }
     },

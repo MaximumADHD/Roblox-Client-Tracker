@@ -24207,10 +24207,10 @@
     "documentation": "Prend en charge les achats du monde réel que vous pouvez regrouper avec des avantages numériques."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/param/1": {
-    "documentation": ""
+    "documentation": "L'identifiant du produit commercial à rechercher, soit l'ID numérique soit la forme complète préfixée par <code>COM-</code>."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/return/0": {
-    "documentation": ""
+    "documentation": "Un dictionnaire d'informations sur le produit commercial, y compris s'il <code>IsForSale</code>, une sous-table <code>Item</code> de détails d'affichage (<code>Name</code>, <code>Description</code>, <code>IconImageAssetId</code>, <code>DisplayPrice</code>, et <code>IsPurchasable</code>), et les <code>Benefits</code> accordés par son achat."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync": {
     "documentation": "Récupère des informations sur les produits commerciaux que vous vendez dans l'expérience.",
@@ -24234,10 +24234,10 @@
     "documentation": "Prend en charge les achats du monde réel que vous pouvez regrouper avec des avantages numériques."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/1": {
-    "documentation": ""
+    "documentation": "Le <code>Player</code> à inviter avec le flux d'achat. Lorsqu'il est appelé depuis un script client, cela doit être le joueur local."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/2": {
-    "documentation": ""
+    "documentation": "L'identifiant du produit commercial à acheter, soit l'ID numérique soit la forme complète préfixée par <code>COM-</code>."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase": {
     "documentation": "Invite un utilisateur à acheter un produit commercial en utilisant le <code>commerceProductId</code> fourni. Ouvre une vue web qui guide l'utilisateur à travers le flux d'achat.",
@@ -24263,13 +24263,13 @@
     "documentation": "Prend en charge les achats du monde réel que vous pouvez regrouper avec des avantages numériques."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/1": {
-    "documentation": ""
+    "documentation": "Le <code>Player</code> pour qui le navigateur s'ouvre. Lorsqu'il est appelé depuis un script client, cela doit être le joueur local."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/2": {
-    "documentation": ""
+    "documentation": "L'URL commerciale du monde réel à ouvrir. L'URL doit être sur la liste blanche commerciale, sinon la demande est ignorée."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser": {
-    "documentation": "",
+    "documentation": "Point de terminaison hérité qui ouvre un navigateur dans l'expérience vers une URL commerciale du monde réel pour le joueur spécifié ; remplacé par <code>CommerceService:PromptCommerceProductPurchase()</code>.",
     "params": [
       {
         "name": "self",
@@ -24292,10 +24292,10 @@
     "documentation": "Prend en charge les achats du monde réel que vous pouvez regrouper avec des avantages numériques."
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync/return/0": {
-    "documentation": ""
+    "documentation": "<code>true</code> si l'utilisateur actuel est éligible pour le commerce du monde réel."
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync": {
-    "documentation": "",
+    "documentation": "Point de terminaison hérité qui retourne si l'utilisateur actuel est éligible pour le commerce du monde réel ; remplacé par <code>PolicyService</code>.",
     "params": [
       {
         "name": "self",
@@ -24408,7 +24408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatCommand.AutocompleteVisible": {
-    "documentation": "",
+    "documentation": "Détermine si le <code>TextChatCommand</code> est affiché comme une suggestion dans le menu d'autocomplétion du chat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatCommand#AutocompleteVisible",
     "code_sample": ""
   },
@@ -29850,6 +29850,7 @@
   "@roblox/globaltype/Decal": {
     "documentation": "Applique une texture d'image à une face d'un <code>BasePart</code> parent.",
     "keys": {
+      "AutoLocalize": "@roblox/globaltype/Decal.AutoLocalize",
       "Color3": "@roblox/globaltype/Decal.Color3",
       "ColorMap": "@roblox/globaltype/Decal.ColorMap",
       "ColorMapContent": "@roblox/globaltype/Decal.ColorMapContent",
@@ -29865,12 +29866,18 @@
       "Specular": "@roblox/globaltype/Decal.Specular",
       "Texture": "@roblox/globaltype/Decal.Texture",
       "TextureContent": "@roblox/globaltype/Decal.TextureContent",
+      "TexturePackContent": "@roblox/globaltype/Decal.TexturePackContent",
       "Transparency": "@roblox/globaltype/Decal.Transparency",
       "UVOffset": "@roblox/globaltype/Decal.UVOffset",
       "UVScale": "@roblox/globaltype/Decal.UVScale",
       "ZIndex": "@roblox/globaltype/Decal.ZIndex"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.AutoLocalize": {
+    "documentation": "Lorsqu'il est défini sur <code>true</code>, l'actif image du décalque est éligible pour la capture de localisation automatique.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#AutoLocalize",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Color3": {
@@ -29889,27 +29896,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.LocalTransparencyModifier": {
-    "documentation": "Agit comme un multiplicateur pour la propriété <code>Transparency</code> du décalque. Les effets ne sont visibles  que pour le joueur local.",
+    "documentation": "Agit comme un multiplicateur pour la propriété <code>Transparency</code> du décalque. Les effets ne sont visibles que pour le joueur local.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#LocalTransparencyModifier",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMap": {
-    "documentation": "",
+    "documentation": "ID de contenu qui détermine la carte de metalness de la surface.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> objet qui détermine la carte de metalness de la surface.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMap": {
-    "documentation": "",
+    "documentation": "ID de contenu qui détermine la carte normale de la surface.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> objet qui détermine la carte normale de la surface.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMapContent",
     "code_sample": ""
   },
@@ -29919,22 +29926,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMap": {
-    "documentation": "",
+    "documentation": "ID de contenu qui détermine la carte de rugosité de la surface.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> objet qui détermine la carte de rugosité de la surface.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Shiny": {
-    "documentation": "<strong>Deprecated:</strong> Cette propriété non fonctionnelle est obsolète et ne doit pas être utilisée dans de nouveaux  travaux.",
+    "documentation": "<strong>Deprecated:</strong> Cette propriété non fonctionnelle est obsolète et ne doit pas être utilisée dans de nouveaux travaux.<br>Propriété obsolète qui définissait précédemment la brillance du décalque.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Shiny",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Specular": {
-    "documentation": "<strong>Deprecated:</strong> Cette propriété ne fonctionne plus correctement et est obsolète. Elle ne doit  pas être utilisée dans de nouveaux travaux.",
+    "documentation": "<strong>Deprecated:</strong> Cette propriété ne fonctionne plus correctement et est obsolète. Elle ne doit pas être utilisée dans de nouveaux travaux.<br>Propriété obsolète qui définissait précédemment la spécularité du décalque.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Specular",
     "code_sample": ""
   },
@@ -29948,18 +29955,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.TexturePackContent": {
+    "documentation": "<code>Content</code> géré par le moteur qui stocke les données de texture-pack compressées runtime pour les décalques PBR.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TexturePackContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Transparency": {
     "documentation": "Détermine la transparence du <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.UVOffset": {
-    "documentation": "Décale les coordonnées UV en ajoutant un décalage avant le mapping de texture.",
+    "documentation": "Décale les coordonnées UV en ajoutant un décalage avant le mappage de texture.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVOffset",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.UVScale": {
-    "documentation": "Étire ou comprime les coordonnées UV en multipliant par un facteur d'échelle.",
+    "documentation": "Étire ou compresse les coordonnées UV en multipliant un facteur d'échelle.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVScale",
     "code_sample": ""
   },
@@ -33842,12 +33854,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "Une référence à <code>BubbleChatMessageProperties</code> qui remplace l'apparence de la bulle de chat de ce message.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#BubbleChatMessageProperties",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "Une référence à <code>ChatWindowMessageProperties</code> qui remplace l'apparence de ce message dans la fenêtre de chat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#ChatWindowMessageProperties",
     "code_sample": ""
   },
@@ -44704,7 +44716,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VisibilityCheckDispatcher": {
-    "documentation": "",
+    "documentation": "Service qui planifie et exécute des vérifications de visibilité pour des instances de publicité immersive dans un endroit.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisibilityCheckDispatcher",
     "code_sample": ""
@@ -47184,31 +47196,6 @@
   "@roblox/globaltype/TerrainDetail.StudsPerTile": {
     "documentation": "Détermine l'échelle des textures.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#StudsPerTile",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping": {
-    "documentation": "",
-    "keys": {
-      "FlattenTree": "@roblox/globaltype/PatchMapping.FlattenTree",
-      "PatchId": "@roblox/globaltype/PatchMapping.PatchId",
-      "TargetPath": "@roblox/globaltype/PatchMapping.TargetPath"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.FlattenTree": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#FlattenTree",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.PatchId": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#PatchId",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.TargetPath": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#TargetPath",
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
@@ -51151,7 +51138,7 @@
     "documentation": "Représente un canal de chat textuel."
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester/param/1": {
-    "documentation": ""
+    "documentation": "Le <code>Player</code> dont les permissions de message direct régissent le canal ; seuls les utilisateurs qui peuvent envoyer des messages directs à ce joueur reçoivent les messages sur le canal."
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester": {
     "documentation": "Définit le <code>DirectChatRequester</code> pour le <code>TextChannel</code>. Le <code>TextChannel</code> ne livrera des messages qu'aux utilisateurs qui peuvent envoyer des messages directs au <code>DirectChatRequester</code>.",
@@ -51196,7 +51183,7 @@
     "documentation": "Le <code>TextSource</code> de l'utilisateur qui recevra le message."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/return/0": {
-    "documentation": ""
+    "documentation": "Une valeur véridique (comme <code>true</code>, <code>1</code>, ou une chaîne non vide) pour livrer le message au client donné, ou une valeur fausse (y compris <code>nil</code>) pour le retenir de ce client."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback": {
     "documentation": "Appelé pour chaque client lorsque <code>TextChannel</code> reçoit un message entrant pour déterminer s'il doit ou non être livré à ce client.",
@@ -52876,6 +52863,7 @@
       "GetPredictionStatus": "@roblox/globaltype/RunService.GetPredictionStatus",
       "IsClient": "@roblox/globaltype/RunService.IsClient",
       "IsEdit": "@roblox/globaltype/RunService.IsEdit",
+      "IsResimulating": "@roblox/globaltype/RunService.IsResimulating",
       "IsRunMode": "@roblox/globaltype/RunService.IsRunMode",
       "IsRunning": "@roblox/globaltype/RunService.IsRunning",
       "IsServer": "@roblox/globaltype/RunService.IsServer",
@@ -52896,7 +52884,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.RunState": {
-    "documentation": "",
+    "documentation": "L'état d'exécution actuel de la simulation du jeu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#RunState",
     "code_sample": ""
   },
@@ -52949,7 +52937,7 @@
     "documentation": "Priorité optionnelle du binding en tant qu'entier ; elle détermine l'ordre dans lequel les fonctions liées sont appelées au sein d'une étape de simulation. Des nombres inférieurs sont appelés en premier. Si deux bindings ont la même priorité, l'ordre entre eux n'est pas spécifié. Par défaut, cela vaut 2000."
   },
   "@roblox/globaltype/RunService.BindToSimulation/return/0": {
-    "documentation": ""
+    "documentation": "Un <code>RBXScriptConnection</code> qui peut être déconnecté pour désassocier la fonction de l'étape de simulation."
   },
   "@roblox/globaltype/RunService.BindToSimulation": {
     "documentation": "Lie une fonction personnalisée à appeler à une fréquence fixe qui est indépendante du taux de frame.",
@@ -52984,7 +52972,7 @@
     "documentation": "Le <code>Instance</code> pour lequel vérifier le statut de prédiction."
   },
   "@roblox/globaltype/RunService.GetPredictionStatus/return/0": {
-    "documentation": ""
+    "documentation": "Le <code>PredictionStatus</code> de l'instance donnée, indiquant si elle est prédite, autoritaire, ou ne participe pas à la prédiction."
   },
   "@roblox/globaltype/RunService.GetPredictionStatus": {
     "documentation": "Vérifie l'<code>PredictionStatus</code> d'une instance de contexte spécifique, utile pour déboguer des scripts affectant plusieurs instances où certaines pourraient être prédites et d'autres non.",
@@ -53042,6 +53030,26 @@
       "@roblox/globaltype/RunService.IsEdit/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsEdit",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RunService.IsResimulating/param/0": {
+    "documentation": "Service responsable de toute l'activité d'exécution et de la progression du temps."
+  },
+  "@roblox/globaltype/RunService.IsResimulating/return/0": {
+    "documentation": "Si le moteur est actuellement en train de resimuler."
+  },
+  "@roblox/globaltype/RunService.IsResimulating": {
+    "documentation": "Renvoie si le client est actuellement dans une étape de resimulation après une misprediction dans le modèle d'autorité du serveur.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.IsResimulating/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RunService.IsResimulating/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsResimulating",
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.IsRunMode/param/0": {
@@ -53128,7 +53136,7 @@
     "documentation": "Service responsable de toute l'activité d'exécution et de la progression du temps."
   },
   "@roblox/globaltype/RunService.Pause": {
-    "documentation": "Met en pause la simulation de l'expérience si elle est en cours d'exécution, en suspendant la physique et les scripts.",
+    "documentation": "Met en pause la simulation de l'expérience si elle est en cours d'exécution, suspendant la physique et les scripts.",
     "params": [
       {
         "name": "self",
@@ -53143,7 +53151,7 @@
     "documentation": "Service responsable de toute l'activité d'exécution et de la progression du temps."
   },
   "@roblox/globaltype/RunService.Reset": {
-    "documentation": "<strong>Deprecated:</strong> Cet élément est obsolète et ne doit pas être utilisé dans de nouveaux travaux.<br>Réinitialise le jeu actuel à un point de contrôle défini lorsque <code>RunService:Run()</code> a été appelé.",
+    "documentation": "<strong>Deprecated:</strong> Cet élément est obsolète et ne doit pas être utilisé dans de nouveaux travaux.<br>Réinitialise le jeu actuel à un point de passage défini lorsque <code>RunService:Run()</code> a été appelé.",
     "params": [
       {
         "name": "self",
@@ -53179,7 +53187,7 @@
     "documentation": "Le <code>PredictionMode</code> à définir pour l'instance de contexte."
   },
   "@roblox/globaltype/RunService.SetPredictionMode": {
-    "documentation": "Définit le mode de prédiction pour un <code>Instance</code> à une valeur d'<code>PredictionMode</code>.",
+    "documentation": "Définit le mode de prédiction pour un <code>Instance</code> à une valeur <code>PredictionMode</code>.",
     "params": [
       {
         "name": "self",
@@ -53217,10 +53225,10 @@
     "documentation": "Service responsable de toute l'activité d'exécution et de la progression du temps."
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep/param/1": {
-    "documentation": "Le nom de la fonction étant déliée."
+    "documentation": "Le nom de la fonction étant désassociée."
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep": {
-    "documentation": "Délie une fonction qui a été liée à la boucle de rendu à l'aide de <code>RunService:BindToRenderStep()</code>.",
+    "documentation": "Désassocie une fonction qui a été liée à la boucle de rendu à l'aide de <code>RunService:BindToRenderStep()</code>.",
     "params": [
       {
         "name": "self",
@@ -54428,7 +54436,7 @@
     "documentation": "<code>Instance</code> est la classe de base pour toutes les classes de la hiérarchie de classes Roblox qui peuvent faire partie de l'arbre <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.children/return/0": {
-    "documentation": "Tableau d'objets/instances enfants."
+    "documentation": "Tableau des objets/instances enfants."
   },
   "@roblox/globaltype/Instance.children": {
     "documentation": "<strong>Deprecated:</strong> Cet élément a été remplacé par <code>Instance:GetChildren()</code> qui devrait être utilisé dans tous les nouveaux travaux.<br>Renvoie un tableau des enfants de l'objet.",
@@ -54977,10 +54985,10 @@
     "documentation": "Sélecteur optionnel pour l'instance pseudo que vous ciblez sur l'instance."
   },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
-    "documentation": "La valeur stylée ou explicitement modifiée de la propriété spécifiée, ou la valeur par défaut de la propriété si elle n'a pas été stylée/modifiée."
+    "documentation": "La valeur stylée ou explicitement modifiée de la propriété spécifiée, ou sinon la valeur par défaut de la propriété si elle n'a pas été stylée/modifiée."
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "Renvoie la valeur stylée ou explicitement modifiée de la propriété spécifiée, ou la valeur par défaut de la propriété si elle n'a pas été stylée/modifiée.",
+    "documentation": "Renvoie la valeur stylée ou explicitement modifiée de la propriété spécifiée, ou sinon la valeur par défaut de la propriété si elle n'a pas été stylée/modifiée.",
     "params": [
       {
         "name": "self",
@@ -57937,7 +57945,7 @@
     "documentation": "Configure les propriétés de la fenêtre de chat par défaut."
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties/return/0": {
-    "documentation": ""
+    "documentation": "Une nouvelle instance de <code>ChatWindowMessageProperties</code> dont vous pouvez modifier les valeurs et retourner depuis un callback <code>TextChatService.OnChatWindowAdded</code> pour personnaliser l'apparence des messages individuels dans la fenêtre de chat."
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties": {
     "documentation": "Crée une nouvelle instance de <code>ChatWindowMessageProperties</code> qui peut être utilisée pour personnaliser l'apparence des messages dans la fenêtre de chat.",
@@ -63252,7 +63260,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "Remplace les propriétés de <code>BubbleChatConfiguration</code> pour un message de chat en bulle individuel.",
     "keys": {
       "BackgroundColor3": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundColor3",
       "BackgroundTransparency": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundTransparency",
@@ -63280,7 +63288,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties.TailVisible": {
-    "documentation": "",
+    "documentation": "Détermine si la queue en bas de la bulle de chat est visible.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BubbleChatMessageProperties#TailVisible",
     "code_sample": ""
   },
@@ -69742,11 +69750,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui": {
-    "documentation": "",
+    "documentation": "Une interface utilisateur basée sur la surface qui affiche des publicités immersives sur une face d'un <code>Part</code> dans le monde 3D.",
     "keys": {
       "AdShape": "@roblox/globaltype/AdGui.AdShape",
       "EnableVideoAds": "@roblox/globaltype/AdGui.EnableVideoAds",
       "FallbackImage": "@roblox/globaltype/AdGui.FallbackImage",
+      "FallbackImageContent": "@roblox/globaltype/AdGui.FallbackImageContent",
       "Status": "@roblox/globaltype/AdGui.Status",
       "OnAdEvent": "@roblox/globaltype/AdGui.OnAdEvent"
     },
@@ -69754,7 +69763,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.AdShape": {
-    "documentation": "",
+    "documentation": "Détermine la forme de la publicité affichée par le <code>AdGui</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#AdShape",
     "code_sample": ""
   },
@@ -69764,12 +69773,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.FallbackImage": {
-    "documentation": "",
+    "documentation": "L'image que le <code>AdGui</code> affiche lorsqu'aucune publicité n'est disponible à servir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImage",
     "code_sample": ""
   },
+  "@roblox/globaltype/AdGui.FallbackImageContent": {
+    "documentation": "L'équivalent <code>Content</code> de <code>AdGui.FallbackImage</code> qui prend en charge les URI d'actifs et les objets <code>EditableImage</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImageContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AdGui.Status": {
-    "documentation": "",
+    "documentation": "Indique si le <code>AdGui</code> affiche actuellement une publicité servie.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#Status",
     "code_sample": ""
   },
@@ -70493,7 +70507,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal": {
-    "documentation": "",
+    "documentation": "Un portail qui téléporte les joueurs vers une expérience sponsorisée dans le cadre de publicités immersives.",
     "keys": {
       "PortalInvalidReason": "@roblox/globaltype/AdPortal.PortalInvalidReason",
       "Status": "@roblox/globaltype/AdPortal.Status"
@@ -70502,12 +70516,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.PortalInvalidReason": {
-    "documentation": "",
+    "documentation": "Un message destiné aux créateurs expliquant pourquoi le portail est actuellement invalide, s'il l'est.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#PortalInvalidReason",
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.Status": {
-    "documentation": "",
+    "documentation": "Indique si le portail est actuellement actif et capable de téléporter les joueurs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#Status",
     "code_sample": ""
   },
@@ -77514,7 +77528,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBoxService": {
-    "documentation": "",
+    "documentation": "Un service qui gère l'état de <code>TextBox</code> d'un utilisateur pendant le gameplay.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBoxService",
     "code_sample": ""
@@ -79417,6 +79431,7 @@
       "LogCustomEvent": "@roblox/globaltype/AnalyticsService.LogCustomEvent",
       "LogEconomyEvent": "@roblox/globaltype/AnalyticsService.LogEconomyEvent",
       "LogFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent",
+      "LogJourneyEvent": "@roblox/globaltype/AnalyticsService.LogJourneyEvent",
       "LogOnboardingFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent",
       "LogProgressionCompleteEvent": "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent",
       "LogProgressionEvent": "@roblox/globaltype/AnalyticsService.LogProgressionEvent",
@@ -79872,6 +79887,56 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogFunnelStepEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0": {
+    "documentation": "Collection de méthodes qui vous permet de suivre comment les utilisateurs interagissent avec vos expériences."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1": {
+    "documentation": "Le joueur qui a déclenché l'événement de parcours."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2": {
+    "documentation": "Le nom du parcours. Cela doit être le même pour tous les nœuds du parcours. Ne peut pas être vide et ne peut pas contenir une virgule <code>,</code>, un guillemet double <code>\"</code>, un guillemet simple <code>'</code>, ou un caractère de nouvelle ligne."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3": {
+    "documentation": "Le nom du nœud que le joueur a atteint dans le parcours. Ne peut pas être vide, ne peut pas contenir une virgule <code>,</code>, un guillemet double <code>\"</code>, un guillemet simple <code>'</code>, ou un caractère de nouvelle ligne, et ne peut pas commencer par <code>__</code> (double underscore), qui est réservé."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4": {
+    "documentation": "Identifiant unique optionnel pour la session de parcours. Cela doit être le même pour tous les nœuds dans une seule session du parcours. Si fourni, ne peut pas contenir une virgule <code>,</code>, un guillemet double <code>\"</code>, un guillemet simple <code>'</code>, ou un caractère de nouvelle ligne."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5": {
+    "documentation": "Dictionnaire optionnel de champs personnalisés qui fourniront des répartitions dans les graphiques fournis par Roblox. Seules des clés spécifiques, fournies par <code>AnalyticsCustomFieldKeys</code>, seront utilisées pour ces répartitions. Limité à 8 000 combinaisons uniques de valeurs à travers les trois champs personnalisés par expérience."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent": {
+    "documentation": "Enregistre un événement de parcours utilisé pour suivre les chemins non linéaires des joueurs à travers une expérience.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1"
+      },
+      {
+        "name": "journeyName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2"
+      },
+      {
+        "name": "nodeName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3"
+      },
+      {
+        "name": "journeySessionId",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4"
+      },
+      {
+        "name": "customFields",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogJourneyEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/0": {
     "documentation": "Collection de méthodes qui vous permet de suivre comment les utilisateurs interagissent avec vos expériences."
   },
@@ -79879,13 +79944,13 @@
     "documentation": "L'utilisateur qui a déclenché l'événement."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/2": {
-    "documentation": "Le numéro d'étape dans l'entonnoir. Cela doit être unique pour chaque étape de l'entonnoir. Tous les entonnoirs commencent à l'étape 1. Limité aux étapes 1-100. Notez que si des étapes sont sautées, les étapes intermédiaires seront considérées comme complètes."
+    "documentation": "Le numéro de l'étape dans l'entonnoir. Cela doit être unique pour chaque étape dans l'entonnoir. Tous les entonnoirs commencent à l'étape 1. Limité aux étapes 1-100. Notez que si des étapes sont sautées, les étapes intermédiaires seront considérées comme complètes."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/3": {
-    "documentation": "Nom optionnel de l'étape dans l'entonnoir. Ce champ est uniquement utilisé aux fins d'affichage dans les graphiques fournis par Roblox."
+    "documentation": "Nom optionnel de l'étape dans l'entonnoir. Ce champ est utilisé uniquement à des fins d'affichage dans les graphiques fournis par Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/4": {
-    "documentation": "Dictionnaire optionnel de champs personnalisés qui fourniront des détails dans les graphiques fournis par Roblox. Seules des clés spécifiques, fournies par <code>AnalyticsCustomFieldKeys</code>, seront utilisées pour ces détails. Limité à 8 000 combinaisons uniques de valeurs à travers les trois champs personnalisés par expérience."
+    "documentation": "Dictionnaire optionnel de champs personnalisés qui fourniront des répartitions dans les graphiques fournis par Roblox. Seules des clés spécifiques, fournies par <code>AnalyticsCustomFieldKeys</code>, seront utilisées pour ces répartitions. Limité à 8 000 combinaisons uniques de valeurs à travers les trois champs personnalisés par expérience."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent": {
     "documentation": "Enregistre un événement utilisé pour suivre les actions des utilisateurs passant par un entonnoir d'intégration.",
@@ -79922,16 +79987,16 @@
     "documentation": "Le joueur qui a déclenché l'événement."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/2": {
-    "documentation": ""
+    "documentation": "Le nom du chemin de progression auquel cet événement appartient, tel qu'un monde, un chapitre ou un groupe de niveaux. Cela regroupe les événements de progression liés ensemble. Ne peut pas être vide et ne peut pas contenir une virgule <code>,</code>, un guillemet double <code>\"</code>, un guillemet simple <code>'</code>, ou un caractère de nouvelle ligne."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/3": {
-    "documentation": ""
+    "documentation": "Le niveau numérique que le joueur progresse à travers le chemin de progression."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/4": {
-    "documentation": ""
+    "documentation": "Le nom du niveau associé à cet événement. Ce champ est utilisé à des fins d'affichage dans les graphiques fournis par Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/5": {
-    "documentation": ""
+    "documentation": "Dictionnaire optionnel de champs personnalisés qui fourniront des répartitions dans les graphiques fournis par Roblox. Seules des clés spécifiques, fournies par <code>AnalyticsCustomFieldKeys</code>, seront utilisées pour ces répartitions. Limité à 8 000 combinaisons uniques de valeurs à travers les trois champs personnalisés par expérience."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent": {
     "documentation": "Enregistre un événement lorsque l'utilisateur a terminé une tentative de niveau.",
@@ -79972,19 +80037,19 @@
     "documentation": "Le joueur qui a déclenché l'événement."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/2": {
-    "documentation": ""
+    "documentation": "Le nom du chemin de progression auquel cet événement appartient, tel qu'un monde, un chapitre ou un groupe de niveaux. Cela regroupe les événements de progression liés ensemble. Ne peut pas être vide et ne peut pas contenir une virgule <code>,</code>, un guillemet double <code>\"</code>, un guillemet simple <code>'</code>, ou un caractère de nouvelle ligne."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/3": {
-    "documentation": ""
+    "documentation": "Le statut de progression à enregistrer, fourni comme une valeur <code>AnalyticsProgressionType</code> telle que <code>Start</code>, <code>Complete</code>, ou <code>Fail</code>. Les méthodes <code>AnalyticsService:LogProgressionStartEvent()</code>, <code>AnalyticsService:LogProgressionCompleteEvent()</code>, et <code>AnalyticsService:LogProgressionFailEvent()</code> sont des raccourcis qui définissent ce statut pour vous."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/4": {
-    "documentation": ""
+    "documentation": "Le niveau numérique que le joueur progresse à travers le chemin de progression."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/5": {
-    "documentation": ""
+    "documentation": "Le nom du niveau associé à cet événement. Ce champ est utilisé à des fins d'affichage dans les graphiques fournis par Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/6": {
-    "documentation": ""
+    "documentation": "Dictionnaire optionnel de champs personnalisés qui fourniront des répartitions dans les graphiques fournis par Roblox. Seules des clés spécifiques, fournies par <code>AnalyticsCustomFieldKeys</code>, seront utilisées pour ces répartitions. Limité à 8 000 combinaisons uniques de valeurs à travers les trois champs personnalisés par expérience."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent": {
     "documentation": "Enregistre un événement lorsque l'utilisateur a commencé, terminé ou échoué une tentative de niveau.",
@@ -80029,16 +80094,16 @@
     "documentation": "L'utilisateur qui a déclenché l'événement."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/2": {
-    "documentation": ""
+    "documentation": "Le nom du chemin de progression auquel cet événement appartient, tel qu'un monde, un chapitre ou un groupe de niveaux. Cela regroupe les événements de progression liés ensemble. Ne peut pas être vide et ne peut pas contenir une virgule <code>,</code>, un guillemet double <code>\"</code>, un guillemet simple <code>'</code>, ou un caractère de nouvelle ligne."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/3": {
-    "documentation": ""
+    "documentation": "Le niveau numérique que le joueur progresse à travers le chemin de progression."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/4": {
-    "documentation": ""
+    "documentation": "Le nom du niveau associé à cet événement. Ce champ est utilisé à des fins d'affichage dans les graphiques fournis par Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/5": {
-    "documentation": ""
+    "documentation": "Dictionnaire optionnel de champs personnalisés qui fourniront des répartitions dans les graphiques fournis par Roblox. Seules des clés spécifiques, fournies par <code>AnalyticsCustomFieldKeys</code>, seront utilisées pour ces répartitions. Limité à 8 000 combinaisons uniques de valeurs à travers les trois champs personnalisés par expérience."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent": {
     "documentation": "Enregistre un événement lorsque l'utilisateur a échoué une tentative de niveau.",
@@ -80079,16 +80144,16 @@
     "documentation": "Le joueur qui a déclenché l'événement."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/2": {
-    "documentation": ""
+    "documentation": "Le nom du chemin de progression auquel cet événement appartient, tel qu'un monde, un chapitre ou un groupe de niveaux. Cela regroupe les événements de progression liés ensemble. Ne peut pas être vide et ne peut pas contenir une virgule <code>,</code>, un guillemet double <code>\"</code>, un guillemet simple <code>'</code>, ou un caractère de nouvelle ligne."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/3": {
-    "documentation": ""
+    "documentation": "Le niveau numérique que le joueur progresse à travers le chemin de progression."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/4": {
-    "documentation": ""
+    "documentation": "Le nom du niveau associé à cet événement. Ce champ est utilisé à des fins d'affichage dans les graphiques fournis par Roblox."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/5": {
-    "documentation": ""
+    "documentation": "Dictionnaire optionnel de champs personnalisés qui fourniront des répartitions dans les graphiques fournis par Roblox. Seules des clés spécifiques, fournies par <code>AnalyticsCustomFieldKeys</code>, seront utilisées pour ces répartitions. Limité à 8 000 combinaisons uniques de valeurs à travers les trois champs personnalisés par expérience."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent": {
     "documentation": "Enregistre un événement lorsque l'utilisateur a commencé une tentative de niveau.",
@@ -80129,30 +80194,29 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService": {
-    "documentation": "",
+    "documentation": "Service côté serveur pour soumettre les captures des joueurs à la modération du contenu et recevoir les résultats de manière asynchrone.",
     "keys": {
       "BindReviewableContentEventProcessor": "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor",
       "CreateReviewableContentAsync": "@roblox/globaltype/ModerationService.CreateReviewableContentAsync",
-      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey",
-      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync"
+      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService",
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/0": {
-    "documentation": ""
+    "documentation": "Service côté serveur pour soumettre les captures des joueurs à la modération du contenu et recevoir les résultats de manière asynchrone."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/1": {
-    "documentation": ""
+    "documentation": "Détermine l'ordre dans lequel ce processeur est invoqué par rapport aux autres processeurs liés."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/2": {
-    "documentation": ""
+    "documentation": "La fonction invoquée pour chaque événement de contenu révisable. Elle reçoit une table décrivant l'événement et doit retourner <code>true</code> pour reconnaître l' événement ou <code>false</code> pour le laisser pour redélivrance."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/return/0": {
-    "documentation": ""
+    "documentation": "Une connexion qui peut être déconnectée pour désenregistrer le processeur."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor": {
-    "documentation": "",
+    "documentation": "Enregistre un processeur côté serveur, ordonné par <code>priority</code>, qui est invoqué pour chaque événement de révision de modération sur le contenu révisable.",
     "params": [
       {
         "name": "self",
@@ -80174,16 +80238,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/0": {
-    "documentation": ""
+    "documentation": "Service côté serveur pour soumettre les captures des joueurs à la modération du contenu et recevoir les résultats de manière asynchrone."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/1": {
-    "documentation": ""
+    "documentation": "Une table de paramètres décrivant le contenu à réviser, y compris un <code>Id</code> optionnel, un <code>Ref</code> optionnel, et une liste <code>Content</code> d'éléments d'image ou vidéo."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/return/0": {
-    "documentation": ""
+    "documentation": "L'ID du contenu révisable créé."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync": {
-    "documentation": "",
+    "documentation": "Enregistre les captures générées par les utilisateurs pour révision de modération et déclenche les clients propriétaires pour les télécharger, retournant l'ID du contenu révisable.",
     "params": [
       {
         "name": "self",
@@ -80201,16 +80265,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/0": {
-    "documentation": ""
+    "documentation": "Service côté serveur pour soumettre les captures des joueurs à la modération du contenu et recevoir les résultats de manière asynchrone."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/1": {
-    "documentation": ""
+    "documentation": "Un <code>Content</code> se référant à une capture d'écran ou vidéo (une URI temporaire de <code>CaptureService:CaptureScreenshot()</code>, un <code>ScreenshotCapture</code>, ou un <code>VideoCapture</code>)."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0": {
-    "documentation": ""
+    "documentation": "Une clé de contenu opaque identifiant la capture."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey": {
-    "documentation": "",
+    "documentation": "Retourne une clé opaque qui identifie une capture d'écran ou une vidéo pour utilisation avec <code>CreateReviewableContentAsync()</code>.",
     "params": [
       {
         "name": "self",
@@ -80225,28 +80289,6 @@
       "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#CreateReviewableContentKey",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0"
-      },
-      {
-        "name": "config",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalRequestReviewableContentReviewAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation": {
@@ -87366,7 +87408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "Personnalise l'apparence d'un message de chat texte individuel affiché dans la fenêtre de chat.",
     "keys": {
       "FontFace": "@roblox/globaltype/ChatWindowMessageProperties.FontFace",
       "PrefixTextProperties": "@roblox/globaltype/ChatWindowMessageProperties.PrefixTextProperties",
@@ -97381,6 +97423,7 @@
       "ChatVersion": "@roblox/globaltype/TextChatService.ChatVersion",
       "CreateDefaultCommands": "@roblox/globaltype/TextChatService.CreateDefaultCommands",
       "CreateDefaultTextChannels": "@roblox/globaltype/TextChatService.CreateDefaultTextChannels",
+      "PlatformIntegratedChat": "@roblox/globaltype/TextChatService.PlatformIntegratedChat",
       "CanUserChatAsync": "@roblox/globaltype/TextChatService.CanUserChatAsync",
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
       "CanUsersDirectChatAsync": "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync",
@@ -97413,14 +97456,19 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#CreateDefaultTextChannels",
     "code_sample": ""
   },
+  "@roblox/globaltype/TextChatService.PlatformIntegratedChat": {
+    "documentation": "Détermine si le chat intégré à la plateforme est activé pour l'expérience. Nécessite la sécurité <code>RobloxScript</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#PlatformIntegratedChat",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/0": {
     "documentation": "Un service gérant la discussion textuelle en expérience."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "Le <code>Player.UserId</code> de l'utilisateur dont la permission de chat est vérifiée."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "Un booléen indiquant si l'utilisateur a la permission de chatter."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync": {
     "documentation": "Détermine si un utilisateur a la permission de discuter dans les expériences.",
@@ -97444,13 +97492,13 @@
     "documentation": "Un service gérant la discussion textuelle en expérience."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "Le <code>Player.UserId</code> de l'expéditeur potentiel du message."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": ""
+    "documentation": "Le <code>Player.UserId</code> du destinataire potentiel du message."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "Un booléen indiquant si les deux utilisateurs peuvent échanger des messages."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync": {
     "documentation": "Détermine si deux utilisateurs peuvent recevoir des messages l'un de l'autre.",
@@ -99965,7 +100013,7 @@
     "documentation": "L'ID du produit développeur que vous souhaitez offrir en récompense."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/return/0": {
-    "documentation": ""
+    "documentation": "Un <code>AdReward</code> configuré comme une récompense de produit développeur pour le produit spécifié."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
     "documentation": "Crée un <code>AdReward</code> à donner aux utilisateurs qui regardent une publicité vidéo.",
@@ -100050,7 +100098,7 @@
     "documentation": "Le service responsable de la publicité en expérience."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/1": {
-    "documentation": ""
+    "documentation": "Le <code>GuiButton</code> à suivre comme une opportunité de publicité vidéo récompensée. Doit être un descendant d'un <code>ScreenGui</code>."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/2": {
     "documentation": "L'ID du placement de l'annonce vidéo récompensée dans l' expérience. Permet de signaler la performance des placements d'annonces individuels."
@@ -100164,10 +100212,10 @@
     "documentation": "Le service responsable de la publicité en expérience."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/1": {
-    "documentation": ""
+    "documentation": "L'instance à arrêter de suivre. Cela devrait être une instance que vous avez précédemment passée à <code>RegisterAdOpportunityAsync()</code>."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity": {
-    "documentation": "",
+    "documentation": "Arrête le suivi d'une instance qui a été précédemment enregistrée avec <code>RegisterAdOpportunityAsync</code>.",
     "params": [
       {
         "name": "self",
@@ -107666,7 +107714,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.AdLabelClicked": {
-    "documentation": "",
+    "documentation": "Le joueur a cliqué sur l'étiquette \"Sponsorisé\" sur l'overlay de l'annonce, ce qui ouvre le prompt de divulgation de l'annonce montrant les informations de l'annonceur et du payeur.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107676,7 +107724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.VolumeButtonClicked": {
-    "documentation": "",
+    "documentation": "Le joueur a cliqué sur le bouton de basculement du volume sur l'overlay de l'annonce, ce qui met en sourdine ou rétablit le son de la vidéo publicitaire.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107686,7 +107734,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.FullscreenButtonClicked": {
-    "documentation": "",
+    "documentation": "Le joueur a cliqué sur le bouton de basculement en plein écran, ce qui zoome doucement la caméra vers une vue centrée de la surface de l'annonce et active le son.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107696,7 +107744,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayButtonClicked": {
-    "documentation": "",
+    "documentation": "Le joueur a cliqué sur le bouton de lecture sur l'overlay de l'annonce. Si l'annonce est déjà en plein écran, la lecture reprend ; sinon, elle entre en mode plein écran, ce qui commence (ou reprend) également la vidéo.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107706,7 +107754,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseButtonClicked": {
-    "documentation": "",
+    "documentation": "Le joueur a cliqué sur le bouton de pause pendant qu'une vidéo publicitaire est en lecture en mode plein écran, ce qui met la lecture de la vidéo en pause.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107716,7 +107764,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.CloseButtonClicked": {
-    "documentation": "",
+    "documentation": "Le joueur a cliqué sur le bouton de fermeture de la vue vidéo publicitaire en plein écran, ce qui sort du mode plein écran et revient à la position normale de la caméra.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107726,7 +107774,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.WhyThisAdClicked": {
-    "documentation": "",
+    "documentation": "Le joueur a cliqué sur le lien \"Pourquoi cette annonce ?\", qui affiche le prompt de divulgation EUDSA (Loi européenne sur les services numériques) montrant les noms de l'annonceur et du payeur pour la création publicitaire actuelle.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107736,7 +107784,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayEventTriggered": {
-    "documentation": "",
+    "documentation": "Un événement de lecture/reprise initié par le système qui efface l'état de pause forcée et reprend la lecture de la vidéo si le flux est ouvert.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107746,7 +107794,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseEventTriggered": {
-    "documentation": "",
+    "documentation": "Un événement de pause initié par le système, utilisé lorsque le moteur doit forcer la pause de la vidéo (par exemple, lorsque un menu déroulant s'ouvre sur l'annonce). Empêche la lecture automatique basée sur la visibilité de reprendre la lecture jusqu'à ce qu'un événement système correspondant efface cette pause.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107756,7 +107804,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIEventType": {
-    "documentation": "",
+    "documentation": "Décrit le type d'interaction utilisateur ou d'événement système qui s'est produit sur l'interface utilisateur immersive de l'annonce de <code>AdGui</code>.",
     "keys": {
       "AdLabelClicked": "@roblox/enum/AdUIEventType.AdLabelClicked",
       "VolumeButtonClicked": "@roblox/enum/AdUIEventType.VolumeButtonClicked",
@@ -111383,7 +111431,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ShowAdResult.InsufficientMemory": {
-    "documentation": "",
+    "documentation": "L'appareil ne dispose pas de suffisamment de mémoire vidéo disponible pour afficher l'annonce.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -111393,7 +111441,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ShowAdResult": {
-    "documentation": "",
+    "documentation": "Codes de résultat renvoyés par <code>AdService:ShowRewardedVideoAdAsync()</code> indiquant si une annonce vidéo récompensée a été complétée avec succès ou pourquoi elle ne l'a pas été.",
     "keys": {
       "ShowCompleted": "@roblox/enum/ShowAdResult.ShowCompleted",
       "AdNotReady": "@roblox/enum/ShowAdResult.AdNotReady",
@@ -114689,7 +114737,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsLogLevel.Information": {
-    "documentation": "",
+    "documentation": "Utilisé pour des messages d'information généraux qui mettent en évidence les progrès ou les changements d'état pendant le fonctionnement normal.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114729,7 +114777,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsLogLevel": {
-    "documentation": "",
+    "documentation": "Spécifie le niveau de gravité d'un événement de journalisation d'analytique passé à <code>AnalyticsService:FireLogEvent()</code>.",
     "keys": {
       "Trace": "@roblox/enum/AnalyticsLogLevel.Trace",
       "Debug": "@roblox/enum/AnalyticsLogLevel.Debug",
@@ -114815,7 +114863,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PublicChat": {
-    "documentation": "",
+    "documentation": "Indique que la chaîne sera visible par tous les joueurs ou un large public, appliquant le niveau de filtrage de texte le plus strict.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114825,7 +114873,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PrivateChat": {
-    "documentation": "",
+    "documentation": "Indique que la chaîne fait partie d'une conversation privée entre des utilisateurs spécifiques, appliquant un filtrage approprié pour des échanges un à un ou en petit groupe.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114835,7 +114883,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.TextFilterContext": {
-    "documentation": "",
+    "documentation": "Indique si le texte soumis à <code>TextService:FilterStringAsync()</code> ou <code>TextService:FilterAndTranslateStringAsync()</code> est destiné à un public ou à un auditoire privé, contrôlant la rigueur du backend de filtrage de texte.",
     "keys": {
       "PublicChat": "@roblox/enum/TextFilterContext.PublicChat",
       "PrivateChat": "@roblox/enum/TextFilterContext.PrivateChat"
@@ -115938,34 +115986,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#None",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.LOD": {
-    "documentation": "Colore chaque maillage selon son niveau de détail actuel en utilisant une carte thermique allant du bleu au rouge. Le bleu indique le détail le plus bas et les couleurs plus chaudes indiquent un détail plus élevé. Utile pour vérifier que les maillages éloignés sont diffusés à une fidélité réduite.",
+  "@roblox/enum/SlimTintMode.LevelOfDetail": {
+    "documentation": "Colore chaque maillage selon son niveau de détail actuel. Le bleu est le plus grossier, le rouge le plus fin, et chaque rangée intermédiaire correspond à une couleur fixe. Une couleur donnée signifie toujours le même rang LOD à travers chaque maillage, à l'exception que le LOD le plus élevé disponible de chaque maillage est toujours affiché en rouge.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LOD",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LevelOfDetail",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.Meshes": {
-    "documentation": "Assigne une couleur distincte à chaque maillage individuel au sein d'un modèle. Utile pour identifier les limites des maillages et vérifier comment un modèle est divisé en parties de maillage séparées.",
+  "@roblox/enum/SlimTintMode.DataModelState": {
+    "documentation": "Colore les modèles SLIM selon que leurs instances DataModel sont diffusées ou non. Le vert indique diffusé (DataModel complet présent) ; le jaune indique diffusé (un espace réservé). Les deux sont toujours rendus via SLIM.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Meshes",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTintMode.Zone": {
-    "documentation": "Colore les maillages par zone de diffusion. Le vert indique la zone de haute fidélité où le DataModel est présent ; le jaune indique la zone de faible fidélité où le DataModel est absent).",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Zone",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#DataModelState",
     "code_sample": ""
   },
   "@roblox/enum/SlimTintMode.TranscoderStatus": {
@@ -115982,9 +116020,8 @@
     "documentation": "Détermine le mode de codage couleur utilisé par le superposition de teinte de débogage SLIM dans la Console de Développeur.",
     "keys": {
       "None": "@roblox/enum/SlimTintMode.None",
-      "LOD": "@roblox/enum/SlimTintMode.LOD",
-      "Meshes": "@roblox/enum/SlimTintMode.Meshes",
-      "Zone": "@roblox/enum/SlimTintMode.Zone",
+      "LevelOfDetail": "@roblox/enum/SlimTintMode.LevelOfDetail",
+      "DataModelState": "@roblox/enum/SlimTintMode.DataModelState",
       "TranscoderStatus": "@roblox/enum/SlimTintMode.TranscoderStatus"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode",
@@ -116315,7 +116352,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnCreatingChatWindow": {
-    "documentation": "",
+    "documentation": "Rappel réservé au client invoqué avant que la fenêtre de chat ne soit construite, permettant de fournir des paramètres personnalisés.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116325,7 +116362,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientSendingMessage": {
-    "documentation": "",
+    "documentation": "Rappel réservé au client réservé pour lorsque le client envoie un message ; pas actuellement invoqué.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116335,7 +116372,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientFormattingMessage": {
-    "documentation": "",
+    "documentation": "Rappel réservé au client invoqué avant qu'un message ne soit affiché, permettant de modifier ses données d'affichage.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116345,7 +116382,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnServerReceivingMessage": {
-    "documentation": "",
+    "documentation": "Rappel réservé au serveur invoqué lorsque le serveur reçoit un message d'un locuteur, permettant de modifier ou de supprimer le message.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116355,7 +116392,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatCallbackType": {
-    "documentation": "",
+    "documentation": "Identifie un point d'accroche dans le pipeline de chat Luau hérité à utiliser avec <code>Chat:RegisterChatCallback()</code> et <code>Chat:InvokeChatCallback()</code>.",
     "keys": {
       "OnCreatingChatWindow": "@roblox/enum/ChatCallbackType.OnCreatingChatWindow",
       "OnClientSendingMessage": "@roblox/enum/ChatCallbackType.OnClientSendingMessage",
@@ -120765,7 +120802,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.None": {
-    "documentation": "",
+    "documentation": "Le <code>AdGui</code> n'a aucune création publicitaire chargée et ne rend pas de contenu publicitaire.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120775,7 +120812,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Image": {
-    "documentation": "",
+    "documentation": "Le <code>AdGui</code> rend une création publicitaire sous forme d'image statique.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120785,7 +120822,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Video": {
-    "documentation": "",
+    "documentation": "Le <code>AdGui</code> rend une création publicitaire sous forme de vidéo.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120795,7 +120832,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIType": {
-    "documentation": "",
+    "documentation": "Décrit le type de création publicitaire actuellement rendu par un <code>AdGui</code>.",
     "keys": {
       "None": "@roblox/enum/AdUIType.None",
       "Image": "@roblox/enum/AdUIType.Image",
@@ -123706,7 +123743,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Unknown": {
-    "documentation": "",
+    "documentation": "Le statut de restriction de chat de la plateforme pour l'utilisateur n'a pas encore été déterminé ; c'est la valeur par défaut pour toutes les propriétés ChatRestrictionStatus.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123716,7 +123753,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.NotRestricted": {
-    "documentation": "",
+    "documentation": "La plateforme tierce a confirmé que l'utilisateur n'a aucune restriction de chat en vigueur.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123726,7 +123763,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Restricted": {
-    "documentation": "",
+    "documentation": "La plateforme tierce a rapporté que l'utilisateur est restreint de chat, généralement en raison de contrôles parentaux ou de paramètres de communication de la plateforme.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123736,7 +123773,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatRestrictionStatus": {
-    "documentation": "",
+    "documentation": "Décrit le statut de restriction de chat qu'une plateforme tierce rapporte pour un utilisateur.",
     "keys": {
       "Unknown": "@roblox/enum/ChatRestrictionStatus.Unknown",
       "NotRestricted": "@roblox/enum/ChatRestrictionStatus.NotRestricted",
@@ -128179,57 +128216,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SurfaceType",
     "code_sample": ""
   },
-  "@roblox/enum/WebSocketState.Connecting": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Connecting",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Open": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Open",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closing": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closing",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closed": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closed",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.WebSocketState": {
-    "documentation": "",
-    "keys": {
-      "Connecting": "@roblox/enum/WebSocketState.Connecting",
-      "Open": "@roblox/enum/WebSocketState.Open",
-      "Closing": "@roblox/enum/WebSocketState.Closing",
-      "Closed": "@roblox/enum/WebSocketState.Closed"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState",
-    "code_sample": ""
-  },
   "@roblox/enum/RecommendationActionType.AddReaction": {
     "documentation": "L'utilisateur a ajouté une réaction à l'élément, comme un \"jaime\".",
     "keys": {
@@ -129627,7 +129613,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField01": {
-    "documentation": "",
+    "documentation": "La première clé de champ personnalisée, utilisée pour fournir une dimension de répartition dans les graphiques d'analyse fournis par Roblox.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129637,7 +129623,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField02": {
-    "documentation": "",
+    "documentation": "La deuxième clé de champ personnalisée, utilisée pour fournir une dimension de répartition dans les graphiques d'analyse fournis par Roblox.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129647,7 +129633,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField03": {
-    "documentation": "",
+    "documentation": "La troisième clé de champ personnalisée, utilisée pour fournir une dimension de répartition dans les graphiques d'analyse fournis par Roblox.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131738,7 +131724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextChatMessageStatus.ModerationTimeout": {
-    "documentation": "",
+    "documentation": "Le message ne peut pas être envoyé car l'utilisateur a un délai de modération actif sur le chat.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131863,7 +131849,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdAvailabilityResult": {
-    "documentation": "",
+    "documentation": "Indique si une annonce est disponible ou la raison pour laquelle elle ne peut pas être affichée.",
     "keys": {
       "IsAvailable": "@roblox/enum/AdAvailabilityResult.IsAvailable",
       "DeviceIneligible": "@roblox/enum/AdAvailabilityResult.DeviceIneligible",
@@ -132649,7 +132635,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Default": {
-    "documentation": "",
+    "documentation": "Couleur de premier plan de secours utilisée pour le texte de script qui ne correspond à aucune catégorie de syntaxe plus spécifique.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132659,7 +132645,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Operator": {
-    "documentation": "",
+    "documentation": "Couleur appliquée aux jetons d'opérateur tels que <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>==</code>, et <code>..</code> dans les scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132669,7 +132655,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Number": {
-    "documentation": "",
+    "documentation": "Couleur appliquée aux jetons littéraux numériques dans les scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132679,7 +132665,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.String": {
-    "documentation": "",
+    "documentation": "Couleur appliquée aux jetons littéraux de chaîne, y compris les chaînes entre guillemets et les littéraux de longues chaînes.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132689,7 +132675,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Comment": {
-    "documentation": "",
+    "documentation": "Couleur appliquée aux jetons de commentaire (commentaires à une ligne <code>--</code> et commentaires de bloc <code>--[[ ]]</code>) dans les scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132699,7 +132685,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Keyword": {
-    "documentation": "",
+    "documentation": "Couleur appliquée aux mots-clés réservés Luau tels que <code>if</code>, <code>then</code>, <code>else</code>, <code>do</code>, <code>end</code>, <code>return</code>, et <code>while</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132709,7 +132695,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Builtin": {
-    "documentation": "",
+    "documentation": "Couleur appliquée aux fonctions intégrées Luau et aux identifiants de bibliothèque standard dans les scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132719,7 +132705,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Method": {
-    "documentation": "",
+    "documentation": "Couleur appliquée aux identifiants d'appel de méthode dans les scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132729,7 +132715,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Property": {
-    "documentation": "",
+    "documentation": "Couleur appliquée aux identifiants d'accès aux propriétés (jetons suivant un opérateur <code>.</code>) dans les scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132739,7 +132725,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Nil": {
-    "documentation": "",
+    "documentation": "Couleur appliquée au jeton littéral <code>nil</code> dans les scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132749,7 +132735,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bool": {
-    "documentation": "",
+    "documentation": "Couleur de premier plan utilisée pour mettre en évidence les littéraux booléens (<code>true</code> et <code>false</code>) dans les scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132759,7 +132745,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Function": {
-    "documentation": "",
+    "documentation": "Couleur appliquée au jeton de mot-clé <code>function</code> dans les déclarations de fonction.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132769,7 +132755,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Local": {
-    "documentation": "",
+    "documentation": "Couleur appliquée au jeton de mot-clé <code>local</code> dans les déclarations de variables et de fonctions locales.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132779,7 +132765,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Self": {
-    "documentation": "",
+    "documentation": "Couleur appliquée au jeton d'identifiant <code>self</code> dans les corps de méthode.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132789,7 +132775,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.LuauKeyword": {
-    "documentation": "",
+    "documentation": "Couleur appliquée aux mots-clés d'annotation de type spécifiques à Luau tels que <code>type</code> et <code>typeof</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132799,7 +132785,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FunctionName": {
-    "documentation": "",
+    "documentation": "Couleur appliquée à l'identifiant qui nomme une fonction dans sa déclaration.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132809,7 +132795,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.TODO": {
-    "documentation": "",
+    "documentation": "Couleur appliquée aux marqueurs <code>TODO</code> trouvés à l'intérieur des commentaires dans les scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132819,7 +132805,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Background": {
-    "documentation": "",
+    "documentation": "Couleur de fond principale du canevas de l'éditeur de script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132829,7 +132815,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionText": {
-    "documentation": "",
+    "documentation": "Couleur de premier plan pour le texte dans la plage actuellement sélectionnée dans l'éditeur de script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132839,7 +132825,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionBackground": {
-    "documentation": "",
+    "documentation": "Couleur de surbrillance de fond pour la plage de texte actuellement sélectionnée dans l'éditeur de script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132849,7 +132835,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FindSelectionBackground": {
-    "documentation": "",
+    "documentation": "Couleur de surbrillance de fond appliquée aux plages de texte correspondant à une opération de recherche ou de remplacement.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132859,7 +132845,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MatchingWordBackground": {
-    "documentation": "",
+    "documentation": "Couleur de surbrillance de fond appliquée à toutes les occurrences du mot sous le curseur lorsque la mise en surbrillance des mots est active.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132869,7 +132855,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Warning": {
-    "documentation": "",
+    "documentation": "Couleur utilisée pour les marqueurs de diagnostic de gravité d'avertissement et les soulignements dans les scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132879,7 +132865,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Error": {
-    "documentation": "",
+    "documentation": "Couleur utilisée pour les marqueurs de diagnostic de gravité d'erreur et les soulignements dans les scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132889,7 +132875,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Info": {
-    "documentation": "",
+    "documentation": "Couleur utilisée pour les marqueurs de diagnostic de gravité d'information dans les scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132899,7 +132885,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Hint": {
-    "documentation": "",
+    "documentation": "Couleur utilisée pour les marqueurs de diagnostic de gravité d'indice dans les scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132909,7 +132895,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Whitespace": {
-    "documentation": "",
+    "documentation": "Couleur utilisée pour rendre visibles les caractères d'espace blanc (espaces et tabulations) lorsque cette option d'affichage est activée.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132919,7 +132905,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.ActiveLine": {
-    "documentation": "",
+    "documentation": "Couleur de surbrillance de fond appliquée à la ligne qui contient actuellement le curseur de texte.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132929,7 +132915,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerCurrentLine": {
-    "documentation": "",
+    "documentation": "Couleur de surbrillance de fond pour la ligne sur laquelle le débogueur est actuellement en pause.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132939,7 +132925,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerErrorLine": {
-    "documentation": "",
+    "documentation": "Couleur de surbrillance de fond pour une ligne qui a causé une erreur d'exécution lors d'une session de débogage.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132949,7 +132935,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Ruler": {
-    "documentation": "",
+    "documentation": "Couleur de la ligne de règle de colonne verticale tracée à la limite de largeur de caractère configurée dans l'éditeur de script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132959,7 +132945,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bracket": {
-    "documentation": "",
+    "documentation": "Couleur appliquée aux caractères de parenthèse tels que <code>(</code>, <code>)</code>, <code>[</code>, <code>]</code>, <code>{</code>, et <code>}</code> dans les scripts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132969,7 +132955,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Type": {
-    "documentation": "",
+    "documentation": "Couleur appliquée aux jetons de nom de type Luau dans les annotations et déclarations de type.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132979,7 +132965,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuPrimaryText": {
-    "documentation": "",
+    "documentation": "Couleur de texte principale pour les éléments listés dans les popups d'autocomplétion et de menu contextuel.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132989,7 +132975,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSecondaryText": {
-    "documentation": "",
+    "documentation": "Couleur de texte secondaire (par exemple, annotations de type ou indices de documentation) dans les popups d'autocomplétion.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132999,7 +132985,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedText": {
-    "documentation": "",
+    "documentation": "Couleur de texte de l'élément actuellement mis en surbrillance dans les popups d'autocomplétion et de menu contextuel.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133009,7 +132995,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBackground": {
-    "documentation": "",
+    "documentation": "Couleur de fond pour les popups d'autocomplétion et de menu contextuel dans l'éditeur de script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133019,7 +133005,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedBackground": {
-    "documentation": "",
+    "documentation": "Couleur de fond de l'élément actuellement mis en surbrillance dans les popups d'autocomplétion et de menu contextuel.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133029,7 +133015,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarBackground": {
-    "documentation": "",
+    "documentation": "Couleur de fond de la piste de la barre de défilement à l'intérieur des popups d'autocomplétion et de menu contextuel.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133039,7 +133025,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarHandle": {
-    "documentation": "",
+    "documentation": "Couleur du pouce de la barre de défilement (poignée) à l'intérieur des popups d'autocomplétion et de menu contextuel.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133049,7 +133035,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBorder": {
-    "documentation": "",
+    "documentation": "Couleur de bordure pour les popups d'autocomplétion et de menu contextuel dans l'éditeur de script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133059,7 +133045,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DocViewCodeBackground": {
-    "documentation": "",
+    "documentation": "Couleur de fond pour les blocs de code en ligne rendus dans le panneau de visualisation de documentation au sein de Studio.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133069,7 +133055,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayText": {
-    "documentation": "",
+    "documentation": "Couleur de texte pour les étiquettes affichées dans le panneau AI Code Overlay.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133079,7 +133065,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackground": {
-    "documentation": "",
+    "documentation": "Couleur de fond pour les boutons d'action AI Code Overlay dans leur état par défaut (inactif).",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133089,7 +133075,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundHover": {
-    "documentation": "",
+    "documentation": "Couleur de fond pour les boutons d'action AI Code Overlay lorsque le pointeur passe dessus.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133099,7 +133085,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundPressed": {
-    "documentation": "",
+    "documentation": "Couleur de fond pour les boutons d'action AI Code Overlay pendant qu'ils sont en cours d'appui.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133109,7 +133095,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.IndentationRuler": {
-    "documentation": "",
+    "documentation": "Couleur des lignes de guide verticales tracées à chaque niveau d'indentation dans la gouttière de l'éditeur de script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133119,7 +133105,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.StudioScriptEditorColorCategories": {
-    "documentation": "",
+    "documentation": "Catégories de couleurs utilisées pour thématiser l'éditeur de script dans Roblox Studio.",
     "keys": {
       "Default": "@roblox/enum/StudioScriptEditorColorCategories.Default",
       "Operator": "@roblox/enum/StudioScriptEditorColorCategories.Operator",
@@ -133364,7 +133350,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptPublishAssetResult": {
-    "documentation": "Décrit le résultat d'un appel à <code>AssetService:PromptCreateAssetAsync()</code>.",
+    "documentation": "Énumération de résultat obsolète pour l'événement <code>OpenPublishResultModal</code>.",
     "keys": {
       "Success": "@roblox/enum/PromptPublishAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptPublishAssetResult.PermissionDenied",
@@ -135428,7 +135414,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyTransactionType": {
-    "documentation": "",
+    "documentation": "Catégorise le contexte d'une transaction économique dans l'expérience pour une utilisation avec <code>AnalyticsService:LogEconomyEvent()</code>.",
     "keys": {
       "IAP": "@roblox/enum/AnalyticsEconomyTransactionType.IAP",
       "Shop": "@roblox/enum/AnalyticsEconomyTransactionType.Shop",
@@ -135621,7 +135607,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptCreateAssetResult": {
-    "documentation": "Décrit le résultat d'un appel à <code>AssetService:PromptCreateAssetAsync()</code>.",
+    "documentation": "Décrit le résultat d'un appel à <code>AvatarCreationService:PromptCreateAvatarAssetAsync()</code>.",
     "keys": {
       "Success": "@roblox/enum/PromptCreateAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptCreateAssetResult.PermissionDenied",
@@ -135638,7 +135624,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Custom": {
-    "documentation": "",
+    "documentation": "Un statut de progression personnalisé pour les événements en dehors du cycle de vie standard de début/échec/completion.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135648,7 +135634,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Start": {
-    "documentation": "",
+    "documentation": "Le joueur a commencé la tentative de niveau.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135658,7 +135644,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Fail": {
-    "documentation": "",
+    "documentation": "Le joueur a échoué la tentative de niveau.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135668,7 +135654,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Complete": {
-    "documentation": "",
+    "documentation": "Le joueur a réussi à compléter le niveau.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135678,7 +135664,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsProgressionType": {
-    "documentation": "",
+    "documentation": "Spécifie le statut de progression du joueur dans un événement de progression de niveau enregistré par <code>AnalyticsService:LogProgressionEvent()</code>.",
     "keys": {
       "Custom": "@roblox/enum/AnalyticsProgressionType.Custom",
       "Start": "@roblox/enum/AnalyticsProgressionType.Start",
@@ -136217,7 +136203,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdFormat.RewardedVideo": {
-    "documentation": "Le format de la publicité vidéo récompensée.",
+    "documentation": "Une annonce vidéo en plein écran qui se joue jusqu'à la fin et récompense le spectateur, utilisée comme argument <code>adFormat</code> pour les méthodes <code>AdService</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136227,7 +136213,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdFormat": {
-    "documentation": "",
+    "documentation": "Spécifie le format d'une annonce utilisée avec les méthodes <code>AdService</code>.",
     "keys": {
       "RewardedVideo": "@roblox/enum/AdFormat.RewardedVideo"
     },
@@ -136337,7 +136323,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Unknown": {
-    "documentation": "L'état de transcoding n'a pas encore été déterminé. C'est l'état initial avant que le modèle ait été interrogé. Affiché en magenta dans le dégradé debug.",
+    "documentation": "L'état de transcodage n'a pas encore été déterminé. C'est l'état initial avant que le modèle ait été interrogé. Affiché en jaune dans le superposition de teinte de débogage.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136346,48 +136332,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Unknown",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTranscoderStatus.NoHash": {
-    "documentation": "Le modèle est activé SLIM mais n'a pas encore de hash généré, donc la transcoding n'a pas été demandée. Affiché en cyan dans le dégradé debug.",
+  "@roblox/enum/SlimTranscoderStatus.Transcoding": {
+    "documentation": "Le transcodage SLIM est actuellement en cours sur le backend. Le modèle est prévu pour passer à Succeeded ou Failed une fois le transcodage terminé. Affiché en bleu dans le superposition de teinte de débogage.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NoHash",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.NotUploaded": {
-    "documentation": "Le modèle n'a pas été téléchargé sur le réseau de distribution de contenu. Affiché en orange dans le superposition de teinte de débogage.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NotUploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.Uploaded": {
-    "documentation": "Le modèle a été téléchargé sur le réseau de distribution de contenu mais n'a pas encore été transcodé en actifs SLIM. Affiché en jaune dans la superposition de teinte de débogage.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Uploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.InProgress": {
-    "documentation": "La transcoding SLIM est actuellement en cours sur le backend. Le modèle est prévu pour passer à Succeeded ou Failed une fois la transcoding terminée. Affiché en bleu dans le dégradé debug.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#InProgress",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Transcoding",
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Succeeded": {
-    "documentation": "La transcoding s'est terminée avec succès et les actifs SLIM sont disponibles pour le streaming. Affiché en vert dans le dégradé debug.",
+    "documentation": "Le transcodage a été complété avec succès et les actifs SLIM sont disponibles pour le streaming. Affiché en vert dans le superposition de teinte de débogage.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136397,7 +136353,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Failed": {
-    "documentation": "La transcoding ne s'est pas terminée avec succès. Affiché en rouge dans le dégradé debug.",
+    "documentation": "Le transcodage n'a pas été complété avec succès. Affiché en rouge dans le superposition de teinte de débogage.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136410,10 +136366,7 @@
     "documentation": "Décrit l'état de transcoding backend d'un modèle SLIM, de l'upload à la transcoding jusqu'au succès ou à l'échec.",
     "keys": {
       "Unknown": "@roblox/enum/SlimTranscoderStatus.Unknown",
-      "NoHash": "@roblox/enum/SlimTranscoderStatus.NoHash",
-      "NotUploaded": "@roblox/enum/SlimTranscoderStatus.NotUploaded",
-      "Uploaded": "@roblox/enum/SlimTranscoderStatus.Uploaded",
-      "InProgress": "@roblox/enum/SlimTranscoderStatus.InProgress",
+      "Transcoding": "@roblox/enum/SlimTranscoderStatus.Transcoding",
       "Succeeded": "@roblox/enum/SlimTranscoderStatus.Succeeded",
       "Failed": "@roblox/enum/SlimTranscoderStatus.Failed"
     },
@@ -137104,7 +137057,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyFlowType": {
-    "documentation": "",
+    "documentation": "Spécifie la direction du flux monétaire dans un événement économique enregistré par <code>AnalyticsService:LogEconomyEvent()</code>.",
     "keys": {
       "Sink": "@roblox/enum/AnalyticsEconomyFlowType.Sink",
       "Source": "@roblox/enum/AnalyticsEconomyFlowType.Source"
@@ -138772,7 +138725,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyAction": {
-    "documentation": "",
+    "documentation": "Décrit le type de transaction économique dans <code>AnalyticsService:FireInGameEconomyEvent()</code>.",
     "keys": {
       "Default": "@roblox/enum/AnalyticsEconomyAction.Default",
       "Acquire": "@roblox/enum/AnalyticsEconomyAction.Acquire",
@@ -139004,7 +138957,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Blue": {
-    "documentation": "Couleur de chat bleue.",
+    "documentation": "La couleur de chat bleue ; la valeur par défaut passée à <code>Chat()</code> et <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139014,7 +138967,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Green": {
-    "documentation": "Couleur de chat verte.",
+    "documentation": "La couleur de chat verte, passée comme argument <code>color</code> à <code>Chat()</code> ou <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139024,7 +138977,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Red": {
-    "documentation": "Couleur de chat rouge.",
+    "documentation": "La couleur de chat rouge, passée comme argument <code>color</code> à <code>Chat()</code> ou <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139034,7 +138987,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.White": {
-    "documentation": "Couleur de chat blanche.",
+    "documentation": "La couleur de chat blanche, passée comme argument <code>color</code> à <code>Chat()</code> ou <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140537,7 +140490,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.Undefined": {
-    "documentation": "",
+    "documentation": "Valeur sentinelle par défaut non initialisée indiquant qu'aucune méthode de téléportation n'a encore été déterminée.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140547,7 +140500,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.PortalForward": {
-    "documentation": "",
+    "documentation": "Le joueur s'est téléporté vers l'expérience de destination de l'annonceur en marchant dans un <code>AdPortal</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140557,7 +140510,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.InGameMenuBackButton": {
-    "documentation": "",
+    "documentation": "Le joueur a initié un téléport de retour vers l'expérience de l'éditeur en appuyant sur le bouton de retour dans le menu du jeu.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140567,7 +140520,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.UIBackButton": {
-    "documentation": "",
+    "documentation": "Le joueur a initié un téléport de retour vers l'expérience de l'éditeur en appuyant sur un bouton de retour affiché dans l'overlay UI de la destination publicitaire.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140577,7 +140530,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdTeleportMethod": {
-    "documentation": "",
+    "documentation": "Décrit la méthode par laquelle un joueur se téléporte pendant un flux de portail publicitaire immersif.",
     "keys": {
       "Undefined": "@roblox/enum/AdTeleportMethod.Undefined",
       "PortalForward": "@roblox/enum/AdTeleportMethod.PortalForward",

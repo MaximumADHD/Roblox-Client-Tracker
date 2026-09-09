@@ -24207,10 +24207,10 @@
     "documentation": "실제 구매를 지원하며, 디지털 혜택과 묶을 수 있습니다."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/param/1": {
-    "documentation": ""
+    "documentation": "조회할 상거래 제품의 식별자, 숫자 ID 또는 전체 <code>COM-</code> 접두사가 붙은 형식입니다."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/return/0": {
-    "documentation": ""
+    "documentation": "상거래 제품에 대한 정보의 사전으로, <code>IsForSale</code> 여부, 표시 세부정보의 <code>Item</code> 하위 테이블 (<code>Name</code>, <code>Description</code>, <code>IconImageAssetId</code>, <code>DisplayPrice</code>, 및 <code>IsPurchasable</code>), 구매 시 부여되는 <code>Benefits</code>를 포함합니다."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync": {
     "documentation": "경험에서 판매 중인 상거래 제품에 대한 정보를 검색합니다.",
@@ -24234,10 +24234,10 @@
     "documentation": "실제 구매를 지원하며, 디지털 혜택과 묶을 수 있습니다."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/1": {
-    "documentation": ""
+    "documentation": "구매 흐름을 표시할 <code>Player</code>. 클라이언트 스크립트에서 호출할 때, 이것은 로컬 플레이어여야 합니다."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/2": {
-    "documentation": ""
+    "documentation": "구매할 상거래 제품의 식별자, 숫자 ID 또는 전체 <code>COM-</code> 접두사가 붙은 형식입니다."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase": {
     "documentation": "제공된 <code>commerceProductId</code>를 사용하여 사용자가 상거래 제품을 구매하도록 요청합니다. 구매 흐름을 안내하는 웹 뷰를 엽니다.",
@@ -24263,13 +24263,13 @@
     "documentation": "실제 구매를 지원하며, 디지털 혜택과 묶을 수 있습니다."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/1": {
-    "documentation": ""
+    "documentation": "브라우저가 열리는 <code>Player</code>. 클라이언트 스크립트에서 호출할 때, 이것은 로컬 플레이어여야 합니다."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/2": {
-    "documentation": ""
+    "documentation": "열어야 할 실제 상거래 URL. URL은 상거래 허용 목록에 있어야 하며, 그렇지 않으면 요청이 무시됩니다."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser": {
-    "documentation": "",
+    "documentation": "지정된 플레이어를 위한 실제 상거래 URL로의 경험 내 브라우저를 여는 레거시 엔드포인트; <code>CommerceService:PromptCommerceProductPurchase()</code>로 대체되었습니다.",
     "params": [
       {
         "name": "self",
@@ -24292,10 +24292,10 @@
     "documentation": "실제 구매를 지원하며, 디지털 혜택과 묶을 수 있습니다."
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync/return/0": {
-    "documentation": ""
+    "documentation": "현재 사용자가 실제 상거래를 이용할 수 있는 경우 <code>true</code>입니다."
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync": {
-    "documentation": "",
+    "documentation": "현재 사용자가 실제 상거래를 이용할 수 있는지 여부를 반환하는 레거시 엔드포인트; <code>PolicyService</code>로 대체되었습니다.",
     "params": [
       {
         "name": "self",
@@ -24408,7 +24408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatCommand.AutocompleteVisible": {
-    "documentation": "",
+    "documentation": "<code>TextChatCommand</code>가 채팅 자동 완성 메뉴에서 제안으로 표시되는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatCommand#AutocompleteVisible",
     "code_sample": ""
   },
@@ -29850,6 +29850,7 @@
   "@roblox/globaltype/Decal": {
     "documentation": "부모 <code>BasePart</code>의 면에 이미지 텍스처를 적용합니다.",
     "keys": {
+      "AutoLocalize": "@roblox/globaltype/Decal.AutoLocalize",
       "Color3": "@roblox/globaltype/Decal.Color3",
       "ColorMap": "@roblox/globaltype/Decal.ColorMap",
       "ColorMapContent": "@roblox/globaltype/Decal.ColorMapContent",
@@ -29865,12 +29866,18 @@
       "Specular": "@roblox/globaltype/Decal.Specular",
       "Texture": "@roblox/globaltype/Decal.Texture",
       "TextureContent": "@roblox/globaltype/Decal.TextureContent",
+      "TexturePackContent": "@roblox/globaltype/Decal.TexturePackContent",
       "Transparency": "@roblox/globaltype/Decal.Transparency",
       "UVOffset": "@roblox/globaltype/Decal.UVOffset",
       "UVScale": "@roblox/globaltype/Decal.UVScale",
       "ZIndex": "@roblox/globaltype/Decal.ZIndex"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.AutoLocalize": {
+    "documentation": "<code>true</code>로 설정하면 데칼의 이미지 자산이 자동 로컬라이제이션 캡처에 적합합니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#AutoLocalize",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Color3": {
@@ -29889,27 +29896,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.LocalTransparencyModifier": {
-    "documentation": "데칼의 <code>Transparency</code> 속성에 대한 배수 역할을 합니다. 효과는 로컬 플레이어만 볼 수 있습니다.",
+    "documentation": "데칼의 <code>Transparency</code> 속성에 대한 배수 역할을 합니다. 효과는 로컬 플레이어에게만 표시됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#LocalTransparencyModifier",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMap": {
-    "documentation": "",
+    "documentation": "표면의 금속성 맵을 결정하는 콘텐츠 ID입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMapContent": {
-    "documentation": "",
+    "documentation": "표면의 금속성 맵을 결정하는 <code>Content</code> 객체입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMap": {
-    "documentation": "",
+    "documentation": "표면의 노멀 맵을 결정하는 콘텐츠 ID입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMapContent": {
-    "documentation": "",
+    "documentation": "표면의 노멀 맵을 결정하는 <code>Content</code> 객체입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMapContent",
     "code_sample": ""
   },
@@ -29919,22 +29926,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMap": {
-    "documentation": "",
+    "documentation": "표면의 거칠기 맵을 결정하는 콘텐츠 ID입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMapContent": {
-    "documentation": "",
+    "documentation": "표면의 거칠기 맵을 결정하는 <code>Content</code> 객체입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Shiny": {
-    "documentation": "<strong>Deprecated:</strong> 이 비기능 속성은 더 이상 사용되지 않으며 새로운 작업에서 사용해서는 안 됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 비기능성 속성은 사용 중단되었으며 새로운 작업에서 사용해서는 안 됩니다.<br>이전에는 데칼의 광택을 설정했던 사용 중단된 속성입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Shiny",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Specular": {
-    "documentation": "<strong>Deprecated:</strong> 이 속성은 더 이상 올바르게 작동하지 않으며 더 이상 사용되지 않습니다. 새로운 작업에서 사용해서는 안 됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 속성은 더 이상 올바르게 작동하지 않으며 사용 중단되었습니다. 새로운 작업에서 사용해서는 안 됩니다.<br>이전에는 데칼의 반사율을 설정했던 사용 중단된 속성입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Specular",
     "code_sample": ""
   },
@@ -29946,6 +29953,11 @@
   "@roblox/globaltype/Decal.TextureContent": {
     "documentation": "<code>Decal</code>에 의해 표시되는 텍스처 콘텐츠입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.TexturePackContent": {
+    "documentation": "엔진에서 관리하는 <code>Content</code>로, PBR 데칼의 압축된 런타임 텍스처 팩 데이터를 저장합니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TexturePackContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Transparency": {
@@ -29964,7 +29976,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ZIndex": {
-    "documentation": "여러 개의 데칼이 동일한 면에 할당될 때 렌더링 순서를 결정합니다.",
+    "documentation": "여러 데칼이 동일한 면에 할당될 때 렌더링 순서를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
     "code_sample": ""
   },
@@ -33842,12 +33854,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "<code>BubbleChatMessageProperties</code>에 대한 참조로, 이 메시지의 채팅 버블의 모양을 재정의합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#BubbleChatMessageProperties",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "<code>ChatWindowMessageProperties</code>에 대한 참조로, 이 메시지가 채팅 창에서 표시되는 모양을 재정의합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#ChatWindowMessageProperties",
     "code_sample": ""
   },
@@ -44704,7 +44716,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VisibilityCheckDispatcher": {
-    "documentation": "",
+    "documentation": "장소에서 몰입형 광고 인스턴스에 대한 가시성 검사를 예약하고 실행하는 서비스.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisibilityCheckDispatcher",
     "code_sample": ""
@@ -47184,31 +47196,6 @@
   "@roblox/globaltype/TerrainDetail.StudsPerTile": {
     "documentation": "텍스처의 크기를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#StudsPerTile",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping": {
-    "documentation": "",
-    "keys": {
-      "FlattenTree": "@roblox/globaltype/PatchMapping.FlattenTree",
-      "PatchId": "@roblox/globaltype/PatchMapping.PatchId",
-      "TargetPath": "@roblox/globaltype/PatchMapping.TargetPath"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.FlattenTree": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#FlattenTree",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.PatchId": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#PatchId",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.TargetPath": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#TargetPath",
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
@@ -51151,7 +51138,7 @@
     "documentation": "텍스트 채팅 채널을 나타냅니다."
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester/param/1": {
-    "documentation": ""
+    "documentation": "채널의 직접 메시지 권한을 제어하는 <code>Player</code>; 이 플레이어에게 직접 메시지를 보낼 수 있는 사용자만 채널에서 메시지를 전달받습니다."
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester": {
     "documentation": "<code>TextChannel</code>에 대한 <code>DirectChatRequester</code>를 설정합니다. <code>TextChannel</code>은 <code>DirectChatRequester</code>에게 직접 메시지를 보낼 수 있는 사용자에게만 메시지를 전달합니다.",
@@ -51196,7 +51183,7 @@
     "documentation": "메시지를 수신할 사용자의 <code>TextSource</code>입니다."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/return/0": {
-    "documentation": ""
+    "documentation": "주어진 클라이언트에게 메시지를 전달하기 위한 진리 값(<code>true</code>, <code>1</code> 또는 비어 있지 않은 문자열 등) 또는 해당 클라이언트에게 전달하지 않기 위한 거짓 값(<code>nil</code> 포함)."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback": {
     "documentation": "<code>TextChannel</code>이 수신 메시지를 받을 때 각 클라이언드에 대해 호출되어 이를 전달할지 여부를 결정합니다.",
@@ -52876,6 +52863,7 @@
       "GetPredictionStatus": "@roblox/globaltype/RunService.GetPredictionStatus",
       "IsClient": "@roblox/globaltype/RunService.IsClient",
       "IsEdit": "@roblox/globaltype/RunService.IsEdit",
+      "IsResimulating": "@roblox/globaltype/RunService.IsResimulating",
       "IsRunMode": "@roblox/globaltype/RunService.IsRunMode",
       "IsRunning": "@roblox/globaltype/RunService.IsRunning",
       "IsServer": "@roblox/globaltype/RunService.IsServer",
@@ -52896,7 +52884,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.RunState": {
-    "documentation": "",
+    "documentation": "게임 시뮬레이션의 현재 실행 상태입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#RunState",
     "code_sample": ""
   },
@@ -52949,7 +52937,7 @@
     "documentation": "선택적 우선 순위로 정수이며, 시뮬레이션 단계 내에서 바인드된 함수가 호출되는 순서를 결정합니다. 낮은 숫자는 먼저 호출됩니다. 두 개의 바인딩이 같은 우선순위를 가지면 이들 간의 순서는 미정입니다. 기본값은 2000입니다."
   },
   "@roblox/globaltype/RunService.BindToSimulation/return/0": {
-    "documentation": ""
+    "documentation": "시뮬레이션 단계에서 함수를 연결 해제할 수 있는 <code>RBXScriptConnection</code>입니다."
   },
   "@roblox/globaltype/RunService.BindToSimulation": {
     "documentation": "프레임 속도와 독립적으로 고정 빈도로 호출될 커스텀 함수를 바인딩합니다.",
@@ -52984,7 +52972,7 @@
     "documentation": "예측 상태를 확인할 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/RunService.GetPredictionStatus/return/0": {
-    "documentation": ""
+    "documentation": "주어진 인스턴스의 <code>PredictionStatus</code>로, 예측되었는지, 권위가 있는지, 또는 예측에 참여하지 않는지를 나타냅니다."
   },
   "@roblox/globaltype/RunService.GetPredictionStatus": {
     "documentation": "특정 컨텍스트 인스턴스의 <code>PredictionStatus</code>를 확인하여 여러 인스턴스에 영향을 미치는 스크립트를 디버깅할 때 유용합니다.",
@@ -53044,14 +53032,34 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsEdit",
     "code_sample": ""
   },
+  "@roblox/globaltype/RunService.IsResimulating/param/0": {
+    "documentation": "모든 런타임 활동과 시간 진행을 담당하는 서비스입니다."
+  },
+  "@roblox/globaltype/RunService.IsResimulating/return/0": {
+    "documentation": "현재 엔진이 재시뮬레이션 중인지 여부입니다."
+  },
+  "@roblox/globaltype/RunService.IsResimulating": {
+    "documentation": "클라이언트가 서버 권위 모델에서 잘못 예측된 후 현재 재시뮬레이션 단계에 있는지 여부를 반환합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.IsResimulating/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RunService.IsResimulating/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsResimulating",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RunService.IsRunMode/param/0": {
     "documentation": "모든 런타임 활동과 시간 진행을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/RunService.IsRunMode/return/0": {
-    "documentation": "스튜디오에서 <strong>Run</strong> 플레이테스트가 시작되었는지 여부입니다."
+    "documentation": "Studio에서 <strong>Run</strong> 플레이 테스트가 시작되었는지 여부입니다."
   },
   "@roblox/globaltype/RunService.IsRunMode": {
-    "documentation": "스튜디오에서 <strong>Run</strong> 플레이테스트가 시작되었는지 여부를 반환합니다.",
+    "documentation": "Studio에서 <strong>Run</strong> 플레이 테스트가 시작되었는지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -53068,10 +53076,10 @@
     "documentation": "모든 런타임 활동과 시간 진행을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/RunService.IsRunning/return/0": {
-    "documentation": "현재 경험이 실행 중인지 여부입니다."
+    "documentation": "경험이 현재 실행 중인지 여부입니다."
   },
   "@roblox/globaltype/RunService.IsRunning": {
-    "documentation": "현재 경험이 실행 중인지 여부를 반환합니다.",
+    "documentation": "경험이 현재 실행 중인지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -53088,10 +53096,10 @@
     "documentation": "모든 런타임 활동과 시간 진행을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/RunService.IsServer/return/0": {
-    "documentation": "현재 환경이 서버에서 실행되고 있는지 여부입니다."
+    "documentation": "현재 환경이 서버에서 실행 중인지 여부입니다."
   },
   "@roblox/globaltype/RunService.IsServer": {
-    "documentation": "현재 환경이 서버에서 실행되고 있는지 여부를 반환합니다.",
+    "documentation": "현재 환경이 서버에서 실행 중인지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -53108,10 +53116,10 @@
     "documentation": "모든 런타임 활동과 시간 진행을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/RunService.IsStudio/return/0": {
-    "documentation": "현재 환경이 스튜디오에서 실행되고 있는지 여부입니다."
+    "documentation": "현재 환경이 Studio에서 실행 중인지 여부입니다."
   },
   "@roblox/globaltype/RunService.IsStudio": {
-    "documentation": "현재 환경이 스튜디오에서 실행되고 있는지 여부를 반환합니다.",
+    "documentation": "현재 환경이 Studio에서 실행 중인지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -53128,7 +53136,7 @@
     "documentation": "모든 런타임 활동과 시간 진행을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/RunService.Pause": {
-    "documentation": "경험의 시뮬레이션이 실행 중인 경우 이를 일시 중지하여 물리와 스크립트를 중단합니다.",
+    "documentation": "경험의 시뮬레이션이 실행 중인 경우 일시 중지하여 물리 및 스크립트를 중단합니다.",
     "params": [
       {
         "name": "self",
@@ -53143,7 +53151,7 @@
     "documentation": "모든 런타임 활동과 시간 진행을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/RunService.Reset": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며 새로운 작업에 사용되어서는 안 됩니다.<br><code>RunService:Run()</code>이 호출될 때 설정된 웨이포인트로 현재 게임을 재설정합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며 새로운 작업에서 사용해서는 안 됩니다.<br>현재 게임을 <code>RunService:Run()</code>이 호출되었을 때 설정된 웨이포인트로 재설정합니다.",
     "params": [
       {
         "name": "self",
@@ -53158,7 +53166,7 @@
     "documentation": "모든 런타임 활동과 시간 진행을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/RunService.Run": {
-    "documentation": "게임의 시뮬레이션을 실행하여 물리와 스크립트를 실행합니다.",
+    "documentation": "게임의 시뮬레이션을 실행하여 물리 및 스크립트를 실행합니다.",
     "params": [
       {
         "name": "self",
@@ -53202,7 +53210,7 @@
     "documentation": "모든 런타임 활동과 시간 진행을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/RunService.Stop": {
-    "documentation": "현재 경험의 시뮬레이션이 실행 중인 경우 이를 중지합니다.",
+    "documentation": "경험의 시뮬레이션이 실행 중인 경우 중지합니다.",
     "params": [
       {
         "name": "self",
@@ -53217,10 +53225,10 @@
     "documentation": "모든 런타임 활동과 시간 진행을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep/param/1": {
-    "documentation": "언바인드할 함수의 이름입니다."
+    "documentation": "연결 해제할 함수의 이름입니다."
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep": {
-    "documentation": "<code>RunService:BindToRenderStep()</code>를 사용하여 렌더 루프에 바인딩된 함수를 언바인드합니다.",
+    "documentation": "<code>RunService:BindToRenderStep()</code>를 사용하여 렌더 루프에 바인딩된 함수를 연결 해제합니다.",
     "params": [
       {
         "name": "self",
@@ -54353,7 +54361,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Archivable": {
-    "documentation": "<code>Instance</code>와 그 자손이 <code>Instance:Clone()</code>을 사용하여 복제될 수 있는지, 저장/게시될 수 있는지를 결정합니다.",
+    "documentation": "<code>Instance</code>와 그 자손이 <code>Instance:Clone()</code>을 사용하여 복제될 수 있는지, 저장/게시할 수 있는지를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Archivable",
     "code_sample": "local part = Instance.new(\"Part\")\nprint(part:Clone())  --> Part\npart.Archivable = false\nprint(part:Clone())  --> nil"
   },
@@ -54463,7 +54471,7 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.Clone/return/0": {
-    "documentation": "인스턴스의 복사본 또는 인스턴스가 <code>Archivable</code>가 아닌 경우 <code>nil</code>입니다."
+    "documentation": "인스턴스의 복사본 또는 인스턴스가 <code>Archivable</code>가 아닐 경우 <code>nil</code>입니다."
   },
   "@roblox/globaltype/Instance.Clone": {
     "documentation": "인스턴스와 모든 자손의 복사본을 생성하며, <code>Archivable</code>이 아닌 인스턴스는 무시합니다.",
@@ -54503,7 +54511,7 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.Destroy": {
-    "documentation": "<code>Instance.Parent</code> 속성을 <code>nil</code>로 설정하고, <code>Instance.Parent</code> 속성을 잠그며, 모든 연결을 끊고, 모든 자식에 대해 <code>Destroy()</code>를 호출합니다.",
+    "documentation": "인스턴스의 <code>Instance.Parent</code> 속성을 <code>nil</code>로 설정하고, <code>Instance.Parent</code> 속성을 잠그며, 모든 연결을 끊고, 모든 자식에 대해 <code>Destroy()</code>를 호출합니다.",
     "params": [
       {
         "name": "self",
@@ -54539,7 +54547,7 @@
     "documentation": "찾은 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstAncestor": {
-    "documentation": "<code>Instance.Name</code>이 주어진 이름과 같은 첫 번째 조상을 반환합니다.",
+    "documentation": "주어진 이름과 같은 <code>Instance.Name</code>을 가진 <code>Instance</code>의 첫 번째 조상을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -54566,7 +54574,7 @@
     "documentation": "찾은 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass": {
-    "documentation": "<code>Instance</code>의 첫 번째 조상을 반환하며, <code>Object.ClassName</code>이 주어진 className과 같습니다.",
+    "documentation": "주어진 className과 같은 <code>Object.ClassName</code>을 가진 <code>Instance</code>의 첫 번째 조상을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -54593,7 +54601,7 @@
     "documentation": "찾은 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA": {
-    "documentation": "<code>Instance</code>의 첫 번째 조상을 반환하며, <code>Object:IsA()</code>가 주어진 className에 대해 true를 반환합니다.",
+    "documentation": "주어진 className에 대해 <code>Object:IsA()</code>가 true를 반환하는 <code>Instance</code>의 첫 번째 조상을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -54623,7 +54631,7 @@
     "documentation": "찾은 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstChild": {
-    "documentation": "주어진 이름으로 찾은 <code>Instance</code>의 첫 번째 자식을 반환합니다.",
+    "documentation": "주어진 이름을 가진 <code>Instance</code>의 첫 번째 자식을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -54709,7 +54717,7 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/1": {
-    "documentation": "찾을 <code>Object.ClassName</code>입니다."
+    "documentation": "검색할 <code>Object.ClassName</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/2": {
     "documentation": "검색이 재귀적으로 수행되어야 하는지 여부입니다."
@@ -54749,7 +54757,7 @@
     "documentation": "찾은 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstDescendant": {
-    "documentation": "주어진 <code>Instance.Name</code>으로 찾은 첫 번째 자손을 반환합니다.",
+    "documentation": "주어진 <code>Instance.Name</code>을 가진 첫 번째 자손을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -54773,7 +54781,7 @@
     "documentation": "찾은 <code>Actor</code>입니다."
   },
   "@roblox/globaltype/Instance.GetActor": {
-    "documentation": "<code>Instance</code>와 연결된 <code>Actor</code>를 반환합니다. 있으면.",
+    "documentation": "인스턴스와 연결된 <code>Actor</code>를 반환합니다. 있으면.",
     "params": [
       {
         "name": "self",
@@ -54951,7 +54959,7 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.GetFullName/return/0": {
-    "documentation": "<code>Instance</code>의 전체 이름입니다."
+    "documentation": "인스턴스의 전체 이름입니다."
   },
   "@roblox/globaltype/Instance.GetFullName": {
     "documentation": "인스턴스의 조상을 설명하는 문자열을 반환합니다.",
@@ -55055,7 +55063,7 @@
     "documentation": "인스턴스에서 확인할 태그입니다."
   },
   "@roblox/globaltype/Instance.HasTag/return/0": {
-    "documentation": "<code>true</code>는 인스턴스에 주어진 태그가 있음을 나타내고, 그렇지 않으면 <code>false</code>입니다."
+    "documentation": "인스턴스에 주어진 태그가 있으면 <code>true</code>, 그렇지 않으면 <code>false</code>입니다."
   },
   "@roblox/globaltype/Instance.HasTag": {
     "documentation": "인스턴스에 주어진 태그가 있는지 확인합니다.",
@@ -55082,10 +55090,10 @@
     "documentation": "자손 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.IsAncestorOf/return/0": {
-    "documentation": "주어진 자손의 조상이 <code>Instance</code>인 경우 <code>true</code>입니다."
+    "documentation": "<code>Instance</code>가 주어진 자손의 조상인 경우 <code>true</code>입니다."
   },
   "@roblox/globaltype/Instance.IsAncestorOf": {
-    "documentation": "주어진 자손의 조상이 <code>Instance</code>인지 여부를 반환합니다.",
+    "documentation": "<code>Instance</code>가 주어진 자손의 조상인지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -55109,10 +55117,10 @@
     "documentation": "조상 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.IsDescendantOf/return/0": {
-    "documentation": "주어진 조상의 자손인 경우 <code>true</code>입니다."
+    "documentation": "<code>Instance</code>가 주어진 조상의 자손인 경우 <code>true</code>입니다."
   },
   "@roblox/globaltype/Instance.IsDescendantOf": {
-    "documentation": "주어진 조상의 자손인지 여부를 반환합니다.",
+    "documentation": "<code>Instance</code>가 주어진 조상의 자손인지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -55163,10 +55171,10 @@
     "documentation": "쿼리할 속성의 이름입니다."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "속성이 코드로 인스턴스화된 기본값에서 수정되었는지를 나타내는 부울입니다."
+    "documentation": "속성이 코드로 생성된 기본값에서 수정되었는지를 나타내는 부울 값입니다."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "지정된 속성에 저장된 값이 코드로 인스턴스화된 기본값과 같지 않으면 <code>true</code>를 반환합니다.",
+    "documentation": "지정된 속성에 저장된 값이 코드로 생성된 기본값과 같지 않으면 <code>true</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -55190,7 +55198,7 @@
     "documentation": "요소를 필터링하는 데 사용되는 선택자 문자열입니다."
   },
   "@roblox/globaltype/Instance.QueryDescendants/return/0": {
-    "documentation": "선택자와 일치하는 인스턴스의 배열입니다(일치하는 것이 없으면 비어 있음)."
+    "documentation": "선택자와 일치하는 인스턴스의 배열입니다(선택자와 일치하는 것이 없으면 비어 있음)."
   },
   "@roblox/globaltype/Instance.QueryDescendants": {
     "documentation": "주어진 <code>selector</code> 문자열과 일치하는 인스턴스의 모든 자손을 포함하는 배열을 반환합니다.",
@@ -55601,7 +55609,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.ChildAdded": {
-    "documentation": "이 <code>Instance</code>에 자식이 추가된 후 발생합니다.",
+    "documentation": "이 <code>Instance</code>에 객체가 부모로 추가된 후 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.ChildAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.ChildAdded.ConnectParallel",
@@ -57937,7 +57945,7 @@
     "documentation": "기본 채팅 창의 속성을 구성합니다."
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties/return/0": {
-    "documentation": ""
+    "documentation": "수정할 수 있는 값이 있는 새로운 <code>ChatWindowMessageProperties</code> 인스턴스입니다. 이 인스턴스를 <code>TextChatService.OnChatWindowAdded</code> 콜백에서 반환하여 개별 메시지가 채팅 창에 어떻게 표시되는지를 사용자 정의할 수 있습니다."
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties": {
     "documentation": "채팅 창에서 메시지의 외관을 사용자 정의하는 데 사용할 수 있는 새로운 <code>ChatWindowMessageProperties</code> 인스턴스를 생성합니다.",
@@ -63252,7 +63260,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "<code>BubbleChatConfiguration</code> 속성을 개별 버블 채팅 메시지에 대해 재정의합니다.",
     "keys": {
       "BackgroundColor3": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundColor3",
       "BackgroundTransparency": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundTransparency",
@@ -63280,7 +63288,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties.TailVisible": {
-    "documentation": "",
+    "documentation": "채팅 버블 하단의 꼬리가 보이는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BubbleChatMessageProperties#TailVisible",
     "code_sample": ""
   },
@@ -69742,11 +69750,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui": {
-    "documentation": "",
+    "documentation": "<code>Part</code>의 면에 몰입형 광고를 표시하는 표면 기반 GUI입니다.",
     "keys": {
       "AdShape": "@roblox/globaltype/AdGui.AdShape",
       "EnableVideoAds": "@roblox/globaltype/AdGui.EnableVideoAds",
       "FallbackImage": "@roblox/globaltype/AdGui.FallbackImage",
+      "FallbackImageContent": "@roblox/globaltype/AdGui.FallbackImageContent",
       "Status": "@roblox/globaltype/AdGui.Status",
       "OnAdEvent": "@roblox/globaltype/AdGui.OnAdEvent"
     },
@@ -69754,7 +69763,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.AdShape": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code>에서 표시되는 광고의 모양을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#AdShape",
     "code_sample": ""
   },
@@ -69764,12 +69773,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.FallbackImage": {
-    "documentation": "",
+    "documentation": "광고가 제공되지 않을 때 <code>AdGui</code>가 표시하는 이미지입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImage",
     "code_sample": ""
   },
+  "@roblox/globaltype/AdGui.FallbackImageContent": {
+    "documentation": "자산 URI 및 <code>EditableImage</code> 객체를 지원하는 <code>AdGui.FallbackImage</code>의 <code>Content</code>에 해당하는 것입니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImageContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AdGui.Status": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code>가 현재 제공 광고를 표시하고 있는지 여부를 나타냅니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#Status",
     "code_sample": ""
   },
@@ -70493,7 +70507,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal": {
-    "documentation": "",
+    "documentation": "광고의 일환으로 플레이어를 후원된 경험으로 텔레포트하는 포털입니다.",
     "keys": {
       "PortalInvalidReason": "@roblox/globaltype/AdPortal.PortalInvalidReason",
       "Status": "@roblox/globaltype/AdPortal.Status"
@@ -70502,12 +70516,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.PortalInvalidReason": {
-    "documentation": "",
+    "documentation": "포털이 현재 유효하지 않은 이유를 설명하는 제작자용 메시지입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#PortalInvalidReason",
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.Status": {
-    "documentation": "",
+    "documentation": "포털이 현재 활성 상태이며 플레이어를 텔레포트할 수 있는지 여부를 나타냅니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#Status",
     "code_sample": ""
   },
@@ -77514,7 +77528,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBoxService": {
-    "documentation": "",
+    "documentation": "게임 플레이 중 사용자의 <code>TextBox</code> 상태를 관리하는 서비스입니다.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBoxService",
     "code_sample": ""
@@ -79417,6 +79431,7 @@
       "LogCustomEvent": "@roblox/globaltype/AnalyticsService.LogCustomEvent",
       "LogEconomyEvent": "@roblox/globaltype/AnalyticsService.LogEconomyEvent",
       "LogFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent",
+      "LogJourneyEvent": "@roblox/globaltype/AnalyticsService.LogJourneyEvent",
       "LogOnboardingFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent",
       "LogProgressionCompleteEvent": "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent",
       "LogProgressionEvent": "@roblox/globaltype/AnalyticsService.LogProgressionEvent",
@@ -79872,6 +79887,56 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogFunnelStepEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0": {
+    "documentation": "사용자가 당신의 경험과 상호작용하는 방식을 추적할 수 있는 메서드 모음입니다."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1": {
+    "documentation": "여정 이벤트를 트리거한 플레이어입니다."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2": {
+    "documentation": "여정의 이름입니다. 이는 여정의 모든 노드에서 동일해야 합니다. 비어 있을 수 없으며, 쉼표 <code>,</code>, 큰따옴표 <code>\"</code>, 작은따옴표 <code>'</code>, 또는 줄 바꿈 문자를 포함할 수 없습니다."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3": {
+    "documentation": "플레이어가 여정에서 도달한 노드의 이름입니다. 비어 있을 수 없으며, 쉼표 <code>,</code>, 큰따옴표 <code>\"</code>, 작은따옴표 <code>'</code>, 또는 줄 바꿈 문자를 포함할 수 없으며, <code>__</code> (이중 밑줄)로 시작할 수 없습니다. 이는 예약어입니다."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4": {
+    "documentation": "여정 세션에 대한 선택적 고유 식별자입니다. 이는 여정의 단일 세션 내의 모든 노드에서 동일해야 합니다. 제공된 경우, 쉼표 <code>,</code>, 큰따옴표 <code>\"</code>, 작은따옴표 <code>'</code>, 또는 줄 바꿈 문자를 포함할 수 없습니다."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5": {
+    "documentation": "Roblox에서 제공하는 차트에서 분류를 제공할 선택적 사용자 정의 필드 사전입니다. 이러한 분류에 사용되는 특정 키는 <code>AnalyticsCustomFieldKeys</code>에서 제공됩니다. 경험당 세 개의 사용자 정의 필드에서 8,000개의 고유한 값 조합으로 제한됩니다."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent": {
+    "documentation": "경험을 통해 비선형 플레이어 경로를 추적하는 데 사용되는 여정 이벤트를 기록합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1"
+      },
+      {
+        "name": "journeyName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2"
+      },
+      {
+        "name": "nodeName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3"
+      },
+      {
+        "name": "journeySessionId",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4"
+      },
+      {
+        "name": "customFields",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogJourneyEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/0": {
     "documentation": "사용자가 당신의 경험과 상호작용하는 방식을 추적할 수 있는 메서드 모음입니다."
   },
@@ -79879,16 +79944,16 @@
     "documentation": "이벤트를 트리거한 사용자입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/2": {
-    "documentation": "깔때기에서의 단계 번호입니다. 이 번호는 깔때기의 각 단계에서 고유해야 합니다. 모든 깔때기는 단계 1에서 시작합니다. 단계 1-100으로 제한됩니다. 단계가 건너뛰어지면 중간 단계는 완료된 것으로 간주됩니다."
+    "documentation": "퍼널 내의 단계 번호입니다. 이는 퍼널의 각 단계에 대해 고유해야 합니다. 모든 퍼널은 1단계에서 시작합니다. 1-100단계로 제한됩니다. 단계가 건너뛰어진 경우, 중간 단계는 완료된 것으로 간주됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/3": {
-    "documentation": "깔때기에서의 선택적 단계 이름입니다. 이 필드는 Roblox에서 제공하는 차트에서 표시 목적으로만 사용됩니다."
+    "documentation": "퍼널 내 단계의 선택적 이름입니다. 이 필드는 Roblox에서 제공하는 차트에서 표시 목적으로만 사용됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/4": {
-    "documentation": "Roblox에서 제공하는 차트에서 구분을 제공할 맞춤 필드의 선택적 사전입니다. <code>AnalyticsCustomFieldKeys</code>에서 제공하는 특정 키만 이 구분에 사용됩니다. 경험당 3개의 맞춤 필드에서 8,000개의 고유한 값 조합으로 제한됩니다."
+    "documentation": "Roblox에서 제공하는 차트에서 분류를 제공할 선택적 사용자 정의 필드 사전입니다. 이러한 분류에 사용되는 특정 키는 <code>AnalyticsCustomFieldKeys</code>에서 제공됩니다. 경험당 세 개의 사용자 정의 필드에서 8,000개의 고유한 값 조합으로 제한됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent": {
-    "documentation": "온보딩 깔때기를 통해 진행하는 사용자 행동을 추적하는 데 사용되는 이벤트를 기록합니다.",
+    "documentation": "온보딩 퍼널을 통해 사용자 행동을 추적하는 데 사용되는 이벤트를 기록합니다.",
     "params": [
       {
         "name": "self",
@@ -79919,22 +79984,22 @@
     "documentation": "사용자가 당신의 경험과 상호작용하는 방식을 추적할 수 있는 메서드 모음입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/1": {
-    "documentation": "이벤트를 발생시킨 플레이어입니다."
+    "documentation": "이벤트를 트리거한 플레이어입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/2": {
-    "documentation": ""
+    "documentation": "이 이벤트가 속한 진행 경로의 이름입니다. 예를 들어 세계, 챕터 또는 레벨 그룹과 같습니다. 이는 관련 진행 이벤트를 함께 그룹화합니다. 비어 있을 수 없으며, 쉼표 <code>,</code>, 큰따옴표 <code>\"</code>, 작은따옴표 <code>'</code>, 또는 줄 바꿈 문자를 포함할 수 없습니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/3": {
-    "documentation": ""
+    "documentation": "플레이어가 진행 중인 진행 경로 내의 숫자 레벨입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/4": {
-    "documentation": ""
+    "documentation": "이 이벤트와 관련된 레벨의 이름입니다. 이 필드는 Roblox에서 제공하는 차트에서 표시 목적으로 사용됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/5": {
-    "documentation": ""
+    "documentation": "Roblox에서 제공하는 차트에서 분류를 제공할 선택적 사용자 정의 필드 사전입니다. 이러한 분류에 사용되는 특정 키는 <code>AnalyticsCustomFieldKeys</code>에서 제공됩니다. 경험당 세 개의 사용자 정의 필드에서 8,000개의 고유한 값 조합으로 제한됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent": {
-    "documentation": "사용자가 레벨 시도를 완료했을 때 이벤트를 기록합니다.",
+    "documentation": "사용자가 레벨 시도를 완료했을 때의 이벤트를 기록합니다.",
     "params": [
       {
         "name": "self",
@@ -79972,22 +80037,22 @@
     "documentation": "이벤트를 트리거한 플레이어입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/2": {
-    "documentation": ""
+    "documentation": "이 이벤트가 속한 진행 경로의 이름입니다. 예를 들어 세계, 챕터 또는 레벨 그룹과 같습니다. 이는 관련 진행 이벤트를 함께 그룹화합니다. 비어 있을 수 없으며, 쉼표 <code>,</code>, 큰따옴표 <code>\"</code>, 작은따옴표 <code>'</code>, 또는 줄 바꿈 문자를 포함할 수 없습니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/3": {
-    "documentation": ""
+    "documentation": "기록할 진행 상태로, <code>Start</code>, <code>Complete</code>, 또는 <code>Fail</code>과 같은 <code>AnalyticsProgressionType</code> 값으로 제공됩니다. <code>AnalyticsService:LogProgressionStartEvent()</code>, <code>AnalyticsService:LogProgressionCompleteEvent()</code>, 및 <code>AnalyticsService:LogProgressionFailEvent()</code> 메서드는 이 상태를 설정하는 단축키입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/4": {
-    "documentation": ""
+    "documentation": "플레이어가 진행 중인 진행 경로 내의 숫자 레벨입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/5": {
-    "documentation": ""
+    "documentation": "이 이벤트와 관련된 레벨의 이름입니다. 이 필드는 Roblox에서 제공하는 차트에서 표시 목적으로 사용됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/6": {
-    "documentation": ""
+    "documentation": "Roblox에서 제공하는 차트에서 분류를 제공할 선택적 사용자 정의 필드 사전입니다. 이러한 분류에 사용되는 특정 키는 <code>AnalyticsCustomFieldKeys</code>에서 제공됩니다. 경험당 세 개의 사용자 정의 필드에서 8,000개의 고유한 값 조합으로 제한됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent": {
-    "documentation": "사용자가 레벨 시도를 시작, 완료 또는 실패했을 때 이벤트를 기록합니다.",
+    "documentation": "사용자가 레벨 시도를 시작, 완료 또는 실패했을 때의 이벤트를 기록합니다.",
     "params": [
       {
         "name": "self",
@@ -80029,19 +80094,19 @@
     "documentation": "이벤트를 트리거한 사용자입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/2": {
-    "documentation": ""
+    "documentation": "이 이벤트가 속한 진행 경로의 이름입니다. 예를 들어 세계, 챕터 또는 레벨 그룹과 같습니다. 이는 관련 진행 이벤트를 함께 그룹화합니다. 비어 있을 수 없으며, 쉼표 <code>,</code>, 큰따옴표 <code>\"</code>, 작은따옴표 <code>'</code>, 또는 줄 바꿈 문자를 포함할 수 없습니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/3": {
-    "documentation": ""
+    "documentation": "플레이어가 진행 중인 진행 경로 내의 숫자 레벨입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/4": {
-    "documentation": ""
+    "documentation": "이 이벤트와 관련된 레벨의 이름입니다. 이 필드는 Roblox에서 제공하는 차트에서 표시 목적으로 사용됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/5": {
-    "documentation": ""
+    "documentation": "Roblox에서 제공하는 차트에서 분류를 제공할 선택적 사용자 정의 필드 사전입니다. 이러한 분류에 사용되는 특정 키는 <code>AnalyticsCustomFieldKeys</code>에서 제공됩니다. 경험당 세 개의 사용자 정의 필드에서 8,000개의 고유한 값 조합으로 제한됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent": {
-    "documentation": "사용자가 레벨 시도에 실패했을 때 이벤트를 기록합니다.",
+    "documentation": "사용자가 레벨 시도를 실패했을 때의 이벤트를 기록합니다.",
     "params": [
       {
         "name": "self",
@@ -80079,19 +80144,19 @@
     "documentation": "이벤트를 트리거한 플레이어입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/2": {
-    "documentation": ""
+    "documentation": "이 이벤트가 속한 진행 경로의 이름입니다. 예를 들어 세계, 챕터 또는 레벨 그룹과 같습니다. 이는 관련 진행 이벤트를 함께 그룹화합니다. 비어 있을 수 없으며, 쉼표 <code>,</code>, 큰따옴표 <code>\"</code>, 작은따옴표 <code>'</code>, 또는 줄 바꿈 문자를 포함할 수 없습니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/3": {
-    "documentation": ""
+    "documentation": "플레이어가 진행 중인 진행 경로 내의 숫자 레벨입니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/4": {
-    "documentation": ""
+    "documentation": "이 이벤트와 관련된 레벨의 이름입니다. 이 필드는 Roblox에서 제공하는 차트에서 표시 목적으로 사용됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/5": {
-    "documentation": ""
+    "documentation": "Roblox에서 제공하는 차트에서 분류를 제공할 선택적 사용자 정의 필드 사전입니다. 이러한 분류에 사용되는 특정 키는 <code>AnalyticsCustomFieldKeys</code>에서 제공됩니다. 경험당 세 개의 사용자 정의 필드에서 8,000개의 고유한 값 조합으로 제한됩니다."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent": {
-    "documentation": "사용자가 레벨 시도를 시작했을 때 이벤트를 기록합니다.",
+    "documentation": "사용자가 레벨 시도를 시작했을 때의 이벤트를 기록합니다.",
     "params": [
       {
         "name": "self",
@@ -80129,30 +80194,29 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService": {
-    "documentation": "",
+    "documentation": "플레이어 캡처를 콘텐츠 검토를 위해 제출하고 결과를 비동기적으로 수신하는 서버 측 서비스입니다.",
     "keys": {
       "BindReviewableContentEventProcessor": "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor",
       "CreateReviewableContentAsync": "@roblox/globaltype/ModerationService.CreateReviewableContentAsync",
-      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey",
-      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync"
+      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService",
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/0": {
-    "documentation": ""
+    "documentation": "플레이어 캡처를 콘텐츠 검토를 위해 제출하고 결과를 비동기적으로 수신하는 서버 측 서비스입니다."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/1": {
-    "documentation": ""
+    "documentation": "이 프로세서가 다른 바인딩된 프로세서에 대해 호출되는 순서를 결정합니다."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/2": {
-    "documentation": ""
+    "documentation": "각 검토 가능한 콘텐츠 이벤트에 대해 호출되는 함수입니다. 이벤트를 확인하려면 <code>true</code>를 반환하고, 재전달을 위해 남기려면 <code>false</code>를 반환해야 합니다."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/return/0": {
-    "documentation": ""
+    "documentation": "프로세서를 등록 해제하기 위해 연결을 끊을 수 있습니다."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor": {
-    "documentation": "",
+    "documentation": "검토 가능한 콘텐츠에 대한 각 검토 이벤트에 대해 호출되는 <code>priority</code>에 따라 정렬된 서버 측 프로세서를 등록합니다.",
     "params": [
       {
         "name": "self",
@@ -80174,16 +80238,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/0": {
-    "documentation": ""
+    "documentation": "플레이어 캡처를 콘텐츠 검토를 위해 제출하고 결과를 비동기적으로 수신하는 서버 측 서비스입니다."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/1": {
-    "documentation": ""
+    "documentation": "검토할 콘텐츠를 설명하는 매개변수 테이블로, 선택적 <code>Id</code>, 선택적 <code>Ref</code>, 이미지 또는 비디오 항목의 <code>Content</code> 목록을 포함합니다."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/return/0": {
-    "documentation": ""
+    "documentation": "생성된 검토 가능한 콘텐츠의 ID입니다."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync": {
-    "documentation": "",
+    "documentation": "사용자 생성 캡처를 검토를 위해 등록하고 소유 클라이언트가 이를 업로드하도록 트리거하며, 검토 가능한 콘텐츠 ID를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -80201,16 +80265,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/0": {
-    "documentation": ""
+    "documentation": "플레이어 캡처를 콘텐츠 검토를 위해 제출하고 결과를 비동기적으로 수신하는 서버 측 서비스입니다."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/1": {
-    "documentation": ""
+    "documentation": "<code>CaptureService:CaptureScreenshot()</code>의 임시 URI, <code>ScreenshotCapture</code> 또는 <code>VideoCapture</code>를 참조하는 스크린샷 또는 비디오 캡처에 대한 <code>Content</code>입니다."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0": {
-    "documentation": ""
+    "documentation": "캡처를 식별하는 불투명 콘텐츠 키입니다."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey": {
-    "documentation": "",
+    "documentation": "스크린샷 또는 비디오 캡처를 식별하는 불투명 키를 반환하여 <code>CreateReviewableContentAsync()</code>와 함께 사용할 수 있습니다.",
     "params": [
       {
         "name": "self",
@@ -80225,28 +80289,6 @@
       "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#CreateReviewableContentKey",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0"
-      },
-      {
-        "name": "config",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalRequestReviewableContentReviewAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation": {
@@ -87366,7 +87408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "채팅 창에 표시되는 개별 텍스트 채팅 메시지의 모양을 사용자 정의합니다.",
     "keys": {
       "FontFace": "@roblox/globaltype/ChatWindowMessageProperties.FontFace",
       "PrefixTextProperties": "@roblox/globaltype/ChatWindowMessageProperties.PrefixTextProperties",
@@ -97381,6 +97423,7 @@
       "ChatVersion": "@roblox/globaltype/TextChatService.ChatVersion",
       "CreateDefaultCommands": "@roblox/globaltype/TextChatService.CreateDefaultCommands",
       "CreateDefaultTextChannels": "@roblox/globaltype/TextChatService.CreateDefaultTextChannels",
+      "PlatformIntegratedChat": "@roblox/globaltype/TextChatService.PlatformIntegratedChat",
       "CanUserChatAsync": "@roblox/globaltype/TextChatService.CanUserChatAsync",
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
       "CanUsersDirectChatAsync": "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync",
@@ -97413,14 +97456,19 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#CreateDefaultTextChannels",
     "code_sample": ""
   },
+  "@roblox/globaltype/TextChatService.PlatformIntegratedChat": {
+    "documentation": "플랫폼 통합 채팅이 경험에 대해 활성화되어 있는지 여부를 결정합니다. <code>RobloxScript</code> 보안이 필요합니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#PlatformIntegratedChat",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/0": {
     "documentation": "경험 내 텍스트 채팅을 처리하는 서비스입니다."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "채팅 권한이 확인되는 사용자의 <code>Player.UserId</code>입니다."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "사용자가 채팅할 수 있는 권한이 있는지 여부를 나타내는 불리언입니다."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync": {
     "documentation": "사용자가 경험에서 채팅을 할 수 있는 권한이 있는지 결정합니다.",
@@ -97444,13 +97492,13 @@
     "documentation": "경험 내 텍스트 채팅을 처리하는 서비스입니다."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "잠재적인 메시지 발신자의 <code>Player.UserId</code>입니다."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": ""
+    "documentation": "잠재적인 메시지 수신자의 <code>Player.UserId</code>입니다."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "두 사용자가 메시지를 교환할 수 있는지 여부를 나타내는 불리언입니다."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync": {
     "documentation": "두 사용자가 서로로부터 메시지를 받을 수 있는지 여부를 결정합니다.",
@@ -99965,7 +100013,7 @@
     "documentation": "보상으로 주고자 하는 개발자 제품의 ID입니다."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/return/0": {
-    "documentation": ""
+    "documentation": "지정된 제품에 대한 개발자 제품 보상으로 구성된 <code>AdReward</code>입니다."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
     "documentation": "비디오 광고를 시청하는 사용자에게 제공할 <code>AdReward</code>를 생성합니다.",
@@ -100050,7 +100098,7 @@
     "documentation": "경험 내 광고를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/1": {
-    "documentation": ""
+    "documentation": "보상 비디오 광고 기회로 추적할 <code>GuiButton</code>입니다. <code>ScreenGui</code>의 자손이어야 합니다."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/2": {
     "documentation": "경험 내에서 보상형 비디오 광고의 배치 ID입니다. 개별 광고 배치의 성과를 보고하는데 사용됩니다."
@@ -100164,10 +100212,10 @@
     "documentation": "경험 내 광고를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/1": {
-    "documentation": ""
+    "documentation": "추적을 중지할 인스턴스입니다. 이는 이전에 <code>RegisterAdOpportunityAsync()</code>에 전달한 인스턴스여야 합니다."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity": {
-    "documentation": "",
+    "documentation": "<code>RegisterAdOpportunityAsync</code>로 이전에 등록된 인스턴스의 추적을 중지합니다.",
     "params": [
       {
         "name": "self",
@@ -107666,7 +107714,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.AdLabelClicked": {
-    "documentation": "",
+    "documentation": "플레이어가 광고 오버레이의 \"후원\" 레이블을 클릭하여 광고 공개 프롬프트를 열고 광고주 및 지불자 정보를 표시합니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107676,7 +107724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.VolumeButtonClicked": {
-    "documentation": "",
+    "documentation": "플레이어가 광고 오버레이의 볼륨 토글 버튼을 클릭하여 비디오 광고 오디오를 음소거하거나 음소거 해제합니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107686,7 +107734,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.FullscreenButtonClicked": {
-    "documentation": "",
+    "documentation": "플레이어가 전체 화면 토글 버튼을 클릭하여 카메라를 광고 표면의 중앙 뷰로 부드럽게 확대하고 오디오를 활성화합니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107696,7 +107744,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayButtonClicked": {
-    "documentation": "",
+    "documentation": "플레이어가 광고 오버레이의 재생 버튼을 클릭합니다. 광고가 이미 전체 화면인 경우 재생이 재개되고, 그렇지 않으면 전체 화면 모드로 전환되어 비디오가 시작(또는 재개)됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107706,7 +107754,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseButtonClicked": {
-    "documentation": "",
+    "documentation": "플레이어가 전체 화면 모드에서 비디오 광고가 재생 중일 때 일시 정지 버튼을 클릭하여 비디오 재생을 일시 정지합니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107716,7 +107764,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.CloseButtonClicked": {
-    "documentation": "",
+    "documentation": "플레이어가 전체 화면 비디오 광고 뷰에서 닫기 버튼을 클릭하여 전체 화면 모드를 종료하고 정상 카메라 위치로 돌아갑니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107726,7 +107774,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.WhyThisAdClicked": {
-    "documentation": "",
+    "documentation": "플레이어가 \"이 광고는 왜?\" 링크를 클릭하여 EUDSA(유럽 디지털 서비스 법) 공개 프롬프트를 표시하고 현재 광고 크리에이티브에 대한 광고주 및 지불자 이름을 보여줍니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107736,7 +107784,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayEventTriggered": {
-    "documentation": "",
+    "documentation": "시스템이 시작한 재생/재개 이벤트로, 강제 일시 정지 상태를 해제하고 스트림이 열려 있는 경우 비디오 재생을 재개합니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107746,7 +107794,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseEventTriggered": {
-    "documentation": "",
+    "documentation": "시스템이 시작한 일시 정지 이벤트로, 엔진이 비디오를 강제로 일시 정지해야 할 때 사용됩니다(예: 드롭다운 메뉴가 광고 위에 열릴 때). 해당 일시 정지를 해제하는 시스템 이벤트가 발생할 때까지 시청 기반 자동 재생이 재생을 재개하지 못하도록 방지합니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107756,7 +107804,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIEventType": {
-    "documentation": "",
+    "documentation": "사용자 상호작용 또는 시스템 이벤트의 유형을 설명합니다. 이는 <code>AdGui</code>의 몰입형 광고 UI 오버레이에서 발생했습니다.",
     "keys": {
       "AdLabelClicked": "@roblox/enum/AdUIEventType.AdLabelClicked",
       "VolumeButtonClicked": "@roblox/enum/AdUIEventType.VolumeButtonClicked",
@@ -111383,7 +111431,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ShowAdResult.InsufficientMemory": {
-    "documentation": "",
+    "documentation": "장치에 광고를 표시할 수 있는 충분한 비디오 메모리가 없습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -111393,7 +111441,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ShowAdResult": {
-    "documentation": "",
+    "documentation": "<code>AdService:ShowRewardedVideoAdAsync()</code>에 의해 반환된 결과 코드로, 보상 비디오 광고가 성공적으로 완료되었는지 또는 완료되지 않은 이유를 나타냅니다.",
     "keys": {
       "ShowCompleted": "@roblox/enum/ShowAdResult.ShowCompleted",
       "AdNotReady": "@roblox/enum/ShowAdResult.AdNotReady",
@@ -114689,7 +114737,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsLogLevel.Information": {
-    "documentation": "",
+    "documentation": "정상 작동 중 진행 상황이나 상태 변화를 강조하는 일반 정보 메시지에 사용됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114729,7 +114777,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsLogLevel": {
-    "documentation": "",
+    "documentation": "분석 로그 이벤트의 심각도 수준을 지정합니다. <code>AnalyticsService:FireLogEvent()</code>에 전달됩니다.",
     "keys": {
       "Trace": "@roblox/enum/AnalyticsLogLevel.Trace",
       "Debug": "@roblox/enum/AnalyticsLogLevel.Debug",
@@ -114815,7 +114863,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PublicChat": {
-    "documentation": "",
+    "documentation": "문자열이 모든 플레이어 또는 광범위한 공개 청중에게 표시될 것임을 나타내며, 가장 엄격한 수준의 텍스트 필터링을 적용합니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114825,7 +114873,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PrivateChat": {
-    "documentation": "",
+    "documentation": "문자열이 특정 사용자 간의 비공식 대화의 일부임을 나타내며, 1:1 또는 소규모 그룹 교환에 적합한 필터링을 적용합니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114835,7 +114883,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.TextFilterContext": {
-    "documentation": "",
+    "documentation": "<code>TextService:FilterStringAsync()</code> 또는 <code>TextService:FilterAndTranslateStringAsync()</code>에 제출된 텍스트가 공개 또는 비공식 청중을 위한 것인지 여부를 나타내며, 텍스트 필터링 백엔드의 엄격성을 제어합니다.",
     "keys": {
       "PublicChat": "@roblox/enum/TextFilterContext.PublicChat",
       "PrivateChat": "@roblox/enum/TextFilterContext.PrivateChat"
@@ -115938,38 +115986,28 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#None",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.LOD": {
-    "documentation": "파란색에서 빨간색으로 변하는 히트맵을 사용하여 각 메시를 현재 세부 수준에 따라 색상화합니다. 파란색은 가장 낮은 세부 사항을 나타내고 따뜻한 색상은 더 높은 세부 사항을 나타냅니다. 먼 메시가 낮은 충실도로 스트리밍되고 있는지 확인하는 데 유용합니다.",
+  "@roblox/enum/SlimTintMode.LevelOfDetail": {
+    "documentation": "각 메쉬를 현재 세부 수준에 따라 색칠합니다. 파란색은 가장 거칠고, 빨간색은 가장 세밀하며, 그 사이의 모든 등급은 고정된 색상에 매핑됩니다. 주어진 색상은 모든 메쉬에서 항상 동일한 LOD 등급을 의미하며, 각 메쉬의 가장 높은 사용 가능한 LOD는 항상 빨간색으로 표시됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LOD",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LevelOfDetail",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.Meshes": {
-    "documentation": "모델 내의 각 개별 메시에 고유한 색상을 할당합니다. 메시 경계를 식별하고 모델이 별도의 메시 부분으로 어떻게 나뉘는지 확인하는 데 유용합니다.",
+  "@roblox/enum/SlimTintMode.DataModelState": {
+    "documentation": "SLIM 모델을 해당 DataModel 인스턴스가 스트리밍 중인지 여부에 따라 색칠합니다. 초록색은 스트리밍 중(전체 DataModel 존재)을 나타내고, 노란색은 스트리밍 아웃(플레이스홀더)을 나타냅니다. 두 경우 모두 SLIM을 통해 렌더링됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Meshes",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTintMode.Zone": {
-    "documentation": "스트리밍 영역에 따라 메시를 색상화합니다. 녹색은 데이터 모델이 존재하는 고충실도 영역을 나타내고, 노란색은 데이터 모델이 없는 저충실도 영역을 나타냅니다.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Zone",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#DataModelState",
     "code_sample": ""
   },
   "@roblox/enum/SlimTintMode.TranscoderStatus": {
-    "documentation": "각 SLIM 모델을 <code>SlimTranscoderStatus</code>에 따라 색칠합니다. 링크를 따라가면 각 상태에 해당하는 색상이 무엇인지 확인할 수 있습니다.",
+    "documentation": "각 SLIM 모델을 <code>SlimTranscoderStatus</code>에 따라 색칠합니다. 각 상태에 매핑되는 색상을 보려면 링크를 따르세요.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -115982,9 +116020,8 @@
     "documentation": "SLIM 디버그 틴트 오버레이에서 사용되는 색상 코딩 모드를 결정합니다. 개발자 콘솔에서.",
     "keys": {
       "None": "@roblox/enum/SlimTintMode.None",
-      "LOD": "@roblox/enum/SlimTintMode.LOD",
-      "Meshes": "@roblox/enum/SlimTintMode.Meshes",
-      "Zone": "@roblox/enum/SlimTintMode.Zone",
+      "LevelOfDetail": "@roblox/enum/SlimTintMode.LevelOfDetail",
+      "DataModelState": "@roblox/enum/SlimTintMode.DataModelState",
       "TranscoderStatus": "@roblox/enum/SlimTintMode.TranscoderStatus"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode",
@@ -116315,7 +116352,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnCreatingChatWindow": {
-    "documentation": "",
+    "documentation": "채팅 창이 구성되기 전에 호출되는 클라이언트 전용 콜백으로, 사용자 정의 설정을 제공할 수 있습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116325,7 +116362,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientSendingMessage": {
-    "documentation": "",
+    "documentation": "클라이언트가 메시지를 보낼 때를 위해 예약된 클라이언트 전용 콜백; 현재 호출되지 않습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116335,7 +116372,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientFormattingMessage": {
-    "documentation": "",
+    "documentation": "메시지가 표시되기 전에 호출되는 클라이언트 전용 콜백으로, 표시 데이터를 수정할 수 있습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116345,7 +116382,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnServerReceivingMessage": {
-    "documentation": "",
+    "documentation": "서버가 발신자로부터 메시지를 수신할 때 호출되는 서버 전용 콜백으로, 메시지를 수정하거나 억제할 수 있습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116355,7 +116392,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatCallbackType": {
-    "documentation": "",
+    "documentation": "레거시 Luau 채팅 파이프라인에서 <code>Chat:RegisterChatCallback()</code> 및 <code>Chat:InvokeChatCallback()</code>와 함께 사용할 수 있는 후크 포인트를 식별합니다.",
     "keys": {
       "OnCreatingChatWindow": "@roblox/enum/ChatCallbackType.OnCreatingChatWindow",
       "OnClientSendingMessage": "@roblox/enum/ChatCallbackType.OnClientSendingMessage",
@@ -120765,7 +120802,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.None": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code>에 광고 크리에이티브가 로드되어 있지 않으며 광고 콘텐츠를 렌더링하고 있지 않습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120775,7 +120812,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Image": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code>가 정적 이미지 광고 크리에이티브를 렌더링하고 있습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120785,7 +120822,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Video": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code>가 비디오 광고 크리에이티브를 렌더링하고 있습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120795,7 +120832,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIType": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code>에 의해 현재 렌더링되고 있는 광고 크리에이티브의 유형을 설명합니다.",
     "keys": {
       "None": "@roblox/enum/AdUIType.None",
       "Image": "@roblox/enum/AdUIType.Image",
@@ -123706,7 +123743,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Unknown": {
-    "documentation": "",
+    "documentation": "플랫폼의 사용자에 대한 채팅 제한 상태가 아직 결정되지 않았습니다. 이는 모든 ChatRestrictionStatus 속성의 기본값입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123716,7 +123753,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.NotRestricted": {
-    "documentation": "",
+    "documentation": "타사 플랫폼이 사용자가 채팅 제한이 없음을 확인했습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123726,7 +123763,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Restricted": {
-    "documentation": "",
+    "documentation": "타사 플랫폼이 사용자가 채팅이 제한되었다고 보고했습니다. 일반적으로 이는 부모 통제 또는 플랫폼 커뮤니케이션 설정 때문입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123736,7 +123773,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatRestrictionStatus": {
-    "documentation": "",
+    "documentation": "타사 플랫폼이 사용자에 대해 보고하는 채팅 제한 상태를 설명합니다.",
     "keys": {
       "Unknown": "@roblox/enum/ChatRestrictionStatus.Unknown",
       "NotRestricted": "@roblox/enum/ChatRestrictionStatus.NotRestricted",
@@ -128179,57 +128216,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SurfaceType",
     "code_sample": ""
   },
-  "@roblox/enum/WebSocketState.Connecting": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Connecting",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Open": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Open",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closing": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closing",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closed": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closed",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.WebSocketState": {
-    "documentation": "",
-    "keys": {
-      "Connecting": "@roblox/enum/WebSocketState.Connecting",
-      "Open": "@roblox/enum/WebSocketState.Open",
-      "Closing": "@roblox/enum/WebSocketState.Closing",
-      "Closed": "@roblox/enum/WebSocketState.Closed"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState",
-    "code_sample": ""
-  },
   "@roblox/enum/RecommendationActionType.AddReaction": {
     "documentation": "사용자가 항목에 반응을 추가했습니다, 예를 들어 \"좋아요\"와 같은 것입니다.",
     "keys": {
@@ -129627,7 +129613,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField01": {
-    "documentation": "",
+    "documentation": "첫 번째 사용자 정의 필드 키로, Roblox에서 제공하는 분석 차트에서 분류 차원을 제공하는 데 사용됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129637,7 +129623,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField02": {
-    "documentation": "",
+    "documentation": "두 번째 사용자 정의 필드 키로, Roblox에서 제공하는 분석 차트에서 분류 차원을 제공하는 데 사용됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129647,7 +129633,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField03": {
-    "documentation": "",
+    "documentation": "세 번째 사용자 정의 필드 키로, Roblox에서 제공하는 분석 차트에서 분류 차원을 제공하는 데 사용됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131738,7 +131724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextChatMessageStatus.ModerationTimeout": {
-    "documentation": "",
+    "documentation": "사용자가 채팅에 대한 활성 모더레이션 타임아웃이 있기 때문에 메시지를 보낼 수 없습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131863,7 +131849,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdAvailabilityResult": {
-    "documentation": "",
+    "documentation": "광고가 사용 가능한지 또는 표시할 수 없는 이유를 나타냅니다.",
     "keys": {
       "IsAvailable": "@roblox/enum/AdAvailabilityResult.IsAvailable",
       "DeviceIneligible": "@roblox/enum/AdAvailabilityResult.DeviceIneligible",
@@ -132649,7 +132635,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Default": {
-    "documentation": "",
+    "documentation": "더 구체적인 구문 카테고리와 일치하지 않는 스크립트 텍스트에 사용되는 기본 전경색입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132659,7 +132645,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Operator": {
-    "documentation": "",
+    "documentation": "스크립트에서 <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>==</code>, 및 <code>..</code>와 같은 연산자 토큰에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132669,7 +132655,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Number": {
-    "documentation": "",
+    "documentation": "스크립트에서 숫자 리터럴 토큰에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132679,7 +132665,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.String": {
-    "documentation": "",
+    "documentation": "따옴표가 있는 문자열 및 긴 문자열 리터럴을 포함한 문자열 리터럴 토큰에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132689,7 +132675,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Comment": {
-    "documentation": "",
+    "documentation": "스크립트에서 주석 토큰(단일 행 <code>--</code> 및 블록 <code>--[[ ]]</code> 주석)에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132699,7 +132685,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Keyword": {
-    "documentation": "",
+    "documentation": "스크립트에서 <code>if</code>, <code>then</code>, <code>else</code>, <code>do</code>, <code>end</code>, <code>return</code>, 및 <code>while</code>과 같은 Luau 예약어에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132709,7 +132695,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Builtin": {
-    "documentation": "",
+    "documentation": "스크립트에서 Luau 내장 함수 및 표준 라이브러리 식별자에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132719,7 +132705,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Method": {
-    "documentation": "",
+    "documentation": "스크립트에서 메서드 호출 식별자에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132729,7 +132715,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Property": {
-    "documentation": "",
+    "documentation": "스크립트에서 속성 접근 식별자(토큰이 <code>.</code> 연산자 뒤에 오는)에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132739,7 +132725,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Nil": {
-    "documentation": "",
+    "documentation": "스크립트에서 <code>nil</code> 리터럴 토큰에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132749,7 +132735,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bool": {
-    "documentation": "",
+    "documentation": "스크립트에서 부울 리터럴(<code>true</code> 및 <code>false</code>)을 강조하는 데 사용되는 전경색입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132759,7 +132745,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Function": {
-    "documentation": "",
+    "documentation": "함수 선언에서 <code>function</code> 키워드 토큰에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132769,7 +132755,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Local": {
-    "documentation": "",
+    "documentation": "로컬 변수 및 함수 선언에서 <code>local</code> 키워드 토큰에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132779,7 +132765,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Self": {
-    "documentation": "",
+    "documentation": "메서드 본문에서 <code>self</code> 식별자 토큰에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132789,7 +132775,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.LuauKeyword": {
-    "documentation": "",
+    "documentation": "<code>type</code> 및 <code>typeof</code>와 같은 Luau 전용 타입 주석 키워드에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132799,7 +132785,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FunctionName": {
-    "documentation": "",
+    "documentation": "함수 선언에서 함수를 이름 짓는 식별자에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132809,7 +132795,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.TODO": {
-    "documentation": "",
+    "documentation": "스크립트의 주석 내에서 발견된 <code>TODO</code> 마커에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132819,7 +132805,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Background": {
-    "documentation": "",
+    "documentation": "스크립트 편집기 캔버스의 기본 배경색입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132829,7 +132815,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionText": {
-    "documentation": "",
+    "documentation": "스크립트 편집기에서 현재 선택된 범위 내의 텍스트에 대한 전경색입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132839,7 +132825,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionBackground": {
-    "documentation": "",
+    "documentation": "스크립트 편집기에서 현재 선택된 텍스트 범위에 대한 배경 강조 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132849,7 +132835,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FindSelectionBackground": {
-    "documentation": "",
+    "documentation": "찾기 또는 바꾸기 작업으로 일치하는 텍스트 범위에 적용되는 배경 강조 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132859,7 +132845,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MatchingWordBackground": {
-    "documentation": "",
+    "documentation": "단어 강조가 활성화된 경우 커서 아래의 단어의 모든 발생에 적용되는 배경 강조 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132869,7 +132855,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Warning": {
-    "documentation": "",
+    "documentation": "스크립트에서 경고 심각도 진단 마커 및 밑줄에 사용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132879,7 +132865,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Error": {
-    "documentation": "",
+    "documentation": "스크립트에서 오류 심각도 진단 마커 및 밑줄에 사용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132889,7 +132875,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Info": {
-    "documentation": "",
+    "documentation": "스크립트에서 정보 심각도 진단 마커에 사용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132899,7 +132885,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Hint": {
-    "documentation": "",
+    "documentation": "스크립트에서 힌트 심각도 진단 마커에 사용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132909,7 +132895,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Whitespace": {
-    "documentation": "",
+    "documentation": "해당 표시 옵션이 활성화된 경우 보이는 공백 문자(공백 및 탭)를 렌더링하는 데 사용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132919,7 +132905,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.ActiveLine": {
-    "documentation": "",
+    "documentation": "현재 텍스트 커서가 있는 줄에 적용되는 배경 강조 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132929,7 +132915,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerCurrentLine": {
-    "documentation": "",
+    "documentation": "디버거가 현재 일시 중지된 줄에 대한 배경 강조 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132939,7 +132925,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerErrorLine": {
-    "documentation": "",
+    "documentation": "디버깅 세션 중 런타임 오류를 발생시킨 줄에 대한 배경 강조 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132949,7 +132935,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Ruler": {
-    "documentation": "",
+    "documentation": "스크립트 편집기에서 구성된 문자 너비 제한에 그려진 수직 열 눈금자 선의 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132959,7 +132945,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bracket": {
-    "documentation": "",
+    "documentation": "스크립트에서 <code>(</code>, <code>)</code>, <code>[</code>, <code>]</code>, <code>{</code>, 및 <code>}</code>와 같은 괄호 문자에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132969,7 +132955,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Type": {
-    "documentation": "",
+    "documentation": "타입 주석 및 선언에서 Luau 타입 이름 토큰에 적용되는 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132979,7 +132965,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuPrimaryText": {
-    "documentation": "",
+    "documentation": "자동 완성과 컨텍스트 메뉴 팝업에 나열된 항목의 기본 텍스트 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132989,7 +132975,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSecondaryText": {
-    "documentation": "",
+    "documentation": "자동 완성 팝업에서 보조 텍스트 색상(예: 타입 주석 또는 문서 힌트)입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132999,7 +132985,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedText": {
-    "documentation": "",
+    "documentation": "자동 완성과 컨텍스트 메뉴 팝업에서 현재 강조된 항목의 텍스트 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133009,7 +132995,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBackground": {
-    "documentation": "",
+    "documentation": "스크립트 편집기에서 자동 완성과 컨텍스트 메뉴 팝업의 배경 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133019,7 +133005,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedBackground": {
-    "documentation": "",
+    "documentation": "자동 완성과 컨텍스트 메뉴 팝업에서 현재 강조된 항목의 배경 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133029,7 +133015,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarBackground": {
-    "documentation": "",
+    "documentation": "자동 완성과 컨텍스트 메뉴 팝업 내의 스크롤바 트랙의 배경 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133039,7 +133025,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarHandle": {
-    "documentation": "",
+    "documentation": "자동 완성과 컨텍스트 메뉴 팝업 내의 스크롤바 손잡이(엄지)의 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133049,7 +133035,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBorder": {
-    "documentation": "",
+    "documentation": "스크립트 편집기에서 자동 완성과 컨텍스트 메뉴 팝업의 테두리 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133059,7 +133045,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DocViewCodeBackground": {
-    "documentation": "",
+    "documentation": "Studio 내 문서 뷰어 패널에서 렌더링된 인라인 코드 블록의 배경 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133069,7 +133055,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayText": {
-    "documentation": "",
+    "documentation": "AI 코드 오버레이 패널에 표시되는 레이블의 텍스트 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133079,7 +133065,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackground": {
-    "documentation": "",
+    "documentation": "기본(대기) 상태의 AI 코드 오버레이 작업 버튼의 배경 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133089,7 +133075,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundHover": {
-    "documentation": "",
+    "documentation": "포인터가 위에 있을 때 AI 코드 오버레이 작업 버튼의 배경 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133099,7 +133085,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundPressed": {
-    "documentation": "",
+    "documentation": "AI 코드 오버레이 작업 버튼이 눌리고 있을 때의 배경 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133109,7 +133095,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.IndentationRuler": {
-    "documentation": "",
+    "documentation": "스크립트 편집기 여백에서 각 들여쓰기 수준에 그려진 수직 가이드 선의 색상입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133119,7 +133105,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.StudioScriptEditorColorCategories": {
-    "documentation": "",
+    "documentation": "Roblox Studio의 스크립트 편집기를 테마화하는 데 사용되는 색상 카테고리입니다.",
     "keys": {
       "Default": "@roblox/enum/StudioScriptEditorColorCategories.Default",
       "Operator": "@roblox/enum/StudioScriptEditorColorCategories.Operator",
@@ -133364,7 +133350,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptPublishAssetResult": {
-    "documentation": "<code>AssetService:PromptCreateAssetAsync()</code> 호출의 결과를 설명합니다.",
+    "documentation": "<code>OpenPublishResultModal</code> 이벤트에 대한 더 이상 사용되지 않는 결과 열거형입니다.",
     "keys": {
       "Success": "@roblox/enum/PromptPublishAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptPublishAssetResult.PermissionDenied",
@@ -135428,7 +135414,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyTransactionType": {
-    "documentation": "",
+    "documentation": "경험 내 경제 거래의 맥락을 분류하여 <code>AnalyticsService:LogEconomyEvent()</code>와 함께 사용합니다.",
     "keys": {
       "IAP": "@roblox/enum/AnalyticsEconomyTransactionType.IAP",
       "Shop": "@roblox/enum/AnalyticsEconomyTransactionType.Shop",
@@ -135621,7 +135607,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptCreateAssetResult": {
-    "documentation": "<code>AssetService:PromptCreateAssetAsync()</code> 호출의 결과를 설명합니다.",
+    "documentation": "<code>AvatarCreationService:PromptCreateAvatarAssetAsync()</code> 호출의 결과를 설명합니다.",
     "keys": {
       "Success": "@roblox/enum/PromptCreateAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptCreateAssetResult.PermissionDenied",
@@ -135638,7 +135624,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Custom": {
-    "documentation": "",
+    "documentation": "표준 시작/실패/완료 생명 주기 외부의 이벤트에 대한 사용자 정의 진행 상태입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135648,7 +135634,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Start": {
-    "documentation": "",
+    "documentation": "플레이어가 레벨 시도를 시작했습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135658,7 +135644,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Fail": {
-    "documentation": "",
+    "documentation": "플레이어가 레벨 시도에 실패했습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135668,7 +135654,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Complete": {
-    "documentation": "",
+    "documentation": "플레이어가 레벨을 성공적으로 완료했습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135678,7 +135664,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsProgressionType": {
-    "documentation": "",
+    "documentation": "플레이어의 진행 상태를 지정합니다. 이는 <code>AnalyticsService:LogProgressionEvent()</code>에 의해 기록된 레벨 진행 이벤트입니다.",
     "keys": {
       "Custom": "@roblox/enum/AnalyticsProgressionType.Custom",
       "Start": "@roblox/enum/AnalyticsProgressionType.Start",
@@ -136217,7 +136203,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdFormat.RewardedVideo": {
-    "documentation": "보상 비디오 광고의 형식.",
+    "documentation": "완료될 때까지 재생되는 전체 화면 비디오 광고로, 시청자에게 보상을 제공합니다. <code>AdService</code> 메서드의 <code>adFormat</code> 인수로 사용됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136227,7 +136213,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdFormat": {
-    "documentation": "",
+    "documentation": "<code>AdService</code> 메서드와 함께 사용되는 광고의 형식을 지정합니다.",
     "keys": {
       "RewardedVideo": "@roblox/enum/AdFormat.RewardedVideo"
     },
@@ -136337,7 +136323,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Unknown": {
-    "documentation": "트랜스코딩 상태가 아직 결정되지 않았습니다. 이는 모델이 쿼리되기 전의 초기 상태입니다. 디버그 색조 오버레이에서 마젠타로 표시됩니다.",
+    "documentation": "트랜스코딩 상태가 아직 결정되지 않았습니다. 이는 모델이 쿼리되기 전의 초기 상태입니다. 디버그 틴트 오버레이에서 노란색으로 표시됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136346,48 +136332,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Unknown",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTranscoderStatus.NoHash": {
-    "documentation": "모델은 SLIM 지원이 가능하지만 아직 생성된 해시가 없으므로 트랜스코딩 요청이 이루어지지 않았습니다. 디버그 색조 오버레이에서 청록색으로 표시됩니다.",
+  "@roblox/enum/SlimTranscoderStatus.Transcoding": {
+    "documentation": "SLIM 트랜스코딩이 현재 백엔드에서 진행 중입니다. 트랜스코딩이 완료되면 모델은 성공(Succeeded) 또는 실패(Failed)로 전환될 것으로 예상됩니다. 디버그 틴트 오버레이에서 파란색으로 표시됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NoHash",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.NotUploaded": {
-    "documentation": "모델이 콘텐츠 배달 네트워크에 업로드되지 않았습니다. 디버그 색조 오버레이에서 주황색으로 표시됩니다.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NotUploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.Uploaded": {
-    "documentation": "모델이 콘텐츠 배달 네트워크에 업로드되었지만 아직 SLIM 자산으로 트랜스코딩되지 않았습니다. 디버그 색조 오버레이에서 노란색으로 표시됩니다.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Uploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.InProgress": {
-    "documentation": "SLIM 트랜스코딩이 현재 백엔드에서 진행 중입니다. 트랜스코딩이 완료되면 모델은 성공 또는 실패로 전환될 것으로 예상됩니다. 디버그 색조 오버레이에서 파란색으로 표시됩니다.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#InProgress",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Transcoding",
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Succeeded": {
-    "documentation": "트랜스코딩이 성공적으로 완료되었으며 SLIM 자산이 스트리밍을 위해 사용 가능합니다. 디버그 색조 오버레이에서 녹색으로 표시됩니다.",
+    "documentation": "트랜스코딩이 성공적으로 완료되었으며 SLIM 자산이 스트리밍을 위해 사용할 수 있습니다. 디버그 틴트 오버레이에서 녹색으로 표시됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136397,7 +136353,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Failed": {
-    "documentation": "트랜스코딩이 성공적으로 완료되지 않았습니다. 디버그 색조 오버레이에서 빨간색으로 표시됩니다.",
+    "documentation": "트랜스코딩이 성공적으로 완료되지 않았습니다. 디버그 틴트 오버레이에서 빨간색으로 표시됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136410,10 +136366,7 @@
     "documentation": "SLIM 모델의 백엔드 트랜스코딩 상태를 설명하며, 업로드부터 트랜스코딩, 성공 또는 실패까지의 과정을 포함합니다.",
     "keys": {
       "Unknown": "@roblox/enum/SlimTranscoderStatus.Unknown",
-      "NoHash": "@roblox/enum/SlimTranscoderStatus.NoHash",
-      "NotUploaded": "@roblox/enum/SlimTranscoderStatus.NotUploaded",
-      "Uploaded": "@roblox/enum/SlimTranscoderStatus.Uploaded",
-      "InProgress": "@roblox/enum/SlimTranscoderStatus.InProgress",
+      "Transcoding": "@roblox/enum/SlimTranscoderStatus.Transcoding",
       "Succeeded": "@roblox/enum/SlimTranscoderStatus.Succeeded",
       "Failed": "@roblox/enum/SlimTranscoderStatus.Failed"
     },
@@ -137104,7 +137057,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyFlowType": {
-    "documentation": "",
+    "documentation": "경제 이벤트에서 통화 흐름의 방향을 지정합니다. <code>AnalyticsService:LogEconomyEvent()</code>에 기록됩니다.",
     "keys": {
       "Sink": "@roblox/enum/AnalyticsEconomyFlowType.Sink",
       "Source": "@roblox/enum/AnalyticsEconomyFlowType.Source"
@@ -138772,7 +138725,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyAction": {
-    "documentation": "",
+    "documentation": "<code>AnalyticsService:FireInGameEconomyEvent()</code>에서 경제 거래의 유형을 설명합니다.",
     "keys": {
       "Default": "@roblox/enum/AnalyticsEconomyAction.Default",
       "Acquire": "@roblox/enum/AnalyticsEconomyAction.Acquire",
@@ -139004,7 +138957,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Blue": {
-    "documentation": "파란색 채팅 색상.",
+    "documentation": "파란색 채팅 색상; 기본값으로 <code>Chat()</code> 및 <code>ChatLocal()</code>에 전달됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139014,7 +138967,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Green": {
-    "documentation": "초록색 채팅 색상.",
+    "documentation": "초록색 채팅 색상, <code>Chat()</code> 또는 <code>ChatLocal()</code>에 <code>color</code> 인수로 전달됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139024,7 +138977,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Red": {
-    "documentation": "빨간색 채팅 색상.",
+    "documentation": "빨간색 채팅 색상, <code>Chat()</code> 또는 <code>ChatLocal()</code>에 <code>color</code> 인수로 전달됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139034,7 +138987,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.White": {
-    "documentation": "흰색 채팅 색상.",
+    "documentation": "흰색 채팅 색상, <code>Chat()</code> 또는 <code>ChatLocal()</code>에 <code>color</code> 인수로 전달됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140537,7 +140490,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.Undefined": {
-    "documentation": "",
+    "documentation": "아직 텔레포트 방법이 결정되지 않았음을 나타내는 기본 초기화되지 않은 센티넬 값입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140547,7 +140500,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.PortalForward": {
-    "documentation": "",
+    "documentation": "플레이어는 <code>AdPortal</code>에 걸어 들어가면서 광고주의 목적지 경험으로 텔레포트했습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140557,7 +140510,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.InGameMenuBackButton": {
-    "documentation": "",
+    "documentation": "플레이어는 게임 내 메뉴에서 뒤로 가기 버튼을 눌러 퍼블리셔의 경험으로 돌아가는 텔레포트를 시작했습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140567,7 +140520,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.UIBackButton": {
-    "documentation": "",
+    "documentation": "플레이어는 광고 목적지의 UI 오버레이에 렌더링된 뒤로 가기 버튼을 눌러 퍼블리셔의 경험으로 돌아가는 텔레포트를 시작했습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140577,7 +140530,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdTeleportMethod": {
-    "documentation": "",
+    "documentation": "플레이어가 몰입형 광고 포털 흐름 중에 텔레포트하는 방법을 설명합니다.",
     "keys": {
       "Undefined": "@roblox/enum/AdTeleportMethod.Undefined",
       "PortalForward": "@roblox/enum/AdTeleportMethod.PortalForward",

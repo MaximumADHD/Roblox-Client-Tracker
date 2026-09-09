@@ -24207,10 +24207,10 @@
     "documentation": "Hỗ trợ các giao dịch mua sắm thực tế mà bạn có thể kết hợp với các lợi ích kỹ thuật số."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/param/1": {
-    "documentation": ""
+    "documentation": "Định danh của sản phẩm thương mại để tra cứu, có thể là ID số hoặc dạng đầy đủ có tiền tố <code>COM-</code>."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/return/0": {
-    "documentation": ""
+    "documentation": "Một từ điển thông tin về sản phẩm thương mại, bao gồm liệu nó có <code>IsForSale</code>, một bảng con <code>Item</code> của chi tiết hiển thị (<code>Name</code>, <code>Description</code>, <code>IconImageAssetId</code>, <code>DisplayPrice</code>, và <code>IsPurchasable</code>), và các <code>Benefits</code> được cấp khi mua nó."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync": {
     "documentation": "Lấy thông tin về các sản phẩm thương mại mà bạn đang bán trong trải nghiệm.",
@@ -24234,10 +24234,10 @@
     "documentation": "Hỗ trợ các giao dịch mua sắm thực tế mà bạn có thể kết hợp với các lợi ích kỹ thuật số."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/1": {
-    "documentation": ""
+    "documentation": "Đối tượng <code>Player</code> để hiển thị quy trình mua. Khi được gọi từ một script client, đây phải là người chơi địa phương."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/2": {
-    "documentation": ""
+    "documentation": "Định danh của sản phẩm thương mại để mua, có thể là ID số hoặc dạng đầy đủ có tiền tố <code>COM-</code>."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase": {
     "documentation": "Yêu cầu người dùng mua một sản phẩm thương mại bằng cách sử dụng <code>commerceProductId</code> đã cung cấp. Mở một webview hướng dẫn người dùng qua quy trình mua hàng.",
@@ -24263,13 +24263,13 @@
     "documentation": "Hỗ trợ các giao dịch mua sắm thực tế mà bạn có thể kết hợp với các lợi ích kỹ thuật số."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/1": {
-    "documentation": ""
+    "documentation": "Đối tượng <code>Player</code> mà trình duyệt mở ra. Khi được gọi từ một script client, đây phải là người chơi địa phương."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/2": {
-    "documentation": ""
+    "documentation": "URL thương mại thế giới thực để mở. URL phải nằm trong danh sách cho phép thương mại, hoặc yêu cầu sẽ bị bỏ qua."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser": {
-    "documentation": "",
+    "documentation": "Điểm cuối cũ mở một trình duyệt trong trải nghiệm đến một URL thương mại thế giới thực cho người chơi được chỉ định; đã được thay thế bởi <code>CommerceService:PromptCommerceProductPurchase()</code>.",
     "params": [
       {
         "name": "self",
@@ -24292,10 +24292,10 @@
     "documentation": "Hỗ trợ các giao dịch mua sắm thực tế mà bạn có thể kết hợp với các lợi ích kỹ thuật số."
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync/return/0": {
-    "documentation": ""
+    "documentation": "<code>true</code> nếu người dùng hiện tại đủ điều kiện cho thương mại thế giới thực."
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync": {
-    "documentation": "",
+    "documentation": "Điểm cuối cũ trả về liệu người dùng hiện tại có đủ điều kiện cho thương mại thế giới thực hay không; đã được thay thế bởi <code>PolicyService</code>.",
     "params": [
       {
         "name": "self",
@@ -24408,7 +24408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatCommand.AutocompleteVisible": {
-    "documentation": "",
+    "documentation": "Xác định xem <code>TextChatCommand</code> có được hiển thị như một gợi ý trong menu tự động hoàn thành trò chuyện hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatCommand#AutocompleteVisible",
     "code_sample": ""
   },
@@ -29850,6 +29850,7 @@
   "@roblox/globaltype/Decal": {
     "documentation": "Áp dụng một kết cấu hình ảnh cho một mặt của <code>BasePart</code> cha.",
     "keys": {
+      "AutoLocalize": "@roblox/globaltype/Decal.AutoLocalize",
       "Color3": "@roblox/globaltype/Decal.Color3",
       "ColorMap": "@roblox/globaltype/Decal.ColorMap",
       "ColorMapContent": "@roblox/globaltype/Decal.ColorMapContent",
@@ -29865,6 +29866,7 @@
       "Specular": "@roblox/globaltype/Decal.Specular",
       "Texture": "@roblox/globaltype/Decal.Texture",
       "TextureContent": "@roblox/globaltype/Decal.TextureContent",
+      "TexturePackContent": "@roblox/globaltype/Decal.TexturePackContent",
       "Transparency": "@roblox/globaltype/Decal.Transparency",
       "UVOffset": "@roblox/globaltype/Decal.UVOffset",
       "UVScale": "@roblox/globaltype/Decal.UVScale",
@@ -29873,43 +29875,48 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.AutoLocalize": {
+    "documentation": "Khi được đặt thành <code>true</code>, tài sản hình ảnh của decal đủ điều kiện để tự động bắt giữ bản địa hóa.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#AutoLocalize",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Color3": {
     "documentation": "Màu sắc <code>Color3</code> của <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Color3",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ColorMap": {
-    "documentation": "ID nội dung quyết định màu sắc và độ mờ của bề mặt.",
+    "documentation": "ID nội dung xác định màu sắc và độ trong suốt của bề mặt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ColorMapContent": {
-    "documentation": "Đối tượng <code>Content</code> xác định màu sắc và độ mờ của bề mặt.",
+    "documentation": "<code>Content</code> đối tượng xác định màu sắc và độ trong suốt của bề mặt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.LocalTransparencyModifier": {
-    "documentation": "Đóng vai trò như một nhân cho thuộc tính <code>Transparency</code> của decal. Các hiệu ứng chỉ hiển thị cho người chơi cục bộ.",
+    "documentation": "Hoạt động như một hệ số nhân cho thuộc tính <code>Transparency</code> của decal. Các hiệu ứng chỉ hiển thị cho người chơi địa phương.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#LocalTransparencyModifier",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMap": {
-    "documentation": "",
+    "documentation": "ID nội dung xác định bản đồ độ kim loại của bề mặt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> đối tượng xác định bản đồ độ kim loại của bề mặt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMap": {
-    "documentation": "",
+    "documentation": "ID nội dung xác định bản đồ bình thường của bề mặt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> đối tượng xác định bản đồ bình thường của bề mặt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMapContent",
     "code_sample": ""
   },
@@ -29919,22 +29926,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMap": {
-    "documentation": "",
+    "documentation": "ID nội dung xác định bản đồ độ nhám của bề mặt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> đối tượng xác định bản đồ độ nhám của bề mặt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Shiny": {
-    "documentation": "<strong>Deprecated:</strong> Thuộc tính không hoạt động này đã bị loại bỏ và không nên được sử dụng trong công việc mới.",
+    "documentation": "<strong>Deprecated:</strong> Thuộc tính không hoạt động này đã lỗi thời và không nên được sử dụng trong công việc mới.<br>Thuộc tính đã lỗi thời trước đây xác định độ bóng của decal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Shiny",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Specular": {
-    "documentation": "<strong>Deprecated:</strong> Thuộc tính này không còn hoạt động đúng cách và đã bị loại bỏ. Nó không nên được sử dụng trong công việc mới.",
+    "documentation": "<strong>Deprecated:</strong> Thuộc tính này không còn hoạt động chính xác và đã lỗi thời. Nó không nên được sử dụng trong công việc mới.<br>Thuộc tính đã lỗi thời trước đây xác định độ phản chiếu của decal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Specular",
     "code_sample": ""
   },
@@ -29948,23 +29955,28 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.TexturePackContent": {
+    "documentation": "<code>Content</code> được quản lý bởi engine lưu trữ dữ liệu kết cấu gói thời gian chạy nén cho các decal PBR.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TexturePackContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Transparency": {
     "documentation": "Xác định độ trong suốt của <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.UVOffset": {
-    "documentation": "Chuyển vị trí tọa độ UV bằng cách thêm một độ lệch trước khi ánh xạ văn bản.",
+    "documentation": "Dịch chuyển các tọa độ UV bằng cách thêm một độ lệch trước khi ánh xạ kết cấu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVOffset",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.UVScale": {
-    "documentation": "Kéo dài hoặc nén tọa độ UV bằng cách nhân với một yếu tố tỉ lệ.",
+    "documentation": "Kéo dài hoặc nén các tọa độ UV bằng cách nhân với một hệ số tỷ lệ.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVScale",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ZIndex": {
-    "documentation": "Xác định thứ tự hiển thị khi nhiều decal được gán cho cùng một bề mặt.",
+    "documentation": "Xác định thứ tự hiển thị khi nhiều decal được gán cho cùng một mặt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
     "code_sample": ""
   },
@@ -33842,12 +33854,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "Một tham chiếu đến <code>BubbleChatMessageProperties</code> mà ghi đè lên ngoại hình của bong bóng trò chuyện của tin nhắn này.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#BubbleChatMessageProperties",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "Một tham chiếu đến <code>ChatWindowMessageProperties</code> mà ghi đè lên ngoại hình của tin nhắn này trong cửa sổ trò chuyện.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#ChatWindowMessageProperties",
     "code_sample": ""
   },
@@ -44704,7 +44716,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VisibilityCheckDispatcher": {
-    "documentation": "",
+    "documentation": "Dịch vụ lập lịch và thực hiện kiểm tra khả năng hiển thị cho các phiên bản quảng cáo immersive trong một địa điểm.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisibilityCheckDispatcher",
     "code_sample": ""
@@ -47184,31 +47196,6 @@
   "@roblox/globaltype/TerrainDetail.StudsPerTile": {
     "documentation": "Xác định quy mô của các kết cấu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#StudsPerTile",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping": {
-    "documentation": "",
-    "keys": {
-      "FlattenTree": "@roblox/globaltype/PatchMapping.FlattenTree",
-      "PatchId": "@roblox/globaltype/PatchMapping.PatchId",
-      "TargetPath": "@roblox/globaltype/PatchMapping.TargetPath"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.FlattenTree": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#FlattenTree",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.PatchId": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#PatchId",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.TargetPath": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#TargetPath",
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
@@ -51151,7 +51138,7 @@
     "documentation": "Đại diện cho kênh chat văn bản."
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester/param/1": {
-    "documentation": ""
+    "documentation": "Đối tượng <code>Player</code> mà quyền gửi tin nhắn trực tiếp của nó kiểm soát kênh; chỉ những người dùng có thể gửi tin nhắn trực tiếp đến người chơi này mới nhận được tin nhắn trên kênh."
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester": {
     "documentation": "Thiết lập <code>DirectChatRequester</code> cho kênh <code>TextChannel</code>. Kênh <code>TextChannel</code> chỉ gửi tin nhắn cho những người dùng có thể gửi tin nhắn trực tiếp đến <code>DirectChatRequester</code>.",
@@ -51196,7 +51183,7 @@
     "documentation": "<code>TextSource</code> của người dùng sẽ nhận tin nhắn."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/return/0": {
-    "documentation": ""
+    "documentation": "Một giá trị đúng (chẳng hạn như <code>true</code>, <code>1</code>, hoặc một chuỗi không rỗng) để gửi tin nhắn đến khách hàng đã cho, hoặc một giá trị sai (bao gồm <code>nil</code>) để không gửi nó đến khách hàng đó."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback": {
     "documentation": "Được gọi cho mỗi khách khi <code>TextChannel</code> nhận một tin nhắn đến để xác định xem nó có nên được gửi đến khách đó hay không.",
@@ -52876,6 +52863,7 @@
       "GetPredictionStatus": "@roblox/globaltype/RunService.GetPredictionStatus",
       "IsClient": "@roblox/globaltype/RunService.IsClient",
       "IsEdit": "@roblox/globaltype/RunService.IsEdit",
+      "IsResimulating": "@roblox/globaltype/RunService.IsResimulating",
       "IsRunMode": "@roblox/globaltype/RunService.IsRunMode",
       "IsRunning": "@roblox/globaltype/RunService.IsRunning",
       "IsServer": "@roblox/globaltype/RunService.IsServer",
@@ -52896,7 +52884,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.RunState": {
-    "documentation": "",
+    "documentation": "Trạng thái chạy hiện tại của mô phỏng trò chơi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#RunState",
     "code_sample": ""
   },
@@ -52949,7 +52937,7 @@
     "documentation": "Độ ưu tiên tùy chọn của việc gán dưới dạng số nguyên; nó xác định thứ tự mà các hàm đã gán được gọi trong từng bước mô phỏng. Số nhỏ hơn được gọi trước. Nếu hai việc gán có cùng độ ưu tiên, thứ tự giữa chúng không xác định. Mặc định là 2000."
   },
   "@roblox/globaltype/RunService.BindToSimulation/return/0": {
-    "documentation": ""
+    "documentation": "Một <code>RBXScriptConnection</code> có thể bị ngắt kết nối để hủy liên kết chức năng với bước mô phỏng."
   },
   "@roblox/globaltype/RunService.BindToSimulation": {
     "documentation": "Gán một hàm tùy chỉnh sẽ được gọi với một tần suất cố định, độc lập với tần suất khung hình.",
@@ -52984,7 +52972,7 @@
     "documentation": "Thể hiện <code>Instance</code> mà bạn muốn kiểm tra trạng thái dự đoán."
   },
   "@roblox/globaltype/RunService.GetPredictionStatus/return/0": {
-    "documentation": ""
+    "documentation": "Trạng thái <code>PredictionStatus</code> của thể hiện đã cho, cho biết liệu nó có được dự đoán, có thẩm quyền, hay không tham gia vào dự đoán."
   },
   "@roblox/globaltype/RunService.GetPredictionStatus": {
     "documentation": "Kiểm tra <code>PredictionStatus</code> của một thể hiện ngữ cảnh cụ thể, hữu ích cho việc gỡ lỗi các tập lệnh ảnh hưởng đến nhiều thể hiện mà một số thể hiện có thể được dự đoán và những thể hiện khác thì không.",
@@ -53044,14 +53032,34 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsEdit",
     "code_sample": ""
   },
+  "@roblox/globaltype/RunService.IsResimulating/param/0": {
+    "documentation": "Dịch vụ chịu trách nhiệm cho tất cả hoạt động thời gian chạy và sự tiến triển của thời gian."
+  },
+  "@roblox/globaltype/RunService.IsResimulating/return/0": {
+    "documentation": "Liệu động cơ hiện đang tái mô phỏng hay không."
+  },
+  "@roblox/globaltype/RunService.IsResimulating": {
+    "documentation": "Trả về liệu khách hàng hiện đang ở trong một bước tái mô phỏng sau một dự đoán sai trong mô hình thẩm quyền của máy chủ.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.IsResimulating/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RunService.IsResimulating/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsResimulating",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RunService.IsRunMode/param/0": {
     "documentation": "Dịch vụ chịu trách nhiệm cho tất cả hoạt động thời gian chạy và sự tiến triển của thời gian."
   },
   "@roblox/globaltype/RunService.IsRunMode/return/0": {
-    "documentation": "Liệu một thử nghiệm chơi <strong>Chạy</strong> đã được khởi tạo trong Studio hay không."
+    "documentation": "Liệu một bài kiểm tra <strong>Run</strong> đã được khởi động trong Studio hay không."
   },
   "@roblox/globaltype/RunService.IsRunMode": {
-    "documentation": "Trả về liệu một thử nghiệm chơi <strong>Chạy</strong> đã được khởi tạo trong Studio hay không.",
+    "documentation": "Trả về liệu một bài kiểm tra <strong>Run</strong> đã được khởi động trong Studio hay không.",
     "params": [
       {
         "name": "self",
@@ -53068,10 +53076,10 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho tất cả hoạt động thời gian chạy và sự tiến triển của thời gian."
   },
   "@roblox/globaltype/RunService.IsRunning/return/0": {
-    "documentation": "Liệu trải nghiệm hiện tại có đang chạy hay không."
+    "documentation": "Liệu trải nghiệm hiện đang chạy hay không."
   },
   "@roblox/globaltype/RunService.IsRunning": {
-    "documentation": "Trả về liệu trải nghiệm hiện tại có đang chạy hay không.",
+    "documentation": "Trả về liệu trải nghiệm hiện đang chạy hay không.",
     "params": [
       {
         "name": "self",
@@ -53088,10 +53096,10 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho tất cả hoạt động thời gian chạy và sự tiến triển của thời gian."
   },
   "@roblox/globaltype/RunService.IsServer/return/0": {
-    "documentation": "Liệu môi trường hiện tại có đang chạy trên máy chủ hay không."
+    "documentation": "Liệu môi trường hiện tại đang chạy trên máy chủ hay không."
   },
   "@roblox/globaltype/RunService.IsServer": {
-    "documentation": "Trả về liệu môi trường hiện tại có đang chạy trên máy chủ hay không.",
+    "documentation": "Trả về liệu môi trường hiện tại đang chạy trên máy chủ hay không.",
     "params": [
       {
         "name": "self",
@@ -53108,10 +53116,10 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho tất cả hoạt động thời gian chạy và sự tiến triển của thời gian."
   },
   "@roblox/globaltype/RunService.IsStudio/return/0": {
-    "documentation": "Liệu môi trường hiện tại có đang chạy trong Studio hay không."
+    "documentation": "Liệu môi trường hiện tại đang chạy trong Studio hay không."
   },
   "@roblox/globaltype/RunService.IsStudio": {
-    "documentation": "Trả về liệu môi trường hiện tại có đang chạy trong Studio hay không.",
+    "documentation": "Trả về liệu môi trường hiện tại đang chạy trong Studio hay không.",
     "params": [
       {
         "name": "self",
@@ -53128,7 +53136,7 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho tất cả hoạt động thời gian chạy và sự tiến triển của thời gian."
   },
   "@roblox/globaltype/RunService.Pause": {
-    "documentation": "Tạm dừng mô phỏng của trải nghiệm nếu nó đang chạy, tạm ngưng vật lý và các tập lệnh.",
+    "documentation": "Tạm dừng mô phỏng của trải nghiệm nếu nó đang chạy, đình chỉ vật lý và các kịch bản.",
     "params": [
       {
         "name": "self",
@@ -53143,7 +53151,7 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho tất cả hoạt động thời gian chạy và sự tiến triển của thời gian."
   },
   "@roblox/globaltype/RunService.Reset": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã bị ngừng sử dụng và không nên được sử dụng trong công việc mới.<br>Đặt lại trò chơi hiện tại về một điểm dừng đã được thiết lập khi <code>RunService:Run()</code> được gọi.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời và không nên được sử dụng trong công việc mới.<br>Đặt lại trò chơi hiện tại về một điểm dừng được thiết lập khi <code>RunService:Run()</code> được gọi.",
     "params": [
       {
         "name": "self",
@@ -53158,7 +53166,7 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho tất cả hoạt động thời gian chạy và sự tiến triển của thời gian."
   },
   "@roblox/globaltype/RunService.Run": {
-    "documentation": "Chạy mô phỏng của trò chơi, chạy vật lý và các tập lệnh.",
+    "documentation": "Chạy mô phỏng của trò chơi, chạy vật lý và các kịch bản.",
     "params": [
       {
         "name": "self",
@@ -53176,10 +53184,10 @@
     "documentation": "Thể hiện <code>Instance</code> mà bạn muốn đặt chế độ dự đoán."
   },
   "@roblox/globaltype/RunService.SetPredictionMode/param/2": {
-    "documentation": "Giá trị <code>PredictionMode</code> để thiết lập cho thể hiện ngữ cảnh."
+    "documentation": "Giá trị <code>PredictionMode</code> để đặt cho thể hiện ngữ cảnh."
   },
   "@roblox/globaltype/RunService.SetPredictionMode": {
-    "documentation": "Đặt chế độ dự đoán cho một <code>Instance</code> thành một <code>PredictionMode</code> giá trị.",
+    "documentation": "Đặt chế độ dự đoán cho một <code>Instance</code> thành một giá trị <code>PredictionMode</code>.",
     "params": [
       {
         "name": "self",
@@ -53217,10 +53225,10 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho tất cả hoạt động thời gian chạy và sự tiến triển của thời gian."
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep/param/1": {
-    "documentation": "Tên của hàm đang bị hủy gán."
+    "documentation": "Tên của chức năng đang bị hủy liên kết."
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep": {
-    "documentation": "Hủy gán một hàm đã được gán vào vòng lặp render bằng cách sử dụng <code>RunService:BindToRenderStep()</code>.",
+    "documentation": "Hủy liên kết một chức năng đã được liên kết với vòng lặp render bằng <code>RunService:BindToRenderStep()</code>.",
     "params": [
       {
         "name": "self",
@@ -54297,7 +54305,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>.",
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>.",
     "keys": {
       "Archivable": "@roblox/globaltype/Instance.Archivable",
       "archivable": "@roblox/globaltype/Instance.archivable",
@@ -54353,7 +54361,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Archivable": {
-    "documentation": "Xác định xem một <code>Instance</code> và các con của nó có thể được sao chép bằng cách sử dụng <code>Instance:Clone()</code>, và có thể được lưu/công bố hay không.",
+    "documentation": "Xác định xem một <code>Instance</code> và các hậu duệ của nó có thể được sao chép bằng cách sử dụng <code>Instance:Clone()</code>, và có thể được lưu/công bố hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Archivable",
     "code_sample": "local part = Instance.new(\"Part\")\nprint(part:Clone())  --> Part\npart.Archivable = false\nprint(part:Clone())  --> nil"
   },
@@ -54403,7 +54411,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.AddTag/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.AddTag/param/1": {
     "documentation": "Thẻ để áp dụng cho đối tượng."
@@ -54425,7 +54433,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.children/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.children/return/0": {
     "documentation": "Mảng các đối tượng/con."
@@ -54445,7 +54453,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.ClearAllChildren/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
     "documentation": "Phương thức này hủy tất cả các con của một đối tượng.",
@@ -54460,7 +54468,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Clone/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.Clone/return/0": {
     "documentation": "Một bản sao của đối tượng, hoặc <code>nil</code> nếu đối tượng không phải là <code>Archivable</code>."
@@ -54480,7 +54488,7 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\n-- Lấy tham chiếu đến một đối tượng hiện có\nlocal model = script.Parent.Model\n\n-- Tạo một bản sao của mô hình\nlocal clone = model:Clone()\n\n-- Di chuyển bản sao để nó không chồng lên mô hình gốc\nclone:PivotTo(model.PrimaryPart.CFrame - (Vector3.xAxis * 10))\n\n-- Thêm bản sao vào Workspace\nclone.Parent = Workspace"
   },
   "@roblox/globaltype/Instance.clone/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.clone/return/0": {
     "documentation": ""
@@ -54500,7 +54508,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Destroy/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.Destroy": {
     "documentation": "Đặt thuộc tính <code>Instance.Parent</code> thành <code>nil</code>, khóa thuộc tính <code>Instance.Parent</code>, ngắt kết nối tất cả các kết nối, và gọi <code>Destroy()</code> trên tất cả các con.",
@@ -54515,7 +54523,7 @@
     "code_sample": "local part = script.Parent.Part\n\npart:Destroy()"
   },
   "@roblox/globaltype/Instance.destroy/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.destroy": {
     "documentation": "<strong>Deprecated:</strong> Hàm đã lỗi thời này là một biến thể của <code>Instance:Destroy()</code> mà nên được sử dụng thay thế.",
@@ -54530,7 +54538,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/1": {
     "documentation": "Tên <code>Instance.Name</code> cần tìm."
@@ -54557,7 +54565,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/param/1": {
     "documentation": "Tên <code>Object.ClassName</code> cần tìm."
@@ -54566,7 +54574,7 @@
     "documentation": "Đối tượng <code>Instance</code> được tìm thấy."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass": {
-    "documentation": "Trả về tổ tiên đầu tiên của <code>Instance</code> mà <code>Object.ClassName</code> bằng với className đã cho.",
+    "documentation": "Trả về tổ tiên đầu tiên của <code>Instance</code> mà <code>Object.ClassName</code> bằng với tên className đã cho.",
     "params": [
       {
         "name": "self",
@@ -54584,7 +54592,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/param/1": {
     "documentation": "Tên <code>Object.ClassName</code> cần tìm."
@@ -54593,7 +54601,7 @@
     "documentation": "Đối tượng <code>Instance</code> được tìm thấy."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA": {
-    "documentation": "Trả về tổ tiên đầu tiên của <code>Instance</code> mà <code>Object:IsA()</code> trả về true cho className đã cho.",
+    "documentation": "Trả về tổ tiên đầu tiên của <code>Instance</code> mà <code>Object:IsA()</code> trả về true cho tên className đã cho.",
     "params": [
       {
         "name": "self",
@@ -54611,13 +54619,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/1": {
     "documentation": "Tên <code>Instance.Name</code> cần tìm."
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/2": {
-    "documentation": "Có nên thực hiện tìm kiếm đệ quy hay không."
+    "documentation": "Có hay không việc tìm kiếm nên được thực hiện đệ quy."
   },
   "@roblox/globaltype/Instance.FindFirstChild/return/0": {
     "documentation": "Đối tượng <code>Instance</code> được tìm thấy."
@@ -54645,7 +54653,7 @@
     "code_sample": "local found = workspace:FindFirstChild(\"Brick\")\n\nif found then\n\tfound.Name = \"Foo\"\nend"
   },
   "@roblox/globaltype/Instance.findFirstChild/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.findFirstChild/param/1": {
     "documentation": ""
@@ -54679,7 +54687,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/param/1": {
     "documentation": "Tên <code>Object.ClassName</code> cần tìm."
@@ -54706,19 +54714,19 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal humanoid\n\nwhile not humanoid do\n\thumanoid = character:FindFirstChildOfClass(\"Humanoid\")\n\tif not humanoid then\n\t\tcharacter.ChildAdded:Wait()\n\tend\nend"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/1": {
     "documentation": "Tên <code>Object.ClassName</code> cần tìm."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/2": {
-    "documentation": "Có nên thực hiện tìm kiếm đệ quy hay không."
+    "documentation": "Có hay không việc tìm kiếm nên được thực hiện đệ quy."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/return/0": {
     "documentation": "Đối tượng <code>Instance</code> được tìm thấy."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA": {
-    "documentation": "Trả về con đầu tiên của <code>Instance</code> mà <code>Object:IsA()</code> trả về true cho className đã cho.",
+    "documentation": "Trả về con đầu tiên của <code>Instance</code> mà <code>Object:IsA()</code> trả về true cho tên className đã cho.",
     "params": [
       {
         "name": "self",
@@ -54740,7 +54748,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/param/1": {
     "documentation": "Tên <code>Instance.Name</code> cần tìm."
@@ -54767,7 +54775,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetActor/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetActor/return/0": {
     "documentation": "Đối tượng <code>Actor</code> được tìm thấy."
@@ -54787,7 +54795,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttribute/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetAttribute/param/1": {
     "documentation": "Tên của thuộc tính đang được truy xuất."
@@ -54814,7 +54822,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/1": {
     "documentation": "Tên của thuộc tính cụ thể mà tín hiệu thay đổi đang được trả về."
@@ -54841,7 +54849,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttributes/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetAttributes/return/0": {
     "documentation": "Một từ điển các cặp chuỗi → biến thể cho mỗi thuộc tính nơi chuỗi là tên của thuộc tính và biến thể là một giá trị không phải nil."
@@ -54861,7 +54869,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetChildren/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetChildren/return/0": {
     "documentation": "Một mảng chứa các con của đối tượng."
@@ -54881,7 +54889,7 @@
     "code_sample": "local children = workspace:GetChildren()\n\nfor i = 1, #children do\n\tprint(i, children[i].Name)\nend"
   },
   "@roblox/globaltype/Instance.getChildren/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.getChildren/return/0": {
     "documentation": ""
@@ -54901,10 +54909,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetDebugId/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetDebugId/param/1": {
-    "documentation": "Chiều dài phạm vi."
+    "documentation": "Độ dài phạm vi."
   },
   "@roblox/globaltype/Instance.GetDebugId/return/0": {
     "documentation": "Chuỗi ID gỡ lỗi."
@@ -54928,7 +54936,7 @@
     "code_sample": "print(workspace:GetDebugId()) --> 39FA_12\nprint(workspace:GetDebugId(10)) --> 39FA2FEF4D_12\nprint(workspace:GetDebugId(math.huge)) --> 12"
   },
   "@roblox/globaltype/Instance.GetDescendants/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetDescendants/return/0": {
     "documentation": "Một mảng chứa các hậu duệ của đối tượng."
@@ -54948,7 +54956,7 @@
     "code_sample": "local descendants = workspace:GetDescendants()\n\n-- Lặp qua tất cả các hậu duệ của Workspace. Nếu một\n-- BasePart được tìm thấy, đoạn mã sẽ đổi màu của phần đó thành màu xanh lá cây\nfor _, descendant in pairs(descendants) do\n\tif descendant:IsA(\"BasePart\") then\n\t\tdescendant.BrickColor = BrickColor.Green()\n\tend\nend"
   },
   "@roblox/globaltype/Instance.GetFullName/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetFullName/return/0": {
     "documentation": "Tên đầy đủ của <code>Instance</code>."
@@ -54968,7 +54976,7 @@
     "code_sample": "-- Tạo một hệ thống phân cấp đơn giản\nlocal model = Instance.new(\"Model\")\nlocal part = Instance.new(\"Part\")\npart.Parent = model\nlocal fire = Instance.new(\"Fire\")\nfire.Parent = part\n\nprint(fire:GetFullName()) --> Model.Part.Fire\n\nmodel.Parent = workspace\n\nprint(fire:GetFullName()) --> Workspace.Model.Part.Fire\n\npart.Name = \"Xin chào, thế giới\"\n\nprint(fire:GetFullName()) --> Workspace.Model.Xin chào, thế giới.Fire"
   },
   "@roblox/globaltype/Instance.GetStyled/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetStyled/param/1": {
     "documentation": "Tên của thuộc tính để truy vấn."
@@ -55002,7 +55010,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player.PlayerGui\nlocal HUDContainer = playerGui:WaitForChild(\"HUDContainer\")\n\nlocal coreSheet = ReplicatedStorage:FindFirstChild(\"CoreSheet\")\nlocal rule = coreSheet:FindFirstChildWhichIsA(\"StyleRule\")\nrule.Selector = \"TextButton\"\n\n-- Tham chiếu đến một nút\nlocal button = HUDContainer:FindFirstChildWhichIsA(\"TextButton\")\n\nprint(button:GetStyled(\"Rotation\")) --> 0 (giá trị mặc định)\nprint(button.Rotation) --> 0 (giá trị mặc định)\n\n-- Áp dụng xoay qua thuộc tính quy tắc kiểu\nrule:SetProperty(\"Rotation\", 30)\n\nprint(button:GetStyled(\"Rotation\")) --> 30 (giá trị kiểu dựa trên quy tắc)\nprint(button.Rotation) --> 0 (giá trị mặc định)\n\n-- Rõ ràng sửa đổi/ghi đè thuộc tính kiểu\nbutton.Rotation = 45\n\nprint(button:GetStyled(\"Rotation\")) --> 45 (giá trị đã sửa đổi)\nprint(button.Rotation) --> 45 (giá trị đã sửa đổi)"
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/1": {
     "documentation": "Tên của thuộc tính kiểu mà bạn muốn lắng nghe sự thay đổi."
@@ -55029,13 +55037,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetTags/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetTags/return/0": {
-    "documentation": "Một mảng chuỗi, mỗi chuỗi đại diện cho một thẻ đã áp dụng cho đối tượng."
+    "documentation": "Một mảng chuỗi, mỗi chuỗi đại diện cho một thẻ được áp dụng cho đối tượng."
   },
   "@roblox/globaltype/Instance.GetTags": {
-    "documentation": "Lấy một mảng tất cả các thẻ đã áp dụng cho đối tượng.",
+    "documentation": "Lấy một mảng tất cả các thẻ được áp dụng cho đối tượng.",
     "params": [
       {
         "name": "self",
@@ -55049,7 +55057,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.HasTag/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.HasTag/param/1": {
     "documentation": "Thẻ để kiểm tra trên đối tượng."
@@ -55076,7 +55084,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.IsAncestorOf/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.IsAncestorOf/param/1": {
     "documentation": "Hậu duệ <code>Instance</code>."
@@ -55103,7 +55111,7 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\nlocal spawnLocation = Workspace.SpawnLocation\nlocal decal = spawnLocation.Decal\n\n-- Những câu lệnh này là đúng\nprint(Workspace:IsAncestorOf(spawnLocation))\nprint(Workspace:IsAncestorOf(decal))\nprint(spawnLocation:IsAncestorOf(decal))\n\n-- Những câu lệnh này là sai\nprint(spawnLocation:IsAncestorOf(Workspace))\nprint(decal:IsAncestorOf(Workspace))\nprint(decal:IsAncestorOf(spawnLocation))"
   },
   "@roblox/globaltype/Instance.IsDescendantOf/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.IsDescendantOf/param/1": {
     "documentation": "Tổ tiên <code>Instance</code>."
@@ -55130,7 +55138,7 @@
     "code_sample": "local part = Instance.new(\"Part\")\nprint(part:IsDescendantOf(game))\n--> false\n\npart.Parent = workspace\nprint(part:IsDescendantOf(game))\n--> true\n\npart.Parent = game\nprint(part:IsDescendantOf(game))\n--> true"
   },
   "@roblox/globaltype/Instance.isDescendantOf/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.isDescendantOf/param/1": {
     "documentation": ""
@@ -55157,16 +55165,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.IsPropertyModified/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/param/1": {
     "documentation": "Tên của thuộc tính để truy vấn."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Boolean cho biết liệu thuộc tính có bị sửa đổi từ mặc định được khởi tạo bằng mã hay không."
+    "documentation": "Boolean cho biết liệu thuộc tính có được sửa đổi từ giá trị mặc định được khởi tạo bằng mã hay không."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Trả về <code>true</code> nếu giá trị được lưu trữ trong thuộc tính đã chỉ định không bằng mặc định được khởi tạo bằng mã.",
+    "documentation": "Trả về <code>true</code> nếu giá trị được lưu trữ trong thuộc tính đã chỉ định không bằng giá trị mặc định được khởi tạo bằng mã.",
     "params": [
       {
         "name": "self",
@@ -55184,7 +55192,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.QueryDescendants/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.QueryDescendants/param/1": {
     "documentation": "Chuỗi bộ chọn được sử dụng để lọc các phần tử."
@@ -55211,10 +55219,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Remove/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.Remove": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã bị ngừng sử dụng để ủng hộ <code>Instance:Destroy()</code> và <code>Instance:ClearAllChildren()</code>. Nếu bạn phải xóa một đối tượng khỏi trò chơi, và muốn sử dụng đối tượng sau này, hãy đặt thuộc tính <code>Parent</code> của nó thành <code>nil</code> thay vì sử dụng phương thức này.<br>Đặt <code>Parent</code> của đối tượng thành <code>nil</code>, và làm điều tương tự cho tất cả các hậu duệ của nó.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời và được thay thế bằng <code>Instance:Destroy()</code> và <code>Instance:ClearAllChildren()</code>. Nếu bạn phải xóa một đối tượng khỏi trò chơi, và muốn sử dụng đối tượng sau này, hãy đặt thuộc tính <code>Parent</code> của nó thành <code>nil</code> thay vì sử dụng phương thức này.<br>Đặt <code>Parent</code> của đối tượng thành <code>nil</code>, và làm điều tương tự cho tất cả các hậu duệ của nó.",
     "params": [
       {
         "name": "self",
@@ -55226,10 +55234,10 @@
     "code_sample": "local part = Instance.new(\"Part\")\npart.Parent = workspace\nprint(part.Parent) --> Workspace\n\npart:Remove()\n\nprint(part.Parent) --> nil\n\npart.Parent = workspace\n\nprint(part.Parent) --> Workspace"
   },
   "@roblox/globaltype/Instance.remove/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.remove": {
-    "documentation": "<strong>Deprecated:</strong> Hàm đã bị ngừng sử dụng này là một biến thể của <code>Instance:Remove()</code> cũng đã bị ngừng sử dụng. Không nên sử dụng cả hai hàm trong công việc mới.",
+    "documentation": "<strong>Deprecated:</strong> Hàm đã lỗi thời này là một biến thể của <code>Instance:Remove()</code> cũng đã bị lỗi thời. Cả hai hàm này không nên được sử dụng trong công việc mới.",
     "params": [
       {
         "name": "self",
@@ -55241,7 +55249,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.RemoveTag/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.RemoveTag/param/1": {
     "documentation": "Thẻ cần xóa khỏi thể hiện."
@@ -55263,13 +55271,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault/param/1": {
     "documentation": "Tên của thuộc tính cần đặt lại."
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault": {
-    "documentation": "Đặt lại một thuộc tính về giá trị mặc định của nó.",
+    "documentation": "Đặt lại thuộc tính về giá trị mặc định của nó.",
     "params": [
       {
         "name": "self",
@@ -55285,7 +55293,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.SetAttribute/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.SetAttribute/param/1": {
     "documentation": "Tên của thuộc tính đang được thiết lập."
@@ -55314,7 +55322,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.WaitForChild/param/0": {
-    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox có thể là một phần của cây <code>DataModel</code>."
+    "documentation": "<code>Instance</code> là lớp cơ sở cho tất cả các lớp trong hệ thống lớp Roblox có thể là một phần của cây <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.WaitForChild/param/1": {
     "documentation": "Tên <code>Instance.Name</code> cần tìm."
@@ -55323,7 +55331,7 @@
     "documentation": "Một tham số thời gian hết hạn tùy chọn."
   },
   "@roblox/globaltype/Instance.WaitForChild/return/0": {
-    "documentation": "Thể hiện <code>Instance</code> đã tìm thấy."
+    "documentation": "<code>Instance</code> đã tìm thấy."
   },
   "@roblox/globaltype/Instance.WaitForChild": {
     "documentation": "Trả về con của <code>Instance</code> với tên đã cho. Nếu con không tồn tại, nó sẽ tạm dừng luồng hiện tại cho đến khi nó tồn tại.",
@@ -55689,7 +55697,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.childAdded": {
-    "documentation": "<strong>Deprecated:</strong> Sự kiện đã bị ngừng sử dụng này là một biến thể của <code>Instance.ChildAdded</code> mà nên được sử dụng thay thế.",
+    "documentation": "<strong>Deprecated:</strong> Sự kiện đã lỗi thời này là một biến thể của <code>Instance.ChildAdded</code> mà nên được sử dụng thay thế.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.childAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.childAdded.ConnectParallel",
@@ -56041,7 +56049,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.Destroying": {
-    "documentation": "Kích hoạt ngay trước khi (hoặc bị hoãn cho đến sau) thể hiện bị xóa thông qua <code>Instance:Destroy()</code>.",
+    "documentation": "Kích hoạt ngay trước khi (hoặc bị hoãn đến sau) thể hiện bị xóa thông qua <code>Instance:Destroy()</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.Destroying.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.Destroying.ConnectParallel",
@@ -56129,7 +56137,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.StyledPropertiesChanged": {
-    "documentation": "Kích hoạt bất cứ khi nào bất kỳ thuộc tính kiểu dáng nào được thay đổi trên thể hiện, bao gồm khi một thuộc tính được đặt thành <code>nil</code>.",
+    "documentation": "Kích hoạt bất cứ khi nào bất kỳ thuộc tính kiểu dáng nào được thay đổi trên thể hiện, bao gồm cả khi một thuộc tính được đặt thành <code>nil</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.StyledPropertiesChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.StyledPropertiesChanged.ConnectParallel",
@@ -57937,7 +57945,7 @@
     "documentation": "Cấu hình các thuộc tính của cửa sổ chat mặc định."
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties/return/0": {
-    "documentation": ""
+    "documentation": "Một thể hiện mới của <code>ChatWindowMessageProperties</code> mà bạn có thể sửa đổi và trả về từ một callback <code>TextChatService.OnChatWindowAdded</code> để tùy chỉnh cách mà các tin nhắn riêng lẻ xuất hiện trong cửa sổ trò chuyện."
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties": {
     "documentation": "Tạo một thể hiện mới của <code>ChatWindowMessageProperties</code> có thể được sử dụng để tùy chỉnh giao diện của các tin nhắn trong cửa sổ chat.",
@@ -63252,7 +63260,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "Ghi đè các thuộc tính của <code>BubbleChatConfiguration</code> cho một tin nhắn chat bong bóng cá nhân.",
     "keys": {
       "BackgroundColor3": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundColor3",
       "BackgroundTransparency": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundTransparency",
@@ -63280,7 +63288,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties.TailVisible": {
-    "documentation": "",
+    "documentation": "Xác định xem đuôi ở dưới cùng của bong bóng chat có hiển thị hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BubbleChatMessageProperties#TailVisible",
     "code_sample": ""
   },
@@ -69742,11 +69750,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui": {
-    "documentation": "",
+    "documentation": "Một GUI dựa trên bề mặt hiển thị quảng cáo hấp dẫn trên một mặt của <code>Part</code> trong thế giới 3D.",
     "keys": {
       "AdShape": "@roblox/globaltype/AdGui.AdShape",
       "EnableVideoAds": "@roblox/globaltype/AdGui.EnableVideoAds",
       "FallbackImage": "@roblox/globaltype/AdGui.FallbackImage",
+      "FallbackImageContent": "@roblox/globaltype/AdGui.FallbackImageContent",
       "Status": "@roblox/globaltype/AdGui.Status",
       "OnAdEvent": "@roblox/globaltype/AdGui.OnAdEvent"
     },
@@ -69754,7 +69763,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.AdShape": {
-    "documentation": "",
+    "documentation": "Xác định hình dạng của quảng cáo được hiển thị bởi <code>AdGui</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#AdShape",
     "code_sample": ""
   },
@@ -69764,12 +69773,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.FallbackImage": {
-    "documentation": "",
+    "documentation": "Hình ảnh mà <code>AdGui</code> hiển thị khi không có quảng cáo nào có sẵn để phục vụ.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImage",
     "code_sample": ""
   },
+  "@roblox/globaltype/AdGui.FallbackImageContent": {
+    "documentation": "Tương đương với <code>AdGui.FallbackImage</code> kiểu <code>Content</code> hỗ trợ URI tài sản và đối tượng <code>EditableImage</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImageContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AdGui.Status": {
-    "documentation": "",
+    "documentation": "Chỉ ra liệu <code>AdGui</code> hiện đang hiển thị một quảng cáo được phục vụ hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#Status",
     "code_sample": ""
   },
@@ -70493,7 +70507,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal": {
-    "documentation": "",
+    "documentation": "Một cổng thông tin đưa người chơi đến một trải nghiệm được tài trợ như một phần của quảng cáo hấp dẫn.",
     "keys": {
       "PortalInvalidReason": "@roblox/globaltype/AdPortal.PortalInvalidReason",
       "Status": "@roblox/globaltype/AdPortal.Status"
@@ -70502,12 +70516,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.PortalInvalidReason": {
-    "documentation": "",
+    "documentation": "Một thông điệp dành cho người sáng tạo giải thích lý do tại sao cổng thông tin hiện tại không hợp lệ, nếu có.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#PortalInvalidReason",
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.Status": {
-    "documentation": "",
+    "documentation": "Chỉ ra liệu cổng thông tin hiện tại có hoạt động và có khả năng đưa người chơi đến hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#Status",
     "code_sample": ""
   },
@@ -77514,7 +77528,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBoxService": {
-    "documentation": "",
+    "documentation": "Một dịch vụ quản lý trạng thái <code>TextBox</code> của người dùng trong quá trình chơi game.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBoxService",
     "code_sample": ""
@@ -79417,6 +79431,7 @@
       "LogCustomEvent": "@roblox/globaltype/AnalyticsService.LogCustomEvent",
       "LogEconomyEvent": "@roblox/globaltype/AnalyticsService.LogEconomyEvent",
       "LogFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent",
+      "LogJourneyEvent": "@roblox/globaltype/AnalyticsService.LogJourneyEvent",
       "LogOnboardingFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent",
       "LogProgressionCompleteEvent": "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent",
       "LogProgressionEvent": "@roblox/globaltype/AnalyticsService.LogProgressionEvent",
@@ -79872,6 +79887,56 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogFunnelStepEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0": {
+    "documentation": "Tập hợp các phương thức cho phép bạn theo dõi cách người dùng tương tác với các trải nghiệm của bạn."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1": {
+    "documentation": "Người chơi đã kích hoạt sự kiện hành trình."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2": {
+    "documentation": "Tên của hành trình. Điều này nên giống nhau cho tất cả các nút trong hành trình. Không được để trống và không được chứa dấu phẩy <code>,</code>, dấu nháy kép <code>\"</code>, dấu nháy đơn <code>'</code>, hoặc ký tự xuống dòng."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3": {
+    "documentation": "Tên của nút mà người chơi đã đến trong hành trình. Không được để trống, không được chứa dấu phẩy <code>,</code>, dấu nháy kép <code>\"</code>, dấu nháy đơn <code>'</code>, hoặc ký tự xuống dòng, và không được bắt đầu bằng <code>__</code> (hai dấu gạch dưới), điều này là dành riêng."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4": {
+    "documentation": "Mã định danh duy nhất tùy chọn cho phiên hành trình. Điều này nên giống nhau cho tất cả các nút trong một phiên duy nhất của hành trình. Nếu được cung cấp, không được chứa dấu phẩy <code>,</code>, dấu nháy kép <code>\"</code>, dấu nháy đơn <code>'</code>, hoặc ký tự xuống dòng."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5": {
+    "documentation": "Từ điển tùy chọn của các trường tùy chỉnh sẽ cung cấp các phân tích trong các biểu đồ do Roblox cung cấp. Chỉ các khóa cụ thể, được cung cấp bởi <code>AnalyticsCustomFieldKeys</code>, sẽ được sử dụng cho các phân tích này. Giới hạn ở 8.000 tổ hợp giá trị duy nhất trên ba trường tùy chỉnh cho mỗi trải nghiệm."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent": {
+    "documentation": "Ghi lại một sự kiện hành trình được sử dụng để theo dõi các con đường không tuyến tính của người chơi qua một trải nghiệm.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1"
+      },
+      {
+        "name": "journeyName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2"
+      },
+      {
+        "name": "nodeName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3"
+      },
+      {
+        "name": "journeySessionId",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4"
+      },
+      {
+        "name": "customFields",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogJourneyEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/0": {
     "documentation": "Tập hợp các phương thức cho phép bạn theo dõi cách người dùng tương tác với các trải nghiệm của bạn."
   },
@@ -79879,16 +79944,16 @@
     "documentation": "Người dùng đã kích hoạt sự kiện."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/2": {
-    "documentation": "Số thứ tự bước trong kênh. Điều này nên là duy nhất cho mỗi bước trong kênh. Tất cả các kênh bắt đầu từ bước 1. Giới hạn tối đa là 1-100. Lưu ý rằng nếu bất kỳ bước nào bị bỏ qua, các bước trung gian sẽ được coi là hoàn thành."
+    "documentation": "Số bước trong phễu. Điều này nên là duy nhất cho mỗi bước trong phễu. Tất cả các phễu bắt đầu từ bước 1. Giới hạn từ bước 1-100. Lưu ý rằng nếu bất kỳ bước nào bị bỏ qua, các bước trung gian sẽ được coi là đã hoàn thành."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/3": {
-    "documentation": "Tên tùy chọn của bước trong kênh. Trường này chỉ được sử dụng cho mục đích hiển thị trong các biểu đồ do Roblox cung cấp."
+    "documentation": "Tên tùy chọn của bước trong phễu. Trường này chỉ được sử dụng cho mục đích hiển thị trong các biểu đồ do Roblox cung cấp."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/4": {
-    "documentation": "Từ điển tùy chọn của các trường tùy chỉnh sẽ cung cấp các phân tích trong các biểu đồ do Roblox cung cấp. Chỉ các khóa cụ thể, được cung cấp bởi <code>AnalyticsCustomFieldKeys</code>, sẽ được sử dụng cho các phân tích này. Giới hạn tối đa là 8.000 kết hợp giá trị khác nhau trên ba trường tùy chỉnh mỗi trải nghiệm."
+    "documentation": "Từ điển tùy chọn của các trường tùy chỉnh sẽ cung cấp các phân tích trong các biểu đồ do Roblox cung cấp. Chỉ các khóa cụ thể, được cung cấp bởi <code>AnalyticsCustomFieldKeys</code>, sẽ được sử dụng cho các phân tích này. Giới hạn ở 8.000 tổ hợp giá trị duy nhất trên ba trường tùy chỉnh cho mỗi trải nghiệm."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent": {
-    "documentation": "Ghi lại một sự kiện được sử dụng để theo dõi hành động của người dùng bước qua một kênh giới thiệu.",
+    "documentation": "Ghi lại một sự kiện được sử dụng để theo dõi các hành động của người dùng khi bước qua một phễu hướng dẫn.",
     "params": [
       {
         "name": "self",
@@ -79922,19 +79987,19 @@
     "documentation": "Người chơi đã kích hoạt sự kiện."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/2": {
-    "documentation": ""
+    "documentation": "Tên của con đường tiến trình mà sự kiện này thuộc về, chẳng hạn như một thế giới, chương, hoặc nhóm cấp độ. Điều này nhóm các sự kiện tiến trình liên quan lại với nhau. Không được để trống và không được chứa dấu phẩy <code>,</code>, dấu nháy kép <code>\"</code>, dấu nháy đơn <code>'</code>, hoặc ký tự xuống dòng."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/3": {
-    "documentation": ""
+    "documentation": "Cấp độ số mà người chơi đang tiến bộ qua trong con đường tiến trình."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/4": {
-    "documentation": ""
+    "documentation": "Tên của cấp độ liên quan đến sự kiện này. Trường này được sử dụng cho mục đích hiển thị trong các biểu đồ do Roblox cung cấp."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/5": {
-    "documentation": ""
+    "documentation": "Từ điển tùy chọn của các trường tùy chỉnh sẽ cung cấp các phân tích trong các biểu đồ do Roblox cung cấp. Chỉ các khóa cụ thể, được cung cấp bởi <code>AnalyticsCustomFieldKeys</code>, sẽ được sử dụng cho các phân tích này. Giới hạn ở 8.000 tổ hợp giá trị duy nhất trên ba trường tùy chỉnh cho mỗi trải nghiệm."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent": {
-    "documentation": "Ghi lại một sự kiện khi người dùng đã hoàn thành một cố gắng cấp độ.",
+    "documentation": "Ghi lại một sự kiện khi người dùng đã hoàn thành một lần thử cấp độ.",
     "params": [
       {
         "name": "self",
@@ -79972,22 +80037,22 @@
     "documentation": "Người chơi đã kích hoạt sự kiện."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/2": {
-    "documentation": ""
+    "documentation": "Tên của con đường tiến trình mà sự kiện này thuộc về, chẳng hạn như một thế giới, chương, hoặc nhóm cấp độ. Điều này nhóm các sự kiện tiến trình liên quan lại với nhau. Không được để trống và không được chứa dấu phẩy <code>,</code>, dấu nháy kép <code>\"</code>, dấu nháy đơn <code>'</code>, hoặc ký tự xuống dòng."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/3": {
-    "documentation": ""
+    "documentation": "Trạng thái tiến trình để ghi lại, được cung cấp dưới dạng một giá trị <code>AnalyticsProgressionType</code> như <code>Start</code>, <code>Complete</code>, hoặc <code>Fail</code>. Các phương thức <code>AnalyticsService:LogProgressionStartEvent()</code>, <code>AnalyticsService:LogProgressionCompleteEvent()</code>, và <code>AnalyticsService:LogProgressionFailEvent()</code> là các phím tắt để thiết lập trạng thái này cho bạn."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/4": {
-    "documentation": ""
+    "documentation": "Cấp độ số mà người chơi đang tiến bộ qua trong con đường tiến trình."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/5": {
-    "documentation": ""
+    "documentation": "Tên của cấp độ liên quan đến sự kiện này. Trường này được sử dụng cho mục đích hiển thị trong các biểu đồ do Roblox cung cấp."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/6": {
-    "documentation": ""
+    "documentation": "Từ điển tùy chọn của các trường tùy chỉnh sẽ cung cấp các phân tích trong các biểu đồ do Roblox cung cấp. Chỉ các khóa cụ thể, được cung cấp bởi <code>AnalyticsCustomFieldKeys</code>, sẽ được sử dụng cho các phân tích này. Giới hạn ở 8.000 tổ hợp giá trị duy nhất trên ba trường tùy chỉnh cho mỗi trải nghiệm."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent": {
-    "documentation": "Ghi lại một sự kiện khi người dùng đã bắt đầu, hoàn thành hoặc thất bại một cố gắng cấp độ.",
+    "documentation": "Ghi lại một sự kiện khi người dùng đã bắt đầu, hoàn thành, hoặc thất bại trong một lần thử cấp độ.",
     "params": [
       {
         "name": "self",
@@ -80029,19 +80094,19 @@
     "documentation": "Người dùng đã kích hoạt sự kiện."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/2": {
-    "documentation": ""
+    "documentation": "Tên của con đường tiến trình mà sự kiện này thuộc về, chẳng hạn như một thế giới, chương, hoặc nhóm cấp độ. Điều này nhóm các sự kiện tiến trình liên quan lại với nhau. Không được để trống và không được chứa dấu phẩy <code>,</code>, dấu nháy kép <code>\"</code>, dấu nháy đơn <code>'</code>, hoặc ký tự xuống dòng."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/3": {
-    "documentation": ""
+    "documentation": "Cấp độ số mà người chơi đang tiến bộ qua trong con đường tiến trình."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/4": {
-    "documentation": ""
+    "documentation": "Tên của cấp độ liên quan đến sự kiện này. Trường này được sử dụng cho mục đích hiển thị trong các biểu đồ do Roblox cung cấp."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/5": {
-    "documentation": ""
+    "documentation": "Từ điển tùy chọn của các trường tùy chỉnh sẽ cung cấp các phân tích trong các biểu đồ do Roblox cung cấp. Chỉ các khóa cụ thể, được cung cấp bởi <code>AnalyticsCustomFieldKeys</code>, sẽ được sử dụng cho các phân tích này. Giới hạn ở 8.000 tổ hợp giá trị duy nhất trên ba trường tùy chỉnh cho mỗi trải nghiệm."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent": {
-    "documentation": "Ghi lại một sự kiện khi người dùng đã thất bại một cố gắng cấp độ.",
+    "documentation": "Ghi lại một sự kiện khi người dùng đã thất bại trong một lần thử cấp độ.",
     "params": [
       {
         "name": "self",
@@ -80079,19 +80144,19 @@
     "documentation": "Người chơi đã kích hoạt sự kiện."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/2": {
-    "documentation": ""
+    "documentation": "Tên của con đường tiến trình mà sự kiện này thuộc về, chẳng hạn như một thế giới, chương, hoặc nhóm cấp độ. Điều này nhóm các sự kiện tiến trình liên quan lại với nhau. Không được để trống và không được chứa dấu phẩy <code>,</code>, dấu nháy kép <code>\"</code>, dấu nháy đơn <code>'</code>, hoặc ký tự xuống dòng."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/3": {
-    "documentation": ""
+    "documentation": "Cấp độ số mà người chơi đang tiến bộ qua trong con đường tiến trình."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/4": {
-    "documentation": ""
+    "documentation": "Tên của cấp độ liên quan đến sự kiện này. Trường này được sử dụng cho mục đích hiển thị trong các biểu đồ do Roblox cung cấp."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/5": {
-    "documentation": ""
+    "documentation": "Từ điển tùy chọn của các trường tùy chỉnh sẽ cung cấp các phân tích trong các biểu đồ do Roblox cung cấp. Chỉ các khóa cụ thể, được cung cấp bởi <code>AnalyticsCustomFieldKeys</code>, sẽ được sử dụng cho các phân tích này. Giới hạn ở 8.000 tổ hợp giá trị duy nhất trên ba trường tùy chỉnh cho mỗi trải nghiệm."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent": {
-    "documentation": "Ghi lại một sự kiện khi người dùng đã bắt đầu một cố gắng cấp độ.",
+    "documentation": "Ghi lại một sự kiện khi người dùng đã bắt đầu một lần thử cấp độ.",
     "params": [
       {
         "name": "self",
@@ -80129,30 +80194,29 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService": {
-    "documentation": "",
+    "documentation": "Dịch vụ phía máy chủ để gửi các bản chụp của người chơi đến việc kiểm duyệt nội dung và nhận kết quả một cách không đồng bộ.",
     "keys": {
       "BindReviewableContentEventProcessor": "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor",
       "CreateReviewableContentAsync": "@roblox/globaltype/ModerationService.CreateReviewableContentAsync",
-      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey",
-      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync"
+      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService",
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/0": {
-    "documentation": ""
+    "documentation": "Dịch vụ phía máy chủ để gửi các bản chụp của người chơi đến việc kiểm duyệt nội dung và nhận kết quả một cách không đồng bộ."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/1": {
-    "documentation": ""
+    "documentation": "Xác định thứ tự mà bộ xử lý này được gọi tương đối với các bộ xử lý đã liên kết khác."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/2": {
-    "documentation": ""
+    "documentation": "Hàm được gọi cho mỗi sự kiện nội dung có thể kiểm duyệt. Nó nhận một bảng mô tả sự kiện và nên trả về <code>true</code> để công nhận sự kiện hoặc <code>false</code> để để lại cho việc gửi lại."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/return/0": {
-    "documentation": ""
+    "documentation": "Một kết nối có thể bị ngắt kết nối để hủy đăng ký bộ xử lý."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor": {
-    "documentation": "",
+    "documentation": "Đăng ký một bộ xử lý phía máy chủ, được sắp xếp theo <code>priority</code>, được gọi cho mỗi sự kiện kiểm duyệt nội dung có thể kiểm duyệt.",
     "params": [
       {
         "name": "self",
@@ -80174,16 +80238,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/0": {
-    "documentation": ""
+    "documentation": "Dịch vụ phía máy chủ để gửi các bản chụp của người chơi đến việc kiểm duyệt nội dung và nhận kết quả một cách không đồng bộ."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/1": {
-    "documentation": ""
+    "documentation": "Một bảng các tham số mô tả nội dung để kiểm duyệt, bao gồm một <code>Id</code> tùy chọn, một <code>Ref</code> tùy chọn, và một danh sách <code>Content</code> của các mục hình ảnh hoặc video."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/return/0": {
-    "documentation": ""
+    "documentation": "ID của nội dung có thể kiểm duyệt đã được tạo."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync": {
-    "documentation": "",
+    "documentation": "Đăng ký các bản chụp do người dùng tạo để kiểm duyệt và kích hoạt các khách hàng sở hữu để tải lên chúng, trả về ID nội dung có thể kiểm duyệt.",
     "params": [
       {
         "name": "self",
@@ -80201,16 +80265,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/0": {
-    "documentation": ""
+    "documentation": "Dịch vụ phía máy chủ để gửi các bản chụp của người chơi đến việc kiểm duyệt nội dung và nhận kết quả một cách không đồng bộ."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/1": {
-    "documentation": ""
+    "documentation": "Một <code>Content</code> tham chiếu đến một bản chụp màn hình hoặc video (một URI tạm thời từ <code>CaptureService:CaptureScreenshot()</code>, một <code>ScreenshotCapture</code>, hoặc một <code>VideoCapture</code>)."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0": {
-    "documentation": ""
+    "documentation": "Một khóa nội dung không rõ ràng xác định bản chụp."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey": {
-    "documentation": "",
+    "documentation": "Trả về một khóa không rõ ràng xác định một bản chụp màn hình hoặc video để sử dụng với <code>CreateReviewableContentAsync()</code>.",
     "params": [
       {
         "name": "self",
@@ -80225,28 +80289,6 @@
       "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#CreateReviewableContentKey",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0"
-      },
-      {
-        "name": "config",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalRequestReviewableContentReviewAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation": {
@@ -87366,7 +87408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "Tùy chỉnh giao diện của một tin nhắn trò chuyện văn bản cá nhân hiển thị trong cửa sổ trò chuyện.",
     "keys": {
       "FontFace": "@roblox/globaltype/ChatWindowMessageProperties.FontFace",
       "PrefixTextProperties": "@roblox/globaltype/ChatWindowMessageProperties.PrefixTextProperties",
@@ -97381,6 +97423,7 @@
       "ChatVersion": "@roblox/globaltype/TextChatService.ChatVersion",
       "CreateDefaultCommands": "@roblox/globaltype/TextChatService.CreateDefaultCommands",
       "CreateDefaultTextChannels": "@roblox/globaltype/TextChatService.CreateDefaultTextChannels",
+      "PlatformIntegratedChat": "@roblox/globaltype/TextChatService.PlatformIntegratedChat",
       "CanUserChatAsync": "@roblox/globaltype/TextChatService.CanUserChatAsync",
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
       "CanUsersDirectChatAsync": "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync",
@@ -97413,14 +97456,19 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#CreateDefaultTextChannels",
     "code_sample": ""
   },
+  "@roblox/globaltype/TextChatService.PlatformIntegratedChat": {
+    "documentation": "Xác định xem chat tích hợp nền tảng có được bật cho trải nghiệm hay không. Cần có bảo mật <code>RobloxScript</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#PlatformIntegratedChat",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/0": {
     "documentation": "Một dịch vụ xử lý trò chuyện văn bản trong trải nghiệm."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "ID người dùng <code>Player.UserId</code> của người mà quyền chat đang được kiểm tra."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "Một boolean cho biết liệu người dùng có quyền chat hay không."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync": {
     "documentation": "Xác định xem người dùng có quyền trò chuyện trong các trải nghiệm hay không.",
@@ -97444,13 +97492,13 @@
     "documentation": "Một dịch vụ xử lý trò chuyện văn bản trong trải nghiệm."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "ID người dùng <code>Player.UserId</code> của người gửi tin nhắn tiềm năng."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": ""
+    "documentation": "ID người dùng <code>Player.UserId</code> của người nhận tin nhắn tiềm năng."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "Một boolean cho biết liệu hai người dùng có thể trao đổi tin nhắn hay không."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync": {
     "documentation": "Xác định xem hai người dùng có thể nhận tin nhắn từ nhau hay không.",
@@ -99965,7 +100013,7 @@
     "documentation": "ID của sản phẩm phát triển mà bạn muốn cấp làm phần thưởng."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/return/0": {
-    "documentation": ""
+    "documentation": "Một <code>AdReward</code> được cấu hình như một phần thưởng sản phẩm phát triển cho sản phẩm đã chỉ định."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
     "documentation": "Tạo một <code>AdReward</code> để trao cho người dùng những người xem quảng cáo video.",
@@ -100050,7 +100098,7 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho quảng cáo trong trải nghiệm."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/1": {
-    "documentation": ""
+    "documentation": "Nút <code>GuiButton</code> để theo dõi như một cơ hội quảng cáo video được thưởng. Phải là một hậu duệ của một <code>ScreenGui</code>."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/2": {
     "documentation": "ID của vị trí quảng cáo video thưởng trong trải nghiệm. Cho phép báo cáo về hiệu suất của từng vị trí quảng cáo."
@@ -100164,10 +100212,10 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho quảng cáo trong trải nghiệm."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/1": {
-    "documentation": ""
+    "documentation": "Instance để dừng theo dõi. Đây nên là một instance mà bạn đã từng truyền cho <code>RegisterAdOpportunityAsync()</code>."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity": {
-    "documentation": "",
+    "documentation": "Dừng theo dõi một instance đã được đăng ký trước đó với <code>RegisterAdOpportunityAsync</code>.",
     "params": [
       {
         "name": "self",
@@ -107666,7 +107714,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.AdLabelClicked": {
-    "documentation": "",
+    "documentation": "Người chơi đã nhấp vào nhãn \"Được tài trợ\" trên lớp phủ quảng cáo, điều này mở ra hộp thoại tiết lộ quảng cáo hiển thị thông tin về nhà quảng cáo và người trả tiền.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107676,7 +107724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.VolumeButtonClicked": {
-    "documentation": "",
+    "documentation": "Người chơi đã nhấp vào nút chuyển đổi âm lượng trên lớp phủ quảng cáo, điều này tắt tiếng hoặc bật tiếng cho video quảng cáo.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107686,7 +107734,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.FullscreenButtonClicked": {
-    "documentation": "",
+    "documentation": "Người chơi đã nhấp vào nút chuyển đổi toàn màn hình, điều này làm cho camera phóng to một cách mượt mà đến chế độ xem trung tâm của bề mặt quảng cáo và bật âm thanh.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107696,7 +107744,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayButtonClicked": {
-    "documentation": "",
+    "documentation": "Người chơi đã nhấp vào nút phát trên lớp phủ quảng cáo. Nếu quảng cáo đã ở chế độ toàn màn hình, phát lại sẽ tiếp tục; nếu không, nó sẽ vào chế độ toàn màn hình và cũng bắt đầu (hoặc tiếp tục) video.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107706,7 +107754,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseButtonClicked": {
-    "documentation": "",
+    "documentation": "Người chơi đã nhấp vào nút tạm dừng trong khi video quảng cáo đang phát ở chế độ toàn màn hình, điều này tạm dừng phát video.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107716,7 +107764,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.CloseButtonClicked": {
-    "documentation": "",
+    "documentation": "Người chơi đã nhấp vào nút đóng trên chế độ xem video quảng cáo toàn màn hình, điều này thoát khỏi chế độ toàn màn hình và trở về vị trí camera bình thường.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107726,7 +107774,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.WhyThisAdClicked": {
-    "documentation": "",
+    "documentation": "Người chơi đã nhấp vào liên kết \"Tại sao quảng cáo này?\", điều này hiển thị hộp thoại tiết lộ EUDSA (Đạo luật Dịch vụ Kỹ thuật số Châu Âu) hiển thị tên nhà quảng cáo và người trả tiền cho quảng cáo sáng tạo hiện tại.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107736,7 +107784,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayEventTriggered": {
-    "documentation": "",
+    "documentation": "Một sự kiện phát/tái phát do hệ thống khởi xướng, xóa trạng thái tạm dừng cưỡng bức và tiếp tục phát video nếu luồng đang mở.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107746,7 +107794,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseEventTriggered": {
-    "documentation": "",
+    "documentation": "Một sự kiện tạm dừng do hệ thống khởi xướng, được sử dụng khi động cơ cần tạm dừng cưỡng bức video (ví dụ, khi một menu thả xuống mở lên trên quảng cáo). Ngăn chặn việc phát tự động dựa trên khả năng xem từ việc tiếp tục phát lại cho đến khi một sự kiện hệ thống tương ứng xóa trạng thái tạm dừng đó.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107756,7 +107804,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIEventType": {
-    "documentation": "",
+    "documentation": "Mô tả loại tương tác của người dùng hoặc sự kiện hệ thống đã xảy ra trên giao diện người dùng quảng cáo hấp dẫn của một <code>AdGui</code>.",
     "keys": {
       "AdLabelClicked": "@roblox/enum/AdUIEventType.AdLabelClicked",
       "VolumeButtonClicked": "@roblox/enum/AdUIEventType.VolumeButtonClicked",
@@ -111383,7 +111431,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ShowAdResult.InsufficientMemory": {
-    "documentation": "",
+    "documentation": "Thiết bị không có đủ bộ nhớ video để hiển thị quảng cáo.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -111393,7 +111441,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ShowAdResult": {
-    "documentation": "",
+    "documentation": "Mã kết quả được trả về bởi <code>AdService:ShowRewardedVideoAdAsync()</code> cho biết liệu quảng cáo video có thưởng đã hoàn thành thành công hay không, hoặc lý do tại sao nó không hoàn thành.",
     "keys": {
       "ShowCompleted": "@roblox/enum/ShowAdResult.ShowCompleted",
       "AdNotReady": "@roblox/enum/ShowAdResult.AdNotReady",
@@ -114689,7 +114737,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsLogLevel.Information": {
-    "documentation": "",
+    "documentation": "Được sử dụng cho các thông điệp thông tin chung làm nổi bật tiến trình hoặc trạng thái thay đổi trong quá trình hoạt động bình thường.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114729,7 +114777,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsLogLevel": {
-    "documentation": "",
+    "documentation": "Chỉ định mức độ nghiêm trọng của một sự kiện nhật ký phân tích được truyền đến <code>AnalyticsService:FireLogEvent()</code>.",
     "keys": {
       "Trace": "@roblox/enum/AnalyticsLogLevel.Trace",
       "Debug": "@roblox/enum/AnalyticsLogLevel.Debug",
@@ -114815,7 +114863,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PublicChat": {
-    "documentation": "",
+    "documentation": "Chỉ ra chuỗi sẽ được hiển thị cho tất cả người chơi hoặc một khán giả công cộng rộng lớn, áp dụng mức độ lọc văn bản nghiêm ngặt nhất.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114825,7 +114873,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PrivateChat": {
-    "documentation": "",
+    "documentation": "Chỉ ra chuỗi là một phần của cuộc trò chuyện riêng tư giữa các người dùng cụ thể, áp dụng lọc phù hợp cho các cuộc trao đổi một-một hoặc nhóm nhỏ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114835,7 +114883,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.TextFilterContext": {
-    "documentation": "",
+    "documentation": "Chỉ ra liệu văn bản được gửi đến <code>TextService:FilterStringAsync()</code> hoặc <code>TextService:FilterAndTranslateStringAsync()</code> có dành cho công chúng hay khán giả riêng tư, kiểm soát độ nghiêm ngặt của backend lọc văn bản.",
     "keys": {
       "PublicChat": "@roblox/enum/TextFilterContext.PublicChat",
       "PrivateChat": "@roblox/enum/TextFilterContext.PrivateChat"
@@ -115938,34 +115986,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#None",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.LOD": {
-    "documentation": "Mã màu mỗi mô hình theo mức độ chi tiết hiện tại của nó bằng cách sử dụng bản đồ nhiệt từ xanh đến đỏ. Màu xanh chỉ ra mức độ chi tiết thấp nhất và các màu ấm hơn chỉ ra mức độ chi tiết cao hơn. Hữu ích để xác minh rằng các mô hình xa đang phát trực tuyến với độ trung thực giảm.",
+  "@roblox/enum/SlimTintMode.LevelOfDetail": {
+    "documentation": "Màu sắc mỗi lưới theo mức độ chi tiết hiện tại của nó. Màu xanh là thô nhất, màu đỏ là tinh xảo nhất, và mỗi cấp bậc ở giữa tương ứng với một màu cố định. Một màu nhất định luôn có nghĩa là cùng một cấp bậc LOD trên mọi lưới, với ngoại lệ là LOD cao nhất có sẵn của mỗi lưới luôn được hiển thị bằng màu đỏ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LOD",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LevelOfDetail",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.Meshes": {
-    "documentation": "Gán một màu sắc riêng biệt cho từng mô hình trong một mô hình. Hữu ích để xác định ranh giới mô hình và xác minh cách một mô hình được chia thành các phần mô hình riêng biệt.",
+  "@roblox/enum/SlimTintMode.DataModelState": {
+    "documentation": "Màu sắc các mô hình SLIM dựa trên việc các phiên bản DataModel của chúng có được truyền vào hay không. Màu xanh lá cây chỉ ra rằng đã được truyền vào (DataModel đầy đủ có mặt); màu vàng chỉ ra rằng đã được truyền ra (một chỗ giữ chỗ). Cả hai vẫn được hiển thị qua SLIM.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Meshes",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTintMode.Zone": {
-    "documentation": "Mã màu các mô hình theo vùng phát trực tuyến. Màu xanh lá cây chỉ ra vùng độ trung thực cao nơi DataModel có mặt; màu vàng chỉ ra vùng độ trung thực thấp nơi DataModel không có mặt).",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Zone",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#DataModelState",
     "code_sample": ""
   },
   "@roblox/enum/SlimTintMode.TranscoderStatus": {
@@ -115982,9 +116020,8 @@
     "documentation": "Xác định chế độ mã màu được sử dụng bởi lớp phủ tông màu gỡ lỗi SLIM trong Bảng điều khiển Nhà phát triển.",
     "keys": {
       "None": "@roblox/enum/SlimTintMode.None",
-      "LOD": "@roblox/enum/SlimTintMode.LOD",
-      "Meshes": "@roblox/enum/SlimTintMode.Meshes",
-      "Zone": "@roblox/enum/SlimTintMode.Zone",
+      "LevelOfDetail": "@roblox/enum/SlimTintMode.LevelOfDetail",
+      "DataModelState": "@roblox/enum/SlimTintMode.DataModelState",
       "TranscoderStatus": "@roblox/enum/SlimTintMode.TranscoderStatus"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode",
@@ -116315,7 +116352,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnCreatingChatWindow": {
-    "documentation": "",
+    "documentation": "Callback chỉ dành cho client được gọi trước khi cửa sổ chat được tạo, cho phép cung cấp các cài đặt tùy chỉnh.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116325,7 +116362,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientSendingMessage": {
-    "documentation": "",
+    "documentation": "Callback chỉ dành cho client được dành riêng cho khi client gửi một tin nhắn; hiện tại không được gọi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116335,7 +116372,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientFormattingMessage": {
-    "documentation": "",
+    "documentation": "Callback chỉ dành cho client được gọi trước khi một tin nhắn được hiển thị, cho phép dữ liệu hiển thị của nó được sửa đổi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116345,7 +116382,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnServerReceivingMessage": {
-    "documentation": "",
+    "documentation": "Callback chỉ dành cho server được gọi khi server nhận một tin nhắn từ một người nói, cho phép tin nhắn được sửa đổi hoặc bị chặn.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116355,7 +116392,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatCallbackType": {
-    "documentation": "",
+    "documentation": "Xác định một điểm móc trong pipeline chat Luau cũ để sử dụng với <code>Chat:RegisterChatCallback()</code> và <code>Chat:InvokeChatCallback()</code>.",
     "keys": {
       "OnCreatingChatWindow": "@roblox/enum/ChatCallbackType.OnCreatingChatWindow",
       "OnClientSendingMessage": "@roblox/enum/ChatCallbackType.OnClientSendingMessage",
@@ -120765,7 +120802,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.None": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> không có quảng cáo sáng tạo nào được tải và không đang hiển thị nội dung quảng cáo.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120775,7 +120812,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Image": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> đang hiển thị một quảng cáo sáng tạo hình ảnh tĩnh.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120785,7 +120822,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Video": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> đang hiển thị một quảng cáo sáng tạo video.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120795,7 +120832,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIType": {
-    "documentation": "",
+    "documentation": "Mô tả loại quảng cáo sáng tạo hiện đang được hiển thị bởi một <code>AdGui</code>.",
     "keys": {
       "None": "@roblox/enum/AdUIType.None",
       "Image": "@roblox/enum/AdUIType.Image",
@@ -123706,7 +123743,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Unknown": {
-    "documentation": "",
+    "documentation": "Trạng thái hạn chế trò chuyện của nền tảng đối với người dùng vẫn chưa được\\xác định; đây là giá trị mặc định cho tất cả các thuộc tính ChatRestrictionStatus.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123716,7 +123753,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.NotRestricted": {
-    "documentation": "",
+    "documentation": "Nền tảng bên thứ ba đã xác nhận rằng người dùng không có hạn chế trò chuyện nào có hiệu lực.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123726,7 +123763,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Restricted": {
-    "documentation": "",
+    "documentation": "Nền tảng bên thứ ba đã báo cáo rằng người dùng bị hạn chế trò chuyện, thường là do các kiểm soát của phụ huynh hoặc cài đặt giao tiếp của nền tảng.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123736,7 +123773,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatRestrictionStatus": {
-    "documentation": "",
+    "documentation": "Mô tả trạng thái hạn chế trò chuyện mà một nền tảng bên thứ ba báo cáo cho a người dùng.",
     "keys": {
       "Unknown": "@roblox/enum/ChatRestrictionStatus.Unknown",
       "NotRestricted": "@roblox/enum/ChatRestrictionStatus.NotRestricted",
@@ -128179,57 +128216,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SurfaceType",
     "code_sample": ""
   },
-  "@roblox/enum/WebSocketState.Connecting": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Connecting",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Open": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Open",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closing": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closing",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closed": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closed",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.WebSocketState": {
-    "documentation": "",
-    "keys": {
-      "Connecting": "@roblox/enum/WebSocketState.Connecting",
-      "Open": "@roblox/enum/WebSocketState.Open",
-      "Closing": "@roblox/enum/WebSocketState.Closing",
-      "Closed": "@roblox/enum/WebSocketState.Closed"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState",
-    "code_sample": ""
-  },
   "@roblox/enum/RecommendationActionType.AddReaction": {
     "documentation": "Người dùng đã thêm một phản ứng vào mục, chẳng hạn như \"thích\".",
     "keys": {
@@ -129627,7 +129613,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField01": {
-    "documentation": "",
+    "documentation": "Khóa trường tùy chỉnh đầu tiên, được sử dụng để cung cấp một chiều phân tích trong các biểu đồ phân tích do Roblox cung cấp.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129637,7 +129623,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField02": {
-    "documentation": "",
+    "documentation": "Khóa trường tùy chỉnh thứ hai, được sử dụng để cung cấp một chiều phân tích trong các biểu đồ phân tích do Roblox cung cấp.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129647,7 +129633,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField03": {
-    "documentation": "",
+    "documentation": "Khóa trường tùy chỉnh thứ ba, được sử dụng để cung cấp một chiều phân tích trong các biểu đồ phân tích do Roblox cung cấp.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131738,7 +131724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextChatMessageStatus.ModerationTimeout": {
-    "documentation": "",
+    "documentation": "Tin nhắn không thể được gửi vì người dùng đang có một khoảng thời gian kiểm duyệt hoạt động trên chat.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131863,7 +131849,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdAvailabilityResult": {
-    "documentation": "",
+    "documentation": "Chỉ ra liệu một quảng cáo có sẵn hay lý do nó không thể được hiển thị.",
     "keys": {
       "IsAvailable": "@roblox/enum/AdAvailabilityResult.IsAvailable",
       "DeviceIneligible": "@roblox/enum/AdAvailabilityResult.DeviceIneligible",
@@ -132649,7 +132635,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Default": {
-    "documentation": "",
+    "documentation": "Màu sắc nền mặc định được sử dụng cho văn bản script không khớp với bất kỳ danh mục cú pháp cụ thể nào.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132659,7 +132645,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Operator": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho các token toán tử như <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>==</code>, và <code>..</code> trong các script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132669,7 +132655,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Number": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho các token số nguyên trong các script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132679,7 +132665,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.String": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho các token chuỗi, bao gồm các chuỗi được trích dẫn và các chuỗi dài.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132689,7 +132675,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Comment": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho các token chú thích (chú thích một dòng <code>--</code> và chú thích khối <code>--[[ ]]</code>) trong các script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132699,7 +132685,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Keyword": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho các từ khóa đã được Luau dành riêng như <code>if</code>, <code>then</code>, <code>else</code>, <code>do</code>, <code>end</code>, <code>return</code>, và <code>while</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132709,7 +132695,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Builtin": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho các hàm tích hợp và các định danh thư viện chuẩn trong các script của Luau.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132719,7 +132705,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Method": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho các định danh gọi phương thức trong các script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132729,7 +132715,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Property": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho các định danh truy cập thuộc tính (các token theo sau một toán tử <code>.</code>) trong các script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132739,7 +132725,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Nil": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho token <code>nil</code> trong các script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132749,7 +132735,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bool": {
-    "documentation": "",
+    "documentation": "Màu sắc nền được sử dụng để làm nổi bật các hằng số boolean (<code>true</code> và <code>false</code>) trong các script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132759,7 +132745,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Function": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho token từ khóa <code>function</code> trong các khai báo hàm.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132769,7 +132755,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Local": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho token từ khóa <code>local</code> trong các khai báo biến và hàm cục bộ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132779,7 +132765,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Self": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho token định danh <code>self</code> trong các thân phương thức.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132789,7 +132775,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.LuauKeyword": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho các từ khóa chú thích kiểu đặc trưng của Luau như <code>type</code> và <code>typeof</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132799,7 +132785,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FunctionName": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho định danh tên hàm trong khai báo của nó.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132809,7 +132795,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.TODO": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho các dấu hiệu <code>TODO</code> được tìm thấy bên trong các chú thích trong các script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132819,7 +132805,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Background": {
-    "documentation": "",
+    "documentation": "Màu sắc nền chính của canvas Trình chỉnh sửa Script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132829,7 +132815,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionText": {
-    "documentation": "",
+    "documentation": "Màu sắc nền cho văn bản trong khoảng chọn hiện tại trong Trình chỉnh sửa Script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132839,7 +132825,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionBackground": {
-    "documentation": "",
+    "documentation": "Màu sắc nền nổi bật cho khoảng văn bản được chọn hiện tại trong Trình chỉnh sửa Script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132849,7 +132835,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FindSelectionBackground": {
-    "documentation": "",
+    "documentation": "Màu sắc nền nổi bật áp dụng cho các khoảng văn bản được khớp bởi một thao tác Tìm hoặc Thay thế.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132859,7 +132845,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MatchingWordBackground": {
-    "documentation": "",
+    "documentation": "Màu sắc nền nổi bật áp dụng cho tất cả các lần xuất hiện của từ dưới con trỏ khi tính năng làm nổi bật từ đang hoạt động.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132869,7 +132855,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Warning": {
-    "documentation": "",
+    "documentation": "Màu sắc được sử dụng cho các dấu hiệu chẩn đoán mức độ cảnh báo và gạch chân trong các script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132879,7 +132865,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Error": {
-    "documentation": "",
+    "documentation": "Màu sắc được sử dụng cho các dấu hiệu chẩn đoán mức độ lỗi và gạch chân trong các script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132889,7 +132875,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Info": {
-    "documentation": "",
+    "documentation": "Màu sắc được sử dụng cho các dấu hiệu chẩn đoán mức độ thông tin trong các script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132899,7 +132885,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Hint": {
-    "documentation": "",
+    "documentation": "Màu sắc được sử dụng cho các dấu hiệu chẩn đoán mức độ gợi ý trong các script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132909,7 +132895,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Whitespace": {
-    "documentation": "",
+    "documentation": "Màu sắc được sử dụng để hiển thị các ký tự khoảng trắng (khoảng trắng và tab) khi tùy chọn hiển thị đó được bật.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132919,7 +132905,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.ActiveLine": {
-    "documentation": "",
+    "documentation": "Màu sắc nền nổi bật áp dụng cho dòng hiện tại chứa con trỏ văn bản.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132929,7 +132915,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerCurrentLine": {
-    "documentation": "",
+    "documentation": "Màu sắc nền nổi bật cho dòng mà trình gỡ lỗi hiện đang tạm dừng.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132939,7 +132925,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerErrorLine": {
-    "documentation": "",
+    "documentation": "Màu sắc nền nổi bật cho một dòng gây ra lỗi thời gian chạy trong một phiên gỡ lỗi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132949,7 +132935,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Ruler": {
-    "documentation": "",
+    "documentation": "Màu sắc của đường thẳng cột dọc được vẽ tại giới hạn chiều rộng ký tự đã cấu hình trong Trình chỉnh sửa Script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132959,7 +132945,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bracket": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho các ký tự ngoặc như <code>(</code>, <code>)</code>, <code>[</code>, <code>]</code>, <code>{</code>, và <code>}</code> trong các script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132969,7 +132955,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Type": {
-    "documentation": "",
+    "documentation": "Màu sắc áp dụng cho các token tên kiểu Luau trong các chú thích kiểu và khai báo.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132979,7 +132965,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuPrimaryText": {
-    "documentation": "",
+    "documentation": "Màu sắc văn bản chính cho các mục được liệt kê trong các popup tự động hoàn thành và menu ngữ cảnh.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132989,7 +132975,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSecondaryText": {
-    "documentation": "",
+    "documentation": "Màu sắc văn bản thứ cấp (ví dụ, chú thích kiểu hoặc gợi ý tài liệu) trong các popup tự động hoàn thành.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132999,7 +132985,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedText": {
-    "documentation": "",
+    "documentation": "Màu sắc văn bản của mục hiện đang được làm nổi bật trong các popup tự động hoàn thành và menu ngữ cảnh.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133009,7 +132995,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBackground": {
-    "documentation": "",
+    "documentation": "Màu sắc nền cho các popup tự động hoàn thành và menu ngữ cảnh trong Trình chỉnh sửa Script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133019,7 +133005,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedBackground": {
-    "documentation": "",
+    "documentation": "Màu sắc nền của mục hiện đang được làm nổi bật trong các popup tự động hoàn thành và menu ngữ cảnh.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133029,7 +133015,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarBackground": {
-    "documentation": "",
+    "documentation": "Màu sắc nền của đường ray thanh cuộn bên trong các popup tự động hoàn thành và menu ngữ cảnh.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133039,7 +133025,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarHandle": {
-    "documentation": "",
+    "documentation": "Màu sắc của tay cầm thanh cuộn bên trong các popup tự động hoàn thành và menu ngữ cảnh.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133049,7 +133035,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBorder": {
-    "documentation": "",
+    "documentation": "Màu sắc viền cho các popup tự động hoàn thành và menu ngữ cảnh trong Trình chỉnh sửa Script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133059,7 +133045,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DocViewCodeBackground": {
-    "documentation": "",
+    "documentation": "Màu sắc nền cho các khối mã nội tuyến được hiển thị trong bảng xem tài liệu trong Studio.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133069,7 +133055,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayText": {
-    "documentation": "",
+    "documentation": "Màu sắc văn bản cho các nhãn hiển thị trong bảng AI Code Overlay.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133079,7 +133065,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackground": {
-    "documentation": "",
+    "documentation": "Màu sắc nền cho các nút hành động AI Code Overlay trong trạng thái mặc định (nhàn rỗi).",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133089,7 +133075,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundHover": {
-    "documentation": "",
+    "documentation": "Màu sắc nền cho các nút hành động AI Code Overlay khi con trỏ di chuột qua chúng.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133099,7 +133085,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundPressed": {
-    "documentation": "",
+    "documentation": "Màu sắc nền cho các nút hành động AI Code Overlay khi chúng đang được nhấn.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133109,7 +133095,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.IndentationRuler": {
-    "documentation": "",
+    "documentation": "Màu sắc của các đường hướng dẫn dọc được vẽ tại mỗi cấp độ thụt lề trong gờ trình chỉnh sửa script.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133119,7 +133105,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.StudioScriptEditorColorCategories": {
-    "documentation": "",
+    "documentation": "Các danh mục màu sắc được sử dụng để tạo chủ đề cho Trình chỉnh sửa Script trong Roblox Studio.",
     "keys": {
       "Default": "@roblox/enum/StudioScriptEditorColorCategories.Default",
       "Operator": "@roblox/enum/StudioScriptEditorColorCategories.Operator",
@@ -133364,7 +133350,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptPublishAssetResult": {
-    "documentation": "Mô tả kết quả của một cuộc gọi <code>AssetService:PromptCreateAssetAsync()</code>.",
+    "documentation": "Liệt kê kết quả đã bị ngừng sử dụng cho sự kiện <code>OpenPublishResultModal</code>.",
     "keys": {
       "Success": "@roblox/enum/PromptPublishAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptPublishAssetResult.PermissionDenied",
@@ -135428,7 +135414,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyTransactionType": {
-    "documentation": "",
+    "documentation": "Phân loại ngữ cảnh của một giao dịch kinh tế trong trải nghiệm để sử dụng với <code>AnalyticsService:LogEconomyEvent()</code>.",
     "keys": {
       "IAP": "@roblox/enum/AnalyticsEconomyTransactionType.IAP",
       "Shop": "@roblox/enum/AnalyticsEconomyTransactionType.Shop",
@@ -135621,7 +135607,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptCreateAssetResult": {
-    "documentation": "Mô tả kết quả của một cuộc gọi <code>AssetService:PromptCreateAssetAsync()</code>.",
+    "documentation": "Mô tả kết quả của một <code>AvatarCreationService:PromptCreateAvatarAssetAsync()</code> gọi.",
     "keys": {
       "Success": "@roblox/enum/PromptCreateAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptCreateAssetResult.PermissionDenied",
@@ -135638,7 +135624,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Custom": {
-    "documentation": "",
+    "documentation": "Một trạng thái tiến trình tùy chỉnh cho các sự kiện ngoài vòng đời tiêu chuẩn bắt đầu/thất bại/hoàn thành.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135648,7 +135634,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Start": {
-    "documentation": "",
+    "documentation": "Người chơi đã bắt đầu lần thử cấp độ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135658,7 +135644,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Fail": {
-    "documentation": "",
+    "documentation": "Người chơi đã thất bại trong lần thử cấp độ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135668,7 +135654,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Complete": {
-    "documentation": "",
+    "documentation": "Người chơi đã hoàn thành cấp độ thành công.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135678,7 +135664,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsProgressionType": {
-    "documentation": "",
+    "documentation": "Chỉ định trạng thái tiến trình của người chơi trong một sự kiện tiến trình cấp độ được ghi lại bởi <code>AnalyticsService:LogProgressionEvent()</code>.",
     "keys": {
       "Custom": "@roblox/enum/AnalyticsProgressionType.Custom",
       "Start": "@roblox/enum/AnalyticsProgressionType.Start",
@@ -136217,7 +136203,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdFormat.RewardedVideo": {
-    "documentation": "Định dạng của quảng cáo video được thưởng.",
+    "documentation": "Một quảng cáo video toàn màn hình phát đến khi hoàn thành và thưởng cho người xem, được sử dụng làm đối số <code>adFormat</code> cho các phương thức <code>AdService</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136227,7 +136213,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdFormat": {
-    "documentation": "",
+    "documentation": "Xác định định dạng của một quảng cáo được sử dụng với các phương thức <code>AdService</code>.",
     "keys": {
       "RewardedVideo": "@roblox/enum/AdFormat.RewardedVideo"
     },
@@ -136337,7 +136323,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Unknown": {
-    "documentation": "Trạng thái mã hóa vẫn chưa được xác định. Đây là trạng thái ban đầu trước khi mô hình được truy vấn. Hiển thị bằng màu hồng trong lớp phủ tông màu gỡ lỗi.",
+    "documentation": "Trạng thái chuyển mã vẫn chưa được xác định. Đây là trạng thái ban đầu trước khi mô hình được truy vấn. Hiển thị màu vàng trong lớp phủ tông màu gỡ lỗi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136346,48 +136332,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Unknown",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTranscoderStatus.NoHash": {
-    "documentation": "Mô hình đã được kích hoạt SLIM nhưng vẫn chưa có băm được tạo, vì vậy mã hóa chưa được yêu cầu. Hiển thị bằng màu xanh lam nhạt trong lớp phủ tông màu gỡ lỗi.",
+  "@roblox/enum/SlimTranscoderStatus.Transcoding": {
+    "documentation": "Chuyển mã SLIM hiện đang được tiến hành ở phía backend. Mô hình dự kiến sẽ chuyển sang Trạng thái Thành công hoặc Thất bại khi quá trình chuyển mã hoàn tất. Hiển thị màu xanh trong lớp phủ tông màu gỡ lỗi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NoHash",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.NotUploaded": {
-    "documentation": "Mô hình chưa được tải lên mạng phân phối nội dung. Hiển thị dưới dạng màu cam trong lớp phủ tông màu gỡ lỗi.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NotUploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.Uploaded": {
-    "documentation": "Mô hình đã được tải lên mạng phân phối nội dung nhưng chưa dược mã hóa thành các tài sản SLIM. Hiển thị dưới dạng màu vàng trong lớp phủ tông màu gỡ lỗi.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Uploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.InProgress": {
-    "documentation": "Mã hóa SLIM hiện đang được tiến hành trên backend. Mô hình được mong đợi sẽ chuyển sang trạng thái Thành công hoặc Thất bại khi mã hóa hoàn tất. Hiển thị bằng màu xanh dương trong lớp phủ tông màu gỡ lỗi.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#InProgress",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Transcoding",
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Succeeded": {
-    "documentation": "Mã hóa đã hoàn tất thành công và các tài sản SLIM đã sẵn sàng để phát trực tuyến. Hiển thị bằng màu xanh lá cây trong lớp phủ tông màu gỡ lỗi.",
+    "documentation": "Chuyển mã đã hoàn tất thành công và các tài sản SLIM đã sẵn sàng để phát trực tuyến. Hiển thị màu xanh lá cây trong lớp phủ tông màu gỡ lỗi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136397,7 +136353,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Failed": {
-    "documentation": "Mã hóa không hoàn tất thành công. Hiển thị bằng màu đỏ trong lớp phủ tông màu gỡ lỗi.",
+    "documentation": "Chuyển mã không hoàn tất thành công. Hiển thị màu đỏ trong lớp phủ tông màu gỡ lỗi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136410,10 +136366,7 @@
     "documentation": "Mô tả trạng thái mã hóa backend của một mô hình SLIM, từ việc tải lên cho đến mã hóa thành công hoặc thất bại.",
     "keys": {
       "Unknown": "@roblox/enum/SlimTranscoderStatus.Unknown",
-      "NoHash": "@roblox/enum/SlimTranscoderStatus.NoHash",
-      "NotUploaded": "@roblox/enum/SlimTranscoderStatus.NotUploaded",
-      "Uploaded": "@roblox/enum/SlimTranscoderStatus.Uploaded",
-      "InProgress": "@roblox/enum/SlimTranscoderStatus.InProgress",
+      "Transcoding": "@roblox/enum/SlimTranscoderStatus.Transcoding",
       "Succeeded": "@roblox/enum/SlimTranscoderStatus.Succeeded",
       "Failed": "@roblox/enum/SlimTranscoderStatus.Failed"
     },
@@ -137104,7 +137057,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyFlowType": {
-    "documentation": "",
+    "documentation": "Chỉ định hướng dòng tiền tệ trong một sự kiện kinh tế được ghi lại bởi <code>AnalyticsService:LogEconomyEvent()</code>.",
     "keys": {
       "Sink": "@roblox/enum/AnalyticsEconomyFlowType.Sink",
       "Source": "@roblox/enum/AnalyticsEconomyFlowType.Source"
@@ -138772,7 +138725,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyAction": {
-    "documentation": "",
+    "documentation": "Mô tả loại giao dịch kinh tế trong <code>AnalyticsService:FireInGameEconomyEvent()</code>.",
     "keys": {
       "Default": "@roblox/enum/AnalyticsEconomyAction.Default",
       "Acquire": "@roblox/enum/AnalyticsEconomyAction.Acquire",
@@ -139004,7 +138957,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Blue": {
-    "documentation": "Màu sắc trò chuyện màu xanh.",
+    "documentation": "Màu chat xanh; giá trị mặc định được truyền vào <code>Chat()</code> và <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139014,7 +138967,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Green": {
-    "documentation": "Màu sắc trò chuyện màu xanh lá cây.",
+    "documentation": "Màu chat xanh lá, được truyền dưới dạng tham số <code>color</code> đến <code>Chat()</code> hoặc <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139024,7 +138977,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Red": {
-    "documentation": "Màu sắc trò chuyện màu đỏ.",
+    "documentation": "Màu chat đỏ, được truyền dưới dạng tham số <code>color</code> đến <code>Chat()</code> hoặc <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139034,7 +138987,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.White": {
-    "documentation": "Màu sắc trò chuyện màu trắng.",
+    "documentation": "Màu chat trắng, được truyền dưới dạng tham số <code>color</code> đến <code>Chat()</code> hoặc <code>ChatLocal()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140537,7 +140490,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.Undefined": {
-    "documentation": "",
+    "documentation": "Giá trị sentinel mặc định chưa được khởi tạo cho biết rằng chưa xác định phương pháp dịch chuyển nào.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140547,7 +140500,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.PortalForward": {
-    "documentation": "",
+    "documentation": "Người chơi đã dịch chuyển về phía trải nghiệm đích của nhà quảng cáo bằng cách đi vào một <code>AdPortal</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140557,7 +140510,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.InGameMenuBackButton": {
-    "documentation": "",
+    "documentation": "Người chơi đã khởi xướng một dịch chuyển trở về trải nghiệm của nhà xuất bản bằng cách nhấn nút quay lại trong menu trong trò chơi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140567,7 +140520,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.UIBackButton": {
-    "documentation": "",
+    "documentation": "Người chơi đã khởi xướng một dịch chuyển trở về trải nghiệm của nhà xuất bản bằng cách nhấn nút quay lại được hiển thị trong lớp phủ UI của đích quảng cáo.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140577,7 +140530,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdTeleportMethod": {
-    "documentation": "",
+    "documentation": "Mô tả phương pháp mà người chơi dịch chuyển trong một luồng cổng quảng cáo hấp dẫn.",
     "keys": {
       "Undefined": "@roblox/enum/AdTeleportMethod.Undefined",
       "PortalForward": "@roblox/enum/AdTeleportMethod.PortalForward",

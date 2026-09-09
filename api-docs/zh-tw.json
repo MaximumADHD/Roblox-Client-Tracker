@@ -24207,10 +24207,10 @@
     "documentation": "支持可以與數位福利捆綁的現實世界購買。"
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/param/1": {
-    "documentation": ""
+    "documentation": "要查找的商務產品的識別碼，可以是數字 ID 或完整的 <code>COM-</code> 前綴形式。"
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/return/0": {
-    "documentation": ""
+    "documentation": "有關商務產品的信息字典，包括 它是否 <code>IsForSale</code>，顯示詳細信息的 <code>Item</code> 子表 （<code>Name</code>、<code>Description</code>、<code>IconImageAssetId</code>、<code>DisplayPrice</code> 和 <code>IsPurchasable</code>），以及購買它所獲得的 <code>Benefits</code>。"
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync": {
     "documentation": "檢索有關您在體驗中銷售的商務產品的信息。",
@@ -24234,10 +24234,10 @@
     "documentation": "支持可以與數位福利捆綁的現實世界購買。"
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/1": {
-    "documentation": ""
+    "documentation": "要提示購買流程的 <code>Player</code>。當從 客戶端腳本調用時，這必須是本地玩家。"
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/2": {
-    "documentation": ""
+    "documentation": "要購買的商務產品的識別碼，可以是數字 ID 或完整的 <code>COM-</code> 前綴形式。"
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase": {
     "documentation": "提示用戶使用提供的 <code>commerceProductId</code> 購買商務產品。打開一個網頁視圖，引導用戶完成購買流程。",
@@ -24263,13 +24263,13 @@
     "documentation": "支持可以與數位福利捆綁的現實世界購買。"
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/1": {
-    "documentation": ""
+    "documentation": "為其打開瀏覽器的 <code>Player</code>。當從 客戶端腳本調用時，這必須是本地玩家。"
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/2": {
-    "documentation": ""
+    "documentation": "要打開的現實世界商務 URL。該 URL 必須在商務 允許列表中，否則請求將被忽略。"
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser": {
-    "documentation": "",
+    "documentation": "舊版端點，為指定玩家打開一個體驗內瀏覽器，指向一個現實世界的 商務 URL；被 <code>CommerceService:PromptCommerceProductPurchase()</code> 取代。",
     "params": [
       {
         "name": "self",
@@ -24292,10 +24292,10 @@
     "documentation": "支持可以與數位福利捆綁的現實世界購買。"
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync/return/0": {
-    "documentation": ""
+    "documentation": "<code>true</code> 如果當前用戶有資格進行現實世界的商務。"
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync": {
-    "documentation": "",
+    "documentation": "舊版端點，返回當前用戶是否有資格進行 現實世界的商務；被 <code>PolicyService</code> 取代。",
     "params": [
       {
         "name": "self",
@@ -24408,7 +24408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatCommand.AutocompleteVisible": {
-    "documentation": "",
+    "documentation": "決定 <code>TextChatCommand</code> 是否在聊天自動完成菜單中顯示為建議。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatCommand#AutocompleteVisible",
     "code_sample": ""
   },
@@ -29850,6 +29850,7 @@
   "@roblox/globaltype/Decal": {
     "documentation": "將影像紋理應用於父 <code>BasePart</code> 的一個面。",
     "keys": {
+      "AutoLocalize": "@roblox/globaltype/Decal.AutoLocalize",
       "Color3": "@roblox/globaltype/Decal.Color3",
       "ColorMap": "@roblox/globaltype/Decal.ColorMap",
       "ColorMapContent": "@roblox/globaltype/Decal.ColorMapContent",
@@ -29865,6 +29866,7 @@
       "Specular": "@roblox/globaltype/Decal.Specular",
       "Texture": "@roblox/globaltype/Decal.Texture",
       "TextureContent": "@roblox/globaltype/Decal.TextureContent",
+      "TexturePackContent": "@roblox/globaltype/Decal.TexturePackContent",
       "Transparency": "@roblox/globaltype/Decal.Transparency",
       "UVOffset": "@roblox/globaltype/Decal.UVOffset",
       "UVScale": "@roblox/globaltype/Decal.UVScale",
@@ -29873,43 +29875,48 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.AutoLocalize": {
+    "documentation": "當設置為 <code>true</code> 時，貼圖的圖像資產有資格自動 進行本地化捕獲。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#AutoLocalize",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Color3": {
-    "documentation": "<code>Color3</code> 的色調，適用於 <code>Decal</code>。",
+    "documentation": "<code>Color3</code> 的貼圖色調。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Color3",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ColorMap": {
-    "documentation": "決定表面的顏色和不透明度的內容 ID。",
+    "documentation": "決定表面顏色和不透明度的內容 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ColorMapContent": {
-    "documentation": "<code>Content</code> 物件，用於決定表面的顏色和不透明度。",
+    "documentation": "<code>Content</code> 對象，決定表面的顏色和不透明度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.LocalTransparencyModifier": {
-    "documentation": "作為貼圖的 <code>Transparency</code> 屬性的倍增器。效果僅對本地玩家可見。",
+    "documentation": "作為貼圖的 <code>Transparency</code> 屬性的乘數。效果僅對本地玩家可見。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#LocalTransparencyModifier",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMap": {
-    "documentation": "",
+    "documentation": "決定表面金屬度地圖的內容 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> 對象，決定表面的金屬度地圖。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMap": {
-    "documentation": "",
+    "documentation": "決定表面法線地圖的內容 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> 對象，決定表面的法線地圖。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMapContent",
     "code_sample": ""
   },
@@ -29919,27 +29926,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMap": {
-    "documentation": "",
+    "documentation": "決定表面粗糙度地圖的內容 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> 對象，決定表面的粗糙度地圖。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Shiny": {
-    "documentation": "<strong>Deprecated:</strong> 此不具功能的屬性已被棄用，不應在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 此非功能性屬性已棄用，並且不應在新工作中使用。<br>已棄用的屬性，之前設置貼圖的光澤度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Shiny",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Specular": {
-    "documentation": "<strong>Deprecated:</strong> 此屬性不再正確工作並已棄用。應在新工作中避免使用。",
+    "documentation": "<strong>Deprecated:</strong> 此屬性不再正常運作，並且已棄用。它不應在新工作中使用。<br>已棄用的屬性，之前設置貼圖的光澤度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Specular",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Texture": {
-    "documentation": "要由 <code>Decal</code> 應用的影像的內容 ID。",
+    "documentation": "要由 <code>Decal</code> 應用的圖像的內容 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Texture",
     "code_sample": ""
   },
@@ -29948,8 +29955,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.TexturePackContent": {
+    "documentation": "引擎管理的 <code>Content</code>，存儲 PBR 貼圖的壓縮運行時 紋理包數據。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TexturePackContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Transparency": {
-    "documentation": "決定 <code>Decal</code> 的透明度。",
+    "documentation": "決定 <code>Decal</code> 的不透明度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Transparency",
     "code_sample": ""
   },
@@ -29959,12 +29971,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.UVScale": {
-    "documentation": "通過乘以比例因子來拉伸或壓縮 UV 坐標。",
+    "documentation": "通過乘以縮放因子來拉伸或壓縮 UV 坐標。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVScale",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ZIndex": {
-    "documentation": "決定當多個貼花分配給相同面時的渲染順序。",
+    "documentation": "決定當多個貼圖分配給相同面時的渲染順序。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
     "code_sample": ""
   },
@@ -33842,12 +33854,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "對 <code>BubbleChatMessageProperties</code> 的引用，覆蓋此消息的聊天氣泡外觀。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#BubbleChatMessageProperties",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "對 <code>ChatWindowMessageProperties</code> 的引用，覆蓋此消息在聊天窗口中的外觀。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#ChatWindowMessageProperties",
     "code_sample": ""
   },
@@ -44704,7 +44716,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VisibilityCheckDispatcher": {
-    "documentation": "",
+    "documentation": "在某個地方排程並執行沉浸式廣告實例的可見性檢查的服務。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisibilityCheckDispatcher",
     "code_sample": ""
@@ -47184,31 +47196,6 @@
   "@roblox/globaltype/TerrainDetail.StudsPerTile": {
     "documentation": "確定紋理的縮放。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#StudsPerTile",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping": {
-    "documentation": "",
-    "keys": {
-      "FlattenTree": "@roblox/globaltype/PatchMapping.FlattenTree",
-      "PatchId": "@roblox/globaltype/PatchMapping.PatchId",
-      "TargetPath": "@roblox/globaltype/PatchMapping.TargetPath"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.FlattenTree": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#FlattenTree",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.PatchId": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#PatchId",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.TargetPath": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#TargetPath",
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
@@ -51151,7 +51138,7 @@
     "documentation": "代表一個文本聊天頻道。"
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester/param/1": {
-    "documentation": ""
+    "documentation": "該 <code>Player</code> 的直接消息權限控制該頻道； 只有能夠向此玩家發送直接消息的用戶才能接收到 該頻道的消息。"
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester": {
     "documentation": "為 <code>TextChannel</code> 設置 <code>DirectChatRequester</code>。 <code>TextChannel</code> 只會將消息發送給可以直接發送消息給 <code>DirectChatRequester</code> 的用戶。",
@@ -51196,7 +51183,7 @@
     "documentation": "將接收消息的用戶的 <code>TextSource</code>。"
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/return/0": {
-    "documentation": ""
+    "documentation": "一個真值（例如 <code>true</code>、<code>1</code> 或非空字符串）以將消息發送到 給定的客戶端，或一個假值（包括 <code>nil</code>）以 不向該客戶端發送消息。"
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback": {
     "documentation": "當 <code>TextChannel</code> 正在接收傳入消息時，對每個客戶端調用，以判斷它是否應發送給該客戶端。",
@@ -52876,6 +52863,7 @@
       "GetPredictionStatus": "@roblox/globaltype/RunService.GetPredictionStatus",
       "IsClient": "@roblox/globaltype/RunService.IsClient",
       "IsEdit": "@roblox/globaltype/RunService.IsEdit",
+      "IsResimulating": "@roblox/globaltype/RunService.IsResimulating",
       "IsRunMode": "@roblox/globaltype/RunService.IsRunMode",
       "IsRunning": "@roblox/globaltype/RunService.IsRunning",
       "IsServer": "@roblox/globaltype/RunService.IsServer",
@@ -52896,7 +52884,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.RunState": {
-    "documentation": "",
+    "documentation": "遊戲模擬的當前運行狀態。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#RunState",
     "code_sample": ""
   },
@@ -52949,7 +52937,7 @@
     "documentation": "綁定的可選優先級，以整數表示；它決定在模擬步驟中綁定函數的被調用順序。數字越小優先調用。如果兩個綁定具有相同的優先級，則彼此之間的順序未定義。預設為 2000。"
   },
   "@roblox/globaltype/RunService.BindToSimulation/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>RBXScriptConnection</code>，可以斷開連接以解除 函數與模擬步驟的綁定。"
   },
   "@roblox/globaltype/RunService.BindToSimulation": {
     "documentation": "綁定一個自定義函數，以固定頻率被調用，該頻率與幀率無關。",
@@ -52984,7 +52972,7 @@
     "documentation": "要檢查預測狀態的 <code>Instance</code>。"
   },
   "@roblox/globaltype/RunService.GetPredictionStatus/return/0": {
-    "documentation": ""
+    "documentation": "給定實例的 <code>PredictionStatus</code>，指示它是否 被預測、權威或不參與預測。"
   },
   "@roblox/globaltype/RunService.GetPredictionStatus": {
     "documentation": "檢查特定上下文實例的 <code>PredictionStatus</code>，對於調試影響多個實例的腳本非常有用，其中一些可能是預測的，而其他則可能不是。",
@@ -53044,6 +53032,26 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsEdit",
     "code_sample": ""
   },
+  "@roblox/globaltype/RunService.IsResimulating/param/0": {
+    "documentation": "負責所有執行時活動和時間進程的服務。"
+  },
+  "@roblox/globaltype/RunService.IsResimulating/return/0": {
+    "documentation": "引擎當前是否在重模擬。"
+  },
+  "@roblox/globaltype/RunService.IsResimulating": {
+    "documentation": "返回客戶端當前是否在伺服器權威模型中的 錯誤預測後進入重模擬步驟。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.IsResimulating/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RunService.IsResimulating/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsResimulating",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RunService.IsRunMode/param/0": {
     "documentation": "負責所有執行時活動和時間進程的服務。"
   },
@@ -53051,7 +53059,7 @@
     "documentation": "是否在 Studio 中啟動了 <strong>Run</strong> 測試。"
   },
   "@roblox/globaltype/RunService.IsRunMode": {
-    "documentation": "返回在 Studio 中是否啟動了 <strong>Run</strong> 測試。",
+    "documentation": "返回是否在 Studio 中啟動了 <strong>Run</strong> 測試。",
     "params": [
       {
         "name": "self",
@@ -53068,10 +53076,10 @@
     "documentation": "負責所有執行時活動和時間進程的服務。"
   },
   "@roblox/globaltype/RunService.IsRunning/return/0": {
-    "documentation": "經驗目前是否在運行。"
+    "documentation": "體驗當前是否正在運行。"
   },
   "@roblox/globaltype/RunService.IsRunning": {
-    "documentation": "返回經驗當前是否在運行。",
+    "documentation": "返回體驗當前是否正在運行。",
     "params": [
       {
         "name": "self",
@@ -53128,7 +53136,7 @@
     "documentation": "負責所有執行時活動和時間進程的服務。"
   },
   "@roblox/globaltype/RunService.Pause": {
-    "documentation": "如果正在運行，則暫停經驗的模擬，暫停物理和腳本。",
+    "documentation": "如果體驗正在運行，則暫停體驗的模擬，暫停物理 和腳本。",
     "params": [
       {
         "name": "self",
@@ -53143,7 +53151,7 @@
     "documentation": "負責所有執行時活動和時間進程的服務。"
   },
   "@roblox/globaltype/RunService.Reset": {
-    "documentation": "<strong>Deprecated:</strong> 該項目已過時，應該在新工作中避免使用。<br>將當前遊戲重置為 <code>RunService:Run()</code> 被調用時設置的路徑點。",
+    "documentation": "<strong>Deprecated:</strong> 此項目已被棄用，應該在新工作中避免使用。<br>將當前遊戲重置為調用 <code>RunService:Run()</code> 時設置的 路徑點。",
     "params": [
       {
         "name": "self",
@@ -53158,7 +53166,7 @@
     "documentation": "負責所有執行時活動和時間進程的服務。"
   },
   "@roblox/globaltype/RunService.Run": {
-    "documentation": "運行遊戲的模擬，執行物理和腳本。",
+    "documentation": "運行遊戲的模擬，運行物理和腳本。",
     "params": [
       {
         "name": "self",
@@ -53202,7 +53210,7 @@
     "documentation": "負責所有執行時活動和時間進程的服務。"
   },
   "@roblox/globaltype/RunService.Stop": {
-    "documentation": "如果正在運行，則停止經驗的模擬。",
+    "documentation": "如果體驗正在運行，則停止體驗的模擬。",
     "params": [
       {
         "name": "self",
@@ -53217,10 +53225,10 @@
     "documentation": "負責所有執行時活動和時間進程的服務。"
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep/param/1": {
-    "documentation": "被解除綁定的函數名稱。"
+    "documentation": "要解除綁定的函數名稱。"
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep": {
-    "documentation": "解除從渲染循環中綁定的函數，該函數曾使用 <code>RunService:BindToRenderStep()</code> 綁定。",
+    "documentation": "解除綁定使用 <code>RunService:BindToRenderStep()</code> 綁定到渲染循環的函數。",
     "params": [
       {
         "name": "self",
@@ -54358,7 +54366,7 @@
     "code_sample": "local part = Instance.new(\"Part\")\nprint(part:Clone())  --> Part\npart.Archivable = false\nprint(part:Clone())  --> nil"
   },
   "@roblox/globaltype/Instance.archivable": {
-    "documentation": "<strong>Deprecated:</strong> 此已棄用的屬性是 <code>Instance.Archivable</code> 的變體，應該使用它。",
+    "documentation": "<strong>Deprecated:</strong> 此已棄用屬性是 <code>Instance.Archivable</code> 的變體，應該使用它。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#archivable",
     "code_sample": ""
   },
@@ -54486,7 +54494,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.clone": {
-    "documentation": "<strong>Deprecated:</strong> 此已棄用的函數是 <code>Instance:Clone()</code> 的變體，應該使用它。",
+    "documentation": "<strong>Deprecated:</strong> 此已棄用函數是 <code>Instance:Clone()</code> 的變體，應該使用它。",
     "params": [
       {
         "name": "self",
@@ -54518,7 +54526,7 @@
     "documentation": "<code>Instance</code> 是 Roblox 類別層級中所有類別的基礎類別 可以成為 <code>DataModel</code> 樹的一部分。"
   },
   "@roblox/globaltype/Instance.destroy": {
-    "documentation": "<strong>Deprecated:</strong> 此已棄用的函數是 <code>Instance:Destroy()</code> 的變體，應該使用它。",
+    "documentation": "<strong>Deprecated:</strong> 此已棄用函數是 <code>Instance:Destroy()</code> 的變體，應該使用它。",
     "params": [
       {
         "name": "self",
@@ -54657,7 +54665,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.findFirstChild": {
-    "documentation": "<strong>Deprecated:</strong> 此已棄用的函數是 <code>Instance:FindFirstChild()</code> 的變體， 應該使用它。",
+    "documentation": "<strong>Deprecated:</strong> 此已棄用函數是 <code>Instance:FindFirstChild()</code> 的變體， 應該使用它。",
     "params": [
       {
         "name": "self",
@@ -54793,10 +54801,10 @@
     "documentation": "要檢索的屬性名稱。"
   },
   "@roblox/globaltype/Instance.GetAttribute/return/0": {
-    "documentation": "分配給給定屬性名稱的值。如果未分配任何屬性，則返回 <code>nil</code>。"
+    "documentation": "已分配給給定屬性名稱的值。如果未分配任何屬性，則返回 <code>nil</code>。"
   },
   "@roblox/globaltype/Instance.GetAttribute": {
-    "documentation": "返回分配給給定屬性名稱的值。",
+    "documentation": "返回已分配給給定屬性名稱的值。",
     "params": [
       {
         "name": "self",
@@ -54844,7 +54852,7 @@
     "documentation": "<code>Instance</code> 是 Roblox 類別層級中所有類別的基礎類別 可以成為 <code>DataModel</code> 樹的一部分。"
   },
   "@roblox/globaltype/Instance.GetAttributes/return/0": {
-    "documentation": "每個屬性的字符串 → 變體對的字典，其中字符串是屬性的名稱，變體是非 <code>nil</code> 值。"
+    "documentation": "每個屬性的字符串 → 變體對的字典，其中字符串是屬性名稱，變體是非 <code>nil</code> 值。"
   },
   "@roblox/globaltype/Instance.GetAttributes": {
     "documentation": "返回實例屬性的字典。",
@@ -54887,7 +54895,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.getChildren": {
-    "documentation": "<strong>Deprecated:</strong> 此已棄用的函數是 <code>Instance:GetChildren()</code> 的變體， 應該使用它。",
+    "documentation": "<strong>Deprecated:</strong> 此已棄用函數是 <code>Instance:GetChildren()</code> 的變體，應該使用它。",
     "params": [
       {
         "name": "self",
@@ -55139,7 +55147,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.isDescendantOf": {
-    "documentation": "<strong>Deprecated:</strong> 此已棄用的函數是 <code>Instance:IsDescendantOf()</code> 的變體， 應該使用它。",
+    "documentation": "<strong>Deprecated:</strong> 此已棄用函數是 <code>Instance:IsDescendantOf()</code> 的變體，應該使用它。",
     "params": [
       {
         "name": "self",
@@ -55214,7 +55222,7 @@
     "documentation": "<code>Instance</code> 是 Roblox 類別層級中所有類別的基礎類別 可以成為 <code>DataModel</code> 樹的一部分。"
   },
   "@roblox/globaltype/Instance.Remove": {
-    "documentation": "<strong>Deprecated:</strong> 此項目已棄用，建議使用 <code>Instance:Destroy()</code> 和 <code>Instance:ClearAllChildren()</code>。如果您必須從遊戲中移除物件， 並希望稍後使用該物件，請將其 <code>Parent</code> 屬性設置為 <code>nil</code>， 而不是使用此方法。<br>將物件的 <code>Parent</code> 設置為 <code>nil</code>，並對其所有後代執行相同操作。",
+    "documentation": "<strong>Deprecated:</strong> 此項目已棄用，建議使用 <code>Instance:Destroy()</code> 和 <code>Instance:ClearAllChildren()</code>。 如果您必須從遊戲中移除物件，並希望稍後使用該物件，請將其 <code>Parent</code> 屬性設置為 <code>nil</code>， 而不是使用此方法。<br>將物件的 <code>Parent</code> 設置為 <code>nil</code>，並對其所有後代執行相同操作。",
     "params": [
       {
         "name": "self",
@@ -55229,7 +55237,7 @@
     "documentation": "<code>Instance</code> 是 Roblox 類別層級中所有類別的基礎類別 可以成為 <code>DataModel</code> 樹的一部分。"
   },
   "@roblox/globaltype/Instance.remove": {
-    "documentation": "<strong>Deprecated:</strong> 此已棄用的函數是 <code>Instance:Remove()</code> 的變體， 該函數也已棄用。這兩個函數都不應在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 此已棄用函數是 <code>Instance:Remove()</code> 的變體， 該函數也已棄用。這兩個函數都不應在新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -55601,7 +55609,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.ChildAdded": {
-    "documentation": "在對象被設置為此 <code>Instance</code> 的父項後觸發。",
+    "documentation": "在對象被父級化到此 <code>Instance</code> 之後觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.ChildAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.ChildAdded.ConnectParallel",
@@ -55689,7 +55697,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.childAdded": {
-    "documentation": "<strong>Deprecated:</strong> 此已棄用事件是 <code>Instance.ChildAdded</code> 的變體，應該改用。",
+    "documentation": "<strong>Deprecated:</strong> 此已棄用事件是 <code>Instance.ChildAdded</code> 的變體，應該使用該事件。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.childAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.childAdded.ConnectParallel",
@@ -55865,7 +55873,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.DescendantAdded": {
-    "documentation": "在後代被添加到 <code>Instance</code> 後觸發。",
+    "documentation": "在後代被添加到 <code>Instance</code> 之後觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.DescendantAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.DescendantAdded.ConnectParallel",
@@ -57937,7 +57945,7 @@
     "documentation": "配置預設聊天視窗的屬性。"
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties/return/0": {
-    "documentation": ""
+    "documentation": "一個新的 <code>ChatWindowMessageProperties</code> 實例，其值可以被修改並從 <code>TextChatService.OnChatWindowAdded</code> 回調中返回，以自定義單個消息在聊天窗口中的顯示方式。"
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties": {
     "documentation": "創建一個新的 <code>ChatWindowMessageProperties</code> 實例，可用於自定義聊天視窗中訊息的外觀。",
@@ -63252,7 +63260,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "覆蓋 <code>BubbleChatConfiguration</code> 屬性以針對單個氣泡聊天消息。",
     "keys": {
       "BackgroundColor3": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundColor3",
       "BackgroundTransparency": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundTransparency",
@@ -63280,7 +63288,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties.TailVisible": {
-    "documentation": "",
+    "documentation": "確定聊天氣泡底部的尾部是否可見。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BubbleChatMessageProperties#TailVisible",
     "code_sample": ""
   },
@@ -69742,11 +69750,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui": {
-    "documentation": "",
+    "documentation": "一個基於表面的 GUI，能在 3D 世界中 <code>Part</code> 的一個面上顯示沉浸式廣告。",
     "keys": {
       "AdShape": "@roblox/globaltype/AdGui.AdShape",
       "EnableVideoAds": "@roblox/globaltype/AdGui.EnableVideoAds",
       "FallbackImage": "@roblox/globaltype/AdGui.FallbackImage",
+      "FallbackImageContent": "@roblox/globaltype/AdGui.FallbackImageContent",
       "Status": "@roblox/globaltype/AdGui.Status",
       "OnAdEvent": "@roblox/globaltype/AdGui.OnAdEvent"
     },
@@ -69754,7 +69763,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.AdShape": {
-    "documentation": "",
+    "documentation": "決定 <code>AdGui</code> 顯示的廣告形狀。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#AdShape",
     "code_sample": ""
   },
@@ -69764,12 +69773,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.FallbackImage": {
-    "documentation": "",
+    "documentation": "當沒有可供顯示的廣告時，<code>AdGui</code> 顯示的圖像。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImage",
     "code_sample": ""
   },
+  "@roblox/globaltype/AdGui.FallbackImageContent": {
+    "documentation": "<code>AdGui.FallbackImage</code> 的 <code>Content</code> 等價物，支持資產 URI 和 <code>EditableImage</code> 物件。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImageContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AdGui.Status": {
-    "documentation": "",
+    "documentation": "指示 <code>AdGui</code> 當前是否正在顯示已提供的廣告。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#Status",
     "code_sample": ""
   },
@@ -70493,7 +70507,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal": {
-    "documentation": "",
+    "documentation": "一個傳送玩家到贊助體驗的傳送門，作為沉浸式廣告的一部分。",
     "keys": {
       "PortalInvalidReason": "@roblox/globaltype/AdPortal.PortalInvalidReason",
       "Status": "@roblox/globaltype/AdPortal.Status"
@@ -70502,12 +70516,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.PortalInvalidReason": {
-    "documentation": "",
+    "documentation": "一條面向創作者的消息，解釋為什麼傳送門當前無效（如果是的話）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#PortalInvalidReason",
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.Status": {
-    "documentation": "",
+    "documentation": "指示傳送門當前是否處於活動狀態並能夠傳送玩家。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#Status",
     "code_sample": ""
   },
@@ -77514,7 +77528,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBoxService": {
-    "documentation": "",
+    "documentation": "一個在遊戲過程中管理用戶 <code>TextBox</code> 狀態的服務。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBoxService",
     "code_sample": ""
@@ -79417,6 +79431,7 @@
       "LogCustomEvent": "@roblox/globaltype/AnalyticsService.LogCustomEvent",
       "LogEconomyEvent": "@roblox/globaltype/AnalyticsService.LogEconomyEvent",
       "LogFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent",
+      "LogJourneyEvent": "@roblox/globaltype/AnalyticsService.LogJourneyEvent",
       "LogOnboardingFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent",
       "LogProgressionCompleteEvent": "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent",
       "LogProgressionEvent": "@roblox/globaltype/AnalyticsService.LogProgressionEvent",
@@ -79872,6 +79887,56 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogFunnelStepEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0": {
+    "documentation": "一系列方法，讓你追蹤用戶如何與你的 體驗互動。"
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1": {
+    "documentation": "觸發旅程事件的玩家。"
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2": {
+    "documentation": "旅程的名稱。這應該對旅程中的所有節點相同。不能為空，且不能包含逗號 <code>,</code>、雙引號 <code>\"</code>、單引號 <code>'</code> 或換行符。"
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3": {
+    "documentation": "玩家在旅程中到達的節點名稱。不能為空，不能包含逗號 <code>,</code>、雙引號 <code>\"</code>、單引號 <code>'</code> 或換行符，且不能以 <code>__</code>（雙下劃線）開頭，因為這是保留的。"
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4": {
+    "documentation": "可選的旅程會話唯一標識符。這應該對單個旅程會話中的所有節點相同。如果提供，不能包含逗號 <code>,</code>、雙引號 <code>\"</code>、單引號 <code>'</code> 或換行符。"
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5": {
+    "documentation": "可選的自定義字段字典，將在 Roblox 提供的圖表中提供細分。僅使用 <code>AnalyticsCustomFieldKeys</code> 提供的特定鍵進行這些細分。每個體驗限於三個自定義字段中的 8,000 個唯一值組合。"
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent": {
+    "documentation": "記錄一個旅程事件，用於追蹤玩家在體驗中的非線性路徑。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1"
+      },
+      {
+        "name": "journeyName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2"
+      },
+      {
+        "name": "nodeName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3"
+      },
+      {
+        "name": "journeySessionId",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4"
+      },
+      {
+        "name": "customFields",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogJourneyEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/0": {
     "documentation": "一系列方法，讓你追蹤用戶如何與你的 體驗互動。"
   },
@@ -79879,16 +79944,16 @@
     "documentation": "觸發事件的用戶。"
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/2": {
-    "documentation": "漏斗中的步驟號碼。這對於漏斗中的每一步應該是唯一的。所有漏斗從步驟1開始。限制為步驟1-100。 請注意，如果跳過了任何步驟，中間步驟將被視為完成。"
+    "documentation": "漏斗中的步驟編號。這應該對漏斗中的每個步驟都是唯一的。所有漏斗從步驟 1 開始。限於步驟 1-100。 請注意，如果跳過任何步驟，則中間步驟將被視為已完成。"
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/3": {
-    "documentation": "可選的漏斗中步驟的名稱。該字段僅用於在Roblox提供的圖表中顯示。"
+    "documentation": "可選的漏斗步驟名稱。此字段僅用於在 Roblox 提供的圖表中顯示。"
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/4": {
-    "documentation": "可選的自定義字段字典，將在Roblox提供的圖表中提供細分。僅會使用由<code>AnalyticsCustomFieldKeys</code>提供的特定鍵進行這些細分。每個體驗限制為3個自定義字段中的8,000個唯一的值組合。"
+    "documentation": "可選的自定義字段字典，將在 Roblox 提供的圖表中提供細分。僅使用 <code>AnalyticsCustomFieldKeys</code> 提供的特定鍵進行這些細分。每個體驗限於三個自定義字段中的 8,000 個唯一值組合。"
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent": {
-    "documentation": "記錄用於跟蹤用戶行為的事件，這些行為是在入門漏斗中逐步進行的。",
+    "documentation": "記錄一個事件，用於追蹤用戶在入門漏斗中的行動。",
     "params": [
       {
         "name": "self",
@@ -79922,19 +79987,19 @@
     "documentation": "觸發事件的玩家。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/2": {
-    "documentation": ""
+    "documentation": "此事件所屬的進度路徑名稱，例如世界、章節或關卡組。這將相關的進度事件分組在一起。不能為空，且不能包含逗號 <code>,</code>、雙引號 <code>\"</code>、單引號 <code>'</code> 或換行符。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/3": {
-    "documentation": ""
+    "documentation": "玩家在進度路徑中正在進行的數字關卡。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/4": {
-    "documentation": ""
+    "documentation": "與此事件相關的關卡名稱。此字段用於在 Roblox 提供的圖表中顯示。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/5": {
-    "documentation": ""
+    "documentation": "可選的自定義字段字典，將在 Roblox 提供的圖表中提供細分。僅使用 <code>AnalyticsCustomFieldKeys</code> 提供的特定鍵進行這些細分。每個體驗限於三個自定義字段中的 8,000 個唯一值組合。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent": {
-    "documentation": "記錄用戶已完成關卡嘗試的事件。",
+    "documentation": "記錄用戶完成關卡嘗試的事件。",
     "params": [
       {
         "name": "self",
@@ -79972,22 +80037,22 @@
     "documentation": "觸發事件的玩家。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/2": {
-    "documentation": ""
+    "documentation": "此事件所屬的進度路徑名稱，例如世界、章節或關卡組。這將相關的進度事件分組在一起。不能為空，且不能包含逗號 <code>,</code>、雙引號 <code>\"</code>、單引號 <code>'</code> 或換行符。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/3": {
-    "documentation": ""
+    "documentation": "要記錄的進度狀態，提供為 <code>AnalyticsProgressionType</code> 值，例如 <code>Start</code>、<code>Complete</code> 或 <code>Fail</code>。<code>AnalyticsService:LogProgressionStartEvent()</code>、<code>AnalyticsService:LogProgressionCompleteEvent()</code> 和 <code>AnalyticsService:LogProgressionFailEvent()</code> 方法是為您設置此狀態的快捷方式。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/4": {
-    "documentation": ""
+    "documentation": "玩家在進度路徑中正在進行的數字關卡。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/5": {
-    "documentation": ""
+    "documentation": "與此事件相關的關卡名稱。此字段用於在 Roblox 提供的圖表中顯示。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/6": {
-    "documentation": ""
+    "documentation": "可選的自定義字段字典，將在 Roblox 提供的圖表中提供細分。僅使用 <code>AnalyticsCustomFieldKeys</code> 提供的特定鍵進行這些細分。每個體驗限於三個自定義字段中的 8,000 個唯一值組合。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent": {
-    "documentation": "記錄用戶已開始、完成或失敗關卡嘗試的事件。",
+    "documentation": "記錄用戶開始、完成或失敗關卡嘗試的事件。",
     "params": [
       {
         "name": "self",
@@ -80029,19 +80094,19 @@
     "documentation": "觸發事件的用戶。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/2": {
-    "documentation": ""
+    "documentation": "此事件所屬的進度路徑名稱，例如世界、章節或關卡組。這將相關的進度事件分組在一起。不能為空，且不能包含逗號 <code>,</code>、雙引號 <code>\"</code>、單引號 <code>'</code> 或換行符。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/3": {
-    "documentation": ""
+    "documentation": "玩家在進度路徑中正在進行的數字關卡。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/4": {
-    "documentation": ""
+    "documentation": "與此事件相關的關卡名稱。此字段用於在 Roblox 提供的圖表中顯示。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/5": {
-    "documentation": ""
+    "documentation": "可選的自定義字段字典，將在 Roblox 提供的圖表中提供細分。僅使用 <code>AnalyticsCustomFieldKeys</code> 提供的特定鍵進行這些細分。每個體驗限於三個自定義字段中的 8,000 個唯一值組合。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent": {
-    "documentation": "記錄用戶已失敗關卡嘗試的事件。",
+    "documentation": "記錄用戶失敗關卡嘗試的事件。",
     "params": [
       {
         "name": "self",
@@ -80079,19 +80144,19 @@
     "documentation": "觸發事件的玩家。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/2": {
-    "documentation": ""
+    "documentation": "此事件所屬的進度路徑名稱，例如世界、章節或關卡組。這將相關的進度事件分組在一起。不能為空，且不能包含逗號 <code>,</code>、雙引號 <code>\"</code>、單引號 <code>'</code> 或換行符。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/3": {
-    "documentation": ""
+    "documentation": "玩家在進度路徑中正在進行的數字關卡。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/4": {
-    "documentation": ""
+    "documentation": "與此事件相關的關卡名稱。此字段用於在 Roblox 提供的圖表中顯示。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/5": {
-    "documentation": ""
+    "documentation": "可選的自定義字段字典，將在 Roblox 提供的圖表中提供細分。僅使用 <code>AnalyticsCustomFieldKeys</code> 提供的特定鍵進行這些細分。每個體驗限於三個自定義字段中的 8,000 個唯一值組合。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent": {
-    "documentation": "記錄用戶已開始關卡嘗試的事件。",
+    "documentation": "記錄用戶開始關卡嘗試的事件。",
     "params": [
       {
         "name": "self",
@@ -80129,30 +80194,29 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService": {
-    "documentation": "",
+    "documentation": "伺服器端服務，用於提交玩家捕獲的內容以進行內容審核 並異步接收結果。",
     "keys": {
       "BindReviewableContentEventProcessor": "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor",
       "CreateReviewableContentAsync": "@roblox/globaltype/ModerationService.CreateReviewableContentAsync",
-      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey",
-      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync"
+      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService",
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/0": {
-    "documentation": ""
+    "documentation": "伺服器端服務，用於提交玩家捕獲的內容以進行內容審核 並異步接收結果。"
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/1": {
-    "documentation": ""
+    "documentation": "確定此處理器相對於其他綁定處理器的調用順序。"
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/2": {
-    "documentation": ""
+    "documentation": "對每個可審核內容事件調用的函數。它接收一個描述事件的表，應返回 <code>true</code> 以確認事件，或 <code>false</code> 以留待重新發送。"
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/return/0": {
-    "documentation": ""
+    "documentation": "一個可以斷開連接以註銷處理器的連接。"
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor": {
-    "documentation": "",
+    "documentation": "註冊一個伺服器端處理器，按 <code>priority</code> 排序，對每個可審核內容的審核事件進行調用。",
     "params": [
       {
         "name": "self",
@@ -80174,16 +80238,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/0": {
-    "documentation": ""
+    "documentation": "伺服器端服務，用於提交玩家捕獲的內容以進行內容審核 並異步接收結果。"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/1": {
-    "documentation": ""
+    "documentation": "描述要審核的內容的參數表，包括可選的 <code>Id</code>、可選的 <code>Ref</code> 和一個包含圖像或視頻項的 <code>Content</code> 列表。"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/return/0": {
-    "documentation": ""
+    "documentation": "創建的可審核內容的 ID。"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync": {
-    "documentation": "",
+    "documentation": "註冊用戶生成的捕獲以進行審核，並觸發擁有客戶端上傳它們，返回可審核內容 ID。",
     "params": [
       {
         "name": "self",
@@ -80201,16 +80265,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/0": {
-    "documentation": ""
+    "documentation": "伺服器端服務，用於提交玩家捕獲的內容以進行內容審核 並異步接收結果。"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/1": {
-    "documentation": ""
+    "documentation": "一個 <code>Content</code>，引用截圖或視頻捕獲（來自 <code>CaptureService:CaptureScreenshot()</code> 的臨時 URI、 <code>ScreenshotCapture</code> 或 <code>VideoCapture</code>）。"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0": {
-    "documentation": ""
+    "documentation": "一個不透明的內容鍵，用於識別捕獲。"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey": {
-    "documentation": "",
+    "documentation": "返回一個不透明的鍵，用於識別截圖或視頻捕獲，以便與 <code>CreateReviewableContentAsync()</code> 一起使用。",
     "params": [
       {
         "name": "self",
@@ -80225,28 +80289,6 @@
       "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#CreateReviewableContentKey",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0"
-      },
-      {
-        "name": "config",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalRequestReviewableContentReviewAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation": {
@@ -87366,7 +87408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "自訂在聊天視窗中顯示的單個文字聊天訊息的外觀。",
     "keys": {
       "FontFace": "@roblox/globaltype/ChatWindowMessageProperties.FontFace",
       "PrefixTextProperties": "@roblox/globaltype/ChatWindowMessageProperties.PrefixTextProperties",
@@ -97381,6 +97423,7 @@
       "ChatVersion": "@roblox/globaltype/TextChatService.ChatVersion",
       "CreateDefaultCommands": "@roblox/globaltype/TextChatService.CreateDefaultCommands",
       "CreateDefaultTextChannels": "@roblox/globaltype/TextChatService.CreateDefaultTextChannels",
+      "PlatformIntegratedChat": "@roblox/globaltype/TextChatService.PlatformIntegratedChat",
       "CanUserChatAsync": "@roblox/globaltype/TextChatService.CanUserChatAsync",
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
       "CanUsersDirectChatAsync": "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync",
@@ -97413,14 +97456,19 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#CreateDefaultTextChannels",
     "code_sample": ""
   },
+  "@roblox/globaltype/TextChatService.PlatformIntegratedChat": {
+    "documentation": "決定平台集成聊天是否為該體驗啟用。 需要 <code>RobloxScript</code> 安全性。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#PlatformIntegratedChat",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/0": {
     "documentation": "處理內部體驗文本聊天的服務。"
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "正在檢查聊天權限的用戶的 <code>Player.UserId</code>。"
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "一個布林值，指示用戶是否有聊天權限。"
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync": {
     "documentation": "確定用戶是否有權在體驗中聊天。",
@@ -97444,13 +97492,13 @@
     "documentation": "處理內部體驗文本聊天的服務。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "潛在消息發送者的 <code>Player.UserId</code>。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": ""
+    "documentation": "潛在消息接收者的 <code>Player.UserId</code>。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "一個布林值，指示這兩個用戶是否可以交換消息。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync": {
     "documentation": "確定兩個用戶是否可以彼此接收消息。",
@@ -99965,7 +100013,7 @@
     "documentation": "你想作為獎勵授予的開發者產品的 ID。"
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/return/0": {
-    "documentation": ""
+    "documentation": "配置為指定產品的開發者產品獎勵的 <code>AdReward</code>。"
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
     "documentation": "創建一個 <code>AdReward</code> 以獎勵觀看視頻廣告的用戶。",
@@ -100050,7 +100098,7 @@
     "documentation": "負責遊戲內廣告的服務。"
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/1": {
-    "documentation": ""
+    "documentation": "要跟踪的 <code>GuiButton</code> 作為獎勵視頻廣告機會。 必須是 <code>ScreenGui</code> 的後代。"
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/2": {
     "documentation": "在體驗中獎勵視頻廣告的放置 ID。允許對單個廣告放置的性能進行報告。"
@@ -100164,10 +100212,10 @@
     "documentation": "負責遊戲內廣告的服務。"
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/1": {
-    "documentation": ""
+    "documentation": "要停止跟踪的實例。這應該是您之前傳遞給 <code>RegisterAdOpportunityAsync()</code> 的實例。"
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity": {
-    "documentation": "",
+    "documentation": "停止跟踪之前使用 <code>RegisterAdOpportunityAsync</code> 註冊的實例。",
     "params": [
       {
         "name": "self",
@@ -107666,7 +107714,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.AdLabelClicked": {
-    "documentation": "",
+    "documentation": "玩家點擊了廣告覆蓋上的「贊助」標籤，這會打開廣告披露提示，顯示廣告商和付款人信息。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107676,7 +107724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.VolumeButtonClicked": {
-    "documentation": "",
+    "documentation": "玩家點擊了廣告覆蓋上的音量切換按鈕，這會靜音或取消靜音視頻廣告音頻。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107686,7 +107734,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.FullscreenButtonClicked": {
-    "documentation": "",
+    "documentation": "玩家點擊了全螢幕切換按鈕，這會平滑地將相機縮放到廣告表面的中心視圖並啟用音頻。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107696,7 +107744,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayButtonClicked": {
-    "documentation": "",
+    "documentation": "玩家點擊了廣告覆蓋上的播放按鈕。如果廣告已經是全螢幕，則播放將恢復；否則，它將進入全螢幕模式，並開始（或恢復）視頻。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107706,7 +107754,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseButtonClicked": {
-    "documentation": "",
+    "documentation": "玩家在全螢幕模式下播放視頻廣告時點擊了暫停按鈕，這會暫停視頻播放。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107716,7 +107764,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.CloseButtonClicked": {
-    "documentation": "",
+    "documentation": "玩家點擊了全螢幕視頻廣告視圖上的關閉按鈕，這會退出全螢幕模式並返回到正常的相機位置。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107726,7 +107774,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.WhyThisAdClicked": {
-    "documentation": "",
+    "documentation": "玩家點擊了「為什麼這個廣告？」鏈接，這會顯示 EUDSA（歐洲數字服務法）披露提示，顯示當前廣告創意的廣告商和付款人名稱。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107736,7 +107784,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayEventTriggered": {
-    "documentation": "",
+    "documentation": "系統發起的播放/恢復事件，清除強制暫停狀態並在流開啟時恢復視頻播放。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107746,7 +107794,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseEventTriggered": {
-    "documentation": "",
+    "documentation": "系統發起的暫停事件，用於當引擎需要強制暫停視頻時（例如，當下拉菜單在廣告上方打開時）。防止基於可見性的自動播放在相應的系統事件清除該暫停之前恢復播放。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107756,7 +107804,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIEventType": {
-    "documentation": "",
+    "documentation": "描述在 <code>AdGui</code> 的沉浸式廣告 UI 覆蓋上發生的用戶互動或系統事件的類型。",
     "keys": {
       "AdLabelClicked": "@roblox/enum/AdUIEventType.AdLabelClicked",
       "VolumeButtonClicked": "@roblox/enum/AdUIEventType.VolumeButtonClicked",
@@ -111383,7 +111431,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ShowAdResult.InsufficientMemory": {
-    "documentation": "",
+    "documentation": "設備沒有足夠的視頻記憶體可用於顯示廣告。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -111393,7 +111441,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ShowAdResult": {
-    "documentation": "",
+    "documentation": "由 <code>AdService:ShowRewardedVideoAdAsync()</code> 返回的結果代碼 指示獎勵視頻廣告是否成功完成或為什麼未能完成。",
     "keys": {
       "ShowCompleted": "@roblox/enum/ShowAdResult.ShowCompleted",
       "AdNotReady": "@roblox/enum/ShowAdResult.AdNotReady",
@@ -114689,7 +114737,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsLogLevel.Information": {
-    "documentation": "",
+    "documentation": "用於一般信息性消息，突出顯示正常操作過程中的進度或狀態變更。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114729,7 +114777,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsLogLevel": {
-    "documentation": "",
+    "documentation": "指定傳遞給 <code>AnalyticsService:FireLogEvent()</code> 的分析日誌事件的嚴重性級別。",
     "keys": {
       "Trace": "@roblox/enum/AnalyticsLogLevel.Trace",
       "Debug": "@roblox/enum/AnalyticsLogLevel.Debug",
@@ -114815,7 +114863,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PublicChat": {
-    "documentation": "",
+    "documentation": "指示該字符串將對所有玩家或廣泛的公共觀眾可見，應用最嚴格的文本過濾級別。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114825,7 +114873,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PrivateChat": {
-    "documentation": "",
+    "documentation": "指示該字符串是特定用戶之間私人對話的一部分，應用適合一對一或小組交流的過濾。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114835,7 +114883,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.TextFilterContext": {
-    "documentation": "",
+    "documentation": "指示提交給 <code>TextService:FilterStringAsync()</code> 或 <code>TextService:FilterAndTranslateStringAsync()</code> 的文本是針對公共或私人觀眾，控制文本過濾後端的嚴格性。",
     "keys": {
       "PublicChat": "@roblox/enum/TextFilterContext.PublicChat",
       "PrivateChat": "@roblox/enum/TextFilterContext.PrivateChat"
@@ -115938,38 +115986,28 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#None",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.LOD": {
-    "documentation": "使用藍到紅的熱圖為每個網格著色，根據其當前的細節級別。藍色表示最低細節，較暖的顏色表示較高的細節。對於驗證遠處網格以降低保真度進行流式傳輸非常有用。",
+  "@roblox/enum/SlimTintMode.LevelOfDetail": {
+    "documentation": "根據每個網格的當前細節級別為其上色。藍色是最粗糙的，紅色是最精細的，每個級別之間的顏色對應於固定顏色。給定顏色在每個網格中始終表示相同的 LOD 級別，唯一的例外是每個網格的最高可用 LOD 始終顯示為紅色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LOD",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LevelOfDetail",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.Meshes": {
-    "documentation": "為模型中的每個單獨網格分配一種獨特顏色。對於識別網格邊界和驗證模型如何分割成單獨的網格部分非常有用。",
+  "@roblox/enum/SlimTintMode.DataModelState": {
+    "documentation": "根據其 DataModel 實例是否被流入或流出來為 SLIM 模型上色。綠色表示已流入（完整的 DataModel 存在）；黃色表示已流出（佔位符）。兩者仍然通過 SLIM 渲染。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Meshes",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTintMode.Zone": {
-    "documentation": "根據流式區域為網格著色。綠色表示高保真區域，其中存在 DataModel；黃色表示低保真區域，其中缺少 DataModel。",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Zone",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#DataModelState",
     "code_sample": ""
   },
   "@roblox/enum/SlimTintMode.TranscoderStatus": {
-    "documentation": "根據其 <code>SlimTranscoderStatus</code> 為每個 SLIM 模型著色。請跟隨鏈接 查看每個狀態對應的顏色。",
+    "documentation": "根據其 <code>SlimTranscoderStatus</code> 為每個 SLIM 模型上色。請跟隨鏈接查看每個狀態對應的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -115982,9 +116020,8 @@
     "documentation": "確定開發者控制台中 SLIM 調試色調覆蓋層使用的顏色編碼模式。",
     "keys": {
       "None": "@roblox/enum/SlimTintMode.None",
-      "LOD": "@roblox/enum/SlimTintMode.LOD",
-      "Meshes": "@roblox/enum/SlimTintMode.Meshes",
-      "Zone": "@roblox/enum/SlimTintMode.Zone",
+      "LevelOfDetail": "@roblox/enum/SlimTintMode.LevelOfDetail",
+      "DataModelState": "@roblox/enum/SlimTintMode.DataModelState",
       "TranscoderStatus": "@roblox/enum/SlimTintMode.TranscoderStatus"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode",
@@ -116315,7 +116352,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnCreatingChatWindow": {
-    "documentation": "",
+    "documentation": "在聊天窗口構建之前調用的僅限客戶端的回調， 允許提供自定義設置。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116325,7 +116362,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientSendingMessage": {
-    "documentation": "",
+    "documentation": "僅限客戶端的回調，保留用於客戶端發送消息時；目前未被調用。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116335,7 +116372,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientFormattingMessage": {
-    "documentation": "",
+    "documentation": "在消息顯示之前調用的僅限客戶端的回調，允許修改其 顯示數據。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116345,7 +116382,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnServerReceivingMessage": {
-    "documentation": "",
+    "documentation": "在服務器從發言者接收到消息時調用的僅限服務器的回調， 允許修改或抑制該消息。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116355,7 +116392,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatCallbackType": {
-    "documentation": "",
+    "documentation": "識別舊版 Luau 聊天管道中的一個掛鉤點，以便與 <code>Chat:RegisterChatCallback()</code> 和 <code>Chat:InvokeChatCallback()</code> 一起使用。",
     "keys": {
       "OnCreatingChatWindow": "@roblox/enum/ChatCallbackType.OnCreatingChatWindow",
       "OnClientSendingMessage": "@roblox/enum/ChatCallbackType.OnClientSendingMessage",
@@ -120765,7 +120802,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.None": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> 沒有加載任何廣告創意，並且不在渲染廣告內容。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120775,7 +120812,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Image": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> 正在渲染靜態圖片廣告創意。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120785,7 +120822,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Video": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> 正在渲染視頻廣告創意。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120795,7 +120832,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIType": {
-    "documentation": "",
+    "documentation": "描述目前由 <code>AdGui</code> 渲染的廣告創意類型。",
     "keys": {
       "None": "@roblox/enum/AdUIType.None",
       "Image": "@roblox/enum/AdUIType.Image",
@@ -123706,7 +123743,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Unknown": {
-    "documentation": "",
+    "documentation": "該平台對用戶的聊天限制狀態尚未確定；這是所有 ChatRestrictionStatus 屬性的默認值。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123716,7 +123753,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.NotRestricted": {
-    "documentation": "",
+    "documentation": "第三方平台已確認用戶沒有聊天限制。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123726,7 +123763,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Restricted": {
-    "documentation": "",
+    "documentation": "第三方平台已報告用戶被限制聊天，通常是由於家長控制或平台通信設置。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123736,7 +123773,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatRestrictionStatus": {
-    "documentation": "",
+    "documentation": "描述第三方平台為用戶報告的聊天限制狀態。",
     "keys": {
       "Unknown": "@roblox/enum/ChatRestrictionStatus.Unknown",
       "NotRestricted": "@roblox/enum/ChatRestrictionStatus.NotRestricted",
@@ -128179,57 +128216,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SurfaceType",
     "code_sample": ""
   },
-  "@roblox/enum/WebSocketState.Connecting": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Connecting",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Open": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Open",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closing": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closing",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closed": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closed",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.WebSocketState": {
-    "documentation": "",
-    "keys": {
-      "Connecting": "@roblox/enum/WebSocketState.Connecting",
-      "Open": "@roblox/enum/WebSocketState.Open",
-      "Closing": "@roblox/enum/WebSocketState.Closing",
-      "Closed": "@roblox/enum/WebSocketState.Closed"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState",
-    "code_sample": ""
-  },
   "@roblox/enum/RecommendationActionType.AddReaction": {
     "documentation": "用戶對該項目添加了反應，例如「喜歡」。",
     "keys": {
@@ -129627,7 +129613,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField01": {
-    "documentation": "",
+    "documentation": "第一個自訂欄位鍵，用於提供 Roblox 提供的分析圖表中的細分維度。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129637,7 +129623,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField02": {
-    "documentation": "",
+    "documentation": "第二個自訂欄位鍵，用於提供 Roblox 提供的分析圖表中的細分維度。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129647,7 +129633,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField03": {
-    "documentation": "",
+    "documentation": "第三個自訂欄位鍵，用於提供 Roblox 提供的分析圖表中的細分維度。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131738,7 +131724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextChatMessageStatus.ModerationTimeout": {
-    "documentation": "",
+    "documentation": "無法發送消息，因為用戶在聊天中有一個活動的管理超時。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131863,7 +131849,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdAvailabilityResult": {
-    "documentation": "",
+    "documentation": "指示廣告是否可用或無法顯示的原因。",
     "keys": {
       "IsAvailable": "@roblox/enum/AdAvailabilityResult.IsAvailable",
       "DeviceIneligible": "@roblox/enum/AdAvailabilityResult.DeviceIneligible",
@@ -132649,7 +132635,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Default": {
-    "documentation": "",
+    "documentation": "用於腳本文本的後備前景顏色，當其不符合任何更具體的語法類別時。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132659,7 +132645,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Operator": {
-    "documentation": "",
+    "documentation": "應用於腳本中的運算符標記，例如 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>、<code>==</code> 和 <code>..</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132669,7 +132655,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Number": {
-    "documentation": "",
+    "documentation": "應用於腳本中的數字字面量標記的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132679,7 +132665,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.String": {
-    "documentation": "",
+    "documentation": "應用於字符串字面量標記的顏色，包括帶引號的字符串和長字符串字面量。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132689,7 +132675,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Comment": {
-    "documentation": "",
+    "documentation": "應用於腳本中的註釋標記（單行 <code>--</code> 和區塊 <code>--[[ ]]</code> 註釋）的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132699,7 +132685,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Keyword": {
-    "documentation": "",
+    "documentation": "應用於 Luau 保留關鍵字的顏色，例如 <code>if</code>、<code>then</code>、<code>else</code>、<code>do</code>、<code>end</code>、<code>return</code> 和 <code>while</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132709,7 +132695,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Builtin": {
-    "documentation": "",
+    "documentation": "應用於腳本中的 Luau 內置函數和標準庫標識符的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132719,7 +132705,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Method": {
-    "documentation": "",
+    "documentation": "應用於腳本中的方法調用標識符的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132729,7 +132715,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Property": {
-    "documentation": "",
+    "documentation": "應用於腳本中的屬性訪問標識符（跟隨 <code>.</code> 運算符的標記）的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132739,7 +132725,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Nil": {
-    "documentation": "",
+    "documentation": "應用於腳本中的 <code>nil</code> 字面量標記的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132749,7 +132735,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bool": {
-    "documentation": "",
+    "documentation": "用於突出顯示腳本中的布爾字面量（<code>true</code> 和 <code>false</code>）的前景顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132759,7 +132745,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Function": {
-    "documentation": "",
+    "documentation": "應用於函數聲明中的 <code>function</code> 關鍵字標記的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132769,7 +132755,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Local": {
-    "documentation": "",
+    "documentation": "應用於局部變量和函數聲明中的 <code>local</code> 關鍵字標記的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132779,7 +132765,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Self": {
-    "documentation": "",
+    "documentation": "應用於方法主體中的 <code>self</code> 標識符標記的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132789,7 +132775,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.LuauKeyword": {
-    "documentation": "",
+    "documentation": "應用於 Luau 特定類型註釋關鍵字的顏色，例如 <code>type</code> 和 <code>typeof</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132799,7 +132785,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FunctionName": {
-    "documentation": "",
+    "documentation": "應用於函數聲明中命名函數的標識符的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132809,7 +132795,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.TODO": {
-    "documentation": "",
+    "documentation": "應用於腳本中註釋內的 <code>TODO</code> 標記的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132819,7 +132805,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Background": {
-    "documentation": "",
+    "documentation": "腳本編輯器畫布的主要背景顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132829,7 +132815,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionText": {
-    "documentation": "",
+    "documentation": "腳本編輯器中當前選定範圍內文本的前景顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132839,7 +132825,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionBackground": {
-    "documentation": "",
+    "documentation": "腳本編輯器中當前選定文本範圍的背景高亮顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132849,7 +132835,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FindSelectionBackground": {
-    "documentation": "",
+    "documentation": "應用於由查找或替換操作匹配的文本範圍的背景高亮顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132859,7 +132845,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MatchingWordBackground": {
-    "documentation": "",
+    "documentation": "當單詞高亮處於活動狀態時，應用於光標下單詞的所有出現的背景高亮顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132869,7 +132855,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Warning": {
-    "documentation": "",
+    "documentation": "用於腳本中警告級別診斷標記和下劃線的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132879,7 +132865,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Error": {
-    "documentation": "",
+    "documentation": "用於腳本中錯誤級別診斷標記和下劃線的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132889,7 +132875,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Info": {
-    "documentation": "",
+    "documentation": "用於腳本中信息級別診斷標記的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132899,7 +132885,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Hint": {
-    "documentation": "",
+    "documentation": "用於腳本中提示級別診斷標記的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132909,7 +132895,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Whitespace": {
-    "documentation": "",
+    "documentation": "當該顯示選項啟用時，用於渲染可見空白字符（空格和制表符）的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132919,7 +132905,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.ActiveLine": {
-    "documentation": "",
+    "documentation": "應用於當前包含文本光標的行的背景高亮顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132929,7 +132915,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerCurrentLine": {
-    "documentation": "",
+    "documentation": "當前調試器暫停的行的背景高亮顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132939,7 +132925,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerErrorLine": {
-    "documentation": "",
+    "documentation": "在調試會話中導致運行時錯誤的行的背景高亮顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132949,7 +132935,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Ruler": {
-    "documentation": "",
+    "documentation": "在腳本編輯器中，根據配置的字符寬度限制繪製的垂直列標尺線的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132959,7 +132945,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bracket": {
-    "documentation": "",
+    "documentation": "應用於腳本中的括號字符的顏色，例如 <code>(</code>、<code>)</code>、<code>[</code>、<code>]</code>、<code>{</code> 和 <code>}</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132969,7 +132955,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Type": {
-    "documentation": "",
+    "documentation": "應用於類型註釋和聲明中的 Luau 類型名稱標記的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132979,7 +132965,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuPrimaryText": {
-    "documentation": "",
+    "documentation": "自動完成和上下文菜單彈出窗口中列出項目的主要文本顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132989,7 +132975,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSecondaryText": {
-    "documentation": "",
+    "documentation": "自動完成彈出窗口中次要文本顏色（例如，類型註釋或文檔提示）。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132999,7 +132985,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedText": {
-    "documentation": "",
+    "documentation": "自動完成和上下文菜單彈出窗口中當前高亮項目的文本顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133009,7 +132995,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBackground": {
-    "documentation": "",
+    "documentation": "腳本編輯器中自動完成和上下文菜單彈出窗口的背景顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133019,7 +133005,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedBackground": {
-    "documentation": "",
+    "documentation": "自動完成和上下文菜單彈出窗口中當前高亮項目的背景顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133029,7 +133015,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarBackground": {
-    "documentation": "",
+    "documentation": "自動完成和上下文菜單彈出窗口中滾動條軌道的背景顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133039,7 +133025,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarHandle": {
-    "documentation": "",
+    "documentation": "自動完成和上下文菜單彈出窗口中滾動條拇指（手柄）的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133049,7 +133035,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBorder": {
-    "documentation": "",
+    "documentation": "腳本編輯器中自動完成和上下文菜單彈出窗口的邊框顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133059,7 +133045,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DocViewCodeBackground": {
-    "documentation": "",
+    "documentation": "在 Studio 中的文檔查看器面板中渲染的內聯代碼塊的背景顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133069,7 +133055,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayText": {
-    "documentation": "",
+    "documentation": "在 AI 代碼覆蓋面板中顯示的標籤的文本顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133079,7 +133065,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackground": {
-    "documentation": "",
+    "documentation": "AI 代碼覆蓋操作按鈕在其默認（閒置）狀態下的背景顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133089,7 +133075,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundHover": {
-    "documentation": "",
+    "documentation": "當指針懸停在 AI 代碼覆蓋操作按鈕上時的背景顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133099,7 +133085,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundPressed": {
-    "documentation": "",
+    "documentation": "當 AI 代碼覆蓋操作按鈕被按下時的背景顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133109,7 +133095,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.IndentationRuler": {
-    "documentation": "",
+    "documentation": "在腳本編輯器邊欄中繪製的每個縮進級別的垂直指導線的顏色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133119,7 +133105,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.StudioScriptEditorColorCategories": {
-    "documentation": "",
+    "documentation": "用於為 Roblox Studio 中的腳本編輯器主題著色的顏色類別。",
     "keys": {
       "Default": "@roblox/enum/StudioScriptEditorColorCategories.Default",
       "Operator": "@roblox/enum/StudioScriptEditorColorCategories.Operator",
@@ -133364,7 +133350,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptPublishAssetResult": {
-    "documentation": "描述 <code>AssetService:PromptCreateAssetAsync()</code> 呼叫的結果。",
+    "documentation": "已棄用的 <code>OpenPublishResultModal</code> 事件的結果列舉。",
     "keys": {
       "Success": "@roblox/enum/PromptPublishAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptPublishAssetResult.PermissionDenied",
@@ -135428,7 +135414,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyTransactionType": {
-    "documentation": "",
+    "documentation": "將體驗中的經濟交易的上下文進行分類，以便用於 <code>AnalyticsService:LogEconomyEvent()</code>。",
     "keys": {
       "IAP": "@roblox/enum/AnalyticsEconomyTransactionType.IAP",
       "Shop": "@roblox/enum/AnalyticsEconomyTransactionType.Shop",
@@ -135621,7 +135607,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptCreateAssetResult": {
-    "documentation": "描述 <code>AssetService:PromptCreateAssetAsync()</code> 呼叫的結果。",
+    "documentation": "描述 <code>AvatarCreationService:PromptCreateAvatarAssetAsync()</code> 呼叫的結果。",
     "keys": {
       "Success": "@roblox/enum/PromptCreateAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptCreateAssetResult.PermissionDenied",
@@ -135638,7 +135624,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Custom": {
-    "documentation": "",
+    "documentation": "針對標準開始/失敗/完成生命週期之外的事件的自定義進度狀態。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135648,7 +135634,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Start": {
-    "documentation": "",
+    "documentation": "玩家開始了關卡嘗試。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135658,7 +135644,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Fail": {
-    "documentation": "",
+    "documentation": "玩家失敗了關卡嘗試。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135668,7 +135654,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Complete": {
-    "documentation": "",
+    "documentation": "玩家成功完成了關卡。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135678,7 +135664,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsProgressionType": {
-    "documentation": "",
+    "documentation": "指定玩家在由 <code>AnalyticsService:LogProgressionEvent()</code> 記錄的關卡進度事件中的進度狀態。",
     "keys": {
       "Custom": "@roblox/enum/AnalyticsProgressionType.Custom",
       "Start": "@roblox/enum/AnalyticsProgressionType.Start",
@@ -136217,7 +136203,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdFormat.RewardedVideo": {
-    "documentation": "獲得的視頻廣告格式。",
+    "documentation": "一個全螢幕視頻廣告，播放至完成並獎勵觀眾， 用作 <code>AdService</code> 方法的 <code>adFormat</code> 參數。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136227,7 +136213,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdFormat": {
-    "documentation": "",
+    "documentation": "指定與 <code>AdService</code> 方法一起使用的廣告格式。",
     "keys": {
       "RewardedVideo": "@roblox/enum/AdFormat.RewardedVideo"
     },
@@ -136337,7 +136323,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Unknown": {
-    "documentation": "轉碼狀態尚未確定。這是模型尚未被查詢的初始狀態。在調試色調覆蓋中顯示為品紅色。",
+    "documentation": "轉碼狀態尚未確定。這是模型尚未被查詢的初始狀態。在除錯色調覆蓋中顯示為黃色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136346,48 +136332,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Unknown",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTranscoderStatus.NoHash": {
-    "documentation": "該模型已啟用 SLIM，但尚未生成哈希，因此尚未請求轉碼。在調試色調覆蓋中顯示為青色。",
+  "@roblox/enum/SlimTranscoderStatus.Transcoding": {
+    "documentation": "SLIM 轉碼目前在後端進行中。預期模型在轉碼完成後會轉換為成功或失敗。在除錯色調覆蓋中顯示為藍色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NoHash",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.NotUploaded": {
-    "documentation": "模型尚未上傳到內容傳遞網絡。在調試色調覆蓋中顯示為橙色。",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NotUploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.Uploaded": {
-    "documentation": "模型已上傳到內容傳遞網絡，但尚未轉碼為 SLIM 資產。在調試色調覆蓋中顯示為黃色。",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Uploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.InProgress": {
-    "documentation": "SLIM 轉碼目前在後端進行中。預期模型在轉碼完成後將轉換為成功或失敗。在調試色調覆蓋中顯示為藍色。",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#InProgress",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Transcoding",
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Succeeded": {
-    "documentation": "轉碼成功完成，SLIM 資產可用於串流。在調試色調覆蓋中顯示為綠色。",
+    "documentation": "轉碼成功完成，SLIM 資產可用於串流。在除錯色調覆蓋中顯示為綠色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136397,7 +136353,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Failed": {
-    "documentation": "轉碼未成功完成。在調試色調覆蓋中顯示為紅色。",
+    "documentation": "轉碼未成功完成。在除錯色調覆蓋中顯示為紅色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136410,10 +136366,7 @@
     "documentation": "描述 SLIM 模型的後端轉碼狀態，從上傳到轉碼再到成功或失敗。",
     "keys": {
       "Unknown": "@roblox/enum/SlimTranscoderStatus.Unknown",
-      "NoHash": "@roblox/enum/SlimTranscoderStatus.NoHash",
-      "NotUploaded": "@roblox/enum/SlimTranscoderStatus.NotUploaded",
-      "Uploaded": "@roblox/enum/SlimTranscoderStatus.Uploaded",
-      "InProgress": "@roblox/enum/SlimTranscoderStatus.InProgress",
+      "Transcoding": "@roblox/enum/SlimTranscoderStatus.Transcoding",
       "Succeeded": "@roblox/enum/SlimTranscoderStatus.Succeeded",
       "Failed": "@roblox/enum/SlimTranscoderStatus.Failed"
     },
@@ -137104,7 +137057,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyFlowType": {
-    "documentation": "",
+    "documentation": "指定由 <code>AnalyticsService:LogEconomyEvent()</code> 記錄的經濟事件中的貨幣流動方向。",
     "keys": {
       "Sink": "@roblox/enum/AnalyticsEconomyFlowType.Sink",
       "Source": "@roblox/enum/AnalyticsEconomyFlowType.Source"
@@ -138772,7 +138725,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyAction": {
-    "documentation": "",
+    "documentation": "描述 <code>AnalyticsService:FireInGameEconomyEvent()</code> 中的經濟交易類型。",
     "keys": {
       "Default": "@roblox/enum/AnalyticsEconomyAction.Default",
       "Acquire": "@roblox/enum/AnalyticsEconomyAction.Acquire",
@@ -139004,7 +138957,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Blue": {
-    "documentation": "藍色聊天顏色。",
+    "documentation": "藍色聊天顏色；傳遞給 <code>Chat()</code> 和 <code>ChatLocal()</code> 的預設值。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139014,7 +138967,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Green": {
-    "documentation": "綠色聊天顏色。",
+    "documentation": "綠色聊天顏色，作為 <code>color</code> 參數傳遞給 <code>Chat()</code> 或 <code>ChatLocal()</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139024,7 +138977,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Red": {
-    "documentation": "紅色聊天顏色。",
+    "documentation": "紅色聊天顏色，作為 <code>color</code> 參數傳遞給 <code>Chat()</code> 或 <code>ChatLocal()</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139034,7 +138987,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.White": {
-    "documentation": "白色聊天顏色。",
+    "documentation": "白色聊天顏色，作為 <code>color</code> 參數傳遞給 <code>Chat()</code> 或 <code>ChatLocal()</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140537,7 +140490,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.Undefined": {
-    "documentation": "",
+    "documentation": "默認未初始化的哨兵值，表示尚未確定任何傳送方法。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140547,7 +140500,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.PortalForward": {
-    "documentation": "",
+    "documentation": "玩家通過走進 <code>AdPortal</code> 向前傳送到廣告商的目的地體驗。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140557,7 +140510,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.InGameMenuBackButton": {
-    "documentation": "",
+    "documentation": "玩家通過在遊戲菜單中按下返回按鈕啟動返回傳送到出版商的體驗。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140567,7 +140520,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.UIBackButton": {
-    "documentation": "",
+    "documentation": "玩家通過按下在廣告目的地的 UI 覆蓋中渲染的返回按鈕啟動返回傳送到出版商的體驗。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140577,7 +140530,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdTeleportMethod": {
-    "documentation": "",
+    "documentation": "描述玩家在沉浸式廣告入口流中傳送的方法。",
     "keys": {
       "Undefined": "@roblox/enum/AdTeleportMethod.Undefined",
       "PortalForward": "@roblox/enum/AdTeleportMethod.PortalForward",

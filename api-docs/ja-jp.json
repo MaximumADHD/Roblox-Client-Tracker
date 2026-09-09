@@ -24207,10 +24207,10 @@
     "documentation": "実世界の購入をサポートし、デジタル特典とバンドルできます。"
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/param/1": {
-    "documentation": ""
+    "documentation": "検索するコマース商品の識別子、数値のIDまたは完全な<code>COM-</code>プレフィックス形式。"
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/return/0": {
-    "documentation": ""
+    "documentation": "コマース商品に関する情報の辞書、<code>IsForSale</code>かどうか、表示詳細の<code>Item</code>サブテーブル（<code>Name</code>、<code>Description</code>、<code>IconImageAssetId</code>、<code>DisplayPrice</code>、および<code>IsPurchasable</code>）、および購入によって得られる<code>Benefits</code>を含む。"
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync": {
     "documentation": "体験内で販売しているコマース製品に関する情報を取得します。",
@@ -24234,10 +24234,10 @@
     "documentation": "実世界の購入をサポートし、デジタル特典とバンドルできます。"
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/1": {
-    "documentation": ""
+    "documentation": "購入フローを促す<code>Player</code>。クライアントスクリプトから呼び出す場合、これはローカルプレイヤーでなければならない。"
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/2": {
-    "documentation": ""
+    "documentation": "購入するコマース商品の識別子、数値のIDまたは完全な<code>COM-</code>プレフィックス形式。"
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase": {
     "documentation": "提供された <code>commerceProductId</code> を使用して、ユーザーにコマース製品の購入を促します。 購入フローを案内するウェブビューを開きます。",
@@ -24263,13 +24263,13 @@
     "documentation": "実世界の購入をサポートし、デジタル特典とバンドルできます。"
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/1": {
-    "documentation": ""
+    "documentation": "ブラウザが開く<code>Player</code>。クライアントスクリプトから呼び出す場合、これはローカルプレイヤーでなければならない。"
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/2": {
-    "documentation": ""
+    "documentation": "開く実世界のコマースURL。URLはコマースの許可リストに載っている必要があり、そうでない場合はリクエストは無視される。"
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser": {
-    "documentation": "",
+    "documentation": "指定されたプレイヤーのために実世界のコマースURLに対して体験内ブラウザを開くレガシーエンドポイント；<code>CommerceService:PromptCommerceProductPurchase()</code>に置き換えられた。",
     "params": [
       {
         "name": "self",
@@ -24292,10 +24292,10 @@
     "documentation": "実世界の購入をサポートし、デジタル特典とバンドルできます。"
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync/return/0": {
-    "documentation": ""
+    "documentation": "現在のユーザーが実世界のコマースの資格がある場合は<code>true</code>。"
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync": {
-    "documentation": "",
+    "documentation": "現在のユーザーが実世界のコマースの資格があるかどうかを返すレガシーエンドポイント；<code>PolicyService</code>に置き換えられた。",
     "params": [
       {
         "name": "self",
@@ -24408,7 +24408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatCommand.AutocompleteVisible": {
-    "documentation": "",
+    "documentation": "<code>TextChatCommand</code>がチャットのオートコンプリートメニューに提案として表示されるかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatCommand#AutocompleteVisible",
     "code_sample": ""
   },
@@ -29850,6 +29850,7 @@
   "@roblox/globaltype/Decal": {
     "documentation": "親の <code>BasePart</code> の面に画像テクスチャを適用します。",
     "keys": {
+      "AutoLocalize": "@roblox/globaltype/Decal.AutoLocalize",
       "Color3": "@roblox/globaltype/Decal.Color3",
       "ColorMap": "@roblox/globaltype/Decal.ColorMap",
       "ColorMapContent": "@roblox/globaltype/Decal.ColorMapContent",
@@ -29865,6 +29866,7 @@
       "Specular": "@roblox/globaltype/Decal.Specular",
       "Texture": "@roblox/globaltype/Decal.Texture",
       "TextureContent": "@roblox/globaltype/Decal.TextureContent",
+      "TexturePackContent": "@roblox/globaltype/Decal.TexturePackContent",
       "Transparency": "@roblox/globaltype/Decal.Transparency",
       "UVOffset": "@roblox/globaltype/Decal.UVOffset",
       "UVScale": "@roblox/globaltype/Decal.UVScale",
@@ -29873,43 +29875,48 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.AutoLocalize": {
+    "documentation": "<code>true</code>に設定すると、デカールの画像アセットは自動的な ローカリゼーションキャプチャの対象になります。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#AutoLocalize",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Color3": {
-    "documentation": "<code>Decal</code> の <code>Color3</code> ティント。",
+    "documentation": "<code>Color3</code>のデカールの色合い。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Color3",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ColorMap": {
-    "documentation": "表面の色と不透明度を決定するコンテンツ ID。",
+    "documentation": "表面の色と不透明度を決定するコンテンツID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ColorMapContent": {
-    "documentation": "表面の色と不透明度を決定する <code>Content</code> オブジェクト。",
+    "documentation": "表面の色と不透明度を決定する<code>Content</code>オブジェクト。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.LocalTransparencyModifier": {
-    "documentation": "デカールの <code>Transparency</code> プロパティへの乗算器として機能します。効果はローカルプレイヤーのみが目にすることができます。",
+    "documentation": "デカールの <code>Transparency</code>プロパティの乗数として機能します。効果はローカルプレイヤーにのみ表示されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#LocalTransparencyModifier",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMap": {
-    "documentation": "",
+    "documentation": "表面の金属感マップを決定するコンテンツID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMapContent": {
-    "documentation": "",
+    "documentation": "表面の金属感マップを決定する<code>Content</code>オブジェクト。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMap": {
-    "documentation": "",
+    "documentation": "表面のノーマルマップを決定するコンテンツID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMapContent": {
-    "documentation": "",
+    "documentation": "表面のノーマルマップを決定する<code>Content</code>オブジェクト。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMapContent",
     "code_sample": ""
   },
@@ -29919,52 +29926,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMap": {
-    "documentation": "",
+    "documentation": "表面の粗さマップを決定するコンテンツID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMapContent": {
-    "documentation": "",
+    "documentation": "表面の粗さマップを決定する<code>Content</code>オブジェクト。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Shiny": {
-    "documentation": "<strong>Deprecated:</strong> この機能しないプロパティは廃止され、新しい作業には使用しないでください。",
+    "documentation": "<strong>Deprecated:</strong> この非機能的なプロパティは非推奨であり、新しい作業で使用すべきではありません。<br>以前はデカールの光沢を設定していた非推奨のプロパティ。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Shiny",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Specular": {
-    "documentation": "<strong>Deprecated:</strong> このプロパティはもはや正しく機能せず、廃止されました。新しい作業には使用しないでください。",
+    "documentation": "<strong>Deprecated:</strong> このプロパティはもはや正しく機能せず、非推奨です。新しい作業で使用すべきではありません。<br>以前はデカールのスペキュラリティを設定していた非推奨のプロパティ。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Specular",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Texture": {
-    "documentation": "<code>Decal</code> に適用される画像のコンテンツ ID。",
+    "documentation": "<code>Decal</code>によって適用される画像のコンテンツID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Texture",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.TextureContent": {
-    "documentation": "<code>Decal</code> によって表示されるテクスチャコンテンツ。",
+    "documentation": "<code>Decal</code>によって表示されるテクスチャコンテンツ。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.TexturePackContent": {
+    "documentation": "エンジン管理の<code>Content</code>で、PBRデカールの圧縮されたランタイムテクスチャパックデータを格納します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TexturePackContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Transparency": {
-    "documentation": "<code>Decal</code>の透明度を決定します。",
+    "documentation": "<code>Decal</code>の不透明度を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.UVOffset": {
-    "documentation": "テクスチャマッピング前にオフセットを追加することでUV座標を移動させます。",
+    "documentation": "テクスチャマッピングの前にオフセットを追加してUV座標をシフトします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVOffset",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.UVScale": {
-    "documentation": "スケールファクターを掛けることにより、UV座標を引き伸ばしたり圧縮したりします。",
+    "documentation": "スケールファクターを掛けることでUV座標を引き伸ばしたり圧縮したりします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVScale",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ZIndex": {
-    "documentation": "同じ面に複数のデカールが割り当てられたときのレンダリング順序を決定します。",
+    "documentation": "複数のデカールが同じ面に割り当てられたときのレンダリング順序を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
     "code_sample": ""
   },
@@ -33842,12 +33854,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "<code>BubbleChatMessageProperties</code>への参照で、このメッセージのチャットバブルの外観を上書きします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#BubbleChatMessageProperties",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "<code>ChatWindowMessageProperties</code>への参照で、このメッセージのチャットウィンドウでの外観を上書きします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#ChatWindowMessageProperties",
     "code_sample": ""
   },
@@ -44704,7 +44716,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VisibilityCheckDispatcher": {
-    "documentation": "",
+    "documentation": "インタラクティブな広告インスタンスの視認性チェックをスケジュールし、実行するサービス",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisibilityCheckDispatcher",
     "code_sample": ""
@@ -47184,31 +47196,6 @@
   "@roblox/globaltype/TerrainDetail.StudsPerTile": {
     "documentation": "テクスチャのスケールを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#StudsPerTile",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping": {
-    "documentation": "",
-    "keys": {
-      "FlattenTree": "@roblox/globaltype/PatchMapping.FlattenTree",
-      "PatchId": "@roblox/globaltype/PatchMapping.PatchId",
-      "TargetPath": "@roblox/globaltype/PatchMapping.TargetPath"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.FlattenTree": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#FlattenTree",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.PatchId": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#PatchId",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.TargetPath": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#TargetPath",
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
@@ -51151,7 +51138,7 @@
     "documentation": "テキストチャットチャンネルを表します。"
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester/param/1": {
-    "documentation": ""
+    "documentation": "このチャンネルのメッセージを制御する直接メッセージの権限を持つ <code>Player</code>; このプレイヤーに直接メッセージを送信できるユーザーのみが チャンネルでメッセージを受け取ります。"
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester": {
     "documentation": "<code>TextChannel</code>の<code>DirectChatRequester</code>を設定します。この<code>TextChannel</code>は、<code>DirectChatRequester</code>に直接メッセージを送信できるユーザーにのみメッセージを配信します。",
@@ -51196,7 +51183,7 @@
     "documentation": "メッセージを受信するユーザーの<code>TextSource</code>。"
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/return/0": {
-    "documentation": ""
+    "documentation": "指定されたクライアントにメッセージを配信するための真の値（<code>true</code>、<code>1</code>、または空でない文字列など） または、そのクライアントからメッセージを保留するための偽の値（<code>nil</code>を含む）。"
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback": {
     "documentation": "<code>TextChannel</code>が受信メッセージを受信しているときに、各クライアントに対して呼び出され、メッセージがそのクライアントに配信されるかどうかを判断します。",
@@ -52876,6 +52863,7 @@
       "GetPredictionStatus": "@roblox/globaltype/RunService.GetPredictionStatus",
       "IsClient": "@roblox/globaltype/RunService.IsClient",
       "IsEdit": "@roblox/globaltype/RunService.IsEdit",
+      "IsResimulating": "@roblox/globaltype/RunService.IsResimulating",
       "IsRunMode": "@roblox/globaltype/RunService.IsRunMode",
       "IsRunning": "@roblox/globaltype/RunService.IsRunning",
       "IsServer": "@roblox/globaltype/RunService.IsServer",
@@ -52896,7 +52884,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.RunState": {
-    "documentation": "",
+    "documentation": "ゲームのシミュレーションの現在の実行状態。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#RunState",
     "code_sample": ""
   },
@@ -52949,7 +52937,7 @@
     "documentation": "バインディングの優先度（整数）のオプション；シミュレーション ステップ内でバインドされた関数が呼び出される順序を決定します。低い数値が最初に呼び出されます。同じ優先度の 2 つのバインディングがある場合、それらの間の順序は不定です。デフォルトは 2000 です。"
   },
   "@roblox/globaltype/RunService.BindToSimulation/return/0": {
-    "documentation": ""
+    "documentation": "シミュレーションステップから関数を解除するために切断できる <code>RBXScriptConnection</code>。"
   },
   "@roblox/globaltype/RunService.BindToSimulation": {
     "documentation": "フレームレートに依存しない固定頻度で呼び出されるカスタム関数をバインドします。",
@@ -52984,7 +52972,7 @@
     "documentation": "<code>Instance</code> で、予測ステータスをチェックします。"
   },
   "@roblox/globaltype/RunService.GetPredictionStatus/return/0": {
-    "documentation": ""
+    "documentation": "与えられたインスタンスの <code>PredictionStatus</code>、それが予測されているか、権威があるか、または予測に参加していないかを示します。"
   },
   "@roblox/globaltype/RunService.GetPredictionStatus": {
     "documentation": "特定のコンテキストインスタンスの <code>PredictionStatus</code> を確認し、複数のインスタンスに影響を与えるスクリプトのデバッグに役立ちます。",
@@ -53044,14 +53032,34 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsEdit",
     "code_sample": ""
   },
+  "@roblox/globaltype/RunService.IsResimulating/param/0": {
+    "documentation": "すべての実行時アクティビティと時間の進行を担当するサービス。"
+  },
+  "@roblox/globaltype/RunService.IsResimulating/return/0": {
+    "documentation": "エンジンが現在再シミュレーション中であるかどうか。"
+  },
+  "@roblox/globaltype/RunService.IsResimulating": {
+    "documentation": "クライアントがサーバー権限モデルでのミス予測後に現在再シミュレーションステップにいるかどうかを返します。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.IsResimulating/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RunService.IsResimulating/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsResimulating",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RunService.IsRunMode/param/0": {
     "documentation": "すべての実行時アクティビティと時間の進行を担当するサービス。"
   },
   "@roblox/globaltype/RunService.IsRunMode/return/0": {
-    "documentation": "スタジオで <strong>実行</strong> プレイテストが開始されたかどうか。"
+    "documentation": "スタジオで <strong>Run</strong> プレイテストが開始されたかどうか。"
   },
   "@roblox/globaltype/RunService.IsRunMode": {
-    "documentation": "スタジオで<strong>実行</strong>プレイテストが開始されたかどうかを返します。",
+    "documentation": "スタジオで <strong>Run</strong> プレイテストが開始されたかどうかを返します。",
     "params": [
       {
         "name": "self",
@@ -53068,10 +53076,10 @@
     "documentation": "すべての実行時アクティビティと時間の進行を担当するサービス。"
   },
   "@roblox/globaltype/RunService.IsRunning/return/0": {
-    "documentation": "現在の体験が実行中かどうか。"
+    "documentation": "体験が現在実行中であるかどうか。"
   },
   "@roblox/globaltype/RunService.IsRunning": {
-    "documentation": "現在の体験が実行中かどうかを返します。",
+    "documentation": "体験が現在実行中であるかどうかを返します。",
     "params": [
       {
         "name": "self",
@@ -53128,7 +53136,7 @@
     "documentation": "すべての実行時アクティビティと時間の進行を担当するサービス。"
   },
   "@roblox/globaltype/RunService.Pause": {
-    "documentation": "体験のシミュレーションを実行中の場合、一時停止し、物理学とスクリプトを中断します。",
+    "documentation": "体験のシミュレーションを一時停止します（実行中の場合）、物理とスクリプトを中断します。",
     "params": [
       {
         "name": "self",
@@ -53143,7 +53151,7 @@
     "documentation": "すべての実行時アクティビティと時間の進行を担当するサービス。"
   },
   "@roblox/globaltype/RunService.Reset": {
-    "documentation": "<strong>Deprecated:</strong> この項目は非推奨であり、新しい作業に使用すべきではありません。<br><code>RunService:Run()</code> が呼び出されたときに設定されたウェイポイントに現在のゲームをリセットします。",
+    "documentation": "<strong>Deprecated:</strong> この項目は非推奨であり、新しい作業で使用すべきではありません。<br>現在のゲームを <code>RunService:Run()</code> が呼び出されたときに設定されたウェイポイントにリセットします。",
     "params": [
       {
         "name": "self",
@@ -53158,7 +53166,7 @@
     "documentation": "すべての実行時アクティビティと時間の進行を担当するサービス。"
   },
   "@roblox/globaltype/RunService.Run": {
-    "documentation": "ゲームのシミュレーションを実行し、物理学とスクリプトを動作させます。",
+    "documentation": "ゲームのシミュレーションを実行し、物理とスクリプトを実行します。",
     "params": [
       {
         "name": "self",
@@ -53202,7 +53210,7 @@
     "documentation": "すべての実行時アクティビティと時間の進行を担当するサービス。"
   },
   "@roblox/globaltype/RunService.Stop": {
-    "documentation": "体験のシミュレーションを実行中の場合、停止します。",
+    "documentation": "体験のシミュレーションを停止します（実行中の場合）。",
     "params": [
       {
         "name": "self",
@@ -53217,10 +53225,10 @@
     "documentation": "すべての実行時アクティビティと時間の進行を担当するサービス。"
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep/param/1": {
-    "documentation": "バインド解除される関数の名前。"
+    "documentation": "バインドを解除する関数の名前。"
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep": {
-    "documentation": "<code>RunService:BindToRenderStep()</code> を使用してレンダー ループにバインドされていた関数のバインドを解除します。",
+    "documentation": "<code>RunService:BindToRenderStep()</code> を使用してレンダーループにバインドされた関数のバインドを解除します。",
     "params": [
       {
         "name": "self",
@@ -54297,7 +54305,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。",
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。",
     "keys": {
       "Archivable": "@roblox/globaltype/Instance.Archivable",
       "archivable": "@roblox/globaltype/Instance.archivable",
@@ -54398,12 +54406,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.UniqueId": {
-    "documentation": "インスタンスの一意の識別子。",
+    "documentation": "インスタンスのユニークな識別子。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#UniqueId",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.AddTag/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.AddTag/param/1": {
     "documentation": "インスタンスに適用するタグ。"
@@ -54425,7 +54433,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.children/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.children/return/0": {
     "documentation": "子オブジェクト/インスタンスの配列。"
@@ -54445,7 +54453,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.ClearAllChildren/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
     "documentation": "このメソッドは、インスタンスのすべての子供を破壊します。",
@@ -54460,7 +54468,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Clone/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.Clone/return/0": {
     "documentation": "インスタンスのコピー、またはインスタンスが <code>Archivable</code> でない場合は <code>nil</code>。"
@@ -54480,7 +54488,7 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\n-- 既存のオブジェクトへの参照を取得\nlocal model = script.Parent.Model\n\n-- モデルのクローンを作成\nlocal clone = model:Clone()\n\n-- クローンを移動して、元のモデルと重ならないようにする\nclone:PivotTo(model.PrimaryPart.CFrame - (Vector3.xAxis * 10))\n\n-- クローンをWorkspaceに追加\nclone.Parent = Workspace"
   },
   "@roblox/globaltype/Instance.clone/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.clone/return/0": {
     "documentation": ""
@@ -54500,10 +54508,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Destroy/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.Destroy": {
-    "documentation": "<code>Instance.Parent</code> プロパティを <code>nil</code> に設定し、<code>Instance.Parent</code> プロパティをロックし、すべての接続を切断し、すべての子供に対して <code>Destroy()</code> を呼び出します。",
+    "documentation": "<code>Instance.Parent</code> プロパティを <code>nil</code> に設定し、<code>Instance.Parent</code> プロパティをロックし、すべての接続を切断し、すべての子供に <code>Destroy()</code> を呼び出します。",
     "params": [
       {
         "name": "self",
@@ -54515,7 +54523,7 @@
     "code_sample": "local part = script.Parent.Part\n\npart:Destroy()"
   },
   "@roblox/globaltype/Instance.destroy/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.destroy": {
     "documentation": "<strong>Deprecated:</strong> この非推奨の関数は、代わりに使用すべき <code>Instance:Destroy()</code> のバリアントです。",
@@ -54530,7 +54538,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/1": {
     "documentation": "探すべき <code>Instance.Name</code>。"
@@ -54539,7 +54547,7 @@
     "documentation": "見つかった <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestor": {
-    "documentation": "<code>Instance.Name</code> が指定された名前と等しい最初の祖先を返します。",
+    "documentation": "<code>Instance</code> の最初の祖先を返します。その <code>Instance.Name</code> が指定された名前と等しい場合。",
     "params": [
       {
         "name": "self",
@@ -54557,7 +54565,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/param/1": {
     "documentation": "探すべき <code>Object.ClassName</code>。"
@@ -54566,7 +54574,7 @@
     "documentation": "見つかった <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass": {
-    "documentation": "<code>Object.ClassName</code> が指定された className と等しい最初の祖先を返します。",
+    "documentation": "<code>Instance</code> の最初の祖先を返します。その <code>Object.ClassName</code> が指定された className と等しい場合。",
     "params": [
       {
         "name": "self",
@@ -54584,7 +54592,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/param/1": {
     "documentation": "探すべき <code>Object.ClassName</code>。"
@@ -54593,7 +54601,7 @@
     "documentation": "見つかった <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA": {
-    "documentation": "<code>Instance</code> の最初の祖先で、<code>Object:IsA()</code> が指定された className に対して true を返します。",
+    "documentation": "<code>Instance</code> の最初の祖先を返します。その <code>Object:IsA()</code> が指定された className に対して true を返します。",
     "params": [
       {
         "name": "self",
@@ -54611,7 +54619,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/1": {
     "documentation": "検索する <code>Instance.Name</code>。"
@@ -54623,7 +54631,7 @@
     "documentation": "見つかった <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChild": {
-    "documentation": "指定された名前で見つかった <code>Instance</code> の最初の子を返します。",
+    "documentation": "指定された名前で見つかった <code>Instance</code> の最初の子供を返します。",
     "params": [
       {
         "name": "self",
@@ -54645,7 +54653,7 @@
     "code_sample": "local found = workspace:FindFirstChild(\"Brick\")\n\nif found then\n\tfound.Name = \"Foo\"\nend"
   },
   "@roblox/globaltype/Instance.findFirstChild/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.findFirstChild/param/1": {
     "documentation": ""
@@ -54679,16 +54687,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/param/1": {
-    "documentation": "探すべき <code>Object.ClassName</code>。"
+    "documentation": "検索する <code>Object.ClassName</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/return/0": {
     "documentation": "見つかった <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass": {
-    "documentation": "<code>Instance</code> の最初の子で、<code>ClassName</code> が指定されたクラス名と等しいものを返します。",
+    "documentation": "指定されたクラス名と等しい <code>ClassName</code> を持つ <code>Instance</code> の最初の子供を返します。",
     "params": [
       {
         "name": "self",
@@ -54706,10 +54714,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal humanoid\n\nwhile not humanoid do\n\thumanoid = character:FindFirstChildOfClass(\"Humanoid\")\n\tif not humanoid then\n\t\tcharacter.ChildAdded:Wait()\n\tend\nend"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/1": {
-    "documentation": "探すべき <code>Object.ClassName</code>。"
+    "documentation": "検索する <code>Object.ClassName</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/2": {
     "documentation": "検索を再帰的に行うかどうか。"
@@ -54718,7 +54726,7 @@
     "documentation": "見つかった <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA": {
-    "documentation": "<code>Instance</code> の最初の子で、<code>Object:IsA()</code> が指定された className に対して true を返します。",
+    "documentation": "指定された className に対して <code>Object:IsA()</code> が true を返す <code>Instance</code> の最初の子供を返します。",
     "params": [
       {
         "name": "self",
@@ -54740,7 +54748,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/param/1": {
     "documentation": "検索する <code>Instance.Name</code>。"
@@ -54767,13 +54775,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetActor/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.GetActor/return/0": {
     "documentation": "見つかった <code>Actor</code>。"
   },
   "@roblox/globaltype/Instance.GetActor": {
-    "documentation": "インスタンスに関連付けられた <code>Actor</code> を返します。存在する場合。",
+    "documentation": "<code>Instance</code> に関連付けられた <code>Actor</code> を返します。存在する場合。",
     "params": [
       {
         "name": "self",
@@ -54787,7 +54795,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttribute/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.GetAttribute/param/1": {
     "documentation": "取得する属性の名前。"
@@ -54814,7 +54822,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/1": {
     "documentation": "変更信号を返す指定された属性の名前。"
@@ -54841,10 +54849,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttributes/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.GetAttributes/return/0": {
-    "documentation": "各属性の名前が文字列で、値が非 <code>nil</code> 値であるキー-値ペアの辞書。"
+    "documentation": "各属性の名前がキーで、非 <code>nil</code> 値がバリアントである文字列 → バリアントペアの辞書。"
   },
   "@roblox/globaltype/Instance.GetAttributes": {
     "documentation": "インスタンスの属性の辞書を返します。",
@@ -54861,13 +54869,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetChildren/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.GetChildren/return/0": {
-    "documentation": "インスタンスの子を含む配列。"
+    "documentation": "インスタンスの子供を含む配列。"
   },
   "@roblox/globaltype/Instance.GetChildren": {
-    "documentation": "インスタンスのすべての子を含む配列を返します。",
+    "documentation": "インスタンスのすべての子供を含む配列を返します。",
     "params": [
       {
         "name": "self",
@@ -54881,7 +54889,7 @@
     "code_sample": "local children = workspace:GetChildren()\n\nfor i = 1, #children do\n\tprint(i, children[i].Name)\nend"
   },
   "@roblox/globaltype/Instance.getChildren/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.getChildren/return/0": {
     "documentation": ""
@@ -54901,7 +54909,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetDebugId/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.GetDebugId/param/1": {
     "documentation": "スコープの長さ。"
@@ -54928,7 +54936,7 @@
     "code_sample": "print(workspace:GetDebugId()) --> 39FA_12\nprint(workspace:GetDebugId(10)) --> 39FA2FEF4D_12\nprint(workspace:GetDebugId(math.huge)) --> 12"
   },
   "@roblox/globaltype/Instance.GetDescendants/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.GetDescendants/return/0": {
     "documentation": "インスタンスの子孫を含む配列。"
@@ -54948,7 +54956,7 @@
     "code_sample": "local descendants = workspace:GetDescendants()\n\n-- ワークスペースのすべての子孫をループします。もし\n-- BasePart が見つかった場合、コードはその部品の色を緑に変更します\nfor _, descendant in pairs(descendants) do\n\tif descendant:IsA(\"BasePart\") then\n\t\tdescendant.BrickColor = BrickColor.Green()\n\tend\nend"
   },
   "@roblox/globaltype/Instance.GetFullName/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.GetFullName/return/0": {
     "documentation": "フルネームの <code>Instance</code>。"
@@ -54968,7 +54976,7 @@
     "code_sample": "-- 単純な階層を作成\nlocal model = Instance.new(\"Model\")\nlocal part = Instance.new(\"Part\")\npart.Parent = model\nlocal fire = Instance.new(\"Fire\")\nfire.Parent = part\n\nprint(fire:GetFullName()) --> Model.Part.Fire\n\nmodel.Parent = workspace\n\nprint(fire:GetFullName()) --> Workspace.Model.Part.Fire\n\npart.Name = \"Hello, world\"\n\nprint(fire:GetFullName()) --> Workspace.Model.Hello, world.Fire"
   },
   "@roblox/globaltype/Instance.GetStyled/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.GetStyled/param/1": {
     "documentation": "クエリするプロパティの名前。"
@@ -54977,10 +54985,10 @@
     "documentation": "インスタンス上でターゲットにしている擬似インスタンスのオプションのセレクタ。"
   },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
-    "documentation": "指定されたプロパティのスタイルまたは明示的に変更された値、またはスタイル/変更されていない場合はデフォルトのプロパティ値。"
+    "documentation": "指定されたプロパティのスタイルまたは明示的に変更された値、または変更されていない場合はデフォルトのプロパティ値。"
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "指定されたプロパティのスタイルまたは明示的に変更された値を返します。スタイル/変更されていない場合はデフォルトのプロパティ値を返します。",
+    "documentation": "指定されたプロパティのスタイルまたは明示的に変更された値を返します。変更されていない場合はデフォルトのプロパティ値を返します。",
     "params": [
       {
         "name": "self",
@@ -55002,7 +55010,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player.PlayerGui\nlocal HUDContainer = playerGui:WaitForChild(\"HUDContainer\")\n\nlocal coreSheet = ReplicatedStorage:FindFirstChild(\"CoreSheet\")\nlocal rule = coreSheet:FindFirstChildWhichIsA(\"StyleRule\")\nrule.Selector = \"TextButton\"\n\n-- ボタンへの参照\nlocal button = HUDContainer:FindFirstChildWhichIsA(\"TextButton\")\n\nprint(button:GetStyled(\"Rotation\")) --> 0 (デフォルト値)\nprint(button.Rotation) --> 0 (デフォルト値)\n\n-- スタイルルールプロパティを通じて回転を適用\nrule:SetProperty(\"Rotation\", 30)\n\nprint(button:GetStyled(\"Rotation\")) --> 30 (ルールに基づくスタイル値)\nprint(button.Rotation) --> 0 (デフォルト値)\n\n-- スタイルプロパティを明示的に変更/上書き\nbutton.Rotation = 45\n\nprint(button:GetStyled(\"Rotation\")) --> 45 (変更された値)\nprint(button.Rotation) --> 45 (変更された値)"
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/1": {
     "documentation": "変更をリッスンするスタイルプロパティの名前。"
@@ -55011,7 +55019,7 @@
     "documentation": "指定されたスタイルプロパティが変更されたときに発火するイベント。"
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal": {
-    "documentation": "指定されたスタイルプロパティがインスタンスで変更されたときに発火するイベントを返します。",
+    "documentation": "インスタンス上で指定されたスタイルプロパティが変更されたときに発火するイベントを返します。",
     "params": [
       {
         "name": "self",
@@ -55029,7 +55037,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetTags/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.GetTags/return/0": {
     "documentation": "インスタンスに適用されたタグを表す文字列の配列。"
@@ -55049,7 +55057,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.HasTag/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.HasTag/param/1": {
     "documentation": "インスタンスで確認するタグ。"
@@ -55058,7 +55066,7 @@
     "documentation": "インスタンスが指定されたタグを持っている場合は <code>true</code>、そうでない場合は <code>false</code>。"
   },
   "@roblox/globaltype/Instance.HasTag": {
-    "documentation": "インスタンスが指定されたタグを持っているかどうかを確認します。",
+    "documentation": "インスタンスに指定されたタグがあるかどうかを確認します。",
     "params": [
       {
         "name": "self",
@@ -55076,13 +55084,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.IsAncestorOf/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.IsAncestorOf/param/1": {
-    "documentation": "子孫の <code>Instance</code>。"
+    "documentation": "子孫 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.IsAncestorOf/return/0": {
-    "documentation": "指定された子孫の祖先が <code>Instance</code> である場合は <code>true</code>。"
+    "documentation": "<code>Instance</code> が指定された子孫の祖先である場合は true。"
   },
   "@roblox/globaltype/Instance.IsAncestorOf": {
     "documentation": "<code>Instance</code> が指定された子孫の祖先である場合は <code>true</code> を返します。",
@@ -55103,13 +55111,13 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\nlocal spawnLocation = Workspace.SpawnLocation\nlocal decal = spawnLocation.Decal\n\n-- これらの文は真です\nprint(Workspace:IsAncestorOf(spawnLocation))\nprint(Workspace:IsAncestorOf(decal))\nprint(spawnLocation:IsAncestorOf(decal))\n\n-- これらの文は偽です\nprint(spawnLocation:IsAncestorOf(Workspace))\nprint(decal:IsAncestorOf(Workspace))\nprint(decal:IsAncestorOf(spawnLocation))"
   },
   "@roblox/globaltype/Instance.IsDescendantOf/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.IsDescendantOf/param/1": {
-    "documentation": "祖先の <code>Instance</code>。"
+    "documentation": "祖先 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.IsDescendantOf/return/0": {
-    "documentation": "指定された祖先の子孫が <code>Instance</code> である場合は <code>true</code>。"
+    "documentation": "<code>Instance</code> が指定された祖先の子孫である場合は true。"
   },
   "@roblox/globaltype/Instance.IsDescendantOf": {
     "documentation": "<code>Instance</code> が指定された祖先の子孫である場合は <code>true</code> を返します。",
@@ -55130,7 +55138,7 @@
     "code_sample": "local part = Instance.new(\"Part\")\nprint(part:IsDescendantOf(game))\n--> 偽\n\npart.Parent = workspace\nprint(part:IsDescendantOf(game))\n--> 真\n\npart.Parent = game\nprint(part:IsDescendantOf(game))\n--> 真"
   },
   "@roblox/globaltype/Instance.isDescendantOf/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.isDescendantOf/param/1": {
     "documentation": ""
@@ -55157,7 +55165,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.IsPropertyModified/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/param/1": {
     "documentation": "クエリするプロパティの名前。"
@@ -55184,7 +55192,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.QueryDescendants/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.QueryDescendants/param/1": {
     "documentation": "要素をフィルタリングするために使用されるセレクタ文字列。"
@@ -55211,10 +55219,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Remove/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.Remove": {
-    "documentation": "<strong>Deprecated:</strong> このアイテムは <code>Instance:Destroy()</code> および <code>Instance:ClearAllChildren()</code> の代わりに非推奨です。ゲームからオブジェクトを削除する必要があり、後でオブジェクトを使用したい場合は、このメソッドを使用するのではなく、<code>Parent</code> プロパティを <code>nil</code> に設定してください。<br>オブジェクトの <code>Parent</code> を <code>nil</code> に設定し、すべての子孫にも同様の操作を行います。",
+    "documentation": "<strong>Deprecated:</strong> <code>Instance:Destroy()</code> および <code>Instance:ClearAllChildren()</code> の代わりにこのアイテムは非推奨です。ゲームからオブジェクトを削除する必要があり、後でオブジェクトを使用したい場合は、このメソッドを使用するのではなく、<code>Parent</code> プロパティを <code>nil</code> に設定してください。<br>オブジェクトの <code>Parent</code> を <code>nil</code> に設定し、すべての子孫にも同様の操作を行います。",
     "params": [
       {
         "name": "self",
@@ -55226,10 +55234,10 @@
     "code_sample": "local part = Instance.new(\"Part\")\npart.Parent = workspace\nprint(part.Parent) --> Workspace\n\npart:Remove()\n\nprint(part.Parent) --> nil\n\npart.Parent = workspace\n\nprint(part.Parent) --> Workspace"
   },
   "@roblox/globaltype/Instance.remove/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.remove": {
-    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は <code>Instance:Remove()</code> のバリアントであり、こちらも非推奨です。新しい作業ではどちらの関数も使用すべきではありません。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は、<code>Instance:Remove()</code> のバリアントであり、こちらも非推奨です。新しい作業ではどちらの関数も使用すべきではありません。",
     "params": [
       {
         "name": "self",
@@ -55241,7 +55249,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.RemoveTag/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.RemoveTag/param/1": {
     "documentation": "インスタンスから削除するタグ。"
@@ -55263,7 +55271,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault/param/1": {
     "documentation": "リセットするプロパティの名前。"
@@ -55285,7 +55293,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.SetAttribute/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.SetAttribute/param/1": {
     "documentation": "設定される属性の名前。"
@@ -55314,10 +55322,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.WaitForChild/param/0": {
-    "documentation": "<code>Instance</code> は、Roblox クラス階層内のすべてのクラスの基本クラスであり、<code>DataModel</code> ツリーの一部となることができます。"
+    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができる Roblox クラス階層内のすべてのクラスの基本クラスです。"
   },
   "@roblox/globaltype/Instance.WaitForChild/param/1": {
-    "documentation": "探している <code>Instance.Name</code>。"
+    "documentation": "探すべき <code>Instance.Name</code>。"
   },
   "@roblox/globaltype/Instance.WaitForChild/param/2": {
     "documentation": "オプションのタイムアウトパラメータ。"
@@ -55513,7 +55521,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AttributeChanged": {
-    "documentation": "インスタンスの属性が変更されるたびに発火します。",
+    "documentation": "<code>Instance</code> の属性が変更されるたびに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AttributeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AttributeChanged.ConnectParallel",
@@ -55601,7 +55609,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.ChildAdded": {
-    "documentation": "この <code>Instance</code> にオブジェクトが親子化された後に発火します。",
+    "documentation": "この <code>Instance</code> にオブジェクトが親付けされた後に発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.ChildAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.ChildAdded.ConnectParallel",
@@ -57937,7 +57945,7 @@
     "documentation": "デフォルトのチャットウィンドウのプロパティを構成します。"
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties/return/0": {
-    "documentation": ""
+    "documentation": "新しい <code>ChatWindowMessageProperties</code> インスタンスで、その値を変更して <code>TextChatService.OnChatWindowAdded</code> コールバックから返すことで、個々のメッセージがチャットウィンドウにどのように表示されるかをカスタマイズできます。"
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties": {
     "documentation": "<code>ChatWindowMessageProperties</code>の新しいインスタンスを作成し、チャットウィンドウ内のメッセージの外観をカスタマイズするために使用できます。",
@@ -63252,7 +63260,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "<code>BubbleChatConfiguration</code> プロパティを個々のバブルチャットメッセージに対してオーバーライドします。",
     "keys": {
       "BackgroundColor3": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundColor3",
       "BackgroundTransparency": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundTransparency",
@@ -63280,7 +63288,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties.TailVisible": {
-    "documentation": "",
+    "documentation": "チャットバブルの下部にある尾が表示されるかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BubbleChatMessageProperties#TailVisible",
     "code_sample": ""
   },
@@ -69742,11 +69750,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui": {
-    "documentation": "",
+    "documentation": "<code>Part</code>の面に没入型広告を表示するサーフェスベースのGUIです。",
     "keys": {
       "AdShape": "@roblox/globaltype/AdGui.AdShape",
       "EnableVideoAds": "@roblox/globaltype/AdGui.EnableVideoAds",
       "FallbackImage": "@roblox/globaltype/AdGui.FallbackImage",
+      "FallbackImageContent": "@roblox/globaltype/AdGui.FallbackImageContent",
       "Status": "@roblox/globaltype/AdGui.Status",
       "OnAdEvent": "@roblox/globaltype/AdGui.OnAdEvent"
     },
@@ -69754,7 +69763,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.AdShape": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code>によって表示される広告の形状を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#AdShape",
     "code_sample": ""
   },
@@ -69764,12 +69773,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.FallbackImage": {
-    "documentation": "",
+    "documentation": "広告が利用できない場合に<code>AdGui</code>が表示する画像です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImage",
     "code_sample": ""
   },
+  "@roblox/globaltype/AdGui.FallbackImageContent": {
+    "documentation": "<code>AdGui.FallbackImage</code>の<code>Content</code>相当で、アセットURIと<code>EditableImage</code>オブジェクトをサポートします。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImageContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AdGui.Status": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code>が現在提供された広告を表示しているかどうかを示します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#Status",
     "code_sample": ""
   },
@@ -70493,7 +70507,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal": {
-    "documentation": "",
+    "documentation": "プレイヤーを没入型広告の一環としてスポンサー付き体験にテレポートするポータルです。",
     "keys": {
       "PortalInvalidReason": "@roblox/globaltype/AdPortal.PortalInvalidReason",
       "Status": "@roblox/globaltype/AdPortal.Status"
@@ -70502,12 +70516,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.PortalInvalidReason": {
-    "documentation": "",
+    "documentation": "ポータルが現在無効である理由を説明するクリエイター向けのメッセージです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#PortalInvalidReason",
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.Status": {
-    "documentation": "",
+    "documentation": "ポータルが現在アクティブでプレイヤーをテレポートできるかどうかを示します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#Status",
     "code_sample": ""
   },
@@ -77514,7 +77528,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBoxService": {
-    "documentation": "",
+    "documentation": "ゲームプレイ中にユーザーの <code>TextBox</code> 状態を管理するサービスです。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBoxService",
     "code_sample": ""
@@ -79417,6 +79431,7 @@
       "LogCustomEvent": "@roblox/globaltype/AnalyticsService.LogCustomEvent",
       "LogEconomyEvent": "@roblox/globaltype/AnalyticsService.LogEconomyEvent",
       "LogFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent",
+      "LogJourneyEvent": "@roblox/globaltype/AnalyticsService.LogJourneyEvent",
       "LogOnboardingFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent",
       "LogProgressionCompleteEvent": "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent",
       "LogProgressionEvent": "@roblox/globaltype/AnalyticsService.LogProgressionEvent",
@@ -79872,6 +79887,56 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogFunnelStepEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0": {
+    "documentation": "ユーザーがあなたの体験とどのように相互作用するかを追跡するためのメソッドのコレクションです。"
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1": {
+    "documentation": "ジャーニーイベントをトリガーしたプレイヤー。"
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2": {
+    "documentation": "ジャーニーの名前。これはジャーニー内のすべてのノードで同じである必要があります。空にすることはできず、カンマ <code>,</code>、ダブルクォート <code>\"</code>、シングルクォート <code>'</code>、または改行文字を含むことはできません。"
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3": {
+    "documentation": "プレイヤーがジャーニーで到達したノードの名前。空にすることはできず、カンマ <code>,</code>、ダブルクォート <code>\"</code>、シングルクォート <code>'</code>、または改行文字を含むことはできず、<code>__</code>（ダブルアンダースコア）で始めることはできません（これは予約されています）。"
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4": {
+    "documentation": "ジャーニーセッションのためのオプションの一意の識別子。この識別子は、ジャーニーの単一セッション内のすべてのノードで同じである必要があります。提供された場合、カンマ <code>,</code>、ダブルクォート <code>\"</code>、シングルクォート <code>'</code>、または改行文字を含むことはできません。"
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5": {
+    "documentation": "Robloxが提供するチャートでの内訳を提供するオプションのカスタムフィールドの辞書。これらの内訳には、<code>AnalyticsCustomFieldKeys</code>によって提供される特定のキーのみが使用されます。体験ごとに3つのカスタムフィールドにわたって8,000のユニークな値の組み合わせに制限されています。"
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent": {
+    "documentation": "体験を通じて非線形のプレイヤーパスを追跡するために使用されるジャーニーイベントをログします。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1"
+      },
+      {
+        "name": "journeyName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2"
+      },
+      {
+        "name": "nodeName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3"
+      },
+      {
+        "name": "journeySessionId",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4"
+      },
+      {
+        "name": "customFields",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogJourneyEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/0": {
     "documentation": "ユーザーがあなたの体験とどのように相互作用するかを追跡するためのメソッドのコレクションです。"
   },
@@ -79879,16 +79944,16 @@
     "documentation": "イベントをトリガーしたユーザー。"
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/2": {
-    "documentation": "ファunnelのステップ番号。この番号はファunnelの各ステップでユニークである必要があります。すべてのファunnelはステップ1から始まります。ステップは1-100に制限されます。 スキップされたステップがある場合は、中間のステップが完了したと見なされます。"
+    "documentation": "ファネル内のステップ番号。この番号はファネル内の各ステップで一意である必要があります。すべてのファネルはステップ1から始まります。ステップは1から100に制限されています。 ステップがスキップされた場合、中間ステップは完了したと見なされます。"
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/3": {
-    "documentation": "ファunnel内のステップのオプションの名前。このフィールドはロブロックス提供のチャートの表示目的でのみ使用されます。"
+    "documentation": "ファネル内のステップのオプションの名前。このフィールドは、Robloxが提供するチャートでの表示目的のみに使用されます。"
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/4": {
-    "documentation": "ロブロックス提供のチャートで内訳を提供するカスタムフィールドのオプションの辞書。これらの内訳には、<code>AnalyticsCustomFieldKeys</code>によって提供される特定のキーのみが使用されます。 エクスペリエンスごとに3つのカスタムフィールドでのユニークな値の組み合わせは8,000に制限されます。"
+    "documentation": "Robloxが提供するチャートでの内訳を提供するオプションのカスタムフィールドの辞書。これらの内訳には、<code>AnalyticsCustomFieldKeys</code>によって提供される特定のキーのみが使用されます。体験ごとに3つのカスタムフィールドにわたって8,000のユニークな値の組み合わせに制限されています。"
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent": {
-    "documentation": "ユーザーアクションを追跡するためのイベントをログします。",
+    "documentation": "オンボーディングファネルを通じてユーザーアクションを追跡するために使用されるイベントをログします。",
     "params": [
       {
         "name": "self",
@@ -79919,19 +79984,19 @@
     "documentation": "ユーザーがあなたの体験とどのように相互作用するかを追跡するためのメソッドのコレクションです。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/1": {
-    "documentation": "イベントを発火させたプレイヤー。"
+    "documentation": "イベントをトリガーしたプレイヤー。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/2": {
-    "documentation": ""
+    "documentation": "このイベントが属する進行パスの名前（例：ワールド、チャプター、レベルグループ）。これにより、関連する進行イベントがグループ化されます。空にすることはできず、カンマ <code>,</code>、ダブルクォート <code>\"</code>、シングルクォート <code>'</code>、または改行文字を含むことはできません。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/3": {
-    "documentation": ""
+    "documentation": "プレイヤーが進行中の数値レベル。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/4": {
-    "documentation": ""
+    "documentation": "このイベントに関連付けられたレベルの名前。このフィールドは、Robloxが提供するチャートでの表示目的に使用されます。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/5": {
-    "documentation": ""
+    "documentation": "Robloxが提供するチャートでの内訳を提供するオプションのカスタムフィールドの辞書。これらの内訳には、<code>AnalyticsCustomFieldKeys</code>によって提供される特定のキーのみが使用されます。体験ごとに3つのカスタムフィールドにわたって8,000のユニークな値の組み合わせに制限されています。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent": {
     "documentation": "ユーザーがレベルの試行を完了したときのイベントをログします。",
@@ -79972,19 +80037,19 @@
     "documentation": "イベントをトリガーしたプレイヤー。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/2": {
-    "documentation": ""
+    "documentation": "このイベントが属する進行パスの名前（例：ワールド、チャプター、レベルグループ）。これにより、関連する進行イベントがグループ化されます。空にすることはできず、カンマ <code>,</code>、ダブルクォート <code>\"</code>、シングルクォート <code>'</code>、または改行文字を含むことはできません。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/3": {
-    "documentation": ""
+    "documentation": "記録する進行状況のステータス。<code>Start</code>、<code>Complete</code>、または<code>Fail</code>などの<code>AnalyticsProgressionType</code>値として提供されます。<code>AnalyticsService:LogProgressionStartEvent()</code>、<code>AnalyticsService:LogProgressionCompleteEvent()</code>、および<code>AnalyticsService:LogProgressionFailEvent()</code>メソッドは、このステータスを設定するためのショートカットです。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/4": {
-    "documentation": ""
+    "documentation": "プレイヤーが進行中の数値レベル。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/5": {
-    "documentation": ""
+    "documentation": "このイベントに関連付けられたレベルの名前。このフィールドは、Robloxが提供するチャートでの表示目的に使用されます。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/6": {
-    "documentation": ""
+    "documentation": "Robloxが提供するチャートでの内訳を提供するオプションのカスタムフィールドの辞書。これらの内訳には、<code>AnalyticsCustomFieldKeys</code>によって提供される特定のキーのみが使用されます。体験ごとに3つのカスタムフィールドにわたって8,000のユニークな値の組み合わせに制限されています。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent": {
     "documentation": "ユーザーがレベルの試行を開始、完了、または失敗したときのイベントをログします。",
@@ -80029,16 +80094,16 @@
     "documentation": "イベントをトリガーしたユーザー。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/2": {
-    "documentation": ""
+    "documentation": "このイベントが属する進行パスの名前（例：ワールド、チャプター、レベルグループ）。これにより、関連する進行イベントがグループ化されます。空にすることはできず、カンマ <code>,</code>、ダブルクォート <code>\"</code>、シングルクォート <code>'</code>、または改行文字を含むことはできません。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/3": {
-    "documentation": ""
+    "documentation": "プレイヤーが進行中の数値レベル。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/4": {
-    "documentation": ""
+    "documentation": "このイベントに関連付けられたレベルの名前。このフィールドは、Robloxが提供するチャートでの表示目的に使用されます。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/5": {
-    "documentation": ""
+    "documentation": "Robloxが提供するチャートでの内訳を提供するオプションのカスタムフィールドの辞書。これらの内訳には、<code>AnalyticsCustomFieldKeys</code>によって提供される特定のキーのみが使用されます。体験ごとに3つのカスタムフィールドにわたって8,000のユニークな値の組み合わせに制限されています。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent": {
     "documentation": "ユーザーがレベルの試行に失敗したときのイベントをログします。",
@@ -80079,16 +80144,16 @@
     "documentation": "イベントをトリガーしたプレイヤー。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/2": {
-    "documentation": ""
+    "documentation": "このイベントが属する進行パスの名前（例：ワールド、チャプター、レベルグループ）。これにより、関連する進行イベントがグループ化されます。空にすることはできず、カンマ <code>,</code>、ダブルクォート <code>\"</code>、シングルクォート <code>'</code>、または改行文字を含むことはできません。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/3": {
-    "documentation": ""
+    "documentation": "プレイヤーが進行中の数値レベル。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/4": {
-    "documentation": ""
+    "documentation": "このイベントに関連付けられたレベルの名前。このフィールドは、Robloxが提供するチャートでの表示目的に使用されます。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/5": {
-    "documentation": ""
+    "documentation": "Robloxが提供するチャートでの内訳を提供するオプションのカスタムフィールドの辞書。これらの内訳には、<code>AnalyticsCustomFieldKeys</code>によって提供される特定のキーのみが使用されます。体験ごとに3つのカスタムフィールドにわたって8,000のユニークな値の組み合わせに制限されています。"
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent": {
     "documentation": "ユーザーがレベルの試行を開始したときのイベントをログします。",
@@ -80129,30 +80194,29 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService": {
-    "documentation": "",
+    "documentation": "プレイヤーのキャプチャをコンテンツモデレーションに提出し、非同期で結果を受け取るためのサーバーサイドサービスです。",
     "keys": {
       "BindReviewableContentEventProcessor": "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor",
       "CreateReviewableContentAsync": "@roblox/globaltype/ModerationService.CreateReviewableContentAsync",
-      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey",
-      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync"
+      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService",
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/0": {
-    "documentation": ""
+    "documentation": "プレイヤーのキャプチャをコンテンツモデレーションに提出し、非同期で結果を受け取るためのサーバーサイドサービスです。"
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/1": {
-    "documentation": ""
+    "documentation": "このプロセッサが他のバインドされたプロセッサに対して呼び出される順序を決定します。"
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/2": {
-    "documentation": ""
+    "documentation": "各レビュー可能コンテンツイベントに対して呼び出される関数です。イベントを確認するには<code>true</code>を返し、再配信のために残すには<code>false</code>を返す必要があります。"
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/return/0": {
-    "documentation": ""
+    "documentation": "プロセッサを登録解除するために切断できる接続です。"
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor": {
-    "documentation": "",
+    "documentation": "レビュー可能なコンテンツの各モデレーションレビューイベントに対して呼び出される、<code>priority</code>で順序付けられたサーバーサイドプロセッサを登録します。",
     "params": [
       {
         "name": "self",
@@ -80174,16 +80238,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/0": {
-    "documentation": ""
+    "documentation": "プレイヤーのキャプチャをコンテンツモデレーションに提出し、非同期で結果を受け取るためのサーバーサイドサービスです。"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/1": {
-    "documentation": ""
+    "documentation": "レビューするコンテンツを説明するパラメータのテーブルで、オプションの<code>Id</code>、オプションの<code>Ref</code>、および画像またはビデオアイテムの<code>Content</code>リストを含みます。"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/return/0": {
-    "documentation": ""
+    "documentation": "作成されたレビュー可能コンテンツのIDです。"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync": {
-    "documentation": "",
+    "documentation": "ユーザー生成のキャプチャをモデレーションレビューのために登録し、所有するクライアントにアップロードをトリガーし、レビュー可能コンテンツのIDを返します。",
     "params": [
       {
         "name": "self",
@@ -80201,16 +80265,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/0": {
-    "documentation": ""
+    "documentation": "プレイヤーのキャプチャをコンテンツモデレーションに提出し、非同期で結果を受け取るためのサーバーサイドサービスです。"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/1": {
-    "documentation": ""
+    "documentation": "<code>CaptureService:CaptureScreenshot()</code>からの一時的URI、<code>ScreenshotCapture</code>、または<code>VideoCapture</code>を参照するスクリーンショットまたはビデオキャプチャに関する<code>Content</code>です。"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0": {
-    "documentation": ""
+    "documentation": "キャプチャを識別する不透明なコンテンツキーです。"
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey": {
-    "documentation": "",
+    "documentation": "スクリーンショットまたはビデオキャプチャを識別する不透明なキーを返します。 <code>CreateReviewableContentAsync()</code>で使用します。",
     "params": [
       {
         "name": "self",
@@ -80225,28 +80289,6 @@
       "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#CreateReviewableContentKey",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0"
-      },
-      {
-        "name": "config",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalRequestReviewableContentReviewAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation": {
@@ -87366,7 +87408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "チャットウィンドウに表示される個々のテキストチャットメッセージの外観をカスタマイズします。",
     "keys": {
       "FontFace": "@roblox/globaltype/ChatWindowMessageProperties.FontFace",
       "PrefixTextProperties": "@roblox/globaltype/ChatWindowMessageProperties.PrefixTextProperties",
@@ -97381,6 +97423,7 @@
       "ChatVersion": "@roblox/globaltype/TextChatService.ChatVersion",
       "CreateDefaultCommands": "@roblox/globaltype/TextChatService.CreateDefaultCommands",
       "CreateDefaultTextChannels": "@roblox/globaltype/TextChatService.CreateDefaultTextChannels",
+      "PlatformIntegratedChat": "@roblox/globaltype/TextChatService.PlatformIntegratedChat",
       "CanUserChatAsync": "@roblox/globaltype/TextChatService.CanUserChatAsync",
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
       "CanUsersDirectChatAsync": "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync",
@@ -97413,14 +97456,19 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#CreateDefaultTextChannels",
     "code_sample": ""
   },
+  "@roblox/globaltype/TextChatService.PlatformIntegratedChat": {
+    "documentation": "プラットフォーム統合チャットが体験のために有効になっているかどうかを決定します。 <code>RobloxScript</code>セキュリティが必要です。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#PlatformIntegratedChat",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/0": {
     "documentation": "体験内のテキストチャットを処理するサービスです。"
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "チャット権限が確認されているユーザーの<code>Player.UserId</code>です。"
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "ユーザーがチャットする権限を持っているかどうかを示すブール値です。"
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync": {
     "documentation": "ユーザーが体験内でチャットする権限があるかどうかを判断します。",
@@ -97444,13 +97492,13 @@
     "documentation": "体験内のテキストチャットを処理するサービスです。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "潜在的なメッセージ送信者の<code>Player.UserId</code>です。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": ""
+    "documentation": "潜在的なメッセージ受信者の<code>Player.UserId</code>です。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "2人のユーザーがメッセージを交換できるかどうかを示すブール値です。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync": {
     "documentation": "二人のユーザーが互いにメッセージを受信できるかどうかを判断します。",
@@ -99965,7 +100013,7 @@
     "documentation": "報酬として付与したい開発者プロダクトのID。"
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/return/0": {
-    "documentation": ""
+    "documentation": "指定された製品のために開発者製品の報酬として構成された <code>AdReward</code> です。"
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
     "documentation": "動画広告を視聴したユーザーに報酬を与える<code>AdReward</code>を作成します。",
@@ -100050,7 +100098,7 @@
     "documentation": "体験内広告を担当するサービスです。"
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/1": {
-    "documentation": ""
+    "documentation": "報酬付き動画広告の機会として追跡する <code>GuiButton</code> です。 <code>ScreenGui</code> の子孫である必要があります。"
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/2": {
     "documentation": "体験内での報酬付きビデオ広告の配置のID。個別の広告配置のパフォーマンスを報告するために使用します。"
@@ -100164,10 +100212,10 @@
     "documentation": "体験内広告を担当するサービスです。"
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/1": {
-    "documentation": ""
+    "documentation": "追跡を停止するインスタンスです。これは、以前に <code>RegisterAdOpportunityAsync()</code> に渡したインスタンスである必要があります。"
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity": {
-    "documentation": "",
+    "documentation": "<code>RegisterAdOpportunityAsync</code> で以前に登録されたインスタンスの追跡を停止します。",
     "params": [
       {
         "name": "self",
@@ -107666,7 +107714,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.AdLabelClicked": {
-    "documentation": "",
+    "documentation": "プレイヤーが広告オーバーレイの「スポンサー付き」ラベルをクリックしました。 これにより、広告主と支払者の情報を表示する広告開示プロンプトが開きます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107676,7 +107724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.VolumeButtonClicked": {
-    "documentation": "",
+    "documentation": "プレイヤーが広告オーバーレイの音量トグルボタンをクリックしました。 これにより、ビデオ広告の音声がミュートまたはミュート解除されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107686,7 +107734,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.FullscreenButtonClicked": {
-    "documentation": "",
+    "documentation": "プレイヤーが全画面トグルボタンをクリックしました。 これにより、カメラが広告面の中心にスムーズにズームし、音声が有効になります。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107696,7 +107744,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayButtonClicked": {
-    "documentation": "",
+    "documentation": "プレイヤーが広告オーバーレイの再生ボタンをクリックしました。 広告がすでに全画面の場合、再生が再開されます。 そうでない場合は、全画面モードに入り、ビデオが開始（または再開）されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107706,7 +107754,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseButtonClicked": {
-    "documentation": "",
+    "documentation": "プレイヤーが全画面モードでビデオ広告が再生中に一時停止ボタンをクリックしました。 これにより、ビデオの再生が一時停止されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107716,7 +107764,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.CloseButtonClicked": {
-    "documentation": "",
+    "documentation": "プレイヤーが全画面ビデオ広告ビューの閉じるボタンをクリックしました。 これにより、全画面モードが終了し、通常のカメラ位置に戻ります。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107726,7 +107774,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.WhyThisAdClicked": {
-    "documentation": "",
+    "documentation": "プレイヤーが「この広告はなぜ？」リンクをクリックしました。 これにより、EUDSA（欧州デジタルサービス法）開示プロンプトが表示され、 現在の広告クリエイティブの広告主と支払者の名前が表示されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107736,7 +107784,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayEventTriggered": {
-    "documentation": "",
+    "documentation": "システムが開始した再生/再開イベントで、強制一時停止状態を解除し、 ストリームが開いている場合はビデオ再生を再開します。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107746,7 +107794,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseEventTriggered": {
-    "documentation": "",
+    "documentation": "システムが開始した一時停止イベントで、エンジンがビデオを強制的に一時停止する必要があるときに使用されます（例：ドロップダウンメニューが広告の上に開くとき）。 対応するシステムイベントがその一時停止を解除するまで、視認性に基づく自動再生が再生を再開するのを防ぎます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107756,7 +107804,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIEventType": {
-    "documentation": "",
+    "documentation": "ユーザーインタラクションまたはシステムイベントのタイプを説明します。 <code>AdGui</code>の没入型広告UIオーバーレイで発生しました。",
     "keys": {
       "AdLabelClicked": "@roblox/enum/AdUIEventType.AdLabelClicked",
       "VolumeButtonClicked": "@roblox/enum/AdUIEventType.VolumeButtonClicked",
@@ -111383,7 +111431,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ShowAdResult.InsufficientMemory": {
-    "documentation": "",
+    "documentation": "デバイスに広告を表示するための十分なビデオメモリがありません。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -111393,7 +111441,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ShowAdResult": {
-    "documentation": "",
+    "documentation": "<code>AdService:ShowRewardedVideoAdAsync()</code>によって返される結果コード 報酬付きビデオ広告が正常に完了したか、または完了しなかった理由を示します。",
     "keys": {
       "ShowCompleted": "@roblox/enum/ShowAdResult.ShowCompleted",
       "AdNotReady": "@roblox/enum/ShowAdResult.AdNotReady",
@@ -114689,7 +114737,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsLogLevel.Information": {
-    "documentation": "",
+    "documentation": "通常の操作中に進行状況や状態の変化を強調する一般的な情報メッセージに使用されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114729,7 +114777,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsLogLevel": {
-    "documentation": "",
+    "documentation": "分析ログイベントの重大度レベルを指定します。 <code>AnalyticsService:FireLogEvent()</code>に渡されます。",
     "keys": {
       "Trace": "@roblox/enum/AnalyticsLogLevel.Trace",
       "Debug": "@roblox/enum/AnalyticsLogLevel.Debug",
@@ -114815,7 +114863,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PublicChat": {
-    "documentation": "",
+    "documentation": "この文字列がすべてのプレイヤーまたは広範な公開オーディエンスに表示されることを示し、最も厳しいレベルのテキストフィルタリングを適用します。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114825,7 +114873,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PrivateChat": {
-    "documentation": "",
+    "documentation": "この文字列が特定のユーザー間のプライベートな会話の一部であることを示し、1対1または小グループのやり取りに適したフィルタリングを適用します。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114835,7 +114883,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.TextFilterContext": {
-    "documentation": "",
+    "documentation": "<code>TextService:FilterStringAsync()</code> または <code>TextService:FilterAndTranslateStringAsync()</code> に送信されたテキストが、公開または非公開のオーディエンスを対象としているかどうかを示し、テキストフィルタリングバックエンドの厳格さを制御します。",
     "keys": {
       "PublicChat": "@roblox/enum/TextFilterContext.PublicChat",
       "PrivateChat": "@roblox/enum/TextFilterContext.PrivateChat"
@@ -115938,38 +115986,28 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#None",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.LOD": {
-    "documentation": "青から赤へのヒートマップを使用して、各メッシュを現在の詳細レベルによって色分けします。青は最低の詳細を示し、暖色はより高い詳細を示します。遠くのメッシュが低い忠実度でストリーミングされていることを確認するのに便利です。",
+  "@roblox/enum/SlimTintMode.LevelOfDetail": {
+    "documentation": "各メッシュをその現在の詳細レベルによって色付けします。青は最も粗い、赤は最も細かい、そしてその間の各ランクは固定の色にマッピングされます。特定の色は、すべてのメッシュで同じLODランクを意味しますが、各メッシュの最高の利用可能なLODは常に赤で表示されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LOD",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LevelOfDetail",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.Meshes": {
-    "documentation": "モデル内の各個別メッシュに異なる色を割り当てます。メッシュの境界を特定し、モデルがどのように別々のメッシュパーツに分割されているかを確認するのに便利です。",
+  "@roblox/enum/SlimTintMode.DataModelState": {
+    "documentation": "SLIMモデルを、そのDataModelインスタンスがストリーミングされているかどうかによって色付けします。緑はストリーミング中（完全なDataModelが存在する）を示し、黄色はストリーミングアウト（プレースホルダー）を示します。どちらもSLIMを介してレンダリングされます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Meshes",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTintMode.Zone": {
-    "documentation": "ストリーミングゾーンによってメッシュに色を付けます。緑はデータモデルが存在する高忠実度ゾーンを示し、黄色はデータモデルが存在しない低忠実度ゾーンを示します。",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Zone",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#DataModelState",
     "code_sample": ""
   },
   "@roblox/enum/SlimTintMode.TranscoderStatus": {
-    "documentation": "各SLIMモデルをその<code>SlimTranscoderStatus</code>によって色付けします。リンクをたどって、各ステータスにどの色が対応しているかを確認してください。",
+    "documentation": "各SLIMモデルをその <code>SlimTranscoderStatus</code> によって色付けします。どの色が各ステータスにマッピングされているかを見るには、リンクをたどってください。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -115982,9 +116020,8 @@
     "documentation": "SLIMデバッグティントオーバーレイで使用されるカラ―コーディングモードを決定します。 Developer Consoleで。",
     "keys": {
       "None": "@roblox/enum/SlimTintMode.None",
-      "LOD": "@roblox/enum/SlimTintMode.LOD",
-      "Meshes": "@roblox/enum/SlimTintMode.Meshes",
-      "Zone": "@roblox/enum/SlimTintMode.Zone",
+      "LevelOfDetail": "@roblox/enum/SlimTintMode.LevelOfDetail",
+      "DataModelState": "@roblox/enum/SlimTintMode.DataModelState",
       "TranscoderStatus": "@roblox/enum/SlimTintMode.TranscoderStatus"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode",
@@ -116315,7 +116352,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnCreatingChatWindow": {
-    "documentation": "",
+    "documentation": "チャットウィンドウが構築される前に呼び出されるクライアント専用のコールバックで、カスタム設定を提供できます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116325,7 +116362,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientSendingMessage": {
-    "documentation": "",
+    "documentation": "クライアントがメッセージを送信する際に予約されたクライアント専用のコールバックで、現在は呼び出されていません。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116335,7 +116372,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientFormattingMessage": {
-    "documentation": "",
+    "documentation": "メッセージが表示される前に呼び出されるクライアント専用のコールバックで、その表示データを変更できます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116345,7 +116382,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnServerReceivingMessage": {
-    "documentation": "",
+    "documentation": "スピーカーからサーバーがメッセージを受信したときに呼び出されるサーバー専用のコールバックで、メッセージを変更または抑制できます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116355,7 +116392,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatCallbackType": {
-    "documentation": "",
+    "documentation": "レガシーLuauチャットパイプラインにおけるフックポイントを特定し、<code>Chat:RegisterChatCallback()</code>および<code>Chat:InvokeChatCallback()</code>で使用します。",
     "keys": {
       "OnCreatingChatWindow": "@roblox/enum/ChatCallbackType.OnCreatingChatWindow",
       "OnClientSendingMessage": "@roblox/enum/ChatCallbackType.OnClientSendingMessage",
@@ -120765,7 +120802,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.None": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code>には広告クリエイティブがロードされておらず、広告コンテンツをレンダリングしていません。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120775,7 +120812,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Image": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code>は静的画像の広告クリエイティブをレンダリングしています。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120785,7 +120822,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Video": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code>は動画の広告クリエイティブをレンダリングしています。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120795,7 +120832,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIType": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code>によって現在レンダリングされている広告クリエイティブのタイプを説明します。",
     "keys": {
       "None": "@roblox/enum/AdUIType.None",
       "Image": "@roblox/enum/AdUIType.Image",
@@ -123706,7 +123743,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Unknown": {
-    "documentation": "",
+    "documentation": "プラットフォームのユーザーに対するチャット制限ステータスはまだ決定されていません。これはすべての ChatRestrictionStatus プロパティのデフォルト値です。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123716,7 +123753,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.NotRestricted": {
-    "documentation": "",
+    "documentation": "サードパーティプラットフォームは、ユーザーにチャット制限がないことを確認しました。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123726,7 +123763,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Restricted": {
-    "documentation": "",
+    "documentation": "サードパーティプラットフォームは、ユーザーがチャットを制限されていると報告しました。通常、これは親の管理またはプラットフォームの通信設定によるものです。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123736,7 +123773,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatRestrictionStatus": {
-    "documentation": "",
+    "documentation": "サードパーティプラットフォームがユーザーに対して報告するチャット制限ステータスを説明します。",
     "keys": {
       "Unknown": "@roblox/enum/ChatRestrictionStatus.Unknown",
       "NotRestricted": "@roblox/enum/ChatRestrictionStatus.NotRestricted",
@@ -128179,57 +128216,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SurfaceType",
     "code_sample": ""
   },
-  "@roblox/enum/WebSocketState.Connecting": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Connecting",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Open": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Open",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closing": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closing",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closed": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closed",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.WebSocketState": {
-    "documentation": "",
-    "keys": {
-      "Connecting": "@roblox/enum/WebSocketState.Connecting",
-      "Open": "@roblox/enum/WebSocketState.Open",
-      "Closing": "@roblox/enum/WebSocketState.Closing",
-      "Closed": "@roblox/enum/WebSocketState.Closed"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState",
-    "code_sample": ""
-  },
   "@roblox/enum/RecommendationActionType.AddReaction": {
     "documentation": "ユーザーがアイテムに「いいね」などの反応を追加しました。",
     "keys": {
@@ -129627,7 +129613,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField01": {
-    "documentation": "",
+    "documentation": "最初のカスタムフィールドキーで、Robloxが提供する分析チャートでの内訳次元を提供するために使用されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129637,7 +129623,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField02": {
-    "documentation": "",
+    "documentation": "2番目のカスタムフィールドキーで、Robloxが提供する分析チャートでの内訳次元を提供するために使用されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129647,7 +129633,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField03": {
-    "documentation": "",
+    "documentation": "3番目のカスタムフィールドキーで、Robloxが提供する分析チャートでの内訳次元を提供するために使用されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131738,7 +131724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextChatMessageStatus.ModerationTimeout": {
-    "documentation": "",
+    "documentation": "メッセージは、ユーザーがチャットに対してアクティブなモデレーションタイムアウトを持っているため、送信できません。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131863,7 +131849,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdAvailabilityResult": {
-    "documentation": "",
+    "documentation": "広告が利用可能か、または表示できない理由を示します。",
     "keys": {
       "IsAvailable": "@roblox/enum/AdAvailabilityResult.IsAvailable",
       "DeviceIneligible": "@roblox/enum/AdAvailabilityResult.DeviceIneligible",
@@ -132649,7 +132635,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Default": {
-    "documentation": "",
+    "documentation": "より具体的な構文カテゴリに一致しないスクリプトテキストに使用されるフォールバック前景色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132659,7 +132645,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Operator": {
-    "documentation": "",
+    "documentation": "スクリプト内の<code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>、<code>==</code>、および<code>..</code>のような演算子トークンに適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132669,7 +132655,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Number": {
-    "documentation": "",
+    "documentation": "スクリプト内の数値リテラルトークンに適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132679,7 +132665,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.String": {
-    "documentation": "",
+    "documentation": "引用された文字列や長い文字列リテラルを含む文字列リテラルトークンに適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132689,7 +132675,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Comment": {
-    "documentation": "",
+    "documentation": "スクリプト内のコメントトークン（単一行<code>--</code>およびブロック<code>--[[ ]]</code>コメント）に適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132699,7 +132685,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Keyword": {
-    "documentation": "",
+    "documentation": "<code>if</code>、<code>then</code>、<code>else</code>、<code>do</code>、<code>end</code>、<code>return</code>、および<code>while</code>のようなLuauの予約語に適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132709,7 +132695,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Builtin": {
-    "documentation": "",
+    "documentation": "スクリプト内のLuauの組み込み関数および標準ライブラリ識別子に適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132719,7 +132705,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Method": {
-    "documentation": "",
+    "documentation": "スクリプト内のメソッド呼び出し識別子に適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132729,7 +132715,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Property": {
-    "documentation": "",
+    "documentation": "スクリプト内のプロパティアクセス識別子（<code>.</code>演算子に続くトークン）に適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132739,7 +132725,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Nil": {
-    "documentation": "",
+    "documentation": "スクリプト内の<code>nil</code>リテラルトークンに適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132749,7 +132735,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bool": {
-    "documentation": "",
+    "documentation": "スクリプト内のブールリテラル（<code>true</code>および<code>false</code>）を強調表示するために使用される前景色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132759,7 +132745,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Function": {
-    "documentation": "",
+    "documentation": "関数宣言内の<code>function</code>キーワードトークンに適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132769,7 +132755,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Local": {
-    "documentation": "",
+    "documentation": "ローカル変数および関数宣言内の<code>local</code>キーワードトークンに適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132779,7 +132765,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Self": {
-    "documentation": "",
+    "documentation": "メソッド本体内の<code>self</code>識別子トークンに適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132789,7 +132775,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.LuauKeyword": {
-    "documentation": "",
+    "documentation": "<code>type</code>や<code>typeof</code>のようなLuau特有の型注釈キーワードに適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132799,7 +132785,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FunctionName": {
-    "documentation": "",
+    "documentation": "関数の宣言で関数に名前を付ける識別子に適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132809,7 +132795,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.TODO": {
-    "documentation": "",
+    "documentation": "<code>TODO</code>マーカーがスクリプト内のコメントに見つかったときに適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132819,7 +132805,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Background": {
-    "documentation": "",
+    "documentation": "スクリプトエディタキャンバスの主背景色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132829,7 +132815,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionText": {
-    "documentation": "",
+    "documentation": "スクリプトエディタ内の現在選択されている範囲内のテキストの前景色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132839,7 +132825,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionBackground": {
-    "documentation": "",
+    "documentation": "スクリプトエディタ内の現在選択されているテキスト範囲の背景ハイライト色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132849,7 +132835,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FindSelectionBackground": {
-    "documentation": "",
+    "documentation": "検索または置換操作によって一致したテキスト範囲に適用される背景ハイライト色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132859,7 +132845,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MatchingWordBackground": {
-    "documentation": "",
+    "documentation": "ワードハイライトがアクティブなときにカーソルの下にある単語のすべての出現に適用される背景ハイライト色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132869,7 +132855,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Warning": {
-    "documentation": "",
+    "documentation": "スクリプト内の警告レベルの診断マーカーおよび下線に使用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132879,7 +132865,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Error": {
-    "documentation": "",
+    "documentation": "スクリプト内のエラーレベルの診断マーカーおよび下線に使用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132889,7 +132875,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Info": {
-    "documentation": "",
+    "documentation": "スクリプト内の情報レベルの診断マーカーに使用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132899,7 +132885,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Hint": {
-    "documentation": "",
+    "documentation": "スクリプト内のヒントレベルの診断マーカーに使用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132909,7 +132895,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Whitespace": {
-    "documentation": "",
+    "documentation": "その表示オプションが有効なときに可視の空白文字（スペースとタブ）をレンダリングするために使用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132919,7 +132905,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.ActiveLine": {
-    "documentation": "",
+    "documentation": "現在テキストカーソルがある行に適用される背景ハイライト色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132929,7 +132915,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerCurrentLine": {
-    "documentation": "",
+    "documentation": "デバッガが現在一時停止している行の背景ハイライト色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132939,7 +132925,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerErrorLine": {
-    "documentation": "",
+    "documentation": "デバッグセッション中にランタイムエラーを引き起こした行の背景ハイライト色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132949,7 +132935,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Ruler": {
-    "documentation": "",
+    "documentation": "スクリプトエディタ内の設定された文字幅制限で描画される垂直列ルーラー線の色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132959,7 +132945,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bracket": {
-    "documentation": "",
+    "documentation": "スクリプト内の括弧文字（<code>(</code>、<code>)</code>、<code>[</code>、<code>]</code>、<code>{</code>、および<code>}</code>）に適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132969,7 +132955,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Type": {
-    "documentation": "",
+    "documentation": "型注釈および宣言内のLuau型名トークンに適用される色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132979,7 +132965,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuPrimaryText": {
-    "documentation": "",
+    "documentation": "オートコンプリートおよびコンテキストメニューのポップアップにリストされたアイテムの主テキスト色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132989,7 +132975,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSecondaryText": {
-    "documentation": "",
+    "documentation": "オートコンプリートポップアップ内の二次テキスト色（例えば、型注釈やドキュメントヒント）。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132999,7 +132985,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedText": {
-    "documentation": "",
+    "documentation": "オートコンプリートおよびコンテキストメニューのポップアップ内で現在ハイライトされているアイテムのテキスト色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133009,7 +132995,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBackground": {
-    "documentation": "",
+    "documentation": "スクリプトエディタ内のオートコンプリートおよびコンテキストメニューのポップアップの背景色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133019,7 +133005,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedBackground": {
-    "documentation": "",
+    "documentation": "オートコンプリートおよびコンテキストメニューのポップアップ内で現在ハイライトされているアイテムの背景色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133029,7 +133015,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarBackground": {
-    "documentation": "",
+    "documentation": "オートコンプリートおよびコンテキストメニューのポップアップ内のスクロールバーのトラックの背景色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133039,7 +133025,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarHandle": {
-    "documentation": "",
+    "documentation": "オートコンプリートおよびコンテキストメニューのポップアップ内のスクロールバーのサム（ハンドル）の色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133049,7 +133035,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBorder": {
-    "documentation": "",
+    "documentation": "スクリプトエディタ内のオートコンプリートおよびコンテキストメニューのポップアップの境界線の色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133059,7 +133045,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DocViewCodeBackground": {
-    "documentation": "",
+    "documentation": "スタジオ内のドキュメントビューアパネルでレンダリングされるインラインコードブロックの背景色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133069,7 +133055,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayText": {
-    "documentation": "",
+    "documentation": "AIコードオーバーレイパネルに表示されるラベルのテキスト色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133079,7 +133065,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackground": {
-    "documentation": "",
+    "documentation": "デフォルト（アイドル）状態のAIコードオーバーレイアクションボタンの背景色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133089,7 +133075,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundHover": {
-    "documentation": "",
+    "documentation": "ポインタが上にあるときのAIコードオーバーレイアクションボタンの背景色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133099,7 +133085,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundPressed": {
-    "documentation": "",
+    "documentation": "押されている間のAIコードオーバーレイアクションボタンの背景色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133109,7 +133095,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.IndentationRuler": {
-    "documentation": "",
+    "documentation": "スクリプトエディタのガター内の各インデントレベルで描画される垂直ガイドラインの色。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133119,7 +133105,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.StudioScriptEditorColorCategories": {
-    "documentation": "",
+    "documentation": "Roblox Studioのスクリプトエディタのテーマに使用される色のカテゴリ。",
     "keys": {
       "Default": "@roblox/enum/StudioScriptEditorColorCategories.Default",
       "Operator": "@roblox/enum/StudioScriptEditorColorCategories.Operator",
@@ -133364,7 +133350,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptPublishAssetResult": {
-    "documentation": "<code>AssetService:PromptCreateAssetAsync()</code> 呼び出しの結果を説明します。",
+    "documentation": "<code>OpenPublishResultModal</code> イベントの非推奨の結果列挙型です。",
     "keys": {
       "Success": "@roblox/enum/PromptPublishAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptPublishAssetResult.PermissionDenied",
@@ -135428,7 +135414,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyTransactionType": {
-    "documentation": "",
+    "documentation": "体験内の経済取引のコンテキストを分類し、<code>AnalyticsService:LogEconomyEvent()</code>で使用します。",
     "keys": {
       "IAP": "@roblox/enum/AnalyticsEconomyTransactionType.IAP",
       "Shop": "@roblox/enum/AnalyticsEconomyTransactionType.Shop",
@@ -135621,7 +135607,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptCreateAssetResult": {
-    "documentation": "<code>AssetService:PromptCreateAssetAsync()</code> 呼び出しの結果を説明します。",
+    "documentation": "クラス <code>AvatarCreationService:PromptCreateAvatarAssetAsync()</code> の呼び出しの結果を説明します。",
     "keys": {
       "Success": "@roblox/enum/PromptCreateAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptCreateAssetResult.PermissionDenied",
@@ -135638,7 +135624,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Custom": {
-    "documentation": "",
+    "documentation": "標準の開始/失敗/完了ライフサイクルの外にあるイベントのためのカスタム進行状況です。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135648,7 +135634,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Start": {
-    "documentation": "",
+    "documentation": "プレイヤーがレベルの試行を開始しました。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135658,7 +135644,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Fail": {
-    "documentation": "",
+    "documentation": "プレイヤーがレベルの試行に失敗しました。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135668,7 +135654,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Complete": {
-    "documentation": "",
+    "documentation": "プレイヤーがレベルを成功裏に完了しました。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135678,7 +135664,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsProgressionType": {
-    "documentation": "",
+    "documentation": "プレイヤーのレベル進行イベントにおける進行状況を指定します。 <code>AnalyticsService:LogProgressionEvent()</code>によって記録されます。",
     "keys": {
       "Custom": "@roblox/enum/AnalyticsProgressionType.Custom",
       "Start": "@roblox/enum/AnalyticsProgressionType.Start",
@@ -136217,7 +136203,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdFormat.RewardedVideo": {
-    "documentation": "報酬付き動画広告のフォーマット。",
+    "documentation": "視聴者に報酬を与え、完了まで再生されるフルスクリーンのビデオ広告で、 <code>AdService</code> メソッドの <code>adFormat</code> 引数として使用されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136227,7 +136213,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdFormat": {
-    "documentation": "",
+    "documentation": "クラス <code>AdService</code> メソッドで使用される広告のフォーマットを指定します。",
     "keys": {
       "RewardedVideo": "@roblox/enum/AdFormat.RewardedVideo"
     },
@@ -136337,7 +136323,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Unknown": {
-    "documentation": "トランスコーディングのステータスはまだ決定されていません。これは、モデルがクエリされる前の初期状態です。デバッグティントオーバーレイではマゼンタで表示されます。",
+    "documentation": "トランスコーディングのステータスはまだ決定されていません。これはモデルがクエリされる前の初期状態です。デバッグティントオーバーレイで黄色として表示されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136346,48 +136332,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Unknown",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTranscoderStatus.NoHash": {
-    "documentation": "モデルはSLIM対応ですが、まだ生成されたハッシュがないため、トランスコーディングはリクエストされていません。デバッグティントオーバーレイではシアンで表示されます。",
+  "@roblox/enum/SlimTranscoderStatus.Transcoding": {
+    "documentation": "バックエンドでSLIMトランスコーディングが現在進行中です。トランスコーディングが完了すると、モデルは成功または失敗に遷移することが期待されます。デバッグティントオーバーレイで青として表示されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NoHash",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.NotUploaded": {
-    "documentation": "モデルはコンテンツ配信ネットワークにアップロードされていません。デバッグティントオーバーレイでオレンジとして表示されます。",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NotUploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.Uploaded": {
-    "documentation": "モデルはコンテンツ配信ネットワークにアップロードされましたが、まだSLIMアセットにトランスコードされていません。デバッグティントオーバーレイで黄色として表示されます。",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Uploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.InProgress": {
-    "documentation": "SLIMトランスコーディングは現在バックエンドで進行中です。トランスコーディングが完了すると、モデルは成功または失敗に移行することが期待されます。デバッグティントオーバーレイでは青で表示されます。",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#InProgress",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Transcoding",
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Succeeded": {
-    "documentation": "トランスコーディングが成功裏に完了し、SLIMアセットがストリーミング可能です。デバッグティントオーバーレイでは緑で表示されます。",
+    "documentation": "トランスコーディングが成功裏に完了し、SLIMアセットがストリーミングのために利用可能です。デバッグティントオーバーレイで緑として表示されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136397,7 +136353,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Failed": {
-    "documentation": "トランスコーディングは成功裏に完了しませんでした。デバッグティントオーバーレイでは赤で表示されます。",
+    "documentation": "トランスコーディングは成功裏に完了しませんでした。デバッグティントオーバーレイで赤として表示されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136410,10 +136366,7 @@
     "documentation": "SLIMモデルのバックエンドトランスコーディング状態を、アップロードから トランスコーディング、成功または失敗まで説明します。",
     "keys": {
       "Unknown": "@roblox/enum/SlimTranscoderStatus.Unknown",
-      "NoHash": "@roblox/enum/SlimTranscoderStatus.NoHash",
-      "NotUploaded": "@roblox/enum/SlimTranscoderStatus.NotUploaded",
-      "Uploaded": "@roblox/enum/SlimTranscoderStatus.Uploaded",
-      "InProgress": "@roblox/enum/SlimTranscoderStatus.InProgress",
+      "Transcoding": "@roblox/enum/SlimTranscoderStatus.Transcoding",
       "Succeeded": "@roblox/enum/SlimTranscoderStatus.Succeeded",
       "Failed": "@roblox/enum/SlimTranscoderStatus.Failed"
     },
@@ -137104,7 +137057,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyFlowType": {
-    "documentation": "",
+    "documentation": "経済イベントの通貨フローの方向を指定します。 <code>AnalyticsService:LogEconomyEvent()</code>によってログされます。",
     "keys": {
       "Sink": "@roblox/enum/AnalyticsEconomyFlowType.Sink",
       "Source": "@roblox/enum/AnalyticsEconomyFlowType.Source"
@@ -138772,7 +138725,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyAction": {
-    "documentation": "",
+    "documentation": "経済取引の種類を説明します <code>AnalyticsService:FireInGameEconomyEvent()</code>。",
     "keys": {
       "Default": "@roblox/enum/AnalyticsEconomyAction.Default",
       "Acquire": "@roblox/enum/AnalyticsEconomyAction.Acquire",
@@ -139004,7 +138957,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Blue": {
-    "documentation": "青色のチャットカラー。",
+    "documentation": "青いチャットの色; <code>Chat()</code> と <code>ChatLocal()</code> に渡されるデフォルト値。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139014,7 +138967,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Green": {
-    "documentation": "緑色のチャットカラー。",
+    "documentation": "緑のチャットの色、<code>Chat()</code> または <code>ChatLocal()</code> に <code>color</code> 引数として渡される。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139024,7 +138977,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Red": {
-    "documentation": "赤色のチャットカラー。",
+    "documentation": "赤いチャットの色、<code>Chat()</code> または <code>ChatLocal()</code> に <code>color</code> 引数として渡される。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139034,7 +138987,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.White": {
-    "documentation": "白色のチャットカラー。",
+    "documentation": "白いチャットの色、<code>Chat()</code> または <code>ChatLocal()</code> に <code>color</code> 引数として渡される。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140537,7 +140490,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.Undefined": {
-    "documentation": "",
+    "documentation": "まだテレポート方法が決定されていないことを示すデフォルトの未初期化センチネル値です。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140547,7 +140500,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.PortalForward": {
-    "documentation": "",
+    "documentation": "プレイヤーは <code>AdPortal</code> に歩き入ることで、広告主の目的地体験に前方テレポートしました。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140557,7 +140510,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.InGameMenuBackButton": {
-    "documentation": "",
+    "documentation": "プレイヤーはゲーム内メニューの戻るボタンを押すことで、パブリッシャーの体験への戻りテレポートを開始しました。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140567,7 +140520,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.UIBackButton": {
-    "documentation": "",
+    "documentation": "プレイヤーは広告目的地のUIオーバーレイに表示された戻るボタンを押すことで、パブリッシャーの体験への戻りテレポートを開始しました。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140577,7 +140530,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdTeleportMethod": {
-    "documentation": "",
+    "documentation": "プレイヤーが没入型広告ポータルフロー中にテレポートする方法を説明します。",
     "keys": {
       "Undefined": "@roblox/enum/AdTeleportMethod.Undefined",
       "PortalForward": "@roblox/enum/AdTeleportMethod.PortalForward",

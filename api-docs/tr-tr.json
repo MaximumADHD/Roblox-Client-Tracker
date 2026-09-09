@@ -24207,10 +24207,10 @@
     "documentation": "Gerçek dünya satın alımlarını destekler ve bunları dijital avantajlarla birleştirebilirsiniz."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/param/1": {
-    "documentation": ""
+    "documentation": "Bakım ürününün tanımlayıcısı, ya sayısal ID ya da tam <code>COM-</code>-ön ekli form."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/return/0": {
-    "documentation": ""
+    "documentation": "Bakım ürünü hakkında bilgi içeren bir sözlük, <code>IsForSale</code> olup olmadığı, <code>Name</code>, <code>Description</code>, <code>IconImageAssetId</code>, <code>DisplayPrice</code> ve <code>IsPurchasable</code> gibi görüntü detaylarının <code>Item</code> alt tablosu ve satın alındığında verilen <code>Benefits</code>."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync": {
     "documentation": "Deneyiminizde sattığınız ticaret ürünleri hakkında bilgi alır.",
@@ -24234,10 +24234,10 @@
     "documentation": "Gerçek dünya satın alımlarını destekler ve bunları dijital avantajlarla birleştirebilirsiniz."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/1": {
-    "documentation": ""
+    "documentation": "Satın alma akışını başlatacak <code>Player</code>. Bir istemci betiğinden çağrıldığında, bu yerel oyuncu olmalıdır."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/2": {
-    "documentation": ""
+    "documentation": "Satın alınacak bakım ürününün tanımlayıcısı, ya sayısal ID ya da tam <code>COM-</code>-ön ekli form."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase": {
     "documentation": "Kullanıcıyı sağlanan <code>commerceProductId</code> kullanarak bir ticaret ürününü satın almaya yönlendirir. Kullanıcıyı satın alma akışında yönlendiren bir web görünümü açar.",
@@ -24263,13 +24263,13 @@
     "documentation": "Gerçek dünya satın alımlarını destekler ve bunları dijital avantajlarla birleştirebilirsiniz."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/1": {
-    "documentation": ""
+    "documentation": "Tarayıcının açıldığı <code>Player</code>. Bir istemci betiğinden çağrıldığında, bu yerel oyuncu olmalıdır."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/2": {
-    "documentation": ""
+    "documentation": "Açılacak gerçek dünya ticaret URL'si. URL, ticaret beyaz listesinin üzerinde olmalıdır, aksi takdirde istek göz ardı edilir."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser": {
-    "documentation": "",
+    "documentation": "Belirtilen oyuncu için gerçek dünya ticaret URL'sine bir deneyim içi tarayıcı açan eski uç nokta; <code>CommerceService:PromptCommerceProductPurchase()</code> ile yer değiştirilmiştir.",
     "params": [
       {
         "name": "self",
@@ -24292,10 +24292,10 @@
     "documentation": "Gerçek dünya satın alımlarını destekler ve bunları dijital avantajlarla birleştirebilirsiniz."
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync/return/0": {
-    "documentation": ""
+    "documentation": "Mevcut kullanıcının gerçek dünya ticareti için uygun olması durumunda <code>true</code>."
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync": {
-    "documentation": "",
+    "documentation": "Mevcut kullanıcının gerçek dünya ticareti için uygun olup olmadığını belirten eski uç nokta; <code>PolicyService</code> ile yer değiştirilmiştir.",
     "params": [
       {
         "name": "self",
@@ -24408,7 +24408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatCommand.AutocompleteVisible": {
-    "documentation": "",
+    "documentation": "<code>TextChatCommand</code>'ın sohbet otomatik tamamlama menüsünde öneri olarak gösterilip gösterilmeyeceğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatCommand#AutocompleteVisible",
     "code_sample": ""
   },
@@ -29850,6 +29850,7 @@
   "@roblox/globaltype/Decal": {
     "documentation": "<code>BasePart</code>'ın bir yüzüne bir resim dokusu uygular.",
     "keys": {
+      "AutoLocalize": "@roblox/globaltype/Decal.AutoLocalize",
       "Color3": "@roblox/globaltype/Decal.Color3",
       "ColorMap": "@roblox/globaltype/Decal.ColorMap",
       "ColorMapContent": "@roblox/globaltype/Decal.ColorMapContent",
@@ -29865,6 +29866,7 @@
       "Specular": "@roblox/globaltype/Decal.Specular",
       "Texture": "@roblox/globaltype/Decal.Texture",
       "TextureContent": "@roblox/globaltype/Decal.TextureContent",
+      "TexturePackContent": "@roblox/globaltype/Decal.TexturePackContent",
       "Transparency": "@roblox/globaltype/Decal.Transparency",
       "UVOffset": "@roblox/globaltype/Decal.UVOffset",
       "UVScale": "@roblox/globaltype/Decal.UVScale",
@@ -29873,13 +29875,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.AutoLocalize": {
+    "documentation": "<code>true</code> olarak ayarlandığında, decal'ın resim varlığı otomatik yerelleştirme yakalama için uygundur.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#AutoLocalize",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Color3": {
-    "documentation": "<code>Decal</code>'ın <code>Color3</code> rengidir.",
+    "documentation": "<code>Color3</code> tint'i <code>Decal</code>'ın.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Color3",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ColorMap": {
-    "documentation": "Yüzeyin renk ve opaklığını belirleyen içerik kimliği.",
+    "documentation": "Yüzeyin renk ve opaklığını belirleyen içerik ID'si.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMap",
     "code_sample": ""
   },
@@ -29889,27 +29896,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.LocalTransparencyModifier": {
-    "documentation": "Decal'in <code>Transparency</code> özelliği için bir çarpan işlevi görür. Etkiler yalnızca yerel oyuncuya görünür.",
+    "documentation": "Decal'ın <code>Transparency</code> özelliği için bir çarpan görevi görür. Etkiler yalnızca yerel oyuncuya görünür.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#LocalTransparencyModifier",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMap": {
-    "documentation": "",
+    "documentation": "Yüzeyin metalness haritasını belirleyen içerik ID'si.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.MetalnessMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> nesnesi, yüzeyin metalness haritasını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMap": {
-    "documentation": "",
+    "documentation": "Yüzeyin normal haritasını belirleyen içerik ID'si.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.NormalMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> nesnesi, yüzeyin normal haritasını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMapContent",
     "code_sample": ""
   },
@@ -29919,27 +29926,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMap": {
-    "documentation": "",
+    "documentation": "Yüzeyin roughness haritasını belirleyen içerik ID'si.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.RoughnessMapContent": {
-    "documentation": "",
+    "documentation": "<code>Content</code> nesnesi, yüzeyin roughness haritasını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Shiny": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlevsel olmayan özellik kullanımdan kaldırılmıştır ve yeni çalışmalarda kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlevsiz özellik kullanımdan kaldırılmıştır ve yeni çalışmalarda kullanılmamalıdır.<br>Daha önce decal'ın parlaklığını ayarlayan kullanımdan kaldırılmış özellik.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Shiny",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Specular": {
-    "documentation": "<strong>Deprecated:</strong> Bu özellik artık doğru çalışmamaktadır ve kullanımdan kaldırılmıştır. Yeni çalışmalarda kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu özellik artık doğru çalışmamaktadır ve kullanımdan kaldırılmıştır. Yeni çalışmalarda kullanılmamalıdır.<br>Daha önce decal'ın spekülerliğini ayarlayan kullanımdan kaldırılmış özellik.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Specular",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Texture": {
-    "documentation": "<code>Decal</code> tarafından uygulanacak resmin içerik kimliği.",
+    "documentation": "<code>Decal</code> tarafından uygulanacak resmin içerik ID'si.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Texture",
     "code_sample": ""
   },
@@ -29948,18 +29955,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.TexturePackContent": {
+    "documentation": "Motor tarafından yönetilen <code>Content</code>, PBR decal'ları için sıkıştırılmış çalışma zamanı doku paketi verilerini saklar.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TexturePackContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Transparency": {
     "documentation": "<code>Decal</code>'ın saydamlığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.UVOffset": {
-    "documentation": "Doku haritalama işleminden önce bir ofset ekleyerek UV koordinatlarını kaydırır.",
+    "documentation": "Doku haritalama öncesinde bir offset ekleyerek UV koordinatlarını kaydırır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVOffset",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.UVScale": {
-    "documentation": "UV koordinatlarını bir ölçek faktörü ile çarpıp esnetir veya sıkıştırır.",
+    "documentation": "UV koordinatlarını bir ölçek faktörü ile çarparak uzatır veya sıkıştırır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVScale",
     "code_sample": ""
   },
@@ -33842,12 +33854,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "<code>BubbleChatMessageProperties</code>'e referans, bu mesajın sohbet balonunun görünümünü geçersiz kılar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#BubbleChatMessageProperties",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage.ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "<code>ChatWindowMessageProperties</code>'e referans, bu mesajın sohbet penceresindeki görünümünü geçersiz kılar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatMessage#ChatWindowMessageProperties",
     "code_sample": ""
   },
@@ -44704,7 +44716,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VisibilityCheckDispatcher": {
-    "documentation": "",
+    "documentation": "Bir yerdeki etkileşimli reklam örnekleri için görünürlük kontrollerini planlayan ve yürüten hizmet.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisibilityCheckDispatcher",
     "code_sample": ""
@@ -47184,31 +47196,6 @@
   "@roblox/globaltype/TerrainDetail.StudsPerTile": {
     "documentation": "Dokuların ölçeğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#StudsPerTile",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping": {
-    "documentation": "",
-    "keys": {
-      "FlattenTree": "@roblox/globaltype/PatchMapping.FlattenTree",
-      "PatchId": "@roblox/globaltype/PatchMapping.PatchId",
-      "TargetPath": "@roblox/globaltype/PatchMapping.TargetPath"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.FlattenTree": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#FlattenTree",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.PatchId": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#PatchId",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PatchMapping.TargetPath": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchMapping#TargetPath",
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
@@ -51151,7 +51138,7 @@
     "documentation": "Bir metin sohbet kanalı temsil eder."
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester/param/1": {
-    "documentation": ""
+    "documentation": "Bu <code>Player</code>, doğrudan mesaj izinlerinin kanalı kapattığı oyuncudur; sadece bu oyuncuya doğrudan mesaj gönderebilen kullanıcılar, kanalda mesaj alır."
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester": {
     "documentation": "<code>TextChannel</code> için <code>DirectChatRequester</code> ayarlayın. <code>TextChannel</code>, yalnızca <code>DirectChatRequester</code>'a doğrudan mesaj gönderebilen kullanıcılara mesajlar iletecektir.",
@@ -51196,7 +51183,7 @@
     "documentation": "Mesajı alacak kullanıcının <code>TextSource</code>'ıdır."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/return/0": {
-    "documentation": ""
+    "documentation": "Verilen istemciye mesajı iletmek için bir doğru değer (örneğin <code>true</code>, <code>1</code> veya boş olmayan bir dize) veya bu istemciden mesajı saklamak için bir yanlış değer (dahil <code>nil</code>) döndürür."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback": {
     "documentation": "<code>TextChannel</code> gelen bir mesaj aldığında her istemci için çağrılır ve bu mesajın o istemciye iletilip iletilmeyeceğini belirler.",
@@ -52876,6 +52863,7 @@
       "GetPredictionStatus": "@roblox/globaltype/RunService.GetPredictionStatus",
       "IsClient": "@roblox/globaltype/RunService.IsClient",
       "IsEdit": "@roblox/globaltype/RunService.IsEdit",
+      "IsResimulating": "@roblox/globaltype/RunService.IsResimulating",
       "IsRunMode": "@roblox/globaltype/RunService.IsRunMode",
       "IsRunning": "@roblox/globaltype/RunService.IsRunning",
       "IsServer": "@roblox/globaltype/RunService.IsServer",
@@ -52896,7 +52884,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.RunState": {
-    "documentation": "",
+    "documentation": "Oyunun simülasyonunun mevcut çalışma durumu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#RunState",
     "code_sample": ""
   },
@@ -52949,7 +52937,7 @@
     "documentation": "Bir tam sayı olarak bağlamanın isteğe bağlı önceliği; bağlı işlevlerin simülasyon adımı içindeki çağrılma sırasını belirler. Daha düşük sayılar önce çağrılır. İki bağlamanın aynı önceliği varsa, aralarındaki sıralama belirsizdir. Varsayılan değeri 2000'dir."
   },
   "@roblox/globaltype/RunService.BindToSimulation/return/0": {
-    "documentation": ""
+    "documentation": "Simülasyon adımından fonksiyonu ayırmak için kesilebilen bir <code>RBXScriptConnection</code>."
   },
   "@roblox/globaltype/RunService.BindToSimulation": {
     "documentation": "Belirli bir frekansta çağrılacak özel bir işlevi bağlar; bu frekans kare hızından bağımsızdır.",
@@ -52984,7 +52972,7 @@
     "documentation": "<code>Instance</code> için tahmin durumunu kontrol etmek için."
   },
   "@roblox/globaltype/RunService.GetPredictionStatus/return/0": {
-    "documentation": ""
+    "documentation": "Verilen örneğin <code>PredictionStatus</code>'ı, tahmin edilip edilmediğini, yetkili olup olmadığını veya tahmine katılmadığını gösterir."
   },
   "@roblox/globaltype/RunService.GetPredictionStatus": {
     "documentation": "Belirli bir bağlam örneğinin <code>PredictionStatus</code>'unu kontrol eder; bu, birden fazla örneği etkileyen scriptleri hata ayıklama için yararlıdır.",
@@ -53044,14 +53032,34 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsEdit",
     "code_sample": ""
   },
+  "@roblox/globaltype/RunService.IsResimulating/param/0": {
+    "documentation": "Tüm çalışma zamanı etkinlikleri ve zaman ilerlemesinden sorumlu hizmet."
+  },
+  "@roblox/globaltype/RunService.IsResimulating/return/0": {
+    "documentation": "Motorun şu anda yeniden simüle edip etmediği."
+  },
+  "@roblox/globaltype/RunService.IsResimulating": {
+    "documentation": "İstemcinin şu anda sunucu yetki modelinde bir yanlış tahmin sonrasında yeniden simülasyon adımında olup olmadığını döner.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.IsResimulating/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RunService.IsResimulating/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#IsResimulating",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RunService.IsRunMode/param/0": {
     "documentation": "Tüm çalışma zamanı etkinlikleri ve zaman ilerlemesinden sorumlu hizmet."
   },
   "@roblox/globaltype/RunService.IsRunMode/return/0": {
-    "documentation": "Studio'da bir <strong>Çalıştır</strong> oyun testinin başlatılıp başlatılmadığı."
+    "documentation": "Stüdyo'da bir <strong>Run</strong> oyun testi başlatılıp başlatılmadığı."
   },
   "@roblox/globaltype/RunService.IsRunMode": {
-    "documentation": "Studio'da bir <strong>Çalıştır</strong> oyun testi başlatılıp başlatılmadığını döner.",
+    "documentation": "Stüdyo'da bir <strong>Run</strong> oyun testi başlatılıp başlatılmadığını döner.",
     "params": [
       {
         "name": "self",
@@ -53088,10 +53096,10 @@
     "documentation": "Tüm çalışma zamanı etkinlikleri ve zaman ilerlemesinden sorumlu hizmet."
   },
   "@roblox/globaltype/RunService.IsServer/return/0": {
-    "documentation": "Mevcut ortamın sunucu üzerinde çalışıp çalışmadığı."
+    "documentation": "Mevcut ortamın sunucuda çalışıp çalışmadığı."
   },
   "@roblox/globaltype/RunService.IsServer": {
-    "documentation": "Mevcut ortamın sunucu üzerinde çalışıp çalışmadığını döner.",
+    "documentation": "Mevcut ortamın sunucuda çalışıp çalışmadığını döner.",
     "params": [
       {
         "name": "self",
@@ -53108,10 +53116,10 @@
     "documentation": "Tüm çalışma zamanı etkinlikleri ve zaman ilerlemesinden sorumlu hizmet."
   },
   "@roblox/globaltype/RunService.IsStudio/return/0": {
-    "documentation": "Mevcut ortamın Studio'da çalışıp çalışmadığı."
+    "documentation": "Mevcut ortamın Stüdyo'da çalışıp çalışmadığı."
   },
   "@roblox/globaltype/RunService.IsStudio": {
-    "documentation": "Mevcut ortamın Studio'da çalışıp çalışmadığını döner.",
+    "documentation": "Mevcut ortamın Stüdyo'da çalışıp çalışmadığını döner.",
     "params": [
       {
         "name": "self",
@@ -53143,7 +53151,7 @@
     "documentation": "Tüm çalışma zamanı etkinlikleri ve zaman ilerlemesinden sorumlu hizmet."
   },
   "@roblox/globaltype/RunService.Reset": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır ve yeni çalışmalarda kullanılmamalıdır.<br><code>RunService:Run()</code> çağrıldığında ayarlanan bir ara noktaya oyunu sıfırlar.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanımdan kaldırılmıştır ve yeni çalışmalarda kullanılmamalıdır.<br><code>RunService:Run()</code> çağrıldığında ayarlanan bir yol noktasına mevcut oyunu sıfırlar.",
     "params": [
       {
         "name": "self",
@@ -53176,10 +53184,10 @@
     "documentation": "Tahmin modunu ayarlamak için <code>Instance</code>."
   },
   "@roblox/globaltype/RunService.SetPredictionMode/param/2": {
-    "documentation": "Bağlam örneği için ayarlamak üzere <code>PredictionMode</code>."
+    "documentation": "Bağlam örneği için ayarlanacak <code>PredictionMode</code>."
   },
   "@roblox/globaltype/RunService.SetPredictionMode": {
-    "documentation": "<code>Instance</code> için bir <code>PredictionMode</code> değerine tahmin modunu ayarlar.",
+    "documentation": "Bir <code>Instance</code> için tahmin modunu bir <code>PredictionMode</code> değerine ayarlar.",
     "params": [
       {
         "name": "self",
@@ -53217,10 +53225,10 @@
     "documentation": "Tüm çalışma zamanı etkinlikleri ve zaman ilerlemesinden sorumlu hizmet."
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep/param/1": {
-    "documentation": "Çözülüntü işlemi yapılacak işlevin adı."
+    "documentation": "Bağlantısı kesilen fonksiyonun adı."
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep": {
-    "documentation": "Bağlı bir işlevi <code>RunService:BindToRenderStep()</code> ile render döngüsüne bağlanan işlevi çöz.",
+    "documentation": "<code>RunService:BindToRenderStep()</code> kullanılarak render döngüsüne bağlanmış bir fonksiyonu ayırır.",
     "params": [
       {
         "name": "self",
@@ -54373,7 +54381,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Name": {
-    "documentation": "<code>Instance</code>'nin benzersiz olmayan bir tanımlayıcısı.",
+    "documentation": "<code>Instance</code>'nin benzersiz olmayan bir tanımlayıcısıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Name",
     "code_sample": ""
   },
@@ -54383,7 +54391,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.PredictionMode": {
-    "documentation": "Sunucuya yetkili fizik altında nesneye uygulanan istemci tarafı tahmin modunu yansıtır.",
+    "documentation": "Sunucu yetkili fiziği altında nesneye uygulanan istemci tarafı tahmin modunu yansıtır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#PredictionMode",
     "code_sample": ""
   },
@@ -54398,7 +54406,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.UniqueId": {
-    "documentation": "Nesne için benzersiz bir tanımlayıcı.",
+    "documentation": "Nesne için benzersiz bir tanımlayıcıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#UniqueId",
     "code_sample": ""
   },
@@ -54431,7 +54439,7 @@
     "documentation": "Çocuk nesneleri/örnekleri dizisi."
   },
   "@roblox/globaltype/Instance.children": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, tüm yeni çalışmalarda kullanılacak <code>Instance:GetChildren()</code> ile değiştirilmiştir.<br>Nesnenin çocuklarının bir dizisini döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe, tüm yeni çalışmalarda kullanılacak <code>Instance:GetChildren()</code> ile değiştirilmiştir.<br>Nesnenin çocuklarının bir dizisini döner.",
     "params": [
       {
         "name": "self",
@@ -54539,7 +54547,7 @@
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestor": {
-    "documentation": "<code>Instance.Name</code> değeri verilen adı eşit olan <code>Instance</code>'nin ilk atasını döndürür.",
+    "documentation": "<code>Instance.Name</code> değeri verilen adı eşit olan <code>Instance</code>'nin ilk atasını döner.",
     "params": [
       {
         "name": "self",
@@ -54566,7 +54574,7 @@
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass": {
-    "documentation": "<code>Instance</code>'nin ilk atasını döndürür, <code>Object.ClassName</code> değeri verilen className'e eşit olan.",
+    "documentation": "<code>Instance</code>'nin ilk atasını döner, <code>Object.ClassName</code> değeri verilen className'e eşit olan.",
     "params": [
       {
         "name": "self",
@@ -54593,7 +54601,7 @@
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA": {
-    "documentation": "Verilen className için <code>Object:IsA()</code>'nın <code>true</code> döndürdüğü <code>Instance</code>'nin ilk atasını döndürür.",
+    "documentation": "<code>Instance</code>'nin ilk atasını döner, <code>Object:IsA()</code> verilen className için <code>true</code> döner.",
     "params": [
       {
         "name": "self",
@@ -54623,7 +54631,7 @@
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChild": {
-    "documentation": "Verilen adı taşıyan <code>Instance</code>'nin ilk çocuğunu döndürür.",
+    "documentation": "Verilen adı taşıyan <code>Instance</code>'nin ilk çocuğunu döner.",
     "params": [
       {
         "name": "self",
@@ -54688,7 +54696,7 @@
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass": {
-    "documentation": "Verilen <code>ClassName</code> değerine eşit olan <code>Instance</code>'nin ilk çocuğunu döndürür.",
+    "documentation": "Verilen sınıf adıyla eşleşen <code>Instance</code>'nin ilk çocuğunu döner.",
     "params": [
       {
         "name": "self",
@@ -54718,7 +54726,7 @@
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA": {
-    "documentation": "Verilen className için <code>Object:IsA()</code>'nın <code>true</code> döndürdüğü <code>Instance</code>'nin ilk çocuğunu döndürür.",
+    "documentation": "Verilen sınıf adı için <code>Object:IsA()</code> değerinin <code>true</code> döndüğü <code>Instance</code>'nin ilk çocuğunu döner.",
     "params": [
       {
         "name": "self",
@@ -54749,7 +54757,7 @@
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstDescendant": {
-    "documentation": "Verilen <code>Instance.Name</code> ile bulunan ilk torunu döndürür.",
+    "documentation": "Verilen <code>Instance.Name</code> ile bulunan ilk torunu döner.",
     "params": [
       {
         "name": "self",
@@ -54773,7 +54781,7 @@
     "documentation": "Bulunan <code>Actor</code>."
   },
   "@roblox/globaltype/Instance.GetActor": {
-    "documentation": "<code>Instance</code> ile ilişkili <code>Actor</code>'ı döndürür, varsa.",
+    "documentation": "Nesneyle ilişkili <code>Actor</code>'ı döner, varsa.",
     "params": [
       {
         "name": "self",
@@ -54793,10 +54801,10 @@
     "documentation": "Alınacak özelliğin adı."
   },
   "@roblox/globaltype/Instance.GetAttribute/return/0": {
-    "documentation": "Verilen özellik adına atanmış değer. Eğer hiçbir özellik atanmadıysa, <code>nil</code> döner."
+    "documentation": "Verilen özellik adında atanmış değer. Eğer hiçbir özellik atanmadıysa, <code>nil</code> döner."
   },
   "@roblox/globaltype/Instance.GetAttribute": {
-    "documentation": "Verilen özellik adında atanmış değeri döndürür.",
+    "documentation": "Verilen özellik adında atanmış değeri döner.",
     "params": [
       {
         "name": "self",
@@ -54820,10 +54828,10 @@
     "documentation": "Değişiklik sinyalinin döndürüleceği belirtilen özelliğin adı."
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/return/0": {
-    "documentation": "Verilen özelliğin değiştiğinde tetiklenen bir olay."
+    "documentation": "Verilen özellik değiştiğinde tetiklenen bir olay."
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal": {
-    "documentation": "Verilen özelliğin değiştiğinde tetiklenen bir olayı döndürür.",
+    "documentation": "Verilen özelliğin değiştiğinde tetiklenen bir olayı döner.",
     "params": [
       {
         "name": "self",
@@ -54844,10 +54852,10 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.GetAttributes/return/0": {
-    "documentation": "Her bir özelliğin adı ve <code>nil</code> olmayan değeri için dize → varyant çiftleri içeren bir sözlük."
+    "documentation": "Her bir özelliğin adı ve değeri için bir sözlük."
   },
   "@roblox/globaltype/Instance.GetAttributes": {
-    "documentation": "Nesnenin özelliklerinin bir sözlüğünü döndürür.",
+    "documentation": "Nesnenin özelliklerinin bir sözlüğünü döner.",
     "params": [
       {
         "name": "self",
@@ -54867,7 +54875,7 @@
     "documentation": "Nesnenin çocuklarını içeren bir dizi."
   },
   "@roblox/globaltype/Instance.GetChildren": {
-    "documentation": "Nesnenin tüm çocuklarını içeren bir dizi döndürür.",
+    "documentation": "Nesnenin tüm çocuklarını içeren bir dizi döner.",
     "params": [
       {
         "name": "self",
@@ -54910,7 +54918,7 @@
     "documentation": "Hata Ayıklama Kimliği dizesi."
   },
   "@roblox/globaltype/Instance.GetDebugId": {
-    "documentation": "Roblox tarafından dahili olarak kullanılan hata ayıklama kimliğinin kodlanmış bir dizesini döndürür.",
+    "documentation": "Roblox tarafından dahili olarak kullanılan hata ayıklama kimliğinin kodlanmış bir dizesini döner.",
     "params": [
       {
         "name": "self",
@@ -54934,7 +54942,7 @@
     "documentation": "Nesnenin torunlarını içeren bir dizi."
   },
   "@roblox/globaltype/Instance.GetDescendants": {
-    "documentation": "Nesnenin tüm torunlarını içeren bir dizi döndürür.",
+    "documentation": "Nesnenin tüm torunlarını içeren bir dizi döner.",
     "params": [
       {
         "name": "self",
@@ -54954,7 +54962,7 @@
     "documentation": "Tam <code>Instance</code> adı."
   },
   "@roblox/globaltype/Instance.GetFullName": {
-    "documentation": "Nesnenin soyunu tanımlayan bir dize döndürür.",
+    "documentation": "Nesnenin soyunu tanımlayan bir dize döner.",
     "params": [
       {
         "name": "self",
@@ -54980,7 +54988,7 @@
     "documentation": "Belirtilen özelliğin stilize edilmiş veya açıkça değiştirilmiş değeri, aksi takdirde stilize edilmemiş/değiştirilmemişse varsayılan özellik değeri."
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "Belirtilen özelliğin stilize edilmiş veya açıkça değiştirilmiş değerini döndürür, aksi takdirde stilize edilmemiş/değiştirilmemişse varsayılan özellik değerini döndürür.",
+    "documentation": "Belirtilen özelliğin stilize edilmiş veya açıkça değiştirilmiş değerini döner, aksi takdirde stilize edilmemiş/değiştirilmemişse varsayılan özellik değerini döner.",
     "params": [
       {
         "name": "self",
@@ -55011,7 +55019,7 @@
     "documentation": "Verilen stil özelliği değiştiğinde tetiklenen olay."
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal": {
-    "documentation": "Nesne üzerindeki belirtilen stil özelliği değiştiğinde tetiklenen bir olayı döndürür.",
+    "documentation": "Nesne üzerindeki belirtilen stil özelliği değiştiğinde tetiklenen bir olayı döner.",
     "params": [
       {
         "name": "self",
@@ -55032,7 +55040,7 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.GetTags/return/0": {
-    "documentation": "Nesneye uygulanan her bir etiketi temsil eden dizelerden oluşan bir dizi."
+    "documentation": "Nesneye uygulanan her bir etiketi temsil eden bir dizi."
   },
   "@roblox/globaltype/Instance.GetTags": {
     "documentation": "Nesneye uygulanan tüm etiketlerin bir dizisini alır.",
@@ -55052,7 +55060,7 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.HasTag/param/1": {
-    "documentation": "Nesnede kontrol edilecek etiket."
+    "documentation": "Nesne üzerindeki kontrol edilecek etiket."
   },
   "@roblox/globaltype/Instance.HasTag/return/0": {
     "documentation": "Nesne belirtilen etikete sahipse <code>true</code>, aksi takdirde <code>false</code>."
@@ -55082,10 +55090,10 @@
     "documentation": "Torun <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.IsAncestorOf/return/0": {
-    "documentation": "Verilen torunun bir atası ise <code>true</code>."
+    "documentation": "Verilen torunun atası ise <code>true</code>."
   },
   "@roblox/globaltype/Instance.IsAncestorOf": {
-    "documentation": "Verilen torunun bir atası olup olmadığını kontrol eder.",
+    "documentation": "Bir <code>Instance</code>'nin verilen torunun atası olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -55109,10 +55117,10 @@
     "documentation": "Ata <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.IsDescendantOf/return/0": {
-    "documentation": "Verilen atanın bir torunu ise <code>true</code>."
+    "documentation": "Verilen ata ise <code>true</code>."
   },
   "@roblox/globaltype/Instance.IsDescendantOf": {
-    "documentation": "Verilen atanın bir torunu olup olmadığını kontrol eder.",
+    "documentation": "Bir <code>Instance</code>'nin verilen ata olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -55166,7 +55174,7 @@
     "documentation": "Özelliğin kodla oluşturulmuş varsayılan değerinden değiştirilip değiştirilmediğini gösteren boolean."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Belirtilen özelliğin saklanan değeri, kodla oluşturulmuş varsayılan değere eşit değilse <code>true</code> döndürür.",
+    "documentation": "Belirtilen özelliğin değerinin kodla oluşturulmuş varsayılan değere eşit olmadığını döner.",
     "params": [
       {
         "name": "self",
@@ -55193,7 +55201,7 @@
     "documentation": "Bir dizi nesne (seçiciyle eşleşen hiçbir şey yoksa boş)."
   },
   "@roblox/globaltype/Instance.QueryDescendants": {
-    "documentation": "Belirtilen <code>selector</code> dizesine uyan nesnenin tüm torunlarını içeren bir dizi döndürür.",
+    "documentation": "Belirtilen <code>selector</code> dizesiyle eşleşen nesnenin tüm torunlarını içeren bir dizi döner.",
     "params": [
       {
         "name": "self",
@@ -55214,7 +55222,7 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.Remove": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, <code>Instance:Destroy()</code> ve <code>Instance:ClearAllChildren()</code> ile değiştirilmiştir. Eğer bir nesneyi oyundan kaldırmanız gerekiyorsa ve nesneyi daha sonra kullanmak istiyorsanız, bu yöntemi kullanmak yerine <code>Parent</code> özelliğini <code>nil</code> olarak ayarlayın.<br>Nesnenin <code>Parent</code>'ını <code>nil</code> olarak ayarlar ve tüm torunları için de aynı işlemi yapar.",
+    "documentation": "<strong>Deprecated:</strong> <code>Instance:Destroy()</code> ve <code>Instance:ClearAllChildren()</code> metotları yerine bu öğe kullanımdan kaldırılmıştır. Eğer bir nesneyi oyundan kaldırmanız gerekiyorsa ve nesneyi daha sonra kullanmak istiyorsanız, <code>Parent</code> özelliğini <code>nil</code> olarak ayarlayın, bu metodu kullanmak yerine.<br>Nesnenin <code>Parent</code>'ını <code>nil</code> olarak ayarlar ve tüm torunları için de aynı işlemi yapar.",
     "params": [
       {
         "name": "self",
@@ -55229,7 +55237,7 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.remove": {
-    "documentation": "<strong>Deprecated:</strong> Bu eski fonksiyon, <code>Instance:Remove()</code>'ın bir varyantıdır ve bu fonksiyon da eski olarak kabul edilmiştir. Her iki fonksiyon da yeni çalışmalarda kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılmış fonksiyon, <code>Instance:Remove()</code> metodunun bir varyantıdır ve bu da kullanımdan kaldırılmıştır. Yeni çalışmalarda hiçbir fonksiyon kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -55317,7 +55325,7 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.WaitForChild/param/1": {
-    "documentation": "<code>Instance.Name</code> aranacak olan."
+    "documentation": "Aranacak <code>Instance.Name</code>."
   },
   "@roblox/globaltype/Instance.WaitForChild/param/2": {
     "documentation": "İsteğe bağlı bir zaman aşımı parametresi."
@@ -55425,7 +55433,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AncestryChanged": {
-    "documentation": "<code>Instance.Parent</code> özelliği bu nesne veya bir atası değiştiğinde ateşlenir.",
+    "documentation": "Bu nesnenin veya bir atasının <code>Instance.Parent</code> özelliği değiştiğinde ateşlenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AncestryChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AncestryChanged.ConnectParallel",
@@ -55513,7 +55521,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AttributeChanged": {
-    "documentation": "Bir <code>Instance</code> üzerinde herhangi bir özellik değiştiğinde ateşlenir.",
+    "documentation": "<code>Instance</code> üzerinde bir özellik değiştiğinde ateşlenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AttributeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AttributeChanged.ConnectParallel",
@@ -55689,7 +55697,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.childAdded": {
-    "documentation": "<strong>Deprecated:</strong> Bu eski olay, <code>Instance.ChildAdded</code>'ın bir varyantıdır ve bunun yerine kullanılmalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılmış olay, <code>Instance.ChildAdded</code>'in bir varyantıdır ve bunun yerine kullanılmalıdır.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.childAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.childAdded.ConnectParallel",
@@ -55865,7 +55873,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.DescendantAdded": {
-    "documentation": "Bir alt nesne bu <code>Instance</code>'e eklendikten sonra ateşlenir.",
+    "documentation": "Bir alt nesne <code>Instance</code>'e eklendikten sonra ateşlenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.DescendantAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.DescendantAdded.ConnectParallel",
@@ -56041,7 +56049,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.Destroying": {
-    "documentation": "<code>Instance:Destroy()</code> aracılığıyla yok edilmeden hemen önce (veya sonrasında ertelenmiş olarak) ateşlenir.",
+    "documentation": "<code>Instance:Destroy()</code> aracılığıyla yok edilmeden hemen önce (veya sonrasında) ateşlenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.Destroying.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.Destroying.ConnectParallel",
@@ -56129,7 +56137,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.StyledPropertiesChanged": {
-    "documentation": "Örnekte herhangi bir stil özelliği değiştiğinde, <code>nil</code> olarak ayarlandığında bile ateşlenir.",
+    "documentation": "Örnekte herhangi bir stil özelliği değiştiğinde, bir özellik <code>nil</code> olarak ayarlandığında da ateşlenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.StyledPropertiesChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.StyledPropertiesChanged.ConnectParallel",
@@ -57937,7 +57945,7 @@
     "documentation": "Varsayılan sohbet penceresinin özelliklerini yapılandırır."
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties/return/0": {
-    "documentation": ""
+    "documentation": "Değiştirebileceğiniz ve <code>TextChatService.OnChatWindowAdded</code> geri çağrısından döndürebileceğiniz yeni bir <code>ChatWindowMessageProperties</code> örneği, böylece bireysel mesajların sohbet penceresinde nasıl görüneceğini özelleştirebilirsiniz."
   },
   "@roblox/globaltype/ChatWindowConfiguration.DeriveNewMessageProperties": {
     "documentation": "Sohbet penceresindeki mesajların görünümünü özelleştirmek için kullanılabilecek yeni bir <code>ChatWindowMessageProperties</code> örneği oluşturur.",
@@ -63252,7 +63260,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties": {
-    "documentation": "",
+    "documentation": "<code>BubbleChatConfiguration</code> özelliklerini bireysel bir baloncuk sohbet mesajı için geçersiz kılar.",
     "keys": {
       "BackgroundColor3": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundColor3",
       "BackgroundTransparency": "@roblox/globaltype/BubbleChatMessageProperties.BackgroundTransparency",
@@ -63280,7 +63288,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BubbleChatMessageProperties.TailVisible": {
-    "documentation": "",
+    "documentation": "Sohbet balonunun altındaki kuyruğun görünür olup olmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BubbleChatMessageProperties#TailVisible",
     "code_sample": ""
   },
@@ -69742,11 +69750,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui": {
-    "documentation": "",
+    "documentation": "<code>Part</code>'ın 3D dünyadaki bir yüzeyinde etkileyici reklamlar gösteren yüzey tabanlı bir GUI.",
     "keys": {
       "AdShape": "@roblox/globaltype/AdGui.AdShape",
       "EnableVideoAds": "@roblox/globaltype/AdGui.EnableVideoAds",
       "FallbackImage": "@roblox/globaltype/AdGui.FallbackImage",
+      "FallbackImageContent": "@roblox/globaltype/AdGui.FallbackImageContent",
       "Status": "@roblox/globaltype/AdGui.Status",
       "OnAdEvent": "@roblox/globaltype/AdGui.OnAdEvent"
     },
@@ -69754,7 +69763,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.AdShape": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> tarafından gösterilen reklamın şeklini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#AdShape",
     "code_sample": ""
   },
@@ -69764,12 +69773,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.FallbackImage": {
-    "documentation": "",
+    "documentation": "Reklam sunulmadığında <code>AdGui</code>'nin gösterdiği görüntü.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImage",
     "code_sample": ""
   },
+  "@roblox/globaltype/AdGui.FallbackImageContent": {
+    "documentation": "<code>AdGui.FallbackImage</code>'in varlık URI'lerini ve <code>EditableImage</code> nesnelerini destekleyen <code>Content</code> eşdeğeri.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImageContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AdGui.Status": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code>'nin şu anda sunulan bir reklam gösterip göstermediğini belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#Status",
     "code_sample": ""
   },
@@ -70493,7 +70507,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal": {
-    "documentation": "",
+    "documentation": "Reklamların bir parçası olarak oyuncuları sponsorlu bir deneyime teleport eden bir portal.",
     "keys": {
       "PortalInvalidReason": "@roblox/globaltype/AdPortal.PortalInvalidReason",
       "Status": "@roblox/globaltype/AdPortal.Status"
@@ -70502,12 +70516,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.PortalInvalidReason": {
-    "documentation": "",
+    "documentation": "Portalın şu anda geçersiz olduğunu açıklayan, yaratıcıya yönelik bir mesaj.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#PortalInvalidReason",
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.Status": {
-    "documentation": "",
+    "documentation": "Portalın şu anda aktif olup olmadığını ve oyuncuları teleport edebilme durumunu belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#Status",
     "code_sample": ""
   },
@@ -77514,7 +77528,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBoxService": {
-    "documentation": "",
+    "documentation": "Oyun sırasında bir kullanıcının <code>TextBox</code> durumunu yöneten bir hizmet.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBoxService",
     "code_sample": ""
@@ -79417,6 +79431,7 @@
       "LogCustomEvent": "@roblox/globaltype/AnalyticsService.LogCustomEvent",
       "LogEconomyEvent": "@roblox/globaltype/AnalyticsService.LogEconomyEvent",
       "LogFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogFunnelStepEvent",
+      "LogJourneyEvent": "@roblox/globaltype/AnalyticsService.LogJourneyEvent",
       "LogOnboardingFunnelStepEvent": "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent",
       "LogProgressionCompleteEvent": "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent",
       "LogProgressionEvent": "@roblox/globaltype/AnalyticsService.LogProgressionEvent",
@@ -79872,6 +79887,56 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogFunnelStepEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0": {
+    "documentation": "Kullanıcıların deneyimlerinizle nasıl etkileşimde bulunduğunu takip etmenizi sağlayan yöntemler topluluğu."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1": {
+    "documentation": "Yolculuk olayını tetikleyen oyuncu."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2": {
+    "documentation": "Yolculuğun adı. Bu, yolculuktaki tüm düğümler için aynı olmalıdır. Boş olamaz ve virgül <code>,</code>, çift tırnak <code>\"</code>, tek tırnak <code>'</code> veya yeni satır karakteri içeremez."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3": {
+    "documentation": "Oyuncunun yolculukta ulaştığı düğümün adı. Boş olamaz, virgül <code>,</code>, çift tırnak <code>\"</code>, tek tırnak <code>'</code> veya yeni satır karakteri içeremez ve <code>__</code> (çift alt çizgi) ile başlayamaz, bu ayrılmıştır."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4": {
+    "documentation": "Yolculuk oturumu için isteğe bağlı benzersiz tanımlayıcı. Bu, yolculuğun tek bir oturumundaki tüm düğümler için aynı olmalıdır. Sağlandığında, virgül <code>,</code>, çift tırnak <code>\"</code>, tek tırnak <code>'</code> veya yeni satır karakteri içeremez."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5": {
+    "documentation": "Roblox tarafından sağlanan grafiklerde kesitler sağlayacak isteğe bağlı özel alanlar sözlüğü. Bu kesitler için yalnızca <code>AnalyticsCustomFieldKeys</code> tarafından sağlanan belirli anahtarlar kullanılacaktır. Her deneyim için üç özel alan arasında 8,000 benzersiz değer kombinasyonu ile sınırlıdır."
+  },
+  "@roblox/globaltype/AnalyticsService.LogJourneyEvent": {
+    "documentation": "Bir deneyim boyunca doğrusal olmayan oyuncu yollarını izlemek için kullanılan bir yolculuk olayını kaydeder.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/1"
+      },
+      {
+        "name": "journeyName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/2"
+      },
+      {
+        "name": "nodeName",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/3"
+      },
+      {
+        "name": "journeySessionId",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/4"
+      },
+      {
+        "name": "customFields",
+        "documentation": "@roblox/globaltype/AnalyticsService.LogJourneyEvent/param/5"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#LogJourneyEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/0": {
     "documentation": "Kullanıcıların deneyimlerinizle nasıl etkileşimde bulunduğunu takip etmenizi sağlayan yöntemler topluluğu."
   },
@@ -79879,16 +79944,16 @@
     "documentation": "Olayı tetikleyen kullanıcı."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/2": {
-    "documentation": "Hunideki adım numarası. Bu, hunide her adım için benzersiz olmalıdır. Tüm huniler adım 1'de başlar. 1-100 adımlarla sınırlıdır. Herhangi bir adım atlandığında, ara adımlar tamamlanmış olarak kabul edilir."
+    "documentation": "Hunideki adım numarası. Bu, hunideki her adım için benzersiz olmalıdır. Tüm huniler 1. adımdan başlar. 1-100 adımları ile sınırlıdır. Herhangi bir adım atlanırsa, ara adımlar tamamlanmış olarak kabul edilecektir."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/3": {
-    "documentation": "Hunide isteğe bağlı aşama adı. Bu alan yalnızca Roblox tarafından sağlanan grafiklerde görüntülemek amacıyla kullanılır."
+    "documentation": "Hunideki adımın isteğe bağlı adı. Bu alan yalnızca Roblox tarafından sağlanan grafiklerde görüntüleme amaçları için kullanılır."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent/param/4": {
-    "documentation": "Roblox tarafından sağlanan grafiklerde kesim sağlar. Bu kesimler için yalnızca belirli anahtarlar, <code>AnalyticsCustomFieldKeys</code> tarafından sağlananlar kullanılacaktır. Her deneyimde üç özel alan arasında 8,000 benzersiz değer kombinasyonu ile sınırlıdır."
+    "documentation": "Roblox tarafından sağlanan grafiklerde kesitler sağlayacak isteğe bağlı özel alanlar sözlüğü. Bu kesitler için yalnızca <code>AnalyticsCustomFieldKeys</code> tarafından sağlanan belirli anahtarlar kullanılacaktır. Her deneyim için üç özel alan arasında 8,000 benzersiz değer kombinasyonu ile sınırlıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogOnboardingFunnelStepEvent": {
-    "documentation": "Onboarding hunisi boyunca kullanıcı eylemlerini takip etmek için bir olayı kaydeder.",
+    "documentation": "Bir kullanıcı eylemlerini bir onboarding hunisi boyunca izlemek için kullanılan bir olayı kaydeder.",
     "params": [
       {
         "name": "self",
@@ -79919,22 +79984,22 @@
     "documentation": "Kullanıcıların deneyimlerinizle nasıl etkileşimde bulunduğunu takip etmenizi sağlayan yöntemler topluluğu."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/1": {
-    "documentation": "Etkinliği tetikleyen oyuncu."
+    "documentation": "Olayı tetikleyen oyuncu."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/2": {
-    "documentation": ""
+    "documentation": "Bu olayın ait olduğu ilerleme yolunun adı, örneğin bir dünya, bölüm veya seviye grubu. Bu, ilgili ilerleme olaylarını bir araya getirir. Boş olamaz ve virgül <code>,</code>, çift tırnak <code>\"</code>, tek tırnak <code>'</code> veya yeni satır karakteri içeremez."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/3": {
-    "documentation": ""
+    "documentation": "Oyuncunun ilerlediği sayısal seviye."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/4": {
-    "documentation": ""
+    "documentation": "Bu olayla ilişkili seviyenin adı. Bu alan, Roblox tarafından sağlanan grafiklerde görüntüleme amaçları için kullanılır."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent/param/5": {
-    "documentation": ""
+    "documentation": "Roblox tarafından sağlanan grafiklerde kesitler sağlayacak isteğe bağlı özel alanlar sözlüğü. Bu kesitler için yalnızca <code>AnalyticsCustomFieldKeys</code> tarafından sağlanan belirli anahtarlar kullanılacaktır. Her deneyim için üç özel alan arasında 8,000 benzersiz değer kombinasyonu ile sınırlıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionCompleteEvent": {
-    "documentation": "Bir kullanıcının bir seviyeyi tamamlama anında bir olayı kaydeder.",
+    "documentation": "Bir kullanıcının bir seviye denemesini tamamladığında bir olayı kaydeder.",
     "params": [
       {
         "name": "self",
@@ -79972,22 +80037,22 @@
     "documentation": "Olayı tetikleyen oyuncu."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/2": {
-    "documentation": ""
+    "documentation": "Bu olayın ait olduğu ilerleme yolunun adı, örneğin bir dünya, bölüm veya seviye grubu. Bu, ilgili ilerleme olaylarını bir araya getirir. Boş olamaz ve virgül <code>,</code>, çift tırnak <code>\"</code>, tek tırnak <code>'</code> veya yeni satır karakteri içeremez."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/3": {
-    "documentation": ""
+    "documentation": "Kaydedilecek ilerleme durumu, <code>Start</code>, <code>Complete</code> veya <code>Fail</code> gibi bir <code>AnalyticsProgressionType</code> değeri olarak sağlanır. <code>AnalyticsService:LogProgressionStartEvent()</code>, <code>AnalyticsService:LogProgressionCompleteEvent()</code> ve <code>AnalyticsService:LogProgressionFailEvent()</code> yöntemleri, bu durumu sizin için ayarlayan kısayollardır."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/4": {
-    "documentation": ""
+    "documentation": "Oyuncunun ilerlediği sayısal seviye."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/5": {
-    "documentation": ""
+    "documentation": "Bu olayla ilişkili seviyenin adı. Bu alan, Roblox tarafından sağlanan grafiklerde görüntüleme amaçları için kullanılır."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent/param/6": {
-    "documentation": ""
+    "documentation": "Roblox tarafından sağlanan grafiklerde kesitler sağlayacak isteğe bağlı özel alanlar sözlüğü. Bu kesitler için yalnızca <code>AnalyticsCustomFieldKeys</code> tarafından sağlanan belirli anahtarlar kullanılacaktır. Her deneyim için üç özel alan arasında 8,000 benzersiz değer kombinasyonu ile sınırlıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionEvent": {
-    "documentation": "Bir kullanıcının bir seviye denemesi başlatma, tamamlama veya başarısız olma anında bir olayı kaydeder.",
+    "documentation": "Bir kullanıcının bir seviye denemesine başladığında, tamamladığında veya başarısız olduğunda bir olayı kaydeder.",
     "params": [
       {
         "name": "self",
@@ -80029,19 +80094,19 @@
     "documentation": "Olayı tetikleyen kullanıcı."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/2": {
-    "documentation": ""
+    "documentation": "Bu olayın ait olduğu ilerleme yolunun adı, örneğin bir dünya, bölüm veya seviye grubu. Bu, ilgili ilerleme olaylarını bir araya getirir. Boş olamaz ve virgül <code>,</code>, çift tırnak <code>\"</code>, tek tırnak <code>'</code> veya yeni satır karakteri içeremez."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/3": {
-    "documentation": ""
+    "documentation": "Oyuncunun ilerlediği sayısal seviye."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/4": {
-    "documentation": ""
+    "documentation": "Bu olayla ilişkili seviyenin adı. Bu alan, Roblox tarafından sağlanan grafiklerde görüntüleme amaçları için kullanılır."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent/param/5": {
-    "documentation": ""
+    "documentation": "Roblox tarafından sağlanan grafiklerde kesitler sağlayacak isteğe bağlı özel alanlar sözlüğü. Bu kesitler için yalnızca <code>AnalyticsCustomFieldKeys</code> tarafından sağlanan belirli anahtarlar kullanılacaktır. Her deneyim için üç özel alan arasında 8,000 benzersiz değer kombinasyonu ile sınırlıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionFailEvent": {
-    "documentation": "Bir kullanıcının seviye denemesi başarısız olduğunda bir olayı kaydeder.",
+    "documentation": "Bir kullanıcının bir seviye denemesini başarısız olduğunda bir olayı kaydeder.",
     "params": [
       {
         "name": "self",
@@ -80079,19 +80144,19 @@
     "documentation": "Olayı tetikleyen oyuncu."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/2": {
-    "documentation": ""
+    "documentation": "Bu olayın ait olduğu ilerleme yolunun adı, örneğin bir dünya, bölüm veya seviye grubu. Bu, ilgili ilerleme olaylarını bir araya getirir. Boş olamaz ve virgül <code>,</code>, çift tırnak <code>\"</code>, tek tırnak <code>'</code> veya yeni satır karakteri içeremez."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/3": {
-    "documentation": ""
+    "documentation": "Oyuncunun ilerlediği sayısal seviye."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/4": {
-    "documentation": ""
+    "documentation": "Bu olayla ilişkili seviyenin adı. Bu alan, Roblox tarafından sağlanan grafiklerde görüntüleme amaçları için kullanılır."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent/param/5": {
-    "documentation": ""
+    "documentation": "Roblox tarafından sağlanan grafiklerde kesitler sağlayacak isteğe bağlı özel alanlar sözlüğü. Bu kesitler için yalnızca <code>AnalyticsCustomFieldKeys</code> tarafından sağlanan belirli anahtarlar kullanılacaktır. Her deneyim için üç özel alan arasında 8,000 benzersiz değer kombinasyonu ile sınırlıdır."
   },
   "@roblox/globaltype/AnalyticsService.LogProgressionStartEvent": {
-    "documentation": "Bir kullanıcının seviye denemesi başlatıldığında bir olayı kaydeder.",
+    "documentation": "Bir kullanıcının bir seviye denemesine başladığında bir olayı kaydeder.",
     "params": [
       {
         "name": "self",
@@ -80129,30 +80194,29 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService": {
-    "documentation": "",
+    "documentation": "Oyuncu yakalamalarını içerik denetimi için sunucu tarafında gönderme ve sonuçları asenkron olarak alma hizmeti.",
     "keys": {
       "BindReviewableContentEventProcessor": "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor",
       "CreateReviewableContentAsync": "@roblox/globaltype/ModerationService.CreateReviewableContentAsync",
-      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey",
-      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync"
+      "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService",
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/0": {
-    "documentation": ""
+    "documentation": "Oyuncu yakalamalarını içerik denetimi için sunucu tarafında gönderme ve sonuçları asenkron olarak alma hizmeti."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/1": {
-    "documentation": ""
+    "documentation": "Bu işlemcinin diğer bağlı işlemcilere göre hangi sırayla çağrılacağını belirler."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/param/2": {
-    "documentation": ""
+    "documentation": "Her incelemeye uygun içerik olayı için çağrılan işlev. Olayı tanımlayan bir tablo alır ve olayı onaylamak için <code>true</code> veya yeniden iletmek için <code>false</code> döndürmelidir."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor/return/0": {
-    "documentation": ""
+    "documentation": "İşlemciyi kayıttan çıkarmak için bağlantının kesilebileceği bir bağlantı."
   },
   "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor": {
-    "documentation": "",
+    "documentation": "Her bir denetim inceleme olayı için <code>priority</code> sırasına göre çağrılan sunucu tarafında bir işlemci kaydeder.",
     "params": [
       {
         "name": "self",
@@ -80174,16 +80238,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/0": {
-    "documentation": ""
+    "documentation": "Oyuncu yakalamalarını içerik denetimi için sunucu tarafında gönderme ve sonuçları asenkron olarak alma hizmeti."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/param/1": {
-    "documentation": ""
+    "documentation": "İncelenecek içeriği tanımlayan bir parametreler tablosu, isteğe bağlı bir <code>Id</code>, isteğe bağlı bir <code>Ref</code> ve bir <code>Content</code> listesi içeren resim veya video öğeleri."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync/return/0": {
-    "documentation": ""
+    "documentation": "Oluşturulan incelemeye uygun içeriğin ID'si."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentAsync": {
-    "documentation": "",
+    "documentation": "Kullanıcı tarafından üretilen yakalamaları denetim incelemesi için kaydeder ve sahip olan istemcilerin bunları yüklemesini tetikler, incelemeye uygun içerik ID'sini döndürür.",
     "params": [
       {
         "name": "self",
@@ -80201,16 +80265,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/0": {
-    "documentation": ""
+    "documentation": "Oyuncu yakalamalarını içerik denetimi için sunucu tarafında gönderme ve sonuçları asenkron olarak alma hizmeti."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/param/1": {
-    "documentation": ""
+    "documentation": "Bir ekran görüntüsü veya video yakalamasını referans eden bir <code>Content</code> (bir <code>CaptureService:CaptureScreenshot()</code>'dan gelen geçici URI, bir <code>ScreenshotCapture</code> veya bir <code>VideoCapture</code>)."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0": {
-    "documentation": ""
+    "documentation": "Yakalamayı tanımlayan opak bir içerik anahtarı."
   },
   "@roblox/globaltype/ModerationService.CreateReviewableContentKey": {
-    "documentation": "",
+    "documentation": "Bir ekran görüntüsü veya video yakalamasını tanımlayan opak bir anahtar döndürür <code>CreateReviewableContentAsync()</code> ile kullanmak için.",
     "params": [
       {
         "name": "self",
@@ -80225,28 +80289,6 @@
       "@roblox/globaltype/ModerationService.CreateReviewableContentKey/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#CreateReviewableContentKey",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0"
-      },
-      {
-        "name": "config",
-        "documentation": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalRequestReviewableContentReviewAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation": {
@@ -87366,7 +87408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChatWindowMessageProperties": {
-    "documentation": "",
+    "documentation": "Bir metin sohbet mesajının görünümünü sohbet penceresinde görüntülenen şekilde özelleştirir.",
     "keys": {
       "FontFace": "@roblox/globaltype/ChatWindowMessageProperties.FontFace",
       "PrefixTextProperties": "@roblox/globaltype/ChatWindowMessageProperties.PrefixTextProperties",
@@ -97381,6 +97423,7 @@
       "ChatVersion": "@roblox/globaltype/TextChatService.ChatVersion",
       "CreateDefaultCommands": "@roblox/globaltype/TextChatService.CreateDefaultCommands",
       "CreateDefaultTextChannels": "@roblox/globaltype/TextChatService.CreateDefaultTextChannels",
+      "PlatformIntegratedChat": "@roblox/globaltype/TextChatService.PlatformIntegratedChat",
       "CanUserChatAsync": "@roblox/globaltype/TextChatService.CanUserChatAsync",
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
       "CanUsersDirectChatAsync": "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync",
@@ -97413,14 +97456,19 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#CreateDefaultTextChannels",
     "code_sample": ""
   },
+  "@roblox/globaltype/TextChatService.PlatformIntegratedChat": {
+    "documentation": "Deneyim için platform entegre sohbetin etkin olup olmadığını belirler. <code>RobloxScript</code> güvenliği gerektirir.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#PlatformIntegratedChat",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/0": {
     "documentation": "Deneyim içindeki metin sohbetini yöneten bir hizmet."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "Sohbet izni kontrol edilen kullanıcının <code>Player.UserId</code>'sidir."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "Kullanıcının sohbet etme iznine sahip olup olmadığını belirten bir boolean."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync": {
     "documentation": "Bir kullanıcının deneyimlerde sohbet iznine sahip olup olmadığını belirler.",
@@ -97444,13 +97492,13 @@
     "documentation": "Deneyim içindeki metin sohbetini yöneten bir hizmet."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "Potansiyel mesaj gönderenin <code>Player.UserId</code>'sidir."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": ""
+    "documentation": "Potansiyel mesaj alıcısının <code>Player.UserId</code>'sidir."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
-    "documentation": ""
+    "documentation": "İki kullanıcının mesaj alışverişi yapıp yapamayacağını belirten bir boolean."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync": {
     "documentation": "İki kullanıcının birbirlerinden mesaj alıp alamayacaklarını belirler.",
@@ -99965,7 +100013,7 @@
     "documentation": "Ödül olarak vermek istediğiniz geliştirici ürününün ID'si."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/return/0": {
-    "documentation": ""
+    "documentation": "Belirtilen ürün için geliştirici ürünü ödülü olarak yapılandırılmış bir <code>AdReward</code>."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
     "documentation": "Video reklam izleyen kullanıcılara vermek için bir <code>AdReward</code> oluşturur.",
@@ -100050,7 +100098,7 @@
     "documentation": "Deneyim içi reklamdan sorumlu hizmet."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/1": {
-    "documentation": ""
+    "documentation": "Ödüllü video reklam fırsatı olarak takip edilecek <code>GuiButton</code>. Bir <code>ScreenGui</code>'nin alt öğesi olmalıdır."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/2": {
     "documentation": "Deneyim içerisindeki ödüllü video reklamının konumunun ID'si. Bireysel reklam konumlarının performansını raporlamaya olanak tanır."
@@ -100164,10 +100212,10 @@
     "documentation": "Deneyim içi reklamdan sorumlu hizmet."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/1": {
-    "documentation": ""
+    "documentation": "Takibi durdurulacak örnek. Bu, daha önce <code>RegisterAdOpportunityAsync()</code>'e geçirdiğiniz bir örnek olmalıdır."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity": {
-    "documentation": "",
+    "documentation": "<code>RegisterAdOpportunityAsync</code> ile önceden kaydedilmiş bir örneği takip etmeyi durdurur.",
     "params": [
       {
         "name": "self",
@@ -107666,7 +107714,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.AdLabelClicked": {
-    "documentation": "",
+    "documentation": "Oyuncu, reklam katmanındaki \"Sponsorlu\" etiketine tıkladı, bu da reklamcı ve ödeme bilgilerini gösteren reklam açıklama istemini açar.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107676,7 +107724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.VolumeButtonClicked": {
-    "documentation": "",
+    "documentation": "Oyuncu, reklam katmanındaki ses açma/kapama düğmesine tıkladı, bu da video reklam sesini sessize alır veya sesini açar.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107686,7 +107734,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.FullscreenButtonClicked": {
-    "documentation": "",
+    "documentation": "Oyuncu, tam ekran açma düğmesine tıkladı, bu da kamerayı reklam yüzeyinin merkezine doğru yumuşak bir şekilde yakınlaştırır ve sesi etkinleştirir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107696,7 +107744,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayButtonClicked": {
-    "documentation": "",
+    "documentation": "Oyuncu, reklam katmanındaki oynatma düğmesine tıkladı. Eğer reklam zaten tam ekrandaysa, oynatma devam eder; aksi takdirde tam ekran moduna geçer ve video başlar (veya devam eder).",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107706,7 +107754,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseButtonClicked": {
-    "documentation": "",
+    "documentation": "Oyuncu, tam ekran modunda bir video reklam oynatılırken duraklatma düğmesine tıkladı, bu da video oynatımını duraklatır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107716,7 +107764,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.CloseButtonClicked": {
-    "documentation": "",
+    "documentation": "Oyuncu, tam ekran video reklam görünümündeki kapatma düğmesine tıkladı, bu da tam ekran modundan çıkar ve normal kamera pozisyonuna döner.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107726,7 +107774,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.WhyThisAdClicked": {
-    "documentation": "",
+    "documentation": "Oyuncu, \"Bu reklam neden?\" bağlantısına tıkladı, bu da mevcut reklam yaratıcı için reklamcı ve ödeme isimlerini gösteren EUDSA (Avrupa Dijital Hizmetler Yasası) açıklama istemini görüntüler.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107736,7 +107784,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayEventTriggered": {
-    "documentation": "",
+    "documentation": "Sistem tarafından başlatılan bir oynatma/devam etme olayı, zorunlu duraklatma durumunu temizler ve akış açıksa video oynatımını devam ettirir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107746,7 +107794,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseEventTriggered": {
-    "documentation": "",
+    "documentation": "Sistem tarafından başlatılan bir duraklatma olayı, motorun videoyu zorla duraklatması gerektiğinde kullanılır (örneğin, reklamın üzerine bir açılır menü açıldığında). İzlenebilirliğe dayalı otomatik oynatmanın duraklatmayı temizleyen bir sistem olayı gerçekleşene kadar devam etmesini engeller.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107756,7 +107804,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIEventType": {
-    "documentation": "",
+    "documentation": "Kullanıcı etkileşimi veya <code>AdGui</code> üzerindeki sistem olayının türünü tanımlar.",
     "keys": {
       "AdLabelClicked": "@roblox/enum/AdUIEventType.AdLabelClicked",
       "VolumeButtonClicked": "@roblox/enum/AdUIEventType.VolumeButtonClicked",
@@ -111383,7 +111431,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ShowAdResult.InsufficientMemory": {
-    "documentation": "",
+    "documentation": "Cihazda reklamı görüntülemek için yeterli video belleği mevcut değil.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -111393,7 +111441,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ShowAdResult": {
-    "documentation": "",
+    "documentation": "<code>AdService:ShowRewardedVideoAdAsync()</code> tarafından döndürülen sonuç kodları bir ödüllü video reklamının başarıyla tamamlanıp tamamlanmadığını veya neden başarısız olduğunu belirtir.",
     "keys": {
       "ShowCompleted": "@roblox/enum/ShowAdResult.ShowCompleted",
       "AdNotReady": "@roblox/enum/ShowAdResult.AdNotReady",
@@ -114689,7 +114737,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsLogLevel.Information": {
-    "documentation": "",
+    "documentation": "Normal çalışma sırasında ilerlemeyi veya durum değişikliklerini vurgulayan genel bilgilendirme mesajları için kullanılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114729,7 +114777,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsLogLevel": {
-    "documentation": "",
+    "documentation": "Bir analitik günlük olayı için geçilen ciddiyet seviyesini belirtir <code>AnalyticsService:FireLogEvent()</code>.",
     "keys": {
       "Trace": "@roblox/enum/AnalyticsLogLevel.Trace",
       "Debug": "@roblox/enum/AnalyticsLogLevel.Debug",
@@ -114815,7 +114863,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PublicChat": {
-    "documentation": "",
+    "documentation": "Dizenin tüm oyunculara veya geniş bir kamuya görünür olacağını, metin filtrelemesinin en katı seviyesinin uygulanacağını belirtir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114825,7 +114873,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextFilterContext.PrivateChat": {
-    "documentation": "",
+    "documentation": "Dizenin belirli kullanıcılar arasında özel bir konuşmanın parçası olduğunu, birbirine veya küçük gruplara yönelik uygun filtrelemenin uygulanacağını belirtir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -114835,7 +114883,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.TextFilterContext": {
-    "documentation": "",
+    "documentation": "Gönderilen metnin <code>TextService:FilterStringAsync()</code> veya <code>TextService:FilterAndTranslateStringAsync()</code> için kamuya veya özel bir kitleye yönelik olup olmadığını belirtir, metin filtreleme arka uçunun katılığını kontrol eder.",
     "keys": {
       "PublicChat": "@roblox/enum/TextFilterContext.PublicChat",
       "PrivateChat": "@roblox/enum/TextFilterContext.PrivateChat"
@@ -115938,34 +115986,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#None",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.LOD": {
-    "documentation": "Her bir mesh'i mevcut detay seviyesine göre mavi-kırmızı ısı haritası kullanarak renklendirir. Mavi en düşük detayı, daha sıcak renkler ise daha yüksek detayı gösterir. Uzak mesh'lerin azaltılmış sadakatle akış sağladığını doğrulamak için yararlıdır.",
+  "@roblox/enum/SlimTintMode.LevelOfDetail": {
+    "documentation": "Her bir mesh'i mevcut detay seviyesine göre renklendirir. Mavi en kaba, kırmızı en ince ve aradaki her seviye sabit bir renge karşılık gelir. Belirli bir renk her mesh için her zaman aynı LOD sırasını ifade eder, tek istisna her mesh'in kendi en yüksek mevcut LOD'sinin her zaman kırmızı olarak gösterilmesidir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LOD",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LevelOfDetail",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTintMode.Meshes": {
-    "documentation": "Bir model içindeki her bir bireysel mesh'e belirgin bir renk atar. Mesh sınırlarını tanımlamak ve bir modelin ayrı mesh parçalarına nasıl bölündüğünü doğrulamak için yararlıdır.",
+  "@roblox/enum/SlimTintMode.DataModelState": {
+    "documentation": "SLIM modellerini, DataModel örneklerinin akışta olup olmadıklarına göre renklendirir. Yeşil, akışta (tam DataModel mevcut); sarı, akışta değil (bir yer tutucu) olduğunu gösterir. Her ikisi de SLIM aracılığıyla hala işlenir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Meshes",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTintMode.Zone": {
-    "documentation": "Mesh'leri akış bölgesine göre renklendirir. Yeşil, DataModel'in mevcut olduğu yüksek sadakat bölgesini; sarı ise DataModel'in mevcut olmadığı düşük sadakat bölgesini gösterir.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Zone",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#DataModelState",
     "code_sample": ""
   },
   "@roblox/enum/SlimTintMode.TranscoderStatus": {
@@ -115982,9 +116020,8 @@
     "documentation": "Geliştirici Konsolu'ndaki SLIM hata ayıklama tint overlay'inin kullandığı renk kodlama modunu belirler.",
     "keys": {
       "None": "@roblox/enum/SlimTintMode.None",
-      "LOD": "@roblox/enum/SlimTintMode.LOD",
-      "Meshes": "@roblox/enum/SlimTintMode.Meshes",
-      "Zone": "@roblox/enum/SlimTintMode.Zone",
+      "LevelOfDetail": "@roblox/enum/SlimTintMode.LevelOfDetail",
+      "DataModelState": "@roblox/enum/SlimTintMode.DataModelState",
       "TranscoderStatus": "@roblox/enum/SlimTintMode.TranscoderStatus"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode",
@@ -116315,7 +116352,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnCreatingChatWindow": {
-    "documentation": "",
+    "documentation": "Sohbet penceresi oluşturulmadan önce çağrılan istemciye özel geri çağırma, özel ayarların sağlanmasına olanak tanır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116325,7 +116362,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientSendingMessage": {
-    "documentation": "",
+    "documentation": "İstemcinin bir mesaj gönderdiği zaman için ayrılmış istemciye özel geri çağırma; şu anda çağrılmıyor.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116335,7 +116372,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnClientFormattingMessage": {
-    "documentation": "",
+    "documentation": "Bir mesaj görüntülenmeden önce çağrılan istemciye özel geri çağırma, görüntüleme verilerinin değiştirilmesine olanak tanır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116345,7 +116382,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnServerReceivingMessage": {
-    "documentation": "",
+    "documentation": "Bir konuşmacıdan sunucuya bir mesaj alındığında çağrılan sunucuya özel geri çağırma, mesajın değiştirilmesine veya bastırılmasına olanak tanır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116355,7 +116392,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatCallbackType": {
-    "documentation": "",
+    "documentation": "Eski Luau sohbet boru hattında <code>Chat:RegisterChatCallback()</code> ve <code>Chat:InvokeChatCallback()</code> ile kullanılmak üzere bir kanca noktası tanımlar.",
     "keys": {
       "OnCreatingChatWindow": "@roblox/enum/ChatCallbackType.OnCreatingChatWindow",
       "OnClientSendingMessage": "@roblox/enum/ChatCallbackType.OnClientSendingMessage",
@@ -120765,7 +120802,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.None": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code>'de hiçbir reklam yaratımı yüklenmemiştir ve reklam içeriği render edilmemektedir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120775,7 +120812,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Image": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> statik bir resim reklam yaratımını render ediyor.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120785,7 +120822,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Video": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> bir video reklam yaratımını render ediyor.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120795,7 +120832,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIType": {
-    "documentation": "",
+    "documentation": "<code>AdGui</code> tarafından şu anda render edilen reklam yaratım türünü açıklar.",
     "keys": {
       "None": "@roblox/enum/AdUIType.None",
       "Image": "@roblox/enum/AdUIType.Image",
@@ -123706,7 +123743,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Unknown": {
-    "documentation": "",
+    "documentation": "Platformun kullanıcı için sohbet kısıtlama durumu henüz belirlenmemiştir; bu, tüm ChatRestrictionStatus özellikleri için varsayılan değerdir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123716,7 +123753,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.NotRestricted": {
-    "documentation": "",
+    "documentation": "Üçüncü taraf platform, kullanıcının geçerli bir sohbet kısıtlaması olmadığını onayladı.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123726,7 +123763,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatRestrictionStatus.Restricted": {
-    "documentation": "",
+    "documentation": "Üçüncü taraf platform, kullanıcının sohbetten kısıtlandığını bildirmiştir; bu genellikle ebeveyn denetimleri veya platform iletişim ayarları nedeniyle olur.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123736,7 +123773,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ChatRestrictionStatus": {
-    "documentation": "",
+    "documentation": "Bir üçüncü taraf platformunun bir kullanıcı için rapor ettiği sohbet kısıtlama durumunu tanımlar.",
     "keys": {
       "Unknown": "@roblox/enum/ChatRestrictionStatus.Unknown",
       "NotRestricted": "@roblox/enum/ChatRestrictionStatus.NotRestricted",
@@ -128179,57 +128216,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SurfaceType",
     "code_sample": ""
   },
-  "@roblox/enum/WebSocketState.Connecting": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Connecting",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Open": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Open",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closing": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closing",
-    "code_sample": ""
-  },
-  "@roblox/enum/WebSocketState.Closed": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState#Closed",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.WebSocketState": {
-    "documentation": "",
-    "keys": {
-      "Connecting": "@roblox/enum/WebSocketState.Connecting",
-      "Open": "@roblox/enum/WebSocketState.Open",
-      "Closing": "@roblox/enum/WebSocketState.Closing",
-      "Closed": "@roblox/enum/WebSocketState.Closed"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebSocketState",
-    "code_sample": ""
-  },
   "@roblox/enum/RecommendationActionType.AddReaction": {
     "documentation": "Kullanıcı öğeye bir tepki ekledi, örneğin bir \"beğeni\".",
     "keys": {
@@ -129627,7 +129613,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField01": {
-    "documentation": "",
+    "documentation": "İlk özel alan anahtarı, Roblox tarafından sağlanan analiz grafiklerinde bir ayrıştırma boyutu sağlamak için kullanılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129637,7 +129623,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField02": {
-    "documentation": "",
+    "documentation": "İkinci özel alan anahtarı, Roblox tarafından sağlanan analiz grafiklerinde bir ayrıştırma boyutu sağlamak için kullanılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -129647,7 +129633,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsCustomFieldKeys.CustomField03": {
-    "documentation": "",
+    "documentation": "Üçüncü özel alan anahtarı, Roblox tarafından sağlanan analiz grafiklerinde bir ayrıştırma boyutu sağlamak için kullanılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131738,7 +131724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/TextChatMessageStatus.ModerationTimeout": {
-    "documentation": "",
+    "documentation": "Mesaj gönderilemez çünkü kullanıcının sohbet üzerinde aktif bir moderasyon zaman aşımı var.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131863,7 +131849,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdAvailabilityResult": {
-    "documentation": "",
+    "documentation": "Bir reklamın mevcut olup olmadığını veya gösterilememesinin nedenini belirtir.",
     "keys": {
       "IsAvailable": "@roblox/enum/AdAvailabilityResult.IsAvailable",
       "DeviceIneligible": "@roblox/enum/AdAvailabilityResult.DeviceIneligible",
@@ -132649,7 +132635,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Default": {
-    "documentation": "",
+    "documentation": "Daha spesifik bir sözdizim kategorisiyle eşleşmeyen script metni için kullanılan yedek ön plan rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132659,7 +132645,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Operator": {
-    "documentation": "",
+    "documentation": "Scriptlerde <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>==</code> ve <code>..</code> gibi operatör token'larına uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132669,7 +132655,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Number": {
-    "documentation": "",
+    "documentation": "Scriptlerde sayısal literal token'larına uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132679,7 +132665,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.String": {
-    "documentation": "",
+    "documentation": "Alıntılı dizeler ve uzun dizeler dahil olmak üzere string literal token'larına uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132689,7 +132675,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Comment": {
-    "documentation": "",
+    "documentation": "Scriptlerdeki yorum token'larına (tek satırlı <code>--</code> ve blok <code>--[[ ]]</code> yorumları) uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132699,7 +132685,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Keyword": {
-    "documentation": "",
+    "documentation": "Scriptlerde <code>if</code>, <code>then</code>, <code>else</code>, <code>do</code>, <code>end</code>, <code>return</code> ve <code>while</code> gibi Luau rezervli anahtar kelimelere uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132709,7 +132695,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Builtin": {
-    "documentation": "",
+    "documentation": "Scriptlerdeki Luau yerleşik fonksiyonlar ve standart kütüphane tanımlayıcılarına uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132719,7 +132705,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Method": {
-    "documentation": "",
+    "documentation": "Scriptlerdeki metod çağrısı tanımlayıcılarına uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132729,7 +132715,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Property": {
-    "documentation": "",
+    "documentation": "Scriptlerdeki özellik erişim tanımlayıcılarına (bir <code>.</code> operatörünü takip eden token'lar) uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132739,7 +132725,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Nil": {
-    "documentation": "",
+    "documentation": "Scriptlerdeki <code>nil</code> literal token'ına uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132749,7 +132735,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bool": {
-    "documentation": "",
+    "documentation": "Scriptlerde boolean literal'ları (<code>true</code> ve <code>false</code>) vurgulamak için kullanılan ön plan rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132759,7 +132745,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Function": {
-    "documentation": "",
+    "documentation": "Fonksiyon bildirimlerinde <code>function</code> anahtar kelime token'ına uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132769,7 +132755,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Local": {
-    "documentation": "",
+    "documentation": "Yerel değişken ve fonksiyon bildirimlerinde <code>local</code> anahtar kelime token'ına uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132779,7 +132765,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Self": {
-    "documentation": "",
+    "documentation": "Metod gövdelerinde <code>self</code> tanımlayıcı token'ına uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132789,7 +132775,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.LuauKeyword": {
-    "documentation": "",
+    "documentation": "Luau'ya özgü tür açıklama anahtar kelimelerine (örneğin, <code>type</code> ve <code>typeof</code>) uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132799,7 +132785,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FunctionName": {
-    "documentation": "",
+    "documentation": "Bir fonksiyonu bildiren tanımlayıcıya uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132809,7 +132795,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.TODO": {
-    "documentation": "",
+    "documentation": "<code>TODO</code> işaretlerine scriptlerdeki yorumlar içinde uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132819,7 +132805,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Background": {
-    "documentation": "",
+    "documentation": "Script Editor tuvali için ana arka plan rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132829,7 +132815,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionText": {
-    "documentation": "",
+    "documentation": "Script Editor'daki mevcut seçili aralık içindeki metin için ön plan rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132839,7 +132825,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.SelectionBackground": {
-    "documentation": "",
+    "documentation": "Script Editor'daki mevcut seçili metin aralığı için arka plan vurgulama rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132849,7 +132835,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.FindSelectionBackground": {
-    "documentation": "",
+    "documentation": "Bir Bul veya Değiştir işlemiyle eşleşen metin aralıklarına uygulanan arka plan vurgulama rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132859,7 +132845,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MatchingWordBackground": {
-    "documentation": "",
+    "documentation": "Kelime vurgulama aktifken imlecin altındaki kelimenin tüm tekrarlarına uygulanan arka plan vurgulama rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132869,7 +132855,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Warning": {
-    "documentation": "",
+    "documentation": "Scriptlerdeki uyarı-seviyeli tanı işaretleri ve alt çizgiler için kullanılan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132879,7 +132865,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Error": {
-    "documentation": "",
+    "documentation": "Scriptlerdeki hata-seviyeli tanı işaretleri ve alt çizgiler için kullanılan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132889,7 +132875,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Info": {
-    "documentation": "",
+    "documentation": "Scriptlerdeki bilgi-seviyeli tanı işaretleri için kullanılan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132899,7 +132885,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Hint": {
-    "documentation": "",
+    "documentation": "Scriptlerdeki ipucu-seviyeli tanı işaretleri için kullanılan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132909,7 +132895,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Whitespace": {
-    "documentation": "",
+    "documentation": "O görüntüleme seçeneği etkinleştirildiğinde görünür boşluk karakterlerini (boşluklar ve sekmeler) render etmek için kullanılan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132919,7 +132905,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.ActiveLine": {
-    "documentation": "",
+    "documentation": "Metin imlecinin bulunduğu satıra uygulanan arka plan vurgulama rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132929,7 +132915,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerCurrentLine": {
-    "documentation": "",
+    "documentation": "Debugger'ın şu anda durakladığı satır için arka plan vurgulama rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132939,7 +132925,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DebuggerErrorLine": {
-    "documentation": "",
+    "documentation": "Debugging oturumu sırasında bir çalışma zamanı hatasına neden olan satır için arka plan vurgulama rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132949,7 +132935,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Ruler": {
-    "documentation": "",
+    "documentation": "Script Editor'daki yapılandırılmış karakter-genişlik sınırında çizilen dikey sütun cetveli çizgi rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132959,7 +132945,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Bracket": {
-    "documentation": "",
+    "documentation": "Scriptlerdeki <code>(</code>, <code>)</code>, <code>[</code>, <code>]</code>, <code>{</code>, ve <code>}</code> gibi parantez karakterlerine uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132969,7 +132955,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.Type": {
-    "documentation": "",
+    "documentation": "Tür açıklamaları ve bildirimlerinde Luau tür adı token'larına uygulanan renk.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132979,7 +132965,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuPrimaryText": {
-    "documentation": "",
+    "documentation": "Otomatik tamamlama ve bağlam menüsü açılır pencerelerinde listelenen öğeler için birincil metin rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132989,7 +132975,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSecondaryText": {
-    "documentation": "",
+    "documentation": "Otomatik tamamlama açılır pencerelerinde ikincil metin rengi (örneğin, tür açıklamaları veya belgeler için ipuçları).",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -132999,7 +132985,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedText": {
-    "documentation": "",
+    "documentation": "Otomatik tamamlama ve bağlam menüsü açılır pencerelerinde şu anda vurgulanan öğenin metin rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133009,7 +132995,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBackground": {
-    "documentation": "",
+    "documentation": "Script Editor'daki otomatik tamamlama ve bağlam menüsü açılır pencereleri için arka plan rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133019,7 +133005,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuSelectedBackground": {
-    "documentation": "",
+    "documentation": "Otomatik tamamlama ve bağlam menüsü açılır pencerelerinde şu anda vurgulanan öğenin arka plan rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133029,7 +133015,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarBackground": {
-    "documentation": "",
+    "documentation": "Otomatik tamamlama ve bağlam menüsü açılır pencerelerindeki kaydırıcı çubuğu yolu için arka plan rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133039,7 +133025,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuScrollbarHandle": {
-    "documentation": "",
+    "documentation": "Otomatik tamamlama ve bağlam menüsü açılır pencerelerindeki kaydırıcı parmağı (kulp) rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133049,7 +133035,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.MenuBorder": {
-    "documentation": "",
+    "documentation": "Script Editor'daki otomatik tamamlama ve bağlam menüsü açılır pencereleri için kenar rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133059,7 +133045,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.DocViewCodeBackground": {
-    "documentation": "",
+    "documentation": "Studio içindeki belgeler görüntüleyici panelinde render edilen satır içi kod blokları için arka plan rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133069,7 +133055,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayText": {
-    "documentation": "",
+    "documentation": "AI Kod Overlay panelinde görüntülenen etiketler için metin rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133079,7 +133065,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackground": {
-    "documentation": "",
+    "documentation": "AI Kod Overlay eylem düğmeleri için varsayılan (boşta) durumdaki arka plan rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133089,7 +133075,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundHover": {
-    "documentation": "",
+    "documentation": "İmleç üzerlerinde durduğunda AI Kod Overlay eylem düğmeleri için arka plan rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133099,7 +133085,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundPressed": {
-    "documentation": "",
+    "documentation": "AI Kod Overlay eylem düğmeleri basıldığında arka plan rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133109,7 +133095,7 @@
     "code_sample": ""
   },
   "@roblox/enum/StudioScriptEditorColorCategories.IndentationRuler": {
-    "documentation": "",
+    "documentation": "Script editörü kenar boşluğundaki her girinti seviyesinde çizilen dikey kılavuz çizgilerinin rengi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133119,7 +133105,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.StudioScriptEditorColorCategories": {
-    "documentation": "",
+    "documentation": "Roblox Studio'daki Script Editor'ü temalandırmak için kullanılan renk kategorileri.",
     "keys": {
       "Default": "@roblox/enum/StudioScriptEditorColorCategories.Default",
       "Operator": "@roblox/enum/StudioScriptEditorColorCategories.Operator",
@@ -133364,7 +133350,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptPublishAssetResult": {
-    "documentation": "Bir <code>AssetService:PromptCreateAssetAsync()</code> çağrısının sonucunu açıklar.",
+    "documentation": "<code>OpenPublishResultModal</code> olayı için kullanımdan kaldırılmış sonuç enum'u.",
     "keys": {
       "Success": "@roblox/enum/PromptPublishAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptPublishAssetResult.PermissionDenied",
@@ -135428,7 +135414,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyTransactionType": {
-    "documentation": "",
+    "documentation": "Deneyim içindeki ekonomik işlemin bağlamını <code>AnalyticsService:LogEconomyEvent()</code> ile kullanmak üzere kategorize eder.",
     "keys": {
       "IAP": "@roblox/enum/AnalyticsEconomyTransactionType.IAP",
       "Shop": "@roblox/enum/AnalyticsEconomyTransactionType.Shop",
@@ -135621,7 +135607,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PromptCreateAssetResult": {
-    "documentation": "Bir <code>AssetService:PromptCreateAssetAsync()</code> çağrısının sonucunu açıklar.",
+    "documentation": "<code>AvatarCreationService:PromptCreateAvatarAssetAsync()</code> çağrısının sonucunu açıklar.",
     "keys": {
       "Success": "@roblox/enum/PromptCreateAssetResult.Success",
       "PermissionDenied": "@roblox/enum/PromptCreateAssetResult.PermissionDenied",
@@ -135638,7 +135624,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Custom": {
-    "documentation": "",
+    "documentation": "Standart başlangıç/başarısız/tamamla yaşam döngüsünün dışında kalan olaylar için özel bir ilerleme durumu.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135648,7 +135634,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Start": {
-    "documentation": "",
+    "documentation": "Oyuncu seviye denemesine başladı.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135658,7 +135644,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Fail": {
-    "documentation": "",
+    "documentation": "Oyuncu seviye denemesini başaramadı.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135668,7 +135654,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnalyticsProgressionType.Complete": {
-    "documentation": "",
+    "documentation": "Oyuncu seviyeyi başarıyla tamamladı.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -135678,7 +135664,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsProgressionType": {
-    "documentation": "",
+    "documentation": "Bir oyuncunun <code>AnalyticsService:LogProgressionEvent()</code> ile kaydedilen bir seviye ilerleme olayındaki ilerleme durumunu belirtir.",
     "keys": {
       "Custom": "@roblox/enum/AnalyticsProgressionType.Custom",
       "Start": "@roblox/enum/AnalyticsProgressionType.Start",
@@ -136217,7 +136203,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdFormat.RewardedVideo": {
-    "documentation": "Ödüllü video reklamının formatı.",
+    "documentation": "Tam ekran bir video reklamı, tamamlanana kadar oynatılır ve izleyiciye ödül verir, <code>AdService</code> yöntemleri için <code>adFormat</code> argümanı olarak kullanılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136227,7 +136213,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdFormat": {
-    "documentation": "",
+    "documentation": "Bir <code>AdService</code> yöntemleri ile kullanılan bir reklamın formatını belirtir.",
     "keys": {
       "RewardedVideo": "@roblox/enum/AdFormat.RewardedVideo"
     },
@@ -136337,7 +136323,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Unknown": {
-    "documentation": "Transkodlama durumu henüz belirlenmemiştir. Bu, model sorgulanmadan önceki başlangıç durumudur. Hata ayıklama tonlaması üzerinde magenta olarak gösterilir.",
+    "documentation": "Transkodlama durumu henüz belirlenmedi. Bu, modelin sorgulanmadan önceki ilk durumudur. Hata ayıklama tonlama kaplamasında sarı olarak gösterilir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136346,48 +136332,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Unknown",
     "code_sample": ""
   },
-  "@roblox/enum/SlimTranscoderStatus.NoHash": {
-    "documentation": "Model SLIM etkinleştirilmiş ancak henüz oluşturulmuş bir hash yok, bu nedenle transkodlama talep edilmemiştir. Hata ayıklama tonlaması üzerinde cyan olarak gösterilir.",
+  "@roblox/enum/SlimTranscoderStatus.Transcoding": {
+    "documentation": "SLIM transkodlaması şu anda arka planda devam ediyor. Modelin, transkodlama tamamlandığında Başarılı veya Başarısız durumuna geçmesi bekleniyor. Hata ayıklama tonlama kaplamasında mavi olarak gösterilir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NoHash",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.NotUploaded": {
-    "documentation": "Model içerik dağıtım ağına yüklenmemiştir. Hata ayıklama tonlaması kaplamasında turuncu olarak gösterilir.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NotUploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.Uploaded": {
-    "documentation": "Model içerik dağıtım ağına yüklenmiştir ancak henüz SLIM varlıklarına transkodlanmamıştır. Hata ayıklama tonlaması kaplamasında sarı olarak gösterilir.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Uploaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/SlimTranscoderStatus.InProgress": {
-    "documentation": "SLIM transkodlaması şu anda arka uçta devam etmektedir. Transkodlama tamamlandığında modelin Başarılı veya Başarısız durumuna geçmesi beklenmektedir. Hata ayıklama tonlaması üzerinde mavi olarak gösterilir.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#InProgress",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Transcoding",
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Succeeded": {
-    "documentation": "Transkodlama başarıyla tamamlandı ve SLIM varlıkları akış için kullanılabilir. Hata ayıklama tonlaması üzerinde yeşil olarak gösterilir.",
+    "documentation": "Transkodlama başarıyla tamamlandı ve SLIM varlıkları akış için mevcuttur. Hata ayıklama tonlama kaplamasında yeşil olarak gösterilir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136397,7 +136353,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Failed": {
-    "documentation": "Transkodlama başarıyla tamamlanmadı. Hata ayıklama tonlaması üzerinde kırmızı olarak gösterilir.",
+    "documentation": "Transkodlama başarıyla tamamlanmadı. Hata ayıklama tonlama kaplamasında kırmızı olarak gösterilir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136410,10 +136366,7 @@
     "documentation": "Bir SLIM modelinin arka uç transkodlama durumunu, yüklemeden transkodlamaya ve başarı veya başarısızlığa kadar tanımlar.",
     "keys": {
       "Unknown": "@roblox/enum/SlimTranscoderStatus.Unknown",
-      "NoHash": "@roblox/enum/SlimTranscoderStatus.NoHash",
-      "NotUploaded": "@roblox/enum/SlimTranscoderStatus.NotUploaded",
-      "Uploaded": "@roblox/enum/SlimTranscoderStatus.Uploaded",
-      "InProgress": "@roblox/enum/SlimTranscoderStatus.InProgress",
+      "Transcoding": "@roblox/enum/SlimTranscoderStatus.Transcoding",
       "Succeeded": "@roblox/enum/SlimTranscoderStatus.Succeeded",
       "Failed": "@roblox/enum/SlimTranscoderStatus.Failed"
     },
@@ -137104,7 +137057,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyFlowType": {
-    "documentation": "",
+    "documentation": "Bir ekonomideki para akışının yönünü belirtir, <code>AnalyticsService:LogEconomyEvent()</code> tarafından kaydedilir.",
     "keys": {
       "Sink": "@roblox/enum/AnalyticsEconomyFlowType.Sink",
       "Source": "@roblox/enum/AnalyticsEconomyFlowType.Source"
@@ -138772,7 +138725,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnalyticsEconomyAction": {
-    "documentation": "",
+    "documentation": "Ekonomik işlemin türünü açıklar <code>AnalyticsService:FireInGameEconomyEvent()</code>.",
     "keys": {
       "Default": "@roblox/enum/AnalyticsEconomyAction.Default",
       "Acquire": "@roblox/enum/AnalyticsEconomyAction.Acquire",
@@ -139004,7 +138957,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Blue": {
-    "documentation": "Mavi sohbet rengi.",
+    "documentation": "Mavi sohbet rengi; <code>Chat()</code> ve <code>ChatLocal()</code>'a geçirilen varsayılan değer.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139014,7 +138967,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Green": {
-    "documentation": "Yeşil sohbet rengi.",
+    "documentation": "Yeşil sohbet rengi, <code>Chat()</code> veya <code>ChatLocal()</code>'a <code>color</code> argümanı olarak geçirilir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139024,7 +138977,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.Red": {
-    "documentation": "Kırmızı sohbet rengi.",
+    "documentation": "Kırmızı sohbet rengi, <code>Chat()</code> veya <code>ChatLocal()</code>'a <code>color</code> argümanı olarak geçirilir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -139034,7 +138987,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ChatColor.White": {
-    "documentation": "Beyaz sohbet rengi.",
+    "documentation": "Beyaz sohbet rengi, <code>Chat()</code> veya <code>ChatLocal()</code>'a <code>color</code> argümanı olarak geçirilir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140537,7 +140490,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.Undefined": {
-    "documentation": "",
+    "documentation": "Henüz belirlenmemiş bir teleport yöntemi olduğunu gösteren varsayılan başlatılmamış sentinel değeri.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140547,7 +140500,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.PortalForward": {
-    "documentation": "",
+    "documentation": "Oyuncu, <code>AdPortal</code> içine girerek reklamverenin hedef deneyimine ileri teleport oldu.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140557,7 +140510,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.InGameMenuBackButton": {
-    "documentation": "",
+    "documentation": "Oyuncu, oyun içi menüde geri butonuna basarak yayıncının deneyimine dönüş teleportunu başlattı.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140567,7 +140520,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.UIBackButton": {
-    "documentation": "",
+    "documentation": "Oyuncu, reklam hedefinin UI overlay'inde render edilen geri butonuna basarak yayıncının deneyimine dönüş teleportunu başlattı.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140577,7 +140530,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdTeleportMethod": {
-    "documentation": "",
+    "documentation": "Bir oyuncunun etkileyici bir reklam portalı akışı sırasında nasıl teleport olduğunu açıklar.",
     "keys": {
       "Undefined": "@roblox/enum/AdTeleportMethod.Undefined",
       "PortalForward": "@roblox/enum/AdTeleportMethod.PortalForward",
