@@ -11913,12 +11913,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginManagerInterface#ExportSelection",
     "code_sample": ""
   },
-  "@roblox/globaltype/ScriptBuilder": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScriptBuilder",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Snap": {
     "documentation": "<strong>Deprecated:</strong> <br>Maintient deux parties ensemble et fonctionne de manière identique à <code>Weld</code>.",
     "keys": {},
@@ -22308,12 +22302,6 @@
   "@roblox/globaltype/UIScale.Scale": {
     "documentation": "Détermine le multiplicateur à appliquer à la taille de l'élément UI parent.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIScale#Scale",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/FeatureRestrictionManager": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/FeatureRestrictionManager",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings": {
@@ -32988,12 +32976,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BodyVelocity#lastForce",
     "code_sample": ""
   },
-  "@roblox/globaltype/PatchBundlerFileWatch": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PatchBundlerFileWatch",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Pose": {
     "documentation": "Contient le <code>CFrame</code> appliqué au <code>Motor6D</code> connecté à son <code>BasePart</code> associé. La partie contrôlée dépend du nom de la Pose.",
     "keys": {
@@ -33079,12 +33061,6 @@
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Pose#RemoveSubPose",
     "code_sample": "local keyframe = Instance.new(\"Keyframe\")\nkeyframe.Parent = workspace\n\nlocal pose = Instance.new(\"Pose\")\npose.EasingStyle = Enum.PoseEasingStyle.Cubic\npose.EasingDirection = Enum.PoseEasingDirection.Out\n\nlocal pose2 = Instance.new(\"Pose\")\npose2.EasingStyle = Enum.PoseEasingStyle.Cubic\npose2.EasingDirection = Enum.PoseEasingDirection.Out\n\nkeyframe:AddPose(pose) -- pose.Parent = keyframe\n\ntask.wait(2)\n\nkeyframe:RemovePose(pose) -- pose.Parent = nil\n\ntask.wait(2)\n\nkeyframe:AddPose(pose) -- pose.Parent = keyframe\n\ntask.wait(2)\n\npose:AddSubPose(pose2) -- pose2.Parent = pose\n\ntask.wait(2)\n\npose:RemoveSubPose(pose2) -- pose2.Parent = nil"
-  },
-  "@roblox/globaltype/AnimationFromVideoCreatorService": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationFromVideoCreatorService",
-    "code_sample": ""
   },
   "@roblox/globaltype/ReflectionMetadataEvents": {
     "documentation": "Agit en tant que <code>Folder</code> contenant des informations sur les événements pour un <code>ReflectionMetadataClass</code>, et doit lui être parenté. <code>ReflectionMetadataMembers</code> qui sont parentés à cet objet seront perçus comme des événements sous la classe à laquelle il est parenté.",
@@ -33343,43 +33319,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#WiringChanged",
     "code_sample": ""
   },
-  "@roblox/globaltype/SyncScriptBuilder": {
-    "documentation": "",
-    "keys": {
-      "CompileTarget": "@roblox/globaltype/SyncScriptBuilder.CompileTarget",
-      "CoverageInfo": "@roblox/globaltype/SyncScriptBuilder.CoverageInfo",
-      "DebugInfo": "@roblox/globaltype/SyncScriptBuilder.DebugInfo",
-      "PackAsSource": "@roblox/globaltype/SyncScriptBuilder.PackAsSource",
-      "RawBytecode": "@roblox/globaltype/SyncScriptBuilder.RawBytecode"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SyncScriptBuilder",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/SyncScriptBuilder.CompileTarget": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SyncScriptBuilder#CompileTarget",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/SyncScriptBuilder.CoverageInfo": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SyncScriptBuilder#CoverageInfo",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/SyncScriptBuilder.DebugInfo": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SyncScriptBuilder#DebugInfo",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/SyncScriptBuilder.PackAsSource": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SyncScriptBuilder#PackAsSource",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/SyncScriptBuilder.RawBytecode": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SyncScriptBuilder#RawBytecode",
-    "code_sample": ""
-  },
   "@roblox/globaltype/SelectionPartLasso": {
     "documentation": "<strong>Deprecated:</strong> SelectionPartLasso a été déprécié. Les développeurs sont conseillés d'utiliser l'objet <code>Beam</code> à la place.<br>Une instance utilisée pour afficher un \"lasso\" entre un Torse <code>Humanoid</code> et un <code>BasePart</code>.",
     "keys": {
@@ -33570,12 +33509,6 @@
       "Wait": "@roblox/globaltype/ConfigSnapshot.UpdateAvailable.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ConfigSnapshot#UpdateAvailable",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PlacesService": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PlacesService",
     "code_sample": ""
   },
   "@roblox/globaltype/Capture": {
@@ -47045,62 +46978,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PlayerListConfiguration#Open",
     "code_sample": ""
   },
-  "@roblox/globaltype/HttpRbxApiService": {
-    "documentation": "",
-    "keys": {
-      "RequestLimitedAsync": "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HttpRbxApiService",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/4": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/0"
-      },
-      {
-        "name": "requestOptions",
-        "documentation": "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/1"
-      },
-      {
-        "name": "priority",
-        "documentation": "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/2"
-      },
-      {
-        "name": "content_type",
-        "documentation": "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/3"
-      },
-      {
-        "name": "httpRequestType",
-        "documentation": "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/param/4"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/HttpRbxApiService.RequestLimitedAsync/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HttpRbxApiService#RequestLimitedAsync",
-    "code_sample": ""
-  },
   "@roblox/globaltype/UIConstraint": {
     "documentation": "La classe de base pour les classes de contrainte UI.",
     "keys": {},
@@ -50941,12 +50818,6 @@
       "@roblox/globaltype/File.GetTemporaryId/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/File#GetTemporaryId",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/PermissionsService": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PermissionsService",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidController": {
@@ -60579,12 +60450,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshContentProvider",
     "code_sample": ""
   },
-  "@roblox/globaltype/MemStorageService": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MemStorageService",
-    "code_sample": ""
-  },
   "@roblox/globaltype/UIGridStyleLayout": {
     "documentation": "La classe de base pour les mises en page d'interface utilisateur de style grille.",
     "keys": {
@@ -64074,12 +63939,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataStoreOptions#SetExperimentalFeatures",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GenericChallengeService": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GenericChallengeService",
     "code_sample": ""
   },
   "@roblox/globaltype/PostEffect": {
@@ -71691,12 +71550,6 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LocalizationService#GetTranslatorForPlayerAsync",
     "code_sample": "local LocalizationService = game:GetService(\"LocalizationService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal textLabel = script.Parent\n\nlocal success, translator = pcall(function()\n\treturn LocalizationService:GetTranslatorForPlayerAsync(Players.LocalPlayer)\nend)\n\nif success then\n\tlocal result = translator:Translate(textLabel, \"Bonjour le monde !\")\n\tprint(result)\nelse\n\tprint(\"GetTranslatorForPlayerAsync a échoué : \" .. translator)\nend"
-  },
-  "@roblox/globaltype/StartupMessageService": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StartupMessageService",
-    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService": {
     "documentation": "<code>UserInputService</code> est principalement utilisé pour détecter les types d'entrée disponibles sur un appareil de l'utilisateur, ainsi que pour détecter les événements d'entrée.",
@@ -87909,254 +87762,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Handles#MouseLeave",
     "code_sample": ""
   },
-  "@roblox/globaltype/MicroProfilerService": {
-    "documentation": "Un service qui connecte le MicroProfiler du moteur au modèle de données, alimentant le contexte dans les dumps de profil et permettant aux scripts privilégiés de les capturer sur disque.",
-    "keys": {
-      "ContextLabel": "@roblox/globaltype/MicroProfilerService.ContextLabel",
-      "GetDataInRange": "@roblox/globaltype/MicroProfilerService.GetDataInRange",
-      "GetDataSize": "@roblox/globaltype/MicroProfilerService.GetDataSize",
-      "ProcessCommand": "@roblox/globaltype/MicroProfilerService.ProcessCommand"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MicroProfilerService",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.ContextLabel": {
-    "documentation": "Une étiquette définie par un script intégrée dans les dumps de profil MicroProfiler pour identifier le contexte dans lequel une capture a été effectuée.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MicroProfilerService#ContextLabel",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.GetDataInRange/param/0": {
-    "documentation": "Un service qui connecte le MicroProfiler du moteur au modèle de données, alimentant le contexte dans les dumps de profil et permettant aux scripts privilégiés de les capturer sur disque."
-  },
-  "@roblox/globaltype/MicroProfilerService.GetDataInRange/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.GetDataInRange/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.GetDataInRange/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.GetDataInRange/param/4": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.GetDataInRange/param/5": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.GetDataInRange/return/0": {
-    "documentation": "Le nombre d'octets effectivement copiés dans <code>destBuffer</code> à partir de <code>destBufferOffset</code>. Renvoie <code>0</code> si la lecture échoue."
-  },
-  "@roblox/globaltype/MicroProfilerService.GetDataInRange": {
-    "documentation": "Lit les données de capture de profil à partir d'un slot dans un tampon Luau fourni.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MicroProfilerService.GetDataInRange/param/0"
-      },
-      {
-        "name": "slotId",
-        "documentation": "@roblox/globaltype/MicroProfilerService.GetDataInRange/param/1"
-      },
-      {
-        "name": "offset",
-        "documentation": "@roblox/globaltype/MicroProfilerService.GetDataInRange/param/2"
-      },
-      {
-        "name": "size",
-        "documentation": "@roblox/globaltype/MicroProfilerService.GetDataInRange/param/3"
-      },
-      {
-        "name": "destBuffer",
-        "documentation": "@roblox/globaltype/MicroProfilerService.GetDataInRange/param/4"
-      },
-      {
-        "name": "destBufferOffset",
-        "documentation": "@roblox/globaltype/MicroProfilerService.GetDataInRange/param/5"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/MicroProfilerService.GetDataInRange/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MicroProfilerService#GetDataInRange",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.GetDataSize/param/0": {
-    "documentation": "Un service qui connecte le MicroProfiler du moteur au modèle de données, alimentant le contexte dans les dumps de profil et permettant aux scripts privilégiés de les capturer sur disque."
-  },
-  "@roblox/globaltype/MicroProfilerService.GetDataSize/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.GetDataSize/return/0": {
-    "documentation": "La taille totale, en octets, des données de profil disponibles dans le slot. Renvoie <code>0</code> lorsque aucune donnée n'est disponible."
-  },
-  "@roblox/globaltype/MicroProfilerService.GetDataSize": {
-    "documentation": "Renvoie le nombre total d'octets de données de profil stockées dans un slot.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MicroProfilerService.GetDataSize/param/0"
-      },
-      {
-        "name": "slotId",
-        "documentation": "@roblox/globaltype/MicroProfilerService.GetDataSize/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/MicroProfilerService.GetDataSize/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MicroProfilerService#GetDataSize",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.ProcessCommand/param/0": {
-    "documentation": "Un service qui connecte le MicroProfiler du moteur au modèle de données, alimentant le contexte dans les dumps de profil et permettant aux scripts privilégiés de les capturer sur disque."
-  },
-  "@roblox/globaltype/MicroProfilerService.ProcessCommand/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.ProcessCommand/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.ProcessCommand/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.ProcessCommand/param/4": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.ProcessCommand/param/5": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.ProcessCommand/param/6": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.ProcessCommand/return/0": {
-    "documentation": "Le nombre d'octets écrits dans <code>respBuf</code> en tant que réponse à la commande. Renvoie <code>0</code> si la commande n'est pas exécutée."
-  },
-  "@roblox/globaltype/MicroProfilerService.ProcessCommand": {
-    "documentation": "Envoie une commande binaire au canal de contrôle du MicroProfiler et écrit la réponse dans un tampon.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MicroProfilerService.ProcessCommand/param/0"
-      },
-      {
-        "name": "cmdBuf",
-        "documentation": "@roblox/globaltype/MicroProfilerService.ProcessCommand/param/1"
-      },
-      {
-        "name": "cmdOffset",
-        "documentation": "@roblox/globaltype/MicroProfilerService.ProcessCommand/param/2"
-      },
-      {
-        "name": "cmdSize",
-        "documentation": "@roblox/globaltype/MicroProfilerService.ProcessCommand/param/3"
-      },
-      {
-        "name": "respBuf",
-        "documentation": "@roblox/globaltype/MicroProfilerService.ProcessCommand/param/4"
-      },
-      {
-        "name": "respOffset",
-        "documentation": "@roblox/globaltype/MicroProfilerService.ProcessCommand/param/5"
-      },
-      {
-        "name": "respSize",
-        "documentation": "@roblox/globaltype/MicroProfilerService.ProcessCommand/param/6"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/MicroProfilerService.ProcessCommand/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MicroProfilerService#ProcessCommand",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/MicroProfilerService.DataChanged.Connect/param/0": {
-    "documentation": "Un objet qui exécute des fonctions connectées lors d'une occurrence spécifique."
-  },
-  "@roblox/globaltype/MicroProfilerService.DataChanged.Connect/param/1": {
-    "documentation": "La fonction de rappel à invoquer chaque fois que l'événement se déclenche."
-  },
-  "@roblox/globaltype/MicroProfilerService.DataChanged.Connect": {
-    "documentation": "Connecte la fonction donnée à l'événement et retourne un  <code>RBXScriptConnection</code> qui le représente.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MicroProfilerService.DataChanged.Connect/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/MicroProfilerService.DataChanged.Connect/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/MicroProfilerService.DataChanged.ConnectParallel/param/0": {
-    "documentation": "Un objet qui exécute des fonctions connectées lors d'une occurrence spécifique."
-  },
-  "@roblox/globaltype/MicroProfilerService.DataChanged.ConnectParallel/param/1": {
-    "documentation": "La fonction de rappel à invoquer lorsque l'événement se déclenche dans un contexte d'exécution parallèle."
-  },
-  "@roblox/globaltype/MicroProfilerService.DataChanged.ConnectParallel": {
-    "documentation": "Connecte la fonction donnée à l'événement et retourne un  <code>RBXScriptConnection</code> qui le représente.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MicroProfilerService.DataChanged.ConnectParallel/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/MicroProfilerService.DataChanged.ConnectParallel/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/MicroProfilerService.DataChanged.Once/param/0": {
-    "documentation": "Un objet qui exécute des fonctions connectées lors d'une occurrence spécifique."
-  },
-  "@roblox/globaltype/MicroProfilerService.DataChanged.Once/param/1": {
-    "documentation": "La fonction de rappel à invoquer la prochaine fois que l'événement se déclenche, après quoi elle est automatiquement déconnectée."
-  },
-  "@roblox/globaltype/MicroProfilerService.DataChanged.Once": {
-    "documentation": "Connecte la fonction donnée à l'événement (pour une seule invocation) et  retourne un <code>RBXScriptConnection</code> qui le représente.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MicroProfilerService.DataChanged.Once/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/MicroProfilerService.DataChanged.Once/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/MicroProfilerService.DataChanged.Wait/param/0": {
-    "documentation": "Un objet qui exécute des fonctions connectées lors d'une occurrence spécifique."
-  },
-  "@roblox/globaltype/MicroProfilerService.DataChanged.Wait": {
-    "documentation": "Suspend le thread actuel jusqu'à ce que le signal soit déclenché et retourne les arguments  fournis par le signal.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/MicroProfilerService.DataChanged.Wait/param/0"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/MicroProfilerService.DataChanged": {
-    "documentation": "Se déclenche lorsque les données de profil dans un slot ont changé depuis la dernière image.",
-    "keys": {
-      "Connect": "@roblox/globaltype/MicroProfilerService.DataChanged.Connect",
-      "ConnectParallel": "@roblox/globaltype/MicroProfilerService.DataChanged.ConnectParallel",
-      "Once": "@roblox/globaltype/MicroProfilerService.DataChanged.Once",
-      "Wait": "@roblox/globaltype/MicroProfilerService.DataChanged.Wait"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MicroProfilerService#DataChanged",
-    "code_sample": ""
-  },
   "@roblox/globaltype/BodyPosition": {
     "documentation": "<strong>Deprecated:</strong> Cet objet est obsolète et ne doit pas être utilisé pour de nouveaux travaux. Utilisez <code>AlignPosition</code> à la place, et consultez les <a href=\"../../../physics/mover-constraints.md#legacy-mover-conversion\">notes de conversion héritées</a>.<br>Applique une force pour maintenir une position constante.",
     "keys": {
@@ -98393,12 +97998,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BackpackItem#TextureId",
     "code_sample": ""
   },
-  "@roblox/globaltype/SessionCheckService": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SessionCheckService",
-    "code_sample": ""
-  },
   "@roblox/globaltype/VideoCapture": {
     "documentation": "Une classe enfant de <code>Capture</code> pour les vidéos.",
     "keys": {
@@ -106559,46 +106158,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ComputerCameraMovementMode",
     "code_sample": ""
   },
-  "@roblox/enum/SimulationMode.Default": {
-    "documentation": "Hérite du paramètre de simulation de <code>SoundService</code>.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SimulationMode#Default",
-    "code_sample": ""
-  },
-  "@roblox/enum/SimulationMode.Enabled": {
-    "documentation": "Active la simulation acoustique pour cet émetteur ou cet auditeur, indépendamment du paramètre par défaut du service.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SimulationMode#Enabled",
-    "code_sample": ""
-  },
-  "@roblox/enum/SimulationMode.Disabled": {
-    "documentation": "Désactive la simulation acoustique pour cet émetteur ou cet auditeur, indépendamment de le paramètre par défaut du service.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SimulationMode#Disabled",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.SimulationMode": {
-    "documentation": "Détermine si un <code>AudioEmitter</code> ou <code>AudioListener</code> active ou remplace les effets de simulation acoustique.",
-    "keys": {
-      "Default": "@roblox/enum/SimulationMode.Default",
-      "Enabled": "@roblox/enum/SimulationMode.Enabled",
-      "Disabled": "@roblox/enum/SimulationMode.Disabled"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SimulationMode",
-    "code_sample": ""
-  },
   "@roblox/enum/GuiState.Idle": {
     "documentation": "Le GuiObject est inactif — ni survolé ni pressé.",
     "keys": {
@@ -109117,46 +108676,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DebuggerEndReason",
     "code_sample": ""
   },
-  "@roblox/enum/VRSafetyBubbleMode.NoOne": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRSafetyBubbleMode#NoOne",
-    "code_sample": ""
-  },
-  "@roblox/enum/VRSafetyBubbleMode.OnlyFriends": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRSafetyBubbleMode#OnlyFriends",
-    "code_sample": ""
-  },
-  "@roblox/enum/VRSafetyBubbleMode.Anyone": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRSafetyBubbleMode#Anyone",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.VRSafetyBubbleMode": {
-    "documentation": "",
-    "keys": {
-      "NoOne": "@roblox/enum/VRSafetyBubbleMode.NoOne",
-      "OnlyFriends": "@roblox/enum/VRSafetyBubbleMode.OnlyFriends",
-      "Anyone": "@roblox/enum/VRSafetyBubbleMode.Anyone"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRSafetyBubbleMode",
-    "code_sample": ""
-  },
   "@roblox/enum/ThreadPoolConfig.Auto": {
     "documentation": "Laissez le planificateur de tâches prendre une décision en interne.",
     "keys": {
@@ -110908,68 +110427,6 @@
       "Bottom": "@roblox/enum/VerticalAlignment.Bottom"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VerticalAlignment",
-    "code_sample": ""
-  },
-  "@roblox/enum/AnnotationRequestType.Unknown": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationRequestType#Unknown",
-    "code_sample": ""
-  },
-  "@roblox/enum/AnnotationRequestType.Create": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationRequestType#Create",
-    "code_sample": ""
-  },
-  "@roblox/enum/AnnotationRequestType.Resolve": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationRequestType#Resolve",
-    "code_sample": ""
-  },
-  "@roblox/enum/AnnotationRequestType.Delete": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationRequestType#Delete",
-    "code_sample": ""
-  },
-  "@roblox/enum/AnnotationRequestType.Edit": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationRequestType#Edit",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.AnnotationRequestType": {
-    "documentation": "",
-    "keys": {
-      "Unknown": "@roblox/enum/AnnotationRequestType.Unknown",
-      "Create": "@roblox/enum/AnnotationRequestType.Create",
-      "Resolve": "@roblox/enum/AnnotationRequestType.Resolve",
-      "Delete": "@roblox/enum/AnnotationRequestType.Delete",
-      "Edit": "@roblox/enum/AnnotationRequestType.Edit"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationRequestType",
     "code_sample": ""
   },
   "@roblox/enum/TextureMode.Stretch": {
@@ -113123,68 +112580,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SizeConstraint",
     "code_sample": ""
   },
-  "@roblox/enum/AnnotationRequestStatus.Success": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationRequestStatus#Success",
-    "code_sample": ""
-  },
-  "@roblox/enum/AnnotationRequestStatus.Loading": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationRequestStatus#Loading",
-    "code_sample": ""
-  },
-  "@roblox/enum/AnnotationRequestStatus.ErrorInternalFailure": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationRequestStatus#ErrorInternalFailure",
-    "code_sample": ""
-  },
-  "@roblox/enum/AnnotationRequestStatus.ErrorNotFound": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationRequestStatus#ErrorNotFound",
-    "code_sample": ""
-  },
-  "@roblox/enum/AnnotationRequestStatus.ErrorModerated": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationRequestStatus#ErrorModerated",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.AnnotationRequestStatus": {
-    "documentation": "",
-    "keys": {
-      "Success": "@roblox/enum/AnnotationRequestStatus.Success",
-      "Loading": "@roblox/enum/AnnotationRequestStatus.Loading",
-      "ErrorInternalFailure": "@roblox/enum/AnnotationRequestStatus.ErrorInternalFailure",
-      "ErrorNotFound": "@roblox/enum/AnnotationRequestStatus.ErrorNotFound",
-      "ErrorModerated": "@roblox/enum/AnnotationRequestStatus.ErrorModerated"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationRequestStatus",
-    "code_sample": ""
-  },
   "@roblox/enum/StateObjectFieldType.Boolean": {
     "documentation": "<strong>Deprecated:</strong> <br>Un champ booléen.",
     "keys": {
@@ -115230,57 +114625,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/TriStateBoolean",
     "code_sample": ""
   },
-  "@roblox/enum/StudioCloseMode.None": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StudioCloseMode#None",
-    "code_sample": ""
-  },
-  "@roblox/enum/StudioCloseMode.CloseStudio": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StudioCloseMode#CloseStudio",
-    "code_sample": ""
-  },
-  "@roblox/enum/StudioCloseMode.CloseDoc": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StudioCloseMode#CloseDoc",
-    "code_sample": ""
-  },
-  "@roblox/enum/StudioCloseMode.LogOut": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StudioCloseMode#LogOut",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.StudioCloseMode": {
-    "documentation": "",
-    "keys": {
-      "None": "@roblox/enum/StudioCloseMode.None",
-      "CloseStudio": "@roblox/enum/StudioCloseMode.CloseStudio",
-      "CloseDoc": "@roblox/enum/StudioCloseMode.CloseDoc",
-      "LogOut": "@roblox/enum/StudioCloseMode.LogOut"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StudioCloseMode",
-    "code_sample": ""
-  },
   "@roblox/enum/TrackerLodValueMode.Force0": {
     "documentation": "Force le pipeline vidéo de suivi de visage au niveau LOD 0, le mode de traitement plus rapide mais moins précis.",
     "keys": {
@@ -115592,12 +114936,6 @@
       "Rejected": "@roblox/enum/FilterResult.Rejected"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FilterResult",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.AudioCaptureMode": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AudioCaptureMode",
     "code_sample": ""
   },
   "@roblox/enum/RenderPriority.First": {
@@ -121599,68 +120937,6 @@
       "Legacy": "@roblox/enum/VoiceChatDistanceAttenuationType.Legacy"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VoiceChatDistanceAttenuationType",
-    "code_sample": ""
-  },
-  "@roblox/enum/SystemThemeValue.error": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SystemThemeValue#error",
-    "code_sample": ""
-  },
-  "@roblox/enum/SystemThemeValue.light": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SystemThemeValue#light",
-    "code_sample": ""
-  },
-  "@roblox/enum/SystemThemeValue.dark": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SystemThemeValue#dark",
-    "code_sample": ""
-  },
-  "@roblox/enum/SystemThemeValue.systemLight": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SystemThemeValue#systemLight",
-    "code_sample": ""
-  },
-  "@roblox/enum/SystemThemeValue.systemDark": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SystemThemeValue#systemDark",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.SystemThemeValue": {
-    "documentation": "",
-    "keys": {
-      "error": "@roblox/enum/SystemThemeValue.error",
-      "light": "@roblox/enum/SystemThemeValue.light",
-      "dark": "@roblox/enum/SystemThemeValue.dark",
-      "systemLight": "@roblox/enum/SystemThemeValue.systemLight",
-      "systemDark": "@roblox/enum/SystemThemeValue.systemDark"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SystemThemeValue",
     "code_sample": ""
   },
   "@roblox/enum/DeveloperMemoryTag.Internal": {
@@ -130514,46 +129790,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SelectionBehavior",
     "code_sample": ""
   },
-  "@roblox/enum/AnnotationEditingMode.None": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationEditingMode#None",
-    "code_sample": ""
-  },
-  "@roblox/enum/AnnotationEditingMode.PlacingNew": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationEditingMode#PlacingNew",
-    "code_sample": ""
-  },
-  "@roblox/enum/AnnotationEditingMode.WritingNew": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationEditingMode#WritingNew",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.AnnotationEditingMode": {
-    "documentation": "",
-    "keys": {
-      "None": "@roblox/enum/AnnotationEditingMode.None",
-      "PlacingNew": "@roblox/enum/AnnotationEditingMode.PlacingNew",
-      "WritingNew": "@roblox/enum/AnnotationEditingMode.WritingNew"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnnotationEditingMode",
-    "code_sample": ""
-  },
   "@roblox/enum/ComputerMovementMode.Default": {
     "documentation": "La valeur par défaut est KeyboardMouse.",
     "keys": {
@@ -134215,68 +133451,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StudioPlaceUpdateFailureReason",
     "code_sample": ""
   },
-  "@roblox/enum/OperationType.Null": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/OperationType#Null",
-    "code_sample": ""
-  },
-  "@roblox/enum/OperationType.Union": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/OperationType#Union",
-    "code_sample": ""
-  },
-  "@roblox/enum/OperationType.Subtraction": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/OperationType#Subtraction",
-    "code_sample": ""
-  },
-  "@roblox/enum/OperationType.Intersection": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/OperationType#Intersection",
-    "code_sample": ""
-  },
-  "@roblox/enum/OperationType.Primitive": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/OperationType#Primitive",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.OperationType": {
-    "documentation": "",
-    "keys": {
-      "Null": "@roblox/enum/OperationType.Null",
-      "Union": "@roblox/enum/OperationType.Union",
-      "Subtraction": "@roblox/enum/OperationType.Subtraction",
-      "Intersection": "@roblox/enum/OperationType.Intersection",
-      "Primitive": "@roblox/enum/OperationType.Primitive"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/OperationType",
-    "code_sample": ""
-  },
   "@roblox/enum/ModifierKey.Shift": {
     "documentation": "La touche Shift (touche Shift gauche ou droite).",
     "keys": {
@@ -134983,46 +134157,6 @@
       "Muted": "@roblox/enum/MuteState.Muted"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/MuteState",
-    "code_sample": ""
-  },
-  "@roblox/enum/ActionOnAutoResumeSync.DontResume": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActionOnAutoResumeSync#DontResume",
-    "code_sample": ""
-  },
-  "@roblox/enum/ActionOnAutoResumeSync.KeepStudio": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActionOnAutoResumeSync#KeepStudio",
-    "code_sample": ""
-  },
-  "@roblox/enum/ActionOnAutoResumeSync.KeepLocal": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActionOnAutoResumeSync#KeepLocal",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.ActionOnAutoResumeSync": {
-    "documentation": "",
-    "keys": {
-      "DontResume": "@roblox/enum/ActionOnAutoResumeSync.DontResume",
-      "KeepStudio": "@roblox/enum/ActionOnAutoResumeSync.KeepStudio",
-      "KeepLocal": "@roblox/enum/ActionOnAutoResumeSync.KeepLocal"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActionOnAutoResumeSync",
     "code_sample": ""
   },
   "@roblox/enum/FunctionalTestResult.Passed": {
@@ -139722,79 +138856,6 @@
       "Permanent": "@roblox/enum/PurchaseOption.Permanent"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PurchaseOption",
-    "code_sample": ""
-  },
-  "@roblox/enum/AdEventType.VideoLoaded": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AdEventType#VideoLoaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/AdEventType.VideoRemoved": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AdEventType#VideoRemoved",
-    "code_sample": ""
-  },
-  "@roblox/enum/AdEventType.UserCompletedVideo": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AdEventType#UserCompletedVideo",
-    "code_sample": ""
-  },
-  "@roblox/enum/AdEventType.RewardedAdLoaded": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AdEventType#RewardedAdLoaded",
-    "code_sample": ""
-  },
-  "@roblox/enum/AdEventType.RewardedAdGrant": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AdEventType#RewardedAdGrant",
-    "code_sample": ""
-  },
-  "@roblox/enum/AdEventType.RewardedAdUnloaded": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AdEventType#RewardedAdUnloaded",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.AdEventType": {
-    "documentation": "",
-    "keys": {
-      "VideoLoaded": "@roblox/enum/AdEventType.VideoLoaded",
-      "VideoRemoved": "@roblox/enum/AdEventType.VideoRemoved",
-      "UserCompletedVideo": "@roblox/enum/AdEventType.UserCompletedVideo",
-      "RewardedAdLoaded": "@roblox/enum/AdEventType.RewardedAdLoaded",
-      "RewardedAdGrant": "@roblox/enum/AdEventType.RewardedAdGrant",
-      "RewardedAdUnloaded": "@roblox/enum/AdEventType.RewardedAdUnloaded"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AdEventType",
     "code_sample": ""
   },
   "@roblox/enum/RenderingCacheOptimizationMode.Default": {
