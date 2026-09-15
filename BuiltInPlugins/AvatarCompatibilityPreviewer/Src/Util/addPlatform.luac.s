@@ -194,71 +194,70 @@ PROTO_7:
         0 LOADNIL                          R4
         1 GETUPVAL                         R5 0
         2 CALL                             R5 0 1
-        3 JUMPIFNOT                        R5 ; [+21]
+        3 JUMPIFNOT                        R5 ; [+20]
         4 GETIMPORT                        R5 K1 [pcall]
         6 NEWCLOSURE                       R6 P0
         7 CAPTURE                          REF R4
         8 CAPTURE                          UPVAL U1
         9 CAPTURE                          UPVAL U2
        10 CALL                             R5 1 2
-       11 JUMPIF                           R5 ; [+21]
+       11 JUMPIF                           R5 ; [+20]
        12 GETIMPORT                        R7 K3 [warn]
-       14 LOADK                            R9 K4 ["Failed to load platform asset due to %*"]
-       15 MOVE                             R11 R6
-       16 NAMECALL                         R9 R9 K5 ["format"]
-       18 CALL                             R9 2 1
-       19 MOVE                             R8 R9
-       20 CALL                             R7 1 0
-       21 DUPCLOSURE                       R7 K6 [PROTO_3]
-       22 CLOSEUPVALS                      R4
-       23 RETURN                           R7 1
-       24 JUMP                             ; [+8]
-       25 GETUPVAL                         R5 1
-       26 GETUPVAL                         R7 2
-       27 GETTABLEKS                       R7 R7 K7 ["PEDESTAL_PATH"]
-       29 NAMECALL                         R5 R5 K8 ["LoadLocalAsset"]
-       31 CALL                             R5 2 1
-       32 MOVE                             R4 R5
-       33 JUMPIFNOT                        R3 ; [+8]
-       34 GETUPVAL                         R5 3
-       35 MOVE                             R6 R4
-       36 GETTABLEKS                       R7 R2 K9 ["Size"]
-       38 GETTABLEKS                       R8 R2 K10 ["FrontIndicatorColor"]
-       40 CALL                             R5 3 1
-       41 JUMP                             ; [+1]
-       42 LOADNIL                          R5
-       43 NEWCLOSURE                       R6 P2
-       44 CAPTURE                          VAL R1
-       45 CAPTURE                          UPVAL U2
-       46 CAPTURE                          VAL R2
-       47 CAPTURE                          REF R4
-       48 CAPTURE                          UPVAL U4
-       49 CAPTURE                          VAL R5
-       50 GETTABLEKS                       R8 R2 K9 ["Size"]
-       52 GETTABLEKS                       R9 R2 K11 ["Height"]
-       54 GETTABLEKS                       R10 R2 K9 ["Size"]
-       56 FASTCALL                         VECTOR ; [+2]
-       57 GETIMPORT                        R7 K14 [Vector3.new]
-       59 CALL                             R7 3 1
-       60 SETTABLEKS                       R7 R4 K9 ["Size"]
-       62 MOVE                             R7 R6
-       63 CALL                             R7 0 0
-       64 SETTABLEKS                       R0 R4 K15 ["Parent"]
-       66 GETIMPORT                        R7 K18 [task.spawn]
-       68 NEWCLOSURE                       R8 P3
-       69 CAPTURE                          VAL R6
-       70 CALL                             R7 1 1
-       71 LOADNIL                          R8
-       72 NEWCLOSURE                       R9 P4
-       73 CAPTURE                          REF R8
-       74 CAPTURE                          VAL R7
-       75 GETTABLEKS                       R10 R1 K19 ["Destroying"]
-       77 MOVE                             R12 R9
-       78 NAMECALL                         R10 R10 K20 ["Connect"]
-       80 CALL                             R10 2 1
-       81 MOVE                             R8 R10
-       82 CLOSEUPVALS                      R4
-       83 RETURN                           R9 1
+       14 LOADK                            R8 K4 ["Failed to load platform asset due to %*"]
+       15 MOVE                             R10 R6
+       16 NAMECALL                         R8 R8 K5 ["format"]
+       18 CALL                             R8 2 1
+       19 CALL                             R7 1 0
+       20 DUPCLOSURE                       R7 K6 [PROTO_3]
+       21 CLOSEUPVALS                      R4
+       22 RETURN                           R7 1
+       23 JUMP                             ; [+8]
+       24 GETUPVAL                         R5 1
+       25 GETUPVAL                         R7 2
+       26 GETTABLEKS                       R7 R7 K7 ["PEDESTAL_PATH"]
+       28 NAMECALL                         R5 R5 K8 ["LoadLocalAsset"]
+       30 CALL                             R5 2 1
+       31 MOVE                             R4 R5
+       32 JUMPIFNOT                        R3 ; [+8]
+       33 GETUPVAL                         R5 3
+       34 MOVE                             R6 R4
+       35 GETTABLEKS                       R7 R2 K9 ["Size"]
+       37 GETTABLEKS                       R8 R2 K10 ["FrontIndicatorColor"]
+       39 CALL                             R5 3 1
+       40 JUMP                             ; [+1]
+       41 LOADNIL                          R5
+       42 NEWCLOSURE                       R6 P2
+       43 CAPTURE                          VAL R1
+       44 CAPTURE                          UPVAL U2
+       45 CAPTURE                          VAL R2
+       46 CAPTURE                          REF R4
+       47 CAPTURE                          UPVAL U4
+       48 CAPTURE                          VAL R5
+       49 GETTABLEKS                       R8 R2 K9 ["Size"]
+       51 GETTABLEKS                       R9 R2 K11 ["Height"]
+       53 GETTABLEKS                       R10 R2 K9 ["Size"]
+       55 FASTCALL                         VECTOR ; [+2]
+       56 GETIMPORT                        R7 K14 [Vector3.new]
+       58 CALL                             R7 3 1
+       59 SETTABLEKS                       R7 R4 K9 ["Size"]
+       61 MOVE                             R7 R6
+       62 CALL                             R7 0 0
+       63 SETTABLEKS                       R0 R4 K15 ["Parent"]
+       65 GETIMPORT                        R7 K18 [task.spawn]
+       67 NEWCLOSURE                       R8 P3
+       68 CAPTURE                          VAL R6
+       69 CALL                             R7 1 1
+       70 LOADNIL                          R8
+       71 NEWCLOSURE                       R9 P4
+       72 CAPTURE                          REF R8
+       73 CAPTURE                          VAL R7
+       74 GETTABLEKS                       R10 R1 K19 ["Destroying"]
+       76 MOVE                             R12 R9
+       77 NAMECALL                         R10 R10 K20 ["Connect"]
+       79 CALL                             R10 2 1
+       80 MOVE                             R8 R10
+       81 CLOSEUPVALS                      R4
+       82 RETURN                           R9 1
 
 MAIN:
         0 PREPVARARGS                      0

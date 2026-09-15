@@ -13,18 +13,17 @@ PROTO_0:
        15 LOADK                            R7 K1 ["Animation"]
        16 NAMECALL                         R5 R4 K2 ["IsA"]
        18 CALL                             R5 2 1
-       19 JUMPIF                           R5 ; [+11]
+       19 JUMPIF                           R5 ; [+10]
        20 GETIMPORT                        R5 K4 [warn]
-       22 LOADK                            R7 K5 ["AvatarAutoSetup: generated R15 rig has no %*.%* Animation"]
-       23 MOVE                             R9 R0
-       24 MOVE                             R10 R1
-       25 NAMECALL                         R7 R7 K6 ["format"]
-       27 CALL                             R7 3 1
-       28 MOVE                             R6 R7
-       29 CALL                             R5 1 0
-       30 RETURN                           R0 0
-       31 SETTABLEKS                       R2 R4 K7 ["AnimationId"]
-       33 RETURN                           R0 0
+       22 LOADK                            R6 K5 ["AvatarAutoSetup: generated R15 rig has no %*.%* Animation"]
+       23 MOVE                             R8 R0
+       24 MOVE                             R9 R1
+       25 NAMECALL                         R6 R6 K6 ["format"]
+       27 CALL                             R6 3 1
+       28 CALL                             R5 1 0
+       29 RETURN                           R0 0
+       30 SETTABLEKS                       R2 R4 K7 ["AnimationId"]
+       32 RETURN                           R0 0
 
 PROTO_1:
         0 GETIMPORT                        R1 K2 [Instance.new]

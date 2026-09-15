@@ -149,69 +149,68 @@ PROTO_10:
        17 GETUPVAL                         R10 4
        18 GETTABLEKS                       R11 R0 K2 ["RootRoute"]
        20 GETTABLE                         R9 R10 R11
-       21 JUMPIFNOTEQKNIL                  R9 ; [+11]
+       21 JUMPIFNOTEQKNIL                  R9 ; [+10]
        23 GETIMPORT                        R10 K4 [warn]
-       25 LOADK                            R12 K5 ["route '%*' expected to map to valid component"]
-       26 GETTABLEKS                       R14 R0 K2 ["RootRoute"]
-       28 NAMECALL                         R12 R12 K6 ["format"]
-       30 CALL                             R12 2 1
-       31 MOVE                             R11 R12
-       32 CALL                             R10 1 0
-       33 GETUPVAL                         R10 5
-       34 NEWCLOSURE                       R11 P0
-       35 CAPTURE                          VAL R3
-       36 CAPTURE                          VAL R6
-       37 NEWTABLE                         R12 0 1
-       39 MOVE                             R13 R3
-       40 SETLIST                          R12 R13 1 [1]
-       42 CALL                             R10 2 0
-       43 GETUPVAL                         R10 5
-       44 NEWCLOSURE                       R11 P1
-       45 CAPTURE                          VAL R5
-       46 CAPTURE                          VAL R1
-       47 CAPTURE                          UPVAL U6
-       48 NEWTABLE                         R12 0 1
-       50 MOVE                             R13 R5
-       51 SETLIST                          R12 R13 1 [1]
-       53 CALL                             R10 2 0
-       54 GETUPVAL                         R10 5
-       55 NEWCLOSURE                       R11 P2
-       56 CAPTURE                          VAL R2
-       57 CAPTURE                          VAL R8
-       58 CAPTURE                          VAL R1
-       59 CAPTURE                          UPVAL U7
-       60 CAPTURE                          UPVAL U8
-       61 CAPTURE                          UPVAL U9
-       62 CAPTURE                          VAL R4
-       63 CAPTURE                          UPVAL U10
-       64 NEWTABLE                         R12 0 0
-       66 CALL                             R10 2 0
-       67 GETUPVAL                         R10 11
-       68 GETTABLEKS                       R10 R10 K7 ["createElement"]
-       70 GETUPVAL                         R11 12
-       71 NEWTABLE                         R12 1 0
-       73 GETUPVAL                         R13 11
-       74 GETTABLEKS                       R13 R13 K8 ["Tag"]
-       76 LOADK                            R14 K9 ["PositionCenter X-Fill"]
-       77 SETTABLE                         R14 R12 R13
-       78 DUPTABLE                         R13 K13 [{"AppContent", "AssetListener", "StyleTreeListener"}]
-       79 GETUPVAL                         R14 11
-       80 GETTABLEKS                       R14 R14 K7 ["createElement"]
-       82 MOVE                             R15 R9
-       83 CALL                             R14 1 1
-       84 SETTABLEKS                       R14 R13 K10 ["AppContent"]
-       86 GETUPVAL                         R14 11
-       87 GETTABLEKS                       R14 R14 K7 ["createElement"]
-       89 GETUPVAL                         R15 13
-       90 CALL                             R14 1 1
-       91 SETTABLEKS                       R14 R13 K11 ["AssetListener"]
-       93 GETUPVAL                         R14 11
-       94 GETTABLEKS                       R14 R14 K7 ["createElement"]
-       96 GETUPVAL                         R15 14
-       97 CALL                             R14 1 1
-       98 SETTABLEKS                       R14 R13 K12 ["StyleTreeListener"]
-      100 CALL                             R10 3 -1
-      101 RETURN                           R10 -1
+       25 LOADK                            R11 K5 ["route '%*' expected to map to valid component"]
+       26 GETTABLEKS                       R13 R0 K2 ["RootRoute"]
+       28 NAMECALL                         R11 R11 K6 ["format"]
+       30 CALL                             R11 2 1
+       31 CALL                             R10 1 0
+       32 GETUPVAL                         R10 5
+       33 NEWCLOSURE                       R11 P0
+       34 CAPTURE                          VAL R3
+       35 CAPTURE                          VAL R6
+       36 NEWTABLE                         R12 0 1
+       38 MOVE                             R13 R3
+       39 SETLIST                          R12 R13 1 [1]
+       41 CALL                             R10 2 0
+       42 GETUPVAL                         R10 5
+       43 NEWCLOSURE                       R11 P1
+       44 CAPTURE                          VAL R5
+       45 CAPTURE                          VAL R1
+       46 CAPTURE                          UPVAL U6
+       47 NEWTABLE                         R12 0 1
+       49 MOVE                             R13 R5
+       50 SETLIST                          R12 R13 1 [1]
+       52 CALL                             R10 2 0
+       53 GETUPVAL                         R10 5
+       54 NEWCLOSURE                       R11 P2
+       55 CAPTURE                          VAL R2
+       56 CAPTURE                          VAL R8
+       57 CAPTURE                          VAL R1
+       58 CAPTURE                          UPVAL U7
+       59 CAPTURE                          UPVAL U8
+       60 CAPTURE                          UPVAL U9
+       61 CAPTURE                          VAL R4
+       62 CAPTURE                          UPVAL U10
+       63 NEWTABLE                         R12 0 0
+       65 CALL                             R10 2 0
+       66 GETUPVAL                         R10 11
+       67 GETTABLEKS                       R10 R10 K7 ["createElement"]
+       69 GETUPVAL                         R11 12
+       70 NEWTABLE                         R12 1 0
+       72 GETUPVAL                         R13 11
+       73 GETTABLEKS                       R13 R13 K8 ["Tag"]
+       75 LOADK                            R14 K9 ["PositionCenter X-Fill"]
+       76 SETTABLE                         R14 R12 R13
+       77 DUPTABLE                         R13 K13 [{"AppContent", "AssetListener", "StyleTreeListener"}]
+       78 GETUPVAL                         R14 11
+       79 GETTABLEKS                       R14 R14 K7 ["createElement"]
+       81 MOVE                             R15 R9
+       82 CALL                             R14 1 1
+       83 SETTABLEKS                       R14 R13 K10 ["AppContent"]
+       85 GETUPVAL                         R14 11
+       86 GETTABLEKS                       R14 R14 K7 ["createElement"]
+       88 GETUPVAL                         R15 13
+       89 CALL                             R14 1 1
+       90 SETTABLEKS                       R14 R13 K11 ["AssetListener"]
+       92 GETUPVAL                         R14 11
+       93 GETTABLEKS                       R14 R14 K7 ["createElement"]
+       95 GETUPVAL                         R15 14
+       96 CALL                             R14 1 1
+       97 SETTABLEKS                       R14 R13 K12 ["StyleTreeListener"]
+       99 CALL                             R10 3 -1
+      100 RETURN                           R10 -1
 
 PROTO_11:
         0 DUPTABLE                         R1 K1 [{"RootRoute"}]

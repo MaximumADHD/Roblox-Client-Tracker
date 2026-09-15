@@ -2,14 +2,13 @@ PROTO_0:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R3 R0 K0 ["Type"]
         3 CALL                             R2 1 1
-        4 LOADK                            R4 K1 ["%*/%*/creator-inventory-items/asset-%*"]
-        5 MOVE                             R6 R2
-        6 GETTABLEKS                       R7 R0 K2 ["Id"]
-        8 MOVE                             R8 R1
-        9 NAMECALL                         R4 R4 K3 ["format"]
-       11 CALL                             R4 4 1
-       12 MOVE                             R3 R4
-       13 RETURN                           R3 1
+        4 LOADK                            R3 K1 ["%*/%*/creator-inventory-items/asset-%*"]
+        5 MOVE                             R5 R2
+        6 GETTABLEKS                       R6 R0 K2 ["Id"]
+        8 MOVE                             R7 R1
+        9 NAMECALL                         R3 R3 K3 ["format"]
+       11 CALL                             R3 4 1
+       12 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

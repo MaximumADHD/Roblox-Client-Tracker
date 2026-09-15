@@ -3,31 +3,30 @@ PROTO_0:
         1 GETTABLEKS                       R3 R3 K0 ["Renderers"]
         3 GETTABLEKS                       R4 R1 K1 ["Type"]
         5 GETTABLE                         R2 R3 R4
-        6 JUMPIFNOT                        R2 ; [+27]
-        7 LOADK                            R3 K2 ["%* %*"]
-        8 GETTABLEKS                       R5 R1 K1 ["Type"]
-       10 MOVE                             R6 R0
-       11 NAMECALL                         R3 R3 K3 ["format"]
-       13 CALL                             R3 3 1
-       14 MOVE                             R2 R3
-       15 GETUPVAL                         R3 1
-       16 GETUPVAL                         R5 0
-       17 GETTABLEKS                       R5 R5 K0 ["Renderers"]
-       19 GETTABLEKS                       R6 R1 K1 ["Type"]
-       21 GETTABLE                         R4 R5 R6
-       22 GETUPVAL                         R5 2
-       23 GETUPVAL                         R6 0
-       24 DUPTABLE                         R7 K6 [{"Item", "LayoutOrder"}]
-       25 SETTABLEKS                       R1 R7 K4 ["Item"]
-       27 GETUPVAL                         R8 3
-       28 CALL                             R8 0 1
-       29 SETTABLEKS                       R8 R7 K5 ["LayoutOrder"]
-       31 CALL                             R5 2 -1
-       32 CALL                             R3 -1 -1
-       33 RETURN                           R2 -1
-       34 LOADNIL                          R2
-       35 LOADNIL                          R3
-       36 RETURN                           R2 2
+        6 JUMPIFNOT                        R2 ; [+26]
+        7 LOADK                            R2 K2 ["%* %*"]
+        8 GETTABLEKS                       R4 R1 K1 ["Type"]
+       10 MOVE                             R5 R0
+       11 NAMECALL                         R2 R2 K3 ["format"]
+       13 CALL                             R2 3 1
+       14 GETUPVAL                         R3 1
+       15 GETUPVAL                         R5 0
+       16 GETTABLEKS                       R5 R5 K0 ["Renderers"]
+       18 GETTABLEKS                       R6 R1 K1 ["Type"]
+       20 GETTABLE                         R4 R5 R6
+       21 GETUPVAL                         R5 2
+       22 GETUPVAL                         R6 0
+       23 DUPTABLE                         R7 K6 [{"Item", "LayoutOrder"}]
+       24 SETTABLEKS                       R1 R7 K4 ["Item"]
+       26 GETUPVAL                         R8 3
+       27 CALL                             R8 0 1
+       28 SETTABLEKS                       R8 R7 K5 ["LayoutOrder"]
+       30 CALL                             R5 2 -1
+       31 CALL                             R3 -1 -1
+       32 RETURN                           R2 -1
+       33 LOADNIL                          R2
+       34 LOADNIL                          R3
+       35 RETURN                           R2 2
 
 PROTO_1:
         0 GETUPVAL                         R1 0

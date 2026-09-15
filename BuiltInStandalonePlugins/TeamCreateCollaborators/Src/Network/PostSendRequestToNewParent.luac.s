@@ -2,21 +2,20 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 2
-        3 JUMPIF                           R1 ; [+11]
+        3 JUMPIF                           R1 ; [+10]
         4 GETUPVAL                         R3 1
         5 GETTABLEKS                       R3 R3 K0 ["reject"]
-        7 LOADK                            R5 K1 ["PostSendRequestToNewParentResponse: %*"]
-        8 MOVE                             R7 R2
-        9 NAMECALL                         R5 R5 K2 ["format"]
-       11 CALL                             R5 2 1
-       12 MOVE                             R4 R5
-       13 CALL                             R3 1 -1
-       14 RETURN                           R3 -1
-       15 GETUPVAL                         R3 1
-       16 GETTABLEKS                       R3 R3 K3 ["resolve"]
-       18 MOVE                             R4 R0
-       19 CALL                             R3 1 -1
-       20 RETURN                           R3 -1
+        7 LOADK                            R4 K1 ["PostSendRequestToNewParentResponse: %*"]
+        8 MOVE                             R6 R2
+        9 NAMECALL                         R4 R4 K2 ["format"]
+       11 CALL                             R4 2 1
+       12 CALL                             R3 1 -1
+       13 RETURN                           R3 -1
+       14 GETUPVAL                         R3 1
+       15 GETTABLEKS                       R3 R3 K3 ["resolve"]
+       17 MOVE                             R4 R0
+       18 CALL                             R3 1 -1
+       19 RETURN                           R3 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0

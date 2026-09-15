@@ -179,58 +179,50 @@ PROTO_5:
       147 SETTABLEKS                       R14 R13 K58 ["DominantAxis"]
       149 CALL                             R11 2 1
       150 SETTABLEKS                       R11 R10 K49 ["Separator"]
-      152 LOADNIL                          R11
-      153 JUMPIF                           R8 ; [+3]
+      152 JUMPIFNOT                        R8 ; [+6]
+      153 DUPTABLE                         R11 K63 [{"theme"}]
       154 GETUPVAL                         R12 8
       155 CALL                             R12 0 1
-      156 JUMPIFNOT                        R12 ; [+24]
-      157 JUMPIFNOT                        R8 ; [+6]
-      158 DUPTABLE                         R12 K63 [{"theme"}]
-      159 GETUPVAL                         R13 9
-      160 CALL                             R13 0 1
-      161 SETTABLEKS                       R13 R12 K62 ["theme"]
-      163 JUMP                             ; [+1]
-      164 LOADNIL                          R12
-      165 JUMPIFNOT                        R8 ; [+2]
-      166 MOVE                             R13 R9
-      167 JUMP                             ; [+1]
-      168 MOVE                             R13 R10
-      169 DUPTABLE                         R14 K65 [{"Root"}]
-      170 GETUPVAL                         R15 3
-      171 GETTABLEKS                       R15 R15 K25 ["createElement"]
-      173 GETUPVAL                         R16 10
-      174 MOVE                             R17 R12
-      175 MOVE                             R18 R13
-      176 CALL                             R15 3 1
-      177 SETTABLEKS                       R15 R14 K64 ["Root"]
-      179 MOVE                             R11 R14
-      180 JUMP                             ; [+1]
-      181 MOVE                             R11 R10
-      182 GETUPVAL                         R12 3
-      183 GETTABLEKS                       R12 R12 K25 ["createElement"]
-      185 GETUPVAL                         R13 11
-      186 DUPTABLE                         R14 K76 [{["Enabled"], ["MinContentSize"], ["Modal"], ["Resizable"] = True, ["Title"], ["Buttons"], ["OnClose"], ["OnButtonPressed"], ["Style"] = "FullBleed"}]
-      187 GETTABLEKS                       R16 R1 K22 ["ShowPreview"]
-      189 OR                               R15 R16 R7
-      190 SETTABLEKS                       R15 R14 K66 ["Enabled"]
-      192 GETIMPORT                        R15 K79 [Vector2.new]
-      194 LOADN                            R16 800
-      195 LOADN                            R17 650
-      196 CALL                             R15 2 1
-      197 SETTABLEKS                       R15 R14 K67 ["MinContentSize"]
-      199 GETUPVAL                         R16 12
-      200 CALL                             R16 0 1
-      201 NOT                              R15 R16
-      202 SETTABLEKS                       R15 R14 K68 ["Modal"]
-      204 GETTABLEKS                       R15 R1 K71 ["Title"]
-      206 SETTABLEKS                       R15 R14 K71 ["Title"]
-      208 SETTABLEKS                       R4 R14 K72 ["Buttons"]
-      210 SETTABLEKS                       R5 R14 K73 ["OnClose"]
-      212 GETTABLEKS                       R15 R0 K80 ["onButtonPressed"]
-      214 SETTABLEKS                       R15 R14 K74 ["OnButtonPressed"]
-      216 MOVE                             R15 R11
-      217 CALL                             R12 3 -1
-      218 RETURN                           R12 -1
+      156 SETTABLEKS                       R12 R11 K62 ["theme"]
+      158 JUMP                             ; [+1]
+      159 LOADNIL                          R11
+      160 JUMPIFNOT                        R8 ; [+2]
+      161 MOVE                             R12 R9
+      162 JUMP                             ; [+1]
+      163 MOVE                             R12 R10
+      164 DUPTABLE                         R13 K65 [{"Root"}]
+      165 GETUPVAL                         R14 3
+      166 GETTABLEKS                       R14 R14 K25 ["createElement"]
+      168 GETUPVAL                         R15 9
+      169 MOVE                             R16 R11
+      170 MOVE                             R17 R12
+      171 CALL                             R14 3 1
+      172 SETTABLEKS                       R14 R13 K64 ["Root"]
+      174 GETUPVAL                         R14 3
+      175 GETTABLEKS                       R14 R14 K25 ["createElement"]
+      177 GETUPVAL                         R15 10
+      178 DUPTABLE                         R16 K76 [{["Enabled"], ["MinContentSize"], ["Modal"], ["Resizable"] = True, ["Title"], ["Buttons"], ["OnClose"], ["OnButtonPressed"], ["Style"] = "FullBleed"}]
+      179 GETTABLEKS                       R18 R1 K22 ["ShowPreview"]
+      181 OR                               R17 R18 R7
+      182 SETTABLEKS                       R17 R16 K66 ["Enabled"]
+      184 GETIMPORT                        R17 K79 [Vector2.new]
+      186 LOADN                            R18 800
+      187 LOADN                            R19 650
+      188 CALL                             R17 2 1
+      189 SETTABLEKS                       R17 R16 K67 ["MinContentSize"]
+      191 GETUPVAL                         R18 11
+      192 CALL                             R18 0 1
+      193 NOT                              R17 R18
+      194 SETTABLEKS                       R17 R16 K68 ["Modal"]
+      196 GETTABLEKS                       R17 R1 K71 ["Title"]
+      198 SETTABLEKS                       R17 R16 K71 ["Title"]
+      200 SETTABLEKS                       R4 R16 K72 ["Buttons"]
+      202 SETTABLEKS                       R5 R16 K73 ["OnClose"]
+      204 GETTABLEKS                       R17 R0 K80 ["onButtonPressed"]
+      206 SETTABLEKS                       R17 R16 K74 ["OnButtonPressed"]
+      208 MOVE                             R17 R13
+      209 CALL                             R14 3 -1
+      210 RETURN                           R14 -1
 
 PROTO_6:
         0 NAMECALL                         R1 R0 K0 ["_connect"]
@@ -424,65 +416,59 @@ MAIN:
       137 GETTABLEKS                       R25 R25 K36 ["Flags"]
       139 GETTABLEKS                       R25 R25 K38 ["getFFlagDebugAssetImportPlugin"]
       141 CALL                             R24 1 1
-      142 GETIMPORT                        R25 K5 [require]
-      144 GETTABLEKS                       R26 R0 K26 ["Src"]
-      146 GETTABLEKS                       R26 R26 K36 ["Flags"]
-      148 GETTABLEKS                       R26 R26 K39 ["getFFlagShowNewReimportCallout"]
-      150 CALL                             R25 1 1
-      151 GETTABLEKS                       R26 R1 K40 ["PureComponent"]
-      153 LOADK                            R28 K41 ["MeshImportDialog"]
-      154 NAMECALL                         R26 R26 K42 ["extend"]
-      156 CALL                             R26 2 1
-      157 DUPCLOSURE                       R27 K43 [PROTO_0]
-      158 CAPTURE                          VAL R22
-      159 DUPCLOSURE                       R28 K44 [PROTO_4]
-      160 SETTABLEKS                       R28 R26 K45 ["init"]
-      162 DUPCLOSURE                       R28 K46 [PROTO_5]
-      163 CAPTURE                          VAL R22
-      164 CAPTURE                          VAL R13
-      165 CAPTURE                          VAL R23
-      166 CAPTURE                          VAL R1
-      167 CAPTURE                          VAL R4
-      168 CAPTURE                          VAL R6
-      169 CAPTURE                          VAL R17
-      170 CAPTURE                          VAL R15
-      171 CAPTURE                          VAL R25
-      172 CAPTURE                          VAL R21
-      173 CAPTURE                          VAL R11
-      174 CAPTURE                          VAL R16
-      175 CAPTURE                          VAL R24
-      176 SETTABLEKS                       R28 R26 K47 ["render"]
-      178 DUPCLOSURE                       R28 K48 [PROTO_6]
-      179 SETTABLEKS                       R28 R26 K49 ["didMount"]
-      181 DUPCLOSURE                       R28 K50 [PROTO_8]
-      182 SETTABLEKS                       R28 R26 K51 ["_connect"]
-      184 DUPCLOSURE                       R28 K52 [PROTO_9]
-      185 SETTABLEKS                       R28 R26 K53 ["willUnmount"]
-      187 DUPCLOSURE                       R28 K54 [PROTO_10]
-      188 SETTABLEKS                       R28 R26 K55 ["_disconnect"]
-      190 DUPCLOSURE                       R28 K56 [PROTO_11]
-      191 SETTABLEKS                       R28 R26 K57 ["didUpdate"]
-      193 DUPCLOSURE                       R28 K58 [PROTO_12]
-      194 SETTABLEKS                       R28 R26 K59 ["getDerivedStateFromProps"]
-      196 MOVE                             R28 R8
-      197 DUPTABLE                         R29 K61 [{"FileController", "UploadController", "Localization", "Stylizer", "Plugin"}]
-      198 SETTABLEKS                       R18 R29 K29 ["FileController"]
-      200 SETTABLEKS                       R19 R29 K30 ["UploadController"]
-      202 SETTABLEKS                       R9 R29 K16 ["Localization"]
-      204 SETTABLEKS                       R10 R29 K18 ["Stylizer"]
-      206 GETTABLEKS                       R30 R7 K60 ["Plugin"]
-      208 SETTABLEKS                       R30 R29 K60 ["Plugin"]
-      210 CALL                             R28 1 1
-      211 MOVE                             R29 R26
-      212 CALL                             R28 1 1
-      213 MOVE                             R26 R28
-      214 DUPCLOSURE                       R28 K62 [PROTO_13]
-      215 DUPCLOSURE                       R29 K63 [PROTO_15]
-      216 CAPTURE                          VAL R20
-      217 GETTABLEKS                       R30 R2 K64 ["connect"]
-      219 MOVE                             R31 R28
-      220 MOVE                             R32 R29
-      221 CALL                             R30 2 1
-      222 MOVE                             R31 R26
-      223 CALL                             R30 1 -1
-      224 RETURN                           R30 -1
+      142 GETTABLEKS                       R25 R1 K39 ["PureComponent"]
+      144 LOADK                            R27 K40 ["MeshImportDialog"]
+      145 NAMECALL                         R25 R25 K41 ["extend"]
+      147 CALL                             R25 2 1
+      148 DUPCLOSURE                       R26 K42 [PROTO_0]
+      149 CAPTURE                          VAL R22
+      150 DUPCLOSURE                       R27 K43 [PROTO_4]
+      151 SETTABLEKS                       R27 R25 K44 ["init"]
+      153 DUPCLOSURE                       R27 K45 [PROTO_5]
+      154 CAPTURE                          VAL R22
+      155 CAPTURE                          VAL R13
+      156 CAPTURE                          VAL R23
+      157 CAPTURE                          VAL R1
+      158 CAPTURE                          VAL R4
+      159 CAPTURE                          VAL R6
+      160 CAPTURE                          VAL R17
+      161 CAPTURE                          VAL R15
+      162 CAPTURE                          VAL R21
+      163 CAPTURE                          VAL R11
+      164 CAPTURE                          VAL R16
+      165 CAPTURE                          VAL R24
+      166 SETTABLEKS                       R27 R25 K46 ["render"]
+      168 DUPCLOSURE                       R27 K47 [PROTO_6]
+      169 SETTABLEKS                       R27 R25 K48 ["didMount"]
+      171 DUPCLOSURE                       R27 K49 [PROTO_8]
+      172 SETTABLEKS                       R27 R25 K50 ["_connect"]
+      174 DUPCLOSURE                       R27 K51 [PROTO_9]
+      175 SETTABLEKS                       R27 R25 K52 ["willUnmount"]
+      177 DUPCLOSURE                       R27 K53 [PROTO_10]
+      178 SETTABLEKS                       R27 R25 K54 ["_disconnect"]
+      180 DUPCLOSURE                       R27 K55 [PROTO_11]
+      181 SETTABLEKS                       R27 R25 K56 ["didUpdate"]
+      183 DUPCLOSURE                       R27 K57 [PROTO_12]
+      184 SETTABLEKS                       R27 R25 K58 ["getDerivedStateFromProps"]
+      186 MOVE                             R27 R8
+      187 DUPTABLE                         R28 K60 [{"FileController", "UploadController", "Localization", "Stylizer", "Plugin"}]
+      188 SETTABLEKS                       R18 R28 K29 ["FileController"]
+      190 SETTABLEKS                       R19 R28 K30 ["UploadController"]
+      192 SETTABLEKS                       R9 R28 K16 ["Localization"]
+      194 SETTABLEKS                       R10 R28 K18 ["Stylizer"]
+      196 GETTABLEKS                       R29 R7 K59 ["Plugin"]
+      198 SETTABLEKS                       R29 R28 K59 ["Plugin"]
+      200 CALL                             R27 1 1
+      201 MOVE                             R28 R25
+      202 CALL                             R27 1 1
+      203 MOVE                             R25 R27
+      204 DUPCLOSURE                       R27 K61 [PROTO_13]
+      205 DUPCLOSURE                       R28 K62 [PROTO_15]
+      206 CAPTURE                          VAL R20
+      207 GETTABLEKS                       R29 R2 K63 ["connect"]
+      209 MOVE                             R30 R27
+      210 MOVE                             R31 R28
+      211 CALL                             R29 2 1
+      212 MOVE                             R30 R25
+      213 CALL                             R29 1 -1
+      214 RETURN                           R29 -1

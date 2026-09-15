@@ -1,11 +1,10 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["Name"]
-        2 LOADK                            R3 K1 ["rbxasset://textures/MaterialGenerator/Materials/%*.png"]
-        3 MOVE                             R5 R1
-        4 NAMECALL                         R3 R3 K2 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 RETURN                           R2 1
+        2 LOADK                            R2 K1 ["rbxasset://textures/MaterialGenerator/Materials/%*.png"]
+        3 MOVE                             R4 R1
+        4 NAMECALL                         R2 R2 K2 ["format"]
+        6 CALL                             R2 2 1
+        7 RETURN                           R2 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0

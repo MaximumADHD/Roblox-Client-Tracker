@@ -9,39 +9,38 @@ PROTO_0:
        11 SETLIST                          R2 R3 1 [1]
        13 MOVE                             R1 R2
        14 GETUPVAL                         R2 1
-       15 LOADK                            R5 K4 ["Insert %*"]
-       16 MOVE                             R7 R0
-       17 NAMECALL                         R5 R5 K5 ["format"]
-       19 CALL                             R5 2 1
-       20 MOVE                             R4 R5
-       21 NAMECALL                         R2 R2 K6 ["TryBeginRecording"]
-       23 CALL                             R2 2 1
-       24 NEWTABLE                         R3 0 0
-       26 MOVE                             R4 R1
-       27 LOADNIL                          R5
-       28 LOADNIL                          R6
-       29 FORGPREP                         R4
-       30 GETIMPORT                        R9 K9 [Instance.new]
-       32 MOVE                             R10 R0
-       33 CALL                             R9 1 1
-       34 SETTABLEKS                       R8 R9 K10 ["Parent"]
-       36 FASTCALL2                        TABLE_INSERT R3 R9 ; [+5]
-       38 MOVE                             R11 R3
-       39 MOVE                             R12 R9
-       40 GETIMPORT                        R10 K13 [table.insert]
-       42 CALL                             R10 2 0
-       43 FORGLOOP                         R4 2 ; [-14]
-       45 GETUPVAL                         R4 0
-       46 MOVE                             R6 R3
-       47 NAMECALL                         R4 R4 K14 ["Set"]
-       49 CALL                             R4 2 0
-       50 JUMPIFNOT                        R2 ; [+7]
-       51 GETUPVAL                         R4 1
-       52 MOVE                             R6 R2
-       53 GETIMPORT                        R7 K18 [Enum.FinishRecordingOperation.Commit]
-       55 NAMECALL                         R4 R4 K19 ["FinishRecording"]
-       57 CALL                             R4 3 0
-       58 RETURN                           R0 0
+       15 LOADK                            R4 K4 ["Insert %*"]
+       16 MOVE                             R6 R0
+       17 NAMECALL                         R4 R4 K5 ["format"]
+       19 CALL                             R4 2 1
+       20 NAMECALL                         R2 R2 K6 ["TryBeginRecording"]
+       22 CALL                             R2 2 1
+       23 NEWTABLE                         R3 0 0
+       25 MOVE                             R4 R1
+       26 LOADNIL                          R5
+       27 LOADNIL                          R6
+       28 FORGPREP                         R4
+       29 GETIMPORT                        R9 K9 [Instance.new]
+       31 MOVE                             R10 R0
+       32 CALL                             R9 1 1
+       33 SETTABLEKS                       R8 R9 K10 ["Parent"]
+       35 FASTCALL2                        TABLE_INSERT R3 R9 ; [+5]
+       37 MOVE                             R11 R3
+       38 MOVE                             R12 R9
+       39 GETIMPORT                        R10 K13 [table.insert]
+       41 CALL                             R10 2 0
+       42 FORGLOOP                         R4 2 ; [-14]
+       44 GETUPVAL                         R4 0
+       45 MOVE                             R6 R3
+       46 NAMECALL                         R4 R4 K14 ["Set"]
+       48 CALL                             R4 2 0
+       49 JUMPIFNOT                        R2 ; [+7]
+       50 GETUPVAL                         R4 1
+       51 MOVE                             R6 R2
+       52 GETIMPORT                        R7 K18 [Enum.FinishRecordingOperation.Commit]
+       54 NAMECALL                         R4 R4 K19 ["FinishRecording"]
+       56 CALL                             R4 3 0
+       57 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -78,88 +77,87 @@ PROTO_3:
        16 FORGPREP                         R4
        17 DUPTABLE                         R9 K12 [{["Uri"], ["Enabled"] = True, ["Visible"] = True, ["Text"], ["Tooltip"], ["Icon"], ["Shortcuts"]}]
        18 DUPTABLE                         R10 K19 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Actions", ["ItemId"]}]
-       19 LOADK                            R12 K20 ["Insert/%*"]
-       20 MOVE                             R14 R7
-       21 NAMECALL                         R12 R12 K21 ["format"]
-       23 CALL                             R12 2 1
-       24 MOVE                             R11 R12
-       25 SETTABLEKS                       R11 R10 K18 ["ItemId"]
-       27 SETTABLEKS                       R10 R9 K4 ["Uri"]
-       29 GETIMPORT                        R10 K24 [string.gsub]
-       31 GETUPVAL                         R11 2
-       32 GETTABLEKS                       R11 R11 K25 ["action"]
-       34 LOADK                            R12 K26 ["Insert"]
-       35 CALL                             R11 1 1
-       36 LOADK                            R12 K27 ["%%s"]
-       37 MOVE                             R13 R7
-       38 CALL                             R10 3 1
-       39 SETTABLEKS                       R10 R9 K8 ["Text"]
-       41 GETIMPORT                        R10 K24 [string.gsub]
-       43 GETUPVAL                         R11 2
-       44 GETTABLEKS                       R11 R11 K28 ["tooltip"]
-       46 LOADK                            R12 K26 ["Insert"]
-       47 CALL                             R11 1 1
-       48 LOADK                            R12 K27 ["%%s"]
-       49 MOVE                             R13 R7
-       50 CALL                             R10 3 1
-       51 SETTABLEKS                       R10 R9 K9 ["Tooltip"]
-       53 SETTABLEKS                       R7 R9 K10 ["Icon"]
-       55 NEWTABLE                         R10 0 0
-       57 SETTABLEKS                       R10 R9 K11 ["Shortcuts"]
-       59 SETTABLE                         R9 R3 R7
-       60 GETUPVAL                         R11 3
-       61 MOVE                             R15 R9
-       62 LOADB                            R16 1
-       63 NAMECALL                         R13 R1 K29 ["CreateAsync"]
-       65 CALL                             R13 3 1
-       66 GETTABLEN                        R12 R13 1
-       67 NEWCLOSURE                       R14 P0
-       68 CAPTURE                          UPVAL U4
-       69 CAPTURE                          VAL R7
-       70 NAMECALL                         R12 R12 K30 ["Connect"]
-       72 CALL                             R12 2 -1
-       73 FASTCALL                         TABLE_INSERT ; [+2]
-       74 GETIMPORT                        R10 K33 [table.insert]
-       76 CALL                             R10 -1 0
-       77 FORGLOOP                         R4 2 ; [-61]
-       79 NEWTABLE                         R4 0 3
-       81 DUPTABLE                         R5 K37 [{["Uri"], ["Text"] = "In/Out", ["Tooltip"] = "In/Out", ["Enabled"] = True, ["Value"] = 0}]
-       82 DUPTABLE                         R6 K39 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Settings", ["ItemId"] = "InsertInOut"}]
-       83 SETTABLEKS                       R6 R5 K4 ["Uri"]
-       85 DUPTABLE                         R6 K41 [{["Uri"], ["Text"] = "3D", ["Tooltip"] = "3D", ["Enabled"] = True, ["Value"] = 0}]
-       86 DUPTABLE                         R7 K43 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Settings", ["ItemId"] = "InsertSpatial"}]
-       87 SETTABLEKS                       R7 R6 K4 ["Uri"]
-       89 DUPTABLE                         R7 K46 [{["Uri"], ["Text"] = "Effects", ["Tooltip"] = "Effects", ["Enabled"] = True, ["Value"] = 5}]
-       90 DUPTABLE                         R8 K48 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Settings", ["ItemId"] = "InsertEffect"}]
-       91 SETTABLEKS                       R8 R7 K4 ["Uri"]
-       93 SETLIST                          R4 R5 3 [1]
-       95 MOVE                             R5 R4
-       96 LOADNIL                          R6
-       97 LOADNIL                          R7
-       98 FORGPREP                         R5
-       99 NEWTABLE                         R14 0 1
-      101 GETTABLEKS                       R15 R9 K4 ["Uri"]
-      103 SETLIST                          R14 R15 1 [1]
-      105 NAMECALL                         R12 R2 K49 ["GetAsync"]
-      107 CALL                             R12 2 1
-      108 GETTABLEN                        R11 R12 1
-      109 JUMPIFNOTEQKNIL                  R11 ; [+2]
-      111 LOADB                            R10 0 +1
-      112 LOADB                            R10 1
-      113 JUMPIFNOT                        R10 ; [+9]
-      114 NEWTABLE                         R13 0 1
-      116 MOVE                             R14 R9
-      117 SETLIST                          R13 R14 1 [1]
-      119 NAMECALL                         R11 R2 K50 ["UpdateAsync"]
-      121 CALL                             R11 2 0
-      122 JUMP                             ; [+8]
-      123 NEWTABLE                         R13 0 1
-      125 MOVE                             R14 R9
-      126 SETLIST                          R13 R14 1 [1]
-      128 NAMECALL                         R11 R2 K29 ["CreateAsync"]
-      130 CALL                             R11 2 0
-      131 FORGLOOP                         R5 2 ; [-33]
-      133 RETURN                           R0 0
+       19 LOADK                            R11 K20 ["Insert/%*"]
+       20 MOVE                             R13 R7
+       21 NAMECALL                         R11 R11 K21 ["format"]
+       23 CALL                             R11 2 1
+       24 SETTABLEKS                       R11 R10 K18 ["ItemId"]
+       26 SETTABLEKS                       R10 R9 K4 ["Uri"]
+       28 GETIMPORT                        R10 K24 [string.gsub]
+       30 GETUPVAL                         R11 2
+       31 GETTABLEKS                       R11 R11 K25 ["action"]
+       33 LOADK                            R12 K26 ["Insert"]
+       34 CALL                             R11 1 1
+       35 LOADK                            R12 K27 ["%%s"]
+       36 MOVE                             R13 R7
+       37 CALL                             R10 3 1
+       38 SETTABLEKS                       R10 R9 K8 ["Text"]
+       40 GETIMPORT                        R10 K24 [string.gsub]
+       42 GETUPVAL                         R11 2
+       43 GETTABLEKS                       R11 R11 K28 ["tooltip"]
+       45 LOADK                            R12 K26 ["Insert"]
+       46 CALL                             R11 1 1
+       47 LOADK                            R12 K27 ["%%s"]
+       48 MOVE                             R13 R7
+       49 CALL                             R10 3 1
+       50 SETTABLEKS                       R10 R9 K9 ["Tooltip"]
+       52 SETTABLEKS                       R7 R9 K10 ["Icon"]
+       54 NEWTABLE                         R10 0 0
+       56 SETTABLEKS                       R10 R9 K11 ["Shortcuts"]
+       58 SETTABLE                         R9 R3 R7
+       59 GETUPVAL                         R11 3
+       60 MOVE                             R15 R9
+       61 LOADB                            R16 1
+       62 NAMECALL                         R13 R1 K29 ["CreateAsync"]
+       64 CALL                             R13 3 1
+       65 GETTABLEN                        R12 R13 1
+       66 NEWCLOSURE                       R14 P0
+       67 CAPTURE                          UPVAL U4
+       68 CAPTURE                          VAL R7
+       69 NAMECALL                         R12 R12 K30 ["Connect"]
+       71 CALL                             R12 2 -1
+       72 FASTCALL                         TABLE_INSERT ; [+2]
+       73 GETIMPORT                        R10 K33 [table.insert]
+       75 CALL                             R10 -1 0
+       76 FORGLOOP                         R4 2 ; [-60]
+       78 NEWTABLE                         R4 0 3
+       80 DUPTABLE                         R5 K37 [{["Uri"], ["Text"] = "In/Out", ["Tooltip"] = "In/Out", ["Enabled"] = True, ["Value"] = 0}]
+       81 DUPTABLE                         R6 K39 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Settings", ["ItemId"] = "InsertInOut"}]
+       82 SETTABLEKS                       R6 R5 K4 ["Uri"]
+       84 DUPTABLE                         R6 K41 [{["Uri"], ["Text"] = "3D", ["Tooltip"] = "3D", ["Enabled"] = True, ["Value"] = 0}]
+       85 DUPTABLE                         R7 K43 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Settings", ["ItemId"] = "InsertSpatial"}]
+       86 SETTABLEKS                       R7 R6 K4 ["Uri"]
+       88 DUPTABLE                         R7 K46 [{["Uri"], ["Text"] = "Effects", ["Tooltip"] = "Effects", ["Enabled"] = True, ["Value"] = 5}]
+       89 DUPTABLE                         R8 K48 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Settings", ["ItemId"] = "InsertEffect"}]
+       90 SETTABLEKS                       R8 R7 K4 ["Uri"]
+       92 SETLIST                          R4 R5 3 [1]
+       94 MOVE                             R5 R4
+       95 LOADNIL                          R6
+       96 LOADNIL                          R7
+       97 FORGPREP                         R5
+       98 NEWTABLE                         R14 0 1
+      100 GETTABLEKS                       R15 R9 K4 ["Uri"]
+      102 SETLIST                          R14 R15 1 [1]
+      104 NAMECALL                         R12 R2 K49 ["GetAsync"]
+      106 CALL                             R12 2 1
+      107 GETTABLEN                        R11 R12 1
+      108 JUMPIFNOTEQKNIL                  R11 ; [+2]
+      110 LOADB                            R10 0 +1
+      111 LOADB                            R10 1
+      112 JUMPIFNOT                        R10 ; [+9]
+      113 NEWTABLE                         R13 0 1
+      115 MOVE                             R14 R9
+      116 SETLIST                          R13 R14 1 [1]
+      118 NAMECALL                         R11 R2 K50 ["UpdateAsync"]
+      120 CALL                             R11 2 0
+      121 JUMP                             ; [+8]
+      122 NEWTABLE                         R13 0 1
+      124 MOVE                             R14 R9
+      125 SETLIST                          R13 R14 1 [1]
+      127 NAMECALL                         R11 R2 K29 ["CreateAsync"]
+      129 CALL                             R11 2 0
+      130 FORGLOOP                         R5 2 ; [-33]
+      132 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0

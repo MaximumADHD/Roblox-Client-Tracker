@@ -1,12 +1,11 @@
 PROTO_0:
-        0 LOADK                            R3 K0 ["rbxthumb://type=AvatarHeadShot&id=%*&w=%*&h=%*&filters=circular"]
-        1 MOVE                             R5 R0
-        2 GETTABLEKS                       R6 R1 K1 ["X"]
-        4 GETTABLEKS                       R7 R1 K2 ["Y"]
-        6 NAMECALL                         R3 R3 K3 ["format"]
-        8 CALL                             R3 4 1
-        9 MOVE                             R2 R3
-       10 RETURN                           R2 1
+        0 LOADK                            R2 K0 ["rbxthumb://type=AvatarHeadShot&id=%*&w=%*&h=%*&filters=circular"]
+        1 MOVE                             R4 R0
+        2 GETTABLEKS                       R5 R1 K1 ["X"]
+        4 GETTABLEKS                       R6 R1 K2 ["Y"]
+        6 NAMECALL                         R2 R2 K3 ["format"]
+        8 CALL                             R2 4 1
+        9 RETURN                           R2 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -20,66 +19,65 @@ PROTO_1:
        11 GETUPVAL                         R8 0
        12 GETTABLEKS                       R8 R8 K2 ["Tag"]
        14 GETTABLE                         R7 R0 R8
-       15 LOADK                            R9 K4 ["data-testid=%*"]
-       16 GETTABLEKS                       R11 R0 K5 ["UserId"]
-       18 NAMECALL                         R9 R9 K6 ["format"]
-       20 CALL                             R9 2 1
-       21 MOVE                             R8 R9
-       22 CALL                             R5 3 1
-       23 SETTABLE                         R5 R3 R4
-       24 DUPTABLE                         R4 K9 [{"ActivityRing", "Avatar"}]
-       25 GETTABLEKS                       R6 R0 K10 ["IsIdle"]
-       27 JUMPIF                           R6 ; [+26]
-       28 GETUPVAL                         R5 0
-       29 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       31 LOADK                            R6 K1 ["Frame"]
-       32 NEWTABLE                         R7 1 0
-       34 GETUPVAL                         R8 0
-       35 GETTABLEKS                       R8 R8 K2 ["Tag"]
-       37 LOADK                            R9 K11 ["Role-Surface X-Fit"]
-       38 SETTABLE                         R9 R7 R8
-       39 DUPTABLE                         R8 K13 [{"RingColor"}]
-       40 GETUPVAL                         R9 0
-       41 GETTABLEKS                       R9 R9 K0 ["createElement"]
-       43 LOADK                            R10 K14 ["UIStroke"]
-       44 DUPTABLE                         R11 K16 [{"Color"}]
-       45 GETTABLEKS                       R12 R0 K12 ["RingColor"]
-       47 SETTABLEKS                       R12 R11 K15 ["Color"]
-       49 CALL                             R9 2 1
-       50 SETTABLEKS                       R9 R8 K12 ["RingColor"]
-       52 CALL                             R5 3 1
-       53 JUMP                             ; [+1]
-       54 LOADNIL                          R5
-       55 SETTABLEKS                       R5 R4 K7 ["ActivityRing"]
-       57 GETUPVAL                         R5 0
-       58 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       60 LOADK                            R6 K17 ["ImageLabel"]
-       61 NEWTABLE                         R7 2 0
-       63 GETTABLEKS                       R9 R0 K5 ["UserId"]
-       65 GETIMPORT                        R10 K20 [Vector2.new]
-       67 LOADN                            R11 60
-       68 LOADN                            R12 60
-       69 CALL                             R10 2 1
-       70 LOADK                            R11 K21 ["rbxthumb://type=AvatarHeadShot&id=%*&w=%*&h=%*&filters=circular"]
-       71 MOVE                             R13 R9
-       72 GETTABLEKS                       R14 R10 K22 ["X"]
-       74 GETTABLEKS                       R15 R10 K23 ["Y"]
-       76 NAMECALL                         R11 R11 K6 ["format"]
-       78 CALL                             R11 4 1
-       79 MOVE                             R8 R11
-       80 SETTABLEKS                       R8 R7 K24 ["Image"]
-       82 GETUPVAL                         R8 0
-       83 GETTABLEKS                       R8 R8 K2 ["Tag"]
-       85 GETTABLEKS                       R10 R0 K10 ["IsIdle"]
-       87 JUMPIFNOT                        R10 ; [+2]
-       88 LOADK                            R9 K25 ["Idle"]
-       89 JUMP                             ; [+1]
-       90 LOADNIL                          R9
-       91 SETTABLE                         R9 R7 R8
-       92 CALL                             R5 2 1
-       93 SETTABLEKS                       R5 R4 K8 ["Avatar"]
-       95 CALL                             R1 3 -1
-       96 RETURN                           R1 -1
+       15 LOADK                            R8 K4 ["data-testid=%*"]
+       16 GETTABLEKS                       R10 R0 K5 ["UserId"]
+       18 NAMECALL                         R8 R8 K6 ["format"]
+       20 CALL                             R8 2 1
+       21 CALL                             R5 3 1
+       22 SETTABLE                         R5 R3 R4
+       23 DUPTABLE                         R4 K9 [{"ActivityRing", "Avatar"}]
+       24 GETTABLEKS                       R6 R0 K10 ["IsIdle"]
+       26 JUMPIF                           R6 ; [+26]
+       27 GETUPVAL                         R5 0
+       28 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       30 LOADK                            R6 K1 ["Frame"]
+       31 NEWTABLE                         R7 1 0
+       33 GETUPVAL                         R8 0
+       34 GETTABLEKS                       R8 R8 K2 ["Tag"]
+       36 LOADK                            R9 K11 ["Role-Surface X-Fit"]
+       37 SETTABLE                         R9 R7 R8
+       38 DUPTABLE                         R8 K13 [{"RingColor"}]
+       39 GETUPVAL                         R9 0
+       40 GETTABLEKS                       R9 R9 K0 ["createElement"]
+       42 LOADK                            R10 K14 ["UIStroke"]
+       43 DUPTABLE                         R11 K16 [{"Color"}]
+       44 GETTABLEKS                       R12 R0 K12 ["RingColor"]
+       46 SETTABLEKS                       R12 R11 K15 ["Color"]
+       48 CALL                             R9 2 1
+       49 SETTABLEKS                       R9 R8 K12 ["RingColor"]
+       51 CALL                             R5 3 1
+       52 JUMP                             ; [+1]
+       53 LOADNIL                          R5
+       54 SETTABLEKS                       R5 R4 K7 ["ActivityRing"]
+       56 GETUPVAL                         R5 0
+       57 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       59 LOADK                            R6 K17 ["ImageLabel"]
+       60 NEWTABLE                         R7 2 0
+       62 GETTABLEKS                       R9 R0 K5 ["UserId"]
+       64 GETIMPORT                        R10 K20 [Vector2.new]
+       66 LOADN                            R11 60
+       67 LOADN                            R12 60
+       68 CALL                             R10 2 1
+       69 LOADK                            R11 K21 ["rbxthumb://type=AvatarHeadShot&id=%*&w=%*&h=%*&filters=circular"]
+       70 MOVE                             R13 R9
+       71 GETTABLEKS                       R14 R10 K22 ["X"]
+       73 GETTABLEKS                       R15 R10 K23 ["Y"]
+       75 NAMECALL                         R11 R11 K6 ["format"]
+       77 CALL                             R11 4 1
+       78 MOVE                             R8 R11
+       79 SETTABLEKS                       R8 R7 K24 ["Image"]
+       81 GETUPVAL                         R8 0
+       82 GETTABLEKS                       R8 R8 K2 ["Tag"]
+       84 GETTABLEKS                       R10 R0 K10 ["IsIdle"]
+       86 JUMPIFNOT                        R10 ; [+2]
+       87 LOADK                            R9 K25 ["Idle"]
+       88 JUMP                             ; [+1]
+       89 LOADNIL                          R9
+       90 SETTABLE                         R9 R7 R8
+       91 CALL                             R5 2 1
+       92 SETTABLEKS                       R5 R4 K8 ["Avatar"]
+       94 CALL                             R1 3 -1
+       95 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

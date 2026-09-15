@@ -23,65 +23,61 @@ PROTO_0:
        27 JUMPIFNOTEQKNIL                  R3 ; [+3]
        29 FORGLOOP                         R5 2 ; [-21]
        31 JUMPIFEQKNIL                     R2 ; [+3]
-       33 JUMPIFNOTEQKNIL                  R3 ; [+72]
+       33 JUMPIFNOTEQKNIL                  R3 ; [+68]
        35 NEWTABLE                         R5 0 4
        37 LOADK                            R6 K3 ["Couldn't resolve true indices of layered clothing"]
-       38 LOADK                            R8 K4 ["Swapping %* with %*"]
-       39 MOVE                             R10 R0
-       40 MOVE                             R11 R1
-       41 NAMECALL                         R8 R8 K5 ["format"]
-       43 CALL                             R8 3 1
-       44 MOVE                             R7 R8
-       45 LOADK                            R9 K6 ["trueLayeredClothingIndex = %*"]
-       46 MOVE                             R11 R2
-       47 NAMECALL                         R9 R9 K5 ["format"]
-       49 CALL                             R9 2 1
-       50 MOVE                             R8 R9
-       51 LOADK                            R10 K7 ["#equipmentState.equippedItems = %*"]
-       52 GETUPVAL                         R13 0
-       53 GETTABLEKS                       R13 R13 K0 ["equippedItems"]
-       55 LENGTH                           R12 R13
-       56 NAMECALL                         R10 R10 K5 ["format"]
-       58 CALL                             R10 2 1
-       59 MOVE                             R9 R10
-       60 SETLIST                          R5 R6 4 [1]
-       62 GETUPVAL                         R6 0
-       63 GETTABLEKS                       R6 R6 K0 ["equippedItems"]
-       65 LOADNIL                          R7
-       66 LOADNIL                          R8
-       67 FORGPREP                         R6
-       68 LOADK                            R14 K8 ["\t%*. %* (Layered clothing = %*)"]
-       69 MOVE                             R16 R9
-       70 GETTABLEKS                       R17 R10 K9 ["palette"]
-       72 GETTABLEKS                       R17 R17 K10 ["Key"]
-       74 GETIMPORT                        R19 K13 [table.find]
-       76 GETUPVAL                         R20 3
-       77 GETTABLEKS                       R20 R20 K14 ["clothing"]
-       79 GETTABLEKS                       R21 R10 K9 ["palette"]
-       81 CALL                             R19 2 1
-       82 JUMPIFNOTEQKNIL                  R19 ; [+2]
-       84 LOADB                            R18 0 +1
-       85 LOADB                            R18 1
-       86 NAMECALL                         R14 R14 K5 ["format"]
-       88 CALL                             R14 4 1
-       89 MOVE                             R13 R14
-       90 FASTCALL2                        TABLE_INSERT R5 R13 ; [+4]
-       92 MOVE                             R12 R5
-       93 GETIMPORT                        R11 K16 [table.insert]
-       95 CALL                             R11 2 0
-       96 FORGLOOP                         R6 2 ; [-29]
-       98 GETIMPORT                        R6 K18 [error]
-      100 GETIMPORT                        R7 K20 [table.concat]
-      102 MOVE                             R8 R5
-      103 LOADK                            R9 K21 ["\n"]
-      104 CALL                             R7 2 -1
-      105 CALL                             R6 -1 0
-      106 GETUPVAL                         R5 0
-      107 GETTABLEKS                       R5 R5 K22 ["moveEquippedItemsToIndex"]
-      109 MOVE                             R6 R2
-      110 MOVE                             R7 R3
-      111 CALL                             R5 2 0
-      112 RETURN                           R0 0
+       38 LOADK                            R7 K4 ["Swapping %* with %*"]
+       39 MOVE                             R9 R0
+       40 MOVE                             R10 R1
+       41 NAMECALL                         R7 R7 K5 ["format"]
+       43 CALL                             R7 3 1
+       44 LOADK                            R8 K6 ["trueLayeredClothingIndex = %*"]
+       45 MOVE                             R10 R2
+       46 NAMECALL                         R8 R8 K5 ["format"]
+       48 CALL                             R8 2 1
+       49 LOADK                            R9 K7 ["#equipmentState.equippedItems = %*"]
+       50 GETUPVAL                         R12 0
+       51 GETTABLEKS                       R12 R12 K0 ["equippedItems"]
+       53 LENGTH                           R11 R12
+       54 NAMECALL                         R9 R9 K5 ["format"]
+       56 CALL                             R9 2 1
+       57 SETLIST                          R5 R6 4 [1]
+       59 GETUPVAL                         R6 0
+       60 GETTABLEKS                       R6 R6 K0 ["equippedItems"]
+       62 LOADNIL                          R7
+       63 LOADNIL                          R8
+       64 FORGPREP                         R6
+       65 LOADK                            R13 K8 ["\t%*. %* (Layered clothing = %*)"]
+       66 MOVE                             R15 R9
+       67 GETTABLEKS                       R16 R10 K9 ["palette"]
+       69 GETTABLEKS                       R16 R16 K10 ["Key"]
+       71 GETIMPORT                        R18 K13 [table.find]
+       73 GETUPVAL                         R19 3
+       74 GETTABLEKS                       R19 R19 K14 ["clothing"]
+       76 GETTABLEKS                       R20 R10 K9 ["palette"]
+       78 CALL                             R18 2 1
+       79 JUMPIFNOTEQKNIL                  R18 ; [+2]
+       81 LOADB                            R17 0 +1
+       82 LOADB                            R17 1
+       83 NAMECALL                         R13 R13 K5 ["format"]
+       85 CALL                             R13 4 1
+       86 FASTCALL2                        TABLE_INSERT R5 R13 ; [+4]
+       88 MOVE                             R12 R5
+       89 GETIMPORT                        R11 K16 [table.insert]
+       91 CALL                             R11 2 0
+       92 FORGLOOP                         R6 2 ; [-28]
+       94 GETIMPORT                        R6 K18 [error]
+       96 GETIMPORT                        R7 K20 [table.concat]
+       98 MOVE                             R8 R5
+       99 LOADK                            R9 K21 ["\n"]
+      100 CALL                             R7 2 -1
+      101 CALL                             R6 -1 0
+      102 GETUPVAL                         R5 0
+      103 GETTABLEKS                       R5 R5 K22 ["moveEquippedItemsToIndex"]
+      105 MOVE                             R6 R2
+      106 MOVE                             R7 R3
+      107 CALL                             R5 2 0
+      108 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0

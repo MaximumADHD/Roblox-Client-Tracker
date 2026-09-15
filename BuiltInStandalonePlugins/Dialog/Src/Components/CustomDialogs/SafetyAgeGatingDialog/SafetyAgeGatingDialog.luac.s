@@ -622,123 +622,119 @@ PROTO_13:
       111 SETTABLEKS                       R22 R21 K15 ["uri"]
       113 SETTABLEKS                       R13 R21 K18 ["title"]
       115 SETTABLEKS                       R14 R21 K19 ["description"]
-      117 JUMPIFEQKNIL                     R15 ; [+26]
+      117 JUMPIFEQKNIL                     R15 ; [+25]
       119 DUPTABLE                         R22 K29 [{"uri", "text", "onActivated"}]
       120 GETUPVAL                         R23 7
       121 GETTABLEKS                       R23 R23 K30 ["child"]
       123 GETTABLEKS                       R24 R0 K15 ["uri"]
-      125 LOADK                            R26 K31 ["%*/Primary"]
-      126 MOVE                             R28 R18
-      127 NAMECALL                         R26 R26 K32 ["format"]
-      129 CALL                             R26 2 1
-      130 MOVE                             R25 R26
-      131 CALL                             R23 2 1
-      132 SETTABLEKS                       R23 R22 K15 ["uri"]
-      134 GETTABLEKS                       R23 R15 K33 ["label"]
-      136 SETTABLEKS                       R23 R22 K27 ["text"]
-      138 NEWCLOSURE                       R23 P2
-      139 CAPTURE                          VAL R15
-      140 CAPTURE                          VAL R12
-      141 SETTABLEKS                       R23 R22 K28 ["onActivated"]
-      143 JUMP                             ; [+1]
-      144 LOADNIL                          R22
-      145 SETTABLEKS                       R22 R21 K20 ["primaryAction"]
-      147 JUMPIFEQKNIL                     R16 ; [+26]
-      149 DUPTABLE                         R22 K29 [{"uri", "text", "onActivated"}]
-      150 GETUPVAL                         R23 7
-      151 GETTABLEKS                       R23 R23 K30 ["child"]
-      153 GETTABLEKS                       R24 R0 K15 ["uri"]
-      155 LOADK                            R26 K34 ["%*/Secondary"]
-      156 MOVE                             R28 R18
-      157 NAMECALL                         R26 R26 K32 ["format"]
-      159 CALL                             R26 2 1
-      160 MOVE                             R25 R26
-      161 CALL                             R23 2 1
-      162 SETTABLEKS                       R23 R22 K15 ["uri"]
-      164 GETTABLEKS                       R23 R16 K33 ["label"]
-      166 SETTABLEKS                       R23 R22 K27 ["text"]
-      168 NEWCLOSURE                       R23 P3
-      169 CAPTURE                          VAL R16
-      170 CAPTURE                          VAL R12
-      171 SETTABLEKS                       R23 R22 K28 ["onActivated"]
-      173 JUMP                             ; [+1]
-      174 LOADNIL                          R22
-      175 SETTABLEKS                       R22 R21 K21 ["secondaryAction"]
-      177 GETUPVAL                         R23 8
-      178 CALL                             R23 0 1
-      179 JUMPIFNOT                        R23 ; [+33]
-      180 JUMPIFNOT                        R17 ; [+32]
-      181 DUPTABLE                         R22 K36 [{"uri", "text", "disabled", "onActivated"}]
-      182 GETUPVAL                         R23 7
-      183 GETTABLEKS                       R23 R23 K30 ["child"]
-      185 GETTABLEKS                       R24 R0 K15 ["uri"]
-      187 LOADK                            R26 K37 ["%*/Tertiary"]
-      188 MOVE                             R28 R18
-      189 NAMECALL                         R26 R26 K32 ["format"]
-      191 CALL                             R26 2 1
-      192 MOVE                             R25 R26
-      193 CALL                             R23 2 1
-      194 SETTABLEKS                       R23 R22 K15 ["uri"]
-      196 LOADK                            R25 K38 ["DialogButton"]
-      197 LOADK                            R26 K39 ["RemindMeLater"]
-      198 NAMECALL                         R23 R2 K40 ["getText"]
-      200 CALL                             R23 3 1
-      201 SETTABLEKS                       R23 R22 K27 ["text"]
-      203 NOT                              R23 R7
-      204 SETTABLEKS                       R23 R22 K35 ["disabled"]
-      206 NEWCLOSURE                       R23 P4
-      207 CAPTURE                          VAL R5
-      208 CAPTURE                          VAL R0
-      209 CAPTURE                          VAL R12
-      210 SETTABLEKS                       R23 R22 K28 ["onActivated"]
-      212 JUMP                             ; [+1]
-      213 LOADNIL                          R22
-      214 SETTABLEKS                       R22 R21 K22 ["tertiaryAction"]
-      216 DUPTABLE                         R22 K42 [{"uri", "onClose"}]
-      217 GETUPVAL                         R23 7
-      218 GETTABLEKS                       R23 R23 K30 ["child"]
-      220 GETTABLEKS                       R24 R0 K15 ["uri"]
-      222 LOADK                            R26 K43 ["%*/Escape"]
-      223 MOVE                             R28 R18
-      224 NAMECALL                         R26 R26 K32 ["format"]
-      226 CALL                             R26 2 1
-      227 MOVE                             R25 R26
-      228 CALL                             R23 2 1
-      229 SETTABLEKS                       R23 R22 K15 ["uri"]
-      231 NEWCLOSURE                       R23 P5
-      232 CAPTURE                          VAL R12
-      233 SETTABLEKS                       R23 R22 K41 ["onClose"]
-      235 SETTABLEKS                       R22 R21 K23 ["escapeAction"]
-      237 DUPTABLE                         R22 K45 [{"Checkbox"}]
-      238 GETUPVAL                         R24 8
-      239 CALL                             R24 0 1
-      240 JUMPIFNOT                        R24 ; [+29]
-      241 JUMPIFNOT                        R17 ; [+28]
-      242 GETUPVAL                         R23 5
-      243 GETUPVAL                         R24 9
-      244 DUPTABLE                         R25 K51 [{["label"], ["isChecked"], ["onActivated"], ["size"], ["testId"] = "--safety-dialog-checkbox", ["LayoutOrder"]}]
-      245 LOADK                            R28 K52 ["Safety"]
-      246 LOADK                            R29 K53 ["EnforcementDateAcknowledgement"]
-      247 NAMECALL                         R26 R2 K40 ["getText"]
-      249 CALL                             R26 3 1
-      250 SETTABLEKS                       R26 R25 K33 ["label"]
-      252 SETTABLEKS                       R7 R25 K46 ["isChecked"]
-      254 NEWCLOSURE                       R26 P6
-      255 CAPTURE                          VAL R8
-      256 CAPTURE                          VAL R7
-      257 SETTABLEKS                       R26 R25 K28 ["onActivated"]
-      259 GETUPVAL                         R26 10
-      260 GETTABLEKS                       R26 R26 K54 ["Small"]
-      262 SETTABLEKS                       R26 R25 K47 ["size"]
-      264 MOVE                             R26 R3
-      265 CALL                             R26 0 1
-      266 SETTABLEKS                       R26 R25 K50 ["LayoutOrder"]
-      268 CALL                             R23 2 1
-      269 JUMP                             ; [+1]
-      270 LOADNIL                          R23
-      271 SETTABLEKS                       R23 R22 K44 ["Checkbox"]
-      273 CALL                             R19 3 -1
-      274 RETURN                           R19 -1
+      125 LOADK                            R25 K31 ["%*/Primary"]
+      126 MOVE                             R27 R18
+      127 NAMECALL                         R25 R25 K32 ["format"]
+      129 CALL                             R25 2 1
+      130 CALL                             R23 2 1
+      131 SETTABLEKS                       R23 R22 K15 ["uri"]
+      133 GETTABLEKS                       R23 R15 K33 ["label"]
+      135 SETTABLEKS                       R23 R22 K27 ["text"]
+      137 NEWCLOSURE                       R23 P2
+      138 CAPTURE                          VAL R15
+      139 CAPTURE                          VAL R12
+      140 SETTABLEKS                       R23 R22 K28 ["onActivated"]
+      142 JUMP                             ; [+1]
+      143 LOADNIL                          R22
+      144 SETTABLEKS                       R22 R21 K20 ["primaryAction"]
+      146 JUMPIFEQKNIL                     R16 ; [+25]
+      148 DUPTABLE                         R22 K29 [{"uri", "text", "onActivated"}]
+      149 GETUPVAL                         R23 7
+      150 GETTABLEKS                       R23 R23 K30 ["child"]
+      152 GETTABLEKS                       R24 R0 K15 ["uri"]
+      154 LOADK                            R25 K34 ["%*/Secondary"]
+      155 MOVE                             R27 R18
+      156 NAMECALL                         R25 R25 K32 ["format"]
+      158 CALL                             R25 2 1
+      159 CALL                             R23 2 1
+      160 SETTABLEKS                       R23 R22 K15 ["uri"]
+      162 GETTABLEKS                       R23 R16 K33 ["label"]
+      164 SETTABLEKS                       R23 R22 K27 ["text"]
+      166 NEWCLOSURE                       R23 P3
+      167 CAPTURE                          VAL R16
+      168 CAPTURE                          VAL R12
+      169 SETTABLEKS                       R23 R22 K28 ["onActivated"]
+      171 JUMP                             ; [+1]
+      172 LOADNIL                          R22
+      173 SETTABLEKS                       R22 R21 K21 ["secondaryAction"]
+      175 GETUPVAL                         R23 8
+      176 CALL                             R23 0 1
+      177 JUMPIFNOT                        R23 ; [+32]
+      178 JUMPIFNOT                        R17 ; [+31]
+      179 DUPTABLE                         R22 K36 [{"uri", "text", "disabled", "onActivated"}]
+      180 GETUPVAL                         R23 7
+      181 GETTABLEKS                       R23 R23 K30 ["child"]
+      183 GETTABLEKS                       R24 R0 K15 ["uri"]
+      185 LOADK                            R25 K37 ["%*/Tertiary"]
+      186 MOVE                             R27 R18
+      187 NAMECALL                         R25 R25 K32 ["format"]
+      189 CALL                             R25 2 1
+      190 CALL                             R23 2 1
+      191 SETTABLEKS                       R23 R22 K15 ["uri"]
+      193 LOADK                            R25 K38 ["DialogButton"]
+      194 LOADK                            R26 K39 ["RemindMeLater"]
+      195 NAMECALL                         R23 R2 K40 ["getText"]
+      197 CALL                             R23 3 1
+      198 SETTABLEKS                       R23 R22 K27 ["text"]
+      200 NOT                              R23 R7
+      201 SETTABLEKS                       R23 R22 K35 ["disabled"]
+      203 NEWCLOSURE                       R23 P4
+      204 CAPTURE                          VAL R5
+      205 CAPTURE                          VAL R0
+      206 CAPTURE                          VAL R12
+      207 SETTABLEKS                       R23 R22 K28 ["onActivated"]
+      209 JUMP                             ; [+1]
+      210 LOADNIL                          R22
+      211 SETTABLEKS                       R22 R21 K22 ["tertiaryAction"]
+      213 DUPTABLE                         R22 K42 [{"uri", "onClose"}]
+      214 GETUPVAL                         R23 7
+      215 GETTABLEKS                       R23 R23 K30 ["child"]
+      217 GETTABLEKS                       R24 R0 K15 ["uri"]
+      219 LOADK                            R25 K43 ["%*/Escape"]
+      220 MOVE                             R27 R18
+      221 NAMECALL                         R25 R25 K32 ["format"]
+      223 CALL                             R25 2 1
+      224 CALL                             R23 2 1
+      225 SETTABLEKS                       R23 R22 K15 ["uri"]
+      227 NEWCLOSURE                       R23 P5
+      228 CAPTURE                          VAL R12
+      229 SETTABLEKS                       R23 R22 K41 ["onClose"]
+      231 SETTABLEKS                       R22 R21 K23 ["escapeAction"]
+      233 DUPTABLE                         R22 K45 [{"Checkbox"}]
+      234 GETUPVAL                         R24 8
+      235 CALL                             R24 0 1
+      236 JUMPIFNOT                        R24 ; [+29]
+      237 JUMPIFNOT                        R17 ; [+28]
+      238 GETUPVAL                         R23 5
+      239 GETUPVAL                         R24 9
+      240 DUPTABLE                         R25 K51 [{["label"], ["isChecked"], ["onActivated"], ["size"], ["testId"] = "--safety-dialog-checkbox", ["LayoutOrder"]}]
+      241 LOADK                            R28 K52 ["Safety"]
+      242 LOADK                            R29 K53 ["EnforcementDateAcknowledgement"]
+      243 NAMECALL                         R26 R2 K40 ["getText"]
+      245 CALL                             R26 3 1
+      246 SETTABLEKS                       R26 R25 K33 ["label"]
+      248 SETTABLEKS                       R7 R25 K46 ["isChecked"]
+      250 NEWCLOSURE                       R26 P6
+      251 CAPTURE                          VAL R8
+      252 CAPTURE                          VAL R7
+      253 SETTABLEKS                       R26 R25 K28 ["onActivated"]
+      255 GETUPVAL                         R26 10
+      256 GETTABLEKS                       R26 R26 K54 ["Small"]
+      258 SETTABLEKS                       R26 R25 K47 ["size"]
+      260 MOVE                             R26 R3
+      261 CALL                             R26 0 1
+      262 SETTABLEKS                       R26 R25 K50 ["LayoutOrder"]
+      264 CALL                             R23 2 1
+      265 JUMP                             ; [+1]
+      266 LOADNIL                          R23
+      267 SETTABLEKS                       R23 R22 K44 ["Checkbox"]
+      269 CALL                             R19 3 -1
+      270 RETURN                           R19 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -766,89 +762,79 @@ MAIN:
        37 GETTABLEKS                       R6 R0 K11 ["Src"]
        39 GETTABLEKS                       R6 R6 K12 ["Types"]
        41 CALL                             R5 1 1
-       42 GETTABLEKS                       R7 R4 K13 ["SharedFlags"]
-       44 GETTABLEKS                       R7 R7 K14 ["getFFlagStudioFoundationDialogComponent"]
-       46 CALL                             R7 0 1
-       47 JUMPIFNOT                        R7 ; [+5]
-       48 GETTABLEKS                       R6 R4 K15 ["Components"]
-       50 GETTABLEKS                       R6 R6 K2 ["Dialog"]
-       52 JUMP                             ; [+9]
-       53 GETIMPORT                        R6 K5 [require]
-       55 GETTABLEKS                       R7 R0 K11 ["Src"]
-       57 GETTABLEKS                       R7 R7 K15 ["Components"]
-       59 GETTABLEKS                       R7 R7 K16 ["DEPRECATED_Dialog"]
-       61 CALL                             R6 1 1
-       62 GETTABLEKS                       R7 R2 K17 ["ContextServices"]
-       64 GETTABLEKS                       R7 R7 K18 ["Plugin"]
-       66 GETTABLEKS                       R8 R2 K17 ["ContextServices"]
-       68 GETTABLEKS                       R8 R8 K19 ["Localization"]
-       70 GETTABLEKS                       R9 R4 K20 ["Util"]
-       72 GETTABLEKS                       R9 R9 K21 ["StudioUri"]
-       74 GETTABLEKS                       R10 R2 K20 ["Util"]
-       76 GETTABLEKS                       R10 R10 K22 ["counter"]
-       78 GETTABLEKS                       R11 R3 K23 ["createElement"]
-       80 GETTABLEKS                       R12 R1 K24 ["Checkbox"]
-       82 GETTABLEKS                       R13 R1 K25 ["Enums"]
-       84 GETTABLEKS                       R13 R13 K26 ["InputSize"]
-       86 GETIMPORT                        R14 K5 [require]
-       88 GETTABLEKS                       R15 R0 K11 ["Src"]
-       90 GETTABLEKS                       R15 R15 K27 ["Flags"]
-       92 GETTABLEKS                       R15 R15 K28 ["getFFlagStudioSafetyCustomDialog"]
-       94 CALL                             R14 1 1
-       95 GETIMPORT                        R15 K5 [require]
-       97 GETTABLEKS                       R16 R0 K11 ["Src"]
-       99 GETTABLEKS                       R16 R16 K27 ["Flags"]
-      101 GETTABLEKS                       R16 R16 K29 ["getFFlagStudioSafetyNonBlockingDialogs"]
-      103 CALL                             R15 1 1
-      104 GETIMPORT                        R16 K5 [require]
-      106 GETTABLEKS                       R17 R0 K11 ["Src"]
-      108 GETTABLEKS                       R17 R17 K27 ["Flags"]
-      110 GETTABLEKS                       R17 R17 K30 ["getFStringParentalControlsStudioCollabSettingUrlPath"]
-      112 CALL                             R16 1 1
-      113 GETIMPORT                        R17 K5 [require]
-      115 GETTABLEKS                       R18 R0 K11 ["Src"]
-      117 GETTABLEKS                       R18 R18 K27 ["Flags"]
-      119 GETTABLEKS                       R18 R18 K31 ["getFStringStudioRestrictedCountryDetailsLink"]
-      121 CALL                             R17 1 1
-      122 GETIMPORT                        R18 K5 [require]
-      124 GETTABLEKS                       R19 R0 K11 ["Src"]
-      126 GETTABLEKS                       R19 R19 K27 ["Flags"]
-      128 GETTABLEKS                       R19 R19 K32 ["getFStringStudioSafetyVerifyAgeUrlPath"]
-      130 CALL                             R18 1 1
-      131 DUPTABLE                         R19 K63 [{["INVALID"] = "Invalid", ["NOTAGEVERIFIED"] = "NotAgeVerified", ["OUTSIDEAGEBUCKET"] = "OutsideAgeBucket", ["PCBLOCK"] = "PcBlock", ["OUTSIDEOWNERAGEBUCKET"] = "OutsideOwnerAgeBucket", ["TOOMANYCOLLABORATORS"] = "TooManyCollaborators", ["OCCRETRIESEXHAUSTED"] = "OccRetriesExhausted", ["PARENTALCONSENTBLOCK"] = "ParentalConsentBlock", ["ERROR"] = "Error", ["OWNERNOTAGEVERIFIED"] = "OwnerNotAgeVerified", ["OUTSIDEAGEBUCKETTCPC"] = "OutsideAgeBucketTcPc", ["OTHERCOLLABORATORSETTINGSPREVENTTRUST"] = "OtherCollaboratorSettingsPreventTrust", ["AGEVERIFICATIONCOUNTRYBLOCKED"] = "AgeVerificationCountryBlocked", ["OTHERUSERCANNOTCOLLABORATE"] = "OtherUserCannotCollaborate", ["OWNERCOUNTRYBLOCKED"] = "OwnerCountryBlocked"}]
-      132 DUPCLOSURE                       R20 K64 [PROTO_5]
-      133 CAPTURE                          VAL R9
-      134 CAPTURE                          VAL R18
-      135 CAPTURE                          VAL R16
-      136 CAPTURE                          VAL R17
-      137 CAPTURE                          VAL R15
-      138 DUPCLOSURE                       R21 K65 [PROTO_13]
-      139 CAPTURE                          VAL R7
-      140 CAPTURE                          VAL R8
-      141 CAPTURE                          VAL R10
-      142 CAPTURE                          VAL R3
-      143 CAPTURE                          VAL R20
-      144 CAPTURE                          VAL R11
-      145 CAPTURE                          VAL R6
-      146 CAPTURE                          VAL R9
-      147 CAPTURE                          VAL R15
-      148 CAPTURE                          VAL R12
-      149 CAPTURE                          VAL R13
-      150 MOVE                             R23 R14
-      151 CALL                             R23 0 1
-      152 JUMPIFNOT                        R23 ; [+18]
-      153 GETIMPORT                        R22 K68 [table.freeze]
-      155 DUPTABLE                         R23 K71 [{"uri", "component"}]
-      156 GETTABLEKS                       R24 R9 K72 ["fromWidget"]
-      158 LOADK                            R25 K73 ["Safety"]
-      159 LOADK                            R26 K74 ["AgeGatingDialog"]
-      160 CALL                             R24 2 1
-      161 SETTABLEKS                       R24 R23 K69 ["uri"]
-      163 GETTABLEKS                       R24 R3 K75 ["memo"]
-      165 MOVE                             R25 R21
-      166 CALL                             R24 1 1
-      167 SETTABLEKS                       R24 R23 K70 ["component"]
-      169 CALL                             R22 1 1
-      170 RETURN                           R22 1
-      171 LOADNIL                          R22
-      172 RETURN                           R22 1
+       42 GETTABLEKS                       R6 R4 K13 ["Components"]
+       44 GETTABLEKS                       R6 R6 K2 ["Dialog"]
+       46 GETTABLEKS                       R7 R2 K14 ["ContextServices"]
+       48 GETTABLEKS                       R7 R7 K15 ["Plugin"]
+       50 GETTABLEKS                       R8 R2 K14 ["ContextServices"]
+       52 GETTABLEKS                       R8 R8 K16 ["Localization"]
+       54 GETTABLEKS                       R9 R4 K17 ["Util"]
+       56 GETTABLEKS                       R9 R9 K18 ["StudioUri"]
+       58 GETTABLEKS                       R10 R2 K17 ["Util"]
+       60 GETTABLEKS                       R10 R10 K19 ["counter"]
+       62 GETTABLEKS                       R11 R3 K20 ["createElement"]
+       64 GETTABLEKS                       R12 R1 K21 ["Checkbox"]
+       66 GETTABLEKS                       R13 R1 K22 ["Enums"]
+       68 GETTABLEKS                       R13 R13 K23 ["InputSize"]
+       70 GETIMPORT                        R14 K5 [require]
+       72 GETTABLEKS                       R15 R0 K11 ["Src"]
+       74 GETTABLEKS                       R15 R15 K24 ["Flags"]
+       76 GETTABLEKS                       R15 R15 K25 ["getFFlagStudioSafetyCustomDialog"]
+       78 CALL                             R14 1 1
+       79 GETIMPORT                        R15 K5 [require]
+       81 GETTABLEKS                       R16 R0 K11 ["Src"]
+       83 GETTABLEKS                       R16 R16 K24 ["Flags"]
+       85 GETTABLEKS                       R16 R16 K26 ["getFFlagStudioSafetyNonBlockingDialogs"]
+       87 CALL                             R15 1 1
+       88 GETIMPORT                        R16 K5 [require]
+       90 GETTABLEKS                       R17 R0 K11 ["Src"]
+       92 GETTABLEKS                       R17 R17 K24 ["Flags"]
+       94 GETTABLEKS                       R17 R17 K27 ["getFStringParentalControlsStudioCollabSettingUrlPath"]
+       96 CALL                             R16 1 1
+       97 GETIMPORT                        R17 K5 [require]
+       99 GETTABLEKS                       R18 R0 K11 ["Src"]
+      101 GETTABLEKS                       R18 R18 K24 ["Flags"]
+      103 GETTABLEKS                       R18 R18 K28 ["getFStringStudioRestrictedCountryDetailsLink"]
+      105 CALL                             R17 1 1
+      106 GETIMPORT                        R18 K5 [require]
+      108 GETTABLEKS                       R19 R0 K11 ["Src"]
+      110 GETTABLEKS                       R19 R19 K24 ["Flags"]
+      112 GETTABLEKS                       R19 R19 K29 ["getFStringStudioSafetyVerifyAgeUrlPath"]
+      114 CALL                             R18 1 1
+      115 DUPTABLE                         R19 K60 [{["INVALID"] = "Invalid", ["NOTAGEVERIFIED"] = "NotAgeVerified", ["OUTSIDEAGEBUCKET"] = "OutsideAgeBucket", ["PCBLOCK"] = "PcBlock", ["OUTSIDEOWNERAGEBUCKET"] = "OutsideOwnerAgeBucket", ["TOOMANYCOLLABORATORS"] = "TooManyCollaborators", ["OCCRETRIESEXHAUSTED"] = "OccRetriesExhausted", ["PARENTALCONSENTBLOCK"] = "ParentalConsentBlock", ["ERROR"] = "Error", ["OWNERNOTAGEVERIFIED"] = "OwnerNotAgeVerified", ["OUTSIDEAGEBUCKETTCPC"] = "OutsideAgeBucketTcPc", ["OTHERCOLLABORATORSETTINGSPREVENTTRUST"] = "OtherCollaboratorSettingsPreventTrust", ["AGEVERIFICATIONCOUNTRYBLOCKED"] = "AgeVerificationCountryBlocked", ["OTHERUSERCANNOTCOLLABORATE"] = "OtherUserCannotCollaborate", ["OWNERCOUNTRYBLOCKED"] = "OwnerCountryBlocked"}]
+      116 DUPCLOSURE                       R20 K61 [PROTO_5]
+      117 CAPTURE                          VAL R9
+      118 CAPTURE                          VAL R18
+      119 CAPTURE                          VAL R16
+      120 CAPTURE                          VAL R17
+      121 CAPTURE                          VAL R15
+      122 DUPCLOSURE                       R21 K62 [PROTO_13]
+      123 CAPTURE                          VAL R7
+      124 CAPTURE                          VAL R8
+      125 CAPTURE                          VAL R10
+      126 CAPTURE                          VAL R3
+      127 CAPTURE                          VAL R20
+      128 CAPTURE                          VAL R11
+      129 CAPTURE                          VAL R6
+      130 CAPTURE                          VAL R9
+      131 CAPTURE                          VAL R15
+      132 CAPTURE                          VAL R12
+      133 CAPTURE                          VAL R13
+      134 MOVE                             R23 R14
+      135 CALL                             R23 0 1
+      136 JUMPIFNOT                        R23 ; [+18]
+      137 GETIMPORT                        R22 K65 [table.freeze]
+      139 DUPTABLE                         R23 K68 [{"uri", "component"}]
+      140 GETTABLEKS                       R24 R9 K69 ["fromWidget"]
+      142 LOADK                            R25 K70 ["Safety"]
+      143 LOADK                            R26 K71 ["AgeGatingDialog"]
+      144 CALL                             R24 2 1
+      145 SETTABLEKS                       R24 R23 K66 ["uri"]
+      147 GETTABLEKS                       R24 R3 K72 ["memo"]
+      149 MOVE                             R25 R21
+      150 CALL                             R24 1 1
+      151 SETTABLEKS                       R24 R23 K67 ["component"]
+      153 CALL                             R22 1 1
+      154 RETURN                           R22 1
+      155 LOADNIL                          R22
+      156 RETURN                           R22 1

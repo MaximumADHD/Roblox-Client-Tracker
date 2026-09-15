@@ -6,46 +6,44 @@ PROTO_0:
         4 GETTABLE                         R2 R3 R1
         5 RETURN                           R2 1
         6 LOADK                            R4 K0 ["apis"]
-        7 LOADK                            R6 K1 ["/orgs/v1/organizations?groupId=%*"]
-        8 MOVE                             R8 R1
-        9 NAMECALL                         R6 R6 K2 ["format"]
-       11 CALL                             R6 2 1
-       12 MOVE                             R5 R6
-       13 NAMECALL                         R2 R0 K3 ["get"]
-       15 CALL                             R2 3 1
-       16 NAMECALL                         R2 R2 K4 ["await"]
-       18 CALL                             R2 1 1
-       19 GETUPVAL                         R3 0
-       20 GETTABLEKS                       R4 R2 K5 ["responseBody"]
-       22 GETTABLEKS                       R4 R4 K6 ["id"]
-       24 SETTABLE                         R4 R3 R1
-       25 GETUPVAL                         R4 0
-       26 GETTABLE                         R3 R4 R1
-       27 RETURN                           R3 1
+        7 LOADK                            R5 K1 ["/orgs/v1/organizations?groupId=%*"]
+        8 MOVE                             R7 R1
+        9 NAMECALL                         R5 R5 K2 ["format"]
+       11 CALL                             R5 2 1
+       12 NAMECALL                         R2 R0 K3 ["get"]
+       14 CALL                             R2 3 1
+       15 NAMECALL                         R2 R2 K4 ["await"]
+       17 CALL                             R2 1 1
+       18 GETUPVAL                         R3 0
+       19 GETTABLEKS                       R4 R2 K5 ["responseBody"]
+       21 GETTABLEKS                       R4 R4 K6 ["id"]
+       23 SETTABLE                         R4 R3 R1
+       24 GETUPVAL                         R4 0
+       25 GETTABLE                         R3 R4 R1
+       26 RETURN                           R3 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["apis"]
-        2 LOADK                            R4 K1 ["/orgs/v2/universes/%*/permissions/organizations/%*/roles/%*"]
-        3 GETUPVAL                         R6 1
-        4 GETUPVAL                         R7 2
-        5 GETUPVAL                         R8 3
-        6 GETTABLEKS                       R8 R8 K2 ["id"]
-        8 NAMECALL                         R4 R4 K3 ["format"]
-       10 CALL                             R4 4 1
-       11 MOVE                             R3 R4
-       12 NAMECALL                         R0 R0 K4 ["get"]
-       14 CALL                             R0 3 1
-       15 NAMECALL                         R0 R0 K5 ["await"]
-       17 CALL                             R0 1 1
-       18 GETUPVAL                         R1 4
-       19 GETTABLEKS                       R1 R1 K6 ["fromResponseBody"]
-       21 GETTABLEKS                       R2 R0 K7 ["responseBody"]
-       23 GETUPVAL                         R3 3
-       24 GETUPVAL                         R4 5
-       25 GETUPVAL                         R5 6
-       26 CALL                             R1 4 -1
-       27 RETURN                           R1 -1
+        2 LOADK                            R3 K1 ["/orgs/v2/universes/%*/permissions/organizations/%*/roles/%*"]
+        3 GETUPVAL                         R5 1
+        4 GETUPVAL                         R6 2
+        5 GETUPVAL                         R7 3
+        6 GETTABLEKS                       R7 R7 K2 ["id"]
+        8 NAMECALL                         R3 R3 K3 ["format"]
+       10 CALL                             R3 4 1
+       11 NAMECALL                         R0 R0 K4 ["get"]
+       13 CALL                             R0 3 1
+       14 NAMECALL                         R0 R0 K5 ["await"]
+       16 CALL                             R0 1 1
+       17 GETUPVAL                         R1 4
+       18 GETTABLEKS                       R1 R1 K6 ["fromResponseBody"]
+       20 GETTABLEKS                       R2 R0 K7 ["responseBody"]
+       22 GETUPVAL                         R3 3
+       23 GETUPVAL                         R4 5
+       24 GETUPVAL                         R5 6
+       25 CALL                             R1 4 -1
+       26 RETURN                           R1 -1
 
 PROTO_2:
         0 GETIMPORT                        R6 K1 [pcall]
@@ -63,24 +61,23 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["apis"]
-        2 LOADK                            R4 K1 ["/orgs/v2/universes/%*/permissions/organizations/%*/roles/%*"]
-        3 GETUPVAL                         R6 1
-        4 GETUPVAL                         R7 2
-        5 GETUPVAL                         R8 3
-        6 NAMECALL                         R4 R4 K2 ["format"]
-        8 CALL                             R4 4 1
-        9 MOVE                             R3 R4
-       10 DUPTABLE                         R4 K6 [{["Body"], ["expectEmptyResponse"] = True}]
-       11 GETUPVAL                         R5 4
-       12 GETTABLEKS                       R5 R5 K7 ["toRequestBody"]
-       14 GETUPVAL                         R6 5
-       15 CALL                             R5 1 1
-       16 SETTABLEKS                       R5 R4 K3 ["Body"]
-       18 NAMECALL                         R0 R0 K8 ["post"]
-       20 CALL                             R0 4 1
-       21 NAMECALL                         R0 R0 K9 ["await"]
-       23 CALL                             R0 1 0
-       24 RETURN                           R0 0
+        2 LOADK                            R3 K1 ["/orgs/v2/universes/%*/permissions/organizations/%*/roles/%*"]
+        3 GETUPVAL                         R5 1
+        4 GETUPVAL                         R6 2
+        5 GETUPVAL                         R7 3
+        6 NAMECALL                         R3 R3 K2 ["format"]
+        8 CALL                             R3 4 1
+        9 DUPTABLE                         R4 K6 [{["Body"], ["expectEmptyResponse"] = True}]
+       10 GETUPVAL                         R5 4
+       11 GETTABLEKS                       R5 R5 K7 ["toRequestBody"]
+       13 GETUPVAL                         R6 5
+       14 CALL                             R5 1 1
+       15 SETTABLEKS                       R5 R4 K3 ["Body"]
+       17 NAMECALL                         R0 R0 K8 ["post"]
+       19 CALL                             R0 4 1
+       20 NAMECALL                         R0 R0 K9 ["await"]
+       22 CALL                             R0 1 0
+       23 RETURN                           R0 0
 
 PROTO_4:
         0 GETIMPORT                        R5 K1 [pcall]
@@ -99,43 +96,42 @@ PROTO_5:
         1 NAMECALL                         R2 R2 K0 ["GetUserId"]
         3 CALL                             R2 1 1
         4 LOADK                            R5 K1 ["apis"]
-        5 LOADK                            R7 K2 ["/orgs/v1/organizations/%*/users/%*/permissions"]
-        6 MOVE                             R9 R1
-        7 MOVE                             R10 R2
-        8 NAMECALL                         R7 R7 K3 ["format"]
-       10 CALL                             R7 3 1
-       11 MOVE                             R6 R7
-       12 NAMECALL                         R3 R0 K4 ["get"]
-       14 CALL                             R3 3 1
-       15 NAMECALL                         R3 R3 K5 ["await"]
-       17 CALL                             R3 1 1
-       18 NEWTABLE                         R4 0 0
-       20 NEWTABLE                         R5 0 0
-       22 GETTABLEKS                       R6 R3 K6 ["responseBody"]
-       24 GETTABLEKS                       R6 R6 K7 ["permissionEditableRoleIds"]
-       26 LOADNIL                          R7
-       27 LOADNIL                          R8
-       28 FORGPREP                         R6
-       29 LOADB                            R11 1
-       30 SETTABLE                         R11 R4 R10
-       31 FORGLOOP                         R6 2 ; [-3]
-       33 GETTABLEKS                       R6 R3 K6 ["responseBody"]
-       35 GETTABLEKS                       R6 R6 K8 ["metadataEditableRoleIds"]
-       37 LOADNIL                          R7
-       38 LOADNIL                          R8
-       39 FORGPREP                         R6
-       40 LOADB                            R11 1
-       41 SETTABLE                         R11 R5 R10
-       42 FORGLOOP                         R6 2 ; [-3]
-       44 GETTABLEKS                       R6 R3 K6 ["responseBody"]
-       46 GETTABLEKS                       R6 R6 K9 ["assignableRoleIds"]
-       48 LOADNIL                          R7
-       49 LOADNIL                          R8
-       50 FORGPREP                         R6
-       51 LOADB                            R11 1
-       52 SETTABLE                         R11 R5 R10
-       53 FORGLOOP                         R6 2 ; [-3]
-       55 RETURN                           R4 2
+        5 LOADK                            R6 K2 ["/orgs/v1/organizations/%*/users/%*/permissions"]
+        6 MOVE                             R8 R1
+        7 MOVE                             R9 R2
+        8 NAMECALL                         R6 R6 K3 ["format"]
+       10 CALL                             R6 3 1
+       11 NAMECALL                         R3 R0 K4 ["get"]
+       13 CALL                             R3 3 1
+       14 NAMECALL                         R3 R3 K5 ["await"]
+       16 CALL                             R3 1 1
+       17 NEWTABLE                         R4 0 0
+       19 NEWTABLE                         R5 0 0
+       21 GETTABLEKS                       R6 R3 K6 ["responseBody"]
+       23 GETTABLEKS                       R6 R6 K7 ["permissionEditableRoleIds"]
+       25 LOADNIL                          R7
+       26 LOADNIL                          R8
+       27 FORGPREP                         R6
+       28 LOADB                            R11 1
+       29 SETTABLE                         R11 R4 R10
+       30 FORGLOOP                         R6 2 ; [-3]
+       32 GETTABLEKS                       R6 R3 K6 ["responseBody"]
+       34 GETTABLEKS                       R6 R6 K8 ["metadataEditableRoleIds"]
+       36 LOADNIL                          R7
+       37 LOADNIL                          R8
+       38 FORGPREP                         R6
+       39 LOADB                            R11 1
+       40 SETTABLE                         R11 R5 R10
+       41 FORGLOOP                         R6 2 ; [-3]
+       43 GETTABLEKS                       R6 R3 K6 ["responseBody"]
+       45 GETTABLEKS                       R6 R6 K9 ["assignableRoleIds"]
+       47 LOADNIL                          R7
+       48 LOADNIL                          R8
+       49 FORGPREP                         R6
+       50 LOADB                            R11 1
+       51 SETTABLE                         R11 R5 R10
+       52 FORGLOOP                         R6 2 ; [-3]
+       54 RETURN                           R4 2
 
 PROTO_6:
         0 NEWTABLE                         R2 0 0
@@ -249,51 +245,50 @@ PROTO_9:
        11 JUMPIFNOT                        R6 ; [+3]
        12 GETUPVAL                         R6 0
        13 GETTABLE                         R5 R6 R2
-       14 JUMP                             ; [+21]
+       14 JUMP                             ; [+20]
        15 LOADK                            R8 K3 ["apis"]
-       16 LOADK                            R10 K4 ["/orgs/v1/organizations?groupId=%*"]
-       17 MOVE                             R12 R2
-       18 NAMECALL                         R10 R10 K5 ["format"]
-       20 CALL                             R10 2 1
-       21 MOVE                             R9 R10
-       22 NAMECALL                         R6 R4 K6 ["get"]
-       24 CALL                             R6 3 1
-       25 NAMECALL                         R6 R6 K7 ["await"]
-       27 CALL                             R6 1 1
-       28 GETUPVAL                         R7 0
-       29 GETTABLEKS                       R8 R6 K8 ["responseBody"]
-       31 GETTABLEKS                       R8 R8 K9 ["id"]
-       33 SETTABLE                         R8 R7 R2
-       34 GETUPVAL                         R7 0
-       35 GETTABLE                         R5 R7 R2
-       36 GETIMPORT                        R6 K12 [coroutine.running]
-       38 CALL                             R6 0 1
-       39 LOADN                            R7 0
-       40 LOADN                            R8 0
-       41 MOVE                             R9 R3
-       42 LOADNIL                          R10
-       43 LOADNIL                          R11
-       44 FORGPREP                         R9
-       45 ADDK                             R8 R8 K13 [1]
-       46 GETIMPORT                        R14 K15 [coroutine.wrap]
-       48 NEWCLOSURE                       R15 P0
-       49 CAPTURE                          VAL R4
-       50 CAPTURE                          VAL R1
-       51 CAPTURE                          VAL R5
-       52 CAPTURE                          VAL R12
-       53 CAPTURE                          VAL R13
-       54 CAPTURE                          UPVAL U1
-       55 CAPTURE                          REF R7
-       56 CAPTURE                          REF R8
-       57 CAPTURE                          VAL R6
-       58 CALL                             R14 1 1
-       59 MOVE                             R15 R14
-       60 CALL                             R15 0 0
-       61 FORGLOOP                         R9 2 ; [-17]
-       63 GETIMPORT                        R9 K17 [coroutine.yield]
-       65 CALL                             R9 0 0
-       66 CLOSEUPVALS                      R7
-       67 RETURN                           R0 0
+       16 LOADK                            R9 K4 ["/orgs/v1/organizations?groupId=%*"]
+       17 MOVE                             R11 R2
+       18 NAMECALL                         R9 R9 K5 ["format"]
+       20 CALL                             R9 2 1
+       21 NAMECALL                         R6 R4 K6 ["get"]
+       23 CALL                             R6 3 1
+       24 NAMECALL                         R6 R6 K7 ["await"]
+       26 CALL                             R6 1 1
+       27 GETUPVAL                         R7 0
+       28 GETTABLEKS                       R8 R6 K8 ["responseBody"]
+       30 GETTABLEKS                       R8 R8 K9 ["id"]
+       32 SETTABLE                         R8 R7 R2
+       33 GETUPVAL                         R7 0
+       34 GETTABLE                         R5 R7 R2
+       35 GETIMPORT                        R6 K12 [coroutine.running]
+       37 CALL                             R6 0 1
+       38 LOADN                            R7 0
+       39 LOADN                            R8 0
+       40 MOVE                             R9 R3
+       41 LOADNIL                          R10
+       42 LOADNIL                          R11
+       43 FORGPREP                         R9
+       44 ADDK                             R8 R8 K13 [1]
+       45 GETIMPORT                        R14 K15 [coroutine.wrap]
+       47 NEWCLOSURE                       R15 P0
+       48 CAPTURE                          VAL R4
+       49 CAPTURE                          VAL R1
+       50 CAPTURE                          VAL R5
+       51 CAPTURE                          VAL R12
+       52 CAPTURE                          VAL R13
+       53 CAPTURE                          UPVAL U1
+       54 CAPTURE                          REF R7
+       55 CAPTURE                          REF R8
+       56 CAPTURE                          VAL R6
+       57 CALL                             R14 1 1
+       58 MOVE                             R15 R14
+       59 CALL                             R15 0 0
+       60 FORGLOOP                         R9 2 ; [-17]
+       62 GETIMPORT                        R9 K17 [coroutine.yield]
+       64 CALL                             R9 0 0
+       65 CLOSEUPVALS                      R7
+       66 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R2 0
@@ -345,83 +340,81 @@ PROTO_11:
         4 JUMPIFNOT                        R6 ; [+3]
         5 GETUPVAL                         R6 0
         6 GETTABLE                         R5 R6 R2
-        7 JUMP                             ; [+21]
+        7 JUMP                             ; [+20]
         8 LOADK                            R8 K1 ["apis"]
-        9 LOADK                            R10 K2 ["/orgs/v1/organizations?groupId=%*"]
-       10 MOVE                             R12 R2
-       11 NAMECALL                         R10 R10 K3 ["format"]
-       13 CALL                             R10 2 1
-       14 MOVE                             R9 R10
-       15 NAMECALL                         R6 R4 K4 ["get"]
-       17 CALL                             R6 3 1
-       18 NAMECALL                         R6 R6 K5 ["await"]
-       20 CALL                             R6 1 1
-       21 GETUPVAL                         R7 0
-       22 GETTABLEKS                       R8 R6 K6 ["responseBody"]
-       24 GETTABLEKS                       R8 R8 K7 ["id"]
-       26 SETTABLE                         R8 R7 R2
-       27 GETUPVAL                         R7 0
-       28 GETTABLE                         R5 R7 R2
-       29 LOADK                            R8 K1 ["apis"]
-       30 LOADK                            R10 K8 ["/orgs/v1/organizations/%*/roles"]
-       31 MOVE                             R12 R5
-       32 NAMECALL                         R10 R10 K3 ["format"]
-       34 CALL                             R10 2 1
-       35 MOVE                             R9 R10
-       36 NAMECALL                         R6 R4 K4 ["get"]
-       38 CALL                             R6 3 1
-       39 NAMECALL                         R6 R6 K5 ["await"]
-       41 CALL                             R6 1 1
-       42 GETTABLEKS                       R7 R6 K6 ["responseBody"]
-       44 GETTABLEKS                       R7 R7 K9 ["roles"]
-       46 GETUPVAL                         R8 1
-       47 MOVE                             R9 R4
-       48 MOVE                             R10 R5
-       49 CALL                             R8 2 2
-       50 NEWTABLE                         R10 0 0
-       52 NEWTABLE                         R11 0 0
-       54 GETIMPORT                        R12 K12 [coroutine.running]
-       56 CALL                             R12 0 1
-       57 LOADN                            R13 0
-       58 LOADN                            R14 0
-       59 MOVE                             R15 R7
-       60 LOADNIL                          R16
-       61 LOADNIL                          R17
-       62 FORGPREP                         R15
-       63 GETTABLEKS                       R20 R19 K13 ["name"]
-       65 JUMPIFEQKS                       R20 K14 ["Member"] ; [+31]
-       67 GETTABLEKS                       R21 R19 K7 ["id"]
-       69 GETTABLE                         R20 R8 R21
-       70 JUMPIF                           R20 ; [+4]
-       71 GETTABLEKS                       R21 R19 K7 ["id"]
-       73 GETTABLE                         R20 R9 R21
-       74 JUMPIFNOT                        R20 ; [+22]
-       75 ADDK                             R14 R14 K15 [1]
-       76 GETTABLEKS                       R20 R19 K7 ["id"]
-       78 GETIMPORT                        R21 K17 [coroutine.wrap]
-       80 NEWCLOSURE                       R22 P0
-       81 CAPTURE                          VAL R4
-       82 CAPTURE                          VAL R1
-       83 CAPTURE                          VAL R5
-       84 CAPTURE                          VAL R19
-       85 CAPTURE                          VAL R3
-       86 CAPTURE                          VAL R8
-       87 CAPTURE                          UPVAL U2
-       88 CAPTURE                          VAL R10
-       89 CAPTURE                          VAL R20
-       90 CAPTURE                          VAL R11
-       91 CAPTURE                          REF R13
-       92 CAPTURE                          REF R14
-       93 CAPTURE                          VAL R12
-       94 CALL                             R21 1 1
-       95 MOVE                             R22 R21
-       96 CALL                             R22 0 0
-       97 FORGLOOP                         R15 2 ; [-35]
-       99 JUMPIFEQKN                       R14 K18 [0] ; [+4]
-      101 GETIMPORT                        R15 K20 [coroutine.yield]
-      103 CALL                             R15 0 0
-      104 CLOSEUPVALS                      R13
-      105 RETURN                           R10 2
+        9 LOADK                            R9 K2 ["/orgs/v1/organizations?groupId=%*"]
+       10 MOVE                             R11 R2
+       11 NAMECALL                         R9 R9 K3 ["format"]
+       13 CALL                             R9 2 1
+       14 NAMECALL                         R6 R4 K4 ["get"]
+       16 CALL                             R6 3 1
+       17 NAMECALL                         R6 R6 K5 ["await"]
+       19 CALL                             R6 1 1
+       20 GETUPVAL                         R7 0
+       21 GETTABLEKS                       R8 R6 K6 ["responseBody"]
+       23 GETTABLEKS                       R8 R8 K7 ["id"]
+       25 SETTABLE                         R8 R7 R2
+       26 GETUPVAL                         R7 0
+       27 GETTABLE                         R5 R7 R2
+       28 LOADK                            R8 K1 ["apis"]
+       29 LOADK                            R9 K8 ["/orgs/v1/organizations/%*/roles"]
+       30 MOVE                             R11 R5
+       31 NAMECALL                         R9 R9 K3 ["format"]
+       33 CALL                             R9 2 1
+       34 NAMECALL                         R6 R4 K4 ["get"]
+       36 CALL                             R6 3 1
+       37 NAMECALL                         R6 R6 K5 ["await"]
+       39 CALL                             R6 1 1
+       40 GETTABLEKS                       R7 R6 K6 ["responseBody"]
+       42 GETTABLEKS                       R7 R7 K9 ["roles"]
+       44 GETUPVAL                         R8 1
+       45 MOVE                             R9 R4
+       46 MOVE                             R10 R5
+       47 CALL                             R8 2 2
+       48 NEWTABLE                         R10 0 0
+       50 NEWTABLE                         R11 0 0
+       52 GETIMPORT                        R12 K12 [coroutine.running]
+       54 CALL                             R12 0 1
+       55 LOADN                            R13 0
+       56 LOADN                            R14 0
+       57 MOVE                             R15 R7
+       58 LOADNIL                          R16
+       59 LOADNIL                          R17
+       60 FORGPREP                         R15
+       61 GETTABLEKS                       R20 R19 K13 ["name"]
+       63 JUMPIFEQKS                       R20 K14 ["Member"] ; [+31]
+       65 GETTABLEKS                       R21 R19 K7 ["id"]
+       67 GETTABLE                         R20 R8 R21
+       68 JUMPIF                           R20 ; [+4]
+       69 GETTABLEKS                       R21 R19 K7 ["id"]
+       71 GETTABLE                         R20 R9 R21
+       72 JUMPIFNOT                        R20 ; [+22]
+       73 ADDK                             R14 R14 K15 [1]
+       74 GETTABLEKS                       R20 R19 K7 ["id"]
+       76 GETIMPORT                        R21 K17 [coroutine.wrap]
+       78 NEWCLOSURE                       R22 P0
+       79 CAPTURE                          VAL R4
+       80 CAPTURE                          VAL R1
+       81 CAPTURE                          VAL R5
+       82 CAPTURE                          VAL R19
+       83 CAPTURE                          VAL R3
+       84 CAPTURE                          VAL R8
+       85 CAPTURE                          UPVAL U2
+       86 CAPTURE                          VAL R10
+       87 CAPTURE                          VAL R20
+       88 CAPTURE                          VAL R11
+       89 CAPTURE                          REF R13
+       90 CAPTURE                          REF R14
+       91 CAPTURE                          VAL R12
+       92 CALL                             R21 1 1
+       93 MOVE                             R22 R21
+       94 CALL                             R22 0 0
+       95 FORGLOOP                         R15 2 ; [-35]
+       97 JUMPIFEQKN                       R14 K18 [0] ; [+4]
+       99 GETIMPORT                        R15 K20 [coroutine.yield]
+      101 CALL                             R15 0 0
+      102 CLOSEUPVALS                      R13
+      103 RETURN                           R10 2
 
 PROTO_12:
         0 GETUPVAL                         R0 0

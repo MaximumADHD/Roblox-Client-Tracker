@@ -343,13 +343,12 @@ PROTO_18:
        32 CALL                             R4 1 -1
        33 RETURN                           R4 -1
        34 GETIMPORT                        R2 K11 [error]
-       36 LOADK                            R4 K12 ["Unexpected url: %*"]
-       37 GETTABLEKS                       R6 R1 K1 ["Url"]
-       39 NAMECALL                         R4 R4 K13 ["format"]
-       41 CALL                             R4 2 1
-       42 MOVE                             R3 R4
-       43 CALL                             R2 1 0
-       44 RETURN                           R0 0
+       36 LOADK                            R3 K12 ["Unexpected url: %*"]
+       37 GETTABLEKS                       R5 R1 K1 ["Url"]
+       39 NAMECALL                         R3 R3 K13 ["format"]
+       41 CALL                             R3 2 1
+       42 CALL                             R2 1 0
+       43 RETURN                           R0 0
 
 PROTO_19:
         0 DUPTABLE                         R5 K4 [{[1], ["Method"] = "DELETE", ["Headers"]}]

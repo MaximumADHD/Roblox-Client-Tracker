@@ -226,59 +226,57 @@ PROTO_6:
 PROTO_7:
         0 NEWTABLE                         R0 0 0
         2 DUPTABLE                         R3 K2 [{"id", "text"}]
-        3 LOADK                            R5 K3 ["User:%*"]
-        4 GETUPVAL                         R7 0
-        5 NAMECALL                         R7 R7 K4 ["GetUserId"]
-        7 CALL                             R7 1 1
-        8 NAMECALL                         R5 R5 K5 ["format"]
-       10 CALL                             R5 2 1
-       11 MOVE                             R4 R5
-       12 SETTABLEKS                       R4 R3 K0 ["id"]
-       14 GETUPVAL                         R4 1
-       15 GETTABLEKS                       R4 R4 K6 ["MyExperiences"]
-       17 SETTABLEKS                       R4 R3 K1 ["text"]
-       19 FASTCALL2                        TABLE_INSERT R0 R3 ; [+4]
-       21 MOVE                             R2 R0
-       22 GETIMPORT                        R1 K9 [table.insert]
-       24 CALL                             R1 2 0
-       25 GETUPVAL                         R1 2
-       26 JUMPIFNOT                        R1 ; [+50]
-       27 GETUPVAL                         R1 2
-       28 LOADNIL                          R2
-       29 LOADNIL                          R3
-       30 FORGPREP                         R1
-       31 GETTABLEKS                       R6 R5 K10 ["name"]
-       33 JUMPIF                           R6 ; [+6]
-       34 GETTABLEKS                       R7 R5 K0 ["id"]
-       36 FASTCALL1                        TOSTRING R7 ; [+2]
-       37 GETIMPORT                        R6 K12 [tostring]
-       39 CALL                             R6 1 1
-       40 SETTABLEKS                       R6 R5 K10 ["name"]
-       42 FORGLOOP                         R1 2 ; [-12]
-       44 GETUPVAL                         R1 2
-       45 GETIMPORT                        R2 K14 [table.sort]
-       47 MOVE                             R3 R1
-       48 DUPCLOSURE                       R4 K15 [PROTO_6]
-       49 CALL                             R2 2 0
-       50 GETIMPORT                        R2 K17 [ipairs]
-       52 MOVE                             R3 R1
-       53 CALL                             R2 1 3
-       54 FORGPREP_INEXT                   R2
-       55 DUPTABLE                         R9 K2 [{"id", "text"}]
-       56 LOADK                            R11 K18 ["Group:%*"]
-       57 GETTABLEKS                       R13 R6 K0 ["id"]
-       59 NAMECALL                         R11 R11 K5 ["format"]
-       61 CALL                             R11 2 1
-       62 MOVE                             R10 R11
-       63 SETTABLEKS                       R10 R9 K0 ["id"]
-       65 GETTABLEKS                       R10 R6 K10 ["name"]
-       67 SETTABLEKS                       R10 R9 K1 ["text"]
-       69 FASTCALL2                        TABLE_INSERT R0 R9 ; [+4]
-       71 MOVE                             R8 R0
-       72 GETIMPORT                        R7 K9 [table.insert]
-       74 CALL                             R7 2 0
-       75 FORGLOOP                         R2 2 [inext] ; [-21]
-       77 RETURN                           R0 1
+        3 LOADK                            R4 K3 ["User:%*"]
+        4 GETUPVAL                         R6 0
+        5 NAMECALL                         R6 R6 K4 ["GetUserId"]
+        7 CALL                             R6 1 1
+        8 NAMECALL                         R4 R4 K5 ["format"]
+       10 CALL                             R4 2 1
+       11 SETTABLEKS                       R4 R3 K0 ["id"]
+       13 GETUPVAL                         R4 1
+       14 GETTABLEKS                       R4 R4 K6 ["MyExperiences"]
+       16 SETTABLEKS                       R4 R3 K1 ["text"]
+       18 FASTCALL2                        TABLE_INSERT R0 R3 ; [+4]
+       20 MOVE                             R2 R0
+       21 GETIMPORT                        R1 K9 [table.insert]
+       23 CALL                             R1 2 0
+       24 GETUPVAL                         R1 2
+       25 JUMPIFNOT                        R1 ; [+49]
+       26 GETUPVAL                         R1 2
+       27 LOADNIL                          R2
+       28 LOADNIL                          R3
+       29 FORGPREP                         R1
+       30 GETTABLEKS                       R6 R5 K10 ["name"]
+       32 JUMPIF                           R6 ; [+6]
+       33 GETTABLEKS                       R7 R5 K0 ["id"]
+       35 FASTCALL1                        TOSTRING R7 ; [+2]
+       36 GETIMPORT                        R6 K12 [tostring]
+       38 CALL                             R6 1 1
+       39 SETTABLEKS                       R6 R5 K10 ["name"]
+       41 FORGLOOP                         R1 2 ; [-12]
+       43 GETUPVAL                         R1 2
+       44 GETIMPORT                        R2 K14 [table.sort]
+       46 MOVE                             R3 R1
+       47 DUPCLOSURE                       R4 K15 [PROTO_6]
+       48 CALL                             R2 2 0
+       49 GETIMPORT                        R2 K17 [ipairs]
+       51 MOVE                             R3 R1
+       52 CALL                             R2 1 3
+       53 FORGPREP_INEXT                   R2
+       54 DUPTABLE                         R9 K2 [{"id", "text"}]
+       55 LOADK                            R10 K18 ["Group:%*"]
+       56 GETTABLEKS                       R12 R6 K0 ["id"]
+       58 NAMECALL                         R10 R10 K5 ["format"]
+       60 CALL                             R10 2 1
+       61 SETTABLEKS                       R10 R9 K0 ["id"]
+       63 GETTABLEKS                       R10 R6 K10 ["name"]
+       65 SETTABLEKS                       R10 R9 K1 ["text"]
+       67 FASTCALL2                        TABLE_INSERT R0 R9 ; [+4]
+       69 MOVE                             R8 R0
+       70 GETIMPORT                        R7 K9 [table.insert]
+       72 CALL                             R7 2 0
+       73 FORGLOOP                         R2 2 [inext] ; [-20]
+       75 RETURN                           R0 1
 
 PROTO_8:
         0 GETUPVAL                         R0 0
@@ -1136,111 +1134,101 @@ MAIN:
        74 CALL                             R9 1 1
        75 GETTABLEKS                       R10 R9 K21 ["Util"]
        77 GETTABLEKS                       R10 R10 K22 ["counter"]
-       79 GETTABLEKS                       R12 R4 K23 ["SharedFlags"]
-       81 GETTABLEKS                       R12 R12 K24 ["getFFlagStudioFoundationDialogComponent"]
-       83 CALL                             R12 0 1
-       84 JUMPIFNOT                        R12 ; [+5]
-       85 GETTABLEKS                       R11 R4 K25 ["Components"]
-       87 GETTABLEKS                       R11 R11 K6 ["Dialog"]
-       89 JUMP                             ; [+9]
-       90 GETIMPORT                        R11 K9 [require]
-       92 GETTABLEKS                       R12 R1 K14 ["Src"]
-       94 GETTABLEKS                       R12 R12 K25 ["Components"]
-       96 GETTABLEKS                       R12 R12 K26 ["DEPRECATED_Dialog"]
-       98 CALL                             R11 1 1
-       99 GETTABLEKS                       R12 R4 K21 ["Util"]
-      101 GETTABLEKS                       R12 R12 K27 ["StudioUri"]
-      103 GETTABLEKS                       R13 R2 K28 ["SearchInput"]
-      105 GETTABLEKS                       R14 R2 K29 ["TextInput"]
-      107 GETTABLEKS                       R15 R2 K30 ["ScrollView"]
-      109 GETTABLEKS                       R16 R2 K31 ["RadioGroup"]
-      111 GETTABLEKS                       R17 R2 K32 ["Dropdown"]
-      113 GETTABLEKS                       R18 R2 K33 ["Progress"]
-      115 GETTABLEKS                       R19 R2 K34 ["Button"]
-      117 GETTABLEKS                       R20 R2 K35 ["Image"]
-      119 GETTABLEKS                       R21 R2 K36 ["View"]
-      121 GETTABLEKS                       R22 R2 K37 ["Text"]
-      123 GETTABLEKS                       R23 R2 K38 ["Enums"]
-      125 GETTABLEKS                       R23 R23 K39 ["SearchInputShape"]
-      127 GETTABLEKS                       R24 R2 K38 ["Enums"]
-      129 GETTABLEKS                       R24 R24 K40 ["InputSize"]
-      131 GETTABLEKS                       R25 R2 K38 ["Enums"]
-      133 GETTABLEKS                       R25 R25 K41 ["Visibility"]
-      135 GETTABLEKS                       R26 R2 K38 ["Enums"]
-      137 GETTABLEKS                       R26 R26 K42 ["ButtonVariant"]
-      139 GETTABLEKS                       R27 R2 K38 ["Enums"]
-      141 GETTABLEKS                       R27 R27 K43 ["StateLayerAffordance"]
-      143 GETTABLEKS                       R28 R2 K38 ["Enums"]
-      145 GETTABLEKS                       R28 R28 K44 ["ProgressShape"]
-      147 GETTABLEKS                       R29 R2 K38 ["Enums"]
-      149 GETTABLEKS                       R29 R29 K45 ["ProgressSize"]
-      151 MOVE                             R30 R7
-      152 CALL                             R30 0 1
-      153 MOVE                             R31 R6
-      154 CALL                             R31 0 1
-      155 DUPCLOSURE                       R32 K46 [PROTO_1]
-      156 CAPTURE                          VAL R10
-      157 CAPTURE                          VAL R2
+       79 GETTABLEKS                       R11 R4 K23 ["Components"]
+       81 GETTABLEKS                       R11 R11 K6 ["Dialog"]
+       83 GETTABLEKS                       R12 R4 K21 ["Util"]
+       85 GETTABLEKS                       R12 R12 K24 ["StudioUri"]
+       87 GETTABLEKS                       R13 R2 K25 ["SearchInput"]
+       89 GETTABLEKS                       R14 R2 K26 ["TextInput"]
+       91 GETTABLEKS                       R15 R2 K27 ["ScrollView"]
+       93 GETTABLEKS                       R16 R2 K28 ["RadioGroup"]
+       95 GETTABLEKS                       R17 R2 K29 ["Dropdown"]
+       97 GETTABLEKS                       R18 R2 K30 ["Progress"]
+       99 GETTABLEKS                       R19 R2 K31 ["Button"]
+      101 GETTABLEKS                       R20 R2 K32 ["Image"]
+      103 GETTABLEKS                       R21 R2 K33 ["View"]
+      105 GETTABLEKS                       R22 R2 K34 ["Text"]
+      107 GETTABLEKS                       R23 R2 K35 ["Enums"]
+      109 GETTABLEKS                       R23 R23 K36 ["SearchInputShape"]
+      111 GETTABLEKS                       R24 R2 K35 ["Enums"]
+      113 GETTABLEKS                       R24 R24 K37 ["InputSize"]
+      115 GETTABLEKS                       R25 R2 K35 ["Enums"]
+      117 GETTABLEKS                       R25 R25 K38 ["Visibility"]
+      119 GETTABLEKS                       R26 R2 K35 ["Enums"]
+      121 GETTABLEKS                       R26 R26 K39 ["ButtonVariant"]
+      123 GETTABLEKS                       R27 R2 K35 ["Enums"]
+      125 GETTABLEKS                       R27 R27 K40 ["StateLayerAffordance"]
+      127 GETTABLEKS                       R28 R2 K35 ["Enums"]
+      129 GETTABLEKS                       R28 R28 K41 ["ProgressShape"]
+      131 GETTABLEKS                       R29 R2 K35 ["Enums"]
+      133 GETTABLEKS                       R29 R29 K42 ["ProgressSize"]
+      135 MOVE                             R30 R7
+      136 CALL                             R30 0 1
+      137 MOVE                             R31 R6
+      138 CALL                             R31 0 1
+      139 DUPCLOSURE                       R32 K43 [PROTO_1]
+      140 CAPTURE                          VAL R10
+      141 CAPTURE                          VAL R2
+      142 CAPTURE                          VAL R3
+      143 CAPTURE                          VAL R21
+      144 CAPTURE                          VAL R27
+      145 CAPTURE                          VAL R16
+      146 CAPTURE                          VAL R24
+      147 CAPTURE                          VAL R20
+      148 CAPTURE                          VAL R22
+      149 DUPCLOSURE                       R33 K44 [PROTO_2]
+      150 CAPTURE                          VAL R10
+      151 CAPTURE                          VAL R3
+      152 CAPTURE                          VAL R21
+      153 CAPTURE                          VAL R18
+      154 CAPTURE                          VAL R28
+      155 CAPTURE                          VAL R29
+      156 CAPTURE                          VAL R22
+      157 DUPCLOSURE                       R34 K45 [PROTO_16]
       158 CAPTURE                          VAL R3
-      159 CAPTURE                          VAL R21
-      160 CAPTURE                          VAL R27
-      161 CAPTURE                          VAL R16
-      162 CAPTURE                          VAL R24
-      163 CAPTURE                          VAL R20
-      164 CAPTURE                          VAL R22
-      165 DUPCLOSURE                       R33 K47 [PROTO_2]
-      166 CAPTURE                          VAL R10
-      167 CAPTURE                          VAL R3
-      168 CAPTURE                          VAL R21
-      169 CAPTURE                          VAL R18
-      170 CAPTURE                          VAL R28
-      171 CAPTURE                          VAL R29
-      172 CAPTURE                          VAL R22
-      173 DUPCLOSURE                       R34 K48 [PROTO_16]
-      174 CAPTURE                          VAL R3
-      175 CAPTURE                          VAL R0
-      176 CAPTURE                          VAL R32
-      177 CAPTURE                          VAL R10
-      178 CAPTURE                          VAL R21
-      179 CAPTURE                          VAL R17
-      180 CAPTURE                          VAL R24
-      181 CAPTURE                          VAL R30
-      182 CAPTURE                          VAL R13
-      183 CAPTURE                          VAL R23
-      184 CAPTURE                          VAL R18
-      185 CAPTURE                          VAL R28
-      186 CAPTURE                          VAL R29
-      187 CAPTURE                          VAL R15
-      188 CAPTURE                          VAL R25
-      189 CAPTURE                          VAL R22
-      190 CAPTURE                          VAL R19
-      191 CAPTURE                          VAL R26
-      192 CAPTURE                          VAL R16
-      193 CAPTURE                          VAL R14
-      194 DUPCLOSURE                       R35 K49 [PROTO_20]
-      195 CAPTURE                          VAL R2
-      196 CAPTURE                          VAL R3
-      197 CAPTURE                          VAL R34
-      198 CAPTURE                          VAL R12
-      199 CAPTURE                          VAL R33
-      200 CAPTURE                          VAL R31
-      201 CAPTURE                          VAL R11
-      202 CAPTURE                          VAL R21
-      203 MOVE                             R37 R8
-      204 CALL                             R37 0 1
-      205 JUMPIFNOT                        R37 ; [+18]
-      206 GETIMPORT                        R36 K52 [table.freeze]
-      208 DUPTABLE                         R37 K55 [{"uri", "component"}]
-      209 GETTABLEKS                       R38 R12 K56 ["fromWidget"]
-      211 LOADK                            R39 K57 ["CreatorConfig"]
-      212 LOADK                            R40 K58 ["PublishAsDialog"]
-      213 CALL                             R38 2 1
-      214 SETTABLEKS                       R38 R37 K53 ["uri"]
-      216 GETTABLEKS                       R38 R3 K59 ["memo"]
-      218 MOVE                             R39 R35
-      219 CALL                             R38 1 1
-      220 SETTABLEKS                       R38 R37 K54 ["component"]
-      222 CALL                             R36 1 1
-      223 RETURN                           R36 1
-      224 LOADNIL                          R36
-      225 RETURN                           R36 1
+      159 CAPTURE                          VAL R0
+      160 CAPTURE                          VAL R32
+      161 CAPTURE                          VAL R10
+      162 CAPTURE                          VAL R21
+      163 CAPTURE                          VAL R17
+      164 CAPTURE                          VAL R24
+      165 CAPTURE                          VAL R30
+      166 CAPTURE                          VAL R13
+      167 CAPTURE                          VAL R23
+      168 CAPTURE                          VAL R18
+      169 CAPTURE                          VAL R28
+      170 CAPTURE                          VAL R29
+      171 CAPTURE                          VAL R15
+      172 CAPTURE                          VAL R25
+      173 CAPTURE                          VAL R22
+      174 CAPTURE                          VAL R19
+      175 CAPTURE                          VAL R26
+      176 CAPTURE                          VAL R16
+      177 CAPTURE                          VAL R14
+      178 DUPCLOSURE                       R35 K46 [PROTO_20]
+      179 CAPTURE                          VAL R2
+      180 CAPTURE                          VAL R3
+      181 CAPTURE                          VAL R34
+      182 CAPTURE                          VAL R12
+      183 CAPTURE                          VAL R33
+      184 CAPTURE                          VAL R31
+      185 CAPTURE                          VAL R11
+      186 CAPTURE                          VAL R21
+      187 MOVE                             R37 R8
+      188 CALL                             R37 0 1
+      189 JUMPIFNOT                        R37 ; [+18]
+      190 GETIMPORT                        R36 K49 [table.freeze]
+      192 DUPTABLE                         R37 K52 [{"uri", "component"}]
+      193 GETTABLEKS                       R38 R12 K53 ["fromWidget"]
+      195 LOADK                            R39 K54 ["CreatorConfig"]
+      196 LOADK                            R40 K55 ["PublishAsDialog"]
+      197 CALL                             R38 2 1
+      198 SETTABLEKS                       R38 R37 K50 ["uri"]
+      200 GETTABLEKS                       R38 R3 K56 ["memo"]
+      202 MOVE                             R39 R35
+      203 CALL                             R38 1 1
+      204 SETTABLEKS                       R38 R37 K51 ["component"]
+      206 CALL                             R36 1 1
+      207 RETURN                           R36 1
+      208 LOADNIL                          R36
+      209 RETURN                           R36 1

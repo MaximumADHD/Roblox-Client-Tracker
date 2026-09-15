@@ -4,49 +4,47 @@ PROTO_0:
         2 GETTABLEKS                       R1 R1 K5 ["composeUrl"]
         4 GETUPVAL                         R2 0
         5 GETTABLEKS                       R2 R2 K6 ["APIS_URL"]
-        7 LOADK                            R4 K7 ["place-version-history-summary-api/v1/places/%*/version-notes-summaries/%*"]
-        8 GETUPVAL                         R6 1
-        9 GETUPVAL                         R7 2
-       10 NAMECALL                         R4 R4 K8 ["format"]
-       12 CALL                             R4 3 1
-       13 MOVE                             R3 R4
-       14 CALL                             R1 2 1
-       15 SETTABLEKS                       R1 R0 K2 ["Url"]
-       17 NEWTABLE                         R1 1 0
-       19 LOADK                            R2 K9 ["application/json"]
-       20 SETTABLEKS                       R2 R1 K10 ["Content-Type"]
-       22 SETTABLEKS                       R1 R0 K3 ["Headers"]
-       24 GETUPVAL                         R1 3
-       25 GETTABLEKS                       R1 R1 K11 ["Request"]
-       27 MOVE                             R2 R0
-       28 CALL                             R1 1 -1
-       29 RETURN                           R1 -1
+        7 LOADK                            R3 K7 ["place-version-history-summary-api/v1/places/%*/version-notes-summaries/%*"]
+        8 GETUPVAL                         R5 1
+        9 GETUPVAL                         R6 2
+       10 NAMECALL                         R3 R3 K8 ["format"]
+       12 CALL                             R3 3 1
+       13 CALL                             R1 2 1
+       14 SETTABLEKS                       R1 R0 K2 ["Url"]
+       16 NEWTABLE                         R1 1 0
+       18 LOADK                            R2 K9 ["application/json"]
+       19 SETTABLEKS                       R2 R1 K10 ["Content-Type"]
+       21 SETTABLEKS                       R1 R0 K3 ["Headers"]
+       23 GETUPVAL                         R1 3
+       24 GETTABLEKS                       R1 R1 K11 ["Request"]
+       26 MOVE                             R2 R0
+       27 CALL                             R1 1 -1
+       28 RETURN                           R1 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["validate"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 2
-        5 JUMPIF                           R1 ; [+11]
+        5 JUMPIF                           R1 ; [+10]
         6 GETUPVAL                         R3 1
         7 GETTABLEKS                       R3 R3 K1 ["reject"]
-        9 LOADK                            R5 K2 ["GetGeneratedNotesModel: %*"]
-       10 MOVE                             R7 R2
-       11 NAMECALL                         R5 R5 K3 ["format"]
-       13 CALL                             R5 2 1
-       14 MOVE                             R4 R5
-       15 CALL                             R3 1 -1
-       16 RETURN                           R3 -1
-       17 DUPTABLE                         R3 K6 [{"title", "description"}]
-       18 GETTABLEKS                       R4 R0 K4 ["title"]
-       20 SETTABLEKS                       R4 R3 K4 ["title"]
-       22 GETTABLEKS                       R4 R0 K7 ["summarizedVersionNotes"]
-       24 SETTABLEKS                       R4 R3 K5 ["description"]
-       26 GETUPVAL                         R4 1
-       27 GETTABLEKS                       R4 R4 K8 ["resolve"]
-       29 MOVE                             R5 R3
-       30 CALL                             R4 1 -1
-       31 RETURN                           R4 -1
+        9 LOADK                            R4 K2 ["GetGeneratedNotesModel: %*"]
+       10 MOVE                             R6 R2
+       11 NAMECALL                         R4 R4 K3 ["format"]
+       13 CALL                             R4 2 1
+       14 CALL                             R3 1 -1
+       15 RETURN                           R3 -1
+       16 DUPTABLE                         R3 K6 [{"title", "description"}]
+       17 GETTABLEKS                       R4 R0 K4 ["title"]
+       19 SETTABLEKS                       R4 R3 K4 ["title"]
+       21 GETTABLEKS                       R4 R0 K7 ["summarizedVersionNotes"]
+       23 SETTABLEKS                       R4 R3 K5 ["description"]
+       25 GETUPVAL                         R4 1
+       26 GETTABLEKS                       R4 R4 K8 ["resolve"]
+       28 MOVE                             R5 R3
+       29 CALL                             R4 1 -1
+       30 RETURN                           R4 -1
 
 PROTO_2:
         0 GETUPVAL                         R2 0

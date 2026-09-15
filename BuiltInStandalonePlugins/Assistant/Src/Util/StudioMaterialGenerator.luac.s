@@ -89,13 +89,12 @@ PROTO_3:
        34 GETTABLEKS                       R2 R0 K6 ["message"]
        36 JUMP                             ; [+1]
        37 LOADK                            R2 K7 ["Unknown error"]
-       38 LOADK                            R4 K8 ["%*: %*"]
-       39 MOVE                             R6 R1
-       40 MOVE                             R7 R2
-       41 NAMECALL                         R4 R4 K9 ["format"]
-       43 CALL                             R4 3 1
-       44 MOVE                             R3 R4
-       45 RETURN                           R3 1
+       38 LOADK                            R3 K8 ["%*: %*"]
+       39 MOVE                             R5 R1
+       40 MOVE                             R6 R2
+       41 NAMECALL                         R3 R3 K9 ["format"]
+       43 CALL                             R3 3 1
+       44 RETURN                           R3 1
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -472,40 +471,37 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["FFlagAssistantNotificationManager"]
-        3 JUMPIFNOT                        R0 ; [+9]
-        4 GETUPVAL                         R0 1
-        5 LOADNIL                          R1
-        6 LOADNIL                          R2
-        7 FORGPREP                         R0
-        8 NAMECALL                         R5 R4 K1 ["Disconnect"]
-       10 CALL                             R5 1 0
-       11 FORGLOOP                         R0 2 ; [-4]
-       13 GETUPVAL                         R0 2
-       14 LOADNIL                          R1
-       15 LOADNIL                          R2
-       16 FORGPREP                         R0
-       17 GETUPVAL                         R5 2
-       18 GETTABLE                         R6 R5 R3
-       19 JUMPIF                           R6 ; [+1]
-       20 JUMP                             ; [+17]
-       21 LOADNIL                          R7
-       22 SETTABLE                         R7 R5 R3
-       23 GETTABLEKS                       R7 R6 K2 ["hasCompleted"]
-       25 JUMPIFNOT                        R7 ; [+1]
-       26 JUMP                             ; [+11]
-       27 LOADB                            R7 1
-       28 SETTABLEKS                       R7 R6 K2 ["hasCompleted"]
-       30 LOADNIL                          R7
-       31 SETTABLEKS                       R7 R6 K3 ["result"]
-       33 GETTABLEKS                       R7 R6 K4 ["completed"]
-       35 NAMECALL                         R7 R7 K5 ["Fire"]
-       37 CALL                             R7 1 0
-       38 FORGLOOP                         R0 2 ; [-22]
-       40 GETIMPORT                        R0 K8 [table.clear]
-       42 GETUPVAL                         R1 2
-       43 CALL                             R0 1 0
-       44 RETURN                           R0 0
+        1 LOADNIL                          R1
+        2 LOADNIL                          R2
+        3 FORGPREP                         R0
+        4 NAMECALL                         R5 R4 K0 ["Disconnect"]
+        6 CALL                             R5 1 0
+        7 FORGLOOP                         R0 2 ; [-4]
+        9 GETUPVAL                         R0 1
+       10 LOADNIL                          R1
+       11 LOADNIL                          R2
+       12 FORGPREP                         R0
+       13 GETUPVAL                         R5 1
+       14 GETTABLE                         R6 R5 R3
+       15 JUMPIF                           R6 ; [+1]
+       16 JUMP                             ; [+17]
+       17 LOADNIL                          R7
+       18 SETTABLE                         R7 R5 R3
+       19 GETTABLEKS                       R7 R6 K1 ["hasCompleted"]
+       21 JUMPIFNOT                        R7 ; [+1]
+       22 JUMP                             ; [+11]
+       23 LOADB                            R7 1
+       24 SETTABLEKS                       R7 R6 K1 ["hasCompleted"]
+       26 LOADNIL                          R7
+       27 SETTABLEKS                       R7 R6 K2 ["result"]
+       29 GETTABLEKS                       R7 R6 K3 ["completed"]
+       31 NAMECALL                         R7 R7 K4 ["Fire"]
+       33 CALL                             R7 1 0
+       34 FORGLOOP                         R0 2 ; [-22]
+       36 GETIMPORT                        R0 K7 [table.clear]
+       38 GETUPVAL                         R1 1
+       39 CALL                             R0 1 0
+       40 RETURN                           R0 0
 
 PROTO_14:
         0 MOVE                             R1 R0
@@ -538,29 +534,25 @@ PROTO_14:
        40 NEWTABLE                         R3 0 0
        42 NEWTABLE                         R4 0 0
        44 GETUPVAL                         R5 4
-       45 GETTABLEKS                       R5 R5 K9 ["FFlagAssistantNotificationManager"]
-       47 JUMPIFNOT                        R5 ; [+5]
-       48 GETUPVAL                         R5 5
-       49 MOVE                             R6 R2
-       50 MOVE                             R7 R3
-       51 MOVE                             R8 R4
-       52 CALL                             R5 3 0
-       53 DUPTABLE                         R5 K13 [{"generateMaterialVariantsAsync", "uploadMaterialsAsync", "destroy"}]
-       54 NEWCLOSURE                       R6 P0
-       55 CAPTURE                          UPVAL U6
-       56 CAPTURE                          VAL R2
-       57 SETTABLEKS                       R6 R5 K10 ["generateMaterialVariantsAsync"]
-       59 NEWCLOSURE                       R6 P1
-       60 CAPTURE                          UPVAL U7
-       61 CAPTURE                          VAL R2
-       62 CAPTURE                          VAL R4
-       63 SETTABLEKS                       R6 R5 K11 ["uploadMaterialsAsync"]
-       65 NEWCLOSURE                       R6 P2
-       66 CAPTURE                          UPVAL U4
-       67 CAPTURE                          VAL R3
-       68 CAPTURE                          VAL R4
-       69 SETTABLEKS                       R6 R5 K12 ["destroy"]
-       71 RETURN                           R5 1
+       45 MOVE                             R6 R2
+       46 MOVE                             R7 R3
+       47 MOVE                             R8 R4
+       48 CALL                             R5 3 0
+       49 DUPTABLE                         R5 K12 [{"generateMaterialVariantsAsync", "uploadMaterialsAsync", "destroy"}]
+       50 NEWCLOSURE                       R6 P0
+       51 CAPTURE                          UPVAL U5
+       52 CAPTURE                          VAL R2
+       53 SETTABLEKS                       R6 R5 K9 ["generateMaterialVariantsAsync"]
+       55 NEWCLOSURE                       R6 P1
+       56 CAPTURE                          UPVAL U6
+       57 CAPTURE                          VAL R2
+       58 CAPTURE                          VAL R4
+       59 SETTABLEKS                       R6 R5 K10 ["uploadMaterialsAsync"]
+       61 NEWCLOSURE                       R6 P2
+       62 CAPTURE                          VAL R3
+       63 CAPTURE                          VAL R4
+       64 SETTABLEKS                       R6 R5 K11 ["destroy"]
+       66 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -644,10 +636,9 @@ MAIN:
       123 CAPTURE                          VAL R6
       124 CAPTURE                          VAL R10
       125 CAPTURE                          VAL R9
-      126 CAPTURE                          VAL R12
-      127 CAPTURE                          VAL R19
-      128 CAPTURE                          VAL R13
-      129 CAPTURE                          VAL R18
-      130 DUPTABLE                         R21 K38 [{"create"}]
-      131 SETTABLEKS                       R20 R21 K37 ["create"]
-      133 RETURN                           R21 1
+      126 CAPTURE                          VAL R19
+      127 CAPTURE                          VAL R13
+      128 CAPTURE                          VAL R18
+      129 DUPTABLE                         R21 K38 [{"create"}]
+      130 SETTABLEKS                       R20 R21 K37 ["create"]
+      132 RETURN                           R21 1

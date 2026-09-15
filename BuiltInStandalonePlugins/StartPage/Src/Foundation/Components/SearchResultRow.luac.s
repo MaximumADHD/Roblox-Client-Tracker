@@ -270,7 +270,7 @@ PROTO_1:
       362 LOADNIL                          R16
       363 SETTABLEKS                       R16 R15 K83 ["CreatedDate"]
       365 GETTABLEKS                       R17 R4 K84 ["CreatorName"]
-      367 JUMPIFNOT                        R17 ; [+20]
+      367 JUMPIFNOT                        R17 ; [+19]
       368 GETUPVAL                         R16 4
       369 GETTABLEKS                       R16 R16 K9 ["createElement"]
       371 GETUPVAL                         R17 12
@@ -278,20 +278,19 @@ PROTO_1:
       373 MOVE                             R19 R2
       374 CALL                             R19 0 1
       375 SETTABLEKS                       R19 R18 K12 ["LayoutOrder"]
-      377 LOADK                            R20 K88 ["@%*"]
-      378 GETTABLEKS                       R22 R4 K84 ["CreatorName"]
-      380 NAMECALL                         R20 R20 K89 ["format"]
-      382 CALL                             R20 2 1
-      383 MOVE                             R19 R20
-      384 SETTABLEKS                       R19 R18 K48 ["Text"]
-      386 CALL                             R16 2 1
-      387 JUMP                             ; [+1]
-      388 LOADNIL                          R16
-      389 SETTABLEKS                       R16 R15 K84 ["CreatorName"]
-      391 CALL                             R12 3 1
-      392 SETTABLEKS                       R12 R11 K34 ["RightTextbox"]
-      394 CALL                             R8 3 -1
-      395 RETURN                           R8 -1
+      377 LOADK                            R19 K88 ["@%*"]
+      378 GETTABLEKS                       R21 R4 K84 ["CreatorName"]
+      380 NAMECALL                         R19 R19 K89 ["format"]
+      382 CALL                             R19 2 1
+      383 SETTABLEKS                       R19 R18 K48 ["Text"]
+      385 CALL                             R16 2 1
+      386 JUMP                             ; [+1]
+      387 LOADNIL                          R16
+      388 SETTABLEKS                       R16 R15 K84 ["CreatorName"]
+      390 CALL                             R12 3 1
+      391 SETTABLEKS                       R12 R11 K34 ["RightTextbox"]
+      393 CALL                             R8 3 -1
+      394 RETURN                           R8 -1
 
 PROTO_2:
         0 GETUPVAL                         R1 0

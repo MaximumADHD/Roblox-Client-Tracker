@@ -380,70 +380,69 @@ PROTO_15:
        26 RETURN                           R2 -1
        27 GETTABLEKS                       R3 R0 K12 ["Name"]
        29 ORK                              R2 R3 K11 [""]
-       30 LOADK                            R4 K13 ["Copy of %*"]
-       31 MOVE                             R6 R2
-       32 NAMECALL                         R4 R4 K14 ["format"]
-       34 CALL                             R4 2 1
-       35 MOVE                             R3 R4
-       36 GETUPVAL                         R4 1
-       37 GETTABLEKS                       R4 R4 K15 ["all"]
-       39 NEWTABLE                         R5 0 2
-       41 NEWCLOSURE                       R7 P0
-       42 CAPTURE                          UPVAL U2
-       43 CAPTURE                          VAL R1
-       44 GETUPVAL                         R8 1
-       45 GETTABLEKS                       R8 R8 K16 ["resolve"]
-       47 CALL                             R8 0 1
-       48 MOVE                             R10 R7
-       49 NAMECALL                         R8 R8 K17 ["andThen"]
-       51 CALL                             R8 2 1
-       52 LOADK                            R11 K18 ["GetUniversePlaces"]
-       53 NEWCLOSURE                       R10 P1
-       54 CAPTURE                          UPVAL U1
-       55 CAPTURE                          VAL R11
-       56 NAMECALL                         R8 R8 K19 ["catch"]
-       58 CALL                             R8 2 1
-       59 MOVE                             R6 R8
-       60 GETUPVAL                         R7 3
-       61 LOADK                            R8 K20 ["CreateUniverse"]
-       62 DUPCLOSURE                       R9 K21 [PROTO_6]
-       63 CAPTURE                          UPVAL U4
-       64 CALL                             R7 2 -1
-       65 SETLIST                          R5 R6 -1 [1]
-       67 CALL                             R4 1 1
-       68 NEWCLOSURE                       R6 P3
-       69 CAPTURE                          UPVAL U5
-       70 CAPTURE                          VAL R3
-       71 CAPTURE                          UPVAL U1
-       72 CAPTURE                          UPVAL U3
-       73 CAPTURE                          UPVAL U6
-       74 NAMECALL                         R4 R4 K17 ["andThen"]
-       76 CALL                             R4 2 1
-       77 NEWCLOSURE                       R6 P4
-       78 CAPTURE                          UPVAL U7
-       79 CAPTURE                          UPVAL U8
-       80 CAPTURE                          VAL R1
-       81 CAPTURE                          UPVAL U9
-       82 CAPTURE                          VAL R2
-       83 CAPTURE                          VAL R3
-       84 CAPTURE                          UPVAL U10
-       85 CAPTURE                          UPVAL U11
-       86 CAPTURE                          UPVAL U12
-       87 CAPTURE                          UPVAL U13
-       88 CAPTURE                          UPVAL U14
-       89 CAPTURE                          UPVAL U0
-       90 NAMECALL                         R4 R4 K17 ["andThen"]
-       92 CALL                             R4 2 1
-       93 NEWCLOSURE                       R6 P5
-       94 CAPTURE                          UPVAL U12
-       95 CAPTURE                          UPVAL U10
-       96 CAPTURE                          UPVAL U11
-       97 CAPTURE                          VAL R1
-       98 CAPTURE                          UPVAL U0
-       99 CAPTURE                          UPVAL U1
-      100 NAMECALL                         R4 R4 K19 ["catch"]
-      102 CALL                             R4 2 -1
-      103 RETURN                           R4 -1
+       30 LOADK                            R3 K13 ["Copy of %*"]
+       31 MOVE                             R5 R2
+       32 NAMECALL                         R3 R3 K14 ["format"]
+       34 CALL                             R3 2 1
+       35 GETUPVAL                         R4 1
+       36 GETTABLEKS                       R4 R4 K15 ["all"]
+       38 NEWTABLE                         R5 0 2
+       40 NEWCLOSURE                       R7 P0
+       41 CAPTURE                          UPVAL U2
+       42 CAPTURE                          VAL R1
+       43 GETUPVAL                         R8 1
+       44 GETTABLEKS                       R8 R8 K16 ["resolve"]
+       46 CALL                             R8 0 1
+       47 MOVE                             R10 R7
+       48 NAMECALL                         R8 R8 K17 ["andThen"]
+       50 CALL                             R8 2 1
+       51 LOADK                            R11 K18 ["GetUniversePlaces"]
+       52 NEWCLOSURE                       R10 P1
+       53 CAPTURE                          UPVAL U1
+       54 CAPTURE                          VAL R11
+       55 NAMECALL                         R8 R8 K19 ["catch"]
+       57 CALL                             R8 2 1
+       58 MOVE                             R6 R8
+       59 GETUPVAL                         R7 3
+       60 LOADK                            R8 K20 ["CreateUniverse"]
+       61 DUPCLOSURE                       R9 K21 [PROTO_6]
+       62 CAPTURE                          UPVAL U4
+       63 CALL                             R7 2 -1
+       64 SETLIST                          R5 R6 -1 [1]
+       66 CALL                             R4 1 1
+       67 NEWCLOSURE                       R6 P3
+       68 CAPTURE                          UPVAL U5
+       69 CAPTURE                          VAL R3
+       70 CAPTURE                          UPVAL U1
+       71 CAPTURE                          UPVAL U3
+       72 CAPTURE                          UPVAL U6
+       73 NAMECALL                         R4 R4 K17 ["andThen"]
+       75 CALL                             R4 2 1
+       76 NEWCLOSURE                       R6 P4
+       77 CAPTURE                          UPVAL U7
+       78 CAPTURE                          UPVAL U8
+       79 CAPTURE                          VAL R1
+       80 CAPTURE                          UPVAL U9
+       81 CAPTURE                          VAL R2
+       82 CAPTURE                          VAL R3
+       83 CAPTURE                          UPVAL U10
+       84 CAPTURE                          UPVAL U11
+       85 CAPTURE                          UPVAL U12
+       86 CAPTURE                          UPVAL U13
+       87 CAPTURE                          UPVAL U14
+       88 CAPTURE                          UPVAL U0
+       89 NAMECALL                         R4 R4 K17 ["andThen"]
+       91 CALL                             R4 2 1
+       92 NEWCLOSURE                       R6 P5
+       93 CAPTURE                          UPVAL U12
+       94 CAPTURE                          UPVAL U10
+       95 CAPTURE                          UPVAL U11
+       96 CAPTURE                          VAL R1
+       97 CAPTURE                          UPVAL U0
+       98 CAPTURE                          UPVAL U1
+       99 NAMECALL                         R4 R4 K19 ["catch"]
+      101 CALL                             R4 2 -1
+      102 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

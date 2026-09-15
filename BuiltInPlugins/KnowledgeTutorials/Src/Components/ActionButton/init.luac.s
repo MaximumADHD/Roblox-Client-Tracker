@@ -139,69 +139,68 @@ PROTO_4:
        13 MOVE                             R7 R2
        14 DUPTABLE                         R8 K8 [{["isInline"] = True, ["textStyles"]}]
        15 DUPTABLE                         R9 K11 [{"color", "transparency"}]
-       16 LOADK                            R11 K12 ["#%*"]
-       17 GETTABLEKS                       R13 R3 K13 ["Color"]
-       19 GETTABLEKS                       R13 R13 K14 ["ActionStandard"]
-       21 GETTABLEKS                       R13 R13 K15 ["Foreground"]
-       23 GETTABLEKS                       R13 R13 K16 ["Color3"]
-       25 NAMECALL                         R13 R13 K17 ["ToHex"]
-       27 CALL                             R13 1 1
-       28 NAMECALL                         R11 R11 K18 ["format"]
-       30 CALL                             R11 2 1
-       31 MOVE                             R10 R11
-       32 SETTABLEKS                       R10 R9 K9 ["color"]
-       34 GETTABLEKS                       R10 R3 K13 ["Color"]
-       36 GETTABLEKS                       R10 R10 K14 ["ActionStandard"]
-       38 GETTABLEKS                       R10 R10 K15 ["Foreground"]
-       40 GETTABLEKS                       R10 R10 K19 ["Transparency"]
-       42 SETTABLEKS                       R10 R9 K10 ["transparency"]
-       44 SETTABLEKS                       R9 R8 K7 ["textStyles"]
-       46 CALL                             R6 2 -1
-       47 CALL                             R4 -1 1
-       48 GETUPVAL                         R5 1
-       49 GETTABLEKS                       R5 R5 K20 ["join"]
-       51 MOVE                             R6 R0
-       52 DUPTABLE                         R7 K23 [{"childElements", "Size"}]
-       53 SETTABLEKS                       R4 R7 K21 ["childElements"]
-       55 GETIMPORT                        R8 K26 [UDim2.fromOffset]
-       57 GETTABLEKS                       R10 R0 K0 ["node"]
-       59 LOADN                            R11 0
-       60 MOVE                             R12 R4
-       61 LOADNIL                          R13
-       62 LOADNIL                          R14
-       63 FORGPREP                         R12
-       64 NAMECALL                         R17 R16 K27 ["getWidth"]
-       66 CALL                             R17 1 1
-       67 ADD                              R11 R11 R17
-       68 FORGLOOP                         R12 2 ; [-5]
-       70 GETTABLEKS                       R12 R10 K28 ["attributes"]
-       72 JUMPIFNOT                        R12 ; [+6]
-       73 GETTABLEKS                       R12 R10 K28 ["attributes"]
-       75 GETTABLEKS                       R12 R12 K29 ["icon"]
-       77 JUMPIFNOT                        R12 ; [+1]
-       78 ADDK                             R11 R11 K30 [18]
-       79 ADDK                             R9 R11 K31 [16]
-       80 LOADN                            R10 20
-       81 CALL                             R8 2 1
-       82 SETTABLEKS                       R8 R7 K22 ["Size"]
-       84 CALL                             R5 2 1
-       85 GETTABLEKS                       R6 R0 K1 ["context"]
-       87 GETTABLEKS                       R6 R6 K5 ["isInline"]
-       89 JUMPIFNOT                        R6 ; [+9]
-       90 GETUPVAL                         R6 2
-       91 JUMPIFNOT                        R6 ; [+7]
-       92 GETUPVAL                         R6 2
-       93 GETTABLEKS                       R6 R6 K32 ["new"]
-       95 GETUPVAL                         R7 3
-       96 MOVE                             R8 R5
-       97 CALL                             R6 2 -1
-       98 RETURN                           R6 -1
-       99 GETUPVAL                         R6 4
-      100 GETTABLEKS                       R6 R6 K33 ["createElement"]
-      102 GETUPVAL                         R7 3
-      103 MOVE                             R8 R5
-      104 CALL                             R6 2 1
-      105 RETURN                           R6 1
+       16 LOADK                            R10 K12 ["#%*"]
+       17 GETTABLEKS                       R12 R3 K13 ["Color"]
+       19 GETTABLEKS                       R12 R12 K14 ["ActionStandard"]
+       21 GETTABLEKS                       R12 R12 K15 ["Foreground"]
+       23 GETTABLEKS                       R12 R12 K16 ["Color3"]
+       25 NAMECALL                         R12 R12 K17 ["ToHex"]
+       27 CALL                             R12 1 1
+       28 NAMECALL                         R10 R10 K18 ["format"]
+       30 CALL                             R10 2 1
+       31 SETTABLEKS                       R10 R9 K9 ["color"]
+       33 GETTABLEKS                       R10 R3 K13 ["Color"]
+       35 GETTABLEKS                       R10 R10 K14 ["ActionStandard"]
+       37 GETTABLEKS                       R10 R10 K15 ["Foreground"]
+       39 GETTABLEKS                       R10 R10 K19 ["Transparency"]
+       41 SETTABLEKS                       R10 R9 K10 ["transparency"]
+       43 SETTABLEKS                       R9 R8 K7 ["textStyles"]
+       45 CALL                             R6 2 -1
+       46 CALL                             R4 -1 1
+       47 GETUPVAL                         R5 1
+       48 GETTABLEKS                       R5 R5 K20 ["join"]
+       50 MOVE                             R6 R0
+       51 DUPTABLE                         R7 K23 [{"childElements", "Size"}]
+       52 SETTABLEKS                       R4 R7 K21 ["childElements"]
+       54 GETIMPORT                        R8 K26 [UDim2.fromOffset]
+       56 GETTABLEKS                       R10 R0 K0 ["node"]
+       58 LOADN                            R11 0
+       59 MOVE                             R12 R4
+       60 LOADNIL                          R13
+       61 LOADNIL                          R14
+       62 FORGPREP                         R12
+       63 NAMECALL                         R17 R16 K27 ["getWidth"]
+       65 CALL                             R17 1 1
+       66 ADD                              R11 R11 R17
+       67 FORGLOOP                         R12 2 ; [-5]
+       69 GETTABLEKS                       R12 R10 K28 ["attributes"]
+       71 JUMPIFNOT                        R12 ; [+6]
+       72 GETTABLEKS                       R12 R10 K28 ["attributes"]
+       74 GETTABLEKS                       R12 R12 K29 ["icon"]
+       76 JUMPIFNOT                        R12 ; [+1]
+       77 ADDK                             R11 R11 K30 [18]
+       78 ADDK                             R9 R11 K31 [16]
+       79 LOADN                            R10 20
+       80 CALL                             R8 2 1
+       81 SETTABLEKS                       R8 R7 K22 ["Size"]
+       83 CALL                             R5 2 1
+       84 GETTABLEKS                       R6 R0 K1 ["context"]
+       86 GETTABLEKS                       R6 R6 K5 ["isInline"]
+       88 JUMPIFNOT                        R6 ; [+9]
+       89 GETUPVAL                         R6 2
+       90 JUMPIFNOT                        R6 ; [+7]
+       91 GETUPVAL                         R6 2
+       92 GETTABLEKS                       R6 R6 K32 ["new"]
+       94 GETUPVAL                         R7 3
+       95 MOVE                             R8 R5
+       96 CALL                             R6 2 -1
+       97 RETURN                           R6 -1
+       98 GETUPVAL                         R6 4
+       99 GETTABLEKS                       R6 R6 K33 ["createElement"]
+      101 GETUPVAL                         R7 3
+      102 MOVE                             R8 R5
+      103 CALL                             R6 2 1
+      104 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0

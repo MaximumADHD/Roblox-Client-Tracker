@@ -302,14 +302,14 @@ PROTO_11:
       124 MOVE                             R12 R9
       125 GETIMPORT                        R10 K12 [table.insert]
       127 CALL                             R10 2 0
-      128 JUMP                             ; [+125]
+      128 JUMP                             ; [+124]
       129 GETUPVAL                         R8 0
       130 CALL                             R8 0 1
       131 JUMPIFNOT                        R8 ; [+4]
       132 GETTABLEKS                       R8 R7 K31 ["itemType"]
       134 JUMPIFNOTEQKS                    R8 K32 ["Asset"] ; [+109]
       136 GETTABLEKS                       R8 R7 K4 ["assetType"]
-      138 JUMPIFNOT                        R8 ; [+115]
+      138 JUMPIFNOT                        R8 ; [+114]
       139 GETUPVAL                         R9 0
       140 CALL                             R9 0 1
       141 JUMPIFNOT                        R9 ; [+12]
@@ -327,7 +327,7 @@ PROTO_11:
       156 GETTABLEKS                       R10 R7 K4 ["assetType"]
       158 NAMECALL                         R8 R8 K36 ["FromValue"]
       160 CALL                             R8 2 1
-      161 JUMPIFNOT                        R8 ; [+92]
+      161 JUMPIFNOT                        R8 ; [+91]
       162 DUPTABLE                         R9 K37 [{["itemRowType"] = "Asset", ["id"], ["name"], ["creator"], ["creatorId"], ["creatorType"], ["creatorHasVerifiedBadge"], ["price"], ["priceInfo"], ["rowState"] = "Selected", ["assetType"]}]
       163 GETTABLEKS                       R10 R7 K7 ["id"]
       165 SETTABLEKS                       R10 R9 K7 ["id"]
@@ -371,39 +371,38 @@ PROTO_11:
       231 MOVE                             R13 R9
       232 GETIMPORT                        R10 K12 [table.insert]
       234 CALL                             R10 3 0
-      235 JUMP                             ; [+18]
+      235 JUMP                             ; [+17]
       236 FASTCALL2                        TABLE_INSERT R1 R9 ; [+5]
       238 MOVE                             R11 R1
       239 MOVE                             R12 R9
       240 GETIMPORT                        R10 K12 [table.insert]
       242 CALL                             R10 2 0
-      243 JUMP                             ; [+10]
+      243 JUMP                             ; [+9]
       244 GETIMPORT                        R8 K45 [error]
-      246 LOADK                            R10 K46 ["Unknown item type in look preview response: %*"]
-      247 GETTABLEKS                       R12 R7 K31 ["itemType"]
-      249 NAMECALL                         R10 R10 K47 ["format"]
-      251 CALL                             R10 2 1
-      252 MOVE                             R9 R10
-      253 CALL                             R8 1 0
-      254 FORGLOOP                         R3 2 ; [-235]
-      256 GETUPVAL                         R3 2
-      257 GETTABLEKS                       R3 R3 K48 ["append"]
-      259 MOVE                             R4 R1
-      260 MOVE                             R5 R2
-      261 CALL                             R3 2 1
-      262 GETUPVAL                         R4 3
-      263 CALL                             R4 0 1
-      264 JUMPIFNOT                        R4 ; [+11]
-      265 LENGTH                           R4 R3
-      266 MOVE                             R5 R3
-      267 LOADNIL                          R6
-      268 LOADNIL                          R7
-      269 FORGPREP                         R5
-      270 SUB                              R11 R4 R8
-      271 ADDK                             R10 R11 K49 [1]
-      272 SETTABLEKS                       R10 R9 K50 ["layerOrder"]
-      274 FORGLOOP                         R5 2 ; [-5]
-      276 RETURN                           R3 1
+      246 LOADK                            R9 K46 ["Unknown item type in look preview response: %*"]
+      247 GETTABLEKS                       R11 R7 K31 ["itemType"]
+      249 NAMECALL                         R9 R9 K47 ["format"]
+      251 CALL                             R9 2 1
+      252 CALL                             R8 1 0
+      253 FORGLOOP                         R3 2 ; [-234]
+      255 GETUPVAL                         R3 2
+      256 GETTABLEKS                       R3 R3 K48 ["append"]
+      258 MOVE                             R4 R1
+      259 MOVE                             R5 R2
+      260 CALL                             R3 2 1
+      261 GETUPVAL                         R4 3
+      262 CALL                             R4 0 1
+      263 JUMPIFNOT                        R4 ; [+11]
+      264 LENGTH                           R4 R3
+      265 MOVE                             R5 R3
+      266 LOADNIL                          R6
+      267 LOADNIL                          R7
+      268 FORGPREP                         R5
+      269 SUB                              R11 R4 R8
+      270 ADDK                             R10 R11 K49 [1]
+      271 SETTABLEKS                       R10 R9 K50 ["layerOrder"]
+      273 FORGLOOP                         R5 2 ; [-5]
+      275 RETURN                           R3 1
 
 PROTO_12:
         0 GETUPVAL                         R2 0

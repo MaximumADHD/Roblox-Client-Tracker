@@ -12,19 +12,18 @@ PROTO_0:
        14 LOADN                            R6 4
        15 NAMECALL                         R3 R2 K7 ["sub"]
        17 CALL                             R3 3 1
-       18 JUMPIFEQKS                       R3 K8 ["http"] ; [+10]
+       18 JUMPIFEQKS                       R3 K8 ["http"] ; [+9]
        20 GETIMPORT                        R3 K5 [error]
-       22 LOADK                            R5 K9 ["OpenLink action triggered with invalid target: %*"]
-       23 MOVE                             R7 R2
-       24 NAMECALL                         R5 R5 K10 ["format"]
-       26 CALL                             R5 2 1
-       27 MOVE                             R4 R5
-       28 CALL                             R3 1 0
-       29 GETUPVAL                         R3 0
-       30 MOVE                             R5 R2
-       31 NAMECALL                         R3 R3 K11 ["openLink"]
-       33 CALL                             R3 2 0
-       34 RETURN                           R0 0
+       22 LOADK                            R4 K9 ["OpenLink action triggered with invalid target: %*"]
+       23 MOVE                             R6 R2
+       24 NAMECALL                         R4 R4 K10 ["format"]
+       26 CALL                             R4 2 1
+       27 CALL                             R3 1 0
+       28 GETUPVAL                         R3 0
+       29 MOVE                             R5 R2
+       30 NAMECALL                         R3 R3 K11 ["openLink"]
+       32 CALL                             R3 2 0
+       33 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

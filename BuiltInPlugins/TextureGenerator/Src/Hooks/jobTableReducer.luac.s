@@ -45,13 +45,12 @@ PROTO_0:
        67 SETTABLE                         R3 R0 R2
        68 RETURN                           R0 1
        69 GETIMPORT                        R2 K15 [error]
-       71 LOADK                            R4 K16 ["Invalid action: %*"]
-       72 GETTABLEKS                       R6 R1 K0 ["action"]
-       74 NAMECALL                         R4 R4 K17 ["format"]
-       76 CALL                             R4 2 1
-       77 MOVE                             R3 R4
-       78 CALL                             R2 1 0
-       79 RETURN                           R0 1
+       71 LOADK                            R3 K16 ["Invalid action: %*"]
+       72 GETTABLEKS                       R5 R1 K0 ["action"]
+       74 NAMECALL                         R3 R3 K17 ["format"]
+       76 CALL                             R3 2 1
+       77 CALL                             R2 1 0
+       78 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

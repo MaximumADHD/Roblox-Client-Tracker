@@ -5,95 +5,89 @@ PROTO_0:
         5 LOADK                            R4 K1 ["throwError should only be called with failed results"]
         6 GETIMPORT                        R2 K3 [assert]
         8 CALL                             R2 2 0
-        9 JUMPIFNOT                        R1 ; [+7]
-       10 LOADK                            R3 K4 ["Operation %* failed"]
-       11 MOVE                             R5 R1
-       12 NAMECALL                         R3 R3 K5 ["format"]
-       14 CALL                             R3 2 1
-       15 MOVE                             R2 R3
-       16 JUMP                             ; [+1]
-       17 LOADK                            R2 K6 ["Operation failed"]
-       18 GETTABLEKS                       R3 R0 K7 ["errorDetails"]
-       20 FASTCALL1                        TYPEOF R3 ; [+3]
-       21 MOVE                             R5 R3
-       22 GETIMPORT                        R4 K9 [typeof]
-       24 CALL                             R4 1 1
-       25 JUMPIFNOTEQKS                    R4 K10 ["table"] ; [+9]
-       27 GETTABLEKS                       R5 R3 K11 ["kind"]
-       29 FASTCALL1                        TYPEOF R5 ; [+2]
-       30 GETIMPORT                        R4 K9 [typeof]
-       32 CALL                             R4 1 1
-       33 JUMPIFEQKS                       R4 K12 ["string"] ; [+11]
-       35 GETIMPORT                        R4 K14 [error]
-       37 LOADK                            R6 K15 ["%* with unknown HTTP error"]
-       38 MOVE                             R8 R2
-       39 NAMECALL                         R6 R6 K5 ["format"]
-       41 CALL                             R6 2 1
-       42 MOVE                             R5 R6
-       43 LOADN                            R6 0
-       44 CALL                             R4 2 0
-       45 GETTABLEKS                       R4 R3 K11 ["kind"]
-       47 JUMPIFNOTEQKS                    R4 K16 ["HttpStatusCode"] ; [+24]
-       49 GETTABLEKS                       R5 R3 K18 ["statusCode"]
-       51 ORK                              R4 R5 K17 ["Unknown"]
-       52 GETTABLEKS                       R6 R3 K19 ["statusMessage"]
-       54 ORK                              R5 R6 K17 ["Unknown"]
-       55 GETTABLEKS                       R7 R3 K20 ["body"]
-       57 ORK                              R6 R7 K17 ["Unknown"]
-       58 GETIMPORT                        R7 K14 [error]
-       60 LOADK                            R9 K21 ["%* with HTTP error (status=%*, statusMessage=%*, body=%*)"]
-       61 MOVE                             R11 R2
-       62 MOVE                             R12 R4
-       63 MOVE                             R13 R5
-       64 MOVE                             R14 R6
-       65 NAMECALL                         R9 R9 K5 ["format"]
-       67 CALL                             R9 5 1
-       68 MOVE                             R8 R9
-       69 LOADN                            R9 0
-       70 CALL                             R7 2 0
-       71 JUMP                             ; [+45]
-       72 GETTABLEKS                       R4 R3 K11 ["kind"]
-       74 JUMPIFNOTEQKS                    R4 K22 ["Validation"] ; [+24]
-       76 GETTABLEKS                       R5 R3 K23 ["validationErrors"]
-       78 JUMPIFNOT                        R5 ; [+7]
-       79 GETIMPORT                        R4 K25 [table.concat]
-       81 GETTABLEKS                       R5 R3 K23 ["validationErrors"]
-       83 LOADK                            R6 K26 [", "]
-       84 CALL                             R4 2 1
-       85 JUMPIF                           R4 ; [+1]
-       86 LOADK                            R4 K17 ["Unknown"]
-       87 GETIMPORT                        R5 K14 [error]
-       89 LOADK                            R7 K27 ["%* with validation error (%*)"]
-       90 MOVE                             R9 R2
-       91 MOVE                             R10 R4
-       92 NAMECALL                         R7 R7 K5 ["format"]
-       94 CALL                             R7 3 1
-       95 MOVE                             R6 R7
-       96 LOADN                            R7 0
-       97 CALL                             R5 2 0
-       98 JUMP                             ; [+18]
-       99 GETTABLEKS                       R4 R3 K11 ["kind"]
-      101 JUMPIFNOTEQKS                    R4 K28 ["Network"] ; [+15]
-      103 GETTABLEKS                       R5 R3 K29 ["networkError"]
-      105 ORK                              R4 R5 K17 ["Unknown"]
-      106 GETIMPORT                        R5 K14 [error]
-      108 LOADK                            R7 K30 ["%* with network error (%*)"]
-      109 MOVE                             R9 R2
-      110 MOVE                             R10 R4
-      111 NAMECALL                         R7 R7 K5 ["format"]
-      113 CALL                             R7 3 1
-      114 MOVE                             R6 R7
-      115 LOADN                            R7 0
-      116 CALL                             R5 2 0
-      117 GETIMPORT                        R4 K14 [error]
-      119 LOADK                            R6 K15 ["%* with unknown HTTP error"]
-      120 MOVE                             R8 R2
-      121 NAMECALL                         R6 R6 K5 ["format"]
-      123 CALL                             R6 2 1
-      124 MOVE                             R5 R6
-      125 LOADN                            R6 0
-      126 CALL                             R4 2 0
-      127 RETURN                           R0 0
+        9 JUMPIFNOT                        R1 ; [+6]
+       10 LOADK                            R2 K4 ["Operation %* failed"]
+       11 MOVE                             R4 R1
+       12 NAMECALL                         R2 R2 K5 ["format"]
+       14 CALL                             R2 2 1
+       15 JUMP                             ; [+1]
+       16 LOADK                            R2 K6 ["Operation failed"]
+       17 GETTABLEKS                       R3 R0 K7 ["errorDetails"]
+       19 FASTCALL1                        TYPEOF R3 ; [+3]
+       20 MOVE                             R5 R3
+       21 GETIMPORT                        R4 K9 [typeof]
+       23 CALL                             R4 1 1
+       24 JUMPIFNOTEQKS                    R4 K10 ["table"] ; [+9]
+       26 GETTABLEKS                       R5 R3 K11 ["kind"]
+       28 FASTCALL1                        TYPEOF R5 ; [+2]
+       29 GETIMPORT                        R4 K9 [typeof]
+       31 CALL                             R4 1 1
+       32 JUMPIFEQKS                       R4 K12 ["string"] ; [+10]
+       34 GETIMPORT                        R4 K14 [error]
+       36 LOADK                            R5 K15 ["%* with unknown HTTP error"]
+       37 MOVE                             R7 R2
+       38 NAMECALL                         R5 R5 K5 ["format"]
+       40 CALL                             R5 2 1
+       41 LOADN                            R6 0
+       42 CALL                             R4 2 0
+       43 GETTABLEKS                       R4 R3 K11 ["kind"]
+       45 JUMPIFNOTEQKS                    R4 K16 ["HttpStatusCode"] ; [+23]
+       47 GETTABLEKS                       R5 R3 K18 ["statusCode"]
+       49 ORK                              R4 R5 K17 ["Unknown"]
+       50 GETTABLEKS                       R6 R3 K19 ["statusMessage"]
+       52 ORK                              R5 R6 K17 ["Unknown"]
+       53 GETTABLEKS                       R7 R3 K20 ["body"]
+       55 ORK                              R6 R7 K17 ["Unknown"]
+       56 GETIMPORT                        R7 K14 [error]
+       58 LOADK                            R8 K21 ["%* with HTTP error (status=%*, statusMessage=%*, body=%*)"]
+       59 MOVE                             R10 R2
+       60 MOVE                             R11 R4
+       61 MOVE                             R12 R5
+       62 MOVE                             R13 R6
+       63 NAMECALL                         R8 R8 K5 ["format"]
+       65 CALL                             R8 5 1
+       66 LOADN                            R9 0
+       67 CALL                             R7 2 0
+       68 JUMP                             ; [+43]
+       69 GETTABLEKS                       R4 R3 K11 ["kind"]
+       71 JUMPIFNOTEQKS                    R4 K22 ["Validation"] ; [+23]
+       73 GETTABLEKS                       R5 R3 K23 ["validationErrors"]
+       75 JUMPIFNOT                        R5 ; [+7]
+       76 GETIMPORT                        R4 K25 [table.concat]
+       78 GETTABLEKS                       R5 R3 K23 ["validationErrors"]
+       80 LOADK                            R6 K26 [", "]
+       81 CALL                             R4 2 1
+       82 JUMPIF                           R4 ; [+1]
+       83 LOADK                            R4 K17 ["Unknown"]
+       84 GETIMPORT                        R5 K14 [error]
+       86 LOADK                            R6 K27 ["%* with validation error (%*)"]
+       87 MOVE                             R8 R2
+       88 MOVE                             R9 R4
+       89 NAMECALL                         R6 R6 K5 ["format"]
+       91 CALL                             R6 3 1
+       92 LOADN                            R7 0
+       93 CALL                             R5 2 0
+       94 JUMP                             ; [+17]
+       95 GETTABLEKS                       R4 R3 K11 ["kind"]
+       97 JUMPIFNOTEQKS                    R4 K28 ["Network"] ; [+14]
+       99 GETTABLEKS                       R5 R3 K29 ["networkError"]
+      101 ORK                              R4 R5 K17 ["Unknown"]
+      102 GETIMPORT                        R5 K14 [error]
+      104 LOADK                            R6 K30 ["%* with network error (%*)"]
+      105 MOVE                             R8 R2
+      106 MOVE                             R9 R4
+      107 NAMECALL                         R6 R6 K5 ["format"]
+      109 CALL                             R6 3 1
+      110 LOADN                            R7 0
+      111 CALL                             R5 2 0
+      112 GETIMPORT                        R4 K14 [error]
+      114 LOADK                            R5 K15 ["%* with unknown HTTP error"]
+      115 MOVE                             R7 R2
+      116 NAMECALL                         R5 R5 K5 ["format"]
+      118 CALL                             R5 2 1
+      119 LOADN                            R6 0
+      120 CALL                             R4 2 0
+      121 RETURN                           R0 0
 
 PROTO_1:
         0 GETIMPORT                        R0 K1 [pcall]
@@ -207,26 +201,25 @@ PROTO_5:
        61 CALL                             R8 1 0
        62 JUMPBACK                         ; [-50]
        63 GETTABLEN                        R7 R5 1
-       64 JUMPIF                           R7 ; [+14]
+       64 JUMPIF                           R7 ; [+13]
        65 DUPTABLE                         R7 K20 [{["success"] = False, ["errorDetails"]}]
        66 DUPTABLE                         R8 K24 [{["kind"] = "Network", ["networkError"]}]
-       67 LOADK                            R10 K25 ["Operation failed after %* attempt(s). Last error: %*"]
-       68 ADDK                             R12 R3 K5 [1]
-       69 GETTABLEN                        R13 R5 2
-       70 NAMECALL                         R10 R10 K26 ["format"]
-       72 CALL                             R10 3 1
-       73 MOVE                             R9 R10
-       74 SETTABLEKS                       R9 R8 K23 ["networkError"]
-       76 SETTABLEKS                       R8 R7 K19 ["errorDetails"]
-       78 RETURN                           R7 1
-       79 GETIMPORT                        R7 K28 [select]
-       81 LOADN                            R8 2
-       82 FASTCALL1                        TABLE_UNPACK R5 ; [+3]
-       83 MOVE                             R10 R5
-       84 GETIMPORT                        R9 K31 [table.unpack]
-       86 CALL                             R9 1 -1
-       87 CALL                             R7 -1 -1
-       88 RETURN                           R7 -1
+       67 LOADK                            R9 K25 ["Operation failed after %* attempt(s). Last error: %*"]
+       68 ADDK                             R11 R3 K5 [1]
+       69 GETTABLEN                        R12 R5 2
+       70 NAMECALL                         R9 R9 K26 ["format"]
+       72 CALL                             R9 3 1
+       73 SETTABLEKS                       R9 R8 K23 ["networkError"]
+       75 SETTABLEKS                       R8 R7 K19 ["errorDetails"]
+       77 RETURN                           R7 1
+       78 GETIMPORT                        R7 K28 [select]
+       80 LOADN                            R8 2
+       81 FASTCALL1                        TABLE_UNPACK R5 ; [+3]
+       82 MOVE                             R10 R5
+       83 GETIMPORT                        R9 K31 [table.unpack]
+       85 CALL                             R9 1 -1
+       86 CALL                             R7 -1 -1
+       87 RETURN                           R7 -1
 
 PROTO_6:
         0 GETUPVAL                         R0 0

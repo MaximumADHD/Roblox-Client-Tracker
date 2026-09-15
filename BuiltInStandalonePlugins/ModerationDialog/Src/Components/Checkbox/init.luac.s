@@ -46,31 +46,30 @@ PROTO_0:
        61 GETTABLEKS                       R9 R9 K4 ["createElement"]
        63 LOADK                            R10 K18 ["TextButton"]
        64 NEWTABLE                         R11 4 0
-       66 LOADK                            R13 K19 ["<b>%*</b>"]
-       67 LOADK                            R17 K20 ["Agreement"]
-       68 LOADK                            R18 K10 ["IAgree"]
-       69 NAMECALL                         R15 R1 K21 ["getText"]
-       71 CALL                             R15 3 1
-       72 NAMECALL                         R13 R13 K22 ["format"]
-       74 CALL                             R13 2 1
-       75 MOVE                             R12 R13
-       76 SETTABLEKS                       R12 R11 K23 ["Text"]
-       78 NAMECALL                         R12 R2 K13 ["getNextOrder"]
-       80 CALL                             R12 1 1
-       81 SETTABLEKS                       R12 R11 K6 ["LayoutOrder"]
-       83 GETUPVAL                         R12 2
-       84 GETTABLEKS                       R12 R12 K7 ["Tag"]
-       86 LOADK                            R13 K24 ["X-FitY"]
-       87 SETTABLE                         R13 R11 R12
-       88 GETUPVAL                         R12 2
-       89 GETTABLEKS                       R12 R12 K15 ["Event"]
-       91 GETTABLEKS                       R12 R12 K16 ["Activated"]
-       93 GETTABLEKS                       R13 R0 K17 ["OnChecked"]
-       95 SETTABLE                         R13 R11 R12
-       96 CALL                             R9 2 1
-       97 SETTABLEKS                       R9 R8 K10 ["IAgree"]
-       99 CALL                             R5 3 -1
-      100 RETURN                           R5 -1
+       66 LOADK                            R12 K19 ["<b>%*</b>"]
+       67 LOADK                            R16 K20 ["Agreement"]
+       68 LOADK                            R17 K10 ["IAgree"]
+       69 NAMECALL                         R14 R1 K21 ["getText"]
+       71 CALL                             R14 3 1
+       72 NAMECALL                         R12 R12 K22 ["format"]
+       74 CALL                             R12 2 1
+       75 SETTABLEKS                       R12 R11 K23 ["Text"]
+       77 NAMECALL                         R12 R2 K13 ["getNextOrder"]
+       79 CALL                             R12 1 1
+       80 SETTABLEKS                       R12 R11 K6 ["LayoutOrder"]
+       82 GETUPVAL                         R12 2
+       83 GETTABLEKS                       R12 R12 K7 ["Tag"]
+       85 LOADK                            R13 K24 ["X-FitY"]
+       86 SETTABLE                         R13 R11 R12
+       87 GETUPVAL                         R12 2
+       88 GETTABLEKS                       R12 R12 K15 ["Event"]
+       90 GETTABLEKS                       R12 R12 K16 ["Activated"]
+       92 GETTABLEKS                       R13 R0 K17 ["OnChecked"]
+       94 SETTABLE                         R13 R11 R12
+       95 CALL                             R9 2 1
+       96 SETTABLEKS                       R9 R8 K10 ["IAgree"]
+       98 CALL                             R5 3 -1
+       99 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

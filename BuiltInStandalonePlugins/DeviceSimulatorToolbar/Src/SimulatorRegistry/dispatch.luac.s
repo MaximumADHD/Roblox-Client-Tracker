@@ -42,24 +42,23 @@ PROTO_2:
        16 MOVE                             R3 R1
        17 GETVARARGS                       R4 -1
        18 CALL                             R2 -1 2
-       19 JUMPIF                           R2 ; [+17]
+       19 JUMPIF                           R2 ; [+16]
        20 GETIMPORT                        R4 K4 [warn]
-       22 LOADK                            R6 K5 ["Device Simulator callback failed for %*: %*"]
-       23 MOVE                             R8 R0
-       24 GETUPVAL                         R9 1
-       25 GETTABLEKS                       R9 R9 K6 ["formatError"]
-       27 MOVE                             R10 R3
-       28 CALL                             R9 1 1
-       29 NAMECALL                         R6 R6 K7 ["format"]
-       31 CALL                             R6 3 1
-       32 MOVE                             R5 R6
-       33 CALL                             R4 1 0
-       34 LOADB                            R4 0
-       35 LOADNIL                          R5
-       36 RETURN                           R4 2
-       37 LOADB                            R4 1
-       38 MOVE                             R5 R3
-       39 RETURN                           R4 2
+       22 LOADK                            R5 K5 ["Device Simulator callback failed for %*: %*"]
+       23 MOVE                             R7 R0
+       24 GETUPVAL                         R8 1
+       25 GETTABLEKS                       R8 R8 K6 ["formatError"]
+       27 MOVE                             R9 R3
+       28 CALL                             R8 1 1
+       29 NAMECALL                         R5 R5 K7 ["format"]
+       31 CALL                             R5 3 1
+       32 CALL                             R4 1 0
+       33 LOADB                            R4 0
+       34 LOADNIL                          R5
+       35 RETURN                           R4 2
+       36 LOADB                            R4 1
+       37 MOVE                             R5 R3
+       38 RETURN                           R4 2
 
 MAIN:
         0 PREPVARARGS                      0

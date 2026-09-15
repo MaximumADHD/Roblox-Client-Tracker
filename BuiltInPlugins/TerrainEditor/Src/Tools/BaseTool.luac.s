@@ -60,62 +60,61 @@ PROTO_2:
        34 SETTABLEKS                       R2 R0 K15 ["_services"]
        36 DUPTABLE                         R11 K18 [{"icon", "name"}]
        37 DUPTABLE                         R12 K20 [{"Image"}]
-       38 LOADK                            R14 K21 ["%*.png"]
-       39 LOADK                            R17 K22 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/%s/Large/"]
-       40 GETTABLEKS                       R18 R0 K7 ["_name"]
-       42 CONCAT                           R16 R17 R18
-       43 NAMECALL                         R14 R14 K23 ["format"]
-       45 CALL                             R14 2 1
-       46 MOVE                             R13 R14
-       47 SETTABLEKS                       R13 R12 K19 ["Image"]
-       49 SETTABLEKS                       R12 R11 K16 ["icon"]
-       51 LOADK                            R14 K24 ["BaseTool"]
-       52 GETTABLEKS                       R15 R0 K7 ["_name"]
-       54 NAMECALL                         R12 R4 K25 ["getText"]
-       56 CALL                             R12 3 1
-       57 SETTABLEKS                       R12 R11 K17 ["name"]
-       59 SETTABLEKS                       R11 R0 K26 ["_tile"]
-       61 SETTABLEKS                       R9 R0 K27 ["_persistentUserSettings"]
-       63 SETTABLEKS                       R10 R0 K28 ["_sessionUserSettings"]
-       65 NEWTABLE                         R11 0 0
-       67 SETTABLEKS                       R11 R0 K29 ["_overrides"]
-       69 NEWTABLE                         R11 0 0
-       71 SETTABLEKS                       R11 R0 K30 ["_errors"]
-       73 LOADB                            R11 0
-       74 SETTABLEKS                       R11 R0 K31 ["_isRunning"]
-       76 NEWTABLE                         R11 0 0
-       78 SETTABLEKS                       R11 R0 K32 ["_validateFunctions"]
-       80 GETUPVAL                         R11 0
-       81 GETTABLEKS                       R11 R11 K33 ["new"]
-       83 CALL                             R11 0 1
-       84 SETTABLEKS                       R11 R0 K34 ["OnFormChanged"]
-       86 GETUPVAL                         R11 0
-       87 GETTABLEKS                       R11 R11 K33 ["new"]
-       89 CALL                             R11 0 1
-       90 SETTABLEKS                       R11 R0 K35 ["OnGizmoChanged"]
-       92 GETUPVAL                         R11 0
-       93 GETTABLEKS                       R11 R11 K33 ["new"]
-       95 CALL                             R11 0 1
-       96 SETTABLEKS                       R11 R0 K36 ["OnInternalsChanged"]
-       98 GETUPVAL                         R11 0
-       99 GETTABLEKS                       R11 R11 K33 ["new"]
-      101 CALL                             R11 0 1
-      102 SETTABLEKS                       R11 R0 K37 ["OnNoteChanged"]
-      104 GETUPVAL                         R11 0
-      105 GETTABLEKS                       R11 R11 K33 ["new"]
-      107 CALL                             R11 0 1
-      108 SETTABLEKS                       R11 R0 K38 ["OnShortcutChanged"]
-      110 GETUPVAL                         R11 0
-      111 GETTABLEKS                       R11 R11 K33 ["new"]
-      113 CALL                             R11 0 1
-      114 SETTABLEKS                       R11 R0 K39 ["OnOperationChanged"]
-      116 NEWTABLE                         R11 0 0
-      118 SETTABLEKS                       R11 R0 K40 ["_shortcutConnections"]
-      120 NEWTABLE                         R11 0 0
-      122 SETTABLEKS                       R11 R0 K41 ["_shortcuts"]
-      124 NAMECALL                         R11 R0 K42 ["registerShortcuts"]
-      126 CALL                             R11 1 0
-      127 RETURN                           R0 1
+       38 LOADK                            R13 K21 ["%*.png"]
+       39 LOADK                            R16 K22 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/%s/Large/"]
+       40 GETTABLEKS                       R17 R0 K7 ["_name"]
+       42 CONCAT                           R15 R16 R17
+       43 NAMECALL                         R13 R13 K23 ["format"]
+       45 CALL                             R13 2 1
+       46 SETTABLEKS                       R13 R12 K19 ["Image"]
+       48 SETTABLEKS                       R12 R11 K16 ["icon"]
+       50 LOADK                            R14 K24 ["BaseTool"]
+       51 GETTABLEKS                       R15 R0 K7 ["_name"]
+       53 NAMECALL                         R12 R4 K25 ["getText"]
+       55 CALL                             R12 3 1
+       56 SETTABLEKS                       R12 R11 K17 ["name"]
+       58 SETTABLEKS                       R11 R0 K26 ["_tile"]
+       60 SETTABLEKS                       R9 R0 K27 ["_persistentUserSettings"]
+       62 SETTABLEKS                       R10 R0 K28 ["_sessionUserSettings"]
+       64 NEWTABLE                         R11 0 0
+       66 SETTABLEKS                       R11 R0 K29 ["_overrides"]
+       68 NEWTABLE                         R11 0 0
+       70 SETTABLEKS                       R11 R0 K30 ["_errors"]
+       72 LOADB                            R11 0
+       73 SETTABLEKS                       R11 R0 K31 ["_isRunning"]
+       75 NEWTABLE                         R11 0 0
+       77 SETTABLEKS                       R11 R0 K32 ["_validateFunctions"]
+       79 GETUPVAL                         R11 0
+       80 GETTABLEKS                       R11 R11 K33 ["new"]
+       82 CALL                             R11 0 1
+       83 SETTABLEKS                       R11 R0 K34 ["OnFormChanged"]
+       85 GETUPVAL                         R11 0
+       86 GETTABLEKS                       R11 R11 K33 ["new"]
+       88 CALL                             R11 0 1
+       89 SETTABLEKS                       R11 R0 K35 ["OnGizmoChanged"]
+       91 GETUPVAL                         R11 0
+       92 GETTABLEKS                       R11 R11 K33 ["new"]
+       94 CALL                             R11 0 1
+       95 SETTABLEKS                       R11 R0 K36 ["OnInternalsChanged"]
+       97 GETUPVAL                         R11 0
+       98 GETTABLEKS                       R11 R11 K33 ["new"]
+      100 CALL                             R11 0 1
+      101 SETTABLEKS                       R11 R0 K37 ["OnNoteChanged"]
+      103 GETUPVAL                         R11 0
+      104 GETTABLEKS                       R11 R11 K33 ["new"]
+      106 CALL                             R11 0 1
+      107 SETTABLEKS                       R11 R0 K38 ["OnShortcutChanged"]
+      109 GETUPVAL                         R11 0
+      110 GETTABLEKS                       R11 R11 K33 ["new"]
+      112 CALL                             R11 0 1
+      113 SETTABLEKS                       R11 R0 K39 ["OnOperationChanged"]
+      115 NEWTABLE                         R11 0 0
+      117 SETTABLEKS                       R11 R0 K40 ["_shortcutConnections"]
+      119 NEWTABLE                         R11 0 0
+      121 SETTABLEKS                       R11 R0 K41 ["_shortcuts"]
+      123 NAMECALL                         R11 R0 K42 ["registerShortcuts"]
+      125 CALL                             R11 1 0
+      126 RETURN                           R0 1
 
 PROTO_3:
         0 MOVE                             R2 R0

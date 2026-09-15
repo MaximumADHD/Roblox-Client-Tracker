@@ -56,13 +56,12 @@ PROTO_4:
 
 PROTO_5:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["DiscoverTeamCreatePresence::Icons experienced an error: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["DiscoverTeamCreatePresence::Icons experienced an error: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -133,13 +132,12 @@ PROTO_6:
 
 PROTO_7:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["DiscoverTeamCreatePresence experienced an error: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["DiscoverTeamCreatePresence experienced an error: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
 
 PROTO_8:
         0 LENGTH                           R1 R0

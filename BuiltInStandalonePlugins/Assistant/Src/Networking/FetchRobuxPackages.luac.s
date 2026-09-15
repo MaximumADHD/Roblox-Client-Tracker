@@ -13,17 +13,16 @@ PROTO_0:
        15 RETURN                           R3 1
 
 PROTO_1:
-        0 LOADK                            R2 K0 ["%*%*"]
-        1 GETTABLEKS                       R4 R0 K1 ["currency"]
-        3 GETTABLEKS                       R4 R4 K2 ["currencySymbol"]
-        5 GETIMPORT                        R5 K5 [string.format]
-        7 LOADK                            R6 K6 ["%.2f"]
-        8 GETTABLEKS                       R7 R0 K7 ["amount"]
-       10 CALL                             R5 2 1
-       11 NAMECALL                         R2 R2 K4 ["format"]
-       13 CALL                             R2 3 1
-       14 MOVE                             R1 R2
-       15 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["%*%*"]
+        1 GETTABLEKS                       R3 R0 K1 ["currency"]
+        3 GETTABLEKS                       R3 R3 K2 ["currencySymbol"]
+        5 GETIMPORT                        R4 K5 [string.format]
+        7 LOADK                            R5 K6 ["%.2f"]
+        8 GETTABLEKS                       R6 R0 K7 ["amount"]
+       10 CALL                             R4 2 1
+       11 NAMECALL                         R1 R1 K4 ["format"]
+       13 CALL                             R1 3 1
+       14 RETURN                           R1 1
 
 PROTO_2:
         0 GETTABLEKS                       R3 R0 K0 ["robuxAmount"]
@@ -163,38 +162,37 @@ PROTO_5:
         9 FASTCALL1                        TYPEOF R4 ; [+2]
        10 GETIMPORT                        R3 K1 [typeof]
        12 CALL                             R3 1 1
-       13 JUMPIFEQKS                       R3 K2 ["table"] ; [+19]
-       15 LOADK                            R6 K4 ["%*Expected a table with a `products` array"]
-       16 MOVE                             R8 R2
-       17 NAMECALL                         R6 R6 K5 ["format"]
-       19 CALL                             R6 2 1
-       20 MOVE                             R5 R6
-       21 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
-       23 MOVE                             R4 R1
-       24 GETIMPORT                        R3 K7 [table.insert]
-       26 CALL                             R3 2 0
-       27 DUPTABLE                         R3 K8 [{"products"}]
-       28 NEWTABLE                         R4 0 0
-       30 SETTABLEKS                       R4 R3 K3 ["products"]
-       32 RETURN                           R3 1
-       33 NEWTABLE                         R3 0 0
-       35 GETTABLEKS                       R4 R0 K3 ["products"]
-       37 LOADNIL                          R5
-       38 LOADNIL                          R6
-       39 FORGPREP                         R4
-       40 GETUPVAL                         R9 0
-       41 MOVE                             R10 R8
-       42 CALL                             R9 1 1
-       43 JUMPIFNOT                        R9 ; [+7]
-       44 FASTCALL2                        TABLE_INSERT R3 R8 ; [+5]
-       46 MOVE                             R10 R3
-       47 MOVE                             R11 R8
-       48 GETIMPORT                        R9 K7 [table.insert]
-       50 CALL                             R9 2 0
-       51 FORGLOOP                         R4 2 ; [-12]
-       53 DUPTABLE                         R4 K8 [{"products"}]
-       54 SETTABLEKS                       R3 R4 K3 ["products"]
-       56 RETURN                           R4 1
+       13 JUMPIFEQKS                       R3 K2 ["table"] ; [+18]
+       15 LOADK                            R5 K4 ["%*Expected a table with a `products` array"]
+       16 MOVE                             R7 R2
+       17 NAMECALL                         R5 R5 K5 ["format"]
+       19 CALL                             R5 2 1
+       20 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+       22 MOVE                             R4 R1
+       23 GETIMPORT                        R3 K7 [table.insert]
+       25 CALL                             R3 2 0
+       26 DUPTABLE                         R3 K8 [{"products"}]
+       27 NEWTABLE                         R4 0 0
+       29 SETTABLEKS                       R4 R3 K3 ["products"]
+       31 RETURN                           R3 1
+       32 NEWTABLE                         R3 0 0
+       34 GETTABLEKS                       R4 R0 K3 ["products"]
+       36 LOADNIL                          R5
+       37 LOADNIL                          R6
+       38 FORGPREP                         R4
+       39 GETUPVAL                         R9 0
+       40 MOVE                             R10 R8
+       41 CALL                             R9 1 1
+       42 JUMPIFNOT                        R9 ; [+7]
+       43 FASTCALL2                        TABLE_INSERT R3 R8 ; [+5]
+       45 MOVE                             R10 R3
+       46 MOVE                             R11 R8
+       47 GETIMPORT                        R9 K7 [table.insert]
+       49 CALL                             R9 2 0
+       50 FORGLOOP                         R4 2 ; [-12]
+       52 DUPTABLE                         R4 K8 [{"products"}]
+       53 SETTABLEKS                       R3 R4 K3 ["products"]
+       55 RETURN                           R4 1
 
 PROTO_6:
         0 RETURN                           R0 1

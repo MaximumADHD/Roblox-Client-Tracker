@@ -7,24 +7,23 @@ PROTO_0:
         6 FASTCALL1                        TONUMBER R2 ; [+2]
         7 GETIMPORT                        R1 K6 [tonumber]
         9 CALL                             R1 1 1
-       10 JUMPIF                           R1 ; [+11]
+       10 JUMPIF                           R1 ; [+10]
        11 GETUPVAL                         R2 0
-       12 LOADK                            R4 K7 ["Failed to extract folder ID from path: %*"]
-       13 MOVE                             R6 R0
-       14 NAMECALL                         R4 R4 K8 ["format"]
-       16 CALL                             R4 2 1
-       17 MOVE                             R3 R4
-       18 LOADK                            R4 K9 ["WARN"]
-       19 CALL                             R2 2 0
-       20 LOADNIL                          R2
-       21 RETURN                           R2 1
-       22 GETUPVAL                         R2 1
-       23 GETUPVAL                         R3 2
-       24 GETTABLEKS                       R3 R3 K10 ["ScopeType"]
-       26 GETTABLEKS                       R3 R3 K11 ["Folder"]
-       28 MOVE                             R4 R1
-       29 CALL                             R2 2 -1
-       30 RETURN                           R2 -1
+       12 LOADK                            R3 K7 ["Failed to extract folder ID from path: %*"]
+       13 MOVE                             R5 R0
+       14 NAMECALL                         R3 R3 K8 ["format"]
+       16 CALL                             R3 2 1
+       17 LOADK                            R4 K9 ["WARN"]
+       18 CALL                             R2 2 0
+       19 LOADNIL                          R2
+       20 RETURN                           R2 1
+       21 GETUPVAL                         R2 1
+       22 GETUPVAL                         R3 2
+       23 GETTABLEKS                       R3 R3 K10 ["ScopeType"]
+       25 GETTABLEKS                       R3 R3 K11 ["Folder"]
+       27 MOVE                             R4 R1
+       28 CALL                             R2 2 -1
+       29 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

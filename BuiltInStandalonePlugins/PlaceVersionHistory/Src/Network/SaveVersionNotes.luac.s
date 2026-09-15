@@ -10,38 +10,37 @@ PROTO_1:
         2 GETTABLEKS                       R2 R2 K6 ["composeUrl"]
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K7 ["APIS_URL"]
-        7 LOADK                            R5 K8 ["place-version-history-api/v1/%*/version/%*/notes"]
-        8 GETTABLEKS                       R7 R0 K9 ["placeId"]
-       10 GETTABLEKS                       R8 R0 K10 ["version"]
-       12 NAMECALL                         R5 R5 K11 ["format"]
-       14 CALL                             R5 3 1
-       15 MOVE                             R4 R5
-       16 CALL                             R2 2 1
-       17 SETTABLEKS                       R2 R1 K2 ["Url"]
-       19 GETUPVAL                         R2 1
-       20 DUPTABLE                         R4 K14 [{"title", "description"}]
-       21 GETTABLEKS                       R5 R0 K15 ["notes"]
-       23 GETTABLEKS                       R5 R5 K12 ["title"]
-       25 SETTABLEKS                       R5 R4 K12 ["title"]
-       27 GETTABLEKS                       R5 R0 K15 ["notes"]
-       29 GETTABLEKS                       R5 R5 K13 ["description"]
-       31 SETTABLEKS                       R5 R4 K13 ["description"]
-       33 NAMECALL                         R2 R2 K16 ["JSONEncode"]
-       35 CALL                             R2 2 1
-       36 SETTABLEKS                       R2 R1 K3 ["Body"]
-       38 NEWTABLE                         R2 1 0
-       40 LOADK                            R3 K17 ["application/json"]
-       41 SETTABLEKS                       R3 R2 K18 ["Content-Type"]
-       43 SETTABLEKS                       R2 R1 K4 ["Headers"]
-       45 GETUPVAL                         R2 2
-       46 GETTABLEKS                       R2 R2 K19 ["Request"]
-       48 MOVE                             R3 R1
-       49 CALL                             R2 1 1
-       50 DUPCLOSURE                       R4 K20 [PROTO_0]
-       51 CAPTURE                          UPVAL U3
-       52 NAMECALL                         R2 R2 K21 ["andThen"]
-       54 CALL                             R2 2 -1
-       55 RETURN                           R2 -1
+        7 LOADK                            R4 K8 ["place-version-history-api/v1/%*/version/%*/notes"]
+        8 GETTABLEKS                       R6 R0 K9 ["placeId"]
+       10 GETTABLEKS                       R7 R0 K10 ["version"]
+       12 NAMECALL                         R4 R4 K11 ["format"]
+       14 CALL                             R4 3 1
+       15 CALL                             R2 2 1
+       16 SETTABLEKS                       R2 R1 K2 ["Url"]
+       18 GETUPVAL                         R2 1
+       19 DUPTABLE                         R4 K14 [{"title", "description"}]
+       20 GETTABLEKS                       R5 R0 K15 ["notes"]
+       22 GETTABLEKS                       R5 R5 K12 ["title"]
+       24 SETTABLEKS                       R5 R4 K12 ["title"]
+       26 GETTABLEKS                       R5 R0 K15 ["notes"]
+       28 GETTABLEKS                       R5 R5 K13 ["description"]
+       30 SETTABLEKS                       R5 R4 K13 ["description"]
+       32 NAMECALL                         R2 R2 K16 ["JSONEncode"]
+       34 CALL                             R2 2 1
+       35 SETTABLEKS                       R2 R1 K3 ["Body"]
+       37 NEWTABLE                         R2 1 0
+       39 LOADK                            R3 K17 ["application/json"]
+       40 SETTABLEKS                       R3 R2 K18 ["Content-Type"]
+       42 SETTABLEKS                       R2 R1 K4 ["Headers"]
+       44 GETUPVAL                         R2 2
+       45 GETTABLEKS                       R2 R2 K19 ["Request"]
+       47 MOVE                             R3 R1
+       48 CALL                             R2 1 1
+       49 DUPCLOSURE                       R4 K20 [PROTO_0]
+       50 CAPTURE                          UPVAL U3
+       51 NAMECALL                         R2 R2 K21 ["andThen"]
+       53 CALL                             R2 2 -1
+       54 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -1,12 +1,11 @@
 PROTO_0:
-        0 LOADK                            R3 K0 ["rbxthumb://type=AvatarHeadShot&id=%*&w=%*&h=%*&filters=circular"]
-        1 MOVE                             R5 R0
-        2 GETTABLEKS                       R6 R1 K1 ["X"]
-        4 GETTABLEKS                       R7 R1 K2 ["Y"]
-        6 NAMECALL                         R3 R3 K3 ["format"]
-        8 CALL                             R3 4 1
-        9 MOVE                             R2 R3
-       10 RETURN                           R2 1
+        0 LOADK                            R2 K0 ["rbxthumb://type=AvatarHeadShot&id=%*&w=%*&h=%*&filters=circular"]
+        1 MOVE                             R4 R0
+        2 GETTABLEKS                       R5 R1 K1 ["X"]
+        4 GETTABLEKS                       R6 R1 K2 ["Y"]
+        6 NAMECALL                         R2 R2 K3 ["format"]
+        8 CALL                             R2 4 1
+        9 RETURN                           R2 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -91,19 +90,18 @@ PROTO_2:
       102 GETTABLEKS                       R11 R11 K18 ["Tag"]
       104 GETUPVAL                         R12 4
       105 GETTABLEKS                       R13 R0 K32 ["Size"]
-      107 LOADK                            R15 K33 ["data-testid=%*"]
-      108 GETUPVAL                         R17 5
-      109 GETTABLEKS                       R18 R0 K0 ["Uri"]
-      111 CALL                             R17 1 1
-      112 NAMECALL                         R15 R15 K30 ["format"]
-      114 CALL                             R15 2 1
-      115 MOVE                             R14 R15
-      116 CALL                             R12 2 1
-      117 SETTABLE                         R12 R10 R11
-      118 CALL                             R8 2 1
-      119 SETTABLEKS                       R8 R7 K20 ["Avatar"]
-      121 CALL                             R4 3 -1
-      122 RETURN                           R4 -1
+      107 LOADK                            R14 K33 ["data-testid=%*"]
+      108 GETUPVAL                         R16 5
+      109 GETTABLEKS                       R17 R0 K0 ["Uri"]
+      111 CALL                             R16 1 1
+      112 NAMECALL                         R14 R14 K30 ["format"]
+      114 CALL                             R14 2 1
+      115 CALL                             R12 2 1
+      116 SETTABLE                         R12 R10 R11
+      117 CALL                             R8 2 1
+      118 SETTABLEKS                       R8 R7 K20 ["Avatar"]
+      120 CALL                             R4 3 -1
+      121 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -3,90 +3,85 @@ PROTO_0:
         1 MOVE                             R2 R0
         2 GETIMPORT                        R1 K1 [typeof]
         4 CALL                             R1 1 1
-        5 JUMPIFEQKS                       R1 K2 ["table"] ; [+12]
-        7 LOADK                            R2 K3 ["Expected table, got %*"]
+        5 JUMPIFEQKS                       R1 K2 ["table"] ; [+11]
+        7 LOADK                            R1 K3 ["Expected table, got %*"]
         8 FASTCALL1                        TYPEOF R0 ; [+3]
-        9 MOVE                             R5 R0
-       10 GETIMPORT                        R4 K1 [typeof]
-       12 CALL                             R4 1 1
-       13 NAMECALL                         R2 R2 K4 ["format"]
-       15 CALL                             R2 2 1
-       16 MOVE                             R1 R2
-       17 RETURN                           R1 1
-       18 GETTABLEKS                       R1 R0 K5 ["universeIds"]
-       20 JUMPIFNOT                        R1 ; [+46]
-       21 GETTABLEKS                       R2 R0 K5 ["universeIds"]
-       23 FASTCALL1                        TYPEOF R2 ; [+2]
-       24 GETIMPORT                        R1 K1 [typeof]
-       26 CALL                             R1 1 1
-       27 JUMPIFEQKS                       R1 K2 ["table"] ; [+13]
-       29 LOADK                            R2 K6 ["\"universeIds\" > Expected table, got %*"]
-       30 GETTABLEKS                       R5 R0 K5 ["universeIds"]
-       32 FASTCALL1                        TYPEOF R5 ; [+2]
-       33 GETIMPORT                        R4 K1 [typeof]
-       35 CALL                             R4 1 1
-       36 NAMECALL                         R2 R2 K4 ["format"]
-       38 CALL                             R2 2 1
-       39 MOVE                             R1 R2
-       40 RETURN                           R1 1
-       41 GETTABLEKS                       R1 R0 K5 ["universeIds"]
-       43 LOADNIL                          R2
-       44 LOADNIL                          R3
-       45 FORGPREP                         R1
-       46 FASTCALL1                        TYPEOF R5 ; [+3]
-       47 MOVE                             R7 R5
-       48 GETIMPORT                        R6 K1 [typeof]
-       50 CALL                             R6 1 1
-       51 JUMPIFEQKS                       R6 K7 ["number"] ; [+13]
-       53 LOADK                            R7 K8 ["\"universeIds\"[%*] > Expected number, got %*"]
-       54 MOVE                             R9 R4
-       55 FASTCALL1                        TYPEOF R5 ; [+3]
-       56 MOVE                             R11 R5
-       57 GETIMPORT                        R10 K1 [typeof]
-       59 CALL                             R10 1 1
-       60 NAMECALL                         R7 R7 K4 ["format"]
-       62 CALL                             R7 3 1
-       63 MOVE                             R6 R7
-       64 RETURN                           R6 1
-       65 FORGLOOP                         R1 2 ; [-20]
-       67 GETTABLEKS                       R1 R0 K9 ["releaseTypes"]
-       69 JUMPIFNOT                        R1 ; [+46]
-       70 GETTABLEKS                       R2 R0 K9 ["releaseTypes"]
-       72 FASTCALL1                        TYPEOF R2 ; [+2]
-       73 GETIMPORT                        R1 K1 [typeof]
-       75 CALL                             R1 1 1
-       76 JUMPIFEQKS                       R1 K2 ["table"] ; [+13]
-       78 LOADK                            R2 K10 ["\"releaseTypes\" > Expected table, got %*"]
-       79 GETTABLEKS                       R5 R0 K9 ["releaseTypes"]
-       81 FASTCALL1                        TYPEOF R5 ; [+2]
-       82 GETIMPORT                        R4 K1 [typeof]
-       84 CALL                             R4 1 1
-       85 NAMECALL                         R2 R2 K4 ["format"]
-       87 CALL                             R2 2 1
-       88 MOVE                             R1 R2
-       89 RETURN                           R1 1
-       90 GETTABLEKS                       R1 R0 K9 ["releaseTypes"]
-       92 LOADNIL                          R2
-       93 LOADNIL                          R3
-       94 FORGPREP                         R1
-       95 FASTCALL1                        TYPEOF R5 ; [+3]
-       96 MOVE                             R7 R5
-       97 GETIMPORT                        R6 K1 [typeof]
-       99 CALL                             R6 1 1
-      100 JUMPIFEQKS                       R6 K11 ["string"] ; [+13]
-      102 LOADK                            R7 K12 ["\"releaseTypes\"[%*] > Expected string, got %*"]
-      103 MOVE                             R9 R4
-      104 FASTCALL1                        TYPEOF R5 ; [+3]
-      105 MOVE                             R11 R5
-      106 GETIMPORT                        R10 K1 [typeof]
-      108 CALL                             R10 1 1
-      109 NAMECALL                         R7 R7 K4 ["format"]
-      111 CALL                             R7 3 1
-      112 MOVE                             R6 R7
-      113 RETURN                           R6 1
-      114 FORGLOOP                         R1 2 ; [-20]
-      116 LOADNIL                          R1
-      117 RETURN                           R1 1
+        9 MOVE                             R4 R0
+       10 GETIMPORT                        R3 K1 [typeof]
+       12 CALL                             R3 1 1
+       13 NAMECALL                         R1 R1 K4 ["format"]
+       15 CALL                             R1 2 1
+       16 RETURN                           R1 1
+       17 GETTABLEKS                       R1 R0 K5 ["universeIds"]
+       19 JUMPIFNOT                        R1 ; [+44]
+       20 GETTABLEKS                       R2 R0 K5 ["universeIds"]
+       22 FASTCALL1                        TYPEOF R2 ; [+2]
+       23 GETIMPORT                        R1 K1 [typeof]
+       25 CALL                             R1 1 1
+       26 JUMPIFEQKS                       R1 K2 ["table"] ; [+12]
+       28 LOADK                            R1 K6 ["\"universeIds\" > Expected table, got %*"]
+       29 GETTABLEKS                       R4 R0 K5 ["universeIds"]
+       31 FASTCALL1                        TYPEOF R4 ; [+2]
+       32 GETIMPORT                        R3 K1 [typeof]
+       34 CALL                             R3 1 1
+       35 NAMECALL                         R1 R1 K4 ["format"]
+       37 CALL                             R1 2 1
+       38 RETURN                           R1 1
+       39 GETTABLEKS                       R1 R0 K5 ["universeIds"]
+       41 LOADNIL                          R2
+       42 LOADNIL                          R3
+       43 FORGPREP                         R1
+       44 FASTCALL1                        TYPEOF R5 ; [+3]
+       45 MOVE                             R7 R5
+       46 GETIMPORT                        R6 K1 [typeof]
+       48 CALL                             R6 1 1
+       49 JUMPIFEQKS                       R6 K7 ["number"] ; [+12]
+       51 LOADK                            R6 K8 ["\"universeIds\"[%*] > Expected number, got %*"]
+       52 MOVE                             R8 R4
+       53 FASTCALL1                        TYPEOF R5 ; [+3]
+       54 MOVE                             R10 R5
+       55 GETIMPORT                        R9 K1 [typeof]
+       57 CALL                             R9 1 1
+       58 NAMECALL                         R6 R6 K4 ["format"]
+       60 CALL                             R6 3 1
+       61 RETURN                           R6 1
+       62 FORGLOOP                         R1 2 ; [-19]
+       64 GETTABLEKS                       R1 R0 K9 ["releaseTypes"]
+       66 JUMPIFNOT                        R1 ; [+44]
+       67 GETTABLEKS                       R2 R0 K9 ["releaseTypes"]
+       69 FASTCALL1                        TYPEOF R2 ; [+2]
+       70 GETIMPORT                        R1 K1 [typeof]
+       72 CALL                             R1 1 1
+       73 JUMPIFEQKS                       R1 K2 ["table"] ; [+12]
+       75 LOADK                            R1 K10 ["\"releaseTypes\" > Expected table, got %*"]
+       76 GETTABLEKS                       R4 R0 K9 ["releaseTypes"]
+       78 FASTCALL1                        TYPEOF R4 ; [+2]
+       79 GETIMPORT                        R3 K1 [typeof]
+       81 CALL                             R3 1 1
+       82 NAMECALL                         R1 R1 K4 ["format"]
+       84 CALL                             R1 2 1
+       85 RETURN                           R1 1
+       86 GETTABLEKS                       R1 R0 K9 ["releaseTypes"]
+       88 LOADNIL                          R2
+       89 LOADNIL                          R3
+       90 FORGPREP                         R1
+       91 FASTCALL1                        TYPEOF R5 ; [+3]
+       92 MOVE                             R7 R5
+       93 GETIMPORT                        R6 K1 [typeof]
+       95 CALL                             R6 1 1
+       96 JUMPIFEQKS                       R6 K11 ["string"] ; [+12]
+       98 LOADK                            R6 K12 ["\"releaseTypes\"[%*] > Expected string, got %*"]
+       99 MOVE                             R8 R4
+      100 FASTCALL1                        TYPEOF R5 ; [+3]
+      101 MOVE                             R10 R5
+      102 GETIMPORT                        R9 K1 [typeof]
+      104 CALL                             R9 1 1
+      105 NAMECALL                         R6 R6 K4 ["format"]
+      107 CALL                             R6 3 1
+      108 RETURN                           R6 1
+      109 FORGLOOP                         R1 2 ; [-19]
+      111 LOADNIL                          R1
+      112 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

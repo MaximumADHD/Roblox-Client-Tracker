@@ -38,7 +38,7 @@ PROTO_0:
        50 SETTABLEKS                       R9 R8 K12 ["Color3"]
        52 SETTABLEKS                       R8 R7 K8 ["style"]
        54 CALL                             R5 2 1
-       55 JUMP                             ; [+22]
+       55 JUMP                             ; [+21]
        56 GETUPVAL                         R5 3
        57 GETTABLEKS                       R5 R5 K5 ["createElement"]
        59 GETUPVAL                         R6 7
@@ -48,64 +48,62 @@ PROTO_0:
        64 GETIMPORT                        R8 K24 [tostring]
        66 CALL                             R8 1 1
        67 SETTABLEKS                       R8 R7 K19 ["Text"]
-       69 LOADK                            R9 K25 ["text-label-medium %*"]
-       70 MOVE                             R11 R3
-       71 NAMECALL                         R9 R9 K26 ["format"]
-       73 CALL                             R9 2 1
-       74 MOVE                             R8 R9
-       75 SETTABLEKS                       R8 R7 K20 ["tag"]
-       77 CALL                             R5 2 1
-       78 GETUPVAL                         R6 3
-       79 GETTABLEKS                       R6 R6 K5 ["createElement"]
-       81 GETUPVAL                         R7 8
-       82 DUPTABLE                         R8 K29 [{["tag"] = "row align-y-center gap-medium auto-xy", ["LayoutOrder"]}]
-       83 GETTABLEKS                       R9 R0 K28 ["LayoutOrder"]
-       85 SETTABLEKS                       R9 R8 K28 ["LayoutOrder"]
-       87 DUPTABLE                         R9 K32 [{"Circle", "Label"}]
-       88 GETUPVAL                         R10 3
-       89 GETTABLEKS                       R10 R10 K5 ["createElement"]
-       91 GETUPVAL                         R11 8
-       92 DUPTABLE                         R12 K35 [{["tag"], ["Size"], ["LayoutOrder"] = 1}]
-       93 NEWTABLE                         R13 8 0
-       95 LOADB                            R14 1
-       96 SETTABLEKS                       R14 R13 K36 ["align-x-center align-y-center radius-circle"]
-       98 GETTABLEKS                       R14 R0 K4 ["isCompleted"]
-      100 SETTABLEKS                       R14 R13 K37 ["bg-system-contrast"]
-      102 GETTABLEKS                       R15 R0 K4 ["isCompleted"]
-      104 NOT                              R14 R15
-      105 SETTABLEKS                       R14 R13 K38 ["bg-surface-200"]
-      107 SETTABLEKS                       R4 R13 K39 ["stroke-system-contrast"]
-      109 NOT                              R14 R4
-      110 SETTABLEKS                       R14 R13 K40 ["stroke-muted"]
-      112 SETTABLEKS                       R13 R12 K20 ["tag"]
-      114 GETIMPORT                        R13 K43 [UDim2.fromOffset]
-      116 LOADN                            R14 24
-      117 LOADN                            R15 24
-      118 CALL                             R13 2 1
-      119 SETTABLEKS                       R13 R12 K33 ["Size"]
-      121 DUPTABLE                         R13 K45 [{"Content"}]
-      122 SETTABLEKS                       R5 R13 K44 ["Content"]
-      124 CALL                             R10 3 1
-      125 SETTABLEKS                       R10 R9 K30 ["Circle"]
-      127 GETUPVAL                         R10 3
-      128 GETTABLEKS                       R10 R10 K5 ["createElement"]
-      130 GETUPVAL                         R11 7
-      131 DUPTABLE                         R12 K47 [{["Text"], ["tag"], ["LayoutOrder"] = 2}]
-      132 LOADK                            R15 K48 ["LookComposerDialog"]
-      133 GETTABLEKS                       R16 R0 K49 ["labelKey"]
-      135 NAMECALL                         R13 R1 K50 ["getText"]
-      137 CALL                             R13 3 1
-      138 SETTABLEKS                       R13 R12 K19 ["Text"]
-      140 LOADK                            R14 K51 ["auto-xy text-label-medium %*"]
-      141 MOVE                             R16 R3
-      142 NAMECALL                         R14 R14 K26 ["format"]
-      144 CALL                             R14 2 1
-      145 MOVE                             R13 R14
-      146 SETTABLEKS                       R13 R12 K20 ["tag"]
-      148 CALL                             R10 2 1
-      149 SETTABLEKS                       R10 R9 K31 ["Label"]
-      151 CALL                             R6 3 -1
-      152 RETURN                           R6 -1
+       69 LOADK                            R8 K25 ["text-label-medium %*"]
+       70 MOVE                             R10 R3
+       71 NAMECALL                         R8 R8 K26 ["format"]
+       73 CALL                             R8 2 1
+       74 SETTABLEKS                       R8 R7 K20 ["tag"]
+       76 CALL                             R5 2 1
+       77 GETUPVAL                         R6 3
+       78 GETTABLEKS                       R6 R6 K5 ["createElement"]
+       80 GETUPVAL                         R7 8
+       81 DUPTABLE                         R8 K29 [{["tag"] = "row align-y-center gap-medium auto-xy", ["LayoutOrder"]}]
+       82 GETTABLEKS                       R9 R0 K28 ["LayoutOrder"]
+       84 SETTABLEKS                       R9 R8 K28 ["LayoutOrder"]
+       86 DUPTABLE                         R9 K32 [{"Circle", "Label"}]
+       87 GETUPVAL                         R10 3
+       88 GETTABLEKS                       R10 R10 K5 ["createElement"]
+       90 GETUPVAL                         R11 8
+       91 DUPTABLE                         R12 K35 [{["tag"], ["Size"], ["LayoutOrder"] = 1}]
+       92 NEWTABLE                         R13 8 0
+       94 LOADB                            R14 1
+       95 SETTABLEKS                       R14 R13 K36 ["align-x-center align-y-center radius-circle"]
+       97 GETTABLEKS                       R14 R0 K4 ["isCompleted"]
+       99 SETTABLEKS                       R14 R13 K37 ["bg-system-contrast"]
+      101 GETTABLEKS                       R15 R0 K4 ["isCompleted"]
+      103 NOT                              R14 R15
+      104 SETTABLEKS                       R14 R13 K38 ["bg-surface-200"]
+      106 SETTABLEKS                       R4 R13 K39 ["stroke-system-contrast"]
+      108 NOT                              R14 R4
+      109 SETTABLEKS                       R14 R13 K40 ["stroke-muted"]
+      111 SETTABLEKS                       R13 R12 K20 ["tag"]
+      113 GETIMPORT                        R13 K43 [UDim2.fromOffset]
+      115 LOADN                            R14 24
+      116 LOADN                            R15 24
+      117 CALL                             R13 2 1
+      118 SETTABLEKS                       R13 R12 K33 ["Size"]
+      120 DUPTABLE                         R13 K45 [{"Content"}]
+      121 SETTABLEKS                       R5 R13 K44 ["Content"]
+      123 CALL                             R10 3 1
+      124 SETTABLEKS                       R10 R9 K30 ["Circle"]
+      126 GETUPVAL                         R10 3
+      127 GETTABLEKS                       R10 R10 K5 ["createElement"]
+      129 GETUPVAL                         R11 7
+      130 DUPTABLE                         R12 K47 [{["Text"], ["tag"], ["LayoutOrder"] = 2}]
+      131 LOADK                            R15 K48 ["LookComposerDialog"]
+      132 GETTABLEKS                       R16 R0 K49 ["labelKey"]
+      134 NAMECALL                         R13 R1 K50 ["getText"]
+      136 CALL                             R13 3 1
+      137 SETTABLEKS                       R13 R12 K19 ["Text"]
+      139 LOADK                            R13 K51 ["auto-xy text-label-medium %*"]
+      140 MOVE                             R15 R3
+      141 NAMECALL                         R13 R13 K26 ["format"]
+      143 CALL                             R13 2 1
+      144 SETTABLEKS                       R13 R12 K20 ["tag"]
+      146 CALL                             R10 2 1
+      147 SETTABLEKS                       R10 R9 K31 ["Label"]
+      149 CALL                             R6 3 -1
+      150 RETURN                           R6 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0

@@ -115,46 +115,45 @@ PROTO_1:
       134 GETTABLEKS                       R19 R19 K42 ["ChipSize"]
       136 GETTABLEKS                       R19 R19 K43 ["Small"]
       138 SETTABLEKS                       R19 R18 K27 ["size"]
-      140 LOADK                            R20 K44 ["v%*"]
-      141 GETTABLEKS                       R22 R0 K0 ["metadata"]
-      143 GETTABLEKS                       R22 R22 K45 ["version"]
-      145 NAMECALL                         R20 R20 K46 ["format"]
-      147 CALL                             R20 2 1
-      148 MOVE                             R19 R20
-      149 SETTABLEKS                       R19 R18 K40 ["text"]
-      151 MOVE                             R19 R1
-      152 CALL                             R19 0 1
-      153 SETTABLEKS                       R19 R18 K16 ["LayoutOrder"]
-      155 CALL                             R16 2 1
-      156 SETTABLEKS                       R16 R15 K21 ["VersionChip"]
-      158 GETUPVAL                         R16 2
-      159 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      161 GETUPVAL                         R17 5
-      162 DUPTABLE                         R18 K48 [{"metadata", "isExpanded", "LayoutOrder"}]
-      163 GETTABLEKS                       R19 R0 K0 ["metadata"]
-      165 SETTABLEKS                       R19 R18 K0 ["metadata"]
-      167 GETTABLEKS                       R19 R2 K31 ["enabled"]
-      169 SETTABLEKS                       R19 R18 K47 ["isExpanded"]
-      171 MOVE                             R19 R1
-      172 CALL                             R19 0 1
-      173 SETTABLEKS                       R19 R18 K16 ["LayoutOrder"]
-      175 CALL                             R16 2 1
-      176 SETTABLEKS                       R16 R15 K22 ["VersionNote"]
-      178 GETUPVAL                         R16 2
-      179 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      181 GETUPVAL                         R17 6
-      182 DUPTABLE                         R18 K50 [{"metadata", "isVisible", "isDisabled", "LayoutOrder"}]
-      183 GETTABLEKS                       R19 R0 K0 ["metadata"]
-      185 SETTABLEKS                       R19 R18 K0 ["metadata"]
-      187 SETTABLEKS                       R7 R18 K49 ["isVisible"]
-      189 SETTABLEKS                       R9 R18 K15 ["isDisabled"]
-      191 MOVE                             R19 R1
-      192 CALL                             R19 0 1
-      193 SETTABLEKS                       R19 R18 K16 ["LayoutOrder"]
-      195 CALL                             R16 2 1
-      196 SETTABLEKS                       R16 R15 K23 ["OverflowMenu"]
-      198 CALL                             R12 3 -1
-      199 RETURN                           R12 -1
+      140 LOADK                            R19 K44 ["v%*"]
+      141 GETTABLEKS                       R21 R0 K0 ["metadata"]
+      143 GETTABLEKS                       R21 R21 K45 ["version"]
+      145 NAMECALL                         R19 R19 K46 ["format"]
+      147 CALL                             R19 2 1
+      148 SETTABLEKS                       R19 R18 K40 ["text"]
+      150 MOVE                             R19 R1
+      151 CALL                             R19 0 1
+      152 SETTABLEKS                       R19 R18 K16 ["LayoutOrder"]
+      154 CALL                             R16 2 1
+      155 SETTABLEKS                       R16 R15 K21 ["VersionChip"]
+      157 GETUPVAL                         R16 2
+      158 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      160 GETUPVAL                         R17 5
+      161 DUPTABLE                         R18 K48 [{"metadata", "isExpanded", "LayoutOrder"}]
+      162 GETTABLEKS                       R19 R0 K0 ["metadata"]
+      164 SETTABLEKS                       R19 R18 K0 ["metadata"]
+      166 GETTABLEKS                       R19 R2 K31 ["enabled"]
+      168 SETTABLEKS                       R19 R18 K47 ["isExpanded"]
+      170 MOVE                             R19 R1
+      171 CALL                             R19 0 1
+      172 SETTABLEKS                       R19 R18 K16 ["LayoutOrder"]
+      174 CALL                             R16 2 1
+      175 SETTABLEKS                       R16 R15 K22 ["VersionNote"]
+      177 GETUPVAL                         R16 2
+      178 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      180 GETUPVAL                         R17 6
+      181 DUPTABLE                         R18 K50 [{"metadata", "isVisible", "isDisabled", "LayoutOrder"}]
+      182 GETTABLEKS                       R19 R0 K0 ["metadata"]
+      184 SETTABLEKS                       R19 R18 K0 ["metadata"]
+      186 SETTABLEKS                       R7 R18 K49 ["isVisible"]
+      188 SETTABLEKS                       R9 R18 K15 ["isDisabled"]
+      190 MOVE                             R19 R1
+      191 CALL                             R19 0 1
+      192 SETTABLEKS                       R19 R18 K16 ["LayoutOrder"]
+      194 CALL                             R16 2 1
+      195 SETTABLEKS                       R16 R15 K23 ["OverflowMenu"]
+      197 CALL                             R12 3 -1
+      198 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

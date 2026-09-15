@@ -69,95 +69,94 @@ PROTO_1:
        93 SETTABLE                         R8 R6 R7
        94 GETUPVAL                         R7 2
        95 GETTABLEKS                       R7 R7 K32 ["Tag"]
-       97 LOADK                            R9 K33 ["X-Top X-RowS FindReplaceAll-SidePadS FindReplaceAll-DropdownItem data-testid=DropdownItem-%*"]
-       98 GETTABLEKS                       R11 R0 K13 ["index"]
-      100 NAMECALL                         R9 R9 K34 ["format"]
-      102 CALL                             R9 2 1
-      103 MOVE                             R8 R9
-      104 SETTABLE                         R8 R6 R7
-      105 DUPTABLE                         R7 K37 [{"Icon", "Text"}]
-      106 GETTABLEKS                       R8 R0 K38 ["icon"]
-      108 JUMPIFNOT                        R8 ; [+53]
-      109 GETUPVAL                         R8 3
-      110 LOADK                            R9 K39 ["Frame"]
-      111 NEWTABLE                         R10 4 0
-      113 LOADN                            R11 1
-      114 SETTABLEKS                       R11 R10 K12 ["BackgroundTransparency"]
-      116 MOVE                             R11 R1
-      117 CALL                             R11 0 1
-      118 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
-      120 GETUPVAL                         R11 2
-      121 GETTABLEKS                       R11 R11 K32 ["Tag"]
-      123 LOADK                            R12 K40 ["X-Fit"]
-      124 SETTABLE                         R12 R10 R11
-      125 DUPTABLE                         R11 K43 [{"Image", "SmallAestheticPadding"}]
-      126 GETUPVAL                         R12 3
-      127 LOADK                            R13 K44 ["ImageLabel"]
-      128 NEWTABLE                         R14 1 0
-      130 GETUPVAL                         R15 2
-      131 GETTABLEKS                       R15 R15 K32 ["Tag"]
-      133 GETUPVAL                         R16 5
-      134 GETTABLEKS                       R18 R0 K45 ["keepIconColor"]
-      136 JUMPIF                           R18 ; [+2]
-      137 LOADK                            R17 K46 ["FindReplaceAll-Content-Standard"]
-      138 JUMP                             ; [+1]
-      139 LOADNIL                          R17
-      140 LOADK                            R18 K47 ["FindReplaceAll-Icon"]
-      141 GETTABLEKS                       R19 R0 K38 ["icon"]
-      143 CALL                             R16 3 1
-      144 SETTABLE                         R16 R14 R15
-      145 CALL                             R12 2 1
-      146 SETTABLEKS                       R12 R11 K41 ["Image"]
-      148 GETUPVAL                         R12 3
-      149 LOADK                            R13 K48 ["UIPadding"]
-      150 DUPTABLE                         R14 K50 [{"PaddingTop"}]
-      151 GETIMPORT                        R15 K52 [UDim.new]
-      153 LOADN                            R16 0
-      154 LOADN                            R17 3
-      155 CALL                             R15 2 1
-      156 SETTABLEKS                       R15 R14 K49 ["PaddingTop"]
-      158 CALL                             R12 2 1
-      159 SETTABLEKS                       R12 R11 K42 ["SmallAestheticPadding"]
-      161 CALL                             R8 3 1
-      162 SETTABLEKS                       R8 R7 K35 ["Icon"]
-      164 GETUPVAL                         R8 3
-      165 LOADK                            R9 K53 ["TextLabel"]
-      166 NEWTABLE                         R10 8 0
-      168 MOVE                             R11 R1
-      169 CALL                             R11 0 1
-      170 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
-      172 GETIMPORT                        R11 K55 [UDim2.fromScale]
-      174 LOADN                            R12 1
-      175 LOADN                            R13 0
-      176 CALL                             R11 2 1
-      177 SETTABLEKS                       R11 R10 K22 ["Size"]
-      179 GETTABLEKS                       R11 R0 K56 ["displayText"]
-      181 JUMPIF                           R11 ; [+2]
-      182 GETTABLEKS                       R11 R0 K3 ["text"]
-      184 SETTABLEKS                       R11 R10 K36 ["Text"]
-      186 LOADB                            R11 1
-      187 SETTABLEKS                       R11 R10 K57 ["TextWrapped"]
-      189 GETUPVAL                         R11 2
-      190 GETTABLEKS                       R11 R11 K32 ["Tag"]
-      192 LOADK                            R12 K58 ["X-FitY FindReplaceAll-FillX FindReplaceAll-StandardText"]
-      193 SETTABLE                         R12 R10 R11
-      194 DUPTABLE                         R11 K60 [{"MinHeight"}]
-      195 GETUPVAL                         R12 3
-      196 LOADK                            R13 K61 ["UISizeConstraint"]
-      197 DUPTABLE                         R14 K63 [{"MinSize"}]
-      198 GETIMPORT                        R15 K65 [Vector2.new]
-      200 LOADN                            R16 0
-      201 GETTABLEKS                       R17 R0 K18 ["minSize"]
-      203 GETTABLEKS                       R17 R17 K8 ["Y"]
-      205 GETTABLEKS                       R17 R17 K21 ["Offset"]
-      207 CALL                             R15 2 1
-      208 SETTABLEKS                       R15 R14 K62 ["MinSize"]
-      210 CALL                             R12 2 1
-      211 SETTABLEKS                       R12 R11 K59 ["MinHeight"]
-      213 CALL                             R8 3 1
-      214 SETTABLEKS                       R8 R7 K36 ["Text"]
-      216 CALL                             R4 3 -1
-      217 RETURN                           R4 -1
+       97 LOADK                            R8 K33 ["X-Top X-RowS FindReplaceAll-SidePadS FindReplaceAll-DropdownItem data-testid=DropdownItem-%*"]
+       98 GETTABLEKS                       R10 R0 K13 ["index"]
+      100 NAMECALL                         R8 R8 K34 ["format"]
+      102 CALL                             R8 2 1
+      103 SETTABLE                         R8 R6 R7
+      104 DUPTABLE                         R7 K37 [{"Icon", "Text"}]
+      105 GETTABLEKS                       R8 R0 K38 ["icon"]
+      107 JUMPIFNOT                        R8 ; [+53]
+      108 GETUPVAL                         R8 3
+      109 LOADK                            R9 K39 ["Frame"]
+      110 NEWTABLE                         R10 4 0
+      112 LOADN                            R11 1
+      113 SETTABLEKS                       R11 R10 K12 ["BackgroundTransparency"]
+      115 MOVE                             R11 R1
+      116 CALL                             R11 0 1
+      117 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
+      119 GETUPVAL                         R11 2
+      120 GETTABLEKS                       R11 R11 K32 ["Tag"]
+      122 LOADK                            R12 K40 ["X-Fit"]
+      123 SETTABLE                         R12 R10 R11
+      124 DUPTABLE                         R11 K43 [{"Image", "SmallAestheticPadding"}]
+      125 GETUPVAL                         R12 3
+      126 LOADK                            R13 K44 ["ImageLabel"]
+      127 NEWTABLE                         R14 1 0
+      129 GETUPVAL                         R15 2
+      130 GETTABLEKS                       R15 R15 K32 ["Tag"]
+      132 GETUPVAL                         R16 5
+      133 GETTABLEKS                       R18 R0 K45 ["keepIconColor"]
+      135 JUMPIF                           R18 ; [+2]
+      136 LOADK                            R17 K46 ["FindReplaceAll-Content-Standard"]
+      137 JUMP                             ; [+1]
+      138 LOADNIL                          R17
+      139 LOADK                            R18 K47 ["FindReplaceAll-Icon"]
+      140 GETTABLEKS                       R19 R0 K38 ["icon"]
+      142 CALL                             R16 3 1
+      143 SETTABLE                         R16 R14 R15
+      144 CALL                             R12 2 1
+      145 SETTABLEKS                       R12 R11 K41 ["Image"]
+      147 GETUPVAL                         R12 3
+      148 LOADK                            R13 K48 ["UIPadding"]
+      149 DUPTABLE                         R14 K50 [{"PaddingTop"}]
+      150 GETIMPORT                        R15 K52 [UDim.new]
+      152 LOADN                            R16 0
+      153 LOADN                            R17 3
+      154 CALL                             R15 2 1
+      155 SETTABLEKS                       R15 R14 K49 ["PaddingTop"]
+      157 CALL                             R12 2 1
+      158 SETTABLEKS                       R12 R11 K42 ["SmallAestheticPadding"]
+      160 CALL                             R8 3 1
+      161 SETTABLEKS                       R8 R7 K35 ["Icon"]
+      163 GETUPVAL                         R8 3
+      164 LOADK                            R9 K53 ["TextLabel"]
+      165 NEWTABLE                         R10 8 0
+      167 MOVE                             R11 R1
+      168 CALL                             R11 0 1
+      169 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
+      171 GETIMPORT                        R11 K55 [UDim2.fromScale]
+      173 LOADN                            R12 1
+      174 LOADN                            R13 0
+      175 CALL                             R11 2 1
+      176 SETTABLEKS                       R11 R10 K22 ["Size"]
+      178 GETTABLEKS                       R11 R0 K56 ["displayText"]
+      180 JUMPIF                           R11 ; [+2]
+      181 GETTABLEKS                       R11 R0 K3 ["text"]
+      183 SETTABLEKS                       R11 R10 K36 ["Text"]
+      185 LOADB                            R11 1
+      186 SETTABLEKS                       R11 R10 K57 ["TextWrapped"]
+      188 GETUPVAL                         R11 2
+      189 GETTABLEKS                       R11 R11 K32 ["Tag"]
+      191 LOADK                            R12 K58 ["X-FitY FindReplaceAll-FillX FindReplaceAll-StandardText"]
+      192 SETTABLE                         R12 R10 R11
+      193 DUPTABLE                         R11 K60 [{"MinHeight"}]
+      194 GETUPVAL                         R12 3
+      195 LOADK                            R13 K61 ["UISizeConstraint"]
+      196 DUPTABLE                         R14 K63 [{"MinSize"}]
+      197 GETIMPORT                        R15 K65 [Vector2.new]
+      199 LOADN                            R16 0
+      200 GETTABLEKS                       R17 R0 K18 ["minSize"]
+      202 GETTABLEKS                       R17 R17 K8 ["Y"]
+      204 GETTABLEKS                       R17 R17 K21 ["Offset"]
+      206 CALL                             R15 2 1
+      207 SETTABLEKS                       R15 R14 K62 ["MinSize"]
+      209 CALL                             R12 2 1
+      210 SETTABLEKS                       R12 R11 K59 ["MinHeight"]
+      212 CALL                             R8 3 1
+      213 SETTABLEKS                       R8 R7 K36 ["Text"]
+      215 CALL                             R4 3 -1
+      216 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

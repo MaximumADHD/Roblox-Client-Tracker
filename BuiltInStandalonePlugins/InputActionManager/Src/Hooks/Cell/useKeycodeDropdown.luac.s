@@ -57,33 +57,32 @@ PROTO_5:
        17 MOVE                             R3 R0
        18 NAMECALL                         R1 R1 K9 ["FromValue"]
        20 CALL                             R1 2 1
-       21 LOADK                            R5 K10 ["Invalid keycode value: %*"]
-       22 MOVE                             R7 R0
-       23 NAMECALL                         R5 R5 K11 ["format"]
-       25 CALL                             R5 2 1
-       26 MOVE                             R4 R5
-       27 FASTCALL2                        ASSERT R1 R4 ; [+4]
-       29 MOVE                             R3 R1
-       30 GETIMPORT                        R2 K5 [assert]
-       32 CALL                             R2 2 0
-       33 GETUPVAL                         R2 0
-       34 GETUPVAL                         R3 1
-       35 GETTABLEKS                       R3 R3 K12 ["updateBinding"]
-       37 GETUPVAL                         R4 2
-       38 MOVE                             R5 R1
-       39 CALL                             R2 3 1
-       40 JUMPIFNOT                        R2 ; [+9]
-       41 GETUPVAL                         R2 3
-       42 JUMPIFNOT                        R2 ; [+7]
-       43 GETUPVAL                         R2 3
-       44 GETTABLEKS                       R2 R2 K13 ["countBindingSet"]
-       46 GETUPVAL                         R3 2
-       47 GETTABLEKS                       R3 R3 K14 ["schema"]
-       49 CALL                             R2 1 0
-       50 GETUPVAL                         R2 4
-       51 LOADK                            R3 K15 [""]
-       52 CALL                             R2 1 0
-       53 RETURN                           R0 0
+       21 LOADK                            R4 K10 ["Invalid keycode value: %*"]
+       22 MOVE                             R6 R0
+       23 NAMECALL                         R4 R4 K11 ["format"]
+       25 CALL                             R4 2 1
+       26 FASTCALL2                        ASSERT R1 R4 ; [+4]
+       28 MOVE                             R3 R1
+       29 GETIMPORT                        R2 K5 [assert]
+       31 CALL                             R2 2 0
+       32 GETUPVAL                         R2 0
+       33 GETUPVAL                         R3 1
+       34 GETTABLEKS                       R3 R3 K12 ["updateBinding"]
+       36 GETUPVAL                         R4 2
+       37 MOVE                             R5 R1
+       38 CALL                             R2 3 1
+       39 JUMPIFNOT                        R2 ; [+9]
+       40 GETUPVAL                         R2 3
+       41 JUMPIFNOT                        R2 ; [+7]
+       42 GETUPVAL                         R2 3
+       43 GETTABLEKS                       R2 R2 K13 ["countBindingSet"]
+       45 GETUPVAL                         R3 2
+       46 GETTABLEKS                       R3 R3 K14 ["schema"]
+       48 CALL                             R2 1 0
+       49 GETUPVAL                         R2 4
+       50 LOADK                            R3 K15 [""]
+       51 CALL                             R2 1 0
+       52 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R2 R0 K0 ["score"]

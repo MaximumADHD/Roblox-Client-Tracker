@@ -1,12 +1,11 @@
 PROTO_0:
         0 GETIMPORT                        R0 K1 [error]
-        2 LOADK                            R2 K2 ["Calling unimplemented function %*"]
-        3 GETUPVAL                         R4 0
-        4 NAMECALL                         R2 R2 K3 ["format"]
-        6 CALL                             R2 2 1
-        7 MOVE                             R1 R2
-        8 CALL                             R0 1 0
-        9 RETURN                           R0 0
+        2 LOADK                            R1 K2 ["Calling unimplemented function %*"]
+        3 GETUPVAL                         R3 0
+        4 NAMECALL                         R1 R1 K3 ["format"]
+        6 CALL                             R1 2 1
+        7 CALL                             R0 1 0
+        8 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R1 P0

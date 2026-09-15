@@ -3,21 +3,20 @@ PROTO_0:
         1 GETTABLEKS                       R1 R1 K0 ["validate"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 2
-        5 JUMPIF                           R1 ; [+11]
+        5 JUMPIF                           R1 ; [+10]
         6 GETUPVAL                         R3 1
         7 GETTABLEKS                       R3 R3 K1 ["reject"]
-        9 LOADK                            R5 K2 ["GetContributorsModel: %*"]
-       10 MOVE                             R7 R2
-       11 NAMECALL                         R5 R5 K3 ["format"]
-       13 CALL                             R5 2 1
-       14 MOVE                             R4 R5
-       15 CALL                             R3 1 -1
-       16 RETURN                           R3 -1
-       17 GETUPVAL                         R3 1
-       18 GETTABLEKS                       R3 R3 K4 ["resolve"]
-       20 MOVE                             R4 R0
-       21 CALL                             R3 1 -1
-       22 RETURN                           R3 -1
+        9 LOADK                            R4 K2 ["GetContributorsModel: %*"]
+       10 MOVE                             R6 R2
+       11 NAMECALL                         R4 R4 K3 ["format"]
+       13 CALL                             R4 2 1
+       14 CALL                             R3 1 -1
+       15 RETURN                           R3 -1
+       16 GETUPVAL                         R3 1
+       17 GETTABLEKS                       R3 R3 K4 ["resolve"]
+       19 MOVE                             R4 R0
+       20 CALL                             R3 1 -1
+       21 RETURN                           R3 -1
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -63,33 +62,32 @@ PROTO_3:
         2 GETTABLEKS                       R2 R2 K4 ["composeUrl"]
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K5 ["APIS_URL"]
-        7 LOADK                            R5 K6 ["place-version-history-api/v1/%*/contributors"]
-        8 GETTABLEKS                       R7 R0 K7 ["placeId"]
-       10 NAMECALL                         R5 R5 K8 ["format"]
-       12 CALL                             R5 2 1
-       13 MOVE                             R4 R5
-       14 DUPTABLE                         R5 K11 [{"cursor", "pageSize"}]
-       15 GETTABLEKS                       R6 R0 K9 ["cursor"]
-       17 SETTABLEKS                       R6 R5 K9 ["cursor"]
-       19 GETTABLEKS                       R6 R0 K10 ["pageSize"]
-       21 SETTABLEKS                       R6 R5 K10 ["pageSize"]
-       23 CALL                             R2 3 1
-       24 SETTABLEKS                       R2 R1 K2 ["Url"]
-       26 GETUPVAL                         R2 1
-       27 GETTABLEKS                       R2 R2 K12 ["Request"]
-       29 MOVE                             R3 R1
-       30 CALL                             R2 1 1
-       31 DUPCLOSURE                       R4 K13 [PROTO_0]
-       32 CAPTURE                          UPVAL U2
-       33 CAPTURE                          UPVAL U3
-       34 NAMECALL                         R2 R2 K14 ["andThen"]
-       36 CALL                             R2 2 1
-       37 DUPCLOSURE                       R4 K15 [PROTO_2]
-       38 CAPTURE                          UPVAL U3
-       39 CAPTURE                          UPVAL U4
-       40 NAMECALL                         R2 R2 K14 ["andThen"]
-       42 CALL                             R2 2 -1
-       43 RETURN                           R2 -1
+        7 LOADK                            R4 K6 ["place-version-history-api/v1/%*/contributors"]
+        8 GETTABLEKS                       R6 R0 K7 ["placeId"]
+       10 NAMECALL                         R4 R4 K8 ["format"]
+       12 CALL                             R4 2 1
+       13 DUPTABLE                         R5 K11 [{"cursor", "pageSize"}]
+       14 GETTABLEKS                       R6 R0 K9 ["cursor"]
+       16 SETTABLEKS                       R6 R5 K9 ["cursor"]
+       18 GETTABLEKS                       R6 R0 K10 ["pageSize"]
+       20 SETTABLEKS                       R6 R5 K10 ["pageSize"]
+       22 CALL                             R2 3 1
+       23 SETTABLEKS                       R2 R1 K2 ["Url"]
+       25 GETUPVAL                         R2 1
+       26 GETTABLEKS                       R2 R2 K12 ["Request"]
+       28 MOVE                             R3 R1
+       29 CALL                             R2 1 1
+       30 DUPCLOSURE                       R4 K13 [PROTO_0]
+       31 CAPTURE                          UPVAL U2
+       32 CAPTURE                          UPVAL U3
+       33 NAMECALL                         R2 R2 K14 ["andThen"]
+       35 CALL                             R2 2 1
+       36 DUPCLOSURE                       R4 K15 [PROTO_2]
+       37 CAPTURE                          UPVAL U3
+       38 CAPTURE                          UPVAL U4
+       39 NAMECALL                         R2 R2 K14 ["andThen"]
+       41 CALL                             R2 2 -1
+       42 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

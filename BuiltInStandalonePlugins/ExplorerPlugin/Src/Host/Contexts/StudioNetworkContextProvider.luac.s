@@ -71,109 +71,107 @@ PROTO_2:
        29 CALL                             R2 2 0
        30 GETUPVAL                         R3 0
        31 GETTABLE                         R2 R3 R1
-       32 JUMPIFEQKNIL                     R2 ; [+11]
+       32 JUMPIFEQKNIL                     R2 ; [+10]
        34 GETIMPORT                        R2 K8 [error]
-       36 LOADK                            R4 K9 ["Double connection on session UUID with %* (from identifier %*)"]
-       37 MOVE                             R6 R1
-       38 MOVE                             R7 R0
-       39 NAMECALL                         R4 R4 K10 ["format"]
-       41 CALL                             R4 3 1
-       42 MOVE                             R3 R4
-       43 CALL                             R2 1 0
-       44 GETUPVAL                         R3 1
-       45 GETTABLE                         R2 R3 R0
-       46 JUMPIFEQKNIL                     R2 ; [+63]
-       48 GETUPVAL                         R3 2
-       49 LOADK                            R4 K11 ["Had double connection from %s (old session UUID = %s, new session UUID = %s)"]
-       50 MOVE                             R5 R0
-       51 MOVE                             R6 R2
-       52 MOVE                             R7 R1
-       53 CALL                             R3 4 0
-       54 GETUPVAL                         R3 3
-       55 GETTABLEKS                       R3 R3 K12 ["logCounter"]
-       57 DUPTABLE                         R4 K21 [{["eventName"] = "LuaExplorerSloppyShutdown", ["backends"], ["throttlingPercentage"], ["description"] = "Fired when the Luau Explorer requests a sloppy shutdown after receiving a double connection", ["lastUpdated"] = "2025-05-09"}]
-       58 NEWTABLE                         R5 0 1
-       60 LOADK                            R6 K22 ["RobloxTelemetryCounter"]
-       61 SETLIST                          R5 R6 1 [1]
-       63 SETTABLEKS                       R5 R4 K15 ["backends"]
-       65 GETIMPORT                        R5 K24 [game]
-       67 LOADK                            R7 K25 ["LuaExplorerSloppyShutdownThrottlingHundredthsPercent"]
-       68 LOADN                            R8 10000
-       69 NAMECALL                         R5 R5 K26 ["DefineFastInt"]
-       71 CALL                             R5 3 1
-       72 SETTABLEKS                       R5 R4 K16 ["throttlingPercentage"]
-       74 CALL                             R3 1 0
-       75 GETUPVAL                         R3 2
-       76 LOADK                            R4 K27 ["%s disconnecting"]
-       77 MOVE                             R5 R2
-       78 CALL                             R3 2 0
-       79 GETUPVAL                         R4 0
-       80 GETTABLE                         R3 R4 R2
-       81 JUMPIFNOTEQKNIL                  R3 ; [+2]
-       83 LOADB                            R5 0 +1
-       84 LOADB                            R5 1
-       85 FASTCALL2K                       ASSERT R5 K28 ; [+4]
-       87 LOADK                            R6 K28 ["Disconnect sent without a connection"]
-       88 GETIMPORT                        R4 K5 [assert]
-       90 CALL                             R4 2 0
-       91 GETUPVAL                         R5 1
-       92 GETTABLEKS                       R6 R3 K29 ["identifier"]
-       94 GETTABLE                         R4 R5 R6
-       95 JUMPIFNOTEQ                      R4 R2 ; [+6]
-       97 GETUPVAL                         R4 1
-       98 GETTABLEKS                       R5 R3 K29 ["identifier"]
-      100 LOADNIL                          R6
-      101 SETTABLE                         R6 R4 R5
-      102 GETUPVAL                         R4 0
-      103 LOADNIL                          R5
-      104 SETTABLE                         R5 R4 R2
-      105 GETTABLEKS                       R4 R3 K30 ["disconnectSignal"]
-      107 NAMECALL                         R4 R4 K31 ["Fire"]
-      109 CALL                             R4 1 0
-      110 GETUPVAL                         R3 2
-      111 LOADK                            R4 K32 ["%s (%s) connected"]
-      112 MOVE                             R5 R1
-      113 MOVE                             R6 R0
-      114 CALL                             R3 3 0
-      115 DUPTABLE                         R3 K35 [{"identifier", "disconnectSignal", "messageReceivedSignal", "sendMessage"}]
-      116 SETTABLEKS                       R0 R3 K29 ["identifier"]
-      118 GETUPVAL                         R4 4
-      119 GETTABLEKS                       R4 R4 K36 ["Signal"]
-      121 GETTABLEKS                       R4 R4 K37 ["new"]
-      123 CALL                             R4 0 1
-      124 SETTABLEKS                       R4 R3 K30 ["disconnectSignal"]
-      126 GETUPVAL                         R4 4
-      127 GETTABLEKS                       R4 R4 K36 ["Signal"]
-      129 GETTABLEKS                       R4 R4 K37 ["new"]
-      131 CALL                             R4 0 1
-      132 SETTABLEKS                       R4 R3 K33 ["messageReceivedSignal"]
-      134 NEWCLOSURE                       R4 P0
-      135 CAPTURE                          UPVAL U2
-      136 CAPTURE                          VAL R1
-      137 CAPTURE                          UPVAL U5
-      138 CAPTURE                          UPVAL U6
-      139 SETTABLEKS                       R4 R3 K34 ["sendMessage"]
-      141 GETUPVAL                         R4 0
-      142 SETTABLE                         R3 R4 R1
-      143 GETUPVAL                         R4 1
-      144 SETTABLE                         R1 R4 R0
-      145 GETUPVAL                         R4 7
-      146 MOVE                             R5 R3
-      147 CALL                             R4 1 0
-      148 RETURN                           R0 0
+       36 LOADK                            R3 K9 ["Double connection on session UUID with %* (from identifier %*)"]
+       37 MOVE                             R5 R1
+       38 MOVE                             R6 R0
+       39 NAMECALL                         R3 R3 K10 ["format"]
+       41 CALL                             R3 3 1
+       42 CALL                             R2 1 0
+       43 GETUPVAL                         R3 1
+       44 GETTABLE                         R2 R3 R0
+       45 JUMPIFEQKNIL                     R2 ; [+63]
+       47 GETUPVAL                         R3 2
+       48 LOADK                            R4 K11 ["Had double connection from %s (old session UUID = %s, new session UUID = %s)"]
+       49 MOVE                             R5 R0
+       50 MOVE                             R6 R2
+       51 MOVE                             R7 R1
+       52 CALL                             R3 4 0
+       53 GETUPVAL                         R3 3
+       54 GETTABLEKS                       R3 R3 K12 ["logCounter"]
+       56 DUPTABLE                         R4 K21 [{["eventName"] = "LuaExplorerSloppyShutdown", ["backends"], ["throttlingPercentage"], ["description"] = "Fired when the Luau Explorer requests a sloppy shutdown after receiving a double connection", ["lastUpdated"] = "2025-05-09"}]
+       57 NEWTABLE                         R5 0 1
+       59 LOADK                            R6 K22 ["RobloxTelemetryCounter"]
+       60 SETLIST                          R5 R6 1 [1]
+       62 SETTABLEKS                       R5 R4 K15 ["backends"]
+       64 GETIMPORT                        R5 K24 [game]
+       66 LOADK                            R7 K25 ["LuaExplorerSloppyShutdownThrottlingHundredthsPercent"]
+       67 LOADN                            R8 10000
+       68 NAMECALL                         R5 R5 K26 ["DefineFastInt"]
+       70 CALL                             R5 3 1
+       71 SETTABLEKS                       R5 R4 K16 ["throttlingPercentage"]
+       73 CALL                             R3 1 0
+       74 GETUPVAL                         R3 2
+       75 LOADK                            R4 K27 ["%s disconnecting"]
+       76 MOVE                             R5 R2
+       77 CALL                             R3 2 0
+       78 GETUPVAL                         R4 0
+       79 GETTABLE                         R3 R4 R2
+       80 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       82 LOADB                            R5 0 +1
+       83 LOADB                            R5 1
+       84 FASTCALL2K                       ASSERT R5 K28 ; [+4]
+       86 LOADK                            R6 K28 ["Disconnect sent without a connection"]
+       87 GETIMPORT                        R4 K5 [assert]
+       89 CALL                             R4 2 0
+       90 GETUPVAL                         R5 1
+       91 GETTABLEKS                       R6 R3 K29 ["identifier"]
+       93 GETTABLE                         R4 R5 R6
+       94 JUMPIFNOTEQ                      R4 R2 ; [+6]
+       96 GETUPVAL                         R4 1
+       97 GETTABLEKS                       R5 R3 K29 ["identifier"]
+       99 LOADNIL                          R6
+      100 SETTABLE                         R6 R4 R5
+      101 GETUPVAL                         R4 0
+      102 LOADNIL                          R5
+      103 SETTABLE                         R5 R4 R2
+      104 GETTABLEKS                       R4 R3 K30 ["disconnectSignal"]
+      106 NAMECALL                         R4 R4 K31 ["Fire"]
+      108 CALL                             R4 1 0
+      109 GETUPVAL                         R3 2
+      110 LOADK                            R4 K32 ["%s (%s) connected"]
+      111 MOVE                             R5 R1
+      112 MOVE                             R6 R0
+      113 CALL                             R3 3 0
+      114 DUPTABLE                         R3 K35 [{"identifier", "disconnectSignal", "messageReceivedSignal", "sendMessage"}]
+      115 SETTABLEKS                       R0 R3 K29 ["identifier"]
+      117 GETUPVAL                         R4 4
+      118 GETTABLEKS                       R4 R4 K36 ["Signal"]
+      120 GETTABLEKS                       R4 R4 K37 ["new"]
+      122 CALL                             R4 0 1
+      123 SETTABLEKS                       R4 R3 K30 ["disconnectSignal"]
+      125 GETUPVAL                         R4 4
+      126 GETTABLEKS                       R4 R4 K36 ["Signal"]
+      128 GETTABLEKS                       R4 R4 K37 ["new"]
+      130 CALL                             R4 0 1
+      131 SETTABLEKS                       R4 R3 K33 ["messageReceivedSignal"]
+      133 NEWCLOSURE                       R4 P0
+      134 CAPTURE                          UPVAL U2
+      135 CAPTURE                          VAL R1
+      136 CAPTURE                          UPVAL U5
+      137 CAPTURE                          UPVAL U6
+      138 SETTABLEKS                       R4 R3 K34 ["sendMessage"]
+      140 GETUPVAL                         R4 0
+      141 SETTABLE                         R3 R4 R1
+      142 GETUPVAL                         R4 1
+      143 SETTABLE                         R1 R4 R0
+      144 GETUPVAL                         R4 7
+      145 MOVE                             R5 R3
+      146 CALL                             R4 1 0
+      147 RETURN                           R0 0
 
 PROTO_3:
-        0 LOADK                            R1 K0 ["%* sent message \"%*\""]
-        1 GETUPVAL                         R3 0
-        2 GETUPVAL                         R4 1
-        3 NAMECALL                         R1 R1 K1 ["format"]
-        5 CALL                             R1 3 1
-        6 MOVE                             R0 R1
-        7 GETUPVAL                         R2 2
-        8 FASTCALL1                        TABLE_UNPACK R2 ; [+2]
-        9 GETIMPORT                        R1 K4 [table.unpack]
-       11 CALL                             R1 1 -1
-       12 RETURN                           R0 -1
+        0 LOADK                            R0 K0 ["%* sent message \"%*\""]
+        1 GETUPVAL                         R2 0
+        2 GETUPVAL                         R3 1
+        3 NAMECALL                         R0 R0 K1 ["format"]
+        5 CALL                             R0 3 1
+        6 GETUPVAL                         R2 2
+        7 FASTCALL1                        TABLE_UNPACK R2 ; [+2]
+        8 GETIMPORT                        R1 K4 [table.unpack]
+       10 CALL                             R1 1 -1
+       11 RETURN                           R0 -1
 
 PROTO_4:
         0 PREPVARARGS                      2
@@ -190,37 +188,36 @@ PROTO_4:
        15 CALL                             R2 2 0
        16 GETUPVAL                         R3 0
        17 GETTABLE                         R2 R3 R0
-       18 JUMPIFNOTEQKNIL                  R2 ; [+11]
+       18 JUMPIFNOTEQKNIL                  R2 ; [+10]
        20 GETIMPORT                        R3 K7 [error]
-       22 LOADK                            R5 K8 ["Message sent by %* without a connection: %*"]
-       23 MOVE                             R7 R0
-       24 MOVE                             R8 R1
-       25 NAMECALL                         R5 R5 K9 ["format"]
-       27 CALL                             R5 3 1
-       28 MOVE                             R4 R5
-       29 CALL                             R3 1 0
-       30 JUMPIFNOTEQKNIL                  R2 ; [+2]
-       32 LOADB                            R4 0 +1
-       33 LOADB                            R4 1
-       34 FASTCALL2K                       ASSERT R4 K10 ; [+4]
-       36 LOADK                            R5 K10 ["Luau"]
-       37 GETIMPORT                        R3 K5 [assert]
-       39 CALL                             R3 2 0
-       40 GETIMPORT                        R3 K13 [table.pack]
-       42 GETVARARGS                       R4 -1
-       43 CALL                             R3 -1 1
-       44 GETUPVAL                         R4 1
-       45 NEWCLOSURE                       R5 P0
-       46 CAPTURE                          VAL R0
-       47 CAPTURE                          VAL R1
-       48 CAPTURE                          VAL R3
-       49 CALL                             R4 1 0
-       50 GETTABLEKS                       R4 R2 K14 ["messageReceivedSignal"]
-       52 MOVE                             R6 R1
-       53 GETVARARGS                       R7 -1
-       54 NAMECALL                         R4 R4 K15 ["Fire"]
-       56 CALL                             R4 -1 0
-       57 RETURN                           R0 0
+       22 LOADK                            R4 K8 ["Message sent by %* without a connection: %*"]
+       23 MOVE                             R6 R0
+       24 MOVE                             R7 R1
+       25 NAMECALL                         R4 R4 K9 ["format"]
+       27 CALL                             R4 3 1
+       28 CALL                             R3 1 0
+       29 JUMPIFNOTEQKNIL                  R2 ; [+2]
+       31 LOADB                            R4 0 +1
+       32 LOADB                            R4 1
+       33 FASTCALL2K                       ASSERT R4 K10 ; [+4]
+       35 LOADK                            R5 K10 ["Luau"]
+       36 GETIMPORT                        R3 K5 [assert]
+       38 CALL                             R3 2 0
+       39 GETIMPORT                        R3 K13 [table.pack]
+       41 GETVARARGS                       R4 -1
+       42 CALL                             R3 -1 1
+       43 GETUPVAL                         R4 1
+       44 NEWCLOSURE                       R5 P0
+       45 CAPTURE                          VAL R0
+       46 CAPTURE                          VAL R1
+       47 CAPTURE                          VAL R3
+       48 CALL                             R4 1 0
+       49 GETTABLEKS                       R4 R2 K14 ["messageReceivedSignal"]
+       51 MOVE                             R6 R1
+       52 GETVARARGS                       R7 -1
+       53 NAMECALL                         R4 R4 K15 ["Fire"]
+       55 CALL                             R4 -1 0
+       56 RETURN                           R0 0
 
 PROTO_5:
         0 FASTCALL1                        TYPEOF R0 ; [+3]

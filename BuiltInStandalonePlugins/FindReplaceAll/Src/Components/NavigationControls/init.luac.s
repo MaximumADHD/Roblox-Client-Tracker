@@ -79,47 +79,45 @@ PROTO_4:
         1 LOADK                            R4 K0 ["WidgetBody"]
         2 LOADK                            R5 K1 ["ResultsLabel"]
         3 DUPTABLE                         R6 K6 [{"numResults", "resultString", "numResultFiles", "fileString"}]
-        4 LOADK                            R8 K7 ["%*"]
-        5 MOVE                             R10 R0
-        6 NAMECALL                         R8 R8 K8 ["format"]
-        8 CALL                             R8 2 1
-        9 MOVE                             R7 R8
-       10 SETTABLEKS                       R7 R6 K2 ["numResults"]
-       12 JUMPIFNOTEQKN                    R0 K9 [1] ; [+8]
-       14 GETUPVAL                         R7 0
-       15 LOADK                            R9 K1 ["ResultsLabel"]
-       16 LOADK                            R10 K10 ["ResultString"]
-       17 NAMECALL                         R7 R7 K11 ["getText"]
-       19 CALL                             R7 3 1
-       20 JUMP                             ; [+6]
-       21 GETUPVAL                         R7 0
-       22 LOADK                            R9 K1 ["ResultsLabel"]
-       23 LOADK                            R10 K12 ["ResultStringPlural"]
-       24 NAMECALL                         R7 R7 K11 ["getText"]
-       26 CALL                             R7 3 1
-       27 SETTABLEKS                       R7 R6 K3 ["resultString"]
-       29 LOADK                            R8 K7 ["%*"]
-       30 MOVE                             R10 R1
-       31 NAMECALL                         R8 R8 K8 ["format"]
-       33 CALL                             R8 2 1
-       34 MOVE                             R7 R8
-       35 SETTABLEKS                       R7 R6 K4 ["numResultFiles"]
-       37 JUMPIFNOTEQKN                    R1 K9 [1] ; [+8]
-       39 GETUPVAL                         R7 0
-       40 LOADK                            R9 K1 ["ResultsLabel"]
-       41 LOADK                            R10 K13 ["FileString"]
-       42 NAMECALL                         R7 R7 K11 ["getText"]
-       44 CALL                             R7 3 1
-       45 JUMP                             ; [+6]
-       46 GETUPVAL                         R7 0
-       47 LOADK                            R9 K1 ["ResultsLabel"]
-       48 LOADK                            R10 K14 ["FileStringPlural"]
-       49 NAMECALL                         R7 R7 K11 ["getText"]
-       51 CALL                             R7 3 1
-       52 SETTABLEKS                       R7 R6 K5 ["fileString"]
-       54 NAMECALL                         R2 R2 K11 ["getText"]
-       56 CALL                             R2 4 -1
-       57 RETURN                           R2 -1
+        4 LOADK                            R7 K7 ["%*"]
+        5 MOVE                             R9 R0
+        6 NAMECALL                         R7 R7 K8 ["format"]
+        8 CALL                             R7 2 1
+        9 SETTABLEKS                       R7 R6 K2 ["numResults"]
+       11 JUMPIFNOTEQKN                    R0 K9 [1] ; [+8]
+       13 GETUPVAL                         R7 0
+       14 LOADK                            R9 K1 ["ResultsLabel"]
+       15 LOADK                            R10 K10 ["ResultString"]
+       16 NAMECALL                         R7 R7 K11 ["getText"]
+       18 CALL                             R7 3 1
+       19 JUMP                             ; [+6]
+       20 GETUPVAL                         R7 0
+       21 LOADK                            R9 K1 ["ResultsLabel"]
+       22 LOADK                            R10 K12 ["ResultStringPlural"]
+       23 NAMECALL                         R7 R7 K11 ["getText"]
+       25 CALL                             R7 3 1
+       26 SETTABLEKS                       R7 R6 K3 ["resultString"]
+       28 LOADK                            R7 K7 ["%*"]
+       29 MOVE                             R9 R1
+       30 NAMECALL                         R7 R7 K8 ["format"]
+       32 CALL                             R7 2 1
+       33 SETTABLEKS                       R7 R6 K4 ["numResultFiles"]
+       35 JUMPIFNOTEQKN                    R1 K9 [1] ; [+8]
+       37 GETUPVAL                         R7 0
+       38 LOADK                            R9 K1 ["ResultsLabel"]
+       39 LOADK                            R10 K13 ["FileString"]
+       40 NAMECALL                         R7 R7 K11 ["getText"]
+       42 CALL                             R7 3 1
+       43 JUMP                             ; [+6]
+       44 GETUPVAL                         R7 0
+       45 LOADK                            R9 K1 ["ResultsLabel"]
+       46 LOADK                            R10 K14 ["FileStringPlural"]
+       47 NAMECALL                         R7 R7 K11 ["getText"]
+       49 CALL                             R7 3 1
+       50 SETTABLEKS                       R7 R6 K5 ["fileString"]
+       52 NAMECALL                         R2 R2 K11 ["getText"]
+       54 CALL                             R2 4 -1
+       55 RETURN                           R2 -1
 
 PROTO_5:
         0 JUMPIFEQKNIL                     R0 ; [+3]

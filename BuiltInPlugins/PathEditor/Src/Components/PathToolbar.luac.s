@@ -38,76 +38,73 @@ PROTO_1:
        29 SETTABLEKS                       R7 R6 K9 ["OnChange"]
        31 NEWTABLE                         R7 0 3
        33 DUPTABLE                         R8 K17 [{["Id"] = "Move", ["Tooltip"], ["Icon"]}]
-       34 LOADK                            R10 K18 ["%* (%*)"]
-       35 LOADK                            R14 K19 ["Info"]
-       36 LOADK                            R15 K20 ["Select"]
-       37 NAMECALL                         R12 R3 K21 ["getText"]
-       39 CALL                             R12 3 1
-       40 GETUPVAL                         R13 0
-       41 GETTABLEKS                       R13 R13 K14 ["Move"]
-       43 NAMECALL                         R10 R10 K22 ["format"]
-       45 CALL                             R10 3 1
-       46 MOVE                             R9 R10
-       47 SETTABLEKS                       R9 R8 K15 ["Tooltip"]
-       49 GETTABLEKS                       R9 R2 K23 ["MoveImage"]
-       51 SETTABLEKS                       R9 R8 K16 ["Icon"]
-       53 GETUPVAL                         R10 1
-       54 GETTABLEKS                       R10 R10 K24 ["MaxControlPoints"]
-       56 JUMPIFNOTLT                      R4 R10 ; [+22]
-       58 DUPTABLE                         R9 K26 [{["Id"] = "AddPoint", ["Tooltip"], ["Icon"]}]
-       59 LOADK                            R11 K18 ["%* (%*)"]
-       60 LOADK                            R15 K19 ["Info"]
-       61 LOADK                            R16 K27 ["AddPointTool"]
-       62 NAMECALL                         R13 R3 K21 ["getText"]
-       64 CALL                             R13 3 1
-       65 GETUPVAL                         R14 0
-       66 GETTABLEKS                       R14 R14 K25 ["AddPoint"]
-       68 NAMECALL                         R11 R11 K22 ["format"]
-       70 CALL                             R11 3 1
-       71 MOVE                             R10 R11
-       72 SETTABLEKS                       R10 R9 K15 ["Tooltip"]
-       74 GETTABLEKS                       R10 R2 K28 ["AddPointImage"]
-       76 SETTABLEKS                       R10 R9 K16 ["Icon"]
-       78 JUMP                             ; [+1]
-       79 LOADNIL                          R9
-       80 DUPTABLE                         R10 K30 [{["Id"] = "AddTangent", ["Tooltip"], ["Icon"]}]
-       81 LOADK                            R12 K18 ["%* (%*)"]
-       82 LOADK                            R16 K19 ["Info"]
-       83 LOADK                            R17 K31 ["AddTangentTool"]
-       84 NAMECALL                         R14 R3 K21 ["getText"]
-       86 CALL                             R14 3 1
-       87 GETUPVAL                         R15 0
-       88 GETTABLEKS                       R15 R15 K29 ["AddTangent"]
-       90 NAMECALL                         R12 R12 K22 ["format"]
-       92 CALL                             R12 3 1
-       93 MOVE                             R11 R12
-       94 SETTABLEKS                       R11 R10 K15 ["Tooltip"]
-       96 GETTABLEKS                       R11 R2 K32 ["AddTangentImage"]
-       98 SETTABLEKS                       R11 R10 K16 ["Icon"]
-      100 SETLIST                          R7 R8 3 [1]
-      102 SETTABLEKS                       R7 R6 K10 ["Items"]
-      104 SETLIST                          R5 R6 1 [1]
-      106 GETTABLEKS                       R6 R1 K12 ["Path2DToolMode"]
-      108 JUMPIFEQKS                       R6 K33 ["DoneEditing"] ; [+19]
-      110 DUPTABLE                         R8 K37 [{["Type"] = "TextButton", ["Text"], ["OnClick"]}]
-      111 LOADK                            R11 K19 ["Info"]
-      112 LOADK                            R12 K38 ["Done"]
-      113 NAMECALL                         R9 R3 K21 ["getText"]
-      115 CALL                             R9 3 1
-      116 SETTABLEKS                       R9 R8 K35 ["Text"]
-      118 GETTABLEKS                       R9 R1 K39 ["dispatchToggleDone"]
-      120 SETTABLEKS                       R9 R8 K36 ["OnClick"]
-      122 FASTCALL2                        TABLE_INSERT R5 R8 ; [+4]
-      124 MOVE                             R7 R5
-      125 GETIMPORT                        R6 K42 [table.insert]
-      127 CALL                             R6 2 0
-      128 GETUPVAL                         R6 2
-      129 GETTABLEKS                       R6 R6 K43 ["createElement"]
-      131 GETUPVAL                         R7 3
-      132 DUPTABLE                         R8 K47 [{["DisplayOrder"] = 4, ["HorizontalItems"]}]
-      133 SETTABLEKS                       R5 R8 K46 ["HorizontalItems"]
-      135 CALL                             R6 2 -1
-      136 RETURN                           R6 -1
+       34 LOADK                            R9 K18 ["%* (%*)"]
+       35 LOADK                            R13 K19 ["Info"]
+       36 LOADK                            R14 K20 ["Select"]
+       37 NAMECALL                         R11 R3 K21 ["getText"]
+       39 CALL                             R11 3 1
+       40 GETUPVAL                         R12 0
+       41 GETTABLEKS                       R12 R12 K14 ["Move"]
+       43 NAMECALL                         R9 R9 K22 ["format"]
+       45 CALL                             R9 3 1
+       46 SETTABLEKS                       R9 R8 K15 ["Tooltip"]
+       48 GETTABLEKS                       R9 R2 K23 ["MoveImage"]
+       50 SETTABLEKS                       R9 R8 K16 ["Icon"]
+       52 GETUPVAL                         R10 1
+       53 GETTABLEKS                       R10 R10 K24 ["MaxControlPoints"]
+       55 JUMPIFNOTLT                      R4 R10 ; [+21]
+       57 DUPTABLE                         R9 K26 [{["Id"] = "AddPoint", ["Tooltip"], ["Icon"]}]
+       58 LOADK                            R10 K18 ["%* (%*)"]
+       59 LOADK                            R14 K19 ["Info"]
+       60 LOADK                            R15 K27 ["AddPointTool"]
+       61 NAMECALL                         R12 R3 K21 ["getText"]
+       63 CALL                             R12 3 1
+       64 GETUPVAL                         R13 0
+       65 GETTABLEKS                       R13 R13 K25 ["AddPoint"]
+       67 NAMECALL                         R10 R10 K22 ["format"]
+       69 CALL                             R10 3 1
+       70 SETTABLEKS                       R10 R9 K15 ["Tooltip"]
+       72 GETTABLEKS                       R10 R2 K28 ["AddPointImage"]
+       74 SETTABLEKS                       R10 R9 K16 ["Icon"]
+       76 JUMP                             ; [+1]
+       77 LOADNIL                          R9
+       78 DUPTABLE                         R10 K30 [{["Id"] = "AddTangent", ["Tooltip"], ["Icon"]}]
+       79 LOADK                            R11 K18 ["%* (%*)"]
+       80 LOADK                            R15 K19 ["Info"]
+       81 LOADK                            R16 K31 ["AddTangentTool"]
+       82 NAMECALL                         R13 R3 K21 ["getText"]
+       84 CALL                             R13 3 1
+       85 GETUPVAL                         R14 0
+       86 GETTABLEKS                       R14 R14 K29 ["AddTangent"]
+       88 NAMECALL                         R11 R11 K22 ["format"]
+       90 CALL                             R11 3 1
+       91 SETTABLEKS                       R11 R10 K15 ["Tooltip"]
+       93 GETTABLEKS                       R11 R2 K32 ["AddTangentImage"]
+       95 SETTABLEKS                       R11 R10 K16 ["Icon"]
+       97 SETLIST                          R7 R8 3 [1]
+       99 SETTABLEKS                       R7 R6 K10 ["Items"]
+      101 SETLIST                          R5 R6 1 [1]
+      103 GETTABLEKS                       R6 R1 K12 ["Path2DToolMode"]
+      105 JUMPIFEQKS                       R6 K33 ["DoneEditing"] ; [+19]
+      107 DUPTABLE                         R8 K37 [{["Type"] = "TextButton", ["Text"], ["OnClick"]}]
+      108 LOADK                            R11 K19 ["Info"]
+      109 LOADK                            R12 K38 ["Done"]
+      110 NAMECALL                         R9 R3 K21 ["getText"]
+      112 CALL                             R9 3 1
+      113 SETTABLEKS                       R9 R8 K35 ["Text"]
+      115 GETTABLEKS                       R9 R1 K39 ["dispatchToggleDone"]
+      117 SETTABLEKS                       R9 R8 K36 ["OnClick"]
+      119 FASTCALL2                        TABLE_INSERT R5 R8 ; [+4]
+      121 MOVE                             R7 R5
+      122 GETIMPORT                        R6 K42 [table.insert]
+      124 CALL                             R6 2 0
+      125 GETUPVAL                         R6 2
+      126 GETTABLEKS                       R6 R6 K43 ["createElement"]
+      128 GETUPVAL                         R7 3
+      129 DUPTABLE                         R8 K47 [{["DisplayOrder"] = 4, ["HorizontalItems"]}]
+      130 SETTABLEKS                       R5 R8 K46 ["HorizontalItems"]
+      132 CALL                             R6 2 -1
+      133 RETURN                           R6 -1
 
 PROTO_2:
         0 DUPTABLE                         R2 K5 [{"ControlPointStates", "SelectedObject", "Path2DToolMode", "SelectedControlPointIndex", "SelectedTangentSide"}]

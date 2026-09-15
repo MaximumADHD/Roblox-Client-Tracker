@@ -49,22 +49,21 @@ PROTO_4:
         7 GETUPVAL                         R2 1
         8 GETTABLEKS                       R2 R2 K2 ["LogTelemetry"]
        10 CALL                             R2 0 1
-       11 JUMPIFNOT                        R2 ; [+13]
+       11 JUMPIFNOT                        R2 ; [+12]
        12 GETIMPORT                        R2 K4 [print]
-       14 LOADK                            R4 K5 ["StyleEditor logged telemetry event '%*':"]
-       15 GETTABLEKS                       R6 R1 K6 ["config"]
-       17 GETTABLEKS                       R6 R6 K7 ["eventName"]
-       19 NAMECALL                         R4 R4 K8 ["format"]
-       21 CALL                             R4 2 1
-       22 MOVE                             R3 R4
-       23 MOVE                             R4 R1
-       24 CALL                             R2 2 0
-       25 GETTABLEKS                       R2 R0 K9 ["_messageBus"]
-       27 GETTABLEKS                       R4 R0 K10 ["LOG_EVENT_FROM_LUA"]
-       29 MOVE                             R5 R1
-       30 NAMECALL                         R2 R2 K11 ["Call"]
-       32 CALL                             R2 3 0
-       33 RETURN                           R0 0
+       14 LOADK                            R3 K5 ["StyleEditor logged telemetry event '%*':"]
+       15 GETTABLEKS                       R5 R1 K6 ["config"]
+       17 GETTABLEKS                       R5 R5 K7 ["eventName"]
+       19 NAMECALL                         R3 R3 K8 ["format"]
+       21 CALL                             R3 2 1
+       22 MOVE                             R4 R1
+       23 CALL                             R2 2 0
+       24 GETTABLEKS                       R2 R0 K9 ["_messageBus"]
+       26 GETTABLEKS                       R4 R0 K10 ["LOG_EVENT_FROM_LUA"]
+       28 MOVE                             R5 R1
+       29 NAMECALL                         R2 R2 K11 ["Call"]
+       31 CALL                             R2 3 0
+       32 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

@@ -111,48 +111,47 @@ PROTO_1:
       142 GETIMPORT                        R15 K49 [tostring]
       144 CALL                             R15 1 1
       145 SETTABLEKS                       R15 R14 K26 ["Text"]
-      147 LOADK                            R16 K50 ["import-item-price-%*"]
-      148 GETTABLEKS                       R18 R1 K19 ["itemId"]
-      150 NAMECALL                         R16 R16 K51 ["format"]
-      152 CALL                             R16 2 1
-      153 MOVE                             R15 R16
-      154 SETTABLEKS                       R15 R14 K27 ["testId"]
-      156 MOVE                             R15 R3
-      157 CALL                             R15 0 1
-      158 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
-      160 CALL                             R12 2 1
-      161 SETTABLEKS                       R12 R11 K24 ["ItemId"]
-      163 CALL                             R8 3 1
-      164 SETTABLEKS                       R8 R7 K9 ["ItemContent"]
-      166 GETUPVAL                         R8 2
-      167 GETTABLEKS                       R8 R8 K3 ["createElement"]
-      169 GETUPVAL                         R9 3
-      170 DUPTABLE                         R10 K53 [{["tag"] = "col self-center auto-xy", ["LayoutOrder"]}]
-      171 MOVE                             R11 R3
-      172 CALL                             R11 0 1
-      173 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
-      175 GETUPVAL                         R11 2
-      176 GETTABLEKS                       R11 R11 K3 ["createElement"]
-      178 GETUPVAL                         R12 12
-      179 DUPTABLE                         R13 K58 [{["size"], ["icon"], ["isCircular"] = True, ["variant"], ["onActivated"]}]
-      180 GETUPVAL                         R14 13
-      181 GETTABLEKS                       R14 R14 K59 ["Small"]
-      183 SETTABLEKS                       R14 R13 K41 ["size"]
-      185 GETUPVAL                         R14 9
-      186 GETTABLEKS                       R14 R14 K60 ["CircleMinus"]
-      188 SETTABLEKS                       R14 R13 K54 ["icon"]
-      190 GETUPVAL                         R14 14
-      191 GETTABLEKS                       R14 R14 K61 ["Utility"]
-      193 SETTABLEKS                       R14 R13 K42 ["variant"]
-      195 NEWCLOSURE                       R14 P0
-      196 CAPTURE                          VAL R0
-      197 CAPTURE                          VAL R1
-      198 SETTABLEKS                       R14 R13 K57 ["onActivated"]
-      200 CALL                             R11 2 -1
-      201 CALL                             R8 -1 1
-      202 SETTABLEKS                       R8 R7 K10 ["RemoveButton"]
-      204 CALL                             R4 3 -1
-      205 RETURN                           R4 -1
+      147 LOADK                            R15 K50 ["import-item-price-%*"]
+      148 GETTABLEKS                       R17 R1 K19 ["itemId"]
+      150 NAMECALL                         R15 R15 K51 ["format"]
+      152 CALL                             R15 2 1
+      153 SETTABLEKS                       R15 R14 K27 ["testId"]
+      155 MOVE                             R15 R3
+      156 CALL                             R15 0 1
+      157 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
+      159 CALL                             R12 2 1
+      160 SETTABLEKS                       R12 R11 K24 ["ItemId"]
+      162 CALL                             R8 3 1
+      163 SETTABLEKS                       R8 R7 K9 ["ItemContent"]
+      165 GETUPVAL                         R8 2
+      166 GETTABLEKS                       R8 R8 K3 ["createElement"]
+      168 GETUPVAL                         R9 3
+      169 DUPTABLE                         R10 K53 [{["tag"] = "col self-center auto-xy", ["LayoutOrder"]}]
+      170 MOVE                             R11 R3
+      171 CALL                             R11 0 1
+      172 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
+      174 GETUPVAL                         R11 2
+      175 GETTABLEKS                       R11 R11 K3 ["createElement"]
+      177 GETUPVAL                         R12 12
+      178 DUPTABLE                         R13 K58 [{["size"], ["icon"], ["isCircular"] = True, ["variant"], ["onActivated"]}]
+      179 GETUPVAL                         R14 13
+      180 GETTABLEKS                       R14 R14 K59 ["Small"]
+      182 SETTABLEKS                       R14 R13 K41 ["size"]
+      184 GETUPVAL                         R14 9
+      185 GETTABLEKS                       R14 R14 K60 ["CircleMinus"]
+      187 SETTABLEKS                       R14 R13 K54 ["icon"]
+      189 GETUPVAL                         R14 14
+      190 GETTABLEKS                       R14 R14 K61 ["Utility"]
+      192 SETTABLEKS                       R14 R13 K42 ["variant"]
+      194 NEWCLOSURE                       R14 P0
+      195 CAPTURE                          VAL R0
+      196 CAPTURE                          VAL R1
+      197 SETTABLEKS                       R14 R13 K57 ["onActivated"]
+      199 CALL                             R11 2 -1
+      200 CALL                             R8 -1 1
+      201 SETTABLEKS                       R8 R7 K10 ["RemoveButton"]
+      203 CALL                             R4 3 -1
+      204 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

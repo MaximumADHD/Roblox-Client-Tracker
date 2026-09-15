@@ -21,64 +21,64 @@ PROTO_2:
         4 LOADK                            R5 K0 ["PluginController.new() requires a plugin"]
         5 GETIMPORT                        R3 K2 [assert]
         7 CALL                             R3 2 0
-        8 DUPTABLE                         R4 K14 [{"_mock", "_plugin", "_getPlaceId", "_store", "_session", "_placeStore", "_saveSettingsTasks", "Activation", "Compact", "Focused", "PluginWidth"}]
+        8 DUPTABLE                         R4 K15 [{"_mock", "_plugin", "_getPlaceId", "_store", "_session", "_placeStore", "_saveSettingsTasks", "Activation", "Compact", "Focused", "GlobalChanged", "PluginWidth"}]
         9 SETTABLEKS                       R1 R4 K3 ["_mock"]
        11 SETTABLEKS                       R0 R4 K4 ["_plugin"]
        13 MOVE                             R5 R2
        14 JUMPIF                           R5 ; [+1]
-       15 DUPCLOSURE                       R5 K15 [PROTO_0]
+       15 DUPCLOSURE                       R5 K16 [PROTO_0]
        16 SETTABLEKS                       R5 R4 K5 ["_getPlaceId"]
        18 NEWTABLE                         R5 4 0
        20 GETUPVAL                         R6 0
-       21 GETTABLEKS                       R6 R6 K16 ["SelectionSettings"]
+       21 GETTABLEKS                       R6 R6 K17 ["SelectionSettings"]
        23 NEWTABLE                         R7 4 0
        25 GETUPVAL                         R8 1
-       26 GETTABLEKS                       R8 R8 K17 ["Size"]
-       28 LOADK                            R9 K18 [{64, 32, 64}]
+       26 GETTABLEKS                       R8 R8 K18 ["Size"]
+       28 LOADK                            R9 K19 [{64, 32, 64}]
        29 SETTABLE                         R9 R7 R8
        30 GETUPVAL                         R8 1
-       31 GETTABLEKS                       R8 R8 K19 ["SnapToVoxels"]
+       31 GETTABLEKS                       R8 R8 K20 ["SnapToVoxels"]
        33 LOADB                            R9 1
        34 SETTABLE                         R9 R7 R8
        35 GETUPVAL                         R8 1
-       36 GETTABLEKS                       R8 R8 K20 ["Transform"]
-       38 GETIMPORT                        R9 K23 [CFrame.new]
+       36 GETTABLEKS                       R8 R8 K21 ["Transform"]
+       38 GETIMPORT                        R9 K24 [CFrame.new]
        40 CALL                             R9 0 1
        41 SETTABLE                         R9 R7 R8
        42 SETTABLE                         R7 R5 R6
        43 GETUPVAL                         R6 0
-       44 GETTABLEKS                       R6 R6 K24 ["TransformSettings"]
+       44 GETTABLEKS                       R6 R6 K25 ["TransformSettings"]
        46 NEWTABLE                         R7 4 0
        48 GETUPVAL                         R8 2
-       49 GETTABLEKS                       R8 R8 K17 ["Size"]
-       51 LOADK                            R9 K18 [{64, 32, 64}]
+       49 GETTABLEKS                       R8 R8 K18 ["Size"]
+       51 LOADK                            R9 K19 [{64, 32, 64}]
        52 SETTABLE                         R9 R7 R8
        53 GETUPVAL                         R8 2
-       54 GETTABLEKS                       R8 R8 K19 ["SnapToVoxels"]
+       54 GETTABLEKS                       R8 R8 K20 ["SnapToVoxels"]
        56 LOADB                            R9 1
        57 SETTABLE                         R9 R7 R8
        58 GETUPVAL                         R8 2
-       59 GETTABLEKS                       R8 R8 K20 ["Transform"]
-       61 GETIMPORT                        R9 K23 [CFrame.new]
+       59 GETTABLEKS                       R8 R8 K21 ["Transform"]
+       61 GETIMPORT                        R9 K24 [CFrame.new]
        63 CALL                             R9 0 1
        64 SETTABLE                         R9 R7 R8
        65 SETTABLE                         R7 R5 R6
        66 GETUPVAL                         R6 0
-       67 GETTABLEKS                       R6 R6 K25 ["BrushSettings"]
+       67 GETTABLEKS                       R6 R6 K26 ["BrushSettings"]
        69 NEWTABLE                         R7 4 0
        71 GETUPVAL                         R8 3
-       72 GETTABLEKS                       R8 R8 K26 ["ManualPlaneLock"]
+       72 GETTABLEKS                       R8 R8 K27 ["ManualPlaneLock"]
        74 LOADB                            R9 0
        75 SETTABLE                         R9 R7 R8
        76 GETUPVAL                         R8 3
-       77 GETTABLEKS                       R8 R8 K27 ["PlaneLock"]
+       77 GETTABLEKS                       R8 R8 K28 ["PlaneLock"]
        79 GETUPVAL                         R9 4
-       80 GETTABLEKS                       R9 R9 K28 ["Off"]
+       80 GETTABLEKS                       R9 R9 K29 ["Off"]
        82 SETTABLE                         R9 R7 R8
        83 GETUPVAL                         R8 3
-       84 GETTABLEKS                       R8 R8 K29 ["PlaneTransform"]
-       86 GETIMPORT                        R9 K31 [CFrame.Angles]
-       88 LOADK                            R10 K32 [1.5707963267949]
+       84 GETTABLEKS                       R8 R8 K30 ["PlaneTransform"]
+       86 GETIMPORT                        R9 K32 [CFrame.Angles]
+       88 LOADK                            R10 K33 [1.5707963267949]
        89 LOADN                            R11 0
        90 LOADN                            R12 0
        91 CALL                             R9 3 1
@@ -87,20 +87,20 @@ PROTO_2:
        94 SETTABLEKS                       R5 R4 K6 ["_store"]
        96 NEWTABLE                         R5 4 0
        98 GETUPVAL                         R6 0
-       99 GETTABLEKS                       R6 R6 K25 ["BrushSettings"]
+       99 GETTABLEKS                       R6 R6 K26 ["BrushSettings"]
       101 NEWTABLE                         R7 0 0
       103 SETTABLE                         R7 R5 R6
       104 GETUPVAL                         R6 0
-      105 GETTABLEKS                       R6 R6 K16 ["SelectionSettings"]
+      105 GETTABLEKS                       R6 R6 K17 ["SelectionSettings"]
       107 NEWTABLE                         R7 0 0
       109 SETTABLE                         R7 R5 R6
       110 GETUPVAL                         R6 0
-      111 GETTABLEKS                       R6 R6 K24 ["TransformSettings"]
+      111 GETTABLEKS                       R6 R6 K25 ["TransformSettings"]
       113 NEWTABLE                         R7 1 0
       115 GETUPVAL                         R8 2
-      116 GETTABLEKS                       R8 R8 K33 ["TransformMode"]
+      116 GETTABLEKS                       R8 R8 K34 ["TransformMode"]
       118 GETUPVAL                         R9 5
-      119 GETTABLEKS                       R9 R9 K34 ["Move"]
+      119 GETTABLEKS                       R9 R9 K35 ["Move"]
       121 SETTABLE                         R9 R7 R8
       122 SETTABLE                         R7 R5 R6
       123 SETTABLEKS                       R5 R4 K7 ["_session"]
@@ -109,50 +109,54 @@ PROTO_2:
       129 NEWTABLE                         R5 0 0
       131 SETTABLEKS                       R5 R4 K9 ["_saveSettingsTasks"]
       133 GETUPVAL                         R5 6
-      134 GETTABLEKS                       R5 R5 K22 ["new"]
+      134 GETTABLEKS                       R5 R5 K23 ["new"]
       136 CALL                             R5 0 1
       137 SETTABLEKS                       R5 R4 K10 ["Activation"]
       139 GETUPVAL                         R5 6
-      140 GETTABLEKS                       R5 R5 K22 ["new"]
+      140 GETTABLEKS                       R5 R5 K23 ["new"]
       142 CALL                             R5 0 1
       143 SETTABLEKS                       R5 R4 K11 ["Compact"]
       145 GETUPVAL                         R5 6
-      146 GETTABLEKS                       R5 R5 K22 ["new"]
+      146 GETTABLEKS                       R5 R5 K23 ["new"]
       148 CALL                             R5 0 1
       149 SETTABLEKS                       R5 R4 K12 ["Focused"]
       151 GETUPVAL                         R5 6
-      152 GETTABLEKS                       R5 R5 K22 ["new"]
+      152 GETTABLEKS                       R5 R5 K23 ["new"]
       154 CALL                             R5 0 1
-      155 SETTABLEKS                       R5 R4 K13 ["PluginWidth"]
-      157 GETUPVAL                         R5 7
-      158 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
-      160 GETIMPORT                        R3 K36 [setmetatable]
-      162 CALL                             R3 2 1
-      163 GETUPVAL                         R4 8
-      164 GETTABLEKS                       R4 R4 K37 ["IsDebuggingSavedSettings"]
-      166 JUMPIF                           R4 ; [+20]
-      167 GETUPVAL                         R4 9
-      168 GETTABLEKS                       R5 R3 K4 ["_plugin"]
-      170 LOADK                            R7 K38 ["Global"]
-      171 NAMECALL                         R5 R5 K39 ["GetSetting"]
-      173 CALL                             R5 2 1
-      174 JUMPIF                           R5 ; [+2]
-      175 NEWTABLE                         R5 0 0
-      177 CALL                             R4 1 1
-      178 GETUPVAL                         R5 10
-      179 GETTABLEKS                       R5 R5 K40 ["join"]
-      181 GETTABLEKS                       R6 R3 K6 ["_store"]
-      183 MOVE                             R7 R4
-      184 CALL                             R5 2 1
-      185 SETTABLEKS                       R5 R3 K6 ["_store"]
-      187 GETTABLEKS                       R4 R3 K4 ["_plugin"]
-      189 GETTABLEKS                       R4 R4 K41 ["Deactivation"]
-      191 NEWCLOSURE                       R6 P1
-      192 CAPTURE                          VAL R3
-      193 NAMECALL                         R4 R4 K42 ["Connect"]
-      195 CALL                             R4 2 1
-      196 SETTABLEKS                       R4 R3 K43 ["_deactivationListener"]
-      198 RETURN                           R3 1
+      155 SETTABLEKS                       R5 R4 K13 ["GlobalChanged"]
+      157 GETUPVAL                         R5 6
+      158 GETTABLEKS                       R5 R5 K23 ["new"]
+      160 CALL                             R5 0 1
+      161 SETTABLEKS                       R5 R4 K14 ["PluginWidth"]
+      163 GETUPVAL                         R5 7
+      164 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
+      166 GETIMPORT                        R3 K37 [setmetatable]
+      168 CALL                             R3 2 1
+      169 GETUPVAL                         R4 8
+      170 GETTABLEKS                       R4 R4 K38 ["IsDebuggingSavedSettings"]
+      172 JUMPIF                           R4 ; [+20]
+      173 GETUPVAL                         R4 9
+      174 GETTABLEKS                       R5 R3 K4 ["_plugin"]
+      176 LOADK                            R7 K39 ["Global"]
+      177 NAMECALL                         R5 R5 K40 ["GetSetting"]
+      179 CALL                             R5 2 1
+      180 JUMPIF                           R5 ; [+2]
+      181 NEWTABLE                         R5 0 0
+      183 CALL                             R4 1 1
+      184 GETUPVAL                         R5 10
+      185 GETTABLEKS                       R5 R5 K41 ["join"]
+      187 GETTABLEKS                       R6 R3 K6 ["_store"]
+      189 MOVE                             R7 R4
+      190 CALL                             R5 2 1
+      191 SETTABLEKS                       R5 R3 K6 ["_store"]
+      193 GETTABLEKS                       R4 R3 K4 ["_plugin"]
+      195 GETTABLEKS                       R4 R4 K42 ["Deactivation"]
+      197 NEWCLOSURE                       R6 P1
+      198 CAPTURE                          VAL R3
+      199 NAMECALL                         R4 R4 K43 ["Connect"]
+      201 CALL                             R4 2 1
+      202 SETTABLEKS                       R4 R3 K44 ["_deactivationListener"]
+      204 RETURN                           R3 1
 
 PROTO_3:
         0 GETUPVAL                         R2 0
@@ -240,58 +244,72 @@ PROTO_9:
        20 MOVE                             R6 R8
        21 JUMP                             ; [+2]
        22 GETTABLEKS                       R5 R0 K5 ["_session"]
-       24 GETTABLE                         R7 R5 R1
-       25 JUMPIF                           R7 ; [+2]
-       26 NEWTABLE                         R7 0 0
-       28 SETTABLE                         R7 R5 R1
-       29 GETTABLE                         R7 R5 R1
-       30 SETTABLE                         R3 R7 R2
-       31 GETUPVAL                         R7 0
-       32 GETTABLEKS                       R7 R7 K0 ["GlobalPersistent"]
-       34 JUMPIFNOTEQ                      R4 R7 ; [+34]
-       36 GETUPVAL                         R7 1
-       37 GETTABLEKS                       R7 R7 K6 ["PlaneLock"]
-       39 JUMPIFNOTEQ                      R2 R7 ; [+29]
-       41 GETUPVAL                         R7 2
-       42 GETTABLEKS                       R7 R7 K7 ["Manual"]
-       44 JUMPIFNOTEQ                      R3 R7 ; [+24]
-       46 GETUPVAL                         R7 3
-       47 GETTABLEKS                       R7 R7 K8 ["CurrentCamera"]
-       49 GETTABLEKS                       R7 R7 K9 ["CFrame"]
-       51 GETIMPORT                        R8 K11 [CFrame.Angles]
-       53 LOADK                            R9 K12 [1.5707963267949]
-       54 LOADN                            R10 0
-       55 LOADN                            R11 0
-       56 CALL                             R8 3 1
-       57 GETTABLEKS                       R10 R7 K13 ["Position"]
-       59 GETTABLEKS                       R12 R7 K15 ["LookVector"]
-       61 MULK                             R11 R12 K14 [64]
-       62 ADD                              R9 R10 R11
-       63 GETTABLE                         R10 R5 R1
-       64 GETUPVAL                         R11 1
-       65 GETTABLEKS                       R11 R11 K16 ["PlaneTransform"]
-       67 ADD                              R12 R8 R9
-       68 SETTABLE                         R12 R10 R11
-       69 JUMPIFNOT                        R6 ; [+22]
-       70 GETTABLEKS                       R8 R0 K17 ["_saveSettingsTasks"]
-       72 GETTABLE                         R7 R8 R6
-       73 JUMPIFNOT                        R7 ; [+6]
-       74 GETIMPORT                        R7 K20 [task.cancel]
-       76 GETTABLEKS                       R9 R0 K17 ["_saveSettingsTasks"]
-       78 GETTABLE                         R8 R9 R6
-       79 CALL                             R7 1 0
-       80 GETTABLEKS                       R7 R0 K17 ["_saveSettingsTasks"]
-       82 GETIMPORT                        R8 K22 [task.delay]
-       84 LOADN                            R9 1
-       85 NEWCLOSURE                       R10 P0
-       86 CAPTURE                          VAL R0
-       87 CAPTURE                          REF R6
-       88 CAPTURE                          UPVAL U4
-       89 CAPTURE                          REF R5
-       90 CALL                             R8 2 1
-       91 SETTABLE                         R8 R7 R6
-       92 CLOSEUPVALS                      R5
-       93 RETURN                           R0 0
+       24 GETTABLE                         R8 R5 R1
+       25 JUMPIFNOT                        R8 ; [+3]
+       26 GETTABLE                         R8 R5 R1
+       27 GETTABLE                         R7 R8 R2
+       28 JUMP                             ; [+1]
+       29 LOADNIL                          R7
+       30 GETTABLE                         R8 R5 R1
+       31 JUMPIF                           R8 ; [+2]
+       32 NEWTABLE                         R8 0 0
+       34 SETTABLE                         R8 R5 R1
+       35 GETTABLE                         R8 R5 R1
+       36 SETTABLE                         R3 R8 R2
+       37 JUMPIFEQ                         R7 R3 ; [+10]
+       39 GETTABLEKS                       R8 R0 K6 ["GlobalChanged"]
+       41 MOVE                             R10 R1
+       42 MOVE                             R11 R2
+       43 MOVE                             R12 R3
+       44 MOVE                             R13 R4
+       45 NAMECALL                         R8 R8 K7 ["Fire"]
+       47 CALL                             R8 5 0
+       48 GETUPVAL                         R8 0
+       49 GETTABLEKS                       R8 R8 K0 ["GlobalPersistent"]
+       51 JUMPIFNOTEQ                      R4 R8 ; [+34]
+       53 GETUPVAL                         R8 1
+       54 GETTABLEKS                       R8 R8 K8 ["PlaneLock"]
+       56 JUMPIFNOTEQ                      R2 R8 ; [+29]
+       58 GETUPVAL                         R8 2
+       59 GETTABLEKS                       R8 R8 K9 ["Manual"]
+       61 JUMPIFNOTEQ                      R3 R8 ; [+24]
+       63 GETUPVAL                         R8 3
+       64 GETTABLEKS                       R8 R8 K10 ["CurrentCamera"]
+       66 GETTABLEKS                       R8 R8 K11 ["CFrame"]
+       68 GETIMPORT                        R9 K13 [CFrame.Angles]
+       70 LOADK                            R10 K14 [1.5707963267949]
+       71 LOADN                            R11 0
+       72 LOADN                            R12 0
+       73 CALL                             R9 3 1
+       74 GETTABLEKS                       R11 R8 K15 ["Position"]
+       76 GETTABLEKS                       R13 R8 K17 ["LookVector"]
+       78 MULK                             R12 R13 K16 [64]
+       79 ADD                              R10 R11 R12
+       80 GETTABLE                         R11 R5 R1
+       81 GETUPVAL                         R12 1
+       82 GETTABLEKS                       R12 R12 K18 ["PlaneTransform"]
+       84 ADD                              R13 R9 R10
+       85 SETTABLE                         R13 R11 R12
+       86 JUMPIFNOT                        R6 ; [+22]
+       87 GETTABLEKS                       R9 R0 K19 ["_saveSettingsTasks"]
+       89 GETTABLE                         R8 R9 R6
+       90 JUMPIFNOT                        R8 ; [+6]
+       91 GETIMPORT                        R8 K22 [task.cancel]
+       93 GETTABLEKS                       R10 R0 K19 ["_saveSettingsTasks"]
+       95 GETTABLE                         R9 R10 R6
+       96 CALL                             R8 1 0
+       97 GETTABLEKS                       R8 R0 K19 ["_saveSettingsTasks"]
+       99 GETIMPORT                        R9 K24 [task.delay]
+      101 LOADN                            R10 1
+      102 NEWCLOSURE                       R11 P0
+      103 CAPTURE                          VAL R0
+      104 CAPTURE                          REF R6
+      105 CAPTURE                          UPVAL U4
+      106 CAPTURE                          REF R5
+      107 CALL                             R9 2 1
+      108 SETTABLE                         R9 R8 R6
+      109 CLOSEUPVALS                      R5
+      110 RETURN                           R0 0
 
 PROTO_10:
         0 MOVE                             R6 R1

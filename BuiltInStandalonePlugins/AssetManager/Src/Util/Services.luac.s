@@ -20,17 +20,16 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R2 K0 ["%*:%*() called but %* is unavailable"]
-        2 GETUPVAL                         R4 1
-        3 GETUPVAL                         R5 2
-        4 GETUPVAL                         R6 1
-        5 NAMECALL                         R2 R2 K1 ["format"]
-        7 CALL                             R2 4 1
-        8 MOVE                             R1 R2
-        9 LOADK                            R2 K2 ["WARN"]
-       10 CALL                             R0 2 0
-       11 GETUPVAL                         R0 3
-       12 RETURN                           R0 1
+        1 LOADK                            R1 K0 ["%*:%*() called but %* is unavailable"]
+        2 GETUPVAL                         R3 1
+        3 GETUPVAL                         R4 2
+        4 GETUPVAL                         R5 1
+        5 NAMECALL                         R1 R1 K1 ["format"]
+        7 CALL                             R1 4 1
+        8 LOADK                            R2 K2 ["WARN"]
+        9 CALL                             R0 2 0
+       10 GETUPVAL                         R0 3
+       11 RETURN                           R0 1
 
 PROTO_5:
         0 NEWCLOSURE                       R2 P0

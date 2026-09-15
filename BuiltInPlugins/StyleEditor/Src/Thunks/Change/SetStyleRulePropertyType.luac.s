@@ -26,30 +26,29 @@ PROTO_2:
         6 GETTABLEKS                       R4 R4 K2 ["GetDefaultValue"]
         8 CALL                             R4 0 1
         9 MOVE                             R3 R4
-       10 JUMP                             ; [+23]
+       10 JUMP                             ; [+22]
        11 GETUPVAL                         R5 0
        12 GETTABLEKS                       R5 R5 K3 ["PropertySchemas"]
        14 GETTABLE                         R4 R5 R2
        15 JUMPIFNOTEQKNIL                  R4 ; [+2]
        17 LOADB                            R6 0 +1
        18 LOADB                            R6 1
-       19 LOADK                            R8 K4 ["unknown schema for type: %*"]
-       20 MOVE                             R10 R2
-       21 NAMECALL                         R8 R8 K5 ["format"]
-       23 CALL                             R8 2 1
-       24 MOVE                             R7 R8
-       25 FASTCALL2                        ASSERT R6 R7 ; [+3]
-       27 GETIMPORT                        R5 K7 [assert]
-       29 CALL                             R5 2 0
-       30 GETTABLEKS                       R5 R4 K2 ["GetDefaultValue"]
-       32 CALL                             R5 0 1
-       33 MOVE                             R3 R5
-       34 NEWCLOSURE                       R4 P0
-       35 CAPTURE                          VAL R0
-       36 CAPTURE                          VAL R1
-       37 CAPTURE                          REF R3
-       38 CLOSEUPVALS                      R3
-       39 RETURN                           R4 1
+       19 LOADK                            R7 K4 ["unknown schema for type: %*"]
+       20 MOVE                             R9 R2
+       21 NAMECALL                         R7 R7 K5 ["format"]
+       23 CALL                             R7 2 1
+       24 FASTCALL2                        ASSERT R6 R7 ; [+3]
+       26 GETIMPORT                        R5 K7 [assert]
+       28 CALL                             R5 2 0
+       29 GETTABLEKS                       R5 R4 K2 ["GetDefaultValue"]
+       31 CALL                             R5 0 1
+       32 MOVE                             R3 R5
+       33 NEWCLOSURE                       R4 P0
+       34 CAPTURE                          VAL R0
+       35 CAPTURE                          VAL R1
+       36 CAPTURE                          REF R3
+       37 CLOSEUPVALS                      R3
+       38 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

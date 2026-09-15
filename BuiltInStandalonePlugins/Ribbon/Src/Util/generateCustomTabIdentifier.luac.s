@@ -22,17 +22,16 @@ PROTO_0:
        25 CALL                             R1 3 1
        26 MOVE                             R0 R1
        27 JUMP                             ; [0]
-       28 LOADK                            R2 K9 ["%*_%*"]
-       29 MOVE                             R4 R0
-       30 GETUPVAL                         R5 0
-       31 NAMECALL                         R5 R5 K10 ["GenerateGUID"]
-       33 CALL                             R5 1 1
-       34 NAMECALL                         R2 R2 K11 ["format"]
-       36 CALL                             R2 3 1
-       37 MOVE                             R1 R2
-       38 DUPTABLE                         R2 K15 [{["Type"] = "Custom", ["Filename"]}]
-       39 SETTABLEKS                       R1 R2 K14 ["Filename"]
-       41 RETURN                           R2 1
+       28 LOADK                            R1 K9 ["%*_%*"]
+       29 MOVE                             R3 R0
+       30 GETUPVAL                         R4 0
+       31 NAMECALL                         R4 R4 K10 ["GenerateGUID"]
+       33 CALL                             R4 1 1
+       34 NAMECALL                         R1 R1 K11 ["format"]
+       36 CALL                             R1 3 1
+       37 DUPTABLE                         R2 K15 [{["Type"] = "Custom", ["Filename"]}]
+       38 SETTABLEKS                       R1 R2 K14 ["Filename"]
+       40 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

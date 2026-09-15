@@ -76,150 +76,145 @@ PROTO_3:
         3 CALL                             R1 1 1
         4 GETTABLEKS                       R2 R0 K1 ["Item"]
         6 GETTABLEKS                       R3 R2 K2 ["Setting"]
-        8 JUMPIF                           R3 ; [+12]
+        8 JUMPIF                           R3 ; [+11]
         9 GETTABLEKS                       R3 R0 K3 ["Warn"]
-       11 LOADK                            R5 K4 ["Missing Setting field for SelectInput with id %*"]
-       12 GETTABLEKS                       R7 R2 K5 ["Id"]
-       14 NAMECALL                         R5 R5 K6 ["format"]
-       16 CALL                             R5 2 1
-       17 MOVE                             R4 R5
-       18 CALL                             R3 1 0
-       19 LOADNIL                          R3
-       20 RETURN                           R3 1
-       21 GETUPVAL                         R3 1
-       22 GETTABLEKS                       R3 R3 K7 ["toString"]
-       24 GETTABLEKS                       R4 R2 K2 ["Setting"]
-       26 CALL                             R3 1 1
-       27 GETTABLEKS                       R5 R0 K8 ["Items"]
-       29 GETTABLEKS                       R5 R5 K9 ["Settings"]
-       31 GETTABLE                         R4 R5 R3
-       32 JUMPIF                           R4 ; [+13]
-       33 GETTABLEKS                       R5 R0 K3 ["Warn"]
-       35 LOADK                            R7 K10 ["Missing Setting %* for SelectInput with id %*"]
-       36 MOVE                             R9 R3
-       37 GETTABLEKS                       R10 R2 K5 ["Id"]
-       39 NAMECALL                         R7 R7 K6 ["format"]
-       41 CALL                             R7 3 1
-       42 MOVE                             R6 R7
-       43 CALL                             R5 1 0
-       44 LOADNIL                          R5
-       45 RETURN                           R5 1
-       46 GETTABLEKS                       R6 R4 K11 ["Value"]
-       48 FASTCALL1                        TYPEOF R6 ; [+2]
-       49 GETIMPORT                        R5 K13 [typeof]
-       51 CALL                             R5 1 1
-       52 JUMPIFEQKS                       R5 K14 ["number"] ; [+16]
-       54 GETTABLEKS                       R5 R0 K3 ["Warn"]
-       56 LOADK                            R7 K15 ["Setting %* has an invalid value %* for SelectInput with id %*"]
-       57 MOVE                             R9 R3
-       58 GETTABLEKS                       R10 R4 K11 ["Value"]
-       60 GETTABLEKS                       R11 R2 K5 ["Id"]
-       62 NAMECALL                         R7 R7 K6 ["format"]
-       64 CALL                             R7 4 1
-       65 MOVE                             R6 R7
-       66 CALL                             R5 1 0
-       67 LOADNIL                          R5
-       68 RETURN                           R5 1
-       69 GETTABLEKS                       R5 R4 K16 ["Values"]
-       71 JUMPIF                           R5 ; [+13]
-       72 GETTABLEKS                       R6 R0 K3 ["Warn"]
-       74 LOADK                            R8 K17 ["Setting %* has no Values field for SelectInput with id %*"]
-       75 MOVE                             R10 R3
-       76 GETTABLEKS                       R11 R2 K5 ["Id"]
-       78 NAMECALL                         R8 R8 K6 ["format"]
-       80 CALL                             R8 3 1
-       81 MOVE                             R7 R8
-       82 CALL                             R6 1 0
-       83 LOADNIL                          R6
-       84 RETURN                           R6 1
-       85 GETTABLEKS                       R8 R4 K11 ["Value"]
-       87 ADDK                             R7 R8 K18 [1]
-       88 GETTABLE                         R6 R5 R7
-       89 JUMPIF                           R6 ; [+16]
-       90 GETTABLEKS                       R7 R0 K3 ["Warn"]
-       92 LOADK                            R9 K19 ["Setting %* has no Value %* for SelectInput with id %*"]
-       93 MOVE                             R11 R3
-       94 GETTABLEKS                       R13 R4 K11 ["Value"]
-       96 ADDK                             R12 R13 K18 [1]
-       97 GETTABLEKS                       R13 R2 K5 ["Id"]
-       99 NAMECALL                         R9 R9 K6 ["format"]
-      101 CALL                             R9 4 1
-      102 MOVE                             R8 R9
-      103 CALL                             R7 1 0
-      104 LOADNIL                          R7
-      105 RETURN                           R7 1
-      106 NEWCLOSURE                       R7 P0
-      107 CAPTURE                          UPVAL U2
-      108 CAPTURE                          UPVAL U3
-      109 CAPTURE                          VAL R5
-      110 CAPTURE                          UPVAL U4
-      111 CAPTURE                          VAL R4
-      112 CAPTURE                          VAL R2
-      113 CAPTURE                          UPVAL U5
-      114 CAPTURE                          VAL R0
-      115 GETTABLEKS                       R9 R4 K20 ["Enabled"]
-      117 JUMPIFEQKNIL                     R9 ; [+4]
-      119 GETTABLEKS                       R8 R4 K20 ["Enabled"]
-      121 JUMP                             ; [+1]
-      122 LOADB                            R8 1
-      123 GETTABLEKS                       R10 R4 K21 ["Visible"]
-      125 JUMPIFEQKNIL                     R10 ; [+4]
-      127 GETTABLEKS                       R9 R4 K21 ["Visible"]
-      129 JUMP                             ; [+1]
-      130 LOADB                            R9 1
-      131 GETUPVAL                         R10 6
-      132 GETUPVAL                         R11 7
-      133 DUPTABLE                         R12 K33 [{"Disabled", "Visible", "Size", "Text", "Icon", "IconSide", "LayoutOrder", "OnSelect", "MenuData", "Uri", "Tooltip", "TooltipTitle"}]
-      134 NOT                              R13 R8
-      135 SETTABLEKS                       R13 R12 K22 ["Disabled"]
-      137 SETTABLEKS                       R9 R12 K21 ["Visible"]
-      139 GETTABLEKS                       R13 R2 K23 ["Size"]
-      141 SETTABLEKS                       R13 R12 K23 ["Size"]
-      143 GETUPVAL                         R13 8
-      144 MOVE                             R14 R1
-      145 LOADK                            R15 K24 ["Text"]
-      146 MOVE                             R16 R6
-      147 MOVE                             R17 R2
-      148 MOVE                             R18 R4
-      149 CALL                             R13 5 1
-      150 SETTABLEKS                       R13 R12 K24 ["Text"]
-      152 GETTABLEKS                       R13 R6 K25 ["Icon"]
-      154 JUMPIF                           R13 ; [+5]
-      155 GETTABLEKS                       R13 R2 K25 ["Icon"]
-      157 JUMPIF                           R13 ; [+2]
-      158 GETTABLEKS                       R13 R4 K25 ["Icon"]
-      160 SETTABLEKS                       R13 R12 K25 ["Icon"]
-      162 GETTABLEKS                       R13 R2 K26 ["IconSide"]
-      164 SETTABLEKS                       R13 R12 K26 ["IconSide"]
-      166 GETTABLEKS                       R13 R0 K27 ["LayoutOrder"]
-      168 SETTABLEKS                       R13 R12 K27 ["LayoutOrder"]
-      170 SETTABLEKS                       R7 R12 K28 ["OnSelect"]
-      172 GETTABLEKS                       R13 R0 K29 ["MenuData"]
-      174 SETTABLEKS                       R13 R12 K29 ["MenuData"]
-      176 GETUPVAL                         R13 1
-      177 GETTABLEKS                       R13 R13 K34 ["child"]
-      179 GETTABLEKS                       R14 R0 K35 ["WidgetUri"]
-      181 GETTABLEKS                       R15 R2 K5 ["Id"]
-      183 CALL                             R13 2 1
-      184 SETTABLEKS                       R13 R12 K30 ["Uri"]
-      186 GETUPVAL                         R13 8
-      187 MOVE                             R14 R1
-      188 LOADK                            R15 K31 ["Tooltip"]
-      189 MOVE                             R16 R6
-      190 MOVE                             R17 R2
-      191 MOVE                             R18 R4
-      192 CALL                             R13 5 1
-      193 SETTABLEKS                       R13 R12 K31 ["Tooltip"]
-      195 GETUPVAL                         R13 8
-      196 MOVE                             R14 R1
-      197 LOADK                            R15 K24 ["Text"]
-      198 MOVE                             R16 R6
-      199 MOVE                             R17 R2
-      200 MOVE                             R18 R4
-      201 CALL                             R13 5 1
-      202 SETTABLEKS                       R13 R12 K32 ["TooltipTitle"]
-      204 CALL                             R10 2 -1
-      205 RETURN                           R10 -1
+       11 LOADK                            R4 K4 ["Missing Setting field for SelectInput with id %*"]
+       12 GETTABLEKS                       R6 R2 K5 ["Id"]
+       14 NAMECALL                         R4 R4 K6 ["format"]
+       16 CALL                             R4 2 1
+       17 CALL                             R3 1 0
+       18 LOADNIL                          R3
+       19 RETURN                           R3 1
+       20 GETUPVAL                         R3 1
+       21 GETTABLEKS                       R3 R3 K7 ["toString"]
+       23 GETTABLEKS                       R4 R2 K2 ["Setting"]
+       25 CALL                             R3 1 1
+       26 GETTABLEKS                       R5 R0 K8 ["Items"]
+       28 GETTABLEKS                       R5 R5 K9 ["Settings"]
+       30 GETTABLE                         R4 R5 R3
+       31 JUMPIF                           R4 ; [+12]
+       32 GETTABLEKS                       R5 R0 K3 ["Warn"]
+       34 LOADK                            R6 K10 ["Missing Setting %* for SelectInput with id %*"]
+       35 MOVE                             R8 R3
+       36 GETTABLEKS                       R9 R2 K5 ["Id"]
+       38 NAMECALL                         R6 R6 K6 ["format"]
+       40 CALL                             R6 3 1
+       41 CALL                             R5 1 0
+       42 LOADNIL                          R5
+       43 RETURN                           R5 1
+       44 GETTABLEKS                       R6 R4 K11 ["Value"]
+       46 FASTCALL1                        TYPEOF R6 ; [+2]
+       47 GETIMPORT                        R5 K13 [typeof]
+       49 CALL                             R5 1 1
+       50 JUMPIFEQKS                       R5 K14 ["number"] ; [+15]
+       52 GETTABLEKS                       R5 R0 K3 ["Warn"]
+       54 LOADK                            R6 K15 ["Setting %* has an invalid value %* for SelectInput with id %*"]
+       55 MOVE                             R8 R3
+       56 GETTABLEKS                       R9 R4 K11 ["Value"]
+       58 GETTABLEKS                       R10 R2 K5 ["Id"]
+       60 NAMECALL                         R6 R6 K6 ["format"]
+       62 CALL                             R6 4 1
+       63 CALL                             R5 1 0
+       64 LOADNIL                          R5
+       65 RETURN                           R5 1
+       66 GETTABLEKS                       R5 R4 K16 ["Values"]
+       68 JUMPIF                           R5 ; [+12]
+       69 GETTABLEKS                       R6 R0 K3 ["Warn"]
+       71 LOADK                            R7 K17 ["Setting %* has no Values field for SelectInput with id %*"]
+       72 MOVE                             R9 R3
+       73 GETTABLEKS                       R10 R2 K5 ["Id"]
+       75 NAMECALL                         R7 R7 K6 ["format"]
+       77 CALL                             R7 3 1
+       78 CALL                             R6 1 0
+       79 LOADNIL                          R6
+       80 RETURN                           R6 1
+       81 GETTABLEKS                       R8 R4 K11 ["Value"]
+       83 ADDK                             R7 R8 K18 [1]
+       84 GETTABLE                         R6 R5 R7
+       85 JUMPIF                           R6 ; [+15]
+       86 GETTABLEKS                       R7 R0 K3 ["Warn"]
+       88 LOADK                            R8 K19 ["Setting %* has no Value %* for SelectInput with id %*"]
+       89 MOVE                             R10 R3
+       90 GETTABLEKS                       R12 R4 K11 ["Value"]
+       92 ADDK                             R11 R12 K18 [1]
+       93 GETTABLEKS                       R12 R2 K5 ["Id"]
+       95 NAMECALL                         R8 R8 K6 ["format"]
+       97 CALL                             R8 4 1
+       98 CALL                             R7 1 0
+       99 LOADNIL                          R7
+      100 RETURN                           R7 1
+      101 NEWCLOSURE                       R7 P0
+      102 CAPTURE                          UPVAL U2
+      103 CAPTURE                          UPVAL U3
+      104 CAPTURE                          VAL R5
+      105 CAPTURE                          UPVAL U4
+      106 CAPTURE                          VAL R4
+      107 CAPTURE                          VAL R2
+      108 CAPTURE                          UPVAL U5
+      109 CAPTURE                          VAL R0
+      110 GETTABLEKS                       R9 R4 K20 ["Enabled"]
+      112 JUMPIFEQKNIL                     R9 ; [+4]
+      114 GETTABLEKS                       R8 R4 K20 ["Enabled"]
+      116 JUMP                             ; [+1]
+      117 LOADB                            R8 1
+      118 GETTABLEKS                       R10 R4 K21 ["Visible"]
+      120 JUMPIFEQKNIL                     R10 ; [+4]
+      122 GETTABLEKS                       R9 R4 K21 ["Visible"]
+      124 JUMP                             ; [+1]
+      125 LOADB                            R9 1
+      126 GETUPVAL                         R10 6
+      127 GETUPVAL                         R11 7
+      128 DUPTABLE                         R12 K33 [{"Disabled", "Visible", "Size", "Text", "Icon", "IconSide", "LayoutOrder", "OnSelect", "MenuData", "Uri", "Tooltip", "TooltipTitle"}]
+      129 NOT                              R13 R8
+      130 SETTABLEKS                       R13 R12 K22 ["Disabled"]
+      132 SETTABLEKS                       R9 R12 K21 ["Visible"]
+      134 GETTABLEKS                       R13 R2 K23 ["Size"]
+      136 SETTABLEKS                       R13 R12 K23 ["Size"]
+      138 GETUPVAL                         R13 8
+      139 MOVE                             R14 R1
+      140 LOADK                            R15 K24 ["Text"]
+      141 MOVE                             R16 R6
+      142 MOVE                             R17 R2
+      143 MOVE                             R18 R4
+      144 CALL                             R13 5 1
+      145 SETTABLEKS                       R13 R12 K24 ["Text"]
+      147 GETTABLEKS                       R13 R6 K25 ["Icon"]
+      149 JUMPIF                           R13 ; [+5]
+      150 GETTABLEKS                       R13 R2 K25 ["Icon"]
+      152 JUMPIF                           R13 ; [+2]
+      153 GETTABLEKS                       R13 R4 K25 ["Icon"]
+      155 SETTABLEKS                       R13 R12 K25 ["Icon"]
+      157 GETTABLEKS                       R13 R2 K26 ["IconSide"]
+      159 SETTABLEKS                       R13 R12 K26 ["IconSide"]
+      161 GETTABLEKS                       R13 R0 K27 ["LayoutOrder"]
+      163 SETTABLEKS                       R13 R12 K27 ["LayoutOrder"]
+      165 SETTABLEKS                       R7 R12 K28 ["OnSelect"]
+      167 GETTABLEKS                       R13 R0 K29 ["MenuData"]
+      169 SETTABLEKS                       R13 R12 K29 ["MenuData"]
+      171 GETUPVAL                         R13 1
+      172 GETTABLEKS                       R13 R13 K34 ["child"]
+      174 GETTABLEKS                       R14 R0 K35 ["WidgetUri"]
+      176 GETTABLEKS                       R15 R2 K5 ["Id"]
+      178 CALL                             R13 2 1
+      179 SETTABLEKS                       R13 R12 K30 ["Uri"]
+      181 GETUPVAL                         R13 8
+      182 MOVE                             R14 R1
+      183 LOADK                            R15 K31 ["Tooltip"]
+      184 MOVE                             R16 R6
+      185 MOVE                             R17 R2
+      186 MOVE                             R18 R4
+      187 CALL                             R13 5 1
+      188 SETTABLEKS                       R13 R12 K31 ["Tooltip"]
+      190 GETUPVAL                         R13 8
+      191 MOVE                             R14 R1
+      192 LOADK                            R15 K24 ["Text"]
+      193 MOVE                             R16 R6
+      194 MOVE                             R17 R2
+      195 MOVE                             R18 R4
+      196 CALL                             R13 5 1
+      197 SETTABLEKS                       R13 R12 K32 ["TooltipTitle"]
+      199 CALL                             R10 2 -1
+      200 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

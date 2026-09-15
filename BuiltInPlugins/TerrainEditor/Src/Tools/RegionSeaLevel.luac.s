@@ -25,7 +25,7 @@ PROTO_2:
         3 NEWTABLE                         R3 2 0
         5 GETUPVAL                         R4 0
         6 GETTABLEKS                       R4 R4 K1 ["MaterialSettings"]
-        8 NEWTABLE                         R5 4 0
+        8 NEWTABLE                         R5 8 0
        10 GETUPVAL                         R6 1
        11 GETTABLEKS                       R6 R6 K2 ["FillMode"]
        13 GETUPVAL                         R7 2
@@ -36,65 +36,75 @@ PROTO_2:
        20 GETIMPORT                        R7 K8 [Enum.Material.Air]
        22 SETTABLE                         R7 R5 R6
        23 GETUPVAL                         R6 1
-       24 GETTABLEKS                       R6 R6 K9 ["TargetMaterial"]
-       26 GETIMPORT                        R7 K11 [Enum.Material.Water]
-       28 SETTABLE                         R7 R5 R6
-       29 SETTABLE                         R5 R3 R4
-       30 GETUPVAL                         R4 0
-       31 GETTABLEKS                       R4 R4 K12 ["SelectionSettings"]
-       33 NEWTABLE                         R5 2 0
-       35 GETUPVAL                         R6 3
-       36 GETTABLEKS                       R6 R6 K13 ["Size"]
-       38 GETUPVAL                         R9 0
-       39 GETTABLEKS                       R9 R9 K14 ["SeaLevelSettings"]
-       41 GETTABLE                         R8 R2 R9
-       42 GETUPVAL                         R9 4
-       43 GETTABLEKS                       R9 R9 K13 ["Size"]
-       45 GETTABLE                         R7 R8 R9
-       46 SETTABLE                         R7 R5 R6
-       47 GETUPVAL                         R6 3
-       48 GETTABLEKS                       R6 R6 K15 ["Transform"]
-       50 GETUPVAL                         R9 0
-       51 GETTABLEKS                       R9 R9 K14 ["SeaLevelSettings"]
-       53 GETTABLE                         R8 R2 R9
-       54 GETUPVAL                         R9 4
-       55 GETTABLEKS                       R9 R9 K15 ["Transform"]
-       57 GETTABLE                         R7 R8 R9
-       58 SETTABLE                         R7 R5 R6
-       59 SETTABLE                         R5 R3 R4
-       60 MOVE                             R2 R3
-       61 GETTABLEKS                       R3 R0 K16 ["_localization"]
-       63 LOADK                            R5 K17 ["Operations"]
-       64 LOADK                            R6 K18 ["CreateName"]
-       65 NAMECALL                         R3 R3 K19 ["getText"]
-       67 CALL                             R3 3 1
-       68 GETTABLEKS                       R4 R0 K16 ["_localization"]
-       70 LOADK                            R6 K17 ["Operations"]
-       71 LOADK                            R7 K20 ["CreateDescription"]
-       72 NAMECALL                         R4 R4 K19 ["getText"]
-       74 CALL                             R4 3 1
-       75 GETUPVAL                         R5 5
-       76 MOVE                             R6 R3
-       77 MOVE                             R7 R4
-       78 GETTABLEKS                       R8 R0 K21 ["_services"]
-       80 CALL                             R5 3 1
-       81 SETTABLEKS                       R5 R0 K22 ["_operation"]
-       83 GETTABLEKS                       R5 R0 K22 ["_operation"]
-       85 GETTABLEKS                       R5 R5 K23 ["Finished"]
-       87 NEWCLOSURE                       R7 P0
-       88 CAPTURE                          VAL R0
-       89 NAMECALL                         R5 R5 K24 ["Connect"]
-       91 CALL                             R5 2 1
-       92 SETTABLEKS                       R5 R0 K25 ["_operationFinishedConnection"]
-       94 GETUPVAL                         R7 6
-       95 GETTABLEKS                       R7 R7 K26 ["join"]
-       97 DUPTABLE                         R8 K28 [{"Payload"}]
-       98 SETTABLEKS                       R2 R8 K27 ["Payload"]
-      100 MOVE                             R9 R1
-      101 CALL                             R7 2 -1
-      102 NAMECALL                         R5 R0 K29 ["startOperation"]
-      104 CALL                             R5 -1 0
-      105 RETURN                           R0 0
+       24 GETTABLEKS                       R6 R6 K9 ["SourceMaterialSlot"]
+       26 GETUPVAL                         R7 3
+       27 GETTABLEKS                       R7 R7 K10 ["AIR_SLOT_INDEX"]
+       29 SETTABLE                         R7 R5 R6
+       30 GETUPVAL                         R6 1
+       31 GETTABLEKS                       R6 R6 K11 ["TargetMaterial"]
+       33 GETIMPORT                        R7 K13 [Enum.Material.Water]
+       35 SETTABLE                         R7 R5 R6
+       36 GETUPVAL                         R6 1
+       37 GETTABLEKS                       R6 R6 K14 ["TargetMaterialSlot"]
+       39 GETUPVAL                         R7 3
+       40 GETTABLEKS                       R7 R7 K15 ["WATER_SLOT_INDEX"]
+       42 SETTABLE                         R7 R5 R6
+       43 SETTABLE                         R5 R3 R4
+       44 GETUPVAL                         R4 0
+       45 GETTABLEKS                       R4 R4 K16 ["SelectionSettings"]
+       47 NEWTABLE                         R5 2 0
+       49 GETUPVAL                         R6 4
+       50 GETTABLEKS                       R6 R6 K17 ["Size"]
+       52 GETUPVAL                         R9 0
+       53 GETTABLEKS                       R9 R9 K18 ["SeaLevelSettings"]
+       55 GETTABLE                         R8 R2 R9
+       56 GETUPVAL                         R9 5
+       57 GETTABLEKS                       R9 R9 K17 ["Size"]
+       59 GETTABLE                         R7 R8 R9
+       60 SETTABLE                         R7 R5 R6
+       61 GETUPVAL                         R6 4
+       62 GETTABLEKS                       R6 R6 K19 ["Transform"]
+       64 GETUPVAL                         R9 0
+       65 GETTABLEKS                       R9 R9 K18 ["SeaLevelSettings"]
+       67 GETTABLE                         R8 R2 R9
+       68 GETUPVAL                         R9 5
+       69 GETTABLEKS                       R9 R9 K19 ["Transform"]
+       71 GETTABLE                         R7 R8 R9
+       72 SETTABLE                         R7 R5 R6
+       73 SETTABLE                         R5 R3 R4
+       74 MOVE                             R2 R3
+       75 GETTABLEKS                       R3 R0 K20 ["_localization"]
+       77 LOADK                            R5 K21 ["Operations"]
+       78 LOADK                            R6 K22 ["CreateName"]
+       79 NAMECALL                         R3 R3 K23 ["getText"]
+       81 CALL                             R3 3 1
+       82 GETTABLEKS                       R4 R0 K20 ["_localization"]
+       84 LOADK                            R6 K21 ["Operations"]
+       85 LOADK                            R7 K24 ["CreateDescription"]
+       86 NAMECALL                         R4 R4 K23 ["getText"]
+       88 CALL                             R4 3 1
+       89 GETUPVAL                         R5 6
+       90 MOVE                             R6 R3
+       91 MOVE                             R7 R4
+       92 GETTABLEKS                       R8 R0 K25 ["_services"]
+       94 CALL                             R5 3 1
+       95 SETTABLEKS                       R5 R0 K26 ["_operation"]
+       97 GETTABLEKS                       R5 R0 K26 ["_operation"]
+       99 GETTABLEKS                       R5 R5 K27 ["Finished"]
+      101 NEWCLOSURE                       R7 P0
+      102 CAPTURE                          VAL R0
+      103 NAMECALL                         R5 R5 K28 ["Connect"]
+      105 CALL                             R5 2 1
+      106 SETTABLEKS                       R5 R0 K29 ["_operationFinishedConnection"]
+      108 GETUPVAL                         R7 7
+      109 GETTABLEKS                       R7 R7 K30 ["join"]
+      111 DUPTABLE                         R8 K32 [{"Payload"}]
+      112 SETTABLEKS                       R2 R8 K31 ["Payload"]
+      114 MOVE                             R9 R1
+      115 CALL                             R7 2 -1
+      116 NAMECALL                         R5 R0 K33 ["startOperation"]
+      118 CALL                             R5 -1 0
+      119 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -108,7 +118,7 @@ PROTO_4:
         3 NEWTABLE                         R3 2 0
         5 GETUPVAL                         R4 0
         6 GETTABLEKS                       R4 R4 K1 ["MaterialSettings"]
-        8 NEWTABLE                         R5 4 0
+        8 NEWTABLE                         R5 8 0
        10 GETUPVAL                         R6 1
        11 GETTABLEKS                       R6 R6 K2 ["FillMode"]
        13 GETUPVAL                         R7 2
@@ -119,65 +129,75 @@ PROTO_4:
        20 GETIMPORT                        R7 K8 [Enum.Material.Water]
        22 SETTABLE                         R7 R5 R6
        23 GETUPVAL                         R6 1
-       24 GETTABLEKS                       R6 R6 K9 ["TargetMaterial"]
-       26 GETIMPORT                        R7 K11 [Enum.Material.Air]
-       28 SETTABLE                         R7 R5 R6
-       29 SETTABLE                         R5 R3 R4
-       30 GETUPVAL                         R4 0
-       31 GETTABLEKS                       R4 R4 K12 ["SelectionSettings"]
-       33 NEWTABLE                         R5 2 0
-       35 GETUPVAL                         R6 3
-       36 GETTABLEKS                       R6 R6 K13 ["Size"]
-       38 GETUPVAL                         R9 0
-       39 GETTABLEKS                       R9 R9 K14 ["SeaLevelSettings"]
-       41 GETTABLE                         R8 R2 R9
-       42 GETUPVAL                         R9 4
-       43 GETTABLEKS                       R9 R9 K13 ["Size"]
-       45 GETTABLE                         R7 R8 R9
-       46 SETTABLE                         R7 R5 R6
-       47 GETUPVAL                         R6 3
-       48 GETTABLEKS                       R6 R6 K15 ["Transform"]
-       50 GETUPVAL                         R9 0
-       51 GETTABLEKS                       R9 R9 K14 ["SeaLevelSettings"]
-       53 GETTABLE                         R8 R2 R9
-       54 GETUPVAL                         R9 4
-       55 GETTABLEKS                       R9 R9 K15 ["Transform"]
-       57 GETTABLE                         R7 R8 R9
-       58 SETTABLE                         R7 R5 R6
-       59 SETTABLE                         R5 R3 R4
-       60 MOVE                             R2 R3
-       61 GETTABLEKS                       R3 R0 K16 ["_localization"]
-       63 LOADK                            R5 K17 ["Operations"]
-       64 LOADK                            R6 K18 ["EvaporateName"]
-       65 NAMECALL                         R3 R3 K19 ["getText"]
-       67 CALL                             R3 3 1
-       68 GETTABLEKS                       R4 R0 K16 ["_localization"]
-       70 LOADK                            R6 K17 ["Operations"]
-       71 LOADK                            R7 K20 ["EvaporateDescription"]
-       72 NAMECALL                         R4 R4 K19 ["getText"]
-       74 CALL                             R4 3 1
-       75 GETUPVAL                         R5 5
-       76 MOVE                             R6 R3
-       77 MOVE                             R7 R4
-       78 GETTABLEKS                       R8 R0 K21 ["_services"]
-       80 CALL                             R5 3 1
-       81 SETTABLEKS                       R5 R0 K22 ["_operation"]
-       83 GETTABLEKS                       R5 R0 K22 ["_operation"]
-       85 GETTABLEKS                       R5 R5 K23 ["Finished"]
-       87 NEWCLOSURE                       R7 P0
-       88 CAPTURE                          VAL R0
-       89 NAMECALL                         R5 R5 K24 ["Connect"]
-       91 CALL                             R5 2 1
-       92 SETTABLEKS                       R5 R0 K25 ["_operationFinishedConnection"]
-       94 GETUPVAL                         R7 6
-       95 GETTABLEKS                       R7 R7 K26 ["join"]
-       97 DUPTABLE                         R8 K28 [{"Payload"}]
-       98 SETTABLEKS                       R2 R8 K27 ["Payload"]
-      100 MOVE                             R9 R1
-      101 CALL                             R7 2 -1
-      102 NAMECALL                         R5 R0 K29 ["startOperation"]
-      104 CALL                             R5 -1 0
-      105 RETURN                           R0 0
+       24 GETTABLEKS                       R6 R6 K9 ["SourceMaterialSlot"]
+       26 GETUPVAL                         R7 3
+       27 GETTABLEKS                       R7 R7 K10 ["WATER_SLOT_INDEX"]
+       29 SETTABLE                         R7 R5 R6
+       30 GETUPVAL                         R6 1
+       31 GETTABLEKS                       R6 R6 K11 ["TargetMaterial"]
+       33 GETIMPORT                        R7 K13 [Enum.Material.Air]
+       35 SETTABLE                         R7 R5 R6
+       36 GETUPVAL                         R6 1
+       37 GETTABLEKS                       R6 R6 K14 ["TargetMaterialSlot"]
+       39 GETUPVAL                         R7 3
+       40 GETTABLEKS                       R7 R7 K15 ["AIR_SLOT_INDEX"]
+       42 SETTABLE                         R7 R5 R6
+       43 SETTABLE                         R5 R3 R4
+       44 GETUPVAL                         R4 0
+       45 GETTABLEKS                       R4 R4 K16 ["SelectionSettings"]
+       47 NEWTABLE                         R5 2 0
+       49 GETUPVAL                         R6 4
+       50 GETTABLEKS                       R6 R6 K17 ["Size"]
+       52 GETUPVAL                         R9 0
+       53 GETTABLEKS                       R9 R9 K18 ["SeaLevelSettings"]
+       55 GETTABLE                         R8 R2 R9
+       56 GETUPVAL                         R9 5
+       57 GETTABLEKS                       R9 R9 K17 ["Size"]
+       59 GETTABLE                         R7 R8 R9
+       60 SETTABLE                         R7 R5 R6
+       61 GETUPVAL                         R6 4
+       62 GETTABLEKS                       R6 R6 K19 ["Transform"]
+       64 GETUPVAL                         R9 0
+       65 GETTABLEKS                       R9 R9 K18 ["SeaLevelSettings"]
+       67 GETTABLE                         R8 R2 R9
+       68 GETUPVAL                         R9 5
+       69 GETTABLEKS                       R9 R9 K19 ["Transform"]
+       71 GETTABLE                         R7 R8 R9
+       72 SETTABLE                         R7 R5 R6
+       73 SETTABLE                         R5 R3 R4
+       74 MOVE                             R2 R3
+       75 GETTABLEKS                       R3 R0 K20 ["_localization"]
+       77 LOADK                            R5 K21 ["Operations"]
+       78 LOADK                            R6 K22 ["EvaporateName"]
+       79 NAMECALL                         R3 R3 K23 ["getText"]
+       81 CALL                             R3 3 1
+       82 GETTABLEKS                       R4 R0 K20 ["_localization"]
+       84 LOADK                            R6 K21 ["Operations"]
+       85 LOADK                            R7 K24 ["EvaporateDescription"]
+       86 NAMECALL                         R4 R4 K23 ["getText"]
+       88 CALL                             R4 3 1
+       89 GETUPVAL                         R5 6
+       90 MOVE                             R6 R3
+       91 MOVE                             R7 R4
+       92 GETTABLEKS                       R8 R0 K25 ["_services"]
+       94 CALL                             R5 3 1
+       95 SETTABLEKS                       R5 R0 K26 ["_operation"]
+       97 GETTABLEKS                       R5 R0 K26 ["_operation"]
+       99 GETTABLEKS                       R5 R5 K27 ["Finished"]
+      101 NEWCLOSURE                       R7 P0
+      102 CAPTURE                          VAL R0
+      103 NAMECALL                         R5 R5 K28 ["Connect"]
+      105 CALL                             R5 2 1
+      106 SETTABLEKS                       R5 R0 K29 ["_operationFinishedConnection"]
+      108 GETUPVAL                         R7 7
+      109 GETTABLEKS                       R7 R7 K30 ["join"]
+      111 DUPTABLE                         R8 K32 [{"Payload"}]
+      112 SETTABLEKS                       R2 R8 K31 ["Payload"]
+      114 MOVE                             R9 R1
+      115 CALL                             R7 2 -1
+      116 NAMECALL                         R5 R0 K33 ["startOperation"]
+      118 CALL                             R5 -1 0
+      119 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -316,72 +336,77 @@ MAIN:
        52 GETTABLEKS                       R14 R12 K21 ["Operations"]
        54 GETTABLEKS                       R14 R14 K22 ["FillOperation"]
        56 CALL                             R13 1 1
-       57 NEWTABLE                         R14 0 1
-       59 DUPTABLE                         R15 K25 [{"Defaults", "Id"}]
-       60 NEWTABLE                         R16 4 0
-       62 GETTABLEKS                       R17 R8 K26 ["Size"]
-       64 LOADK                            R18 K27 [{64, 32, 64}]
-       65 SETTABLE                         R18 R16 R17
-       66 GETTABLEKS                       R17 R8 K28 ["SnapToVoxels"]
-       68 LOADB                            R18 1
-       69 SETTABLE                         R18 R16 R17
-       70 GETTABLEKS                       R17 R8 K29 ["Transform"]
-       72 GETIMPORT                        R18 K32 [CFrame.new]
-       74 CALL                             R18 0 1
-       75 SETTABLE                         R18 R16 R17
-       76 SETTABLEKS                       R16 R15 K23 ["Defaults"]
-       78 GETTABLEKS                       R16 R4 K16 ["SeaLevelSettings"]
-       80 SETTABLEKS                       R16 R15 K24 ["Id"]
-       82 SETLIST                          R14 R15 1 [1]
-       84 NEWTABLE                         R15 0 1
-       86 DUPTABLE                         R16 K34 [{"Id", "Schema"}]
-       87 GETTABLEKS                       R17 R6 K35 ["Region"]
-       89 SETTABLEKS                       R17 R16 K24 ["Id"]
-       91 DUPTABLE                         R17 K40 [{["Type"], ["Wireframe"] = False, ["Rotation"] = False}]
-       92 GETTABLEKS                       R18 R6 K35 ["Region"]
-       94 SETTABLEKS                       R18 R17 K36 ["Type"]
-       96 SETTABLEKS                       R17 R16 K33 ["Schema"]
-       98 SETLIST                          R15 R16 1 [1]
-      100 GETTABLEKS                       R18 R11 K41 ["SeaLevel"]
-      102 GETTABLEKS                       R19 R10 K42 ["Edit"]
-      104 MOVE                             R20 R14
-      105 MOVE                             R21 R15
-      106 NAMECALL                         R16 R2 K31 ["new"]
-      108 CALL                             R16 5 1
-      109 DUPCLOSURE                       R17 K43 [PROTO_0]
-      110 CAPTURE                          VAL R2
-      111 SETTABLEKS                       R17 R16 K44 ["startOperation"]
-      113 DUPCLOSURE                       R17 K45 [PROTO_2]
-      114 CAPTURE                          VAL R4
-      115 CAPTURE                          VAL R7
-      116 CAPTURE                          VAL R5
-      117 CAPTURE                          VAL R9
-      118 CAPTURE                          VAL R8
-      119 CAPTURE                          VAL R13
-      120 CAPTURE                          VAL R1
-      121 SETTABLEKS                       R17 R16 K46 ["create"]
-      123 DUPCLOSURE                       R17 K47 [PROTO_4]
-      124 CAPTURE                          VAL R4
-      125 CAPTURE                          VAL R7
-      126 CAPTURE                          VAL R5
-      127 CAPTURE                          VAL R9
-      128 CAPTURE                          VAL R8
-      129 CAPTURE                          VAL R13
-      130 CAPTURE                          VAL R1
-      131 SETTABLEKS                       R17 R16 K48 ["evaporate"]
-      133 DUPCLOSURE                       R17 K49 [PROTO_7]
-      134 CAPTURE                          VAL R2
-      135 CAPTURE                          VAL R4
-      136 CAPTURE                          VAL R8
-      137 SETTABLEKS                       R17 R16 K50 ["init"]
-      139 DUPCLOSURE                       R17 K51 [PROTO_8]
-      140 CAPTURE                          VAL R4
-      141 CAPTURE                          VAL R8
-      142 SETTABLEKS                       R17 R16 K52 ["setDisabledState"]
-      144 DUPCLOSURE                       R17 K53 [PROTO_9]
-      145 SETTABLEKS                       R17 R16 K54 ["operation"]
-      147 DUPCLOSURE                       R17 K55 [PROTO_10]
-      148 CAPTURE                          VAL R2
-      149 CAPTURE                          VAL R11
-      150 SETTABLEKS                       R17 R16 K56 ["activate"]
-      152 RETURN                           R16 1
+       57 GETIMPORT                        R14 K5 [require]
+       59 GETTABLEKS                       R15 R12 K23 ["TerrainVoxelChannels"]
+       61 CALL                             R14 1 1
+       62 NEWTABLE                         R15 0 1
+       64 DUPTABLE                         R16 K26 [{"Defaults", "Id"}]
+       65 NEWTABLE                         R17 4 0
+       67 GETTABLEKS                       R18 R8 K27 ["Size"]
+       69 LOADK                            R19 K28 [{64, 32, 64}]
+       70 SETTABLE                         R19 R17 R18
+       71 GETTABLEKS                       R18 R8 K29 ["SnapToVoxels"]
+       73 LOADB                            R19 1
+       74 SETTABLE                         R19 R17 R18
+       75 GETTABLEKS                       R18 R8 K30 ["Transform"]
+       77 GETIMPORT                        R19 K33 [CFrame.new]
+       79 CALL                             R19 0 1
+       80 SETTABLE                         R19 R17 R18
+       81 SETTABLEKS                       R17 R16 K24 ["Defaults"]
+       83 GETTABLEKS                       R17 R4 K16 ["SeaLevelSettings"]
+       85 SETTABLEKS                       R17 R16 K25 ["Id"]
+       87 SETLIST                          R15 R16 1 [1]
+       89 NEWTABLE                         R16 0 1
+       91 DUPTABLE                         R17 K35 [{"Id", "Schema"}]
+       92 GETTABLEKS                       R18 R6 K36 ["Region"]
+       94 SETTABLEKS                       R18 R17 K25 ["Id"]
+       96 DUPTABLE                         R18 K41 [{["Type"], ["Wireframe"] = False, ["Rotation"] = False}]
+       97 GETTABLEKS                       R19 R6 K36 ["Region"]
+       99 SETTABLEKS                       R19 R18 K37 ["Type"]
+      101 SETTABLEKS                       R18 R17 K34 ["Schema"]
+      103 SETLIST                          R16 R17 1 [1]
+      105 GETTABLEKS                       R19 R11 K42 ["SeaLevel"]
+      107 GETTABLEKS                       R20 R10 K43 ["Edit"]
+      109 MOVE                             R21 R15
+      110 MOVE                             R22 R16
+      111 NAMECALL                         R17 R2 K32 ["new"]
+      113 CALL                             R17 5 1
+      114 DUPCLOSURE                       R18 K44 [PROTO_0]
+      115 CAPTURE                          VAL R2
+      116 SETTABLEKS                       R18 R17 K45 ["startOperation"]
+      118 DUPCLOSURE                       R18 K46 [PROTO_2]
+      119 CAPTURE                          VAL R4
+      120 CAPTURE                          VAL R7
+      121 CAPTURE                          VAL R5
+      122 CAPTURE                          VAL R14
+      123 CAPTURE                          VAL R9
+      124 CAPTURE                          VAL R8
+      125 CAPTURE                          VAL R13
+      126 CAPTURE                          VAL R1
+      127 SETTABLEKS                       R18 R17 K47 ["create"]
+      129 DUPCLOSURE                       R18 K48 [PROTO_4]
+      130 CAPTURE                          VAL R4
+      131 CAPTURE                          VAL R7
+      132 CAPTURE                          VAL R5
+      133 CAPTURE                          VAL R14
+      134 CAPTURE                          VAL R9
+      135 CAPTURE                          VAL R8
+      136 CAPTURE                          VAL R13
+      137 CAPTURE                          VAL R1
+      138 SETTABLEKS                       R18 R17 K49 ["evaporate"]
+      140 DUPCLOSURE                       R18 K50 [PROTO_7]
+      141 CAPTURE                          VAL R2
+      142 CAPTURE                          VAL R4
+      143 CAPTURE                          VAL R8
+      144 SETTABLEKS                       R18 R17 K51 ["init"]
+      146 DUPCLOSURE                       R18 K52 [PROTO_8]
+      147 CAPTURE                          VAL R4
+      148 CAPTURE                          VAL R8
+      149 SETTABLEKS                       R18 R17 K53 ["setDisabledState"]
+      151 DUPCLOSURE                       R18 K54 [PROTO_9]
+      152 SETTABLEKS                       R18 R17 K55 ["operation"]
+      154 DUPCLOSURE                       R18 K56 [PROTO_10]
+      155 CAPTURE                          VAL R2
+      156 CAPTURE                          VAL R11
+      157 SETTABLEKS                       R18 R17 K57 ["activate"]
+      159 RETURN                           R17 1

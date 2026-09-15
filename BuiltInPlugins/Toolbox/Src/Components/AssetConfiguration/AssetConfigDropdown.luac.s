@@ -57,98 +57,92 @@ PROTO_2:
        24 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIF                           R1 ; [+4]
-        3 GETIMPORT                        R1 K1 [error]
-        5 LOADK                            R2 K2 ["AssetConfigDropdown is only supported when getFFlagToolboxAssetConfigFoundationMigration() is on"]
-        6 CALL                             R1 1 0
-        7 GETTABLEKS                       R1 R0 K3 ["items"]
-        9 JUMPIF                           R1 ; [+2]
-       10 NEWTABLE                         R1 0 0
-       12 GETTABLEKS                       R3 R0 K5 ["selectedDropDownIndex"]
-       14 ORK                              R2 R3 K4 [1]
-       15 LOADB                            R3 0
-       16 LOADN                            R4 0
-       17 JUMPIFNOTLT                      R4 R2 ; [+6]
-       19 LENGTH                           R4 R1
-       20 JUMPIFLE                         R2 R4 ; [+2]
-       22 LOADB                            R3 0 +1
-       23 LOADB                            R3 1
-       24 GETUPVAL                         R4 1
-       25 GETTABLEKS                       R4 R4 K6 ["useMemo"]
-       27 NEWCLOSURE                       R5 P0
-       28 CAPTURE                          VAL R1
-       29 NEWTABLE                         R6 0 1
-       31 MOVE                             R7 R1
-       32 SETLIST                          R6 R7 1 [1]
-       34 CALL                             R4 2 1
-       35 GETUPVAL                         R5 1
-       36 GETTABLEKS                       R5 R5 K7 ["useCallback"]
-       38 NEWCLOSURE                       R6 P1
-       39 CAPTURE                          VAL R1
-       40 CAPTURE                          VAL R0
-       41 NEWTABLE                         R7 0 2
-       43 MOVE                             R8 R1
-       44 GETTABLEKS                       R9 R0 K8 ["onItemClicked"]
-       46 SETLIST                          R7 R8 2 [1]
-       48 CALL                             R5 2 1
-       49 JUMPIFNOT                        R3 ; [+6]
-       50 FASTCALL1                        TOSTRING R2 ; [+3]
-       51 MOVE                             R7 R2
-       52 GETIMPORT                        R6 K10 [tostring]
-       54 CALL                             R6 1 1
-       55 JUMP                             ; [+1]
-       56 LOADNIL                          R6
-       57 LENGTH                           R8 R1
-       58 MULK                             R7 R8 K11 [50]
-       59 LOADN                            R9 200
-       60 JUMPIFLT                         R9 R7 ; [+2]
-       62 LOADB                            R8 0 +1
-       63 LOADB                            R8 1
-       64 GETUPVAL                         R9 1
-       65 GETTABLEKS                       R9 R9 K12 ["createElement"]
-       67 GETUPVAL                         R10 2
-       68 DUPTABLE                         R11 K17 [{["tag"] = "col gap-small auto-xy", ["LayoutOrder"], ["GroupTransparency"]}]
-       69 GETTABLEKS                       R12 R0 K15 ["LayoutOrder"]
-       71 SETTABLEKS                       R12 R11 K15 ["LayoutOrder"]
-       73 GETTABLEKS                       R13 R0 K18 ["isDisabled"]
-       75 JUMPIFNOT                        R13 ; [+2]
-       76 LOADK                            R12 K19 [0.5]
-       77 JUMP                             ; [+1]
-       78 LOADN                            R12 0
-       79 SETTABLEKS                       R12 R11 K16 ["GroupTransparency"]
-       81 DUPTABLE                         R12 K21 [{"DropdownWrapper"}]
-       82 GETUPVAL                         R13 1
-       83 GETTABLEKS                       R13 R13 K12 ["createElement"]
-       85 GETUPVAL                         R14 3
-       86 DUPTABLE                         R15 K30 [{["label"] = "", ["placeholder"], ["value"], ["items"], ["onItemChanged"], ["isDisabled"], ["width"], ["size"], ["LayoutOrder"] = 1, ["maxHeight"]}]
-       87 GETTABLEKS                       R16 R0 K24 ["placeholder"]
-       89 SETTABLEKS                       R16 R15 K24 ["placeholder"]
-       91 SETTABLEKS                       R6 R15 K25 ["value"]
-       93 SETTABLEKS                       R4 R15 K3 ["items"]
-       95 SETTABLEKS                       R5 R15 K26 ["onItemChanged"]
-       97 GETTABLEKS                       R16 R0 K18 ["isDisabled"]
-       99 SETTABLEKS                       R16 R15 K18 ["isDisabled"]
-      101 GETIMPORT                        R16 K33 [UDim.new]
-      103 LOADN                            R17 0
-      104 GETTABLEKS                       R18 R0 K27 ["width"]
-      106 CALL                             R16 2 1
-      107 SETTABLEKS                       R16 R15 K27 ["width"]
-      109 GETUPVAL                         R16 4
-      110 GETTABLEKS                       R16 R16 K34 ["Enums"]
-      112 GETTABLEKS                       R16 R16 K35 ["InputSize"]
-      114 GETTABLEKS                       R16 R16 K36 ["Small"]
-      116 SETTABLEKS                       R16 R15 K28 ["size"]
-      118 JUMPIFNOT                        R8 ; [+2]
-      119 LOADN                            R16 200
-      120 JUMP                             ; [+1]
-      121 LOADNIL                          R16
-      122 SETTABLEKS                       R16 R15 K29 ["maxHeight"]
-      124 CALL                             R13 2 1
-      125 SETTABLEKS                       R13 R12 K20 ["DropdownWrapper"]
-      127 CALL                             R9 3 -1
-      128 RETURN                           R9 -1
+        0 GETTABLEKS                       R1 R0 K0 ["items"]
+        2 JUMPIF                           R1 ; [+2]
+        3 NEWTABLE                         R1 0 0
+        5 GETTABLEKS                       R3 R0 K2 ["selectedDropDownIndex"]
+        7 ORK                              R2 R3 K1 [1]
+        8 LOADB                            R3 0
+        9 LOADN                            R4 0
+       10 JUMPIFNOTLT                      R4 R2 ; [+6]
+       12 LENGTH                           R4 R1
+       13 JUMPIFLE                         R2 R4 ; [+2]
+       15 LOADB                            R3 0 +1
+       16 LOADB                            R3 1
+       17 GETUPVAL                         R4 0
+       18 GETTABLEKS                       R4 R4 K3 ["useMemo"]
+       20 NEWCLOSURE                       R5 P0
+       21 CAPTURE                          VAL R1
+       22 NEWTABLE                         R6 0 1
+       24 MOVE                             R7 R1
+       25 SETLIST                          R6 R7 1 [1]
+       27 CALL                             R4 2 1
+       28 GETUPVAL                         R5 0
+       29 GETTABLEKS                       R5 R5 K4 ["useCallback"]
+       31 NEWCLOSURE                       R6 P1
+       32 CAPTURE                          VAL R1
+       33 CAPTURE                          VAL R0
+       34 NEWTABLE                         R7 0 2
+       36 MOVE                             R8 R1
+       37 GETTABLEKS                       R9 R0 K5 ["onItemClicked"]
+       39 SETLIST                          R7 R8 2 [1]
+       41 CALL                             R5 2 1
+       42 JUMPIFNOT                        R3 ; [+6]
+       43 FASTCALL1                        TOSTRING R2 ; [+3]
+       44 MOVE                             R7 R2
+       45 GETIMPORT                        R6 K7 [tostring]
+       47 CALL                             R6 1 1
+       48 JUMP                             ; [+1]
+       49 LOADNIL                          R6
+       50 LENGTH                           R8 R1
+       51 MULK                             R7 R8 K8 [50]
+       52 LOADN                            R9 200
+       53 JUMPIFLT                         R9 R7 ; [+2]
+       55 LOADB                            R8 0 +1
+       56 LOADB                            R8 1
+       57 GETUPVAL                         R9 0
+       58 GETTABLEKS                       R9 R9 K9 ["createElement"]
+       60 GETUPVAL                         R10 1
+       61 DUPTABLE                         R11 K14 [{["tag"] = "col gap-small auto-xy", ["LayoutOrder"], ["GroupTransparency"]}]
+       62 GETTABLEKS                       R12 R0 K12 ["LayoutOrder"]
+       64 SETTABLEKS                       R12 R11 K12 ["LayoutOrder"]
+       66 GETTABLEKS                       R13 R0 K15 ["isDisabled"]
+       68 JUMPIFNOT                        R13 ; [+2]
+       69 LOADK                            R12 K16 [0.5]
+       70 JUMP                             ; [+1]
+       71 LOADN                            R12 0
+       72 SETTABLEKS                       R12 R11 K13 ["GroupTransparency"]
+       74 DUPTABLE                         R12 K18 [{"DropdownWrapper"}]
+       75 GETUPVAL                         R13 0
+       76 GETTABLEKS                       R13 R13 K9 ["createElement"]
+       78 GETUPVAL                         R14 2
+       79 DUPTABLE                         R15 K27 [{["label"] = "", ["placeholder"], ["value"], [4], ["onItemChanged"], ["isDisabled"], ["width"], ["size"], ["LayoutOrder"] = 1, ["maxHeight"]}]
+       80 GETTABLEKS                       R16 R0 K21 ["placeholder"]
+       82 SETTABLEKS                       R16 R15 K21 ["placeholder"]
+       84 SETTABLEKS                       R6 R15 K22 ["value"]
+       86 SETTABLEKS                       R4 R15 K0 ["items"]
+       88 SETTABLEKS                       R5 R15 K23 ["onItemChanged"]
+       90 GETTABLEKS                       R16 R0 K15 ["isDisabled"]
+       92 SETTABLEKS                       R16 R15 K15 ["isDisabled"]
+       94 GETIMPORT                        R16 K30 [UDim.new]
+       96 LOADN                            R17 0
+       97 GETTABLEKS                       R18 R0 K24 ["width"]
+       99 CALL                             R16 2 1
+      100 SETTABLEKS                       R16 R15 K24 ["width"]
+      102 GETUPVAL                         R16 3
+      103 GETTABLEKS                       R16 R16 K31 ["Enums"]
+      105 GETTABLEKS                       R16 R16 K32 ["InputSize"]
+      107 GETTABLEKS                       R16 R16 K33 ["Small"]
+      109 SETTABLEKS                       R16 R15 K25 ["size"]
+      111 JUMPIFNOT                        R8 ; [+2]
+      112 LOADN                            R16 200
+      113 JUMP                             ; [+1]
+      114 LOADNIL                          R16
+      115 SETTABLEKS                       R16 R15 K26 ["maxHeight"]
+      117 CALL                             R13 2 1
+      118 SETTABLEKS                       R13 R12 K17 ["DropdownWrapper"]
+      120 CALL                             R9 3 -1
+      121 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -167,16 +161,10 @@ MAIN:
        21 GETTABLEKS                       R3 R2 K9 ["View"]
        23 GETTABLEKS                       R4 R2 K10 ["Dropdown"]
        25 GETTABLEKS                       R4 R4 K11 ["Root"]
-       27 GETIMPORT                        R5 K5 [require]
-       29 GETTABLEKS                       R6 R0 K12 ["Src"]
-       31 GETTABLEKS                       R6 R6 K13 ["Flags"]
-       33 GETTABLEKS                       R6 R6 K14 ["getFFlagToolboxAssetConfigFoundationMigration"]
-       35 CALL                             R5 1 1
-       36 DUPCLOSURE                       R6 K15 [PROTO_0]
-       37 DUPCLOSURE                       R7 K16 [PROTO_3]
-       38 CAPTURE                          VAL R5
-       39 CAPTURE                          VAL R1
-       40 CAPTURE                          VAL R3
-       41 CAPTURE                          VAL R4
-       42 CAPTURE                          VAL R2
-       43 RETURN                           R7 1
+       27 DUPCLOSURE                       R5 K12 [PROTO_0]
+       28 DUPCLOSURE                       R6 K13 [PROTO_3]
+       29 CAPTURE                          VAL R1
+       30 CAPTURE                          VAL R3
+       31 CAPTURE                          VAL R4
+       32 CAPTURE                          VAL R2
+       33 RETURN                           R6 1

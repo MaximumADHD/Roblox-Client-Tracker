@@ -361,31 +361,29 @@ PROTO_10:
 PROTO_11:
         0 GETTABLEKS                       R3 R0 K0 ["_expansion"]
         2 GETTABLE                         R2 R3 R1
-        3 JUMPIFNOT                        R2 ; [+14]
+        3 JUMPIFNOT                        R2 ; [+13]
         4 GETUPVAL                         R2 0
-        5 LOADK                            R4 K1 ["Collapsing scope with ID %*"]
-        6 MOVE                             R6 R1
-        7 NAMECALL                         R4 R4 K2 ["format"]
-        9 CALL                             R4 2 1
-       10 MOVE                             R3 R4
-       11 CALL                             R2 1 0
-       12 MOVE                             R4 R1
-       13 LOADNIL                          R5
-       14 NAMECALL                         R2 R0 K3 ["_setExpansion"]
-       16 CALL                             R2 3 0
-       17 RETURN                           R0 0
-       18 GETUPVAL                         R2 0
-       19 LOADK                            R4 K4 ["Expanding scope with ID %*"]
-       20 MOVE                             R6 R1
-       21 NAMECALL                         R4 R4 K2 ["format"]
-       23 CALL                             R4 2 1
-       24 MOVE                             R3 R4
-       25 CALL                             R2 1 0
-       26 MOVE                             R4 R1
-       27 LOADB                            R5 1
-       28 NAMECALL                         R2 R0 K3 ["_setExpansion"]
-       30 CALL                             R2 3 0
-       31 RETURN                           R0 0
+        5 LOADK                            R3 K1 ["Collapsing scope with ID %*"]
+        6 MOVE                             R5 R1
+        7 NAMECALL                         R3 R3 K2 ["format"]
+        9 CALL                             R3 2 1
+       10 CALL                             R2 1 0
+       11 MOVE                             R4 R1
+       12 LOADNIL                          R5
+       13 NAMECALL                         R2 R0 K3 ["_setExpansion"]
+       15 CALL                             R2 3 0
+       16 RETURN                           R0 0
+       17 GETUPVAL                         R2 0
+       18 LOADK                            R3 K4 ["Expanding scope with ID %*"]
+       19 MOVE                             R5 R1
+       20 NAMECALL                         R3 R3 K2 ["format"]
+       22 CALL                             R3 2 1
+       23 CALL                             R2 1 0
+       24 MOVE                             R4 R1
+       25 LOADB                            R5 1
+       26 NAMECALL                         R2 R0 K3 ["_setExpansion"]
+       28 CALL                             R2 3 0
+       29 RETURN                           R0 0
 
 PROTO_12:
         0 NEWTABLE                         R1 0 0
@@ -854,17 +852,16 @@ PROTO_35:
         4 JUMPIFEQ                         R1 R2 ; [+2]
         6 RETURN                           R0 0
         7 GETUPVAL                         R1 2
-        8 LOADK                            R3 K1 ["Error fetching folders: %*"]
-        9 MOVE                             R5 R0
-       10 NAMECALL                         R3 R3 K2 ["format"]
-       12 CALL                             R3 2 1
-       13 MOVE                             R2 R3
-       14 LOADK                            R3 K3 ["WARN"]
-       15 CALL                             R1 2 0
-       16 GETUPVAL                         R1 1
-       17 NAMECALL                         R1 R1 K4 ["_decrementPendingFolderFetchCountAndCleanUp"]
-       19 CALL                             R1 1 0
-       20 RETURN                           R0 0
+        8 LOADK                            R2 K1 ["Error fetching folders: %*"]
+        9 MOVE                             R4 R0
+       10 NAMECALL                         R2 R2 K2 ["format"]
+       12 CALL                             R2 2 1
+       13 LOADK                            R3 K3 ["WARN"]
+       14 CALL                             R1 2 0
+       15 GETUPVAL                         R1 1
+       16 NAMECALL                         R1 R1 K4 ["_decrementPendingFolderFetchCountAndCleanUp"]
+       18 CALL                             R1 1 0
+       19 RETURN                           R0 0
 
 PROTO_36:
         0 GETUPVAL                         R2 0
@@ -1145,17 +1142,16 @@ PROTO_47:
        38 LOADB                            R4 1
        39 RETURN                           R4 1
        40 GETUPVAL                         R4 3
-       41 LOADK                            R6 K3 ["Cannot sort children because scope with UID $%* does not exist."]
+       41 LOADK                            R5 K3 ["Cannot sort children because scope with UID $%* does not exist."]
        42 JUMPIF                           R2 ; [+2]
-       43 MOVE                             R8 R0
+       43 MOVE                             R7 R0
        44 JUMP                             ; [+1]
-       45 MOVE                             R8 R1
-       46 NAMECALL                         R6 R6 K4 ["format"]
-       48 CALL                             R6 2 1
-       49 MOVE                             R5 R6
-       50 CALL                             R4 1 0
-       51 LOADB                            R4 0
-       52 RETURN                           R4 1
+       45 MOVE                             R7 R1
+       46 NAMECALL                         R5 R5 K4 ["format"]
+       48 CALL                             R5 2 1
+       49 CALL                             R4 1 0
+       50 LOADB                            R4 0
+       51 RETURN                           R4 1
 
 PROTO_48:
         0 GETIMPORT                        R2 K2 [table.sort]
@@ -1196,74 +1192,73 @@ PROTO_51:
         3 JUMPIFNOTEQKNIL                  R2 ; [+2]
         5 RETURN                           R0 0
         6 GETTABLEKS                       R3 R2 K1 ["Children"]
-        8 JUMPIFNOT                        R3 ; [+14]
+        8 JUMPIFNOT                        R3 ; [+13]
         9 GETTABLEKS                       R4 R2 K1 ["Children"]
        11 LENGTH                           R3 R4
        12 LOADN                            R4 0
-       13 JUMPIFNOTLT                      R4 R3 ; [+9]
+       13 JUMPIFNOTLT                      R4 R3 ; [+8]
        15 GETUPVAL                         R3 0
-       16 LOADK                            R5 K2 ["Remove scope %* even though it has children"]
-       17 MOVE                             R7 R1
-       18 NAMECALL                         R5 R5 K3 ["format"]
-       20 CALL                             R5 2 1
-       21 MOVE                             R4 R5
-       22 CALL                             R3 1 0
-       23 GETTABLEKS                       R4 R0 K0 ["_scopes"]
-       25 GETTABLEKS                       R5 R2 K4 ["Parent"]
-       27 GETTABLE                         R3 R4 R5
-       28 JUMPIFNOT                        R3 ; [+3]
-       29 GETTABLEKS                       R4 R3 K1 ["Children"]
-       31 JUMPIF                           R4 ; [+1]
-       32 RETURN                           R0 0
-       33 GETUPVAL                         R4 1
-       34 GETTABLEKS                       R4 R4 K5 ["filter"]
-       36 GETTABLEKS                       R5 R3 K1 ["Children"]
-       38 NEWCLOSURE                       R6 P0
-       39 CAPTURE                          VAL R1
-       40 CALL                             R4 2 1
-       41 LENGTH                           R6 R4
-       42 LOADN                            R7 0
-       43 JUMPIFNOTLT                      R7 R6 ; [+3]
-       45 MOVE                             R5 R4
-       46 JUMP                             ; [+1]
-       47 LOADNIL                          R5
-       48 SETTABLEKS                       R5 R3 K1 ["Children"]
-       50 GETTABLEKS                       R5 R0 K0 ["_scopes"]
-       52 LOADNIL                          R6
-       53 SETTABLE                         R6 R5 R1
-       54 NAMECALL                         R5 R0 K6 ["_updateRenderTree"]
-       56 CALL                             R5 1 0
-       57 GETTABLEKS                       R5 R0 K7 ["_pluginController"]
-       59 NAMECALL                         R5 R5 K8 ["getCurrentScope"]
-       61 CALL                             R5 1 1
-       62 GETTABLEKS                       R5 R5 K9 ["Uid"]
-       64 JUMPIFEQ                         R5 R1 ; [+2]
-       66 RETURN                           R0 0
-       67 JUMPIFNOT                        R3 ; [+7]
-       68 GETTABLEKS                       R5 R0 K7 ["_pluginController"]
-       70 MOVE                             R7 R3
-       71 NAMECALL                         R5 R5 K10 ["setCurrentScope"]
-       73 CALL                             R5 2 0
-       74 RETURN                           R0 0
-       75 GETTABLEKS                       R6 R2 K11 ["Type"]
-       77 GETUPVAL                         R7 2
-       78 GETTABLEKS                       R7 R7 K12 ["ScopeType"]
-       80 GETTABLEKS                       R7 R7 K13 ["Folder"]
-       82 JUMPIFNOTEQ                      R6 R7 ; [+9]
-       84 GETTABLEKS                       R6 R2 K14 ["Path"]
-       86 JUMPIFNOT                        R6 ; [+5]
-       87 MOVE                             R7 R2
-       88 NAMECALL                         R5 R0 K15 ["getScopeRoot"]
-       90 CALL                             R5 2 1
-       91 JUMP                             ; [+5]
-       92 GETTABLEKS                       R5 R0 K7 ["_pluginController"]
-       94 NAMECALL                         R5 R5 K16 ["getUser"]
-       96 CALL                             R5 1 1
-       97 GETTABLEKS                       R6 R0 K7 ["_pluginController"]
-       99 MOVE                             R8 R5
-      100 NAMECALL                         R6 R6 K10 ["setCurrentScope"]
-      102 CALL                             R6 2 0
-      103 RETURN                           R0 0
+       16 LOADK                            R4 K2 ["Remove scope %* even though it has children"]
+       17 MOVE                             R6 R1
+       18 NAMECALL                         R4 R4 K3 ["format"]
+       20 CALL                             R4 2 1
+       21 CALL                             R3 1 0
+       22 GETTABLEKS                       R4 R0 K0 ["_scopes"]
+       24 GETTABLEKS                       R5 R2 K4 ["Parent"]
+       26 GETTABLE                         R3 R4 R5
+       27 JUMPIFNOT                        R3 ; [+3]
+       28 GETTABLEKS                       R4 R3 K1 ["Children"]
+       30 JUMPIF                           R4 ; [+1]
+       31 RETURN                           R0 0
+       32 GETUPVAL                         R4 1
+       33 GETTABLEKS                       R4 R4 K5 ["filter"]
+       35 GETTABLEKS                       R5 R3 K1 ["Children"]
+       37 NEWCLOSURE                       R6 P0
+       38 CAPTURE                          VAL R1
+       39 CALL                             R4 2 1
+       40 LENGTH                           R6 R4
+       41 LOADN                            R7 0
+       42 JUMPIFNOTLT                      R7 R6 ; [+3]
+       44 MOVE                             R5 R4
+       45 JUMP                             ; [+1]
+       46 LOADNIL                          R5
+       47 SETTABLEKS                       R5 R3 K1 ["Children"]
+       49 GETTABLEKS                       R5 R0 K0 ["_scopes"]
+       51 LOADNIL                          R6
+       52 SETTABLE                         R6 R5 R1
+       53 NAMECALL                         R5 R0 K6 ["_updateRenderTree"]
+       55 CALL                             R5 1 0
+       56 GETTABLEKS                       R5 R0 K7 ["_pluginController"]
+       58 NAMECALL                         R5 R5 K8 ["getCurrentScope"]
+       60 CALL                             R5 1 1
+       61 GETTABLEKS                       R5 R5 K9 ["Uid"]
+       63 JUMPIFEQ                         R5 R1 ; [+2]
+       65 RETURN                           R0 0
+       66 JUMPIFNOT                        R3 ; [+7]
+       67 GETTABLEKS                       R5 R0 K7 ["_pluginController"]
+       69 MOVE                             R7 R3
+       70 NAMECALL                         R5 R5 K10 ["setCurrentScope"]
+       72 CALL                             R5 2 0
+       73 RETURN                           R0 0
+       74 GETTABLEKS                       R6 R2 K11 ["Type"]
+       76 GETUPVAL                         R7 2
+       77 GETTABLEKS                       R7 R7 K12 ["ScopeType"]
+       79 GETTABLEKS                       R7 R7 K13 ["Folder"]
+       81 JUMPIFNOTEQ                      R6 R7 ; [+9]
+       83 GETTABLEKS                       R6 R2 K14 ["Path"]
+       85 JUMPIFNOT                        R6 ; [+5]
+       86 MOVE                             R7 R2
+       87 NAMECALL                         R5 R0 K15 ["getScopeRoot"]
+       89 CALL                             R5 2 1
+       90 JUMP                             ; [+5]
+       91 GETTABLEKS                       R5 R0 K7 ["_pluginController"]
+       93 NAMECALL                         R5 R5 K16 ["getUser"]
+       95 CALL                             R5 1 1
+       96 GETTABLEKS                       R6 R0 K7 ["_pluginController"]
+       98 MOVE                             R8 R5
+       99 NAMECALL                         R6 R6 K10 ["setCurrentScope"]
+      101 CALL                             R6 2 0
+      102 RETURN                           R0 0
 
 PROTO_52:
         0 GETUPVAL                         R2 0
@@ -1285,49 +1280,48 @@ PROTO_53:
        11 LOADNIL                          R10
        12 FORGPREP                         R8
        13 GETTABLE                         R13 R4 R12
-       14 JUMPIF                           R13 ; [+47]
+       14 JUMPIF                           R13 ; [+46]
        15 GETIMPORT                        R13 K3 [string.find]
        17 NAMECALL                         R14 R12 K4 ["lower"]
        19 CALL                             R14 1 1
        20 LOADK                            R15 K5 ["folder"]
        21 CALL                             R13 2 1
-       22 JUMPIFNOT                        R13 ; [+39]
+       22 JUMPIFNOT                        R13 ; [+38]
        23 GETUPVAL                         R13 0
        24 MOVE                             R14 R12
        25 CALL                             R13 1 1
        26 MOVE                             R16 R13
        27 NAMECALL                         R14 R0 K0 ["getScopeWithUid"]
        29 CALL                             R14 2 1
-       30 JUMPIF                           R14 ; [+10]
+       30 JUMPIF                           R14 ; [+9]
        31 GETUPVAL                         R15 1
-       32 LOADK                            R17 K6 ["No scope found for folder UID $%*, skipping move for path $%*"]
-       33 MOVE                             R19 R13
-       34 MOVE                             R20 R12
-       35 NAMECALL                         R17 R17 K7 ["format"]
-       37 CALL                             R17 3 1
-       38 MOVE                             R16 R17
-       39 CALL                             R15 1 0
-       40 JUMP                             ; [+21]
-       41 GETUPVAL                         R15 2
-       42 GETTABLEKS                       R15 R15 K8 ["filter"]
-       44 GETTABLEKS                       R16 R5 K9 ["Children"]
-       46 JUMPIF                           R16 ; [+2]
-       47 NEWTABLE                         R16 0 0
-       49 NEWCLOSURE                       R17 P0
-       50 CAPTURE                          VAL R13
-       51 CALL                             R15 2 1
-       52 SETTABLEKS                       R15 R5 K9 ["Children"]
-       54 MOVE                             R17 R6
-       55 MOVE                             R18 R13
-       56 NAMECALL                         R15 R0 K10 ["_addScopeToChildren"]
-       58 CALL                             R15 3 0
-       59 SETTABLEKS                       R2 R14 K11 ["Parent"]
-       61 LOADB                            R7 1
-       62 FORGLOOP                         R8 2 ; [-50]
-       64 JUMPIFNOT                        R7 ; [+3]
-       65 NAMECALL                         R8 R0 K12 ["_updateRenderTree"]
-       67 CALL                             R8 1 0
-       68 RETURN                           R0 0
+       32 LOADK                            R16 K6 ["No scope found for folder UID $%*, skipping move for path $%*"]
+       33 MOVE                             R18 R13
+       34 MOVE                             R19 R12
+       35 NAMECALL                         R16 R16 K7 ["format"]
+       37 CALL                             R16 3 1
+       38 CALL                             R15 1 0
+       39 JUMP                             ; [+21]
+       40 GETUPVAL                         R15 2
+       41 GETTABLEKS                       R15 R15 K8 ["filter"]
+       43 GETTABLEKS                       R16 R5 K9 ["Children"]
+       45 JUMPIF                           R16 ; [+2]
+       46 NEWTABLE                         R16 0 0
+       48 NEWCLOSURE                       R17 P0
+       49 CAPTURE                          VAL R13
+       50 CALL                             R15 2 1
+       51 SETTABLEKS                       R15 R5 K9 ["Children"]
+       53 MOVE                             R17 R6
+       54 MOVE                             R18 R13
+       55 NAMECALL                         R15 R0 K10 ["_addScopeToChildren"]
+       57 CALL                             R15 3 0
+       58 SETTABLEKS                       R2 R14 K11 ["Parent"]
+       60 LOADB                            R7 1
+       61 FORGLOOP                         R8 2 ; [-49]
+       63 JUMPIFNOT                        R7 ; [+3]
+       64 NAMECALL                         R8 R0 K12 ["_updateRenderTree"]
+       66 CALL                             R8 1 0
+       67 RETURN                           R0 0
 
 PROTO_54:
         0 NEWTABLE                         R1 0 0
@@ -1423,13 +1417,12 @@ PROTO_56:
 
 PROTO_57:
         0 GETUPVAL                         R1 0
-        1 LOADK                            R3 K0 ["Error fetching groups: %*"]
-        2 MOVE                             R5 R0
-        3 NAMECALL                         R3 R3 K1 ["format"]
-        5 CALL                             R3 2 1
-        6 MOVE                             R2 R3
-        7 CALL                             R1 1 0
-        8 RETURN                           R0 0
+        1 LOADK                            R2 K0 ["Error fetching groups: %*"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R2 R2 K1 ["format"]
+        5 CALL                             R2 2 1
+        6 CALL                             R1 1 0
+        7 RETURN                           R0 0
 
 PROTO_58:
         0 NAMECALL                         R1 R0 K0 ["_clearHistory"]
@@ -1755,44 +1748,43 @@ PROTO_77:
        10 GETTABLEKS                       R4 R0 K0 ["_historyBufferIndex"]
        12 GETTABLE                         R2 R3 R4
        13 GETTABLEKS                       R3 R2 K3 ["ScopeUid"]
-       15 JUMPIFNOT                        R3 ; [+30]
+       15 JUMPIFNOT                        R3 ; [+29]
        16 GETTABLEKS                       R5 R2 K3 ["ScopeUid"]
        18 NAMECALL                         R3 R0 K4 ["getScopeWithUid"]
        20 CALL                             R3 2 1
-       21 JUMPIF                           R3 ; [+11]
+       21 JUMPIF                           R3 ; [+10]
        22 GETUPVAL                         R4 0
-       23 LOADK                            R6 K5 ["Scope with UID %* not found in scopes"]
-       24 GETTABLEKS                       R8 R2 K3 ["ScopeUid"]
-       26 NAMECALL                         R6 R6 K6 ["format"]
-       28 CALL                             R6 2 1
-       29 MOVE                             R5 R6
-       30 LOADK                            R6 K7 ["WARN"]
-       31 CALL                             R4 2 0
-       32 RETURN                           R0 0
-       33 GETTABLEKS                       R4 R0 K8 ["_pluginController"]
-       35 MOVE                             R6 R3
-       36 NAMECALL                         R4 R4 K9 ["setCurrentScope"]
-       38 CALL                             R4 2 0
-       39 GETTABLEKS                       R4 R0 K10 ["OnRestoreSearchState"]
-       41 LOADNIL                          R6
-       42 NAMECALL                         R4 R4 K11 ["Fire"]
-       44 CALL                             R4 2 0
-       45 JUMP                             ; [+15]
-       46 GETTABLEKS                       R3 R2 K12 ["SearchState"]
-       48 JUMPIFNOT                        R3 ; [+8]
-       49 GETTABLEKS                       R3 R0 K10 ["OnRestoreSearchState"]
-       51 GETTABLEKS                       R5 R2 K12 ["SearchState"]
-       53 NAMECALL                         R3 R3 K11 ["Fire"]
-       55 CALL                             R3 2 0
-       56 JUMP                             ; [+4]
-       57 GETUPVAL                         R3 0
-       58 LOADK                            R4 K13 ["Invalid history item, no scope or search state"]
-       59 LOADK                            R5 K7 ["WARN"]
-       60 CALL                             R3 2 0
-       61 GETTABLEKS                       R3 R0 K14 ["OnHistoryChanged"]
-       63 NAMECALL                         R3 R3 K11 ["Fire"]
-       65 CALL                             R3 1 0
-       66 RETURN                           R0 0
+       23 LOADK                            R5 K5 ["Scope with UID %* not found in scopes"]
+       24 GETTABLEKS                       R7 R2 K3 ["ScopeUid"]
+       26 NAMECALL                         R5 R5 K6 ["format"]
+       28 CALL                             R5 2 1
+       29 LOADK                            R6 K7 ["WARN"]
+       30 CALL                             R4 2 0
+       31 RETURN                           R0 0
+       32 GETTABLEKS                       R4 R0 K8 ["_pluginController"]
+       34 MOVE                             R6 R3
+       35 NAMECALL                         R4 R4 K9 ["setCurrentScope"]
+       37 CALL                             R4 2 0
+       38 GETTABLEKS                       R4 R0 K10 ["OnRestoreSearchState"]
+       40 LOADNIL                          R6
+       41 NAMECALL                         R4 R4 K11 ["Fire"]
+       43 CALL                             R4 2 0
+       44 JUMP                             ; [+15]
+       45 GETTABLEKS                       R3 R2 K12 ["SearchState"]
+       47 JUMPIFNOT                        R3 ; [+8]
+       48 GETTABLEKS                       R3 R0 K10 ["OnRestoreSearchState"]
+       50 GETTABLEKS                       R5 R2 K12 ["SearchState"]
+       52 NAMECALL                         R3 R3 K11 ["Fire"]
+       54 CALL                             R3 2 0
+       55 JUMP                             ; [+4]
+       56 GETUPVAL                         R3 0
+       57 LOADK                            R4 K13 ["Invalid history item, no scope or search state"]
+       58 LOADK                            R5 K7 ["WARN"]
+       59 CALL                             R3 2 0
+       60 GETTABLEKS                       R3 R0 K14 ["OnHistoryChanged"]
+       62 NAMECALL                         R3 R3 K11 ["Fire"]
+       64 CALL                             R3 1 0
+       65 RETURN                           R0 0
 
 PROTO_78:
         0 GETTABLEKS                       R4 R0 K1 ["_historyBufferIndex"]

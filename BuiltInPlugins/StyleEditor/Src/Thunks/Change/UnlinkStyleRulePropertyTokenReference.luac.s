@@ -20,18 +20,17 @@ PROTO_0:
        22 JUMPIFNOTEQKNIL                  R2 ; [+2]
        24 LOADB                            R4 0 +1
        25 LOADB                            R4 1
-       26 LOADK                            R6 K3 ["unknown schema for: %* (%*)"]
-       27 MOVE                             R8 R0
-       28 MOVE                             R9 R1
-       29 NAMECALL                         R6 R6 K4 ["format"]
-       31 CALL                             R6 3 1
-       32 MOVE                             R5 R6
-       33 FASTCALL2                        ASSERT R4 R5 ; [+3]
-       35 GETIMPORT                        R3 K6 [assert]
-       37 CALL                             R3 2 0
-       38 GETTABLEKS                       R3 R2 K7 ["GetDefaultValue"]
-       40 CALL                             R3 0 -1
-       41 RETURN                           R3 -1
+       26 LOADK                            R5 K3 ["unknown schema for: %* (%*)"]
+       27 MOVE                             R7 R0
+       28 MOVE                             R8 R1
+       29 NAMECALL                         R5 R5 K4 ["format"]
+       31 CALL                             R5 3 1
+       32 FASTCALL2                        ASSERT R4 R5 ; [+3]
+       34 GETIMPORT                        R3 K6 [assert]
+       36 CALL                             R3 2 0
+       37 GETTABLEKS                       R3 R2 K7 ["GetDefaultValue"]
+       39 CALL                             R3 0 -1
+       40 RETURN                           R3 -1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -47,7 +46,7 @@ PROTO_1:
        13 GETTABLEKS                       R2 R1 K6 ["Value"]
        15 GETTABLEKS                       R3 R1 K7 ["Error"]
        17 JUMPIF                           R3 ; [+2]
-       18 JUMPIFNOTEQKS                    R2 K8 ["$"] ; [+49]
+       18 JUMPIFNOTEQKS                    R2 K8 ["$"] ; [+48]
        20 GETUPVAL                         R3 3
        21 GETTABLEKS                       R3 R3 K9 ["findFirstClassSelector"]
        23 GETUPVAL                         R4 1
@@ -74,25 +73,24 @@ PROTO_1:
        48 JUMPIFNOTEQKNIL                  R5 ; [+2]
        50 LOADB                            R7 0 +1
        51 LOADB                            R7 1
-       52 LOADK                            R9 K13 ["unknown schema for: %* (%*)"]
-       53 MOVE                             R11 R4
-       54 MOVE                             R12 R3
-       55 NAMECALL                         R9 R9 K14 ["format"]
-       57 CALL                             R9 3 1
-       58 MOVE                             R8 R9
-       59 FASTCALL2                        ASSERT R7 R8 ; [+3]
-       61 GETIMPORT                        R6 K16 [assert]
-       63 CALL                             R6 2 0
-       64 GETTABLEKS                       R6 R5 K17 ["GetDefaultValue"]
-       66 CALL                             R6 0 1
-       67 MOVE                             R2 R6
-       68 GETUPVAL                         R3 1
-       69 GETUPVAL                         R5 2
-       70 MOVE                             R6 R2
-       71 NAMECALL                         R3 R3 K18 ["SetProperty"]
-       73 CALL                             R3 3 0
-       74 GETIMPORT                        R3 K20 [Enum.FinishRecordingOperation.Commit]
-       76 RETURN                           R3 1
+       52 LOADK                            R8 K13 ["unknown schema for: %* (%*)"]
+       53 MOVE                             R10 R4
+       54 MOVE                             R11 R3
+       55 NAMECALL                         R8 R8 K14 ["format"]
+       57 CALL                             R8 3 1
+       58 FASTCALL2                        ASSERT R7 R8 ; [+3]
+       60 GETIMPORT                        R6 K16 [assert]
+       62 CALL                             R6 2 0
+       63 GETTABLEKS                       R6 R5 K17 ["GetDefaultValue"]
+       65 CALL                             R6 0 1
+       66 MOVE                             R2 R6
+       67 GETUPVAL                         R3 1
+       68 GETUPVAL                         R5 2
+       69 MOVE                             R6 R2
+       70 NAMECALL                         R3 R3 K18 ["SetProperty"]
+       72 CALL                             R3 3 0
+       73 GETIMPORT                        R3 K20 [Enum.FinishRecordingOperation.Commit]
+       75 RETURN                           R3 1
 
 PROTO_2:
         0 GETTABLEKS                       R2 R1 K0 ["recordChange"]

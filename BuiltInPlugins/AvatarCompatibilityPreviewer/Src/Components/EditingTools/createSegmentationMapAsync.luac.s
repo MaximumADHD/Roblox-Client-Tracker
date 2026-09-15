@@ -137,11 +137,11 @@ PROTO_6:
        26 MOVE                             R10 R7
        27 NAMECALL                         R8 R0 K10 ["FindFirstChild"]
        29 CALL                             R8 2 1
-       30 JUMPIFEQKNIL                     R8 ; [+187]
+       30 JUMPIFEQKNIL                     R8 ; [+184]
        32 LOADK                            R11 K11 ["WrapTarget"]
        33 NAMECALL                         R9 R8 K12 ["FindFirstChildWhichIsA"]
        35 CALL                             R9 2 1
-       36 JUMPIFEQKNIL                     R9 ; [+181]
+       36 JUMPIFEQKNIL                     R9 ; [+178]
        38 JUMPIFNOTEQKNIL                  R9 ; [+2]
        40 LOADB                            R11 0 +1
        41 LOADB                            R11 1
@@ -162,128 +162,125 @@ PROTO_6:
        62 CAPTURE                          VAL R9
        63 CALL                             R14 1 2
        64 JUMPIFNOT                        R14 ; [+2]
-       65 JUMPIFNOTEQKNIL                  R13 ; [+15]
+       65 JUMPIFNOTEQKNIL                  R13 ; [+14]
        67 GETIMPORT                        R16 K1 [warn]
-       69 LOADK                            R18 K16 ["createSegmentationMapAsync - %*:GetUVs() failed with error %*"]
-       70 NAMECALL                         R20 R9 K17 ["GetFullName"]
-       72 CALL                             R20 1 1
-       73 MOVE                             R21 R15
-       74 NAMECALL                         R18 R18 K18 ["format"]
-       76 CALL                             R18 3 1
-       77 MOVE                             R17 R18
-       78 CALL                             R16 1 0
-       79 CLOSEUPVALS                      R13
-       80 JUMP                             ; [+137]
-       81 MOVE                             R16 R13
-       82 LOADNIL                          R17
-       83 LOADNIL                          R18
-       84 FORGPREP                         R16
-       85 DUPTABLE                         R23 K21 [{"index", "uv"}]
-       86 SETTABLEKS                       R19 R23 K19 ["index"]
-       88 GETTABLEKS                       R25 R20 K22 ["X"]
-       90 GETTABLEKS                       R26 R20 K23 ["Y"]
-       92 FASTCALL2                        VECTOR R25 R26 ; [+3]
-       94 GETIMPORT                        R24 K26 [Vector3.new]
-       96 CALL                             R24 2 1
-       97 SETTABLEKS                       R24 R23 K20 ["uv"]
-       99 FASTCALL2                        TABLE_INSERT R12 R23 ; [+4]
-      101 MOVE                             R22 R12
-      102 GETIMPORT                        R21 K29 [table.insert]
-      104 CALL                             R21 2 0
-      105 FORGLOOP                         R16 2 ; [-21]
-      107 GETIMPORT                        R16 K31 [table.sort]
-      109 MOVE                             R17 R12
-      110 DUPCLOSURE                       R18 K32 [PROTO_2]
-      111 CALL                             R16 2 0
-      112 NEWCLOSURE                       R16 P2
-      113 CAPTURE                          UPVAL U2
-      114 CAPTURE                          VAL R12
-      115 LOADN                            R19 0
-      116 GETIMPORT                        R20 K36 [buffer.len]
-      118 MOVE                             R21 R10
-      119 CALL                             R20 1 1
-      120 SUBK                             R17 R20 K33 [32]
-      121 LOADN                            R18 32
-      122 FORNPREP                         R17
-      123 FASTCALL2                        BUFFER_READF64 R10 R19 ; [+5]
-      125 MOVE                             R21 R10
-      126 MOVE                             R22 R19
-      127 GETIMPORT                        R20 K38 [buffer.readf64]
-      129 CALL                             R20 2 1
-      130 ADDK                             R23 R19 K39 [8]
-      131 FASTCALL2                        BUFFER_READF64 R10 R23 ; [+4]
-      133 MOVE                             R22 R10
-      134 GETIMPORT                        R21 K38 [buffer.readf64]
-      136 CALL                             R21 2 1
-      137 ADDK                             R24 R19 K40 [16]
-      138 FASTCALL2                        BUFFER_READF64 R10 R24 ; [+4]
-      140 MOVE                             R23 R10
-      141 GETIMPORT                        R22 K38 [buffer.readf64]
-      143 CALL                             R22 2 1
-      144 ADDK                             R25 R19 K41 [24]
-      145 FASTCALL2                        BUFFER_READF64 R10 R25 ; [+4]
-      147 MOVE                             R24 R10
-      148 GETIMPORT                        R23 K38 [buffer.readf64]
-      150 CALL                             R23 2 1
-      151 MOVE                             R24 R16
-      152 FASTCALL2                        VECTOR R20 R21 ; [+5]
-      154 MOVE                             R26 R20
-      155 MOVE                             R27 R21
-      156 GETIMPORT                        R25 K26 [Vector3.new]
-      158 CALL                             R25 2 1
-      159 CALL                             R24 1 1
-      160 MOVE                             R25 R16
-      161 FASTCALL2                        VECTOR R22 R23 ; [+5]
-      163 MOVE                             R27 R22
-      164 MOVE                             R28 R23
-      165 GETIMPORT                        R26 K26 [Vector3.new]
-      167 CALL                             R26 2 1
-      168 CALL                             R25 1 1
-      169 LENGTH                           R26 R24
-      170 JUMPIFNOTEQKN                    R26 K42 [0] ; [+11]
-      172 MOVE                             R26 R1
-      173 LOADK                            R28 K43 ["Couldn't find anything with the first pair of UV (%*, %*) in %*"]
-      174 MOVE                             R30 R20
-      175 MOVE                             R31 R21
-      176 MOVE                             R32 R7
-      177 NAMECALL                         R28 R28 K18 ["format"]
-      179 CALL                             R28 4 1
-      180 MOVE                             R27 R28
-      181 CALL                             R26 1 0
-      182 LENGTH                           R26 R25
-      183 JUMPIFNOTEQKN                    R26 K42 [0] ; [+11]
-      185 MOVE                             R26 R1
-      186 LOADK                            R28 K43 ["Couldn't find anything with the first pair of UV (%*, %*) in %*"]
-      187 MOVE                             R30 R22
-      188 MOVE                             R31 R23
-      189 MOVE                             R32 R7
-      190 NAMECALL                         R28 R28 K18 ["format"]
-      192 CALL                             R28 4 1
-      193 MOVE                             R27 R28
-      194 CALL                             R26 1 0
-      195 MOVE                             R26 R24
-      196 LOADNIL                          R27
-      197 LOADNIL                          R28
-      198 FORGPREP                         R26
-      199 MOVE                             R31 R25
-      200 LOADNIL                          R32
-      201 LOADNIL                          R33
-      202 FORGPREP                         R31
-      203 FASTCALL2                        VECTOR R30 R35 ; [+5]
-      205 MOVE                             R37 R30
-      206 MOVE                             R38 R35
-      207 GETIMPORT                        R36 K26 [Vector3.new]
-      209 CALL                             R36 2 1
-      210 LOADB                            R37 1
-      211 SETTABLE                         R37 R11 R36
-      212 FORGLOOP                         R31 2 ; [-10]
-      214 FORGLOOP                         R26 2 ; [-16]
-      216 FORNLOOP                         R17
-      217 CLOSEUPVALS                      R13
-      218 FORGLOOP                         R3 2 ; [-193]
-      220 GETIMPORT                        R3 K45 [debug.profileend]
-      222 CALL                             R3 0 0
-      223 RETURN                           R2 1
+       69 LOADK                            R17 K16 ["createSegmentationMapAsync - %*:GetUVs() failed with error %*"]
+       70 NAMECALL                         R19 R9 K17 ["GetFullName"]
+       72 CALL                             R19 1 1
+       73 MOVE                             R20 R15
+       74 NAMECALL                         R17 R17 K18 ["format"]
+       76 CALL                             R17 3 1
+       77 CALL                             R16 1 0
+       78 CLOSEUPVALS                      R13
+       79 JUMP                             ; [+135]
+       80 MOVE                             R16 R13
+       81 LOADNIL                          R17
+       82 LOADNIL                          R18
+       83 FORGPREP                         R16
+       84 DUPTABLE                         R23 K21 [{"index", "uv"}]
+       85 SETTABLEKS                       R19 R23 K19 ["index"]
+       87 GETTABLEKS                       R25 R20 K22 ["X"]
+       89 GETTABLEKS                       R26 R20 K23 ["Y"]
+       91 FASTCALL2                        VECTOR R25 R26 ; [+3]
+       93 GETIMPORT                        R24 K26 [Vector3.new]
+       95 CALL                             R24 2 1
+       96 SETTABLEKS                       R24 R23 K20 ["uv"]
+       98 FASTCALL2                        TABLE_INSERT R12 R23 ; [+4]
+      100 MOVE                             R22 R12
+      101 GETIMPORT                        R21 K29 [table.insert]
+      103 CALL                             R21 2 0
+      104 FORGLOOP                         R16 2 ; [-21]
+      106 GETIMPORT                        R16 K31 [table.sort]
+      108 MOVE                             R17 R12
+      109 DUPCLOSURE                       R18 K32 [PROTO_2]
+      110 CALL                             R16 2 0
+      111 NEWCLOSURE                       R16 P2
+      112 CAPTURE                          UPVAL U2
+      113 CAPTURE                          VAL R12
+      114 LOADN                            R19 0
+      115 GETIMPORT                        R20 K36 [buffer.len]
+      117 MOVE                             R21 R10
+      118 CALL                             R20 1 1
+      119 SUBK                             R17 R20 K33 [32]
+      120 LOADN                            R18 32
+      121 FORNPREP                         R17
+      122 FASTCALL2                        BUFFER_READF64 R10 R19 ; [+5]
+      124 MOVE                             R21 R10
+      125 MOVE                             R22 R19
+      126 GETIMPORT                        R20 K38 [buffer.readf64]
+      128 CALL                             R20 2 1
+      129 ADDK                             R23 R19 K39 [8]
+      130 FASTCALL2                        BUFFER_READF64 R10 R23 ; [+4]
+      132 MOVE                             R22 R10
+      133 GETIMPORT                        R21 K38 [buffer.readf64]
+      135 CALL                             R21 2 1
+      136 ADDK                             R24 R19 K40 [16]
+      137 FASTCALL2                        BUFFER_READF64 R10 R24 ; [+4]
+      139 MOVE                             R23 R10
+      140 GETIMPORT                        R22 K38 [buffer.readf64]
+      142 CALL                             R22 2 1
+      143 ADDK                             R25 R19 K41 [24]
+      144 FASTCALL2                        BUFFER_READF64 R10 R25 ; [+4]
+      146 MOVE                             R24 R10
+      147 GETIMPORT                        R23 K38 [buffer.readf64]
+      149 CALL                             R23 2 1
+      150 MOVE                             R24 R16
+      151 FASTCALL2                        VECTOR R20 R21 ; [+5]
+      153 MOVE                             R26 R20
+      154 MOVE                             R27 R21
+      155 GETIMPORT                        R25 K26 [Vector3.new]
+      157 CALL                             R25 2 1
+      158 CALL                             R24 1 1
+      159 MOVE                             R25 R16
+      160 FASTCALL2                        VECTOR R22 R23 ; [+5]
+      162 MOVE                             R27 R22
+      163 MOVE                             R28 R23
+      164 GETIMPORT                        R26 K26 [Vector3.new]
+      166 CALL                             R26 2 1
+      167 CALL                             R25 1 1
+      168 LENGTH                           R26 R24
+      169 JUMPIFNOTEQKN                    R26 K42 [0] ; [+10]
+      171 MOVE                             R26 R1
+      172 LOADK                            R27 K43 ["Couldn't find anything with the first pair of UV (%*, %*) in %*"]
+      173 MOVE                             R29 R20
+      174 MOVE                             R30 R21
+      175 MOVE                             R31 R7
+      176 NAMECALL                         R27 R27 K18 ["format"]
+      178 CALL                             R27 4 1
+      179 CALL                             R26 1 0
+      180 LENGTH                           R26 R25
+      181 JUMPIFNOTEQKN                    R26 K42 [0] ; [+10]
+      183 MOVE                             R26 R1
+      184 LOADK                            R27 K43 ["Couldn't find anything with the first pair of UV (%*, %*) in %*"]
+      185 MOVE                             R29 R22
+      186 MOVE                             R30 R23
+      187 MOVE                             R31 R7
+      188 NAMECALL                         R27 R27 K18 ["format"]
+      190 CALL                             R27 4 1
+      191 CALL                             R26 1 0
+      192 MOVE                             R26 R24
+      193 LOADNIL                          R27
+      194 LOADNIL                          R28
+      195 FORGPREP                         R26
+      196 MOVE                             R31 R25
+      197 LOADNIL                          R32
+      198 LOADNIL                          R33
+      199 FORGPREP                         R31
+      200 FASTCALL2                        VECTOR R30 R35 ; [+5]
+      202 MOVE                             R37 R30
+      203 MOVE                             R38 R35
+      204 GETIMPORT                        R36 K26 [Vector3.new]
+      206 CALL                             R36 2 1
+      207 LOADB                            R37 1
+      208 SETTABLE                         R37 R11 R36
+      209 FORGLOOP                         R31 2 ; [-10]
+      211 FORGLOOP                         R26 2 ; [-16]
+      213 FORNLOOP                         R17
+      214 CLOSEUPVALS                      R13
+      215 FORGLOOP                         R3 2 ; [-190]
+      217 GETIMPORT                        R3 K45 [debug.profileend]
+      219 CALL                             R3 0 0
+      220 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -107,20 +107,19 @@ PROTO_5:
        12 GETUPVAL                         R4 0
        13 GETTABLE                         R3 R4 R1
        14 GETTABLE                         R2 R3 R0
-       15 JUMPIFNOT                        R2 ; [+10]
+       15 JUMPIFNOT                        R2 ; [+9]
        16 GETIMPORT                        R2 K2 [error]
-       18 LOADK                            R4 K3 ["Reimport: cannot start watching file %* for instance %* which is already being watched"]
-       19 MOVE                             R6 R1
-       20 MOVE                             R7 R0
-       21 NAMECALL                         R4 R4 K4 ["format"]
-       23 CALL                             R4 3 1
-       24 MOVE                             R3 R4
-       25 CALL                             R2 1 0
-       26 GETUPVAL                         R3 0
-       27 GETTABLE                         R2 R3 R1
-       28 LOADB                            R3 1
-       29 SETTABLE                         R3 R2 R0
-       30 RETURN                           R0 0
+       18 LOADK                            R3 K3 ["Reimport: cannot start watching file %* for instance %* which is already being watched"]
+       19 MOVE                             R5 R1
+       20 MOVE                             R6 R0
+       21 NAMECALL                         R3 R3 K4 ["format"]
+       23 CALL                             R3 3 1
+       24 CALL                             R2 1 0
+       25 GETUPVAL                         R3 0
+       26 GETTABLE                         R2 R3 R1
+       27 LOADB                            R3 1
+       28 SETTABLE                         R3 R2 R0
+       29 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -136,70 +135,69 @@ PROTO_6:
        14 CALL                             R3 1 1
        15 JUMP                             ; [+1]
        16 LOADNIL                          R3
-       17 JUMPIF                           R3 ; [+9]
+       17 JUMPIF                           R3 ; [+8]
        18 GETIMPORT                        R4 K4 [error]
-       20 LOADK                            R6 K5 ["Reimport: cannot start watching instance %* because it does not have a valid config"]
-       21 MOVE                             R8 R0
-       22 NAMECALL                         R6 R6 K6 ["format"]
-       24 CALL                             R6 2 1
-       25 MOVE                             R5 R6
-       26 CALL                             R4 1 0
-       27 GETUPVAL                         R4 2
-       28 MOVE                             R5 R0
-       29 MOVE                             R6 R3
-       30 CALL                             R4 2 0
-       31 LOADK                            R6 K7 ["SurfaceAppearance"]
-       32 NAMECALL                         R4 R0 K8 ["IsA"]
-       34 CALL                             R4 2 1
-       35 JUMPIF                           R4 ; [+5]
-       36 LOADK                            R6 K9 ["Decal"]
-       37 NAMECALL                         R4 R0 K8 ["IsA"]
-       39 CALL                             R4 2 1
-       40 JUMPIFNOT                        R4 ; [+28]
-       41 GETUPVAL                         R4 3
-       42 MOVE                             R6 R3
-       43 NAMECALL                         R4 R4 K10 ["GetFilesInDirAsync"]
-       45 CALL                             R4 2 1
-       46 GETUPVAL                         R5 4
-       47 GETTABLEKS                       R5 R5 K11 ["findMaps"]
-       49 MOVE                             R6 R3
-       50 MOVE                             R7 R4
-       51 CALL                             R5 2 1
-       52 MOVE                             R6 R5
-       53 LOADNIL                          R7
-       54 LOADNIL                          R8
-       55 FORGPREP                         R6
-       56 JUMPIFEQ                         R10 R3 ; [+10]
-       58 GETUPVAL                         R11 1
-       59 GETTABLEKS                       R11 R11 K2 ["normalize"]
-       61 MOVE                             R12 R10
-       62 CALL                             R11 1 1
-       63 GETUPVAL                         R12 2
-       64 MOVE                             R13 R0
-       65 MOVE                             R14 R11
-       66 CALL                             R12 2 0
-       67 FORGLOOP                         R6 2 ; [-12]
-       69 GETUPVAL                         R4 5
-       70 CALL                             R4 0 0
-       71 GETUPVAL                         R4 6
-       72 CALL                             R4 0 1
-       73 JUMPIFNOT                        R4 ; [+14]
-       74 DUPTABLE                         R4 K14 [{["isWatched"] = True}]
-       75 GETUPVAL                         R5 7
-       76 GETUPVAL                         R7 8
-       77 GETTABLEKS                       R7 R7 K15 ["REIMPORT"]
-       79 GETTABLEKS                       R7 R7 K16 ["CPC_EVENTS"]
-       81 GETTABLEKS                       R7 R7 K17 ["WATCH_STATUS_CHANGED"]
-       83 MOVE                             R8 R0
-       84 MOVE                             R9 R4
-       85 NAMECALL                         R5 R5 K18 ["Fire"]
-       87 CALL                             R5 4 0
-       88 GETUPVAL                         R4 9
-       89 GETTABLEKS                       R4 R4 K19 ["reimportInstanceDebounced"]
-       91 MOVE                             R5 R0
-       92 DUPTABLE                         R6 K21 [{["wasAutoReimport"] = True}]
-       93 CALL                             R4 2 0
-       94 RETURN                           R0 0
+       20 LOADK                            R5 K5 ["Reimport: cannot start watching instance %* because it does not have a valid config"]
+       21 MOVE                             R7 R0
+       22 NAMECALL                         R5 R5 K6 ["format"]
+       24 CALL                             R5 2 1
+       25 CALL                             R4 1 0
+       26 GETUPVAL                         R4 2
+       27 MOVE                             R5 R0
+       28 MOVE                             R6 R3
+       29 CALL                             R4 2 0
+       30 LOADK                            R6 K7 ["SurfaceAppearance"]
+       31 NAMECALL                         R4 R0 K8 ["IsA"]
+       33 CALL                             R4 2 1
+       34 JUMPIF                           R4 ; [+5]
+       35 LOADK                            R6 K9 ["Decal"]
+       36 NAMECALL                         R4 R0 K8 ["IsA"]
+       38 CALL                             R4 2 1
+       39 JUMPIFNOT                        R4 ; [+28]
+       40 GETUPVAL                         R4 3
+       41 MOVE                             R6 R3
+       42 NAMECALL                         R4 R4 K10 ["GetFilesInDirAsync"]
+       44 CALL                             R4 2 1
+       45 GETUPVAL                         R5 4
+       46 GETTABLEKS                       R5 R5 K11 ["findMaps"]
+       48 MOVE                             R6 R3
+       49 MOVE                             R7 R4
+       50 CALL                             R5 2 1
+       51 MOVE                             R6 R5
+       52 LOADNIL                          R7
+       53 LOADNIL                          R8
+       54 FORGPREP                         R6
+       55 JUMPIFEQ                         R10 R3 ; [+10]
+       57 GETUPVAL                         R11 1
+       58 GETTABLEKS                       R11 R11 K2 ["normalize"]
+       60 MOVE                             R12 R10
+       61 CALL                             R11 1 1
+       62 GETUPVAL                         R12 2
+       63 MOVE                             R13 R0
+       64 MOVE                             R14 R11
+       65 CALL                             R12 2 0
+       66 FORGLOOP                         R6 2 ; [-12]
+       68 GETUPVAL                         R4 5
+       69 CALL                             R4 0 0
+       70 GETUPVAL                         R4 6
+       71 CALL                             R4 0 1
+       72 JUMPIFNOT                        R4 ; [+14]
+       73 DUPTABLE                         R4 K14 [{["isWatched"] = True}]
+       74 GETUPVAL                         R5 7
+       75 GETUPVAL                         R7 8
+       76 GETTABLEKS                       R7 R7 K15 ["REIMPORT"]
+       78 GETTABLEKS                       R7 R7 K16 ["CPC_EVENTS"]
+       80 GETTABLEKS                       R7 R7 K17 ["WATCH_STATUS_CHANGED"]
+       82 MOVE                             R8 R0
+       83 MOVE                             R9 R4
+       84 NAMECALL                         R5 R5 K18 ["Fire"]
+       86 CALL                             R5 4 0
+       87 GETUPVAL                         R4 9
+       88 GETTABLEKS                       R4 R4 K19 ["reimportInstanceDebounced"]
+       90 MOVE                             R5 R0
+       91 DUPTABLE                         R6 K21 [{["wasAutoReimport"] = True}]
+       92 CALL                             R4 2 0
+       93 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R3 0
@@ -224,89 +222,88 @@ PROTO_8:
         0 JUMPIFNOT                        R1 ; [+3]
         1 GETUPVAL                         R3 0
         2 GETTABLE                         R2 R3 R1
-        3 JUMPIF                           R2 ; [+9]
+        3 JUMPIF                           R2 ; [+8]
         4 GETIMPORT                        R2 K1 [error]
-        6 LOADK                            R4 K2 ["Reimport: cannot stop watching instance %* which is not being watched"]
-        7 MOVE                             R6 R0
-        8 NAMECALL                         R4 R4 K3 ["format"]
-       10 CALL                             R4 2 1
-       11 MOVE                             R3 R4
-       12 CALL                             R2 1 0
-       13 GETUPVAL                         R3 0
-       14 GETTABLE                         R2 R3 R1
-       15 LOADNIL                          R3
-       16 SETTABLE                         R3 R2 R0
-       17 GETIMPORT                        R2 K5 [next]
-       19 GETUPVAL                         R4 0
-       20 GETTABLE                         R3 R4 R1
-       21 CALL                             R2 1 1
-       22 JUMPIF                           R2 ; [+8]
-       23 GETUPVAL                         R2 0
-       24 LOADNIL                          R3
-       25 SETTABLE                         R3 R2 R1
-       26 GETUPVAL                         R2 1
-       27 MOVE                             R4 R1
-       28 NAMECALL                         R2 R2 K6 ["StopSingleFileWatch"]
-       30 CALL                             R2 2 0
-       31 LOADK                            R4 K7 ["SurfaceAppearance"]
-       32 NAMECALL                         R2 R0 K8 ["IsA"]
-       34 CALL                             R2 2 1
-       35 JUMPIF                           R2 ; [+5]
-       36 LOADK                            R4 K9 ["Decal"]
-       37 NAMECALL                         R2 R0 K8 ["IsA"]
-       39 CALL                             R2 2 1
-       40 JUMPIFNOT                        R2 ; [+42]
-       41 GETUPVAL                         R2 1
-       42 MOVE                             R4 R1
-       43 NAMECALL                         R2 R2 K10 ["GetFilesInDirAsync"]
-       45 CALL                             R2 2 1
-       46 GETUPVAL                         R3 2
-       47 GETTABLEKS                       R3 R3 K11 ["findMaps"]
-       49 MOVE                             R4 R1
-       50 MOVE                             R5 R2
-       51 CALL                             R3 2 1
-       52 MOVE                             R4 R3
-       53 LOADNIL                          R5
-       54 LOADNIL                          R6
-       55 FORGPREP                         R4
-       56 JUMPIFEQ                         R8 R1 ; [+24]
-       58 GETUPVAL                         R9 3
-       59 GETTABLEKS                       R9 R9 K12 ["normalize"]
-       61 MOVE                             R10 R8
-       62 CALL                             R9 1 1
-       63 GETUPVAL                         R11 0
-       64 GETTABLE                         R10 R11 R9
-       65 LOADNIL                          R11
-       66 SETTABLE                         R11 R10 R0
-       67 GETIMPORT                        R10 K5 [next]
-       69 GETUPVAL                         R12 0
-       70 GETTABLE                         R11 R12 R9
-       71 CALL                             R10 1 1
-       72 JUMPIF                           R10 ; [+8]
-       73 GETUPVAL                         R10 0
-       74 LOADNIL                          R11
-       75 SETTABLE                         R11 R10 R9
-       76 GETUPVAL                         R10 1
-       77 MOVE                             R12 R9
-       78 NAMECALL                         R10 R10 K6 ["StopSingleFileWatch"]
-       80 CALL                             R10 2 0
-       81 FORGLOOP                         R4 2 ; [-26]
-       83 GETUPVAL                         R2 4
-       84 CALL                             R2 0 1
-       85 JUMPIFNOT                        R2 ; [+14]
-       86 DUPTABLE                         R2 K15 [{["isWatched"] = False}]
-       87 GETUPVAL                         R3 5
-       88 GETUPVAL                         R5 6
-       89 GETTABLEKS                       R5 R5 K16 ["REIMPORT"]
-       91 GETTABLEKS                       R5 R5 K17 ["CPC_EVENTS"]
-       93 GETTABLEKS                       R5 R5 K18 ["WATCH_STATUS_CHANGED"]
-       95 MOVE                             R6 R0
-       96 MOVE                             R7 R2
-       97 NAMECALL                         R3 R3 K19 ["Fire"]
-       99 CALL                             R3 4 0
-      100 GETUPVAL                         R2 7
-      101 CALL                             R2 0 0
-      102 RETURN                           R0 0
+        6 LOADK                            R3 K2 ["Reimport: cannot stop watching instance %* which is not being watched"]
+        7 MOVE                             R5 R0
+        8 NAMECALL                         R3 R3 K3 ["format"]
+       10 CALL                             R3 2 1
+       11 CALL                             R2 1 0
+       12 GETUPVAL                         R3 0
+       13 GETTABLE                         R2 R3 R1
+       14 LOADNIL                          R3
+       15 SETTABLE                         R3 R2 R0
+       16 GETIMPORT                        R2 K5 [next]
+       18 GETUPVAL                         R4 0
+       19 GETTABLE                         R3 R4 R1
+       20 CALL                             R2 1 1
+       21 JUMPIF                           R2 ; [+8]
+       22 GETUPVAL                         R2 0
+       23 LOADNIL                          R3
+       24 SETTABLE                         R3 R2 R1
+       25 GETUPVAL                         R2 1
+       26 MOVE                             R4 R1
+       27 NAMECALL                         R2 R2 K6 ["StopSingleFileWatch"]
+       29 CALL                             R2 2 0
+       30 LOADK                            R4 K7 ["SurfaceAppearance"]
+       31 NAMECALL                         R2 R0 K8 ["IsA"]
+       33 CALL                             R2 2 1
+       34 JUMPIF                           R2 ; [+5]
+       35 LOADK                            R4 K9 ["Decal"]
+       36 NAMECALL                         R2 R0 K8 ["IsA"]
+       38 CALL                             R2 2 1
+       39 JUMPIFNOT                        R2 ; [+42]
+       40 GETUPVAL                         R2 1
+       41 MOVE                             R4 R1
+       42 NAMECALL                         R2 R2 K10 ["GetFilesInDirAsync"]
+       44 CALL                             R2 2 1
+       45 GETUPVAL                         R3 2
+       46 GETTABLEKS                       R3 R3 K11 ["findMaps"]
+       48 MOVE                             R4 R1
+       49 MOVE                             R5 R2
+       50 CALL                             R3 2 1
+       51 MOVE                             R4 R3
+       52 LOADNIL                          R5
+       53 LOADNIL                          R6
+       54 FORGPREP                         R4
+       55 JUMPIFEQ                         R8 R1 ; [+24]
+       57 GETUPVAL                         R9 3
+       58 GETTABLEKS                       R9 R9 K12 ["normalize"]
+       60 MOVE                             R10 R8
+       61 CALL                             R9 1 1
+       62 GETUPVAL                         R11 0
+       63 GETTABLE                         R10 R11 R9
+       64 LOADNIL                          R11
+       65 SETTABLE                         R11 R10 R0
+       66 GETIMPORT                        R10 K5 [next]
+       68 GETUPVAL                         R12 0
+       69 GETTABLE                         R11 R12 R9
+       70 CALL                             R10 1 1
+       71 JUMPIF                           R10 ; [+8]
+       72 GETUPVAL                         R10 0
+       73 LOADNIL                          R11
+       74 SETTABLE                         R11 R10 R9
+       75 GETUPVAL                         R10 1
+       76 MOVE                             R12 R9
+       77 NAMECALL                         R10 R10 K6 ["StopSingleFileWatch"]
+       79 CALL                             R10 2 0
+       80 FORGLOOP                         R4 2 ; [-26]
+       82 GETUPVAL                         R2 4
+       83 CALL                             R2 0 1
+       84 JUMPIFNOT                        R2 ; [+14]
+       85 DUPTABLE                         R2 K15 [{["isWatched"] = False}]
+       86 GETUPVAL                         R3 5
+       87 GETUPVAL                         R5 6
+       88 GETTABLEKS                       R5 R5 K16 ["REIMPORT"]
+       90 GETTABLEKS                       R5 R5 K17 ["CPC_EVENTS"]
+       92 GETTABLEKS                       R5 R5 K18 ["WATCH_STATUS_CHANGED"]
+       94 MOVE                             R6 R0
+       95 MOVE                             R7 R2
+       96 NAMECALL                         R3 R3 K19 ["Fire"]
+       98 CALL                             R3 4 0
+       99 GETUPVAL                         R2 7
+      100 CALL                             R2 0 0
+      101 RETURN                           R0 0
 
 PROTO_9:
         0 JUMPIFNOT                        R1 ; [+10]

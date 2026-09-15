@@ -90,64 +90,63 @@ PROTO_2:
       100 GETUPVAL                         R22 6
       101 GETTABLEKS                       R22 R22 K36 ["Text"]
       103 DUPTABLE                         R23 K43 [{["Text"], ["TextWrapped"] = True, ["RichText"] = True, ["LayoutOrder"], ["onActivated"], ["tag"] = "align-x-left align-y-center auto-xy text-body-medium text-align-x-left"}]
-      104 LOADK                            R25 K44 ["<b>%*</b> <u>%*</u>"]
-      105 MOVE                             R27 R7
-      106 MOVE                             R28 R8
-      107 NAMECALL                         R25 R25 K45 ["format"]
-      109 CALL                             R25 3 1
-      110 MOVE                             R24 R25
-      111 SETTABLEKS                       R24 R23 K36 ["Text"]
-      113 NAMECALL                         R24 R6 K46 ["getNextOrder"]
-      115 CALL                             R24 1 1
-      116 SETTABLEKS                       R24 R23 K40 ["LayoutOrder"]
-      118 SETTABLEKS                       R4 R23 K41 ["onActivated"]
-      120 CALL                             R21 2 1
-      121 GETUPVAL                         R22 0
-      122 GETTABLEKS                       R22 R22 K14 ["createElement"]
-      124 GETUPVAL                         R23 6
-      125 GETTABLEKS                       R23 R23 K36 ["Text"]
-      127 DUPTABLE                         R24 K47 [{["Text"], ["TextWrapped"] = True, ["LayoutOrder"], ["tag"] = "align-x-left align-y-center auto-xy text-body-medium text-align-x-left"}]
-      128 LOADK                            R27 K9 ["ReimportCallout"]
-      129 LOADK                            R28 K48 ["Body"]
-      130 NAMECALL                         R25 R1 K11 ["getText"]
-      132 CALL                             R25 3 1
-      133 SETTABLEKS                       R25 R24 K36 ["Text"]
-      135 NAMECALL                         R25 R6 K46 ["getNextOrder"]
-      137 CALL                             R25 1 1
-      138 SETTABLEKS                       R25 R24 K40 ["LayoutOrder"]
-      140 CALL                             R22 2 -1
-      141 SETLIST                          R20 R21 -1 [1]
-      143 CALL                             R17 3 1
-      144 GETUPVAL                         R18 0
-      145 GETTABLEKS                       R18 R18 K14 ["createElement"]
-      147 GETUPVAL                         R19 6
-      148 GETTABLEKS                       R19 R19 K15 ["View"]
-      150 DUPTABLE                         R20 K51 [{["onActivated"], ["tag"] = "align-x-right align-y-top auto-xy", ["testId"] = "ReimportCallout_DismissButton"}]
-      151 SETTABLEKS                       R3 R20 K41 ["onActivated"]
-      153 NEWTABLE                         R21 0 1
-      155 GETUPVAL                         R22 0
-      156 GETTABLEKS                       R22 R22 K14 ["createElement"]
-      158 GETUPVAL                         R23 6
-      159 GETTABLEKS                       R23 R23 K52 ["Icon"]
-      161 DUPTABLE                         R24 K56 [{["name"], ["size"], ["tag"] = "align-x-right align-y-top"}]
-      162 GETUPVAL                         R25 6
-      163 GETTABLEKS                       R25 R25 K57 ["Enums"]
-      165 GETTABLEKS                       R25 R25 K58 ["IconName"]
-      167 GETTABLEKS                       R25 R25 K59 ["XSmall"]
-      169 SETTABLEKS                       R25 R24 K53 ["name"]
-      171 GETUPVAL                         R25 6
-      172 GETTABLEKS                       R25 R25 K57 ["Enums"]
-      174 GETTABLEKS                       R25 R25 K60 ["IconSize"]
-      176 GETTABLEKS                       R25 R25 K61 ["Medium"]
-      178 SETTABLEKS                       R25 R24 K54 ["size"]
-      180 CALL                             R22 2 -1
-      181 SETLIST                          R21 R22 -1 [1]
-      183 CALL                             R18 3 -1
-      184 SETLIST                          R16 R17 -1 [1]
-      186 CALL                             R13 3 -1
-      187 SETLIST                          R12 R13 -1 [1]
-      189 CALL                             R9 3 -1
-      190 RETURN                           R9 -1
+      104 LOADK                            R24 K44 ["<b>%*</b> <u>%*</u>"]
+      105 MOVE                             R26 R7
+      106 MOVE                             R27 R8
+      107 NAMECALL                         R24 R24 K45 ["format"]
+      109 CALL                             R24 3 1
+      110 SETTABLEKS                       R24 R23 K36 ["Text"]
+      112 NAMECALL                         R24 R6 K46 ["getNextOrder"]
+      114 CALL                             R24 1 1
+      115 SETTABLEKS                       R24 R23 K40 ["LayoutOrder"]
+      117 SETTABLEKS                       R4 R23 K41 ["onActivated"]
+      119 CALL                             R21 2 1
+      120 GETUPVAL                         R22 0
+      121 GETTABLEKS                       R22 R22 K14 ["createElement"]
+      123 GETUPVAL                         R23 6
+      124 GETTABLEKS                       R23 R23 K36 ["Text"]
+      126 DUPTABLE                         R24 K47 [{["Text"], ["TextWrapped"] = True, ["LayoutOrder"], ["tag"] = "align-x-left align-y-center auto-xy text-body-medium text-align-x-left"}]
+      127 LOADK                            R27 K9 ["ReimportCallout"]
+      128 LOADK                            R28 K48 ["Body"]
+      129 NAMECALL                         R25 R1 K11 ["getText"]
+      131 CALL                             R25 3 1
+      132 SETTABLEKS                       R25 R24 K36 ["Text"]
+      134 NAMECALL                         R25 R6 K46 ["getNextOrder"]
+      136 CALL                             R25 1 1
+      137 SETTABLEKS                       R25 R24 K40 ["LayoutOrder"]
+      139 CALL                             R22 2 -1
+      140 SETLIST                          R20 R21 -1 [1]
+      142 CALL                             R17 3 1
+      143 GETUPVAL                         R18 0
+      144 GETTABLEKS                       R18 R18 K14 ["createElement"]
+      146 GETUPVAL                         R19 6
+      147 GETTABLEKS                       R19 R19 K15 ["View"]
+      149 DUPTABLE                         R20 K51 [{["onActivated"], ["tag"] = "align-x-right align-y-top auto-xy", ["testId"] = "ReimportCallout_DismissButton"}]
+      150 SETTABLEKS                       R3 R20 K41 ["onActivated"]
+      152 NEWTABLE                         R21 0 1
+      154 GETUPVAL                         R22 0
+      155 GETTABLEKS                       R22 R22 K14 ["createElement"]
+      157 GETUPVAL                         R23 6
+      158 GETTABLEKS                       R23 R23 K52 ["Icon"]
+      160 DUPTABLE                         R24 K56 [{["name"], ["size"], ["tag"] = "align-x-right align-y-top"}]
+      161 GETUPVAL                         R25 6
+      162 GETTABLEKS                       R25 R25 K57 ["Enums"]
+      164 GETTABLEKS                       R25 R25 K58 ["IconName"]
+      166 GETTABLEKS                       R25 R25 K59 ["XSmall"]
+      168 SETTABLEKS                       R25 R24 K53 ["name"]
+      170 GETUPVAL                         R25 6
+      171 GETTABLEKS                       R25 R25 K57 ["Enums"]
+      173 GETTABLEKS                       R25 R25 K60 ["IconSize"]
+      175 GETTABLEKS                       R25 R25 K61 ["Medium"]
+      177 SETTABLEKS                       R25 R24 K54 ["size"]
+      179 CALL                             R22 2 -1
+      180 SETLIST                          R21 R22 -1 [1]
+      182 CALL                             R18 3 -1
+      183 SETLIST                          R16 R17 -1 [1]
+      185 CALL                             R13 3 -1
+      186 SETLIST                          R12 R13 -1 [1]
+      188 CALL                             R9 3 -1
+      189 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

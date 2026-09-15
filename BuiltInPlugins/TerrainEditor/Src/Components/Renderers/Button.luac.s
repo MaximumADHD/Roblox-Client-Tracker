@@ -2,7 +2,7 @@ PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["Schema"]
         2 GETUPVAL                         R2 0
         3 CALL                             R2 0 1
-        4 JUMPIFNOT                        R2 ; [+59]
+        4 JUMPIFNOT                        R2 ; [+58]
         5 GETUPVAL                         R2 1
         6 GETTABLEKS                       R2 R2 K1 ["createElement"]
         8 GETUPVAL                         R3 2
@@ -30,43 +30,42 @@ PROTO_0:
        44 GETTABLEKS                       R9 R9 K21 ["InputSize"]
        46 GETTABLEKS                       R9 R9 K22 ["Small"]
        48 SETTABLEKS                       R9 R8 K12 ["size"]
-       50 LOADK                            R10 K23 ["button-%*"]
-       51 GETTABLEKS                       R12 R1 K15 ["Label"]
-       53 NAMECALL                         R10 R10 K24 ["format"]
-       55 CALL                             R10 2 1
-       56 MOVE                             R9 R10
-       57 SETTABLEKS                       R9 R8 K13 ["testId"]
-       59 CALL                             R6 2 1
-       60 SETTABLEKS                       R6 R5 K6 ["Button"]
-       62 CALL                             R2 3 -1
-       63 RETURN                           R2 -1
-       64 GETUPVAL                         R2 1
-       65 GETTABLEKS                       R2 R2 K1 ["createElement"]
-       67 GETUPVAL                         R3 3
-       68 DUPTABLE                         R4 K29 [{"Disabled", "OnClick", "Size", "Style", "Text", "TextXAlignment"}]
-       69 GETTABLEKS                       R5 R0 K20 ["Disabled"]
-       71 SETTABLEKS                       R5 R4 K20 ["Disabled"]
-       73 GETTABLEKS                       R5 R1 K19 ["OnClick"]
-       75 SETTABLEKS                       R5 R4 K19 ["OnClick"]
-       77 GETIMPORT                        R5 K32 [UDim2.new]
-       79 LOADN                            R6 1
-       80 LOADN                            R7 0
-       81 LOADN                            R8 0
-       82 LOADN                            R9 32
-       83 CALL                             R5 4 1
-       84 SETTABLEKS                       R5 R4 K25 ["Size"]
-       86 GETTABLEKS                       R6 R0 K20 ["Disabled"]
-       88 JUMPIFNOT                        R6 ; [+2]
-       89 LOADNIL                          R5
-       90 JUMP                             ; [+1]
-       91 LOADK                            R5 K33 ["PrimaryBrand"]
-       92 SETTABLEKS                       R5 R4 K26 ["Style"]
-       94 GETTABLEKS                       R5 R1 K15 ["Label"]
-       96 SETTABLEKS                       R5 R4 K27 ["Text"]
-       98 GETIMPORT                        R5 K36 [Enum.TextXAlignment.Center]
-      100 SETTABLEKS                       R5 R4 K28 ["TextXAlignment"]
-      102 CALL                             R2 2 -1
-      103 RETURN                           R2 -1
+       50 LOADK                            R9 K23 ["button-%*"]
+       51 GETTABLEKS                       R11 R1 K15 ["Label"]
+       53 NAMECALL                         R9 R9 K24 ["format"]
+       55 CALL                             R9 2 1
+       56 SETTABLEKS                       R9 R8 K13 ["testId"]
+       58 CALL                             R6 2 1
+       59 SETTABLEKS                       R6 R5 K6 ["Button"]
+       61 CALL                             R2 3 -1
+       62 RETURN                           R2 -1
+       63 GETUPVAL                         R2 1
+       64 GETTABLEKS                       R2 R2 K1 ["createElement"]
+       66 GETUPVAL                         R3 3
+       67 DUPTABLE                         R4 K29 [{"Disabled", "OnClick", "Size", "Style", "Text", "TextXAlignment"}]
+       68 GETTABLEKS                       R5 R0 K20 ["Disabled"]
+       70 SETTABLEKS                       R5 R4 K20 ["Disabled"]
+       72 GETTABLEKS                       R5 R1 K19 ["OnClick"]
+       74 SETTABLEKS                       R5 R4 K19 ["OnClick"]
+       76 GETIMPORT                        R5 K32 [UDim2.new]
+       78 LOADN                            R6 1
+       79 LOADN                            R7 0
+       80 LOADN                            R8 0
+       81 LOADN                            R9 32
+       82 CALL                             R5 4 1
+       83 SETTABLEKS                       R5 R4 K25 ["Size"]
+       85 GETTABLEKS                       R6 R0 K20 ["Disabled"]
+       87 JUMPIFNOT                        R6 ; [+2]
+       88 LOADNIL                          R5
+       89 JUMP                             ; [+1]
+       90 LOADK                            R5 K33 ["PrimaryBrand"]
+       91 SETTABLEKS                       R5 R4 K26 ["Style"]
+       93 GETTABLEKS                       R5 R1 K15 ["Label"]
+       95 SETTABLEKS                       R5 R4 K27 ["Text"]
+       97 GETIMPORT                        R5 K36 [Enum.TextXAlignment.Center]
+       99 SETTABLEKS                       R5 R4 K28 ["TextXAlignment"]
+      101 CALL                             R2 2 -1
+      102 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -279,7 +279,7 @@ PROTO_6:
       273 FORGPREP                         R17
       274 GETTABLEKS                       R23 R2 K11 ["schemas"]
       276 GETTABLE                         R22 R23 R21
-      277 JUMPIFEQKB                       R22 FALSE ; [+27]
+      277 JUMPIFEQKB                       R22 FALSE ; [+26]
       279 GETUPVAL                         R22 0
       280 GETTABLEKS                       R22 R22 K12 ["createElement"]
       282 GETUPVAL                         R23 12
@@ -287,70 +287,69 @@ PROTO_6:
       284 MOVE                             R25 R6
       285 CALL                             R25 0 1
       286 SETTABLEKS                       R25 R24 K13 ["LayoutOrder"]
-      288 LOADK                            R26 K69 ["schema-%*"]
-      289 MOVE                             R28 R21
-      290 NAMECALL                         R26 R26 K70 ["format"]
-      292 CALL                             R26 2 1
-      293 MOVE                             R25 R26
-      294 SETTABLEKS                       R25 R24 K17 ["testId"]
-      296 LOADK                            R27 K71 ["Schema"]
-      297 MOVE                             R28 R21
-      298 NAMECALL                         R25 R1 K28 ["getText"]
-      300 CALL                             R25 3 1
-      301 SETTABLEKS                       R25 R24 K25 ["Text"]
-      303 CALL                             R22 2 1
-      304 SETTABLE                         R22 R16 R21
-      305 FORGLOOP                         R17 2 ; [-32]
-      307 GETUPVAL                         R17 0
-      308 GETTABLEKS                       R17 R17 K12 ["createElement"]
-      310 GETUPVAL                         R18 11
-      311 DUPTABLE                         R19 K76 [{["layoutOrder"], ["tag"] = "col size-full-1000", ["ZIndex"] = 2}]
-      312 GETTABLEKS                       R20 R0 K13 ["LayoutOrder"]
-      314 SETTABLEKS                       R20 R19 K72 ["layoutOrder"]
-      316 DUPTABLE                         R20 K77 [{"header", "Divider"}]
-      317 GETUPVAL                         R21 0
-      318 GETTABLEKS                       R21 R21 K12 ["createElement"]
-      320 GETUPVAL                         R22 21
-      321 DUPTABLE                         R23 K81 [{["LayoutOrder"], ["scrollingFrameRef"], ["scroll"], ["tag"] = "size-full-1000 auto-x"}]
-      322 GETTABLEKS                       R24 R0 K13 ["LayoutOrder"]
-      324 SETTABLEKS                       R24 R23 K13 ["LayoutOrder"]
-      326 GETTABLEKS                       R24 R0 K78 ["scrollingFrameRef"]
-      328 SETTABLEKS                       R24 R23 K78 ["scrollingFrameRef"]
-      330 DUPTABLE                         R24 K87 [{["AutomaticCanvasSize"], ["ScrollingDirection"], ["ScrollingEnabled"] = False, ["scrollBarVisibility"]}]
-      331 GETIMPORT                        R25 K90 [Enum.AutomaticSize.XY]
-      333 SETTABLEKS                       R25 R24 K82 ["AutomaticCanvasSize"]
-      335 GETIMPORT                        R25 K92 [Enum.ScrollingDirection.X]
-      337 SETTABLEKS                       R25 R24 K83 ["ScrollingDirection"]
-      339 GETUPVAL                         R25 22
-      340 GETTABLEKS                       R25 R25 K93 ["None"]
-      342 SETTABLEKS                       R25 R24 K86 ["scrollBarVisibility"]
-      344 SETTABLEKS                       R24 R23 K79 ["scroll"]
-      346 DUPTABLE                         R24 K95 [{"Children"}]
-      347 GETUPVAL                         R25 0
-      348 GETTABLEKS                       R25 R25 K12 ["createElement"]
-      350 GETUPVAL                         R26 11
-      351 DUPTABLE                         R27 K97 [{["tag"] = "row align-y-center size-full-1000 auto-x"}]
-      352 MOVE                             R28 R16
-      353 CALL                             R25 3 1
-      354 SETTABLEKS                       R25 R24 K94 ["Children"]
-      356 CALL                             R21 3 1
-      357 SETTABLEKS                       R21 R20 K18 ["header"]
-      359 GETUPVAL                         R21 0
-      360 GETTABLEKS                       R21 R21 K12 ["createElement"]
-      362 GETUPVAL                         R22 18
-      363 DUPTABLE                         R23 K99 [{["LayoutOrder"], ["orientation"], ["tag"] = "auto-x"}]
-      364 MOVE                             R24 R6
-      365 CALL                             R24 0 1
-      366 SETTABLEKS                       R24 R23 K13 ["LayoutOrder"]
-      368 GETUPVAL                         R24 14
-      369 GETTABLEKS                       R24 R24 K35 ["Enums"]
-      371 GETTABLEKS                       R24 R24 K100 ["Orientation"]
-      373 GETTABLEKS                       R24 R24 K101 ["Horizontal"]
-      375 SETTABLEKS                       R24 R23 K54 ["orientation"]
-      377 CALL                             R21 2 1
-      378 SETTABLEKS                       R21 R20 K58 ["Divider"]
-      380 CALL                             R17 3 -1
-      381 RETURN                           R17 -1
+      288 LOADK                            R25 K69 ["schema-%*"]
+      289 MOVE                             R27 R21
+      290 NAMECALL                         R25 R25 K70 ["format"]
+      292 CALL                             R25 2 1
+      293 SETTABLEKS                       R25 R24 K17 ["testId"]
+      295 LOADK                            R27 K71 ["Schema"]
+      296 MOVE                             R28 R21
+      297 NAMECALL                         R25 R1 K28 ["getText"]
+      299 CALL                             R25 3 1
+      300 SETTABLEKS                       R25 R24 K25 ["Text"]
+      302 CALL                             R22 2 1
+      303 SETTABLE                         R22 R16 R21
+      304 FORGLOOP                         R17 2 ; [-31]
+      306 GETUPVAL                         R17 0
+      307 GETTABLEKS                       R17 R17 K12 ["createElement"]
+      309 GETUPVAL                         R18 11
+      310 DUPTABLE                         R19 K76 [{["layoutOrder"], ["tag"] = "col size-full-1000", ["ZIndex"] = 2}]
+      311 GETTABLEKS                       R20 R0 K13 ["LayoutOrder"]
+      313 SETTABLEKS                       R20 R19 K72 ["layoutOrder"]
+      315 DUPTABLE                         R20 K77 [{"header", "Divider"}]
+      316 GETUPVAL                         R21 0
+      317 GETTABLEKS                       R21 R21 K12 ["createElement"]
+      319 GETUPVAL                         R22 21
+      320 DUPTABLE                         R23 K81 [{["LayoutOrder"], ["scrollingFrameRef"], ["scroll"], ["tag"] = "size-full-1000 auto-x"}]
+      321 GETTABLEKS                       R24 R0 K13 ["LayoutOrder"]
+      323 SETTABLEKS                       R24 R23 K13 ["LayoutOrder"]
+      325 GETTABLEKS                       R24 R0 K78 ["scrollingFrameRef"]
+      327 SETTABLEKS                       R24 R23 K78 ["scrollingFrameRef"]
+      329 DUPTABLE                         R24 K87 [{["AutomaticCanvasSize"], ["ScrollingDirection"], ["ScrollingEnabled"] = False, ["scrollBarVisibility"]}]
+      330 GETIMPORT                        R25 K90 [Enum.AutomaticSize.XY]
+      332 SETTABLEKS                       R25 R24 K82 ["AutomaticCanvasSize"]
+      334 GETIMPORT                        R25 K92 [Enum.ScrollingDirection.X]
+      336 SETTABLEKS                       R25 R24 K83 ["ScrollingDirection"]
+      338 GETUPVAL                         R25 22
+      339 GETTABLEKS                       R25 R25 K93 ["None"]
+      341 SETTABLEKS                       R25 R24 K86 ["scrollBarVisibility"]
+      343 SETTABLEKS                       R24 R23 K79 ["scroll"]
+      345 DUPTABLE                         R24 K95 [{"Children"}]
+      346 GETUPVAL                         R25 0
+      347 GETTABLEKS                       R25 R25 K12 ["createElement"]
+      349 GETUPVAL                         R26 11
+      350 DUPTABLE                         R27 K97 [{["tag"] = "row align-y-center size-full-1000 auto-x"}]
+      351 MOVE                             R28 R16
+      352 CALL                             R25 3 1
+      353 SETTABLEKS                       R25 R24 K94 ["Children"]
+      355 CALL                             R21 3 1
+      356 SETTABLEKS                       R21 R20 K18 ["header"]
+      358 GETUPVAL                         R21 0
+      359 GETTABLEKS                       R21 R21 K12 ["createElement"]
+      361 GETUPVAL                         R22 18
+      362 DUPTABLE                         R23 K99 [{["LayoutOrder"], ["orientation"], ["tag"] = "auto-x"}]
+      363 MOVE                             R24 R6
+      364 CALL                             R24 0 1
+      365 SETTABLEKS                       R24 R23 K13 ["LayoutOrder"]
+      367 GETUPVAL                         R24 14
+      368 GETTABLEKS                       R24 R24 K35 ["Enums"]
+      370 GETTABLEKS                       R24 R24 K100 ["Orientation"]
+      372 GETTABLEKS                       R24 R24 K101 ["Horizontal"]
+      374 SETTABLEKS                       R24 R23 K54 ["orientation"]
+      376 CALL                             R21 2 1
+      377 SETTABLEKS                       R21 R20 K58 ["Divider"]
+      379 CALL                             R17 3 -1
+      380 RETURN                           R17 -1
 
 MAIN:
         0 PREPVARARGS                      0

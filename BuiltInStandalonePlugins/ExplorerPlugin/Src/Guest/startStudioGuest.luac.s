@@ -106,52 +106,51 @@ PROTO_3:
 
 PROTO_4:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["Error when unloading: %*"]
-        3 GETIMPORT                        R5 K5 [debug.traceback]
-        5 MOVE                             R6 R0
-        6 CALL                             R5 1 1
-        7 NAMECALL                         R3 R3 K6 ["format"]
-        9 CALL                             R3 2 1
-       10 MOVE                             R2 R3
-       11 CALL                             R1 1 0
-       12 GETUPVAL                         R1 0
-       13 DUPTABLE                         R3 K14 [{["eventName"] = "LuaExplorerUnloadingError", ["description"] = "Fired when something errors in plugin.Unloading", ["backends"], ["throttlingPercentage"], ["lastUpdated"]}]
-       14 NEWTABLE                         R4 0 1
-       16 LOADK                            R5 K15 ["Points"]
-       17 SETLIST                          R4 R5 1 [1]
-       19 SETTABLEKS                       R4 R3 K11 ["backends"]
-       21 GETIMPORT                        R4 K17 [game]
-       23 LOADK                            R6 K18 ["LuaExplorerUnloadingErrorThrottlingHundredthsPercent"]
-       24 LOADN                            R7 10000
-       25 NAMECALL                         R4 R4 K19 ["DefineFastInt"]
-       27 CALL                             R4 3 1
-       28 SETTABLEKS                       R4 R3 K12 ["throttlingPercentage"]
-       30 NEWTABLE                         R4 0 3
-       32 LOADN                            R5 25
-       33 LOADN                            R6 4
-       34 LOADN                            R7 2
-       35 SETLIST                          R4 R5 3 [1]
-       37 SETTABLEKS                       R4 R3 K13 ["lastUpdated"]
-       39 DUPTABLE                         R4 K22 [{"customFields", "standardizedFields"}]
-       40 DUPTABLE                         R5 K25 [{"dataModel", "problem"}]
-       41 GETUPVAL                         R6 1
-       42 GETTABLEKS                       R6 R6 K26 ["HostDataModelType"]
-       44 GETTABLEKS                       R6 R6 K27 ["Name"]
-       46 SETTABLEKS                       R6 R5 K23 ["dataModel"]
-       48 SETTABLEKS                       R0 R5 K24 ["problem"]
-       50 SETTABLEKS                       R5 R4 K20 ["customFields"]
-       52 NEWTABLE                         R5 0 6
-       54 LOADK                            R6 K28 ["addPlaceId"]
-       55 LOADK                            R7 K29 ["addUniverseId"]
-       56 LOADK                            R8 K30 ["addPlaceInstanceId"]
-       57 LOADK                            R9 K31 ["addSessionId"]
-       58 LOADK                            R10 K32 ["addOSInfo"]
-       59 LOADK                            R11 K33 ["addSessionInfo"]
-       60 SETLIST                          R5 R6 6 [1]
-       62 SETTABLEKS                       R5 R4 K21 ["standardizedFields"]
-       64 NAMECALL                         R1 R1 K34 ["LogEvent"]
-       66 CALL                             R1 3 0
-       67 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["Error when unloading: %*"]
+        3 GETIMPORT                        R4 K5 [debug.traceback]
+        5 MOVE                             R5 R0
+        6 CALL                             R4 1 1
+        7 NAMECALL                         R2 R2 K6 ["format"]
+        9 CALL                             R2 2 1
+       10 CALL                             R1 1 0
+       11 GETUPVAL                         R1 0
+       12 DUPTABLE                         R3 K14 [{["eventName"] = "LuaExplorerUnloadingError", ["description"] = "Fired when something errors in plugin.Unloading", ["backends"], ["throttlingPercentage"], ["lastUpdated"]}]
+       13 NEWTABLE                         R4 0 1
+       15 LOADK                            R5 K15 ["Points"]
+       16 SETLIST                          R4 R5 1 [1]
+       18 SETTABLEKS                       R4 R3 K11 ["backends"]
+       20 GETIMPORT                        R4 K17 [game]
+       22 LOADK                            R6 K18 ["LuaExplorerUnloadingErrorThrottlingHundredthsPercent"]
+       23 LOADN                            R7 10000
+       24 NAMECALL                         R4 R4 K19 ["DefineFastInt"]
+       26 CALL                             R4 3 1
+       27 SETTABLEKS                       R4 R3 K12 ["throttlingPercentage"]
+       29 NEWTABLE                         R4 0 3
+       31 LOADN                            R5 25
+       32 LOADN                            R6 4
+       33 LOADN                            R7 2
+       34 SETLIST                          R4 R5 3 [1]
+       36 SETTABLEKS                       R4 R3 K13 ["lastUpdated"]
+       38 DUPTABLE                         R4 K22 [{"customFields", "standardizedFields"}]
+       39 DUPTABLE                         R5 K25 [{"dataModel", "problem"}]
+       40 GETUPVAL                         R6 1
+       41 GETTABLEKS                       R6 R6 K26 ["HostDataModelType"]
+       43 GETTABLEKS                       R6 R6 K27 ["Name"]
+       45 SETTABLEKS                       R6 R5 K23 ["dataModel"]
+       47 SETTABLEKS                       R0 R5 K24 ["problem"]
+       49 SETTABLEKS                       R5 R4 K20 ["customFields"]
+       51 NEWTABLE                         R5 0 6
+       53 LOADK                            R6 K28 ["addPlaceId"]
+       54 LOADK                            R7 K29 ["addUniverseId"]
+       55 LOADK                            R8 K30 ["addPlaceInstanceId"]
+       56 LOADK                            R9 K31 ["addSessionId"]
+       57 LOADK                            R10 K32 ["addOSInfo"]
+       58 LOADK                            R11 K33 ["addSessionInfo"]
+       59 SETLIST                          R5 R6 6 [1]
+       61 SETTABLEKS                       R5 R4 K21 ["standardizedFields"]
+       63 NAMECALL                         R1 R1 K34 ["LogEvent"]
+       65 CALL                             R1 3 0
+       66 RETURN                           R0 0
 
 PROTO_5:
         0 GETIMPORT                        R0 K1 [xpcall]

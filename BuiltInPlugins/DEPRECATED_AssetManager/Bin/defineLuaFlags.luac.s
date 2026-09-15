@@ -30,10 +30,5 @@ MAIN:
        39 LOADB                            R3 0
        40 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
        42 CALL                             R0 3 0
-       43 GETIMPORT                        R0 K1 [game]
-       45 LOADK                            R2 K10 ["AssetManagerCloseButtonColorFix"]
-       46 LOADB                            R3 0
-       47 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
-       49 CALL                             R0 3 0
-       50 LOADNIL                          R0
-       51 RETURN                           R0 1
+       43 LOADNIL                          R0
+       44 RETURN                           R0 1

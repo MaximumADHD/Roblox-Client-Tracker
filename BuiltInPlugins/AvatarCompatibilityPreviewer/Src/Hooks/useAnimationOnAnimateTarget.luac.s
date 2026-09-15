@@ -248,36 +248,35 @@ PROTO_8:
        42 NAMECALL                         R1 R1 K12 ["RegisterAnimationClip"]
        44 CALL                             R1 2 1
        45 SETTABLEKS                       R1 R0 K13 ["AnimationId"]
-       47 JUMP                             ; [+8]
-       48 LOADK                            R2 K14 ["rbxassetid://%*"]
-       49 GETUPVAL                         R4 6
-       50 NAMECALL                         R2 R2 K15 ["format"]
-       52 CALL                             R2 2 1
-       53 MOVE                             R1 R2
-       54 SETTABLEKS                       R1 R0 K13 ["AnimationId"]
-       56 GETUPVAL                         R1 7
-       57 GETUPVAL                         R2 1
-       58 CALL                             R1 1 1
-       59 LOADNIL                          R2
-       60 GETIMPORT                        R3 K18 [task.spawn]
-       62 NEWCLOSURE                       R4 P0
-       63 CAPTURE                          UPVAL U8
-       64 CAPTURE                          VAL R0
-       65 CAPTURE                          UPVAL U1
-       66 CAPTURE                          REF R2
-       67 CAPTURE                          VAL R1
-       68 CAPTURE                          UPVAL U0
-       69 CALL                             R3 1 1
-       70 NEWCLOSURE                       R4 P1
-       71 CAPTURE                          VAL R3
-       72 CAPTURE                          REF R2
-       73 CAPTURE                          UPVAL U9
-       74 CAPTURE                          UPVAL U10
-       75 CAPTURE                          UPVAL U1
-       76 CAPTURE                          VAL R1
-       77 CAPTURE                          UPVAL U11
-       78 CLOSEUPVALS                      R2
-       79 RETURN                           R4 1
+       47 JUMP                             ; [+7]
+       48 LOADK                            R1 K14 ["rbxassetid://%*"]
+       49 GETUPVAL                         R3 6
+       50 NAMECALL                         R1 R1 K15 ["format"]
+       52 CALL                             R1 2 1
+       53 SETTABLEKS                       R1 R0 K13 ["AnimationId"]
+       55 GETUPVAL                         R1 7
+       56 GETUPVAL                         R2 1
+       57 CALL                             R1 1 1
+       58 LOADNIL                          R2
+       59 GETIMPORT                        R3 K18 [task.spawn]
+       61 NEWCLOSURE                       R4 P0
+       62 CAPTURE                          UPVAL U8
+       63 CAPTURE                          VAL R0
+       64 CAPTURE                          UPVAL U1
+       65 CAPTURE                          REF R2
+       66 CAPTURE                          VAL R1
+       67 CAPTURE                          UPVAL U0
+       68 CALL                             R3 1 1
+       69 NEWCLOSURE                       R4 P1
+       70 CAPTURE                          VAL R3
+       71 CAPTURE                          REF R2
+       72 CAPTURE                          UPVAL U9
+       73 CAPTURE                          UPVAL U10
+       74 CAPTURE                          UPVAL U1
+       75 CAPTURE                          VAL R1
+       76 CAPTURE                          UPVAL U11
+       77 CLOSEUPVALS                      R2
+       78 RETURN                           R4 1
 
 PROTO_9:
         0 GETUPVAL                         R1 0

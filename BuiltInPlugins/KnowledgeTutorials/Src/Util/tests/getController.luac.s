@@ -123,15 +123,14 @@ PROTO_6:
        16 JUMPIFNOT                        R3 ; [+1]
        17 RETURN                           R4 1
        18 GETIMPORT                        R5 K3 [error]
-       20 LOADK                            R7 K4 ["No text object found for message \"%*\".\n%*\n%*"]
-       21 MOVE                             R9 R0
-       22 MOVE                             R10 R2
-       23 MOVE                             R11 R4
-       24 NAMECALL                         R7 R7 K5 ["format"]
-       26 CALL                             R7 4 1
-       27 MOVE                             R6 R7
-       28 CALL                             R5 1 0
-       29 RETURN                           R0 0
+       20 LOADK                            R6 K4 ["No text object found for message \"%*\".\n%*\n%*"]
+       21 MOVE                             R8 R0
+       22 MOVE                             R9 R2
+       23 MOVE                             R10 R4
+       24 NAMECALL                         R6 R6 K5 ["format"]
+       26 CALL                             R6 4 1
+       27 CALL                             R5 1 0
+       28 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -241,22 +240,21 @@ PROTO_11:
        12 GETUPVAL                         R2 1
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R1 R1 K3 ["queryByTestId"]
-       16 LOADK                            R3 K4 ["--knowledge-tutorials-SectionButton_%*"]
-       17 MOVE                             R5 R0
-       18 NAMECALL                         R3 R3 K5 ["format"]
-       20 CALL                             R3 2 1
-       21 MOVE                             R2 R3
-       22 CALL                             R1 1 1
-       23 FASTCALL2K                       ASSERT R1 K6 ; [+5]
-       25 MOVE                             R3 R1
-       26 LOADK                            R4 K6 ["Section button not found"]
-       27 GETIMPORT                        R2 K2 [assert]
-       29 CALL                             R2 2 0
-       30 GETUPVAL                         R2 2
-       31 GETTABLEKS                       R2 R2 K7 ["click"]
-       33 MOVE                             R3 R1
-       34 CALL                             R2 1 0
-       35 RETURN                           R0 0
+       16 LOADK                            R2 K4 ["--knowledge-tutorials-SectionButton_%*"]
+       17 MOVE                             R4 R0
+       18 NAMECALL                         R2 R2 K5 ["format"]
+       20 CALL                             R2 2 1
+       21 CALL                             R1 1 1
+       22 FASTCALL2K                       ASSERT R1 K6 ; [+5]
+       24 MOVE                             R3 R1
+       25 LOADK                            R4 K6 ["Section button not found"]
+       26 GETIMPORT                        R2 K2 [assert]
+       28 CALL                             R2 2 0
+       29 GETUPVAL                         R2 2
+       30 GETTABLEKS                       R2 R2 K7 ["click"]
+       32 MOVE                             R3 R1
+       33 CALL                             R2 1 0
+       34 RETURN                           R0 0
 
 PROTO_12:
         0 JUMPIFNOT                        R2 ; [+9]
@@ -348,18 +346,17 @@ PROTO_16:
        34 JUMPIFNOT                        R4 ; [+1]
        35 RETURN                           R2 1
        36 JUMPBACK                         ; [-36]
-       37 LOADK                            R6 K9 ["Ancestor with tag %* not found for element %*"]
-       38 MOVE                             R8 R1
-       39 NAMECALL                         R9 R0 K2 ["GetFullName"]
-       41 CALL                             R9 1 1
-       42 NAMECALL                         R6 R6 K10 ["format"]
-       44 CALL                             R6 3 1
-       45 MOVE                             R5 R6
-       46 FASTCALL2                        ASSERT R2 R5 ; [+4]
-       48 MOVE                             R4 R2
-       49 GETIMPORT                        R3 K4 [assert]
-       51 CALL                             R3 2 0
-       52 RETURN                           R2 1
+       37 LOADK                            R5 K9 ["Ancestor with tag %* not found for element %*"]
+       38 MOVE                             R7 R1
+       39 NAMECALL                         R8 R0 K2 ["GetFullName"]
+       41 CALL                             R8 1 1
+       42 NAMECALL                         R5 R5 K10 ["format"]
+       44 CALL                             R5 3 1
+       45 FASTCALL2                        ASSERT R2 R5 ; [+4]
+       47 MOVE                             R4 R2
+       48 GETIMPORT                        R3 K4 [assert]
+       50 CALL                             R3 2 0
+       51 RETURN                           R2 1
 
 PROTO_17:
         0 LOADNIL                          R0

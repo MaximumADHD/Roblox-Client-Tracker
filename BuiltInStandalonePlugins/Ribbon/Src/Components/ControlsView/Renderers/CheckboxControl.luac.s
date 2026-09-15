@@ -49,129 +49,127 @@ PROTO_3:
         3 CALL                             R1 1 1
         4 GETTABLEKS                       R2 R0 K1 ["Item"]
         6 GETTABLEKS                       R3 R2 K2 ["Setting"]
-        8 JUMPIF                           R3 ; [+12]
+        8 JUMPIF                           R3 ; [+11]
         9 GETTABLEKS                       R3 R0 K3 ["Warn"]
-       11 LOADK                            R5 K4 ["Missing Setting field for Checkbox with id %*"]
-       12 GETTABLEKS                       R7 R2 K5 ["Id"]
-       14 NAMECALL                         R5 R5 K6 ["format"]
-       16 CALL                             R5 2 1
-       17 MOVE                             R4 R5
-       18 CALL                             R3 1 0
-       19 LOADNIL                          R3
-       20 RETURN                           R3 1
-       21 GETUPVAL                         R3 1
-       22 GETTABLEKS                       R3 R3 K7 ["toString"]
-       24 GETTABLEKS                       R4 R2 K2 ["Setting"]
-       26 CALL                             R3 1 1
-       27 GETTABLEKS                       R5 R0 K8 ["Items"]
-       29 GETTABLEKS                       R5 R5 K9 ["Settings"]
-       31 GETTABLE                         R4 R5 R3
-       32 JUMPIF                           R4 ; [+13]
-       33 GETTABLEKS                       R5 R0 K3 ["Warn"]
-       35 LOADK                            R7 K10 ["Missing Setting %* for Checkbox with id %*"]
-       36 MOVE                             R9 R3
-       37 GETTABLEKS                       R10 R2 K5 ["Id"]
-       39 NAMECALL                         R7 R7 K6 ["format"]
-       41 CALL                             R7 3 1
-       42 MOVE                             R6 R7
-       43 CALL                             R5 1 0
-       44 LOADNIL                          R5
-       45 RETURN                           R5 1
-       46 GETTABLEKS                       R6 R2 K11 ["IconOnly"]
-       48 JUMPIFEQKNIL                     R6 ; [+6]
-       50 GETTABLEKS                       R6 R2 K11 ["IconOnly"]
-       52 JUMPIFNOT                        R6 ; [+2]
-       53 LOADNIL                          R5
-       54 JUMP                             ; [+6]
-       55 GETUPVAL                         R5 2
-       56 MOVE                             R6 R1
-       57 LOADK                            R7 K12 ["Text"]
-       58 MOVE                             R8 R2
-       59 MOVE                             R9 R4
-       60 CALL                             R5 4 1
-       61 GETTABLEKS                       R7 R0 K13 ["WidgetUri"]
-       63 JUMPIFNOT                        R7 ; [+12]
-       64 GETTABLEKS                       R7 R2 K5 ["Id"]
-       66 JUMPIFNOT                        R7 ; [+9]
-       67 GETUPVAL                         R6 1
-       68 GETTABLEKS                       R6 R6 K14 ["child"]
-       70 GETTABLEKS                       R7 R0 K13 ["WidgetUri"]
-       72 GETTABLEKS                       R8 R2 K5 ["Id"]
-       74 CALL                             R6 2 1
-       75 JUMP                             ; [+1]
-       76 LOADNIL                          R6
-       77 GETUPVAL                         R7 3
-       78 CALL                             R7 0 1
-       79 JUMPIFNOT                        R7 ; [+66]
-       80 GETUPVAL                         R7 4
-       81 GETUPVAL                         R8 5
-       82 DUPTABLE                         R9 K22 [{"isChecked", "isDisabled", "LayoutOrder", "onActivated", "size", "testId", "label"}]
-       83 GETTABLEKS                       R10 R4 K23 ["Value"]
-       85 SETTABLEKS                       R10 R9 K15 ["isChecked"]
-       87 GETTABLEKS                       R11 R4 K24 ["Enabled"]
-       89 NOT                              R10 R11
-       90 SETTABLEKS                       R10 R9 K16 ["isDisabled"]
-       92 GETTABLEKS                       R10 R0 K17 ["LayoutOrder"]
-       94 SETTABLEKS                       R10 R9 K17 ["LayoutOrder"]
-       96 NEWCLOSURE                       R10 P0
-       97 CAPTURE                          VAL R0
-       98 CAPTURE                          VAL R2
-       99 CAPTURE                          VAL R4
-      100 CAPTURE                          VAL R6
-      101 SETTABLEKS                       R10 R9 K18 ["onActivated"]
-      103 GETTABLEKS                       R11 R2 K25 ["Size"]
-      105 JUMPIF                           R11 ; [+4]
-      106 GETUPVAL                         R10 6
-      107 GETTABLEKS                       R10 R10 K26 ["Medium"]
-      109 JUMP                             ; [+21]
-      110 JUMPIFNOTEQKS                    R11 K27 ["Large"] ; [+5]
-      112 GETUPVAL                         R10 6
-      113 GETTABLEKS                       R10 R10 K26 ["Medium"]
-      115 JUMP                             ; [+15]
-      116 JUMPIFNOTEQKS                    R11 K26 ["Medium"] ; [+5]
-      118 GETUPVAL                         R10 6
-      119 GETTABLEKS                       R10 R10 K28 ["Small"]
-      121 JUMP                             ; [+9]
-      122 JUMPIFNOTEQKS                    R11 K28 ["Small"] ; [+5]
-      124 GETUPVAL                         R10 6
-      125 GETTABLEKS                       R10 R10 K29 ["XSmall"]
-      127 JUMP                             ; [+3]
-      128 GETUPVAL                         R10 6
-      129 GETTABLEKS                       R10 R10 K29 ["XSmall"]
-      131 SETTABLEKS                       R10 R9 K19 ["size"]
-      133 JUMPIFNOT                        R6 ; [+4]
-      134 GETUPVAL                         R10 7
-      135 MOVE                             R11 R6
-      136 CALL                             R10 1 1
-      137 JUMP                             ; [+1]
-      138 LOADNIL                          R10
-      139 SETTABLEKS                       R10 R9 K20 ["testId"]
-      141 ORK                              R10 R5 K30 [""]
-      142 SETTABLEKS                       R10 R9 K21 ["label"]
-      144 CALL                             R7 2 -1
-      145 RETURN                           R7 -1
-      146 GETUPVAL                         R7 4
-      147 GETUPVAL                         R8 8
-      148 DUPTABLE                         R9 K35 [{"Uri", "Checked", "Disabled", "LayoutOrder", "OnClick", "Size", "Text"}]
-      149 SETTABLEKS                       R6 R9 K31 ["Uri"]
-      151 GETTABLEKS                       R10 R4 K23 ["Value"]
-      153 SETTABLEKS                       R10 R9 K32 ["Checked"]
-      155 GETTABLEKS                       R11 R4 K24 ["Enabled"]
-      157 NOT                              R10 R11
-      158 SETTABLEKS                       R10 R9 K33 ["Disabled"]
-      160 GETTABLEKS                       R10 R0 K17 ["LayoutOrder"]
-      162 SETTABLEKS                       R10 R9 K17 ["LayoutOrder"]
-      164 NEWCLOSURE                       R10 P1
-      165 CAPTURE                          VAL R0
-      166 CAPTURE                          VAL R2
-      167 CAPTURE                          VAL R4
-      168 SETTABLEKS                       R10 R9 K34 ["OnClick"]
-      170 GETTABLEKS                       R11 R2 K25 ["Size"]
-      172 ORK                              R10 R11 K27 ["Large"]
-      173 SETTABLEKS                       R10 R9 K25 ["Size"]
-      175 SETTABLEKS                       R5 R9 K12 ["Text"]
-      177 CALL                             R7 2 -1
-      178 RETURN                           R7 -1
+       11 LOADK                            R4 K4 ["Missing Setting field for Checkbox with id %*"]
+       12 GETTABLEKS                       R6 R2 K5 ["Id"]
+       14 NAMECALL                         R4 R4 K6 ["format"]
+       16 CALL                             R4 2 1
+       17 CALL                             R3 1 0
+       18 LOADNIL                          R3
+       19 RETURN                           R3 1
+       20 GETUPVAL                         R3 1
+       21 GETTABLEKS                       R3 R3 K7 ["toString"]
+       23 GETTABLEKS                       R4 R2 K2 ["Setting"]
+       25 CALL                             R3 1 1
+       26 GETTABLEKS                       R5 R0 K8 ["Items"]
+       28 GETTABLEKS                       R5 R5 K9 ["Settings"]
+       30 GETTABLE                         R4 R5 R3
+       31 JUMPIF                           R4 ; [+12]
+       32 GETTABLEKS                       R5 R0 K3 ["Warn"]
+       34 LOADK                            R6 K10 ["Missing Setting %* for Checkbox with id %*"]
+       35 MOVE                             R8 R3
+       36 GETTABLEKS                       R9 R2 K5 ["Id"]
+       38 NAMECALL                         R6 R6 K6 ["format"]
+       40 CALL                             R6 3 1
+       41 CALL                             R5 1 0
+       42 LOADNIL                          R5
+       43 RETURN                           R5 1
+       44 GETTABLEKS                       R6 R2 K11 ["IconOnly"]
+       46 JUMPIFEQKNIL                     R6 ; [+6]
+       48 GETTABLEKS                       R6 R2 K11 ["IconOnly"]
+       50 JUMPIFNOT                        R6 ; [+2]
+       51 LOADNIL                          R5
+       52 JUMP                             ; [+6]
+       53 GETUPVAL                         R5 2
+       54 MOVE                             R6 R1
+       55 LOADK                            R7 K12 ["Text"]
+       56 MOVE                             R8 R2
+       57 MOVE                             R9 R4
+       58 CALL                             R5 4 1
+       59 GETTABLEKS                       R7 R0 K13 ["WidgetUri"]
+       61 JUMPIFNOT                        R7 ; [+12]
+       62 GETTABLEKS                       R7 R2 K5 ["Id"]
+       64 JUMPIFNOT                        R7 ; [+9]
+       65 GETUPVAL                         R6 1
+       66 GETTABLEKS                       R6 R6 K14 ["child"]
+       68 GETTABLEKS                       R7 R0 K13 ["WidgetUri"]
+       70 GETTABLEKS                       R8 R2 K5 ["Id"]
+       72 CALL                             R6 2 1
+       73 JUMP                             ; [+1]
+       74 LOADNIL                          R6
+       75 GETUPVAL                         R7 3
+       76 CALL                             R7 0 1
+       77 JUMPIFNOT                        R7 ; [+66]
+       78 GETUPVAL                         R7 4
+       79 GETUPVAL                         R8 5
+       80 DUPTABLE                         R9 K22 [{"isChecked", "isDisabled", "LayoutOrder", "onActivated", "size", "testId", "label"}]
+       81 GETTABLEKS                       R10 R4 K23 ["Value"]
+       83 SETTABLEKS                       R10 R9 K15 ["isChecked"]
+       85 GETTABLEKS                       R11 R4 K24 ["Enabled"]
+       87 NOT                              R10 R11
+       88 SETTABLEKS                       R10 R9 K16 ["isDisabled"]
+       90 GETTABLEKS                       R10 R0 K17 ["LayoutOrder"]
+       92 SETTABLEKS                       R10 R9 K17 ["LayoutOrder"]
+       94 NEWCLOSURE                       R10 P0
+       95 CAPTURE                          VAL R0
+       96 CAPTURE                          VAL R2
+       97 CAPTURE                          VAL R4
+       98 CAPTURE                          VAL R6
+       99 SETTABLEKS                       R10 R9 K18 ["onActivated"]
+      101 GETTABLEKS                       R11 R2 K25 ["Size"]
+      103 JUMPIF                           R11 ; [+4]
+      104 GETUPVAL                         R10 6
+      105 GETTABLEKS                       R10 R10 K26 ["Medium"]
+      107 JUMP                             ; [+21]
+      108 JUMPIFNOTEQKS                    R11 K27 ["Large"] ; [+5]
+      110 GETUPVAL                         R10 6
+      111 GETTABLEKS                       R10 R10 K26 ["Medium"]
+      113 JUMP                             ; [+15]
+      114 JUMPIFNOTEQKS                    R11 K26 ["Medium"] ; [+5]
+      116 GETUPVAL                         R10 6
+      117 GETTABLEKS                       R10 R10 K28 ["Small"]
+      119 JUMP                             ; [+9]
+      120 JUMPIFNOTEQKS                    R11 K28 ["Small"] ; [+5]
+      122 GETUPVAL                         R10 6
+      123 GETTABLEKS                       R10 R10 K29 ["XSmall"]
+      125 JUMP                             ; [+3]
+      126 GETUPVAL                         R10 6
+      127 GETTABLEKS                       R10 R10 K29 ["XSmall"]
+      129 SETTABLEKS                       R10 R9 K19 ["size"]
+      131 JUMPIFNOT                        R6 ; [+4]
+      132 GETUPVAL                         R10 7
+      133 MOVE                             R11 R6
+      134 CALL                             R10 1 1
+      135 JUMP                             ; [+1]
+      136 LOADNIL                          R10
+      137 SETTABLEKS                       R10 R9 K20 ["testId"]
+      139 ORK                              R10 R5 K30 [""]
+      140 SETTABLEKS                       R10 R9 K21 ["label"]
+      142 CALL                             R7 2 -1
+      143 RETURN                           R7 -1
+      144 GETUPVAL                         R7 4
+      145 GETUPVAL                         R8 8
+      146 DUPTABLE                         R9 K35 [{"Uri", "Checked", "Disabled", "LayoutOrder", "OnClick", "Size", "Text"}]
+      147 SETTABLEKS                       R6 R9 K31 ["Uri"]
+      149 GETTABLEKS                       R10 R4 K23 ["Value"]
+      151 SETTABLEKS                       R10 R9 K32 ["Checked"]
+      153 GETTABLEKS                       R11 R4 K24 ["Enabled"]
+      155 NOT                              R10 R11
+      156 SETTABLEKS                       R10 R9 K33 ["Disabled"]
+      158 GETTABLEKS                       R10 R0 K17 ["LayoutOrder"]
+      160 SETTABLEKS                       R10 R9 K17 ["LayoutOrder"]
+      162 NEWCLOSURE                       R10 P1
+      163 CAPTURE                          VAL R0
+      164 CAPTURE                          VAL R2
+      165 CAPTURE                          VAL R4
+      166 SETTABLEKS                       R10 R9 K34 ["OnClick"]
+      168 GETTABLEKS                       R11 R2 K25 ["Size"]
+      170 ORK                              R10 R11 K27 ["Large"]
+      171 SETTABLEKS                       R10 R9 K25 ["Size"]
+      173 SETTABLEKS                       R5 R9 K12 ["Text"]
+      175 CALL                             R7 2 -1
+      176 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

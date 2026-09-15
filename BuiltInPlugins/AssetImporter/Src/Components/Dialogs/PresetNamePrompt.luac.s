@@ -54,17 +54,16 @@ PROTO_3:
        28 ADDK                             R4 R7 K10 [1]
        29 LOADN                            R5 1
        30 FORNPREP                         R4
-       31 LOADK                            R8 K11 ["%* %*"]
-       32 MOVE                             R10 R3
-       33 MOVE                             R11 R6
-       34 NAMECALL                         R8 R8 K12 ["format"]
-       36 CALL                             R8 3 1
-       37 MOVE                             R7 R8
-       38 GETTABLE                         R8 R2 R7
-       39 JUMPIFNOTEQKNIL                  R8 ; [+2]
-       41 RETURN                           R7 1
-       42 FORNLOOP                         R4
-       43 RETURN                           R0 0
+       31 LOADK                            R7 K11 ["%* %*"]
+       32 MOVE                             R9 R3
+       33 MOVE                             R10 R6
+       34 NAMECALL                         R7 R7 K12 ["format"]
+       36 CALL                             R7 3 1
+       37 GETTABLE                         R8 R2 R7
+       38 JUMPIFNOTEQKNIL                  R8 ; [+2]
+       40 RETURN                           R7 1
+       41 FORNLOOP                         R4
+       42 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

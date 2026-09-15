@@ -14,108 +14,104 @@ PROTO_1:
         3 CALL                             R1 1 1
         4 GETTABLEKS                       R2 R0 K1 ["Item"]
         6 GETTABLEKS                       R3 R2 K2 ["Setting"]
-        8 JUMPIF                           R3 ; [+12]
+        8 JUMPIF                           R3 ; [+11]
         9 GETTABLEKS                       R3 R0 K3 ["Warn"]
-       11 LOADK                            R5 K4 ["Missing Setting field for Slider with id %*"]
-       12 GETTABLEKS                       R7 R2 K5 ["Id"]
-       14 NAMECALL                         R5 R5 K6 ["format"]
-       16 CALL                             R5 2 1
-       17 MOVE                             R4 R5
-       18 CALL                             R3 1 0
-       19 LOADNIL                          R3
-       20 RETURN                           R3 1
-       21 GETUPVAL                         R3 1
-       22 GETTABLEKS                       R3 R3 K7 ["toString"]
-       24 GETTABLEKS                       R4 R2 K2 ["Setting"]
-       26 CALL                             R3 1 1
-       27 GETTABLEKS                       R5 R0 K8 ["Items"]
-       29 GETTABLEKS                       R5 R5 K9 ["Settings"]
-       31 GETTABLE                         R4 R5 R3
-       32 JUMPIF                           R4 ; [+13]
-       33 GETTABLEKS                       R5 R0 K3 ["Warn"]
-       35 LOADK                            R7 K10 ["Missing Setting %* for Slider with id %*"]
-       36 MOVE                             R9 R3
-       37 GETTABLEKS                       R10 R2 K5 ["Id"]
-       39 NAMECALL                         R7 R7 K6 ["format"]
-       41 CALL                             R7 3 1
-       42 MOVE                             R6 R7
-       43 CALL                             R5 1 0
-       44 LOADNIL                          R5
-       45 RETURN                           R5 1
-       46 GETTABLEKS                       R6 R4 K11 ["Value"]
-       48 FASTCALL1                        TYPEOF R6 ; [+2]
-       49 GETIMPORT                        R5 K13 [typeof]
-       51 CALL                             R5 1 1
-       52 JUMPIFEQKS                       R5 K14 ["number"] ; [+16]
-       54 GETTABLEKS                       R5 R0 K3 ["Warn"]
-       56 LOADK                            R7 K15 ["Setting %* has an invalid value %* for Slider with id %*"]
-       57 MOVE                             R9 R3
-       58 GETTABLEKS                       R10 R4 K11 ["Value"]
-       60 GETTABLEKS                       R11 R2 K5 ["Id"]
-       62 NAMECALL                         R7 R7 K6 ["format"]
-       64 CALL                             R7 4 1
-       65 MOVE                             R6 R7
-       66 CALL                             R5 1 0
-       67 LOADNIL                          R5
-       68 RETURN                           R5 1
-       69 GETTABLEKS                       R5 R4 K16 ["Range"]
-       71 JUMPIF                           R5 ; [+13]
-       72 GETTABLEKS                       R6 R0 K3 ["Warn"]
-       74 LOADK                            R8 K17 ["Setting %* has an invalid Range field for Slider with id %*"]
-       75 MOVE                             R10 R3
-       76 GETTABLEKS                       R11 R2 K5 ["Id"]
-       78 NAMECALL                         R8 R8 K6 ["format"]
-       80 CALL                             R8 3 1
-       81 MOVE                             R7 R8
-       82 CALL                             R6 1 0
-       83 LOADNIL                          R6
-       84 RETURN                           R6 1
-       85 GETIMPORT                        R6 K19 [warn]
-       87 LOADK                            R7 K20 ["SliderControl is not design approved and should not be used in production until it is Foundation styled"]
-       88 CALL                             R6 1 0
-       89 GETUPVAL                         R6 2
-       90 GETUPVAL                         R7 3
-       91 NEWTABLE                         R8 16 0
-       93 GETUPVAL                         R9 1
-       94 GETTABLEKS                       R9 R9 K21 ["child"]
-       96 GETTABLEKS                       R10 R0 K22 ["WidgetUri"]
-       98 GETTABLEKS                       R11 R2 K5 ["Id"]
-      100 CALL                             R9 2 1
-      101 SETTABLEKS                       R9 R8 K23 ["Uri"]
-      103 GETTABLEKS                       R10 R4 K24 ["Enabled"]
-      105 NOT                              R9 R10
-      106 SETTABLEKS                       R9 R8 K25 ["Disabled"]
-      108 GETTABLEKS                       R9 R5 K26 ["Increment"]
-      110 SETTABLEKS                       R9 R8 K26 ["Increment"]
-      112 GETTABLEKS                       R9 R0 K27 ["LayoutOrder"]
-      114 SETTABLEKS                       R9 R8 K27 ["LayoutOrder"]
-      116 GETTABLEKS                       R10 R5 K29 ["Minimum"]
-      118 ORK                              R9 R10 K28 [0]
-      119 SETTABLEKS                       R9 R8 K29 ["Minimum"]
-      121 GETTABLEKS                       R10 R5 K31 ["Maximum"]
-      123 ORK                              R9 R10 K30 [∞]
-      124 SETTABLEKS                       R9 R8 K31 ["Maximum"]
-      126 GETTABLEKS                       R9 R5 K32 ["Precision"]
-      128 SETTABLEKS                       R9 R8 K32 ["Precision"]
-      130 GETTABLEKS                       R9 R4 K11 ["Value"]
-      132 SETTABLEKS                       R9 R8 K11 ["Value"]
-      134 NEWCLOSURE                       R9 P0
-      135 CAPTURE                          VAL R0
-      136 CAPTURE                          VAL R2
-      137 SETTABLEKS                       R9 R8 K33 ["OnValueChanged"]
-      139 GETUPVAL                         R9 4
-      140 MOVE                             R10 R1
-      141 LOADK                            R11 K34 ["Text"]
-      142 MOVE                             R12 R2
-      143 MOVE                             R13 R4
-      144 CALL                             R9 4 1
-      145 SETTABLEKS                       R9 R8 K34 ["Text"]
-      147 GETUPVAL                         R9 5
-      148 GETTABLEKS                       R9 R9 K35 ["Tag"]
-      150 LOADK                            R10 K36 [""]
-      151 SETTABLE                         R10 R8 R9
-      152 CALL                             R6 2 -1
-      153 RETURN                           R6 -1
+       11 LOADK                            R4 K4 ["Missing Setting field for Slider with id %*"]
+       12 GETTABLEKS                       R6 R2 K5 ["Id"]
+       14 NAMECALL                         R4 R4 K6 ["format"]
+       16 CALL                             R4 2 1
+       17 CALL                             R3 1 0
+       18 LOADNIL                          R3
+       19 RETURN                           R3 1
+       20 GETUPVAL                         R3 1
+       21 GETTABLEKS                       R3 R3 K7 ["toString"]
+       23 GETTABLEKS                       R4 R2 K2 ["Setting"]
+       25 CALL                             R3 1 1
+       26 GETTABLEKS                       R5 R0 K8 ["Items"]
+       28 GETTABLEKS                       R5 R5 K9 ["Settings"]
+       30 GETTABLE                         R4 R5 R3
+       31 JUMPIF                           R4 ; [+12]
+       32 GETTABLEKS                       R5 R0 K3 ["Warn"]
+       34 LOADK                            R6 K10 ["Missing Setting %* for Slider with id %*"]
+       35 MOVE                             R8 R3
+       36 GETTABLEKS                       R9 R2 K5 ["Id"]
+       38 NAMECALL                         R6 R6 K6 ["format"]
+       40 CALL                             R6 3 1
+       41 CALL                             R5 1 0
+       42 LOADNIL                          R5
+       43 RETURN                           R5 1
+       44 GETTABLEKS                       R6 R4 K11 ["Value"]
+       46 FASTCALL1                        TYPEOF R6 ; [+2]
+       47 GETIMPORT                        R5 K13 [typeof]
+       49 CALL                             R5 1 1
+       50 JUMPIFEQKS                       R5 K14 ["number"] ; [+15]
+       52 GETTABLEKS                       R5 R0 K3 ["Warn"]
+       54 LOADK                            R6 K15 ["Setting %* has an invalid value %* for Slider with id %*"]
+       55 MOVE                             R8 R3
+       56 GETTABLEKS                       R9 R4 K11 ["Value"]
+       58 GETTABLEKS                       R10 R2 K5 ["Id"]
+       60 NAMECALL                         R6 R6 K6 ["format"]
+       62 CALL                             R6 4 1
+       63 CALL                             R5 1 0
+       64 LOADNIL                          R5
+       65 RETURN                           R5 1
+       66 GETTABLEKS                       R5 R4 K16 ["Range"]
+       68 JUMPIF                           R5 ; [+12]
+       69 GETTABLEKS                       R6 R0 K3 ["Warn"]
+       71 LOADK                            R7 K17 ["Setting %* has an invalid Range field for Slider with id %*"]
+       72 MOVE                             R9 R3
+       73 GETTABLEKS                       R10 R2 K5 ["Id"]
+       75 NAMECALL                         R7 R7 K6 ["format"]
+       77 CALL                             R7 3 1
+       78 CALL                             R6 1 0
+       79 LOADNIL                          R6
+       80 RETURN                           R6 1
+       81 GETIMPORT                        R6 K19 [warn]
+       83 LOADK                            R7 K20 ["SliderControl is not design approved and should not be used in production until it is Foundation styled"]
+       84 CALL                             R6 1 0
+       85 GETUPVAL                         R6 2
+       86 GETUPVAL                         R7 3
+       87 NEWTABLE                         R8 16 0
+       89 GETUPVAL                         R9 1
+       90 GETTABLEKS                       R9 R9 K21 ["child"]
+       92 GETTABLEKS                       R10 R0 K22 ["WidgetUri"]
+       94 GETTABLEKS                       R11 R2 K5 ["Id"]
+       96 CALL                             R9 2 1
+       97 SETTABLEKS                       R9 R8 K23 ["Uri"]
+       99 GETTABLEKS                       R10 R4 K24 ["Enabled"]
+      101 NOT                              R9 R10
+      102 SETTABLEKS                       R9 R8 K25 ["Disabled"]
+      104 GETTABLEKS                       R9 R5 K26 ["Increment"]
+      106 SETTABLEKS                       R9 R8 K26 ["Increment"]
+      108 GETTABLEKS                       R9 R0 K27 ["LayoutOrder"]
+      110 SETTABLEKS                       R9 R8 K27 ["LayoutOrder"]
+      112 GETTABLEKS                       R10 R5 K29 ["Minimum"]
+      114 ORK                              R9 R10 K28 [0]
+      115 SETTABLEKS                       R9 R8 K29 ["Minimum"]
+      117 GETTABLEKS                       R10 R5 K31 ["Maximum"]
+      119 ORK                              R9 R10 K30 [∞]
+      120 SETTABLEKS                       R9 R8 K31 ["Maximum"]
+      122 GETTABLEKS                       R9 R5 K32 ["Precision"]
+      124 SETTABLEKS                       R9 R8 K32 ["Precision"]
+      126 GETTABLEKS                       R9 R4 K11 ["Value"]
+      128 SETTABLEKS                       R9 R8 K11 ["Value"]
+      130 NEWCLOSURE                       R9 P0
+      131 CAPTURE                          VAL R0
+      132 CAPTURE                          VAL R2
+      133 SETTABLEKS                       R9 R8 K33 ["OnValueChanged"]
+      135 GETUPVAL                         R9 4
+      136 MOVE                             R10 R1
+      137 LOADK                            R11 K34 ["Text"]
+      138 MOVE                             R12 R2
+      139 MOVE                             R13 R4
+      140 CALL                             R9 4 1
+      141 SETTABLEKS                       R9 R8 K34 ["Text"]
+      143 GETUPVAL                         R9 5
+      144 GETTABLEKS                       R9 R9 K35 ["Tag"]
+      146 LOADK                            R10 K36 [""]
+      147 SETTABLE                         R10 R8 R9
+      148 CALL                             R6 2 -1
+      149 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

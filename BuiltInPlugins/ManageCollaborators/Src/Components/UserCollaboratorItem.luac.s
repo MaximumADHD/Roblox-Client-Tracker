@@ -101,178 +101,186 @@ PROTO_4:
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R2 R1 K1 ["LayoutOrder"]
-        4 GETUPVAL                         R4 0
-        5 JUMPIFNOT                        R4 ; [+3]
-        6 GETTABLEKS                       R3 R1 K2 ["Localization"]
-        8 JUMP                             ; [+1]
-        9 LOADNIL                          R3
-       10 GETTABLEKS                       R4 R1 K3 ["Id"]
-       12 GETTABLEKS                       R5 R1 K4 ["Writable"]
-       14 GETTABLEKS                       R6 R1 K5 ["UserName"]
-       16 GETTABLEKS                       R7 R1 K6 ["IsOwner"]
-       18 GETTABLEKS                       R8 R1 K7 ["HideSeparator"]
-       20 GETTABLEKS                       R9 R1 K8 ["SetUserPermission"]
-       22 GETTABLEKS                       R10 R1 K9 ["RemoveUserCollaborator"]
-       24 GETUPVAL                         R12 1
-       25 JUMPIFNOT                        R12 ; [+3]
-       26 GETTABLEKS                       R11 R1 K10 ["SendSearchItemLog"]
-       28 JUMP                             ; [+1]
-       29 LOADNIL                          R11
-       30 GETUPVAL                         R13 0
-       31 JUMPIFNOT                        R13 ; [+3]
-       32 GETTABLEKS                       R12 R1 K11 ["IsGroupGame"]
-       34 JUMP                             ; [+1]
-       35 LOADNIL                          R12
-       36 NAMECALL                         R13 R0 K12 ["getAvailablePermissions"]
-       38 CALL                             R13 1 1
-       39 LOADNIL                          R14
-       40 GETUPVAL                         R15 0
-       41 JUMPIFNOT                        R15 ; [+44]
-       42 JUMPIF                           R7 ; [+43]
-       43 JUMPIFNOT                        R12 ; [+15]
-       44 JUMPIF                           R5 ; [+7]
-       45 LOADK                            R17 K13 ["PermissionDescriptions"]
-       46 LOADK                            R18 K14 ["GroupOwnerToEdit"]
-       47 NAMECALL                         R15 R3 K15 ["getText"]
-       49 CALL                             R15 3 1
-       50 MOVE                             R14 R15
-       51 JUMP                             ; [+34]
-       52 LOADK                            R17 K13 ["PermissionDescriptions"]
-       53 LOADK                            R18 K16 ["UsersOnlyPlayLevel"]
-       54 NAMECALL                         R15 R3 K15 ["getText"]
-       56 CALL                             R15 3 1
-       57 MOVE                             R14 R15
-       58 JUMP                             ; [+27]
-       59 JUMPIF                           R5 ; [+7]
-       60 LOADK                            R17 K13 ["PermissionDescriptions"]
-       61 LOADK                            R18 K17 ["GameOwnerToEdit"]
-       62 NAMECALL                         R15 R3 K15 ["getText"]
-       64 CALL                             R15 3 1
-       65 MOVE                             R14 R15
-       66 JUMP                             ; [+19]
-       67 LENGTH                           R15 R13
-       68 LOADN                            R16 1
-       69 JUMPIFNOTLE                      R15 R16 ; [+16]
-       71 GETUPVAL                         R15 2
-       72 JUMPIFNOT                        R15 ; [+7]
-       73 LOADK                            R17 K13 ["PermissionDescriptions"]
-       74 LOADK                            R18 K18 ["ConnectionToEdit"]
-       75 NAMECALL                         R15 R3 K15 ["getText"]
-       77 CALL                             R15 3 1
-       78 MOVE                             R14 R15
-       79 JUMP                             ; [+6]
-       80 LOADK                            R17 K13 ["PermissionDescriptions"]
-       81 LOADK                            R18 K19 ["FriendToEdit"]
-       82 NAMECALL                         R15 R3 K15 ["getText"]
-       84 CALL                             R15 3 1
-       85 MOVE                             R14 R15
-       86 GETUPVAL                         R15 3
-       87 GETTABLEKS                       R15 R15 K20 ["fflagCollabPreventSelfRemoval"]
-       89 JUMPIFNOT                        R15 ; [+8]
-       90 GETUPVAL                         R16 4
-       91 NAMECALL                         R16 R16 K21 ["GetUserId"]
-       93 CALL                             R16 1 1
-       94 JUMPIFEQ                         R16 R4 ; [+2]
-       96 LOADB                            R15 0 +1
-       97 LOADB                            R15 1
-       98 GETUPVAL                         R17 0
-       99 JUMPIFNOT                        R17 ; [+13]
-      100 MOVE                             R16 R5
-      101 JUMPIFNOT                        R16 ; [+16]
-      102 NOT                              R16 R7
-      103 JUMPIFNOT                        R16 ; [+14]
-      104 NOT                              R16 R15
-      105 JUMPIFNOT                        R16 ; [+12]
-      106 LENGTH                           R17 R13
-      107 LOADN                            R18 1
-      108 JUMPIFLT                         R18 R17 ; [+2]
-      110 LOADB                            R16 0 +1
-      111 LOADB                            R16 1
-      112 JUMP                             ; [+5]
-      113 MOVE                             R16 R5
-      114 JUMPIFNOT                        R16 ; [+3]
-      115 NOT                              R16 R7
-      116 JUMPIFNOT                        R16 ; [+1]
-      117 NOT                              R16 R15
-      118 GETUPVAL                         R18 0
-      119 JUMPIFNOT                        R18 ; [+6]
-      120 MOVE                             R17 R5
-      121 JUMPIFNOT                        R17 ; [+5]
-      122 NOT                              R17 R7
-      123 JUMPIFNOT                        R17 ; [+3]
-      124 NOT                              R17 R15
-      125 JUMP                             ; [+1]
-      126 NOT                              R17 R7
-      127 GETUPVAL                         R18 5
-      128 GETTABLEKS                       R18 R18 K22 ["createElement"]
-      130 GETUPVAL                         R19 6
-      131 DUPTABLE                         R20 K36 [{["LayoutOrder"], ["Name"], ["Icon"], ["Writable"], ["Loading"] = False, ["IsOwner"], ["CanCollaborateResponse"], ["CanCollaborateErrorEnum"], ["DisableEditPermission"], ["HideSeparator"], ["Removable"], ["OnRemoved"], ["TooltipText"], ["CurrentPermission"], ["AvailablePermissions"], ["OnPermissionChanged"]}]
-      132 SETTABLEKS                       R2 R20 K1 ["LayoutOrder"]
-      134 SETTABLEKS                       R6 R20 K23 ["Name"]
-      136 GETUPVAL                         R21 5
-      137 GETTABLEKS                       R21 R21 K22 ["createElement"]
-      139 GETUPVAL                         R22 7
-      140 DUPTABLE                         R23 K38 [{"Id", "Size"}]
-      141 SETTABLEKS                       R4 R23 K3 ["Id"]
-      143 GETIMPORT                        R24 K41 [UDim2.fromScale]
-      145 LOADN                            R25 1
-      146 LOADN                            R26 1
-      147 CALL                             R24 2 1
-      148 SETTABLEKS                       R24 R23 K37 ["Size"]
-      150 CALL                             R21 2 1
-      151 SETTABLEKS                       R21 R20 K24 ["Icon"]
-      153 SETTABLEKS                       R16 R20 K4 ["Writable"]
-      155 GETUPVAL                         R22 0
-      156 JUMPIFNOT                        R22 ; [+2]
-      157 MOVE                             R21 R7
-      158 JUMP                             ; [+1]
-      159 LOADNIL                          R21
-      160 SETTABLEKS                       R21 R20 K6 ["IsOwner"]
-      162 GETUPVAL                         R22 3
-      163 GETTABLEKS                       R22 R22 K42 ["fflagManageCollaboratorsActionNeededLabel"]
-      165 JUMPIFNOT                        R22 ; [+3]
-      166 GETTABLEKS                       R21 R1 K27 ["CanCollaborateResponse"]
-      168 JUMP                             ; [+1]
-      169 LOADNIL                          R21
-      170 SETTABLEKS                       R21 R20 K27 ["CanCollaborateResponse"]
-      172 GETUPVAL                         R22 3
-      173 GETTABLEKS                       R22 R22 K43 ["fflagManageCollaboratorsOwnerCountryBlocked"]
-      175 JUMPIFNOT                        R22 ; [+3]
-      176 GETTABLEKS                       R21 R1 K28 ["CanCollaborateErrorEnum"]
-      178 JUMP                             ; [+1]
-      179 LOADNIL                          R21
-      180 SETTABLEKS                       R21 R20 K28 ["CanCollaborateErrorEnum"]
-      182 GETUPVAL                         R22 3
-      183 GETTABLEKS                       R22 R22 K43 ["fflagManageCollaboratorsOwnerCountryBlocked"]
-      185 JUMPIF                           R22 ; [+4]
-      186 GETUPVAL                         R22 3
-      187 GETTABLEKS                       R22 R22 K44 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
-      189 JUMPIFNOT                        R22 ; [+3]
-      190 GETTABLEKS                       R21 R1 K29 ["DisableEditPermission"]
-      192 JUMP                             ; [+1]
-      193 LOADNIL                          R21
-      194 SETTABLEKS                       R21 R20 K29 ["DisableEditPermission"]
-      196 SETTABLEKS                       R8 R20 K7 ["HideSeparator"]
-      198 SETTABLEKS                       R17 R20 K30 ["Removable"]
-      200 NEWCLOSURE                       R21 P0
-      201 CAPTURE                          VAL R10
-      202 CAPTURE                          VAL R4
-      203 CAPTURE                          UPVAL U1
-      204 CAPTURE                          VAL R11
-      205 CAPTURE                          UPVAL U8
-      206 SETTABLEKS                       R21 R20 K31 ["OnRemoved"]
-      208 SETTABLEKS                       R14 R20 K32 ["TooltipText"]
-      210 NAMECALL                         R21 R0 K45 ["getCurrentPermission"]
-      212 CALL                             R21 1 1
-      213 SETTABLEKS                       R21 R20 K33 ["CurrentPermission"]
-      215 SETTABLEKS                       R13 R20 K34 ["AvailablePermissions"]
-      217 NEWCLOSURE                       R21 P1
-      218 CAPTURE                          VAL R9
-      219 CAPTURE                          VAL R4
-      220 SETTABLEKS                       R21 R20 K35 ["OnPermissionChanged"]
-      222 CALL                             R18 2 -1
-      223 RETURN                           R18 -1
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["fflagFixMCSearchWidgetErrors"]
+        5 JUMPIFNOT                        R2 ; [+7]
+        6 NAMECALL                         R2 R0 K2 ["getCurrentPermission"]
+        8 CALL                             R2 1 1
+        9 JUMPIFNOTEQKNIL                  R2 ; [+3]
+       11 LOADNIL                          R2
+       12 RETURN                           R2 1
+       13 GETTABLEKS                       R2 R1 K3 ["LayoutOrder"]
+       15 GETUPVAL                         R4 1
+       16 JUMPIFNOT                        R4 ; [+3]
+       17 GETTABLEKS                       R3 R1 K4 ["Localization"]
+       19 JUMP                             ; [+1]
+       20 LOADNIL                          R3
+       21 GETTABLEKS                       R4 R1 K5 ["Id"]
+       23 GETTABLEKS                       R5 R1 K6 ["Writable"]
+       25 GETTABLEKS                       R6 R1 K7 ["UserName"]
+       27 GETTABLEKS                       R7 R1 K8 ["IsOwner"]
+       29 GETTABLEKS                       R8 R1 K9 ["HideSeparator"]
+       31 GETTABLEKS                       R9 R1 K10 ["SetUserPermission"]
+       33 GETTABLEKS                       R10 R1 K11 ["RemoveUserCollaborator"]
+       35 GETUPVAL                         R12 2
+       36 JUMPIFNOT                        R12 ; [+3]
+       37 GETTABLEKS                       R11 R1 K12 ["SendSearchItemLog"]
+       39 JUMP                             ; [+1]
+       40 LOADNIL                          R11
+       41 GETUPVAL                         R13 1
+       42 JUMPIFNOT                        R13 ; [+3]
+       43 GETTABLEKS                       R12 R1 K13 ["IsGroupGame"]
+       45 JUMP                             ; [+1]
+       46 LOADNIL                          R12
+       47 NAMECALL                         R13 R0 K14 ["getAvailablePermissions"]
+       49 CALL                             R13 1 1
+       50 LOADNIL                          R14
+       51 GETUPVAL                         R15 1
+       52 JUMPIFNOT                        R15 ; [+44]
+       53 JUMPIF                           R7 ; [+43]
+       54 JUMPIFNOT                        R12 ; [+15]
+       55 JUMPIF                           R5 ; [+7]
+       56 LOADK                            R17 K15 ["PermissionDescriptions"]
+       57 LOADK                            R18 K16 ["GroupOwnerToEdit"]
+       58 NAMECALL                         R15 R3 K17 ["getText"]
+       60 CALL                             R15 3 1
+       61 MOVE                             R14 R15
+       62 JUMP                             ; [+34]
+       63 LOADK                            R17 K15 ["PermissionDescriptions"]
+       64 LOADK                            R18 K18 ["UsersOnlyPlayLevel"]
+       65 NAMECALL                         R15 R3 K17 ["getText"]
+       67 CALL                             R15 3 1
+       68 MOVE                             R14 R15
+       69 JUMP                             ; [+27]
+       70 JUMPIF                           R5 ; [+7]
+       71 LOADK                            R17 K15 ["PermissionDescriptions"]
+       72 LOADK                            R18 K19 ["GameOwnerToEdit"]
+       73 NAMECALL                         R15 R3 K17 ["getText"]
+       75 CALL                             R15 3 1
+       76 MOVE                             R14 R15
+       77 JUMP                             ; [+19]
+       78 LENGTH                           R15 R13
+       79 LOADN                            R16 1
+       80 JUMPIFNOTLE                      R15 R16 ; [+16]
+       82 GETUPVAL                         R15 3
+       83 JUMPIFNOT                        R15 ; [+7]
+       84 LOADK                            R17 K15 ["PermissionDescriptions"]
+       85 LOADK                            R18 K20 ["ConnectionToEdit"]
+       86 NAMECALL                         R15 R3 K17 ["getText"]
+       88 CALL                             R15 3 1
+       89 MOVE                             R14 R15
+       90 JUMP                             ; [+6]
+       91 LOADK                            R17 K15 ["PermissionDescriptions"]
+       92 LOADK                            R18 K21 ["FriendToEdit"]
+       93 NAMECALL                         R15 R3 K17 ["getText"]
+       95 CALL                             R15 3 1
+       96 MOVE                             R14 R15
+       97 GETUPVAL                         R15 0
+       98 GETTABLEKS                       R15 R15 K22 ["fflagCollabPreventSelfRemoval"]
+      100 JUMPIFNOT                        R15 ; [+8]
+      101 GETUPVAL                         R16 4
+      102 NAMECALL                         R16 R16 K23 ["GetUserId"]
+      104 CALL                             R16 1 1
+      105 JUMPIFEQ                         R16 R4 ; [+2]
+      107 LOADB                            R15 0 +1
+      108 LOADB                            R15 1
+      109 GETUPVAL                         R17 1
+      110 JUMPIFNOT                        R17 ; [+13]
+      111 MOVE                             R16 R5
+      112 JUMPIFNOT                        R16 ; [+16]
+      113 NOT                              R16 R7
+      114 JUMPIFNOT                        R16 ; [+14]
+      115 NOT                              R16 R15
+      116 JUMPIFNOT                        R16 ; [+12]
+      117 LENGTH                           R17 R13
+      118 LOADN                            R18 1
+      119 JUMPIFLT                         R18 R17 ; [+2]
+      121 LOADB                            R16 0 +1
+      122 LOADB                            R16 1
+      123 JUMP                             ; [+5]
+      124 MOVE                             R16 R5
+      125 JUMPIFNOT                        R16 ; [+3]
+      126 NOT                              R16 R7
+      127 JUMPIFNOT                        R16 ; [+1]
+      128 NOT                              R16 R15
+      129 GETUPVAL                         R18 1
+      130 JUMPIFNOT                        R18 ; [+6]
+      131 MOVE                             R17 R5
+      132 JUMPIFNOT                        R17 ; [+5]
+      133 NOT                              R17 R7
+      134 JUMPIFNOT                        R17 ; [+3]
+      135 NOT                              R17 R15
+      136 JUMP                             ; [+1]
+      137 NOT                              R17 R7
+      138 GETUPVAL                         R18 5
+      139 GETTABLEKS                       R18 R18 K24 ["createElement"]
+      141 GETUPVAL                         R19 6
+      142 DUPTABLE                         R20 K38 [{["LayoutOrder"], ["Name"], ["Icon"], ["Writable"], ["Loading"] = False, ["IsOwner"], ["CanCollaborateResponse"], ["CanCollaborateErrorEnum"], ["DisableEditPermission"], ["HideSeparator"], ["Removable"], ["OnRemoved"], ["TooltipText"], ["CurrentPermission"], ["AvailablePermissions"], ["OnPermissionChanged"]}]
+      143 SETTABLEKS                       R2 R20 K3 ["LayoutOrder"]
+      145 SETTABLEKS                       R6 R20 K25 ["Name"]
+      147 GETUPVAL                         R21 5
+      148 GETTABLEKS                       R21 R21 K24 ["createElement"]
+      150 GETUPVAL                         R22 7
+      151 DUPTABLE                         R23 K40 [{"Id", "Size"}]
+      152 SETTABLEKS                       R4 R23 K5 ["Id"]
+      154 GETIMPORT                        R24 K43 [UDim2.fromScale]
+      156 LOADN                            R25 1
+      157 LOADN                            R26 1
+      158 CALL                             R24 2 1
+      159 SETTABLEKS                       R24 R23 K39 ["Size"]
+      161 CALL                             R21 2 1
+      162 SETTABLEKS                       R21 R20 K26 ["Icon"]
+      164 SETTABLEKS                       R16 R20 K6 ["Writable"]
+      166 GETUPVAL                         R22 1
+      167 JUMPIFNOT                        R22 ; [+2]
+      168 MOVE                             R21 R7
+      169 JUMP                             ; [+1]
+      170 LOADNIL                          R21
+      171 SETTABLEKS                       R21 R20 K8 ["IsOwner"]
+      173 GETUPVAL                         R22 0
+      174 GETTABLEKS                       R22 R22 K44 ["fflagManageCollaboratorsActionNeededLabel"]
+      176 JUMPIFNOT                        R22 ; [+3]
+      177 GETTABLEKS                       R21 R1 K29 ["CanCollaborateResponse"]
+      179 JUMP                             ; [+1]
+      180 LOADNIL                          R21
+      181 SETTABLEKS                       R21 R20 K29 ["CanCollaborateResponse"]
+      183 GETUPVAL                         R22 0
+      184 GETTABLEKS                       R22 R22 K45 ["fflagManageCollaboratorsOwnerCountryBlocked"]
+      186 JUMPIFNOT                        R22 ; [+3]
+      187 GETTABLEKS                       R21 R1 K30 ["CanCollaborateErrorEnum"]
+      189 JUMP                             ; [+1]
+      190 LOADNIL                          R21
+      191 SETTABLEKS                       R21 R20 K30 ["CanCollaborateErrorEnum"]
+      193 GETUPVAL                         R22 0
+      194 GETTABLEKS                       R22 R22 K45 ["fflagManageCollaboratorsOwnerCountryBlocked"]
+      196 JUMPIF                           R22 ; [+4]
+      197 GETUPVAL                         R22 0
+      198 GETTABLEKS                       R22 R22 K46 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
+      200 JUMPIFNOT                        R22 ; [+3]
+      201 GETTABLEKS                       R21 R1 K31 ["DisableEditPermission"]
+      203 JUMP                             ; [+1]
+      204 LOADNIL                          R21
+      205 SETTABLEKS                       R21 R20 K31 ["DisableEditPermission"]
+      207 SETTABLEKS                       R8 R20 K9 ["HideSeparator"]
+      209 SETTABLEKS                       R17 R20 K32 ["Removable"]
+      211 NEWCLOSURE                       R21 P0
+      212 CAPTURE                          VAL R10
+      213 CAPTURE                          VAL R4
+      214 CAPTURE                          UPVAL U2
+      215 CAPTURE                          VAL R11
+      216 CAPTURE                          UPVAL U8
+      217 SETTABLEKS                       R21 R20 K33 ["OnRemoved"]
+      219 SETTABLEKS                       R14 R20 K34 ["TooltipText"]
+      221 NAMECALL                         R21 R0 K2 ["getCurrentPermission"]
+      223 CALL                             R21 1 1
+      224 SETTABLEKS                       R21 R20 K35 ["CurrentPermission"]
+      226 SETTABLEKS                       R13 R20 K36 ["AvailablePermissions"]
+      228 NEWCLOSURE                       R21 P1
+      229 CAPTURE                          VAL R9
+      230 CAPTURE                          VAL R4
+      231 SETTABLEKS                       R21 R20 K37 ["OnPermissionChanged"]
+      233 CALL                             R18 2 -1
+      234 RETURN                           R18 -1
 
 PROTO_6:
         0 DUPTABLE                         R2 K5 [{"OwnerType", "IsOwner", "IsOwnerFriend", "UserName", "CurrentPermission"}]
@@ -481,10 +489,10 @@ MAIN:
       211 CAPTURE                          VAL R7
       212 SETTABLEKS                       R24 R16 K57 ["getCurrentPermission"]
       214 NEWCLOSURE                       R24 P3
-      215 CAPTURE                          VAL R0
-      216 CAPTURE                          VAL R20
-      217 CAPTURE                          VAL R21
-      218 CAPTURE                          VAL R4
+      215 CAPTURE                          VAL R4
+      216 CAPTURE                          VAL R0
+      217 CAPTURE                          VAL R20
+      218 CAPTURE                          VAL R21
       219 CAPTURE                          VAL R22
       220 CAPTURE                          VAL R2
       221 CAPTURE                          VAL R9

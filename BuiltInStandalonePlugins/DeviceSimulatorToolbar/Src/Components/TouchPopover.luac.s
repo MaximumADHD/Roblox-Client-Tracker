@@ -28,18 +28,16 @@ PROTO_1:
        22 GETTABLEKS                       R1 R2 K6 ["Name"]
        24 JUMP                             ; [+1]
        25 MOVE                             R1 R3
-       26 LOADK                            R3 K9 ["%* + Drag"]
-       27 MOVE                             R5 R0
-       28 NAMECALL                         R3 R3 K10 ["format"]
-       30 CALL                             R3 2 1
-       31 MOVE                             R2 R3
-       32 LOADK                            R4 K11 ["%* + %* + Drag"]
-       33 MOVE                             R6 R0
-       34 MOVE                             R7 R1
-       35 NAMECALL                         R4 R4 K10 ["format"]
-       37 CALL                             R4 3 1
-       38 MOVE                             R3 R4
-       39 RETURN                           R2 2
+       26 LOADK                            R2 K9 ["%* + Drag"]
+       27 MOVE                             R4 R0
+       28 NAMECALL                         R2 R2 K10 ["format"]
+       30 CALL                             R2 2 1
+       31 LOADK                            R3 K11 ["%* + %* + Drag"]
+       32 MOVE                             R5 R0
+       33 MOVE                             R6 R1
+       34 NAMECALL                         R3 R3 K10 ["format"]
+       36 CALL                             R3 3 1
+       37 RETURN                           R2 2
 
 PROTO_2:
         0 NOT                              R1 R0

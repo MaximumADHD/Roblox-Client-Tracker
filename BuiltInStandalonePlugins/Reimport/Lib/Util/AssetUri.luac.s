@@ -16,18 +16,17 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R2 0
         1 CALL                             R2 0 1
-        2 JUMPIFNOT                        R2 ; [+8]
-        3 LOADK                            R3 K0 ["rbxassetid://%*&version=%*"]
-        4 MOVE                             R5 R0
-        5 MOVE                             R6 R1
-        6 NAMECALL                         R3 R3 K1 ["format"]
-        8 CALL                             R3 3 1
-        9 MOVE                             R2 R3
-       10 RETURN                           R2 1
-       11 LOADK                            R3 K2 ["rbxassetid://"]
-       12 MOVE                             R4 R0
-       13 CONCAT                           R2 R3 R4
-       14 RETURN                           R2 1
+        2 JUMPIFNOT                        R2 ; [+7]
+        3 LOADK                            R2 K0 ["rbxassetid://%*&version=%*"]
+        4 MOVE                             R4 R0
+        5 MOVE                             R5 R1
+        6 NAMECALL                         R2 R2 K1 ["format"]
+        8 CALL                             R2 3 1
+        9 RETURN                           R2 1
+       10 LOADK                            R3 K2 ["rbxassetid://"]
+       11 MOVE                             R4 R0
+       12 CONCAT                           R2 R3 R4
+       13 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

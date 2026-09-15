@@ -2,35 +2,33 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 2
-        3 JUMPIF                           R1 ; [+11]
+        3 JUMPIF                           R1 ; [+10]
         4 GETUPVAL                         R3 1
         5 GETTABLEKS                       R3 R3 K0 ["reject"]
-        7 LOADK                            R5 K1 ["MultiGetUniversesResponse: %*"]
-        8 MOVE                             R7 R2
-        9 NAMECALL                         R5 R5 K2 ["format"]
-       11 CALL                             R5 2 1
-       12 MOVE                             R4 R5
-       13 CALL                             R3 1 -1
-       14 RETURN                           R3 -1
-       15 GETTABLEKS                       R4 R0 K3 ["data"]
-       17 GETTABLEN                        R3 R4 1
-       18 JUMPIF                           R3 ; [+11]
-       19 GETUPVAL                         R4 1
-       20 GETTABLEKS                       R4 R4 K0 ["reject"]
-       22 LOADK                            R6 K4 ["MultiGetUniversesResponse: no universe found for id %*"]
-       23 GETUPVAL                         R8 2
-       24 NAMECALL                         R6 R6 K2 ["format"]
-       26 CALL                             R6 2 1
-       27 MOVE                             R5 R6
-       28 CALL                             R4 1 -1
-       29 RETURN                           R4 -1
-       30 GETUPVAL                         R4 1
-       31 GETTABLEKS                       R4 R4 K5 ["resolve"]
-       33 DUPTABLE                         R5 K7 [{"name"}]
-       34 GETTABLEKS                       R6 R3 K6 ["name"]
-       36 SETTABLEKS                       R6 R5 K6 ["name"]
-       38 CALL                             R4 1 -1
-       39 RETURN                           R4 -1
+        7 LOADK                            R4 K1 ["MultiGetUniversesResponse: %*"]
+        8 MOVE                             R6 R2
+        9 NAMECALL                         R4 R4 K2 ["format"]
+       11 CALL                             R4 2 1
+       12 CALL                             R3 1 -1
+       13 RETURN                           R3 -1
+       14 GETTABLEKS                       R4 R0 K3 ["data"]
+       16 GETTABLEN                        R3 R4 1
+       17 JUMPIF                           R3 ; [+10]
+       18 GETUPVAL                         R4 1
+       19 GETTABLEKS                       R4 R4 K0 ["reject"]
+       21 LOADK                            R5 K4 ["MultiGetUniversesResponse: no universe found for id %*"]
+       22 GETUPVAL                         R7 2
+       23 NAMECALL                         R5 R5 K2 ["format"]
+       25 CALL                             R5 2 1
+       26 CALL                             R4 1 -1
+       27 RETURN                           R4 -1
+       28 GETUPVAL                         R4 1
+       29 GETTABLEKS                       R4 R4 K5 ["resolve"]
+       31 DUPTABLE                         R5 K7 [{"name"}]
+       32 GETTABLEKS                       R6 R3 K6 ["name"]
+       34 SETTABLEKS                       R6 R5 K6 ["name"]
+       36 CALL                             R4 1 -1
+       37 RETURN                           R4 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0

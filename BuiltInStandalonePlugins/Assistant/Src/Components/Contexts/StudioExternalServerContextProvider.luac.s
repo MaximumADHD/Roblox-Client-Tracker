@@ -77,40 +77,39 @@ PROTO_5:
        21 CAPTURE                          VAL R0
        22 CAPTURE                          UPVAL U4
        23 CAPTURE                          UPVAL U1
-       24 JUMPIF                           R2 ; [+28]
+       24 JUMPIF                           R2 ; [+27]
        25 GETIMPORT                        R5 K9 [warn]
-       27 LOADK                            R7 K10 ["Failed to start external server: %*"]
-       28 MOVE                             R9 R3
-       29 NAMECALL                         R7 R7 K11 ["format"]
-       31 CALL                             R7 2 1
-       32 MOVE                             R6 R7
-       33 CALL                             R5 1 0
-       34 GETTABLEKS                       R5 R1 K12 ["destructor"]
-       36 CALL                             R5 0 0
-       37 NAMECALL                         R5 R0 K13 ["close"]
-       39 CALL                             R5 1 0
-       40 GETUPVAL                         R5 4
-       41 GETTABLEKS                       R5 R5 K4 ["current"]
-       43 LOADNIL                          R7
-       44 NAMECALL                         R5 R5 K14 ["set"]
-       46 CALL                             R5 2 0
-       47 GETUPVAL                         R5 1
-       48 LOADNIL                          R6
-       49 SETTABLEKS                       R6 R5 K4 ["current"]
-       51 LOADNIL                          R5
-       52 RETURN                           R5 1
-       53 GETUPVAL                         R5 4
-       54 GETTABLEKS                       R5 R5 K4 ["current"]
-       56 GETTABLEKS                       R7 R1 K15 ["server"]
-       58 NAMECALL                         R5 R5 K14 ["set"]
-       60 CALL                             R5 2 0
-       61 DUPTABLE                         R5 K19 [{"disconnect", "connectionCountObservable", "activeConnectionsObservable"}]
-       62 SETTABLEKS                       R4 R5 K16 ["disconnect"]
-       64 GETTABLEKS                       R6 R1 K17 ["connectionCountObservable"]
-       66 SETTABLEKS                       R6 R5 K17 ["connectionCountObservable"]
-       68 GETTABLEKS                       R6 R1 K18 ["activeConnectionsObservable"]
-       70 SETTABLEKS                       R6 R5 K18 ["activeConnectionsObservable"]
-       72 RETURN                           R5 1
+       27 LOADK                            R6 K10 ["Failed to start external server: %*"]
+       28 MOVE                             R8 R3
+       29 NAMECALL                         R6 R6 K11 ["format"]
+       31 CALL                             R6 2 1
+       32 CALL                             R5 1 0
+       33 GETTABLEKS                       R5 R1 K12 ["destructor"]
+       35 CALL                             R5 0 0
+       36 NAMECALL                         R5 R0 K13 ["close"]
+       38 CALL                             R5 1 0
+       39 GETUPVAL                         R5 4
+       40 GETTABLEKS                       R5 R5 K4 ["current"]
+       42 LOADNIL                          R7
+       43 NAMECALL                         R5 R5 K14 ["set"]
+       45 CALL                             R5 2 0
+       46 GETUPVAL                         R5 1
+       47 LOADNIL                          R6
+       48 SETTABLEKS                       R6 R5 K4 ["current"]
+       50 LOADNIL                          R5
+       51 RETURN                           R5 1
+       52 GETUPVAL                         R5 4
+       53 GETTABLEKS                       R5 R5 K4 ["current"]
+       55 GETTABLEKS                       R7 R1 K15 ["server"]
+       57 NAMECALL                         R5 R5 K14 ["set"]
+       59 CALL                             R5 2 0
+       60 DUPTABLE                         R5 K19 [{"disconnect", "connectionCountObservable", "activeConnectionsObservable"}]
+       61 SETTABLEKS                       R4 R5 K16 ["disconnect"]
+       63 GETTABLEKS                       R6 R1 K17 ["connectionCountObservable"]
+       65 SETTABLEKS                       R6 R5 K17 ["connectionCountObservable"]
+       67 GETTABLEKS                       R6 R1 K18 ["activeConnectionsObservable"]
+       69 SETTABLEKS                       R6 R5 K18 ["activeConnectionsObservable"]
+       71 RETURN                           R5 1
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -128,27 +127,26 @@ PROTO_7:
         1 GETUPVAL                         R1 0
         2 GETTABLEKS                       R1 R1 K0 ["getNameAsync"]
         4 CALL                             R1 0 1
-        5 JUMPIFEQ                         R1 R0 ; [+20]
+        5 JUMPIFEQ                         R1 R0 ; [+19]
         7 GETUPVAL                         R2 1
         8 DUPTABLE                         R4 K5 [{["_meta"], ["data"], ["level"] = "info"}]
         9 DUPTABLE                         R5 K7 [{"studio_name"}]
        10 SETTABLEKS                       R1 R5 K6 ["studio_name"]
        12 SETTABLEKS                       R5 R4 K1 ["_meta"]
-       14 LOADK                            R6 K8 ["Server started for %*"]
-       15 MOVE                             R8 R1
-       16 NAMECALL                         R6 R6 K9 ["format"]
-       18 CALL                             R6 2 1
-       19 MOVE                             R5 R6
-       20 SETTABLEKS                       R5 R4 K2 ["data"]
-       22 NAMECALL                         R2 R2 K10 ["sendLoggingMessage"]
-       24 CALL                             R2 2 0
-       25 MOVE                             R0 R1
-       26 GETIMPORT                        R2 K13 [task.wait]
-       28 GETUPVAL                         R3 2
-       29 GETTABLEKS                       R3 R3 K14 ["FIntAssistantStudioNameCheckInterval"]
-       31 CALL                             R2 1 0
-       32 JUMPBACK                         ; [-32]
-       33 RETURN                           R0 0
+       14 LOADK                            R5 K8 ["Server started for %*"]
+       15 MOVE                             R7 R1
+       16 NAMECALL                         R5 R5 K9 ["format"]
+       18 CALL                             R5 2 1
+       19 SETTABLEKS                       R5 R4 K2 ["data"]
+       21 NAMECALL                         R2 R2 K10 ["sendLoggingMessage"]
+       23 CALL                             R2 2 0
+       24 MOVE                             R0 R1
+       25 GETIMPORT                        R2 K13 [task.wait]
+       27 GETUPVAL                         R3 2
+       28 GETTABLEKS                       R3 R3 K14 ["FIntAssistantStudioNameCheckInterval"]
+       30 CALL                             R2 1 0
+       31 JUMPBACK                         ; [-31]
+       32 RETURN                           R0 0
 
 PROTO_8:
         0 GETIMPORT                        R1 K2 [task.spawn]

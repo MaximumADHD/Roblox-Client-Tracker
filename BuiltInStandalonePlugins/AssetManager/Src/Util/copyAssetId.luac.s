@@ -1,31 +1,30 @@
 PROTO_0:
         0 LENGTH                           R2 R0
-        1 JUMPIFNOTEQKN                    R2 K0 [1] ; [+20]
+        1 JUMPIFNOTEQKN                    R2 K0 [1] ; [+19]
         3 GETTABLEN                        R2 R0 1
-        4 JUMPIFNOT                        R1 ; [+11]
+        4 JUMPIFNOT                        R1 ; [+10]
         5 GETUPVAL                         R3 0
-        6 LOADK                            R6 K1 ["rbxassetid://%*"]
-        7 MOVE                             R8 R2
-        8 NAMECALL                         R6 R6 K2 ["format"]
-       10 CALL                             R6 2 1
-       11 MOVE                             R5 R6
-       12 NAMECALL                         R3 R3 K3 ["CopyToClipboard"]
-       14 CALL                             R3 2 0
-       15 RETURN                           R0 0
-       16 GETUPVAL                         R3 0
-       17 MOVE                             R5 R2
-       18 NAMECALL                         R3 R3 K3 ["CopyToClipboard"]
-       20 CALL                             R3 2 0
-       21 RETURN                           R0 0
-       22 GETUPVAL                         R2 1
-       23 MOVE                             R4 R0
-       24 NAMECALL                         R2 R2 K4 ["JSONEncode"]
-       26 CALL                             R2 2 1
-       27 GETUPVAL                         R3 0
-       28 MOVE                             R5 R2
-       29 NAMECALL                         R3 R3 K3 ["CopyToClipboard"]
-       31 CALL                             R3 2 0
-       32 RETURN                           R0 0
+        6 LOADK                            R5 K1 ["rbxassetid://%*"]
+        7 MOVE                             R7 R2
+        8 NAMECALL                         R5 R5 K2 ["format"]
+       10 CALL                             R5 2 1
+       11 NAMECALL                         R3 R3 K3 ["CopyToClipboard"]
+       13 CALL                             R3 2 0
+       14 RETURN                           R0 0
+       15 GETUPVAL                         R3 0
+       16 MOVE                             R5 R2
+       17 NAMECALL                         R3 R3 K3 ["CopyToClipboard"]
+       19 CALL                             R3 2 0
+       20 RETURN                           R0 0
+       21 GETUPVAL                         R2 1
+       22 MOVE                             R4 R0
+       23 NAMECALL                         R2 R2 K4 ["JSONEncode"]
+       25 CALL                             R2 2 1
+       26 GETUPVAL                         R3 0
+       27 MOVE                             R5 R2
+       28 NAMECALL                         R3 R3 K3 ["CopyToClipboard"]
+       30 CALL                             R3 2 0
+       31 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

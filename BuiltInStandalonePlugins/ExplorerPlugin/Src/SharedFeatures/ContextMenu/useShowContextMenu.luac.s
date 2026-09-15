@@ -227,63 +227,62 @@ PROTO_9:
        25 GETTABLEKS                       R9 R8 K5 ["item"]
        27 GETTABLEKS                       R9 R9 K6 ["source"]
        29 GETTABLEKS                       R9 R9 K7 ["type"]
-       31 JUMPIFNOTEQKS                    R9 K8 ["studioAction"] ; [+61]
+       31 JUMPIFNOTEQKS                    R9 K8 ["studioAction"] ; [+60]
        33 GETUPVAL                         R9 0
-       34 LOADK                            R12 K9 ["Explorer_%*_%*"]
-       35 MOVE                             R14 R7
-       36 GETUPVAL                         R15 2
-       37 NAMECALL                         R15 R15 K10 ["GenerateGUID"]
-       39 CALL                             R15 1 1
-       40 NAMECALL                         R12 R12 K11 ["format"]
-       42 CALL                             R12 3 1
-       43 MOVE                             R11 R12
-       44 LOADK                            R12 K12 ["TBD: Name"]
-       45 LOADK                            R13 K13 [""]
-       46 LOADNIL                          R14
-       47 LOADB                            R15 0
-       48 NAMECALL                         R9 R9 K14 ["CreatePluginAction"]
-       50 CALL                             R9 6 1
-       51 GETTABLEKS                       R10 R9 K15 ["Triggered"]
-       53 NEWCLOSURE                       R12 P0
-       54 CAPTURE                          UPVAL U3
-       55 CAPTURE                          VAL R7
-       56 NAMECALL                         R10 R10 K16 ["Connect"]
-       58 CALL                             R10 2 0
-       59 SETTABLE                         R9 R2 R7
-       60 GETTABLEKS                       R10 R8 K5 ["item"]
-       62 GETTABLEKS                       R10 R10 K6 ["source"]
-       64 GETTABLEKS                       R10 R10 K17 ["uri"]
-       66 NEWCLOSURE                       R11 P1
-       67 CAPTURE                          VAL R9
-       68 MOVE                             R13 R3
-       69 GETIMPORT                        R14 K20 [task.spawn]
-       71 NEWCLOSURE                       R15 P2
-       72 CAPTURE                          VAL R1
-       73 CAPTURE                          VAL R0
-       74 CAPTURE                          VAL R10
-       75 CAPTURE                          VAL R11
-       76 CALL                             R14 1 -1
-       77 FASTCALL                         TABLE_INSERT ; [+2]
-       78 GETIMPORT                        R12 K23 [table.insert]
-       80 CALL                             R12 -1 0
-       81 MOVE                             R13 R3
-       82 GETIMPORT                        R14 K20 [task.spawn]
-       84 NEWCLOSURE                       R15 P3
-       85 CAPTURE                          VAL R0
-       86 CAPTURE                          VAL R10
-       87 CAPTURE                          VAL R9
-       88 CALL                             R14 1 -1
-       89 FASTCALL                         TABLE_INSERT ; [+2]
-       90 GETIMPORT                        R12 K23 [table.insert]
-       92 CALL                             R12 -1 0
-       93 FORGLOOP                         R4 2 ; [-79]
-       95 GETUPVAL                         R4 4
-       96 MOVE                             R5 R2
-       97 CALL                             R4 1 0
-       98 NEWCLOSURE                       R4 P4
-       99 CAPTURE                          VAL R3
-      100 CAPTURE                          VAL R1
-      101 RETURN                           R4 1
+       34 LOADK                            R11 K9 ["Explorer_%*_%*"]
+       35 MOVE                             R13 R7
+       36 GETUPVAL                         R14 2
+       37 NAMECALL                         R14 R14 K10 ["GenerateGUID"]
+       39 CALL                             R14 1 1
+       40 NAMECALL                         R11 R11 K11 ["format"]
+       42 CALL                             R11 3 1
+       43 LOADK                            R12 K12 ["TBD: Name"]
+       44 LOADK                            R13 K13 [""]
+       45 LOADNIL                          R14
+       46 LOADB                            R15 0
+       47 NAMECALL                         R9 R9 K14 ["CreatePluginAction"]
+       49 CALL                             R9 6 1
+       50 GETTABLEKS                       R10 R9 K15 ["Triggered"]
+       52 NEWCLOSURE                       R12 P0
+       53 CAPTURE                          UPVAL U3
+       54 CAPTURE                          VAL R7
+       55 NAMECALL                         R10 R10 K16 ["Connect"]
+       57 CALL                             R10 2 0
+       58 SETTABLE                         R9 R2 R7
+       59 GETTABLEKS                       R10 R8 K5 ["item"]
+       61 GETTABLEKS                       R10 R10 K6 ["source"]
+       63 GETTABLEKS                       R10 R10 K17 ["uri"]
+       65 NEWCLOSURE                       R11 P1
+       66 CAPTURE                          VAL R9
+       67 MOVE                             R13 R3
+       68 GETIMPORT                        R14 K20 [task.spawn]
+       70 NEWCLOSURE                       R15 P2
+       71 CAPTURE                          VAL R1
+       72 CAPTURE                          VAL R0
+       73 CAPTURE                          VAL R10
+       74 CAPTURE                          VAL R11
+       75 CALL                             R14 1 -1
+       76 FASTCALL                         TABLE_INSERT ; [+2]
+       77 GETIMPORT                        R12 K23 [table.insert]
+       79 CALL                             R12 -1 0
+       80 MOVE                             R13 R3
+       81 GETIMPORT                        R14 K20 [task.spawn]
+       83 NEWCLOSURE                       R15 P3
+       84 CAPTURE                          VAL R0
+       85 CAPTURE                          VAL R10
+       86 CAPTURE                          VAL R9
+       87 CALL                             R14 1 -1
+       88 FASTCALL                         TABLE_INSERT ; [+2]
+       89 GETIMPORT                        R12 K23 [table.insert]
+       91 CALL                             R12 -1 0
+       92 FORGLOOP                         R4 2 ; [-78]
+       94 GETUPVAL                         R4 4
+       95 MOVE                             R5 R2
+       96 CALL                             R4 1 0
+       97 NEWCLOSURE                       R4 P4
+       98 CAPTURE                          VAL R3
+       99 CAPTURE                          VAL R1
+      100 RETURN                           R4 1
 
 PROTO_10:
         0 GETUPVAL                         R1 0
@@ -340,37 +339,36 @@ PROTO_12:
        19 FORGPREP                         R3
        20 GETUPVAL                         R9 2
        21 GETTABLE                         R8 R9 R7
-       22 JUMPIFNOTEQKNIL                  R8 ; [+33]
+       22 JUMPIFNOTEQKNIL                  R8 ; [+32]
        24 GETUPVAL                         R9 3
        25 GETUPVAL                         R12 4
-       26 LOADK                            R14 K2 ["_%*"]
-       27 MOVE                             R16 R7
-       28 NAMECALL                         R14 R14 K3 ["format"]
-       30 CALL                             R14 2 1
-       31 MOVE                             R13 R14
-       32 CONCAT                           R11 R12 R13
-       33 GETUPVAL                         R12 5
-       34 LOADK                            R14 K4 ["ContextMenu"]
-       35 MOVE                             R15 R7
-       36 NAMECALL                         R12 R12 K5 ["getText"]
-       38 CALL                             R12 3 -1
-       39 NAMECALL                         R9 R9 K6 ["CreatePluginMenu"]
-       41 CALL                             R9 -1 1
-       42 MOVE                             R12 R9
-       43 GETUPVAL                         R13 5
-       44 LOADK                            R15 K4 ["ContextMenu"]
-       45 MOVE                             R16 R7
-       46 NAMECALL                         R13 R13 K5 ["getText"]
-       48 CALL                             R13 3 -1
-       49 NAMECALL                         R10 R2 K7 ["AddMenu"]
-       51 CALL                             R10 -1 0
-       52 MOVE                             R2 R9
-       53 GETUPVAL                         R10 2
-       54 SETTABLE                         R9 R10 R7
-       55 JUMP                             ; [+1]
-       56 MOVE                             R2 R8
-       57 FORGLOOP                         R3 2 ; [-38]
-       59 RETURN                           R2 1
+       26 LOADK                            R13 K2 ["_%*"]
+       27 MOVE                             R15 R7
+       28 NAMECALL                         R13 R13 K3 ["format"]
+       30 CALL                             R13 2 1
+       31 CONCAT                           R11 R12 R13
+       32 GETUPVAL                         R12 5
+       33 LOADK                            R14 K4 ["ContextMenu"]
+       34 MOVE                             R15 R7
+       35 NAMECALL                         R12 R12 K5 ["getText"]
+       37 CALL                             R12 3 -1
+       38 NAMECALL                         R9 R9 K6 ["CreatePluginMenu"]
+       40 CALL                             R9 -1 1
+       41 MOVE                             R12 R9
+       42 GETUPVAL                         R13 5
+       43 LOADK                            R15 K4 ["ContextMenu"]
+       44 MOVE                             R16 R7
+       45 NAMECALL                         R13 R13 K5 ["getText"]
+       47 CALL                             R13 3 -1
+       48 NAMECALL                         R10 R2 K7 ["AddMenu"]
+       50 CALL                             R10 -1 0
+       51 MOVE                             R2 R9
+       52 GETUPVAL                         R10 2
+       53 SETTABLE                         R9 R10 R7
+       54 JUMP                             ; [+1]
+       55 MOVE                             R2 R8
+       56 FORGLOOP                         R3 2 ; [-37]
+       58 RETURN                           R2 1
 
 PROTO_13:
         0 NEWTABLE                         R0 0 0
@@ -399,87 +397,86 @@ PROTO_13:
        31 CALL                             R1 2 0
        32 NEWTABLE                         R1 0 0
        34 NEWTABLE                         R2 0 0
-       36 LOADK                            R4 K9 ["Explorer_%*"]
-       37 GETUPVAL                         R6 2
-       38 NAMECALL                         R6 R6 K10 ["GenerateGUID"]
-       40 CALL                             R6 1 1
-       41 NAMECALL                         R4 R4 K11 ["format"]
-       43 CALL                             R4 2 1
-       44 MOVE                             R3 R4
-       45 GETUPVAL                         R4 3
-       46 MOVE                             R6 R3
-       47 NAMECALL                         R4 R4 K12 ["CreatePluginMenu"]
-       49 CALL                             R4 2 1
-       50 MOVE                             R5 R0
-       51 LOADNIL                          R6
-       52 LOADNIL                          R7
-       53 FORGPREP                         R5
-       54 GETUPVAL                         R11 4
-       55 GETTABLEKS                       R12 R9 K13 ["item"]
-       57 GETTABLEKS                       R12 R12 K14 ["key"]
-       59 GETTABLE                         R10 R11 R12
-       60 JUMPIFNOTEQKNIL                  R10 ; [+2]
-       62 LOADB                            R12 0 +1
-       63 LOADB                            R12 1
-       64 FASTCALL2K                       ASSERT R12 K15 ; [+4]
-       66 LOADK                            R13 K15 ["Couldn't find PluginAction"]
-       67 GETIMPORT                        R11 K2 [assert]
-       69 CALL                             R11 2 0
-       70 NEWCLOSURE                       R11 P1
-       71 CAPTURE                          VAL R9
-       72 CAPTURE                          VAL R4
-       73 CAPTURE                          VAL R1
-       74 CAPTURE                          UPVAL U3
-       75 CAPTURE                          VAL R3
-       76 CAPTURE                          UPVAL U5
-       77 MOVE                             R12 R11
-       78 CALL                             R12 0 1
-       79 SUBK                             R14 R8 K16 [1]
-       80 GETTABLE                         R13 R0 R14
-       81 JUMPIFEQKNIL                     R13 ; [+10]
-       83 GETTABLEKS                       R14 R13 K17 ["categoryIndex"]
-       85 GETTABLEKS                       R15 R9 K17 ["categoryIndex"]
-       87 JUMPIFEQ                         R14 R15 ; [+4]
-       89 NAMECALL                         R14 R12 K18 ["AddSeparator"]
-       91 CALL                             R14 1 0
-       92 MOVE                             R16 R10
-       93 NAMECALL                         R14 R12 K19 ["AddAction"]
-       95 CALL                             R14 2 0
-       96 JUMPIFEQ                         R12 R4 ; [+18]
-       98 GETTABLE                         R14 R2 R12
-       99 JUMPIFNOTEQKNIL                  R14 ; [+8]
-      101 NEWTABLE                         R15 0 1
-      103 MOVE                             R16 R10
-      104 SETLIST                          R15 R16 1 [1]
-      106 SETTABLE                         R15 R2 R12
-      107 JUMP                             ; [+7]
-      108 FASTCALL2                        TABLE_INSERT R14 R10 ; [+5]
-      110 MOVE                             R16 R14
-      111 MOVE                             R17 R10
-      112 GETIMPORT                        R15 K5 [table.insert]
-      114 CALL                             R15 2 0
-      115 FORGLOOP                         R5 2 ; [-62]
-      117 MOVE                             R5 R2
-      118 LOADNIL                          R6
-      119 LOADNIL                          R7
-      120 FORGPREP                         R5
-      121 JUMPIFNOTEQKNIL                  R9 ; [+2]
-      123 LOADB                            R11 0 +1
-      124 LOADB                            R11 1
-      125 FASTCALL2K                       ASSERT R11 K20 ; [+4]
-      127 LOADK                            R12 K20 ["Luau"]
-      128 GETIMPORT                        R10 K2 [assert]
-      130 CALL                             R10 2 0
-      131 GETUPVAL                         R10 6
-      132 MOVE                             R11 R8
-      133 MOVE                             R12 R9
-      134 CALL                             R10 2 0
-      135 FORGLOOP                         R5 2 ; [-15]
-      137 NAMECALL                         R5 R4 K21 ["ShowAsync"]
-      139 CALL                             R5 1 0
-      140 NAMECALL                         R5 R4 K22 ["Destroy"]
-      142 CALL                             R5 1 0
-      143 RETURN                           R0 0
+       36 LOADK                            R3 K9 ["Explorer_%*"]
+       37 GETUPVAL                         R5 2
+       38 NAMECALL                         R5 R5 K10 ["GenerateGUID"]
+       40 CALL                             R5 1 1
+       41 NAMECALL                         R3 R3 K11 ["format"]
+       43 CALL                             R3 2 1
+       44 GETUPVAL                         R4 3
+       45 MOVE                             R6 R3
+       46 NAMECALL                         R4 R4 K12 ["CreatePluginMenu"]
+       48 CALL                             R4 2 1
+       49 MOVE                             R5 R0
+       50 LOADNIL                          R6
+       51 LOADNIL                          R7
+       52 FORGPREP                         R5
+       53 GETUPVAL                         R11 4
+       54 GETTABLEKS                       R12 R9 K13 ["item"]
+       56 GETTABLEKS                       R12 R12 K14 ["key"]
+       58 GETTABLE                         R10 R11 R12
+       59 JUMPIFNOTEQKNIL                  R10 ; [+2]
+       61 LOADB                            R12 0 +1
+       62 LOADB                            R12 1
+       63 FASTCALL2K                       ASSERT R12 K15 ; [+4]
+       65 LOADK                            R13 K15 ["Couldn't find PluginAction"]
+       66 GETIMPORT                        R11 K2 [assert]
+       68 CALL                             R11 2 0
+       69 NEWCLOSURE                       R11 P1
+       70 CAPTURE                          VAL R9
+       71 CAPTURE                          VAL R4
+       72 CAPTURE                          VAL R1
+       73 CAPTURE                          UPVAL U3
+       74 CAPTURE                          VAL R3
+       75 CAPTURE                          UPVAL U5
+       76 MOVE                             R12 R11
+       77 CALL                             R12 0 1
+       78 SUBK                             R14 R8 K16 [1]
+       79 GETTABLE                         R13 R0 R14
+       80 JUMPIFEQKNIL                     R13 ; [+10]
+       82 GETTABLEKS                       R14 R13 K17 ["categoryIndex"]
+       84 GETTABLEKS                       R15 R9 K17 ["categoryIndex"]
+       86 JUMPIFEQ                         R14 R15 ; [+4]
+       88 NAMECALL                         R14 R12 K18 ["AddSeparator"]
+       90 CALL                             R14 1 0
+       91 MOVE                             R16 R10
+       92 NAMECALL                         R14 R12 K19 ["AddAction"]
+       94 CALL                             R14 2 0
+       95 JUMPIFEQ                         R12 R4 ; [+18]
+       97 GETTABLE                         R14 R2 R12
+       98 JUMPIFNOTEQKNIL                  R14 ; [+8]
+      100 NEWTABLE                         R15 0 1
+      102 MOVE                             R16 R10
+      103 SETLIST                          R15 R16 1 [1]
+      105 SETTABLE                         R15 R2 R12
+      106 JUMP                             ; [+7]
+      107 FASTCALL2                        TABLE_INSERT R14 R10 ; [+5]
+      109 MOVE                             R16 R14
+      110 MOVE                             R17 R10
+      111 GETIMPORT                        R15 K5 [table.insert]
+      113 CALL                             R15 2 0
+      114 FORGLOOP                         R5 2 ; [-62]
+      116 MOVE                             R5 R2
+      117 LOADNIL                          R6
+      118 LOADNIL                          R7
+      119 FORGPREP                         R5
+      120 JUMPIFNOTEQKNIL                  R9 ; [+2]
+      122 LOADB                            R11 0 +1
+      123 LOADB                            R11 1
+      124 FASTCALL2K                       ASSERT R11 K20 ; [+4]
+      126 LOADK                            R12 K20 ["Luau"]
+      127 GETIMPORT                        R10 K2 [assert]
+      129 CALL                             R10 2 0
+      130 GETUPVAL                         R10 6
+      131 MOVE                             R11 R8
+      132 MOVE                             R12 R9
+      133 CALL                             R10 2 0
+      134 FORGLOOP                         R5 2 ; [-15]
+      136 NAMECALL                         R5 R4 K21 ["ShowAsync"]
+      138 CALL                             R5 1 0
+      139 NAMECALL                         R5 R4 K22 ["Destroy"]
+      141 CALL                             R5 1 0
+      142 RETURN                           R0 0
 
 PROTO_14:
         0 GETIMPORT                        R1 K2 [task.spawn]

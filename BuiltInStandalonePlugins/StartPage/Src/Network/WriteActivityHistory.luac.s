@@ -76,17 +76,16 @@ PROTO_2:
        28 CALL                             R2 1 1
        29 MOVE                             R1 R2
        30 GETIMPORT                        R2 K8 [warn]
-       32 LOADK                            R4 K9 ["[WriteActivityHistory] request failed: %*"]
-       33 MOVE                             R6 R1
-       34 NAMECALL                         R4 R4 K10 ["format"]
-       36 CALL                             R4 2 1
-       37 MOVE                             R3 R4
-       38 CALL                             R2 1 0
-       39 GETUPVAL                         R2 1
-       40 GETTABLEKS                       R2 R2 K11 ["reject"]
-       42 MOVE                             R3 R0
-       43 CALL                             R2 1 -1
-       44 RETURN                           R2 -1
+       32 LOADK                            R3 K9 ["[WriteActivityHistory] request failed: %*"]
+       33 MOVE                             R5 R1
+       34 NAMECALL                         R3 R3 K10 ["format"]
+       36 CALL                             R3 2 1
+       37 CALL                             R2 1 0
+       38 GETUPVAL                         R2 1
+       39 GETTABLEKS                       R2 R2 K11 ["reject"]
+       41 MOVE                             R3 R0
+       42 CALL                             R2 1 -1
+       43 RETURN                           R2 -1
 
 PROTO_3:
         0 GETUPVAL                         R5 0

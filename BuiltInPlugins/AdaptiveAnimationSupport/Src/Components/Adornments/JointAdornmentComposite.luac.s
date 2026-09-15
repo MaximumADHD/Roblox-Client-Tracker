@@ -1071,21 +1071,20 @@ PROTO_30:
        17 GETUPVAL                         R8 2
        18 MOVE                             R9 R6
        19 CALL                             R8 1 1
-       20 JUMPIFNOT                        R8 ; [+18]
-       21 LOADK                            R10 K1 ["Connection_%*_%*_%*"]
-       22 GETTABLEKS                       R12 R7 K2 ["Name"]
-       24 GETTABLEKS                       R13 R6 K2 ["Name"]
-       26 MOVE                             R14 R5
-       27 NAMECALL                         R10 R10 K3 ["format"]
-       29 CALL                             R10 4 1
-       30 MOVE                             R9 R10
-       31 DUPTABLE                         R10 K7 [{"parentInst", "childInst", "connectionAdorneePart"}]
-       32 SETTABLEKS                       R7 R10 K4 ["parentInst"]
-       34 SETTABLEKS                       R6 R10 K5 ["childInst"]
-       36 SETTABLEKS                       R8 R10 K6 ["connectionAdorneePart"]
-       38 SETTABLE                         R10 R0 R9
-       39 FORGLOOP                         R2 2 ; [-28]
-       41 RETURN                           R0 1
+       20 JUMPIFNOT                        R8 ; [+17]
+       21 LOADK                            R9 K1 ["Connection_%*_%*_%*"]
+       22 GETTABLEKS                       R11 R7 K2 ["Name"]
+       24 GETTABLEKS                       R12 R6 K2 ["Name"]
+       26 MOVE                             R13 R5
+       27 NAMECALL                         R9 R9 K3 ["format"]
+       29 CALL                             R9 4 1
+       30 DUPTABLE                         R10 K7 [{"parentInst", "childInst", "connectionAdorneePart"}]
+       31 SETTABLEKS                       R7 R10 K4 ["parentInst"]
+       33 SETTABLEKS                       R6 R10 K5 ["childInst"]
+       35 SETTABLEKS                       R8 R10 K6 ["connectionAdorneePart"]
+       37 SETTABLE                         R10 R0 R9
+       38 FORGLOOP                         R2 2 ; [-27]
+       40 RETURN                           R0 1
 
 PROTO_31:
         0 GETUPVAL                         R0 0
@@ -1345,8 +1344,8 @@ PROTO_32:
       342 SETTABLE                         R34 R26 R32
       343 FORGLOOP                         R29 2 ; [-57]
       345 LOADNIL                          R29
-      346 JUMPIFNOT                        R9 ; [+147]
-      347 JUMPIFNOT                        R11 ; [+146]
+      346 JUMPIFNOT                        R9 ; [+146]
+      347 JUMPIFNOT                        R11 ; [+145]
       348 GETUPVAL                         R30 11
       349 GETTABLEKS                       R30 R30 K59 ["createPortal"]
       351 GETUPVAL                         R31 2
@@ -1395,78 +1394,77 @@ PROTO_32:
       410 SETTABLEKS                       R42 R41 K88 ["Font"]
       412 GETIMPORT                        R42 K101 [Enum.AutomaticSize.XY]
       414 SETTABLEKS                       R42 R41 K91 ["AutomaticSize"]
-      416 LOADK                            R43 K102 ["%*: %*"]
-      417 GETTABLEKS                       R45 R2 K103 ["ClassName"]
-      419 GETTABLEKS                       R46 R2 K11 ["Name"]
-      421 NAMECALL                         R43 R43 K104 ["format"]
-      423 CALL                             R43 3 1
-      424 MOVE                             R42 R43
-      425 SETTABLEKS                       R42 R41 K94 ["Text"]
-      427 DUPTABLE                         R42 K107 [{"UICorner", "Padding"}]
-      428 GETUPVAL                         R43 2
-      429 GETTABLEKS                       R43 R43 K23 ["createElement"]
-      431 LOADK                            R44 K105 ["UICorner"]
-      432 DUPTABLE                         R45 K109 [{"CornerRadius"}]
-      433 GETIMPORT                        R46 K111 [UDim.new]
-      435 LOADN                            R47 0
-      436 LOADN                            R48 6
-      437 CALL                             R46 2 1
-      438 SETTABLEKS                       R46 R45 K108 ["CornerRadius"]
-      440 CALL                             R43 2 1
-      441 SETTABLEKS                       R43 R42 K105 ["UICorner"]
-      443 GETUPVAL                         R43 2
-      444 GETTABLEKS                       R43 R43 K23 ["createElement"]
-      446 LOADK                            R44 K112 ["UIPadding"]
-      447 DUPTABLE                         R45 K117 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-      448 GETIMPORT                        R46 K111 [UDim.new]
-      450 LOADN                            R47 0
-      451 LOADN                            R48 8
-      452 CALL                             R46 2 1
-      453 SETTABLEKS                       R46 R45 K113 ["PaddingLeft"]
-      455 GETIMPORT                        R46 K111 [UDim.new]
-      457 LOADN                            R47 0
-      458 LOADN                            R48 8
-      459 CALL                             R46 2 1
-      460 SETTABLEKS                       R46 R45 K114 ["PaddingRight"]
-      462 GETIMPORT                        R46 K111 [UDim.new]
-      464 LOADN                            R47 0
-      465 LOADN                            R48 4
-      466 CALL                             R46 2 1
-      467 SETTABLEKS                       R46 R45 K115 ["PaddingTop"]
-      469 GETIMPORT                        R46 K111 [UDim.new]
-      471 LOADN                            R47 0
-      472 LOADN                            R48 4
-      473 CALL                             R46 2 1
-      474 SETTABLEKS                       R46 R45 K116 ["PaddingBottom"]
-      476 CALL                             R43 2 1
-      477 SETTABLEKS                       R43 R42 K106 ["Padding"]
-      479 CALL                             R39 3 1
-      480 SETTABLEKS                       R39 R38 K82 ["Tooltip"]
-      482 CALL                             R35 3 1
-      483 SETTABLEKS                       R35 R34 K69 ["Positioner"]
-      485 CALL                             R31 3 1
-      486 GETIMPORT                        R32 K119 [game]
-      488 LOADK                            R34 K120 ["CoreGui"]
-      489 NAMECALL                         R32 R32 K121 ["GetService"]
-      491 CALL                             R32 2 -1
-      492 CALL                             R30 -1 1
-      493 MOVE                             R29 R30
-      494 GETUPVAL                         R30 2
-      495 GETTABLEKS                       R30 R30 K23 ["createElement"]
-      497 GETUPVAL                         R31 2
-      498 GETTABLEKS                       R31 R31 K122 ["Fragment"]
-      500 LOADNIL                          R32
-      501 DUPTABLE                         R33 K125 [{"World", "TooltipPortal"}]
-      502 GETUPVAL                         R34 2
-      503 GETTABLEKS                       R34 R34 K23 ["createElement"]
-      505 LOADK                            R35 K126 ["Folder"]
-      506 LOADNIL                          R36
-      507 MOVE                             R37 R26
-      508 CALL                             R34 3 1
-      509 SETTABLEKS                       R34 R33 K123 ["World"]
-      511 SETTABLEKS                       R29 R33 K124 ["TooltipPortal"]
-      513 CALL                             R30 3 -1
-      514 RETURN                           R30 -1
+      416 LOADK                            R42 K102 ["%*: %*"]
+      417 GETTABLEKS                       R44 R2 K103 ["ClassName"]
+      419 GETTABLEKS                       R45 R2 K11 ["Name"]
+      421 NAMECALL                         R42 R42 K104 ["format"]
+      423 CALL                             R42 3 1
+      424 SETTABLEKS                       R42 R41 K94 ["Text"]
+      426 DUPTABLE                         R42 K107 [{"UICorner", "Padding"}]
+      427 GETUPVAL                         R43 2
+      428 GETTABLEKS                       R43 R43 K23 ["createElement"]
+      430 LOADK                            R44 K105 ["UICorner"]
+      431 DUPTABLE                         R45 K109 [{"CornerRadius"}]
+      432 GETIMPORT                        R46 K111 [UDim.new]
+      434 LOADN                            R47 0
+      435 LOADN                            R48 6
+      436 CALL                             R46 2 1
+      437 SETTABLEKS                       R46 R45 K108 ["CornerRadius"]
+      439 CALL                             R43 2 1
+      440 SETTABLEKS                       R43 R42 K105 ["UICorner"]
+      442 GETUPVAL                         R43 2
+      443 GETTABLEKS                       R43 R43 K23 ["createElement"]
+      445 LOADK                            R44 K112 ["UIPadding"]
+      446 DUPTABLE                         R45 K117 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+      447 GETIMPORT                        R46 K111 [UDim.new]
+      449 LOADN                            R47 0
+      450 LOADN                            R48 8
+      451 CALL                             R46 2 1
+      452 SETTABLEKS                       R46 R45 K113 ["PaddingLeft"]
+      454 GETIMPORT                        R46 K111 [UDim.new]
+      456 LOADN                            R47 0
+      457 LOADN                            R48 8
+      458 CALL                             R46 2 1
+      459 SETTABLEKS                       R46 R45 K114 ["PaddingRight"]
+      461 GETIMPORT                        R46 K111 [UDim.new]
+      463 LOADN                            R47 0
+      464 LOADN                            R48 4
+      465 CALL                             R46 2 1
+      466 SETTABLEKS                       R46 R45 K115 ["PaddingTop"]
+      468 GETIMPORT                        R46 K111 [UDim.new]
+      470 LOADN                            R47 0
+      471 LOADN                            R48 4
+      472 CALL                             R46 2 1
+      473 SETTABLEKS                       R46 R45 K116 ["PaddingBottom"]
+      475 CALL                             R43 2 1
+      476 SETTABLEKS                       R43 R42 K106 ["Padding"]
+      478 CALL                             R39 3 1
+      479 SETTABLEKS                       R39 R38 K82 ["Tooltip"]
+      481 CALL                             R35 3 1
+      482 SETTABLEKS                       R35 R34 K69 ["Positioner"]
+      484 CALL                             R31 3 1
+      485 GETIMPORT                        R32 K119 [game]
+      487 LOADK                            R34 K120 ["CoreGui"]
+      488 NAMECALL                         R32 R32 K121 ["GetService"]
+      490 CALL                             R32 2 -1
+      491 CALL                             R30 -1 1
+      492 MOVE                             R29 R30
+      493 GETUPVAL                         R30 2
+      494 GETTABLEKS                       R30 R30 K23 ["createElement"]
+      496 GETUPVAL                         R31 2
+      497 GETTABLEKS                       R31 R31 K122 ["Fragment"]
+      499 LOADNIL                          R32
+      500 DUPTABLE                         R33 K125 [{"World", "TooltipPortal"}]
+      501 GETUPVAL                         R34 2
+      502 GETTABLEKS                       R34 R34 K23 ["createElement"]
+      504 LOADK                            R35 K126 ["Folder"]
+      505 LOADNIL                          R36
+      506 MOVE                             R37 R26
+      507 CALL                             R34 3 1
+      508 SETTABLEKS                       R34 R33 K123 ["World"]
+      510 SETTABLEKS                       R29 R33 K124 ["TooltipPortal"]
+      512 CALL                             R30 3 -1
+      513 RETURN                           R30 -1
 
 PROTO_33:
         0 JUMPIFNOTEQ                      R0 R1 ; [+3]

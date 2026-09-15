@@ -16,33 +16,32 @@ PROTO_0:
 PROTO_1:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K2 [debug.profilebegin]
-        3 LOADK                            R2 K3 ["Body of %* (%*)"]
-        4 GETUPVAL                         R4 0
-        5 GETUPVAL                         R6 1
-        6 GETUPVAL                         R8 2
-        7 GETTABLE                         R7 R8 R6
-        8 JUMPIFEQKNIL                     R7 ; [+3]
-       10 MOVE                             R5 R7
+        3 LOADK                            R1 K3 ["Body of %* (%*)"]
+        4 GETUPVAL                         R3 0
+        5 GETUPVAL                         R5 1
+        6 GETUPVAL                         R7 2
+        7 GETTABLE                         R6 R7 R5
+        8 JUMPIFEQKNIL                     R6 ; [+3]
+       10 MOVE                             R4 R6
        11 JUMP                             ; [+10]
-       12 GETIMPORT                        R8 K6 [string.split]
-       14 MOVE                             R9 R6
-       15 LOADK                            R10 K7 ["."]
-       16 CALL                             R8 2 1
-       17 LENGTH                           R10 R8
-       18 GETTABLE                         R9 R8 R10
-       19 GETUPVAL                         R10 2
-       20 SETTABLE                         R9 R10 R6
-       21 MOVE                             R5 R9
-       22 NAMECALL                         R2 R2 K8 ["format"]
-       24 CALL                             R2 3 1
-       25 MOVE                             R1 R2
-       26 CALL                             R0 1 0
-       27 GETUPVAL                         R0 3
-       28 GETVARARGS                       R1 -1
-       29 CALL                             R0 -1 1
-       30 GETIMPORT                        R1 K10 [debug.profileend]
-       32 CALL                             R1 0 0
-       33 RETURN                           R0 1
+       12 GETIMPORT                        R7 K6 [string.split]
+       14 MOVE                             R8 R5
+       15 LOADK                            R9 K7 ["."]
+       16 CALL                             R7 2 1
+       17 LENGTH                           R9 R7
+       18 GETTABLE                         R8 R7 R9
+       19 GETUPVAL                         R9 2
+       20 SETTABLE                         R8 R9 R5
+       21 MOVE                             R4 R8
+       22 NAMECALL                         R1 R1 K8 ["format"]
+       24 CALL                             R1 3 1
+       25 CALL                             R0 1 0
+       26 GETUPVAL                         R0 3
+       27 GETVARARGS                       R1 -1
+       28 CALL                             R0 -1 1
+       29 GETIMPORT                        R1 K10 [debug.profileend]
+       31 CALL                             R1 0 0
+       32 RETURN                           R0 1
 
 PROTO_2:
         0 PREPVARARGS                      1
@@ -51,84 +50,82 @@ PROTO_2:
         4 LOADK                            R3 K3 ["nsl"]
         5 CALL                             R1 2 3
         6 GETIMPORT                        R4 K5 [debug.profilebegin]
-        8 LOADK                            R6 K6 ["React.createElement from %* (%*:%*)"]
-        9 MOVE                             R8 R1
-       10 GETUPVAL                         R11 0
-       11 GETTABLE                         R10 R11 R2
-       12 JUMPIFEQKNIL                     R10 ; [+3]
-       14 MOVE                             R9 R10
+        8 LOADK                            R5 K6 ["React.createElement from %* (%*:%*)"]
+        9 MOVE                             R7 R1
+       10 GETUPVAL                         R10 0
+       11 GETTABLE                         R9 R10 R2
+       12 JUMPIFEQKNIL                     R9 ; [+3]
+       14 MOVE                             R8 R9
        15 JUMP                             ; [+10]
-       16 GETIMPORT                        R11 K9 [string.split]
-       18 MOVE                             R12 R2
-       19 LOADK                            R13 K10 ["."]
-       20 CALL                             R11 2 1
-       21 LENGTH                           R13 R11
-       22 GETTABLE                         R12 R11 R13
-       23 GETUPVAL                         R13 0
-       24 SETTABLE                         R12 R13 R2
-       25 MOVE                             R9 R12
-       26 MOVE                             R10 R3
-       27 NAMECALL                         R6 R6 K11 ["format"]
-       29 CALL                             R6 4 1
-       30 MOVE                             R5 R6
-       31 CALL                             R4 1 0
-       32 GETUPVAL                         R5 1
-       33 GETTABLE                         R4 R5 R0
-       34 JUMPIFNOTEQKNIL                  R4 ; [+22]
-       36 FASTCALL1                        TYPEOF R0 ; [+3]
-       37 MOVE                             R6 R0
-       38 GETIMPORT                        R5 K13 [typeof]
-       40 CALL                             R5 1 1
-       41 JUMPIFNOTEQKS                    R5 K14 ["function"] ; [+12]
-       43 GETIMPORT                        R5 K2 [debug.info]
-       45 MOVE                             R6 R0
-       46 LOADK                            R7 K15 ["ns"]
-       47 CALL                             R5 2 2
-       48 NEWCLOSURE                       R4 P0
-       49 CAPTURE                          VAL R5
-       50 CAPTURE                          VAL R6
-       51 CAPTURE                          UPVAL U0
-       52 CAPTURE                          VAL R0
-       53 JUMP                             ; [+1]
-       54 MOVE                             R4 R0
-       55 GETUPVAL                         R5 1
-       56 SETTABLE                         R4 R5 R0
-       57 GETUPVAL                         R5 2
-       58 MOVE                             R6 R4
-       59 GETVARARGS                       R7 -1
-       60 CALL                             R5 -1 1
-       61 GETIMPORT                        R6 K17 [debug.profileend]
-       63 CALL                             R6 0 0
-       64 RETURN                           R5 1
+       16 GETIMPORT                        R10 K9 [string.split]
+       18 MOVE                             R11 R2
+       19 LOADK                            R12 K10 ["."]
+       20 CALL                             R10 2 1
+       21 LENGTH                           R12 R10
+       22 GETTABLE                         R11 R10 R12
+       23 GETUPVAL                         R12 0
+       24 SETTABLE                         R11 R12 R2
+       25 MOVE                             R8 R11
+       26 MOVE                             R9 R3
+       27 NAMECALL                         R5 R5 K11 ["format"]
+       29 CALL                             R5 4 1
+       30 CALL                             R4 1 0
+       31 GETUPVAL                         R5 1
+       32 GETTABLE                         R4 R5 R0
+       33 JUMPIFNOTEQKNIL                  R4 ; [+22]
+       35 FASTCALL1                        TYPEOF R0 ; [+3]
+       36 MOVE                             R6 R0
+       37 GETIMPORT                        R5 K13 [typeof]
+       39 CALL                             R5 1 1
+       40 JUMPIFNOTEQKS                    R5 K14 ["function"] ; [+12]
+       42 GETIMPORT                        R5 K2 [debug.info]
+       44 MOVE                             R6 R0
+       45 LOADK                            R7 K15 ["ns"]
+       46 CALL                             R5 2 2
+       47 NEWCLOSURE                       R4 P0
+       48 CAPTURE                          VAL R5
+       49 CAPTURE                          VAL R6
+       50 CAPTURE                          UPVAL U0
+       51 CAPTURE                          VAL R0
+       52 JUMP                             ; [+1]
+       53 MOVE                             R4 R0
+       54 GETUPVAL                         R5 1
+       55 SETTABLE                         R4 R5 R0
+       56 GETUPVAL                         R5 2
+       57 MOVE                             R6 R4
+       58 GETVARARGS                       R7 -1
+       59 CALL                             R5 -1 1
+       60 GETIMPORT                        R6 K17 [debug.profileend]
+       62 CALL                             R6 0 0
+       63 RETURN                           R5 1
 
 PROTO_3:
         0 GETIMPORT                        R0 K2 [debug.profilebegin]
-        2 LOADK                            R2 K3 ["body of useEffect(%*:%*)"]
-        3 GETUPVAL                         R5 0
-        4 GETUPVAL                         R7 1
-        5 GETTABLE                         R6 R7 R5
-        6 JUMPIFEQKNIL                     R6 ; [+3]
-        8 MOVE                             R4 R6
+        2 LOADK                            R1 K3 ["body of useEffect(%*:%*)"]
+        3 GETUPVAL                         R4 0
+        4 GETUPVAL                         R6 1
+        5 GETTABLE                         R5 R6 R4
+        6 JUMPIFEQKNIL                     R5 ; [+3]
+        8 MOVE                             R3 R5
         9 JUMP                             ; [+10]
-       10 GETIMPORT                        R7 K6 [string.split]
-       12 MOVE                             R8 R5
-       13 LOADK                            R9 K7 ["."]
-       14 CALL                             R7 2 1
-       15 LENGTH                           R9 R7
-       16 GETTABLE                         R8 R7 R9
-       17 GETUPVAL                         R9 1
-       18 SETTABLE                         R8 R9 R5
-       19 MOVE                             R4 R8
-       20 GETUPVAL                         R5 2
-       21 NAMECALL                         R2 R2 K8 ["format"]
-       23 CALL                             R2 3 1
-       24 MOVE                             R1 R2
-       25 CALL                             R0 1 0
-       26 GETUPVAL                         R0 3
-       27 CALL                             R0 0 1
-       28 GETIMPORT                        R1 K10 [debug.profileend]
-       30 CALL                             R1 0 0
-       31 RETURN                           R0 1
+       10 GETIMPORT                        R6 K6 [string.split]
+       12 MOVE                             R7 R4
+       13 LOADK                            R8 K7 ["."]
+       14 CALL                             R6 2 1
+       15 LENGTH                           R8 R6
+       16 GETTABLE                         R7 R6 R8
+       17 GETUPVAL                         R8 1
+       18 SETTABLE                         R7 R8 R4
+       19 MOVE                             R3 R7
+       20 GETUPVAL                         R4 2
+       21 NAMECALL                         R1 R1 K8 ["format"]
+       23 CALL                             R1 3 1
+       24 CALL                             R0 1 0
+       25 GETUPVAL                         R0 3
+       26 CALL                             R0 0 1
+       27 GETIMPORT                        R1 K10 [debug.profileend]
+       29 CALL                             R1 0 0
+       30 RETURN                           R0 1
 
 PROTO_4:
         0 GETIMPORT                        R2 K2 [debug.info]
@@ -136,72 +133,70 @@ PROTO_4:
         3 LOADK                            R4 K3 ["sl"]
         4 CALL                             R2 2 2
         5 GETIMPORT                        R4 K5 [debug.profilebegin]
-        7 LOADK                            R6 K6 ["useEffect(%*:%*)"]
-        8 GETUPVAL                         R10 0
-        9 GETTABLE                         R9 R10 R2
-       10 JUMPIFEQKNIL                     R9 ; [+3]
-       12 MOVE                             R8 R9
+        7 LOADK                            R5 K6 ["useEffect(%*:%*)"]
+        8 GETUPVAL                         R9 0
+        9 GETTABLE                         R8 R9 R2
+       10 JUMPIFEQKNIL                     R8 ; [+3]
+       12 MOVE                             R7 R8
        13 JUMP                             ; [+10]
-       14 GETIMPORT                        R10 K9 [string.split]
-       16 MOVE                             R11 R2
-       17 LOADK                            R12 K10 ["."]
-       18 CALL                             R10 2 1
-       19 LENGTH                           R12 R10
-       20 GETTABLE                         R11 R10 R12
-       21 GETUPVAL                         R12 0
-       22 SETTABLE                         R11 R12 R2
-       23 MOVE                             R8 R11
-       24 MOVE                             R9 R3
-       25 NAMECALL                         R6 R6 K11 ["format"]
-       27 CALL                             R6 3 1
-       28 MOVE                             R5 R6
-       29 CALL                             R4 1 0
-       30 GETUPVAL                         R4 1
-       31 NEWCLOSURE                       R5 P0
-       32 CAPTURE                          VAL R2
-       33 CAPTURE                          UPVAL U0
-       34 CAPTURE                          VAL R3
-       35 CAPTURE                          VAL R0
-       36 MOVE                             R6 R1
-       37 CALL                             R4 2 0
-       38 GETIMPORT                        R4 K13 [debug.profileend]
-       40 CALL                             R4 0 0
-       41 RETURN                           R0 0
+       14 GETIMPORT                        R9 K9 [string.split]
+       16 MOVE                             R10 R2
+       17 LOADK                            R11 K10 ["."]
+       18 CALL                             R9 2 1
+       19 LENGTH                           R11 R9
+       20 GETTABLE                         R10 R9 R11
+       21 GETUPVAL                         R11 0
+       22 SETTABLE                         R10 R11 R2
+       23 MOVE                             R7 R10
+       24 MOVE                             R8 R3
+       25 NAMECALL                         R5 R5 K11 ["format"]
+       27 CALL                             R5 3 1
+       28 CALL                             R4 1 0
+       29 GETUPVAL                         R4 1
+       30 NEWCLOSURE                       R5 P0
+       31 CAPTURE                          VAL R2
+       32 CAPTURE                          UPVAL U0
+       33 CAPTURE                          VAL R3
+       34 CAPTURE                          VAL R0
+       35 MOVE                             R6 R1
+       36 CALL                             R4 2 0
+       37 GETIMPORT                        R4 K13 [debug.profileend]
+       39 CALL                             R4 0 0
+       40 RETURN                           R0 0
 
 PROTO_5:
         0 GETIMPORT                        R0 K2 [debug.profilebegin]
-        2 LOADK                            R2 K3 ["body of useMemo(%*:%*)"]
-        3 GETUPVAL                         R5 0
-        4 GETUPVAL                         R7 1
-        5 GETTABLE                         R6 R7 R5
-        6 JUMPIFEQKNIL                     R6 ; [+3]
-        8 MOVE                             R4 R6
+        2 LOADK                            R1 K3 ["body of useMemo(%*:%*)"]
+        3 GETUPVAL                         R4 0
+        4 GETUPVAL                         R6 1
+        5 GETTABLE                         R5 R6 R4
+        6 JUMPIFEQKNIL                     R5 ; [+3]
+        8 MOVE                             R3 R5
         9 JUMP                             ; [+10]
-       10 GETIMPORT                        R7 K6 [string.split]
-       12 MOVE                             R8 R5
-       13 LOADK                            R9 K7 ["."]
-       14 CALL                             R7 2 1
-       15 LENGTH                           R9 R7
-       16 GETTABLE                         R8 R7 R9
-       17 GETUPVAL                         R9 1
-       18 SETTABLE                         R8 R9 R5
-       19 MOVE                             R4 R8
-       20 GETUPVAL                         R5 2
-       21 NAMECALL                         R2 R2 K8 ["format"]
-       23 CALL                             R2 3 1
-       24 MOVE                             R1 R2
-       25 CALL                             R0 1 0
-       26 GETIMPORT                        R0 K11 [table.pack]
-       28 GETUPVAL                         R1 3
-       29 CALL                             R1 0 -1
-       30 CALL                             R0 -1 1
-       31 GETIMPORT                        R1 K13 [debug.profileend]
-       33 CALL                             R1 0 0
-       34 FASTCALL1                        TABLE_UNPACK R0 ; [+3]
-       35 MOVE                             R2 R0
-       36 GETIMPORT                        R1 K15 [table.unpack]
-       38 CALL                             R1 1 -1
-       39 RETURN                           R1 -1
+       10 GETIMPORT                        R6 K6 [string.split]
+       12 MOVE                             R7 R4
+       13 LOADK                            R8 K7 ["."]
+       14 CALL                             R6 2 1
+       15 LENGTH                           R8 R6
+       16 GETTABLE                         R7 R6 R8
+       17 GETUPVAL                         R8 1
+       18 SETTABLE                         R7 R8 R4
+       19 MOVE                             R3 R7
+       20 GETUPVAL                         R4 2
+       21 NAMECALL                         R1 R1 K8 ["format"]
+       23 CALL                             R1 3 1
+       24 CALL                             R0 1 0
+       25 GETIMPORT                        R0 K11 [table.pack]
+       27 GETUPVAL                         R1 3
+       28 CALL                             R1 0 -1
+       29 CALL                             R0 -1 1
+       30 GETIMPORT                        R1 K13 [debug.profileend]
+       32 CALL                             R1 0 0
+       33 FASTCALL1                        TABLE_UNPACK R0 ; [+3]
+       34 MOVE                             R2 R0
+       35 GETIMPORT                        R1 K15 [table.unpack]
+       37 CALL                             R1 1 -1
+       38 RETURN                           R1 -1
 
 PROTO_6:
         0 GETIMPORT                        R2 K2 [debug.info]
@@ -236,32 +231,31 @@ PROTO_8:
         4 LOADK                            R2 K3 ["sl"]
         5 CALL                             R0 2 2
         6 GETIMPORT                        R2 K5 [debug.profilebegin]
-        8 LOADK                            R4 K6 ["useCallback(%*:%*)"]
-        9 GETUPVAL                         R8 0
-       10 GETTABLE                         R7 R8 R0
-       11 JUMPIFEQKNIL                     R7 ; [+3]
-       13 MOVE                             R6 R7
+        8 LOADK                            R3 K6 ["useCallback(%*:%*)"]
+        9 GETUPVAL                         R7 0
+       10 GETTABLE                         R6 R7 R0
+       11 JUMPIFEQKNIL                     R6 ; [+3]
+       13 MOVE                             R5 R6
        14 JUMP                             ; [+10]
-       15 GETIMPORT                        R8 K9 [string.split]
-       17 MOVE                             R9 R0
-       18 LOADK                            R10 K10 ["."]
-       19 CALL                             R8 2 1
-       20 LENGTH                           R10 R8
-       21 GETTABLE                         R9 R8 R10
-       22 GETUPVAL                         R10 0
-       23 SETTABLE                         R9 R10 R0
-       24 MOVE                             R6 R9
-       25 MOVE                             R7 R1
-       26 NAMECALL                         R4 R4 K11 ["format"]
-       28 CALL                             R4 3 1
-       29 MOVE                             R3 R4
-       30 CALL                             R2 1 0
-       31 GETUPVAL                         R2 1
-       32 GETVARARGS                       R3 -1
-       33 CALL                             R2 -1 1
-       34 GETIMPORT                        R3 K13 [debug.profileend]
-       36 CALL                             R3 0 0
-       37 RETURN                           R2 1
+       15 GETIMPORT                        R7 K9 [string.split]
+       17 MOVE                             R8 R0
+       18 LOADK                            R9 K10 ["."]
+       19 CALL                             R7 2 1
+       20 LENGTH                           R9 R7
+       21 GETTABLE                         R8 R7 R9
+       22 GETUPVAL                         R9 0
+       23 SETTABLE                         R8 R9 R0
+       24 MOVE                             R5 R8
+       25 MOVE                             R6 R1
+       26 NAMECALL                         R3 R3 K11 ["format"]
+       28 CALL                             R3 3 1
+       29 CALL                             R2 1 0
+       30 GETUPVAL                         R2 1
+       31 GETVARARGS                       R3 -1
+       32 CALL                             R2 -1 1
+       33 GETIMPORT                        R3 K13 [debug.profileend]
+       35 CALL                             R3 0 0
+       36 RETURN                           R2 1
 
 PROTO_9:
         0 PREPVARARGS                      0

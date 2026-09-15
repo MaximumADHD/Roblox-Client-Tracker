@@ -102,80 +102,78 @@ PROTO_7:
 PROTO_8:
         0 GETUPVAL                         R2 0
         1 DUPTABLE                         R3 K3 [{[1] = "failed", ["error"]}]
-        2 LOADK                            R5 K4 ["2D generation failed: %*"]
-        3 GETUPVAL                         R7 1
-        4 NAMECALL                         R5 R5 K5 ["format"]
-        6 CALL                             R5 2 1
-        7 MOVE                             R4 R5
-        8 SETTABLEKS                       R4 R3 K2 ["error"]
-       10 GETUPVAL                         R4 2
-       11 GETTABLEKS                       R4 R4 K6 ["findIndex"]
-       13 MOVE                             R5 R0
-       14 NEWCLOSURE                       R6 P0
-       15 CAPTURE                          VAL R2
-       16 CALL                             R4 2 1
-       17 JUMPIFEQKNIL                     R4 ; [+6]
-       19 GETTABLE                         R5 R0 R4
-       20 GETTABLEKS                       R5 R5 K0 ["status"]
-       22 JUMPIFEQKS                       R5 K7 ["generating"] ; [+3]
-       24 MOVE                             R1 R0
-       25 RETURN                           R1 1
-       26 GETIMPORT                        R5 K10 [table.clone]
-       28 MOVE                             R6 R0
-       29 CALL                             R5 1 1
-       30 GETTABLE                         R7 R0 R4
-       31 GETIMPORT                        R8 K10 [table.clone]
-       33 MOVE                             R9 R7
-       34 CALL                             R8 1 1
-       35 MOVE                             R9 R3
-       36 LOADNIL                          R10
-       37 LOADNIL                          R11
-       38 FORGPREP                         R9
-       39 SETTABLE                         R13 R8 R12
-       40 FORGLOOP                         R9 2 ; [-2]
-       42 MOVE                             R6 R8
-       43 SETTABLE                         R6 R5 R4
-       44 MOVE                             R1 R5
-       45 RETURN                           R1 1
+        2 LOADK                            R4 K4 ["2D generation failed: %*"]
+        3 GETUPVAL                         R6 1
+        4 NAMECALL                         R4 R4 K5 ["format"]
+        6 CALL                             R4 2 1
+        7 SETTABLEKS                       R4 R3 K2 ["error"]
+        9 GETUPVAL                         R4 2
+       10 GETTABLEKS                       R4 R4 K6 ["findIndex"]
+       12 MOVE                             R5 R0
+       13 NEWCLOSURE                       R6 P0
+       14 CAPTURE                          VAL R2
+       15 CALL                             R4 2 1
+       16 JUMPIFEQKNIL                     R4 ; [+6]
+       18 GETTABLE                         R5 R0 R4
+       19 GETTABLEKS                       R5 R5 K0 ["status"]
+       21 JUMPIFEQKS                       R5 K7 ["generating"] ; [+3]
+       23 MOVE                             R1 R0
+       24 RETURN                           R1 1
+       25 GETIMPORT                        R5 K10 [table.clone]
+       27 MOVE                             R6 R0
+       28 CALL                             R5 1 1
+       29 GETTABLE                         R7 R0 R4
+       30 GETIMPORT                        R8 K10 [table.clone]
+       32 MOVE                             R9 R7
+       33 CALL                             R8 1 1
+       34 MOVE                             R9 R3
+       35 LOADNIL                          R10
+       36 LOADNIL                          R11
+       37 FORGPREP                         R9
+       38 SETTABLE                         R13 R8 R12
+       39 FORGLOOP                         R9 2 ; [-2]
+       41 MOVE                             R6 R8
+       42 SETTABLE                         R6 R5 R4
+       43 MOVE                             R1 R5
+       44 RETURN                           R1 1
 
 PROTO_9:
         0 GETUPVAL                         R2 0
         1 DUPTABLE                         R3 K3 [{[1] = "failed", ["error"]}]
-        2 LOADK                            R5 K4 ["2D preview load failed: %*"]
-        3 GETUPVAL                         R7 1
-        4 NAMECALL                         R5 R5 K5 ["format"]
-        6 CALL                             R5 2 1
-        7 MOVE                             R4 R5
-        8 SETTABLEKS                       R4 R3 K2 ["error"]
-       10 GETUPVAL                         R4 2
-       11 GETTABLEKS                       R4 R4 K6 ["findIndex"]
-       13 MOVE                             R5 R0
-       14 NEWCLOSURE                       R6 P0
-       15 CAPTURE                          VAL R2
-       16 CALL                             R4 2 1
-       17 JUMPIFEQKNIL                     R4 ; [+6]
-       19 GETTABLE                         R5 R0 R4
-       20 GETTABLEKS                       R5 R5 K0 ["status"]
-       22 JUMPIFEQKS                       R5 K7 ["generating"] ; [+3]
-       24 MOVE                             R1 R0
-       25 RETURN                           R1 1
-       26 GETIMPORT                        R5 K10 [table.clone]
-       28 MOVE                             R6 R0
-       29 CALL                             R5 1 1
-       30 GETTABLE                         R7 R0 R4
-       31 GETIMPORT                        R8 K10 [table.clone]
-       33 MOVE                             R9 R7
-       34 CALL                             R8 1 1
-       35 MOVE                             R9 R3
-       36 LOADNIL                          R10
-       37 LOADNIL                          R11
-       38 FORGPREP                         R9
-       39 SETTABLE                         R13 R8 R12
-       40 FORGLOOP                         R9 2 ; [-2]
-       42 MOVE                             R6 R8
-       43 SETTABLE                         R6 R5 R4
-       44 MOVE                             R1 R5
-       45 RETURN                           R1 1
+        2 LOADK                            R4 K4 ["2D preview load failed: %*"]
+        3 GETUPVAL                         R6 1
+        4 NAMECALL                         R4 R4 K5 ["format"]
+        6 CALL                             R4 2 1
+        7 SETTABLEKS                       R4 R3 K2 ["error"]
+        9 GETUPVAL                         R4 2
+       10 GETTABLEKS                       R4 R4 K6 ["findIndex"]
+       12 MOVE                             R5 R0
+       13 NEWCLOSURE                       R6 P0
+       14 CAPTURE                          VAL R2
+       15 CALL                             R4 2 1
+       16 JUMPIFEQKNIL                     R4 ; [+6]
+       18 GETTABLE                         R5 R0 R4
+       19 GETTABLEKS                       R5 R5 K0 ["status"]
+       21 JUMPIFEQKS                       R5 K7 ["generating"] ; [+3]
+       23 MOVE                             R1 R0
+       24 RETURN                           R1 1
+       25 GETIMPORT                        R5 K10 [table.clone]
+       27 MOVE                             R6 R0
+       28 CALL                             R5 1 1
+       29 GETTABLE                         R7 R0 R4
+       30 GETIMPORT                        R8 K10 [table.clone]
+       32 MOVE                             R9 R7
+       33 CALL                             R8 1 1
+       34 MOVE                             R9 R3
+       35 LOADNIL                          R10
+       36 LOADNIL                          R11
+       37 FORGPREP                         R9
+       38 SETTABLE                         R13 R8 R12
+       39 FORGLOOP                         R9 2 ; [-2]
+       41 MOVE                             R6 R8
+       42 SETTABLE                         R6 R5 R4
+       43 MOVE                             R1 R5
+       44 RETURN                           R1 1
 
 PROTO_10:
         0 GETUPVAL                         R2 0
@@ -481,13 +479,12 @@ PROTO_21:
         8 DUPTABLE                         R1 K4 [{["type"] = "failed", [2], ["error"]}]
         9 GETTABLEKS                       R2 R0 K0 ["confirmedTurnId"]
        11 SETTABLEKS                       R2 R1 K0 ["confirmedTurnId"]
-       13 LOADK                            R3 K5 ["3D generation failed: %*"]
-       14 GETUPVAL                         R5 1
-       15 NAMECALL                         R3 R3 K6 ["format"]
-       17 CALL                             R3 2 1
-       18 MOVE                             R2 R3
-       19 SETTABLEKS                       R2 R1 K3 ["error"]
-       21 RETURN                           R1 1
+       13 LOADK                            R2 K5 ["3D generation failed: %*"]
+       14 GETUPVAL                         R4 1
+       15 NAMECALL                         R2 R2 K6 ["format"]
+       17 CALL                             R2 2 1
+       18 SETTABLEKS                       R2 R1 K3 ["error"]
+       20 RETURN                           R1 1
 
 PROTO_22:
         0 JUMPIFEQKNIL                     R0 ; [+6]
@@ -498,13 +495,12 @@ PROTO_22:
         8 DUPTABLE                         R1 K4 [{["type"] = "failed", [2], ["error"]}]
         9 GETTABLEKS                       R2 R0 K0 ["confirmedTurnId"]
        11 SETTABLEKS                       R2 R1 K0 ["confirmedTurnId"]
-       13 LOADK                            R3 K5 ["3D load failed: %*"]
-       14 GETUPVAL                         R5 1
-       15 NAMECALL                         R3 R3 K6 ["format"]
-       17 CALL                             R3 2 1
-       18 MOVE                             R2 R3
-       19 SETTABLEKS                       R2 R1 K3 ["error"]
-       21 RETURN                           R1 1
+       13 LOADK                            R2 K5 ["3D load failed: %*"]
+       14 GETUPVAL                         R4 1
+       15 NAMECALL                         R2 R2 K6 ["format"]
+       17 CALL                             R2 2 1
+       18 SETTABLEKS                       R2 R1 K3 ["error"]
+       20 RETURN                           R1 1
 
 PROTO_23:
         0 NEWCLOSURE                       R0 P0

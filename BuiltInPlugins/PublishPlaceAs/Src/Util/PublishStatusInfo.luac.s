@@ -48,13 +48,17 @@ MAIN:
        26 NAMECALL                         R0 R0 K3 ["DefineFastInt"]
        28 CALL                             R0 3 0
        29 DUPCLOSURE                       R0 K7 [PROTO_0]
-       30 DUPTABLE                         R1 K16 [{["WidgetId"] = "PublishStatus", ["MessageBusNamespace"] = "publishStatus", ["LocalizationNamespace"] = "PublishStatus", ["WebEvents"], ["getDefaultContentSize"], ["getMinContentSize"]}]
-       31 DUPTABLE                         R2 K21 [{["Close"] = "close", ["Resize"] = "resize"}]
+       30 DUPTABLE                         R1 K17 [{["WidgetId"] = "PublishStatus", ["MessageBusNamespace"] = "publishStatus", ["LocalizationNamespace"] = "PublishStatus", ["WebEvents"], ["AllowedStudioActionUris"], ["getDefaultContentSize"], ["getMinContentSize"]}]
+       31 DUPTABLE                         R2 K24 [{["ActivateAction"] = "activateAction", ["Close"] = "close", ["Resize"] = "resize"}]
        32 SETTABLEKS                       R2 R1 K13 ["WebEvents"]
-       34 DUPCLOSURE                       R2 K22 [PROTO_1]
-       35 CAPTURE                          VAL R0
-       36 SETTABLEKS                       R2 R1 K14 ["getDefaultContentSize"]
-       38 DUPCLOSURE                       R2 K23 [PROTO_2]
-       39 CAPTURE                          VAL R0
-       40 SETTABLEKS                       R2 R1 K15 ["getMinContentSize"]
-       42 RETURN                           R1 1
+       34 DUPTABLE                         R2 K26 [{"ManageCollaborators"}]
+       35 DUPTABLE                         R3 K34 [{["DataModel"] = "Standalone", ["PluginId"] = "ManageCollaborators", ["Category"] = "Actions", ["ItemId"] = "Open"}]
+       36 SETTABLEKS                       R3 R2 K25 ["ManageCollaborators"]
+       38 SETTABLEKS                       R2 R1 K14 ["AllowedStudioActionUris"]
+       40 DUPCLOSURE                       R2 K35 [PROTO_1]
+       41 CAPTURE                          VAL R0
+       42 SETTABLEKS                       R2 R1 K15 ["getDefaultContentSize"]
+       44 DUPCLOSURE                       R2 K36 [PROTO_2]
+       45 CAPTURE                          VAL R0
+       46 SETTABLEKS                       R2 R1 K16 ["getMinContentSize"]
+       48 RETURN                           R1 1

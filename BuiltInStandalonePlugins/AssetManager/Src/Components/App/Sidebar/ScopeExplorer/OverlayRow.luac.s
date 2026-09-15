@@ -139,15 +139,14 @@ PROTO_4:
        50 SETTABLEKS                       R6 R5 K12 ["LayoutOrder"]
        52 GETTABLEKS                       R6 R0 K13 ["Position"]
        54 SETTABLEKS                       R6 R5 K13 ["Position"]
-       56 LOADK                            R7 K17 ["align-x-center align-y-center size-600 radius-small %*"]
-       57 MOVE                             R9 R1
-       58 NAMECALL                         R7 R7 K18 ["format"]
-       60 CALL                             R7 2 1
-       61 MOVE                             R6 R7
-       62 SETTABLEKS                       R6 R5 K14 ["tag"]
-       64 MOVE                             R6 R2
-       65 CALL                             R3 3 -1
-       66 RETURN                           R3 -1
+       56 LOADK                            R6 K17 ["align-x-center align-y-center size-600 radius-small %*"]
+       57 MOVE                             R8 R1
+       58 NAMECALL                         R6 R6 K18 ["format"]
+       60 CALL                             R6 2 1
+       61 SETTABLEKS                       R6 R5 K14 ["tag"]
+       63 MOVE                             R6 R2
+       64 CALL                             R3 3 -1
+       65 RETURN                           R3 -1
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["Item"]

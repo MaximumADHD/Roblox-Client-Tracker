@@ -366,126 +366,123 @@ PROTO_19:
        10 GETIMPORT                        R3 K3 [typeof]
        12 CALL                             R3 1 1
        13 JUMPIFNOTEQKS                    R3 K4 ["string"] ; [+3]
-       15 JUMPIFNOTEQKS                    R2 K5 [""] ; [+13]
+       15 JUMPIFNOTEQKS                    R2 K5 [""] ; [+12]
        17 LOADNIL                          R3
-       18 LOADK                            R5 K6 ["Failed to snapshot selection: %*"]
+       18 LOADK                            R4 K6 ["Failed to snapshot selection: %*"]
        19 FASTCALL1                        TOSTRING R2 ; [+3]
-       20 MOVE                             R8 R2
-       21 GETIMPORT                        R7 K8 [tostring]
-       23 CALL                             R7 1 1
-       24 NAMECALL                         R5 R5 K9 ["format"]
-       26 CALL                             R5 2 1
-       27 MOVE                             R4 R5
-       28 RETURN                           R3 2
-       29 GETUPVAL                         R3 0
-       30 GETTABLEKS                       R3 R3 K10 ["getImageDataBase64Async"]
-       32 JUMPIF                           R3 ; [+3]
-       33 LOADNIL                          R4
-       34 LOADK                            R5 K11 ["getImageDataBase64Async unavailable (AssistantApplication missing)"]
-       35 RETURN                           R4 2
-       36 GETIMPORT                        R4 K1 [pcall]
-       38 NEWCLOSURE                       R5 P1
-       39 CAPTURE                          VAL R3
-       40 CAPTURE                          VAL R2
-       41 CALL                             R4 1 2
-       42 JUMPIFNOT                        R4 ; [+9]
-       43 FASTCALL1                        TYPEOF R5 ; [+3]
-       44 MOVE                             R7 R5
-       45 GETIMPORT                        R6 K3 [typeof]
-       47 CALL                             R6 1 1
-       48 JUMPIFNOTEQKS                    R6 K4 ["string"] ; [+3]
-       50 JUMPIFNOTEQKS                    R5 K5 [""] ; [+13]
-       52 LOADNIL                          R6
-       53 LOADK                            R8 K12 ["Failed to encode snapshot: %*"]
-       54 FASTCALL1                        TOSTRING R5 ; [+3]
-       55 MOVE                             R11 R5
-       56 GETIMPORT                        R10 K8 [tostring]
-       58 CALL                             R10 1 1
-       59 NAMECALL                         R8 R8 K9 ["format"]
-       61 CALL                             R8 2 1
-       62 MOVE                             R7 R8
-       63 RETURN                           R6 2
-       64 MOVE                             R6 R5
-       65 LOADNIL                          R7
-       66 RETURN                           R6 2
+       20 MOVE                             R7 R2
+       21 GETIMPORT                        R6 K8 [tostring]
+       23 CALL                             R6 1 1
+       24 NAMECALL                         R4 R4 K9 ["format"]
+       26 CALL                             R4 2 1
+       27 RETURN                           R3 2
+       28 GETUPVAL                         R3 0
+       29 GETTABLEKS                       R3 R3 K10 ["getImageDataBase64Async"]
+       31 JUMPIF                           R3 ; [+3]
+       32 LOADNIL                          R4
+       33 LOADK                            R5 K11 ["getImageDataBase64Async unavailable (AssistantApplication missing)"]
+       34 RETURN                           R4 2
+       35 GETIMPORT                        R4 K1 [pcall]
+       37 NEWCLOSURE                       R5 P1
+       38 CAPTURE                          VAL R3
+       39 CAPTURE                          VAL R2
+       40 CALL                             R4 1 2
+       41 JUMPIFNOT                        R4 ; [+9]
+       42 FASTCALL1                        TYPEOF R5 ; [+3]
+       43 MOVE                             R7 R5
+       44 GETIMPORT                        R6 K3 [typeof]
+       46 CALL                             R6 1 1
+       47 JUMPIFNOTEQKS                    R6 K4 ["string"] ; [+3]
+       49 JUMPIFNOTEQKS                    R5 K5 [""] ; [+12]
+       51 LOADNIL                          R6
+       52 LOADK                            R7 K12 ["Failed to encode snapshot: %*"]
+       53 FASTCALL1                        TOSTRING R5 ; [+3]
+       54 MOVE                             R10 R5
+       55 GETIMPORT                        R9 K8 [tostring]
+       57 CALL                             R9 1 1
+       58 NAMECALL                         R7 R7 K9 ["format"]
+       60 CALL                             R7 2 1
+       61 RETURN                           R6 2
+       62 MOVE                             R6 R5
+       63 LOADNIL                          R7
+       64 RETURN                           R6 2
 
 PROTO_20:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["getClassified"]
         3 CALL                             R2 0 1
         4 GETTABLEKS                       R3 R2 K1 ["kind"]
-        6 JUMPIFEQKS                       R3 K2 ["single"] ; [+12]
+        6 JUMPIFEQKS                       R3 K2 ["single"] ; [+11]
         8 DUPTABLE                         R3 K6 [{["ok"] = False, ["errorMessage"]}]
-        9 LOADK                            R5 K7 ["Selection is '%*'; single MeshPart/Model required"]
-       10 GETTABLEKS                       R7 R2 K1 ["kind"]
-       12 NAMECALL                         R5 R5 K8 ["format"]
-       14 CALL                             R5 2 1
-       15 MOVE                             R4 R5
-       16 SETTABLEKS                       R4 R3 K5 ["errorMessage"]
-       18 RETURN                           R3 1
-       19 GETTABLEKS                       R4 R2 K9 ["items"]
-       21 GETTABLEN                        R3 R4 1
-       22 JUMPIFNOTEQKNIL                  R3 ; [+3]
-       24 DUPTABLE                         R4 K11 [{["ok"] = False, ["errorMessage"] = "Selection is empty"}]
-       25 RETURN                           R4 1
-       26 LOADK                            R7 K12 ["PVInstance"]
-       27 NAMECALL                         R5 R3 K13 ["IsA"]
-       29 CALL                             R5 2 1
-       30 FASTCALL2K                       ASSERT R5 K14 ; [+4]
-       32 LOADK                            R6 K14 ["single selection must be a PVInstance"]
-       33 GETIMPORT                        R4 K16 [assert]
-       35 CALL                             R4 2 0
-       36 GETUPVAL                         R4 1
-       37 GETTABLEKS                       R4 R4 K17 ["registerInstance"]
-       39 MOVE                             R5 R3
-       40 CALL                             R4 1 1
-       41 GETUPVAL                         R5 2
-       42 MOVE                             R6 R4
-       43 MOVE                             R7 R3
-       44 CALL                             R5 2 1
-       45 GETUPVAL                         R6 3
-       46 LOADK                            R7 K18 ["TextureGen"]
-       47 LOADK                            R8 K19 ["ViewportGenerating"]
-       48 CALL                             R6 2 1
-       49 GETUPVAL                         R7 4
-       50 GETTABLEKS                       R7 R7 K20 ["setStatus"]
-       52 MOVE                             R8 R5
-       53 LOADK                            R9 K21 ["running"]
-       54 MOVE                             R10 R6
-       55 DUPTABLE                         R11 K25 [{["onActivated"], ["shimmer"] = True}]
-       56 NEWCLOSURE                       R12 P0
-       57 CAPTURE                          UPVAL U5
-       58 CAPTURE                          VAL R4
-       59 SETTABLEKS                       R12 R11 K22 ["onActivated"]
-       61 CALL                             R7 4 0
-       62 GETUPVAL                         R6 6
-       63 MOVE                             R7 R3
-       64 CALL                             R6 1 2
-       65 JUMPIFNOTEQKNIL                  R6 ; [+24]
-       67 MOVE                             R8 R7
-       68 JUMPIF                           R8 ; [+4]
-       69 GETUPVAL                         R8 3
-       70 LOADK                            R9 K18 ["TextureGen"]
-       71 LOADK                            R10 K26 ["ViewportFailed"]
-       72 CALL                             R8 2 1
-       73 GETUPVAL                         R9 4
-       74 GETTABLEKS                       R9 R9 K20 ["setStatus"]
-       76 MOVE                             R10 R5
-       77 LOADK                            R11 K27 ["failed"]
-       78 MOVE                             R12 R8
-       79 DUPTABLE                         R13 K28 [{"onActivated"}]
-       80 NEWCLOSURE                       R14 P0
-       81 CAPTURE                          UPVAL U5
-       82 CAPTURE                          VAL R4
-       83 SETTABLEKS                       R14 R13 K22 ["onActivated"]
-       85 CALL                             R9 4 0
-       86 DUPTABLE                         R8 K6 [{["ok"] = False, ["errorMessage"]}]
-       87 SETTABLEKS                       R7 R8 K5 ["errorMessage"]
-       89 RETURN                           R8 1
-       90 DUPTABLE                         R8 K33 [{["ok"] = True, ["seedImageBase64"], ["mimeType"] = "image/png", ["selectedUniqueId"]}]
-       91 SETTABLEKS                       R6 R8 K29 ["seedImageBase64"]
-       93 SETTABLEKS                       R4 R8 K32 ["selectedUniqueId"]
-       95 RETURN                           R8 1
+        9 LOADK                            R4 K7 ["Selection is '%*'; single MeshPart/Model required"]
+       10 GETTABLEKS                       R6 R2 K1 ["kind"]
+       12 NAMECALL                         R4 R4 K8 ["format"]
+       14 CALL                             R4 2 1
+       15 SETTABLEKS                       R4 R3 K5 ["errorMessage"]
+       17 RETURN                           R3 1
+       18 GETTABLEKS                       R4 R2 K9 ["items"]
+       20 GETTABLEN                        R3 R4 1
+       21 JUMPIFNOTEQKNIL                  R3 ; [+3]
+       23 DUPTABLE                         R4 K11 [{["ok"] = False, ["errorMessage"] = "Selection is empty"}]
+       24 RETURN                           R4 1
+       25 LOADK                            R7 K12 ["PVInstance"]
+       26 NAMECALL                         R5 R3 K13 ["IsA"]
+       28 CALL                             R5 2 1
+       29 FASTCALL2K                       ASSERT R5 K14 ; [+4]
+       31 LOADK                            R6 K14 ["single selection must be a PVInstance"]
+       32 GETIMPORT                        R4 K16 [assert]
+       34 CALL                             R4 2 0
+       35 GETUPVAL                         R4 1
+       36 GETTABLEKS                       R4 R4 K17 ["registerInstance"]
+       38 MOVE                             R5 R3
+       39 CALL                             R4 1 1
+       40 GETUPVAL                         R5 2
+       41 MOVE                             R6 R4
+       42 MOVE                             R7 R3
+       43 CALL                             R5 2 1
+       44 GETUPVAL                         R6 3
+       45 LOADK                            R7 K18 ["TextureGen"]
+       46 LOADK                            R8 K19 ["ViewportGenerating"]
+       47 CALL                             R6 2 1
+       48 GETUPVAL                         R7 4
+       49 GETTABLEKS                       R7 R7 K20 ["setStatus"]
+       51 MOVE                             R8 R5
+       52 LOADK                            R9 K21 ["running"]
+       53 MOVE                             R10 R6
+       54 DUPTABLE                         R11 K25 [{["onActivated"], ["shimmer"] = True}]
+       55 NEWCLOSURE                       R12 P0
+       56 CAPTURE                          UPVAL U5
+       57 CAPTURE                          VAL R4
+       58 SETTABLEKS                       R12 R11 K22 ["onActivated"]
+       60 CALL                             R7 4 0
+       61 GETUPVAL                         R6 6
+       62 MOVE                             R7 R3
+       63 CALL                             R6 1 2
+       64 JUMPIFNOTEQKNIL                  R6 ; [+24]
+       66 MOVE                             R8 R7
+       67 JUMPIF                           R8 ; [+4]
+       68 GETUPVAL                         R8 3
+       69 LOADK                            R9 K18 ["TextureGen"]
+       70 LOADK                            R10 K26 ["ViewportFailed"]
+       71 CALL                             R8 2 1
+       72 GETUPVAL                         R9 4
+       73 GETTABLEKS                       R9 R9 K20 ["setStatus"]
+       75 MOVE                             R10 R5
+       76 LOADK                            R11 K27 ["failed"]
+       77 MOVE                             R12 R8
+       78 DUPTABLE                         R13 K28 [{"onActivated"}]
+       79 NEWCLOSURE                       R14 P0
+       80 CAPTURE                          UPVAL U5
+       81 CAPTURE                          VAL R4
+       82 SETTABLEKS                       R14 R13 K22 ["onActivated"]
+       84 CALL                             R9 4 0
+       85 DUPTABLE                         R8 K6 [{["ok"] = False, ["errorMessage"]}]
+       86 SETTABLEKS                       R7 R8 K5 ["errorMessage"]
+       88 RETURN                           R8 1
+       89 DUPTABLE                         R8 K33 [{["ok"] = True, ["seedImageBase64"], ["mimeType"] = "image/png", ["selectedUniqueId"]}]
+       90 SETTABLEKS                       R6 R8 K29 ["seedImageBase64"]
+       92 SETTABLEKS                       R4 R8 K32 ["selectedUniqueId"]
+       94 RETURN                           R8 1
 
 PROTO_21:
         0 FASTCALL1                        TYPEOF R1 ; [+3]
@@ -570,67 +567,66 @@ PROTO_22:
         1 GETTABLEKS                       R2 R2 K0 ["getClassified"]
         3 CALL                             R2 0 1
         4 GETTABLEKS                       R3 R2 K1 ["kind"]
-        6 JUMPIFEQKS                       R3 K2 ["multi"] ; [+12]
+        6 JUMPIFEQKS                       R3 K2 ["multi"] ; [+11]
         8 DUPTABLE                         R3 K6 [{["ok"] = False, ["errorMessage"]}]
-        9 LOADK                            R5 K7 ["Selection is '%*'; multiple MeshPart/Model required"]
-       10 GETTABLEKS                       R7 R2 K1 ["kind"]
-       12 NAMECALL                         R5 R5 K8 ["format"]
-       14 CALL                             R5 2 1
-       15 MOVE                             R4 R5
-       16 SETTABLEKS                       R4 R3 K5 ["errorMessage"]
-       18 RETURN                           R3 1
-       19 GETTABLEKS                       R4 R2 K9 ["items"]
-       21 LENGTH                           R3 R4
-       22 JUMPIFNOTEQKN                    R3 K10 [0] ; [+3]
-       24 DUPTABLE                         R3 K12 [{["ok"] = False, ["errorMessage"] = "Selection is empty"}]
-       25 RETURN                           R3 1
-       26 NEWTABLE                         R3 0 0
-       28 GETTABLEKS                       R4 R2 K9 ["items"]
-       30 LOADNIL                          R5
-       31 LOADNIL                          R6
-       32 FORGPREP                         R4
-       33 LOADK                            R12 K13 ["PVInstance"]
-       34 NAMECALL                         R10 R8 K14 ["IsA"]
-       36 CALL                             R10 2 1
-       37 FASTCALL2K                       ASSERT R10 K15 ; [+4]
-       39 LOADK                            R11 K15 ["multi selection must contain only PVInstances"]
-       40 GETIMPORT                        R9 K17 [assert]
-       42 CALL                             R9 2 0
-       43 GETUPVAL                         R9 1
-       44 GETTABLEKS                       R9 R9 K18 ["registerInstance"]
-       46 MOVE                             R10 R8
-       47 CALL                             R9 1 1
-       48 GETUPVAL                         R10 2
-       49 MOVE                             R11 R9
-       50 MOVE                             R12 R8
-       51 CALL                             R10 2 1
-       52 GETUPVAL                         R11 3
-       53 LOADK                            R12 K19 ["TextureGen"]
-       54 LOADK                            R13 K20 ["ViewportGenerating"]
-       55 CALL                             R11 2 1
-       56 GETUPVAL                         R12 4
-       57 GETTABLEKS                       R12 R12 K21 ["setStatus"]
-       59 MOVE                             R13 R10
-       60 LOADK                            R14 K22 ["running"]
-       61 MOVE                             R15 R11
-       62 DUPTABLE                         R16 K26 [{["onActivated"], ["shimmer"] = True}]
-       63 NEWCLOSURE                       R17 P0
-       64 CAPTURE                          UPVAL U5
-       65 CAPTURE                          VAL R9
-       66 SETTABLEKS                       R17 R16 K23 ["onActivated"]
-       68 CALL                             R12 4 0
-       69 DUPTABLE                         R13 K29 [{"uniqueId", "displayName"}]
-       70 SETTABLEKS                       R9 R13 K27 ["uniqueId"]
-       72 GETTABLEKS                       R14 R8 K30 ["Name"]
-       74 SETTABLEKS                       R14 R13 K28 ["displayName"]
-       76 FASTCALL2                        TABLE_INSERT R3 R13 ; [+4]
-       78 MOVE                             R12 R3
-       79 GETIMPORT                        R11 K33 [table.insert]
-       81 CALL                             R11 2 0
-       82 FORGLOOP                         R4 2 ; [-50]
-       84 DUPTABLE                         R4 K35 [{["ok"] = True, ["jobs"]}]
-       85 SETTABLEKS                       R3 R4 K34 ["jobs"]
-       87 RETURN                           R4 1
+        9 LOADK                            R4 K7 ["Selection is '%*'; multiple MeshPart/Model required"]
+       10 GETTABLEKS                       R6 R2 K1 ["kind"]
+       12 NAMECALL                         R4 R4 K8 ["format"]
+       14 CALL                             R4 2 1
+       15 SETTABLEKS                       R4 R3 K5 ["errorMessage"]
+       17 RETURN                           R3 1
+       18 GETTABLEKS                       R4 R2 K9 ["items"]
+       20 LENGTH                           R3 R4
+       21 JUMPIFNOTEQKN                    R3 K10 [0] ; [+3]
+       23 DUPTABLE                         R3 K12 [{["ok"] = False, ["errorMessage"] = "Selection is empty"}]
+       24 RETURN                           R3 1
+       25 NEWTABLE                         R3 0 0
+       27 GETTABLEKS                       R4 R2 K9 ["items"]
+       29 LOADNIL                          R5
+       30 LOADNIL                          R6
+       31 FORGPREP                         R4
+       32 LOADK                            R12 K13 ["PVInstance"]
+       33 NAMECALL                         R10 R8 K14 ["IsA"]
+       35 CALL                             R10 2 1
+       36 FASTCALL2K                       ASSERT R10 K15 ; [+4]
+       38 LOADK                            R11 K15 ["multi selection must contain only PVInstances"]
+       39 GETIMPORT                        R9 K17 [assert]
+       41 CALL                             R9 2 0
+       42 GETUPVAL                         R9 1
+       43 GETTABLEKS                       R9 R9 K18 ["registerInstance"]
+       45 MOVE                             R10 R8
+       46 CALL                             R9 1 1
+       47 GETUPVAL                         R10 2
+       48 MOVE                             R11 R9
+       49 MOVE                             R12 R8
+       50 CALL                             R10 2 1
+       51 GETUPVAL                         R11 3
+       52 LOADK                            R12 K19 ["TextureGen"]
+       53 LOADK                            R13 K20 ["ViewportGenerating"]
+       54 CALL                             R11 2 1
+       55 GETUPVAL                         R12 4
+       56 GETTABLEKS                       R12 R12 K21 ["setStatus"]
+       58 MOVE                             R13 R10
+       59 LOADK                            R14 K22 ["running"]
+       60 MOVE                             R15 R11
+       61 DUPTABLE                         R16 K26 [{["onActivated"], ["shimmer"] = True}]
+       62 NEWCLOSURE                       R17 P0
+       63 CAPTURE                          UPVAL U5
+       64 CAPTURE                          VAL R9
+       65 SETTABLEKS                       R17 R16 K23 ["onActivated"]
+       67 CALL                             R12 4 0
+       68 DUPTABLE                         R13 K29 [{"uniqueId", "displayName"}]
+       69 SETTABLEKS                       R9 R13 K27 ["uniqueId"]
+       71 GETTABLEKS                       R14 R8 K30 ["Name"]
+       73 SETTABLEKS                       R14 R13 K28 ["displayName"]
+       75 FASTCALL2                        TABLE_INSERT R3 R13 ; [+4]
+       77 MOVE                             R12 R3
+       78 GETIMPORT                        R11 K33 [table.insert]
+       80 CALL                             R11 2 0
+       81 FORGLOOP                         R4 2 ; [-50]
+       83 DUPTABLE                         R4 K35 [{["ok"] = True, ["jobs"]}]
+       84 SETTABLEKS                       R3 R4 K34 ["jobs"]
+       86 RETURN                           R4 1
 
 PROTO_23:
         0 FASTCALL1                        TYPEOF R1 ; [+3]
@@ -650,63 +646,62 @@ PROTO_23:
        20 GETTABLEKS                       R2 R2 K11 ["getInstanceFromUniqueId"]
        22 GETTABLEKS                       R3 R1 K3 ["uniqueId"]
        24 CALL                             R2 1 1
-       25 JUMPIF                           R2 ; [+31]
-       26 LOADK                            R4 K12 ["Instance '%*' no longer available"]
-       27 GETTABLEKS                       R6 R1 K3 ["uniqueId"]
-       29 NAMECALL                         R4 R4 K13 ["format"]
-       31 CALL                             R4 2 1
-       32 MOVE                             R3 R4
-       33 GETTABLEKS                       R4 R1 K3 ["uniqueId"]
-       35 GETUPVAL                         R6 1
-       36 GETTABLE                         R5 R6 R4
-       37 JUMPIFNOTEQKNIL                  R5 ; [+2]
-       39 JUMP                             ; [+13]
-       40 GETUPVAL                         R6 2
-       41 GETTABLEKS                       R6 R6 K14 ["setStatus"]
-       43 MOVE                             R7 R5
-       44 LOADK                            R8 K15 ["failed"]
-       45 MOVE                             R9 R3
-       46 DUPTABLE                         R10 K17 [{"onActivated"}]
-       47 NEWCLOSURE                       R11 P0
-       48 CAPTURE                          UPVAL U3
-       49 CAPTURE                          VAL R4
-       50 SETTABLEKS                       R11 R10 K16 ["onActivated"]
-       52 CALL                             R6 4 0
-       53 DUPTABLE                         R4 K18 [{["ok"] = False, ["errorMessage"]}]
-       54 SETTABLEKS                       R3 R4 K7 ["errorMessage"]
-       56 RETURN                           R4 1
-       57 GETUPVAL                         R3 4
-       58 MOVE                             R4 R2
-       59 CALL                             R3 1 2
-       60 JUMPIFNOTEQKNIL                  R3 ; [+31]
-       62 GETTABLEKS                       R5 R1 K3 ["uniqueId"]
-       64 MOVE                             R6 R4
-       65 JUMPIF                           R6 ; [+4]
-       66 GETUPVAL                         R6 5
-       67 LOADK                            R7 K19 ["TextureGen"]
-       68 LOADK                            R8 K20 ["ViewportFailed"]
-       69 CALL                             R6 2 1
-       70 GETUPVAL                         R8 1
-       71 GETTABLE                         R7 R8 R5
-       72 JUMPIFNOTEQKNIL                  R7 ; [+2]
-       74 JUMP                             ; [+13]
-       75 GETUPVAL                         R8 2
-       76 GETTABLEKS                       R8 R8 K14 ["setStatus"]
-       78 MOVE                             R9 R7
-       79 LOADK                            R10 K15 ["failed"]
-       80 MOVE                             R11 R6
-       81 DUPTABLE                         R12 K17 [{"onActivated"}]
-       82 NEWCLOSURE                       R13 P0
-       83 CAPTURE                          UPVAL U3
-       84 CAPTURE                          VAL R5
-       85 SETTABLEKS                       R13 R12 K16 ["onActivated"]
-       87 CALL                             R8 4 0
-       88 DUPTABLE                         R5 K18 [{["ok"] = False, ["errorMessage"]}]
-       89 SETTABLEKS                       R4 R5 K7 ["errorMessage"]
-       91 RETURN                           R5 1
-       92 DUPTABLE                         R5 K25 [{["ok"] = True, ["seedImageBase64"], ["mimeType"] = "image/png"}]
-       93 SETTABLEKS                       R3 R5 K22 ["seedImageBase64"]
-       95 RETURN                           R5 1
+       25 JUMPIF                           R2 ; [+30]
+       26 LOADK                            R3 K12 ["Instance '%*' no longer available"]
+       27 GETTABLEKS                       R5 R1 K3 ["uniqueId"]
+       29 NAMECALL                         R3 R3 K13 ["format"]
+       31 CALL                             R3 2 1
+       32 GETTABLEKS                       R4 R1 K3 ["uniqueId"]
+       34 GETUPVAL                         R6 1
+       35 GETTABLE                         R5 R6 R4
+       36 JUMPIFNOTEQKNIL                  R5 ; [+2]
+       38 JUMP                             ; [+13]
+       39 GETUPVAL                         R6 2
+       40 GETTABLEKS                       R6 R6 K14 ["setStatus"]
+       42 MOVE                             R7 R5
+       43 LOADK                            R8 K15 ["failed"]
+       44 MOVE                             R9 R3
+       45 DUPTABLE                         R10 K17 [{"onActivated"}]
+       46 NEWCLOSURE                       R11 P0
+       47 CAPTURE                          UPVAL U3
+       48 CAPTURE                          VAL R4
+       49 SETTABLEKS                       R11 R10 K16 ["onActivated"]
+       51 CALL                             R6 4 0
+       52 DUPTABLE                         R4 K18 [{["ok"] = False, ["errorMessage"]}]
+       53 SETTABLEKS                       R3 R4 K7 ["errorMessage"]
+       55 RETURN                           R4 1
+       56 GETUPVAL                         R3 4
+       57 MOVE                             R4 R2
+       58 CALL                             R3 1 2
+       59 JUMPIFNOTEQKNIL                  R3 ; [+31]
+       61 GETTABLEKS                       R5 R1 K3 ["uniqueId"]
+       63 MOVE                             R6 R4
+       64 JUMPIF                           R6 ; [+4]
+       65 GETUPVAL                         R6 5
+       66 LOADK                            R7 K19 ["TextureGen"]
+       67 LOADK                            R8 K20 ["ViewportFailed"]
+       68 CALL                             R6 2 1
+       69 GETUPVAL                         R8 1
+       70 GETTABLE                         R7 R8 R5
+       71 JUMPIFNOTEQKNIL                  R7 ; [+2]
+       73 JUMP                             ; [+13]
+       74 GETUPVAL                         R8 2
+       75 GETTABLEKS                       R8 R8 K14 ["setStatus"]
+       77 MOVE                             R9 R7
+       78 LOADK                            R10 K15 ["failed"]
+       79 MOVE                             R11 R6
+       80 DUPTABLE                         R12 K17 [{"onActivated"}]
+       81 NEWCLOSURE                       R13 P0
+       82 CAPTURE                          UPVAL U3
+       83 CAPTURE                          VAL R5
+       84 SETTABLEKS                       R13 R12 K16 ["onActivated"]
+       86 CALL                             R8 4 0
+       87 DUPTABLE                         R5 K18 [{["ok"] = False, ["errorMessage"]}]
+       88 SETTABLEKS                       R4 R5 K7 ["errorMessage"]
+       90 RETURN                           R5 1
+       91 DUPTABLE                         R5 K25 [{["ok"] = True, ["seedImageBase64"], ["mimeType"] = "image/png"}]
+       92 SETTABLEKS                       R3 R5 K22 ["seedImageBase64"]
+       94 RETURN                           R5 1
 
 PROTO_24:
         0 GETUPVAL                         R0 0

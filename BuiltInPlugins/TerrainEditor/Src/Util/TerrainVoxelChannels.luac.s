@@ -198,15 +198,14 @@ PROTO_9:
         3 MOVE                             R4 R0
         4 MOVE                             R5 R1
         5 CALL                             R3 2 1
-        6 LOADK                            R5 K1 ["Invalid terrain material slot index: %*"]
-        7 MOVE                             R7 R1
-        8 NAMECALL                         R5 R5 K2 ["format"]
-       10 CALL                             R5 2 1
-       11 MOVE                             R4 R5
-       12 FASTCALL2                        ASSERT R3 R4 ; [+3]
-       14 GETIMPORT                        R2 K4 [assert]
-       16 CALL                             R2 2 0
-       17 RETURN                           R0 0
+        6 LOADK                            R4 K1 ["Invalid terrain material slot index: %*"]
+        7 MOVE                             R6 R1
+        8 NAMECALL                         R4 R4 K2 ["format"]
+       10 CALL                             R4 2 1
+       11 FASTCALL2                        ASSERT R3 R4 ; [+3]
+       13 GETIMPORT                        R2 K4 [assert]
+       15 CALL                             R2 2 0
+       16 RETURN                           R0 0
 
 PROTO_10:
         0 MOVE                             R2 R1
@@ -285,69 +284,67 @@ PROTO_14:
         9 JUMPIFLE                         R1 R5 ; [+2]
        11 LOADB                            R4 0 +1
        12 LOADB                            R4 1
-       13 LOADK                            R6 K2 ["Invalid terrain material slot index: %*"]
-       14 MOVE                             R8 R1
-       15 NAMECALL                         R6 R6 K3 ["format"]
-       17 CALL                             R6 2 1
-       18 MOVE                             R5 R6
-       19 FASTCALL2                        ASSERT R4 R5 ; [+3]
-       21 GETIMPORT                        R3 K5 [assert]
-       23 CALL                             R3 2 0
-       24 MOVE                             R3 R2
-       25 JUMPIF                           R3 ; [+9]
-       26 GETTABLEKS                       R4 R0 K6 ["occupancy"]
-       28 GETTABLEKS                       R5 R0 K7 ["liquidOccupancy"]
-       30 FASTCALL2                        MATH_MAX R4 R5 ; [+3]
-       32 GETIMPORT                        R3 K10 [math.max]
-       34 CALL                             R3 2 1
-       35 LOADB                            R5 0
-       36 LOADN                            R6 0
-       37 JUMPIFNOTLE                      R6 R3 ; [+6]
-       39 LOADN                            R6 1
-       40 JUMPIFLE                         R3 R6 ; [+2]
-       42 LOADB                            R5 0 +1
-       43 LOADB                            R5 1
-       44 LOADK                            R7 K11 ["Invalid terrain occupancy: %*"]
-       45 MOVE                             R9 R3
-       46 NAMECALL                         R7 R7 K3 ["format"]
-       48 CALL                             R7 2 1
-       49 MOVE                             R6 R7
-       50 FASTCALL2                        ASSERT R5 R6 ; [+3]
-       52 GETIMPORT                        R4 K5 [assert]
-       54 CALL                             R4 2 0
-       55 LOADNIL                          R4
-       56 JUMPIFNOTEQKN                    R1 K1 [0] ; [+4]
-       58 DUPTABLE                         R5 K13 [{["materialIndex"] = 0, ["occupancy"] = 0, ["liquidOccupancy"] = 0}]
-       59 MOVE                             R4 R5
-       60 JUMP                             ; [+13]
-       61 JUMPIFNOTEQKN                    R1 K0 [1] ; [+6]
-       63 DUPTABLE                         R5 K14 [{["materialIndex"] = 0, ["occupancy"] = 0, ["liquidOccupancy"]}]
-       64 SETTABLEKS                       R3 R5 K7 ["liquidOccupancy"]
-       66 MOVE                             R4 R5
-       67 JUMP                             ; [+6]
-       68 DUPTABLE                         R5 K15 [{["materialIndex"], ["occupancy"], ["liquidOccupancy"] = 0}]
-       69 SETTABLEKS                       R1 R5 K12 ["materialIndex"]
-       71 SETTABLEKS                       R3 R5 K6 ["occupancy"]
-       73 MOVE                             R4 R5
-       74 LOADB                            R5 1
-       75 GETTABLEKS                       R6 R4 K12 ["materialIndex"]
-       77 GETTABLEKS                       R7 R0 K12 ["materialIndex"]
-       79 JUMPIFNOTEQ                      R6 R7 ; [+16]
-       81 LOADB                            R5 1
-       82 GETTABLEKS                       R6 R4 K6 ["occupancy"]
-       84 GETTABLEKS                       R7 R0 K6 ["occupancy"]
-       86 JUMPIFNOTEQ                      R6 R7 ; [+9]
-       88 GETTABLEKS                       R6 R4 K7 ["liquidOccupancy"]
-       90 GETTABLEKS                       R7 R0 K7 ["liquidOccupancy"]
-       92 JUMPIFNOTEQ                      R6 R7 ; [+2]
-       94 LOADB                            R5 0 +1
-       95 LOADB                            R5 1
-       96 JUMPIFNOT                        R5 ; [+2]
-       97 MOVE                             R6 R4
-       98 JUMP                             ; [+1]
-       99 MOVE                             R6 R0
-      100 MOVE                             R7 R5
-      101 RETURN                           R6 2
+       13 LOADK                            R5 K2 ["Invalid terrain material slot index: %*"]
+       14 MOVE                             R7 R1
+       15 NAMECALL                         R5 R5 K3 ["format"]
+       17 CALL                             R5 2 1
+       18 FASTCALL2                        ASSERT R4 R5 ; [+3]
+       20 GETIMPORT                        R3 K5 [assert]
+       22 CALL                             R3 2 0
+       23 MOVE                             R3 R2
+       24 JUMPIF                           R3 ; [+9]
+       25 GETTABLEKS                       R4 R0 K6 ["occupancy"]
+       27 GETTABLEKS                       R5 R0 K7 ["liquidOccupancy"]
+       29 FASTCALL2                        MATH_MAX R4 R5 ; [+3]
+       31 GETIMPORT                        R3 K10 [math.max]
+       33 CALL                             R3 2 1
+       34 LOADB                            R5 0
+       35 LOADN                            R6 0
+       36 JUMPIFNOTLE                      R6 R3 ; [+6]
+       38 LOADN                            R6 1
+       39 JUMPIFLE                         R3 R6 ; [+2]
+       41 LOADB                            R5 0 +1
+       42 LOADB                            R5 1
+       43 LOADK                            R6 K11 ["Invalid terrain occupancy: %*"]
+       44 MOVE                             R8 R3
+       45 NAMECALL                         R6 R6 K3 ["format"]
+       47 CALL                             R6 2 1
+       48 FASTCALL2                        ASSERT R5 R6 ; [+3]
+       50 GETIMPORT                        R4 K5 [assert]
+       52 CALL                             R4 2 0
+       53 LOADNIL                          R4
+       54 JUMPIFNOTEQKN                    R1 K1 [0] ; [+4]
+       56 DUPTABLE                         R5 K13 [{["materialIndex"] = 0, ["occupancy"] = 0, ["liquidOccupancy"] = 0}]
+       57 MOVE                             R4 R5
+       58 JUMP                             ; [+13]
+       59 JUMPIFNOTEQKN                    R1 K0 [1] ; [+6]
+       61 DUPTABLE                         R5 K14 [{["materialIndex"] = 0, ["occupancy"] = 0, ["liquidOccupancy"]}]
+       62 SETTABLEKS                       R3 R5 K7 ["liquidOccupancy"]
+       64 MOVE                             R4 R5
+       65 JUMP                             ; [+6]
+       66 DUPTABLE                         R5 K15 [{["materialIndex"], ["occupancy"], ["liquidOccupancy"] = 0}]
+       67 SETTABLEKS                       R1 R5 K12 ["materialIndex"]
+       69 SETTABLEKS                       R3 R5 K6 ["occupancy"]
+       71 MOVE                             R4 R5
+       72 LOADB                            R5 1
+       73 GETTABLEKS                       R6 R4 K12 ["materialIndex"]
+       75 GETTABLEKS                       R7 R0 K12 ["materialIndex"]
+       77 JUMPIFNOTEQ                      R6 R7 ; [+16]
+       79 LOADB                            R5 1
+       80 GETTABLEKS                       R6 R4 K6 ["occupancy"]
+       82 GETTABLEKS                       R7 R0 K6 ["occupancy"]
+       84 JUMPIFNOTEQ                      R6 R7 ; [+9]
+       86 GETTABLEKS                       R6 R4 K7 ["liquidOccupancy"]
+       88 GETTABLEKS                       R7 R0 K7 ["liquidOccupancy"]
+       90 JUMPIFNOTEQ                      R6 R7 ; [+2]
+       92 LOADB                            R5 0 +1
+       93 LOADB                            R5 1
+       94 JUMPIFNOT                        R5 ; [+2]
+       95 MOVE                             R6 R4
+       96 JUMP                             ; [+1]
+       97 MOVE                             R6 R0
+       98 MOVE                             R7 R5
+       99 RETURN                           R6 2
 
 PROTO_15:
         0 GETUPVAL                         R6 0
@@ -384,93 +381,91 @@ PROTO_16:
         9 JUMPIFLE                         R4 R8 ; [+2]
        11 LOADB                            R7 0 +1
        12 LOADB                            R7 1
-       13 LOADK                            R9 K2 ["Invalid terrain material slot index: %*"]
-       14 MOVE                             R11 R4
-       15 NAMECALL                         R9 R9 K3 ["format"]
-       17 CALL                             R9 2 1
-       18 MOVE                             R8 R9
-       19 FASTCALL2                        ASSERT R7 R8 ; [+3]
-       21 GETIMPORT                        R6 K5 [assert]
-       23 CALL                             R6 2 0
-       24 LOADB                            R7 0
-       25 LOADN                            R8 0
-       26 JUMPIFNOTLE                      R8 R5 ; [+6]
-       28 LOADN                            R8 1
-       29 JUMPIFLE                         R5 R8 ; [+2]
-       31 LOADB                            R7 0 +1
-       32 LOADB                            R7 1
-       33 LOADK                            R9 K6 ["Invalid terrain occupancy: %*"]
-       34 MOVE                             R11 R5
-       35 NAMECALL                         R9 R9 K3 ["format"]
-       37 CALL                             R9 2 1
-       38 MOVE                             R8 R9
-       39 FASTCALL2                        ASSERT R7 R8 ; [+3]
-       41 GETIMPORT                        R6 K5 [assert]
-       43 CALL                             R6 2 0
-       44 GETTABLEKS                       R8 R0 K7 ["SolidMaterialIndex"]
-       46 GETTABLE                         R7 R8 R1
-       47 GETTABLE                         R6 R7 R2
-       48 GETTABLEKS                       R9 R0 K8 ["SolidOccupancy"]
-       50 GETTABLE                         R8 R9 R1
-       51 GETTABLE                         R7 R8 R2
-       52 GETTABLEKS                       R10 R0 K9 ["LiquidOccupancy"]
-       54 GETTABLE                         R9 R10 R1
-       55 GETTABLE                         R8 R9 R2
-       56 GETTABLE                         R9 R6 R3
-       57 GETTABLE                         R10 R7 R3
-       58 GETTABLE                         R11 R8 R3
-       59 LOADNIL                          R12
-       60 LOADNIL                          R13
-       61 LOADNIL                          R14
-       62 JUMPIFEQKN                       R4 K1 [0] ; [+4]
-       64 LOADN                            R15 0
-       65 JUMPIFNOTLE                      R5 R15 ; [+5]
-       67 LOADN                            R12 0
-       68 LOADN                            R13 0
-       69 LOADN                            R14 0
-       70 JUMP                             ; [+39]
-       71 JUMPIFNOTEQKN                    R4 K0 [1] ; [+14]
-       73 LOADN                            R15 0
-       74 JUMPIFNOTLT                      R15 R10 ; [+11]
-       76 LOADN                            R15 1
-       77 JUMPIFNOTLT                      R10 R15 ; [+8]
-       79 LOADN                            R15 1
-       80 JUMPIFNOTLT                      R15 R9 ; [+5]
-       82 MOVE                             R12 R9
-       83 MOVE                             R13 R10
-       84 MOVE                             R14 R5
-       85 JUMP                             ; [+24]
-       86 LOADN                            R15 1
-       87 JUMPIFNOTLT                      R15 R4 ; [+13]
-       89 JUMPIFNOTEQKN                    R10 K1 [0] ; [+11]
-       91 LOADN                            R15 0
-       92 JUMPIFNOTLT                      R15 R11 ; [+8]
-       94 LOADN                            R15 1
-       95 JUMPIFNOTLT                      R5 R15 ; [+5]
-       97 MOVE                             R12 R4
-       98 MOVE                             R13 R5
-       99 MOVE                             R14 R11
-      100 JUMP                             ; [+9]
-      101 JUMPIFNOTEQKN                    R4 K0 [1] ; [+5]
-      103 LOADN                            R12 0
-      104 LOADN                            R13 0
-      105 MOVE                             R14 R5
-      106 JUMP                             ; [+3]
-      107 MOVE                             R12 R4
-      108 MOVE                             R13 R5
-      109 LOADN                            R14 0
-      110 LOADB                            R15 1
-      111 JUMPIFNOTEQ                      R12 R9 ; [+8]
-      113 LOADB                            R15 1
-      114 JUMPIFNOTEQ                      R13 R10 ; [+5]
-      116 JUMPIFNOTEQ                      R14 R11 ; [+2]
-      118 LOADB                            R15 0 +1
-      119 LOADB                            R15 1
-      120 JUMPIFNOT                        R15 ; [+3]
-      121 SETTABLE                         R12 R6 R3
-      122 SETTABLE                         R13 R7 R3
-      123 SETTABLE                         R14 R8 R3
-      124 RETURN                           R15 1
+       13 LOADK                            R8 K2 ["Invalid terrain material slot index: %*"]
+       14 MOVE                             R10 R4
+       15 NAMECALL                         R8 R8 K3 ["format"]
+       17 CALL                             R8 2 1
+       18 FASTCALL2                        ASSERT R7 R8 ; [+3]
+       20 GETIMPORT                        R6 K5 [assert]
+       22 CALL                             R6 2 0
+       23 LOADB                            R7 0
+       24 LOADN                            R8 0
+       25 JUMPIFNOTLE                      R8 R5 ; [+6]
+       27 LOADN                            R8 1
+       28 JUMPIFLE                         R5 R8 ; [+2]
+       30 LOADB                            R7 0 +1
+       31 LOADB                            R7 1
+       32 LOADK                            R8 K6 ["Invalid terrain occupancy: %*"]
+       33 MOVE                             R10 R5
+       34 NAMECALL                         R8 R8 K3 ["format"]
+       36 CALL                             R8 2 1
+       37 FASTCALL2                        ASSERT R7 R8 ; [+3]
+       39 GETIMPORT                        R6 K5 [assert]
+       41 CALL                             R6 2 0
+       42 GETTABLEKS                       R8 R0 K7 ["SolidMaterialIndex"]
+       44 GETTABLE                         R7 R8 R1
+       45 GETTABLE                         R6 R7 R2
+       46 GETTABLEKS                       R9 R0 K8 ["SolidOccupancy"]
+       48 GETTABLE                         R8 R9 R1
+       49 GETTABLE                         R7 R8 R2
+       50 GETTABLEKS                       R10 R0 K9 ["LiquidOccupancy"]
+       52 GETTABLE                         R9 R10 R1
+       53 GETTABLE                         R8 R9 R2
+       54 GETTABLE                         R9 R6 R3
+       55 GETTABLE                         R10 R7 R3
+       56 GETTABLE                         R11 R8 R3
+       57 LOADNIL                          R12
+       58 LOADNIL                          R13
+       59 LOADNIL                          R14
+       60 JUMPIFEQKN                       R4 K1 [0] ; [+4]
+       62 LOADN                            R15 0
+       63 JUMPIFNOTLE                      R5 R15 ; [+5]
+       65 LOADN                            R12 0
+       66 LOADN                            R13 0
+       67 LOADN                            R14 0
+       68 JUMP                             ; [+39]
+       69 JUMPIFNOTEQKN                    R4 K0 [1] ; [+14]
+       71 LOADN                            R15 0
+       72 JUMPIFNOTLT                      R15 R10 ; [+11]
+       74 LOADN                            R15 1
+       75 JUMPIFNOTLT                      R10 R15 ; [+8]
+       77 LOADN                            R15 1
+       78 JUMPIFNOTLT                      R15 R9 ; [+5]
+       80 MOVE                             R12 R9
+       81 MOVE                             R13 R10
+       82 MOVE                             R14 R5
+       83 JUMP                             ; [+24]
+       84 LOADN                            R15 1
+       85 JUMPIFNOTLT                      R15 R4 ; [+13]
+       87 JUMPIFNOTEQKN                    R10 K1 [0] ; [+11]
+       89 LOADN                            R15 0
+       90 JUMPIFNOTLT                      R15 R11 ; [+8]
+       92 LOADN                            R15 1
+       93 JUMPIFNOTLT                      R5 R15 ; [+5]
+       95 MOVE                             R12 R4
+       96 MOVE                             R13 R5
+       97 MOVE                             R14 R11
+       98 JUMP                             ; [+9]
+       99 JUMPIFNOTEQKN                    R4 K0 [1] ; [+5]
+      101 LOADN                            R12 0
+      102 LOADN                            R13 0
+      103 MOVE                             R14 R5
+      104 JUMP                             ; [+3]
+      105 MOVE                             R12 R4
+      106 MOVE                             R13 R5
+      107 LOADN                            R14 0
+      108 LOADB                            R15 1
+      109 JUMPIFNOTEQ                      R12 R9 ; [+8]
+      111 LOADB                            R15 1
+      112 JUMPIFNOTEQ                      R13 R10 ; [+5]
+      114 JUMPIFNOTEQ                      R14 R11 ; [+2]
+      116 LOADB                            R15 0 +1
+      117 LOADB                            R15 1
+      118 JUMPIFNOT                        R15 ; [+3]
+      119 SETTABLE                         R12 R6 R3
+      120 SETTABLE                         R13 R7 R3
+      121 SETTABLE                         R14 R8 R3
+      122 RETURN                           R15 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -295,14 +295,13 @@ PROTO_6:
       234 SETTABLEKS                       R6 R5 K16 ["width"]
       236 DUPTABLE                         R6 K34 [{["info"], ["draftId"], ["isNew"] = False}]
       237 SETTABLEKS                       R5 R6 K30 ["info"]
-      239 LOADK                            R8 K35 ["existing:%*:%*"]
-      240 MOVE                             R10 R4
-      241 MOVE                             R11 R1
-      242 NAMECALL                         R8 R8 K36 ["format"]
-      244 CALL                             R8 3 1
-      245 MOVE                             R7 R8
-      246 SETTABLEKS                       R7 R6 K31 ["draftId"]
-      248 RETURN                           R6 1
+      239 LOADK                            R7 K35 ["existing:%*:%*"]
+      240 MOVE                             R9 R4
+      241 MOVE                             R10 R1
+      242 NAMECALL                         R7 R7 K36 ["format"]
+      244 CALL                             R7 3 1
+      245 SETTABLEKS                       R7 R6 K31 ["draftId"]
+      247 RETURN                           R6 1
 
 PROTO_7:
         0 DUPTABLE                         R1 K3 [{"info", "draftId", "isNew"}]
@@ -1008,23 +1007,22 @@ PROTO_24:
        42 GETTABLE                         R8 R2 R9
        43 JUMPIF                           R8 ; [+1]
        44 RETURN                           R7 1
-       45 LOADK                            R9 K7 ["%* %*"]
-       46 MOVE                             R11 R3
-       47 MOVE                             R12 R6
-       48 NAMECALL                         R9 R9 K8 ["format"]
-       50 CALL                             R9 3 1
-       51 MOVE                             R8 R9
-       52 GETIMPORT                        R10 K3 [string.lower]
-       54 MOVE                             R11 R8
-       55 CALL                             R10 1 1
-       56 GETTABLE                         R9 R2 R10
-       57 JUMPIF                           R9 ; [+1]
-       58 RETURN                           R8 1
-       59 FORNLOOP                         R4
-       60 GETIMPORT                        R4 K10 [error]
-       62 LOADK                            R5 K11 ["Unable to generate a unique device name"]
-       63 CALL                             R4 1 0
-       64 RETURN                           R0 0
+       45 LOADK                            R8 K7 ["%* %*"]
+       46 MOVE                             R10 R3
+       47 MOVE                             R11 R6
+       48 NAMECALL                         R8 R8 K8 ["format"]
+       50 CALL                             R8 3 1
+       51 GETIMPORT                        R10 K3 [string.lower]
+       53 MOVE                             R11 R8
+       54 CALL                             R10 1 1
+       55 GETTABLE                         R9 R2 R10
+       56 JUMPIF                           R9 ; [+1]
+       57 RETURN                           R8 1
+       58 FORNLOOP                         R4
+       59 GETIMPORT                        R4 K10 [error]
+       61 LOADK                            R5 K11 ["Unable to generate a unique device name"]
+       62 CALL                             R4 1 0
+       63 RETURN                           R0 0
 
 PROTO_25:
         0 GETIMPORT                        R2 K2 [table.clone]
@@ -1077,40 +1075,39 @@ PROTO_27:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R4 R0 K0 ["activeTab"]
         3 GETTABLE                         R2 R3 R4
-        4 LOADK                            R4 K1 ["new:%*"]
-        5 GETTABLEKS                       R6 R0 K2 ["nextDraftId"]
-        7 NAMECALL                         R4 R4 K3 ["format"]
-        9 CALL                             R4 2 1
-       10 MOVE                             R3 R4
-       11 GETUPVAL                         R4 1
-       12 MOVE                             R5 R0
-       13 DUPTABLE                         R6 K8 [{["draftId"], ["isNew"] = True, ["info"]}]
-       14 SETTABLEKS                       R3 R6 K4 ["draftId"]
-       16 DUPTABLE                         R7 K24 [{["deviceForm"], ["deviceId"], ["deviceName"], ["dpi"], ["height"], ["isCustom"] = True, ["landscapeKeyboardHeight"] = 0, ["memoryMB"] = 64000, ["platform"], ["portraitKeyboardHeight"] = 0, ["tier"] = "", ["width"]}]
-       17 GETUPVAL                         R9 2
-       18 GETTABLEKS                       R10 R0 K0 ["activeTab"]
-       20 GETTABLE                         R8 R9 R10
-       21 SETTABLEKS                       R8 R7 K9 ["deviceForm"]
-       23 SETTABLEKS                       R3 R7 K10 ["deviceId"]
-       25 GETUPVAL                         R8 3
-       26 MOVE                             R9 R0
-       27 NEWCLOSURE                       R10 P0
-       28 CAPTURE                          VAL R1
-       29 CALL                             R8 2 1
-       30 SETTABLEKS                       R8 R7 K11 ["deviceName"]
-       32 GETTABLEKS                       R8 R2 K12 ["dpi"]
-       34 SETTABLEKS                       R8 R7 K12 ["dpi"]
-       36 GETTABLEKS                       R8 R2 K13 ["height"]
-       38 SETTABLEKS                       R8 R7 K13 ["height"]
-       40 GETUPVAL                         R9 4
-       41 GETTABLEKS                       R10 R0 K0 ["activeTab"]
-       43 GETTABLE                         R8 R9 R10
-       44 SETTABLEKS                       R8 R7 K19 ["platform"]
-       46 GETTABLEKS                       R8 R2 K23 ["width"]
-       48 SETTABLEKS                       R8 R7 K23 ["width"]
-       50 SETTABLEKS                       R7 R6 K7 ["info"]
-       52 CALL                             R4 2 1
-       53 RETURN                           R4 1
+        4 LOADK                            R3 K1 ["new:%*"]
+        5 GETTABLEKS                       R5 R0 K2 ["nextDraftId"]
+        7 NAMECALL                         R3 R3 K3 ["format"]
+        9 CALL                             R3 2 1
+       10 GETUPVAL                         R4 1
+       11 MOVE                             R5 R0
+       12 DUPTABLE                         R6 K8 [{["draftId"], ["isNew"] = True, ["info"]}]
+       13 SETTABLEKS                       R3 R6 K4 ["draftId"]
+       15 DUPTABLE                         R7 K24 [{["deviceForm"], ["deviceId"], ["deviceName"], ["dpi"], ["height"], ["isCustom"] = True, ["landscapeKeyboardHeight"] = 0, ["memoryMB"] = 64000, ["platform"], ["portraitKeyboardHeight"] = 0, ["tier"] = "", ["width"]}]
+       16 GETUPVAL                         R9 2
+       17 GETTABLEKS                       R10 R0 K0 ["activeTab"]
+       19 GETTABLE                         R8 R9 R10
+       20 SETTABLEKS                       R8 R7 K9 ["deviceForm"]
+       22 SETTABLEKS                       R3 R7 K10 ["deviceId"]
+       24 GETUPVAL                         R8 3
+       25 MOVE                             R9 R0
+       26 NEWCLOSURE                       R10 P0
+       27 CAPTURE                          VAL R1
+       28 CALL                             R8 2 1
+       29 SETTABLEKS                       R8 R7 K11 ["deviceName"]
+       31 GETTABLEKS                       R8 R2 K12 ["dpi"]
+       33 SETTABLEKS                       R8 R7 K12 ["dpi"]
+       35 GETTABLEKS                       R8 R2 K13 ["height"]
+       37 SETTABLEKS                       R8 R7 K13 ["height"]
+       39 GETUPVAL                         R9 4
+       40 GETTABLEKS                       R10 R0 K0 ["activeTab"]
+       42 GETTABLE                         R8 R9 R10
+       43 SETTABLEKS                       R8 R7 K19 ["platform"]
+       45 GETTABLEKS                       R8 R2 K23 ["width"]
+       47 SETTABLEKS                       R8 R7 K23 ["width"]
+       49 SETTABLEKS                       R7 R6 K7 ["info"]
+       51 CALL                             R4 2 1
+       52 RETURN                           R4 1
 
 PROTO_28:
         0 JUMPIFNOT                        R0 ; [+22]
@@ -1163,33 +1160,32 @@ PROTO_29:
        24 SETTABLEKS                       R4 R3 K3 ["draftId"]
        26 GETTABLEKS                       R4 R2 K4 ["isNew"]
        28 SETTABLEKS                       R4 R3 K4 ["isNew"]
-       30 LOADK                            R5 K9 ["new:%*"]
-       31 GETTABLEKS                       R7 R0 K10 ["nextDraftId"]
-       33 NAMECALL                         R5 R5 K11 ["format"]
-       35 CALL                             R5 2 1
-       36 MOVE                             R4 R5
-       37 SETTABLEKS                       R4 R3 K3 ["draftId"]
-       39 LOADB                            R4 1
-       40 SETTABLEKS                       R4 R3 K4 ["isNew"]
-       42 GETTABLEKS                       R4 R3 K1 ["info"]
-       44 GETTABLEKS                       R5 R3 K3 ["draftId"]
-       46 SETTABLEKS                       R5 R4 K12 ["deviceId"]
-       48 GETTABLEKS                       R4 R3 K1 ["info"]
-       50 GETUPVAL                         R5 1
-       51 MOVE                             R6 R0
-       52 NEWCLOSURE                       R7 P0
-       53 CAPTURE                          VAL R1
-       54 CAPTURE                          VAL R2
-       55 CALL                             R5 2 1
-       56 SETTABLEKS                       R5 R4 K13 ["deviceName"]
-       58 GETTABLEKS                       R4 R3 K1 ["info"]
-       60 LOADB                            R5 1
-       61 SETTABLEKS                       R5 R4 K2 ["isCustom"]
-       63 GETUPVAL                         R4 2
-       64 MOVE                             R5 R0
-       65 MOVE                             R6 R3
-       66 CALL                             R4 2 1
-       67 RETURN                           R4 1
+       30 LOADK                            R4 K9 ["new:%*"]
+       31 GETTABLEKS                       R6 R0 K10 ["nextDraftId"]
+       33 NAMECALL                         R4 R4 K11 ["format"]
+       35 CALL                             R4 2 1
+       36 SETTABLEKS                       R4 R3 K3 ["draftId"]
+       38 LOADB                            R4 1
+       39 SETTABLEKS                       R4 R3 K4 ["isNew"]
+       41 GETTABLEKS                       R4 R3 K1 ["info"]
+       43 GETTABLEKS                       R5 R3 K3 ["draftId"]
+       45 SETTABLEKS                       R5 R4 K12 ["deviceId"]
+       47 GETTABLEKS                       R4 R3 K1 ["info"]
+       49 GETUPVAL                         R5 1
+       50 MOVE                             R6 R0
+       51 NEWCLOSURE                       R7 P0
+       52 CAPTURE                          VAL R1
+       53 CAPTURE                          VAL R2
+       54 CALL                             R5 2 1
+       55 SETTABLEKS                       R5 R4 K13 ["deviceName"]
+       57 GETTABLEKS                       R4 R3 K1 ["info"]
+       59 LOADB                            R5 1
+       60 SETTABLEKS                       R5 R4 K2 ["isCustom"]
+       62 GETUPVAL                         R4 2
+       63 MOVE                             R5 R0
+       64 MOVE                             R6 R3
+       65 CALL                             R4 2 1
+       66 RETURN                           R4 1
 
 PROTO_30:
         0 GETUPVAL                         R1 0

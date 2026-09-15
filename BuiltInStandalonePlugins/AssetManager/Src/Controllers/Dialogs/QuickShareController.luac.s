@@ -277,7 +277,7 @@ PROTO_14:
        52 LOADNIL                          R10
        53 FORGPREP                         R8
        54 GETTABLE                         R13 R5 R12
-       55 JUMPIF                           R13 ; [+40]
+       55 JUMPIF                           R13 ; [+39]
        56 DUPTABLE                         R15 K21 [{"Id", "Name", "Uri", "Subject", "Action"}]
        57 SETTABLEKS                       R12 R15 K16 ["Id"]
        59 FASTCALL1                        TOSTRING R12 ; [+3]
@@ -285,38 +285,37 @@ PROTO_14:
        61 GETIMPORT                        R16 K23 [tostring]
        63 CALL                             R16 1 1
        64 SETTABLEKS                       R16 R15 K17 ["Name"]
-       66 LOADK                            R17 K24 ["rbxthumb://type=GameIcon&id=%*&w=128&h=128"]
-       67 MOVE                             R19 R12
-       68 NAMECALL                         R17 R17 K25 ["format"]
-       70 CALL                             R17 2 1
-       71 MOVE                             R16 R17
-       72 SETTABLEKS                       R16 R15 K18 ["Uri"]
-       74 GETUPVAL                         R16 0
-       75 GETTABLEKS                       R16 R16 K26 ["PermissionsSubject"]
-       77 GETTABLEKS                       R16 R16 K27 ["Universe"]
-       79 SETTABLEKS                       R16 R15 K19 ["Subject"]
-       81 GETUPVAL                         R16 0
-       82 GETTABLEKS                       R16 R16 K28 ["PermissionsAction"]
-       84 GETTABLEKS                       R16 R16 K29 ["Use"]
-       86 SETTABLEKS                       R16 R15 K20 ["Action"]
-       88 FASTCALL2                        TABLE_INSERT R4 R15 ; [+4]
-       90 MOVE                             R14 R4
-       91 GETIMPORT                        R13 K15 [table.insert]
-       93 CALL                             R13 2 0
-       94 LOADB                            R13 1
-       95 SETTABLE                         R13 R5 R12
-       96 FORGLOOP                         R8 2 ; [-43]
-       98 NAMECALL                         R8 R0 K30 ["_universesUpdated"]
-      100 CALL                             R8 1 0
-      101 GETIMPORT                        R8 K32 [table.concat]
-      103 MOVE                             R9 R6
-      104 LOADK                            R10 K6 [","]
-      105 LENGTH                           R12 R7
-      106 ADDK                             R11 R12 K33 [1]
-      107 CALL                             R8 3 1
-      108 LOADB                            R9 1
-      109 MOVE                             R10 R8
-      110 RETURN                           R9 2
+       66 LOADK                            R16 K24 ["rbxthumb://type=GameIcon&id=%*&w=128&h=128"]
+       67 MOVE                             R18 R12
+       68 NAMECALL                         R16 R16 K25 ["format"]
+       70 CALL                             R16 2 1
+       71 SETTABLEKS                       R16 R15 K18 ["Uri"]
+       73 GETUPVAL                         R16 0
+       74 GETTABLEKS                       R16 R16 K26 ["PermissionsSubject"]
+       76 GETTABLEKS                       R16 R16 K27 ["Universe"]
+       78 SETTABLEKS                       R16 R15 K19 ["Subject"]
+       80 GETUPVAL                         R16 0
+       81 GETTABLEKS                       R16 R16 K28 ["PermissionsAction"]
+       83 GETTABLEKS                       R16 R16 K29 ["Use"]
+       85 SETTABLEKS                       R16 R15 K20 ["Action"]
+       87 FASTCALL2                        TABLE_INSERT R4 R15 ; [+4]
+       89 MOVE                             R14 R4
+       90 GETIMPORT                        R13 K15 [table.insert]
+       92 CALL                             R13 2 0
+       93 LOADB                            R13 1
+       94 SETTABLE                         R13 R5 R12
+       95 FORGLOOP                         R8 2 ; [-42]
+       97 NAMECALL                         R8 R0 K30 ["_universesUpdated"]
+       99 CALL                             R8 1 0
+      100 GETIMPORT                        R8 K32 [table.concat]
+      102 MOVE                             R9 R6
+      103 LOADK                            R10 K6 [","]
+      104 LENGTH                           R12 R7
+      105 ADDK                             R11 R12 K33 [1]
+      106 CALL                             R8 3 1
+      107 LOADB                            R9 1
+      108 MOVE                             R10 R8
+      109 RETURN                           R9 2
 
 PROTO_15:
         0 GETTABLEKS                       R3 R0 K0 ["_universes"]

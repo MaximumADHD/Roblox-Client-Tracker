@@ -455,7 +455,7 @@ PROTO_17:
        41 GETTABLEKS                       R10 R1 K14 ["headerHeight"]
        43 NEWTABLE                         R11 2 0
        45 GETTABLEKS                       R12 R1 K15 ["showTags"]
-       47 JUMPIFNOT                        R12 ; [+517]
+       47 JUMPIFNOT                        R12 ; [+516]
        48 GETTABLEKS                       R13 R0 K0 ["props"]
        50 GETTABLEKS                       R13 R13 K16 ["Localization"]
        52 LOADK                            R15 K17 ["General"]
@@ -680,7 +680,7 @@ PROTO_17:
       389 MOVE                             R20 R16
       390 GETIMPORT                        R19 K29 [table.insert]
       392 CALL                             R19 2 0
-      393 JUMPIFNOT                        R5 ; [+58]
+      393 JUMPIFNOT                        R5 ; [+57]
       394 GETTABLEKS                       R18 R0 K0 ["props"]
       396 GETTABLEKS                       R18 R18 K16 ["Localization"]
       398 LOADK                            R20 K67 ["UiSortIntent"]
@@ -707,123 +707,122 @@ PROTO_17:
       426 LOADK                            R25 K46 [":"]
       427 CONCAT                           R23 R24 R25
       428 SETTABLEKS                       R23 R22 K22 ["prefix"]
-      430 JUMPIFNOT                        R19 ; [+8]
-      431 LOADK                            R24 K70 ["%*, %*"]
-      432 MOVE                             R26 R18
-      433 MOVE                             R27 R19
-      434 NAMECALL                         R24 R24 K71 ["format"]
-      436 CALL                             R24 3 1
-      437 MOVE                             R23 R24
-      438 JUMP                             ; [+1]
-      439 MOVE                             R23 R18
-      440 SETTABLEKS                       R23 R22 K23 ["text"]
-      442 GETTABLEKS                       R23 R0 K72 ["onSortIntentRemoved"]
-      444 SETTABLEKS                       R23 R22 K24 ["onDelete"]
-      446 FASTCALL2                        TABLE_INSERT R16 R22 ; [+4]
-      448 MOVE                             R21 R16
-      449 GETIMPORT                        R20 K29 [table.insert]
-      451 CALL                             R20 2 0
-      452 MOVE                             R18 R4
-      453 JUMPIF                           R18 ; [+3]
-      454 MOVE                             R18 R3
-      455 JUMPIF                           R18 ; [+1]
-      456 MOVE                             R18 R7
-      457 JUMPIFNOT                        R18 ; [+13]
-      458 DUPTABLE                         R21 K73 [{["prefix"], ["text"] = "", ["onDelete"]}]
-      459 SETTABLEKS                       R15 R21 K22 ["prefix"]
-      461 GETTABLEKS                       R22 R0 K74 ["onIsVerifiedCleared"]
-      463 SETTABLEKS                       R22 R21 K24 ["onDelete"]
-      465 FASTCALL2                        TABLE_INSERT R16 R21 ; [+4]
-      467 MOVE                             R20 R16
-      468 GETIMPORT                        R19 K29 [table.insert]
-      470 CALL                             R19 2 0
-      471 GETUPVAL                         R19 2
-      472 GETTABLEKS                       R19 R19 K75 ["createElement"]
-      474 GETUPVAL                         R20 3
-      475 DUPTABLE                         R21 K82 [{["Tags"], ["onClearTags"], ["searchTerm"], ["categoryName"], ["onBackToHome"], ["LayoutOrder"] = 1}]
-      476 SETTABLEKS                       R16 R21 K76 ["Tags"]
-      478 GETTABLEKS                       R22 R0 K83 ["onTagsCleared"]
-      480 SETTABLEKS                       R22 R21 K77 ["onClearTags"]
-      482 SETTABLEKS                       R2 R21 K2 ["searchTerm"]
-      484 GETTABLEKS                       R22 R1 K78 ["categoryName"]
-      486 SETTABLEKS                       R22 R21 K78 ["categoryName"]
-      488 GETTABLEKS                       R22 R1 K79 ["onBackToHome"]
-      490 SETTABLEKS                       R22 R21 K79 ["onBackToHome"]
-      492 CALL                             R19 2 1
-      493 SETTABLEKS                       R19 R11 K84 ["SearchTags"]
-      495 LOADB                            R19 0
-      496 GETTABLEKS                       R20 R1 K85 ["correctionState"]
-      498 GETUPVAL                         R21 4
-      499 GETTABLEKS                       R21 R21 K86 ["AutocorrectResponseState"]
-      501 GETTABLEKS                       R21 R21 K87 ["CorrectionAvailable"]
-      503 JUMPIFNOTEQ                      R20 R21 ; [+7]
-      505 GETTABLEKS                       R20 R1 K88 ["correctedQuery"]
-      507 JUMPIFNOTEQKS                    R20 K1 [""] ; [+2]
-      509 LOADB                            R19 0 +1
-      510 LOADB                            R19 1
-      511 LOADB                            R20 0
-      512 GETTABLEKS                       R21 R1 K85 ["correctionState"]
-      514 GETUPVAL                         R22 4
-      515 GETTABLEKS                       R22 R22 K86 ["AutocorrectResponseState"]
-      517 GETTABLEKS                       R22 R22 K89 ["CorrectionAccepted"]
-      519 JUMPIFNOTEQ                      R21 R22 ; [+7]
-      521 GETTABLEKS                       R21 R1 K90 ["userQuery"]
-      523 JUMPIFNOTEQKS                    R21 K1 [""] ; [+2]
-      525 LOADB                            R20 0 +1
-      526 LOADB                            R20 1
-      527 OR                               R21 R19 R20
-      528 GETIMPORT                        R22 K31 [next]
-      530 MOVE                             R23 R16
-      531 CALL                             R22 1 1
-      532 JUMPIFEQKNIL                     R22 ; [+7]
-      534 JUMPIF                           R21 ; [+5]
-      535 GETUPVAL                         R22 5
-      536 GETTABLEKS                       R22 R22 K91 ["MAIN_VIEW_VERTICAL_PADDING"]
-      538 ADD                              R10 R10 R22
-      539 JUMP                             ; [0]
-      540 JUMPIFNOT                        R21 ; [+21]
-      541 GETUPVAL                         R22 2
-      542 GETTABLEKS                       R22 R22 K75 ["createElement"]
-      544 GETUPVAL                         R23 6
-      545 DUPTABLE                         R24 K97 [{["CorrectedQuery"], ["CorrectionState"], ["CurrentQuery"], ["LayoutOrder"] = 2, ["UserQuery"]}]
-      546 GETTABLEKS                       R25 R1 K88 ["correctedQuery"]
-      548 SETTABLEKS                       R25 R24 K92 ["CorrectedQuery"]
-      550 GETTABLEKS                       R25 R1 K85 ["correctionState"]
-      552 SETTABLEKS                       R25 R24 K93 ["CorrectionState"]
-      554 SETTABLEKS                       R2 R24 K94 ["CurrentQuery"]
-      556 GETTABLEKS                       R25 R1 K90 ["userQuery"]
-      558 SETTABLEKS                       R25 R24 K96 ["UserQuery"]
-      560 CALL                             R22 2 1
-      561 JUMP                             ; [+1]
-      562 LOADNIL                          R22
-      563 SETTABLEKS                       R22 R11 K98 ["Autocorrect"]
-      565 GETUPVAL                         R13 2
-      566 GETTABLEKS                       R13 R13 K75 ["createElement"]
-      568 GETUPVAL                         R14 7
-      569 DUPTABLE                         R15 K106 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["HorizontalAlignment"], ["Layout"], ["VerticalAlignment"], ["ZIndex"] = 2}]
-      570 GETIMPORT                        R16 K109 [UDim2.new]
-      572 LOADN                            R17 0
-      573 LOADN                            R18 0
-      574 LOADN                            R19 0
-      575 LOADN                            R20 -2
-      576 CALL                             R16 4 1
-      577 SETTABLEKS                       R16 R15 K99 ["Position"]
-      579 GETIMPORT                        R16 K109 [UDim2.new]
-      581 LOADN                            R17 0
-      582 MOVE                             R18 R9
-      583 LOADN                            R19 0
-      584 MOVE                             R20 R10
-      585 CALL                             R16 4 1
-      586 SETTABLEKS                       R16 R15 K100 ["Size"]
-      588 GETIMPORT                        R16 K112 [Enum.HorizontalAlignment.Left]
-      590 SETTABLEKS                       R16 R15 K102 ["HorizontalAlignment"]
-      592 GETIMPORT                        R16 K115 [Enum.FillDirection.Vertical]
-      594 SETTABLEKS                       R16 R15 K103 ["Layout"]
-      596 GETIMPORT                        R16 K117 [Enum.VerticalAlignment.Top]
-      598 SETTABLEKS                       R16 R15 K104 ["VerticalAlignment"]
-      600 MOVE                             R16 R11
-      601 CALL                             R13 3 -1
-      602 RETURN                           R13 -1
+      430 JUMPIFNOT                        R19 ; [+7]
+      431 LOADK                            R23 K70 ["%*, %*"]
+      432 MOVE                             R25 R18
+      433 MOVE                             R26 R19
+      434 NAMECALL                         R23 R23 K71 ["format"]
+      436 CALL                             R23 3 1
+      437 JUMP                             ; [+1]
+      438 MOVE                             R23 R18
+      439 SETTABLEKS                       R23 R22 K23 ["text"]
+      441 GETTABLEKS                       R23 R0 K72 ["onSortIntentRemoved"]
+      443 SETTABLEKS                       R23 R22 K24 ["onDelete"]
+      445 FASTCALL2                        TABLE_INSERT R16 R22 ; [+4]
+      447 MOVE                             R21 R16
+      448 GETIMPORT                        R20 K29 [table.insert]
+      450 CALL                             R20 2 0
+      451 MOVE                             R18 R4
+      452 JUMPIF                           R18 ; [+3]
+      453 MOVE                             R18 R3
+      454 JUMPIF                           R18 ; [+1]
+      455 MOVE                             R18 R7
+      456 JUMPIFNOT                        R18 ; [+13]
+      457 DUPTABLE                         R21 K73 [{["prefix"], ["text"] = "", ["onDelete"]}]
+      458 SETTABLEKS                       R15 R21 K22 ["prefix"]
+      460 GETTABLEKS                       R22 R0 K74 ["onIsVerifiedCleared"]
+      462 SETTABLEKS                       R22 R21 K24 ["onDelete"]
+      464 FASTCALL2                        TABLE_INSERT R16 R21 ; [+4]
+      466 MOVE                             R20 R16
+      467 GETIMPORT                        R19 K29 [table.insert]
+      469 CALL                             R19 2 0
+      470 GETUPVAL                         R19 2
+      471 GETTABLEKS                       R19 R19 K75 ["createElement"]
+      473 GETUPVAL                         R20 3
+      474 DUPTABLE                         R21 K82 [{["Tags"], ["onClearTags"], ["searchTerm"], ["categoryName"], ["onBackToHome"], ["LayoutOrder"] = 1}]
+      475 SETTABLEKS                       R16 R21 K76 ["Tags"]
+      477 GETTABLEKS                       R22 R0 K83 ["onTagsCleared"]
+      479 SETTABLEKS                       R22 R21 K77 ["onClearTags"]
+      481 SETTABLEKS                       R2 R21 K2 ["searchTerm"]
+      483 GETTABLEKS                       R22 R1 K78 ["categoryName"]
+      485 SETTABLEKS                       R22 R21 K78 ["categoryName"]
+      487 GETTABLEKS                       R22 R1 K79 ["onBackToHome"]
+      489 SETTABLEKS                       R22 R21 K79 ["onBackToHome"]
+      491 CALL                             R19 2 1
+      492 SETTABLEKS                       R19 R11 K84 ["SearchTags"]
+      494 LOADB                            R19 0
+      495 GETTABLEKS                       R20 R1 K85 ["correctionState"]
+      497 GETUPVAL                         R21 4
+      498 GETTABLEKS                       R21 R21 K86 ["AutocorrectResponseState"]
+      500 GETTABLEKS                       R21 R21 K87 ["CorrectionAvailable"]
+      502 JUMPIFNOTEQ                      R20 R21 ; [+7]
+      504 GETTABLEKS                       R20 R1 K88 ["correctedQuery"]
+      506 JUMPIFNOTEQKS                    R20 K1 [""] ; [+2]
+      508 LOADB                            R19 0 +1
+      509 LOADB                            R19 1
+      510 LOADB                            R20 0
+      511 GETTABLEKS                       R21 R1 K85 ["correctionState"]
+      513 GETUPVAL                         R22 4
+      514 GETTABLEKS                       R22 R22 K86 ["AutocorrectResponseState"]
+      516 GETTABLEKS                       R22 R22 K89 ["CorrectionAccepted"]
+      518 JUMPIFNOTEQ                      R21 R22 ; [+7]
+      520 GETTABLEKS                       R21 R1 K90 ["userQuery"]
+      522 JUMPIFNOTEQKS                    R21 K1 [""] ; [+2]
+      524 LOADB                            R20 0 +1
+      525 LOADB                            R20 1
+      526 OR                               R21 R19 R20
+      527 GETIMPORT                        R22 K31 [next]
+      529 MOVE                             R23 R16
+      530 CALL                             R22 1 1
+      531 JUMPIFEQKNIL                     R22 ; [+7]
+      533 JUMPIF                           R21 ; [+5]
+      534 GETUPVAL                         R22 5
+      535 GETTABLEKS                       R22 R22 K91 ["MAIN_VIEW_VERTICAL_PADDING"]
+      537 ADD                              R10 R10 R22
+      538 JUMP                             ; [0]
+      539 JUMPIFNOT                        R21 ; [+21]
+      540 GETUPVAL                         R22 2
+      541 GETTABLEKS                       R22 R22 K75 ["createElement"]
+      543 GETUPVAL                         R23 6
+      544 DUPTABLE                         R24 K97 [{["CorrectedQuery"], ["CorrectionState"], ["CurrentQuery"], ["LayoutOrder"] = 2, ["UserQuery"]}]
+      545 GETTABLEKS                       R25 R1 K88 ["correctedQuery"]
+      547 SETTABLEKS                       R25 R24 K92 ["CorrectedQuery"]
+      549 GETTABLEKS                       R25 R1 K85 ["correctionState"]
+      551 SETTABLEKS                       R25 R24 K93 ["CorrectionState"]
+      553 SETTABLEKS                       R2 R24 K94 ["CurrentQuery"]
+      555 GETTABLEKS                       R25 R1 K90 ["userQuery"]
+      557 SETTABLEKS                       R25 R24 K96 ["UserQuery"]
+      559 CALL                             R22 2 1
+      560 JUMP                             ; [+1]
+      561 LOADNIL                          R22
+      562 SETTABLEKS                       R22 R11 K98 ["Autocorrect"]
+      564 GETUPVAL                         R13 2
+      565 GETTABLEKS                       R13 R13 K75 ["createElement"]
+      567 GETUPVAL                         R14 7
+      568 DUPTABLE                         R15 K106 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["HorizontalAlignment"], ["Layout"], ["VerticalAlignment"], ["ZIndex"] = 2}]
+      569 GETIMPORT                        R16 K109 [UDim2.new]
+      571 LOADN                            R17 0
+      572 LOADN                            R18 0
+      573 LOADN                            R19 0
+      574 LOADN                            R20 -2
+      575 CALL                             R16 4 1
+      576 SETTABLEKS                       R16 R15 K99 ["Position"]
+      578 GETIMPORT                        R16 K109 [UDim2.new]
+      580 LOADN                            R17 0
+      581 MOVE                             R18 R9
+      582 LOADN                            R19 0
+      583 MOVE                             R20 R10
+      584 CALL                             R16 4 1
+      585 SETTABLEKS                       R16 R15 K100 ["Size"]
+      587 GETIMPORT                        R16 K112 [Enum.HorizontalAlignment.Left]
+      589 SETTABLEKS                       R16 R15 K102 ["HorizontalAlignment"]
+      591 GETIMPORT                        R16 K115 [Enum.FillDirection.Vertical]
+      593 SETTABLEKS                       R16 R15 K103 ["Layout"]
+      595 GETIMPORT                        R16 K117 [Enum.VerticalAlignment.Top]
+      597 SETTABLEKS                       R16 R15 K104 ["VerticalAlignment"]
+      599 MOVE                             R16 R11
+      600 CALL                             R13 3 -1
+      601 RETURN                           R13 -1
 
 PROTO_18:
         0 MOVE                             R2 R0

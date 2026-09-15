@@ -37,17 +37,16 @@ PROTO_1:
        35 MOD                              R10 R6 R7
        36 CALL                             R8 2 1
        37 MOVE                             R5 R8
-       38 LOADK                            R7 K11 ["%*:%*"]
-       39 GETTABLEKS                       R10 R0 K2 ["Width"]
-       41 DIV                              R9 R10 R5
-       42 GETTABLEKS                       R11 R0 K3 ["Height"]
-       44 DIV                              R10 R11 R5
-       45 NAMECALL                         R7 R7 K12 ["format"]
-       47 CALL                             R7 3 1
-       48 MOVE                             R6 R7
-       49 LOADB                            R7 0
-       50 MOVE                             R8 R6
-       51 RETURN                           R7 2
+       38 LOADK                            R6 K11 ["%*:%*"]
+       39 GETTABLEKS                       R9 R0 K2 ["Width"]
+       41 DIV                              R8 R9 R5
+       42 GETTABLEKS                       R10 R0 K3 ["Height"]
+       44 DIV                              R9 R10 R5
+       45 NAMECALL                         R6 R6 K12 ["format"]
+       47 CALL                             R6 3 1
+       48 LOADB                            R7 0
+       49 MOVE                             R8 R6
+       50 RETURN                           R7 2
 
 MAIN:
         0 PREPVARARGS                      0

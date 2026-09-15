@@ -1,102 +1,91 @@
 PROTO_0:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
-        2 LOADK                            R5 K0 ["action-%*"]
-        3 MOVE                             R7 R1
-        4 NAMECALL                         R5 R5 K1 ["format"]
-        6 CALL                             R5 2 1
-        7 MOVE                             R4 R5
-        8 LOADK                            R6 K2 ["Action '%*' not found"]
-        9 MOVE                             R8 R1
-       10 NAMECALL                         R6 R6 K1 ["format"]
-       12 CALL                             R6 2 1
-       13 MOVE                             R5 R6
-       14 CALL                             R2 3 -1
-       15 RETURN                           R2 -1
+        2 LOADK                            R4 K0 ["action-%*"]
+        3 MOVE                             R6 R1
+        4 NAMECALL                         R4 R4 K1 ["format"]
+        6 CALL                             R4 2 1
+        7 LOADK                            R5 K2 ["Action '%*' not found"]
+        8 MOVE                             R7 R1
+        9 NAMECALL                         R5 R5 K1 ["format"]
+       11 CALL                             R5 2 1
+       12 CALL                             R2 3 -1
+       13 RETURN                           R2 -1
 
 PROTO_1:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
-        2 LOADK                            R5 K0 ["keycode-binding-%*"]
-        3 MOVE                             R7 R1
-        4 NAMECALL                         R5 R5 K1 ["format"]
-        6 CALL                             R5 2 1
-        7 MOVE                             R4 R5
-        8 LOADK                            R6 K2 ["KeycodeBinding at index %* not found"]
-        9 MOVE                             R8 R1
-       10 NAMECALL                         R6 R6 K1 ["format"]
-       12 CALL                             R6 2 1
-       13 MOVE                             R5 R6
-       14 CALL                             R2 3 -1
-       15 RETURN                           R2 -1
+        2 LOADK                            R4 K0 ["keycode-binding-%*"]
+        3 MOVE                             R6 R1
+        4 NAMECALL                         R4 R4 K1 ["format"]
+        6 CALL                             R4 2 1
+        7 LOADK                            R5 K2 ["KeycodeBinding at index %* not found"]
+        8 MOVE                             R7 R1
+        9 NAMECALL                         R5 R5 K1 ["format"]
+       11 CALL                             R5 2 1
+       12 CALL                             R2 3 -1
+       13 RETURN                           R2 -1
 
 PROTO_2:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
-        2 LOADK                            R5 K0 ["composite-binding-%*"]
-        3 MOVE                             R7 R1
-        4 NAMECALL                         R5 R5 K1 ["format"]
-        6 CALL                             R5 2 1
-        7 MOVE                             R4 R5
-        8 LOADK                            R6 K2 ["CompositeBinding at index %* not found"]
-        9 MOVE                             R8 R1
-       10 NAMECALL                         R6 R6 K1 ["format"]
-       12 CALL                             R6 2 1
-       13 MOVE                             R5 R6
-       14 CALL                             R2 3 -1
-       15 RETURN                           R2 -1
+        2 LOADK                            R4 K0 ["composite-binding-%*"]
+        3 MOVE                             R6 R1
+        4 NAMECALL                         R4 R4 K1 ["format"]
+        6 CALL                             R4 2 1
+        7 LOADK                            R5 K2 ["CompositeBinding at index %* not found"]
+        8 MOVE                             R7 R1
+        9 NAMECALL                         R5 R5 K1 ["format"]
+       11 CALL                             R5 2 1
+       12 CALL                             R2 3 -1
+       13 RETURN                           R2 -1
 
 PROTO_3:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R0
-        2 LOADK                            R6 K0 ["%*-%*-cell"]
-        3 MOVE                             R8 R1
-        4 MOVE                             R9 R2
-        5 NAMECALL                         R6 R6 K1 ["format"]
-        7 CALL                             R6 3 1
-        8 MOVE                             R5 R6
-        9 LOADK                            R7 K2 ["Property cell '%*' (%*) not found"]
-       10 MOVE                             R9 R1
-       11 MOVE                             R10 R2
-       12 NAMECALL                         R7 R7 K1 ["format"]
-       14 CALL                             R7 3 1
-       15 MOVE                             R6 R7
-       16 CALL                             R3 3 -1
-       17 RETURN                           R3 -1
+        2 LOADK                            R5 K0 ["%*-%*-cell"]
+        3 MOVE                             R7 R1
+        4 MOVE                             R8 R2
+        5 NAMECALL                         R5 R5 K1 ["format"]
+        7 CALL                             R5 3 1
+        8 LOADK                            R6 K2 ["Property cell '%*' (%*) not found"]
+        9 MOVE                             R8 R1
+       10 MOVE                             R9 R2
+       11 NAMECALL                         R6 R6 K1 ["format"]
+       13 CALL                             R6 3 1
+       14 CALL                             R3 3 -1
+       15 RETURN                           R3 -1
 
 PROTO_4:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
-        2 LOADK                            R5 K0 ["summary-%*"]
-        3 MOVE                             R7 R1
-        4 NAMECALL                         R5 R5 K1 ["format"]
-        6 CALL                             R5 2 1
-        7 MOVE                             R4 R5
-        8 LOADK                            R6 K2 ["Summary '%*' not found"]
-        9 MOVE                             R8 R1
-       10 NAMECALL                         R6 R6 K1 ["format"]
-       12 CALL                             R6 2 1
-       13 MOVE                             R5 R6
-       14 CALL                             R2 3 1
-       15 LOADK                            R5 K3 ["TextLabel"]
-       16 NAMECALL                         R3 R2 K4 ["IsA"]
-       18 CALL                             R3 2 1
-       19 JUMPIFNOT                        R3 ; [+1]
-       20 RETURN                           R2 1
-       21 LOADK                            R5 K3 ["TextLabel"]
-       22 LOADB                            R6 1
-       23 NAMECALL                         R3 R2 K5 ["FindFirstChildWhichIsA"]
-       25 CALL                             R3 3 1
-       26 LOADK                            R7 K6 ["Summary text for '%*' not found"]
-       27 MOVE                             R9 R1
-       28 NAMECALL                         R7 R7 K1 ["format"]
-       30 CALL                             R7 2 1
-       31 MOVE                             R6 R7
-       32 FASTCALL2                        ASSERT R3 R6 ; [+4]
-       34 MOVE                             R5 R3
-       35 GETIMPORT                        R4 K8 [assert]
-       37 CALL                             R4 2 0
-       38 RETURN                           R3 1
+        2 LOADK                            R4 K0 ["summary-%*"]
+        3 MOVE                             R6 R1
+        4 NAMECALL                         R4 R4 K1 ["format"]
+        6 CALL                             R4 2 1
+        7 LOADK                            R5 K2 ["Summary '%*' not found"]
+        8 MOVE                             R7 R1
+        9 NAMECALL                         R5 R5 K1 ["format"]
+       11 CALL                             R5 2 1
+       12 CALL                             R2 3 1
+       13 LOADK                            R5 K3 ["TextLabel"]
+       14 NAMECALL                         R3 R2 K4 ["IsA"]
+       16 CALL                             R3 2 1
+       17 JUMPIFNOT                        R3 ; [+1]
+       18 RETURN                           R2 1
+       19 LOADK                            R5 K3 ["TextLabel"]
+       20 LOADB                            R6 1
+       21 NAMECALL                         R3 R2 K5 ["FindFirstChildWhichIsA"]
+       23 CALL                             R3 3 1
+       24 LOADK                            R6 K6 ["Summary text for '%*' not found"]
+       25 MOVE                             R8 R1
+       26 NAMECALL                         R6 R6 K1 ["format"]
+       28 CALL                             R6 2 1
+       29 FASTCALL2                        ASSERT R3 R6 ; [+4]
+       31 MOVE                             R5 R3
+       32 GETIMPORT                        R4 K8 [assert]
+       34 CALL                             R4 2 0
+       35 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

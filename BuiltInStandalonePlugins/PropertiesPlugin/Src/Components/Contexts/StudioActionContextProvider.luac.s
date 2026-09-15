@@ -100,7 +100,7 @@ PROTO_11:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R0
         2 GETTABLEKS                       R3 R2 K0 ["kind"]
-        4 JUMPIFNOTEQKS                    R3 K1 ["studioActionOverride"] ; [+66]
+        4 JUMPIFNOTEQKS                    R3 K1 ["studioActionOverride"] ; [+65]
         6 GETUPVAL                         R3 1
         7 CALL                             R3 0 1
         8 JUMPIF                           R3 ; [+12]
@@ -114,108 +114,105 @@ PROTO_11:
        18 SETTABLEKS                       R4 R3 K6 ["disconnect"]
        20 RETURN                           R3 1
        21 GETTABLEKS                       R3 R1 K10 ["scope"]
-       23 JUMPIFNOTEQKNIL                  R3 ; [+10]
+       23 JUMPIFNOTEQKNIL                  R3 ; [+9]
        25 GETIMPORT                        R4 K12 [error]
-       27 LOADK                            R6 K13 ["no scope provided for studio action override \"%*\""]
-       28 MOVE                             R8 R0
-       29 NAMECALL                         R6 R6 K14 ["format"]
-       31 CALL                             R6 2 1
-       32 MOVE                             R5 R6
-       33 CALL                             R4 1 0
-       34 LOADK                            R6 K15 ["PluginGui"]
-       35 NAMECALL                         R4 R3 K16 ["FindFirstAncestorWhichIsA"]
-       37 CALL                             R4 2 1
-       38 JUMPIFNOTEQKNIL                  R4 ; [+5]
-       40 GETIMPORT                        R5 K12 [error]
-       42 LOADK                            R6 K17 ["no plugin gui ancestor found for scope"]
-       43 CALL                             R5 1 0
-       44 GETTABLEKS                       R7 R2 K18 ["studioAction"]
-       46 NAMECALL                         R5 R4 K19 ["OverrideStudioAction"]
-       48 CALL                             R5 2 1
-       49 GETTABLEKS                       R6 R1 K20 ["isEnabled"]
-       51 SETTABLEKS                       R6 R5 K21 ["Enabled"]
-       53 GETTABLEKS                       R6 R5 K22 ["Triggered"]
-       55 GETTABLEKS                       R8 R1 K23 ["onActionActivated"]
-       57 NAMECALL                         R6 R6 K24 ["Connect"]
-       59 CALL                             R6 2 1
-       60 DUPTABLE                         R7 K7 [{"setEnabled", "disconnect"}]
-       61 NEWCLOSURE                       R8 P2
-       62 CAPTURE                          VAL R5
-       63 SETTABLEKS                       R8 R7 K5 ["setEnabled"]
-       65 NEWCLOSURE                       R8 P3
-       66 CAPTURE                          VAL R6
-       67 CAPTURE                          VAL R5
-       68 SETTABLEKS                       R8 R7 K6 ["disconnect"]
-       70 RETURN                           R7 1
-       71 GETTABLEKS                       R3 R2 K0 ["kind"]
-       73 JUMPIFNOTEQKS                    R3 K18 ["studioAction"] ; [+27]
-       75 GETTABLEKS                       R3 R1 K20 ["isEnabled"]
-       77 LOADNIL                          R4
-       78 GETIMPORT                        R5 K27 [task.spawn]
-       80 NEWCLOSURE                       R6 P4
-       81 CAPTURE                          REF R4
-       82 CAPTURE                          UPVAL U2
-       83 CAPTURE                          VAL R2
-       84 CAPTURE                          REF R3
-       85 CAPTURE                          VAL R1
-       86 CAPTURE                          UPVAL U3
-       87 CALL                             R5 1 1
-       88 DUPTABLE                         R6 K7 [{"setEnabled", "disconnect"}]
-       89 NEWCLOSURE                       R7 P5
-       90 CAPTURE                          REF R3
-       91 SETTABLEKS                       R7 R6 K5 ["setEnabled"]
-       93 NEWCLOSURE                       R7 P6
-       94 CAPTURE                          VAL R5
-       95 CAPTURE                          REF R4
-       96 SETTABLEKS                       R7 R6 K6 ["disconnect"]
-       98 CLOSEUPVALS                      R3
-       99 RETURN                           R6 1
-      100 CLOSEUPVALS                      R3
-      101 GETTABLEKS                       R3 R2 K0 ["kind"]
-      103 JUMPIFNOTEQKS                    R3 K28 ["pluginKeyboardShortcut"] ; [+49]
-      105 GETTABLEKS                       R3 R1 K10 ["scope"]
-      107 JUMPIFNOTEQKNIL                  R3 ; [+10]
-      109 GETIMPORT                        R4 K12 [error]
-      111 LOADK                            R6 K29 ["no scope provided for keyboard shortcut \"%*\""]
-      112 MOVE                             R8 R0
-      113 NAMECALL                         R6 R6 K14 ["format"]
-      115 CALL                             R6 2 1
-      116 MOVE                             R5 R6
-      117 CALL                             R4 1 0
-      118 LOADK                            R6 K15 ["PluginGui"]
-      119 NAMECALL                         R4 R3 K16 ["FindFirstAncestorWhichIsA"]
-      121 CALL                             R4 2 1
-      122 JUMPIFNOTEQKNIL                  R4 ; [+5]
-      124 GETIMPORT                        R5 K12 [error]
-      126 LOADK                            R6 K17 ["no plugin gui ancestor found for scope"]
-      127 CALL                             R5 1 0
-      128 GETTABLEKS                       R5 R1 K20 ["isEnabled"]
-      130 GETTABLEKS                       R6 R2 K30 ["keyCodes"]
-      132 GETTABLEKS                       R7 R4 K31 ["InputBegan"]
-      134 NEWCLOSURE                       R9 P7
-      135 CAPTURE                          REF R5
-      136 CAPTURE                          VAL R6
-      137 CAPTURE                          VAL R1
-      138 NAMECALL                         R7 R7 K24 ["Connect"]
-      140 CALL                             R7 2 1
-      141 DUPTABLE                         R8 K7 [{"setEnabled", "disconnect"}]
-      142 NEWCLOSURE                       R9 P8
-      143 CAPTURE                          REF R5
-      144 SETTABLEKS                       R9 R8 K5 ["setEnabled"]
-      146 NEWCLOSURE                       R9 P9
-      147 CAPTURE                          VAL R7
-      148 SETTABLEKS                       R9 R8 K6 ["disconnect"]
+       27 LOADK                            R5 K13 ["no scope provided for studio action override \"%*\""]
+       28 MOVE                             R7 R0
+       29 NAMECALL                         R5 R5 K14 ["format"]
+       31 CALL                             R5 2 1
+       32 CALL                             R4 1 0
+       33 LOADK                            R6 K15 ["PluginGui"]
+       34 NAMECALL                         R4 R3 K16 ["FindFirstAncestorWhichIsA"]
+       36 CALL                             R4 2 1
+       37 JUMPIFNOTEQKNIL                  R4 ; [+5]
+       39 GETIMPORT                        R5 K12 [error]
+       41 LOADK                            R6 K17 ["no plugin gui ancestor found for scope"]
+       42 CALL                             R5 1 0
+       43 GETTABLEKS                       R7 R2 K18 ["studioAction"]
+       45 NAMECALL                         R5 R4 K19 ["OverrideStudioAction"]
+       47 CALL                             R5 2 1
+       48 GETTABLEKS                       R6 R1 K20 ["isEnabled"]
+       50 SETTABLEKS                       R6 R5 K21 ["Enabled"]
+       52 GETTABLEKS                       R6 R5 K22 ["Triggered"]
+       54 GETTABLEKS                       R8 R1 K23 ["onActionActivated"]
+       56 NAMECALL                         R6 R6 K24 ["Connect"]
+       58 CALL                             R6 2 1
+       59 DUPTABLE                         R7 K7 [{"setEnabled", "disconnect"}]
+       60 NEWCLOSURE                       R8 P2
+       61 CAPTURE                          VAL R5
+       62 SETTABLEKS                       R8 R7 K5 ["setEnabled"]
+       64 NEWCLOSURE                       R8 P3
+       65 CAPTURE                          VAL R6
+       66 CAPTURE                          VAL R5
+       67 SETTABLEKS                       R8 R7 K6 ["disconnect"]
+       69 RETURN                           R7 1
+       70 GETTABLEKS                       R3 R2 K0 ["kind"]
+       72 JUMPIFNOTEQKS                    R3 K18 ["studioAction"] ; [+27]
+       74 GETTABLEKS                       R3 R1 K20 ["isEnabled"]
+       76 LOADNIL                          R4
+       77 GETIMPORT                        R5 K27 [task.spawn]
+       79 NEWCLOSURE                       R6 P4
+       80 CAPTURE                          REF R4
+       81 CAPTURE                          UPVAL U2
+       82 CAPTURE                          VAL R2
+       83 CAPTURE                          REF R3
+       84 CAPTURE                          VAL R1
+       85 CAPTURE                          UPVAL U3
+       86 CALL                             R5 1 1
+       87 DUPTABLE                         R6 K7 [{"setEnabled", "disconnect"}]
+       88 NEWCLOSURE                       R7 P5
+       89 CAPTURE                          REF R3
+       90 SETTABLEKS                       R7 R6 K5 ["setEnabled"]
+       92 NEWCLOSURE                       R7 P6
+       93 CAPTURE                          VAL R5
+       94 CAPTURE                          REF R4
+       95 SETTABLEKS                       R7 R6 K6 ["disconnect"]
+       97 CLOSEUPVALS                      R3
+       98 RETURN                           R6 1
+       99 CLOSEUPVALS                      R3
+      100 GETTABLEKS                       R3 R2 K0 ["kind"]
+      102 JUMPIFNOTEQKS                    R3 K28 ["pluginKeyboardShortcut"] ; [+48]
+      104 GETTABLEKS                       R3 R1 K10 ["scope"]
+      106 JUMPIFNOTEQKNIL                  R3 ; [+9]
+      108 GETIMPORT                        R4 K12 [error]
+      110 LOADK                            R5 K29 ["no scope provided for keyboard shortcut \"%*\""]
+      111 MOVE                             R7 R0
+      112 NAMECALL                         R5 R5 K14 ["format"]
+      114 CALL                             R5 2 1
+      115 CALL                             R4 1 0
+      116 LOADK                            R6 K15 ["PluginGui"]
+      117 NAMECALL                         R4 R3 K16 ["FindFirstAncestorWhichIsA"]
+      119 CALL                             R4 2 1
+      120 JUMPIFNOTEQKNIL                  R4 ; [+5]
+      122 GETIMPORT                        R5 K12 [error]
+      124 LOADK                            R6 K17 ["no plugin gui ancestor found for scope"]
+      125 CALL                             R5 1 0
+      126 GETTABLEKS                       R5 R1 K20 ["isEnabled"]
+      128 GETTABLEKS                       R6 R2 K30 ["keyCodes"]
+      130 GETTABLEKS                       R7 R4 K31 ["InputBegan"]
+      132 NEWCLOSURE                       R9 P7
+      133 CAPTURE                          REF R5
+      134 CAPTURE                          VAL R6
+      135 CAPTURE                          VAL R1
+      136 NAMECALL                         R7 R7 K24 ["Connect"]
+      138 CALL                             R7 2 1
+      139 DUPTABLE                         R8 K7 [{"setEnabled", "disconnect"}]
+      140 NEWCLOSURE                       R9 P8
+      141 CAPTURE                          REF R5
+      142 SETTABLEKS                       R9 R8 K5 ["setEnabled"]
+      144 NEWCLOSURE                       R9 P9
+      145 CAPTURE                          VAL R7
+      146 SETTABLEKS                       R9 R8 K6 ["disconnect"]
+      148 CLOSEUPVALS                      R5
+      149 RETURN                           R8 1
       150 CLOSEUPVALS                      R5
-      151 RETURN                           R8 1
-      152 CLOSEUPVALS                      R5
-      153 GETIMPORT                        R3 K12 [error]
-      155 LOADK                            R5 K32 ["Unrecognized ActionDescriptor.kind: %*"]
-      156 GETTABLEKS                       R7 R2 K0 ["kind"]
-      158 NAMECALL                         R5 R5 K14 ["format"]
-      160 CALL                             R5 2 1
-      161 MOVE                             R4 R5
-      162 CALL                             R3 1 0
-      163 RETURN                           R0 0
+      151 GETIMPORT                        R3 K12 [error]
+      153 LOADK                            R4 K32 ["Unrecognized ActionDescriptor.kind: %*"]
+      154 GETTABLEKS                       R6 R2 K0 ["kind"]
+      156 NAMECALL                         R4 R4 K14 ["format"]
+      158 CALL                             R4 2 1
+      159 CALL                             R3 1 0
+      160 RETURN                           R0 0
 
 PROTO_12:
         0 GETTABLEKS                       R1 R0 K0 ["plugin"]

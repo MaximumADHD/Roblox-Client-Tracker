@@ -22,23 +22,22 @@ PROTO_1:
         2 JUMPIF                           R1 ; [+4]
         3 GETUPVAL                         R1 1
         4 GETTABLEKS                       R1 R1 K0 ["mock"]
-        6 JUMPIFNOT                        R1 ; [+10]
+        6 JUMPIFNOT                        R1 ; [+9]
         7 GETIMPORT                        R1 K2 [print]
-        9 LOADK                            R3 K3 ["countActionCreated: %*"]
-       10 MOVE                             R5 R0
-       11 NAMECALL                         R3 R3 K4 ["format"]
-       13 CALL                             R3 2 1
-       14 MOVE                             R2 R3
-       15 CALL                             R1 1 0
-       16 RETURN                           R0 0
-       17 GETUPVAL                         R1 2
-       18 GETTABLEKS                       R1 R1 K5 ["logCounter"]
-       20 GETUPVAL                         R2 3
-       21 DUPTABLE                         R3 K7 [{"input_action_type"}]
-       22 GETTABLEKS                       R4 R0 K8 ["Name"]
-       24 SETTABLEKS                       R4 R3 K6 ["input_action_type"]
-       26 CALL                             R1 2 0
-       27 RETURN                           R0 0
+        9 LOADK                            R2 K3 ["countActionCreated: %*"]
+       10 MOVE                             R4 R0
+       11 NAMECALL                         R2 R2 K4 ["format"]
+       13 CALL                             R2 2 1
+       14 CALL                             R1 1 0
+       15 RETURN                           R0 0
+       16 GETUPVAL                         R1 2
+       17 GETTABLEKS                       R1 R1 K5 ["logCounter"]
+       19 GETUPVAL                         R2 3
+       20 DUPTABLE                         R3 K7 [{"input_action_type"}]
+       21 GETTABLEKS                       R4 R0 K8 ["Name"]
+       23 SETTABLEKS                       R4 R3 K6 ["input_action_type"]
+       25 CALL                             R1 2 0
+       26 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -46,23 +45,22 @@ PROTO_2:
         2 JUMPIF                           R1 ; [+4]
         3 GETUPVAL                         R1 1
         4 GETTABLEKS                       R1 R1 K0 ["mock"]
-        6 JUMPIFNOT                        R1 ; [+10]
+        6 JUMPIFNOT                        R1 ; [+9]
         7 GETIMPORT                        R1 K2 [print]
-        9 LOADK                            R3 K3 ["countInputActionTypeSelected: %*"]
-       10 MOVE                             R5 R0
-       11 NAMECALL                         R3 R3 K4 ["format"]
-       13 CALL                             R3 2 1
-       14 MOVE                             R2 R3
-       15 CALL                             R1 1 0
-       16 RETURN                           R0 0
-       17 GETUPVAL                         R1 2
-       18 GETTABLEKS                       R1 R1 K5 ["logCounter"]
-       20 GETUPVAL                         R2 3
-       21 DUPTABLE                         R3 K7 [{"input_action_type"}]
-       22 GETTABLEKS                       R4 R0 K8 ["Name"]
-       24 SETTABLEKS                       R4 R3 K6 ["input_action_type"]
-       26 CALL                             R1 2 0
-       27 RETURN                           R0 0
+        9 LOADK                            R2 K3 ["countInputActionTypeSelected: %*"]
+       10 MOVE                             R4 R0
+       11 NAMECALL                         R2 R2 K4 ["format"]
+       13 CALL                             R2 2 1
+       14 CALL                             R1 1 0
+       15 RETURN                           R0 0
+       16 GETUPVAL                         R1 2
+       17 GETTABLEKS                       R1 R1 K5 ["logCounter"]
+       19 GETUPVAL                         R2 3
+       20 DUPTABLE                         R3 K7 [{"input_action_type"}]
+       21 GETTABLEKS                       R4 R0 K8 ["Name"]
+       23 SETTABLEKS                       R4 R3 K6 ["input_action_type"]
+       25 CALL                             R1 2 0
+       26 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -70,22 +68,21 @@ PROTO_3:
         2 JUMPIF                           R1 ; [+4]
         3 GETUPVAL                         R1 1
         4 GETTABLEKS                       R1 R1 K0 ["mock"]
-        6 JUMPIFNOT                        R1 ; [+10]
+        6 JUMPIFNOT                        R1 ; [+9]
         7 GETIMPORT                        R1 K2 [print]
-        9 LOADK                            R3 K3 ["countBindingSet: %*"]
-       10 MOVE                             R5 R0
-       11 NAMECALL                         R3 R3 K4 ["format"]
-       13 CALL                             R3 2 1
-       14 MOVE                             R2 R3
-       15 CALL                             R1 1 0
-       16 RETURN                           R0 0
-       17 GETUPVAL                         R1 2
-       18 GETTABLEKS                       R1 R1 K5 ["logCounter"]
-       20 GETUPVAL                         R2 3
-       21 DUPTABLE                         R3 K7 [{"schema"}]
-       22 SETTABLEKS                       R0 R3 K6 ["schema"]
-       24 CALL                             R1 2 0
-       25 RETURN                           R0 0
+        9 LOADK                            R2 K3 ["countBindingSet: %*"]
+       10 MOVE                             R4 R0
+       11 NAMECALL                         R2 R2 K4 ["format"]
+       13 CALL                             R2 2 1
+       14 CALL                             R1 1 0
+       15 RETURN                           R0 0
+       16 GETUPVAL                         R1 2
+       17 GETTABLEKS                       R1 R1 K5 ["logCounter"]
+       19 GETUPVAL                         R2 3
+       20 DUPTABLE                         R3 K7 [{"schema"}]
+       21 SETTABLEKS                       R0 R3 K6 ["schema"]
+       23 CALL                             R1 2 0
+       24 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -115,28 +112,27 @@ PROTO_5:
         6 JUMPIF                           R6 ; [+4]
         7 GETUPVAL                         R6 1
         8 GETTABLEKS                       R6 R6 K0 ["mock"]
-       10 JUMPIFNOT                        R6 ; [+15]
+       10 JUMPIFNOT                        R6 ; [+14]
        11 GETIMPORT                        R6 K2 [print]
-       13 LOADK                            R8 K3 ["statSchemaSupportChanged: %* %*"]
-       14 MOVE                             R10 R4
+       13 LOADK                            R7 K3 ["statSchemaSupportChanged: %* %*"]
+       14 MOVE                             R9 R4
        15 FASTCALL1                        TOSTRING R5 ; [+3]
-       16 MOVE                             R12 R5
-       17 GETIMPORT                        R11 K5 [tostring]
-       19 CALL                             R11 1 1
-       20 NAMECALL                         R8 R8 K6 ["format"]
-       22 CALL                             R8 3 1
-       23 MOVE                             R7 R8
-       24 CALL                             R6 1 0
-       25 JUMP                             ; [+9]
-       26 GETUPVAL                         R6 2
-       27 GETTABLEKS                       R6 R6 K7 ["logStat"]
-       29 GETUPVAL                         R7 3
-       30 DUPTABLE                         R8 K9 [{"schema"}]
-       31 SETTABLEKS                       R4 R8 K8 ["schema"]
-       33 MOVE                             R9 R5
-       34 CALL                             R6 3 0
-       35 FORGLOOP                         R1 2 ; [-32]
-       37 RETURN                           R0 0
+       16 MOVE                             R11 R5
+       17 GETIMPORT                        R10 K5 [tostring]
+       19 CALL                             R10 1 1
+       20 NAMECALL                         R7 R7 K6 ["format"]
+       22 CALL                             R7 3 1
+       23 CALL                             R6 1 0
+       24 JUMP                             ; [+9]
+       25 GETUPVAL                         R6 2
+       26 GETTABLEKS                       R6 R6 K7 ["logStat"]
+       28 GETUPVAL                         R7 3
+       29 DUPTABLE                         R8 K9 [{"schema"}]
+       30 SETTABLEKS                       R4 R8 K8 ["schema"]
+       32 MOVE                             R9 R5
+       33 CALL                             R6 3 0
+       34 FORGLOOP                         R1 2 ; [-31]
+       36 RETURN                           R0 0
 
 PROTO_6:
         0 MOVE                             R1 R0
@@ -148,28 +144,27 @@ PROTO_6:
         6 JUMPIF                           R6 ; [+4]
         7 GETUPVAL                         R6 1
         8 GETTABLEKS                       R6 R6 K0 ["mock"]
-       10 JUMPIFNOT                        R6 ; [+15]
+       10 JUMPIFNOT                        R6 ; [+14]
        11 GETIMPORT                        R6 K2 [print]
-       13 LOADK                            R8 K3 ["statSchemaSupport: %* %*"]
-       14 MOVE                             R10 R4
+       13 LOADK                            R7 K3 ["statSchemaSupport: %* %*"]
+       14 MOVE                             R9 R4
        15 FASTCALL1                        TOSTRING R5 ; [+3]
-       16 MOVE                             R12 R5
-       17 GETIMPORT                        R11 K5 [tostring]
-       19 CALL                             R11 1 1
-       20 NAMECALL                         R8 R8 K6 ["format"]
-       22 CALL                             R8 3 1
-       23 MOVE                             R7 R8
-       24 CALL                             R6 1 0
-       25 JUMP                             ; [+9]
-       26 GETUPVAL                         R6 2
-       27 GETTABLEKS                       R6 R6 K7 ["logStat"]
-       29 GETUPVAL                         R7 3
-       30 DUPTABLE                         R8 K9 [{"schema"}]
-       31 SETTABLEKS                       R4 R8 K8 ["schema"]
-       33 MOVE                             R9 R5
-       34 CALL                             R6 3 0
-       35 FORGLOOP                         R1 2 ; [-32]
-       37 RETURN                           R0 0
+       16 MOVE                             R11 R5
+       17 GETIMPORT                        R10 K5 [tostring]
+       19 CALL                             R10 1 1
+       20 NAMECALL                         R7 R7 K6 ["format"]
+       22 CALL                             R7 3 1
+       23 CALL                             R6 1 0
+       24 JUMP                             ; [+9]
+       25 GETUPVAL                         R6 2
+       26 GETTABLEKS                       R6 R6 K7 ["logStat"]
+       28 GETUPVAL                         R7 3
+       29 DUPTABLE                         R8 K9 [{"schema"}]
+       30 SETTABLEKS                       R4 R8 K8 ["schema"]
+       32 MOVE                             R9 R5
+       33 CALL                             R6 3 0
+       34 FORGLOOP                         R1 2 ; [-31]
+       36 RETURN                           R0 0
 
 PROTO_7:
         0 DUPTABLE                         R0 K7 [{"countContextCreated", "countActionCreated", "countInputActionTypeSelected", "countBindingSet", "countPluginOpened", "statSchemaSupportChanged", "statSchemaSupport"}]

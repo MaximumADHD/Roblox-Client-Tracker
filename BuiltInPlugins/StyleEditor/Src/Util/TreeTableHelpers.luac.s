@@ -3,19 +3,18 @@ PROTO_0:
         1 MOVE                             R2 R0
         2 GETIMPORT                        R1 K1 [typeof]
         4 CALL                             R1 1 1
-        5 JUMPIFNOTEQKS                    R1 K2 ["Instance"] ; [+10]
-        7 LOADK                            R2 K3 ["Instance[%*]"]
-        8 NAMECALL                         R4 R0 K4 ["GetDebugId"]
-       10 CALL                             R4 1 1
-       11 NAMECALL                         R2 R2 K5 ["format"]
-       13 CALL                             R2 2 1
-       14 MOVE                             R1 R2
-       15 RETURN                           R1 1
-       16 FASTCALL1                        TOSTRING R0 ; [+3]
-       17 MOVE                             R2 R0
-       18 GETIMPORT                        R1 K7 [tostring]
-       20 CALL                             R1 1 1
-       21 RETURN                           R1 1
+        5 JUMPIFNOTEQKS                    R1 K2 ["Instance"] ; [+9]
+        7 LOADK                            R1 K3 ["Instance[%*]"]
+        8 NAMECALL                         R3 R0 K4 ["GetDebugId"]
+       10 CALL                             R3 1 1
+       11 NAMECALL                         R1 R1 K5 ["format"]
+       13 CALL                             R1 2 1
+       14 RETURN                           R1 1
+       15 FASTCALL1                        TOSTRING R0 ; [+3]
+       16 MOVE                             R2 R0
+       17 GETIMPORT                        R1 K7 [tostring]
+       19 CALL                             R1 1 1
+       20 RETURN                           R1 1
 
 PROTO_1:
         0 PREPVARARGS                      0

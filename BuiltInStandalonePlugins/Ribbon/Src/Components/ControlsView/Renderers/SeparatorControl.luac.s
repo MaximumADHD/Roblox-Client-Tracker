@@ -23,7 +23,7 @@ PROTO_1:
        12 LOADNIL                          R4
        13 LOADB                            R5 1
        14 GETTABLEKS                       R6 R2 K4 ["Action"]
-       16 JUMPIFNOT                        R6 ; [+24]
+       16 JUMPIFNOT                        R6 ; [+23]
        17 GETUPVAL                         R6 0
        18 GETTABLEKS                       R6 R6 K5 ["toString"]
        20 GETTABLEKS                       R7 R2 K4 ["Action"]
@@ -31,91 +31,89 @@ PROTO_1:
        23 GETTABLEKS                       R7 R0 K6 ["Items"]
        25 GETTABLEKS                       R7 R7 K7 ["Actions"]
        27 GETTABLE                         R3 R7 R6
-       28 JUMPIF                           R3 ; [+38]
+       28 JUMPIF                           R3 ; [+36]
        29 GETTABLEKS                       R7 R0 K8 ["Warn"]
-       31 LOADK                            R9 K9 ["Missing Action %* for Separator"]
-       32 MOVE                             R11 R6
-       33 NAMECALL                         R9 R9 K10 ["format"]
-       35 CALL                             R9 2 1
-       36 MOVE                             R8 R9
-       37 CALL                             R7 1 0
-       38 LOADNIL                          R7
-       39 RETURN                           R7 1
-       40 JUMP                             ; [+26]
-       41 GETTABLEKS                       R6 R2 K11 ["Setting"]
-       43 JUMPIFNOT                        R6 ; [+23]
-       44 GETUPVAL                         R6 0
-       45 GETTABLEKS                       R6 R6 K5 ["toString"]
-       47 GETTABLEKS                       R7 R2 K11 ["Setting"]
-       49 CALL                             R6 1 1
-       50 GETTABLEKS                       R7 R0 K6 ["Items"]
-       52 GETTABLEKS                       R7 R7 K12 ["Settings"]
-       54 GETTABLE                         R4 R7 R6
-       55 JUMPIF                           R4 ; [+11]
-       56 GETTABLEKS                       R7 R0 K8 ["Warn"]
-       58 LOADK                            R9 K13 ["Missing Setting %* for Separator"]
-       59 MOVE                             R11 R6
-       60 NAMECALL                         R9 R9 K10 ["format"]
-       62 CALL                             R9 2 1
-       63 MOVE                             R8 R9
-       64 CALL                             R7 1 0
-       65 LOADNIL                          R7
-       66 RETURN                           R7 1
-       67 JUMPIFNOT                        R3 ; [+9]
-       68 GETTABLEKS                       R6 R3 K14 ["Visible"]
-       70 JUMPIFEQKNIL                     R6 ; [+4]
-       72 GETTABLEKS                       R5 R3 K14 ["Visible"]
-       74 JUMP                             ; [+11]
-       75 LOADB                            R5 1
-       76 JUMP                             ; [+9]
-       77 JUMPIFNOT                        R4 ; [+8]
-       78 GETTABLEKS                       R6 R4 K14 ["Visible"]
-       80 JUMPIFEQKNIL                     R6 ; [+4]
-       82 GETTABLEKS                       R5 R4 K14 ["Visible"]
-       84 JUMP                             ; [+1]
-       85 LOADB                            R5 1
-       86 GETUPVAL                         R6 1
-       87 LOADK                            R7 K15 ["TextButton"]
-       88 NEWTABLE                         R8 8 0
-       90 LOADB                            R9 1
-       91 SETTABLEKS                       R9 R8 K16 ["Active"]
-       93 GETTABLEKS                       R9 R0 K17 ["LayoutOrder"]
-       95 SETTABLEKS                       R9 R8 K17 ["LayoutOrder"]
-       97 LOADK                            R9 K18 [""]
-       98 SETTABLEKS                       R9 R8 K19 ["Text"]
-      100 SETTABLEKS                       R5 R8 K14 ["Visible"]
-      102 GETUPVAL                         R10 2
-      103 CALL                             R10 0 1
-      104 JUMPIFNOT                        R10 ; [+2]
-      105 LOADB                            R9 0
-      106 JUMP                             ; [+1]
-      107 LOADNIL                          R9
-      108 SETTABLEKS                       R9 R8 K20 ["Selectable"]
-      110 GETUPVAL                         R9 3
-      111 GETTABLEKS                       R9 R9 K21 ["Tag"]
-      113 GETUPVAL                         R10 4
-      114 LOADK                            R11 K22 ["Role-Surface X-Fit"]
-      115 GETTABLEKS                       R13 R0 K23 ["IsColumn"]
-      117 JUMPIFNOT                        R13 ; [+2]
-      118 LOADK                            R12 K24 ["Role-DividerH X-Middle"]
-      119 JUMP                             ; [+1]
-      120 LOADK                            R12 K25 ["Role-DividerV"]
-      121 MOVE                             R13 R1
-      122 CALL                             R10 3 1
-      123 SETTABLE                         R10 R8 R9
-      124 GETUPVAL                         R9 3
-      125 GETTABLEKS                       R9 R9 K26 ["Event"]
-      127 GETTABLEKS                       R9 R9 K27 ["InputBegan"]
-      129 NEWCLOSURE                       R10 P0
-      130 CAPTURE                          VAL R0
-      131 SETTABLE                         R10 R8 R9
-      132 DUPTABLE                         R9 K29 [{"Divider"}]
-      133 GETUPVAL                         R10 1
-      134 LOADK                            R11 K30 ["Frame"]
-      135 CALL                             R10 1 1
-      136 SETTABLEKS                       R10 R9 K28 ["Divider"]
-      138 CALL                             R6 3 -1
-      139 RETURN                           R6 -1
+       31 LOADK                            R8 K9 ["Missing Action %* for Separator"]
+       32 MOVE                             R10 R6
+       33 NAMECALL                         R8 R8 K10 ["format"]
+       35 CALL                             R8 2 1
+       36 CALL                             R7 1 0
+       37 LOADNIL                          R7
+       38 RETURN                           R7 1
+       39 JUMP                             ; [+25]
+       40 GETTABLEKS                       R6 R2 K11 ["Setting"]
+       42 JUMPIFNOT                        R6 ; [+22]
+       43 GETUPVAL                         R6 0
+       44 GETTABLEKS                       R6 R6 K5 ["toString"]
+       46 GETTABLEKS                       R7 R2 K11 ["Setting"]
+       48 CALL                             R6 1 1
+       49 GETTABLEKS                       R7 R0 K6 ["Items"]
+       51 GETTABLEKS                       R7 R7 K12 ["Settings"]
+       53 GETTABLE                         R4 R7 R6
+       54 JUMPIF                           R4 ; [+10]
+       55 GETTABLEKS                       R7 R0 K8 ["Warn"]
+       57 LOADK                            R8 K13 ["Missing Setting %* for Separator"]
+       58 MOVE                             R10 R6
+       59 NAMECALL                         R8 R8 K10 ["format"]
+       61 CALL                             R8 2 1
+       62 CALL                             R7 1 0
+       63 LOADNIL                          R7
+       64 RETURN                           R7 1
+       65 JUMPIFNOT                        R3 ; [+9]
+       66 GETTABLEKS                       R6 R3 K14 ["Visible"]
+       68 JUMPIFEQKNIL                     R6 ; [+4]
+       70 GETTABLEKS                       R5 R3 K14 ["Visible"]
+       72 JUMP                             ; [+11]
+       73 LOADB                            R5 1
+       74 JUMP                             ; [+9]
+       75 JUMPIFNOT                        R4 ; [+8]
+       76 GETTABLEKS                       R6 R4 K14 ["Visible"]
+       78 JUMPIFEQKNIL                     R6 ; [+4]
+       80 GETTABLEKS                       R5 R4 K14 ["Visible"]
+       82 JUMP                             ; [+1]
+       83 LOADB                            R5 1
+       84 GETUPVAL                         R6 1
+       85 LOADK                            R7 K15 ["TextButton"]
+       86 NEWTABLE                         R8 8 0
+       88 LOADB                            R9 1
+       89 SETTABLEKS                       R9 R8 K16 ["Active"]
+       91 GETTABLEKS                       R9 R0 K17 ["LayoutOrder"]
+       93 SETTABLEKS                       R9 R8 K17 ["LayoutOrder"]
+       95 LOADK                            R9 K18 [""]
+       96 SETTABLEKS                       R9 R8 K19 ["Text"]
+       98 SETTABLEKS                       R5 R8 K14 ["Visible"]
+      100 GETUPVAL                         R10 2
+      101 CALL                             R10 0 1
+      102 JUMPIFNOT                        R10 ; [+2]
+      103 LOADB                            R9 0
+      104 JUMP                             ; [+1]
+      105 LOADNIL                          R9
+      106 SETTABLEKS                       R9 R8 K20 ["Selectable"]
+      108 GETUPVAL                         R9 3
+      109 GETTABLEKS                       R9 R9 K21 ["Tag"]
+      111 GETUPVAL                         R10 4
+      112 LOADK                            R11 K22 ["Role-Surface X-Fit"]
+      113 GETTABLEKS                       R13 R0 K23 ["IsColumn"]
+      115 JUMPIFNOT                        R13 ; [+2]
+      116 LOADK                            R12 K24 ["Role-DividerH X-Middle"]
+      117 JUMP                             ; [+1]
+      118 LOADK                            R12 K25 ["Role-DividerV"]
+      119 MOVE                             R13 R1
+      120 CALL                             R10 3 1
+      121 SETTABLE                         R10 R8 R9
+      122 GETUPVAL                         R9 3
+      123 GETTABLEKS                       R9 R9 K26 ["Event"]
+      125 GETTABLEKS                       R9 R9 K27 ["InputBegan"]
+      127 NEWCLOSURE                       R10 P0
+      128 CAPTURE                          VAL R0
+      129 SETTABLE                         R10 R8 R9
+      130 DUPTABLE                         R9 K29 [{"Divider"}]
+      131 GETUPVAL                         R10 1
+      132 LOADK                            R11 K30 ["Frame"]
+      133 CALL                             R10 1 1
+      134 SETTABLEKS                       R10 R9 K28 ["Divider"]
+      136 CALL                             R6 3 -1
+      137 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

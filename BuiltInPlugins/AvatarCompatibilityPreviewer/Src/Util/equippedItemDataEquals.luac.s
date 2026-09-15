@@ -100,14 +100,13 @@ PROTO_0:
       163 LOADB                            R2 1
       164 RETURN                           R2 1
       165 GETIMPORT                        R2 K14 [error]
-      167 LOADK                            R4 K15 ["Unknown item source: %*"]
-      168 GETTABLEKS                       R6 R0 K2 ["item"]
-      170 GETTABLEKS                       R6 R6 K3 ["source"]
-      172 NAMECALL                         R4 R4 K16 ["format"]
-      174 CALL                             R4 2 1
-      175 MOVE                             R3 R4
-      176 CALL                             R2 1 0
-      177 RETURN                           R0 0
+      167 LOADK                            R3 K15 ["Unknown item source: %*"]
+      168 GETTABLEKS                       R5 R0 K2 ["item"]
+      170 GETTABLEKS                       R5 R5 K3 ["source"]
+      172 NAMECALL                         R3 R3 K16 ["format"]
+      174 CALL                             R3 2 1
+      175 CALL                             R2 1 0
+      176 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

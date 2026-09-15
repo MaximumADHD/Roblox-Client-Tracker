@@ -49,19 +49,18 @@ PROTO_1:
        39 LOADB                            R7 1
        40 JUMP                             ; [+2]
        41 FORGLOOP                         R8 2 ; [-33]
-       43 JUMPIF                           R7 ; [+16]
+       43 JUMPIF                           R7 ; [+15]
        44 GETIMPORT                        R8 K5 [error]
-       46 LOADK                            R10 K6 ["(%*, %*, %*, %*) is not a valid Action Studio Uri."]
-       47 GETTABLEKS                       R12 R6 K0 ["DataModel"]
-       49 GETTABLEKS                       R13 R6 K1 ["PluginId"]
-       51 GETTABLEKS                       R14 R6 K2 ["Category"]
-       53 GETTABLEKS                       R15 R6 K3 ["ItemId"]
-       55 NAMECALL                         R10 R10 K7 ["format"]
-       57 CALL                             R10 5 1
-       58 MOVE                             R9 R10
-       59 CALL                             R8 1 0
-       60 FORGLOOP                         R2 2 ; [-57]
-       62 RETURN                           R0 0
+       46 LOADK                            R9 K6 ["(%*, %*, %*, %*) is not a valid Action Studio Uri."]
+       47 GETTABLEKS                       R11 R6 K0 ["DataModel"]
+       49 GETTABLEKS                       R12 R6 K1 ["PluginId"]
+       51 GETTABLEKS                       R13 R6 K2 ["Category"]
+       53 GETTABLEKS                       R14 R6 K3 ["ItemId"]
+       55 NAMECALL                         R9 R9 K7 ["format"]
+       57 CALL                             R9 5 1
+       58 CALL                             R8 1 0
+       59 FORGLOOP                         R2 2 ; [-56]
+       61 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R2 0

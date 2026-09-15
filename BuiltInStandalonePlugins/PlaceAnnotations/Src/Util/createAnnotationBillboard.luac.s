@@ -429,57 +429,56 @@ PROTO_13:
         9 CALL                             R2 1 1
        10 LOADK                            R3 K6 ["Avatar"]
        11 SETTABLEKS                       R3 R2 K7 ["Name"]
-       13 LOADK                            R4 K8 ["rbxthumb://type=AvatarHeadShot&id=%*&filters=circular&w=150&h=150"]
-       14 GETTABLEKS                       R6 R0 K9 ["AuthorId"]
-       16 NAMECALL                         R4 R4 K10 ["format"]
-       18 CALL                             R4 2 1
-       19 MOVE                             R3 R4
-       20 SETTABLEKS                       R3 R2 K11 ["Image"]
-       22 LOADN                            R3 0
-       23 SETTABLEKS                       R3 R2 K12 ["BorderSizePixel"]
-       25 LOADN                            R3 0
-       26 SETTABLEKS                       R3 R2 K13 ["BackgroundTransparency"]
-       28 GETIMPORT                        R3 K16 [Color3.fromHex]
-       30 LOADK                            R4 K17 ["#989898"]
-       31 CALL                             R3 1 1
-       32 SETTABLEKS                       R3 R2 K18 ["BackgroundColor3"]
-       34 JUMPIFNOT                        R1 ; [+6]
-       35 GETIMPORT                        R3 K21 [UDim2.fromScale]
-       37 LOADK                            R4 K22 [0.75]
-       38 LOADK                            R5 K22 [0.75]
-       39 CALL                             R3 2 1
-       40 JUMP                             ; [+5]
-       41 GETIMPORT                        R3 K21 [UDim2.fromScale]
-       43 LOADK                            R4 K23 [0.5]
-       44 LOADK                            R5 K22 [0.75]
-       45 CALL                             R3 2 1
-       46 SETTABLEKS                       R3 R2 K24 ["Size"]
-       48 JUMPIFNOT                        R1 ; [+6]
-       49 GETIMPORT                        R3 K21 [UDim2.fromScale]
-       51 LOADK                            R4 K23 [0.5]
-       52 LOADK                            R5 K23 [0.5]
-       53 CALL                             R3 2 1
-       54 JUMP                             ; [+5]
-       55 GETIMPORT                        R3 K21 [UDim2.fromScale]
-       57 LOADK                            R4 K25 [0.333333333333333]
-       58 LOADK                            R5 K23 [0.5]
-       59 CALL                             R3 2 1
-       60 SETTABLEKS                       R3 R2 K26 ["Position"]
-       62 GETIMPORT                        R3 K28 [Vector2.new]
-       64 LOADK                            R4 K23 [0.5]
-       65 LOADK                            R5 K23 [0.5]
-       66 CALL                             R3 2 1
-       67 SETTABLEKS                       R3 R2 K29 ["AnchorPoint"]
-       69 GETIMPORT                        R3 K4 [Instance.new]
-       71 LOADK                            R4 K30 ["UICorner"]
-       72 MOVE                             R5 R2
-       73 CALL                             R3 2 1
-       74 GETIMPORT                        R4 K32 [UDim.new]
-       76 LOADN                            R5 1
-       77 LOADN                            R6 0
-       78 CALL                             R4 2 1
-       79 SETTABLEKS                       R4 R3 K33 ["CornerRadius"]
-       81 RETURN                           R2 1
+       13 LOADK                            R3 K8 ["rbxthumb://type=AvatarHeadShot&id=%*&filters=circular&w=150&h=150"]
+       14 GETTABLEKS                       R5 R0 K9 ["AuthorId"]
+       16 NAMECALL                         R3 R3 K10 ["format"]
+       18 CALL                             R3 2 1
+       19 SETTABLEKS                       R3 R2 K11 ["Image"]
+       21 LOADN                            R3 0
+       22 SETTABLEKS                       R3 R2 K12 ["BorderSizePixel"]
+       24 LOADN                            R3 0
+       25 SETTABLEKS                       R3 R2 K13 ["BackgroundTransparency"]
+       27 GETIMPORT                        R3 K16 [Color3.fromHex]
+       29 LOADK                            R4 K17 ["#989898"]
+       30 CALL                             R3 1 1
+       31 SETTABLEKS                       R3 R2 K18 ["BackgroundColor3"]
+       33 JUMPIFNOT                        R1 ; [+6]
+       34 GETIMPORT                        R3 K21 [UDim2.fromScale]
+       36 LOADK                            R4 K22 [0.75]
+       37 LOADK                            R5 K22 [0.75]
+       38 CALL                             R3 2 1
+       39 JUMP                             ; [+5]
+       40 GETIMPORT                        R3 K21 [UDim2.fromScale]
+       42 LOADK                            R4 K23 [0.5]
+       43 LOADK                            R5 K22 [0.75]
+       44 CALL                             R3 2 1
+       45 SETTABLEKS                       R3 R2 K24 ["Size"]
+       47 JUMPIFNOT                        R1 ; [+6]
+       48 GETIMPORT                        R3 K21 [UDim2.fromScale]
+       50 LOADK                            R4 K23 [0.5]
+       51 LOADK                            R5 K23 [0.5]
+       52 CALL                             R3 2 1
+       53 JUMP                             ; [+5]
+       54 GETIMPORT                        R3 K21 [UDim2.fromScale]
+       56 LOADK                            R4 K25 [0.333333333333333]
+       57 LOADK                            R5 K23 [0.5]
+       58 CALL                             R3 2 1
+       59 SETTABLEKS                       R3 R2 K26 ["Position"]
+       61 GETIMPORT                        R3 K28 [Vector2.new]
+       63 LOADK                            R4 K23 [0.5]
+       64 LOADK                            R5 K23 [0.5]
+       65 CALL                             R3 2 1
+       66 SETTABLEKS                       R3 R2 K29 ["AnchorPoint"]
+       68 GETIMPORT                        R3 K4 [Instance.new]
+       70 LOADK                            R4 K30 ["UICorner"]
+       71 MOVE                             R5 R2
+       72 CALL                             R3 2 1
+       73 GETIMPORT                        R4 K32 [UDim.new]
+       75 LOADN                            R5 1
+       76 LOADN                            R6 0
+       77 CALL                             R4 2 1
+       78 SETTABLEKS                       R4 R3 K33 ["CornerRadius"]
+       80 RETURN                           R2 1
 
 PROTO_14:
         0 GETIMPORT                        R1 K2 [Instance.new]
@@ -560,51 +559,50 @@ PROTO_14:
       106 SETTABLEKS                       R5 R4 K5 ["Name"]
       108 LOADN                            R5 1
       109 SETTABLEKS                       R5 R4 K8 ["BackgroundTransparency"]
-      111 LOADK                            R6 K41 ["+%*"]
-      112 GETTABLEKS                       R9 R0 K4 ["ReplyCount"]
-      114 FASTCALL1                        TOSTRING R9 ; [+2]
-      115 GETIMPORT                        R8 K43 [tostring]
-      117 CALL                             R8 1 1
-      118 NAMECALL                         R6 R6 K44 ["format"]
-      120 CALL                             R6 2 1
-      121 MOVE                             R5 R6
-      122 SETTABLEKS                       R5 R4 K7 ["Text"]
-      124 GETIMPORT                        R5 K11 [Color3.fromRGB]
-      126 LOADN                            R6 255
-      127 LOADN                            R7 255
-      128 LOADN                            R8 255
-      129 CALL                             R5 3 1
-      130 SETTABLEKS                       R5 R4 K45 ["TextColor3"]
-      132 GETIMPORT                        R5 K48 [Enum.Font.SourceSansBold]
-      134 SETTABLEKS                       R5 R4 K46 ["Font"]
-      136 LOADB                            R5 1
-      137 SETTABLEKS                       R5 R4 K49 ["TextScaled"]
-      139 GETIMPORT                        R5 K23 [Vector2.new]
-      141 LOADK                            R6 K20 [0.5]
-      142 LOADK                            R7 K20 [0.5]
-      143 CALL                             R5 2 1
-      144 SETTABLEKS                       R5 R4 K24 ["AnchorPoint"]
-      146 GETIMPORT                        R5 K15 [UDim2.fromScale]
-      148 LOADK                            R6 K20 [0.5]
-      149 LOADK                            R7 K20 [0.5]
-      150 CALL                             R5 2 1
-      151 SETTABLEKS                       R5 R4 K21 ["Position"]
-      153 GETIMPORT                        R5 K15 [UDim2.fromScale]
-      155 LOADK                            R6 K50 [0.6]
-      156 LOADK                            R7 K50 [0.6]
-      157 CALL                             R5 2 1
-      158 SETTABLEKS                       R5 R4 K18 ["Size"]
-      160 GETIMPORT                        R5 K2 [Instance.new]
-      162 LOADK                            R6 K31 ["UICorner"]
-      163 MOVE                             R7 R3
-      164 CALL                             R5 2 1
-      165 MOVE                             R2 R5
-      166 GETIMPORT                        R5 K33 [UDim.new]
-      168 LOADN                            R6 1
-      169 LOADN                            R7 0
-      170 CALL                             R5 2 1
-      171 SETTABLEKS                       R5 R2 K34 ["CornerRadius"]
-      173 RETURN                           R1 1
+      111 LOADK                            R5 K41 ["+%*"]
+      112 GETTABLEKS                       R8 R0 K4 ["ReplyCount"]
+      114 FASTCALL1                        TOSTRING R8 ; [+2]
+      115 GETIMPORT                        R7 K43 [tostring]
+      117 CALL                             R7 1 1
+      118 NAMECALL                         R5 R5 K44 ["format"]
+      120 CALL                             R5 2 1
+      121 SETTABLEKS                       R5 R4 K7 ["Text"]
+      123 GETIMPORT                        R5 K11 [Color3.fromRGB]
+      125 LOADN                            R6 255
+      126 LOADN                            R7 255
+      127 LOADN                            R8 255
+      128 CALL                             R5 3 1
+      129 SETTABLEKS                       R5 R4 K45 ["TextColor3"]
+      131 GETIMPORT                        R5 K48 [Enum.Font.SourceSansBold]
+      133 SETTABLEKS                       R5 R4 K46 ["Font"]
+      135 LOADB                            R5 1
+      136 SETTABLEKS                       R5 R4 K49 ["TextScaled"]
+      138 GETIMPORT                        R5 K23 [Vector2.new]
+      140 LOADK                            R6 K20 [0.5]
+      141 LOADK                            R7 K20 [0.5]
+      142 CALL                             R5 2 1
+      143 SETTABLEKS                       R5 R4 K24 ["AnchorPoint"]
+      145 GETIMPORT                        R5 K15 [UDim2.fromScale]
+      147 LOADK                            R6 K20 [0.5]
+      148 LOADK                            R7 K20 [0.5]
+      149 CALL                             R5 2 1
+      150 SETTABLEKS                       R5 R4 K21 ["Position"]
+      152 GETIMPORT                        R5 K15 [UDim2.fromScale]
+      154 LOADK                            R6 K50 [0.6]
+      155 LOADK                            R7 K50 [0.6]
+      156 CALL                             R5 2 1
+      157 SETTABLEKS                       R5 R4 K18 ["Size"]
+      159 GETIMPORT                        R5 K2 [Instance.new]
+      161 LOADK                            R6 K31 ["UICorner"]
+      162 MOVE                             R7 R3
+      163 CALL                             R5 2 1
+      164 MOVE                             R2 R5
+      165 GETIMPORT                        R5 K33 [UDim.new]
+      167 LOADN                            R6 1
+      168 LOADN                            R7 0
+      169 CALL                             R5 2 1
+      170 SETTABLEKS                       R5 R2 K34 ["CornerRadius"]
+      172 RETURN                           R1 1
 
 PROTO_15:
         0 LOADK                            R5 K0 ["ReplyCount"]
@@ -722,21 +720,20 @@ PROTO_15:
       153 RETURN                           R0 0
       154 GETTABLEKS                       R3 R0 K0 ["ReplyCount"]
       156 LOADN                            R4 0
-      157 JUMPIFNOTLT                      R4 R3 ; [+19]
+      157 JUMPIFNOTLT                      R4 R3 ; [+18]
       159 LOADK                            R5 K29 ["ReplyCountText"]
       160 LOADB                            R6 1
       161 NAMECALL                         R3 R1 K1 ["FindFirstChild"]
       163 CALL                             R3 3 1
-      164 LOADK                            R5 K30 ["+%*"]
-      165 GETTABLEKS                       R8 R0 K0 ["ReplyCount"]
-      167 FASTCALL1                        TOSTRING R8 ; [+2]
-      168 GETIMPORT                        R7 K32 [tostring]
-      170 CALL                             R7 1 1
-      171 NAMECALL                         R5 R5 K33 ["format"]
-      173 CALL                             R5 2 1
-      174 MOVE                             R4 R5
-      175 SETTABLEKS                       R4 R3 K34 ["Text"]
-      177 RETURN                           R0 0
+      164 LOADK                            R4 K30 ["+%*"]
+      165 GETTABLEKS                       R7 R0 K0 ["ReplyCount"]
+      167 FASTCALL1                        TOSTRING R7 ; [+2]
+      168 GETIMPORT                        R6 K32 [tostring]
+      170 CALL                             R6 1 1
+      171 NAMECALL                         R4 R4 K33 ["format"]
+      173 CALL                             R4 2 1
+      174 SETTABLEKS                       R4 R3 K34 ["Text"]
+      176 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

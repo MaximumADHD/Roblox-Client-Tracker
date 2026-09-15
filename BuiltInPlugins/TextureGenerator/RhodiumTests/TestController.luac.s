@@ -59,13 +59,12 @@ PROTO_3:
        12 GETUPVAL                         R2 0
        13 GETTABLEKS                       R2 R2 K4 ["XPath"]
        15 GETTABLEKS                       R2 R2 K5 ["new"]
-       17 LOADK                            R4 K6 ["game.CoreGui.TextureGenerator.%*"]
-       18 MOVE                             R6 R1
-       19 NAMECALL                         R4 R4 K7 ["format"]
-       21 CALL                             R4 2 1
-       22 MOVE                             R3 R4
-       23 CALL                             R2 1 -1
-       24 RETURN                           R2 -1
+       17 LOADK                            R3 K6 ["game.CoreGui.TextureGenerator.%*"]
+       18 MOVE                             R5 R1
+       19 NAMECALL                         R3 R3 K7 ["format"]
+       21 CALL                             R3 2 1
+       22 CALL                             R2 1 -1
+       23 RETURN                           R2 -1
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -116,7 +115,7 @@ PROTO_5:
        48 MOVE                             R2 R3
        49 JUMPBACK                         ; [-33]
        50 NEWTABLE                         R3 0 0
-       52 JUMPIFNOT                        R1 ; [+35]
+       52 JUMPIFNOT                        R1 ; [+34]
        53 MOVE                             R5 R3
        54 NAMECALL                         R6 R1 K10 ["GetFullName"]
        56 CALL                             R6 1 -1
@@ -131,27 +130,26 @@ PROTO_5:
        68 NAMECALL                         R4 R1 K15 ["GetChildren"]
        70 CALL                             R4 1 3
        71 FORGPREP                         R4
-       72 LOADK                            R12 K16 ["\t- %*"]
-       73 GETTABLEKS                       R14 R8 K17 ["Name"]
-       75 NAMECALL                         R12 R12 K18 ["format"]
-       77 CALL                             R12 2 1
-       78 MOVE                             R11 R12
-       79 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
-       81 MOVE                             R10 R3
-       82 GETIMPORT                        R9 K13 [table.insert]
-       84 CALL                             R9 2 0
-       85 FORGLOOP                         R4 2 ; [-14]
-       87 JUMP                             ; [+7]
-       88 FASTCALL2K                       TABLE_INSERT R3 K19 ; [+5]
-       90 MOVE                             R5 R3
-       91 LOADK                            R6 K19 ["No segment found"]
-       92 GETIMPORT                        R4 K13 [table.insert]
-       94 CALL                             R4 2 0
-       95 GETIMPORT                        R4 K21 [table.concat]
-       97 MOVE                             R5 R3
-       98 LOADK                            R6 K22 ["\n"]
-       99 CALL                             R4 2 -1
-      100 RETURN                           R4 -1
+       72 LOADK                            R11 K16 ["\t- %*"]
+       73 GETTABLEKS                       R13 R8 K17 ["Name"]
+       75 NAMECALL                         R11 R11 K18 ["format"]
+       77 CALL                             R11 2 1
+       78 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
+       80 MOVE                             R10 R3
+       81 GETIMPORT                        R9 K13 [table.insert]
+       83 CALL                             R9 2 0
+       84 FORGLOOP                         R4 2 ; [-13]
+       86 JUMP                             ; [+7]
+       87 FASTCALL2K                       TABLE_INSERT R3 K19 ; [+5]
+       89 MOVE                             R5 R3
+       90 LOADK                            R6 K19 ["No segment found"]
+       91 GETIMPORT                        R4 K13 [table.insert]
+       93 CALL                             R4 2 0
+       94 GETIMPORT                        R4 K21 [table.concat]
+       96 MOVE                             R5 R3
+       97 LOADK                            R6 K22 ["\n"]
+       98 CALL                             R4 2 -1
+       99 RETURN                           R4 -1
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -163,7 +161,7 @@ PROTO_6:
         8 CALL                             R1 -1 1
         9 NAMECALL                         R2 R1 K2 ["getRbxInstance"]
        11 CALL                             R2 1 1
-       12 JUMPIFNOTEQKNIL                  R2 ; [+25]
+       12 JUMPIFNOTEQKNIL                  R2 ; [+24]
        14 FASTCALL1                        TYPEOF R0 ; [+3]
        15 MOVE                             R5 R0
        16 GETIMPORT                        R4 K4 [typeof]
@@ -174,16 +172,15 @@ PROTO_6:
        23 NAMECALL                         R3 R0 K6 ["toString"]
        25 CALL                             R3 1 1
        26 GETIMPORT                        R4 K8 [error]
-       28 LOADK                            R6 K9 ["%* was not found\nClosest match: %*"]
-       29 MOVE                             R8 R3
-       30 GETUPVAL                         R9 2
-       31 MOVE                             R10 R0
-       32 CALL                             R9 1 1
-       33 NAMECALL                         R6 R6 K10 ["format"]
-       35 CALL                             R6 3 1
-       36 MOVE                             R5 R6
-       37 CALL                             R4 1 0
-       38 RETURN                           R1 1
+       28 LOADK                            R5 K9 ["%* was not found\nClosest match: %*"]
+       29 MOVE                             R7 R3
+       30 GETUPVAL                         R8 2
+       31 MOVE                             R9 R0
+       32 CALL                             R8 1 1
+       33 NAMECALL                         R5 R5 K10 ["format"]
+       35 CALL                             R5 3 1
+       36 CALL                             R4 1 0
+       37 RETURN                           R1 1
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -208,25 +205,24 @@ PROTO_9:
         3 LOADB                            R5 1
         4 NAMECALL                         R2 R2 K2 ["FindFirstChild"]
         6 CALL                             R2 3 1
-        7 LOADK                            R6 K3 ["%* not found"]
-        8 MOVE                             R8 R1
-        9 NAMECALL                         R6 R6 K4 ["format"]
-       11 CALL                             R6 2 1
-       12 MOVE                             R5 R6
-       13 FASTCALL2                        ASSERT R2 R5 ; [+4]
-       15 MOVE                             R4 R2
-       16 GETIMPORT                        R3 K6 [assert]
-       18 CALL                             R3 2 0
-       19 GETIMPORT                        R3 K9 [string.gsub]
-       21 NAMECALL                         R4 R2 K10 ["GetFullName"]
-       23 CALL                             R4 1 1
-       24 LOADK                            R5 K11 ["CoreGui.TextureGenerator."]
-       25 LOADK                            R6 K12 [""]
-       26 CALL                             R3 3 1
-       27 MOVE                             R6 R3
-       28 NAMECALL                         R4 R0 K13 ["clickPath"]
-       30 CALL                             R4 2 0
-       31 RETURN                           R0 0
+        7 LOADK                            R5 K3 ["%* not found"]
+        8 MOVE                             R7 R1
+        9 NAMECALL                         R5 R5 K4 ["format"]
+       11 CALL                             R5 2 1
+       12 FASTCALL2                        ASSERT R2 R5 ; [+4]
+       14 MOVE                             R4 R2
+       15 GETIMPORT                        R3 K6 [assert]
+       17 CALL                             R3 2 0
+       18 GETIMPORT                        R3 K9 [string.gsub]
+       20 NAMECALL                         R4 R2 K10 ["GetFullName"]
+       22 CALL                             R4 1 1
+       23 LOADK                            R5 K11 ["CoreGui.TextureGenerator."]
+       24 LOADK                            R6 K12 [""]
+       25 CALL                             R3 3 1
+       26 MOVE                             R6 R3
+       27 NAMECALL                         R4 R0 K13 ["clickPath"]
+       29 CALL                             R4 2 0
+       30 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R0 0

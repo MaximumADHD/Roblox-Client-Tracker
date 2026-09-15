@@ -53,23 +53,29 @@ PROTO_1:
        55 NAMECALL                         R1 R1 K7 ["openLocalFile"]
        57 CALL                             R1 3 0
        58 GETUPVAL                         R1 10
-       59 JUMPIFNOT                        R1 ; [+19]
+       59 JUMPIFNOT                        R1 ; [+27]
        60 GETUPVAL                         R1 11
        61 GETUPVAL                         R3 12
-       62 DUPTABLE                         R4 K15 [{["telemetryType"] = "interaction", ["telemetrySubtype"] = "place_open", ["action"] = "home_recent_sort", ["name"]}]
+       62 DUPTABLE                         R4 K16 [{["telemetryType"] = "interaction", ["telemetrySubtype"] = "place_open", ["action"] = "home_recent_sort", ["name"], ["isBuildGame"]}]
        63 GETTABLEKS                       R6 R0 K0 ["RootPlaceId"]
        65 JUMPIFNOT                        R6 ; [+2]
-       66 LOADK                            R5 K16 ["published"]
+       66 LOADK                            R5 K17 ["published"]
        67 JUMP                             ; [+6]
        68 GETTABLEKS                       R6 R0 K6 ["FilePath"]
        70 JUMPIFNOT                        R6 ; [+2]
-       71 LOADK                            R5 K17 ["local_file"]
+       71 LOADK                            R5 K18 ["local_file"]
        72 JUMP                             ; [+1]
-       73 LOADK                            R5 K18 ["unknown"]
+       73 LOADK                            R5 K19 ["unknown"]
        74 SETTABLEKS                       R5 R4 K14 ["name"]
-       76 NAMECALL                         R1 R1 K19 ["log"]
-       78 CALL                             R1 3 0
-       79 RETURN                           R0 0
+       76 GETUPVAL                         R6 13
+       77 JUMPIFNOT                        R6 ; [+3]
+       78 GETTABLEKS                       R5 R0 K20 ["IsBuildSealed"]
+       80 JUMP                             ; [+1]
+       81 LOADNIL                          R5
+       82 SETTABLEKS                       R5 R4 K15 ["isBuildGame"]
+       84 NAMECALL                         R1 R1 K21 ["log"]
+       86 CALL                             R1 3 0
+       87 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -124,13 +130,14 @@ PROTO_2:
        56 CAPTURE                          UPVAL U14
        57 CAPTURE                          VAL R1
        58 CAPTURE                          UPVAL U15
-       59 SETTABLEKS                       R11 R10 K5 ["OnClick"]
-       61 GETUPVAL                         R11 16
-       62 SETTABLEKS                       R11 R10 K11 ["KebabMenu"]
-       64 CALL                             R8 2 -1
-       65 CALL                             R6 -1 -1
-       66 CLOSEUPVALS                      R3
-       67 RETURN                           R6 -1
+       59 CAPTURE                          UPVAL U16
+       60 SETTABLEKS                       R11 R10 K5 ["OnClick"]
+       62 GETUPVAL                         R11 17
+       63 SETTABLEKS                       R11 R10 K11 ["KebabMenu"]
+       65 CALL                             R8 2 -1
+       66 CALL                             R6 -1 -1
+       67 CLOSEUPVALS                      R3
+       68 RETURN                           R6 -1
 
 PROTO_3:
         0 RETURN                           R0 0
@@ -448,16 +455,15 @@ PROTO_17:
 
 PROTO_18:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["Failed to check for unrated experiences: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 GETUPVAL                         R1 0
-       10 LOADB                            R2 0
-       11 CALL                             R1 1 0
-       12 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["Failed to check for unrated experiences: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 GETUPVAL                         R1 0
+        9 LOADB                            R2 0
+       10 CALL                             R1 1 0
+       11 RETURN                           R0 0
 
 PROTO_19:
         0 GETUPVAL                         R0 0
@@ -1777,164 +1783,171 @@ MAIN:
       533 GETIMPORT                        R67 K5 [require]
       535 GETTABLEKS                       R68 R0 K23 ["Src"]
       537 GETTABLEKS                       R68 R68 K44 ["SharedFlags"]
-      539 GETTABLEKS                       R68 R68 K84 ["getFFlagLuaStartPageHidePublicPrivateToggle"]
+      539 GETTABLEKS                       R68 R68 K84 ["getFFlagStartPageBuildGameClickTelemetry"]
       541 CALL                             R67 1 1
       542 CALL                             R67 0 1
       543 GETIMPORT                        R68 K5 [require]
-      545 GETTABLEKS                       R69 R0 K6 ["Packages"]
-      547 GETTABLEKS                       R69 R69 K24 ["Foundation"]
-      549 CALL                             R68 1 1
-      550 GETTABLEKS                       R69 R68 K79 ["Hooks"]
-      552 GETTABLEKS                       R69 R69 K85 ["useStyleTags"]
-      554 GETTABLEKS                       R70 R68 K86 ["View"]
-      556 GETTABLEKS                       R71 R68 K87 ["SystemBanner"]
-      558 GETTABLEKS                       R72 R68 K88 ["Enums"]
-      560 GETTABLEKS                       R72 R72 K89 ["AlertVariant"]
-      562 GETTABLEKS                       R73 R68 K88 ["Enums"]
-      564 GETTABLEKS                       R73 R73 K90 ["AlertSeverity"]
-      566 GETTABLEKS                       R74 R68 K88 ["Enums"]
-      568 GETTABLEKS                       R74 R74 K91 ["ButtonVariant"]
-      570 MOVE                             R75 R44
-      571 CALL                             R75 0 1
-      572 MOVE                             R76 R45
-      573 CALL                             R76 0 1
-      574 DUPCLOSURE                       R77 K92 [PROTO_0]
-      575 CAPTURE                          VAL R60
-      576 DUPTABLE                         R78 K101 [{["searchKey"] = "Templates", ["search"] = "All", ["isTemplates"] = True, ["pageSize"] = 30}]
-      577 DUPTABLE                         R79 K102 [{["searchKey"] = "Network", ["pageSize"] = 30}]
-      578 NEWTABLE                         R80 0 10
-      580 LOADK                            R81 K103 ["ConfigureExperience"]
-      581 JUMPIFNOT                        R43 ; [+2]
-      582 LOADK                            R82 K104 ["ViewPlaces"]
-      583 JUMP                             ; [+1]
-      584 LOADK                            R82 K105 [""]
-      585 LOADK                            R83 K106 ["ConfigurePlace"]
-      586 LOADK                            R84 K107 ["OpenPlace"]
-      587 LOADK                            R85 K108 ["OpenACopy"]
-      588 JUMPIF                           R67 ; [+2]
-      589 LOADK                            R86 K109 ["PublicPrivateToggle"]
-      590 JUMP                             ; [+1]
-      591 LOADK                            R86 K105 [""]
-      592 LOADK                            R87 K110 ["Archive"]
-      593 JUMPIFNOT                        R41 ; [+2]
-      594 LOADK                            R88 K111 ["DisableTeamCreate"]
-      595 JUMP                             ; [+1]
-      596 LOADK                            R88 K105 [""]
-      597 JUMPIFNOT                        R42 ; [+2]
-      598 LOADK                            R89 K112 ["SaveAs"]
-      599 JUMP                             ; [+1]
-      600 LOADK                            R89 K105 [""]
-      601 LOADK                            R90 K113 ["RemoveRecent"]
-      602 SETLIST                          R80 R81 10 [1]
-      604 DUPCLOSURE                       R81 K114 [PROTO_2]
-      605 CAPTURE                          VAL R56
-      606 CAPTURE                          VAL R5
-      607 CAPTURE                          VAL R62
-      608 CAPTURE                          VAL R37
-      609 CAPTURE                          VAL R36
-      610 CAPTURE                          VAL R54
-      611 CAPTURE                          VAL R11
-      612 CAPTURE                          VAL R1
-      613 CAPTURE                          VAL R17
-      614 CAPTURE                          VAL R9
-      615 CAPTURE                          VAL R28
-      616 CAPTURE                          VAL R60
-      617 CAPTURE                          VAL R27
-      618 CAPTURE                          VAL R55
-      619 CAPTURE                          VAL R66
-      620 CAPTURE                          VAL R57
-      621 CAPTURE                          VAL R80
-      622 DUPCLOSURE                       R82 K115 [PROTO_8]
-      623 CAPTURE                          VAL R56
-      624 CAPTURE                          VAL R37
-      625 CAPTURE                          VAL R36
-      626 CAPTURE                          VAL R54
-      627 CAPTURE                          VAL R11
-      628 CAPTURE                          VAL R1
-      629 CAPTURE                          VAL R17
-      630 CAPTURE                          VAL R9
-      631 CAPTURE                          VAL R28
-      632 CAPTURE                          VAL R60
-      633 CAPTURE                          VAL R27
-      634 CAPTURE                          VAL R66
-      635 CAPTURE                          VAL R57
-      636 DUPCLOSURE                       R83 K116 [PROTO_14]
-      637 CAPTURE                          VAL R56
-      638 CAPTURE                          VAL R37
-      639 CAPTURE                          VAL R36
-      640 CAPTURE                          VAL R54
-      641 CAPTURE                          VAL R11
-      642 CAPTURE                          VAL R1
-      643 CAPTURE                          VAL R17
-      644 CAPTURE                          VAL R9
-      645 CAPTURE                          VAL R32
+      545 GETTABLEKS                       R69 R0 K23 ["Src"]
+      547 GETTABLEKS                       R69 R69 K44 ["SharedFlags"]
+      549 GETTABLEKS                       R69 R69 K85 ["getFFlagLuaStartPageHidePublicPrivateToggle"]
+      551 CALL                             R68 1 1
+      552 CALL                             R68 0 1
+      553 GETIMPORT                        R69 K5 [require]
+      555 GETTABLEKS                       R70 R0 K6 ["Packages"]
+      557 GETTABLEKS                       R70 R70 K24 ["Foundation"]
+      559 CALL                             R69 1 1
+      560 GETTABLEKS                       R70 R69 K79 ["Hooks"]
+      562 GETTABLEKS                       R70 R70 K86 ["useStyleTags"]
+      564 GETTABLEKS                       R71 R69 K87 ["View"]
+      566 GETTABLEKS                       R72 R69 K88 ["SystemBanner"]
+      568 GETTABLEKS                       R73 R69 K89 ["Enums"]
+      570 GETTABLEKS                       R73 R73 K90 ["AlertVariant"]
+      572 GETTABLEKS                       R74 R69 K89 ["Enums"]
+      574 GETTABLEKS                       R74 R74 K91 ["AlertSeverity"]
+      576 GETTABLEKS                       R75 R69 K89 ["Enums"]
+      578 GETTABLEKS                       R75 R75 K92 ["ButtonVariant"]
+      580 MOVE                             R76 R44
+      581 CALL                             R76 0 1
+      582 MOVE                             R77 R45
+      583 CALL                             R77 0 1
+      584 DUPCLOSURE                       R78 K93 [PROTO_0]
+      585 CAPTURE                          VAL R60
+      586 DUPTABLE                         R79 K102 [{["searchKey"] = "Templates", ["search"] = "All", ["isTemplates"] = True, ["pageSize"] = 30}]
+      587 DUPTABLE                         R80 K103 [{["searchKey"] = "Network", ["pageSize"] = 30}]
+      588 NEWTABLE                         R81 0 10
+      590 LOADK                            R82 K104 ["ConfigureExperience"]
+      591 JUMPIFNOT                        R43 ; [+2]
+      592 LOADK                            R83 K105 ["ViewPlaces"]
+      593 JUMP                             ; [+1]
+      594 LOADK                            R83 K106 [""]
+      595 LOADK                            R84 K107 ["ConfigurePlace"]
+      596 LOADK                            R85 K108 ["OpenPlace"]
+      597 LOADK                            R86 K109 ["OpenACopy"]
+      598 JUMPIF                           R68 ; [+2]
+      599 LOADK                            R87 K110 ["PublicPrivateToggle"]
+      600 JUMP                             ; [+1]
+      601 LOADK                            R87 K106 [""]
+      602 LOADK                            R88 K111 ["Archive"]
+      603 JUMPIFNOT                        R41 ; [+2]
+      604 LOADK                            R89 K112 ["DisableTeamCreate"]
+      605 JUMP                             ; [+1]
+      606 LOADK                            R89 K106 [""]
+      607 JUMPIFNOT                        R42 ; [+2]
+      608 LOADK                            R90 K113 ["SaveAs"]
+      609 JUMP                             ; [+1]
+      610 LOADK                            R90 K106 [""]
+      611 LOADK                            R91 K114 ["RemoveRecent"]
+      612 SETLIST                          R81 R82 10 [1]
+      614 DUPCLOSURE                       R82 K115 [PROTO_2]
+      615 CAPTURE                          VAL R56
+      616 CAPTURE                          VAL R5
+      617 CAPTURE                          VAL R62
+      618 CAPTURE                          VAL R37
+      619 CAPTURE                          VAL R36
+      620 CAPTURE                          VAL R54
+      621 CAPTURE                          VAL R11
+      622 CAPTURE                          VAL R1
+      623 CAPTURE                          VAL R17
+      624 CAPTURE                          VAL R9
+      625 CAPTURE                          VAL R28
+      626 CAPTURE                          VAL R60
+      627 CAPTURE                          VAL R27
+      628 CAPTURE                          VAL R55
+      629 CAPTURE                          VAL R66
+      630 CAPTURE                          VAL R57
+      631 CAPTURE                          VAL R67
+      632 CAPTURE                          VAL R81
+      633 DUPCLOSURE                       R83 K116 [PROTO_8]
+      634 CAPTURE                          VAL R56
+      635 CAPTURE                          VAL R37
+      636 CAPTURE                          VAL R36
+      637 CAPTURE                          VAL R54
+      638 CAPTURE                          VAL R11
+      639 CAPTURE                          VAL R1
+      640 CAPTURE                          VAL R17
+      641 CAPTURE                          VAL R9
+      642 CAPTURE                          VAL R28
+      643 CAPTURE                          VAL R60
+      644 CAPTURE                          VAL R27
+      645 CAPTURE                          VAL R66
       646 CAPTURE                          VAL R57
-      647 CAPTURE                          VAL R55
-      648 CAPTURE                          VAL R28
-      649 CAPTURE                          VAL R60
-      650 CAPTURE                          VAL R31
-      651 CAPTURE                          VAL R27
-      652 DUPCLOSURE                       R84 K117 [PROTO_36]
-      653 CAPTURE                          VAL R12
-      654 CAPTURE                          VAL R2
-      655 CAPTURE                          VAL R69
-      656 CAPTURE                          VAL R4
-      657 CAPTURE                          VAL R3
-      658 CAPTURE                          VAL R40
-      659 CAPTURE                          VAL R60
-      660 CAPTURE                          VAL R29
-      661 CAPTURE                          VAL R56
-      662 CAPTURE                          VAL R11
-      663 CAPTURE                          VAL R54
-      664 CAPTURE                          VAL R55
-      665 CAPTURE                          VAL R52
-      666 CAPTURE                          VAL R34
-      667 CAPTURE                          VAL R35
-      668 CAPTURE                          VAL R65
-      669 CAPTURE                          VAL R7
-      670 CAPTURE                          VAL R57
-      671 CAPTURE                          VAL R10
-      672 CAPTURE                          VAL R63
-      673 CAPTURE                          VAL R64
-      674 CAPTURE                          VAL R58
-      675 CAPTURE                          VAL R61
-      676 CAPTURE                          VAL R30
-      677 CAPTURE                          VAL R32
-      678 CAPTURE                          VAL R25
-      679 CAPTURE                          VAL R26
-      680 CAPTURE                          VAL R33
-      681 CAPTURE                          VAL R1
-      682 CAPTURE                          VAL R14
-      683 CAPTURE                          VAL R71
-      684 CAPTURE                          VAL R72
-      685 CAPTURE                          VAL R73
-      686 CAPTURE                          VAL R74
-      687 CAPTURE                          VAL R49
-      688 CAPTURE                          VAL R46
-      689 CAPTURE                          VAL R50
-      690 CAPTURE                          VAL R39
-      691 CAPTURE                          VAL R51
-      692 CAPTURE                          VAL R38
-      693 CAPTURE                          VAL R47
-      694 CAPTURE                          VAL R48
-      695 CAPTURE                          VAL R22
-      696 CAPTURE                          VAL R75
-      697 CAPTURE                          VAL R76
-      698 CAPTURE                          VAL R16
-      699 CAPTURE                          VAL R53
-      700 CAPTURE                          VAL R21
-      701 CAPTURE                          VAL R20
-      702 CAPTURE                          VAL R70
-      703 CAPTURE                          VAL R15
-      704 CAPTURE                          VAL R59
-      705 CAPTURE                          VAL R80
-      706 CAPTURE                          VAL R18
-      707 CAPTURE                          VAL R19
-      708 CAPTURE                          VAL R81
-      709 CAPTURE                          VAL R24
-      710 CAPTURE                          VAL R82
-      711 CAPTURE                          VAL R78
-      712 CAPTURE                          VAL R23
-      713 CAPTURE                          VAL R83
-      714 CAPTURE                          VAL R79
-      715 RETURN                           R84 1
+      647 DUPCLOSURE                       R84 K117 [PROTO_14]
+      648 CAPTURE                          VAL R56
+      649 CAPTURE                          VAL R37
+      650 CAPTURE                          VAL R36
+      651 CAPTURE                          VAL R54
+      652 CAPTURE                          VAL R11
+      653 CAPTURE                          VAL R1
+      654 CAPTURE                          VAL R17
+      655 CAPTURE                          VAL R9
+      656 CAPTURE                          VAL R32
+      657 CAPTURE                          VAL R57
+      658 CAPTURE                          VAL R55
+      659 CAPTURE                          VAL R28
+      660 CAPTURE                          VAL R60
+      661 CAPTURE                          VAL R31
+      662 CAPTURE                          VAL R27
+      663 DUPCLOSURE                       R85 K118 [PROTO_36]
+      664 CAPTURE                          VAL R12
+      665 CAPTURE                          VAL R2
+      666 CAPTURE                          VAL R70
+      667 CAPTURE                          VAL R4
+      668 CAPTURE                          VAL R3
+      669 CAPTURE                          VAL R40
+      670 CAPTURE                          VAL R60
+      671 CAPTURE                          VAL R29
+      672 CAPTURE                          VAL R56
+      673 CAPTURE                          VAL R11
+      674 CAPTURE                          VAL R54
+      675 CAPTURE                          VAL R55
+      676 CAPTURE                          VAL R52
+      677 CAPTURE                          VAL R34
+      678 CAPTURE                          VAL R35
+      679 CAPTURE                          VAL R65
+      680 CAPTURE                          VAL R7
+      681 CAPTURE                          VAL R57
+      682 CAPTURE                          VAL R10
+      683 CAPTURE                          VAL R63
+      684 CAPTURE                          VAL R64
+      685 CAPTURE                          VAL R58
+      686 CAPTURE                          VAL R61
+      687 CAPTURE                          VAL R30
+      688 CAPTURE                          VAL R32
+      689 CAPTURE                          VAL R25
+      690 CAPTURE                          VAL R26
+      691 CAPTURE                          VAL R33
+      692 CAPTURE                          VAL R1
+      693 CAPTURE                          VAL R14
+      694 CAPTURE                          VAL R72
+      695 CAPTURE                          VAL R73
+      696 CAPTURE                          VAL R74
+      697 CAPTURE                          VAL R75
+      698 CAPTURE                          VAL R49
+      699 CAPTURE                          VAL R46
+      700 CAPTURE                          VAL R50
+      701 CAPTURE                          VAL R39
+      702 CAPTURE                          VAL R51
+      703 CAPTURE                          VAL R38
+      704 CAPTURE                          VAL R47
+      705 CAPTURE                          VAL R48
+      706 CAPTURE                          VAL R22
+      707 CAPTURE                          VAL R76
+      708 CAPTURE                          VAL R77
+      709 CAPTURE                          VAL R16
+      710 CAPTURE                          VAL R53
+      711 CAPTURE                          VAL R21
+      712 CAPTURE                          VAL R20
+      713 CAPTURE                          VAL R71
+      714 CAPTURE                          VAL R15
+      715 CAPTURE                          VAL R59
+      716 CAPTURE                          VAL R81
+      717 CAPTURE                          VAL R18
+      718 CAPTURE                          VAL R19
+      719 CAPTURE                          VAL R82
+      720 CAPTURE                          VAL R24
+      721 CAPTURE                          VAL R83
+      722 CAPTURE                          VAL R79
+      723 CAPTURE                          VAL R23
+      724 CAPTURE                          VAL R84
+      725 CAPTURE                          VAL R80
+      726 RETURN                           R85 1

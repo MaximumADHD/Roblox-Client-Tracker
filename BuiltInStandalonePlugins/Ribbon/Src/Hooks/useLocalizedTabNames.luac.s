@@ -10,21 +10,20 @@ PROTO_0:
        10 CALL                             R6 1 1
        11 GETTABLEKS                       R7 R5 K1 ["Name"]
        13 GETTABLEKS                       R8 R6 K2 ["Type"]
-       15 JUMPIFNOTEQKS                    R8 K3 ["BuiltIn"] ; [+14]
+       15 JUMPIFNOTEQKS                    R8 K3 ["BuiltIn"] ; [+13]
        17 GETUPVAL                         R8 2
        18 LOADK                            R10 K4 ["Plugin"]
-       19 LOADK                            R12 K5 ["Tab_%*"]
-       20 MOVE                             R14 R7
-       21 NAMECALL                         R12 R12 K6 ["format"]
-       23 CALL                             R12 2 1
-       24 MOVE                             R11 R12
-       25 NAMECALL                         R8 R8 K7 ["getText"]
-       27 CALL                             R8 3 1
-       28 SETTABLE                         R8 R0 R4
-       29 JUMP                             ; [+1]
-       30 SETTABLE                         R7 R0 R4
-       31 FORGLOOP                         R1 2 ; [-24]
-       33 RETURN                           R0 1
+       19 LOADK                            R11 K5 ["Tab_%*"]
+       20 MOVE                             R13 R7
+       21 NAMECALL                         R11 R11 K6 ["format"]
+       23 CALL                             R11 2 1
+       24 NAMECALL                         R8 R8 K7 ["getText"]
+       26 CALL                             R8 3 1
+       27 SETTABLE                         R8 R0 R4
+       28 JUMP                             ; [+1]
+       29 SETTABLE                         R7 R0 R4
+       30 FORGLOOP                         R1 2 ; [-23]
+       32 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0

@@ -42,40 +42,37 @@ PROTO_2:
        31 GETTABLEKS                       R3 R3 K4 ["source"]
        33 GETUPVAL                         R4 4
        34 GETTABLEKS                       R4 R4 K6 ["SOURCE_INSTANCE"]
-       36 JUMPIFNOTEQ                      R3 R4 ; [+8]
-       38 LOADK                            R4 K7 ["rbxthumb://type=AvatarHeadShot&id=%*&w=150&h=150"]
-       39 MOVE                             R6 R2
-       40 NAMECALL                         R4 R4 K8 ["format"]
-       42 CALL                             R4 2 1
-       43 MOVE                             R3 R4
-       44 RETURN                           R3 1
-       45 GETUPVAL                         R3 0
-       46 CALL                             R3 0 1
-       47 JUMPIF                           R3 ; [+2]
-       48 LOADNIL                          R3
-       49 RETURN                           R3 1
-       50 GETTABLEKS                       R3 R1 K9 ["getItemData"]
-       52 GETTABLEKS                       R4 R0 K3 ["item"]
-       54 GETTABLEKS                       R4 R4 K10 ["marketplaceItem"]
-       56 CALL                             R3 1 1
-       57 JUMPIF                           R3 ; [+2]
-       58 LOADNIL                          R4
-       59 RETURN                           R4 1
-       60 GETTABLEKS                       R4 R3 K11 ["creatorTargetId"]
-       62 GETTABLEKS                       R5 R3 K12 ["creatorType"]
-       64 JUMPIFNOTEQKS                    R5 K13 ["Group"] ; [+8]
-       66 LOADK                            R6 K14 ["rbxthumb://type=GroupIcon&id=%*&w=150&h=150"]
-       67 MOVE                             R8 R4
-       68 NAMECALL                         R6 R6 K8 ["format"]
-       70 CALL                             R6 2 1
-       71 MOVE                             R5 R6
-       72 RETURN                           R5 1
-       73 LOADK                            R6 K7 ["rbxthumb://type=AvatarHeadShot&id=%*&w=150&h=150"]
-       74 MOVE                             R8 R4
-       75 NAMECALL                         R6 R6 K8 ["format"]
-       77 CALL                             R6 2 1
-       78 MOVE                             R5 R6
-       79 RETURN                           R5 1
+       36 JUMPIFNOTEQ                      R3 R4 ; [+7]
+       38 LOADK                            R3 K7 ["rbxthumb://type=AvatarHeadShot&id=%*&w=150&h=150"]
+       39 MOVE                             R5 R2
+       40 NAMECALL                         R3 R3 K8 ["format"]
+       42 CALL                             R3 2 1
+       43 RETURN                           R3 1
+       44 GETUPVAL                         R3 0
+       45 CALL                             R3 0 1
+       46 JUMPIF                           R3 ; [+2]
+       47 LOADNIL                          R3
+       48 RETURN                           R3 1
+       49 GETTABLEKS                       R3 R1 K9 ["getItemData"]
+       51 GETTABLEKS                       R4 R0 K3 ["item"]
+       53 GETTABLEKS                       R4 R4 K10 ["marketplaceItem"]
+       55 CALL                             R3 1 1
+       56 JUMPIF                           R3 ; [+2]
+       57 LOADNIL                          R4
+       58 RETURN                           R4 1
+       59 GETTABLEKS                       R4 R3 K11 ["creatorTargetId"]
+       61 GETTABLEKS                       R5 R3 K12 ["creatorType"]
+       63 JUMPIFNOTEQKS                    R5 K13 ["Group"] ; [+7]
+       65 LOADK                            R5 K14 ["rbxthumb://type=GroupIcon&id=%*&w=150&h=150"]
+       66 MOVE                             R7 R4
+       67 NAMECALL                         R5 R5 K8 ["format"]
+       69 CALL                             R5 2 1
+       70 RETURN                           R5 1
+       71 LOADK                            R5 K7 ["rbxthumb://type=AvatarHeadShot&id=%*&w=150&h=150"]
+       72 MOVE                             R7 R4
+       73 NAMECALL                         R5 R5 K8 ["format"]
+       75 CALL                             R5 2 1
+       76 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0

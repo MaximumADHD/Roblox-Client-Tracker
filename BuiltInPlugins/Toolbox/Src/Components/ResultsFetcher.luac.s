@@ -173,62 +173,61 @@ PROTO_9:
        59 SETTABLEKS                       R13 R12 K12 ["searchResultSource"]
        61 SETTABLEKS                       R12 R9 K14 ["Context"]
        63 SETTABLE                         R9 R3 R7
-       64 JUMP                             ; [+14]
+       64 JUMP                             ; [+13]
        65 GETUPVAL                         R12 6
        66 GETTABLEKS                       R12 R12 K15 ["shouldDebugWarnings"]
        68 CALL                             R12 0 1
-       69 JUMPIFNOT                        R12 ; [+9]
+       69 JUMPIFNOT                        R12 ; [+8]
        70 GETIMPORT                        R12 K17 [warn]
-       72 LOADK                            R14 K18 ["asset with ID %* not found in asset map"]
-       73 MOVE                             R16 R8
-       74 NAMECALL                         R14 R14 K19 ["format"]
-       76 CALL                             R14 2 1
-       77 MOVE                             R13 R14
-       78 CALL                             R12 1 0
-       79 FORGLOOP                         R4 2 [inext] ; [-48]
-       81 GETUPVAL                         R4 0
-       82 GETTABLEKS                       R4 R4 K0 ["append"]
-       84 NEWTABLE                         R5 0 0
-       86 GETTABLEKS                       R6 R0 K4 ["assets"]
-       88 MOVE                             R7 R3
-       89 CALL                             R4 3 1
-       90 SETTABLEKS                       R4 R1 K4 ["assets"]
-       92 LOADB                            R4 0
-       93 SETTABLEKS                       R4 R1 K20 ["loading"]
-       95 GETUPVAL                         R4 7
-       96 GETTABLEKS                       R4 R4 K21 ["None"]
-       98 SETTABLEKS                       R4 R1 K22 ["error"]
-      100 GETUPVAL                         R5 8
-      101 GETTABLEKS                       R5 R5 K23 ["initialPage"]
-      103 JUMPIFNOT                        R5 ; [+6]
-      104 GETUPVAL                         R4 9
-      105 GETTABLEKS                       R4 R4 K24 ["responseBody"]
-      107 GETTABLEKS                       R4 R4 K25 ["totalResults"]
-      109 JUMPIF                           R4 ; [+1]
-      110 LOADNIL                          R4
-      111 SETTABLEKS                       R4 R1 K26 ["total"]
-      113 GETUPVAL                         R4 9
-      114 GETTABLEKS                       R4 R4 K24 ["responseBody"]
-      116 GETTABLEKS                       R4 R4 K27 ["nextPageCursor"]
-      118 SETTABLEKS                       R4 R1 K27 ["nextPageCursor"]
-      120 GETUPVAL                         R4 10
-      121 GETTABLEKS                       R4 R4 K28 ["fetchNextPage"]
-      123 SETTABLEKS                       R4 R1 K28 ["fetchNextPage"]
-      125 GETTABLEKS                       R4 R1 K27 ["nextPageCursor"]
-      127 JUMPIFNOTEQKNIL                  R4 ; [+6]
-      129 GETUPVAL                         R4 11
-      130 GETTABLEKS                       R4 R4 K21 ["None"]
-      132 SETTABLEKS                       R4 R1 K27 ["nextPageCursor"]
-      134 GETUPVAL                         R4 10
-      135 GETTABLEKS                       R4 R4 K29 ["props"]
-      137 GETTABLEKS                       R4 R4 K30 ["dispatchGetAssetsVotingData"]
-      139 JUMPIFNOT                        R4 ; [+8]
-      140 GETUPVAL                         R4 10
-      141 GETTABLEKS                       R4 R4 K29 ["props"]
-      143 GETTABLEKS                       R4 R4 K30 ["dispatchGetAssetsVotingData"]
-      145 GETTABLEKS                       R5 R1 K4 ["assets"]
-      147 CALL                             R4 1 0
-      148 RETURN                           R1 1
+       72 LOADK                            R13 K18 ["asset with ID %* not found in asset map"]
+       73 MOVE                             R15 R8
+       74 NAMECALL                         R13 R13 K19 ["format"]
+       76 CALL                             R13 2 1
+       77 CALL                             R12 1 0
+       78 FORGLOOP                         R4 2 [inext] ; [-47]
+       80 GETUPVAL                         R4 0
+       81 GETTABLEKS                       R4 R4 K0 ["append"]
+       83 NEWTABLE                         R5 0 0
+       85 GETTABLEKS                       R6 R0 K4 ["assets"]
+       87 MOVE                             R7 R3
+       88 CALL                             R4 3 1
+       89 SETTABLEKS                       R4 R1 K4 ["assets"]
+       91 LOADB                            R4 0
+       92 SETTABLEKS                       R4 R1 K20 ["loading"]
+       94 GETUPVAL                         R4 7
+       95 GETTABLEKS                       R4 R4 K21 ["None"]
+       97 SETTABLEKS                       R4 R1 K22 ["error"]
+       99 GETUPVAL                         R5 8
+      100 GETTABLEKS                       R5 R5 K23 ["initialPage"]
+      102 JUMPIFNOT                        R5 ; [+6]
+      103 GETUPVAL                         R4 9
+      104 GETTABLEKS                       R4 R4 K24 ["responseBody"]
+      106 GETTABLEKS                       R4 R4 K25 ["totalResults"]
+      108 JUMPIF                           R4 ; [+1]
+      109 LOADNIL                          R4
+      110 SETTABLEKS                       R4 R1 K26 ["total"]
+      112 GETUPVAL                         R4 9
+      113 GETTABLEKS                       R4 R4 K24 ["responseBody"]
+      115 GETTABLEKS                       R4 R4 K27 ["nextPageCursor"]
+      117 SETTABLEKS                       R4 R1 K27 ["nextPageCursor"]
+      119 GETUPVAL                         R4 10
+      120 GETTABLEKS                       R4 R4 K28 ["fetchNextPage"]
+      122 SETTABLEKS                       R4 R1 K28 ["fetchNextPage"]
+      124 GETTABLEKS                       R4 R1 K27 ["nextPageCursor"]
+      126 JUMPIFNOTEQKNIL                  R4 ; [+6]
+      128 GETUPVAL                         R4 11
+      129 GETTABLEKS                       R4 R4 K21 ["None"]
+      131 SETTABLEKS                       R4 R1 K27 ["nextPageCursor"]
+      133 GETUPVAL                         R4 10
+      134 GETTABLEKS                       R4 R4 K29 ["props"]
+      136 GETTABLEKS                       R4 R4 K30 ["dispatchGetAssetsVotingData"]
+      138 JUMPIFNOT                        R4 ; [+8]
+      139 GETUPVAL                         R4 10
+      140 GETTABLEKS                       R4 R4 K29 ["props"]
+      142 GETTABLEKS                       R4 R4 K30 ["dispatchGetAssetsVotingData"]
+      144 GETTABLEKS                       R5 R1 K4 ["assets"]
+      146 CALL                             R4 1 0
+      147 RETURN                           R1 1
 
 PROTO_10:
         0 GETUPVAL                         R0 0

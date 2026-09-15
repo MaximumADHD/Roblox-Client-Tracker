@@ -74,20 +74,19 @@ PROTO_6:
         5 NEWTABLE                         R4 4 0
         7 GETUPVAL                         R5 0
         8 GETTABLEKS                       R5 R5 K4 ["Tag"]
-       10 LOADK                            R7 K5 ["data-testid=terrain-slot-%*"]
-       11 GETTABLEKS                       R9 R0 K6 ["Id"]
-       13 NAMECALL                         R7 R7 K7 ["format"]
-       15 CALL                             R7 2 1
-       16 MOVE                             R6 R7
-       17 SETTABLE                         R6 R4 R5
-       18 LOADN                            R5 1
-       19 SETTABLEKS                       R5 R4 K8 ["BackgroundTransparency"]
-       21 GETIMPORT                        R5 K11 [UDim2.new]
-       23 CALL                             R5 0 1
-       24 SETTABLEKS                       R5 R4 K12 ["Size"]
-       26 CALL                             R2 2 1
-       27 SETTABLEKS                       R2 R1 K0 ["TestId"]
-       29 RETURN                           R1 1
+       10 LOADK                            R6 K5 ["data-testid=terrain-slot-%*"]
+       11 GETTABLEKS                       R8 R0 K6 ["Id"]
+       13 NAMECALL                         R6 R6 K7 ["format"]
+       15 CALL                             R6 2 1
+       16 SETTABLE                         R6 R4 R5
+       17 LOADN                            R5 1
+       18 SETTABLEKS                       R5 R4 K8 ["BackgroundTransparency"]
+       20 GETIMPORT                        R5 K11 [UDim2.new]
+       22 CALL                             R5 0 1
+       23 SETTABLEKS                       R5 R4 K12 ["Size"]
+       25 CALL                             R2 2 1
+       26 SETTABLEKS                       R2 R1 K0 ["TestId"]
+       28 RETURN                           R1 1
 
 PROTO_7:
         0 GETUPVAL                         R1 0

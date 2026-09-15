@@ -155,44 +155,41 @@ PROTO_8:
        21 CAPTURE                          UPVAL U1
        22 CAPTURE                          VAL R1
        23 CALL                             R7 1 1
-       24 JUMP                             ; [+49]
-       25 GETUPVAL                         R7 2
-       26 CALL                             R7 0 1
-       27 JUMPIFNOT                        R7 ; [+18]
-       28 GETIMPORT                        R7 K10 [table.find]
-       30 GETUPVAL                         R8 1
-       31 GETTABLEKS                       R8 R8 K11 ["MAKEUP_ASSET_TYPES"]
-       33 GETIMPORT                        R10 K14 [Enum.AssetType]
-       35 GETTABLE                         R9 R10 R6
-       36 CALL                             R7 2 1
-       37 JUMPIFNOT                        R7 ; [+8]
-       38 GETIMPORT                        R8 K14 [Enum.AssetType]
-       40 GETTABLE                         R7 R8 R6
-       41 GETTABLEKS                       R7 R7 K15 ["Name"]
-       43 NEWTABLE                         R8 0 0
-       45 SETTABLE                         R8 R1 R7
-       46 GETIMPORT                        R7 K10 [table.find]
-       48 GETUPVAL                         R8 1
-       49 GETTABLEKS                       R8 R8 K16 ["ASSET_TYPES_2D"]
-       51 GETIMPORT                        R10 K14 [Enum.AssetType]
-       53 GETTABLE                         R9 R10 R6
-       54 CALL                             R7 2 1
-       55 JUMPIF                           R7 ; [+18]
-       56 GETIMPORT                        R7 K10 [table.find]
-       58 GETUPVAL                         R8 1
-       59 GETTABLEKS                       R8 R8 K17 ["BODY_PARTS"]
-       61 GETIMPORT                        R10 K14 [Enum.AssetType]
-       63 GETTABLE                         R9 R10 R6
-       64 CALL                             R7 2 1
-       65 JUMPIF                           R7 ; [+8]
-       66 GETIMPORT                        R8 K14 [Enum.AssetType]
-       68 GETTABLE                         R7 R8 R6
-       69 GETTABLEKS                       R7 R7 K15 ["Name"]
-       71 NEWTABLE                         R8 0 0
-       73 SETTABLE                         R8 R1 R7
-       74 CLOSEUPVALS                      R6
-       75 FORGLOOP                         R2 2 [inext] ; [-69]
-       77 RETURN                           R1 1
+       24 JUMP                             ; [+46]
+       25 GETIMPORT                        R7 K10 [table.find]
+       27 GETUPVAL                         R8 1
+       28 GETTABLEKS                       R8 R8 K11 ["MAKEUP_ASSET_TYPES"]
+       30 GETIMPORT                        R10 K14 [Enum.AssetType]
+       32 GETTABLE                         R9 R10 R6
+       33 CALL                             R7 2 1
+       34 JUMPIFNOT                        R7 ; [+8]
+       35 GETIMPORT                        R8 K14 [Enum.AssetType]
+       37 GETTABLE                         R7 R8 R6
+       38 GETTABLEKS                       R7 R7 K15 ["Name"]
+       40 NEWTABLE                         R8 0 0
+       42 SETTABLE                         R8 R1 R7
+       43 GETIMPORT                        R7 K10 [table.find]
+       45 GETUPVAL                         R8 1
+       46 GETTABLEKS                       R8 R8 K16 ["ASSET_TYPES_2D"]
+       48 GETIMPORT                        R10 K14 [Enum.AssetType]
+       50 GETTABLE                         R9 R10 R6
+       51 CALL                             R7 2 1
+       52 JUMPIF                           R7 ; [+18]
+       53 GETIMPORT                        R7 K10 [table.find]
+       55 GETUPVAL                         R8 1
+       56 GETTABLEKS                       R8 R8 K17 ["BODY_PARTS"]
+       58 GETIMPORT                        R10 K14 [Enum.AssetType]
+       60 GETTABLE                         R9 R10 R6
+       61 CALL                             R7 2 1
+       62 JUMPIF                           R7 ; [+8]
+       63 GETIMPORT                        R8 K14 [Enum.AssetType]
+       65 GETTABLE                         R7 R8 R6
+       66 GETTABLEKS                       R7 R7 K15 ["Name"]
+       68 NEWTABLE                         R8 0 0
+       70 SETTABLE                         R8 R1 R7
+       71 CLOSEUPVALS                      R6
+       72 FORGLOOP                         R2 2 [inext] ; [-66]
+       74 RETURN                           R1 1
 
 PROTO_9:
         0 GETUPVAL                         R3 0
@@ -462,26 +459,21 @@ PROTO_20:
        13 RETURN                           R2 1
 
 PROTO_21:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIF                           R1 ; [+2]
-        3 LOADNIL                          R1
-        4 RETURN                           R1 1
-        5 LOADB                            R1 0
-        6 JUMPIFEQKNIL                     R0 ; [+18]
-        8 LOADB                            R1 0
-        9 GETUPVAL                         R2 1
-       10 GETTABLEKS                       R2 R2 K0 ["MAKEUP_ASSET_TYPES"]
-       12 JUMPIFEQKNIL                     R2 ; [+12]
-       14 GETIMPORT                        R2 K3 [table.find]
-       16 GETUPVAL                         R3 1
-       17 GETTABLEKS                       R3 R3 K0 ["MAKEUP_ASSET_TYPES"]
-       19 MOVE                             R4 R0
-       20 CALL                             R2 2 1
-       21 JUMPIFNOTEQKNIL                  R2 ; [+2]
-       23 LOADB                            R1 0 +1
-       24 LOADB                            R1 1
-       25 RETURN                           R1 1
+        0 LOADB                            R1 0
+        1 JUMPIFEQKNIL                     R0 ; [+18]
+        3 LOADB                            R1 0
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K0 ["MAKEUP_ASSET_TYPES"]
+        7 JUMPIFEQKNIL                     R2 ; [+12]
+        9 GETIMPORT                        R2 K3 [table.find]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["MAKEUP_ASSET_TYPES"]
+       14 MOVE                             R4 R0
+       15 CALL                             R2 2 1
+       16 JUMPIFNOTEQKNIL                  R2 ; [+2]
+       18 LOADB                            R1 0 +1
+       19 LOADB                            R1 1
+       20 RETURN                           R1 1
 
 PROTO_22:
         0 GETUPVAL                         R1 0
@@ -512,95 +504,86 @@ PROTO_23:
        14 RETURN                           R1 -1
 
 PROTO_24:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+1]
-        3 JUMPIF                           R0 ; [+2]
-        4 LOADNIL                          R1
-        5 RETURN                           R1 1
-        6 LOADK                            R3 K0 ["Toolbox_MakeupThumbnailSkinColor"]
-        7 NAMECALL                         R1 R0 K1 ["GetSetting"]
-        9 CALL                             R1 2 1
-       10 JUMPIFNOT                        R1 ; [+7]
-       11 FASTCALL1                        TYPE R1 ; [+3]
-       12 MOVE                             R3 R1
-       13 GETIMPORT                        R2 K3 [type]
-       15 CALL                             R2 1 1
-       16 JUMPIFEQKS                       R2 K4 ["string"] ; [+3]
-       18 LOADNIL                          R2
-       19 RETURN                           R2 1
-       20 GETIMPORT                        R2 K6 [pcall]
-       22 NEWCLOSURE                       R3 P0
-       23 CAPTURE                          UPVAL U1
-       24 CAPTURE                          VAL R1
-       25 CALL                             R2 1 2
-       26 JUMPIFNOT                        R2 ; [+3]
-       27 JUMPIFNOT                        R3 ; [+2]
-       28 MOVE                             R4 R3
-       29 RETURN                           R4 1
-       30 LOADNIL                          R4
-       31 RETURN                           R4 1
+        0 JUMPIF                           R0 ; [+2]
+        1 LOADNIL                          R1
+        2 RETURN                           R1 1
+        3 LOADK                            R3 K0 ["Toolbox_MakeupThumbnailSkinColor"]
+        4 NAMECALL                         R1 R0 K1 ["GetSetting"]
+        6 CALL                             R1 2 1
+        7 JUMPIFNOT                        R1 ; [+7]
+        8 FASTCALL1                        TYPE R1 ; [+3]
+        9 MOVE                             R3 R1
+       10 GETIMPORT                        R2 K3 [type]
+       12 CALL                             R2 1 1
+       13 JUMPIFEQKS                       R2 K4 ["string"] ; [+3]
+       15 LOADNIL                          R2
+       16 RETURN                           R2 1
+       17 GETIMPORT                        R2 K6 [pcall]
+       19 NEWCLOSURE                       R3 P0
+       20 CAPTURE                          UPVAL U0
+       21 CAPTURE                          VAL R1
+       22 CALL                             R2 1 2
+       23 JUMPIFNOT                        R2 ; [+3]
+       24 JUMPIFNOT                        R3 ; [+2]
+       25 MOVE                             R4 R3
+       26 RETURN                           R4 1
+       27 LOADNIL                          R4
+       28 RETURN                           R4 1
 
 PROTO_25:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 JUMPIFNOT                        R2 ; [+2]
-        3 JUMPIFNOT                        R0 ; [+1]
-        4 JUMPIF                           R1 ; [+1]
-        5 RETURN                           R0 0
-        6 DUPTABLE                         R2 K3 [{"r", "g", "b"}]
-        7 GETTABLEKS                       R3 R1 K4 ["R"]
-        9 SETTABLEKS                       R3 R2 K0 ["r"]
-       11 GETTABLEKS                       R3 R1 K5 ["G"]
-       13 SETTABLEKS                       R3 R2 K1 ["g"]
-       15 GETTABLEKS                       R3 R1 K6 ["B"]
-       17 SETTABLEKS                       R3 R2 K2 ["b"]
-       19 LOADK                            R5 K7 ["Toolbox_MakeupThumbnailSkinColor"]
-       20 GETUPVAL                         R6 1
-       21 MOVE                             R8 R2
-       22 NAMECALL                         R6 R6 K8 ["JSONEncode"]
-       24 CALL                             R6 2 -1
-       25 NAMECALL                         R3 R0 K9 ["SetSetting"]
-       27 CALL                             R3 -1 0
-       28 RETURN                           R0 0
+        0 JUMPIFNOT                        R0 ; [+1]
+        1 JUMPIF                           R1 ; [+1]
+        2 RETURN                           R0 0
+        3 DUPTABLE                         R2 K3 [{"r", "g", "b"}]
+        4 GETTABLEKS                       R3 R1 K4 ["R"]
+        6 SETTABLEKS                       R3 R2 K0 ["r"]
+        8 GETTABLEKS                       R3 R1 K5 ["G"]
+       10 SETTABLEKS                       R3 R2 K1 ["g"]
+       12 GETTABLEKS                       R3 R1 K6 ["B"]
+       14 SETTABLEKS                       R3 R2 K2 ["b"]
+       16 LOADK                            R5 K7 ["Toolbox_MakeupThumbnailSkinColor"]
+       17 GETUPVAL                         R6 0
+       18 MOVE                             R8 R2
+       19 NAMECALL                         R6 R6 K8 ["JSONEncode"]
+       21 CALL                             R6 2 -1
+       22 NAMECALL                         R3 R0 K9 ["SetSetting"]
+       24 CALL                             R3 -1 0
+       25 RETURN                           R0 0
 
 PROTO_26:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 JUMPIFNOT                        R2 ; [+2]
-        3 JUMPIFNOT                        R0 ; [+1]
-        4 JUMPIF                           R1 ; [+1]
-        5 RETURN                           R0 0
-        6 LOADK                            R4 K0 ["ThumbnailConfiguration"]
-        7 NAMECALL                         R2 R0 K1 ["FindFirstChild"]
-        9 CALL                             R2 2 1
-       10 JUMPIFNOT                        R2 ; [+14]
-       11 LOADK                            R5 K2 ["SkinColorValue"]
-       12 NAMECALL                         R3 R2 K1 ["FindFirstChild"]
-       14 CALL                             R3 2 1
-       15 JUMPIFNOT                        R3 ; [+19]
-       16 LOADK                            R6 K3 ["Color3Value"]
-       17 NAMECALL                         R4 R3 K4 ["IsA"]
-       19 CALL                             R4 2 1
-       20 JUMPIFNOT                        R4 ; [+14]
-       21 SETTABLEKS                       R1 R3 K5 ["Value"]
-       23 RETURN                           R0 0
-       24 JUMP                             ; [+10]
-       25 GETIMPORT                        R3 K8 [Instance.new]
-       27 LOADK                            R4 K9 ["Configuration"]
-       28 CALL                             R3 1 1
-       29 MOVE                             R2 R3
-       30 LOADK                            R3 K0 ["ThumbnailConfiguration"]
-       31 SETTABLEKS                       R3 R2 K10 ["Name"]
-       33 SETTABLEKS                       R0 R2 K11 ["Parent"]
-       35 GETIMPORT                        R3 K8 [Instance.new]
-       37 LOADK                            R4 K3 ["Color3Value"]
-       38 CALL                             R3 1 1
-       39 LOADK                            R4 K2 ["SkinColorValue"]
-       40 SETTABLEKS                       R4 R3 K10 ["Name"]
-       42 SETTABLEKS                       R1 R3 K5 ["Value"]
-       44 SETTABLEKS                       R2 R3 K11 ["Parent"]
-       46 RETURN                           R0 0
+        0 JUMPIFNOT                        R0 ; [+1]
+        1 JUMPIF                           R1 ; [+1]
+        2 RETURN                           R0 0
+        3 LOADK                            R4 K0 ["ThumbnailConfiguration"]
+        4 NAMECALL                         R2 R0 K1 ["FindFirstChild"]
+        6 CALL                             R2 2 1
+        7 JUMPIFNOT                        R2 ; [+14]
+        8 LOADK                            R5 K2 ["SkinColorValue"]
+        9 NAMECALL                         R3 R2 K1 ["FindFirstChild"]
+       11 CALL                             R3 2 1
+       12 JUMPIFNOT                        R3 ; [+19]
+       13 LOADK                            R6 K3 ["Color3Value"]
+       14 NAMECALL                         R4 R3 K4 ["IsA"]
+       16 CALL                             R4 2 1
+       17 JUMPIFNOT                        R4 ; [+14]
+       18 SETTABLEKS                       R1 R3 K5 ["Value"]
+       20 RETURN                           R0 0
+       21 JUMP                             ; [+10]
+       22 GETIMPORT                        R3 K8 [Instance.new]
+       24 LOADK                            R4 K9 ["Configuration"]
+       25 CALL                             R3 1 1
+       26 MOVE                             R2 R3
+       27 LOADK                            R3 K0 ["ThumbnailConfiguration"]
+       28 SETTABLEKS                       R3 R2 K10 ["Name"]
+       30 SETTABLEKS                       R0 R2 K11 ["Parent"]
+       32 GETIMPORT                        R3 K8 [Instance.new]
+       34 LOADK                            R4 K3 ["Color3Value"]
+       35 CALL                             R3 1 1
+       36 LOADK                            R4 K2 ["SkinColorValue"]
+       37 SETTABLEKS                       R4 R3 K10 ["Name"]
+       39 SETTABLEKS                       R1 R3 K5 ["Value"]
+       41 SETTABLEKS                       R2 R3 K11 ["Parent"]
+       43 RETURN                           R0 0
 
 PROTO_27:
         0 JUMPIFNOT                        R0 ; [+12]
@@ -2089,283 +2072,273 @@ MAIN:
       165 GETIMPORT                        R26 K6 [require]
       167 GETTABLEKS                       R27 R0 K3 ["Src"]
       169 GETTABLEKS                       R27 R27 K36 ["Flags"]
-      171 GETTABLEKS                       R27 R27 K42 ["getFFlagEnableUploadingMakeup"]
+      171 GETTABLEKS                       R27 R27 K42 ["getFFlagUsePublishMarketplaceActionType"]
       173 CALL                             R26 1 1
       174 GETIMPORT                        R27 K6 [require]
       176 GETTABLEKS                       R28 R0 K3 ["Src"]
       178 GETTABLEKS                       R28 R28 K36 ["Flags"]
-      180 GETTABLEKS                       R28 R28 K43 ["getFFlagUsePublishMarketplaceActionType"]
+      180 GETTABLEKS                       R28 R28 K43 ["getFFlagToolboxPublishOnApproval"]
       182 CALL                             R27 1 1
       183 GETIMPORT                        R28 K6 [require]
       185 GETTABLEKS                       R29 R0 K3 ["Src"]
       187 GETTABLEKS                       R29 R29 K36 ["Flags"]
-      189 GETTABLEKS                       R29 R29 K44 ["getFFlagToolboxPublishOnApproval"]
+      189 GETTABLEKS                       R29 R29 K44 ["getFFlagEnableUpdateAvatarItem"]
       191 CALL                             R28 1 1
-      192 GETIMPORT                        R29 K6 [require]
-      194 GETTABLEKS                       R30 R0 K3 ["Src"]
-      196 GETTABLEKS                       R30 R30 K36 ["Flags"]
-      198 GETTABLEKS                       R30 R30 K45 ["getFFlagEnableUpdateAvatarItem"]
-      200 CALL                             R29 1 1
-      201 GETIMPORT                        R30 K24 [game]
-      203 LOADK                            R32 K46 ["HttpService"]
-      204 NAMECALL                         R30 R30 K47 ["GetService"]
-      206 CALL                             R30 2 1
-      207 GETIMPORT                        R31 K24 [game]
-      209 LOADK                            R33 K48 ["StudioService"]
-      210 NAMECALL                         R31 R31 K47 ["GetService"]
-      212 CALL                             R31 2 1
-      213 DUPCLOSURE                       R32 K49 [PROTO_0]
-      214 NEWTABLE                         R33 128 0
-      216 DUPCLOSURE                       R34 K50 [PROTO_1]
-      217 CAPTURE                          VAL R3
-      218 CAPTURE                          VAL R24
-      219 SETTABLEKS                       R34 R33 K51 ["isUGCBundleType"]
-      221 DUPCLOSURE                       R34 K52 [PROTO_2]
+      192 GETIMPORT                        R29 K24 [game]
+      194 LOADK                            R31 K45 ["HttpService"]
+      195 NAMECALL                         R29 R29 K46 ["GetService"]
+      197 CALL                             R29 2 1
+      198 GETIMPORT                        R30 K24 [game]
+      200 LOADK                            R32 K47 ["StudioService"]
+      201 NAMECALL                         R30 R30 K46 ["GetService"]
+      203 CALL                             R30 2 1
+      204 DUPCLOSURE                       R31 K48 [PROTO_0]
+      205 NEWTABLE                         R32 128 0
+      207 DUPCLOSURE                       R33 K49 [PROTO_1]
+      208 CAPTURE                          VAL R3
+      209 CAPTURE                          VAL R24
+      210 SETTABLEKS                       R33 R32 K50 ["isUGCBundleType"]
+      212 DUPCLOSURE                       R33 K51 [PROTO_2]
+      213 CAPTURE                          VAL R3
+      214 SETTABLEKS                       R33 R32 K52 ["isUGCBodyBundleType"]
+      216 DUPCLOSURE                       R33 K53 [PROTO_3]
+      217 CAPTURE                          VAL R24
+      218 CAPTURE                          VAL R3
+      219 SETTABLEKS                       R33 R32 K54 ["isAnimationBundleType"]
+      221 DUPCLOSURE                       R33 K55 [PROTO_4]
       222 CAPTURE                          VAL R3
-      223 SETTABLEKS                       R34 R33 K53 ["isUGCBodyBundleType"]
-      225 DUPCLOSURE                       R34 K54 [PROTO_3]
-      226 CAPTURE                          VAL R24
-      227 CAPTURE                          VAL R3
-      228 SETTABLEKS                       R34 R33 K55 ["isAnimationBundleType"]
-      230 DUPCLOSURE                       R34 K56 [PROTO_4]
-      231 CAPTURE                          VAL R3
-      232 SETTABLEKS                       R34 R33 K57 ["isReadyForSale"]
-      234 DUPCLOSURE                       R34 K58 [PROTO_5]
+      223 SETTABLEKS                       R33 R32 K56 ["isReadyForSale"]
+      225 DUPCLOSURE                       R33 K57 [PROTO_5]
+      226 CAPTURE                          VAL R3
+      227 SETTABLEKS                       R33 R32 K58 ["isOnSale"]
+      229 DUPCLOSURE                       R33 K59 [PROTO_6]
+      230 CAPTURE                          VAL R3
+      231 SETTABLEKS                       R33 R32 K60 ["isBuyableMarketplaceAsset"]
+      233 DUPCLOSURE                       R33 K61 [PROTO_8]
+      234 CAPTURE                          VAL R26
       235 CAPTURE                          VAL R3
-      236 SETTABLEKS                       R34 R33 K59 ["isOnSale"]
-      238 DUPCLOSURE                       R34 K60 [PROTO_6]
-      239 CAPTURE                          VAL R3
-      240 SETTABLEKS                       R34 R33 K61 ["isBuyableMarketplaceAsset"]
-      242 DUPCLOSURE                       R34 K62 [PROTO_8]
-      243 CAPTURE                          VAL R27
+      236 SETTABLEKS                       R33 R32 K62 ["filterAllowedAssetTypesForRelease"]
+      238 DUPCLOSURE                       R33 K63 [PROTO_9]
+      239 CAPTURE                          VAL R11
+      240 SETTABLEKS                       R33 R32 K64 ["hasAllowedAssetTypesForRelease"]
+      242 DUPCLOSURE                       R33 K65 [PROTO_10]
+      243 CAPTURE                          VAL R30
       244 CAPTURE                          VAL R3
-      245 CAPTURE                          VAL R26
-      246 SETTABLEKS                       R34 R33 K63 ["filterAllowedAssetTypesForRelease"]
-      248 DUPCLOSURE                       R34 K64 [PROTO_9]
-      249 CAPTURE                          VAL R11
-      250 SETTABLEKS                       R34 R33 K65 ["hasAllowedAssetTypesForRelease"]
-      252 DUPCLOSURE                       R34 K66 [PROTO_10]
-      253 CAPTURE                          VAL R31
-      254 CAPTURE                          VAL R3
-      255 CAPTURE                          VAL R12
-      256 SETTABLEKS                       R34 R33 K67 ["promptImagePicker"]
-      258 DUPCLOSURE                       R34 K68 [PROTO_11]
-      259 CAPTURE                          VAL R3
-      260 SETTABLEKS                       R34 R33 K69 ["isCatalogAsset"]
-      262 GETIMPORT                        R34 K72 [utf8.char]
-      264 LOADK                            R35 K73 [57346]
-      265 CALL                             R34 1 1
-      266 DUPTABLE                         R35 K79 [{["TShirt"] = True, ["Shirt"] = True, ["Pants"] = True, ["AvatarBackground"] = True}]
-      267 DUPCLOSURE                       R36 K80 [PROTO_12]
-      268 CAPTURE                          VAL R28
-      269 CAPTURE                          VAL R33
-      270 CAPTURE                          VAL R35
-      271 SETTABLEKS                       R36 R33 K81 ["canAutoPublishAvatarAssetType"]
-      273 LOADK                            R36 K82 ["EncryptedCreationContext"]
-      274 SETTABLEKS                       R36 R33 K83 ["ENCRYPTED_CREATION_CONTEXT_KEY"]
-      276 DUPCLOSURE                       R36 K84 [PROTO_13]
-      277 CAPTURE                          VAL R28
-      278 SETTABLEKS                       R36 R33 K85 ["isUsablePublishingFee"]
-      280 DUPCLOSURE                       R36 K86 [PROTO_14]
-      281 CAPTURE                          VAL R28
-      282 CAPTURE                          VAL R33
-      283 CAPTURE                          VAL R16
-      284 CAPTURE                          VAL R30
-      285 SETTABLEKS                       R36 R33 K87 ["getPublishOnApprovalCreationContext"]
-      287 DUPCLOSURE                       R36 K88 [PROTO_15]
-      288 CAPTURE                          VAL R28
-      289 CAPTURE                          VAL R33
-      290 SETTABLEKS                       R36 R33 K89 ["getPublishOnApprovalFee"]
-      292 DUPCLOSURE                       R36 K90 [PROTO_16]
-      293 CAPTURE                          VAL R28
-      294 SETTABLEKS                       R36 R33 K91 ["getSubmitTotal"]
-      296 DUPCLOSURE                       R36 K92 [PROTO_18]
-      297 CAPTURE                          VAL R28
-      298 CAPTURE                          VAL R34
-      299 CAPTURE                          VAL R33
-      300 SETTABLEKS                       R36 R33 K93 ["getItemizedFeeDescription"]
-      302 DUPCLOSURE                       R36 K94 [PROTO_19]
-      303 CAPTURE                          VAL R28
-      304 SETTABLEKS                       R36 R33 K95 ["getCreatorQueryParam"]
-      306 DUPCLOSURE                       R36 K96 [PROTO_20]
-      307 CAPTURE                          VAL R3
-      308 SETTABLEKS                       R36 R33 K97 ["isMarketplaceAsset"]
-      310 DUPCLOSURE                       R36 K98 [PROTO_21]
-      311 CAPTURE                          VAL R26
-      312 CAPTURE                          VAL R3
-      313 SETTABLEKS                       R36 R33 K99 ["isMakeupAsset"]
-      315 DUPCLOSURE                       R36 K100 [PROTO_22]
-      316 CAPTURE                          VAL R29
-      317 CAPTURE                          VAL R3
-      318 SETTABLEKS                       R36 R33 K101 ["isAvatarItemUpdateSupported"]
-      320 DUPCLOSURE                       R36 K102 [PROTO_24]
-      321 CAPTURE                          VAL R26
-      322 CAPTURE                          VAL R30
-      323 SETTABLEKS                       R36 R33 K103 ["getThumbnailSkinColor"]
-      325 DUPCLOSURE                       R36 K104 [PROTO_25]
-      326 CAPTURE                          VAL R26
-      327 CAPTURE                          VAL R30
-      328 SETTABLEKS                       R36 R33 K105 ["setThumbnailSkinColor"]
-      330 DUPCLOSURE                       R36 K106 [PROTO_26]
-      331 CAPTURE                          VAL R26
-      332 SETTABLEKS                       R36 R33 K107 ["addMakeupThumbnailConfiguration"]
-      334 DUPCLOSURE                       R36 K108 [PROTO_27]
-      335 CAPTURE                          VAL R33
-      336 SETTABLEKS                       R36 R33 K109 ["isCreatorStoreAssetNotIncludingAnimation"]
-      338 DUPCLOSURE                       R36 K110 [PROTO_28]
-      339 CAPTURE                          VAL R3
-      340 CAPTURE                          VAL R33
-      341 SETTABLEKS                       R36 R33 K111 ["getFlowStartScreen"]
-      343 DUPCLOSURE                       R36 K112 [PROTO_29]
-      344 CAPTURE                          VAL R3
-      345 SETTABLEKS                       R36 R33 K113 ["getGenreTypes"]
-      347 DUPCLOSURE                       R36 K114 [PROTO_30]
-      348 CAPTURE                          VAL R3
-      349 SETTABLEKS                       R36 R33 K115 ["getGenreIndex"]
-      351 DUPCLOSURE                       R36 K116 [PROTO_31]
-      352 CAPTURE                          VAL R3
-      353 SETTABLEKS                       R36 R33 K117 ["getGenreName"]
-      355 DUPCLOSURE                       R36 K118 [PROTO_32]
-      356 CAPTURE                          VAL R5
-      357 SETTABLEKS                       R36 R33 K119 ["getOwnerDropDownContent"]
-      359 DUPCLOSURE                       R36 K120 [PROTO_34]
-      360 SETTABLEKS                       R36 R33 K121 ["getClonedInstances"]
-      362 DUPCLOSURE                       R36 K122 [PROTO_35]
-      363 CAPTURE                          VAL R3
-      364 CAPTURE                          VAL R33
-      365 CAPTURE                          VAL R13
-      366 SETTABLEKS                       R36 R33 K123 ["getPreviewType"]
-      368 DUPCLOSURE                       R36 K124 [PROTO_36]
-      369 CAPTURE                          VAL R6
-      370 CAPTURE                          VAL R3
-      371 SETTABLEKS                       R36 R33 K125 ["getResultThumbnail"]
-      373 DUPCLOSURE                       R36 K126 [PROTO_37]
-      374 CAPTURE                          VAL R14
-      375 CAPTURE                          VAL R15
-      376 CAPTURE                          VAL R33
-      377 SETTABLEKS                       R36 R33 K127 ["isPackagePublishAllowed"]
-      379 DUPCLOSURE                       R36 K128 [PROTO_38]
-      380 SETTABLEKS                       R36 R33 K129 ["isPackage"]
-      382 DUPCLOSURE                       R36 K130 [PROTO_39]
-      383 CAPTURE                          VAL R33
-      384 SETTABLEKS                       R36 R33 K131 ["getUGCBodyBundleAssetQuantities"]
-      386 DUPCLOSURE                       R36 K132 [PROTO_41]
-      387 CAPTURE                          VAL R19
-      388 SETTABLEKS                       R36 R33 K133 ["getBodyScaleValues"]
-      390 MOVE                             R36 R19
-      391 CALL                             R36 0 1
-      392 JUMPIFNOT                        R36 ; [+9]
-      393 DUPCLOSURE                       R36 K134 [PROTO_42]
-      394 CAPTURE                          VAL R3
-      395 SETTABLEKS                       R36 R33 K135 ["getBodyScaleType"]
-      397 DUPCLOSURE                       R36 K136 [PROTO_43]
-      398 CAPTURE                          VAL R33
-      399 CAPTURE                          VAL R3
-      400 SETTABLEKS                       R36 R33 K137 ["ValidateScaleSettings"]
-      402 DUPCLOSURE                       R36 K138 [PROTO_44]
-      403 CAPTURE                          VAL R20
-      404 SETTABLEKS                       R36 R33 K139 ["getBodyColorSet"]
-      406 MOVE                             R36 R21
-      407 CALL                             R36 0 1
-      408 JUMPIFNOT                        R36 ; [+4]
-      409 DUPCLOSURE                       R36 K140 [PROTO_45]
-      410 CAPTURE                          VAL R33
-      411 SETTABLEKS                       R36 R33 K141 ["ValidateBodyColors"]
-      413 MOVE                             R36 R19
-      414 CALL                             R36 0 1
-      415 JUMPIF                           R36 ; [+3]
-      416 MOVE                             R36 R21
-      417 CALL                             R36 0 1
-      418 JUMPIFNOT                        R36 ; [+6]
-      419 DUPCLOSURE                       R36 K142 [PROTO_46]
-      420 CAPTURE                          VAL R19
-      421 CAPTURE                          VAL R33
-      422 CAPTURE                          VAL R21
-      423 SETTABLEKS                       R36 R33 K143 ["ValidateBody"]
-      425 DUPCLOSURE                       R36 K144 [PROTO_47]
+      245 CAPTURE                          VAL R12
+      246 SETTABLEKS                       R33 R32 K66 ["promptImagePicker"]
+      248 DUPCLOSURE                       R33 K67 [PROTO_11]
+      249 CAPTURE                          VAL R3
+      250 SETTABLEKS                       R33 R32 K68 ["isCatalogAsset"]
+      252 GETIMPORT                        R33 K71 [utf8.char]
+      254 LOADK                            R34 K72 [57346]
+      255 CALL                             R33 1 1
+      256 DUPTABLE                         R34 K78 [{["TShirt"] = True, ["Shirt"] = True, ["Pants"] = True, ["AvatarBackground"] = True}]
+      257 DUPCLOSURE                       R35 K79 [PROTO_12]
+      258 CAPTURE                          VAL R27
+      259 CAPTURE                          VAL R32
+      260 CAPTURE                          VAL R34
+      261 SETTABLEKS                       R35 R32 K80 ["canAutoPublishAvatarAssetType"]
+      263 LOADK                            R35 K81 ["EncryptedCreationContext"]
+      264 SETTABLEKS                       R35 R32 K82 ["ENCRYPTED_CREATION_CONTEXT_KEY"]
+      266 DUPCLOSURE                       R35 K83 [PROTO_13]
+      267 CAPTURE                          VAL R27
+      268 SETTABLEKS                       R35 R32 K84 ["isUsablePublishingFee"]
+      270 DUPCLOSURE                       R35 K85 [PROTO_14]
+      271 CAPTURE                          VAL R27
+      272 CAPTURE                          VAL R32
+      273 CAPTURE                          VAL R16
+      274 CAPTURE                          VAL R29
+      275 SETTABLEKS                       R35 R32 K86 ["getPublishOnApprovalCreationContext"]
+      277 DUPCLOSURE                       R35 K87 [PROTO_15]
+      278 CAPTURE                          VAL R27
+      279 CAPTURE                          VAL R32
+      280 SETTABLEKS                       R35 R32 K88 ["getPublishOnApprovalFee"]
+      282 DUPCLOSURE                       R35 K89 [PROTO_16]
+      283 CAPTURE                          VAL R27
+      284 SETTABLEKS                       R35 R32 K90 ["getSubmitTotal"]
+      286 DUPCLOSURE                       R35 K91 [PROTO_18]
+      287 CAPTURE                          VAL R27
+      288 CAPTURE                          VAL R33
+      289 CAPTURE                          VAL R32
+      290 SETTABLEKS                       R35 R32 K92 ["getItemizedFeeDescription"]
+      292 DUPCLOSURE                       R35 K93 [PROTO_19]
+      293 CAPTURE                          VAL R27
+      294 SETTABLEKS                       R35 R32 K94 ["getCreatorQueryParam"]
+      296 DUPCLOSURE                       R35 K95 [PROTO_20]
+      297 CAPTURE                          VAL R3
+      298 SETTABLEKS                       R35 R32 K96 ["isMarketplaceAsset"]
+      300 DUPCLOSURE                       R35 K97 [PROTO_21]
+      301 CAPTURE                          VAL R3
+      302 SETTABLEKS                       R35 R32 K98 ["isMakeupAsset"]
+      304 DUPCLOSURE                       R35 K99 [PROTO_22]
+      305 CAPTURE                          VAL R28
+      306 CAPTURE                          VAL R3
+      307 SETTABLEKS                       R35 R32 K100 ["isAvatarItemUpdateSupported"]
+      309 DUPCLOSURE                       R35 K101 [PROTO_24]
+      310 CAPTURE                          VAL R29
+      311 SETTABLEKS                       R35 R32 K102 ["getThumbnailSkinColor"]
+      313 DUPCLOSURE                       R35 K103 [PROTO_25]
+      314 CAPTURE                          VAL R29
+      315 SETTABLEKS                       R35 R32 K104 ["setThumbnailSkinColor"]
+      317 DUPCLOSURE                       R35 K105 [PROTO_26]
+      318 SETTABLEKS                       R35 R32 K106 ["addMakeupThumbnailConfiguration"]
+      320 DUPCLOSURE                       R35 K107 [PROTO_27]
+      321 CAPTURE                          VAL R32
+      322 SETTABLEKS                       R35 R32 K108 ["isCreatorStoreAssetNotIncludingAnimation"]
+      324 DUPCLOSURE                       R35 K109 [PROTO_28]
+      325 CAPTURE                          VAL R3
+      326 CAPTURE                          VAL R32
+      327 SETTABLEKS                       R35 R32 K110 ["getFlowStartScreen"]
+      329 DUPCLOSURE                       R35 K111 [PROTO_29]
+      330 CAPTURE                          VAL R3
+      331 SETTABLEKS                       R35 R32 K112 ["getGenreTypes"]
+      333 DUPCLOSURE                       R35 K113 [PROTO_30]
+      334 CAPTURE                          VAL R3
+      335 SETTABLEKS                       R35 R32 K114 ["getGenreIndex"]
+      337 DUPCLOSURE                       R35 K115 [PROTO_31]
+      338 CAPTURE                          VAL R3
+      339 SETTABLEKS                       R35 R32 K116 ["getGenreName"]
+      341 DUPCLOSURE                       R35 K117 [PROTO_32]
+      342 CAPTURE                          VAL R5
+      343 SETTABLEKS                       R35 R32 K118 ["getOwnerDropDownContent"]
+      345 DUPCLOSURE                       R35 K119 [PROTO_34]
+      346 SETTABLEKS                       R35 R32 K120 ["getClonedInstances"]
+      348 DUPCLOSURE                       R35 K121 [PROTO_35]
+      349 CAPTURE                          VAL R3
+      350 CAPTURE                          VAL R32
+      351 CAPTURE                          VAL R13
+      352 SETTABLEKS                       R35 R32 K122 ["getPreviewType"]
+      354 DUPCLOSURE                       R35 K123 [PROTO_36]
+      355 CAPTURE                          VAL R6
+      356 CAPTURE                          VAL R3
+      357 SETTABLEKS                       R35 R32 K124 ["getResultThumbnail"]
+      359 DUPCLOSURE                       R35 K125 [PROTO_37]
+      360 CAPTURE                          VAL R14
+      361 CAPTURE                          VAL R15
+      362 CAPTURE                          VAL R32
+      363 SETTABLEKS                       R35 R32 K126 ["isPackagePublishAllowed"]
+      365 DUPCLOSURE                       R35 K127 [PROTO_38]
+      366 SETTABLEKS                       R35 R32 K128 ["isPackage"]
+      368 DUPCLOSURE                       R35 K129 [PROTO_39]
+      369 CAPTURE                          VAL R32
+      370 SETTABLEKS                       R35 R32 K130 ["getUGCBodyBundleAssetQuantities"]
+      372 DUPCLOSURE                       R35 K131 [PROTO_41]
+      373 CAPTURE                          VAL R19
+      374 SETTABLEKS                       R35 R32 K132 ["getBodyScaleValues"]
+      376 MOVE                             R35 R19
+      377 CALL                             R35 0 1
+      378 JUMPIFNOT                        R35 ; [+9]
+      379 DUPCLOSURE                       R35 K133 [PROTO_42]
+      380 CAPTURE                          VAL R3
+      381 SETTABLEKS                       R35 R32 K134 ["getBodyScaleType"]
+      383 DUPCLOSURE                       R35 K135 [PROTO_43]
+      384 CAPTURE                          VAL R32
+      385 CAPTURE                          VAL R3
+      386 SETTABLEKS                       R35 R32 K136 ["ValidateScaleSettings"]
+      388 DUPCLOSURE                       R35 K137 [PROTO_44]
+      389 CAPTURE                          VAL R20
+      390 SETTABLEKS                       R35 R32 K138 ["getBodyColorSet"]
+      392 MOVE                             R35 R21
+      393 CALL                             R35 0 1
+      394 JUMPIFNOT                        R35 ; [+4]
+      395 DUPCLOSURE                       R35 K139 [PROTO_45]
+      396 CAPTURE                          VAL R32
+      397 SETTABLEKS                       R35 R32 K140 ["ValidateBodyColors"]
+      399 MOVE                             R35 R19
+      400 CALL                             R35 0 1
+      401 JUMPIF                           R35 ; [+3]
+      402 MOVE                             R35 R21
+      403 CALL                             R35 0 1
+      404 JUMPIFNOT                        R35 ; [+6]
+      405 DUPCLOSURE                       R35 K141 [PROTO_46]
+      406 CAPTURE                          VAL R19
+      407 CAPTURE                          VAL R32
+      408 CAPTURE                          VAL R21
+      409 SETTABLEKS                       R35 R32 K142 ["ValidateBody"]
+      411 DUPCLOSURE                       R35 K143 [PROTO_47]
+      412 CAPTURE                          VAL R3
+      413 SETTABLEKS                       R35 R32 K144 ["getUGCBundleTypeFromString"]
+      415 DUPCLOSURE                       R35 K145 [PROTO_48]
+      416 CAPTURE                          VAL R8
+      417 SETTABLEKS                       R35 R32 K146 ["getAllowedAssetTypeSettingsForBundle"]
+      419 DUPCLOSURE                       R35 K147 [PROTO_49]
+      420 CAPTURE                          VAL R32
+      421 CAPTURE                          VAL R3
+      422 SETTABLEKS                       R35 R32 K148 ["getAllowedAssetTypeEnumsForBundle"]
+      424 DUPCLOSURE                       R35 K149 [PROTO_50]
+      425 CAPTURE                          VAL R32
       426 CAPTURE                          VAL R3
-      427 SETTABLEKS                       R36 R33 K145 ["getUGCBundleTypeFromString"]
-      429 DUPCLOSURE                       R36 K146 [PROTO_48]
-      430 CAPTURE                          VAL R8
-      431 SETTABLEKS                       R36 R33 K147 ["getAllowedAssetTypeSettingsForBundle"]
-      433 DUPCLOSURE                       R36 K148 [PROTO_49]
-      434 CAPTURE                          VAL R33
-      435 CAPTURE                          VAL R3
-      436 SETTABLEKS                       R36 R33 K149 ["getAllowedAssetTypeEnumsForBundle"]
-      438 DUPCLOSURE                       R36 K150 [PROTO_50]
-      439 CAPTURE                          VAL R33
+      427 SETTABLEKS                       R35 R32 K150 ["getAllowedAssetTypeEnumsForBundleWithSettings"]
+      429 DUPCLOSURE                       R35 K151 [PROTO_51]
+      430 SETTABLEKS                       R35 R32 K152 ["isAllowedUGCAssetType"]
+      432 DUPCLOSURE                       R35 K153 [PROTO_52]
+      433 CAPTURE                          VAL R32
+      434 CAPTURE                          VAL R3
+      435 CAPTURE                          VAL R10
+      436 SETTABLEKS                       R35 R32 K154 ["getUGCBodyPartsAssetTypeMap"]
+      438 DUPCLOSURE                       R35 K155 [PROTO_53]
+      439 CAPTURE                          VAL R24
       440 CAPTURE                          VAL R3
-      441 SETTABLEKS                       R36 R33 K151 ["getAllowedAssetTypeEnumsForBundleWithSettings"]
-      443 DUPCLOSURE                       R36 K152 [PROTO_51]
-      444 SETTABLEKS                       R36 R33 K153 ["isAllowedUGCAssetType"]
-      446 DUPCLOSURE                       R36 K154 [PROTO_52]
-      447 CAPTURE                          VAL R33
+      441 SETTABLEKS                       R35 R32 K156 ["AssetTypeRequiresFolderForUpload"]
+      443 DUPCLOSURE                       R35 K157 [PROTO_54]
+      444 CAPTURE                          VAL R32
+      445 SETTABLEKS                       R35 R32 K158 ["createUGCBodyPartFolders"]
+      447 DUPCLOSURE                       R35 K159 [PROTO_55]
       448 CAPTURE                          VAL R3
-      449 CAPTURE                          VAL R10
-      450 SETTABLEKS                       R36 R33 K155 ["getUGCBodyPartsAssetTypeMap"]
-      452 DUPCLOSURE                       R36 K156 [PROTO_53]
-      453 CAPTURE                          VAL R24
-      454 CAPTURE                          VAL R3
-      455 SETTABLEKS                       R36 R33 K157 ["AssetTypeRequiresFolderForUpload"]
-      457 DUPCLOSURE                       R36 K158 [PROTO_54]
-      458 CAPTURE                          VAL R33
-      459 SETTABLEKS                       R36 R33 K159 ["createUGCBodyPartFolders"]
-      461 DUPCLOSURE                       R36 K160 [PROTO_55]
-      462 CAPTURE                          VAL R3
-      463 CAPTURE                          VAL R24
-      464 SETTABLEKS                       R36 R33 K161 ["getLocalizedUGCBundleName"]
-      466 DUPCLOSURE                       R36 K162 [PROTO_56]
-      467 CAPTURE                          VAL R4
-      468 SETTABLEKS                       R36 R33 K163 ["sanitizeForValidation"]
-      470 DUPCLOSURE                       R36 K164 [PROTO_57]
-      471 CAPTURE                          VAL R33
-      472 SETTABLEKS                       R36 R33 K165 ["getOptionalAssetTypesForBundle"]
-      474 DUPCLOSURE                       R36 K166 [PROTO_58]
-      475 CAPTURE                          VAL R33
-      476 SETTABLEKS                       R36 R33 K167 ["getOptionalBodyPartsNotFound"]
-      478 DUPCLOSURE                       R36 K168 [PROTO_59]
-      479 CAPTURE                          VAL R33
-      480 SETTABLEKS                       R36 R33 K169 ["getAllowedAssetTypesByBundleType"]
-      482 DUPCLOSURE                       R36 K170 [PROTO_60]
-      483 CAPTURE                          VAL R3
-      484 SETTABLEKS                       R36 R33 K171 ["getUnknownMeshPartNames"]
-      486 DUPCLOSURE                       R36 K172 [PROTO_61]
-      487 CAPTURE                          VAL R33
-      488 SETTABLEKS                       R36 R33 K173 ["getAvatarAssetTypeAsString"]
-      490 DUPCLOSURE                       R36 K174 [PROTO_62]
-      491 CAPTURE                          VAL R33
-      492 CAPTURE                          VAL R24
-      493 CAPTURE                          VAL R3
-      494 CAPTURE                          VAL R8
-      495 CAPTURE                          VAL R25
-      496 CAPTURE                          VAL R10
-      497 SETTABLEKS                       R36 R33 K175 ["getUGCBundlePartsAssetTypeMap"]
-      499 DUPCLOSURE                       R36 K176 [PROTO_63]
-      500 CAPTURE                          VAL R33
-      501 SETTABLEKS                       R36 R33 K177 ["getUGCBundleAssetQuantities"]
-      503 DUPCLOSURE                       R36 K178 [PROTO_64]
-      504 CAPTURE                          VAL R33
-      505 CAPTURE                          VAL R3
-      506 CAPTURE                          VAL R10
-      507 SETTABLEKS                       R36 R33 K179 ["createUGCShoesPartFolders"]
-      509 DUPCLOSURE                       R36 K180 [PROTO_65]
-      510 CAPTURE                          VAL R33
-      511 SETTABLEKS                       R36 R33 K181 ["shouldValidateAssetType"]
-      513 DUPCLOSURE                       R36 K182 [PROTO_66]
-      514 SETTABLEKS                       R36 R33 K183 ["getValidationFailuresAsString"]
-      516 MOVE                             R36 R22
-      517 CALL                             R36 0 1
-      518 JUMPIFNOT                        R36 ; [+6]
-      519 DUPCLOSURE                       R36 K184 [PROTO_67]
-      520 CAPTURE                          VAL R24
-      521 CAPTURE                          VAL R2
-      522 CAPTURE                          VAL R3
-      523 SETTABLEKS                       R36 R33 K185 ["getAssetIdsFromInstance"]
-      525 DUPCLOSURE                       R36 K186 [PROTO_68]
-      526 CAPTURE                          VAL R23
-      527 SETTABLEKS                       R36 R33 K187 ["isAllowedAssetType"]
-      529 DUPCLOSURE                       R36 K188 [PROTO_69]
-      530 SETTABLEKS                       R36 R33 K189 ["normalizeAnimationAssetIdInput"]
-      532 DUPCLOSURE                       R36 K190 [PROTO_70]
-      533 SETTABLEKS                       R36 R33 K191 ["getValidationErrorText"]
-      535 RETURN                           R33 1
+      449 CAPTURE                          VAL R24
+      450 SETTABLEKS                       R35 R32 K160 ["getLocalizedUGCBundleName"]
+      452 DUPCLOSURE                       R35 K161 [PROTO_56]
+      453 CAPTURE                          VAL R4
+      454 SETTABLEKS                       R35 R32 K162 ["sanitizeForValidation"]
+      456 DUPCLOSURE                       R35 K163 [PROTO_57]
+      457 CAPTURE                          VAL R32
+      458 SETTABLEKS                       R35 R32 K164 ["getOptionalAssetTypesForBundle"]
+      460 DUPCLOSURE                       R35 K165 [PROTO_58]
+      461 CAPTURE                          VAL R32
+      462 SETTABLEKS                       R35 R32 K166 ["getOptionalBodyPartsNotFound"]
+      464 DUPCLOSURE                       R35 K167 [PROTO_59]
+      465 CAPTURE                          VAL R32
+      466 SETTABLEKS                       R35 R32 K168 ["getAllowedAssetTypesByBundleType"]
+      468 DUPCLOSURE                       R35 K169 [PROTO_60]
+      469 CAPTURE                          VAL R3
+      470 SETTABLEKS                       R35 R32 K170 ["getUnknownMeshPartNames"]
+      472 DUPCLOSURE                       R35 K171 [PROTO_61]
+      473 CAPTURE                          VAL R32
+      474 SETTABLEKS                       R35 R32 K172 ["getAvatarAssetTypeAsString"]
+      476 DUPCLOSURE                       R35 K173 [PROTO_62]
+      477 CAPTURE                          VAL R32
+      478 CAPTURE                          VAL R24
+      479 CAPTURE                          VAL R3
+      480 CAPTURE                          VAL R8
+      481 CAPTURE                          VAL R25
+      482 CAPTURE                          VAL R10
+      483 SETTABLEKS                       R35 R32 K174 ["getUGCBundlePartsAssetTypeMap"]
+      485 DUPCLOSURE                       R35 K175 [PROTO_63]
+      486 CAPTURE                          VAL R32
+      487 SETTABLEKS                       R35 R32 K176 ["getUGCBundleAssetQuantities"]
+      489 DUPCLOSURE                       R35 K177 [PROTO_64]
+      490 CAPTURE                          VAL R32
+      491 CAPTURE                          VAL R3
+      492 CAPTURE                          VAL R10
+      493 SETTABLEKS                       R35 R32 K178 ["createUGCShoesPartFolders"]
+      495 DUPCLOSURE                       R35 K179 [PROTO_65]
+      496 CAPTURE                          VAL R32
+      497 SETTABLEKS                       R35 R32 K180 ["shouldValidateAssetType"]
+      499 DUPCLOSURE                       R35 K181 [PROTO_66]
+      500 SETTABLEKS                       R35 R32 K182 ["getValidationFailuresAsString"]
+      502 MOVE                             R35 R22
+      503 CALL                             R35 0 1
+      504 JUMPIFNOT                        R35 ; [+6]
+      505 DUPCLOSURE                       R35 K183 [PROTO_67]
+      506 CAPTURE                          VAL R24
+      507 CAPTURE                          VAL R2
+      508 CAPTURE                          VAL R3
+      509 SETTABLEKS                       R35 R32 K184 ["getAssetIdsFromInstance"]
+      511 DUPCLOSURE                       R35 K185 [PROTO_68]
+      512 CAPTURE                          VAL R23
+      513 SETTABLEKS                       R35 R32 K186 ["isAllowedAssetType"]
+      515 DUPCLOSURE                       R35 K187 [PROTO_69]
+      516 SETTABLEKS                       R35 R32 K188 ["normalizeAnimationAssetIdInput"]
+      518 DUPCLOSURE                       R35 K189 [PROTO_70]
+      519 SETTABLEKS                       R35 R32 K190 ["getValidationErrorText"]
+      521 RETURN                           R32 1

@@ -62,39 +62,37 @@ PROTO_6:
         4 JUMPIF                           R2 ; [+1]
         5 RETURN                           R0 0
         6 GETUPVAL                         R3 0
-        7 LOADK                            R6 K2 ["Skipping step %*/%*"]
-        8 GETTABLEKS                       R8 R0 K0 ["data"]
-       10 GETTABLEKS                       R8 R8 K3 ["topic"]
-       12 GETTABLEKS                       R9 R0 K0 ["data"]
-       14 GETTABLEKS                       R9 R9 K4 ["id"]
-       16 NAMECALL                         R6 R6 K5 ["format"]
-       18 CALL                             R6 3 1
-       19 MOVE                             R5 R6
-       20 NAMECALL                         R3 R3 K6 ["TryBeginRecording"]
-       22 CALL                             R3 2 1
-       23 GETIMPORT                        R4 K8 [pcall]
-       25 MOVE                             R5 R2
-       26 MOVE                             R6 R1
-       27 CALL                             R4 2 2
-       28 JUMPIF                           R4 ; [+17]
-       29 GETIMPORT                        R6 K10 [warn]
-       31 LOADK                            R8 K11 ["Error skipping step %*/%*: %*"]
-       32 GETTABLEKS                       R10 R0 K0 ["data"]
-       34 GETTABLEKS                       R10 R10 K3 ["topic"]
-       36 GETTABLEKS                       R11 R0 K0 ["data"]
-       38 GETTABLEKS                       R11 R11 K4 ["id"]
-       40 MOVE                             R12 R5
-       41 NAMECALL                         R8 R8 K5 ["format"]
-       43 CALL                             R8 4 1
-       44 MOVE                             R7 R8
-       45 CALL                             R6 1 0
-       46 JUMPIFNOT                        R3 ; [+7]
-       47 GETUPVAL                         R6 0
-       48 MOVE                             R8 R3
-       49 GETIMPORT                        R9 K15 [Enum.FinishRecordingOperation.Commit]
-       51 NAMECALL                         R6 R6 K16 ["FinishRecording"]
-       53 CALL                             R6 3 0
-       54 RETURN                           R0 0
+        7 LOADK                            R5 K2 ["Skipping step %*/%*"]
+        8 GETTABLEKS                       R7 R0 K0 ["data"]
+       10 GETTABLEKS                       R7 R7 K3 ["topic"]
+       12 GETTABLEKS                       R8 R0 K0 ["data"]
+       14 GETTABLEKS                       R8 R8 K4 ["id"]
+       16 NAMECALL                         R5 R5 K5 ["format"]
+       18 CALL                             R5 3 1
+       19 NAMECALL                         R3 R3 K6 ["TryBeginRecording"]
+       21 CALL                             R3 2 1
+       22 GETIMPORT                        R4 K8 [pcall]
+       24 MOVE                             R5 R2
+       25 MOVE                             R6 R1
+       26 CALL                             R4 2 2
+       27 JUMPIF                           R4 ; [+16]
+       28 GETIMPORT                        R6 K10 [warn]
+       30 LOADK                            R7 K11 ["Error skipping step %*/%*: %*"]
+       31 GETTABLEKS                       R9 R0 K0 ["data"]
+       33 GETTABLEKS                       R9 R9 K3 ["topic"]
+       35 GETTABLEKS                       R10 R0 K0 ["data"]
+       37 GETTABLEKS                       R10 R10 K4 ["id"]
+       39 MOVE                             R11 R5
+       40 NAMECALL                         R7 R7 K5 ["format"]
+       42 CALL                             R7 4 1
+       43 CALL                             R6 1 0
+       44 JUMPIFNOT                        R3 ; [+7]
+       45 GETUPVAL                         R6 0
+       46 MOVE                             R8 R3
+       47 GETIMPORT                        R9 K15 [Enum.FinishRecordingOperation.Commit]
+       49 NAMECALL                         R6 R6 K16 ["FinishRecording"]
+       51 CALL                             R6 3 0
+       52 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0

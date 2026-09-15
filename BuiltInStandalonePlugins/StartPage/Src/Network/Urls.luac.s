@@ -11,24 +11,22 @@ PROTO_2:
         1 RETURN                           R0 1
 
 PROTO_3:
-        0 LOADK                            R2 K0 ["v2/universes/%*/places"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["v2/universes/%*/places"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_4:
         0 LOADK                            R0 K0 ["v1/user/groups/canmanage"]
         1 RETURN                           R0 1
 
 PROTO_5:
-        0 LOADK                            R2 K0 ["creator-home-api/v1/groups?surface=%*"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["creator-home-api/v1/groups?surface=%*"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_6:
         0 LOADK                            R0 K0 ["/v1/games/icons"]
@@ -67,52 +65,47 @@ PROTO_14:
         1 RETURN                           R0 1
 
 PROTO_15:
-        0 LOADK                            R2 K0 ["v1/universes/%*/activate"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["v1/universes/%*/activate"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_16:
-        0 LOADK                            R2 K0 ["v1/universes/%*/deactivate"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["v1/universes/%*/deactivate"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_17:
-        0 LOADK                            R2 K0 ["v1/universes/%*/configuration"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["v1/universes/%*/configuration"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_18:
         0 LOADK                            R0 K0 ["v1/universes/multiget"]
         1 RETURN                           R0 1
 
 PROTO_19:
-        0 LOADK                            R2 K0 ["v1/universes/%*/teamcreate/memberships"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["v1/universes/%*/teamcreate/memberships"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_20:
         0 LOADK                            R0 K0 ["v1/team-create-preemptive"]
         1 RETURN                           R0 1
 
 PROTO_21:
-        0 LOADK                            R2 K0 ["v1/universes/%*/teamcreate"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["v1/universes/%*/teamcreate"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_22:
         0 LOADK                            R0 K0 ["v1/games/multiget-place-details"]
@@ -123,21 +116,19 @@ PROTO_23:
         1 RETURN                           R0 1
 
 PROTO_24:
-        0 LOADK                            R2 K0 ["creator-home-api/v1/users/%*/homepage/banner/experience-unrated"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["creator-home-api/v1/users/%*/homepage/banner/experience-unrated"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_25:
-        0 LOADK                            R3 K0 ["access-management/v1/upsell-feature-access?featureName=%*&nameSpace=%*"]
-        1 MOVE                             R5 R0
-        2 MOVE                             R6 R1
-        3 NAMECALL                         R3 R3 K1 ["format"]
-        5 CALL                             R3 3 1
-        6 MOVE                             R2 R3
-        7 RETURN                           R2 1
+        0 LOADK                            R2 K0 ["access-management/v1/upsell-feature-access?featureName=%*&nameSpace=%*"]
+        1 MOVE                             R4 R0
+        2 MOVE                             R5 R1
+        3 NAMECALL                         R2 R2 K1 ["format"]
+        5 CALL                             R2 3 1
+        6 RETURN                           R2 1
 
 PROTO_26:
         0 LOADK                            R0 K0 ["core-content/v1/universe-eligibility/batch"]
@@ -148,52 +139,47 @@ PROTO_27:
         1 RETURN                           R0 1
 
 PROTO_28:
-        0 LOADK                            R2 K0 ["content-safety/v1/places/%*/safety-status"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["content-safety/v1/places/%*/safety-status"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_29:
         0 LOADK                            R0 K0 ["team-create-service/v1/AreUniversesImpacted"]
         1 RETURN                           R0 1
 
 PROTO_30:
-        0 LOADK                            R2 K0 ["v1/universes/%*/activation-eligibility"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["v1/universes/%*/activation-eligibility"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_31:
-        0 LOADK                            R2 K0 ["v1/universes/%*/places"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["v1/universes/%*/places"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_32:
         0 LOADK                            R0 K0 ["universes/v1/universes/create"]
         1 RETURN                           R0 1
 
 PROTO_33:
-        0 LOADK                            R2 K0 ["v2/universes/%*/configuration"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["v2/universes/%*/configuration"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_34:
-        0 LOADK                            R2 K0 ["universes/v1/user/universes/%*/places"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["universes/v1/user/universes/%*/places"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_35:
         0 LOADK                            R0 K0 ["activity-feed-api/v1/history"]
@@ -204,12 +190,11 @@ PROTO_36:
         1 RETURN                           R0 1
 
 PROTO_37:
-        0 LOADK                            R2 K0 ["studio-user-data-api/pinned-experiences/%*"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["studio-user-data-api/pinned-experiences/%*"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -200,212 +200,211 @@ PROTO_7:
       170 LOADB                            R32 1
       171 SETTABLEKS                       R32 R31 K40 ["content-default"]
       173 SETTABLEKS                       R31 R30 K33 ["tag"]
-      175 LOADK                            R32 K41 ["avatar-chat-turn-%*"]
-      176 MOVE                             R34 R4
-      177 NAMECALL                         R32 R32 K42 ["format"]
-      179 CALL                             R32 2 1
-      180 MOVE                             R31 R32
-      181 SETTABLEKS                       R31 R30 K27 ["testId"]
-      183 JUMPIFNOTEQKS                    R4 K43 ["generating"] ; [+10]
-      185 DUPTABLE                         R31 K45 [{"Shimmer"}]
-      186 GETUPVAL                         R32 3
-      187 GETTABLEKS                       R32 R32 K11 ["createElement"]
-      189 GETUPVAL                         R33 8
-      190 CALL                             R32 1 1
-      191 SETTABLEKS                       R32 R31 K44 ["Shimmer"]
-      193 JUMP                             ; [+1]
-      194 LOADNIL                          R31
-      195 CALL                             R28 3 1
-      196 SETTABLEKS                       R28 R27 K30 ["Status"]
-      198 CALL                             R24 3 1
-      199 SETTABLEKS                       R24 R23 K23 ["Header"]
-      201 JUMPIFNOT                        R5 ; [+237]
-      202 GETUPVAL                         R24 3
-      203 GETTABLEKS                       R24 R24 K11 ["createElement"]
-      205 GETUPVAL                         R25 5
-      206 GETTABLEKS                       R25 R25 K24 ["Content"]
-      208 DUPTABLE                         R26 K47 [{["LayoutOrder"], ["tag"] = "col align-x-right gap-xsmall auto-xy"}]
-      209 MOVE                             R27 R2
-      210 CALL                             R27 0 1
-      211 SETTABLEKS                       R27 R26 K17 ["LayoutOrder"]
-      213 DUPTABLE                         R27 K50 [{"Image", "Action"}]
-      214 JUMPIFNOTEQKS                    R4 K51 ["complete"] ; [+64]
-      216 GETTABLEKS                       R29 R3 K52 ["previewImage"]
-      218 JUMPIFEQKNIL                     R29 ; [+60]
-      220 GETUPVAL                         R28 3
-      221 GETTABLEKS                       R28 R28 K11 ["createElement"]
-      223 LOADK                            R29 K53 ["ImageButton"]
-      224 NEWTABLE                         R30 16 0
-      226 MOVE                             R31 R2
-      227 CALL                             R31 0 1
-      228 SETTABLEKS                       R31 R30 K17 ["LayoutOrder"]
-      230 GETIMPORT                        R31 K56 [UDim2.fromOffset]
-      232 LOADN                            R32 256
-      233 LOADN                            R33 256
-      234 CALL                             R31 2 1
-      235 SETTABLEKS                       R31 R30 K57 ["Size"]
-      237 LOADN                            R31 1
-      238 SETTABLEKS                       R31 R30 K58 ["BackgroundTransparency"]
-      240 LOADB                            R31 0
-      241 SETTABLEKS                       R31 R30 K59 ["AutoButtonColor"]
-      243 GETIMPORT                        R31 K61 [Content.fromObject]
-      245 GETTABLEKS                       R32 R3 K52 ["previewImage"]
-      247 CALL                             R31 1 1
-      248 SETTABLEKS                       R31 R30 K62 ["ImageContent"]
-      250 GETIMPORT                        R31 K66 [Enum.ScaleType.Fit]
-      252 SETTABLEKS                       R31 R30 K64 ["ScaleType"]
-      254 GETUPVAL                         R31 3
-      255 GETTABLEKS                       R31 R31 K67 ["Event"]
-      257 GETTABLEKS                       R31 R31 K68 ["Activated"]
-      259 SETTABLE                         R13 R30 R31
-      260 GETUPVAL                         R31 3
-      261 GETTABLEKS                       R31 R31 K67 ["Event"]
-      263 GETTABLEKS                       R31 R31 K69 ["MouseEnter"]
-      265 SETTABLE                         R14 R30 R31
-      266 GETUPVAL                         R31 3
-      267 GETTABLEKS                       R31 R31 K67 ["Event"]
-      269 GETTABLEKS                       R31 R31 K70 ["MouseLeave"]
-      271 SETTABLE                         R15 R30 R31
-      272 GETUPVAL                         R31 3
-      273 GETTABLEKS                       R31 R31 K71 ["Tag"]
-      275 LOADK                            R32 K72 ["data-testid=avatar-chat-preview-image"]
-      276 SETTABLE                         R32 R30 R31
-      277 CALL                             R28 2 1
-      278 JUMP                             ; [+26]
-      279 JUMPIFNOTEQKS                    R4 K43 ["generating"] ; [+24]
-      281 GETUPVAL                         R28 3
-      282 GETTABLEKS                       R28 R28 K11 ["createElement"]
-      284 GETUPVAL                         R29 9
-      285 DUPTABLE                         R30 K74 [{"LayoutOrder", "Size", "radius"}]
-      286 MOVE                             R31 R2
-      287 CALL                             R31 0 1
-      288 SETTABLEKS                       R31 R30 K17 ["LayoutOrder"]
-      290 GETIMPORT                        R31 K56 [UDim2.fromOffset]
-      292 LOADN                            R32 256
-      293 LOADN                            R33 256
-      294 CALL                             R31 2 1
-      295 SETTABLEKS                       R31 R30 K57 ["Size"]
-      297 GETUPVAL                         R31 10
-      298 GETTABLEKS                       R31 R31 K75 ["Small"]
-      300 SETTABLEKS                       R31 R30 K73 ["radius"]
-      302 CALL                             R28 2 1
-      303 JUMP                             ; [+1]
-      304 LOADNIL                          R28
-      305 SETTABLEKS                       R28 R27 K48 ["Image"]
-      307 JUMPIFNOTEQKS                    R4 K43 ["generating"] ; [+28]
-      309 GETUPVAL                         R28 3
-      310 GETTABLEKS                       R28 R28 K11 ["createElement"]
-      312 GETUPVAL                         R29 11
-      313 DUPTABLE                         R30 K80 [{["LayoutOrder"], ["size"], ["text"], ["onActivated"], ["testId"] = "avatar-chat-cancel"}]
-      314 MOVE                             R31 R2
-      315 CALL                             R31 0 1
-      316 SETTABLEKS                       R31 R30 K17 ["LayoutOrder"]
-      318 GETUPVAL                         R31 12
-      319 GETTABLEKS                       R31 R31 K81 ["XSmall"]
-      321 SETTABLEKS                       R31 R30 K76 ["size"]
-      323 LOADK                            R33 K35 ["AvatarChatScreen"]
-      324 LOADK                            R34 K82 ["ButtonCancel"]
-      325 NAMECALL                         R31 R1 K36 ["getText"]
-      327 CALL                             R31 3 1
-      328 SETTABLEKS                       R31 R30 K77 ["text"]
-      330 GETTABLEKS                       R31 R0 K83 ["onCancel"]
-      332 SETTABLEKS                       R31 R30 K78 ["onActivated"]
-      334 CALL                             R28 2 1
-      335 JUMP                             ; [+99]
-      336 JUMPIFNOTEQKS                    R4 K51 ["complete"] ; [+70]
-      338 GETUPVAL                         R28 3
-      339 GETTABLEKS                       R28 R28 K11 ["createElement"]
-      341 GETUPVAL                         R29 13
-      342 DUPTABLE                         R30 K85 [{["tag"] = "row gap-xsmall auto-xy", ["LayoutOrder"]}]
-      343 MOVE                             R31 R2
-      344 CALL                             R31 0 1
-      345 SETTABLEKS                       R31 R30 K17 ["LayoutOrder"]
-      347 DUPTABLE                         R31 K88 [{"Confirm", "Regenerate"}]
-      348 GETUPVAL                         R32 3
-      349 GETTABLEKS                       R32 R32 K11 ["createElement"]
-      351 GETUPVAL                         R33 11
-      352 DUPTABLE                         R34 K91 [{["LayoutOrder"], ["size"], ["text"], ["variant"], ["onActivated"], ["testId"] = "avatar-chat-confirm"}]
-      353 MOVE                             R35 R2
-      354 CALL                             R35 0 1
-      355 SETTABLEKS                       R35 R34 K17 ["LayoutOrder"]
-      357 GETUPVAL                         R35 12
-      358 GETTABLEKS                       R35 R35 K81 ["XSmall"]
-      360 SETTABLEKS                       R35 R34 K76 ["size"]
-      362 LOADK                            R37 K35 ["AvatarChatScreen"]
-      363 LOADK                            R38 K92 ["ButtonUse"]
-      364 NAMECALL                         R35 R1 K36 ["getText"]
-      366 CALL                             R35 3 1
-      367 SETTABLEKS                       R35 R34 K77 ["text"]
-      369 GETUPVAL                         R35 14
-      370 GETTABLEKS                       R35 R35 K93 ["Emphasis"]
-      372 SETTABLEKS                       R35 R34 K89 ["variant"]
-      374 SETTABLEKS                       R11 R34 K78 ["onActivated"]
-      376 CALL                             R32 2 1
-      377 SETTABLEKS                       R32 R31 K86 ["Confirm"]
-      379 GETUPVAL                         R32 3
-      380 GETTABLEKS                       R32 R32 K11 ["createElement"]
-      382 GETUPVAL                         R33 11
-      383 DUPTABLE                         R34 K95 [{["LayoutOrder"], ["size"], ["text"], ["onActivated"], ["testId"] = "avatar-chat-regenerate"}]
-      384 MOVE                             R35 R2
-      385 CALL                             R35 0 1
-      386 SETTABLEKS                       R35 R34 K17 ["LayoutOrder"]
-      388 GETUPVAL                         R35 12
-      389 GETTABLEKS                       R35 R35 K81 ["XSmall"]
-      391 SETTABLEKS                       R35 R34 K76 ["size"]
-      393 LOADK                            R37 K35 ["AvatarChatScreen"]
-      394 LOADK                            R38 K96 ["ButtonRegenerate"]
-      395 NAMECALL                         R35 R1 K36 ["getText"]
-      397 CALL                             R35 3 1
-      398 SETTABLEKS                       R35 R34 K77 ["text"]
-      400 SETTABLEKS                       R10 R34 K78 ["onActivated"]
-      402 CALL                             R32 2 1
-      403 SETTABLEKS                       R32 R31 K87 ["Regenerate"]
-      405 CALL                             R28 3 1
-      406 JUMP                             ; [+28]
-      407 JUMPIFNOTEQKS                    R4 K38 ["failed"] ; [+26]
-      409 GETUPVAL                         R28 3
-      410 GETTABLEKS                       R28 R28 K11 ["createElement"]
-      412 GETUPVAL                         R29 11
-      413 DUPTABLE                         R30 K95 [{["LayoutOrder"], ["size"], ["text"], ["onActivated"], ["testId"] = "avatar-chat-regenerate"}]
-      414 MOVE                             R31 R2
-      415 CALL                             R31 0 1
-      416 SETTABLEKS                       R31 R30 K17 ["LayoutOrder"]
-      418 GETUPVAL                         R31 12
-      419 GETTABLEKS                       R31 R31 K81 ["XSmall"]
-      421 SETTABLEKS                       R31 R30 K76 ["size"]
-      423 LOADK                            R33 K35 ["AvatarChatScreen"]
-      424 LOADK                            R34 K96 ["ButtonRegenerate"]
-      425 NAMECALL                         R31 R1 K36 ["getText"]
-      427 CALL                             R31 3 1
-      428 SETTABLEKS                       R31 R30 K77 ["text"]
-      430 SETTABLEKS                       R10 R30 K78 ["onActivated"]
-      432 CALL                             R28 2 1
-      433 JUMP                             ; [+1]
-      434 LOADNIL                          R28
-      435 SETTABLEKS                       R28 R27 K49 ["Action"]
-      437 CALL                             R24 3 1
-      438 JUMP                             ; [+1]
-      439 LOADNIL                          R24
-      440 SETTABLEKS                       R24 R23 K24 ["Content"]
-      442 CALL                             R20 3 1
-      443 SETTABLEKS                       R20 R19 K13 ["Turn"]
-      445 GETTABLEKS                       R21 R7 K21 ["enabled"]
-      447 JUMPIFNOT                        R21 ; [+17]
-      448 GETTABLEKS                       R21 R3 K52 ["previewImage"]
-      450 JUMPIFEQKNIL                     R21 ; [+14]
-      452 GETUPVAL                         R20 3
-      453 GETTABLEKS                       R20 R20 K11 ["createElement"]
-      455 GETUPVAL                         R21 15
-      456 DUPTABLE                         R22 K98 [{"previewImage", "onClose"}]
-      457 GETTABLEKS                       R23 R3 K52 ["previewImage"]
-      459 SETTABLEKS                       R23 R22 K52 ["previewImage"]
-      461 SETTABLEKS                       R12 R22 K97 ["onClose"]
-      463 CALL                             R20 2 1
-      464 JUMP                             ; [+1]
-      465 LOADNIL                          R20
-      466 SETTABLEKS                       R20 R19 K14 ["ImageDialog"]
-      468 CALL                             R16 3 -1
-      469 RETURN                           R16 -1
+      175 LOADK                            R31 K41 ["avatar-chat-turn-%*"]
+      176 MOVE                             R33 R4
+      177 NAMECALL                         R31 R31 K42 ["format"]
+      179 CALL                             R31 2 1
+      180 SETTABLEKS                       R31 R30 K27 ["testId"]
+      182 JUMPIFNOTEQKS                    R4 K43 ["generating"] ; [+10]
+      184 DUPTABLE                         R31 K45 [{"Shimmer"}]
+      185 GETUPVAL                         R32 3
+      186 GETTABLEKS                       R32 R32 K11 ["createElement"]
+      188 GETUPVAL                         R33 8
+      189 CALL                             R32 1 1
+      190 SETTABLEKS                       R32 R31 K44 ["Shimmer"]
+      192 JUMP                             ; [+1]
+      193 LOADNIL                          R31
+      194 CALL                             R28 3 1
+      195 SETTABLEKS                       R28 R27 K30 ["Status"]
+      197 CALL                             R24 3 1
+      198 SETTABLEKS                       R24 R23 K23 ["Header"]
+      200 JUMPIFNOT                        R5 ; [+237]
+      201 GETUPVAL                         R24 3
+      202 GETTABLEKS                       R24 R24 K11 ["createElement"]
+      204 GETUPVAL                         R25 5
+      205 GETTABLEKS                       R25 R25 K24 ["Content"]
+      207 DUPTABLE                         R26 K47 [{["LayoutOrder"], ["tag"] = "col align-x-right gap-xsmall auto-xy"}]
+      208 MOVE                             R27 R2
+      209 CALL                             R27 0 1
+      210 SETTABLEKS                       R27 R26 K17 ["LayoutOrder"]
+      212 DUPTABLE                         R27 K50 [{"Image", "Action"}]
+      213 JUMPIFNOTEQKS                    R4 K51 ["complete"] ; [+64]
+      215 GETTABLEKS                       R29 R3 K52 ["previewImage"]
+      217 JUMPIFEQKNIL                     R29 ; [+60]
+      219 GETUPVAL                         R28 3
+      220 GETTABLEKS                       R28 R28 K11 ["createElement"]
+      222 LOADK                            R29 K53 ["ImageButton"]
+      223 NEWTABLE                         R30 16 0
+      225 MOVE                             R31 R2
+      226 CALL                             R31 0 1
+      227 SETTABLEKS                       R31 R30 K17 ["LayoutOrder"]
+      229 GETIMPORT                        R31 K56 [UDim2.fromOffset]
+      231 LOADN                            R32 256
+      232 LOADN                            R33 256
+      233 CALL                             R31 2 1
+      234 SETTABLEKS                       R31 R30 K57 ["Size"]
+      236 LOADN                            R31 1
+      237 SETTABLEKS                       R31 R30 K58 ["BackgroundTransparency"]
+      239 LOADB                            R31 0
+      240 SETTABLEKS                       R31 R30 K59 ["AutoButtonColor"]
+      242 GETIMPORT                        R31 K61 [Content.fromObject]
+      244 GETTABLEKS                       R32 R3 K52 ["previewImage"]
+      246 CALL                             R31 1 1
+      247 SETTABLEKS                       R31 R30 K62 ["ImageContent"]
+      249 GETIMPORT                        R31 K66 [Enum.ScaleType.Fit]
+      251 SETTABLEKS                       R31 R30 K64 ["ScaleType"]
+      253 GETUPVAL                         R31 3
+      254 GETTABLEKS                       R31 R31 K67 ["Event"]
+      256 GETTABLEKS                       R31 R31 K68 ["Activated"]
+      258 SETTABLE                         R13 R30 R31
+      259 GETUPVAL                         R31 3
+      260 GETTABLEKS                       R31 R31 K67 ["Event"]
+      262 GETTABLEKS                       R31 R31 K69 ["MouseEnter"]
+      264 SETTABLE                         R14 R30 R31
+      265 GETUPVAL                         R31 3
+      266 GETTABLEKS                       R31 R31 K67 ["Event"]
+      268 GETTABLEKS                       R31 R31 K70 ["MouseLeave"]
+      270 SETTABLE                         R15 R30 R31
+      271 GETUPVAL                         R31 3
+      272 GETTABLEKS                       R31 R31 K71 ["Tag"]
+      274 LOADK                            R32 K72 ["data-testid=avatar-chat-preview-image"]
+      275 SETTABLE                         R32 R30 R31
+      276 CALL                             R28 2 1
+      277 JUMP                             ; [+26]
+      278 JUMPIFNOTEQKS                    R4 K43 ["generating"] ; [+24]
+      280 GETUPVAL                         R28 3
+      281 GETTABLEKS                       R28 R28 K11 ["createElement"]
+      283 GETUPVAL                         R29 9
+      284 DUPTABLE                         R30 K74 [{"LayoutOrder", "Size", "radius"}]
+      285 MOVE                             R31 R2
+      286 CALL                             R31 0 1
+      287 SETTABLEKS                       R31 R30 K17 ["LayoutOrder"]
+      289 GETIMPORT                        R31 K56 [UDim2.fromOffset]
+      291 LOADN                            R32 256
+      292 LOADN                            R33 256
+      293 CALL                             R31 2 1
+      294 SETTABLEKS                       R31 R30 K57 ["Size"]
+      296 GETUPVAL                         R31 10
+      297 GETTABLEKS                       R31 R31 K75 ["Small"]
+      299 SETTABLEKS                       R31 R30 K73 ["radius"]
+      301 CALL                             R28 2 1
+      302 JUMP                             ; [+1]
+      303 LOADNIL                          R28
+      304 SETTABLEKS                       R28 R27 K48 ["Image"]
+      306 JUMPIFNOTEQKS                    R4 K43 ["generating"] ; [+28]
+      308 GETUPVAL                         R28 3
+      309 GETTABLEKS                       R28 R28 K11 ["createElement"]
+      311 GETUPVAL                         R29 11
+      312 DUPTABLE                         R30 K80 [{["LayoutOrder"], ["size"], ["text"], ["onActivated"], ["testId"] = "avatar-chat-cancel"}]
+      313 MOVE                             R31 R2
+      314 CALL                             R31 0 1
+      315 SETTABLEKS                       R31 R30 K17 ["LayoutOrder"]
+      317 GETUPVAL                         R31 12
+      318 GETTABLEKS                       R31 R31 K81 ["XSmall"]
+      320 SETTABLEKS                       R31 R30 K76 ["size"]
+      322 LOADK                            R33 K35 ["AvatarChatScreen"]
+      323 LOADK                            R34 K82 ["ButtonCancel"]
+      324 NAMECALL                         R31 R1 K36 ["getText"]
+      326 CALL                             R31 3 1
+      327 SETTABLEKS                       R31 R30 K77 ["text"]
+      329 GETTABLEKS                       R31 R0 K83 ["onCancel"]
+      331 SETTABLEKS                       R31 R30 K78 ["onActivated"]
+      333 CALL                             R28 2 1
+      334 JUMP                             ; [+99]
+      335 JUMPIFNOTEQKS                    R4 K51 ["complete"] ; [+70]
+      337 GETUPVAL                         R28 3
+      338 GETTABLEKS                       R28 R28 K11 ["createElement"]
+      340 GETUPVAL                         R29 13
+      341 DUPTABLE                         R30 K85 [{["tag"] = "row gap-xsmall auto-xy", ["LayoutOrder"]}]
+      342 MOVE                             R31 R2
+      343 CALL                             R31 0 1
+      344 SETTABLEKS                       R31 R30 K17 ["LayoutOrder"]
+      346 DUPTABLE                         R31 K88 [{"Confirm", "Regenerate"}]
+      347 GETUPVAL                         R32 3
+      348 GETTABLEKS                       R32 R32 K11 ["createElement"]
+      350 GETUPVAL                         R33 11
+      351 DUPTABLE                         R34 K91 [{["LayoutOrder"], ["size"], ["text"], ["variant"], ["onActivated"], ["testId"] = "avatar-chat-confirm"}]
+      352 MOVE                             R35 R2
+      353 CALL                             R35 0 1
+      354 SETTABLEKS                       R35 R34 K17 ["LayoutOrder"]
+      356 GETUPVAL                         R35 12
+      357 GETTABLEKS                       R35 R35 K81 ["XSmall"]
+      359 SETTABLEKS                       R35 R34 K76 ["size"]
+      361 LOADK                            R37 K35 ["AvatarChatScreen"]
+      362 LOADK                            R38 K92 ["ButtonUse"]
+      363 NAMECALL                         R35 R1 K36 ["getText"]
+      365 CALL                             R35 3 1
+      366 SETTABLEKS                       R35 R34 K77 ["text"]
+      368 GETUPVAL                         R35 14
+      369 GETTABLEKS                       R35 R35 K93 ["Emphasis"]
+      371 SETTABLEKS                       R35 R34 K89 ["variant"]
+      373 SETTABLEKS                       R11 R34 K78 ["onActivated"]
+      375 CALL                             R32 2 1
+      376 SETTABLEKS                       R32 R31 K86 ["Confirm"]
+      378 GETUPVAL                         R32 3
+      379 GETTABLEKS                       R32 R32 K11 ["createElement"]
+      381 GETUPVAL                         R33 11
+      382 DUPTABLE                         R34 K95 [{["LayoutOrder"], ["size"], ["text"], ["onActivated"], ["testId"] = "avatar-chat-regenerate"}]
+      383 MOVE                             R35 R2
+      384 CALL                             R35 0 1
+      385 SETTABLEKS                       R35 R34 K17 ["LayoutOrder"]
+      387 GETUPVAL                         R35 12
+      388 GETTABLEKS                       R35 R35 K81 ["XSmall"]
+      390 SETTABLEKS                       R35 R34 K76 ["size"]
+      392 LOADK                            R37 K35 ["AvatarChatScreen"]
+      393 LOADK                            R38 K96 ["ButtonRegenerate"]
+      394 NAMECALL                         R35 R1 K36 ["getText"]
+      396 CALL                             R35 3 1
+      397 SETTABLEKS                       R35 R34 K77 ["text"]
+      399 SETTABLEKS                       R10 R34 K78 ["onActivated"]
+      401 CALL                             R32 2 1
+      402 SETTABLEKS                       R32 R31 K87 ["Regenerate"]
+      404 CALL                             R28 3 1
+      405 JUMP                             ; [+28]
+      406 JUMPIFNOTEQKS                    R4 K38 ["failed"] ; [+26]
+      408 GETUPVAL                         R28 3
+      409 GETTABLEKS                       R28 R28 K11 ["createElement"]
+      411 GETUPVAL                         R29 11
+      412 DUPTABLE                         R30 K95 [{["LayoutOrder"], ["size"], ["text"], ["onActivated"], ["testId"] = "avatar-chat-regenerate"}]
+      413 MOVE                             R31 R2
+      414 CALL                             R31 0 1
+      415 SETTABLEKS                       R31 R30 K17 ["LayoutOrder"]
+      417 GETUPVAL                         R31 12
+      418 GETTABLEKS                       R31 R31 K81 ["XSmall"]
+      420 SETTABLEKS                       R31 R30 K76 ["size"]
+      422 LOADK                            R33 K35 ["AvatarChatScreen"]
+      423 LOADK                            R34 K96 ["ButtonRegenerate"]
+      424 NAMECALL                         R31 R1 K36 ["getText"]
+      426 CALL                             R31 3 1
+      427 SETTABLEKS                       R31 R30 K77 ["text"]
+      429 SETTABLEKS                       R10 R30 K78 ["onActivated"]
+      431 CALL                             R28 2 1
+      432 JUMP                             ; [+1]
+      433 LOADNIL                          R28
+      434 SETTABLEKS                       R28 R27 K49 ["Action"]
+      436 CALL                             R24 3 1
+      437 JUMP                             ; [+1]
+      438 LOADNIL                          R24
+      439 SETTABLEKS                       R24 R23 K24 ["Content"]
+      441 CALL                             R20 3 1
+      442 SETTABLEKS                       R20 R19 K13 ["Turn"]
+      444 GETTABLEKS                       R21 R7 K21 ["enabled"]
+      446 JUMPIFNOT                        R21 ; [+17]
+      447 GETTABLEKS                       R21 R3 K52 ["previewImage"]
+      449 JUMPIFEQKNIL                     R21 ; [+14]
+      451 GETUPVAL                         R20 3
+      452 GETTABLEKS                       R20 R20 K11 ["createElement"]
+      454 GETUPVAL                         R21 15
+      455 DUPTABLE                         R22 K98 [{"previewImage", "onClose"}]
+      456 GETTABLEKS                       R23 R3 K52 ["previewImage"]
+      458 SETTABLEKS                       R23 R22 K52 ["previewImage"]
+      460 SETTABLEKS                       R12 R22 K97 ["onClose"]
+      462 CALL                             R20 2 1
+      463 JUMP                             ; [+1]
+      464 LOADNIL                          R20
+      465 SETTABLEKS                       R20 R19 K14 ["ImageDialog"]
+      467 CALL                             R16 3 -1
+      468 RETURN                           R16 -1
 
 MAIN:
         0 PREPVARARGS                      0

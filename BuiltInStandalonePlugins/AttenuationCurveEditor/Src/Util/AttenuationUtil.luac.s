@@ -76,18 +76,17 @@ PROTO_3:
         7 MOVE                             R8 R5
         8 GETIMPORT                        R7 K1 [tostring]
        10 CALL                             R7 1 1
-       11 JUMPIF                           R7 ; [+10]
+       11 JUMPIF                           R7 ; [+9]
        12 GETIMPORT                        R8 K3 [print]
-       14 LOADK                            R10 K4 ["%* couldn't be converted to a string!"]
-       15 MOVE                             R12 R5
-       16 NAMECALL                         R10 R10 K5 ["format"]
-       18 CALL                             R10 2 1
-       19 MOVE                             R9 R10
-       20 CALL                             R8 1 0
-       21 JUMP                             ; [+1]
-       22 SETTABLE                         R6 R1 R7
-       23 FORGLOOP                         R2 2 ; [-18]
-       25 RETURN                           R1 1
+       14 LOADK                            R9 K4 ["%* couldn't be converted to a string!"]
+       15 MOVE                             R11 R5
+       16 NAMECALL                         R9 R9 K5 ["format"]
+       18 CALL                             R9 2 1
+       19 CALL                             R8 1 0
+       20 JUMP                             ; [+1]
+       21 SETTABLE                         R6 R1 R7
+       22 FORGLOOP                         R2 2 ; [-17]
+       24 RETURN                           R1 1
 
 PROTO_4:
         0 NEWTABLE                         R1 0 0
@@ -99,18 +98,17 @@ PROTO_4:
         7 MOVE                             R8 R5
         8 GETIMPORT                        R7 K1 [tonumber]
        10 CALL                             R7 1 1
-       11 JUMPIF                           R7 ; [+10]
+       11 JUMPIF                           R7 ; [+9]
        12 GETIMPORT                        R8 K3 [print]
-       14 LOADK                            R10 K4 ["%* couldn't be converted to a number!"]
-       15 MOVE                             R12 R5
-       16 NAMECALL                         R10 R10 K5 ["format"]
-       18 CALL                             R10 2 1
-       19 MOVE                             R9 R10
-       20 CALL                             R8 1 0
-       21 JUMP                             ; [+1]
-       22 SETTABLE                         R6 R1 R7
-       23 FORGLOOP                         R2 2 ; [-18]
-       25 RETURN                           R1 1
+       14 LOADK                            R9 K4 ["%* couldn't be converted to a number!"]
+       15 MOVE                             R11 R5
+       16 NAMECALL                         R9 R9 K5 ["format"]
+       18 CALL                             R9 2 1
+       19 CALL                             R8 1 0
+       20 JUMP                             ; [+1]
+       21 SETTABLE                         R6 R1 R7
+       22 FORGLOOP                         R2 2 ; [-17]
+       24 RETURN                           R1 1
 
 PROTO_5:
         0 NEWTABLE                         R1 0 0

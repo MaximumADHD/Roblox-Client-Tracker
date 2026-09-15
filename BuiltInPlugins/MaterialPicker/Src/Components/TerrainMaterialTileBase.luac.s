@@ -52,38 +52,40 @@ PROTO_1:
        31 GETTABLEKS                       R8 R0 K5 ["tag"]
        33 ORK                              R7 R8 K14 ["radius-xsmall clip"]
        34 SETTABLEKS                       R7 R6 K5 ["tag"]
-       36 LOADK                            R8 K15 ["terrain-material-preview-%*"]
-       37 GETTABLEKS                       R10 R0 K0 ["entry"]
-       39 GETTABLEKS                       R10 R10 K16 ["slotIndex"]
-       41 NAMECALL                         R8 R8 K17 ["format"]
-       43 CALL                             R8 2 1
-       44 MOVE                             R7 R8
-       45 SETTABLEKS                       R7 R6 K6 ["testId"]
-       47 DUPTABLE                         R7 K19 [{"Material"}]
-       48 GETUPVAL                         R8 1
-       49 GETTABLEKS                       R8 R8 K1 ["createElement"]
-       51 GETUPVAL                         R9 3
-       52 DUPTABLE                         R10 K29 [{["CornerRadius"], ["InitialDistance"] = 4.12, ["Material"], ["MaterialPreviewGeometryType"], ["OverrideColor"], ["OverrideTransparency"], ["Size"], ["Static"] = True, ["Transparent"] = True}]
-       53 GETIMPORT                        R11 K32 [UDim.new]
-       55 LOADN                            R12 0
-       56 LOADN                            R13 2
-       57 CALL                             R11 2 1
-       58 SETTABLEKS                       R11 R10 K20 ["CornerRadius"]
-       60 SETTABLEKS                       R1 R10 K18 ["Material"]
-       62 GETUPVAL                         R11 4
-       63 GETTABLEKS                       R11 R11 K33 ["CubeCornerOn"]
-       65 SETTABLEKS                       R11 R10 K23 ["MaterialPreviewGeometryType"]
-       67 SETTABLEKS                       R2 R10 K24 ["OverrideColor"]
-       69 SETTABLEKS                       R3 R10 K25 ["OverrideTransparency"]
-       71 GETIMPORT                        R11 K35 [UDim2.fromScale]
-       73 LOADN                            R12 1
-       74 LOADN                            R13 1
-       75 CALL                             R11 2 1
-       76 SETTABLEKS                       R11 R10 K4 ["Size"]
-       78 CALL                             R8 2 1
-       79 SETTABLEKS                       R8 R7 K18 ["Material"]
-       81 CALL                             R4 3 -1
-       82 RETURN                           R4 -1
+       36 LOADK                            R7 K15 ["terrain-material-preview-%*"]
+       37 GETTABLEKS                       R9 R0 K0 ["entry"]
+       39 GETTABLEKS                       R9 R9 K16 ["slotIndex"]
+       41 NAMECALL                         R7 R7 K17 ["format"]
+       43 CALL                             R7 2 1
+       44 SETTABLEKS                       R7 R6 K6 ["testId"]
+       46 DUPTABLE                         R7 K19 [{"Material"}]
+       47 GETUPVAL                         R8 1
+       48 GETTABLEKS                       R8 R8 K1 ["createElement"]
+       50 GETUPVAL                         R9 3
+       51 DUPTABLE                         R10 K28 [{["CornerRadius"], ["InitialDistance"], ["Material"], ["MaterialPreviewGeometryType"], ["OverrideColor"], ["OverrideTransparency"], ["Size"], ["Static"] = True, ["Transparent"] = True}]
+       52 GETIMPORT                        R11 K31 [UDim.new]
+       54 LOADN                            R12 0
+       55 LOADN                            R13 2
+       56 CALL                             R11 2 1
+       57 SETTABLEKS                       R11 R10 K20 ["CornerRadius"]
+       59 GETTABLEKS                       R12 R0 K33 ["initialDistance"]
+       61 ORK                              R11 R12 K32 [4.12]
+       62 SETTABLEKS                       R11 R10 K21 ["InitialDistance"]
+       64 SETTABLEKS                       R1 R10 K18 ["Material"]
+       66 GETUPVAL                         R11 4
+       67 GETTABLEKS                       R11 R11 K34 ["CubeCornerOn"]
+       69 SETTABLEKS                       R11 R10 K22 ["MaterialPreviewGeometryType"]
+       71 SETTABLEKS                       R2 R10 K23 ["OverrideColor"]
+       73 SETTABLEKS                       R3 R10 K24 ["OverrideTransparency"]
+       75 GETIMPORT                        R11 K36 [UDim2.fromScale]
+       77 LOADN                            R12 1
+       78 LOADN                            R13 1
+       79 CALL                             R11 2 1
+       80 SETTABLEKS                       R11 R10 K4 ["Size"]
+       82 CALL                             R8 2 1
+       83 SETTABLEKS                       R8 R7 K18 ["Material"]
+       85 CALL                             R4 3 -1
+       86 RETURN                           R4 -1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -175,16 +177,15 @@ PROTO_3:
       127 SETTABLEKS                       R9 R8 K21 ["stroke"]
       129 GETTABLEKS                       R9 R0 K22 ["tag"]
       131 SETTABLEKS                       R9 R8 K22 ["tag"]
-      133 LOADK                            R10 K48 ["terrain-material-tile-%*"]
-      134 GETTABLEKS                       R12 R0 K49 ["entry"]
-      136 GETTABLEKS                       R12 R12 K50 ["slotIndex"]
-      138 NAMECALL                         R10 R10 K51 ["format"]
-      140 CALL                             R10 2 1
-      141 MOVE                             R9 R10
-      142 SETTABLEKS                       R9 R8 K23 ["testId"]
-      144 GETTABLEKS                       R9 R0 K52 ["children"]
-      146 CALL                             R6 3 -1
-      147 RETURN                           R6 -1
+      133 LOADK                            R9 K48 ["terrain-material-tile-%*"]
+      134 GETTABLEKS                       R11 R0 K49 ["entry"]
+      136 GETTABLEKS                       R11 R11 K50 ["slotIndex"]
+      138 NAMECALL                         R9 R9 K51 ["format"]
+      140 CALL                             R9 2 1
+      141 SETTABLEKS                       R9 R8 K23 ["testId"]
+      143 GETTABLEKS                       R9 R0 K52 ["children"]
+      145 CALL                             R6 3 -1
+      146 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

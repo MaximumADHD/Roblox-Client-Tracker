@@ -80,83 +80,82 @@ PROTO_4:
        51 NAMECALL                         R7 R1 K21 ["getText"]
        53 CALL                             R7 3 1
        54 SETTABLEKS                       R7 R6 K10 ["title"]
-       56 LOADK                            R8 K22 ["%*\n\n%*"]
-       57 LOADK                            R12 K19 ["BuildSealedDialog"]
-       58 LOADK                            R13 K23 ["Body"]
-       59 NAMECALL                         R10 R1 K21 ["getText"]
-       61 CALL                             R10 3 1
-       62 LOADK                            R13 K19 ["BuildSealedDialog"]
-       63 LOADK                            R14 K24 ["Body.Second"]
-       64 NAMECALL                         R11 R1 K21 ["getText"]
-       66 CALL                             R11 3 1
-       67 NAMECALL                         R8 R8 K25 ["format"]
-       69 CALL                             R8 3 1
-       70 MOVE                             R7 R8
-       71 SETTABLEKS                       R7 R6 K11 ["description"]
-       73 DUPTABLE                         R7 K28 [{"uri", "text", "onActivated"}]
-       74 GETUPVAL                         R8 3
-       75 GETTABLEKS                       R8 R8 K29 ["child"]
-       77 GETTABLEKS                       R9 R0 K7 ["uri"]
-       79 LOADK                            R10 K30 ["Primary"]
-       80 CALL                             R8 2 1
-       81 SETTABLEKS                       R8 R7 K7 ["uri"]
-       83 LOADK                            R10 K31 ["DialogButton"]
-       84 LOADK                            R11 K32 ["Continue"]
-       85 NAMECALL                         R8 R1 K21 ["getText"]
-       87 CALL                             R8 3 1
-       88 SETTABLEKS                       R8 R7 K26 ["text"]
-       90 NEWCLOSURE                       R8 P0
-       91 CAPTURE                          VAL R3
-       92 CAPTURE                          VAL R0
-       93 SETTABLEKS                       R8 R7 K27 ["onActivated"]
-       95 SETTABLEKS                       R7 R6 K12 ["primaryAction"]
-       97 DUPTABLE                         R7 K28 [{"uri", "text", "onActivated"}]
-       98 GETUPVAL                         R8 3
-       99 GETTABLEKS                       R8 R8 K29 ["child"]
-      101 GETTABLEKS                       R9 R0 K7 ["uri"]
-      103 LOADK                            R10 K33 ["Secondary"]
-      104 CALL                             R8 2 1
-      105 SETTABLEKS                       R8 R7 K7 ["uri"]
-      107 LOADK                            R10 K31 ["DialogButton"]
-      108 LOADK                            R11 K34 ["Cancel"]
-      109 NAMECALL                         R8 R1 K21 ["getText"]
-      111 CALL                             R8 3 1
-      112 SETTABLEKS                       R8 R7 K26 ["text"]
-      114 NEWCLOSURE                       R8 P1
-      115 CAPTURE                          VAL R0
-      116 SETTABLEKS                       R8 R7 K27 ["onActivated"]
-      118 SETTABLEKS                       R7 R6 K13 ["secondaryAction"]
-      120 DUPTABLE                         R7 K28 [{"uri", "text", "onActivated"}]
-      121 GETUPVAL                         R8 3
-      122 GETTABLEKS                       R8 R8 K29 ["child"]
-      124 GETTABLEKS                       R9 R0 K7 ["uri"]
-      126 LOADK                            R10 K35 ["Tertiary"]
-      127 CALL                             R8 2 1
-      128 SETTABLEKS                       R8 R7 K7 ["uri"]
-      130 LOADK                            R10 K31 ["DialogButton"]
-      131 LOADK                            R11 K36 ["LearnMore"]
-      132 NAMECALL                         R8 R1 K21 ["getText"]
-      134 CALL                             R8 3 1
-      135 SETTABLEKS                       R8 R7 K26 ["text"]
-      137 NEWCLOSURE                       R8 P2
-      138 CAPTURE                          VAL R2
-      139 CAPTURE                          UPVAL U4
-      140 CAPTURE                          VAL R0
-      141 SETTABLEKS                       R8 R7 K27 ["onActivated"]
-      143 SETTABLEKS                       R7 R6 K14 ["tertiaryAction"]
-      145 DUPTABLE                         R7 K38 [{"uri", "onClose"}]
-      146 GETUPVAL                         R8 3
-      147 GETTABLEKS                       R8 R8 K29 ["child"]
-      149 GETTABLEKS                       R9 R0 K7 ["uri"]
-      151 LOADK                            R10 K39 ["Escape"]
-      152 CALL                             R8 2 1
-      153 SETTABLEKS                       R8 R7 K7 ["uri"]
-      155 NEWCLOSURE                       R8 P3
-      156 CAPTURE                          VAL R0
-      157 SETTABLEKS                       R8 R7 K37 ["onClose"]
-      159 SETTABLEKS                       R7 R6 K15 ["escapeAction"]
-      161 CALL                             R4 2 -1
-      162 RETURN                           R4 -1
+       56 LOADK                            R7 K22 ["%*\n\n%*"]
+       57 LOADK                            R11 K19 ["BuildSealedDialog"]
+       58 LOADK                            R12 K23 ["Body"]
+       59 NAMECALL                         R9 R1 K21 ["getText"]
+       61 CALL                             R9 3 1
+       62 LOADK                            R12 K19 ["BuildSealedDialog"]
+       63 LOADK                            R13 K24 ["Body.Second"]
+       64 NAMECALL                         R10 R1 K21 ["getText"]
+       66 CALL                             R10 3 1
+       67 NAMECALL                         R7 R7 K25 ["format"]
+       69 CALL                             R7 3 1
+       70 SETTABLEKS                       R7 R6 K11 ["description"]
+       72 DUPTABLE                         R7 K28 [{"uri", "text", "onActivated"}]
+       73 GETUPVAL                         R8 3
+       74 GETTABLEKS                       R8 R8 K29 ["child"]
+       76 GETTABLEKS                       R9 R0 K7 ["uri"]
+       78 LOADK                            R10 K30 ["Primary"]
+       79 CALL                             R8 2 1
+       80 SETTABLEKS                       R8 R7 K7 ["uri"]
+       82 LOADK                            R10 K31 ["DialogButton"]
+       83 LOADK                            R11 K32 ["Continue"]
+       84 NAMECALL                         R8 R1 K21 ["getText"]
+       86 CALL                             R8 3 1
+       87 SETTABLEKS                       R8 R7 K26 ["text"]
+       89 NEWCLOSURE                       R8 P0
+       90 CAPTURE                          VAL R3
+       91 CAPTURE                          VAL R0
+       92 SETTABLEKS                       R8 R7 K27 ["onActivated"]
+       94 SETTABLEKS                       R7 R6 K12 ["primaryAction"]
+       96 DUPTABLE                         R7 K28 [{"uri", "text", "onActivated"}]
+       97 GETUPVAL                         R8 3
+       98 GETTABLEKS                       R8 R8 K29 ["child"]
+      100 GETTABLEKS                       R9 R0 K7 ["uri"]
+      102 LOADK                            R10 K33 ["Secondary"]
+      103 CALL                             R8 2 1
+      104 SETTABLEKS                       R8 R7 K7 ["uri"]
+      106 LOADK                            R10 K31 ["DialogButton"]
+      107 LOADK                            R11 K34 ["Cancel"]
+      108 NAMECALL                         R8 R1 K21 ["getText"]
+      110 CALL                             R8 3 1
+      111 SETTABLEKS                       R8 R7 K26 ["text"]
+      113 NEWCLOSURE                       R8 P1
+      114 CAPTURE                          VAL R0
+      115 SETTABLEKS                       R8 R7 K27 ["onActivated"]
+      117 SETTABLEKS                       R7 R6 K13 ["secondaryAction"]
+      119 DUPTABLE                         R7 K28 [{"uri", "text", "onActivated"}]
+      120 GETUPVAL                         R8 3
+      121 GETTABLEKS                       R8 R8 K29 ["child"]
+      123 GETTABLEKS                       R9 R0 K7 ["uri"]
+      125 LOADK                            R10 K35 ["Tertiary"]
+      126 CALL                             R8 2 1
+      127 SETTABLEKS                       R8 R7 K7 ["uri"]
+      129 LOADK                            R10 K31 ["DialogButton"]
+      130 LOADK                            R11 K36 ["LearnMore"]
+      131 NAMECALL                         R8 R1 K21 ["getText"]
+      133 CALL                             R8 3 1
+      134 SETTABLEKS                       R8 R7 K26 ["text"]
+      136 NEWCLOSURE                       R8 P2
+      137 CAPTURE                          VAL R2
+      138 CAPTURE                          UPVAL U4
+      139 CAPTURE                          VAL R0
+      140 SETTABLEKS                       R8 R7 K27 ["onActivated"]
+      142 SETTABLEKS                       R7 R6 K14 ["tertiaryAction"]
+      144 DUPTABLE                         R7 K38 [{"uri", "onClose"}]
+      145 GETUPVAL                         R8 3
+      146 GETTABLEKS                       R8 R8 K29 ["child"]
+      148 GETTABLEKS                       R9 R0 K7 ["uri"]
+      150 LOADK                            R10 K39 ["Escape"]
+      151 CALL                             R8 2 1
+      152 SETTABLEKS                       R8 R7 K7 ["uri"]
+      154 NEWCLOSURE                       R8 P3
+      155 CAPTURE                          VAL R0
+      156 SETTABLEKS                       R8 R7 K37 ["onClose"]
+      158 SETTABLEKS                       R7 R6 K15 ["escapeAction"]
+      160 CALL                             R4 2 -1
+      161 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -180,53 +179,43 @@ MAIN:
        30 GETTABLEKS                       R5 R0 K10 ["Src"]
        32 GETTABLEKS                       R5 R5 K11 ["Types"]
        34 CALL                             R4 1 1
-       35 GETTABLEKS                       R6 R3 K12 ["SharedFlags"]
-       37 GETTABLEKS                       R6 R6 K13 ["getFFlagStudioFoundationDialogComponent"]
-       39 CALL                             R6 0 1
-       40 JUMPIFNOT                        R6 ; [+5]
-       41 GETTABLEKS                       R5 R3 K14 ["Components"]
-       43 GETTABLEKS                       R5 R5 K2 ["Dialog"]
-       45 JUMP                             ; [+9]
-       46 GETIMPORT                        R5 K5 [require]
-       48 GETTABLEKS                       R6 R0 K10 ["Src"]
-       50 GETTABLEKS                       R6 R6 K14 ["Components"]
-       52 GETTABLEKS                       R6 R6 K15 ["DEPRECATED_Dialog"]
-       54 CALL                             R5 1 1
-       55 GETTABLEKS                       R6 R1 K16 ["ContextServices"]
-       57 GETTABLEKS                       R6 R6 K17 ["Localization"]
-       59 GETTABLEKS                       R7 R3 K18 ["Util"]
-       61 GETTABLEKS                       R7 R7 K19 ["StudioUri"]
-       63 GETTABLEKS                       R8 R2 K20 ["createElement"]
-       65 GETIMPORT                        R9 K5 [require]
-       67 GETTABLEKS                       R10 R0 K10 ["Src"]
-       69 GETTABLEKS                       R10 R10 K21 ["Flags"]
-       71 GETTABLEKS                       R10 R10 K22 ["getFFlagStudioBuildSealedDialog"]
-       73 CALL                             R9 1 1
-       74 CALL                             R9 0 1
-       75 GETIMPORT                        R10 K5 [require]
-       77 GETTABLEKS                       R11 R0 K10 ["Src"]
-       79 GETTABLEKS                       R11 R11 K21 ["Flags"]
-       81 GETTABLEKS                       R11 R11 K23 ["getFStringBuildSealLearnMoreLink"]
-       83 CALL                             R10 1 1
-       84 DUPCLOSURE                       R11 K24 [PROTO_4]
-       85 CAPTURE                          VAL R6
-       86 CAPTURE                          VAL R8
-       87 CAPTURE                          VAL R5
-       88 CAPTURE                          VAL R7
-       89 CAPTURE                          VAL R10
-       90 JUMPIFNOT                        R9 ; [+18]
-       91 GETIMPORT                        R12 K27 [table.freeze]
-       93 DUPTABLE                         R13 K30 [{"uri", "component"}]
-       94 GETTABLEKS                       R14 R7 K31 ["fromWidget"]
-       96 LOADK                            R15 K32 ["Safety"]
-       97 LOADK                            R16 K33 ["BuildSealedDialog"]
-       98 CALL                             R14 2 1
-       99 SETTABLEKS                       R14 R13 K28 ["uri"]
-      101 GETTABLEKS                       R14 R2 K34 ["memo"]
-      103 MOVE                             R15 R11
-      104 CALL                             R14 1 1
-      105 SETTABLEKS                       R14 R13 K29 ["component"]
-      107 CALL                             R12 1 1
-      108 RETURN                           R12 1
-      109 LOADNIL                          R12
-      110 RETURN                           R12 1
+       35 GETTABLEKS                       R5 R3 K12 ["Components"]
+       37 GETTABLEKS                       R5 R5 K2 ["Dialog"]
+       39 GETTABLEKS                       R6 R1 K13 ["ContextServices"]
+       41 GETTABLEKS                       R6 R6 K14 ["Localization"]
+       43 GETTABLEKS                       R7 R3 K15 ["Util"]
+       45 GETTABLEKS                       R7 R7 K16 ["StudioUri"]
+       47 GETTABLEKS                       R8 R2 K17 ["createElement"]
+       49 GETIMPORT                        R9 K5 [require]
+       51 GETTABLEKS                       R10 R0 K10 ["Src"]
+       53 GETTABLEKS                       R10 R10 K18 ["Flags"]
+       55 GETTABLEKS                       R10 R10 K19 ["getFFlagStudioBuildSealedDialog"]
+       57 CALL                             R9 1 1
+       58 CALL                             R9 0 1
+       59 GETIMPORT                        R10 K5 [require]
+       61 GETTABLEKS                       R11 R0 K10 ["Src"]
+       63 GETTABLEKS                       R11 R11 K18 ["Flags"]
+       65 GETTABLEKS                       R11 R11 K20 ["getFStringBuildSealLearnMoreLink"]
+       67 CALL                             R10 1 1
+       68 DUPCLOSURE                       R11 K21 [PROTO_4]
+       69 CAPTURE                          VAL R6
+       70 CAPTURE                          VAL R8
+       71 CAPTURE                          VAL R5
+       72 CAPTURE                          VAL R7
+       73 CAPTURE                          VAL R10
+       74 JUMPIFNOT                        R9 ; [+18]
+       75 GETIMPORT                        R12 K24 [table.freeze]
+       77 DUPTABLE                         R13 K27 [{"uri", "component"}]
+       78 GETTABLEKS                       R14 R7 K28 ["fromWidget"]
+       80 LOADK                            R15 K29 ["Safety"]
+       81 LOADK                            R16 K30 ["BuildSealedDialog"]
+       82 CALL                             R14 2 1
+       83 SETTABLEKS                       R14 R13 K25 ["uri"]
+       85 GETTABLEKS                       R14 R2 K31 ["memo"]
+       87 MOVE                             R15 R11
+       88 CALL                             R14 1 1
+       89 SETTABLEKS                       R14 R13 K26 ["component"]
+       91 CALL                             R12 1 1
+       92 RETURN                           R12 1
+       93 LOADNIL                          R12
+       94 RETURN                           R12 1

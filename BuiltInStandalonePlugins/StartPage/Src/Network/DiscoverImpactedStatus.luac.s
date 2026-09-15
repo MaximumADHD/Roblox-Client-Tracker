@@ -18,16 +18,15 @@ PROTO_1:
 
 PROTO_2:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["DiscoverImpactedStatus batch failed (size %*): %*"]
-        3 GETUPVAL                         R6 0
-        4 LENGTH                           R5 R6
-        5 MOVE                             R6 R0
-        6 NAMECALL                         R3 R3 K3 ["format"]
-        8 CALL                             R3 3 1
-        9 MOVE                             R2 R3
-       10 CALL                             R1 1 0
-       11 NEWTABLE                         R1 0 0
-       13 RETURN                           R1 1
+        2 LOADK                            R2 K2 ["DiscoverImpactedStatus batch failed (size %*): %*"]
+        3 GETUPVAL                         R5 0
+        4 LENGTH                           R4 R5
+        5 MOVE                             R5 R0
+        6 NAMECALL                         R2 R2 K3 ["format"]
+        8 CALL                             R2 3 1
+        9 CALL                             R1 1 0
+       10 NEWTABLE                         R1 0 0
+       12 RETURN                           R1 1
 
 PROTO_3:
         0 DUPTABLE                         R2 K1 [{"universeIds"}]

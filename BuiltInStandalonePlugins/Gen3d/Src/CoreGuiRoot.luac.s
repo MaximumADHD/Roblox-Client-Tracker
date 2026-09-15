@@ -59,107 +59,108 @@ PROTO_4:
        19 LOADNIL                          R4
        20 GETUPVAL                         R5 0
        21 MOVE                             R6 R1
-       22 CALL                             R5 1 1
-       23 GETUPVAL                         R6 1
-       24 GETTABLEKS                       R6 R6 K8 ["useMemo"]
-       26 NEWCLOSURE                       R7 P0
-       27 CAPTURE                          UPVAL U2
-       28 CAPTURE                          UPVAL U3
-       29 CAPTURE                          VAL R1
-       30 NEWTABLE                         R8 0 1
-       32 MOVE                             R9 R1
-       33 SETLIST                          R8 R9 1 [1]
-       35 CALL                             R6 2 2
-       36 GETUPVAL                         R8 1
-       37 GETTABLEKS                       R8 R8 K9 ["useRef"]
-       39 LOADB                            R9 0
-       40 CALL                             R8 1 1
-       41 GETTABLEKS                       R9 R5 K10 ["visible"]
-       43 SETTABLEKS                       R9 R8 K11 ["current"]
-       45 GETUPVAL                         R9 1
-       46 GETTABLEKS                       R9 R9 K8 ["useMemo"]
-       48 NEWCLOSURE                       R10 P1
-       49 CAPTURE                          UPVAL U4
-       50 CAPTURE                          VAL R1
-       51 CAPTURE                          VAL R8
-       52 NEWTABLE                         R11 0 1
-       54 MOVE                             R12 R1
-       55 SETLIST                          R11 R12 1 [1]
-       57 CALL                             R9 2 1
-       58 JUMPIF                           R4 ; [+2]
-       59 LOADNIL                          R10
-       60 RETURN                           R10 1
-       61 GETTABLEKS                       R11 R5 K10 ["visible"]
-       63 JUMPIFNOT                        R11 ; [+6]
-       64 GETUPVAL                         R10 1
-       65 GETTABLEKS                       R10 R10 K12 ["createElement"]
-       67 GETUPVAL                         R11 5
-       68 CALL                             R10 1 1
-       69 JUMP                             ; [+1]
-       70 LOADNIL                          R10
-       71 GETUPVAL                         R11 6
-       72 GETTABLEKS                       R11 R11 K13 ["provide"]
-       74 NEWTABLE                         R12 0 5
-       76 GETUPVAL                         R13 7
-       77 GETTABLEKS                       R13 R13 K14 ["new"]
-       79 MOVE                             R14 R1
-       80 CALL                             R13 1 1
-       81 GETUPVAL                         R14 8
-       82 GETTABLEKS                       R14 R14 K14 ["new"]
-       84 MOVE                             R15 R2
-       85 CALL                             R14 1 1
-       86 GETUPVAL                         R15 9
-       87 GETTABLEKS                       R15 R15 K14 ["new"]
-       89 MOVE                             R16 R6
-       90 CALL                             R15 1 1
-       91 GETUPVAL                         R16 10
-       92 GETUPVAL                         R17 11
-       93 GETTABLEKS                       R17 R17 K14 ["new"]
-       95 MOVE                             R18 R4
-       96 CALL                             R17 1 -1
-       97 SETLIST                          R12 R13 -1 [1]
-       99 DUPTABLE                         R13 K16 [{"FoundationProvider"}]
-      100 GETUPVAL                         R14 1
-      101 GETTABLEKS                       R14 R14 K12 ["createElement"]
-      103 GETUPVAL                         R15 12
-      104 DUPTABLE                         R16 K19 [{"onStyleSheetChange", "plugin"}]
-      105 SETTABLEKS                       R7 R16 K17 ["onStyleSheetChange"]
-      107 SETTABLEKS                       R1 R16 K18 ["plugin"]
-      109 DUPTABLE                         R17 K21 [{"LocalizationProvider"}]
-      110 GETUPVAL                         R18 1
-      111 GETTABLEKS                       R18 R18 K12 ["createElement"]
-      113 GETUPVAL                         R19 13
-      114 GETTABLEKS                       R19 R19 K22 ["Provider"]
-      116 DUPTABLE                         R20 K24 [{"localization"}]
-      117 GETUPVAL                         R21 14
-      118 SETTABLEKS                       R21 R20 K23 ["localization"]
-      120 DUPTABLE                         R21 K26 [{"ViewModelProvider"}]
-      121 GETUPVAL                         R22 1
-      122 GETTABLEKS                       R22 R22 K12 ["createElement"]
-      124 GETUPVAL                         R23 15
-      125 GETTABLEKS                       R23 R23 K22 ["Provider"]
-      127 DUPTABLE                         R24 K28 [{"value"}]
-      128 GETTABLEKS                       R25 R5 K27 ["value"]
-      130 SETTABLEKS                       R25 R24 K27 ["value"]
-      132 DUPTABLE                         R25 K30 [{"ToggleProvider"}]
-      133 GETUPVAL                         R26 1
-      134 GETTABLEKS                       R26 R26 K12 ["createElement"]
-      136 GETUPVAL                         R27 16
-      137 GETTABLEKS                       R27 R27 K22 ["Provider"]
-      139 DUPTABLE                         R28 K28 [{"value"}]
-      140 SETTABLEKS                       R9 R28 K27 ["value"]
-      142 DUPTABLE                         R29 K32 [{"Popover"}]
-      143 SETTABLEKS                       R10 R29 K31 ["Popover"]
-      145 CALL                             R26 3 1
-      146 SETTABLEKS                       R26 R25 K29 ["ToggleProvider"]
-      148 CALL                             R22 3 1
-      149 SETTABLEKS                       R22 R21 K25 ["ViewModelProvider"]
-      151 CALL                             R18 3 1
-      152 SETTABLEKS                       R18 R17 K20 ["LocalizationProvider"]
-      154 CALL                             R14 3 1
-      155 SETTABLEKS                       R14 R13 K15 ["FoundationProvider"]
-      157 CALL                             R11 2 -1
-      158 RETURN                           R11 -1
+       22 GETTABLEKS                       R7 R0 K8 ["EditSessionId"]
+       24 CALL                             R5 2 1
+       25 GETUPVAL                         R6 1
+       26 GETTABLEKS                       R6 R6 K9 ["useMemo"]
+       28 NEWCLOSURE                       R7 P0
+       29 CAPTURE                          UPVAL U2
+       30 CAPTURE                          UPVAL U3
+       31 CAPTURE                          VAL R1
+       32 NEWTABLE                         R8 0 1
+       34 MOVE                             R9 R1
+       35 SETLIST                          R8 R9 1 [1]
+       37 CALL                             R6 2 2
+       38 GETUPVAL                         R8 1
+       39 GETTABLEKS                       R8 R8 K10 ["useRef"]
+       41 LOADB                            R9 0
+       42 CALL                             R8 1 1
+       43 GETTABLEKS                       R9 R5 K11 ["visible"]
+       45 SETTABLEKS                       R9 R8 K12 ["current"]
+       47 GETUPVAL                         R9 1
+       48 GETTABLEKS                       R9 R9 K9 ["useMemo"]
+       50 NEWCLOSURE                       R10 P1
+       51 CAPTURE                          UPVAL U4
+       52 CAPTURE                          VAL R1
+       53 CAPTURE                          VAL R8
+       54 NEWTABLE                         R11 0 1
+       56 MOVE                             R12 R1
+       57 SETLIST                          R11 R12 1 [1]
+       59 CALL                             R9 2 1
+       60 JUMPIF                           R4 ; [+2]
+       61 LOADNIL                          R10
+       62 RETURN                           R10 1
+       63 GETTABLEKS                       R11 R5 K11 ["visible"]
+       65 JUMPIFNOT                        R11 ; [+6]
+       66 GETUPVAL                         R10 1
+       67 GETTABLEKS                       R10 R10 K13 ["createElement"]
+       69 GETUPVAL                         R11 5
+       70 CALL                             R10 1 1
+       71 JUMP                             ; [+1]
+       72 LOADNIL                          R10
+       73 GETUPVAL                         R11 6
+       74 GETTABLEKS                       R11 R11 K14 ["provide"]
+       76 NEWTABLE                         R12 0 5
+       78 GETUPVAL                         R13 7
+       79 GETTABLEKS                       R13 R13 K15 ["new"]
+       81 MOVE                             R14 R1
+       82 CALL                             R13 1 1
+       83 GETUPVAL                         R14 8
+       84 GETTABLEKS                       R14 R14 K15 ["new"]
+       86 MOVE                             R15 R2
+       87 CALL                             R14 1 1
+       88 GETUPVAL                         R15 9
+       89 GETTABLEKS                       R15 R15 K15 ["new"]
+       91 MOVE                             R16 R6
+       92 CALL                             R15 1 1
+       93 GETUPVAL                         R16 10
+       94 GETUPVAL                         R17 11
+       95 GETTABLEKS                       R17 R17 K15 ["new"]
+       97 MOVE                             R18 R4
+       98 CALL                             R17 1 -1
+       99 SETLIST                          R12 R13 -1 [1]
+      101 DUPTABLE                         R13 K17 [{"FoundationProvider"}]
+      102 GETUPVAL                         R14 1
+      103 GETTABLEKS                       R14 R14 K13 ["createElement"]
+      105 GETUPVAL                         R15 12
+      106 DUPTABLE                         R16 K20 [{"onStyleSheetChange", "plugin"}]
+      107 SETTABLEKS                       R7 R16 K18 ["onStyleSheetChange"]
+      109 SETTABLEKS                       R1 R16 K19 ["plugin"]
+      111 DUPTABLE                         R17 K22 [{"LocalizationProvider"}]
+      112 GETUPVAL                         R18 1
+      113 GETTABLEKS                       R18 R18 K13 ["createElement"]
+      115 GETUPVAL                         R19 13
+      116 GETTABLEKS                       R19 R19 K23 ["Provider"]
+      118 DUPTABLE                         R20 K25 [{"localization"}]
+      119 GETUPVAL                         R21 14
+      120 SETTABLEKS                       R21 R20 K24 ["localization"]
+      122 DUPTABLE                         R21 K27 [{"ViewModelProvider"}]
+      123 GETUPVAL                         R22 1
+      124 GETTABLEKS                       R22 R22 K13 ["createElement"]
+      126 GETUPVAL                         R23 15
+      127 GETTABLEKS                       R23 R23 K23 ["Provider"]
+      129 DUPTABLE                         R24 K29 [{"value"}]
+      130 GETTABLEKS                       R25 R5 K28 ["value"]
+      132 SETTABLEKS                       R25 R24 K28 ["value"]
+      134 DUPTABLE                         R25 K31 [{"ToggleProvider"}]
+      135 GETUPVAL                         R26 1
+      136 GETTABLEKS                       R26 R26 K13 ["createElement"]
+      138 GETUPVAL                         R27 16
+      139 GETTABLEKS                       R27 R27 K23 ["Provider"]
+      141 DUPTABLE                         R28 K29 [{"value"}]
+      142 SETTABLEKS                       R9 R28 K28 ["value"]
+      144 DUPTABLE                         R29 K33 [{"Popover"}]
+      145 SETTABLEKS                       R10 R29 K32 ["Popover"]
+      147 CALL                             R26 3 1
+      148 SETTABLEKS                       R26 R25 K30 ["ToggleProvider"]
+      150 CALL                             R22 3 1
+      151 SETTABLEKS                       R22 R21 K26 ["ViewModelProvider"]
+      153 CALL                             R18 3 1
+      154 SETTABLEKS                       R18 R17 K21 ["LocalizationProvider"]
+      156 CALL                             R14 3 1
+      157 SETTABLEKS                       R14 R13 K16 ["FoundationProvider"]
+      159 CALL                             R11 2 -1
+      160 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

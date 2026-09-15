@@ -16,21 +16,20 @@ PROTO_0:
        17 LOADB                            R4 1
        18 SETTABLE                         R4 R2 R3
        19 GETUPVAL                         R3 0
-       20 JUMPIFNOTEQKS                    R3 K4 ["HeadLooksBad"] ; [+15]
+       20 JUMPIFNOTEQKS                    R3 K4 ["HeadLooksBad"] ; [+14]
        22 GETUPVAL                         R3 1
        23 LOADNIL                          R4
        24 LOADNIL                          R5
        25 FORGPREP                         R3
-       26 LOADK                            R9 K5 ["Head%*"]
-       27 MOVE                             R11 R7
-       28 NAMECALL                         R9 R9 K6 ["format"]
-       30 CALL                             R9 2 1
-       31 MOVE                             R8 R9
-       32 LOADNIL                          R9
-       33 SETTABLE                         R9 R2 R8
-       34 FORGLOOP                         R3 2 ; [-9]
-       36 SETTABLEKS                       R2 R1 K3 ["problems"]
-       38 RETURN                           R1 1
+       26 LOADK                            R8 K5 ["Head%*"]
+       27 MOVE                             R10 R7
+       28 NAMECALL                         R8 R8 K6 ["format"]
+       30 CALL                             R8 2 1
+       31 LOADNIL                          R9
+       32 SETTABLE                         R9 R2 R8
+       33 FORGLOOP                         R3 2 ; [-8]
+       35 SETTABLEKS                       R2 R1 K3 ["problems"]
+       37 RETURN                           R1 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -60,16 +59,15 @@ PROTO_2:
        22 SETTABLEKS                       R4 R3 K4 ["OnClick"]
        24 GETUPVAL                         R4 5
        25 LOADK                            R6 K12 ["Survey"]
-       26 LOADK                            R8 K13 ["Problem%*"]
-       27 MOVE                             R10 R0
-       28 NAMECALL                         R8 R8 K14 ["format"]
-       30 CALL                             R8 2 1
-       31 MOVE                             R7 R8
-       32 NAMECALL                         R4 R4 K15 ["getText"]
-       34 CALL                             R4 3 1
-       35 SETTABLEKS                       R4 R3 K5 ["Text"]
-       37 CALL                             R1 2 -1
-       38 RETURN                           R1 -1
+       26 LOADK                            R7 K13 ["Problem%*"]
+       27 MOVE                             R9 R0
+       28 NAMECALL                         R7 R7 K14 ["format"]
+       30 CALL                             R7 2 1
+       31 NAMECALL                         R4 R4 K15 ["getText"]
+       33 CALL                             R4 3 1
+       34 SETTABLEKS                       R4 R3 K5 ["Text"]
+       36 CALL                             R1 2 -1
+       37 RETURN                           R1 -1
 
 PROTO_3:
         0 GETIMPORT                        R1 K2 [table.clone]
@@ -113,14 +111,13 @@ PROTO_7:
 
 PROTO_8:
         0 GETUPVAL                         R1 0
-        1 LOADK                            R3 K0 ["Head%*"]
-        2 MOVE                             R5 R0
-        3 NAMECALL                         R3 R3 K1 ["format"]
-        5 CALL                             R3 2 1
-        6 MOVE                             R2 R3
-        7 CALL                             R1 1 1
-        8 MOVE                             R2 R0
-        9 RETURN                           R1 2
+        1 LOADK                            R2 K0 ["Head%*"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R2 R2 K1 ["format"]
+        5 CALL                             R2 2 1
+        6 CALL                             R1 1 1
+        7 MOVE                             R2 R0
+        8 RETURN                           R1 2
 
 PROTO_9:
         0 GETUPVAL                         R1 0

@@ -16,23 +16,21 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+12]
+        2 JUMPIFNOT                        R0 ; [+10]
         3 GETUPVAL                         R0 1
         4 NEWCLOSURE                       R1 P0
         5 CAPTURE                          UPVAL U2
         6 GETUPVAL                         R2 3
         7 GETTABLEKS                       R2 R2 K0 ["createRequestHandler"]
-        9 GETIMPORT                        R3 K2 [game]
-       11 GETUPVAL                         R4 4
-       12 CALL                             R2 2 -1
-       13 CALL                             R0 -1 -1
-       14 RETURN                           R0 -1
-       15 GETUPVAL                         R0 3
-       16 GETTABLEKS                       R0 R0 K0 ["createRequestHandler"]
-       18 GETIMPORT                        R1 K2 [game]
-       20 GETUPVAL                         R2 4
-       21 CALL                             R0 2 -1
-       22 RETURN                           R0 -1
+        9 GETUPVAL                         R3 4
+       10 CALL                             R2 1 -1
+       11 CALL                             R0 -1 -1
+       12 RETURN                           R0 -1
+       13 GETUPVAL                         R0 3
+       14 GETTABLEKS                       R0 R0 K0 ["createRequestHandler"]
+       16 GETUPVAL                         R1 4
+       17 CALL                             R0 1 -1
+       18 RETURN                           R0 -1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -80,30 +78,44 @@ PROTO_3:
        56 GETTABLEKS                       R10 R10 K11 ["LLMPackageContextProvider"]
        58 DUPTABLE                         R11 K13 [{"studioProvider"}]
        59 DUPTABLE                         R12 K21 [{"requestHandler", "processEvent", "createLLMSession", "cancelSession", "formatTools", "systemMessage", "systemRemindersGetter"}]
-       60 MOVE                             R13 R5
-       61 CALL                             R13 0 1
-       62 SETTABLEKS                       R13 R12 K14 ["requestHandler"]
-       64 SETTABLEKS                       R6 R12 K15 ["processEvent"]
-       66 SETTABLEKS                       R7 R12 K16 ["createLLMSession"]
-       68 SETTABLEKS                       R8 R12 K17 ["cancelSession"]
-       70 GETUPVAL                         R14 9
-       71 GETTABLEKS                       R14 R14 K22 ["FFlagAssistantUseNewOpenAPIClients"]
-       73 JUMPIFNOT                        R14 ; [+4]
-       74 GETUPVAL                         R13 10
-       75 GETTABLEKS                       R13 R13 K18 ["formatTools"]
-       77 JUMP                             ; [+3]
-       78 GETUPVAL                         R13 11
-       79 GETTABLEKS                       R13 R13 K18 ["formatTools"]
-       81 SETTABLEKS                       R13 R12 K18 ["formatTools"]
-       83 GETUPVAL                         R13 12
-       84 GETTABLEKS                       R13 R13 K23 ["getSystemMessage"]
-       86 CALL                             R13 0 1
-       87 SETTABLEKS                       R13 R12 K19 ["systemMessage"]
-       89 SETTABLEKS                       R2 R12 K20 ["systemRemindersGetter"]
-       91 SETTABLEKS                       R12 R11 K12 ["studioProvider"]
-       93 GETTABLEKS                       R12 R0 K24 ["children"]
-       95 CALL                             R9 3 -1
-       96 RETURN                           R9 -1
+       60 GETUPVAL                         R14 4
+       61 CALL                             R14 0 1
+       62 JUMPIFNOT                        R14 ; [+10]
+       63 GETUPVAL                         R13 5
+       64 NEWCLOSURE                       R14 P2
+       65 CAPTURE                          VAL R4
+       66 GETUPVAL                         R15 6
+       67 GETTABLEKS                       R15 R15 K22 ["createRequestHandler"]
+       69 MOVE                             R16 R1
+       70 CALL                             R15 1 -1
+       71 CALL                             R13 -1 1
+       72 JUMP                             ; [+5]
+       73 GETUPVAL                         R13 6
+       74 GETTABLEKS                       R13 R13 K22 ["createRequestHandler"]
+       76 MOVE                             R14 R1
+       77 CALL                             R13 1 1
+       78 SETTABLEKS                       R13 R12 K14 ["requestHandler"]
+       80 SETTABLEKS                       R6 R12 K15 ["processEvent"]
+       82 SETTABLEKS                       R7 R12 K16 ["createLLMSession"]
+       84 SETTABLEKS                       R8 R12 K17 ["cancelSession"]
+       86 GETUPVAL                         R14 9
+       87 GETTABLEKS                       R14 R14 K23 ["FFlagAssistantUseNewOpenAPIClients"]
+       89 JUMPIFNOT                        R14 ; [+4]
+       90 GETUPVAL                         R13 10
+       91 GETTABLEKS                       R13 R13 K18 ["formatTools"]
+       93 JUMP                             ; [+3]
+       94 GETUPVAL                         R13 11
+       95 GETTABLEKS                       R13 R13 K18 ["formatTools"]
+       97 SETTABLEKS                       R13 R12 K18 ["formatTools"]
+       99 GETUPVAL                         R13 12
+      100 GETTABLEKS                       R13 R13 K24 ["getSystemMessage"]
+      102 CALL                             R13 0 1
+      103 SETTABLEKS                       R13 R12 K19 ["systemMessage"]
+      105 SETTABLEKS                       R2 R12 K20 ["systemRemindersGetter"]
+      107 SETTABLEKS                       R12 R11 K12 ["studioProvider"]
+      109 GETTABLEKS                       R12 R0 K25 ["children"]
+      111 CALL                             R9 3 -1
+      112 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

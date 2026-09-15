@@ -374,13 +374,12 @@ PROTO_12:
        20 CALL                             R3 1 -1
        21 RETURN                           R3 -1
        22 MOVE                             R3 R0
-       23 LOADK                            R5 K3 ["Place %*"]
-       24 GETUPVAL                         R7 1
-       25 NAMECALL                         R5 R5 K4 ["format"]
-       27 CALL                             R5 2 1
-       28 MOVE                             R4 R5
-       29 CALL                             R3 1 -1
-       30 RETURN                           R3 -1
+       23 LOADK                            R4 K3 ["Place %*"]
+       24 GETUPVAL                         R6 1
+       25 NAMECALL                         R4 R4 K4 ["format"]
+       27 CALL                             R4 2 1
+       28 CALL                             R3 1 -1
+       29 RETURN                           R3 -1
 
 PROTO_13:
         0 GETUPVAL                         R1 0

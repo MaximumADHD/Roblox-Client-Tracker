@@ -156,52 +156,51 @@ PROTO_4:
        46 MOVE                             R14 R9
        47 GETIMPORT                        R12 K15 [table.insert]
        49 CALL                             R12 2 0
-       50 JUMP                             ; [+14]
+       50 JUMP                             ; [+13]
        51 GETUPVAL                         R10 3
        52 GETTABLEKS                       R10 R10 K16 ["shouldDebugWarnings"]
        54 CALL                             R10 0 1
-       55 JUMPIFNOT                        R10 ; [+9]
+       55 JUMPIFNOT                        R10 ; [+8]
        56 GETIMPORT                        R10 K18 [warn]
-       58 LOADK                            R12 K19 ["asset with ID %* not found in asset map"]
-       59 MOVE                             R14 R8
-       60 NAMECALL                         R12 R12 K20 ["format"]
-       62 CALL                             R12 2 1
-       63 MOVE                             R11 R12
-       64 CALL                             R10 1 0
-       65 FORGLOOP                         R4 2 ; [-47]
-       67 GETUPVAL                         R4 4
-       68 GETTABLEKS                       R4 R4 K21 ["Dictionary"]
-       70 GETTABLEKS                       R4 R4 K22 ["join"]
-       72 MOVE                             R5 R0
-       73 NEWTABLE                         R6 1 0
-       75 GETUPVAL                         R7 0
-       76 GETUPVAL                         R8 4
-       77 GETTABLEKS                       R8 R8 K21 ["Dictionary"]
-       79 GETTABLEKS                       R8 R8 K22 ["join"]
-       81 MOVE                             R9 R1
-       82 DUPTABLE                         R10 K26 [{["loading"] = False, [2], ["assetMap"], ["assetIds"], ["fetchNextPage"]}]
-       83 GETUPVAL                         R11 4
-       84 GETTABLEKS                       R11 R11 K27 ["List"]
-       86 GETTABLEKS                       R11 R11 K22 ["join"]
-       88 GETTABLEKS                       R12 R1 K0 ["assets"]
-       90 MOVE                             R13 R3
-       91 CALL                             R11 2 1
-       92 SETTABLEKS                       R11 R10 K0 ["assets"]
-       94 NEWTABLE                         R11 0 0
-       96 SETTABLEKS                       R11 R10 K2 ["assetMap"]
-       98 NEWTABLE                         R11 0 0
-      100 SETTABLEKS                       R11 R10 K1 ["assetIds"]
-      102 NEWCLOSURE                       R11 P0
-      103 CAPTURE                          UPVAL U4
-      104 CAPTURE                          UPVAL U5
-      105 CAPTURE                          UPVAL U1
-      106 CAPTURE                          UPVAL U6
-      107 CAPTURE                          UPVAL U0
-      108 SETTABLEKS                       R11 R10 K25 ["fetchNextPage"]
-      110 CALL                             R8 2 1
-      111 SETTABLE                         R8 R6 R7
-      112 CALL                             R4 2 -1
-      113 RETURN                           R4 -1
+       58 LOADK                            R11 K19 ["asset with ID %* not found in asset map"]
+       59 MOVE                             R13 R8
+       60 NAMECALL                         R11 R11 K20 ["format"]
+       62 CALL                             R11 2 1
+       63 CALL                             R10 1 0
+       64 FORGLOOP                         R4 2 ; [-46]
+       66 GETUPVAL                         R4 4
+       67 GETTABLEKS                       R4 R4 K21 ["Dictionary"]
+       69 GETTABLEKS                       R4 R4 K22 ["join"]
+       71 MOVE                             R5 R0
+       72 NEWTABLE                         R6 1 0
+       74 GETUPVAL                         R7 0
+       75 GETUPVAL                         R8 4
+       76 GETTABLEKS                       R8 R8 K21 ["Dictionary"]
+       78 GETTABLEKS                       R8 R8 K22 ["join"]
+       80 MOVE                             R9 R1
+       81 DUPTABLE                         R10 K26 [{["loading"] = False, [2], ["assetMap"], ["assetIds"], ["fetchNextPage"]}]
+       82 GETUPVAL                         R11 4
+       83 GETTABLEKS                       R11 R11 K27 ["List"]
+       85 GETTABLEKS                       R11 R11 K22 ["join"]
+       87 GETTABLEKS                       R12 R1 K0 ["assets"]
+       89 MOVE                             R13 R3
+       90 CALL                             R11 2 1
+       91 SETTABLEKS                       R11 R10 K0 ["assets"]
+       93 NEWTABLE                         R11 0 0
+       95 SETTABLEKS                       R11 R10 K2 ["assetMap"]
+       97 NEWTABLE                         R11 0 0
+       99 SETTABLEKS                       R11 R10 K1 ["assetIds"]
+      101 NEWCLOSURE                       R11 P0
+      102 CAPTURE                          UPVAL U4
+      103 CAPTURE                          UPVAL U5
+      104 CAPTURE                          UPVAL U1
+      105 CAPTURE                          UPVAL U6
+      106 CAPTURE                          UPVAL U0
+      107 SETTABLEKS                       R11 R10 K25 ["fetchNextPage"]
+      109 CALL                             R8 2 1
+      110 SETTABLE                         R8 R6 R7
+      111 CALL                             R4 2 -1
+      112 RETURN                           R4 -1
 
 PROTO_5:
         0 GETUPVAL                         R2 0
@@ -258,27 +257,26 @@ PROTO_7:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
-        4 JUMPIFNOT                        R1 ; [+11]
+        4 JUMPIFNOT                        R1 ; [+10]
         5 GETIMPORT                        R1 K2 [warn]
-        7 LOADK                            R3 K3 ["failed to fetch assets for category \"%*\" and section \"%*\":"]
-        8 GETUPVAL                         R5 1
-        9 GETUPVAL                         R6 2
-       10 NAMECALL                         R3 R3 K4 ["format"]
-       12 CALL                             R3 3 1
-       13 MOVE                             R2 R3
-       14 MOVE                             R3 R0
-       15 CALL                             R1 2 0
-       16 GETUPVAL                         R1 3
-       17 GETTABLEKS                       R1 R1 K5 ["current"]
-       19 GETUPVAL                         R2 2
-       20 LOADNIL                          R3
-       21 SETTABLE                         R3 R1 R2
-       22 GETUPVAL                         R1 4
-       23 NEWCLOSURE                       R2 P0
-       24 CAPTURE                          UPVAL U5
-       25 CAPTURE                          UPVAL U2
-       26 CALL                             R1 1 0
-       27 RETURN                           R0 0
+        7 LOADK                            R2 K3 ["failed to fetch assets for category \"%*\" and section \"%*\":"]
+        8 GETUPVAL                         R4 1
+        9 GETUPVAL                         R5 2
+       10 NAMECALL                         R2 R2 K4 ["format"]
+       12 CALL                             R2 3 1
+       13 MOVE                             R3 R0
+       14 CALL                             R1 2 0
+       15 GETUPVAL                         R1 3
+       16 GETTABLEKS                       R1 R1 K5 ["current"]
+       18 GETUPVAL                         R2 2
+       19 LOADNIL                          R3
+       20 SETTABLE                         R3 R1 R2
+       21 GETUPVAL                         R1 4
+       22 NEWCLOSURE                       R2 P0
+       23 CAPTURE                          UPVAL U5
+       24 CAPTURE                          UPVAL U2
+       25 CALL                             R1 1 0
+       26 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R3 0

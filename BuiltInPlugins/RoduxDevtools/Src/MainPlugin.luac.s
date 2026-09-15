@@ -70,31 +70,29 @@ PROTO_7:
         8 GETTABLEKS                       R8 R8 K1 ["pluginBatchHandlers"]
        10 GETTABLEKS                       R9 R6 K2 ["type"]
        12 GETTABLE                         R7 R8 R9
-       13 JUMPIF                           R7 ; [+12]
+       13 JUMPIF                           R7 ; [+11]
        14 GETIMPORT                        R8 K4 [warn]
-       16 LOADK                            R10 K5 ["RoduxDevtools plugin received an unknown packet type '%*'"]
-       17 GETTABLEKS                       R12 R6 K2 ["type"]
-       19 NAMECALL                         R10 R10 K6 ["format"]
-       21 CALL                             R10 2 1
-       22 MOVE                             R9 R10
-       23 MOVE                             R10 R6
-       24 CALL                             R8 2 0
-       25 JUMP                             ; [+18]
-       26 GETIMPORT                        R8 K8 [pcall]
-       28 MOVE                             R9 R7
-       29 GETTABLEKS                       R10 R6 K9 ["props"]
-       31 CALL                             R8 2 2
-       32 JUMPIF                           R8 ; [+11]
-       33 GETIMPORT                        R10 K4 [warn]
-       35 LOADK                            R12 K10 ["RoduxDevtools plugin encountered an error while processing packet '%*': %*"]
-       36 GETTABLEKS                       R14 R6 K2 ["type"]
-       38 MOVE                             R15 R9
-       39 NAMECALL                         R12 R12 K6 ["format"]
-       41 CALL                             R12 3 1
-       42 MOVE                             R11 R12
-       43 CALL                             R10 1 0
-       44 FORGLOOP                         R2 2 ; [-38]
-       46 RETURN                           R0 0
+       16 LOADK                            R9 K5 ["RoduxDevtools plugin received an unknown packet type '%*'"]
+       17 GETTABLEKS                       R11 R6 K2 ["type"]
+       19 NAMECALL                         R9 R9 K6 ["format"]
+       21 CALL                             R9 2 1
+       22 MOVE                             R10 R6
+       23 CALL                             R8 2 0
+       24 JUMP                             ; [+17]
+       25 GETIMPORT                        R8 K8 [pcall]
+       27 MOVE                             R9 R7
+       28 GETTABLEKS                       R10 R6 K9 ["props"]
+       30 CALL                             R8 2 2
+       31 JUMPIF                           R8 ; [+10]
+       32 GETIMPORT                        R10 K4 [warn]
+       34 LOADK                            R11 K10 ["RoduxDevtools plugin encountered an error while processing packet '%*': %*"]
+       35 GETTABLEKS                       R13 R6 K2 ["type"]
+       37 MOVE                             R14 R9
+       38 NAMECALL                         R11 R11 K6 ["format"]
+       40 CALL                             R11 3 1
+       41 CALL                             R10 1 0
+       42 FORGLOOP                         R2 2 ; [-36]
+       44 RETURN                           R0 0
 
 PROTO_8:
         0 NEWTABLE                         R0 0 0

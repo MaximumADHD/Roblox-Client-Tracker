@@ -153,44 +153,42 @@ PROTO_2:
       172 LOADNIL                          R4
       173 CLOSEUPVALS                      R3
       174 RETURN                           R4 1
-      175 LOADK                            R5 K28 ["%*_%*"]
-      176 GETTABLEKS                       R7 R0 K29 ["palette"]
-      178 GETTABLEKS                       R7 R7 K30 ["Key"]
-      180 MOVE                             R8 R3
-      181 NAMECALL                         R5 R5 K31 ["format"]
-      183 CALL                             R5 3 1
-      184 MOVE                             R4 R5
-      185 GETUPVAL                         R5 5
-      186 GETUPVAL                         R6 6
-      187 GETTABLEKS                       R6 R6 K32 ["allItems"]
-      189 NEWCLOSURE                       R7 P0
-      190 CAPTURE                          REF R3
-      191 CALL                             R5 2 1
-      192 LOADK                            R11 K33 ["ItemNames2"]
-      193 MOVE                             R12 R4
-      194 NAMECALL                         R9 R1 K34 ["getText"]
-      196 CALL                             R9 3 1
-      197 MOVE                             R7 R9
-      198 JUMPIFNOT                        R5 ; [+12]
-      199 GETTABLEKS                       R9 R5 K35 ["accessoryType"]
-      201 JUMPIFNOTEQKS                    R9 K36 ["rigid"] ; [+9]
-      203 LOADK                            R9 K37 [" (%*)"]
-      204 GETTABLEKS                       R11 R5 K38 ["attachment"]
-      206 NAMECALL                         R9 R9 K31 ["format"]
-      208 CALL                             R9 2 1
-      209 MOVE                             R8 R9
-      210 JUMP                             ; [+1]
-      211 LOADK                            R8 K39 [""]
-      212 CONCAT                           R6 R7 R8
-      213 MOVE                             R9 R4
-      214 NAMECALL                         R7 R6 K40 ["match"]
-      216 CALL                             R7 2 1
-      217 JUMPIFNOT                        R7 ; [+3]
-      218 LOADNIL                          R7
+      175 LOADK                            R4 K28 ["%*_%*"]
+      176 GETTABLEKS                       R6 R0 K29 ["palette"]
+      178 GETTABLEKS                       R6 R6 K30 ["Key"]
+      180 MOVE                             R7 R3
+      181 NAMECALL                         R4 R4 K31 ["format"]
+      183 CALL                             R4 3 1
+      184 GETUPVAL                         R5 5
+      185 GETUPVAL                         R6 6
+      186 GETTABLEKS                       R6 R6 K32 ["allItems"]
+      188 NEWCLOSURE                       R7 P0
+      189 CAPTURE                          REF R3
+      190 CALL                             R5 2 1
+      191 LOADK                            R11 K33 ["ItemNames2"]
+      192 MOVE                             R12 R4
+      193 NAMECALL                         R9 R1 K34 ["getText"]
+      195 CALL                             R9 3 1
+      196 MOVE                             R7 R9
+      197 JUMPIFNOT                        R5 ; [+11]
+      198 GETTABLEKS                       R9 R5 K35 ["accessoryType"]
+      200 JUMPIFNOTEQKS                    R9 K36 ["rigid"] ; [+8]
+      202 LOADK                            R8 K37 [" (%*)"]
+      203 GETTABLEKS                       R10 R5 K38 ["attachment"]
+      205 NAMECALL                         R8 R8 K31 ["format"]
+      207 CALL                             R8 2 1
+      208 JUMP                             ; [+1]
+      209 LOADK                            R8 K39 [""]
+      210 CONCAT                           R6 R7 R8
+      211 MOVE                             R9 R4
+      212 NAMECALL                         R7 R6 K40 ["match"]
+      214 CALL                             R7 2 1
+      215 JUMPIFNOT                        R7 ; [+3]
+      216 LOADNIL                          R7
+      217 CLOSEUPVALS                      R3
+      218 RETURN                           R7 1
       219 CLOSEUPVALS                      R3
-      220 RETURN                           R7 1
-      221 CLOSEUPVALS                      R3
-      222 RETURN                           R6 1
+      220 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0

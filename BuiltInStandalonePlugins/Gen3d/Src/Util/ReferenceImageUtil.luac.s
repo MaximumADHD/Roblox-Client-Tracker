@@ -23,23 +23,22 @@ PROTO_1:
        22 ORK                              R2 R3 K4 ["png"]
        23 NEWTABLE                         R3 0 1
        25 DUPTABLE                         R4 K8 [{"name", "content", "contentType"}]
-       26 LOADK                            R6 K9 ["image_%*.%*"]
-       27 LOADN                            R8 2
-       28 MOVE                             R9 R2
-       29 NAMECALL                         R6 R6 K10 ["format"]
-       31 CALL                             R6 3 1
-       32 MOVE                             R5 R6
-       33 SETTABLEKS                       R5 R4 K5 ["name"]
-       35 GETUPVAL                         R5 1
-       36 GETIMPORT                        R7 K13 [buffer.fromstring]
-       38 GETTABLEKS                       R8 R0 K0 ["data"]
-       40 CALL                             R7 1 -1
-       41 NAMECALL                         R5 R5 K14 ["Base64Decode"]
-       43 CALL                             R5 -1 1
-       44 SETTABLEKS                       R5 R4 K6 ["content"]
-       46 SETTABLEKS                       R1 R4 K7 ["contentType"]
-       48 SETLIST                          R3 R4 1 [1]
-       50 RETURN                           R3 1
+       26 LOADK                            R5 K9 ["image_%*.%*"]
+       27 LOADN                            R7 2
+       28 MOVE                             R8 R2
+       29 NAMECALL                         R5 R5 K10 ["format"]
+       31 CALL                             R5 3 1
+       32 SETTABLEKS                       R5 R4 K5 ["name"]
+       34 GETUPVAL                         R5 1
+       35 GETIMPORT                        R7 K13 [buffer.fromstring]
+       37 GETTABLEKS                       R8 R0 K0 ["data"]
+       39 CALL                             R7 1 -1
+       40 NAMECALL                         R5 R5 K14 ["Base64Decode"]
+       42 CALL                             R5 -1 1
+       43 SETTABLEKS                       R5 R4 K6 ["content"]
+       45 SETTABLEKS                       R1 R4 K7 ["contentType"]
+       47 SETLIST                          R3 R4 1 [1]
+       49 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

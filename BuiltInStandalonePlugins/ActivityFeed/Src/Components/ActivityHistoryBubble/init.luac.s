@@ -1,62 +1,55 @@
 PROTO_0:
-        0 LOADK                            R2 K0 ["rbxthumb://type=GameIcon&id=%*&w=50&h=50"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["rbxthumb://type=GameIcon&id=%*&w=50&h=50"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_1:
-        0 LOADK                            R2 K0 ["rbxthumb://type=Asset&id=%*&w=150&h=150"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["rbxthumb://type=Asset&id=%*&w=150&h=150"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_2:
-        0 LOADK                            R2 K0 ["rbxthumb://type=AvatarHeadShot&id=%*&w=48&h=48"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["rbxthumb://type=AvatarHeadShot&id=%*&w=48&h=48"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_3:
-        0 LOADK                            R2 K0 ["rbxthumb://type=BadgeIcon&id=%*&w=150&h=150"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["rbxthumb://type=BadgeIcon&id=%*&w=150&h=150"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_4:
         0 LOADK                            R1 K0 [""]
         1 RETURN                           R1 1
 
 PROTO_5:
-        0 LOADK                            R2 K0 ["rbxthumb://type=GamePass&id=%*&w=150&h=150"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["rbxthumb://type=GamePass&id=%*&w=150&h=150"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_6:
-        0 LOADK                            R2 K0 ["rbxthumb://type=GroupIcon&id=%*&w=150&h=150"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["rbxthumb://type=GroupIcon&id=%*&w=150&h=150"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_7:
-        0 LOADK                            R2 K0 ["rbxthumb://type=Asset&id=%*&w=150&h=150"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["rbxthumb://type=Asset&id=%*&w=150&h=150"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_8:
         0 LOADK                            R1 K0 [""]
@@ -414,25 +407,32 @@ PROTO_29:
         2 GETTABLEKS                       R1 R1 K0 ["Bubble"]
         4 GETTABLEKS                       R1 R1 K1 ["eventType"]
         6 LOADK                            R2 K2 ["actorProfile"]
-        7 GETUPVAL                         R3 2
-        8 GETTABLEKS                       R3 R3 K3 ["User"]
-       10 GETUPVAL                         R5 1
-       11 GETTABLEKS                       R5 R5 K0 ["Bubble"]
-       13 GETTABLEKS                       R5 R5 K4 ["universeId"]
-       15 FASTCALL1                        TOSTRING R5 ; [+2]
-       16 GETIMPORT                        R4 K6 [tostring]
-       18 CALL                             R4 1 1
-       19 GETUPVAL                         R6 1
-       20 GETTABLEKS                       R6 R6 K0 ["Bubble"]
-       22 GETTABLEKS                       R6 R6 K7 ["actorId"]
-       24 FASTCALL1                        TOSTRING R6 ; [+2]
-       25 GETIMPORT                        R5 K6 [tostring]
-       27 CALL                             R5 1 1
-       28 CALL                             R3 2 1
-       29 LOADNIL                          R4
-       30 LOADNIL                          R5
-       31 CALL                             R0 5 0
-       32 RETURN                           R0 0
+        7 GETUPVAL                         R5 1
+        8 GETTABLEKS                       R5 R5 K0 ["Bubble"]
+       10 GETTABLEKS                       R5 R5 K3 ["universeId"]
+       12 FASTCALL1                        TOSTRING R5 ; [+2]
+       13 GETIMPORT                        R4 K5 [tostring]
+       15 CALL                             R4 1 1
+       16 GETUPVAL                         R6 1
+       17 GETTABLEKS                       R6 R6 K0 ["Bubble"]
+       19 GETTABLEKS                       R6 R6 K6 ["actorId"]
+       21 FASTCALL1                        TOSTRING R6 ; [+2]
+       22 GETIMPORT                        R5 K5 [tostring]
+       24 CALL                             R5 1 1
+       25 GETUPVAL                         R6 2
+       26 GETTABLEKS                       R6 R6 K7 ["wwwPath"]
+       28 LOADK                            R7 K8 ["users/"]
+       29 FASTCALL1                        TOSTRING R5 ; [+3]
+       30 MOVE                             R11 R5
+       31 GETIMPORT                        R10 K5 [tostring]
+       33 CALL                             R10 1 1
+       34 MOVE                             R8 R10
+       35 LOADK                            R9 K9 ["/profile"]
+       36 CONCAT                           R3 R6 R9
+       37 LOADNIL                          R4
+       38 LOADNIL                          R5
+       39 CALL                             R0 5 0
+       40 RETURN                           R0 0
 
 PROTO_30:
         0 GETUPVAL                         R1 0
@@ -779,7 +779,7 @@ PROTO_34:
       370 NEWCLOSURE                       R19 P10
       371 CAPTURE                          REF R12
       372 CAPTURE                          VAL R0
-      373 CAPTURE                          UPVAL U5
+      373 CAPTURE                          UPVAL U9
       374 GETUPVAL                         R20 2
       375 GETTABLEKS                       R20 R20 K3 ["useState"]
       377 DUPTABLE                         R21 K38 [{["showMoreScripts"] = False}]
@@ -1072,7 +1072,7 @@ PROTO_34:
       771 CALL                             R37 1 1
       772 SETTABLEKS                       R37 R36 K32 ["LayoutOrder"]
       774 DUPTABLE                         R37 K87 [{"Date", "Info", "DotDotDot"}]
-      775 GETUPVAL                         R39 9
+      775 GETUPVAL                         R39 10
       776 JUMPIF                           R39 ; [+19]
       777 GETUPVAL                         R38 2
       778 GETTABLEKS                       R38 R38 K22 ["createElement"]
@@ -1089,7 +1089,7 @@ PROTO_34:
       795 JUMPIF                           R38 ; [+1]
       796 LOADNIL                          R38
       797 SETTABLEKS                       R38 R37 K84 ["Date"]
-      799 GETUPVAL                         R39 9
+      799 GETUPVAL                         R39 10
       800 JUMPIFNOT                        R39 ; [+138]
       801 GETUPVAL                         R38 2
       802 GETTABLEKS                       R38 R38 K22 ["createElement"]
@@ -1214,7 +1214,7 @@ PROTO_34:
       967 DUPTABLE                         R41 K105 [{"Dropdown", "Button"}]
       968 GETUPVAL                         R42 2
       969 GETTABLEKS                       R42 R42 K22 ["createElement"]
-      971 GETUPVAL                         R43 10
+      971 GETUPVAL                         R43 11
       972 DUPTABLE                         R44 K112 [{["Items"], ["Hide"], ["OnItemActivated"], ["OnFocusLost"], ["Width"] = 240}]
       973 SETTABLEKS                       R10 R44 K106 ["Items"]
       975 NOT                              R45 R6
@@ -1267,7 +1267,7 @@ PROTO_34:
      1042 SETTABLEKS                       R25 R37 K114 ["Description"]
      1044 CALL                             R34 3 1
      1045 SETTABLEKS                       R34 R33 K81 ["Middle"]
-     1047 GETUPVAL                         R35 9
+     1047 GETUPVAL                         R35 10
      1048 JUMPIF                           R35 ; [+115]
      1049 GETUPVAL                         R34 2
      1050 GETTABLEKS                       R34 R34 K22 ["createElement"]
@@ -1477,14 +1477,15 @@ MAIN:
       160 CAPTURE                          VAL R16
       161 CAPTURE                          VAL R11
       162 CAPTURE                          VAL R13
-      163 CAPTURE                          VAL R15
-      164 CAPTURE                          VAL R10
-      165 GETTABLEKS                       R21 R1 K60 ["PureComponent"]
-      167 LOADK                            R23 K61 ["ActivityHistoryBubble"]
-      168 NAMECALL                         R21 R21 K62 ["extend"]
-      170 CALL                             R21 2 1
-      171 DUPCLOSURE                       R22 K63 [PROTO_35]
-      172 CAPTURE                          VAL R1
-      173 CAPTURE                          VAL R20
-      174 SETTABLEKS                       R22 R21 K64 ["render"]
-      176 RETURN                           R21 1
+      163 CAPTURE                          VAL R6
+      164 CAPTURE                          VAL R15
+      165 CAPTURE                          VAL R10
+      166 GETTABLEKS                       R21 R1 K60 ["PureComponent"]
+      168 LOADK                            R23 K61 ["ActivityHistoryBubble"]
+      169 NAMECALL                         R21 R21 K62 ["extend"]
+      171 CALL                             R21 2 1
+      172 DUPCLOSURE                       R22 K63 [PROTO_35]
+      173 CAPTURE                          VAL R1
+      174 CAPTURE                          VAL R20
+      175 SETTABLEKS                       R22 R21 K64 ["render"]
+      177 RETURN                           R21 1

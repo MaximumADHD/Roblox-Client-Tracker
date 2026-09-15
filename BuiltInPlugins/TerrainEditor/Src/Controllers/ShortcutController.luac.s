@@ -1233,62 +1233,61 @@ PROTO_35:
         0 MOVE                             R7 R1
         1 NAMECALL                         R5 R0 K0 ["supportsShortcut"]
         3 CALL                             R5 2 1
-        4 JUMPIF                           R5 ; [+9]
+        4 JUMPIF                           R5 ; [+8]
         5 GETIMPORT                        R5 K2 [error]
-        7 LOADK                            R7 K3 ["Cannot register unsupported shortcut for property %*."]
-        8 MOVE                             R9 R1
-        9 NAMECALL                         R7 R7 K4 ["format"]
-       11 CALL                             R7 2 1
-       12 MOVE                             R6 R7
-       13 CALL                             R5 1 0
-       14 GETUPVAL                         R5 0
-       15 GETTABLEKS                       R5 R5 K5 ["BrushSize"]
-       17 JUMPIFEQ                         R1 R5 ; [+6]
-       19 GETUPVAL                         R5 0
-       20 GETTABLEKS                       R5 R5 K6 ["Strength"]
-       22 JUMPIFNOTEQ                      R1 R5 ; [+9]
-       24 MOVE                             R7 R1
-       25 MOVE                             R8 R2
-       26 MOVE                             R9 R3
-       27 MOVE                             R10 R4
-       28 NAMECALL                         R5 R0 K7 ["onBrushChanged"]
-       30 CALL                             R5 5 -1
-       31 RETURN                           R5 -1
-       32 GETUPVAL                         R5 1
-       33 GETTABLEKS                       R5 R5 K8 ["SourceMaterial"]
-       35 JUMPIFEQ                         R1 R5 ; [+6]
-       37 GETUPVAL                         R5 1
-       38 GETTABLEKS                       R5 R5 K9 ["TargetMaterial"]
-       40 JUMPIFNOTEQ                      R1 R5 ; [+7]
-       42 MOVE                             R7 R1
-       43 MOVE                             R8 R3
-       44 NAMECALL                         R5 R0 K10 ["onMaterialPicked"]
-       46 CALL                             R5 3 -1
-       47 RETURN                           R5 -1
-       48 GETUPVAL                         R5 0
-       49 GETTABLEKS                       R5 R5 K11 ["BrushMode"]
-       51 JUMPIFNOTEQ                      R1 R5 ; [+7]
-       53 MOVE                             R7 R3
-       54 MOVE                             R8 R2
-       55 NAMECALL                         R5 R0 K12 ["onBrushMode"]
-       57 CALL                             R5 3 -1
-       58 RETURN                           R5 -1
-       59 GETUPVAL                         R5 0
-       60 GETTABLEKS                       R5 R5 K13 ["TemporarySmooth"]
-       62 JUMPIFNOTEQ                      R1 R5 ; [+6]
-       64 MOVE                             R7 R3
-       65 NAMECALL                         R5 R0 K14 ["onTemporarySmooth"]
-       67 CALL                             R5 2 -1
-       68 RETURN                           R5 -1
-       69 GETUPVAL                         R5 0
-       70 GETTABLEKS                       R5 R5 K15 ["ManualPlaneLock"]
-       72 JUMPIFNOTEQ                      R1 R5 ; [+7]
-       74 MOVE                             R7 R2
-       75 MOVE                             R8 R3
-       76 NAMECALL                         R5 R0 K16 ["onToggleEdit"]
-       78 CALL                             R5 3 -1
-       79 RETURN                           R5 -1
-       80 RETURN                           R0 0
+        7 LOADK                            R6 K3 ["Cannot register unsupported shortcut for property %*."]
+        8 MOVE                             R8 R1
+        9 NAMECALL                         R6 R6 K4 ["format"]
+       11 CALL                             R6 2 1
+       12 CALL                             R5 1 0
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K5 ["BrushSize"]
+       16 JUMPIFEQ                         R1 R5 ; [+6]
+       18 GETUPVAL                         R5 0
+       19 GETTABLEKS                       R5 R5 K6 ["Strength"]
+       21 JUMPIFNOTEQ                      R1 R5 ; [+9]
+       23 MOVE                             R7 R1
+       24 MOVE                             R8 R2
+       25 MOVE                             R9 R3
+       26 MOVE                             R10 R4
+       27 NAMECALL                         R5 R0 K7 ["onBrushChanged"]
+       29 CALL                             R5 5 -1
+       30 RETURN                           R5 -1
+       31 GETUPVAL                         R5 1
+       32 GETTABLEKS                       R5 R5 K8 ["SourceMaterial"]
+       34 JUMPIFEQ                         R1 R5 ; [+6]
+       36 GETUPVAL                         R5 1
+       37 GETTABLEKS                       R5 R5 K9 ["TargetMaterial"]
+       39 JUMPIFNOTEQ                      R1 R5 ; [+7]
+       41 MOVE                             R7 R1
+       42 MOVE                             R8 R3
+       43 NAMECALL                         R5 R0 K10 ["onMaterialPicked"]
+       45 CALL                             R5 3 -1
+       46 RETURN                           R5 -1
+       47 GETUPVAL                         R5 0
+       48 GETTABLEKS                       R5 R5 K11 ["BrushMode"]
+       50 JUMPIFNOTEQ                      R1 R5 ; [+7]
+       52 MOVE                             R7 R3
+       53 MOVE                             R8 R2
+       54 NAMECALL                         R5 R0 K12 ["onBrushMode"]
+       56 CALL                             R5 3 -1
+       57 RETURN                           R5 -1
+       58 GETUPVAL                         R5 0
+       59 GETTABLEKS                       R5 R5 K13 ["TemporarySmooth"]
+       61 JUMPIFNOTEQ                      R1 R5 ; [+6]
+       63 MOVE                             R7 R3
+       64 NAMECALL                         R5 R0 K14 ["onTemporarySmooth"]
+       66 CALL                             R5 2 -1
+       67 RETURN                           R5 -1
+       68 GETUPVAL                         R5 0
+       69 GETTABLEKS                       R5 R5 K15 ["ManualPlaneLock"]
+       71 JUMPIFNOTEQ                      R1 R5 ; [+7]
+       73 MOVE                             R7 R2
+       74 MOVE                             R8 R3
+       75 NAMECALL                         R5 R0 K16 ["onToggleEdit"]
+       77 CALL                             R5 3 -1
+       78 RETURN                           R5 -1
+       79 RETURN                           R0 0
 
 PROTO_36:
         0 NEWTABLE                         R2 8 0

@@ -165,45 +165,41 @@ PROTO_3:
       160 GETTABLEKS                       R25 R25 K13 ["Size"]
       162 CALL                             R23 2 1
       163 SETTABLEKS                       R23 R22 K13 ["Size"]
-      165 GETUPVAL                         R24 3
-      166 JUMPIFNOT                        R24 ; [+3]
-      167 GETTABLEKS                       R23 R2 K59 ["TextColor"]
-      169 JUMP                             ; [+1]
-      170 LOADNIL                          R23
-      171 SETTABLEKS                       R23 R22 K60 ["ImageColor3"]
-      173 GETUPVAL                         R23 0
-      174 GETTABLEKS                       R23 R23 K61 ["Event"]
-      176 GETTABLEKS                       R23 R23 K62 ["Activated"]
-      178 SETTABLE                         R5 R22 R23
-      179 CALL                             R20 2 1
-      180 SETTABLEKS                       R20 R19 K46 ["CloseIcon"]
-      182 CALL                             R16 3 1
-      183 SETTABLEKS                       R16 R15 K34 ["CloseButton"]
-      185 GETUPVAL                         R16 0
-      186 GETTABLEKS                       R16 R16 K7 ["createElement"]
-      188 GETUPVAL                         R17 4
-      189 DUPTABLE                         R18 K67 [{["RootItems"], ["Size"], ["Expansion"], ["LayoutOrder"] = 2, ["OnExpansionChange"], ["OnSelectionChange"]}]
-      190 GETTABLEKS                       R19 R0 K0 ["props"]
-      192 GETTABLEKS                       R19 R19 K68 ["FileExplorerData"]
-      194 SETTABLEKS                       R19 R18 K63 ["RootItems"]
-      196 GETIMPORT                        R19 K70 [UDim2.fromScale]
-      198 LOADN                            R20 1
-      199 LOADN                            R21 1
-      200 CALL                             R19 2 1
-      201 SETTABLEKS                       R19 R18 K13 ["Size"]
-      203 GETTABLEKS                       R19 R0 K71 ["state"]
-      205 GETTABLEKS                       R19 R19 K64 ["Expansion"]
-      207 SETTABLEKS                       R19 R18 K64 ["Expansion"]
-      209 GETTABLEKS                       R19 R0 K65 ["OnExpansionChange"]
-      211 SETTABLEKS                       R19 R18 K65 ["OnExpansionChange"]
-      213 GETTABLEKS                       R19 R0 K72 ["onSelectionChange"]
-      215 SETTABLEKS                       R19 R18 K66 ["OnSelectionChange"]
-      217 CALL                             R16 2 1
-      218 SETTABLEKS                       R16 R15 K35 ["FolderTree"]
-      220 CALL                             R12 3 1
-      221 SETTABLEKS                       R12 R11 K2 ["Overlay"]
-      223 CALL                             R8 3 -1
-      224 RETURN                           R8 -1
+      165 GETTABLEKS                       R23 R2 K59 ["TextColor"]
+      167 SETTABLEKS                       R23 R22 K60 ["ImageColor3"]
+      169 GETUPVAL                         R23 0
+      170 GETTABLEKS                       R23 R23 K61 ["Event"]
+      172 GETTABLEKS                       R23 R23 K62 ["Activated"]
+      174 SETTABLE                         R5 R22 R23
+      175 CALL                             R20 2 1
+      176 SETTABLEKS                       R20 R19 K46 ["CloseIcon"]
+      178 CALL                             R16 3 1
+      179 SETTABLEKS                       R16 R15 K34 ["CloseButton"]
+      181 GETUPVAL                         R16 0
+      182 GETTABLEKS                       R16 R16 K7 ["createElement"]
+      184 GETUPVAL                         R17 3
+      185 DUPTABLE                         R18 K67 [{["RootItems"], ["Size"], ["Expansion"], ["LayoutOrder"] = 2, ["OnExpansionChange"], ["OnSelectionChange"]}]
+      186 GETTABLEKS                       R19 R0 K0 ["props"]
+      188 GETTABLEKS                       R19 R19 K68 ["FileExplorerData"]
+      190 SETTABLEKS                       R19 R18 K63 ["RootItems"]
+      192 GETIMPORT                        R19 K70 [UDim2.fromScale]
+      194 LOADN                            R20 1
+      195 LOADN                            R21 1
+      196 CALL                             R19 2 1
+      197 SETTABLEKS                       R19 R18 K13 ["Size"]
+      199 GETTABLEKS                       R19 R0 K71 ["state"]
+      201 GETTABLEKS                       R19 R19 K64 ["Expansion"]
+      203 SETTABLEKS                       R19 R18 K64 ["Expansion"]
+      205 GETTABLEKS                       R19 R0 K65 ["OnExpansionChange"]
+      207 SETTABLEKS                       R19 R18 K65 ["OnExpansionChange"]
+      209 GETTABLEKS                       R19 R0 K72 ["onSelectionChange"]
+      211 SETTABLEKS                       R19 R18 K66 ["OnSelectionChange"]
+      213 CALL                             R16 2 1
+      214 SETTABLEKS                       R16 R15 K35 ["FolderTree"]
+      216 CALL                             R12 3 1
+      217 SETTABLEKS                       R12 R11 K2 ["Overlay"]
+      219 CALL                             R8 3 -1
+      220 RETURN                           R8 -1
 
 PROTO_4:
         0 DUPTABLE                         R2 K1 [{"RecentViewToggled"}]
@@ -287,41 +283,36 @@ MAIN:
        78 LOADK                            R15 K23 ["ExplorerOverlay"]
        79 NAMECALL                         R13 R13 K24 ["extend"]
        81 CALL                             R13 2 1
-       82 GETIMPORT                        R14 K26 [game]
-       84 LOADK                            R16 K27 ["AssetManagerCloseButtonColorFix"]
-       85 NAMECALL                         R14 R14 K28 ["GetFastFlag"]
-       87 CALL                             R14 2 1
-       88 GETTABLEKS                       R15 R3 K29 ["Dash"]
-       90 GETTABLEKS                       R16 R15 K30 ["join"]
-       92 GETTABLEKS                       R17 R6 K31 ["TreeView"]
-       94 DUPCLOSURE                       R18 K32 [PROTO_2]
-       95 CAPTURE                          VAL R10
-       96 SETTABLEKS                       R18 R13 K33 ["init"]
-       98 DUPCLOSURE                       R18 K34 [PROTO_3]
-       99 CAPTURE                          VAL R1
-      100 CAPTURE                          VAL R8
-      101 CAPTURE                          VAL R7
-      102 CAPTURE                          VAL R14
-      103 CAPTURE                          VAL R17
-      104 SETTABLEKS                       R18 R13 K35 ["render"]
-      106 MOVE                             R18 R5
-      107 DUPTABLE                         R19 K38 [{"Stylizer", "Localization"}]
-      108 GETTABLEKS                       R20 R4 K36 ["Stylizer"]
-      110 SETTABLEKS                       R20 R19 K36 ["Stylizer"]
-      112 GETTABLEKS                       R20 R4 K37 ["Localization"]
-      114 SETTABLEKS                       R20 R19 K37 ["Localization"]
-      116 CALL                             R18 1 1
-      117 MOVE                             R19 R13
-      118 CALL                             R18 1 1
-      119 MOVE                             R13 R18
-      120 DUPCLOSURE                       R18 K39 [PROTO_4]
-      121 DUPCLOSURE                       R19 K40 [PROTO_7]
-      122 CAPTURE                          VAL R11
-      123 CAPTURE                          VAL R12
-      124 GETTABLEKS                       R20 R2 K41 ["connect"]
-      126 MOVE                             R21 R18
-      127 MOVE                             R22 R19
-      128 CALL                             R20 2 1
-      129 MOVE                             R21 R13
-      130 CALL                             R20 1 -1
-      131 RETURN                           R20 -1
+       82 GETTABLEKS                       R14 R3 K25 ["Dash"]
+       84 GETTABLEKS                       R15 R14 K26 ["join"]
+       86 GETTABLEKS                       R16 R6 K27 ["TreeView"]
+       88 DUPCLOSURE                       R17 K28 [PROTO_2]
+       89 CAPTURE                          VAL R10
+       90 SETTABLEKS                       R17 R13 K29 ["init"]
+       92 DUPCLOSURE                       R17 K30 [PROTO_3]
+       93 CAPTURE                          VAL R1
+       94 CAPTURE                          VAL R8
+       95 CAPTURE                          VAL R7
+       96 CAPTURE                          VAL R16
+       97 SETTABLEKS                       R17 R13 K31 ["render"]
+       99 MOVE                             R17 R5
+      100 DUPTABLE                         R18 K34 [{"Stylizer", "Localization"}]
+      101 GETTABLEKS                       R19 R4 K32 ["Stylizer"]
+      103 SETTABLEKS                       R19 R18 K32 ["Stylizer"]
+      105 GETTABLEKS                       R19 R4 K33 ["Localization"]
+      107 SETTABLEKS                       R19 R18 K33 ["Localization"]
+      109 CALL                             R17 1 1
+      110 MOVE                             R18 R13
+      111 CALL                             R17 1 1
+      112 MOVE                             R13 R17
+      113 DUPCLOSURE                       R17 K35 [PROTO_4]
+      114 DUPCLOSURE                       R18 K36 [PROTO_7]
+      115 CAPTURE                          VAL R11
+      116 CAPTURE                          VAL R12
+      117 GETTABLEKS                       R19 R2 K37 ["connect"]
+      119 MOVE                             R20 R17
+      120 MOVE                             R21 R18
+      121 CALL                             R19 2 1
+      122 MOVE                             R20 R13
+      123 CALL                             R19 1 -1
+      124 RETURN                           R19 -1

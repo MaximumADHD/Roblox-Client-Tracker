@@ -66,51 +66,49 @@ PROTO_1:
 
 PROTO_2:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["DiscoverShowStudioFAEBanner experienced an error querying AMP access rule: %*"]
-        3 GETUPVAL                         R5 0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 GETIMPORT                        R1 K1 [warn]
-       11 LOADK                            R3 K4 ["DiscoverShowStudioFAEBanner error: %*"]
-       12 MOVE                             R5 R0
-       13 NAMECALL                         R3 R3 K3 ["format"]
-       15 CALL                             R3 2 1
-       16 MOVE                             R2 R3
-       17 CALL                             R1 1 0
-       18 FASTCALL1                        TOSTRING R0 ; [+3]
-       19 MOVE                             R2 R0
-       20 GETIMPORT                        R1 K6 [tostring]
-       22 CALL                             R1 1 1
-       23 FASTCALL1                        TYPE R0 ; [+3]
-       24 MOVE                             R3 R0
-       25 GETIMPORT                        R2 K8 [type]
-       27 CALL                             R2 1 1
-       28 JUMPIFNOTEQKS                    R2 K9 ["table"] ; [+11]
-       30 GETTABLEKS                       R3 R0 K10 ["responseBody"]
-       32 FASTCALL1                        TYPE R3 ; [+2]
-       33 GETIMPORT                        R2 K8 [type]
-       35 CALL                             R2 1 1
-       36 JUMPIFNOTEQKS                    R2 K11 ["string"] ; [+3]
-       38 GETTABLEKS                       R1 R0 K10 ["responseBody"]
-       40 GETUPVAL                         R2 1
-       41 MOVE                             R3 R1
+        2 LOADK                            R2 K2 ["DiscoverShowStudioFAEBanner experienced an error querying AMP access rule: %*"]
+        3 GETUPVAL                         R4 0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 GETIMPORT                        R1 K1 [warn]
+       10 LOADK                            R2 K4 ["DiscoverShowStudioFAEBanner error: %*"]
+       11 MOVE                             R4 R0
+       12 NAMECALL                         R2 R2 K3 ["format"]
+       14 CALL                             R2 2 1
+       15 CALL                             R1 1 0
+       16 FASTCALL1                        TOSTRING R0 ; [+3]
+       17 MOVE                             R2 R0
+       18 GETIMPORT                        R1 K6 [tostring]
+       20 CALL                             R1 1 1
+       21 FASTCALL1                        TYPE R0 ; [+3]
+       22 MOVE                             R3 R0
+       23 GETIMPORT                        R2 K8 [type]
+       25 CALL                             R2 1 1
+       26 JUMPIFNOTEQKS                    R2 K9 ["table"] ; [+11]
+       28 GETTABLEKS                       R3 R0 K10 ["responseBody"]
+       30 FASTCALL1                        TYPE R3 ; [+2]
+       31 GETIMPORT                        R2 K8 [type]
+       33 CALL                             R2 1 1
+       34 JUMPIFNOTEQKS                    R2 K11 ["string"] ; [+3]
+       36 GETTABLEKS                       R1 R0 K10 ["responseBody"]
+       38 GETUPVAL                         R2 1
+       39 MOVE                             R3 R1
+       40 GETUPVAL                         R4 2
+       41 JUMPIFNOT                        R4 ; [+16]
        42 GETUPVAL                         R4 2
-       43 JUMPIFNOT                        R4 ; [+16]
-       44 GETUPVAL                         R4 2
-       45 GETUPVAL                         R6 3
-       46 DUPTABLE                         R7 K17 [{["url"], ["errorDetails"], ["user"], ["ampresponse"] = ""}]
-       47 SETTABLEKS                       R2 R7 K12 ["url"]
-       49 SETTABLEKS                       R3 R7 K13 ["errorDetails"]
-       51 GETUPVAL                         R8 4
-       52 NAMECALL                         R8 R8 K18 ["GetUserId"]
-       54 CALL                             R8 1 1
-       55 SETTABLEKS                       R8 R7 K14 ["user"]
-       57 NAMECALL                         R4 R4 K19 ["log"]
-       59 CALL                             R4 3 0
-       60 LOADB                            R2 0
-       61 RETURN                           R2 1
+       43 GETUPVAL                         R6 3
+       44 DUPTABLE                         R7 K17 [{["url"], ["errorDetails"], ["user"], ["ampresponse"] = ""}]
+       45 SETTABLEKS                       R2 R7 K12 ["url"]
+       47 SETTABLEKS                       R3 R7 K13 ["errorDetails"]
+       49 GETUPVAL                         R8 4
+       50 NAMECALL                         R8 R8 K18 ["GetUserId"]
+       52 CALL                             R8 1 1
+       53 SETTABLEKS                       R8 R7 K14 ["user"]
+       55 NAMECALL                         R4 R4 K19 ["log"]
+       57 CALL                             R4 3 0
+       58 LOADB                            R2 0
+       59 RETURN                           R2 1
 
 PROTO_3:
         0 JUMPIFNOT                        R0 ; [+7]

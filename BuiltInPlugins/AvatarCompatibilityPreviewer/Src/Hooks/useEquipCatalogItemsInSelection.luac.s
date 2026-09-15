@@ -2,39 +2,37 @@ PROTO_0:
         0 LOADK                            R3 K0 ["RBX_Palette"]
         1 NAMECALL                         R1 R0 K1 ["GetAttribute"]
         3 CALL                             R1 2 1
-        4 JUMPIF                           R1 ; [+11]
+        4 JUMPIF                           R1 ; [+10]
         5 GETIMPORT                        R2 K3 [warn]
-        7 LOADK                            R4 K4 ["%* did not have a palette set. This is a bug in the plugin, please report it."]
-        8 MOVE                             R6 R0
-        9 NAMECALL                         R4 R4 K5 ["format"]
-       11 CALL                             R4 2 1
-       12 MOVE                             R3 R4
-       13 CALL                             R2 1 0
-       14 LOADNIL                          R2
-       15 RETURN                           R2 1
-       16 GETUPVAL                         R2 0
-       17 MOVE                             R3 R1
-       18 CALL                             R2 1 1
-       19 JUMPIFNOTEQKNIL                  R2 ; [+13]
-       21 GETIMPORT                        R3 K3 [warn]
-       23 LOADK                            R5 K6 ["%* has an invalid palette \"%*\". This is a bug in the plugin, please report it."]
-       24 MOVE                             R7 R0
-       25 MOVE                             R8 R1
-       26 NAMECALL                         R5 R5 K5 ["format"]
-       28 CALL                             R5 3 1
-       29 MOVE                             R4 R5
-       30 CALL                             R3 1 0
-       31 LOADNIL                          R3
-       32 RETURN                           R3 1
-       33 DUPTABLE                         R3 K9 [{"palette", "item"}]
-       34 SETTABLEKS                       R2 R3 K7 ["palette"]
-       36 DUPTABLE                         R4 K12 [{"source", "instance"}]
-       37 GETUPVAL                         R5 1
-       38 GETTABLEKS                       R5 R5 K13 ["SOURCE_INSTANCE"]
-       40 SETTABLEKS                       R5 R4 K10 ["source"]
-       42 SETTABLEKS                       R0 R4 K11 ["instance"]
-       44 SETTABLEKS                       R4 R3 K8 ["item"]
-       46 RETURN                           R3 1
+        7 LOADK                            R3 K4 ["%* did not have a palette set. This is a bug in the plugin, please report it."]
+        8 MOVE                             R5 R0
+        9 NAMECALL                         R3 R3 K5 ["format"]
+       11 CALL                             R3 2 1
+       12 CALL                             R2 1 0
+       13 LOADNIL                          R2
+       14 RETURN                           R2 1
+       15 GETUPVAL                         R2 0
+       16 MOVE                             R3 R1
+       17 CALL                             R2 1 1
+       18 JUMPIFNOTEQKNIL                  R2 ; [+12]
+       20 GETIMPORT                        R3 K3 [warn]
+       22 LOADK                            R4 K6 ["%* has an invalid palette \"%*\". This is a bug in the plugin, please report it."]
+       23 MOVE                             R6 R0
+       24 MOVE                             R7 R1
+       25 NAMECALL                         R4 R4 K5 ["format"]
+       27 CALL                             R4 3 1
+       28 CALL                             R3 1 0
+       29 LOADNIL                          R3
+       30 RETURN                           R3 1
+       31 DUPTABLE                         R3 K9 [{"palette", "item"}]
+       32 SETTABLEKS                       R2 R3 K7 ["palette"]
+       34 DUPTABLE                         R4 K12 [{"source", "instance"}]
+       35 GETUPVAL                         R5 1
+       36 GETTABLEKS                       R5 R5 K13 ["SOURCE_INSTANCE"]
+       38 SETTABLEKS                       R5 R4 K10 ["source"]
+       40 SETTABLEKS                       R0 R4 K11 ["instance"]
+       42 SETTABLEKS                       R4 R3 K8 ["item"]
+       44 RETURN                           R3 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0

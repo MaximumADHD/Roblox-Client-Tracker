@@ -49,23 +49,22 @@ PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETIMPORT                        R1 K2 [print]
-        5 LOADK                            R3 K3 ["Row %*"]
-        6 GETIMPORT                        R5 K5 [game]
-        8 GETTABLEKS                       R5 R5 K6 ["HttpService"]
-       10 GETTABLEKS                       R7 R0 K7 ["Row"]
-       12 NAMECALL                         R5 R5 K8 ["JSONEncode"]
-       14 CALL                             R5 2 1
-       15 NAMECALL                         R3 R3 K9 ["format"]
-       17 CALL                             R3 2 1
-       18 MOVE                             R2 R3
-       19 CALL                             R1 1 0
-       20 GETUPVAL                         R1 1
-       21 GETTABLEKS                       R3 R0 K7 ["Row"]
-       23 GETTABLEKS                       R3 R3 K10 ["item"]
-       25 GETTABLEKS                       R3 R3 K11 ["url"]
-       27 NAMECALL                         R1 R1 K12 ["OpenBrowserWindow"]
-       29 CALL                             R1 2 0
-       30 RETURN                           R0 0
+        5 LOADK                            R2 K3 ["Row %*"]
+        6 GETIMPORT                        R4 K5 [game]
+        8 GETTABLEKS                       R4 R4 K6 ["HttpService"]
+       10 GETTABLEKS                       R6 R0 K7 ["Row"]
+       12 NAMECALL                         R4 R4 K8 ["JSONEncode"]
+       14 CALL                             R4 2 1
+       15 NAMECALL                         R2 R2 K9 ["format"]
+       17 CALL                             R2 2 1
+       18 CALL                             R1 1 0
+       19 GETUPVAL                         R1 1
+       20 GETTABLEKS                       R3 R0 K7 ["Row"]
+       22 GETTABLEKS                       R3 R3 K10 ["item"]
+       24 GETTABLEKS                       R3 R3 K11 ["url"]
+       26 NAMECALL                         R1 R1 K12 ["OpenBrowserWindow"]
+       28 CALL                             R1 2 0
+       29 RETURN                           R0 0
 
 PROTO_6:
         0 JUMPIF                           R0 ; [+1]
@@ -178,21 +177,20 @@ PROTO_11:
        25 GETTABLEKS                       R4 R4 K0 ["createElement"]
        27 GETUPVAL                         R5 3
        28 DUPTABLE                         R6 K12 [{["Text"], ["TextSize"], ["LayoutOrder"], ["RichText"] = True, ["AutomaticSize"]}]
-       29 LOADK                            R8 K13 ["<font color = \"rgb(43, 177, 255)\"> %* </font>"]
-       30 GETTABLEKS                       R10 R0 K8 ["codeText"]
-       32 NAMECALL                         R8 R8 K14 ["format"]
-       34 CALL                             R8 2 1
-       35 MOVE                             R7 R8
-       36 SETTABLEKS                       R7 R6 K1 ["Text"]
-       38 GETTABLEKS                       R7 R2 K2 ["TextSize"]
-       40 SETTABLEKS                       R7 R6 K2 ["TextSize"]
-       42 NAMECALL                         R7 R1 K9 ["getNextOrder"]
-       44 CALL                             R7 1 1
-       45 SETTABLEKS                       R7 R6 K3 ["LayoutOrder"]
-       47 GETIMPORT                        R7 K17 [Enum.AutomaticSize.XY]
-       49 SETTABLEKS                       R7 R6 K11 ["AutomaticSize"]
-       51 CALL                             R4 2 -1
-       52 RETURN                           R4 -1
+       29 LOADK                            R7 K13 ["<font color = \"rgb(43, 177, 255)\"> %* </font>"]
+       30 GETTABLEKS                       R9 R0 K8 ["codeText"]
+       32 NAMECALL                         R7 R7 K14 ["format"]
+       34 CALL                             R7 2 1
+       35 SETTABLEKS                       R7 R6 K1 ["Text"]
+       37 GETTABLEKS                       R7 R2 K2 ["TextSize"]
+       39 SETTABLEKS                       R7 R6 K2 ["TextSize"]
+       41 NAMECALL                         R7 R1 K9 ["getNextOrder"]
+       43 CALL                             R7 1 1
+       44 SETTABLEKS                       R7 R6 K3 ["LayoutOrder"]
+       46 GETIMPORT                        R7 K17 [Enum.AutomaticSize.XY]
+       48 SETTABLEKS                       R7 R6 K11 ["AutomaticSize"]
+       50 CALL                             R4 2 -1
+       51 RETURN                           R4 -1
 
 PROTO_12:
         0 GETTABLEKS                       R1 R0 K0 ["state"]

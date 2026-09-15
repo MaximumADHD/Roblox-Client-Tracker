@@ -13,21 +13,20 @@ PROTO_0:
        11 FASTCALL1                        TOSTRING R10 ; [+2]
        12 GETIMPORT                        R9 K3 [tostring]
        14 CALL                             R9 1 1
-       15 LOADK                            R11 K4 ["%*_%*"]
-       16 MOVE                             R13 R1
-       17 MOVE                             R14 R9
-       18 NAMECALL                         R11 R11 K5 ["format"]
-       20 CALL                             R11 3 1
-       21 MOVE                             R10 R11
-       22 MOVE                             R13 R10
-       23 NAMECALL                         R11 R0 K6 ["GetAttribute"]
-       25 CALL                             R11 2 1
-       26 JUMPIFNOTEQKNIL                  R11 ; [+2]
-       28 RETURN                           R10 1
-       29 FORNLOOP                         R6
-       30 FORNLOOP                         R2
-       31 LOADNIL                          R2
-       32 RETURN                           R2 1
+       15 LOADK                            R10 K4 ["%*_%*"]
+       16 MOVE                             R12 R1
+       17 MOVE                             R13 R9
+       18 NAMECALL                         R10 R10 K5 ["format"]
+       20 CALL                             R10 3 1
+       21 MOVE                             R13 R10
+       22 NAMECALL                         R11 R0 K6 ["GetAttribute"]
+       24 CALL                             R11 2 1
+       25 JUMPIFNOTEQKNIL                  R11 ; [+2]
+       27 RETURN                           R10 1
+       28 FORNLOOP                         R6
+       29 FORNLOOP                         R2
+       30 LOADNIL                          R2
+       31 RETURN                           R2 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0

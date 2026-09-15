@@ -4,7 +4,7 @@ MAIN:
         3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETTABLEKS                       R0 R0 K3 ["_Index"]
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K7 ["Promise-0a3b7bf6-8b4d7d75"]
+        9 GETTABLEKS                       R3 R0 K7 ["Promise-0a3b7bf6-88b888e8"]
        11 GETTABLEKS                       R2 R3 K6 ["Promise"]
        13 CALL                             R1 1 1
        14 RETURN                           R1 1

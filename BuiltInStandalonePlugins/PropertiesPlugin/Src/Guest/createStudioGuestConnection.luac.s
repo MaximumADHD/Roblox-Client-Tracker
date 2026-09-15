@@ -1,14 +1,13 @@
 PROTO_0:
-        0 LOADK                            R1 K0 ["Sending \"%*\""]
-        1 GETUPVAL                         R3 0
-        2 NAMECALL                         R1 R1 K1 ["format"]
-        4 CALL                             R1 2 1
-        5 MOVE                             R0 R1
-        6 GETUPVAL                         R2 1
-        7 FASTCALL1                        TABLE_UNPACK R2 ; [+2]
-        8 GETIMPORT                        R1 K3 [unpack]
-       10 CALL                             R1 1 -1
-       11 RETURN                           R0 -1
+        0 LOADK                            R0 K0 ["Sending \"%*\""]
+        1 GETUPVAL                         R2 0
+        2 NAMECALL                         R0 R0 K1 ["format"]
+        4 CALL                             R0 2 1
+        5 GETUPVAL                         R2 1
+        6 FASTCALL1                        TABLE_UNPACK R2 ; [+2]
+        7 GETIMPORT                        R1 K3 [unpack]
+        9 CALL                             R1 1 -1
+       10 RETURN                           R0 -1
 
 PROTO_1:
         0 PREPVARARGS                      1

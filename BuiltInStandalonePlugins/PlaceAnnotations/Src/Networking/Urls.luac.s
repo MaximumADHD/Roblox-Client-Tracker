@@ -109,53 +109,47 @@ PROTO_1:
        92 RETURN                           R5 -1
 
 PROTO_2:
-        0 LOADK                            R2 K0 ["v2/universes/%*/permissions"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["v2/universes/%*/permissions"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_3:
-        0 LOADK                            R2 K0 ["v1/universes/%*"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["v1/universes/%*"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_4:
-        0 LOADK                            R3 K0 ["v1/groups/%*/roles/%*/users"]
-        1 MOVE                             R5 R0
-        2 MOVE                             R6 R1
-        3 NAMECALL                         R3 R3 K1 ["format"]
-        5 CALL                             R3 3 1
-        6 MOVE                             R2 R3
-        7 RETURN                           R2 1
+        0 LOADK                            R2 K0 ["v1/groups/%*/roles/%*/users"]
+        1 MOVE                             R4 R0
+        2 MOVE                             R5 R1
+        3 NAMECALL                         R2 R2 K1 ["format"]
+        5 CALL                             R2 3 1
+        6 RETURN                           R2 1
 
 PROTO_5:
-        0 LOADK                            R2 K0 ["v1/groups/%*/roles"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["v1/groups/%*/roles"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_6:
-        0 LOADK                            R2 K0 ["v1/groups/%*"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["v1/groups/%*"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_7:
-        0 LOADK                            R2 K0 ["v1/users/%*/groups/roles"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["v1/users/%*/groups/roles"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_8:
         0 LOADK                            R0 K0 ["v1/users/search"]

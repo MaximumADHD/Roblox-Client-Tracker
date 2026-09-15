@@ -523,13 +523,12 @@ PROTO_17:
        13 CALL                             R3 5 -1
        14 RETURN                           R3 -1
        15 GETIMPORT                        R3 K6 [error]
-       17 LOADK                            R5 K7 ["Unknown event name: %*"]
-       18 MOVE                             R7 R0
-       19 NAMECALL                         R5 R5 K8 ["format"]
-       21 CALL                             R5 2 1
-       22 MOVE                             R4 R5
-       23 CALL                             R3 1 0
-       24 RETURN                           R0 0
+       17 LOADK                            R4 K7 ["Unknown event name: %*"]
+       18 MOVE                             R6 R0
+       19 NAMECALL                         R4 R4 K8 ["format"]
+       21 CALL                             R4 2 1
+       22 CALL                             R3 1 0
+       23 RETURN                           R0 0
 
 PROTO_18:
         0 GETUPVAL                         R0 0
@@ -666,18 +665,17 @@ PROTO_23:
         6 MOVE                             R2 R0
         7 LOADN                            R3 1
         8 FORNPREP                         R2
-        9 LOADK                            R6 K1 ["EvalResult:Client:%*"]
-       10 MOVE                             R8 R4
-       11 NAMECALL                         R6 R6 K2 ["format"]
-       13 CALL                             R6 2 1
-       14 MOVE                             R5 R6
-       15 FASTCALL2                        TABLE_INSERT R1 R5 ; [+5]
-       17 MOVE                             R7 R1
-       18 MOVE                             R8 R5
-       19 GETIMPORT                        R6 K5 [table.insert]
-       21 CALL                             R6 2 0
-       22 FORNLOOP                         R2
-       23 RETURN                           R1 1
+        9 LOADK                            R5 K1 ["EvalResult:Client:%*"]
+       10 MOVE                             R7 R4
+       11 NAMECALL                         R5 R5 K2 ["format"]
+       13 CALL                             R5 2 1
+       14 FASTCALL2                        TABLE_INSERT R1 R5 ; [+5]
+       16 MOVE                             R7 R1
+       17 MOVE                             R8 R5
+       18 GETIMPORT                        R6 K5 [table.insert]
+       20 CALL                             R6 2 0
+       21 FORNLOOP                         R2
+       22 RETURN                           R1 1
 
 PROTO_24:
         0 GETUPVAL                         R1 0

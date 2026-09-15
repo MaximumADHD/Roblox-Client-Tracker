@@ -31,59 +31,58 @@ PROTO_1:
        30 SETTABLEKS                       R7 R6 K12 ["bg-shift-100"]
        32 SETTABLEKS                       R6 R5 K5 ["tag"]
        34 SETTABLEKS                       R2 R5 K6 ["onActivated"]
-       36 LOADK                            R7 K13 ["--selector-item-%*"]
-       37 GETTABLEKS                       R9 R0 K1 ["item"]
-       39 GETTABLEKS                       R9 R9 K2 ["id"]
-       41 NAMECALL                         R7 R7 K14 ["format"]
-       43 CALL                             R7 2 1
-       44 MOVE                             R6 R7
-       45 SETTABLEKS                       R6 R5 K7 ["testId"]
-       47 GETTABLEKS                       R6 R0 K8 ["LayoutOrder"]
-       49 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
-       51 DUPTABLE                         R6 K17 [{"Name", "Check"}]
-       52 GETUPVAL                         R7 1
-       53 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       55 GETUPVAL                         R8 2
-       56 GETTABLEKS                       R8 R8 K18 ["Text"]
-       58 DUPTABLE                         R9 K19 [{"tag", "Text", "LayoutOrder"}]
-       59 NEWTABLE                         R10 2 0
-       61 LOADB                            R11 1
-       62 SETTABLEKS                       R11 R10 K20 ["fill size-0-0 auto-xy text-body-medium text-align-x-left text-truncate-split"]
-       64 GETTABLEKS                       R11 R0 K11 ["isSelected"]
-       66 SETTABLEKS                       R11 R10 K21 ["content-emphasis"]
-       68 SETTABLEKS                       R10 R9 K5 ["tag"]
-       70 GETTABLEKS                       R10 R0 K1 ["item"]
-       72 GETTABLEKS                       R10 R10 K22 ["text"]
-       74 SETTABLEKS                       R10 R9 K18 ["Text"]
-       76 MOVE                             R10 R1
-       77 CALL                             R10 0 1
-       78 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
-       80 CALL                             R7 2 1
-       81 SETTABLEKS                       R7 R6 K15 ["Name"]
-       83 GETTABLEKS                       R7 R0 K11 ["isSelected"]
-       85 JUMPIFNOT                        R7 ; [+30]
-       86 GETUPVAL                         R7 1
-       87 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       89 GETUPVAL                         R8 2
-       90 GETTABLEKS                       R8 R8 K23 ["Icon"]
-       92 DUPTABLE                         R9 K26 [{"name", "size", "LayoutOrder"}]
-       93 GETUPVAL                         R10 2
-       94 GETTABLEKS                       R10 R10 K27 ["Enums"]
-       96 GETTABLEKS                       R10 R10 K28 ["IconName"]
-       98 GETTABLEKS                       R10 R10 K16 ["Check"]
-      100 SETTABLEKS                       R10 R9 K24 ["name"]
-      102 GETUPVAL                         R10 2
-      103 GETTABLEKS                       R10 R10 K27 ["Enums"]
-      105 GETTABLEKS                       R10 R10 K29 ["IconSize"]
-      107 GETTABLEKS                       R10 R10 K30 ["Small"]
-      109 SETTABLEKS                       R10 R9 K25 ["size"]
-      111 MOVE                             R10 R1
-      112 CALL                             R10 0 1
-      113 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
-      115 CALL                             R7 2 1
-      116 SETTABLEKS                       R7 R6 K16 ["Check"]
-      118 CALL                             R3 3 -1
-      119 RETURN                           R3 -1
+       36 LOADK                            R6 K13 ["--selector-item-%*"]
+       37 GETTABLEKS                       R8 R0 K1 ["item"]
+       39 GETTABLEKS                       R8 R8 K2 ["id"]
+       41 NAMECALL                         R6 R6 K14 ["format"]
+       43 CALL                             R6 2 1
+       44 SETTABLEKS                       R6 R5 K7 ["testId"]
+       46 GETTABLEKS                       R6 R0 K8 ["LayoutOrder"]
+       48 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
+       50 DUPTABLE                         R6 K17 [{"Name", "Check"}]
+       51 GETUPVAL                         R7 1
+       52 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       54 GETUPVAL                         R8 2
+       55 GETTABLEKS                       R8 R8 K18 ["Text"]
+       57 DUPTABLE                         R9 K19 [{"tag", "Text", "LayoutOrder"}]
+       58 NEWTABLE                         R10 2 0
+       60 LOADB                            R11 1
+       61 SETTABLEKS                       R11 R10 K20 ["fill size-0-0 auto-xy text-body-medium text-align-x-left text-truncate-split"]
+       63 GETTABLEKS                       R11 R0 K11 ["isSelected"]
+       65 SETTABLEKS                       R11 R10 K21 ["content-emphasis"]
+       67 SETTABLEKS                       R10 R9 K5 ["tag"]
+       69 GETTABLEKS                       R10 R0 K1 ["item"]
+       71 GETTABLEKS                       R10 R10 K22 ["text"]
+       73 SETTABLEKS                       R10 R9 K18 ["Text"]
+       75 MOVE                             R10 R1
+       76 CALL                             R10 0 1
+       77 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
+       79 CALL                             R7 2 1
+       80 SETTABLEKS                       R7 R6 K15 ["Name"]
+       82 GETTABLEKS                       R7 R0 K11 ["isSelected"]
+       84 JUMPIFNOT                        R7 ; [+30]
+       85 GETUPVAL                         R7 1
+       86 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       88 GETUPVAL                         R8 2
+       89 GETTABLEKS                       R8 R8 K23 ["Icon"]
+       91 DUPTABLE                         R9 K26 [{"name", "size", "LayoutOrder"}]
+       92 GETUPVAL                         R10 2
+       93 GETTABLEKS                       R10 R10 K27 ["Enums"]
+       95 GETTABLEKS                       R10 R10 K28 ["IconName"]
+       97 GETTABLEKS                       R10 R10 K16 ["Check"]
+       99 SETTABLEKS                       R10 R9 K24 ["name"]
+      101 GETUPVAL                         R10 2
+      102 GETTABLEKS                       R10 R10 K27 ["Enums"]
+      104 GETTABLEKS                       R10 R10 K29 ["IconSize"]
+      106 GETTABLEKS                       R10 R10 K30 ["Small"]
+      108 SETTABLEKS                       R10 R9 K25 ["size"]
+      110 MOVE                             R10 R1
+      111 CALL                             R10 0 1
+      112 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
+      114 CALL                             R7 2 1
+      115 SETTABLEKS                       R7 R6 K16 ["Check"]
+      117 CALL                             R3 3 -1
+      118 RETURN                           R3 -1
 
 PROTO_2:
         0 GETUPVAL                         R1 0

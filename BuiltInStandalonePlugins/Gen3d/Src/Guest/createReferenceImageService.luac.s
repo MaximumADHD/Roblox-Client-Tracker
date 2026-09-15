@@ -106,33 +106,32 @@ PROTO_2:
        18 LOADK                            R4 K9 [""]
        19 GETUPVAL                         R6 0
        20 GETTABLE                         R5 R6 R4
-       21 JUMPIFNOTEQKNIL                  R5 ; [+11]
+       21 JUMPIFNOTEQKNIL                  R5 ; [+10]
        23 GETIMPORT                        R6 K11 [error]
-       25 LOADK                            R8 K12 ["Unsupported image file extension \".%*\". Supported: jpg, jpeg, png."]
-       26 MOVE                             R10 R4
-       27 NAMECALL                         R8 R8 K13 ["format"]
-       29 CALL                             R8 2 1
-       30 MOVE                             R7 R8
-       31 LOADN                            R8 0
-       32 CALL                             R6 2 0
-       33 GETUPVAL                         R6 1
-       34 MOVE                             R7 R1
-       35 CALL                             R6 1 1
-       36 JUMPIFEQKNIL                     R6 ; [+17]
-       38 JUMPIFEQ                         R6 R5 ; [+15]
-       40 GETIMPORT                        R7 K11 [error]
-       42 LOADK                            R11 K14 ["File extension \".%*\" indicates %*, but the file contents are actually %*. "]
-       43 MOVE                             R13 R4
-       44 MOVE                             R14 R5
-       45 MOVE                             R15 R6
-       46 NAMECALL                         R11 R11 K13 ["format"]
-       48 CALL                             R11 4 1
-       49 MOVE                             R9 R11
-       50 LOADK                            R10 K15 ["Please rename the file to match its real format or convert it to a supported one (jpg, jpeg, png)."]
-       51 CONCAT                           R8 R9 R10
-       52 LOADN                            R9 0
-       53 CALL                             R7 2 0
-       54 RETURN                           R5 1
+       25 LOADK                            R7 K12 ["Unsupported image file extension \".%*\". Supported: jpg, jpeg, png."]
+       26 MOVE                             R9 R4
+       27 NAMECALL                         R7 R7 K13 ["format"]
+       29 CALL                             R7 2 1
+       30 LOADN                            R8 0
+       31 CALL                             R6 2 0
+       32 GETUPVAL                         R6 1
+       33 MOVE                             R7 R1
+       34 CALL                             R6 1 1
+       35 JUMPIFEQKNIL                     R6 ; [+17]
+       37 JUMPIFEQ                         R6 R5 ; [+15]
+       39 GETIMPORT                        R7 K11 [error]
+       41 LOADK                            R11 K14 ["File extension \".%*\" indicates %*, but the file contents are actually %*. "]
+       42 MOVE                             R13 R4
+       43 MOVE                             R14 R5
+       44 MOVE                             R15 R6
+       45 NAMECALL                         R11 R11 K13 ["format"]
+       47 CALL                             R11 4 1
+       48 MOVE                             R9 R11
+       49 LOADK                            R10 K15 ["Please rename the file to match its real format or convert it to a supported one (jpg, jpeg, png)."]
+       50 CONCAT                           R8 R9 R10
+       51 LOADN                            R9 0
+       52 CALL                             R7 2 0
+       53 RETURN                           R5 1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -331,27 +330,26 @@ PROTO_12:
        93 GETIMPORT                        R5 K7 [typeof]
        95 CALL                             R5 1 1
        96 JUMPIFNOTEQKS                    R5 K8 ["string"] ; [+3]
-       98 JUMPIFNOTEQKS                    R4 K9 [""] ; [+11]
+       98 JUMPIFNOTEQKS                    R4 K9 [""] ; [+10]
       100 GETIMPORT                        R5 K19 [error]
-      102 LOADK                            R7 K20 ["File is empty or could not be read: %*"]
-      103 MOVE                             R9 R1
-      104 NAMECALL                         R7 R7 K21 ["format"]
-      106 CALL                             R7 2 1
-      107 MOVE                             R6 R7
-      108 LOADN                            R7 0
-      109 CALL                             R5 2 0
-      110 GETUPVAL                         R5 3
-      111 MOVE                             R6 R3
-      112 MOVE                             R7 R4
-      113 CALL                             R5 2 1
-      114 DUPTABLE                         R6 K24 [{"data", "mimeType"}]
-      115 GETUPVAL                         R7 4
-      116 MOVE                             R8 R0
-      117 MOVE                             R9 R4
-      118 CALL                             R7 2 1
-      119 SETTABLEKS                       R7 R6 K22 ["data"]
-      121 SETTABLEKS                       R5 R6 K23 ["mimeType"]
-      123 RETURN                           R6 1
+      102 LOADK                            R6 K20 ["File is empty or could not be read: %*"]
+      103 MOVE                             R8 R1
+      104 NAMECALL                         R6 R6 K21 ["format"]
+      106 CALL                             R6 2 1
+      107 LOADN                            R7 0
+      108 CALL                             R5 2 0
+      109 GETUPVAL                         R5 3
+      110 MOVE                             R6 R3
+      111 MOVE                             R7 R4
+      112 CALL                             R5 2 1
+      113 DUPTABLE                         R6 K24 [{"data", "mimeType"}]
+      114 GETUPVAL                         R7 4
+      115 MOVE                             R8 R0
+      116 MOVE                             R9 R4
+      117 CALL                             R7 2 1
+      118 SETTABLEKS                       R7 R6 K22 ["data"]
+      120 SETTABLEKS                       R5 R6 K23 ["mimeType"]
+      122 RETURN                           R6 1
 
 PROTO_13:
         0 GETUPVAL                         R0 0
@@ -395,21 +393,20 @@ PROTO_14:
        39 CALL                             R4 1 1
        40 JUMPIFNOTEQKS                    R4 K6 ["string"] ; [+5]
        42 GETTABLEKS                       R4 R3 K5 ["tempId"]
-       44 JUMPIFNOTEQKS                    R4 K7 [""] ; [+16]
+       44 JUMPIFNOTEQKS                    R4 K7 [""] ; [+15]
        46 GETIMPORT                        R4 K9 [warn]
-       48 LOADK                            R6 K10 ["[Gen3d] ConvertImageDataToTempIdAsync failed for the reference image: %*"]
+       48 LOADK                            R5 K10 ["[Gen3d] ConvertImageDataToTempIdAsync failed for the reference image: %*"]
        49 FASTCALL1                        TOSTRING R3 ; [+3]
-       50 MOVE                             R9 R3
-       51 GETIMPORT                        R8 K12 [tostring]
-       53 CALL                             R8 1 1
-       54 NAMECALL                         R6 R6 K13 ["format"]
-       56 CALL                             R6 2 1
-       57 MOVE                             R5 R6
-       58 CALL                             R4 1 0
-       59 LOADNIL                          R4
-       60 RETURN                           R4 1
-       61 GETTABLEKS                       R4 R3 K5 ["tempId"]
-       63 RETURN                           R4 1
+       50 MOVE                             R8 R3
+       51 GETIMPORT                        R7 K12 [tostring]
+       53 CALL                             R7 1 1
+       54 NAMECALL                         R5 R5 K13 ["format"]
+       56 CALL                             R5 2 1
+       57 CALL                             R4 1 0
+       58 LOADNIL                          R4
+       59 RETURN                           R4 1
+       60 GETTABLEKS                       R4 R3 K5 ["tempId"]
+       62 RETURN                           R4 1
 
 PROTO_15:
         0 GETUPVAL                         R0 0

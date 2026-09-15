@@ -31,28 +31,26 @@ PROTO_0:
 
 PROTO_1:
         0 DUPTABLE                         R1 K6 [{"audioTypeKey", "includeUnverifiedCreators", "minDuration", "maxDuration", "sortIntentKey", "searchTerm"}]
-        1 GETTABLEKS                       R2 R0 K7 ["initialAudioTypeKey"]
-        3 JUMPIF                           R2 ; [+3]
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R2 R2 K8 ["All"]
-        7 SETTABLEKS                       R2 R1 K0 ["audioTypeKey"]
-        9 GETTABLEKS                       R2 R0 K1 ["includeUnverifiedCreators"]
-       11 SETTABLEKS                       R2 R1 K1 ["includeUnverifiedCreators"]
-       13 GETTABLEKS                       R2 R0 K2 ["minDuration"]
-       15 JUMPIF                           R2 ; [+3]
-       16 GETUPVAL                         R2 1
-       17 GETTABLEKS                       R2 R2 K9 ["MIN_AUDIO_SEARCH_DURATION"]
-       19 SETTABLEKS                       R2 R1 K2 ["minDuration"]
-       21 GETTABLEKS                       R2 R0 K3 ["maxDuration"]
-       23 JUMPIF                           R2 ; [+3]
-       24 GETUPVAL                         R2 1
-       25 GETTABLEKS                       R2 R2 K10 ["MAX_AUDIO_SEARCH_DURATION"]
-       27 SETTABLEKS                       R2 R1 K3 ["maxDuration"]
-       29 GETTABLEKS                       R2 R0 K11 ["initialSortIntentKey"]
-       31 SETTABLEKS                       R2 R1 K4 ["sortIntentKey"]
-       33 GETTABLEKS                       R2 R0 K12 ["initialCreatorName"]
-       35 SETTABLEKS                       R2 R1 K5 ["searchTerm"]
-       37 RETURN                           R1 1
+        1 GETTABLEKS                       R3 R0 K8 ["initialAudioTypeKey"]
+        3 ORK                              R2 R3 K7 ["All"]
+        4 SETTABLEKS                       R2 R1 K0 ["audioTypeKey"]
+        6 GETTABLEKS                       R2 R0 K1 ["includeUnverifiedCreators"]
+        8 SETTABLEKS                       R2 R1 K1 ["includeUnverifiedCreators"]
+       10 GETTABLEKS                       R2 R0 K2 ["minDuration"]
+       12 JUMPIF                           R2 ; [+3]
+       13 GETUPVAL                         R2 0
+       14 GETTABLEKS                       R2 R2 K9 ["MIN_AUDIO_SEARCH_DURATION"]
+       16 SETTABLEKS                       R2 R1 K2 ["minDuration"]
+       18 GETTABLEKS                       R2 R0 K3 ["maxDuration"]
+       20 JUMPIF                           R2 ; [+3]
+       21 GETUPVAL                         R2 0
+       22 GETTABLEKS                       R2 R2 K10 ["MAX_AUDIO_SEARCH_DURATION"]
+       24 SETTABLEKS                       R2 R1 K3 ["maxDuration"]
+       26 GETTABLEKS                       R2 R0 K11 ["initialSortIntentKey"]
+       28 SETTABLEKS                       R2 R1 K4 ["sortIntentKey"]
+       30 GETTABLEKS                       R2 R0 K12 ["initialCreatorName"]
+       32 SETTABLEKS                       R2 R1 K5 ["searchTerm"]
+       34 RETURN                           R1 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -153,49 +151,44 @@ PROTO_7:
        63 SETTABLEKS                       R6 R5 K11 ["maxDuration"]
        65 SETTABLEKS                       R5 R4 K14 ["AudioSearch"]
        67 GETTABLEKS                       R5 R0 K15 ["audioTypeKey"]
-       69 GETUPVAL                         R6 4
-       70 GETTABLEKS                       R6 R6 K16 ["All"]
-       72 JUMPIFEQ                         R5 R6 ; [+14]
-       74 GETTABLEKS                       R5 R4 K17 ["AdditionalAudioSearch"]
-       76 JUMPIF                           R5 ; [+2]
-       77 NEWTABLE                         R5 0 0
-       79 SETTABLEKS                       R5 R4 K17 ["AdditionalAudioSearch"]
-       81 GETTABLEKS                       R5 R4 K17 ["AdditionalAudioSearch"]
-       83 GETTABLEKS                       R6 R0 K15 ["audioTypeKey"]
-       85 SETTABLEKS                       R6 R5 K18 ["audioType"]
-       87 GETTABLEKS                       R5 R0 K19 ["extraSearchDetails"]
-       89 JUMPIFNOT                        R5 ; [+22]
-       90 GETIMPORT                        R5 K21 [next]
-       92 GETTABLEKS                       R6 R0 K19 ["extraSearchDetails"]
-       94 CALL                             R5 1 1
-       95 JUMPIFEQKNIL                     R5 ; [+16]
-       97 DUPTABLE                         R5 K24 [{"Name", "Id"}]
-       98 GETTABLEKS                       R6 R0 K19 ["extraSearchDetails"]
-      100 GETTABLEKS                       R6 R6 K22 ["Name"]
-      102 SETTABLEKS                       R6 R5 K22 ["Name"]
-      104 GETTABLEKS                       R6 R0 K19 ["extraSearchDetails"]
-      106 GETTABLEKS                       R6 R6 K23 ["Id"]
-      108 SETTABLEKS                       R6 R5 K23 ["Id"]
-      110 SETTABLEKS                       R5 R4 K5 ["Creator"]
-      112 RETURN                           R4 1
+       69 JUMPIFEQKS                       R5 K16 ["All"] ; [+14]
+       71 GETTABLEKS                       R5 R4 K17 ["AdditionalAudioSearch"]
+       73 JUMPIF                           R5 ; [+2]
+       74 NEWTABLE                         R5 0 0
+       76 SETTABLEKS                       R5 R4 K17 ["AdditionalAudioSearch"]
+       78 GETTABLEKS                       R5 R4 K17 ["AdditionalAudioSearch"]
+       80 GETTABLEKS                       R6 R0 K15 ["audioTypeKey"]
+       82 SETTABLEKS                       R6 R5 K18 ["audioType"]
+       84 GETTABLEKS                       R5 R0 K19 ["extraSearchDetails"]
+       86 JUMPIFNOT                        R5 ; [+22]
+       87 GETIMPORT                        R5 K21 [next]
+       89 GETTABLEKS                       R6 R0 K19 ["extraSearchDetails"]
+       91 CALL                             R5 1 1
+       92 JUMPIFEQKNIL                     R5 ; [+16]
+       94 DUPTABLE                         R5 K24 [{"Name", "Id"}]
+       95 GETTABLEKS                       R6 R0 K19 ["extraSearchDetails"]
+       97 GETTABLEKS                       R6 R6 K22 ["Name"]
+       99 SETTABLEKS                       R6 R5 K22 ["Name"]
+      101 GETTABLEKS                       R6 R0 K19 ["extraSearchDetails"]
+      103 GETTABLEKS                       R6 R6 K23 ["Id"]
+      105 SETTABLEKS                       R6 R5 K23 ["Id"]
+      107 SETTABLEKS                       R5 R4 K5 ["Creator"]
+      109 RETURN                           R4 1
 
 PROTO_8:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K10 [{[1] = False, ["minDuration"], ["maxDuration"], ["sortIntentKey"] = "Relevance", ["audioTypeKey"], ["searchTerm"] = "", ["extraSearchDetails"]}]
+        1 DUPTABLE                         R2 K11 [{[1] = False, ["minDuration"], ["maxDuration"], ["sortIntentKey"] = "Relevance", ["audioTypeKey"] = "All", ["searchTerm"] = "", ["extraSearchDetails"]}]
         2 GETUPVAL                         R3 1
-        3 GETTABLEKS                       R3 R3 K11 ["MIN_AUDIO_SEARCH_DURATION"]
+        3 GETTABLEKS                       R3 R3 K12 ["MIN_AUDIO_SEARCH_DURATION"]
         5 SETTABLEKS                       R3 R2 K2 ["minDuration"]
         7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R3 R3 K12 ["MAX_AUDIO_SEARCH_DURATION"]
+        8 GETTABLEKS                       R3 R3 K13 ["MAX_AUDIO_SEARCH_DURATION"]
        10 SETTABLEKS                       R3 R2 K3 ["maxDuration"]
-       12 GETUPVAL                         R3 2
-       13 GETTABLEKS                       R3 R3 K13 ["All"]
-       15 SETTABLEKS                       R3 R2 K6 ["audioTypeKey"]
-       17 NEWTABLE                         R3 0 0
-       19 SETTABLEKS                       R3 R2 K9 ["extraSearchDetails"]
-       21 NAMECALL                         R0 R0 K14 ["setState"]
-       23 CALL                             R0 2 0
-       24 RETURN                           R0 0
+       12 NEWTABLE                         R3 0 0
+       14 SETTABLEKS                       R3 R2 K10 ["extraSearchDetails"]
+       16 NAMECALL                         R0 R0 K14 ["setState"]
+       18 CALL                             R0 2 0
+       19 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R0 0
@@ -210,46 +203,43 @@ PROTO_9:
 PROTO_10:
         0 DUPCLOSURE                       R1 K0 [PROTO_1]
         1 CAPTURE                          UPVAL U0
-        2 CAPTURE                          UPVAL U1
-        3 SETTABLEKS                       R1 R0 K1 ["getInitState"]
-        5 GETTABLEKS                       R1 R0 K1 ["getInitState"]
-        7 GETTABLEKS                       R2 R0 K2 ["props"]
-        9 CALL                             R1 1 1
-       10 SETTABLEKS                       R1 R0 K3 ["state"]
-       12 GETUPVAL                         R1 2
-       13 NEWCLOSURE                       R2 P1
-       14 CAPTURE                          VAL R0
-       15 GETUPVAL                         R3 3
-       16 CALL                             R1 2 1
-       17 SETTABLEKS                       R1 R0 K4 ["debouncedUserSearch"]
-       19 NEWCLOSURE                       R1 P2
-       20 CAPTURE                          VAL R0
-       21 SETTABLEKS                       R1 R0 K5 ["updateUserSearch"]
-       23 NEWCLOSURE                       R1 P3
-       24 CAPTURE                          VAL R0
-       25 SETTABLEKS                       R1 R0 K6 ["onSelectSortIntent"]
-       27 NEWCLOSURE                       R1 P4
-       28 CAPTURE                          VAL R0
-       29 SETTABLEKS                       R1 R0 K7 ["onSelectAudioType"]
-       31 NEWCLOSURE                       R1 P5
-       32 CAPTURE                          VAL R0
-       33 SETTABLEKS                       R1 R0 K8 ["onDurationChange"]
-       35 NEWCLOSURE                       R1 P6
-       36 CAPTURE                          VAL R0
+        2 SETTABLEKS                       R1 R0 K1 ["getInitState"]
+        4 GETTABLEKS                       R1 R0 K1 ["getInitState"]
+        6 GETTABLEKS                       R2 R0 K2 ["props"]
+        8 CALL                             R1 1 1
+        9 SETTABLEKS                       R1 R0 K3 ["state"]
+       11 GETUPVAL                         R1 1
+       12 NEWCLOSURE                       R2 P1
+       13 CAPTURE                          VAL R0
+       14 GETUPVAL                         R3 2
+       15 CALL                             R1 2 1
+       16 SETTABLEKS                       R1 R0 K4 ["debouncedUserSearch"]
+       18 NEWCLOSURE                       R1 P2
+       19 CAPTURE                          VAL R0
+       20 SETTABLEKS                       R1 R0 K5 ["updateUserSearch"]
+       22 NEWCLOSURE                       R1 P3
+       23 CAPTURE                          VAL R0
+       24 SETTABLEKS                       R1 R0 K6 ["onSelectSortIntent"]
+       26 NEWCLOSURE                       R1 P4
+       27 CAPTURE                          VAL R0
+       28 SETTABLEKS                       R1 R0 K7 ["onSelectAudioType"]
+       30 NEWCLOSURE                       R1 P5
+       31 CAPTURE                          VAL R0
+       32 SETTABLEKS                       R1 R0 K8 ["onDurationChange"]
+       34 NEWCLOSURE                       R1 P6
+       35 CAPTURE                          VAL R0
+       36 CAPTURE                          UPVAL U3
        37 CAPTURE                          UPVAL U4
-       38 CAPTURE                          UPVAL U5
-       39 CAPTURE                          UPVAL U1
-       40 CAPTURE                          UPVAL U0
-       41 SETTABLEKS                       R1 R0 K9 ["getSearchOptions"]
-       43 NEWCLOSURE                       R1 P7
-       44 CAPTURE                          VAL R0
-       45 CAPTURE                          UPVAL U1
-       46 CAPTURE                          UPVAL U0
-       47 SETTABLEKS                       R1 R0 K10 ["onReset"]
-       49 NEWCLOSURE                       R1 P8
-       50 CAPTURE                          VAL R0
-       51 SETTABLEKS                       R1 R0 K11 ["onClose"]
-       53 RETURN                           R0 0
+       38 CAPTURE                          UPVAL U0
+       39 SETTABLEKS                       R1 R0 K9 ["getSearchOptions"]
+       41 NEWCLOSURE                       R1 P7
+       42 CAPTURE                          VAL R0
+       43 CAPTURE                          UPVAL U0
+       44 SETTABLEKS                       R1 R0 K10 ["onReset"]
+       46 NEWCLOSURE                       R1 P8
+       47 CAPTURE                          VAL R0
+       48 SETTABLEKS                       R1 R0 K11 ["onClose"]
+       50 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R2 0
@@ -651,107 +641,106 @@ MAIN:
       160 CALL                             R23 2 1
       161 DUPTABLE                         R24 K44 [{["All"] = "All", ["Music"] = "Music", ["SoundEffect"] = "SoundEffect"}]
       162 NEWTABLE                         R25 0 3
-      164 GETTABLEKS                       R26 R24 K41 ["All"]
-      166 GETTABLEKS                       R27 R24 K42 ["Music"]
-      168 GETTABLEKS                       R28 R24 K43 ["SoundEffect"]
-      170 SETLIST                          R25 R26 3 [1]
-      172 DUPTABLE                         R26 K51 [{["LongestToShortest"] = "LongestToShortest", ["MostUsed"] = "MostUsed", ["New"] = "New", ["Relevance"] = "Relevance", ["ShortestToLongest"] = "ShortestToLongest", ["Trending"] = "Trending"}]
-      173 NEWTABLE                         R27 0 6
-      175 LOADK                            R28 K48 ["Relevance"]
-      176 LOADK                            R29 K46 ["MostUsed"]
-      177 LOADK                            R30 K50 ["Trending"]
-      178 LOADK                            R31 K47 ["New"]
-      179 LOADK                            R32 K49 ["ShortestToLongest"]
-      180 LOADK                            R33 K45 ["LongestToShortest"]
-      181 SETLIST                          R27 R28 6 [1]
-      183 NEWTABLE                         R28 8 0
-      185 DUPTABLE                         R29 K53 [{"uiSortIntent"}]
-      186 GETTABLEKS                       R30 R20 K54 ["UiSortIntent"]
-      188 GETTABLEKS                       R30 R30 K48 ["Relevance"]
-      190 SETTABLEKS                       R30 R29 K52 ["uiSortIntent"]
-      192 SETTABLEKS                       R29 R28 K48 ["Relevance"]
-      194 DUPTABLE                         R29 K53 [{"uiSortIntent"}]
-      195 GETTABLEKS                       R30 R20 K54 ["UiSortIntent"]
-      197 GETTABLEKS                       R30 R30 K55 ["MostTaken"]
-      199 SETTABLEKS                       R30 R29 K52 ["uiSortIntent"]
-      201 SETTABLEKS                       R29 R28 K46 ["MostUsed"]
-      203 DUPTABLE                         R29 K53 [{"uiSortIntent"}]
-      204 GETTABLEKS                       R30 R20 K54 ["UiSortIntent"]
-      206 GETTABLEKS                       R30 R30 K50 ["Trending"]
-      208 SETTABLEKS                       R30 R29 K52 ["uiSortIntent"]
-      210 SETTABLEKS                       R29 R28 K50 ["Trending"]
-      212 DUPTABLE                         R29 K57 [{"uiSortIntent", "sortDirection"}]
-      213 GETTABLEKS                       R30 R20 K54 ["UiSortIntent"]
-      215 GETTABLEKS                       R30 R30 K58 ["DateCreated"]
-      217 SETTABLEKS                       R30 R29 K52 ["uiSortIntent"]
-      219 GETTABLEKS                       R30 R20 K59 ["SortDirection"]
-      221 GETTABLEKS                       R30 R30 K60 ["Descending"]
-      223 SETTABLEKS                       R30 R29 K56 ["sortDirection"]
-      225 SETTABLEKS                       R29 R28 K47 ["New"]
-      227 DUPTABLE                         R29 K57 [{"uiSortIntent", "sortDirection"}]
-      228 GETTABLEKS                       R30 R20 K54 ["UiSortIntent"]
-      230 GETTABLEKS                       R30 R30 K61 ["Duration"]
-      232 SETTABLEKS                       R30 R29 K52 ["uiSortIntent"]
-      234 GETTABLEKS                       R30 R20 K59 ["SortDirection"]
-      236 GETTABLEKS                       R30 R30 K62 ["Ascending"]
-      238 SETTABLEKS                       R30 R29 K56 ["sortDirection"]
-      240 SETTABLEKS                       R29 R28 K49 ["ShortestToLongest"]
-      242 DUPTABLE                         R29 K57 [{"uiSortIntent", "sortDirection"}]
-      243 GETTABLEKS                       R30 R20 K54 ["UiSortIntent"]
-      245 GETTABLEKS                       R30 R30 K61 ["Duration"]
-      247 SETTABLEKS                       R30 R29 K52 ["uiSortIntent"]
-      249 GETTABLEKS                       R30 R20 K59 ["SortDirection"]
-      251 GETTABLEKS                       R30 R30 K60 ["Descending"]
-      253 SETTABLEKS                       R30 R29 K56 ["sortDirection"]
-      255 SETTABLEKS                       R29 R28 K45 ["LongestToShortest"]
-      257 DUPCLOSURE                       R29 K63 [PROTO_0]
-      258 CAPTURE                          VAL R20
-      259 CAPTURE                          VAL R28
-      260 GETTABLEKS                       R30 R3 K64 ["PureComponent"]
-      262 LOADK                            R32 K65 ["AudioMarketplaceSearchOptions"]
-      263 NAMECALL                         R30 R30 K66 ["extend"]
-      265 CALL                             R30 2 1
-      266 DUPCLOSURE                       R31 K67 [PROTO_10]
-      267 CAPTURE                          VAL R24
-      268 CAPTURE                          VAL R7
-      269 CAPTURE                          VAL R8
-      270 CAPTURE                          VAL R23
-      271 CAPTURE                          VAL R28
-      272 CAPTURE                          VAL R2
-      273 SETTABLEKS                       R31 R30 K68 ["init"]
-      275 DUPCLOSURE                       R31 K69 [PROTO_12]
-      276 SETTABLEKS                       R31 R30 K70 ["didUpdate"]
-      278 DUPCLOSURE                       R31 K71 [PROTO_13]
-      279 CAPTURE                          VAL R27
-      280 CAPTURE                          VAL R25
-      281 CAPTURE                          VAL R21
-      282 CAPTURE                          VAL R19
-      283 CAPTURE                          VAL R3
-      284 CAPTURE                          VAL R16
-      285 CAPTURE                          VAL R15
-      286 CAPTURE                          VAL R14
-      287 CAPTURE                          VAL R7
-      288 CAPTURE                          VAL R13
-      289 CAPTURE                          VAL R18
-      290 SETTABLEKS                       R31 R30 K72 ["render"]
-      292 MOVE                             R31 R10
-      293 DUPTABLE                         R32 K75 [{"Localization", "Network"}]
-      294 GETTABLEKS                       R33 R9 K73 ["Localization"]
-      296 SETTABLEKS                       R33 R32 K73 ["Localization"]
-      298 SETTABLEKS                       R11 R32 K74 ["Network"]
-      300 CALL                             R31 1 1
-      301 MOVE                             R32 R30
-      302 CALL                             R31 1 1
-      303 MOVE                             R30 R31
-      304 DUPCLOSURE                       R31 K76 [PROTO_14]
-      305 CAPTURE                          VAL R29
-      306 CAPTURE                          VAL R21
-      307 DUPCLOSURE                       R32 K77 [PROTO_16]
-      308 CAPTURE                          VAL R12
-      309 GETTABLEKS                       R33 R4 K78 ["connect"]
-      311 MOVE                             R34 R31
-      312 MOVE                             R35 R32
-      313 CALL                             R33 2 1
-      314 MOVE                             R34 R30
-      315 CALL                             R33 1 -1
-      316 RETURN                           R33 -1
+      164 LOADK                            R26 K41 ["All"]
+      165 LOADK                            R27 K42 ["Music"]
+      166 LOADK                            R28 K43 ["SoundEffect"]
+      167 SETLIST                          R25 R26 3 [1]
+      169 DUPTABLE                         R26 K51 [{["LongestToShortest"] = "LongestToShortest", ["MostUsed"] = "MostUsed", ["New"] = "New", ["Relevance"] = "Relevance", ["ShortestToLongest"] = "ShortestToLongest", ["Trending"] = "Trending"}]
+      170 NEWTABLE                         R27 0 6
+      172 LOADK                            R28 K48 ["Relevance"]
+      173 LOADK                            R29 K46 ["MostUsed"]
+      174 LOADK                            R30 K50 ["Trending"]
+      175 LOADK                            R31 K47 ["New"]
+      176 LOADK                            R32 K49 ["ShortestToLongest"]
+      177 LOADK                            R33 K45 ["LongestToShortest"]
+      178 SETLIST                          R27 R28 6 [1]
+      180 NEWTABLE                         R28 8 0
+      182 DUPTABLE                         R29 K53 [{"uiSortIntent"}]
+      183 GETTABLEKS                       R30 R20 K54 ["UiSortIntent"]
+      185 GETTABLEKS                       R30 R30 K48 ["Relevance"]
+      187 SETTABLEKS                       R30 R29 K52 ["uiSortIntent"]
+      189 SETTABLEKS                       R29 R28 K48 ["Relevance"]
+      191 DUPTABLE                         R29 K53 [{"uiSortIntent"}]
+      192 GETTABLEKS                       R30 R20 K54 ["UiSortIntent"]
+      194 GETTABLEKS                       R30 R30 K55 ["MostTaken"]
+      196 SETTABLEKS                       R30 R29 K52 ["uiSortIntent"]
+      198 SETTABLEKS                       R29 R28 K46 ["MostUsed"]
+      200 DUPTABLE                         R29 K53 [{"uiSortIntent"}]
+      201 GETTABLEKS                       R30 R20 K54 ["UiSortIntent"]
+      203 GETTABLEKS                       R30 R30 K50 ["Trending"]
+      205 SETTABLEKS                       R30 R29 K52 ["uiSortIntent"]
+      207 SETTABLEKS                       R29 R28 K50 ["Trending"]
+      209 DUPTABLE                         R29 K57 [{"uiSortIntent", "sortDirection"}]
+      210 GETTABLEKS                       R30 R20 K54 ["UiSortIntent"]
+      212 GETTABLEKS                       R30 R30 K58 ["DateCreated"]
+      214 SETTABLEKS                       R30 R29 K52 ["uiSortIntent"]
+      216 GETTABLEKS                       R30 R20 K59 ["SortDirection"]
+      218 GETTABLEKS                       R30 R30 K60 ["Descending"]
+      220 SETTABLEKS                       R30 R29 K56 ["sortDirection"]
+      222 SETTABLEKS                       R29 R28 K47 ["New"]
+      224 DUPTABLE                         R29 K57 [{"uiSortIntent", "sortDirection"}]
+      225 GETTABLEKS                       R30 R20 K54 ["UiSortIntent"]
+      227 GETTABLEKS                       R30 R30 K61 ["Duration"]
+      229 SETTABLEKS                       R30 R29 K52 ["uiSortIntent"]
+      231 GETTABLEKS                       R30 R20 K59 ["SortDirection"]
+      233 GETTABLEKS                       R30 R30 K62 ["Ascending"]
+      235 SETTABLEKS                       R30 R29 K56 ["sortDirection"]
+      237 SETTABLEKS                       R29 R28 K49 ["ShortestToLongest"]
+      239 DUPTABLE                         R29 K57 [{"uiSortIntent", "sortDirection"}]
+      240 GETTABLEKS                       R30 R20 K54 ["UiSortIntent"]
+      242 GETTABLEKS                       R30 R30 K61 ["Duration"]
+      244 SETTABLEKS                       R30 R29 K52 ["uiSortIntent"]
+      246 GETTABLEKS                       R30 R20 K59 ["SortDirection"]
+      248 GETTABLEKS                       R30 R30 K60 ["Descending"]
+      250 SETTABLEKS                       R30 R29 K56 ["sortDirection"]
+      252 SETTABLEKS                       R29 R28 K45 ["LongestToShortest"]
+      254 DUPCLOSURE                       R29 K63 [PROTO_0]
+      255 CAPTURE                          VAL R20
+      256 CAPTURE                          VAL R28
+      257 GETTABLEKS                       R30 R3 K64 ["PureComponent"]
+      259 LOADK                            R32 K65 ["AudioMarketplaceSearchOptions"]
+      260 NAMECALL                         R30 R30 K66 ["extend"]
+      262 CALL                             R30 2 1
+      263 DUPCLOSURE                       R31 K67 [PROTO_10]
+      264 CAPTURE                          VAL R7
+      265 CAPTURE                          VAL R8
+      266 CAPTURE                          VAL R23
+      267 CAPTURE                          VAL R28
+      268 CAPTURE                          VAL R2
+      269 SETTABLEKS                       R31 R30 K68 ["init"]
+      271 DUPCLOSURE                       R31 K69 [PROTO_12]
+      272 SETTABLEKS                       R31 R30 K70 ["didUpdate"]
+      274 DUPCLOSURE                       R31 K71 [PROTO_13]
+      275 CAPTURE                          VAL R27
+      276 CAPTURE                          VAL R25
+      277 CAPTURE                          VAL R21
+      278 CAPTURE                          VAL R19
+      279 CAPTURE                          VAL R3
+      280 CAPTURE                          VAL R16
+      281 CAPTURE                          VAL R15
+      282 CAPTURE                          VAL R14
+      283 CAPTURE                          VAL R7
+      284 CAPTURE                          VAL R13
+      285 CAPTURE                          VAL R18
+      286 SETTABLEKS                       R31 R30 K72 ["render"]
+      288 MOVE                             R31 R10
+      289 DUPTABLE                         R32 K75 [{"Localization", "Network"}]
+      290 GETTABLEKS                       R33 R9 K73 ["Localization"]
+      292 SETTABLEKS                       R33 R32 K73 ["Localization"]
+      294 SETTABLEKS                       R11 R32 K74 ["Network"]
+      296 CALL                             R31 1 1
+      297 MOVE                             R32 R30
+      298 CALL                             R31 1 1
+      299 MOVE                             R30 R31
+      300 DUPCLOSURE                       R31 K76 [PROTO_14]
+      301 CAPTURE                          VAL R29
+      302 CAPTURE                          VAL R21
+      303 DUPCLOSURE                       R32 K77 [PROTO_16]
+      304 CAPTURE                          VAL R12
+      305 GETTABLEKS                       R33 R4 K78 ["connect"]
+      307 MOVE                             R34 R31
+      308 MOVE                             R35 R32
+      309 CALL                             R33 2 1
+      310 MOVE                             R34 R30
+      311 CALL                             R33 1 -1
+      312 RETURN                           R33 -1

@@ -9,46 +9,45 @@ PROTO_0:
         8 GETUPVAL                         R2 2
         9 GETTABLEKS                       R2 R2 K0 ["TabControls"]
        11 GETTABLE                         R1 R2 R0
-       12 JUMPIF                           R1 ; [+12]
+       12 JUMPIF                           R1 ; [+11]
        13 GETIMPORT                        R1 K2 [warn]
-       15 LOADK                            R3 K3 ["Tab \"%*\" is not known!"]
-       16 MOVE                             R5 R0
-       17 NAMECALL                         R3 R3 K4 ["format"]
-       19 CALL                             R3 2 1
-       20 MOVE                             R2 R3
-       21 CALL                             R1 1 0
-       22 NEWTABLE                         R1 0 0
-       24 RETURN                           R1 1
-       25 GETIMPORT                        R1 K7 [table.clone]
-       27 GETUPVAL                         R3 2
-       28 GETTABLEKS                       R3 R3 K0 ["TabControls"]
-       30 GETTABLE                         R2 R3 R0
-       31 GETTABLEKS                       R2 R2 K8 ["Controls"]
-       33 CALL                             R1 1 1
-       34 GETUPVAL                         R2 3
-       35 GETUPVAL                         R3 4
-       36 GETTABLEKS                       R3 R3 K9 ["wrap"]
-       38 GETUPVAL                         R4 5
-       39 NAMECALL                         R4 R4 K10 ["GetUri"]
-       41 CALL                             R4 1 -1
-       42 CALL                             R3 -1 1
-       43 MOVE                             R4 R0
-       44 MOVE                             R5 R1
-       45 GETIMPORT                        R6 K7 [table.clone]
-       47 GETUPVAL                         R7 6
-       48 CALL                             R6 1 -1
-       49 CALL                             R2 -1 0
-       50 GETIMPORT                        R2 K12 [table.freeze]
-       52 MOVE                             R3 R1
-       53 CALL                             R2 1 1
-       54 MOVE                             R1 R2
-       55 GETUPVAL                         R2 0
-       56 GETTABLEKS                       R2 R2 K13 ["Type"]
-       58 JUMPIFNOTEQKS                    R2 K14 ["Custom"] ; [+5]
-       60 LENGTH                           R2 R1
-       61 JUMPIFNOTEQKN                    R2 K15 [0] ; [+2]
-       63 GETUPVAL                         R1 7
-       64 RETURN                           R1 1
+       15 LOADK                            R2 K3 ["Tab \"%*\" is not known!"]
+       16 MOVE                             R4 R0
+       17 NAMECALL                         R2 R2 K4 ["format"]
+       19 CALL                             R2 2 1
+       20 CALL                             R1 1 0
+       21 NEWTABLE                         R1 0 0
+       23 RETURN                           R1 1
+       24 GETIMPORT                        R1 K7 [table.clone]
+       26 GETUPVAL                         R3 2
+       27 GETTABLEKS                       R3 R3 K0 ["TabControls"]
+       29 GETTABLE                         R2 R3 R0
+       30 GETTABLEKS                       R2 R2 K8 ["Controls"]
+       32 CALL                             R1 1 1
+       33 GETUPVAL                         R2 3
+       34 GETUPVAL                         R3 4
+       35 GETTABLEKS                       R3 R3 K9 ["wrap"]
+       37 GETUPVAL                         R4 5
+       38 NAMECALL                         R4 R4 K10 ["GetUri"]
+       40 CALL                             R4 1 -1
+       41 CALL                             R3 -1 1
+       42 MOVE                             R4 R0
+       43 MOVE                             R5 R1
+       44 GETIMPORT                        R6 K7 [table.clone]
+       46 GETUPVAL                         R7 6
+       47 CALL                             R6 1 -1
+       48 CALL                             R2 -1 0
+       49 GETIMPORT                        R2 K12 [table.freeze]
+       51 MOVE                             R3 R1
+       52 CALL                             R2 1 1
+       53 MOVE                             R1 R2
+       54 GETUPVAL                         R2 0
+       55 GETTABLEKS                       R2 R2 K13 ["Type"]
+       57 JUMPIFNOTEQKS                    R2 K14 ["Custom"] ; [+5]
+       59 LENGTH                           R2 R1
+       60 JUMPIFNOTEQKN                    R2 K15 [0] ; [+2]
+       62 GETUPVAL                         R1 7
+       63 RETURN                           R1 1
 
 PROTO_1:
         0 GETUPVAL                         R2 0

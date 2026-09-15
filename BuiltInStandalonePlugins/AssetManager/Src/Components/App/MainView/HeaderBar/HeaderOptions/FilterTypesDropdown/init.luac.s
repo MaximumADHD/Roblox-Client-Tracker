@@ -215,7 +215,7 @@ PROTO_7:
       207 GETTABLEKS                       R22 R22 K5 ["createElement"]
       209 GETUPVAL                         R23 7
       210 GETTABLEKS                       R23 R23 K6 ["View"]
-      212 DUPTABLE                         R24 K83 [{["LayoutOrder"] = 2, ["tag"] = "col gap-xsmall auto-xy"}]
+      212 DUPTABLE                         R24 K83 [{["LayoutOrder"] = 2, ["tag"] = "col gap-xsmall auto-xy padding-bottom-xsmall"}]
       213 GETIMPORT                        R27 K85 [next]
       215 MOVE                             R28 R10
       216 CALL                             R27 1 1

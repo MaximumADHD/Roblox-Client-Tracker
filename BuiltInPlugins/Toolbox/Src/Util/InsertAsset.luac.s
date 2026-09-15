@@ -460,47 +460,45 @@ PROTO_13:
         3 GETTABLEKS                       R2 R2 K2 ["ClassName"]
         5 NAMECALL                         R0 R0 K3 ["GetService"]
         7 CALL                             R0 2 1
-        8 JUMPIFNOT                        R0 ; [+17]
+        8 JUMPIFNOT                        R0 ; [+16]
         9 GETUPVAL                         R0 1
        10 GETTABLEKS                       R0 R0 K4 ["shouldDebugWarnings"]
        12 CALL                             R0 0 1
-       13 JUMPIFNOT                        R0 ; [+11]
+       13 JUMPIFNOT                        R0 ; [+10]
        14 GETIMPORT                        R0 K6 [warn]
-       16 LOADK                            R2 K7 ["Attempted to insert unsupported service type: %*"]
-       17 GETUPVAL                         R4 0
-       18 GETTABLEKS                       R4 R4 K2 ["ClassName"]
-       20 NAMECALL                         R2 R2 K8 ["format"]
-       22 CALL                             R2 2 1
-       23 MOVE                             R1 R2
-       24 CALL                             R0 1 0
-       25 RETURN                           R0 0
-       26 GETUPVAL                         R0 0
-       27 GETUPVAL                         R1 2
-       28 SETTABLEKS                       R1 R0 K9 ["Parent"]
-       30 GETUPVAL                         R0 0
-       31 GETTABLEKS                       R0 R0 K9 ["Parent"]
-       33 JUMPIF                           R0 ; [+4]
-       34 GETUPVAL                         R0 0
-       35 NAMECALL                         R0 R0 K10 ["Destroy"]
-       37 CALL                             R0 1 0
-       38 RETURN                           R0 0
+       16 LOADK                            R1 K7 ["Attempted to insert unsupported service type: %*"]
+       17 GETUPVAL                         R3 0
+       18 GETTABLEKS                       R3 R3 K2 ["ClassName"]
+       20 NAMECALL                         R1 R1 K8 ["format"]
+       22 CALL                             R1 2 1
+       23 CALL                             R0 1 0
+       24 RETURN                           R0 0
+       25 GETUPVAL                         R0 0
+       26 GETUPVAL                         R1 2
+       27 SETTABLEKS                       R1 R0 K9 ["Parent"]
+       29 GETUPVAL                         R0 0
+       30 GETTABLEKS                       R0 R0 K9 ["Parent"]
+       32 JUMPIF                           R0 ; [+4]
+       33 GETUPVAL                         R0 0
+       34 NAMECALL                         R0 R0 K10 ["Destroy"]
+       36 CALL                             R0 1 0
+       37 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+16]
+        1 JUMPIFNOT                        R0 ; [+15]
         2 GETUPVAL                         R0 1
         3 GETTABLEKS                       R0 R0 K0 ["shouldDebugWarnings"]
         5 CALL                             R0 0 1
-        6 JUMPIFNOT                        R0 ; [+11]
+        6 JUMPIFNOT                        R0 ; [+10]
         7 GETIMPORT                        R0 K2 [warn]
-        9 LOADK                            R2 K3 ["Attempted to insert unsupported instance type: %*"]
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R4 R4 K4 ["ClassName"]
-       13 NAMECALL                         R2 R2 K5 ["format"]
-       15 CALL                             R2 2 1
-       16 MOVE                             R1 R2
-       17 CALL                             R0 1 0
-       18 RETURN                           R0 0
+        9 LOADK                            R1 K3 ["Attempted to insert unsupported instance type: %*"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K4 ["ClassName"]
+       13 NAMECALL                         R1 R1 K5 ["format"]
+       15 CALL                             R1 2 1
+       16 CALL                             R0 1 0
+       17 RETURN                           R0 0
 
 PROTO_15:
         0 GETIMPORT                        R5 K1 [ipairs]

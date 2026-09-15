@@ -25,67 +25,74 @@ PROTO_0:
        40 GETUPVAL                         R6 1
        41 GETTABLEKS                       R6 R6 K2 ["createElement"]
        43 GETUPVAL                         R7 3
-       44 DUPTABLE                         R8 K20 [{["entry"], ["position"], ["tag"] = "anchor-top-center size-1000-1000 radius-xsmall clip"}]
+       44 DUPTABLE                         R8 K24 [{["entry"], ["initialDistance"] = 5.5, ["position"], ["size"] = 40, ["tag"] = "anchor-top-center radius-xsmall clip"}]
        45 GETTABLEKS                       R9 R0 K4 ["entry"]
        47 SETTABLEKS                       R9 R8 K4 ["entry"]
-       49 GETIMPORT                        R9 K23 [UDim2.new]
-       51 LOADK                            R10 K24 [0.5]
+       49 GETIMPORT                        R9 K27 [UDim2.new]
+       51 LOADK                            R10 K28 [0.5]
        52 LOADN                            R11 0
        53 LOADN                            R12 0
-       54 GETTABLEKS                       R13 R1 K25 ["Padding"]
-       56 GETTABLEKS                       R13 R13 K26 ["XSmall"]
+       54 GETTABLEKS                       R13 R1 K29 ["Padding"]
+       56 GETTABLEKS                       R13 R13 K30 ["XSmall"]
        58 CALL                             R9 4 1
-       59 SETTABLEKS                       R9 R8 K18 ["position"]
+       59 SETTABLEKS                       R9 R8 K20 ["position"]
        61 CALL                             R6 2 1
        62 SETTABLEKS                       R6 R5 K15 ["Preview"]
        64 GETUPVAL                         R6 1
        65 GETTABLEKS                       R6 R6 K2 ["createElement"]
        67 GETUPVAL                         R7 4
-       68 DUPTABLE                         R8 K30 [{["backgroundStyle"], ["ZIndex"] = 2, ["tag"] = "position-bottom-left anchor-bottom-left size-full-350 padding-x-xxsmall"}]
-       69 DUPTABLE                         R9 K34 [{["Color3"], ["Transparency"] = 0.05}]
-       70 GETUPVAL                         R10 5
-       71 SETTABLEKS                       R10 R9 K31 ["Color3"]
-       73 SETTABLEKS                       R9 R8 K3 ["backgroundStyle"]
-       75 DUPTABLE                         R9 K37 [{"Gradient", "Name"}]
-       76 GETUPVAL                         R10 1
-       77 GETTABLEKS                       R10 R10 K2 ["createElement"]
-       79 LOADK                            R11 K38 ["UIGradient"]
-       80 DUPTABLE                         R12 K41 [{["Rotation"] = 90, ["Transparency"]}]
-       81 GETIMPORT                        R13 K43 [NumberSequence.new]
-       83 NEWTABLE                         R14 0 2
-       85 GETIMPORT                        R15 K45 [NumberSequenceKeypoint.new]
-       87 LOADN                            R16 0
-       88 LOADN                            R17 1
-       89 CALL                             R15 2 1
-       90 GETIMPORT                        R16 K45 [NumberSequenceKeypoint.new]
-       92 LOADN                            R17 1
-       93 LOADN                            R18 0
-       94 CALL                             R16 2 -1
-       95 SETLIST                          R14 R15 -1 [1]
-       97 CALL                             R13 1 1
-       98 SETTABLEKS                       R13 R12 K32 ["Transparency"]
-      100 CALL                             R10 2 1
-      101 SETTABLEKS                       R10 R9 K35 ["Gradient"]
-      103 GETUPVAL                         R10 1
-      104 GETTABLEKS                       R10 R10 K2 ["createElement"]
-      106 GETUPVAL                         R11 6
-      107 DUPTABLE                         R12 K50 [{["fontStyle"], ["Text"], ["textStyle"], ["ZIndex"] = 2, ["tag"] = "size-full text-align-x-left text-align-y-center text-truncate-end"}]
-      108 GETUPVAL                         R13 7
-      109 SETTABLEKS                       R13 R12 K46 ["fontStyle"]
-      111 GETTABLEKS                       R13 R0 K4 ["entry"]
-      113 GETTABLEKS                       R13 R13 K51 ["displayName"]
-      115 SETTABLEKS                       R13 R12 K47 ["Text"]
-      117 GETTABLEKS                       R13 R1 K12 ["Color"]
-      119 GETTABLEKS                       R13 R13 K52 ["Extended"]
-      121 GETTABLEKS                       R13 R13 K53 ["White"]
-      123 GETTABLEKS                       R13 R13 K54 ["White_100"]
-      125 SETTABLEKS                       R13 R12 K48 ["textStyle"]
-      127 CALL                             R10 2 1
-      128 SETTABLEKS                       R10 R9 K36 ["Name"]
-      130 CALL                             R6 3 1
-      131 SETTABLEKS                       R6 R5 K16 ["Labels"]
-      133 CALL                             R2 3 -1
-      134 RETURN                           R2 -1
+       68 DUPTABLE                         R8 K34 [{["ZIndex"] = 2, ["tag"] = "position-bottom-left anchor-bottom-left size-full-600"}]
+       69 DUPTABLE                         R9 K37 [{"Gradient", "Name"}]
+       70 GETUPVAL                         R10 1
+       71 GETTABLEKS                       R10 R10 K2 ["createElement"]
+       73 GETUPVAL                         R11 5
+       74 DUPTABLE                         R12 K41 [{["Image"], ["Size"], ["ZIndex"] = 1}]
+       75 GETTABLEKS                       R14 R1 K42 ["Config"]
+       77 GETTABLEKS                       R14 R14 K43 ["ColorMode"]
+       79 GETTABLEKS                       R14 R14 K36 ["Name"]
+       81 GETUPVAL                         R15 6
+       82 GETTABLEKS                       R15 R15 K44 ["Light"]
+       84 JUMPIFNOTEQ                      R14 R15 ; [+3]
+       86 LOADK                            R13 K45 ["rbxasset://textures/MaterialManager/Gradient_LT.png"]
+       87 JUMP                             ; [+1]
+       88 LOADK                            R13 K46 ["rbxasset://textures/MaterialManager/Gradient_DT.png"]
+       89 SETTABLEKS                       R13 R12 K38 ["Image"]
+       91 GETIMPORT                        R13 K48 [UDim2.fromScale]
+       93 LOADN                            R14 1
+       94 LOADN                            R15 1
+       95 CALL                             R13 2 1
+       96 SETTABLEKS                       R13 R12 K39 ["Size"]
+       98 CALL                             R10 2 1
+       99 SETTABLEKS                       R10 R9 K35 ["Gradient"]
+      101 GETUPVAL                         R10 1
+      102 GETTABLEKS                       R10 R10 K2 ["createElement"]
+      104 GETUPVAL                         R11 7
+      105 DUPTABLE                         R12 K52 [{["Text"], ["textStyle"], ["ZIndex"] = 2, ["tag"] = "size-full padding-top-small padding-x-xsmall padding-bottom-xxsmall text-caption-small text-align-x-left text-align-y-center text-truncate-end"}]
+      106 GETTABLEKS                       R13 R0 K4 ["entry"]
+      108 GETTABLEKS                       R13 R13 K53 ["displayName"]
+      110 SETTABLEKS                       R13 R12 K49 ["Text"]
+      112 GETTABLEKS                       R14 R1 K42 ["Config"]
+      114 GETTABLEKS                       R14 R14 K43 ["ColorMode"]
+      116 GETTABLEKS                       R14 R14 K36 ["Name"]
+      118 GETUPVAL                         R15 6
+      119 GETTABLEKS                       R15 R15 K44 ["Light"]
+      121 JUMPIFNOTEQ                      R14 R15 ; [+10]
+      123 GETTABLEKS                       R13 R1 K12 ["Color"]
+      125 GETTABLEKS                       R13 R13 K54 ["Extended"]
+      127 GETTABLEKS                       R13 R13 K55 ["Black"]
+      129 GETTABLEKS                       R13 R13 K56 ["Black_100"]
+      131 JUMP                             ; [+8]
+      132 GETTABLEKS                       R13 R1 K12 ["Color"]
+      134 GETTABLEKS                       R13 R13 K54 ["Extended"]
+      136 GETTABLEKS                       R13 R13 K57 ["White"]
+      138 GETTABLEKS                       R13 R13 K58 ["White_100"]
+      140 SETTABLEKS                       R13 R12 K50 ["textStyle"]
+      142 CALL                             R10 2 1
+      143 SETTABLEKS                       R10 R9 K36 ["Name"]
+      145 CALL                             R6 3 1
+      146 SETTABLEKS                       R6 R5 K16 ["Labels"]
+      148 CALL                             R2 3 -1
+      149 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -110,34 +117,23 @@ MAIN:
        32 GETTABLEKS                       R5 R5 K11 ["Components"]
        34 GETTABLEKS                       R5 R5 K12 ["TerrainMaterialTileBase"]
        36 CALL                             R4 1 1
-       37 GETTABLEKS                       R5 R1 K13 ["Text"]
-       39 GETTABLEKS                       R6 R1 K14 ["View"]
-       41 GETTABLEKS                       R7 R4 K15 ["Preview"]
-       43 GETTABLEKS                       R8 R4 K16 ["Container"]
-       45 DUPTABLE                         R9 K22 [{["Font"], ["FontSize"] = 10, ["LineHeight"] = 1.4}]
-       46 GETIMPORT                        R10 K24 [Font.new]
-       48 GETIMPORT                        R11 K26 [Font.fromEnum]
-       50 GETIMPORT                        R12 K29 [Enum.Font.BuilderSans]
-       52 CALL                             R11 1 1
-       53 GETTABLEKS                       R11 R11 K30 ["Family"]
-       55 GETIMPORT                        R12 K33 [Enum.FontWeight.SemiBold]
-       57 CALL                             R10 2 1
-       58 SETTABLEKS                       R10 R9 K17 ["Font"]
-       60 GETIMPORT                        R10 K36 [Color3.fromRGB]
-       62 LOADN                            R11 24
-       63 LOADN                            R12 24
-       64 LOADN                            R13 27
-       65 CALL                             R10 3 1
-       66 DUPCLOSURE                       R11 K37 [PROTO_0]
-       67 CAPTURE                          VAL R1
-       68 CAPTURE                          VAL R2
-       69 CAPTURE                          VAL R8
-       70 CAPTURE                          VAL R7
-       71 CAPTURE                          VAL R6
-       72 CAPTURE                          VAL R10
-       73 CAPTURE                          VAL R5
-       74 CAPTURE                          VAL R9
-       75 GETTABLEKS                       R12 R2 K38 ["memo"]
-       77 MOVE                             R13 R11
-       78 CALL                             R12 1 -1
-       79 RETURN                           R12 -1
+       37 GETTABLEKS                       R5 R1 K13 ["Enums"]
+       39 GETTABLEKS                       R5 R5 K14 ["ColorMode"]
+       41 GETTABLEKS                       R6 R1 K15 ["Image"]
+       43 GETTABLEKS                       R7 R1 K16 ["Text"]
+       45 GETTABLEKS                       R8 R1 K17 ["View"]
+       47 GETTABLEKS                       R9 R4 K18 ["Preview"]
+       49 GETTABLEKS                       R10 R4 K19 ["Container"]
+       51 DUPCLOSURE                       R11 K20 [PROTO_0]
+       52 CAPTURE                          VAL R1
+       53 CAPTURE                          VAL R2
+       54 CAPTURE                          VAL R10
+       55 CAPTURE                          VAL R9
+       56 CAPTURE                          VAL R8
+       57 CAPTURE                          VAL R6
+       58 CAPTURE                          VAL R5
+       59 CAPTURE                          VAL R7
+       60 GETTABLEKS                       R12 R2 K21 ["memo"]
+       62 MOVE                             R13 R11
+       63 CALL                             R12 1 -1
+       64 RETURN                           R12 -1

@@ -334,28 +334,27 @@ PROTO_18:
        18 GETTABLEKS                       R6 R6 K9 ["rawValue"]
        20 CALL                             R6 0 1
        21 SETTABLEKS                       R6 R5 K4 ["eventType"]
-       23 LOADK                            R7 K10 ["TokensTable/%*"]
-       24 GETUPVAL                         R9 0
-       25 LOADK                            R11 K11 ["StyleCategory"]
-       26 NAMECALL                         R9 R9 K12 ["GetAttribute"]
-       28 CALL                             R9 2 1
-       29 NAMECALL                         R7 R7 K13 ["format"]
-       31 CALL                             R7 2 1
-       32 MOVE                             R6 R7
-       33 SETTABLEKS                       R6 R5 K5 ["path"]
-       35 GETUPVAL                         R7 2
-       36 FASTCALL1                        TYPEOF R7 ; [+2]
-       37 GETIMPORT                        R6 K15 [typeof]
-       39 CALL                             R6 1 1
-       40 SETTABLEKS                       R6 R5 K6 ["data"]
-       42 CALL                             R4 1 -1
-       43 CALL                             R3 -1 -1
-       44 CALL                             R2 -1 0
-       45 JUMPIFNOT                        R0 ; [+3]
-       46 GETIMPORT                        R2 K19 [Enum.FinishRecordingOperation.Commit]
-       48 RETURN                           R2 1
-       49 LOADNIL                          R2
-       50 RETURN                           R2 1
+       23 LOADK                            R6 K10 ["TokensTable/%*"]
+       24 GETUPVAL                         R8 0
+       25 LOADK                            R10 K11 ["StyleCategory"]
+       26 NAMECALL                         R8 R8 K12 ["GetAttribute"]
+       28 CALL                             R8 2 1
+       29 NAMECALL                         R6 R6 K13 ["format"]
+       31 CALL                             R6 2 1
+       32 SETTABLEKS                       R6 R5 K5 ["path"]
+       34 GETUPVAL                         R7 2
+       35 FASTCALL1                        TYPEOF R7 ; [+2]
+       36 GETIMPORT                        R6 K15 [typeof]
+       38 CALL                             R6 1 1
+       39 SETTABLEKS                       R6 R5 K6 ["data"]
+       41 CALL                             R4 1 -1
+       42 CALL                             R3 -1 -1
+       43 CALL                             R2 -1 0
+       44 JUMPIFNOT                        R0 ; [+3]
+       45 GETIMPORT                        R2 K19 [Enum.FinishRecordingOperation.Commit]
+       47 RETURN                           R2 1
+       48 LOADNIL                          R2
+       49 RETURN                           R2 1
 
 PROTO_19:
         0 GETUPVAL                         R1 0

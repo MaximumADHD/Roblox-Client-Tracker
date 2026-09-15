@@ -25,15 +25,14 @@ PROTO_0:
        32 LOADK                            R4 K6 ["Standard"]
        33 JUMP                             ; [+1]
        34 LOADK                            R4 K7 ["Medium"]
-       35 LOADK                            R6 K8 ["rbxasset://studio_svg_textures/Shared/Ribbon/%*/%*/Ribbon%*%*.png"]
-       36 MOVE                             R8 R3
-       37 MOVE                             R9 R4
-       38 MOVE                             R10 R0
-       39 MOVE                             R11 R2
-       40 NAMECALL                         R6 R6 K9 ["format"]
-       42 CALL                             R6 5 1
-       43 MOVE                             R5 R6
-       44 RETURN                           R5 1
+       35 LOADK                            R5 K8 ["rbxasset://studio_svg_textures/Shared/Ribbon/%*/%*/Ribbon%*%*.png"]
+       36 MOVE                             R7 R3
+       37 MOVE                             R8 R4
+       38 MOVE                             R9 R0
+       39 MOVE                             R10 R2
+       40 NAMECALL                         R5 R5 K9 ["format"]
+       42 CALL                             R5 5 1
+       43 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0

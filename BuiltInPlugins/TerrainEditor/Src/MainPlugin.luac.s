@@ -122,18 +122,110 @@ PROTO_4:
 PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["pluginController"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["MaterialSettings"]
+        6 GETUPVAL                         R3 2
+        7 GETTABLEKS                       R3 R3 K2 ["SourceMaterialSlot"]
+        9 GETUPVAL                         R4 3
+       10 GETTABLEKS                       R4 R4 K3 ["PlacePersistent"]
+       12 NAMECALL                         R0 R0 K4 ["getGlobal"]
+       14 CALL                             R0 4 1
+       15 GETUPVAL                         R1 4
+       16 GETTABLEKS                       R1 R1 K5 ["isValidSlotIndex"]
+       18 MOVE                             R2 R0
+       19 CALL                             R1 1 1
+       20 JUMPIFNOT                        R1 ; [+12]
+       21 GETUPVAL                         R1 0
+       22 GETTABLEKS                       R1 R1 K6 ["terrainPaletteCommunication"]
+       24 GETUPVAL                         R3 5
+       25 GETTABLEKS                       R3 R3 K7 ["CPC_EVENTS"]
+       27 GETTABLEKS                       R3 R3 K8 ["TERRAIN_EDITOR_SOURCE_MATERIAL_CHANGED"]
+       29 MOVE                             R4 R0
+       30 NAMECALL                         R1 R1 K9 ["Fire"]
+       32 CALL                             R1 3 0
+       33 RETURN                           R0 0
+
+PROTO_6:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["toolController"]
+        3 NAMECALL                         R0 R0 K1 ["getTool"]
+        5 CALL                             R0 1 1
+        6 GETTABLEKS                       R0 R0 K2 ["OnInternalsChanged"]
+        8 NAMECALL                         R0 R0 K3 ["Fire"]
+       10 CALL                             R0 1 0
+       11 RETURN                           R0 0
+
+PROTO_7:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["isValidSlotIndex"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 1
+        5 JUMPIF                           R1 ; [+1]
+        6 RETURN                           R0 0
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K1 ["pluginController"]
+       10 GETUPVAL                         R3 2
+       11 GETTABLEKS                       R3 R3 K2 ["MaterialSettings"]
+       13 GETUPVAL                         R4 3
+       14 GETTABLEKS                       R4 R4 K3 ["SourceMaterialSlot"]
+       16 GETUPVAL                         R5 4
+       17 GETTABLEKS                       R5 R5 K4 ["PlacePersistent"]
+       19 NAMECALL                         R1 R1 K5 ["getGlobal"]
+       21 CALL                             R1 4 1
+       22 JUMPIFNOTEQ                      R1 R0 ; [+2]
+       24 RETURN                           R0 0
+       25 GETUPVAL                         R2 1
+       26 GETTABLEKS                       R2 R2 K1 ["pluginController"]
+       28 GETUPVAL                         R4 2
+       29 GETTABLEKS                       R4 R4 K2 ["MaterialSettings"]
+       31 GETUPVAL                         R5 3
+       32 GETTABLEKS                       R5 R5 K3 ["SourceMaterialSlot"]
+       34 MOVE                             R6 R0
+       35 GETUPVAL                         R7 4
+       36 GETTABLEKS                       R7 R7 K4 ["PlacePersistent"]
+       38 NAMECALL                         R2 R2 K6 ["setGlobal"]
+       40 CALL                             R2 5 0
+       41 GETIMPORT                        R2 K9 [task.spawn]
+       43 NEWCLOSURE                       R3 P0
+       44 CAPTURE                          UPVAL U1
+       45 CALL                             R2 1 0
+       46 RETURN                           R0 0
+
+PROTO_8:
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["MaterialSettings"]
+        3 JUMPIFNOTEQ                      R0 R4 ; [+21]
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R4 R4 K1 ["SourceMaterialSlot"]
+        8 JUMPIFNOTEQ                      R1 R4 ; [+16]
+       10 GETUPVAL                         R4 2
+       11 GETTABLEKS                       R4 R4 K2 ["PlacePersistent"]
+       13 JUMPIFNOTEQ                      R3 R4 ; [+11]
+       15 GETUPVAL                         R4 3
+       16 GETTABLEKS                       R4 R4 K3 ["isValidSlotIndex"]
+       18 MOVE                             R5 R2
+       19 CALL                             R4 1 1
+       20 JUMPIFNOT                        R4 ; [+4]
+       21 GETUPVAL                         R4 4
+       22 GETTABLEKS                       R4 R4 K4 ["publishSourceMaterial"]
+       24 CALL                             R4 0 0
+       25 RETURN                           R0 0
+
+PROTO_9:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["pluginController"]
         3 NAMECALL                         R0 R0 K1 ["resume"]
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
-PROTO_6:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["pluginController"]
         3 NAMECALL                         R0 R0 K1 ["pause"]
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
-PROTO_7:
+PROTO_11:
         0 GETTABLEKS                       R2 R1 K0 ["Plugin"]
         2 LOADB                            R3 0
         3 GETTABLEKS                       R4 R1 K1 ["PluginLoaderContext"]
@@ -235,44 +327,101 @@ PROTO_7:
       150 GETTABLEKS                       R9 R0 K31 ["stylizer"]
       152 CALL                             R4 5 1
       153 SETTABLEKS                       R4 R0 K32 ["toolController"]
-      155 NEWCLOSURE                       R4 P5
-      156 CAPTURE                          VAL R0
-      157 SETTABLEKS                       R4 R0 K33 ["onFocused"]
-      159 NEWCLOSURE                       R4 P6
-      160 CAPTURE                          VAL R0
-      161 SETTABLEKS                       R4 R0 K34 ["onUnfocused"]
-      163 GETTABLEKS                       R5 R0 K35 ["props"]
-      165 GETTABLEKS                       R5 R5 K1 ["PluginLoaderContext"]
-      167 JUMPIFNOT                        R5 ; [+7]
-      168 GETTABLEKS                       R4 R0 K35 ["props"]
-      170 GETTABLEKS                       R4 R4 K1 ["PluginLoaderContext"]
-      172 GETTABLEKS                       R4 R4 K36 ["mainButton"]
-      174 JUMP                             ; [+1]
-      175 LOADNIL                          R4
-      176 SETTABLEKS                       R4 R0 K37 ["button"]
-      178 GETUPVAL                         R4 12
-      179 CALL                             R4 0 1
-      180 JUMPIF                           R4 ; [+3]
-      181 GETUPVAL                         R4 13
-      182 CALL                             R4 0 1
-      183 JUMPIFNOT                        R4 ; [+21]
-      184 GETUPVAL                         R4 14
-      185 GETTABLEKS                       R4 R4 K38 ["Util"]
-      187 GETTABLEKS                       R4 R4 K39 ["createFoundationDesignBinding"]
-      189 CALL                             R4 0 2
-      190 SETTABLEKS                       R5 R0 K40 ["onFoundationStyleSheetChange"]
-      192 GETUPVAL                         R6 15
-      193 GETTABLEKS                       R7 R1 K0 ["Plugin"]
-      195 LOADNIL                          R8
-      196 LOADNIL                          R9
-      197 NEWTABLE                         R10 0 1
-      199 MOVE                             R11 R4
-      200 SETLIST                          R10 R11 1 [1]
-      202 CALL                             R6 4 1
-      203 SETTABLEKS                       R6 R0 K41 ["design"]
-      205 RETURN                           R0 0
+      155 GETUPVAL                         R4 12
+      156 CALL                             R4 0 1
+      157 JUMPIFNOT                        R4 ; [+78]
+      158 GETUPVAL                         R4 13
+      159 GETTABLEKS                       R4 R4 K13 ["new"]
+      161 GETUPVAL                         R5 14
+      162 GETTABLEKS                       R5 R5 K33 ["EDITOR_CPC_ID"]
+      164 CALL                             R4 1 1
+      165 SETTABLEKS                       R4 R0 K34 ["terrainPaletteCommunication"]
+      167 NEWCLOSURE                       R4 P5
+      168 CAPTURE                          VAL R0
+      169 CAPTURE                          UPVAL U15
+      170 CAPTURE                          UPVAL U16
+      171 CAPTURE                          UPVAL U17
+      172 CAPTURE                          UPVAL U18
+      173 CAPTURE                          UPVAL U14
+      174 SETTABLEKS                       R4 R0 K35 ["publishSourceMaterial"]
+      176 GETTABLEKS                       R4 R0 K34 ["terrainPaletteCommunication"]
+      178 GETUPVAL                         R6 14
+      179 GETTABLEKS                       R6 R6 K36 ["CPC_EVENTS"]
+      181 GETTABLEKS                       R6 R6 K37 ["TERRAIN_PALETTE_SELECTION_CHANGED"]
+      183 NEWCLOSURE                       R7 P6
+      184 CAPTURE                          UPVAL U18
+      185 CAPTURE                          VAL R0
+      186 CAPTURE                          UPVAL U15
+      187 CAPTURE                          UPVAL U16
+      188 CAPTURE                          UPVAL U17
+      189 NAMECALL                         R4 R4 K38 ["Connect"]
+      191 CALL                             R4 3 1
+      192 SETTABLEKS                       R4 R0 K39 ["terrainPaletteSelectionChangedConnection"]
+      194 GETTABLEKS                       R4 R0 K29 ["pluginController"]
+      196 GETTABLEKS                       R4 R4 K40 ["GlobalChanged"]
+      198 NEWCLOSURE                       R6 P7
+      199 CAPTURE                          UPVAL U15
+      200 CAPTURE                          UPVAL U16
+      201 CAPTURE                          UPVAL U17
+      202 CAPTURE                          UPVAL U18
+      203 CAPTURE                          VAL R0
+      204 NAMECALL                         R4 R4 K38 ["Connect"]
+      206 CALL                             R4 2 1
+      207 SETTABLEKS                       R4 R0 K41 ["sourceMaterialChangedConnection"]
+      209 GETTABLEKS                       R4 R0 K34 ["terrainPaletteCommunication"]
+      211 GETUPVAL                         R6 14
+      212 GETTABLEKS                       R6 R6 K36 ["CPC_EVENTS"]
+      214 GETTABLEKS                       R6 R6 K42 ["TERRAIN_PALETTE_EDITOR_READY"]
+      216 GETTABLEKS                       R7 R0 K35 ["publishSourceMaterial"]
+      218 NAMECALL                         R4 R4 K38 ["Connect"]
+      220 CALL                             R4 3 1
+      221 SETTABLEKS                       R4 R0 K43 ["terrainPaletteEditorReadyConnection"]
+      223 GETTABLEKS                       R4 R0 K35 ["publishSourceMaterial"]
+      225 CALL                             R4 0 0
+      226 GETTABLEKS                       R4 R0 K34 ["terrainPaletteCommunication"]
+      228 GETUPVAL                         R6 14
+      229 GETTABLEKS                       R6 R6 K36 ["CPC_EVENTS"]
+      231 GETTABLEKS                       R6 R6 K44 ["TERRAIN_EDITOR_READY"]
+      233 NAMECALL                         R4 R4 K45 ["Fire"]
+      235 CALL                             R4 2 0
+      236 NEWCLOSURE                       R4 P8
+      237 CAPTURE                          VAL R0
+      238 SETTABLEKS                       R4 R0 K46 ["onFocused"]
+      240 NEWCLOSURE                       R4 P9
+      241 CAPTURE                          VAL R0
+      242 SETTABLEKS                       R4 R0 K47 ["onUnfocused"]
+      244 GETTABLEKS                       R5 R0 K48 ["props"]
+      246 GETTABLEKS                       R5 R5 K1 ["PluginLoaderContext"]
+      248 JUMPIFNOT                        R5 ; [+7]
+      249 GETTABLEKS                       R4 R0 K48 ["props"]
+      251 GETTABLEKS                       R4 R4 K1 ["PluginLoaderContext"]
+      253 GETTABLEKS                       R4 R4 K49 ["mainButton"]
+      255 JUMP                             ; [+1]
+      256 LOADNIL                          R4
+      257 SETTABLEKS                       R4 R0 K50 ["button"]
+      259 GETUPVAL                         R4 12
+      260 CALL                             R4 0 1
+      261 JUMPIF                           R4 ; [+3]
+      262 GETUPVAL                         R4 19
+      263 CALL                             R4 0 1
+      264 JUMPIFNOT                        R4 ; [+21]
+      265 GETUPVAL                         R4 20
+      266 GETTABLEKS                       R4 R4 K51 ["Util"]
+      268 GETTABLEKS                       R4 R4 K52 ["createFoundationDesignBinding"]
+      270 CALL                             R4 0 2
+      271 SETTABLEKS                       R5 R0 K53 ["onFoundationStyleSheetChange"]
+      273 GETUPVAL                         R6 21
+      274 GETTABLEKS                       R7 R1 K0 ["Plugin"]
+      276 LOADNIL                          R8
+      277 LOADNIL                          R9
+      278 NEWTABLE                         R10 0 1
+      280 MOVE                             R11 R4
+      281 SETLIST                          R10 R11 1 [1]
+      283 CALL                             R6 4 1
+      284 SETTABLEKS                       R6 R0 K54 ["design"]
+      286 RETURN                           R0 0
 
-PROTO_8:
+PROTO_12:
         0 GETTABLEKS                       R1 R0 K0 ["button"]
         2 GETTABLEKS                       R3 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R3 K2 ["enabled"]
@@ -280,16 +429,31 @@ PROTO_8:
         8 CALL                             R1 2 0
         9 RETURN                           R0 0
 
-PROTO_9:
-        0 GETTABLEKS                       R1 R0 K0 ["pluginController"]
-        2 NAMECALL                         R1 R1 K1 ["destroy"]
-        4 CALL                             R1 1 0
-        5 GETTABLEKS                       R1 R0 K2 ["toolController"]
-        7 NAMECALL                         R1 R1 K1 ["destroy"]
-        9 CALL                             R1 1 0
-       10 RETURN                           R0 0
+PROTO_13:
+        0 GETTABLEKS                       R1 R0 K0 ["sourceMaterialChangedConnection"]
+        2 JUMPIFNOT                        R1 ; [+5]
+        3 GETTABLEKS                       R1 R0 K0 ["sourceMaterialChangedConnection"]
+        5 NAMECALL                         R1 R1 K1 ["Disconnect"]
+        7 CALL                             R1 1 0
+        8 GETTABLEKS                       R1 R0 K2 ["terrainPaletteSelectionChangedConnection"]
+       10 JUMPIFNOT                        R1 ; [+5]
+       11 GETTABLEKS                       R1 R0 K2 ["terrainPaletteSelectionChangedConnection"]
+       13 NAMECALL                         R1 R1 K1 ["Disconnect"]
+       15 CALL                             R1 1 0
+       16 GETTABLEKS                       R1 R0 K3 ["terrainPaletteEditorReadyConnection"]
+       18 JUMPIFNOT                        R1 ; [+5]
+       19 GETTABLEKS                       R1 R0 K3 ["terrainPaletteEditorReadyConnection"]
+       21 NAMECALL                         R1 R1 K1 ["Disconnect"]
+       23 CALL                             R1 1 0
+       24 GETTABLEKS                       R1 R0 K4 ["pluginController"]
+       26 NAMECALL                         R1 R1 K5 ["destroy"]
+       28 CALL                             R1 1 0
+       29 GETTABLEKS                       R1 R0 K6 ["toolController"]
+       31 NAMECALL                         R1 R1 K5 ["destroy"]
+       33 CALL                             R1 1 0
+       34 RETURN                           R0 0
 
-PROTO_10:
+PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Plugin"]
@@ -432,114 +596,135 @@ MAIN:
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K4 [require]
        23 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       25 GETTABLEKS                       R4 R4 K8 ["StudioFoundation"]
+       25 GETTABLEKS                       R4 R4 K8 ["SharedPluginConstants"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R4 R3 K9 ["Components"]
-       30 GETTABLEKS                       R4 R4 K10 ["FoundationProviderAdapter"]
-       32 GETIMPORT                        R5 K4 [require]
-       34 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       36 GETTABLEKS                       R6 R6 K11 ["Framework"]
-       38 CALL                             R5 1 1
-       39 GETIMPORT                        R6 K4 [require]
-       41 GETTABLEKS                       R7 R0 K5 ["Packages"]
-       43 GETTABLEKS                       R7 R7 K12 ["MaterialFramework"]
-       45 CALL                             R6 1 1
-       46 GETTABLEKS                       R7 R5 K13 ["UI"]
-       48 GETTABLEKS                       R8 R7 K14 ["DockWidget"]
-       50 GETTABLEKS                       R9 R5 K15 ["ContextServices"]
-       52 GETTABLEKS                       R10 R9 K16 ["Plugin"]
-       54 GETTABLEKS                       R11 R9 K17 ["Mouse"]
-       56 GETTABLEKS                       R12 R9 K18 ["Design"]
-       58 GETTABLEKS                       R13 R5 K19 ["Styling"]
-       60 GETTABLEKS                       R13 R13 K20 ["registerPluginStyles"]
-       62 GETTABLEKS                       R14 R6 K21 ["Context"]
-       64 GETTABLEKS                       R14 R14 K22 ["StudioServices"]
-       66 GETIMPORT                        R15 K4 [require]
-       68 GETTABLEKS                       R16 R0 K23 ["Src"]
-       70 GETTABLEKS                       R16 R16 K24 ["Resources"]
-       72 GETTABLEKS                       R16 R16 K25 ["MakeTheme"]
-       74 CALL                             R15 1 1
-       75 GETTABLEKS                       R16 R0 K23 ["Src"]
-       77 GETTABLEKS                       R16 R16 K24 ["Resources"]
-       79 GETTABLEKS                       R16 R16 K26 ["Localization"]
-       81 GETTABLEKS                       R16 R16 K27 ["SourceStrings"]
-       83 GETTABLEKS                       R17 R0 K23 ["Src"]
-       85 GETTABLEKS                       R17 R17 K24 ["Resources"]
-       87 GETTABLEKS                       R17 R17 K26 ["Localization"]
-       89 GETTABLEKS                       R17 R17 K28 ["LocalizedStrings"]
-       91 GETTABLEKS                       R18 R0 K23 ["Src"]
-       93 GETTABLEKS                       R18 R18 K9 ["Components"]
-       95 GETIMPORT                        R19 K4 [require]
-       97 GETTABLEKS                       R20 R18 K29 ["App"]
-       99 CALL                             R19 1 1
-      100 GETTABLEKS                       R20 R0 K23 ["Src"]
-      102 GETTABLEKS                       R20 R20 K30 ["Controllers"]
-      104 GETIMPORT                        R21 K4 [require]
-      106 GETTABLEKS                       R22 R20 K31 ["ShortcutController"]
-      108 CALL                             R21 1 1
-      109 GETIMPORT                        R22 K4 [require]
-      111 GETTABLEKS                       R23 R20 K32 ["PluginController"]
-      113 CALL                             R22 1 1
-      114 GETIMPORT                        R23 K4 [require]
-      116 GETTABLEKS                       R24 R20 K33 ["ToolController"]
-      118 CALL                             R23 1 1
-      119 GETIMPORT                        R24 K4 [require]
-      121 GETTABLEKS                       R25 R0 K23 ["Src"]
-      123 GETTABLEKS                       R25 R25 K24 ["Resources"]
-      125 GETTABLEKS                       R25 R25 K34 ["AnalyticsHandlers"]
-      127 CALL                             R24 1 1
-      128 GETIMPORT                        R25 K4 [require]
-      130 GETTABLEKS                       R26 R0 K23 ["Src"]
-      132 GETTABLEKS                       R26 R26 K35 ["Types"]
-      134 CALL                             R25 1 1
-      135 GETTABLEKS                       R26 R25 K36 ["Tool"]
+       28 GETIMPORT                        R4 K4 [require]
+       30 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K9 ["StudioFoundation"]
+       34 CALL                             R4 1 1
+       35 GETIMPORT                        R5 K4 [require]
+       37 GETTABLEKS                       R6 R0 K5 ["Packages"]
+       39 GETTABLEKS                       R6 R6 K10 ["TerrainPalette"]
+       41 CALL                             R5 1 1
+       42 GETTABLEKS                       R6 R4 K11 ["Components"]
+       44 GETTABLEKS                       R6 R6 K12 ["FoundationProviderAdapter"]
+       46 GETIMPORT                        R7 K4 [require]
+       48 GETTABLEKS                       R8 R0 K5 ["Packages"]
+       50 GETTABLEKS                       R8 R8 K13 ["Framework"]
+       52 CALL                             R7 1 1
+       53 GETIMPORT                        R8 K4 [require]
+       55 GETTABLEKS                       R9 R0 K5 ["Packages"]
+       57 GETTABLEKS                       R9 R9 K14 ["MaterialFramework"]
+       59 CALL                             R8 1 1
+       60 GETTABLEKS                       R9 R7 K15 ["UI"]
+       62 GETTABLEKS                       R10 R9 K16 ["DockWidget"]
+       64 GETTABLEKS                       R11 R7 K17 ["ContextServices"]
+       66 GETTABLEKS                       R12 R11 K18 ["Plugin"]
+       68 GETTABLEKS                       R13 R11 K19 ["Mouse"]
+       70 GETTABLEKS                       R14 R11 K20 ["Design"]
+       72 GETTABLEKS                       R15 R7 K21 ["Styling"]
+       74 GETTABLEKS                       R15 R15 K22 ["registerPluginStyles"]
+       76 GETTABLEKS                       R16 R7 K23 ["Util"]
+       78 GETTABLEKS                       R16 R16 K24 ["CrossPluginCommunication"]
+       80 GETTABLEKS                       R17 R8 K25 ["Context"]
+       82 GETTABLEKS                       R17 R17 K26 ["StudioServices"]
+       84 GETIMPORT                        R18 K4 [require]
+       86 GETTABLEKS                       R19 R0 K27 ["Src"]
+       88 GETTABLEKS                       R19 R19 K28 ["Resources"]
+       90 GETTABLEKS                       R19 R19 K29 ["MakeTheme"]
+       92 CALL                             R18 1 1
+       93 GETTABLEKS                       R19 R0 K27 ["Src"]
+       95 GETTABLEKS                       R19 R19 K28 ["Resources"]
+       97 GETTABLEKS                       R19 R19 K30 ["Localization"]
+       99 GETTABLEKS                       R19 R19 K31 ["SourceStrings"]
+      101 GETTABLEKS                       R20 R0 K27 ["Src"]
+      103 GETTABLEKS                       R20 R20 K28 ["Resources"]
+      105 GETTABLEKS                       R20 R20 K30 ["Localization"]
+      107 GETTABLEKS                       R20 R20 K32 ["LocalizedStrings"]
+      109 GETTABLEKS                       R21 R0 K27 ["Src"]
+      111 GETTABLEKS                       R21 R21 K11 ["Components"]
+      113 GETIMPORT                        R22 K4 [require]
+      115 GETTABLEKS                       R23 R21 K33 ["App"]
+      117 CALL                             R22 1 1
+      118 GETTABLEKS                       R23 R0 K27 ["Src"]
+      120 GETTABLEKS                       R23 R23 K34 ["Controllers"]
+      122 GETIMPORT                        R24 K4 [require]
+      124 GETTABLEKS                       R25 R23 K35 ["ShortcutController"]
+      126 CALL                             R24 1 1
+      127 GETIMPORT                        R25 K4 [require]
+      129 GETTABLEKS                       R26 R23 K36 ["PluginController"]
+      131 CALL                             R25 1 1
+      132 GETIMPORT                        R26 K4 [require]
+      134 GETTABLEKS                       R27 R23 K37 ["ToolController"]
+      136 CALL                             R26 1 1
       137 GETIMPORT                        R27 K4 [require]
-      139 GETTABLEKS                       R28 R0 K23 ["Src"]
-      141 GETTABLEKS                       R28 R28 K37 ["Flags"]
-      143 GETTABLEKS                       R28 R28 K38 ["getFFlagEnableTerrainPalette"]
+      139 GETTABLEKS                       R28 R0 K27 ["Src"]
+      141 GETTABLEKS                       R28 R28 K28 ["Resources"]
+      143 GETTABLEKS                       R28 R28 K38 ["AnalyticsHandlers"]
       145 CALL                             R27 1 1
       146 GETIMPORT                        R28 K4 [require]
-      148 GETTABLEKS                       R29 R0 K23 ["Src"]
-      150 GETTABLEKS                       R29 R29 K37 ["Flags"]
-      152 GETTABLEKS                       R29 R29 K39 ["getFFlagTerrainEditorMigrateFoundationFonts"]
-      154 CALL                             R28 1 1
-      155 GETTABLEKS                       R29 R1 K40 ["PureComponent"]
-      157 LOADK                            R31 K41 ["MainPlugin"]
-      158 NAMECALL                         R29 R29 K42 ["extend"]
-      160 CALL                             R29 2 1
-      161 DUPCLOSURE                       R30 K43 [PROTO_7]
-      162 CAPTURE                          VAL R26
-      163 CAPTURE                          VAL R9
-      164 CAPTURE                          VAL R6
-      165 CAPTURE                          VAL R5
-      166 CAPTURE                          VAL R16
-      167 CAPTURE                          VAL R17
-      168 CAPTURE                          VAL R24
-      169 CAPTURE                          VAL R21
-      170 CAPTURE                          VAL R22
-      171 CAPTURE                          VAL R14
-      172 CAPTURE                          VAL R15
-      173 CAPTURE                          VAL R23
-      174 CAPTURE                          VAL R27
-      175 CAPTURE                          VAL R28
-      176 CAPTURE                          VAL R3
-      177 CAPTURE                          VAL R13
-      178 SETTABLEKS                       R30 R29 K44 ["init"]
-      180 DUPCLOSURE                       R30 K45 [PROTO_8]
-      181 SETTABLEKS                       R30 R29 K46 ["didUpdate"]
-      183 DUPCLOSURE                       R30 K47 [PROTO_9]
-      184 SETTABLEKS                       R30 R29 K48 ["willUnmount"]
-      186 DUPCLOSURE                       R30 K49 [PROTO_10]
-      187 CAPTURE                          VAL R10
-      188 CAPTURE                          VAL R11
-      189 CAPTURE                          VAL R27
-      190 CAPTURE                          VAL R28
-      191 CAPTURE                          VAL R12
-      192 CAPTURE                          VAL R9
-      193 CAPTURE                          VAL R1
-      194 CAPTURE                          VAL R8
-      195 CAPTURE                          VAL R2
-      196 CAPTURE                          VAL R4
-      197 CAPTURE                          VAL R19
-      198 SETTABLEKS                       R30 R29 K50 ["render"]
-      200 RETURN                           R29 1
+      148 GETTABLEKS                       R29 R0 K27 ["Src"]
+      150 GETTABLEKS                       R29 R29 K39 ["Types"]
+      152 CALL                             R28 1 1
+      153 GETTABLEKS                       R29 R28 K40 ["Category"]
+      155 GETTABLEKS                       R30 R28 K41 ["MaterialSettings"]
+      157 GETTABLEKS                       R31 R28 K42 ["Storage"]
+      159 GETTABLEKS                       R32 R28 K43 ["Tool"]
+      161 GETTABLEKS                       R33 R3 K44 ["TERRAIN"]
+      163 GETTABLEKS                       R34 R5 K45 ["TerrainMaterialPickerProtocol"]
+      165 GETIMPORT                        R35 K4 [require]
+      167 GETTABLEKS                       R36 R0 K27 ["Src"]
+      169 GETTABLEKS                       R36 R36 K46 ["Flags"]
+      171 GETTABLEKS                       R36 R36 K47 ["getFFlagEnableTerrainPalette"]
+      173 CALL                             R35 1 1
+      174 GETIMPORT                        R36 K4 [require]
+      176 GETTABLEKS                       R37 R0 K27 ["Src"]
+      178 GETTABLEKS                       R37 R37 K46 ["Flags"]
+      180 GETTABLEKS                       R37 R37 K48 ["getFFlagTerrainEditorMigrateFoundationFonts"]
+      182 CALL                             R36 1 1
+      183 GETTABLEKS                       R37 R1 K49 ["PureComponent"]
+      185 LOADK                            R39 K50 ["MainPlugin"]
+      186 NAMECALL                         R37 R37 K51 ["extend"]
+      188 CALL                             R37 2 1
+      189 DUPCLOSURE                       R38 K52 [PROTO_11]
+      190 CAPTURE                          VAL R32
+      191 CAPTURE                          VAL R11
+      192 CAPTURE                          VAL R8
+      193 CAPTURE                          VAL R7
+      194 CAPTURE                          VAL R19
+      195 CAPTURE                          VAL R20
+      196 CAPTURE                          VAL R27
+      197 CAPTURE                          VAL R24
+      198 CAPTURE                          VAL R25
+      199 CAPTURE                          VAL R17
+      200 CAPTURE                          VAL R18
+      201 CAPTURE                          VAL R26
+      202 CAPTURE                          VAL R35
+      203 CAPTURE                          VAL R16
+      204 CAPTURE                          VAL R33
+      205 CAPTURE                          VAL R29
+      206 CAPTURE                          VAL R30
+      207 CAPTURE                          VAL R31
+      208 CAPTURE                          VAL R34
+      209 CAPTURE                          VAL R36
+      210 CAPTURE                          VAL R4
+      211 CAPTURE                          VAL R15
+      212 SETTABLEKS                       R38 R37 K53 ["init"]
+      214 DUPCLOSURE                       R38 K54 [PROTO_12]
+      215 SETTABLEKS                       R38 R37 K55 ["didUpdate"]
+      217 DUPCLOSURE                       R38 K56 [PROTO_13]
+      218 SETTABLEKS                       R38 R37 K57 ["willUnmount"]
+      220 DUPCLOSURE                       R38 K58 [PROTO_14]
+      221 CAPTURE                          VAL R12
+      222 CAPTURE                          VAL R13
+      223 CAPTURE                          VAL R35
+      224 CAPTURE                          VAL R36
+      225 CAPTURE                          VAL R14
+      226 CAPTURE                          VAL R11
+      227 CAPTURE                          VAL R1
+      228 CAPTURE                          VAL R10
+      229 CAPTURE                          VAL R2
+      230 CAPTURE                          VAL R6
+      231 CAPTURE                          VAL R22
+      232 SETTABLEKS                       R38 R37 K59 ["render"]
+      234 RETURN                           R37 1

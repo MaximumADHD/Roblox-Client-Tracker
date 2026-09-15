@@ -16,38 +16,36 @@ PROTO_0:
        16 GETTABLEKS                       R2 R0 K3 ["UserId"]
        18 MINUS                            R1 R2
        19 SETUPVAL                         R1 4
-       20 LOADK                            R2 K4 ["Client:%*"]
-       21 GETUPVAL                         R4 4
-       22 NAMECALL                         R2 R2 K5 ["format"]
-       24 CALL                             R2 2 1
-       25 MOVE                             R1 R2
-       26 SETUPVAL                         R1 2
-       27 RETURN                           R0 0
+       20 LOADK                            R1 K4 ["Client:%*"]
+       21 GETUPVAL                         R3 4
+       22 NAMECALL                         R1 R1 K5 ["format"]
+       24 CALL                             R1 2 1
+       25 SETUPVAL                         R1 2
+       26 RETURN                           R0 0
 
 PROTO_1:
-        0 LOADK                            R4 K0 ["EvalResult:%*"]
-        1 MOVE                             R6 R1
-        2 NAMECALL                         R4 R4 K1 ["format"]
-        4 CALL                             R4 2 1
-        5 MOVE                             R3 R4
-        6 DUPTABLE                         R4 K4 [{"sessionId", "evalResult"}]
-        7 SETTABLEKS                       R0 R4 K2 ["sessionId"]
-        9 SETTABLEKS                       R2 R4 K3 ["evalResult"]
-       11 GETUPVAL                         R5 0
-       12 MOVE                             R7 R4
-       13 NAMECALL                         R5 R5 K5 ["JSONEncode"]
-       15 CALL                             R5 2 1
-       16 GETIMPORT                        R6 K7 [print]
-       18 LOADK                            R7 K8 ["reportEvalResult, reportKey"]
-       19 MOVE                             R8 R3
-       20 MOVE                             R9 R5
-       21 CALL                             R6 3 0
-       22 GETUPVAL                         R6 1
-       23 GETTABLEKS                       R6 R6 K9 ["setUserSettingsAsync"]
-       25 MOVE                             R7 R3
-       26 MOVE                             R8 R5
-       27 CALL                             R6 2 0
-       28 RETURN                           R0 0
+        0 LOADK                            R3 K0 ["EvalResult:%*"]
+        1 MOVE                             R5 R1
+        2 NAMECALL                         R3 R3 K1 ["format"]
+        4 CALL                             R3 2 1
+        5 DUPTABLE                         R4 K4 [{"sessionId", "evalResult"}]
+        6 SETTABLEKS                       R0 R4 K2 ["sessionId"]
+        8 SETTABLEKS                       R2 R4 K3 ["evalResult"]
+       10 GETUPVAL                         R5 0
+       11 MOVE                             R7 R4
+       12 NAMECALL                         R5 R5 K5 ["JSONEncode"]
+       14 CALL                             R5 2 1
+       15 GETIMPORT                        R6 K7 [print]
+       17 LOADK                            R7 K8 ["reportEvalResult, reportKey"]
+       18 MOVE                             R8 R3
+       19 MOVE                             R9 R5
+       20 CALL                             R6 3 0
+       21 GETUPVAL                         R6 1
+       22 GETTABLEKS                       R6 R6 K9 ["setUserSettingsAsync"]
+       24 MOVE                             R7 R3
+       25 MOVE                             R8 R5
+       26 CALL                             R6 2 0
+       27 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -138,7 +136,7 @@ PROTO_5:
         6 SETUPVAL                         R1 1
         7 LOADK                            R1 K1 ["Server"]
         8 SETUPVAL                         R1 2
-        9 JUMP                             ; [+17]
+        9 JUMP                             ; [+16]
        10 GETUPVAL                         R1 3
        11 GETTABLEKS                       R1 R1 K2 ["waitForLocalPlayerReady"]
        13 CALL                             R1 0 1
@@ -147,41 +145,40 @@ PROTO_5:
        16 GETTABLEKS                       R3 R1 K3 ["UserId"]
        18 MINUS                            R2 R3
        19 SETUPVAL                         R2 4
-       20 LOADK                            R3 K4 ["Client:%*"]
-       21 GETUPVAL                         R5 4
-       22 NAMECALL                         R3 R3 K5 ["format"]
-       24 CALL                             R3 2 1
-       25 MOVE                             R2 R3
-       26 SETUPVAL                         R2 2
-       27 GETUPVAL                         R1 3
-       28 GETTABLEKS                       R1 R1 K6 ["installLoadedCode"]
-       30 CALL                             R1 0 0
-       31 GETUPVAL                         R1 5
-       32 GETTABLEKS                       R1 R1 K7 ["AssistantEval"]
-       34 GETTABLEKS                       R1 R1 K8 ["RunTimeEvals"]
-       36 LOADK                            R3 K9 ["MultiplayerRunSessionId"]
-       37 NAMECALL                         R1 R1 K10 ["FindFirstChild"]
-       39 CALL                             R1 2 1
-       40 JUMPIFNOT                        R1 ; [+3]
-       41 GETTABLEKS                       R2 R1 K11 ["Value"]
-       43 JUMPIF                           R2 ; [+1]
-       44 RETURN                           R0 0
-       45 GETIMPORT                        R2 K13 [pcall]
-       47 NEWCLOSURE                       R3 P0
-       48 CAPTURE                          UPVAL U5
-       49 CAPTURE                          UPVAL U1
-       50 CAPTURE                          UPVAL U4
-       51 CAPTURE                          UPVAL U3
-       52 CALL                             R2 1 2
-       53 DUPTABLE                         R4 K16 [{"success", "value"}]
-       54 SETTABLEKS                       R2 R4 K14 ["success"]
-       56 SETTABLEKS                       R3 R4 K15 ["value"]
-       58 GETUPVAL                         R5 6
-       59 GETTABLEKS                       R6 R1 K11 ["Value"]
-       61 GETUPVAL                         R7 2
-       62 MOVE                             R8 R4
-       63 CALL                             R5 3 0
-       64 RETURN                           R0 0
+       20 LOADK                            R2 K4 ["Client:%*"]
+       21 GETUPVAL                         R4 4
+       22 NAMECALL                         R2 R2 K5 ["format"]
+       24 CALL                             R2 2 1
+       25 SETUPVAL                         R2 2
+       26 GETUPVAL                         R1 3
+       27 GETTABLEKS                       R1 R1 K6 ["installLoadedCode"]
+       29 CALL                             R1 0 0
+       30 GETUPVAL                         R1 5
+       31 GETTABLEKS                       R1 R1 K7 ["AssistantEval"]
+       33 GETTABLEKS                       R1 R1 K8 ["RunTimeEvals"]
+       35 LOADK                            R3 K9 ["MultiplayerRunSessionId"]
+       36 NAMECALL                         R1 R1 K10 ["FindFirstChild"]
+       38 CALL                             R1 2 1
+       39 JUMPIFNOT                        R1 ; [+3]
+       40 GETTABLEKS                       R2 R1 K11 ["Value"]
+       42 JUMPIF                           R2 ; [+1]
+       43 RETURN                           R0 0
+       44 GETIMPORT                        R2 K13 [pcall]
+       46 NEWCLOSURE                       R3 P0
+       47 CAPTURE                          UPVAL U5
+       48 CAPTURE                          UPVAL U1
+       49 CAPTURE                          UPVAL U4
+       50 CAPTURE                          UPVAL U3
+       51 CALL                             R2 1 2
+       52 DUPTABLE                         R4 K16 [{"success", "value"}]
+       53 SETTABLEKS                       R2 R4 K14 ["success"]
+       55 SETTABLEKS                       R3 R4 K15 ["value"]
+       57 GETUPVAL                         R5 6
+       58 GETTABLEKS                       R6 R1 K11 ["Value"]
+       60 GETUPVAL                         R7 2
+       61 MOVE                             R8 R4
+       62 CALL                             R5 3 0
+       63 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

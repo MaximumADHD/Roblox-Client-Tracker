@@ -8,16 +8,15 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["DiscoverExperiencesSearch failed for impact check: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 DUPTABLE                         R1 K7 [{["games"], ["targetResults"] = 0}]
-       10 NEWTABLE                         R2 0 0
-       12 SETTABLEKS                       R2 R1 K4 ["games"]
-       14 RETURN                           R1 1
+        2 LOADK                            R2 K2 ["DiscoverExperiencesSearch failed for impact check: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 DUPTABLE                         R1 K7 [{["games"], ["targetResults"] = 0}]
+        9 NEWTABLE                         R2 0 0
+       11 SETTABLEKS                       R2 R1 K4 ["games"]
+       13 RETURN                           R1 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -184,16 +183,15 @@ PROTO_8:
 
 PROTO_9:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["Failed to check for user age verified status: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 GETUPVAL                         R1 0
-       10 LOADB                            R2 0
-       11 CALL                             R1 1 0
-       12 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["Failed to check for user age verified status: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 GETUPVAL                         R1 0
+        9 LOADB                            R2 0
+       10 CALL                             R1 1 0
+       11 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R1 0
@@ -228,14 +226,13 @@ PROTO_11:
 
 PROTO_12:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["Group impact-check fan-out failed: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 NEWTABLE                         R1 0 0
-       11 RETURN                           R1 1
+        2 LOADK                            R2 K2 ["Group impact-check fan-out failed: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 NEWTABLE                         R1 0 0
+       10 RETURN                           R1 1
 
 PROTO_13:
         0 MOVE                             R1 R0
@@ -361,19 +358,18 @@ PROTO_17:
 
 PROTO_18:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["Failed to resolve FAE Banner permissions: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 GETUPVAL                         R1 0
-       10 LOADB                            R2 0
-       11 CALL                             R1 1 0
-       12 GETUPVAL                         R1 1
-       13 LOADB                            R2 0
-       14 CALL                             R1 1 0
-       15 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["Failed to resolve FAE Banner permissions: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 GETUPVAL                         R1 0
+        9 LOADB                            R2 0
+       10 CALL                             R1 1 0
+       11 GETUPVAL                         R1 1
+       12 LOADB                            R2 0
+       13 CALL                             R1 1 0
+       14 RETURN                           R0 0
 
 PROTO_19:
         0 GETUPVAL                         R1 0
@@ -398,16 +394,15 @@ PROTO_19:
 
 PROTO_20:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["Failed to check for age reverification banner status: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 GETUPVAL                         R1 0
-       10 LOADB                            R2 0
-       11 CALL                             R1 1 0
-       12 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["Failed to check for age reverification banner status: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 GETUPVAL                         R1 0
+        9 LOADB                            R2 0
+       10 CALL                             R1 1 0
+       11 RETURN                           R0 0
 
 PROTO_21:
         0 GETUPVAL                         R0 0

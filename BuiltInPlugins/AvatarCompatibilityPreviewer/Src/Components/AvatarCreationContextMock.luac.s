@@ -249,13 +249,12 @@ PROTO_18:
        25 SETTABLEKS                       R2 R1 K13 ["load3DAvatarAsync"]
        27 RETURN                           R1 1
        28 GETIMPORT                        R1 K17 [error]
-       30 LOADK                            R3 K18 ["Unhandled failure stage: %*"]
-       31 MOVE                             R5 R0
-       32 NAMECALL                         R3 R3 K19 ["format"]
-       34 CALL                             R3 2 1
-       35 MOVE                             R2 R3
-       36 CALL                             R1 1 0
-       37 RETURN                           R0 0
+       30 LOADK                            R2 K18 ["Unhandled failure stage: %*"]
+       31 MOVE                             R4 R0
+       32 NAMECALL                         R2 R2 K19 ["format"]
+       34 CALL                             R2 2 1
+       35 CALL                             R1 1 0
+       36 RETURN                           R0 0
 
 PROTO_19:
         0 GETUPVAL                         R0 0

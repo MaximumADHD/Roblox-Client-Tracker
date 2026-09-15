@@ -36,37 +36,46 @@ PROTO_3:
         0 MULK                             R3 R1 K0 [1000]
         1 GETUPVAL                         R4 0
         2 CALL                             R4 0 1
-        3 JUMPIFNOT                        R4 ; [+10]
-        4 GETIMPORT                        R4 K2 [print]
-        6 LOADK                            R6 K3 ["Sending AssetManager Stat, Event: %*, durationMs: %*"]
-        7 MOVE                             R8 R0
-        8 MOVE                             R9 R3
-        9 NAMECALL                         R6 R6 K4 ["format"]
-       11 CALL                             R6 3 1
-       12 MOVE                             R5 R6
+        3 JUMPIFNOT                        R4 ; [+20]
+        4 GETUPVAL                         R4 1
+        5 JUMPIFNOT                        R4 ; [+9]
+        6 GETIMPORT                        R4 K2 [print]
+        8 LOADK                            R5 K3 ["[SKIPPED DUE TO LOCAL BUILD] AssetManager Stat: %*"]
+        9 MOVE                             R7 R0
+       10 NAMECALL                         R5 R5 K4 ["format"]
+       12 CALL                             R5 2 1
        13 CALL                             R4 1 0
-       14 GETUPVAL                         R4 1
-       15 GETTABLEKS                       R4 R4 K5 ["join"]
-       17 GETUPVAL                         R5 2
-       18 GETTABLEKS                       R5 R5 K6 ["ASSETMANAGER_STAT_CONFIG"]
-       20 DUPTABLE                         R6 K8 [{"eventName"}]
-       21 LOADK                            R8 K9 ["%*%*"]
-       22 GETUPVAL                         R10 2
-       23 GETTABLEKS                       R10 R10 K10 ["ASSETMANAGER_STAT_PREFIX"]
-       25 MOVE                             R11 R0
-       26 NAMECALL                         R8 R8 K4 ["format"]
-       28 CALL                             R8 3 1
-       29 MOVE                             R7 R8
-       30 SETTABLEKS                       R7 R6 K7 ["eventName"]
-       32 CALL                             R4 2 1
-       33 GETUPVAL                         R5 3
-       34 MOVE                             R7 R4
-       35 DUPTABLE                         R8 K12 [{"customFields"}]
-       36 SETTABLEKS                       R2 R8 K11 ["customFields"]
-       38 MOVE                             R9 R3
-       39 NAMECALL                         R5 R5 K13 ["LogStat"]
-       41 CALL                             R5 4 0
-       42 RETURN                           R0 0
+       14 JUMP                             ; [+9]
+       15 GETIMPORT                        R4 K2 [print]
+       17 LOADK                            R5 K5 ["Sending AssetManager Stat, Event: %*, durationMs: %*"]
+       18 MOVE                             R7 R0
+       19 MOVE                             R8 R3
+       20 NAMECALL                         R5 R5 K4 ["format"]
+       22 CALL                             R5 3 1
+       23 CALL                             R4 1 0
+       24 GETUPVAL                         R4 1
+       25 JUMPIF                           R4 ; [+27]
+       26 GETUPVAL                         R4 2
+       27 GETTABLEKS                       R4 R4 K6 ["join"]
+       29 GETUPVAL                         R5 3
+       30 GETTABLEKS                       R5 R5 K7 ["ASSETMANAGER_STAT_CONFIG"]
+       32 DUPTABLE                         R6 K9 [{"eventName"}]
+       33 LOADK                            R7 K10 ["%*%*"]
+       34 GETUPVAL                         R9 3
+       35 GETTABLEKS                       R9 R9 K11 ["ASSETMANAGER_STAT_PREFIX"]
+       37 MOVE                             R10 R0
+       38 NAMECALL                         R7 R7 K4 ["format"]
+       40 CALL                             R7 3 1
+       41 SETTABLEKS                       R7 R6 K8 ["eventName"]
+       43 CALL                             R4 2 1
+       44 GETUPVAL                         R5 4
+       45 MOVE                             R7 R4
+       46 DUPTABLE                         R8 K13 [{"customFields"}]
+       47 SETTABLEKS                       R2 R8 K12 ["customFields"]
+       49 MOVE                             R9 R3
+       50 NAMECALL                         R5 R5 K14 ["LogStat"]
+       52 CALL                             R5 4 0
+       53 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R4 0
@@ -158,74 +167,80 @@ MAIN:
        36 GETTABLEKS                       R5 R5 K12 ["Util"]
        38 GETTABLEKS                       R5 R5 K13 ["Services"]
        40 CALL                             R4 1 1
-       41 GETTABLEKS                       R5 R4 K14 ["GetService"]
-       43 LOADK                            R6 K15 ["TelemetryService"]
-       44 CALL                             R5 1 1
-       45 GETIMPORT                        R6 K5 [require]
-       47 GETTABLEKS                       R7 R0 K11 ["Src"]
-       49 GETTABLEKS                       R7 R7 K16 ["Flags"]
-       51 GETTABLEKS                       R7 R7 K17 ["getFFlagDebugAmrPrintAnalytics"]
+       41 GETIMPORT                        R5 K5 [require]
+       43 GETTABLEKS                       R6 R0 K11 ["Src"]
+       45 GETTABLEKS                       R6 R6 K12 ["Util"]
+       47 GETTABLEKS                       R6 R6 K14 ["isLocalBuild"]
+       49 CALL                             R5 1 1
+       50 GETTABLEKS                       R6 R4 K15 ["GetService"]
+       52 LOADK                            R7 K16 ["TelemetryService"]
        53 CALL                             R6 1 1
-       54 NEWTABLE                         R7 4 0
-       56 DUPCLOSURE                       R8 K18 [PROTO_0]
-       57 NEWTABLE                         R9 8 0
-       59 GETTABLEKS                       R10 R2 K19 ["BenchmarkingEvent"]
-       61 GETTABLEKS                       R10 R10 K20 ["FirstLoad"]
-       63 GETTABLEKS                       R11 R1 K21 ["join"]
-       65 DUPTABLE                         R12 K29 [{["startTs"] = , ["eventContext"], ["eventUuid"] = , ["onlyTrackFirstEvent"] = False, ["firstEventCompleted"] = False}]
-       66 NEWTABLE                         R13 0 0
-       68 SETTABLEKS                       R13 R12 K24 ["eventContext"]
-       70 DUPTABLE                         R13 K31 [{["onlyTrackFirstEvent"] = True}]
-       71 CALL                             R11 2 1
-       72 SETTABLE                         R11 R9 R10
-       73 GETTABLEKS                       R10 R2 K19 ["BenchmarkingEvent"]
-       75 GETTABLEKS                       R10 R10 K32 ["Insert"]
-       77 DUPTABLE                         R11 K29 [{["startTs"] = , ["eventContext"], ["eventUuid"] = , ["onlyTrackFirstEvent"] = False, ["firstEventCompleted"] = False}]
-       78 NEWTABLE                         R12 0 0
-       80 SETTABLEKS                       R12 R11 K24 ["eventContext"]
-       82 SETTABLE                         R11 R9 R10
-       83 GETTABLEKS                       R10 R2 K19 ["BenchmarkingEvent"]
-       85 GETTABLEKS                       R10 R10 K33 ["Share"]
-       87 DUPTABLE                         R11 K29 [{["startTs"] = , ["eventContext"], ["eventUuid"] = , ["onlyTrackFirstEvent"] = False, ["firstEventCompleted"] = False}]
-       88 NEWTABLE                         R12 0 0
-       90 SETTABLEKS                       R12 R11 K24 ["eventContext"]
-       92 SETTABLE                         R11 R9 R10
-       93 GETTABLEKS                       R10 R2 K19 ["BenchmarkingEvent"]
-       95 GETTABLEKS                       R10 R10 K34 ["LoadNewScope"]
-       97 DUPTABLE                         R11 K29 [{["startTs"] = , ["eventContext"], ["eventUuid"] = , ["onlyTrackFirstEvent"] = False, ["firstEventCompleted"] = False}]
-       98 NEWTABLE                         R12 0 0
-      100 SETTABLEKS                       R12 R11 K24 ["eventContext"]
-      102 SETTABLE                         R11 R9 R10
-      103 GETTABLEKS                       R10 R2 K19 ["BenchmarkingEvent"]
-      105 GETTABLEKS                       R10 R10 K35 ["Sort"]
-      107 DUPTABLE                         R11 K29 [{["startTs"] = , ["eventContext"], ["eventUuid"] = , ["onlyTrackFirstEvent"] = False, ["firstEventCompleted"] = False}]
-      108 NEWTABLE                         R12 0 0
-      110 SETTABLEKS                       R12 R11 K24 ["eventContext"]
-      112 SETTABLE                         R11 R9 R10
-      113 GETTABLEKS                       R10 R2 K19 ["BenchmarkingEvent"]
-      115 GETTABLEKS                       R10 R10 K36 ["Filter"]
-      117 DUPTABLE                         R11 K29 [{["startTs"] = , ["eventContext"], ["eventUuid"] = , ["onlyTrackFirstEvent"] = False, ["firstEventCompleted"] = False}]
-      118 NEWTABLE                         R12 0 0
-      120 SETTABLEKS                       R12 R11 K24 ["eventContext"]
-      122 SETTABLE                         R11 R9 R10
-      123 DUPCLOSURE                       R10 K37 [PROTO_1]
-      124 CAPTURE                          VAL R2
-      125 DUPCLOSURE                       R11 K38 [PROTO_2]
-      126 CAPTURE                          VAL R9
-      127 SETTABLEKS                       R11 R7 K39 ["resetTrackerForUnitTests"]
-      129 DUPCLOSURE                       R11 K40 [PROTO_3]
-      130 CAPTURE                          VAL R6
-      131 CAPTURE                          VAL R1
-      132 CAPTURE                          VAL R3
-      133 CAPTURE                          VAL R5
-      134 SETTABLEKS                       R11 R7 K41 ["sendBenchmarkingStat"]
-      136 DUPCLOSURE                       R11 K42 [PROTO_4]
-      137 CAPTURE                          VAL R9
-      138 SETTABLEKS                       R11 R7 K43 ["eventStart"]
-      140 DUPCLOSURE                       R11 K44 [PROTO_5]
-      141 CAPTURE                          VAL R9
-      142 CAPTURE                          VAL R7
-      143 CAPTURE                          VAL R1
-      144 CAPTURE                          VAL R2
-      145 SETTABLEKS                       R11 R7 K45 ["eventEnd"]
-      147 RETURN                           R7 1
+       54 GETIMPORT                        R7 K5 [require]
+       56 GETTABLEKS                       R8 R0 K11 ["Src"]
+       58 GETTABLEKS                       R8 R8 K17 ["Flags"]
+       60 GETTABLEKS                       R8 R8 K18 ["getFFlagDebugAmrPrintAnalytics"]
+       62 CALL                             R7 1 1
+       63 NEWTABLE                         R8 4 0
+       65 DUPCLOSURE                       R9 K19 [PROTO_0]
+       66 NEWTABLE                         R10 8 0
+       68 GETTABLEKS                       R11 R2 K20 ["BenchmarkingEvent"]
+       70 GETTABLEKS                       R11 R11 K21 ["FirstLoad"]
+       72 GETTABLEKS                       R12 R1 K22 ["join"]
+       74 DUPTABLE                         R13 K30 [{["startTs"] = , ["eventContext"], ["eventUuid"] = , ["onlyTrackFirstEvent"] = False, ["firstEventCompleted"] = False}]
+       75 NEWTABLE                         R14 0 0
+       77 SETTABLEKS                       R14 R13 K25 ["eventContext"]
+       79 DUPTABLE                         R14 K32 [{["onlyTrackFirstEvent"] = True}]
+       80 CALL                             R12 2 1
+       81 SETTABLE                         R12 R10 R11
+       82 GETTABLEKS                       R11 R2 K20 ["BenchmarkingEvent"]
+       84 GETTABLEKS                       R11 R11 K33 ["Insert"]
+       86 DUPTABLE                         R12 K30 [{["startTs"] = , ["eventContext"], ["eventUuid"] = , ["onlyTrackFirstEvent"] = False, ["firstEventCompleted"] = False}]
+       87 NEWTABLE                         R13 0 0
+       89 SETTABLEKS                       R13 R12 K25 ["eventContext"]
+       91 SETTABLE                         R12 R10 R11
+       92 GETTABLEKS                       R11 R2 K20 ["BenchmarkingEvent"]
+       94 GETTABLEKS                       R11 R11 K34 ["Share"]
+       96 DUPTABLE                         R12 K30 [{["startTs"] = , ["eventContext"], ["eventUuid"] = , ["onlyTrackFirstEvent"] = False, ["firstEventCompleted"] = False}]
+       97 NEWTABLE                         R13 0 0
+       99 SETTABLEKS                       R13 R12 K25 ["eventContext"]
+      101 SETTABLE                         R12 R10 R11
+      102 GETTABLEKS                       R11 R2 K20 ["BenchmarkingEvent"]
+      104 GETTABLEKS                       R11 R11 K35 ["LoadNewScope"]
+      106 DUPTABLE                         R12 K30 [{["startTs"] = , ["eventContext"], ["eventUuid"] = , ["onlyTrackFirstEvent"] = False, ["firstEventCompleted"] = False}]
+      107 NEWTABLE                         R13 0 0
+      109 SETTABLEKS                       R13 R12 K25 ["eventContext"]
+      111 SETTABLE                         R12 R10 R11
+      112 GETTABLEKS                       R11 R2 K20 ["BenchmarkingEvent"]
+      114 GETTABLEKS                       R11 R11 K36 ["Sort"]
+      116 DUPTABLE                         R12 K30 [{["startTs"] = , ["eventContext"], ["eventUuid"] = , ["onlyTrackFirstEvent"] = False, ["firstEventCompleted"] = False}]
+      117 NEWTABLE                         R13 0 0
+      119 SETTABLEKS                       R13 R12 K25 ["eventContext"]
+      121 SETTABLE                         R12 R10 R11
+      122 GETTABLEKS                       R11 R2 K20 ["BenchmarkingEvent"]
+      124 GETTABLEKS                       R11 R11 K37 ["Filter"]
+      126 DUPTABLE                         R12 K30 [{["startTs"] = , ["eventContext"], ["eventUuid"] = , ["onlyTrackFirstEvent"] = False, ["firstEventCompleted"] = False}]
+      127 NEWTABLE                         R13 0 0
+      129 SETTABLEKS                       R13 R12 K25 ["eventContext"]
+      131 SETTABLE                         R12 R10 R11
+      132 DUPCLOSURE                       R11 K38 [PROTO_1]
+      133 CAPTURE                          VAL R2
+      134 DUPCLOSURE                       R12 K39 [PROTO_2]
+      135 CAPTURE                          VAL R10
+      136 SETTABLEKS                       R12 R8 K40 ["resetTrackerForUnitTests"]
+      138 DUPCLOSURE                       R12 K41 [PROTO_3]
+      139 CAPTURE                          VAL R7
+      140 CAPTURE                          VAL R5
+      141 CAPTURE                          VAL R1
+      142 CAPTURE                          VAL R3
+      143 CAPTURE                          VAL R6
+      144 SETTABLEKS                       R12 R8 K42 ["sendBenchmarkingStat"]
+      146 DUPCLOSURE                       R12 K43 [PROTO_4]
+      147 CAPTURE                          VAL R10
+      148 SETTABLEKS                       R12 R8 K44 ["eventStart"]
+      150 DUPCLOSURE                       R12 K45 [PROTO_5]
+      151 CAPTURE                          VAL R10
+      152 CAPTURE                          VAL R8
+      153 CAPTURE                          VAL R1
+      154 CAPTURE                          VAL R2
+      155 SETTABLEKS                       R12 R8 K46 ["eventEnd"]
+      157 RETURN                           R8 1

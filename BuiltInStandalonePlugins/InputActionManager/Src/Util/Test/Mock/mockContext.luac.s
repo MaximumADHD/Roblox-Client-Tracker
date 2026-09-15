@@ -15,79 +15,90 @@ PROTO_0:
        18 CALL                             R1 0 2
        19 AND                              R4 R1 R2
        20 FASTCALL2K                       ASSERT R4 K7 ; [+4]
-       22 LOADK                            R5 K7 ["Expect both to exist"]
+       22 LOADK                            R5 K7 ["Expect networking to exist"]
        23 GETIMPORT                        R3 K5 [assert]
        25 CALL                             R3 2 0
-       26 GETUPVAL                         R3 1
-       27 GETTABLEKS                       R3 R3 K8 ["provideMockContext"]
-       29 GETUPVAL                         R4 2
-       30 DUPTABLE                         R5 K10 [{"ContextStack"}]
-       31 GETUPVAL                         R6 3
-       32 GETTABLEKS                       R6 R6 K11 ["createElement"]
-       34 GETUPVAL                         R7 4
-       35 GETTABLEKS                       R7 R7 K9 ["ContextStack"]
-       37 DUPTABLE                         R8 K13 [{"providers"}]
-       38 NEWTABLE                         R9 0 7
-       40 GETUPVAL                         R10 3
-       41 GETTABLEKS                       R10 R10 K11 ["createElement"]
-       43 GETUPVAL                         R11 5
-       44 DUPTABLE                         R12 K18 [{["theme"] = "Dark", ["device"] = "Desktop"}]
-       45 CALL                             R10 2 1
-       46 GETUPVAL                         R11 3
-       47 GETTABLEKS                       R11 R11 K11 ["createElement"]
-       49 GETUPVAL                         R12 6
-       50 GETTABLEKS                       R12 R12 K19 ["Provider"]
-       52 DUPTABLE                         R13 K21 [{"value"}]
-       53 SETTABLEKS                       R1 R13 K20 ["value"]
-       55 CALL                             R11 2 1
-       56 GETUPVAL                         R13 7
-       57 CALL                             R13 0 1
-       58 JUMPIFNOT                        R13 ; [+10]
-       59 GETUPVAL                         R12 3
-       60 GETTABLEKS                       R12 R12 K11 ["createElement"]
-       62 GETUPVAL                         R13 8
-       63 GETTABLEKS                       R13 R13 K19 ["Provider"]
-       65 NEWTABLE                         R14 0 0
-       67 CALL                             R12 2 1
-       68 JUMP                             ; [+9]
-       69 GETUPVAL                         R12 3
-       70 GETTABLEKS                       R12 R12 K11 ["createElement"]
-       72 GETUPVAL                         R13 3
-       73 GETTABLEKS                       R13 R13 K22 ["Fragment"]
-       75 NEWTABLE                         R14 0 0
-       77 CALL                             R12 2 1
-       78 GETUPVAL                         R13 3
-       79 GETTABLEKS                       R13 R13 K11 ["createElement"]
-       81 GETUPVAL                         R14 9
-       82 GETTABLEKS                       R14 R14 K19 ["Provider"]
-       84 DUPTABLE                         R15 K21 [{"value"}]
-       85 SETTABLEKS                       R2 R15 K20 ["value"]
-       87 CALL                             R13 2 1
-       88 GETUPVAL                         R14 3
-       89 GETTABLEKS                       R14 R14 K11 ["createElement"]
-       91 GETUPVAL                         R15 10
-       92 GETTABLEKS                       R15 R15 K19 ["Provider"]
-       94 DUPTABLE                         R16 K24 [{"localization"}]
-       95 GETUPVAL                         R17 11
-       96 SETTABLEKS                       R17 R16 K23 ["localization"]
-       98 CALL                             R14 2 1
-       99 GETUPVAL                         R15 3
-      100 GETTABLEKS                       R15 R15 K11 ["createElement"]
-      102 GETUPVAL                         R16 12
-      103 GETTABLEKS                       R16 R16 K25 ["AnalyticsTelemetryServiceProvider"]
-      105 CALL                             R15 1 1
-      106 GETUPVAL                         R16 3
-      107 GETTABLEKS                       R16 R16 K11 ["createElement"]
-      109 GETUPVAL                         R17 13
-      110 GETTABLEKS                       R17 R17 K26 ["MockProvider"]
-      112 CALL                             R16 1 -1
-      113 SETLIST                          R9 R10 -1 [1]
-      115 SETTABLEKS                       R9 R8 K12 ["providers"]
-      117 MOVE                             R9 R0
-      118 CALL                             R6 3 1
-      119 SETTABLEKS                       R6 R5 K9 ["ContextStack"]
-      121 CALL                             R3 2 -1
-      122 RETURN                           R3 -1
+       26 GETUPVAL                         R4 1
+       27 CALL                             R4 0 1
+       28 JUMPIFNOT                        R4 ; [+4]
+       29 GETUPVAL                         R3 2
+       30 GETTABLEKS                       R3 R3 K8 ["MockProvider"]
+       32 JUMP                             ; [+3]
+       33 GETUPVAL                         R3 2
+       34 GETTABLEKS                       R3 R3 K9 ["Provider"]
+       36 FASTCALL2K                       ASSERT R3 K10 ; [+5]
+       38 MOVE                             R5 R3
+       39 LOADK                            R6 K10 ["Expected datamodelConfigurationProvider to exist"]
+       40 GETIMPORT                        R4 K5 [assert]
+       42 CALL                             R4 2 0
+       43 GETUPVAL                         R4 3
+       44 GETTABLEKS                       R4 R4 K11 ["provideMockContext"]
+       46 GETUPVAL                         R5 4
+       47 DUPTABLE                         R6 K13 [{"ContextStack"}]
+       48 GETUPVAL                         R7 5
+       49 GETTABLEKS                       R7 R7 K14 ["createElement"]
+       51 GETUPVAL                         R8 6
+       52 GETTABLEKS                       R8 R8 K12 ["ContextStack"]
+       54 DUPTABLE                         R9 K16 [{"providers"}]
+       55 NEWTABLE                         R10 0 7
+       57 GETUPVAL                         R11 5
+       58 GETTABLEKS                       R11 R11 K14 ["createElement"]
+       60 GETUPVAL                         R12 7
+       61 DUPTABLE                         R13 K21 [{["theme"] = "Dark", ["device"] = "Desktop"}]
+       62 CALL                             R11 2 1
+       63 GETUPVAL                         R12 5
+       64 GETTABLEKS                       R12 R12 K14 ["createElement"]
+       66 GETUPVAL                         R13 8
+       67 GETTABLEKS                       R13 R13 K9 ["Provider"]
+       69 DUPTABLE                         R14 K23 [{"value"}]
+       70 SETTABLEKS                       R1 R14 K22 ["value"]
+       72 CALL                             R12 2 1
+       73 GETUPVAL                         R14 1
+       74 CALL                             R14 0 1
+       75 JUMPIFNOT                        R14 ; [+6]
+       76 GETUPVAL                         R13 5
+       77 GETTABLEKS                       R13 R13 K14 ["createElement"]
+       79 MOVE                             R14 R3
+       80 CALL                             R13 1 1
+       81 JUMP                             ; [+9]
+       82 GETUPVAL                         R13 5
+       83 GETTABLEKS                       R13 R13 K14 ["createElement"]
+       85 GETUPVAL                         R14 5
+       86 GETTABLEKS                       R14 R14 K24 ["Fragment"]
+       88 NEWTABLE                         R15 0 0
+       90 CALL                             R13 2 1
+       91 GETUPVAL                         R14 5
+       92 GETTABLEKS                       R14 R14 K14 ["createElement"]
+       94 GETUPVAL                         R15 9
+       95 GETTABLEKS                       R15 R15 K9 ["Provider"]
+       97 DUPTABLE                         R16 K23 [{"value"}]
+       98 SETTABLEKS                       R2 R16 K22 ["value"]
+      100 CALL                             R14 2 1
+      101 GETUPVAL                         R15 5
+      102 GETTABLEKS                       R15 R15 K14 ["createElement"]
+      104 GETUPVAL                         R16 10
+      105 GETTABLEKS                       R16 R16 K9 ["Provider"]
+      107 DUPTABLE                         R17 K26 [{"localization"}]
+      108 GETUPVAL                         R18 11
+      109 SETTABLEKS                       R18 R17 K25 ["localization"]
+      111 CALL                             R15 2 1
+      112 GETUPVAL                         R16 5
+      113 GETTABLEKS                       R16 R16 K14 ["createElement"]
+      115 GETUPVAL                         R17 12
+      116 GETTABLEKS                       R17 R17 K27 ["AnalyticsTelemetryServiceProvider"]
+      118 CALL                             R16 1 1
+      119 GETUPVAL                         R17 5
+      120 GETTABLEKS                       R17 R17 K14 ["createElement"]
+      122 GETUPVAL                         R18 13
+      123 GETTABLEKS                       R18 R18 K8 ["MockProvider"]
+      125 CALL                             R17 1 -1
+      126 SETLIST                          R10 R11 -1 [1]
+      128 SETTABLEKS                       R10 R9 K15 ["providers"]
+      130 MOVE                             R10 R0
+      131 CALL                             R7 3 1
+      132 SETTABLEKS                       R7 R6 K12 ["ContextStack"]
+      134 CALL                             R4 2 -1
+      135 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -190,14 +201,14 @@ MAIN:
       171 CALL                             R22 1 1
       172 DUPCLOSURE                       R23 K46 [PROTO_0]
       173 CAPTURE                          VAL R16
-      174 CAPTURE                          VAL R4
-      175 CAPTURE                          VAL R21
-      176 CAPTURE                          VAL R1
-      177 CAPTURE                          VAL R2
-      178 CAPTURE                          VAL R7
-      179 CAPTURE                          VAL R12
-      180 CAPTURE                          VAL R20
-      181 CAPTURE                          VAL R10
+      174 CAPTURE                          VAL R20
+      175 CAPTURE                          VAL R10
+      176 CAPTURE                          VAL R4
+      177 CAPTURE                          VAL R21
+      178 CAPTURE                          VAL R1
+      179 CAPTURE                          VAL R2
+      180 CAPTURE                          VAL R7
+      181 CAPTURE                          VAL R12
       182 CAPTURE                          VAL R11
       183 CAPTURE                          VAL R8
       184 CAPTURE                          VAL R22

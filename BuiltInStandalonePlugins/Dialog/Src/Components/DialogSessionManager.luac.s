@@ -191,37 +191,36 @@ PROTO_11:
         4 CALL                             R3 1 1
         5 GETUPVAL                         R5 1
         6 GETTABLE                         R4 R5 R3
-        7 JUMPIF                           R4 ; [+16]
+        7 JUMPIF                           R4 ; [+15]
         8 GETIMPORT                        R5 K2 [warn]
-       10 LOADK                            R7 K3 ["[Dialog] Could not locate custom dialog with URI: %*"]
-       11 MOVE                             R9 R3
-       12 NAMECALL                         R7 R7 K4 ["format"]
-       14 CALL                             R7 2 1
-       15 MOVE                             R6 R7
-       16 CALL                             R5 1 0
-       17 GETIMPORT                        R5 K7 [task.spawn]
-       19 NEWCLOSURE                       R6 P0
-       20 CAPTURE                          UPVAL U2
-       21 CAPTURE                          VAL R1
-       22 CALL                             R5 1 0
-       23 RETURN                           R0 0
-       24 GETIMPORT                        R5 K10 [table.freeze]
-       26 DUPTABLE                         R6 K15 [{"component", "uri", "input", "onResolved"}]
-       27 SETTABLEKS                       R4 R6 K11 ["component"]
-       29 GETUPVAL                         R7 0
-       30 GETTABLEKS                       R7 R7 K16 ["wrap"]
-       32 MOVE                             R8 R1
-       33 CALL                             R7 1 1
-       34 SETTABLEKS                       R7 R6 K12 ["uri"]
-       36 SETTABLEKS                       R2 R6 K13 ["input"]
-       38 NEWCLOSURE                       R7 P1
-       39 CAPTURE                          UPVAL U2
-       40 CAPTURE                          VAL R1
-       41 CAPTURE                          UPVAL U3
-       42 SETTABLEKS                       R7 R6 K14 ["onResolved"]
-       44 CALL                             R5 1 1
-       45 SETTABLE                         R5 R0 R3
-       46 RETURN                           R0 0
+       10 LOADK                            R6 K3 ["[Dialog] Could not locate custom dialog with URI: %*"]
+       11 MOVE                             R8 R3
+       12 NAMECALL                         R6 R6 K4 ["format"]
+       14 CALL                             R6 2 1
+       15 CALL                             R5 1 0
+       16 GETIMPORT                        R5 K7 [task.spawn]
+       18 NEWCLOSURE                       R6 P0
+       19 CAPTURE                          UPVAL U2
+       20 CAPTURE                          VAL R1
+       21 CALL                             R5 1 0
+       22 RETURN                           R0 0
+       23 GETIMPORT                        R5 K10 [table.freeze]
+       25 DUPTABLE                         R6 K15 [{"component", "uri", "input", "onResolved"}]
+       26 SETTABLEKS                       R4 R6 K11 ["component"]
+       28 GETUPVAL                         R7 0
+       29 GETTABLEKS                       R7 R7 K16 ["wrap"]
+       31 MOVE                             R8 R1
+       32 CALL                             R7 1 1
+       33 SETTABLEKS                       R7 R6 K12 ["uri"]
+       35 SETTABLEKS                       R2 R6 K13 ["input"]
+       37 NEWCLOSURE                       R7 P1
+       38 CAPTURE                          UPVAL U2
+       39 CAPTURE                          VAL R1
+       40 CAPTURE                          UPVAL U3
+       41 SETTABLEKS                       R7 R6 K14 ["onResolved"]
+       43 CALL                             R5 1 1
+       44 SETTABLE                         R5 R0 R3
+       45 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R0 0
@@ -372,44 +371,43 @@ PROTO_19:
        21 CALL                             R1 1 1
        22 GETUPVAL                         R3 5
        23 GETTABLE                         R2 R3 R1
-       24 JUMPIF                           R2 ; [+16]
+       24 JUMPIF                           R2 ; [+15]
        25 GETIMPORT                        R3 K7 [warn]
-       27 LOADK                            R5 K8 ["[Dialog] Could not locate custom dialog with URI: %*"]
-       28 MOVE                             R7 R1
-       29 NAMECALL                         R5 R5 K9 ["format"]
-       31 CALL                             R5 2 1
-       32 MOVE                             R4 R5
-       33 CALL                             R3 1 0
-       34 GETIMPORT                        R3 K12 [task.spawn]
-       36 NEWCLOSURE                       R4 P0
-       37 CAPTURE                          UPVAL U6
-       38 CAPTURE                          UPVAL U2
-       39 CALL                             R3 1 0
-       40 RETURN                           R0 1
-       41 GETIMPORT                        R3 K2 [table.clone]
-       43 MOVE                             R4 R0
-       44 CALL                             R3 1 1
-       45 GETIMPORT                        R4 K4 [table.freeze]
-       47 DUPTABLE                         R5 K17 [{"component", "uri", "input", "onResolved"}]
-       48 SETTABLEKS                       R2 R5 K13 ["component"]
-       50 GETUPVAL                         R6 4
-       51 GETTABLEKS                       R6 R6 K18 ["wrap"]
-       53 GETUPVAL                         R7 2
-       54 CALL                             R6 1 1
-       55 SETTABLEKS                       R6 R5 K14 ["uri"]
-       57 GETUPVAL                         R6 3
-       58 SETTABLEKS                       R6 R5 K15 ["input"]
-       60 NEWCLOSURE                       R6 P1
-       61 CAPTURE                          UPVAL U6
-       62 CAPTURE                          UPVAL U2
-       63 CAPTURE                          UPVAL U7
-       64 SETTABLEKS                       R6 R5 K16 ["onResolved"]
-       66 CALL                             R4 1 1
-       67 SETTABLE                         R4 R3 R1
-       68 GETIMPORT                        R4 K4 [table.freeze]
-       70 MOVE                             R5 R3
-       71 CALL                             R4 1 -1
-       72 RETURN                           R4 -1
+       27 LOADK                            R4 K8 ["[Dialog] Could not locate custom dialog with URI: %*"]
+       28 MOVE                             R6 R1
+       29 NAMECALL                         R4 R4 K9 ["format"]
+       31 CALL                             R4 2 1
+       32 CALL                             R3 1 0
+       33 GETIMPORT                        R3 K12 [task.spawn]
+       35 NEWCLOSURE                       R4 P0
+       36 CAPTURE                          UPVAL U6
+       37 CAPTURE                          UPVAL U2
+       38 CALL                             R3 1 0
+       39 RETURN                           R0 1
+       40 GETIMPORT                        R3 K2 [table.clone]
+       42 MOVE                             R4 R0
+       43 CALL                             R3 1 1
+       44 GETIMPORT                        R4 K4 [table.freeze]
+       46 DUPTABLE                         R5 K17 [{"component", "uri", "input", "onResolved"}]
+       47 SETTABLEKS                       R2 R5 K13 ["component"]
+       49 GETUPVAL                         R6 4
+       50 GETTABLEKS                       R6 R6 K18 ["wrap"]
+       52 GETUPVAL                         R7 2
+       53 CALL                             R6 1 1
+       54 SETTABLEKS                       R6 R5 K14 ["uri"]
+       56 GETUPVAL                         R6 3
+       57 SETTABLEKS                       R6 R5 K15 ["input"]
+       59 NEWCLOSURE                       R6 P1
+       60 CAPTURE                          UPVAL U6
+       61 CAPTURE                          UPVAL U2
+       62 CAPTURE                          UPVAL U7
+       63 SETTABLEKS                       R6 R5 K16 ["onResolved"]
+       65 CALL                             R4 1 1
+       66 SETTABLE                         R4 R3 R1
+       67 GETIMPORT                        R4 K4 [table.freeze]
+       69 MOVE                             R5 R3
+       70 CALL                             R4 1 -1
+       71 RETURN                           R4 -1
 
 PROTO_20:
         0 GETUPVAL                         R2 0

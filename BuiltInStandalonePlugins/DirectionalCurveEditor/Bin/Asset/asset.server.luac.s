@@ -86,57 +86,56 @@ PROTO_1:
        35 RETURN                           R0 0
        36 GETUPVAL                         R3 0
        37 GETTABLEN                        R2 R3 1
-       38 LOADK                            R4 K7 ["%* \"%*\""]
-       39 GETTABLEKS                       R6 R2 K8 ["ClassName"]
-       41 GETTABLEKS                       R7 R2 K9 ["Name"]
-       43 NAMECALL                         R4 R4 K10 ["format"]
-       45 CALL                             R4 3 1
-       46 MOVE                             R3 R4
-       47 GETUPVAL                         R5 0
-       48 LENGTH                           R4 R5
-       49 LOADN                            R5 1
-       50 JUMPIFNOTLT                      R5 R4 ; [+9]
-       52 LOADK                            R4 K11 ["%* (%* items)"]
-       53 GETTABLEKS                       R6 R2 K8 ["ClassName"]
-       55 LENGTH                           R7 R0
-       56 NAMECALL                         R4 R4 K10 ["format"]
-       58 CALL                             R4 3 1
-       59 MOVE                             R3 R4
-       60 GETUPVAL                         R4 3
-       61 GETTABLEKS                       R4 R4 K12 ["getInstanceData"]
-       63 MOVE                             R5 R2
-       64 CALL                             R4 1 1
-       65 SETUPVAL                         R4 2
-       66 GETIMPORT                        R4 K14 [plugin]
-       68 LOADK                            R6 K15 ["OnOpen"]
-       69 GETUPVAL                         R7 2
-       70 MOVE                             R8 R1
-       71 GETUPVAL                         R9 4
-       72 MOVE                             R10 R3
-       73 NAMECALL                         R4 R4 K16 ["Invoke"]
-       75 CALL                             R4 6 0
-       76 GETUPVAL                         R4 5
-       77 JUMPIFNOT                        R4 ; [+4]
-       78 GETUPVAL                         R4 5
-       79 NAMECALL                         R4 R4 K17 ["Disconnect"]
-       81 CALL                             R4 1 0
-       82 GETUPVAL                         R4 4
-       83 GETTABLEKS                       R5 R2 K18 ["Changed"]
-       85 NEWCLOSURE                       R7 P0
-       86 CAPTURE                          UPVAL U2
-       87 CAPTURE                          UPVAL U1
-       88 CAPTURE                          UPVAL U3
-       89 CAPTURE                          VAL R2
-       90 CAPTURE                          VAL R4
-       91 CAPTURE                          REF R3
-       92 NAMECALL                         R5 R5 K19 ["Connect"]
-       94 CALL                             R5 2 1
-       95 SETUPVAL                         R5 5
-       96 GETUPVAL                         R5 4
-       97 ADDK                             R5 R5 K20 [1]
-       98 SETUPVAL                         R5 4
-       99 CLOSEUPVALS                      R3
-      100 RETURN                           R0 0
+       38 LOADK                            R3 K7 ["%* \"%*\""]
+       39 GETTABLEKS                       R5 R2 K8 ["ClassName"]
+       41 GETTABLEKS                       R6 R2 K9 ["Name"]
+       43 NAMECALL                         R3 R3 K10 ["format"]
+       45 CALL                             R3 3 1
+       46 GETUPVAL                         R5 0
+       47 LENGTH                           R4 R5
+       48 LOADN                            R5 1
+       49 JUMPIFNOTLT                      R5 R4 ; [+9]
+       51 LOADK                            R4 K11 ["%* (%* items)"]
+       52 GETTABLEKS                       R6 R2 K8 ["ClassName"]
+       54 LENGTH                           R7 R0
+       55 NAMECALL                         R4 R4 K10 ["format"]
+       57 CALL                             R4 3 1
+       58 MOVE                             R3 R4
+       59 GETUPVAL                         R4 3
+       60 GETTABLEKS                       R4 R4 K12 ["getInstanceData"]
+       62 MOVE                             R5 R2
+       63 CALL                             R4 1 1
+       64 SETUPVAL                         R4 2
+       65 GETIMPORT                        R4 K14 [plugin]
+       67 LOADK                            R6 K15 ["OnOpen"]
+       68 GETUPVAL                         R7 2
+       69 MOVE                             R8 R1
+       70 GETUPVAL                         R9 4
+       71 MOVE                             R10 R3
+       72 NAMECALL                         R4 R4 K16 ["Invoke"]
+       74 CALL                             R4 6 0
+       75 GETUPVAL                         R4 5
+       76 JUMPIFNOT                        R4 ; [+4]
+       77 GETUPVAL                         R4 5
+       78 NAMECALL                         R4 R4 K17 ["Disconnect"]
+       80 CALL                             R4 1 0
+       81 GETUPVAL                         R4 4
+       82 GETTABLEKS                       R5 R2 K18 ["Changed"]
+       84 NEWCLOSURE                       R7 P0
+       85 CAPTURE                          UPVAL U2
+       86 CAPTURE                          UPVAL U1
+       87 CAPTURE                          UPVAL U3
+       88 CAPTURE                          VAL R2
+       89 CAPTURE                          VAL R4
+       90 CAPTURE                          REF R3
+       91 NAMECALL                         R5 R5 K19 ["Connect"]
+       93 CALL                             R5 2 1
+       94 SETUPVAL                         R5 5
+       95 GETUPVAL                         R5 4
+       96 ADDK                             R5 R5 K20 [1]
+       97 SETUPVAL                         R5 4
+       98 CLOSEUPVALS                      R3
+       99 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0

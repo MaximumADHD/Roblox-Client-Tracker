@@ -7,49 +7,48 @@ PROTO_0:
         6 GETIMPORT                        R2 K2 [tostring]
         8 CALL                             R2 1 1
         9 GETIMPORT                        R3 K4 [warn]
-       11 LOADK                            R5 K5 ["[Gen3d] %* failed: %*"]
-       12 MOVE                             R7 R1
-       13 MOVE                             R8 R2
-       14 NAMECALL                         R5 R5 K6 ["format"]
-       16 CALL                             R5 3 1
-       17 MOVE                             R4 R5
-       18 CALL                             R3 1 0
-       19 GETIMPORT                        R3 K9 [string.lower]
-       21 MOVE                             R4 R2
-       22 CALL                             R3 1 1
-       23 GETUPVAL                         R4 0
-       24 LOADNIL                          R5
-       25 LOADNIL                          R6
-       26 FORGPREP                         R4
-       27 GETTABLEKS                       R9 R8 K10 ["needles"]
-       29 LOADNIL                          R10
-       30 LOADNIL                          R11
-       31 FORGPREP                         R9
-       32 GETIMPORT                        R14 K12 [string.find]
-       34 MOVE                             R15 R3
-       35 MOVE                             R16 R13
-       36 LOADN                            R17 1
-       37 LOADB                            R18 1
-       38 CALL                             R14 4 1
-       39 JUMPIFNOT                        R14 ; [+13]
-       40 GETUPVAL                         R14 1
-       41 GETTABLEKS                       R17 R8 K13 ["message"]
-       43 FASTCALL1                        TABLE_UNPACK R17 ; [+2]
-       44 GETIMPORT                        R16 K15 [unpack]
-       46 CALL                             R16 1 -1
-       47 NAMECALL                         R14 R14 K16 ["getText"]
-       49 CALL                             R14 -1 1
-       50 GETTABLEKS                       R15 R8 K17 ["kind"]
-       52 RETURN                           R14 2
-       53 FORGLOOP                         R9 2 ; [-22]
-       55 FORGLOOP                         R4 2 ; [-29]
-       57 GETUPVAL                         R4 1
-       58 LOADK                            R6 K18 ["Common"]
-       59 LOADK                            R7 K19 ["UnknownError"]
-       60 NAMECALL                         R4 R4 K16 ["getText"]
-       62 CALL                             R4 3 1
-       63 LOADK                            R5 K20 ["unknown"]
-       64 RETURN                           R4 2
+       11 LOADK                            R4 K5 ["[Gen3d] %* failed: %*"]
+       12 MOVE                             R6 R1
+       13 MOVE                             R7 R2
+       14 NAMECALL                         R4 R4 K6 ["format"]
+       16 CALL                             R4 3 1
+       17 CALL                             R3 1 0
+       18 GETIMPORT                        R3 K9 [string.lower]
+       20 MOVE                             R4 R2
+       21 CALL                             R3 1 1
+       22 GETUPVAL                         R4 0
+       23 LOADNIL                          R5
+       24 LOADNIL                          R6
+       25 FORGPREP                         R4
+       26 GETTABLEKS                       R9 R8 K10 ["needles"]
+       28 LOADNIL                          R10
+       29 LOADNIL                          R11
+       30 FORGPREP                         R9
+       31 GETIMPORT                        R14 K12 [string.find]
+       33 MOVE                             R15 R3
+       34 MOVE                             R16 R13
+       35 LOADN                            R17 1
+       36 LOADB                            R18 1
+       37 CALL                             R14 4 1
+       38 JUMPIFNOT                        R14 ; [+13]
+       39 GETUPVAL                         R14 1
+       40 GETTABLEKS                       R17 R8 K13 ["message"]
+       42 FASTCALL1                        TABLE_UNPACK R17 ; [+2]
+       43 GETIMPORT                        R16 K15 [unpack]
+       45 CALL                             R16 1 -1
+       46 NAMECALL                         R14 R14 K16 ["getText"]
+       48 CALL                             R14 -1 1
+       49 GETTABLEKS                       R15 R8 K17 ["kind"]
+       51 RETURN                           R14 2
+       52 FORGLOOP                         R9 2 ; [-22]
+       54 FORGLOOP                         R4 2 ; [-29]
+       56 GETUPVAL                         R4 1
+       57 LOADK                            R6 K18 ["Common"]
+       58 LOADK                            R7 K19 ["UnknownError"]
+       59 NAMECALL                         R4 R4 K16 ["getText"]
+       61 CALL                             R4 3 1
+       62 LOADK                            R5 K20 ["unknown"]
+       63 RETURN                           R4 2
 
 MAIN:
         0 PREPVARARGS                      0

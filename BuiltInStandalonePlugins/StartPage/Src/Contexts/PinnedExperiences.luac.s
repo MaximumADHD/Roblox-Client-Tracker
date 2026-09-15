@@ -55,13 +55,12 @@ PROTO_6:
 
 PROTO_7:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["DiscoverUniverseData error: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["DiscoverUniverseData error: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["pinnedExperiences"]
@@ -121,13 +120,12 @@ PROTO_8:
 
 PROTO_9:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["GetPinnedExperiences error: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["GetPinnedExperiences error: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R0 0
@@ -156,13 +154,12 @@ PROTO_12:
 
 PROTO_13:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["Pin mutation error: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["Pin mutation error: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
 
 PROTO_14:
         0 JUMPIFNOTEQKNIL                  R1 ; [+2]

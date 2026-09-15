@@ -94,14 +94,13 @@ PROTO_4:
        49 RETURN                           R0 0
        50 FORGLOOP                         R3 2 ; [-15]
        52 GETIMPORT                        R3 K9 [error]
-       54 LOADK                            R5 K10 ["Invalid stage for %* (in %*)"]
-       55 MOVE                             R7 R0
-       56 MOVE                             R8 R2
-       57 NAMECALL                         R5 R5 K11 ["format"]
-       59 CALL                             R5 3 1
-       60 MOVE                             R4 R5
-       61 CALL                             R3 1 0
-       62 RETURN                           R0 0
+       54 LOADK                            R4 K10 ["Invalid stage for %* (in %*)"]
+       55 MOVE                             R6 R0
+       56 MOVE                             R7 R2
+       57 NAMECALL                         R4 R4 K11 ["format"]
+       59 CALL                             R4 3 1
+       60 CALL                             R3 1 0
+       61 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -557,7 +556,7 @@ PROTO_10:
       579 SETTABLEKS                       R16 R39 K98 ["Dummy"]
       581 SETTABLEKS                       R7 R39 K59 ["SelectedTab"]
       583 CALL                             R37 2 1
-      584 JUMP                             ; [+33]
+      584 JUMP                             ; [+32]
       585 GETTABLEKS                       R38 R4 K4 ["stage"]
       587 JUMPIFNOTEQKS                    R38 K107 ["CheckFace"] ; [+20]
       589 GETUPVAL                         R37 1
@@ -571,91 +570,90 @@ PROTO_10:
       602 SETTABLEKS                       R16 R39 K98 ["Dummy"]
       604 SETTABLEKS                       R7 R39 K59 ["SelectedTab"]
       606 CALL                             R37 2 1
-      607 JUMP                             ; [+10]
+      607 JUMP                             ; [+9]
       608 GETIMPORT                        R37 K109 [error]
-      610 LOADK                            R39 K110 ["Unknown stage %*"]
-      611 GETTABLEKS                       R41 R4 K4 ["stage"]
-      613 NAMECALL                         R39 R39 K111 ["format"]
-      615 CALL                             R39 2 1
-      616 MOVE                             R38 R39
-      617 CALL                             R37 1 1
-      618 SETTABLEKS                       R37 R36 K95 ["ChedkRender"]
-      620 GETUPVAL                         R37 1
-      621 GETTABLEKS                       R37 R37 K26 ["createElement"]
-      623 GETUPVAL                         R38 31
-      624 DUPTABLE                         R39 K102 [{"Avatar"}]
-      625 GETTABLEKS                       R40 R0 K5 ["Avatar"]
-      627 SETTABLEKS                       R40 R39 K5 ["Avatar"]
-      629 CALL                             R37 2 1
-      630 SETTABLEKS                       R37 R36 K96 ["ContextualSurveyDialogButton"]
-      632 CALL                             R33 3 1
-      633 SETTABLEKS                       R33 R32 K73 ["Preview"]
-      635 CALL                             R29 3 1
-      636 SETTABLEKS                       R29 R28 K28 ["Contents"]
-      638 CALL                             R25 3 1
-      639 SETTABLEKS                       R25 R24 K28 ["Contents"]
-      641 CALL                             R21 3 1
-      642 SETTABLEKS                       R21 R20 K0 ["AvatarScreen"]
-      644 GETUPVAL                         R21 1
-      645 GETTABLEKS                       R21 R21 K26 ["createElement"]
-      647 GETUPVAL                         R22 32
-      648 DUPTABLE                         R23 K113 [{"WorldModel", "Dummy", "UpdateHumanoidDescription"}]
-      649 SETTABLEKS                       R6 R23 K6 ["WorldModel"]
-      651 SETTABLEKS                       R16 R23 K98 ["Dummy"]
-      653 NEWCLOSURE                       R24 P6
-      654 CAPTURE                          VAL R14
-      655 SETTABLEKS                       R24 R23 K112 ["UpdateHumanoidDescription"]
-      657 CALL                             R21 2 1
-      658 SETTABLEKS                       R21 R20 K114 ["InitialImport"]
-      660 GETUPVAL                         R21 20
-      661 GETTABLEKS                       R21 R21 K115 ["EDITING_TOOLS_GUI_NAMES"]
-      663 GETTABLEKS                       R21 R21 K116 ["EditingToolbar"]
-      665 GETUPVAL                         R22 12
-      666 CALL                             R22 0 1
-      667 JUMPIFNOT                        R22 ; [+10]
-      668 GETUPVAL                         R22 1
-      669 GETTABLEKS                       R22 R22 K26 ["createElement"]
-      671 GETUPVAL                         R23 33
-      672 DUPTABLE                         R24 K117 [{"avatar"}]
-      673 GETTABLEKS                       R25 R0 K5 ["Avatar"]
-      675 SETTABLEKS                       R25 R24 K31 ["avatar"]
-      677 CALL                             R22 2 1
-      678 SETTABLE                         R22 R20 R21
-      679 GETUPVAL                         R21 1
-      680 GETTABLEKS                       R21 R21 K26 ["createElement"]
-      682 GETUPVAL                         R22 34
-      683 DUPTABLE                         R23 K119 [{"providers"}]
-      684 NEWTABLE                         R24 0 3
-      686 GETUPVAL                         R25 1
-      687 GETTABLEKS                       R25 R25 K26 ["createElement"]
-      689 GETUPVAL                         R26 35
-      690 GETTABLEKS                       R26 R26 K120 ["Provider"]
-      692 DUPTABLE                         R27 K124 [{"openPalette", "resetCamera", "stage", "selectedAvatar"}]
-      693 SETTABLEKS                       R12 R27 K121 ["openPalette"]
-      695 SETTABLEKS                       R18 R27 K122 ["resetCamera"]
-      697 SETTABLEKS                       R5 R27 K4 ["stage"]
-      699 SETTABLEKS                       R6 R27 K123 ["selectedAvatar"]
-      701 CALL                             R25 2 1
-      702 GETUPVAL                         R26 1
-      703 GETTABLEKS                       R26 R26 K26 ["createElement"]
-      705 GETUPVAL                         R27 36
-      706 GETTABLEKS                       R27 R27 K120 ["Provider"]
-      708 CALL                             R26 1 1
-      709 GETUPVAL                         R28 12
-      710 CALL                             R28 0 1
-      711 JUMPIFNOT                        R28 ; [+8]
-      712 GETUPVAL                         R27 1
-      713 GETTABLEKS                       R27 R27 K26 ["createElement"]
-      715 GETUPVAL                         R28 37
-      716 GETTABLEKS                       R28 R28 K120 ["Provider"]
-      718 CALL                             R27 1 1
-      719 JUMP                             ; [+1]
-      720 LOADNIL                          R27
-      721 SETLIST                          R24 R25 3 [1]
-      723 SETTABLEKS                       R24 R23 K118 ["providers"]
-      725 MOVE                             R24 R20
-      726 CALL                             R21 3 -1
-      727 RETURN                           R21 -1
+      610 LOADK                            R38 K110 ["Unknown stage %*"]
+      611 GETTABLEKS                       R40 R4 K4 ["stage"]
+      613 NAMECALL                         R38 R38 K111 ["format"]
+      615 CALL                             R38 2 1
+      616 CALL                             R37 1 1
+      617 SETTABLEKS                       R37 R36 K95 ["ChedkRender"]
+      619 GETUPVAL                         R37 1
+      620 GETTABLEKS                       R37 R37 K26 ["createElement"]
+      622 GETUPVAL                         R38 31
+      623 DUPTABLE                         R39 K102 [{"Avatar"}]
+      624 GETTABLEKS                       R40 R0 K5 ["Avatar"]
+      626 SETTABLEKS                       R40 R39 K5 ["Avatar"]
+      628 CALL                             R37 2 1
+      629 SETTABLEKS                       R37 R36 K96 ["ContextualSurveyDialogButton"]
+      631 CALL                             R33 3 1
+      632 SETTABLEKS                       R33 R32 K73 ["Preview"]
+      634 CALL                             R29 3 1
+      635 SETTABLEKS                       R29 R28 K28 ["Contents"]
+      637 CALL                             R25 3 1
+      638 SETTABLEKS                       R25 R24 K28 ["Contents"]
+      640 CALL                             R21 3 1
+      641 SETTABLEKS                       R21 R20 K0 ["AvatarScreen"]
+      643 GETUPVAL                         R21 1
+      644 GETTABLEKS                       R21 R21 K26 ["createElement"]
+      646 GETUPVAL                         R22 32
+      647 DUPTABLE                         R23 K113 [{"WorldModel", "Dummy", "UpdateHumanoidDescription"}]
+      648 SETTABLEKS                       R6 R23 K6 ["WorldModel"]
+      650 SETTABLEKS                       R16 R23 K98 ["Dummy"]
+      652 NEWCLOSURE                       R24 P6
+      653 CAPTURE                          VAL R14
+      654 SETTABLEKS                       R24 R23 K112 ["UpdateHumanoidDescription"]
+      656 CALL                             R21 2 1
+      657 SETTABLEKS                       R21 R20 K114 ["InitialImport"]
+      659 GETUPVAL                         R21 20
+      660 GETTABLEKS                       R21 R21 K115 ["EDITING_TOOLS_GUI_NAMES"]
+      662 GETTABLEKS                       R21 R21 K116 ["EditingToolbar"]
+      664 GETUPVAL                         R22 12
+      665 CALL                             R22 0 1
+      666 JUMPIFNOT                        R22 ; [+10]
+      667 GETUPVAL                         R22 1
+      668 GETTABLEKS                       R22 R22 K26 ["createElement"]
+      670 GETUPVAL                         R23 33
+      671 DUPTABLE                         R24 K117 [{"avatar"}]
+      672 GETTABLEKS                       R25 R0 K5 ["Avatar"]
+      674 SETTABLEKS                       R25 R24 K31 ["avatar"]
+      676 CALL                             R22 2 1
+      677 SETTABLE                         R22 R20 R21
+      678 GETUPVAL                         R21 1
+      679 GETTABLEKS                       R21 R21 K26 ["createElement"]
+      681 GETUPVAL                         R22 34
+      682 DUPTABLE                         R23 K119 [{"providers"}]
+      683 NEWTABLE                         R24 0 3
+      685 GETUPVAL                         R25 1
+      686 GETTABLEKS                       R25 R25 K26 ["createElement"]
+      688 GETUPVAL                         R26 35
+      689 GETTABLEKS                       R26 R26 K120 ["Provider"]
+      691 DUPTABLE                         R27 K124 [{"openPalette", "resetCamera", "stage", "selectedAvatar"}]
+      692 SETTABLEKS                       R12 R27 K121 ["openPalette"]
+      694 SETTABLEKS                       R18 R27 K122 ["resetCamera"]
+      696 SETTABLEKS                       R5 R27 K4 ["stage"]
+      698 SETTABLEKS                       R6 R27 K123 ["selectedAvatar"]
+      700 CALL                             R25 2 1
+      701 GETUPVAL                         R26 1
+      702 GETTABLEKS                       R26 R26 K26 ["createElement"]
+      704 GETUPVAL                         R27 36
+      705 GETTABLEKS                       R27 R27 K120 ["Provider"]
+      707 CALL                             R26 1 1
+      708 GETUPVAL                         R28 12
+      709 CALL                             R28 0 1
+      710 JUMPIFNOT                        R28 ; [+8]
+      711 GETUPVAL                         R27 1
+      712 GETTABLEKS                       R27 R27 K26 ["createElement"]
+      714 GETUPVAL                         R28 37
+      715 GETTABLEKS                       R28 R28 K120 ["Provider"]
+      717 CALL                             R27 1 1
+      718 JUMP                             ; [+1]
+      719 LOADNIL                          R27
+      720 SETLIST                          R24 R25 3 [1]
+      722 SETTABLEKS                       R24 R23 K118 ["providers"]
+      724 MOVE                             R24 R20
+      725 CALL                             R21 3 -1
+      726 RETURN                           R21 -1
 
 MAIN:
         0 PREPVARARGS                      0

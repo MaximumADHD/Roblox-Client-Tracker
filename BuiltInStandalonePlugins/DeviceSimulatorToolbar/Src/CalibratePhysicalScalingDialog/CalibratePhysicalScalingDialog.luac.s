@@ -456,142 +456,140 @@ PROTO_7:
        44 LOADK                            R12 K23 ["Calibration"]
        45 LOADK                            R13 K24 ["Description"]
        46 DUPTABLE                         R14 K27 [{"metricWidth", "imperialWidth"}]
-       47 LOADK                            R16 K28 ["%* cm"]
-       48 GETUPVAL                         R24 2
-       49 GETTABLEKS                       R24 R24 K31 ["CARD_WIDTH_INCHES"]
-       51 MULK                             R23 R24 K30 [2.54]
-       52 MULK                             R22 R23 K29 [100]
-       53 FASTCALL1                        MATH_ROUND R22 ; [+2]
-       54 GETIMPORT                        R21 K34 [math.round]
-       56 CALL                             R21 1 1
-       57 DIVK                             R20 R21 K29 [100]
-       58 NAMECALL                         R18 R1 K35 ["localizeNumber"]
-       60 CALL                             R18 2 1
-       61 NAMECALL                         R16 R16 K36 ["format"]
-       63 CALL                             R16 2 1
-       64 MOVE                             R15 R16
-       65 SETTABLEKS                       R15 R14 K25 ["metricWidth"]
-       67 LOADK                            R16 K37 ["%* in"]
-       68 GETUPVAL                         R20 2
-       69 GETTABLEKS                       R20 R20 K31 ["CARD_WIDTH_INCHES"]
-       71 NAMECALL                         R18 R1 K35 ["localizeNumber"]
-       73 CALL                             R18 2 1
-       74 NAMECALL                         R16 R16 K36 ["format"]
-       76 CALL                             R16 2 1
-       77 MOVE                             R15 R16
-       78 SETTABLEKS                       R15 R14 K26 ["imperialWidth"]
-       80 NAMECALL                         R10 R1 K22 ["getText"]
-       82 CALL                             R10 4 1
-       83 SETTABLEKS                       R10 R9 K11 ["description"]
-       85 DUPTABLE                         R10 K40 [{"uri", "text", "onActivated"}]
-       86 GETUPVAL                         R11 7
-       87 GETTABLEKS                       R11 R11 K41 ["child"]
-       89 GETUPVAL                         R12 6
-       90 LOADK                            R13 K42 ["Accept"]
-       91 CALL                             R11 2 1
-       92 SETTABLEKS                       R11 R10 K8 ["uri"]
-       94 LOADK                            R13 K23 ["Calibration"]
-       95 LOADK                            R14 K42 ["Accept"]
-       96 NAMECALL                         R11 R1 K22 ["getText"]
-       98 CALL                             R11 3 1
-       99 SETTABLEKS                       R11 R10 K38 ["text"]
-      101 NEWCLOSURE                       R11 P1
-      102 CAPTURE                          VAL R0
-      103 CAPTURE                          VAL R3
-      104 SETTABLEKS                       R11 R10 K39 ["onActivated"]
-      106 SETTABLEKS                       R10 R9 K16 ["primaryAction"]
-      108 DUPTABLE                         R10 K40 [{"uri", "text", "onActivated"}]
-      109 GETUPVAL                         R11 7
-      110 GETTABLEKS                       R11 R11 K41 ["child"]
-      112 GETUPVAL                         R12 6
-      113 LOADK                            R13 K43 ["Cancel"]
-      114 CALL                             R11 2 1
-      115 SETTABLEKS                       R11 R10 K8 ["uri"]
-      117 LOADK                            R13 K44 ["Common"]
-      118 LOADK                            R14 K43 ["Cancel"]
-      119 NAMECALL                         R11 R1 K22 ["getText"]
-      121 CALL                             R11 3 1
-      122 SETTABLEKS                       R11 R10 K38 ["text"]
-      124 SETTABLEKS                       R6 R10 K39 ["onActivated"]
-      126 SETTABLEKS                       R10 R9 K17 ["secondaryAction"]
-      128 DUPTABLE                         R10 K46 [{"uri", "onClose"}]
-      129 GETUPVAL                         R11 7
-      130 GETTABLEKS                       R11 R11 K41 ["child"]
-      132 GETUPVAL                         R12 6
-      133 LOADK                            R13 K47 ["Close"]
-      134 CALL                             R11 2 1
-      135 SETTABLEKS                       R11 R10 K8 ["uri"]
-      137 SETTABLEKS                       R6 R10 K45 ["onClose"]
-      139 SETTABLEKS                       R10 R9 K18 ["escapeAction"]
-      141 DUPTABLE                         R10 K49 [{"Body"}]
-      142 GETUPVAL                         R11 4
-      143 GETUPVAL                         R12 8
-      144 DUPTABLE                         R13 K54 [{["tag"] = "col gap-none size-full-0 auto-y", ["testId"] = "calibration-body"}]
-      145 DUPTABLE                         R14 K57 [{"Preview", "SliderBand"}]
-      146 GETUPVAL                         R15 4
-      147 GETUPVAL                         R16 9
-      148 DUPTABLE                         R17 K59 [{"dpi"}]
-      149 SETTABLEKS                       R3 R17 K58 ["dpi"]
-      151 CALL                             R15 2 1
-      152 SETTABLEKS                       R15 R14 K55 ["Preview"]
-      154 GETUPVAL                         R15 4
-      155 GETUPVAL                         R16 8
-      156 DUPTABLE                         R17 K65 [{["LayoutOrder"] = 2, ["Size"], ["backgroundStyle"], ["testId"] = "slider-band"}]
-      157 GETIMPORT                        R18 K68 [UDim2.new]
-      159 LOADN                            R19 1
-      160 LOADN                            R20 0
-      161 LOADN                            R21 0
-      162 LOADN                            R22 88
-      163 CALL                             R18 4 1
-      164 SETTABLEKS                       R18 R17 K62 ["Size"]
-      166 GETTABLEKS                       R18 R5 K69 ["Color"]
-      168 GETTABLEKS                       R18 R18 K70 ["Surface"]
-      170 GETTABLEKS                       R18 R18 K71 ["Surface_300"]
-      172 SETTABLEKS                       R18 R17 K63 ["backgroundStyle"]
-      174 DUPTABLE                         R18 K73 [{"Slider"}]
-      175 GETUPVAL                         R19 4
-      176 GETUPVAL                         R20 10
-      177 DUPTABLE                         R21 K83 [{["AnchorPoint"], ["Position"], ["value"], ["range"], ["step"] = 1, ["width"], ["knobVisibility"], ["onValueChanged"], ["testId"] = "dpi-slider"}]
-      178 GETIMPORT                        R22 K85 [Vector2.new]
-      180 LOADK                            R23 K86 [0.5]
-      181 LOADK                            R24 K86 [0.5]
-      182 CALL                             R22 2 1
-      183 SETTABLEKS                       R22 R21 K74 ["AnchorPoint"]
-      185 GETIMPORT                        R22 K88 [UDim2.fromScale]
-      187 LOADK                            R23 K86 [0.5]
-      188 LOADK                            R24 K86 [0.5]
-      189 CALL                             R22 2 1
-      190 SETTABLEKS                       R22 R21 K75 ["Position"]
-      192 SETTABLEKS                       R3 R21 K76 ["value"]
-      194 GETIMPORT                        R22 K90 [NumberRange.new]
-      196 GETUPVAL                         R23 2
-      197 GETTABLEKS                       R23 R23 K91 ["MIN_DPI"]
-      199 GETUPVAL                         R24 2
-      200 GETTABLEKS                       R24 R24 K92 ["MAX_DPI"]
-      202 CALL                             R22 2 1
-      203 SETTABLEKS                       R22 R21 K77 ["range"]
-      205 GETIMPORT                        R22 K94 [UDim.new]
-      207 LOADN                            R23 0
-      208 LOADN                            R24 500
-      209 CALL                             R22 2 1
-      210 SETTABLEKS                       R22 R21 K14 ["width"]
-      212 GETUPVAL                         R22 3
-      213 GETTABLEKS                       R22 R22 K95 ["Enums"]
-      215 GETTABLEKS                       R22 R22 K96 ["Visibility"]
-      217 GETTABLEKS                       R22 R22 K97 ["Always"]
-      219 SETTABLEKS                       R22 R21 K80 ["knobVisibility"]
-      221 NEWCLOSURE                       R22 P2
-      222 CAPTURE                          VAL R4
-      223 CAPTURE                          UPVAL U2
-      224 SETTABLEKS                       R22 R21 K81 ["onValueChanged"]
-      226 CALL                             R19 2 1
-      227 SETTABLEKS                       R19 R18 K72 ["Slider"]
-      229 CALL                             R15 3 1
-      230 SETTABLEKS                       R15 R14 K56 ["SliderBand"]
-      232 CALL                             R11 3 1
-      233 SETTABLEKS                       R11 R10 K48 ["Body"]
-      235 CALL                             R7 3 -1
-      236 RETURN                           R7 -1
+       47 LOADK                            R15 K28 ["%* cm"]
+       48 GETUPVAL                         R23 2
+       49 GETTABLEKS                       R23 R23 K31 ["CARD_WIDTH_INCHES"]
+       51 MULK                             R22 R23 K30 [2.54]
+       52 MULK                             R21 R22 K29 [100]
+       53 FASTCALL1                        MATH_ROUND R21 ; [+2]
+       54 GETIMPORT                        R20 K34 [math.round]
+       56 CALL                             R20 1 1
+       57 DIVK                             R19 R20 K29 [100]
+       58 NAMECALL                         R17 R1 K35 ["localizeNumber"]
+       60 CALL                             R17 2 1
+       61 NAMECALL                         R15 R15 K36 ["format"]
+       63 CALL                             R15 2 1
+       64 SETTABLEKS                       R15 R14 K25 ["metricWidth"]
+       66 LOADK                            R15 K37 ["%* in"]
+       67 GETUPVAL                         R19 2
+       68 GETTABLEKS                       R19 R19 K31 ["CARD_WIDTH_INCHES"]
+       70 NAMECALL                         R17 R1 K35 ["localizeNumber"]
+       72 CALL                             R17 2 1
+       73 NAMECALL                         R15 R15 K36 ["format"]
+       75 CALL                             R15 2 1
+       76 SETTABLEKS                       R15 R14 K26 ["imperialWidth"]
+       78 NAMECALL                         R10 R1 K22 ["getText"]
+       80 CALL                             R10 4 1
+       81 SETTABLEKS                       R10 R9 K11 ["description"]
+       83 DUPTABLE                         R10 K40 [{"uri", "text", "onActivated"}]
+       84 GETUPVAL                         R11 7
+       85 GETTABLEKS                       R11 R11 K41 ["child"]
+       87 GETUPVAL                         R12 6
+       88 LOADK                            R13 K42 ["Accept"]
+       89 CALL                             R11 2 1
+       90 SETTABLEKS                       R11 R10 K8 ["uri"]
+       92 LOADK                            R13 K23 ["Calibration"]
+       93 LOADK                            R14 K42 ["Accept"]
+       94 NAMECALL                         R11 R1 K22 ["getText"]
+       96 CALL                             R11 3 1
+       97 SETTABLEKS                       R11 R10 K38 ["text"]
+       99 NEWCLOSURE                       R11 P1
+      100 CAPTURE                          VAL R0
+      101 CAPTURE                          VAL R3
+      102 SETTABLEKS                       R11 R10 K39 ["onActivated"]
+      104 SETTABLEKS                       R10 R9 K16 ["primaryAction"]
+      106 DUPTABLE                         R10 K40 [{"uri", "text", "onActivated"}]
+      107 GETUPVAL                         R11 7
+      108 GETTABLEKS                       R11 R11 K41 ["child"]
+      110 GETUPVAL                         R12 6
+      111 LOADK                            R13 K43 ["Cancel"]
+      112 CALL                             R11 2 1
+      113 SETTABLEKS                       R11 R10 K8 ["uri"]
+      115 LOADK                            R13 K44 ["Common"]
+      116 LOADK                            R14 K43 ["Cancel"]
+      117 NAMECALL                         R11 R1 K22 ["getText"]
+      119 CALL                             R11 3 1
+      120 SETTABLEKS                       R11 R10 K38 ["text"]
+      122 SETTABLEKS                       R6 R10 K39 ["onActivated"]
+      124 SETTABLEKS                       R10 R9 K17 ["secondaryAction"]
+      126 DUPTABLE                         R10 K46 [{"uri", "onClose"}]
+      127 GETUPVAL                         R11 7
+      128 GETTABLEKS                       R11 R11 K41 ["child"]
+      130 GETUPVAL                         R12 6
+      131 LOADK                            R13 K47 ["Close"]
+      132 CALL                             R11 2 1
+      133 SETTABLEKS                       R11 R10 K8 ["uri"]
+      135 SETTABLEKS                       R6 R10 K45 ["onClose"]
+      137 SETTABLEKS                       R10 R9 K18 ["escapeAction"]
+      139 DUPTABLE                         R10 K49 [{"Body"}]
+      140 GETUPVAL                         R11 4
+      141 GETUPVAL                         R12 8
+      142 DUPTABLE                         R13 K54 [{["tag"] = "col gap-none size-full-0 auto-y", ["testId"] = "calibration-body"}]
+      143 DUPTABLE                         R14 K57 [{"Preview", "SliderBand"}]
+      144 GETUPVAL                         R15 4
+      145 GETUPVAL                         R16 9
+      146 DUPTABLE                         R17 K59 [{"dpi"}]
+      147 SETTABLEKS                       R3 R17 K58 ["dpi"]
+      149 CALL                             R15 2 1
+      150 SETTABLEKS                       R15 R14 K55 ["Preview"]
+      152 GETUPVAL                         R15 4
+      153 GETUPVAL                         R16 8
+      154 DUPTABLE                         R17 K65 [{["LayoutOrder"] = 2, ["Size"], ["backgroundStyle"], ["testId"] = "slider-band"}]
+      155 GETIMPORT                        R18 K68 [UDim2.new]
+      157 LOADN                            R19 1
+      158 LOADN                            R20 0
+      159 LOADN                            R21 0
+      160 LOADN                            R22 88
+      161 CALL                             R18 4 1
+      162 SETTABLEKS                       R18 R17 K62 ["Size"]
+      164 GETTABLEKS                       R18 R5 K69 ["Color"]
+      166 GETTABLEKS                       R18 R18 K70 ["Surface"]
+      168 GETTABLEKS                       R18 R18 K71 ["Surface_300"]
+      170 SETTABLEKS                       R18 R17 K63 ["backgroundStyle"]
+      172 DUPTABLE                         R18 K73 [{"Slider"}]
+      173 GETUPVAL                         R19 4
+      174 GETUPVAL                         R20 10
+      175 DUPTABLE                         R21 K83 [{["AnchorPoint"], ["Position"], ["value"], ["range"], ["step"] = 1, ["width"], ["knobVisibility"], ["onValueChanged"], ["testId"] = "dpi-slider"}]
+      176 GETIMPORT                        R22 K85 [Vector2.new]
+      178 LOADK                            R23 K86 [0.5]
+      179 LOADK                            R24 K86 [0.5]
+      180 CALL                             R22 2 1
+      181 SETTABLEKS                       R22 R21 K74 ["AnchorPoint"]
+      183 GETIMPORT                        R22 K88 [UDim2.fromScale]
+      185 LOADK                            R23 K86 [0.5]
+      186 LOADK                            R24 K86 [0.5]
+      187 CALL                             R22 2 1
+      188 SETTABLEKS                       R22 R21 K75 ["Position"]
+      190 SETTABLEKS                       R3 R21 K76 ["value"]
+      192 GETIMPORT                        R22 K90 [NumberRange.new]
+      194 GETUPVAL                         R23 2
+      195 GETTABLEKS                       R23 R23 K91 ["MIN_DPI"]
+      197 GETUPVAL                         R24 2
+      198 GETTABLEKS                       R24 R24 K92 ["MAX_DPI"]
+      200 CALL                             R22 2 1
+      201 SETTABLEKS                       R22 R21 K77 ["range"]
+      203 GETIMPORT                        R22 K94 [UDim.new]
+      205 LOADN                            R23 0
+      206 LOADN                            R24 500
+      207 CALL                             R22 2 1
+      208 SETTABLEKS                       R22 R21 K14 ["width"]
+      210 GETUPVAL                         R22 3
+      211 GETTABLEKS                       R22 R22 K95 ["Enums"]
+      213 GETTABLEKS                       R22 R22 K96 ["Visibility"]
+      215 GETTABLEKS                       R22 R22 K97 ["Always"]
+      217 SETTABLEKS                       R22 R21 K80 ["knobVisibility"]
+      219 NEWCLOSURE                       R22 P2
+      220 CAPTURE                          VAL R4
+      221 CAPTURE                          UPVAL U2
+      222 SETTABLEKS                       R22 R21 K81 ["onValueChanged"]
+      224 CALL                             R19 2 1
+      225 SETTABLEKS                       R19 R18 K72 ["Slider"]
+      227 CALL                             R15 3 1
+      228 SETTABLEKS                       R15 R14 K56 ["SliderBand"]
+      230 CALL                             R11 3 1
+      231 SETTABLEKS                       R11 R10 K48 ["Body"]
+      233 CALL                             R7 3 -1
+      234 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

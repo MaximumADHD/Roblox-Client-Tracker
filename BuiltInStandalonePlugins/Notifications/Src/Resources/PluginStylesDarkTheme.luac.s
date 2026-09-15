@@ -24,21 +24,19 @@ MAIN:
        38 MOVE                             R6 R3
        39 CALL                             R5 1 3
        40 FORGPREP_INEXT                   R5
-       41 LOADK                            R11 K28 ["%*Icon"]
-       42 MOVE                             R13 R9
-       43 NAMECALL                         R11 R11 K29 ["format"]
-       45 CALL                             R11 2 1
-       46 MOVE                             R10 R11
-       47 LOADK                            R12 K30 ["rbxasset://studio_svg_textures/Lua/Notifications/Dark/Large/%*.png"]
-       48 MOVE                             R14 R9
-       49 NAMECALL                         R12 R12 K29 ["format"]
-       51 CALL                             R12 2 1
-       52 MOVE                             R11 R12
-       53 SETTABLE                         R11 R4 R10
-       54 FORGLOOP                         R5 2 [inext] ; [-14]
-       56 MOVE                             R5 R2
-       57 LOADK                            R6 K31 ["NotificationsPluginDarkTheme"]
-       58 NEWTABLE                         R7 0 0
-       60 MOVE                             R8 R4
-       61 CALL                             R5 3 -1
-       62 RETURN                           R5 -1
+       41 LOADK                            R10 K28 ["%*Icon"]
+       42 MOVE                             R12 R9
+       43 NAMECALL                         R10 R10 K29 ["format"]
+       45 CALL                             R10 2 1
+       46 LOADK                            R11 K30 ["rbxasset://studio_svg_textures/Lua/Notifications/Dark/Large/%*.png"]
+       47 MOVE                             R13 R9
+       48 NAMECALL                         R11 R11 K29 ["format"]
+       50 CALL                             R11 2 1
+       51 SETTABLE                         R11 R4 R10
+       52 FORGLOOP                         R5 2 [inext] ; [-12]
+       54 MOVE                             R5 R2
+       55 LOADK                            R6 K31 ["NotificationsPluginDarkTheme"]
+       56 NEWTABLE                         R7 0 0
+       58 MOVE                             R8 R4
+       59 CALL                             R5 3 -1
+       60 RETURN                           R5 -1

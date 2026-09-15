@@ -1,18 +1,16 @@
 PROTO_0:
-        0 LOADK                            R2 K0 ["rbxthumb://type=GameIcon&id=%*&w=50&h=50"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["rbxthumb://type=GameIcon&id=%*&w=50&h=50"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_1:
-        0 LOADK                            R2 K0 ["rbxthumb://type=AvatarHeadShot&id=%*&w=48&h=48"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["rbxthumb://type=AvatarHeadShot&id=%*&w=48&h=48"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_2:
         0 GETUPVAL                         R3 0
@@ -70,28 +68,27 @@ MAIN:
        31 MOVE                             R5 R2
        32 CALL                             R4 1 3
        33 FORGPREP_INEXT                   R4
-       34 LOADK                            R10 K12 ["Plugin-Icon-%*"]
-       35 MOVE                             R12 R8
-       36 NAMECALL                         R10 R10 K13 ["format"]
-       38 CALL                             R10 2 1
-       39 MOVE                             R9 R10
-       40 SETTABLE                         R9 R3 R8
-       41 FORGLOOP                         R4 2 [inext] ; [-8]
-       43 NEWTABLE                         R4 2 0
-       45 GETTABLEKS                       R5 R1 K14 ["Universe"]
-       47 DUPCLOSURE                       R6 K15 [PROTO_0]
-       48 SETTABLE                         R6 R4 R5
-       49 GETTABLEKS                       R5 R1 K16 ["User"]
-       51 DUPCLOSURE                       R6 K17 [PROTO_1]
-       52 SETTABLE                         R6 R4 R5
-       53 DUPCLOSURE                       R5 K18 [PROTO_2]
-       54 CAPTURE                          VAL R4
-       55 DUPCLOSURE                       R6 K19 [PROTO_3]
-       56 DUPCLOSURE                       R7 K20 [PROTO_4]
-       57 CAPTURE                          VAL R1
-       58 CAPTURE                          VAL R3
-       59 DUPTABLE                         R8 K24 [{"getDynamicIconPath", "getReadStatusIconTag", "getStaticIconTag"}]
-       60 SETTABLEKS                       R5 R8 K21 ["getDynamicIconPath"]
-       62 SETTABLEKS                       R6 R8 K22 ["getReadStatusIconTag"]
-       64 SETTABLEKS                       R7 R8 K23 ["getStaticIconTag"]
-       66 RETURN                           R8 1
+       34 LOADK                            R9 K12 ["Plugin-Icon-%*"]
+       35 MOVE                             R11 R8
+       36 NAMECALL                         R9 R9 K13 ["format"]
+       38 CALL                             R9 2 1
+       39 SETTABLE                         R9 R3 R8
+       40 FORGLOOP                         R4 2 [inext] ; [-7]
+       42 NEWTABLE                         R4 2 0
+       44 GETTABLEKS                       R5 R1 K14 ["Universe"]
+       46 DUPCLOSURE                       R6 K15 [PROTO_0]
+       47 SETTABLE                         R6 R4 R5
+       48 GETTABLEKS                       R5 R1 K16 ["User"]
+       50 DUPCLOSURE                       R6 K17 [PROTO_1]
+       51 SETTABLE                         R6 R4 R5
+       52 DUPCLOSURE                       R5 K18 [PROTO_2]
+       53 CAPTURE                          VAL R4
+       54 DUPCLOSURE                       R6 K19 [PROTO_3]
+       55 DUPCLOSURE                       R7 K20 [PROTO_4]
+       56 CAPTURE                          VAL R1
+       57 CAPTURE                          VAL R3
+       58 DUPTABLE                         R8 K24 [{"getDynamicIconPath", "getReadStatusIconTag", "getStaticIconTag"}]
+       59 SETTABLEKS                       R5 R8 K21 ["getDynamicIconPath"]
+       61 SETTABLEKS                       R6 R8 K22 ["getReadStatusIconTag"]
+       63 SETTABLEKS                       R7 R8 K23 ["getStaticIconTag"]
+       65 RETURN                           R8 1

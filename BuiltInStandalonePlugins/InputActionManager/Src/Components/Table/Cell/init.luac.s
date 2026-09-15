@@ -232,42 +232,41 @@ PROTO_4:
       309 DUPTABLE                         R20 K55 [{["LayoutOrder"], ["tag"] = "columns-input col align-y-center size-0-full", ["testId"]}]
       310 GETTABLEKS                       R21 R0 K51 ["LayoutOrder"]
       312 SETTABLEKS                       R21 R20 K51 ["LayoutOrder"]
-      314 LOADK                            R22 K56 ["%*-%*-cell"]
-      315 GETTABLEKS                       R24 R0 K0 ["property"]
-      317 GETTABLEKS                       R25 R0 K8 ["schema"]
-      319 NAMECALL                         R22 R22 K57 ["format"]
-      321 CALL                             R22 3 1
-      322 MOVE                             R21 R22
-      323 SETTABLEKS                       R21 R20 K54 ["testId"]
-      325 DUPTABLE                         R21 K60 [{"Container", "Divider"}]
-      326 GETUPVAL                         R22 10
-      327 GETTABLEKS                       R22 R22 K20 ["createElement"]
-      329 GETUPVAL                         R23 13
-      330 DUPTABLE                         R24 K62 [{["LayoutOrder"], ["tag"] = "row align-y-center size-full-full"}]
-      331 MOVE                             R25 R3
-      332 CALL                             R25 0 1
-      333 SETTABLEKS                       R25 R24 K51 ["LayoutOrder"]
-      335 DUPTABLE                         R25 K64 [{"Content"}]
-      336 LOADB                            R26 0
-      337 JUMPIFEQKNIL                     R2 ; [+2]
-      339 MOVE                             R26 R17
-      340 SETTABLEKS                       R26 R25 K63 ["Content"]
-      342 CALL                             R22 3 1
-      343 SETTABLEKS                       R22 R21 K58 ["Container"]
-      345 GETUPVAL                         R22 10
-      346 GETTABLEKS                       R22 R22 K20 ["createElement"]
-      348 GETUPVAL                         R23 14
-      349 DUPTABLE                         R24 K67 [{["LayoutOrder"], ["orientation"], ["tag"] = "auto-y"}]
-      350 MOVE                             R25 R3
-      351 CALL                             R25 0 1
-      352 SETTABLEKS                       R25 R24 K51 ["LayoutOrder"]
-      354 GETUPVAL                         R25 15
-      355 GETTABLEKS                       R25 R25 K68 ["Horizontal"]
-      357 SETTABLEKS                       R25 R24 K65 ["orientation"]
-      359 CALL                             R22 2 1
-      360 SETTABLEKS                       R22 R21 K59 ["Divider"]
-      362 CALL                             R18 3 -1
-      363 RETURN                           R18 -1
+      314 LOADK                            R21 K56 ["%*-%*-cell"]
+      315 GETTABLEKS                       R23 R0 K0 ["property"]
+      317 GETTABLEKS                       R24 R0 K8 ["schema"]
+      319 NAMECALL                         R21 R21 K57 ["format"]
+      321 CALL                             R21 3 1
+      322 SETTABLEKS                       R21 R20 K54 ["testId"]
+      324 DUPTABLE                         R21 K60 [{"Container", "Divider"}]
+      325 GETUPVAL                         R22 10
+      326 GETTABLEKS                       R22 R22 K20 ["createElement"]
+      328 GETUPVAL                         R23 13
+      329 DUPTABLE                         R24 K62 [{["LayoutOrder"], ["tag"] = "row align-y-center size-full-full"}]
+      330 MOVE                             R25 R3
+      331 CALL                             R25 0 1
+      332 SETTABLEKS                       R25 R24 K51 ["LayoutOrder"]
+      334 DUPTABLE                         R25 K64 [{"Content"}]
+      335 LOADB                            R26 0
+      336 JUMPIFEQKNIL                     R2 ; [+2]
+      338 MOVE                             R26 R17
+      339 SETTABLEKS                       R26 R25 K63 ["Content"]
+      341 CALL                             R22 3 1
+      342 SETTABLEKS                       R22 R21 K58 ["Container"]
+      344 GETUPVAL                         R22 10
+      345 GETTABLEKS                       R22 R22 K20 ["createElement"]
+      347 GETUPVAL                         R23 14
+      348 DUPTABLE                         R24 K67 [{["LayoutOrder"], ["orientation"], ["tag"] = "auto-y"}]
+      349 MOVE                             R25 R3
+      350 CALL                             R25 0 1
+      351 SETTABLEKS                       R25 R24 K51 ["LayoutOrder"]
+      353 GETUPVAL                         R25 15
+      354 GETTABLEKS                       R25 R25 K68 ["Horizontal"]
+      356 SETTABLEKS                       R25 R24 K65 ["orientation"]
+      358 CALL                             R22 2 1
+      359 SETTABLEKS                       R22 R21 K59 ["Divider"]
+      361 CALL                             R18 3 -1
+      362 RETURN                           R18 -1
 
 MAIN:
         0 PREPVARARGS                      0

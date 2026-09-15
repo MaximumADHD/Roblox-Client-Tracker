@@ -3,67 +3,63 @@ PROTO_0:
         1 MOVE                             R2 R0
         2 GETIMPORT                        R1 K1 [typeof]
         4 CALL                             R1 1 1
-        5 JUMPIFEQKS                       R1 K2 ["table"] ; [+12]
-        7 LOADK                            R2 K3 ["Expected table, got %*"]
+        5 JUMPIFEQKS                       R1 K2 ["table"] ; [+11]
+        7 LOADK                            R1 K3 ["Expected table, got %*"]
         8 FASTCALL1                        TYPEOF R0 ; [+3]
-        9 MOVE                             R5 R0
-       10 GETIMPORT                        R4 K1 [typeof]
-       12 CALL                             R4 1 1
-       13 NAMECALL                         R2 R2 K4 ["format"]
-       15 CALL                             R2 2 1
-       16 MOVE                             R1 R2
-       17 RETURN                           R1 1
-       18 GETTABLEKS                       R1 R0 K5 ["id"]
-       20 JUMPIFNOT                        R1 ; [+20]
-       21 GETTABLEKS                       R2 R0 K5 ["id"]
-       23 FASTCALL1                        TYPEOF R2 ; [+2]
-       24 GETIMPORT                        R1 K1 [typeof]
-       26 CALL                             R1 1 1
-       27 JUMPIFEQKS                       R1 K6 ["number"] ; [+13]
-       29 LOADK                            R2 K7 ["\"id\" > Expected number, got %*"]
-       30 GETTABLEKS                       R5 R0 K5 ["id"]
-       32 FASTCALL1                        TYPEOF R5 ; [+2]
-       33 GETIMPORT                        R4 K1 [typeof]
-       35 CALL                             R4 1 1
-       36 NAMECALL                         R2 R2 K4 ["format"]
-       38 CALL                             R2 2 1
-       39 MOVE                             R1 R2
-       40 RETURN                           R1 1
-       41 GETTABLEKS                       R1 R0 K8 ["activeUsers"]
-       43 JUMPIFNOT                        R1 ; [+38]
-       44 FASTCALL1                        TYPEOF R1 ; [+3]
-       45 MOVE                             R3 R1
-       46 GETIMPORT                        R2 K1 [typeof]
-       48 CALL                             R2 1 1
-       49 JUMPIFEQKS                       R2 K2 ["table"] ; [+12]
-       51 LOADK                            R3 K9 ["\"activeUsers\" > Expected table, got %*"]
-       52 FASTCALL1                        TYPEOF R1 ; [+3]
-       53 MOVE                             R6 R1
-       54 GETIMPORT                        R5 K1 [typeof]
-       56 CALL                             R5 1 1
-       57 NAMECALL                         R3 R3 K4 ["format"]
-       59 CALL                             R3 2 1
-       60 MOVE                             R2 R3
-       61 RETURN                           R2 1
-       62 MOVE                             R2 R1
-       63 LOADNIL                          R3
-       64 LOADNIL                          R4
-       65 FORGPREP                         R2
-       66 GETUPVAL                         R7 0
-       67 GETTABLEKS                       R7 R7 K10 ["validate"]
-       69 MOVE                             R8 R6
-       70 CALL                             R7 1 1
-       71 JUMPIFNOT                        R7 ; [+8]
-       72 LOADK                            R9 K11 ["\"activeUsers\" > [%*] > %*"]
-       73 MOVE                             R11 R5
-       74 MOVE                             R12 R7
-       75 NAMECALL                         R9 R9 K4 ["format"]
-       77 CALL                             R9 3 1
-       78 MOVE                             R8 R9
-       79 RETURN                           R8 1
-       80 FORGLOOP                         R2 2 ; [-15]
-       82 LOADNIL                          R2
-       83 RETURN                           R2 1
+        9 MOVE                             R4 R0
+       10 GETIMPORT                        R3 K1 [typeof]
+       12 CALL                             R3 1 1
+       13 NAMECALL                         R1 R1 K4 ["format"]
+       15 CALL                             R1 2 1
+       16 RETURN                           R1 1
+       17 GETTABLEKS                       R1 R0 K5 ["id"]
+       19 JUMPIFNOT                        R1 ; [+19]
+       20 GETTABLEKS                       R2 R0 K5 ["id"]
+       22 FASTCALL1                        TYPEOF R2 ; [+2]
+       23 GETIMPORT                        R1 K1 [typeof]
+       25 CALL                             R1 1 1
+       26 JUMPIFEQKS                       R1 K6 ["number"] ; [+12]
+       28 LOADK                            R1 K7 ["\"id\" > Expected number, got %*"]
+       29 GETTABLEKS                       R4 R0 K5 ["id"]
+       31 FASTCALL1                        TYPEOF R4 ; [+2]
+       32 GETIMPORT                        R3 K1 [typeof]
+       34 CALL                             R3 1 1
+       35 NAMECALL                         R1 R1 K4 ["format"]
+       37 CALL                             R1 2 1
+       38 RETURN                           R1 1
+       39 GETTABLEKS                       R1 R0 K8 ["activeUsers"]
+       41 JUMPIFNOT                        R1 ; [+36]
+       42 FASTCALL1                        TYPEOF R1 ; [+3]
+       43 MOVE                             R3 R1
+       44 GETIMPORT                        R2 K1 [typeof]
+       46 CALL                             R2 1 1
+       47 JUMPIFEQKS                       R2 K2 ["table"] ; [+11]
+       49 LOADK                            R2 K9 ["\"activeUsers\" > Expected table, got %*"]
+       50 FASTCALL1                        TYPEOF R1 ; [+3]
+       51 MOVE                             R5 R1
+       52 GETIMPORT                        R4 K1 [typeof]
+       54 CALL                             R4 1 1
+       55 NAMECALL                         R2 R2 K4 ["format"]
+       57 CALL                             R2 2 1
+       58 RETURN                           R2 1
+       59 MOVE                             R2 R1
+       60 LOADNIL                          R3
+       61 LOADNIL                          R4
+       62 FORGPREP                         R2
+       63 GETUPVAL                         R7 0
+       64 GETTABLEKS                       R7 R7 K10 ["validate"]
+       66 MOVE                             R8 R6
+       67 CALL                             R7 1 1
+       68 JUMPIFNOT                        R7 ; [+7]
+       69 LOADK                            R8 K11 ["\"activeUsers\" > [%*] > %*"]
+       70 MOVE                             R10 R5
+       71 MOVE                             R11 R7
+       72 NAMECALL                         R8 R8 K4 ["format"]
+       74 CALL                             R8 3 1
+       75 RETURN                           R8 1
+       76 FORGLOOP                         R2 2 ; [-14]
+       78 LOADNIL                          R2
+       79 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

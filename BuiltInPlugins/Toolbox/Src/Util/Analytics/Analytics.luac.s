@@ -41,21 +41,20 @@ PROTO_5:
         1 RETURN                           R0 1
 
 PROTO_6:
-        0 JUMPIFNOT                        R0 ; [+15]
+        0 JUMPIFNOT                        R0 ; [+14]
         1 GETUPVAL                         R1 0
-        2 LOADK                            R3 K0 ["%*:%*:%*"]
-        3 GETTABLEKS                       R5 R0 K1 ["PluginId"]
-        5 GETTABLEKS                       R6 R0 K2 ["DataModel"]
-        7 GETTABLEKS                       R7 R0 K3 ["PluginType"]
-        9 NAMECALL                         R3 R3 K4 ["format"]
-       11 CALL                             R3 4 1
-       12 MOVE                             R2 R3
-       13 SETTABLEKS                       R2 R1 K5 ["pluginUri"]
-       15 RETURN                           R0 0
-       16 GETUPVAL                         R1 0
-       17 LOADK                            R2 K6 ["unknown"]
-       18 SETTABLEKS                       R2 R1 K5 ["pluginUri"]
-       20 RETURN                           R0 0
+        2 LOADK                            R2 K0 ["%*:%*:%*"]
+        3 GETTABLEKS                       R4 R0 K1 ["PluginId"]
+        5 GETTABLEKS                       R5 R0 K2 ["DataModel"]
+        7 GETTABLEKS                       R6 R0 K3 ["PluginType"]
+        9 NAMECALL                         R2 R2 K4 ["format"]
+       11 CALL                             R2 4 1
+       12 SETTABLEKS                       R2 R1 K5 ["pluginUri"]
+       14 RETURN                           R0 0
+       15 GETUPVAL                         R1 0
+       16 LOADK                            R2 K6 ["unknown"]
+       17 SETTABLEKS                       R2 R1 K5 ["pluginUri"]
+       19 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0

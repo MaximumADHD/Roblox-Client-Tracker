@@ -14,7 +14,20 @@ PROTO_0:
        15 SETTABLEKS                       R3 R2 K4 ["ZIndexBehavior"]
        17 GETUPVAL                         R2 2
        18 CALL                             R2 0 0
-       19 RETURN                           R1 1
+       19 GETUPVAL                         R2 3
+       20 GETTABLEKS                       R2 R2 K7 ["get"]
+       22 CALL                             R2 0 1
+       23 FASTCALL2K                       ASSERT R2 K8 ; [+5]
+       25 MOVE                             R4 R2
+       26 LOADK                            R5 K8 ["Networking should exist"]
+       27 GETIMPORT                        R3 K10 [assert]
+       29 CALL                             R3 2 0
+       30 LOADK                            R5 K11 ["RequestAsync"]
+       31 NAMECALL                         R3 R2 K12 ["FireHost"]
+       33 CALL                             R3 2 0
+       34 GETUPVAL                         R3 2
+       35 CALL                             R3 0 0
+       36 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -40,10 +53,18 @@ MAIN:
        35 GETTABLEKS                       R4 R4 K13 ["Setup"]
        37 GETTABLEKS                       R4 R4 K14 ["createApp"]
        39 CALL                             R3 1 1
-       40 GETTABLEKS                       R4 R1 K15 ["render"]
-       42 GETTABLEKS                       R5 R2 K16 ["awaitDeferAsync"]
-       44 DUPCLOSURE                       R6 K17 [PROTO_0]
-       45 CAPTURE                          VAL R4
-       46 CAPTURE                          VAL R3
-       47 CAPTURE                          VAL R5
-       48 RETURN                           R6 1
+       40 GETIMPORT                        R4 K5 [require]
+       42 GETTABLEKS                       R5 R0 K9 ["Src"]
+       44 GETTABLEKS                       R5 R5 K10 ["Util"]
+       46 GETTABLEKS                       R5 R5 K11 ["Test"]
+       48 GETTABLEKS                       R5 R5 K15 ["Mock"]
+       50 GETTABLEKS                       R5 R5 K16 ["mockNetworking"]
+       52 CALL                             R4 1 1
+       53 GETTABLEKS                       R5 R1 K17 ["render"]
+       55 GETTABLEKS                       R6 R2 K18 ["awaitDeferAsync"]
+       57 DUPCLOSURE                       R7 K19 [PROTO_0]
+       58 CAPTURE                          VAL R5
+       59 CAPTURE                          VAL R3
+       60 CAPTURE                          VAL R6
+       61 CAPTURE                          VAL R4
+       62 RETURN                           R7 1

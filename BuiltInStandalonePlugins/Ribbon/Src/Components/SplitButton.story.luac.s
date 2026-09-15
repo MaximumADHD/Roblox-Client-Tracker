@@ -55,39 +55,38 @@ PROTO_4:
        15 CALL                             R6 1 1
        16 CONCAT                           R4 R5 R6
        17 CALL                             R2 2 1
-       18 LOADK                            R4 K6 ["SplitButton $%*"]
-       19 MOVE                             R6 R0
-       20 NAMECALL                         R4 R4 K7 ["format"]
-       22 CALL                             R4 2 1
-       23 MOVE                             R3 R4
-       24 GETUPVAL                         R4 2
-       25 GETUPVAL                         R5 3
-       26 GETUPVAL                         R6 4
-       27 DUPTABLE                         R7 K17 [{["LayoutOrder"], ["Uri"], ["OnSelect"], ["OnSelectArrow"], ["ShowContextMenu"], ["Visible"] = True, ["EnabledChildren"] = True, ["MenuData"]}]
-       28 GETUPVAL                         R8 5
-       29 CALL                             R8 0 1
-       30 SETTABLEKS                       R8 R7 K8 ["LayoutOrder"]
-       32 SETTABLEKS                       R2 R7 K9 ["Uri"]
-       34 NEWCLOSURE                       R8 P0
-       35 CAPTURE                          UPVAL U6
-       36 CAPTURE                          UPVAL U7
-       37 SETTABLEKS                       R8 R7 K10 ["OnSelect"]
-       39 NEWCLOSURE                       R8 P1
-       40 CAPTURE                          UPVAL U6
-       41 CAPTURE                          UPVAL U8
-       42 SETTABLEKS                       R8 R7 K11 ["OnSelectArrow"]
-       44 NEWCLOSURE                       R8 P2
-       45 CAPTURE                          UPVAL U9
-       46 CAPTURE                          UPVAL U6
-       47 CAPTURE                          VAL R2
-       48 SETTABLEKS                       R8 R7 K12 ["ShowContextMenu"]
-       50 GETUPVAL                         R8 10
-       51 SETTABLEKS                       R8 R7 K16 ["MenuData"]
-       53 MOVE                             R8 R1
-       54 GETUPVAL                         R9 11
-       55 CALL                             R6 3 -1
-       56 CALL                             R4 -1 -1
-       57 RETURN                           R3 -1
+       18 LOADK                            R3 K6 ["SplitButton $%*"]
+       19 MOVE                             R5 R0
+       20 NAMECALL                         R3 R3 K7 ["format"]
+       22 CALL                             R3 2 1
+       23 GETUPVAL                         R4 2
+       24 GETUPVAL                         R5 3
+       25 GETUPVAL                         R6 4
+       26 DUPTABLE                         R7 K17 [{["LayoutOrder"], ["Uri"], ["OnSelect"], ["OnSelectArrow"], ["ShowContextMenu"], ["Visible"] = True, ["EnabledChildren"] = True, ["MenuData"]}]
+       27 GETUPVAL                         R8 5
+       28 CALL                             R8 0 1
+       29 SETTABLEKS                       R8 R7 K8 ["LayoutOrder"]
+       31 SETTABLEKS                       R2 R7 K9 ["Uri"]
+       33 NEWCLOSURE                       R8 P0
+       34 CAPTURE                          UPVAL U6
+       35 CAPTURE                          UPVAL U7
+       36 SETTABLEKS                       R8 R7 K10 ["OnSelect"]
+       38 NEWCLOSURE                       R8 P1
+       39 CAPTURE                          UPVAL U6
+       40 CAPTURE                          UPVAL U8
+       41 SETTABLEKS                       R8 R7 K11 ["OnSelectArrow"]
+       43 NEWCLOSURE                       R8 P2
+       44 CAPTURE                          UPVAL U9
+       45 CAPTURE                          UPVAL U6
+       46 CAPTURE                          VAL R2
+       47 SETTABLEKS                       R8 R7 K12 ["ShowContextMenu"]
+       49 GETUPVAL                         R8 10
+       50 SETTABLEKS                       R8 R7 K16 ["MenuData"]
+       52 MOVE                             R8 R1
+       53 GETUPVAL                         R9 11
+       54 CALL                             R6 3 -1
+       55 CALL                             R4 -1 -1
+       56 RETURN                           R3 -1
 
 PROTO_5:
         0 GETUPVAL                         R0 0

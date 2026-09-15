@@ -8,16 +8,54 @@ PROTO_0:
 
 PROTO_1:
         0 PREPVARARGS                      0
-        1 GETUPVAL                         R0 0
-        2 GETTABLEKS                       R0 R0 K0 ["FFlagDebugLogAssistantUI"]
-        4 JUMPIFNOT                        R0 ; [+5]
-        5 GETIMPORT                        R0 K2 [warn]
-        7 LOADK                            R1 K3 ["[remote-acp-agent]"]
-        8 GETVARARGS                       R2 -1
-        9 CALL                             R0 -1 0
-       10 RETURN                           R0 0
+        1 GETIMPORT                        R0 K2 [table.pack]
+        3 GETVARARGS                       R1 -1
+        4 CALL                             R0 -1 1
+        5 GETIMPORT                        R1 K4 [table.create]
+        7 GETTABLEKS                       R2 R0 K5 ["n"]
+        9 CALL                             R1 1 1
+       10 LOADN                            R4 1
+       11 GETTABLEKS                       R2 R0 K5 ["n"]
+       13 LOADN                            R3 1
+       14 FORNPREP                         R2
+       15 GETTABLE                         R6 R0 R4
+       16 FASTCALL1                        TOSTRING R6 ; [+2]
+       17 GETIMPORT                        R5 K7 [tostring]
+       19 CALL                             R5 1 1
+       20 SETTABLE                         R5 R1 R4
+       21 FORNLOOP                         R2
+       22 LOADK                            R2 K8 ["[remote-acp-agent] %*"]
+       23 GETIMPORT                        R4 K10 [table.concat]
+       25 MOVE                             R5 R1
+       26 LOADK                            R6 K11 [" "]
+       27 CALL                             R4 2 1
+       28 NAMECALL                         R2 R2 K12 ["format"]
+       30 CALL                             R2 2 1
+       31 RETURN                           R2 1
 
 PROTO_2:
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 CALL                             R2 1 1
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K0 ["FFlagDebugLogAssistantUI"]
+        6 JUMPIFNOT                        R3 ; [+5]
+        7 GETIMPORT                        R3 K2 [warn]
+        9 MOVE                             R4 R2
+       10 CALL                             R3 1 0
+       11 RETURN                           R0 0
+       12 JUMPIFNOT                        R1 ; [+11]
+       13 GETIMPORT                        R3 K4 [pcall]
+       15 GETUPVAL                         R4 2
+       16 GETTABLEKS                       R4 R4 K5 ["get"]
+       18 CALL                             R3 1 2
+       19 JUMPIFNOT                        R3 ; [+4]
+       20 GETTABLEKS                       R5 R4 K6 ["printToStudioLogAsync"]
+       22 MOVE                             R6 R2
+       23 CALL                             R5 1 0
+       24 RETURN                           R0 0
+
+PROTO_3:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [warn]
         3 LOADK                            R1 K2 ["[remote-acp-agent]"]
@@ -25,7 +63,7 @@ PROTO_2:
         5 CALL                             R0 -1 0
         6 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETTABLEKS                       R2 R0 K0 ["method"]
         2 FASTCALL1                        TYPEOF R2 ; [+2]
         3 GETIMPORT                        R1 K2 [typeof]
@@ -36,26 +74,25 @@ PROTO_3:
        11 LOADK                            R1 K4 ["tool_result"]
        12 RETURN                           R1 1
 
-PROTO_4:
-        0 LOADK                            R2 K0 ["%*/acp"]
-        1 LOADK                            R6 K1 ["/+$"]
-        2 LOADK                            R7 K2 [""]
-        3 NAMECALL                         R4 R0 K3 ["gsub"]
-        5 CALL                             R4 3 1
-        6 NAMECALL                         R2 R2 K4 ["format"]
-        8 CALL                             R2 2 1
-        9 MOVE                             R1 R2
-       10 RETURN                           R1 1
-
 PROTO_5:
-        0 SETUPVAL                         R0 0
-        1 RETURN                           R0 0
+        0 LOADK                            R1 K0 ["%*/acp"]
+        1 LOADK                            R5 K1 ["/+$"]
+        2 LOADK                            R6 K2 [""]
+        3 NAMECALL                         R3 R0 K3 ["gsub"]
+        5 CALL                             R3 3 1
+        6 NAMECALL                         R1 R1 K4 ["format"]
+        8 CALL                             R1 2 1
+        9 RETURN                           R1 1
 
 PROTO_6:
         0 SETUPVAL                         R0 0
         1 RETURN                           R0 0
 
 PROTO_7:
+        0 SETUPVAL                         R0 0
+        1 RETURN                           R0 0
+
+PROTO_8:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETUPVAL                         R3 2
@@ -72,14 +109,14 @@ PROTO_7:
        16 CALL                             R0 1 0
        17 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["JSONDecode"]
         4 CALL                             R0 2 -1
         5 RETURN                           R0 -1
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R3 R0 K0 ["body"]
         3 NAMECALL                         R1 R1 K1 ["JSONEncode"]
@@ -175,7 +212,7 @@ PROTO_9:
       123 CLOSEUPVALS                      R4
       124 RETURN                           R11 1
 
-PROTO_10:
+PROTO_11:
         0 NEWCLOSURE                       R3 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          VAL R2
@@ -183,7 +220,7 @@ PROTO_10:
         4 CAPTURE                          VAL R1
         5 RETURN                           R3 1
 
-PROTO_11:
+PROTO_12:
         0 GETIMPORT                        R2 K2 [table.clone]
         2 MOVE                             R3 R0
         3 CALL                             R2 1 1
@@ -216,90 +253,81 @@ PROTO_11:
        38 MOVE                             R5 R7
        39 JUMPIFEQKN                       R8 K7 [0] ; [+2]
        41 MOVE                             R6 R8
-       42 JUMPIF                           R3 ; [+17]
+       42 JUMPIF                           R3 ; [+15]
        43 JUMPIFEQKN                       R7 K7 [0] ; [+3]
-       45 JUMPIFNOTEQKN                    R8 K7 [0] ; [+14]
+       45 JUMPIFNOTEQKN                    R8 K7 [0] ; [+12]
        47 GETUPVAL                         R9 1
-       48 LOADK                            R11 K12 ["getGameMetadata failed: %*"]
+       48 LOADK                            R10 K12 ["getGameMetadata failed: %*"]
        49 FASTCALL1                        TOSTRING R4 ; [+3]
-       50 MOVE                             R14 R4
-       51 GETIMPORT                        R13 K14 [tostring]
-       53 CALL                             R13 1 1
-       54 NAMECALL                         R11 R11 K15 ["format"]
-       56 CALL                             R11 2 1
-       57 MOVE                             R10 R11
-       58 CALL                             R9 1 0
-       59 JUMP                             ; [+7]
-       60 JUMPIFEQKN                       R5 K7 [0] ; [+3]
-       62 JUMPIFNOTEQKN                    R6 K7 [0] ; [+4]
-       64 GETUPVAL                         R9 1
-       65 LOADK                            R10 K16 ["universeId/placeId is 0; CAS session/new requires a published place"]
-       66 CALL                             R9 1 0
-       67 GETUPVAL                         R9 0
-       68 GETTABLEKS                       R9 R9 K17 ["FFlagDebugLogAssistantUI"]
-       70 JUMPIFNOT                        R9 ; [+14]
-       71 JUMPIFNOTEQKN                    R7 K7 [0] ; [+3]
-       73 JUMPIFEQKN                       R8 K7 [0] ; [+11]
-       75 GETIMPORT                        R9 K19 [print]
-       77 LOADK                            R11 K20 ["[Remote ACP] debug place override universeId=%* placeId=%*"]
-       78 MOVE                             R13 R5
-       79 MOVE                             R14 R6
-       80 NAMECALL                         R11 R11 K15 ["format"]
-       82 CALL                             R11 3 1
-       83 MOVE                             R10 R11
-       84 CALL                             R9 1 0
-       85 GETTABLEKS                       R11 R2 K21 ["_meta"]
-       87 FASTCALL1                        TYPEOF R11 ; [+2]
-       88 GETIMPORT                        R10 K23 [typeof]
-       90 CALL                             R10 1 1
-       91 JUMPIFNOTEQKS                    R10 K0 ["table"] ; [+7]
-       93 GETIMPORT                        R9 K2 [table.clone]
-       95 GETTABLEKS                       R10 R2 K21 ["_meta"]
-       97 CALL                             R9 1 1
-       98 JUMP                             ; [+2]
-       99 NEWTABLE                         R9 0 0
-      101 GETTABLEKS                       R12 R9 K24 ["_roblox"]
-      103 FASTCALL1                        TYPEOF R12 ; [+2]
-      104 GETIMPORT                        R11 K23 [typeof]
-      106 CALL                             R11 1 1
-      107 JUMPIFNOTEQKS                    R11 K0 ["table"] ; [+7]
-      109 GETIMPORT                        R10 K2 [table.clone]
-      111 GETTABLEKS                       R11 R9 K24 ["_roblox"]
-      113 CALL                             R10 1 1
-      114 JUMP                             ; [+2]
-      115 NEWTABLE                         R10 0 0
-      117 SETTABLEKS                       R5 R10 K5 ["universeId"]
-      119 SETTABLEKS                       R6 R10 K6 ["placeId"]
-      121 LOADK                            R11 K25 ["studio"]
-      122 SETTABLEKS                       R11 R10 K26 ["createdApp"]
-      124 LOADK                            R11 K25 ["studio"]
-      125 SETTABLEKS                       R11 R10 K27 ["application"]
-      127 GETUPVAL                         R11 0
-      128 GETTABLEKS                       R11 R11 K28 ["FStringDebugRemoteACPExperimentSpecVersion"]
-      130 FASTCALL1                        TYPEOF R11 ; [+3]
-      131 MOVE                             R13 R11
-      132 GETIMPORT                        R12 K23 [typeof]
-      134 CALL                             R12 1 1
-      135 JUMPIFNOTEQKS                    R12 K29 ["string"] ; [+21]
-      137 JUMPIFEQKS                       R11 K30 [""] ; [+19]
-      139 DUPTABLE                         R12 K32 [{"specVersion"}]
-      140 SETTABLEKS                       R11 R12 K31 ["specVersion"]
-      142 SETTABLEKS                       R12 R10 K33 ["experiment"]
-      144 GETUPVAL                         R12 0
-      145 GETTABLEKS                       R12 R12 K17 ["FFlagDebugLogAssistantUI"]
-      147 JUMPIFNOT                        R12 ; [+9]
-      148 GETIMPORT                        R12 K19 [print]
-      150 LOADK                            R14 K34 ["[Remote ACP] debug experiment specVersion=%*"]
-      151 MOVE                             R16 R11
-      152 NAMECALL                         R14 R14 K15 ["format"]
-      154 CALL                             R14 2 1
-      155 MOVE                             R13 R14
-      156 CALL                             R12 1 0
-      157 SETTABLEKS                       R10 R9 K24 ["_roblox"]
-      159 SETTABLEKS                       R9 R2 K21 ["_meta"]
-      161 RETURN                           R2 1
+       50 MOVE                             R13 R4
+       51 GETIMPORT                        R12 K14 [tostring]
+       53 CALL                             R12 1 1
+       54 NAMECALL                         R10 R10 K15 ["format"]
+       56 CALL                             R10 2 1
+       57 CALL                             R9 1 0
+       58 GETUPVAL                         R9 0
+       59 GETTABLEKS                       R9 R9 K16 ["FFlagDebugLogAssistantUI"]
+       61 JUMPIFNOT                        R9 ; [+13]
+       62 JUMPIFNOTEQKN                    R7 K7 [0] ; [+3]
+       64 JUMPIFEQKN                       R8 K7 [0] ; [+10]
+       66 GETIMPORT                        R9 K18 [print]
+       68 LOADK                            R10 K19 ["[Remote ACP] debug place override universeId=%* placeId=%*"]
+       69 MOVE                             R12 R5
+       70 MOVE                             R13 R6
+       71 NAMECALL                         R10 R10 K15 ["format"]
+       73 CALL                             R10 3 1
+       74 CALL                             R9 1 0
+       75 GETTABLEKS                       R11 R2 K20 ["_meta"]
+       77 FASTCALL1                        TYPEOF R11 ; [+2]
+       78 GETIMPORT                        R10 K22 [typeof]
+       80 CALL                             R10 1 1
+       81 JUMPIFNOTEQKS                    R10 K0 ["table"] ; [+7]
+       83 GETIMPORT                        R9 K2 [table.clone]
+       85 GETTABLEKS                       R10 R2 K20 ["_meta"]
+       87 CALL                             R9 1 1
+       88 JUMP                             ; [+2]
+       89 NEWTABLE                         R9 0 0
+       91 GETTABLEKS                       R12 R9 K23 ["_roblox"]
+       93 FASTCALL1                        TYPEOF R12 ; [+2]
+       94 GETIMPORT                        R11 K22 [typeof]
+       96 CALL                             R11 1 1
+       97 JUMPIFNOTEQKS                    R11 K0 ["table"] ; [+7]
+       99 GETIMPORT                        R10 K2 [table.clone]
+      101 GETTABLEKS                       R11 R9 K23 ["_roblox"]
+      103 CALL                             R10 1 1
+      104 JUMP                             ; [+2]
+      105 NEWTABLE                         R10 0 0
+      107 SETTABLEKS                       R5 R10 K5 ["universeId"]
+      109 SETTABLEKS                       R6 R10 K6 ["placeId"]
+      111 LOADK                            R11 K24 ["studio"]
+      112 SETTABLEKS                       R11 R10 K25 ["createdApp"]
+      114 LOADK                            R11 K24 ["studio"]
+      115 SETTABLEKS                       R11 R10 K26 ["application"]
+      117 GETUPVAL                         R11 0
+      118 GETTABLEKS                       R11 R11 K27 ["FStringDebugRemoteACPExperimentSpecVersion"]
+      120 FASTCALL1                        TYPEOF R11 ; [+3]
+      121 MOVE                             R13 R11
+      122 GETIMPORT                        R12 K22 [typeof]
+      124 CALL                             R12 1 1
+      125 JUMPIFNOTEQKS                    R12 K28 ["string"] ; [+20]
+      127 JUMPIFEQKS                       R11 K29 [""] ; [+18]
+      129 DUPTABLE                         R12 K31 [{"specVersion"}]
+      130 SETTABLEKS                       R11 R12 K30 ["specVersion"]
+      132 SETTABLEKS                       R12 R10 K32 ["experiment"]
+      134 GETUPVAL                         R12 0
+      135 GETTABLEKS                       R12 R12 K16 ["FFlagDebugLogAssistantUI"]
+      137 JUMPIFNOT                        R12 ; [+8]
+      138 GETIMPORT                        R12 K18 [print]
+      140 LOADK                            R13 K33 ["[Remote ACP] debug experiment specVersion=%*"]
+      141 MOVE                             R15 R11
+      142 NAMECALL                         R13 R13 K15 ["format"]
+      144 CALL                             R13 2 1
+      145 CALL                             R12 1 0
+      146 SETTABLEKS                       R10 R9 K23 ["_roblox"]
+      148 SETTABLEKS                       R9 R2 K20 ["_meta"]
+      150 RETURN                           R2 1
 
-PROTO_12:
+PROTO_13:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 MOVE                             R2 R0
         3 CALL                             R1 1 1
@@ -356,7 +384,7 @@ PROTO_12:
        82 SETTABLEKS                       R2 R1 K3 ["_meta"]
        84 RETURN                           R1 1
 
-PROTO_13:
+PROTO_14:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 MOVE                             R2 R0
         3 CALL                             R1 1 1
@@ -386,7 +414,7 @@ PROTO_13:
        41 SETTABLEKS                       R2 R1 K3 ["_meta"]
        43 RETURN                           R1 1
 
-PROTO_14:
+PROTO_15:
         0 GETIMPORT                        R2 K1 [pcall]
         2 MOVE                             R3 R1
         3 CALL                             R2 1 2
@@ -403,47 +431,54 @@ PROTO_14:
        17 ORK                              R5 R6 K3 [0]
        18 JUMPIFEQKN                       R5 K3 [0] ; [+2]
        20 MOVE                             R4 R5
-       21 JUMPIFNOTEQKN                    R4 K3 [0] ; [+18]
-       23 GETUPVAL                         R6 1
-       24 JUMPIFNOT                        R2 ; [+2]
-       25 LOADK                            R7 K7 ["skipping session/list because universeId is 0"]
-       26 JUMP                             ; [+10]
-       27 LOADK                            R8 K8 ["skipping session/list because game metadata failed: %*"]
-       28 FASTCALL1                        TOSTRING R3 ; [+3]
-       29 MOVE                             R11 R3
-       30 GETIMPORT                        R10 K10 [tostring]
-       32 CALL                             R10 1 1
-       33 NAMECALL                         R8 R8 K11 ["format"]
-       35 CALL                             R8 2 1
-       36 MOVE                             R7 R8
-       37 CALL                             R6 1 0
-       38 LOADNIL                          R6
-       39 RETURN                           R6 1
-       40 GETIMPORT                        R6 K14 [table.clone]
-       42 MOVE                             R7 R0
-       43 CALL                             R6 1 1
-       44 GETTABLEKS                       R9 R0 K15 ["params"]
-       46 FASTCALL1                        TYPEOF R9 ; [+2]
-       47 GETIMPORT                        R8 K17 [typeof]
-       49 CALL                             R8 1 1
-       50 JUMPIFNOTEQKS                    R8 K12 ["table"] ; [+7]
-       52 GETIMPORT                        R7 K14 [table.clone]
-       54 GETTABLEKS                       R8 R0 K15 ["params"]
-       56 CALL                             R7 1 1
-       57 JUMP                             ; [+2]
-       58 NEWTABLE                         R7 0 0
-       60 SETTABLEKS                       R4 R7 K2 ["universeId"]
-       62 GETUPVAL                         R8 0
-       63 GETTABLEKS                       R8 R8 K18 ["FFlagSendApplicationFieldFromAssistant"]
-       65 JUMPIFNOT                        R8 ; [+3]
-       66 LOADK                            R8 K19 ["studio"]
-       67 SETTABLEKS                       R8 R7 K20 ["application"]
-       69 LOADK                            R8 K21 ["_roblox/session/find_by_universe"]
-       70 SETTABLEKS                       R8 R6 K22 ["method"]
-       72 SETTABLEKS                       R7 R6 K15 ["params"]
-       74 RETURN                           R6 1
+       21 JUMPIFNOTEQKN                    R4 K3 [0] ; [+27]
+       23 JUMPIFNOT                        R2 ; [+2]
+       24 LOADK                            R6 K7 ["skipping session/list because universeId is 0"]
+       25 JUMP                             ; [+9]
+       26 LOADK                            R6 K8 ["skipping session/list because game metadata failed: %*"]
+       27 FASTCALL1                        TOSTRING R3 ; [+3]
+       28 MOVE                             R9 R3
+       29 GETIMPORT                        R8 K10 [tostring]
+       31 CALL                             R8 1 1
+       32 NAMECALL                         R6 R6 K11 ["format"]
+       34 CALL                             R6 2 1
+       35 GETUPVAL                         R7 1
+       36 MOVE                             R8 R6
+       37 CALL                             R7 1 1
+       38 GETUPVAL                         R8 0
+       39 GETTABLEKS                       R8 R8 K12 ["FFlagDebugLogAssistantUI"]
+       41 JUMPIFNOT                        R8 ; [+5]
+       42 GETIMPORT                        R8 K14 [warn]
+       44 MOVE                             R9 R7
+       45 CALL                             R8 1 0
+       46 JUMP                             ; [0]
+       47 LOADNIL                          R6
+       48 RETURN                           R6 1
+       49 GETIMPORT                        R6 K17 [table.clone]
+       51 MOVE                             R7 R0
+       52 CALL                             R6 1 1
+       53 GETTABLEKS                       R9 R0 K18 ["params"]
+       55 FASTCALL1                        TYPEOF R9 ; [+2]
+       56 GETIMPORT                        R8 K20 [typeof]
+       58 CALL                             R8 1 1
+       59 JUMPIFNOTEQKS                    R8 K15 ["table"] ; [+7]
+       61 GETIMPORT                        R7 K17 [table.clone]
+       63 GETTABLEKS                       R8 R0 K18 ["params"]
+       65 CALL                             R7 1 1
+       66 JUMP                             ; [+2]
+       67 NEWTABLE                         R7 0 0
+       69 SETTABLEKS                       R4 R7 K2 ["universeId"]
+       71 GETUPVAL                         R8 0
+       72 GETTABLEKS                       R8 R8 K21 ["FFlagSendApplicationFieldFromAssistant"]
+       74 JUMPIFNOT                        R8 ; [+3]
+       75 LOADK                            R8 K22 ["studio"]
+       76 SETTABLEKS                       R8 R7 K23 ["application"]
+       78 LOADK                            R8 K24 ["_roblox/session/find_by_universe"]
+       79 SETTABLEKS                       R8 R6 K25 ["method"]
+       81 SETTABLEKS                       R7 R6 K18 ["params"]
+       83 RETURN                           R6 1
 
-PROTO_15:
+PROTO_16:
         0 FASTCALL1                        TYPEOF R0 ; [+3]
         1 MOVE                             R3 R0
         2 GETIMPORT                        R2 K1 [typeof]
@@ -480,7 +515,7 @@ PROTO_15:
        51 SETTABLEKS                       R2 R1 K5 ["_meta"]
        53 RETURN                           R1 1
 
-PROTO_16:
+PROTO_17:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["body"]
@@ -488,7 +523,7 @@ PROTO_16:
         6 CALL                             R0 2 -1
         7 RETURN                           R0 -1
 
-PROTO_17:
+PROTO_18:
         0 MOVE                             R4 R0
         1 GETTABLEKS                       R5 R0 K0 ["method"]
         3 JUMPIFNOTEQKS                    R5 K1 ["session/new"] ; [+22]
@@ -589,85 +624,131 @@ PROTO_17:
       143 GETTABLEKS                       R5 R0 K0 ["method"]
       145 JUMP                             ; [+1]
       146 LOADK                            R5 K18 ["tool_result"]
-      147 GETUPVAL                         R6 6
-      148 LOADK                            R8 K19 ["rpc method=%* endpoint=%*"]
-      149 MOVE                             R10 R5
-      150 MOVE                             R11 R3
-      151 NAMECALL                         R8 R8 K20 ["format"]
-      153 CALL                             R8 3 1
-      154 MOVE                             R7 R8
-      155 CALL                             R6 1 0
-      156 MOVE                             R6 R1
-      157 DUPTABLE                         R7 K22 [{"body"}]
-      158 SETTABLEKS                       R4 R7 K21 ["body"]
-      160 CALL                             R6 1 1
-      161 GETTABLEKS                       R7 R6 K23 ["success"]
-      163 JUMPIFNOT                        R7 ; [+4]
-      164 LOADB                            R7 1
-      165 GETTABLEKS                       R8 R6 K24 ["data"]
-      167 RETURN                           R7 2
-      168 GETTABLEKS                       R7 R6 K25 ["errorDetails"]
-      170 GETTABLEKS                       R8 R7 K26 ["kind"]
-      172 JUMPIFNOTEQKS                    R8 K27 ["Validation"] ; [+34]
-      174 GETTABLEKS                       R9 R7 K21 ["body"]
-      176 FASTCALL1                        TYPEOF R9 ; [+2]
-      177 GETIMPORT                        R8 K4 [typeof]
-      179 CALL                             R8 1 1
-      180 JUMPIFNOTEQKS                    R8 K17 ["string"] ; [+5]
-      182 GETTABLEKS                       R8 R7 K21 ["body"]
-      184 JUMPIFNOTEQKS                    R8 K28 [""] ; [+4]
-      186 LOADB                            R8 1
-      187 LOADNIL                          R9
-      188 RETURN                           R8 2
-      189 GETIMPORT                        R8 K30 [pcall]
-      191 NEWCLOSURE                       R9 P0
-      192 CAPTURE                          UPVAL U7
-      193 CAPTURE                          VAL R7
-      194 CALL                             R8 1 2
-      195 JUMPIFNOT                        R8 ; [+50]
-      196 FASTCALL1                        TYPEOF R9 ; [+3]
-      197 MOVE                             R11 R9
-      198 GETIMPORT                        R10 K4 [typeof]
-      200 CALL                             R10 1 1
-      201 JUMPIFNOTEQKS                    R10 K5 ["table"] ; [+44]
-      203 LOADB                            R10 1
-      204 MOVE                             R11 R9
-      205 RETURN                           R10 2
-      206 JUMP                             ; [+39]
-      207 GETTABLEKS                       R8 R7 K26 ["kind"]
-      209 JUMPIFNOTEQKS                    R8 K31 ["HttpStatusCode"] ; [+22]
-      211 GETUPVAL                         R8 8
-      212 LOADK                            R10 K32 ["rpc http error method=%* status=%* body=%*"]
-      213 MOVE                             R12 R5
-      214 GETTABLEKS                       R14 R7 K33 ["statusCode"]
-      216 FASTCALL1                        TOSTRING R14 ; [+2]
-      217 GETIMPORT                        R13 K35 [tostring]
-      219 CALL                             R13 1 1
-      220 GETTABLEKS                       R15 R7 K21 ["body"]
-      222 FASTCALL1                        TOSTRING R15 ; [+2]
-      223 GETIMPORT                        R14 K35 [tostring]
-      225 CALL                             R14 1 1
-      226 NAMECALL                         R10 R10 K20 ["format"]
-      228 CALL                             R10 4 1
-      229 MOVE                             R9 R10
-      230 CALL                             R8 1 0
-      231 JUMP                             ; [+14]
-      232 GETUPVAL                         R8 8
-      233 LOADK                            R10 K36 ["rpc network error method=%* detail=%*"]
-      234 MOVE                             R12 R5
-      235 GETTABLEKS                       R14 R7 K37 ["networkError"]
-      237 FASTCALL1                        TOSTRING R14 ; [+2]
-      238 GETIMPORT                        R13 K35 [tostring]
-      240 CALL                             R13 1 1
-      241 NAMECALL                         R10 R10 K20 ["format"]
-      243 CALL                             R10 3 1
-      244 MOVE                             R9 R10
-      245 CALL                             R8 1 0
-      246 LOADB                            R8 0
-      247 LOADNIL                          R9
-      248 RETURN                           R8 2
+      147 LOADK                            R6 K19 ["rpc method=%* endpoint=%*"]
+      148 MOVE                             R8 R5
+      149 MOVE                             R9 R3
+      150 NAMECALL                         R6 R6 K20 ["format"]
+      152 CALL                             R6 3 1
+      153 GETUPVAL                         R7 6
+      154 MOVE                             R8 R6
+      155 CALL                             R7 1 1
+      156 GETUPVAL                         R8 7
+      157 GETTABLEKS                       R8 R8 K21 ["FFlagDebugLogAssistantUI"]
+      159 JUMPIFNOT                        R8 ; [+5]
+      160 GETIMPORT                        R8 K23 [warn]
+      162 MOVE                             R9 R7
+      163 CALL                             R8 1 0
+      164 JUMP                             ; [0]
+      165 MOVE                             R6 R1
+      166 DUPTABLE                         R7 K25 [{"body"}]
+      167 SETTABLEKS                       R4 R7 K24 ["body"]
+      169 CALL                             R6 1 1
+      170 GETTABLEKS                       R7 R6 K26 ["success"]
+      172 JUMPIFNOT                        R7 ; [+4]
+      173 LOADB                            R7 1
+      174 GETTABLEKS                       R8 R6 K27 ["data"]
+      176 RETURN                           R7 2
+      177 GETTABLEKS                       R7 R6 K28 ["errorDetails"]
+      179 GETTABLEKS                       R8 R7 K29 ["kind"]
+      181 JUMPIFNOTEQKS                    R8 K30 ["Validation"] ; [+34]
+      183 GETTABLEKS                       R9 R7 K24 ["body"]
+      185 FASTCALL1                        TYPEOF R9 ; [+2]
+      186 GETIMPORT                        R8 K4 [typeof]
+      188 CALL                             R8 1 1
+      189 JUMPIFNOTEQKS                    R8 K17 ["string"] ; [+5]
+      191 GETTABLEKS                       R8 R7 K24 ["body"]
+      193 JUMPIFNOTEQKS                    R8 K31 [""] ; [+4]
+      195 LOADB                            R8 1
+      196 LOADNIL                          R9
+      197 RETURN                           R8 2
+      198 GETIMPORT                        R8 K33 [pcall]
+      200 NEWCLOSURE                       R9 P0
+      201 CAPTURE                          UPVAL U8
+      202 CAPTURE                          VAL R7
+      203 CALL                             R8 1 2
+      204 JUMPIFNOT                        R8 ; [+103]
+      205 FASTCALL1                        TYPEOF R9 ; [+3]
+      206 MOVE                             R11 R9
+      207 GETIMPORT                        R10 K4 [typeof]
+      209 CALL                             R10 1 1
+      210 JUMPIFNOTEQKS                    R10 K5 ["table"] ; [+97]
+      212 LOADB                            R10 1
+      213 MOVE                             R11 R9
+      214 RETURN                           R10 2
+      215 JUMP                             ; [+92]
+      216 GETTABLEKS                       R8 R7 K29 ["kind"]
+      218 JUMPIFNOTEQKS                    R8 K34 ["HttpStatusCode"] ; [+76]
+      220 GETUPVAL                         R8 9
+      221 LOADK                            R9 K35 ["rpc http error method=%* status=%*"]
+      222 MOVE                             R11 R5
+      223 GETTABLEKS                       R13 R7 K36 ["statusCode"]
+      225 FASTCALL1                        TOSTRING R13 ; [+2]
+      226 GETIMPORT                        R12 K38 [tostring]
+      228 CALL                             R12 1 1
+      229 NAMECALL                         R9 R9 K20 ["format"]
+      231 CALL                             R9 3 1
+      232 CALL                             R8 1 0
+      233 LOADK                            R8 K39 ["body=%*"]
+      234 GETTABLEKS                       R11 R7 K24 ["body"]
+      236 FASTCALL1                        TOSTRING R11 ; [+2]
+      237 GETIMPORT                        R10 K38 [tostring]
+      239 CALL                             R10 1 1
+      240 NAMECALL                         R8 R8 K20 ["format"]
+      242 CALL                             R8 2 1
+      243 GETUPVAL                         R9 6
+      244 MOVE                             R10 R8
+      245 CALL                             R9 1 1
+      246 GETUPVAL                         R10 7
+      247 GETTABLEKS                       R10 R10 K21 ["FFlagDebugLogAssistantUI"]
+      249 JUMPIFNOT                        R10 ; [+5]
+      250 GETIMPORT                        R10 K23 [warn]
+      252 MOVE                             R11 R9
+      253 CALL                             R10 1 0
+      254 JUMP                             ; [+11]
+      255 GETIMPORT                        R10 K33 [pcall]
+      257 GETUPVAL                         R11 10
+      258 GETTABLEKS                       R11 R11 K40 ["get"]
+      260 CALL                             R10 1 2
+      261 JUMPIFNOT                        R10 ; [+4]
+      262 GETTABLEKS                       R12 R11 K41 ["printToStudioLogAsync"]
+      264 MOVE                             R13 R9
+      265 CALL                             R12 1 0
+      266 GETTABLEKS                       R9 R7 K24 ["body"]
+      268 FASTCALL1                        TYPEOF R9 ; [+2]
+      269 GETIMPORT                        R8 K4 [typeof]
+      271 CALL                             R8 1 1
+      272 JUMPIFNOTEQKS                    R8 K17 ["string"] ; [+35]
+      274 GETIMPORT                        R8 K33 [pcall]
+      276 GETUPVAL                         R9 8
+      277 GETTABLEKS                       R9 R9 K42 ["JSONDecode"]
+      279 GETUPVAL                         R10 8
+      280 GETTABLEKS                       R11 R7 K24 ["body"]
+      282 CALL                             R8 3 2
+      283 JUMPIFNOT                        R8 ; [+24]
+      284 FASTCALL1                        TYPEOF R9 ; [+3]
+      285 MOVE                             R11 R9
+      286 GETIMPORT                        R10 K4 [typeof]
+      288 CALL                             R10 1 1
+      289 JUMPIFNOTEQKS                    R10 K5 ["table"] ; [+18]
+      291 LOADB                            R10 0
+      292 MOVE                             R11 R9
+      293 RETURN                           R10 2
+      294 JUMP                             ; [+13]
+      295 GETUPVAL                         R8 9
+      296 LOADK                            R9 K43 ["rpc network error method=%* detail=%*"]
+      297 MOVE                             R11 R5
+      298 GETTABLEKS                       R13 R7 K44 ["networkError"]
+      300 FASTCALL1                        TOSTRING R13 ; [+2]
+      301 GETIMPORT                        R12 K38 [tostring]
+      303 CALL                             R12 1 1
+      304 NAMECALL                         R9 R9 K20 ["format"]
+      306 CALL                             R9 3 1
+      307 CALL                             R8 1 0
+      308 LOADB                            R8 0
+      309 LOADNIL                          R9
+      310 RETURN                           R8 2
 
-PROTO_18:
+PROTO_19:
         0 GETTABLEKS                       R1 R0 K0 ["stallTimer"]
         2 JUMPIFNOT                        R1 ; [+7]
         3 LOADNIL                          R2
@@ -677,7 +758,7 @@ PROTO_18:
         9 CALL                             R2 1 0
        10 RETURN                           R0 0
 
-PROTO_19:
+PROTO_20:
         0 LOADNIL                          R1
         1 GETTABLEKS                       R2 R0 K0 ["pending"]
         3 LOADNIL                          R3
@@ -689,7 +770,7 @@ PROTO_19:
        11 FORGLOOP                         R2 1 ; [-6]
        13 RETURN                           R1 1
 
-PROTO_20:
+PROTO_21:
         0 GETTABLEKS                       R1 R0 K0 ["delivering"]
         2 JUMPIFNOT                        R1 ; [+1]
         3 RETURN                           R0 0
@@ -714,7 +795,7 @@ PROTO_20:
        30 SETTABLEKS                       R1 R0 K0 ["delivering"]
        32 RETURN                           R0 0
 
-PROTO_21:
+PROTO_22:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 SETTABLEKS                       R1 R0 K0 ["stallTimer"]
@@ -735,28 +816,27 @@ PROTO_21:
        24 JUMPIFNOTLE                      R0 R1 ; [+2]
        26 RETURN                           R0 0
        27 GETIMPORT                        R1 K4 [warn]
-       29 LOADK                            R3 K5 ["[remote-acp-agent] Missing session updates %*-%* for session %*; continuing from sequence %*. Some content may be missing. Restart Studio to reload the full conversation history."]
-       30 GETUPVAL                         R5 0
-       31 GETTABLEKS                       R5 R5 K2 ["nextSequence"]
-       33 SUBK                             R6 R0 K6 [1]
-       34 GETUPVAL                         R7 1
-       35 MOVE                             R8 R0
-       36 NAMECALL                         R3 R3 K7 ["format"]
-       38 CALL                             R3 5 1
-       39 MOVE                             R2 R3
-       40 CALL                             R1 1 0
-       41 GETUPVAL                         R1 0
-       42 SETTABLEKS                       R0 R1 K2 ["nextSequence"]
-       44 GETUPVAL                         R1 2
-       45 GETUPVAL                         R2 0
-       46 CALL                             R1 1 0
-       47 GETUPVAL                         R1 3
-       48 GETUPVAL                         R2 1
-       49 GETUPVAL                         R3 0
-       50 CALL                             R1 2 0
-       51 RETURN                           R0 0
+       29 LOADK                            R2 K5 ["[remote-acp-agent] Missing session updates %*-%* for session %*; continuing from sequence %*. Some content may be missing. Restart Studio to reload the full conversation history."]
+       30 GETUPVAL                         R4 0
+       31 GETTABLEKS                       R4 R4 K2 ["nextSequence"]
+       33 SUBK                             R5 R0 K6 [1]
+       34 GETUPVAL                         R6 1
+       35 MOVE                             R7 R0
+       36 NAMECALL                         R2 R2 K7 ["format"]
+       38 CALL                             R2 5 1
+       39 CALL                             R1 1 0
+       40 GETUPVAL                         R1 0
+       41 SETTABLEKS                       R0 R1 K2 ["nextSequence"]
+       43 GETUPVAL                         R1 2
+       44 GETUPVAL                         R2 0
+       45 CALL                             R1 1 0
+       46 GETUPVAL                         R1 3
+       47 GETUPVAL                         R2 1
+       48 GETUPVAL                         R3 0
+       49 CALL                             R1 2 0
+       50 RETURN                           R0 0
 
-PROTO_22:
+PROTO_23:
         0 GETTABLEKS                       R2 R1 K0 ["stallTimer"]
         2 JUMPIFNOTEQKNIL                  R2 ; [+8]
         4 GETIMPORT                        R2 K2 [next]
@@ -775,10 +855,10 @@ PROTO_22:
        21 SETTABLEKS                       R2 R1 K0 ["stallTimer"]
        23 RETURN                           R0 0
 
-PROTO_23:
+PROTO_24:
         0 GETUPVAL                         R4 0
         1 GETTABLE                         R3 R4 R0
-        2 JUMPIFNOTEQKNIL                  R3 ; [+25]
+        2 JUMPIFNOTEQKNIL                  R3 ; [+24]
         4 DUPTABLE                         R4 K5 [{[1] = 1, ["pending"], ["delivering"] = False}]
         5 NEWTABLE                         R5 0 0
         7 SETTABLEKS                       R5 R4 K2 ["pending"]
@@ -787,64 +867,63 @@ PROTO_23:
        11 SETTABLE                         R3 R4 R0
        12 GETUPVAL                         R4 1
        13 GETTABLEKS                       R4 R4 K6 ["FFlagDebugLogAssistantUI"]
-       15 JUMPIFNOT                        R4 ; [+12]
+       15 JUMPIFNOT                        R4 ; [+11]
        16 GETIMPORT                        R4 K8 [print]
-       18 LOADK                            R6 K9 ["[Remote ACP] sequencer init buffer sessionId=%* nextSequence=%* firstReceived=%*"]
-       19 MOVE                             R8 R0
-       20 GETTABLEKS                       R9 R3 K0 ["nextSequence"]
-       22 MOVE                             R10 R1
-       23 NAMECALL                         R6 R6 K10 ["format"]
-       25 CALL                             R6 4 1
-       26 MOVE                             R5 R6
-       27 CALL                             R4 1 0
-       28 GETTABLEKS                       R4 R3 K0 ["nextSequence"]
-       30 JUMPIFNOTLT                      R1 R4 ; [+2]
-       32 RETURN                           R0 0
-       33 GETTABLEKS                       R5 R3 K2 ["pending"]
-       35 GETTABLE                         R4 R5 R1
-       36 JUMPIFEQKNIL                     R4 ; [+2]
-       38 RETURN                           R0 0
-       39 GETTABLEKS                       R4 R3 K2 ["pending"]
-       41 SETTABLE                         R2 R4 R1
-       42 GETUPVAL                         R4 2
-       43 MOVE                             R5 R3
-       44 CALL                             R4 1 0
-       45 GETIMPORT                        R4 K12 [next]
-       47 GETTABLEKS                       R5 R3 K2 ["pending"]
-       49 CALL                             R4 1 1
-       50 JUMPIFNOTEQKNIL                  R4 ; [+13]
-       52 MOVE                             R4 R3
-       53 GETTABLEKS                       R5 R4 K13 ["stallTimer"]
-       55 JUMPIFNOT                        R5 ; [+32]
-       56 LOADNIL                          R6
-       57 SETTABLEKS                       R6 R4 K13 ["stallTimer"]
-       59 GETIMPORT                        R6 K16 [task.cancel]
-       61 MOVE                             R7 R5
-       62 CALL                             R6 1 0
-       63 RETURN                           R0 0
-       64 MOVE                             R4 R3
-       65 GETTABLEKS                       R5 R4 K13 ["stallTimer"]
-       67 JUMPIFNOTEQKNIL                  R5 ; [+20]
-       69 GETIMPORT                        R5 K12 [next]
-       71 GETTABLEKS                       R6 R4 K2 ["pending"]
-       73 CALL                             R5 1 1
-       74 JUMPIFNOTEQKNIL                  R5 ; [+2]
-       76 RETURN                           R0 0
-       77 GETIMPORT                        R5 K18 [task.delay]
-       79 LOADN                            R6 5
-       80 NEWCLOSURE                       R7 P0
-       81 CAPTURE                          VAL R4
-       82 CAPTURE                          VAL R0
-       83 CAPTURE                          UPVAL U2
-       84 CAPTURE                          UPVAL U3
-       85 CALL                             R5 2 1
-       86 SETTABLEKS                       R5 R4 K13 ["stallTimer"]
-       88 RETURN                           R0 0
+       18 LOADK                            R5 K9 ["[Remote ACP] sequencer init buffer sessionId=%* nextSequence=%* firstReceived=%*"]
+       19 MOVE                             R7 R0
+       20 GETTABLEKS                       R8 R3 K0 ["nextSequence"]
+       22 MOVE                             R9 R1
+       23 NAMECALL                         R5 R5 K10 ["format"]
+       25 CALL                             R5 4 1
+       26 CALL                             R4 1 0
+       27 GETTABLEKS                       R4 R3 K0 ["nextSequence"]
+       29 JUMPIFNOTLT                      R1 R4 ; [+2]
+       31 RETURN                           R0 0
+       32 GETTABLEKS                       R5 R3 K2 ["pending"]
+       34 GETTABLE                         R4 R5 R1
+       35 JUMPIFEQKNIL                     R4 ; [+2]
+       37 RETURN                           R0 0
+       38 GETTABLEKS                       R4 R3 K2 ["pending"]
+       40 SETTABLE                         R2 R4 R1
+       41 GETUPVAL                         R4 2
+       42 MOVE                             R5 R3
+       43 CALL                             R4 1 0
+       44 GETIMPORT                        R4 K12 [next]
+       46 GETTABLEKS                       R5 R3 K2 ["pending"]
+       48 CALL                             R4 1 1
+       49 JUMPIFNOTEQKNIL                  R4 ; [+13]
+       51 MOVE                             R4 R3
+       52 GETTABLEKS                       R5 R4 K13 ["stallTimer"]
+       54 JUMPIFNOT                        R5 ; [+32]
+       55 LOADNIL                          R6
+       56 SETTABLEKS                       R6 R4 K13 ["stallTimer"]
+       58 GETIMPORT                        R6 K16 [task.cancel]
+       60 MOVE                             R7 R5
+       61 CALL                             R6 1 0
+       62 RETURN                           R0 0
+       63 MOVE                             R4 R3
+       64 GETTABLEKS                       R5 R4 K13 ["stallTimer"]
+       66 JUMPIFNOTEQKNIL                  R5 ; [+20]
+       68 GETIMPORT                        R5 K12 [next]
+       70 GETTABLEKS                       R6 R4 K2 ["pending"]
+       72 CALL                             R5 1 1
+       73 JUMPIFNOTEQKNIL                  R5 ; [+2]
+       75 RETURN                           R0 0
+       76 GETIMPORT                        R5 K18 [task.delay]
+       78 LOADN                            R6 5
+       79 NEWCLOSURE                       R7 P0
+       80 CAPTURE                          VAL R4
+       81 CAPTURE                          VAL R0
+       82 CAPTURE                          UPVAL U2
+       83 CAPTURE                          UPVAL U3
+       84 CALL                             R5 2 1
+       85 SETTABLEKS                       R5 R4 K13 ["stallTimer"]
+       87 RETURN                           R0 0
 
-PROTO_24:
+PROTO_25:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R0
-        2 JUMPIFNOTEQKNIL                  R2 ; [+25]
+        2 JUMPIFNOTEQKNIL                  R2 ; [+24]
         4 GETUPVAL                         R3 0
         5 DUPTABLE                         R4 K4 [{[1], ["pending"], ["delivering"] = False}]
         6 SETTABLEKS                       R1 R4 K0 ["nextSequence"]
@@ -853,74 +932,72 @@ PROTO_24:
        12 SETTABLE                         R4 R3 R0
        13 GETUPVAL                         R3 1
        14 GETTABLEKS                       R3 R3 K5 ["FFlagDebugLogAssistantUI"]
-       16 JUMPIFNOT                        R3 ; [+10]
+       16 JUMPIFNOT                        R3 ; [+9]
        17 GETIMPORT                        R3 K7 [print]
-       19 LOADK                            R5 K8 ["[Remote ACP] sequencer initialize sessionId=%* nextSequence=%*"]
-       20 MOVE                             R7 R0
-       21 MOVE                             R8 R1
-       22 NAMECALL                         R5 R5 K9 ["format"]
-       24 CALL                             R5 3 1
-       25 MOVE                             R4 R5
-       26 CALL                             R3 1 0
-       27 RETURN                           R0 0
-       28 GETTABLEKS                       R3 R2 K0 ["nextSequence"]
-       30 JUMPIFNOTLE                      R1 R3 ; [+2]
-       32 RETURN                           R0 0
-       33 SETTABLEKS                       R1 R2 K0 ["nextSequence"]
-       35 GETTABLEKS                       R3 R2 K1 ["pending"]
-       37 LOADNIL                          R4
-       38 LOADNIL                          R5
-       39 FORGPREP                         R3
-       40 JUMPIFNOTLT                      R6 R1 ; [+5]
-       42 GETTABLEKS                       R8 R2 K1 ["pending"]
-       44 LOADNIL                          R9
-       45 SETTABLE                         R9 R8 R6
-       46 FORGLOOP                         R3 1 ; [-7]
-       48 GETUPVAL                         R3 1
-       49 GETTABLEKS                       R3 R3 K5 ["FFlagDebugLogAssistantUI"]
-       51 JUMPIFNOT                        R3 ; [+10]
-       52 GETIMPORT                        R3 K7 [print]
-       54 LOADK                            R5 K10 ["[Remote ACP] sequencer advance sessionId=%* nextSequence=%*"]
-       55 MOVE                             R7 R0
-       56 MOVE                             R8 R1
-       57 NAMECALL                         R5 R5 K9 ["format"]
-       59 CALL                             R5 3 1
-       60 MOVE                             R4 R5
-       61 CALL                             R3 1 0
-       62 GETUPVAL                         R3 2
-       63 MOVE                             R4 R2
-       64 CALL                             R3 1 0
-       65 GETIMPORT                        R3 K12 [next]
-       67 GETTABLEKS                       R4 R2 K1 ["pending"]
-       69 CALL                             R3 1 1
-       70 JUMPIFNOTEQKNIL                  R3 ; [+12]
-       72 GETTABLEKS                       R3 R2 K13 ["stallTimer"]
-       74 JUMPIFNOT                        R3 ; [+31]
-       75 LOADNIL                          R4
-       76 SETTABLEKS                       R4 R2 K13 ["stallTimer"]
-       78 GETIMPORT                        R4 K16 [task.cancel]
-       80 MOVE                             R5 R3
-       81 CALL                             R4 1 0
-       82 RETURN                           R0 0
-       83 GETTABLEKS                       R3 R2 K13 ["stallTimer"]
-       85 JUMPIFNOTEQKNIL                  R3 ; [+20]
-       87 GETIMPORT                        R3 K12 [next]
-       89 GETTABLEKS                       R4 R2 K1 ["pending"]
-       91 CALL                             R3 1 1
-       92 JUMPIFNOTEQKNIL                  R3 ; [+2]
-       94 RETURN                           R0 0
-       95 GETIMPORT                        R3 K18 [task.delay]
-       97 LOADN                            R4 5
-       98 NEWCLOSURE                       R5 P0
-       99 CAPTURE                          VAL R2
-      100 CAPTURE                          VAL R0
-      101 CAPTURE                          UPVAL U2
-      102 CAPTURE                          UPVAL U3
-      103 CALL                             R3 2 1
-      104 SETTABLEKS                       R3 R2 K13 ["stallTimer"]
-      106 RETURN                           R0 0
+       19 LOADK                            R4 K8 ["[Remote ACP] sequencer initialize sessionId=%* nextSequence=%*"]
+       20 MOVE                             R6 R0
+       21 MOVE                             R7 R1
+       22 NAMECALL                         R4 R4 K9 ["format"]
+       24 CALL                             R4 3 1
+       25 CALL                             R3 1 0
+       26 RETURN                           R0 0
+       27 GETTABLEKS                       R3 R2 K0 ["nextSequence"]
+       29 JUMPIFNOTLE                      R1 R3 ; [+2]
+       31 RETURN                           R0 0
+       32 SETTABLEKS                       R1 R2 K0 ["nextSequence"]
+       34 GETTABLEKS                       R3 R2 K1 ["pending"]
+       36 LOADNIL                          R4
+       37 LOADNIL                          R5
+       38 FORGPREP                         R3
+       39 JUMPIFNOTLT                      R6 R1 ; [+5]
+       41 GETTABLEKS                       R8 R2 K1 ["pending"]
+       43 LOADNIL                          R9
+       44 SETTABLE                         R9 R8 R6
+       45 FORGLOOP                         R3 1 ; [-7]
+       47 GETUPVAL                         R3 1
+       48 GETTABLEKS                       R3 R3 K5 ["FFlagDebugLogAssistantUI"]
+       50 JUMPIFNOT                        R3 ; [+9]
+       51 GETIMPORT                        R3 K7 [print]
+       53 LOADK                            R4 K10 ["[Remote ACP] sequencer advance sessionId=%* nextSequence=%*"]
+       54 MOVE                             R6 R0
+       55 MOVE                             R7 R1
+       56 NAMECALL                         R4 R4 K9 ["format"]
+       58 CALL                             R4 3 1
+       59 CALL                             R3 1 0
+       60 GETUPVAL                         R3 2
+       61 MOVE                             R4 R2
+       62 CALL                             R3 1 0
+       63 GETIMPORT                        R3 K12 [next]
+       65 GETTABLEKS                       R4 R2 K1 ["pending"]
+       67 CALL                             R3 1 1
+       68 JUMPIFNOTEQKNIL                  R3 ; [+12]
+       70 GETTABLEKS                       R3 R2 K13 ["stallTimer"]
+       72 JUMPIFNOT                        R3 ; [+31]
+       73 LOADNIL                          R4
+       74 SETTABLEKS                       R4 R2 K13 ["stallTimer"]
+       76 GETIMPORT                        R4 K16 [task.cancel]
+       78 MOVE                             R5 R3
+       79 CALL                             R4 1 0
+       80 RETURN                           R0 0
+       81 GETTABLEKS                       R3 R2 K13 ["stallTimer"]
+       83 JUMPIFNOTEQKNIL                  R3 ; [+20]
+       85 GETIMPORT                        R3 K12 [next]
+       87 GETTABLEKS                       R4 R2 K1 ["pending"]
+       89 CALL                             R3 1 1
+       90 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       92 RETURN                           R0 0
+       93 GETIMPORT                        R3 K18 [task.delay]
+       95 LOADN                            R4 5
+       96 NEWCLOSURE                       R5 P0
+       97 CAPTURE                          VAL R2
+       98 CAPTURE                          VAL R0
+       99 CAPTURE                          UPVAL U2
+      100 CAPTURE                          UPVAL U3
+      101 CALL                             R3 2 1
+      102 SETTABLEKS                       R3 R2 K13 ["stallTimer"]
+      104 RETURN                           R0 0
 
-PROTO_25:
+PROTO_26:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -938,10 +1015,10 @@ PROTO_25:
        19 CALL                             R0 1 0
        20 RETURN                           R0 0
 
-PROTO_26:
+PROTO_27:
         0 NEWTABLE                         R1 0 0
-        2 DUPCLOSURE                       R2 K0 [PROTO_18]
-        3 DUPCLOSURE                       R3 K1 [PROTO_19]
+        2 DUPCLOSURE                       R2 K0 [PROTO_19]
+        3 DUPCLOSURE                       R3 K1 [PROTO_20]
         4 NEWCLOSURE                       R4 P2
         5 CAPTURE                          VAL R0
         6 NEWCLOSURE                       R5 P3
@@ -965,7 +1042,7 @@ PROTO_26:
        26 SETTABLEKS                       R8 R9 K4 ["reset"]
        28 RETURN                           R9 1
 
-PROTO_27:
+PROTO_28:
         0 GETUPVAL                         R1 0
         1 JUMPIFNOT                        R1 ; [+3]
         2 MOVE                             R2 R1
@@ -973,7 +1050,7 @@ PROTO_27:
         4 CALL                             R2 1 0
         5 RETURN                           R0 0
 
-PROTO_28:
+PROTO_29:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["detail"]
@@ -981,7 +1058,7 @@ PROTO_28:
         6 CALL                             R0 2 -1
         7 RETURN                           R0 -1
 
-PROTO_29:
+PROTO_30:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["message"]
@@ -989,7 +1066,7 @@ PROTO_29:
         6 CALL                             R0 2 -1
         7 RETURN                           R0 -1
 
-PROTO_30:
+PROTO_31:
         0 GETIMPORT                        R1 K1 [pcall]
         2 NEWCLOSURE                       R2 P0
         3 CAPTURE                          UPVAL U0
@@ -1036,46 +1113,37 @@ PROTO_30:
        62 CALL                             R6 1 1
        63 GETUPVAL                         R7 1
        64 GETTABLEKS                       R7 R7 K14 ["FFlagDebugLogAssistantUI"]
-       66 JUMPIFNOT                        R7 ; [+13]
+       66 JUMPIFNOT                        R7 ; [+12]
        67 GETIMPORT                        R7 K16 [print]
-       69 LOADK                            R9 K17 ["[Remote ACP] received notification %*"]
-       70 GETUPVAL                         R11 0
-       71 MOVE                             R13 R2
-       72 NAMECALL                         R11 R11 K18 ["JSONEncode"]
-       74 CALL                             R11 2 1
-       75 NAMECALL                         R9 R9 K19 ["format"]
-       77 CALL                             R9 2 1
-       78 MOVE                             R8 R9
-       79 CALL                             R7 1 0
-       80 FASTCALL1                        TYPEOF R5 ; [+3]
-       81 MOVE                             R8 R5
-       82 GETIMPORT                        R7 K3 [typeof]
-       84 CALL                             R7 1 1
-       85 JUMPIFNOTEQKS                    R7 K20 ["string"] ; [+16]
-       87 FASTCALL1                        TYPEOF R6 ; [+3]
-       88 MOVE                             R8 R6
-       89 GETIMPORT                        R7 K3 [typeof]
-       91 CALL                             R7 1 1
-       92 JUMPIFNOTEQKS                    R7 K21 ["number"] ; [+9]
-       94 GETUPVAL                         R7 2
-       95 GETTABLEKS                       R7 R7 K22 ["push"]
-       97 MOVE                             R8 R5
-       98 MOVE                             R9 R6
-       99 MOVE                             R10 R4
-      100 CALL                             R7 3 0
-      101 RETURN                           R0 0
-      102 GETUPVAL                         R7 3
-      103 MOVE                             R8 R4
-      104 CALL                             R7 1 0
-      105 RETURN                           R0 0
-
-PROTO_31:
-        0 GETTABLEKS                       R1 R0 K0 ["namespace"]
-        2 JUMPIFNOTEQKS                    R1 K1 ["AssistantPlugin"] ; [+4]
-        4 GETUPVAL                         R1 0
-        5 MOVE                             R2 R0
-        6 CALL                             R1 1 0
-        7 RETURN                           R0 0
+       69 LOADK                            R8 K17 ["[Remote ACP] received notification %*"]
+       70 GETUPVAL                         R10 0
+       71 MOVE                             R12 R2
+       72 NAMECALL                         R10 R10 K18 ["JSONEncode"]
+       74 CALL                             R10 2 1
+       75 NAMECALL                         R8 R8 K19 ["format"]
+       77 CALL                             R8 2 1
+       78 CALL                             R7 1 0
+       79 FASTCALL1                        TYPEOF R5 ; [+3]
+       80 MOVE                             R8 R5
+       81 GETIMPORT                        R7 K3 [typeof]
+       83 CALL                             R7 1 1
+       84 JUMPIFNOTEQKS                    R7 K20 ["string"] ; [+16]
+       86 FASTCALL1                        TYPEOF R6 ; [+3]
+       87 MOVE                             R8 R6
+       88 GETIMPORT                        R7 K3 [typeof]
+       90 CALL                             R7 1 1
+       91 JUMPIFNOTEQKS                    R7 K21 ["number"] ; [+9]
+       93 GETUPVAL                         R7 2
+       94 GETTABLEKS                       R7 R7 K22 ["push"]
+       96 MOVE                             R8 R5
+       97 MOVE                             R9 R6
+       98 MOVE                             R10 R4
+       99 CALL                             R7 3 0
+      100 RETURN                           R0 0
+      101 GETUPVAL                         R7 3
+      102 MOVE                             R8 R4
+      103 CALL                             R7 1 0
+      104 RETURN                           R0 0
 
 PROTO_32:
         0 GETUPVAL                         R0 0
@@ -1096,14 +1164,7 @@ PROTO_32:
        19 CALL                             R0 1 0
        20 LOADNIL                          R0
        21 SETUPVAL                         R0 3
-       22 GETUPVAL                         R0 4
-       23 JUMPIFNOT                        R0 ; [+6]
-       24 GETUPVAL                         R0 4
-       25 NAMECALL                         R0 R0 K5 ["Disconnect"]
-       27 CALL                             R0 1 0
-       28 LOADNIL                          R0
-       29 SETUPVAL                         R0 4
-       30 RETURN                           R0 0
+       22 RETURN                           R0 0
 
 PROTO_33:
         0 GETUPVAL                         R1 0
@@ -1118,35 +1179,20 @@ PROTO_33:
        11 CAPTURE                          UPVAL U0
        12 CAPTURE                          UPVAL U3
        13 CAPTURE                          VAL R0
-       14 LOADNIL                          R2
-       15 LOADNIL                          R3
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R4 R4 K4 ["FFlagAssistantNotificationManager"]
-       19 JUMPIFNOT                        R4 ; [+11]
-       20 GETUPVAL                         R4 4
-       21 GETTABLEKS                       R4 R4 K5 ["get"]
-       23 CALL                             R4 0 1
-       24 GETTABLEKS                       R4 R4 K6 ["listen"]
-       26 LOADK                            R5 K7 ["AssistantPlugin"]
-       27 MOVE                             R6 R1
-       28 CALL                             R4 2 1
-       29 MOVE                             R2 R4
-       30 JUMP                             ; [+9]
-       31 GETUPVAL                         R4 5
-       32 GETTABLEKS                       R4 R4 K8 ["RobloxEventReceived"]
-       34 NEWCLOSURE                       R6 P1
-       35 CAPTURE                          VAL R1
-       36 NAMECALL                         R4 R4 K9 ["Connect"]
-       38 CALL                             R4 2 1
-       39 MOVE                             R3 R4
-       40 NEWCLOSURE                       R4 P2
-       41 CAPTURE                          UPVAL U0
-       42 CAPTURE                          UPVAL U1
-       43 CAPTURE                          UPVAL U3
-       44 CAPTURE                          REF R2
-       45 CAPTURE                          REF R3
-       46 CLOSEUPVALS                      R2
-       47 RETURN                           R4 1
+       14 GETUPVAL                         R2 4
+       15 GETTABLEKS                       R2 R2 K4 ["get"]
+       17 CALL                             R2 0 1
+       18 GETTABLEKS                       R2 R2 K5 ["listen"]
+       20 LOADK                            R3 K6 ["AssistantPlugin"]
+       21 MOVE                             R4 R1
+       22 CALL                             R2 2 1
+       23 NEWCLOSURE                       R3 P1
+       24 CAPTURE                          UPVAL U0
+       25 CAPTURE                          UPVAL U1
+       26 CAPTURE                          UPVAL U3
+       27 CAPTURE                          REF R2
+       28 CLOSEUPVALS                      R2
+       29 RETURN                           R3 1
 
 PROTO_34:
         0 GETUPVAL                         R1 0
@@ -1236,105 +1282,93 @@ PROTO_34:
       116 RETURN                           R1 2
 
 PROTO_35:
-        0 LOADNIL                          R4
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R5 R5 K0 ["FFlagAssistantNotificationManager"]
-        4 JUMPIF                           R5 ; [+5]
-        5 LOADK                            R7 K1 ["NotificationService"]
-        6 NAMECALL                         R5 R0 K2 ["GetService"]
-        8 CALL                             R5 2 1
-        9 MOVE                             R4 R5
-       10 LOADNIL                          R5
-       11 GETUPVAL                         R6 1
-       12 NEWCLOSURE                       R7 P0
-       13 CAPTURE                          REF R5
-       14 CALL                             R6 1 1
-       15 NEWCLOSURE                       R7 P1
-       16 CAPTURE                          UPVAL U0
-       17 CAPTURE                          REF R5
-       18 CAPTURE                          UPVAL U2
-       19 CAPTURE                          VAL R6
-       20 CAPTURE                          UPVAL U3
-       21 CAPTURE                          REF R4
-       22 DUPTABLE                         R8 K5 [{"postAcp", "subscribe"}]
-       23 NEWCLOSURE                       R9 P2
-       24 CAPTURE                          UPVAL U4
-       25 CAPTURE                          VAL R1
-       26 CAPTURE                          VAL R2
-       27 CAPTURE                          VAL R3
-       28 CAPTURE                          VAL R6
-       29 SETTABLEKS                       R9 R8 K3 ["postAcp"]
-       31 SETTABLEKS                       R7 R8 K4 ["subscribe"]
-       33 CLOSEUPVALS                      R4
-       34 RETURN                           R8 1
+        0 LOADNIL                          R3
+        1 GETUPVAL                         R4 0
+        2 NEWCLOSURE                       R5 P0
+        3 CAPTURE                          REF R3
+        4 CALL                             R4 1 1
+        5 NEWCLOSURE                       R5 P1
+        6 CAPTURE                          UPVAL U1
+        7 CAPTURE                          REF R3
+        8 CAPTURE                          UPVAL U2
+        9 CAPTURE                          VAL R4
+       10 CAPTURE                          UPVAL U3
+       11 DUPTABLE                         R6 K2 [{"postAcp", "subscribe"}]
+       12 NEWCLOSURE                       R7 P2
+       13 CAPTURE                          UPVAL U4
+       14 CAPTURE                          VAL R0
+       15 CAPTURE                          VAL R1
+       16 CAPTURE                          VAL R2
+       17 CAPTURE                          VAL R4
+       18 SETTABLEKS                       R7 R6 K0 ["postAcp"]
+       20 SETTABLEKS                       R5 R6 K1 ["subscribe"]
+       22 CLOSEUPVALS                      R3
+       23 RETURN                           R6 1
 
 PROTO_36:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["FStringDebugCASBaseUrlOverride"]
-        3 JUMPIFEQKS                       R2 K1 [""] ; [+3]
-        5 MOVE                             R1 R2
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["FStringDebugCASBaseUrlOverride"]
+        3 JUMPIFEQKS                       R1 K1 [""] ; [+3]
+        5 MOVE                             R0 R1
         6 JUMP                             ; [+1]
-        7 LOADNIL                          R1
-        8 LOADK                            R3 K2 ["%*/creator-agents-service/v1"]
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R5 R5 K3 ["get"]
-       12 CALL                             R5 0 1
-       13 GETTABLEKS                       R5 R5 K4 ["apisUrl"]
-       15 LOADK                            R7 K5 ["/+$"]
-       16 LOADK                            R8 K1 [""]
-       17 NAMECALL                         R5 R5 K6 ["gsub"]
-       19 CALL                             R5 3 1
-       20 NAMECALL                         R3 R3 K7 ["format"]
-       22 CALL                             R3 2 1
-       23 MOVE                             R2 R3
-       24 OR                               R4 R1 R2
-       25 LOADK                            R5 K8 ["%*/acp"]
-       26 LOADK                            R9 K5 ["/+$"]
-       27 LOADK                            R10 K1 [""]
-       28 NAMECALL                         R7 R4 K6 ["gsub"]
-       30 CALL                             R7 3 1
-       31 NAMECALL                         R5 R5 K7 ["format"]
-       33 CALL                             R5 2 1
-       34 MOVE                             R3 R5
-       35 JUMPIFNOT                        R1 ; [+13]
-       36 GETUPVAL                         R5 2
-       37 GETUPVAL                         R6 1
-       38 GETTABLEKS                       R6 R6 K3 ["get"]
-       40 CALL                             R6 0 1
-       41 GETTABLEKS                       R6 R6 K9 ["getUserId"]
-       43 NEWCLOSURE                       R4 P0
-       44 CAPTURE                          UPVAL U3
-       45 CAPTURE                          VAL R6
-       46 CAPTURE                          VAL R5
-       47 CAPTURE                          VAL R3
-       48 JUMP                             ; [+5]
-       49 GETUPVAL                         R4 4
-       50 GETTABLEKS                       R4 R4 K10 ["Acp"]
-       52 GETTABLEKS                       R4 R4 K11 ["postAcpAsync"]
-       54 GETUPVAL                         R5 0
-       55 GETTABLEKS                       R5 R5 K12 ["FFlagDebugLogAssistantUI"]
-       57 JUMPIFNOT                        R5 ; [+17]
-       58 GETIMPORT                        R5 K14 [print]
-       60 LOADK                            R7 K15 ["[Remote ACP] create deps endpoint=%* localOverride=%*"]
-       61 MOVE                             R9 R3
-       62 JUMPIFNOTEQKNIL                  R1 ; [+2]
-       64 LOADB                            R11 0 +1
-       65 LOADB                            R11 1
-       66 FASTCALL1                        TOSTRING R11 ; [+2]
-       67 GETIMPORT                        R10 K17 [tostring]
-       69 CALL                             R10 1 1
-       70 NAMECALL                         R7 R7 K7 ["format"]
-       72 CALL                             R7 3 1
-       73 MOVE                             R6 R7
-       74 CALL                             R5 1 0
-       75 GETUPVAL                         R5 5
-       76 MOVE                             R6 R0
-       77 MOVE                             R7 R4
-       78 GETUPVAL                         R8 6
-       79 GETTABLEKS                       R8 R8 K18 ["getGameMetadata"]
-       81 MOVE                             R9 R3
-       82 CALL                             R5 4 1
-       83 RETURN                           R5 1
+        7 LOADNIL                          R0
+        8 LOADK                            R1 K2 ["%*/creator-agents-service/v1"]
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R3 R3 K3 ["get"]
+       12 CALL                             R3 0 1
+       13 GETTABLEKS                       R3 R3 K4 ["apisUrl"]
+       15 LOADK                            R5 K5 ["/+$"]
+       16 LOADK                            R6 K1 [""]
+       17 NAMECALL                         R3 R3 K6 ["gsub"]
+       19 CALL                             R3 3 1
+       20 NAMECALL                         R1 R1 K7 ["format"]
+       22 CALL                             R1 2 1
+       23 OR                               R3 R0 R1
+       24 LOADK                            R4 K8 ["%*/acp"]
+       25 LOADK                            R8 K5 ["/+$"]
+       26 LOADK                            R9 K1 [""]
+       27 NAMECALL                         R6 R3 K6 ["gsub"]
+       29 CALL                             R6 3 1
+       30 NAMECALL                         R4 R4 K7 ["format"]
+       32 CALL                             R4 2 1
+       33 MOVE                             R2 R4
+       34 JUMPIFNOT                        R0 ; [+13]
+       35 GETUPVAL                         R4 2
+       36 GETUPVAL                         R5 1
+       37 GETTABLEKS                       R5 R5 K3 ["get"]
+       39 CALL                             R5 0 1
+       40 GETTABLEKS                       R5 R5 K9 ["getUserId"]
+       42 NEWCLOSURE                       R3 P0
+       43 CAPTURE                          UPVAL U3
+       44 CAPTURE                          VAL R5
+       45 CAPTURE                          VAL R4
+       46 CAPTURE                          VAL R2
+       47 JUMP                             ; [+5]
+       48 GETUPVAL                         R3 4
+       49 GETTABLEKS                       R3 R3 K10 ["Acp"]
+       51 GETTABLEKS                       R3 R3 K11 ["postAcpAsync"]
+       53 GETUPVAL                         R4 0
+       54 GETTABLEKS                       R4 R4 K12 ["FFlagDebugLogAssistantUI"]
+       56 JUMPIFNOT                        R4 ; [+16]
+       57 GETIMPORT                        R4 K14 [print]
+       59 LOADK                            R5 K15 ["[Remote ACP] create deps endpoint=%* localOverride=%*"]
+       60 MOVE                             R7 R2
+       61 JUMPIFNOTEQKNIL                  R0 ; [+2]
+       63 LOADB                            R9 0 +1
+       64 LOADB                            R9 1
+       65 FASTCALL1                        TOSTRING R9 ; [+2]
+       66 GETIMPORT                        R8 K17 [tostring]
+       68 CALL                             R8 1 1
+       69 NAMECALL                         R5 R5 K7 ["format"]
+       71 CALL                             R5 3 1
+       72 CALL                             R4 1 0
+       73 GETUPVAL                         R4 5
+       74 MOVE                             R5 R3
+       75 GETUPVAL                         R6 6
+       76 GETTABLEKS                       R6 R6 K18 ["getGameMetadata"]
+       78 MOVE                             R7 R2
+       79 CALL                             R4 3 1
+       80 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1390,51 +1424,56 @@ MAIN:
        83 DUPCLOSURE                       R11 K31 [PROTO_0]
        84 CAPTURE                          VAL R7
        85 DUPCLOSURE                       R12 K32 [PROTO_1]
-       86 CAPTURE                          VAL R7
-       87 DUPCLOSURE                       R13 K33 [PROTO_2]
-       88 DUPCLOSURE                       R14 K34 [PROTO_3]
-       89 DUPCLOSURE                       R15 K35 [PROTO_4]
-       90 DUPCLOSURE                       R16 K36 [PROTO_10]
-       91 CAPTURE                          VAL R1
-       92 DUPCLOSURE                       R17 K37 [PROTO_11]
-       93 CAPTURE                          VAL R7
-       94 CAPTURE                          VAL R13
+       86 DUPCLOSURE                       R13 K33 [PROTO_2]
+       87 CAPTURE                          VAL R12
+       88 CAPTURE                          VAL R7
+       89 CAPTURE                          VAL R8
+       90 DUPCLOSURE                       R14 K34 [PROTO_3]
+       91 DUPCLOSURE                       R15 K35 [PROTO_4]
+       92 DUPCLOSURE                       R16 K36 [PROTO_5]
+       93 DUPCLOSURE                       R17 K37 [PROTO_11]
+       94 CAPTURE                          VAL R1
        95 DUPCLOSURE                       R18 K38 [PROTO_12]
-       96 DUPCLOSURE                       R19 K39 [PROTO_13]
-       97 DUPCLOSURE                       R20 K40 [PROTO_14]
-       98 CAPTURE                          VAL R7
-       99 CAPTURE                          VAL R12
+       96 CAPTURE                          VAL R7
+       97 CAPTURE                          VAL R14
+       98 DUPCLOSURE                       R19 K39 [PROTO_13]
+       99 DUPCLOSURE                       R20 K40 [PROTO_14]
       100 DUPCLOSURE                       R21 K41 [PROTO_15]
-      101 DUPCLOSURE                       R22 K42 [PROTO_17]
-      102 CAPTURE                          VAL R17
-      103 CAPTURE                          VAL R18
-      104 CAPTURE                          VAL R19
-      105 CAPTURE                          VAL R20
-      106 CAPTURE                          VAL R9
-      107 CAPTURE                          VAL R21
-      108 CAPTURE                          VAL R12
-      109 CAPTURE                          VAL R1
-      110 CAPTURE                          VAL R13
-      111 DUPCLOSURE                       R23 K43 [PROTO_26]
+      101 CAPTURE                          VAL R7
+      102 CAPTURE                          VAL R12
+      103 DUPCLOSURE                       R22 K42 [PROTO_16]
+      104 DUPCLOSURE                       R23 K43 [PROTO_18]
+      105 CAPTURE                          VAL R18
+      106 CAPTURE                          VAL R19
+      107 CAPTURE                          VAL R20
+      108 CAPTURE                          VAL R21
+      109 CAPTURE                          VAL R9
+      110 CAPTURE                          VAL R22
+      111 CAPTURE                          VAL R12
       112 CAPTURE                          VAL R7
-      113 DUPCLOSURE                       R24 K44 [PROTO_35]
-      114 CAPTURE                          VAL R7
-      115 CAPTURE                          VAL R23
-      116 CAPTURE                          VAL R1
-      117 CAPTURE                          VAL R4
-      118 CAPTURE                          VAL R22
-      119 DUPCLOSURE                       R25 K45 [PROTO_36]
+      113 CAPTURE                          VAL R1
+      114 CAPTURE                          VAL R14
+      115 CAPTURE                          VAL R8
+      116 DUPCLOSURE                       R24 K44 [PROTO_27]
+      117 CAPTURE                          VAL R7
+      118 DUPCLOSURE                       R25 K45 [PROTO_35]
+      119 CAPTURE                          VAL R24
       120 CAPTURE                          VAL R7
-      121 CAPTURE                          VAL R8
-      122 CAPTURE                          VAL R10
-      123 CAPTURE                          VAL R1
-      124 CAPTURE                          VAL R5
-      125 CAPTURE                          VAL R24
-      126 CAPTURE                          VAL R6
-      127 DUPTABLE                         R26 K51 [{"createRemoteACPAgentDeps", "createSessionUpdateSequencer", "makeAcpEndpoint", "makeLocalPostAcpAsync", "makeRemoteACPAgentDeps"}]
-      128 SETTABLEKS                       R25 R26 K46 ["createRemoteACPAgentDeps"]
-      130 SETTABLEKS                       R23 R26 K47 ["createSessionUpdateSequencer"]
-      132 SETTABLEKS                       R15 R26 K48 ["makeAcpEndpoint"]
-      134 SETTABLEKS                       R16 R26 K49 ["makeLocalPostAcpAsync"]
-      136 SETTABLEKS                       R24 R26 K50 ["makeRemoteACPAgentDeps"]
-      138 RETURN                           R26 1
+      121 CAPTURE                          VAL R1
+      122 CAPTURE                          VAL R4
+      123 CAPTURE                          VAL R23
+      124 DUPCLOSURE                       R26 K46 [PROTO_36]
+      125 CAPTURE                          VAL R7
+      126 CAPTURE                          VAL R8
+      127 CAPTURE                          VAL R10
+      128 CAPTURE                          VAL R1
+      129 CAPTURE                          VAL R5
+      130 CAPTURE                          VAL R25
+      131 CAPTURE                          VAL R6
+      132 DUPTABLE                         R27 K52 [{"createRemoteACPAgentDeps", "createSessionUpdateSequencer", "makeAcpEndpoint", "makeLocalPostAcpAsync", "makeRemoteACPAgentDeps"}]
+      133 SETTABLEKS                       R26 R27 K47 ["createRemoteACPAgentDeps"]
+      135 SETTABLEKS                       R24 R27 K48 ["createSessionUpdateSequencer"]
+      137 SETTABLEKS                       R16 R27 K49 ["makeAcpEndpoint"]
+      139 SETTABLEKS                       R17 R27 K50 ["makeLocalPostAcpAsync"]
+      141 SETTABLEKS                       R25 R27 K51 ["makeRemoteACPAgentDeps"]
+      143 RETURN                           R27 1

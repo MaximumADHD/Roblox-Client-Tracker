@@ -9,15 +9,14 @@ PROTO_0:
        11 LOADK                            R3 K6 [""]
        12 SETTABLEKS                       R3 R2 K2 ["Value"]
        14 DUPTABLE                         R3 K8 [{[1] = "Dimensions", ["Value"]}]
-       15 LOADK                            R5 K9 ["%*x%*px"]
-       16 GETTABLEKS                       R7 R0 K10 ["Width"]
-       18 GETTABLEKS                       R8 R0 K11 ["Height"]
-       20 NAMECALL                         R5 R5 K12 ["format"]
-       22 CALL                             R5 3 1
-       23 MOVE                             R4 R5
-       24 SETTABLEKS                       R4 R3 K2 ["Value"]
-       26 SETLIST                          R1 R2 2 [1]
-       28 RETURN                           R1 1
+       15 LOADK                            R4 K9 ["%*x%*px"]
+       16 GETTABLEKS                       R6 R0 K10 ["Width"]
+       18 GETTABLEKS                       R7 R0 K11 ["Height"]
+       20 NAMECALL                         R4 R4 K12 ["format"]
+       22 CALL                             R4 3 1
+       23 SETTABLEKS                       R4 R3 K2 ["Value"]
+       25 SETLIST                          R1 R2 2 [1]
+       27 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

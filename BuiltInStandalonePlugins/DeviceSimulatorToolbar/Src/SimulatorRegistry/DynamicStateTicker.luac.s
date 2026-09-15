@@ -322,11 +322,11 @@ PROTO_10:
         4 CALL                             R0 1 2
         5 GETUPVAL                         R2 0
         6 GETTABLEKS                       R2 R2 K2 ["_destroyed"]
-        8 JUMPIF                           R2 ; [+53]
+        8 JUMPIF                           R2 ; [+52]
         9 GETUPVAL                         R2 1
        10 GETUPVAL                         R3 0
        11 GETTABLEKS                       R3 R3 K3 ["_generation"]
-       13 JUMPIFNOTEQ                      R2 R3 ; [+48]
+       13 JUMPIFNOTEQ                      R2 R3 ; [+47]
        15 JUMPIFNOT                        R0 ; [+33]
        16 FASTCALL1                        TYPE R1 ; [+3]
        17 MOVE                             R3 R1
@@ -351,40 +351,39 @@ PROTO_10:
        45 CAPTURE                          UPVAL U0
        46 CAPTURE                          VAL R1
        47 CALL                             R2 2 0
-       48 JUMP                             ; [+13]
+       48 JUMP                             ; [+12]
        49 GETIMPORT                        R2 K14 [warn]
-       51 LOADK                            R4 K15 ["Device Simulator registry refresh failed: %*"]
-       52 GETUPVAL                         R6 2
-       53 GETTABLEKS                       R6 R6 K16 ["formatError"]
-       55 MOVE                             R7 R1
-       56 CALL                             R6 1 1
-       57 NAMECALL                         R4 R4 K17 ["format"]
-       59 CALL                             R4 2 1
-       60 MOVE                             R3 R4
-       61 CALL                             R2 1 0
-       62 GETUPVAL                         R2 0
-       63 LOADB                            R3 0
-       64 SETTABLEKS                       R3 R2 K18 ["_refreshing"]
-       66 GETUPVAL                         R2 0
-       67 GETTABLEKS                       R2 R2 K19 ["_refreshPending"]
-       69 JUMPIFNOT                        R2 ; [+9]
-       70 GETUPVAL                         R2 0
-       71 GETTABLEKS                       R2 R2 K2 ["_destroyed"]
-       73 JUMPIF                           R2 ; [+5]
-       74 GETUPVAL                         R2 0
-       75 NAMECALL                         R2 R2 K20 ["_refreshRegistry"]
-       77 CALL                             R2 1 0
-       78 RETURN                           R0 0
-       79 GETUPVAL                         R2 0
-       80 GETTABLEKS                       R2 R2 K21 ["_pollPending"]
-       82 JUMPIFNOT                        R2 ; [+8]
-       83 GETUPVAL                         R2 0
-       84 GETTABLEKS                       R2 R2 K2 ["_destroyed"]
-       86 JUMPIF                           R2 ; [+4]
-       87 GETUPVAL                         R2 0
-       88 NAMECALL                         R2 R2 K22 ["_poll"]
-       90 CALL                             R2 1 0
-       91 RETURN                           R0 0
+       51 LOADK                            R3 K15 ["Device Simulator registry refresh failed: %*"]
+       52 GETUPVAL                         R5 2
+       53 GETTABLEKS                       R5 R5 K16 ["formatError"]
+       55 MOVE                             R6 R1
+       56 CALL                             R5 1 1
+       57 NAMECALL                         R3 R3 K17 ["format"]
+       59 CALL                             R3 2 1
+       60 CALL                             R2 1 0
+       61 GETUPVAL                         R2 0
+       62 LOADB                            R3 0
+       63 SETTABLEKS                       R3 R2 K18 ["_refreshing"]
+       65 GETUPVAL                         R2 0
+       66 GETTABLEKS                       R2 R2 K19 ["_refreshPending"]
+       68 JUMPIFNOT                        R2 ; [+9]
+       69 GETUPVAL                         R2 0
+       70 GETTABLEKS                       R2 R2 K2 ["_destroyed"]
+       72 JUMPIF                           R2 ; [+5]
+       73 GETUPVAL                         R2 0
+       74 NAMECALL                         R2 R2 K20 ["_refreshRegistry"]
+       76 CALL                             R2 1 0
+       77 RETURN                           R0 0
+       78 GETUPVAL                         R2 0
+       79 GETTABLEKS                       R2 R2 K21 ["_pollPending"]
+       81 JUMPIFNOT                        R2 ; [+8]
+       82 GETUPVAL                         R2 0
+       83 GETTABLEKS                       R2 R2 K2 ["_destroyed"]
+       85 JUMPIF                           R2 ; [+4]
+       86 GETUPVAL                         R2 0
+       87 NAMECALL                         R2 R2 K22 ["_poll"]
+       89 CALL                             R2 1 0
+       90 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R1 0
@@ -468,11 +467,11 @@ PROTO_15:
         3 FORGPREP                         R0
         4 GETUPVAL                         R5 1
         5 GETTABLEKS                       R5 R5 K0 ["_destroyed"]
-        7 JUMPIF                           R5 ; [+124]
+        7 JUMPIF                           R5 ; [+123]
         8 GETUPVAL                         R5 2
         9 GETUPVAL                         R6 1
        10 GETTABLEKS                       R6 R6 K1 ["_generation"]
-       12 JUMPIFNOTEQ                      R5 R6 ; [+119]
+       12 JUMPIFNOTEQ                      R5 R6 ; [+118]
        14 GETUPVAL                         R6 1
        15 GETTABLEKS                       R6 R6 K2 ["_stagedValues"]
        17 GETTABLEKS                       R7 R4 K3 ["Name"]
@@ -491,26 +490,26 @@ PROTO_15:
        34 CALL                             R7 1 2
        35 GETUPVAL                         R9 1
        36 GETTABLEKS                       R9 R9 K0 ["_destroyed"]
-       38 JUMPIF                           R9 ; [+93]
+       38 JUMPIF                           R9 ; [+92]
        39 GETUPVAL                         R9 2
        40 GETUPVAL                         R10 1
        41 GETTABLEKS                       R10 R10 K1 ["_generation"]
-       43 JUMPIFNOTEQ                      R9 R10 ; [+88]
+       43 JUMPIFNOTEQ                      R9 R10 ; [+87]
        45 GETUPVAL                         R11 1
        46 GETTABLEKS                       R11 R11 K5 ["_stagedVersions"]
        48 GETTABLEKS                       R12 R4 K3 ["Name"]
        50 GETTABLE                         R10 R11 R12
        51 ORK                              R9 R10 K4 [0]
-       52 JUMPIFNOTEQ                      R6 R9 ; [+77]
+       52 JUMPIFNOTEQ                      R6 R9 ; [+76]
        54 JUMPIFNOT                        R7 ; [+2]
-       55 JUMPIFEQKNIL                     R8 ; [+74]
+       55 JUMPIFEQKNIL                     R8 ; [+73]
        57 JUMPIFNOT                        R7 ; [+4]
        58 GETUPVAL                         R9 4
        59 MOVE                             R10 R8
        60 CALL                             R9 1 1
        61 JUMP                             ; [+1]
        62 LOADNIL                          R9
-       63 JUMPIFNOTEQKNIL                  R9 ; [+21]
+       63 JUMPIFNOTEQKNIL                  R9 ; [+20]
        65 JUMPIFNOT                        R7 ; [+2]
        66 LOADK                            R10 K8 ["returned an invalid state"]
        67 JUMP                             ; [+5]
@@ -519,61 +518,60 @@ PROTO_15:
        71 MOVE                             R11 R8
        72 CALL                             R10 1 1
        73 GETIMPORT                        R11 K11 [warn]
-       75 LOADK                            R13 K12 ["Device Simulator state poll failed for %*: %*"]
-       76 GETTABLEKS                       R15 R4 K3 ["Name"]
-       78 MOVE                             R16 R10
-       79 NAMECALL                         R13 R13 K13 ["format"]
-       81 CALL                             R13 3 1
-       82 MOVE                             R12 R13
-       83 CALL                             R11 1 0
-       84 JUMP                             ; [+45]
-       85 JUMPIFNOTEQKNIL                  R5 ; [+2]
-       87 LOADB                            R10 0 +1
-       88 LOADB                            R10 1
-       89 GETUPVAL                         R12 1
-       90 GETTABLEKS                       R12 R12 K14 ["_lastStateWasStaged"]
-       92 GETTABLEKS                       R13 R4 K3 ["Name"]
-       94 GETTABLE                         R11 R12 R13
-       95 JUMPIFNOTEQ                      R11 R10 ; [+11]
-       97 GETUPVAL                         R11 6
-       98 GETUPVAL                         R13 1
-       99 GETTABLEKS                       R13 R13 K15 ["_lastState"]
-      101 GETTABLEKS                       R14 R4 K3 ["Name"]
-      103 GETTABLE                         R12 R13 R14
-      104 MOVE                             R13 R9
-      105 CALL                             R11 2 1
-      106 JUMPIF                           R11 ; [+23]
-      107 GETUPVAL                         R11 1
-      108 GETTABLEKS                       R11 R11 K15 ["_lastState"]
-      110 GETTABLEKS                       R12 R4 K3 ["Name"]
-      112 SETTABLE                         R9 R11 R12
-      113 GETUPVAL                         R11 1
-      114 GETTABLEKS                       R11 R11 K14 ["_lastStateWasStaged"]
-      116 GETTABLEKS                       R12 R4 K3 ["Name"]
-      118 SETTABLE                         R10 R11 R12
-      119 GETUPVAL                         R11 5
-      120 GETTABLEKS                       R11 R11 K16 ["safeCall"]
-      122 GETTABLEKS                       R12 R4 K3 ["Name"]
-      124 NEWCLOSURE                       R13 P1
-      125 CAPTURE                          UPVAL U1
-      126 CAPTURE                          VAL R4
-      127 CAPTURE                          VAL R9
-      128 CAPTURE                          VAL R10
-      129 CALL                             R11 2 0
-      130 FORGLOOP                         R0 2 ; [-127]
-      132 GETUPVAL                         R0 1
-      133 LOADB                            R1 0
-      134 SETTABLEKS                       R1 R0 K17 ["_polling"]
-      136 GETUPVAL                         R0 1
-      137 GETTABLEKS                       R0 R0 K18 ["_pollPending"]
-      139 JUMPIFNOT                        R0 ; [+8]
-      140 GETUPVAL                         R0 1
-      141 GETTABLEKS                       R0 R0 K0 ["_destroyed"]
-      143 JUMPIF                           R0 ; [+4]
-      144 GETUPVAL                         R0 1
-      145 NAMECALL                         R0 R0 K19 ["_poll"]
-      147 CALL                             R0 1 0
-      148 RETURN                           R0 0
+       75 LOADK                            R12 K12 ["Device Simulator state poll failed for %*: %*"]
+       76 GETTABLEKS                       R14 R4 K3 ["Name"]
+       78 MOVE                             R15 R10
+       79 NAMECALL                         R12 R12 K13 ["format"]
+       81 CALL                             R12 3 1
+       82 CALL                             R11 1 0
+       83 JUMP                             ; [+45]
+       84 JUMPIFNOTEQKNIL                  R5 ; [+2]
+       86 LOADB                            R10 0 +1
+       87 LOADB                            R10 1
+       88 GETUPVAL                         R12 1
+       89 GETTABLEKS                       R12 R12 K14 ["_lastStateWasStaged"]
+       91 GETTABLEKS                       R13 R4 K3 ["Name"]
+       93 GETTABLE                         R11 R12 R13
+       94 JUMPIFNOTEQ                      R11 R10 ; [+11]
+       96 GETUPVAL                         R11 6
+       97 GETUPVAL                         R13 1
+       98 GETTABLEKS                       R13 R13 K15 ["_lastState"]
+      100 GETTABLEKS                       R14 R4 K3 ["Name"]
+      102 GETTABLE                         R12 R13 R14
+      103 MOVE                             R13 R9
+      104 CALL                             R11 2 1
+      105 JUMPIF                           R11 ; [+23]
+      106 GETUPVAL                         R11 1
+      107 GETTABLEKS                       R11 R11 K15 ["_lastState"]
+      109 GETTABLEKS                       R12 R4 K3 ["Name"]
+      111 SETTABLE                         R9 R11 R12
+      112 GETUPVAL                         R11 1
+      113 GETTABLEKS                       R11 R11 K14 ["_lastStateWasStaged"]
+      115 GETTABLEKS                       R12 R4 K3 ["Name"]
+      117 SETTABLE                         R10 R11 R12
+      118 GETUPVAL                         R11 5
+      119 GETTABLEKS                       R11 R11 K16 ["safeCall"]
+      121 GETTABLEKS                       R12 R4 K3 ["Name"]
+      123 NEWCLOSURE                       R13 P1
+      124 CAPTURE                          UPVAL U1
+      125 CAPTURE                          VAL R4
+      126 CAPTURE                          VAL R9
+      127 CAPTURE                          VAL R10
+      128 CALL                             R11 2 0
+      129 FORGLOOP                         R0 2 ; [-126]
+      131 GETUPVAL                         R0 1
+      132 LOADB                            R1 0
+      133 SETTABLEKS                       R1 R0 K17 ["_polling"]
+      135 GETUPVAL                         R0 1
+      136 GETTABLEKS                       R0 R0 K18 ["_pollPending"]
+      138 JUMPIFNOT                        R0 ; [+8]
+      139 GETUPVAL                         R0 1
+      140 GETTABLEKS                       R0 R0 K0 ["_destroyed"]
+      142 JUMPIF                           R0 ; [+4]
+      143 GETUPVAL                         R0 1
+      144 NAMECALL                         R0 R0 K19 ["_poll"]
+      146 CALL                             R0 1 0
+      147 RETURN                           R0 0
 
 PROTO_16:
         0 GETUPVAL                         R1 0

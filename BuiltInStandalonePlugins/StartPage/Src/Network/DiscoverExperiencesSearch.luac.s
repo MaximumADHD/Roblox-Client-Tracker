@@ -32,40 +32,39 @@ PROTO_0:
        52 SETTABLEKS                       R3 R2 K16 ["RootPlaceId"]
        54 RETURN                           R2 1
        55 GETTABLEKS                       R2 R1 K25 ["privacyType"]
-       57 JUMPIFNOT                        R2 ; [+15]
-       58 JUMPIFEQKS                       R2 K26 ["Public"] ; [+14]
-       60 JUMPIFEQKS                       R2 K27 ["Private"] ; [+12]
-       62 JUMPIFEQKS                       R2 K28 ["Draft"] ; [+10]
+       57 JUMPIFNOT                        R2 ; [+14]
+       58 JUMPIFEQKS                       R2 K26 ["Public"] ; [+13]
+       60 JUMPIFEQKS                       R2 K27 ["Private"] ; [+11]
+       62 JUMPIFEQKS                       R2 K28 ["Draft"] ; [+9]
        64 GETIMPORT                        R3 K30 [error]
-       66 LOADK                            R5 K31 ["Invalid value for privacyType: \"%*\""]
-       67 MOVE                             R7 R2
-       68 NAMECALL                         R5 R5 K32 ["format"]
-       70 CALL                             R5 2 1
-       71 MOVE                             R4 R5
-       72 CALL                             R3 1 0
-       73 DUPTABLE                         R3 K35 [{["IsGame"] = True, ["Name"], ["CreatorName"], ["CreatorType"], ["CreatorTargetId"], ["Type"] = "Experience", ["Description"], ["Created"], ["Updated"], ["PrivacyType"], ["IsFriendsOnly"], ["Id"], ["RootPlaceId"]}]
-       74 GETTABLEKS                       R4 R1 K0 ["name"]
-       76 SETTABLEKS                       R4 R3 K5 ["Name"]
-       78 GETTABLEKS                       R4 R1 K18 ["creatorName"]
-       80 SETTABLEKS                       R4 R3 K6 ["CreatorName"]
-       82 GETTABLEKS                       R4 R1 K19 ["creatorType"]
-       84 SETTABLEKS                       R4 R3 K7 ["CreatorType"]
-       86 GETTABLEKS                       R4 R1 K20 ["creatorTargetId"]
-       88 SETTABLEKS                       R4 R3 K8 ["CreatorTargetId"]
-       90 GETTABLEKS                       R4 R1 K21 ["description"]
-       92 SETTABLEKS                       R4 R3 K11 ["Description"]
-       94 GETTABLEKS                       R4 R1 K22 ["created"]
-       96 SETTABLEKS                       R4 R3 K12 ["Created"]
-       98 GETTABLEKS                       R4 R1 K23 ["updated"]
-      100 SETTABLEKS                       R4 R3 K13 ["Updated"]
-      102 SETTABLEKS                       R2 R3 K33 ["PrivacyType"]
-      104 GETTABLEKS                       R4 R1 K36 ["isFriendsOnly"]
-      106 SETTABLEKS                       R4 R3 K34 ["IsFriendsOnly"]
-      108 GETTABLEKS                       R4 R1 K1 ["id"]
-      110 SETTABLEKS                       R4 R3 K15 ["Id"]
-      112 GETTABLEKS                       R4 R1 K2 ["rootPlaceId"]
-      114 SETTABLEKS                       R4 R3 K16 ["RootPlaceId"]
-      116 RETURN                           R3 1
+       66 LOADK                            R4 K31 ["Invalid value for privacyType: \"%*\""]
+       67 MOVE                             R6 R2
+       68 NAMECALL                         R4 R4 K32 ["format"]
+       70 CALL                             R4 2 1
+       71 CALL                             R3 1 0
+       72 DUPTABLE                         R3 K35 [{["IsGame"] = True, ["Name"], ["CreatorName"], ["CreatorType"], ["CreatorTargetId"], ["Type"] = "Experience", ["Description"], ["Created"], ["Updated"], ["PrivacyType"], ["IsFriendsOnly"], ["Id"], ["RootPlaceId"]}]
+       73 GETTABLEKS                       R4 R1 K0 ["name"]
+       75 SETTABLEKS                       R4 R3 K5 ["Name"]
+       77 GETTABLEKS                       R4 R1 K18 ["creatorName"]
+       79 SETTABLEKS                       R4 R3 K6 ["CreatorName"]
+       81 GETTABLEKS                       R4 R1 K19 ["creatorType"]
+       83 SETTABLEKS                       R4 R3 K7 ["CreatorType"]
+       85 GETTABLEKS                       R4 R1 K20 ["creatorTargetId"]
+       87 SETTABLEKS                       R4 R3 K8 ["CreatorTargetId"]
+       89 GETTABLEKS                       R4 R1 K21 ["description"]
+       91 SETTABLEKS                       R4 R3 K11 ["Description"]
+       93 GETTABLEKS                       R4 R1 K22 ["created"]
+       95 SETTABLEKS                       R4 R3 K12 ["Created"]
+       97 GETTABLEKS                       R4 R1 K23 ["updated"]
+       99 SETTABLEKS                       R4 R3 K13 ["Updated"]
+      101 SETTABLEKS                       R2 R3 K33 ["PrivacyType"]
+      103 GETTABLEKS                       R4 R1 K36 ["isFriendsOnly"]
+      105 SETTABLEKS                       R4 R3 K34 ["IsFriendsOnly"]
+      107 GETTABLEKS                       R4 R1 K1 ["id"]
+      109 SETTABLEKS                       R4 R3 K15 ["Id"]
+      111 GETTABLEKS                       R4 R1 K2 ["rootPlaceId"]
+      113 SETTABLEKS                       R4 R3 K16 ["RootPlaceId"]
+      115 RETURN                           R3 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -104,31 +103,30 @@ PROTO_2:
        24 MOVE                             R9 R0
        25 CALL                             R6 3 1
        26 MOVE                             R4 R6
-       27 LOADK                            R6 K8 ["&surface=StudioStartPage&PageIndex=%*"]
-       28 MOVE                             R8 R1
-       29 NAMECALL                         R6 R6 K9 ["format"]
-       31 CALL                             R6 2 1
-       32 MOVE                             R5 R6
-       33 CONCAT                           R3 R4 R5
-       34 GETUPVAL                         R4 3
-       35 JUMPIFNOT                        R4 ; [+3]
-       36 MOVE                             R4 R3
-       37 LOADK                            R5 K10 ["&needsAssetOptions=true"]
-       38 CONCAT                           R3 R4 R5
-       39 GETUPVAL                         R4 4
-       40 GETUPVAL                         R6 4
-       41 MOVE                             R8 R3
-       42 NAMECALL                         R6 R6 K11 ["get"]
-       44 CALL                             R6 2 -1
-       45 NAMECALL                         R4 R4 K12 ["parseJson"]
-       47 CALL                             R4 -1 1
-       48 DUPCLOSURE                       R6 K13 [PROTO_1]
-       49 CAPTURE                          UPVAL U5
-       50 CAPTURE                          UPVAL U6
-       51 CAPTURE                          UPVAL U7
-       52 NAMECALL                         R4 R4 K14 ["andThen"]
-       54 CALL                             R4 2 -1
-       55 RETURN                           R4 -1
+       27 LOADK                            R5 K8 ["&surface=StudioStartPage&PageIndex=%*"]
+       28 MOVE                             R7 R1
+       29 NAMECALL                         R5 R5 K9 ["format"]
+       31 CALL                             R5 2 1
+       32 CONCAT                           R3 R4 R5
+       33 GETUPVAL                         R4 3
+       34 JUMPIFNOT                        R4 ; [+3]
+       35 MOVE                             R4 R3
+       36 LOADK                            R5 K10 ["&needsAssetOptions=true"]
+       37 CONCAT                           R3 R4 R5
+       38 GETUPVAL                         R4 4
+       39 GETUPVAL                         R6 4
+       40 MOVE                             R8 R3
+       41 NAMECALL                         R6 R6 K11 ["get"]
+       43 CALL                             R6 2 -1
+       44 NAMECALL                         R4 R4 K12 ["parseJson"]
+       46 CALL                             R4 -1 1
+       47 DUPCLOSURE                       R6 K13 [PROTO_1]
+       48 CAPTURE                          UPVAL U5
+       49 CAPTURE                          UPVAL U6
+       50 CAPTURE                          UPVAL U7
+       51 NAMECALL                         R4 R4 K14 ["andThen"]
+       53 CALL                             R4 2 -1
+       54 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

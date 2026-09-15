@@ -90,25 +90,24 @@ PROTO_5:
 
 PROTO_6:
         0 DUPTABLE                         R5 K4 [{"Id", "Name", "Value", "SetParentValue"}]
-        1 LOADK                            R7 K5 ["%*/%*"]
-        2 MOVE                             R9 R1
-        3 MOVE                             R10 R0
-        4 NAMECALL                         R7 R7 K6 ["format"]
-        6 CALL                             R7 3 1
-        7 MOVE                             R6 R7
-        8 SETTABLEKS                       R6 R5 K0 ["Id"]
-       10 DUPTABLE                         R6 K8 [{"Schema", "Value"}]
-       11 GETUPVAL                         R7 0
-       12 GETTABLEKS                       R7 R7 K9 ["ChildComponentSchema"]
-       14 SETTABLEKS                       R7 R6 K7 ["Schema"]
-       16 SETTABLEKS                       R0 R6 K2 ["Value"]
-       18 SETTABLEKS                       R6 R5 K1 ["Name"]
-       20 DUPTABLE                         R6 K8 [{"Schema", "Value"}]
-       21 SETTABLEKS                       R2 R6 K7 ["Schema"]
-       23 SETTABLEKS                       R3 R6 K2 ["Value"]
-       25 SETTABLEKS                       R6 R5 K2 ["Value"]
-       27 SETTABLEKS                       R4 R5 K3 ["SetParentValue"]
-       29 RETURN                           R5 1
+        1 LOADK                            R6 K5 ["%*/%*"]
+        2 MOVE                             R8 R1
+        3 MOVE                             R9 R0
+        4 NAMECALL                         R6 R6 K6 ["format"]
+        6 CALL                             R6 3 1
+        7 SETTABLEKS                       R6 R5 K0 ["Id"]
+        9 DUPTABLE                         R6 K8 [{"Schema", "Value"}]
+       10 GETUPVAL                         R7 0
+       11 GETTABLEKS                       R7 R7 K9 ["ChildComponentSchema"]
+       13 SETTABLEKS                       R7 R6 K7 ["Schema"]
+       15 SETTABLEKS                       R0 R6 K2 ["Value"]
+       17 SETTABLEKS                       R6 R5 K1 ["Name"]
+       19 DUPTABLE                         R6 K8 [{"Schema", "Value"}]
+       20 SETTABLEKS                       R2 R6 K7 ["Schema"]
+       22 SETTABLEKS                       R3 R6 K2 ["Value"]
+       24 SETTABLEKS                       R6 R5 K2 ["Value"]
+       26 SETTABLEKS                       R4 R5 K3 ["SetParentValue"]
+       28 RETURN                           R5 1
 
 PROTO_7:
         0 FASTCALL1                        TONUMBER R1 ; [+3]

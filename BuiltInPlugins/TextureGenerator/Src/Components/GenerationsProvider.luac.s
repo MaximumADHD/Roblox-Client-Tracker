@@ -44,13 +44,13 @@ PROTO_0:
        65 JUMPIFNOTEQ                      R2 R3 ; [+31]
        67 GETTABLEKS                       R3 R1 K2 ["hash"]
        69 GETTABLE                         R2 R0 R3
-       70 JUMPIFNOT                        R2 ; [+36]
+       70 JUMPIFNOT                        R2 ; [+35]
        71 GETIMPORT                        R2 K15 [table.find]
        73 GETTABLEKS                       R4 R1 K2 ["hash"]
        75 GETTABLE                         R3 R0 R4
        76 GETTABLEKS                       R4 R1 K1 ["uuid"]
        78 CALL                             R2 2 1
-       79 JUMPIFNOT                        R2 ; [+27]
+       79 JUMPIFNOT                        R2 ; [+26]
        80 GETTABLEKS                       R3 R1 K2 ["hash"]
        82 GETIMPORT                        R4 K8 [table.clone]
        84 GETTABLEKS                       R6 R1 K2 ["hash"]
@@ -64,13 +64,12 @@ PROTO_0:
        95 CALL                             R3 2 0
        96 RETURN                           R0 1
        97 GETIMPORT                        R2 K19 [error]
-       99 LOADK                            R4 K20 ["Invalid action: %*"]
-      100 GETTABLEKS                       R6 R1 K0 ["action"]
-      102 NAMECALL                         R4 R4 K21 ["format"]
-      104 CALL                             R4 2 1
-      105 MOVE                             R3 R4
-      106 CALL                             R2 1 0
-      107 RETURN                           R0 1
+       99 LOADK                            R3 K20 ["Invalid action: %*"]
+      100 GETTABLEKS                       R5 R1 K0 ["action"]
+      102 NAMECALL                         R3 R3 K21 ["format"]
+      104 CALL                             R3 2 1
+      105 CALL                             R2 1 0
+      106 RETURN                           R0 1
 
 PROTO_1:
         0 GETIMPORT                        R0 K1 [print]

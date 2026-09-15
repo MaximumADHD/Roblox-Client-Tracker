@@ -10,22 +10,21 @@ PROTO_0:
        10 NAMECALL                         R2 R2 K0 ["GetAsync"]
        12 CALL                             R2 2 1
        13 GETTABLEN                        R1 R2 1
-       14 JUMPIFNOTEQKNIL                  R1 ; [+13]
+       14 JUMPIFNOTEQKNIL                  R1 ; [+12]
        16 GETIMPORT                        R2 K2 [warn]
-       18 LOADK                            R4 K3 ["VisualizationModes: Could not find toggle action { FeatureId: %*, ActionId: %* }"]
-       19 GETUPVAL                         R6 1
-       20 GETUPVAL                         R7 2
-       21 NAMECALL                         R4 R4 K4 ["format"]
-       23 CALL                             R4 3 1
-       24 MOVE                             R3 R4
-       25 CALL                             R2 1 0
-       26 GETUPVAL                         R2 4
-       27 RETURN                           R2 1
-       28 GETUPVAL                         R2 5
-       29 LOADB                            R3 1
-       30 SETTABLEKS                       R3 R2 K5 ["current"]
-       32 GETTABLEKS                       R2 R1 K6 ["Checked"]
-       34 RETURN                           R2 1
+       18 LOADK                            R3 K3 ["VisualizationModes: Could not find toggle action { FeatureId: %*, ActionId: %* }"]
+       19 GETUPVAL                         R5 1
+       20 GETUPVAL                         R6 2
+       21 NAMECALL                         R3 R3 K4 ["format"]
+       23 CALL                             R3 3 1
+       24 CALL                             R2 1 0
+       25 GETUPVAL                         R2 4
+       26 RETURN                           R2 1
+       27 GETUPVAL                         R2 5
+       28 LOADB                            R3 1
+       29 SETTABLEKS                       R3 R2 K5 ["current"]
+       31 GETTABLEKS                       R2 R1 K6 ["Checked"]
+       33 RETURN                           R2 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0

@@ -124,49 +124,52 @@ PROTO_0:
       175 GETIMPORT                        R6 K9 [table.insert]
       177 CALL                             R6 2 0
       178 GETUPVAL                         R6 5
-      179 MOVE                             R7 R2
-      180 CALL                             R6 1 1
-      181 JUMPIFNOT                        R6 ; [+24]
-      182 GETUPVAL                         R7 6
-      183 MOVE                             R8 R2
-      184 CALL                             R7 1 1
-      185 JUMPIF                           R7 ; [+20]
-      186 DUPTABLE                         R9 K2 [{"id", "text"}]
-      187 GETUPVAL                         R10 0
-      188 GETTABLEKS                       R10 R10 K31 ["ROW_ADD_PRIMARY_MODIFIER"]
-      190 SETTABLEKS                       R10 R9 K0 ["id"]
-      192 LOADK                            R12 K4 ["Menu"]
-      193 LOADK                            R13 K32 ["AddPrimaryModifier"]
-      194 NAMECALL                         R10 R0 K6 ["getText"]
-      196 CALL                             R10 3 1
-      197 SETTABLEKS                       R10 R9 K1 ["text"]
-      199 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
-      201 MOVE                             R8 R5
-      202 GETIMPORT                        R7 K9 [table.insert]
-      204 CALL                             R7 2 0
-      205 RETURN                           R5 1
-      206 GETUPVAL                         R7 6
-      207 MOVE                             R8 R2
-      208 CALL                             R7 1 1
-      209 JUMPIFNOT                        R7 ; [+23]
-      210 GETUPVAL                         R7 7
-      211 MOVE                             R8 R2
-      212 CALL                             R7 1 1
-      213 JUMPIF                           R7 ; [+19]
-      214 DUPTABLE                         R9 K2 [{"id", "text"}]
-      215 GETUPVAL                         R10 0
-      216 GETTABLEKS                       R10 R10 K33 ["ROW_ADD_SECONDARY_MODIFIER"]
-      218 SETTABLEKS                       R10 R9 K0 ["id"]
-      220 LOADK                            R12 K4 ["Menu"]
-      221 LOADK                            R13 K34 ["AddSecondaryModifier"]
-      222 NAMECALL                         R10 R0 K6 ["getText"]
-      224 CALL                             R10 3 1
-      225 SETTABLEKS                       R10 R9 K1 ["text"]
-      227 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
-      229 MOVE                             R8 R5
-      230 GETIMPORT                        R7 K9 [table.insert]
-      232 CALL                             R7 2 0
-      233 RETURN                           R5 1
+      179 CALL                             R6 0 1
+      180 JUMPIF                           R6 ; [+55]
+      181 GETUPVAL                         R6 6
+      182 MOVE                             R7 R2
+      183 CALL                             R6 1 1
+      184 JUMPIFNOT                        R6 ; [+24]
+      185 GETUPVAL                         R7 7
+      186 MOVE                             R8 R2
+      187 CALL                             R7 1 1
+      188 JUMPIF                           R7 ; [+20]
+      189 DUPTABLE                         R9 K2 [{"id", "text"}]
+      190 GETUPVAL                         R10 0
+      191 GETTABLEKS                       R10 R10 K31 ["ROW_ADD_PRIMARY_MODIFIER"]
+      193 SETTABLEKS                       R10 R9 K0 ["id"]
+      195 LOADK                            R12 K4 ["Menu"]
+      196 LOADK                            R13 K32 ["AddPrimaryModifier"]
+      197 NAMECALL                         R10 R0 K6 ["getText"]
+      199 CALL                             R10 3 1
+      200 SETTABLEKS                       R10 R9 K1 ["text"]
+      202 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
+      204 MOVE                             R8 R5
+      205 GETIMPORT                        R7 K9 [table.insert]
+      207 CALL                             R7 2 0
+      208 RETURN                           R5 1
+      209 GETUPVAL                         R7 7
+      210 MOVE                             R8 R2
+      211 CALL                             R7 1 1
+      212 JUMPIFNOT                        R7 ; [+23]
+      213 GETUPVAL                         R7 8
+      214 MOVE                             R8 R2
+      215 CALL                             R7 1 1
+      216 JUMPIF                           R7 ; [+19]
+      217 DUPTABLE                         R9 K2 [{"id", "text"}]
+      218 GETUPVAL                         R10 0
+      219 GETTABLEKS                       R10 R10 K33 ["ROW_ADD_SECONDARY_MODIFIER"]
+      221 SETTABLEKS                       R10 R9 K0 ["id"]
+      223 LOADK                            R12 K4 ["Menu"]
+      224 LOADK                            R13 K34 ["AddSecondaryModifier"]
+      225 NAMECALL                         R10 R0 K6 ["getText"]
+      227 CALL                             R10 3 1
+      228 SETTABLEKS                       R10 R9 K1 ["text"]
+      230 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
+      232 MOVE                             R8 R5
+      233 GETIMPORT                        R7 K9 [table.insert]
+      235 CALL                             R7 2 0
+      236 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -228,13 +231,17 @@ MAIN:
       100 GETIMPORT                        R11 K5 [require]
       102 GETTABLEKS                       R12 R10 K22 ["getFFlagIAMDuplicate"]
       104 CALL                             R11 1 1
-      105 DUPCLOSURE                       R12 K23 [PROTO_0]
-      106 CAPTURE                          VAL R5
-      107 CAPTURE                          VAL R11
-      108 CAPTURE                          VAL R4
-      109 CAPTURE                          VAL R9
-      110 CAPTURE                          VAL R3
-      111 CAPTURE                          VAL R6
-      112 CAPTURE                          VAL R7
-      113 CAPTURE                          VAL R8
-      114 RETURN                           R12 1
+      105 GETIMPORT                        R12 K5 [require]
+      107 GETTABLEKS                       R13 R10 K23 ["getFFlagIAMImprovedModifierMenu"]
+      109 CALL                             R12 1 1
+      110 DUPCLOSURE                       R13 K24 [PROTO_0]
+      111 CAPTURE                          VAL R5
+      112 CAPTURE                          VAL R11
+      113 CAPTURE                          VAL R4
+      114 CAPTURE                          VAL R9
+      115 CAPTURE                          VAL R3
+      116 CAPTURE                          VAL R12
+      117 CAPTURE                          VAL R6
+      118 CAPTURE                          VAL R7
+      119 CAPTURE                          VAL R8
+      120 RETURN                           R13 1

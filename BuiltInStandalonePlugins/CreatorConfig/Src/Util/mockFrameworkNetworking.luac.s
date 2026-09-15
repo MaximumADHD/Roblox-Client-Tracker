@@ -12,31 +12,30 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R1
-        2 JUMPIFNOTEQKNIL                  R2 ; [+12]
+        2 JUMPIFNOTEQKNIL                  R2 ; [+11]
         4 GETUPVAL                         R3 1
         5 GETTABLEKS                       R3 R3 K0 ["reject"]
-        7 LOADK                            R5 K1 ["Unexpected url: %*"]
-        8 MOVE                             R7 R1
-        9 NAMECALL                         R5 R5 K2 ["format"]
-       11 CALL                             R5 2 1
-       12 MOVE                             R4 R5
-       13 CALL                             R3 1 -1
-       14 RETURN                           R3 -1
-       15 FASTCALL1                        TYPEOF R2 ; [+3]
-       16 MOVE                             R5 R2
-       17 GETIMPORT                        R4 K4 [typeof]
-       19 CALL                             R4 1 1
-       20 JUMPIFNOTEQKS                    R4 K5 ["function"] ; [+4]
-       22 MOVE                             R3 R2
-       23 CALL                             R3 0 1
-       24 JUMP                             ; [+1]
-       25 MOVE                             R3 R2
-       26 GETUPVAL                         R4 1
-       27 GETTABLEKS                       R4 R4 K6 ["resolve"]
-       29 DUPTABLE                         R5 K8 [{"responseBody"}]
-       30 SETTABLEKS                       R3 R5 K7 ["responseBody"]
-       32 CALL                             R4 1 -1
-       33 RETURN                           R4 -1
+        7 LOADK                            R4 K1 ["Unexpected url: %*"]
+        8 MOVE                             R6 R1
+        9 NAMECALL                         R4 R4 K2 ["format"]
+       11 CALL                             R4 2 1
+       12 CALL                             R3 1 -1
+       13 RETURN                           R3 -1
+       14 FASTCALL1                        TYPEOF R2 ; [+3]
+       15 MOVE                             R5 R2
+       16 GETIMPORT                        R4 K4 [typeof]
+       18 CALL                             R4 1 1
+       19 JUMPIFNOTEQKS                    R4 K5 ["function"] ; [+4]
+       21 MOVE                             R3 R2
+       22 CALL                             R3 0 1
+       23 JUMP                             ; [+1]
+       24 MOVE                             R3 R2
+       25 GETUPVAL                         R4 1
+       26 GETTABLEKS                       R4 R4 K6 ["resolve"]
+       28 DUPTABLE                         R5 K8 [{"responseBody"}]
+       29 SETTABLEKS                       R3 R5 K7 ["responseBody"]
+       31 CALL                             R4 1 -1
+       32 RETURN                           R4 -1
 
 PROTO_3:
         0 RETURN                           R1 1

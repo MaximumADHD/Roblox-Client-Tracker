@@ -89,79 +89,77 @@ PROTO_0:
       126 GETUPVAL                         R21 7
       127 DUPTABLE                         R22 K57 [{"Text", "Font", "TextSize"}]
       128 LOADK                            R25 K1 ["Note"]
-      129 LOADK                            R27 K58 ["%*Title"]
-      130 MOVE                             R29 R3
-      131 NAMECALL                         R27 R27 K59 ["format"]
-      133 CALL                             R27 2 1
-      134 MOVE                             R26 R27
-      135 NAMECALL                         R23 R1 K60 ["getText"]
-      137 CALL                             R23 3 1
-      138 SETTABLEKS                       R23 R22 K48 ["Text"]
-      140 GETUPVAL                         R24 2
-      141 CALL                             R24 0 1
-      142 JUMPIFNOT                        R24 ; [+3]
-      143 GETIMPORT                        R23 K62 [Enum.Font.BuilderSans]
-      145 JUMP                             ; [+1]
-      146 LOADNIL                          R23
-      147 SETTABLEKS                       R23 R22 K55 ["Font"]
-      149 GETUPVAL                         R24 2
-      150 CALL                             R24 0 1
-      151 JUMPIFNOT                        R24 ; [+2]
-      152 MOVE                             R23 R5
-      153 JUMP                             ; [+1]
-      154 LOADNIL                          R23
-      155 SETTABLEKS                       R23 R22 K56 ["TextSize"]
-      157 CALL                             R20 2 1
-      158 SETTABLEKS                       R20 R19 K48 ["Text"]
-      160 CALL                             R16 3 1
-      161 SETTABLEKS                       R16 R15 K2 ["Key"]
-      163 GETUPVAL                         R16 5
-      164 GETTABLEKS                       R16 R16 K8 ["createElement"]
-      166 GETUPVAL                         R17 6
-      167 DUPTABLE                         R18 K64 [{["AutomaticSize"], ["Padding"], ["LayoutOrder"] = 2}]
-      168 GETIMPORT                        R19 K44 [Enum.AutomaticSize.XY]
-      170 SETTABLEKS                       R19 R18 K13 ["AutomaticSize"]
-      172 GETTABLEKS                       R19 R2 K46 ["TextMargin"]
-      174 SETTABLEKS                       R19 R18 K17 ["Padding"]
-      176 DUPTABLE                         R19 K65 [{"Text"}]
-      177 GETUPVAL                         R20 5
-      178 GETTABLEKS                       R20 R20 K8 ["createElement"]
-      180 GETUPVAL                         R21 7
-      181 DUPTABLE                         R22 K57 [{"Text", "Font", "TextSize"}]
-      182 LOADK                            R25 K1 ["Note"]
-      183 LOADK                            R27 K66 ["%*Description"]
-      184 MOVE                             R29 R3
-      185 NAMECALL                         R27 R27 K59 ["format"]
-      187 CALL                             R27 2 1
-      188 MOVE                             R26 R27
-      189 NAMECALL                         R23 R1 K60 ["getText"]
-      191 CALL                             R23 3 1
-      192 SETTABLEKS                       R23 R22 K48 ["Text"]
-      194 GETUPVAL                         R24 2
-      195 CALL                             R24 0 1
-      196 JUMPIFNOT                        R24 ; [+3]
-      197 GETIMPORT                        R23 K62 [Enum.Font.BuilderSans]
-      199 JUMP                             ; [+1]
-      200 LOADNIL                          R23
-      201 SETTABLEKS                       R23 R22 K55 ["Font"]
-      203 GETUPVAL                         R24 2
-      204 CALL                             R24 0 1
-      205 JUMPIFNOT                        R24 ; [+2]
-      206 MOVE                             R23 R5
-      207 JUMP                             ; [+1]
-      208 LOADNIL                          R23
-      209 SETTABLEKS                       R23 R22 K56 ["TextSize"]
-      211 CALL                             R20 2 1
-      212 SETTABLEKS                       R20 R19 K48 ["Text"]
-      214 CALL                             R16 3 1
-      215 SETTABLEKS                       R16 R15 K38 ["Apply"]
-      217 CALL                             R12 3 1
-      218 SETTABLEKS                       R12 R11 K10 ["Frame"]
-      220 CALL                             R8 3 1
-      221 SETTABLEKS                       R8 R7 K1 ["Note"]
-      223 GETUPVAL                         R8 8
-      224 CALL                             R6 2 -1
-      225 RETURN                           R6 -1
+      129 LOADK                            R26 K58 ["%*Title"]
+      130 MOVE                             R28 R3
+      131 NAMECALL                         R26 R26 K59 ["format"]
+      133 CALL                             R26 2 1
+      134 NAMECALL                         R23 R1 K60 ["getText"]
+      136 CALL                             R23 3 1
+      137 SETTABLEKS                       R23 R22 K48 ["Text"]
+      139 GETUPVAL                         R24 2
+      140 CALL                             R24 0 1
+      141 JUMPIFNOT                        R24 ; [+3]
+      142 GETIMPORT                        R23 K62 [Enum.Font.BuilderSans]
+      144 JUMP                             ; [+1]
+      145 LOADNIL                          R23
+      146 SETTABLEKS                       R23 R22 K55 ["Font"]
+      148 GETUPVAL                         R24 2
+      149 CALL                             R24 0 1
+      150 JUMPIFNOT                        R24 ; [+2]
+      151 MOVE                             R23 R5
+      152 JUMP                             ; [+1]
+      153 LOADNIL                          R23
+      154 SETTABLEKS                       R23 R22 K56 ["TextSize"]
+      156 CALL                             R20 2 1
+      157 SETTABLEKS                       R20 R19 K48 ["Text"]
+      159 CALL                             R16 3 1
+      160 SETTABLEKS                       R16 R15 K2 ["Key"]
+      162 GETUPVAL                         R16 5
+      163 GETTABLEKS                       R16 R16 K8 ["createElement"]
+      165 GETUPVAL                         R17 6
+      166 DUPTABLE                         R18 K64 [{["AutomaticSize"], ["Padding"], ["LayoutOrder"] = 2}]
+      167 GETIMPORT                        R19 K44 [Enum.AutomaticSize.XY]
+      169 SETTABLEKS                       R19 R18 K13 ["AutomaticSize"]
+      171 GETTABLEKS                       R19 R2 K46 ["TextMargin"]
+      173 SETTABLEKS                       R19 R18 K17 ["Padding"]
+      175 DUPTABLE                         R19 K65 [{"Text"}]
+      176 GETUPVAL                         R20 5
+      177 GETTABLEKS                       R20 R20 K8 ["createElement"]
+      179 GETUPVAL                         R21 7
+      180 DUPTABLE                         R22 K57 [{"Text", "Font", "TextSize"}]
+      181 LOADK                            R25 K1 ["Note"]
+      182 LOADK                            R26 K66 ["%*Description"]
+      183 MOVE                             R28 R3
+      184 NAMECALL                         R26 R26 K59 ["format"]
+      186 CALL                             R26 2 1
+      187 NAMECALL                         R23 R1 K60 ["getText"]
+      189 CALL                             R23 3 1
+      190 SETTABLEKS                       R23 R22 K48 ["Text"]
+      192 GETUPVAL                         R24 2
+      193 CALL                             R24 0 1
+      194 JUMPIFNOT                        R24 ; [+3]
+      195 GETIMPORT                        R23 K62 [Enum.Font.BuilderSans]
+      197 JUMP                             ; [+1]
+      198 LOADNIL                          R23
+      199 SETTABLEKS                       R23 R22 K55 ["Font"]
+      201 GETUPVAL                         R24 2
+      202 CALL                             R24 0 1
+      203 JUMPIFNOT                        R24 ; [+2]
+      204 MOVE                             R23 R5
+      205 JUMP                             ; [+1]
+      206 LOADNIL                          R23
+      207 SETTABLEKS                       R23 R22 K56 ["TextSize"]
+      209 CALL                             R20 2 1
+      210 SETTABLEKS                       R20 R19 K48 ["Text"]
+      212 CALL                             R16 3 1
+      213 SETTABLEKS                       R16 R15 K38 ["Apply"]
+      215 CALL                             R12 3 1
+      216 SETTABLEKS                       R12 R11 K10 ["Frame"]
+      218 CALL                             R8 3 1
+      219 SETTABLEKS                       R8 R7 K1 ["Note"]
+      221 GETUPVAL                         R8 8
+      222 CALL                             R6 2 -1
+      223 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

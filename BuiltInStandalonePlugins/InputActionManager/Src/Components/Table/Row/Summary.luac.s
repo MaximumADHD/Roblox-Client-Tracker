@@ -114,7 +114,7 @@ PROTO_2:
       103 GETUPVAL                         R8 10
       104 GETTABLEKS                       R8 R8 K31 ["schemas"]
       106 GETTABLE                         R7 R8 R6
-      107 JUMPIFEQKB                       R7 FALSE ; [+122]
+      107 JUMPIFEQKB                       R7 FALSE ; [+121]
       109 GETUPVAL                         R7 3
       110 GETTABLEKS                       R7 R7 K32 ["previousBindings"]
       112 JUMPIFNOT                        R7 ; [+17]
@@ -131,12 +131,12 @@ PROTO_2:
       125 SETTABLEKS                       R10 R9 K4 ["LayoutOrder"]
       127 CALL                             R7 2 1
       128 SETTABLE                         R7 R0 R6
-      129 JUMP                             ; [+100]
+      129 JUMP                             ; [+99]
       130 NEWTABLE                         R7 0 0
       132 GETUPVAL                         R9 3
       133 GETTABLEKS                       R9 R9 K34 ["bindings"]
       135 GETTABLE                         R8 R9 R6
-      136 JUMPIFNOT                        R8 ; [+93]
+      136 JUMPIFNOT                        R8 ; [+92]
       137 GETUPVAL                         R11 3
       138 GETTABLEKS                       R11 R11 K34 ["bindings"]
       140 GETTABLE                         R8 R11 R6
@@ -173,41 +173,40 @@ PROTO_2:
       180 MOVE                             R12 R1
       181 CALL                             R12 0 1
       182 SETTABLEKS                       R12 R11 K4 ["LayoutOrder"]
-      184 LOADK                            R13 K45 ["summary-%*"]
-      185 MOVE                             R15 R6
-      186 NAMECALL                         R13 R13 K46 ["format"]
-      188 CALL                             R13 2 1
-      189 MOVE                             R12 R13
-      190 SETTABLEKS                       R12 R11 K19 ["testId"]
-      192 DUPTABLE                         R12 K17 [{"Label", "Divider"}]
-      193 GETUPVAL                         R13 1
-      194 GETTABLEKS                       R13 R13 K1 ["createElement"]
-      196 GETUPVAL                         R14 8
-      197 DUPTABLE                         R15 K47 [{["LayoutOrder"], ["tag"] = "size-full-full auto-x padding-medium text-body-medium text-align-x-left", ["Text"], ["TextTruncate"]}]
-      198 MOVE                             R16 R1
-      199 CALL                             R16 0 1
-      200 SETTABLEKS                       R16 R15 K4 ["LayoutOrder"]
-      202 SETTABLEKS                       R8 R15 K21 ["Text"]
-      204 GETIMPORT                        R16 K26 [Enum.TextTruncate.AtEnd]
-      206 SETTABLEKS                       R16 R15 K22 ["TextTruncate"]
-      208 CALL                             R13 2 1
-      209 SETTABLEKS                       R13 R12 K16 ["Label"]
-      211 GETUPVAL                         R13 1
-      212 GETTABLEKS                       R13 R13 K1 ["createElement"]
-      214 GETUPVAL                         R14 4
-      215 DUPTABLE                         R15 K28 [{["LayoutOrder"], ["orientation"], ["tag"] = "auto-x"}]
-      216 MOVE                             R16 R1
-      217 CALL                             R16 0 1
-      218 SETTABLEKS                       R16 R15 K4 ["LayoutOrder"]
-      220 GETUPVAL                         R16 5
-      221 GETTABLEKS                       R16 R16 K29 ["Horizontal"]
-      223 SETTABLEKS                       R16 R15 K5 ["orientation"]
-      225 CALL                             R13 2 1
-      226 SETTABLEKS                       R13 R12 K10 ["Divider"]
-      228 CALL                             R9 3 1
-      229 SETTABLE                         R9 R0 R6
-      230 FORGLOOP                         R2 2 ; [-128]
-      232 RETURN                           R0 1
+      184 LOADK                            R12 K45 ["summary-%*"]
+      185 MOVE                             R14 R6
+      186 NAMECALL                         R12 R12 K46 ["format"]
+      188 CALL                             R12 2 1
+      189 SETTABLEKS                       R12 R11 K19 ["testId"]
+      191 DUPTABLE                         R12 K17 [{"Label", "Divider"}]
+      192 GETUPVAL                         R13 1
+      193 GETTABLEKS                       R13 R13 K1 ["createElement"]
+      195 GETUPVAL                         R14 8
+      196 DUPTABLE                         R15 K47 [{["LayoutOrder"], ["tag"] = "size-full-full auto-x padding-medium text-body-medium text-align-x-left", ["Text"], ["TextTruncate"]}]
+      197 MOVE                             R16 R1
+      198 CALL                             R16 0 1
+      199 SETTABLEKS                       R16 R15 K4 ["LayoutOrder"]
+      201 SETTABLEKS                       R8 R15 K21 ["Text"]
+      203 GETIMPORT                        R16 K26 [Enum.TextTruncate.AtEnd]
+      205 SETTABLEKS                       R16 R15 K22 ["TextTruncate"]
+      207 CALL                             R13 2 1
+      208 SETTABLEKS                       R13 R12 K16 ["Label"]
+      210 GETUPVAL                         R13 1
+      211 GETTABLEKS                       R13 R13 K1 ["createElement"]
+      213 GETUPVAL                         R14 4
+      214 DUPTABLE                         R15 K28 [{["LayoutOrder"], ["orientation"], ["tag"] = "auto-x"}]
+      215 MOVE                             R16 R1
+      216 CALL                             R16 0 1
+      217 SETTABLEKS                       R16 R15 K4 ["LayoutOrder"]
+      219 GETUPVAL                         R16 5
+      220 GETTABLEKS                       R16 R16 K29 ["Horizontal"]
+      222 SETTABLEKS                       R16 R15 K5 ["orientation"]
+      224 CALL                             R13 2 1
+      225 SETTABLEKS                       R13 R12 K10 ["Divider"]
+      227 CALL                             R9 3 1
+      228 SETTABLE                         R9 R0 R6
+      229 FORGLOOP                         R2 2 ; [-127]
+      231 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0

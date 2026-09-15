@@ -23,7 +23,7 @@ PROTO_0:
        35 GETTABLEKS                       R3 R3 K3 ["builtinItem"]
        37 SETTABLEKS                       R3 R2 K3 ["builtinItem"]
        39 MOVE                             R1 R2
-       40 JUMP                             ; [+63]
+       40 JUMP                             ; [+62]
        41 GETTABLEKS                       R2 R0 K0 ["item"]
        43 GETTABLEKS                       R2 R2 K1 ["source"]
        45 GETUPVAL                         R3 0
@@ -38,7 +38,7 @@ PROTO_0:
        60 GETTABLEKS                       R3 R3 K12 ["Name"]
        62 SETTABLEKS                       R3 R2 K9 ["key"]
        64 MOVE                             R1 R2
-       65 JUMP                             ; [+38]
+       65 JUMP                             ; [+37]
        66 GETUPVAL                         R2 1
        67 CALL                             R2 0 1
        68 JUMPIFNOT                        R2 ; [+23]
@@ -55,23 +55,22 @@ PROTO_0:
        86 GETTABLEKS                       R3 R3 K14 ["marketplaceItem"]
        88 SETTABLEKS                       R3 R2 K14 ["marketplaceItem"]
        90 MOVE                             R1 R2
-       91 JUMP                             ; [+12]
+       91 JUMP                             ; [+11]
        92 GETIMPORT                        R2 K17 [error]
-       94 LOADK                            R4 K18 ["Unknown item source in serialization: %*"]
-       95 GETTABLEKS                       R6 R0 K0 ["item"]
-       97 GETTABLEKS                       R6 R6 K1 ["source"]
-       99 NAMECALL                         R4 R4 K19 ["format"]
-      101 CALL                             R4 2 1
-      102 MOVE                             R3 R4
-      103 CALL                             R2 1 0
-      104 DUPTABLE                         R2 K21 [{"palette", "item", "isHidden"}]
-      105 GETTABLEKS                       R3 R0 K5 ["palette"]
-      107 GETTABLEKS                       R3 R3 K22 ["Key"]
-      109 SETTABLEKS                       R3 R2 K5 ["palette"]
-      111 SETTABLEKS                       R1 R2 K0 ["item"]
-      113 GETTABLEKS                       R3 R0 K20 ["isHidden"]
-      115 SETTABLEKS                       R3 R2 K20 ["isHidden"]
-      117 RETURN                           R2 1
+       94 LOADK                            R3 K18 ["Unknown item source in serialization: %*"]
+       95 GETTABLEKS                       R5 R0 K0 ["item"]
+       97 GETTABLEKS                       R5 R5 K1 ["source"]
+       99 NAMECALL                         R3 R3 K19 ["format"]
+      101 CALL                             R3 2 1
+      102 CALL                             R2 1 0
+      103 DUPTABLE                         R2 K21 [{"palette", "item", "isHidden"}]
+      104 GETTABLEKS                       R3 R0 K5 ["palette"]
+      106 GETTABLEKS                       R3 R3 K22 ["Key"]
+      108 SETTABLEKS                       R3 R2 K5 ["palette"]
+      110 SETTABLEKS                       R1 R2 K0 ["item"]
+      112 GETTABLEKS                       R3 R0 K20 ["isHidden"]
+      114 SETTABLEKS                       R3 R2 K20 ["isHidden"]
+      116 RETURN                           R2 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -123,7 +122,7 @@ PROTO_2:
        51 GETTABLEKS                       R5 R5 K7 ["builtinItem"]
        53 SETTABLEKS                       R5 R4 K7 ["builtinItem"]
        55 MOVE                             R3 R4
-       56 JUMP                             ; [+83]
+       56 JUMP                             ; [+82]
        57 GETTABLEKS                       R4 R1 K4 ["item"]
        59 GETTABLEKS                       R4 R4 K5 ["source"]
        61 GETUPVAL                         R5 1
@@ -143,7 +142,7 @@ PROTO_2:
        82 SETTABLEKS                       R6 R5 K5 ["source"]
        84 SETTABLEKS                       R4 R5 K14 ["instance"]
        86 MOVE                             R3 R5
-       87 JUMP                             ; [+52]
+       87 JUMP                             ; [+51]
        88 GETUPVAL                         R4 3
        89 CALL                             R4 0 1
        90 JUMPIFNOT                        R4 ; [+37]
@@ -172,21 +171,20 @@ PROTO_2:
       123 LOADNIL                          R6
       124 RETURN                           R6 1
       125 GETTABLEKS                       R3 R1 K4 ["item"]
-      127 JUMP                             ; [+12]
+      127 JUMP                             ; [+11]
       128 GETIMPORT                        R4 K22 [error]
-      130 LOADK                            R6 K23 ["Unknown item source in deserialization: %*"]
-      131 GETTABLEKS                       R8 R1 K4 ["item"]
-      133 GETTABLEKS                       R8 R8 K5 ["source"]
-      135 NAMECALL                         R6 R6 K24 ["format"]
-      137 CALL                             R6 2 1
-      138 MOVE                             R5 R6
-      139 CALL                             R4 1 0
-      140 DUPTABLE                         R4 K26 [{"palette", "item", "isHidden"}]
-      141 SETTABLEKS                       R2 R4 K0 ["palette"]
-      143 SETTABLEKS                       R3 R4 K4 ["item"]
-      145 GETTABLEKS                       R5 R1 K25 ["isHidden"]
-      147 SETTABLEKS                       R5 R4 K25 ["isHidden"]
-      149 RETURN                           R4 1
+      130 LOADK                            R5 K23 ["Unknown item source in deserialization: %*"]
+      131 GETTABLEKS                       R7 R1 K4 ["item"]
+      133 GETTABLEKS                       R7 R7 K5 ["source"]
+      135 NAMECALL                         R5 R5 K24 ["format"]
+      137 CALL                             R5 2 1
+      138 CALL                             R4 1 0
+      139 DUPTABLE                         R4 K26 [{"palette", "item", "isHidden"}]
+      140 SETTABLEKS                       R2 R4 K0 ["palette"]
+      142 SETTABLEKS                       R3 R4 K4 ["item"]
+      144 GETTABLEKS                       R5 R1 K25 ["isHidden"]
+      146 SETTABLEKS                       R5 R4 K25 ["isHidden"]
+      148 RETURN                           R4 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0

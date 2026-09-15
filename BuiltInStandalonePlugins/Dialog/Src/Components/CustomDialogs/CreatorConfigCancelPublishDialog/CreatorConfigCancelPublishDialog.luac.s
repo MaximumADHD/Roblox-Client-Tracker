@@ -109,40 +109,30 @@ MAIN:
        45 CALL                             R5 1 1
        46 MOVE                             R6 R4
        47 CALL                             R6 0 1
-       48 GETTABLEKS                       R8 R2 K14 ["SharedFlags"]
-       50 GETTABLEKS                       R8 R8 K15 ["getFFlagStudioFoundationDialogComponent"]
-       52 CALL                             R8 0 1
-       53 JUMPIFNOT                        R8 ; [+5]
-       54 GETTABLEKS                       R7 R2 K16 ["Components"]
-       56 GETTABLEKS                       R7 R7 K2 ["Dialog"]
-       58 JUMP                             ; [+9]
-       59 GETIMPORT                        R7 K5 [require]
-       61 GETTABLEKS                       R8 R0 K9 ["Src"]
-       63 GETTABLEKS                       R8 R8 K16 ["Components"]
-       65 GETTABLEKS                       R8 R8 K17 ["DEPRECATED_Dialog"]
-       67 CALL                             R7 1 1
-       68 GETTABLEKS                       R8 R2 K18 ["Util"]
-       70 GETTABLEKS                       R8 R8 K19 ["StudioUri"]
-       72 DUPCLOSURE                       R9 K20 [PROTO_2]
-       73 CAPTURE                          VAL R1
-       74 CAPTURE                          VAL R7
-       75 CAPTURE                          VAL R8
-       76 CAPTURE                          VAL R6
-       77 MOVE                             R11 R5
-       78 CALL                             R11 0 1
-       79 JUMPIFNOT                        R11 ; [+18]
-       80 GETIMPORT                        R10 K23 [table.freeze]
-       82 DUPTABLE                         R11 K26 [{"uri", "component"}]
-       83 GETTABLEKS                       R12 R8 K27 ["fromWidget"]
-       85 LOADK                            R13 K28 ["CreatorConfig"]
-       86 LOADK                            R14 K29 ["CancelPublishDialog"]
-       87 CALL                             R12 2 1
-       88 SETTABLEKS                       R12 R11 K24 ["uri"]
-       90 GETTABLEKS                       R12 R1 K30 ["memo"]
-       92 MOVE                             R13 R9
-       93 CALL                             R12 1 1
-       94 SETTABLEKS                       R12 R11 K25 ["component"]
-       96 CALL                             R10 1 1
-       97 RETURN                           R10 1
-       98 LOADNIL                          R10
-       99 RETURN                           R10 1
+       48 GETTABLEKS                       R7 R2 K14 ["Components"]
+       50 GETTABLEKS                       R7 R7 K2 ["Dialog"]
+       52 GETTABLEKS                       R8 R2 K15 ["Util"]
+       54 GETTABLEKS                       R8 R8 K16 ["StudioUri"]
+       56 DUPCLOSURE                       R9 K17 [PROTO_2]
+       57 CAPTURE                          VAL R1
+       58 CAPTURE                          VAL R7
+       59 CAPTURE                          VAL R8
+       60 CAPTURE                          VAL R6
+       61 MOVE                             R11 R5
+       62 CALL                             R11 0 1
+       63 JUMPIFNOT                        R11 ; [+18]
+       64 GETIMPORT                        R10 K20 [table.freeze]
+       66 DUPTABLE                         R11 K23 [{"uri", "component"}]
+       67 GETTABLEKS                       R12 R8 K24 ["fromWidget"]
+       69 LOADK                            R13 K25 ["CreatorConfig"]
+       70 LOADK                            R14 K26 ["CancelPublishDialog"]
+       71 CALL                             R12 2 1
+       72 SETTABLEKS                       R12 R11 K21 ["uri"]
+       74 GETTABLEKS                       R12 R1 K27 ["memo"]
+       76 MOVE                             R13 R9
+       77 CALL                             R12 1 1
+       78 SETTABLEKS                       R12 R11 K22 ["component"]
+       80 CALL                             R10 1 1
+       81 RETURN                           R10 1
+       82 LOADNIL                          R10
+       83 RETURN                           R10 1

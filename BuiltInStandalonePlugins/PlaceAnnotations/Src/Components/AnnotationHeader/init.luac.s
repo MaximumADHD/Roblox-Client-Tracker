@@ -92,7 +92,7 @@ PROTO_2:
        70 GETTABLEKS                       R8 R1 K6 ["Annotation"]
        72 GETTABLEKS                       R8 R8 K8 ["Adornee"]
        74 GETTABLEKS                       R7 R8 K12 ["Name"]
-       76 JUMP                             ; [+29]
+       76 JUMP                             ; [+28]
        77 LOADK                            R8 K13 ["(%*)"]
        78 LOADK                            R12 K14 ["Card"]
        79 LOADK                            R13 K15 ["DeletedInstance"]
@@ -101,74 +101,73 @@ PROTO_2:
        83 NAMECALL                         R8 R8 K17 ["format"]
        85 CALL                             R8 2 1
        86 MOVE                             R7 R8
-       87 JUMP                             ; [+18]
+       87 JUMP                             ; [+17]
        88 GETTABLEKS                       R8 R1 K6 ["Annotation"]
        90 LOADK                            R10 K18 ["HeaderText"]
        91 NAMECALL                         R8 R8 K11 ["GetAttribute"]
        93 CALL                             R8 2 1
-       94 JUMPIF                           R8 ; [+10]
-       95 LOADK                            R9 K13 ["(%*)"]
-       96 LOADK                            R13 K14 ["Card"]
-       97 LOADK                            R14 K15 ["DeletedInstance"]
-       98 NAMECALL                         R11 R2 K16 ["getText"]
-      100 CALL                             R11 3 1
-      101 NAMECALL                         R9 R9 K17 ["format"]
-      103 CALL                             R9 2 1
-      104 MOVE                             R8 R9
-      105 MOVE                             R7 R8
-      106 GETUPVAL                         R8 3
-      107 GETTABLEKS                       R8 R8 K19 ["createElement"]
-      109 LOADK                            R9 K20 ["Frame"]
-      110 NEWTABLE                         R10 1 0
-      112 GETUPVAL                         R11 3
-      113 GETTABLEKS                       R11 R11 K21 ["Tag"]
-      115 LOADK                            R12 K22 ["Component-AnnotationHeader"]
-      116 SETTABLE                         R12 R10 R11
-      117 DUPTABLE                         R11 K24 [{"Navigation"}]
-      118 GETUPVAL                         R12 3
-      119 GETTABLEKS                       R12 R12 K19 ["createElement"]
-      121 LOADK                            R13 K20 ["Frame"]
-      122 DUPTABLE                         R14 K27 [{["LayoutOrder"] = 0}]
-      123 DUPTABLE                         R15 K30 [{"LeftAligned", "RightAligned"}]
-      124 GETUPVAL                         R16 3
-      125 GETTABLEKS                       R16 R16 K19 ["createElement"]
-      127 LOADK                            R17 K20 ["Frame"]
-      128 NEWTABLE                         R18 0 0
-      130 DUPTABLE                         R19 K32 [{"ClassIcon", "Adornee"}]
-      131 JUMPIFNOT                        R6 ; [+15]
-      132 GETUPVAL                         R20 3
-      133 GETTABLEKS                       R20 R20 K19 ["createElement"]
-      135 LOADK                            R21 K33 ["ImageLabel"]
-      136 DUPTABLE                         R22 K35 [{["Image"], ["LayoutOrder"] = 0}]
-      137 GETTABLEKS                       R23 R3 K36 ["getClassIcon"]
-      139 MOVE                             R24 R6
-      140 CALL                             R23 1 1
-      141 GETTABLEKS                       R23 R23 K34 ["Image"]
-      143 SETTABLEKS                       R23 R22 K34 ["Image"]
-      145 CALL                             R20 2 1
-      146 JUMP                             ; [+1]
-      147 LOADNIL                          R20
-      148 SETTABLEKS                       R20 R19 K31 ["ClassIcon"]
-      150 GETUPVAL                         R20 3
-      151 GETTABLEKS                       R20 R20 K19 ["createElement"]
-      153 LOADK                            R21 K37 ["TextLabel"]
-      154 DUPTABLE                         R22 K40 [{["Text"], ["LayoutOrder"] = 1}]
-      155 SETTABLEKS                       R7 R22 K38 ["Text"]
-      157 CALL                             R20 2 1
-      158 SETTABLEKS                       R20 R19 K8 ["Adornee"]
-      160 CALL                             R16 3 1
-      161 SETTABLEKS                       R16 R15 K28 ["LeftAligned"]
-      163 GETUPVAL                         R16 3
-      164 GETTABLEKS                       R16 R16 K19 ["createElement"]
-      166 LOADK                            R17 K20 ["Frame"]
-      167 DUPTABLE                         R18 K42 [{["LayoutOrder"] = 2}]
-      168 GETTABLEKS                       R19 R1 K43 ["children"]
-      170 CALL                             R16 3 1
-      171 SETTABLEKS                       R16 R15 K29 ["RightAligned"]
-      173 CALL                             R12 3 1
-      174 SETTABLEKS                       R12 R11 K23 ["Navigation"]
-      176 CALL                             R8 3 -1
-      177 RETURN                           R8 -1
+       94 JUMPIF                           R8 ; [+9]
+       95 LOADK                            R8 K13 ["(%*)"]
+       96 LOADK                            R12 K14 ["Card"]
+       97 LOADK                            R13 K15 ["DeletedInstance"]
+       98 NAMECALL                         R10 R2 K16 ["getText"]
+      100 CALL                             R10 3 1
+      101 NAMECALL                         R8 R8 K17 ["format"]
+      103 CALL                             R8 2 1
+      104 MOVE                             R7 R8
+      105 GETUPVAL                         R8 3
+      106 GETTABLEKS                       R8 R8 K19 ["createElement"]
+      108 LOADK                            R9 K20 ["Frame"]
+      109 NEWTABLE                         R10 1 0
+      111 GETUPVAL                         R11 3
+      112 GETTABLEKS                       R11 R11 K21 ["Tag"]
+      114 LOADK                            R12 K22 ["Component-AnnotationHeader"]
+      115 SETTABLE                         R12 R10 R11
+      116 DUPTABLE                         R11 K24 [{"Navigation"}]
+      117 GETUPVAL                         R12 3
+      118 GETTABLEKS                       R12 R12 K19 ["createElement"]
+      120 LOADK                            R13 K20 ["Frame"]
+      121 DUPTABLE                         R14 K27 [{["LayoutOrder"] = 0}]
+      122 DUPTABLE                         R15 K30 [{"LeftAligned", "RightAligned"}]
+      123 GETUPVAL                         R16 3
+      124 GETTABLEKS                       R16 R16 K19 ["createElement"]
+      126 LOADK                            R17 K20 ["Frame"]
+      127 NEWTABLE                         R18 0 0
+      129 DUPTABLE                         R19 K32 [{"ClassIcon", "Adornee"}]
+      130 JUMPIFNOT                        R6 ; [+15]
+      131 GETUPVAL                         R20 3
+      132 GETTABLEKS                       R20 R20 K19 ["createElement"]
+      134 LOADK                            R21 K33 ["ImageLabel"]
+      135 DUPTABLE                         R22 K35 [{["Image"], ["LayoutOrder"] = 0}]
+      136 GETTABLEKS                       R23 R3 K36 ["getClassIcon"]
+      138 MOVE                             R24 R6
+      139 CALL                             R23 1 1
+      140 GETTABLEKS                       R23 R23 K34 ["Image"]
+      142 SETTABLEKS                       R23 R22 K34 ["Image"]
+      144 CALL                             R20 2 1
+      145 JUMP                             ; [+1]
+      146 LOADNIL                          R20
+      147 SETTABLEKS                       R20 R19 K31 ["ClassIcon"]
+      149 GETUPVAL                         R20 3
+      150 GETTABLEKS                       R20 R20 K19 ["createElement"]
+      152 LOADK                            R21 K37 ["TextLabel"]
+      153 DUPTABLE                         R22 K40 [{["Text"], ["LayoutOrder"] = 1}]
+      154 SETTABLEKS                       R7 R22 K38 ["Text"]
+      156 CALL                             R20 2 1
+      157 SETTABLEKS                       R20 R19 K8 ["Adornee"]
+      159 CALL                             R16 3 1
+      160 SETTABLEKS                       R16 R15 K28 ["LeftAligned"]
+      162 GETUPVAL                         R16 3
+      163 GETTABLEKS                       R16 R16 K19 ["createElement"]
+      165 LOADK                            R17 K20 ["Frame"]
+      166 DUPTABLE                         R18 K42 [{["LayoutOrder"] = 2}]
+      167 GETTABLEKS                       R19 R1 K43 ["children"]
+      169 CALL                             R16 3 1
+      170 SETTABLEKS                       R16 R15 K29 ["RightAligned"]
+      172 CALL                             R12 3 1
+      173 SETTABLEKS                       R12 R11 K23 ["Navigation"]
+      175 CALL                             R8 3 -1
+      176 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

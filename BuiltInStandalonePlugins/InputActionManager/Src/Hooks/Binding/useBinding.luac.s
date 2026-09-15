@@ -1,4 +1,16 @@
 PROTO_0:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 CALL                             R0 1 -1
+        3 RETURN                           R0 -1
+
+PROTO_1:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 CALL                             R0 1 -1
+        3 RETURN                           R0 -1
+
+PROTO_2:
         0 LOADB                            R0 0
         1 LOADB                            R1 0
         2 GETUPVAL                         R2 0
@@ -25,21 +37,21 @@ PROTO_0:
        31 FORGLOOP                         R2 2 ; [-27]
        33 RETURN                           R0 2
 
-PROTO_1:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R1 1
-        2 GETUPVAL                         R2 2
-        3 CALL                             R0 2 -1
-        4 RETURN                           R0 -1
-
-PROTO_2:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R1 1
-        2 GETUPVAL                         R2 2
-        3 CALL                             R0 2 -1
-        4 RETURN                           R0 -1
-
 PROTO_3:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 GETUPVAL                         R2 2
+        3 CALL                             R0 2 -1
+        4 RETURN                           R0 -1
+
+PROTO_4:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 GETUPVAL                         R2 2
+        3 CALL                             R0 2 -1
+        4 RETURN                           R0 -1
+
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["CANCEL"]
         3 JUMPIFNOTEQ                      R0 R1 ; [+5]
@@ -75,7 +87,7 @@ PROTO_3:
        42 RETURN                           R0 0
        43 RETURN                           R0 0
 
-PROTO_4:
+PROTO_6:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["CANCEL"]
         3 JUMPIFNOTEQ                      R0 R1 ; [+5]
@@ -104,7 +116,64 @@ PROTO_4:
        34 RETURN                           R0 0
        35 RETURN                           R0 0
 
-PROTO_5:
+PROTO_7:
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIF                           R1 ; [+14]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["ROW_ADD_PRIMARY_MODIFIER"]
+        6 JUMPIFNOTEQ                      R0 R1 ; [+10]
+        8 GETUPVAL                         R1 2
+        9 LOADB                            R2 1
+       10 CALL                             R1 1 0
+       11 GETUPVAL                         R1 3
+       12 JUMPIFNOT                        R1 ; [+3]
+       13 GETUPVAL                         R1 3
+       14 LOADB                            R2 1
+       15 CALL                             R1 1 0
+       16 RETURN                           R0 0
+       17 GETUPVAL                         R1 0
+       18 CALL                             R1 0 1
+       19 JUMPIF                           R1 ; [+14]
+       20 GETUPVAL                         R1 1
+       21 GETTABLEKS                       R1 R1 K1 ["ROW_ADD_SECONDARY_MODIFIER"]
+       23 JUMPIFNOTEQ                      R0 R1 ; [+10]
+       25 GETUPVAL                         R1 4
+       26 LOADB                            R2 1
+       27 CALL                             R1 1 0
+       28 GETUPVAL                         R1 3
+       29 JUMPIFNOT                        R1 ; [+3]
+       30 GETUPVAL                         R1 3
+       31 LOADB                            R2 1
+       32 CALL                             R1 1 0
+       33 RETURN                           R0 0
+       34 GETUPVAL                         R1 1
+       35 GETTABLEKS                       R1 R1 K2 ["DELETE"]
+       37 JUMPIFNOTEQ                      R0 R1 ; [+20]
+       39 GETUPVAL                         R1 5
+       40 JUMPIF                           R1 ; [+17]
+       41 LOADB                            R1 0
+       42 GETUPVAL                         R2 6
+       43 LOADNIL                          R3
+       44 LOADNIL                          R4
+       45 FORGPREP                         R2
+       46 GETUPVAL                         R7 7
+       47 GETTABLEKS                       R7 R7 K3 ["updateBinding"]
+       49 GETTABLEKS                       R8 R6 K4 ["uuid"]
+       51 LOADNIL                          R9
+       52 MOVE                             R10 R1
+       53 CALL                             R7 3 0
+       54 LOADB                            R1 1
+       55 FORGLOOP                         R2 2 ; [-10]
+       57 RETURN                           R0 0
+       58 GETUPVAL                         R1 8
+       59 JUMPIFNOT                        R1 ; [+3]
+       60 GETUPVAL                         R1 8
+       61 MOVE                             R2 R0
+       62 CALL                             R1 1 0
+       63 RETURN                           R0 0
+
+PROTO_8:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["ROW_ADD_PRIMARY_MODIFIER"]
         3 JUMPIFNOTEQ                      R0 R1 ; [+10]
@@ -129,164 +198,175 @@ PROTO_5:
        25 LOADB                            R2 1
        26 CALL                             R1 1 0
        27 RETURN                           R0 0
-       28 GETUPVAL                         R1 0
-       29 GETTABLEKS                       R1 R1 K2 ["DELETE"]
-       31 JUMPIFNOTEQ                      R0 R1 ; [+20]
-       33 GETUPVAL                         R1 4
-       34 JUMPIF                           R1 ; [+17]
-       35 LOADB                            R1 0
-       36 GETUPVAL                         R2 5
-       37 LOADNIL                          R3
-       38 LOADNIL                          R4
-       39 FORGPREP                         R2
-       40 GETUPVAL                         R7 6
-       41 GETTABLEKS                       R7 R7 K3 ["updateBinding"]
-       43 GETTABLEKS                       R8 R6 K4 ["uuid"]
-       45 LOADNIL                          R9
-       46 MOVE                             R10 R1
-       47 CALL                             R7 3 0
-       48 LOADB                            R1 1
-       49 FORGLOOP                         R2 2 ; [-10]
-       51 RETURN                           R0 0
-       52 GETUPVAL                         R1 7
-       53 JUMPIFNOT                        R1 ; [+3]
-       54 GETUPVAL                         R1 7
-       55 MOVE                             R2 R0
-       56 CALL                             R1 1 0
-       57 RETURN                           R0 0
+       28 GETUPVAL                         R1 4
+       29 JUMPIFNOT                        R1 ; [+3]
+       30 GETUPVAL                         R1 4
+       31 MOVE                             R2 R0
+       32 CALL                             R1 1 0
+       33 RETURN                           R0 0
 
-PROTO_6:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R6 R6 K0 ["useContext"]
-        3 GETUPVAL                         R7 1
-        4 GETTABLEKS                       R7 R7 K1 ["Context"]
-        6 CALL                             R6 1 1
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R7 R7 K2 ["useMemo"]
-       10 NEWCLOSURE                       R8 P0
-       11 CAPTURE                          UPVAL U2
-       12 CAPTURE                          VAL R0
-       13 CAPTURE                          UPVAL U3
-       14 NEWTABLE                         R9 0 1
-       16 MOVE                             R10 R0
-       17 SETLIST                          R9 R10 1 [1]
-       19 CALL                             R7 2 2
-       20 GETUPVAL                         R9 4
-       21 GETTABLEKS                       R9 R9 K3 ["useStagnatingState"]
-       23 LOADB                            R10 0
-       24 NEWTABLE                         R11 0 1
-       26 MOVE                             R12 R7
-       27 SETLIST                          R11 R12 1 [1]
-       29 CALL                             R9 2 2
-       30 GETUPVAL                         R11 4
-       31 GETTABLEKS                       R11 R11 K3 ["useStagnatingState"]
-       33 LOADB                            R12 0
-       34 NEWTABLE                         R13 0 1
-       36 MOVE                             R14 R8
-       37 SETLIST                          R13 R14 1 [1]
-       39 CALL                             R11 2 2
-       40 OR                               R13 R9 R7
-       41 OR                               R14 R11 R8
-       42 JUMPIFNOTEQKS                    R5 K4 ["Keycode"] ; [+10]
-       44 MOVE                             R16 R3
-       45 LOADK                            R17 K4 ["Keycode"]
-       46 FASTCALL1                        TOSTRING R4 ; [+3]
-       47 MOVE                             R19 R4
-       48 GETIMPORT                        R18 K6 [tostring]
-       50 CALL                             R18 1 1
-       51 CONCAT                           R15 R16 R18
-       52 JUMP                             ; [+8]
-       53 MOVE                             R16 R3
-       54 LOADK                            R17 K7 ["Composite"]
-       55 FASTCALL1                        TOSTRING R4 ; [+3]
-       56 MOVE                             R19 R4
-       57 GETIMPORT                        R18 K6 [tostring]
-       59 CALL                             R18 1 1
-       60 CONCAT                           R15 R16 R18
-       61 JUMPIFNOTEQKS                    R5 K4 ["Keycode"] ; [+3]
-       63 OR                               R16 R13 R14
-       64 JUMP                             ; [+1]
-       65 LOADB                            R16 1
-       66 GETUPVAL                         R17 5
-       67 MOVE                             R18 R15
-       68 MOVE                             R19 R16
-       69 CALL                             R17 2 2
-       70 GETUPVAL                         R19 0
-       71 GETTABLEKS                       R19 R19 K0 ["useContext"]
-       73 GETUPVAL                         R20 6
-       74 GETTABLEKS                       R20 R20 K1 ["Context"]
-       76 CALL                             R19 1 1
-       77 GETUPVAL                         R20 0
-       78 GETTABLEKS                       R20 R20 K2 ["useMemo"]
-       80 NEWCLOSURE                       R21 P1
-       81 CAPTURE                          UPVAL U7
-       82 CAPTURE                          VAL R6
-       83 CAPTURE                          VAL R9
-       84 NEWTABLE                         R22 0 2
-       86 MOVE                             R23 R9
-       87 MOVE                             R24 R6
-       88 SETLIST                          R22 R23 2 [1]
-       90 CALL                             R20 2 1
-       91 GETUPVAL                         R21 0
-       92 GETTABLEKS                       R21 R21 K2 ["useMemo"]
-       94 NEWCLOSURE                       R22 P2
-       95 CAPTURE                          UPVAL U7
-       96 CAPTURE                          VAL R6
-       97 CAPTURE                          VAL R11
-       98 NEWTABLE                         R23 0 2
-      100 MOVE                             R24 R11
-      101 MOVE                             R25 R6
-      102 SETLIST                          R23 R24 2 [1]
-      104 CALL                             R21 2 1
-      105 GETUPVAL                         R22 4
-      106 GETTABLEKS                       R22 R22 K8 ["useEventCallback"]
-      108 NEWCLOSURE                       R23 P3
-      109 CAPTURE                          UPVAL U8
-      110 CAPTURE                          VAL R10
-      111 CAPTURE                          VAL R0
-      112 CAPTURE                          VAL R19
-      113 CAPTURE                          UPVAL U3
-      114 CALL                             R22 1 1
-      115 GETUPVAL                         R23 4
-      116 GETTABLEKS                       R23 R23 K8 ["useEventCallback"]
-      118 NEWCLOSURE                       R24 P4
-      119 CAPTURE                          UPVAL U8
-      120 CAPTURE                          VAL R12
-      121 CAPTURE                          VAL R0
-      122 CAPTURE                          VAL R19
-      123 CALL                             R23 1 1
-      124 GETUPVAL                         R24 0
-      125 GETTABLEKS                       R24 R24 K9 ["useCallback"]
-      127 NEWCLOSURE                       R25 P5
-      128 CAPTURE                          UPVAL U8
-      129 CAPTURE                          VAL R10
-      130 CAPTURE                          VAL R18
-      131 CAPTURE                          VAL R12
-      132 CAPTURE                          VAL R1
-      133 CAPTURE                          VAL R0
-      134 CAPTURE                          VAL R19
-      135 CAPTURE                          VAL R2
-      136 NEWTABLE                         R26 0 7
-      138 MOVE                             R27 R0
-      139 MOVE                             R28 R1
-      140 MOVE                             R29 R2
-      141 MOVE                             R30 R10
-      142 MOVE                             R31 R12
-      143 MOVE                             R32 R18
-      144 MOVE                             R33 R19
-      145 SETLIST                          R26 R27 7 [1]
-      147 CALL                             R24 2 1
-      148 DUPTABLE                         R25 K19 [{"showPrimaryModifier", "showSecondaryModifier", "primaryModifierMenu", "secondaryModifierMenu", "onPrimaryModifierMenuItemSelected", "onSecondaryModifierMenuItemSelected", "onEditMenuItemSelected", "expanded", "setExpanded"}]
-      149 SETTABLEKS                       R13 R25 K10 ["showPrimaryModifier"]
-      151 SETTABLEKS                       R14 R25 K11 ["showSecondaryModifier"]
-      153 SETTABLEKS                       R20 R25 K12 ["primaryModifierMenu"]
-      155 SETTABLEKS                       R21 R25 K13 ["secondaryModifierMenu"]
-      157 SETTABLEKS                       R22 R25 K14 ["onPrimaryModifierMenuItemSelected"]
-      159 SETTABLEKS                       R23 R25 K15 ["onSecondaryModifierMenuItemSelected"]
-      161 SETTABLEKS                       R24 R25 K16 ["onEditMenuItemSelected"]
-      163 SETTABLEKS                       R17 R25 K17 ["expanded"]
-      165 SETTABLEKS                       R18 R25 K18 ["setExpanded"]
-      167 RETURN                           R25 1
+PROTO_9:
+        0 GETUPVAL                         R7 0
+        1 GETTABLEKS                       R7 R7 K0 ["useContext"]
+        3 GETUPVAL                         R8 1
+        4 GETTABLEKS                       R8 R8 K1 ["Context"]
+        6 CALL                             R7 1 1
+        7 LOADNIL                          R8
+        8 LOADNIL                          R9
+        9 GETUPVAL                         R10 2
+       10 CALL                             R10 0 1
+       11 JUMPIFNOT                        R10 ; [+27]
+       12 GETUPVAL                         R10 0
+       13 GETTABLEKS                       R10 R10 K2 ["useMemo"]
+       15 NEWCLOSURE                       R11 P0
+       16 CAPTURE                          UPVAL U3
+       17 CAPTURE                          VAL R0
+       18 NEWTABLE                         R12 0 1
+       20 MOVE                             R13 R0
+       21 SETLIST                          R12 R13 1 [1]
+       23 CALL                             R10 2 1
+       24 MOVE                             R8 R10
+       25 GETUPVAL                         R10 0
+       26 GETTABLEKS                       R10 R10 K2 ["useMemo"]
+       28 NEWCLOSURE                       R11 P1
+       29 CAPTURE                          UPVAL U4
+       30 CAPTURE                          VAL R0
+       31 NEWTABLE                         R12 0 1
+       33 MOVE                             R13 R0
+       34 SETLIST                          R12 R13 1 [1]
+       36 CALL                             R10 2 1
+       37 MOVE                             R9 R10
+       38 JUMP                             ; [+15]
+       39 GETUPVAL                         R10 0
+       40 GETTABLEKS                       R10 R10 K2 ["useMemo"]
+       42 NEWCLOSURE                       R11 P2
+       43 CAPTURE                          UPVAL U5
+       44 CAPTURE                          VAL R0
+       45 CAPTURE                          UPVAL U6
+       46 NEWTABLE                         R12 0 1
+       48 MOVE                             R13 R0
+       49 SETLIST                          R12 R13 1 [1]
+       51 CALL                             R10 2 2
+       52 MOVE                             R8 R10
+       53 MOVE                             R9 R11
+       54 GETUPVAL                         R10 7
+       55 GETTABLEKS                       R10 R10 K3 ["useStagnatingState"]
+       57 LOADB                            R11 0
+       58 NEWTABLE                         R12 0 1
+       60 MOVE                             R13 R8
+       61 SETLIST                          R12 R13 1 [1]
+       63 CALL                             R10 2 2
+       64 GETUPVAL                         R12 7
+       65 GETTABLEKS                       R12 R12 K3 ["useStagnatingState"]
+       67 LOADB                            R13 0
+       68 NEWTABLE                         R14 0 1
+       70 MOVE                             R15 R9
+       71 SETLIST                          R14 R15 1 [1]
+       73 CALL                             R12 2 2
+       74 OR                               R14 R10 R8
+       75 OR                               R15 R12 R9
+       76 GETUPVAL                         R16 0
+       77 GETTABLEKS                       R16 R16 K2 ["useMemo"]
+       79 NEWCLOSURE                       R17 P3
+       80 CAPTURE                          UPVAL U8
+       81 CAPTURE                          VAL R7
+       82 CAPTURE                          VAL R10
+       83 NEWTABLE                         R18 0 2
+       85 MOVE                             R19 R10
+       86 MOVE                             R20 R7
+       87 SETLIST                          R18 R19 2 [1]
+       89 CALL                             R16 2 1
+       90 GETUPVAL                         R17 0
+       91 GETTABLEKS                       R17 R17 K2 ["useMemo"]
+       93 NEWCLOSURE                       R18 P4
+       94 CAPTURE                          UPVAL U8
+       95 CAPTURE                          VAL R7
+       96 CAPTURE                          VAL R12
+       97 NEWTABLE                         R19 0 2
+       99 MOVE                             R20 R12
+      100 MOVE                             R21 R7
+      101 SETLIST                          R19 R20 2 [1]
+      103 CALL                             R17 2 1
+      104 JUMPIFNOTEQKS                    R6 K4 ["Keycode"] ; [+10]
+      106 MOVE                             R19 R4
+      107 LOADK                            R20 K4 ["Keycode"]
+      108 FASTCALL1                        TOSTRING R5 ; [+3]
+      109 MOVE                             R22 R5
+      110 GETIMPORT                        R21 K6 [tostring]
+      112 CALL                             R21 1 1
+      113 CONCAT                           R18 R19 R21
+      114 JUMP                             ; [+8]
+      115 MOVE                             R19 R4
+      116 LOADK                            R20 K7 ["Composite"]
+      117 FASTCALL1                        TOSTRING R5 ; [+3]
+      118 MOVE                             R22 R5
+      119 GETIMPORT                        R21 K6 [tostring]
+      121 CALL                             R21 1 1
+      122 CONCAT                           R18 R19 R21
+      123 JUMPIFNOTEQKS                    R6 K4 ["Keycode"] ; [+3]
+      125 OR                               R19 R14 R15
+      126 JUMP                             ; [+1]
+      127 LOADB                            R19 1
+      128 GETUPVAL                         R20 9
+      129 MOVE                             R21 R18
+      130 MOVE                             R22 R19
+      131 CALL                             R20 2 2
+      132 GETUPVAL                         R22 0
+      133 GETTABLEKS                       R22 R22 K0 ["useContext"]
+      135 GETUPVAL                         R23 10
+      136 GETTABLEKS                       R23 R23 K1 ["Context"]
+      138 CALL                             R22 1 1
+      139 GETUPVAL                         R23 7
+      140 GETTABLEKS                       R23 R23 K8 ["useEventCallback"]
+      142 NEWCLOSURE                       R24 P5
+      143 CAPTURE                          UPVAL U11
+      144 CAPTURE                          VAL R11
+      145 CAPTURE                          VAL R0
+      146 CAPTURE                          VAL R22
+      147 CAPTURE                          UPVAL U6
+      148 CALL                             R23 1 1
+      149 GETUPVAL                         R24 7
+      150 GETTABLEKS                       R24 R24 K8 ["useEventCallback"]
+      152 NEWCLOSURE                       R25 P6
+      153 CAPTURE                          UPVAL U11
+      154 CAPTURE                          VAL R13
+      155 CAPTURE                          VAL R0
+      156 CAPTURE                          VAL R22
+      157 CALL                             R24 1 1
+      158 GETUPVAL                         R25 7
+      159 GETTABLEKS                       R25 R25 K8 ["useEventCallback"]
+      161 NEWCLOSURE                       R26 P7
+      162 CAPTURE                          UPVAL U2
+      163 CAPTURE                          UPVAL U11
+      164 CAPTURE                          VAL R11
+      165 CAPTURE                          VAL R21
+      166 CAPTURE                          VAL R13
+      167 CAPTURE                          VAL R1
+      168 CAPTURE                          VAL R0
+      169 CAPTURE                          VAL R22
+      170 CAPTURE                          VAL R2
+      171 CALL                             R25 1 1
+      172 GETUPVAL                         R26 7
+      173 GETTABLEKS                       R26 R26 K8 ["useEventCallback"]
+      175 NEWCLOSURE                       R27 P8
+      176 CAPTURE                          UPVAL U11
+      177 CAPTURE                          VAL R11
+      178 CAPTURE                          VAL R21
+      179 CAPTURE                          VAL R13
+      180 CAPTURE                          VAL R3
+      181 CALL                             R26 1 1
+      182 DUPTABLE                         R27 K19 [{"showPrimaryModifier", "showSecondaryModifier", "primaryModifierMenu", "secondaryModifierMenu", "onPrimaryModifierMenuItemSelected", "onSecondaryModifierMenuItemSelected", "onCreateMenuItemSelected", "onEditMenuItemSelected", "expanded", "setExpanded"}]
+      183 SETTABLEKS                       R14 R27 K9 ["showPrimaryModifier"]
+      185 SETTABLEKS                       R15 R27 K10 ["showSecondaryModifier"]
+      187 SETTABLEKS                       R16 R27 K11 ["primaryModifierMenu"]
+      189 SETTABLEKS                       R17 R27 K12 ["secondaryModifierMenu"]
+      191 SETTABLEKS                       R23 R27 K13 ["onPrimaryModifierMenuItemSelected"]
+      193 SETTABLEKS                       R24 R27 K14 ["onSecondaryModifierMenuItemSelected"]
+      195 SETTABLEKS                       R26 R27 K15 ["onCreateMenuItemSelected"]
+      197 SETTABLEKS                       R25 R27 K16 ["onEditMenuItemSelected"]
+      199 SETTABLEKS                       R20 R27 K17 ["expanded"]
+      201 SETTABLEKS                       R21 R27 K18 ["setExpanded"]
+      203 RETURN                           R27 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -340,22 +420,40 @@ MAIN:
        84 GETIMPORT                        R11 K5 [require]
        86 GETTABLEKS                       R12 R0 K13 ["Src"]
        88 GETTABLEKS                       R12 R12 K16 ["Util"]
-       90 GETTABLEKS                       R12 R12 K22 ["Constants"]
-       92 GETTABLEKS                       R12 R12 K23 ["MenuIdentifiers"]
+       90 GETTABLEKS                       R12 R12 K22 ["Binding"]
+       92 GETTABLEKS                       R12 R12 K23 ["hasPrimaryModifier"]
        94 CALL                             R11 1 1
-       95 GETTABLEKS                       R12 R0 K13 ["Src"]
-       97 GETTABLEKS                       R12 R12 K24 ["Flags"]
-       99 GETIMPORT                        R13 K5 [require]
-      101 GETTABLEKS                       R14 R12 K25 ["getFFlagIAMUIModifier"]
-      103 CALL                             R13 1 1
-      104 DUPCLOSURE                       R14 K26 [PROTO_6]
-      105 CAPTURE                          VAL R1
-      106 CAPTURE                          VAL R5
-      107 CAPTURE                          VAL R8
-      108 CAPTURE                          VAL R13
-      109 CAPTURE                          VAL R2
-      110 CAPTURE                          VAL R9
-      111 CAPTURE                          VAL R6
-      112 CAPTURE                          VAL R10
-      113 CAPTURE                          VAL R11
-      114 RETURN                           R14 1
+       95 GETIMPORT                        R12 K5 [require]
+       97 GETTABLEKS                       R13 R0 K13 ["Src"]
+       99 GETTABLEKS                       R13 R13 K16 ["Util"]
+      101 GETTABLEKS                       R13 R13 K22 ["Binding"]
+      103 GETTABLEKS                       R13 R13 K24 ["hasSecondaryModifier"]
+      105 CALL                             R12 1 1
+      106 GETIMPORT                        R13 K5 [require]
+      108 GETTABLEKS                       R14 R0 K13 ["Src"]
+      110 GETTABLEKS                       R14 R14 K16 ["Util"]
+      112 GETTABLEKS                       R14 R14 K25 ["Constants"]
+      114 GETTABLEKS                       R14 R14 K26 ["MenuIdentifiers"]
+      116 CALL                             R13 1 1
+      117 GETTABLEKS                       R14 R0 K13 ["Src"]
+      119 GETTABLEKS                       R14 R14 K27 ["Flags"]
+      121 GETIMPORT                        R15 K5 [require]
+      123 GETTABLEKS                       R16 R14 K28 ["getFFlagIAMUIModifier"]
+      125 CALL                             R15 1 1
+      126 GETIMPORT                        R16 K5 [require]
+      128 GETTABLEKS                       R17 R14 K29 ["getFFlagIAMImprovedModifierMenu"]
+      130 CALL                             R16 1 1
+      131 DUPCLOSURE                       R17 K30 [PROTO_9]
+      132 CAPTURE                          VAL R1
+      133 CAPTURE                          VAL R5
+      134 CAPTURE                          VAL R16
+      135 CAPTURE                          VAL R11
+      136 CAPTURE                          VAL R12
+      137 CAPTURE                          VAL R8
+      138 CAPTURE                          VAL R15
+      139 CAPTURE                          VAL R2
+      140 CAPTURE                          VAL R10
+      141 CAPTURE                          VAL R9
+      142 CAPTURE                          VAL R6
+      143 CAPTURE                          VAL R13
+      144 RETURN                           R17 1

@@ -281,171 +281,169 @@ PROTO_15:
 PROTO_16:
         0 GETTABLEKS                       R5 R0 K0 ["_indexMap"]
         2 GETTABLE                         R4 R5 R2
-        3 LOADK                            R6 K1 ["ItemsCache:addItem called for scopeUid %* which is not in cache. Please add the scope first."]
-        4 MOVE                             R8 R2
-        5 NAMECALL                         R6 R6 K2 ["format"]
-        7 CALL                             R6 2 1
-        8 MOVE                             R5 R6
-        9 FASTCALL2                        ASSERT R4 R5 ; [+3]
-       11 GETIMPORT                        R3 K4 [assert]
-       13 CALL                             R3 2 0
-       14 MOVE                             R5 R2
-       15 GETTABLEKS                       R6 R1 K5 ["Path"]
-       17 NAMECALL                         R3 R0 K6 ["_getItemIndex"]
-       19 CALL                             R3 3 1
-       20 JUMPIFNOT                        R3 ; [+6]
-       21 MOVE                             R6 R3
-       22 MOVE                             R7 R1
-       23 NAMECALL                         R4 R0 K7 ["_updateItem"]
-       25 CALL                             R4 3 0
-       26 RETURN                           R0 0
-       27 GETTABLEKS                       R5 R0 K0 ["_indexMap"]
-       29 GETTABLE                         R4 R5 R2
-       30 GETTABLEKS                       R4 R4 K8 ["PathIndexMap"]
-       32 GETTABLEKS                       R5 R1 K5 ["Path"]
-       34 MOVE                             R8 R5
-       35 MOVE                             R9 R2
-       36 NAMECALL                         R6 R0 K9 ["_hasItem"]
-       38 CALL                             R6 3 1
-       39 JUMPIFNOT                        R6 ; [+8]
-       40 GETUPVAL                         R6 0
-       41 LOADK                            R7 K10 ["ItemsCache - duplicate asset detected, overwriting with new data"]
-       42 CALL                             R6 1 0
-       43 MOVE                             R8 R5
-       44 MOVE                             R9 R2
-       45 NAMECALL                         R6 R0 K11 ["removeItem"]
-       47 CALL                             R6 3 0
-       48 NAMECALL                         R6 R0 K12 ["getTotalItemCount"]
-       50 CALL                             R6 1 1
-       51 ADDK                             R7 R6 K13 [1]
-       52 SETTABLE                         R7 R4 R5
-       53 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
-       55 GETTABLEKS                       R8 R8 K5 ["Path"]
-       57 FASTCALL2                        TABLE_INSERT R8 R5 ; [+4]
-       59 MOVE                             R9 R5
-       60 GETIMPORT                        R7 K17 [table.insert]
-       62 CALL                             R7 2 0
-       63 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
-       65 GETTABLEKS                       R8 R8 K18 ["AssetId"]
-       67 GETTABLEKS                       R9 R1 K18 ["AssetId"]
-       69 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-       71 GETIMPORT                        R7 K17 [table.insert]
-       73 CALL                             R7 2 0
-       74 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
-       76 GETTABLEKS                       R8 R8 K19 ["AssetType"]
-       78 GETTABLEKS                       R9 R1 K19 ["AssetType"]
-       80 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-       82 GETIMPORT                        R7 K17 [table.insert]
-       84 CALL                             R7 2 0
-       85 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
-       87 GETTABLEKS                       R8 R8 K20 ["DisplayName"]
-       89 GETTABLEKS                       R9 R1 K20 ["DisplayName"]
-       91 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-       93 GETIMPORT                        R7 K17 [table.insert]
-       95 CALL                             R7 2 0
-       96 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
-       98 GETTABLEKS                       R8 R8 K21 ["VersionNumber"]
-      100 GETTABLEKS                       R10 R1 K21 ["VersionNumber"]
-      102 JUMPIFEQKNIL                     R10 ; [+4]
-      104 GETTABLEKS                       R9 R1 K21 ["VersionNumber"]
-      106 JUMP                             ; [+3]
-      107 GETUPVAL                         R9 1
-      108 GETTABLEKS                       R9 R9 K22 ["None"]
-      110 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-      112 GETIMPORT                        R7 K17 [table.insert]
-      114 CALL                             R7 2 0
-      115 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
-      117 GETTABLEKS                       R8 R8 K23 ["Created"]
-      119 GETTABLEKS                       R9 R1 K23 ["Created"]
-      121 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-      123 GETIMPORT                        R7 K17 [table.insert]
-      125 CALL                             R7 2 0
-      126 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
-      128 GETTABLEKS                       R8 R8 K24 ["Modified"]
-      130 GETTABLEKS                       R9 R1 K24 ["Modified"]
-      132 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-      134 GETIMPORT                        R7 K17 [table.insert]
-      136 CALL                             R7 2 0
-      137 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
-      139 GETTABLEKS                       R8 R8 K25 ["ModerationStatus"]
-      141 GETTABLEKS                       R9 R1 K25 ["ModerationStatus"]
-      143 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-      145 GETIMPORT                        R7 K17 [table.insert]
-      147 CALL                             R7 2 0
-      148 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
-      150 GETTABLEKS                       R8 R8 K26 ["Creator"]
-      152 GETTABLEKS                       R9 R1 K26 ["Creator"]
-      154 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-      156 GETIMPORT                        R7 K17 [table.insert]
-      158 CALL                             R7 2 0
-      159 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
-      161 GETTABLEKS                       R8 R8 K27 ["SearchRank"]
-      163 GETTABLEKS                       R10 R1 K27 ["SearchRank"]
-      165 JUMPIFEQKNIL                     R10 ; [+4]
-      167 GETTABLEKS                       R9 R1 K27 ["SearchRank"]
-      169 JUMP                             ; [+3]
-      170 GETUPVAL                         R9 1
-      171 GETTABLEKS                       R9 R9 K22 ["None"]
-      173 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-      175 GETIMPORT                        R7 K17 [table.insert]
-      177 CALL                             R7 2 0
-      178 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
-      180 GETTABLEKS                       R8 R8 K28 ["Source"]
-      182 GETTABLEKS                       R10 R1 K28 ["Source"]
-      184 JUMPIFEQKNIL                     R10 ; [+4]
-      186 GETTABLEKS                       R9 R1 K28 ["Source"]
-      188 JUMP                             ; [+3]
-      189 GETUPVAL                         R9 1
-      190 GETTABLEKS                       R9 R9 K22 ["None"]
-      192 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-      194 GETIMPORT                        R7 K17 [table.insert]
-      196 CALL                             R7 2 0
-      197 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
-      199 GETTABLEKS                       R8 R8 K29 ["Archived"]
-      201 GETTABLEKS                       R9 R1 K29 ["Archived"]
-      203 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-      205 GETIMPORT                        R7 K17 [table.insert]
-      207 CALL                             R7 2 0
-      208 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
-      210 GETTABLEKS                       R8 R8 K30 ["IsPackage"]
-      212 GETTABLEKS                       R10 R1 K30 ["IsPackage"]
-      214 JUMPIFEQKNIL                     R10 ; [+4]
-      216 GETTABLEKS                       R9 R1 K30 ["IsPackage"]
-      218 JUMP                             ; [+3]
-      219 GETUPVAL                         R9 1
-      220 GETTABLEKS                       R9 R9 K22 ["None"]
-      222 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-      224 GETIMPORT                        R7 K17 [table.insert]
-      226 CALL                             R7 2 0
-      227 NAMECALL                         R7 R0 K12 ["getTotalItemCount"]
-      229 CALL                             R7 1 1
-      230 GETTABLEKS                       R8 R0 K31 ["_maxItems"]
-      232 JUMPIFNOTLT                      R8 R7 ; [+34]
-      234 GETTABLEKS                       R8 R0 K32 ["_scopeQueue"]
-      236 LENGTH                           R7 R8
-      237 LOADN                            R8 1
-      238 JUMPIFLE                         R7 R8 ; [+6]
-      240 GETTABLEKS                       R8 R0 K32 ["_scopeQueue"]
-      242 GETTABLEN                        R7 R8 1
-      243 JUMPIFNOTEQ                      R7 R2 ; [+12]
-      245 GETUPVAL                         R7 0
-      246 LOADK                            R9 K33 ["ItemsCache: Max items exceeded but cannot evict scope %* because it's the only scope in cache or it's the current scope."]
-      247 GETTABLEKS                       R12 R0 K32 ["_scopeQueue"]
-      249 GETTABLEN                        R11 R12 1
-      250 NAMECALL                         R9 R9 K2 ["format"]
-      252 CALL                             R9 2 1
-      253 MOVE                             R8 R9
-      254 CALL                             R7 1 0
-      255 RETURN                           R0 0
-      256 GETIMPORT                        R7 K35 [table.remove]
-      258 GETTABLEKS                       R8 R0 K32 ["_scopeQueue"]
-      260 LOADN                            R9 1
-      261 CALL                             R7 2 1
-      262 MOVE                             R10 R7
-      263 NAMECALL                         R8 R0 K36 ["removeScope"]
-      265 CALL                             R8 2 0
-      266 JUMPBACK                         ; [-40]
-      267 RETURN                           R0 0
+        3 LOADK                            R5 K1 ["ItemsCache:addItem called for scopeUid %* which is not in cache. Please add the scope first."]
+        4 MOVE                             R7 R2
+        5 NAMECALL                         R5 R5 K2 ["format"]
+        7 CALL                             R5 2 1
+        8 FASTCALL2                        ASSERT R4 R5 ; [+3]
+       10 GETIMPORT                        R3 K4 [assert]
+       12 CALL                             R3 2 0
+       13 MOVE                             R5 R2
+       14 GETTABLEKS                       R6 R1 K5 ["Path"]
+       16 NAMECALL                         R3 R0 K6 ["_getItemIndex"]
+       18 CALL                             R3 3 1
+       19 JUMPIFNOT                        R3 ; [+6]
+       20 MOVE                             R6 R3
+       21 MOVE                             R7 R1
+       22 NAMECALL                         R4 R0 K7 ["_updateItem"]
+       24 CALL                             R4 3 0
+       25 RETURN                           R0 0
+       26 GETTABLEKS                       R5 R0 K0 ["_indexMap"]
+       28 GETTABLE                         R4 R5 R2
+       29 GETTABLEKS                       R4 R4 K8 ["PathIndexMap"]
+       31 GETTABLEKS                       R5 R1 K5 ["Path"]
+       33 MOVE                             R8 R5
+       34 MOVE                             R9 R2
+       35 NAMECALL                         R6 R0 K9 ["_hasItem"]
+       37 CALL                             R6 3 1
+       38 JUMPIFNOT                        R6 ; [+8]
+       39 GETUPVAL                         R6 0
+       40 LOADK                            R7 K10 ["ItemsCache - duplicate asset detected, overwriting with new data"]
+       41 CALL                             R6 1 0
+       42 MOVE                             R8 R5
+       43 MOVE                             R9 R2
+       44 NAMECALL                         R6 R0 K11 ["removeItem"]
+       46 CALL                             R6 3 0
+       47 NAMECALL                         R6 R0 K12 ["getTotalItemCount"]
+       49 CALL                             R6 1 1
+       50 ADDK                             R7 R6 K13 [1]
+       51 SETTABLE                         R7 R4 R5
+       52 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+       54 GETTABLEKS                       R8 R8 K5 ["Path"]
+       56 FASTCALL2                        TABLE_INSERT R8 R5 ; [+4]
+       58 MOVE                             R9 R5
+       59 GETIMPORT                        R7 K17 [table.insert]
+       61 CALL                             R7 2 0
+       62 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+       64 GETTABLEKS                       R8 R8 K18 ["AssetId"]
+       66 GETTABLEKS                       R9 R1 K18 ["AssetId"]
+       68 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+       70 GETIMPORT                        R7 K17 [table.insert]
+       72 CALL                             R7 2 0
+       73 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+       75 GETTABLEKS                       R8 R8 K19 ["AssetType"]
+       77 GETTABLEKS                       R9 R1 K19 ["AssetType"]
+       79 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+       81 GETIMPORT                        R7 K17 [table.insert]
+       83 CALL                             R7 2 0
+       84 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+       86 GETTABLEKS                       R8 R8 K20 ["DisplayName"]
+       88 GETTABLEKS                       R9 R1 K20 ["DisplayName"]
+       90 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+       92 GETIMPORT                        R7 K17 [table.insert]
+       94 CALL                             R7 2 0
+       95 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+       97 GETTABLEKS                       R8 R8 K21 ["VersionNumber"]
+       99 GETTABLEKS                       R10 R1 K21 ["VersionNumber"]
+      101 JUMPIFEQKNIL                     R10 ; [+4]
+      103 GETTABLEKS                       R9 R1 K21 ["VersionNumber"]
+      105 JUMP                             ; [+3]
+      106 GETUPVAL                         R9 1
+      107 GETTABLEKS                       R9 R9 K22 ["None"]
+      109 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+      111 GETIMPORT                        R7 K17 [table.insert]
+      113 CALL                             R7 2 0
+      114 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      116 GETTABLEKS                       R8 R8 K23 ["Created"]
+      118 GETTABLEKS                       R9 R1 K23 ["Created"]
+      120 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+      122 GETIMPORT                        R7 K17 [table.insert]
+      124 CALL                             R7 2 0
+      125 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      127 GETTABLEKS                       R8 R8 K24 ["Modified"]
+      129 GETTABLEKS                       R9 R1 K24 ["Modified"]
+      131 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+      133 GETIMPORT                        R7 K17 [table.insert]
+      135 CALL                             R7 2 0
+      136 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      138 GETTABLEKS                       R8 R8 K25 ["ModerationStatus"]
+      140 GETTABLEKS                       R9 R1 K25 ["ModerationStatus"]
+      142 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+      144 GETIMPORT                        R7 K17 [table.insert]
+      146 CALL                             R7 2 0
+      147 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      149 GETTABLEKS                       R8 R8 K26 ["Creator"]
+      151 GETTABLEKS                       R9 R1 K26 ["Creator"]
+      153 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+      155 GETIMPORT                        R7 K17 [table.insert]
+      157 CALL                             R7 2 0
+      158 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      160 GETTABLEKS                       R8 R8 K27 ["SearchRank"]
+      162 GETTABLEKS                       R10 R1 K27 ["SearchRank"]
+      164 JUMPIFEQKNIL                     R10 ; [+4]
+      166 GETTABLEKS                       R9 R1 K27 ["SearchRank"]
+      168 JUMP                             ; [+3]
+      169 GETUPVAL                         R9 1
+      170 GETTABLEKS                       R9 R9 K22 ["None"]
+      172 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+      174 GETIMPORT                        R7 K17 [table.insert]
+      176 CALL                             R7 2 0
+      177 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      179 GETTABLEKS                       R8 R8 K28 ["Source"]
+      181 GETTABLEKS                       R10 R1 K28 ["Source"]
+      183 JUMPIFEQKNIL                     R10 ; [+4]
+      185 GETTABLEKS                       R9 R1 K28 ["Source"]
+      187 JUMP                             ; [+3]
+      188 GETUPVAL                         R9 1
+      189 GETTABLEKS                       R9 R9 K22 ["None"]
+      191 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+      193 GETIMPORT                        R7 K17 [table.insert]
+      195 CALL                             R7 2 0
+      196 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      198 GETTABLEKS                       R8 R8 K29 ["Archived"]
+      200 GETTABLEKS                       R9 R1 K29 ["Archived"]
+      202 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+      204 GETIMPORT                        R7 K17 [table.insert]
+      206 CALL                             R7 2 0
+      207 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      209 GETTABLEKS                       R8 R8 K30 ["IsPackage"]
+      211 GETTABLEKS                       R10 R1 K30 ["IsPackage"]
+      213 JUMPIFEQKNIL                     R10 ; [+4]
+      215 GETTABLEKS                       R9 R1 K30 ["IsPackage"]
+      217 JUMP                             ; [+3]
+      218 GETUPVAL                         R9 1
+      219 GETTABLEKS                       R9 R9 K22 ["None"]
+      221 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+      223 GETIMPORT                        R7 K17 [table.insert]
+      225 CALL                             R7 2 0
+      226 NAMECALL                         R7 R0 K12 ["getTotalItemCount"]
+      228 CALL                             R7 1 1
+      229 GETTABLEKS                       R8 R0 K31 ["_maxItems"]
+      231 JUMPIFNOTLT                      R8 R7 ; [+33]
+      233 GETTABLEKS                       R8 R0 K32 ["_scopeQueue"]
+      235 LENGTH                           R7 R8
+      236 LOADN                            R8 1
+      237 JUMPIFLE                         R7 R8 ; [+6]
+      239 GETTABLEKS                       R8 R0 K32 ["_scopeQueue"]
+      241 GETTABLEN                        R7 R8 1
+      242 JUMPIFNOTEQ                      R7 R2 ; [+11]
+      244 GETUPVAL                         R7 0
+      245 LOADK                            R8 K33 ["ItemsCache: Max items exceeded but cannot evict scope %* because it's the only scope in cache or it's the current scope."]
+      246 GETTABLEKS                       R11 R0 K32 ["_scopeQueue"]
+      248 GETTABLEN                        R10 R11 1
+      249 NAMECALL                         R8 R8 K2 ["format"]
+      251 CALL                             R8 2 1
+      252 CALL                             R7 1 0
+      253 RETURN                           R0 0
+      254 GETIMPORT                        R7 K35 [table.remove]
+      256 GETTABLEKS                       R8 R0 K32 ["_scopeQueue"]
+      258 LOADN                            R9 1
+      259 CALL                             R7 2 1
+      260 MOVE                             R10 R7
+      261 NAMECALL                         R8 R0 K36 ["removeScope"]
+      263 CALL                             R8 2 0
+      264 JUMPBACK                         ; [-39]
+      265 RETURN                           R0 0
 
 PROTO_17:
         0 NAMECALL                         R2 R0 K0 ["getTotalItemCount"]
@@ -476,57 +474,54 @@ PROTO_17:
        36 LOADB                            R4 1
        37 JUMP                             ; [+2]
        38 FORGLOOP                         R5 2 ; [-11]
-       40 JUMPIF                           R4 ; [+9]
+       40 JUMPIF                           R4 ; [+8]
        41 GETUPVAL                         R5 0
-       42 LOADK                            R7 K8 ["ItemsCache: Could not find scope owner for item at index %* with path %*"]
-       43 MOVE                             R9 R2
-       44 MOVE                             R10 R3
-       45 NAMECALL                         R7 R7 K9 ["format"]
-       47 CALL                             R7 3 1
-       48 MOVE                             R6 R7
-       49 CALL                             R5 1 0
-       50 GETTABLEKS                       R5 R0 K1 ["_dataArrays"]
-       52 LOADNIL                          R6
-       53 LOADNIL                          R7
-       54 FORGPREP                         R5
-       55 GETIMPORT                        R10 K4 [table.remove]
-       57 MOVE                             R11 R9
-       58 CALL                             R10 1 1
-       59 SETTABLE                         R10 R9 R1
-       60 FORGLOOP                         R5 2 ; [-6]
-       62 RETURN                           R0 0
+       42 LOADK                            R6 K8 ["ItemsCache: Could not find scope owner for item at index %* with path %*"]
+       43 MOVE                             R8 R2
+       44 MOVE                             R9 R3
+       45 NAMECALL                         R6 R6 K9 ["format"]
+       47 CALL                             R6 3 1
+       48 CALL                             R5 1 0
+       49 GETTABLEKS                       R5 R0 K1 ["_dataArrays"]
+       51 LOADNIL                          R6
+       52 LOADNIL                          R7
+       53 FORGPREP                         R5
+       54 GETIMPORT                        R10 K4 [table.remove]
+       56 MOVE                             R11 R9
+       57 CALL                             R10 1 1
+       58 SETTABLE                         R10 R9 R1
+       59 FORGLOOP                         R5 2 ; [-6]
+       61 RETURN                           R0 0
 
 PROTO_18:
         0 GETTABLEKS                       R4 R0 K0 ["_indexMap"]
         2 GETTABLE                         R3 R4 R2
-        3 JUMPIF                           R3 ; [+10]
+        3 JUMPIF                           R3 ; [+9]
         4 GETUPVAL                         R4 0
-        5 LOADK                            R6 K1 ["ItemsCache: No scope cache found for scopeUid %* when trying to remove item"]
-        6 MOVE                             R8 R2
-        7 NAMECALL                         R6 R6 K2 ["format"]
-        9 CALL                             R6 2 1
-       10 MOVE                             R5 R6
-       11 LOADK                            R6 K3 ["WARN"]
-       12 CALL                             R4 2 0
-       13 RETURN                           R0 0
-       14 GETTABLEKS                       R4 R3 K4 ["PathIndexMap"]
-       16 GETTABLE                         R5 R4 R1
-       17 JUMPIF                           R5 ; [+10]
-       18 GETUPVAL                         R6 0
-       19 LOADK                            R8 K5 ["ItemsCache: No item found at path \"%*\" when trying to remove item"]
-       20 MOVE                             R10 R1
-       21 NAMECALL                         R8 R8 K2 ["format"]
-       23 CALL                             R8 2 1
-       24 MOVE                             R7 R8
-       25 LOADK                            R8 K3 ["WARN"]
-       26 CALL                             R6 2 0
-       27 RETURN                           R0 0
-       28 MOVE                             R8 R5
-       29 NAMECALL                         R6 R0 K6 ["_swapAndPop"]
-       31 CALL                             R6 2 0
-       32 LOADNIL                          R6
-       33 SETTABLE                         R6 R4 R1
-       34 RETURN                           R0 0
+        5 LOADK                            R5 K1 ["ItemsCache: No scope cache found for scopeUid %* when trying to remove item"]
+        6 MOVE                             R7 R2
+        7 NAMECALL                         R5 R5 K2 ["format"]
+        9 CALL                             R5 2 1
+       10 LOADK                            R6 K3 ["WARN"]
+       11 CALL                             R4 2 0
+       12 RETURN                           R0 0
+       13 GETTABLEKS                       R4 R3 K4 ["PathIndexMap"]
+       15 GETTABLE                         R5 R4 R1
+       16 JUMPIF                           R5 ; [+9]
+       17 GETUPVAL                         R6 0
+       18 LOADK                            R7 K5 ["ItemsCache: No item found at path \"%*\" when trying to remove item"]
+       19 MOVE                             R9 R1
+       20 NAMECALL                         R7 R7 K2 ["format"]
+       22 CALL                             R7 2 1
+       23 LOADK                            R8 K3 ["WARN"]
+       24 CALL                             R6 2 0
+       25 RETURN                           R0 0
+       26 MOVE                             R8 R5
+       27 NAMECALL                         R6 R0 K6 ["_swapAndPop"]
+       29 CALL                             R6 2 0
+       30 LOADNIL                          R6
+       31 SETTABLE                         R6 R4 R1
+       32 RETURN                           R0 0
 
 PROTO_19:
         0 GETTABLEKS                       R4 R0 K0 ["_indexMap"]

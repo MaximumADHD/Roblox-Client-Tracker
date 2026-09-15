@@ -66,12 +66,11 @@ PROTO_2:
        18 MOVE                             R6 R2
        19 NAMECALL                         R3 R3 K21 ["CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParam"]
        21 CALL                             R3 3 1
-       22 LOADK                            R5 K22 ["rbxassetid://%*"]
-       23 GETTABLEKS                       R7 R3 K6 ["AssetId"]
-       25 NAMECALL                         R5 R5 K23 ["format"]
-       27 CALL                             R5 2 1
-       28 MOVE                             R4 R5
-       29 RETURN                           R4 1
+       22 LOADK                            R4 K22 ["rbxassetid://%*"]
+       23 GETTABLEKS                       R6 R3 K6 ["AssetId"]
+       25 NAMECALL                         R4 R4 K23 ["format"]
+       27 CALL                             R4 2 1
+       28 RETURN                           R4 1
 
 PROTO_3:
         0 GETUPVAL                         R5 0

@@ -63,43 +63,42 @@ PROTO_1:
        48 GETUPVAL                         R5 1
        49 GETTABLEKS                       R5 R5 K9 ["Tag"]
        51 GETUPVAL                         R6 3
-       52 LOADK                            R8 K10 ["Component-Toggle data-testid=%*"]
-       53 GETUPVAL                         R10 4
-       54 GETTABLEKS                       R11 R0 K11 ["Uri"]
-       56 CALL                             R10 1 1
-       57 NAMECALL                         R8 R8 K12 ["format"]
-       59 CALL                             R8 2 1
-       60 MOVE                             R7 R8
-       61 GETTABLEKS                       R9 R0 K13 ["Selected"]
-       63 JUMPIFNOT                        R9 ; [+2]
-       64 LOADK                            R8 K14 ["State-Selected"]
-       65 JUMP                             ; [+1]
-       66 LOADNIL                          R8
-       67 GETTABLEKS                       R10 R0 K0 ["Enabled"]
-       69 JUMPIF                           R10 ; [+2]
-       70 LOADK                            R9 K15 ["State-Disabled"]
-       71 JUMP                             ; [+1]
-       72 LOADNIL                          R9
-       73 GETUPVAL                         R11 5
-       74 CALL                             R11 0 1
-       75 JUMPIFNOT                        R11 ; [+8]
-       76 GETTABLEKS                       R11 R0 K0 ["Enabled"]
-       78 JUMPIFNOT                        R11 ; [+5]
-       79 GETTABLEKS                       R11 R0 K13 ["Selected"]
-       81 JUMPIF                           R11 ; [+2]
-       82 LOADK                            R10 K16 ["State-Default"]
-       83 JUMP                             ; [+1]
-       84 LOADNIL                          R10
-       85 CALL                             R6 4 1
-       86 SETTABLE                         R6 R4 R5
-       87 DUPTABLE                         R5 K18 [{"Knob"}]
-       88 GETUPVAL                         R6 1
-       89 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       91 LOADK                            R7 K2 ["Frame"]
-       92 CALL                             R6 1 1
-       93 SETTABLEKS                       R6 R5 K17 ["Knob"]
-       95 CALL                             R2 3 -1
-       96 RETURN                           R2 -1
+       52 LOADK                            R7 K10 ["Component-Toggle data-testid=%*"]
+       53 GETUPVAL                         R9 4
+       54 GETTABLEKS                       R10 R0 K11 ["Uri"]
+       56 CALL                             R9 1 1
+       57 NAMECALL                         R7 R7 K12 ["format"]
+       59 CALL                             R7 2 1
+       60 GETTABLEKS                       R9 R0 K13 ["Selected"]
+       62 JUMPIFNOT                        R9 ; [+2]
+       63 LOADK                            R8 K14 ["State-Selected"]
+       64 JUMP                             ; [+1]
+       65 LOADNIL                          R8
+       66 GETTABLEKS                       R10 R0 K0 ["Enabled"]
+       68 JUMPIF                           R10 ; [+2]
+       69 LOADK                            R9 K15 ["State-Disabled"]
+       70 JUMP                             ; [+1]
+       71 LOADNIL                          R9
+       72 GETUPVAL                         R11 5
+       73 CALL                             R11 0 1
+       74 JUMPIFNOT                        R11 ; [+8]
+       75 GETTABLEKS                       R11 R0 K0 ["Enabled"]
+       77 JUMPIFNOT                        R11 ; [+5]
+       78 GETTABLEKS                       R11 R0 K13 ["Selected"]
+       80 JUMPIF                           R11 ; [+2]
+       81 LOADK                            R10 K16 ["State-Default"]
+       82 JUMP                             ; [+1]
+       83 LOADNIL                          R10
+       84 CALL                             R6 4 1
+       85 SETTABLE                         R6 R4 R5
+       86 DUPTABLE                         R5 K18 [{"Knob"}]
+       87 GETUPVAL                         R6 1
+       88 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       90 LOADK                            R7 K2 ["Frame"]
+       91 CALL                             R6 1 1
+       92 SETTABLEKS                       R6 R5 K17 ["Knob"]
+       94 CALL                             R2 3 -1
+       95 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

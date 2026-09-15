@@ -332,32 +332,31 @@ PROTO_9:
        14 LOADK                            R8 K3 ["GuiButton"]
        15 NAMECALL                         R6 R4 K4 ["IsA"]
        17 CALL                             R6 2 1
-       18 LOADK                            R8 K5 ["Dropdown control \"%*\" is not a GuiButton"]
-       19 MOVE                             R10 R2
-       20 NAMECALL                         R8 R8 K6 ["format"]
-       22 CALL                             R8 2 1
-       23 MOVE                             R7 R8
-       24 FASTCALL2                        ASSERT R6 R7 ; [+3]
-       26 GETIMPORT                        R5 K8 [assert]
-       28 CALL                             R5 2 0
-       29 GETUPVAL                         R5 1
-       30 MOVE                             R6 R4
-       31 CALL                             R5 1 0
-       32 GETUPVAL                         R5 0
-       33 GETTABLEKS                       R5 R5 K9 ["within"]
-       35 GETUPVAL                         R6 2
-       36 GETTABLEKS                       R6 R6 K10 ["getSubWindow"]
-       38 CALL                             R6 0 -1
-       39 CALL                             R5 -1 1
-       40 GETTABLEKS                       R5 R5 K11 ["findByTestId"]
-       42 MOVE                             R6 R3
-       43 CALL                             R5 1 1
-       44 NAMECALL                         R5 R5 K12 ["expect"]
-       46 CALL                             R5 1 1
-       47 GETUPVAL                         R6 3
-       48 MOVE                             R7 R5
-       49 CALL                             R6 1 1
-       50 RETURN                           R6 1
+       18 LOADK                            R7 K5 ["Dropdown control \"%*\" is not a GuiButton"]
+       19 MOVE                             R9 R2
+       20 NAMECALL                         R7 R7 K6 ["format"]
+       22 CALL                             R7 2 1
+       23 FASTCALL2                        ASSERT R6 R7 ; [+3]
+       25 GETIMPORT                        R5 K8 [assert]
+       27 CALL                             R5 2 0
+       28 GETUPVAL                         R5 1
+       29 MOVE                             R6 R4
+       30 CALL                             R5 1 0
+       31 GETUPVAL                         R5 0
+       32 GETTABLEKS                       R5 R5 K9 ["within"]
+       34 GETUPVAL                         R6 2
+       35 GETTABLEKS                       R6 R6 K10 ["getSubWindow"]
+       37 CALL                             R6 0 -1
+       38 CALL                             R5 -1 1
+       39 GETTABLEKS                       R5 R5 K11 ["findByTestId"]
+       41 MOVE                             R6 R3
+       42 CALL                             R5 1 1
+       43 NAMECALL                         R5 R5 K12 ["expect"]
+       45 CALL                             R5 1 1
+       46 GETUPVAL                         R6 3
+       47 MOVE                             R7 R5
+       48 CALL                             R6 1 1
+       49 RETURN                           R6 1
 
 PROTO_10:
         0 GETUPVAL                         R0 0
@@ -461,34 +460,32 @@ PROTO_14:
        14 RETURN                           R0 0
        15 FORGLOOP                         R2 2 ; [-12]
        17 NEWTABLE                         R2 0 2
-       19 LOADK                            R4 K3 ["Couldn't find dropdown entry that matched pattern \"%*\""]
-       20 MOVE                             R6 R1
-       21 NAMECALL                         R4 R4 K4 ["format"]
-       23 CALL                             R4 2 1
-       24 MOVE                             R3 R4
-       25 LOADK                            R4 K5 ["Found the following labels:"]
-       26 SETLIST                          R2 R3 2 [1]
-       28 MOVE                             R3 R0
-       29 LOADNIL                          R4
-       30 LOADNIL                          R5
-       31 FORGPREP                         R3
-       32 LOADK                            R11 K6 ["- %*"]
-       33 GETTABLEKS                       R13 R7 K0 ["label"]
-       35 NAMECALL                         R11 R11 K4 ["format"]
-       37 CALL                             R11 2 1
-       38 MOVE                             R10 R11
-       39 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
-       41 MOVE                             R9 R2
-       42 GETIMPORT                        R8 K9 [table.insert]
-       44 CALL                             R8 2 0
-       45 FORGLOOP                         R3 2 ; [-14]
-       47 GETIMPORT                        R3 K11 [error]
-       49 GETIMPORT                        R4 K13 [table.concat]
-       51 MOVE                             R5 R2
-       52 LOADK                            R6 K14 ["\n"]
-       53 CALL                             R4 2 -1
-       54 CALL                             R3 -1 0
-       55 RETURN                           R0 0
+       19 LOADK                            R3 K3 ["Couldn't find dropdown entry that matched pattern \"%*\""]
+       20 MOVE                             R5 R1
+       21 NAMECALL                         R3 R3 K4 ["format"]
+       23 CALL                             R3 2 1
+       24 LOADK                            R4 K5 ["Found the following labels:"]
+       25 SETLIST                          R2 R3 2 [1]
+       27 MOVE                             R3 R0
+       28 LOADNIL                          R4
+       29 LOADNIL                          R5
+       30 FORGPREP                         R3
+       31 LOADK                            R10 K6 ["- %*"]
+       32 GETTABLEKS                       R12 R7 K0 ["label"]
+       34 NAMECALL                         R10 R10 K4 ["format"]
+       36 CALL                             R10 2 1
+       37 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
+       39 MOVE                             R9 R2
+       40 GETIMPORT                        R8 K9 [table.insert]
+       42 CALL                             R8 2 0
+       43 FORGLOOP                         R3 2 ; [-13]
+       45 GETIMPORT                        R3 K11 [error]
+       47 GETIMPORT                        R4 K13 [table.concat]
+       49 MOVE                             R5 R2
+       50 LOADK                            R6 K14 ["\n"]
+       51 CALL                             R4 2 -1
+       52 CALL                             R3 -1 0
+       53 RETURN                           R0 0
 
 PROTO_15:
         0 GETUPVAL                         R1 0

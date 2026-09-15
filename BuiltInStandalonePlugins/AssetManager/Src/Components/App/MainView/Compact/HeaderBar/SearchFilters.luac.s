@@ -36,14 +36,13 @@ PROTO_1:
        41 CAPTURE                          VAL R2
        42 CAPTURE                          VAL R0
        43 SETTABLEKS                       R6 R5 K7 ["onActivated"]
-       45 LOADK                            R7 K16 ["asset-type-chip-%*"]
-       46 GETTABLEKS                       R9 R0 K10 ["AssetType"]
-       48 NAMECALL                         R7 R7 K17 ["format"]
-       50 CALL                             R7 2 1
-       51 MOVE                             R6 R7
-       52 SETTABLEKS                       R6 R5 K8 ["testId"]
-       54 CALL                             R3 2 -1
-       55 RETURN                           R3 -1
+       45 LOADK                            R6 K16 ["asset-type-chip-%*"]
+       46 GETTABLEKS                       R8 R0 K10 ["AssetType"]
+       48 NAMECALL                         R6 R6 K17 ["format"]
+       50 CALL                             R6 2 1
+       51 SETTABLEKS                       R6 R5 K8 ["testId"]
+       53 CALL                             R3 2 -1
+       54 RETURN                           R3 -1
 
 PROTO_2:
         0 GETTABLEKS                       R2 R0 K0 ["Disabled"]

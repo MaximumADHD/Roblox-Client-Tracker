@@ -1,21 +1,18 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+9]
-        3 GETUPVAL                         R1 1
-        4 CALL                             R1 0 1
-        5 JUMPIFNOT                        R1 ; [+6]
-        6 GETUPVAL                         R2 2
+        2 JUMPIFNOT                        R1 ; [+6]
+        3 GETUPVAL                         R2 1
+        4 GETTABLE                         R1 R2 R0
+        5 JUMPIFNOT                        R1 ; [+3]
+        6 GETUPVAL                         R2 1
         7 GETTABLE                         R1 R2 R0
-        8 JUMPIFNOT                        R1 ; [+3]
-        9 GETUPVAL                         R2 2
-       10 GETTABLE                         R1 R2 R0
-       11 RETURN                           R1 1
-       12 GETIMPORT                        R1 K1 [game]
-       14 MOVE                             R3 R0
-       15 NAMECALL                         R1 R1 K2 ["GetService"]
-       17 CALL                             R1 2 -1
-       18 RETURN                           R1 -1
+        8 RETURN                           R1 1
+        9 GETIMPORT                        R1 K1 [game]
+       11 MOVE                             R3 R0
+       12 NAMECALL                         R1 R1 K2 ["GetService"]
+       14 CALL                             R1 2 -1
+       15 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -40,37 +37,26 @@ MAIN:
        33 GETTABLEKS                       R4 R4 K9 ["Test"]
        35 GETTABLEKS                       R4 R4 K11 ["MockPublishService"]
        37 CALL                             R3 1 1
-       38 GETIMPORT                        R4 K5 [require]
-       40 GETTABLEKS                       R5 R0 K6 ["Src"]
-       42 GETTABLEKS                       R5 R5 K12 ["Flags"]
-       44 GETTABLEKS                       R5 R5 K13 ["getFFlagEnableUploadingMakeup"]
-       46 CALL                             R4 1 1
-       47 NEWTABLE                         R5 1 0
-       49 MOVE                             R7 R4
-       50 CALL                             R7 0 1
-       51 JUMPIFNOT                        R7 ; [+22]
-       52 DUPTABLE                         R6 K16 [{"InsertService", "PublishService"}]
-       53 MOVE                             R8 R1
-       54 CALL                             R8 0 1
-       55 JUMPIFNOT                        R8 ; [+4]
-       56 GETTABLEKS                       R7 R2 K17 ["new"]
-       58 CALL                             R7 0 1
-       59 JUMPIF                           R7 ; [+1]
-       60 LOADNIL                          R7
-       61 SETTABLEKS                       R7 R6 K14 ["InsertService"]
-       63 MOVE                             R8 R1
-       64 CALL                             R8 0 1
-       65 JUMPIFNOT                        R8 ; [+4]
-       66 GETTABLEKS                       R7 R3 K17 ["new"]
-       68 CALL                             R7 0 1
-       69 JUMPIF                           R7 ; [+1]
-       70 LOADNIL                          R7
-       71 SETTABLEKS                       R7 R6 K15 ["PublishService"]
-       73 JUMP                             ; [+1]
-       74 LOADNIL                          R6
-       75 DUPCLOSURE                       R7 K18 [PROTO_0]
-       76 CAPTURE                          VAL R4
-       77 CAPTURE                          VAL R1
-       78 CAPTURE                          VAL R6
-       79 SETTABLEKS                       R7 R5 K19 ["GetService"]
-       81 RETURN                           R5 1
+       38 NEWTABLE                         R4 1 0
+       40 DUPTABLE                         R5 K14 [{"InsertService", "PublishService"}]
+       41 MOVE                             R7 R1
+       42 CALL                             R7 0 1
+       43 JUMPIFNOT                        R7 ; [+4]
+       44 GETTABLEKS                       R6 R2 K15 ["new"]
+       46 CALL                             R6 0 1
+       47 JUMPIF                           R6 ; [+1]
+       48 LOADNIL                          R6
+       49 SETTABLEKS                       R6 R5 K12 ["InsertService"]
+       51 MOVE                             R7 R1
+       52 CALL                             R7 0 1
+       53 JUMPIFNOT                        R7 ; [+4]
+       54 GETTABLEKS                       R6 R3 K15 ["new"]
+       56 CALL                             R6 0 1
+       57 JUMPIF                           R6 ; [+1]
+       58 LOADNIL                          R6
+       59 SETTABLEKS                       R6 R5 K13 ["PublishService"]
+       61 DUPCLOSURE                       R6 K16 [PROTO_0]
+       62 CAPTURE                          VAL R1
+       63 CAPTURE                          VAL R5
+       64 SETTABLEKS                       R6 R4 K17 ["GetService"]
+       66 RETURN                           R4 1

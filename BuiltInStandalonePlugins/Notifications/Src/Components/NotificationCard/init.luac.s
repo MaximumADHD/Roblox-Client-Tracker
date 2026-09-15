@@ -312,41 +312,40 @@ PROTO_9:
       262 GETTABLEKS                       R34 R34 K20 ["Tag"]
       264 GETUPVAL                         R35 13
       265 GETTABLEKS                       R35 R35 K29 ["joinTags"]
-      267 LOADK                            R37 K39 ["%*"]
-      268 MOVE                             R39 R18
-      269 NAMECALL                         R37 R37 K40 ["format"]
-      271 CALL                             R37 2 1
-      272 MOVE                             R36 R37
-      273 GETUPVAL                         R38 3
-      274 GETTABLEKS                       R38 R38 K41 ["User"]
-      276 JUMPIFNOTEQ                      R11 R38 ; [+3]
-      278 LOADK                            R37 K42 ["Component-NotificationCard-User"]
-      279 JUMP                             ; [+1]
-      280 LOADNIL                          R37
-      281 CALL                             R35 2 1
-      282 SETTABLE                         R35 R33 R34
-      283 CALL                             R31 2 1
-      284 SETTABLEKS                       R31 R30 K33 ["Icon"]
-      286 GETUPVAL                         R31 1
-      287 GETTABLEKS                       R31 R31 K17 ["createElement"]
-      289 GETUPVAL                         R32 14
-      290 DUPTABLE                         R33 K46 [{["Subject"], ["Subline"], ["LayoutOrder"] = 2}]
-      291 SETTABLEKS                       R19 R33 K43 ["Subject"]
-      293 SETTABLEKS                       R4 R33 K44 ["Subline"]
-      295 CALL                             R31 2 1
-      296 SETTABLEKS                       R31 R30 K34 ["Content"]
-      298 GETUPVAL                         R31 1
-      299 GETTABLEKS                       R31 R31 K17 ["createElement"]
-      301 GETUPVAL                         R32 15
-      302 DUPTABLE                         R33 K50 [{["LayoutOrder"] = 3, ["ReadStatusIconTag"], ["ElapsedTime"]}]
-      303 SETTABLEKS                       R20 R33 K48 ["ReadStatusIconTag"]
-      305 SETTABLEKS                       R15 R33 K49 ["ElapsedTime"]
-      307 CALL                             R31 2 1
-      308 SETTABLEKS                       R31 R30 K35 ["Status"]
-      310 CALL                             R27 3 1
-      311 SETTABLEKS                       R27 R26 K22 ["InnerCard"]
-      313 CALL                             R23 3 -1
-      314 RETURN                           R23 -1
+      267 LOADK                            R36 K39 ["%*"]
+      268 MOVE                             R38 R18
+      269 NAMECALL                         R36 R36 K40 ["format"]
+      271 CALL                             R36 2 1
+      272 GETUPVAL                         R38 3
+      273 GETTABLEKS                       R38 R38 K41 ["User"]
+      275 JUMPIFNOTEQ                      R11 R38 ; [+3]
+      277 LOADK                            R37 K42 ["Component-NotificationCard-User"]
+      278 JUMP                             ; [+1]
+      279 LOADNIL                          R37
+      280 CALL                             R35 2 1
+      281 SETTABLE                         R35 R33 R34
+      282 CALL                             R31 2 1
+      283 SETTABLEKS                       R31 R30 K33 ["Icon"]
+      285 GETUPVAL                         R31 1
+      286 GETTABLEKS                       R31 R31 K17 ["createElement"]
+      288 GETUPVAL                         R32 14
+      289 DUPTABLE                         R33 K46 [{["Subject"], ["Subline"], ["LayoutOrder"] = 2}]
+      290 SETTABLEKS                       R19 R33 K43 ["Subject"]
+      292 SETTABLEKS                       R4 R33 K44 ["Subline"]
+      294 CALL                             R31 2 1
+      295 SETTABLEKS                       R31 R30 K34 ["Content"]
+      297 GETUPVAL                         R31 1
+      298 GETTABLEKS                       R31 R31 K17 ["createElement"]
+      300 GETUPVAL                         R32 15
+      301 DUPTABLE                         R33 K50 [{["LayoutOrder"] = 3, ["ReadStatusIconTag"], ["ElapsedTime"]}]
+      302 SETTABLEKS                       R20 R33 K48 ["ReadStatusIconTag"]
+      304 SETTABLEKS                       R15 R33 K49 ["ElapsedTime"]
+      306 CALL                             R31 2 1
+      307 SETTABLEKS                       R31 R30 K35 ["Status"]
+      309 CALL                             R27 3 1
+      310 SETTABLEKS                       R27 R26 K22 ["InnerCard"]
+      312 CALL                             R23 3 -1
+      313 RETURN                           R23 -1
 
 MAIN:
         0 PREPVARARGS                      0

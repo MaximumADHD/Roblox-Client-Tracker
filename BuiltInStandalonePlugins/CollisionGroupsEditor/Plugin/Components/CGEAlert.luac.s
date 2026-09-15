@@ -91,36 +91,35 @@ PROTO_0:
       140 LOADN                            R20 0
       141 CALL                             R18 2 1
       142 SETTABLEKS                       R18 R17 K15 ["Size"]
-      144 LOADK                            R19 K64 ["<b>%*</b>  <u>%*</u>"]
-      145 MOVE                             R21 R4
-      146 GETIMPORT                        R22 K67 [string.gsub]
-      148 MOVE                             R23 R6
-      149 LOADK                            R24 K68 [" "]
-      150 LOADK                            R25 K69 [" "]
-      151 CALL                             R22 3 1
-      152 NAMECALL                         R19 R19 K70 ["format"]
-      154 CALL                             R19 3 1
-      155 MOVE                             R18 R19
-      156 SETTABLEKS                       R18 R17 K58 ["Text"]
-      158 GETIMPORT                        R18 K71 [Enum.TextXAlignment.Left]
-      160 SETTABLEKS                       R18 R17 K59 ["TextXAlignment"]
-      162 CALL                             R15 2 1
-      163 SETTABLEKS                       R15 R14 K56 ["TopBar"]
-      165 GETUPVAL                         R15 0
-      166 GETTABLEKS                       R15 R15 K9 ["createElement"]
-      168 GETUPVAL                         R16 3
-      169 DUPTABLE                         R17 K73 [{["LayoutOrder"] = 2, ["AutomaticSize"], ["Text"], ["TextWrapped"] = True, ["TextXAlignment"], ["RichText"] = True}]
-      170 GETIMPORT                        R18 K75 [Enum.AutomaticSize.XY]
-      172 SETTABLEKS                       R18 R17 K12 ["AutomaticSize"]
-      174 SETTABLEKS                       R5 R17 K58 ["Text"]
-      176 GETIMPORT                        R18 K71 [Enum.TextXAlignment.Left]
-      178 SETTABLEKS                       R18 R17 K59 ["TextXAlignment"]
-      180 CALL                             R15 2 1
-      181 SETTABLEKS                       R15 R14 K5 ["Body"]
-      183 CALL                             R11 3 1
-      184 SETTABLEKS                       R11 R10 K30 ["Inner"]
-      186 CALL                             R7 3 -1
-      187 RETURN                           R7 -1
+      144 LOADK                            R18 K64 ["<b>%*</b>  <u>%*</u>"]
+      145 MOVE                             R20 R4
+      146 GETIMPORT                        R21 K67 [string.gsub]
+      148 MOVE                             R22 R6
+      149 LOADK                            R23 K68 [" "]
+      150 LOADK                            R24 K69 [" "]
+      151 CALL                             R21 3 1
+      152 NAMECALL                         R18 R18 K70 ["format"]
+      154 CALL                             R18 3 1
+      155 SETTABLEKS                       R18 R17 K58 ["Text"]
+      157 GETIMPORT                        R18 K71 [Enum.TextXAlignment.Left]
+      159 SETTABLEKS                       R18 R17 K59 ["TextXAlignment"]
+      161 CALL                             R15 2 1
+      162 SETTABLEKS                       R15 R14 K56 ["TopBar"]
+      164 GETUPVAL                         R15 0
+      165 GETTABLEKS                       R15 R15 K9 ["createElement"]
+      167 GETUPVAL                         R16 3
+      168 DUPTABLE                         R17 K73 [{["LayoutOrder"] = 2, ["AutomaticSize"], ["Text"], ["TextWrapped"] = True, ["TextXAlignment"], ["RichText"] = True}]
+      169 GETIMPORT                        R18 K75 [Enum.AutomaticSize.XY]
+      171 SETTABLEKS                       R18 R17 K12 ["AutomaticSize"]
+      173 SETTABLEKS                       R5 R17 K58 ["Text"]
+      175 GETIMPORT                        R18 K71 [Enum.TextXAlignment.Left]
+      177 SETTABLEKS                       R18 R17 K59 ["TextXAlignment"]
+      179 CALL                             R15 2 1
+      180 SETTABLEKS                       R15 R14 K5 ["Body"]
+      182 CALL                             R11 3 1
+      183 SETTABLEKS                       R11 R10 K30 ["Inner"]
+      185 CALL                             R7 3 -1
+      186 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

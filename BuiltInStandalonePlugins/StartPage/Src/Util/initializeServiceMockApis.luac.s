@@ -1,10 +1,9 @@
 PROTO_0:
-        0 LOADK                            R2 K0 ["https://thumbnails.roblox.com//v1/games/icons?universeIds=555&returnPolicy=%*&format=png&size=256x256"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["https://thumbnails.roblox.com//v1/games/icons?universeIds=555&returnPolicy=%*&format=png&size=256x256"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_1:
         0 DUPTABLE                         R0 K1 [{"data"}]
@@ -170,265 +169,261 @@ PROTO_15:
        35 LOADK                            R8 K33 ["&needsAssetOptions=true"]
        36 JUMP                             ; [+1]
        37 LOADK                            R8 K34 [""]
-       38 LOADK                            R10 K35 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=54321&searchKey=%*&sortOrder=Desc&search=&creatorType=Team&pageSize=30&sortParam=LastUpdated&surface=StudioStartPage&PageIndex=0%*"]
-       39 MOVE                             R12 R4
-       40 MOVE                             R13 R5
-       41 MOVE                             R14 R8
-       42 NAMECALL                         R10 R10 K36 ["format"]
-       44 CALL                             R10 4 1
-       45 MOVE                             R9 R10
-       46 LOADK                            R11 K37 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=54321&searchKey=%*&sortOrder=Desc&search=&creatorType=User&pageSize=30&sortParam=LastUpdated&surface=StudioStartPage&PageIndex=0%*"]
-       47 MOVE                             R13 R4
-       48 MOVE                             R14 R5
-       49 MOVE                             R15 R8
-       50 NAMECALL                         R11 R11 K36 ["format"]
-       52 CALL                             R11 4 1
-       53 MOVE                             R10 R11
-       54 LOADK                            R12 K38 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=999&searchKey=%*&sortOrder=Desc&search=&creatorType=Group&pageSize=30&sortParam=LastUpdated&surface=StudioStartPage&PageIndex=0%*"]
-       55 MOVE                             R14 R4
-       56 MOVE                             R15 R5
-       57 MOVE                             R16 R8
-       58 NAMECALL                         R12 R12 K36 ["format"]
-       60 CALL                             R12 4 1
-       61 MOVE                             R11 R12
-       62 GETTABLEKS                       R15 R3 K39 ["composeUrl"]
-       64 GETUPVAL                         R16 3
-       65 GETTABLEKS                       R16 R16 K40 ["EXPERIENCES_SEARCH_URL"]
-       67 GETTABLEKS                       R16 R16 K41 ["Prefix"]
-       69 GETUPVAL                         R17 3
-       70 GETTABLEKS                       R17 R17 K40 ["EXPERIENCES_SEARCH_URL"]
-       72 GETTABLEKS                       R17 R17 K42 ["Url"]
-       74 CALL                             R17 0 1
-       75 DUPTABLE                         R18 K53 [{["search"] = "", ["creatorType"] = "User", ["creatorTargetId"] = "54321", ["isArchived"] = False, ["isTemplates"] = False, ["sortParam"] = "LastUpdated", ["sortOrder"] = "Desc", ["pageSize"] = 10}]
-       76 CALL                             R15 3 1
-       77 MOVE                             R13 R15
-       78 LOADK                            R15 K54 ["&surface=StudioStartPage&PageIndex=0%*"]
-       79 MOVE                             R17 R8
-       80 NAMECALL                         R15 R15 K36 ["format"]
-       82 CALL                             R15 2 1
-       83 MOVE                             R14 R15
-       84 CONCAT                           R12 R13 R14
-       85 GETTABLEKS                       R13 R3 K39 ["composeUrl"]
-       87 GETUPVAL                         R14 3
-       88 GETTABLEKS                       R14 R14 K55 ["KNOWLEDGE_FEEDS_URL"]
-       90 GETTABLEKS                       R14 R14 K41 ["Prefix"]
-       92 GETUPVAL                         R15 3
-       93 GETTABLEKS                       R15 R15 K55 ["KNOWLEDGE_FEEDS_URL"]
-       95 GETTABLEKS                       R15 R15 K42 ["Url"]
-       97 CALL                             R15 0 -1
-       98 CALL                             R13 -1 1
-       99 DUPTABLE                         R14 K60 [{["limit"] = 50, ["SortOrder"] = "Asc"}]
-      100 GETTABLEKS                       R15 R3 K39 ["composeUrl"]
-      102 GETUPVAL                         R16 3
-      103 GETTABLEKS                       R16 R16 K61 ["PLACES_SEARCH_URL"]
-      105 GETTABLEKS                       R16 R16 K41 ["Prefix"]
-      107 GETUPVAL                         R17 3
-      108 GETTABLEKS                       R17 R17 K61 ["PLACES_SEARCH_URL"]
-      110 GETTABLEKS                       R17 R17 K42 ["Url"]
-      112 LOADN                            R18 555
-      113 CALL                             R17 1 1
-      114 MOVE                             R18 R14
-      115 CALL                             R15 3 1
-      116 DUPCLOSURE                       R16 K62 [PROTO_0]
-      117 GETTABLEKS                       R17 R3 K39 ["composeUrl"]
-      119 GETUPVAL                         R18 3
-      120 GETTABLEKS                       R18 R18 K63 ["MULTI_CREATOR_ELIGIBILITY"]
-      122 GETTABLEKS                       R18 R18 K41 ["Prefix"]
-      124 GETUPVAL                         R19 3
-      125 GETTABLEKS                       R19 R19 K63 ["MULTI_CREATOR_ELIGIBILITY"]
-      127 GETTABLEKS                       R19 R19 K42 ["Url"]
-      129 CALL                             R19 0 -1
-      130 CALL                             R17 -1 1
-      131 GETTABLEKS                       R18 R3 K39 ["composeUrl"]
-      133 GETUPVAL                         R19 3
-      134 GETTABLEKS                       R19 R19 K64 ["MULTI_AGE_RECOMMENDATION"]
-      136 GETTABLEKS                       R19 R19 K41 ["Prefix"]
-      138 GETUPVAL                         R20 3
-      139 GETTABLEKS                       R20 R20 K64 ["MULTI_AGE_RECOMMENDATION"]
-      141 GETTABLEKS                       R20 R20 K42 ["Url"]
-      143 CALL                             R20 0 -1
-      144 CALL                             R18 -1 1
-      145 GETTABLEKS                       R22 R3 K39 ["composeUrl"]
-      147 GETUPVAL                         R23 3
-      148 GETTABLEKS                       R23 R23 K65 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
-      150 GETTABLEKS                       R23 R23 K41 ["Prefix"]
-      152 GETUPVAL                         R24 3
-      153 GETTABLEKS                       R24 R24 K65 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
-      155 GETTABLEKS                       R24 R24 K42 ["Url"]
-      157 CALL                             R24 0 -1
-      158 CALL                             R22 -1 1
-      159 MOVE                             R20 R22
-      160 LOADK                            R21 K66 ["?maxUsers=10&ids=555"]
-      161 CONCAT                           R19 R20 R21
-      162 DUPTABLE                         R20 K72 [{["userIds"], ["size"] = "48x48", ["format"] = "png", ["isCircular"] = True}]
-      163 NEWTABLE                         R21 0 1
-      165 LOADN                            R22 100
-      166 SETLIST                          R21 R22 1 [1]
-      168 SETTABLEKS                       R21 R20 K67 ["userIds"]
-      170 GETTABLEKS                       R21 R3 K39 ["composeUrl"]
-      172 GETUPVAL                         R22 3
-      173 GETTABLEKS                       R22 R22 K73 ["AVATAR_ICON_URL"]
-      175 GETTABLEKS                       R22 R22 K41 ["Prefix"]
-      177 GETUPVAL                         R23 3
-      178 GETTABLEKS                       R23 R23 K73 ["AVATAR_ICON_URL"]
-      180 GETTABLEKS                       R23 R23 K42 ["Url"]
-      182 CALL                             R23 0 1
-      183 MOVE                             R24 R20
-      184 CALL                             R21 3 1
-      185 GETTABLEKS                       R22 R3 K39 ["composeUrl"]
-      187 GETUPVAL                         R23 3
-      188 GETTABLEKS                       R23 R23 K74 ["PLACE_SAFETY_STATUS_URL"]
-      190 GETTABLEKS                       R23 R23 K41 ["Prefix"]
-      192 GETUPVAL                         R24 3
-      193 GETTABLEKS                       R24 R24 K74 ["PLACE_SAFETY_STATUS_URL"]
-      195 GETTABLEKS                       R24 R24 K42 ["Url"]
-      197 LOADN                            R25 101
-      198 CALL                             R24 1 -1
-      199 CALL                             R22 -1 1
-      200 GETTABLEKS                       R23 R3 K39 ["composeUrl"]
-      202 GETUPVAL                         R24 3
-      203 GETTABLEKS                       R24 R24 K75 ["MULTI_TEAM_CREATE_STATUS"]
-      205 GETTABLEKS                       R24 R24 K41 ["Prefix"]
-      207 GETUPVAL                         R25 3
-      208 GETTABLEKS                       R25 R25 K75 ["MULTI_TEAM_CREATE_STATUS"]
-      210 GETTABLEKS                       R25 R25 K42 ["Url"]
-      212 CALL                             R25 0 -1
-      213 CALL                             R23 -1 1
-      214 MOVE                             R25 R23
-      215 LOADK                            R26 K76 ["?ids=555&"]
-      216 CONCAT                           R24 R25 R26
-      217 NEWTABLE                         R25 32 0
-      219 DUPCLOSURE                       R26 K77 [PROTO_1]
-      220 SETTABLE                         R26 R25 R12
-      221 DUPCLOSURE                       R26 K78 [PROTO_2]
-      222 SETTABLE                         R26 R25 R15
-      223 DUPTABLE                         R26 K80 [{"data"}]
-      224 NEWTABLE                         R27 0 1
-      226 DUPTABLE                         R28 K85 [{["gameTemplateType"] = "All", ["hasTutorials"] = False, ["universe"]}]
-      227 SETTABLEKS                       R6 R28 K84 ["universe"]
-      229 SETLIST                          R27 R28 1 [1]
-      231 SETTABLEKS                       R27 R26 K79 ["data"]
-      233 SETTABLEKS                       R26 R25 K86 ["https://develop.roblox.com/v1/gametemplates?searchKey=Templates&pageSize=30&search=All&isTemplates=true"]
-      235 NEWCLOSURE                       R26 P3
-      236 CAPTURE                          REF R6
-      237 SETTABLE                         R26 R25 R10
-      238 NEWCLOSURE                       R26 P4
-      239 CAPTURE                          REF R6
-      240 SETTABLE                         R26 R25 R9
-      241 DUPTABLE                         R26 K88 [{"groups"}]
-      242 NEWTABLE                         R27 0 1
-      244 DUPTABLE                         R28 K91 [{["id"] = 999, ["name"] = "Example"}]
-      245 SETLIST                          R27 R28 1 [1]
-      247 SETTABLEKS                       R27 R26 K87 ["groups"]
-      249 SETTABLEKS                       R26 R25 K92 ["https://apis.roblox.com/creator-home-api/v1/groups?surface=StudioStartPage"]
-      251 DUPCLOSURE                       R26 K93 [PROTO_5]
-      252 SETTABLE                         R26 R25 R19
-      253 LOADK                            R26 K94 ["https://thumbnails.roblox.com//v1/games/icons?universeIds=555&returnPolicy=Autogenerated&format=png&size=256x256"]
-      254 DUPTABLE                         R27 K80 [{"data"}]
-      255 NEWTABLE                         R28 0 1
-      257 DUPTABLE                         R29 K99 [{["targetId"] = 123, ["imageUrl"] = "http://example.com/image/123"}]
-      258 SETLIST                          R28 R29 1 [1]
-      260 SETTABLEKS                       R28 R27 K79 ["data"]
-      262 SETTABLE                         R27 R25 R26
-      263 LOADK                            R26 K100 ["https://thumbnails.roblox.com//v1/games/icons?universeIds=555&returnPolicy=Placeholder&format=png&size=256x256"]
-      264 DUPTABLE                         R27 K80 [{"data"}]
-      265 NEWTABLE                         R28 0 1
-      267 DUPTABLE                         R29 K99 [{["targetId"] = 123, ["imageUrl"] = "http://example.com/image/123"}]
-      268 SETLIST                          R28 R29 1 [1]
-      270 SETTABLEKS                       R28 R27 K79 ["data"]
-      272 SETTABLE                         R27 R25 R26
-      273 DUPCLOSURE                       R26 K101 [PROTO_6]
-      274 SETTABLE                         R26 R25 R17
-      275 DUPTABLE                         R26 K80 [{"data"}]
-      276 DUPTABLE                         R27 K102 [{"universe"}]
-      277 SETTABLEKS                       R6 R27 K84 ["universe"]
-      279 SETTABLEKS                       R27 R26 K79 ["data"]
-      281 SETTABLE                         R26 R25 R11
-      282 DUPCLOSURE                       R26 K103 [PROTO_7]
-      283 SETTABLE                         R26 R25 R18
-      284 DUPCLOSURE                       R26 K104 [PROTO_8]
-      285 SETTABLE                         R26 R25 R21
-      286 DUPCLOSURE                       R26 K105 [PROTO_9]
-      287 SETTABLE                         R26 R25 R13
-      288 NEWCLOSURE                       R26 P10
+       38 LOADK                            R9 K35 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=54321&searchKey=%*&sortOrder=Desc&search=&creatorType=Team&pageSize=30&sortParam=LastUpdated&surface=StudioStartPage&PageIndex=0%*"]
+       39 MOVE                             R11 R4
+       40 MOVE                             R12 R5
+       41 MOVE                             R13 R8
+       42 NAMECALL                         R9 R9 K36 ["format"]
+       44 CALL                             R9 4 1
+       45 LOADK                            R10 K37 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=54321&searchKey=%*&sortOrder=Desc&search=&creatorType=User&pageSize=30&sortParam=LastUpdated&surface=StudioStartPage&PageIndex=0%*"]
+       46 MOVE                             R12 R4
+       47 MOVE                             R13 R5
+       48 MOVE                             R14 R8
+       49 NAMECALL                         R10 R10 K36 ["format"]
+       51 CALL                             R10 4 1
+       52 LOADK                            R11 K38 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=999&searchKey=%*&sortOrder=Desc&search=&creatorType=Group&pageSize=30&sortParam=LastUpdated&surface=StudioStartPage&PageIndex=0%*"]
+       53 MOVE                             R13 R4
+       54 MOVE                             R14 R5
+       55 MOVE                             R15 R8
+       56 NAMECALL                         R11 R11 K36 ["format"]
+       58 CALL                             R11 4 1
+       59 GETTABLEKS                       R15 R3 K39 ["composeUrl"]
+       61 GETUPVAL                         R16 3
+       62 GETTABLEKS                       R16 R16 K40 ["EXPERIENCES_SEARCH_URL"]
+       64 GETTABLEKS                       R16 R16 K41 ["Prefix"]
+       66 GETUPVAL                         R17 3
+       67 GETTABLEKS                       R17 R17 K40 ["EXPERIENCES_SEARCH_URL"]
+       69 GETTABLEKS                       R17 R17 K42 ["Url"]
+       71 CALL                             R17 0 1
+       72 DUPTABLE                         R18 K53 [{["search"] = "", ["creatorType"] = "User", ["creatorTargetId"] = "54321", ["isArchived"] = False, ["isTemplates"] = False, ["sortParam"] = "LastUpdated", ["sortOrder"] = "Desc", ["pageSize"] = 10}]
+       73 CALL                             R15 3 1
+       74 MOVE                             R13 R15
+       75 LOADK                            R14 K54 ["&surface=StudioStartPage&PageIndex=0%*"]
+       76 MOVE                             R16 R8
+       77 NAMECALL                         R14 R14 K36 ["format"]
+       79 CALL                             R14 2 1
+       80 CONCAT                           R12 R13 R14
+       81 GETTABLEKS                       R13 R3 K39 ["composeUrl"]
+       83 GETUPVAL                         R14 3
+       84 GETTABLEKS                       R14 R14 K55 ["KNOWLEDGE_FEEDS_URL"]
+       86 GETTABLEKS                       R14 R14 K41 ["Prefix"]
+       88 GETUPVAL                         R15 3
+       89 GETTABLEKS                       R15 R15 K55 ["KNOWLEDGE_FEEDS_URL"]
+       91 GETTABLEKS                       R15 R15 K42 ["Url"]
+       93 CALL                             R15 0 -1
+       94 CALL                             R13 -1 1
+       95 DUPTABLE                         R14 K60 [{["limit"] = 50, ["SortOrder"] = "Asc"}]
+       96 GETTABLEKS                       R15 R3 K39 ["composeUrl"]
+       98 GETUPVAL                         R16 3
+       99 GETTABLEKS                       R16 R16 K61 ["PLACES_SEARCH_URL"]
+      101 GETTABLEKS                       R16 R16 K41 ["Prefix"]
+      103 GETUPVAL                         R17 3
+      104 GETTABLEKS                       R17 R17 K61 ["PLACES_SEARCH_URL"]
+      106 GETTABLEKS                       R17 R17 K42 ["Url"]
+      108 LOADN                            R18 555
+      109 CALL                             R17 1 1
+      110 MOVE                             R18 R14
+      111 CALL                             R15 3 1
+      112 DUPCLOSURE                       R16 K62 [PROTO_0]
+      113 GETTABLEKS                       R17 R3 K39 ["composeUrl"]
+      115 GETUPVAL                         R18 3
+      116 GETTABLEKS                       R18 R18 K63 ["MULTI_CREATOR_ELIGIBILITY"]
+      118 GETTABLEKS                       R18 R18 K41 ["Prefix"]
+      120 GETUPVAL                         R19 3
+      121 GETTABLEKS                       R19 R19 K63 ["MULTI_CREATOR_ELIGIBILITY"]
+      123 GETTABLEKS                       R19 R19 K42 ["Url"]
+      125 CALL                             R19 0 -1
+      126 CALL                             R17 -1 1
+      127 GETTABLEKS                       R18 R3 K39 ["composeUrl"]
+      129 GETUPVAL                         R19 3
+      130 GETTABLEKS                       R19 R19 K64 ["MULTI_AGE_RECOMMENDATION"]
+      132 GETTABLEKS                       R19 R19 K41 ["Prefix"]
+      134 GETUPVAL                         R20 3
+      135 GETTABLEKS                       R20 R20 K64 ["MULTI_AGE_RECOMMENDATION"]
+      137 GETTABLEKS                       R20 R20 K42 ["Url"]
+      139 CALL                             R20 0 -1
+      140 CALL                             R18 -1 1
+      141 GETTABLEKS                       R22 R3 K39 ["composeUrl"]
+      143 GETUPVAL                         R23 3
+      144 GETTABLEKS                       R23 R23 K65 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
+      146 GETTABLEKS                       R23 R23 K41 ["Prefix"]
+      148 GETUPVAL                         R24 3
+      149 GETTABLEKS                       R24 R24 K65 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
+      151 GETTABLEKS                       R24 R24 K42 ["Url"]
+      153 CALL                             R24 0 -1
+      154 CALL                             R22 -1 1
+      155 MOVE                             R20 R22
+      156 LOADK                            R21 K66 ["?maxUsers=10&ids=555"]
+      157 CONCAT                           R19 R20 R21
+      158 DUPTABLE                         R20 K72 [{["userIds"], ["size"] = "48x48", ["format"] = "png", ["isCircular"] = True}]
+      159 NEWTABLE                         R21 0 1
+      161 LOADN                            R22 100
+      162 SETLIST                          R21 R22 1 [1]
+      164 SETTABLEKS                       R21 R20 K67 ["userIds"]
+      166 GETTABLEKS                       R21 R3 K39 ["composeUrl"]
+      168 GETUPVAL                         R22 3
+      169 GETTABLEKS                       R22 R22 K73 ["AVATAR_ICON_URL"]
+      171 GETTABLEKS                       R22 R22 K41 ["Prefix"]
+      173 GETUPVAL                         R23 3
+      174 GETTABLEKS                       R23 R23 K73 ["AVATAR_ICON_URL"]
+      176 GETTABLEKS                       R23 R23 K42 ["Url"]
+      178 CALL                             R23 0 1
+      179 MOVE                             R24 R20
+      180 CALL                             R21 3 1
+      181 GETTABLEKS                       R22 R3 K39 ["composeUrl"]
+      183 GETUPVAL                         R23 3
+      184 GETTABLEKS                       R23 R23 K74 ["PLACE_SAFETY_STATUS_URL"]
+      186 GETTABLEKS                       R23 R23 K41 ["Prefix"]
+      188 GETUPVAL                         R24 3
+      189 GETTABLEKS                       R24 R24 K74 ["PLACE_SAFETY_STATUS_URL"]
+      191 GETTABLEKS                       R24 R24 K42 ["Url"]
+      193 LOADN                            R25 101
+      194 CALL                             R24 1 -1
+      195 CALL                             R22 -1 1
+      196 GETTABLEKS                       R23 R3 K39 ["composeUrl"]
+      198 GETUPVAL                         R24 3
+      199 GETTABLEKS                       R24 R24 K75 ["MULTI_TEAM_CREATE_STATUS"]
+      201 GETTABLEKS                       R24 R24 K41 ["Prefix"]
+      203 GETUPVAL                         R25 3
+      204 GETTABLEKS                       R25 R25 K75 ["MULTI_TEAM_CREATE_STATUS"]
+      206 GETTABLEKS                       R25 R25 K42 ["Url"]
+      208 CALL                             R25 0 -1
+      209 CALL                             R23 -1 1
+      210 MOVE                             R25 R23
+      211 LOADK                            R26 K76 ["?ids=555&"]
+      212 CONCAT                           R24 R25 R26
+      213 NEWTABLE                         R25 32 0
+      215 DUPCLOSURE                       R26 K77 [PROTO_1]
+      216 SETTABLE                         R26 R25 R12
+      217 DUPCLOSURE                       R26 K78 [PROTO_2]
+      218 SETTABLE                         R26 R25 R15
+      219 DUPTABLE                         R26 K80 [{"data"}]
+      220 NEWTABLE                         R27 0 1
+      222 DUPTABLE                         R28 K85 [{["gameTemplateType"] = "All", ["hasTutorials"] = False, ["universe"]}]
+      223 SETTABLEKS                       R6 R28 K84 ["universe"]
+      225 SETLIST                          R27 R28 1 [1]
+      227 SETTABLEKS                       R27 R26 K79 ["data"]
+      229 SETTABLEKS                       R26 R25 K86 ["https://develop.roblox.com/v1/gametemplates?searchKey=Templates&pageSize=30&search=All&isTemplates=true"]
+      231 NEWCLOSURE                       R26 P3
+      232 CAPTURE                          REF R6
+      233 SETTABLE                         R26 R25 R10
+      234 NEWCLOSURE                       R26 P4
+      235 CAPTURE                          REF R6
+      236 SETTABLE                         R26 R25 R9
+      237 DUPTABLE                         R26 K88 [{"groups"}]
+      238 NEWTABLE                         R27 0 1
+      240 DUPTABLE                         R28 K91 [{["id"] = 999, ["name"] = "Example"}]
+      241 SETLIST                          R27 R28 1 [1]
+      243 SETTABLEKS                       R27 R26 K87 ["groups"]
+      245 SETTABLEKS                       R26 R25 K92 ["https://apis.roblox.com/creator-home-api/v1/groups?surface=StudioStartPage"]
+      247 DUPCLOSURE                       R26 K93 [PROTO_5]
+      248 SETTABLE                         R26 R25 R19
+      249 LOADK                            R26 K94 ["https://thumbnails.roblox.com//v1/games/icons?universeIds=555&returnPolicy=Autogenerated&format=png&size=256x256"]
+      250 DUPTABLE                         R27 K80 [{"data"}]
+      251 NEWTABLE                         R28 0 1
+      253 DUPTABLE                         R29 K99 [{["targetId"] = 123, ["imageUrl"] = "http://example.com/image/123"}]
+      254 SETLIST                          R28 R29 1 [1]
+      256 SETTABLEKS                       R28 R27 K79 ["data"]
+      258 SETTABLE                         R27 R25 R26
+      259 LOADK                            R26 K100 ["https://thumbnails.roblox.com//v1/games/icons?universeIds=555&returnPolicy=Placeholder&format=png&size=256x256"]
+      260 DUPTABLE                         R27 K80 [{"data"}]
+      261 NEWTABLE                         R28 0 1
+      263 DUPTABLE                         R29 K99 [{["targetId"] = 123, ["imageUrl"] = "http://example.com/image/123"}]
+      264 SETLIST                          R28 R29 1 [1]
+      266 SETTABLEKS                       R28 R27 K79 ["data"]
+      268 SETTABLE                         R27 R25 R26
+      269 DUPCLOSURE                       R26 K101 [PROTO_6]
+      270 SETTABLE                         R26 R25 R17
+      271 DUPTABLE                         R26 K80 [{"data"}]
+      272 DUPTABLE                         R27 K102 [{"universe"}]
+      273 SETTABLEKS                       R6 R27 K84 ["universe"]
+      275 SETTABLEKS                       R27 R26 K79 ["data"]
+      277 SETTABLE                         R26 R25 R11
+      278 DUPCLOSURE                       R26 K103 [PROTO_7]
+      279 SETTABLE                         R26 R25 R18
+      280 DUPCLOSURE                       R26 K104 [PROTO_8]
+      281 SETTABLE                         R26 R25 R21
+      282 DUPCLOSURE                       R26 K105 [PROTO_9]
+      283 SETTABLE                         R26 R25 R13
+      284 NEWCLOSURE                       R26 P10
+      285 CAPTURE                          VAL R2
+      286 SETTABLEKS                       R26 R25 K106 ["https://apis.roblox.com/creator-home-api/v1/users/54321/homepage/banner/experience-unrated"]
+      288 NEWCLOSURE                       R26 P11
       289 CAPTURE                          VAL R2
-      290 SETTABLEKS                       R26 R25 K106 ["https://apis.roblox.com/creator-home-api/v1/users/54321/homepage/banner/experience-unrated"]
-      292 NEWCLOSURE                       R26 P11
+      290 SETTABLEKS                       R26 R25 K107 ["https://apis.roblox.com/access-management/v1/upsell-feature-access?featureName=ShouldShowStudioBanner&nameSpace=studio/CollaborationSettings"]
+      292 NEWCLOSURE                       R26 P12
       293 CAPTURE                          VAL R2
-      294 SETTABLEKS                       R26 R25 K107 ["https://apis.roblox.com/access-management/v1/upsell-feature-access?featureName=ShouldShowStudioBanner&nameSpace=studio/CollaborationSettings"]
-      296 NEWCLOSURE                       R26 P12
-      297 CAPTURE                          VAL R2
-      298 SETTABLEKS                       R26 R25 K108 ["https://apis.roblox.com/access-management/v1/upsell-feature-access?featureName=ShouldShowStudioAgeReverificationRequiredBanner&nameSpace=studio/CollaborationSettings"]
-      300 GETTABLEKS                       R26 R3 K39 ["composeUrl"]
-      302 GETUPVAL                         R27 3
-      303 GETTABLEKS                       R27 R27 K109 ["CORE_CONTENT_BATCH_PUBLISH_ELIGIBILITY"]
-      305 GETTABLEKS                       R27 R27 K41 ["Prefix"]
-      307 GETUPVAL                         R28 3
-      308 GETTABLEKS                       R28 R28 K109 ["CORE_CONTENT_BATCH_PUBLISH_ELIGIBILITY"]
-      310 GETTABLEKS                       R28 R28 K42 ["Url"]
-      312 CALL                             R28 0 -1
-      313 CALL                             R26 -1 1
-      314 DUPCLOSURE                       R27 K110 [PROTO_13]
-      315 SETTABLE                         R27 R25 R26
-      316 GETTABLEKS                       R26 R3 K39 ["composeUrl"]
-      318 GETUPVAL                         R27 3
-      319 GETTABLEKS                       R27 R27 K111 ["MULTI_RELEASE_STATUSES"]
-      321 GETTABLEKS                       R27 R27 K41 ["Prefix"]
-      323 GETUPVAL                         R28 3
-      324 GETTABLEKS                       R28 R28 K111 ["MULTI_RELEASE_STATUSES"]
-      326 GETTABLEKS                       R28 R28 K42 ["Url"]
-      328 CALL                             R28 0 -1
-      329 CALL                             R26 -1 1
-      330 DUPCLOSURE                       R27 K112 [PROTO_14]
-      331 SETTABLE                         R27 R25 R26
-      332 DUPTABLE                         R26 K114 [{"placeSafetyStatus"}]
-      333 DUPTABLE                         R27 K117 [{["userPlayabilityRestrictions"] = "None"}]
-      334 SETTABLEKS                       R27 R26 K113 ["placeSafetyStatus"]
-      336 SETTABLE                         R26 R25 R22
-      337 DUPTABLE                         R26 K80 [{"data"}]
-      338 NEWTABLE                         R27 0 1
-      340 DUPTABLE                         R28 K119 [{["id"] = 555, ["isEnabled"] = False}]
-      341 SETLIST                          R27 R28 1 [1]
-      343 SETTABLEKS                       R27 R26 K79 ["data"]
-      345 SETTABLE                         R26 R25 R24
-      346 GETUPVAL                         R26 4
-      347 GETTABLEKS                       R26 R26 K120 ["mock"]
-      349 MOVE                             R27 R25
-      350 CALL                             R26 1 0
-      351 GETUPVAL                         R26 4
-      352 GETTABLEKS                       R26 R26 K121 ["StudioService"]
-      354 GETTABLEKS                       R26 R26 K122 ["GetUserId"]
-      356 GETTABLEKS                       R27 R26 K123 ["mockReturnValue"]
-      358 LOADK                            R28 K124 [54321]
-      359 CALL                             R27 1 0
-      360 GETUPVAL                         R27 4
-      361 GETTABLEKS                       R27 R27 K125 ["StartPageManager"]
-      363 GETTABLEKS                       R27 R27 K126 ["getRecentAPIGamesFromRegistry"]
-      365 GETUPVAL                         R28 4
-      366 GETTABLEKS                       R28 R28 K125 ["StartPageManager"]
-      368 GETTABLEKS                       R28 R28 K127 ["getLocalGamesFromRegistry"]
-      370 GETTABLEKS                       R29 R27 K123 ["mockReturnValue"]
-      372 NEWTABLE                         R30 0 0
-      374 CALL                             R29 1 0
-      375 GETTABLEKS                       R29 R28 K123 ["mockReturnValue"]
-      377 NEWTABLE                         R30 0 1
-      379 DUPTABLE                         R31 K139 [{["FilePath"] = "Documents/TestPlace3.rbxl", ["Name"] = "TestPlace3.rbxl", ["Updated"] = "UpdatedTime3", ["PrivacyType"] = "Private", ["NoLoadableImage"] = True, ["LastViewed"] = "ViewedTime3"}]
-      380 SETLIST                          R30 R31 1 [1]
-      382 CALL                             R29 1 0
-      383 GETUPVAL                         R29 4
-      384 GETTABLEKS                       R29 R29 K125 ["StartPageManager"]
-      386 GETTABLEKS                       R29 R29 K140 ["getDaysSinceFirstUserLogin"]
-      388 GETUPVAL                         R30 4
-      389 GETTABLEKS                       R30 R30 K125 ["StartPageManager"]
-      391 GETTABLEKS                       R30 R30 K141 ["isTutorialBannerClosed"]
-      393 GETTABLEKS                       R31 R29 K123 ["mockReturnValue"]
-      395 LOADN                            R32 0
+      294 SETTABLEKS                       R26 R25 K108 ["https://apis.roblox.com/access-management/v1/upsell-feature-access?featureName=ShouldShowStudioAgeReverificationRequiredBanner&nameSpace=studio/CollaborationSettings"]
+      296 GETTABLEKS                       R26 R3 K39 ["composeUrl"]
+      298 GETUPVAL                         R27 3
+      299 GETTABLEKS                       R27 R27 K109 ["CORE_CONTENT_BATCH_PUBLISH_ELIGIBILITY"]
+      301 GETTABLEKS                       R27 R27 K41 ["Prefix"]
+      303 GETUPVAL                         R28 3
+      304 GETTABLEKS                       R28 R28 K109 ["CORE_CONTENT_BATCH_PUBLISH_ELIGIBILITY"]
+      306 GETTABLEKS                       R28 R28 K42 ["Url"]
+      308 CALL                             R28 0 -1
+      309 CALL                             R26 -1 1
+      310 DUPCLOSURE                       R27 K110 [PROTO_13]
+      311 SETTABLE                         R27 R25 R26
+      312 GETTABLEKS                       R26 R3 K39 ["composeUrl"]
+      314 GETUPVAL                         R27 3
+      315 GETTABLEKS                       R27 R27 K111 ["MULTI_RELEASE_STATUSES"]
+      317 GETTABLEKS                       R27 R27 K41 ["Prefix"]
+      319 GETUPVAL                         R28 3
+      320 GETTABLEKS                       R28 R28 K111 ["MULTI_RELEASE_STATUSES"]
+      322 GETTABLEKS                       R28 R28 K42 ["Url"]
+      324 CALL                             R28 0 -1
+      325 CALL                             R26 -1 1
+      326 DUPCLOSURE                       R27 K112 [PROTO_14]
+      327 SETTABLE                         R27 R25 R26
+      328 DUPTABLE                         R26 K114 [{"placeSafetyStatus"}]
+      329 DUPTABLE                         R27 K117 [{["userPlayabilityRestrictions"] = "None"}]
+      330 SETTABLEKS                       R27 R26 K113 ["placeSafetyStatus"]
+      332 SETTABLE                         R26 R25 R22
+      333 DUPTABLE                         R26 K80 [{"data"}]
+      334 NEWTABLE                         R27 0 1
+      336 DUPTABLE                         R28 K119 [{["id"] = 555, ["isEnabled"] = False}]
+      337 SETLIST                          R27 R28 1 [1]
+      339 SETTABLEKS                       R27 R26 K79 ["data"]
+      341 SETTABLE                         R26 R25 R24
+      342 GETUPVAL                         R26 4
+      343 GETTABLEKS                       R26 R26 K120 ["mock"]
+      345 MOVE                             R27 R25
+      346 CALL                             R26 1 0
+      347 GETUPVAL                         R26 4
+      348 GETTABLEKS                       R26 R26 K121 ["StudioService"]
+      350 GETTABLEKS                       R26 R26 K122 ["GetUserId"]
+      352 GETTABLEKS                       R27 R26 K123 ["mockReturnValue"]
+      354 LOADK                            R28 K124 [54321]
+      355 CALL                             R27 1 0
+      356 GETUPVAL                         R27 4
+      357 GETTABLEKS                       R27 R27 K125 ["StartPageManager"]
+      359 GETTABLEKS                       R27 R27 K126 ["getRecentAPIGamesFromRegistry"]
+      361 GETUPVAL                         R28 4
+      362 GETTABLEKS                       R28 R28 K125 ["StartPageManager"]
+      364 GETTABLEKS                       R28 R28 K127 ["getLocalGamesFromRegistry"]
+      366 GETTABLEKS                       R29 R27 K123 ["mockReturnValue"]
+      368 NEWTABLE                         R30 0 0
+      370 CALL                             R29 1 0
+      371 GETTABLEKS                       R29 R28 K123 ["mockReturnValue"]
+      373 NEWTABLE                         R30 0 1
+      375 DUPTABLE                         R31 K139 [{["FilePath"] = "Documents/TestPlace3.rbxl", ["Name"] = "TestPlace3.rbxl", ["Updated"] = "UpdatedTime3", ["PrivacyType"] = "Private", ["NoLoadableImage"] = True, ["LastViewed"] = "ViewedTime3"}]
+      376 SETLIST                          R30 R31 1 [1]
+      378 CALL                             R29 1 0
+      379 GETUPVAL                         R29 4
+      380 GETTABLEKS                       R29 R29 K125 ["StartPageManager"]
+      382 GETTABLEKS                       R29 R29 K140 ["getDaysSinceFirstUserLogin"]
+      384 GETUPVAL                         R30 4
+      385 GETTABLEKS                       R30 R30 K125 ["StartPageManager"]
+      387 GETTABLEKS                       R30 R30 K141 ["isTutorialBannerClosed"]
+      389 GETTABLEKS                       R31 R29 K123 ["mockReturnValue"]
+      391 LOADN                            R32 0
+      392 CALL                             R31 1 0
+      393 GETTABLEKS                       R31 R30 K123 ["mockReturnValue"]
+      395 LOADB                            R32 0
       396 CALL                             R31 1 0
-      397 GETTABLEKS                       R31 R30 K123 ["mockReturnValue"]
-      399 LOADB                            R32 0
-      400 CALL                             R31 1 0
-      401 CLOSEUPVALS                      R6
-      402 RETURN                           R0 0
+      397 CLOSEUPVALS                      R6
+      398 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

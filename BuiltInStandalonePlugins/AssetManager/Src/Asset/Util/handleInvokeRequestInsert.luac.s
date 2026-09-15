@@ -15,17 +15,16 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+12]
+        2 JUMPIFNOT                        R1 ; [+11]
         3 GETIMPORT                        R1 K1 [warn]
-        5 LOADK                            R3 K2 ["Failed to insert assets: %*"]
-        6 MOVE                             R5 R0
-        7 JUMPIFNOT                        R5 ; [+2]
-        8 GETTABLEKS                       R5 R0 K3 ["Errors"]
-       10 NAMECALL                         R3 R3 K4 ["format"]
-       12 CALL                             R3 2 1
-       13 MOVE                             R2 R3
-       14 CALL                             R1 1 0
-       15 RETURN                           R0 0
+        5 LOADK                            R2 K2 ["Failed to insert assets: %*"]
+        6 MOVE                             R4 R0
+        7 JUMPIFNOT                        R4 ; [+2]
+        8 GETTABLEKS                       R4 R0 K3 ["Errors"]
+       10 NAMECALL                         R2 R2 K4 ["format"]
+       12 CALL                             R2 2 1
+       13 CALL                             R1 1 0
+       14 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R4 R1 K0 ["Ids"]

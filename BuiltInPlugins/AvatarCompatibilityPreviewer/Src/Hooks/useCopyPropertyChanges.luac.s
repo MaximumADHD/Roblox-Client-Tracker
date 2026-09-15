@@ -28,47 +28,46 @@ PROTO_0:
        35 LOADB                            R7 1
        36 SETTABLE                         R7 R4 R6
        37 GETTABLEKS                       R5 R5 K9 ["Parent"]
-       39 JUMPIFNOTEQKNIL                  R5 ; [+12]
+       39 JUMPIFNOTEQKNIL                  R5 ; [+11]
        41 GETIMPORT                        R6 K11 [error]
-       43 LOADK                            R8 K12 ["Reference child wasn't a part of reference. Was looking for %*"]
-       44 NAMECALL                         R10 R1 K13 ["GetFullName"]
-       46 CALL                             R10 1 1
-       47 NAMECALL                         R8 R8 K14 ["format"]
-       49 CALL                             R8 2 1
-       50 MOVE                             R7 R8
-       51 CALL                             R6 1 0
-       52 JUMPIFEQ                         R5 R0 ; [+2]
-       54 JUMPBACK                         ; [-45]
-       55 MOVE                             R6 R2
-       56 LENGTH                           R9 R3
-       57 LOADN                            R7 1
-       58 LOADN                            R8 -1
-       59 FORNPREP                         R7
-       60 GETTABLE                         R12 R3 R9
-       61 NAMECALL                         R10 R6 K15 ["FindFirstChild"]
-       63 CALL                             R10 2 1
-       64 JUMPIFNOTEQKNIL                  R10 ; [+6]
-       66 JUMPIFNOT                        R4 ; [+2]
-       67 GETTABLE                         R11 R4 R9
-       68 JUMPIF                           R11 ; [+15]
-       69 LOADNIL                          R11
-       70 RETURN                           R11 1
-       71 JUMPIFNOTEQKNIL                  R10 ; [+2]
-       73 LOADB                            R12 0 +1
-       74 LOADB                            R12 1
-       75 GETUPVAL                         R13 1
-       76 GETTABLEKS                       R13 R13 K16 ["LUAU_ANALYZE_ERROR"]
-       78 FASTCALL2                        ASSERT R12 R13 ; [+3]
-       80 GETIMPORT                        R11 K2 [assert]
-       82 CALL                             R11 2 0
-       83 MOVE                             R6 R10
-       84 FORNLOOP                         R7
-       85 GETTABLEKS                       R7 R6 K17 ["ClassName"]
-       87 GETTABLEKS                       R8 R1 K17 ["ClassName"]
-       89 JUMPIFEQ                         R7 R8 ; [+3]
-       91 LOADNIL                          R7
-       92 RETURN                           R7 1
-       93 RETURN                           R6 1
+       43 LOADK                            R7 K12 ["Reference child wasn't a part of reference. Was looking for %*"]
+       44 NAMECALL                         R9 R1 K13 ["GetFullName"]
+       46 CALL                             R9 1 1
+       47 NAMECALL                         R7 R7 K14 ["format"]
+       49 CALL                             R7 2 1
+       50 CALL                             R6 1 0
+       51 JUMPIFEQ                         R5 R0 ; [+2]
+       53 JUMPBACK                         ; [-44]
+       54 MOVE                             R6 R2
+       55 LENGTH                           R9 R3
+       56 LOADN                            R7 1
+       57 LOADN                            R8 -1
+       58 FORNPREP                         R7
+       59 GETTABLE                         R12 R3 R9
+       60 NAMECALL                         R10 R6 K15 ["FindFirstChild"]
+       62 CALL                             R10 2 1
+       63 JUMPIFNOTEQKNIL                  R10 ; [+6]
+       65 JUMPIFNOT                        R4 ; [+2]
+       66 GETTABLE                         R11 R4 R9
+       67 JUMPIF                           R11 ; [+15]
+       68 LOADNIL                          R11
+       69 RETURN                           R11 1
+       70 JUMPIFNOTEQKNIL                  R10 ; [+2]
+       72 LOADB                            R12 0 +1
+       73 LOADB                            R12 1
+       74 GETUPVAL                         R13 1
+       75 GETTABLEKS                       R13 R13 K16 ["LUAU_ANALYZE_ERROR"]
+       77 FASTCALL2                        ASSERT R12 R13 ; [+3]
+       79 GETIMPORT                        R11 K2 [assert]
+       81 CALL                             R11 2 0
+       82 MOVE                             R6 R10
+       83 FORNLOOP                         R7
+       84 GETTABLEKS                       R7 R6 K17 ["ClassName"]
+       86 GETTABLEKS                       R8 R1 K17 ["ClassName"]
+       88 JUMPIFEQ                         R7 R8 ; [+3]
+       90 LOADNIL                          R7
+       91 RETURN                           R7 1
+       92 RETURN                           R6 1
 
 PROTO_1:
         0 GETUPVAL                         R3 0

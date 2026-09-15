@@ -1,15 +1,14 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 LOADK                            R2 K0 ["rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png"]
-        3 GETUPVAL                         R4 1
-        4 MOVE                             R5 R0
-        5 GETUPVAL                         R6 2
-        6 GETUPVAL                         R7 3
-        7 NAMECALL                         R2 R2 K1 ["format"]
-        9 CALL                             R2 5 1
-       10 MOVE                             R1 R2
-       11 RETURN                           R1 1
+        2 LOADK                            R1 K0 ["rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png"]
+        3 GETUPVAL                         R3 1
+        4 MOVE                             R4 R0
+        5 GETUPVAL                         R5 2
+        6 GETUPVAL                         R6 3
+        7 NAMECALL                         R1 R1 K1 ["format"]
+        9 CALL                             R1 5 1
+       10 RETURN                           R1 1
 
 PROTO_1:
         0 NEWCLOSURE                       R3 P0
@@ -22,15 +21,14 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 LOADK                            R2 K0 ["rbxasset://studio_svg_textures/Shared/%*/%*/%*/%*.png"]
-        3 GETUPVAL                         R4 1
-        4 MOVE                             R5 R0
-        5 GETUPVAL                         R6 2
-        6 GETUPVAL                         R7 3
-        7 NAMECALL                         R2 R2 K1 ["format"]
-        9 CALL                             R2 5 1
-       10 MOVE                             R1 R2
-       11 RETURN                           R1 1
+        2 LOADK                            R1 K0 ["rbxasset://studio_svg_textures/Shared/%*/%*/%*/%*.png"]
+        3 GETUPVAL                         R3 1
+        4 MOVE                             R4 R0
+        5 GETUPVAL                         R5 2
+        6 GETUPVAL                         R6 3
+        7 NAMECALL                         R1 R1 K1 ["format"]
+        9 CALL                             R1 5 1
+       10 RETURN                           R1 1
 
 PROTO_3:
         0 NEWCLOSURE                       R3 P0
@@ -41,12 +39,11 @@ PROTO_3:
         5 RETURN                           R3 1
 
 PROTO_4:
-        0 LOADK                            R1 K0 ["rbxasset://textures/StyleEditor/%*.png"]
-        1 GETUPVAL                         R3 0
-        2 NAMECALL                         R1 R1 K1 ["format"]
-        4 CALL                             R1 2 1
-        5 MOVE                             R0 R1
-        6 RETURN                           R0 1
+        0 LOADK                            R0 K0 ["rbxasset://textures/StyleEditor/%*.png"]
+        1 GETUPVAL                         R2 0
+        2 NAMECALL                         R0 R0 K1 ["format"]
+        4 CALL                             R0 2 1
+        5 RETURN                           R0 1
 
 PROTO_5:
         0 NEWCLOSURE                       R1 P0

@@ -3,21 +3,20 @@ PROTO_0:
         1 GETTABLEKS                       R1 R1 K0 ["validate"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 2
-        5 JUMPIF                           R1 ; [+11]
+        5 JUMPIF                           R1 ; [+10]
         6 GETUPVAL                         R3 1
         7 GETTABLEKS                       R3 R3 K1 ["reject"]
-        9 LOADK                            R5 K2 ["GetNotesValidationModel: %*"]
-       10 MOVE                             R7 R2
-       11 NAMECALL                         R5 R5 K3 ["format"]
-       13 CALL                             R5 2 1
-       14 MOVE                             R4 R5
-       15 CALL                             R3 1 -1
-       16 RETURN                           R3 -1
-       17 GETUPVAL                         R3 1
-       18 GETTABLEKS                       R3 R3 K4 ["resolve"]
-       20 GETTABLEKS                       R4 R0 K5 ["isValid"]
-       22 CALL                             R3 1 -1
-       23 RETURN                           R3 -1
+        9 LOADK                            R4 K2 ["GetNotesValidationModel: %*"]
+       10 MOVE                             R6 R2
+       11 NAMECALL                         R4 R4 K3 ["format"]
+       13 CALL                             R4 2 1
+       14 CALL                             R3 1 -1
+       15 RETURN                           R3 -1
+       16 GETUPVAL                         R3 1
+       17 GETTABLEKS                       R3 R3 K4 ["resolve"]
+       19 GETTABLEKS                       R4 R0 K5 ["isValid"]
+       21 CALL                             R3 1 -1
+       22 RETURN                           R3 -1
 
 PROTO_1:
         0 DUPTABLE                         R1 K1 [{"text"}]

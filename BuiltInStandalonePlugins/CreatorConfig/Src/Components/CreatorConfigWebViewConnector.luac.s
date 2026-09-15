@@ -24,97 +24,94 @@ PROTO_0:
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R1 R1 K1 ["Plugin"]
-        4 JUMPIF                           R1 ; [+34]
-        5 LOADK                            R2 K2 ["%*dashboard/analytics/studio-configs"]
-        6 GETIMPORT                        R5 K4 [game]
-        8 LOADK                            R7 K5 ["CreatorConfigWVUrl"]
-        9 NAMECALL                         R5 R5 K6 ["GetFastString"]
-       11 CALL                             R5 2 1
-       12 JUMPIFEQKS                       R5 K7 [""] ; [+3]
-       14 MOVE                             R6 R5
+        4 JUMPIF                           R1 ; [+33]
+        5 LOADK                            R1 K2 ["%*dashboard/analytics/studio-configs"]
+        6 GETIMPORT                        R4 K4 [game]
+        8 LOADK                            R6 K5 ["CreatorConfigWVUrl"]
+        9 NAMECALL                         R4 R4 K6 ["GetFastString"]
+       11 CALL                             R4 2 1
+       12 JUMPIFEQKS                       R4 K7 [""] ; [+3]
+       14 MOVE                             R5 R4
        15 JUMP                             ; [+8]
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R6 R6 K8 ["BaseUrl"]
-       19 LOADK                            R8 K9 ["https?://www%."]
-       20 LOADK                            R9 K10 ["https://create."]
-       21 NAMECALL                         R6 R6 K11 ["gsub"]
-       23 CALL                             R6 3 1
-       24 LENGTH                           R9 R6
-       25 NAMECALL                         R7 R6 K12 ["sub"]
-       27 CALL                             R7 2 1
-       28 JUMPIFEQKS                       R7 K13 ["/"] ; [+4]
-       30 MOVE                             R7 R6
-       31 LOADK                            R8 K13 ["/"]
-       32 CONCAT                           R6 R7 R8
-       33 MOVE                             R4 R6
-       34 NAMECALL                         R2 R2 K14 ["format"]
-       36 CALL                             R2 2 1
-       37 MOVE                             R1 R2
-       38 RETURN                           R1 1
-       39 GETTABLEKS                       R1 R0 K0 ["props"]
-       41 GETTABLEKS                       R1 R1 K1 ["Plugin"]
-       43 LOADK                            R3 K15 ["universeid"]
-       44 NAMECALL                         R1 R1 K16 ["GetItem"]
-       46 CALL                             R1 2 1
-       47 JUMPIFNOT                        R1 ; [+3]
-       48 LOADN                            R2 0
-       49 JUMPIFNOTLE                      R1 R2 ; [+38]
-       51 JUMPIFNOT                        R1 ; [+34]
-       52 LOADK                            R3 K2 ["%*dashboard/analytics/studio-configs"]
-       53 GETIMPORT                        R6 K4 [game]
-       55 LOADK                            R8 K5 ["CreatorConfigWVUrl"]
-       56 NAMECALL                         R6 R6 K6 ["GetFastString"]
-       58 CALL                             R6 2 1
-       59 JUMPIFEQKS                       R6 K7 [""] ; [+3]
-       61 MOVE                             R7 R6
-       62 JUMP                             ; [+8]
-       63 GETUPVAL                         R7 0
-       64 GETTABLEKS                       R7 R7 K8 ["BaseUrl"]
-       66 LOADK                            R9 K9 ["https?://www%."]
-       67 LOADK                            R10 K10 ["https://create."]
-       68 NAMECALL                         R7 R7 K11 ["gsub"]
-       70 CALL                             R7 3 1
-       71 LENGTH                           R10 R7
-       72 NAMECALL                         R8 R7 K12 ["sub"]
-       74 CALL                             R8 2 1
-       75 JUMPIFEQKS                       R8 K13 ["/"] ; [+4]
-       77 MOVE                             R8 R7
-       78 LOADK                            R9 K13 ["/"]
-       79 CONCAT                           R7 R8 R9
-       80 MOVE                             R5 R7
-       81 NAMECALL                         R3 R3 K14 ["format"]
-       83 CALL                             R3 2 1
-       84 MOVE                             R2 R3
+       16 GETUPVAL                         R5 0
+       17 GETTABLEKS                       R5 R5 K8 ["BaseUrl"]
+       19 LOADK                            R7 K9 ["https?://www%."]
+       20 LOADK                            R8 K10 ["https://create."]
+       21 NAMECALL                         R5 R5 K11 ["gsub"]
+       23 CALL                             R5 3 1
+       24 LENGTH                           R8 R5
+       25 NAMECALL                         R6 R5 K12 ["sub"]
+       27 CALL                             R6 2 1
+       28 JUMPIFEQKS                       R6 K13 ["/"] ; [+4]
+       30 MOVE                             R6 R5
+       31 LOADK                            R7 K13 ["/"]
+       32 CONCAT                           R5 R6 R7
+       33 MOVE                             R3 R5
+       34 NAMECALL                         R1 R1 K14 ["format"]
+       36 CALL                             R1 2 1
+       37 RETURN                           R1 1
+       38 GETTABLEKS                       R1 R0 K0 ["props"]
+       40 GETTABLEKS                       R1 R1 K1 ["Plugin"]
+       42 LOADK                            R3 K15 ["universeid"]
+       43 NAMECALL                         R1 R1 K16 ["GetItem"]
+       45 CALL                             R1 2 1
+       46 JUMPIFNOT                        R1 ; [+3]
+       47 LOADN                            R2 0
+       48 JUMPIFNOTLE                      R1 R2 ; [+37]
+       50 JUMPIFNOT                        R1 ; [+33]
+       51 LOADK                            R2 K2 ["%*dashboard/analytics/studio-configs"]
+       52 GETIMPORT                        R5 K4 [game]
+       54 LOADK                            R7 K5 ["CreatorConfigWVUrl"]
+       55 NAMECALL                         R5 R5 K6 ["GetFastString"]
+       57 CALL                             R5 2 1
+       58 JUMPIFEQKS                       R5 K7 [""] ; [+3]
+       60 MOVE                             R6 R5
+       61 JUMP                             ; [+8]
+       62 GETUPVAL                         R6 0
+       63 GETTABLEKS                       R6 R6 K8 ["BaseUrl"]
+       65 LOADK                            R8 K9 ["https?://www%."]
+       66 LOADK                            R9 K10 ["https://create."]
+       67 NAMECALL                         R6 R6 K11 ["gsub"]
+       69 CALL                             R6 3 1
+       70 LENGTH                           R9 R6
+       71 NAMECALL                         R7 R6 K12 ["sub"]
+       73 CALL                             R7 2 1
+       74 JUMPIFEQKS                       R7 K13 ["/"] ; [+4]
+       76 MOVE                             R7 R6
+       77 LOADK                            R8 K13 ["/"]
+       78 CONCAT                           R6 R7 R8
+       79 MOVE                             R4 R6
+       80 NAMECALL                         R2 R2 K14 ["format"]
+       82 CALL                             R2 2 1
+       83 RETURN                           R2 1
+       84 LOADK                            R2 K7 [""]
        85 RETURN                           R2 1
-       86 LOADK                            R2 K7 [""]
-       87 RETURN                           R2 1
-       88 LOADK                            R3 K17 ["%*dashboard/creations/experiences/%*/configs/studio"]
-       89 GETIMPORT                        R6 K4 [game]
-       91 LOADK                            R8 K5 ["CreatorConfigWVUrl"]
-       92 NAMECALL                         R6 R6 K6 ["GetFastString"]
-       94 CALL                             R6 2 1
-       95 JUMPIFEQKS                       R6 K7 [""] ; [+3]
-       97 MOVE                             R7 R6
-       98 JUMP                             ; [+8]
-       99 GETUPVAL                         R7 0
-      100 GETTABLEKS                       R7 R7 K8 ["BaseUrl"]
-      102 LOADK                            R9 K9 ["https?://www%."]
-      103 LOADK                            R10 K10 ["https://create."]
-      104 NAMECALL                         R7 R7 K11 ["gsub"]
-      106 CALL                             R7 3 1
-      107 LENGTH                           R10 R7
-      108 NAMECALL                         R8 R7 K12 ["sub"]
-      110 CALL                             R8 2 1
-      111 JUMPIFEQKS                       R8 K13 ["/"] ; [+4]
-      113 MOVE                             R8 R7
-      114 LOADK                            R9 K13 ["/"]
-      115 CONCAT                           R7 R8 R9
-      116 MOVE                             R5 R7
-      117 MOVE                             R6 R1
-      118 NAMECALL                         R3 R3 K14 ["format"]
-      120 CALL                             R3 3 1
-      121 MOVE                             R2 R3
-      122 RETURN                           R2 1
+       86 LOADK                            R2 K17 ["%*dashboard/creations/experiences/%*/configs/studio"]
+       87 GETIMPORT                        R5 K4 [game]
+       89 LOADK                            R7 K5 ["CreatorConfigWVUrl"]
+       90 NAMECALL                         R5 R5 K6 ["GetFastString"]
+       92 CALL                             R5 2 1
+       93 JUMPIFEQKS                       R5 K7 [""] ; [+3]
+       95 MOVE                             R6 R5
+       96 JUMP                             ; [+8]
+       97 GETUPVAL                         R6 0
+       98 GETTABLEKS                       R6 R6 K8 ["BaseUrl"]
+      100 LOADK                            R8 K9 ["https?://www%."]
+      101 LOADK                            R9 K10 ["https://create."]
+      102 NAMECALL                         R6 R6 K11 ["gsub"]
+      104 CALL                             R6 3 1
+      105 LENGTH                           R9 R6
+      106 NAMECALL                         R7 R6 K12 ["sub"]
+      108 CALL                             R7 2 1
+      109 JUMPIFEQKS                       R7 K13 ["/"] ; [+4]
+      111 MOVE                             R7 R6
+      112 LOADK                            R8 K13 ["/"]
+      113 CONCAT                           R6 R7 R8
+      114 MOVE                             R4 R6
+      115 MOVE                             R5 R1
+      116 NAMECALL                         R2 R2 K14 ["format"]
+      118 CALL                             R2 3 1
+      119 RETURN                           R2 1
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -435,29 +432,27 @@ PROTO_11:
         2 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R2 0
-        1 GETTABLE                         R1 R2 R0
-        2 JUMPIF                           R1 ; [+3]
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K0 ["unknown"]
-        6 GETUPVAL                         R2 1
-        7 LOADK                            R4 K1 ["PublishFailureReason"]
-        8 MOVE                             R5 R1
-        9 DUPTABLE                         R6 K3 [{"universeName"}]
-       10 GETUPVAL                         R7 2
-       11 GETTABLEKS                       R7 R7 K4 ["universe"]
-       13 GETTABLEKS                       R7 R7 K5 ["Name"]
-       15 SETTABLEKS                       R7 R6 K2 ["universeName"]
-       17 NAMECALL                         R2 R2 K6 ["getText"]
-       19 CALL                             R2 4 1
-       20 LOADB                            R3 1
-       21 JUMPIFEQKS                       R0 K7 ["emptyDraft"] ; [+2]
-       23 LOADB                            R3 0
-       24 DUPTABLE                         R4 K10 [{"success", "message"}]
-       25 SETTABLEKS                       R3 R4 K8 ["success"]
-       27 SETTABLEKS                       R2 R4 K9 ["message"]
-       29 SETUPVAL                         R4 3
-       30 RETURN                           R0 0
+        0 GETUPVAL                         R3 0
+        1 GETTABLE                         R2 R3 R0
+        2 ORK                              R1 R2 K0 ["Unknown"]
+        3 GETUPVAL                         R2 1
+        4 LOADK                            R4 K1 ["PublishFailureReason"]
+        5 MOVE                             R5 R1
+        6 DUPTABLE                         R6 K3 [{"universeName"}]
+        7 GETUPVAL                         R7 2
+        8 GETTABLEKS                       R7 R7 K4 ["universe"]
+       10 GETTABLEKS                       R7 R7 K5 ["Name"]
+       12 SETTABLEKS                       R7 R6 K2 ["universeName"]
+       14 NAMECALL                         R2 R2 K6 ["getText"]
+       16 CALL                             R2 4 1
+       17 LOADB                            R3 1
+       18 JUMPIFEQKS                       R0 K7 ["emptyDraft"] ; [+2]
+       20 LOADB                            R3 0
+       21 DUPTABLE                         R4 K10 [{"success", "message"}]
+       22 SETTABLEKS                       R3 R4 K8 ["success"]
+       24 SETTABLEKS                       R2 R4 K9 ["message"]
+       26 SETUPVAL                         R4 3
+       27 RETURN                           R0 0
 
 PROTO_13:
         0 LOADNIL                          R1

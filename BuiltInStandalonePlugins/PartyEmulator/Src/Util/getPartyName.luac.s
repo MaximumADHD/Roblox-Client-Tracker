@@ -11,22 +11,21 @@ PROTO_0:
        12 MOVE                             R2 R0
        13 LOADK                            R3 K5 ["(%d+)$"]
        14 CALL                             R1 2 1
-       15 JUMPIFNOT                        R1 ; [+16]
+       15 JUMPIFNOT                        R1 ; [+15]
        16 FASTCALL1                        TONUMBER R1 ; [+3]
        17 MOVE                             R3 R1
        18 GETIMPORT                        R2 K7 [tonumber]
        20 CALL                             R2 1 1
-       21 JUMPIFNOT                        R2 ; [+10]
+       21 JUMPIFNOT                        R2 ; [+9]
        22 LOADN                            R3 0
-       23 JUMPIFNOTLT                      R3 R2 ; [+8]
-       25 LOADK                            R4 K8 ["Party #%*"]
-       26 MOVE                             R6 R2
-       27 NAMECALL                         R4 R4 K9 ["format"]
-       29 CALL                             R4 2 1
-       30 MOVE                             R3 R4
-       31 RETURN                           R3 1
-       32 LOADK                            R2 K10 ["Unknown partyId"]
-       33 RETURN                           R2 1
+       23 JUMPIFNOTLT                      R3 R2 ; [+7]
+       25 LOADK                            R3 K8 ["Party #%*"]
+       26 MOVE                             R5 R2
+       27 NAMECALL                         R3 R3 K9 ["format"]
+       29 CALL                             R3 2 1
+       30 RETURN                           R3 1
+       31 LOADK                            R2 K10 ["Unknown partyId"]
+       32 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -36,32 +36,30 @@ PROTO_1:
        23 GETIMPORT                        R3 K6 [DateTime.fromIsoDate]
        25 GETTABLEKS                       R4 R1 K0 ["LastViewed"]
        27 CALL                             R3 1 1
-       28 JUMPIF                           R2 ; [+11]
+       28 JUMPIF                           R2 ; [+10]
        29 GETIMPORT                        R4 K2 [warn]
-       31 LOADK                            R6 K7 ["LastViewed of game must be converted to DateTime: %*"]
-       32 MOVE                             R8 R2
-       33 NAMECALL                         R6 R6 K8 ["format"]
-       35 CALL                             R6 2 1
-       36 MOVE                             R5 R6
-       37 CALL                             R4 1 0
-       38 LOADB                            R4 0
-       39 RETURN                           R4 1
-       40 JUMPIF                           R3 ; [+11]
-       41 GETIMPORT                        R4 K2 [warn]
-       43 LOADK                            R6 K7 ["LastViewed of game must be converted to DateTime: %*"]
-       44 MOVE                             R8 R3
-       45 NAMECALL                         R6 R6 K8 ["format"]
-       47 CALL                             R6 2 1
-       48 MOVE                             R5 R6
-       49 CALL                             R4 1 0
-       50 LOADB                            R4 0
-       51 RETURN                           R4 1
-       52 GETTABLEKS                       R5 R2 K9 ["UnixTimestampMillis"]
-       54 GETTABLEKS                       R6 R3 K9 ["UnixTimestampMillis"]
-       56 JUMPIFLT                         R6 R5 ; [+2]
-       58 LOADB                            R4 0 +1
-       59 LOADB                            R4 1
-       60 RETURN                           R4 1
+       31 LOADK                            R5 K7 ["LastViewed of game must be converted to DateTime: %*"]
+       32 MOVE                             R7 R2
+       33 NAMECALL                         R5 R5 K8 ["format"]
+       35 CALL                             R5 2 1
+       36 CALL                             R4 1 0
+       37 LOADB                            R4 0
+       38 RETURN                           R4 1
+       39 JUMPIF                           R3 ; [+10]
+       40 GETIMPORT                        R4 K2 [warn]
+       42 LOADK                            R5 K7 ["LastViewed of game must be converted to DateTime: %*"]
+       43 MOVE                             R7 R3
+       44 NAMECALL                         R5 R5 K8 ["format"]
+       46 CALL                             R5 2 1
+       47 CALL                             R4 1 0
+       48 LOADB                            R4 0
+       49 RETURN                           R4 1
+       50 GETTABLEKS                       R5 R2 K9 ["UnixTimestampMillis"]
+       52 GETTABLEKS                       R6 R3 K9 ["UnixTimestampMillis"]
+       54 JUMPIFLT                         R6 R5 ; [+2]
+       56 LOADB                            R4 0 +1
+       57 LOADB                            R4 1
+       58 RETURN                           R4 1
 
 PROTO_2:
         0 GETUPVAL                         R2 0

@@ -190,123 +190,121 @@ PROTO_11:
         4 GETTABLEKS                       R3 R1 K2 ["Plugin"]
         6 GETTABLEKS                       R4 R2 K3 ["enabled"]
         8 NEWTABLE                         R5 0 0
-       10 LOADK                            R7 K4 ["AudioEqualizerEditor_%*"]
-       11 GETTABLEKS                       R9 R2 K5 ["instanceId"]
-       13 NAMECALL                         R7 R7 K6 ["format"]
-       15 CALL                             R7 2 1
-       16 MOVE                             R6 R7
-       17 GETUPVAL                         R7 0
-       18 GETTABLEKS                       R7 R7 K7 ["createElement"]
-       20 GETUPVAL                         R8 1
-       21 DUPTABLE                         R9 K13 [{"Enabled", "Data", "OnChanged", "AnalysisEnabled", "SetAnalysisEnabled"}]
-       22 SETTABLEKS                       R4 R9 K8 ["Enabled"]
-       24 GETTABLEKS                       R10 R2 K14 ["initialData"]
-       26 SETTABLEKS                       R10 R9 K9 ["Data"]
-       28 GETTABLEKS                       R10 R0 K15 ["onChanged"]
-       30 SETTABLEKS                       R10 R9 K10 ["OnChanged"]
-       32 GETTABLEKS                       R10 R0 K1 ["state"]
-       34 GETTABLEKS                       R10 R10 K16 ["analysisEnabled"]
-       36 SETTABLEKS                       R10 R9 K11 ["AnalysisEnabled"]
-       38 GETTABLEKS                       R10 R0 K17 ["setAnalysisEnabled"]
-       40 SETTABLEKS                       R10 R9 K12 ["SetAnalysisEnabled"]
-       42 CALL                             R7 2 1
-       43 SETTABLE                         R7 R5 R6
-       44 LOADK                            R6 K18 ["AudioEqualizerEditor"]
-       45 JUMPIFNOT                        R4 ; [+22]
-       46 LOADK                            R7 K19 ["%* - %*"]
-       47 GETTABLEKS                       R9 R0 K20 ["localization"]
-       49 LOADK                            R11 K2 ["Plugin"]
-       50 LOADK                            R13 K21 ["%*Editor"]
-       51 GETTABLEKS                       R15 R2 K14 ["initialData"]
-       53 GETTABLEKS                       R15 R15 K22 ["InstanceType"]
-       55 NAMECALL                         R13 R13 K6 ["format"]
-       57 CALL                             R13 2 1
-       58 MOVE                             R12 R13
-       59 NAMECALL                         R9 R9 K23 ["getText"]
-       61 CALL                             R9 3 1
-       62 GETTABLEKS                       R10 R2 K24 ["instanceName"]
-       64 NAMECALL                         R7 R7 K6 ["format"]
-       66 CALL                             R7 3 1
-       67 MOVE                             R6 R7
-       68 GETUPVAL                         R7 2
-       69 GETTABLEKS                       R7 R7 K25 ["provide"]
-       71 NEWTABLE                         R8 0 5
-       73 GETUPVAL                         R9 3
-       74 GETTABLEKS                       R9 R9 K26 ["new"]
-       76 MOVE                             R10 R3
-       77 CALL                             R9 1 1
-       78 GETUPVAL                         R10 4
-       79 GETTABLEKS                       R10 R10 K26 ["new"]
-       81 NAMECALL                         R11 R3 K27 ["getMouse"]
-       83 CALL                             R11 1 -1
-       84 CALL                             R10 -1 1
-       85 GETTABLEKS                       R11 R0 K28 ["DEPRECATED_stylizer"]
-       87 GETTABLEKS                       R12 R0 K20 ["localization"]
-       89 GETTABLEKS                       R13 R0 K29 ["analytics"]
-       91 SETLIST                          R8 R9 5 [1]
-       93 DUPTABLE                         R9 K31 [{"MainWidget"}]
-       94 GETUPVAL                         R10 0
-       95 GETTABLEKS                       R10 R10 K7 ["createElement"]
-       97 GETUPVAL                         R11 5
-       98 NEWTABLE                         R12 16 0
-      100 LOADK                            R13 K18 ["AudioEqualizerEditor"]
-      101 SETTABLEKS                       R13 R12 K32 ["Id"]
-      103 SETTABLEKS                       R4 R12 K8 ["Enabled"]
-      105 SETTABLEKS                       R6 R12 K33 ["Title"]
-      107 GETIMPORT                        R13 K37 [Enum.ZIndexBehavior.Sibling]
-      109 SETTABLEKS                       R13 R12 K35 ["ZIndexBehavior"]
-      111 GETIMPORT                        R13 K40 [Enum.InitialDockState.Float]
-      113 SETTABLEKS                       R13 R12 K38 ["InitialDockState"]
-      115 GETIMPORT                        R13 K42 [Vector2.new]
-      117 LOADN                            R14 640
-      118 LOADN                            R15 480
-      119 CALL                             R13 2 1
-      120 SETTABLEKS                       R13 R12 K43 ["Size"]
-      122 GETIMPORT                        R13 K42 [Vector2.new]
-      124 LOADN                            R14 250
-      125 LOADN                            R15 200
-      126 CALL                             R13 2 1
-      127 SETTABLEKS                       R13 R12 K44 ["MinSize"]
-      129 GETTABLEKS                       R13 R0 K45 ["setDisabled"]
-      131 SETTABLEKS                       R13 R12 K46 ["OnClose"]
-      133 GETTABLEKS                       R13 R1 K47 ["PluginLoaderContext"]
-      135 GETTABLEKS                       R13 R13 K48 ["mainDockWidget"]
-      137 SETTABLEKS                       R13 R12 K49 ["Widget"]
-      139 GETTABLEKS                       R13 R0 K50 ["onDockWidgetCreated"]
-      141 SETTABLEKS                       R13 R12 K51 ["OnWidgetCreated"]
-      143 LOADB                            R13 0
-      144 SETTABLEKS                       R13 R12 K52 ["ShouldRestore"]
-      146 GETUPVAL                         R13 0
-      147 GETTABLEKS                       R13 R13 K53 ["Change"]
-      149 GETTABLEKS                       R13 R13 K8 ["Enabled"]
-      151 GETTABLEKS                       R14 R0 K54 ["onWidgetEnabledChanged"]
-      153 SETTABLE                         R14 R12 R13
-      154 DUPTABLE                         R13 K57 [{"Wrapper", "StyleLink"}]
-      155 GETUPVAL                         R14 0
-      156 GETTABLEKS                       R14 R14 K7 ["createElement"]
-      158 GETUPVAL                         R15 6
-      159 NEWTABLE                         R16 1 0
-      161 GETUPVAL                         R17 0
-      162 GETTABLEKS                       R17 R17 K58 ["Tag"]
-      164 LOADK                            R18 K59 ["X-Fill X-Column"]
-      165 SETTABLE                         R18 R16 R17
-      166 NEWTABLE                         R17 0 1
-      168 MOVE                             R18 R5
-      169 SETLIST                          R17 R18 1 [1]
-      171 CALL                             R14 3 1
-      172 SETTABLEKS                       R14 R13 K55 ["Wrapper"]
-      174 GETUPVAL                         R14 0
-      175 GETTABLEKS                       R14 R14 K7 ["createElement"]
-      177 LOADK                            R15 K56 ["StyleLink"]
-      178 DUPTABLE                         R16 K61 [{"StyleSheet"}]
-      179 GETTABLEKS                       R17 R0 K62 ["design"]
-      181 SETTABLEKS                       R17 R16 K60 ["StyleSheet"]
-      183 CALL                             R14 2 1
-      184 SETTABLEKS                       R14 R13 K56 ["StyleLink"]
-      186 CALL                             R10 3 1
-      187 SETTABLEKS                       R10 R9 K30 ["MainWidget"]
-      189 CALL                             R7 2 -1
-      190 RETURN                           R7 -1
+       10 LOADK                            R6 K4 ["AudioEqualizerEditor_%*"]
+       11 GETTABLEKS                       R8 R2 K5 ["instanceId"]
+       13 NAMECALL                         R6 R6 K6 ["format"]
+       15 CALL                             R6 2 1
+       16 GETUPVAL                         R7 0
+       17 GETTABLEKS                       R7 R7 K7 ["createElement"]
+       19 GETUPVAL                         R8 1
+       20 DUPTABLE                         R9 K13 [{"Enabled", "Data", "OnChanged", "AnalysisEnabled", "SetAnalysisEnabled"}]
+       21 SETTABLEKS                       R4 R9 K8 ["Enabled"]
+       23 GETTABLEKS                       R10 R2 K14 ["initialData"]
+       25 SETTABLEKS                       R10 R9 K9 ["Data"]
+       27 GETTABLEKS                       R10 R0 K15 ["onChanged"]
+       29 SETTABLEKS                       R10 R9 K10 ["OnChanged"]
+       31 GETTABLEKS                       R10 R0 K1 ["state"]
+       33 GETTABLEKS                       R10 R10 K16 ["analysisEnabled"]
+       35 SETTABLEKS                       R10 R9 K11 ["AnalysisEnabled"]
+       37 GETTABLEKS                       R10 R0 K17 ["setAnalysisEnabled"]
+       39 SETTABLEKS                       R10 R9 K12 ["SetAnalysisEnabled"]
+       41 CALL                             R7 2 1
+       42 SETTABLE                         R7 R5 R6
+       43 LOADK                            R6 K18 ["AudioEqualizerEditor"]
+       44 JUMPIFNOT                        R4 ; [+21]
+       45 LOADK                            R7 K19 ["%* - %*"]
+       46 GETTABLEKS                       R9 R0 K20 ["localization"]
+       48 LOADK                            R11 K2 ["Plugin"]
+       49 LOADK                            R12 K21 ["%*Editor"]
+       50 GETTABLEKS                       R14 R2 K14 ["initialData"]
+       52 GETTABLEKS                       R14 R14 K22 ["InstanceType"]
+       54 NAMECALL                         R12 R12 K6 ["format"]
+       56 CALL                             R12 2 1
+       57 NAMECALL                         R9 R9 K23 ["getText"]
+       59 CALL                             R9 3 1
+       60 GETTABLEKS                       R10 R2 K24 ["instanceName"]
+       62 NAMECALL                         R7 R7 K6 ["format"]
+       64 CALL                             R7 3 1
+       65 MOVE                             R6 R7
+       66 GETUPVAL                         R7 2
+       67 GETTABLEKS                       R7 R7 K25 ["provide"]
+       69 NEWTABLE                         R8 0 5
+       71 GETUPVAL                         R9 3
+       72 GETTABLEKS                       R9 R9 K26 ["new"]
+       74 MOVE                             R10 R3
+       75 CALL                             R9 1 1
+       76 GETUPVAL                         R10 4
+       77 GETTABLEKS                       R10 R10 K26 ["new"]
+       79 NAMECALL                         R11 R3 K27 ["getMouse"]
+       81 CALL                             R11 1 -1
+       82 CALL                             R10 -1 1
+       83 GETTABLEKS                       R11 R0 K28 ["DEPRECATED_stylizer"]
+       85 GETTABLEKS                       R12 R0 K20 ["localization"]
+       87 GETTABLEKS                       R13 R0 K29 ["analytics"]
+       89 SETLIST                          R8 R9 5 [1]
+       91 DUPTABLE                         R9 K31 [{"MainWidget"}]
+       92 GETUPVAL                         R10 0
+       93 GETTABLEKS                       R10 R10 K7 ["createElement"]
+       95 GETUPVAL                         R11 5
+       96 NEWTABLE                         R12 16 0
+       98 LOADK                            R13 K18 ["AudioEqualizerEditor"]
+       99 SETTABLEKS                       R13 R12 K32 ["Id"]
+      101 SETTABLEKS                       R4 R12 K8 ["Enabled"]
+      103 SETTABLEKS                       R6 R12 K33 ["Title"]
+      105 GETIMPORT                        R13 K37 [Enum.ZIndexBehavior.Sibling]
+      107 SETTABLEKS                       R13 R12 K35 ["ZIndexBehavior"]
+      109 GETIMPORT                        R13 K40 [Enum.InitialDockState.Float]
+      111 SETTABLEKS                       R13 R12 K38 ["InitialDockState"]
+      113 GETIMPORT                        R13 K42 [Vector2.new]
+      115 LOADN                            R14 640
+      116 LOADN                            R15 480
+      117 CALL                             R13 2 1
+      118 SETTABLEKS                       R13 R12 K43 ["Size"]
+      120 GETIMPORT                        R13 K42 [Vector2.new]
+      122 LOADN                            R14 250
+      123 LOADN                            R15 200
+      124 CALL                             R13 2 1
+      125 SETTABLEKS                       R13 R12 K44 ["MinSize"]
+      127 GETTABLEKS                       R13 R0 K45 ["setDisabled"]
+      129 SETTABLEKS                       R13 R12 K46 ["OnClose"]
+      131 GETTABLEKS                       R13 R1 K47 ["PluginLoaderContext"]
+      133 GETTABLEKS                       R13 R13 K48 ["mainDockWidget"]
+      135 SETTABLEKS                       R13 R12 K49 ["Widget"]
+      137 GETTABLEKS                       R13 R0 K50 ["onDockWidgetCreated"]
+      139 SETTABLEKS                       R13 R12 K51 ["OnWidgetCreated"]
+      141 LOADB                            R13 0
+      142 SETTABLEKS                       R13 R12 K52 ["ShouldRestore"]
+      144 GETUPVAL                         R13 0
+      145 GETTABLEKS                       R13 R13 K53 ["Change"]
+      147 GETTABLEKS                       R13 R13 K8 ["Enabled"]
+      149 GETTABLEKS                       R14 R0 K54 ["onWidgetEnabledChanged"]
+      151 SETTABLE                         R14 R12 R13
+      152 DUPTABLE                         R13 K57 [{"Wrapper", "StyleLink"}]
+      153 GETUPVAL                         R14 0
+      154 GETTABLEKS                       R14 R14 K7 ["createElement"]
+      156 GETUPVAL                         R15 6
+      157 NEWTABLE                         R16 1 0
+      159 GETUPVAL                         R17 0
+      160 GETTABLEKS                       R17 R17 K58 ["Tag"]
+      162 LOADK                            R18 K59 ["X-Fill X-Column"]
+      163 SETTABLE                         R18 R16 R17
+      164 NEWTABLE                         R17 0 1
+      166 MOVE                             R18 R5
+      167 SETLIST                          R17 R18 1 [1]
+      169 CALL                             R14 3 1
+      170 SETTABLEKS                       R14 R13 K55 ["Wrapper"]
+      172 GETUPVAL                         R14 0
+      173 GETTABLEKS                       R14 R14 K7 ["createElement"]
+      175 LOADK                            R15 K56 ["StyleLink"]
+      176 DUPTABLE                         R16 K61 [{"StyleSheet"}]
+      177 GETTABLEKS                       R17 R0 K62 ["design"]
+      179 SETTABLEKS                       R17 R16 K60 ["StyleSheet"]
+      181 CALL                             R14 2 1
+      182 SETTABLEKS                       R14 R13 K56 ["StyleLink"]
+      184 CALL                             R10 3 1
+      185 SETTABLEKS                       R10 R9 K30 ["MainWidget"]
+      187 CALL                             R7 2 -1
+      188 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

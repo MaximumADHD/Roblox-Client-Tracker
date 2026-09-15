@@ -991,7 +991,7 @@ PROTO_28:
       155 LOADNIL                          R36
       156 FORGPREP                         R34
       157 GETTABLEKS                       R39 R38 K19 ["Username"]
-      159 JUMPIFNOT                        R39 ; [+117]
+      159 JUMPIFNOT                        R39 ; [+116]
       160 GETUPVAL                         R39 4
       161 GETTABLEKS                       R39 R39 K20 ["createElement"]
       163 LOADK                            R40 K21 ["TextButton"]
@@ -1046,200 +1046,199 @@ PROTO_28:
       229 LOADN                            R50 24
       230 CALL                             R46 4 1
       231 SETTABLEKS                       R46 R45 K38 ["Size"]
-      233 LOADK                            R47 K39 ["rbxthumb://type=AvatarHeadShot&id=%*&filters=circular&w=48&h=48"]
-      234 GETTABLEKS                       R49 R38 K40 ["UserId"]
-      236 NAMECALL                         R47 R47 K41 ["format"]
-      238 CALL                             R47 2 1
-      239 MOVE                             R46 R47
-      240 SETTABLEKS                       R46 R45 K42 ["Image"]
-      242 GETUPVAL                         R46 4
-      243 GETTABLEKS                       R46 R46 K27 ["Tag"]
-      245 LOADK                            R47 K43 ["Component-Avatar"]
-      246 SETTABLE                         R47 R45 R46
-      247 CALL                             R43 2 1
-      248 SETTABLEKS                       R43 R42 K32 ["Avatar"]
-      250 GETUPVAL                         R43 4
-      251 GETTABLEKS                       R43 R43 K20 ["createElement"]
-      253 LOADK                            R44 K33 ["TextLabel"]
-      254 NEWTABLE                         R45 4 0
-      256 LOADN                            R46 2
-      257 SETTABLEKS                       R46 R45 K30 ["LayoutOrder"]
-      259 GETTABLEKS                       R46 R38 K19 ["Username"]
-      261 SETTABLEKS                       R46 R45 K8 ["Text"]
-      263 GETIMPORT                        R46 K47 [Enum.TextXAlignment.Left]
-      265 SETTABLEKS                       R46 R45 K45 ["TextXAlignment"]
-      267 GETUPVAL                         R46 4
-      268 GETTABLEKS                       R46 R46 K27 ["Tag"]
-      270 LOADK                            R47 K48 ["X-Fit"]
-      271 SETTABLE                         R47 R45 R46
-      272 CALL                             R43 2 1
-      273 SETTABLEKS                       R43 R42 K33 ["TextLabel"]
-      275 CALL                             R39 3 1
-      276 SETTABLE                         R39 R33 R37
-      277 FORGLOOP                         R34 2 ; [-121]
-      279 GETUPVAL                         R34 4
-      280 GETTABLEKS                       R34 R34 K17 ["useEffect"]
-      282 NEWCLOSURE                       R35 P9
-      283 CAPTURE                          VAL R18
-      284 CAPTURE                          VAL R17
-      285 CAPTURE                          VAL R13
-      286 CAPTURE                          VAL R15
-      287 NEWTABLE                         R36 0 1
-      289 MOVE                             R37 R13
-      290 SETLIST                          R36 R37 1 [1]
-      292 CALL                             R34 2 0
-      293 GETUPVAL                         R34 4
-      294 GETTABLEKS                       R34 R34 K17 ["useEffect"]
-      296 NEWCLOSURE                       R35 P10
-      297 CAPTURE                          VAL R27
-      298 CAPTURE                          VAL R22
-      299 NEWTABLE                         R36 0 1
-      301 MOVE                             R37 R27
-      302 SETLIST                          R36 R37 1 [1]
-      304 CALL                             R34 2 0
-      305 GETUPVAL                         R34 4
-      306 GETTABLEKS                       R34 R34 K17 ["useEffect"]
-      308 NEWCLOSURE                       R35 P11
-      309 CAPTURE                          VAL R27
-      310 CAPTURE                          VAL R30
-      311 CAPTURE                          VAL R21
-      312 CAPTURE                          VAL R22
-      313 NEWTABLE                         R36 0 1
-      315 MOVE                             R37 R30
-      316 SETLIST                          R36 R37 1 [1]
-      318 CALL                             R34 2 0
-      319 GETUPVAL                         R34 4
-      320 GETTABLEKS                       R34 R34 K17 ["useEffect"]
-      322 NEWCLOSURE                       R35 P12
-      323 CAPTURE                          UPVAL U9
-      324 CAPTURE                          VAL R27
-      325 CAPTURE                          VAL R30
-      326 CAPTURE                          VAL R21
-      327 CAPTURE                          VAL R32
-      328 CAPTURE                          VAL R22
-      329 CAPTURE                          VAL R28
-      330 CAPTURE                          VAL R18
-      331 CAPTURE                          VAL R17
-      332 NEWTABLE                         R36 0 3
-      334 MOVE                             R37 R27
-      335 MOVE                             R38 R21
-      336 MOVE                             R39 R11
-      337 SETLIST                          R36 R37 3 [1]
-      339 CALL                             R34 2 0
-      340 NEWCLOSURE                       R34 P13
-      341 CAPTURE                          VAL R28
-      342 CAPTURE                          VAL R9
-      343 CAPTURE                          VAL R8
-      344 CAPTURE                          VAL R12
-      345 CAPTURE                          VAL R14
-      346 NEWCLOSURE                       R35 P14
-      347 CAPTURE                          VAL R14
-      348 CAPTURE                          VAL R29
-      349 CAPTURE                          VAL R13
-      350 CAPTURE                          VAL R12
-      351 CAPTURE                          VAL R28
-      352 CAPTURE                          UPVAL U0
-      353 NEWCLOSURE                       R36 P15
-      354 CAPTURE                          VAL R14
-      355 CAPTURE                          VAL R29
-      356 CAPTURE                          VAL R13
-      357 CAPTURE                          VAL R12
-      358 CAPTURE                          VAL R28
-      359 CAPTURE                          UPVAL U0
-      360 CAPTURE                          VAL R27
-      361 CAPTURE                          VAL R9
-      362 CAPTURE                          VAL R8
-      363 DUPCLOSURE                       R37 K49 [PROTO_20]
-      364 DUPCLOSURE                       R38 K50 [PROTO_21]
-      365 NEWCLOSURE                       R39 P18
-      366 CAPTURE                          VAL R8
-      367 CAPTURE                          VAL R18
-      368 CAPTURE                          VAL R14
-      369 CAPTURE                          VAL R13
-      370 CAPTURE                          VAL R29
-      371 CAPTURE                          VAL R12
-      372 CAPTURE                          VAL R28
-      373 CAPTURE                          UPVAL U0
-      374 NEWCLOSURE                       R40 P19
-      375 CAPTURE                          VAL R8
-      376 CAPTURE                          VAL R14
-      377 CAPTURE                          VAL R29
-      378 CAPTURE                          VAL R13
-      379 CAPTURE                          VAL R12
-      380 CAPTURE                          VAL R28
-      381 CAPTURE                          UPVAL U0
-      382 CAPTURE                          VAL R27
-      383 CAPTURE                          VAL R9
-      384 CAPTURE                          VAL R36
-      385 NEWCLOSURE                       R41 P20
-      386 CAPTURE                          VAL R27
-      387 CAPTURE                          VAL R13
-      388 CAPTURE                          VAL R28
-      389 CAPTURE                          VAL R9
-      390 CAPTURE                          VAL R8
-      391 CAPTURE                          VAL R12
-      392 CAPTURE                          VAL R14
-      393 CAPTURE                          VAL R38
-      394 CAPTURE                          VAL R39
-      395 CAPTURE                          VAL R29
-      396 CAPTURE                          UPVAL U0
-      397 NEWCLOSURE                       R42 P21
-      398 CAPTURE                          VAL R40
-      399 CAPTURE                          VAL R41
-      400 GETUPVAL                         R43 4
-      401 GETTABLEKS                       R43 R43 K17 ["useEffect"]
-      403 NEWCLOSURE                       R44 P22
-      404 CAPTURE                          VAL R18
-      405 CAPTURE                          VAL R19
-      406 CAPTURE                          VAL R40
-      407 CAPTURE                          VAL R41
-      408 CAPTURE                          VAL R20
-      409 NEWTABLE                         R45 0 3
-      411 MOVE                             R46 R13
-      412 MOVE                             R47 R17
-      413 GETTABLEKS                       R48 R18 K18 ["current"]
-      415 JUMPIFNOT                        R48 ; [+4]
-      416 GETTABLEKS                       R48 R18 K18 ["current"]
-      418 GETTABLEKS                       R48 R48 K51 ["CursorPosition"]
-      420 SETLIST                          R45 R46 3 [1]
-      422 CALL                             R43 2 0
-      423 GETUPVAL                         R43 4
-      424 GETTABLEKS                       R43 R43 K17 ["useEffect"]
-      426 NEWCLOSURE                       R44 P23
-      427 CAPTURE                          VAL R18
-      428 CAPTURE                          VAL R20
-      429 NEWTABLE                         R45 0 1
-      431 GETTABLEKS                       R46 R18 K18 ["current"]
-      433 JUMPIFNOT                        R46 ; [+4]
-      434 GETTABLEKS                       R46 R18 K18 ["current"]
-      436 GETTABLEKS                       R46 R46 K8 ["Text"]
-      438 SETLIST                          R45 R46 1 [1]
-      440 CALL                             R43 2 0
-      441 JUMPIFNOT                        R27 ; [+31]
-      442 LENGTH                           R44 R30
-      443 LOADN                            R45 0
-      444 JUMPIFNOTLT                      R45 R44 ; [+28]
-      446 GETUPVAL                         R43 10
-      447 GETTABLEKS                       R43 R43 K52 ["createPortal"]
-      449 GETUPVAL                         R44 4
-      450 GETTABLEKS                       R44 R44 K20 ["createElement"]
-      452 LOADK                            R45 K53 ["CanvasGroup"]
-      453 NEWTABLE                         R46 4 0
-      455 SETTABLEKS                       R23 R46 K54 ["Position"]
-      457 SETTABLEKS                       R25 R46 K38 ["Size"]
-      459 GETTABLEKS                       R47 R1 K55 ["AutomaticSize"]
-      461 SETTABLEKS                       R47 R46 K55 ["AutomaticSize"]
-      463 GETUPVAL                         R47 4
-      464 GETTABLEKS                       R47 R47 K27 ["Tag"]
-      466 LOADK                            R48 K56 ["Component-TaggingDropdown X-Column"]
-      467 SETTABLE                         R48 R46 R47
-      468 MOVE                             R47 R33
-      469 CALL                             R44 3 1
-      470 MOVE                             R45 R2
-      471 CALL                             R43 2 1
-      472 RETURN                           R43 1
-      473 LOADNIL                          R43
-      474 RETURN                           R43 1
+      233 LOADK                            R46 K39 ["rbxthumb://type=AvatarHeadShot&id=%*&filters=circular&w=48&h=48"]
+      234 GETTABLEKS                       R48 R38 K40 ["UserId"]
+      236 NAMECALL                         R46 R46 K41 ["format"]
+      238 CALL                             R46 2 1
+      239 SETTABLEKS                       R46 R45 K42 ["Image"]
+      241 GETUPVAL                         R46 4
+      242 GETTABLEKS                       R46 R46 K27 ["Tag"]
+      244 LOADK                            R47 K43 ["Component-Avatar"]
+      245 SETTABLE                         R47 R45 R46
+      246 CALL                             R43 2 1
+      247 SETTABLEKS                       R43 R42 K32 ["Avatar"]
+      249 GETUPVAL                         R43 4
+      250 GETTABLEKS                       R43 R43 K20 ["createElement"]
+      252 LOADK                            R44 K33 ["TextLabel"]
+      253 NEWTABLE                         R45 4 0
+      255 LOADN                            R46 2
+      256 SETTABLEKS                       R46 R45 K30 ["LayoutOrder"]
+      258 GETTABLEKS                       R46 R38 K19 ["Username"]
+      260 SETTABLEKS                       R46 R45 K8 ["Text"]
+      262 GETIMPORT                        R46 K47 [Enum.TextXAlignment.Left]
+      264 SETTABLEKS                       R46 R45 K45 ["TextXAlignment"]
+      266 GETUPVAL                         R46 4
+      267 GETTABLEKS                       R46 R46 K27 ["Tag"]
+      269 LOADK                            R47 K48 ["X-Fit"]
+      270 SETTABLE                         R47 R45 R46
+      271 CALL                             R43 2 1
+      272 SETTABLEKS                       R43 R42 K33 ["TextLabel"]
+      274 CALL                             R39 3 1
+      275 SETTABLE                         R39 R33 R37
+      276 FORGLOOP                         R34 2 ; [-120]
+      278 GETUPVAL                         R34 4
+      279 GETTABLEKS                       R34 R34 K17 ["useEffect"]
+      281 NEWCLOSURE                       R35 P9
+      282 CAPTURE                          VAL R18
+      283 CAPTURE                          VAL R17
+      284 CAPTURE                          VAL R13
+      285 CAPTURE                          VAL R15
+      286 NEWTABLE                         R36 0 1
+      288 MOVE                             R37 R13
+      289 SETLIST                          R36 R37 1 [1]
+      291 CALL                             R34 2 0
+      292 GETUPVAL                         R34 4
+      293 GETTABLEKS                       R34 R34 K17 ["useEffect"]
+      295 NEWCLOSURE                       R35 P10
+      296 CAPTURE                          VAL R27
+      297 CAPTURE                          VAL R22
+      298 NEWTABLE                         R36 0 1
+      300 MOVE                             R37 R27
+      301 SETLIST                          R36 R37 1 [1]
+      303 CALL                             R34 2 0
+      304 GETUPVAL                         R34 4
+      305 GETTABLEKS                       R34 R34 K17 ["useEffect"]
+      307 NEWCLOSURE                       R35 P11
+      308 CAPTURE                          VAL R27
+      309 CAPTURE                          VAL R30
+      310 CAPTURE                          VAL R21
+      311 CAPTURE                          VAL R22
+      312 NEWTABLE                         R36 0 1
+      314 MOVE                             R37 R30
+      315 SETLIST                          R36 R37 1 [1]
+      317 CALL                             R34 2 0
+      318 GETUPVAL                         R34 4
+      319 GETTABLEKS                       R34 R34 K17 ["useEffect"]
+      321 NEWCLOSURE                       R35 P12
+      322 CAPTURE                          UPVAL U9
+      323 CAPTURE                          VAL R27
+      324 CAPTURE                          VAL R30
+      325 CAPTURE                          VAL R21
+      326 CAPTURE                          VAL R32
+      327 CAPTURE                          VAL R22
+      328 CAPTURE                          VAL R28
+      329 CAPTURE                          VAL R18
+      330 CAPTURE                          VAL R17
+      331 NEWTABLE                         R36 0 3
+      333 MOVE                             R37 R27
+      334 MOVE                             R38 R21
+      335 MOVE                             R39 R11
+      336 SETLIST                          R36 R37 3 [1]
+      338 CALL                             R34 2 0
+      339 NEWCLOSURE                       R34 P13
+      340 CAPTURE                          VAL R28
+      341 CAPTURE                          VAL R9
+      342 CAPTURE                          VAL R8
+      343 CAPTURE                          VAL R12
+      344 CAPTURE                          VAL R14
+      345 NEWCLOSURE                       R35 P14
+      346 CAPTURE                          VAL R14
+      347 CAPTURE                          VAL R29
+      348 CAPTURE                          VAL R13
+      349 CAPTURE                          VAL R12
+      350 CAPTURE                          VAL R28
+      351 CAPTURE                          UPVAL U0
+      352 NEWCLOSURE                       R36 P15
+      353 CAPTURE                          VAL R14
+      354 CAPTURE                          VAL R29
+      355 CAPTURE                          VAL R13
+      356 CAPTURE                          VAL R12
+      357 CAPTURE                          VAL R28
+      358 CAPTURE                          UPVAL U0
+      359 CAPTURE                          VAL R27
+      360 CAPTURE                          VAL R9
+      361 CAPTURE                          VAL R8
+      362 DUPCLOSURE                       R37 K49 [PROTO_20]
+      363 DUPCLOSURE                       R38 K50 [PROTO_21]
+      364 NEWCLOSURE                       R39 P18
+      365 CAPTURE                          VAL R8
+      366 CAPTURE                          VAL R18
+      367 CAPTURE                          VAL R14
+      368 CAPTURE                          VAL R13
+      369 CAPTURE                          VAL R29
+      370 CAPTURE                          VAL R12
+      371 CAPTURE                          VAL R28
+      372 CAPTURE                          UPVAL U0
+      373 NEWCLOSURE                       R40 P19
+      374 CAPTURE                          VAL R8
+      375 CAPTURE                          VAL R14
+      376 CAPTURE                          VAL R29
+      377 CAPTURE                          VAL R13
+      378 CAPTURE                          VAL R12
+      379 CAPTURE                          VAL R28
+      380 CAPTURE                          UPVAL U0
+      381 CAPTURE                          VAL R27
+      382 CAPTURE                          VAL R9
+      383 CAPTURE                          VAL R36
+      384 NEWCLOSURE                       R41 P20
+      385 CAPTURE                          VAL R27
+      386 CAPTURE                          VAL R13
+      387 CAPTURE                          VAL R28
+      388 CAPTURE                          VAL R9
+      389 CAPTURE                          VAL R8
+      390 CAPTURE                          VAL R12
+      391 CAPTURE                          VAL R14
+      392 CAPTURE                          VAL R38
+      393 CAPTURE                          VAL R39
+      394 CAPTURE                          VAL R29
+      395 CAPTURE                          UPVAL U0
+      396 NEWCLOSURE                       R42 P21
+      397 CAPTURE                          VAL R40
+      398 CAPTURE                          VAL R41
+      399 GETUPVAL                         R43 4
+      400 GETTABLEKS                       R43 R43 K17 ["useEffect"]
+      402 NEWCLOSURE                       R44 P22
+      403 CAPTURE                          VAL R18
+      404 CAPTURE                          VAL R19
+      405 CAPTURE                          VAL R40
+      406 CAPTURE                          VAL R41
+      407 CAPTURE                          VAL R20
+      408 NEWTABLE                         R45 0 3
+      410 MOVE                             R46 R13
+      411 MOVE                             R47 R17
+      412 GETTABLEKS                       R48 R18 K18 ["current"]
+      414 JUMPIFNOT                        R48 ; [+4]
+      415 GETTABLEKS                       R48 R18 K18 ["current"]
+      417 GETTABLEKS                       R48 R48 K51 ["CursorPosition"]
+      419 SETLIST                          R45 R46 3 [1]
+      421 CALL                             R43 2 0
+      422 GETUPVAL                         R43 4
+      423 GETTABLEKS                       R43 R43 K17 ["useEffect"]
+      425 NEWCLOSURE                       R44 P23
+      426 CAPTURE                          VAL R18
+      427 CAPTURE                          VAL R20
+      428 NEWTABLE                         R45 0 1
+      430 GETTABLEKS                       R46 R18 K18 ["current"]
+      432 JUMPIFNOT                        R46 ; [+4]
+      433 GETTABLEKS                       R46 R18 K18 ["current"]
+      435 GETTABLEKS                       R46 R46 K8 ["Text"]
+      437 SETLIST                          R45 R46 1 [1]
+      439 CALL                             R43 2 0
+      440 JUMPIFNOT                        R27 ; [+31]
+      441 LENGTH                           R44 R30
+      442 LOADN                            R45 0
+      443 JUMPIFNOTLT                      R45 R44 ; [+28]
+      445 GETUPVAL                         R43 10
+      446 GETTABLEKS                       R43 R43 K52 ["createPortal"]
+      448 GETUPVAL                         R44 4
+      449 GETTABLEKS                       R44 R44 K20 ["createElement"]
+      451 LOADK                            R45 K53 ["CanvasGroup"]
+      452 NEWTABLE                         R46 4 0
+      454 SETTABLEKS                       R23 R46 K54 ["Position"]
+      456 SETTABLEKS                       R25 R46 K38 ["Size"]
+      458 GETTABLEKS                       R47 R1 K55 ["AutomaticSize"]
+      460 SETTABLEKS                       R47 R46 K55 ["AutomaticSize"]
+      462 GETUPVAL                         R47 4
+      463 GETTABLEKS                       R47 R47 K27 ["Tag"]
+      465 LOADK                            R48 K56 ["Component-TaggingDropdown X-Column"]
+      466 SETTABLE                         R48 R46 R47
+      467 MOVE                             R47 R33
+      468 CALL                             R44 3 1
+      469 MOVE                             R45 R2
+      470 CALL                             R43 2 1
+      471 RETURN                           R43 1
+      472 LOADNIL                          R43
+      473 RETURN                           R43 1
 
 MAIN:
         0 PREPVARARGS                      0

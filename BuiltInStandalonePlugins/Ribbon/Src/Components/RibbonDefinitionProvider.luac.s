@@ -325,42 +325,41 @@ PROTO_16:
        10 GETTABLE                         R3 R4 R2
        11 JUMPIFEQKNIL                     R3 ; [+5]
        13 GETTABLEKS                       R3 R0 K2 ["Type"]
-       15 JUMPIFEQKS                       R3 K3 ["Custom"] ; [+11]
+       15 JUMPIFEQKS                       R3 K3 ["Custom"] ; [+10]
        17 GETIMPORT                        R3 K5 [warn]
-       19 LOADK                            R5 K6 ["Cannot add control to tab %*"]
-       20 MOVE                             R7 R2
-       21 NAMECALL                         R5 R5 K7 ["format"]
-       23 CALL                             R5 2 1
-       24 MOVE                             R4 R5
-       25 CALL                             R3 1 0
-       26 RETURN                           R0 0
-       27 GETUPVAL                         R3 2
-       28 GETUPVAL                         R4 1
-       29 DUPTABLE                         R5 K8 [{"TabControls"}]
-       30 NEWTABLE                         R6 1 0
-       32 DUPTABLE                         R7 K10 [{"Controls"}]
-       33 GETUPVAL                         R8 3
-       34 NEWTABLE                         R9 0 0
-       36 GETUPVAL                         R11 1
-       37 GETTABLEKS                       R11 R11 K1 ["TabControls"]
-       39 GETTABLE                         R10 R11 R2
-       40 GETTABLEKS                       R10 R10 K9 ["Controls"]
-       42 MOVE                             R11 R1
-       43 CALL                             R8 3 1
-       44 SETTABLEKS                       R8 R7 K9 ["Controls"]
-       46 SETTABLE                         R7 R6 R2
-       47 SETTABLEKS                       R6 R5 K1 ["TabControls"]
-       49 CALL                             R3 2 1
-       50 GETUPVAL                         R4 4
-       51 MOVE                             R5 R3
-       52 CALL                             R4 1 0
-       53 GETUPVAL                         R4 5
-       54 MOVE                             R5 R3
-       55 CALL                             R4 1 0
-       56 GETUPVAL                         R4 6
-       57 MOVE                             R5 R3
-       58 CALL                             R4 1 0
-       59 RETURN                           R0 0
+       19 LOADK                            R4 K6 ["Cannot add control to tab %*"]
+       20 MOVE                             R6 R2
+       21 NAMECALL                         R4 R4 K7 ["format"]
+       23 CALL                             R4 2 1
+       24 CALL                             R3 1 0
+       25 RETURN                           R0 0
+       26 GETUPVAL                         R3 2
+       27 GETUPVAL                         R4 1
+       28 DUPTABLE                         R5 K8 [{"TabControls"}]
+       29 NEWTABLE                         R6 1 0
+       31 DUPTABLE                         R7 K10 [{"Controls"}]
+       32 GETUPVAL                         R8 3
+       33 NEWTABLE                         R9 0 0
+       35 GETUPVAL                         R11 1
+       36 GETTABLEKS                       R11 R11 K1 ["TabControls"]
+       38 GETTABLE                         R10 R11 R2
+       39 GETTABLEKS                       R10 R10 K9 ["Controls"]
+       41 MOVE                             R11 R1
+       42 CALL                             R8 3 1
+       43 SETTABLEKS                       R8 R7 K9 ["Controls"]
+       45 SETTABLE                         R7 R6 R2
+       46 SETTABLEKS                       R6 R5 K1 ["TabControls"]
+       48 CALL                             R3 2 1
+       49 GETUPVAL                         R4 4
+       50 MOVE                             R5 R3
+       51 CALL                             R4 1 0
+       52 GETUPVAL                         R4 5
+       53 MOVE                             R5 R3
+       54 CALL                             R4 1 0
+       55 GETUPVAL                         R4 6
+       56 MOVE                             R5 R3
+       57 CALL                             R4 1 0
+       58 RETURN                           R0 0
 
 PROTO_17:
         0 DUPTABLE                         R0 K2 [{"Identifier", "VisibleTabIndex"}]
@@ -513,34 +512,33 @@ PROTO_21:
         6 GETTABLE                         R3 R4 R2
         7 JUMPIFEQKNIL                     R3 ; [+5]
         9 GETTABLEKS                       R3 R0 K1 ["Type"]
-       11 JUMPIFEQKS                       R3 K2 ["Custom"] ; [+11]
+       11 JUMPIFEQKS                       R3 K2 ["Custom"] ; [+10]
        13 GETIMPORT                        R3 K4 [warn]
-       15 LOADK                            R5 K5 ["Cannot remove control from tab %*"]
-       16 MOVE                             R7 R2
-       17 NAMECALL                         R5 R5 K6 ["format"]
-       19 CALL                             R5 2 1
-       20 MOVE                             R4 R5
-       21 CALL                             R3 1 0
-       22 RETURN                           R0 0
-       23 GETUPVAL                         R3 2
-       24 GETUPVAL                         R4 1
-       25 CALL                             R3 1 1
-       26 GETIMPORT                        R4 K9 [table.remove]
-       28 GETTABLEKS                       R6 R3 K0 ["TabControls"]
-       30 GETTABLE                         R5 R6 R2
-       31 GETTABLEKS                       R5 R5 K10 ["Controls"]
-       33 MOVE                             R6 R1
-       34 CALL                             R4 2 0
-       35 GETUPVAL                         R4 3
-       36 MOVE                             R5 R3
-       37 CALL                             R4 1 0
-       38 GETUPVAL                         R4 4
-       39 MOVE                             R5 R3
-       40 CALL                             R4 1 0
-       41 GETUPVAL                         R4 5
-       42 MOVE                             R5 R3
-       43 CALL                             R4 1 0
-       44 RETURN                           R0 0
+       15 LOADK                            R4 K5 ["Cannot remove control from tab %*"]
+       16 MOVE                             R6 R2
+       17 NAMECALL                         R4 R4 K6 ["format"]
+       19 CALL                             R4 2 1
+       20 CALL                             R3 1 0
+       21 RETURN                           R0 0
+       22 GETUPVAL                         R3 2
+       23 GETUPVAL                         R4 1
+       24 CALL                             R3 1 1
+       25 GETIMPORT                        R4 K9 [table.remove]
+       27 GETTABLEKS                       R6 R3 K0 ["TabControls"]
+       29 GETTABLE                         R5 R6 R2
+       30 GETTABLEKS                       R5 R5 K10 ["Controls"]
+       32 MOVE                             R6 R1
+       33 CALL                             R4 2 0
+       34 GETUPVAL                         R4 3
+       35 MOVE                             R5 R3
+       36 CALL                             R4 1 0
+       37 GETUPVAL                         R4 4
+       38 MOVE                             R5 R3
+       39 CALL                             R4 1 0
+       40 GETUPVAL                         R4 5
+       41 MOVE                             R5 R3
+       42 CALL                             R4 1 0
+       43 RETURN                           R0 0
 
 PROTO_22:
         0 LOADB                            R1 0
@@ -570,51 +568,50 @@ PROTO_23:
        10 GETTABLE                         R3 R4 R2
        11 JUMPIFEQKNIL                     R3 ; [+5]
        13 GETTABLEKS                       R3 R0 K2 ["Type"]
-       15 JUMPIFEQKS                       R3 K3 ["Custom"] ; [+11]
+       15 JUMPIFEQKS                       R3 K3 ["Custom"] ; [+10]
        17 GETIMPORT                        R3 K5 [warn]
-       19 LOADK                            R5 K6 ["Cannot remove control from tab %*"]
-       20 MOVE                             R7 R2
-       21 NAMECALL                         R5 R5 K7 ["format"]
-       23 CALL                             R5 2 1
-       24 MOVE                             R4 R5
-       25 CALL                             R3 1 0
-       26 RETURN                           R0 0
-       27 GETUPVAL                         R3 2
-       28 GETUPVAL                         R4 1
-       29 CALL                             R3 1 1
-       30 GETTABLEKS                       R5 R3 K1 ["TabControls"]
-       32 GETTABLE                         R4 R5 R2
-       33 GETTABLEKS                       R4 R4 K8 ["Controls"]
-       35 LENGTH                           R5 R4
-       36 JUMPIFNOTEQKN                    R5 K0 [0] ; [+2]
-       38 RETURN                           R0 0
-       39 LENGTH                           R7 R4
-       40 LOADN                            R5 1
-       41 LOADN                            R6 -1
-       42 FORNPREP                         R5
-       43 GETTABLE                         R8 R4 R7
-       44 GETUPVAL                         R9 3
-       45 MOVE                             R10 R1
-       46 NEWCLOSURE                       R11 P0
-       47 CAPTURE                          VAL R8
-       48 CAPTURE                          UPVAL U4
-       49 CALL                             R9 2 1
-       50 JUMPIFNOT                        R9 ; [+5]
-       51 GETIMPORT                        R9 K11 [table.remove]
-       53 MOVE                             R10 R4
-       54 MOVE                             R11 R7
-       55 CALL                             R9 2 0
-       56 FORNLOOP                         R5
-       57 GETUPVAL                         R5 5
-       58 MOVE                             R6 R3
-       59 CALL                             R5 1 0
-       60 GETUPVAL                         R5 6
-       61 MOVE                             R6 R3
-       62 CALL                             R5 1 0
-       63 GETUPVAL                         R5 7
-       64 MOVE                             R6 R3
-       65 CALL                             R5 1 0
-       66 RETURN                           R0 0
+       19 LOADK                            R4 K6 ["Cannot remove control from tab %*"]
+       20 MOVE                             R6 R2
+       21 NAMECALL                         R4 R4 K7 ["format"]
+       23 CALL                             R4 2 1
+       24 CALL                             R3 1 0
+       25 RETURN                           R0 0
+       26 GETUPVAL                         R3 2
+       27 GETUPVAL                         R4 1
+       28 CALL                             R3 1 1
+       29 GETTABLEKS                       R5 R3 K1 ["TabControls"]
+       31 GETTABLE                         R4 R5 R2
+       32 GETTABLEKS                       R4 R4 K8 ["Controls"]
+       34 LENGTH                           R5 R4
+       35 JUMPIFNOTEQKN                    R5 K0 [0] ; [+2]
+       37 RETURN                           R0 0
+       38 LENGTH                           R7 R4
+       39 LOADN                            R5 1
+       40 LOADN                            R6 -1
+       41 FORNPREP                         R5
+       42 GETTABLE                         R8 R4 R7
+       43 GETUPVAL                         R9 3
+       44 MOVE                             R10 R1
+       45 NEWCLOSURE                       R11 P0
+       46 CAPTURE                          VAL R8
+       47 CAPTURE                          UPVAL U4
+       48 CALL                             R9 2 1
+       49 JUMPIFNOT                        R9 ; [+5]
+       50 GETIMPORT                        R9 K11 [table.remove]
+       52 MOVE                             R10 R4
+       53 MOVE                             R11 R7
+       54 CALL                             R9 2 0
+       55 FORNLOOP                         R5
+       56 GETUPVAL                         R5 5
+       57 MOVE                             R6 R3
+       58 CALL                             R5 1 0
+       59 GETUPVAL                         R5 6
+       60 MOVE                             R6 R3
+       61 CALL                             R5 1 0
+       62 GETUPVAL                         R5 7
+       63 MOVE                             R6 R3
+       64 CALL                             R5 1 0
+       65 RETURN                           R0 0
 
 PROTO_24:
         0 GETUPVAL                         R3 0
@@ -625,76 +622,73 @@ PROTO_24:
         6 GETTABLE                         R4 R5 R3
         7 JUMPIFEQKNIL                     R4 ; [+5]
         9 GETTABLEKS                       R4 R0 K1 ["Type"]
-       11 JUMPIFEQKS                       R4 K2 ["Custom"] ; [+11]
+       11 JUMPIFEQKS                       R4 K2 ["Custom"] ; [+10]
        13 GETIMPORT                        R4 K4 [warn]
-       15 LOADK                            R6 K5 ["Cannot move control on tab %*"]
-       16 MOVE                             R8 R3
-       17 NAMECALL                         R6 R6 K6 ["format"]
-       19 CALL                             R6 2 1
-       20 MOVE                             R5 R6
-       21 CALL                             R4 1 0
-       22 RETURN                           R0 0
-       23 GETUPVAL                         R4 2
-       24 GETUPVAL                         R5 1
-       25 CALL                             R4 1 1
-       26 GETTABLEKS                       R6 R4 K0 ["TabControls"]
-       28 GETTABLE                         R5 R6 R3
-       29 GETTABLEKS                       R5 R5 K7 ["Controls"]
-       31 LOADN                            R6 1
-       32 JUMPIFLT                         R1 R6 ; [+4]
-       34 LENGTH                           R6 R5
-       35 JUMPIFNOTLT                      R6 R1 ; [+12]
-       37 GETIMPORT                        R6 K4 [warn]
-       39 LOADK                            R8 K8 ["Invalid old control index %* for tab %*"]
-       40 MOVE                             R10 R1
-       41 MOVE                             R11 R3
-       42 NAMECALL                         R8 R8 K6 ["format"]
-       44 CALL                             R8 3 1
-       45 MOVE                             R7 R8
-       46 CALL                             R6 1 0
-       47 RETURN                           R0 0
-       48 LOADN                            R6 1
-       49 JUMPIFLT                         R2 R6 ; [+4]
-       51 LENGTH                           R6 R5
-       52 JUMPIFNOTLT                      R6 R2 ; [+12]
-       54 GETIMPORT                        R6 K4 [warn]
-       56 LOADK                            R8 K9 ["Invalid new control index %* for tab %*"]
-       57 MOVE                             R10 R2
-       58 MOVE                             R11 R3
-       59 NAMECALL                         R8 R8 K6 ["format"]
-       61 CALL                             R8 3 1
-       62 MOVE                             R7 R8
-       63 CALL                             R6 1 0
-       64 RETURN                           R0 0
-       65 GETIMPORT                        R6 K12 [table.remove]
-       67 GETTABLEKS                       R8 R4 K0 ["TabControls"]
-       69 GETTABLE                         R7 R8 R3
-       70 GETTABLEKS                       R7 R7 K7 ["Controls"]
-       72 MOVE                             R8 R1
-       73 CALL                             R6 2 1
-       74 FASTCALL2K                       ASSERT R6 K13 ; [+5]
-       76 MOVE                             R8 R6
-       77 LOADK                            R9 K13 ["Control is guaranteed to exist at this point, per the index checks above"]
-       78 GETIMPORT                        R7 K15 [assert]
-       80 CALL                             R7 2 0
-       81 GETTABLEKS                       R9 R4 K0 ["TabControls"]
-       83 GETTABLE                         R8 R9 R3
-       84 GETTABLEKS                       R8 R8 K7 ["Controls"]
-       86 FASTCALL3                        TABLE_INSERT R8 R2 R6
-       88 MOVE                             R9 R2
-       89 MOVE                             R10 R6
-       90 GETIMPORT                        R7 K17 [table.insert]
-       92 CALL                             R7 3 0
-       93 GETUPVAL                         R7 3
+       15 LOADK                            R5 K5 ["Cannot move control on tab %*"]
+       16 MOVE                             R7 R3
+       17 NAMECALL                         R5 R5 K6 ["format"]
+       19 CALL                             R5 2 1
+       20 CALL                             R4 1 0
+       21 RETURN                           R0 0
+       22 GETUPVAL                         R4 2
+       23 GETUPVAL                         R5 1
+       24 CALL                             R4 1 1
+       25 GETTABLEKS                       R6 R4 K0 ["TabControls"]
+       27 GETTABLE                         R5 R6 R3
+       28 GETTABLEKS                       R5 R5 K7 ["Controls"]
+       30 LOADN                            R6 1
+       31 JUMPIFLT                         R1 R6 ; [+4]
+       33 LENGTH                           R6 R5
+       34 JUMPIFNOTLT                      R6 R1 ; [+11]
+       36 GETIMPORT                        R6 K4 [warn]
+       38 LOADK                            R7 K8 ["Invalid old control index %* for tab %*"]
+       39 MOVE                             R9 R1
+       40 MOVE                             R10 R3
+       41 NAMECALL                         R7 R7 K6 ["format"]
+       43 CALL                             R7 3 1
+       44 CALL                             R6 1 0
+       45 RETURN                           R0 0
+       46 LOADN                            R6 1
+       47 JUMPIFLT                         R2 R6 ; [+4]
+       49 LENGTH                           R6 R5
+       50 JUMPIFNOTLT                      R6 R2 ; [+11]
+       52 GETIMPORT                        R6 K4 [warn]
+       54 LOADK                            R7 K9 ["Invalid new control index %* for tab %*"]
+       55 MOVE                             R9 R2
+       56 MOVE                             R10 R3
+       57 NAMECALL                         R7 R7 K6 ["format"]
+       59 CALL                             R7 3 1
+       60 CALL                             R6 1 0
+       61 RETURN                           R0 0
+       62 GETIMPORT                        R6 K12 [table.remove]
+       64 GETTABLEKS                       R8 R4 K0 ["TabControls"]
+       66 GETTABLE                         R7 R8 R3
+       67 GETTABLEKS                       R7 R7 K7 ["Controls"]
+       69 MOVE                             R8 R1
+       70 CALL                             R6 2 1
+       71 FASTCALL2K                       ASSERT R6 K13 ; [+5]
+       73 MOVE                             R8 R6
+       74 LOADK                            R9 K13 ["Control is guaranteed to exist at this point, per the index checks above"]
+       75 GETIMPORT                        R7 K15 [assert]
+       77 CALL                             R7 2 0
+       78 GETTABLEKS                       R9 R4 K0 ["TabControls"]
+       80 GETTABLE                         R8 R9 R3
+       81 GETTABLEKS                       R8 R8 K7 ["Controls"]
+       83 FASTCALL3                        TABLE_INSERT R8 R2 R6
+       85 MOVE                             R9 R2
+       86 MOVE                             R10 R6
+       87 GETIMPORT                        R7 K17 [table.insert]
+       89 CALL                             R7 3 0
+       90 GETUPVAL                         R7 3
+       91 MOVE                             R8 R4
+       92 CALL                             R7 1 0
+       93 GETUPVAL                         R7 4
        94 MOVE                             R8 R4
        95 CALL                             R7 1 0
-       96 GETUPVAL                         R7 4
+       96 GETUPVAL                         R7 5
        97 MOVE                             R8 R4
        98 CALL                             R7 1 0
-       99 GETUPVAL                         R7 5
-      100 MOVE                             R8 R4
-      101 CALL                             R7 1 0
-      102 RETURN                           R0 0
+       99 RETURN                           R0 0
 
 PROTO_25:
         0 GETUPVAL                         R1 0
@@ -750,58 +744,56 @@ PROTO_26:
        27 MOVE                             R3 R7
        28 JUMP                             ; [+2]
        29 FORGLOOP                         R4 2 ; [-19]
-       31 JUMPIFNOTEQKN                    R3 K5 [-1] ; [+12]
+       31 JUMPIFNOTEQKN                    R3 K5 [-1] ; [+11]
        33 GETIMPORT                        R4 K7 [warn]
-       35 LOADK                            R6 K8 ["Unable to find tab %*"]
-       36 GETTABLEKS                       R8 R0 K3 ["Filename"]
-       38 NAMECALL                         R6 R6 K9 ["format"]
-       40 CALL                             R6 2 1
-       41 MOVE                             R5 R6
-       42 CALL                             R4 1 0
-       43 RETURN                           R0 0
-       44 GETIMPORT                        R4 K12 [table.remove]
-       46 GETTABLEKS                       R5 R2 K0 ["Layout"]
-       48 GETTABLEKS                       R5 R5 K1 ["TabLayout"]
-       50 MOVE                             R6 R3
-       51 CALL                             R4 2 1
-       52 JUMPIFNOTEQKNIL                  R4 ; [+12]
-       54 GETIMPORT                        R5 K7 [warn]
-       56 LOADK                            R7 K13 ["Unable to move tab %*"]
-       57 GETTABLEKS                       R9 R0 K3 ["Filename"]
-       59 NAMECALL                         R7 R7 K9 ["format"]
-       61 CALL                             R7 2 1
-       62 MOVE                             R6 R7
-       63 CALL                             R5 1 0
-       64 RETURN                           R0 0
-       65 MOVE                             R5 R3
-       66 JUMPIFNOTEQKS                    R1 K14 ["Left"] ; [+6]
-       68 LOADN                            R6 1
-       69 JUMPIFNOTLT                      R6 R3 ; [+3]
-       71 SUBK                             R5 R5 K15 [1]
-       72 JUMP                             ; [+10]
-       73 JUMPIFNOTEQKS                    R1 K16 ["Right"] ; [+9]
-       75 GETTABLEKS                       R7 R2 K0 ["Layout"]
-       77 GETTABLEKS                       R7 R7 K1 ["TabLayout"]
-       79 LENGTH                           R6 R7
-       80 JUMPIFNOTLE                      R3 R6 ; [+2]
-       82 ADDK                             R5 R5 K15 [1]
-       83 GETTABLEKS                       R7 R2 K0 ["Layout"]
-       85 GETTABLEKS                       R7 R7 K1 ["TabLayout"]
-       87 FASTCALL3                        TABLE_INSERT R7 R5 R4
-       89 MOVE                             R8 R5
-       90 MOVE                             R9 R4
-       91 GETIMPORT                        R6 K18 [table.insert]
-       93 CALL                             R6 3 0
-       94 GETUPVAL                         R6 2
-       95 MOVE                             R7 R2
-       96 CALL                             R6 1 0
-       97 GETUPVAL                         R6 3
-       98 MOVE                             R7 R2
-       99 CALL                             R6 1 0
-      100 GETUPVAL                         R6 4
-      101 MOVE                             R7 R2
-      102 CALL                             R6 1 0
-      103 RETURN                           R0 0
+       35 LOADK                            R5 K8 ["Unable to find tab %*"]
+       36 GETTABLEKS                       R7 R0 K3 ["Filename"]
+       38 NAMECALL                         R5 R5 K9 ["format"]
+       40 CALL                             R5 2 1
+       41 CALL                             R4 1 0
+       42 RETURN                           R0 0
+       43 GETIMPORT                        R4 K12 [table.remove]
+       45 GETTABLEKS                       R5 R2 K0 ["Layout"]
+       47 GETTABLEKS                       R5 R5 K1 ["TabLayout"]
+       49 MOVE                             R6 R3
+       50 CALL                             R4 2 1
+       51 JUMPIFNOTEQKNIL                  R4 ; [+11]
+       53 GETIMPORT                        R5 K7 [warn]
+       55 LOADK                            R6 K13 ["Unable to move tab %*"]
+       56 GETTABLEKS                       R8 R0 K3 ["Filename"]
+       58 NAMECALL                         R6 R6 K9 ["format"]
+       60 CALL                             R6 2 1
+       61 CALL                             R5 1 0
+       62 RETURN                           R0 0
+       63 MOVE                             R5 R3
+       64 JUMPIFNOTEQKS                    R1 K14 ["Left"] ; [+6]
+       66 LOADN                            R6 1
+       67 JUMPIFNOTLT                      R6 R3 ; [+3]
+       69 SUBK                             R5 R5 K15 [1]
+       70 JUMP                             ; [+10]
+       71 JUMPIFNOTEQKS                    R1 K16 ["Right"] ; [+9]
+       73 GETTABLEKS                       R7 R2 K0 ["Layout"]
+       75 GETTABLEKS                       R7 R7 K1 ["TabLayout"]
+       77 LENGTH                           R6 R7
+       78 JUMPIFNOTLE                      R3 R6 ; [+2]
+       80 ADDK                             R5 R5 K15 [1]
+       81 GETTABLEKS                       R7 R2 K0 ["Layout"]
+       83 GETTABLEKS                       R7 R7 K1 ["TabLayout"]
+       85 FASTCALL3                        TABLE_INSERT R7 R5 R4
+       87 MOVE                             R8 R5
+       88 MOVE                             R9 R4
+       89 GETIMPORT                        R6 K18 [table.insert]
+       91 CALL                             R6 3 0
+       92 GETUPVAL                         R6 2
+       93 MOVE                             R7 R2
+       94 CALL                             R6 1 0
+       95 GETUPVAL                         R6 3
+       96 MOVE                             R7 R2
+       97 CALL                             R6 1 0
+       98 GETUPVAL                         R6 4
+       99 MOVE                             R7 R2
+      100 CALL                             R6 1 0
+      101 RETURN                           R0 0
 
 PROTO_27:
         0 GETUPVAL                         R1 0
@@ -829,33 +821,32 @@ PROTO_27:
        32 FORGLOOP                         R4 2 ; [-19]
        34 JUMPIFEQKN                       R3 K5 [-1] ; [+5]
        36 GETTABLEKS                       R4 R0 K4 ["Type"]
-       38 JUMPIFEQKS                       R4 K6 ["Custom"] ; [+11]
+       38 JUMPIFEQKS                       R4 K6 ["Custom"] ; [+10]
        40 GETIMPORT                        R4 K8 [warn]
-       42 LOADK                            R6 K9 ["Unable to remove tab %*"]
-       43 MOVE                             R8 R2
-       44 NAMECALL                         R6 R6 K10 ["format"]
-       46 CALL                             R6 2 1
-       47 MOVE                             R5 R6
-       48 CALL                             R4 1 0
-       49 RETURN                           R0 0
-       50 GETIMPORT                        R4 K13 [table.remove]
-       52 GETTABLEKS                       R5 R1 K0 ["Layout"]
-       54 GETTABLEKS                       R5 R5 K1 ["TabLayout"]
-       56 MOVE                             R6 R3
-       57 CALL                             R4 2 0
-       58 GETTABLEKS                       R4 R1 K14 ["TabControls"]
-       60 LOADNIL                          R5
-       61 SETTABLE                         R5 R4 R2
-       62 GETUPVAL                         R4 3
-       63 MOVE                             R5 R1
-       64 CALL                             R4 1 0
-       65 GETUPVAL                         R4 4
-       66 MOVE                             R5 R1
-       67 CALL                             R4 1 0
-       68 GETUPVAL                         R4 5
-       69 MOVE                             R5 R1
-       70 CALL                             R4 1 0
-       71 RETURN                           R0 0
+       42 LOADK                            R5 K9 ["Unable to remove tab %*"]
+       43 MOVE                             R7 R2
+       44 NAMECALL                         R5 R5 K10 ["format"]
+       46 CALL                             R5 2 1
+       47 CALL                             R4 1 0
+       48 RETURN                           R0 0
+       49 GETIMPORT                        R4 K13 [table.remove]
+       51 GETTABLEKS                       R5 R1 K0 ["Layout"]
+       53 GETTABLEKS                       R5 R5 K1 ["TabLayout"]
+       55 MOVE                             R6 R3
+       56 CALL                             R4 2 0
+       57 GETTABLEKS                       R4 R1 K14 ["TabControls"]
+       59 LOADNIL                          R5
+       60 SETTABLE                         R5 R4 R2
+       61 GETUPVAL                         R4 3
+       62 MOVE                             R5 R1
+       63 CALL                             R4 1 0
+       64 GETUPVAL                         R4 4
+       65 MOVE                             R5 R1
+       66 CALL                             R4 1 0
+       67 GETUPVAL                         R4 5
+       68 MOVE                             R5 R1
+       69 CALL                             R4 1 0
+       70 RETURN                           R0 0
 
 PROTO_28:
         0 GETUPVAL                         R0 0

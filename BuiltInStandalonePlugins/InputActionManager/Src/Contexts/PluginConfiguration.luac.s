@@ -69,16 +69,15 @@ PROTO_7:
        10 RETURN                           R1 1
 
 PROTO_8:
-        0 LOADK                            R6 K0 ["%*|%*|%*|%*|%*"]
-        1 MOVE                             R8 R0
-        2 ORK                              R9 R1 K1 [""]
-        3 MOVE                             R10 R2
-        4 MOVE                             R11 R3
-        5 MOVE                             R12 R4
-        6 NAMECALL                         R6 R6 K2 ["format"]
-        8 CALL                             R6 6 1
-        9 MOVE                             R5 R6
-       10 RETURN                           R5 1
+        0 LOADK                            R5 K0 ["%*|%*|%*|%*|%*"]
+        1 MOVE                             R7 R0
+        2 ORK                              R8 R1 K1 [""]
+        3 MOVE                             R9 R2
+        4 MOVE                             R10 R3
+        5 MOVE                             R11 R4
+        6 NAMECALL                         R5 R5 K2 ["format"]
+        8 CALL                             R5 6 1
+        9 RETURN                           R5 1
 
 PROTO_9:
         0 GETUPVAL                         R1 0

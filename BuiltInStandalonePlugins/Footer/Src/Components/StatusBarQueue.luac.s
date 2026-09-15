@@ -24,13 +24,12 @@ PROTO_1:
         3 LOADK                            R0 K1 ["task"]
         4 JUMP                             ; [+1]
         5 LOADK                            R0 K2 ["tasks"]
-        6 LOADK                            R2 K3 ["%* %*"]
-        7 GETUPVAL                         R4 0
-        8 MOVE                             R5 R0
-        9 NAMECALL                         R2 R2 K4 ["format"]
-       11 CALL                             R2 3 1
-       12 MOVE                             R1 R2
-       13 RETURN                           R1 1
+        6 LOADK                            R1 K3 ["%* %*"]
+        7 GETUPVAL                         R3 0
+        8 MOVE                             R4 R0
+        9 NAMECALL                         R1 R1 K4 ["format"]
+       11 CALL                             R1 3 1
+       12 RETURN                           R1 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0

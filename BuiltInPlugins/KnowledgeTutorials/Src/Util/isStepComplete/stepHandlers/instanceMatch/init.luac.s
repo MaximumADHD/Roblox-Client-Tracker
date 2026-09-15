@@ -38,72 +38,70 @@ PROTO_1:
        38 MOVE                             R10 R7
        39 LOADK                            R11 K13 ["^target%-prop%-(.+)$"]
        40 CALL                             R9 2 1
-       41 JUMPIFNOT                        R9 ; [+72]
+       41 JUMPIFNOT                        R9 ; [+70]
        42 GETIMPORT                        R10 K2 [pcall]
        44 NEWCLOSURE                       R11 P0
        45 CAPTURE                          VAL R3
        46 CAPTURE                          VAL R9
        47 CALL                             R10 1 2
-       48 JUMPIF                           R10 ; [+13]
+       48 JUMPIF                           R10 ; [+12]
        49 GETIMPORT                        R12 K15 [warn]
-       51 LOADK                            R14 K16 ["Error accessing property %* on instance %*: %*"]
-       52 MOVE                             R16 R9
-       53 MOVE                             R17 R1
-       54 MOVE                             R18 R11
-       55 NAMECALL                         R14 R14 K17 ["format"]
-       57 CALL                             R14 4 1
-       58 MOVE                             R13 R14
-       59 CALL                             R12 1 0
-       60 LOADB                            R12 0
-       61 RETURN                           R12 1
-       62 GETIMPORT                        R12 K12 [string.match]
-       64 FASTCALL1                        TOSTRING R8 ; [+3]
-       65 MOVE                             R14 R8
-       66 GETIMPORT                        R13 K4 [tostring]
-       68 CALL                             R13 1 1
-       69 LOADK                            R14 K18 ["^=(.-)%((.+)%)$"]
-       70 CALL                             R12 2 2
-       71 JUMPIFNOT                        R12 ; [+3]
-       72 GETUPVAL                         R15 2
-       73 GETTABLE                         R14 R15 R12
-       74 JUMPIF                           R14 ; [+1]
-       75 LOADK                            R12 K19 ["EQUALS"]
-       76 GETUPVAL                         R14 3
-       77 MOVE                             R15 R13
-       78 JUMPIF                           R15 ; [+5]
-       79 FASTCALL1                        TOSTRING R8 ; [+3]
-       80 MOVE                             R16 R8
-       81 GETIMPORT                        R15 K4 [tostring]
-       83 CALL                             R15 1 1
-       84 FASTCALL1                        TYPEOF R11 ; [+3]
-       85 MOVE                             R17 R11
-       86 GETIMPORT                        R16 K21 [typeof]
-       88 CALL                             R16 1 1
-       89 CALL                             R14 2 1
-       90 GETIMPORT                        R15 K2 [pcall]
-       92 GETUPVAL                         R17 2
-       93 GETTABLE                         R16 R17 R12
-       94 MOVE                             R17 R14
-       95 MOVE                             R18 R11
-       96 CALL                             R15 3 2
-       97 JUMPIF                           R15 ; [+13]
-       98 GETIMPORT                        R17 K15 [warn]
-      100 LOADK                            R19 K22 ["Error in matcher '%*' for property '%*': %*"]
-      101 MOVE                             R21 R12
-      102 MOVE                             R22 R9
-      103 MOVE                             R23 R16
-      104 NAMECALL                         R19 R19 K17 ["format"]
-      106 CALL                             R19 4 1
-      107 MOVE                             R18 R19
-      108 CALL                             R17 1 0
-      109 LOADB                            R17 0
-      110 RETURN                           R17 1
-      111 JUMPIF                           R16 ; [+2]
-      112 LOADB                            R17 0
-      113 RETURN                           R17 1
-      114 FORGLOOP                         R4 2 ; [-79]
-      116 LOADB                            R4 1
-      117 RETURN                           R4 1
+       51 LOADK                            R13 K16 ["Error accessing property %* on instance %*: %*"]
+       52 MOVE                             R15 R9
+       53 MOVE                             R16 R1
+       54 MOVE                             R17 R11
+       55 NAMECALL                         R13 R13 K17 ["format"]
+       57 CALL                             R13 4 1
+       58 CALL                             R12 1 0
+       59 LOADB                            R12 0
+       60 RETURN                           R12 1
+       61 GETIMPORT                        R12 K12 [string.match]
+       63 FASTCALL1                        TOSTRING R8 ; [+3]
+       64 MOVE                             R14 R8
+       65 GETIMPORT                        R13 K4 [tostring]
+       67 CALL                             R13 1 1
+       68 LOADK                            R14 K18 ["^=(.-)%((.+)%)$"]
+       69 CALL                             R12 2 2
+       70 JUMPIFNOT                        R12 ; [+3]
+       71 GETUPVAL                         R15 2
+       72 GETTABLE                         R14 R15 R12
+       73 JUMPIF                           R14 ; [+1]
+       74 LOADK                            R12 K19 ["EQUALS"]
+       75 GETUPVAL                         R14 3
+       76 MOVE                             R15 R13
+       77 JUMPIF                           R15 ; [+5]
+       78 FASTCALL1                        TOSTRING R8 ; [+3]
+       79 MOVE                             R16 R8
+       80 GETIMPORT                        R15 K4 [tostring]
+       82 CALL                             R15 1 1
+       83 FASTCALL1                        TYPEOF R11 ; [+3]
+       84 MOVE                             R17 R11
+       85 GETIMPORT                        R16 K21 [typeof]
+       87 CALL                             R16 1 1
+       88 CALL                             R14 2 1
+       89 GETIMPORT                        R15 K2 [pcall]
+       91 GETUPVAL                         R17 2
+       92 GETTABLE                         R16 R17 R12
+       93 MOVE                             R17 R14
+       94 MOVE                             R18 R11
+       95 CALL                             R15 3 2
+       96 JUMPIF                           R15 ; [+12]
+       97 GETIMPORT                        R17 K15 [warn]
+       99 LOADK                            R18 K22 ["Error in matcher '%*' for property '%*': %*"]
+      100 MOVE                             R20 R12
+      101 MOVE                             R21 R9
+      102 MOVE                             R22 R16
+      103 NAMECALL                         R18 R18 K17 ["format"]
+      105 CALL                             R18 4 1
+      106 CALL                             R17 1 0
+      107 LOADB                            R17 0
+      108 RETURN                           R17 1
+      109 JUMPIF                           R16 ; [+2]
+      110 LOADB                            R17 0
+      111 RETURN                           R17 1
+      112 FORGLOOP                         R4 2 ; [-77]
+      114 LOADB                            R4 1
+      115 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

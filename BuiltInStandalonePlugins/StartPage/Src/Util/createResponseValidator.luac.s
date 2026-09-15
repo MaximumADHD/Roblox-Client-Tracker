@@ -2,7 +2,7 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["responseBody"]
         3 CALL                             R1 1 1
-        4 JUMPIFNOT                        R1 ; [+40]
+        4 JUMPIFNOT                        R1 ; [+39]
         5 GETUPVAL                         R2 1
         6 GETTABLEKS                       R3 R0 K0 ["responseBody"]
         8 DUPTABLE                         R4 K3 [{["multiline"] = True}]
@@ -26,15 +26,14 @@ PROTO_0:
        33 NAMECALL                         R10 R10 K8 ["format"]
        35 CALL                             R10 2 1
        36 MOVE                             R8 R10
-       37 LOADK                            R10 K14 ["\nBody:\n%*"]
-       38 MOVE                             R12 R2
-       39 NAMECALL                         R10 R10 K8 ["format"]
-       41 CALL                             R10 2 1
-       42 MOVE                             R9 R10
-       43 CONCAT                           R4 R5 R9
-       44 CALL                             R3 1 0
-       45 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-       47 RETURN                           R2 1
+       37 LOADK                            R9 K14 ["\nBody:\n%*"]
+       38 MOVE                             R11 R2
+       39 NAMECALL                         R9 R9 K8 ["format"]
+       41 CALL                             R9 2 1
+       42 CONCAT                           R4 R5 R9
+       43 CALL                             R3 1 0
+       44 GETTABLEKS                       R2 R0 K0 ["responseBody"]
+       46 RETURN                           R2 1
 
 PROTO_1:
         0 NEWCLOSURE                       R1 P0

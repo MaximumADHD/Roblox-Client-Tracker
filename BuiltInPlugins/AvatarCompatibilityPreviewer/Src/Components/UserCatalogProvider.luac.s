@@ -2,47 +2,45 @@ PROTO_0:
         0 LOADK                            R3 K0 ["RBX_Palette"]
         1 NAMECALL                         R1 R0 K1 ["GetAttribute"]
         3 CALL                             R1 2 1
-        4 JUMPIF                           R1 ; [+11]
+        4 JUMPIF                           R1 ; [+10]
         5 GETIMPORT                        R2 K3 [warn]
-        7 LOADK                            R4 K4 ["%* did not have a palette set. This is a bug in the plugin, please report it."]
-        8 MOVE                             R6 R0
-        9 NAMECALL                         R4 R4 K5 ["format"]
-       11 CALL                             R4 2 1
-       12 MOVE                             R3 R4
-       13 CALL                             R2 1 0
-       14 LOADNIL                          R2
-       15 RETURN                           R2 1
-       16 GETUPVAL                         R2 0
-       17 MOVE                             R3 R1
-       18 CALL                             R2 1 1
-       19 JUMPIFNOTEQKNIL                  R2 ; [+13]
-       21 GETIMPORT                        R3 K3 [warn]
-       23 LOADK                            R5 K6 ["%* has an invalid palette \"%*\". This is a bug in the plugin, please report it."]
-       24 MOVE                             R7 R0
-       25 MOVE                             R8 R1
-       26 NAMECALL                         R5 R5 K5 ["format"]
-       28 CALL                             R5 3 1
-       29 MOVE                             R4 R5
-       30 CALL                             R3 1 0
-       31 LOADNIL                          R3
-       32 RETURN                           R3 1
-       33 JUMPIFNOTEQKNIL                  R2 ; [+2]
-       35 LOADB                            R4 0 +1
-       36 LOADB                            R4 1
-       37 GETUPVAL                         R5 1
-       38 GETTABLEKS                       R5 R5 K7 ["LUAU_ANALYZE_ERROR"]
-       40 FASTCALL2                        ASSERT R4 R5 ; [+3]
-       42 GETIMPORT                        R3 K9 [assert]
-       44 CALL                             R3 2 0
-       45 DUPTABLE                         R3 K12 [{"palette", "item"}]
-       46 SETTABLEKS                       R2 R3 K10 ["palette"]
-       48 DUPTABLE                         R4 K15 [{"source", "instance"}]
-       49 GETUPVAL                         R5 1
-       50 GETTABLEKS                       R5 R5 K16 ["SOURCE_INSTANCE"]
-       52 SETTABLEKS                       R5 R4 K13 ["source"]
-       54 SETTABLEKS                       R0 R4 K14 ["instance"]
-       56 SETTABLEKS                       R4 R3 K11 ["item"]
-       58 RETURN                           R3 1
+        7 LOADK                            R3 K4 ["%* did not have a palette set. This is a bug in the plugin, please report it."]
+        8 MOVE                             R5 R0
+        9 NAMECALL                         R3 R3 K5 ["format"]
+       11 CALL                             R3 2 1
+       12 CALL                             R2 1 0
+       13 LOADNIL                          R2
+       14 RETURN                           R2 1
+       15 GETUPVAL                         R2 0
+       16 MOVE                             R3 R1
+       17 CALL                             R2 1 1
+       18 JUMPIFNOTEQKNIL                  R2 ; [+12]
+       20 GETIMPORT                        R3 K3 [warn]
+       22 LOADK                            R4 K6 ["%* has an invalid palette \"%*\". This is a bug in the plugin, please report it."]
+       23 MOVE                             R6 R0
+       24 MOVE                             R7 R1
+       25 NAMECALL                         R4 R4 K5 ["format"]
+       27 CALL                             R4 3 1
+       28 CALL                             R3 1 0
+       29 LOADNIL                          R3
+       30 RETURN                           R3 1
+       31 JUMPIFNOTEQKNIL                  R2 ; [+2]
+       33 LOADB                            R4 0 +1
+       34 LOADB                            R4 1
+       35 GETUPVAL                         R5 1
+       36 GETTABLEKS                       R5 R5 K7 ["LUAU_ANALYZE_ERROR"]
+       38 FASTCALL2                        ASSERT R4 R5 ; [+3]
+       40 GETIMPORT                        R3 K9 [assert]
+       42 CALL                             R3 2 0
+       43 DUPTABLE                         R3 K12 [{"palette", "item"}]
+       44 SETTABLEKS                       R2 R3 K10 ["palette"]
+       46 DUPTABLE                         R4 K15 [{"source", "instance"}]
+       47 GETUPVAL                         R5 1
+       48 GETTABLEKS                       R5 R5 K16 ["SOURCE_INSTANCE"]
+       50 SETTABLEKS                       R5 R4 K13 ["source"]
+       52 SETTABLEKS                       R0 R4 K14 ["instance"]
+       54 SETTABLEKS                       R4 R3 K11 ["item"]
+       56 RETURN                           R3 1
 
 PROTO_1:
         0 GETUPVAL                         R2 0

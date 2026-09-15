@@ -274,27 +274,24 @@ PROTO_11:
 
 PROTO_12:
         0 GETTABLEKS                       R3 R0 K0 ["RootPlaceId"]
-        2 JUMPIFNOT                        R3 ; [+8]
-        3 LOADK                            R3 K1 ["Place_%*"]
-        4 GETTABLEKS                       R5 R0 K0 ["RootPlaceId"]
-        6 NAMECALL                         R3 R3 K2 ["format"]
-        8 CALL                             R3 2 1
-        9 MOVE                             R2 R3
-       10 RETURN                           R2 1
-       11 GETTABLEKS                       R3 R0 K3 ["FilePath"]
-       13 JUMPIFNOT                        R3 ; [+8]
-       14 LOADK                            R3 K4 ["File_%*"]
-       15 GETTABLEKS                       R5 R0 K3 ["FilePath"]
-       17 NAMECALL                         R3 R3 K2 ["format"]
-       19 CALL                             R3 2 1
-       20 MOVE                             R2 R3
-       21 RETURN                           R2 1
-       22 LOADK                            R3 K5 ["Row_%*"]
-       23 MOVE                             R5 R1
-       24 NAMECALL                         R3 R3 K2 ["format"]
-       26 CALL                             R3 2 1
-       27 MOVE                             R2 R3
-       28 RETURN                           R2 1
+        2 JUMPIFNOT                        R3 ; [+7]
+        3 LOADK                            R2 K1 ["Place_%*"]
+        4 GETTABLEKS                       R4 R0 K0 ["RootPlaceId"]
+        6 NAMECALL                         R2 R2 K2 ["format"]
+        8 CALL                             R2 2 1
+        9 RETURN                           R2 1
+       10 GETTABLEKS                       R3 R0 K3 ["FilePath"]
+       12 JUMPIFNOT                        R3 ; [+7]
+       13 LOADK                            R2 K4 ["File_%*"]
+       14 GETTABLEKS                       R4 R0 K3 ["FilePath"]
+       16 NAMECALL                         R2 R2 K2 ["format"]
+       18 CALL                             R2 2 1
+       19 RETURN                           R2 1
+       20 LOADK                            R2 K5 ["Row_%*"]
+       21 MOVE                             R4 R1
+       22 NAMECALL                         R2 R2 K2 ["format"]
+       24 CALL                             R2 2 1
+       25 RETURN                           R2 1
 
 PROTO_13:
         0 GETTABLEKS                       R2 R0 K0 ["ImageUrl"]

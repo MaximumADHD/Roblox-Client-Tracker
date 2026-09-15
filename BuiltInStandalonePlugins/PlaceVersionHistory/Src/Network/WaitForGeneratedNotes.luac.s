@@ -76,13 +76,12 @@ PROTO_3:
        14 LOADNIL                          R0
        15 SETUPVAL                         R0 1
        16 GETUPVAL                         R0 2
-       17 LOADK                            R2 K4 ["WaitForGeneratedNotes: timed out waiting for operation %*"]
-       18 GETUPVAL                         R4 3
-       19 NAMECALL                         R2 R2 K5 ["format"]
-       21 CALL                             R2 2 1
-       22 MOVE                             R1 R2
-       23 CALL                             R0 1 0
-       24 RETURN                           R0 0
+       17 LOADK                            R1 K4 ["WaitForGeneratedNotes: timed out waiting for operation %*"]
+       18 GETUPVAL                         R3 3
+       19 NAMECALL                         R1 R1 K5 ["format"]
+       21 CALL                             R1 2 1
+       22 CALL                             R0 1 0
+       23 RETURN                           R0 0
 
 PROTO_4:
         0 LOADNIL                          R3

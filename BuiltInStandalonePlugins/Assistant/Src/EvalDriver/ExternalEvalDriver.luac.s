@@ -134,15 +134,14 @@ PROTO_5:
 
 PROTO_6:
         0 DUPTABLE                         R0 K1 [{"message"}]
-        1 LOADK                            R2 K2 ["pong from %*"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R4 R4 K3 ["_serverInfo"]
-        5 GETTABLEKS                       R4 R4 K4 ["name"]
-        7 NAMECALL                         R2 R2 K5 ["format"]
-        9 CALL                             R2 2 1
-       10 MOVE                             R1 R2
-       11 SETTABLEKS                       R1 R0 K0 ["message"]
-       13 RETURN                           R0 1
+        1 LOADK                            R1 K2 ["pong from %*"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K3 ["_serverInfo"]
+        5 GETTABLEKS                       R3 R3 K4 ["name"]
+        7 NAMECALL                         R1 R1 K5 ["format"]
+        9 CALL                             R1 2 1
+       10 SETTABLEKS                       R1 R0 K0 ["message"]
+       12 RETURN                           R0 1
 
 PROTO_7:
         0 NEWTABLE                         R0 0 0
@@ -413,16 +412,15 @@ PROTO_27:
        28 CALL                             R5 5 1
        29 NAMECALL                         R5 R5 K8 ["await"]
        31 CALL                             R5 1 2
-       32 JUMPIF                           R5 ; [+10]
+       32 JUMPIF                           R5 ; [+9]
        33 GETIMPORT                        R7 K10 [error]
-       35 LOADK                            R9 K11 ["Failed to call tool %*: %*"]
-       36 MOVE                             R11 R1
-       37 MOVE                             R12 R6
-       38 NAMECALL                         R9 R9 K12 ["format"]
-       40 CALL                             R9 3 1
-       41 MOVE                             R8 R9
-       42 CALL                             R7 1 0
-       43 RETURN                           R6 1
+       35 LOADK                            R8 K11 ["Failed to call tool %*: %*"]
+       36 MOVE                             R10 R1
+       37 MOVE                             R11 R6
+       38 NAMECALL                         R8 R8 K12 ["format"]
+       40 CALL                             R8 3 1
+       41 CALL                             R7 1 0
+       42 RETURN                           R6 1
 
 PROTO_28:
         0 GETUPVAL                         R0 0
@@ -570,37 +568,36 @@ PROTO_30:
 PROTO_31:
         0 SETUPVAL                         R2 0
         1 GETIMPORT                        R3 K1 [print]
-        3 LOADK                            R5 K2 ["[StudioEvalDriver]::EvalDriverIdentity=%*"]
-        4 GETUPVAL                         R7 0
-        5 NAMECALL                         R5 R5 K3 ["format"]
-        7 CALL                             R5 2 1
-        8 MOVE                             R4 R5
-        9 CALL                             R3 1 0
-       10 SETUPVAL                         R1 1
-       11 GETUPVAL                         R3 2
-       12 GETTABLEKS                       R3 R3 K4 ["init"]
-       14 MOVE                             R4 R0
-       15 CALL                             R3 1 0
-       16 GETUPVAL                         R3 3
-       17 GETTABLEKS                       R3 R3 K4 ["init"]
-       19 MOVE                             R4 R0
-       20 GETUPVAL                         R5 1
-       21 CALL                             R3 2 0
-       22 GETUPVAL                         R3 4
-       23 GETTABLEKS                       R3 R3 K4 ["init"]
-       25 MOVE                             R4 R0
-       26 GETUPVAL                         R5 1
-       27 CALL                             R3 2 0
-       28 GETUPVAL                         R3 5
-       29 CALL                             R3 0 0
-       30 GETUPVAL                         R3 6
-       31 CALL                             R3 0 0
-       32 GETTABLEKS                       R3 R0 K5 ["Unloading"]
-       34 DUPCLOSURE                       R5 K6 [PROTO_30]
-       35 CAPTURE                          UPVAL U7
-       36 NAMECALL                         R3 R3 K7 ["Connect"]
-       38 CALL                             R3 2 0
-       39 RETURN                           R0 0
+        3 LOADK                            R4 K2 ["[StudioEvalDriver]::EvalDriverIdentity=%*"]
+        4 GETUPVAL                         R6 0
+        5 NAMECALL                         R4 R4 K3 ["format"]
+        7 CALL                             R4 2 1
+        8 CALL                             R3 1 0
+        9 SETUPVAL                         R1 1
+       10 GETUPVAL                         R3 2
+       11 GETTABLEKS                       R3 R3 K4 ["init"]
+       13 MOVE                             R4 R0
+       14 CALL                             R3 1 0
+       15 GETUPVAL                         R3 3
+       16 GETTABLEKS                       R3 R3 K4 ["init"]
+       18 MOVE                             R4 R0
+       19 GETUPVAL                         R5 1
+       20 CALL                             R3 2 0
+       21 GETUPVAL                         R3 4
+       22 GETTABLEKS                       R3 R3 K4 ["init"]
+       24 MOVE                             R4 R0
+       25 GETUPVAL                         R5 1
+       26 CALL                             R3 2 0
+       27 GETUPVAL                         R3 5
+       28 CALL                             R3 0 0
+       29 GETUPVAL                         R3 6
+       30 CALL                             R3 0 0
+       31 GETTABLEKS                       R3 R0 K5 ["Unloading"]
+       33 DUPCLOSURE                       R5 K6 [PROTO_30]
+       34 CAPTURE                          UPVAL U7
+       35 NAMECALL                         R3 R3 K7 ["Connect"]
+       37 CALL                             R3 2 0
+       38 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

@@ -25,40 +25,39 @@ PROTO_1:
        19 GETTABLEKS                       R17 R17 K3 ["submenuCategories"]
        21 MOVE                             R18 R3
        22 CALL                             R14 4 0
-       23 JUMP                             ; [+42]
+       23 JUMP                             ; [+41]
        24 GETTABLEKS                       R14 R13 K0 ["source"]
        26 GETTABLEKS                       R14 R14 K1 ["type"]
-       28 JUMPIFNOTEQKS                    R14 K4 ["studioAction"] ; [+31]
-       30 LOADK                            R17 K5 ["Explorer_%*_%*"]
-       31 GETTABLEKS                       R19 R13 K6 ["key"]
-       33 GETUPVAL                         R20 1
-       34 NAMECALL                         R20 R20 K7 ["GenerateGUID"]
-       36 CALL                             R20 1 1
-       37 NAMECALL                         R17 R17 K8 ["format"]
-       39 CALL                             R17 3 1
-       40 MOVE                             R16 R17
-       41 LOADK                            R17 K9 ["TBD: Name"]
-       42 LOADK                            R18 K10 [""]
-       43 LOADNIL                          R19
-       44 LOADB                            R20 0
-       45 NAMECALL                         R14 R0 K11 ["CreatePluginAction"]
-       47 CALL                             R14 6 1
-       48 GETTABLEKS                       R15 R14 K12 ["Triggered"]
-       50 NEWCLOSURE                       R17 P0
-       51 CAPTURE                          VAL R1
-       52 CAPTURE                          VAL R13
-       53 NAMECALL                         R15 R15 K13 ["Connect"]
-       55 CALL                             R15 2 0
-       56 GETTABLEKS                       R15 R13 K6 ["key"]
-       58 SETTABLE                         R14 R3 R15
-       59 JUMP                             ; [+6]
-       60 GETUPVAL                         R14 2
-       61 GETTABLEKS                       R15 R13 K0 ["source"]
-       63 GETTABLEKS                       R15 R15 K1 ["type"]
-       65 CALL                             R14 1 0
-       66 FORGLOOP                         R9 2 ; [-59]
-       68 FORGLOOP                         R4 2 ; [-65]
-       70 RETURN                           R0 0
+       28 JUMPIFNOTEQKS                    R14 K4 ["studioAction"] ; [+30]
+       30 LOADK                            R16 K5 ["Explorer_%*_%*"]
+       31 GETTABLEKS                       R18 R13 K6 ["key"]
+       33 GETUPVAL                         R19 1
+       34 NAMECALL                         R19 R19 K7 ["GenerateGUID"]
+       36 CALL                             R19 1 1
+       37 NAMECALL                         R16 R16 K8 ["format"]
+       39 CALL                             R16 3 1
+       40 LOADK                            R17 K9 ["TBD: Name"]
+       41 LOADK                            R18 K10 [""]
+       42 LOADNIL                          R19
+       43 LOADB                            R20 0
+       44 NAMECALL                         R14 R0 K11 ["CreatePluginAction"]
+       46 CALL                             R14 6 1
+       47 GETTABLEKS                       R15 R14 K12 ["Triggered"]
+       49 NEWCLOSURE                       R17 P0
+       50 CAPTURE                          VAL R1
+       51 CAPTURE                          VAL R13
+       52 NAMECALL                         R15 R15 K13 ["Connect"]
+       54 CALL                             R15 2 0
+       55 GETTABLEKS                       R15 R13 K6 ["key"]
+       57 SETTABLE                         R14 R3 R15
+       58 JUMP                             ; [+6]
+       59 GETUPVAL                         R14 2
+       60 GETTABLEKS                       R15 R13 K0 ["source"]
+       62 GETTABLEKS                       R15 R15 K1 ["type"]
+       64 CALL                             R14 1 0
+       65 FORGLOOP                         R9 2 ; [-58]
+       67 FORGLOOP                         R4 2 ; [-64]
+       69 RETURN                           R0 0
 
 PROTO_2:
         0 LOADB                            R0 1

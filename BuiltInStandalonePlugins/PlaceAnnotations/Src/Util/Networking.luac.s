@@ -61,13 +61,12 @@ PROTO_3:
        44 CALL                             R4 1 -1
        45 RETURN                           R4 -1
        46 GETIMPORT                        R3 K13 [error]
-       48 LOADK                            R5 K14 ["Unexpected url: %*"]
-       49 GETTABLEKS                       R7 R1 K1 ["Url"]
-       51 NAMECALL                         R5 R5 K15 ["format"]
-       53 CALL                             R5 2 1
-       54 MOVE                             R4 R5
-       55 CALL                             R3 1 0
-       56 RETURN                           R0 0
+       48 LOADK                            R4 K14 ["Unexpected url: %*"]
+       49 GETTABLEKS                       R6 R1 K1 ["Url"]
+       51 NAMECALL                         R4 R4 K15 ["format"]
+       53 CALL                             R4 2 1
+       54 CALL                             R3 1 0
+       55 RETURN                           R0 0
 
 PROTO_4:
         0 JUMPIFNOT                        R2 ; [+35]

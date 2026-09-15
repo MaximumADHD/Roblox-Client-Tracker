@@ -38,22 +38,21 @@ PROTO_1:
        28 JUMPIFNOTEQKNIL                  R11 ; [+2]
        30 LOADB                            R13 0 +1
        31 LOADB                            R13 1
-       32 LOADK                            R15 K7 ["Could not find field %* for asset with path %* in items cache"]
-       33 MOVE                             R17 R10
-       34 MOVE                             R18 R1
-       35 NAMECALL                         R15 R15 K8 ["format"]
-       37 CALL                             R15 3 1
-       38 MOVE                             R14 R15
-       39 FASTCALL2                        ASSERT R13 R14 ; [+3]
-       41 GETIMPORT                        R12 K10 [assert]
-       43 CALL                             R12 2 0
-       44 FASTCALL2                        TABLE_INSERT R3 R11 ; [+5]
-       46 MOVE                             R13 R3
-       47 MOVE                             R14 R11
-       48 GETIMPORT                        R12 K13 [table.insert]
-       50 CALL                             R12 2 0
-       51 FORGLOOP                         R6 2 ; [-40]
-       53 RETURN                           R3 1
+       32 LOADK                            R14 K7 ["Could not find field %* for asset with path %* in items cache"]
+       33 MOVE                             R16 R10
+       34 MOVE                             R17 R1
+       35 NAMECALL                         R14 R14 K8 ["format"]
+       37 CALL                             R14 3 1
+       38 FASTCALL2                        ASSERT R13 R14 ; [+3]
+       40 GETIMPORT                        R12 K10 [assert]
+       42 CALL                             R12 2 0
+       43 FASTCALL2                        TABLE_INSERT R3 R11 ; [+5]
+       45 MOVE                             R13 R3
+       46 MOVE                             R14 R11
+       47 GETIMPORT                        R12 K13 [table.insert]
+       49 CALL                             R12 2 0
+       50 FORGLOOP                         R6 2 ; [-39]
+       52 RETURN                           R3 1
 
 PROTO_2:
         0 NEWTABLE                         R4 0 1

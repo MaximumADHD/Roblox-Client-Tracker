@@ -121,62 +121,61 @@ PROTO_3:
        64 DUPTABLE                         R13 K37 [{["LayoutOrder"] = 1, ["OnClick"], ["Style"] = "Unobtrusive", ["Text"]}]
        65 GETTABLEKS                       R14 R3 K38 ["onBackToHome"]
        67 SETTABLEKS                       R14 R13 K33 ["OnClick"]
-       69 LOADK                            R15 K39 ["< %* /"]
-       70 MOVE                             R17 R6
-       71 NAMECALL                         R15 R15 K40 ["format"]
-       73 CALL                             R15 2 1
-       74 MOVE                             R14 R15
-       75 SETTABLEKS                       R14 R13 K36 ["Text"]
-       77 CALL                             R11 2 1
-       78 SETTABLEKS                       R11 R10 K6 ["BackToHome"]
-       80 GETUPVAL                         R11 2
-       81 GETTABLEKS                       R11 R11 K11 ["createElement"]
-       83 LOADK                            R12 K41 ["TextLabel"]
-       84 DUPTABLE                         R13 K47 [{["LayoutOrder"] = 2, ["Font"], ["Text"], ["TextSize"], ["TextColor3"], ["AutomaticSize"], ["BackgroundTransparency"] = 1}]
-       85 GETUPVAL                         R14 0
-       86 GETTABLEKS                       R14 R14 K48 ["FONT"]
-       88 SETTABLEKS                       R14 R13 K43 ["Font"]
-       90 JUMPIFEQKS                       R1 K49 [""] ; [+3]
-       92 JUMPIFNOTEQKNIL                  R1 ; [+9]
-       94 GETTABLEKS                       R14 R3 K4 ["Localization"]
-       96 LOADK                            R16 K5 ["General"]
-       97 LOADK                            R17 K50 ["SearchResults"]
-       98 NAMECALL                         R14 R14 K10 ["getText"]
-      100 CALL                             R14 3 1
-      101 JUMP                             ; [+7]
-      102 GETTABLEKS                       R14 R3 K4 ["Localization"]
-      104 LOADK                            R16 K5 ["General"]
-      105 LOADK                            R17 K51 ["SearchResultsKeyword"]
-      106 NAMECALL                         R14 R14 K10 ["getText"]
-      108 CALL                             R14 3 1
-      109 SETTABLEKS                       R14 R13 K36 ["Text"]
-      111 SETTABLEKS                       R5 R13 K44 ["TextSize"]
-      113 SETTABLEKS                       R4 R13 K45 ["TextColor3"]
-      115 GETIMPORT                        R14 K53 [Enum.AutomaticSize.XY]
-      117 SETTABLEKS                       R14 R13 K46 ["AutomaticSize"]
-      119 CALL                             R11 2 1
-      120 SETTABLEKS                       R11 R10 K21 ["Prompt"]
-      122 GETUPVAL                         R11 2
-      123 GETTABLEKS                       R11 R11 K11 ["createElement"]
-      125 LOADK                            R12 K41 ["TextLabel"]
-      126 DUPTABLE                         R13 K57 [{["LayoutOrder"] = 3, ["Font"], ["Text"], ["TextXAlignment"], ["TextSize"], ["TextColor3"], ["AutomaticSize"], ["TextTruncate"], ["BackgroundTransparency"] = 1}]
-      127 GETUPVAL                         R14 0
-      128 GETTABLEKS                       R14 R14 K58 ["FONT_BOLD"]
-      130 SETTABLEKS                       R14 R13 K43 ["Font"]
-      132 ORK                              R14 R1 K49 [""]
-      133 SETTABLEKS                       R14 R13 K36 ["Text"]
-      135 GETIMPORT                        R14 K60 [Enum.TextXAlignment.Left]
-      137 SETTABLEKS                       R14 R13 K55 ["TextXAlignment"]
-      139 SETTABLEKS                       R5 R13 K44 ["TextSize"]
-      141 SETTABLEKS                       R4 R13 K45 ["TextColor3"]
-      143 GETIMPORT                        R14 K53 [Enum.AutomaticSize.XY]
-      145 SETTABLEKS                       R14 R13 K46 ["AutomaticSize"]
-      147 GETIMPORT                        R14 K62 [Enum.TextTruncate.AtEnd]
-      149 SETTABLEKS                       R14 R13 K56 ["TextTruncate"]
-      151 CALL                             R11 2 1
-      152 SETTABLEKS                       R11 R10 K22 ["SearchTerm"]
-      154 CALL                             R7 3 -1
-      155 RETURN                           R7 -1
+       69 LOADK                            R14 K39 ["< %* /"]
+       70 MOVE                             R16 R6
+       71 NAMECALL                         R14 R14 K40 ["format"]
+       73 CALL                             R14 2 1
+       74 SETTABLEKS                       R14 R13 K36 ["Text"]
+       76 CALL                             R11 2 1
+       77 SETTABLEKS                       R11 R10 K6 ["BackToHome"]
+       79 GETUPVAL                         R11 2
+       80 GETTABLEKS                       R11 R11 K11 ["createElement"]
+       82 LOADK                            R12 K41 ["TextLabel"]
+       83 DUPTABLE                         R13 K47 [{["LayoutOrder"] = 2, ["Font"], ["Text"], ["TextSize"], ["TextColor3"], ["AutomaticSize"], ["BackgroundTransparency"] = 1}]
+       84 GETUPVAL                         R14 0
+       85 GETTABLEKS                       R14 R14 K48 ["FONT"]
+       87 SETTABLEKS                       R14 R13 K43 ["Font"]
+       89 JUMPIFEQKS                       R1 K49 [""] ; [+3]
+       91 JUMPIFNOTEQKNIL                  R1 ; [+9]
+       93 GETTABLEKS                       R14 R3 K4 ["Localization"]
+       95 LOADK                            R16 K5 ["General"]
+       96 LOADK                            R17 K50 ["SearchResults"]
+       97 NAMECALL                         R14 R14 K10 ["getText"]
+       99 CALL                             R14 3 1
+      100 JUMP                             ; [+7]
+      101 GETTABLEKS                       R14 R3 K4 ["Localization"]
+      103 LOADK                            R16 K5 ["General"]
+      104 LOADK                            R17 K51 ["SearchResultsKeyword"]
+      105 NAMECALL                         R14 R14 K10 ["getText"]
+      107 CALL                             R14 3 1
+      108 SETTABLEKS                       R14 R13 K36 ["Text"]
+      110 SETTABLEKS                       R5 R13 K44 ["TextSize"]
+      112 SETTABLEKS                       R4 R13 K45 ["TextColor3"]
+      114 GETIMPORT                        R14 K53 [Enum.AutomaticSize.XY]
+      116 SETTABLEKS                       R14 R13 K46 ["AutomaticSize"]
+      118 CALL                             R11 2 1
+      119 SETTABLEKS                       R11 R10 K21 ["Prompt"]
+      121 GETUPVAL                         R11 2
+      122 GETTABLEKS                       R11 R11 K11 ["createElement"]
+      124 LOADK                            R12 K41 ["TextLabel"]
+      125 DUPTABLE                         R13 K57 [{["LayoutOrder"] = 3, ["Font"], ["Text"], ["TextXAlignment"], ["TextSize"], ["TextColor3"], ["AutomaticSize"], ["TextTruncate"], ["BackgroundTransparency"] = 1}]
+      126 GETUPVAL                         R14 0
+      127 GETTABLEKS                       R14 R14 K58 ["FONT_BOLD"]
+      129 SETTABLEKS                       R14 R13 K43 ["Font"]
+      131 ORK                              R14 R1 K49 [""]
+      132 SETTABLEKS                       R14 R13 K36 ["Text"]
+      134 GETIMPORT                        R14 K60 [Enum.TextXAlignment.Left]
+      136 SETTABLEKS                       R14 R13 K55 ["TextXAlignment"]
+      138 SETTABLEKS                       R5 R13 K44 ["TextSize"]
+      140 SETTABLEKS                       R4 R13 K45 ["TextColor3"]
+      142 GETIMPORT                        R14 K53 [Enum.AutomaticSize.XY]
+      144 SETTABLEKS                       R14 R13 K46 ["AutomaticSize"]
+      146 GETIMPORT                        R14 K62 [Enum.TextTruncate.AtEnd]
+      148 SETTABLEKS                       R14 R13 K56 ["TextTruncate"]
+      150 CALL                             R11 2 1
+      151 SETTABLEKS                       R11 R10 K22 ["SearchTerm"]
+      153 CALL                             R7 3 -1
+      154 RETURN                           R7 -1
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

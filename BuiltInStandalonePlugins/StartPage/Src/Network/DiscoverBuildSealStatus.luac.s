@@ -11,15 +11,14 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["DiscoverBuildSealStatus failed for universe %*: %*"]
-        3 GETUPVAL                         R5 0
-        4 MOVE                             R6 R0
-        5 NAMECALL                         R3 R3 K3 ["format"]
-        7 CALL                             R3 3 1
-        8 MOVE                             R2 R3
-        9 CALL                             R1 1 0
-       10 LOADNIL                          R1
-       11 RETURN                           R1 1
+        2 LOADK                            R2 K2 ["DiscoverBuildSealStatus failed for universe %*: %*"]
+        3 GETUPVAL                         R4 0
+        4 MOVE                             R5 R0
+        5 NAMECALL                         R2 R2 K3 ["format"]
+        7 CALL                             R2 3 1
+        8 CALL                             R1 1 0
+        9 LOADNIL                          R1
+       10 RETURN                           R1 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0

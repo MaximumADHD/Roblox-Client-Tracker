@@ -78,42 +78,41 @@ PROTO_5:
        21 MOVE                             R10 R7
        22 GETIMPORT                        R9 K5 [tonumber]
        24 CALL                             R9 1 1
-       25 LOADK                            R13 K6 ["PluginManagement received invalid plugin id %*"]
-       26 MOVE                             R15 R7
-       27 NAMECALL                         R13 R13 K7 ["format"]
-       29 CALL                             R13 2 1
-       30 MOVE                             R12 R13
-       31 FASTCALL2                        ASSERT R9 R12 ; [+4]
-       33 MOVE                             R11 R9
-       34 GETIMPORT                        R10 K9 [assert]
-       36 CALL                             R10 2 0
-       37 NEWTABLE                         R10 8 0
-       39 SETTABLEKS                       R9 R10 K10 ["assetId"]
-       41 GETTABLEKS                       R11 R8 K11 ["Enabled"]
-       43 SETTABLEKS                       R11 R10 K12 ["enabled"]
-       45 GETTABLEKS                       R11 R8 K13 ["AssetVersion"]
-       47 SETTABLEKS                       R11 R10 K14 ["installedVersion"]
-       49 GETTABLEKS                       R11 R8 K15 ["Moderated"]
-       51 SETTABLEKS                       R11 R10 K16 ["isModerated"]
-       53 GETTABLEKS                       R11 R8 K17 ["AutoUpdate"]
-       55 SETTABLEKS                       R11 R10 K18 ["autoUpdateEnabled"]
-       57 FASTCALL2                        TABLE_INSERT R2 R10 ; [+5]
-       59 MOVE                             R12 R2
-       60 MOVE                             R13 R10
-       61 GETIMPORT                        R11 K21 [table.insert]
-       63 CALL                             R11 2 0
-       64 FASTCALL2                        TABLE_INSERT R3 R9 ; [+5]
-       66 MOVE                             R12 R3
-       67 MOVE                             R13 R9
-       68 GETIMPORT                        R11 K21 [table.insert]
-       70 CALL                             R11 2 0
-       71 FORGLOOP                         R4 2 ; [-52]
-       73 SETTABLEKS                       R2 R0 K22 ["_installedPlugins"]
-       75 SETTABLEKS                       R3 R0 K23 ["_installedPluginIds"]
-       77 GETTABLEKS                       R4 R0 K24 ["InstalledPluginsChanged"]
-       79 NAMECALL                         R4 R4 K25 ["Fire"]
-       81 CALL                             R4 1 0
-       82 RETURN                           R0 0
+       25 LOADK                            R12 K6 ["PluginManagement received invalid plugin id %*"]
+       26 MOVE                             R14 R7
+       27 NAMECALL                         R12 R12 K7 ["format"]
+       29 CALL                             R12 2 1
+       30 FASTCALL2                        ASSERT R9 R12 ; [+4]
+       32 MOVE                             R11 R9
+       33 GETIMPORT                        R10 K9 [assert]
+       35 CALL                             R10 2 0
+       36 NEWTABLE                         R10 8 0
+       38 SETTABLEKS                       R9 R10 K10 ["assetId"]
+       40 GETTABLEKS                       R11 R8 K11 ["Enabled"]
+       42 SETTABLEKS                       R11 R10 K12 ["enabled"]
+       44 GETTABLEKS                       R11 R8 K13 ["AssetVersion"]
+       46 SETTABLEKS                       R11 R10 K14 ["installedVersion"]
+       48 GETTABLEKS                       R11 R8 K15 ["Moderated"]
+       50 SETTABLEKS                       R11 R10 K16 ["isModerated"]
+       52 GETTABLEKS                       R11 R8 K17 ["AutoUpdate"]
+       54 SETTABLEKS                       R11 R10 K18 ["autoUpdateEnabled"]
+       56 FASTCALL2                        TABLE_INSERT R2 R10 ; [+5]
+       58 MOVE                             R12 R2
+       59 MOVE                             R13 R10
+       60 GETIMPORT                        R11 K21 [table.insert]
+       62 CALL                             R11 2 0
+       63 FASTCALL2                        TABLE_INSERT R3 R9 ; [+5]
+       65 MOVE                             R12 R3
+       66 MOVE                             R13 R9
+       67 GETIMPORT                        R11 K21 [table.insert]
+       69 CALL                             R11 2 0
+       70 FORGLOOP                         R4 2 ; [-51]
+       72 SETTABLEKS                       R2 R0 K22 ["_installedPlugins"]
+       74 SETTABLEKS                       R3 R0 K23 ["_installedPluginIds"]
+       76 GETTABLEKS                       R4 R0 K24 ["InstalledPluginsChanged"]
+       78 NAMECALL                         R4 R4 K25 ["Fire"]
+       80 CALL                             R4 1 0
+       81 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R3 R0 K0 ["_studioService"]

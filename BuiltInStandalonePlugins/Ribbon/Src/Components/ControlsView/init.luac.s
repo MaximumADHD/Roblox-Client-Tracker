@@ -148,7 +148,7 @@ PROTO_9:
         7 JUMPIFEQKS                       R3 K1 ["Component"] ; [+2]
         9 LOADB                            R2 0 +1
        10 LOADB                            R2 1
-       11 JUMPIFNOT                        R2 ; [+68]
+       11 JUMPIFNOT                        R2 ; [+67]
        12 GETTABLEKS                       R3 R1 K2 ["ComponentName"]
        14 GETUPVAL                         R5 1
        15 GETTABLE                         R4 R5 R3
@@ -180,144 +180,141 @@ PROTO_9:
        47 GETTABLE                         R5 R6 R7
        48 GETUPVAL                         R6 3
        49 SETTABLEKS                       R6 R5 K6 ["left"]
-       51 LOADK                            R6 K7 ["Custom %* %*"]
-       52 GETTABLEKS                       R8 R1 K8 ["Id"]
-       54 MOVE                             R9 R0
-       55 NAMECALL                         R6 R6 K9 ["format"]
-       57 CALL                             R6 3 1
-       58 MOVE                             R5 R6
-       59 GETUPVAL                         R6 5
-       60 MOVE                             R7 R4
-       61 DUPTABLE                         R8 K14 [{"Item", "WidgetUri", "LayoutOrder", "OnClick"}]
-       62 SETTABLEKS                       R1 R8 K10 ["Item"]
-       64 GETUPVAL                         R9 6
-       65 GETTABLEKS                       R9 R9 K11 ["WidgetUri"]
-       67 SETTABLEKS                       R9 R8 K11 ["WidgetUri"]
-       69 GETUPVAL                         R9 7
-       70 CALL                             R9 0 1
-       71 SETTABLEKS                       R9 R8 K12 ["LayoutOrder"]
-       73 NEWCLOSURE                       R9 P0
-       74 CAPTURE                          UPVAL U8
-       75 CAPTURE                          UPVAL U9
-       76 SETTABLEKS                       R9 R8 K13 ["OnClick"]
-       78 CALL                             R6 2 -1
-       79 RETURN                           R5 -1
-       80 GETTABLEKS                       R3 R1 K8 ["Id"]
-       82 JUMPIF                           R3 ; [+21]
-       83 LOADB                            R3 1
-       84 GETUPVAL                         R4 10
-       85 LOADNIL                          R5
-       86 LOADNIL                          R6
-       87 FORGPREP                         R4
-       88 GETTABLEKS                       R9 R1 K0 ["Type"]
-       90 JUMPIFNOTEQ                      R9 R8 ; [+3]
-       92 LOADB                            R3 0
-       93 JUMP                             ; [+2]
-       94 FORGLOOP                         R4 2 ; [-7]
-       96 JUMPIFNOT                        R3 ; [+7]
-       97 GETUPVAL                         R4 11
-       98 LOADK                            R5 K15 ["Found Control without Id, not initializing:"]
-       99 CALL                             R4 1 0
-      100 GETUPVAL                         R4 11
-      101 MOVE                             R5 R1
-      102 CALL                             R4 1 0
-      103 RETURN                           R0 0
-      104 GETUPVAL                         R4 12
-      105 GETTABLEKS                       R5 R1 K0 ["Type"]
-      107 GETTABLE                         R3 R4 R5
-      108 JUMPIFNOT                        R3 ; [+116]
-      109 GETUPVAL                         R4 2
-      110 DUPTABLE                         R5 K4 [{"self"}]
-      111 SETTABLEKS                       R0 R5 K3 ["self"]
-      113 SETTABLE                         R5 R4 R0
-      114 GETUPVAL                         R4 3
-      115 JUMPIFEQKNIL                     R4 ; [+11]
-      117 GETUPVAL                         R5 2
-      118 GETUPVAL                         R6 3
-      119 GETTABLE                         R4 R5 R6
-      120 SETTABLEKS                       R0 R4 K5 ["right"]
-      122 GETUPVAL                         R5 2
-      123 GETTABLE                         R4 R5 R0
-      124 GETUPVAL                         R5 3
-      125 SETTABLEKS                       R5 R4 K6 ["left"]
-      127 SETUPVAL                         R0 3
-      128 GETUPVAL                         R4 4
-      129 JUMPIFNOTEQKNIL                  R4 ; [+3]
-      131 SETUPVAL                         R0 4
-      132 JUMP                             ; [+11]
-      133 GETUPVAL                         R5 2
-      134 GETTABLE                         R4 R5 R0
-      135 GETUPVAL                         R5 4
-      136 SETTABLEKS                       R5 R4 K5 ["right"]
-      138 GETUPVAL                         R5 2
-      139 GETUPVAL                         R6 4
-      140 GETTABLE                         R4 R5 R6
-      141 GETUPVAL                         R5 3
-      142 SETTABLEKS                       R5 R4 K6 ["left"]
-      144 LOADK                            R5 K16 ["%* %*"]
-      145 GETTABLEKS                       R7 R1 K0 ["Type"]
-      147 MOVE                             R8 R0
-      148 NAMECALL                         R5 R5 K9 ["format"]
-      150 CALL                             R5 3 1
-      151 MOVE                             R4 R5
-      152 GETUPVAL                         R5 13
-      153 GETTABLEKS                       R5 R5 K17 ["createElement"]
-      155 MOVE                             R6 R3
-      156 DUPTABLE                         R7 K31 [{"Item", "WidgetUri", "Items", "Activate", "OpenMenu", "CloseMenus", "LayoutOrder", "Select", "HideLabels", "MenuData", "MenuView", "Renderers", "ShowContextMenu", "ControlIndices", "Warn", "MdiInstance"}]
-      157 SETTABLEKS                       R1 R7 K10 ["Item"]
-      159 GETUPVAL                         R8 6
-      160 GETTABLEKS                       R8 R8 K11 ["WidgetUri"]
-      162 SETTABLEKS                       R8 R7 K11 ["WidgetUri"]
-      164 GETUPVAL                         R8 6
-      165 GETTABLEKS                       R8 R8 K18 ["Items"]
-      167 SETTABLEKS                       R8 R7 K18 ["Items"]
-      169 GETUPVAL                         R8 14
-      170 SETTABLEKS                       R8 R7 K19 ["Activate"]
-      172 GETUPVAL                         R9 15
-      173 CALL                             R9 0 1
-      174 JUMPIFNOT                        R9 ; [+2]
-      175 GETUPVAL                         R8 16
-      176 JUMP                             ; [+1]
-      177 GETUPVAL                         R8 17
-      178 SETTABLEKS                       R8 R7 K20 ["OpenMenu"]
-      180 GETUPVAL                         R8 18
-      181 SETTABLEKS                       R8 R7 K21 ["CloseMenus"]
-      183 GETUPVAL                         R8 7
-      184 CALL                             R8 0 1
-      185 SETTABLEKS                       R8 R7 K12 ["LayoutOrder"]
-      187 GETUPVAL                         R8 19
-      188 SETTABLEKS                       R8 R7 K22 ["Select"]
-      190 GETUPVAL                         R8 6
-      191 GETTABLEKS                       R8 R8 K23 ["HideLabels"]
-      193 SETTABLEKS                       R8 R7 K23 ["HideLabels"]
-      195 GETUPVAL                         R8 20
-      196 SETTABLEKS                       R8 R7 K24 ["MenuData"]
-      198 GETUPVAL                         R8 21
-      199 SETTABLEKS                       R8 R7 K25 ["MenuView"]
-      201 GETUPVAL                         R8 12
-      202 SETTABLEKS                       R8 R7 K26 ["Renderers"]
-      204 GETUPVAL                         R8 6
-      205 GETTABLEKS                       R8 R8 K27 ["ShowContextMenu"]
-      207 SETTABLEKS                       R8 R7 K27 ["ShowContextMenu"]
-      209 GETUPVAL                         R9 2
-      210 GETTABLE                         R8 R9 R0
-      211 SETTABLEKS                       R8 R7 K28 ["ControlIndices"]
-      213 GETUPVAL                         R8 11
-      214 SETTABLEKS                       R8 R7 K29 ["Warn"]
-      216 GETUPVAL                         R8 6
-      217 GETTABLEKS                       R8 R8 K32 ["Plugin"]
-      219 GETTABLEKS                       R8 R8 K33 ["MultipleDocumentInterfaceInstance"]
-      221 SETTABLEKS                       R8 R7 K30 ["MdiInstance"]
-      223 CALL                             R5 2 -1
-      224 RETURN                           R4 -1
-      225 GETUPVAL                         R4 11
-      226 LOADK                            R6 K34 ["Missing Control for type %*"]
-      227 GETTABLEKS                       R8 R1 K0 ["Type"]
-      229 NAMECALL                         R6 R6 K9 ["format"]
-      231 CALL                             R6 2 1
-      232 MOVE                             R5 R6
-      233 CALL                             R4 1 0
-      234 RETURN                           R0 0
+       51 LOADK                            R5 K7 ["Custom %* %*"]
+       52 GETTABLEKS                       R7 R1 K8 ["Id"]
+       54 MOVE                             R8 R0
+       55 NAMECALL                         R5 R5 K9 ["format"]
+       57 CALL                             R5 3 1
+       58 GETUPVAL                         R6 5
+       59 MOVE                             R7 R4
+       60 DUPTABLE                         R8 K14 [{"Item", "WidgetUri", "LayoutOrder", "OnClick"}]
+       61 SETTABLEKS                       R1 R8 K10 ["Item"]
+       63 GETUPVAL                         R9 6
+       64 GETTABLEKS                       R9 R9 K11 ["WidgetUri"]
+       66 SETTABLEKS                       R9 R8 K11 ["WidgetUri"]
+       68 GETUPVAL                         R9 7
+       69 CALL                             R9 0 1
+       70 SETTABLEKS                       R9 R8 K12 ["LayoutOrder"]
+       72 NEWCLOSURE                       R9 P0
+       73 CAPTURE                          UPVAL U8
+       74 CAPTURE                          UPVAL U9
+       75 SETTABLEKS                       R9 R8 K13 ["OnClick"]
+       77 CALL                             R6 2 -1
+       78 RETURN                           R5 -1
+       79 GETTABLEKS                       R3 R1 K8 ["Id"]
+       81 JUMPIF                           R3 ; [+21]
+       82 LOADB                            R3 1
+       83 GETUPVAL                         R4 10
+       84 LOADNIL                          R5
+       85 LOADNIL                          R6
+       86 FORGPREP                         R4
+       87 GETTABLEKS                       R9 R1 K0 ["Type"]
+       89 JUMPIFNOTEQ                      R9 R8 ; [+3]
+       91 LOADB                            R3 0
+       92 JUMP                             ; [+2]
+       93 FORGLOOP                         R4 2 ; [-7]
+       95 JUMPIFNOT                        R3 ; [+7]
+       96 GETUPVAL                         R4 11
+       97 LOADK                            R5 K15 ["Found Control without Id, not initializing:"]
+       98 CALL                             R4 1 0
+       99 GETUPVAL                         R4 11
+      100 MOVE                             R5 R1
+      101 CALL                             R4 1 0
+      102 RETURN                           R0 0
+      103 GETUPVAL                         R4 12
+      104 GETTABLEKS                       R5 R1 K0 ["Type"]
+      106 GETTABLE                         R3 R4 R5
+      107 JUMPIFNOT                        R3 ; [+115]
+      108 GETUPVAL                         R4 2
+      109 DUPTABLE                         R5 K4 [{"self"}]
+      110 SETTABLEKS                       R0 R5 K3 ["self"]
+      112 SETTABLE                         R5 R4 R0
+      113 GETUPVAL                         R4 3
+      114 JUMPIFEQKNIL                     R4 ; [+11]
+      116 GETUPVAL                         R5 2
+      117 GETUPVAL                         R6 3
+      118 GETTABLE                         R4 R5 R6
+      119 SETTABLEKS                       R0 R4 K5 ["right"]
+      121 GETUPVAL                         R5 2
+      122 GETTABLE                         R4 R5 R0
+      123 GETUPVAL                         R5 3
+      124 SETTABLEKS                       R5 R4 K6 ["left"]
+      126 SETUPVAL                         R0 3
+      127 GETUPVAL                         R4 4
+      128 JUMPIFNOTEQKNIL                  R4 ; [+3]
+      130 SETUPVAL                         R0 4
+      131 JUMP                             ; [+11]
+      132 GETUPVAL                         R5 2
+      133 GETTABLE                         R4 R5 R0
+      134 GETUPVAL                         R5 4
+      135 SETTABLEKS                       R5 R4 K5 ["right"]
+      137 GETUPVAL                         R5 2
+      138 GETUPVAL                         R6 4
+      139 GETTABLE                         R4 R5 R6
+      140 GETUPVAL                         R5 3
+      141 SETTABLEKS                       R5 R4 K6 ["left"]
+      143 LOADK                            R4 K16 ["%* %*"]
+      144 GETTABLEKS                       R6 R1 K0 ["Type"]
+      146 MOVE                             R7 R0
+      147 NAMECALL                         R4 R4 K9 ["format"]
+      149 CALL                             R4 3 1
+      150 GETUPVAL                         R5 13
+      151 GETTABLEKS                       R5 R5 K17 ["createElement"]
+      153 MOVE                             R6 R3
+      154 DUPTABLE                         R7 K31 [{"Item", "WidgetUri", "Items", "Activate", "OpenMenu", "CloseMenus", "LayoutOrder", "Select", "HideLabels", "MenuData", "MenuView", "Renderers", "ShowContextMenu", "ControlIndices", "Warn", "MdiInstance"}]
+      155 SETTABLEKS                       R1 R7 K10 ["Item"]
+      157 GETUPVAL                         R8 6
+      158 GETTABLEKS                       R8 R8 K11 ["WidgetUri"]
+      160 SETTABLEKS                       R8 R7 K11 ["WidgetUri"]
+      162 GETUPVAL                         R8 6
+      163 GETTABLEKS                       R8 R8 K18 ["Items"]
+      165 SETTABLEKS                       R8 R7 K18 ["Items"]
+      167 GETUPVAL                         R8 14
+      168 SETTABLEKS                       R8 R7 K19 ["Activate"]
+      170 GETUPVAL                         R9 15
+      171 CALL                             R9 0 1
+      172 JUMPIFNOT                        R9 ; [+2]
+      173 GETUPVAL                         R8 16
+      174 JUMP                             ; [+1]
+      175 GETUPVAL                         R8 17
+      176 SETTABLEKS                       R8 R7 K20 ["OpenMenu"]
+      178 GETUPVAL                         R8 18
+      179 SETTABLEKS                       R8 R7 K21 ["CloseMenus"]
+      181 GETUPVAL                         R8 7
+      182 CALL                             R8 0 1
+      183 SETTABLEKS                       R8 R7 K12 ["LayoutOrder"]
+      185 GETUPVAL                         R8 19
+      186 SETTABLEKS                       R8 R7 K22 ["Select"]
+      188 GETUPVAL                         R8 6
+      189 GETTABLEKS                       R8 R8 K23 ["HideLabels"]
+      191 SETTABLEKS                       R8 R7 K23 ["HideLabels"]
+      193 GETUPVAL                         R8 20
+      194 SETTABLEKS                       R8 R7 K24 ["MenuData"]
+      196 GETUPVAL                         R8 21
+      197 SETTABLEKS                       R8 R7 K25 ["MenuView"]
+      199 GETUPVAL                         R8 12
+      200 SETTABLEKS                       R8 R7 K26 ["Renderers"]
+      202 GETUPVAL                         R8 6
+      203 GETTABLEKS                       R8 R8 K27 ["ShowContextMenu"]
+      205 SETTABLEKS                       R8 R7 K27 ["ShowContextMenu"]
+      207 GETUPVAL                         R9 2
+      208 GETTABLE                         R8 R9 R0
+      209 SETTABLEKS                       R8 R7 K28 ["ControlIndices"]
+      211 GETUPVAL                         R8 11
+      212 SETTABLEKS                       R8 R7 K29 ["Warn"]
+      214 GETUPVAL                         R8 6
+      215 GETTABLEKS                       R8 R8 K32 ["Plugin"]
+      217 GETTABLEKS                       R8 R8 K33 ["MultipleDocumentInterfaceInstance"]
+      219 SETTABLEKS                       R8 R7 K30 ["MdiInstance"]
+      221 CALL                             R5 2 -1
+      222 RETURN                           R4 -1
+      223 GETUPVAL                         R4 11
+      224 LOADK                            R5 K34 ["Missing Control for type %*"]
+      225 GETTABLEKS                       R7 R1 K0 ["Type"]
+      227 NAMECALL                         R5 R5 K9 ["format"]
+      229 CALL                             R5 2 1
+      230 CALL                             R4 1 0
+      231 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R1 0

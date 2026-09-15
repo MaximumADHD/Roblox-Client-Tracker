@@ -18,37 +18,34 @@ PROTO_0:
        19 LOADNIL                          R6
        20 FORGPREP                         R4
        21 GETTABLEKS                       R9 R8 K5 ["code"]
-       23 JUMPIFEQKS                       R9 K6 ["PublicAssetCannotBeGrantedTo"] ; [+26]
+       23 JUMPIFEQKS                       R9 K6 ["PublicAssetCannotBeGrantedTo"] ; [+24]
        25 GETTABLEKS                       R9 R8 K7 ["assetId"]
        27 LOADNIL                          R10
        28 SETTABLE                         R10 R0 R9
        29 MOVE                             R9 R3
-       30 LOADK                            R11 K8 ["%*%*, "]
-       31 GETTABLEKS                       R13 R8 K7 ["assetId"]
-       33 GETUPVAL                         R15 0
-       34 CALL                             R15 0 1
-       35 JUMPIFNOT                        R15 ; [+8]
-       36 LOADK                            R15 K9 [" - Code: %*"]
-       37 GETTABLEKS                       R17 R8 K5 ["code"]
-       39 NAMECALL                         R15 R15 K10 ["format"]
-       41 CALL                             R15 2 1
-       42 MOVE                             R14 R15
-       43 JUMP                             ; [+1]
-       44 LOADNIL                          R14
-       45 NAMECALL                         R11 R11 K10 ["format"]
-       47 CALL                             R11 3 1
-       48 MOVE                             R10 R11
-       49 CONCAT                           R3 R9 R10
-       50 FORGLOOP                         R4 2 ; [-30]
-       52 JUMPIFEQKS                       R3 K4 [""] ; [+10]
-       54 GETIMPORT                        R4 K2 [warn]
-       56 LOADK                            R6 K11 ["Failed to insert assets: %*"]
-       57 MOVE                             R8 R3
-       58 NAMECALL                         R6 R6 K10 ["format"]
-       60 CALL                             R6 2 1
-       61 MOVE                             R5 R6
-       62 CALL                             R4 1 0
-       63 RETURN                           R0 0
+       30 LOADK                            R10 K8 ["%*%*, "]
+       31 GETTABLEKS                       R12 R8 K7 ["assetId"]
+       33 GETUPVAL                         R14 0
+       34 CALL                             R14 0 1
+       35 JUMPIFNOT                        R14 ; [+7]
+       36 LOADK                            R13 K9 [" - Code: %*"]
+       37 GETTABLEKS                       R15 R8 K5 ["code"]
+       39 NAMECALL                         R13 R13 K10 ["format"]
+       41 CALL                             R13 2 1
+       42 JUMP                             ; [+1]
+       43 LOADNIL                          R13
+       44 NAMECALL                         R10 R10 K10 ["format"]
+       46 CALL                             R10 3 1
+       47 CONCAT                           R3 R9 R10
+       48 FORGLOOP                         R4 2 ; [-28]
+       50 JUMPIFEQKS                       R3 K4 [""] ; [+9]
+       52 GETIMPORT                        R4 K2 [warn]
+       54 LOADK                            R5 K11 ["Failed to insert assets: %*"]
+       55 MOVE                             R7 R3
+       56 NAMECALL                         R5 R5 K10 ["format"]
+       58 CALL                             R5 2 1
+       59 CALL                             R4 1 0
+       60 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

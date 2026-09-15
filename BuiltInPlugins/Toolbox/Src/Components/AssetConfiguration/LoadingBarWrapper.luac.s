@@ -80,82 +80,8 @@ PROTO_4:
         3 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+2]
-        3 LOADNIL                          R1
-        4 RETURN                           R1 1
-        5 GETTABLEKS                       R1 R0 K0 ["props"]
-        7 GETTABLEKS                       R2 R0 K1 ["state"]
-        9 GETTABLEKS                       R5 R2 K2 ["progress"]
-       11 FASTCALL2K                       MATH_MAX R5 K3 ; [+4]
-       13 LOADK                            R6 K3 [0]
-       14 GETIMPORT                        R4 K6 [math.max]
-       16 CALL                             R4 2 1
-       17 FASTCALL2K                       MATH_MIN R4 K7 ; [+4]
-       19 LOADK                            R5 K7 [1]
-       20 GETIMPORT                        R3 K9 [math.min]
-       22 CALL                             R3 2 1
-       23 GETTABLEKS                       R5 R1 K10 ["loadingText"]
-       25 LOADK                            R6 K11 [" ( "]
-       26 MULK                             R11 R3 K13 [100]
-       27 ADDK                             R10 R11 K12 [0.5]
-       28 FASTCALL1                        MATH_FLOOR R10 ; [+2]
-       29 GETIMPORT                        R9 K15 [math.floor]
-       31 CALL                             R9 1 1
-       32 MOVE                             R7 R9
-       33 LOADK                            R8 K16 ["% )"]
-       34 CONCAT                           R4 R5 R8
-       35 GETUPVAL                         R5 1
-       36 GETTABLEKS                       R5 R5 K17 ["createElement"]
-       38 LOADK                            R6 K18 ["Frame"]
-       39 DUPTABLE                         R7 K22 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"]}]
-       40 GETTABLEKS                       R8 R1 K20 ["Size"]
-       42 SETTABLEKS                       R8 R7 K20 ["Size"]
-       44 GETTABLEKS                       R8 R1 K21 ["Position"]
-       46 SETTABLEKS                       R8 R7 K21 ["Position"]
-       48 DUPTABLE                         R8 K25 [{"LoadingTitle", "LoadingBar"}]
-       49 GETUPVAL                         R9 1
-       50 GETTABLEKS                       R9 R9 K17 ["createElement"]
-       52 GETUPVAL                         R10 2
-       53 DUPTABLE                         R11 K29 [{"Position", "Size", "Text", "TextXAlignment", "TextYAlignment"}]
-       54 GETIMPORT                        R12 K32 [UDim2.new]
-       56 LOADN                            R13 0
-       57 LOADN                            R14 0
-       58 LOADN                            R15 0
-       59 LOADN                            R16 -30
-       60 CALL                             R12 4 1
-       61 SETTABLEKS                       R12 R11 K21 ["Position"]
-       63 GETIMPORT                        R12 K32 [UDim2.new]
-       65 LOADN                            R13 1
-       66 LOADN                            R14 0
-       67 LOADN                            R15 0
-       68 LOADN                            R16 20
-       69 CALL                             R12 4 1
-       70 SETTABLEKS                       R12 R11 K20 ["Size"]
-       72 SETTABLEKS                       R4 R11 K26 ["Text"]
-       74 GETIMPORT                        R12 K35 [Enum.TextXAlignment.Center]
-       76 SETTABLEKS                       R12 R11 K27 ["TextXAlignment"]
-       78 GETIMPORT                        R12 K36 [Enum.TextYAlignment.Center]
-       80 SETTABLEKS                       R12 R11 K28 ["TextYAlignment"]
-       82 CALL                             R9 2 1
-       83 SETTABLEKS                       R9 R8 K23 ["LoadingTitle"]
-       85 GETUPVAL                         R9 1
-       86 GETTABLEKS                       R9 R9 K17 ["createElement"]
-       88 GETUPVAL                         R10 3
-       89 DUPTABLE                         R11 K38 [{"Progress", "Size"}]
-       90 SETTABLEKS                       R3 R11 K37 ["Progress"]
-       92 GETIMPORT                        R12 K32 [UDim2.new]
-       94 LOADN                            R13 1
-       95 LOADN                            R14 0
-       96 LOADN                            R15 1
-       97 LOADN                            R16 0
-       98 CALL                             R12 4 1
-       99 SETTABLEKS                       R12 R11 K20 ["Size"]
-      101 CALL                             R9 2 1
-      102 SETTABLEKS                       R9 R8 K24 ["LoadingBar"]
-      104 CALL                             R5 3 -1
-      105 RETURN                           R5 -1
+        0 LOADNIL                          R1
+        1 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -172,35 +98,20 @@ MAIN:
        19 GETIMPORT                        R3 K9 [require]
        21 GETTABLEKS                       R4 R2 K10 ["Roact"]
        23 CALL                             R3 1 1
-       24 GETIMPORT                        R4 K9 [require]
-       26 GETTABLEKS                       R5 R2 K11 ["Framework"]
-       28 CALL                             R4 1 1
-       29 GETTABLEKS                       R5 R4 K12 ["UI"]
-       31 GETTABLEKS                       R6 R5 K13 ["TextLabel"]
-       33 GETTABLEKS                       R7 R5 K14 ["LoadingBar"]
-       35 GETTABLEKS                       R8 R3 K15 ["Component"]
-       37 LOADK                            R10 K16 ["LoadingBarWrapper"]
-       38 NAMECALL                         R8 R8 K17 ["extend"]
-       40 CALL                             R8 2 1
-       41 GETIMPORT                        R9 K9 [require]
-       43 GETTABLEKS                       R10 R0 K18 ["Src"]
-       45 GETTABLEKS                       R10 R10 K19 ["Flags"]
-       47 GETTABLEKS                       R10 R10 K20 ["getFFlagToolboxAssetConfigFoundationMigration"]
-       49 CALL                             R9 1 1
-       50 DUPCLOSURE                       R10 K21 [PROTO_0]
-       51 SETTABLEKS                       R10 R8 K22 ["init"]
-       53 DUPCLOSURE                       R10 K23 [PROTO_1]
-       54 CAPTURE                          VAL R1
-       55 SETTABLEKS                       R10 R8 K24 ["loadUntil"]
-       57 DUPCLOSURE                       R10 K25 [PROTO_3]
-       58 CAPTURE                          VAL R1
-       59 SETTABLEKS                       R10 R8 K26 ["didMount"]
-       61 DUPCLOSURE                       R10 K27 [PROTO_4]
-       62 SETTABLEKS                       R10 R8 K28 ["willUnmount"]
-       64 DUPCLOSURE                       R10 K29 [PROTO_5]
-       65 CAPTURE                          VAL R9
-       66 CAPTURE                          VAL R3
-       67 CAPTURE                          VAL R6
-       68 CAPTURE                          VAL R7
-       69 SETTABLEKS                       R10 R8 K30 ["render"]
-       71 RETURN                           R8 1
+       24 GETTABLEKS                       R4 R3 K11 ["Component"]
+       26 LOADK                            R6 K12 ["LoadingBarWrapper"]
+       27 NAMECALL                         R4 R4 K13 ["extend"]
+       29 CALL                             R4 2 1
+       30 DUPCLOSURE                       R5 K14 [PROTO_0]
+       31 SETTABLEKS                       R5 R4 K15 ["init"]
+       33 DUPCLOSURE                       R5 K16 [PROTO_1]
+       34 CAPTURE                          VAL R1
+       35 SETTABLEKS                       R5 R4 K17 ["loadUntil"]
+       37 DUPCLOSURE                       R5 K18 [PROTO_3]
+       38 CAPTURE                          VAL R1
+       39 SETTABLEKS                       R5 R4 K19 ["didMount"]
+       41 DUPCLOSURE                       R5 K20 [PROTO_4]
+       42 SETTABLEKS                       R5 R4 K21 ["willUnmount"]
+       44 DUPCLOSURE                       R5 K22 [PROTO_5]
+       45 SETTABLEKS                       R5 R4 K23 ["render"]
+       47 RETURN                           R4 1

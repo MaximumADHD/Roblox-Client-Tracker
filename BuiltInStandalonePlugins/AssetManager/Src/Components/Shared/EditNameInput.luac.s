@@ -29,23 +29,22 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 JUMPIF                           R0 ; [+19]
+        1 JUMPIF                           R0 ; [+18]
         2 GETUPVAL                         R0 1
         3 GETTABLEKS                       R0 R0 K0 ["ItemType"]
         5 GETUPVAL                         R1 2
         6 GETTABLEKS                       R1 R1 K1 ["AssetType"]
         8 GETTABLEKS                       R1 R1 K2 ["Folder"]
-       10 JUMPIFNOTEQ                      R0 R1 ; [+10]
-       12 LOADK                            R1 K3 ["Folder names cannot contain <b>%*</b> or end with a period."]
-       13 GETUPVAL                         R3 3
-       14 LOADK                            R4 K4 ["< > : \" / \\ | ? *"]
-       15 CALL                             R3 1 1
-       16 NAMECALL                         R1 R1 K5 ["format"]
-       18 CALL                             R1 2 1
-       19 MOVE                             R0 R1
-       20 RETURN                           R0 1
-       21 LOADNIL                          R0
-       22 RETURN                           R0 1
+       10 JUMPIFNOTEQ                      R0 R1 ; [+9]
+       12 LOADK                            R0 K3 ["Folder names cannot contain <b>%*</b> or end with a period."]
+       13 GETUPVAL                         R2 3
+       14 LOADK                            R3 K4 ["< > : \" / \\ | ? *"]
+       15 CALL                             R2 1 1
+       16 NAMECALL                         R0 R0 K5 ["format"]
+       18 CALL                             R0 2 1
+       19 RETURN                           R0 1
+       20 LOADNIL                          R0
+       21 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0

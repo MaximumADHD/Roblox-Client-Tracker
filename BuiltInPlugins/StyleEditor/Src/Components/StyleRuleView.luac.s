@@ -161,7 +161,7 @@ PROTO_8:
        20 LOADK                            R6 K6 ["Error: Selector class does not match ClassName on"]
        21 MOVE                             R7 R4
        22 CALL                             R5 2 0
-       23 JUMP                             ; [+114]
+       23 JUMP                             ; [+113]
        24 GETUPVAL                         R5 0
        25 GETTABLEKS                       R5 R5 K7 ["hasVariant"]
        27 GETUPVAL                         R6 2
@@ -172,7 +172,7 @@ PROTO_8:
        35 GETUPVAL                         R6 4
        36 MOVE                             R7 R4
        37 CALL                             R5 2 0
-       38 JUMP                             ; [+99]
+       38 JUMP                             ; [+98]
        39 GETUPVAL                         R5 5
        40 JUMPIFNOT                        R5 ; [+13]
        41 GETUPVAL                         R5 4
@@ -196,7 +196,7 @@ PROTO_8:
        63 CAPTURE                          UPVAL U6
        64 CAPTURE                          VAL R4
        65 CALL                             R5 1 2
-       66 JUMPIFNOT                        R5 ; [+71]
+       66 JUMPIFNOT                        R5 ; [+70]
        67 GETUPVAL                         R7 1
        68 GETTABLEKS                       R7 R7 K1 ["Class"]
        70 JUMPIFEQKS                       R7 K2 [""] ; [+26]
@@ -223,11 +223,11 @@ PROTO_8:
       101 MOVE                             R9 R4
       102 CALL                             R7 2 0
       103 GETUPVAL                         R7 4
-      104 JUMPIFNOT                        R7 ; [+33]
+      104 JUMPIFNOT                        R7 ; [+32]
       105 LOADK                            R10 K19 ["StyleRule"]
       106 NAMECALL                         R8 R7 K20 ["IsA"]
       108 CALL                             R8 2 1
-      109 JUMPIFNOT                        R8 ; [+28]
+      109 JUMPIFNOT                        R8 ; [+27]
       110 NAMECALL                         R8 R7 K21 ["GetProperties"]
       112 CALL                             R8 1 3
       113 FORGPREP                         R8
@@ -238,21 +238,20 @@ PROTO_8:
       119 CALL                             R13 1 2
       120 MOVE                             R5 R13
       121 MOVE                             R12 R14
-      122 JUMPIF                           R5 ; [+10]
+      122 JUMPIF                           R5 ; [+9]
       123 GETIMPORT                        R13 K23 [warn]
-      125 LOADK                            R15 K24 ["Style Editor could not reset %* on %*"]
-      126 MOVE                             R17 R11
-      127 MOVE                             R18 R4
-      128 NAMECALL                         R15 R15 K25 ["format"]
-      130 CALL                             R15 3 1
-      131 MOVE                             R14 R15
-      132 CALL                             R13 1 0
-      133 FORGLOOP                         R8 2 ; [-20]
-      135 GETTABLEKS                       R7 R7 K26 ["Parent"]
-      137 JUMPBACK                         ; [-34]
-      138 FORGLOOP                         R0 2 ; [-133]
-      140 GETIMPORT                        R0 K30 [Enum.FinishRecordingOperation.Commit]
-      142 RETURN                           R0 1
+      125 LOADK                            R14 K24 ["Style Editor could not reset %* on %*"]
+      126 MOVE                             R16 R11
+      127 MOVE                             R17 R4
+      128 NAMECALL                         R14 R14 K25 ["format"]
+      130 CALL                             R14 3 1
+      131 CALL                             R13 1 0
+      132 FORGLOOP                         R8 2 ; [-19]
+      134 GETTABLEKS                       R7 R7 K26 ["Parent"]
+      136 JUMPBACK                         ; [-33]
+      137 FORGLOOP                         R0 2 ; [-132]
+      139 GETIMPORT                        R0 K30 [Enum.FinishRecordingOperation.Commit]
+      141 RETURN                           R0 1
 
 PROTO_9:
         0 GETUPVAL                         R0 0

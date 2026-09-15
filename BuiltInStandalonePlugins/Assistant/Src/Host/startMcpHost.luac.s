@@ -188,13 +188,13 @@ PROTO_10:
        29 LOADNIL                          R1
        30 GETUPVAL                         R2 0
        31 GETTABLEKS                       R2 R2 K8 ["FFlagAssistantMarkdownPlanMode"]
-       33 JUMPIFNOT                        R2 ; [+43]
+       33 JUMPIFNOT                        R2 ; [+42]
        34 GETIMPORT                        R2 K10 [pcall]
        36 GETUPVAL                         R3 4
        37 GETTABLEKS                       R3 R3 K11 ["getHandler"]
        39 GETTABLEKS                       R4 R0 K12 ["name"]
        41 CALL                             R2 2 2
-       42 JUMPIF                           R2 ; [+32]
+       42 JUMPIF                           R2 ; [+31]
        43 GETIMPORT                        R4 K14 [warn]
        45 LOADK                            R5 K15 ["[startMcpHost] Failed to get handler for tool:"]
        46 GETTABLEKS                       R6 R0 K12 ["name"]
@@ -206,130 +206,129 @@ PROTO_10:
        54 CALL                             R4 4 0
        55 GETUPVAL                         R4 3
        56 CALL                             R4 0 1
-       57 LOADK                            R7 K19 ["Tool handler not found: %*"]
-       58 GETTABLEKS                       R9 R0 K12 ["name"]
-       60 NAMECALL                         R7 R7 K20 ["format"]
-       62 CALL                             R7 2 1
-       63 MOVE                             R6 R7
-       64 NAMECALL                         R4 R4 K5 ["addText"]
-       66 CALL                             R4 2 1
-       67 LOADB                            R6 1
-       68 NAMECALL                         R4 R4 K6 ["setError"]
-       70 CALL                             R4 2 1
-       71 NAMECALL                         R4 R4 K7 ["build"]
-       73 CALL                             R4 1 -1
-       74 RETURN                           R4 -1
-       75 MOVE                             R1 R3
-       76 JUMP                             ; [+7]
-       77 GETUPVAL                         R2 4
-       78 GETTABLEKS                       R2 R2 K11 ["getHandler"]
-       80 GETTABLEKS                       R3 R0 K12 ["name"]
-       82 CALL                             R2 1 1
-       83 MOVE                             R1 R2
-       84 GETTABLEKS                       R2 R0 K21 ["meta"]
-       86 GETUPVAL                         R3 5
-       87 GETTABLEKS                       R3 R3 K22 ["getToolAvailableDataModelTypes"]
-       89 GETTABLEKS                       R4 R0 K12 ["name"]
-       91 CALL                             R3 1 1
-       92 GETIMPORT                        R4 K10 [pcall]
-       94 NEWCLOSURE                       R5 P0
-       95 CAPTURE                          UPVAL U6
-       96 CAPTURE                          VAL R0
-       97 CAPTURE                          VAL R3
-       98 CAPTURE                          REF R2
-       99 CALL                             R4 1 2
-      100 JUMPIF                           R4 ; [+19]
-      101 GETUPVAL                         R6 3
-      102 CALL                             R6 0 1
-      103 FASTCALL1                        TOSTRING R5 ; [+3]
-      104 MOVE                             R9 R5
-      105 GETIMPORT                        R8 K18 [tostring]
-      107 CALL                             R8 1 1
-      108 NAMECALL                         R6 R6 K5 ["addText"]
-      110 CALL                             R6 2 1
-      111 LOADB                            R8 1
-      112 NAMECALL                         R6 R6 K6 ["setError"]
-      114 CALL                             R6 2 1
-      115 NAMECALL                         R6 R6 K7 ["build"]
-      117 CALL                             R6 1 -1
-      118 CLOSEUPVALS                      R2
-      119 RETURN                           R6 -1
-      120 MOVE                             R6 R2
-      121 JUMPIF                           R6 ; [+2]
-      122 NEWTABLE                         R6 0 0
-      124 SETTABLEKS                       R5 R6 K23 ["targetDataModel"]
-      126 MOVE                             R2 R6
-      127 GETUPVAL                         R7 7
-      128 GETTABLEKS                       R8 R0 K24 ["extra"]
-      130 DUPTABLE                         R9 K27 [{"listTools", "callTool"}]
-      131 GETTABLEKS                       R10 R0 K25 ["listTools"]
-      133 SETTABLEKS                       R10 R9 K25 ["listTools"]
-      135 NEWCLOSURE                       R10 P1
-      136 CAPTURE                          UPVAL U8
-      137 CAPTURE                          UPVAL U7
-      138 CAPTURE                          VAL R0
-      139 SETTABLEKS                       R10 R9 K26 ["callTool"]
-      141 CALL                             R7 2 1
-      142 GETUPVAL                         R8 0
-      143 GETTABLEKS                       R8 R8 K28 ["FFlagAssistantReplaceJobRunWithAsyncArg"]
-      145 JUMPIFNOT                        R8 ; [+22]
-      146 GETUPVAL                         R8 9
-      147 GETTABLEKS                       R8 R8 K29 ["tryRunAsync"]
-      149 DUPTABLE                         R9 K33 [{"toolName", "handler", "args", "meta", "extra"}]
-      150 GETTABLEKS                       R10 R0 K12 ["name"]
-      152 SETTABLEKS                       R10 R9 K30 ["toolName"]
-      154 SETTABLEKS                       R1 R9 K31 ["handler"]
-      156 GETTABLEKS                       R10 R0 K32 ["args"]
-      158 SETTABLEKS                       R10 R9 K32 ["args"]
-      160 SETTABLEKS                       R2 R9 K21 ["meta"]
-      162 SETTABLEKS                       R7 R9 K24 ["extra"]
-      164 CALL                             R8 1 1
-      165 JUMPIFNOT                        R8 ; [+2]
-      166 CLOSEUPVALS                      R2
-      167 RETURN                           R8 1
-      168 GETUPVAL                         R8 0
-      169 GETTABLEKS                       R8 R8 K8 ["FFlagAssistantMarkdownPlanMode"]
-      171 JUMPIFNOT                        R8 ; [+42]
-      172 GETIMPORT                        R8 K10 [pcall]
-      174 MOVE                             R9 R1
-      175 GETTABLEKS                       R10 R0 K32 ["args"]
-      177 MOVE                             R11 R2
-      178 MOVE                             R12 R7
-      179 CALL                             R8 4 2
-      180 JUMPIF                           R8 ; [+31]
-      181 GETIMPORT                        R10 K14 [warn]
-      183 LOADK                            R11 K34 ["[startMcpHost] Tool handler error for"]
-      184 GETTABLEKS                       R12 R0 K12 ["name"]
-      186 LOADK                            R13 K16 [":"]
-      187 FASTCALL1                        TOSTRING R9 ; [+3]
-      188 MOVE                             R15 R9
-      189 GETIMPORT                        R14 K18 [tostring]
-      191 CALL                             R14 1 1
-      192 CALL                             R10 4 0
-      193 GETUPVAL                         R10 3
-      194 CALL                             R10 0 1
-      195 FASTCALL1                        TOSTRING R9 ; [+3]
-      196 MOVE                             R13 R9
-      197 GETIMPORT                        R12 K18 [tostring]
-      199 CALL                             R12 1 1
-      200 NAMECALL                         R10 R10 K5 ["addText"]
-      202 CALL                             R10 2 1
-      203 LOADB                            R12 1
-      204 NAMECALL                         R10 R10 K6 ["setError"]
-      206 CALL                             R10 2 1
-      207 NAMECALL                         R10 R10 K7 ["build"]
-      209 CALL                             R10 1 -1
-      210 CLOSEUPVALS                      R2
-      211 RETURN                           R10 -1
-      212 CLOSEUPVALS                      R2
-      213 RETURN                           R9 1
-      214 MOVE                             R8 R1
-      215 GETTABLEKS                       R9 R0 K32 ["args"]
-      217 MOVE                             R10 R2
-      218 MOVE                             R11 R7
-      219 CALL                             R8 3 -1
-      220 CLOSEUPVALS                      R2
-      221 RETURN                           R8 -1
+       57 LOADK                            R6 K19 ["Tool handler not found: %*"]
+       58 GETTABLEKS                       R8 R0 K12 ["name"]
+       60 NAMECALL                         R6 R6 K20 ["format"]
+       62 CALL                             R6 2 1
+       63 NAMECALL                         R4 R4 K5 ["addText"]
+       65 CALL                             R4 2 1
+       66 LOADB                            R6 1
+       67 NAMECALL                         R4 R4 K6 ["setError"]
+       69 CALL                             R4 2 1
+       70 NAMECALL                         R4 R4 K7 ["build"]
+       72 CALL                             R4 1 -1
+       73 RETURN                           R4 -1
+       74 MOVE                             R1 R3
+       75 JUMP                             ; [+7]
+       76 GETUPVAL                         R2 4
+       77 GETTABLEKS                       R2 R2 K11 ["getHandler"]
+       79 GETTABLEKS                       R3 R0 K12 ["name"]
+       81 CALL                             R2 1 1
+       82 MOVE                             R1 R2
+       83 GETTABLEKS                       R2 R0 K21 ["meta"]
+       85 GETUPVAL                         R3 5
+       86 GETTABLEKS                       R3 R3 K22 ["getToolAvailableDataModelTypes"]
+       88 GETTABLEKS                       R4 R0 K12 ["name"]
+       90 CALL                             R3 1 1
+       91 GETIMPORT                        R4 K10 [pcall]
+       93 NEWCLOSURE                       R5 P0
+       94 CAPTURE                          UPVAL U6
+       95 CAPTURE                          VAL R0
+       96 CAPTURE                          VAL R3
+       97 CAPTURE                          REF R2
+       98 CALL                             R4 1 2
+       99 JUMPIF                           R4 ; [+19]
+      100 GETUPVAL                         R6 3
+      101 CALL                             R6 0 1
+      102 FASTCALL1                        TOSTRING R5 ; [+3]
+      103 MOVE                             R9 R5
+      104 GETIMPORT                        R8 K18 [tostring]
+      106 CALL                             R8 1 1
+      107 NAMECALL                         R6 R6 K5 ["addText"]
+      109 CALL                             R6 2 1
+      110 LOADB                            R8 1
+      111 NAMECALL                         R6 R6 K6 ["setError"]
+      113 CALL                             R6 2 1
+      114 NAMECALL                         R6 R6 K7 ["build"]
+      116 CALL                             R6 1 -1
+      117 CLOSEUPVALS                      R2
+      118 RETURN                           R6 -1
+      119 MOVE                             R6 R2
+      120 JUMPIF                           R6 ; [+2]
+      121 NEWTABLE                         R6 0 0
+      123 SETTABLEKS                       R5 R6 K23 ["targetDataModel"]
+      125 MOVE                             R2 R6
+      126 GETUPVAL                         R7 7
+      127 GETTABLEKS                       R8 R0 K24 ["extra"]
+      129 DUPTABLE                         R9 K27 [{"listTools", "callTool"}]
+      130 GETTABLEKS                       R10 R0 K25 ["listTools"]
+      132 SETTABLEKS                       R10 R9 K25 ["listTools"]
+      134 NEWCLOSURE                       R10 P1
+      135 CAPTURE                          UPVAL U8
+      136 CAPTURE                          UPVAL U7
+      137 CAPTURE                          VAL R0
+      138 SETTABLEKS                       R10 R9 K26 ["callTool"]
+      140 CALL                             R7 2 1
+      141 GETUPVAL                         R8 0
+      142 GETTABLEKS                       R8 R8 K28 ["FFlagAssistantReplaceJobRunWithAsyncArg"]
+      144 JUMPIFNOT                        R8 ; [+22]
+      145 GETUPVAL                         R8 9
+      146 GETTABLEKS                       R8 R8 K29 ["tryRunAsync"]
+      148 DUPTABLE                         R9 K33 [{"toolName", "handler", "args", "meta", "extra"}]
+      149 GETTABLEKS                       R10 R0 K12 ["name"]
+      151 SETTABLEKS                       R10 R9 K30 ["toolName"]
+      153 SETTABLEKS                       R1 R9 K31 ["handler"]
+      155 GETTABLEKS                       R10 R0 K32 ["args"]
+      157 SETTABLEKS                       R10 R9 K32 ["args"]
+      159 SETTABLEKS                       R2 R9 K21 ["meta"]
+      161 SETTABLEKS                       R7 R9 K24 ["extra"]
+      163 CALL                             R8 1 1
+      164 JUMPIFNOT                        R8 ; [+2]
+      165 CLOSEUPVALS                      R2
+      166 RETURN                           R8 1
+      167 GETUPVAL                         R8 0
+      168 GETTABLEKS                       R8 R8 K8 ["FFlagAssistantMarkdownPlanMode"]
+      170 JUMPIFNOT                        R8 ; [+42]
+      171 GETIMPORT                        R8 K10 [pcall]
+      173 MOVE                             R9 R1
+      174 GETTABLEKS                       R10 R0 K32 ["args"]
+      176 MOVE                             R11 R2
+      177 MOVE                             R12 R7
+      178 CALL                             R8 4 2
+      179 JUMPIF                           R8 ; [+31]
+      180 GETIMPORT                        R10 K14 [warn]
+      182 LOADK                            R11 K34 ["[startMcpHost] Tool handler error for"]
+      183 GETTABLEKS                       R12 R0 K12 ["name"]
+      185 LOADK                            R13 K16 [":"]
+      186 FASTCALL1                        TOSTRING R9 ; [+3]
+      187 MOVE                             R15 R9
+      188 GETIMPORT                        R14 K18 [tostring]
+      190 CALL                             R14 1 1
+      191 CALL                             R10 4 0
+      192 GETUPVAL                         R10 3
+      193 CALL                             R10 0 1
+      194 FASTCALL1                        TOSTRING R9 ; [+3]
+      195 MOVE                             R13 R9
+      196 GETIMPORT                        R12 K18 [tostring]
+      198 CALL                             R12 1 1
+      199 NAMECALL                         R10 R10 K5 ["addText"]
+      201 CALL                             R10 2 1
+      202 LOADB                            R12 1
+      203 NAMECALL                         R10 R10 K6 ["setError"]
+      205 CALL                             R10 2 1
+      206 NAMECALL                         R10 R10 K7 ["build"]
+      208 CALL                             R10 1 -1
+      209 CLOSEUPVALS                      R2
+      210 RETURN                           R10 -1
+      211 CLOSEUPVALS                      R2
+      212 RETURN                           R9 1
+      213 MOVE                             R8 R1
+      214 GETTABLEKS                       R9 R0 K32 ["args"]
+      216 MOVE                             R10 R2
+      217 MOVE                             R11 R7
+      218 CALL                             R8 3 -1
+      219 CLOSEUPVALS                      R2
+      220 RETURN                           R8 -1
 
 PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["name"]
@@ -373,78 +372,76 @@ PROTO_11:
        52 MOVE                             R3 R2
        53 GETUPVAL                         R4 1
        54 GETTABLEKS                       R4 R4 K11 ["FFlagAssistantReplaceJobRunWithAsyncArg"]
-       56 JUMPIFNOT                        R4 ; [+23]
+       56 JUMPIFNOT                        R4 ; [+22]
        57 GETUPVAL                         R4 4
        58 MOVE                             R5 R0
        59 DUPTABLE                         R6 K16 [{[1] = "datamodel_type", ["required"] = True, ["schema"]}]
        60 DUPTABLE                         R7 K21 [{["type"] = "string", ["enum"], ["description"]}]
        61 SETTABLEKS                       R3 R7 K19 ["enum"]
-       63 LOADK                            R9 K22 ["The target datamodel to operate on, the tool can only be performed in those datamodel types. call %* to get current available datamodel types. if the target datamodel is not available in current mode, consider using %* to switch to the desired mode and then use the tools. This is a required argument."]
-       64 GETUPVAL                         R11 5
-       65 GETTABLEKS                       R11 R11 K23 ["GetStudioState"]
-       67 GETUPVAL                         R12 5
-       68 GETTABLEKS                       R12 R12 K24 ["StartStopPlay"]
-       70 NAMECALL                         R9 R9 K25 ["format"]
-       72 CALL                             R9 3 1
-       73 MOVE                             R8 R9
-       74 SETTABLEKS                       R8 R7 K20 ["description"]
-       76 SETTABLEKS                       R7 R6 K15 ["schema"]
-       78 CALL                             R4 2 -1
-       79 RETURN                           R4 -1
-       80 GETIMPORT                        R4 K27 [table.clone]
-       82 GETTABLEKS                       R5 R0 K28 ["inputSchema"]
-       84 CALL                             R4 1 1
-       85 GETTABLEKS                       R5 R4 K13 ["required"]
-       87 JUMPIF                           R5 ; [+5]
-       88 NEWTABLE                         R5 0 0
-       90 SETTABLEKS                       R5 R4 K13 ["required"]
-       92 JUMP                             ; [+7]
-       93 GETIMPORT                        R5 K27 [table.clone]
-       95 GETTABLEKS                       R6 R4 K13 ["required"]
-       97 CALL                             R5 1 1
-       98 SETTABLEKS                       R5 R4 K13 ["required"]
-      100 GETTABLEKS                       R6 R4 K13 ["required"]
-      102 FASTCALL2K                       ASSERT R6 K29 ; [+4]
-      104 LOADK                            R7 K29 ["Expected required to be present in input schema"]
-      105 GETIMPORT                        R5 K31 [assert]
-      107 CALL                             R5 2 0
-      108 GETTABLEKS                       R6 R4 K13 ["required"]
-      110 FASTCALL2K                       TABLE_INSERT R6 K12 ; [+4]
-      112 LOADK                            R7 K12 ["datamodel_type"]
-      113 GETIMPORT                        R5 K10 [table.insert]
-      115 CALL                             R5 2 0
-      116 GETTABLEKS                       R5 R4 K32 ["properties"]
-      118 JUMPIF                           R5 ; [+5]
-      119 NEWTABLE                         R5 0 0
-      121 SETTABLEKS                       R5 R4 K32 ["properties"]
-      123 JUMP                             ; [+7]
-      124 GETIMPORT                        R5 K27 [table.clone]
-      126 GETTABLEKS                       R6 R4 K32 ["properties"]
-      128 CALL                             R5 1 1
-      129 SETTABLEKS                       R5 R4 K32 ["properties"]
-      131 GETTABLEKS                       R6 R4 K32 ["properties"]
-      133 FASTCALL2K                       ASSERT R6 K33 ; [+4]
-      135 LOADK                            R7 K33 ["Expected properties to be present in input schema"]
-      136 GETIMPORT                        R5 K31 [assert]
-      138 CALL                             R5 2 0
-      139 GETTABLEKS                       R5 R4 K32 ["properties"]
-      141 DUPTABLE                         R6 K21 [{["type"] = "string", ["enum"], ["description"]}]
-      142 SETTABLEKS                       R3 R6 K19 ["enum"]
-      144 LOADK                            R8 K22 ["The target datamodel to operate on, the tool can only be performed in those datamodel types. call %* to get current available datamodel types. if the target datamodel is not available in current mode, consider using %* to switch to the desired mode and then use the tools. This is a required argument."]
-      145 GETUPVAL                         R10 5
-      146 GETTABLEKS                       R10 R10 K23 ["GetStudioState"]
-      148 GETUPVAL                         R11 5
-      149 GETTABLEKS                       R11 R11 K24 ["StartStopPlay"]
-      151 NAMECALL                         R8 R8 K25 ["format"]
-      153 CALL                             R8 3 1
-      154 MOVE                             R7 R8
-      155 SETTABLEKS                       R7 R6 K20 ["description"]
-      157 SETTABLEKS                       R6 R5 K12 ["datamodel_type"]
-      159 GETIMPORT                        R5 K27 [table.clone]
-      161 MOVE                             R6 R0
-      162 CALL                             R5 1 1
-      163 SETTABLEKS                       R4 R5 K28 ["inputSchema"]
-      165 RETURN                           R5 1
+       63 LOADK                            R8 K22 ["The target datamodel to operate on, the tool can only be performed in those datamodel types. call %* to get current available datamodel types. if the target datamodel is not available in current mode, consider using %* to switch to the desired mode and then use the tools. This is a required argument."]
+       64 GETUPVAL                         R10 5
+       65 GETTABLEKS                       R10 R10 K23 ["GetStudioState"]
+       67 GETUPVAL                         R11 5
+       68 GETTABLEKS                       R11 R11 K24 ["StartStopPlay"]
+       70 NAMECALL                         R8 R8 K25 ["format"]
+       72 CALL                             R8 3 1
+       73 SETTABLEKS                       R8 R7 K20 ["description"]
+       75 SETTABLEKS                       R7 R6 K15 ["schema"]
+       77 CALL                             R4 2 -1
+       78 RETURN                           R4 -1
+       79 GETIMPORT                        R4 K27 [table.clone]
+       81 GETTABLEKS                       R5 R0 K28 ["inputSchema"]
+       83 CALL                             R4 1 1
+       84 GETTABLEKS                       R5 R4 K13 ["required"]
+       86 JUMPIF                           R5 ; [+5]
+       87 NEWTABLE                         R5 0 0
+       89 SETTABLEKS                       R5 R4 K13 ["required"]
+       91 JUMP                             ; [+7]
+       92 GETIMPORT                        R5 K27 [table.clone]
+       94 GETTABLEKS                       R6 R4 K13 ["required"]
+       96 CALL                             R5 1 1
+       97 SETTABLEKS                       R5 R4 K13 ["required"]
+       99 GETTABLEKS                       R6 R4 K13 ["required"]
+      101 FASTCALL2K                       ASSERT R6 K29 ; [+4]
+      103 LOADK                            R7 K29 ["Expected required to be present in input schema"]
+      104 GETIMPORT                        R5 K31 [assert]
+      106 CALL                             R5 2 0
+      107 GETTABLEKS                       R6 R4 K13 ["required"]
+      109 FASTCALL2K                       TABLE_INSERT R6 K12 ; [+4]
+      111 LOADK                            R7 K12 ["datamodel_type"]
+      112 GETIMPORT                        R5 K10 [table.insert]
+      114 CALL                             R5 2 0
+      115 GETTABLEKS                       R5 R4 K32 ["properties"]
+      117 JUMPIF                           R5 ; [+5]
+      118 NEWTABLE                         R5 0 0
+      120 SETTABLEKS                       R5 R4 K32 ["properties"]
+      122 JUMP                             ; [+7]
+      123 GETIMPORT                        R5 K27 [table.clone]
+      125 GETTABLEKS                       R6 R4 K32 ["properties"]
+      127 CALL                             R5 1 1
+      128 SETTABLEKS                       R5 R4 K32 ["properties"]
+      130 GETTABLEKS                       R6 R4 K32 ["properties"]
+      132 FASTCALL2K                       ASSERT R6 K33 ; [+4]
+      134 LOADK                            R7 K33 ["Expected properties to be present in input schema"]
+      135 GETIMPORT                        R5 K31 [assert]
+      137 CALL                             R5 2 0
+      138 GETTABLEKS                       R5 R4 K32 ["properties"]
+      140 DUPTABLE                         R6 K21 [{["type"] = "string", ["enum"], ["description"]}]
+      141 SETTABLEKS                       R3 R6 K19 ["enum"]
+      143 LOADK                            R7 K22 ["The target datamodel to operate on, the tool can only be performed in those datamodel types. call %* to get current available datamodel types. if the target datamodel is not available in current mode, consider using %* to switch to the desired mode and then use the tools. This is a required argument."]
+      144 GETUPVAL                         R9 5
+      145 GETTABLEKS                       R9 R9 K23 ["GetStudioState"]
+      147 GETUPVAL                         R10 5
+      148 GETTABLEKS                       R10 R10 K24 ["StartStopPlay"]
+      150 NAMECALL                         R7 R7 K25 ["format"]
+      152 CALL                             R7 3 1
+      153 SETTABLEKS                       R7 R6 K20 ["description"]
+      155 SETTABLEKS                       R6 R5 K12 ["datamodel_type"]
+      157 GETIMPORT                        R5 K27 [table.clone]
+      159 MOVE                             R6 R0
+      160 CALL                             R5 1 1
+      161 SETTABLEKS                       R4 R5 K28 ["inputSchema"]
+      163 RETURN                           R5 1
 
 PROTO_12:
         0 GETTABLEKS                       R1 R0 K0 ["name"]
@@ -454,65 +451,64 @@ PROTO_12:
         7 RETURN                           R0 1
         8 GETUPVAL                         R1 1
         9 GETTABLEKS                       R1 R1 K2 ["FFlagAssistantReplaceJobRunWithAsyncArg"]
-       11 JUMPIFNOT                        R1 ; [+18]
+       11 JUMPIFNOT                        R1 ; [+17]
        12 GETUPVAL                         R1 2
        13 MOVE                             R2 R0
        14 DUPTABLE                         R3 K7 [{[1] = "studio_id", ["required"] = True, ["schema"]}]
        15 DUPTABLE                         R4 K11 [{["type"] = "string", ["description"]}]
-       16 LOADK                            R6 K12 ["Selects Roblox Studio instance, use the %* tool to get available instances"]
-       17 GETUPVAL                         R8 0
-       18 GETTABLEKS                       R8 R8 K1 ["ListRobloxStudios"]
-       20 NAMECALL                         R6 R6 K13 ["format"]
-       22 CALL                             R6 2 1
-       23 MOVE                             R5 R6
-       24 SETTABLEKS                       R5 R4 K10 ["description"]
-       26 SETTABLEKS                       R4 R3 K6 ["schema"]
-       28 CALL                             R1 2 -1
-       29 RETURN                           R1 -1
-       30 GETIMPORT                        R1 K16 [table.clone]
-       32 GETTABLEKS                       R2 R0 K17 ["inputSchema"]
-       34 CALL                             R1 1 1
-       35 GETTABLEKS                       R2 R1 K4 ["required"]
-       37 JUMPIF                           R2 ; [+5]
-       38 NEWTABLE                         R2 0 0
-       40 SETTABLEKS                       R2 R1 K4 ["required"]
-       42 JUMP                             ; [+7]
-       43 GETIMPORT                        R2 K16 [table.clone]
-       45 GETTABLEKS                       R3 R1 K4 ["required"]
-       47 CALL                             R2 1 1
-       48 SETTABLEKS                       R2 R1 K4 ["required"]
-       50 GETTABLEKS                       R3 R1 K4 ["required"]
-       52 FASTCALL2K                       ASSERT R3 K18 ; [+4]
-       54 LOADK                            R4 K18 ["Expected required to be present in input schema"]
-       55 GETIMPORT                        R2 K20 [assert]
-       57 CALL                             R2 2 0
-       58 GETTABLEKS                       R3 R1 K4 ["required"]
-       60 FASTCALL2K                       TABLE_INSERT R3 K3 ; [+4]
-       62 LOADK                            R4 K3 ["studio_id"]
-       63 GETIMPORT                        R2 K22 [table.insert]
-       65 CALL                             R2 2 0
-       66 GETTABLEKS                       R2 R1 K23 ["properties"]
-       68 JUMPIF                           R2 ; [+5]
-       69 NEWTABLE                         R2 0 0
-       71 SETTABLEKS                       R2 R1 K23 ["properties"]
-       73 JUMP                             ; [+7]
-       74 GETIMPORT                        R2 K16 [table.clone]
-       76 GETTABLEKS                       R3 R1 K23 ["properties"]
-       78 CALL                             R2 1 1
-       79 SETTABLEKS                       R2 R1 K23 ["properties"]
-       81 GETTABLEKS                       R3 R1 K23 ["properties"]
-       83 FASTCALL2K                       ASSERT R3 K24 ; [+4]
-       85 LOADK                            R4 K24 ["Expected properties to be present in input schema"]
-       86 GETIMPORT                        R2 K20 [assert]
-       88 CALL                             R2 2 0
-       89 GETTABLEKS                       R2 R1 K23 ["properties"]
-       91 DUPTABLE                         R3 K26 [{["type"] = "string", ["description"] = "Selects Roblox Studio instance, use the list_roblox_studios tool to get available instances"}]
-       92 SETTABLEKS                       R3 R2 K3 ["studio_id"]
-       94 GETIMPORT                        R2 K16 [table.clone]
-       96 MOVE                             R3 R0
-       97 CALL                             R2 1 1
-       98 SETTABLEKS                       R1 R2 K17 ["inputSchema"]
-      100 RETURN                           R2 1
+       16 LOADK                            R5 K12 ["Selects Roblox Studio instance, use the %* tool to get available instances"]
+       17 GETUPVAL                         R7 0
+       18 GETTABLEKS                       R7 R7 K1 ["ListRobloxStudios"]
+       20 NAMECALL                         R5 R5 K13 ["format"]
+       22 CALL                             R5 2 1
+       23 SETTABLEKS                       R5 R4 K10 ["description"]
+       25 SETTABLEKS                       R4 R3 K6 ["schema"]
+       27 CALL                             R1 2 -1
+       28 RETURN                           R1 -1
+       29 GETIMPORT                        R1 K16 [table.clone]
+       31 GETTABLEKS                       R2 R0 K17 ["inputSchema"]
+       33 CALL                             R1 1 1
+       34 GETTABLEKS                       R2 R1 K4 ["required"]
+       36 JUMPIF                           R2 ; [+5]
+       37 NEWTABLE                         R2 0 0
+       39 SETTABLEKS                       R2 R1 K4 ["required"]
+       41 JUMP                             ; [+7]
+       42 GETIMPORT                        R2 K16 [table.clone]
+       44 GETTABLEKS                       R3 R1 K4 ["required"]
+       46 CALL                             R2 1 1
+       47 SETTABLEKS                       R2 R1 K4 ["required"]
+       49 GETTABLEKS                       R3 R1 K4 ["required"]
+       51 FASTCALL2K                       ASSERT R3 K18 ; [+4]
+       53 LOADK                            R4 K18 ["Expected required to be present in input schema"]
+       54 GETIMPORT                        R2 K20 [assert]
+       56 CALL                             R2 2 0
+       57 GETTABLEKS                       R3 R1 K4 ["required"]
+       59 FASTCALL2K                       TABLE_INSERT R3 K3 ; [+4]
+       61 LOADK                            R4 K3 ["studio_id"]
+       62 GETIMPORT                        R2 K22 [table.insert]
+       64 CALL                             R2 2 0
+       65 GETTABLEKS                       R2 R1 K23 ["properties"]
+       67 JUMPIF                           R2 ; [+5]
+       68 NEWTABLE                         R2 0 0
+       70 SETTABLEKS                       R2 R1 K23 ["properties"]
+       72 JUMP                             ; [+7]
+       73 GETIMPORT                        R2 K16 [table.clone]
+       75 GETTABLEKS                       R3 R1 K23 ["properties"]
+       77 CALL                             R2 1 1
+       78 SETTABLEKS                       R2 R1 K23 ["properties"]
+       80 GETTABLEKS                       R3 R1 K23 ["properties"]
+       82 FASTCALL2K                       ASSERT R3 K24 ; [+4]
+       84 LOADK                            R4 K24 ["Expected properties to be present in input schema"]
+       85 GETIMPORT                        R2 K20 [assert]
+       87 CALL                             R2 2 0
+       88 GETTABLEKS                       R2 R1 K23 ["properties"]
+       90 DUPTABLE                         R3 K26 [{["type"] = "string", ["description"] = "Selects Roblox Studio instance, use the list_roblox_studios tool to get available instances"}]
+       91 SETTABLEKS                       R3 R2 K3 ["studio_id"]
+       93 GETIMPORT                        R2 K16 [table.clone]
+       95 MOVE                             R3 R0
+       96 CALL                             R2 1 1
+       97 SETTABLEKS                       R1 R2 K17 ["inputSchema"]
+       99 RETURN                           R2 1
 
 PROTO_13:
         0 JUMPIFEQKNIL                     R0 ; [+5]
@@ -815,35 +811,32 @@ PROTO_19:
        45 CALL                             R4 1 1
        46 GETUPVAL                         R5 2
        47 GETTABLEKS                       R5 R5 K16 ["FFlagDebugLogAssistantUI"]
-       49 JUMPIFNOT                        R5 ; [+36]
+       49 JUMPIFNOT                        R5 ; [+33]
        50 GETIMPORT                        R5 K18 [print]
-       52 LOADK                            R7 K19 ["TOOL CALL FINISHED: %*"]
-       53 MOVE                             R9 R3
-       54 NAMECALL                         R7 R7 K20 ["format"]
-       56 CALL                             R7 2 1
-       57 MOVE                             R6 R7
-       58 CALL                             R5 1 0
-       59 GETIMPORT                        R5 K18 [print]
-       61 LOADK                            R7 K21 ["Args: %*"]
-       62 GETUPVAL                         R9 3
-       63 GETTABLEKS                       R9 R9 K22 ["toString"]
-       65 GETTABLEKS                       R10 R2 K14 ["arguments"]
-       67 CALL                             R9 1 1
-       68 NAMECALL                         R7 R7 K20 ["format"]
-       70 CALL                             R7 2 1
-       71 MOVE                             R6 R7
-       72 CALL                             R5 1 0
-       73 GETIMPORT                        R5 K18 [print]
-       75 LOADK                            R7 K23 ["Result: %*"]
-       76 GETUPVAL                         R9 3
-       77 GETTABLEKS                       R9 R9 K22 ["toString"]
-       79 MOVE                             R10 R4
-       80 CALL                             R9 1 1
-       81 NAMECALL                         R7 R7 K20 ["format"]
-       83 CALL                             R7 2 1
-       84 MOVE                             R6 R7
-       85 CALL                             R5 1 0
-       86 RETURN                           R4 1
+       52 LOADK                            R6 K19 ["TOOL CALL FINISHED: %*"]
+       53 MOVE                             R8 R3
+       54 NAMECALL                         R6 R6 K20 ["format"]
+       56 CALL                             R6 2 1
+       57 CALL                             R5 1 0
+       58 GETIMPORT                        R5 K18 [print]
+       60 LOADK                            R6 K21 ["Args: %*"]
+       61 GETUPVAL                         R8 3
+       62 GETTABLEKS                       R8 R8 K22 ["toString"]
+       64 GETTABLEKS                       R9 R2 K14 ["arguments"]
+       66 CALL                             R8 1 1
+       67 NAMECALL                         R6 R6 K20 ["format"]
+       69 CALL                             R6 2 1
+       70 CALL                             R5 1 0
+       71 GETIMPORT                        R5 K18 [print]
+       73 LOADK                            R6 K23 ["Result: %*"]
+       74 GETUPVAL                         R8 3
+       75 GETTABLEKS                       R8 R8 K22 ["toString"]
+       77 MOVE                             R9 R4
+       78 CALL                             R8 1 1
+       79 NAMECALL                         R6 R6 K20 ["format"]
+       81 CALL                             R6 2 1
+       82 CALL                             R5 1 0
+       83 RETURN                           R4 1
 
 PROTO_20:
         0 GETUPVAL                         R0 0
@@ -918,15 +911,14 @@ PROTO_22:
 
 PROTO_23:
         0 DUPTABLE                         R0 K1 [{"message"}]
-        1 LOADK                            R2 K2 ["pong from %*"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R4 R4 K3 ["_serverInfo"]
-        5 GETTABLEKS                       R4 R4 K4 ["name"]
-        7 NAMECALL                         R2 R2 K5 ["format"]
-        9 CALL                             R2 2 1
-       10 MOVE                             R1 R2
-       11 SETTABLEKS                       R1 R0 K0 ["message"]
-       13 RETURN                           R0 1
+        1 LOADK                            R1 K2 ["pong from %*"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K3 ["_serverInfo"]
+        5 GETTABLEKS                       R3 R3 K4 ["name"]
+        7 NAMECALL                         R1 R1 K5 ["format"]
+        9 CALL                             R1 2 1
+       10 SETTABLEKS                       R1 R0 K0 ["message"]
+       12 RETURN                           R0 1
 
 PROTO_24:
         0 GETUPVAL                         R0 0

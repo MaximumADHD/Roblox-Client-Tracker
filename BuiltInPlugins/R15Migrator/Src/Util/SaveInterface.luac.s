@@ -718,114 +718,112 @@ PROTO_26:
         0 GETUPVAL                         R4 0
         1 NAMECALL                         R2 R0 K0 ["GetAttribute"]
         3 CALL                             R2 2 1
-        4 JUMPIF                           R2 ; [+36]
+        4 JUMPIF                           R2 ; [+35]
         5 GETIMPORT                        R3 K2 [warn]
-        7 LOADK                            R5 K3 ["Could not find matching R6 KeyframeSequence. Was the %* folder edited?"]
-        8 GETUPVAL                         R8 1
-        9 JUMPIF                           R8 ; [+24]
-       10 GETUPVAL                         R9 2
-       11 LOADK                            R12 K4 ["R15MigratorProgress"]
-       12 NAMECALL                         R10 R9 K5 ["FindFirstChild"]
-       14 CALL                             R10 2 1
-       15 JUMPIFNOT                        R10 ; [+7]
-       16 LOADK                            R13 K6 ["Folder"]
-       17 NAMECALL                         R11 R10 K7 ["IsA"]
-       19 CALL                             R11 2 1
-       20 JUMPIFNOT                        R11 ; [+2]
-       21 MOVE                             R8 R10
+        7 LOADK                            R4 K3 ["Could not find matching R6 KeyframeSequence. Was the %* folder edited?"]
+        8 GETUPVAL                         R7 1
+        9 JUMPIF                           R7 ; [+24]
+       10 GETUPVAL                         R8 2
+       11 LOADK                            R11 K4 ["R15MigratorProgress"]
+       12 NAMECALL                         R9 R8 K5 ["FindFirstChild"]
+       14 CALL                             R9 2 1
+       15 JUMPIFNOT                        R9 ; [+7]
+       16 LOADK                            R12 K6 ["Folder"]
+       17 NAMECALL                         R10 R9 K7 ["IsA"]
+       19 CALL                             R10 2 1
+       20 JUMPIFNOT                        R10 ; [+2]
+       21 MOVE                             R7 R9
        22 JUMP                             ; [+10]
-       23 GETIMPORT                        R11 K10 [Instance.new]
-       25 LOADK                            R12 K6 ["Folder"]
-       26 CALL                             R11 1 1
-       27 LOADK                            R12 K4 ["R15MigratorProgress"]
-       28 SETTABLEKS                       R12 R11 K11 ["Name"]
-       30 SETTABLEKS                       R9 R11 K12 ["Parent"]
-       32 MOVE                             R8 R11
-       33 SETUPVAL                         R8 1
-       34 GETUPVAL                         R7 1
-       35 NAMECALL                         R5 R5 K13 ["format"]
-       37 CALL                             R5 2 1
-       38 MOVE                             R4 R5
-       39 CALL                             R3 1 0
-       40 RETURN                           R0 0
-       41 LOADNIL                          R3
-       42 JUMPIFNOT                        R1 ; [+2]
-       43 GETTABLE                         R3 R1 R2
-       44 JUMP                             ; [+54]
-       45 GETUPVAL                         R5 1
-       46 JUMPIF                           R5 ; [+24]
-       47 GETUPVAL                         R6 2
-       48 LOADK                            R9 K4 ["R15MigratorProgress"]
-       49 NAMECALL                         R7 R6 K5 ["FindFirstChild"]
-       51 CALL                             R7 2 1
-       52 JUMPIFNOT                        R7 ; [+7]
-       53 LOADK                            R10 K6 ["Folder"]
-       54 NAMECALL                         R8 R7 K7 ["IsA"]
-       56 CALL                             R8 2 1
-       57 JUMPIFNOT                        R8 ; [+2]
-       58 MOVE                             R5 R7
-       59 JUMP                             ; [+10]
-       60 GETIMPORT                        R8 K10 [Instance.new]
-       62 LOADK                            R9 K6 ["Folder"]
-       63 CALL                             R8 1 1
-       64 LOADK                            R9 K4 ["R15MigratorProgress"]
-       65 SETTABLEKS                       R9 R8 K11 ["Name"]
-       67 SETTABLEKS                       R6 R8 K12 ["Parent"]
-       69 MOVE                             R5 R8
-       70 SETUPVAL                         R5 1
-       71 GETUPVAL                         R5 1
-       72 LOADK                            R8 K14 ["R6KeyframeSequences"]
-       73 NAMECALL                         R6 R5 K5 ["FindFirstChild"]
-       75 CALL                             R6 2 1
-       76 JUMPIFNOT                        R6 ; [+7]
-       77 LOADK                            R9 K6 ["Folder"]
-       78 NAMECALL                         R7 R6 K7 ["IsA"]
-       80 CALL                             R7 2 1
-       81 JUMPIFNOT                        R7 ; [+2]
-       82 MOVE                             R4 R6
-       83 JUMP                             ; [+10]
-       84 GETIMPORT                        R7 K10 [Instance.new]
-       86 LOADK                            R8 K6 ["Folder"]
-       87 CALL                             R7 1 1
-       88 LOADK                            R8 K14 ["R6KeyframeSequences"]
-       89 SETTABLEKS                       R8 R7 K11 ["Name"]
-       91 SETTABLEKS                       R5 R7 K12 ["Parent"]
-       93 MOVE                             R4 R7
-       94 MOVE                             R7 R2
-       95 NAMECALL                         R5 R4 K5 ["FindFirstChild"]
-       97 CALL                             R5 2 1
-       98 MOVE                             R3 R5
-       99 JUMPIF                           R3 ; [+36]
-      100 GETIMPORT                        R4 K2 [warn]
-      102 LOADK                            R6 K15 ["Original R6 KeyframeSequence is unavailable. Was the %* folder edited?"]
-      103 GETUPVAL                         R9 1
-      104 JUMPIF                           R9 ; [+24]
-      105 GETUPVAL                         R10 2
-      106 LOADK                            R13 K4 ["R15MigratorProgress"]
-      107 NAMECALL                         R11 R10 K5 ["FindFirstChild"]
-      109 CALL                             R11 2 1
-      110 JUMPIFNOT                        R11 ; [+7]
-      111 LOADK                            R14 K6 ["Folder"]
-      112 NAMECALL                         R12 R11 K7 ["IsA"]
-      114 CALL                             R12 2 1
-      115 JUMPIFNOT                        R12 ; [+2]
-      116 MOVE                             R9 R11
-      117 JUMP                             ; [+10]
-      118 GETIMPORT                        R12 K10 [Instance.new]
-      120 LOADK                            R13 K6 ["Folder"]
-      121 CALL                             R12 1 1
-      122 LOADK                            R13 K4 ["R15MigratorProgress"]
-      123 SETTABLEKS                       R13 R12 K11 ["Name"]
-      125 SETTABLEKS                       R10 R12 K12 ["Parent"]
-      127 MOVE                             R9 R12
-      128 SETUPVAL                         R9 1
-      129 GETUPVAL                         R8 1
-      130 NAMECALL                         R6 R6 K13 ["format"]
-      132 CALL                             R6 2 1
-      133 MOVE                             R5 R6
-      134 CALL                             R4 1 0
-      135 RETURN                           R0 0
-      136 RETURN                           R3 1
+       23 GETIMPORT                        R10 K10 [Instance.new]
+       25 LOADK                            R11 K6 ["Folder"]
+       26 CALL                             R10 1 1
+       27 LOADK                            R11 K4 ["R15MigratorProgress"]
+       28 SETTABLEKS                       R11 R10 K11 ["Name"]
+       30 SETTABLEKS                       R8 R10 K12 ["Parent"]
+       32 MOVE                             R7 R10
+       33 SETUPVAL                         R7 1
+       34 GETUPVAL                         R6 1
+       35 NAMECALL                         R4 R4 K13 ["format"]
+       37 CALL                             R4 2 1
+       38 CALL                             R3 1 0
+       39 RETURN                           R0 0
+       40 LOADNIL                          R3
+       41 JUMPIFNOT                        R1 ; [+2]
+       42 GETTABLE                         R3 R1 R2
+       43 JUMP                             ; [+54]
+       44 GETUPVAL                         R5 1
+       45 JUMPIF                           R5 ; [+24]
+       46 GETUPVAL                         R6 2
+       47 LOADK                            R9 K4 ["R15MigratorProgress"]
+       48 NAMECALL                         R7 R6 K5 ["FindFirstChild"]
+       50 CALL                             R7 2 1
+       51 JUMPIFNOT                        R7 ; [+7]
+       52 LOADK                            R10 K6 ["Folder"]
+       53 NAMECALL                         R8 R7 K7 ["IsA"]
+       55 CALL                             R8 2 1
+       56 JUMPIFNOT                        R8 ; [+2]
+       57 MOVE                             R5 R7
+       58 JUMP                             ; [+10]
+       59 GETIMPORT                        R8 K10 [Instance.new]
+       61 LOADK                            R9 K6 ["Folder"]
+       62 CALL                             R8 1 1
+       63 LOADK                            R9 K4 ["R15MigratorProgress"]
+       64 SETTABLEKS                       R9 R8 K11 ["Name"]
+       66 SETTABLEKS                       R6 R8 K12 ["Parent"]
+       68 MOVE                             R5 R8
+       69 SETUPVAL                         R5 1
+       70 GETUPVAL                         R5 1
+       71 LOADK                            R8 K14 ["R6KeyframeSequences"]
+       72 NAMECALL                         R6 R5 K5 ["FindFirstChild"]
+       74 CALL                             R6 2 1
+       75 JUMPIFNOT                        R6 ; [+7]
+       76 LOADK                            R9 K6 ["Folder"]
+       77 NAMECALL                         R7 R6 K7 ["IsA"]
+       79 CALL                             R7 2 1
+       80 JUMPIFNOT                        R7 ; [+2]
+       81 MOVE                             R4 R6
+       82 JUMP                             ; [+10]
+       83 GETIMPORT                        R7 K10 [Instance.new]
+       85 LOADK                            R8 K6 ["Folder"]
+       86 CALL                             R7 1 1
+       87 LOADK                            R8 K14 ["R6KeyframeSequences"]
+       88 SETTABLEKS                       R8 R7 K11 ["Name"]
+       90 SETTABLEKS                       R5 R7 K12 ["Parent"]
+       92 MOVE                             R4 R7
+       93 MOVE                             R7 R2
+       94 NAMECALL                         R5 R4 K5 ["FindFirstChild"]
+       96 CALL                             R5 2 1
+       97 MOVE                             R3 R5
+       98 JUMPIF                           R3 ; [+35]
+       99 GETIMPORT                        R4 K2 [warn]
+      101 LOADK                            R5 K15 ["Original R6 KeyframeSequence is unavailable. Was the %* folder edited?"]
+      102 GETUPVAL                         R8 1
+      103 JUMPIF                           R8 ; [+24]
+      104 GETUPVAL                         R9 2
+      105 LOADK                            R12 K4 ["R15MigratorProgress"]
+      106 NAMECALL                         R10 R9 K5 ["FindFirstChild"]
+      108 CALL                             R10 2 1
+      109 JUMPIFNOT                        R10 ; [+7]
+      110 LOADK                            R13 K6 ["Folder"]
+      111 NAMECALL                         R11 R10 K7 ["IsA"]
+      113 CALL                             R11 2 1
+      114 JUMPIFNOT                        R11 ; [+2]
+      115 MOVE                             R8 R10
+      116 JUMP                             ; [+10]
+      117 GETIMPORT                        R11 K10 [Instance.new]
+      119 LOADK                            R12 K6 ["Folder"]
+      120 CALL                             R11 1 1
+      121 LOADK                            R12 K4 ["R15MigratorProgress"]
+      122 SETTABLEKS                       R12 R11 K11 ["Name"]
+      124 SETTABLEKS                       R9 R11 K12 ["Parent"]
+      126 MOVE                             R8 R11
+      127 SETUPVAL                         R8 1
+      128 GETUPVAL                         R7 1
+      129 NAMECALL                         R5 R5 K13 ["format"]
+      131 CALL                             R5 2 1
+      132 CALL                             R4 1 0
+      133 RETURN                           R0 0
+      134 RETURN                           R3 1
 
 PROTO_27:
         0 GETUPVAL                         R2 0
@@ -1036,38 +1034,37 @@ PROTO_29:
        73 GETTABLEKS                       R7 R5 K13 ["Value"]
        75 LENGTH                           R6 R7
        76 LOADN                            R7 0
-       77 JUMPIFNOTLT                      R7 R6 ; [+37]
+       77 JUMPIFNOTLT                      R7 R6 ; [+36]
        79 GETIMPORT                        R6 K15 [warn]
-       81 LOADK                            R8 K16 ["%*.Value in folder R15KeyframeSequences should be empty. Was the %* folder edited?"]
-       82 MOVE                             R10 R2
-       83 GETUPVAL                         R12 0
-       84 JUMPIF                           R12 ; [+24]
-       85 GETUPVAL                         R13 1
-       86 LOADK                            R16 K2 ["R15MigratorProgress"]
-       87 NAMECALL                         R14 R13 K3 ["FindFirstChild"]
-       89 CALL                             R14 2 1
-       90 JUMPIFNOT                        R14 ; [+7]
-       91 LOADK                            R17 K4 ["Folder"]
-       92 NAMECALL                         R15 R14 K5 ["IsA"]
-       94 CALL                             R15 2 1
-       95 JUMPIFNOT                        R15 ; [+2]
-       96 MOVE                             R12 R14
+       81 LOADK                            R7 K16 ["%*.Value in folder R15KeyframeSequences should be empty. Was the %* folder edited?"]
+       82 MOVE                             R9 R2
+       83 GETUPVAL                         R11 0
+       84 JUMPIF                           R11 ; [+24]
+       85 GETUPVAL                         R12 1
+       86 LOADK                            R15 K2 ["R15MigratorProgress"]
+       87 NAMECALL                         R13 R12 K3 ["FindFirstChild"]
+       89 CALL                             R13 2 1
+       90 JUMPIFNOT                        R13 ; [+7]
+       91 LOADK                            R16 K4 ["Folder"]
+       92 NAMECALL                         R14 R13 K5 ["IsA"]
+       94 CALL                             R14 2 1
+       95 JUMPIFNOT                        R14 ; [+2]
+       96 MOVE                             R11 R13
        97 JUMP                             ; [+10]
-       98 GETIMPORT                        R15 K8 [Instance.new]
-      100 LOADK                            R16 K4 ["Folder"]
-      101 CALL                             R15 1 1
-      102 LOADK                            R16 K2 ["R15MigratorProgress"]
-      103 SETTABLEKS                       R16 R15 K9 ["Name"]
-      105 SETTABLEKS                       R13 R15 K10 ["Parent"]
-      107 MOVE                             R12 R15
-      108 SETUPVAL                         R12 0
-      109 GETUPVAL                         R11 0
-      110 NAMECALL                         R8 R8 K17 ["format"]
-      112 CALL                             R8 3 1
-      113 MOVE                             R7 R8
-      114 CALL                             R6 1 0
-      115 SETTABLEKS                       R3 R5 K13 ["Value"]
-      117 RETURN                           R0 0
+       98 GETIMPORT                        R14 K8 [Instance.new]
+      100 LOADK                            R15 K4 ["Folder"]
+      101 CALL                             R14 1 1
+      102 LOADK                            R15 K2 ["R15MigratorProgress"]
+      103 SETTABLEKS                       R15 R14 K9 ["Name"]
+      105 SETTABLEKS                       R12 R14 K10 ["Parent"]
+      107 MOVE                             R11 R14
+      108 SETUPVAL                         R11 0
+      109 GETUPVAL                         R10 0
+      110 NAMECALL                         R7 R7 K17 ["format"]
+      112 CALL                             R7 3 1
+      113 CALL                             R6 1 0
+      114 SETTABLEKS                       R3 R5 K13 ["Value"]
+      116 RETURN                           R0 0
 
 PROTO_30:
         0 NEWTABLE                         R1 0 0

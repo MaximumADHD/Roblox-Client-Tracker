@@ -39,137 +39,133 @@ PROTO_2:
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["Item"]
         2 GETTABLEKS                       R2 R1 K1 ["Setting"]
-        4 JUMPIF                           R2 ; [+12]
+        4 JUMPIF                           R2 ; [+11]
         5 GETTABLEKS                       R2 R0 K2 ["Warn"]
-        7 LOADK                            R4 K3 ["Missing Setting field for SegmentedButton with id %*"]
-        8 GETTABLEKS                       R6 R1 K4 ["Id"]
-       10 NAMECALL                         R4 R4 K5 ["format"]
-       12 CALL                             R4 2 1
-       13 MOVE                             R3 R4
-       14 CALL                             R2 1 0
-       15 LOADNIL                          R2
-       16 RETURN                           R2 1
-       17 GETUPVAL                         R2 0
-       18 GETTABLEKS                       R2 R2 K6 ["toString"]
-       20 GETTABLEKS                       R3 R1 K1 ["Setting"]
-       22 CALL                             R2 1 1
-       23 GETTABLEKS                       R4 R0 K7 ["Items"]
-       25 GETTABLEKS                       R4 R4 K8 ["Settings"]
-       27 GETTABLE                         R3 R4 R2
-       28 JUMPIF                           R3 ; [+13]
-       29 GETTABLEKS                       R4 R0 K2 ["Warn"]
-       31 LOADK                            R6 K9 ["Missing Setting %* for SegmentedButton with id %*"]
-       32 MOVE                             R8 R2
-       33 GETTABLEKS                       R9 R1 K4 ["Id"]
-       35 NAMECALL                         R6 R6 K5 ["format"]
-       37 CALL                             R6 3 1
-       38 MOVE                             R5 R6
-       39 CALL                             R4 1 0
-       40 LOADNIL                          R4
-       41 RETURN                           R4 1
-       42 GETTABLEKS                       R4 R3 K10 ["Values"]
-       44 JUMPIF                           R4 ; [+13]
-       45 GETTABLEKS                       R4 R0 K2 ["Warn"]
-       47 LOADK                            R6 K11 ["Setting %* has no Values field to display for SegmentedButton with id %*"]
-       48 MOVE                             R8 R2
-       49 GETTABLEKS                       R9 R1 K4 ["Id"]
-       51 NAMECALL                         R6 R6 K5 ["format"]
-       53 CALL                             R6 3 1
-       54 MOVE                             R5 R6
-       55 CALL                             R4 1 0
-       56 LOADNIL                          R4
-       57 RETURN                           R4 1
-       58 GETTABLEKS                       R5 R3 K12 ["Value"]
-       60 FASTCALL1                        TYPEOF R5 ; [+2]
-       61 GETIMPORT                        R4 K14 [typeof]
-       63 CALL                             R4 1 1
-       64 JUMPIFEQKS                       R4 K15 ["number"] ; [+16]
-       66 GETTABLEKS                       R4 R0 K2 ["Warn"]
-       68 LOADK                            R6 K16 ["Setting %* has an invalid value %* for SegmentedButton with id %*"]
-       69 MOVE                             R8 R2
-       70 GETTABLEKS                       R9 R3 K12 ["Value"]
-       72 GETTABLEKS                       R10 R1 K4 ["Id"]
-       74 NAMECALL                         R6 R6 K5 ["format"]
-       76 CALL                             R6 4 1
-       77 MOVE                             R5 R6
-       78 CALL                             R4 1 0
-       79 LOADNIL                          R4
-       80 RETURN                           R4 1
-       81 GETUPVAL                         R4 1
-       82 CALL                             R4 0 1
-       83 JUMPIFNOT                        R4 ; [+73]
-       84 NEWTABLE                         R4 0 0
-       86 GETTABLEKS                       R5 R3 K10 ["Values"]
-       88 LOADNIL                          R6
-       89 LOADNIL                          R7
-       90 FORGPREP                         R5
-       91 DUPTABLE                         R12 K19 [{"id", "text"}]
-       92 GETTABLEKS                       R13 R9 K4 ["Id"]
-       94 SETTABLEKS                       R13 R12 K17 ["id"]
-       96 GETTABLEKS                       R14 R9 K21 ["Text"]
-       98 ORK                              R13 R14 K20 [""]
-       99 SETTABLEKS                       R13 R12 K18 ["text"]
-      101 FASTCALL2                        TABLE_INSERT R4 R12 ; [+4]
-      103 MOVE                             R11 R4
-      104 GETIMPORT                        R10 K24 [table.insert]
-      106 CALL                             R10 2 0
-      107 FORGLOOP                         R5 2 ; [-17]
-      109 GETTABLEKS                       R8 R3 K12 ["Value"]
-      111 ADDK                             R7 R8 K25 [1]
-      112 GETTABLE                         R6 R4 R7
-      113 JUMPIFNOT                        R6 ; [+7]
-      114 GETTABLEKS                       R7 R3 K12 ["Value"]
-      116 ADDK                             R6 R7 K25 [1]
-      117 GETTABLE                         R5 R4 R6
+        7 LOADK                            R3 K3 ["Missing Setting field for SegmentedButton with id %*"]
+        8 GETTABLEKS                       R5 R1 K4 ["Id"]
+       10 NAMECALL                         R3 R3 K5 ["format"]
+       12 CALL                             R3 2 1
+       13 CALL                             R2 1 0
+       14 LOADNIL                          R2
+       15 RETURN                           R2 1
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K6 ["toString"]
+       19 GETTABLEKS                       R3 R1 K1 ["Setting"]
+       21 CALL                             R2 1 1
+       22 GETTABLEKS                       R4 R0 K7 ["Items"]
+       24 GETTABLEKS                       R4 R4 K8 ["Settings"]
+       26 GETTABLE                         R3 R4 R2
+       27 JUMPIF                           R3 ; [+12]
+       28 GETTABLEKS                       R4 R0 K2 ["Warn"]
+       30 LOADK                            R5 K9 ["Missing Setting %* for SegmentedButton with id %*"]
+       31 MOVE                             R7 R2
+       32 GETTABLEKS                       R8 R1 K4 ["Id"]
+       34 NAMECALL                         R5 R5 K5 ["format"]
+       36 CALL                             R5 3 1
+       37 CALL                             R4 1 0
+       38 LOADNIL                          R4
+       39 RETURN                           R4 1
+       40 GETTABLEKS                       R4 R3 K10 ["Values"]
+       42 JUMPIF                           R4 ; [+12]
+       43 GETTABLEKS                       R4 R0 K2 ["Warn"]
+       45 LOADK                            R5 K11 ["Setting %* has no Values field to display for SegmentedButton with id %*"]
+       46 MOVE                             R7 R2
+       47 GETTABLEKS                       R8 R1 K4 ["Id"]
+       49 NAMECALL                         R5 R5 K5 ["format"]
+       51 CALL                             R5 3 1
+       52 CALL                             R4 1 0
+       53 LOADNIL                          R4
+       54 RETURN                           R4 1
+       55 GETTABLEKS                       R5 R3 K12 ["Value"]
+       57 FASTCALL1                        TYPEOF R5 ; [+2]
+       58 GETIMPORT                        R4 K14 [typeof]
+       60 CALL                             R4 1 1
+       61 JUMPIFEQKS                       R4 K15 ["number"] ; [+15]
+       63 GETTABLEKS                       R4 R0 K2 ["Warn"]
+       65 LOADK                            R5 K16 ["Setting %* has an invalid value %* for SegmentedButton with id %*"]
+       66 MOVE                             R7 R2
+       67 GETTABLEKS                       R8 R3 K12 ["Value"]
+       69 GETTABLEKS                       R9 R1 K4 ["Id"]
+       71 NAMECALL                         R5 R5 K5 ["format"]
+       73 CALL                             R5 4 1
+       74 CALL                             R4 1 0
+       75 LOADNIL                          R4
+       76 RETURN                           R4 1
+       77 GETUPVAL                         R4 1
+       78 CALL                             R4 0 1
+       79 JUMPIFNOT                        R4 ; [+73]
+       80 NEWTABLE                         R4 0 0
+       82 GETTABLEKS                       R5 R3 K10 ["Values"]
+       84 LOADNIL                          R6
+       85 LOADNIL                          R7
+       86 FORGPREP                         R5
+       87 DUPTABLE                         R12 K19 [{"id", "text"}]
+       88 GETTABLEKS                       R13 R9 K4 ["Id"]
+       90 SETTABLEKS                       R13 R12 K17 ["id"]
+       92 GETTABLEKS                       R14 R9 K21 ["Text"]
+       94 ORK                              R13 R14 K20 [""]
+       95 SETTABLEKS                       R13 R12 K18 ["text"]
+       97 FASTCALL2                        TABLE_INSERT R4 R12 ; [+4]
+       99 MOVE                             R11 R4
+      100 GETIMPORT                        R10 K24 [table.insert]
+      102 CALL                             R10 2 0
+      103 FORGLOOP                         R5 2 ; [-17]
+      105 GETTABLEKS                       R8 R3 K12 ["Value"]
+      107 ADDK                             R7 R8 K25 [1]
+      108 GETTABLE                         R6 R4 R7
+      109 JUMPIFNOT                        R6 ; [+7]
+      110 GETTABLEKS                       R7 R3 K12 ["Value"]
+      112 ADDK                             R6 R7 K25 [1]
+      113 GETTABLE                         R5 R4 R6
+      114 GETTABLEKS                       R5 R5 K17 ["id"]
+      116 JUMP                             ; [+3]
+      117 GETTABLEN                        R5 R4 1
       118 GETTABLEKS                       R5 R5 K17 ["id"]
-      120 JUMP                             ; [+3]
-      121 GETTABLEN                        R5 R4 1
-      122 GETTABLEKS                       R5 R5 K17 ["id"]
-      124 GETUPVAL                         R6 2
-      125 NEWCLOSURE                       R7 P0
-      126 CAPTURE                          UPVAL U3
-      127 CAPTURE                          VAL R4
-      128 CAPTURE                          VAL R0
-      129 CAPTURE                          VAL R3
-      130 NEWTABLE                         R8 0 1
-      132 GETTABLEKS                       R9 R0 K26 ["Select"]
-      134 SETLIST                          R8 R9 1 [1]
-      136 CALL                             R6 2 1
-      137 GETUPVAL                         R7 4
-      138 GETUPVAL                         R8 5
-      139 DUPTABLE                         R9 K34 [{["size"], ["value"], ["LayoutOrder"], ["segments"], ["onActivated"], ["testId"] = "--segmented-control"}]
-      140 GETUPVAL                         R10 6
-      141 GETTABLEKS                       R10 R10 K35 ["XSmall"]
-      143 SETTABLEKS                       R10 R9 K27 ["size"]
-      145 SETTABLEKS                       R5 R9 K28 ["value"]
-      147 GETTABLEKS                       R10 R0 K29 ["LayoutOrder"]
-      149 SETTABLEKS                       R10 R9 K29 ["LayoutOrder"]
-      151 SETTABLEKS                       R4 R9 K30 ["segments"]
-      153 SETTABLEKS                       R6 R9 K31 ["onActivated"]
-      155 CALL                             R7 2 -1
-      156 RETURN                           R7 -1
-      157 GETUPVAL                         R4 4
-      158 GETUPVAL                         R5 7
-      159 DUPTABLE                         R6 K39 [{"Uri", "LayoutOrder", "SelectedIndex", "Items", "OnItemActivated"}]
-      160 GETUPVAL                         R7 0
-      161 GETTABLEKS                       R7 R7 K40 ["child"]
-      163 GETTABLEKS                       R8 R0 K41 ["WidgetUri"]
-      165 GETTABLEKS                       R9 R1 K4 ["Id"]
-      167 CALL                             R7 2 1
-      168 SETTABLEKS                       R7 R6 K36 ["Uri"]
-      170 GETTABLEKS                       R7 R0 K29 ["LayoutOrder"]
-      172 SETTABLEKS                       R7 R6 K29 ["LayoutOrder"]
-      174 GETTABLEKS                       R8 R3 K12 ["Value"]
-      176 ADDK                             R7 R8 K25 [1]
-      177 SETTABLEKS                       R7 R6 K37 ["SelectedIndex"]
-      179 GETTABLEKS                       R7 R3 K10 ["Values"]
-      181 SETTABLEKS                       R7 R6 K7 ["Items"]
-      183 NEWCLOSURE                       R7 P1
-      184 CAPTURE                          VAL R0
-      185 CAPTURE                          VAL R3
-      186 SETTABLEKS                       R7 R6 K38 ["OnItemActivated"]
-      188 CALL                             R4 2 -1
-      189 RETURN                           R4 -1
+      120 GETUPVAL                         R6 2
+      121 NEWCLOSURE                       R7 P0
+      122 CAPTURE                          UPVAL U3
+      123 CAPTURE                          VAL R4
+      124 CAPTURE                          VAL R0
+      125 CAPTURE                          VAL R3
+      126 NEWTABLE                         R8 0 1
+      128 GETTABLEKS                       R9 R0 K26 ["Select"]
+      130 SETLIST                          R8 R9 1 [1]
+      132 CALL                             R6 2 1
+      133 GETUPVAL                         R7 4
+      134 GETUPVAL                         R8 5
+      135 DUPTABLE                         R9 K34 [{["size"], ["value"], ["LayoutOrder"], ["segments"], ["onActivated"], ["testId"] = "--segmented-control"}]
+      136 GETUPVAL                         R10 6
+      137 GETTABLEKS                       R10 R10 K35 ["XSmall"]
+      139 SETTABLEKS                       R10 R9 K27 ["size"]
+      141 SETTABLEKS                       R5 R9 K28 ["value"]
+      143 GETTABLEKS                       R10 R0 K29 ["LayoutOrder"]
+      145 SETTABLEKS                       R10 R9 K29 ["LayoutOrder"]
+      147 SETTABLEKS                       R4 R9 K30 ["segments"]
+      149 SETTABLEKS                       R6 R9 K31 ["onActivated"]
+      151 CALL                             R7 2 -1
+      152 RETURN                           R7 -1
+      153 GETUPVAL                         R4 4
+      154 GETUPVAL                         R5 7
+      155 DUPTABLE                         R6 K39 [{"Uri", "LayoutOrder", "SelectedIndex", "Items", "OnItemActivated"}]
+      156 GETUPVAL                         R7 0
+      157 GETTABLEKS                       R7 R7 K40 ["child"]
+      159 GETTABLEKS                       R8 R0 K41 ["WidgetUri"]
+      161 GETTABLEKS                       R9 R1 K4 ["Id"]
+      163 CALL                             R7 2 1
+      164 SETTABLEKS                       R7 R6 K36 ["Uri"]
+      166 GETTABLEKS                       R7 R0 K29 ["LayoutOrder"]
+      168 SETTABLEKS                       R7 R6 K29 ["LayoutOrder"]
+      170 GETTABLEKS                       R8 R3 K12 ["Value"]
+      172 ADDK                             R7 R8 K25 [1]
+      173 SETTABLEKS                       R7 R6 K37 ["SelectedIndex"]
+      175 GETTABLEKS                       R7 R3 K10 ["Values"]
+      177 SETTABLEKS                       R7 R6 K7 ["Items"]
+      179 NEWCLOSURE                       R7 P1
+      180 CAPTURE                          VAL R0
+      181 CAPTURE                          VAL R3
+      182 SETTABLEKS                       R7 R6 K38 ["OnItemActivated"]
+      184 CALL                             R4 2 -1
+      185 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

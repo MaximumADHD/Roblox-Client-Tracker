@@ -129,34 +129,32 @@ MAIN:
       218 LOADNIL                          R16
       219 FORGPREP                         R14
       220 GETTABLE                         R20 R13 R17
-      221 LOADK                            R22 K52 ["Expected editor enum index for %*"]
-      222 MOVE                             R24 R17
-      223 NAMECALL                         R22 R22 K53 ["format"]
-      225 CALL                             R22 2 1
-      226 MOVE                             R21 R22
-      227 FASTCALL2                        ASSERT R20 R21 ; [+3]
-      229 GETIMPORT                        R19 K55 [assert]
-      231 CALL                             R19 2 0
-      232 MOVE                             R19 R18
-      233 LOADNIL                          R20
-      234 LOADNIL                          R21
-      235 FORGPREP                         R19
-      236 GETIMPORT                        R24 K58 [table.find]
-      238 GETTABLE                         R25 R13 R17
-      239 MOVE                             R26 R23
-      240 CALL                             R24 2 1
-      241 LOADK                            R28 K59 ["Expected index for enum value %*.%*"]
-      242 MOVE                             R30 R17
-      243 MOVE                             R31 R23
-      244 NAMECALL                         R28 R28 K53 ["format"]
-      246 CALL                             R28 3 1
-      247 MOVE                             R27 R28
-      248 FASTCALL2                        ASSERT R24 R27 ; [+4]
-      250 MOVE                             R26 R24
-      251 GETIMPORT                        R25 K55 [assert]
-      253 CALL                             R25 2 0
-      254 FORGLOOP                         R19 2 ; [-19]
-      256 FORGLOOP                         R14 2 ; [-37]
-      258 SETTABLEKS                       R13 R0 K60 ["EnumTypeIndices"]
-      260 SETTABLEKS                       R1 R0 K61 ["EnumType"]
-      262 RETURN                           R0 1
+      221 LOADK                            R21 K52 ["Expected editor enum index for %*"]
+      222 MOVE                             R23 R17
+      223 NAMECALL                         R21 R21 K53 ["format"]
+      225 CALL                             R21 2 1
+      226 FASTCALL2                        ASSERT R20 R21 ; [+3]
+      228 GETIMPORT                        R19 K55 [assert]
+      230 CALL                             R19 2 0
+      231 MOVE                             R19 R18
+      232 LOADNIL                          R20
+      233 LOADNIL                          R21
+      234 FORGPREP                         R19
+      235 GETIMPORT                        R24 K58 [table.find]
+      237 GETTABLE                         R25 R13 R17
+      238 MOVE                             R26 R23
+      239 CALL                             R24 2 1
+      240 LOADK                            R27 K59 ["Expected index for enum value %*.%*"]
+      241 MOVE                             R29 R17
+      242 MOVE                             R30 R23
+      243 NAMECALL                         R27 R27 K53 ["format"]
+      245 CALL                             R27 3 1
+      246 FASTCALL2                        ASSERT R24 R27 ; [+4]
+      248 MOVE                             R26 R24
+      249 GETIMPORT                        R25 K55 [assert]
+      251 CALL                             R25 2 0
+      252 FORGLOOP                         R19 2 ; [-18]
+      254 FORGLOOP                         R14 2 ; [-35]
+      256 SETTABLEKS                       R13 R0 K60 ["EnumTypeIndices"]
+      258 SETTABLEKS                       R1 R0 K61 ["EnumType"]
+      260 RETURN                           R0 1

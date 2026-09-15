@@ -12,15 +12,14 @@ PROTO_1:
         8 RETURN                           R5 1
         9 FORGLOOP                         R1 2 ; [-6]
        11 GETUPVAL                         R1 1
-       12 LOADK                            R3 K1 ["Configurations/Tutorial/init.lua: No tutorial found for ID: %*"]
-       13 MOVE                             R5 R0
-       14 NAMECALL                         R3 R3 K2 ["format"]
-       16 CALL                             R3 2 1
-       17 MOVE                             R2 R3
-       18 LOADK                            R3 K3 ["WARN"]
-       19 CALL                             R1 2 0
-       20 LOADNIL                          R1
-       21 RETURN                           R1 1
+       12 LOADK                            R2 K1 ["Configurations/Tutorial/init.lua: No tutorial found for ID: %*"]
+       13 MOVE                             R4 R0
+       14 NAMECALL                         R2 R2 K2 ["format"]
+       16 CALL                             R2 2 1
+       17 LOADK                            R3 K3 ["WARN"]
+       18 CALL                             R1 2 0
+       19 LOADNIL                          R1
+       20 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

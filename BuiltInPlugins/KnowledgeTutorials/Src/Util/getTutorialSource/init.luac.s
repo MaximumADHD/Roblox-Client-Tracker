@@ -104,41 +104,40 @@ PROTO_3:
        16 GETUPVAL                         R8 2
        17 GETTABLEKS                       R8 R8 K3 ["GetObjects"]
        19 GETUPVAL                         R9 2
-       20 LOADK                            R11 K4 ["rbxassetid://%*"]
-       21 MOVE                             R13 R6
-       22 NAMECALL                         R11 R11 K5 ["format"]
-       24 CALL                             R11 2 1
-       25 MOVE                             R10 R11
-       26 CALL                             R7 3 2
-       27 JUMPIFNOT                        R7 ; [+33]
-       28 JUMPIFNOT                        R8 ; [+32]
-       29 LENGTH                           R9 R8
-       30 JUMPIFNOTEQKN                    R9 K6 [1] ; [+30]
-       32 GETTABLEN                        R9 R8 1
-       33 LOADK                            R12 K7 ["LuaSourceContainer"]
-       34 NAMECALL                         R10 R9 K8 ["IsA"]
-       36 CALL                             R10 2 1
-       37 JUMPIFNOT                        R10 ; [+12]
-       38 GETTABLEKS                       R11 R9 K9 ["Source"]
-       40 GETIMPORT                        R12 K12 [string.find]
-       42 MOVE                             R13 R11
-       43 LOADK                            R14 K13 ["^%-%-%[(=*)%[%s*(.-)%s*%-%-%]%1%]%s*$"]
-       44 CALL                             R12 2 4
-       45 OR                               R10 R15 R11
-       46 NAMECALL                         R11 R9 K14 ["Destroy"]
-       48 CALL                             R11 1 0
-       49 RETURN                           R10 1
-       50 LOADK                            R12 K15 ["StringValue"]
-       51 NAMECALL                         R10 R9 K8 ["IsA"]
-       53 CALL                             R10 2 1
-       54 JUMPIFNOT                        R10 ; [+6]
-       55 GETTABLEKS                       R10 R9 K16 ["Value"]
-       57 NAMECALL                         R11 R9 K14 ["Destroy"]
-       59 CALL                             R11 1 0
-       60 RETURN                           R10 1
-       61 FORGLOOP                         R2 2 ; [-48]
-       63 LOADNIL                          R2
-       64 RETURN                           R2 1
+       20 LOADK                            R10 K4 ["rbxassetid://%*"]
+       21 MOVE                             R12 R6
+       22 NAMECALL                         R10 R10 K5 ["format"]
+       24 CALL                             R10 2 1
+       25 CALL                             R7 3 2
+       26 JUMPIFNOT                        R7 ; [+33]
+       27 JUMPIFNOT                        R8 ; [+32]
+       28 LENGTH                           R9 R8
+       29 JUMPIFNOTEQKN                    R9 K6 [1] ; [+30]
+       31 GETTABLEN                        R9 R8 1
+       32 LOADK                            R12 K7 ["LuaSourceContainer"]
+       33 NAMECALL                         R10 R9 K8 ["IsA"]
+       35 CALL                             R10 2 1
+       36 JUMPIFNOT                        R10 ; [+12]
+       37 GETTABLEKS                       R11 R9 K9 ["Source"]
+       39 GETIMPORT                        R12 K12 [string.find]
+       41 MOVE                             R13 R11
+       42 LOADK                            R14 K13 ["^%-%-%[(=*)%[%s*(.-)%s*%-%-%]%1%]%s*$"]
+       43 CALL                             R12 2 4
+       44 OR                               R10 R15 R11
+       45 NAMECALL                         R11 R9 K14 ["Destroy"]
+       47 CALL                             R11 1 0
+       48 RETURN                           R10 1
+       49 LOADK                            R12 K15 ["StringValue"]
+       50 NAMECALL                         R10 R9 K8 ["IsA"]
+       52 CALL                             R10 2 1
+       53 JUMPIFNOT                        R10 ; [+6]
+       54 GETTABLEKS                       R10 R9 K16 ["Value"]
+       56 NAMECALL                         R11 R9 K14 ["Destroy"]
+       58 CALL                             R11 1 0
+       59 RETURN                           R10 1
+       60 FORGLOOP                         R2 2 ; [-47]
+       62 LOADNIL                          R2
+       63 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -34,38 +34,37 @@ PROTO_1:
        40 GETUPVAL                         R5 2
        41 GETTABLEKS                       R5 R5 K11 ["APIS_URL"]
        43 LOADK                            R7 K12 ["creator-notifications/v1/creator-stream-notifications/"]
-       44 LOADK                            R9 K13 ["users/%*/notifications"]
-       45 MOVE                             R11 R2
-       46 NAMECALL                         R9 R9 K14 ["format"]
-       48 CALL                             R9 2 1
-       49 MOVE                             R8 R9
-       50 CONCAT                           R6 R7 R8
-       51 MOVE                             R7 R3
-       52 CALL                             R4 3 1
-       53 GETUPVAL                         R5 3
-       54 GETUPVAL                         R7 3
-       55 MOVE                             R9 R4
-       56 NAMECALL                         R7 R7 K15 ["get"]
-       58 CALL                             R7 2 -1
-       59 NAMECALL                         R5 R5 K16 ["handleRetry"]
-       61 CALL                             R5 -1 1
-       62 DUPCLOSURE                       R7 K17 [PROTO_0]
-       63 NAMECALL                         R5 R5 K18 ["catch"]
-       65 CALL                             R5 2 1
-       66 NAMECALL                         R5 R5 K19 ["await"]
-       68 CALL                             R5 1 1
-       69 GETTABLEKS                       R6 R5 K20 ["responseCode"]
-       71 LOADN                            R7 200
-       72 JUMPIFNOTLE                      R7 R6 ; [+14]
-       74 GETTABLEKS                       R6 R5 K20 ["responseCode"]
-       76 LOADN                            R7 300
-       77 JUMPIFNOTLT                      R6 R7 ; [+9]
-       79 GETUPVAL                         R6 4
-       80 GETTABLEKS                       R8 R5 K21 ["responseBody"]
-       82 NAMECALL                         R6 R6 K22 ["JSONDecode"]
-       84 CALL                             R6 2 1
-       85 SETTABLEKS                       R6 R5 K21 ["responseBody"]
-       87 RETURN                           R5 1
+       44 LOADK                            R8 K13 ["users/%*/notifications"]
+       45 MOVE                             R10 R2
+       46 NAMECALL                         R8 R8 K14 ["format"]
+       48 CALL                             R8 2 1
+       49 CONCAT                           R6 R7 R8
+       50 MOVE                             R7 R3
+       51 CALL                             R4 3 1
+       52 GETUPVAL                         R5 3
+       53 GETUPVAL                         R7 3
+       54 MOVE                             R9 R4
+       55 NAMECALL                         R7 R7 K15 ["get"]
+       57 CALL                             R7 2 -1
+       58 NAMECALL                         R5 R5 K16 ["handleRetry"]
+       60 CALL                             R5 -1 1
+       61 DUPCLOSURE                       R7 K17 [PROTO_0]
+       62 NAMECALL                         R5 R5 K18 ["catch"]
+       64 CALL                             R5 2 1
+       65 NAMECALL                         R5 R5 K19 ["await"]
+       67 CALL                             R5 1 1
+       68 GETTABLEKS                       R6 R5 K20 ["responseCode"]
+       70 LOADN                            R7 200
+       71 JUMPIFNOTLE                      R7 R6 ; [+14]
+       73 GETTABLEKS                       R6 R5 K20 ["responseCode"]
+       75 LOADN                            R7 300
+       76 JUMPIFNOTLT                      R6 R7 ; [+9]
+       78 GETUPVAL                         R6 4
+       79 GETTABLEKS                       R8 R5 K21 ["responseBody"]
+       81 NAMECALL                         R6 R6 K22 ["JSONDecode"]
+       83 CALL                             R6 2 1
+       84 SETTABLEKS                       R6 R5 K21 ["responseBody"]
+       86 RETURN                           R5 1
 
 PROTO_2:
         0 RETURN                           R0 1
@@ -79,39 +78,38 @@ PROTO_3:
         7 GETUPVAL                         R3 1
         8 GETTABLEKS                       R3 R3 K2 ["APIS_URL"]
        10 LOADK                            R5 K3 ["creator-notifications/v1/creator-stream-notifications/"]
-       11 LOADK                            R7 K4 ["users/%*/notification/%*"]
-       12 MOVE                             R9 R1
-       13 MOVE                             R10 R0
-       14 NAMECALL                         R7 R7 K5 ["format"]
-       16 CALL                             R7 3 1
-       17 MOVE                             R6 R7
-       18 CONCAT                           R4 R5 R6
-       19 CALL                             R2 2 1
-       20 DUPTABLE                         R3 K8 [{["Status"] = True}]
-       21 DUPTABLE                         R4 K14 [{["Url"], ["Body"], ["Method"] = "PUT", ["Headers"]}]
-       22 SETTABLEKS                       R2 R4 K9 ["Url"]
-       24 GETUPVAL                         R5 2
-       25 MOVE                             R7 R3
-       26 NAMECALL                         R5 R5 K15 ["JSONEncode"]
-       28 CALL                             R5 2 1
-       29 SETTABLEKS                       R5 R4 K10 ["Body"]
-       31 NEWTABLE                         R5 1 0
-       33 LOADK                            R6 K16 ["application/json"]
-       34 SETTABLEKS                       R6 R5 K17 ["Content-Type"]
-       36 SETTABLEKS                       R5 R4 K13 ["Headers"]
-       38 GETUPVAL                         R5 3
-       39 GETUPVAL                         R7 3
-       40 MOVE                             R9 R4
-       41 NAMECALL                         R7 R7 K18 ["request"]
-       43 CALL                             R7 2 -1
-       44 NAMECALL                         R5 R5 K19 ["handleRetry"]
-       46 CALL                             R5 -1 1
-       47 DUPCLOSURE                       R7 K20 [PROTO_2]
-       48 NAMECALL                         R5 R5 K21 ["catch"]
-       50 CALL                             R5 2 1
-       51 NAMECALL                         R5 R5 K22 ["await"]
-       53 CALL                             R5 1 -1
-       54 RETURN                           R5 -1
+       11 LOADK                            R6 K4 ["users/%*/notification/%*"]
+       12 MOVE                             R8 R1
+       13 MOVE                             R9 R0
+       14 NAMECALL                         R6 R6 K5 ["format"]
+       16 CALL                             R6 3 1
+       17 CONCAT                           R4 R5 R6
+       18 CALL                             R2 2 1
+       19 DUPTABLE                         R3 K8 [{["Status"] = True}]
+       20 DUPTABLE                         R4 K14 [{["Url"], ["Body"], ["Method"] = "PUT", ["Headers"]}]
+       21 SETTABLEKS                       R2 R4 K9 ["Url"]
+       23 GETUPVAL                         R5 2
+       24 MOVE                             R7 R3
+       25 NAMECALL                         R5 R5 K15 ["JSONEncode"]
+       27 CALL                             R5 2 1
+       28 SETTABLEKS                       R5 R4 K10 ["Body"]
+       30 NEWTABLE                         R5 1 0
+       32 LOADK                            R6 K16 ["application/json"]
+       33 SETTABLEKS                       R6 R5 K17 ["Content-Type"]
+       35 SETTABLEKS                       R5 R4 K13 ["Headers"]
+       37 GETUPVAL                         R5 3
+       38 GETUPVAL                         R7 3
+       39 MOVE                             R9 R4
+       40 NAMECALL                         R7 R7 K18 ["request"]
+       42 CALL                             R7 2 -1
+       43 NAMECALL                         R5 R5 K19 ["handleRetry"]
+       45 CALL                             R5 -1 1
+       46 DUPCLOSURE                       R7 K20 [PROTO_2]
+       47 NAMECALL                         R5 R5 K21 ["catch"]
+       49 CALL                             R5 2 1
+       50 NAMECALL                         R5 R5 K22 ["await"]
+       52 CALL                             R5 1 -1
+       53 RETURN                           R5 -1
 
 PROTO_4:
         0 RETURN                           R0 1
@@ -125,43 +123,42 @@ PROTO_5:
         7 GETUPVAL                         R2 1
         8 GETTABLEKS                       R2 R2 K2 ["APIS_URL"]
        10 LOADK                            R4 K3 ["creator-notifications/v1/creator-stream-notifications/"]
-       11 LOADK                            R6 K4 ["users/%*/notifications"]
-       12 MOVE                             R8 R0
-       13 NAMECALL                         R6 R6 K5 ["format"]
-       15 CALL                             R6 2 1
-       16 MOVE                             R5 R6
-       17 CONCAT                           R3 R4 R5
-       18 CALL                             R1 2 1
-       19 NEWTABLE                         R2 1 0
-       21 GETUPVAL                         R3 2
-       22 GETTABLEKS                       R3 R3 K6 ["Studio"]
-       24 GETTABLEKS                       R3 R3 K7 ["rawValue"]
-       26 CALL                             R3 0 1
-       27 SETTABLEKS                       R3 R2 K8 ["notification-channel"]
-       29 DUPTABLE                         R3 K14 [{["Url"], ["Body"], ["Method"] = "PUT", ["Headers"]}]
-       30 SETTABLEKS                       R1 R3 K9 ["Url"]
-       32 GETUPVAL                         R4 3
-       33 MOVE                             R6 R2
-       34 NAMECALL                         R4 R4 K15 ["JSONEncode"]
-       36 CALL                             R4 2 1
-       37 SETTABLEKS                       R4 R3 K10 ["Body"]
-       39 NEWTABLE                         R4 1 0
-       41 LOADK                            R5 K16 ["application/json"]
-       42 SETTABLEKS                       R5 R4 K17 ["Content-Type"]
-       44 SETTABLEKS                       R4 R3 K13 ["Headers"]
-       46 GETUPVAL                         R4 4
-       47 GETUPVAL                         R6 4
-       48 MOVE                             R8 R3
-       49 NAMECALL                         R6 R6 K18 ["request"]
-       51 CALL                             R6 2 -1
-       52 NAMECALL                         R4 R4 K19 ["handleRetry"]
-       54 CALL                             R4 -1 1
-       55 DUPCLOSURE                       R6 K20 [PROTO_4]
-       56 NAMECALL                         R4 R4 K21 ["catch"]
-       58 CALL                             R4 2 1
-       59 NAMECALL                         R4 R4 K22 ["await"]
-       61 CALL                             R4 1 -1
-       62 RETURN                           R4 -1
+       11 LOADK                            R5 K4 ["users/%*/notifications"]
+       12 MOVE                             R7 R0
+       13 NAMECALL                         R5 R5 K5 ["format"]
+       15 CALL                             R5 2 1
+       16 CONCAT                           R3 R4 R5
+       17 CALL                             R1 2 1
+       18 NEWTABLE                         R2 1 0
+       20 GETUPVAL                         R3 2
+       21 GETTABLEKS                       R3 R3 K6 ["Studio"]
+       23 GETTABLEKS                       R3 R3 K7 ["rawValue"]
+       25 CALL                             R3 0 1
+       26 SETTABLEKS                       R3 R2 K8 ["notification-channel"]
+       28 DUPTABLE                         R3 K14 [{["Url"], ["Body"], ["Method"] = "PUT", ["Headers"]}]
+       29 SETTABLEKS                       R1 R3 K9 ["Url"]
+       31 GETUPVAL                         R4 3
+       32 MOVE                             R6 R2
+       33 NAMECALL                         R4 R4 K15 ["JSONEncode"]
+       35 CALL                             R4 2 1
+       36 SETTABLEKS                       R4 R3 K10 ["Body"]
+       38 NEWTABLE                         R4 1 0
+       40 LOADK                            R5 K16 ["application/json"]
+       41 SETTABLEKS                       R5 R4 K17 ["Content-Type"]
+       43 SETTABLEKS                       R4 R3 K13 ["Headers"]
+       45 GETUPVAL                         R4 4
+       46 GETUPVAL                         R6 4
+       47 MOVE                             R8 R3
+       48 NAMECALL                         R6 R6 K18 ["request"]
+       50 CALL                             R6 2 -1
+       51 NAMECALL                         R4 R4 K19 ["handleRetry"]
+       53 CALL                             R4 -1 1
+       54 DUPCLOSURE                       R6 K20 [PROTO_4]
+       55 NAMECALL                         R4 R4 K21 ["catch"]
+       57 CALL                             R4 2 1
+       58 NAMECALL                         R4 R4 K22 ["await"]
+       60 CALL                             R4 1 -1
+       61 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

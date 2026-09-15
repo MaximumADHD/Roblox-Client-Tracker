@@ -31,38 +31,37 @@ PROTO_0:
        49 GETUPVAL                         R8 5
        50 GETTABLEKS                       R8 R8 K23 ["Bottom"]
        52 SETTABLEKS                       R8 R7 K15 ["side"]
-       54 LOADK                            R9 K24 ["%*-%*-Dropdown"]
-       55 GETTABLEKS                       R11 R0 K25 ["property"]
-       57 GETTABLEKS                       R12 R0 K26 ["schema"]
-       59 NAMECALL                         R9 R9 K27 ["format"]
-       61 CALL                             R9 3 1
-       62 MOVE                             R8 R9
-       63 SETTABLEKS                       R8 R7 K16 ["testId"]
-       65 GETIMPORT                        R8 K30 [UDim.new]
-       67 LOADN                            R9 0
-       68 GETTABLEKS                       R11 R0 K6 ["anchorRef"]
-       70 GETTABLEKS                       R11 R11 K31 ["current"]
-       72 JUMPIFNOT                        R11 ; [+9]
-       73 GETTABLEKS                       R10 R0 K6 ["anchorRef"]
-       75 GETTABLEKS                       R10 R10 K31 ["current"]
-       77 GETTABLEKS                       R10 R10 K32 ["AbsoluteSize"]
-       79 GETTABLEKS                       R10 R10 K33 ["X"]
-       81 JUMP                             ; [+1]
-       82 LOADN                            R10 0
-       83 CALL                             R8 2 1
-       84 SETTABLEKS                       R8 R7 K17 ["width"]
-       86 CALL                             R5 2 1
-       87 SETTABLEKS                       R5 R4 K2 ["Menu"]
-       89 GETUPVAL                         R5 0
-       90 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       92 GETUPVAL                         R6 0
-       93 GETTABLEKS                       R6 R6 K1 ["Fragment"]
-       95 NEWTABLE                         R7 0 0
-       97 GETTABLEKS                       R8 R0 K34 ["children"]
-       99 CALL                             R5 3 1
-      100 SETTABLEKS                       R5 R4 K3 ["Control"]
-      102 CALL                             R1 3 -1
-      103 RETURN                           R1 -1
+       54 LOADK                            R8 K24 ["%*-%*-Dropdown"]
+       55 GETTABLEKS                       R10 R0 K25 ["property"]
+       57 GETTABLEKS                       R11 R0 K26 ["schema"]
+       59 NAMECALL                         R8 R8 K27 ["format"]
+       61 CALL                             R8 3 1
+       62 SETTABLEKS                       R8 R7 K16 ["testId"]
+       64 GETIMPORT                        R8 K30 [UDim.new]
+       66 LOADN                            R9 0
+       67 GETTABLEKS                       R11 R0 K6 ["anchorRef"]
+       69 GETTABLEKS                       R11 R11 K31 ["current"]
+       71 JUMPIFNOT                        R11 ; [+9]
+       72 GETTABLEKS                       R10 R0 K6 ["anchorRef"]
+       74 GETTABLEKS                       R10 R10 K31 ["current"]
+       76 GETTABLEKS                       R10 R10 K32 ["AbsoluteSize"]
+       78 GETTABLEKS                       R10 R10 K33 ["X"]
+       80 JUMP                             ; [+1]
+       81 LOADN                            R10 0
+       82 CALL                             R8 2 1
+       83 SETTABLEKS                       R8 R7 K17 ["width"]
+       85 CALL                             R5 2 1
+       86 SETTABLEKS                       R5 R4 K2 ["Menu"]
+       88 GETUPVAL                         R5 0
+       89 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       91 GETUPVAL                         R6 0
+       92 GETTABLEKS                       R6 R6 K1 ["Fragment"]
+       94 NEWTABLE                         R7 0 0
+       96 GETTABLEKS                       R8 R0 K34 ["children"]
+       98 CALL                             R5 3 1
+       99 SETTABLEKS                       R5 R4 K3 ["Control"]
+      101 CALL                             R1 3 -1
+      102 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

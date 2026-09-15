@@ -22,34 +22,33 @@ PROTO_1:
         2 GETUPVAL                         R2 1
         3 CALL                             R2 0 1
         4 GETUPVAL                         R3 2
-        5 GETTABLEKS                       R4 R0 K0 ["dataModel"]
-        7 CALL                             R3 1 1
-        8 GETUPVAL                         R4 3
-        9 GETTABLEKS                       R4 R4 K1 ["useState"]
-       11 LOADNIL                          R5
-       12 CALL                             R4 1 2
-       13 GETUPVAL                         R6 3
-       14 GETTABLEKS                       R6 R6 K2 ["useEffect"]
-       16 NEWCLOSURE                       R7 P0
-       17 CAPTURE                          VAL R3
-       18 CAPTURE                          VAL R5
-       19 CAPTURE                          UPVAL U4
-       20 NEWTABLE                         R8 0 3
-       22 MOVE                             R9 R2
-       23 MOVE                             R10 R3
-       24 MOVE                             R11 R1
-       25 SETLIST                          R8 R9 3 [1]
-       27 CALL                             R6 2 0
-       28 GETUPVAL                         R6 5
-       29 GETUPVAL                         R7 6
-       30 GETTABLEKS                       R7 R7 K3 ["Components"]
-       32 GETTABLEKS                       R7 R7 K4 ["Contexts"]
-       34 GETTABLEKS                       R7 R7 K5 ["InputStateContextProvider"]
-       36 DUPTABLE                         R8 K7 [{"override"}]
-       37 SETTABLEKS                       R4 R8 K6 ["override"]
-       39 GETTABLEKS                       R9 R0 K8 ["children"]
-       41 CALL                             R6 3 -1
-       42 RETURN                           R6 -1
+        5 CALL                             R3 0 1
+        6 GETUPVAL                         R4 3
+        7 GETTABLEKS                       R4 R4 K0 ["useState"]
+        9 LOADNIL                          R5
+       10 CALL                             R4 1 2
+       11 GETUPVAL                         R6 3
+       12 GETTABLEKS                       R6 R6 K1 ["useEffect"]
+       14 NEWCLOSURE                       R7 P0
+       15 CAPTURE                          VAL R3
+       16 CAPTURE                          VAL R5
+       17 CAPTURE                          UPVAL U4
+       18 NEWTABLE                         R8 0 3
+       20 MOVE                             R9 R2
+       21 MOVE                             R10 R3
+       22 MOVE                             R11 R1
+       23 SETLIST                          R8 R9 3 [1]
+       25 CALL                             R6 2 0
+       26 GETUPVAL                         R6 5
+       27 GETUPVAL                         R7 6
+       28 GETTABLEKS                       R7 R7 K2 ["Components"]
+       30 GETTABLEKS                       R7 R7 K3 ["Contexts"]
+       32 GETTABLEKS                       R7 R7 K4 ["InputStateContextProvider"]
+       34 DUPTABLE                         R8 K6 [{"override"}]
+       35 SETTABLEKS                       R4 R8 K5 ["override"]
+       37 GETTABLEKS                       R9 R0 K7 ["children"]
+       39 CALL                             R6 3 -1
+       40 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

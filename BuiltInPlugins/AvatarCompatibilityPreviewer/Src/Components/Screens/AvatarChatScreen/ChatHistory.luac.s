@@ -88,59 +88,58 @@ PROTO_3:
        42 LOADNIL                          R8
        43 LOADNIL                          R9
        44 FORGPREP                         R7
-       45 LOADK                            R13 K4 ["Turn-%*"]
-       46 GETTABLEKS                       R15 R11 K3 ["id"]
-       48 NAMECALL                         R13 R13 K5 ["format"]
-       50 CALL                             R13 2 1
-       51 MOVE                             R12 R13
-       52 GETUPVAL                         R13 0
-       53 GETTABLEKS                       R13 R13 K6 ["createElement"]
-       55 GETUPVAL                         R14 2
-       56 DUPTABLE                         R15 K13 [{"turn", "isHead", "LayoutOrder", "onRegenerate", "onConfirm", "onCancel"}]
-       57 SETTABLEKS                       R11 R15 K7 ["turn"]
-       59 GETTABLEKS                       R17 R11 K3 ["id"]
-       61 JUMPIFEQ                         R17 R5 ; [+2]
-       63 LOADB                            R16 0 +1
-       64 LOADB                            R16 1
-       65 SETTABLEKS                       R16 R15 K8 ["isHead"]
-       67 SETTABLEKS                       R10 R15 K9 ["LayoutOrder"]
-       69 GETTABLEKS                       R16 R0 K10 ["onRegenerate"]
-       71 SETTABLEKS                       R16 R15 K10 ["onRegenerate"]
-       73 GETTABLEKS                       R16 R0 K11 ["onConfirm"]
-       75 SETTABLEKS                       R16 R15 K11 ["onConfirm"]
-       77 GETTABLEKS                       R16 R0 K12 ["onCancel"]
-       79 SETTABLEKS                       R16 R15 K12 ["onCancel"]
-       81 CALL                             R13 2 1
-       82 SETTABLE                         R13 R6 R12
-       83 FORGLOOP                         R7 2 ; [-39]
-       85 GETUPVAL                         R7 0
-       86 GETTABLEKS                       R7 R7 K6 ["createElement"]
-       88 GETUPVAL                         R8 3
-       89 DUPTABLE                         R9 K20 [{["tag"] = "size-full", ["scroll"], ["scrollingFrameRef"], ["onCanvasPositionChanged"], ["onAbsoluteCanvasSizeChanged"]}]
-       90 DUPTABLE                         R10 K24 [{"ScrollingDirection", "AutomaticCanvasSize", "CanvasSize"}]
-       91 GETIMPORT                        R11 K27 [Enum.ScrollingDirection.Y]
-       93 SETTABLEKS                       R11 R10 K21 ["ScrollingDirection"]
-       95 GETIMPORT                        R11 K29 [Enum.AutomaticSize.Y]
-       97 SETTABLEKS                       R11 R10 K22 ["AutomaticCanvasSize"]
-       99 GETIMPORT                        R11 K32 [UDim2.fromScale]
-      101 LOADN                            R12 1
-      102 LOADN                            R13 0
-      103 CALL                             R11 2 1
-      104 SETTABLEKS                       R11 R10 K23 ["CanvasSize"]
-      106 SETTABLEKS                       R10 R9 K16 ["scroll"]
-      108 SETTABLEKS                       R1 R9 K17 ["scrollingFrameRef"]
-      110 SETTABLEKS                       R3 R9 K18 ["onCanvasPositionChanged"]
-      112 SETTABLEKS                       R4 R9 K19 ["onAbsoluteCanvasSizeChanged"]
-      114 DUPTABLE                         R10 K34 [{"Turns"}]
-      115 GETUPVAL                         R11 0
-      116 GETTABLEKS                       R11 R11 K6 ["createElement"]
-      118 GETUPVAL                         R12 4
-      119 DUPTABLE                         R13 K36 [{["tag"] = "col gap-small size-full-0 auto-y padding-small"}]
-      120 MOVE                             R14 R6
-      121 CALL                             R11 3 1
-      122 SETTABLEKS                       R11 R10 K33 ["Turns"]
-      124 CALL                             R7 3 -1
-      125 RETURN                           R7 -1
+       45 LOADK                            R12 K4 ["Turn-%*"]
+       46 GETTABLEKS                       R14 R11 K3 ["id"]
+       48 NAMECALL                         R12 R12 K5 ["format"]
+       50 CALL                             R12 2 1
+       51 GETUPVAL                         R13 0
+       52 GETTABLEKS                       R13 R13 K6 ["createElement"]
+       54 GETUPVAL                         R14 2
+       55 DUPTABLE                         R15 K13 [{"turn", "isHead", "LayoutOrder", "onRegenerate", "onConfirm", "onCancel"}]
+       56 SETTABLEKS                       R11 R15 K7 ["turn"]
+       58 GETTABLEKS                       R17 R11 K3 ["id"]
+       60 JUMPIFEQ                         R17 R5 ; [+2]
+       62 LOADB                            R16 0 +1
+       63 LOADB                            R16 1
+       64 SETTABLEKS                       R16 R15 K8 ["isHead"]
+       66 SETTABLEKS                       R10 R15 K9 ["LayoutOrder"]
+       68 GETTABLEKS                       R16 R0 K10 ["onRegenerate"]
+       70 SETTABLEKS                       R16 R15 K10 ["onRegenerate"]
+       72 GETTABLEKS                       R16 R0 K11 ["onConfirm"]
+       74 SETTABLEKS                       R16 R15 K11 ["onConfirm"]
+       76 GETTABLEKS                       R16 R0 K12 ["onCancel"]
+       78 SETTABLEKS                       R16 R15 K12 ["onCancel"]
+       80 CALL                             R13 2 1
+       81 SETTABLE                         R13 R6 R12
+       82 FORGLOOP                         R7 2 ; [-38]
+       84 GETUPVAL                         R7 0
+       85 GETTABLEKS                       R7 R7 K6 ["createElement"]
+       87 GETUPVAL                         R8 3
+       88 DUPTABLE                         R9 K20 [{["tag"] = "size-full", ["scroll"], ["scrollingFrameRef"], ["onCanvasPositionChanged"], ["onAbsoluteCanvasSizeChanged"]}]
+       89 DUPTABLE                         R10 K24 [{"ScrollingDirection", "AutomaticCanvasSize", "CanvasSize"}]
+       90 GETIMPORT                        R11 K27 [Enum.ScrollingDirection.Y]
+       92 SETTABLEKS                       R11 R10 K21 ["ScrollingDirection"]
+       94 GETIMPORT                        R11 K29 [Enum.AutomaticSize.Y]
+       96 SETTABLEKS                       R11 R10 K22 ["AutomaticCanvasSize"]
+       98 GETIMPORT                        R11 K32 [UDim2.fromScale]
+      100 LOADN                            R12 1
+      101 LOADN                            R13 0
+      102 CALL                             R11 2 1
+      103 SETTABLEKS                       R11 R10 K23 ["CanvasSize"]
+      105 SETTABLEKS                       R10 R9 K16 ["scroll"]
+      107 SETTABLEKS                       R1 R9 K17 ["scrollingFrameRef"]
+      109 SETTABLEKS                       R3 R9 K18 ["onCanvasPositionChanged"]
+      111 SETTABLEKS                       R4 R9 K19 ["onAbsoluteCanvasSizeChanged"]
+      113 DUPTABLE                         R10 K34 [{"Turns"}]
+      114 GETUPVAL                         R11 0
+      115 GETTABLEKS                       R11 R11 K6 ["createElement"]
+      117 GETUPVAL                         R12 4
+      118 DUPTABLE                         R13 K36 [{["tag"] = "col gap-small size-full-0 auto-y padding-small"}]
+      119 MOVE                             R14 R6
+      120 CALL                             R11 3 1
+      121 SETTABLEKS                       R11 R10 K33 ["Turns"]
+      123 CALL                             R7 3 -1
+      124 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

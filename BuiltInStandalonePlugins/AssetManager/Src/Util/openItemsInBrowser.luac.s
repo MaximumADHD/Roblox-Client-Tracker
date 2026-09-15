@@ -1,11 +1,10 @@
 PROTO_0:
-        0 LOADK                            R3 K0 ["https://create.roblox.com/dashboard/creations/experiences/%*/places/%*/configure"]
-        1 MOVE                             R5 R1
-        2 MOVE                             R6 R0
-        3 NAMECALL                         R3 R3 K1 ["format"]
-        5 CALL                             R3 3 1
-        6 MOVE                             R2 R3
-        7 RETURN                           R2 1
+        0 LOADK                            R2 K0 ["https://create.roblox.com/dashboard/creations/experiences/%*/places/%*/configure"]
+        1 MOVE                             R4 R1
+        2 MOVE                             R5 R0
+        3 NAMECALL                         R2 R2 K1 ["format"]
+        5 CALL                             R2 3 1
+        6 RETURN                           R2 1
 
 PROTO_1:
         0 MOVE                             R3 R0

@@ -6,25 +6,24 @@ PROTO_0:
         5 FORGPREP                         R2
         6 GETTABLEKS                       R8 R6 K0 ["Name"]
         8 GETTABLE                         R7 R1 R8
-        9 JUMPIFEQKNIL                     R7 ; [+21]
+        9 JUMPIFEQKNIL                     R7 ; [+20]
        11 GETIMPORT                        R7 K2 [warn]
-       13 LOADK                            R9 K3 ["Duplicate instance name '%*' found under parent '%*'. This may cause reimport to behave unexpectedly."]
-       14 GETTABLEKS                       R11 R6 K0 ["Name"]
-       16 GETTABLEKS                       R13 R6 K4 ["Parent"]
-       18 JUMPIFNOT                        R13 ; [+6]
-       19 GETTABLEKS                       R12 R6 K4 ["Parent"]
-       21 NAMECALL                         R12 R12 K5 ["GetFullName"]
-       23 CALL                             R12 1 1
-       24 JUMPIF                           R12 ; [+1]
-       25 LOADK                            R12 K6 ["nil"]
-       26 NAMECALL                         R9 R9 K7 ["format"]
-       28 CALL                             R9 3 1
-       29 MOVE                             R8 R9
-       30 CALL                             R7 1 0
-       31 GETTABLEKS                       R7 R6 K0 ["Name"]
-       33 SETTABLE                         R6 R1 R7
-       34 FORGLOOP                         R2 2 ; [-29]
-       36 RETURN                           R1 1
+       13 LOADK                            R8 K3 ["Duplicate instance name '%*' found under parent '%*'. This may cause reimport to behave unexpectedly."]
+       14 GETTABLEKS                       R10 R6 K0 ["Name"]
+       16 GETTABLEKS                       R12 R6 K4 ["Parent"]
+       18 JUMPIFNOT                        R12 ; [+6]
+       19 GETTABLEKS                       R11 R6 K4 ["Parent"]
+       21 NAMECALL                         R11 R11 K5 ["GetFullName"]
+       23 CALL                             R11 1 1
+       24 JUMPIF                           R11 ; [+1]
+       25 LOADK                            R11 K6 ["nil"]
+       26 NAMECALL                         R8 R8 K7 ["format"]
+       28 CALL                             R8 3 1
+       29 CALL                             R7 1 0
+       30 GETTABLEKS                       R7 R6 K0 ["Name"]
+       32 SETTABLE                         R6 R1 R7
+       33 FORGLOOP                         R2 2 ; [-28]
+       35 RETURN                           R1 1
 
 PROTO_1:
         0 GETUPVAL                         R3 0
@@ -448,56 +447,55 @@ PROTO_14:
         0 GETTABLEKS                       R2 R0 K0 ["ClassName"]
         2 JUMPIFNOTEQKS                    R2 K1 ["Model"] ; [+5]
         4 GETTABLEKS                       R2 R1 K0 ["ClassName"]
-        6 JUMPIFEQKS                       R2 K1 ["Model"] ; [+12]
+        6 JUMPIFEQKS                       R2 K1 ["Model"] ; [+11]
         8 LOADNIL                          R2
-        9 LOADK                            R4 K2 ["applyTree expects both target and incoming roots to be Models, got %* and %*"]
-       10 GETTABLEKS                       R6 R0 K0 ["ClassName"]
-       12 GETTABLEKS                       R7 R1 K0 ["ClassName"]
-       14 NAMECALL                         R4 R4 K3 ["format"]
-       16 CALL                             R4 3 1
-       17 MOVE                             R3 R4
-       18 RETURN                           R2 2
-       19 LOADNIL                          R2
-       20 NEWCLOSURE                       R3 P0
-       21 CAPTURE                          REF R2
-       22 CAPTURE                          VAL R0
-       23 DUPCLOSURE                       R4 K4 [PROTO_6]
-       24 DUPCLOSURE                       R5 K5 [PROTO_7]
-       25 DUPCLOSURE                       R6 K6 [PROTO_8]
-       26 NEWCLOSURE                       R7 P4
-       27 CAPTURE                          VAL R3
-       28 NEWTABLE                         R8 1 0
-       30 LOADB                            R9 1
-       31 SETTABLEKS                       R9 R8 K7 ["WrapTarget"]
-       33 NEWTABLE                         R9 2 0
-       35 LOADB                            R10 1
-       36 SETTABLEKS                       R10 R9 K8 ["Bone"]
-       38 LOADB                            R10 1
-       39 SETTABLEKS                       R10 R9 K7 ["WrapTarget"]
-       41 DUPCLOSURE                       R10 K9 [PROTO_10]
-       42 GETUPVAL                         R11 0
-       43 GETTABLEKS                       R11 R11 K10 ["matchTrees_handlers"]
-       45 MOVE                             R12 R0
-       46 MOVE                             R13 R1
-       47 DUPTABLE                         R14 K14 [{"handleMatch", "handleAdded", "handleRemoved"}]
-       48 NEWCLOSURE                       R15 P6
-       49 CAPTURE                          VAL R4
-       50 CAPTURE                          VAL R7
-       51 CAPTURE                          VAL R8
-       52 CAPTURE                          UPVAL U1
-       53 SETTABLEKS                       R15 R14 K11 ["handleMatch"]
-       55 DUPCLOSURE                       R15 K15 [PROTO_12]
-       56 CAPTURE                          UPVAL U1
-       57 SETTABLEKS                       R15 R14 K12 ["handleAdded"]
-       59 NEWCLOSURE                       R15 P8
-       60 CAPTURE                          VAL R9
-       61 CAPTURE                          UPVAL U1
-       62 SETTABLEKS                       R15 R14 K13 ["handleRemoved"]
-       64 CALL                             R11 3 0
-       65 MOVE                             R11 R0
-       66 LOADNIL                          R12
-       67 CLOSEUPVALS                      R2
-       68 RETURN                           R11 2
+        9 LOADK                            R3 K2 ["applyTree expects both target and incoming roots to be Models, got %* and %*"]
+       10 GETTABLEKS                       R5 R0 K0 ["ClassName"]
+       12 GETTABLEKS                       R6 R1 K0 ["ClassName"]
+       14 NAMECALL                         R3 R3 K3 ["format"]
+       16 CALL                             R3 3 1
+       17 RETURN                           R2 2
+       18 LOADNIL                          R2
+       19 NEWCLOSURE                       R3 P0
+       20 CAPTURE                          REF R2
+       21 CAPTURE                          VAL R0
+       22 DUPCLOSURE                       R4 K4 [PROTO_6]
+       23 DUPCLOSURE                       R5 K5 [PROTO_7]
+       24 DUPCLOSURE                       R6 K6 [PROTO_8]
+       25 NEWCLOSURE                       R7 P4
+       26 CAPTURE                          VAL R3
+       27 NEWTABLE                         R8 1 0
+       29 LOADB                            R9 1
+       30 SETTABLEKS                       R9 R8 K7 ["WrapTarget"]
+       32 NEWTABLE                         R9 2 0
+       34 LOADB                            R10 1
+       35 SETTABLEKS                       R10 R9 K8 ["Bone"]
+       37 LOADB                            R10 1
+       38 SETTABLEKS                       R10 R9 K7 ["WrapTarget"]
+       40 DUPCLOSURE                       R10 K9 [PROTO_10]
+       41 GETUPVAL                         R11 0
+       42 GETTABLEKS                       R11 R11 K10 ["matchTrees_handlers"]
+       44 MOVE                             R12 R0
+       45 MOVE                             R13 R1
+       46 DUPTABLE                         R14 K14 [{"handleMatch", "handleAdded", "handleRemoved"}]
+       47 NEWCLOSURE                       R15 P6
+       48 CAPTURE                          VAL R4
+       49 CAPTURE                          VAL R7
+       50 CAPTURE                          VAL R8
+       51 CAPTURE                          UPVAL U1
+       52 SETTABLEKS                       R15 R14 K11 ["handleMatch"]
+       54 DUPCLOSURE                       R15 K15 [PROTO_12]
+       55 CAPTURE                          UPVAL U1
+       56 SETTABLEKS                       R15 R14 K12 ["handleAdded"]
+       58 NEWCLOSURE                       R15 P8
+       59 CAPTURE                          VAL R9
+       60 CAPTURE                          UPVAL U1
+       61 SETTABLEKS                       R15 R14 K13 ["handleRemoved"]
+       63 CALL                             R11 3 0
+       64 MOVE                             R11 R0
+       65 LOADNIL                          R12
+       66 CLOSEUPVALS                      R2
+       67 RETURN                           R11 2
 
 PROTO_15:
         0 GETUPVAL                         R4 0

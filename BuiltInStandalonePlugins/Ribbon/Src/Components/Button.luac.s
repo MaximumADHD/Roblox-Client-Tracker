@@ -120,100 +120,99 @@ PROTO_1:
       131 GETUPVAL                         R12 4
       132 GETTABLEKS                       R12 R12 K30 ["Tag"]
       134 GETUPVAL                         R13 7
-      135 LOADK                            R15 K31 ["Component-Button Role-Surface X-Fit data-testid=%*"]
-      136 GETUPVAL                         R17 8
-      137 GETTABLEKS                       R18 R0 K0 ["Uri"]
-      139 CALL                             R17 1 1
-      140 NAMECALL                         R15 R15 K32 ["format"]
-      142 CALL                             R15 2 1
-      143 MOVE                             R14 R15
-      144 GETTABLEKS                       R16 R0 K24 ["Disabled"]
-      146 JUMPIFNOT                        R16 ; [+2]
-      147 LOADK                            R15 K33 ["State-Disabled"]
-      148 JUMP                             ; [+1]
-      149 LOADK                            R15 K34 ["State-Default"]
-      150 GETUPVAL                         R17 4
-      151 GETTABLEKS                       R17 R17 K30 ["Tag"]
-      153 GETTABLE                         R16 R0 R17
-      154 CALL                             R13 3 1
-      155 SETTABLE                         R13 R11 R12
-      156 DUPTABLE                         R12 K36 [{"StateLayer"}]
-      157 GETUPVAL                         R13 4
-      158 GETTABLEKS                       R13 R13 K20 ["createElement"]
-      160 LOADK                            R14 K37 ["Frame"]
-      161 NEWTABLE                         R15 1 0
-      163 GETUPVAL                         R16 4
-      164 GETTABLEKS                       R16 R16 K30 ["Tag"]
-      166 GETUPVAL                         R17 7
-      167 LOADK                            R18 K38 ["Role-Surface X-Fit X-Row X-Middle X-Center"]
-      168 GETTABLEKS                       R20 R0 K2 ["Size"]
-      170 JUMPIFNOTEQKS                    R20 K3 ["Small"] ; [+3]
-      172 LOADK                            R19 K3 ["Small"]
-      173 JUMP                             ; [+7]
-      174 GETTABLEKS                       R20 R0 K2 ["Size"]
-      176 JUMPIFNOTEQKS                    R20 K4 ["Large"] ; [+3]
-      178 LOADK                            R19 K4 ["Large"]
-      179 JUMP                             ; [+1]
-      180 LOADK                            R19 K39 ["Medium"]
-      181 CALL                             R17 2 1
-      182 SETTABLE                         R17 R15 R16
-      183 DUPTABLE                         R16 K42 [{"ButtonIcon", "ButtonText"}]
-      184 GETTABLEKS                       R18 R0 K5 ["TextOnly"]
-      186 JUMPIF                           R18 ; [+23]
-      187 GETUPVAL                         R17 4
-      188 GETTABLEKS                       R17 R17 K20 ["createElement"]
-      190 LOADK                            R18 K43 ["ImageLabel"]
-      191 NEWTABLE                         R19 2 0
-      193 SETTABLEKS                       R5 R19 K44 ["Image"]
-      195 GETUPVAL                         R20 4
-      196 GETTABLEKS                       R20 R20 K30 ["Tag"]
-      198 GETUPVAL                         R21 7
-      199 JUMPIFNOTEQKS                    R2 K3 ["Small"] ; [+3]
-      201 LOADK                            R22 K45 ["Icon-Small"]
-      202 JUMP                             ; [+1]
-      203 LOADK                            R22 K46 ["Icon-Large"]
-      204 MOVE                             R23 R3
-      205 LOADK                            R24 K47 ["Role-Surface"]
-      206 CALL                             R21 3 1
-      207 SETTABLE                         R21 R19 R20
-      208 CALL                             R17 2 1
-      209 JUMP                             ; [+1]
-      210 LOADNIL                          R17
-      211 SETTABLEKS                       R17 R16 K40 ["ButtonIcon"]
-      213 GETUPVAL                         R17 4
-      214 GETTABLEKS                       R17 R17 K20 ["createElement"]
-      216 LOADK                            R18 K48 ["TextLabel"]
-      217 NEWTABLE                         R19 2 0
-      219 GETUPVAL                         R21 9
-      220 CALL                             R21 0 1
-      221 JUMPIFNOT                        R21 ; [+6]
-      222 GETTABLEKS                       R21 R0 K49 ["ShortTitle"]
-      224 JUMPIFNOT                        R21 ; [+3]
-      225 GETTABLEKS                       R20 R0 K49 ["ShortTitle"]
-      227 JUMP                             ; [+2]
-      228 GETTABLEKS                       R20 R0 K13 ["Text"]
-      230 SETTABLEKS                       R20 R19 K13 ["Text"]
-      232 GETUPVAL                         R20 4
-      233 GETTABLEKS                       R20 R20 K30 ["Tag"]
-      235 GETUPVAL                         R21 7
-      236 LOADK                            R22 K50 ["Role-Surface X-Fit"]
-      237 GETTABLEKS                       R24 R0 K2 ["Size"]
-      239 JUMPIFNOTEQKS                    R24 K3 ["Small"] ; [+3]
-      241 LOADK                            R23 K3 ["Small"]
-      242 JUMP                             ; [+7]
-      243 GETTABLEKS                       R24 R0 K2 ["Size"]
-      245 JUMPIFNOTEQKS                    R24 K4 ["Large"] ; [+3]
-      247 LOADK                            R23 K4 ["Large"]
-      248 JUMP                             ; [+1]
-      249 LOADNIL                          R23
-      250 CALL                             R21 2 1
-      251 SETTABLE                         R21 R19 R20
-      252 CALL                             R17 2 1
-      253 SETTABLEKS                       R17 R16 K41 ["ButtonText"]
-      255 CALL                             R13 3 1
-      256 SETTABLEKS                       R13 R12 K35 ["StateLayer"]
-      258 CALL                             R9 3 -1
-      259 RETURN                           R9 -1
+      135 LOADK                            R14 K31 ["Component-Button Role-Surface X-Fit data-testid=%*"]
+      136 GETUPVAL                         R16 8
+      137 GETTABLEKS                       R17 R0 K0 ["Uri"]
+      139 CALL                             R16 1 1
+      140 NAMECALL                         R14 R14 K32 ["format"]
+      142 CALL                             R14 2 1
+      143 GETTABLEKS                       R16 R0 K24 ["Disabled"]
+      145 JUMPIFNOT                        R16 ; [+2]
+      146 LOADK                            R15 K33 ["State-Disabled"]
+      147 JUMP                             ; [+1]
+      148 LOADK                            R15 K34 ["State-Default"]
+      149 GETUPVAL                         R17 4
+      150 GETTABLEKS                       R17 R17 K30 ["Tag"]
+      152 GETTABLE                         R16 R0 R17
+      153 CALL                             R13 3 1
+      154 SETTABLE                         R13 R11 R12
+      155 DUPTABLE                         R12 K36 [{"StateLayer"}]
+      156 GETUPVAL                         R13 4
+      157 GETTABLEKS                       R13 R13 K20 ["createElement"]
+      159 LOADK                            R14 K37 ["Frame"]
+      160 NEWTABLE                         R15 1 0
+      162 GETUPVAL                         R16 4
+      163 GETTABLEKS                       R16 R16 K30 ["Tag"]
+      165 GETUPVAL                         R17 7
+      166 LOADK                            R18 K38 ["Role-Surface X-Fit X-Row X-Middle X-Center"]
+      167 GETTABLEKS                       R20 R0 K2 ["Size"]
+      169 JUMPIFNOTEQKS                    R20 K3 ["Small"] ; [+3]
+      171 LOADK                            R19 K3 ["Small"]
+      172 JUMP                             ; [+7]
+      173 GETTABLEKS                       R20 R0 K2 ["Size"]
+      175 JUMPIFNOTEQKS                    R20 K4 ["Large"] ; [+3]
+      177 LOADK                            R19 K4 ["Large"]
+      178 JUMP                             ; [+1]
+      179 LOADK                            R19 K39 ["Medium"]
+      180 CALL                             R17 2 1
+      181 SETTABLE                         R17 R15 R16
+      182 DUPTABLE                         R16 K42 [{"ButtonIcon", "ButtonText"}]
+      183 GETTABLEKS                       R18 R0 K5 ["TextOnly"]
+      185 JUMPIF                           R18 ; [+23]
+      186 GETUPVAL                         R17 4
+      187 GETTABLEKS                       R17 R17 K20 ["createElement"]
+      189 LOADK                            R18 K43 ["ImageLabel"]
+      190 NEWTABLE                         R19 2 0
+      192 SETTABLEKS                       R5 R19 K44 ["Image"]
+      194 GETUPVAL                         R20 4
+      195 GETTABLEKS                       R20 R20 K30 ["Tag"]
+      197 GETUPVAL                         R21 7
+      198 JUMPIFNOTEQKS                    R2 K3 ["Small"] ; [+3]
+      200 LOADK                            R22 K45 ["Icon-Small"]
+      201 JUMP                             ; [+1]
+      202 LOADK                            R22 K46 ["Icon-Large"]
+      203 MOVE                             R23 R3
+      204 LOADK                            R24 K47 ["Role-Surface"]
+      205 CALL                             R21 3 1
+      206 SETTABLE                         R21 R19 R20
+      207 CALL                             R17 2 1
+      208 JUMP                             ; [+1]
+      209 LOADNIL                          R17
+      210 SETTABLEKS                       R17 R16 K40 ["ButtonIcon"]
+      212 GETUPVAL                         R17 4
+      213 GETTABLEKS                       R17 R17 K20 ["createElement"]
+      215 LOADK                            R18 K48 ["TextLabel"]
+      216 NEWTABLE                         R19 2 0
+      218 GETUPVAL                         R21 9
+      219 CALL                             R21 0 1
+      220 JUMPIFNOT                        R21 ; [+6]
+      221 GETTABLEKS                       R21 R0 K49 ["ShortTitle"]
+      223 JUMPIFNOT                        R21 ; [+3]
+      224 GETTABLEKS                       R20 R0 K49 ["ShortTitle"]
+      226 JUMP                             ; [+2]
+      227 GETTABLEKS                       R20 R0 K13 ["Text"]
+      229 SETTABLEKS                       R20 R19 K13 ["Text"]
+      231 GETUPVAL                         R20 4
+      232 GETTABLEKS                       R20 R20 K30 ["Tag"]
+      234 GETUPVAL                         R21 7
+      235 LOADK                            R22 K50 ["Role-Surface X-Fit"]
+      236 GETTABLEKS                       R24 R0 K2 ["Size"]
+      238 JUMPIFNOTEQKS                    R24 K3 ["Small"] ; [+3]
+      240 LOADK                            R23 K3 ["Small"]
+      241 JUMP                             ; [+7]
+      242 GETTABLEKS                       R24 R0 K2 ["Size"]
+      244 JUMPIFNOTEQKS                    R24 K4 ["Large"] ; [+3]
+      246 LOADK                            R23 K4 ["Large"]
+      247 JUMP                             ; [+1]
+      248 LOADNIL                          R23
+      249 CALL                             R21 2 1
+      250 SETTABLE                         R21 R19 R20
+      251 CALL                             R17 2 1
+      252 SETTABLEKS                       R17 R16 K41 ["ButtonText"]
+      254 CALL                             R13 3 1
+      255 SETTABLEKS                       R13 R12 K35 ["StateLayer"]
+      257 CALL                             R9 3 -1
+      258 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -178,13 +178,12 @@ PROTO_6:
         9 RETURN                           R5 1
        10 FORGLOOP                         R2 2 ; [-6]
        12 GETIMPORT                        R2 K3 [error]
-       14 LOADK                            R4 K4 ["Could not find handle with normal id %*"]
-       15 MOVE                             R6 R1
-       16 NAMECALL                         R4 R4 K5 ["format"]
-       18 CALL                             R4 2 1
-       19 MOVE                             R3 R4
-       20 CALL                             R2 1 0
-       21 RETURN                           R0 0
+       14 LOADK                            R3 K4 ["Could not find handle with normal id %*"]
+       15 MOVE                             R5 R1
+       16 NAMECALL                         R3 R3 K5 ["format"]
+       18 CALL                             R3 2 1
+       19 CALL                             R2 1 0
+       20 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0

@@ -20,26 +20,25 @@ PROTO_1:
         2 GETTABLEKS                       R2 R2 K5 ["composeUrl"]
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K6 ["DEVELOP_URL"]
-        7 LOADK                            R5 K7 ["v2/places/%*"]
-        8 MOVE                             R7 R0
-        9 NAMECALL                         R5 R5 K8 ["format"]
-       11 CALL                             R5 2 1
-       12 MOVE                             R4 R5
-       13 CALL                             R2 2 1
-       14 SETTABLEKS                       R2 R1 K2 ["Url"]
-       16 NEWTABLE                         R2 1 0
-       18 LOADK                            R3 K9 ["application/json"]
-       19 SETTABLEKS                       R3 R2 K10 ["Content-Type"]
-       21 SETTABLEKS                       R2 R1 K3 ["Headers"]
-       23 GETUPVAL                         R2 1
-       24 GETTABLEKS                       R2 R2 K11 ["Request"]
-       26 MOVE                             R3 R1
-       27 CALL                             R2 1 1
-       28 DUPCLOSURE                       R4 K12 [PROTO_0]
-       29 CAPTURE                          UPVAL U2
-       30 NAMECALL                         R2 R2 K13 ["andThen"]
-       32 CALL                             R2 2 -1
-       33 RETURN                           R2 -1
+        7 LOADK                            R4 K7 ["v2/places/%*"]
+        8 MOVE                             R6 R0
+        9 NAMECALL                         R4 R4 K8 ["format"]
+       11 CALL                             R4 2 1
+       12 CALL                             R2 2 1
+       13 SETTABLEKS                       R2 R1 K2 ["Url"]
+       15 NEWTABLE                         R2 1 0
+       17 LOADK                            R3 K9 ["application/json"]
+       18 SETTABLEKS                       R3 R2 K10 ["Content-Type"]
+       20 SETTABLEKS                       R2 R1 K3 ["Headers"]
+       22 GETUPVAL                         R2 1
+       23 GETTABLEKS                       R2 R2 K11 ["Request"]
+       25 MOVE                             R3 R1
+       26 CALL                             R2 1 1
+       27 DUPCLOSURE                       R4 K12 [PROTO_0]
+       28 CAPTURE                          UPVAL U2
+       29 NAMECALL                         R2 R2 K13 ["andThen"]
+       31 CALL                             R2 2 -1
+       32 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

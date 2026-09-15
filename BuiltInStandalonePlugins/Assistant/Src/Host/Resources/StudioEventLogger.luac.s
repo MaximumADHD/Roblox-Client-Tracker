@@ -460,12 +460,11 @@ PROTO_15:
        17 RETURN                           R0 1
 
 PROTO_16:
-        0 LOADK                            R2 K0 ["StudioAssistant%*"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["StudioAssistant%*"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_17:
         0 NEWTABLE                         R0 0 0
@@ -1785,27 +1784,35 @@ PROTO_37:
       120 SETTABLEKS                       R6 R5 K25 ["timestampMilliseconds"]
       122 CALL                             R3 2 1
       123 MOVE                             R1 R3
-      124 GETUPVAL                         R2 0
-      125 GETTABLEKS                       R2 R2 K28 ["logEvent"]
-      127 GETUPVAL                         R3 7
-      128 DUPTABLE                         R4 K30 [{"customFields", "standardizedFields"}]
-      129 SETTABLEKS                       R1 R4 K2 ["customFields"]
-      131 NEWTABLE                         R6 0 0
-      133 GETUPVAL                         R7 8
-      134 GETTABLEKS                       R7 R7 K31 ["StandardizedFields"]
-      136 LOADNIL                          R8
-      137 LOADNIL                          R9
-      138 FORGPREP                         R7
-      139 FASTCALL2                        TABLE_INSERT R6 R11 ; [+5]
-      141 MOVE                             R13 R6
-      142 MOVE                             R14 R11
-      143 GETIMPORT                        R12 K34 [table.insert]
-      145 CALL                             R12 2 0
-      146 FORGLOOP                         R7 2 ; [-8]
-      148 MOVE                             R5 R6
-      149 SETTABLEKS                       R5 R4 K29 ["standardizedFields"]
-      151 CALL                             R2 2 0
-      152 RETURN                           R0 0
+      124 GETUPVAL                         R2 7
+      125 CALL                             R2 0 1
+      126 JUMPIFNOT                        R2 ; [+8]
+      127 GETUPVAL                         R2 8
+      128 GETTABLEKS                       R2 R2 K28 ["FFlagAssistantCreditMeteringTelemetry"]
+      130 JUMPIFNOT                        R2 ; [+4]
+      131 GETTABLEKS                       R2 R0 K29 ["nextTurnBlockReason"]
+      133 SETTABLEKS                       R2 R1 K29 ["nextTurnBlockReason"]
+      135 GETUPVAL                         R2 0
+      136 GETTABLEKS                       R2 R2 K30 ["logEvent"]
+      138 GETUPVAL                         R3 9
+      139 DUPTABLE                         R4 K32 [{"customFields", "standardizedFields"}]
+      140 SETTABLEKS                       R1 R4 K2 ["customFields"]
+      142 NEWTABLE                         R6 0 0
+      144 GETUPVAL                         R7 10
+      145 GETTABLEKS                       R7 R7 K33 ["StandardizedFields"]
+      147 LOADNIL                          R8
+      148 LOADNIL                          R9
+      149 FORGPREP                         R7
+      150 FASTCALL2                        TABLE_INSERT R6 R11 ; [+5]
+      152 MOVE                             R13 R6
+      153 MOVE                             R14 R11
+      154 GETIMPORT                        R12 K36 [table.insert]
+      156 CALL                             R12 2 0
+      157 FORGLOOP                         R7 2 ; [-8]
+      159 MOVE                             R5 R6
+      160 SETTABLEKS                       R5 R4 K31 ["standardizedFields"]
+      162 CALL                             R2 2 0
+      163 RETURN                           R0 0
 
 PROTO_38:
         0 DUPTABLE                         R2 K3 [{"requestId", "model", "statusCode"}]
@@ -4135,322 +4142,324 @@ PROTO_71:
       133 CAPTURE                          UPVAL U1
       134 CAPTURE                          UPVAL U7
       135 CAPTURE                          UPVAL U8
-      136 CAPTURE                          UPVAL U35
-      137 CAPTURE                          UPVAL U10
-      138 DUPCLOSURE                       R17 K12 [PROTO_38]
-      139 CAPTURE                          UPVAL U6
-      140 CAPTURE                          UPVAL U8
-      141 CAPTURE                          UPVAL U4
-      142 CAPTURE                          UPVAL U36
-      143 CAPTURE                          UPVAL U10
-      144 DUPCLOSURE                       R18 K13 [PROTO_39]
-      145 CAPTURE                          UPVAL U4
-      146 CAPTURE                          UPVAL U37
-      147 CAPTURE                          UPVAL U6
-      148 CAPTURE                          UPVAL U0
-      149 CAPTURE                          UPVAL U1
-      150 CAPTURE                          UPVAL U7
-      151 DUPCLOSURE                       R19 K14 [PROTO_40]
-      152 CAPTURE                          UPVAL U4
-      153 CAPTURE                          UPVAL U38
-      154 CAPTURE                          UPVAL U6
-      155 CAPTURE                          UPVAL U0
-      156 CAPTURE                          UPVAL U1
-      157 CAPTURE                          UPVAL U7
-      158 CAPTURE                          UPVAL U39
-      159 CAPTURE                          UPVAL U23
-      160 CAPTURE                          UPVAL U8
-      161 CAPTURE                          UPVAL U40
-      162 CAPTURE                          UPVAL U10
-      163 DUPCLOSURE                       R20 K15 [PROTO_41]
-      164 CAPTURE                          UPVAL U4
-      165 CAPTURE                          UPVAL U41
-      166 CAPTURE                          UPVAL U6
-      167 CAPTURE                          UPVAL U0
-      168 CAPTURE                          UPVAL U1
-      169 CAPTURE                          UPVAL U7
-      170 CAPTURE                          UPVAL U42
-      171 CAPTURE                          UPVAL U8
-      172 CAPTURE                          UPVAL U43
-      173 CAPTURE                          UPVAL U10
-      174 DUPCLOSURE                       R21 K16 [PROTO_42]
-      175 CAPTURE                          UPVAL U4
-      176 CAPTURE                          UPVAL U44
-      177 CAPTURE                          UPVAL U6
-      178 CAPTURE                          UPVAL U0
-      179 CAPTURE                          UPVAL U1
-      180 CAPTURE                          UPVAL U7
-      181 CAPTURE                          UPVAL U45
-      182 CAPTURE                          UPVAL U8
-      183 CAPTURE                          UPVAL U46
-      184 CAPTURE                          UPVAL U10
-      185 DUPCLOSURE                       R22 K17 [PROTO_43]
-      186 CAPTURE                          UPVAL U4
-      187 CAPTURE                          UPVAL U47
-      188 CAPTURE                          UPVAL U6
-      189 CAPTURE                          UPVAL U0
-      190 CAPTURE                          UPVAL U1
-      191 CAPTURE                          UPVAL U7
-      192 CAPTURE                          UPVAL U23
-      193 CAPTURE                          UPVAL U8
-      194 CAPTURE                          UPVAL U48
-      195 CAPTURE                          UPVAL U10
-      196 DUPCLOSURE                       R23 K18 [PROTO_44]
-      197 CAPTURE                          UPVAL U4
-      198 CAPTURE                          UPVAL U49
-      199 CAPTURE                          UPVAL U6
-      200 CAPTURE                          UPVAL U8
-      201 CAPTURE                          UPVAL U10
-      202 DUPCLOSURE                       R24 K19 [PROTO_45]
-      203 CAPTURE                          UPVAL U4
-      204 CAPTURE                          UPVAL U50
-      205 CAPTURE                          UPVAL U6
-      206 CAPTURE                          UPVAL U8
-      207 CAPTURE                          UPVAL U10
-      208 DUPCLOSURE                       R25 K20 [PROTO_46]
-      209 CAPTURE                          UPVAL U4
-      210 CAPTURE                          UPVAL U51
-      211 CAPTURE                          UPVAL U6
-      212 CAPTURE                          UPVAL U8
-      213 CAPTURE                          UPVAL U10
-      214 DUPCLOSURE                       R26 K21 [PROTO_47]
-      215 CAPTURE                          UPVAL U4
-      216 CAPTURE                          UPVAL U52
-      217 CAPTURE                          UPVAL U6
-      218 CAPTURE                          UPVAL U8
-      219 CAPTURE                          UPVAL U10
-      220 CAPTURE                          UPVAL U53
-      221 CAPTURE                          UPVAL U0
-      222 CAPTURE                          UPVAL U1
-      223 CAPTURE                          UPVAL U7
-      224 DUPCLOSURE                       R27 K22 [PROTO_48]
-      225 CAPTURE                          UPVAL U4
-      226 CAPTURE                          UPVAL U54
-      227 CAPTURE                          UPVAL U6
-      228 CAPTURE                          UPVAL U8
-      229 CAPTURE                          UPVAL U10
-      230 CAPTURE                          UPVAL U55
-      231 CAPTURE                          UPVAL U0
-      232 CAPTURE                          UPVAL U1
-      233 CAPTURE                          UPVAL U7
-      234 DUPCLOSURE                       R28 K23 [PROTO_49]
-      235 CAPTURE                          UPVAL U3
-      236 CAPTURE                          UPVAL U4
-      237 CAPTURE                          UPVAL U56
-      238 CAPTURE                          UPVAL U6
-      239 CAPTURE                          UPVAL U0
-      240 CAPTURE                          UPVAL U1
-      241 CAPTURE                          UPVAL U7
-      242 DUPCLOSURE                       R29 K24 [PROTO_50]
-      243 CAPTURE                          UPVAL U3
-      244 CAPTURE                          UPVAL U4
-      245 CAPTURE                          UPVAL U57
-      246 CAPTURE                          UPVAL U6
-      247 CAPTURE                          UPVAL U8
-      248 CAPTURE                          UPVAL U10
-      249 DUPCLOSURE                       R30 K25 [PROTO_51]
-      250 CAPTURE                          UPVAL U3
-      251 CAPTURE                          UPVAL U4
-      252 CAPTURE                          UPVAL U58
-      253 CAPTURE                          UPVAL U23
-      254 CAPTURE                          UPVAL U6
-      255 CAPTURE                          UPVAL U8
-      256 CAPTURE                          UPVAL U10
-      257 DUPCLOSURE                       R31 K26 [PROTO_52]
-      258 CAPTURE                          UPVAL U3
-      259 CAPTURE                          UPVAL U4
-      260 CAPTURE                          UPVAL U59
-      261 CAPTURE                          UPVAL U6
-      262 CAPTURE                          UPVAL U0
-      263 CAPTURE                          UPVAL U1
-      264 CAPTURE                          UPVAL U7
-      265 CAPTURE                          UPVAL U60
-      266 CAPTURE                          UPVAL U8
-      267 CAPTURE                          UPVAL U10
-      268 DUPCLOSURE                       R32 K27 [PROTO_53]
-      269 CAPTURE                          UPVAL U3
-      270 CAPTURE                          UPVAL U4
-      271 CAPTURE                          UPVAL U61
-      272 CAPTURE                          UPVAL U6
-      273 CAPTURE                          UPVAL U0
-      274 CAPTURE                          UPVAL U1
-      275 CAPTURE                          UPVAL U7
-      276 CAPTURE                          UPVAL U62
-      277 CAPTURE                          UPVAL U8
-      278 CAPTURE                          UPVAL U10
-      279 DUPCLOSURE                       R33 K28 [PROTO_54]
-      280 CAPTURE                          UPVAL U4
-      281 CAPTURE                          UPVAL U63
-      282 CAPTURE                          UPVAL U6
-      283 CAPTURE                          UPVAL U8
-      284 CAPTURE                          UPVAL U10
-      285 DUPCLOSURE                       R34 K29 [PROTO_55]
-      286 CAPTURE                          UPVAL U4
-      287 CAPTURE                          UPVAL U64
-      288 CAPTURE                          UPVAL U6
-      289 CAPTURE                          UPVAL U8
-      290 CAPTURE                          UPVAL U10
-      291 CAPTURE                          UPVAL U65
-      292 CAPTURE                          UPVAL U0
-      293 CAPTURE                          UPVAL U1
-      294 CAPTURE                          UPVAL U7
-      295 DUPCLOSURE                       R35 K30 [PROTO_56]
-      296 CAPTURE                          UPVAL U4
-      297 CAPTURE                          UPVAL U66
-      298 CAPTURE                          UPVAL U6
-      299 CAPTURE                          UPVAL U0
-      300 CAPTURE                          UPVAL U1
-      301 CAPTURE                          UPVAL U7
-      302 CAPTURE                          UPVAL U8
-      303 CAPTURE                          UPVAL U67
-      304 CAPTURE                          UPVAL U10
-      305 DUPCLOSURE                       R36 K31 [PROTO_57]
-      306 CAPTURE                          UPVAL U4
-      307 CAPTURE                          UPVAL U68
-      308 CAPTURE                          UPVAL U6
-      309 CAPTURE                          UPVAL U0
-      310 CAPTURE                          UPVAL U1
-      311 CAPTURE                          UPVAL U7
-      312 CAPTURE                          UPVAL U8
-      313 CAPTURE                          UPVAL U69
-      314 CAPTURE                          UPVAL U10
-      315 DUPCLOSURE                       R37 K32 [PROTO_58]
-      316 CAPTURE                          UPVAL U4
-      317 CAPTURE                          UPVAL U70
-      318 DUPCLOSURE                       R38 K33 [PROTO_59]
-      319 CAPTURE                          UPVAL U4
-      320 CAPTURE                          UPVAL U71
-      321 CAPTURE                          UPVAL U6
-      322 CAPTURE                          UPVAL U8
-      323 CAPTURE                          UPVAL U10
-      324 DUPCLOSURE                       R39 K34 [PROTO_60]
-      325 CAPTURE                          UPVAL U4
-      326 CAPTURE                          UPVAL U72
-      327 CAPTURE                          UPVAL U6
-      328 CAPTURE                          UPVAL U8
-      329 CAPTURE                          UPVAL U10
-      330 DUPCLOSURE                       R40 K35 [PROTO_61]
-      331 CAPTURE                          UPVAL U4
-      332 CAPTURE                          UPVAL U73
-      333 CAPTURE                          UPVAL U6
-      334 CAPTURE                          UPVAL U8
-      335 CAPTURE                          UPVAL U10
-      336 DUPCLOSURE                       R41 K36 [PROTO_62]
-      337 CAPTURE                          UPVAL U4
-      338 CAPTURE                          UPVAL U74
-      339 CAPTURE                          UPVAL U6
-      340 CAPTURE                          UPVAL U8
-      341 CAPTURE                          UPVAL U10
-      342 DUPCLOSURE                       R42 K37 [PROTO_63]
-      343 CAPTURE                          UPVAL U4
-      344 CAPTURE                          UPVAL U75
-      345 CAPTURE                          UPVAL U6
-      346 CAPTURE                          UPVAL U8
-      347 CAPTURE                          UPVAL U10
-      348 DUPCLOSURE                       R43 K38 [PROTO_64]
-      349 CAPTURE                          UPVAL U4
-      350 CAPTURE                          UPVAL U76
-      351 CAPTURE                          UPVAL U6
-      352 CAPTURE                          UPVAL U8
-      353 CAPTURE                          UPVAL U10
-      354 DUPCLOSURE                       R44 K39 [PROTO_65]
-      355 CAPTURE                          UPVAL U4
-      356 CAPTURE                          UPVAL U77
-      357 CAPTURE                          UPVAL U6
-      358 CAPTURE                          UPVAL U8
-      359 CAPTURE                          UPVAL U10
-      360 DUPCLOSURE                       R45 K40 [PROTO_66]
-      361 CAPTURE                          UPVAL U4
-      362 CAPTURE                          UPVAL U78
-      363 CAPTURE                          UPVAL U6
-      364 CAPTURE                          UPVAL U0
-      365 CAPTURE                          UPVAL U1
-      366 CAPTURE                          UPVAL U7
-      367 CAPTURE                          UPVAL U79
-      368 CAPTURE                          UPVAL U8
-      369 CAPTURE                          UPVAL U10
-      370 DUPCLOSURE                       R46 K41 [PROTO_67]
-      371 CAPTURE                          UPVAL U4
-      372 CAPTURE                          UPVAL U80
-      373 CAPTURE                          UPVAL U6
-      374 CAPTURE                          UPVAL U0
-      375 CAPTURE                          UPVAL U1
-      376 CAPTURE                          UPVAL U7
-      377 CAPTURE                          UPVAL U81
-      378 CAPTURE                          UPVAL U8
-      379 CAPTURE                          UPVAL U10
-      380 DUPCLOSURE                       R47 K42 [PROTO_68]
-      381 CAPTURE                          UPVAL U4
-      382 CAPTURE                          UPVAL U82
-      383 CAPTURE                          UPVAL U6
-      384 CAPTURE                          UPVAL U8
-      385 CAPTURE                          UPVAL U10
-      386 DUPCLOSURE                       R48 K43 [PROTO_69]
-      387 CAPTURE                          UPVAL U4
-      388 CAPTURE                          UPVAL U83
-      389 CAPTURE                          UPVAL U6
-      390 CAPTURE                          UPVAL U8
-      391 CAPTURE                          UPVAL U10
-      392 DUPCLOSURE                       R49 K44 [PROTO_70]
-      393 CAPTURE                          UPVAL U4
-      394 CAPTURE                          UPVAL U84
-      395 CAPTURE                          UPVAL U6
-      396 CAPTURE                          UPVAL U0
-      397 CAPTURE                          UPVAL U1
-      398 CAPTURE                          UPVAL U7
-      399 CAPTURE                          UPVAL U85
-      400 CAPTURE                          UPVAL U86
-      401 NEWTABLE                         R50 64 0
-      403 SETTABLEKS                       R1 R50 K45 ["logUserMessageSent"]
-      405 SETTABLEKS                       R2 R50 K46 ["logAssistantMessageSent"]
-      407 SETTABLEKS                       R3 R50 K47 ["logApiKeyAdded"]
-      409 SETTABLEKS                       R4 R50 K48 ["logErrorEvent"]
-      411 SETTABLEKS                       R17 R50 K49 ["logExternalAPIError"]
-      413 SETTABLEKS                       R5 R50 K50 ["logThumbsUp"]
-      415 SETTABLEKS                       R6 R50 K51 ["logThumbsDown"]
-      417 SETTABLEKS                       R7 R50 K52 ["logInitialResponseLatency"]
-      419 SETTABLEKS                       R8 R50 K53 ["logMarkdownError"]
-      421 SETTABLEKS                       R9 R50 K54 ["logRetry"]
-      423 SETTABLEKS                       R10 R50 K55 ["logStopGeneration"]
-      425 SETTABLEKS                       R11 R50 K56 ["logToolStarted"]
-      427 SETTABLEKS                       R12 R50 K57 ["logToolEnded"]
-      429 SETTABLEKS                       R13 R50 K58 ["logFailedToolInvocation"]
-      431 SETTABLEKS                       R14 R50 K59 ["logToolConfirmationShown"]
-      433 SETTABLEKS                       R15 R50 K60 ["logToolConfirmationResult"]
-      435 SETTABLEKS                       R16 R50 K61 ["logRequestJourney"]
-      437 SETTABLEKS                       R18 R50 K62 ["logMeshGenActivated"]
-      439 SETTABLEKS                       R19 R50 K63 ["logMeshGenCompleted"]
-      441 SETTABLEKS                       R20 R50 K64 ["logMeshGenPublishedAssets"]
-      443 SETTABLEKS                       R21 R50 K65 ["logMeshGenMeshInserted"]
-      445 SETTABLEKS                       R22 R50 K66 ["logPrimitiveGen"]
-      447 SETTABLEKS                       R23 R50 K67 ["logAvatarAutoSetupRequested"]
-      449 SETTABLEKS                       R24 R50 K68 ["logAvatarAutoSetupOptions"]
-      451 SETTABLEKS                       R25 R50 K69 ["logAvatarAutoSetupJobInitialized"]
-      453 SETTABLEKS                       R26 R50 K70 ["logAvatarAutoSetupFinish"]
-      455 SETTABLEKS                       R27 R50 K71 ["logAvatarAutoSetupFailure"]
-      457 SETTABLEKS                       R28 R50 K72 ["logGen3DSegmentationRefresh"]
-      459 SETTABLEKS                       R29 R50 K73 ["logGen3DInstanceDeleted"]
-      461 SETTABLEKS                       R30 R50 K74 ["logGen3DImageImpression"]
-      463 SETTABLEKS                       R31 R50 K75 ["logGen3DImageAction"]
-      465 SETTABLEKS                       R32 R50 K76 ["logGen3DAssetPublished"]
-      467 SETTABLEKS                       R33 R50 K77 ["logIntegrationEvent"]
-      469 SETTABLEKS                       R34 R50 K78 ["logExternalServerConnected"]
-      471 SETTABLEKS                       R35 R50 K79 ["logQuestionAnswerCompleted"]
-      473 SETTABLEKS                       R36 R50 K80 ["logPlanDecision"]
-      475 SETTABLEKS                       R43 R50 K81 ["logQuickSetupToggled"]
-      477 SETTABLEKS                       R37 R50 K82 ["logMaterialGeneratorSavedMaterial"]
-      479 SETTABLEKS                       R45 R50 K83 ["logCompactionSuccess"]
-      481 SETTABLEKS                       R46 R50 K84 ["logCompactionFallback"]
-      483 SETTABLEKS                       R47 R50 K85 ["logUserSkillEvent"]
-      485 SETTABLEKS                       R48 R50 K86 ["logThinkingBlock"]
-      487 SETTABLEKS                       R38 R50 K87 ["logThreadCreated"]
-      489 SETTABLEKS                       R39 R50 K88 ["logThreadRenamed"]
-      491 SETTABLEKS                       R40 R50 K89 ["logThreadPinnedChanged"]
-      493 SETTABLEKS                       R41 R50 K90 ["logThreadDeleted"]
-      495 SETTABLEKS                       R42 R50 K91 ["logThreadDuplicated"]
-      497 SETTABLEKS                       R44 R50 K92 ["logThreadSwitched"]
-      499 SETTABLEKS                       R49 R50 K93 ["logPersistenceOperation"]
-      501 RETURN                           R50 1
+      136 CAPTURE                          UPVAL U2
+      137 CAPTURE                          UPVAL U3
+      138 CAPTURE                          UPVAL U35
+      139 CAPTURE                          UPVAL U10
+      140 DUPCLOSURE                       R17 K12 [PROTO_38]
+      141 CAPTURE                          UPVAL U6
+      142 CAPTURE                          UPVAL U8
+      143 CAPTURE                          UPVAL U4
+      144 CAPTURE                          UPVAL U36
+      145 CAPTURE                          UPVAL U10
+      146 DUPCLOSURE                       R18 K13 [PROTO_39]
+      147 CAPTURE                          UPVAL U4
+      148 CAPTURE                          UPVAL U37
+      149 CAPTURE                          UPVAL U6
+      150 CAPTURE                          UPVAL U0
+      151 CAPTURE                          UPVAL U1
+      152 CAPTURE                          UPVAL U7
+      153 DUPCLOSURE                       R19 K14 [PROTO_40]
+      154 CAPTURE                          UPVAL U4
+      155 CAPTURE                          UPVAL U38
+      156 CAPTURE                          UPVAL U6
+      157 CAPTURE                          UPVAL U0
+      158 CAPTURE                          UPVAL U1
+      159 CAPTURE                          UPVAL U7
+      160 CAPTURE                          UPVAL U39
+      161 CAPTURE                          UPVAL U23
+      162 CAPTURE                          UPVAL U8
+      163 CAPTURE                          UPVAL U40
+      164 CAPTURE                          UPVAL U10
+      165 DUPCLOSURE                       R20 K15 [PROTO_41]
+      166 CAPTURE                          UPVAL U4
+      167 CAPTURE                          UPVAL U41
+      168 CAPTURE                          UPVAL U6
+      169 CAPTURE                          UPVAL U0
+      170 CAPTURE                          UPVAL U1
+      171 CAPTURE                          UPVAL U7
+      172 CAPTURE                          UPVAL U42
+      173 CAPTURE                          UPVAL U8
+      174 CAPTURE                          UPVAL U43
+      175 CAPTURE                          UPVAL U10
+      176 DUPCLOSURE                       R21 K16 [PROTO_42]
+      177 CAPTURE                          UPVAL U4
+      178 CAPTURE                          UPVAL U44
+      179 CAPTURE                          UPVAL U6
+      180 CAPTURE                          UPVAL U0
+      181 CAPTURE                          UPVAL U1
+      182 CAPTURE                          UPVAL U7
+      183 CAPTURE                          UPVAL U45
+      184 CAPTURE                          UPVAL U8
+      185 CAPTURE                          UPVAL U46
+      186 CAPTURE                          UPVAL U10
+      187 DUPCLOSURE                       R22 K17 [PROTO_43]
+      188 CAPTURE                          UPVAL U4
+      189 CAPTURE                          UPVAL U47
+      190 CAPTURE                          UPVAL U6
+      191 CAPTURE                          UPVAL U0
+      192 CAPTURE                          UPVAL U1
+      193 CAPTURE                          UPVAL U7
+      194 CAPTURE                          UPVAL U23
+      195 CAPTURE                          UPVAL U8
+      196 CAPTURE                          UPVAL U48
+      197 CAPTURE                          UPVAL U10
+      198 DUPCLOSURE                       R23 K18 [PROTO_44]
+      199 CAPTURE                          UPVAL U4
+      200 CAPTURE                          UPVAL U49
+      201 CAPTURE                          UPVAL U6
+      202 CAPTURE                          UPVAL U8
+      203 CAPTURE                          UPVAL U10
+      204 DUPCLOSURE                       R24 K19 [PROTO_45]
+      205 CAPTURE                          UPVAL U4
+      206 CAPTURE                          UPVAL U50
+      207 CAPTURE                          UPVAL U6
+      208 CAPTURE                          UPVAL U8
+      209 CAPTURE                          UPVAL U10
+      210 DUPCLOSURE                       R25 K20 [PROTO_46]
+      211 CAPTURE                          UPVAL U4
+      212 CAPTURE                          UPVAL U51
+      213 CAPTURE                          UPVAL U6
+      214 CAPTURE                          UPVAL U8
+      215 CAPTURE                          UPVAL U10
+      216 DUPCLOSURE                       R26 K21 [PROTO_47]
+      217 CAPTURE                          UPVAL U4
+      218 CAPTURE                          UPVAL U52
+      219 CAPTURE                          UPVAL U6
+      220 CAPTURE                          UPVAL U8
+      221 CAPTURE                          UPVAL U10
+      222 CAPTURE                          UPVAL U53
+      223 CAPTURE                          UPVAL U0
+      224 CAPTURE                          UPVAL U1
+      225 CAPTURE                          UPVAL U7
+      226 DUPCLOSURE                       R27 K22 [PROTO_48]
+      227 CAPTURE                          UPVAL U4
+      228 CAPTURE                          UPVAL U54
+      229 CAPTURE                          UPVAL U6
+      230 CAPTURE                          UPVAL U8
+      231 CAPTURE                          UPVAL U10
+      232 CAPTURE                          UPVAL U55
+      233 CAPTURE                          UPVAL U0
+      234 CAPTURE                          UPVAL U1
+      235 CAPTURE                          UPVAL U7
+      236 DUPCLOSURE                       R28 K23 [PROTO_49]
+      237 CAPTURE                          UPVAL U3
+      238 CAPTURE                          UPVAL U4
+      239 CAPTURE                          UPVAL U56
+      240 CAPTURE                          UPVAL U6
+      241 CAPTURE                          UPVAL U0
+      242 CAPTURE                          UPVAL U1
+      243 CAPTURE                          UPVAL U7
+      244 DUPCLOSURE                       R29 K24 [PROTO_50]
+      245 CAPTURE                          UPVAL U3
+      246 CAPTURE                          UPVAL U4
+      247 CAPTURE                          UPVAL U57
+      248 CAPTURE                          UPVAL U6
+      249 CAPTURE                          UPVAL U8
+      250 CAPTURE                          UPVAL U10
+      251 DUPCLOSURE                       R30 K25 [PROTO_51]
+      252 CAPTURE                          UPVAL U3
+      253 CAPTURE                          UPVAL U4
+      254 CAPTURE                          UPVAL U58
+      255 CAPTURE                          UPVAL U23
+      256 CAPTURE                          UPVAL U6
+      257 CAPTURE                          UPVAL U8
+      258 CAPTURE                          UPVAL U10
+      259 DUPCLOSURE                       R31 K26 [PROTO_52]
+      260 CAPTURE                          UPVAL U3
+      261 CAPTURE                          UPVAL U4
+      262 CAPTURE                          UPVAL U59
+      263 CAPTURE                          UPVAL U6
+      264 CAPTURE                          UPVAL U0
+      265 CAPTURE                          UPVAL U1
+      266 CAPTURE                          UPVAL U7
+      267 CAPTURE                          UPVAL U60
+      268 CAPTURE                          UPVAL U8
+      269 CAPTURE                          UPVAL U10
+      270 DUPCLOSURE                       R32 K27 [PROTO_53]
+      271 CAPTURE                          UPVAL U3
+      272 CAPTURE                          UPVAL U4
+      273 CAPTURE                          UPVAL U61
+      274 CAPTURE                          UPVAL U6
+      275 CAPTURE                          UPVAL U0
+      276 CAPTURE                          UPVAL U1
+      277 CAPTURE                          UPVAL U7
+      278 CAPTURE                          UPVAL U62
+      279 CAPTURE                          UPVAL U8
+      280 CAPTURE                          UPVAL U10
+      281 DUPCLOSURE                       R33 K28 [PROTO_54]
+      282 CAPTURE                          UPVAL U4
+      283 CAPTURE                          UPVAL U63
+      284 CAPTURE                          UPVAL U6
+      285 CAPTURE                          UPVAL U8
+      286 CAPTURE                          UPVAL U10
+      287 DUPCLOSURE                       R34 K29 [PROTO_55]
+      288 CAPTURE                          UPVAL U4
+      289 CAPTURE                          UPVAL U64
+      290 CAPTURE                          UPVAL U6
+      291 CAPTURE                          UPVAL U8
+      292 CAPTURE                          UPVAL U10
+      293 CAPTURE                          UPVAL U65
+      294 CAPTURE                          UPVAL U0
+      295 CAPTURE                          UPVAL U1
+      296 CAPTURE                          UPVAL U7
+      297 DUPCLOSURE                       R35 K30 [PROTO_56]
+      298 CAPTURE                          UPVAL U4
+      299 CAPTURE                          UPVAL U66
+      300 CAPTURE                          UPVAL U6
+      301 CAPTURE                          UPVAL U0
+      302 CAPTURE                          UPVAL U1
+      303 CAPTURE                          UPVAL U7
+      304 CAPTURE                          UPVAL U8
+      305 CAPTURE                          UPVAL U67
+      306 CAPTURE                          UPVAL U10
+      307 DUPCLOSURE                       R36 K31 [PROTO_57]
+      308 CAPTURE                          UPVAL U4
+      309 CAPTURE                          UPVAL U68
+      310 CAPTURE                          UPVAL U6
+      311 CAPTURE                          UPVAL U0
+      312 CAPTURE                          UPVAL U1
+      313 CAPTURE                          UPVAL U7
+      314 CAPTURE                          UPVAL U8
+      315 CAPTURE                          UPVAL U69
+      316 CAPTURE                          UPVAL U10
+      317 DUPCLOSURE                       R37 K32 [PROTO_58]
+      318 CAPTURE                          UPVAL U4
+      319 CAPTURE                          UPVAL U70
+      320 DUPCLOSURE                       R38 K33 [PROTO_59]
+      321 CAPTURE                          UPVAL U4
+      322 CAPTURE                          UPVAL U71
+      323 CAPTURE                          UPVAL U6
+      324 CAPTURE                          UPVAL U8
+      325 CAPTURE                          UPVAL U10
+      326 DUPCLOSURE                       R39 K34 [PROTO_60]
+      327 CAPTURE                          UPVAL U4
+      328 CAPTURE                          UPVAL U72
+      329 CAPTURE                          UPVAL U6
+      330 CAPTURE                          UPVAL U8
+      331 CAPTURE                          UPVAL U10
+      332 DUPCLOSURE                       R40 K35 [PROTO_61]
+      333 CAPTURE                          UPVAL U4
+      334 CAPTURE                          UPVAL U73
+      335 CAPTURE                          UPVAL U6
+      336 CAPTURE                          UPVAL U8
+      337 CAPTURE                          UPVAL U10
+      338 DUPCLOSURE                       R41 K36 [PROTO_62]
+      339 CAPTURE                          UPVAL U4
+      340 CAPTURE                          UPVAL U74
+      341 CAPTURE                          UPVAL U6
+      342 CAPTURE                          UPVAL U8
+      343 CAPTURE                          UPVAL U10
+      344 DUPCLOSURE                       R42 K37 [PROTO_63]
+      345 CAPTURE                          UPVAL U4
+      346 CAPTURE                          UPVAL U75
+      347 CAPTURE                          UPVAL U6
+      348 CAPTURE                          UPVAL U8
+      349 CAPTURE                          UPVAL U10
+      350 DUPCLOSURE                       R43 K38 [PROTO_64]
+      351 CAPTURE                          UPVAL U4
+      352 CAPTURE                          UPVAL U76
+      353 CAPTURE                          UPVAL U6
+      354 CAPTURE                          UPVAL U8
+      355 CAPTURE                          UPVAL U10
+      356 DUPCLOSURE                       R44 K39 [PROTO_65]
+      357 CAPTURE                          UPVAL U4
+      358 CAPTURE                          UPVAL U77
+      359 CAPTURE                          UPVAL U6
+      360 CAPTURE                          UPVAL U8
+      361 CAPTURE                          UPVAL U10
+      362 DUPCLOSURE                       R45 K40 [PROTO_66]
+      363 CAPTURE                          UPVAL U4
+      364 CAPTURE                          UPVAL U78
+      365 CAPTURE                          UPVAL U6
+      366 CAPTURE                          UPVAL U0
+      367 CAPTURE                          UPVAL U1
+      368 CAPTURE                          UPVAL U7
+      369 CAPTURE                          UPVAL U79
+      370 CAPTURE                          UPVAL U8
+      371 CAPTURE                          UPVAL U10
+      372 DUPCLOSURE                       R46 K41 [PROTO_67]
+      373 CAPTURE                          UPVAL U4
+      374 CAPTURE                          UPVAL U80
+      375 CAPTURE                          UPVAL U6
+      376 CAPTURE                          UPVAL U0
+      377 CAPTURE                          UPVAL U1
+      378 CAPTURE                          UPVAL U7
+      379 CAPTURE                          UPVAL U81
+      380 CAPTURE                          UPVAL U8
+      381 CAPTURE                          UPVAL U10
+      382 DUPCLOSURE                       R47 K42 [PROTO_68]
+      383 CAPTURE                          UPVAL U4
+      384 CAPTURE                          UPVAL U82
+      385 CAPTURE                          UPVAL U6
+      386 CAPTURE                          UPVAL U8
+      387 CAPTURE                          UPVAL U10
+      388 DUPCLOSURE                       R48 K43 [PROTO_69]
+      389 CAPTURE                          UPVAL U4
+      390 CAPTURE                          UPVAL U83
+      391 CAPTURE                          UPVAL U6
+      392 CAPTURE                          UPVAL U8
+      393 CAPTURE                          UPVAL U10
+      394 DUPCLOSURE                       R49 K44 [PROTO_70]
+      395 CAPTURE                          UPVAL U4
+      396 CAPTURE                          UPVAL U84
+      397 CAPTURE                          UPVAL U6
+      398 CAPTURE                          UPVAL U0
+      399 CAPTURE                          UPVAL U1
+      400 CAPTURE                          UPVAL U7
+      401 CAPTURE                          UPVAL U85
+      402 CAPTURE                          UPVAL U86
+      403 NEWTABLE                         R50 64 0
+      405 SETTABLEKS                       R1 R50 K45 ["logUserMessageSent"]
+      407 SETTABLEKS                       R2 R50 K46 ["logAssistantMessageSent"]
+      409 SETTABLEKS                       R3 R50 K47 ["logApiKeyAdded"]
+      411 SETTABLEKS                       R4 R50 K48 ["logErrorEvent"]
+      413 SETTABLEKS                       R17 R50 K49 ["logExternalAPIError"]
+      415 SETTABLEKS                       R5 R50 K50 ["logThumbsUp"]
+      417 SETTABLEKS                       R6 R50 K51 ["logThumbsDown"]
+      419 SETTABLEKS                       R7 R50 K52 ["logInitialResponseLatency"]
+      421 SETTABLEKS                       R8 R50 K53 ["logMarkdownError"]
+      423 SETTABLEKS                       R9 R50 K54 ["logRetry"]
+      425 SETTABLEKS                       R10 R50 K55 ["logStopGeneration"]
+      427 SETTABLEKS                       R11 R50 K56 ["logToolStarted"]
+      429 SETTABLEKS                       R12 R50 K57 ["logToolEnded"]
+      431 SETTABLEKS                       R13 R50 K58 ["logFailedToolInvocation"]
+      433 SETTABLEKS                       R14 R50 K59 ["logToolConfirmationShown"]
+      435 SETTABLEKS                       R15 R50 K60 ["logToolConfirmationResult"]
+      437 SETTABLEKS                       R16 R50 K61 ["logRequestJourney"]
+      439 SETTABLEKS                       R18 R50 K62 ["logMeshGenActivated"]
+      441 SETTABLEKS                       R19 R50 K63 ["logMeshGenCompleted"]
+      443 SETTABLEKS                       R20 R50 K64 ["logMeshGenPublishedAssets"]
+      445 SETTABLEKS                       R21 R50 K65 ["logMeshGenMeshInserted"]
+      447 SETTABLEKS                       R22 R50 K66 ["logPrimitiveGen"]
+      449 SETTABLEKS                       R23 R50 K67 ["logAvatarAutoSetupRequested"]
+      451 SETTABLEKS                       R24 R50 K68 ["logAvatarAutoSetupOptions"]
+      453 SETTABLEKS                       R25 R50 K69 ["logAvatarAutoSetupJobInitialized"]
+      455 SETTABLEKS                       R26 R50 K70 ["logAvatarAutoSetupFinish"]
+      457 SETTABLEKS                       R27 R50 K71 ["logAvatarAutoSetupFailure"]
+      459 SETTABLEKS                       R28 R50 K72 ["logGen3DSegmentationRefresh"]
+      461 SETTABLEKS                       R29 R50 K73 ["logGen3DInstanceDeleted"]
+      463 SETTABLEKS                       R30 R50 K74 ["logGen3DImageImpression"]
+      465 SETTABLEKS                       R31 R50 K75 ["logGen3DImageAction"]
+      467 SETTABLEKS                       R32 R50 K76 ["logGen3DAssetPublished"]
+      469 SETTABLEKS                       R33 R50 K77 ["logIntegrationEvent"]
+      471 SETTABLEKS                       R34 R50 K78 ["logExternalServerConnected"]
+      473 SETTABLEKS                       R35 R50 K79 ["logQuestionAnswerCompleted"]
+      475 SETTABLEKS                       R36 R50 K80 ["logPlanDecision"]
+      477 SETTABLEKS                       R43 R50 K81 ["logQuickSetupToggled"]
+      479 SETTABLEKS                       R37 R50 K82 ["logMaterialGeneratorSavedMaterial"]
+      481 SETTABLEKS                       R45 R50 K83 ["logCompactionSuccess"]
+      483 SETTABLEKS                       R46 R50 K84 ["logCompactionFallback"]
+      485 SETTABLEKS                       R47 R50 K85 ["logUserSkillEvent"]
+      487 SETTABLEKS                       R48 R50 K86 ["logThinkingBlock"]
+      489 SETTABLEKS                       R38 R50 K87 ["logThreadCreated"]
+      491 SETTABLEKS                       R39 R50 K88 ["logThreadRenamed"]
+      493 SETTABLEKS                       R40 R50 K89 ["logThreadPinnedChanged"]
+      495 SETTABLEKS                       R41 R50 K90 ["logThreadDeleted"]
+      497 SETTABLEKS                       R42 R50 K91 ["logThreadDuplicated"]
+      499 SETTABLEKS                       R44 R50 K92 ["logThreadSwitched"]
+      501 SETTABLEKS                       R49 R50 K93 ["logPersistenceOperation"]
+      503 RETURN                           R50 1
 
 PROTO_72:
         0 GETUPVAL                         R1 0

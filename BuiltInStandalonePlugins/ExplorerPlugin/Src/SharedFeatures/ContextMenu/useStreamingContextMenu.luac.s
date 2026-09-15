@@ -18,37 +18,36 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R1 0
-        1 LOADK                            R4 K0 ["ExplorerStreaming_%*"]
-        2 GETUPVAL                         R6 1
-        3 NAMECALL                         R6 R6 K1 ["GenerateGUID"]
-        5 CALL                             R6 1 1
-        6 NAMECALL                         R4 R4 K2 ["format"]
-        8 CALL                             R4 2 1
-        9 MOVE                             R3 R4
-       10 NAMECALL                         R1 R1 K3 ["CreatePluginMenu"]
-       12 CALL                             R1 2 1
-       13 LOADK                            R4 K4 ["Stream"]
-       14 GETUPVAL                         R8 2
-       15 LOADK                            R10 K5 ["ContextMenu"]
-       16 LOADK                            R11 K6 ["stream"]
-       17 NAMECALL                         R8 R8 K7 ["getText"]
-       19 CALL                             R8 3 1
-       20 MOVE                             R6 R8
-       21 LOADK                            R7 K8 ["     "]
-       22 CONCAT                           R5 R6 R7
-       23 NAMECALL                         R2 R1 K9 ["AddNewAction"]
-       25 CALL                             R2 3 1
-       26 GETTABLEKS                       R3 R2 K10 ["Triggered"]
-       28 NEWCLOSURE                       R5 P0
-       29 CAPTURE                          UPVAL U3
-       30 CAPTURE                          VAL R0
-       31 NAMECALL                         R3 R3 K11 ["Connect"]
-       33 CALL                             R3 2 0
-       34 GETIMPORT                        R3 K14 [task.spawn]
-       36 NEWCLOSURE                       R4 P1
-       37 CAPTURE                          VAL R1
-       38 CALL                             R3 1 0
-       39 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["ExplorerStreaming_%*"]
+        2 GETUPVAL                         R5 1
+        3 NAMECALL                         R5 R5 K1 ["GenerateGUID"]
+        5 CALL                             R5 1 1
+        6 NAMECALL                         R3 R3 K2 ["format"]
+        8 CALL                             R3 2 1
+        9 NAMECALL                         R1 R1 K3 ["CreatePluginMenu"]
+       11 CALL                             R1 2 1
+       12 LOADK                            R4 K4 ["Stream"]
+       13 GETUPVAL                         R8 2
+       14 LOADK                            R10 K5 ["ContextMenu"]
+       15 LOADK                            R11 K6 ["stream"]
+       16 NAMECALL                         R8 R8 K7 ["getText"]
+       18 CALL                             R8 3 1
+       19 MOVE                             R6 R8
+       20 LOADK                            R7 K8 ["     "]
+       21 CONCAT                           R5 R6 R7
+       22 NAMECALL                         R2 R1 K9 ["AddNewAction"]
+       24 CALL                             R2 3 1
+       25 GETTABLEKS                       R3 R2 K10 ["Triggered"]
+       27 NEWCLOSURE                       R5 P0
+       28 CAPTURE                          UPVAL U3
+       29 CAPTURE                          VAL R0
+       30 NAMECALL                         R3 R3 K11 ["Connect"]
+       32 CALL                             R3 2 0
+       33 GETIMPORT                        R3 K14 [task.spawn]
+       35 NEWCLOSURE                       R4 P1
+       36 CAPTURE                          VAL R1
+       37 CALL                             R3 1 0
+       38 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0

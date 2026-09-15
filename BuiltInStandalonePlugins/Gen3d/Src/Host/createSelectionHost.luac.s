@@ -58,60 +58,67 @@ PROTO_5:
         1 RETURN                           R0 1
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETUPVAL                         R3 1
-        2 NAMECALL                         R3 R3 K0 ["Get"]
-        4 CALL                             R3 1 -1
-        5 CALL                             R2 -1 1
-        6 GETUPVAL                         R3 2
-        7 MOVE                             R4 R2
-        8 MOVE                             R5 R1
-        9 CALL                             R3 2 1
-       10 NEWCLOSURE                       R4 P0
+        0 GETUPVAL                         R3 0
+        1 GETUPVAL                         R4 1
+        2 NAMECALL                         R4 R4 K0 ["Get"]
+        4 CALL                             R4 1 -1
+        5 CALL                             R3 -1 1
+        6 GETUPVAL                         R4 2
+        7 MOVE                             R5 R3
+        8 MOVE                             R6 R1
+        9 CALL                             R4 2 1
+       10 NEWCLOSURE                       R5 P0
        11 CAPTURE                          VAL R0
        12 CAPTURE                          UPVAL U3
-       13 CAPTURE                          REF R3
-       14 NEWCLOSURE                       R5 P1
-       15 CAPTURE                          REF R2
+       13 CAPTURE                          REF R4
+       14 NEWCLOSURE                       R6 P1
+       15 CAPTURE                          REF R3
        16 CAPTURE                          UPVAL U0
        17 CAPTURE                          UPVAL U1
-       18 CAPTURE                          REF R3
+       18 CAPTURE                          REF R4
        19 CAPTURE                          UPVAL U2
        20 CAPTURE                          VAL R1
        21 CAPTURE                          VAL R0
        22 CAPTURE                          UPVAL U3
-       23 GETUPVAL                         R6 1
-       24 GETTABLEKS                       R6 R6 K1 ["SelectionChanged"]
-       26 MOVE                             R8 R5
-       27 NAMECALL                         R6 R6 K2 ["Connect"]
-       29 CALL                             R6 2 1
-       30 GETUPVAL                         R9 3
-       31 GETTABLEKS                       R9 R9 K3 ["RequestSelection"]
-       33 NEWCLOSURE                       R10 P2
+       23 GETUPVAL                         R7 1
+       24 GETTABLEKS                       R7 R7 K1 ["SelectionChanged"]
+       26 MOVE                             R9 R6
+       27 NAMECALL                         R7 R7 K2 ["Connect"]
+       29 CALL                             R7 2 1
+       30 GETUPVAL                         R10 3
+       31 GETTABLEKS                       R10 R10 K3 ["RequestSelection"]
+       33 NEWCLOSURE                       R11 P2
        34 CAPTURE                          VAL R0
        35 CAPTURE                          UPVAL U3
-       36 CAPTURE                          REF R3
-       37 NAMECALL                         R7 R0 K4 ["OnHostEvent"]
-       39 CALL                             R7 3 2
-       40 GETUPVAL                         R11 3
-       41 GETTABLEKS                       R11 R11 K1 ["SelectionChanged"]
-       43 LOADNIL                          R12
-       44 MOVE                             R13 R3
-       45 NAMECALL                         R9 R0 K5 ["FireGuest"]
-       47 CALL                             R9 4 0
-       48 NEWCLOSURE                       R9 P3
-       49 CAPTURE                          VAL R6
-       50 CAPTURE                          VAL R8
-       51 DUPTABLE                         R10 K9 [{"getClassified", "getSummary", "destroy"}]
-       52 NEWCLOSURE                       R11 P4
-       53 CAPTURE                          REF R2
-       54 SETTABLEKS                       R11 R10 K6 ["getClassified"]
-       56 NEWCLOSURE                       R11 P5
-       57 CAPTURE                          REF R3
-       58 SETTABLEKS                       R11 R10 K7 ["getSummary"]
-       60 SETTABLEKS                       R9 R10 K8 ["destroy"]
-       62 CLOSEUPVALS                      R2
-       63 RETURN                           R10 1
+       36 CAPTURE                          REF R4
+       37 NAMECALL                         R8 R0 K4 ["OnHostEvent"]
+       39 CALL                             R8 3 2
+       40 GETUPVAL                         R12 3
+       41 GETTABLEKS                       R12 R12 K1 ["SelectionChanged"]
+       43 LOADNIL                          R13
+       44 MOVE                             R14 R4
+       45 NAMECALL                         R10 R0 K5 ["FireGuest"]
+       47 CALL                             R10 4 0
+       48 JUMPIFNOT                        R2 ; [+8]
+       49 GETUPVAL                         R12 3
+       50 GETTABLEKS                       R12 R12 K6 ["HostSessionStarted"]
+       52 LOADNIL                          R13
+       53 MOVE                             R14 R2
+       54 NAMECALL                         R10 R0 K5 ["FireGuest"]
+       56 CALL                             R10 4 0
+       57 NEWCLOSURE                       R10 P3
+       58 CAPTURE                          VAL R7
+       59 CAPTURE                          VAL R9
+       60 DUPTABLE                         R11 K10 [{"getClassified", "getSummary", "destroy"}]
+       61 NEWCLOSURE                       R12 P4
+       62 CAPTURE                          REF R3
+       63 SETTABLEKS                       R12 R11 K7 ["getClassified"]
+       65 NEWCLOSURE                       R12 P5
+       66 CAPTURE                          REF R4
+       67 SETTABLEKS                       R12 R11 K8 ["getSummary"]
+       69 SETTABLEKS                       R10 R11 K9 ["destroy"]
+       71 CLOSEUPVALS                      R3
+       72 RETURN                           R11 1
 
 MAIN:
         0 PREPVARARGS                      0

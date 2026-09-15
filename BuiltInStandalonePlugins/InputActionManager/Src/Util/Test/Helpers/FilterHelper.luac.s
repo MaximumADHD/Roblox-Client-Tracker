@@ -47,30 +47,28 @@ PROTO_3:
         5 GETUPVAL                         R3 1
         6 MOVE                             R4 R2
         7 MOVE                             R5 R1
-        8 LOADK                            R7 K2 ["Filter menu item '%*' not found"]
-        9 MOVE                             R9 R1
-       10 NAMECALL                         R7 R7 K3 ["format"]
-       12 CALL                             R7 2 1
-       13 MOVE                             R6 R7
-       14 CALL                             R3 3 1
-       15 LOADK                            R6 K4 ["GuiButton"]
-       16 NAMECALL                         R4 R3 K5 ["FindFirstAncestorWhichIsA"]
-       18 CALL                             R4 2 1
-       19 LOADK                            R8 K6 ["Filter menu button for '%*' not found"]
-       20 MOVE                             R10 R1
-       21 NAMECALL                         R8 R8 K3 ["format"]
-       23 CALL                             R8 2 1
-       24 MOVE                             R7 R8
-       25 FASTCALL2                        ASSERT R4 R7 ; [+4]
-       27 MOVE                             R6 R4
-       28 GETIMPORT                        R5 K8 [assert]
-       30 CALL                             R5 2 0
-       31 GETUPVAL                         R5 2
-       32 MOVE                             R6 R4
-       33 CALL                             R5 1 0
-       34 GETUPVAL                         R5 3
-       35 CALL                             R5 0 0
-       36 RETURN                           R0 0
+        8 LOADK                            R6 K2 ["Filter menu item '%*' not found"]
+        9 MOVE                             R8 R1
+       10 NAMECALL                         R6 R6 K3 ["format"]
+       12 CALL                             R6 2 1
+       13 CALL                             R3 3 1
+       14 LOADK                            R6 K4 ["GuiButton"]
+       15 NAMECALL                         R4 R3 K5 ["FindFirstAncestorWhichIsA"]
+       17 CALL                             R4 2 1
+       18 LOADK                            R7 K6 ["Filter menu button for '%*' not found"]
+       19 MOVE                             R9 R1
+       20 NAMECALL                         R7 R7 K3 ["format"]
+       22 CALL                             R7 2 1
+       23 FASTCALL2                        ASSERT R4 R7 ; [+4]
+       25 MOVE                             R6 R4
+       26 GETIMPORT                        R5 K8 [assert]
+       28 CALL                             R5 2 0
+       29 GETUPVAL                         R5 2
+       30 MOVE                             R6 R4
+       31 CALL                             R5 1 0
+       32 GETUPVAL                         R5 3
+       33 CALL                             R5 0 0
+       34 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

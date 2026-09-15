@@ -102,21 +102,20 @@ PROTO_3:
        19 NEWTABLE                         R10 4 0
        21 LOADB                            R11 1
        22 SETTABLEKS                       R11 R10 K7 ["RichText"]
-       24 LOADK                            R12 K8 ["<font family='%*'>%*</font>"]
-       25 GETTABLEKS                       R14 R0 K9 ["Id"]
-       27 GETTABLEKS                       R15 R0 K5 ["Label"]
-       29 NAMECALL                         R12 R12 K10 ["format"]
-       31 CALL                             R12 3 1
-       32 MOVE                             R11 R12
-       33 SETTABLEKS                       R11 R10 K11 ["Text"]
-       35 GETUPVAL                         R11 0
-       36 GETTABLEKS                       R11 R11 K12 ["Tag"]
-       38 LOADK                            R12 K13 ["X-Fill X-Pad ItemTextSize TextXAlignLeft"]
-       39 SETTABLE                         R12 R10 R11
-       40 CALL                             R8 2 1
-       41 SETTABLEKS                       R8 R7 K5 ["Label"]
-       43 CALL                             R4 3 -1
-       44 RETURN                           R4 -1
+       24 LOADK                            R11 K8 ["<font family='%*'>%*</font>"]
+       25 GETTABLEKS                       R13 R0 K9 ["Id"]
+       27 GETTABLEKS                       R14 R0 K5 ["Label"]
+       29 NAMECALL                         R11 R11 K10 ["format"]
+       31 CALL                             R11 3 1
+       32 SETTABLEKS                       R11 R10 K11 ["Text"]
+       34 GETUPVAL                         R11 0
+       35 GETTABLEKS                       R11 R11 K12 ["Tag"]
+       37 LOADK                            R12 K13 ["X-Fill X-Pad ItemTextSize TextXAlignLeft"]
+       38 SETTABLE                         R12 R10 R11
+       39 CALL                             R8 2 1
+       40 SETTABLEKS                       R8 R7 K5 ["Label"]
+       42 CALL                             R4 3 -1
+       43 RETURN                           R4 -1
 
 PROTO_4:
         0 GETUPVAL                         R1 0

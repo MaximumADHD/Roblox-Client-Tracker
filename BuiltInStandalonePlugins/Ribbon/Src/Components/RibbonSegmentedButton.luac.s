@@ -189,19 +189,18 @@ PROTO_2:
       160 NEWTABLE                         R15 1 0
       162 GETUPVAL                         R16 4
       163 GETTABLEKS                       R16 R16 K8 ["Tag"]
-      165 LOADK                            R18 K28 ["X-Middle X-Fit X-Row data-testid=%*"]
-      166 GETUPVAL                         R20 8
-      167 GETTABLEKS                       R21 R0 K29 ["Uri"]
-      169 CALL                             R20 1 1
-      170 NAMECALL                         R18 R18 K30 ["format"]
-      172 CALL                             R18 2 1
-      173 MOVE                             R17 R18
-      174 SETTABLE                         R17 R15 R16
-      175 MOVE                             R16 R6
-      176 CALL                             R13 3 1
-      177 SETTABLEKS                       R13 R12 K25 ["SegmentedButton"]
-      179 CALL                             R9 3 -1
-      180 RETURN                           R9 -1
+      165 LOADK                            R17 K28 ["X-Middle X-Fit X-Row data-testid=%*"]
+      166 GETUPVAL                         R19 8
+      167 GETTABLEKS                       R20 R0 K29 ["Uri"]
+      169 CALL                             R19 1 1
+      170 NAMECALL                         R17 R17 K30 ["format"]
+      172 CALL                             R17 2 1
+      173 SETTABLE                         R17 R15 R16
+      174 MOVE                             R16 R6
+      175 CALL                             R13 3 1
+      176 SETTABLEKS                       R13 R12 K25 ["SegmentedButton"]
+      178 CALL                             R9 3 -1
+      179 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

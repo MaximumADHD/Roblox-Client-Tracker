@@ -3,40 +3,39 @@ PROTO_0:
         1 GETTABLEKS                       R1 R1 K0 ["validate"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 2
-        5 JUMPIF                           R1 ; [+11]
+        5 JUMPIF                           R1 ; [+10]
         6 GETUPVAL                         R3 1
         7 GETTABLEKS                       R3 R3 K1 ["reject"]
-        9 LOADK                            R5 K2 ["GetPlacesModel: %*"]
-       10 MOVE                             R7 R2
-       11 NAMECALL                         R5 R5 K3 ["format"]
-       13 CALL                             R5 2 1
-       14 MOVE                             R4 R5
-       15 CALL                             R3 1 -1
-       16 RETURN                           R3 -1
-       17 DUPTABLE                         R3 K7 [{"hasMore", "cursor", "page"}]
-       18 GETTABLEKS                       R5 R0 K8 ["nextPageCursor"]
-       20 JUMPIFNOTEQKNIL                  R5 ; [+2]
-       22 LOADB                            R4 0 +1
-       23 LOADB                            R4 1
-       24 SETTABLEKS                       R4 R3 K4 ["hasMore"]
-       26 GETTABLEKS                       R4 R0 K8 ["nextPageCursor"]
-       28 SETTABLEKS                       R4 R3 K5 ["cursor"]
-       30 NEWTABLE                         R4 0 0
-       32 SETTABLEKS                       R4 R3 K6 ["page"]
-       34 GETTABLEKS                       R4 R0 K9 ["data"]
-       36 LOADNIL                          R5
-       37 LOADNIL                          R6
-       38 FORGPREP                         R4
-       39 GETTABLEKS                       R9 R3 K6 ["page"]
-       41 GETTABLEKS                       R10 R8 K10 ["id"]
-       43 GETTABLEKS                       R11 R8 K11 ["name"]
-       45 SETTABLE                         R11 R9 R10
-       46 FORGLOOP                         R4 2 ; [-8]
-       48 GETUPVAL                         R4 1
-       49 GETTABLEKS                       R4 R4 K12 ["resolve"]
-       51 MOVE                             R5 R3
-       52 CALL                             R4 1 -1
-       53 RETURN                           R4 -1
+        9 LOADK                            R4 K2 ["GetPlacesModel: %*"]
+       10 MOVE                             R6 R2
+       11 NAMECALL                         R4 R4 K3 ["format"]
+       13 CALL                             R4 2 1
+       14 CALL                             R3 1 -1
+       15 RETURN                           R3 -1
+       16 DUPTABLE                         R3 K7 [{"hasMore", "cursor", "page"}]
+       17 GETTABLEKS                       R5 R0 K8 ["nextPageCursor"]
+       19 JUMPIFNOTEQKNIL                  R5 ; [+2]
+       21 LOADB                            R4 0 +1
+       22 LOADB                            R4 1
+       23 SETTABLEKS                       R4 R3 K4 ["hasMore"]
+       25 GETTABLEKS                       R4 R0 K8 ["nextPageCursor"]
+       27 SETTABLEKS                       R4 R3 K5 ["cursor"]
+       29 NEWTABLE                         R4 0 0
+       31 SETTABLEKS                       R4 R3 K6 ["page"]
+       33 GETTABLEKS                       R4 R0 K9 ["data"]
+       35 LOADNIL                          R5
+       36 LOADNIL                          R6
+       37 FORGPREP                         R4
+       38 GETTABLEKS                       R9 R3 K6 ["page"]
+       40 GETTABLEKS                       R10 R8 K10 ["id"]
+       42 GETTABLEKS                       R11 R8 K11 ["name"]
+       44 SETTABLE                         R11 R9 R10
+       45 FORGLOOP                         R4 2 ; [-8]
+       47 GETUPVAL                         R4 1
+       48 GETTABLEKS                       R4 R4 K12 ["resolve"]
+       50 MOVE                             R5 R3
+       51 CALL                             R4 1 -1
+       52 RETURN                           R4 -1
 
 PROTO_1:
         0 DUPTABLE                         R1 K4 [{[1] = False, ["limit"], ["cursor"]}]
@@ -49,28 +48,27 @@ PROTO_1:
        11 GETTABLEKS                       R3 R3 K11 ["composeUrl"]
        13 GETUPVAL                         R4 0
        14 GETTABLEKS                       R4 R4 K12 ["DEVELOP_URL"]
-       16 LOADK                            R6 K13 ["v1/universes/%*/places"]
-       17 GETTABLEKS                       R8 R0 K14 ["universeId"]
-       19 NAMECALL                         R6 R6 K15 ["format"]
-       21 CALL                             R6 2 1
-       22 MOVE                             R5 R6
-       23 MOVE                             R6 R1
-       24 CALL                             R3 3 1
-       25 SETTABLEKS                       R3 R2 K8 ["Url"]
-       27 NEWTABLE                         R3 1 0
-       29 LOADK                            R4 K16 ["application/json"]
-       30 SETTABLEKS                       R4 R3 K17 ["Content-Type"]
-       32 SETTABLEKS                       R3 R2 K9 ["Headers"]
-       34 GETUPVAL                         R3 1
-       35 GETTABLEKS                       R3 R3 K18 ["Request"]
-       37 MOVE                             R4 R2
-       38 CALL                             R3 1 1
-       39 DUPCLOSURE                       R5 K19 [PROTO_0]
-       40 CAPTURE                          UPVAL U2
-       41 CAPTURE                          UPVAL U3
-       42 NAMECALL                         R3 R3 K20 ["andThen"]
-       44 CALL                             R3 2 -1
-       45 RETURN                           R3 -1
+       16 LOADK                            R5 K13 ["v1/universes/%*/places"]
+       17 GETTABLEKS                       R7 R0 K14 ["universeId"]
+       19 NAMECALL                         R5 R5 K15 ["format"]
+       21 CALL                             R5 2 1
+       22 MOVE                             R6 R1
+       23 CALL                             R3 3 1
+       24 SETTABLEKS                       R3 R2 K8 ["Url"]
+       26 NEWTABLE                         R3 1 0
+       28 LOADK                            R4 K16 ["application/json"]
+       29 SETTABLEKS                       R4 R3 K17 ["Content-Type"]
+       31 SETTABLEKS                       R3 R2 K9 ["Headers"]
+       33 GETUPVAL                         R3 1
+       34 GETTABLEKS                       R3 R3 K18 ["Request"]
+       36 MOVE                             R4 R2
+       37 CALL                             R3 1 1
+       38 DUPCLOSURE                       R5 K19 [PROTO_0]
+       39 CAPTURE                          UPVAL U2
+       40 CAPTURE                          UPVAL U3
+       41 NAMECALL                         R3 R3 K20 ["andThen"]
+       43 CALL                             R3 2 -1
+       44 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

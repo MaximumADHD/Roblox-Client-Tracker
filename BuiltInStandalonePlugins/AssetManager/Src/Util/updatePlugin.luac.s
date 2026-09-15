@@ -17,25 +17,23 @@ PROTO_0:
        19 NAMECALL                         R4 R4 K7 ["TryInstallPlugin"]
        21 CALL                             R4 3 -1
        22 CALL                             R3 -1 2
-       23 JUMPIF                           R3 ; [+9]
+       23 JUMPIF                           R3 ; [+8]
        24 GETIMPORT                        R5 K3 [warn]
-       26 LOADK                            R7 K8 ["Failed to update plugin: %*"]
-       27 MOVE                             R9 R4
-       28 NAMECALL                         R7 R7 K9 ["format"]
-       30 CALL                             R7 2 1
-       31 MOVE                             R6 R7
-       32 CALL                             R5 1 0
-       33 RETURN                           R0 0
+       26 LOADK                            R6 K8 ["Failed to update plugin: %*"]
+       27 MOVE                             R8 R4
+       28 NAMECALL                         R6 R6 K9 ["format"]
+       30 CALL                             R6 2 1
+       31 CALL                             R5 1 0
+       32 RETURN                           R0 0
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["Error fetching plugin info for update: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["Error fetching plugin info for update: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
 
 PROTO_2:
         0 MOVE                             R4 R0

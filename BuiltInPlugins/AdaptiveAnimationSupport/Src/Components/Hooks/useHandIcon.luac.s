@@ -1,49 +1,48 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 LOADK                            R4 K0 ["> DigitsRigDescription [Side = %*]"]
-        2 GETUPVAL                         R6 1
-        3 GETTABLEKS                       R6 R6 K1 ["Name"]
-        5 NAMECALL                         R4 R4 K2 ["format"]
-        7 CALL                             R4 2 1
-        8 MOVE                             R3 R4
-        9 NAMECALL                         R1 R1 K3 ["QueryDescendants"]
-       11 CALL                             R1 2 1
-       12 GETTABLEN                        R0 R1 1
-       13 JUMPIF                           R0 ; [+6]
-       14 GETUPVAL                         R1 2
-       15 GETUPVAL                         R2 3
-       16 GETTABLEKS                       R2 R2 K4 ["ADD"]
-       18 CALL                             R1 1 0
-       19 RETURN                           R0 0
-       20 LOADN                            R1 0
-       21 GETUPVAL                         R2 4
-       22 LOADNIL                          R3
-       23 LOADNIL                          R4
-       24 FORGPREP                         R2
-       25 MOVE                             R9 R6
-       26 NAMECALL                         R7 R0 K5 ["GetJoint"]
-       28 CALL                             R7 2 1
-       29 JUMPIFEQKNIL                     R7 ; [+2]
-       31 ADDK                             R1 R1 K6 [1]
-       32 FORGLOOP                         R2 2 ; [-8]
-       34 JUMPIFNOTEQKN                    R1 K7 [0] ; [+7]
-       36 GETUPVAL                         R2 2
-       37 GETUPVAL                         R3 3
-       38 GETTABLEKS                       R3 R3 K8 ["DRD_EMPTY"]
-       40 CALL                             R2 1 0
-       41 RETURN                           R0 0
-       42 GETUPVAL                         R2 5
-       43 JUMPIFNOTLE                      R2 R1 ; [+7]
-       45 GETUPVAL                         R2 2
-       46 GETUPVAL                         R3 3
-       47 GETTABLEKS                       R3 R3 K9 ["DRD_FULL"]
-       49 CALL                             R2 1 0
-       50 RETURN                           R0 0
-       51 GETUPVAL                         R2 2
-       52 GETUPVAL                         R3 3
-       53 GETTABLEKS                       R3 R3 K10 ["DRD_HALF_FULL"]
-       55 CALL                             R2 1 0
-       56 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["> DigitsRigDescription [Side = %*]"]
+        2 GETUPVAL                         R5 1
+        3 GETTABLEKS                       R5 R5 K1 ["Name"]
+        5 NAMECALL                         R3 R3 K2 ["format"]
+        7 CALL                             R3 2 1
+        8 NAMECALL                         R1 R1 K3 ["QueryDescendants"]
+       10 CALL                             R1 2 1
+       11 GETTABLEN                        R0 R1 1
+       12 JUMPIF                           R0 ; [+6]
+       13 GETUPVAL                         R1 2
+       14 GETUPVAL                         R2 3
+       15 GETTABLEKS                       R2 R2 K4 ["ADD"]
+       17 CALL                             R1 1 0
+       18 RETURN                           R0 0
+       19 LOADN                            R1 0
+       20 GETUPVAL                         R2 4
+       21 LOADNIL                          R3
+       22 LOADNIL                          R4
+       23 FORGPREP                         R2
+       24 MOVE                             R9 R6
+       25 NAMECALL                         R7 R0 K5 ["GetJoint"]
+       27 CALL                             R7 2 1
+       28 JUMPIFEQKNIL                     R7 ; [+2]
+       30 ADDK                             R1 R1 K6 [1]
+       31 FORGLOOP                         R2 2 ; [-8]
+       33 JUMPIFNOTEQKN                    R1 K7 [0] ; [+7]
+       35 GETUPVAL                         R2 2
+       36 GETUPVAL                         R3 3
+       37 GETTABLEKS                       R3 R3 K8 ["DRD_EMPTY"]
+       39 CALL                             R2 1 0
+       40 RETURN                           R0 0
+       41 GETUPVAL                         R2 5
+       42 JUMPIFNOTLE                      R2 R1 ; [+7]
+       44 GETUPVAL                         R2 2
+       45 GETUPVAL                         R3 3
+       46 GETTABLEKS                       R3 R3 K9 ["DRD_FULL"]
+       48 CALL                             R2 1 0
+       49 RETURN                           R0 0
+       50 GETUPVAL                         R2 2
+       51 GETUPVAL                         R3 3
+       52 GETTABLEKS                       R3 R3 K10 ["DRD_HALF_FULL"]
+       54 CALL                             R2 1 0
+       55 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0

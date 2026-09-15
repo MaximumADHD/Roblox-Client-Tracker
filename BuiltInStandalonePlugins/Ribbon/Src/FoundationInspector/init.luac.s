@@ -452,30 +452,27 @@ PROTO_15:
 
 PROTO_16:
         0 GETTABLEKS                       R1 R0 K0 ["Scale"]
-        2 JUMPIFNOTEQKN                    R1 K1 [0] ; [+9]
-        4 LOADK                            R2 K2 ["%*px"]
-        5 GETTABLEKS                       R4 R0 K3 ["Offset"]
-        7 NAMECALL                         R2 R2 K4 ["format"]
-        9 CALL                             R2 2 1
-       10 MOVE                             R1 R2
-       11 RETURN                           R1 1
-       12 GETTABLEKS                       R1 R0 K3 ["Offset"]
-       14 JUMPIFNOTEQKN                    R1 K1 [0] ; [+10]
-       16 LOADK                            R2 K5 ["%*%%"]
-       17 GETTABLEKS                       R5 R0 K0 ["Scale"]
-       19 MULK                             R4 R5 K6 [100]
-       20 NAMECALL                         R2 R2 K4 ["format"]
-       22 CALL                             R2 2 1
-       23 MOVE                             R1 R2
-       24 RETURN                           R1 1
-       25 LOADK                            R2 K7 ["%*%% + %*px"]
-       26 GETTABLEKS                       R5 R0 K0 ["Scale"]
-       28 MULK                             R4 R5 K6 [100]
-       29 GETTABLEKS                       R5 R0 K3 ["Offset"]
-       31 NAMECALL                         R2 R2 K4 ["format"]
-       33 CALL                             R2 3 1
-       34 MOVE                             R1 R2
-       35 RETURN                           R1 1
+        2 JUMPIFNOTEQKN                    R1 K1 [0] ; [+8]
+        4 LOADK                            R1 K2 ["%*px"]
+        5 GETTABLEKS                       R3 R0 K3 ["Offset"]
+        7 NAMECALL                         R1 R1 K4 ["format"]
+        9 CALL                             R1 2 1
+       10 RETURN                           R1 1
+       11 GETTABLEKS                       R1 R0 K3 ["Offset"]
+       13 JUMPIFNOTEQKN                    R1 K1 [0] ; [+9]
+       15 LOADK                            R1 K5 ["%*%%"]
+       16 GETTABLEKS                       R4 R0 K0 ["Scale"]
+       18 MULK                             R3 R4 K6 [100]
+       19 NAMECALL                         R1 R1 K4 ["format"]
+       21 CALL                             R1 2 1
+       22 RETURN                           R1 1
+       23 LOADK                            R1 K7 ["%*%% + %*px"]
+       24 GETTABLEKS                       R4 R0 K0 ["Scale"]
+       26 MULK                             R3 R4 K6 [100]
+       27 GETTABLEKS                       R4 R0 K3 ["Offset"]
+       29 NAMECALL                         R1 R1 K4 ["format"]
+       31 CALL                             R1 3 1
+       32 RETURN                           R1 1
 
 PROTO_17:
         0 JUMPIFNOTEQKN                    R1 K0 [1] ; [+2]
@@ -489,51 +486,48 @@ PROTO_17:
        11 FASTCALL1                        MATH_ROUND R4 ; [+2]
        12 GETIMPORT                        R3 K6 [math.round]
        14 CALL                             R3 1 1
-       15 LOADK                            R5 K7 ["(#%* %*%%)"]
-       16 MOVE                             R7 R2
-       17 MOVE                             R8 R3
-       18 NAMECALL                         R5 R5 K8 ["format"]
-       20 CALL                             R5 3 1
-       21 MOVE                             R4 R5
-       22 GETUPVAL                         R6 0
-       23 GETTABLE                         R5 R6 R2
-       24 JUMPIFNOT                        R5 ; [+3]
-       25 GETUPVAL                         R6 0
-       26 GETTABLE                         R5 R6 R2
-       27 RETURN                           R5 1
-       28 GETUPVAL                         R5 1
-       29 LOADNIL                          R6
-       30 LOADNIL                          R7
-       31 FORGPREP                         R5
-       32 MOVE                             R10 R9
-       33 LOADNIL                          R11
-       34 LOADNIL                          R12
-       35 FORGPREP                         R10
-       36 NAMECALL                         R15 R14 K1 ["ToHex"]
-       38 CALL                             R15 1 1
-       39 NAMECALL                         R15 R15 K2 ["upper"]
-       41 CALL                             R15 1 1
-       42 JUMPIFNOTEQ                      R2 R15 ; [+14]
-       44 GETUPVAL                         R15 0
-       45 LOADK                            R17 K9 ["%* %* %*"]
-       46 MOVE                             R19 R4
-       47 MOVE                             R20 R8
-       48 MOVE                             R21 R13
-       49 NAMECALL                         R17 R17 K8 ["format"]
-       51 CALL                             R17 4 1
-       52 MOVE                             R16 R17
-       53 SETTABLE                         R16 R15 R2
-       54 GETUPVAL                         R16 0
-       55 GETTABLE                         R15 R16 R2
-       56 RETURN                           R15 1
-       57 FORGLOOP                         R10 2 ; [-22]
-       59 FORGLOOP                         R5 2 ; [-28]
-       61 LOADK                            R6 K10 ["%* Unknown"]
-       62 MOVE                             R8 R4
-       63 NAMECALL                         R6 R6 K8 ["format"]
-       65 CALL                             R6 2 1
-       66 MOVE                             R5 R6
-       67 RETURN                           R5 1
+       15 LOADK                            R4 K7 ["(#%* %*%%)"]
+       16 MOVE                             R6 R2
+       17 MOVE                             R7 R3
+       18 NAMECALL                         R4 R4 K8 ["format"]
+       20 CALL                             R4 3 1
+       21 GETUPVAL                         R6 0
+       22 GETTABLE                         R5 R6 R2
+       23 JUMPIFNOT                        R5 ; [+3]
+       24 GETUPVAL                         R6 0
+       25 GETTABLE                         R5 R6 R2
+       26 RETURN                           R5 1
+       27 GETUPVAL                         R5 1
+       28 LOADNIL                          R6
+       29 LOADNIL                          R7
+       30 FORGPREP                         R5
+       31 MOVE                             R10 R9
+       32 LOADNIL                          R11
+       33 LOADNIL                          R12
+       34 FORGPREP                         R10
+       35 NAMECALL                         R15 R14 K1 ["ToHex"]
+       37 CALL                             R15 1 1
+       38 NAMECALL                         R15 R15 K2 ["upper"]
+       40 CALL                             R15 1 1
+       41 JUMPIFNOTEQ                      R2 R15 ; [+13]
+       43 GETUPVAL                         R15 0
+       44 LOADK                            R16 K9 ["%* %* %*"]
+       45 MOVE                             R18 R4
+       46 MOVE                             R19 R8
+       47 MOVE                             R20 R13
+       48 NAMECALL                         R16 R16 K8 ["format"]
+       50 CALL                             R16 4 1
+       51 SETTABLE                         R16 R15 R2
+       52 GETUPVAL                         R16 0
+       53 GETTABLE                         R15 R16 R2
+       54 RETURN                           R15 1
+       55 FORGLOOP                         R10 2 ; [-21]
+       57 FORGLOOP                         R5 2 ; [-27]
+       59 LOADK                            R5 K10 ["%* Unknown"]
+       60 MOVE                             R7 R4
+       61 NAMECALL                         R5 R5 K8 ["format"]
+       63 CALL                             R5 2 1
+       64 RETURN                           R5 1
 
 PROTO_18:
         0 LOADK                            R3 K0 ["TextLabel"]
@@ -638,167 +632,165 @@ PROTO_18:
       130 CALL                             R14 2 1
       131 SETTABLEKS                       R14 R13 K25 ["BackgroundToken"]
       133 SETTABLEKS                       R6 R13 K26 ["FontFace"]
-      135 JUMPIFNOT                        R9 ; [+154]
-      136 LOADK                            R15 K34 ["(L %*, T %*, R %*, B %*)"]
-      137 GETTABLEKS                       R18 R9 K35 ["PaddingLeft"]
-      139 GETTABLEKS                       R19 R18 K36 ["Scale"]
-      141 JUMPIFNOTEQKN                    R19 K18 [0] ; [+9]
-      143 LOADK                            R19 K37 ["%*px"]
-      144 GETTABLEKS                       R21 R18 K38 ["Offset"]
-      146 NAMECALL                         R19 R19 K39 ["format"]
-      148 CALL                             R19 2 1
-      149 MOVE                             R17 R19
+      135 JUMPIFNOT                        R9 ; [+153]
+      136 LOADK                            R14 K34 ["(L %*, T %*, R %*, B %*)"]
+      137 GETTABLEKS                       R17 R9 K35 ["PaddingLeft"]
+      139 GETTABLEKS                       R18 R17 K36 ["Scale"]
+      141 JUMPIFNOTEQKN                    R18 K18 [0] ; [+9]
+      143 LOADK                            R18 K37 ["%*px"]
+      144 GETTABLEKS                       R20 R17 K38 ["Offset"]
+      146 NAMECALL                         R18 R18 K39 ["format"]
+      148 CALL                             R18 2 1
+      149 MOVE                             R16 R18
       150 JUMP                             ; [+23]
-      151 GETTABLEKS                       R19 R18 K38 ["Offset"]
-      153 JUMPIFNOTEQKN                    R19 K18 [0] ; [+10]
-      155 LOADK                            R19 K40 ["%*%%"]
-      156 GETTABLEKS                       R22 R18 K36 ["Scale"]
-      158 MULK                             R21 R22 K41 [100]
-      159 NAMECALL                         R19 R19 K39 ["format"]
-      161 CALL                             R19 2 1
-      162 MOVE                             R17 R19
+      151 GETTABLEKS                       R18 R17 K38 ["Offset"]
+      153 JUMPIFNOTEQKN                    R18 K18 [0] ; [+10]
+      155 LOADK                            R18 K40 ["%*%%"]
+      156 GETTABLEKS                       R21 R17 K36 ["Scale"]
+      158 MULK                             R20 R21 K41 [100]
+      159 NAMECALL                         R18 R18 K39 ["format"]
+      161 CALL                             R18 2 1
+      162 MOVE                             R16 R18
       163 JUMP                             ; [+10]
-      164 LOADK                            R19 K42 ["%*%% + %*px"]
-      165 GETTABLEKS                       R22 R18 K36 ["Scale"]
-      167 MULK                             R21 R22 K41 [100]
-      168 GETTABLEKS                       R22 R18 K38 ["Offset"]
-      170 NAMECALL                         R19 R19 K39 ["format"]
-      172 CALL                             R19 3 1
-      173 MOVE                             R17 R19
-      174 GETTABLEKS                       R19 R9 K43 ["PaddingTop"]
-      176 GETTABLEKS                       R20 R19 K36 ["Scale"]
-      178 JUMPIFNOTEQKN                    R20 K18 [0] ; [+9]
-      180 LOADK                            R20 K37 ["%*px"]
-      181 GETTABLEKS                       R22 R19 K38 ["Offset"]
-      183 NAMECALL                         R20 R20 K39 ["format"]
-      185 CALL                             R20 2 1
-      186 MOVE                             R18 R20
+      164 LOADK                            R18 K42 ["%*%% + %*px"]
+      165 GETTABLEKS                       R21 R17 K36 ["Scale"]
+      167 MULK                             R20 R21 K41 [100]
+      168 GETTABLEKS                       R21 R17 K38 ["Offset"]
+      170 NAMECALL                         R18 R18 K39 ["format"]
+      172 CALL                             R18 3 1
+      173 MOVE                             R16 R18
+      174 GETTABLEKS                       R18 R9 K43 ["PaddingTop"]
+      176 GETTABLEKS                       R19 R18 K36 ["Scale"]
+      178 JUMPIFNOTEQKN                    R19 K18 [0] ; [+9]
+      180 LOADK                            R19 K37 ["%*px"]
+      181 GETTABLEKS                       R21 R18 K38 ["Offset"]
+      183 NAMECALL                         R19 R19 K39 ["format"]
+      185 CALL                             R19 2 1
+      186 MOVE                             R17 R19
       187 JUMP                             ; [+23]
-      188 GETTABLEKS                       R20 R19 K38 ["Offset"]
-      190 JUMPIFNOTEQKN                    R20 K18 [0] ; [+10]
-      192 LOADK                            R20 K40 ["%*%%"]
-      193 GETTABLEKS                       R23 R19 K36 ["Scale"]
-      195 MULK                             R22 R23 K41 [100]
-      196 NAMECALL                         R20 R20 K39 ["format"]
-      198 CALL                             R20 2 1
-      199 MOVE                             R18 R20
+      188 GETTABLEKS                       R19 R18 K38 ["Offset"]
+      190 JUMPIFNOTEQKN                    R19 K18 [0] ; [+10]
+      192 LOADK                            R19 K40 ["%*%%"]
+      193 GETTABLEKS                       R22 R18 K36 ["Scale"]
+      195 MULK                             R21 R22 K41 [100]
+      196 NAMECALL                         R19 R19 K39 ["format"]
+      198 CALL                             R19 2 1
+      199 MOVE                             R17 R19
       200 JUMP                             ; [+10]
-      201 LOADK                            R20 K42 ["%*%% + %*px"]
-      202 GETTABLEKS                       R23 R19 K36 ["Scale"]
-      204 MULK                             R22 R23 K41 [100]
-      205 GETTABLEKS                       R23 R19 K38 ["Offset"]
-      207 NAMECALL                         R20 R20 K39 ["format"]
-      209 CALL                             R20 3 1
-      210 MOVE                             R18 R20
-      211 GETTABLEKS                       R20 R9 K44 ["PaddingRight"]
-      213 GETTABLEKS                       R21 R20 K36 ["Scale"]
-      215 JUMPIFNOTEQKN                    R21 K18 [0] ; [+9]
-      217 LOADK                            R21 K37 ["%*px"]
-      218 GETTABLEKS                       R23 R20 K38 ["Offset"]
-      220 NAMECALL                         R21 R21 K39 ["format"]
-      222 CALL                             R21 2 1
-      223 MOVE                             R19 R21
+      201 LOADK                            R19 K42 ["%*%% + %*px"]
+      202 GETTABLEKS                       R22 R18 K36 ["Scale"]
+      204 MULK                             R21 R22 K41 [100]
+      205 GETTABLEKS                       R22 R18 K38 ["Offset"]
+      207 NAMECALL                         R19 R19 K39 ["format"]
+      209 CALL                             R19 3 1
+      210 MOVE                             R17 R19
+      211 GETTABLEKS                       R19 R9 K44 ["PaddingRight"]
+      213 GETTABLEKS                       R20 R19 K36 ["Scale"]
+      215 JUMPIFNOTEQKN                    R20 K18 [0] ; [+9]
+      217 LOADK                            R20 K37 ["%*px"]
+      218 GETTABLEKS                       R22 R19 K38 ["Offset"]
+      220 NAMECALL                         R20 R20 K39 ["format"]
+      222 CALL                             R20 2 1
+      223 MOVE                             R18 R20
       224 JUMP                             ; [+23]
-      225 GETTABLEKS                       R21 R20 K38 ["Offset"]
-      227 JUMPIFNOTEQKN                    R21 K18 [0] ; [+10]
-      229 LOADK                            R21 K40 ["%*%%"]
-      230 GETTABLEKS                       R24 R20 K36 ["Scale"]
-      232 MULK                             R23 R24 K41 [100]
-      233 NAMECALL                         R21 R21 K39 ["format"]
-      235 CALL                             R21 2 1
-      236 MOVE                             R19 R21
+      225 GETTABLEKS                       R20 R19 K38 ["Offset"]
+      227 JUMPIFNOTEQKN                    R20 K18 [0] ; [+10]
+      229 LOADK                            R20 K40 ["%*%%"]
+      230 GETTABLEKS                       R23 R19 K36 ["Scale"]
+      232 MULK                             R22 R23 K41 [100]
+      233 NAMECALL                         R20 R20 K39 ["format"]
+      235 CALL                             R20 2 1
+      236 MOVE                             R18 R20
       237 JUMP                             ; [+10]
-      238 LOADK                            R21 K42 ["%*%% + %*px"]
-      239 GETTABLEKS                       R24 R20 K36 ["Scale"]
-      241 MULK                             R23 R24 K41 [100]
-      242 GETTABLEKS                       R24 R20 K38 ["Offset"]
-      244 NAMECALL                         R21 R21 K39 ["format"]
-      246 CALL                             R21 3 1
-      247 MOVE                             R19 R21
-      248 GETTABLEKS                       R21 R9 K45 ["PaddingBottom"]
-      250 GETTABLEKS                       R22 R21 K36 ["Scale"]
-      252 JUMPIFNOTEQKN                    R22 K18 [0] ; [+9]
-      254 LOADK                            R22 K37 ["%*px"]
-      255 GETTABLEKS                       R24 R21 K38 ["Offset"]
-      257 NAMECALL                         R22 R22 K39 ["format"]
-      259 CALL                             R22 2 1
-      260 MOVE                             R20 R22
+      238 LOADK                            R20 K42 ["%*%% + %*px"]
+      239 GETTABLEKS                       R23 R19 K36 ["Scale"]
+      241 MULK                             R22 R23 K41 [100]
+      242 GETTABLEKS                       R23 R19 K38 ["Offset"]
+      244 NAMECALL                         R20 R20 K39 ["format"]
+      246 CALL                             R20 3 1
+      247 MOVE                             R18 R20
+      248 GETTABLEKS                       R20 R9 K45 ["PaddingBottom"]
+      250 GETTABLEKS                       R21 R20 K36 ["Scale"]
+      252 JUMPIFNOTEQKN                    R21 K18 [0] ; [+9]
+      254 LOADK                            R21 K37 ["%*px"]
+      255 GETTABLEKS                       R23 R20 K38 ["Offset"]
+      257 NAMECALL                         R21 R21 K39 ["format"]
+      259 CALL                             R21 2 1
+      260 MOVE                             R19 R21
       261 JUMP                             ; [+23]
-      262 GETTABLEKS                       R22 R21 K38 ["Offset"]
-      264 JUMPIFNOTEQKN                    R22 K18 [0] ; [+10]
-      266 LOADK                            R22 K40 ["%*%%"]
-      267 GETTABLEKS                       R25 R21 K36 ["Scale"]
-      269 MULK                             R24 R25 K41 [100]
-      270 NAMECALL                         R22 R22 K39 ["format"]
-      272 CALL                             R22 2 1
-      273 MOVE                             R20 R22
+      262 GETTABLEKS                       R21 R20 K38 ["Offset"]
+      264 JUMPIFNOTEQKN                    R21 K18 [0] ; [+10]
+      266 LOADK                            R21 K40 ["%*%%"]
+      267 GETTABLEKS                       R24 R20 K36 ["Scale"]
+      269 MULK                             R23 R24 K41 [100]
+      270 NAMECALL                         R21 R21 K39 ["format"]
+      272 CALL                             R21 2 1
+      273 MOVE                             R19 R21
       274 JUMP                             ; [+10]
-      275 LOADK                            R22 K42 ["%*%% + %*px"]
-      276 GETTABLEKS                       R25 R21 K36 ["Scale"]
-      278 MULK                             R24 R25 K41 [100]
-      279 GETTABLEKS                       R25 R21 K38 ["Offset"]
-      281 NAMECALL                         R22 R22 K39 ["format"]
-      283 CALL                             R22 3 1
-      284 MOVE                             R20 R22
-      285 NAMECALL                         R15 R15 K39 ["format"]
-      287 CALL                             R15 5 1
-      288 MOVE                             R14 R15
-      289 JUMP                             ; [+1]
-      290 LOADNIL                          R14
-      291 SETTABLEKS                       R14 R13 K27 ["Padding"]
-      293 JUMPIFNOT                        R8 ; [+52]
-      294 LOADK                            R15 K46 ["%* Spacing (%*)"]
-      295 GETTABLEKS                       R18 R8 K47 ["FillDirection"]
-      297 GETIMPORT                        R19 K50 [Enum.FillDirection.Horizontal]
-      299 JUMPIFNOTEQ                      R18 R19 ; [+3]
-      301 LOADK                            R17 K51 ["Row"]
-      302 JUMP                             ; [+1]
-      303 LOADK                            R17 K52 ["Column"]
-      304 GETTABLEKS                       R19 R8 K27 ["Padding"]
-      306 GETTABLEKS                       R20 R19 K36 ["Scale"]
-      308 JUMPIFNOTEQKN                    R20 K18 [0] ; [+9]
-      310 LOADK                            R20 K37 ["%*px"]
-      311 GETTABLEKS                       R22 R19 K38 ["Offset"]
-      313 NAMECALL                         R20 R20 K39 ["format"]
-      315 CALL                             R20 2 1
-      316 MOVE                             R18 R20
-      317 JUMP                             ; [+23]
-      318 GETTABLEKS                       R20 R19 K38 ["Offset"]
-      320 JUMPIFNOTEQKN                    R20 K18 [0] ; [+10]
-      322 LOADK                            R20 K40 ["%*%%"]
-      323 GETTABLEKS                       R23 R19 K36 ["Scale"]
-      325 MULK                             R22 R23 K41 [100]
-      326 NAMECALL                         R20 R20 K39 ["format"]
-      328 CALL                             R20 2 1
-      329 MOVE                             R18 R20
-      330 JUMP                             ; [+10]
-      331 LOADK                            R20 K42 ["%*%% + %*px"]
-      332 GETTABLEKS                       R23 R19 K36 ["Scale"]
-      334 MULK                             R22 R23 K41 [100]
-      335 GETTABLEKS                       R23 R19 K38 ["Offset"]
-      337 NAMECALL                         R20 R20 K39 ["format"]
-      339 CALL                             R20 3 1
-      340 MOVE                             R18 R20
-      341 NAMECALL                         R15 R15 K39 ["format"]
-      343 CALL                             R15 3 1
-      344 MOVE                             R14 R15
-      345 JUMP                             ; [+1]
-      346 LOADNIL                          R14
-      347 SETTABLEKS                       R14 R13 K28 ["Layout"]
-      349 JUMPIFNOT                        R10 ; [+7]
-      350 GETUPVAL                         R14 0
-      351 GETTABLEKS                       R15 R10 K53 ["Color"]
-      353 GETTABLEKS                       R16 R10 K54 ["Transparency"]
-      355 CALL                             R14 2 1
-      356 JUMP                             ; [+1]
-      357 LOADNIL                          R14
-      358 SETTABLEKS                       R14 R13 K29 ["Stroke"]
-      360 JUMPIFNOT                        R11 ; [+2]
-      361 LOADK                            R14 K30 ["Gradient"]
-      362 JUMP                             ; [+1]
-      363 LOADNIL                          R14
-      364 SETTABLEKS                       R14 R13 K30 ["Gradient"]
-      366 RETURN                           R13 1
+      275 LOADK                            R21 K42 ["%*%% + %*px"]
+      276 GETTABLEKS                       R24 R20 K36 ["Scale"]
+      278 MULK                             R23 R24 K41 [100]
+      279 GETTABLEKS                       R24 R20 K38 ["Offset"]
+      281 NAMECALL                         R21 R21 K39 ["format"]
+      283 CALL                             R21 3 1
+      284 MOVE                             R19 R21
+      285 NAMECALL                         R14 R14 K39 ["format"]
+      287 CALL                             R14 5 1
+      288 JUMP                             ; [+1]
+      289 LOADNIL                          R14
+      290 SETTABLEKS                       R14 R13 K27 ["Padding"]
+      292 JUMPIFNOT                        R8 ; [+51]
+      293 LOADK                            R14 K46 ["%* Spacing (%*)"]
+      294 GETTABLEKS                       R17 R8 K47 ["FillDirection"]
+      296 GETIMPORT                        R18 K50 [Enum.FillDirection.Horizontal]
+      298 JUMPIFNOTEQ                      R17 R18 ; [+3]
+      300 LOADK                            R16 K51 ["Row"]
+      301 JUMP                             ; [+1]
+      302 LOADK                            R16 K52 ["Column"]
+      303 GETTABLEKS                       R18 R8 K27 ["Padding"]
+      305 GETTABLEKS                       R19 R18 K36 ["Scale"]
+      307 JUMPIFNOTEQKN                    R19 K18 [0] ; [+9]
+      309 LOADK                            R19 K37 ["%*px"]
+      310 GETTABLEKS                       R21 R18 K38 ["Offset"]
+      312 NAMECALL                         R19 R19 K39 ["format"]
+      314 CALL                             R19 2 1
+      315 MOVE                             R17 R19
+      316 JUMP                             ; [+23]
+      317 GETTABLEKS                       R19 R18 K38 ["Offset"]
+      319 JUMPIFNOTEQKN                    R19 K18 [0] ; [+10]
+      321 LOADK                            R19 K40 ["%*%%"]
+      322 GETTABLEKS                       R22 R18 K36 ["Scale"]
+      324 MULK                             R21 R22 K41 [100]
+      325 NAMECALL                         R19 R19 K39 ["format"]
+      327 CALL                             R19 2 1
+      328 MOVE                             R17 R19
+      329 JUMP                             ; [+10]
+      330 LOADK                            R19 K42 ["%*%% + %*px"]
+      331 GETTABLEKS                       R22 R18 K36 ["Scale"]
+      333 MULK                             R21 R22 K41 [100]
+      334 GETTABLEKS                       R22 R18 K38 ["Offset"]
+      336 NAMECALL                         R19 R19 K39 ["format"]
+      338 CALL                             R19 3 1
+      339 MOVE                             R17 R19
+      340 NAMECALL                         R14 R14 K39 ["format"]
+      342 CALL                             R14 3 1
+      343 JUMP                             ; [+1]
+      344 LOADNIL                          R14
+      345 SETTABLEKS                       R14 R13 K28 ["Layout"]
+      347 JUMPIFNOT                        R10 ; [+7]
+      348 GETUPVAL                         R14 0
+      349 GETTABLEKS                       R15 R10 K53 ["Color"]
+      351 GETTABLEKS                       R16 R10 K54 ["Transparency"]
+      353 CALL                             R14 2 1
+      354 JUMP                             ; [+1]
+      355 LOADNIL                          R14
+      356 SETTABLEKS                       R14 R13 K29 ["Stroke"]
+      358 JUMPIFNOT                        R11 ; [+2]
+      359 LOADK                            R14 K30 ["Gradient"]
+      360 JUMP                             ; [+1]
+      361 LOADNIL                          R14
+      362 SETTABLEKS                       R14 R13 K30 ["Gradient"]
+      364 RETURN                           R13 1
 
 MAIN:
         0 PREPVARARGS                      0

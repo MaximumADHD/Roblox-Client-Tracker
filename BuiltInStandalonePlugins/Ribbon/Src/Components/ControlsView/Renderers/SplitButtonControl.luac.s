@@ -98,7 +98,7 @@ PROTO_2:
         6 LOADNIL                          R3
         7 LOADNIL                          R4
         8 GETTABLEKS                       R5 R2 K2 ["Action"]
-       10 JUMPIFNOT                        R5 ; [+27]
+       10 JUMPIFNOT                        R5 ; [+26]
        11 GETUPVAL                         R5 1
        12 GETTABLEKS                       R5 R5 K3 ["toString"]
        14 GETTABLEKS                       R6 R2 K2 ["Action"]
@@ -106,298 +106,295 @@ PROTO_2:
        17 GETTABLEKS                       R6 R0 K4 ["Items"]
        19 GETTABLEKS                       R6 R6 K5 ["Actions"]
        21 GETTABLE                         R3 R6 R5
-       22 JUMPIF                           R3 ; [+44]
+       22 JUMPIF                           R3 ; [+42]
        23 GETTABLEKS                       R6 R0 K6 ["Warn"]
-       25 LOADK                            R8 K7 ["Missing Action %* for SplitButton with id %*"]
-       26 MOVE                             R10 R5
-       27 GETTABLEKS                       R11 R2 K8 ["Id"]
-       29 NAMECALL                         R8 R8 K9 ["format"]
-       31 CALL                             R8 3 1
-       32 MOVE                             R7 R8
-       33 CALL                             R6 1 0
-       34 LOADNIL                          R6
-       35 CLOSEUPVALS                      R3
-       36 RETURN                           R6 1
-       37 JUMP                             ; [+29]
-       38 GETTABLEKS                       R5 R2 K10 ["Setting"]
-       40 JUMPIFNOT                        R5 ; [+26]
-       41 GETUPVAL                         R5 1
-       42 GETTABLEKS                       R5 R5 K3 ["toString"]
-       44 GETTABLEKS                       R6 R2 K10 ["Setting"]
-       46 CALL                             R5 1 1
-       47 GETTABLEKS                       R6 R0 K4 ["Items"]
-       49 GETTABLEKS                       R6 R6 K11 ["Settings"]
-       51 GETTABLE                         R4 R6 R5
-       52 JUMPIF                           R4 ; [+14]
-       53 GETTABLEKS                       R6 R0 K6 ["Warn"]
-       55 LOADK                            R8 K12 ["Missing Setting %* for SplitButton with id %*"]
-       56 MOVE                             R10 R5
-       57 GETTABLEKS                       R11 R2 K8 ["Id"]
-       59 NAMECALL                         R8 R8 K9 ["format"]
-       61 CALL                             R8 3 1
-       62 MOVE                             R7 R8
-       63 CALL                             R6 1 0
-       64 LOADNIL                          R6
-       65 CLOSEUPVALS                      R3
-       66 RETURN                           R6 1
-       67 MOVE                             R5 R3
-       68 JUMPIF                           R5 ; [+3]
-       69 MOVE                             R5 R4
-       70 JUMPIF                           R5 ; [+1]
-       71 GETUPVAL                         R5 2
-       72 JUMPIFNOT                        R4 ; [+12]
-       73 GETTABLEKS                       R8 R4 K13 ["Value"]
-       75 FASTCALL1                        TYPEOF R8 ; [+2]
-       76 GETIMPORT                        R7 K15 [typeof]
-       78 CALL                             R7 1 1
-       79 JUMPIFNOTEQKS                    R7 K16 ["number"] ; [+5]
-       81 GETTABLEKS                       R7 R4 K13 ["Value"]
-       83 ADDK                             R6 R7 K17 [1]
-       84 JUMP                             ; [+1]
-       85 LOADN                            R6 1
-       86 JUMPIFNOT                        R4 ; [+7]
-       87 GETTABLEKS                       R8 R4 K18 ["Values"]
-       89 JUMPIFNOT                        R8 ; [+4]
-       90 GETTABLEKS                       R8 R4 K18 ["Values"]
-       92 GETTABLE                         R7 R8 R6
-       93 JUMP                             ; [+1]
-       94 LOADNIL                          R7
-       95 JUMPIFNOT                        R7 ; [+3]
-       96 GETTABLEKS                       R8 R7 K19 ["Icon"]
-       98 JUMP                             ; [+1]
-       99 LOADNIL                          R8
-      100 JUMPIFNOT                        R7 ; [+15]
-      101 GETTABLEKS                       R10 R7 K2 ["Action"]
-      103 JUMPIFNOT                        R10 ; [+12]
-      104 GETTABLEKS                       R10 R0 K4 ["Items"]
-      106 GETTABLEKS                       R10 R10 K5 ["Actions"]
-      108 GETUPVAL                         R11 1
-      109 GETTABLEKS                       R11 R11 K3 ["toString"]
-      111 GETTABLEKS                       R12 R7 K2 ["Action"]
-      113 CALL                             R11 1 1
-      114 GETTABLE                         R9 R10 R11
-      115 JUMP                             ; [+1]
-      116 LOADNIL                          R9
-      117 JUMPIFNOT                        R9 ; [+3]
-      118 GETTABLEKS                       R10 R9 K19 ["Icon"]
-      120 JUMP                             ; [+1]
-      121 LOADNIL                          R10
-      122 MOVE                             R11 R8
-      123 JUMPIF                           R11 ; [+7]
-      124 MOVE                             R11 R10
-      125 JUMPIF                           R11 ; [+5]
-      126 GETTABLEKS                       R11 R2 K19 ["Icon"]
-      128 JUMPIF                           R11 ; [+2]
-      129 GETTABLEKS                       R11 R5 K19 ["Icon"]
-      131 JUMPIF                           R11 ; [+13]
-      132 GETTABLEKS                       R12 R0 K6 ["Warn"]
-      134 LOADK                            R14 K20 ["Missing Icon for SplitButton with id %*"]
-      135 GETTABLEKS                       R16 R2 K8 ["Id"]
-      137 NAMECALL                         R14 R14 K9 ["format"]
-      139 CALL                             R14 2 1
-      140 MOVE                             R13 R14
-      141 CALL                             R12 1 0
+       25 LOADK                            R7 K7 ["Missing Action %* for SplitButton with id %*"]
+       26 MOVE                             R9 R5
+       27 GETTABLEKS                       R10 R2 K8 ["Id"]
+       29 NAMECALL                         R7 R7 K9 ["format"]
+       31 CALL                             R7 3 1
+       32 CALL                             R6 1 0
+       33 LOADNIL                          R6
+       34 CLOSEUPVALS                      R3
+       35 RETURN                           R6 1
+       36 JUMP                             ; [+28]
+       37 GETTABLEKS                       R5 R2 K10 ["Setting"]
+       39 JUMPIFNOT                        R5 ; [+25]
+       40 GETUPVAL                         R5 1
+       41 GETTABLEKS                       R5 R5 K3 ["toString"]
+       43 GETTABLEKS                       R6 R2 K10 ["Setting"]
+       45 CALL                             R5 1 1
+       46 GETTABLEKS                       R6 R0 K4 ["Items"]
+       48 GETTABLEKS                       R6 R6 K11 ["Settings"]
+       50 GETTABLE                         R4 R6 R5
+       51 JUMPIF                           R4 ; [+13]
+       52 GETTABLEKS                       R6 R0 K6 ["Warn"]
+       54 LOADK                            R7 K12 ["Missing Setting %* for SplitButton with id %*"]
+       55 MOVE                             R9 R5
+       56 GETTABLEKS                       R10 R2 K8 ["Id"]
+       58 NAMECALL                         R7 R7 K9 ["format"]
+       60 CALL                             R7 3 1
+       61 CALL                             R6 1 0
+       62 LOADNIL                          R6
+       63 CLOSEUPVALS                      R3
+       64 RETURN                           R6 1
+       65 MOVE                             R5 R3
+       66 JUMPIF                           R5 ; [+3]
+       67 MOVE                             R5 R4
+       68 JUMPIF                           R5 ; [+1]
+       69 GETUPVAL                         R5 2
+       70 JUMPIFNOT                        R4 ; [+12]
+       71 GETTABLEKS                       R8 R4 K13 ["Value"]
+       73 FASTCALL1                        TYPEOF R8 ; [+2]
+       74 GETIMPORT                        R7 K15 [typeof]
+       76 CALL                             R7 1 1
+       77 JUMPIFNOTEQKS                    R7 K16 ["number"] ; [+5]
+       79 GETTABLEKS                       R7 R4 K13 ["Value"]
+       81 ADDK                             R6 R7 K17 [1]
+       82 JUMP                             ; [+1]
+       83 LOADN                            R6 1
+       84 JUMPIFNOT                        R4 ; [+7]
+       85 GETTABLEKS                       R8 R4 K18 ["Values"]
+       87 JUMPIFNOT                        R8 ; [+4]
+       88 GETTABLEKS                       R8 R4 K18 ["Values"]
+       90 GETTABLE                         R7 R8 R6
+       91 JUMP                             ; [+1]
+       92 LOADNIL                          R7
+       93 JUMPIFNOT                        R7 ; [+3]
+       94 GETTABLEKS                       R8 R7 K19 ["Icon"]
+       96 JUMP                             ; [+1]
+       97 LOADNIL                          R8
+       98 JUMPIFNOT                        R7 ; [+15]
+       99 GETTABLEKS                       R10 R7 K2 ["Action"]
+      101 JUMPIFNOT                        R10 ; [+12]
+      102 GETTABLEKS                       R10 R0 K4 ["Items"]
+      104 GETTABLEKS                       R10 R10 K5 ["Actions"]
+      106 GETUPVAL                         R11 1
+      107 GETTABLEKS                       R11 R11 K3 ["toString"]
+      109 GETTABLEKS                       R12 R7 K2 ["Action"]
+      111 CALL                             R11 1 1
+      112 GETTABLE                         R9 R10 R11
+      113 JUMP                             ; [+1]
+      114 LOADNIL                          R9
+      115 JUMPIFNOT                        R9 ; [+3]
+      116 GETTABLEKS                       R10 R9 K19 ["Icon"]
+      118 JUMP                             ; [+1]
+      119 LOADNIL                          R10
+      120 MOVE                             R11 R8
+      121 JUMPIF                           R11 ; [+7]
+      122 MOVE                             R11 R10
+      123 JUMPIF                           R11 ; [+5]
+      124 GETTABLEKS                       R11 R2 K19 ["Icon"]
+      126 JUMPIF                           R11 ; [+2]
+      127 GETTABLEKS                       R11 R5 K19 ["Icon"]
+      129 JUMPIF                           R11 ; [+12]
+      130 GETTABLEKS                       R12 R0 K6 ["Warn"]
+      132 LOADK                            R13 K20 ["Missing Icon for SplitButton with id %*"]
+      133 GETTABLEKS                       R15 R2 K8 ["Id"]
+      135 NAMECALL                         R13 R13 K9 ["format"]
+      137 CALL                             R13 2 1
+      138 CALL                             R12 1 0
+      139 LOADNIL                          R12
+      140 CLOSEUPVALS                      R3
+      141 RETURN                           R12 1
       142 LOADNIL                          R12
-      143 CLOSEUPVALS                      R3
-      144 RETURN                           R12 1
-      145 LOADNIL                          R12
-      146 GETTABLEKS                       R13 R2 K21 ["ChildAction"]
-      148 JUMPIFNOT                        R13 ; [+11]
-      149 GETUPVAL                         R13 1
-      150 GETTABLEKS                       R13 R13 K3 ["toString"]
-      152 GETTABLEKS                       R14 R2 K21 ["ChildAction"]
-      154 CALL                             R13 1 1
-      155 GETTABLEKS                       R14 R0 K4 ["Items"]
-      157 GETTABLEKS                       R14 R14 K5 ["Actions"]
-      159 GETTABLE                         R12 R14 R13
-      160 LOADB                            R13 0
-      161 JUMPIFNOT                        R3 ; [+7]
-      162 GETTABLEKS                       R14 R3 K22 ["Checked"]
-      164 JUMPIFEQKB                       R14 TRUE ; [+2]
-      166 LOADB                            R13 0 +1
-      167 LOADB                            R13 1
-      168 JUMP                             ; [+23]
-      169 JUMPIFNOT                        R9 ; [+7]
-      170 GETTABLEKS                       R14 R9 K22 ["Checked"]
-      172 JUMPIFEQKB                       R14 TRUE ; [+2]
-      174 LOADB                            R13 0 +1
-      175 LOADB                            R13 1
-      176 JUMP                             ; [+15]
-      177 JUMPIFNOT                        R4 ; [+14]
-      178 GETTABLEKS                       R15 R4 K13 ["Value"]
-      180 FASTCALL1                        TYPEOF R15 ; [+2]
-      181 GETIMPORT                        R14 K15 [typeof]
-      183 CALL                             R14 1 1
-      184 JUMPIFNOTEQKS                    R14 K23 ["boolean"] ; [+7]
-      186 GETTABLEKS                       R14 R4 K13 ["Value"]
-      188 JUMPIFEQKB                       R14 TRUE ; [+2]
-      190 LOADB                            R13 0 +1
-      191 LOADB                            R13 1
-      192 LOADB                            R14 0
-      193 GETTABLEKS                       R15 R2 K24 ["Single"]
-      195 JUMPIFNOT                        R15 ; [+8]
-      196 JUMPIFNOT                        R12 ; [+7]
-      197 GETTABLEKS                       R15 R12 K22 ["Checked"]
-      199 JUMPIFEQKB                       R15 TRUE ; [+2]
-      201 LOADB                            R14 0 +1
-      202 LOADB                            R14 1
-      203 JUMP                             ; [+8]
-      204 JUMPIFNOT                        R3 ; [+7]
-      205 JUMPIFNOT                        R12 ; [+6]
-      206 GETTABLEKS                       R15 R12 K22 ["Checked"]
-      208 JUMPIFEQKB                       R15 TRUE ; [+2]
-      210 LOADB                            R14 0 +1
-      211 LOADB                            R14 1
-      212 GETTABLEKS                       R15 R5 K25 ["Enabled"]
-      214 JUMPIFNOT                        R15 ; [+4]
-      215 NOT                              R15 R9
-      216 JUMPIF                           R15 ; [+2]
-      217 GETTABLEKS                       R15 R9 K25 ["Enabled"]
-      219 LOADNIL                          R16
-      220 JUMPIFNOT                        R4 ; [+39]
-      221 GETTABLEKS                       R17 R2 K26 ["ShowSettingOptions"]
-      223 JUMPIFNOT                        R17 ; [+36]
+      143 GETTABLEKS                       R13 R2 K21 ["ChildAction"]
+      145 JUMPIFNOT                        R13 ; [+11]
+      146 GETUPVAL                         R13 1
+      147 GETTABLEKS                       R13 R13 K3 ["toString"]
+      149 GETTABLEKS                       R14 R2 K21 ["ChildAction"]
+      151 CALL                             R13 1 1
+      152 GETTABLEKS                       R14 R0 K4 ["Items"]
+      154 GETTABLEKS                       R14 R14 K5 ["Actions"]
+      156 GETTABLE                         R12 R14 R13
+      157 LOADB                            R13 0
+      158 JUMPIFNOT                        R3 ; [+7]
+      159 GETTABLEKS                       R14 R3 K22 ["Checked"]
+      161 JUMPIFEQKB                       R14 TRUE ; [+2]
+      163 LOADB                            R13 0 +1
+      164 LOADB                            R13 1
+      165 JUMP                             ; [+23]
+      166 JUMPIFNOT                        R9 ; [+7]
+      167 GETTABLEKS                       R14 R9 K22 ["Checked"]
+      169 JUMPIFEQKB                       R14 TRUE ; [+2]
+      171 LOADB                            R13 0 +1
+      172 LOADB                            R13 1
+      173 JUMP                             ; [+15]
+      174 JUMPIFNOT                        R4 ; [+14]
+      175 GETTABLEKS                       R15 R4 K13 ["Value"]
+      177 FASTCALL1                        TYPEOF R15 ; [+2]
+      178 GETIMPORT                        R14 K15 [typeof]
+      180 CALL                             R14 1 1
+      181 JUMPIFNOTEQKS                    R14 K23 ["boolean"] ; [+7]
+      183 GETTABLEKS                       R14 R4 K13 ["Value"]
+      185 JUMPIFEQKB                       R14 TRUE ; [+2]
+      187 LOADB                            R13 0 +1
+      188 LOADB                            R13 1
+      189 LOADB                            R14 0
+      190 GETTABLEKS                       R15 R2 K24 ["Single"]
+      192 JUMPIFNOT                        R15 ; [+8]
+      193 JUMPIFNOT                        R12 ; [+7]
+      194 GETTABLEKS                       R15 R12 K22 ["Checked"]
+      196 JUMPIFEQKB                       R15 TRUE ; [+2]
+      198 LOADB                            R14 0 +1
+      199 LOADB                            R14 1
+      200 JUMP                             ; [+8]
+      201 JUMPIFNOT                        R3 ; [+7]
+      202 JUMPIFNOT                        R12 ; [+6]
+      203 GETTABLEKS                       R15 R12 K22 ["Checked"]
+      205 JUMPIFEQKB                       R15 TRUE ; [+2]
+      207 LOADB                            R14 0 +1
+      208 LOADB                            R14 1
+      209 GETTABLEKS                       R15 R5 K25 ["Enabled"]
+      211 JUMPIFNOT                        R15 ; [+4]
+      212 NOT                              R15 R9
+      213 JUMPIF                           R15 ; [+2]
+      214 GETTABLEKS                       R15 R9 K25 ["Enabled"]
+      216 LOADNIL                          R16
+      217 JUMPIFNOT                        R4 ; [+39]
+      218 GETTABLEKS                       R17 R2 K26 ["ShowSettingOptions"]
+      220 JUMPIFNOT                        R17 ; [+36]
+      221 GETTABLEKS                       R17 R4 K18 ["Values"]
+      223 JUMPIFNOT                        R17 ; [+33]
       224 GETTABLEKS                       R17 R4 K18 ["Values"]
-      226 JUMPIFNOT                        R17 ; [+33]
-      227 GETTABLEKS                       R17 R4 K18 ["Values"]
-      229 LOADNIL                          R18
-      230 LOADNIL                          R19
-      231 FORGPREP                         R17
-      232 JUMPIFNOT                        R21 ; [+15]
-      233 GETTABLEKS                       R23 R21 K2 ["Action"]
-      235 JUMPIFNOT                        R23 ; [+12]
-      236 GETTABLEKS                       R23 R0 K4 ["Items"]
-      238 GETTABLEKS                       R23 R23 K5 ["Actions"]
-      240 GETUPVAL                         R24 1
-      241 GETTABLEKS                       R24 R24 K3 ["toString"]
-      243 GETTABLEKS                       R25 R21 K2 ["Action"]
-      245 CALL                             R24 1 1
-      246 GETTABLE                         R22 R23 R24
-      247 JUMP                             ; [+1]
-      248 LOADNIL                          R22
-      249 JUMPIFNOT                        R22 ; [+5]
-      250 GETTABLEKS                       R23 R22 K25 ["Enabled"]
-      252 JUMPIFNOT                        R23 ; [+2]
-      253 LOADB                            R16 1
-      254 JUMP                             ; [+2]
-      255 FORGLOOP                         R17 2 ; [-24]
-      257 JUMPIF                           R16 ; [+3]
-      258 LOADB                            R16 0
-      259 JUMP                             ; [+1]
-      260 LOADB                            R16 1
-      261 GETTABLEKS                       R18 R5 K27 ["Visible"]
-      263 JUMPIFEQKNIL                     R18 ; [+4]
-      265 GETTABLEKS                       R17 R5 K27 ["Visible"]
-      267 JUMP                             ; [+1]
-      268 LOADB                            R17 1
-      269 LOADNIL                          R18
-      270 GETUPVAL                         R19 3
-      271 CALL                             R19 0 1
-      272 JUMPIFNOT                        R19 ; [+10]
-      273 JUMPIFNOT                        R3 ; [+3]
-      274 GETTABLEKS                       R18 R3 K28 ["Shortcuts"]
-      276 JUMP                             ; [+11]
-      277 JUMPIFNOT                        R9 ; [+3]
-      278 GETTABLEKS                       R18 R9 K28 ["Shortcuts"]
-      280 JUMP                             ; [+7]
-      281 LOADNIL                          R18
-      282 JUMP                             ; [+5]
-      283 JUMPIFNOT                        R3 ; [+3]
-      284 GETTABLEKS                       R18 R3 K28 ["Shortcuts"]
-      286 JUMP                             ; [+1]
-      287 LOADNIL                          R18
-      288 GETUPVAL                         R19 4
-      289 GETUPVAL                         R20 5
-      290 DUPTABLE                         R21 K45 [{"OnSelect", "OnSelectArrow", "Disabled", "EnabledChildren", "Uri", "Icon", "IconOnly", "LayoutOrder", "MainButtonSelected", "ArrowSelectedFromAction", "Size", "Shortcuts", "Text", "Tooltip", "ShortTitle", "Visible", "ShowContextMenu", "ControlIndices", "MenuData", "Single"}]
-      291 NEWCLOSURE                       R22 P0
-      292 CAPTURE                          REF R3
-      293 CAPTURE                          UPVAL U6
-      294 CAPTURE                          REF R13
-      295 CAPTURE                          VAL R0
-      296 CAPTURE                          VAL R9
-      297 CAPTURE                          VAL R2
-      298 CAPTURE                          REF R16
-      299 SETTABLEKS                       R22 R21 K29 ["OnSelect"]
-      301 NEWCLOSURE                       R22 P1
-      302 CAPTURE                          REF R4
-      303 CAPTURE                          VAL R2
-      304 CAPTURE                          REF R16
-      305 CAPTURE                          UPVAL U7
-      306 CAPTURE                          VAL R0
-      307 CAPTURE                          UPVAL U6
-      308 CAPTURE                          REF R13
-      309 SETTABLEKS                       R22 R21 K30 ["OnSelectArrow"]
-      311 NOT                              R22 R15
-      312 SETTABLEKS                       R22 R21 K31 ["Disabled"]
-      314 SETTABLEKS                       R16 R21 K32 ["EnabledChildren"]
-      316 GETUPVAL                         R22 1
-      317 GETTABLEKS                       R22 R22 K46 ["child"]
-      319 GETTABLEKS                       R23 R0 K47 ["WidgetUri"]
-      321 GETTABLEKS                       R24 R2 K8 ["Id"]
-      323 CALL                             R22 2 1
-      324 SETTABLEKS                       R22 R21 K33 ["Uri"]
-      326 SETTABLEKS                       R11 R21 K19 ["Icon"]
-      328 GETTABLEKS                       R22 R0 K48 ["HideLabels"]
-      330 JUMPIF                           R22 ; [+2]
-      331 GETTABLEKS                       R22 R2 K34 ["IconOnly"]
-      333 SETTABLEKS                       R22 R21 K34 ["IconOnly"]
-      335 GETTABLEKS                       R22 R0 K35 ["LayoutOrder"]
-      337 SETTABLEKS                       R22 R21 K35 ["LayoutOrder"]
-      339 SETTABLEKS                       R13 R21 K36 ["MainButtonSelected"]
-      341 SETTABLEKS                       R14 R21 K37 ["ArrowSelectedFromAction"]
-      343 GETTABLEKS                       R22 R2 K38 ["Size"]
-      345 SETTABLEKS                       R22 R21 K38 ["Size"]
-      347 SETTABLEKS                       R18 R21 K28 ["Shortcuts"]
-      349 GETUPVAL                         R22 8
-      350 MOVE                             R23 R1
-      351 LOADK                            R24 K39 ["Text"]
-      352 MOVE                             R25 R7
-      353 MOVE                             R26 R2
-      354 MOVE                             R27 R5
-      355 MOVE                             R28 R9
-      356 JUMPIF                           R28 ; [+2]
-      357 NEWTABLE                         R28 0 0
-      359 CALL                             R22 6 1
-      360 SETTABLEKS                       R22 R21 K39 ["Text"]
-      362 GETUPVAL                         R22 8
-      363 MOVE                             R23 R1
-      364 LOADK                            R24 K40 ["Tooltip"]
-      365 MOVE                             R25 R7
-      366 MOVE                             R26 R2
-      367 MOVE                             R27 R5
-      368 MOVE                             R28 R9
-      369 JUMPIF                           R28 ; [+2]
-      370 NEWTABLE                         R28 0 0
-      372 CALL                             R22 6 1
-      373 SETTABLEKS                       R22 R21 K40 ["Tooltip"]
-      375 GETUPVAL                         R23 9
-      376 CALL                             R23 0 1
-      377 JUMPIFNOT                        R23 ; [+12]
-      378 GETUPVAL                         R22 8
-      379 MOVE                             R23 R1
-      380 LOADK                            R24 K41 ["ShortTitle"]
-      381 MOVE                             R25 R7
-      382 MOVE                             R26 R2
-      383 MOVE                             R27 R5
-      384 MOVE                             R28 R9
-      385 JUMPIF                           R28 ; [+2]
-      386 NEWTABLE                         R28 0 0
-      388 CALL                             R22 6 1
-      389 JUMP                             ; [+1]
-      390 LOADNIL                          R22
-      391 SETTABLEKS                       R22 R21 K41 ["ShortTitle"]
-      393 SETTABLEKS                       R17 R21 K27 ["Visible"]
-      395 GETTABLEKS                       R22 R0 K42 ["ShowContextMenu"]
-      397 SETTABLEKS                       R22 R21 K42 ["ShowContextMenu"]
-      399 GETTABLEKS                       R22 R0 K43 ["ControlIndices"]
-      401 SETTABLEKS                       R22 R21 K43 ["ControlIndices"]
-      403 GETTABLEKS                       R22 R0 K44 ["MenuData"]
-      405 SETTABLEKS                       R22 R21 K44 ["MenuData"]
-      407 GETTABLEKS                       R22 R2 K24 ["Single"]
-      409 SETTABLEKS                       R22 R21 K24 ["Single"]
-      411 CALL                             R19 2 -1
-      412 CLOSEUPVALS                      R3
-      413 RETURN                           R19 -1
+      226 LOADNIL                          R18
+      227 LOADNIL                          R19
+      228 FORGPREP                         R17
+      229 JUMPIFNOT                        R21 ; [+15]
+      230 GETTABLEKS                       R23 R21 K2 ["Action"]
+      232 JUMPIFNOT                        R23 ; [+12]
+      233 GETTABLEKS                       R23 R0 K4 ["Items"]
+      235 GETTABLEKS                       R23 R23 K5 ["Actions"]
+      237 GETUPVAL                         R24 1
+      238 GETTABLEKS                       R24 R24 K3 ["toString"]
+      240 GETTABLEKS                       R25 R21 K2 ["Action"]
+      242 CALL                             R24 1 1
+      243 GETTABLE                         R22 R23 R24
+      244 JUMP                             ; [+1]
+      245 LOADNIL                          R22
+      246 JUMPIFNOT                        R22 ; [+5]
+      247 GETTABLEKS                       R23 R22 K25 ["Enabled"]
+      249 JUMPIFNOT                        R23 ; [+2]
+      250 LOADB                            R16 1
+      251 JUMP                             ; [+2]
+      252 FORGLOOP                         R17 2 ; [-24]
+      254 JUMPIF                           R16 ; [+3]
+      255 LOADB                            R16 0
+      256 JUMP                             ; [+1]
+      257 LOADB                            R16 1
+      258 GETTABLEKS                       R18 R5 K27 ["Visible"]
+      260 JUMPIFEQKNIL                     R18 ; [+4]
+      262 GETTABLEKS                       R17 R5 K27 ["Visible"]
+      264 JUMP                             ; [+1]
+      265 LOADB                            R17 1
+      266 LOADNIL                          R18
+      267 GETUPVAL                         R19 3
+      268 CALL                             R19 0 1
+      269 JUMPIFNOT                        R19 ; [+10]
+      270 JUMPIFNOT                        R3 ; [+3]
+      271 GETTABLEKS                       R18 R3 K28 ["Shortcuts"]
+      273 JUMP                             ; [+11]
+      274 JUMPIFNOT                        R9 ; [+3]
+      275 GETTABLEKS                       R18 R9 K28 ["Shortcuts"]
+      277 JUMP                             ; [+7]
+      278 LOADNIL                          R18
+      279 JUMP                             ; [+5]
+      280 JUMPIFNOT                        R3 ; [+3]
+      281 GETTABLEKS                       R18 R3 K28 ["Shortcuts"]
+      283 JUMP                             ; [+1]
+      284 LOADNIL                          R18
+      285 GETUPVAL                         R19 4
+      286 GETUPVAL                         R20 5
+      287 DUPTABLE                         R21 K45 [{"OnSelect", "OnSelectArrow", "Disabled", "EnabledChildren", "Uri", "Icon", "IconOnly", "LayoutOrder", "MainButtonSelected", "ArrowSelectedFromAction", "Size", "Shortcuts", "Text", "Tooltip", "ShortTitle", "Visible", "ShowContextMenu", "ControlIndices", "MenuData", "Single"}]
+      288 NEWCLOSURE                       R22 P0
+      289 CAPTURE                          REF R3
+      290 CAPTURE                          UPVAL U6
+      291 CAPTURE                          REF R13
+      292 CAPTURE                          VAL R0
+      293 CAPTURE                          VAL R9
+      294 CAPTURE                          VAL R2
+      295 CAPTURE                          REF R16
+      296 SETTABLEKS                       R22 R21 K29 ["OnSelect"]
+      298 NEWCLOSURE                       R22 P1
+      299 CAPTURE                          REF R4
+      300 CAPTURE                          VAL R2
+      301 CAPTURE                          REF R16
+      302 CAPTURE                          UPVAL U7
+      303 CAPTURE                          VAL R0
+      304 CAPTURE                          UPVAL U6
+      305 CAPTURE                          REF R13
+      306 SETTABLEKS                       R22 R21 K30 ["OnSelectArrow"]
+      308 NOT                              R22 R15
+      309 SETTABLEKS                       R22 R21 K31 ["Disabled"]
+      311 SETTABLEKS                       R16 R21 K32 ["EnabledChildren"]
+      313 GETUPVAL                         R22 1
+      314 GETTABLEKS                       R22 R22 K46 ["child"]
+      316 GETTABLEKS                       R23 R0 K47 ["WidgetUri"]
+      318 GETTABLEKS                       R24 R2 K8 ["Id"]
+      320 CALL                             R22 2 1
+      321 SETTABLEKS                       R22 R21 K33 ["Uri"]
+      323 SETTABLEKS                       R11 R21 K19 ["Icon"]
+      325 GETTABLEKS                       R22 R0 K48 ["HideLabels"]
+      327 JUMPIF                           R22 ; [+2]
+      328 GETTABLEKS                       R22 R2 K34 ["IconOnly"]
+      330 SETTABLEKS                       R22 R21 K34 ["IconOnly"]
+      332 GETTABLEKS                       R22 R0 K35 ["LayoutOrder"]
+      334 SETTABLEKS                       R22 R21 K35 ["LayoutOrder"]
+      336 SETTABLEKS                       R13 R21 K36 ["MainButtonSelected"]
+      338 SETTABLEKS                       R14 R21 K37 ["ArrowSelectedFromAction"]
+      340 GETTABLEKS                       R22 R2 K38 ["Size"]
+      342 SETTABLEKS                       R22 R21 K38 ["Size"]
+      344 SETTABLEKS                       R18 R21 K28 ["Shortcuts"]
+      346 GETUPVAL                         R22 8
+      347 MOVE                             R23 R1
+      348 LOADK                            R24 K39 ["Text"]
+      349 MOVE                             R25 R7
+      350 MOVE                             R26 R2
+      351 MOVE                             R27 R5
+      352 MOVE                             R28 R9
+      353 JUMPIF                           R28 ; [+2]
+      354 NEWTABLE                         R28 0 0
+      356 CALL                             R22 6 1
+      357 SETTABLEKS                       R22 R21 K39 ["Text"]
+      359 GETUPVAL                         R22 8
+      360 MOVE                             R23 R1
+      361 LOADK                            R24 K40 ["Tooltip"]
+      362 MOVE                             R25 R7
+      363 MOVE                             R26 R2
+      364 MOVE                             R27 R5
+      365 MOVE                             R28 R9
+      366 JUMPIF                           R28 ; [+2]
+      367 NEWTABLE                         R28 0 0
+      369 CALL                             R22 6 1
+      370 SETTABLEKS                       R22 R21 K40 ["Tooltip"]
+      372 GETUPVAL                         R23 9
+      373 CALL                             R23 0 1
+      374 JUMPIFNOT                        R23 ; [+12]
+      375 GETUPVAL                         R22 8
+      376 MOVE                             R23 R1
+      377 LOADK                            R24 K41 ["ShortTitle"]
+      378 MOVE                             R25 R7
+      379 MOVE                             R26 R2
+      380 MOVE                             R27 R5
+      381 MOVE                             R28 R9
+      382 JUMPIF                           R28 ; [+2]
+      383 NEWTABLE                         R28 0 0
+      385 CALL                             R22 6 1
+      386 JUMP                             ; [+1]
+      387 LOADNIL                          R22
+      388 SETTABLEKS                       R22 R21 K41 ["ShortTitle"]
+      390 SETTABLEKS                       R17 R21 K27 ["Visible"]
+      392 GETTABLEKS                       R22 R0 K42 ["ShowContextMenu"]
+      394 SETTABLEKS                       R22 R21 K42 ["ShowContextMenu"]
+      396 GETTABLEKS                       R22 R0 K43 ["ControlIndices"]
+      398 SETTABLEKS                       R22 R21 K43 ["ControlIndices"]
+      400 GETTABLEKS                       R22 R0 K44 ["MenuData"]
+      402 SETTABLEKS                       R22 R21 K44 ["MenuData"]
+      404 GETTABLEKS                       R22 R2 K24 ["Single"]
+      406 SETTABLEKS                       R22 R21 K24 ["Single"]
+      408 CALL                             R19 2 -1
+      409 CLOSEUPVALS                      R3
+      410 RETURN                           R19 -1
 
 MAIN:
         0 PREPVARARGS                      0

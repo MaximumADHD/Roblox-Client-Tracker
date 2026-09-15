@@ -59,91 +59,88 @@ PROTO_1:
        24 LOADNIL                          R6
        25 SETTABLEKS                       R6 R0 K1 ["Parent"]
        27 MOVE                             R5 R1
-       28 JUMP                             ; [+106]
+       28 JUMP                             ; [+103]
        29 NAMECALL                         R8 R0 K4 ["GetScale"]
        31 CALL                             R8 1 -1
        32 NAMECALL                         R6 R1 K5 ["ScaleTo"]
        34 CALL                             R6 -1 0
-       35 JUMPIFEQKNIL                     R3 ; [+66]
+       35 JUMPIFEQKNIL                     R3 ; [+63]
        37 LOADK                            R8 K6 ["MeshPart"]
        38 NAMECALL                         R6 R3 K7 ["IsA"]
        40 CALL                             R6 2 1
-       41 JUMPIF                           R6 ; [+9]
+       41 JUMPIF                           R6 ; [+8]
        42 LOADNIL                          R6
-       43 LOADK                            R8 K8 ["Relative target instance must be a MeshPart, got %*"]
-       44 GETTABLEKS                       R10 R3 K9 ["ClassName"]
-       46 NAMECALL                         R8 R8 K10 ["format"]
-       48 CALL                             R8 2 1
-       49 MOVE                             R7 R8
-       50 RETURN                           R6 2
-       51 GETUPVAL                         R6 2
-       52 GETTABLEKS                       R6 R6 K11 ["findMatching"]
-       54 MOVE                             R7 R0
-       55 MOVE                             R8 R3
-       56 MOVE                             R9 R1
-       57 CALL                             R6 3 1
-       58 JUMPIFNOTEQKNIL                  R6 ; [+10]
-       60 LOADNIL                          R7
-       61 LOADK                            R9 K12 ["No match for relative target instance %* found in incoming tree"]
-       62 GETTABLEKS                       R11 R3 K13 ["Name"]
-       64 NAMECALL                         R9 R9 K10 ["format"]
-       66 CALL                             R9 2 1
-       67 MOVE                             R8 R9
-       68 RETURN                           R7 2
-       69 LOADK                            R9 K6 ["MeshPart"]
-       70 NAMECALL                         R7 R6 K7 ["IsA"]
-       72 CALL                             R7 2 1
-       73 JUMPIF                           R7 ; [+9]
-       74 LOADNIL                          R7
-       75 LOADK                            R9 K14 ["relative Target instance must be a MeshPart, matching instance in incoming tree has class: %*"]
-       76 GETTABLEKS                       R11 R6 K9 ["ClassName"]
-       78 NAMECALL                         R9 R9 K10 ["format"]
-       80 CALL                             R9 2 1
-       81 MOVE                             R8 R9
-       82 RETURN                           R7 2
-       83 NAMECALL                         R8 R3 K2 ["GetPivot"]
-       85 CALL                             R8 1 1
-       86 NAMECALL                         R9 R6 K2 ["GetPivot"]
+       43 LOADK                            R7 K8 ["Relative target instance must be a MeshPart, got %*"]
+       44 GETTABLEKS                       R9 R3 K9 ["ClassName"]
+       46 NAMECALL                         R7 R7 K10 ["format"]
+       48 CALL                             R7 2 1
+       49 RETURN                           R6 2
+       50 GETUPVAL                         R6 2
+       51 GETTABLEKS                       R6 R6 K11 ["findMatching"]
+       53 MOVE                             R7 R0
+       54 MOVE                             R8 R3
+       55 MOVE                             R9 R1
+       56 CALL                             R6 3 1
+       57 JUMPIFNOTEQKNIL                  R6 ; [+9]
+       59 LOADNIL                          R7
+       60 LOADK                            R8 K12 ["No match for relative target instance %* found in incoming tree"]
+       61 GETTABLEKS                       R10 R3 K13 ["Name"]
+       63 NAMECALL                         R8 R8 K10 ["format"]
+       65 CALL                             R8 2 1
+       66 RETURN                           R7 2
+       67 LOADK                            R9 K6 ["MeshPart"]
+       68 NAMECALL                         R7 R6 K7 ["IsA"]
+       70 CALL                             R7 2 1
+       71 JUMPIF                           R7 ; [+8]
+       72 LOADNIL                          R7
+       73 LOADK                            R8 K14 ["relative Target instance must be a MeshPart, matching instance in incoming tree has class: %*"]
+       74 GETTABLEKS                       R10 R6 K9 ["ClassName"]
+       76 NAMECALL                         R8 R8 K10 ["format"]
+       78 CALL                             R8 2 1
+       79 RETURN                           R7 2
+       80 NAMECALL                         R8 R3 K2 ["GetPivot"]
+       82 CALL                             R8 1 1
+       83 NAMECALL                         R9 R6 K2 ["GetPivot"]
+       85 CALL                             R9 1 1
+       86 NAMECALL                         R9 R9 K15 ["Inverse"]
        88 CALL                             R9 1 1
-       89 NAMECALL                         R9 R9 K15 ["Inverse"]
-       91 CALL                             R9 1 1
-       92 MUL                              R7 R8 R9
-       93 NAMECALL                         R9 R1 K2 ["GetPivot"]
-       95 CALL                             R9 1 1
-       96 MUL                              R8 R9 R7
-       97 MOVE                             R11 R8
-       98 NAMECALL                         R9 R1 K3 ["PivotTo"]
-      100 CALL                             R9 2 0
-      101 JUMP                             ; [+6]
-      102 NAMECALL                         R8 R0 K2 ["GetPivot"]
-      104 CALL                             R8 1 -1
-      105 NAMECALL                         R6 R1 K3 ["PivotTo"]
-      107 CALL                             R6 -1 0
-      108 GETUPVAL                         R6 2
-      109 GETTABLEKS                       R6 R6 K16 ["applyTree"]
-      111 MOVE                             R7 R0
-      112 MOVE                             R8 R1
-      113 CALL                             R6 2 2
-      114 JUMPIFEQKNIL                     R7 ; [+4]
-      116 LOADNIL                          R8
-      117 MOVE                             R9 R7
-      118 RETURN                           R8 2
-      119 FASTCALL1                        ASSERT R6 ; [+3]
-      120 MOVE                             R9 R6
-      121 GETIMPORT                        R8 K18 [assert]
-      123 CALL                             R8 1 0
-      124 GETUPVAL                         R8 0
-      125 CALL                             R8 0 1
-      126 JUMPIFNOT                        R8 ; [+4]
-      127 GETTABLEKS                       R8 R1 K19 ["WorldPivot"]
-      129 SETTABLEKS                       R8 R6 K19 ["WorldPivot"]
-      131 MOVE                             R5 R6
-      132 LOADNIL                          R8
-      133 SETTABLEKS                       R8 R1 K1 ["Parent"]
-      135 SETTABLEKS                       R4 R5 K1 ["Parent"]
-      137 MOVE                             R6 R5
-      138 LOADNIL                          R7
-      139 RETURN                           R6 2
+       89 MUL                              R7 R8 R9
+       90 NAMECALL                         R9 R1 K2 ["GetPivot"]
+       92 CALL                             R9 1 1
+       93 MUL                              R8 R9 R7
+       94 MOVE                             R11 R8
+       95 NAMECALL                         R9 R1 K3 ["PivotTo"]
+       97 CALL                             R9 2 0
+       98 JUMP                             ; [+6]
+       99 NAMECALL                         R8 R0 K2 ["GetPivot"]
+      101 CALL                             R8 1 -1
+      102 NAMECALL                         R6 R1 K3 ["PivotTo"]
+      104 CALL                             R6 -1 0
+      105 GETUPVAL                         R6 2
+      106 GETTABLEKS                       R6 R6 K16 ["applyTree"]
+      108 MOVE                             R7 R0
+      109 MOVE                             R8 R1
+      110 CALL                             R6 2 2
+      111 JUMPIFEQKNIL                     R7 ; [+4]
+      113 LOADNIL                          R8
+      114 MOVE                             R9 R7
+      115 RETURN                           R8 2
+      116 FASTCALL1                        ASSERT R6 ; [+3]
+      117 MOVE                             R9 R6
+      118 GETIMPORT                        R8 K18 [assert]
+      120 CALL                             R8 1 0
+      121 GETUPVAL                         R8 0
+      122 CALL                             R8 0 1
+      123 JUMPIFNOT                        R8 ; [+4]
+      124 GETTABLEKS                       R8 R1 K19 ["WorldPivot"]
+      126 SETTABLEKS                       R8 R6 K19 ["WorldPivot"]
+      128 MOVE                             R5 R6
+      129 LOADNIL                          R8
+      130 SETTABLEKS                       R8 R1 K1 ["Parent"]
+      132 SETTABLEKS                       R4 R5 K1 ["Parent"]
+      134 MOVE                             R6 R5
+      135 LOADNIL                          R7
+      136 RETURN                           R6 2
 
 PROTO_2:
         0 GETUPVAL                         R1 0

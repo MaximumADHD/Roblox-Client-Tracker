@@ -174,7 +174,7 @@ PROTO_12:
        36 GETTABLEKS                       R8 R8 K14 ["serializeModel"]
        38 MOVE                             R9 R1
        39 CALL                             R7 2 2
-       40 JUMPIF                           R7 ; [+19]
+       40 JUMPIF                           R7 ; [+18]
        41 GETTABLEKS                       R9 R2 K15 ["onFailure"]
        43 GETIMPORT                        R11 K8 [os.clock]
        45 CALL                             R11 0 1
@@ -183,192 +183,186 @@ PROTO_12:
        48 LOADK                            R12 K10 [""]
        49 CALL                             R9 3 0
        50 GETIMPORT                        R9 K18 [error]
-       52 LOADK                            R11 K19 ["AvatarAutoSetup: failed to serialize model: %*"]
-       53 MOVE                             R13 R8
-       54 NAMECALL                         R11 R11 K20 ["format"]
-       56 CALL                             R11 2 1
-       57 MOVE                             R10 R11
-       58 LOADN                            R11 0
-       59 CALL                             R9 2 0
-       60 GETUPVAL                         R9 5
-       61 GETTABLEKS                       R9 R9 K21 ["canUseSerializedInstance"]
-       63 MOVE                             R10 R8
-       64 CALL                             R9 1 1
-       65 LOADK                            R10 K16 ["no model uploaded"]
-       66 JUMPIF                           R9 ; [+28]
-       67 GETIMPORT                        R11 K13 [pcall]
-       69 GETUPVAL                         R12 5
-       70 GETTABLEKS                       R12 R12 K22 ["uploadModelAsync"]
-       72 MOVE                             R13 R8
-       73 CALL                             R11 2 2
-       74 JUMPIF                           R11 ; [+19]
-       75 GETTABLEKS                       R13 R2 K15 ["onFailure"]
-       77 GETIMPORT                        R15 K8 [os.clock]
-       79 CALL                             R15 0 1
-       80 SUB                              R14 R15 R6
-       81 LOADK                            R15 K16 ["no model uploaded"]
-       82 LOADK                            R16 K10 [""]
-       83 CALL                             R13 3 0
-       84 GETIMPORT                        R13 K18 [error]
-       86 LOADK                            R15 K23 ["AvatarAutoSetup: failed to upload model: %*"]
-       87 MOVE                             R17 R12
-       88 NAMECALL                         R15 R15 K20 ["format"]
-       90 CALL                             R15 2 1
-       91 MOVE                             R14 R15
-       92 LOADN                            R15 0
-       93 CALL                             R13 2 0
-       94 MOVE                             R10 R12
-       95 LOADK                            R11 K10 [""]
-       96 NEWCLOSURE                       R12 P0
-       97 CAPTURE                          REF R11
-       98 CAPTURE                          VAL R2
-       99 CAPTURE                          VAL R5
-      100 CAPTURE                          VAL R4
-      101 GETUPVAL                         R14 6
-      102 GETTABLEKS                       R14 R14 K25 ["FIntAssistantAvatarAutoSetupIdleTimeoutMs"]
-      104 DIVK                             R13 R14 K24 [1000]
-      105 GETIMPORT                        R14 K8 [os.clock]
-      107 CALL                             R14 0 1
-      108 LOADNIL                          R15
-      109 LOADNIL                          R16
-      110 LOADNIL                          R17
-      111 NEWCLOSURE                       R18 P1
-      112 CAPTURE                          REF R17
-      113 NEWCLOSURE                       R19 P2
-      114 CAPTURE                          REF R15
-      115 CAPTURE                          REF R14
-      116 CAPTURE                          REF R16
-      117 CAPTURE                          VAL R3
-      118 CAPTURE                          REF R17
-      119 DUPTABLE                         R20 K28 [{["status"] = "Running"}]
-      120 GETIMPORT                        R21 K31 [task.spawn]
-      122 NEWCLOSURE                       R22 P3
-      123 CAPTURE                          VAL R9
-      124 CAPTURE                          UPVAL U5
-      125 CAPTURE                          VAL R8
-      126 CAPTURE                          VAL R19
-      127 CAPTURE                          VAL R12
-      128 CAPTURE                          UPVAL U4
-      129 CAPTURE                          REF R10
-      130 CAPTURE                          REF R20
-      131 CAPTURE                          REF R17
-      132 CALL                             R21 1 0
-      133 GETTABLEKS                       R21 R20 K26 ["status"]
-      135 JUMPIFNOTEQKS                    R21 K27 ["Running"] ; [+24]
-      137 JUMPIFNOTEQKNIL                  R16 ; [+22]
-      139 GETIMPORT                        R23 K8 [os.clock]
-      141 CALL                             R23 0 1
-      142 SUB                              R22 R23 R14
-      143 SUB                              R21 R13 R22
-      144 LOADN                            R22 0
-      145 JUMPIFLE                         R21 R22 ; [+14]
-      147 GETIMPORT                        R22 K34 [coroutine.running]
-      149 CALL                             R22 0 1
-      150 MOVE                             R17 R22
-      151 GETIMPORT                        R22 K36 [task.delay]
-      153 MOVE                             R23 R21
-      154 MOVE                             R24 R18
-      155 CALL                             R22 2 0
-      156 GETIMPORT                        R22 K38 [coroutine.yield]
-      158 CALL                             R22 0 0
-      159 JUMPBACK                         ; [-27]
-      160 JUMPIFNOTEQKNIL                  R16 ; [+5]
-      162 GETTABLEKS                       R21 R20 K26 ["status"]
-      164 JUMPIFNOTEQKS                    R21 K27 ["Running"] ; [+43]
-      166 GETUPVAL                         R21 5
-      167 GETTABLEKS                       R21 R21 K39 ["cancelAutoSetup"]
-      169 MOVE                             R22 R11
-      170 CALL                             R21 1 0
-      171 GETTABLEKS                       R21 R2 K15 ["onFailure"]
-      173 GETIMPORT                        R23 K8 [os.clock]
-      175 CALL                             R23 0 1
-      176 SUB                              R22 R23 R6
-      177 MOVE                             R23 R10
-      178 LOADK                            R24 K10 [""]
-      179 CALL                             R21 3 0
-      180 JUMPIFEQKNIL                     R16 ; [+11]
-      182 GETIMPORT                        R21 K18 [error]
-      184 LOADK                            R23 K40 ["AvatarAutoSetup: engine reported %*"]
-      185 MOVE                             R25 R16
-      186 NAMECALL                         R23 R23 K20 ["format"]
-      188 CALL                             R23 2 1
-      189 MOVE                             R22 R23
-      190 LOADN                            R23 0
-      191 CALL                             R21 2 0
-      192 DIVK                             R23 R13 K42 [60]
-      193 ADDK                             R22 R23 K41 [0.5]
-      194 FASTCALL1                        MATH_FLOOR R22 ; [+2]
-      195 GETIMPORT                        R21 K45 [math.floor]
-      197 CALL                             R21 1 1
-      198 GETIMPORT                        R22 K18 [error]
-      200 LOADK                            R24 K46 ["AvatarAutoSetup: auto-setup timed out (no progress for %* min)"]
-      201 MOVE                             R26 R21
-      202 NAMECALL                         R24 R24 K20 ["format"]
-      204 CALL                             R24 2 1
-      205 MOVE                             R23 R24
-      206 LOADN                            R24 0
-      207 CALL                             R22 2 0
-      208 GETTABLEKS                       R21 R20 K26 ["status"]
-      210 JUMPIFNOTEQKS                    R21 K47 ["Failed"] ; [+21]
-      212 GETTABLEKS                       R21 R2 K15 ["onFailure"]
-      214 GETIMPORT                        R23 K8 [os.clock]
-      216 CALL                             R23 0 1
-      217 SUB                              R22 R23 R6
-      218 MOVE                             R23 R10
-      219 LOADK                            R24 K10 [""]
-      220 CALL                             R21 3 0
-      221 GETIMPORT                        R21 K18 [error]
-      223 LOADK                            R23 K48 ["AvatarAutoSetup: engine call failed: %*"]
-      224 GETTABLEKS                       R25 R20 K17 ["error"]
-      226 NAMECALL                         R23 R23 K20 ["format"]
-      228 CALL                             R23 2 1
-      229 MOVE                             R22 R23
-      230 LOADN                            R23 0
-      231 CALL                             R21 2 0
-      232 GETTABLEKS                       R21 R20 K0 ["model"]
-      234 GETUPVAL                         R22 7
-      235 GETTABLEKS                       R22 R22 K49 ["addAnimateScript"]
-      237 MOVE                             R23 R21
-      238 CALL                             R22 1 0
-      239 GETUPVAL                         R22 8
-      240 LOADK                            R24 K50 ["AvatarAutoSetup"]
-      241 LOADK                            R25 K51 ["Avatar Auto Setup"]
-      242 NAMECALL                         R22 R22 K52 ["TryBeginRecording"]
-      244 CALL                             R22 3 1
-      245 LOADK                            R24 K53 ["%*_autosetup"]
-      246 GETTABLEKS                       R26 R1 K54 ["Name"]
-      248 NAMECALL                         R24 R24 K20 ["format"]
-      250 CALL                             R24 2 1
-      251 MOVE                             R23 R24
-      252 SETTABLEKS                       R23 R21 K54 ["Name"]
-      254 GETTABLEKS                       R23 R21 K55 ["Parent"]
-      256 JUMPIFNOTEQKNIL                  R23 ; [+4]
-      258 GETUPVAL                         R23 9
-      259 SETTABLEKS                       R23 R21 K55 ["Parent"]
-      261 GETUPVAL                         R23 7
-      262 GETTABLEKS                       R23 R23 K56 ["setPivotOffset"]
-      264 MOVE                             R24 R21
-      265 CALL                             R23 1 0
-      266 GETUPVAL                         R23 7
-      267 GETTABLEKS                       R23 R23 K57 ["positionInWorkspace"]
-      269 MOVE                             R24 R21
-      270 MOVE                             R25 R1
-      271 CALL                             R23 2 0
-      272 JUMPIFEQKNIL                     R22 ; [+8]
-      274 GETUPVAL                         R23 8
-      275 MOVE                             R25 R22
-      276 GETIMPORT                        R26 K61 [Enum.FinishRecordingOperation.Commit]
-      278 NAMECALL                         R23 R23 K62 ["FinishRecording"]
-      280 CALL                             R23 3 0
-      281 GETTABLEKS                       R23 R2 K63 ["onFinish"]
-      283 GETIMPORT                        R25 K8 [os.clock]
-      285 CALL                             R25 0 1
-      286 SUB                              R24 R25 R6
-      287 MOVE                             R25 R10
-      288 LOADK                            R26 K10 [""]
-      289 CALL                             R23 3 0
-      290 CLOSEUPVALS                      R10
-      291 RETURN                           R21 1
+       52 LOADK                            R10 K19 ["AvatarAutoSetup: failed to serialize model: %*"]
+       53 MOVE                             R12 R8
+       54 NAMECALL                         R10 R10 K20 ["format"]
+       56 CALL                             R10 2 1
+       57 LOADN                            R11 0
+       58 CALL                             R9 2 0
+       59 GETUPVAL                         R9 5
+       60 GETTABLEKS                       R9 R9 K21 ["canUseSerializedInstance"]
+       62 MOVE                             R10 R8
+       63 CALL                             R9 1 1
+       64 LOADK                            R10 K16 ["no model uploaded"]
+       65 JUMPIF                           R9 ; [+27]
+       66 GETIMPORT                        R11 K13 [pcall]
+       68 GETUPVAL                         R12 5
+       69 GETTABLEKS                       R12 R12 K22 ["uploadModelAsync"]
+       71 MOVE                             R13 R8
+       72 CALL                             R11 2 2
+       73 JUMPIF                           R11 ; [+18]
+       74 GETTABLEKS                       R13 R2 K15 ["onFailure"]
+       76 GETIMPORT                        R15 K8 [os.clock]
+       78 CALL                             R15 0 1
+       79 SUB                              R14 R15 R6
+       80 LOADK                            R15 K16 ["no model uploaded"]
+       81 LOADK                            R16 K10 [""]
+       82 CALL                             R13 3 0
+       83 GETIMPORT                        R13 K18 [error]
+       85 LOADK                            R14 K23 ["AvatarAutoSetup: failed to upload model: %*"]
+       86 MOVE                             R16 R12
+       87 NAMECALL                         R14 R14 K20 ["format"]
+       89 CALL                             R14 2 1
+       90 LOADN                            R15 0
+       91 CALL                             R13 2 0
+       92 MOVE                             R10 R12
+       93 LOADK                            R11 K10 [""]
+       94 NEWCLOSURE                       R12 P0
+       95 CAPTURE                          REF R11
+       96 CAPTURE                          VAL R2
+       97 CAPTURE                          VAL R5
+       98 CAPTURE                          VAL R4
+       99 GETUPVAL                         R14 6
+      100 GETTABLEKS                       R14 R14 K25 ["FIntAssistantAvatarAutoSetupIdleTimeoutMs"]
+      102 DIVK                             R13 R14 K24 [1000]
+      103 GETIMPORT                        R14 K8 [os.clock]
+      105 CALL                             R14 0 1
+      106 LOADNIL                          R15
+      107 LOADNIL                          R16
+      108 LOADNIL                          R17
+      109 NEWCLOSURE                       R18 P1
+      110 CAPTURE                          REF R17
+      111 NEWCLOSURE                       R19 P2
+      112 CAPTURE                          REF R15
+      113 CAPTURE                          REF R14
+      114 CAPTURE                          REF R16
+      115 CAPTURE                          VAL R3
+      116 CAPTURE                          REF R17
+      117 DUPTABLE                         R20 K28 [{["status"] = "Running"}]
+      118 GETIMPORT                        R21 K31 [task.spawn]
+      120 NEWCLOSURE                       R22 P3
+      121 CAPTURE                          VAL R9
+      122 CAPTURE                          UPVAL U5
+      123 CAPTURE                          VAL R8
+      124 CAPTURE                          VAL R19
+      125 CAPTURE                          VAL R12
+      126 CAPTURE                          UPVAL U4
+      127 CAPTURE                          REF R10
+      128 CAPTURE                          REF R20
+      129 CAPTURE                          REF R17
+      130 CALL                             R21 1 0
+      131 GETTABLEKS                       R21 R20 K26 ["status"]
+      133 JUMPIFNOTEQKS                    R21 K27 ["Running"] ; [+24]
+      135 JUMPIFNOTEQKNIL                  R16 ; [+22]
+      137 GETIMPORT                        R23 K8 [os.clock]
+      139 CALL                             R23 0 1
+      140 SUB                              R22 R23 R14
+      141 SUB                              R21 R13 R22
+      142 LOADN                            R22 0
+      143 JUMPIFLE                         R21 R22 ; [+14]
+      145 GETIMPORT                        R22 K34 [coroutine.running]
+      147 CALL                             R22 0 1
+      148 MOVE                             R17 R22
+      149 GETIMPORT                        R22 K36 [task.delay]
+      151 MOVE                             R23 R21
+      152 MOVE                             R24 R18
+      153 CALL                             R22 2 0
+      154 GETIMPORT                        R22 K38 [coroutine.yield]
+      156 CALL                             R22 0 0
+      157 JUMPBACK                         ; [-27]
+      158 JUMPIFNOTEQKNIL                  R16 ; [+5]
+      160 GETTABLEKS                       R21 R20 K26 ["status"]
+      162 JUMPIFNOTEQKS                    R21 K27 ["Running"] ; [+41]
+      164 GETUPVAL                         R21 5
+      165 GETTABLEKS                       R21 R21 K39 ["cancelAutoSetup"]
+      167 MOVE                             R22 R11
+      168 CALL                             R21 1 0
+      169 GETTABLEKS                       R21 R2 K15 ["onFailure"]
+      171 GETIMPORT                        R23 K8 [os.clock]
+      173 CALL                             R23 0 1
+      174 SUB                              R22 R23 R6
+      175 MOVE                             R23 R10
+      176 LOADK                            R24 K10 [""]
+      177 CALL                             R21 3 0
+      178 JUMPIFEQKNIL                     R16 ; [+10]
+      180 GETIMPORT                        R21 K18 [error]
+      182 LOADK                            R22 K40 ["AvatarAutoSetup: engine reported %*"]
+      183 MOVE                             R24 R16
+      184 NAMECALL                         R22 R22 K20 ["format"]
+      186 CALL                             R22 2 1
+      187 LOADN                            R23 0
+      188 CALL                             R21 2 0
+      189 DIVK                             R23 R13 K42 [60]
+      190 ADDK                             R22 R23 K41 [0.5]
+      191 FASTCALL1                        MATH_FLOOR R22 ; [+2]
+      192 GETIMPORT                        R21 K45 [math.floor]
+      194 CALL                             R21 1 1
+      195 GETIMPORT                        R22 K18 [error]
+      197 LOADK                            R23 K46 ["AvatarAutoSetup: auto-setup timed out (no progress for %* min)"]
+      198 MOVE                             R25 R21
+      199 NAMECALL                         R23 R23 K20 ["format"]
+      201 CALL                             R23 2 1
+      202 LOADN                            R24 0
+      203 CALL                             R22 2 0
+      204 GETTABLEKS                       R21 R20 K26 ["status"]
+      206 JUMPIFNOTEQKS                    R21 K47 ["Failed"] ; [+20]
+      208 GETTABLEKS                       R21 R2 K15 ["onFailure"]
+      210 GETIMPORT                        R23 K8 [os.clock]
+      212 CALL                             R23 0 1
+      213 SUB                              R22 R23 R6
+      214 MOVE                             R23 R10
+      215 LOADK                            R24 K10 [""]
+      216 CALL                             R21 3 0
+      217 GETIMPORT                        R21 K18 [error]
+      219 LOADK                            R22 K48 ["AvatarAutoSetup: engine call failed: %*"]
+      220 GETTABLEKS                       R24 R20 K17 ["error"]
+      222 NAMECALL                         R22 R22 K20 ["format"]
+      224 CALL                             R22 2 1
+      225 LOADN                            R23 0
+      226 CALL                             R21 2 0
+      227 GETTABLEKS                       R21 R20 K0 ["model"]
+      229 GETUPVAL                         R22 7
+      230 GETTABLEKS                       R22 R22 K49 ["addAnimateScript"]
+      232 MOVE                             R23 R21
+      233 CALL                             R22 1 0
+      234 GETUPVAL                         R22 8
+      235 LOADK                            R24 K50 ["AvatarAutoSetup"]
+      236 LOADK                            R25 K51 ["Avatar Auto Setup"]
+      237 NAMECALL                         R22 R22 K52 ["TryBeginRecording"]
+      239 CALL                             R22 3 1
+      240 LOADK                            R23 K53 ["%*_autosetup"]
+      241 GETTABLEKS                       R25 R1 K54 ["Name"]
+      243 NAMECALL                         R23 R23 K20 ["format"]
+      245 CALL                             R23 2 1
+      246 SETTABLEKS                       R23 R21 K54 ["Name"]
+      248 GETTABLEKS                       R23 R21 K55 ["Parent"]
+      250 JUMPIFNOTEQKNIL                  R23 ; [+4]
+      252 GETUPVAL                         R23 9
+      253 SETTABLEKS                       R23 R21 K55 ["Parent"]
+      255 GETUPVAL                         R23 7
+      256 GETTABLEKS                       R23 R23 K56 ["setPivotOffset"]
+      258 MOVE                             R24 R21
+      259 CALL                             R23 1 0
+      260 GETUPVAL                         R23 7
+      261 GETTABLEKS                       R23 R23 K57 ["positionInWorkspace"]
+      263 MOVE                             R24 R21
+      264 MOVE                             R25 R1
+      265 CALL                             R23 2 0
+      266 JUMPIFEQKNIL                     R22 ; [+8]
+      268 GETUPVAL                         R23 8
+      269 MOVE                             R25 R22
+      270 GETIMPORT                        R26 K61 [Enum.FinishRecordingOperation.Commit]
+      272 NAMECALL                         R23 R23 K62 ["FinishRecording"]
+      274 CALL                             R23 3 0
+      275 GETTABLEKS                       R23 R2 K63 ["onFinish"]
+      277 GETIMPORT                        R25 K8 [os.clock]
+      279 CALL                             R25 0 1
+      280 SUB                              R24 R25 R6
+      281 MOVE                             R25 R10
+      282 LOADK                            R26 K10 [""]
+      283 CALL                             R23 3 0
+      284 CLOSEUPVALS                      R10
+      285 RETURN                           R21 1
 
 PROTO_13:
         0 GETUPVAL                         R1 0

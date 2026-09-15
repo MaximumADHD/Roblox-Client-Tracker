@@ -42,78 +42,76 @@ PROTO_4:
         5 GETTABLEKS                       R2 R2 K1 ["numTiles"]
         7 LOADN                            R3 1
         8 FORNPREP                         R2
-        9 LOADK                            R6 K2 ["Tile%*"]
-       10 MOVE                             R8 R4
-       11 NAMECALL                         R6 R6 K3 ["format"]
-       13 CALL                             R6 2 1
-       14 MOVE                             R5 R6
-       15 GETUPVAL                         R6 0
-       16 GETTABLEKS                       R6 R6 K4 ["createElement"]
-       18 GETUPVAL                         R7 1
-       19 DUPTABLE                         R8 K10 [{"Title", "BackgroundColor", "Image", "LayoutOrder", "OnAbsoluteSizeChanged"}]
-       20 LOADK                            R10 K11 ["Category %*"]
-       21 MOVE                             R12 R4
-       22 NAMECALL                         R10 R10 K3 ["format"]
-       24 CALL                             R10 2 1
-       25 MOVE                             R9 R10
-       26 SETTABLEKS                       R9 R8 K5 ["Title"]
-       28 GETUPVAL                         R10 2
-       29 GETTABLE                         R9 R10 R4
-       30 SETTABLEKS                       R9 R8 K6 ["BackgroundColor"]
-       32 GETUPVAL                         R9 3
-       33 GETTABLEKS                       R9 R9 K12 ["constructAssetThumbnailUrl"]
-       35 GETUPVAL                         R11 4
-       36 GETIMPORT                        R12 K15 [Random.new]
-       38 CALL                             R12 0 1
-       39 LOADN                            R14 1
-       40 LENGTH                           R15 R11
-       41 NAMECALL                         R12 R12 K16 ["NextInteger"]
-       43 CALL                             R12 3 1
-       44 GETTABLE                         R10 R11 R12
-       45 GETUPVAL                         R11 5
-       46 GETUPVAL                         R12 5
-       47 CALL                             R9 3 1
-       48 SETTABLEKS                       R9 R8 K7 ["Image"]
-       50 SETTABLEKS                       R4 R8 K8 ["LayoutOrder"]
-       52 GETTABLEKS                       R9 R0 K17 ["setMaxTileHeight"]
-       54 SETTABLEKS                       R9 R8 K9 ["OnAbsoluteSizeChanged"]
-       56 CALL                             R6 2 1
-       57 SETTABLE                         R6 R1 R5
-       58 FORNLOOP                         R2
-       59 GETUPVAL                         R2 0
-       60 GETTABLEKS                       R2 R2 K4 ["createElement"]
-       62 GETUPVAL                         R3 6
-       63 DUPTABLE                         R4 K22 [{"AutomaticSize", "CutOffs", "ItemHeight", "Size"}]
-       64 GETIMPORT                        R5 K25 [Enum.AutomaticSize.Y]
-       66 SETTABLEKS                       R5 R4 K18 ["AutomaticSize"]
-       68 NEWTABLE                         R5 0 3
-       70 DUPTABLE                         R6 K30 [{["ColumnCount"] = 1, ["MinWidth"] = 0}]
-       71 DUPTABLE                         R7 K32 [{["ColumnCount"] = 2, ["MinWidth"]}]
-       72 GETTABLEKS                       R9 R0 K0 ["props"]
-       74 GETTABLEKS                       R9 R9 K34 ["tileWidth"]
-       76 MULK                             R8 R9 K33 [3]
-       77 SETTABLEKS                       R8 R7 K28 ["MinWidth"]
-       79 DUPTABLE                         R8 K35 [{["ColumnCount"] = 3, ["MinWidth"]}]
-       80 GETTABLEKS                       R10 R0 K0 ["props"]
-       82 GETTABLEKS                       R10 R10 K34 ["tileWidth"]
-       84 MULK                             R9 R10 K36 [8]
-       85 SETTABLEKS                       R9 R8 K28 ["MinWidth"]
-       87 SETLIST                          R5 R6 3 [1]
-       89 SETTABLEKS                       R5 R4 K19 ["CutOffs"]
-       91 GETIMPORT                        R5 K38 [UDim.new]
-       93 LOADN                            R6 0
-       94 GETTABLEKS                       R7 R0 K39 ["state"]
-       96 GETTABLEKS                       R7 R7 K40 ["maxTileHeight"]
-       98 CALL                             R5 2 1
-       99 SETTABLEKS                       R5 R4 K20 ["ItemHeight"]
-      101 GETIMPORT                        R5 K43 [UDim2.fromScale]
-      103 LOADN                            R6 1
-      104 LOADN                            R7 0
-      105 CALL                             R5 2 1
-      106 SETTABLEKS                       R5 R4 K21 ["Size"]
-      108 MOVE                             R5 R1
-      109 CALL                             R2 3 -1
-      110 RETURN                           R2 -1
+        9 LOADK                            R5 K2 ["Tile%*"]
+       10 MOVE                             R7 R4
+       11 NAMECALL                         R5 R5 K3 ["format"]
+       13 CALL                             R5 2 1
+       14 GETUPVAL                         R6 0
+       15 GETTABLEKS                       R6 R6 K4 ["createElement"]
+       17 GETUPVAL                         R7 1
+       18 DUPTABLE                         R8 K10 [{"Title", "BackgroundColor", "Image", "LayoutOrder", "OnAbsoluteSizeChanged"}]
+       19 LOADK                            R9 K11 ["Category %*"]
+       20 MOVE                             R11 R4
+       21 NAMECALL                         R9 R9 K3 ["format"]
+       23 CALL                             R9 2 1
+       24 SETTABLEKS                       R9 R8 K5 ["Title"]
+       26 GETUPVAL                         R10 2
+       27 GETTABLE                         R9 R10 R4
+       28 SETTABLEKS                       R9 R8 K6 ["BackgroundColor"]
+       30 GETUPVAL                         R9 3
+       31 GETTABLEKS                       R9 R9 K12 ["constructAssetThumbnailUrl"]
+       33 GETUPVAL                         R11 4
+       34 GETIMPORT                        R12 K15 [Random.new]
+       36 CALL                             R12 0 1
+       37 LOADN                            R14 1
+       38 LENGTH                           R15 R11
+       39 NAMECALL                         R12 R12 K16 ["NextInteger"]
+       41 CALL                             R12 3 1
+       42 GETTABLE                         R10 R11 R12
+       43 GETUPVAL                         R11 5
+       44 GETUPVAL                         R12 5
+       45 CALL                             R9 3 1
+       46 SETTABLEKS                       R9 R8 K7 ["Image"]
+       48 SETTABLEKS                       R4 R8 K8 ["LayoutOrder"]
+       50 GETTABLEKS                       R9 R0 K17 ["setMaxTileHeight"]
+       52 SETTABLEKS                       R9 R8 K9 ["OnAbsoluteSizeChanged"]
+       54 CALL                             R6 2 1
+       55 SETTABLE                         R6 R1 R5
+       56 FORNLOOP                         R2
+       57 GETUPVAL                         R2 0
+       58 GETTABLEKS                       R2 R2 K4 ["createElement"]
+       60 GETUPVAL                         R3 6
+       61 DUPTABLE                         R4 K22 [{"AutomaticSize", "CutOffs", "ItemHeight", "Size"}]
+       62 GETIMPORT                        R5 K25 [Enum.AutomaticSize.Y]
+       64 SETTABLEKS                       R5 R4 K18 ["AutomaticSize"]
+       66 NEWTABLE                         R5 0 3
+       68 DUPTABLE                         R6 K30 [{["ColumnCount"] = 1, ["MinWidth"] = 0}]
+       69 DUPTABLE                         R7 K32 [{["ColumnCount"] = 2, ["MinWidth"]}]
+       70 GETTABLEKS                       R9 R0 K0 ["props"]
+       72 GETTABLEKS                       R9 R9 K34 ["tileWidth"]
+       74 MULK                             R8 R9 K33 [3]
+       75 SETTABLEKS                       R8 R7 K28 ["MinWidth"]
+       77 DUPTABLE                         R8 K35 [{["ColumnCount"] = 3, ["MinWidth"]}]
+       78 GETTABLEKS                       R10 R0 K0 ["props"]
+       80 GETTABLEKS                       R10 R10 K34 ["tileWidth"]
+       82 MULK                             R9 R10 K36 [8]
+       83 SETTABLEKS                       R9 R8 K28 ["MinWidth"]
+       85 SETLIST                          R5 R6 3 [1]
+       87 SETTABLEKS                       R5 R4 K19 ["CutOffs"]
+       89 GETIMPORT                        R5 K38 [UDim.new]
+       91 LOADN                            R6 0
+       92 GETTABLEKS                       R7 R0 K39 ["state"]
+       94 GETTABLEKS                       R7 R7 K40 ["maxTileHeight"]
+       96 CALL                             R5 2 1
+       97 SETTABLEKS                       R5 R4 K20 ["ItemHeight"]
+       99 GETIMPORT                        R5 K43 [UDim2.fromScale]
+      101 LOADN                            R6 1
+      102 LOADN                            R7 0
+      103 CALL                             R5 2 1
+      104 SETTABLEKS                       R5 R4 K21 ["Size"]
+      106 MOVE                             R5 R1
+      107 CALL                             R2 3 -1
+      108 RETURN                           R2 -1
 
 PROTO_5:
         0 GETIMPORT                        R1 K1 [print]

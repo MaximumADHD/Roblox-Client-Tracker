@@ -72,7 +72,7 @@ PROTO_4:
         7 MOVE                             R4 R0
         8 GETIMPORT                        R3 K2 [typeof]
        10 CALL                             R3 1 1
-       11 JUMPIFNOTEQKS                    R3 K3 ["Instance"] ; [+89]
+       11 JUMPIFNOTEQKS                    R3 K3 ["Instance"] ; [+88]
        13 GETTABLEKS                       R3 R1 K4 ["options"]
        15 GETTABLEKS                       R3 R3 K5 ["ignoreAccessories"]
        17 JUMPIFNOT                        R3 ; [+7]
@@ -98,178 +98,177 @@ PROTO_4:
        44 GETTABLEKS                       R4 R1 K8 ["state"]
        46 GETTABLEKS                       R4 R4 K10 ["pendingInstances"]
        48 GETTABLE                         R3 R4 R0
-       49 JUMPIFNOT                        R3 ; [+7]
-       50 LOADK                            R5 K11 ["inst-%*"]
-       51 MOVE                             R7 R3
-       52 NAMECALL                         R5 R5 K12 ["format"]
-       54 CALL                             R5 2 1
-       55 MOVE                             R4 R5
-       56 RETURN                           R4 1
-       57 GETTABLEKS                       R5 R1 K8 ["state"]
-       59 GETTABLEKS                       R5 R5 K13 ["lastInstanceId"]
-       61 ADDK                             R4 R5 K0 [1]
-       62 GETTABLEKS                       R5 R1 K8 ["state"]
-       64 SETTABLEKS                       R4 R5 K13 ["lastInstanceId"]
-       66 GETTABLEKS                       R5 R1 K8 ["state"]
-       68 GETTABLEKS                       R5 R5 K10 ["pendingInstances"]
-       70 SETTABLE                         R4 R5 R0
-       71 GETUPVAL                         R5 1
-       72 GETTABLEKS                       R5 R5 K14 ["serializeInstanceRaw"]
-       74 MOVE                             R6 R0
-       75 MOVE                             R7 R1
-       76 MOVE                             R8 R2
-       77 CALL                             R5 3 1
-       78 JUMPIF                           R5 ; [+2]
-       79 LOADNIL                          R6
-       80 RETURN                           R6 1
-       81 NEWTABLE                         R6 0 0
-       83 MOVE                             R7 R5
-       84 LOADNIL                          R8
-       85 LOADNIL                          R9
-       86 FORGPREP                         R7
-       87 GETUPVAL                         R14 2
-       88 GETTABLE                         R13 R14 R11
-       89 OR                               R12 R13 R11
-       90 GETUPVAL                         R14 2
-       91 GETTABLE                         R13 R14 R10
-       92 JUMPIFNOT                        R13 ; [+4]
-       93 GETUPVAL                         R14 2
-       94 GETTABLE                         R13 R14 R10
-       95 SETTABLE                         R12 R6 R13
-       96 JUMP                             ; [+1]
-       97 SETTABLE                         R12 R6 R10
-       98 FORGLOOP                         R7 2 ; [-12]
-      100 RETURN                           R6 1
-      101 FASTCALL1                        TYPEOF R0 ; [+3]
-      102 MOVE                             R4 R0
-      103 GETIMPORT                        R3 K2 [typeof]
-      105 CALL                             R3 1 1
-      106 JUMPIFNOTEQKS                    R3 K15 ["EnumItem"] ; [+4]
-      108 GETTABLEKS                       R3 R0 K16 ["Value"]
-      110 RETURN                           R3 1
-      111 FASTCALL1                        TYPEOF R0 ; [+3]
-      112 MOVE                             R4 R0
-      113 GETIMPORT                        R3 K2 [typeof]
-      115 CALL                             R3 1 1
-      116 JUMPIFNOTEQKS                    R3 K17 ["BrickColor"] ; [+4]
-      118 GETTABLEKS                       R3 R0 K18 ["Number"]
-      120 RETURN                           R3 1
-      121 FASTCALL1                        TYPEOF R0 ; [+3]
-      122 MOVE                             R4 R0
-      123 GETIMPORT                        R3 K2 [typeof]
-      125 CALL                             R3 1 1
-      126 JUMPIFNOTEQKS                    R3 K19 ["Color3"] ; [+16]
-      128 GETUPVAL                         R3 1
-      129 GETTABLEKS                       R3 R3 K20 ["cutListPrecision"]
-      131 NEWTABLE                         R4 0 3
-      133 GETTABLEKS                       R5 R0 K21 ["R"]
-      135 GETTABLEKS                       R6 R0 K22 ["G"]
-      137 GETTABLEKS                       R7 R0 K23 ["B"]
-      139 SETLIST                          R4 R5 3 [1]
-      141 CALL                             R3 1 -1
-      142 RETURN                           R3 -1
-      143 FASTCALL1                        TYPEOF R0 ; [+3]
-      144 MOVE                             R4 R0
-      145 GETIMPORT                        R3 K2 [typeof]
-      147 CALL                             R3 1 1
-      148 JUMPIFNOTEQKS                    R3 K24 ["CFrame"] ; [+71]
-      150 GETTABLEKS                       R3 R0 K25 ["LookVector"]
-      152 GETTABLEKS                       R6 R3 K26 ["X"]
-      154 MINUS                            R5 R6
-      155 GETTABLEKS                       R7 R3 K27 ["Z"]
-      157 MINUS                            R6 R7
-      158 FASTCALL2                        MATH_ATAN2 R5 R6 ; [+3]
-      160 GETIMPORT                        R4 K30 [math.atan2]
-      162 CALL                             R4 2 1
-      163 GETTABLEKS                       R8 R3 K26 ["X"]
-      165 POWK                             R7 R8 K32 [2]
-      166 GETTABLEKS                       R9 R3 K27 ["Z"]
-      168 POWK                             R8 R9 K32 [2]
-      169 ADD                              R6 R7 R8
-      170 POWK                             R5 R6 K31 [0.5]
-      171 GETTABLEKS                       R7 R3 K33 ["Y"]
-      173 FASTCALL2                        MATH_ATAN2 R7 R5 ; [+4]
-      175 MOVE                             R8 R5
-      176 GETIMPORT                        R6 K30 [math.atan2]
-      178 CALL                             R6 2 1
-      179 GETIMPORT                        R9 K35 [CFrame.Angles]
-      181 LOADN                            R10 0
-      182 MOVE                             R11 R4
-      183 LOADN                            R12 0
-      184 CALL                             R9 3 1
-      185 GETIMPORT                        R10 K35 [CFrame.Angles]
-      187 MOVE                             R11 R6
-      188 LOADN                            R12 0
-      189 LOADN                            R13 0
-      190 CALL                             R10 3 1
-      191 MUL                              R8 R9 R10
-      192 GETTABLEKS                       R9 R0 K36 ["Position"]
-      194 ADD                              R7 R8 R9
-      195 NAMECALL                         R9 R7 K37 ["Inverse"]
-      197 CALL                             R9 1 1
-      198 MUL                              R8 R9 R0
-      199 NAMECALL                         R8 R8 K38 ["ToEulerAnglesXYZ"]
-      201 CALL                             R8 1 3
-      202 GETUPVAL                         R11 1
-      203 GETTABLEKS                       R11 R11 K20 ["cutListPrecision"]
-      205 NEWTABLE                         R12 0 6
-      207 GETTABLEKS                       R13 R0 K26 ["X"]
-      209 GETTABLEKS                       R14 R0 K33 ["Y"]
-      211 GETTABLEKS                       R15 R0 K27 ["Z"]
-      213 DIVK                             R16 R4 K39 [3.14159265358979]
-      214 DIVK                             R17 R10 K39 [3.14159265358979]
-      215 DIVK                             R18 R6 K40 [1.5707963267949]
-      216 SETLIST                          R12 R13 6 [1]
-      218 CALL                             R11 1 -1
-      219 RETURN                           R11 -1
-      220 FASTCALL1                        TYPEOF R0 ; [+3]
-      221 MOVE                             R4 R0
-      222 GETIMPORT                        R3 K2 [typeof]
-      224 CALL                             R3 1 1
-      225 JUMPIFNOTEQKS                    R3 K41 ["Vector3"] ; [+16]
-      227 GETUPVAL                         R3 1
-      228 GETTABLEKS                       R3 R3 K20 ["cutListPrecision"]
-      230 NEWTABLE                         R4 0 3
-      232 GETTABLEKS                       R5 R0 K26 ["X"]
-      234 GETTABLEKS                       R6 R0 K33 ["Y"]
-      236 GETTABLEKS                       R7 R0 K27 ["Z"]
-      238 SETLIST                          R4 R5 3 [1]
-      240 CALL                             R3 1 -1
-      241 RETURN                           R3 -1
-      242 FASTCALL1                        TYPEOF R0 ; [+3]
-      243 MOVE                             R4 R0
-      244 GETIMPORT                        R3 K2 [typeof]
-      246 CALL                             R3 1 1
-      247 JUMPIFNOTEQKS                    R3 K42 ["boolean"] ; [+6]
-      249 JUMPIFNOT                        R0 ; [+2]
-      250 LOADN                            R3 1
-      251 RETURN                           R3 1
-      252 LOADN                            R3 0
-      253 RETURN                           R3 1
-      254 FASTCALL1                        TYPEOF R0 ; [+3]
-      255 MOVE                             R4 R0
-      256 GETIMPORT                        R3 K2 [typeof]
-      258 CALL                             R3 1 1
-      259 JUMPIFNOTEQKS                    R3 K43 ["number"] ; [+7]
-      261 GETUPVAL                         R3 1
-      262 GETTABLEKS                       R3 R3 K44 ["cutPrecision"]
-      264 MOVE                             R4 R0
-      265 CALL                             R3 1 -1
-      266 RETURN                           R3 -1
-      267 FASTCALL1                        TYPE R0 ; [+3]
-      268 MOVE                             R4 R0
-      269 GETIMPORT                        R3 K46 [type]
-      271 CALL                             R3 1 1
-      272 JUMPIFNOTEQKS                    R3 K47 ["string"] ; [+10]
-      274 GETUPVAL                         R3 1
-      275 GETTABLEKS                       R3 R3 K48 ["canEncodeStringSafely"]
-      277 MOVE                             R4 R0
-      278 CALL                             R3 1 1
-      279 JUMPIFNOT                        R3 ; [+1]
-      280 RETURN                           R0 1
-      281 LOADNIL                          R3
-      282 RETURN                           R3 1
-      283 RETURN                           R0 1
+       49 JUMPIFNOT                        R3 ; [+6]
+       50 LOADK                            R4 K11 ["inst-%*"]
+       51 MOVE                             R6 R3
+       52 NAMECALL                         R4 R4 K12 ["format"]
+       54 CALL                             R4 2 1
+       55 RETURN                           R4 1
+       56 GETTABLEKS                       R5 R1 K8 ["state"]
+       58 GETTABLEKS                       R5 R5 K13 ["lastInstanceId"]
+       60 ADDK                             R4 R5 K0 [1]
+       61 GETTABLEKS                       R5 R1 K8 ["state"]
+       63 SETTABLEKS                       R4 R5 K13 ["lastInstanceId"]
+       65 GETTABLEKS                       R5 R1 K8 ["state"]
+       67 GETTABLEKS                       R5 R5 K10 ["pendingInstances"]
+       69 SETTABLE                         R4 R5 R0
+       70 GETUPVAL                         R5 1
+       71 GETTABLEKS                       R5 R5 K14 ["serializeInstanceRaw"]
+       73 MOVE                             R6 R0
+       74 MOVE                             R7 R1
+       75 MOVE                             R8 R2
+       76 CALL                             R5 3 1
+       77 JUMPIF                           R5 ; [+2]
+       78 LOADNIL                          R6
+       79 RETURN                           R6 1
+       80 NEWTABLE                         R6 0 0
+       82 MOVE                             R7 R5
+       83 LOADNIL                          R8
+       84 LOADNIL                          R9
+       85 FORGPREP                         R7
+       86 GETUPVAL                         R14 2
+       87 GETTABLE                         R13 R14 R11
+       88 OR                               R12 R13 R11
+       89 GETUPVAL                         R14 2
+       90 GETTABLE                         R13 R14 R10
+       91 JUMPIFNOT                        R13 ; [+4]
+       92 GETUPVAL                         R14 2
+       93 GETTABLE                         R13 R14 R10
+       94 SETTABLE                         R12 R6 R13
+       95 JUMP                             ; [+1]
+       96 SETTABLE                         R12 R6 R10
+       97 FORGLOOP                         R7 2 ; [-12]
+       99 RETURN                           R6 1
+      100 FASTCALL1                        TYPEOF R0 ; [+3]
+      101 MOVE                             R4 R0
+      102 GETIMPORT                        R3 K2 [typeof]
+      104 CALL                             R3 1 1
+      105 JUMPIFNOTEQKS                    R3 K15 ["EnumItem"] ; [+4]
+      107 GETTABLEKS                       R3 R0 K16 ["Value"]
+      109 RETURN                           R3 1
+      110 FASTCALL1                        TYPEOF R0 ; [+3]
+      111 MOVE                             R4 R0
+      112 GETIMPORT                        R3 K2 [typeof]
+      114 CALL                             R3 1 1
+      115 JUMPIFNOTEQKS                    R3 K17 ["BrickColor"] ; [+4]
+      117 GETTABLEKS                       R3 R0 K18 ["Number"]
+      119 RETURN                           R3 1
+      120 FASTCALL1                        TYPEOF R0 ; [+3]
+      121 MOVE                             R4 R0
+      122 GETIMPORT                        R3 K2 [typeof]
+      124 CALL                             R3 1 1
+      125 JUMPIFNOTEQKS                    R3 K19 ["Color3"] ; [+16]
+      127 GETUPVAL                         R3 1
+      128 GETTABLEKS                       R3 R3 K20 ["cutListPrecision"]
+      130 NEWTABLE                         R4 0 3
+      132 GETTABLEKS                       R5 R0 K21 ["R"]
+      134 GETTABLEKS                       R6 R0 K22 ["G"]
+      136 GETTABLEKS                       R7 R0 K23 ["B"]
+      138 SETLIST                          R4 R5 3 [1]
+      140 CALL                             R3 1 -1
+      141 RETURN                           R3 -1
+      142 FASTCALL1                        TYPEOF R0 ; [+3]
+      143 MOVE                             R4 R0
+      144 GETIMPORT                        R3 K2 [typeof]
+      146 CALL                             R3 1 1
+      147 JUMPIFNOTEQKS                    R3 K24 ["CFrame"] ; [+71]
+      149 GETTABLEKS                       R3 R0 K25 ["LookVector"]
+      151 GETTABLEKS                       R6 R3 K26 ["X"]
+      153 MINUS                            R5 R6
+      154 GETTABLEKS                       R7 R3 K27 ["Z"]
+      156 MINUS                            R6 R7
+      157 FASTCALL2                        MATH_ATAN2 R5 R6 ; [+3]
+      159 GETIMPORT                        R4 K30 [math.atan2]
+      161 CALL                             R4 2 1
+      162 GETTABLEKS                       R8 R3 K26 ["X"]
+      164 POWK                             R7 R8 K32 [2]
+      165 GETTABLEKS                       R9 R3 K27 ["Z"]
+      167 POWK                             R8 R9 K32 [2]
+      168 ADD                              R6 R7 R8
+      169 POWK                             R5 R6 K31 [0.5]
+      170 GETTABLEKS                       R7 R3 K33 ["Y"]
+      172 FASTCALL2                        MATH_ATAN2 R7 R5 ; [+4]
+      174 MOVE                             R8 R5
+      175 GETIMPORT                        R6 K30 [math.atan2]
+      177 CALL                             R6 2 1
+      178 GETIMPORT                        R9 K35 [CFrame.Angles]
+      180 LOADN                            R10 0
+      181 MOVE                             R11 R4
+      182 LOADN                            R12 0
+      183 CALL                             R9 3 1
+      184 GETIMPORT                        R10 K35 [CFrame.Angles]
+      186 MOVE                             R11 R6
+      187 LOADN                            R12 0
+      188 LOADN                            R13 0
+      189 CALL                             R10 3 1
+      190 MUL                              R8 R9 R10
+      191 GETTABLEKS                       R9 R0 K36 ["Position"]
+      193 ADD                              R7 R8 R9
+      194 NAMECALL                         R9 R7 K37 ["Inverse"]
+      196 CALL                             R9 1 1
+      197 MUL                              R8 R9 R0
+      198 NAMECALL                         R8 R8 K38 ["ToEulerAnglesXYZ"]
+      200 CALL                             R8 1 3
+      201 GETUPVAL                         R11 1
+      202 GETTABLEKS                       R11 R11 K20 ["cutListPrecision"]
+      204 NEWTABLE                         R12 0 6
+      206 GETTABLEKS                       R13 R0 K26 ["X"]
+      208 GETTABLEKS                       R14 R0 K33 ["Y"]
+      210 GETTABLEKS                       R15 R0 K27 ["Z"]
+      212 DIVK                             R16 R4 K39 [3.14159265358979]
+      213 DIVK                             R17 R10 K39 [3.14159265358979]
+      214 DIVK                             R18 R6 K40 [1.5707963267949]
+      215 SETLIST                          R12 R13 6 [1]
+      217 CALL                             R11 1 -1
+      218 RETURN                           R11 -1
+      219 FASTCALL1                        TYPEOF R0 ; [+3]
+      220 MOVE                             R4 R0
+      221 GETIMPORT                        R3 K2 [typeof]
+      223 CALL                             R3 1 1
+      224 JUMPIFNOTEQKS                    R3 K41 ["Vector3"] ; [+16]
+      226 GETUPVAL                         R3 1
+      227 GETTABLEKS                       R3 R3 K20 ["cutListPrecision"]
+      229 NEWTABLE                         R4 0 3
+      231 GETTABLEKS                       R5 R0 K26 ["X"]
+      233 GETTABLEKS                       R6 R0 K33 ["Y"]
+      235 GETTABLEKS                       R7 R0 K27 ["Z"]
+      237 SETLIST                          R4 R5 3 [1]
+      239 CALL                             R3 1 -1
+      240 RETURN                           R3 -1
+      241 FASTCALL1                        TYPEOF R0 ; [+3]
+      242 MOVE                             R4 R0
+      243 GETIMPORT                        R3 K2 [typeof]
+      245 CALL                             R3 1 1
+      246 JUMPIFNOTEQKS                    R3 K42 ["boolean"] ; [+6]
+      248 JUMPIFNOT                        R0 ; [+2]
+      249 LOADN                            R3 1
+      250 RETURN                           R3 1
+      251 LOADN                            R3 0
+      252 RETURN                           R3 1
+      253 FASTCALL1                        TYPEOF R0 ; [+3]
+      254 MOVE                             R4 R0
+      255 GETIMPORT                        R3 K2 [typeof]
+      257 CALL                             R3 1 1
+      258 JUMPIFNOTEQKS                    R3 K43 ["number"] ; [+7]
+      260 GETUPVAL                         R3 1
+      261 GETTABLEKS                       R3 R3 K44 ["cutPrecision"]
+      263 MOVE                             R4 R0
+      264 CALL                             R3 1 -1
+      265 RETURN                           R3 -1
+      266 FASTCALL1                        TYPE R0 ; [+3]
+      267 MOVE                             R4 R0
+      268 GETIMPORT                        R3 K46 [type]
+      270 CALL                             R3 1 1
+      271 JUMPIFNOTEQKS                    R3 K47 ["string"] ; [+10]
+      273 GETUPVAL                         R3 1
+      274 GETTABLEKS                       R3 R3 K48 ["canEncodeStringSafely"]
+      276 MOVE                             R4 R0
+      277 CALL                             R3 1 1
+      278 JUMPIFNOT                        R3 ; [+1]
+      279 RETURN                           R0 1
+      280 LOADNIL                          R3
+      281 RETURN                           R3 1
+      282 RETURN                           R0 1
 
 PROTO_5:
         0 GETUPVAL                         R3 0
@@ -1365,72 +1364,71 @@ PROTO_14:
      1299 RETURN                           R3 1
      1300 GETUPVAL                         R3 2
      1301 CALL                             R3 0 1
-     1302 JUMPIFNOT                        R3 ; [+50]
+     1302 JUMPIFNOT                        R3 ; [+49]
      1303 GETTABLEKS                       R3 R1 K53 ["options"]
      1305 GETTABLEKS                       R3 R3 K158 ["globalDebugDifferences"]
-     1307 JUMPIFNOT                        R3 ; [+13]
+     1307 JUMPIFNOT                        R3 ; [+12]
      1308 GETIMPORT                        R3 K160 [warn]
-     1310 LOADK                            R5 K161 ["[CharacterHashUtils] Unrecognized type serialized as leaf: %* (%*)"]
-     1311 GETTABLEKS                       R7 R0 K112 ["ClassName"]
-     1313 NAMECALL                         R8 R0 K162 ["GetFullName"]
-     1315 CALL                             R8 1 1
-     1316 NAMECALL                         R5 R5 K163 ["format"]
-     1318 CALL                             R5 3 1
-     1319 MOVE                             R4 R5
-     1320 CALL                             R3 1 0
-     1321 DUPTABLE                         R3 K164 [{"name", "className", "archivable"}]
-     1322 GETUPVAL                         R4 0
-     1323 GETTABLEKS                       R4 R4 K16 ["serialize"]
-     1325 GETTABLEKS                       R5 R0 K17 ["Name"]
-     1327 MOVE                             R6 R1
-     1328 MOVE                             R7 R2
-     1329 CALL                             R4 3 1
-     1330 SETTABLEKS                       R4 R3 K3 ["name"]
-     1332 GETUPVAL                         R4 0
-     1333 GETTABLEKS                       R4 R4 K16 ["serialize"]
-     1335 GETTABLEKS                       R5 R0 K112 ["ClassName"]
-     1337 MOVE                             R6 R1
-     1338 MOVE                             R7 R2
-     1339 CALL                             R4 3 1
-     1340 SETTABLEKS                       R4 R3 K110 ["className"]
-     1342 GETUPVAL                         R4 0
-     1343 GETTABLEKS                       R4 R4 K16 ["serialize"]
-     1345 GETTABLEKS                       R5 R0 K18 ["Archivable"]
-     1347 MOVE                             R6 R1
-     1348 MOVE                             R7 R2
-     1349 CALL                             R4 3 1
-     1350 SETTABLEKS                       R4 R3 K4 ["archivable"]
-     1352 RETURN                           R3 1
-     1353 DUPTABLE                         R3 K111 [{"name", "className", "archivable", "children"}]
-     1354 GETUPVAL                         R4 0
-     1355 GETTABLEKS                       R4 R4 K16 ["serialize"]
-     1357 GETTABLEKS                       R5 R0 K17 ["Name"]
-     1359 MOVE                             R6 R1
-     1360 MOVE                             R7 R2
-     1361 CALL                             R4 3 1
-     1362 SETTABLEKS                       R4 R3 K3 ["name"]
-     1364 GETUPVAL                         R4 0
-     1365 GETTABLEKS                       R4 R4 K16 ["serialize"]
-     1367 GETTABLEKS                       R5 R0 K112 ["ClassName"]
-     1369 MOVE                             R6 R1
-     1370 MOVE                             R7 R2
-     1371 CALL                             R4 3 1
-     1372 SETTABLEKS                       R4 R3 K110 ["className"]
-     1374 GETUPVAL                         R4 0
-     1375 GETTABLEKS                       R4 R4 K16 ["serialize"]
-     1377 GETTABLEKS                       R5 R0 K18 ["Archivable"]
-     1379 MOVE                             R6 R1
-     1380 MOVE                             R7 R2
-     1381 CALL                             R4 3 1
-     1382 SETTABLEKS                       R4 R3 K4 ["archivable"]
-     1384 GETUPVAL                         R4 0
-     1385 GETTABLEKS                       R4 R4 K30 ["serializeChildren"]
-     1387 MOVE                             R5 R0
-     1388 MOVE                             R6 R1
-     1389 MOVE                             R7 R2
-     1390 CALL                             R4 3 1
-     1391 SETTABLEKS                       R4 R3 K14 ["children"]
-     1393 RETURN                           R3 1
+     1310 LOADK                            R4 K161 ["[CharacterHashUtils] Unrecognized type serialized as leaf: %* (%*)"]
+     1311 GETTABLEKS                       R6 R0 K112 ["ClassName"]
+     1313 NAMECALL                         R7 R0 K162 ["GetFullName"]
+     1315 CALL                             R7 1 1
+     1316 NAMECALL                         R4 R4 K163 ["format"]
+     1318 CALL                             R4 3 1
+     1319 CALL                             R3 1 0
+     1320 DUPTABLE                         R3 K164 [{"name", "className", "archivable"}]
+     1321 GETUPVAL                         R4 0
+     1322 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1324 GETTABLEKS                       R5 R0 K17 ["Name"]
+     1326 MOVE                             R6 R1
+     1327 MOVE                             R7 R2
+     1328 CALL                             R4 3 1
+     1329 SETTABLEKS                       R4 R3 K3 ["name"]
+     1331 GETUPVAL                         R4 0
+     1332 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1334 GETTABLEKS                       R5 R0 K112 ["ClassName"]
+     1336 MOVE                             R6 R1
+     1337 MOVE                             R7 R2
+     1338 CALL                             R4 3 1
+     1339 SETTABLEKS                       R4 R3 K110 ["className"]
+     1341 GETUPVAL                         R4 0
+     1342 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1344 GETTABLEKS                       R5 R0 K18 ["Archivable"]
+     1346 MOVE                             R6 R1
+     1347 MOVE                             R7 R2
+     1348 CALL                             R4 3 1
+     1349 SETTABLEKS                       R4 R3 K4 ["archivable"]
+     1351 RETURN                           R3 1
+     1352 DUPTABLE                         R3 K111 [{"name", "className", "archivable", "children"}]
+     1353 GETUPVAL                         R4 0
+     1354 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1356 GETTABLEKS                       R5 R0 K17 ["Name"]
+     1358 MOVE                             R6 R1
+     1359 MOVE                             R7 R2
+     1360 CALL                             R4 3 1
+     1361 SETTABLEKS                       R4 R3 K3 ["name"]
+     1363 GETUPVAL                         R4 0
+     1364 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1366 GETTABLEKS                       R5 R0 K112 ["ClassName"]
+     1368 MOVE                             R6 R1
+     1369 MOVE                             R7 R2
+     1370 CALL                             R4 3 1
+     1371 SETTABLEKS                       R4 R3 K110 ["className"]
+     1373 GETUPVAL                         R4 0
+     1374 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1376 GETTABLEKS                       R5 R0 K18 ["Archivable"]
+     1378 MOVE                             R6 R1
+     1379 MOVE                             R7 R2
+     1380 CALL                             R4 3 1
+     1381 SETTABLEKS                       R4 R3 K4 ["archivable"]
+     1383 GETUPVAL                         R4 0
+     1384 GETTABLEKS                       R4 R4 K30 ["serializeChildren"]
+     1386 MOVE                             R5 R0
+     1387 MOVE                             R6 R1
+     1388 MOVE                             R7 R2
+     1389 CALL                             R4 3 1
+     1390 SETTABLEKS                       R4 R3 K14 ["children"]
+     1392 RETURN                           R3 1
 
 PROTO_15:
         0 GETTABLEKS                       R3 R0 K0 ["Name"]

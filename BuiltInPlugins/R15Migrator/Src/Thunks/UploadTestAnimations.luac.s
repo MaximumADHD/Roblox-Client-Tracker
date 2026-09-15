@@ -55,22 +55,21 @@ PROTO_3:
        30 CAPTURE                          VAL R7
        31 CAPTURE                          VAL R1
        32 CALL                             R8 1 2
-       33 JUMPIF                           R8 ; [+10]
+       33 JUMPIF                           R8 ; [+9]
        34 GETIMPORT                        R10 K12 [warn]
-       36 LOADK                            R12 K13 ["Upload failed. %*"]
-       37 MOVE                             R14 R9
-       38 NAMECALL                         R12 R12 K14 ["format"]
-       40 CALL                             R12 2 1
-       41 MOVE                             R11 R12
-       42 CALL                             R10 1 0
-       43 RETURN                           R0 0
-       44 GETTABLEKS                       R10 R9 K15 ["AssetId"]
-       46 GETIMPORT                        R11 K17 [print]
-       48 LOADK                            R13 K18 ["rbxassetid://"]
-       49 MOVE                             R14 R10
-       50 CONCAT                           R12 R13 R14
-       51 CALL                             R11 1 0
-       52 RETURN                           R0 0
+       36 LOADK                            R11 K13 ["Upload failed. %*"]
+       37 MOVE                             R13 R9
+       38 NAMECALL                         R11 R11 K14 ["format"]
+       40 CALL                             R11 2 1
+       41 CALL                             R10 1 0
+       42 RETURN                           R0 0
+       43 GETTABLEKS                       R10 R9 K15 ["AssetId"]
+       45 GETIMPORT                        R11 K17 [print]
+       47 LOADK                            R13 K18 ["rbxassetid://"]
+       48 MOVE                             R14 R10
+       49 CONCAT                           R12 R13 R14
+       50 CALL                             R11 1 0
+       51 RETURN                           R0 0
 
 PROTO_4:
         0 NAMECALL                         R1 R0 K0 ["getState"]

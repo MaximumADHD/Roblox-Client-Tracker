@@ -12,21 +12,20 @@ PROTO_1:
         1 GETTABLEKS                       R3 R3 K0 ["ASSET_TYPE_TO_ACCESSORY_TYPE"]
         3 GETTABLEKS                       R4 R0 K1 ["AssetType"]
         5 GETTABLE                         R2 R3 R4
-        6 LOADK                            R4 K2 ["No known accessory type for %*"]
-        7 GETTABLEKS                       R6 R0 K1 ["AssetType"]
-        9 NAMECALL                         R4 R4 K3 ["format"]
-       11 CALL                             R4 2 1
-       12 MOVE                             R3 R4
-       13 FASTCALL2                        ASSERT R2 R3 ; [+3]
-       15 GETIMPORT                        R1 K5 [assert]
-       17 CALL                             R1 2 1
-       18 DUPTABLE                         R2 K9 [{"AccessoryType", "AssetId", "Order"}]
-       19 SETTABLEKS                       R1 R2 K6 ["AccessoryType"]
-       21 GETTABLEKS                       R3 R0 K7 ["AssetId"]
-       23 SETTABLEKS                       R3 R2 K7 ["AssetId"]
-       25 GETTABLEKS                       R3 R0 K8 ["Order"]
-       27 SETTABLEKS                       R3 R2 K8 ["Order"]
-       29 RETURN                           R2 1
+        6 LOADK                            R3 K2 ["No known accessory type for %*"]
+        7 GETTABLEKS                       R5 R0 K1 ["AssetType"]
+        9 NAMECALL                         R3 R3 K3 ["format"]
+       11 CALL                             R3 2 1
+       12 FASTCALL2                        ASSERT R2 R3 ; [+3]
+       14 GETIMPORT                        R1 K5 [assert]
+       16 CALL                             R1 2 1
+       17 DUPTABLE                         R2 K9 [{"AccessoryType", "AssetId", "Order"}]
+       18 SETTABLEKS                       R1 R2 K6 ["AccessoryType"]
+       20 GETTABLEKS                       R3 R0 K7 ["AssetId"]
+       22 SETTABLEKS                       R3 R2 K7 ["AssetId"]
+       24 GETTABLEKS                       R3 R0 K8 ["Order"]
+       26 SETTABLEKS                       R3 R2 K8 ["Order"]
+       28 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0

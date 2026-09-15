@@ -778,74 +778,73 @@ PROTO_29:
       541 JUMPIFEQKN                       R22 K113 [2] ; [+2]
       543 LOADB                            R21 0 +1
       544 LOADB                            R21 1
-      545 LOADK                            R23 K114 ["Expected 2 signals for spinbox focus actions, got %* signals instead"]
-      546 LENGTH                           R25 R19
-      547 NAMECALL                         R23 R23 K115 ["format"]
-      549 CALL                             R23 2 1
-      550 MOVE                             R22 R23
-      551 FASTCALL2                        ASSERT R21 R22 ; [+3]
-      553 GETIMPORT                        R20 K117 [assert]
-      555 CALL                             R20 2 0
-      556 GETTABLEN                        R20 R19 1
-      557 GETTABLEN                        R21 R19 2
-      558 GETTABLEKS                       R23 R0 K43 ["connections"]
-      560 NEWCLOSURE                       R26 P16
-      561 CAPTURE                          VAL R0
-      562 CAPTURE                          UPVAL U4
-      563 NAMECALL                         R24 R20 K68 ["Connect"]
-      565 CALL                             R24 2 -1
-      566 FASTCALL                         TABLE_INSERT ; [+2]
-      567 GETIMPORT                        R22 K71 [table.insert]
-      569 CALL                             R22 -1 0
-      570 GETTABLEKS                       R23 R0 K43 ["connections"]
-      572 NEWCLOSURE                       R26 P17
-      573 CAPTURE                          VAL R0
-      574 CAPTURE                          UPVAL U4
-      575 NAMECALL                         R24 R21 K68 ["Connect"]
-      577 CALL                             R24 2 -1
-      578 FASTCALL                         TABLE_INSERT ; [+2]
-      579 GETIMPORT                        R22 K71 [table.insert]
-      581 CALL                             R22 -1 0
-      582 LOADNIL                          R22
-      583 SETTABLEKS                       R22 R0 K118 ["toggleTask"]
-      585 NEWCLOSURE                       R22 P18
-      586 CAPTURE                          VAL R0
-      587 CAPTURE                          VAL R1
-      588 SETTABLEKS                       R22 R0 K119 ["onDataModelSessionStarted"]
-      590 GETTABLEKS                       R23 R0 K43 ["connections"]
-      592 GETTABLEKS                       R24 R1 K120 ["Mdi"]
-      594 GETTABLEKS                       R24 R24 K121 ["DataModelSessionStarted"]
-      596 GETTABLEKS                       R26 R0 K119 ["onDataModelSessionStarted"]
-      598 NAMECALL                         R24 R24 K68 ["Connect"]
-      600 CALL                             R24 2 -1
-      601 FASTCALL                         TABLE_INSERT ; [+2]
-      602 GETIMPORT                        R22 K71 [table.insert]
-      604 CALL                             R22 -1 0
-      605 GETTABLEKS                       R22 R0 K119 ["onDataModelSessionStarted"]
-      607 GETTABLEKS                       R23 R1 K120 ["Mdi"]
-      609 GETTABLEKS                       R23 R23 K122 ["FocusedDataModelSession"]
-      611 CALL                             R22 1 0
-      612 NEWCLOSURE                       R22 P19
-      613 CAPTURE                          VAL R0
-      614 CAPTURE                          UPVAL U22
-      615 CAPTURE                          UPVAL U23
-      616 SETTABLEKS                       R22 R0 K123 ["openFloating"]
-      618 GETUPVAL                         R22 22
-      619 CALL                             R22 0 1
-      620 JUMPIFNOT                        R22 ; [+4]
-      621 NEWCLOSURE                       R22 P20
-      622 CAPTURE                          VAL R0
-      623 SETTABLEKS                       R22 R0 K124 ["cancelOpenFloating"]
-      625 LOADK                            R24 K125 ["Settings"]
-      626 NAMECALL                         R22 R2 K17 ["GetPluginComponent"]
-      628 CALL                             R22 2 1
-      629 GETUPVAL                         R23 24
-      630 GETTABLEKS                       R23 R23 K30 ["new"]
-      632 MOVE                             R24 R14
-      633 MOVE                             R25 R22
-      634 CALL                             R23 2 1
-      635 SETTABLEKS                       R23 R0 K126 ["controlSignalStore"]
-      637 RETURN                           R0 0
+      545 LOADK                            R22 K114 ["Expected 2 signals for spinbox focus actions, got %* signals instead"]
+      546 LENGTH                           R24 R19
+      547 NAMECALL                         R22 R22 K115 ["format"]
+      549 CALL                             R22 2 1
+      550 FASTCALL2                        ASSERT R21 R22 ; [+3]
+      552 GETIMPORT                        R20 K117 [assert]
+      554 CALL                             R20 2 0
+      555 GETTABLEN                        R20 R19 1
+      556 GETTABLEN                        R21 R19 2
+      557 GETTABLEKS                       R23 R0 K43 ["connections"]
+      559 NEWCLOSURE                       R26 P16
+      560 CAPTURE                          VAL R0
+      561 CAPTURE                          UPVAL U4
+      562 NAMECALL                         R24 R20 K68 ["Connect"]
+      564 CALL                             R24 2 -1
+      565 FASTCALL                         TABLE_INSERT ; [+2]
+      566 GETIMPORT                        R22 K71 [table.insert]
+      568 CALL                             R22 -1 0
+      569 GETTABLEKS                       R23 R0 K43 ["connections"]
+      571 NEWCLOSURE                       R26 P17
+      572 CAPTURE                          VAL R0
+      573 CAPTURE                          UPVAL U4
+      574 NAMECALL                         R24 R21 K68 ["Connect"]
+      576 CALL                             R24 2 -1
+      577 FASTCALL                         TABLE_INSERT ; [+2]
+      578 GETIMPORT                        R22 K71 [table.insert]
+      580 CALL                             R22 -1 0
+      581 LOADNIL                          R22
+      582 SETTABLEKS                       R22 R0 K118 ["toggleTask"]
+      584 NEWCLOSURE                       R22 P18
+      585 CAPTURE                          VAL R0
+      586 CAPTURE                          VAL R1
+      587 SETTABLEKS                       R22 R0 K119 ["onDataModelSessionStarted"]
+      589 GETTABLEKS                       R23 R0 K43 ["connections"]
+      591 GETTABLEKS                       R24 R1 K120 ["Mdi"]
+      593 GETTABLEKS                       R24 R24 K121 ["DataModelSessionStarted"]
+      595 GETTABLEKS                       R26 R0 K119 ["onDataModelSessionStarted"]
+      597 NAMECALL                         R24 R24 K68 ["Connect"]
+      599 CALL                             R24 2 -1
+      600 FASTCALL                         TABLE_INSERT ; [+2]
+      601 GETIMPORT                        R22 K71 [table.insert]
+      603 CALL                             R22 -1 0
+      604 GETTABLEKS                       R22 R0 K119 ["onDataModelSessionStarted"]
+      606 GETTABLEKS                       R23 R1 K120 ["Mdi"]
+      608 GETTABLEKS                       R23 R23 K122 ["FocusedDataModelSession"]
+      610 CALL                             R22 1 0
+      611 NEWCLOSURE                       R22 P19
+      612 CAPTURE                          VAL R0
+      613 CAPTURE                          UPVAL U22
+      614 CAPTURE                          UPVAL U23
+      615 SETTABLEKS                       R22 R0 K123 ["openFloating"]
+      617 GETUPVAL                         R22 22
+      618 CALL                             R22 0 1
+      619 JUMPIFNOT                        R22 ; [+4]
+      620 NEWCLOSURE                       R22 P20
+      621 CAPTURE                          VAL R0
+      622 SETTABLEKS                       R22 R0 K124 ["cancelOpenFloating"]
+      624 LOADK                            R24 K125 ["Settings"]
+      625 NAMECALL                         R22 R2 K17 ["GetPluginComponent"]
+      627 CALL                             R22 2 1
+      628 GETUPVAL                         R23 24
+      629 GETTABLEKS                       R23 R23 K30 ["new"]
+      631 MOVE                             R24 R14
+      632 MOVE                             R25 R22
+      633 CALL                             R23 2 1
+      634 SETTABLEKS                       R23 R0 K126 ["controlSignalStore"]
+      636 RETURN                           R0 0
 
 PROTO_30:
         0 GETUPVAL                         R0 0
@@ -1405,77 +1404,74 @@ MAIN:
       292 NAMECALL                         R46 R46 K72 ["format"]
       294 CALL                             R46 2 1
       295 MOVE                             R45 R46
-      296 LOADK                            R47 K73 ["%*:ShowFloating"]
-      297 MOVE                             R49 R45
-      298 NAMECALL                         R47 R47 K72 ["format"]
-      300 CALL                             R47 2 1
-      301 MOVE                             R46 R47
-      302 LOADK                            R48 K74 ["%*:ShowLabels"]
-      303 MOVE                             R50 R45
-      304 NAMECALL                         R48 R48 K72 ["format"]
-      306 CALL                             R48 2 1
-      307 MOVE                             R47 R48
-      308 LOADK                            R49 K75 ["%*:CompactDensity"]
-      309 MOVE                             R51 R45
-      310 NAMECALL                         R49 R49 K72 ["format"]
-      312 CALL                             R49 2 1
-      313 MOVE                             R48 R49
-      314 DUPCLOSURE                       R49 K76 [PROTO_0]
-      315 CAPTURE                          VAL R47
-      316 CAPTURE                          VAL R48
-      317 CAPTURE                          VAL R2
-      318 CAPTURE                          VAL R4
-      319 SETGLOBAL                        R49 K77 ["getRibbonDefaultSettingsFromIXP"]
-      321 DUPCLOSURE                       R49 K78 [PROTO_29]
-      322 CAPTURE                          VAL R46
-      323 CAPTURE                          VAL R3
-      324 CAPTURE                          VAL R47
-      325 CAPTURE                          VAL R48
-      326 CAPTURE                          VAL R31
-      327 CAPTURE                          VAL R34
-      328 CAPTURE                          VAL R33
-      329 CAPTURE                          VAL R16
-      330 CAPTURE                          VAL R28
-      331 CAPTURE                          VAL R29
-      332 CAPTURE                          VAL R8
-      333 CAPTURE                          VAL R32
-      334 CAPTURE                          VAL R6
-      335 CAPTURE                          VAL R36
-      336 CAPTURE                          VAL R17
-      337 CAPTURE                          VAL R0
-      338 CAPTURE                          VAL R44
-      339 CAPTURE                          VAL R14
-      340 CAPTURE                          VAL R20
-      341 CAPTURE                          VAL R39
-      342 CAPTURE                          VAL R37
-      343 CAPTURE                          VAL R42
-      344 CAPTURE                          VAL R41
-      345 CAPTURE                          VAL R40
-      346 CAPTURE                          VAL R24
-      347 SETTABLEKS                       R49 R43 K79 ["init"]
-      349 DUPCLOSURE                       R49 K80 [PROTO_34]
-      350 CAPTURE                          VAL R36
-      351 SETTABLEKS                       R49 R43 K81 ["didMount"]
-      353 DUPCLOSURE                       R49 K82 [PROTO_35]
-      354 SETTABLEKS                       R49 R43 K83 ["didUpdate"]
-      356 DUPCLOSURE                       R49 K84 [PROTO_36]
-      357 SETTABLEKS                       R49 R43 K85 ["willUnmount"]
-      359 DUPCLOSURE                       R49 K86 [PROTO_37]
-      360 CAPTURE                          VAL R1
-      361 CAPTURE                          VAL R38
-      362 CAPTURE                          VAL R42
-      363 CAPTURE                          VAL R41
-      364 CAPTURE                          VAL R26
-      365 CAPTURE                          VAL R27
-      366 CAPTURE                          VAL R16
-      367 CAPTURE                          VAL R18
-      368 CAPTURE                          VAL R19
-      369 CAPTURE                          VAL R30
-      370 CAPTURE                          VAL R10
-      371 CAPTURE                          VAL R7
-      372 CAPTURE                          VAL R25
-      373 CAPTURE                          VAL R21
-      374 CAPTURE                          VAL R23
-      375 CAPTURE                          VAL R22
-      376 SETTABLEKS                       R49 R43 K87 ["render"]
-      378 RETURN                           R43 1
+      296 LOADK                            R46 K73 ["%*:ShowFloating"]
+      297 MOVE                             R48 R45
+      298 NAMECALL                         R46 R46 K72 ["format"]
+      300 CALL                             R46 2 1
+      301 LOADK                            R47 K74 ["%*:ShowLabels"]
+      302 MOVE                             R49 R45
+      303 NAMECALL                         R47 R47 K72 ["format"]
+      305 CALL                             R47 2 1
+      306 LOADK                            R48 K75 ["%*:CompactDensity"]
+      307 MOVE                             R50 R45
+      308 NAMECALL                         R48 R48 K72 ["format"]
+      310 CALL                             R48 2 1
+      311 DUPCLOSURE                       R49 K76 [PROTO_0]
+      312 CAPTURE                          VAL R47
+      313 CAPTURE                          VAL R48
+      314 CAPTURE                          VAL R2
+      315 CAPTURE                          VAL R4
+      316 SETGLOBAL                        R49 K77 ["getRibbonDefaultSettingsFromIXP"]
+      318 DUPCLOSURE                       R49 K78 [PROTO_29]
+      319 CAPTURE                          VAL R46
+      320 CAPTURE                          VAL R3
+      321 CAPTURE                          VAL R47
+      322 CAPTURE                          VAL R48
+      323 CAPTURE                          VAL R31
+      324 CAPTURE                          VAL R34
+      325 CAPTURE                          VAL R33
+      326 CAPTURE                          VAL R16
+      327 CAPTURE                          VAL R28
+      328 CAPTURE                          VAL R29
+      329 CAPTURE                          VAL R8
+      330 CAPTURE                          VAL R32
+      331 CAPTURE                          VAL R6
+      332 CAPTURE                          VAL R36
+      333 CAPTURE                          VAL R17
+      334 CAPTURE                          VAL R0
+      335 CAPTURE                          VAL R44
+      336 CAPTURE                          VAL R14
+      337 CAPTURE                          VAL R20
+      338 CAPTURE                          VAL R39
+      339 CAPTURE                          VAL R37
+      340 CAPTURE                          VAL R42
+      341 CAPTURE                          VAL R41
+      342 CAPTURE                          VAL R40
+      343 CAPTURE                          VAL R24
+      344 SETTABLEKS                       R49 R43 K79 ["init"]
+      346 DUPCLOSURE                       R49 K80 [PROTO_34]
+      347 CAPTURE                          VAL R36
+      348 SETTABLEKS                       R49 R43 K81 ["didMount"]
+      350 DUPCLOSURE                       R49 K82 [PROTO_35]
+      351 SETTABLEKS                       R49 R43 K83 ["didUpdate"]
+      353 DUPCLOSURE                       R49 K84 [PROTO_36]
+      354 SETTABLEKS                       R49 R43 K85 ["willUnmount"]
+      356 DUPCLOSURE                       R49 K86 [PROTO_37]
+      357 CAPTURE                          VAL R1
+      358 CAPTURE                          VAL R38
+      359 CAPTURE                          VAL R42
+      360 CAPTURE                          VAL R41
+      361 CAPTURE                          VAL R26
+      362 CAPTURE                          VAL R27
+      363 CAPTURE                          VAL R16
+      364 CAPTURE                          VAL R18
+      365 CAPTURE                          VAL R19
+      366 CAPTURE                          VAL R30
+      367 CAPTURE                          VAL R10
+      368 CAPTURE                          VAL R7
+      369 CAPTURE                          VAL R25
+      370 CAPTURE                          VAL R21
+      371 CAPTURE                          VAL R23
+      372 CAPTURE                          VAL R22
+      373 SETTABLEKS                       R49 R43 K87 ["render"]
+      375 RETURN                           R43 1

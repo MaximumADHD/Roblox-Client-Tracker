@@ -196,78 +196,80 @@ PROTO_12:
        59 RETURN                           R0 1
 
 PROTO_13:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["useState"]
-        3 LOADNIL                          R2
-        4 CALL                             R1 1 2
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R3 R3 K1 ["useEffect"]
-        8 NEWCLOSURE                       R4 P0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["useState"]
+        3 LOADNIL                          R3
+        4 CALL                             R2 1 2
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K1 ["useEffect"]
+        8 NEWCLOSURE                       R5 P0
         9 CAPTURE                          UPVAL U1
        10 CAPTURE                          VAL R0
-       11 CAPTURE                          VAL R2
-       12 NEWTABLE                         R5 0 1
-       14 MOVE                             R6 R0
-       15 SETLIST                          R5 R6 1 [1]
-       17 CALL                             R3 2 0
-       18 GETUPVAL                         R3 0
-       19 GETTABLEKS                       R3 R3 K2 ["useMemo"]
-       21 NEWCLOSURE                       R4 P1
+       11 CAPTURE                          VAL R3
+       12 NEWTABLE                         R6 0 1
+       14 MOVE                             R7 R0
+       15 SETLIST                          R6 R7 1 [1]
+       17 CALL                             R4 2 0
+       18 GETUPVAL                         R4 0
+       19 GETTABLEKS                       R4 R4 K2 ["useMemo"]
+       21 NEWCLOSURE                       R5 P1
        22 CAPTURE                          UPVAL U1
        23 CAPTURE                          VAL R0
        24 CAPTURE                          UPVAL U2
-       25 NEWTABLE                         R5 0 1
-       27 MOVE                             R6 R0
-       28 SETLIST                          R5 R6 1 [1]
-       30 CALL                             R3 2 1
-       31 JUMPIFNOT                        R1 ; [+3]
-       32 GETTABLEKS                       R4 R1 K3 ["selection"]
+       25 NEWTABLE                         R6 0 1
+       27 MOVE                             R7 R0
+       28 SETLIST                          R6 R7 1 [1]
+       30 CALL                             R4 2 1
+       31 JUMPIFNOT                        R2 ; [+3]
+       32 GETTABLEKS                       R5 R2 K3 ["selection"]
        34 JUMP                             ; [+1]
-       35 GETUPVAL                         R4 3
-       36 JUMPIFNOT                        R1 ; [+3]
-       37 GETTABLEKS                       R5 R1 K4 ["generation"]
+       35 GETUPVAL                         R5 3
+       36 JUMPIFNOT                        R2 ; [+3]
+       37 GETTABLEKS                       R6 R2 K4 ["generation"]
        39 JUMP                             ; [+2]
-       40 GETUPVAL                         R5 4
-       41 CALL                             R5 0 1
-       42 JUMPIFNOT                        R1 ; [+6]
-       43 GETTABLEKS                       R7 R1 K5 ["activeGenerationUniqueIds"]
-       45 JUMPIFNOT                        R7 ; [+3]
-       46 GETTABLEKS                       R6 R1 K5 ["activeGenerationUniqueIds"]
+       40 GETUPVAL                         R6 4
+       41 CALL                             R6 0 1
+       42 JUMPIFNOT                        R2 ; [+6]
+       43 GETTABLEKS                       R8 R2 K5 ["activeGenerationUniqueIds"]
+       45 JUMPIFNOT                        R8 ; [+3]
+       46 GETTABLEKS                       R7 R2 K5 ["activeGenerationUniqueIds"]
        48 JUMP                             ; [+2]
-       49 NEWTABLE                         R6 0 0
-       51 JUMPIFNOT                        R1 ; [+7]
-       52 GETTABLEKS                       R8 R1 K6 ["visible"]
-       54 JUMPIFEQKB                       R8 TRUE ; [+2]
-       56 LOADB                            R7 0 +1
-       57 LOADB                            R7 1
-       58 JUMP                             ; [+1]
-       59 LOADB                            R7 0
-       60 JUMPIFNOT                        R1 ; [+6]
-       61 GETTABLEKS                       R9 R1 K7 ["referenceImage"]
-       63 JUMPIFNOT                        R9 ; [+3]
-       64 GETTABLEKS                       R8 R1 K7 ["referenceImage"]
-       66 JUMP                             ; [+1]
-       67 GETUPVAL                         R8 5
-       68 GETUPVAL                         R9 0
-       69 GETTABLEKS                       R9 R9 K2 ["useMemo"]
-       71 NEWCLOSURE                       R10 P2
-       72 CAPTURE                          VAL R4
-       73 CAPTURE                          VAL R5
-       74 CAPTURE                          VAL R3
-       75 CAPTURE                          VAL R6
-       76 CAPTURE                          VAL R8
-       77 NEWTABLE                         R11 0 5
-       79 MOVE                             R12 R4
-       80 MOVE                             R13 R5
-       81 MOVE                             R14 R6
-       82 MOVE                             R15 R8
-       83 MOVE                             R16 R3
-       84 SETLIST                          R11 R12 5 [1]
-       86 CALL                             R9 2 1
-       87 DUPTABLE                         R10 K9 [{"visible", "value"}]
-       88 SETTABLEKS                       R7 R10 K6 ["visible"]
-       90 SETTABLEKS                       R9 R10 K8 ["value"]
-       92 RETURN                           R10 1
+       49 NEWTABLE                         R7 0 0
+       51 LOADB                            R8 0
+       52 JUMPIFEQKNIL                     R2 ; [+12]
+       54 LOADB                            R8 0
+       55 GETTABLEKS                       R9 R2 K6 ["editSessionId"]
+       57 JUMPIFNOTEQ                      R9 R1 ; [+7]
+       59 GETTABLEKS                       R9 R2 K7 ["visible"]
+       61 JUMPIFEQKB                       R9 TRUE ; [+2]
+       63 LOADB                            R8 0 +1
+       64 LOADB                            R8 1
+       65 JUMPIFNOT                        R2 ; [+6]
+       66 GETTABLEKS                       R10 R2 K8 ["referenceImage"]
+       68 JUMPIFNOT                        R10 ; [+3]
+       69 GETTABLEKS                       R9 R2 K8 ["referenceImage"]
+       71 JUMP                             ; [+1]
+       72 GETUPVAL                         R9 5
+       73 GETUPVAL                         R10 0
+       74 GETTABLEKS                       R10 R10 K2 ["useMemo"]
+       76 NEWCLOSURE                       R11 P2
+       77 CAPTURE                          VAL R5
+       78 CAPTURE                          VAL R6
+       79 CAPTURE                          VAL R4
+       80 CAPTURE                          VAL R7
+       81 CAPTURE                          VAL R9
+       82 NEWTABLE                         R12 0 5
+       84 MOVE                             R13 R5
+       85 MOVE                             R14 R6
+       86 MOVE                             R15 R7
+       87 MOVE                             R16 R9
+       88 MOVE                             R17 R4
+       89 SETLIST                          R12 R13 5 [1]
+       91 CALL                             R10 2 1
+       92 DUPTABLE                         R11 K10 [{"visible", "value"}]
+       93 SETTABLEKS                       R8 R11 K7 ["visible"]
+       95 SETTABLEKS                       R10 R11 K9 ["value"]
+       97 RETURN                           R11 1
 
 MAIN:
         0 PREPVARARGS                      0

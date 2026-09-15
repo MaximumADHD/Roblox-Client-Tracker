@@ -51,98 +51,96 @@ MAIN:
        69 FORGPREP_INEXT                   R6
        70 MOVE                             R12 R5
        71 MOVE                             R13 R2
-       72 LOADK                            R15 K33 [".Plugin-Icon-%*"]
-       73 MOVE                             R17 R10
-       74 NAMECALL                         R15 R15 K34 ["format"]
-       76 CALL                             R15 2 1
-       77 MOVE                             R14 R15
-       78 DUPTABLE                         R15 K35 [{"Image"}]
-       79 LOADK                            R17 K36 ["$%*Icon"]
-       80 MOVE                             R19 R10
-       81 NAMECALL                         R17 R17 K34 ["format"]
-       83 CALL                             R17 2 1
-       84 MOVE                             R16 R17
-       85 SETTABLEKS                       R16 R15 K25 ["Image"]
-       87 CALL                             R13 2 -1
-       88 FASTCALL                         TABLE_INSERT ; [+2]
-       89 GETIMPORT                        R11 K39 [table.insert]
-       91 CALL                             R11 -1 0
-       92 FORGLOOP                         R6 2 [inext] ; [-23]
-       94 DUPTABLE                         R6 K68 [{["FontPrimary"], ["FontBold"], ["FontSemibold"], ["Margin"], ["MarginSmall"], ["HeaderSize"], ["HeaderTitleTextSize"] = 20, ["HeaderSubtitleTextSize"] = 14, ["HeaderIconSize"], ["HeaderLeftMargin"], ["ScrollBarWidth"] = 8, ["ScrollBarGutter"] = 12, ["ButtonBorderRadius"], ["CardBorderRadius"], ["CardIconSize"], ["CardIconTextMargin"], ["CardStatusIndicatorSize"], ["CardStatusMinWidth"] = 40, ["CardUnsubscribeButtonSize"], ["CardElapsedTimeTextSize"] = 16, ["CardSubjectTextSize"] = 18}]
-       95 GETIMPORT                        R7 K72 [Enum.Font.SourceSans]
-       97 SETTABLEKS                       R7 R6 K40 ["FontPrimary"]
-       99 GETIMPORT                        R7 K74 [Enum.Font.SourceSansBold]
-      101 SETTABLEKS                       R7 R6 K41 ["FontBold"]
-      103 GETIMPORT                        R7 K76 [Enum.Font.SourceSansSemibold]
-      105 SETTABLEKS                       R7 R6 K42 ["FontSemibold"]
-      107 GETIMPORT                        R7 K79 [UDim.new]
-      109 LOADN                            R8 0
-      110 LOADN                            R9 8
-      111 CALL                             R7 2 1
-      112 SETTABLEKS                       R7 R6 K43 ["Margin"]
-      114 GETIMPORT                        R7 K79 [UDim.new]
-      116 LOADN                            R8 0
-      117 LOADN                            R9 2
-      118 CALL                             R7 2 1
-      119 SETTABLEKS                       R7 R6 K44 ["MarginSmall"]
-      121 GETIMPORT                        R7 K81 [UDim2.new]
-      123 LOADN                            R8 1
-      124 LOADN                            R9 0
-      125 LOADN                            R10 0
-      126 LOADN                            R11 40
-      127 CALL                             R7 4 1
-      128 SETTABLEKS                       R7 R6 K45 ["HeaderSize"]
-      130 GETIMPORT                        R7 K81 [UDim2.new]
-      132 LOADN                            R8 0
-      133 LOADN                            R9 20
-      134 LOADN                            R10 0
-      135 LOADN                            R11 20
-      136 CALL                             R7 4 1
-      137 SETTABLEKS                       R7 R6 K50 ["HeaderIconSize"]
-      139 GETIMPORT                        R7 K79 [UDim.new]
-      141 LOADN                            R8 0
-      142 LOADN                            R9 14
-      143 CALL                             R7 2 1
-      144 SETTABLEKS                       R7 R6 K51 ["HeaderLeftMargin"]
-      146 GETIMPORT                        R7 K79 [UDim.new]
-      148 LOADN                            R8 0
-      149 LOADN                            R9 4
-      150 CALL                             R7 2 1
-      151 SETTABLEKS                       R7 R6 K56 ["ButtonBorderRadius"]
-      153 GETIMPORT                        R7 K79 [UDim.new]
-      155 LOADN                            R8 0
-      156 LOADN                            R9 6
-      157 CALL                             R7 2 1
-      158 SETTABLEKS                       R7 R6 K57 ["CardBorderRadius"]
-      160 GETIMPORT                        R7 K81 [UDim2.new]
-      162 LOADN                            R8 0
-      163 LOADN                            R9 16
-      164 LOADN                            R10 0
-      165 LOADN                            R11 16
-      166 CALL                             R7 4 1
-      167 SETTABLEKS                       R7 R6 K58 ["CardIconSize"]
-      169 GETIMPORT                        R7 K79 [UDim.new]
-      171 LOADN                            R8 0
-      172 LOADN                            R9 4
-      173 CALL                             R7 2 1
-      174 SETTABLEKS                       R7 R6 K59 ["CardIconTextMargin"]
-      176 GETIMPORT                        R7 K81 [UDim2.new]
-      178 LOADN                            R8 0
-      179 LOADN                            R9 16
-      180 LOADN                            R10 0
-      181 LOADN                            R11 16
-      182 CALL                             R7 4 1
-      183 SETTABLEKS                       R7 R6 K60 ["CardStatusIndicatorSize"]
-      185 GETIMPORT                        R7 K81 [UDim2.new]
-      187 LOADN                            R8 0
-      188 LOADN                            R9 16
-      189 LOADN                            R10 0
-      190 LOADN                            R11 16
-      191 CALL                             R7 4 1
-      192 SETTABLEKS                       R7 R6 K63 ["CardUnsubscribeButtonSize"]
-      194 MOVE                             R7 R3
-      195 LOADK                            R8 K82 ["NotificationsPlugin"]
-      196 MOVE                             R9 R5
-      197 MOVE                             R10 R6
-      198 CALL                             R7 3 -1
-      199 RETURN                           R7 -1
+       72 LOADK                            R14 K33 [".Plugin-Icon-%*"]
+       73 MOVE                             R16 R10
+       74 NAMECALL                         R14 R14 K34 ["format"]
+       76 CALL                             R14 2 1
+       77 DUPTABLE                         R15 K35 [{"Image"}]
+       78 LOADK                            R16 K36 ["$%*Icon"]
+       79 MOVE                             R18 R10
+       80 NAMECALL                         R16 R16 K34 ["format"]
+       82 CALL                             R16 2 1
+       83 SETTABLEKS                       R16 R15 K25 ["Image"]
+       85 CALL                             R13 2 -1
+       86 FASTCALL                         TABLE_INSERT ; [+2]
+       87 GETIMPORT                        R11 K39 [table.insert]
+       89 CALL                             R11 -1 0
+       90 FORGLOOP                         R6 2 [inext] ; [-21]
+       92 DUPTABLE                         R6 K68 [{["FontPrimary"], ["FontBold"], ["FontSemibold"], ["Margin"], ["MarginSmall"], ["HeaderSize"], ["HeaderTitleTextSize"] = 20, ["HeaderSubtitleTextSize"] = 14, ["HeaderIconSize"], ["HeaderLeftMargin"], ["ScrollBarWidth"] = 8, ["ScrollBarGutter"] = 12, ["ButtonBorderRadius"], ["CardBorderRadius"], ["CardIconSize"], ["CardIconTextMargin"], ["CardStatusIndicatorSize"], ["CardStatusMinWidth"] = 40, ["CardUnsubscribeButtonSize"], ["CardElapsedTimeTextSize"] = 16, ["CardSubjectTextSize"] = 18}]
+       93 GETIMPORT                        R7 K72 [Enum.Font.SourceSans]
+       95 SETTABLEKS                       R7 R6 K40 ["FontPrimary"]
+       97 GETIMPORT                        R7 K74 [Enum.Font.SourceSansBold]
+       99 SETTABLEKS                       R7 R6 K41 ["FontBold"]
+      101 GETIMPORT                        R7 K76 [Enum.Font.SourceSansSemibold]
+      103 SETTABLEKS                       R7 R6 K42 ["FontSemibold"]
+      105 GETIMPORT                        R7 K79 [UDim.new]
+      107 LOADN                            R8 0
+      108 LOADN                            R9 8
+      109 CALL                             R7 2 1
+      110 SETTABLEKS                       R7 R6 K43 ["Margin"]
+      112 GETIMPORT                        R7 K79 [UDim.new]
+      114 LOADN                            R8 0
+      115 LOADN                            R9 2
+      116 CALL                             R7 2 1
+      117 SETTABLEKS                       R7 R6 K44 ["MarginSmall"]
+      119 GETIMPORT                        R7 K81 [UDim2.new]
+      121 LOADN                            R8 1
+      122 LOADN                            R9 0
+      123 LOADN                            R10 0
+      124 LOADN                            R11 40
+      125 CALL                             R7 4 1
+      126 SETTABLEKS                       R7 R6 K45 ["HeaderSize"]
+      128 GETIMPORT                        R7 K81 [UDim2.new]
+      130 LOADN                            R8 0
+      131 LOADN                            R9 20
+      132 LOADN                            R10 0
+      133 LOADN                            R11 20
+      134 CALL                             R7 4 1
+      135 SETTABLEKS                       R7 R6 K50 ["HeaderIconSize"]
+      137 GETIMPORT                        R7 K79 [UDim.new]
+      139 LOADN                            R8 0
+      140 LOADN                            R9 14
+      141 CALL                             R7 2 1
+      142 SETTABLEKS                       R7 R6 K51 ["HeaderLeftMargin"]
+      144 GETIMPORT                        R7 K79 [UDim.new]
+      146 LOADN                            R8 0
+      147 LOADN                            R9 4
+      148 CALL                             R7 2 1
+      149 SETTABLEKS                       R7 R6 K56 ["ButtonBorderRadius"]
+      151 GETIMPORT                        R7 K79 [UDim.new]
+      153 LOADN                            R8 0
+      154 LOADN                            R9 6
+      155 CALL                             R7 2 1
+      156 SETTABLEKS                       R7 R6 K57 ["CardBorderRadius"]
+      158 GETIMPORT                        R7 K81 [UDim2.new]
+      160 LOADN                            R8 0
+      161 LOADN                            R9 16
+      162 LOADN                            R10 0
+      163 LOADN                            R11 16
+      164 CALL                             R7 4 1
+      165 SETTABLEKS                       R7 R6 K58 ["CardIconSize"]
+      167 GETIMPORT                        R7 K79 [UDim.new]
+      169 LOADN                            R8 0
+      170 LOADN                            R9 4
+      171 CALL                             R7 2 1
+      172 SETTABLEKS                       R7 R6 K59 ["CardIconTextMargin"]
+      174 GETIMPORT                        R7 K81 [UDim2.new]
+      176 LOADN                            R8 0
+      177 LOADN                            R9 16
+      178 LOADN                            R10 0
+      179 LOADN                            R11 16
+      180 CALL                             R7 4 1
+      181 SETTABLEKS                       R7 R6 K60 ["CardStatusIndicatorSize"]
+      183 GETIMPORT                        R7 K81 [UDim2.new]
+      185 LOADN                            R8 0
+      186 LOADN                            R9 16
+      187 LOADN                            R10 0
+      188 LOADN                            R11 16
+      189 CALL                             R7 4 1
+      190 SETTABLEKS                       R7 R6 K63 ["CardUnsubscribeButtonSize"]
+      192 MOVE                             R7 R3
+      193 LOADK                            R8 K82 ["NotificationsPlugin"]
+      194 MOVE                             R9 R5
+      195 MOVE                             R10 R6
+      196 CALL                             R7 3 -1
+      197 RETURN                           R7 -1

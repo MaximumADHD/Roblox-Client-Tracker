@@ -23,7 +23,7 @@ PROTO_0:
        27 NAMECALL                         R6 R0 K3 ["getText"]
        29 CALL                             R6 4 1
        30 MOVE                             R5 R6
-       31 JUMP                             ; [+140]
+       31 JUMP                             ; [+139]
        32 JUMPIFNOTEQKS                    R1 K9 ["DUPLICATE_UI_BUTTON"] ; [+29]
        34 LOADK                            R8 K1 ["Status"]
        35 LOADK                            R9 K10 ["DuplicateUIButtonTitle"]
@@ -46,7 +46,7 @@ PROTO_0:
        57 NAMECALL                         R6 R0 K3 ["getText"]
        59 CALL                             R6 4 1
        60 MOVE                             R5 R6
-       61 JUMP                             ; [+110]
+       61 JUMP                             ; [+109]
        62 JUMPIFNOTEQKS                    R1 K15 ["MODIFIER_KEYCODE"] ; [+19]
        64 LOADK                            R8 K1 ["Status"]
        65 LOADK                            R9 K16 ["ModifierKeycodeTitle"]
@@ -61,9 +61,9 @@ PROTO_0:
        75 NAMECALL                         R6 R0 K3 ["getText"]
        77 CALL                             R6 3 1
        78 MOVE                             R5 R6
-       79 JUMP                             ; [+92]
+       79 JUMP                             ; [+91]
        80 MOVE                             R5 R4
-       81 JUMP                             ; [+90]
+       81 JUMP                             ; [+89]
        82 JUMPIFNOTEQKS                    R1 K18 ["NO_KEYCODE"] ; [+32]
        84 JUMPIFEQKNIL                     R3 ; [+17]
        86 GETUPVAL                         R7 1
@@ -79,7 +79,7 @@ PROTO_0:
        97 NAMECALL                         R6 R0 K3 ["getText"]
        99 CALL                             R6 3 1
       100 MOVE                             R5 R6
-      101 JUMP                             ; [+70]
+      101 JUMP                             ; [+69]
       102 LOADK                            R8 K1 ["Status"]
       103 LOADK                            R9 K21 ["MissingKeycodeTitle"]
       104 NAMECALL                         R6 R0 K3 ["getText"]
@@ -90,7 +90,7 @@ PROTO_0:
       110 NAMECALL                         R6 R0 K3 ["getText"]
       112 CALL                             R6 3 1
       113 MOVE                             R5 R6
-      114 JUMP                             ; [+57]
+      114 JUMP                             ; [+56]
       115 JUMPIFNOTEQKS                    R1 K23 ["COMPOSITE_KEYCODE"] ; [+29]
       117 LOADK                            R8 K1 ["Status"]
       118 LOADK                            R9 K24 ["CompositeKeycodeTitle"]
@@ -113,7 +113,7 @@ PROTO_0:
       140 NAMECALL                         R6 R0 K3 ["getText"]
       142 CALL                             R6 4 1
       143 MOVE                             R5 R6
-      144 JUMP                             ; [+27]
+      144 JUMP                             ; [+26]
       145 GETUPVAL                         R6 0
       146 CALL                             R6 0 1
       147 JUMPIFNOT                        R6 ; [+15]
@@ -128,22 +128,21 @@ PROTO_0:
       158 NAMECALL                         R6 R0 K3 ["getText"]
       160 CALL                             R6 3 1
       161 MOVE                             R5 R6
-      162 JUMP                             ; [+9]
+      162 JUMP                             ; [+8]
       163 GETIMPORT                        R6 K32 [error]
-      165 LOADK                            R8 K33 ["Unknown status type: %*"]
-      166 MOVE                             R10 R1
-      167 NAMECALL                         R8 R8 K34 ["format"]
-      169 CALL                             R8 2 1
-      170 MOVE                             R7 R8
-      171 CALL                             R6 1 0
-      172 DUPTABLE                         R6 K39 [{"Message", "Severity", "Title", "Type"}]
-      173 SETTABLEKS                       R5 R6 K35 ["Message"]
-      175 GETUPVAL                         R8 2
-      176 GETTABLE                         R7 R8 R1
-      177 SETTABLEKS                       R7 R6 K36 ["Severity"]
-      179 SETTABLEKS                       R4 R6 K37 ["Title"]
-      181 SETTABLEKS                       R1 R6 K38 ["Type"]
-      183 RETURN                           R6 1
+      165 LOADK                            R7 K33 ["Unknown status type: %*"]
+      166 MOVE                             R9 R1
+      167 NAMECALL                         R7 R7 K34 ["format"]
+      169 CALL                             R7 2 1
+      170 CALL                             R6 1 0
+      171 DUPTABLE                         R6 K39 [{"Message", "Severity", "Title", "Type"}]
+      172 SETTABLEKS                       R5 R6 K35 ["Message"]
+      174 GETUPVAL                         R8 2
+      175 GETTABLE                         R7 R8 R1
+      176 SETTABLEKS                       R7 R6 K36 ["Severity"]
+      178 SETTABLEKS                       R4 R6 K37 ["Title"]
+      180 SETTABLEKS                       R1 R6 K38 ["Type"]
+      182 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0

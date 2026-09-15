@@ -657,80 +657,79 @@ PROTO_22:
        10 GETUPVAL                         R4 3
        11 CALL                             R2 2 0
        12 GETUPVAL                         R2 4
-       13 LOADK                            R5 K1 ["Applied %* Material to Selection"]
-       14 MOVE                             R7 R1
-       15 NAMECALL                         R5 R5 K2 ["format"]
-       17 CALL                             R5 2 1
-       18 MOVE                             R4 R5
-       19 NAMECALL                         R2 R2 K3 ["SetWaypoint"]
-       21 CALL                             R2 2 0
-       22 GETUPVAL                         R2 5
-       23 GETUPVAL                         R3 6
-       24 GETTABLEKS                       R3 R3 K4 ["plugin"]
-       26 MOVE                             R4 R0
-       27 CALL                             R2 2 0
-       28 GETUPVAL                         R2 6
-       29 GETTABLEKS                       R2 R2 K5 ["onMaterialSelected"]
-       31 MOVE                             R3 R0
-       32 CALL                             R2 1 0
-       33 GETUPVAL                         R2 7
-       34 MOVE                             R3 R0
-       35 GETUPVAL                         R4 8
-       36 CALL                             R2 2 0
-       37 GETUPVAL                         R3 3
-       38 NAMECALL                         R3 R3 K6 ["Get"]
-       40 CALL                             R3 1 1
-       41 LENGTH                           R2 R3
-       42 LOADN                            R3 0
-       43 JUMPIFNOTLT                      R3 R2 ; [+62]
-       45 GETUPVAL                         R4 9
-       46 MOVE                             R5 R1
-       47 CALL                             R4 1 1
-       48 JUMPIFNOT                        R4 ; [+2]
-       49 LOADK                            R3 K7 ["MaterialVariant"]
-       50 JUMP                             ; [+1]
-       51 LOADK                            R3 K8 ["BaseMaterial"]
-       52 NEWTABLE                         R4 0 0
-       54 GETIMPORT                        R5 K10 [pairs]
-       56 GETUPVAL                         R6 10
-       57 CALL                             R5 1 3
-       58 FORGPREP_NEXT                    R5
-       59 JUMPIFNOT                        R9 ; [+7]
-       60 FASTCALL2                        TABLE_INSERT R4 R8 ; [+5]
-       62 MOVE                             R11 R4
-       63 MOVE                             R12 R8
-       64 GETIMPORT                        R10 K13 [table.insert]
-       66 CALL                             R10 2 0
-       67 FORGLOOP                         R5 2 ; [-9]
-       69 GETUPVAL                         R5 6
-       70 GETTABLEKS                       R5 R5 K14 ["viewType"]
-       72 GETUPVAL                         R7 11
-       73 JUMPIFNOTEQKS                    R7 K15 [""] ; [+2]
-       75 LOADB                            R6 0 +1
-       76 LOADB                            R6 1
-       77 GETIMPORT                        R7 K17 [table.concat]
-       79 MOVE                             R8 R4
-       80 LOADK                            R9 K18 [", "]
-       81 CALL                             R7 2 1
-       82 LENGTH                           R8 R4
-       83 GETUPVAL                         R9 12
-       84 LOADK                            R11 K19 ["MaterialApplied"]
-       85 LOADK                            R12 K20 ["PopupDropdown"]
-       86 MOVE                             R13 R2
-       87 MOVE                             R14 R1
-       88 MOVE                             R15 R3
-       89 DUPTABLE                         R16 K24 [{"viewType", "isSearchBarUsed", "filterChips", "filterChipsCount"}]
-       90 FASTCALL1                        TOSTRING R5 ; [+3]
-       91 MOVE                             R18 R5
-       92 GETIMPORT                        R17 K26 [tostring]
-       94 CALL                             R17 1 1
-       95 SETTABLEKS                       R17 R16 K14 ["viewType"]
-       97 SETTABLEKS                       R6 R16 K21 ["isSearchBarUsed"]
-       99 SETTABLEKS                       R7 R16 K22 ["filterChips"]
-      101 SETTABLEKS                       R8 R16 K23 ["filterChipsCount"]
-      103 NAMECALL                         R9 R9 K27 ["report"]
-      105 CALL                             R9 7 0
-      106 RETURN                           R0 0
+       13 LOADK                            R4 K1 ["Applied %* Material to Selection"]
+       14 MOVE                             R6 R1
+       15 NAMECALL                         R4 R4 K2 ["format"]
+       17 CALL                             R4 2 1
+       18 NAMECALL                         R2 R2 K3 ["SetWaypoint"]
+       20 CALL                             R2 2 0
+       21 GETUPVAL                         R2 5
+       22 GETUPVAL                         R3 6
+       23 GETTABLEKS                       R3 R3 K4 ["plugin"]
+       25 MOVE                             R4 R0
+       26 CALL                             R2 2 0
+       27 GETUPVAL                         R2 6
+       28 GETTABLEKS                       R2 R2 K5 ["onMaterialSelected"]
+       30 MOVE                             R3 R0
+       31 CALL                             R2 1 0
+       32 GETUPVAL                         R2 7
+       33 MOVE                             R3 R0
+       34 GETUPVAL                         R4 8
+       35 CALL                             R2 2 0
+       36 GETUPVAL                         R3 3
+       37 NAMECALL                         R3 R3 K6 ["Get"]
+       39 CALL                             R3 1 1
+       40 LENGTH                           R2 R3
+       41 LOADN                            R3 0
+       42 JUMPIFNOTLT                      R3 R2 ; [+62]
+       44 GETUPVAL                         R4 9
+       45 MOVE                             R5 R1
+       46 CALL                             R4 1 1
+       47 JUMPIFNOT                        R4 ; [+2]
+       48 LOADK                            R3 K7 ["MaterialVariant"]
+       49 JUMP                             ; [+1]
+       50 LOADK                            R3 K8 ["BaseMaterial"]
+       51 NEWTABLE                         R4 0 0
+       53 GETIMPORT                        R5 K10 [pairs]
+       55 GETUPVAL                         R6 10
+       56 CALL                             R5 1 3
+       57 FORGPREP_NEXT                    R5
+       58 JUMPIFNOT                        R9 ; [+7]
+       59 FASTCALL2                        TABLE_INSERT R4 R8 ; [+5]
+       61 MOVE                             R11 R4
+       62 MOVE                             R12 R8
+       63 GETIMPORT                        R10 K13 [table.insert]
+       65 CALL                             R10 2 0
+       66 FORGLOOP                         R5 2 ; [-9]
+       68 GETUPVAL                         R5 6
+       69 GETTABLEKS                       R5 R5 K14 ["viewType"]
+       71 GETUPVAL                         R7 11
+       72 JUMPIFNOTEQKS                    R7 K15 [""] ; [+2]
+       74 LOADB                            R6 0 +1
+       75 LOADB                            R6 1
+       76 GETIMPORT                        R7 K17 [table.concat]
+       78 MOVE                             R8 R4
+       79 LOADK                            R9 K18 [", "]
+       80 CALL                             R7 2 1
+       81 LENGTH                           R8 R4
+       82 GETUPVAL                         R9 12
+       83 LOADK                            R11 K19 ["MaterialApplied"]
+       84 LOADK                            R12 K20 ["PopupDropdown"]
+       85 MOVE                             R13 R2
+       86 MOVE                             R14 R1
+       87 MOVE                             R15 R3
+       88 DUPTABLE                         R16 K24 [{"viewType", "isSearchBarUsed", "filterChips", "filterChipsCount"}]
+       89 FASTCALL1                        TOSTRING R5 ; [+3]
+       90 MOVE                             R18 R5
+       91 GETIMPORT                        R17 K26 [tostring]
+       93 CALL                             R17 1 1
+       94 SETTABLEKS                       R17 R16 K14 ["viewType"]
+       96 SETTABLEKS                       R6 R16 K21 ["isSearchBarUsed"]
+       98 SETTABLEKS                       R7 R16 K22 ["filterChips"]
+      100 SETTABLEKS                       R8 R16 K23 ["filterChipsCount"]
+      102 NAMECALL                         R9 R9 K27 ["report"]
+      104 CALL                             R9 7 0
+      105 RETURN                           R0 0
 
 PROTO_23:
         0 GETIMPORT                        R0 K1 [pairs]
@@ -972,80 +971,79 @@ PROTO_33:
        12 GETUPVAL                         R4 3
        13 CALL                             R2 2 0
        14 GETUPVAL                         R2 4
-       15 LOADK                            R5 K2 ["Applied %* Material to Selection"]
-       16 MOVE                             R7 R1
-       17 NAMECALL                         R5 R5 K3 ["format"]
-       19 CALL                             R5 2 1
-       20 MOVE                             R4 R5
-       21 NAMECALL                         R2 R2 K4 ["SetWaypoint"]
-       23 CALL                             R2 2 0
-       24 GETUPVAL                         R2 5
-       25 GETUPVAL                         R3 6
-       26 GETTABLEKS                       R3 R3 K5 ["plugin"]
-       28 GETTABLEKS                       R4 R0 K0 ["Material"]
-       30 CALL                             R2 2 0
-       31 GETUPVAL                         R2 6
-       32 GETTABLEKS                       R2 R2 K6 ["onMaterialSelected"]
-       34 GETTABLEKS                       R3 R0 K0 ["Material"]
-       36 CALL                             R2 1 0
-       37 GETUPVAL                         R2 7
-       38 GETTABLEKS                       R3 R0 K0 ["Material"]
-       40 GETUPVAL                         R4 8
-       41 CALL                             R2 2 0
-       42 GETUPVAL                         R3 3
-       43 NAMECALL                         R3 R3 K7 ["Get"]
-       45 CALL                             R3 1 1
-       46 LENGTH                           R2 R3
-       47 LOADN                            R3 0
-       48 JUMPIFNOTLT                      R3 R2 ; [+62]
-       50 GETUPVAL                         R4 9
-       51 MOVE                             R5 R1
-       52 CALL                             R4 1 1
-       53 JUMPIFNOT                        R4 ; [+2]
-       54 LOADK                            R3 K8 ["MaterialVariant"]
-       55 JUMP                             ; [+1]
-       56 LOADK                            R3 K9 ["BaseMaterial"]
-       57 NEWTABLE                         R4 0 0
-       59 GETIMPORT                        R5 K11 [pairs]
-       61 GETUPVAL                         R6 10
-       62 CALL                             R5 1 3
-       63 FORGPREP_NEXT                    R5
-       64 JUMPIFNOT                        R9 ; [+7]
-       65 FASTCALL2                        TABLE_INSERT R4 R8 ; [+5]
-       67 MOVE                             R11 R4
-       68 MOVE                             R12 R8
-       69 GETIMPORT                        R10 K14 [table.insert]
-       71 CALL                             R10 2 0
-       72 FORGLOOP                         R5 2 ; [-9]
-       74 GETUPVAL                         R5 6
-       75 GETTABLEKS                       R5 R5 K15 ["viewType"]
-       77 GETUPVAL                         R7 11
-       78 JUMPIFNOTEQKS                    R7 K16 [""] ; [+2]
-       80 LOADB                            R6 0 +1
-       81 LOADB                            R6 1
-       82 GETIMPORT                        R7 K18 [table.concat]
-       84 MOVE                             R8 R4
-       85 LOADK                            R9 K19 [", "]
-       86 CALL                             R7 2 1
-       87 LENGTH                           R8 R4
-       88 GETUPVAL                         R9 12
-       89 LOADK                            R11 K20 ["MaterialApplied"]
-       90 LOADK                            R12 K21 ["PopupDropdown"]
-       91 MOVE                             R13 R2
-       92 MOVE                             R14 R1
-       93 MOVE                             R15 R3
-       94 DUPTABLE                         R16 K25 [{"viewType", "isSearchBarUsed", "filterChips", "filterChipsCount"}]
-       95 FASTCALL1                        TOSTRING R5 ; [+3]
-       96 MOVE                             R18 R5
-       97 GETIMPORT                        R17 K27 [tostring]
-       99 CALL                             R17 1 1
-      100 SETTABLEKS                       R17 R16 K15 ["viewType"]
-      102 SETTABLEKS                       R6 R16 K22 ["isSearchBarUsed"]
-      104 SETTABLEKS                       R7 R16 K23 ["filterChips"]
-      106 SETTABLEKS                       R8 R16 K24 ["filterChipsCount"]
-      108 NAMECALL                         R9 R9 K28 ["report"]
-      110 CALL                             R9 7 0
-      111 RETURN                           R0 0
+       15 LOADK                            R4 K2 ["Applied %* Material to Selection"]
+       16 MOVE                             R6 R1
+       17 NAMECALL                         R4 R4 K3 ["format"]
+       19 CALL                             R4 2 1
+       20 NAMECALL                         R2 R2 K4 ["SetWaypoint"]
+       22 CALL                             R2 2 0
+       23 GETUPVAL                         R2 5
+       24 GETUPVAL                         R3 6
+       25 GETTABLEKS                       R3 R3 K5 ["plugin"]
+       27 GETTABLEKS                       R4 R0 K0 ["Material"]
+       29 CALL                             R2 2 0
+       30 GETUPVAL                         R2 6
+       31 GETTABLEKS                       R2 R2 K6 ["onMaterialSelected"]
+       33 GETTABLEKS                       R3 R0 K0 ["Material"]
+       35 CALL                             R2 1 0
+       36 GETUPVAL                         R2 7
+       37 GETTABLEKS                       R3 R0 K0 ["Material"]
+       39 GETUPVAL                         R4 8
+       40 CALL                             R2 2 0
+       41 GETUPVAL                         R3 3
+       42 NAMECALL                         R3 R3 K7 ["Get"]
+       44 CALL                             R3 1 1
+       45 LENGTH                           R2 R3
+       46 LOADN                            R3 0
+       47 JUMPIFNOTLT                      R3 R2 ; [+62]
+       49 GETUPVAL                         R4 9
+       50 MOVE                             R5 R1
+       51 CALL                             R4 1 1
+       52 JUMPIFNOT                        R4 ; [+2]
+       53 LOADK                            R3 K8 ["MaterialVariant"]
+       54 JUMP                             ; [+1]
+       55 LOADK                            R3 K9 ["BaseMaterial"]
+       56 NEWTABLE                         R4 0 0
+       58 GETIMPORT                        R5 K11 [pairs]
+       60 GETUPVAL                         R6 10
+       61 CALL                             R5 1 3
+       62 FORGPREP_NEXT                    R5
+       63 JUMPIFNOT                        R9 ; [+7]
+       64 FASTCALL2                        TABLE_INSERT R4 R8 ; [+5]
+       66 MOVE                             R11 R4
+       67 MOVE                             R12 R8
+       68 GETIMPORT                        R10 K14 [table.insert]
+       70 CALL                             R10 2 0
+       71 FORGLOOP                         R5 2 ; [-9]
+       73 GETUPVAL                         R5 6
+       74 GETTABLEKS                       R5 R5 K15 ["viewType"]
+       76 GETUPVAL                         R7 11
+       77 JUMPIFNOTEQKS                    R7 K16 [""] ; [+2]
+       79 LOADB                            R6 0 +1
+       80 LOADB                            R6 1
+       81 GETIMPORT                        R7 K18 [table.concat]
+       83 MOVE                             R8 R4
+       84 LOADK                            R9 K19 [", "]
+       85 CALL                             R7 2 1
+       86 LENGTH                           R8 R4
+       87 GETUPVAL                         R9 12
+       88 LOADK                            R11 K20 ["MaterialApplied"]
+       89 LOADK                            R12 K21 ["PopupDropdown"]
+       90 MOVE                             R13 R2
+       91 MOVE                             R14 R1
+       92 MOVE                             R15 R3
+       93 DUPTABLE                         R16 K25 [{"viewType", "isSearchBarUsed", "filterChips", "filterChipsCount"}]
+       94 FASTCALL1                        TOSTRING R5 ; [+3]
+       95 MOVE                             R18 R5
+       96 GETIMPORT                        R17 K27 [tostring]
+       98 CALL                             R17 1 1
+       99 SETTABLEKS                       R17 R16 K15 ["viewType"]
+      101 SETTABLEKS                       R6 R16 K22 ["isSearchBarUsed"]
+      103 SETTABLEKS                       R7 R16 K23 ["filterChips"]
+      105 SETTABLEKS                       R8 R16 K24 ["filterChipsCount"]
+      107 NAMECALL                         R9 R9 K28 ["report"]
+      109 CALL                             R9 7 0
+      110 RETURN                           R0 0
 
 PROTO_34:
         0 GETUPVAL                         R1 0

@@ -116,54 +116,52 @@ PROTO_3:
         8 FORGPREP                         R4
         9 GETUPVAL                         R10 0
        10 GETTABLE                         R9 R10 R7
-       11 JUMPIFNOTEQKNIL                  R9 ; [+10]
+       11 JUMPIFNOTEQKNIL                  R9 ; [+9]
        13 GETIMPORT                        R10 K1 [error]
-       15 LOADK                            R12 K2 ["Couldn't find action that Studio gave: %*"]
-       16 MOVE                             R14 R7
-       17 NAMECALL                         R12 R12 K3 ["format"]
-       19 CALL                             R12 2 1
-       20 MOVE                             R11 R12
-       21 CALL                             R10 1 0
-       22 MOVE                             R10 R3
-       23 GETTABLEKS                       R11 R9 K4 ["submenusInside"]
-       25 GETTABLEKS                       R12 R9 K5 ["categoryIndex"]
-       27 CALL                             R10 2 1
-       28 GETTABLEKS                       R11 R9 K6 ["item"]
-       30 GETTABLEKS                       R11 R11 K7 ["source"]
-       32 GETTABLEKS                       R11 R11 K8 ["type"]
-       34 JUMPIFNOTEQKS                    R11 K9 ["studioAction"] ; [+22]
-       36 GETTABLEKS                       R11 R1 K10 ["getStudioActionState"]
-       38 GETTABLEKS                       R12 R9 K6 ["item"]
-       40 GETTABLEKS                       R12 R12 K7 ["source"]
-       42 GETTABLEKS                       R12 R12 K11 ["uri"]
-       44 CALL                             R11 1 1
-       45 GETTABLEKS                       R12 R9 K12 ["index"]
-       47 DUPTABLE                         R13 K14 [{["type"] = "action", ["action"]}]
-       48 DUPTABLE                         R14 K17 [{"key", "state"}]
-       49 SETTABLEKS                       R7 R14 K15 ["key"]
-       51 SETTABLEKS                       R11 R14 K16 ["state"]
-       53 SETTABLEKS                       R14 R13 K13 ["action"]
-       55 SETTABLE                         R13 R10 R12
-       56 JUMP                             ; [+26]
-       57 GETTABLEKS                       R11 R9 K6 ["item"]
-       59 GETTABLEKS                       R11 R11 K7 ["source"]
-       61 GETTABLEKS                       R11 R11 K8 ["type"]
-       63 JUMPIFNOTEQKS                    R11 K18 ["submenu"] ; [+11]
-       65 GETIMPORT                        R11 K1 [error]
-       67 LOADK                            R13 K19 ["Submenu is being sent as something that is enabled, but this should just be real actions: %*"]
-       68 MOVE                             R15 R7
-       69 NAMECALL                         R13 R13 K3 ["format"]
-       71 CALL                             R13 2 1
-       72 MOVE                             R12 R13
-       73 CALL                             R11 1 0
-       74 JUMP                             ; [+8]
-       75 GETUPVAL                         R11 1
-       76 GETTABLEKS                       R12 R9 K6 ["item"]
-       78 GETTABLEKS                       R12 R12 K7 ["source"]
-       80 GETTABLEKS                       R12 R12 K8 ["type"]
-       82 CALL                             R11 1 0
-       83 FORGLOOP                         R4 1 ; [-75]
-       85 RETURN                           R2 1
+       15 LOADK                            R11 K2 ["Couldn't find action that Studio gave: %*"]
+       16 MOVE                             R13 R7
+       17 NAMECALL                         R11 R11 K3 ["format"]
+       19 CALL                             R11 2 1
+       20 CALL                             R10 1 0
+       21 MOVE                             R10 R3
+       22 GETTABLEKS                       R11 R9 K4 ["submenusInside"]
+       24 GETTABLEKS                       R12 R9 K5 ["categoryIndex"]
+       26 CALL                             R10 2 1
+       27 GETTABLEKS                       R11 R9 K6 ["item"]
+       29 GETTABLEKS                       R11 R11 K7 ["source"]
+       31 GETTABLEKS                       R11 R11 K8 ["type"]
+       33 JUMPIFNOTEQKS                    R11 K9 ["studioAction"] ; [+22]
+       35 GETTABLEKS                       R11 R1 K10 ["getStudioActionState"]
+       37 GETTABLEKS                       R12 R9 K6 ["item"]
+       39 GETTABLEKS                       R12 R12 K7 ["source"]
+       41 GETTABLEKS                       R12 R12 K11 ["uri"]
+       43 CALL                             R11 1 1
+       44 GETTABLEKS                       R12 R9 K12 ["index"]
+       46 DUPTABLE                         R13 K14 [{["type"] = "action", ["action"]}]
+       47 DUPTABLE                         R14 K17 [{"key", "state"}]
+       48 SETTABLEKS                       R7 R14 K15 ["key"]
+       50 SETTABLEKS                       R11 R14 K16 ["state"]
+       52 SETTABLEKS                       R14 R13 K13 ["action"]
+       54 SETTABLE                         R13 R10 R12
+       55 JUMP                             ; [+25]
+       56 GETTABLEKS                       R11 R9 K6 ["item"]
+       58 GETTABLEKS                       R11 R11 K7 ["source"]
+       60 GETTABLEKS                       R11 R11 K8 ["type"]
+       62 JUMPIFNOTEQKS                    R11 K18 ["submenu"] ; [+10]
+       64 GETIMPORT                        R11 K1 [error]
+       66 LOADK                            R12 K19 ["Submenu is being sent as something that is enabled, but this should just be real actions: %*"]
+       67 MOVE                             R14 R7
+       68 NAMECALL                         R12 R12 K3 ["format"]
+       70 CALL                             R12 2 1
+       71 CALL                             R11 1 0
+       72 JUMP                             ; [+8]
+       73 GETUPVAL                         R11 1
+       74 GETTABLEKS                       R12 R9 K6 ["item"]
+       76 GETTABLEKS                       R12 R12 K7 ["source"]
+       78 GETTABLEKS                       R12 R12 K8 ["type"]
+       80 CALL                             R11 1 0
+       81 FORGLOOP                         R4 1 ; [-73]
+       83 RETURN                           R2 1
 
 PROTO_4:
         0 GETUPVAL                         R0 0

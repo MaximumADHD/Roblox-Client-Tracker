@@ -681,17 +681,16 @@ PROTO_13:
       198 FORGPREP                         R13
       199 GETUPVAL                         R18 4
       200 GETTABLEKS                       R18 R18 K24 ["safeCall"]
-      202 LOADK                            R20 K25 ["%* values listener"]
-      203 MOVE                             R22 R17
-      204 NAMECALL                         R20 R20 K26 ["format"]
-      206 CALL                             R20 2 1
-      207 MOVE                             R19 R20
-      208 GETTABLEKS                       R20 R0 K27 ["_onValuesChanged"]
-      210 MOVE                             R21 R17
-      211 LOADNIL                          R22
-      212 CALL                             R18 4 0
-      213 FORGLOOP                         R13 2 ; [-15]
-      215 RETURN                           R0 0
+      202 LOADK                            R19 K25 ["%* values listener"]
+      203 MOVE                             R21 R17
+      204 NAMECALL                         R19 R19 K26 ["format"]
+      206 CALL                             R19 2 1
+      207 GETTABLEKS                       R20 R0 K27 ["_onValuesChanged"]
+      209 MOVE                             R21 R17
+      210 LOADNIL                          R22
+      211 CALL                             R18 4 0
+      212 FORGLOOP                         R13 2 ; [-14]
+      214 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R0 0
@@ -729,67 +728,65 @@ PROTO_15:
        26 GETUPVAL                         R3 5
        27 JUMPIFEQ                         R2 R3 ; [+2]
        29 RETURN                           R0 0
-       30 JUMPIF                           R0 ; [+23]
+       30 JUMPIF                           R0 ; [+22]
        31 GETIMPORT                        R2 K6 [warn]
-       33 LOADK                            R4 K7 ["Device Simulator control change failed for %*/%*: %*"]
-       34 GETUPVAL                         R6 1
-       35 GETUPVAL                         R7 2
-       36 GETUPVAL                         R8 6
-       37 GETTABLEKS                       R8 R8 K8 ["formatError"]
-       39 MOVE                             R9 R1
-       40 CALL                             R8 1 1
-       41 NAMECALL                         R4 R4 K9 ["format"]
-       43 CALL                             R4 4 1
-       44 MOVE                             R3 R4
-       45 CALL                             R2 1 0
-       46 GETUPVAL                         R2 0
-       47 GETUPVAL                         R4 1
-       48 GETUPVAL                         R5 2
-       49 GETUPVAL                         R6 7
-       50 NAMECALL                         R2 R2 K10 ["_setValue"]
-       52 CALL                             R2 4 0
-       53 RETURN                           R0 0
-       54 GETUPVAL                         R2 8
-       55 MOVE                             R3 R1
-       56 CALL                             R2 1 1
-       57 JUMPIFNOTEQKNIL                  R2 ; [+19]
-       59 GETIMPORT                        R3 K6 [warn]
-       61 LOADK                            R5 K11 ["Device Simulator control change for %*/%* returned an invalid result"]
-       62 GETUPVAL                         R7 1
-       63 GETUPVAL                         R8 2
-       64 NAMECALL                         R5 R5 K9 ["format"]
-       66 CALL                             R5 3 1
-       67 MOVE                             R4 R5
-       68 CALL                             R3 1 0
-       69 GETUPVAL                         R3 0
-       70 GETUPVAL                         R5 1
-       71 GETUPVAL                         R6 2
-       72 GETUPVAL                         R7 7
-       73 NAMECALL                         R3 R3 K10 ["_setValue"]
-       75 CALL                             R3 4 0
-       76 RETURN                           R0 0
-       77 GETTABLEKS                       R3 R2 K12 ["Applied"]
-       79 JUMPIF                           R3 ; [+17]
-       80 GETUPVAL                         R3 0
-       81 GETUPVAL                         R5 1
-       82 GETUPVAL                         R6 2
-       83 GETUPVAL                         R7 7
-       84 NAMECALL                         R3 R3 K10 ["_setValue"]
-       86 CALL                             R3 4 0
-       87 GETUPVAL                         R3 0
-       88 GETTABLEKS                       R3 R3 K13 ["_onStaleGeneration"]
-       90 JUMPIFNOT                        R3 ; [+5]
-       91 GETUPVAL                         R3 0
-       92 GETTABLEKS                       R3 R3 K13 ["_onStaleGeneration"]
-       94 GETUPVAL                         R4 1
-       95 CALL                             R3 1 0
-       96 RETURN                           R0 0
-       97 GETUPVAL                         R3 0
-       98 GETUPVAL                         R5 1
-       99 GETTABLEKS                       R6 R2 K14 ["Values"]
-      101 NAMECALL                         R3 R3 K15 ["_applyPatch"]
-      103 CALL                             R3 3 0
-      104 RETURN                           R0 0
+       33 LOADK                            R3 K7 ["Device Simulator control change failed for %*/%*: %*"]
+       34 GETUPVAL                         R5 1
+       35 GETUPVAL                         R6 2
+       36 GETUPVAL                         R7 6
+       37 GETTABLEKS                       R7 R7 K8 ["formatError"]
+       39 MOVE                             R8 R1
+       40 CALL                             R7 1 1
+       41 NAMECALL                         R3 R3 K9 ["format"]
+       43 CALL                             R3 4 1
+       44 CALL                             R2 1 0
+       45 GETUPVAL                         R2 0
+       46 GETUPVAL                         R4 1
+       47 GETUPVAL                         R5 2
+       48 GETUPVAL                         R6 7
+       49 NAMECALL                         R2 R2 K10 ["_setValue"]
+       51 CALL                             R2 4 0
+       52 RETURN                           R0 0
+       53 GETUPVAL                         R2 8
+       54 MOVE                             R3 R1
+       55 CALL                             R2 1 1
+       56 JUMPIFNOTEQKNIL                  R2 ; [+18]
+       58 GETIMPORT                        R3 K6 [warn]
+       60 LOADK                            R4 K11 ["Device Simulator control change for %*/%* returned an invalid result"]
+       61 GETUPVAL                         R6 1
+       62 GETUPVAL                         R7 2
+       63 NAMECALL                         R4 R4 K9 ["format"]
+       65 CALL                             R4 3 1
+       66 CALL                             R3 1 0
+       67 GETUPVAL                         R3 0
+       68 GETUPVAL                         R5 1
+       69 GETUPVAL                         R6 2
+       70 GETUPVAL                         R7 7
+       71 NAMECALL                         R3 R3 K10 ["_setValue"]
+       73 CALL                             R3 4 0
+       74 RETURN                           R0 0
+       75 GETTABLEKS                       R3 R2 K12 ["Applied"]
+       77 JUMPIF                           R3 ; [+17]
+       78 GETUPVAL                         R3 0
+       79 GETUPVAL                         R5 1
+       80 GETUPVAL                         R6 2
+       81 GETUPVAL                         R7 7
+       82 NAMECALL                         R3 R3 K10 ["_setValue"]
+       84 CALL                             R3 4 0
+       85 GETUPVAL                         R3 0
+       86 GETTABLEKS                       R3 R3 K13 ["_onStaleGeneration"]
+       88 JUMPIFNOT                        R3 ; [+5]
+       89 GETUPVAL                         R3 0
+       90 GETTABLEKS                       R3 R3 K13 ["_onStaleGeneration"]
+       92 GETUPVAL                         R4 1
+       93 CALL                             R3 1 0
+       94 RETURN                           R0 0
+       95 GETUPVAL                         R3 0
+       96 GETUPVAL                         R5 1
+       97 GETTABLEKS                       R6 R2 K14 ["Values"]
+       99 NAMECALL                         R3 R3 K15 ["_applyPatch"]
+      101 CALL                             R3 3 0
+      102 RETURN                           R0 0
 
 PROTO_16:
         0 GETUPVAL                         R5 0
@@ -956,18 +953,17 @@ PROTO_20:
         5 RETURN                           R0 0
         6 GETUPVAL                         R2 0
         7 GETTABLEKS                       R2 R2 K1 ["safeCall"]
-        9 LOADK                            R4 K2 ["%* values listener"]
-       10 MOVE                             R6 R1
-       11 NAMECALL                         R4 R4 K3 ["format"]
-       13 CALL                             R4 2 1
-       14 MOVE                             R3 R4
-       15 GETTABLEKS                       R4 R0 K4 ["_onValuesChanged"]
-       17 MOVE                             R5 R1
-       18 MOVE                             R8 R1
-       19 NAMECALL                         R6 R0 K5 ["GetValues"]
-       21 CALL                             R6 2 -1
-       22 CALL                             R2 -1 0
-       23 RETURN                           R0 0
+        9 LOADK                            R3 K2 ["%* values listener"]
+       10 MOVE                             R5 R1
+       11 NAMECALL                         R3 R3 K3 ["format"]
+       13 CALL                             R3 2 1
+       14 GETTABLEKS                       R4 R0 K4 ["_onValuesChanged"]
+       16 MOVE                             R5 R1
+       17 MOVE                             R8 R1
+       18 NAMECALL                         R6 R0 K5 ["GetValues"]
+       20 CALL                             R6 2 -1
+       21 CALL                             R2 -1 0
+       22 RETURN                           R0 0
 
 PROTO_21:
         0 GETUPVAL                         R2 0
@@ -1019,8 +1015,8 @@ PROTO_23:
        16 GETUPVAL                         R10 3
        17 GETTABLE                         R8 R9 R10
        18 GETUPVAL                         R9 4
-       19 JUMPIFNOTEQ                      R8 R9 ; [+88]
-       21 JUMPIFEQKNIL                     R7 ; [+84]
+       19 JUMPIFNOTEQ                      R8 R9 ; [+86]
+       21 JUMPIFEQKNIL                     R7 ; [+82]
        23 GETIMPORT                        R8 K3 [pcall]
        25 NEWCLOSURE                       R9 P0
        26 CAPTURE                          UPVAL U2
@@ -1031,136 +1027,133 @@ PROTO_23:
        31 CALL                             R8 1 2
        32 GETUPVAL                         R10 2
        33 GETTABLEKS                       R10 R10 K0 ["_destroyed"]
-       35 JUMPIF                           R10 ; [+72]
+       35 JUMPIF                           R10 ; [+70]
        36 GETUPVAL                         R11 2
        37 GETTABLEKS                       R11 R11 K1 ["_generations"]
        39 GETUPVAL                         R12 3
        40 GETTABLE                         R10 R11 R12
        41 GETUPVAL                         R11 4
-       42 JUMPIFNOTEQ                      R10 R11 ; [+65]
-       44 JUMPIF                           R8 ; [+24]
+       42 JUMPIFNOTEQ                      R10 R11 ; [+63]
+       44 JUMPIF                           R8 ; [+23]
        45 GETIMPORT                        R10 K5 [warn]
-       47 LOADK                            R12 K6 ["Device Simulator apply failed for %*/%*: %*"]
-       48 GETUPVAL                         R14 3
-       49 MOVE                             R15 R6
-       50 GETUPVAL                         R16 5
-       51 GETTABLEKS                       R16 R16 K7 ["formatError"]
-       53 MOVE                             R17 R9
-       54 CALL                             R16 1 1
-       55 NAMECALL                         R12 R12 K8 ["format"]
-       57 CALL                             R12 4 1
-       58 MOVE                             R11 R12
-       59 CALL                             R10 1 0
-       60 LOADB                            R1 1
-       61 GETUPVAL                         R10 2
-       62 GETUPVAL                         R12 3
-       63 MOVE                             R13 R6
-       64 MOVE                             R14 R7
-       65 NAMECALL                         R10 R10 K9 ["_restageValue"]
-       67 CALL                             R10 4 0
-       68 JUMP                             ; [+37]
-       69 GETUPVAL                         R10 6
-       70 MOVE                             R11 R9
-       71 CALL                             R10 1 1
-       72 JUMPIFNOTEQKNIL                  R10 ; [+20]
-       74 GETIMPORT                        R11 K5 [warn]
-       76 LOADK                            R13 K10 ["Device Simulator apply for %*/%* returned an invalid result"]
-       77 GETUPVAL                         R15 3
-       78 MOVE                             R16 R6
-       79 NAMECALL                         R13 R13 K8 ["format"]
-       81 CALL                             R13 3 1
-       82 MOVE                             R12 R13
-       83 CALL                             R11 1 0
-       84 LOADB                            R1 1
-       85 GETUPVAL                         R11 2
-       86 GETUPVAL                         R13 3
-       87 MOVE                             R14 R6
-       88 MOVE                             R15 R7
-       89 NAMECALL                         R11 R11 K9 ["_restageValue"]
-       91 CALL                             R11 4 0
-       92 JUMP                             ; [+13]
-       93 GETTABLEKS                       R11 R10 K11 ["Applied"]
-       95 JUMPIF                           R11 ; [+3]
-       96 GETTABLEKS                       R0 R10 K12 ["Generation"]
-       98 JUMP                             ; [+9]
-       99 GETUPVAL                         R11 2
-      100 GETUPVAL                         R13 3
-      101 GETTABLEKS                       R14 R10 K13 ["Values"]
-      103 NAMECALL                         R11 R11 K14 ["_applyPatch"]
-      105 CALL                             R11 3 0
-      106 FORGLOOP                         R2 2 ; [-101]
-      108 GETUPVAL                         R2 2
-      109 GETTABLEKS                       R2 R2 K0 ["_destroyed"]
-      111 JUMPIFNOT                        R2 ; [+1]
-      112 RETURN                           R0 0
-      113 GETUPVAL                         R4 2
-      114 GETTABLEKS                       R4 R4 K1 ["_generations"]
-      116 GETUPVAL                         R5 3
-      117 GETTABLE                         R3 R4 R5
-      118 GETUPVAL                         R4 4
-      119 JUMPIFNOTEQ                      R3 R4 ; [+2]
-      121 LOADB                            R2 0 +1
-      122 LOADB                            R2 1
-      123 JUMPIFNOTEQKNIL                  R0 ; [+9]
-      125 JUMPIF                           R2 ; [+7]
-      126 JUMPIF                           R1 ; [+6]
-      127 GETUPVAL                         R3 2
-      128 GETUPVAL                         R5 3
-      129 NAMECALL                         R3 R3 K15 ["HasPendingChanges"]
-      131 CALL                             R3 2 1
-      132 JUMPIFNOT                        R3 ; [+18]
-      133 GETUPVAL                         R3 2
-      134 GETTABLEKS                       R3 R3 K16 ["_applyingValues"]
-      136 GETUPVAL                         R4 3
-      137 LOADNIL                          R5
-      138 SETTABLE                         R5 R3 R4
-      139 GETUPVAL                         R3 2
-      140 GETTABLEKS                       R3 R3 K17 ["_awaitingPresentation"]
-      142 GETUPVAL                         R4 3
-      143 LOADNIL                          R5
-      144 SETTABLE                         R5 R3 R4
-      145 GETUPVAL                         R3 2
-      146 GETUPVAL                         R5 3
-      147 NAMECALL                         R3 R3 K18 ["_notify"]
-      149 CALL                             R3 2 0
-      150 JUMP                             ; [+36]
-      151 GETUPVAL                         R3 2
-      152 GETTABLEKS                       R3 R3 K17 ["_awaitingPresentation"]
-      154 GETUPVAL                         R4 3
-      155 LOADB                            R5 1
-      156 SETTABLE                         R5 R3 R4
-      157 GETUPVAL                         R3 2
-      158 GETUPVAL                         R5 3
-      159 NAMECALL                         R3 R3 K18 ["_notify"]
-      161 CALL                             R3 2 0
-      162 GETUPVAL                         R3 5
-      163 GETTABLEKS                       R3 R3 K19 ["safeCall"]
-      165 LOADK                            R5 K20 ["%* apply completion"]
-      166 GETUPVAL                         R7 3
-      167 NAMECALL                         R5 R5 K8 ["format"]
-      169 CALL                             R5 2 1
-      170 MOVE                             R4 R5
-      171 GETUPVAL                         R5 2
-      172 GETTABLEKS                       R5 R5 K21 ["_onApplyCompleted"]
-      174 GETUPVAL                         R6 3
-      175 CALL                             R3 3 1
-      176 GETUPVAL                         R4 2
-      177 GETTABLEKS                       R4 R4 K21 ["_onApplyCompleted"]
-      179 JUMPIFEQKNIL                     R4 ; [+2]
-      181 JUMPIF                           R3 ; [+5]
-      182 GETUPVAL                         R4 2
-      183 GETUPVAL                         R6 3
-      184 NAMECALL                         R4 R4 K22 ["AcknowledgePresentation"]
-      186 CALL                             R4 2 0
-      187 JUMPIFEQKNIL                     R0 ; [+10]
-      189 GETUPVAL                         R3 2
-      190 GETTABLEKS                       R3 R3 K23 ["_onStaleGeneration"]
-      192 JUMPIFNOT                        R3 ; [+5]
-      193 GETUPVAL                         R3 2
-      194 GETTABLEKS                       R3 R3 K23 ["_onStaleGeneration"]
-      196 GETUPVAL                         R4 3
-      197 CALL                             R3 1 0
-      198 RETURN                           R0 0
+       47 LOADK                            R11 K6 ["Device Simulator apply failed for %*/%*: %*"]
+       48 GETUPVAL                         R13 3
+       49 MOVE                             R14 R6
+       50 GETUPVAL                         R15 5
+       51 GETTABLEKS                       R15 R15 K7 ["formatError"]
+       53 MOVE                             R16 R9
+       54 CALL                             R15 1 1
+       55 NAMECALL                         R11 R11 K8 ["format"]
+       57 CALL                             R11 4 1
+       58 CALL                             R10 1 0
+       59 LOADB                            R1 1
+       60 GETUPVAL                         R10 2
+       61 GETUPVAL                         R12 3
+       62 MOVE                             R13 R6
+       63 MOVE                             R14 R7
+       64 NAMECALL                         R10 R10 K9 ["_restageValue"]
+       66 CALL                             R10 4 0
+       67 JUMP                             ; [+36]
+       68 GETUPVAL                         R10 6
+       69 MOVE                             R11 R9
+       70 CALL                             R10 1 1
+       71 JUMPIFNOTEQKNIL                  R10 ; [+19]
+       73 GETIMPORT                        R11 K5 [warn]
+       75 LOADK                            R12 K10 ["Device Simulator apply for %*/%* returned an invalid result"]
+       76 GETUPVAL                         R14 3
+       77 MOVE                             R15 R6
+       78 NAMECALL                         R12 R12 K8 ["format"]
+       80 CALL                             R12 3 1
+       81 CALL                             R11 1 0
+       82 LOADB                            R1 1
+       83 GETUPVAL                         R11 2
+       84 GETUPVAL                         R13 3
+       85 MOVE                             R14 R6
+       86 MOVE                             R15 R7
+       87 NAMECALL                         R11 R11 K9 ["_restageValue"]
+       89 CALL                             R11 4 0
+       90 JUMP                             ; [+13]
+       91 GETTABLEKS                       R11 R10 K11 ["Applied"]
+       93 JUMPIF                           R11 ; [+3]
+       94 GETTABLEKS                       R0 R10 K12 ["Generation"]
+       96 JUMP                             ; [+9]
+       97 GETUPVAL                         R11 2
+       98 GETUPVAL                         R13 3
+       99 GETTABLEKS                       R14 R10 K13 ["Values"]
+      101 NAMECALL                         R11 R11 K14 ["_applyPatch"]
+      103 CALL                             R11 3 0
+      104 FORGLOOP                         R2 2 ; [-99]
+      106 GETUPVAL                         R2 2
+      107 GETTABLEKS                       R2 R2 K0 ["_destroyed"]
+      109 JUMPIFNOT                        R2 ; [+1]
+      110 RETURN                           R0 0
+      111 GETUPVAL                         R4 2
+      112 GETTABLEKS                       R4 R4 K1 ["_generations"]
+      114 GETUPVAL                         R5 3
+      115 GETTABLE                         R3 R4 R5
+      116 GETUPVAL                         R4 4
+      117 JUMPIFNOTEQ                      R3 R4 ; [+2]
+      119 LOADB                            R2 0 +1
+      120 LOADB                            R2 1
+      121 JUMPIFNOTEQKNIL                  R0 ; [+9]
+      123 JUMPIF                           R2 ; [+7]
+      124 JUMPIF                           R1 ; [+6]
+      125 GETUPVAL                         R3 2
+      126 GETUPVAL                         R5 3
+      127 NAMECALL                         R3 R3 K15 ["HasPendingChanges"]
+      129 CALL                             R3 2 1
+      130 JUMPIFNOT                        R3 ; [+18]
+      131 GETUPVAL                         R3 2
+      132 GETTABLEKS                       R3 R3 K16 ["_applyingValues"]
+      134 GETUPVAL                         R4 3
+      135 LOADNIL                          R5
+      136 SETTABLE                         R5 R3 R4
+      137 GETUPVAL                         R3 2
+      138 GETTABLEKS                       R3 R3 K17 ["_awaitingPresentation"]
+      140 GETUPVAL                         R4 3
+      141 LOADNIL                          R5
+      142 SETTABLE                         R5 R3 R4
+      143 GETUPVAL                         R3 2
+      144 GETUPVAL                         R5 3
+      145 NAMECALL                         R3 R3 K18 ["_notify"]
+      147 CALL                             R3 2 0
+      148 JUMP                             ; [+35]
+      149 GETUPVAL                         R3 2
+      150 GETTABLEKS                       R3 R3 K17 ["_awaitingPresentation"]
+      152 GETUPVAL                         R4 3
+      153 LOADB                            R5 1
+      154 SETTABLE                         R5 R3 R4
+      155 GETUPVAL                         R3 2
+      156 GETUPVAL                         R5 3
+      157 NAMECALL                         R3 R3 K18 ["_notify"]
+      159 CALL                             R3 2 0
+      160 GETUPVAL                         R3 5
+      161 GETTABLEKS                       R3 R3 K19 ["safeCall"]
+      163 LOADK                            R4 K20 ["%* apply completion"]
+      164 GETUPVAL                         R6 3
+      165 NAMECALL                         R4 R4 K8 ["format"]
+      167 CALL                             R4 2 1
+      168 GETUPVAL                         R5 2
+      169 GETTABLEKS                       R5 R5 K21 ["_onApplyCompleted"]
+      171 GETUPVAL                         R6 3
+      172 CALL                             R3 3 1
+      173 GETUPVAL                         R4 2
+      174 GETTABLEKS                       R4 R4 K21 ["_onApplyCompleted"]
+      176 JUMPIFEQKNIL                     R4 ; [+2]
+      178 JUMPIF                           R3 ; [+5]
+      179 GETUPVAL                         R4 2
+      180 GETUPVAL                         R6 3
+      181 NAMECALL                         R4 R4 K22 ["AcknowledgePresentation"]
+      183 CALL                             R4 2 0
+      184 JUMPIFEQKNIL                     R0 ; [+10]
+      186 GETUPVAL                         R3 2
+      187 GETTABLEKS                       R3 R3 K23 ["_onStaleGeneration"]
+      189 JUMPIFNOT                        R3 ; [+5]
+      190 GETUPVAL                         R3 2
+      191 GETTABLEKS                       R3 R3 K23 ["_onStaleGeneration"]
+      193 GETUPVAL                         R4 3
+      194 CALL                             R3 1 0
+      195 RETURN                           R0 0
 
 PROTO_24:
         0 GETUPVAL                         R2 0

@@ -27,19 +27,18 @@ PROTO_2:
         5 CAPTURE                          UPVAL U0
         6 CAPTURE                          UPVAL U1
         7 CALL                             R1 1 2
-        8 JUMPIF                           R1 ; [+12]
+        8 JUMPIF                           R1 ; [+11]
         9 GETIMPORT                        R3 K3 [warn]
-       11 LOADK                            R5 K4 ["Failed to load animation target asset due to %*"]
-       12 MOVE                             R7 R2
-       13 NAMECALL                         R5 R5 K5 ["format"]
-       15 CALL                             R5 2 1
-       16 MOVE                             R4 R5
-       17 CALL                             R3 1 0
-       18 LOADNIL                          R3
-       19 CLOSEUPVALS                      R0
-       20 RETURN                           R3 1
-       21 CLOSEUPVALS                      R0
-       22 RETURN                           R0 1
+       11 LOADK                            R4 K4 ["Failed to load animation target asset due to %*"]
+       12 MOVE                             R6 R2
+       13 NAMECALL                         R4 R4 K5 ["format"]
+       15 CALL                             R4 2 1
+       16 CALL                             R3 1 0
+       17 LOADNIL                          R3
+       18 CLOSEUPVALS                      R0
+       19 RETURN                           R3 1
+       20 CLOSEUPVALS                      R0
+       21 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R0 0

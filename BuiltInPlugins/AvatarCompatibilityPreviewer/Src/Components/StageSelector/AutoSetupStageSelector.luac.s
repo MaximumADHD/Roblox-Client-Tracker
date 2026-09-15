@@ -98,62 +98,61 @@ PROTO_0:
       138 CALL                             R17 1 1
       139 SETTABLEKS                       R17 R16 K37 ["LayoutOrder"]
       141 GETTABLEKS                       R18 R4 K59 ["canUploadBundles"]
-      143 JUMPIFEQKNIL                     R18 ; [+33]
+      143 JUMPIFEQKNIL                     R18 ; [+32]
       145 GETTABLEKS                       R18 R4 K59 ["canUploadBundles"]
       147 GETTABLEKS                       R18 R18 K60 ["type"]
-      149 JUMPIFNOTEQKS                    R18 K61 ["notAllowed"] ; [+27]
+      149 JUMPIFNOTEQKS                    R18 K61 ["notAllowed"] ; [+26]
       151 GETTABLEKS                       R18 R4 K59 ["canUploadBundles"]
       153 GETTABLEKS                       R18 R18 K62 ["denyReason"]
       155 JUMPIFEQKS                       R18 K63 ["MissingPremiumSubscriptionTier"] ; [+7]
       157 GETTABLEKS                       R18 R4 K59 ["canUploadBundles"]
       159 GETTABLEKS                       R18 R18 K62 ["denyReason"]
-      161 JUMPIFNOTEQKS                    R18 K64 ["MissingIdVerification"] ; [+15]
+      161 JUMPIFNOTEQKS                    R18 K64 ["MissingIdVerification"] ; [+14]
       163 LOADK                            R19 K0 ["StageSelector"]
-      164 LOADK                            R21 K65 ["Publish_Deny_%*"]
-      165 GETTABLEKS                       R23 R4 K59 ["canUploadBundles"]
-      167 GETTABLEKS                       R23 R23 K62 ["denyReason"]
-      169 NAMECALL                         R21 R21 K66 ["format"]
-      171 CALL                             R21 2 1
-      172 MOVE                             R20 R21
-      173 NAMECALL                         R17 R2 K67 ["getText"]
-      175 CALL                             R17 3 1
-      176 JUMP                             ; [+1]
-      177 LOADNIL                          R17
-      178 SETTABLEKS                       R17 R16 K57 ["Tooltip"]
-      180 CALL                             R14 2 1
-      181 SETTABLEKS                       R14 R13 K35 ["Publish"]
-      183 CALL                             R10 3 1
-      184 SETTABLEKS                       R10 R9 K18 ["Contents"]
-      186 GETUPVAL                         R10 3
-      187 GETTABLEKS                       R10 R10 K5 ["createElement"]
-      189 GETUPVAL                         R11 8
-      190 DUPTABLE                         R12 K72 [{["Icon"] = "rbxassetid://6663675885", ["IsSelected"] = False, ["StageText"] = "Settings", ["AnchorPoint"], ["Position"], ["OnClick"]}]
-      191 GETIMPORT                        R13 K74 [Vector2.new]
-      193 LOADN                            R14 0
-      194 LOADN                            R15 1
-      195 CALL                             R13 2 1
-      196 SETTABLEKS                       R13 R12 K70 ["AnchorPoint"]
-      198 GETIMPORT                        R13 K76 [UDim2.fromScale]
-      200 LOADN                            R14 0
-      201 LOADN                            R15 1
-      202 CALL                             R13 2 1
-      203 SETTABLEKS                       R13 R12 K71 ["Position"]
-      205 GETTABLEKS                       R13 R5 K77 ["enable"]
-      207 SETTABLEKS                       R13 R12 K42 ["OnClick"]
-      209 CALL                             R10 2 1
-      210 SETTABLEKS                       R10 R9 K19 ["SettingsButton"]
-      212 GETTABLEKS                       R10 R5 K78 ["enabled"]
-      214 JUMPIFNOT                        R10 ; [+10]
-      215 GETUPVAL                         R10 3
-      216 GETTABLEKS                       R10 R10 K5 ["createElement"]
-      218 GETUPVAL                         R11 10
-      219 DUPTABLE                         R12 K81 [{["type"] = "autoSetup", ["close"]}]
-      220 GETTABLEKS                       R13 R5 K82 ["disable"]
-      222 SETTABLEKS                       R13 R12 K80 ["close"]
-      224 CALL                             R10 2 1
-      225 SETTABLEKS                       R10 R9 K20 ["SettingsMenu"]
-      227 CALL                             R6 3 -1
-      228 RETURN                           R6 -1
+      164 LOADK                            R20 K65 ["Publish_Deny_%*"]
+      165 GETTABLEKS                       R22 R4 K59 ["canUploadBundles"]
+      167 GETTABLEKS                       R22 R22 K62 ["denyReason"]
+      169 NAMECALL                         R20 R20 K66 ["format"]
+      171 CALL                             R20 2 1
+      172 NAMECALL                         R17 R2 K67 ["getText"]
+      174 CALL                             R17 3 1
+      175 JUMP                             ; [+1]
+      176 LOADNIL                          R17
+      177 SETTABLEKS                       R17 R16 K57 ["Tooltip"]
+      179 CALL                             R14 2 1
+      180 SETTABLEKS                       R14 R13 K35 ["Publish"]
+      182 CALL                             R10 3 1
+      183 SETTABLEKS                       R10 R9 K18 ["Contents"]
+      185 GETUPVAL                         R10 3
+      186 GETTABLEKS                       R10 R10 K5 ["createElement"]
+      188 GETUPVAL                         R11 8
+      189 DUPTABLE                         R12 K72 [{["Icon"] = "rbxassetid://6663675885", ["IsSelected"] = False, ["StageText"] = "Settings", ["AnchorPoint"], ["Position"], ["OnClick"]}]
+      190 GETIMPORT                        R13 K74 [Vector2.new]
+      192 LOADN                            R14 0
+      193 LOADN                            R15 1
+      194 CALL                             R13 2 1
+      195 SETTABLEKS                       R13 R12 K70 ["AnchorPoint"]
+      197 GETIMPORT                        R13 K76 [UDim2.fromScale]
+      199 LOADN                            R14 0
+      200 LOADN                            R15 1
+      201 CALL                             R13 2 1
+      202 SETTABLEKS                       R13 R12 K71 ["Position"]
+      204 GETTABLEKS                       R13 R5 K77 ["enable"]
+      206 SETTABLEKS                       R13 R12 K42 ["OnClick"]
+      208 CALL                             R10 2 1
+      209 SETTABLEKS                       R10 R9 K19 ["SettingsButton"]
+      211 GETTABLEKS                       R10 R5 K78 ["enabled"]
+      213 JUMPIFNOT                        R10 ; [+10]
+      214 GETUPVAL                         R10 3
+      215 GETTABLEKS                       R10 R10 K5 ["createElement"]
+      217 GETUPVAL                         R11 10
+      218 DUPTABLE                         R12 K81 [{["type"] = "autoSetup", ["close"]}]
+      219 GETTABLEKS                       R13 R5 K82 ["disable"]
+      221 SETTABLEKS                       R13 R12 K80 ["close"]
+      223 CALL                             R10 2 1
+      224 SETTABLEKS                       R10 R9 K20 ["SettingsMenu"]
+      226 CALL                             R6 3 -1
+      227 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

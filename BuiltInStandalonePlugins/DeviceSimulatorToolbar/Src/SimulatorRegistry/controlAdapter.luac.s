@@ -30,13 +30,12 @@ PROTO_1:
        13 GETIMPORT                        R2 K3 [tostring]
        15 CALL                             R2 1 1
        16 RETURN                           R2 1
-       17 LOADK                            R3 K4 ["%*.%*"]
-       18 MOVE                             R5 R0
-       19 MOVE                             R6 R1
-       20 NAMECALL                         R3 R3 K5 ["format"]
-       22 CALL                             R3 3 1
-       23 MOVE                             R2 R3
-       24 RETURN                           R2 1
+       17 LOADK                            R2 K4 ["%*.%*"]
+       18 MOVE                             R4 R0
+       19 MOVE                             R5 R1
+       20 NAMECALL                         R2 R2 K5 ["format"]
+       22 CALL                             R2 3 1
+       23 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -45,9 +44,29 @@ PROTO_2:
         4 JUMPIF                           R2 ; [+2]
         5 LOADK                            R2 K1 [""]
         6 RETURN                           R2 1
-        7 GETTABLEKS                       R3 R0 K2 ["Id"]
-        9 OR                               R2 R3 R1
-       10 RETURN                           R2 1
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["getFFlagStudioDeviceSimulatorRequireExplicitControlIds"]
+       10 CALL                             R2 0 1
+       11 JUMPIFNOT                        R2 ; [+24]
+       12 LOADB                            R3 0
+       13 GETTABLEKS                       R5 R0 K3 ["Id"]
+       15 FASTCALL1                        TYPE R5 ; [+2]
+       16 GETIMPORT                        R4 K5 [type]
+       18 CALL                             R4 1 1
+       19 JUMPIFNOTEQKS                    R4 K6 ["string"] ; [+7]
+       21 GETTABLEKS                       R4 R0 K3 ["Id"]
+       23 JUMPIFNOTEQKS                    R4 K1 [""] ; [+2]
+       25 LOADB                            R3 0 +1
+       26 LOADB                            R3 1
+       27 FASTCALL2K                       ASSERT R3 K7 ; [+4]
+       29 LOADK                            R4 K7 ["Simulator controls require a stable Id"]
+       30 GETIMPORT                        R2 K9 [assert]
+       32 CALL                             R2 2 0
+       33 GETTABLEKS                       R2 R0 K3 ["Id"]
+       35 RETURN                           R2 1
+       36 GETTABLEKS                       R3 R0 K3 ["Id"]
+       38 OR                               R2 R3 R1
+       39 RETURN                           R2 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -56,16 +75,15 @@ PROTO_3:
         4 JUMPIF                           R1 ; [+2]
         5 LOADK                            R1 K1 [""]
         6 RETURN                           R1 1
-        7 LOADK                            R2 K2 ["simulator-control-%*"]
-        8 GETIMPORT                        R4 K5 [string.gsub]
-       10 MOVE                             R5 R0
-       11 LOADK                            R6 K6 ["%."]
-       12 LOADK                            R7 K7 ["-"]
-       13 CALL                             R4 3 1
-       14 NAMECALL                         R2 R2 K8 ["format"]
-       16 CALL                             R2 2 1
-       17 MOVE                             R1 R2
-       18 RETURN                           R1 1
+        7 LOADK                            R1 K2 ["simulator-control-%*"]
+        8 GETIMPORT                        R3 K5 [string.gsub]
+       10 MOVE                             R4 R0
+       11 LOADK                            R5 K6 ["%."]
+       12 LOADK                            R6 K7 ["-"]
+       13 CALL                             R3 3 1
+       14 NAMECALL                         R1 R1 K8 ["format"]
+       16 CALL                             R1 2 1
+       17 RETURN                           R1 1
 
 PROTO_4:
         0 GETUPVAL                         R2 0
@@ -74,13 +92,12 @@ PROTO_4:
         4 JUMPIF                           R2 ; [+2]
         5 LOADK                            R2 K1 [""]
         6 RETURN                           R2 1
-        7 LOADK                            R3 K2 ["%*/option/%*"]
-        8 MOVE                             R5 R0
-        9 MOVE                             R6 R1
-       10 NAMECALL                         R3 R3 K3 ["format"]
-       12 CALL                             R3 3 1
-       13 MOVE                             R2 R3
-       14 RETURN                           R2 1
+        7 LOADK                            R2 K2 ["%*/option/%*"]
+        8 MOVE                             R4 R0
+        9 MOVE                             R5 R1
+       10 NAMECALL                         R2 R2 K3 ["format"]
+       12 CALL                             R2 3 1
+       13 RETURN                           R2 1
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -178,70 +195,69 @@ PROTO_8:
        33 CALL                             R13 0 1
        34 JUMPIF                           R13 ; [+2]
        35 LOADK                            R12 K3 [""]
-       36 JUMP                             ; [+7]
-       37 LOADK                            R13 K12 ["%*/option/%*"]
-       38 MOVE                             R15 R1
-       39 MOVE                             R16 R10
-       40 NAMECALL                         R13 R13 K13 ["format"]
-       42 CALL                             R13 3 1
-       43 MOVE                             R12 R13
-       44 JUMPIFEQKNIL                     R3 ; [+4]
-       46 GETTABLE                         R14 R3 R11
-       47 OR                               R13 R14 R11
-       48 JUMP                             ; [+1]
-       49 MOVE                             R13 R11
-       50 DUPTABLE                         R16 K16 [{"id", "text"}]
-       51 SETTABLEKS                       R12 R16 K14 ["id"]
-       53 GETUPVAL                         R17 1
-       54 MOVE                             R18 R13
-       55 CALL                             R17 1 1
-       56 SETTABLEKS                       R17 R16 K15 ["text"]
-       58 FASTCALL2                        TABLE_INSERT R4 R16 ; [+4]
-       60 MOVE                             R15 R4
-       61 GETIMPORT                        R14 K18 [table.insert]
-       63 CALL                             R14 2 0
-       64 SETTABLE                         R11 R6 R12
-       65 GETTABLE                         R14 R5 R11
-       66 JUMPIFNOTEQKNIL                  R14 ; [+2]
-       68 SETTABLE                         R12 R5 R11
-       69 FORGLOOP                         R7 2 ; [-40]
-       71 FASTCALL1                        TYPE R2 ; [+3]
-       72 MOVE                             R9 R2
-       73 GETIMPORT                        R8 K20 [type]
-       75 CALL                             R8 1 1
-       76 JUMPIFNOTEQKS                    R8 K21 ["string"] ; [+3]
-       78 MOVE                             R7 R2
-       79 JUMP                             ; [+1]
-       80 LOADNIL                          R7
-       81 JUMPIFEQKNIL                     R7 ; [+3]
-       83 GETTABLE                         R8 R5 R7
-       84 JUMP                             ; [+1]
-       85 LOADNIL                          R8
-       86 DUPTABLE                         R9 K23 [{"items", "value", "hasValue", "placeholder", "itemIdToValue"}]
-       87 SETTABLEKS                       R4 R9 K1 ["items"]
-       89 SETTABLEKS                       R8 R9 K2 ["value"]
-       91 JUMPIFNOTEQKNIL                  R7 ; [+2]
-       93 LOADB                            R10 0 +1
-       94 LOADB                            R10 1
-       95 SETTABLEKS                       R10 R9 K4 ["hasValue"]
-       97 JUMPIFNOTEQKNIL                  R8 ; [+10]
-       99 JUMPIFEQKNIL                     R7 ; [+8]
-      101 JUMPIFEQKNIL                     R3 ; [+6]
-      103 GETUPVAL                         R10 1
-      104 GETTABLE                         R12 R3 R7
-      105 OR                               R11 R12 R7
-      106 CALL                             R10 1 1
-      107 JUMP                             ; [+9]
-      108 JUMPIFNOTEQKNIL                  R8 ; [+7]
-      110 JUMPIFEQKNIL                     R7 ; [+5]
-      112 GETUPVAL                         R10 1
-      113 MOVE                             R11 R7
-      114 CALL                             R10 1 1
-      115 JUMP                             ; [+1]
-      116 LOADNIL                          R10
-      117 SETTABLEKS                       R10 R9 K22 ["placeholder"]
-      119 SETTABLEKS                       R6 R9 K6 ["itemIdToValue"]
-      121 RETURN                           R9 1
+       36 JUMP                             ; [+6]
+       37 LOADK                            R12 K12 ["%*/option/%*"]
+       38 MOVE                             R14 R1
+       39 MOVE                             R15 R10
+       40 NAMECALL                         R12 R12 K13 ["format"]
+       42 CALL                             R12 3 1
+       43 JUMPIFEQKNIL                     R3 ; [+4]
+       45 GETTABLE                         R14 R3 R11
+       46 OR                               R13 R14 R11
+       47 JUMP                             ; [+1]
+       48 MOVE                             R13 R11
+       49 DUPTABLE                         R16 K16 [{"id", "text"}]
+       50 SETTABLEKS                       R12 R16 K14 ["id"]
+       52 GETUPVAL                         R17 1
+       53 MOVE                             R18 R13
+       54 CALL                             R17 1 1
+       55 SETTABLEKS                       R17 R16 K15 ["text"]
+       57 FASTCALL2                        TABLE_INSERT R4 R16 ; [+4]
+       59 MOVE                             R15 R4
+       60 GETIMPORT                        R14 K18 [table.insert]
+       62 CALL                             R14 2 0
+       63 SETTABLE                         R11 R6 R12
+       64 GETTABLE                         R14 R5 R11
+       65 JUMPIFNOTEQKNIL                  R14 ; [+2]
+       67 SETTABLE                         R12 R5 R11
+       68 FORGLOOP                         R7 2 ; [-39]
+       70 FASTCALL1                        TYPE R2 ; [+3]
+       71 MOVE                             R9 R2
+       72 GETIMPORT                        R8 K20 [type]
+       74 CALL                             R8 1 1
+       75 JUMPIFNOTEQKS                    R8 K21 ["string"] ; [+3]
+       77 MOVE                             R7 R2
+       78 JUMP                             ; [+1]
+       79 LOADNIL                          R7
+       80 JUMPIFEQKNIL                     R7 ; [+3]
+       82 GETTABLE                         R8 R5 R7
+       83 JUMP                             ; [+1]
+       84 LOADNIL                          R8
+       85 DUPTABLE                         R9 K23 [{"items", "value", "hasValue", "placeholder", "itemIdToValue"}]
+       86 SETTABLEKS                       R4 R9 K1 ["items"]
+       88 SETTABLEKS                       R8 R9 K2 ["value"]
+       90 JUMPIFNOTEQKNIL                  R7 ; [+2]
+       92 LOADB                            R10 0 +1
+       93 LOADB                            R10 1
+       94 SETTABLEKS                       R10 R9 K4 ["hasValue"]
+       96 JUMPIFNOTEQKNIL                  R8 ; [+10]
+       98 JUMPIFEQKNIL                     R7 ; [+8]
+      100 JUMPIFEQKNIL                     R3 ; [+6]
+      102 GETUPVAL                         R10 1
+      103 GETTABLE                         R12 R3 R7
+      104 OR                               R11 R12 R7
+      105 CALL                             R10 1 1
+      106 JUMP                             ; [+9]
+      107 JUMPIFNOTEQKNIL                  R8 ; [+7]
+      109 JUMPIFEQKNIL                     R7 ; [+5]
+      111 GETUPVAL                         R10 1
+      112 MOVE                             R11 R7
+      113 CALL                             R10 1 1
+      114 JUMP                             ; [+1]
+      115 LOADNIL                          R10
+      116 SETTABLEKS                       R10 R9 K22 ["placeholder"]
+      118 SETTABLEKS                       R6 R9 K6 ["itemIdToValue"]
+      120 RETURN                           R9 1
 
 MAIN:
         0 PREPVARARGS                      0

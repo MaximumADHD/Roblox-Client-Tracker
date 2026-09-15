@@ -48,43 +48,41 @@ PROTO_2:
         6 GETUPVAL                         R3 0
         7 GETTABLEKS                       R3 R3 K1 ["_localization"]
         9 LOADK                            R5 K2 ["Operations"]
-       10 LOADK                            R7 K3 ["%*Name"]
-       11 GETUPVAL                         R9 2
-       12 GETTABLEKS                       R9 R9 K4 ["SmoothVoxels"]
-       14 NAMECALL                         R7 R7 K5 ["format"]
-       16 CALL                             R7 2 1
-       17 MOVE                             R6 R7
-       18 NAMECALL                         R3 R3 K6 ["getText"]
-       20 CALL                             R3 3 1
-       21 GETUPVAL                         R4 0
-       22 GETTABLEKS                       R4 R4 K1 ["_localization"]
-       24 LOADK                            R6 K2 ["Operations"]
-       25 LOADK                            R8 K7 ["%*Description"]
-       26 GETUPVAL                         R10 2
-       27 GETTABLEKS                       R10 R10 K4 ["SmoothVoxels"]
-       29 NAMECALL                         R8 R8 K5 ["format"]
-       31 CALL                             R8 2 1
-       32 MOVE                             R7 R8
-       33 NAMECALL                         R4 R4 K6 ["getText"]
-       35 CALL                             R4 3 1
-       36 GETUPVAL                         R5 3
-       37 NEWCLOSURE                       R6 P0
-       38 CAPTURE                          UPVAL U0
-       39 CAPTURE                          UPVAL U4
-       40 CAPTURE                          UPVAL U2
-       41 CALL                             R2 4 1
-       42 SETTABLEKS                       R2 R1 K8 ["_operation"]
-       44 GETUPVAL                         R1 0
-       45 GETTABLEKS                       R1 R1 K8 ["_operation"]
-       47 DUPTABLE                         R3 K10 [{"Payload"}]
-       48 SETTABLEKS                       R0 R3 K9 ["Payload"]
-       50 NAMECALL                         R1 R1 K11 ["start"]
-       52 CALL                             R1 2 0
-       53 GETUPVAL                         R1 0
-       54 GETTABLEKS                       R1 R1 K12 ["OnOperationChanged"]
-       56 NAMECALL                         R1 R1 K13 ["Fire"]
-       58 CALL                             R1 1 0
-       59 RETURN                           R0 0
+       10 LOADK                            R6 K3 ["%*Name"]
+       11 GETUPVAL                         R8 2
+       12 GETTABLEKS                       R8 R8 K4 ["SmoothVoxels"]
+       14 NAMECALL                         R6 R6 K5 ["format"]
+       16 CALL                             R6 2 1
+       17 NAMECALL                         R3 R3 K6 ["getText"]
+       19 CALL                             R3 3 1
+       20 GETUPVAL                         R4 0
+       21 GETTABLEKS                       R4 R4 K1 ["_localization"]
+       23 LOADK                            R6 K2 ["Operations"]
+       24 LOADK                            R7 K7 ["%*Description"]
+       25 GETUPVAL                         R9 2
+       26 GETTABLEKS                       R9 R9 K4 ["SmoothVoxels"]
+       28 NAMECALL                         R7 R7 K5 ["format"]
+       30 CALL                             R7 2 1
+       31 NAMECALL                         R4 R4 K6 ["getText"]
+       33 CALL                             R4 3 1
+       34 GETUPVAL                         R5 3
+       35 NEWCLOSURE                       R6 P0
+       36 CAPTURE                          UPVAL U0
+       37 CAPTURE                          UPVAL U4
+       38 CAPTURE                          UPVAL U2
+       39 CALL                             R2 4 1
+       40 SETTABLEKS                       R2 R1 K8 ["_operation"]
+       42 GETUPVAL                         R1 0
+       43 GETTABLEKS                       R1 R1 K8 ["_operation"]
+       45 DUPTABLE                         R3 K10 [{"Payload"}]
+       46 SETTABLEKS                       R0 R3 K9 ["Payload"]
+       48 NAMECALL                         R1 R1 K11 ["start"]
+       50 CALL                             R1 2 0
+       51 GETUPVAL                         R1 0
+       52 GETTABLEKS                       R1 R1 K12 ["OnOperationChanged"]
+       54 NAMECALL                         R1 R1 K13 ["Fire"]
+       56 CALL                             R1 1 0
+       57 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R3 0

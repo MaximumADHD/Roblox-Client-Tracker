@@ -1,16 +1,15 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R2 K0 ["<%*>"]
-        2 GETUPVAL                         R4 1
-        3 LOADK                            R6 K1 ["Label"]
-        4 LOADK                            R7 K2 ["UnknownUser"]
-        5 NAMECALL                         R4 R4 K3 ["getText"]
-        7 CALL                             R4 3 1
-        8 NAMECALL                         R2 R2 K4 ["format"]
-       10 CALL                             R2 2 1
-       11 MOVE                             R1 R2
-       12 CALL                             R0 1 0
-       13 RETURN                           R0 0
+        1 LOADK                            R1 K0 ["<%*>"]
+        2 GETUPVAL                         R3 1
+        3 LOADK                            R5 K1 ["Label"]
+        4 LOADK                            R6 K2 ["UnknownUser"]
+        5 NAMECALL                         R3 R3 K3 ["getText"]
+        7 CALL                             R3 3 1
+        8 NAMECALL                         R1 R1 K4 ["format"]
+       10 CALL                             R1 2 1
+       11 CALL                             R0 1 0
+       12 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -115,51 +114,50 @@ PROTO_3:
         6 GETUPVAL                         R4 1
         7 GETTABLEKS                       R4 R4 K1 ["Text"]
         9 DUPTABLE                         R5 K6 [{["tag"] = "size-0-0 auto-xy text-body-small text-align-x-left", ["Text"], ["key"], ["LayoutOrder"]}]
-       10 LOADK                            R7 K7 ["%*:"]
-       11 GETUPVAL                         R9 2
-       12 LOADK                            R11 K8 ["Label"]
-       13 LOADK                            R12 K9 ["Collaborators"]
-       14 NAMECALL                         R9 R9 K10 ["getText"]
-       16 CALL                             R9 3 1
-       17 NAMECALL                         R7 R7 K11 ["format"]
-       19 CALL                             R7 2 1
-       20 MOVE                             R6 R7
-       21 SETTABLEKS                       R6 R5 K1 ["Text"]
-       23 GETUPVAL                         R6 3
-       24 LOADK                            R7 K8 ["Label"]
-       25 CALL                             R6 1 1
-       26 SETTABLEKS                       R6 R5 K4 ["key"]
-       28 GETUPVAL                         R6 4
-       29 CALL                             R6 0 1
-       30 SETTABLEKS                       R6 R5 K5 ["LayoutOrder"]
-       32 CALL                             R3 2 -1
-       33 FASTCALL                         TABLE_INSERT ; [+2]
-       34 GETIMPORT                        R1 K14 [table.insert]
-       36 CALL                             R1 -1 0
-       37 GETUPVAL                         R1 5
-       38 GETTABLEKS                       R1 R1 K15 ["contributors"]
-       40 LOADNIL                          R2
-       41 LOADNIL                          R3
-       42 FORGPREP                         R1
-       43 MOVE                             R7 R0
-       44 GETUPVAL                         R8 0
-       45 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       47 GETUPVAL                         R9 6
-       48 DUPTABLE                         R10 K17 [{"userId", "key", "LayoutOrder"}]
-       49 SETTABLEKS                       R5 R10 K16 ["userId"]
-       51 GETUPVAL                         R11 3
-       52 LOADK                            R12 K18 ["Contributor"]
-       53 CALL                             R11 1 1
-       54 SETTABLEKS                       R11 R10 K4 ["key"]
-       56 GETUPVAL                         R11 4
-       57 CALL                             R11 0 1
-       58 SETTABLEKS                       R11 R10 K5 ["LayoutOrder"]
-       60 CALL                             R8 2 -1
-       61 FASTCALL                         TABLE_INSERT ; [+2]
-       62 GETIMPORT                        R6 K14 [table.insert]
-       64 CALL                             R6 -1 0
-       65 FORGLOOP                         R1 2 ; [-23]
-       67 RETURN                           R0 1
+       10 LOADK                            R6 K7 ["%*:"]
+       11 GETUPVAL                         R8 2
+       12 LOADK                            R10 K8 ["Label"]
+       13 LOADK                            R11 K9 ["Collaborators"]
+       14 NAMECALL                         R8 R8 K10 ["getText"]
+       16 CALL                             R8 3 1
+       17 NAMECALL                         R6 R6 K11 ["format"]
+       19 CALL                             R6 2 1
+       20 SETTABLEKS                       R6 R5 K1 ["Text"]
+       22 GETUPVAL                         R6 3
+       23 LOADK                            R7 K8 ["Label"]
+       24 CALL                             R6 1 1
+       25 SETTABLEKS                       R6 R5 K4 ["key"]
+       27 GETUPVAL                         R6 4
+       28 CALL                             R6 0 1
+       29 SETTABLEKS                       R6 R5 K5 ["LayoutOrder"]
+       31 CALL                             R3 2 -1
+       32 FASTCALL                         TABLE_INSERT ; [+2]
+       33 GETIMPORT                        R1 K14 [table.insert]
+       35 CALL                             R1 -1 0
+       36 GETUPVAL                         R1 5
+       37 GETTABLEKS                       R1 R1 K15 ["contributors"]
+       39 LOADNIL                          R2
+       40 LOADNIL                          R3
+       41 FORGPREP                         R1
+       42 MOVE                             R7 R0
+       43 GETUPVAL                         R8 0
+       44 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       46 GETUPVAL                         R9 6
+       47 DUPTABLE                         R10 K17 [{"userId", "key", "LayoutOrder"}]
+       48 SETTABLEKS                       R5 R10 K16 ["userId"]
+       50 GETUPVAL                         R11 3
+       51 LOADK                            R12 K18 ["Contributor"]
+       52 CALL                             R11 1 1
+       53 SETTABLEKS                       R11 R10 K4 ["key"]
+       55 GETUPVAL                         R11 4
+       56 CALL                             R11 0 1
+       57 SETTABLEKS                       R11 R10 K5 ["LayoutOrder"]
+       59 CALL                             R8 2 -1
+       60 FASTCALL                         TABLE_INSERT ; [+2]
+       61 GETIMPORT                        R6 K14 [table.insert]
+       63 CALL                             R6 -1 0
+       64 FORGLOOP                         R1 2 ; [-23]
+       66 RETURN                           R0 1
 
 PROTO_4:
         0 GETUPVAL                         R1 0

@@ -38,43 +38,42 @@ PROTO_1:
        16 GETTABLEKS                       R10 R9 K5 ["PreferredToolbarUri"]
        18 GETTABLEKS                       R10 R10 K6 ["PluginId"]
        20 GETTABLEKS                       R11 R0 K6 ["PluginId"]
-       22 JUMPIFNOTEQ                      R10 R11 ; [+48]
+       22 JUMPIFNOTEQ                      R10 R11 ; [+47]
        24 GETTABLEKS                       R10 R9 K5 ["PreferredToolbarUri"]
        26 GETTABLEKS                       R10 R10 K7 ["DataModel"]
        28 GETTABLEKS                       R11 R0 K7 ["DataModel"]
-       30 JUMPIFNOTEQ                      R10 R11 ; [+40]
+       30 JUMPIFNOTEQ                      R10 R11 ; [+39]
        32 GETTABLEKS                       R10 R9 K5 ["PreferredToolbarUri"]
        34 GETTABLEKS                       R10 R10 K8 ["PluginType"]
        36 GETTABLEKS                       R11 R0 K8 ["PluginType"]
-       38 JUMPIFNOTEQ                      R10 R11 ; [+32]
+       38 JUMPIFNOTEQ                      R10 R11 ; [+31]
        40 GETTABLEKS                       R10 R9 K5 ["PreferredToolbarUri"]
        42 GETTABLEKS                       R10 R10 K9 ["ItemId"]
-       44 LOADK                            R12 K10 ["Tabs/%*"]
-       45 MOVE                             R14 R1
-       46 NAMECALL                         R12 R12 K11 ["format"]
-       48 CALL                             R12 2 1
-       49 MOVE                             R11 R12
-       50 JUMPIFNOTEQ                      R10 R11 ; [+20]
-       52 GETTABLEKS                       R11 R9 K12 ["Controls"]
-       54 LENGTH                           R10 R11
-       55 LOADN                            R11 0
-       56 JUMPIFNOTLT                      R11 R10 ; [+14]
-       58 LOADB                            R4 1
-       59 GETUPVAL                         R10 0
-       60 MOVE                             R11 R2
-       61 GETTABLEKS                       R12 R9 K12 ["Controls"]
-       63 CALL                             R10 2 0
-       64 GETUPVAL                         R12 1
-       65 FASTCALL2                        TABLE_INSERT R2 R12 ; [+4]
-       67 MOVE                             R11 R2
-       68 GETIMPORT                        R10 K14 [table.insert]
-       70 CALL                             R10 2 0
-       71 FORGLOOP                         R5 2 ; [-56]
-       73 JUMPIFNOT                        R4 ; [+4]
-       74 GETIMPORT                        R5 K16 [table.remove]
-       76 MOVE                             R6 R2
-       77 CALL                             R5 1 0
-       78 RETURN                           R0 0
+       44 LOADK                            R11 K10 ["Tabs/%*"]
+       45 MOVE                             R13 R1
+       46 NAMECALL                         R11 R11 K11 ["format"]
+       48 CALL                             R11 2 1
+       49 JUMPIFNOTEQ                      R10 R11 ; [+20]
+       51 GETTABLEKS                       R11 R9 K12 ["Controls"]
+       53 LENGTH                           R10 R11
+       54 LOADN                            R11 0
+       55 JUMPIFNOTLT                      R11 R10 ; [+14]
+       57 LOADB                            R4 1
+       58 GETUPVAL                         R10 0
+       59 MOVE                             R11 R2
+       60 GETTABLEKS                       R12 R9 K12 ["Controls"]
+       62 CALL                             R10 2 0
+       63 GETUPVAL                         R12 1
+       64 FASTCALL2                        TABLE_INSERT R2 R12 ; [+4]
+       66 MOVE                             R11 R2
+       67 GETIMPORT                        R10 K14 [table.insert]
+       69 CALL                             R10 2 0
+       70 FORGLOOP                         R5 2 ; [-55]
+       72 JUMPIFNOT                        R4 ; [+4]
+       73 GETIMPORT                        R5 K16 [table.remove]
+       75 MOVE                             R6 R2
+       76 CALL                             R5 1 0
+       77 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

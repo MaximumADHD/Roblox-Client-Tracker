@@ -18,118 +18,116 @@ PROTO_1:
        11 DUPTABLE                         R11 K6 [{"Key", "Display", "Description"}]
        12 SETTABLEKS                       R8 R11 K3 ["Key"]
        14 LOADK                            R14 K7 ["Permissions"]
-       15 LOADK                            R16 K8 ["%*.Label"]
-       16 MOVE                             R18 R8
-       17 NAMECALL                         R16 R16 K9 ["format"]
-       19 CALL                             R16 2 1
-       20 MOVE                             R15 R16
-       21 NAMECALL                         R12 R2 K10 ["getText"]
-       23 CALL                             R12 3 1
-       24 SETTABLEKS                       R12 R11 K4 ["Display"]
-       26 LOADK                            R14 K7 ["Permissions"]
-       27 LOADK                            R16 K11 ["%*.Subtext"]
-       28 MOVE                             R18 R8
-       29 NAMECALL                         R16 R16 K9 ["format"]
-       31 CALL                             R16 2 1
-       32 MOVE                             R15 R16
-       33 NAMECALL                         R12 R2 K10 ["getText"]
-       35 CALL                             R12 3 1
-       36 SETTABLEKS                       R12 R11 K5 ["Description"]
-       38 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
-       40 MOVE                             R10 R3
-       41 GETIMPORT                        R9 K14 [table.insert]
-       43 CALL                             R9 2 0
-       44 FORGLOOP                         R4 2 ; [-34]
-       46 GETTABLEKS                       R4 R1 K15 ["IsMigrating"]
-       48 LOADB                            R5 0
-       49 GETTABLEKS                       R7 R1 K2 ["AvailableActions"]
-       51 LENGTH                           R6 R7
-       52 JUMPIFNOTEQKN                    R6 K16 [1] ; [+10]
-       54 GETTABLEKS                       R7 R1 K2 ["AvailableActions"]
-       56 GETTABLEN                        R6 R7 1
-       57 GETTABLEKS                       R7 R1 K17 ["SelectedAction"]
-       59 JUMPIFEQ                         R6 R7 ; [+2]
-       61 LOADB                            R5 0 +1
-       62 LOADB                            R5 1
-       63 JUMPIFNOT                        R4 ; [+6]
-       64 LOADK                            R8 K18 ["General"]
-       65 LOADK                            R9 K19 ["PV2MigrationReadOnlyBanner"]
-       66 NAMECALL                         R6 R2 K10 ["getText"]
-       68 CALL                             R6 3 1
-       69 JUMP                             ; [+18]
-       70 GETUPVAL                         R7 0
-       71 GETTABLEKS                       R7 R7 K20 ["fflagCollabPV2GroupMigration"]
-       73 JUMPIFNOT                        R7 ; [+13]
-       74 GETTABLEKS                       R7 R1 K21 ["IsEditable"]
-       76 JUMPIF                           R7 ; [+10]
-       77 GETTABLEKS                       R7 R1 K22 ["IsVisibleOnly"]
-       79 JUMPIF                           R7 ; [+1]
-       80 JUMPIFNOT                        R5 ; [+6]
-       81 LOADK                            R8 K23 ["PermissionDescriptions"]
-       82 LOADK                            R9 K24 ["HigherPermissionToEdit"]
-       83 NAMECALL                         R6 R2 K10 ["getText"]
-       85 CALL                             R6 3 1
-       86 JUMP                             ; [+1]
-       87 LOADNIL                          R6
-       88 GETUPVAL                         R8 0
-       89 GETTABLEKS                       R8 R8 K20 ["fflagCollabPV2GroupMigration"]
-       91 JUMPIFNOT                        R8 ; [+10]
-       92 GETTABLEKS                       R8 R1 K25 ["InheritedAction"]
-       94 JUMPIFEQKNIL                     R8 ; [+7]
-       96 LOADK                            R9 K23 ["PermissionDescriptions"]
-       97 LOADK                            R10 K26 ["InheritedPermission"]
-       98 NAMECALL                         R7 R2 K10 ["getText"]
-      100 CALL                             R7 3 1
-      101 JUMP                             ; [+1]
-      102 LOADNIL                          R7
-      103 GETUPVAL                         R8 1
-      104 GETTABLEKS                       R8 R8 K27 ["createElement"]
-      106 GETUPVAL                         R9 2
-      107 DUPTABLE                         R10 K44 [{["LayoutOrder"], ["Name"], ["Icon"], ["Writable"], ["Loading"] = False, ["HideSeparator"], ["Removable"] = False, ["SubText"], ["TooltipText"], ["DropdownItemTooltipText"], ["DropdownTooltipItemKey"], ["CurrentPermission"], ["AvailablePermissions"], ["OnPermissionChanged"], ["DisableEditPermission"]}]
-      108 GETTABLEKS                       R11 R1 K28 ["LayoutOrder"]
-      110 SETTABLEKS                       R11 R10 K28 ["LayoutOrder"]
-      112 GETTABLEKS                       R11 R1 K45 ["RoleName"]
-      114 SETTABLEKS                       R11 R10 K29 ["Name"]
-      116 GETUPVAL                         R11 1
-      117 GETTABLEKS                       R11 R11 K27 ["createElement"]
-      119 GETUPVAL                         R12 3
-      120 DUPTABLE                         R13 K50 [{"Id", "Color", "IsPrivate", "Size"}]
-      121 GETTABLEKS                       R14 R1 K46 ["Id"]
-      123 SETTABLEKS                       R14 R13 K46 ["Id"]
-      125 GETTABLEKS                       R14 R1 K47 ["Color"]
-      127 SETTABLEKS                       R14 R13 K47 ["Color"]
-      129 GETTABLEKS                       R14 R1 K48 ["IsPrivate"]
-      131 SETTABLEKS                       R14 R13 K48 ["IsPrivate"]
-      133 GETIMPORT                        R14 K53 [UDim2.fromScale]
-      135 LOADN                            R15 1
-      136 LOADN                            R16 1
-      137 CALL                             R14 2 1
-      138 SETTABLEKS                       R14 R13 K49 ["Size"]
-      140 CALL                             R11 2 1
-      141 SETTABLEKS                       R11 R10 K30 ["Icon"]
-      143 JUMPIFNOT                        R4 ; [+2]
-      144 LOADB                            R11 0
-      145 JUMP                             ; [+2]
-      146 GETTABLEKS                       R11 R1 K21 ["IsEditable"]
-      148 SETTABLEKS                       R11 R10 K31 ["Writable"]
-      150 GETTABLEKS                       R11 R1 K34 ["HideSeparator"]
-      152 SETTABLEKS                       R11 R10 K34 ["HideSeparator"]
-      154 GETTABLEKS                       R11 R1 K54 ["OrgName"]
-      156 SETTABLEKS                       R11 R10 K36 ["SubText"]
-      158 SETTABLEKS                       R6 R10 K37 ["TooltipText"]
-      160 SETTABLEKS                       R7 R10 K38 ["DropdownItemTooltipText"]
-      162 GETTABLEKS                       R11 R1 K25 ["InheritedAction"]
-      164 SETTABLEKS                       R11 R10 K39 ["DropdownTooltipItemKey"]
-      166 GETTABLEKS                       R11 R1 K17 ["SelectedAction"]
-      168 SETTABLEKS                       R11 R10 K40 ["CurrentPermission"]
-      170 SETTABLEKS                       R3 R10 K41 ["AvailablePermissions"]
-      172 NEWCLOSURE                       R11 P0
-      173 CAPTURE                          VAL R1
-      174 SETTABLEKS                       R11 R10 K42 ["OnPermissionChanged"]
-      176 GETTABLEKS                       R11 R1 K43 ["DisableEditPermission"]
-      178 SETTABLEKS                       R11 R10 K43 ["DisableEditPermission"]
-      180 CALL                             R8 2 -1
-      181 RETURN                           R8 -1
+       15 LOADK                            R15 K8 ["%*.Label"]
+       16 MOVE                             R17 R8
+       17 NAMECALL                         R15 R15 K9 ["format"]
+       19 CALL                             R15 2 1
+       20 NAMECALL                         R12 R2 K10 ["getText"]
+       22 CALL                             R12 3 1
+       23 SETTABLEKS                       R12 R11 K4 ["Display"]
+       25 LOADK                            R14 K7 ["Permissions"]
+       26 LOADK                            R15 K11 ["%*.Subtext"]
+       27 MOVE                             R17 R8
+       28 NAMECALL                         R15 R15 K9 ["format"]
+       30 CALL                             R15 2 1
+       31 NAMECALL                         R12 R2 K10 ["getText"]
+       33 CALL                             R12 3 1
+       34 SETTABLEKS                       R12 R11 K5 ["Description"]
+       36 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
+       38 MOVE                             R10 R3
+       39 GETIMPORT                        R9 K14 [table.insert]
+       41 CALL                             R9 2 0
+       42 FORGLOOP                         R4 2 ; [-32]
+       44 GETTABLEKS                       R4 R1 K15 ["IsMigrating"]
+       46 LOADB                            R5 0
+       47 GETTABLEKS                       R7 R1 K2 ["AvailableActions"]
+       49 LENGTH                           R6 R7
+       50 JUMPIFNOTEQKN                    R6 K16 [1] ; [+10]
+       52 GETTABLEKS                       R7 R1 K2 ["AvailableActions"]
+       54 GETTABLEN                        R6 R7 1
+       55 GETTABLEKS                       R7 R1 K17 ["SelectedAction"]
+       57 JUMPIFEQ                         R6 R7 ; [+2]
+       59 LOADB                            R5 0 +1
+       60 LOADB                            R5 1
+       61 JUMPIFNOT                        R4 ; [+6]
+       62 LOADK                            R8 K18 ["General"]
+       63 LOADK                            R9 K19 ["PV2MigrationReadOnlyBanner"]
+       64 NAMECALL                         R6 R2 K10 ["getText"]
+       66 CALL                             R6 3 1
+       67 JUMP                             ; [+18]
+       68 GETUPVAL                         R7 0
+       69 GETTABLEKS                       R7 R7 K20 ["fflagCollabPV2GroupMigration"]
+       71 JUMPIFNOT                        R7 ; [+13]
+       72 GETTABLEKS                       R7 R1 K21 ["IsEditable"]
+       74 JUMPIF                           R7 ; [+10]
+       75 GETTABLEKS                       R7 R1 K22 ["IsVisibleOnly"]
+       77 JUMPIF                           R7 ; [+1]
+       78 JUMPIFNOT                        R5 ; [+6]
+       79 LOADK                            R8 K23 ["PermissionDescriptions"]
+       80 LOADK                            R9 K24 ["HigherPermissionToEdit"]
+       81 NAMECALL                         R6 R2 K10 ["getText"]
+       83 CALL                             R6 3 1
+       84 JUMP                             ; [+1]
+       85 LOADNIL                          R6
+       86 GETUPVAL                         R8 0
+       87 GETTABLEKS                       R8 R8 K20 ["fflagCollabPV2GroupMigration"]
+       89 JUMPIFNOT                        R8 ; [+10]
+       90 GETTABLEKS                       R8 R1 K25 ["InheritedAction"]
+       92 JUMPIFEQKNIL                     R8 ; [+7]
+       94 LOADK                            R9 K23 ["PermissionDescriptions"]
+       95 LOADK                            R10 K26 ["InheritedPermission"]
+       96 NAMECALL                         R7 R2 K10 ["getText"]
+       98 CALL                             R7 3 1
+       99 JUMP                             ; [+1]
+      100 LOADNIL                          R7
+      101 GETUPVAL                         R8 1
+      102 GETTABLEKS                       R8 R8 K27 ["createElement"]
+      104 GETUPVAL                         R9 2
+      105 DUPTABLE                         R10 K44 [{["LayoutOrder"], ["Name"], ["Icon"], ["Writable"], ["Loading"] = False, ["HideSeparator"], ["Removable"] = False, ["SubText"], ["TooltipText"], ["DropdownItemTooltipText"], ["DropdownTooltipItemKey"], ["CurrentPermission"], ["AvailablePermissions"], ["OnPermissionChanged"], ["DisableEditPermission"]}]
+      106 GETTABLEKS                       R11 R1 K28 ["LayoutOrder"]
+      108 SETTABLEKS                       R11 R10 K28 ["LayoutOrder"]
+      110 GETTABLEKS                       R11 R1 K45 ["RoleName"]
+      112 SETTABLEKS                       R11 R10 K29 ["Name"]
+      114 GETUPVAL                         R11 1
+      115 GETTABLEKS                       R11 R11 K27 ["createElement"]
+      117 GETUPVAL                         R12 3
+      118 DUPTABLE                         R13 K50 [{"Id", "Color", "IsPrivate", "Size"}]
+      119 GETTABLEKS                       R14 R1 K46 ["Id"]
+      121 SETTABLEKS                       R14 R13 K46 ["Id"]
+      123 GETTABLEKS                       R14 R1 K47 ["Color"]
+      125 SETTABLEKS                       R14 R13 K47 ["Color"]
+      127 GETTABLEKS                       R14 R1 K48 ["IsPrivate"]
+      129 SETTABLEKS                       R14 R13 K48 ["IsPrivate"]
+      131 GETIMPORT                        R14 K53 [UDim2.fromScale]
+      133 LOADN                            R15 1
+      134 LOADN                            R16 1
+      135 CALL                             R14 2 1
+      136 SETTABLEKS                       R14 R13 K49 ["Size"]
+      138 CALL                             R11 2 1
+      139 SETTABLEKS                       R11 R10 K30 ["Icon"]
+      141 JUMPIFNOT                        R4 ; [+2]
+      142 LOADB                            R11 0
+      143 JUMP                             ; [+2]
+      144 GETTABLEKS                       R11 R1 K21 ["IsEditable"]
+      146 SETTABLEKS                       R11 R10 K31 ["Writable"]
+      148 GETTABLEKS                       R11 R1 K34 ["HideSeparator"]
+      150 SETTABLEKS                       R11 R10 K34 ["HideSeparator"]
+      152 GETTABLEKS                       R11 R1 K54 ["OrgName"]
+      154 SETTABLEKS                       R11 R10 K36 ["SubText"]
+      156 SETTABLEKS                       R6 R10 K37 ["TooltipText"]
+      158 SETTABLEKS                       R7 R10 K38 ["DropdownItemTooltipText"]
+      160 GETTABLEKS                       R11 R1 K25 ["InheritedAction"]
+      162 SETTABLEKS                       R11 R10 K39 ["DropdownTooltipItemKey"]
+      164 GETTABLEKS                       R11 R1 K17 ["SelectedAction"]
+      166 SETTABLEKS                       R11 R10 K40 ["CurrentPermission"]
+      168 SETTABLEKS                       R3 R10 K41 ["AvailablePermissions"]
+      170 NEWCLOSURE                       R11 P0
+      171 CAPTURE                          VAL R1
+      172 SETTABLEKS                       R11 R10 K42 ["OnPermissionChanged"]
+      174 GETTABLEKS                       R11 R1 K43 ["DisableEditPermission"]
+      176 SETTABLEKS                       R11 R10 K43 ["DisableEditPermission"]
+      178 CALL                             R8 2 -1
+      179 RETURN                           R8 -1
 
 PROTO_2:
         0 DUPTABLE                         R2 K10 [{"RoleName", "OrgName", "SelectedAction", "AvailableActions", "Color", "IsPrivate", "IsEditable", "IsVisibleOnly", "InheritedAction", "IsMigrating"}]

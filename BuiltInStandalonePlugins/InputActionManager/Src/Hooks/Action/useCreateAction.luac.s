@@ -5,68 +5,77 @@ PROTO_0:
         3 RETURN                           R0 -1
 
 PROTO_1:
-        0 JUMPIF                           R0 ; [+1]
-        1 RETURN                           R0 0
-        2 GETUPVAL                         R1 0
-        3 GETTABLEKS                       R1 R1 K0 ["CREATE_ACTION_BOOL"]
-        5 JUMPIFNOTEQ                      R0 R1 ; [+6]
-        7 GETUPVAL                         R1 1
-        8 GETIMPORT                        R2 K4 [Enum.InputActionType.Bool]
-       10 CALL                             R1 1 0
-       11 RETURN                           R0 0
-       12 GETUPVAL                         R1 0
-       13 GETTABLEKS                       R1 R1 K5 ["CREATE_ACTION_DIRECTION1D"]
-       15 JUMPIFNOTEQ                      R0 R1 ; [+6]
-       17 GETUPVAL                         R1 1
-       18 GETIMPORT                        R2 K7 [Enum.InputActionType.Direction1D]
-       20 CALL                             R1 1 0
-       21 RETURN                           R0 0
-       22 GETUPVAL                         R1 0
-       23 GETTABLEKS                       R1 R1 K8 ["CREATE_ACTION_DIRECTION2D"]
-       25 JUMPIFNOTEQ                      R0 R1 ; [+6]
-       27 GETUPVAL                         R1 1
-       28 GETIMPORT                        R2 K10 [Enum.InputActionType.Direction2D]
-       30 CALL                             R1 1 0
-       31 RETURN                           R0 0
-       32 GETUPVAL                         R1 0
-       33 GETTABLEKS                       R1 R1 K11 ["CREATE_ACTION_DIRECTION3D"]
-       35 JUMPIFNOTEQ                      R0 R1 ; [+6]
-       37 GETUPVAL                         R1 1
-       38 GETIMPORT                        R2 K13 [Enum.InputActionType.Direction3D]
-       40 CALL                             R1 1 0
-       41 RETURN                           R0 0
-       42 GETUPVAL                         R1 2
-       43 CALL                             R1 0 1
-       44 JUMPIFNOT                        R1 ; [+9]
-       45 GETUPVAL                         R1 0
-       46 GETTABLEKS                       R1 R1 K14 ["CREATE_ACTION_VIEWPORT_POSITION"]
-       48 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       50 GETUPVAL                         R1 1
-       51 GETIMPORT                        R2 K16 [Enum.InputActionType.ViewportPosition]
-       53 CALL                             R1 1 0
-       54 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["CREATE_ACTION_BOOL"]
+        3 JUMPIFNOTEQ                      R0 R1 ; [+6]
+        5 GETUPVAL                         R1 1
+        6 GETIMPORT                        R2 K4 [Enum.InputActionType.Bool]
+        8 CALL                             R1 1 0
+        9 RETURN                           R0 0
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K5 ["CREATE_ACTION_DIRECTION1D"]
+       13 JUMPIFNOTEQ                      R0 R1 ; [+6]
+       15 GETUPVAL                         R1 1
+       16 GETIMPORT                        R2 K7 [Enum.InputActionType.Direction1D]
+       18 CALL                             R1 1 0
+       19 RETURN                           R0 0
+       20 GETUPVAL                         R1 0
+       21 GETTABLEKS                       R1 R1 K8 ["CREATE_ACTION_DIRECTION2D"]
+       23 JUMPIFNOTEQ                      R0 R1 ; [+6]
+       25 GETUPVAL                         R1 1
+       26 GETIMPORT                        R2 K10 [Enum.InputActionType.Direction2D]
+       28 CALL                             R1 1 0
+       29 RETURN                           R0 0
+       30 GETUPVAL                         R1 0
+       31 GETTABLEKS                       R1 R1 K11 ["CREATE_ACTION_DIRECTION3D"]
+       33 JUMPIFNOTEQ                      R0 R1 ; [+6]
+       35 GETUPVAL                         R1 1
+       36 GETIMPORT                        R2 K13 [Enum.InputActionType.Direction3D]
+       38 CALL                             R1 1 0
+       39 RETURN                           R0 0
+       40 GETUPVAL                         R1 2
+       41 CALL                             R1 0 1
+       42 JUMPIFNOT                        R1 ; [+9]
+       43 GETUPVAL                         R1 0
+       44 GETTABLEKS                       R1 R1 K14 ["CREATE_ACTION_VIEWPORT_POSITION"]
+       46 JUMPIFNOTEQ                      R0 R1 ; [+5]
+       48 GETUPVAL                         R1 1
+       49 GETIMPORT                        R2 K16 [Enum.InputActionType.ViewportPosition]
+       51 CALL                             R1 1 0
+       52 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 JUMPIFNOT                        R1 ; [+5]
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R1 R1 K0 ["countActionCreated"]
-        5 GETUPVAL                         R2 0
-        6 CALL                             R1 1 0
-        7 GETUPVAL                         R1 2
-        8 LOADNIL                          R2
-        9 CALL                             R1 1 0
-       10 GETUPVAL                         R1 3
-       11 GETTABLEKS                       R1 R1 K1 ["updateAction"]
-       13 LOADNIL                          R2
-       14 DUPTABLE                         R3 K5 [{"name", "parentUuid", "type"}]
-       15 SETTABLEKS                       R0 R3 K2 ["name"]
-       17 GETUPVAL                         R4 4
-       18 SETTABLEKS                       R4 R3 K3 ["parentUuid"]
-       20 GETUPVAL                         R4 0
-       21 SETTABLEKS                       R4 R3 K4 ["type"]
-       23 CALL                             R1 2 0
-       24 RETURN                           R0 0
+        0 FASTCALL1                        TYPEOF R0 ; [+3]
+        1 MOVE                             R4 R0
+        2 GETIMPORT                        R3 K1 [typeof]
+        4 CALL                             R3 1 1
+        5 JUMPIFEQKS                       R3 K2 ["string"] ; [+2]
+        7 LOADB                            R2 0 +1
+        8 LOADB                            R2 1
+        9 FASTCALL2K                       ASSERT R2 K3 ; [+4]
+       11 LOADK                            R3 K3 ["Name must be a string"]
+       12 GETIMPORT                        R1 K5 [assert]
+       14 CALL                             R1 2 0
+       15 GETUPVAL                         R1 0
+       16 JUMPIFNOT                        R1 ; [+5]
+       17 GETUPVAL                         R1 1
+       18 GETTABLEKS                       R1 R1 K6 ["countActionCreated"]
+       20 GETUPVAL                         R2 0
+       21 CALL                             R1 1 0
+       22 GETUPVAL                         R1 2
+       23 LOADNIL                          R2
+       24 CALL                             R1 1 0
+       25 GETUPVAL                         R1 3
+       26 GETTABLEKS                       R1 R1 K7 ["updateAction"]
+       28 LOADNIL                          R2
+       29 DUPTABLE                         R3 K11 [{"name", "parentUuid", "type"}]
+       30 SETTABLEKS                       R0 R3 K8 ["name"]
+       32 GETUPVAL                         R4 4
+       33 SETTABLEKS                       R4 R3 K9 ["parentUuid"]
+       35 GETUPVAL                         R4 0
+       36 SETTABLEKS                       R4 R3 K10 ["type"]
+       38 CALL                             R1 2 0
+       39 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0

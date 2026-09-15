@@ -330,202 +330,152 @@ PROTO_0:
       459 NAMECALL                         R2 R0 K2 ["getText"]
       461 CALL                             R2 3 1
       462 SETTABLEKS                       R2 R1 K127 ["CreationsDressSkirtAccessories"]
-      464 GETUPVAL                         R3 0
-      465 CALL                             R3 0 1
-      466 JUMPIFNOT                        R3 ; [+6]
-      467 LOADK                            R4 K0 ["General"]
-      468 LOADK                            R5 K128 ["CategoryCreationsEyebrowAccessory"]
-      469 NAMECALL                         R2 R0 K2 ["getText"]
-      471 CALL                             R2 3 1
-      472 JUMP                             ; [+1]
-      473 LOADNIL                          R2
-      474 SETTABLEKS                       R2 R1 K129 ["CreationsEyebrowAccessories"]
-      476 GETUPVAL                         R3 0
-      477 CALL                             R3 0 1
-      478 JUMPIFNOT                        R3 ; [+6]
-      479 LOADK                            R4 K0 ["General"]
-      480 LOADK                            R5 K130 ["CategoryCreationsEyelashAccessory"]
-      481 NAMECALL                         R2 R0 K2 ["getText"]
-      483 CALL                             R2 3 1
-      484 JUMP                             ; [+1]
-      485 LOADNIL                          R2
-      486 SETTABLEKS                       R2 R1 K131 ["CreationsEyelashAccessories"]
-      488 GETUPVAL                         R3 0
-      489 CALL                             R3 0 1
-      490 JUMPIFNOT                        R3 ; [+6]
-      491 LOADK                            R4 K0 ["General"]
-      492 LOADK                            R5 K132 ["CategoryCreationsEyeMakeup"]
-      493 NAMECALL                         R2 R0 K2 ["getText"]
-      495 CALL                             R2 3 1
-      496 JUMP                             ; [+1]
-      497 LOADNIL                          R2
-      498 SETTABLEKS                       R2 R1 K133 ["CreationsEyeMakeup"]
-      500 GETUPVAL                         R3 0
-      501 CALL                             R3 0 1
-      502 JUMPIFNOT                        R3 ; [+6]
-      503 LOADK                            R4 K0 ["General"]
-      504 LOADK                            R5 K134 ["CategoryCreationsFaceMakeup"]
-      505 NAMECALL                         R2 R0 K2 ["getText"]
-      507 CALL                             R2 3 1
-      508 JUMP                             ; [+1]
-      509 LOADNIL                          R2
-      510 SETTABLEKS                       R2 R1 K135 ["CreationsFaceMakeup"]
-      512 GETUPVAL                         R3 0
-      513 CALL                             R3 0 1
-      514 JUMPIFNOT                        R3 ; [+6]
-      515 LOADK                            R4 K0 ["General"]
-      516 LOADK                            R5 K136 ["CategoryCreationsLipMakeup"]
-      517 NAMECALL                         R2 R0 K2 ["getText"]
-      519 CALL                             R2 3 1
-      520 JUMP                             ; [+1]
-      521 LOADNIL                          R2
-      522 SETTABLEKS                       R2 R1 K137 ["CreationsLipMakeup"]
-      524 LOADK                            R4 K0 ["General"]
-      525 LOADK                            R5 K138 ["CategoryCreationsEmoteAnimations"]
-      526 NAMECALL                         R2 R0 K2 ["getText"]
-      528 CALL                             R2 3 1
-      529 SETTABLEKS                       R2 R1 K139 ["CreationsEmoteAnimations"]
-      531 LOADK                            R4 K0 ["General"]
-      532 LOADK                            R5 K140 ["CategoryCreationsGroupHats"]
-      533 NAMECALL                         R2 R0 K2 ["getText"]
-      535 CALL                             R2 3 1
-      536 SETTABLEKS                       R2 R1 K141 ["CreationsGroupHats"]
-      538 LOADK                            R4 K0 ["General"]
-      539 LOADK                            R5 K142 ["CategoryCreationsGroupHair"]
-      540 NAMECALL                         R2 R0 K2 ["getText"]
-      542 CALL                             R2 3 1
-      543 SETTABLEKS                       R2 R1 K143 ["CreationsGroupHair"]
-      545 LOADK                            R4 K0 ["General"]
-      546 LOADK                            R5 K144 ["CategoryCreationsGroupFaceAccessory"]
-      547 NAMECALL                         R2 R0 K2 ["getText"]
-      549 CALL                             R2 3 1
-      550 SETTABLEKS                       R2 R1 K145 ["CreationsGroupFaceAccessories"]
-      552 LOADK                            R4 K0 ["General"]
-      553 LOADK                            R5 K146 ["CategoryCreationsGroupNeckAccessory"]
-      554 NAMECALL                         R2 R0 K2 ["getText"]
-      556 CALL                             R2 3 1
-      557 SETTABLEKS                       R2 R1 K147 ["CreationsGroupNeckAccessories"]
-      559 LOADK                            R4 K0 ["General"]
-      560 LOADK                            R5 K148 ["CategoryCreationsGroupShoulderAccessory"]
-      561 NAMECALL                         R2 R0 K2 ["getText"]
-      563 CALL                             R2 3 1
-      564 SETTABLEKS                       R2 R1 K149 ["CreationsGroupShoulderAccessories"]
-      566 LOADK                            R4 K0 ["General"]
-      567 LOADK                            R5 K150 ["CategoryCreationsGroupFrontAccessory"]
-      568 NAMECALL                         R2 R0 K2 ["getText"]
-      570 CALL                             R2 3 1
-      571 SETTABLEKS                       R2 R1 K151 ["CreationsGroupFrontAccessories"]
-      573 LOADK                            R4 K0 ["General"]
-      574 LOADK                            R5 K152 ["CategoryCreationsGroupBackAccessory"]
-      575 NAMECALL                         R2 R0 K2 ["getText"]
-      577 CALL                             R2 3 1
-      578 SETTABLEKS                       R2 R1 K153 ["CreationsGroupBackAccessories"]
-      580 LOADK                            R4 K0 ["General"]
-      581 LOADK                            R5 K154 ["CategoryCreationsGroupWaistAccessory"]
-      582 NAMECALL                         R2 R0 K2 ["getText"]
-      584 CALL                             R2 3 1
-      585 SETTABLEKS                       R2 R1 K155 ["CreationsGroupWaistAccessories"]
-      587 LOADK                            R4 K0 ["General"]
-      588 LOADK                            R5 K156 ["CategoryCreationsGroupTShirtAccessory"]
-      589 NAMECALL                         R2 R0 K2 ["getText"]
-      591 CALL                             R2 3 1
-      592 SETTABLEKS                       R2 R1 K157 ["CreationsGroupTShirtAccessories"]
-      594 LOADK                            R4 K0 ["General"]
-      595 LOADK                            R5 K158 ["CategoryCreationsGroupShirtAccessory"]
-      596 NAMECALL                         R2 R0 K2 ["getText"]
-      598 CALL                             R2 3 1
-      599 SETTABLEKS                       R2 R1 K159 ["CreationsGroupShirtAccessories"]
-      601 LOADK                            R4 K0 ["General"]
-      602 LOADK                            R5 K160 ["CategoryCreationsGroupPantsAccessory"]
-      603 NAMECALL                         R2 R0 K2 ["getText"]
-      605 CALL                             R2 3 1
-      606 SETTABLEKS                       R2 R1 K161 ["CreationsGroupPantsAccessories"]
-      608 LOADK                            R4 K0 ["General"]
-      609 LOADK                            R5 K162 ["CategoryCreationsGroupJacketAccessory"]
-      610 NAMECALL                         R2 R0 K2 ["getText"]
-      612 CALL                             R2 3 1
-      613 SETTABLEKS                       R2 R1 K163 ["CreationsGroupJacketAccessories"]
-      615 LOADK                            R4 K0 ["General"]
-      616 LOADK                            R5 K164 ["CategoryCreationsGroupSweaterAccessory"]
-      617 NAMECALL                         R2 R0 K2 ["getText"]
-      619 CALL                             R2 3 1
-      620 SETTABLEKS                       R2 R1 K165 ["CreationsGroupSweaterAccessories"]
-      622 LOADK                            R4 K0 ["General"]
-      623 LOADK                            R5 K166 ["CategoryCreationsGroupShortsAccessory"]
-      624 NAMECALL                         R2 R0 K2 ["getText"]
-      626 CALL                             R2 3 1
-      627 SETTABLEKS                       R2 R1 K167 ["CreationsGroupShortsAccessories"]
-      629 LOADK                            R4 K0 ["General"]
-      630 LOADK                            R5 K168 ["CategoryCreationsGroupLeftShoeAccessory"]
-      631 NAMECALL                         R2 R0 K2 ["getText"]
-      633 CALL                             R2 3 1
-      634 SETTABLEKS                       R2 R1 K169 ["CreationsGroupLeftShoeAccessories"]
-      636 LOADK                            R4 K0 ["General"]
-      637 LOADK                            R5 K170 ["CategoryCreationsGroupRightShoeAccessory"]
-      638 NAMECALL                         R2 R0 K2 ["getText"]
-      640 CALL                             R2 3 1
-      641 SETTABLEKS                       R2 R1 K171 ["CreationsGroupRightShoeAccessories"]
-      643 LOADK                            R4 K0 ["General"]
-      644 LOADK                            R5 K172 ["CategoryCreationsGroupDressSkirtAccessory"]
-      645 NAMECALL                         R2 R0 K2 ["getText"]
-      647 CALL                             R2 3 1
-      648 SETTABLEKS                       R2 R1 K173 ["CreationsGroupDressSkirtAccessories"]
-      650 GETUPVAL                         R3 0
-      651 CALL                             R3 0 1
-      652 JUMPIFNOT                        R3 ; [+6]
+      464 LOADK                            R4 K0 ["General"]
+      465 LOADK                            R5 K128 ["CategoryCreationsEyebrowAccessory"]
+      466 NAMECALL                         R2 R0 K2 ["getText"]
+      468 CALL                             R2 3 1
+      469 SETTABLEKS                       R2 R1 K129 ["CreationsEyebrowAccessories"]
+      471 LOADK                            R4 K0 ["General"]
+      472 LOADK                            R5 K130 ["CategoryCreationsEyelashAccessory"]
+      473 NAMECALL                         R2 R0 K2 ["getText"]
+      475 CALL                             R2 3 1
+      476 SETTABLEKS                       R2 R1 K131 ["CreationsEyelashAccessories"]
+      478 LOADK                            R4 K0 ["General"]
+      479 LOADK                            R5 K132 ["CategoryCreationsEyeMakeup"]
+      480 NAMECALL                         R2 R0 K2 ["getText"]
+      482 CALL                             R2 3 1
+      483 SETTABLEKS                       R2 R1 K133 ["CreationsEyeMakeup"]
+      485 LOADK                            R4 K0 ["General"]
+      486 LOADK                            R5 K134 ["CategoryCreationsFaceMakeup"]
+      487 NAMECALL                         R2 R0 K2 ["getText"]
+      489 CALL                             R2 3 1
+      490 SETTABLEKS                       R2 R1 K135 ["CreationsFaceMakeup"]
+      492 LOADK                            R4 K0 ["General"]
+      493 LOADK                            R5 K136 ["CategoryCreationsLipMakeup"]
+      494 NAMECALL                         R2 R0 K2 ["getText"]
+      496 CALL                             R2 3 1
+      497 SETTABLEKS                       R2 R1 K137 ["CreationsLipMakeup"]
+      499 LOADK                            R4 K0 ["General"]
+      500 LOADK                            R5 K138 ["CategoryCreationsEmoteAnimations"]
+      501 NAMECALL                         R2 R0 K2 ["getText"]
+      503 CALL                             R2 3 1
+      504 SETTABLEKS                       R2 R1 K139 ["CreationsEmoteAnimations"]
+      506 LOADK                            R4 K0 ["General"]
+      507 LOADK                            R5 K140 ["CategoryCreationsGroupHats"]
+      508 NAMECALL                         R2 R0 K2 ["getText"]
+      510 CALL                             R2 3 1
+      511 SETTABLEKS                       R2 R1 K141 ["CreationsGroupHats"]
+      513 LOADK                            R4 K0 ["General"]
+      514 LOADK                            R5 K142 ["CategoryCreationsGroupHair"]
+      515 NAMECALL                         R2 R0 K2 ["getText"]
+      517 CALL                             R2 3 1
+      518 SETTABLEKS                       R2 R1 K143 ["CreationsGroupHair"]
+      520 LOADK                            R4 K0 ["General"]
+      521 LOADK                            R5 K144 ["CategoryCreationsGroupFaceAccessory"]
+      522 NAMECALL                         R2 R0 K2 ["getText"]
+      524 CALL                             R2 3 1
+      525 SETTABLEKS                       R2 R1 K145 ["CreationsGroupFaceAccessories"]
+      527 LOADK                            R4 K0 ["General"]
+      528 LOADK                            R5 K146 ["CategoryCreationsGroupNeckAccessory"]
+      529 NAMECALL                         R2 R0 K2 ["getText"]
+      531 CALL                             R2 3 1
+      532 SETTABLEKS                       R2 R1 K147 ["CreationsGroupNeckAccessories"]
+      534 LOADK                            R4 K0 ["General"]
+      535 LOADK                            R5 K148 ["CategoryCreationsGroupShoulderAccessory"]
+      536 NAMECALL                         R2 R0 K2 ["getText"]
+      538 CALL                             R2 3 1
+      539 SETTABLEKS                       R2 R1 K149 ["CreationsGroupShoulderAccessories"]
+      541 LOADK                            R4 K0 ["General"]
+      542 LOADK                            R5 K150 ["CategoryCreationsGroupFrontAccessory"]
+      543 NAMECALL                         R2 R0 K2 ["getText"]
+      545 CALL                             R2 3 1
+      546 SETTABLEKS                       R2 R1 K151 ["CreationsGroupFrontAccessories"]
+      548 LOADK                            R4 K0 ["General"]
+      549 LOADK                            R5 K152 ["CategoryCreationsGroupBackAccessory"]
+      550 NAMECALL                         R2 R0 K2 ["getText"]
+      552 CALL                             R2 3 1
+      553 SETTABLEKS                       R2 R1 K153 ["CreationsGroupBackAccessories"]
+      555 LOADK                            R4 K0 ["General"]
+      556 LOADK                            R5 K154 ["CategoryCreationsGroupWaistAccessory"]
+      557 NAMECALL                         R2 R0 K2 ["getText"]
+      559 CALL                             R2 3 1
+      560 SETTABLEKS                       R2 R1 K155 ["CreationsGroupWaistAccessories"]
+      562 LOADK                            R4 K0 ["General"]
+      563 LOADK                            R5 K156 ["CategoryCreationsGroupTShirtAccessory"]
+      564 NAMECALL                         R2 R0 K2 ["getText"]
+      566 CALL                             R2 3 1
+      567 SETTABLEKS                       R2 R1 K157 ["CreationsGroupTShirtAccessories"]
+      569 LOADK                            R4 K0 ["General"]
+      570 LOADK                            R5 K158 ["CategoryCreationsGroupShirtAccessory"]
+      571 NAMECALL                         R2 R0 K2 ["getText"]
+      573 CALL                             R2 3 1
+      574 SETTABLEKS                       R2 R1 K159 ["CreationsGroupShirtAccessories"]
+      576 LOADK                            R4 K0 ["General"]
+      577 LOADK                            R5 K160 ["CategoryCreationsGroupPantsAccessory"]
+      578 NAMECALL                         R2 R0 K2 ["getText"]
+      580 CALL                             R2 3 1
+      581 SETTABLEKS                       R2 R1 K161 ["CreationsGroupPantsAccessories"]
+      583 LOADK                            R4 K0 ["General"]
+      584 LOADK                            R5 K162 ["CategoryCreationsGroupJacketAccessory"]
+      585 NAMECALL                         R2 R0 K2 ["getText"]
+      587 CALL                             R2 3 1
+      588 SETTABLEKS                       R2 R1 K163 ["CreationsGroupJacketAccessories"]
+      590 LOADK                            R4 K0 ["General"]
+      591 LOADK                            R5 K164 ["CategoryCreationsGroupSweaterAccessory"]
+      592 NAMECALL                         R2 R0 K2 ["getText"]
+      594 CALL                             R2 3 1
+      595 SETTABLEKS                       R2 R1 K165 ["CreationsGroupSweaterAccessories"]
+      597 LOADK                            R4 K0 ["General"]
+      598 LOADK                            R5 K166 ["CategoryCreationsGroupShortsAccessory"]
+      599 NAMECALL                         R2 R0 K2 ["getText"]
+      601 CALL                             R2 3 1
+      602 SETTABLEKS                       R2 R1 K167 ["CreationsGroupShortsAccessories"]
+      604 LOADK                            R4 K0 ["General"]
+      605 LOADK                            R5 K168 ["CategoryCreationsGroupLeftShoeAccessory"]
+      606 NAMECALL                         R2 R0 K2 ["getText"]
+      608 CALL                             R2 3 1
+      609 SETTABLEKS                       R2 R1 K169 ["CreationsGroupLeftShoeAccessories"]
+      611 LOADK                            R4 K0 ["General"]
+      612 LOADK                            R5 K170 ["CategoryCreationsGroupRightShoeAccessory"]
+      613 NAMECALL                         R2 R0 K2 ["getText"]
+      615 CALL                             R2 3 1
+      616 SETTABLEKS                       R2 R1 K171 ["CreationsGroupRightShoeAccessories"]
+      618 LOADK                            R4 K0 ["General"]
+      619 LOADK                            R5 K172 ["CategoryCreationsGroupDressSkirtAccessory"]
+      620 NAMECALL                         R2 R0 K2 ["getText"]
+      622 CALL                             R2 3 1
+      623 SETTABLEKS                       R2 R1 K173 ["CreationsGroupDressSkirtAccessories"]
+      625 LOADK                            R4 K0 ["General"]
+      626 LOADK                            R5 K174 ["CategoryCreationsGroupEyebrowAccessory"]
+      627 NAMECALL                         R2 R0 K2 ["getText"]
+      629 CALL                             R2 3 1
+      630 SETTABLEKS                       R2 R1 K175 ["CreationsGroupEyebrowAccessories"]
+      632 LOADK                            R4 K0 ["General"]
+      633 LOADK                            R5 K176 ["CategoryCreationsGroupEyelashAccessory"]
+      634 NAMECALL                         R2 R0 K2 ["getText"]
+      636 CALL                             R2 3 1
+      637 SETTABLEKS                       R2 R1 K177 ["CreationsGroupEyelashAccessories"]
+      639 LOADK                            R4 K0 ["General"]
+      640 LOADK                            R5 K178 ["CategoryCreationsGroupEyeMakeup"]
+      641 NAMECALL                         R2 R0 K2 ["getText"]
+      643 CALL                             R2 3 1
+      644 SETTABLEKS                       R2 R1 K179 ["CreationsGroupEyeMakeup"]
+      646 LOADK                            R4 K0 ["General"]
+      647 LOADK                            R5 K180 ["CategoryCreationsGroupFaceMakeup"]
+      648 NAMECALL                         R2 R0 K2 ["getText"]
+      650 CALL                             R2 3 1
+      651 SETTABLEKS                       R2 R1 K181 ["CreationsGroupFaceMakeup"]
       653 LOADK                            R4 K0 ["General"]
-      654 LOADK                            R5 K174 ["CategoryCreationsGroupEyebrowAccessory"]
+      654 LOADK                            R5 K182 ["CategoryCreationsGroupLipMakeup"]
       655 NAMECALL                         R2 R0 K2 ["getText"]
       657 CALL                             R2 3 1
-      658 JUMP                             ; [+1]
-      659 LOADNIL                          R2
-      660 SETTABLEKS                       R2 R1 K175 ["CreationsGroupEyebrowAccessories"]
-      662 GETUPVAL                         R3 0
-      663 CALL                             R3 0 1
-      664 JUMPIFNOT                        R3 ; [+6]
-      665 LOADK                            R4 K0 ["General"]
-      666 LOADK                            R5 K176 ["CategoryCreationsGroupEyelashAccessory"]
-      667 NAMECALL                         R2 R0 K2 ["getText"]
-      669 CALL                             R2 3 1
-      670 JUMP                             ; [+1]
-      671 LOADNIL                          R2
-      672 SETTABLEKS                       R2 R1 K177 ["CreationsGroupEyelashAccessories"]
-      674 GETUPVAL                         R3 0
-      675 CALL                             R3 0 1
-      676 JUMPIFNOT                        R3 ; [+6]
-      677 LOADK                            R4 K0 ["General"]
-      678 LOADK                            R5 K178 ["CategoryCreationsGroupEyeMakeup"]
-      679 NAMECALL                         R2 R0 K2 ["getText"]
-      681 CALL                             R2 3 1
-      682 JUMP                             ; [+1]
-      683 LOADNIL                          R2
-      684 SETTABLEKS                       R2 R1 K179 ["CreationsGroupEyeMakeup"]
-      686 GETUPVAL                         R3 0
-      687 CALL                             R3 0 1
-      688 JUMPIFNOT                        R3 ; [+6]
-      689 LOADK                            R4 K0 ["General"]
-      690 LOADK                            R5 K180 ["CategoryCreationsGroupFaceMakeup"]
-      691 NAMECALL                         R2 R0 K2 ["getText"]
-      693 CALL                             R2 3 1
-      694 JUMP                             ; [+1]
-      695 LOADNIL                          R2
-      696 SETTABLEKS                       R2 R1 K181 ["CreationsGroupFaceMakeup"]
-      698 GETUPVAL                         R3 0
-      699 CALL                             R3 0 1
-      700 JUMPIFNOT                        R3 ; [+6]
-      701 LOADK                            R4 K0 ["General"]
-      702 LOADK                            R5 K182 ["CategoryCreationsGroupLipMakeup"]
-      703 NAMECALL                         R2 R0 K2 ["getText"]
-      705 CALL                             R2 3 1
-      706 JUMP                             ; [+1]
-      707 LOADNIL                          R2
-      708 SETTABLEKS                       R2 R1 K183 ["CreationsGroupLipMakeup"]
-      710 LOADK                            R4 K0 ["General"]
-      711 LOADK                            R5 K184 ["CategoryCreationsGroupEmoteAnimations"]
-      712 NAMECALL                         R2 R0 K2 ["getText"]
-      714 CALL                             R2 3 1
-      715 SETTABLEKS                       R2 R1 K185 ["CreationsGroupEmoteAnimations"]
-      717 RETURN                           R1 1
+      658 SETTABLEKS                       R2 R1 K183 ["CreationsGroupLipMakeup"]
+      660 LOADK                            R4 K0 ["General"]
+      661 LOADK                            R5 K184 ["CategoryCreationsGroupEmoteAnimations"]
+      662 NAMECALL                         R2 R0 K2 ["getText"]
+      664 CALL                             R2 3 1
+      665 SETTABLEKS                       R2 R1 K185 ["CreationsGroupEmoteAnimations"]
+      667 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -533,11 +483,5 @@ MAIN:
         3 LOADK                            R2 K2 ["Toolbox"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R2 K8 ["getFFlagEnableUploadingMakeup"]
-       15 CALL                             R1 1 1
-       16 DUPCLOSURE                       R2 K9 [PROTO_0]
-       17 CAPTURE                          VAL R1
-       18 RETURN                           R2 1
+        7 DUPCLOSURE                       R1 K4 [PROTO_0]
+        8 RETURN                           R1 1

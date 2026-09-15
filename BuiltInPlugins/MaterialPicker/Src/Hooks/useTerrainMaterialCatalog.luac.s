@@ -17,11 +17,14 @@ PROTO_1:
         0 GETIMPORT                        R0 K1 [pcall]
         2 GETUPVAL                         R1 0
         3 CALL                             R0 1 2
-        4 JUMPIFNOT                        R0 ; [+3]
+        4 JUMPIFNOT                        R0 ; [+4]
         5 GETUPVAL                         R2 1
         6 MOVE                             R3 R1
         7 CALL                             R2 1 0
         8 RETURN                           R0 0
+        9 GETUPVAL                         R2 2
+       10 CALL                             R2 0 0
+       11 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -30,11 +33,17 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 CALL                             R0 1 0
+        3 RETURN                           R0 0
+
+PROTO_4:
+        0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 GETUPVAL                         R1 1
@@ -51,40 +60,53 @@ PROTO_4:
        18 CAPTURE                          VAL R1
        19 RETURN                           R2 1
 
-PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["useState"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R2 1 2
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R4 R4 K1 ["useCallback"]
-        8 NEWCLOSURE                       R5 P0
+PROTO_6:
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["useState"]
+        3 MOVE                             R6 R0
+        4 CALL                             R5 1 2
+        5 GETUPVAL                         R7 0
+        6 GETTABLEKS                       R7 R7 K1 ["useCallback"]
+        8 NEWCLOSURE                       R8 P0
         9 CAPTURE                          UPVAL U1
-       10 CAPTURE                          VAL R3
-       11 NEWTABLE                         R6 0 0
-       13 CALL                             R4 2 1
-       14 GETUPVAL                         R5 0
-       15 GETTABLEKS                       R5 R5 K2 ["useEffect"]
-       17 NEWCLOSURE                       R6 P1
-       18 CAPTURE                          VAL R4
-       19 NEWTABLE                         R7 0 2
-       21 MOVE                             R8 R4
-       22 MOVE                             R9 R0
-       23 SETLIST                          R7 R8 2 [1]
-       25 CALL                             R5 2 0
-       26 GETUPVAL                         R5 0
-       27 GETTABLEKS                       R5 R5 K2 ["useEffect"]
-       29 NEWCLOSURE                       R6 P2
-       30 CAPTURE                          UPVAL U2
-       31 CAPTURE                          UPVAL U3
-       32 CAPTURE                          VAL R1
-       33 CAPTURE                          VAL R4
-       34 NEWTABLE                         R7 0 2
-       36 MOVE                             R8 R1
-       37 MOVE                             R9 R4
-       38 SETLIST                          R7 R8 2 [1]
-       40 CALL                             R5 2 0
-       41 RETURN                           R2 1
+       10 CAPTURE                          VAL R6
+       11 CAPTURE                          VAL R4
+       12 NEWTABLE                         R9 0 1
+       14 MOVE                             R10 R4
+       15 SETLIST                          R9 R10 1 [1]
+       17 CALL                             R7 2 1
+       18 GETUPVAL                         R8 0
+       19 GETTABLEKS                       R8 R8 K2 ["useEffect"]
+       21 NEWCLOSURE                       R9 P1
+       22 CAPTURE                          VAL R7
+       23 NEWTABLE                         R10 0 2
+       25 MOVE                             R11 R7
+       26 MOVE                             R12 R1
+       27 SETLIST                          R10 R11 2 [1]
+       29 CALL                             R8 2 0
+       30 GETUPVAL                         R8 0
+       31 GETTABLEKS                       R8 R8 K2 ["useEffect"]
+       33 NEWCLOSURE                       R9 P2
+       34 CAPTURE                          VAL R3
+       35 CAPTURE                          VAL R5
+       36 NEWTABLE                         R10 0 2
+       38 MOVE                             R11 R5
+       39 MOVE                             R12 R3
+       40 SETLIST                          R10 R11 2 [1]
+       42 CALL                             R8 2 0
+       43 GETUPVAL                         R8 0
+       44 GETTABLEKS                       R8 R8 K2 ["useEffect"]
+       46 NEWCLOSURE                       R9 P3
+       47 CAPTURE                          UPVAL U2
+       48 CAPTURE                          UPVAL U3
+       49 CAPTURE                          VAL R2
+       50 CAPTURE                          VAL R7
+       51 NEWTABLE                         R10 0 2
+       53 MOVE                             R11 R2
+       54 MOVE                             R12 R7
+       55 SETLIST                          R10 R11 2 [1]
+       57 CALL                             R8 2 0
+       58 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -113,7 +135,7 @@ MAIN:
        39 GETTABLEKS                       R5 R5 K13 ["TERRAIN"]
        41 DUPCLOSURE                       R6 K14 [PROTO_0]
        42 CAPTURE                          VAL R3
-       43 DUPCLOSURE                       R7 K15 [PROTO_5]
+       43 DUPCLOSURE                       R7 K15 [PROTO_6]
        44 CAPTURE                          VAL R2
        45 CAPTURE                          VAL R6
        46 CAPTURE                          VAL R4

@@ -16,23 +16,22 @@ PROTO_0:
        19 CALL                             R3 1 1
        20 SETTABLE                         R3 R1 R2
        21 GETTABLEKS                       R2 R0 K4 ["testId"]
-       23 JUMPIFNOT                        R2 ; [+13]
+       23 JUMPIFNOT                        R2 ; [+12]
        24 GETUPVAL                         R2 0
        25 GETTABLEKS                       R2 R2 K5 ["Tag"]
        27 GETTABLE                         R4 R1 R2
-       28 LOADK                            R6 K8 [" data-testid=%*"]
-       29 GETTABLEKS                       R8 R0 K4 ["testId"]
-       31 NAMECALL                         R6 R6 K9 ["format"]
-       33 CALL                             R6 2 1
-       34 MOVE                             R5 R6
-       35 CONCAT                           R3 R4 R5
-       36 SETTABLE                         R3 R1 R2
-       37 GETUPVAL                         R2 0
-       38 GETTABLEKS                       R2 R2 K10 ["createElement"]
-       40 LOADK                            R3 K11 ["Frame"]
-       41 MOVE                             R4 R1
-       42 CALL                             R2 2 -1
-       43 RETURN                           R2 -1
+       28 LOADK                            R5 K8 [" data-testid=%*"]
+       29 GETTABLEKS                       R7 R0 K4 ["testId"]
+       31 NAMECALL                         R5 R5 K9 ["format"]
+       33 CALL                             R5 2 1
+       34 CONCAT                           R3 R4 R5
+       35 SETTABLE                         R3 R1 R2
+       36 GETUPVAL                         R2 0
+       37 GETTABLEKS                       R2 R2 K10 ["createElement"]
+       39 LOADK                            R3 K11 ["Frame"]
+       40 MOVE                             R4 R1
+       41 CALL                             R2 2 -1
+       42 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -353,247 +353,245 @@ PROTO_12:
        83 CAPTURE                          VAL R13
        84 CALL                             R15 1 2
        85 JUMPIFNOT                        R15 ; [+2]
-       86 JUMPIFNOTEQKNIL                  R14 ; [+15]
+       86 JUMPIFNOTEQKNIL                  R14 ; [+14]
        88 GETIMPORT                        R17 K18 [warn]
-       90 LOADK                            R19 K26 ["createSymmetryMapAsync - %*:GetUVs() failed with error %*"]
-       91 NAMECALL                         R21 R13 K27 ["GetFullName"]
-       93 CALL                             R21 1 1
-       94 MOVE                             R22 R16
-       95 NAMECALL                         R19 R19 K28 ["format"]
-       97 CALL                             R19 3 1
-       98 MOVE                             R18 R19
-       99 CALL                             R17 1 0
-      100 CLOSEUPVALS                      R14
-      101 JUMP                             ; [+41]
-      102 MOVE                             R17 R14
-      103 LOADNIL                          R18
-      104 LOADNIL                          R19
-      105 FORGPREP                         R17
-      106 DUPTABLE                         R24 K33 [{"targetName", "vertex", "uv", "side"}]
-      107 GETTABLEKS                       R25 R13 K34 ["Name"]
-      109 SETTABLEKS                       R25 R24 K29 ["targetName"]
-      111 SETTABLEKS                       R20 R24 K30 ["vertex"]
-      113 GETTABLEKS                       R26 R21 K35 ["X"]
-      115 GETTABLEKS                       R27 R21 K36 ["Y"]
-      117 FASTCALL2                        VECTOR R26 R27 ; [+3]
-      119 GETIMPORT                        R25 K39 [Vector3.new]
-      121 CALL                             R25 2 1
-      122 SETTABLEKS                       R25 R24 K31 ["uv"]
-      124 GETTABLEKS                       R26 R21 K35 ["X"]
-      126 LOADK                            R27 K40 [3.5]
-      127 JUMPIFNOTLE                      R27 R26 ; [+3]
-      129 LOADK                            R25 K41 ["right"]
-      130 JUMP                             ; [+1]
-      131 LOADK                            R25 K42 ["left"]
-      132 SETTABLEKS                       R25 R24 K32 ["side"]
-      134 FASTCALL2                        TABLE_INSERT R5 R24 ; [+4]
-      136 MOVE                             R23 R5
-      137 GETIMPORT                        R22 K45 [table.insert]
-      139 CALL                             R22 2 0
-      140 FORGLOOP                         R17 2 ; [-35]
-      142 CLOSEUPVALS                      R14
-      143 FORGLOOP                         R9 2 ; [-66]
-      145 GETIMPORT                        R9 K47 [debug.profileend]
-      147 CALL                             R9 0 0
-      148 GETIMPORT                        R9 K22 [debug.profilebegin]
-      150 LOADK                            R10 K48 ["Sort points and UVs"]
-      151 CALL                             R9 1 0
-      152 GETIMPORT                        R9 K50 [table.sort]
-      154 MOVE                             R10 R5
-      155 DUPCLOSURE                       R11 K51 [PROTO_11]
-      156 CALL                             R9 2 0
-      157 GETIMPORT                        R9 K47 [debug.profileend]
-      159 CALL                             R9 0 0
-      160 GETIMPORT                        R9 K22 [debug.profilebegin]
-      162 LOADK                            R10 K52 ["Create symmetry map"]
-      163 CALL                             R9 1 0
-      164 MOVE                             R9 R5
-      165 LOADNIL                          R10
-      166 LOADNIL                          R11
-      167 FORGPREP                         R9
-      168 GETIMPORT                        R14 K22 [debug.profilebegin]
-      170 LOADK                            R15 K53 ["Find what UVs are symmetrical"]
-      171 CALL                             R14 1 0
-      172 MOVE                             R14 R7
-      173 GETTABLEKS                       R15 R13 K31 ["uv"]
-      175 CALL                             R14 1 1
-      176 GETIMPORT                        R15 K47 [debug.profileend]
-      178 CALL                             R15 0 0
-      179 LENGTH                           R15 R14
-      180 JUMPIFNOTEQKN                    R15 K54 [0] ; [+57]
-      182 LOADNIL                          R15
-      183 LOADN                            R18 0
-      184 GETIMPORT                        R19 K10 [buffer.len]
-      186 MOVE                             R20 R2
-      187 CALL                             R19 1 1
-      188 SUBK                             R16 R19 K7 [32]
-      189 LOADN                            R17 32
-      190 FORNPREP                         R16
-      191 FASTCALL2                        BUFFER_READF64 R2 R18 ; [+5]
-      193 MOVE                             R20 R2
-      194 MOVE                             R21 R18
-      195 GETIMPORT                        R19 K56 [buffer.readf64]
-      197 CALL                             R19 2 1
-      198 ADDK                             R22 R18 K57 [8]
-      199 FASTCALL2                        BUFFER_READF64 R2 R22 ; [+4]
-      201 MOVE                             R21 R2
-      202 GETIMPORT                        R20 K56 [buffer.readf64]
-      204 CALL                             R20 2 1
-      205 FASTCALL2                        VECTOR R19 R20 ; [+5]
-      207 MOVE                             R22 R19
-      208 MOVE                             R23 R20
-      209 GETIMPORT                        R21 K39 [Vector3.new]
-      211 CALL                             R21 2 1
-      212 GETTABLEKS                       R23 R13 K31 ["uv"]
-      214 LOADK                            R24 K58 [1E-07]
-      215 NAMECALL                         R21 R21 K59 ["FuzzyEq"]
-      217 CALL                             R21 3 1
-      218 JUMPIFNOT                        R21 ; [+3]
-      219 IDIVK                            R21 R18 K7 [32]
-      220 ADDK                             R15 R21 K60 [1]
-      221 JUMP                             ; [+1]
-      222 FORNLOOP                         R16
-      223 MOVE                             R16 R1
-      224 LOADK                            R18 K61 ["Couldn't find symmetrical UVs for %*:%* (at %*), was supposed to find it at index %*"]
-      225 GETTABLEKS                       R20 R13 K29 ["targetName"]
-      227 GETTABLEKS                       R21 R13 K30 ["vertex"]
-      229 GETTABLEKS                       R22 R13 K31 ["uv"]
-      231 MOVE                             R23 R15
-      232 NAMECALL                         R18 R18 K28 ["format"]
-      234 CALL                             R18 5 1
-      235 MOVE                             R17 R18
-      236 CALL                             R16 1 0
-      237 JUMP                             ; [+37]
-      238 GETIMPORT                        R15 K22 [debug.profilebegin]
-      240 LOADK                            R16 K62 ["Find points with UV"]
-      241 CALL                             R15 1 0
-      242 MOVE                             R15 R8
-      243 MOVE                             R16 R14
-      244 CALL                             R15 1 3
-      245 FORGPREP                         R15
-      246 MOVE                             R20 R6
-      247 GETTABLEKS                       R21 R13 K29 ["targetName"]
-      249 GETTABLEKS                       R22 R13 K30 ["vertex"]
-      251 GETTABLEKS                       R23 R19 K29 ["targetName"]
-      253 GETTABLEKS                       R24 R19 K30 ["vertex"]
-      255 GETTABLEKS                       R25 R13 K32 ["side"]
-      257 CALL                             R20 5 0
-      258 MOVE                             R20 R6
-      259 GETTABLEKS                       R21 R19 K29 ["targetName"]
-      261 GETTABLEKS                       R22 R19 K30 ["vertex"]
-      263 GETTABLEKS                       R23 R13 K29 ["targetName"]
-      265 GETTABLEKS                       R24 R13 K30 ["vertex"]
-      267 GETTABLEKS                       R25 R19 K32 ["side"]
-      269 CALL                             R20 5 0
-      270 FORGLOOP                         R15 2 ; [-25]
-      272 GETIMPORT                        R15 K47 [debug.profileend]
-      274 CALL                             R15 0 0
-      275 FORGLOOP                         R9 2 ; [-108]
-      277 MOVE                             R9 R5
-      278 LOADNIL                          R10
-      279 LOADNIL                          R11
-      280 FORGPREP                         R9
-      281 GETTABLEKS                       R16 R13 K29 ["targetName"]
-      283 GETTABLE                         R15 R4 R16
-      284 GETTABLEKS                       R16 R13 K30 ["vertex"]
-      286 GETTABLE                         R14 R15 R16
-      287 JUMPIFEQKNIL                     R14 ; [+56]
-      289 NEWTABLE                         R15 0 0
-      291 MOVE                             R16 R14
-      292 LOADNIL                          R17
-      293 LOADNIL                          R18
-      294 FORGPREP                         R16
-      295 GETTABLEKS                       R25 R20 K29 ["targetName"]
-      297 GETTABLE                         R24 R4 R25
-      298 GETTABLEKS                       R25 R20 K30 ["vertex"]
-      300 GETTABLE                         R21 R24 R25
-      301 LOADNIL                          R22
-      302 LOADNIL                          R23
-      303 FORGPREP                         R21
-      304 FASTCALL2                        TABLE_INSERT R15 R25 ; [+5]
-      306 MOVE                             R27 R15
-      307 MOVE                             R28 R25
-      308 GETIMPORT                        R26 K45 [table.insert]
-      310 CALL                             R26 2 0
-      311 FORGLOOP                         R21 2 ; [-8]
-      313 FORGLOOP                         R16 2 ; [-19]
-      315 MOVE                             R16 R15
-      316 LOADNIL                          R17
-      317 LOADNIL                          R18
-      318 FORGPREP                         R16
-      319 GETTABLEKS                       R25 R20 K29 ["targetName"]
-      321 GETTABLE                         R24 R4 R25
-      322 GETTABLEKS                       R25 R20 K30 ["vertex"]
-      324 GETTABLE                         R21 R24 R25
-      325 LOADNIL                          R22
-      326 LOADNIL                          R23
-      327 FORGPREP                         R21
-      328 MOVE                             R26 R6
-      329 GETTABLEKS                       R27 R13 K29 ["targetName"]
-      331 GETTABLEKS                       R28 R13 K30 ["vertex"]
-      333 GETTABLEKS                       R29 R25 K29 ["targetName"]
-      335 GETTABLEKS                       R30 R25 K30 ["vertex"]
-      337 GETTABLEKS                       R31 R13 K32 ["side"]
-      339 CALL                             R26 5 0
-      340 FORGLOOP                         R21 2 ; [-13]
-      342 FORGLOOP                         R16 2 ; [-24]
-      344 FORGLOOP                         R9 2 ; [-64]
-      346 MOVE                             R9 R4
-      347 LOADNIL                          R10
-      348 LOADNIL                          R11
-      349 FORGPREP                         R9
-      350 MOVE                             R14 R13
-      351 LOADNIL                          R15
-      352 LOADNIL                          R16
-      353 FORGPREP                         R14
-      354 LENGTH                           R21 R18
-      355 LOADN                            R19 1
-      356 LOADN                            R20 -1
-      357 FORNPREP                         R19
-      358 GETUPVAL                         R24 4
-      359 GETTABLE                         R23 R24 R12
-      360 JUMPIFEQKNIL                     R23 ; [+4]
-      362 GETUPVAL                         R23 4
-      363 GETTABLE                         R22 R23 R12
-      364 JUMP                             ; [+29]
-      365 LOADK                            R25 K63 ["^Left(.+)$"]
-      366 NAMECALL                         R23 R12 K64 ["match"]
-      368 CALL                             R23 2 1
-      369 JUMPIFEQKNIL                     R23 ; [+8]
-      371 LOADK                            R25 K65 ["Right"]
-      372 MOVE                             R26 R23
-      373 CONCAT                           R24 R25 R26
-      374 GETUPVAL                         R25 4
-      375 SETTABLE                         R24 R25 R12
-      376 MOVE                             R22 R24
-      377 JUMP                             ; [+16]
-      378 LOADK                            R26 K66 ["^Right(.+)$"]
-      379 NAMECALL                         R24 R12 K64 ["match"]
-      381 CALL                             R24 2 1
-      382 JUMPIFEQKNIL                     R24 ; [+8]
-      384 LOADK                            R26 K67 ["Left"]
-      385 MOVE                             R27 R24
-      386 CONCAT                           R25 R26 R27
-      387 GETUPVAL                         R26 4
-      388 SETTABLE                         R25 R26 R12
-      389 MOVE                             R22 R25
-      390 JUMP                             ; [+3]
-      391 GETUPVAL                         R25 4
-      392 SETTABLE                         R12 R25 R12
-      393 MOVE                             R22 R12
-      394 GETTABLE                         R23 R18 R21
-      395 GETTABLEKS                       R23 R23 K29 ["targetName"]
-      397 JUMPIFEQ                         R22 R23 ; [+6]
-      399 GETIMPORT                        R22 K69 [table.remove]
-      401 MOVE                             R23 R18
-      402 MOVE                             R24 R21
-      403 CALL                             R22 2 0
-      404 FORNLOOP                         R19
-      405 FORGLOOP                         R14 2 ; [-52]
-      407 FORGLOOP                         R9 2 ; [-58]
-      409 GETIMPORT                        R9 K47 [debug.profileend]
-      411 CALL                             R9 0 0
-      412 RETURN                           R4 1
+       90 LOADK                            R18 K26 ["createSymmetryMapAsync - %*:GetUVs() failed with error %*"]
+       91 NAMECALL                         R20 R13 K27 ["GetFullName"]
+       93 CALL                             R20 1 1
+       94 MOVE                             R21 R16
+       95 NAMECALL                         R18 R18 K28 ["format"]
+       97 CALL                             R18 3 1
+       98 CALL                             R17 1 0
+       99 CLOSEUPVALS                      R14
+      100 JUMP                             ; [+41]
+      101 MOVE                             R17 R14
+      102 LOADNIL                          R18
+      103 LOADNIL                          R19
+      104 FORGPREP                         R17
+      105 DUPTABLE                         R24 K33 [{"targetName", "vertex", "uv", "side"}]
+      106 GETTABLEKS                       R25 R13 K34 ["Name"]
+      108 SETTABLEKS                       R25 R24 K29 ["targetName"]
+      110 SETTABLEKS                       R20 R24 K30 ["vertex"]
+      112 GETTABLEKS                       R26 R21 K35 ["X"]
+      114 GETTABLEKS                       R27 R21 K36 ["Y"]
+      116 FASTCALL2                        VECTOR R26 R27 ; [+3]
+      118 GETIMPORT                        R25 K39 [Vector3.new]
+      120 CALL                             R25 2 1
+      121 SETTABLEKS                       R25 R24 K31 ["uv"]
+      123 GETTABLEKS                       R26 R21 K35 ["X"]
+      125 LOADK                            R27 K40 [3.5]
+      126 JUMPIFNOTLE                      R27 R26 ; [+3]
+      128 LOADK                            R25 K41 ["right"]
+      129 JUMP                             ; [+1]
+      130 LOADK                            R25 K42 ["left"]
+      131 SETTABLEKS                       R25 R24 K32 ["side"]
+      133 FASTCALL2                        TABLE_INSERT R5 R24 ; [+4]
+      135 MOVE                             R23 R5
+      136 GETIMPORT                        R22 K45 [table.insert]
+      138 CALL                             R22 2 0
+      139 FORGLOOP                         R17 2 ; [-35]
+      141 CLOSEUPVALS                      R14
+      142 FORGLOOP                         R9 2 ; [-65]
+      144 GETIMPORT                        R9 K47 [debug.profileend]
+      146 CALL                             R9 0 0
+      147 GETIMPORT                        R9 K22 [debug.profilebegin]
+      149 LOADK                            R10 K48 ["Sort points and UVs"]
+      150 CALL                             R9 1 0
+      151 GETIMPORT                        R9 K50 [table.sort]
+      153 MOVE                             R10 R5
+      154 DUPCLOSURE                       R11 K51 [PROTO_11]
+      155 CALL                             R9 2 0
+      156 GETIMPORT                        R9 K47 [debug.profileend]
+      158 CALL                             R9 0 0
+      159 GETIMPORT                        R9 K22 [debug.profilebegin]
+      161 LOADK                            R10 K52 ["Create symmetry map"]
+      162 CALL                             R9 1 0
+      163 MOVE                             R9 R5
+      164 LOADNIL                          R10
+      165 LOADNIL                          R11
+      166 FORGPREP                         R9
+      167 GETIMPORT                        R14 K22 [debug.profilebegin]
+      169 LOADK                            R15 K53 ["Find what UVs are symmetrical"]
+      170 CALL                             R14 1 0
+      171 MOVE                             R14 R7
+      172 GETTABLEKS                       R15 R13 K31 ["uv"]
+      174 CALL                             R14 1 1
+      175 GETIMPORT                        R15 K47 [debug.profileend]
+      177 CALL                             R15 0 0
+      178 LENGTH                           R15 R14
+      179 JUMPIFNOTEQKN                    R15 K54 [0] ; [+56]
+      181 LOADNIL                          R15
+      182 LOADN                            R18 0
+      183 GETIMPORT                        R19 K10 [buffer.len]
+      185 MOVE                             R20 R2
+      186 CALL                             R19 1 1
+      187 SUBK                             R16 R19 K7 [32]
+      188 LOADN                            R17 32
+      189 FORNPREP                         R16
+      190 FASTCALL2                        BUFFER_READF64 R2 R18 ; [+5]
+      192 MOVE                             R20 R2
+      193 MOVE                             R21 R18
+      194 GETIMPORT                        R19 K56 [buffer.readf64]
+      196 CALL                             R19 2 1
+      197 ADDK                             R22 R18 K57 [8]
+      198 FASTCALL2                        BUFFER_READF64 R2 R22 ; [+4]
+      200 MOVE                             R21 R2
+      201 GETIMPORT                        R20 K56 [buffer.readf64]
+      203 CALL                             R20 2 1
+      204 FASTCALL2                        VECTOR R19 R20 ; [+5]
+      206 MOVE                             R22 R19
+      207 MOVE                             R23 R20
+      208 GETIMPORT                        R21 K39 [Vector3.new]
+      210 CALL                             R21 2 1
+      211 GETTABLEKS                       R23 R13 K31 ["uv"]
+      213 LOADK                            R24 K58 [1E-07]
+      214 NAMECALL                         R21 R21 K59 ["FuzzyEq"]
+      216 CALL                             R21 3 1
+      217 JUMPIFNOT                        R21 ; [+3]
+      218 IDIVK                            R21 R18 K7 [32]
+      219 ADDK                             R15 R21 K60 [1]
+      220 JUMP                             ; [+1]
+      221 FORNLOOP                         R16
+      222 MOVE                             R16 R1
+      223 LOADK                            R17 K61 ["Couldn't find symmetrical UVs for %*:%* (at %*), was supposed to find it at index %*"]
+      224 GETTABLEKS                       R19 R13 K29 ["targetName"]
+      226 GETTABLEKS                       R20 R13 K30 ["vertex"]
+      228 GETTABLEKS                       R21 R13 K31 ["uv"]
+      230 MOVE                             R22 R15
+      231 NAMECALL                         R17 R17 K28 ["format"]
+      233 CALL                             R17 5 1
+      234 CALL                             R16 1 0
+      235 JUMP                             ; [+37]
+      236 GETIMPORT                        R15 K22 [debug.profilebegin]
+      238 LOADK                            R16 K62 ["Find points with UV"]
+      239 CALL                             R15 1 0
+      240 MOVE                             R15 R8
+      241 MOVE                             R16 R14
+      242 CALL                             R15 1 3
+      243 FORGPREP                         R15
+      244 MOVE                             R20 R6
+      245 GETTABLEKS                       R21 R13 K29 ["targetName"]
+      247 GETTABLEKS                       R22 R13 K30 ["vertex"]
+      249 GETTABLEKS                       R23 R19 K29 ["targetName"]
+      251 GETTABLEKS                       R24 R19 K30 ["vertex"]
+      253 GETTABLEKS                       R25 R13 K32 ["side"]
+      255 CALL                             R20 5 0
+      256 MOVE                             R20 R6
+      257 GETTABLEKS                       R21 R19 K29 ["targetName"]
+      259 GETTABLEKS                       R22 R19 K30 ["vertex"]
+      261 GETTABLEKS                       R23 R13 K29 ["targetName"]
+      263 GETTABLEKS                       R24 R13 K30 ["vertex"]
+      265 GETTABLEKS                       R25 R19 K32 ["side"]
+      267 CALL                             R20 5 0
+      268 FORGLOOP                         R15 2 ; [-25]
+      270 GETIMPORT                        R15 K47 [debug.profileend]
+      272 CALL                             R15 0 0
+      273 FORGLOOP                         R9 2 ; [-107]
+      275 MOVE                             R9 R5
+      276 LOADNIL                          R10
+      277 LOADNIL                          R11
+      278 FORGPREP                         R9
+      279 GETTABLEKS                       R16 R13 K29 ["targetName"]
+      281 GETTABLE                         R15 R4 R16
+      282 GETTABLEKS                       R16 R13 K30 ["vertex"]
+      284 GETTABLE                         R14 R15 R16
+      285 JUMPIFEQKNIL                     R14 ; [+56]
+      287 NEWTABLE                         R15 0 0
+      289 MOVE                             R16 R14
+      290 LOADNIL                          R17
+      291 LOADNIL                          R18
+      292 FORGPREP                         R16
+      293 GETTABLEKS                       R25 R20 K29 ["targetName"]
+      295 GETTABLE                         R24 R4 R25
+      296 GETTABLEKS                       R25 R20 K30 ["vertex"]
+      298 GETTABLE                         R21 R24 R25
+      299 LOADNIL                          R22
+      300 LOADNIL                          R23
+      301 FORGPREP                         R21
+      302 FASTCALL2                        TABLE_INSERT R15 R25 ; [+5]
+      304 MOVE                             R27 R15
+      305 MOVE                             R28 R25
+      306 GETIMPORT                        R26 K45 [table.insert]
+      308 CALL                             R26 2 0
+      309 FORGLOOP                         R21 2 ; [-8]
+      311 FORGLOOP                         R16 2 ; [-19]
+      313 MOVE                             R16 R15
+      314 LOADNIL                          R17
+      315 LOADNIL                          R18
+      316 FORGPREP                         R16
+      317 GETTABLEKS                       R25 R20 K29 ["targetName"]
+      319 GETTABLE                         R24 R4 R25
+      320 GETTABLEKS                       R25 R20 K30 ["vertex"]
+      322 GETTABLE                         R21 R24 R25
+      323 LOADNIL                          R22
+      324 LOADNIL                          R23
+      325 FORGPREP                         R21
+      326 MOVE                             R26 R6
+      327 GETTABLEKS                       R27 R13 K29 ["targetName"]
+      329 GETTABLEKS                       R28 R13 K30 ["vertex"]
+      331 GETTABLEKS                       R29 R25 K29 ["targetName"]
+      333 GETTABLEKS                       R30 R25 K30 ["vertex"]
+      335 GETTABLEKS                       R31 R13 K32 ["side"]
+      337 CALL                             R26 5 0
+      338 FORGLOOP                         R21 2 ; [-13]
+      340 FORGLOOP                         R16 2 ; [-24]
+      342 FORGLOOP                         R9 2 ; [-64]
+      344 MOVE                             R9 R4
+      345 LOADNIL                          R10
+      346 LOADNIL                          R11
+      347 FORGPREP                         R9
+      348 MOVE                             R14 R13
+      349 LOADNIL                          R15
+      350 LOADNIL                          R16
+      351 FORGPREP                         R14
+      352 LENGTH                           R21 R18
+      353 LOADN                            R19 1
+      354 LOADN                            R20 -1
+      355 FORNPREP                         R19
+      356 GETUPVAL                         R24 4
+      357 GETTABLE                         R23 R24 R12
+      358 JUMPIFEQKNIL                     R23 ; [+4]
+      360 GETUPVAL                         R23 4
+      361 GETTABLE                         R22 R23 R12
+      362 JUMP                             ; [+29]
+      363 LOADK                            R25 K63 ["^Left(.+)$"]
+      364 NAMECALL                         R23 R12 K64 ["match"]
+      366 CALL                             R23 2 1
+      367 JUMPIFEQKNIL                     R23 ; [+8]
+      369 LOADK                            R25 K65 ["Right"]
+      370 MOVE                             R26 R23
+      371 CONCAT                           R24 R25 R26
+      372 GETUPVAL                         R25 4
+      373 SETTABLE                         R24 R25 R12
+      374 MOVE                             R22 R24
+      375 JUMP                             ; [+16]
+      376 LOADK                            R26 K66 ["^Right(.+)$"]
+      377 NAMECALL                         R24 R12 K64 ["match"]
+      379 CALL                             R24 2 1
+      380 JUMPIFEQKNIL                     R24 ; [+8]
+      382 LOADK                            R26 K67 ["Left"]
+      383 MOVE                             R27 R24
+      384 CONCAT                           R25 R26 R27
+      385 GETUPVAL                         R26 4
+      386 SETTABLE                         R25 R26 R12
+      387 MOVE                             R22 R25
+      388 JUMP                             ; [+3]
+      389 GETUPVAL                         R25 4
+      390 SETTABLE                         R12 R25 R12
+      391 MOVE                             R22 R12
+      392 GETTABLE                         R23 R18 R21
+      393 GETTABLEKS                       R23 R23 K29 ["targetName"]
+      395 JUMPIFEQ                         R22 R23 ; [+6]
+      397 GETIMPORT                        R22 K69 [table.remove]
+      399 MOVE                             R23 R18
+      400 MOVE                             R24 R21
+      401 CALL                             R22 2 0
+      402 FORNLOOP                         R19
+      403 FORGLOOP                         R14 2 ; [-52]
+      405 FORGLOOP                         R9 2 ; [-58]
+      407 GETIMPORT                        R9 K47 [debug.profileend]
+      409 CALL                             R9 0 0
+      410 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

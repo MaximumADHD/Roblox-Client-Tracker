@@ -18,32 +18,31 @@ PROTO_0:
        18 MOVE                             R7 R5
        19 GETIMPORT                        R6 K4 [typeof]
        21 CALL                             R6 1 1
-       22 JUMPIFNOTEQKS                    R6 K5 ["table"] ; [+27]
-       24 LOADK                            R8 K6 ["%*Key"]
-       25 MOVE                             R10 R1
-       26 NAMECALL                         R8 R8 K7 ["format"]
-       28 CALL                             R8 2 1
-       29 MOVE                             R7 R8
-       30 GETTABLE                         R6 R5 R7
-       31 JUMPIFNOT                        R6 ; [+11]
-       32 LOADK                            R9 K8 ["^Studio%.Ribbon%.Plugin%."]
-       33 LOADK                            R10 K9 [""]
-       34 NAMECALL                         R7 R6 K10 ["gsub"]
-       36 CALL                             R7 3 1
-       37 LOADK                            R10 K11 ["Plugin"]
-       38 MOVE                             R11 R7
-       39 NAMECALL                         R8 R0 K12 ["getText"]
-       41 CALL                             R8 3 -1
-       42 RETURN                           R8 -1
-       43 GETTABLE                         R7 R5 R1
-       44 JUMPIFNOT                        R7 ; [+5]
-       45 GETTABLE                         R7 R5 R1
-       46 JUMPIFEQKS                       R7 K9 [""] ; [+3]
-       48 GETTABLE                         R7 R5 R1
-       49 RETURN                           R7 1
-       50 FORNLOOP                         R2
-       51 LOADK                            R2 K9 [""]
-       52 RETURN                           R2 1
+       22 JUMPIFNOTEQKS                    R6 K5 ["table"] ; [+26]
+       24 LOADK                            R7 K6 ["%*Key"]
+       25 MOVE                             R9 R1
+       26 NAMECALL                         R7 R7 K7 ["format"]
+       28 CALL                             R7 2 1
+       29 GETTABLE                         R6 R5 R7
+       30 JUMPIFNOT                        R6 ; [+11]
+       31 LOADK                            R9 K8 ["^Studio%.Ribbon%.Plugin%."]
+       32 LOADK                            R10 K9 [""]
+       33 NAMECALL                         R7 R6 K10 ["gsub"]
+       35 CALL                             R7 3 1
+       36 LOADK                            R10 K11 ["Plugin"]
+       37 MOVE                             R11 R7
+       38 NAMECALL                         R8 R0 K12 ["getText"]
+       40 CALL                             R8 3 -1
+       41 RETURN                           R8 -1
+       42 GETTABLE                         R7 R5 R1
+       43 JUMPIFNOT                        R7 ; [+5]
+       44 GETTABLE                         R7 R5 R1
+       45 JUMPIFEQKS                       R7 K9 [""] ; [+3]
+       47 GETTABLE                         R7 R5 R1
+       48 RETURN                           R7 1
+       49 FORNLOOP                         R2
+       50 LOADK                            R2 K9 [""]
+       51 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

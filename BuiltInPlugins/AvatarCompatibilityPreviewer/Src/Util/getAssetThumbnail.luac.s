@@ -12,14 +12,13 @@ PROTO_0:
        16 CALL                             R3 2 0
        17 LOADN                            R1 150
        18 LOADN                            R2 150
-       19 LOADK                            R4 K3 ["rbxthumb://type=Asset&id=%*&w=%*&h=%*"]
-       20 MOVE                             R6 R0
-       21 MOVE                             R7 R1
-       22 MOVE                             R8 R2
-       23 NAMECALL                         R4 R4 K4 ["format"]
-       25 CALL                             R4 4 1
-       26 MOVE                             R3 R4
-       27 RETURN                           R3 1
+       19 LOADK                            R3 K3 ["rbxthumb://type=Asset&id=%*&w=%*&h=%*"]
+       20 MOVE                             R5 R0
+       21 MOVE                             R6 R1
+       22 MOVE                             R7 R2
+       23 NAMECALL                         R3 R3 K4 ["format"]
+       25 CALL                             R3 4 1
+       26 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

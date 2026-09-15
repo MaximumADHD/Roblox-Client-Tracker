@@ -285,147 +285,146 @@ PROTO_5:
       126 GETUPVAL                         R19 6
       127 GETTABLEKS                       R19 R19 K19 ["Tag"]
       129 GETUPVAL                         R20 19
-      130 LOADK                            R22 K20 ["Component-RibbonTabs Role-Surface X-Middle data-testid=%*"]
-      131 GETUPVAL                         R24 20
-      132 GETTABLEKS                       R25 R0 K1 ["WidgetUri"]
-      134 CALL                             R24 1 1
-      135 NAMECALL                         R22 R22 K21 ["format"]
-      137 CALL                             R22 2 1
-      138 MOVE                             R21 R22
-      139 GETTABLEKS                       R23 R10 K7 ["Compact"]
-      141 JUMPIFNOT                        R23 ; [+2]
-      142 LOADK                            R22 K7 ["Compact"]
-      143 JUMP                             ; [+1]
-      144 LOADNIL                          R22
-      145 CALL                             R20 2 1
-      146 SETTABLE                         R20 R18 R19
-      147 DUPTABLE                         R19 K23 [{"CollapsibleScroller", "More"}]
-      148 GETUPVAL                         R20 6
-      149 GETTABLEKS                       R20 R20 K11 ["createElement"]
-      151 LOADK                            R21 K12 ["Frame"]
-      152 NEWTABLE                         R22 2 0
-      154 MOVE                             R23 R1
-      155 CALL                             R23 0 1
-      156 SETTABLEKS                       R23 R22 K13 ["LayoutOrder"]
-      158 GETUPVAL                         R23 6
-      159 GETTABLEKS                       R23 R23 K19 ["Tag"]
-      161 LOADK                            R24 K24 ["Role-Surface X-Fill X-Shrink"]
-      162 SETTABLE                         R24 R22 R23
-      163 DUPTABLE                         R23 K28 [{"Scroller", "LeftGradient", "RightGradient"}]
-      164 GETUPVAL                         R24 6
-      165 GETTABLEKS                       R24 R24 K11 ["createElement"]
-      167 LOADK                            R25 K29 ["ScrollingFrame"]
-      168 NEWTABLE                         R26 8 0
-      170 SETTABLEKS                       R8 R26 K30 ["ref"]
-      172 GETUPVAL                         R28 21
-      173 CALL                             R28 0 1
-      174 JUMPIFNOT                        R28 ; [+2]
-      175 LOADB                            R27 0
-      176 JUMP                             ; [+1]
-      177 LOADB                            R27 1
-      178 SETTABLEKS                       R27 R26 K31 ["ScrollingEnabled"]
-      180 GETUPVAL                         R28 22
-      181 CALL                             R28 0 1
-      182 JUMPIFNOT                        R28 ; [+2]
-      183 LOADB                            R27 0
-      184 JUMP                             ; [+1]
-      185 LOADNIL                          R27
-      186 SETTABLEKS                       R27 R26 K32 ["Selectable"]
-      188 GETUPVAL                         R27 6
-      189 GETTABLEKS                       R27 R27 K16 ["Change"]
-      191 GETTABLEKS                       R27 R27 K17 ["AbsoluteSize"]
-      193 GETTABLEKS                       R28 R10 K25 ["Scroller"]
-      195 GETTABLEKS                       R28 R28 K18 ["OnResized"]
-      197 SETTABLE                         R28 R26 R27
-      198 GETUPVAL                         R27 6
-      199 GETTABLEKS                       R27 R27 K16 ["Change"]
-      201 GETTABLEKS                       R27 R27 K33 ["CanvasPosition"]
-      203 GETTABLEKS                       R28 R10 K25 ["Scroller"]
-      205 GETTABLEKS                       R28 R28 K34 ["OnCanvasMoved"]
-      207 SETTABLE                         R28 R26 R27
-      208 GETUPVAL                         R27 6
-      209 GETTABLEKS                       R27 R27 K35 ["Event"]
-      211 GETTABLEKS                       R27 R27 K36 ["InputChanged"]
-      213 GETUPVAL                         R29 21
-      214 CALL                             R29 0 1
-      215 JUMPIFNOT                        R29 ; [+2]
-      216 MOVE                             R28 R15
-      217 JUMP                             ; [+1]
-      218 LOADNIL                          R28
-      219 SETTABLE                         R28 R26 R27
-      220 GETUPVAL                         R27 6
-      221 GETTABLEKS                       R27 R27 K19 ["Tag"]
-      223 GETUPVAL                         R28 19
-      224 LOADK                            R29 K37 ["Role-Surface"]
-      225 MOVE                             R30 R13
-      226 CALL                             R28 2 1
-      227 SETTABLE                         R28 R26 R27
-      228 DUPTABLE                         R27 K39 [{"Wrapper"}]
-      229 GETUPVAL                         R28 6
-      230 GETTABLEKS                       R28 R28 K11 ["createElement"]
-      232 LOADK                            R29 K12 ["Frame"]
-      233 NEWTABLE                         R30 2 0
-      235 GETUPVAL                         R31 6
-      236 GETTABLEKS                       R31 R31 K16 ["Change"]
-      238 GETTABLEKS                       R31 R31 K17 ["AbsoluteSize"]
-      240 GETTABLEKS                       R32 R10 K38 ["Wrapper"]
-      242 GETTABLEKS                       R32 R32 K18 ["OnResized"]
-      244 SETTABLE                         R32 R30 R31
-      245 GETUPVAL                         R31 6
-      246 GETTABLEKS                       R31 R31 K19 ["Tag"]
-      248 LOADK                            R32 K40 ["Role-Surface X-FitX X-Middle"]
-      249 SETTABLE                         R32 R30 R31
-      250 GETTABLEKS                       R31 R7 K41 ["tabs"]
-      252 CALL                             R28 3 1
-      253 SETTABLEKS                       R28 R27 K38 ["Wrapper"]
-      255 CALL                             R24 3 1
-      256 SETTABLEKS                       R24 R23 K25 ["Scroller"]
-      258 GETUPVAL                         R24 6
-      259 GETTABLEKS                       R24 R24 K11 ["createElement"]
-      261 LOADK                            R25 K12 ["Frame"]
-      262 NEWTABLE                         R26 2 0
-      264 GETTABLEKS                       R27 R10 K26 ["LeftGradient"]
-      266 GETTABLEKS                       R27 R27 K42 ["Visible"]
-      268 SETTABLEKS                       R27 R26 K42 ["Visible"]
-      270 GETUPVAL                         R27 6
-      271 GETTABLEKS                       R27 R27 K19 ["Tag"]
-      273 LOADK                            R28 K43 ["Role-Surface100 X-FadeRight"]
-      274 SETTABLE                         R28 R26 R27
-      275 CALL                             R24 2 1
-      276 SETTABLEKS                       R24 R23 K26 ["LeftGradient"]
-      278 GETUPVAL                         R24 6
-      279 GETTABLEKS                       R24 R24 K11 ["createElement"]
-      281 LOADK                            R25 K12 ["Frame"]
-      282 NEWTABLE                         R26 2 0
-      284 GETTABLEKS                       R27 R10 K27 ["RightGradient"]
-      286 GETTABLEKS                       R27 R27 K42 ["Visible"]
-      288 SETTABLEKS                       R27 R26 K42 ["Visible"]
-      290 GETUPVAL                         R27 6
-      291 GETTABLEKS                       R27 R27 K19 ["Tag"]
-      293 LOADK                            R28 K44 ["Role-Surface100 X-FadeLeft"]
-      294 SETTABLE                         R28 R26 R27
-      295 CALL                             R24 2 1
-      296 SETTABLEKS                       R24 R23 K27 ["RightGradient"]
-      298 CALL                             R20 3 1
-      299 SETTABLEKS                       R20 R19 K22 ["CollapsibleScroller"]
-      301 GETUPVAL                         R20 6
-      302 GETTABLEKS                       R20 R20 K11 ["createElement"]
-      304 GETUPVAL                         R21 23
-      305 DUPTABLE                         R22 K51 [{["Uri"], ["Icon"] = "More", ["IconOnly"] = True, ["OnSelect"], ["Size"] = "Small", ["LayoutOrder"]}]
-      306 GETUPVAL                         R23 15
-      307 GETTABLEKS                       R23 R23 K5 ["child"]
-      309 GETTABLEKS                       R24 R0 K1 ["WidgetUri"]
-      311 LOADK                            R25 K6 ["More"]
-      312 CALL                             R23 2 1
-      313 SETTABLEKS                       R23 R22 K45 ["Uri"]
-      315 SETTABLEKS                       R12 R22 K49 ["OnSelect"]
-      317 MOVE                             R23 R1
-      318 CALL                             R23 0 1
-      319 SETTABLEKS                       R23 R22 K13 ["LayoutOrder"]
-      321 CALL                             R20 2 1
-      322 SETTABLEKS                       R20 R19 K6 ["More"]
-      324 CALL                             R16 3 -1
-      325 RETURN                           R16 -1
+      130 LOADK                            R21 K20 ["Component-RibbonTabs Role-Surface X-Middle data-testid=%*"]
+      131 GETUPVAL                         R23 20
+      132 GETTABLEKS                       R24 R0 K1 ["WidgetUri"]
+      134 CALL                             R23 1 1
+      135 NAMECALL                         R21 R21 K21 ["format"]
+      137 CALL                             R21 2 1
+      138 GETTABLEKS                       R23 R10 K7 ["Compact"]
+      140 JUMPIFNOT                        R23 ; [+2]
+      141 LOADK                            R22 K7 ["Compact"]
+      142 JUMP                             ; [+1]
+      143 LOADNIL                          R22
+      144 CALL                             R20 2 1
+      145 SETTABLE                         R20 R18 R19
+      146 DUPTABLE                         R19 K23 [{"CollapsibleScroller", "More"}]
+      147 GETUPVAL                         R20 6
+      148 GETTABLEKS                       R20 R20 K11 ["createElement"]
+      150 LOADK                            R21 K12 ["Frame"]
+      151 NEWTABLE                         R22 2 0
+      153 MOVE                             R23 R1
+      154 CALL                             R23 0 1
+      155 SETTABLEKS                       R23 R22 K13 ["LayoutOrder"]
+      157 GETUPVAL                         R23 6
+      158 GETTABLEKS                       R23 R23 K19 ["Tag"]
+      160 LOADK                            R24 K24 ["Role-Surface X-Fill X-Shrink"]
+      161 SETTABLE                         R24 R22 R23
+      162 DUPTABLE                         R23 K28 [{"Scroller", "LeftGradient", "RightGradient"}]
+      163 GETUPVAL                         R24 6
+      164 GETTABLEKS                       R24 R24 K11 ["createElement"]
+      166 LOADK                            R25 K29 ["ScrollingFrame"]
+      167 NEWTABLE                         R26 8 0
+      169 SETTABLEKS                       R8 R26 K30 ["ref"]
+      171 GETUPVAL                         R28 21
+      172 CALL                             R28 0 1
+      173 JUMPIFNOT                        R28 ; [+2]
+      174 LOADB                            R27 0
+      175 JUMP                             ; [+1]
+      176 LOADB                            R27 1
+      177 SETTABLEKS                       R27 R26 K31 ["ScrollingEnabled"]
+      179 GETUPVAL                         R28 22
+      180 CALL                             R28 0 1
+      181 JUMPIFNOT                        R28 ; [+2]
+      182 LOADB                            R27 0
+      183 JUMP                             ; [+1]
+      184 LOADNIL                          R27
+      185 SETTABLEKS                       R27 R26 K32 ["Selectable"]
+      187 GETUPVAL                         R27 6
+      188 GETTABLEKS                       R27 R27 K16 ["Change"]
+      190 GETTABLEKS                       R27 R27 K17 ["AbsoluteSize"]
+      192 GETTABLEKS                       R28 R10 K25 ["Scroller"]
+      194 GETTABLEKS                       R28 R28 K18 ["OnResized"]
+      196 SETTABLE                         R28 R26 R27
+      197 GETUPVAL                         R27 6
+      198 GETTABLEKS                       R27 R27 K16 ["Change"]
+      200 GETTABLEKS                       R27 R27 K33 ["CanvasPosition"]
+      202 GETTABLEKS                       R28 R10 K25 ["Scroller"]
+      204 GETTABLEKS                       R28 R28 K34 ["OnCanvasMoved"]
+      206 SETTABLE                         R28 R26 R27
+      207 GETUPVAL                         R27 6
+      208 GETTABLEKS                       R27 R27 K35 ["Event"]
+      210 GETTABLEKS                       R27 R27 K36 ["InputChanged"]
+      212 GETUPVAL                         R29 21
+      213 CALL                             R29 0 1
+      214 JUMPIFNOT                        R29 ; [+2]
+      215 MOVE                             R28 R15
+      216 JUMP                             ; [+1]
+      217 LOADNIL                          R28
+      218 SETTABLE                         R28 R26 R27
+      219 GETUPVAL                         R27 6
+      220 GETTABLEKS                       R27 R27 K19 ["Tag"]
+      222 GETUPVAL                         R28 19
+      223 LOADK                            R29 K37 ["Role-Surface"]
+      224 MOVE                             R30 R13
+      225 CALL                             R28 2 1
+      226 SETTABLE                         R28 R26 R27
+      227 DUPTABLE                         R27 K39 [{"Wrapper"}]
+      228 GETUPVAL                         R28 6
+      229 GETTABLEKS                       R28 R28 K11 ["createElement"]
+      231 LOADK                            R29 K12 ["Frame"]
+      232 NEWTABLE                         R30 2 0
+      234 GETUPVAL                         R31 6
+      235 GETTABLEKS                       R31 R31 K16 ["Change"]
+      237 GETTABLEKS                       R31 R31 K17 ["AbsoluteSize"]
+      239 GETTABLEKS                       R32 R10 K38 ["Wrapper"]
+      241 GETTABLEKS                       R32 R32 K18 ["OnResized"]
+      243 SETTABLE                         R32 R30 R31
+      244 GETUPVAL                         R31 6
+      245 GETTABLEKS                       R31 R31 K19 ["Tag"]
+      247 LOADK                            R32 K40 ["Role-Surface X-FitX X-Middle"]
+      248 SETTABLE                         R32 R30 R31
+      249 GETTABLEKS                       R31 R7 K41 ["tabs"]
+      251 CALL                             R28 3 1
+      252 SETTABLEKS                       R28 R27 K38 ["Wrapper"]
+      254 CALL                             R24 3 1
+      255 SETTABLEKS                       R24 R23 K25 ["Scroller"]
+      257 GETUPVAL                         R24 6
+      258 GETTABLEKS                       R24 R24 K11 ["createElement"]
+      260 LOADK                            R25 K12 ["Frame"]
+      261 NEWTABLE                         R26 2 0
+      263 GETTABLEKS                       R27 R10 K26 ["LeftGradient"]
+      265 GETTABLEKS                       R27 R27 K42 ["Visible"]
+      267 SETTABLEKS                       R27 R26 K42 ["Visible"]
+      269 GETUPVAL                         R27 6
+      270 GETTABLEKS                       R27 R27 K19 ["Tag"]
+      272 LOADK                            R28 K43 ["Role-Surface100 X-FadeRight"]
+      273 SETTABLE                         R28 R26 R27
+      274 CALL                             R24 2 1
+      275 SETTABLEKS                       R24 R23 K26 ["LeftGradient"]
+      277 GETUPVAL                         R24 6
+      278 GETTABLEKS                       R24 R24 K11 ["createElement"]
+      280 LOADK                            R25 K12 ["Frame"]
+      281 NEWTABLE                         R26 2 0
+      283 GETTABLEKS                       R27 R10 K27 ["RightGradient"]
+      285 GETTABLEKS                       R27 R27 K42 ["Visible"]
+      287 SETTABLEKS                       R27 R26 K42 ["Visible"]
+      289 GETUPVAL                         R27 6
+      290 GETTABLEKS                       R27 R27 K19 ["Tag"]
+      292 LOADK                            R28 K44 ["Role-Surface100 X-FadeLeft"]
+      293 SETTABLE                         R28 R26 R27
+      294 CALL                             R24 2 1
+      295 SETTABLEKS                       R24 R23 K27 ["RightGradient"]
+      297 CALL                             R20 3 1
+      298 SETTABLEKS                       R20 R19 K22 ["CollapsibleScroller"]
+      300 GETUPVAL                         R20 6
+      301 GETTABLEKS                       R20 R20 K11 ["createElement"]
+      303 GETUPVAL                         R21 23
+      304 DUPTABLE                         R22 K51 [{["Uri"], ["Icon"] = "More", ["IconOnly"] = True, ["OnSelect"], ["Size"] = "Small", ["LayoutOrder"]}]
+      305 GETUPVAL                         R23 15
+      306 GETTABLEKS                       R23 R23 K5 ["child"]
+      308 GETTABLEKS                       R24 R0 K1 ["WidgetUri"]
+      310 LOADK                            R25 K6 ["More"]
+      311 CALL                             R23 2 1
+      312 SETTABLEKS                       R23 R22 K45 ["Uri"]
+      314 SETTABLEKS                       R12 R22 K49 ["OnSelect"]
+      316 MOVE                             R23 R1
+      317 CALL                             R23 0 1
+      318 SETTABLEKS                       R23 R22 K13 ["LayoutOrder"]
+      320 CALL                             R20 2 1
+      321 SETTABLEKS                       R20 R19 K6 ["More"]
+      323 CALL                             R16 3 -1
+      324 RETURN                           R16 -1
 
 MAIN:
         0 PREPVARARGS                      0

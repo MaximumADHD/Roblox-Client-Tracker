@@ -71,19 +71,18 @@ PROTO_1:
        78 MOVE                             R14 R10
        79 CALL                             R11 3 2
        80 GETIMPORT                        R13 K33 [Enum.CreateAssetResult.Success]
-       82 JUMPIFNOTEQ                      R11 R13 ; [+9]
-       84 LOADK                            R14 K34 ["rbxassetid://%*"]
-       85 MOVE                             R16 R12
-       86 NAMECALL                         R14 R14 K35 ["format"]
-       88 CALL                             R14 2 1
-       89 MOVE                             R13 R14
-       90 CLOSEUPVALS                      R3
-       91 RETURN                           R13 1
-       92 GETIMPORT                        R13 K37 [error]
-       94 LOADK                            R14 K38 ["Failed to upload asset"]
-       95 CALL                             R13 1 0
-       96 CLOSEUPVALS                      R3
-       97 RETURN                           R0 0
+       82 JUMPIFNOTEQ                      R11 R13 ; [+8]
+       84 LOADK                            R13 K34 ["rbxassetid://%*"]
+       85 MOVE                             R15 R12
+       86 NAMECALL                         R13 R13 K35 ["format"]
+       88 CALL                             R13 2 1
+       89 CLOSEUPVALS                      R3
+       90 RETURN                           R13 1
+       91 GETIMPORT                        R13 K37 [error]
+       93 LOADK                            R14 K38 ["Failed to upload asset"]
+       94 CALL                             R13 1 0
+       95 CLOSEUPVALS                      R3
+       96 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -169,9 +168,9 @@ PROTO_6:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["outerCageContextRef"]
         3 GETTABLEKS                       R0 R0 K1 ["current"]
-        5 JUMPIFNOT                        R0 ; [+54]
+        5 JUMPIFNOT                        R0 ; [+53]
         6 GETUPVAL                         R1 1
-        7 JUMPIFNOT                        R1 ; [+52]
+        7 JUMPIFNOT                        R1 ; [+51]
         8 NAMECALL                         R1 R0 K2 ["getVertexData"]
        10 CALL                             R1 1 1
        11 NAMECALL                         R2 R0 K3 ["getInstanceLookup"]
@@ -184,9 +183,9 @@ PROTO_6:
        20 GETIMPORT                        R7 K7 [warn]
        22 LOADK                            R8 K8 ["Instance lookup returned a non-WrapTarget instance"]
        23 CALL                             R7 1 0
-       24 JUMP                             ; [+33]
+       24 JUMP                             ; [+32]
        25 GETTABLE                         R7 R1 R5
-       26 JUMPIFEQKNIL                     R7 ; [+31]
+       26 JUMPIFEQKNIL                     R7 ; [+30]
        28 GETUPVAL                         R8 2
        29 GETTABLEKS                       R8 R8 K9 ["unscaleVertices"]
        31 MOVE                             R9 R6
@@ -197,22 +196,21 @@ PROTO_6:
        37 CAPTURE                          VAL R6
        38 CAPTURE                          VAL R8
        39 CALL                             R9 1 2
-       40 JUMPIF                           R9 ; [+13]
+       40 JUMPIF                           R9 ; [+12]
        41 GETIMPORT                        R11 K7 [warn]
-       43 LOADK                            R13 K12 ["Failed to invoke %*:ModifyVertices(Enum.CageType.Outer, ...) due to %*"]
-       44 NAMECALL                         R15 R6 K13 ["GetFullName"]
-       46 CALL                             R15 1 1
-       47 MOVE                             R16 R10
-       48 NAMECALL                         R13 R13 K14 ["format"]
-       50 CALL                             R13 3 1
-       51 MOVE                             R12 R13
-       52 CALL                             R11 1 0
-       53 JUMP                             ; [+4]
-       54 GETUPVAL                         R11 3
-       55 GETTABLEKS                       R11 R11 K1 ["current"]
-       57 SETTABLE                         R8 R11 R6
-       58 FORGLOOP                         R2 2 ; [-44]
-       60 RETURN                           R0 0
+       43 LOADK                            R12 K12 ["Failed to invoke %*:ModifyVertices(Enum.CageType.Outer, ...) due to %*"]
+       44 NAMECALL                         R14 R6 K13 ["GetFullName"]
+       46 CALL                             R14 1 1
+       47 MOVE                             R15 R10
+       48 NAMECALL                         R12 R12 K14 ["format"]
+       50 CALL                             R12 3 1
+       51 CALL                             R11 1 0
+       52 JUMP                             ; [+4]
+       53 GETUPVAL                         R11 3
+       54 GETTABLEKS                       R11 R11 K1 ["current"]
+       56 SETTABLE                         R8 R11 R6
+       57 FORGLOOP                         R2 2 ; [-43]
+       59 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0

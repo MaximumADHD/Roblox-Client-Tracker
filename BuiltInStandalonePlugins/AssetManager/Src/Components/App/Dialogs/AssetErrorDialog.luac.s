@@ -57,48 +57,47 @@ PROTO_0:
        80 GETUPVAL                         R22 3
        81 GETTABLEKS                       R22 R22 K33 ["Image"]
        83 DUPTABLE                         R23 K35 [{["LayoutOrder"] = 1, ["Image"], ["tag"] = "size-600 radius-small"}]
-       84 LOADK                            R25 K36 ["rbxthumb://type=CreatorContextAsset&id=%*&w=150&h=150"]
-       85 MOVE                             R27 R6
-       86 NAMECALL                         R25 R25 K37 ["format"]
-       88 CALL                             R25 2 1
-       89 MOVE                             R24 R25
-       90 SETTABLEKS                       R24 R23 K33 ["Image"]
-       92 CALL                             R21 2 1
-       93 SETTABLEKS                       R21 R20 K31 ["Thumbnail"]
-       95 GETUPVAL                         R21 2
-       96 GETTABLEKS                       R21 R21 K13 ["createElement"]
-       98 GETUPVAL                         R22 3
-       99 GETTABLEKS                       R22 R22 K38 ["Text"]
-      101 DUPTABLE                         R23 K41 [{["LayoutOrder"] = 2, ["Text"], ["tag"] = "fill auto-y text-body-medium text-align-x-left text-truncate-split"}]
-      102 SETTABLEKS                       R7 R23 K38 ["Text"]
-      104 CALL                             R21 2 1
-      105 SETTABLEKS                       R21 R20 K12 ["Name"]
-      107 CALL                             R17 3 1
-      108 SETTABLEKS                       R17 R16 K27 ["AssetInfo"]
-      110 GETUPVAL                         R17 2
-      111 GETTABLEKS                       R17 R17 K13 ["createElement"]
-      113 GETUPVAL                         R18 3
-      114 GETTABLEKS                       R18 R18 K38 ["Text"]
-      116 DUPTABLE                         R19 K43 [{["LayoutOrder"] = 2, ["Text"], ["tag"] = "fill auto-y text-body-medium text-align-x-left"}]
-      117 SETTABLEKS                       R8 R19 K38 ["Text"]
-      119 CALL                             R17 2 1
-      120 SETTABLEKS                       R17 R16 K6 ["Creator"]
-      122 CALL                             R13 3 1
-      123 SETTABLEKS                       R13 R12 K20 ["Content"]
-      125 GETUPVAL                         R13 2
-      126 GETTABLEKS                       R13 R13 K13 ["createElement"]
-      128 GETUPVAL                         R14 3
-      129 GETTABLEKS                       R14 R14 K44 ["Divider"]
-      131 DUPTABLE                         R15 K46 [{["LayoutOrder"] = 2, ["orientation"]}]
-      132 GETUPVAL                         R16 3
-      133 GETTABLEKS                       R16 R16 K47 ["Enums"]
-      135 GETTABLEKS                       R16 R16 K48 ["DividerOrientation"]
-      137 GETTABLEKS                       R16 R16 K49 ["Horizontal"]
-      139 SETTABLEKS                       R16 R15 K45 ["orientation"]
-      141 CALL                             R13 2 1
-      142 SETTABLEKS                       R13 R12 K21 ["BottomStroke"]
-      144 CALL                             R9 3 -1
-      145 RETURN                           R9 -1
+       84 LOADK                            R24 K36 ["rbxthumb://type=CreatorContextAsset&id=%*&w=150&h=150"]
+       85 MOVE                             R26 R6
+       86 NAMECALL                         R24 R24 K37 ["format"]
+       88 CALL                             R24 2 1
+       89 SETTABLEKS                       R24 R23 K33 ["Image"]
+       91 CALL                             R21 2 1
+       92 SETTABLEKS                       R21 R20 K31 ["Thumbnail"]
+       94 GETUPVAL                         R21 2
+       95 GETTABLEKS                       R21 R21 K13 ["createElement"]
+       97 GETUPVAL                         R22 3
+       98 GETTABLEKS                       R22 R22 K38 ["Text"]
+      100 DUPTABLE                         R23 K41 [{["LayoutOrder"] = 2, ["Text"], ["tag"] = "fill auto-y text-body-medium text-align-x-left text-truncate-split"}]
+      101 SETTABLEKS                       R7 R23 K38 ["Text"]
+      103 CALL                             R21 2 1
+      104 SETTABLEKS                       R21 R20 K12 ["Name"]
+      106 CALL                             R17 3 1
+      107 SETTABLEKS                       R17 R16 K27 ["AssetInfo"]
+      109 GETUPVAL                         R17 2
+      110 GETTABLEKS                       R17 R17 K13 ["createElement"]
+      112 GETUPVAL                         R18 3
+      113 GETTABLEKS                       R18 R18 K38 ["Text"]
+      115 DUPTABLE                         R19 K43 [{["LayoutOrder"] = 2, ["Text"], ["tag"] = "fill auto-y text-body-medium text-align-x-left"}]
+      116 SETTABLEKS                       R8 R19 K38 ["Text"]
+      118 CALL                             R17 2 1
+      119 SETTABLEKS                       R17 R16 K6 ["Creator"]
+      121 CALL                             R13 3 1
+      122 SETTABLEKS                       R13 R12 K20 ["Content"]
+      124 GETUPVAL                         R13 2
+      125 GETTABLEKS                       R13 R13 K13 ["createElement"]
+      127 GETUPVAL                         R14 3
+      128 GETTABLEKS                       R14 R14 K44 ["Divider"]
+      130 DUPTABLE                         R15 K46 [{["LayoutOrder"] = 2, ["orientation"]}]
+      131 GETUPVAL                         R16 3
+      132 GETTABLEKS                       R16 R16 K47 ["Enums"]
+      134 GETTABLEKS                       R16 R16 K48 ["DividerOrientation"]
+      136 GETTABLEKS                       R16 R16 K49 ["Horizontal"]
+      138 SETTABLEKS                       R16 R15 K45 ["orientation"]
+      140 CALL                             R13 2 1
+      141 SETTABLEKS                       R13 R12 K21 ["BottomStroke"]
+      143 CALL                             R9 3 -1
+      144 RETURN                           R9 -1
 
 PROTO_1:
         0 GETUPVAL                         R0 0

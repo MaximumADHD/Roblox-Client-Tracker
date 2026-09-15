@@ -33,34 +33,33 @@ PROTO_0:
        45 LOADK                            R13 K11 ["Places"]
        46 LOADK                            R14 K33 ["VersionHistoryMovedBody"]
        47 DUPTABLE                         R15 K35 [{"location"}]
-       48 LOADK                            R17 K36 [" <b>%* > %*</b>"]
-       49 LOADK                            R21 K11 ["Places"]
-       50 LOADK                            R22 K37 ["Window"]
-       51 NAMECALL                         R19 R1 K13 ["getText"]
-       53 CALL                             R19 3 1
-       54 LOADK                            R22 K11 ["Places"]
-       55 LOADK                            R23 K38 ["VersionHistory"]
-       56 NAMECALL                         R20 R1 K13 ["getText"]
-       58 CALL                             R20 3 1
-       59 NAMECALL                         R17 R17 K39 ["format"]
-       61 CALL                             R17 3 1
-       62 MOVE                             R16 R17
-       63 SETTABLEKS                       R16 R15 K34 ["location"]
-       65 NAMECALL                         R11 R1 K13 ["getText"]
-       67 CALL                             R11 4 1
-       68 SETTABLEKS                       R11 R10 K26 ["Text"]
-       70 CALL                             R8 2 -1
-       71 CALL                             R6 -1 1
-       72 SETTABLEKS                       R6 R5 K5 ["Body"]
-       74 NEWTABLE                         R6 0 1
-       76 LOADK                            R9 K40 ["General"]
-       77 LOADK                            R10 K41 ["ReplyOK"]
-       78 NAMECALL                         R7 R1 K13 ["getText"]
-       80 CALL                             R7 3 -1
-       81 SETLIST                          R6 R7 -1 [1]
-       83 SETTABLEKS                       R6 R5 K6 ["Buttons"]
-       85 CALL                             R3 2 0
-       86 RETURN                           R0 0
+       48 LOADK                            R16 K36 [" <b>%* > %*</b>"]
+       49 LOADK                            R20 K11 ["Places"]
+       50 LOADK                            R21 K37 ["Window"]
+       51 NAMECALL                         R18 R1 K13 ["getText"]
+       53 CALL                             R18 3 1
+       54 LOADK                            R21 K11 ["Places"]
+       55 LOADK                            R22 K38 ["VersionHistory"]
+       56 NAMECALL                         R19 R1 K13 ["getText"]
+       58 CALL                             R19 3 1
+       59 NAMECALL                         R16 R16 K39 ["format"]
+       61 CALL                             R16 3 1
+       62 SETTABLEKS                       R16 R15 K34 ["location"]
+       64 NAMECALL                         R11 R1 K13 ["getText"]
+       66 CALL                             R11 4 1
+       67 SETTABLEKS                       R11 R10 K26 ["Text"]
+       69 CALL                             R8 2 -1
+       70 CALL                             R6 -1 1
+       71 SETTABLEKS                       R6 R5 K5 ["Body"]
+       73 NEWTABLE                         R6 0 1
+       75 LOADK                            R9 K40 ["General"]
+       76 LOADK                            R10 K41 ["ReplyOK"]
+       77 NAMECALL                         R7 R1 K13 ["getText"]
+       79 CALL                             R7 3 -1
+       80 SETLIST                          R6 R7 -1 [1]
+       82 SETTABLEKS                       R6 R5 K6 ["Buttons"]
+       84 CALL                             R3 2 0
+       85 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0

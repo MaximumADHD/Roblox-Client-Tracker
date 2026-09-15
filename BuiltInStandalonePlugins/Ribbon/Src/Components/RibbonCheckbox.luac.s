@@ -76,81 +76,80 @@ PROTO_1:
        83 MOVE                             R17 R5
        84 MOVE                             R18 R8
        85 GETTABLEKS                       R20 R0 K16 ["Uri"]
-       87 JUMPIFNOT                        R20 ; [+10]
-       88 LOADK                            R20 K23 ["data-testid=%*"]
-       89 GETUPVAL                         R22 3
-       90 GETTABLEKS                       R23 R0 K16 ["Uri"]
-       92 CALL                             R22 1 1
-       93 NAMECALL                         R20 R20 K24 ["format"]
-       95 CALL                             R20 2 1
-       96 MOVE                             R19 R20
-       97 JUMP                             ; [+1]
-       98 LOADNIL                          R19
-       99 CALL                             R15 4 1
-      100 SETTABLE                         R15 R13 R14
-      101 DUPTABLE                         R14 K26 [{"CheckboxContainer"}]
-      102 GETTABLEKS                       R16 R0 K27 ["ExcludeTextFromClickableArea"]
-      104 JUMPIFNOT                        R16 ; [+39]
-      105 GETUPVAL                         R15 1
-      106 GETTABLEKS                       R15 R15 K17 ["createElement"]
-      108 LOADK                            R16 K21 ["Frame"]
-      109 NEWTABLE                         R17 1 0
-      111 GETUPVAL                         R18 1
-      112 GETTABLEKS                       R18 R18 K19 ["Tag"]
-      114 LOADK                            R19 K28 ["X-Fit X-Middle"]
-      115 SETTABLE                         R19 R17 R18
-      116 DUPTABLE                         R18 K31 [{"CheckboxIcon", "CheckboxLabel"}]
-      117 GETUPVAL                         R19 1
-      118 GETTABLEKS                       R19 R19 K17 ["createElement"]
-      120 LOADK                            R20 K32 ["ImageButton"]
-      121 NEWTABLE                         R21 2 0
-      123 GETUPVAL                         R23 4
-      124 CALL                             R23 0 1
-      125 JUMPIFNOT                        R23 ; [+2]
-      126 NOT                              R22 R2
-      127 JUMP                             ; [+1]
-      128 LOADNIL                          R22
-      129 SETTABLEKS                       R22 R21 K33 ["Selectable"]
-      131 GETUPVAL                         R22 1
-      132 GETTABLEKS                       R22 R22 K34 ["Event"]
-      134 GETTABLEKS                       R22 R22 K35 ["Activated"]
-      136 SETTABLE                         R9 R21 R22
-      137 CALL                             R19 2 1
-      138 SETTABLEKS                       R19 R18 K29 ["CheckboxIcon"]
-      140 SETTABLEKS                       R10 R18 K30 ["CheckboxLabel"]
-      142 CALL                             R15 3 1
-      143 JUMP                             ; [+38]
-      144 GETUPVAL                         R15 1
-      145 GETTABLEKS                       R15 R15 K17 ["createElement"]
-      147 LOADK                            R16 K36 ["TextButton"]
-      148 NEWTABLE                         R17 4 0
-      150 GETUPVAL                         R19 4
-      151 CALL                             R19 0 1
-      152 JUMPIFNOT                        R19 ; [+2]
-      153 NOT                              R18 R2
-      154 JUMP                             ; [+1]
-      155 LOADNIL                          R18
-      156 SETTABLEKS                       R18 R17 K33 ["Selectable"]
-      158 GETUPVAL                         R18 1
-      159 GETTABLEKS                       R18 R18 K34 ["Event"]
-      161 GETTABLEKS                       R18 R18 K35 ["Activated"]
-      163 SETTABLE                         R9 R17 R18
-      164 GETUPVAL                         R18 1
-      165 GETTABLEKS                       R18 R18 K19 ["Tag"]
-      167 LOADK                            R19 K28 ["X-Fit X-Middle"]
-      168 SETTABLE                         R19 R17 R18
-      169 DUPTABLE                         R18 K31 [{"CheckboxIcon", "CheckboxLabel"}]
-      170 GETUPVAL                         R19 1
-      171 GETTABLEKS                       R19 R19 K17 ["createElement"]
-      173 LOADK                            R20 K37 ["ImageLabel"]
-      174 NEWTABLE                         R21 0 0
-      176 CALL                             R19 2 1
-      177 SETTABLEKS                       R19 R18 K29 ["CheckboxIcon"]
-      179 SETTABLEKS                       R10 R18 K30 ["CheckboxLabel"]
-      181 CALL                             R15 3 1
-      182 SETTABLEKS                       R15 R14 K25 ["CheckboxContainer"]
-      184 CALL                             R11 3 -1
-      185 RETURN                           R11 -1
+       87 JUMPIFNOT                        R20 ; [+9]
+       88 LOADK                            R19 K23 ["data-testid=%*"]
+       89 GETUPVAL                         R21 3
+       90 GETTABLEKS                       R22 R0 K16 ["Uri"]
+       92 CALL                             R21 1 1
+       93 NAMECALL                         R19 R19 K24 ["format"]
+       95 CALL                             R19 2 1
+       96 JUMP                             ; [+1]
+       97 LOADNIL                          R19
+       98 CALL                             R15 4 1
+       99 SETTABLE                         R15 R13 R14
+      100 DUPTABLE                         R14 K26 [{"CheckboxContainer"}]
+      101 GETTABLEKS                       R16 R0 K27 ["ExcludeTextFromClickableArea"]
+      103 JUMPIFNOT                        R16 ; [+39]
+      104 GETUPVAL                         R15 1
+      105 GETTABLEKS                       R15 R15 K17 ["createElement"]
+      107 LOADK                            R16 K21 ["Frame"]
+      108 NEWTABLE                         R17 1 0
+      110 GETUPVAL                         R18 1
+      111 GETTABLEKS                       R18 R18 K19 ["Tag"]
+      113 LOADK                            R19 K28 ["X-Fit X-Middle"]
+      114 SETTABLE                         R19 R17 R18
+      115 DUPTABLE                         R18 K31 [{"CheckboxIcon", "CheckboxLabel"}]
+      116 GETUPVAL                         R19 1
+      117 GETTABLEKS                       R19 R19 K17 ["createElement"]
+      119 LOADK                            R20 K32 ["ImageButton"]
+      120 NEWTABLE                         R21 2 0
+      122 GETUPVAL                         R23 4
+      123 CALL                             R23 0 1
+      124 JUMPIFNOT                        R23 ; [+2]
+      125 NOT                              R22 R2
+      126 JUMP                             ; [+1]
+      127 LOADNIL                          R22
+      128 SETTABLEKS                       R22 R21 K33 ["Selectable"]
+      130 GETUPVAL                         R22 1
+      131 GETTABLEKS                       R22 R22 K34 ["Event"]
+      133 GETTABLEKS                       R22 R22 K35 ["Activated"]
+      135 SETTABLE                         R9 R21 R22
+      136 CALL                             R19 2 1
+      137 SETTABLEKS                       R19 R18 K29 ["CheckboxIcon"]
+      139 SETTABLEKS                       R10 R18 K30 ["CheckboxLabel"]
+      141 CALL                             R15 3 1
+      142 JUMP                             ; [+38]
+      143 GETUPVAL                         R15 1
+      144 GETTABLEKS                       R15 R15 K17 ["createElement"]
+      146 LOADK                            R16 K36 ["TextButton"]
+      147 NEWTABLE                         R17 4 0
+      149 GETUPVAL                         R19 4
+      150 CALL                             R19 0 1
+      151 JUMPIFNOT                        R19 ; [+2]
+      152 NOT                              R18 R2
+      153 JUMP                             ; [+1]
+      154 LOADNIL                          R18
+      155 SETTABLEKS                       R18 R17 K33 ["Selectable"]
+      157 GETUPVAL                         R18 1
+      158 GETTABLEKS                       R18 R18 K34 ["Event"]
+      160 GETTABLEKS                       R18 R18 K35 ["Activated"]
+      162 SETTABLE                         R9 R17 R18
+      163 GETUPVAL                         R18 1
+      164 GETTABLEKS                       R18 R18 K19 ["Tag"]
+      166 LOADK                            R19 K28 ["X-Fit X-Middle"]
+      167 SETTABLE                         R19 R17 R18
+      168 DUPTABLE                         R18 K31 [{"CheckboxIcon", "CheckboxLabel"}]
+      169 GETUPVAL                         R19 1
+      170 GETTABLEKS                       R19 R19 K17 ["createElement"]
+      172 LOADK                            R20 K37 ["ImageLabel"]
+      173 NEWTABLE                         R21 0 0
+      175 CALL                             R19 2 1
+      176 SETTABLEKS                       R19 R18 K29 ["CheckboxIcon"]
+      178 SETTABLEKS                       R10 R18 K30 ["CheckboxLabel"]
+      180 CALL                             R15 3 1
+      181 SETTABLEKS                       R15 R14 K25 ["CheckboxContainer"]
+      183 CALL                             R11 3 -1
+      184 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

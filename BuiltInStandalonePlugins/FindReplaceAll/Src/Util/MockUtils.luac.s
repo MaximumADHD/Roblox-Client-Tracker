@@ -70,21 +70,20 @@ PROTO_2:
        15 MOVE                             R11 R2
        16 CALL                             R9 2 1
        17 GETIMPORT                        R10 K8 [print]
-       19 LOADK                            R12 K9 ["%* %*> %* (%*)"]
-       20 MOVE                             R14 R2
-       21 MOVE                             R15 R9
-       22 GETTABLEKS                       R16 R8 K10 ["Name"]
-       24 GETTABLEKS                       R17 R8 K11 ["ClassName"]
-       26 NAMECALL                         R12 R12 K12 ["format"]
-       28 CALL                             R12 5 1
-       29 MOVE                             R11 R12
-       30 CALL                             R10 1 0
-       31 GETUPVAL                         R10 0
-       32 MOVE                             R11 R8
-       33 ADDK                             R12 R2 K13 [1]
-       34 CALL                             R10 2 0
-       35 FORGLOOP                         R4 2 [inext] ; [-24]
-       37 RETURN                           R0 0
+       19 LOADK                            R11 K9 ["%* %*> %* (%*)"]
+       20 MOVE                             R13 R2
+       21 MOVE                             R14 R9
+       22 GETTABLEKS                       R15 R8 K10 ["Name"]
+       24 GETTABLEKS                       R16 R8 K11 ["ClassName"]
+       26 NAMECALL                         R11 R11 K12 ["format"]
+       28 CALL                             R11 5 1
+       29 CALL                             R10 1 0
+       30 GETUPVAL                         R10 0
+       31 MOVE                             R11 R8
+       32 ADDK                             R12 R2 K13 [1]
+       33 CALL                             R10 2 0
+       34 FORGLOOP                         R4 2 [inext] ; [-23]
+       36 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

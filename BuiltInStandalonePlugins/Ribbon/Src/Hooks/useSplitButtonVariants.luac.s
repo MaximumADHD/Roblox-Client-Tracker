@@ -14,13 +14,12 @@ PROTO_1:
         3 JUMP                             ; [+1]
         4 LOADK                            R2 K1 ["size-300-400"]
         5 DUPTABLE                         R3 K3 [{"tag"}]
-        6 LOADK                            R5 K4 ["row align-x-center align-y-center %*"]
-        7 MOVE                             R7 R2
-        8 NAMECALL                         R5 R5 K5 ["format"]
-       10 CALL                             R5 2 1
-       11 MOVE                             R4 R5
-       12 SETTABLEKS                       R4 R3 K2 ["tag"]
-       14 RETURN                           R3 1
+        6 LOADK                            R4 K4 ["row align-x-center align-y-center %*"]
+        7 MOVE                             R6 R2
+        8 NAMECALL                         R4 R4 K5 ["format"]
+       10 CALL                             R4 2 1
+       11 SETTABLEKS                       R4 R3 K2 ["tag"]
+       13 RETURN                           R3 1
 
 PROTO_2:
         0 GETTABLEKS                       R2 R0 K0 ["isCompact"]
@@ -34,39 +33,38 @@ PROTO_2:
        10 LOADK                            R1 K4 ["padding-y-medium"]
        11 DUPTABLE                         R2 K7 [{"tag", "stateLayer"}]
        12 NEWTABLE                         R3 4 0
-       14 LOADK                            R5 K8 ["row align-x-center align-y-center auto-xy radius-small %*"]
-       15 MOVE                             R7 R1
-       16 NAMECALL                         R5 R5 K9 ["format"]
-       18 CALL                             R5 2 1
-       19 MOVE                             R4 R5
-       20 LOADB                            R5 1
-       21 SETTABLE                         R5 R3 R4
-       22 GETTABLEKS                       R5 R0 K10 ["selected"]
-       24 JUMPIFNOT                        R5 ; [+2]
-       25 LOADB                            R4 1
-       26 JUMP                             ; [+1]
-       27 LOADB                            R4 0
-       28 SETTABLEKS                       R4 R3 K11 ["bg-action-standard"]
-       30 GETTABLEKS                       R5 R0 K0 ["isCompact"]
-       32 JUMPIF                           R5 ; [+5]
-       33 GETTABLEKS                       R5 R0 K2 ["isSmall"]
-       35 JUMPIF                           R5 ; [+2]
-       36 LOADB                            R4 1
-       37 JUMP                             ; [+1]
-       38 LOADB                            R4 0
-       39 SETTABLEKS                       R4 R3 K12 ["padding-x-xxsmall"]
-       41 SETTABLEKS                       R3 R2 K5 ["tag"]
-       43 DUPTABLE                         R3 K17 [{["affordance"], ["inset"] = , ["mode"] = }]
-       44 GETTABLEKS                       R5 R0 K18 ["isSingle"]
-       46 JUMPIFNOT                        R5 ; [+4]
-       47 GETUPVAL                         R4 0
-       48 GETTABLEKS                       R4 R4 K19 ["None"]
-       50 JUMP                             ; [+3]
-       51 GETUPVAL                         R4 0
-       52 GETTABLEKS                       R4 R4 K20 ["Background"]
-       54 SETTABLEKS                       R4 R3 K13 ["affordance"]
-       56 SETTABLEKS                       R3 R2 K6 ["stateLayer"]
-       58 RETURN                           R2 1
+       14 LOADK                            R4 K8 ["row align-x-center align-y-center auto-xy radius-small %*"]
+       15 MOVE                             R6 R1
+       16 NAMECALL                         R4 R4 K9 ["format"]
+       18 CALL                             R4 2 1
+       19 LOADB                            R5 1
+       20 SETTABLE                         R5 R3 R4
+       21 GETTABLEKS                       R5 R0 K10 ["selected"]
+       23 JUMPIFNOT                        R5 ; [+2]
+       24 LOADB                            R4 1
+       25 JUMP                             ; [+1]
+       26 LOADB                            R4 0
+       27 SETTABLEKS                       R4 R3 K11 ["bg-action-standard"]
+       29 GETTABLEKS                       R5 R0 K0 ["isCompact"]
+       31 JUMPIF                           R5 ; [+5]
+       32 GETTABLEKS                       R5 R0 K2 ["isSmall"]
+       34 JUMPIF                           R5 ; [+2]
+       35 LOADB                            R4 1
+       36 JUMP                             ; [+1]
+       37 LOADB                            R4 0
+       38 SETTABLEKS                       R4 R3 K12 ["padding-x-xxsmall"]
+       40 SETTABLEKS                       R3 R2 K5 ["tag"]
+       42 DUPTABLE                         R3 K17 [{["affordance"], ["inset"] = , ["mode"] = }]
+       43 GETTABLEKS                       R5 R0 K18 ["isSingle"]
+       45 JUMPIFNOT                        R5 ; [+4]
+       46 GETUPVAL                         R4 0
+       47 GETTABLEKS                       R4 R4 K19 ["None"]
+       49 JUMP                             ; [+3]
+       50 GETUPVAL                         R4 0
+       51 GETTABLEKS                       R4 R4 K20 ["Background"]
+       53 SETTABLEKS                       R4 R3 K13 ["affordance"]
+       55 SETTABLEKS                       R3 R2 K6 ["stateLayer"]
+       57 RETURN                           R2 1
 
 PROTO_3:
         0 DUPTABLE                         R0 K3 [{"arrowContainer", "arrow", "arrowIconStyle"}]
@@ -99,24 +97,23 @@ PROTO_3:
        35 JUMP                             ; [+1]
        36 LOADK                            R4 K10 ["size-300-400"]
        37 DUPTABLE                         R1 K12 [{"tag"}]
-       38 LOADK                            R6 K13 ["row align-x-center align-y-center %*"]
-       39 MOVE                             R8 R4
-       40 NAMECALL                         R6 R6 K14 ["format"]
-       42 CALL                             R6 2 1
-       43 MOVE                             R5 R6
-       44 SETTABLEKS                       R5 R1 K11 ["tag"]
-       46 SETTABLEKS                       R1 R0 K1 ["arrow"]
-       48 GETUPVAL                         R3 1
-       49 GETTABLEKS                       R3 R3 K15 ["isDropdownEnabled"]
-       51 NOT                              R2 R3
-       52 DUPTABLE                         R1 K17 [{"Transparency"}]
-       53 JUMPIFNOT                        R2 ; [+2]
-       54 LOADK                            R3 K18 [0.5]
-       55 JUMP                             ; [+1]
-       56 LOADN                            R3 0
-       57 SETTABLEKS                       R3 R1 K16 ["Transparency"]
-       59 SETTABLEKS                       R1 R0 K2 ["arrowIconStyle"]
-       61 RETURN                           R0 1
+       38 LOADK                            R5 K13 ["row align-x-center align-y-center %*"]
+       39 MOVE                             R7 R4
+       40 NAMECALL                         R5 R5 K14 ["format"]
+       42 CALL                             R5 2 1
+       43 SETTABLEKS                       R5 R1 K11 ["tag"]
+       45 SETTABLEKS                       R1 R0 K1 ["arrow"]
+       47 GETUPVAL                         R3 1
+       48 GETTABLEKS                       R3 R3 K15 ["isDropdownEnabled"]
+       50 NOT                              R2 R3
+       51 DUPTABLE                         R1 K17 [{"Transparency"}]
+       52 JUMPIFNOT                        R2 ; [+2]
+       53 LOADK                            R3 K18 [0.5]
+       54 JUMP                             ; [+1]
+       55 LOADN                            R3 0
+       56 SETTABLEKS                       R3 R1 K16 ["Transparency"]
+       58 SETTABLEKS                       R1 R0 K2 ["arrowIconStyle"]
+       60 RETURN                           R0 1
 
 PROTO_4:
         0 GETTABLEKS                       R3 R0 K0 ["size"]

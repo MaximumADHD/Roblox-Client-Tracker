@@ -7,15 +7,14 @@ PROTO_0:
         6 JUMPIFNOT                        R0 ; [+1]
         7 RETURN                           R0 0
         8 GETIMPORT                        R2 K5 [warn]
-       10 LOADK                            R4 K6 ["Couldn't open %*: %*"]
-       11 GETUPVAL                         R6 1
-       12 GETTABLEKS                       R6 R6 K7 ["Name"]
-       14 MOVE                             R7 R1
-       15 NAMECALL                         R4 R4 K8 ["format"]
-       17 CALL                             R4 3 1
-       18 MOVE                             R3 R4
-       19 CALL                             R2 1 0
-       20 RETURN                           R0 0
+       10 LOADK                            R3 K6 ["Couldn't open %*: %*"]
+       11 GETUPVAL                         R5 1
+       12 GETTABLEKS                       R5 R5 K7 ["Name"]
+       14 MOVE                             R6 R1
+       15 NAMECALL                         R3 R3 K8 ["format"]
+       17 CALL                             R3 3 1
+       18 CALL                             R2 1 0
+       19 RETURN                           R0 0
 
 PROTO_1:
         0 GETIMPORT                        R2 K2 [settings]

@@ -98,210 +98,204 @@ PROTO_5:
         3 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        4 LOADK                            R3 K0 ["UploadProgressBar should be used when FFlagToolboxAssetConfigFoundationMigration is enabled"]
-        5 GETIMPORT                        R1 K2 [assert]
-        7 CALL                             R1 2 0
-        8 GETTABLEKS                       R1 R0 K3 ["props"]
-       10 GETTABLEKS                       R2 R0 K4 ["state"]
-       12 GETTABLEKS                       R4 R1 K5 ["loadingText"]
-       14 JUMPIFNOTEQKNIL                  R4 ; [+2]
-       16 LOADB                            R3 0 +1
-       17 LOADB                            R3 1
-       18 LOADNIL                          R4
-       19 LOADNIL                          R5
-       20 LOADNIL                          R6
-       21 LOADNIL                          R7
-       22 LOADNIL                          R8
-       23 JUMPIFNOT                        R3 ; [+31]
-       24 GETTABLEKS                       R11 R2 K6 ["animProgress"]
-       26 FASTCALL2K                       MATH_MAX R11 K7 ; [+4]
-       28 LOADK                            R12 K7 [0]
-       29 GETIMPORT                        R10 K10 [math.max]
-       31 CALL                             R10 2 1
-       32 FASTCALL2K                       MATH_MIN R10 K11 ; [+4]
-       34 LOADK                            R11 K11 [1]
-       35 GETIMPORT                        R9 K13 [math.min]
-       37 CALL                             R9 2 1
-       38 MOVE                             R4 R9
-       39 GETTABLEKS                       R9 R1 K5 ["loadingText"]
-       41 LOADK                            R10 K14 [" ( "]
-       42 MULK                             R15 R4 K16 [100]
-       43 ADDK                             R14 R15 K15 [0.5]
-       44 FASTCALL1                        MATH_FLOOR R14 ; [+2]
-       45 GETIMPORT                        R13 K18 [math.floor]
-       47 CALL                             R13 1 1
-       48 MOVE                             R11 R13
-       49 LOADK                            R12 K19 ["% )"]
-       50 CONCAT                           R5 R9 R12
-       51 LOADNIL                          R6
-       52 LOADN                            R7 20
-       53 LOADN                            R8 10
-       54 JUMP                             ; [+9]
-       55 GETTABLEKS                       R9 R1 K20 ["progress"]
-       57 ORK                              R4 R9 K7 [0]
-       58 GETTABLEKS                       R5 R1 K21 ["progressTitle"]
-       60 GETTABLEKS                       R6 R1 K22 ["progressText"]
-       62 LOADN                            R7 30
-       63 LOADN                            R8 24
-       64 GETTABLEKS                       R9 R1 K23 ["Localization"]
-       66 GETUPVAL                         R10 1
-       67 GETTABLEKS                       R10 R10 K24 ["createElement"]
-       69 GETUPVAL                         R11 2
-       70 GETTABLEKS                       R11 R11 K25 ["View"]
-       72 DUPTABLE                         R12 K30 [{["tag"] = "bg-transparency-100", ["Position"], ["Size"]}]
-       73 GETIMPORT                        R13 K33 [UDim2.new]
-       75 LOADK                            R14 K15 [0.5]
-       76 LOADN                            R15 -200
-       77 LOADN                            R16 0
-       78 LOADN                            R17 314
-       79 CALL                             R13 4 1
-       80 SETTABLEKS                       R13 R12 K28 ["Position"]
-       82 GETIMPORT                        R13 K33 [UDim2.new]
-       84 LOADN                            R14 0
-       85 LOADN                            R15 400
-       86 LOADN                            R16 0
-       87 LOADN                            R17 6
-       88 CALL                             R13 4 1
-       89 SETTABLEKS                       R13 R12 K29 ["Size"]
-       91 DUPTABLE                         R13 K39 [{"Title", "Message", "Bar", "ProgressPercentText", "TimeWarning"}]
-       92 JUMPIFNOT                        R5 ; [+30]
-       93 GETUPVAL                         R14 1
-       94 GETTABLEKS                       R14 R14 K24 ["createElement"]
-       96 GETUPVAL                         R15 2
-       97 GETTABLEKS                       R15 R15 K40 ["Text"]
-       99 DUPTABLE                         R16 K42 [{["Position"], ["Size"], ["Text"], ["tag"] = "text-body-large text-align-x-center text-align-y-center content-default"}]
-      100 GETIMPORT                        R17 K33 [UDim2.new]
-      102 LOADN                            R18 0
-      103 LOADN                            R19 0
-      104 LOADN                            R20 0
-      105 ADD                              R22 R7 R8
-      106 MINUS                            R21 R22
-      107 CALL                             R17 4 1
-      108 SETTABLEKS                       R17 R16 K28 ["Position"]
-      110 GETIMPORT                        R17 K33 [UDim2.new]
-      112 LOADN                            R18 1
-      113 LOADN                            R19 0
-      114 LOADN                            R20 0
-      115 MOVE                             R21 R7
-      116 CALL                             R17 4 1
-      117 SETTABLEKS                       R17 R16 K29 ["Size"]
-      119 SETTABLEKS                       R5 R16 K40 ["Text"]
-      121 CALL                             R14 2 1
-      122 JUMP                             ; [+1]
-      123 LOADNIL                          R14
-      124 SETTABLEKS                       R14 R13 K34 ["Title"]
-      126 JUMPIFNOT                        R6 ; [+29]
-      127 GETUPVAL                         R14 1
-      128 GETTABLEKS                       R14 R14 K24 ["createElement"]
-      130 GETUPVAL                         R15 2
-      131 GETTABLEKS                       R15 R15 K40 ["Text"]
-      133 DUPTABLE                         R16 K42 [{["Position"], ["Size"], ["Text"], ["tag"] = "text-body-large text-align-x-center text-align-y-center content-default"}]
-      134 GETIMPORT                        R17 K33 [UDim2.new]
-      136 LOADN                            R18 0
-      137 LOADN                            R19 0
-      138 LOADN                            R20 0
-      139 LOADN                            R21 -32
-      140 CALL                             R17 4 1
-      141 SETTABLEKS                       R17 R16 K28 ["Position"]
-      143 GETIMPORT                        R17 K33 [UDim2.new]
-      145 LOADN                            R18 1
-      146 LOADN                            R19 0
-      147 LOADN                            R20 0
-      148 LOADN                            R21 30
-      149 CALL                             R17 4 1
-      150 SETTABLEKS                       R17 R16 K29 ["Size"]
-      152 SETTABLEKS                       R6 R16 K40 ["Text"]
-      154 CALL                             R14 2 1
-      155 JUMP                             ; [+1]
-      156 LOADNIL                          R14
-      157 SETTABLEKS                       R14 R13 K35 ["Message"]
-      159 GETUPVAL                         R14 1
-      160 GETTABLEKS                       R14 R14 K24 ["createElement"]
-      162 GETUPVAL                         R15 2
-      163 GETTABLEKS                       R15 R15 K43 ["Progress"]
-      165 DUPTABLE                         R16 K47 [{"shape", "value", "width"}]
-      166 GETUPVAL                         R17 3
-      167 GETTABLEKS                       R17 R17 K48 ["ProgressShape"]
-      169 GETTABLEKS                       R17 R17 K36 ["Bar"]
-      171 SETTABLEKS                       R17 R16 K44 ["shape"]
-      173 MULK                             R17 R4 K16 [100]
-      174 SETTABLEKS                       R17 R16 K45 ["value"]
-      176 GETIMPORT                        R17 K50 [UDim.new]
-      178 LOADN                            R18 1
-      179 LOADN                            R19 0
-      180 CALL                             R17 2 1
-      181 SETTABLEKS                       R17 R16 K46 ["width"]
-      183 CALL                             R14 2 1
-      184 SETTABLEKS                       R14 R13 K36 ["Bar"]
-      186 JUMPIF                           R3 ; [+42]
-      187 GETUPVAL                         R14 1
-      188 GETTABLEKS                       R14 R14 K24 ["createElement"]
-      190 GETUPVAL                         R15 2
-      191 GETTABLEKS                       R15 R15 K40 ["Text"]
-      193 DUPTABLE                         R16 K52 [{["Position"], ["Size"], ["Text"], ["tag"] = "text-caption-medium text-align-x-left text-align-y-center content-muted"}]
-      194 GETIMPORT                        R17 K33 [UDim2.new]
-      196 LOADN                            R18 0
-      197 LOADN                            R19 0
-      198 LOADN                            R20 0
-      199 LOADN                            R21 15
-      200 CALL                             R17 4 1
-      201 SETTABLEKS                       R17 R16 K28 ["Position"]
-      203 GETIMPORT                        R17 K33 [UDim2.new]
-      205 LOADN                            R18 1
-      206 LOADN                            R19 0
-      207 LOADN                            R20 0
-      208 LOADN                            R21 10
-      209 CALL                             R17 4 1
-      210 SETTABLEKS                       R17 R16 K29 ["Size"]
-      212 LOADK                            R19 K53 ["AssetConfig"]
-      213 LOADK                            R20 K54 ["ProgressBarProgressText"]
-      214 DUPTABLE                         R21 K56 [{"percent"}]
-      215 MULK                             R23 R4 K16 [100]
-      216 FASTCALL1                        MATH_FLOOR R23 ; [+2]
-      217 GETIMPORT                        R22 K18 [math.floor]
-      219 CALL                             R22 1 1
-      220 SETTABLEKS                       R22 R21 K55 ["percent"]
-      222 NAMECALL                         R17 R9 K57 ["getText"]
-      224 CALL                             R17 4 1
-      225 SETTABLEKS                       R17 R16 K40 ["Text"]
-      227 CALL                             R14 2 1
-      228 JUMP                             ; [+1]
-      229 LOADNIL                          R14
-      230 SETTABLEKS                       R14 R13 K37 ["ProgressPercentText"]
-      232 JUMPIF                           R3 ; [+34]
-      233 GETUPVAL                         R14 1
-      234 GETTABLEKS                       R14 R14 K24 ["createElement"]
-      236 GETUPVAL                         R15 2
-      237 GETTABLEKS                       R15 R15 K40 ["Text"]
-      239 DUPTABLE                         R16 K59 [{["Position"], ["Size"], ["Text"], ["tag"] = "text-caption-medium text-align-x-right text-align-y-center content-inverse-muted"}]
-      240 GETIMPORT                        R17 K33 [UDim2.new]
-      242 LOADN                            R18 0
-      243 LOADN                            R19 0
-      244 LOADN                            R20 0
-      245 LOADN                            R21 15
-      246 CALL                             R17 4 1
-      247 SETTABLEKS                       R17 R16 K28 ["Position"]
-      249 GETIMPORT                        R17 K33 [UDim2.new]
-      251 LOADN                            R18 1
-      252 LOADN                            R19 0
-      253 LOADN                            R20 0
-      254 LOADN                            R21 10
-      255 CALL                             R17 4 1
-      256 SETTABLEKS                       R17 R16 K29 ["Size"]
-      258 LOADK                            R19 K53 ["AssetConfig"]
-      259 LOADK                            R20 K60 ["ProgressUploadWaitTimeWarning"]
-      260 NAMECALL                         R17 R9 K57 ["getText"]
-      262 CALL                             R17 3 1
-      263 SETTABLEKS                       R17 R16 K40 ["Text"]
-      265 CALL                             R14 2 1
-      266 JUMP                             ; [+1]
-      267 LOADNIL                          R14
-      268 SETTABLEKS                       R14 R13 K38 ["TimeWarning"]
-      270 CALL                             R10 3 -1
-      271 RETURN                           R10 -1
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R0 K1 ["state"]
+        4 GETTABLEKS                       R4 R1 K2 ["loadingText"]
+        6 JUMPIFNOTEQKNIL                  R4 ; [+2]
+        8 LOADB                            R3 0 +1
+        9 LOADB                            R3 1
+       10 LOADNIL                          R4
+       11 LOADNIL                          R5
+       12 LOADNIL                          R6
+       13 LOADNIL                          R7
+       14 LOADNIL                          R8
+       15 JUMPIFNOT                        R3 ; [+31]
+       16 GETTABLEKS                       R11 R2 K3 ["animProgress"]
+       18 FASTCALL2K                       MATH_MAX R11 K4 ; [+4]
+       20 LOADK                            R12 K4 [0]
+       21 GETIMPORT                        R10 K7 [math.max]
+       23 CALL                             R10 2 1
+       24 FASTCALL2K                       MATH_MIN R10 K8 ; [+4]
+       26 LOADK                            R11 K8 [1]
+       27 GETIMPORT                        R9 K10 [math.min]
+       29 CALL                             R9 2 1
+       30 MOVE                             R4 R9
+       31 GETTABLEKS                       R9 R1 K2 ["loadingText"]
+       33 LOADK                            R10 K11 [" ( "]
+       34 MULK                             R15 R4 K13 [100]
+       35 ADDK                             R14 R15 K12 [0.5]
+       36 FASTCALL1                        MATH_FLOOR R14 ; [+2]
+       37 GETIMPORT                        R13 K15 [math.floor]
+       39 CALL                             R13 1 1
+       40 MOVE                             R11 R13
+       41 LOADK                            R12 K16 ["% )"]
+       42 CONCAT                           R5 R9 R12
+       43 LOADNIL                          R6
+       44 LOADN                            R7 20
+       45 LOADN                            R8 10
+       46 JUMP                             ; [+9]
+       47 GETTABLEKS                       R9 R1 K17 ["progress"]
+       49 ORK                              R4 R9 K4 [0]
+       50 GETTABLEKS                       R5 R1 K18 ["progressTitle"]
+       52 GETTABLEKS                       R6 R1 K19 ["progressText"]
+       54 LOADN                            R7 30
+       55 LOADN                            R8 24
+       56 GETTABLEKS                       R9 R1 K20 ["Localization"]
+       58 GETUPVAL                         R10 0
+       59 GETTABLEKS                       R10 R10 K21 ["createElement"]
+       61 GETUPVAL                         R11 1
+       62 GETTABLEKS                       R11 R11 K22 ["View"]
+       64 DUPTABLE                         R12 K27 [{["tag"] = "bg-transparency-100", ["Position"], ["Size"]}]
+       65 GETIMPORT                        R13 K30 [UDim2.new]
+       67 LOADK                            R14 K12 [0.5]
+       68 LOADN                            R15 -200
+       69 LOADN                            R16 0
+       70 LOADN                            R17 314
+       71 CALL                             R13 4 1
+       72 SETTABLEKS                       R13 R12 K25 ["Position"]
+       74 GETIMPORT                        R13 K30 [UDim2.new]
+       76 LOADN                            R14 0
+       77 LOADN                            R15 400
+       78 LOADN                            R16 0
+       79 LOADN                            R17 6
+       80 CALL                             R13 4 1
+       81 SETTABLEKS                       R13 R12 K26 ["Size"]
+       83 DUPTABLE                         R13 K36 [{"Title", "Message", "Bar", "ProgressPercentText", "TimeWarning"}]
+       84 JUMPIFNOT                        R5 ; [+30]
+       85 GETUPVAL                         R14 0
+       86 GETTABLEKS                       R14 R14 K21 ["createElement"]
+       88 GETUPVAL                         R15 1
+       89 GETTABLEKS                       R15 R15 K37 ["Text"]
+       91 DUPTABLE                         R16 K39 [{["Position"], ["Size"], ["Text"], ["tag"] = "text-body-large text-align-x-center text-align-y-center content-default"}]
+       92 GETIMPORT                        R17 K30 [UDim2.new]
+       94 LOADN                            R18 0
+       95 LOADN                            R19 0
+       96 LOADN                            R20 0
+       97 ADD                              R22 R7 R8
+       98 MINUS                            R21 R22
+       99 CALL                             R17 4 1
+      100 SETTABLEKS                       R17 R16 K25 ["Position"]
+      102 GETIMPORT                        R17 K30 [UDim2.new]
+      104 LOADN                            R18 1
+      105 LOADN                            R19 0
+      106 LOADN                            R20 0
+      107 MOVE                             R21 R7
+      108 CALL                             R17 4 1
+      109 SETTABLEKS                       R17 R16 K26 ["Size"]
+      111 SETTABLEKS                       R5 R16 K37 ["Text"]
+      113 CALL                             R14 2 1
+      114 JUMP                             ; [+1]
+      115 LOADNIL                          R14
+      116 SETTABLEKS                       R14 R13 K31 ["Title"]
+      118 JUMPIFNOT                        R6 ; [+29]
+      119 GETUPVAL                         R14 0
+      120 GETTABLEKS                       R14 R14 K21 ["createElement"]
+      122 GETUPVAL                         R15 1
+      123 GETTABLEKS                       R15 R15 K37 ["Text"]
+      125 DUPTABLE                         R16 K39 [{["Position"], ["Size"], ["Text"], ["tag"] = "text-body-large text-align-x-center text-align-y-center content-default"}]
+      126 GETIMPORT                        R17 K30 [UDim2.new]
+      128 LOADN                            R18 0
+      129 LOADN                            R19 0
+      130 LOADN                            R20 0
+      131 LOADN                            R21 -32
+      132 CALL                             R17 4 1
+      133 SETTABLEKS                       R17 R16 K25 ["Position"]
+      135 GETIMPORT                        R17 K30 [UDim2.new]
+      137 LOADN                            R18 1
+      138 LOADN                            R19 0
+      139 LOADN                            R20 0
+      140 LOADN                            R21 30
+      141 CALL                             R17 4 1
+      142 SETTABLEKS                       R17 R16 K26 ["Size"]
+      144 SETTABLEKS                       R6 R16 K37 ["Text"]
+      146 CALL                             R14 2 1
+      147 JUMP                             ; [+1]
+      148 LOADNIL                          R14
+      149 SETTABLEKS                       R14 R13 K32 ["Message"]
+      151 GETUPVAL                         R14 0
+      152 GETTABLEKS                       R14 R14 K21 ["createElement"]
+      154 GETUPVAL                         R15 1
+      155 GETTABLEKS                       R15 R15 K40 ["Progress"]
+      157 DUPTABLE                         R16 K44 [{"shape", "value", "width"}]
+      158 GETUPVAL                         R17 2
+      159 GETTABLEKS                       R17 R17 K45 ["ProgressShape"]
+      161 GETTABLEKS                       R17 R17 K33 ["Bar"]
+      163 SETTABLEKS                       R17 R16 K41 ["shape"]
+      165 MULK                             R17 R4 K13 [100]
+      166 SETTABLEKS                       R17 R16 K42 ["value"]
+      168 GETIMPORT                        R17 K47 [UDim.new]
+      170 LOADN                            R18 1
+      171 LOADN                            R19 0
+      172 CALL                             R17 2 1
+      173 SETTABLEKS                       R17 R16 K43 ["width"]
+      175 CALL                             R14 2 1
+      176 SETTABLEKS                       R14 R13 K33 ["Bar"]
+      178 JUMPIF                           R3 ; [+42]
+      179 GETUPVAL                         R14 0
+      180 GETTABLEKS                       R14 R14 K21 ["createElement"]
+      182 GETUPVAL                         R15 1
+      183 GETTABLEKS                       R15 R15 K37 ["Text"]
+      185 DUPTABLE                         R16 K49 [{["Position"], ["Size"], ["Text"], ["tag"] = "text-caption-medium text-align-x-left text-align-y-center content-muted"}]
+      186 GETIMPORT                        R17 K30 [UDim2.new]
+      188 LOADN                            R18 0
+      189 LOADN                            R19 0
+      190 LOADN                            R20 0
+      191 LOADN                            R21 15
+      192 CALL                             R17 4 1
+      193 SETTABLEKS                       R17 R16 K25 ["Position"]
+      195 GETIMPORT                        R17 K30 [UDim2.new]
+      197 LOADN                            R18 1
+      198 LOADN                            R19 0
+      199 LOADN                            R20 0
+      200 LOADN                            R21 10
+      201 CALL                             R17 4 1
+      202 SETTABLEKS                       R17 R16 K26 ["Size"]
+      204 LOADK                            R19 K50 ["AssetConfig"]
+      205 LOADK                            R20 K51 ["ProgressBarProgressText"]
+      206 DUPTABLE                         R21 K53 [{"percent"}]
+      207 MULK                             R23 R4 K13 [100]
+      208 FASTCALL1                        MATH_FLOOR R23 ; [+2]
+      209 GETIMPORT                        R22 K15 [math.floor]
+      211 CALL                             R22 1 1
+      212 SETTABLEKS                       R22 R21 K52 ["percent"]
+      214 NAMECALL                         R17 R9 K54 ["getText"]
+      216 CALL                             R17 4 1
+      217 SETTABLEKS                       R17 R16 K37 ["Text"]
+      219 CALL                             R14 2 1
+      220 JUMP                             ; [+1]
+      221 LOADNIL                          R14
+      222 SETTABLEKS                       R14 R13 K34 ["ProgressPercentText"]
+      224 JUMPIF                           R3 ; [+34]
+      225 GETUPVAL                         R14 0
+      226 GETTABLEKS                       R14 R14 K21 ["createElement"]
+      228 GETUPVAL                         R15 1
+      229 GETTABLEKS                       R15 R15 K37 ["Text"]
+      231 DUPTABLE                         R16 K56 [{["Position"], ["Size"], ["Text"], ["tag"] = "text-caption-medium text-align-x-right text-align-y-center content-inverse-muted"}]
+      232 GETIMPORT                        R17 K30 [UDim2.new]
+      234 LOADN                            R18 0
+      235 LOADN                            R19 0
+      236 LOADN                            R20 0
+      237 LOADN                            R21 15
+      238 CALL                             R17 4 1
+      239 SETTABLEKS                       R17 R16 K25 ["Position"]
+      241 GETIMPORT                        R17 K30 [UDim2.new]
+      243 LOADN                            R18 1
+      244 LOADN                            R19 0
+      245 LOADN                            R20 0
+      246 LOADN                            R21 10
+      247 CALL                             R17 4 1
+      248 SETTABLEKS                       R17 R16 K26 ["Size"]
+      250 LOADK                            R19 K50 ["AssetConfig"]
+      251 LOADK                            R20 K57 ["ProgressUploadWaitTimeWarning"]
+      252 NAMECALL                         R17 R9 K54 ["getText"]
+      254 CALL                             R17 3 1
+      255 SETTABLEKS                       R17 R16 K37 ["Text"]
+      257 CALL                             R14 2 1
+      258 JUMP                             ; [+1]
+      259 LOADNIL                          R14
+      260 SETTABLEKS                       R14 R13 K35 ["TimeWarning"]
+      262 CALL                             R10 3 -1
+      263 RETURN                           R10 -1
 
 PROTO_7:
         0 MOVE                             R1 R0
@@ -352,43 +346,37 @@ MAIN:
        48 LOADK                            R13 K20 ["UploadProgressBar"]
        49 NAMECALL                         R11 R11 K21 ["extend"]
        51 CALL                             R11 2 1
-       52 GETIMPORT                        R12 K10 [require]
-       54 GETTABLEKS                       R13 R0 K22 ["Src"]
-       56 GETTABLEKS                       R13 R13 K23 ["Flags"]
-       58 GETTABLEKS                       R13 R13 K24 ["getFFlagToolboxAssetConfigFoundationMigration"]
-       60 CALL                             R12 1 1
-       61 DUPCLOSURE                       R13 K25 [PROTO_0]
-       62 SETTABLEKS                       R13 R11 K26 ["init"]
-       64 DUPCLOSURE                       R13 K27 [PROTO_1]
-       65 CAPTURE                          VAL R1
-       66 SETTABLEKS                       R13 R11 K28 ["loadUntil"]
-       68 DUPCLOSURE                       R13 K29 [PROTO_3]
-       69 CAPTURE                          VAL R1
-       70 SETTABLEKS                       R13 R11 K30 ["didMount"]
-       72 DUPCLOSURE                       R13 K31 [PROTO_4]
-       73 SETTABLEKS                       R13 R11 K32 ["didUpdate"]
-       75 DUPCLOSURE                       R13 K33 [PROTO_5]
-       76 SETTABLEKS                       R13 R11 K34 ["willUnmount"]
-       78 DUPCLOSURE                       R13 K35 [PROTO_6]
-       79 CAPTURE                          VAL R12
-       80 CAPTURE                          VAL R3
-       81 CAPTURE                          VAL R7
-       82 CAPTURE                          VAL R10
-       83 SETTABLEKS                       R13 R11 K36 ["render"]
-       85 DUPCLOSURE                       R13 K37 [PROTO_7]
-       86 MOVE                             R14 R9
-       87 DUPTABLE                         R15 K40 [{"Localization", "Stylizer"}]
-       88 GETTABLEKS                       R16 R8 K38 ["Localization"]
-       90 SETTABLEKS                       R16 R15 K38 ["Localization"]
-       92 GETTABLEKS                       R16 R8 K39 ["Stylizer"]
-       94 SETTABLEKS                       R16 R15 K39 ["Stylizer"]
-       96 CALL                             R14 1 1
-       97 MOVE                             R15 R11
-       98 CALL                             R14 1 1
-       99 MOVE                             R11 R14
-      100 GETTABLEKS                       R14 R5 K41 ["connect"]
-      102 MOVE                             R15 R13
-      103 CALL                             R14 1 1
-      104 MOVE                             R15 R11
-      105 CALL                             R14 1 -1
-      106 RETURN                           R14 -1
+       52 DUPCLOSURE                       R12 K22 [PROTO_0]
+       53 SETTABLEKS                       R12 R11 K23 ["init"]
+       55 DUPCLOSURE                       R12 K24 [PROTO_1]
+       56 CAPTURE                          VAL R1
+       57 SETTABLEKS                       R12 R11 K25 ["loadUntil"]
+       59 DUPCLOSURE                       R12 K26 [PROTO_3]
+       60 CAPTURE                          VAL R1
+       61 SETTABLEKS                       R12 R11 K27 ["didMount"]
+       63 DUPCLOSURE                       R12 K28 [PROTO_4]
+       64 SETTABLEKS                       R12 R11 K29 ["didUpdate"]
+       66 DUPCLOSURE                       R12 K30 [PROTO_5]
+       67 SETTABLEKS                       R12 R11 K31 ["willUnmount"]
+       69 DUPCLOSURE                       R12 K32 [PROTO_6]
+       70 CAPTURE                          VAL R3
+       71 CAPTURE                          VAL R7
+       72 CAPTURE                          VAL R10
+       73 SETTABLEKS                       R12 R11 K33 ["render"]
+       75 DUPCLOSURE                       R12 K34 [PROTO_7]
+       76 MOVE                             R13 R9
+       77 DUPTABLE                         R14 K37 [{"Localization", "Stylizer"}]
+       78 GETTABLEKS                       R15 R8 K35 ["Localization"]
+       80 SETTABLEKS                       R15 R14 K35 ["Localization"]
+       82 GETTABLEKS                       R15 R8 K36 ["Stylizer"]
+       84 SETTABLEKS                       R15 R14 K36 ["Stylizer"]
+       86 CALL                             R13 1 1
+       87 MOVE                             R14 R11
+       88 CALL                             R13 1 1
+       89 MOVE                             R11 R13
+       90 GETTABLEKS                       R13 R5 K38 ["connect"]
+       92 MOVE                             R14 R12
+       93 CALL                             R13 1 1
+       94 MOVE                             R14 R11
+       95 CALL                             R13 1 -1
+       96 RETURN                           R13 -1

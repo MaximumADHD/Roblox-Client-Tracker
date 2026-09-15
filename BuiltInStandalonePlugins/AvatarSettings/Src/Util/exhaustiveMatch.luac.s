@@ -1,12 +1,11 @@
 PROTO_0:
         0 GETIMPORT                        R1 K1 [error]
-        2 LOADK                            R3 K2 ["Unknown value in exhaustive match: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["Unknown value in exhaustive match: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

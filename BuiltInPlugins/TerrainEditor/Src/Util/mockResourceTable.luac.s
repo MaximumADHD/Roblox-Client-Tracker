@@ -30,13 +30,12 @@ PROTO_0:
        35 GETIMPORT                        R4 K12 [string.sub]
        37 CALL                             R4 2 1
        38 MOVE                             R3 R4
-       39 LOADK                            R5 K13 ["%*:[%*]"]
-       40 MOVE                             R7 R1
-       41 MOVE                             R8 R3
-       42 NAMECALL                         R5 R5 K8 ["format"]
-       44 CALL                             R5 3 1
-       45 MOVE                             R4 R5
-       46 RETURN                           R4 1
+       39 LOADK                            R4 K13 ["%*:[%*]"]
+       40 MOVE                             R6 R1
+       41 MOVE                             R7 R3
+       42 NAMECALL                         R4 R4 K8 ["format"]
+       44 CALL                             R4 3 1
+       45 RETURN                           R4 1
 
 PROTO_1:
         0 DUPTABLE                         R0 K1 [{"FormatByKey"}]

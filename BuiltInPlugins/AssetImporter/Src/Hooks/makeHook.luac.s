@@ -24,41 +24,39 @@ PROTO_2:
         6 FASTCALL1                        TYPEOF R2 ; [+2]
         7 GETIMPORT                        R1 K2 [typeof]
         9 CALL                             R1 1 1
-       10 JUMPIFEQKS                       R1 K3 ["function"] ; [+10]
+       10 JUMPIFEQKS                       R1 K3 ["function"] ; [+9]
        12 GETIMPORT                        R1 K5 [error]
-       14 LOADK                            R3 K6 ["Controller doesn't contain getter function named: %* "]
-       15 GETUPVAL                         R5 1
-       16 NAMECALL                         R3 R3 K7 ["format"]
-       18 CALL                             R3 2 1
-       19 MOVE                             R2 R3
-       20 CALL                             R1 1 0
-       21 GETUPVAL                         R3 2
-       22 GETTABLE                         R2 R0 R3
-       23 FASTCALL1                        TYPEOF R2 ; [+2]
-       24 GETIMPORT                        R1 K2 [typeof]
-       26 CALL                             R1 1 1
-       27 JUMPIFEQKS                       R1 K8 ["table"] ; [+10]
-       29 GETIMPORT                        R1 K5 [error]
-       31 LOADK                            R3 K9 ["Controller doesn't contain event named: %* "]
-       32 GETUPVAL                         R5 1
-       33 NAMECALL                         R3 R3 K7 ["format"]
-       35 CALL                             R3 2 1
-       36 MOVE                             R2 R3
-       37 CALL                             R1 1 0
-       38 GETUPVAL                         R1 3
-       39 GETUPVAL                         R3 1
-       40 GETTABLE                         R2 R0 R3
-       41 MOVE                             R3 R0
-       42 CALL                             R2 1 -1
-       43 CALL                             R1 -1 2
-       44 GETUPVAL                         R3 4
-       45 NEWCLOSURE                       R4 P0
-       46 CAPTURE                          VAL R0
-       47 CAPTURE                          UPVAL U2
-       48 CAPTURE                          VAL R2
-       49 NEWTABLE                         R5 0 0
-       51 CALL                             R3 2 0
-       52 RETURN                           R1 1
+       14 LOADK                            R2 K6 ["Controller doesn't contain getter function named: %* "]
+       15 GETUPVAL                         R4 1
+       16 NAMECALL                         R2 R2 K7 ["format"]
+       18 CALL                             R2 2 1
+       19 CALL                             R1 1 0
+       20 GETUPVAL                         R3 2
+       21 GETTABLE                         R2 R0 R3
+       22 FASTCALL1                        TYPEOF R2 ; [+2]
+       23 GETIMPORT                        R1 K2 [typeof]
+       25 CALL                             R1 1 1
+       26 JUMPIFEQKS                       R1 K8 ["table"] ; [+9]
+       28 GETIMPORT                        R1 K5 [error]
+       30 LOADK                            R2 K9 ["Controller doesn't contain event named: %* "]
+       31 GETUPVAL                         R4 1
+       32 NAMECALL                         R2 R2 K7 ["format"]
+       34 CALL                             R2 2 1
+       35 CALL                             R1 1 0
+       36 GETUPVAL                         R1 3
+       37 GETUPVAL                         R3 1
+       38 GETTABLE                         R2 R0 R3
+       39 MOVE                             R3 R0
+       40 CALL                             R2 1 -1
+       41 CALL                             R1 -1 2
+       42 GETUPVAL                         R3 4
+       43 NEWCLOSURE                       R4 P0
+       44 CAPTURE                          VAL R0
+       45 CAPTURE                          UPVAL U2
+       46 CAPTURE                          VAL R2
+       47 NEWTABLE                         R5 0 0
+       49 CALL                             R3 2 0
+       50 RETURN                           R1 1
 
 PROTO_3:
         0 NEWCLOSURE                       R3 P0

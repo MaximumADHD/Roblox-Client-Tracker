@@ -26,19 +26,18 @@ PROTO_0:
        38 JUMPIFNOTEQ                      R2 R3 ; [+10]
        40 GETTABLEKS                       R3 R1 K1 ["hash"]
        42 GETTABLE                         R2 R0 R3
-       43 JUMPIFNOT                        R2 ; [+15]
+       43 JUMPIFNOT                        R2 ; [+14]
        44 GETTABLEKS                       R2 R1 K1 ["hash"]
        46 LOADNIL                          R3
        47 SETTABLE                         R3 R0 R2
        48 RETURN                           R0 1
        49 GETIMPORT                        R2 K13 [error]
-       51 LOADK                            R4 K14 ["Invalid action: %*"]
-       52 GETTABLEKS                       R6 R1 K0 ["action"]
-       54 NAMECALL                         R4 R4 K15 ["format"]
-       56 CALL                             R4 2 1
-       57 MOVE                             R3 R4
-       58 CALL                             R2 1 0
-       59 RETURN                           R0 1
+       51 LOADK                            R3 K14 ["Invalid action: %*"]
+       52 GETTABLEKS                       R5 R1 K0 ["action"]
+       54 NAMECALL                         R3 R3 K15 ["format"]
+       56 CALL                             R3 2 1
+       57 CALL                             R2 1 0
+       58 RETURN                           R0 1
 
 PROTO_1:
         0 GETIMPORT                        R0 K1 [print]

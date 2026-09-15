@@ -11,13 +11,12 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["ChangeTeamCreateEnabled experienced an error: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["ChangeTeamCreateEnabled experienced an error: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R3 0

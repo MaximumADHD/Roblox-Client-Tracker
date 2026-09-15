@@ -1,5 +1,5 @@
 PROTO_0:
-        0 JUMPIFNOT                        R0 ; [+26]
+        0 JUMPIFNOT                        R0 ; [+25]
         1 GETUPVAL                         R3 0
         2 GETTABLEKS                       R3 R3 K0 ["createElement"]
         4 GETUPVAL                         R4 1
@@ -9,37 +9,35 @@ PROTO_0:
        10 SETTABLEKS                       R6 R5 K2 ["LayoutOrder"]
        12 GETUPVAL                         R6 0
        13 GETTABLEKS                       R6 R6 K3 ["Tag"]
-       15 LOADK                            R8 K4 ["MainContents %*"]
+       15 LOADK                            R7 K4 ["MainContents %*"]
        16 JUMPIFNOT                        R1 ; [+2]
-       17 LOADK                            R10 K5 ["HasLoadingBar"]
+       17 LOADK                            R9 K5 ["HasLoadingBar"]
        18 JUMP                             ; [+1]
-       19 LOADK                            R10 K6 [""]
-       20 NAMECALL                         R8 R8 K7 ["format"]
-       22 CALL                             R8 2 1
-       23 MOVE                             R7 R8
-       24 SETTABLE                         R7 R5 R6
-       25 CALL                             R3 2 -1
-       26 RETURN                           R3 -1
-       27 GETUPVAL                         R3 0
-       28 GETTABLEKS                       R3 R3 K0 ["createElement"]
-       30 GETUPVAL                         R4 2
-       31 NEWTABLE                         R5 2 0
-       33 NAMECALL                         R6 R2 K1 ["getNextOrder"]
-       35 CALL                             R6 1 1
-       36 SETTABLEKS                       R6 R5 K2 ["LayoutOrder"]
-       38 GETUPVAL                         R6 0
-       39 GETTABLEKS                       R6 R6 K3 ["Tag"]
-       41 LOADK                            R8 K4 ["MainContents %*"]
-       42 JUMPIFNOT                        R1 ; [+2]
-       43 LOADK                            R10 K5 ["HasLoadingBar"]
-       44 JUMP                             ; [+1]
-       45 LOADK                            R10 K6 [""]
-       46 NAMECALL                         R8 R8 K7 ["format"]
-       48 CALL                             R8 2 1
-       49 MOVE                             R7 R8
-       50 SETTABLE                         R7 R5 R6
-       51 CALL                             R3 2 -1
-       52 RETURN                           R3 -1
+       19 LOADK                            R9 K6 [""]
+       20 NAMECALL                         R7 R7 K7 ["format"]
+       22 CALL                             R7 2 1
+       23 SETTABLE                         R7 R5 R6
+       24 CALL                             R3 2 -1
+       25 RETURN                           R3 -1
+       26 GETUPVAL                         R3 0
+       27 GETTABLEKS                       R3 R3 K0 ["createElement"]
+       29 GETUPVAL                         R4 2
+       30 NEWTABLE                         R5 2 0
+       32 NAMECALL                         R6 R2 K1 ["getNextOrder"]
+       34 CALL                             R6 1 1
+       35 SETTABLEKS                       R6 R5 K2 ["LayoutOrder"]
+       37 GETUPVAL                         R6 0
+       38 GETTABLEKS                       R6 R6 K3 ["Tag"]
+       40 LOADK                            R7 K4 ["MainContents %*"]
+       41 JUMPIFNOT                        R1 ; [+2]
+       42 LOADK                            R9 K5 ["HasLoadingBar"]
+       43 JUMP                             ; [+1]
+       44 LOADK                            R9 K6 [""]
+       45 NAMECALL                         R7 R7 K7 ["format"]
+       47 CALL                             R7 2 1
+       48 SETTABLE                         R7 R5 R6
+       49 CALL                             R3 2 -1
+       50 RETURN                           R3 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0

@@ -122,51 +122,50 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R2 K0 ["rbxassetid://%*"]
-        2 GETUPVAL                         R5 1
-        3 FASTCALL1                        TOSTRING R5 ; [+2]
-        4 GETIMPORT                        R4 K2 [tostring]
-        6 CALL                             R4 1 1
-        7 NAMECALL                         R2 R2 K3 ["format"]
-        9 CALL                             R2 2 1
-       10 MOVE                             R1 R2
-       11 SETTABLEKS                       R1 R0 K4 ["Asset"]
-       13 GETUPVAL                         R0 0
-       14 GETTABLEKS                       R0 R0 K5 ["IsReady"]
-       16 JUMPIF                           R0 ; [+14]
-       17 GETUPVAL                         R0 2
-       18 GETTABLEKS                       R0 R0 K6 ["Heartbeat"]
-       20 NAMECALL                         R0 R0 K7 ["Wait"]
-       22 CALL                             R0 1 0
-       23 GETUPVAL                         R0 3
-       24 GETTABLEKS                       R0 R0 K8 ["_audioPlayer"]
-       26 GETUPVAL                         R1 0
-       27 JUMPIFEQ                         R0 R1 ; [+2]
-       29 RETURN                           R0 0
-       30 JUMPBACK                         ; [-18]
-       31 GETUPVAL                         R0 3
-       32 GETTABLEKS                       R0 R0 K8 ["_audioPlayer"]
-       34 GETUPVAL                         R1 0
-       35 JUMPIFEQ                         R0 R1 ; [+2]
-       37 RETURN                           R0 0
-       38 GETUPVAL                         R0 3
-       39 GETUPVAL                         R1 0
-       40 GETTABLEKS                       R1 R1 K9 ["TimeLength"]
-       42 SETTABLEKS                       R1 R0 K10 ["_totalTime"]
-       44 GETUPVAL                         R0 3
-       45 LOADB                            R1 0
-       46 SETTABLEKS                       R1 R0 K11 ["_isLoading"]
-       48 GETUPVAL                         R0 3
-       49 LOADB                            R1 1
-       50 SETTABLEKS                       R1 R0 K12 ["_isPlaying"]
-       52 GETUPVAL                         R0 3
-       53 GETTABLEKS                       R0 R0 K13 ["OnStateChanged"]
-       55 NAMECALL                         R0 R0 K14 ["Fire"]
-       57 CALL                             R0 1 0
-       58 GETUPVAL                         R0 0
-       59 NAMECALL                         R0 R0 K15 ["Play"]
-       61 CALL                             R0 1 0
-       62 RETURN                           R0 0
+        1 LOADK                            R1 K0 ["rbxassetid://%*"]
+        2 GETUPVAL                         R4 1
+        3 FASTCALL1                        TOSTRING R4 ; [+2]
+        4 GETIMPORT                        R3 K2 [tostring]
+        6 CALL                             R3 1 1
+        7 NAMECALL                         R1 R1 K3 ["format"]
+        9 CALL                             R1 2 1
+       10 SETTABLEKS                       R1 R0 K4 ["Asset"]
+       12 GETUPVAL                         R0 0
+       13 GETTABLEKS                       R0 R0 K5 ["IsReady"]
+       15 JUMPIF                           R0 ; [+14]
+       16 GETUPVAL                         R0 2
+       17 GETTABLEKS                       R0 R0 K6 ["Heartbeat"]
+       19 NAMECALL                         R0 R0 K7 ["Wait"]
+       21 CALL                             R0 1 0
+       22 GETUPVAL                         R0 3
+       23 GETTABLEKS                       R0 R0 K8 ["_audioPlayer"]
+       25 GETUPVAL                         R1 0
+       26 JUMPIFEQ                         R0 R1 ; [+2]
+       28 RETURN                           R0 0
+       29 JUMPBACK                         ; [-18]
+       30 GETUPVAL                         R0 3
+       31 GETTABLEKS                       R0 R0 K8 ["_audioPlayer"]
+       33 GETUPVAL                         R1 0
+       34 JUMPIFEQ                         R0 R1 ; [+2]
+       36 RETURN                           R0 0
+       37 GETUPVAL                         R0 3
+       38 GETUPVAL                         R1 0
+       39 GETTABLEKS                       R1 R1 K9 ["TimeLength"]
+       41 SETTABLEKS                       R1 R0 K10 ["_totalTime"]
+       43 GETUPVAL                         R0 3
+       44 LOADB                            R1 0
+       45 SETTABLEKS                       R1 R0 K11 ["_isLoading"]
+       47 GETUPVAL                         R0 3
+       48 LOADB                            R1 1
+       49 SETTABLEKS                       R1 R0 K12 ["_isPlaying"]
+       51 GETUPVAL                         R0 3
+       52 GETTABLEKS                       R0 R0 K13 ["OnStateChanged"]
+       54 NAMECALL                         R0 R0 K14 ["Fire"]
+       56 CALL                             R0 1 0
+       57 GETUPVAL                         R0 0
+       58 NAMECALL                         R0 R0 K15 ["Play"]
+       60 CALL                             R0 1 0
+       61 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R2 R0 K0 ["_isMock"]

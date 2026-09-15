@@ -442,26 +442,25 @@ PROTO_7:
       222 GETUPVAL                         R20 0
       223 GETTABLEKS                       R20 R20 K29 ["Tag"]
       225 GETUPVAL                         R21 12
-      226 LOADK                            R23 K43 ["Component-RibbonSpinbox data-testid=%*"]
-      227 GETUPVAL                         R25 13
-      228 GETTABLEKS                       R26 R0 K3 ["Uri"]
-      230 CALL                             R25 1 1
-      231 NAMECALL                         R23 R23 K44 ["format"]
-      233 CALL                             R23 2 1
-      234 MOVE                             R22 R23
-      235 GETTABLEKS                       R24 R0 K16 ["Disabled"]
-      237 JUMPIFNOT                        R24 ; [+2]
-      238 LOADK                            R23 K45 ["State-Disabled"]
-      239 JUMP                             ; [+1]
-      240 LOADK                            R23 K46 ["State-Default"]
-      241 JUMPIFNOT                        R3 ; [+2]
-      242 LOADK                            R24 K47 ["State-Focus"]
-      243 JUMP                             ; [+1]
-      244 LOADNIL                          R24
-      245 CALL                             R21 3 1
-      246 SETTABLE                         R21 R19 R20
-      247 CALL                             R17 2 -1
-      248 RETURN                           R17 -1
+      226 LOADK                            R22 K43 ["Component-RibbonSpinbox data-testid=%*"]
+      227 GETUPVAL                         R24 13
+      228 GETTABLEKS                       R25 R0 K3 ["Uri"]
+      230 CALL                             R24 1 1
+      231 NAMECALL                         R22 R22 K44 ["format"]
+      233 CALL                             R22 2 1
+      234 GETTABLEKS                       R24 R0 K16 ["Disabled"]
+      236 JUMPIFNOT                        R24 ; [+2]
+      237 LOADK                            R23 K45 ["State-Disabled"]
+      238 JUMP                             ; [+1]
+      239 LOADK                            R23 K46 ["State-Default"]
+      240 JUMPIFNOT                        R3 ; [+2]
+      241 LOADK                            R24 K47 ["State-Focus"]
+      242 JUMP                             ; [+1]
+      243 LOADNIL                          R24
+      244 CALL                             R21 3 1
+      245 SETTABLE                         R21 R19 R20
+      246 CALL                             R17 2 -1
+      247 RETURN                           R17 -1
 
 MAIN:
         0 PREPVARARGS                      0

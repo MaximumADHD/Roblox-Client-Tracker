@@ -74,42 +74,40 @@ PROTO_1:
        18 JUMPIFNOTEQKNIL                  R4 ; [+2]
        20 LOADB                            R6 0 +1
        21 LOADB                            R6 1
-       22 LOADK                            R8 K2 ["Unknown builtin style query category: %*"]
-       23 GETUPVAL                         R10 2
-       24 NAMECALL                         R8 R8 K3 ["format"]
-       26 CALL                             R8 2 1
-       27 MOVE                             R7 R8
-       28 FASTCALL2                        ASSERT R6 R7 ; [+3]
-       30 GETIMPORT                        R5 K5 [assert]
-       32 CALL                             R5 2 0
-       33 GETTABLEKS                       R5 R1 K6 ["recordChange"]
-       35 DUPTABLE                         R6 K10 [{["Name"] = "StyleEditor/CreateBuiltinStyleQuery", ["DisplayName"], ["DoChange"]}]
-       36 LOADK                            R8 K11 ["StyleEditor - Create Builtin StyleQuery (%*)"]
-       37 GETUPVAL                         R10 2
-       38 NAMECALL                         R8 R8 K3 ["format"]
-       40 CALL                             R8 2 1
-       41 MOVE                             R7 R8
-       42 SETTABLEKS                       R7 R6 K8 ["DisplayName"]
-       44 NEWCLOSURE                       R7 P0
-       45 CAPTURE                          UPVAL U3
-       46 CAPTURE                          VAL R2
-       47 CAPTURE                          REF R4
-       48 CAPTURE                          REF R3
-       49 SETTABLEKS                       R7 R6 K9 ["DoChange"]
-       51 CALL                             R5 1 0
-       52 GETUPVAL                         R5 4
-       53 JUMPIFNOT                        R5 ; [+11]
-       54 GETUPVAL                         R5 5
-       55 GETTABLEKS                       R5 R5 K12 ["createItemId"]
-       57 MOVE                             R6 R3
-       58 CALL                             R5 1 1
-       59 GETUPVAL                         R8 6
-       60 MOVE                             R9 R5
-       61 CALL                             R8 1 -1
-       62 NAMECALL                         R6 R0 K13 ["dispatch"]
-       64 CALL                             R6 -1 0
-       65 CLOSEUPVALS                      R3
-       66 RETURN                           R3 1
+       22 LOADK                            R7 K2 ["Unknown builtin style query category: %*"]
+       23 GETUPVAL                         R9 2
+       24 NAMECALL                         R7 R7 K3 ["format"]
+       26 CALL                             R7 2 1
+       27 FASTCALL2                        ASSERT R6 R7 ; [+3]
+       29 GETIMPORT                        R5 K5 [assert]
+       31 CALL                             R5 2 0
+       32 GETTABLEKS                       R5 R1 K6 ["recordChange"]
+       34 DUPTABLE                         R6 K10 [{["Name"] = "StyleEditor/CreateBuiltinStyleQuery", ["DisplayName"], ["DoChange"]}]
+       35 LOADK                            R7 K11 ["StyleEditor - Create Builtin StyleQuery (%*)"]
+       36 GETUPVAL                         R9 2
+       37 NAMECALL                         R7 R7 K3 ["format"]
+       39 CALL                             R7 2 1
+       40 SETTABLEKS                       R7 R6 K8 ["DisplayName"]
+       42 NEWCLOSURE                       R7 P0
+       43 CAPTURE                          UPVAL U3
+       44 CAPTURE                          VAL R2
+       45 CAPTURE                          REF R4
+       46 CAPTURE                          REF R3
+       47 SETTABLEKS                       R7 R6 K9 ["DoChange"]
+       49 CALL                             R5 1 0
+       50 GETUPVAL                         R5 4
+       51 JUMPIFNOT                        R5 ; [+11]
+       52 GETUPVAL                         R5 5
+       53 GETTABLEKS                       R5 R5 K12 ["createItemId"]
+       55 MOVE                             R6 R3
+       56 CALL                             R5 1 1
+       57 GETUPVAL                         R8 6
+       58 MOVE                             R9 R5
+       59 CALL                             R8 1 -1
+       60 NAMECALL                         R6 R0 K13 ["dispatch"]
+       62 CALL                             R6 -1 0
+       63 CLOSEUPVALS                      R3
+       64 RETURN                           R3 1
 
 PROTO_2:
         0 NEWCLOSURE                       R3 P0

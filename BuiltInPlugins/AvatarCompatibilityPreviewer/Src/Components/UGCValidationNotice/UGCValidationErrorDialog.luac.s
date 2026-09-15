@@ -50,62 +50,61 @@ PROTO_5:
         1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 GETUPVAL                         R3 1
         4 DUPTABLE                         R4 K10 [{["key"], ["AutomaticSize"], ["Size"], ["Text"], ["TextXAlignment"], ["TextSize"], ["TextWrapped"] = True, ["LayoutOrder"]}]
-        5 LOADK                            R6 K11 ["Error%*"]
-        6 MOVE                             R8 R1
-        7 NAMECALL                         R6 R6 K12 ["format"]
-        9 CALL                             R6 2 1
-       10 MOVE                             R5 R6
-       11 SETTABLEKS                       R5 R4 K1 ["key"]
-       13 GETIMPORT                        R5 K15 [Enum.AutomaticSize.Y]
-       15 SETTABLEKS                       R5 R4 K2 ["AutomaticSize"]
-       17 GETIMPORT                        R5 K18 [UDim2.fromScale]
-       19 LOADN                            R6 1
-       20 LOADN                            R7 0
-       21 CALL                             R5 2 1
-       22 SETTABLEKS                       R5 R4 K3 ["Size"]
-       24 GETTABLEKS                       R6 R0 K19 ["error"]
-       26 GETTABLEKS                       R6 R6 K20 ["type"]
-       28 JUMPIFNOTEQKS                    R6 K21 ["message"] ; [+6]
-       30 GETTABLEKS                       R5 R0 K19 ["error"]
-       32 GETTABLEKS                       R5 R5 K21 ["message"]
-       34 JUMP                             ; [+37]
-       35 GETTABLEKS                       R6 R0 K19 ["error"]
-       37 GETTABLEKS                       R6 R6 K20 ["type"]
-       39 JUMPIFNOTEQKS                    R6 K22 ["notFound"] ; [+26]
-       41 GETUPVAL                         R5 2
-       42 LOADK                            R7 K23 ["UGCValidation"]
-       43 LOADK                            R8 K24 ["AssetNotFound"]
-       44 DUPTABLE                         R9 K26 [{"asset"}]
-       45 GETUPVAL                         R10 2
-       46 LOADK                            R12 K27 ["AssetType"]
-       47 GETTABLEKS                       R14 R0 K28 ["assetType"]
-       49 FASTCALL2K                       ASSERT R14 K29 ; [+4]
-       51 LOADK                            R15 K29 ["notFound sent with no error type"]
-       52 GETIMPORT                        R13 K31 [assert]
-       54 CALL                             R13 2 1
-       55 GETTABLEKS                       R13 R13 K32 ["Name"]
-       57 NAMECALL                         R10 R10 K33 ["getText"]
-       59 CALL                             R10 3 1
-       60 SETTABLEKS                       R10 R9 K25 ["asset"]
-       62 NAMECALL                         R5 R5 K33 ["getText"]
-       64 CALL                             R5 4 1
-       65 JUMP                             ; [+6]
-       66 GETUPVAL                         R5 3
-       67 GETTABLEKS                       R6 R0 K19 ["error"]
-       69 GETTABLEKS                       R6 R6 K20 ["type"]
-       71 CALL                             R5 1 1
-       72 SETTABLEKS                       R5 R4 K4 ["Text"]
-       74 GETIMPORT                        R5 K35 [Enum.TextXAlignment.Left]
-       76 SETTABLEKS                       R5 R4 K5 ["TextXAlignment"]
-       78 GETUPVAL                         R5 4
-       79 GETTABLEKS                       R5 R5 K6 ["TextSize"]
-       81 SETTABLEKS                       R5 R4 K6 ["TextSize"]
-       83 GETUPVAL                         R5 5
-       84 NAMECALL                         R5 R5 K36 ["getNextOrder"]
-       86 CALL                             R5 1 1
-       87 SETTABLEKS                       R5 R4 K9 ["LayoutOrder"]
-       89 CALL                             R2 2 -1
-       90 RETURN                           R2 -1
+        5 LOADK                            R5 K11 ["Error%*"]
+        6 MOVE                             R7 R1
+        7 NAMECALL                         R5 R5 K12 ["format"]
+        9 CALL                             R5 2 1
+       10 SETTABLEKS                       R5 R4 K1 ["key"]
+       12 GETIMPORT                        R5 K15 [Enum.AutomaticSize.Y]
+       14 SETTABLEKS                       R5 R4 K2 ["AutomaticSize"]
+       16 GETIMPORT                        R5 K18 [UDim2.fromScale]
+       18 LOADN                            R6 1
+       19 LOADN                            R7 0
+       20 CALL                             R5 2 1
+       21 SETTABLEKS                       R5 R4 K3 ["Size"]
+       23 GETTABLEKS                       R6 R0 K19 ["error"]
+       25 GETTABLEKS                       R6 R6 K20 ["type"]
+       27 JUMPIFNOTEQKS                    R6 K21 ["message"] ; [+6]
+       29 GETTABLEKS                       R5 R0 K19 ["error"]
+       31 GETTABLEKS                       R5 R5 K21 ["message"]
+       33 JUMP                             ; [+37]
+       34 GETTABLEKS                       R6 R0 K19 ["error"]
+       36 GETTABLEKS                       R6 R6 K20 ["type"]
+       38 JUMPIFNOTEQKS                    R6 K22 ["notFound"] ; [+26]
+       40 GETUPVAL                         R5 2
+       41 LOADK                            R7 K23 ["UGCValidation"]
+       42 LOADK                            R8 K24 ["AssetNotFound"]
+       43 DUPTABLE                         R9 K26 [{"asset"}]
+       44 GETUPVAL                         R10 2
+       45 LOADK                            R12 K27 ["AssetType"]
+       46 GETTABLEKS                       R14 R0 K28 ["assetType"]
+       48 FASTCALL2K                       ASSERT R14 K29 ; [+4]
+       50 LOADK                            R15 K29 ["notFound sent with no error type"]
+       51 GETIMPORT                        R13 K31 [assert]
+       53 CALL                             R13 2 1
+       54 GETTABLEKS                       R13 R13 K32 ["Name"]
+       56 NAMECALL                         R10 R10 K33 ["getText"]
+       58 CALL                             R10 3 1
+       59 SETTABLEKS                       R10 R9 K25 ["asset"]
+       61 NAMECALL                         R5 R5 K33 ["getText"]
+       63 CALL                             R5 4 1
+       64 JUMP                             ; [+6]
+       65 GETUPVAL                         R5 3
+       66 GETTABLEKS                       R6 R0 K19 ["error"]
+       68 GETTABLEKS                       R6 R6 K20 ["type"]
+       70 CALL                             R5 1 1
+       71 SETTABLEKS                       R5 R4 K4 ["Text"]
+       73 GETIMPORT                        R5 K35 [Enum.TextXAlignment.Left]
+       75 SETTABLEKS                       R5 R4 K5 ["TextXAlignment"]
+       77 GETUPVAL                         R5 4
+       78 GETTABLEKS                       R5 R5 K6 ["TextSize"]
+       80 SETTABLEKS                       R5 R4 K6 ["TextSize"]
+       82 GETUPVAL                         R5 5
+       83 NAMECALL                         R5 R5 K36 ["getNextOrder"]
+       85 CALL                             R5 1 1
+       86 SETTABLEKS                       R5 R4 K9 ["LayoutOrder"]
+       88 CALL                             R2 2 -1
+       89 RETURN                           R2 -1
 
 PROTO_6:
         0 GETUPVAL                         R1 0

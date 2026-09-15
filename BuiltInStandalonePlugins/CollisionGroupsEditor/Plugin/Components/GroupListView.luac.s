@@ -132,7 +132,7 @@ PROTO_4:
       141 CALL                             R14 3 1
       142 SETTABLE                         R14 R4 R12
       143 FORGLOOP                         R7 2 [inext] ; [-77]
-      145 JUMPIFNOT                        R6 ; [+61]
+      145 JUMPIFNOT                        R6 ; [+60]
       146 GETUPVAL                         R7 1
       147 GETTABLEKS                       R7 R7 K7 ["createElement"]
       149 GETUPVAL                         R8 2
@@ -159,48 +159,47 @@ PROTO_4:
       178 LOADK                            R16 K5 ["Groups"]
       179 LOADK                            R17 K72 ["CursorGroupInfo"]
       180 NEWTABLE                         R18 0 1
-      182 LOADK                            R20 K73 ["<b>%*</b>"]
-      183 GETUPVAL                         R22 4
-      184 GETTABLEKS                       R22 R22 K33 ["CursorGroupName"]
-      186 NAMECALL                         R20 R20 K37 ["format"]
-      188 CALL                             R20 2 1
-      189 MOVE                             R19 R20
-      190 SETLIST                          R18 R19 1 [1]
-      192 NAMECALL                         R14 R2 K25 ["getText"]
-      194 CALL                             R14 4 1
-      195 SETTABLEKS                       R14 R13 K69 ["Body"]
-      197 GETTABLEKS                       R14 R0 K74 ["onCursorGroupLearnMoreClicked"]
-      199 SETTABLEKS                       R14 R13 K54 ["OnClick"]
-      201 CALL                             R11 2 1
-      202 SETTABLEKS                       R11 R10 K66 ["PaddedAlert"]
-      204 CALL                             R7 3 1
-      205 SETTABLEKS                       R7 R4 K75 ["CursorGroupAlert"]
-      207 GETUPVAL                         R7 1
-      208 GETTABLEKS                       R7 R7 K7 ["createElement"]
-      210 GETUPVAL                         R8 2
-      211 DUPTABLE                         R9 K76 [{"AutomaticSize", "LayoutOrder", "Layout", "Padding"}]
-      212 GETIMPORT                        R10 K78 [Enum.AutomaticSize.XY]
-      214 SETTABLEKS                       R10 R9 K57 ["AutomaticSize"]
-      216 GETTABLEKS                       R10 R1 K38 ["LayoutOrder"]
-      218 SETTABLEKS                       R10 R9 K38 ["LayoutOrder"]
-      220 GETIMPORT                        R10 K48 [Enum.FillDirection.Horizontal]
-      222 SETTABLEKS                       R10 R9 K39 ["Layout"]
-      224 GETTABLEKS                       R10 R3 K79 ["MainPanePadding"]
-      226 SETTABLEKS                       R10 R9 K8 ["Padding"]
-      228 DUPTABLE                         R10 K81 [{"ListPane"}]
-      229 GETUPVAL                         R11 1
-      230 GETTABLEKS                       R11 R11 K7 ["createElement"]
-      232 GETUPVAL                         R12 2
-      233 DUPTABLE                         R13 K82 [{"AutomaticSize", "Layout"}]
-      234 GETIMPORT                        R14 K78 [Enum.AutomaticSize.XY]
-      236 SETTABLEKS                       R14 R13 K57 ["AutomaticSize"]
-      238 GETIMPORT                        R14 K84 [Enum.FillDirection.Vertical]
-      240 SETTABLEKS                       R14 R13 K39 ["Layout"]
-      242 MOVE                             R14 R4
-      243 CALL                             R11 3 1
-      244 SETTABLEKS                       R11 R10 K80 ["ListPane"]
-      246 CALL                             R7 3 -1
-      247 RETURN                           R7 -1
+      182 LOADK                            R19 K73 ["<b>%*</b>"]
+      183 GETUPVAL                         R21 4
+      184 GETTABLEKS                       R21 R21 K33 ["CursorGroupName"]
+      186 NAMECALL                         R19 R19 K37 ["format"]
+      188 CALL                             R19 2 1
+      189 SETLIST                          R18 R19 1 [1]
+      191 NAMECALL                         R14 R2 K25 ["getText"]
+      193 CALL                             R14 4 1
+      194 SETTABLEKS                       R14 R13 K69 ["Body"]
+      196 GETTABLEKS                       R14 R0 K74 ["onCursorGroupLearnMoreClicked"]
+      198 SETTABLEKS                       R14 R13 K54 ["OnClick"]
+      200 CALL                             R11 2 1
+      201 SETTABLEKS                       R11 R10 K66 ["PaddedAlert"]
+      203 CALL                             R7 3 1
+      204 SETTABLEKS                       R7 R4 K75 ["CursorGroupAlert"]
+      206 GETUPVAL                         R7 1
+      207 GETTABLEKS                       R7 R7 K7 ["createElement"]
+      209 GETUPVAL                         R8 2
+      210 DUPTABLE                         R9 K76 [{"AutomaticSize", "LayoutOrder", "Layout", "Padding"}]
+      211 GETIMPORT                        R10 K78 [Enum.AutomaticSize.XY]
+      213 SETTABLEKS                       R10 R9 K57 ["AutomaticSize"]
+      215 GETTABLEKS                       R10 R1 K38 ["LayoutOrder"]
+      217 SETTABLEKS                       R10 R9 K38 ["LayoutOrder"]
+      219 GETIMPORT                        R10 K48 [Enum.FillDirection.Horizontal]
+      221 SETTABLEKS                       R10 R9 K39 ["Layout"]
+      223 GETTABLEKS                       R10 R3 K79 ["MainPanePadding"]
+      225 SETTABLEKS                       R10 R9 K8 ["Padding"]
+      227 DUPTABLE                         R10 K81 [{"ListPane"}]
+      228 GETUPVAL                         R11 1
+      229 GETTABLEKS                       R11 R11 K7 ["createElement"]
+      231 GETUPVAL                         R12 2
+      232 DUPTABLE                         R13 K82 [{"AutomaticSize", "Layout"}]
+      233 GETIMPORT                        R14 K78 [Enum.AutomaticSize.XY]
+      235 SETTABLEKS                       R14 R13 K57 ["AutomaticSize"]
+      237 GETIMPORT                        R14 K84 [Enum.FillDirection.Vertical]
+      239 SETTABLEKS                       R14 R13 K39 ["Layout"]
+      241 MOVE                             R14 R4
+      242 CALL                             R11 3 1
+      243 SETTABLEKS                       R11 R10 K80 ["ListPane"]
+      245 CALL                             R7 3 -1
+      246 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

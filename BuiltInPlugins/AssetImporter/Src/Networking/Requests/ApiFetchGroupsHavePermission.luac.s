@@ -20,16 +20,15 @@ PROTO_0:
        25 MOVE                             R12 R9
        26 GETIMPORT                        R10 K7 [table.insert]
        28 CALL                             R10 2 0
-       29 JUMP                             ; [+9]
+       29 JUMP                             ; [+8]
        30 GETIMPORT                        R10 K9 [error]
-       32 LOADK                            R12 K10 ["Parsing error for ApiFetchGroupsCanManage: %*"]
-       33 MOVE                             R14 R9
-       34 NAMECALL                         R12 R12 K11 ["format"]
-       36 CALL                             R12 2 1
-       37 MOVE                             R11 R12
-       38 CALL                             R10 1 0
-       39 FORGLOOP                         R3 2 ; [-25]
-       41 RETURN                           R2 1
+       32 LOADK                            R11 K10 ["Parsing error for ApiFetchGroupsCanManage: %*"]
+       33 MOVE                             R13 R9
+       34 NAMECALL                         R11 R11 K11 ["format"]
+       36 CALL                             R11 2 1
+       37 CALL                             R10 1 0
+       38 FORGLOOP                         R3 2 ; [-24]
+       40 RETURN                           R2 1
 
 PROTO_1:
         0 DUPTABLE                         R0 K3 [{[1], ["Method"] = "GET"}]

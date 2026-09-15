@@ -35,16 +35,15 @@ PROTO_0:
        45 LOADNIL                          R3
        46 RETURN                           R3 1
        47 GETTABLEKS                       R3 R2 K7 ["hasVerifiedBadge"]
-       49 JUMPIFNOT                        R3 ; [+9]
-       50 LOADK                            R4 K8 ["%* %*"]
-       51 GETTABLEKS                       R6 R2 K9 ["creatorName"]
-       53 GETUPVAL                         R7 4
-       54 NAMECALL                         R4 R4 K10 ["format"]
-       56 CALL                             R4 3 1
-       57 MOVE                             R3 R4
-       58 RETURN                           R3 1
-       59 GETTABLEKS                       R3 R2 K9 ["creatorName"]
-       61 RETURN                           R3 1
+       49 JUMPIFNOT                        R3 ; [+8]
+       50 LOADK                            R3 K8 ["%* %*"]
+       51 GETTABLEKS                       R5 R2 K9 ["creatorName"]
+       53 GETUPVAL                         R6 4
+       54 NAMECALL                         R3 R3 K10 ["format"]
+       56 CALL                             R3 3 1
+       57 RETURN                           R3 1
+       58 GETTABLEKS                       R3 R2 K9 ["creatorName"]
+       60 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

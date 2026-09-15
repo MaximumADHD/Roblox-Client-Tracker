@@ -136,30 +136,29 @@ PROTO_4:
        11 DUPTABLE                         R5 K5 [{["ActionButton"] = True}]
        12 SETTABLEKS                       R5 R4 K1 ["inlineTags"]
        14 CALL                             R2 2 2
-       15 JUMPIF                           R2 ; [+11]
+       15 JUMPIF                           R2 ; [+10]
        16 GETIMPORT                        R4 K7 [warn]
-       18 LOADK                            R6 K8 ["Tutorial failed to parse: %*"]
-       19 MOVE                             R8 R3
-       20 NAMECALL                         R6 R6 K9 ["format"]
-       22 CALL                             R6 2 1
-       23 MOVE                             R5 R6
-       24 CALL                             R4 1 0
-       25 LOADNIL                          R4
-       26 RETURN                           R4 1
-       27 DUPTABLE                         R4 K13 [{"info", "home", "sections"}]
-       28 GETUPVAL                         R5 2
-       29 MOVE                             R6 R3
-       30 CALL                             R5 1 1
-       31 SETTABLEKS                       R5 R4 K10 ["info"]
-       33 GETUPVAL                         R5 3
-       34 MOVE                             R6 R3
-       35 CALL                             R5 1 1
-       36 SETTABLEKS                       R5 R4 K11 ["home"]
-       38 GETUPVAL                         R5 4
-       39 MOVE                             R6 R3
-       40 CALL                             R5 1 1
-       41 SETTABLEKS                       R5 R4 K12 ["sections"]
-       43 RETURN                           R4 1
+       18 LOADK                            R5 K8 ["Tutorial failed to parse: %*"]
+       19 MOVE                             R7 R3
+       20 NAMECALL                         R5 R5 K9 ["format"]
+       22 CALL                             R5 2 1
+       23 CALL                             R4 1 0
+       24 LOADNIL                          R4
+       25 RETURN                           R4 1
+       26 DUPTABLE                         R4 K13 [{"info", "home", "sections"}]
+       27 GETUPVAL                         R5 2
+       28 MOVE                             R6 R3
+       29 CALL                             R5 1 1
+       30 SETTABLEKS                       R5 R4 K10 ["info"]
+       32 GETUPVAL                         R5 3
+       33 MOVE                             R6 R3
+       34 CALL                             R5 1 1
+       35 SETTABLEKS                       R5 R4 K11 ["home"]
+       37 GETUPVAL                         R5 4
+       38 MOVE                             R6 R3
+       39 CALL                             R5 1 1
+       40 SETTABLEKS                       R5 R4 K12 ["sections"]
+       42 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

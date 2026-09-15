@@ -236,181 +236,180 @@ PROTO_2:
       270 NAMECALL                         R26 R2 K53 ["getNextOrder"]
       272 CALL                             R26 1 1
       273 SETTABLEKS                       R26 R25 K50 ["LayoutOrder"]
-      275 LOADK                            R27 K93 ["<u>%*</u>"]
-      276 LOADK                            R31 K74 ["AvatarScreen"]
-      277 LOADK                            R32 K94 ["AutoSetupInProgressActionText"]
-      278 NAMECALL                         R29 R1 K7 ["getText"]
-      280 CALL                             R29 3 1
-      281 NAMECALL                         R27 R27 K95 ["format"]
-      283 CALL                             R27 2 1
-      284 MOVE                             R26 R27
-      285 SETTABLEKS                       R26 R25 K60 ["Text"]
-      287 GETTABLEKS                       R26 R3 K61 ["TextColor"]
-      289 SETTABLEKS                       R26 R25 K61 ["TextColor"]
-      291 DUPTABLE                         R26 K83 [{"UIFlexItem"}]
-      292 GETUPVAL                         R27 4
-      293 GETTABLEKS                       R27 R27 K11 ["createElement"]
-      295 LOADK                            R28 K82 ["UIFlexItem"]
-      296 DUPTABLE                         R29 K85 [{"FlexMode"}]
-      297 GETIMPORT                        R30 K97 [Enum.UIFlexMode.Shrink]
-      299 SETTABLEKS                       R30 R29 K84 ["FlexMode"]
-      301 CALL                             R27 2 1
-      302 SETTABLEKS                       R27 R26 K82 ["UIFlexItem"]
-      304 CALL                             R23 3 1
-      305 SETTABLEKS                       R23 R22 K57 ["PrimaryAction"]
-      307 CALL                             R19 3 1
-      308 SETTABLEKS                       R19 R18 K44 ["TitlePane"]
-      310 GETUPVAL                         R19 4
-      311 GETTABLEKS                       R19 R19 K11 ["createElement"]
-      313 LOADK                            R20 K45 ["UISizeConstraint"]
-      314 DUPTABLE                         R21 K99 [{"MaxSize"}]
-      315 GETIMPORT                        R22 K16 [Vector2.new]
-      317 GETTABLEKS                       R23 R3 K100 ["MaxWidth"]
-      319 LOADK                            R24 K101 [∞]
-      320 CALL                             R22 2 1
-      321 SETTABLEKS                       R22 R21 K98 ["MaxSize"]
-      323 CALL                             R19 2 1
-      324 SETTABLEKS                       R19 R18 K45 ["UISizeConstraint"]
-      326 GETUPVAL                         R19 4
-      327 GETTABLEKS                       R19 R19 K11 ["createElement"]
-      329 GETUPVAL                         R20 8
-      330 DUPTABLE                         R21 K106 [{["LayoutOrder"], ["estimatedTotalTime"], ["startProgress"], ["holdProgress"], ["displayPercentLabel"] = True}]
-      331 NAMECALL                         R22 R2 K53 ["getNextOrder"]
-      333 CALL                             R22 1 1
-      334 SETTABLEKS                       R22 R21 K50 ["LayoutOrder"]
-      336 ORK                              R22 R12 K107 [150]
-      337 SETTABLEKS                       R22 R21 K102 ["estimatedTotalTime"]
-      339 SETTABLEKS                       R8 R21 K103 ["startProgress"]
-      341 SETTABLEKS                       R10 R21 K104 ["holdProgress"]
-      343 CALL                             R19 2 1
-      344 SETTABLEKS                       R19 R18 K6 ["ProgressBar"]
-      346 GETUPVAL                         R19 4
-      347 GETTABLEKS                       R19 R19 K11 ["createElement"]
-      349 GETUPVAL                         R20 5
-      350 DUPTABLE                         R21 K52 [{["AutomaticSize"], ["LayoutOrder"], ["Layout"], ["Spacing"] = 2}]
-      351 GETIMPORT                        R22 K72 [Enum.AutomaticSize.XY]
-      353 SETTABLEKS                       R22 R21 K21 ["AutomaticSize"]
-      355 NAMECALL                         R22 R2 K53 ["getNextOrder"]
-      357 CALL                             R22 1 1
-      358 SETTABLEKS                       R22 R21 K50 ["LayoutOrder"]
-      360 GETIMPORT                        R22 K55 [Enum.FillDirection.Horizontal]
-      362 SETTABLEKS                       R22 R21 K27 ["Layout"]
-      364 DUPTABLE                         R22 K110 [{"CurrentStage", "EstimatedTime"}]
-      365 GETTABLEKS                       R24 R0 K3 ["autoSetupState"]
-      367 GETTABLEKS                       R24 R24 K4 ["progressState"]
-      369 JUMPIFNOT                        R24 ; [+53]
-      370 JUMPIFEQKNIL                     R7 ; [+52]
-      372 GETUPVAL                         R23 4
-      373 GETTABLEKS                       R23 R23 K11 ["createElement"]
-      375 GETUPVAL                         R24 7
-      376 DUPTABLE                         R25 K111 [{["AutomaticSize"], ["LayoutOrder"], ["Size"], ["Text"], ["TextColor"], ["TextTruncate"], ["TextWrapped"] = False, ["TextXAlignment"]}]
-      377 GETIMPORT                        R26 K72 [Enum.AutomaticSize.XY]
-      379 SETTABLEKS                       R26 R25 K21 ["AutomaticSize"]
-      381 NAMECALL                         R26 R2 K53 ["getNextOrder"]
-      383 CALL                             R26 1 1
-      384 SETTABLEKS                       R26 R25 K50 ["LayoutOrder"]
-      386 GETIMPORT                        R26 K70 [UDim2.fromScale]
-      388 GETUPVAL                         R28 9
-      389 JUMPIFNOT                        R28 ; [+2]
-      390 LOADK                            R27 K17 [0.5]
-      391 JUMP                             ; [+1]
-      392 LOADN                            R27 1
-      393 LOADN                            R28 0
-      394 CALL                             R26 2 1
-      395 SETTABLEKS                       R26 R25 K14 ["Size"]
-      397 SETTABLEKS                       R7 R25 K60 ["Text"]
-      399 GETTABLEKS                       R26 R3 K61 ["TextColor"]
-      401 SETTABLEKS                       R26 R25 K61 ["TextColor"]
-      403 GETIMPORT                        R26 K77 [Enum.TextTruncate.AtEnd]
-      405 SETTABLEKS                       R26 R25 K65 ["TextTruncate"]
-      407 GETIMPORT                        R26 K79 [Enum.TextXAlignment.Left]
-      409 SETTABLEKS                       R26 R25 K66 ["TextXAlignment"]
-      411 DUPTABLE                         R26 K83 [{"UIFlexItem"}]
-      412 GETUPVAL                         R27 4
-      413 GETTABLEKS                       R27 R27 K11 ["createElement"]
-      415 LOADK                            R28 K82 ["UIFlexItem"]
-      416 NEWTABLE                         R29 0 0
-      418 CALL                             R27 2 1
-      419 SETTABLEKS                       R27 R26 K82 ["UIFlexItem"]
-      421 CALL                             R23 3 1
-      422 JUMP                             ; [+1]
-      423 LOADNIL                          R23
-      424 SETTABLEKS                       R23 R22 K108 ["CurrentStage"]
-      426 GETUPVAL                         R23 9
-      427 JUMPIFNOT                        R23 ; [+70]
-      428 GETUPVAL                         R23 4
-      429 GETTABLEKS                       R23 R23 K11 ["createElement"]
-      431 GETUPVAL                         R24 7
-      432 DUPTABLE                         R25 K112 [{["AutomaticSize"], ["Font"], ["LayoutOrder"], ["RichText"] = True, ["Size"], ["Text"], ["TextTruncate"], ["TextXAlignment"], ["TextColor"]}]
-      433 GETIMPORT                        R26 K72 [Enum.AutomaticSize.XY]
-      435 SETTABLEKS                       R26 R25 K21 ["AutomaticSize"]
-      437 GETTABLEKS                       R26 R3 K92 ["PrimaryActionFont"]
-      439 SETTABLEKS                       R26 R25 K59 ["Font"]
-      441 NAMECALL                         R26 R2 K53 ["getNextOrder"]
-      443 CALL                             R26 1 1
-      444 SETTABLEKS                       R26 R25 K50 ["LayoutOrder"]
-      446 GETIMPORT                        R26 K70 [UDim2.fromScale]
-      448 LOADK                            R27 K17 [0.5]
-      449 LOADN                            R28 0
-      450 CALL                             R26 2 1
-      451 SETTABLEKS                       R26 R25 K14 ["Size"]
-      453 LOADK                            R32 K74 ["AvatarScreen"]
-      454 LOADK                            R33 K113 ["AutoSetupEstimatedTime"]
-      455 NAMECALL                         R30 R1 K7 ["getText"]
-      457 CALL                             R30 3 1
-      458 MOVE                             R27 R30
-      459 LOADK                            R28 K114 ["\t"]
-      460 ORK                              R30 R14 K107 [150]
-      461 GETIMPORT                        R31 K116 [string.format]
-      463 LOADK                            R32 K117 ["%01i:%02i"]
-      464 DIVK                             R34 R30 K118 [60]
-      465 MODK                             R33 R34 K118 [60]
-      466 MODK                             R34 R30 K118 [60]
-      467 CALL                             R31 3 1
-      468 MOVE                             R29 R31
-      469 CONCAT                           R26 R27 R29
-      470 SETTABLEKS                       R26 R25 K60 ["Text"]
-      472 GETIMPORT                        R26 K77 [Enum.TextTruncate.AtEnd]
-      474 SETTABLEKS                       R26 R25 K65 ["TextTruncate"]
-      476 GETIMPORT                        R26 K120 [Enum.TextXAlignment.Right]
-      478 SETTABLEKS                       R26 R25 K66 ["TextXAlignment"]
-      480 GETTABLEKS                       R26 R3 K61 ["TextColor"]
-      482 SETTABLEKS                       R26 R25 K61 ["TextColor"]
-      484 DUPTABLE                         R26 K83 [{"UIFlexItem"}]
-      485 GETUPVAL                         R27 4
-      486 GETTABLEKS                       R27 R27 K11 ["createElement"]
-      488 LOADK                            R28 K82 ["UIFlexItem"]
-      489 DUPTABLE                         R29 K85 [{"FlexMode"}]
-      490 GETIMPORT                        R30 K97 [Enum.UIFlexMode.Shrink]
-      492 SETTABLEKS                       R30 R29 K84 ["FlexMode"]
-      494 CALL                             R27 2 1
-      495 SETTABLEKS                       R27 R26 K82 ["UIFlexItem"]
-      497 CALL                             R23 3 1
-      498 SETTABLEKS                       R23 R22 K109 ["EstimatedTime"]
-      500 CALL                             R19 3 1
-      501 SETTABLEKS                       R19 R18 K46 ["ProgressPane"]
-      503 GETUPVAL                         R19 4
-      504 GETTABLEKS                       R19 R19 K11 ["createElement"]
-      506 LOADK                            R20 K47 ["UICorner"]
-      507 DUPTABLE                         R21 K122 [{"CornerRadius"}]
-      508 GETTABLEKS                       R22 R3 K121 ["CornerRadius"]
-      510 SETTABLEKS                       R22 R21 K121 ["CornerRadius"]
-      512 CALL                             R19 2 1
-      513 SETTABLEKS                       R19 R18 K47 ["UICorner"]
-      515 GETUPVAL                         R19 4
-      516 GETTABLEKS                       R19 R19 K11 ["createElement"]
-      518 LOADK                            R20 K48 ["UIStroke"]
-      519 DUPTABLE                         R21 K126 [{"ApplyStrokeMode", "Color", "Thickness"}]
-      520 GETIMPORT                        R22 K128 [Enum.ApplyStrokeMode.Border]
-      522 SETTABLEKS                       R22 R21 K123 ["ApplyStrokeMode"]
-      524 GETTABLEKS                       R22 R3 K129 ["StrokeColor"]
-      526 SETTABLEKS                       R22 R21 K124 ["Color"]
-      528 GETTABLEKS                       R22 R3 K130 ["StrokeThickness"]
-      530 SETTABLEKS                       R22 R21 K125 ["Thickness"]
-      532 CALL                             R19 2 1
-      533 SETTABLEKS                       R19 R18 K48 ["UIStroke"]
-      535 CALL                             R15 3 -1
-      536 RETURN                           R15 -1
+      275 LOADK                            R26 K93 ["<u>%*</u>"]
+      276 LOADK                            R30 K74 ["AvatarScreen"]
+      277 LOADK                            R31 K94 ["AutoSetupInProgressActionText"]
+      278 NAMECALL                         R28 R1 K7 ["getText"]
+      280 CALL                             R28 3 1
+      281 NAMECALL                         R26 R26 K95 ["format"]
+      283 CALL                             R26 2 1
+      284 SETTABLEKS                       R26 R25 K60 ["Text"]
+      286 GETTABLEKS                       R26 R3 K61 ["TextColor"]
+      288 SETTABLEKS                       R26 R25 K61 ["TextColor"]
+      290 DUPTABLE                         R26 K83 [{"UIFlexItem"}]
+      291 GETUPVAL                         R27 4
+      292 GETTABLEKS                       R27 R27 K11 ["createElement"]
+      294 LOADK                            R28 K82 ["UIFlexItem"]
+      295 DUPTABLE                         R29 K85 [{"FlexMode"}]
+      296 GETIMPORT                        R30 K97 [Enum.UIFlexMode.Shrink]
+      298 SETTABLEKS                       R30 R29 K84 ["FlexMode"]
+      300 CALL                             R27 2 1
+      301 SETTABLEKS                       R27 R26 K82 ["UIFlexItem"]
+      303 CALL                             R23 3 1
+      304 SETTABLEKS                       R23 R22 K57 ["PrimaryAction"]
+      306 CALL                             R19 3 1
+      307 SETTABLEKS                       R19 R18 K44 ["TitlePane"]
+      309 GETUPVAL                         R19 4
+      310 GETTABLEKS                       R19 R19 K11 ["createElement"]
+      312 LOADK                            R20 K45 ["UISizeConstraint"]
+      313 DUPTABLE                         R21 K99 [{"MaxSize"}]
+      314 GETIMPORT                        R22 K16 [Vector2.new]
+      316 GETTABLEKS                       R23 R3 K100 ["MaxWidth"]
+      318 LOADK                            R24 K101 [∞]
+      319 CALL                             R22 2 1
+      320 SETTABLEKS                       R22 R21 K98 ["MaxSize"]
+      322 CALL                             R19 2 1
+      323 SETTABLEKS                       R19 R18 K45 ["UISizeConstraint"]
+      325 GETUPVAL                         R19 4
+      326 GETTABLEKS                       R19 R19 K11 ["createElement"]
+      328 GETUPVAL                         R20 8
+      329 DUPTABLE                         R21 K106 [{["LayoutOrder"], ["estimatedTotalTime"], ["startProgress"], ["holdProgress"], ["displayPercentLabel"] = True}]
+      330 NAMECALL                         R22 R2 K53 ["getNextOrder"]
+      332 CALL                             R22 1 1
+      333 SETTABLEKS                       R22 R21 K50 ["LayoutOrder"]
+      335 ORK                              R22 R12 K107 [150]
+      336 SETTABLEKS                       R22 R21 K102 ["estimatedTotalTime"]
+      338 SETTABLEKS                       R8 R21 K103 ["startProgress"]
+      340 SETTABLEKS                       R10 R21 K104 ["holdProgress"]
+      342 CALL                             R19 2 1
+      343 SETTABLEKS                       R19 R18 K6 ["ProgressBar"]
+      345 GETUPVAL                         R19 4
+      346 GETTABLEKS                       R19 R19 K11 ["createElement"]
+      348 GETUPVAL                         R20 5
+      349 DUPTABLE                         R21 K52 [{["AutomaticSize"], ["LayoutOrder"], ["Layout"], ["Spacing"] = 2}]
+      350 GETIMPORT                        R22 K72 [Enum.AutomaticSize.XY]
+      352 SETTABLEKS                       R22 R21 K21 ["AutomaticSize"]
+      354 NAMECALL                         R22 R2 K53 ["getNextOrder"]
+      356 CALL                             R22 1 1
+      357 SETTABLEKS                       R22 R21 K50 ["LayoutOrder"]
+      359 GETIMPORT                        R22 K55 [Enum.FillDirection.Horizontal]
+      361 SETTABLEKS                       R22 R21 K27 ["Layout"]
+      363 DUPTABLE                         R22 K110 [{"CurrentStage", "EstimatedTime"}]
+      364 GETTABLEKS                       R24 R0 K3 ["autoSetupState"]
+      366 GETTABLEKS                       R24 R24 K4 ["progressState"]
+      368 JUMPIFNOT                        R24 ; [+53]
+      369 JUMPIFEQKNIL                     R7 ; [+52]
+      371 GETUPVAL                         R23 4
+      372 GETTABLEKS                       R23 R23 K11 ["createElement"]
+      374 GETUPVAL                         R24 7
+      375 DUPTABLE                         R25 K111 [{["AutomaticSize"], ["LayoutOrder"], ["Size"], ["Text"], ["TextColor"], ["TextTruncate"], ["TextWrapped"] = False, ["TextXAlignment"]}]
+      376 GETIMPORT                        R26 K72 [Enum.AutomaticSize.XY]
+      378 SETTABLEKS                       R26 R25 K21 ["AutomaticSize"]
+      380 NAMECALL                         R26 R2 K53 ["getNextOrder"]
+      382 CALL                             R26 1 1
+      383 SETTABLEKS                       R26 R25 K50 ["LayoutOrder"]
+      385 GETIMPORT                        R26 K70 [UDim2.fromScale]
+      387 GETUPVAL                         R28 9
+      388 JUMPIFNOT                        R28 ; [+2]
+      389 LOADK                            R27 K17 [0.5]
+      390 JUMP                             ; [+1]
+      391 LOADN                            R27 1
+      392 LOADN                            R28 0
+      393 CALL                             R26 2 1
+      394 SETTABLEKS                       R26 R25 K14 ["Size"]
+      396 SETTABLEKS                       R7 R25 K60 ["Text"]
+      398 GETTABLEKS                       R26 R3 K61 ["TextColor"]
+      400 SETTABLEKS                       R26 R25 K61 ["TextColor"]
+      402 GETIMPORT                        R26 K77 [Enum.TextTruncate.AtEnd]
+      404 SETTABLEKS                       R26 R25 K65 ["TextTruncate"]
+      406 GETIMPORT                        R26 K79 [Enum.TextXAlignment.Left]
+      408 SETTABLEKS                       R26 R25 K66 ["TextXAlignment"]
+      410 DUPTABLE                         R26 K83 [{"UIFlexItem"}]
+      411 GETUPVAL                         R27 4
+      412 GETTABLEKS                       R27 R27 K11 ["createElement"]
+      414 LOADK                            R28 K82 ["UIFlexItem"]
+      415 NEWTABLE                         R29 0 0
+      417 CALL                             R27 2 1
+      418 SETTABLEKS                       R27 R26 K82 ["UIFlexItem"]
+      420 CALL                             R23 3 1
+      421 JUMP                             ; [+1]
+      422 LOADNIL                          R23
+      423 SETTABLEKS                       R23 R22 K108 ["CurrentStage"]
+      425 GETUPVAL                         R23 9
+      426 JUMPIFNOT                        R23 ; [+70]
+      427 GETUPVAL                         R23 4
+      428 GETTABLEKS                       R23 R23 K11 ["createElement"]
+      430 GETUPVAL                         R24 7
+      431 DUPTABLE                         R25 K112 [{["AutomaticSize"], ["Font"], ["LayoutOrder"], ["RichText"] = True, ["Size"], ["Text"], ["TextTruncate"], ["TextXAlignment"], ["TextColor"]}]
+      432 GETIMPORT                        R26 K72 [Enum.AutomaticSize.XY]
+      434 SETTABLEKS                       R26 R25 K21 ["AutomaticSize"]
+      436 GETTABLEKS                       R26 R3 K92 ["PrimaryActionFont"]
+      438 SETTABLEKS                       R26 R25 K59 ["Font"]
+      440 NAMECALL                         R26 R2 K53 ["getNextOrder"]
+      442 CALL                             R26 1 1
+      443 SETTABLEKS                       R26 R25 K50 ["LayoutOrder"]
+      445 GETIMPORT                        R26 K70 [UDim2.fromScale]
+      447 LOADK                            R27 K17 [0.5]
+      448 LOADN                            R28 0
+      449 CALL                             R26 2 1
+      450 SETTABLEKS                       R26 R25 K14 ["Size"]
+      452 LOADK                            R32 K74 ["AvatarScreen"]
+      453 LOADK                            R33 K113 ["AutoSetupEstimatedTime"]
+      454 NAMECALL                         R30 R1 K7 ["getText"]
+      456 CALL                             R30 3 1
+      457 MOVE                             R27 R30
+      458 LOADK                            R28 K114 ["\t"]
+      459 ORK                              R30 R14 K107 [150]
+      460 GETIMPORT                        R31 K116 [string.format]
+      462 LOADK                            R32 K117 ["%01i:%02i"]
+      463 DIVK                             R34 R30 K118 [60]
+      464 MODK                             R33 R34 K118 [60]
+      465 MODK                             R34 R30 K118 [60]
+      466 CALL                             R31 3 1
+      467 MOVE                             R29 R31
+      468 CONCAT                           R26 R27 R29
+      469 SETTABLEKS                       R26 R25 K60 ["Text"]
+      471 GETIMPORT                        R26 K77 [Enum.TextTruncate.AtEnd]
+      473 SETTABLEKS                       R26 R25 K65 ["TextTruncate"]
+      475 GETIMPORT                        R26 K120 [Enum.TextXAlignment.Right]
+      477 SETTABLEKS                       R26 R25 K66 ["TextXAlignment"]
+      479 GETTABLEKS                       R26 R3 K61 ["TextColor"]
+      481 SETTABLEKS                       R26 R25 K61 ["TextColor"]
+      483 DUPTABLE                         R26 K83 [{"UIFlexItem"}]
+      484 GETUPVAL                         R27 4
+      485 GETTABLEKS                       R27 R27 K11 ["createElement"]
+      487 LOADK                            R28 K82 ["UIFlexItem"]
+      488 DUPTABLE                         R29 K85 [{"FlexMode"}]
+      489 GETIMPORT                        R30 K97 [Enum.UIFlexMode.Shrink]
+      491 SETTABLEKS                       R30 R29 K84 ["FlexMode"]
+      493 CALL                             R27 2 1
+      494 SETTABLEKS                       R27 R26 K82 ["UIFlexItem"]
+      496 CALL                             R23 3 1
+      497 SETTABLEKS                       R23 R22 K109 ["EstimatedTime"]
+      499 CALL                             R19 3 1
+      500 SETTABLEKS                       R19 R18 K46 ["ProgressPane"]
+      502 GETUPVAL                         R19 4
+      503 GETTABLEKS                       R19 R19 K11 ["createElement"]
+      505 LOADK                            R20 K47 ["UICorner"]
+      506 DUPTABLE                         R21 K122 [{"CornerRadius"}]
+      507 GETTABLEKS                       R22 R3 K121 ["CornerRadius"]
+      509 SETTABLEKS                       R22 R21 K121 ["CornerRadius"]
+      511 CALL                             R19 2 1
+      512 SETTABLEKS                       R19 R18 K47 ["UICorner"]
+      514 GETUPVAL                         R19 4
+      515 GETTABLEKS                       R19 R19 K11 ["createElement"]
+      517 LOADK                            R20 K48 ["UIStroke"]
+      518 DUPTABLE                         R21 K126 [{"ApplyStrokeMode", "Color", "Thickness"}]
+      519 GETIMPORT                        R22 K128 [Enum.ApplyStrokeMode.Border]
+      521 SETTABLEKS                       R22 R21 K123 ["ApplyStrokeMode"]
+      523 GETTABLEKS                       R22 R3 K129 ["StrokeColor"]
+      525 SETTABLEKS                       R22 R21 K124 ["Color"]
+      527 GETTABLEKS                       R22 R3 K130 ["StrokeThickness"]
+      529 SETTABLEKS                       R22 R21 K125 ["Thickness"]
+      531 CALL                             R19 2 1
+      532 SETTABLEKS                       R19 R18 K48 ["UIStroke"]
+      534 CALL                             R15 3 -1
+      535 RETURN                           R15 -1
 
 MAIN:
         0 PREPVARARGS                      0

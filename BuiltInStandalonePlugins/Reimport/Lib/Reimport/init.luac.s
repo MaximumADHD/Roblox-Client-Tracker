@@ -432,13 +432,12 @@ PROTO_13:
        82 CALL                             R3 3 0
        83 RETURN                           R0 0
        84 GETIMPORT                        R2 K9 [error]
-       86 LOADK                            R4 K10 ["reimport is not supported for targets of type '%*'"]
-       87 GETTABLEKS                       R6 R0 K4 ["ClassName"]
-       89 NAMECALL                         R4 R4 K11 ["format"]
-       91 CALL                             R4 2 1
-       92 MOVE                             R3 R4
-       93 CALL                             R2 1 0
-       94 RETURN                           R0 0
+       86 LOADK                            R3 K10 ["reimport is not supported for targets of type '%*'"]
+       87 GETTABLEKS                       R5 R0 K4 ["ClassName"]
+       89 NAMECALL                         R3 R3 K11 ["format"]
+       91 CALL                             R3 2 1
+       92 CALL                             R2 1 0
+       93 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R0 0

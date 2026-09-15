@@ -32,45 +32,44 @@ PROTO_4:
         0 LOADNIL                          R0
         1 GETUPVAL                         R1 0
         2 CALL                             R1 0 1
-        3 JUMPIFNOT                        R1 ; [+21]
+        3 JUMPIFNOT                        R1 ; [+20]
         4 GETIMPORT                        R1 K1 [pcall]
         6 NEWCLOSURE                       R2 P0
         7 CAPTURE                          REF R0
         8 CAPTURE                          UPVAL U1
         9 CAPTURE                          UPVAL U2
        10 CALL                             R1 1 2
-       11 JUMPIF                           R1 ; [+21]
+       11 JUMPIF                           R1 ; [+20]
        12 GETIMPORT                        R3 K3 [warn]
-       14 LOADK                            R5 K4 ["Failed to load animation target asset due to %*"]
-       15 MOVE                             R7 R2
-       16 NAMECALL                         R5 R5 K5 ["format"]
-       18 CALL                             R5 2 1
-       19 MOVE                             R4 R5
-       20 CALL                             R3 1 0
-       21 DUPCLOSURE                       R3 K6 [PROTO_2]
-       22 CLOSEUPVALS                      R0
-       23 RETURN                           R3 1
-       24 JUMP                             ; [+8]
-       25 GETUPVAL                         R1 1
-       26 GETUPVAL                         R3 2
-       27 GETTABLEKS                       R3 R3 K7 ["AnimateTargetAsset"]
-       29 NAMECALL                         R1 R1 K8 ["LoadLocalAsset"]
-       31 CALL                             R1 2 1
-       32 MOVE                             R0 R1
-       33 NAMECALL                         R1 R0 K9 ["Clone"]
-       35 CALL                             R1 1 1
-       36 GETUPVAL                         R2 3
-       37 SETTABLEKS                       R2 R1 K10 ["Parent"]
-       39 GETUPVAL                         R2 3
-       40 GETTABLEKS                       R3 R1 K11 ["PrimaryPart"]
-       42 SETTABLEKS                       R3 R2 K11 ["PrimaryPart"]
-       44 GETUPVAL                         R2 4
-       45 MOVE                             R3 R1
-       46 CALL                             R2 1 0
-       47 NEWCLOSURE                       R2 P2
-       48 CAPTURE                          VAL R1
-       49 CLOSEUPVALS                      R0
-       50 RETURN                           R2 1
+       14 LOADK                            R4 K4 ["Failed to load animation target asset due to %*"]
+       15 MOVE                             R6 R2
+       16 NAMECALL                         R4 R4 K5 ["format"]
+       18 CALL                             R4 2 1
+       19 CALL                             R3 1 0
+       20 DUPCLOSURE                       R3 K6 [PROTO_2]
+       21 CLOSEUPVALS                      R0
+       22 RETURN                           R3 1
+       23 JUMP                             ; [+8]
+       24 GETUPVAL                         R1 1
+       25 GETUPVAL                         R3 2
+       26 GETTABLEKS                       R3 R3 K7 ["AnimateTargetAsset"]
+       28 NAMECALL                         R1 R1 K8 ["LoadLocalAsset"]
+       30 CALL                             R1 2 1
+       31 MOVE                             R0 R1
+       32 NAMECALL                         R1 R0 K9 ["Clone"]
+       34 CALL                             R1 1 1
+       35 GETUPVAL                         R2 3
+       36 SETTABLEKS                       R2 R1 K10 ["Parent"]
+       38 GETUPVAL                         R2 3
+       39 GETTABLEKS                       R3 R1 K11 ["PrimaryPart"]
+       41 SETTABLEKS                       R3 R2 K11 ["PrimaryPart"]
+       43 GETUPVAL                         R2 4
+       44 MOVE                             R3 R1
+       45 CALL                             R2 1 0
+       46 NEWCLOSURE                       R2 P2
+       47 CAPTURE                          VAL R1
+       48 CLOSEUPVALS                      R0
+       49 RETURN                           R2 1
 
 PROTO_5:
         0 GETUPVAL                         R1 0

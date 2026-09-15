@@ -18,16 +18,15 @@ PROTO_2:
 
 PROTO_3:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["Failed to connect to MCP host: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 GETUPVAL                         R1 0
-       10 LOADNIL                          R2
-       11 CALL                             R1 1 0
-       12 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["Failed to connect to MCP host: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 GETUPVAL                         R1 0
+        9 LOADNIL                          R2
+       10 CALL                             R1 1 0
+       11 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -70,16 +69,15 @@ PROTO_7:
 
 PROTO_8:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["Failed to connect to MCP host: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 GETUPVAL                         R1 0
-       10 LOADNIL                          R2
-       11 CALL                             R1 1 0
-       12 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["Failed to connect to MCP host: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 GETUPVAL                         R1 0
+        9 LOADNIL                          R2
+       10 CALL                             R1 1 0
+       11 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R0 0

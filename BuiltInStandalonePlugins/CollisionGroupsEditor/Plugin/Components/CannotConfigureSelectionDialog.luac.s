@@ -58,22 +58,21 @@ PROTO_0:
        91 LOADK                            R17 K2 ["CannotConfigureSelectionDialog"]
        92 LOADK                            R18 K52 ["WarningMessage"]
        93 NEWTABLE                         R19 0 1
-       95 LOADK                            R21 K53 ["<b>%*</b>"]
-       96 GETUPVAL                         R23 2
-       97 GETTABLEKS                       R23 R23 K17 ["CursorGroupName"]
-       99 NAMECALL                         R21 R21 K54 ["format"]
-      101 CALL                             R21 2 1
-      102 MOVE                             R20 R21
-      103 SETLIST                          R19 R20 1 [1]
-      105 NAMECALL                         R15 R3 K18 ["getText"]
-      107 CALL                             R15 4 1
-      108 SETTABLEKS                       R15 R14 K22 ["Text"]
-      110 CALL                             R12 2 1
-      111 SETTABLEKS                       R12 R11 K35 ["TextLabel"]
-      113 CALL                             R8 3 1
-      114 SETTABLEKS                       R8 R7 K26 ["Contents"]
-      116 CALL                             R4 3 -1
-      117 RETURN                           R4 -1
+       95 LOADK                            R20 K53 ["<b>%*</b>"]
+       96 GETUPVAL                         R22 2
+       97 GETTABLEKS                       R22 R22 K17 ["CursorGroupName"]
+       99 NAMECALL                         R20 R20 K54 ["format"]
+      101 CALL                             R20 2 1
+      102 SETLIST                          R19 R20 1 [1]
+      104 NAMECALL                         R15 R3 K18 ["getText"]
+      106 CALL                             R15 4 1
+      107 SETTABLEKS                       R15 R14 K22 ["Text"]
+      109 CALL                             R12 2 1
+      110 SETTABLEKS                       R12 R11 K35 ["TextLabel"]
+      112 CALL                             R8 3 1
+      113 SETTABLEKS                       R8 R7 K26 ["Contents"]
+      115 CALL                             R4 3 -1
+      116 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

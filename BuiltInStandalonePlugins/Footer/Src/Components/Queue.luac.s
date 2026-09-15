@@ -52,55 +52,53 @@ PROTO_3:
        24 CALL                             R9 1 1
        25 GETUPVAL                         R12 4
        26 GETTABLE                         R11 R12 R9
-       27 LOADK                            R13 K5 ["Unexpected queue item status: %*"]
-       28 MOVE                             R15 R9
-       29 NAMECALL                         R13 R13 K6 ["format"]
-       31 CALL                             R13 2 1
-       32 MOVE                             R12 R13
-       33 FASTCALL2                        ASSERT R11 R12 ; [+3]
-       35 GETIMPORT                        R10 K8 [assert]
-       37 CALL                             R10 2 0
-       38 JUMPIFNOT                        R1 ; [+2]
-       39 JUMPIFNOTEQ                      R9 R1 ; [+51]
-       41 JUMPIF                           R3 ; [+24]
-       42 MOVE                             R11 R0
-       43 GETUPVAL                         R12 5
-       44 GETUPVAL                         R13 6
-       45 GETTABLEKS                       R13 R13 K9 ["Divider"]
-       47 DUPTABLE                         R14 K12 [{"key", "LayoutOrder"}]
-       48 LOADK                            R16 K13 ["divider-%*"]
-       49 GETTABLEKS                       R18 R8 K14 ["id"]
-       51 NAMECALL                         R16 R16 K6 ["format"]
-       53 CALL                             R16 2 1
-       54 MOVE                             R15 R16
-       55 SETTABLEKS                       R15 R14 K10 ["key"]
-       57 MOVE                             R15 R2
-       58 CALL                             R15 0 1
-       59 SETTABLEKS                       R15 R14 K11 ["LayoutOrder"]
-       61 CALL                             R12 2 -1
-       62 FASTCALL                         TABLE_INSERT ; [+2]
-       63 GETIMPORT                        R10 K17 [table.insert]
-       65 CALL                             R10 -1 0
-       66 LOADB                            R3 0
-       67 MOVE                             R11 R0
-       68 GETUPVAL                         R12 5
-       69 GETUPVAL                         R13 7
-       70 DUPTABLE                         R14 K20 [{"key", "session", "onView", "LayoutOrder"}]
-       71 GETTABLEKS                       R15 R8 K14 ["id"]
-       73 SETTABLEKS                       R15 R14 K10 ["key"]
-       75 SETTABLEKS                       R8 R14 K18 ["session"]
-       77 GETUPVAL                         R15 3
-       78 GETTABLEKS                       R15 R15 K21 ["onViewItem"]
-       80 SETTABLEKS                       R15 R14 K19 ["onView"]
-       82 MOVE                             R15 R2
-       83 CALL                             R15 0 1
-       84 SETTABLEKS                       R15 R14 K11 ["LayoutOrder"]
-       86 CALL                             R12 2 -1
-       87 FASTCALL                         TABLE_INSERT ; [+2]
-       88 GETIMPORT                        R10 K17 [table.insert]
-       90 CALL                             R10 -1 0
-       91 FORGLOOP                         R4 2 [inext] ; [-73]
-       93 RETURN                           R0 1
+       27 LOADK                            R12 K5 ["Unexpected queue item status: %*"]
+       28 MOVE                             R14 R9
+       29 NAMECALL                         R12 R12 K6 ["format"]
+       31 CALL                             R12 2 1
+       32 FASTCALL2                        ASSERT R11 R12 ; [+3]
+       34 GETIMPORT                        R10 K8 [assert]
+       36 CALL                             R10 2 0
+       37 JUMPIFNOT                        R1 ; [+2]
+       38 JUMPIFNOTEQ                      R9 R1 ; [+50]
+       40 JUMPIF                           R3 ; [+23]
+       41 MOVE                             R11 R0
+       42 GETUPVAL                         R12 5
+       43 GETUPVAL                         R13 6
+       44 GETTABLEKS                       R13 R13 K9 ["Divider"]
+       46 DUPTABLE                         R14 K12 [{"key", "LayoutOrder"}]
+       47 LOADK                            R15 K13 ["divider-%*"]
+       48 GETTABLEKS                       R17 R8 K14 ["id"]
+       50 NAMECALL                         R15 R15 K6 ["format"]
+       52 CALL                             R15 2 1
+       53 SETTABLEKS                       R15 R14 K10 ["key"]
+       55 MOVE                             R15 R2
+       56 CALL                             R15 0 1
+       57 SETTABLEKS                       R15 R14 K11 ["LayoutOrder"]
+       59 CALL                             R12 2 -1
+       60 FASTCALL                         TABLE_INSERT ; [+2]
+       61 GETIMPORT                        R10 K17 [table.insert]
+       63 CALL                             R10 -1 0
+       64 LOADB                            R3 0
+       65 MOVE                             R11 R0
+       66 GETUPVAL                         R12 5
+       67 GETUPVAL                         R13 7
+       68 DUPTABLE                         R14 K20 [{"key", "session", "onView", "LayoutOrder"}]
+       69 GETTABLEKS                       R15 R8 K14 ["id"]
+       71 SETTABLEKS                       R15 R14 K10 ["key"]
+       73 SETTABLEKS                       R8 R14 K18 ["session"]
+       75 GETUPVAL                         R15 3
+       76 GETTABLEKS                       R15 R15 K21 ["onViewItem"]
+       78 SETTABLEKS                       R15 R14 K19 ["onView"]
+       80 MOVE                             R15 R2
+       81 CALL                             R15 0 1
+       82 SETTABLEKS                       R15 R14 K11 ["LayoutOrder"]
+       84 CALL                             R12 2 -1
+       85 FASTCALL                         TABLE_INSERT ; [+2]
+       86 GETIMPORT                        R10 K17 [table.insert]
+       88 CALL                             R10 -1 0
+       89 FORGLOOP                         R4 2 [inext] ; [-71]
+       91 RETURN                           R0 1
 
 PROTO_4:
         0 GETUPVAL                         R0 0

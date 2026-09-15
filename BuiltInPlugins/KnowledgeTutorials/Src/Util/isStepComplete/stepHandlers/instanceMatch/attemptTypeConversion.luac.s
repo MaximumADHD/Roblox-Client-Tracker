@@ -107,18 +107,17 @@ PROTO_8:
         3 LOADK                            R3 K3 ["^Enum%.(%w+)%.(%w+)$"]
         4 CALL                             R1 2 2
         5 JUMPIFNOT                        R1 ; [+1]
-        6 JUMPIF                           R2 ; [+9]
+        6 JUMPIF                           R2 ; [+8]
         7 GETIMPORT                        R3 K5 [error]
-        9 LOADK                            R5 K6 ["Invalid EnumItem format: %*"]
-       10 MOVE                             R7 R0
-       11 NAMECALL                         R5 R5 K7 ["format"]
-       13 CALL                             R5 2 1
-       14 MOVE                             R4 R5
-       15 CALL                             R3 1 0
-       16 GETIMPORT                        R5 K9 [Enum]
-       18 GETTABLE                         R4 R5 R1
-       19 GETTABLE                         R3 R4 R2
-       20 RETURN                           R3 1
+        9 LOADK                            R4 K6 ["Invalid EnumItem format: %*"]
+       10 MOVE                             R6 R0
+       11 NAMECALL                         R4 R4 K7 ["format"]
+       13 CALL                             R4 2 1
+       14 CALL                             R3 1 0
+       15 GETIMPORT                        R5 K9 [Enum]
+       17 GETTABLE                         R4 R5 R1
+       18 GETTABLE                         R3 R4 R2
+       19 RETURN                           R3 1
 
 PROTO_9:
         0 GETUPVAL                         R3 0
@@ -129,18 +128,17 @@ PROTO_9:
         6 MOVE                             R4 R2
         7 MOVE                             R5 R0
         8 CALL                             R3 2 2
-        9 JUMPIF                           R3 ; [+12]
+        9 JUMPIF                           R3 ; [+11]
        10 GETIMPORT                        R5 K3 [warn]
-       12 LOADK                            R7 K4 ["Error converting value '%*' to type %*: %*"]
-       13 MOVE                             R9 R0
-       14 MOVE                             R10 R1
-       15 MOVE                             R11 R4
-       16 NAMECALL                         R7 R7 K5 ["format"]
-       18 CALL                             R7 4 1
-       19 MOVE                             R6 R7
-       20 CALL                             R5 1 0
-       21 RETURN                           R0 1
-       22 RETURN                           R4 1
+       12 LOADK                            R6 K4 ["Error converting value '%*' to type %*: %*"]
+       13 MOVE                             R8 R0
+       14 MOVE                             R9 R1
+       15 MOVE                             R10 R4
+       16 NAMECALL                         R6 R6 K5 ["format"]
+       18 CALL                             R6 4 1
+       19 CALL                             R5 1 0
+       20 RETURN                           R0 1
+       21 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

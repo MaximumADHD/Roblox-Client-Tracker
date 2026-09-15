@@ -15,40 +15,34 @@ PROTO_1:
        12 SETTABLEKS                       R5 R4 K3 ["Localization"]
        14 DUPTABLE                         R5 K7 [{"TelemetryServiceProvider"}]
        15 GETUPVAL                         R6 5
-       16 GETUPVAL                         R8 6
-       17 CALL                             R8 0 1
-       18 JUMPIFNOT                        R8 ; [+8]
-       19 GETUPVAL                         R7 7
-       20 GETTABLEKS                       R7 R7 K8 ["Contexts"]
-       22 GETTABLEKS                       R7 R7 K9 ["TelemetryServiceContext"]
-       24 GETTABLEKS                       R7 R7 K0 ["Provider"]
-       26 JUMP                             ; [+3]
-       27 GETUPVAL                         R7 8
-       28 GETTABLEKS                       R7 R7 K0 ["Provider"]
-       30 DUPTABLE                         R8 K11 [{"value"}]
-       31 DUPTABLE                         R9 K13 [{"LogEvent"}]
-       32 DUPCLOSURE                       R10 K14 [PROTO_0]
-       33 SETTABLEKS                       R10 R9 K12 ["LogEvent"]
-       35 SETTABLEKS                       R9 R8 K10 ["value"]
-       37 DUPTABLE                         R9 K16 [{"Element"}]
-       38 GETUPVAL                         R10 5
-       39 GETUPVAL                         R11 9
-       40 GETTABLEKS                       R11 R11 K17 ["component"]
-       42 DUPTABLE                         R12 K21 [{"uri", "input", "onResolved"}]
-       43 GETUPVAL                         R13 9
-       44 GETTABLEKS                       R13 R13 K18 ["uri"]
-       46 SETTABLEKS                       R13 R12 K18 ["uri"]
-       48 SETTABLEKS                       R0 R12 K19 ["input"]
-       50 GETUPVAL                         R13 10
-       51 SETTABLEKS                       R13 R12 K20 ["onResolved"]
-       53 CALL                             R10 2 1
-       54 SETTABLEKS                       R10 R9 K15 ["Element"]
-       56 CALL                             R6 3 1
-       57 SETTABLEKS                       R6 R5 K6 ["TelemetryServiceProvider"]
-       59 CALL                             R3 2 1
-       60 SETTABLEKS                       R3 R2 K0 ["Provider"]
-       62 CALL                             R1 1 -1
-       63 RETURN                           R1 -1
+       16 GETUPVAL                         R7 6
+       17 GETTABLEKS                       R7 R7 K8 ["Contexts"]
+       19 GETTABLEKS                       R7 R7 K9 ["TelemetryServiceContext"]
+       21 GETTABLEKS                       R7 R7 K0 ["Provider"]
+       23 DUPTABLE                         R8 K11 [{"value"}]
+       24 DUPTABLE                         R9 K13 [{"LogEvent"}]
+       25 DUPCLOSURE                       R10 K14 [PROTO_0]
+       26 SETTABLEKS                       R10 R9 K12 ["LogEvent"]
+       28 SETTABLEKS                       R9 R8 K10 ["value"]
+       30 DUPTABLE                         R9 K16 [{"Element"}]
+       31 GETUPVAL                         R10 5
+       32 GETUPVAL                         R11 7
+       33 GETTABLEKS                       R11 R11 K17 ["component"]
+       35 DUPTABLE                         R12 K21 [{"uri", "input", "onResolved"}]
+       36 GETUPVAL                         R13 7
+       37 GETTABLEKS                       R13 R13 K18 ["uri"]
+       39 SETTABLEKS                       R13 R12 K18 ["uri"]
+       41 SETTABLEKS                       R0 R12 K19 ["input"]
+       43 GETUPVAL                         R13 8
+       44 SETTABLEKS                       R13 R12 K20 ["onResolved"]
+       46 CALL                             R10 2 1
+       47 SETTABLEKS                       R10 R9 K15 ["Element"]
+       49 CALL                             R6 3 1
+       50 SETTABLEKS                       R6 R5 K6 ["TelemetryServiceProvider"]
+       52 CALL                             R3 2 1
+       53 SETTABLEKS                       R3 R2 K0 ["Provider"]
+       55 CALL                             R1 1 -1
+       56 RETURN                           R1 -1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -110,50 +104,48 @@ PROTO_6:
        20 CAPTURE                          VAL R4
        21 CAPTURE                          UPVAL U6
        22 CAPTURE                          UPVAL U7
-       23 CAPTURE                          UPVAL U8
-       24 CAPTURE                          UPVAL U9
-       25 CAPTURE                          VAL R0
-       26 CAPTURE                          VAL R6
-       27 GETUPVAL                         R8 10
-       28 MOVE                             R9 R7
-       29 MOVE                             R10 R1
-       30 CALL                             R9 1 -1
-       31 CALL                             R8 -1 1
-       32 GETUPVAL                         R9 11
-       33 GETTABLEKS                       R10 R3 K3 ["subWindows"]
-       35 CALL                             R9 1 1
-       36 GETTABLEKS                       R9 R9 K4 ["toHaveLength"]
-       38 LOADN                            R10 1
-       39 CALL                             R9 1 0
-       40 GETTABLEKS                       R10 R3 K3 ["subWindows"]
-       42 GETTABLEN                        R9 R10 1
-       43 GETUPVAL                         R10 12
-       44 MOVE                             R11 R9
-       45 CALL                             R10 1 1
-       46 GETUPVAL                         R11 13
-       47 GETTABLEKS                       R11 R11 K5 ["join"]
-       49 MOVE                             R12 R8
-       50 MOVE                             R13 R10
-       51 DUPTABLE                         R14 K11 [{"onResolvedSpy", "rerender", "clickPrimaryButton", "clickSecondaryButton", "clickTertiaryButton"}]
-       52 SETTABLEKS                       R5 R14 K6 ["onResolvedSpy"]
-       54 NEWCLOSURE                       R15 P1
-       55 CAPTURE                          VAL R8
-       56 CAPTURE                          VAL R7
-       57 SETTABLEKS                       R15 R14 K7 ["rerender"]
-       59 NEWCLOSURE                       R15 P2
-       60 CAPTURE                          UPVAL U14
-       61 CAPTURE                          VAL R10
-       62 SETTABLEKS                       R15 R14 K8 ["clickPrimaryButton"]
-       64 NEWCLOSURE                       R15 P3
-       65 CAPTURE                          UPVAL U14
-       66 CAPTURE                          VAL R10
-       67 SETTABLEKS                       R15 R14 K9 ["clickSecondaryButton"]
-       69 NEWCLOSURE                       R15 P4
-       70 CAPTURE                          UPVAL U14
-       71 CAPTURE                          VAL R10
-       72 SETTABLEKS                       R15 R14 K10 ["clickTertiaryButton"]
-       74 CALL                             R11 3 -1
-       75 RETURN                           R11 -1
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          VAL R6
+       25 GETUPVAL                         R8 8
+       26 MOVE                             R9 R7
+       27 MOVE                             R10 R1
+       28 CALL                             R9 1 -1
+       29 CALL                             R8 -1 1
+       30 GETUPVAL                         R9 9
+       31 GETTABLEKS                       R10 R3 K3 ["subWindows"]
+       33 CALL                             R9 1 1
+       34 GETTABLEKS                       R9 R9 K4 ["toHaveLength"]
+       36 LOADN                            R10 1
+       37 CALL                             R9 1 0
+       38 GETTABLEKS                       R10 R3 K3 ["subWindows"]
+       40 GETTABLEN                        R9 R10 1
+       41 GETUPVAL                         R10 10
+       42 MOVE                             R11 R9
+       43 CALL                             R10 1 1
+       44 GETUPVAL                         R11 11
+       45 GETTABLEKS                       R11 R11 K5 ["join"]
+       47 MOVE                             R12 R8
+       48 MOVE                             R13 R10
+       49 DUPTABLE                         R14 K11 [{"onResolvedSpy", "rerender", "clickPrimaryButton", "clickSecondaryButton", "clickTertiaryButton"}]
+       50 SETTABLEKS                       R5 R14 K6 ["onResolvedSpy"]
+       52 NEWCLOSURE                       R15 P1
+       53 CAPTURE                          VAL R8
+       54 CAPTURE                          VAL R7
+       55 SETTABLEKS                       R15 R14 K7 ["rerender"]
+       57 NEWCLOSURE                       R15 P2
+       58 CAPTURE                          UPVAL U12
+       59 CAPTURE                          VAL R10
+       60 SETTABLEKS                       R15 R14 K8 ["clickPrimaryButton"]
+       62 NEWCLOSURE                       R15 P3
+       63 CAPTURE                          UPVAL U12
+       64 CAPTURE                          VAL R10
+       65 SETTABLEKS                       R15 R14 K9 ["clickSecondaryButton"]
+       67 NEWCLOSURE                       R15 P4
+       68 CAPTURE                          UPVAL U12
+       69 CAPTURE                          VAL R10
+       70 SETTABLEKS                       R15 R14 K10 ["clickTertiaryButton"]
+       72 CALL                             R11 3 -1
+       73 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -189,49 +181,40 @@ MAIN:
        52 CALL                             R6 1 1
        53 GETIMPORT                        R7 K5 [require]
        55 GETTABLEKS                       R8 R0 K14 ["Src"]
-       57 GETTABLEKS                       R8 R8 K15 ["Contexts"]
-       59 GETTABLEKS                       R8 R8 K16 ["DEPRECATED_TelemetryServiceContext"]
-       61 CALL                             R7 1 1
-       62 GETIMPORT                        R8 K5 [require]
-       64 GETTABLEKS                       R9 R0 K14 ["Src"]
-       66 GETTABLEKS                       R9 R9 K17 ["Types"]
+       57 GETTABLEKS                       R8 R8 K15 ["Types"]
+       59 CALL                             R7 1 1
+       60 GETIMPORT                        R8 K5 [require]
+       62 GETTABLEKS                       R9 R0 K14 ["Src"]
+       64 GETTABLEKS                       R9 R9 K16 ["Util"]
+       66 GETTABLEKS                       R9 R9 K17 ["mockContext"]
        68 CALL                             R8 1 1
-       69 GETIMPORT                        R9 K5 [require]
-       71 GETTABLEKS                       R10 R0 K14 ["Src"]
-       73 GETTABLEKS                       R10 R10 K18 ["Util"]
-       75 GETTABLEKS                       R10 R10 K19 ["mockContext"]
-       77 CALL                             R9 1 1
-       78 GETTABLEKS                       R10 R2 K20 ["TestHelpers"]
-       80 GETTABLEKS                       R10 R10 K21 ["Instances"]
-       82 GETTABLEKS                       R10 R10 K22 ["MockPlugin"]
-       84 GETTABLEKS                       R11 R2 K23 ["ContextServices"]
-       86 GETTABLEKS                       R11 R11 K24 ["Plugin"]
-       88 GETTABLEKS                       R12 R2 K23 ["ContextServices"]
-       90 GETTABLEKS                       R12 R12 K25 ["Localization"]
-       92 GETTABLEKS                       R13 R4 K26 ["createElement"]
-       94 GETTABLEKS                       R14 R3 K27 ["expect"]
-       96 GETTABLEKS                       R15 R5 K28 ["fireEvent"]
-       98 GETTABLEKS                       R16 R6 K29 ["SharedFlags"]
-      100 GETTABLEKS                       R16 R16 K30 ["getFFlagStudioFoundationDialogComponent"]
-      102 GETTABLEKS                       R17 R3 K31 ["jest"]
-      104 GETTABLEKS                       R18 R2 K23 ["ContextServices"]
-      106 GETTABLEKS                       R18 R18 K32 ["provide"]
-      108 GETTABLEKS                       R19 R5 K33 ["render"]
-      110 GETTABLEKS                       R20 R5 K34 ["within"]
-      112 DUPCLOSURE                       R21 K35 [PROTO_6]
-      113 CAPTURE                          VAL R10
-      114 CAPTURE                          VAL R12
-      115 CAPTURE                          VAL R17
-      116 CAPTURE                          VAL R9
-      117 CAPTURE                          VAL R18
-      118 CAPTURE                          VAL R11
-      119 CAPTURE                          VAL R13
-      120 CAPTURE                          VAL R16
-      121 CAPTURE                          VAL R6
-      122 CAPTURE                          VAL R7
-      123 CAPTURE                          VAL R19
-      124 CAPTURE                          VAL R14
-      125 CAPTURE                          VAL R20
-      126 CAPTURE                          VAL R1
-      127 CAPTURE                          VAL R15
-      128 RETURN                           R21 1
+       69 GETTABLEKS                       R9 R2 K18 ["TestHelpers"]
+       71 GETTABLEKS                       R9 R9 K19 ["Instances"]
+       73 GETTABLEKS                       R9 R9 K20 ["MockPlugin"]
+       75 GETTABLEKS                       R10 R2 K21 ["ContextServices"]
+       77 GETTABLEKS                       R10 R10 K22 ["Plugin"]
+       79 GETTABLEKS                       R11 R2 K21 ["ContextServices"]
+       81 GETTABLEKS                       R11 R11 K23 ["Localization"]
+       83 GETTABLEKS                       R12 R4 K24 ["createElement"]
+       85 GETTABLEKS                       R13 R3 K25 ["expect"]
+       87 GETTABLEKS                       R14 R5 K26 ["fireEvent"]
+       89 GETTABLEKS                       R15 R3 K27 ["jest"]
+       91 GETTABLEKS                       R16 R2 K21 ["ContextServices"]
+       93 GETTABLEKS                       R16 R16 K28 ["provide"]
+       95 GETTABLEKS                       R17 R5 K29 ["render"]
+       97 GETTABLEKS                       R18 R5 K30 ["within"]
+       99 DUPCLOSURE                       R19 K31 [PROTO_6]
+      100 CAPTURE                          VAL R9
+      101 CAPTURE                          VAL R11
+      102 CAPTURE                          VAL R15
+      103 CAPTURE                          VAL R8
+      104 CAPTURE                          VAL R16
+      105 CAPTURE                          VAL R10
+      106 CAPTURE                          VAL R12
+      107 CAPTURE                          VAL R6
+      108 CAPTURE                          VAL R17
+      109 CAPTURE                          VAL R13
+      110 CAPTURE                          VAL R18
+      111 CAPTURE                          VAL R1
+      112 CAPTURE                          VAL R14
+      113 RETURN                           R19 1

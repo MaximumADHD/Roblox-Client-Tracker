@@ -196,7 +196,7 @@ PROTO_6:
        83 GETTABLEKS                       R10 R0 K10 ["OnContextMenuItemSelected"]
        85 CALL                             R7 3 1
        86 GETTABLEKS                       R8 R0 K7 ["Editing"]
-       88 JUMPIFNOT                        R8 ; [+47]
+       88 JUMPIFNOT                        R8 ; [+46]
        89 GETUPVAL                         R8 6
        90 LOADK                            R9 K11 ["TextBox"]
        91 NEWTABLE                         R10 8 0
@@ -209,92 +209,90 @@ PROTO_6:
       104 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
       106 GETUPVAL                         R11 7
       107 GETTABLEKS                       R11 R11 K15 ["Tag"]
-      109 LOADK                            R13 K16 ["Component-RibbonTab State-Editing X-Fit data-testid=%*"]
-      110 GETUPVAL                         R15 8
-      111 GETTABLEKS                       R16 R0 K0 ["Uri"]
-      113 CALL                             R15 1 1
-      114 NAMECALL                         R13 R13 K17 ["format"]
-      116 CALL                             R13 2 1
-      117 MOVE                             R12 R13
-      118 SETTABLE                         R12 R10 R11
-      119 GETUPVAL                         R11 7
-      120 GETTABLEKS                       R11 R11 K18 ["Event"]
-      122 GETTABLEKS                       R11 R11 K19 ["FocusLost"]
-      124 NEWCLOSURE                       R12 P1
-      125 CAPTURE                          VAL R0
-      126 SETTABLE                         R12 R10 R11
-      127 GETUPVAL                         R11 7
-      128 GETTABLEKS                       R11 R11 K20 ["Change"]
-      130 GETTABLEKS                       R11 R11 K21 ["TextFits"]
-      132 DUPCLOSURE                       R12 K22 [PROTO_2]
-      133 SETTABLE                         R12 R10 R11
-      134 CALL                             R8 2 -1
-      135 RETURN                           R8 -1
-      136 GETTABLEKS                       R9 R0 K23 ["Enabled"]
-      138 JUMPIFNOTEQKNIL                  R9 ; [+3]
-      140 LOADB                            R8 1
-      141 JUMP                             ; [+2]
-      142 GETTABLEKS                       R8 R0 K23 ["Enabled"]
-      144 GETUPVAL                         R9 6
-      145 LOADK                            R10 K24 ["TextButton"]
-      146 NEWTABLE                         R11 8 0
-      148 SETTABLEKS                       R1 R11 K12 ["ref"]
-      150 GETTABLEKS                       R12 R0 K3 ["Text"]
-      152 SETTABLEKS                       R12 R11 K3 ["Text"]
-      154 GETTABLEKS                       R12 R0 K14 ["LayoutOrder"]
-      156 SETTABLEKS                       R12 R11 K14 ["LayoutOrder"]
-      158 GETUPVAL                         R12 7
-      159 GETTABLEKS                       R12 R12 K15 ["Tag"]
-      161 GETUPVAL                         R13 9
-      162 LOADK                            R15 K25 ["Component-RibbonTab X-Fit data-testid=%*"]
-      163 GETUPVAL                         R17 8
-      164 GETTABLEKS                       R18 R0 K0 ["Uri"]
-      166 CALL                             R17 1 1
-      167 NAMECALL                         R15 R15 K17 ["format"]
-      169 CALL                             R15 2 1
-      170 MOVE                             R14 R15
-      171 JUMPIF                           R8 ; [+2]
-      172 LOADK                            R15 K26 ["State-Disabled"]
-      173 JUMP                             ; [+6]
-      174 GETTABLEKS                       R16 R0 K27 ["Selected"]
-      176 JUMPIFNOT                        R16 ; [+2]
-      177 LOADK                            R15 K28 ["State-Selected"]
-      178 JUMP                             ; [+1]
-      179 LOADK                            R15 K29 ["State-Default"]
-      180 CALL                             R13 2 1
-      181 SETTABLE                         R13 R11 R12
-      182 GETUPVAL                         R12 7
-      183 GETTABLEKS                       R12 R12 K18 ["Event"]
-      185 GETTABLEKS                       R12 R12 K30 ["InputBegan"]
-      187 NEWCLOSURE                       R13 P3
-      188 CAPTURE                          UPVAL U10
-      189 CAPTURE                          UPVAL U11
-      190 CAPTURE                          VAL R0
-      191 CAPTURE                          VAL R2
-      192 CAPTURE                          UPVAL U12
-      193 CAPTURE                          VAL R5
-      194 CAPTURE                          VAL R6
-      195 CAPTURE                          VAL R7
-      196 SETTABLE                         R13 R11 R12
-      197 GETUPVAL                         R12 7
-      198 GETTABLEKS                       R12 R12 K18 ["Event"]
-      200 GETTABLEKS                       R12 R12 K31 ["MouseEnter"]
-      202 NEWCLOSURE                       R13 P4
-      203 CAPTURE                          VAL R2
-      204 CAPTURE                          VAL R3
-      205 CAPTURE                          VAL R0
-      206 SETTABLE                         R13 R11 R12
-      207 GETUPVAL                         R12 7
-      208 GETTABLEKS                       R12 R12 K18 ["Event"]
-      210 GETTABLEKS                       R12 R12 K32 ["MouseLeave"]
-      212 NEWCLOSURE                       R13 P5
-      213 CAPTURE                          VAL R2
-      214 CAPTURE                          VAL R4
-      215 CAPTURE                          UPVAL U13
-      216 CAPTURE                          VAL R0
-      217 SETTABLE                         R13 R11 R12
-      218 CALL                             R9 2 -1
-      219 RETURN                           R9 -1
+      109 LOADK                            R12 K16 ["Component-RibbonTab State-Editing X-Fit data-testid=%*"]
+      110 GETUPVAL                         R14 8
+      111 GETTABLEKS                       R15 R0 K0 ["Uri"]
+      113 CALL                             R14 1 1
+      114 NAMECALL                         R12 R12 K17 ["format"]
+      116 CALL                             R12 2 1
+      117 SETTABLE                         R12 R10 R11
+      118 GETUPVAL                         R11 7
+      119 GETTABLEKS                       R11 R11 K18 ["Event"]
+      121 GETTABLEKS                       R11 R11 K19 ["FocusLost"]
+      123 NEWCLOSURE                       R12 P1
+      124 CAPTURE                          VAL R0
+      125 SETTABLE                         R12 R10 R11
+      126 GETUPVAL                         R11 7
+      127 GETTABLEKS                       R11 R11 K20 ["Change"]
+      129 GETTABLEKS                       R11 R11 K21 ["TextFits"]
+      131 DUPCLOSURE                       R12 K22 [PROTO_2]
+      132 SETTABLE                         R12 R10 R11
+      133 CALL                             R8 2 -1
+      134 RETURN                           R8 -1
+      135 GETTABLEKS                       R9 R0 K23 ["Enabled"]
+      137 JUMPIFNOTEQKNIL                  R9 ; [+3]
+      139 LOADB                            R8 1
+      140 JUMP                             ; [+2]
+      141 GETTABLEKS                       R8 R0 K23 ["Enabled"]
+      143 GETUPVAL                         R9 6
+      144 LOADK                            R10 K24 ["TextButton"]
+      145 NEWTABLE                         R11 8 0
+      147 SETTABLEKS                       R1 R11 K12 ["ref"]
+      149 GETTABLEKS                       R12 R0 K3 ["Text"]
+      151 SETTABLEKS                       R12 R11 K3 ["Text"]
+      153 GETTABLEKS                       R12 R0 K14 ["LayoutOrder"]
+      155 SETTABLEKS                       R12 R11 K14 ["LayoutOrder"]
+      157 GETUPVAL                         R12 7
+      158 GETTABLEKS                       R12 R12 K15 ["Tag"]
+      160 GETUPVAL                         R13 9
+      161 LOADK                            R14 K25 ["Component-RibbonTab X-Fit data-testid=%*"]
+      162 GETUPVAL                         R16 8
+      163 GETTABLEKS                       R17 R0 K0 ["Uri"]
+      165 CALL                             R16 1 1
+      166 NAMECALL                         R14 R14 K17 ["format"]
+      168 CALL                             R14 2 1
+      169 JUMPIF                           R8 ; [+2]
+      170 LOADK                            R15 K26 ["State-Disabled"]
+      171 JUMP                             ; [+6]
+      172 GETTABLEKS                       R16 R0 K27 ["Selected"]
+      174 JUMPIFNOT                        R16 ; [+2]
+      175 LOADK                            R15 K28 ["State-Selected"]
+      176 JUMP                             ; [+1]
+      177 LOADK                            R15 K29 ["State-Default"]
+      178 CALL                             R13 2 1
+      179 SETTABLE                         R13 R11 R12
+      180 GETUPVAL                         R12 7
+      181 GETTABLEKS                       R12 R12 K18 ["Event"]
+      183 GETTABLEKS                       R12 R12 K30 ["InputBegan"]
+      185 NEWCLOSURE                       R13 P3
+      186 CAPTURE                          UPVAL U10
+      187 CAPTURE                          UPVAL U11
+      188 CAPTURE                          VAL R0
+      189 CAPTURE                          VAL R2
+      190 CAPTURE                          UPVAL U12
+      191 CAPTURE                          VAL R5
+      192 CAPTURE                          VAL R6
+      193 CAPTURE                          VAL R7
+      194 SETTABLE                         R13 R11 R12
+      195 GETUPVAL                         R12 7
+      196 GETTABLEKS                       R12 R12 K18 ["Event"]
+      198 GETTABLEKS                       R12 R12 K31 ["MouseEnter"]
+      200 NEWCLOSURE                       R13 P4
+      201 CAPTURE                          VAL R2
+      202 CAPTURE                          VAL R3
+      203 CAPTURE                          VAL R0
+      204 SETTABLE                         R13 R11 R12
+      205 GETUPVAL                         R12 7
+      206 GETTABLEKS                       R12 R12 K18 ["Event"]
+      208 GETTABLEKS                       R12 R12 K32 ["MouseLeave"]
+      210 NEWCLOSURE                       R13 P5
+      211 CAPTURE                          VAL R2
+      212 CAPTURE                          VAL R4
+      213 CAPTURE                          UPVAL U13
+      214 CAPTURE                          VAL R0
+      215 SETTABLE                         R13 R11 R12
+      216 CALL                             R9 2 -1
+      217 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -95,47 +95,46 @@ PROTO_3:
        55 LOADNIL                          R2
        56 DUPTABLE                         R3 K11 [{"binding"}]
        57 DUPTABLE                         R4 K14 [{"name", "parentUuid", "uiButton", "uiModifier"}]
-       58 LOADK                            R6 K15 ["%*%*"]
-       59 GETUPVAL                         R8 0
-       60 GETTABLEKS                       R8 R8 K16 ["action"]
-       62 GETTABLEKS                       R8 R8 K12 ["name"]
-       64 GETUPVAL                         R9 0
-       65 GETTABLEKS                       R9 R9 K17 ["schema"]
-       67 NAMECALL                         R6 R6 K18 ["format"]
-       69 CALL                             R6 3 1
-       70 MOVE                             R5 R6
-       71 SETTABLEKS                       R5 R4 K12 ["name"]
-       73 GETUPVAL                         R5 0
-       74 GETTABLEKS                       R5 R5 K16 ["action"]
-       76 GETTABLEKS                       R5 R5 K2 ["uuid"]
-       78 SETTABLEKS                       R5 R4 K13 ["parentUuid"]
-       80 GETUPVAL                         R6 2
-       81 CALL                             R6 0 1
-       82 JUMPIFNOT                        R6 ; [+5]
-       83 GETUPVAL                         R6 0
-       84 GETTABLEKS                       R6 R6 K7 ["property"]
-       86 JUMPIFNOTEQKS                    R6 K8 ["keyCode"] ; [+3]
-       88 MOVE                             R5 R0
-       89 JUMP                             ; [+1]
-       90 LOADNIL                          R5
-       91 SETTABLEKS                       R5 R4 K4 ["uiButton"]
-       93 GETUPVAL                         R6 2
-       94 CALL                             R6 0 1
-       95 JUMPIFNOT                        R6 ; [+7]
-       96 GETUPVAL                         R6 0
-       97 GETTABLEKS                       R6 R6 K7 ["property"]
-       99 JUMPIFNOTEQKS                    R6 K9 ["primaryModifier"] ; [+3]
-      101 MOVE                             R5 R0
-      102 JUMP                             ; [+1]
-      103 LOADNIL                          R5
-      104 SETTABLEKS                       R5 R4 K5 ["uiModifier"]
-      106 SETTABLEKS                       R4 R3 K0 ["binding"]
-      108 CALL                             R1 2 0
-      109 GETUPVAL                         R1 3
-      110 GETTABLEKS                       R1 R1 K10 ["setActiveCellId"]
-      112 LOADNIL                          R2
-      113 CALL                             R1 1 0
-      114 RETURN                           R0 0
+       58 LOADK                            R5 K15 ["%*%*"]
+       59 GETUPVAL                         R7 0
+       60 GETTABLEKS                       R7 R7 K16 ["action"]
+       62 GETTABLEKS                       R7 R7 K12 ["name"]
+       64 GETUPVAL                         R8 0
+       65 GETTABLEKS                       R8 R8 K17 ["schema"]
+       67 NAMECALL                         R5 R5 K18 ["format"]
+       69 CALL                             R5 3 1
+       70 SETTABLEKS                       R5 R4 K12 ["name"]
+       72 GETUPVAL                         R5 0
+       73 GETTABLEKS                       R5 R5 K16 ["action"]
+       75 GETTABLEKS                       R5 R5 K2 ["uuid"]
+       77 SETTABLEKS                       R5 R4 K13 ["parentUuid"]
+       79 GETUPVAL                         R6 2
+       80 CALL                             R6 0 1
+       81 JUMPIFNOT                        R6 ; [+5]
+       82 GETUPVAL                         R6 0
+       83 GETTABLEKS                       R6 R6 K7 ["property"]
+       85 JUMPIFNOTEQKS                    R6 K8 ["keyCode"] ; [+3]
+       87 MOVE                             R5 R0
+       88 JUMP                             ; [+1]
+       89 LOADNIL                          R5
+       90 SETTABLEKS                       R5 R4 K4 ["uiButton"]
+       92 GETUPVAL                         R6 2
+       93 CALL                             R6 0 1
+       94 JUMPIFNOT                        R6 ; [+7]
+       95 GETUPVAL                         R6 0
+       96 GETTABLEKS                       R6 R6 K7 ["property"]
+       98 JUMPIFNOTEQKS                    R6 K9 ["primaryModifier"] ; [+3]
+      100 MOVE                             R5 R0
+      101 JUMP                             ; [+1]
+      102 LOADNIL                          R5
+      103 SETTABLEKS                       R5 R4 K5 ["uiModifier"]
+      105 SETTABLEKS                       R4 R3 K0 ["binding"]
+      107 CALL                             R1 2 0
+      108 GETUPVAL                         R1 3
+      109 GETTABLEKS                       R1 R1 K10 ["setActiveCellId"]
+      111 LOADNIL                          R2
+      112 CALL                             R1 1 0
+      113 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0

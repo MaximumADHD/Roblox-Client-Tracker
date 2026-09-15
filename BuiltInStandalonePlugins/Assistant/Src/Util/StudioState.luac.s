@@ -85,7 +85,7 @@ PROTO_7:
        21 SETUPVAL                         R1 2
        22 GETUPVAL                         R2 0
        23 GETTABLEKS                       R2 R2 K3 ["FFlagDebugLogAssistantUI"]
-       25 JUMPIFNOT                        R2 ; [+17]
+       25 JUMPIFNOT                        R2 ; [+16]
        26 GETUPVAL                         R3 0
        27 GETTABLEKS                       R3 R3 K0 ["FFlagAssistantDisableApplyEditDataModelAvailability"]
        29 JUMPIFNOT                        R3 ; [+2]
@@ -93,14 +93,13 @@ PROTO_7:
        31 JUMP                             ; [+1]
        32 LOADK                            R2 K5 ["[Assistant]"]
        33 GETIMPORT                        R3 K7 [print]
-       35 LOADK                            R5 K8 ["%* EditDataModelAvailabilityChanged: %*"]
-       36 MOVE                             R7 R2
-       37 MOVE                             R8 R1
-       38 NAMECALL                         R5 R5 K9 ["format"]
-       40 CALL                             R5 3 1
-       41 MOVE                             R4 R5
-       42 CALL                             R3 1 0
-       43 RETURN                           R0 0
+       35 LOADK                            R4 K8 ["%* EditDataModelAvailabilityChanged: %*"]
+       36 MOVE                             R6 R2
+       37 MOVE                             R7 R1
+       38 NAMECALL                         R4 R4 K9 ["format"]
+       40 CALL                             R4 3 1
+       41 CALL                             R3 1 0
+       42 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0

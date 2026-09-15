@@ -10,69 +10,67 @@ PROTO_0:
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["Item"]
         2 GETTABLEKS                       R2 R1 K1 ["Action"]
-        4 JUMPIF                           R2 ; [+12]
+        4 JUMPIF                           R2 ; [+11]
         5 GETTABLEKS                       R2 R0 K2 ["Warn"]
-        7 LOADK                            R4 K3 ["Missing Action field for AvatarThumbnail with id %*"]
-        8 GETTABLEKS                       R6 R1 K4 ["Id"]
-       10 NAMECALL                         R4 R4 K5 ["format"]
-       12 CALL                             R4 2 1
-       13 MOVE                             R3 R4
-       14 CALL                             R2 1 0
-       15 LOADNIL                          R2
-       16 RETURN                           R2 1
-       17 GETUPVAL                         R2 0
-       18 GETTABLEKS                       R2 R2 K6 ["toString"]
-       20 GETTABLEKS                       R3 R1 K1 ["Action"]
-       22 CALL                             R2 1 1
-       23 GETTABLEKS                       R4 R0 K7 ["Items"]
-       25 GETTABLEKS                       R4 R4 K8 ["Actions"]
-       27 GETTABLE                         R3 R4 R2
-       28 JUMPIF                           R3 ; [+13]
-       29 GETTABLEKS                       R4 R0 K2 ["Warn"]
-       31 LOADK                            R6 K9 ["Missing Action %* for AvatarThumbnail with id %*"]
-       32 MOVE                             R8 R2
-       33 GETTABLEKS                       R9 R1 K4 ["Id"]
-       35 NAMECALL                         R6 R6 K5 ["format"]
-       37 CALL                             R6 3 1
-       38 MOVE                             R5 R6
-       39 CALL                             R4 1 0
-       40 LOADNIL                          R4
-       41 RETURN                           R4 1
-       42 GETUPVAL                         R4 1
-       43 GETUPVAL                         R5 2
-       44 NEWTABLE                         R6 16 0
-       46 GETTABLEKS                       R7 R0 K10 ["LayoutOrder"]
-       48 SETTABLEKS                       R7 R6 K10 ["LayoutOrder"]
-       50 NEWCLOSURE                       R7 P0
-       51 CAPTURE                          VAL R0
-       52 CAPTURE                          VAL R3
-       53 SETTABLEKS                       R7 R6 K11 ["OnSelect"]
-       55 GETTABLEKS                       R7 R3 K12 ["Shortcuts"]
-       57 SETTABLEKS                       R7 R6 K12 ["Shortcuts"]
-       59 GETTABLEKS                       R7 R1 K13 ["Size"]
-       61 SETTABLEKS                       R7 R6 K13 ["Size"]
-       63 GETTABLEKS                       R7 R3 K14 ["Tooltip"]
-       65 SETTABLEKS                       R7 R6 K14 ["Tooltip"]
-       67 GETTABLEKS                       R7 R3 K15 ["Text"]
-       69 SETTABLEKS                       R7 R6 K16 ["TooltipTitle"]
-       71 GETUPVAL                         R7 0
-       72 GETTABLEKS                       R7 R7 K17 ["child"]
-       74 GETTABLEKS                       R8 R0 K18 ["WidgetUri"]
-       76 GETTABLEKS                       R9 R1 K4 ["Id"]
-       78 CALL                             R7 2 1
-       79 SETTABLEKS                       R7 R6 K19 ["Uri"]
-       81 GETUPVAL                         R7 3
-       82 NAMECALL                         R7 R7 K20 ["GetUserId"]
-       84 CALL                             R7 1 1
-       85 SETTABLEKS                       R7 R6 K21 ["UserId"]
-       87 GETTABLEKS                       R7 R3 K22 ["Visible"]
-       89 SETTABLEKS                       R7 R6 K22 ["Visible"]
-       91 GETUPVAL                         R7 4
-       92 GETTABLEKS                       R7 R7 K23 ["Tag"]
-       94 GETTABLEKS                       R8 R1 K24 ["Style"]
-       96 SETTABLE                         R8 R6 R7
-       97 CALL                             R4 2 -1
-       98 RETURN                           R4 -1
+        7 LOADK                            R3 K3 ["Missing Action field for AvatarThumbnail with id %*"]
+        8 GETTABLEKS                       R5 R1 K4 ["Id"]
+       10 NAMECALL                         R3 R3 K5 ["format"]
+       12 CALL                             R3 2 1
+       13 CALL                             R2 1 0
+       14 LOADNIL                          R2
+       15 RETURN                           R2 1
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K6 ["toString"]
+       19 GETTABLEKS                       R3 R1 K1 ["Action"]
+       21 CALL                             R2 1 1
+       22 GETTABLEKS                       R4 R0 K7 ["Items"]
+       24 GETTABLEKS                       R4 R4 K8 ["Actions"]
+       26 GETTABLE                         R3 R4 R2
+       27 JUMPIF                           R3 ; [+12]
+       28 GETTABLEKS                       R4 R0 K2 ["Warn"]
+       30 LOADK                            R5 K9 ["Missing Action %* for AvatarThumbnail with id %*"]
+       31 MOVE                             R7 R2
+       32 GETTABLEKS                       R8 R1 K4 ["Id"]
+       34 NAMECALL                         R5 R5 K5 ["format"]
+       36 CALL                             R5 3 1
+       37 CALL                             R4 1 0
+       38 LOADNIL                          R4
+       39 RETURN                           R4 1
+       40 GETUPVAL                         R4 1
+       41 GETUPVAL                         R5 2
+       42 NEWTABLE                         R6 16 0
+       44 GETTABLEKS                       R7 R0 K10 ["LayoutOrder"]
+       46 SETTABLEKS                       R7 R6 K10 ["LayoutOrder"]
+       48 NEWCLOSURE                       R7 P0
+       49 CAPTURE                          VAL R0
+       50 CAPTURE                          VAL R3
+       51 SETTABLEKS                       R7 R6 K11 ["OnSelect"]
+       53 GETTABLEKS                       R7 R3 K12 ["Shortcuts"]
+       55 SETTABLEKS                       R7 R6 K12 ["Shortcuts"]
+       57 GETTABLEKS                       R7 R1 K13 ["Size"]
+       59 SETTABLEKS                       R7 R6 K13 ["Size"]
+       61 GETTABLEKS                       R7 R3 K14 ["Tooltip"]
+       63 SETTABLEKS                       R7 R6 K14 ["Tooltip"]
+       65 GETTABLEKS                       R7 R3 K15 ["Text"]
+       67 SETTABLEKS                       R7 R6 K16 ["TooltipTitle"]
+       69 GETUPVAL                         R7 0
+       70 GETTABLEKS                       R7 R7 K17 ["child"]
+       72 GETTABLEKS                       R8 R0 K18 ["WidgetUri"]
+       74 GETTABLEKS                       R9 R1 K4 ["Id"]
+       76 CALL                             R7 2 1
+       77 SETTABLEKS                       R7 R6 K19 ["Uri"]
+       79 GETUPVAL                         R7 3
+       80 NAMECALL                         R7 R7 K20 ["GetUserId"]
+       82 CALL                             R7 1 1
+       83 SETTABLEKS                       R7 R6 K21 ["UserId"]
+       85 GETTABLEKS                       R7 R3 K22 ["Visible"]
+       87 SETTABLEKS                       R7 R6 K22 ["Visible"]
+       89 GETUPVAL                         R7 4
+       90 GETTABLEKS                       R7 R7 K23 ["Tag"]
+       92 GETTABLEKS                       R8 R1 K24 ["Style"]
+       94 SETTABLE                         R8 R6 R7
+       95 CALL                             R4 2 -1
+       96 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

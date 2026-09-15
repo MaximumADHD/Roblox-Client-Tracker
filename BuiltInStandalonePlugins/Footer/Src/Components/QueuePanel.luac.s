@@ -14,15 +14,14 @@ PROTO_0:
        17 RETURN                           R1 -1
 
 PROTO_1:
-        0 LOADK                            R1 K0 ["Queue_%*"]
-        1 GETUPVAL                         R3 0
-        2 GETUPVAL                         R4 1
-        3 GETTABLEKS                       R4 R4 K1 ["uri"]
-        5 CALL                             R3 1 1
-        6 NAMECALL                         R1 R1 K2 ["format"]
-        8 CALL                             R1 2 1
-        9 MOVE                             R0 R1
-       10 RETURN                           R0 1
+        0 LOADK                            R0 K0 ["Queue_%*"]
+        1 GETUPVAL                         R2 0
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R3 R3 K1 ["uri"]
+        5 CALL                             R2 1 1
+        6 NAMECALL                         R0 R0 K2 ["format"]
+        8 CALL                             R0 2 1
+        9 RETURN                           R0 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0

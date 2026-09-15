@@ -192,14 +192,13 @@ PROTO_10:
         3 MOVE                             R3 R0
         4 NEWTABLE                         R4 0 2
         6 LOADK                            R5 K1 ["List"]
-        7 LOADK                            R7 K2 ["Cell_%*"]
-        8 MOVE                             R9 R1
-        9 NAMECALL                         R7 R7 K3 ["format"]
-       11 CALL                             R7 2 1
-       12 MOVE                             R6 R7
-       13 SETLIST                          R4 R5 2 [1]
-       15 CALL                             R2 2 1
-       16 RETURN                           R2 1
+        7 LOADK                            R6 K2 ["Cell_%*"]
+        8 MOVE                             R8 R1
+        9 NAMECALL                         R6 R6 K3 ["format"]
+       11 CALL                             R6 2 1
+       12 SETLIST                          R4 R5 2 [1]
+       14 CALL                             R2 2 1
+       15 RETURN                           R2 1
 
 PROTO_11:
         0 GETUPVAL                         R2 0

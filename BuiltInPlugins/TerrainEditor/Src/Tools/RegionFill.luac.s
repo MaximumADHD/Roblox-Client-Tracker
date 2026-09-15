@@ -73,42 +73,41 @@ PROTO_1:
        93 GETUPVAL                         R4 4
        94 GETTABLEKS                       R5 R0 K5 ["_localization"]
        96 LOADK                            R7 K6 ["Operations"]
-       97 LOADK                            R9 K19 ["%*Name"]
-       98 GETUPVAL                         R13 1
-       99 GETTABLEKS                       R13 R13 K2 ["MaterialSettings"]
-      101 GETTABLE                         R12 R2 R13
-      102 GETUPVAL                         R13 2
-      103 GETTABLEKS                       R13 R13 K3 ["FillMode"]
-      105 GETTABLE                         R11 R12 R13
-      106 NAMECALL                         R9 R9 K20 ["format"]
-      108 CALL                             R9 2 1
-      109 MOVE                             R8 R9
-      110 NAMECALL                         R5 R5 K13 ["getText"]
-      112 CALL                             R5 3 1
-      113 MOVE                             R6 R3
-      114 GETTABLEKS                       R7 R0 K21 ["_services"]
-      116 CALL                             R4 3 1
-      117 SETTABLEKS                       R4 R0 K22 ["_operation"]
-      119 GETTABLEKS                       R4 R0 K22 ["_operation"]
-      121 GETTABLEKS                       R4 R4 K23 ["Finished"]
-      123 NEWCLOSURE                       R6 P0
-      124 CAPTURE                          VAL R0
-      125 NAMECALL                         R4 R4 K24 ["Connect"]
-      127 CALL                             R4 2 1
-      128 SETTABLEKS                       R4 R0 K25 ["_operationFinishedConnection"]
-      130 GETTABLEKS                       R4 R0 K22 ["_operation"]
-      132 GETUPVAL                         R6 5
-      133 GETTABLEKS                       R6 R6 K26 ["join"]
-      135 DUPTABLE                         R7 K28 [{"Payload"}]
-      136 SETTABLEKS                       R2 R7 K27 ["Payload"]
-      138 MOVE                             R8 R1
-      139 CALL                             R6 2 -1
-      140 NAMECALL                         R4 R4 K29 ["start"]
-      142 CALL                             R4 -1 0
-      143 GETTABLEKS                       R4 R0 K30 ["OnOperationChanged"]
-      145 NAMECALL                         R4 R4 K31 ["Fire"]
-      147 CALL                             R4 1 0
-      148 RETURN                           R0 0
+       97 LOADK                            R8 K19 ["%*Name"]
+       98 GETUPVAL                         R12 1
+       99 GETTABLEKS                       R12 R12 K2 ["MaterialSettings"]
+      101 GETTABLE                         R11 R2 R12
+      102 GETUPVAL                         R12 2
+      103 GETTABLEKS                       R12 R12 K3 ["FillMode"]
+      105 GETTABLE                         R10 R11 R12
+      106 NAMECALL                         R8 R8 K20 ["format"]
+      108 CALL                             R8 2 1
+      109 NAMECALL                         R5 R5 K13 ["getText"]
+      111 CALL                             R5 3 1
+      112 MOVE                             R6 R3
+      113 GETTABLEKS                       R7 R0 K21 ["_services"]
+      115 CALL                             R4 3 1
+      116 SETTABLEKS                       R4 R0 K22 ["_operation"]
+      118 GETTABLEKS                       R4 R0 K22 ["_operation"]
+      120 GETTABLEKS                       R4 R4 K23 ["Finished"]
+      122 NEWCLOSURE                       R6 P0
+      123 CAPTURE                          VAL R0
+      124 NAMECALL                         R4 R4 K24 ["Connect"]
+      126 CALL                             R4 2 1
+      127 SETTABLEKS                       R4 R0 K25 ["_operationFinishedConnection"]
+      129 GETTABLEKS                       R4 R0 K22 ["_operation"]
+      131 GETUPVAL                         R6 5
+      132 GETTABLEKS                       R6 R6 K26 ["join"]
+      134 DUPTABLE                         R7 K28 [{"Payload"}]
+      135 SETTABLEKS                       R2 R7 K27 ["Payload"]
+      137 MOVE                             R8 R1
+      138 CALL                             R6 2 -1
+      139 NAMECALL                         R4 R4 K29 ["start"]
+      141 CALL                             R4 -1 0
+      142 GETTABLEKS                       R4 R0 K30 ["OnOperationChanged"]
+      144 NAMECALL                         R4 R4 K31 ["Fire"]
+      146 CALL                             R4 1 0
+      147 RETURN                           R0 0
 
 PROTO_2:
         0 NAMECALL                         R1 R0 K0 ["hasError"]

@@ -115,52 +115,51 @@ PROTO_2:
        59 GETTABLEKS                       R19 R16 K4 ["Schema"]
        61 GETTABLEKS                       R19 R19 K5 ["Type"]
        63 GETTABLE                         R17 R18 R19
-       64 JUMPIF                           R17 ; [+12]
+       64 JUMPIF                           R17 ; [+11]
        65 GETIMPORT                        R18 K7 [error]
-       67 LOADK                            R20 K8 ["No renderer found for gizmo schema %*"]
-       68 GETTABLEKS                       R22 R16 K4 ["Schema"]
-       70 GETTABLEKS                       R22 R22 K5 ["Type"]
-       72 NAMECALL                         R20 R20 K9 ["format"]
-       74 CALL                             R20 2 1
-       75 MOVE                             R19 R20
-       76 CALL                             R18 1 0
-       77 GETTABLEKS                       R18 R16 K10 ["Id"]
-       79 GETUPVAL                         R19 7
-       80 GETTABLEKS                       R19 R19 K3 ["createElement"]
-       82 MOVE                             R20 R17
-       83 GETUPVAL                         R21 10
-       84 GETTABLEKS                       R21 R21 K11 ["join"]
-       86 MOVE                             R22 R16
-       87 DUPTABLE                         R23 K15 [{"Tool", "FromSelf", "Save"}]
-       88 GETTABLEKS                       R24 R7 K16 ["_name"]
-       90 SETTABLEKS                       R24 R23 K12 ["Tool"]
-       92 SETTABLEKS                       R8 R23 K13 ["FromSelf"]
-       94 NEWCLOSURE                       R24 P1
-       95 CAPTURE                          UPVAL U11
-       96 CAPTURE                          VAL R6
-       97 CAPTURE                          VAL R5
-       98 SETTABLEKS                       R24 R23 K14 ["Save"]
-      100 CALL                             R21 2 -1
-      101 CALL                             R19 -1 1
-      102 SETTABLE                         R19 R11 R18
-      103 FORGLOOP                         R12 2 ; [-46]
-      105 JUMPIFNOT                        R9 ; [+12]
-      106 GETUPVAL                         R12 12
-      107 GETTABLEKS                       R12 R12 K17 ["Note"]
-      109 GETUPVAL                         R13 7
-      110 GETTABLEKS                       R13 R13 K3 ["createElement"]
-      112 GETUPVAL                         R14 13
-      113 DUPTABLE                         R15 K19 [{"Key"}]
-      114 SETTABLEKS                       R9 R15 K18 ["Key"]
-      116 CALL                             R13 2 1
-      117 SETTABLE                         R13 R11 R12
-      118 GETUPVAL                         R12 7
-      119 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      121 GETUPVAL                         R13 8
-      122 MOVE                             R14 R0
-      123 MOVE                             R15 R11
-      124 CALL                             R12 3 -1
-      125 RETURN                           R12 -1
+       67 LOADK                            R19 K8 ["No renderer found for gizmo schema %*"]
+       68 GETTABLEKS                       R21 R16 K4 ["Schema"]
+       70 GETTABLEKS                       R21 R21 K5 ["Type"]
+       72 NAMECALL                         R19 R19 K9 ["format"]
+       74 CALL                             R19 2 1
+       75 CALL                             R18 1 0
+       76 GETTABLEKS                       R18 R16 K10 ["Id"]
+       78 GETUPVAL                         R19 7
+       79 GETTABLEKS                       R19 R19 K3 ["createElement"]
+       81 MOVE                             R20 R17
+       82 GETUPVAL                         R21 10
+       83 GETTABLEKS                       R21 R21 K11 ["join"]
+       85 MOVE                             R22 R16
+       86 DUPTABLE                         R23 K15 [{"Tool", "FromSelf", "Save"}]
+       87 GETTABLEKS                       R24 R7 K16 ["_name"]
+       89 SETTABLEKS                       R24 R23 K12 ["Tool"]
+       91 SETTABLEKS                       R8 R23 K13 ["FromSelf"]
+       93 NEWCLOSURE                       R24 P1
+       94 CAPTURE                          UPVAL U11
+       95 CAPTURE                          VAL R6
+       96 CAPTURE                          VAL R5
+       97 SETTABLEKS                       R24 R23 K14 ["Save"]
+       99 CALL                             R21 2 -1
+      100 CALL                             R19 -1 1
+      101 SETTABLE                         R19 R11 R18
+      102 FORGLOOP                         R12 2 ; [-45]
+      104 JUMPIFNOT                        R9 ; [+12]
+      105 GETUPVAL                         R12 12
+      106 GETTABLEKS                       R12 R12 K17 ["Note"]
+      108 GETUPVAL                         R13 7
+      109 GETTABLEKS                       R13 R13 K3 ["createElement"]
+      111 GETUPVAL                         R14 13
+      112 DUPTABLE                         R15 K19 [{"Key"}]
+      113 SETTABLEKS                       R9 R15 K18 ["Key"]
+      115 CALL                             R13 2 1
+      116 SETTABLE                         R13 R11 R12
+      117 GETUPVAL                         R12 7
+      118 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      120 GETUPVAL                         R13 8
+      121 MOVE                             R14 R0
+      122 MOVE                             R15 R11
+      123 CALL                             R12 3 -1
+      124 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

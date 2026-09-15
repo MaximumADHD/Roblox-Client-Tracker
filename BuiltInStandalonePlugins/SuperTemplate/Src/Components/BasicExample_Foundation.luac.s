@@ -29,19 +29,18 @@ PROTO_0:
        35 GETTABLEKS                       R7 R7 K3 ["createElement"]
        37 GETUPVAL                         R8 4
        38 DUPTABLE                         R9 K17 [{["Text"], ["tag"] = "auto-xy padding-small text-body-small radius-small bg-action-standard content-action-standard", ["LayoutOrder"]}]
-       39 LOADK                            R11 K18 ["Version: %*"]
-       40 GETUPVAL                         R13 5
-       41 NAMECALL                         R11 R11 K19 ["format"]
-       43 CALL                             R11 2 1
-       44 MOVE                             R10 R11
-       45 SETTABLEKS                       R10 R9 K11 ["Text"]
-       47 MOVE                             R10 R2
-       48 CALL                             R10 0 1
-       49 SETTABLEKS                       R10 R9 K14 ["LayoutOrder"]
-       51 CALL                             R7 2 1
-       52 SETTABLEKS                       R7 R6 K8 ["VersionLabel"]
-       54 CALL                             R3 3 -1
-       55 RETURN                           R3 -1
+       39 LOADK                            R10 K18 ["Version: %*"]
+       40 GETUPVAL                         R12 5
+       41 NAMECALL                         R10 R10 K19 ["format"]
+       43 CALL                             R10 2 1
+       44 SETTABLEKS                       R10 R9 K11 ["Text"]
+       46 MOVE                             R10 R2
+       47 CALL                             R10 0 1
+       48 SETTABLEKS                       R10 R9 K14 ["LayoutOrder"]
+       50 CALL                             R7 2 1
+       51 SETTABLEKS                       R7 R6 K8 ["VersionLabel"]
+       53 CALL                             R3 3 -1
+       54 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

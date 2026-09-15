@@ -31,7 +31,7 @@ PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["dialogConfig"]
         3 GETTABLEKS                       R0 R0 K1 ["kind"]
-        5 JUMPIFNOTEQKS                    R0 K2 ["config"] ; [+86]
+        5 JUMPIFNOTEQKS                    R0 K2 ["config"] ; [+85]
         7 GETUPVAL                         R0 0
         8 GETTABLEKS                       R0 R0 K0 ["dialogConfig"]
        10 GETTABLEKS                       R0 R0 K3 ["props"]
@@ -73,52 +73,50 @@ PROTO_5:
        60 DUPTABLE                         R3 K11 [{"errors", "onClose", "updateWindowMinSize"}]
        61 NEWTABLE                         R4 0 1
        63 DUPTABLE                         R5 K13 [{"message"}]
-       64 LOADK                            R7 K14 ["Instance class not supported for reimport: '%*'"]
-       65 GETUPVAL                         R9 0
-       66 GETTABLEKS                       R9 R9 K0 ["dialogConfig"]
-       68 GETTABLEKS                       R9 R9 K6 ["class"]
-       70 NAMECALL                         R7 R7 K15 ["format"]
-       72 CALL                             R7 2 1
-       73 MOVE                             R6 R7
-       74 SETTABLEKS                       R6 R5 K12 ["message"]
-       76 SETLIST                          R4 R5 1 [1]
-       78 SETTABLEKS                       R4 R3 K10 ["errors"]
-       80 GETUPVAL                         R4 1
-       81 GETTABLEKS                       R4 R4 K4 ["onClose"]
-       83 SETTABLEKS                       R4 R3 K4 ["onClose"]
-       85 GETUPVAL                         R4 1
-       86 GETTABLEKS                       R4 R4 K5 ["updateWindowMinSize"]
-       88 SETTABLEKS                       R4 R3 K5 ["updateWindowMinSize"]
-       90 CALL                             R1 2 -1
-       91 RETURN                           R1 -1
-       92 GETUPVAL                         R0 0
-       93 GETTABLEKS                       R0 R0 K0 ["dialogConfig"]
-       95 GETTABLEKS                       R0 R0 K1 ["kind"]
-       97 JUMPIFNOTEQKS                    R0 K16 ["error"] ; [+21]
-       99 GETUPVAL                         R0 0
-      100 GETTABLEKS                       R0 R0 K0 ["dialogConfig"]
-      102 GETTABLEKS                       R0 R0 K3 ["props"]
-      104 GETUPVAL                         R1 1
-      105 GETTABLEKS                       R1 R1 K4 ["onClose"]
-      107 SETTABLEKS                       R1 R0 K4 ["onClose"]
-      109 GETUPVAL                         R1 1
-      110 GETTABLEKS                       R1 R1 K5 ["updateWindowMinSize"]
-      112 SETTABLEKS                       R1 R0 K5 ["updateWindowMinSize"]
-      114 GETUPVAL                         R1 2
-      115 GETUPVAL                         R2 5
-      116 MOVE                             R3 R0
-      117 CALL                             R1 2 -1
-      118 RETURN                           R1 -1
-      119 GETIMPORT                        R0 K17 [error]
-      121 LOADK                            R2 K18 ["Unknown dialog kind: $%*"]
-      122 GETUPVAL                         R4 0
-      123 GETTABLEKS                       R4 R4 K0 ["dialogConfig"]
-      125 GETTABLEKS                       R4 R4 K1 ["kind"]
-      127 NAMECALL                         R2 R2 K15 ["format"]
-      129 CALL                             R2 2 1
-      130 MOVE                             R1 R2
-      131 CALL                             R0 1 0
-      132 RETURN                           R0 0
+       64 LOADK                            R6 K14 ["Instance class not supported for reimport: '%*'"]
+       65 GETUPVAL                         R8 0
+       66 GETTABLEKS                       R8 R8 K0 ["dialogConfig"]
+       68 GETTABLEKS                       R8 R8 K6 ["class"]
+       70 NAMECALL                         R6 R6 K15 ["format"]
+       72 CALL                             R6 2 1
+       73 SETTABLEKS                       R6 R5 K12 ["message"]
+       75 SETLIST                          R4 R5 1 [1]
+       77 SETTABLEKS                       R4 R3 K10 ["errors"]
+       79 GETUPVAL                         R4 1
+       80 GETTABLEKS                       R4 R4 K4 ["onClose"]
+       82 SETTABLEKS                       R4 R3 K4 ["onClose"]
+       84 GETUPVAL                         R4 1
+       85 GETTABLEKS                       R4 R4 K5 ["updateWindowMinSize"]
+       87 SETTABLEKS                       R4 R3 K5 ["updateWindowMinSize"]
+       89 CALL                             R1 2 -1
+       90 RETURN                           R1 -1
+       91 GETUPVAL                         R0 0
+       92 GETTABLEKS                       R0 R0 K0 ["dialogConfig"]
+       94 GETTABLEKS                       R0 R0 K1 ["kind"]
+       96 JUMPIFNOTEQKS                    R0 K16 ["error"] ; [+21]
+       98 GETUPVAL                         R0 0
+       99 GETTABLEKS                       R0 R0 K0 ["dialogConfig"]
+      101 GETTABLEKS                       R0 R0 K3 ["props"]
+      103 GETUPVAL                         R1 1
+      104 GETTABLEKS                       R1 R1 K4 ["onClose"]
+      106 SETTABLEKS                       R1 R0 K4 ["onClose"]
+      108 GETUPVAL                         R1 1
+      109 GETTABLEKS                       R1 R1 K5 ["updateWindowMinSize"]
+      111 SETTABLEKS                       R1 R0 K5 ["updateWindowMinSize"]
+      113 GETUPVAL                         R1 2
+      114 GETUPVAL                         R2 5
+      115 MOVE                             R3 R0
+      116 CALL                             R1 2 -1
+      117 RETURN                           R1 -1
+      118 GETIMPORT                        R0 K17 [error]
+      120 LOADK                            R1 K18 ["Unknown dialog kind: $%*"]
+      121 GETUPVAL                         R3 0
+      122 GETTABLEKS                       R3 R3 K0 ["dialogConfig"]
+      124 GETTABLEKS                       R3 R3 K1 ["kind"]
+      126 NAMECALL                         R1 R1 K15 ["format"]
+      128 CALL                             R1 2 1
+      129 CALL                             R0 1 0
+      130 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -182,87 +180,86 @@ PROTO_6:
        85 JUMPIF                           R6 ; [+2]
        86 LOADNIL                          R11
        87 RETURN                           R11 1
-       88 LOADK                            R12 K23 ["%* v%*"]
-       89 LOADK                            R16 K24 ["Plugin"]
-       90 LOADK                            R17 K25 ["Name"]
-       91 NAMECALL                         R14 R1 K26 ["getText"]
-       93 CALL                             R14 3 1
-       94 GETUPVAL                         R15 5
-       95 GETTABLEKS                       R15 R15 K27 ["UserVersion"]
-       97 NAMECALL                         R12 R12 K28 ["format"]
-       99 CALL                             R12 3 1
-      100 MOVE                             R11 R12
-      101 NEWCLOSURE                       R12 P5
-      102 CAPTURE                          VAL R0
-      103 CAPTURE                          VAL R10
-      104 CAPTURE                          UPVAL U6
-      105 CAPTURE                          UPVAL U7
-      106 CAPTURE                          UPVAL U8
-      107 CAPTURE                          UPVAL U9
-      108 GETUPVAL                         R13 0
-      109 GETTABLEKS                       R13 R13 K29 ["provide"]
-      111 NEWTABLE                         R14 0 5
-      113 GETUPVAL                         R15 10
-      114 GETTABLEKS                       R15 R15 K1 ["new"]
-      116 GETTABLEKS                       R16 R0 K15 ["plugin"]
-      118 CALL                             R15 1 1
-      119 GETUPVAL                         R16 11
-      120 GETTABLEKS                       R16 R16 K1 ["new"]
-      122 GETTABLEKS                       R17 R0 K15 ["plugin"]
-      124 NAMECALL                         R17 R17 K30 ["getMouse"]
-      126 CALL                             R17 1 -1
-      127 CALL                             R16 -1 1
-      128 GETUPVAL                         R17 12
-      129 GETTABLEKS                       R17 R17 K1 ["new"]
-      131 MOVE                             R18 R5
-      132 CALL                             R17 1 1
-      133 MOVE                             R18 R1
-      134 MOVE                             R19 R2
-      135 SETLIST                          R14 R15 5 [1]
-      137 DUPTABLE                         R15 K32 [{"MainWindow"}]
-      138 GETUPVAL                         R16 6
-      139 GETUPVAL                         R17 13
-      140 GETTABLEKS                       R17 R17 K33 ["UI"]
-      142 GETTABLEKS                       R17 R17 K34 ["Dialog"]
-      144 NEWTABLE                         R18 16 0
-      146 LOADB                            R19 1
-      147 SETTABLEKS                       R19 R18 K35 ["Enabled"]
-      149 LOADB                            R19 1
-      150 SETTABLEKS                       R19 R18 K36 ["Modal"]
-      152 SETTABLEKS                       R11 R18 K37 ["Title"]
-      154 LOADB                            R19 1
-      155 SETTABLEKS                       R19 R18 K38 ["Resizable"]
-      157 GETIMPORT                        R19 K42 [Enum.ZIndexBehavior.Sibling]
-      159 SETTABLEKS                       R19 R18 K40 ["ZIndexBehavior"]
-      161 SETTABLEKS                       R8 R18 K43 ["MinSize"]
-      163 GETTABLEKS                       R19 R10 K20 ["onClose"]
-      165 SETTABLEKS                       R19 R18 K44 ["OnClose"]
-      167 GETTABLEKS                       R19 R0 K15 ["plugin"]
-      169 SETTABLEKS                       R19 R18 K24 ["Plugin"]
-      171 SETTABLEKS                       R5 R18 K45 ["PluginDesign"]
-      173 GETUPVAL                         R19 4
-      174 GETTABLEKS                       R19 R19 K46 ["Change"]
-      176 GETTABLEKS                       R19 R19 K35 ["Enabled"]
-      178 GETTABLEKS                       R20 R10 K20 ["onClose"]
-      180 SETTABLE                         R20 R18 R19
-      181 DUPTABLE                         R19 K48 [{"FoundationProvider"}]
-      182 GETUPVAL                         R20 6
-      183 GETUPVAL                         R21 14
-      184 DUPTABLE                         R22 K50 [{"onStyleSheetChange"}]
-      185 SETTABLEKS                       R4 R22 K49 ["onStyleSheetChange"]
-      187 GETUPVAL                         R23 6
-      188 GETUPVAL                         R24 15
-      189 GETTABLEKS                       R24 R24 K51 ["Provider"]
-      191 NEWTABLE                         R25 0 0
-      193 MOVE                             R26 R12
-      194 CALL                             R26 0 -1
-      195 CALL                             R23 -1 -1
-      196 CALL                             R20 -1 1
-      197 SETTABLEKS                       R20 R19 K47 ["FoundationProvider"]
-      199 CALL                             R16 3 1
-      200 SETTABLEKS                       R16 R15 K31 ["MainWindow"]
-      202 CALL                             R13 2 -1
-      203 RETURN                           R13 -1
+       88 LOADK                            R11 K23 ["%* v%*"]
+       89 LOADK                            R15 K24 ["Plugin"]
+       90 LOADK                            R16 K25 ["Name"]
+       91 NAMECALL                         R13 R1 K26 ["getText"]
+       93 CALL                             R13 3 1
+       94 GETUPVAL                         R14 5
+       95 GETTABLEKS                       R14 R14 K27 ["UserVersion"]
+       97 NAMECALL                         R11 R11 K28 ["format"]
+       99 CALL                             R11 3 1
+      100 NEWCLOSURE                       R12 P5
+      101 CAPTURE                          VAL R0
+      102 CAPTURE                          VAL R10
+      103 CAPTURE                          UPVAL U6
+      104 CAPTURE                          UPVAL U7
+      105 CAPTURE                          UPVAL U8
+      106 CAPTURE                          UPVAL U9
+      107 GETUPVAL                         R13 0
+      108 GETTABLEKS                       R13 R13 K29 ["provide"]
+      110 NEWTABLE                         R14 0 5
+      112 GETUPVAL                         R15 10
+      113 GETTABLEKS                       R15 R15 K1 ["new"]
+      115 GETTABLEKS                       R16 R0 K15 ["plugin"]
+      117 CALL                             R15 1 1
+      118 GETUPVAL                         R16 11
+      119 GETTABLEKS                       R16 R16 K1 ["new"]
+      121 GETTABLEKS                       R17 R0 K15 ["plugin"]
+      123 NAMECALL                         R17 R17 K30 ["getMouse"]
+      125 CALL                             R17 1 -1
+      126 CALL                             R16 -1 1
+      127 GETUPVAL                         R17 12
+      128 GETTABLEKS                       R17 R17 K1 ["new"]
+      130 MOVE                             R18 R5
+      131 CALL                             R17 1 1
+      132 MOVE                             R18 R1
+      133 MOVE                             R19 R2
+      134 SETLIST                          R14 R15 5 [1]
+      136 DUPTABLE                         R15 K32 [{"MainWindow"}]
+      137 GETUPVAL                         R16 6
+      138 GETUPVAL                         R17 13
+      139 GETTABLEKS                       R17 R17 K33 ["UI"]
+      141 GETTABLEKS                       R17 R17 K34 ["Dialog"]
+      143 NEWTABLE                         R18 16 0
+      145 LOADB                            R19 1
+      146 SETTABLEKS                       R19 R18 K35 ["Enabled"]
+      148 LOADB                            R19 1
+      149 SETTABLEKS                       R19 R18 K36 ["Modal"]
+      151 SETTABLEKS                       R11 R18 K37 ["Title"]
+      153 LOADB                            R19 1
+      154 SETTABLEKS                       R19 R18 K38 ["Resizable"]
+      156 GETIMPORT                        R19 K42 [Enum.ZIndexBehavior.Sibling]
+      158 SETTABLEKS                       R19 R18 K40 ["ZIndexBehavior"]
+      160 SETTABLEKS                       R8 R18 K43 ["MinSize"]
+      162 GETTABLEKS                       R19 R10 K20 ["onClose"]
+      164 SETTABLEKS                       R19 R18 K44 ["OnClose"]
+      166 GETTABLEKS                       R19 R0 K15 ["plugin"]
+      168 SETTABLEKS                       R19 R18 K24 ["Plugin"]
+      170 SETTABLEKS                       R5 R18 K45 ["PluginDesign"]
+      172 GETUPVAL                         R19 4
+      173 GETTABLEKS                       R19 R19 K46 ["Change"]
+      175 GETTABLEKS                       R19 R19 K35 ["Enabled"]
+      177 GETTABLEKS                       R20 R10 K20 ["onClose"]
+      179 SETTABLE                         R20 R18 R19
+      180 DUPTABLE                         R19 K48 [{"FoundationProvider"}]
+      181 GETUPVAL                         R20 6
+      182 GETUPVAL                         R21 14
+      183 DUPTABLE                         R22 K50 [{"onStyleSheetChange"}]
+      184 SETTABLEKS                       R4 R22 K49 ["onStyleSheetChange"]
+      186 GETUPVAL                         R23 6
+      187 GETUPVAL                         R24 15
+      188 GETTABLEKS                       R24 R24 K51 ["Provider"]
+      190 NEWTABLE                         R25 0 0
+      192 MOVE                             R26 R12
+      193 CALL                             R26 0 -1
+      194 CALL                             R23 -1 -1
+      195 CALL                             R20 -1 1
+      196 SETTABLEKS                       R20 R19 K47 ["FoundationProvider"]
+      198 CALL                             R16 3 1
+      199 SETTABLEKS                       R16 R15 K31 ["MainWindow"]
+      201 CALL                             R13 2 -1
+      202 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0

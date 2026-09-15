@@ -199,6 +199,24 @@ PROTO_12:
       120 RETURN                           R0 0
 
 PROTO_13:
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+18]
+        3 GETIMPORT                        R1 K1 [game]
+        5 LOADK                            R3 K2 ["MemStorageService"]
+        6 NAMECALL                         R1 R1 K3 ["GetService"]
+        8 CALL                             R1 2 1
+        9 LOADK                            R3 K4 ["InputActionManagerLoaded"]
+       10 NAMECALL                         R1 R1 K5 ["SetItem"]
+       12 CALL                             R1 2 0
+       13 GETTABLEKS                       R1 R0 K6 ["props"]
+       15 GETTABLEKS                       R1 R1 K7 ["Plugin"]
+       17 LOADK                            R3 K8 ["Opened"]
+       18 NAMECALL                         R1 R1 K9 ["Invoke"]
+       20 CALL                             R1 2 0
+       21 RETURN                           R0 0
+
+PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Plugin"]
@@ -292,82 +310,89 @@ PROTO_13:
       142 CALL                             R17 2 1
       143 GETUPVAL                         R19 10
       144 CALL                             R19 0 1
-      145 JUMPIFNOT                        R19 ; [+10]
+      145 JUMPIFNOT                        R19 ; [+17]
       146 GETUPVAL                         R18 4
       147 GETTABLEKS                       R18 R18 K11 ["createElement"]
       149 GETUPVAL                         R19 11
       150 GETTABLEKS                       R19 R19 K50 ["Provider"]
-      152 NEWTABLE                         R20 0 0
-      154 CALL                             R18 2 1
-      155 JUMP                             ; [+9]
-      156 GETUPVAL                         R18 4
-      157 GETTABLEKS                       R18 R18 K11 ["createElement"]
-      159 GETUPVAL                         R19 4
-      160 GETTABLEKS                       R19 R19 K54 ["Fragment"]
-      162 NEWTABLE                         R20 0 0
-      164 CALL                             R18 2 1
-      165 GETUPVAL                         R19 4
-      166 GETTABLEKS                       R19 R19 K11 ["createElement"]
-      168 GETUPVAL                         R20 12
-      169 GETTABLEKS                       R20 R20 K50 ["Provider"]
-      171 DUPTABLE                         R21 K52 [{"value"}]
-      172 GETTABLEKS                       R22 R0 K55 ["guestInterface"]
-      174 SETTABLEKS                       R22 R21 K51 ["value"]
-      176 CALL                             R19 2 1
-      177 GETUPVAL                         R20 4
-      178 GETTABLEKS                       R20 R20 K11 ["createElement"]
-      180 GETUPVAL                         R21 13
-      181 GETTABLEKS                       R21 R21 K50 ["Provider"]
-      183 DUPTABLE                         R22 K56 [{"localization"}]
-      184 GETTABLEKS                       R23 R0 K15 ["localization"]
-      186 SETTABLEKS                       R23 R22 K15 ["localization"]
-      188 CALL                             R20 2 1
-      189 GETUPVAL                         R21 4
-      190 GETTABLEKS                       R21 R21 K11 ["createElement"]
-      192 GETUPVAL                         R22 14
-      193 GETTABLEKS                       R22 R22 K57 ["AnalyticsTelemetryServiceProvider"]
-      195 CALL                             R21 1 1
-      196 GETUPVAL                         R22 4
-      197 GETTABLEKS                       R22 R22 K11 ["createElement"]
-      199 GETUPVAL                         R23 15
-      200 GETTABLEKS                       R23 R23 K50 ["Provider"]
-      202 CALL                             R22 1 1
-      203 GETUPVAL                         R24 10
-      204 CALL                             R24 0 1
-      205 JUMPIFNOT                        R24 ; [+10]
-      206 GETUPVAL                         R23 4
-      207 GETTABLEKS                       R23 R23 K11 ["createElement"]
-      209 GETUPVAL                         R24 4
-      210 GETTABLEKS                       R24 R24 K54 ["Fragment"]
-      212 NEWTABLE                         R25 0 0
-      214 CALL                             R23 2 1
-      215 JUMP                             ; [+10]
-      216 GETUPVAL                         R23 4
-      217 GETTABLEKS                       R23 R23 K11 ["createElement"]
-      219 GETUPVAL                         R24 11
-      220 GETTABLEKS                       R24 R24 K50 ["Provider"]
-      222 DUPTABLE                         R25 K59 [{"plugin"}]
-      223 SETTABLEKS                       R3 R25 K58 ["plugin"]
-      225 CALL                             R23 2 1
-      226 SETLIST                          R15 R16 8 [1]
-      228 SETTABLEKS                       R15 R14 K45 ["providers"]
-      230 DUPTABLE                         R15 K61 [{"App"}]
-      231 GETUPVAL                         R16 4
-      232 GETTABLEKS                       R16 R16 K11 ["createElement"]
-      234 GETUPVAL                         R17 16
-      235 DUPTABLE                         R18 K63 [{"plugin", "pluginEnabled"}]
-      236 SETTABLEKS                       R3 R18 K58 ["plugin"]
-      238 SETTABLEKS                       R4 R18 K62 ["pluginEnabled"]
-      240 CALL                             R16 2 1
-      241 SETTABLEKS                       R16 R15 K60 ["App"]
-      243 CALL                             R12 3 1
-      244 SETTABLEKS                       R12 R11 K43 ["ContextStack"]
-      246 CALL                             R8 3 1
-      247 SETTABLEKS                       R8 R7 K9 ["MainWidget"]
-      249 CALL                             R5 2 -1
-      250 RETURN                           R5 -1
+      152 DUPTABLE                         R20 K55 [{"plugin"}]
+      153 GETUPVAL                         R22 10
+      154 CALL                             R22 0 1
+      155 JUMPIFNOT                        R22 ; [+2]
+      156 MOVE                             R21 R3
+      157 JUMP                             ; [+1]
+      158 LOADNIL                          R21
+      159 SETTABLEKS                       R21 R20 K54 ["plugin"]
+      161 CALL                             R18 2 1
+      162 JUMP                             ; [+9]
+      163 GETUPVAL                         R18 4
+      164 GETTABLEKS                       R18 R18 K11 ["createElement"]
+      166 GETUPVAL                         R19 4
+      167 GETTABLEKS                       R19 R19 K56 ["Fragment"]
+      169 NEWTABLE                         R20 0 0
+      171 CALL                             R18 2 1
+      172 GETUPVAL                         R19 4
+      173 GETTABLEKS                       R19 R19 K11 ["createElement"]
+      175 GETUPVAL                         R20 12
+      176 GETTABLEKS                       R20 R20 K50 ["Provider"]
+      178 DUPTABLE                         R21 K52 [{"value"}]
+      179 GETTABLEKS                       R22 R0 K57 ["guestInterface"]
+      181 SETTABLEKS                       R22 R21 K51 ["value"]
+      183 CALL                             R19 2 1
+      184 GETUPVAL                         R20 4
+      185 GETTABLEKS                       R20 R20 K11 ["createElement"]
+      187 GETUPVAL                         R21 13
+      188 GETTABLEKS                       R21 R21 K50 ["Provider"]
+      190 DUPTABLE                         R22 K58 [{"localization"}]
+      191 GETTABLEKS                       R23 R0 K15 ["localization"]
+      193 SETTABLEKS                       R23 R22 K15 ["localization"]
+      195 CALL                             R20 2 1
+      196 GETUPVAL                         R21 4
+      197 GETTABLEKS                       R21 R21 K11 ["createElement"]
+      199 GETUPVAL                         R22 14
+      200 GETTABLEKS                       R22 R22 K59 ["AnalyticsTelemetryServiceProvider"]
+      202 CALL                             R21 1 1
+      203 GETUPVAL                         R22 4
+      204 GETTABLEKS                       R22 R22 K11 ["createElement"]
+      206 GETUPVAL                         R23 15
+      207 GETTABLEKS                       R23 R23 K50 ["Provider"]
+      209 CALL                             R22 1 1
+      210 GETUPVAL                         R24 10
+      211 CALL                             R24 0 1
+      212 JUMPIFNOT                        R24 ; [+10]
+      213 GETUPVAL                         R23 4
+      214 GETTABLEKS                       R23 R23 K11 ["createElement"]
+      216 GETUPVAL                         R24 4
+      217 GETTABLEKS                       R24 R24 K56 ["Fragment"]
+      219 NEWTABLE                         R25 0 0
+      221 CALL                             R23 2 1
+      222 JUMP                             ; [+10]
+      223 GETUPVAL                         R23 4
+      224 GETTABLEKS                       R23 R23 K11 ["createElement"]
+      226 GETUPVAL                         R24 11
+      227 GETTABLEKS                       R24 R24 K50 ["Provider"]
+      229 DUPTABLE                         R25 K55 [{"plugin"}]
+      230 SETTABLEKS                       R3 R25 K54 ["plugin"]
+      232 CALL                             R23 2 1
+      233 SETLIST                          R15 R16 8 [1]
+      235 SETTABLEKS                       R15 R14 K45 ["providers"]
+      237 DUPTABLE                         R15 K61 [{"App"}]
+      238 GETUPVAL                         R16 4
+      239 GETTABLEKS                       R16 R16 K11 ["createElement"]
+      241 GETUPVAL                         R17 16
+      242 DUPTABLE                         R18 K63 [{"plugin", "pluginEnabled"}]
+      243 SETTABLEKS                       R3 R18 K54 ["plugin"]
+      245 SETTABLEKS                       R4 R18 K62 ["pluginEnabled"]
+      247 CALL                             R16 2 1
+      248 SETTABLEKS                       R16 R15 K60 ["App"]
+      250 CALL                             R12 3 1
+      251 SETTABLEKS                       R12 R11 K43 ["ContextStack"]
+      253 CALL                             R8 3 1
+      254 SETTABLEKS                       R8 R7 K9 ["MainWidget"]
+      256 CALL                             R5 2 -1
+      257 RETURN                           R5 -1
 
-PROTO_14:
+PROTO_15:
         0 GETTABLEKS                       R1 R0 K0 ["actionActivatedConnection"]
         2 JUMPIFNOT                        R1 ; [+5]
         3 GETTABLEKS                       R1 R0 K0 ["actionActivatedConnection"]
@@ -499,25 +524,28 @@ MAIN:
       187 CAPTURE                          VAL R17
       188 SETTABLEKS                       R30 R28 K52 ["init"]
       190 DUPCLOSURE                       R30 K53 [PROTO_13]
-      191 CAPTURE                          VAL R9
-      192 CAPTURE                          VAL R10
-      193 CAPTURE                          VAL R11
-      194 CAPTURE                          VAL R12
-      195 CAPTURE                          VAL R1
-      196 CAPTURE                          VAL R8
-      197 CAPTURE                          VAL R6
-      198 CAPTURE                          VAL R5
-      199 CAPTURE                          VAL R24
-      200 CAPTURE                          VAL R21
-      201 CAPTURE                          VAL R27
-      202 CAPTURE                          VAL R23
-      203 CAPTURE                          VAL R25
-      204 CAPTURE                          VAL R7
-      205 CAPTURE                          VAL R13
-      206 CAPTURE                          VAL R14
-      207 CAPTURE                          VAL R20
-      208 SETTABLEKS                       R30 R28 K54 ["render"]
-      210 DUPCLOSURE                       R30 K55 [PROTO_14]
-      211 CAPTURE                          VAL R21
-      212 SETTABLEKS                       R30 R28 K56 ["willUnmount"]
-      214 RETURN                           R28 1
+      191 CAPTURE                          VAL R27
+      192 SETTABLEKS                       R30 R28 K54 ["didMount"]
+      194 DUPCLOSURE                       R30 K55 [PROTO_14]
+      195 CAPTURE                          VAL R9
+      196 CAPTURE                          VAL R10
+      197 CAPTURE                          VAL R11
+      198 CAPTURE                          VAL R12
+      199 CAPTURE                          VAL R1
+      200 CAPTURE                          VAL R8
+      201 CAPTURE                          VAL R6
+      202 CAPTURE                          VAL R5
+      203 CAPTURE                          VAL R24
+      204 CAPTURE                          VAL R21
+      205 CAPTURE                          VAL R27
+      206 CAPTURE                          VAL R23
+      207 CAPTURE                          VAL R25
+      208 CAPTURE                          VAL R7
+      209 CAPTURE                          VAL R13
+      210 CAPTURE                          VAL R14
+      211 CAPTURE                          VAL R20
+      212 SETTABLEKS                       R30 R28 K56 ["render"]
+      214 DUPCLOSURE                       R30 K57 [PROTO_15]
+      215 CAPTURE                          VAL R21
+      216 SETTABLEKS                       R30 R28 K58 ["willUnmount"]
+      218 RETURN                           R28 1

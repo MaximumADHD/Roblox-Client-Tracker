@@ -500,34 +500,32 @@ PROTO_7:
        14 GETIMPORT                        R4 K7 [string.lower]
        16 MOVE                             R5 R2
        17 CALL                             R4 1 1
-       18 LOADK                            R6 K8 ["%*$"]
-       19 GETUPVAL                         R8 0
-       20 GETTABLEKS                       R8 R8 K9 ["BODY_MESH_SUFFIX"]
-       22 NAMECALL                         R6 R6 K10 ["format"]
-       24 CALL                             R6 2 1
-       25 MOVE                             R5 R6
-       26 CALL                             R3 2 1
-       27 JUMPIFNOT                        R3 ; [+14]
-       28 LOADN                            R5 1
-       29 LENGTH                           R7 R2
-       30 GETUPVAL                         R9 0
-       31 GETTABLEKS                       R9 R9 K9 ["BODY_MESH_SUFFIX"]
-       33 LENGTH                           R8 R9
-       34 SUB                              R6 R7 R8
-       35 FASTCALL3                        STRING_SUB R2 R5 R6
-       37 MOVE                             R4 R2
-       38 GETIMPORT                        R3 K12 [string.sub]
-       40 CALL                             R3 3 1
-       41 MOVE                             R2 R3
-       42 LOADK                            R4 K13 ["%*%*"]
-       43 MOVE                             R6 R2
-       44 GETUPVAL                         R7 0
-       45 GETTABLEKS                       R7 R7 K14 ["OUTPUT_MODEL_SUFFIX"]
-       47 NAMECALL                         R4 R4 K10 ["format"]
-       49 CALL                             R4 3 1
-       50 MOVE                             R3 R4
-       51 SETTABLEKS                       R3 R0 K2 ["Name"]
-       53 RETURN                           R0 0
+       18 LOADK                            R5 K8 ["%*$"]
+       19 GETUPVAL                         R7 0
+       20 GETTABLEKS                       R7 R7 K9 ["BODY_MESH_SUFFIX"]
+       22 NAMECALL                         R5 R5 K10 ["format"]
+       24 CALL                             R5 2 1
+       25 CALL                             R3 2 1
+       26 JUMPIFNOT                        R3 ; [+14]
+       27 LOADN                            R5 1
+       28 LENGTH                           R7 R2
+       29 GETUPVAL                         R9 0
+       30 GETTABLEKS                       R9 R9 K9 ["BODY_MESH_SUFFIX"]
+       32 LENGTH                           R8 R9
+       33 SUB                              R6 R7 R8
+       34 FASTCALL3                        STRING_SUB R2 R5 R6
+       36 MOVE                             R4 R2
+       37 GETIMPORT                        R3 K12 [string.sub]
+       39 CALL                             R3 3 1
+       40 MOVE                             R2 R3
+       41 LOADK                            R3 K13 ["%*%*"]
+       42 MOVE                             R5 R2
+       43 GETUPVAL                         R6 0
+       44 GETTABLEKS                       R6 R6 K14 ["OUTPUT_MODEL_SUFFIX"]
+       46 NAMECALL                         R3 R3 K10 ["format"]
+       48 CALL                             R3 3 1
+       49 SETTABLEKS                       R3 R0 K2 ["Name"]
+       51 RETURN                           R0 0
 
 PROTO_8:
         0 NAMECALL                         R1 R0 K0 ["GetBoundingBox"]
@@ -1136,36 +1134,35 @@ PROTO_22:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["types"]
         3 GETTABLE                         R2 R3 R1
-        4 JUMPIF                           R2 ; [+10]
+        4 JUMPIF                           R2 ; [+9]
         5 GETIMPORT                        R3 K2 [warn]
-        7 LOADK                            R5 K3 ["Unknown scalingType %*"]
-        8 MOVE                             R7 R1
-        9 NAMECALL                         R5 R5 K4 ["format"]
-       11 CALL                             R5 2 1
-       12 MOVE                             R4 R5
-       13 CALL                             R3 1 0
-       14 RETURN                           R0 0
-       15 LOADK                            R5 K5 ["Humanoid"]
-       16 NAMECALL                         R3 R0 K6 ["FindFirstChild"]
-       18 CALL                             R3 2 1
-       19 JUMPIFNOTEQKNIL                  R3 ; [+2]
-       21 RETURN                           R0 0
-       22 GETUPVAL                         R3 0
-       23 GETTABLEKS                       R3 R3 K7 ["setAvatarPartScaleTypeValueObjects"]
-       25 MOVE                             R4 R0
-       26 MOVE                             R5 R1
-       27 CALL                             R3 2 0
-       28 GETUPVAL                         R3 1
-       29 GETTABLEKS                       R3 R3 K8 ["setBodyProportionScale"]
-       31 GETTABLEKS                       R4 R0 K5 ["Humanoid"]
-       33 GETTABLEKS                       R5 R2 K9 ["BodyProportionScale"]
-       35 CALL                             R3 2 0
-       36 GETUPVAL                         R3 1
-       37 GETTABLEKS                       R3 R3 K10 ["setBodyTypeScale"]
-       39 GETTABLEKS                       R4 R0 K5 ["Humanoid"]
-       41 GETTABLEKS                       R5 R2 K11 ["BodyTypeScale"]
-       43 CALL                             R3 2 0
-       44 RETURN                           R0 0
+        7 LOADK                            R4 K3 ["Unknown scalingType %*"]
+        8 MOVE                             R6 R1
+        9 NAMECALL                         R4 R4 K4 ["format"]
+       11 CALL                             R4 2 1
+       12 CALL                             R3 1 0
+       13 RETURN                           R0 0
+       14 LOADK                            R5 K5 ["Humanoid"]
+       15 NAMECALL                         R3 R0 K6 ["FindFirstChild"]
+       17 CALL                             R3 2 1
+       18 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       20 RETURN                           R0 0
+       21 GETUPVAL                         R3 0
+       22 GETTABLEKS                       R3 R3 K7 ["setAvatarPartScaleTypeValueObjects"]
+       24 MOVE                             R4 R0
+       25 MOVE                             R5 R1
+       26 CALL                             R3 2 0
+       27 GETUPVAL                         R3 1
+       28 GETTABLEKS                       R3 R3 K8 ["setBodyProportionScale"]
+       30 GETTABLEKS                       R4 R0 K5 ["Humanoid"]
+       32 GETTABLEKS                       R5 R2 K9 ["BodyProportionScale"]
+       34 CALL                             R3 2 0
+       35 GETUPVAL                         R3 1
+       36 GETTABLEKS                       R3 R3 K10 ["setBodyTypeScale"]
+       38 GETTABLEKS                       R4 R0 K5 ["Humanoid"]
+       40 GETTABLEKS                       R5 R2 K11 ["BodyTypeScale"]
+       42 CALL                             R3 2 0
+       43 RETURN                           R0 0
 
 PROTO_23:
         0 GETUPVAL                         R4 0
@@ -2508,14 +2505,13 @@ PROTO_44:
 PROTO_45:
         0 GETIMPORT                        R1 K2 [string.find]
         2 GETTABLEKS                       R2 R0 K3 ["Name"]
-        4 LOADK                            R4 K4 ["^%*_%%a+_Att$"]
-        5 GETUPVAL                         R6 0
-        6 GETTABLEKS                       R6 R6 K3 ["Name"]
-        8 NAMECALL                         R4 R4 K5 ["format"]
-       10 CALL                             R4 2 1
-       11 MOVE                             R3 R4
-       12 CALL                             R1 2 -1
-       13 RETURN                           R1 -1
+        4 LOADK                            R3 K4 ["^%*_%%a+_Att$"]
+        5 GETUPVAL                         R5 0
+        6 GETTABLEKS                       R5 R5 K3 ["Name"]
+        8 NAMECALL                         R3 R3 K5 ["format"]
+       10 CALL                             R3 2 1
+       11 CALL                             R1 2 -1
+       12 RETURN                           R1 -1
 
 PROTO_46:
         0 LENGTH                           R2 R0

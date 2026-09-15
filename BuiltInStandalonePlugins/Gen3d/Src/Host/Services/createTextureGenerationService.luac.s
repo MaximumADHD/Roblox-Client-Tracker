@@ -306,14 +306,13 @@ PROTO_7:
 
 PROTO_8:
         0 GETIMPORT                        R1 K1 [game]
-        2 LOADK                            R4 K2 ["rbxassetid://%*"]
-        3 MOVE                             R6 R0
-        4 NAMECALL                         R4 R4 K3 ["format"]
-        6 CALL                             R4 2 1
-        7 MOVE                             R3 R4
-        8 NAMECALL                         R1 R1 K4 ["GetObjectsAsync"]
-       10 CALL                             R1 2 -1
-       11 RETURN                           R1 -1
+        2 LOADK                            R3 K2 ["rbxassetid://%*"]
+        3 MOVE                             R5 R0
+        4 NAMECALL                         R3 R3 K3 ["format"]
+        6 CALL                             R3 2 1
+        7 NAMECALL                         R1 R1 K4 ["GetObjectsAsync"]
+        9 CALL                             R1 2 -1
+       10 RETURN                           R1 -1
 
 PROTO_9:
         0 MOVE                             R1 R0

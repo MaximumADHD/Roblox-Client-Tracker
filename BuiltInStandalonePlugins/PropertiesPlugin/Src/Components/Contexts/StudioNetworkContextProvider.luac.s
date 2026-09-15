@@ -27,54 +27,52 @@ PROTO_1:
        14 CALL                             R1 2 0
        15 GETUPVAL                         R2 0
        16 GETTABLE                         R1 R2 R0
-       17 JUMPIFEQKNIL                     R1 ; [+10]
+       17 JUMPIFEQKNIL                     R1 ; [+9]
        19 GETIMPORT                        R1 K7 [error]
-       21 LOADK                            R3 K8 ["Double connection with %*"]
-       22 MOVE                             R5 R0
-       23 NAMECALL                         R3 R3 K9 ["format"]
-       25 CALL                             R3 2 1
-       26 MOVE                             R2 R3
-       27 CALL                             R1 1 0
-       28 GETUPVAL                         R1 1
-       29 LOADK                            R2 K10 ["%s connected"]
-       30 MOVE                             R3 R0
-       31 CALL                             R1 2 0
-       32 DUPTABLE                         R1 K15 [{"identifier", "disconnectSignal", "messageReceivedSignal", "sendMessage"}]
-       33 SETTABLEKS                       R0 R1 K11 ["identifier"]
-       35 GETUPVAL                         R2 2
-       36 GETTABLEKS                       R2 R2 K16 ["Signal"]
-       38 GETTABLEKS                       R2 R2 K17 ["new"]
-       40 CALL                             R2 0 1
-       41 SETTABLEKS                       R2 R1 K12 ["disconnectSignal"]
-       43 GETUPVAL                         R2 2
-       44 GETTABLEKS                       R2 R2 K16 ["Signal"]
-       46 GETTABLEKS                       R2 R2 K17 ["new"]
-       48 CALL                             R2 0 1
-       49 SETTABLEKS                       R2 R1 K13 ["messageReceivedSignal"]
-       51 NEWCLOSURE                       R2 P0
-       52 CAPTURE                          UPVAL U3
-       53 CAPTURE                          UPVAL U4
-       54 CAPTURE                          VAL R0
-       55 SETTABLEKS                       R2 R1 K14 ["sendMessage"]
-       57 GETUPVAL                         R2 0
-       58 SETTABLE                         R1 R2 R0
-       59 GETUPVAL                         R2 5
-       60 MOVE                             R3 R1
-       61 CALL                             R2 1 0
-       62 RETURN                           R0 0
+       21 LOADK                            R2 K8 ["Double connection with %*"]
+       22 MOVE                             R4 R0
+       23 NAMECALL                         R2 R2 K9 ["format"]
+       25 CALL                             R2 2 1
+       26 CALL                             R1 1 0
+       27 GETUPVAL                         R1 1
+       28 LOADK                            R2 K10 ["%s connected"]
+       29 MOVE                             R3 R0
+       30 CALL                             R1 2 0
+       31 DUPTABLE                         R1 K15 [{"identifier", "disconnectSignal", "messageReceivedSignal", "sendMessage"}]
+       32 SETTABLEKS                       R0 R1 K11 ["identifier"]
+       34 GETUPVAL                         R2 2
+       35 GETTABLEKS                       R2 R2 K16 ["Signal"]
+       37 GETTABLEKS                       R2 R2 K17 ["new"]
+       39 CALL                             R2 0 1
+       40 SETTABLEKS                       R2 R1 K12 ["disconnectSignal"]
+       42 GETUPVAL                         R2 2
+       43 GETTABLEKS                       R2 R2 K16 ["Signal"]
+       45 GETTABLEKS                       R2 R2 K17 ["new"]
+       47 CALL                             R2 0 1
+       48 SETTABLEKS                       R2 R1 K13 ["messageReceivedSignal"]
+       50 NEWCLOSURE                       R2 P0
+       51 CAPTURE                          UPVAL U3
+       52 CAPTURE                          UPVAL U4
+       53 CAPTURE                          VAL R0
+       54 SETTABLEKS                       R2 R1 K14 ["sendMessage"]
+       56 GETUPVAL                         R2 0
+       57 SETTABLE                         R1 R2 R0
+       58 GETUPVAL                         R2 5
+       59 MOVE                             R3 R1
+       60 CALL                             R2 1 0
+       61 RETURN                           R0 0
 
 PROTO_2:
-        0 LOADK                            R1 K0 ["%* sent message \"%*\""]
-        1 GETUPVAL                         R3 0
-        2 GETUPVAL                         R4 1
-        3 NAMECALL                         R1 R1 K1 ["format"]
-        5 CALL                             R1 3 1
-        6 MOVE                             R0 R1
-        7 GETUPVAL                         R2 2
-        8 FASTCALL1                        TABLE_UNPACK R2 ; [+2]
-        9 GETIMPORT                        R1 K4 [table.unpack]
-       11 CALL                             R1 1 -1
-       12 RETURN                           R0 -1
+        0 LOADK                            R0 K0 ["%* sent message \"%*\""]
+        1 GETUPVAL                         R2 0
+        2 GETUPVAL                         R3 1
+        3 NAMECALL                         R0 R0 K1 ["format"]
+        5 CALL                             R0 3 1
+        6 GETUPVAL                         R2 2
+        7 FASTCALL1                        TABLE_UNPACK R2 ; [+2]
+        8 GETIMPORT                        R1 K4 [table.unpack]
+       10 CALL                             R1 1 -1
+       11 RETURN                           R0 -1
 
 PROTO_3:
         0 PREPVARARGS                      2
@@ -91,37 +89,36 @@ PROTO_3:
        15 CALL                             R2 2 0
        16 GETUPVAL                         R3 0
        17 GETTABLE                         R2 R3 R0
-       18 JUMPIFNOTEQKNIL                  R2 ; [+11]
+       18 JUMPIFNOTEQKNIL                  R2 ; [+10]
        20 GETIMPORT                        R3 K7 [error]
-       22 LOADK                            R5 K8 ["Message sent by %* without a connection: %*"]
-       23 MOVE                             R7 R0
-       24 MOVE                             R8 R1
-       25 NAMECALL                         R5 R5 K9 ["format"]
-       27 CALL                             R5 3 1
-       28 MOVE                             R4 R5
-       29 CALL                             R3 1 0
-       30 JUMPIFNOTEQKNIL                  R2 ; [+2]
-       32 LOADB                            R4 0 +1
-       33 LOADB                            R4 1
-       34 FASTCALL2K                       ASSERT R4 K10 ; [+4]
-       36 LOADK                            R5 K10 ["Luau"]
-       37 GETIMPORT                        R3 K5 [assert]
-       39 CALL                             R3 2 0
-       40 GETIMPORT                        R3 K13 [table.pack]
-       42 GETVARARGS                       R4 -1
-       43 CALL                             R3 -1 1
-       44 GETUPVAL                         R4 1
-       45 NEWCLOSURE                       R5 P0
-       46 CAPTURE                          VAL R0
-       47 CAPTURE                          VAL R1
-       48 CAPTURE                          VAL R3
-       49 CALL                             R4 1 0
-       50 GETTABLEKS                       R4 R2 K14 ["messageReceivedSignal"]
-       52 MOVE                             R6 R1
-       53 GETVARARGS                       R7 -1
-       54 NAMECALL                         R4 R4 K15 ["Fire"]
-       56 CALL                             R4 -1 0
-       57 RETURN                           R0 0
+       22 LOADK                            R4 K8 ["Message sent by %* without a connection: %*"]
+       23 MOVE                             R6 R0
+       24 MOVE                             R7 R1
+       25 NAMECALL                         R4 R4 K9 ["format"]
+       27 CALL                             R4 3 1
+       28 CALL                             R3 1 0
+       29 JUMPIFNOTEQKNIL                  R2 ; [+2]
+       31 LOADB                            R4 0 +1
+       32 LOADB                            R4 1
+       33 FASTCALL2K                       ASSERT R4 K10 ; [+4]
+       35 LOADK                            R5 K10 ["Luau"]
+       36 GETIMPORT                        R3 K5 [assert]
+       38 CALL                             R3 2 0
+       39 GETIMPORT                        R3 K13 [table.pack]
+       41 GETVARARGS                       R4 -1
+       42 CALL                             R3 -1 1
+       43 GETUPVAL                         R4 1
+       44 NEWCLOSURE                       R5 P0
+       45 CAPTURE                          VAL R0
+       46 CAPTURE                          VAL R1
+       47 CAPTURE                          VAL R3
+       48 CALL                             R4 1 0
+       49 GETTABLEKS                       R4 R2 K14 ["messageReceivedSignal"]
+       51 MOVE                             R6 R1
+       52 GETVARARGS                       R7 -1
+       53 NAMECALL                         R4 R4 K15 ["Fire"]
+       55 CALL                             R4 -1 0
+       56 RETURN                           R0 0
 
 PROTO_4:
         0 FASTCALL1                        TYPEOF R0 ; [+3]

@@ -3,47 +3,44 @@ PROTO_0:
         1 MOVE                             R2 R0
         2 GETIMPORT                        R1 K1 [typeof]
         4 CALL                             R1 1 1
-        5 JUMPIFEQKS                       R1 K2 ["table"] ; [+12]
-        7 LOADK                            R2 K3 ["Expected table, got %*"]
+        5 JUMPIFEQKS                       R1 K2 ["table"] ; [+11]
+        7 LOADK                            R1 K3 ["Expected table, got %*"]
         8 FASTCALL1                        TYPEOF R0 ; [+3]
-        9 MOVE                             R5 R0
-       10 GETIMPORT                        R4 K1 [typeof]
-       12 CALL                             R4 1 1
-       13 NAMECALL                         R2 R2 K4 ["format"]
-       15 CALL                             R2 2 1
-       16 MOVE                             R1 R2
-       17 RETURN                           R1 1
-       18 GETTABLEKS                       R1 R0 K5 ["gameTemplateType"]
-       20 JUMPIFNOT                        R1 ; [+20]
-       21 GETTABLEKS                       R2 R0 K5 ["gameTemplateType"]
-       23 FASTCALL1                        TYPEOF R2 ; [+2]
-       24 GETIMPORT                        R1 K1 [typeof]
-       26 CALL                             R1 1 1
-       27 JUMPIFEQKS                       R1 K6 ["string"] ; [+13]
-       29 LOADK                            R2 K7 ["\"gameTemplateType\" > Expected string, got %*"]
-       30 GETTABLEKS                       R5 R0 K5 ["gameTemplateType"]
-       32 FASTCALL1                        TYPEOF R5 ; [+2]
-       33 GETIMPORT                        R4 K1 [typeof]
-       35 CALL                             R4 1 1
-       36 NAMECALL                         R2 R2 K4 ["format"]
-       38 CALL                             R2 2 1
-       39 MOVE                             R1 R2
-       40 RETURN                           R1 1
-       41 GETTABLEKS                       R1 R0 K8 ["universe"]
-       43 JUMPIFNOT                        R1 ; [+14]
-       44 GETUPVAL                         R1 0
-       45 GETTABLEKS                       R1 R1 K9 ["validate"]
-       47 GETTABLEKS                       R2 R0 K8 ["universe"]
-       49 CALL                             R1 1 1
-       50 JUMPIFNOT                        R1 ; [+7]
-       51 LOADK                            R3 K10 ["\"universe\" > %*"]
-       52 MOVE                             R5 R1
-       53 NAMECALL                         R3 R3 K4 ["format"]
-       55 CALL                             R3 2 1
-       56 MOVE                             R2 R3
-       57 RETURN                           R2 1
-       58 LOADNIL                          R1
-       59 RETURN                           R1 1
+        9 MOVE                             R4 R0
+       10 GETIMPORT                        R3 K1 [typeof]
+       12 CALL                             R3 1 1
+       13 NAMECALL                         R1 R1 K4 ["format"]
+       15 CALL                             R1 2 1
+       16 RETURN                           R1 1
+       17 GETTABLEKS                       R1 R0 K5 ["gameTemplateType"]
+       19 JUMPIFNOT                        R1 ; [+19]
+       20 GETTABLEKS                       R2 R0 K5 ["gameTemplateType"]
+       22 FASTCALL1                        TYPEOF R2 ; [+2]
+       23 GETIMPORT                        R1 K1 [typeof]
+       25 CALL                             R1 1 1
+       26 JUMPIFEQKS                       R1 K6 ["string"] ; [+12]
+       28 LOADK                            R1 K7 ["\"gameTemplateType\" > Expected string, got %*"]
+       29 GETTABLEKS                       R4 R0 K5 ["gameTemplateType"]
+       31 FASTCALL1                        TYPEOF R4 ; [+2]
+       32 GETIMPORT                        R3 K1 [typeof]
+       34 CALL                             R3 1 1
+       35 NAMECALL                         R1 R1 K4 ["format"]
+       37 CALL                             R1 2 1
+       38 RETURN                           R1 1
+       39 GETTABLEKS                       R1 R0 K8 ["universe"]
+       41 JUMPIFNOT                        R1 ; [+13]
+       42 GETUPVAL                         R1 0
+       43 GETTABLEKS                       R1 R1 K9 ["validate"]
+       45 GETTABLEKS                       R2 R0 K8 ["universe"]
+       47 CALL                             R1 1 1
+       48 JUMPIFNOT                        R1 ; [+6]
+       49 LOADK                            R2 K10 ["\"universe\" > %*"]
+       50 MOVE                             R4 R1
+       51 NAMECALL                         R2 R2 K4 ["format"]
+       53 CALL                             R2 2 1
+       54 RETURN                           R2 1
+       55 LOADNIL                          R1
+       56 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -150,9 +150,8 @@ PROTO_8:
         3 LOADNIL                          R0
         4 RETURN                           R0 1
         5 GETUPVAL                         R0 1
-        6 GETIMPORT                        R1 K1 [game]
-        8 CALL                             R0 1 -1
-        9 RETURN                           R0 -1
+        6 CALL                             R0 0 -1
+        7 RETURN                           R0 -1
 
 PROTO_9:
         0 GETUPVAL                         R1 0

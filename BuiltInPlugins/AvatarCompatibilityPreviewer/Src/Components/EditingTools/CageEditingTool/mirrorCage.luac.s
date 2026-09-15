@@ -9,32 +9,31 @@ PROTO_0:
         8 GETUPVAL                         R2 2
         9 MOVE                             R3 R0
        10 CALL                             R1 2 1
-       11 JUMPIFNOTEQKNIL                  R1 ; [+10]
+       11 JUMPIFNOTEQKNIL                  R1 ; [+9]
        13 GETIMPORT                        R2 K1 [error]
-       15 LOADK                            R4 K2 ["Could not find %*"]
-       16 MOVE                             R6 R0
-       17 NAMECALL                         R4 R4 K3 ["format"]
-       19 CALL                             R4 2 1
-       20 MOVE                             R3 R4
-       21 CALL                             R2 1 0
-       22 JUMPIFNOTEQKNIL                  R1 ; [+2]
-       24 LOADB                            R3 0 +1
-       25 LOADB                            R3 1
-       26 FASTCALL2K                       ASSERT R3 K4 ; [+4]
-       28 LOADK                            R4 K4 ["Luau"]
-       29 GETIMPORT                        R2 K6 [assert]
-       31 CALL                             R2 2 0
-       32 GETUPVAL                         R2 3
-       33 GETTABLEKS                       R2 R2 K7 ["getVerticesFromWrap"]
-       35 GETIMPORT                        R3 K11 [Enum.CageType.Outer]
-       37 MOVE                             R4 R1
-       38 CALL                             R2 2 1
-       39 GETUPVAL                         R3 0
-       40 SETTABLE                         R2 R3 R0
-       41 GETIMPORT                        R3 K14 [table.freeze]
-       43 MOVE                             R4 R2
-       44 CALL                             R3 1 -1
-       45 RETURN                           R3 -1
+       15 LOADK                            R3 K2 ["Could not find %*"]
+       16 MOVE                             R5 R0
+       17 NAMECALL                         R3 R3 K3 ["format"]
+       19 CALL                             R3 2 1
+       20 CALL                             R2 1 0
+       21 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       23 LOADB                            R3 0 +1
+       24 LOADB                            R3 1
+       25 FASTCALL2K                       ASSERT R3 K4 ; [+4]
+       27 LOADK                            R4 K4 ["Luau"]
+       28 GETIMPORT                        R2 K6 [assert]
+       30 CALL                             R2 2 0
+       31 GETUPVAL                         R2 3
+       32 GETTABLEKS                       R2 R2 K7 ["getVerticesFromWrap"]
+       34 GETIMPORT                        R3 K11 [Enum.CageType.Outer]
+       36 MOVE                             R4 R1
+       37 CALL                             R2 2 1
+       38 GETUPVAL                         R3 0
+       39 SETTABLE                         R2 R3 R0
+       40 GETIMPORT                        R3 K14 [table.freeze]
+       42 MOVE                             R4 R2
+       43 CALL                             R3 1 -1
+       44 RETURN                           R3 -1
 
 PROTO_1:
         0 GETUPVAL                         R2 0

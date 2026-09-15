@@ -238,59 +238,58 @@ PROTO_5:
       150 DUPTABLE                         R20 K17 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y", ["testId"]}]
       151 GETTABLEKS                       R21 R0 K13 ["LayoutOrder"]
       153 SETTABLEKS                       R21 R20 K13 ["LayoutOrder"]
-      155 LOADK                            R22 K18 ["context-%*"]
-      156 GETTABLEKS                       R24 R5 K19 ["name"]
-      158 NAMECALL                         R22 R22 K20 ["format"]
-      160 CALL                             R22 2 1
-      161 MOVE                             R21 R22
-      162 SETTABLEKS                       R21 R20 K16 ["testId"]
-      164 DUPTABLE                         R21 K24 [{"Row", "Creating", "Actions"}]
-      165 GETUPVAL                         R22 0
-      166 GETTABLEKS                       R22 R22 K12 ["createElement"]
-      168 GETUPVAL                         R23 14
-      169 DUPTABLE                         R24 K26 [{"LayoutOrder", "nodeProps"}]
-      170 SETTABLEKS                       R4 R24 K13 ["LayoutOrder"]
-      172 DUPTABLE                         R25 K38 [{["context"], ["createMenu"], ["depth"] = 0, ["editMenu"], ["expanded"], ["icon"] = "InputContext", ["name"], ["onCreateMenuItemSelected"], ["onEditMenuItemSelected"], ["setExpanded"]}]
-      173 SETTABLEKS                       R5 R25 K27 ["context"]
-      175 SETTABLEKS                       R9 R25 K28 ["createMenu"]
-      177 SETTABLEKS                       R16 R25 K31 ["editMenu"]
-      179 SETTABLEKS                       R7 R25 K32 ["expanded"]
-      181 GETTABLEKS                       R26 R5 K19 ["name"]
-      183 SETTABLEKS                       R26 R25 K19 ["name"]
-      185 SETTABLEKS                       R11 R25 K35 ["onCreateMenuItemSelected"]
-      187 SETTABLEKS                       R17 R25 K36 ["onEditMenuItemSelected"]
-      189 SETTABLEKS                       R8 R25 K37 ["setExpanded"]
-      191 SETTABLEKS                       R25 R24 K25 ["nodeProps"]
-      193 CALL                             R22 2 1
-      194 SETTABLEKS                       R22 R21 K21 ["Row"]
-      196 MOVE                             R22 R10
-      197 JUMPIFNOT                        R22 ; [+15]
-      198 GETUPVAL                         R22 0
-      199 GETTABLEKS                       R22 R22 K12 ["createElement"]
-      201 GETUPVAL                         R23 14
-      202 DUPTABLE                         R24 K26 [{"LayoutOrder", "nodeProps"}]
-      203 MOVE                             R25 R3
-      204 CALL                             R25 0 1
-      205 SETTABLEKS                       R25 R24 K13 ["LayoutOrder"]
-      207 DUPTABLE                         R25 K42 [{["depth"] = 1, ["icon"] = "InputAction", ["name"] = "InputAction", ["onCreated"]}]
-      208 SETTABLEKS                       R12 R25 K41 ["onCreated"]
-      210 SETTABLEKS                       R25 R24 K25 ["nodeProps"]
-      212 CALL                             R22 2 1
-      213 SETTABLEKS                       R22 R21 K22 ["Creating"]
-      215 MOVE                             R22 R7
-      216 JUMPIFNOT                        R22 ; [+11]
-      217 GETUPVAL                         R22 0
-      218 GETTABLEKS                       R22 R22 K12 ["createElement"]
-      220 GETUPVAL                         R23 13
-      221 DUPTABLE                         R24 K43 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y"}]
-      222 MOVE                             R25 R3
-      223 CALL                             R25 0 1
-      224 SETTABLEKS                       R25 R24 K13 ["LayoutOrder"]
-      226 MOVE                             R25 R14
-      227 CALL                             R22 3 1
-      228 SETTABLEKS                       R22 R21 K23 ["Actions"]
-      230 CALL                             R18 3 -1
-      231 RETURN                           R18 -1
+      155 LOADK                            R21 K18 ["context-%*"]
+      156 GETTABLEKS                       R23 R5 K19 ["name"]
+      158 NAMECALL                         R21 R21 K20 ["format"]
+      160 CALL                             R21 2 1
+      161 SETTABLEKS                       R21 R20 K16 ["testId"]
+      163 DUPTABLE                         R21 K24 [{"Row", "Creating", "Actions"}]
+      164 GETUPVAL                         R22 0
+      165 GETTABLEKS                       R22 R22 K12 ["createElement"]
+      167 GETUPVAL                         R23 14
+      168 DUPTABLE                         R24 K26 [{"LayoutOrder", "nodeProps"}]
+      169 SETTABLEKS                       R4 R24 K13 ["LayoutOrder"]
+      171 DUPTABLE                         R25 K38 [{["context"], ["createMenu"], ["depth"] = 0, ["editMenu"], ["expanded"], ["icon"] = "InputContext", ["name"], ["onCreateMenuItemSelected"], ["onEditMenuItemSelected"], ["setExpanded"]}]
+      172 SETTABLEKS                       R5 R25 K27 ["context"]
+      174 SETTABLEKS                       R9 R25 K28 ["createMenu"]
+      176 SETTABLEKS                       R16 R25 K31 ["editMenu"]
+      178 SETTABLEKS                       R7 R25 K32 ["expanded"]
+      180 GETTABLEKS                       R26 R5 K19 ["name"]
+      182 SETTABLEKS                       R26 R25 K19 ["name"]
+      184 SETTABLEKS                       R11 R25 K35 ["onCreateMenuItemSelected"]
+      186 SETTABLEKS                       R17 R25 K36 ["onEditMenuItemSelected"]
+      188 SETTABLEKS                       R8 R25 K37 ["setExpanded"]
+      190 SETTABLEKS                       R25 R24 K25 ["nodeProps"]
+      192 CALL                             R22 2 1
+      193 SETTABLEKS                       R22 R21 K21 ["Row"]
+      195 MOVE                             R22 R10
+      196 JUMPIFNOT                        R22 ; [+15]
+      197 GETUPVAL                         R22 0
+      198 GETTABLEKS                       R22 R22 K12 ["createElement"]
+      200 GETUPVAL                         R23 14
+      201 DUPTABLE                         R24 K26 [{"LayoutOrder", "nodeProps"}]
+      202 MOVE                             R25 R3
+      203 CALL                             R25 0 1
+      204 SETTABLEKS                       R25 R24 K13 ["LayoutOrder"]
+      206 DUPTABLE                         R25 K42 [{["depth"] = 1, ["icon"] = "InputAction", ["name"] = "InputAction", ["onCreated"]}]
+      207 SETTABLEKS                       R12 R25 K41 ["onCreated"]
+      209 SETTABLEKS                       R25 R24 K25 ["nodeProps"]
+      211 CALL                             R22 2 1
+      212 SETTABLEKS                       R22 R21 K22 ["Creating"]
+      214 MOVE                             R22 R7
+      215 JUMPIFNOT                        R22 ; [+11]
+      216 GETUPVAL                         R22 0
+      217 GETTABLEKS                       R22 R22 K12 ["createElement"]
+      219 GETUPVAL                         R23 13
+      220 DUPTABLE                         R24 K43 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y"}]
+      221 MOVE                             R25 R3
+      222 CALL                             R25 0 1
+      223 SETTABLEKS                       R25 R24 K13 ["LayoutOrder"]
+      225 MOVE                             R25 R14
+      226 CALL                             R22 3 1
+      227 SETTABLEKS                       R22 R21 K23 ["Actions"]
+      229 CALL                             R18 3 -1
+      230 RETURN                           R18 -1
 
 MAIN:
         0 PREPVARARGS                      0

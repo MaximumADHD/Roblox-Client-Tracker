@@ -24,14 +24,13 @@ PROTO_1:
        33 RETURN                           R0 0
 
 PROTO_2:
-        0 LOADK                            R2 K0 ["Snackbar_%*"]
-        1 GETUPVAL                         R4 0
-        2 MOVE                             R5 R0
-        3 CALL                             R4 1 1
-        4 NAMECALL                         R2 R2 K1 ["format"]
-        6 CALL                             R2 2 1
-        7 MOVE                             R1 R2
-        8 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["Snackbar_%*"]
+        1 GETUPVAL                         R3 0
+        2 MOVE                             R4 R0
+        3 CALL                             R3 1 1
+        4 NAMECALL                         R1 R1 K1 ["format"]
+        6 CALL                             R1 2 1
+        7 RETURN                           R1 1
 
 PROTO_3:
         0 GETUPVAL                         R2 0
@@ -42,17 +41,16 @@ PROTO_3:
         5 CALL                             R3 2 0
         6 GETIMPORT                        R3 K2 [table.freeze]
         8 DUPTABLE                         R4 K5 [{"id", "signals"}]
-        9 LOADK                            R6 K6 ["Snackbar_%*"]
-       10 GETUPVAL                         R8 2
-       11 MOVE                             R9 R0
-       12 CALL                             R8 1 1
-       13 NAMECALL                         R6 R6 K7 ["format"]
-       15 CALL                             R6 2 1
-       16 MOVE                             R5 R6
-       17 SETTABLEKS                       R5 R4 K3 ["id"]
-       19 SETTABLEKS                       R2 R4 K4 ["signals"]
-       21 CALL                             R3 1 -1
-       22 RETURN                           R3 -1
+        9 LOADK                            R5 K6 ["Snackbar_%*"]
+       10 GETUPVAL                         R7 2
+       11 MOVE                             R8 R0
+       12 CALL                             R7 1 1
+       13 NAMECALL                         R5 R5 K7 ["format"]
+       15 CALL                             R5 2 1
+       16 SETTABLEKS                       R5 R4 K3 ["id"]
+       18 SETTABLEKS                       R2 R4 K4 ["signals"]
+       20 CALL                             R3 1 -1
+       21 RETURN                           R3 -1
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -111,52 +109,50 @@ PROTO_8:
         4 FORGPREP_INEXT                   R1
         5 GETTABLEKS                       R6 R5 K2 ["id"]
         7 GETUPVAL                         R7 0
-        8 JUMPIFNOTEQ                      R6 R7 ; [+15]
+        8 JUMPIFNOTEQ                      R6 R7 ; [+14]
        10 GETIMPORT                        R6 K4 [warn]
-       12 LOADK                            R8 K5 ["Snackbar already exists: %*; use UpdateSnackbar"]
-       13 GETUPVAL                         R10 1
-       14 GETTABLEKS                       R10 R10 K6 ["toString"]
-       16 GETUPVAL                         R11 2
-       17 CALL                             R10 1 1
-       18 NAMECALL                         R8 R8 K7 ["format"]
-       20 CALL                             R8 2 1
-       21 MOVE                             R7 R8
-       22 CALL                             R6 1 0
-       23 RETURN                           R0 1
-       24 FORGLOOP                         R1 2 [inext] ; [-20]
-       26 GETIMPORT                        R1 K10 [table.clone]
-       28 MOVE                             R2 R0
-       29 CALL                             R1 1 1
-       30 MOVE                             R3 R1
-       31 GETUPVAL                         R4 3
-       32 GETUPVAL                         R5 2
-       33 GETUPVAL                         R6 4
-       34 CALL                             R4 2 -1
-       35 FASTCALL                         TABLE_INSERT ; [+2]
-       36 GETIMPORT                        R2 K12 [table.insert]
-       38 CALL                             R2 -1 0
-       39 GETIMPORT                        R2 K14 [table.freeze]
-       41 MOVE                             R3 R1
-       42 CALL                             R2 1 -1
-       43 RETURN                           R2 -1
+       12 LOADK                            R7 K5 ["Snackbar already exists: %*; use UpdateSnackbar"]
+       13 GETUPVAL                         R9 1
+       14 GETTABLEKS                       R9 R9 K6 ["toString"]
+       16 GETUPVAL                         R10 2
+       17 CALL                             R9 1 1
+       18 NAMECALL                         R7 R7 K7 ["format"]
+       20 CALL                             R7 2 1
+       21 CALL                             R6 1 0
+       22 RETURN                           R0 1
+       23 FORGLOOP                         R1 2 [inext] ; [-19]
+       25 GETIMPORT                        R1 K10 [table.clone]
+       27 MOVE                             R2 R0
+       28 CALL                             R1 1 1
+       29 MOVE                             R3 R1
+       30 GETUPVAL                         R4 3
+       31 GETUPVAL                         R5 2
+       32 GETUPVAL                         R6 4
+       33 CALL                             R4 2 -1
+       34 FASTCALL                         TABLE_INSERT ; [+2]
+       35 GETIMPORT                        R2 K12 [table.insert]
+       37 CALL                             R2 -1 0
+       38 GETIMPORT                        R2 K14 [table.freeze]
+       40 MOVE                             R3 R1
+       41 CALL                             R2 1 -1
+       42 RETURN                           R2 -1
 
 PROTO_9:
-        0 LOADK                            R3 K0 ["Snackbar_%*"]
-        1 GETUPVAL                         R5 0
-        2 MOVE                             R6 R0
-        3 CALL                             R5 1 1
-        4 NAMECALL                         R3 R3 K1 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 GETUPVAL                         R3 1
-        9 NEWCLOSURE                       R4 P0
-       10 CAPTURE                          VAL R2
-       11 CAPTURE                          UPVAL U2
-       12 CAPTURE                          VAL R0
-       13 CAPTURE                          UPVAL U3
-       14 CAPTURE                          VAL R1
-       15 CALL                             R3 1 0
-       16 RETURN                           R0 0
+        0 LOADK                            R2 K0 ["Snackbar_%*"]
+        1 GETUPVAL                         R4 0
+        2 MOVE                             R5 R0
+        3 CALL                             R4 1 1
+        4 NAMECALL                         R2 R2 K1 ["format"]
+        6 CALL                             R2 2 1
+        7 GETUPVAL                         R3 1
+        8 NEWCLOSURE                       R4 P0
+        9 CAPTURE                          VAL R2
+       10 CAPTURE                          UPVAL U2
+       11 CAPTURE                          VAL R0
+       12 CAPTURE                          UPVAL U3
+       13 CAPTURE                          VAL R1
+       14 CALL                             R3 1 0
+       15 RETURN                           R0 0
 
 PROTO_10:
         0 GETIMPORT                        R1 K1 [ipairs]
@@ -175,20 +171,19 @@ PROTO_10:
        18 RETURN                           R0 1
 
 PROTO_11:
-        0 LOADK                            R3 K0 ["Snackbar_%*"]
-        1 GETUPVAL                         R5 0
-        2 MOVE                             R6 R0
-        3 CALL                             R5 1 1
-        4 NAMECALL                         R3 R3 K1 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 GETUPVAL                         R3 1
-        9 NEWCLOSURE                       R4 P0
-       10 CAPTURE                          VAL R2
-       11 CAPTURE                          UPVAL U2
-       12 CAPTURE                          VAL R1
-       13 CALL                             R3 1 0
-       14 RETURN                           R0 0
+        0 LOADK                            R2 K0 ["Snackbar_%*"]
+        1 GETUPVAL                         R4 0
+        2 MOVE                             R5 R0
+        3 CALL                             R4 1 1
+        4 NAMECALL                         R2 R2 K1 ["format"]
+        6 CALL                             R2 2 1
+        7 GETUPVAL                         R3 1
+        8 NEWCLOSURE                       R4 P0
+        9 CAPTURE                          VAL R2
+       10 CAPTURE                          UPVAL U2
+       11 CAPTURE                          VAL R1
+       12 CALL                             R3 1 0
+       13 RETURN                           R0 0
 
 PROTO_12:
         0 GETIMPORT                        R1 K1 [ipairs]
@@ -213,18 +208,17 @@ PROTO_12:
        26 RETURN                           R0 1
 
 PROTO_13:
-        0 LOADK                            R2 K0 ["Snackbar_%*"]
-        1 GETUPVAL                         R4 0
-        2 MOVE                             R5 R0
-        3 CALL                             R4 1 1
-        4 NAMECALL                         R2 R2 K1 ["format"]
-        6 CALL                             R2 2 1
-        7 MOVE                             R1 R2
-        8 GETUPVAL                         R2 1
-        9 NEWCLOSURE                       R3 P0
-       10 CAPTURE                          VAL R1
-       11 CALL                             R2 1 0
-       12 RETURN                           R0 0
+        0 LOADK                            R1 K0 ["Snackbar_%*"]
+        1 GETUPVAL                         R3 0
+        2 MOVE                             R4 R0
+        3 CALL                             R3 1 1
+        4 NAMECALL                         R1 R1 K1 ["format"]
+        6 CALL                             R1 2 1
+        7 GETUPVAL                         R2 1
+        8 NEWCLOSURE                       R3 P0
+        9 CAPTURE                          VAL R1
+       10 CALL                             R2 1 0
+       11 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R0 0

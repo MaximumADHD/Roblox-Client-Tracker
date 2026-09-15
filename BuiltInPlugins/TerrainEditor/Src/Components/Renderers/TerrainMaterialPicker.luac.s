@@ -70,16 +70,15 @@ PROTO_3:
         4 NAMECALL                         R1 R1 K1 ["GetUri"]
         6 CALL                             R1 1 1
         7 DUPTABLE                         R2 K5 [{["Category"] = "Widgets", ["ItemId"]}]
-        8 LOADK                            R4 K6 ["TerrainMaterialPicker/%*"]
-        9 GETUPVAL                         R6 2
-       10 GETTABLEKS                       R6 R6 K7 ["Schema"]
-       12 GETTABLEKS                       R6 R6 K8 ["PickerId"]
-       14 NAMECALL                         R4 R4 K9 ["format"]
-       16 CALL                             R4 2 1
-       17 MOVE                             R3 R4
-       18 SETTABLEKS                       R3 R2 K4 ["ItemId"]
-       20 CALL                             R0 2 -1
-       21 RETURN                           R0 -1
+        8 LOADK                            R3 K6 ["TerrainMaterialPicker/%*"]
+        9 GETUPVAL                         R5 2
+       10 GETTABLEKS                       R5 R5 K7 ["Schema"]
+       12 GETTABLEKS                       R5 R5 K8 ["PickerId"]
+       14 NAMECALL                         R3 R3 K9 ["format"]
+       16 CALL                             R3 2 1
+       17 SETTABLEKS                       R3 R2 K4 ["ItemId"]
+       19 CALL                             R0 2 -1
+       20 RETURN                           R0 -1
 
 PROTO_4:
         0 GETUPVAL                         R0 0

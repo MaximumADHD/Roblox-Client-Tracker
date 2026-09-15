@@ -291,31 +291,30 @@ PROTO_10:
       132 GETTABLEKS                       R20 R0 K6 ["localization"]
       134 SETTABLEKS                       R20 R19 K6 ["localization"]
       136 NEWTABLE                         R20 1 0
-      138 LOADK                            R22 K50 ["AudioPlayerEditor_%*"]
-      139 GETTABLEKS                       R24 R2 K51 ["instanceId"]
-      141 NAMECALL                         R22 R22 K10 ["format"]
-      143 CALL                             R22 2 1
-      144 MOVE                             R21 R22
-      145 GETUPVAL                         R22 4
-      146 GETTABLEKS                       R22 R22 K18 ["createElement"]
-      148 GETUPVAL                         R23 8
-      149 DUPTABLE                         R24 K54 [{"Data", "SetData", "Enabled"}]
-      150 GETTABLEKS                       R25 R2 K55 ["initialData"]
-      152 SETTABLEKS                       R25 R24 K52 ["Data"]
-      154 GETTABLEKS                       R25 R0 K56 ["onChanged"]
-      156 SETTABLEKS                       R25 R24 K53 ["SetData"]
-      158 GETTABLEKS                       R25 R2 K3 ["enabled"]
-      160 SETTABLEKS                       R25 R24 K20 ["Enabled"]
-      162 CALL                             R22 2 1
-      163 SETTABLE                         R22 R20 R21
-      164 CALL                             R17 3 -1
-      165 SETLIST                          R16 R17 -1 [1]
-      167 CALL                             R13 3 1
-      168 SETTABLEKS                       R13 R12 K43 ["FoundationProvider"]
-      170 CALL                             R9 3 1
-      171 SETTABLEKS                       R9 R8 K16 ["MainWidget"]
-      173 CALL                             R6 2 -1
-      174 RETURN                           R6 -1
+      138 LOADK                            R21 K50 ["AudioPlayerEditor_%*"]
+      139 GETTABLEKS                       R23 R2 K51 ["instanceId"]
+      141 NAMECALL                         R21 R21 K10 ["format"]
+      143 CALL                             R21 2 1
+      144 GETUPVAL                         R22 4
+      145 GETTABLEKS                       R22 R22 K18 ["createElement"]
+      147 GETUPVAL                         R23 8
+      148 DUPTABLE                         R24 K54 [{"Data", "SetData", "Enabled"}]
+      149 GETTABLEKS                       R25 R2 K55 ["initialData"]
+      151 SETTABLEKS                       R25 R24 K52 ["Data"]
+      153 GETTABLEKS                       R25 R0 K56 ["onChanged"]
+      155 SETTABLEKS                       R25 R24 K53 ["SetData"]
+      157 GETTABLEKS                       R25 R2 K3 ["enabled"]
+      159 SETTABLEKS                       R25 R24 K20 ["Enabled"]
+      161 CALL                             R22 2 1
+      162 SETTABLE                         R22 R20 R21
+      163 CALL                             R17 3 -1
+      164 SETLIST                          R16 R17 -1 [1]
+      166 CALL                             R13 3 1
+      167 SETTABLEKS                       R13 R12 K43 ["FoundationProvider"]
+      169 CALL                             R9 3 1
+      170 SETTABLEKS                       R9 R8 K16 ["MainWidget"]
+      172 CALL                             R6 2 -1
+      173 RETURN                           R6 -1
 
 PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["actionActivatedConnection"]

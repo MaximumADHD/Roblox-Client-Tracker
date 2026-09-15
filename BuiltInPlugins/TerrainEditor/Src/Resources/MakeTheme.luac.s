@@ -2,57 +2,51 @@ PROTO_0:
         0 NEWTABLE                         R1 4 0
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K0 ["Sphere"]
-        5 LOADK                            R4 K1 ["%*TerrainBrushTypeSphere.png"]
-        6 MOVE                             R6 R0
-        7 NAMECALL                         R4 R4 K2 ["format"]
-        9 CALL                             R4 2 1
-       10 MOVE                             R3 R4
-       11 SETTABLE                         R3 R1 R2
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R2 R2 K3 ["Cube"]
-       15 LOADK                            R4 K4 ["%*TerrainBrushTypeCube.png"]
-       16 MOVE                             R6 R0
-       17 NAMECALL                         R4 R4 K2 ["format"]
-       19 CALL                             R4 2 1
-       20 MOVE                             R3 R4
-       21 SETTABLE                         R3 R1 R2
-       22 GETUPVAL                         R2 0
-       23 GETTABLEKS                       R2 R2 K5 ["Cylinder"]
-       25 LOADK                            R4 K6 ["%*TerrainBrushTypeCylinder.png"]
-       26 MOVE                             R6 R0
-       27 NAMECALL                         R4 R4 K2 ["format"]
-       29 CALL                             R4 2 1
-       30 MOVE                             R3 R4
-       31 SETTABLE                         R3 R1 R2
-       32 RETURN                           R1 1
+        5 LOADK                            R3 K1 ["%*TerrainBrushTypeSphere.png"]
+        6 MOVE                             R5 R0
+        7 NAMECALL                         R3 R3 K2 ["format"]
+        9 CALL                             R3 2 1
+       10 SETTABLE                         R3 R1 R2
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K3 ["Cube"]
+       14 LOADK                            R3 K4 ["%*TerrainBrushTypeCube.png"]
+       15 MOVE                             R5 R0
+       16 NAMECALL                         R3 R3 K2 ["format"]
+       18 CALL                             R3 2 1
+       19 SETTABLE                         R3 R1 R2
+       20 GETUPVAL                         R2 0
+       21 GETTABLEKS                       R2 R2 K5 ["Cylinder"]
+       23 LOADK                            R3 K6 ["%*TerrainBrushTypeCylinder.png"]
+       24 MOVE                             R5 R0
+       25 NAMECALL                         R3 R3 K2 ["format"]
+       27 CALL                             R3 2 1
+       28 SETTABLE                         R3 R1 R2
+       29 RETURN                           R1 1
 
 PROTO_1:
         0 NEWTABLE                         R1 4 0
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K0 ["Both"]
-        5 LOADK                            R4 K1 ["%*FlattenModeRemoveAboveFillBelow.png"]
-        6 MOVE                             R6 R0
-        7 NAMECALL                         R4 R4 K2 ["format"]
-        9 CALL                             R4 2 1
-       10 MOVE                             R3 R4
-       11 SETTABLE                         R3 R1 R2
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R2 R2 K3 ["Erode"]
-       15 LOADK                            R4 K4 ["%*FlattenModeRemoveAbove.png"]
-       16 MOVE                             R6 R0
-       17 NAMECALL                         R4 R4 K2 ["format"]
-       19 CALL                             R4 2 1
-       20 MOVE                             R3 R4
-       21 SETTABLE                         R3 R1 R2
-       22 GETUPVAL                         R2 0
-       23 GETTABLEKS                       R2 R2 K5 ["Grow"]
-       25 LOADK                            R4 K6 ["%*FlattenModeFillBelow.png"]
-       26 MOVE                             R6 R0
-       27 NAMECALL                         R4 R4 K2 ["format"]
-       29 CALL                             R4 2 1
-       30 MOVE                             R3 R4
-       31 SETTABLE                         R3 R1 R2
-       32 RETURN                           R1 1
+        5 LOADK                            R3 K1 ["%*FlattenModeRemoveAboveFillBelow.png"]
+        6 MOVE                             R5 R0
+        7 NAMECALL                         R3 R3 K2 ["format"]
+        9 CALL                             R3 2 1
+       10 SETTABLE                         R3 R1 R2
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K3 ["Erode"]
+       14 LOADK                            R3 K4 ["%*FlattenModeRemoveAbove.png"]
+       15 MOVE                             R5 R0
+       16 NAMECALL                         R3 R3 K2 ["format"]
+       18 CALL                             R3 2 1
+       19 SETTABLE                         R3 R1 R2
+       20 GETUPVAL                         R2 0
+       21 GETTABLEKS                       R2 R2 K5 ["Grow"]
+       23 LOADK                            R3 K6 ["%*FlattenModeFillBelow.png"]
+       24 MOVE                             R5 R0
+       25 NAMECALL                         R3 R3 K2 ["format"]
+       27 CALL                             R3 2 1
+       28 SETTABLE                         R3 R1 R2
+       29 RETURN                           R1 1
 
 PROTO_2:
         0 LOADNIL                          R1

@@ -84,40 +84,39 @@ PROTO_2:
        52 SETTABLEKS                       R3 R2 K16 ["RootPlaceId"]
        54 RETURN                           R2 1
        55 GETTABLEKS                       R2 R1 K25 ["privacyType"]
-       57 JUMPIFNOT                        R2 ; [+15]
-       58 JUMPIFEQKS                       R2 K26 ["Public"] ; [+14]
-       60 JUMPIFEQKS                       R2 K27 ["Private"] ; [+12]
-       62 JUMPIFEQKS                       R2 K28 ["Draft"] ; [+10]
+       57 JUMPIFNOT                        R2 ; [+14]
+       58 JUMPIFEQKS                       R2 K26 ["Public"] ; [+13]
+       60 JUMPIFEQKS                       R2 K27 ["Private"] ; [+11]
+       62 JUMPIFEQKS                       R2 K28 ["Draft"] ; [+9]
        64 GETIMPORT                        R3 K30 [error]
-       66 LOADK                            R5 K31 ["Invalid value for privacyType: \"%*\""]
-       67 MOVE                             R7 R2
-       68 NAMECALL                         R5 R5 K32 ["format"]
-       70 CALL                             R5 2 1
-       71 MOVE                             R4 R5
-       72 CALL                             R3 1 0
-       73 DUPTABLE                         R3 K35 [{["IsGame"] = True, ["Name"], ["CreatorName"], ["CreatorType"], ["CreatorTargetId"], ["Type"] = "Experience", ["Description"], ["Created"], ["Updated"], ["PrivacyType"], ["IsFriendsOnly"], ["Id"], ["RootPlaceId"]}]
-       74 GETTABLEKS                       R4 R1 K0 ["name"]
-       76 SETTABLEKS                       R4 R3 K5 ["Name"]
-       78 GETTABLEKS                       R4 R1 K18 ["creatorName"]
-       80 SETTABLEKS                       R4 R3 K6 ["CreatorName"]
-       82 GETTABLEKS                       R4 R1 K19 ["creatorType"]
-       84 SETTABLEKS                       R4 R3 K7 ["CreatorType"]
-       86 GETTABLEKS                       R4 R1 K20 ["creatorTargetId"]
-       88 SETTABLEKS                       R4 R3 K8 ["CreatorTargetId"]
-       90 GETTABLEKS                       R4 R1 K21 ["description"]
-       92 SETTABLEKS                       R4 R3 K11 ["Description"]
-       94 GETTABLEKS                       R4 R1 K22 ["created"]
-       96 SETTABLEKS                       R4 R3 K12 ["Created"]
-       98 GETTABLEKS                       R4 R1 K23 ["updated"]
-      100 SETTABLEKS                       R4 R3 K13 ["Updated"]
-      102 SETTABLEKS                       R2 R3 K33 ["PrivacyType"]
-      104 GETTABLEKS                       R4 R1 K36 ["isFriendsOnly"]
-      106 SETTABLEKS                       R4 R3 K34 ["IsFriendsOnly"]
-      108 GETTABLEKS                       R4 R1 K1 ["id"]
-      110 SETTABLEKS                       R4 R3 K15 ["Id"]
-      112 GETTABLEKS                       R4 R1 K2 ["rootPlaceId"]
-      114 SETTABLEKS                       R4 R3 K16 ["RootPlaceId"]
-      116 RETURN                           R3 1
+       66 LOADK                            R4 K31 ["Invalid value for privacyType: \"%*\""]
+       67 MOVE                             R6 R2
+       68 NAMECALL                         R4 R4 K32 ["format"]
+       70 CALL                             R4 2 1
+       71 CALL                             R3 1 0
+       72 DUPTABLE                         R3 K35 [{["IsGame"] = True, ["Name"], ["CreatorName"], ["CreatorType"], ["CreatorTargetId"], ["Type"] = "Experience", ["Description"], ["Created"], ["Updated"], ["PrivacyType"], ["IsFriendsOnly"], ["Id"], ["RootPlaceId"]}]
+       73 GETTABLEKS                       R4 R1 K0 ["name"]
+       75 SETTABLEKS                       R4 R3 K5 ["Name"]
+       77 GETTABLEKS                       R4 R1 K18 ["creatorName"]
+       79 SETTABLEKS                       R4 R3 K6 ["CreatorName"]
+       81 GETTABLEKS                       R4 R1 K19 ["creatorType"]
+       83 SETTABLEKS                       R4 R3 K7 ["CreatorType"]
+       85 GETTABLEKS                       R4 R1 K20 ["creatorTargetId"]
+       87 SETTABLEKS                       R4 R3 K8 ["CreatorTargetId"]
+       89 GETTABLEKS                       R4 R1 K21 ["description"]
+       91 SETTABLEKS                       R4 R3 K11 ["Description"]
+       93 GETTABLEKS                       R4 R1 K22 ["created"]
+       95 SETTABLEKS                       R4 R3 K12 ["Created"]
+       97 GETTABLEKS                       R4 R1 K23 ["updated"]
+       99 SETTABLEKS                       R4 R3 K13 ["Updated"]
+      101 SETTABLEKS                       R2 R3 K33 ["PrivacyType"]
+      103 GETTABLEKS                       R4 R1 K36 ["isFriendsOnly"]
+      105 SETTABLEKS                       R4 R3 K34 ["IsFriendsOnly"]
+      107 GETTABLEKS                       R4 R1 K1 ["id"]
+      109 SETTABLEKS                       R4 R3 K15 ["Id"]
+      111 GETTABLEKS                       R4 R1 K2 ["rootPlaceId"]
+      113 SETTABLEKS                       R4 R3 K16 ["RootPlaceId"]
+      115 RETURN                           R3 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -264,13 +263,12 @@ PROTO_5:
 
 PROTO_6:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["DiscoverExperiences experienced an error: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 RETURN                           R0 0
+        2 LOADK                            R2 K2 ["DiscoverExperiences experienced an error: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
 
 PROTO_7:
         0 GETIMPORT                        R5 K2 [os.clock]
@@ -280,130 +278,127 @@ PROTO_7:
         6 CALL                             R6 0 1
         7 LOADNIL                          R7
         8 GETTABLEKS                       R8 R0 K4 ["isTemplates"]
-       10 JUMPIFNOT                        R8 ; [+45]
-       11 JUMPIFEQKN                       R1 K5 [0] ; [+11]
+       10 JUMPIFNOT                        R8 ; [+44]
+       11 JUMPIFEQKN                       R1 K5 [0] ; [+10]
        13 GETIMPORT                        R8 K7 [warn]
-       15 LOADK                            R10 K8 ["Tried to load template page %*"]
-       16 MOVE                             R12 R1
-       17 NAMECALL                         R10 R10 K9 ["format"]
-       19 CALL                             R10 2 1
-       20 MOVE                             R9 R10
-       21 CALL                             R8 1 0
-       22 RETURN                           R0 0
-       23 GETTABLEKS                       R8 R6 K10 ["composeUrl"]
-       25 GETUPVAL                         R9 1
-       26 GETTABLEKS                       R9 R9 K11 ["TEMPLATES_SEARCH_URL"]
-       28 GETTABLEKS                       R9 R9 K12 ["Prefix"]
-       30 GETUPVAL                         R10 1
-       31 GETTABLEKS                       R10 R10 K11 ["TEMPLATES_SEARCH_URL"]
-       33 GETTABLEKS                       R10 R10 K13 ["Url"]
-       35 CALL                             R10 0 1
-       36 MOVE                             R11 R0
-       37 CALL                             R8 3 1
-       38 GETUPVAL                         R9 2
-       39 GETUPVAL                         R11 2
-       40 MOVE                             R13 R8
-       41 NAMECALL                         R11 R11 K14 ["get"]
-       43 CALL                             R11 2 -1
-       44 NAMECALL                         R9 R9 K15 ["parseJson"]
-       46 CALL                             R9 -1 1
-       47 NEWCLOSURE                       R11 P0
-       48 CAPTURE                          UPVAL U3
-       49 CAPTURE                          UPVAL U4
-       50 CAPTURE                          VAL R0
-       51 NAMECALL                         R9 R9 K16 ["andThen"]
-       53 CALL                             R9 2 1
-       54 MOVE                             R7 R9
-       55 JUMP                             ; [+73]
-       56 GETUPVAL                         R9 5
-       57 JUMPIFNOT                        R9 ; [+7]
-       58 GETTABLEKS                       R9 R0 K17 ["pageIndex"]
-       60 JUMPIFEQKNIL                     R9 ; [+4]
-       62 GETTABLEKS                       R8 R0 K17 ["pageIndex"]
-       64 JUMP                             ; [+1]
-       65 MOVE                             R8 R1
-       66 GETTABLEKS                       R12 R6 K10 ["composeUrl"]
-       68 GETUPVAL                         R13 1
-       69 GETTABLEKS                       R13 R13 K18 ["EXPERIENCES_SEARCH_URL"]
-       71 GETTABLEKS                       R13 R13 K12 ["Prefix"]
-       73 GETUPVAL                         R14 1
-       74 GETTABLEKS                       R14 R14 K18 ["EXPERIENCES_SEARCH_URL"]
-       76 GETTABLEKS                       R14 R14 K13 ["Url"]
-       78 CALL                             R14 0 1
-       79 MOVE                             R15 R0
-       80 CALL                             R12 3 1
-       81 MOVE                             R10 R12
-       82 LOADK                            R12 K19 ["&surface=StudioStartPage&PageIndex=%*"]
-       83 MOVE                             R14 R8
-       84 NAMECALL                         R12 R12 K9 ["format"]
-       86 CALL                             R12 2 1
-       87 MOVE                             R11 R12
-       88 CONCAT                           R9 R10 R11
-       89 GETUPVAL                         R10 5
-       90 JUMPIFNOT                        R10 ; [+16]
-       91 GETTABLEKS                       R10 R0 K17 ["pageIndex"]
-       93 JUMPIFEQKNIL                     R10 ; [+13]
-       95 GETTABLEKS                       R10 R0 K20 ["pageSize"]
-       97 JUMPIFNOT                        R10 ; [+9]
-       98 MOVE                             R10 R9
-       99 LOADK                            R12 K21 ["&PageSize=%*"]
-      100 GETTABLEKS                       R14 R0 K20 ["pageSize"]
-      102 NAMECALL                         R12 R12 K9 ["format"]
-      104 CALL                             R12 2 1
-      105 MOVE                             R11 R12
-      106 CONCAT                           R9 R10 R11
-      107 GETUPVAL                         R10 6
-      108 JUMPIFNOT                        R10 ; [+3]
-      109 MOVE                             R10 R9
-      110 LOADK                            R11 K22 ["&needsAssetOptions=true"]
-      111 CONCAT                           R9 R10 R11
-      112 GETUPVAL                         R10 2
-      113 GETUPVAL                         R12 2
-      114 MOVE                             R14 R9
-      115 NAMECALL                         R12 R12 K14 ["get"]
-      117 CALL                             R12 2 -1
-      118 NAMECALL                         R10 R10 K15 ["parseJson"]
-      120 CALL                             R10 -1 1
-      121 DUPCLOSURE                       R12 K23 [PROTO_3]
-      122 CAPTURE                          UPVAL U7
-      123 CAPTURE                          UPVAL U4
-      124 CAPTURE                          UPVAL U8
-      125 NAMECALL                         R10 R10 K16 ["andThen"]
-      127 CALL                             R10 2 1
-      128 MOVE                             R7 R10
-      129 NEWCLOSURE                       R10 P2
-      130 CAPTURE                          VAL R4
-      131 CAPTURE                          UPVAL U9
-      132 CAPTURE                          VAL R5
-      133 CAPTURE                          UPVAL U10
-      134 CAPTURE                          VAL R0
-      135 CAPTURE                          UPVAL U11
-      136 CAPTURE                          UPVAL U12
-      137 CAPTURE                          VAL R3
-      138 CAPTURE                          UPVAL U13
-      139 CAPTURE                          VAL R2
-      140 CAPTURE                          VAL R1
-      141 CAPTURE                          UPVAL U14
-      142 CAPTURE                          UPVAL U15
-      143 CAPTURE                          UPVAL U16
-      144 CAPTURE                          UPVAL U17
-      145 CAPTURE                          UPVAL U18
-      146 CAPTURE                          UPVAL U19
-      147 CAPTURE                          UPVAL U6
-      148 CAPTURE                          UPVAL U20
-      149 CAPTURE                          UPVAL U21
-      150 CAPTURE                          UPVAL U22
-      151 CAPTURE                          UPVAL U23
-      152 CAPTURE                          UPVAL U24
-      153 CAPTURE                          UPVAL U25
-      154 CAPTURE                          UPVAL U26
-      155 CAPTURE                          UPVAL U27
-      156 NAMECALL                         R8 R7 K16 ["andThen"]
-      158 CALL                             R8 2 1
-      159 DUPCLOSURE                       R10 K24 [PROTO_6]
-      160 NAMECALL                         R8 R8 K25 ["catch"]
-      162 CALL                             R8 2 0
-      163 RETURN                           R0 0
+       15 LOADK                            R9 K8 ["Tried to load template page %*"]
+       16 MOVE                             R11 R1
+       17 NAMECALL                         R9 R9 K9 ["format"]
+       19 CALL                             R9 2 1
+       20 CALL                             R8 1 0
+       21 RETURN                           R0 0
+       22 GETTABLEKS                       R8 R6 K10 ["composeUrl"]
+       24 GETUPVAL                         R9 1
+       25 GETTABLEKS                       R9 R9 K11 ["TEMPLATES_SEARCH_URL"]
+       27 GETTABLEKS                       R9 R9 K12 ["Prefix"]
+       29 GETUPVAL                         R10 1
+       30 GETTABLEKS                       R10 R10 K11 ["TEMPLATES_SEARCH_URL"]
+       32 GETTABLEKS                       R10 R10 K13 ["Url"]
+       34 CALL                             R10 0 1
+       35 MOVE                             R11 R0
+       36 CALL                             R8 3 1
+       37 GETUPVAL                         R9 2
+       38 GETUPVAL                         R11 2
+       39 MOVE                             R13 R8
+       40 NAMECALL                         R11 R11 K14 ["get"]
+       42 CALL                             R11 2 -1
+       43 NAMECALL                         R9 R9 K15 ["parseJson"]
+       45 CALL                             R9 -1 1
+       46 NEWCLOSURE                       R11 P0
+       47 CAPTURE                          UPVAL U3
+       48 CAPTURE                          UPVAL U4
+       49 CAPTURE                          VAL R0
+       50 NAMECALL                         R9 R9 K16 ["andThen"]
+       52 CALL                             R9 2 1
+       53 MOVE                             R7 R9
+       54 JUMP                             ; [+71]
+       55 GETUPVAL                         R9 5
+       56 JUMPIFNOT                        R9 ; [+7]
+       57 GETTABLEKS                       R9 R0 K17 ["pageIndex"]
+       59 JUMPIFEQKNIL                     R9 ; [+4]
+       61 GETTABLEKS                       R8 R0 K17 ["pageIndex"]
+       63 JUMP                             ; [+1]
+       64 MOVE                             R8 R1
+       65 GETTABLEKS                       R12 R6 K10 ["composeUrl"]
+       67 GETUPVAL                         R13 1
+       68 GETTABLEKS                       R13 R13 K18 ["EXPERIENCES_SEARCH_URL"]
+       70 GETTABLEKS                       R13 R13 K12 ["Prefix"]
+       72 GETUPVAL                         R14 1
+       73 GETTABLEKS                       R14 R14 K18 ["EXPERIENCES_SEARCH_URL"]
+       75 GETTABLEKS                       R14 R14 K13 ["Url"]
+       77 CALL                             R14 0 1
+       78 MOVE                             R15 R0
+       79 CALL                             R12 3 1
+       80 MOVE                             R10 R12
+       81 LOADK                            R11 K19 ["&surface=StudioStartPage&PageIndex=%*"]
+       82 MOVE                             R13 R8
+       83 NAMECALL                         R11 R11 K9 ["format"]
+       85 CALL                             R11 2 1
+       86 CONCAT                           R9 R10 R11
+       87 GETUPVAL                         R10 5
+       88 JUMPIFNOT                        R10 ; [+15]
+       89 GETTABLEKS                       R10 R0 K17 ["pageIndex"]
+       91 JUMPIFEQKNIL                     R10 ; [+12]
+       93 GETTABLEKS                       R10 R0 K20 ["pageSize"]
+       95 JUMPIFNOT                        R10 ; [+8]
+       96 MOVE                             R10 R9
+       97 LOADK                            R11 K21 ["&PageSize=%*"]
+       98 GETTABLEKS                       R13 R0 K20 ["pageSize"]
+      100 NAMECALL                         R11 R11 K9 ["format"]
+      102 CALL                             R11 2 1
+      103 CONCAT                           R9 R10 R11
+      104 GETUPVAL                         R10 6
+      105 JUMPIFNOT                        R10 ; [+3]
+      106 MOVE                             R10 R9
+      107 LOADK                            R11 K22 ["&needsAssetOptions=true"]
+      108 CONCAT                           R9 R10 R11
+      109 GETUPVAL                         R10 2
+      110 GETUPVAL                         R12 2
+      111 MOVE                             R14 R9
+      112 NAMECALL                         R12 R12 K14 ["get"]
+      114 CALL                             R12 2 -1
+      115 NAMECALL                         R10 R10 K15 ["parseJson"]
+      117 CALL                             R10 -1 1
+      118 DUPCLOSURE                       R12 K23 [PROTO_3]
+      119 CAPTURE                          UPVAL U7
+      120 CAPTURE                          UPVAL U4
+      121 CAPTURE                          UPVAL U8
+      122 NAMECALL                         R10 R10 K16 ["andThen"]
+      124 CALL                             R10 2 1
+      125 MOVE                             R7 R10
+      126 NEWCLOSURE                       R10 P2
+      127 CAPTURE                          VAL R4
+      128 CAPTURE                          UPVAL U9
+      129 CAPTURE                          VAL R5
+      130 CAPTURE                          UPVAL U10
+      131 CAPTURE                          VAL R0
+      132 CAPTURE                          UPVAL U11
+      133 CAPTURE                          UPVAL U12
+      134 CAPTURE                          VAL R3
+      135 CAPTURE                          UPVAL U13
+      136 CAPTURE                          VAL R2
+      137 CAPTURE                          VAL R1
+      138 CAPTURE                          UPVAL U14
+      139 CAPTURE                          UPVAL U15
+      140 CAPTURE                          UPVAL U16
+      141 CAPTURE                          UPVAL U17
+      142 CAPTURE                          UPVAL U18
+      143 CAPTURE                          UPVAL U19
+      144 CAPTURE                          UPVAL U6
+      145 CAPTURE                          UPVAL U20
+      146 CAPTURE                          UPVAL U21
+      147 CAPTURE                          UPVAL U22
+      148 CAPTURE                          UPVAL U23
+      149 CAPTURE                          UPVAL U24
+      150 CAPTURE                          UPVAL U25
+      151 CAPTURE                          UPVAL U26
+      152 CAPTURE                          UPVAL U27
+      153 NAMECALL                         R8 R7 K16 ["andThen"]
+      155 CALL                             R8 2 1
+      156 DUPCLOSURE                       R10 K24 [PROTO_6]
+      157 NAMECALL                         R8 R8 K25 ["catch"]
+      159 CALL                             R8 2 0
+      160 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

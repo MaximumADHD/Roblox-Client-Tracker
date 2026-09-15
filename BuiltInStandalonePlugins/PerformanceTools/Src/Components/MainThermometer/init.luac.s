@@ -376,158 +376,156 @@ PROTO_0:
       528 CALL                             R18 3 1
       529 MOVE                             R15 R18
       530 LOADK                            R16 K86 [": "]
-      531 LOADK                            R18 K89 ["%*ms"]
-      532 GETIMPORT                        R20 K92 [string.format]
-      534 LOADK                            R21 K93 ["%.1f"]
-      535 GETTABLEKS                       R22 R0 K94 ["RenderThreadAverageMs"]
-      537 CALL                             R20 2 1
-      538 NAMECALL                         R18 R18 K91 ["format"]
-      540 CALL                             R18 2 1
-      541 MOVE                             R17 R18
-      542 CONCAT                           R14 R15 R17
-      543 SETTABLEKS                       R14 R13 K72 ["Text"]
-      545 LOADB                            R14 1
-      546 SETTABLEKS                       R14 R13 K73 ["TextWrapped"]
-      548 LOADN                            R14 4
-      549 SETTABLEKS                       R14 R13 K40 ["LayoutOrder"]
-      551 CALL                             R11 2 1
-      552 SETTABLEKS                       R11 R10 K21 ["GameRenderLabel"]
-      554 GETUPVAL                         R11 2
-      555 GETTABLEKS                       R11 R11 K7 ["createElement"]
-      557 LOADK                            R12 K67 ["TextLabel"]
-      558 NEWTABLE                         R13 4 0
-      560 GETUPVAL                         R14 2
-      561 GETTABLEKS                       R14 R14 K9 ["Tag"]
-      563 LOADK                            R15 K68 ["X-Fit"]
-      564 SETTABLE                         R15 R13 R14
-      565 LOADK                            R20 K69 ["SceneBudgetThermometer"]
-      566 LOADK                            R21 K95 ["PerFrameTaskTime"]
-      567 NAMECALL                         R18 R1 K71 ["getText"]
-      569 CALL                             R18 3 1
-      570 MOVE                             R15 R18
-      571 LOADK                            R16 K86 [": "]
-      572 LOADK                            R18 K89 ["%*ms"]
-      573 GETIMPORT                        R20 K92 [string.format]
-      575 LOADK                            R21 K93 ["%.1f"]
-      576 GETTABLEKS                       R22 R0 K96 ["TaskThreadAverageMs"]
-      578 CALL                             R20 2 1
-      579 NAMECALL                         R18 R18 K91 ["format"]
-      581 CALL                             R18 2 1
-      582 MOVE                             R17 R18
-      583 CONCAT                           R14 R15 R17
-      584 SETTABLEKS                       R14 R13 K72 ["Text"]
-      586 LOADB                            R14 1
-      587 SETTABLEKS                       R14 R13 K73 ["TextWrapped"]
-      589 LOADN                            R14 4
-      590 SETTABLEKS                       R14 R13 K40 ["LayoutOrder"]
-      592 CALL                             R11 2 1
-      593 SETTABLEKS                       R11 R10 K22 ["GameTaskLabel"]
-      595 GETTABLEKS                       R12 R0 K60 ["IsEditMode"]
-      597 JUMPIFNOT                        R12 ; [+143]
-      598 GETUPVAL                         R11 2
-      599 GETTABLEKS                       R11 R11 K7 ["createElement"]
-      601 LOADK                            R12 K8 ["Frame"]
-      602 NEWTABLE                         R13 4 0
-      604 GETUPVAL                         R14 2
-      605 GETTABLEKS                       R14 R14 K9 ["Tag"]
-      607 LOADK                            R15 K59 ["X-Fit X-Row X-Corner"]
-      608 SETTABLE                         R15 R13 R14
-      609 LOADN                            R14 1
-      610 SETTABLEKS                       R14 R13 K15 ["BackgroundTransparency"]
-      612 LOADN                            R14 6
-      613 SETTABLEKS                       R14 R13 K40 ["LayoutOrder"]
-      615 DUPTABLE                         R14 K98 [{"Layout", "Padding", "InformationImageLabel", "EditDMWarningLabel"}]
-      616 GETUPVAL                         R15 2
-      617 GETTABLEKS                       R15 R15 K7 ["createElement"]
-      619 LOADK                            R16 K25 ["UIListLayout"]
-      620 DUPTABLE                         R17 K30 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
-      621 GETIMPORT                        R18 K32 [UDim.new]
-      623 LOADN                            R19 0
-      624 LOADN                            R20 5
-      625 CALL                             R18 2 1
-      626 SETTABLEKS                       R18 R17 K17 ["Padding"]
-      628 GETIMPORT                        R18 K35 [Enum.FillDirection.Vertical]
-      630 SETTABLEKS                       R18 R17 K26 ["FillDirection"]
-      632 GETIMPORT                        R18 K37 [Enum.HorizontalAlignment.Left]
-      634 SETTABLEKS                       R18 R17 K27 ["HorizontalAlignment"]
-      636 GETIMPORT                        R18 K58 [Enum.VerticalAlignment.Center]
-      638 SETTABLEKS                       R18 R17 K28 ["VerticalAlignment"]
-      640 GETIMPORT                        R18 K41 [Enum.SortOrder.LayoutOrder]
-      642 SETTABLEKS                       R18 R17 K29 ["SortOrder"]
-      644 CALL                             R15 2 1
-      645 SETTABLEKS                       R15 R14 K16 ["Layout"]
-      647 GETUPVAL                         R15 2
-      648 GETTABLEKS                       R15 R15 K7 ["createElement"]
-      650 LOADK                            R16 K42 ["UIPadding"]
-      651 DUPTABLE                         R17 K47 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-      652 GETIMPORT                        R18 K32 [UDim.new]
-      654 LOADN                            R19 0
-      655 LOADN                            R20 0
-      656 CALL                             R18 2 1
-      657 SETTABLEKS                       R18 R17 K43 ["PaddingTop"]
-      659 GETIMPORT                        R18 K32 [UDim.new]
-      661 LOADN                            R19 0
-      662 LOADN                            R20 0
-      663 CALL                             R18 2 1
-      664 SETTABLEKS                       R18 R17 K44 ["PaddingBottom"]
-      666 GETIMPORT                        R18 K32 [UDim.new]
-      668 LOADN                            R19 0
-      669 LOADN                            R20 0
-      670 CALL                             R18 2 1
-      671 SETTABLEKS                       R18 R17 K45 ["PaddingLeft"]
-      673 GETIMPORT                        R18 K32 [UDim.new]
-      675 LOADN                            R19 0
-      676 LOADN                            R20 0
-      677 CALL                             R18 2 1
-      678 SETTABLEKS                       R18 R17 K46 ["PaddingRight"]
-      680 CALL                             R15 2 1
-      681 SETTABLEKS                       R15 R14 K17 ["Padding"]
-      683 GETUPVAL                         R15 2
-      684 GETTABLEKS                       R15 R15 K7 ["createElement"]
-      686 LOADK                            R16 K65 ["ImageLabel"]
-      687 NEWTABLE                         R17 4 0
-      689 GETUPVAL                         R18 2
-      690 GETTABLEKS                       R18 R18 K9 ["Tag"]
-      692 LOADK                            R19 K66 ["InformationLabel"]
-      693 SETTABLE                         R19 R17 R18
-      694 GETIMPORT                        R18 K13 [UDim2.new]
-      696 LOADN                            R19 0
-      697 LOADN                            R20 16
-      698 LOADN                            R21 0
-      699 LOADN                            R22 16
-      700 CALL                             R18 4 1
-      701 SETTABLEKS                       R18 R17 K14 ["Size"]
-      703 LOADN                            R18 1
-      704 SETTABLEKS                       R18 R17 K15 ["BackgroundTransparency"]
-      706 LOADN                            R18 1
-      707 SETTABLEKS                       R18 R17 K40 ["LayoutOrder"]
-      709 CALL                             R15 2 1
-      710 SETTABLEKS                       R15 R14 K62 ["InformationImageLabel"]
-      712 GETUPVAL                         R15 2
-      713 GETTABLEKS                       R15 R15 K7 ["createElement"]
-      715 LOADK                            R16 K67 ["TextLabel"]
-      716 NEWTABLE                         R17 4 0
-      718 GETUPVAL                         R18 2
-      719 GETTABLEKS                       R18 R18 K9 ["Tag"]
-      721 LOADK                            R19 K68 ["X-Fit"]
-      722 SETTABLE                         R19 R17 R18
-      723 LOADK                            R20 K69 ["SceneBudgetThermometer"]
-      724 LOADK                            R21 K23 ["EditDMWarning"]
-      725 NAMECALL                         R18 R1 K71 ["getText"]
-      727 CALL                             R18 3 1
-      728 SETTABLEKS                       R18 R17 K72 ["Text"]
-      730 LOADB                            R18 1
-      731 SETTABLEKS                       R18 R17 K73 ["TextWrapped"]
-      733 LOADN                            R18 2
-      734 SETTABLEKS                       R18 R17 K40 ["LayoutOrder"]
-      736 CALL                             R15 2 1
-      737 SETTABLEKS                       R15 R14 K97 ["EditDMWarningLabel"]
-      739 CALL                             R11 3 1
-      740 JUMPIF                           R11 ; [+1]
-      741 LOADNIL                          R11
-      742 SETTABLEKS                       R11 R10 K23 ["EditDMWarning"]
-      744 CALL                             R7 3 -1
-      745 RETURN                           R7 -1
+      531 LOADK                            R17 K89 ["%*ms"]
+      532 GETIMPORT                        R19 K92 [string.format]
+      534 LOADK                            R20 K93 ["%.1f"]
+      535 GETTABLEKS                       R21 R0 K94 ["RenderThreadAverageMs"]
+      537 CALL                             R19 2 1
+      538 NAMECALL                         R17 R17 K91 ["format"]
+      540 CALL                             R17 2 1
+      541 CONCAT                           R14 R15 R17
+      542 SETTABLEKS                       R14 R13 K72 ["Text"]
+      544 LOADB                            R14 1
+      545 SETTABLEKS                       R14 R13 K73 ["TextWrapped"]
+      547 LOADN                            R14 4
+      548 SETTABLEKS                       R14 R13 K40 ["LayoutOrder"]
+      550 CALL                             R11 2 1
+      551 SETTABLEKS                       R11 R10 K21 ["GameRenderLabel"]
+      553 GETUPVAL                         R11 2
+      554 GETTABLEKS                       R11 R11 K7 ["createElement"]
+      556 LOADK                            R12 K67 ["TextLabel"]
+      557 NEWTABLE                         R13 4 0
+      559 GETUPVAL                         R14 2
+      560 GETTABLEKS                       R14 R14 K9 ["Tag"]
+      562 LOADK                            R15 K68 ["X-Fit"]
+      563 SETTABLE                         R15 R13 R14
+      564 LOADK                            R20 K69 ["SceneBudgetThermometer"]
+      565 LOADK                            R21 K95 ["PerFrameTaskTime"]
+      566 NAMECALL                         R18 R1 K71 ["getText"]
+      568 CALL                             R18 3 1
+      569 MOVE                             R15 R18
+      570 LOADK                            R16 K86 [": "]
+      571 LOADK                            R17 K89 ["%*ms"]
+      572 GETIMPORT                        R19 K92 [string.format]
+      574 LOADK                            R20 K93 ["%.1f"]
+      575 GETTABLEKS                       R21 R0 K96 ["TaskThreadAverageMs"]
+      577 CALL                             R19 2 1
+      578 NAMECALL                         R17 R17 K91 ["format"]
+      580 CALL                             R17 2 1
+      581 CONCAT                           R14 R15 R17
+      582 SETTABLEKS                       R14 R13 K72 ["Text"]
+      584 LOADB                            R14 1
+      585 SETTABLEKS                       R14 R13 K73 ["TextWrapped"]
+      587 LOADN                            R14 4
+      588 SETTABLEKS                       R14 R13 K40 ["LayoutOrder"]
+      590 CALL                             R11 2 1
+      591 SETTABLEKS                       R11 R10 K22 ["GameTaskLabel"]
+      593 GETTABLEKS                       R12 R0 K60 ["IsEditMode"]
+      595 JUMPIFNOT                        R12 ; [+143]
+      596 GETUPVAL                         R11 2
+      597 GETTABLEKS                       R11 R11 K7 ["createElement"]
+      599 LOADK                            R12 K8 ["Frame"]
+      600 NEWTABLE                         R13 4 0
+      602 GETUPVAL                         R14 2
+      603 GETTABLEKS                       R14 R14 K9 ["Tag"]
+      605 LOADK                            R15 K59 ["X-Fit X-Row X-Corner"]
+      606 SETTABLE                         R15 R13 R14
+      607 LOADN                            R14 1
+      608 SETTABLEKS                       R14 R13 K15 ["BackgroundTransparency"]
+      610 LOADN                            R14 6
+      611 SETTABLEKS                       R14 R13 K40 ["LayoutOrder"]
+      613 DUPTABLE                         R14 K98 [{"Layout", "Padding", "InformationImageLabel", "EditDMWarningLabel"}]
+      614 GETUPVAL                         R15 2
+      615 GETTABLEKS                       R15 R15 K7 ["createElement"]
+      617 LOADK                            R16 K25 ["UIListLayout"]
+      618 DUPTABLE                         R17 K30 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+      619 GETIMPORT                        R18 K32 [UDim.new]
+      621 LOADN                            R19 0
+      622 LOADN                            R20 5
+      623 CALL                             R18 2 1
+      624 SETTABLEKS                       R18 R17 K17 ["Padding"]
+      626 GETIMPORT                        R18 K35 [Enum.FillDirection.Vertical]
+      628 SETTABLEKS                       R18 R17 K26 ["FillDirection"]
+      630 GETIMPORT                        R18 K37 [Enum.HorizontalAlignment.Left]
+      632 SETTABLEKS                       R18 R17 K27 ["HorizontalAlignment"]
+      634 GETIMPORT                        R18 K58 [Enum.VerticalAlignment.Center]
+      636 SETTABLEKS                       R18 R17 K28 ["VerticalAlignment"]
+      638 GETIMPORT                        R18 K41 [Enum.SortOrder.LayoutOrder]
+      640 SETTABLEKS                       R18 R17 K29 ["SortOrder"]
+      642 CALL                             R15 2 1
+      643 SETTABLEKS                       R15 R14 K16 ["Layout"]
+      645 GETUPVAL                         R15 2
+      646 GETTABLEKS                       R15 R15 K7 ["createElement"]
+      648 LOADK                            R16 K42 ["UIPadding"]
+      649 DUPTABLE                         R17 K47 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+      650 GETIMPORT                        R18 K32 [UDim.new]
+      652 LOADN                            R19 0
+      653 LOADN                            R20 0
+      654 CALL                             R18 2 1
+      655 SETTABLEKS                       R18 R17 K43 ["PaddingTop"]
+      657 GETIMPORT                        R18 K32 [UDim.new]
+      659 LOADN                            R19 0
+      660 LOADN                            R20 0
+      661 CALL                             R18 2 1
+      662 SETTABLEKS                       R18 R17 K44 ["PaddingBottom"]
+      664 GETIMPORT                        R18 K32 [UDim.new]
+      666 LOADN                            R19 0
+      667 LOADN                            R20 0
+      668 CALL                             R18 2 1
+      669 SETTABLEKS                       R18 R17 K45 ["PaddingLeft"]
+      671 GETIMPORT                        R18 K32 [UDim.new]
+      673 LOADN                            R19 0
+      674 LOADN                            R20 0
+      675 CALL                             R18 2 1
+      676 SETTABLEKS                       R18 R17 K46 ["PaddingRight"]
+      678 CALL                             R15 2 1
+      679 SETTABLEKS                       R15 R14 K17 ["Padding"]
+      681 GETUPVAL                         R15 2
+      682 GETTABLEKS                       R15 R15 K7 ["createElement"]
+      684 LOADK                            R16 K65 ["ImageLabel"]
+      685 NEWTABLE                         R17 4 0
+      687 GETUPVAL                         R18 2
+      688 GETTABLEKS                       R18 R18 K9 ["Tag"]
+      690 LOADK                            R19 K66 ["InformationLabel"]
+      691 SETTABLE                         R19 R17 R18
+      692 GETIMPORT                        R18 K13 [UDim2.new]
+      694 LOADN                            R19 0
+      695 LOADN                            R20 16
+      696 LOADN                            R21 0
+      697 LOADN                            R22 16
+      698 CALL                             R18 4 1
+      699 SETTABLEKS                       R18 R17 K14 ["Size"]
+      701 LOADN                            R18 1
+      702 SETTABLEKS                       R18 R17 K15 ["BackgroundTransparency"]
+      704 LOADN                            R18 1
+      705 SETTABLEKS                       R18 R17 K40 ["LayoutOrder"]
+      707 CALL                             R15 2 1
+      708 SETTABLEKS                       R15 R14 K62 ["InformationImageLabel"]
+      710 GETUPVAL                         R15 2
+      711 GETTABLEKS                       R15 R15 K7 ["createElement"]
+      713 LOADK                            R16 K67 ["TextLabel"]
+      714 NEWTABLE                         R17 4 0
+      716 GETUPVAL                         R18 2
+      717 GETTABLEKS                       R18 R18 K9 ["Tag"]
+      719 LOADK                            R19 K68 ["X-Fit"]
+      720 SETTABLE                         R19 R17 R18
+      721 LOADK                            R20 K69 ["SceneBudgetThermometer"]
+      722 LOADK                            R21 K23 ["EditDMWarning"]
+      723 NAMECALL                         R18 R1 K71 ["getText"]
+      725 CALL                             R18 3 1
+      726 SETTABLEKS                       R18 R17 K72 ["Text"]
+      728 LOADB                            R18 1
+      729 SETTABLEKS                       R18 R17 K73 ["TextWrapped"]
+      731 LOADN                            R18 2
+      732 SETTABLEKS                       R18 R17 K40 ["LayoutOrder"]
+      734 CALL                             R15 2 1
+      735 SETTABLEKS                       R15 R14 K97 ["EditDMWarningLabel"]
+      737 CALL                             R11 3 1
+      738 JUMPIF                           R11 ; [+1]
+      739 LOADNIL                          R11
+      740 SETTABLEKS                       R11 R10 K23 ["EditDMWarning"]
+      742 CALL                             R7 3 -1
+      743 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -280,11 +280,6 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["Flags"]
        13 GETTABLEKS                       R2 R2 K8 ["getFFlagEnableUploadingAvatarAnimations"]
        15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R3 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R3 K7 ["Flags"]
-       22 GETTABLEKS                       R3 R3 K9 ["getFFlagEnableUploadingMakeup"]
-       24 CALL                             R2 1 1
-       25 DUPCLOSURE                       R3 K10 [PROTO_0]
-       26 CAPTURE                          VAL R1
-       27 RETURN                           R3 1
+       16 DUPCLOSURE                       R2 K9 [PROTO_0]
+       17 CAPTURE                          VAL R1
+       18 RETURN                           R2 1

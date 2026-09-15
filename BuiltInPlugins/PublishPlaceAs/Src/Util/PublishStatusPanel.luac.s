@@ -57,6 +57,42 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_plugin"]
+        3 LOADK                            R2 K1 ["Actions"]
+        4 NAMECALL                         R0 R0 K2 ["GetPluginComponent"]
+        6 CALL                             R0 2 1
+        7 GETUPVAL                         R3 1
+        8 NAMECALL                         R1 R0 K3 ["ActivateAsync"]
+       10 CALL                             R1 2 0
+       11 RETURN                           R0 0
+
+PROTO_6:
+        0 GETIMPORT                        R0 K1 [pcall]
+        2 NEWCLOSURE                       R1 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          UPVAL U1
+        5 CALL                             R0 1 2
+        6 JUMPIF                           R0 ; [+8]
+        7 GETIMPORT                        R2 K3 [warn]
+        9 LOADK                            R3 K4 ["Failed to activate Studio action: %*"]
+       10 MOVE                             R5 R1
+       11 NAMECALL                         R3 R3 K5 ["format"]
+       13 CALL                             R3 2 1
+       14 CALL                             R2 1 0
+       15 RETURN                           R0 0
+
+PROTO_7:
+        0 NAMECALL                         R2 R0 K0 ["close"]
+        2 CALL                             R2 1 0
+        3 GETIMPORT                        R2 K3 [task.spawn]
+        5 NEWCLOSURE                       R3 P0
+        6 CAPTURE                          VAL R0
+        7 CAPTURE                          VAL R1
+        8 CALL                             R2 1 0
+        9 RETURN                           R0 0
+
+PROTO_8:
+        0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["_widget"]
         4 NAMECALL                         R0 R0 K1 ["GetWidgetFromPluginGui"]
@@ -67,7 +103,7 @@ PROTO_5:
        11 CALL                             R0 3 0
        12 RETURN                           R0 0
 
-PROTO_6:
+PROTO_9:
         0 GETTABLEKS                       R3 R0 K0 ["_widget"]
         2 JUMPIFNOT                        R3 ; [+2]
         3 GETUPVAL                         R3 0
@@ -93,17 +129,16 @@ PROTO_6:
        31 CAPTURE                          VAL R4
        32 CAPTURE                          VAL R5
        33 CALL                             R6 1 2
-       34 JUMPIF                           R6 ; [+9]
+       34 JUMPIF                           R6 ; [+8]
        35 GETIMPORT                        R8 K10 [warn]
-       37 LOADK                            R10 K11 ["Failed to resize the Publish Status widget: %*"]
-       38 MOVE                             R12 R7
-       39 NAMECALL                         R10 R10 K12 ["format"]
-       41 CALL                             R10 2 1
-       42 MOVE                             R9 R10
-       43 CALL                             R8 1 0
-       44 RETURN                           R0 0
+       37 LOADK                            R9 K11 ["Failed to resize the Publish Status widget: %*"]
+       38 MOVE                             R11 R7
+       39 NAMECALL                         R9 R9 K12 ["format"]
+       41 CALL                             R9 2 1
+       42 CALL                             R8 1 0
+       43 RETURN                           R0 0
 
-PROTO_7:
+PROTO_10:
         0 NAMECALL                         R1 R0 K0 ["_unmount"]
         2 CALL                             R1 1 0
         3 GETTABLEKS                       R1 R0 K1 ["_widget"]
@@ -119,66 +154,73 @@ PROTO_7:
        18 SETTABLEKS                       R1 R0 K1 ["_widget"]
        20 RETURN                           R0 0
 
-PROTO_8:
+PROTO_11:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["close"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_9:
+PROTO_12:
         0 GETTABLEKS                       R1 R0 K0 ["_widget"]
         2 JUMPIFNOT                        R1 ; [+1]
         3 RETURN                           R0 0
         4 GETTABLEKS                       R1 R0 K1 ["_plugin"]
         6 GETUPVAL                         R3 0
         7 GETTABLEKS                       R3 R3 K2 ["WidgetId"]
-        9 DUPTABLE                         R4 K9 [{["Size"], ["Resizable"] = False, ["Modal"] = True, ["InitialEnabled"] = False}]
+        9 DUPTABLE                         R4 K10 [{["Size"], ["Resizable"] = False, ["Modal"] = True, ["InitialEnabled"] = False, ["KeepCenterOnResize"]}]
        10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R5 R5 K10 ["getDefaultContentSize"]
+       11 GETTABLEKS                       R5 R5 K11 ["getDefaultContentSize"]
        13 CALL                             R5 0 1
        14 SETTABLEKS                       R5 R4 K3 ["Size"]
-       16 NAMECALL                         R1 R1 K11 ["CreateQWidgetPluginGui"]
-       18 CALL                             R1 3 1
-       19 SETTABLEKS                       R1 R0 K0 ["_widget"]
-       21 GETTABLEKS                       R1 R0 K0 ["_widget"]
-       23 GETUPVAL                         R2 0
-       24 GETTABLEKS                       R2 R2 K2 ["WidgetId"]
-       26 SETTABLEKS                       R2 R1 K12 ["Name"]
-       28 GETTABLEKS                       R1 R0 K0 ["_widget"]
-       30 GETTABLEKS                       R2 R0 K13 ["_localization"]
-       32 GETUPVAL                         R4 0
-       33 GETTABLEKS                       R4 R4 K14 ["LocalizationNamespace"]
-       35 LOADK                            R5 K15 ["Title"]
-       36 NAMECALL                         R2 R2 K16 ["getText"]
-       38 CALL                             R2 3 1
-       39 SETTABLEKS                       R2 R1 K15 ["Title"]
-       41 GETTABLEKS                       R1 R0 K0 ["_widget"]
-       43 GETIMPORT                        R2 K20 [Enum.ZIndexBehavior.Sibling]
-       45 SETTABLEKS                       R2 R1 K18 ["ZIndexBehavior"]
-       47 GETTABLEKS                       R1 R0 K0 ["_widget"]
-       49 NEWCLOSURE                       R3 P0
-       50 CAPTURE                          VAL R0
-       51 NAMECALL                         R1 R1 K21 ["BindToClose"]
-       53 CALL                             R1 2 0
-       54 GETUPVAL                         R1 1
-       55 GETTABLEKS                       R1 R1 K22 ["new"]
-       57 DUPTABLE                         R2 K25 [{"namespace", "plugin"}]
-       58 GETUPVAL                         R3 0
-       59 GETTABLEKS                       R3 R3 K26 ["MessageBusNamespace"]
-       61 SETTABLEKS                       R3 R2 K23 ["namespace"]
-       63 GETTABLEKS                       R3 R0 K1 ["_plugin"]
-       65 SETTABLEKS                       R3 R2 K24 ["plugin"]
-       67 CALL                             R1 1 1
-       68 SETTABLEKS                       R1 R0 K27 ["_webViewManagerContext"]
-       70 RETURN                           R0 0
+       16 GETUPVAL                         R6 1
+       17 CALL                             R6 0 1
+       18 JUMPIFNOT                        R6 ; [+2]
+       19 LOADB                            R5 1
+       20 JUMP                             ; [+1]
+       21 LOADNIL                          R5
+       22 SETTABLEKS                       R5 R4 K9 ["KeepCenterOnResize"]
+       24 NAMECALL                         R1 R1 K12 ["CreateQWidgetPluginGui"]
+       26 CALL                             R1 3 1
+       27 SETTABLEKS                       R1 R0 K0 ["_widget"]
+       29 GETTABLEKS                       R1 R0 K0 ["_widget"]
+       31 GETUPVAL                         R2 0
+       32 GETTABLEKS                       R2 R2 K2 ["WidgetId"]
+       34 SETTABLEKS                       R2 R1 K13 ["Name"]
+       36 GETTABLEKS                       R1 R0 K0 ["_widget"]
+       38 GETTABLEKS                       R2 R0 K14 ["_localization"]
+       40 GETUPVAL                         R4 0
+       41 GETTABLEKS                       R4 R4 K15 ["LocalizationNamespace"]
+       43 LOADK                            R5 K16 ["Title"]
+       44 NAMECALL                         R2 R2 K17 ["getText"]
+       46 CALL                             R2 3 1
+       47 SETTABLEKS                       R2 R1 K16 ["Title"]
+       49 GETTABLEKS                       R1 R0 K0 ["_widget"]
+       51 GETIMPORT                        R2 K21 [Enum.ZIndexBehavior.Sibling]
+       53 SETTABLEKS                       R2 R1 K19 ["ZIndexBehavior"]
+       55 GETTABLEKS                       R1 R0 K0 ["_widget"]
+       57 NEWCLOSURE                       R3 P0
+       58 CAPTURE                          VAL R0
+       59 NAMECALL                         R1 R1 K22 ["BindToClose"]
+       61 CALL                             R1 2 0
+       62 GETUPVAL                         R1 2
+       63 GETTABLEKS                       R1 R1 K23 ["new"]
+       65 DUPTABLE                         R2 K26 [{"namespace", "plugin"}]
+       66 GETUPVAL                         R3 0
+       67 GETTABLEKS                       R3 R3 K27 ["MessageBusNamespace"]
+       69 SETTABLEKS                       R3 R2 K24 ["namespace"]
+       71 GETTABLEKS                       R3 R0 K1 ["_plugin"]
+       73 SETTABLEKS                       R3 R2 K25 ["plugin"]
+       75 CALL                             R1 1 1
+       76 SETTABLEKS                       R1 R0 K28 ["_webViewManagerContext"]
+       78 RETURN                           R0 0
 
-PROTO_10:
+PROTO_13:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["close"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_11:
+PROTO_14:
         0 GETUPVAL                         R2 0
         1 MOVE                             R4 R0
         2 MOVE                             R5 R1
@@ -186,7 +228,14 @@ PROTO_11:
         5 CALL                             R2 3 0
         6 RETURN                           R0 0
 
-PROTO_12:
+PROTO_15:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K0 ["activateStudioAction"]
+        4 CALL                             R1 2 0
+        5 RETURN                           R0 0
+
+PROTO_16:
         0 GETTABLEKS                       R1 R0 K0 ["_handle"]
         2 JUMPIFNOT                        R1 ; [+1]
         3 RETURN                           R0 0
@@ -213,10 +262,10 @@ PROTO_12:
        38 GETUPVAL                         R5 0
        39 GETTABLEKS                       R5 R5 K1 ["createElement"]
        41 GETUPVAL                         R6 3
-       42 DUPTABLE                         R7 K18 [{"Plugin", "WebViewManagerContext", "OnCloseRequested", "OnContentSizeRequested"}]
+       42 DUPTABLE                         R7 K19 [{"Plugin", "WebViewManagerContext", "OnCloseRequested", "OnContentSizeRequested", "OnStudioActionRequested"}]
        43 GETTABLEKS                       R8 R0 K11 ["_plugin"]
        45 SETTABLEKS                       R8 R7 K14 ["Plugin"]
-       47 GETTABLEKS                       R8 R0 K19 ["_webViewManagerContext"]
+       47 GETTABLEKS                       R8 R0 K20 ["_webViewManagerContext"]
        49 SETTABLEKS                       R8 R7 K15 ["WebViewManagerContext"]
        51 NEWCLOSURE                       R8 P0
        52 CAPTURE                          VAL R0
@@ -224,20 +273,23 @@ PROTO_12:
        55 NEWCLOSURE                       R8 P1
        56 CAPTURE                          VAL R0
        57 SETTABLEKS                       R8 R7 K17 ["OnContentSizeRequested"]
-       59 CALL                             R5 2 -1
-       60 SETLIST                          R4 R5 -1 [1]
-       62 CALL                             R1 3 1
-       63 GETUPVAL                         R2 0
-       64 GETTABLEKS                       R2 R2 K20 ["mount"]
-       66 MOVE                             R3 R1
-       67 GETTABLEKS                       R4 R0 K9 ["_widget"]
-       69 GETUPVAL                         R5 4
-       70 GETTABLEKS                       R5 R5 K21 ["WidgetId"]
-       72 CALL                             R2 3 1
-       73 SETTABLEKS                       R2 R0 K0 ["_handle"]
-       75 RETURN                           R0 0
+       59 NEWCLOSURE                       R8 P2
+       60 CAPTURE                          VAL R0
+       61 SETTABLEKS                       R8 R7 K18 ["OnStudioActionRequested"]
+       63 CALL                             R5 2 -1
+       64 SETLIST                          R4 R5 -1 [1]
+       66 CALL                             R1 3 1
+       67 GETUPVAL                         R2 0
+       68 GETTABLEKS                       R2 R2 K21 ["mount"]
+       70 MOVE                             R3 R1
+       71 GETTABLEKS                       R4 R0 K9 ["_widget"]
+       73 GETUPVAL                         R5 4
+       74 GETTABLEKS                       R5 R5 K22 ["WidgetId"]
+       76 CALL                             R2 3 1
+       77 SETTABLEKS                       R2 R0 K0 ["_handle"]
+       79 RETURN                           R0 0
 
-PROTO_13:
+PROTO_17:
         0 GETTABLEKS                       R1 R0 K0 ["_handle"]
         2 JUMPIF                           R1 ; [+1]
         3 RETURN                           R0 0
@@ -295,35 +347,43 @@ MAIN:
        73 GETTABLEKS                       R11 R11 K19 ["Components"]
        75 GETTABLEKS                       R11 R11 K21 ["ServiceWrapper"]
        77 CALL                             R10 1 1
-       78 LOADK                            R13 K22 ["PublishStatusPanel"]
-       79 NAMECALL                         R11 R5 K23 ["extend"]
-       81 CALL                             R11 2 1
-       82 DUPCLOSURE                       R12 K24 [PROTO_1]
-       83 CAPTURE                          VAL R11
-       84 SETTABLEKS                       R12 R11 K25 ["new"]
-       86 DUPCLOSURE                       R12 K26 [PROTO_2]
-       87 SETTABLEKS                       R12 R11 K27 ["open"]
-       89 DUPCLOSURE                       R12 K28 [PROTO_4]
-       90 SETTABLEKS                       R12 R11 K29 ["close"]
-       92 NEWCLOSURE                       R12 P4
-       93 CAPTURE                          REF R1
-       94 CAPTURE                          VAL R8
-       95 SETTABLEKS                       R12 R11 K30 ["setContentSize"]
-       97 DUPCLOSURE                       R12 K31 [PROTO_7]
-       98 SETTABLEKS                       R12 R11 K32 ["destroy"]
-      100 DUPCLOSURE                       R12 K33 [PROTO_9]
-      101 CAPTURE                          VAL R8
-      102 CAPTURE                          VAL R6
-      103 SETTABLEKS                       R12 R11 K34 ["_createWidget"]
-      105 DUPCLOSURE                       R12 K35 [PROTO_12]
-      106 CAPTURE                          VAL R2
-      107 CAPTURE                          VAL R10
-      108 CAPTURE                          VAL R7
-      109 CAPTURE                          VAL R9
-      110 CAPTURE                          VAL R8
-      111 SETTABLEKS                       R12 R11 K36 ["_mount"]
-      113 DUPCLOSURE                       R12 K37 [PROTO_13]
-      114 CAPTURE                          VAL R2
-      115 SETTABLEKS                       R12 R11 K38 ["_unmount"]
-      117 CLOSEUPVALS                      R1
-      118 RETURN                           R11 1
+       78 GETIMPORT                        R11 K6 [require]
+       80 GETTABLEKS                       R12 R0 K14 ["Src"]
+       82 GETTABLEKS                       R12 R12 K22 ["Flags"]
+       84 GETTABLEKS                       R12 R12 K23 ["getFFlagPluginQWidgetKeepCenterOnResize"]
+       86 CALL                             R11 1 1
+       87 LOADK                            R14 K24 ["PublishStatusPanel"]
+       88 NAMECALL                         R12 R5 K25 ["extend"]
+       90 CALL                             R12 2 1
+       91 DUPCLOSURE                       R13 K26 [PROTO_1]
+       92 CAPTURE                          VAL R12
+       93 SETTABLEKS                       R13 R12 K27 ["new"]
+       95 DUPCLOSURE                       R13 K28 [PROTO_2]
+       96 SETTABLEKS                       R13 R12 K29 ["open"]
+       98 DUPCLOSURE                       R13 K30 [PROTO_4]
+       99 SETTABLEKS                       R13 R12 K31 ["close"]
+      101 DUPCLOSURE                       R13 K32 [PROTO_7]
+      102 SETTABLEKS                       R13 R12 K33 ["activateStudioAction"]
+      104 NEWCLOSURE                       R13 P5
+      105 CAPTURE                          REF R1
+      106 CAPTURE                          VAL R8
+      107 SETTABLEKS                       R13 R12 K34 ["setContentSize"]
+      109 DUPCLOSURE                       R13 K35 [PROTO_10]
+      110 SETTABLEKS                       R13 R12 K36 ["destroy"]
+      112 DUPCLOSURE                       R13 K37 [PROTO_12]
+      113 CAPTURE                          VAL R8
+      114 CAPTURE                          VAL R11
+      115 CAPTURE                          VAL R6
+      116 SETTABLEKS                       R13 R12 K38 ["_createWidget"]
+      118 DUPCLOSURE                       R13 K39 [PROTO_16]
+      119 CAPTURE                          VAL R2
+      120 CAPTURE                          VAL R10
+      121 CAPTURE                          VAL R7
+      122 CAPTURE                          VAL R9
+      123 CAPTURE                          VAL R8
+      124 SETTABLEKS                       R13 R12 K40 ["_mount"]
+      126 DUPCLOSURE                       R13 K41 [PROTO_17]
+      127 CAPTURE                          VAL R2
+      128 SETTABLEKS                       R13 R12 K42 ["_unmount"]
+      130 CLOSEUPVALS                      R1
+      131 RETURN                           R12 1

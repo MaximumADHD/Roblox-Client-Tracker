@@ -9,15 +9,14 @@ PROTO_1:
         2 DUPCLOSURE                       R1 K2 [PROTO_0]
         3 CAPTURE                          UPVAL U0
         4 CALL                             R0 1 2
-        5 JUMPIF                           R0 ; [+9]
+        5 JUMPIF                           R0 ; [+8]
         6 GETIMPORT                        R2 K4 [warn]
-        8 LOADK                            R4 K5 ["Failed to publish avatar settings: %*"]
-        9 MOVE                             R6 R1
-       10 NAMECALL                         R4 R4 K6 ["format"]
-       12 CALL                             R4 2 1
-       13 MOVE                             R3 R4
-       14 CALL                             R2 1 0
-       15 RETURN                           R0 1
+        8 LOADK                            R3 K5 ["Failed to publish avatar settings: %*"]
+        9 MOVE                             R5 R1
+       10 NAMECALL                         R3 R3 K6 ["format"]
+       12 CALL                             R3 2 1
+       13 CALL                             R2 1 0
+       14 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

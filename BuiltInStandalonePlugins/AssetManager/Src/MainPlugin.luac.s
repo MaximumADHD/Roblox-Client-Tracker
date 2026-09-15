@@ -495,86 +495,85 @@ PROTO_13:
        82 LOADK                            R12 K6 ["AssetManager"]
        83 SETTABLEKS                       R12 R11 K28 ["Id"]
        85 SETTABLEKS                       R4 R11 K29 ["Enabled"]
-       87 LOADK                            R13 K30 ["%*%*"]
-       88 GETTABLEKS                       R15 R0 K15 ["localization"]
-       90 LOADK                            R17 K2 ["Plugin"]
-       91 LOADK                            R18 K31 ["Name"]
-       92 NAMECALL                         R15 R15 K32 ["getText"]
-       94 CALL                             R15 3 1
-       95 MOVE                             R16 R5
-       96 NAMECALL                         R13 R13 K9 ["format"]
-       98 CALL                             R13 3 1
-       99 MOVE                             R12 R13
-      100 SETTABLEKS                       R12 R11 K33 ["Title"]
-      102 GETIMPORT                        R12 K37 [Enum.ZIndexBehavior.Sibling]
-      104 SETTABLEKS                       R12 R11 K35 ["ZIndexBehavior"]
-      106 GETIMPORT                        R12 K40 [Enum.InitialDockState.Bottom]
-      108 SETTABLEKS                       R12 R11 K38 ["InitialDockState"]
-      110 GETIMPORT                        R12 K42 [Vector2.new]
-      112 LOADN                            R13 640
-      113 LOADN                            R14 480
-      114 CALL                             R12 2 1
-      115 SETTABLEKS                       R12 R11 K43 ["Size"]
-      117 GETIMPORT                        R12 K42 [Vector2.new]
-      119 LOADN                            R13 250
-      120 LOADN                            R14 200
-      121 CALL                             R12 2 1
-      122 SETTABLEKS                       R12 R11 K44 ["MinSize"]
-      124 GETTABLEKS                       R12 R0 K45 ["onClose"]
-      126 SETTABLEKS                       R12 R11 K46 ["OnClose"]
-      128 GETTABLEKS                       R12 R1 K47 ["PluginLoaderContext"]
-      130 GETTABLEKS                       R12 R12 K48 ["mainDockWidget"]
-      132 SETTABLEKS                       R12 R11 K49 ["Widget"]
-      134 GETTABLEKS                       R12 R0 K50 ["onDockWidgetCreated"]
-      136 SETTABLEKS                       R12 R11 K51 ["OnWidgetCreated"]
-      138 GETTABLEKS                       R12 R0 K52 ["onRestore"]
-      140 SETTABLEKS                       R12 R11 K53 ["OnWidgetRestored"]
-      142 LOADB                            R12 1
-      143 SETTABLEKS                       R12 R11 K54 ["ShouldRestore"]
-      145 GETUPVAL                         R12 7
-      146 GETTABLEKS                       R12 R12 K55 ["Change"]
-      148 GETTABLEKS                       R12 R12 K29 ["Enabled"]
-      150 GETTABLEKS                       R13 R0 K56 ["onWidgetEnabledChanged"]
-      152 SETTABLE                         R13 R11 R12
-      153 NEWTABLE                         R12 0 1
-      155 GETUPVAL                         R13 7
-      156 GETTABLEKS                       R13 R13 K27 ["createElement"]
-      158 GETUPVAL                         R14 9
-      159 DUPTABLE                         R15 K59 [{"theme", "plugin"}]
-      160 GETUPVAL                         R16 10
-      161 CALL                             R16 0 1
-      162 SETTABLEKS                       R16 R15 K57 ["theme"]
-      164 GETUPVAL                         R17 11
-      165 CALL                             R17 0 1
-      166 JUMPIFNOT                        R17 ; [+2]
-      167 MOVE                             R16 R3
-      168 JUMP                             ; [+1]
-      169 LOADNIL                          R16
-      170 SETTABLEKS                       R16 R15 K58 ["plugin"]
-      172 DUPTABLE                         R16 K62 [{"App", "KeyboardListener"}]
-      173 GETUPVAL                         R17 7
-      174 GETTABLEKS                       R17 R17 K27 ["createElement"]
-      176 GETUPVAL                         R18 12
-      177 CALL                             R17 1 1
-      178 SETTABLEKS                       R17 R16 K60 ["App"]
-      180 GETUPVAL                         R17 7
-      181 GETTABLEKS                       R17 R17 K27 ["createElement"]
-      183 GETUPVAL                         R18 13
-      184 DUPTABLE                         R19 K65 [{"OnKeyPressed", "OnKeyReleased"}]
-      185 NEWCLOSURE                       R20 P0
-      186 CAPTURE                          VAL R0
-      187 SETTABLEKS                       R20 R19 K63 ["OnKeyPressed"]
-      189 NEWCLOSURE                       R20 P1
-      190 CAPTURE                          VAL R0
-      191 SETTABLEKS                       R20 R19 K64 ["OnKeyReleased"]
-      193 CALL                             R17 2 1
-      194 SETTABLEKS                       R17 R16 K61 ["KeyboardListener"]
-      196 CALL                             R13 3 -1
-      197 SETLIST                          R12 R13 -1 [1]
-      199 CALL                             R9 3 1
-      200 SETTABLEKS                       R9 R8 K25 ["MainWidget"]
-      202 CALL                             R6 2 -1
-      203 RETURN                           R6 -1
+       87 LOADK                            R12 K30 ["%*%*"]
+       88 GETTABLEKS                       R14 R0 K15 ["localization"]
+       90 LOADK                            R16 K2 ["Plugin"]
+       91 LOADK                            R17 K31 ["Name"]
+       92 NAMECALL                         R14 R14 K32 ["getText"]
+       94 CALL                             R14 3 1
+       95 MOVE                             R15 R5
+       96 NAMECALL                         R12 R12 K9 ["format"]
+       98 CALL                             R12 3 1
+       99 SETTABLEKS                       R12 R11 K33 ["Title"]
+      101 GETIMPORT                        R12 K37 [Enum.ZIndexBehavior.Sibling]
+      103 SETTABLEKS                       R12 R11 K35 ["ZIndexBehavior"]
+      105 GETIMPORT                        R12 K40 [Enum.InitialDockState.Bottom]
+      107 SETTABLEKS                       R12 R11 K38 ["InitialDockState"]
+      109 GETIMPORT                        R12 K42 [Vector2.new]
+      111 LOADN                            R13 640
+      112 LOADN                            R14 480
+      113 CALL                             R12 2 1
+      114 SETTABLEKS                       R12 R11 K43 ["Size"]
+      116 GETIMPORT                        R12 K42 [Vector2.new]
+      118 LOADN                            R13 250
+      119 LOADN                            R14 200
+      120 CALL                             R12 2 1
+      121 SETTABLEKS                       R12 R11 K44 ["MinSize"]
+      123 GETTABLEKS                       R12 R0 K45 ["onClose"]
+      125 SETTABLEKS                       R12 R11 K46 ["OnClose"]
+      127 GETTABLEKS                       R12 R1 K47 ["PluginLoaderContext"]
+      129 GETTABLEKS                       R12 R12 K48 ["mainDockWidget"]
+      131 SETTABLEKS                       R12 R11 K49 ["Widget"]
+      133 GETTABLEKS                       R12 R0 K50 ["onDockWidgetCreated"]
+      135 SETTABLEKS                       R12 R11 K51 ["OnWidgetCreated"]
+      137 GETTABLEKS                       R12 R0 K52 ["onRestore"]
+      139 SETTABLEKS                       R12 R11 K53 ["OnWidgetRestored"]
+      141 LOADB                            R12 1
+      142 SETTABLEKS                       R12 R11 K54 ["ShouldRestore"]
+      144 GETUPVAL                         R12 7
+      145 GETTABLEKS                       R12 R12 K55 ["Change"]
+      147 GETTABLEKS                       R12 R12 K29 ["Enabled"]
+      149 GETTABLEKS                       R13 R0 K56 ["onWidgetEnabledChanged"]
+      151 SETTABLE                         R13 R11 R12
+      152 NEWTABLE                         R12 0 1
+      154 GETUPVAL                         R13 7
+      155 GETTABLEKS                       R13 R13 K27 ["createElement"]
+      157 GETUPVAL                         R14 9
+      158 DUPTABLE                         R15 K59 [{"theme", "plugin"}]
+      159 GETUPVAL                         R16 10
+      160 CALL                             R16 0 1
+      161 SETTABLEKS                       R16 R15 K57 ["theme"]
+      163 GETUPVAL                         R17 11
+      164 CALL                             R17 0 1
+      165 JUMPIFNOT                        R17 ; [+2]
+      166 MOVE                             R16 R3
+      167 JUMP                             ; [+1]
+      168 LOADNIL                          R16
+      169 SETTABLEKS                       R16 R15 K58 ["plugin"]
+      171 DUPTABLE                         R16 K62 [{"App", "KeyboardListener"}]
+      172 GETUPVAL                         R17 7
+      173 GETTABLEKS                       R17 R17 K27 ["createElement"]
+      175 GETUPVAL                         R18 12
+      176 CALL                             R17 1 1
+      177 SETTABLEKS                       R17 R16 K60 ["App"]
+      179 GETUPVAL                         R17 7
+      180 GETTABLEKS                       R17 R17 K27 ["createElement"]
+      182 GETUPVAL                         R18 13
+      183 DUPTABLE                         R19 K65 [{"OnKeyPressed", "OnKeyReleased"}]
+      184 NEWCLOSURE                       R20 P0
+      185 CAPTURE                          VAL R0
+      186 SETTABLEKS                       R20 R19 K63 ["OnKeyPressed"]
+      188 NEWCLOSURE                       R20 P1
+      189 CAPTURE                          VAL R0
+      190 SETTABLEKS                       R20 R19 K64 ["OnKeyReleased"]
+      192 CALL                             R17 2 1
+      193 SETTABLEKS                       R17 R16 K61 ["KeyboardListener"]
+      195 CALL                             R13 3 -1
+      196 SETLIST                          R12 R13 -1 [1]
+      198 CALL                             R9 3 1
+      199 SETTABLEKS                       R9 R8 K25 ["MainWidget"]
+      201 CALL                             R6 2 -1
+      202 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

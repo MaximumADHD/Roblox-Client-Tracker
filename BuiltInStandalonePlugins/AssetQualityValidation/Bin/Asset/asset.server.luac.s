@@ -688,7 +688,7 @@ PROTO_14:
       205 MOVE                             R16 R13
       206 NAMECALL                         R14 R10 K35 ["IsA"]
       208 CALL                             R14 2 1
-      209 JUMPIF                           R14 ; [+33]
+      209 JUMPIF                           R14 ; [+32]
       210 LOADB                            R15 0
       211 SETUPVAL                         R15 0
       212 GETIMPORT                        R15 K2 [plugin]
@@ -698,227 +698,226 @@ PROTO_14:
       218 SETTABLEKS                       R19 R18 K4 ["isValidationRunning"]
       220 NEWTABLE                         R19 0 1
       222 DUPTABLE                         R20 K41 [{["entryIndex"] = 1, ["groupKey"] = "Error", ["validationEnum"], ["severity"] = "Error"}]
-      223 LOADK                            R22 K42 ["Incorrect instance type: expected %* for \"%*\" but got %*."]
-      224 MOVE                             R24 R13
-      225 GETTABLEKS                       R25 R10 K20 ["Name"]
-      227 GETTABLEKS                       R26 R10 K21 ["ClassName"]
-      229 NAMECALL                         R22 R22 K43 ["format"]
-      231 CALL                             R22 4 1
-      232 MOVE                             R21 R22
-      233 SETTABLEKS                       R21 R20 K39 ["validationEnum"]
-      235 SETLIST                          R19 R20 1 [1]
-      237 SETTABLEKS                       R19 R18 K44 ["validationEntries"]
-      239 NAMECALL                         R15 R15 K6 ["Invoke"]
-      241 CALL                             R15 3 0
-      242 RETURN                           R0 0
-      243 FORGLOOP                         R5 2 ; [-83]
-      245 GETUPVAL                         R5 4
-      246 GETTABLEKS                       R5 R5 K45 ["buildValidationInputs"]
-      248 MOVE                             R6 R3
-      249 MOVE                             R7 R2
-      250 MOVE                             R8 R4
-      251 CALL                             R5 3 3
-      252 GETUPVAL                         R8 4
-      253 GETTABLEKS                       R8 R8 K46 ["buildValidationSettings"]
-      255 MOVE                             R9 R7
-      256 CALL                             R8 1 1
-      257 GETUPVAL                         R9 5
-      258 CALL                             R9 0 0
-      259 GETIMPORT                        R9 K2 [plugin]
-      261 LOADK                            R11 K3 ["SetStateAndRefresh"]
-      262 NEWTABLE                         R12 1 0
-      264 NEWTABLE                         R13 0 0
-      266 SETTABLEKS                       R13 R12 K44 ["validationEntries"]
-      268 NAMECALL                         R9 R9 K6 ["Invoke"]
-      270 CALL                             R9 3 0
-      271 GETTABLEN                        R9 R3 1
-      272 SETUPVAL                         R9 6
-      273 GETIMPORT                        R10 K49 [CFrame.new]
-      275 CALL                             R10 0 1
-      276 LOADB                            R11 0
-      277 JUMPIF                           R7 ; [+14]
-      278 MOVE                             R12 R6
-      279 LOADNIL                          R13
-      280 LOADNIL                          R14
-      281 FORGPREP                         R12
-      282 GETIMPORT                        R17 K31 [Enum.AssetType.DynamicHead]
-      284 GETTABLEKS                       R17 R17 K32 ["Value"]
-      286 JUMPIFNOTEQ                      R16 R17 ; [+3]
-      288 LOADB                            R11 1
-      289 JUMP                             ; [+2]
-      290 FORGLOOP                         R12 2 ; [-9]
-      292 JUMPIFNOT                        R11 ; [+14]
-      293 LOADK                            R14 K50 ["Head"]
-      294 LOADB                            R15 1
-      295 NAMECALL                         R12 R9 K51 ["FindFirstChild"]
-      297 CALL                             R12 3 1
-      298 JUMPIFNOT                        R12 ; [+28]
-      299 LOADK                            R15 K52 ["BasePart"]
-      300 NAMECALL                         R13 R12 K35 ["IsA"]
-      302 CALL                             R13 2 1
-      303 JUMPIFNOT                        R13 ; [+23]
-      304 GETTABLEKS                       R10 R12 K47 ["CFrame"]
-      306 JUMP                             ; [+20]
-      307 LOADK                            R14 K33 ["Model"]
-      308 NAMECALL                         R12 R9 K35 ["IsA"]
-      310 CALL                             R12 2 1
-      311 JUMPIFNOT                        R12 ; [+8]
-      312 GETTABLEKS                       R12 R9 K53 ["PrimaryPart"]
-      314 JUMPIFNOT                        R12 ; [+5]
-      315 GETTABLEKS                       R12 R9 K53 ["PrimaryPart"]
-      317 GETTABLEKS                       R10 R12 K47 ["CFrame"]
-      319 JUMP                             ; [+7]
-      320 LOADK                            R14 K52 ["BasePart"]
-      321 NAMECALL                         R12 R9 K35 ["IsA"]
-      323 CALL                             R12 2 1
-      324 JUMPIFNOT                        R12 ; [+2]
-      325 GETTABLEKS                       R10 R9 K47 ["CFrame"]
-      327 NEWCLOSURE                       R12 P1
-      328 CAPTURE                          VAL R9
-      329 CAPTURE                          VAL R7
-      330 CAPTURE                          REF R10
-      331 CAPTURE                          VAL R9
-      332 GETUPVAL                         R13 7
-      333 MOVE                             R15 R5
-      334 MOVE                             R16 R6
-      335 MOVE                             R17 R8
-      336 NAMECALL                         R13 R13 K54 ["FetchAssetQualityValidationEntriesFromModelsAsync"]
-      338 CALL                             R13 4 1
-      339 MOVE                             R14 R5
-      340 LOADNIL                          R15
-      341 LOADNIL                          R16
-      342 FORGPREP                         R14
-      343 JUMPIFEQ                         R18 R9 ; [+4]
-      345 NAMECALL                         R19 R18 K55 ["Destroy"]
-      347 CALL                             R19 1 0
-      348 FORGLOOP                         R14 2 ; [-6]
-      350 GETUPVAL                         R14 1
-      351 JUMPIFEQ                         R1 R14 ; [+5]
-      353 GETUPVAL                         R14 5
-      354 CALL                             R14 0 0
-      355 CLOSEUPVALS                      R10
-      356 RETURN                           R0 0
-      357 GETTABLEKS                       R15 R13 K56 ["error"]
-      359 FASTCALL1                        TYPEOF R15 ; [+2]
-      360 GETIMPORT                        R14 K12 [typeof]
-      362 CALL                             R14 1 1
-      363 JUMPIFNOTEQKS                    R14 K24 ["string"] ; [+27]
-      365 NEWTABLE                         R14 0 1
-      367 DUPTABLE                         R15 K41 [{["entryIndex"] = 1, ["groupKey"] = "Error", ["validationEnum"], ["severity"] = "Error"}]
-      368 GETTABLEKS                       R16 R13 K56 ["error"]
-      370 SETTABLEKS                       R16 R15 K39 ["validationEnum"]
-      372 SETLIST                          R14 R15 1 [1]
-      374 LOADB                            R15 0
-      375 SETUPVAL                         R15 0
-      376 GETIMPORT                        R15 K2 [plugin]
-      378 LOADK                            R17 K3 ["SetStateAndRefresh"]
-      379 NEWTABLE                         R18 2 0
-      381 LOADB                            R19 0
-      382 SETTABLEKS                       R19 R18 K4 ["isValidationRunning"]
-      384 SETTABLEKS                       R14 R18 K44 ["validationEntries"]
-      386 NAMECALL                         R15 R15 K6 ["Invoke"]
-      388 CALL                             R15 3 0
-      389 CLOSEUPVALS                      R10
-      390 RETURN                           R0 0
-      391 JUMPIFNOT                        R13 ; [+43]
-      392 GETTABLEKS                       R15 R13 K57 ["measurements"]
-      394 FASTCALL1                        TYPEOF R15 ; [+2]
-      395 GETIMPORT                        R14 K12 [typeof]
-      397 CALL                             R14 1 1
-      398 JUMPIFNOTEQKS                    R14 K13 ["table"] ; [+36]
-      400 GETTABLEKS                       R14 R13 K57 ["measurements"]
-      402 LOADNIL                          R15
-      403 LOADNIL                          R16
-      404 FORGPREP                         R14
-      405 FASTCALL1                        TYPEOF R18 ; [+3]
-      406 MOVE                             R20 R18
-      407 GETIMPORT                        R19 K12 [typeof]
-      409 CALL                             R19 1 1
-      410 JUMPIFNOTEQKS                    R19 K13 ["table"] ; [+22]
-      412 NEWTABLE                         R19 0 0
-      414 MOVE                             R20 R18
-      415 LOADNIL                          R21
-      416 LOADNIL                          R22
-      417 FORGPREP                         R20
-      418 FASTCALL2                        TABLE_INSERT R19 R23 ; [+5]
-      420 MOVE                             R26 R19
-      421 MOVE                             R27 R23
-      422 GETIMPORT                        R25 K59 [table.insert]
-      424 CALL                             R25 2 0
-      425 FORGLOOP                         R20 1 ; [-8]
-      427 LENGTH                           R20 R19
-      428 LOADN                            R21 0
-      429 JUMPIFNOTLT                      R21 R20 ; [+3]
-      431 GETUPVAL                         R20 8
-      432 SETTABLE                         R19 R20 R17
-      433 FORGLOOP                         R14 2 ; [-29]
-      435 GETUPVAL                         R14 4
-      436 GETTABLEKS                       R14 R14 K60 ["processValidationEntries"]
-      438 MOVE                             R15 R13
-      439 DUPTABLE                         R16 K65 [{"entriesByIndex", "measureNameToMeshNames", "entryVisualMeshParts", "buildVertexVisualizationMeshPart"}]
-      440 GETUPVAL                         R17 9
-      441 SETTABLEKS                       R17 R16 K61 ["entriesByIndex"]
-      443 GETUPVAL                         R17 8
-      444 SETTABLEKS                       R17 R16 K62 ["measureNameToMeshNames"]
-      446 GETUPVAL                         R17 10
-      447 SETTABLEKS                       R17 R16 K63 ["entryVisualMeshParts"]
-      449 GETUPVAL                         R17 11
-      450 SETTABLEKS                       R17 R16 K64 ["buildVertexVisualizationMeshPart"]
-      452 CALL                             R14 2 2
-      453 GETUPVAL                         R16 4
-      454 GETTABLEKS                       R16 R16 K66 ["buildMeasurementVisualization"]
-      456 MOVE                             R17 R13
-      457 MOVE                             R18 R15
-      458 MOVE                             R19 R12
-      459 GETUPVAL                         R20 12
-      460 GETUPVAL                         R21 8
-      461 CALL                             R16 5 0
-      462 GETUPVAL                         R16 9
-      463 LOADNIL                          R17
-      464 LOADNIL                          R18
-      465 FORGPREP                         R16
-      466 GETTABLEKS                       R21 R20 K67 ["measureName"]
-      468 JUMPIFNOTEQKS                    R21 K68 ["Measure_Dynamic_Head"] ; [+31]
-      470 GETTABLE                         R21 R14 R19
-      471 JUMPIFNOT                        R21 ; [+28]
-      472 GETUPVAL                         R23 8
-      473 GETTABLEKS                       R22 R23 K68 ["Measure_Dynamic_Head"]
-      475 JUMPIF                           R22 ; [+2]
-      476 NEWTABLE                         R22 0 0
-      478 GETTABLEKS                       R24 R21 K40 ["severity"]
-      480 JUMPIFNOTEQKS                    R24 K38 ["Error"] ; [+3]
-      482 LOADK                            R23 K69 ["_DynHead_Colored"]
-      483 JUMP                             ; [+1]
-      484 LOADK                            R23 K70 ["_DynHead_Gray"]
-      485 MOVE                             R24 R22
-      486 LOADNIL                          R25
-      487 LOADNIL                          R26
-      488 FORGPREP                         R24
-      489 GETUPVAL                         R30 13
-      490 MOVE                             R32 R28
-      491 MOVE                             R33 R23
-      492 CONCAT                           R31 R32 R33
-      493 GETTABLE                         R29 R30 R31
-      494 JUMPIFNOT                        R29 ; [+3]
-      495 GETUPVAL                         R30 10
-      496 SETTABLE                         R29 R30 R19
-      497 JUMP                             ; [+2]
-      498 FORGLOOP                         R24 2 ; [-10]
-      500 FORGLOOP                         R16 2 ; [-35]
-      502 LOADB                            R16 0
-      503 SETUPVAL                         R16 0
-      504 GETIMPORT                        R16 K2 [plugin]
-      506 LOADK                            R18 K3 ["SetStateAndRefresh"]
-      507 NEWTABLE                         R19 4 0
-      509 LOADB                            R20 0
-      510 SETTABLEKS                       R20 R19 K4 ["isValidationRunning"]
-      512 LOADB                            R20 1
-      513 SETTABLEKS                       R20 R19 K5 ["validationCompleted"]
-      515 SETTABLEKS                       R14 R19 K44 ["validationEntries"]
-      517 NAMECALL                         R16 R16 K6 ["Invoke"]
-      519 CALL                             R16 3 0
-      520 CLOSEUPVALS                      R10
-      521 RETURN                           R0 0
+      223 LOADK                            R21 K42 ["Incorrect instance type: expected %* for \"%*\" but got %*."]
+      224 MOVE                             R23 R13
+      225 GETTABLEKS                       R24 R10 K20 ["Name"]
+      227 GETTABLEKS                       R25 R10 K21 ["ClassName"]
+      229 NAMECALL                         R21 R21 K43 ["format"]
+      231 CALL                             R21 4 1
+      232 SETTABLEKS                       R21 R20 K39 ["validationEnum"]
+      234 SETLIST                          R19 R20 1 [1]
+      236 SETTABLEKS                       R19 R18 K44 ["validationEntries"]
+      238 NAMECALL                         R15 R15 K6 ["Invoke"]
+      240 CALL                             R15 3 0
+      241 RETURN                           R0 0
+      242 FORGLOOP                         R5 2 ; [-82]
+      244 GETUPVAL                         R5 4
+      245 GETTABLEKS                       R5 R5 K45 ["buildValidationInputs"]
+      247 MOVE                             R6 R3
+      248 MOVE                             R7 R2
+      249 MOVE                             R8 R4
+      250 CALL                             R5 3 3
+      251 GETUPVAL                         R8 4
+      252 GETTABLEKS                       R8 R8 K46 ["buildValidationSettings"]
+      254 MOVE                             R9 R7
+      255 CALL                             R8 1 1
+      256 GETUPVAL                         R9 5
+      257 CALL                             R9 0 0
+      258 GETIMPORT                        R9 K2 [plugin]
+      260 LOADK                            R11 K3 ["SetStateAndRefresh"]
+      261 NEWTABLE                         R12 1 0
+      263 NEWTABLE                         R13 0 0
+      265 SETTABLEKS                       R13 R12 K44 ["validationEntries"]
+      267 NAMECALL                         R9 R9 K6 ["Invoke"]
+      269 CALL                             R9 3 0
+      270 GETTABLEN                        R9 R3 1
+      271 SETUPVAL                         R9 6
+      272 GETIMPORT                        R10 K49 [CFrame.new]
+      274 CALL                             R10 0 1
+      275 LOADB                            R11 0
+      276 JUMPIF                           R7 ; [+14]
+      277 MOVE                             R12 R6
+      278 LOADNIL                          R13
+      279 LOADNIL                          R14
+      280 FORGPREP                         R12
+      281 GETIMPORT                        R17 K31 [Enum.AssetType.DynamicHead]
+      283 GETTABLEKS                       R17 R17 K32 ["Value"]
+      285 JUMPIFNOTEQ                      R16 R17 ; [+3]
+      287 LOADB                            R11 1
+      288 JUMP                             ; [+2]
+      289 FORGLOOP                         R12 2 ; [-9]
+      291 JUMPIFNOT                        R11 ; [+14]
+      292 LOADK                            R14 K50 ["Head"]
+      293 LOADB                            R15 1
+      294 NAMECALL                         R12 R9 K51 ["FindFirstChild"]
+      296 CALL                             R12 3 1
+      297 JUMPIFNOT                        R12 ; [+28]
+      298 LOADK                            R15 K52 ["BasePart"]
+      299 NAMECALL                         R13 R12 K35 ["IsA"]
+      301 CALL                             R13 2 1
+      302 JUMPIFNOT                        R13 ; [+23]
+      303 GETTABLEKS                       R10 R12 K47 ["CFrame"]
+      305 JUMP                             ; [+20]
+      306 LOADK                            R14 K33 ["Model"]
+      307 NAMECALL                         R12 R9 K35 ["IsA"]
+      309 CALL                             R12 2 1
+      310 JUMPIFNOT                        R12 ; [+8]
+      311 GETTABLEKS                       R12 R9 K53 ["PrimaryPart"]
+      313 JUMPIFNOT                        R12 ; [+5]
+      314 GETTABLEKS                       R12 R9 K53 ["PrimaryPart"]
+      316 GETTABLEKS                       R10 R12 K47 ["CFrame"]
+      318 JUMP                             ; [+7]
+      319 LOADK                            R14 K52 ["BasePart"]
+      320 NAMECALL                         R12 R9 K35 ["IsA"]
+      322 CALL                             R12 2 1
+      323 JUMPIFNOT                        R12 ; [+2]
+      324 GETTABLEKS                       R10 R9 K47 ["CFrame"]
+      326 NEWCLOSURE                       R12 P1
+      327 CAPTURE                          VAL R9
+      328 CAPTURE                          VAL R7
+      329 CAPTURE                          REF R10
+      330 CAPTURE                          VAL R9
+      331 GETUPVAL                         R13 7
+      332 MOVE                             R15 R5
+      333 MOVE                             R16 R6
+      334 MOVE                             R17 R8
+      335 NAMECALL                         R13 R13 K54 ["FetchAssetQualityValidationEntriesFromModelsAsync"]
+      337 CALL                             R13 4 1
+      338 MOVE                             R14 R5
+      339 LOADNIL                          R15
+      340 LOADNIL                          R16
+      341 FORGPREP                         R14
+      342 JUMPIFEQ                         R18 R9 ; [+4]
+      344 NAMECALL                         R19 R18 K55 ["Destroy"]
+      346 CALL                             R19 1 0
+      347 FORGLOOP                         R14 2 ; [-6]
+      349 GETUPVAL                         R14 1
+      350 JUMPIFEQ                         R1 R14 ; [+5]
+      352 GETUPVAL                         R14 5
+      353 CALL                             R14 0 0
+      354 CLOSEUPVALS                      R10
+      355 RETURN                           R0 0
+      356 GETTABLEKS                       R15 R13 K56 ["error"]
+      358 FASTCALL1                        TYPEOF R15 ; [+2]
+      359 GETIMPORT                        R14 K12 [typeof]
+      361 CALL                             R14 1 1
+      362 JUMPIFNOTEQKS                    R14 K24 ["string"] ; [+27]
+      364 NEWTABLE                         R14 0 1
+      366 DUPTABLE                         R15 K41 [{["entryIndex"] = 1, ["groupKey"] = "Error", ["validationEnum"], ["severity"] = "Error"}]
+      367 GETTABLEKS                       R16 R13 K56 ["error"]
+      369 SETTABLEKS                       R16 R15 K39 ["validationEnum"]
+      371 SETLIST                          R14 R15 1 [1]
+      373 LOADB                            R15 0
+      374 SETUPVAL                         R15 0
+      375 GETIMPORT                        R15 K2 [plugin]
+      377 LOADK                            R17 K3 ["SetStateAndRefresh"]
+      378 NEWTABLE                         R18 2 0
+      380 LOADB                            R19 0
+      381 SETTABLEKS                       R19 R18 K4 ["isValidationRunning"]
+      383 SETTABLEKS                       R14 R18 K44 ["validationEntries"]
+      385 NAMECALL                         R15 R15 K6 ["Invoke"]
+      387 CALL                             R15 3 0
+      388 CLOSEUPVALS                      R10
+      389 RETURN                           R0 0
+      390 JUMPIFNOT                        R13 ; [+43]
+      391 GETTABLEKS                       R15 R13 K57 ["measurements"]
+      393 FASTCALL1                        TYPEOF R15 ; [+2]
+      394 GETIMPORT                        R14 K12 [typeof]
+      396 CALL                             R14 1 1
+      397 JUMPIFNOTEQKS                    R14 K13 ["table"] ; [+36]
+      399 GETTABLEKS                       R14 R13 K57 ["measurements"]
+      401 LOADNIL                          R15
+      402 LOADNIL                          R16
+      403 FORGPREP                         R14
+      404 FASTCALL1                        TYPEOF R18 ; [+3]
+      405 MOVE                             R20 R18
+      406 GETIMPORT                        R19 K12 [typeof]
+      408 CALL                             R19 1 1
+      409 JUMPIFNOTEQKS                    R19 K13 ["table"] ; [+22]
+      411 NEWTABLE                         R19 0 0
+      413 MOVE                             R20 R18
+      414 LOADNIL                          R21
+      415 LOADNIL                          R22
+      416 FORGPREP                         R20
+      417 FASTCALL2                        TABLE_INSERT R19 R23 ; [+5]
+      419 MOVE                             R26 R19
+      420 MOVE                             R27 R23
+      421 GETIMPORT                        R25 K59 [table.insert]
+      423 CALL                             R25 2 0
+      424 FORGLOOP                         R20 1 ; [-8]
+      426 LENGTH                           R20 R19
+      427 LOADN                            R21 0
+      428 JUMPIFNOTLT                      R21 R20 ; [+3]
+      430 GETUPVAL                         R20 8
+      431 SETTABLE                         R19 R20 R17
+      432 FORGLOOP                         R14 2 ; [-29]
+      434 GETUPVAL                         R14 4
+      435 GETTABLEKS                       R14 R14 K60 ["processValidationEntries"]
+      437 MOVE                             R15 R13
+      438 DUPTABLE                         R16 K65 [{"entriesByIndex", "measureNameToMeshNames", "entryVisualMeshParts", "buildVertexVisualizationMeshPart"}]
+      439 GETUPVAL                         R17 9
+      440 SETTABLEKS                       R17 R16 K61 ["entriesByIndex"]
+      442 GETUPVAL                         R17 8
+      443 SETTABLEKS                       R17 R16 K62 ["measureNameToMeshNames"]
+      445 GETUPVAL                         R17 10
+      446 SETTABLEKS                       R17 R16 K63 ["entryVisualMeshParts"]
+      448 GETUPVAL                         R17 11
+      449 SETTABLEKS                       R17 R16 K64 ["buildVertexVisualizationMeshPart"]
+      451 CALL                             R14 2 2
+      452 GETUPVAL                         R16 4
+      453 GETTABLEKS                       R16 R16 K66 ["buildMeasurementVisualization"]
+      455 MOVE                             R17 R13
+      456 MOVE                             R18 R15
+      457 MOVE                             R19 R12
+      458 GETUPVAL                         R20 12
+      459 GETUPVAL                         R21 8
+      460 CALL                             R16 5 0
+      461 GETUPVAL                         R16 9
+      462 LOADNIL                          R17
+      463 LOADNIL                          R18
+      464 FORGPREP                         R16
+      465 GETTABLEKS                       R21 R20 K67 ["measureName"]
+      467 JUMPIFNOTEQKS                    R21 K68 ["Measure_Dynamic_Head"] ; [+31]
+      469 GETTABLE                         R21 R14 R19
+      470 JUMPIFNOT                        R21 ; [+28]
+      471 GETUPVAL                         R23 8
+      472 GETTABLEKS                       R22 R23 K68 ["Measure_Dynamic_Head"]
+      474 JUMPIF                           R22 ; [+2]
+      475 NEWTABLE                         R22 0 0
+      477 GETTABLEKS                       R24 R21 K40 ["severity"]
+      479 JUMPIFNOTEQKS                    R24 K38 ["Error"] ; [+3]
+      481 LOADK                            R23 K69 ["_DynHead_Colored"]
+      482 JUMP                             ; [+1]
+      483 LOADK                            R23 K70 ["_DynHead_Gray"]
+      484 MOVE                             R24 R22
+      485 LOADNIL                          R25
+      486 LOADNIL                          R26
+      487 FORGPREP                         R24
+      488 GETUPVAL                         R30 13
+      489 MOVE                             R32 R28
+      490 MOVE                             R33 R23
+      491 CONCAT                           R31 R32 R33
+      492 GETTABLE                         R29 R30 R31
+      493 JUMPIFNOT                        R29 ; [+3]
+      494 GETUPVAL                         R30 10
+      495 SETTABLE                         R29 R30 R19
+      496 JUMP                             ; [+2]
+      497 FORGLOOP                         R24 2 ; [-10]
+      499 FORGLOOP                         R16 2 ; [-35]
+      501 LOADB                            R16 0
+      502 SETUPVAL                         R16 0
+      503 GETIMPORT                        R16 K2 [plugin]
+      505 LOADK                            R18 K3 ["SetStateAndRefresh"]
+      506 NEWTABLE                         R19 4 0
+      508 LOADB                            R20 0
+      509 SETTABLEKS                       R20 R19 K4 ["isValidationRunning"]
+      511 LOADB                            R20 1
+      512 SETTABLEKS                       R20 R19 K5 ["validationCompleted"]
+      514 SETTABLEKS                       R14 R19 K44 ["validationEntries"]
+      516 NAMECALL                         R16 R16 K6 ["Invoke"]
+      518 CALL                             R16 3 0
+      519 CLOSEUPVALS                      R10
+      520 RETURN                           R0 0
 
 PROTO_15:
         0 GETUPVAL                         R1 0

@@ -6,54 +6,52 @@ PROTO_0:
         4 DUPTABLE                         R3 K6 [{"tag", "sizeConstraint", "size", "textStyle"}]
         5 GETUPVAL                         R5 0
         6 CALL                             R5 0 1
-        7 JUMPIFNOT                        R5 ; [+7]
-        8 LOADK                            R5 K7 ["auto-x text-truncate-end %*"]
-        9 MOVE                             R7 R2
-       10 NAMECALL                         R5 R5 K8 ["format"]
-       12 CALL                             R5 2 1
-       13 MOVE                             R4 R5
-       14 JUMP                             ; [+6]
-       15 LOADK                            R5 K9 ["text-truncate-end %*"]
-       16 MOVE                             R7 R2
-       17 NAMECALL                         R5 R5 K8 ["format"]
-       19 CALL                             R5 2 1
-       20 MOVE                             R4 R5
-       21 SETTABLEKS                       R4 R3 K2 ["tag"]
-       23 GETUPVAL                         R5 0
-       24 CALL                             R5 0 1
-       25 JUMPIFNOT                        R5 ; [+14]
-       26 DUPTABLE                         R4 K12 [{"MaxSize", "MinSize"}]
-       27 JUMPIFNOT                        R0 ; [+2]
-       28 GETUPVAL                         R5 1
-       29 JUMP                             ; [+1]
-       30 GETUPVAL                         R5 2
-       31 SETTABLEKS                       R5 R4 K10 ["MaxSize"]
-       33 JUMPIFNOT                        R0 ; [+2]
-       34 GETUPVAL                         R5 3
-       35 JUMP                             ; [+1]
-       36 GETUPVAL                         R5 4
-       37 SETTABLEKS                       R5 R4 K11 ["MinSize"]
-       39 JUMP                             ; [+1]
-       40 LOADNIL                          R4
-       41 SETTABLEKS                       R4 R3 K3 ["sizeConstraint"]
-       43 GETUPVAL                         R5 0
-       44 CALL                             R5 0 1
-       45 JUMPIFNOT                        R5 ; [+2]
-       46 LOADNIL                          R4
-       47 JUMP                             ; [+4]
-       48 JUMPIFNOT                        R0 ; [+2]
-       49 GETUPVAL                         R4 5
-       50 JUMP                             ; [+1]
-       51 GETUPVAL                         R4 6
-       52 SETTABLEKS                       R4 R3 K4 ["size"]
-       54 DUPTABLE                         R4 K14 [{"Transparency"}]
-       55 JUMPIFNOT                        R1 ; [+2]
-       56 LOADK                            R5 K15 [0.5]
-       57 JUMP                             ; [+1]
-       58 LOADN                            R5 0
-       59 SETTABLEKS                       R5 R4 K13 ["Transparency"]
-       61 SETTABLEKS                       R4 R3 K5 ["textStyle"]
-       63 RETURN                           R3 1
+        7 JUMPIFNOT                        R5 ; [+6]
+        8 LOADK                            R4 K7 ["auto-x text-truncate-end %*"]
+        9 MOVE                             R6 R2
+       10 NAMECALL                         R4 R4 K8 ["format"]
+       12 CALL                             R4 2 1
+       13 JUMP                             ; [+5]
+       14 LOADK                            R4 K9 ["text-truncate-end %*"]
+       15 MOVE                             R6 R2
+       16 NAMECALL                         R4 R4 K8 ["format"]
+       18 CALL                             R4 2 1
+       19 SETTABLEKS                       R4 R3 K2 ["tag"]
+       21 GETUPVAL                         R5 0
+       22 CALL                             R5 0 1
+       23 JUMPIFNOT                        R5 ; [+14]
+       24 DUPTABLE                         R4 K12 [{"MaxSize", "MinSize"}]
+       25 JUMPIFNOT                        R0 ; [+2]
+       26 GETUPVAL                         R5 1
+       27 JUMP                             ; [+1]
+       28 GETUPVAL                         R5 2
+       29 SETTABLEKS                       R5 R4 K10 ["MaxSize"]
+       31 JUMPIFNOT                        R0 ; [+2]
+       32 GETUPVAL                         R5 3
+       33 JUMP                             ; [+1]
+       34 GETUPVAL                         R5 4
+       35 SETTABLEKS                       R5 R4 K11 ["MinSize"]
+       37 JUMP                             ; [+1]
+       38 LOADNIL                          R4
+       39 SETTABLEKS                       R4 R3 K3 ["sizeConstraint"]
+       41 GETUPVAL                         R5 0
+       42 CALL                             R5 0 1
+       43 JUMPIFNOT                        R5 ; [+2]
+       44 LOADNIL                          R4
+       45 JUMP                             ; [+4]
+       46 JUMPIFNOT                        R0 ; [+2]
+       47 GETUPVAL                         R4 5
+       48 JUMP                             ; [+1]
+       49 GETUPVAL                         R4 6
+       50 SETTABLEKS                       R4 R3 K4 ["size"]
+       52 DUPTABLE                         R4 K14 [{"Transparency"}]
+       53 JUMPIFNOT                        R1 ; [+2]
+       54 LOADK                            R5 K15 [0.5]
+       55 JUMP                             ; [+1]
+       56 LOADN                            R5 0
+       57 SETTABLEKS                       R5 R4 K13 ["Transparency"]
+       59 SETTABLEKS                       R4 R3 K5 ["textStyle"]
+       61 RETURN                           R3 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["isSmall"]
@@ -81,44 +79,43 @@ PROTO_2:
         8 LOADK                            R1 K3 ["padding-small"]
         9 DUPTABLE                         R2 K7 [{"tag", "sizeConstraint", "stateLayer"}]
        10 NEWTABLE                         R3 2 0
-       12 LOADK                            R5 K8 ["row align-x-center align-y-center auto-xy radius-small %*"]
-       13 MOVE                             R7 R1
-       14 NAMECALL                         R5 R5 K9 ["format"]
-       16 CALL                             R5 2 1
-       17 MOVE                             R4 R5
-       18 LOADB                            R5 1
-       19 SETTABLE                         R5 R3 R4
-       20 GETTABLEKS                       R5 R0 K10 ["selected"]
-       22 JUMPIFEQKB                       R5 TRUE ; [+2]
-       24 LOADB                            R4 0 +1
-       25 LOADB                            R4 1
-       26 SETTABLEKS                       R4 R3 K11 ["bg-action-standard"]
-       28 SETTABLEKS                       R3 R2 K4 ["tag"]
-       30 GETUPVAL                         R3 0
-       31 DUPTABLE                         R4 K15 [{"isSmall", "isCompact", "smallSize", "compactSize", "defaultSize"}]
-       32 GETTABLEKS                       R5 R0 K0 ["isSmall"]
-       34 SETTABLEKS                       R5 R4 K0 ["isSmall"]
-       36 GETTABLEKS                       R5 R0 K1 ["isCompact"]
-       38 SETTABLEKS                       R5 R4 K1 ["isCompact"]
-       40 GETUPVAL                         R5 1
-       41 SETTABLEKS                       R5 R4 K12 ["smallSize"]
-       43 GETUPVAL                         R5 2
-       44 SETTABLEKS                       R5 R4 K13 ["compactSize"]
-       46 GETUPVAL                         R5 3
-       47 SETTABLEKS                       R5 R4 K14 ["defaultSize"]
-       49 CALL                             R3 1 1
-       50 SETTABLEKS                       R3 R2 K5 ["sizeConstraint"]
-       52 DUPTABLE                         R3 K20 [{["affordance"], ["inset"] = , ["mode"] = }]
-       53 GETTABLEKS                       R5 R0 K21 ["isSingle"]
-       55 JUMPIFNOT                        R5 ; [+4]
-       56 GETUPVAL                         R4 4
-       57 GETTABLEKS                       R4 R4 K22 ["None"]
-       59 JUMP                             ; [+3]
-       60 GETUPVAL                         R4 4
-       61 GETTABLEKS                       R4 R4 K23 ["Background"]
-       63 SETTABLEKS                       R4 R3 K16 ["affordance"]
-       65 SETTABLEKS                       R3 R2 K6 ["stateLayer"]
-       67 RETURN                           R2 1
+       12 LOADK                            R4 K8 ["row align-x-center align-y-center auto-xy radius-small %*"]
+       13 MOVE                             R6 R1
+       14 NAMECALL                         R4 R4 K9 ["format"]
+       16 CALL                             R4 2 1
+       17 LOADB                            R5 1
+       18 SETTABLE                         R5 R3 R4
+       19 GETTABLEKS                       R5 R0 K10 ["selected"]
+       21 JUMPIFEQKB                       R5 TRUE ; [+2]
+       23 LOADB                            R4 0 +1
+       24 LOADB                            R4 1
+       25 SETTABLEKS                       R4 R3 K11 ["bg-action-standard"]
+       27 SETTABLEKS                       R3 R2 K4 ["tag"]
+       29 GETUPVAL                         R3 0
+       30 DUPTABLE                         R4 K15 [{"isSmall", "isCompact", "smallSize", "compactSize", "defaultSize"}]
+       31 GETTABLEKS                       R5 R0 K0 ["isSmall"]
+       33 SETTABLEKS                       R5 R4 K0 ["isSmall"]
+       35 GETTABLEKS                       R5 R0 K1 ["isCompact"]
+       37 SETTABLEKS                       R5 R4 K1 ["isCompact"]
+       39 GETUPVAL                         R5 1
+       40 SETTABLEKS                       R5 R4 K12 ["smallSize"]
+       42 GETUPVAL                         R5 2
+       43 SETTABLEKS                       R5 R4 K13 ["compactSize"]
+       45 GETUPVAL                         R5 3
+       46 SETTABLEKS                       R5 R4 K14 ["defaultSize"]
+       48 CALL                             R3 1 1
+       49 SETTABLEKS                       R3 R2 K5 ["sizeConstraint"]
+       51 DUPTABLE                         R3 K20 [{["affordance"], ["inset"] = , ["mode"] = }]
+       52 GETTABLEKS                       R5 R0 K21 ["isSingle"]
+       54 JUMPIFNOT                        R5 ; [+4]
+       55 GETUPVAL                         R4 4
+       56 GETTABLEKS                       R4 R4 K22 ["None"]
+       58 JUMP                             ; [+3]
+       59 GETUPVAL                         R4 4
+       60 GETTABLEKS                       R4 R4 K23 ["Background"]
+       62 SETTABLEKS                       R4 R3 K16 ["affordance"]
+       64 SETTABLEKS                       R3 R2 K6 ["stateLayer"]
+       66 RETURN                           R2 1
 
 PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["isSmall"]
@@ -127,21 +124,20 @@ PROTO_3:
         4 JUMP                             ; [+1]
         5 LOADK                            R1 K2 ["size-600-600"]
         6 DUPTABLE                         R2 K5 [{"tag", "imageStyle"}]
-        7 LOADK                            R4 K6 ["align-x-center align-y-center %*"]
-        8 MOVE                             R6 R1
-        9 NAMECALL                         R4 R4 K7 ["format"]
-       11 CALL                             R4 2 1
-       12 MOVE                             R3 R4
-       13 SETTABLEKS                       R3 R2 K3 ["tag"]
-       15 DUPTABLE                         R3 K9 [{"Transparency"}]
-       16 GETTABLEKS                       R5 R0 K10 ["disabled"]
-       18 JUMPIFNOT                        R5 ; [+2]
-       19 LOADK                            R4 K11 [0.5]
-       20 JUMP                             ; [+1]
-       21 LOADN                            R4 0
-       22 SETTABLEKS                       R4 R3 K8 ["Transparency"]
-       24 SETTABLEKS                       R3 R2 K4 ["imageStyle"]
-       26 RETURN                           R2 1
+        7 LOADK                            R3 K6 ["align-x-center align-y-center %*"]
+        8 MOVE                             R5 R1
+        9 NAMECALL                         R3 R3 K7 ["format"]
+       11 CALL                             R3 2 1
+       12 SETTABLEKS                       R3 R2 K3 ["tag"]
+       14 DUPTABLE                         R3 K9 [{"Transparency"}]
+       15 GETTABLEKS                       R5 R0 K10 ["disabled"]
+       17 JUMPIFNOT                        R5 ; [+2]
+       18 LOADK                            R4 K11 [0.5]
+       19 JUMP                             ; [+1]
+       20 LOADN                            R4 0
+       21 SETTABLEKS                       R4 R3 K8 ["Transparency"]
+       23 SETTABLEKS                       R3 R2 K4 ["imageStyle"]
+       25 RETURN                           R2 1
 
 PROTO_4:
         0 DUPTABLE                         R0 K5 [{"container", "actionContainer", "ribbonTool", "text", "icon"}]

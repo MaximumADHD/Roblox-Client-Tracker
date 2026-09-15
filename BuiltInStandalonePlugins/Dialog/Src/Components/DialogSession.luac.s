@@ -169,32 +169,22 @@ MAIN:
        46 GETTABLEKS                       R7 R7 K13 ["Util"]
        48 GETTABLEKS                       R7 R7 K14 ["createDialogSignals"]
        50 CALL                             R6 1 1
-       51 GETTABLEKS                       R8 R4 K15 ["SharedFlags"]
-       53 GETTABLEKS                       R8 R8 K16 ["getFFlagStudioFoundationDialogComponent"]
-       55 CALL                             R8 0 1
-       56 JUMPIFNOT                        R8 ; [+5]
-       57 GETTABLEKS                       R7 R4 K17 ["Components"]
-       59 GETTABLEKS                       R7 R7 K2 ["Dialog"]
-       61 JUMP                             ; [+9]
-       62 GETIMPORT                        R7 K5 [require]
-       64 GETTABLEKS                       R8 R0 K11 ["Src"]
-       66 GETTABLEKS                       R8 R8 K17 ["Components"]
-       68 GETTABLEKS                       R8 R8 K18 ["DEPRECATED_Dialog"]
-       70 CALL                             R7 1 1
-       71 GETTABLEKS                       R8 R4 K13 ["Util"]
-       73 GETTABLEKS                       R8 R8 K19 ["StudioUri"]
-       75 GETTABLEKS                       R9 R1 K20 ["createElement"]
-       77 DUPCLOSURE                       R10 K21 [PROTO_1]
-       78 CAPTURE                          VAL R3
-       79 CAPTURE                          VAL R1
-       80 CAPTURE                          VAL R8
-       81 DUPCLOSURE                       R11 K22 [PROTO_4]
-       82 CAPTURE                          VAL R3
-       83 CAPTURE                          VAL R10
-       84 CAPTURE                          VAL R1
-       85 CAPTURE                          VAL R9
-       86 CAPTURE                          VAL R7
-       87 GETTABLEKS                       R12 R1 K23 ["memo"]
-       89 MOVE                             R13 R11
-       90 CALL                             R12 1 -1
-       91 RETURN                           R12 -1
+       51 GETTABLEKS                       R7 R4 K15 ["Components"]
+       53 GETTABLEKS                       R7 R7 K2 ["Dialog"]
+       55 GETTABLEKS                       R8 R4 K13 ["Util"]
+       57 GETTABLEKS                       R8 R8 K16 ["StudioUri"]
+       59 GETTABLEKS                       R9 R1 K17 ["createElement"]
+       61 DUPCLOSURE                       R10 K18 [PROTO_1]
+       62 CAPTURE                          VAL R3
+       63 CAPTURE                          VAL R1
+       64 CAPTURE                          VAL R8
+       65 DUPCLOSURE                       R11 K19 [PROTO_4]
+       66 CAPTURE                          VAL R3
+       67 CAPTURE                          VAL R10
+       68 CAPTURE                          VAL R1
+       69 CAPTURE                          VAL R9
+       70 CAPTURE                          VAL R7
+       71 GETTABLEKS                       R12 R1 K20 ["memo"]
+       73 MOVE                             R13 R11
+       74 CALL                             R12 1 -1
+       75 RETURN                           R12 -1

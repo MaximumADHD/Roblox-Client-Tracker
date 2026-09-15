@@ -10,23 +10,22 @@ PROTO_0:
 PROTO_1:
         0 GETTABLEKS                       R2 R1 K0 ["recordChange"]
         2 DUPTABLE                         R3 K5 [{["Name"] = "StyleEditor/IncreaseStyleRulePriority", ["DisplayName"], ["DoChange"]}]
-        3 LOADK                            R5 K6 ["StyleEditor - %* StyleRule Priority"]
-        4 GETUPVAL                         R8 0
-        5 JUMPIFNOT                        R8 ; [+2]
-        6 LOADK                            R7 K7 ["Increase"]
+        3 LOADK                            R4 K6 ["StyleEditor - %* StyleRule Priority"]
+        4 GETUPVAL                         R7 0
+        5 JUMPIFNOT                        R7 ; [+2]
+        6 LOADK                            R6 K7 ["Increase"]
         7 JUMP                             ; [+1]
-        8 LOADK                            R7 K8 ["Decrease"]
-        9 NAMECALL                         R5 R5 K9 ["format"]
-       11 CALL                             R5 2 1
-       12 MOVE                             R4 R5
-       13 SETTABLEKS                       R4 R3 K3 ["DisplayName"]
-       15 NEWCLOSURE                       R4 P0
-       16 CAPTURE                          UPVAL U1
-       17 CAPTURE                          UPVAL U2
-       18 CAPTURE                          UPVAL U0
-       19 SETTABLEKS                       R4 R3 K4 ["DoChange"]
-       21 CALL                             R2 1 0
-       22 RETURN                           R0 0
+        8 LOADK                            R6 K8 ["Decrease"]
+        9 NAMECALL                         R4 R4 K9 ["format"]
+       11 CALL                             R4 2 1
+       12 SETTABLEKS                       R4 R3 K3 ["DisplayName"]
+       14 NEWCLOSURE                       R4 P0
+       15 CAPTURE                          UPVAL U1
+       16 CAPTURE                          UPVAL U2
+       17 CAPTURE                          UPVAL U0
+       18 SETTABLEKS                       R4 R3 K4 ["DoChange"]
+       20 CALL                             R2 1 0
+       21 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R2 P0

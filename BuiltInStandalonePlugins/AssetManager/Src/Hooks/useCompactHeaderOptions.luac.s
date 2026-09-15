@@ -103,22 +103,21 @@ PROTO_4:
        30 SETTABLEKS                       R4 R3 K1 ["isChecked"]
        32 GETUPVAL                         R4 3
        33 LOADK                            R6 K9 ["CompactOptions"]
-       34 LOADK                            R8 K10 ["ViewSize%*"]
-       35 MOVE                             R10 R0
-       36 NAMECALL                         R8 R8 K11 ["format"]
-       38 CALL                             R8 2 1
-       39 MOVE                             R7 R8
-       40 NAMECALL                         R4 R4 K12 ["getText"]
-       42 CALL                             R4 3 1
-       43 SETTABLEKS                       R4 R3 K2 ["text"]
-       45 NEWCLOSURE                       R4 P0
-       46 CAPTURE                          UPVAL U1
-       47 CAPTURE                          UPVAL U2
-       48 CAPTURE                          UPVAL U4
-       49 CAPTURE                          VAL R1
-       50 CAPTURE                          VAL R2
-       51 SETTABLEKS                       R4 R3 K3 ["onActivated"]
-       53 RETURN                           R3 1
+       34 LOADK                            R7 K10 ["ViewSize%*"]
+       35 MOVE                             R9 R0
+       36 NAMECALL                         R7 R7 K11 ["format"]
+       38 CALL                             R7 2 1
+       39 NAMECALL                         R4 R4 K12 ["getText"]
+       41 CALL                             R4 3 1
+       42 SETTABLEKS                       R4 R3 K2 ["text"]
+       44 NEWCLOSURE                       R4 P0
+       45 CAPTURE                          UPVAL U1
+       46 CAPTURE                          UPVAL U2
+       47 CAPTURE                          UPVAL U4
+       48 CAPTURE                          VAL R1
+       49 CAPTURE                          VAL R2
+       50 SETTABLEKS                       R4 R3 K3 ["onActivated"]
+       52 RETURN                           R3 1
 
 PROTO_5:
         0 GETTABLEKS                       R4 R0 K0 ["LayoutController"]

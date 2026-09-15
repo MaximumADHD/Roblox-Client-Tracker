@@ -652,13 +652,12 @@ PROTO_12:
        81 CALL                             R1 -1 1
        82 JUMP                             ; [+1]
        83 LOADK                            R1 K11 [""]
-       84 LOADK                            R3 K12 ["%* - %*"]
-       85 MOVE                             R5 R0
-       86 MOVE                             R6 R1
-       87 NAMECALL                         R3 R3 K13 ["format"]
-       89 CALL                             R3 3 1
-       90 MOVE                             R2 R3
-       91 RETURN                           R2 1
+       84 LOADK                            R2 K12 ["%* - %*"]
+       85 MOVE                             R4 R0
+       86 MOVE                             R5 R1
+       87 NAMECALL                         R2 R2 K13 ["format"]
+       89 CALL                             R2 3 1
+       90 RETURN                           R2 1
 
 PROTO_13:
         0 GETUPVAL                         R3 0

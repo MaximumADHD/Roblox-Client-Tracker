@@ -109,21 +109,20 @@ PROTO_6:
        10 SETTABLEKS                       R1 R0 K3 ["SourceInstance"]
        12 SETTABLEKS                       R2 R0 K4 ["TargetInstance"]
        14 GETTABLEKS                       R4 R0 K3 ["SourceInstance"]
-       16 JUMPIFNOTEQ                      R4 R1 ; [+17]
+       16 JUMPIFNOTEQ                      R4 R1 ; [+16]
        18 GETTABLEKS                       R4 R0 K4 ["TargetInstance"]
-       20 JUMPIFNOTEQ                      R4 R2 ; [+13]
-       22 LOADK                            R5 K5 ["%* -> %*"]
-       23 GETTABLEKS                       R7 R1 K6 ["Name"]
-       25 GETTABLEKS                       R8 R2 K6 ["Name"]
-       27 NAMECALL                         R5 R5 K7 ["format"]
-       29 CALL                             R5 3 1
-       30 MOVE                             R4 R5
-       31 SETTABLEKS                       R4 R0 K6 ["Name"]
-       33 RETURN                           R0 1
-       34 NAMECALL                         R4 R0 K8 ["Destroy"]
-       36 CALL                             R4 1 0
-       37 LOADNIL                          R4
-       38 RETURN                           R4 1
+       20 JUMPIFNOTEQ                      R4 R2 ; [+12]
+       22 LOADK                            R4 K5 ["%* -> %*"]
+       23 GETTABLEKS                       R6 R1 K6 ["Name"]
+       25 GETTABLEKS                       R7 R2 K6 ["Name"]
+       27 NAMECALL                         R4 R4 K7 ["format"]
+       29 CALL                             R4 3 1
+       30 SETTABLEKS                       R4 R0 K6 ["Name"]
+       32 RETURN                           R0 1
+       33 NAMECALL                         R4 R0 K8 ["Destroy"]
+       35 CALL                             R4 1 0
+       36 LOADNIL                          R4
+       37 RETURN                           R4 1
 
 PROTO_7:
         0 GETUPVAL                         R2 0

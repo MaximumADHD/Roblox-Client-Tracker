@@ -45,59 +45,58 @@ PROTO_1:
        21 LOADNIL                          R10
        22 LOADNIL                          R11
        23 FORGPREP                         R9
-       24 LOADK                            R15 K5 ["ToggleVisualizationMode_User_%*_%*"]
-       25 GETTABLEKS                       R17 R8 K6 ["name"]
-       27 GETTABLEKS                       R18 R13 K6 ["name"]
-       29 NAMECALL                         R15 R15 K7 ["format"]
-       31 CALL                             R15 3 1
-       32 MOVE                             R14 R15
-       33 LOADK                            R17 K8 ["ToggleVisualizationMode"]
-       34 LOADK                            R18 K9 ["Title"]
-       35 DUPTABLE                         R19 K11 [{"visualizationModeName"}]
-       36 GETTABLEKS                       R20 R13 K12 ["title"]
-       38 SETTABLEKS                       R20 R19 K10 ["visualizationModeName"]
-       40 NAMECALL                         R15 R3 K13 ["getText"]
-       42 CALL                             R15 4 1
-       43 GETTABLEKS                       R16 R13 K14 ["toolTip"]
-       45 JUMPIFNOT                        R16 ; [+4]
-       46 LENGTH                           R17 R16
-       47 LOADN                            R18 0
-       48 JUMPIFNOTLE                      R17 R18 ; [+12]
-       50 LOADK                            R19 K8 ["ToggleVisualizationMode"]
-       51 LOADK                            R20 K15 ["Description"]
-       52 DUPTABLE                         R21 K11 [{"visualizationModeName"}]
-       53 GETTABLEKS                       R22 R13 K12 ["title"]
-       55 SETTABLEKS                       R22 R21 K10 ["visualizationModeName"]
-       57 NAMECALL                         R17 R3 K13 ["getText"]
-       59 CALL                             R17 4 1
-       60 MOVE                             R16 R17
-       61 GETUPVAL                         R17 1
-       62 GETTABLEKS                       R17 R17 K16 ["createElement"]
-       64 GETUPVAL                         R18 2
-       65 DUPTABLE                         R19 K26 [{["ActionId"], ["Text"], ["StatusTip"], ["IconName"] = "", ["Checked"], ["Enabled"] = True, ["OnTrigger"]}]
-       66 SETTABLEKS                       R14 R19 K17 ["ActionId"]
-       68 SETTABLEKS                       R15 R19 K18 ["Text"]
-       70 SETTABLEKS                       R16 R19 K19 ["StatusTip"]
-       72 GETTABLEKS                       R20 R13 K27 ["enabled"]
-       74 SETTABLEKS                       R20 R19 K22 ["Checked"]
-       76 NEWCLOSURE                       R20 P0
-       77 CAPTURE                          VAL R2
-       78 CAPTURE                          VAL R8
-       79 CAPTURE                          VAL R13
-       80 CAPTURE                          VAL R0
-       81 SETTABLEKS                       R20 R19 K25 ["OnTrigger"]
-       83 CALL                             R17 2 1
-       84 SETTABLE                         R17 R1 R14
-       85 FORGLOOP                         R9 2 ; [-62]
-       87 FORGLOOP                         R4 2 ; [-69]
-       89 GETUPVAL                         R4 1
-       90 GETTABLEKS                       R4 R4 K16 ["createElement"]
-       92 GETUPVAL                         R5 1
-       93 GETTABLEKS                       R5 R5 K28 ["Fragment"]
-       95 NEWTABLE                         R6 0 0
-       97 MOVE                             R7 R1
-       98 CALL                             R4 3 -1
-       99 RETURN                           R4 -1
+       24 LOADK                            R14 K5 ["ToggleVisualizationMode_User_%*_%*"]
+       25 GETTABLEKS                       R16 R8 K6 ["name"]
+       27 GETTABLEKS                       R17 R13 K6 ["name"]
+       29 NAMECALL                         R14 R14 K7 ["format"]
+       31 CALL                             R14 3 1
+       32 LOADK                            R17 K8 ["ToggleVisualizationMode"]
+       33 LOADK                            R18 K9 ["Title"]
+       34 DUPTABLE                         R19 K11 [{"visualizationModeName"}]
+       35 GETTABLEKS                       R20 R13 K12 ["title"]
+       37 SETTABLEKS                       R20 R19 K10 ["visualizationModeName"]
+       39 NAMECALL                         R15 R3 K13 ["getText"]
+       41 CALL                             R15 4 1
+       42 GETTABLEKS                       R16 R13 K14 ["toolTip"]
+       44 JUMPIFNOT                        R16 ; [+4]
+       45 LENGTH                           R17 R16
+       46 LOADN                            R18 0
+       47 JUMPIFNOTLE                      R17 R18 ; [+12]
+       49 LOADK                            R19 K8 ["ToggleVisualizationMode"]
+       50 LOADK                            R20 K15 ["Description"]
+       51 DUPTABLE                         R21 K11 [{"visualizationModeName"}]
+       52 GETTABLEKS                       R22 R13 K12 ["title"]
+       54 SETTABLEKS                       R22 R21 K10 ["visualizationModeName"]
+       56 NAMECALL                         R17 R3 K13 ["getText"]
+       58 CALL                             R17 4 1
+       59 MOVE                             R16 R17
+       60 GETUPVAL                         R17 1
+       61 GETTABLEKS                       R17 R17 K16 ["createElement"]
+       63 GETUPVAL                         R18 2
+       64 DUPTABLE                         R19 K26 [{["ActionId"], ["Text"], ["StatusTip"], ["IconName"] = "", ["Checked"], ["Enabled"] = True, ["OnTrigger"]}]
+       65 SETTABLEKS                       R14 R19 K17 ["ActionId"]
+       67 SETTABLEKS                       R15 R19 K18 ["Text"]
+       69 SETTABLEKS                       R16 R19 K19 ["StatusTip"]
+       71 GETTABLEKS                       R20 R13 K27 ["enabled"]
+       73 SETTABLEKS                       R20 R19 K22 ["Checked"]
+       75 NEWCLOSURE                       R20 P0
+       76 CAPTURE                          VAL R2
+       77 CAPTURE                          VAL R8
+       78 CAPTURE                          VAL R13
+       79 CAPTURE                          VAL R0
+       80 SETTABLEKS                       R20 R19 K25 ["OnTrigger"]
+       82 CALL                             R17 2 1
+       83 SETTABLE                         R17 R1 R14
+       84 FORGLOOP                         R9 2 ; [-61]
+       86 FORGLOOP                         R4 2 ; [-68]
+       88 GETUPVAL                         R4 1
+       89 GETTABLEKS                       R4 R4 K16 ["createElement"]
+       91 GETUPVAL                         R5 1
+       92 GETTABLEKS                       R5 R5 K28 ["Fragment"]
+       94 NEWTABLE                         R6 0 0
+       96 MOVE                             R7 R1
+       97 CALL                             R4 3 -1
+       98 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

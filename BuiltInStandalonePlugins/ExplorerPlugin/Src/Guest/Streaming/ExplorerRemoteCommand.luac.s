@@ -147,13 +147,12 @@ PROTO_6:
        10 CALL                             R1 -1 0
        11 RETURN                           R0 0
        12 GETIMPORT                        R1 K3 [error]
-       14 LOADK                            R3 K4 ["Unexpected update type: %*"]
-       15 MOVE                             R5 R0
-       16 NAMECALL                         R3 R3 K5 ["format"]
-       18 CALL                             R3 2 1
-       19 MOVE                             R2 R3
-       20 CALL                             R1 1 0
-       21 RETURN                           R0 0
+       14 LOADK                            R2 K4 ["Unexpected update type: %*"]
+       15 MOVE                             R4 R0
+       16 NAMECALL                         R2 R2 K5 ["format"]
+       18 CALL                             R2 2 1
+       19 CALL                             R1 1 0
+       20 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0

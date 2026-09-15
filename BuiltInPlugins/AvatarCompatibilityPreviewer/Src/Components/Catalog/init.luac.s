@@ -270,48 +270,47 @@ PROTO_9:
        39 GETTABLEKS                       R3 R3 K4 ["createElement"]
        41 GETUPVAL                         R4 3
        42 DUPTABLE                         R5 K12 [{"key", "ItemData", "IsUserProvided", "LayoutOrder", "Size", "Delete", "DeleteAll"}]
-       43 LOADK                            R7 K13 ["item_%*_%*"]
-       44 GETTABLEKS                       R9 R1 K0 ["item"]
-       46 GETTABLEKS                       R9 R9 K1 ["source"]
-       48 MOVE                             R10 R0
-       49 NAMECALL                         R7 R7 K14 ["format"]
-       51 CALL                             R7 3 1
-       52 MOVE                             R6 R7
-       53 SETTABLEKS                       R6 R5 K5 ["key"]
-       55 SETTABLEKS                       R1 R5 K6 ["ItemData"]
-       57 SETTABLEKS                       R2 R5 K7 ["IsUserProvided"]
-       59 JUMPIFNOT                        R2 ; [+2]
-       60 MOVE                             R6 R0
-       61 JUMP                             ; [+3]
-       62 GETUPVAL                         R8 4
-       63 LENGTH                           R7 R8
-       64 ADD                              R6 R7 R0
-       65 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
-       67 GETUPVAL                         R6 5
-       68 GETTABLEKS                       R6 R6 K15 ["CellSize"]
-       70 SETTABLEKS                       R6 R5 K9 ["Size"]
-       72 GETTABLEKS                       R7 R1 K0 ["item"]
-       74 GETTABLEKS                       R7 R7 K1 ["source"]
-       76 GETUPVAL                         R8 1
-       77 GETTABLEKS                       R8 R8 K16 ["SOURCE_BUILTIN"]
-       79 JUMPIFEQ                         R7 R8 ; [+5]
-       81 NEWCLOSURE                       R6 P0
-       82 CAPTURE                          UPVAL U6
-       83 CAPTURE                          VAL R1
-       84 JUMP                             ; [+1]
-       85 LOADNIL                          R6
-       86 SETTABLEKS                       R6 R5 K10 ["Delete"]
-       88 GETTABLEKS                       R7 R1 K0 ["item"]
-       90 GETTABLEKS                       R7 R7 K1 ["source"]
-       92 GETUPVAL                         R8 1
-       93 GETTABLEKS                       R8 R8 K16 ["SOURCE_BUILTIN"]
-       95 JUMPIFEQ                         R7 R8 ; [+3]
-       97 GETUPVAL                         R6 7
-       98 JUMP                             ; [+1]
-       99 LOADNIL                          R6
-      100 SETTABLEKS                       R6 R5 K11 ["DeleteAll"]
-      102 CALL                             R3 2 -1
-      103 RETURN                           R3 -1
+       43 LOADK                            R6 K13 ["item_%*_%*"]
+       44 GETTABLEKS                       R8 R1 K0 ["item"]
+       46 GETTABLEKS                       R8 R8 K1 ["source"]
+       48 MOVE                             R9 R0
+       49 NAMECALL                         R6 R6 K14 ["format"]
+       51 CALL                             R6 3 1
+       52 SETTABLEKS                       R6 R5 K5 ["key"]
+       54 SETTABLEKS                       R1 R5 K6 ["ItemData"]
+       56 SETTABLEKS                       R2 R5 K7 ["IsUserProvided"]
+       58 JUMPIFNOT                        R2 ; [+2]
+       59 MOVE                             R6 R0
+       60 JUMP                             ; [+3]
+       61 GETUPVAL                         R8 4
+       62 LENGTH                           R7 R8
+       63 ADD                              R6 R7 R0
+       64 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
+       66 GETUPVAL                         R6 5
+       67 GETTABLEKS                       R6 R6 K15 ["CellSize"]
+       69 SETTABLEKS                       R6 R5 K9 ["Size"]
+       71 GETTABLEKS                       R7 R1 K0 ["item"]
+       73 GETTABLEKS                       R7 R7 K1 ["source"]
+       75 GETUPVAL                         R8 1
+       76 GETTABLEKS                       R8 R8 K16 ["SOURCE_BUILTIN"]
+       78 JUMPIFEQ                         R7 R8 ; [+5]
+       80 NEWCLOSURE                       R6 P0
+       81 CAPTURE                          UPVAL U6
+       82 CAPTURE                          VAL R1
+       83 JUMP                             ; [+1]
+       84 LOADNIL                          R6
+       85 SETTABLEKS                       R6 R5 K10 ["Delete"]
+       87 GETTABLEKS                       R7 R1 K0 ["item"]
+       89 GETTABLEKS                       R7 R7 K1 ["source"]
+       91 GETUPVAL                         R8 1
+       92 GETTABLEKS                       R8 R8 K16 ["SOURCE_BUILTIN"]
+       94 JUMPIFEQ                         R7 R8 ; [+3]
+       96 GETUPVAL                         R6 7
+       97 JUMP                             ; [+1]
+       98 LOADNIL                          R6
+       99 SETTABLEKS                       R6 R5 K11 ["DeleteAll"]
+      101 CALL                             R3 2 -1
+      102 RETURN                           R3 -1
 
 PROTO_10:
         0 GETUPVAL                         R1 0

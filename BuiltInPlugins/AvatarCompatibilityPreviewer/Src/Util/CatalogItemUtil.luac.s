@@ -170,23 +170,22 @@ PROTO_8:
         4 NEWCLOSURE                       R3 P0
         5 CAPTURE                          VAL R0
         6 CALL                             R1 2 1
-        7 JUMPIFNOTEQKNIL                  R1 ; [+10]
+        7 JUMPIFNOTEQKNIL                  R1 ; [+9]
         9 GETIMPORT                        R2 K2 [error]
-       11 LOADK                            R4 K3 ["Couldn't getBuiltinItemDataFromId: %*"]
-       12 MOVE                             R6 R0
-       13 NAMECALL                         R4 R4 K4 ["format"]
-       15 CALL                             R4 2 1
-       16 MOVE                             R3 R4
-       17 CALL                             R2 1 0
-       18 JUMPIFNOTEQKNIL                  R1 ; [+2]
-       20 LOADB                            R3 0 +1
-       21 LOADB                            R3 1
-       22 GETUPVAL                         R4 2
-       23 GETTABLEKS                       R4 R4 K5 ["LUAU_ANALYZE_ERROR"]
-       25 FASTCALL2                        ASSERT R3 R4 ; [+3]
-       27 GETIMPORT                        R2 K7 [assert]
-       29 CALL                             R2 2 0
-       30 RETURN                           R1 1
+       11 LOADK                            R3 K3 ["Couldn't getBuiltinItemDataFromId: %*"]
+       12 MOVE                             R5 R0
+       13 NAMECALL                         R3 R3 K4 ["format"]
+       15 CALL                             R3 2 1
+       16 CALL                             R2 1 0
+       17 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       19 LOADB                            R3 0 +1
+       20 LOADB                            R3 1
+       21 GETUPVAL                         R4 2
+       22 GETTABLEKS                       R4 R4 K5 ["LUAU_ANALYZE_ERROR"]
+       24 FASTCALL2                        ASSERT R3 R4 ; [+3]
+       26 GETIMPORT                        R2 K7 [assert]
+       28 CALL                             R2 2 0
+       29 RETURN                           R1 1
 
 PROTO_9:
         0 GETTABLEKS                       R2 R1 K0 ["accessories"]
@@ -680,24 +679,23 @@ PROTO_33:
         6 NEWCLOSURE                       R5 P0
         7 CAPTURE                          VAL R2
         8 CALL                             R3 2 1
-        9 JUMPIFNOTEQKNIL                  R3 ; [+10]
+        9 JUMPIFNOTEQKNIL                  R3 ; [+9]
        11 GETIMPORT                        R4 K3 [error]
-       13 LOADK                            R6 K4 ["Couldn't getBuiltinItemDataFromId: %*"]
-       14 MOVE                             R8 R2
-       15 NAMECALL                         R6 R6 K5 ["format"]
-       17 CALL                             R6 2 1
-       18 MOVE                             R5 R6
-       19 CALL                             R4 1 0
-       20 JUMPIFNOTEQKNIL                  R3 ; [+2]
-       22 LOADB                            R5 0 +1
-       23 LOADB                            R5 1
-       24 GETUPVAL                         R6 2
-       25 GETTABLEKS                       R6 R6 K6 ["LUAU_ANALYZE_ERROR"]
-       27 FASTCALL2                        ASSERT R5 R6 ; [+3]
-       29 GETIMPORT                        R4 K8 [assert]
-       31 CALL                             R4 2 0
-       32 MOVE                             R1 R3
-       33 RETURN                           R1 1
+       13 LOADK                            R5 K4 ["Couldn't getBuiltinItemDataFromId: %*"]
+       14 MOVE                             R7 R2
+       15 NAMECALL                         R5 R5 K5 ["format"]
+       17 CALL                             R5 2 1
+       18 CALL                             R4 1 0
+       19 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       21 LOADB                            R5 0 +1
+       22 LOADB                            R5 1
+       23 GETUPVAL                         R6 2
+       24 GETTABLEKS                       R6 R6 K6 ["LUAU_ANALYZE_ERROR"]
+       26 FASTCALL2                        ASSERT R5 R6 ; [+3]
+       28 GETIMPORT                        R4 K8 [assert]
+       30 CALL                             R4 2 0
+       31 MOVE                             R1 R3
+       32 RETURN                           R1 1
 
 PROTO_34:
         0 GETTABLEKS                       R1 R0 K0 ["left"]
@@ -713,13 +711,12 @@ PROTO_35:
         8 RETURN                           R5 1
         9 FORGLOOP                         R1 2 ; [-6]
        11 GETIMPORT                        R1 K2 [error]
-       13 LOADK                            R3 K3 ["Invalid pair of shoes for %*"]
-       14 MOVE                             R5 R0
-       15 NAMECALL                         R3 R3 K4 ["format"]
-       17 CALL                             R3 2 1
-       18 MOVE                             R2 R3
-       19 CALL                             R1 1 0
-       20 RETURN                           R0 0
+       13 LOADK                            R2 K3 ["Invalid pair of shoes for %*"]
+       14 MOVE                             R4 R0
+       15 NAMECALL                         R2 R2 K4 ["format"]
+       17 CALL                             R2 2 1
+       18 CALL                             R1 1 0
+       19 RETURN                           R0 0
 
 PROTO_36:
         0 DUPTABLE                         R1 K11 [{[1] = "Shoes", ["Items"], ["PreviewComponent"], ["WearBuiltin"], ["CreateCustomInstanceFromSelection"], ["WearInstance"], ["UpdateInstances"], ["GetBuiltinItemData"], ["Serializer"], ["PreferredLayer"]}]

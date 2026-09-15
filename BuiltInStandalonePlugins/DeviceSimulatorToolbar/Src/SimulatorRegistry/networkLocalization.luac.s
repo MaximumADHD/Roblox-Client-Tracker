@@ -27,27 +27,26 @@ PROTO_2:
         1 CAPTURE                          VAL R0
         2 CAPTURE                          VAL R1
         3 CAPTURE                          VAL R2
-        4 LOADK                            R7 K0 ["Studio.DeviceSimulator.%*.%*"]
-        5 MOVE                             R9 R1
-        6 MOVE                             R10 R2
-        7 NAMECALL                         R7 R7 K1 ["format"]
-        9 CALL                             R7 3 1
-       10 MOVE                             R6 R7
-       11 GETIMPORT                        R7 K3 [pcall]
-       13 MOVE                             R8 R5
-       14 CALL                             R7 1 2
-       15 JUMPIFNOT                        R7 ; [+11]
-       16 FASTCALL1                        TYPE R8 ; [+3]
-       17 MOVE                             R10 R8
-       18 GETIMPORT                        R9 K5 [type]
-       20 CALL                             R9 1 1
-       21 JUMPIFNOTEQKS                    R9 K6 ["string"] ; [+5]
-       23 JUMPIFEQKS                       R8 K7 [""] ; [+3]
-       25 JUMPIFNOTEQ                      R8 R6 ; [+3]
-       27 MOVE                             R4 R3
-       28 RETURN                           R4 1
-       29 MOVE                             R4 R8
-       30 RETURN                           R4 1
+        4 LOADK                            R6 K0 ["Studio.DeviceSimulator.%*.%*"]
+        5 MOVE                             R8 R1
+        6 MOVE                             R9 R2
+        7 NAMECALL                         R6 R6 K1 ["format"]
+        9 CALL                             R6 3 1
+       10 GETIMPORT                        R7 K3 [pcall]
+       12 MOVE                             R8 R5
+       13 CALL                             R7 1 2
+       14 JUMPIFNOT                        R7 ; [+11]
+       15 FASTCALL1                        TYPE R8 ; [+3]
+       16 MOVE                             R10 R8
+       17 GETIMPORT                        R9 K5 [type]
+       19 CALL                             R9 1 1
+       20 JUMPIFNOTEQKS                    R9 K6 ["string"] ; [+5]
+       22 JUMPIFEQKS                       R8 K7 [""] ; [+3]
+       24 JUMPIFNOTEQ                      R8 R6 ; [+3]
+       26 MOVE                             R4 R3
+       27 RETURN                           R4 1
+       28 MOVE                             R4 R8
+       29 RETURN                           R4 1
 
 PROTO_3:
         0 JUMPIFEQKS                       R1 K0 ["Network"] ; [+2]
@@ -96,47 +95,46 @@ PROTO_5:
        12 CAPTURE                          VAL R0
        13 CAPTURE                          VAL R10
        14 CAPTURE                          VAL R7
-       15 LOADK                            R11 K2 ["Studio.DeviceSimulator.NetworkPreset.%*"]
-       16 MOVE                             R13 R7
-       17 NAMECALL                         R11 R11 K3 ["format"]
-       19 CALL                             R11 2 1
-       20 MOVE                             R10 R11
-       21 GETIMPORT                        R11 K5 [pcall]
-       23 MOVE                             R12 R9
-       24 CALL                             R11 1 2
-       25 JUMPIFNOT                        R11 ; [+11]
-       26 FASTCALL1                        TYPE R12 ; [+3]
-       27 MOVE                             R14 R12
-       28 GETIMPORT                        R13 K7 [type]
-       30 CALL                             R13 1 1
-       31 JUMPIFNOTEQKS                    R13 K8 ["string"] ; [+5]
-       33 JUMPIFEQKS                       R12 K9 [""] ; [+3]
-       35 JUMPIFNOTEQ                      R12 R10 ; [+3]
-       37 MOVE                             R8 R6
-       38 JUMP                             ; [+1]
-       39 MOVE                             R8 R12
-       40 SETTABLE                         R8 R2 R6
-       41 FORGLOOP                         R3 2 ; [-32]
-       43 NEWCLOSURE                       R4 P1
-       44 CAPTURE                          VAL R0
-       45 GETIMPORT                        R5 K5 [pcall]
-       47 MOVE                             R6 R4
-       48 CALL                             R5 1 2
-       49 JUMPIFNOT                        R5 ; [+11]
-       50 FASTCALL1                        TYPE R6 ; [+3]
-       51 MOVE                             R8 R6
-       52 GETIMPORT                        R7 K7 [type]
-       54 CALL                             R7 1 1
-       55 JUMPIFNOTEQKS                    R7 K8 ["string"] ; [+5]
-       57 JUMPIFEQKS                       R6 K9 [""] ; [+3]
-       59 JUMPIFNOTEQKS                    R6 K10 ["Studio.DeviceSimulatorToolbar.SimulatorPreset.Custom"] ; [+3]
-       61 LOADK                            R3 K11 ["Custom"]
-       62 JUMP                             ; [+1]
-       63 MOVE                             R3 R6
-       64 SETTABLEKS                       R3 R2 K11 ["Custom"]
-       66 NEWTABLE                         R3 1 0
-       68 SETTABLEKS                       R2 R3 K12 ["preset"]
-       70 RETURN                           R3 1
+       15 LOADK                            R10 K2 ["Studio.DeviceSimulator.NetworkPreset.%*"]
+       16 MOVE                             R12 R7
+       17 NAMECALL                         R10 R10 K3 ["format"]
+       19 CALL                             R10 2 1
+       20 GETIMPORT                        R11 K5 [pcall]
+       22 MOVE                             R12 R9
+       23 CALL                             R11 1 2
+       24 JUMPIFNOT                        R11 ; [+11]
+       25 FASTCALL1                        TYPE R12 ; [+3]
+       26 MOVE                             R14 R12
+       27 GETIMPORT                        R13 K7 [type]
+       29 CALL                             R13 1 1
+       30 JUMPIFNOTEQKS                    R13 K8 ["string"] ; [+5]
+       32 JUMPIFEQKS                       R12 K9 [""] ; [+3]
+       34 JUMPIFNOTEQ                      R12 R10 ; [+3]
+       36 MOVE                             R8 R6
+       37 JUMP                             ; [+1]
+       38 MOVE                             R8 R12
+       39 SETTABLE                         R8 R2 R6
+       40 FORGLOOP                         R3 2 ; [-31]
+       42 NEWCLOSURE                       R4 P1
+       43 CAPTURE                          VAL R0
+       44 GETIMPORT                        R5 K5 [pcall]
+       46 MOVE                             R6 R4
+       47 CALL                             R5 1 2
+       48 JUMPIFNOT                        R5 ; [+11]
+       49 FASTCALL1                        TYPE R6 ; [+3]
+       50 MOVE                             R8 R6
+       51 GETIMPORT                        R7 K7 [type]
+       53 CALL                             R7 1 1
+       54 JUMPIFNOTEQKS                    R7 K8 ["string"] ; [+5]
+       56 JUMPIFEQKS                       R6 K9 [""] ; [+3]
+       58 JUMPIFNOTEQKS                    R6 K10 ["Studio.DeviceSimulatorToolbar.SimulatorPreset.Custom"] ; [+3]
+       60 LOADK                            R3 K11 ["Custom"]
+       61 JUMP                             ; [+1]
+       62 MOVE                             R3 R6
+       63 SETTABLEKS                       R3 R2 K11 ["Custom"]
+       65 NEWTABLE                         R3 1 0
+       67 SETTABLEKS                       R2 R3 K12 ["preset"]
+       69 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

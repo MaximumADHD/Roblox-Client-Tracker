@@ -1,11 +1,10 @@
 PROTO_0:
-        0 LOADK                            R2 K0 ["%*.%*"]
-        1 GETTABLEKS                       R4 R0 K1 ["PluginType"]
-        3 GETTABLEKS                       R5 R0 K2 ["PluginId"]
-        5 NAMECALL                         R2 R2 K3 ["format"]
-        7 CALL                             R2 3 1
-        8 MOVE                             R1 R2
-        9 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["%*.%*"]
+        1 GETTABLEKS                       R3 R0 K1 ["PluginType"]
+        3 GETTABLEKS                       R4 R0 K2 ["PluginId"]
+        5 NAMECALL                         R1 R1 K3 ["format"]
+        7 CALL                             R1 3 1
+        8 RETURN                           R1 1
 
 PROTO_1:
         0 MOVE                             R2 R0
@@ -135,14 +134,13 @@ PROTO_7:
        11 RETURN                           R1 1
 
 PROTO_8:
-        0 LOADK                            R3 K0 ["%*.%*"]
-        1 GETTABLEKS                       R5 R1 K1 ["PluginType"]
-        3 GETTABLEKS                       R6 R1 K2 ["PluginId"]
-        5 NAMECALL                         R3 R3 K3 ["format"]
-        7 CALL                             R3 3 1
-        8 MOVE                             R2 R3
-        9 MOVE                             R3 R1
-       10 RETURN                           R2 2
+        0 LOADK                            R2 K0 ["%*.%*"]
+        1 GETTABLEKS                       R4 R1 K1 ["PluginType"]
+        3 GETTABLEKS                       R5 R1 K2 ["PluginId"]
+        5 NAMECALL                         R2 R2 K3 ["format"]
+        7 CALL                             R2 3 1
+        8 MOVE                             R3 R1
+        9 RETURN                           R2 2
 
 PROTO_9:
         0 LOADB                            R1 0

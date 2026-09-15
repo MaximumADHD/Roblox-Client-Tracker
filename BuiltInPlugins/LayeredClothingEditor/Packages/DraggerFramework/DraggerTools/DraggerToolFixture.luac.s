@@ -188,53 +188,51 @@ PROTO_11:
        20 LOADB                            R7 1
        21 NAMECALL                         R4 R3 K7 ["FindFirstChild"]
        23 CALL                             R4 3 1
-       24 LOADK                            R8 K8 ["Could not find handle named %*"]
-       25 MOVE                             R10 R1
-       26 NAMECALL                         R8 R8 K9 ["format"]
-       28 CALL                             R8 2 1
-       29 MOVE                             R7 R8
-       30 FASTCALL2                        ASSERT R4 R7 ; [+4]
-       32 MOVE                             R6 R4
-       33 GETIMPORT                        R5 K5 [assert]
-       35 CALL                             R5 2 0
-       36 LOADK                            R7 K10 ["Head"]
-       37 NAMECALL                         R5 R4 K7 ["FindFirstChild"]
-       39 CALL                             R5 2 1
-       40 JUMPIF                           R5 ; [+4]
-       41 LOADK                            R7 K11 ["Handle"]
-       42 NAMECALL                         R5 R4 K7 ["FindFirstChild"]
-       44 CALL                             R5 2 1
-       45 GETTABLEKS                       R7 R5 K12 ["Adornee"]
-       47 GETTABLEKS                       R7 R7 K13 ["CFrame"]
-       49 GETTABLEKS                       R8 R5 K13 ["CFrame"]
-       51 MUL                              R6 R7 R8
-       52 GETTABLEKS                       R7 R0 K1 ["_draggerContext"]
-       54 GETTABLEKS                       R9 R6 K14 ["Position"]
-       56 NAMECALL                         R7 R7 K15 ["worldToViewportPoint"]
-       58 CALL                             R7 2 2
-       59 LOADK                            R12 K16 ["Handle %* is not on screen"]
-       60 MOVE                             R14 R1
-       61 NAMECALL                         R12 R12 K9 ["format"]
-       63 CALL                             R12 2 1
-       64 MOVE                             R11 R12
-       65 FASTCALL2                        ASSERT R8 R11 ; [+4]
-       67 MOVE                             R10 R8
-       68 GETIMPORT                        R9 K5 [assert]
-       70 CALL                             R9 2 0
-       71 GETTABLEKS                       R9 R0 K1 ["_draggerContext"]
-       73 GETIMPORT                        R11 K19 [Vector2.new]
-       75 GETTABLEKS                       R12 R7 K20 ["X"]
-       77 GETTABLEKS                       R13 R7 K21 ["Y"]
-       79 CALL                             R11 2 -1
-       80 NAMECALL                         R9 R9 K22 ["setMouseLocation"]
-       82 CALL                             R9 -1 0
-       83 GETTABLEKS                       R9 R0 K23 ["_draggerToolModel"]
-       85 NAMECALL                         R9 R9 K24 ["_processViewChanged"]
-       87 CALL                             R9 1 0
-       88 NAMECALL                         R9 R0 K25 ["_update"]
-       90 CALL                             R9 1 0
-       91 GETTABLEKS                       R9 R6 K14 ["Position"]
-       93 RETURN                           R9 1
+       24 LOADK                            R7 K8 ["Could not find handle named %*"]
+       25 MOVE                             R9 R1
+       26 NAMECALL                         R7 R7 K9 ["format"]
+       28 CALL                             R7 2 1
+       29 FASTCALL2                        ASSERT R4 R7 ; [+4]
+       31 MOVE                             R6 R4
+       32 GETIMPORT                        R5 K5 [assert]
+       34 CALL                             R5 2 0
+       35 LOADK                            R7 K10 ["Head"]
+       36 NAMECALL                         R5 R4 K7 ["FindFirstChild"]
+       38 CALL                             R5 2 1
+       39 JUMPIF                           R5 ; [+4]
+       40 LOADK                            R7 K11 ["Handle"]
+       41 NAMECALL                         R5 R4 K7 ["FindFirstChild"]
+       43 CALL                             R5 2 1
+       44 GETTABLEKS                       R7 R5 K12 ["Adornee"]
+       46 GETTABLEKS                       R7 R7 K13 ["CFrame"]
+       48 GETTABLEKS                       R8 R5 K13 ["CFrame"]
+       50 MUL                              R6 R7 R8
+       51 GETTABLEKS                       R7 R0 K1 ["_draggerContext"]
+       53 GETTABLEKS                       R9 R6 K14 ["Position"]
+       55 NAMECALL                         R7 R7 K15 ["worldToViewportPoint"]
+       57 CALL                             R7 2 2
+       58 LOADK                            R11 K16 ["Handle %* is not on screen"]
+       59 MOVE                             R13 R1
+       60 NAMECALL                         R11 R11 K9 ["format"]
+       62 CALL                             R11 2 1
+       63 FASTCALL2                        ASSERT R8 R11 ; [+4]
+       65 MOVE                             R10 R8
+       66 GETIMPORT                        R9 K5 [assert]
+       68 CALL                             R9 2 0
+       69 GETTABLEKS                       R9 R0 K1 ["_draggerContext"]
+       71 GETIMPORT                        R11 K19 [Vector2.new]
+       73 GETTABLEKS                       R12 R7 K20 ["X"]
+       75 GETTABLEKS                       R13 R7 K21 ["Y"]
+       77 CALL                             R11 2 -1
+       78 NAMECALL                         R9 R9 K22 ["setMouseLocation"]
+       80 CALL                             R9 -1 0
+       81 GETTABLEKS                       R9 R0 K23 ["_draggerToolModel"]
+       83 NAMECALL                         R9 R9 K24 ["_processViewChanged"]
+       85 CALL                             R9 1 0
+       86 NAMECALL                         R9 R0 K25 ["_update"]
+       88 CALL                             R9 1 0
+       89 GETTABLEKS                       R9 R6 K14 ["Position"]
+       91 RETURN                           R9 1
 
 PROTO_12:
         0 LOADB                            R0 1
@@ -288,36 +286,34 @@ PROTO_14:
         9 JUMPIFLT                         R7 R6 ; [+2]
        11 LOADB                            R5 0 +1
        12 LOADB                            R5 1
-       13 LOADK                            R7 K3 ["Can't move mouse over %* because it is behind the camera"]
-       14 MOVE                             R9 R1
-       15 NAMECALL                         R7 R7 K4 ["format"]
-       17 CALL                             R7 2 1
-       18 MOVE                             R6 R7
-       19 FASTCALL2                        ASSERT R5 R6 ; [+3]
-       21 GETIMPORT                        R4 K6 [assert]
-       23 CALL                             R4 2 0
-       24 LOADK                            R7 K7 ["Can't move mouse over %* because it is off screen"]
-       25 MOVE                             R9 R1
-       26 NAMECALL                         R7 R7 K4 ["format"]
-       28 CALL                             R7 2 1
-       29 MOVE                             R6 R7
-       30 FASTCALL2                        ASSERT R3 R6 ; [+4]
-       32 MOVE                             R5 R3
-       33 GETIMPORT                        R4 K6 [assert]
-       35 CALL                             R4 2 0
-       36 GETTABLEKS                       R4 R0 K0 ["_draggerContext"]
-       38 GETIMPORT                        R6 K10 [Vector2.new]
-       40 GETTABLEKS                       R7 R2 K11 ["X"]
-       42 GETTABLEKS                       R8 R2 K12 ["Y"]
-       44 CALL                             R6 2 -1
-       45 NAMECALL                         R4 R4 K13 ["setMouseLocation"]
-       47 CALL                             R4 -1 0
-       48 GETTABLEKS                       R4 R0 K14 ["_draggerToolModel"]
-       50 NAMECALL                         R4 R4 K15 ["_processViewChanged"]
-       52 CALL                             R4 1 0
-       53 NAMECALL                         R4 R0 K16 ["_update"]
-       55 CALL                             R4 1 0
-       56 RETURN                           R0 0
+       13 LOADK                            R6 K3 ["Can't move mouse over %* because it is behind the camera"]
+       14 MOVE                             R8 R1
+       15 NAMECALL                         R6 R6 K4 ["format"]
+       17 CALL                             R6 2 1
+       18 FASTCALL2                        ASSERT R5 R6 ; [+3]
+       20 GETIMPORT                        R4 K6 [assert]
+       22 CALL                             R4 2 0
+       23 LOADK                            R6 K7 ["Can't move mouse over %* because it is off screen"]
+       24 MOVE                             R8 R1
+       25 NAMECALL                         R6 R6 K4 ["format"]
+       27 CALL                             R6 2 1
+       28 FASTCALL2                        ASSERT R3 R6 ; [+4]
+       30 MOVE                             R5 R3
+       31 GETIMPORT                        R4 K6 [assert]
+       33 CALL                             R4 2 0
+       34 GETTABLEKS                       R4 R0 K0 ["_draggerContext"]
+       36 GETIMPORT                        R6 K10 [Vector2.new]
+       38 GETTABLEKS                       R7 R2 K11 ["X"]
+       40 GETTABLEKS                       R8 R2 K12 ["Y"]
+       42 CALL                             R6 2 -1
+       43 NAMECALL                         R4 R4 K13 ["setMouseLocation"]
+       45 CALL                             R4 -1 0
+       46 GETTABLEKS                       R4 R0 K14 ["_draggerToolModel"]
+       48 NAMECALL                         R4 R4 K15 ["_processViewChanged"]
+       50 CALL                             R4 1 0
+       51 NAMECALL                         R4 R0 K16 ["_update"]
+       53 CALL                             R4 1 0
+       54 RETURN                           R0 0
 
 PROTO_15:
         0 MOVE                             R4 R1

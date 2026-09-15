@@ -259,79 +259,78 @@ PROTO_7:
        32 CALL                             R5 0 0
        33 RETURN                           R0 0
        34 LENGTH                           R5 R4
-       35 JUMPIFEQKN                       R5 K5 [0] ; [+30]
+       35 JUMPIFEQKN                       R5 K5 [0] ; [+29]
        37 GETIMPORT                        R5 K7 [warn]
-       39 LOADK                            R7 K8 ["Failed to grant universe access to assetIds: %*"]
-       40 GETIMPORT                        R9 K11 [table.concat]
-       42 MOVE                             R10 R4
-       43 LOADK                            R11 K12 [", "]
-       44 CALL                             R9 2 1
-       45 NAMECALL                         R7 R7 K13 ["format"]
-       47 CALL                             R7 2 1
-       48 MOVE                             R6 R7
-       49 CALL                             R5 1 0
-       50 MOVE                             R5 R4
-       51 LOADNIL                          R6
-       52 LOADNIL                          R7
-       53 FORGPREP                         R5
-       54 GETUPVAL                         R11 4
-       55 GETTABLE                         R10 R11 R9
-       56 JUMPIF                           R10 ; [+1]
-       57 JUMP                             ; [+6]
-       58 GETUPVAL                         R11 4
-       59 LOADNIL                          R12
-       60 SETTABLE                         R12 R11 R9
-       61 GETUPVAL                         R11 6
-       62 SUBK                             R11 R11 K14 [1]
-       63 SETUPVAL                         R11 6
-       64 FORGLOOP                         R5 2 ; [-11]
-       66 GETUPVAL                         R5 4
-       67 LOADNIL                          R6
-       68 LOADNIL                          R7
-       69 FORGPREP                         R5
-       70 JUMPIFNOT                        R9 ; [+26]
-       71 GETTABLEKS                       R10 R9 K15 ["AssetType"]
-       73 GETUPVAL                         R11 8
-       74 GETTABLEKS                       R11 R11 K15 ["AssetType"]
-       76 GETTABLEKS                       R11 R11 K16 ["Model"]
-       78 JUMPIFEQ                         R10 R11 ; [+18]
-       80 GETUPVAL                         R11 4
-       81 GETTABLE                         R10 R11 R8
-       82 JUMPIF                           R10 ; [+1]
-       83 JUMP                             ; [+13]
-       84 GETUPVAL                         R12 5
-       85 FASTCALL2                        TABLE_INSERT R12 R10 ; [+4]
-       87 MOVE                             R13 R10
-       88 GETIMPORT                        R11 K18 [table.insert]
-       90 CALL                             R11 2 0
-       91 GETUPVAL                         R11 4
-       92 LOADNIL                          R12
-       93 SETTABLE                         R12 R11 R8
-       94 GETUPVAL                         R11 6
-       95 SUBK                             R11 R11 K14 [1]
-       96 SETUPVAL                         R11 6
-       97 FORGLOOP                         R5 2 ; [-28]
-       99 GETUPVAL                         R5 6
-      100 JUMPIFNOTEQKN                    R5 K5 [0] ; [+11]
-      102 GETUPVAL                         R5 1
-      103 JUMPIFNOT                        R5 ; [+6]
-      104 GETUPVAL                         R5 1
-      105 NAMECALL                         R5 R5 K4 ["Disconnect"]
-      107 CALL                             R5 1 0
-      108 LOADNIL                          R5
-      109 SETUPVAL                         R5 1
-      110 MOVE                             R5 R0
-      111 CALL                             R5 0 0
-      112 RETURN                           R0 0
+       39 LOADK                            R6 K8 ["Failed to grant universe access to assetIds: %*"]
+       40 GETIMPORT                        R8 K11 [table.concat]
+       42 MOVE                             R9 R4
+       43 LOADK                            R10 K12 [", "]
+       44 CALL                             R8 2 1
+       45 NAMECALL                         R6 R6 K13 ["format"]
+       47 CALL                             R6 2 1
+       48 CALL                             R5 1 0
+       49 MOVE                             R5 R4
+       50 LOADNIL                          R6
+       51 LOADNIL                          R7
+       52 FORGPREP                         R5
+       53 GETUPVAL                         R11 4
+       54 GETTABLE                         R10 R11 R9
+       55 JUMPIF                           R10 ; [+1]
+       56 JUMP                             ; [+6]
+       57 GETUPVAL                         R11 4
+       58 LOADNIL                          R12
+       59 SETTABLE                         R12 R11 R9
+       60 GETUPVAL                         R11 6
+       61 SUBK                             R11 R11 K14 [1]
+       62 SETUPVAL                         R11 6
+       63 FORGLOOP                         R5 2 ; [-11]
+       65 GETUPVAL                         R5 4
+       66 LOADNIL                          R6
+       67 LOADNIL                          R7
+       68 FORGPREP                         R5
+       69 JUMPIFNOT                        R9 ; [+26]
+       70 GETTABLEKS                       R10 R9 K15 ["AssetType"]
+       72 GETUPVAL                         R11 8
+       73 GETTABLEKS                       R11 R11 K15 ["AssetType"]
+       75 GETTABLEKS                       R11 R11 K16 ["Model"]
+       77 JUMPIFEQ                         R10 R11 ; [+18]
+       79 GETUPVAL                         R11 4
+       80 GETTABLE                         R10 R11 R8
+       81 JUMPIF                           R10 ; [+1]
+       82 JUMP                             ; [+13]
+       83 GETUPVAL                         R12 5
+       84 FASTCALL2                        TABLE_INSERT R12 R10 ; [+4]
+       86 MOVE                             R13 R10
+       87 GETIMPORT                        R11 K18 [table.insert]
+       89 CALL                             R11 2 0
+       90 GETUPVAL                         R11 4
+       91 LOADNIL                          R12
+       92 SETTABLE                         R12 R11 R8
+       93 GETUPVAL                         R11 6
+       94 SUBK                             R11 R11 K14 [1]
+       95 SETUPVAL                         R11 6
+       96 FORGLOOP                         R5 2 ; [-28]
+       98 GETUPVAL                         R5 6
+       99 JUMPIFNOTEQKN                    R5 K5 [0] ; [+11]
+      101 GETUPVAL                         R5 1
+      102 JUMPIFNOT                        R5 ; [+6]
+      103 GETUPVAL                         R5 1
+      104 NAMECALL                         R5 R5 K4 ["Disconnect"]
+      106 CALL                             R5 1 0
+      107 LOADNIL                          R5
+      108 SETUPVAL                         R5 1
+      109 MOVE                             R5 R0
+      110 CALL                             R5 0 0
+      111 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["Error"]
-        3 JUMPIFNOT                        R1 ; [+45]
+        3 JUMPIFNOT                        R1 ; [+44]
         4 GETUPVAL                         R1 0
         5 GETTABLEKS                       R1 R1 K0 ["Error"]
         7 GETTABLEKS                       R1 R1 K1 ["isKind"]
-        9 JUMPIFNOT                        R1 ; [+39]
+        9 JUMPIFNOT                        R1 ; [+38]
        10 GETUPVAL                         R1 0
        11 GETTABLEKS                       R1 R1 K0 ["Error"]
        13 GETTABLEKS                       R1 R1 K1 ["isKind"]
@@ -341,27 +340,26 @@ PROTO_8:
        19 GETTABLEKS                       R3 R3 K2 ["Kind"]
        21 GETTABLEKS                       R3 R3 K3 ["TimedOut"]
        23 CALL                             R1 2 1
-       24 JUMPIFNOT                        R1 ; [+24]
+       24 JUMPIFNOT                        R1 ; [+23]
        25 GETUPVAL                         R1 1
        26 LOADNIL                          R2
        27 LOADNIL                          R3
        28 FORGPREP                         R1
-       29 JUMPIFNOT                        R5 ; [+16]
+       29 JUMPIFNOT                        R5 ; [+15]
        30 GETIMPORT                        R6 K5 [warn]
-       32 LOADK                            R8 K6 ["Dependency grants timed out after %* seconds; continuing with insertion."]
-       33 GETUPVAL                         R10 2
-       34 NAMECALL                         R8 R8 K7 ["format"]
-       36 CALL                             R8 2 1
-       37 MOVE                             R7 R8
-       38 CALL                             R6 1 0
-       39 GETUPVAL                         R7 3
-       40 FASTCALL2                        TABLE_INSERT R7 R5 ; [+4]
-       42 MOVE                             R8 R5
-       43 GETIMPORT                        R6 K10 [table.insert]
-       45 CALL                             R6 2 0
-       46 FORGLOOP                         R1 2 ; [-18]
+       32 LOADK                            R7 K6 ["Dependency grants timed out after %* seconds; continuing with insertion."]
+       33 GETUPVAL                         R9 2
+       34 NAMECALL                         R7 R7 K7 ["format"]
+       36 CALL                             R7 2 1
+       37 CALL                             R6 1 0
+       38 GETUPVAL                         R7 3
+       39 FASTCALL2                        TABLE_INSERT R7 R5 ; [+4]
+       41 MOVE                             R8 R5
+       42 GETIMPORT                        R6 K10 [table.insert]
+       44 CALL                             R6 2 0
+       45 FORGLOOP                         R1 2 ; [-17]
+       47 RETURN                           R0 0
        48 RETURN                           R0 0
-       49 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R0 0

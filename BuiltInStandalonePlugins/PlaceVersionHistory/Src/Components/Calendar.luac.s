@@ -183,17 +183,16 @@ PROTO_6:
       101 GETTABLEKS                       R7 R0 K9 ["isDisabled"]
       103 JUMPIFNOT                        R7 ; [+2]
       104 LOADNIL                          R6
-      105 JUMP                             ; [+7]
-      106 LOADK                            R7 K25 ["--calendar-day-%*"]
-      107 GETTABLEKS                       R9 R0 K5 ["text"]
-      109 NAMECALL                         R7 R7 K26 ["format"]
-      111 CALL                             R7 2 1
-      112 MOVE                             R6 R7
-      113 SETTABLEKS                       R6 R5 K11 ["testId"]
-      115 GETTABLEKS                       R6 R0 K12 ["LayoutOrder"]
-      117 SETTABLEKS                       R6 R5 K12 ["LayoutOrder"]
-      119 CALL                             R3 2 -1
-      120 RETURN                           R3 -1
+      105 JUMP                             ; [+6]
+      106 LOADK                            R6 K25 ["--calendar-day-%*"]
+      107 GETTABLEKS                       R8 R0 K5 ["text"]
+      109 NAMECALL                         R6 R6 K26 ["format"]
+      111 CALL                             R6 2 1
+      112 SETTABLEKS                       R6 R5 K11 ["testId"]
+      114 GETTABLEKS                       R6 R0 K12 ["LayoutOrder"]
+      116 SETTABLEKS                       R6 R5 K12 ["LayoutOrder"]
+      118 CALL                             R3 2 -1
+      119 RETURN                           R3 -1
 
 PROTO_7:
         0 GETUPVAL                         R0 0

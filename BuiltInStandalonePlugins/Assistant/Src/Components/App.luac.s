@@ -206,103 +206,100 @@ PROTO_2:
       177 MOVE                             R3 R1
       178 GETUPVAL                         R4 0
       179 GETUPVAL                         R5 14
-      180 DUPTABLE                         R6 K16 [{"dataModel"}]
-      181 GETIMPORT                        R7 K18 [game]
-      183 SETTABLEKS                       R7 R6 K15 ["dataModel"]
-      185 CALL                             R4 2 -1
-      186 FASTCALL                         TABLE_INSERT ; [+2]
-      187 GETIMPORT                        R2 K7 [table.insert]
-      189 CALL                             R2 -1 0
-      190 MOVE                             R3 R1
-      191 GETUPVAL                         R4 0
-      192 GETUPVAL                         R5 15
-      193 GETTABLEKS                       R5 R5 K4 ["Provider"]
-      195 DUPTABLE                         R6 K20 [{"dockWidget"}]
-      196 GETTABLEKS                       R7 R0 K19 ["dockWidget"]
-      198 SETTABLEKS                       R7 R6 K19 ["dockWidget"]
-      200 CALL                             R4 2 -1
-      201 FASTCALL                         TABLE_INSERT ; [+2]
-      202 GETIMPORT                        R2 K7 [table.insert]
-      204 CALL                             R2 -1 0
-      205 GETUPVAL                         R2 8
-      206 GETTABLEKS                       R2 R2 K21 ["FFlagAssistantCloseDropdownsOnWidgetHidden"]
-      208 JUMPIFNOT                        R2 ; [+13]
-      209 MOVE                             R3 R1
-      210 GETUPVAL                         R4 0
-      211 GETUPVAL                         R5 16
-      212 DUPTABLE                         R6 K20 [{"dockWidget"}]
-      213 GETTABLEKS                       R7 R0 K19 ["dockWidget"]
-      215 SETTABLEKS                       R7 R6 K19 ["dockWidget"]
-      217 CALL                             R4 2 -1
-      218 FASTCALL                         TABLE_INSERT ; [+2]
-      219 GETIMPORT                        R2 K7 [table.insert]
-      221 CALL                             R2 -1 0
-      222 MOVE                             R3 R1
-      223 GETUPVAL                         R4 0
-      224 GETUPVAL                         R5 17
-      225 GETTABLEKS                       R5 R5 K4 ["Provider"]
-      227 CALL                             R4 1 -1
-      228 FASTCALL                         TABLE_INSERT ; [+2]
-      229 GETIMPORT                        R2 K7 [table.insert]
-      231 CALL                             R2 -1 0
-      232 MOVE                             R3 R1
-      233 GETUPVAL                         R4 0
-      234 GETUPVAL                         R5 18
-      235 CALL                             R4 1 -1
-      236 FASTCALL                         TABLE_INSERT ; [+2]
-      237 GETIMPORT                        R2 K7 [table.insert]
-      239 CALL                             R2 -1 0
-      240 GETUPVAL                         R2 8
-      241 GETTABLEKS                       R2 R2 K22 ["FFlagPropertiesExposeContentView"]
-      243 JUMPIFNOT                        R2 ; [+14]
-      244 MOVE                             R3 R1
-      245 GETUPVAL                         R4 0
-      246 GETUPVAL                         R5 1
-      247 GETTABLEKS                       R5 R5 K0 ["Components"]
-      249 GETTABLEKS                       R5 R5 K1 ["Contexts"]
-      251 GETTABLEKS                       R5 R5 K23 ["PropertiesContextProvider"]
-      253 CALL                             R4 1 -1
-      254 FASTCALL                         TABLE_INSERT ; [+2]
-      255 GETIMPORT                        R2 K7 [table.insert]
-      257 CALL                             R2 -1 0
-      258 GETUPVAL                         R2 8
-      259 GETTABLEKS                       R2 R2 K24 ["FFlagAssistantFeedbackView"]
-      261 JUMPIFNOT                        R2 ; [+10]
-      262 MOVE                             R3 R1
-      263 GETUPVAL                         R4 0
-      264 GETUPVAL                         R5 19
-      265 GETTABLEKS                       R5 R5 K4 ["Provider"]
-      267 CALL                             R4 1 -1
-      268 FASTCALL                         TABLE_INSERT ; [+2]
-      269 GETIMPORT                        R2 K7 [table.insert]
-      271 CALL                             R2 -1 0
-      272 GETUPVAL                         R2 20
-      273 GETTABLEKS                       R3 R0 K25 ["args"]
-      275 GETTABLEKS                       R3 R3 K26 ["bridges"]
-      277 CALL                             R2 1 1
-      278 GETUPVAL                         R3 21
-      279 GETTABLEKS                       R3 R3 K27 ["append"]
-      281 MOVE                             R4 R1
-      282 MOVE                             R5 R2
-      283 CALL                             R3 2 0
-      284 GETUPVAL                         R3 0
-      285 GETUPVAL                         R4 22
-      286 DUPTABLE                         R5 K29 [{"onStyleSheetChange"}]
-      287 GETTABLEKS                       R6 R0 K30 ["onFoundationStyleSheetChange"]
-      289 SETTABLEKS                       R6 R5 K28 ["onStyleSheetChange"]
-      291 DUPTABLE                         R6 K32 [{"ContextStack"}]
-      292 GETUPVAL                         R7 0
-      293 GETUPVAL                         R8 23
-      294 GETTABLEKS                       R8 R8 K31 ["ContextStack"]
-      296 DUPTABLE                         R9 K34 [{"providers"}]
-      297 SETTABLEKS                       R1 R9 K33 ["providers"]
-      299 GETUPVAL                         R10 24
-      300 MOVE                             R11 R0
-      301 CALL                             R10 1 1
-      302 CALL                             R7 3 1
-      303 SETTABLEKS                       R7 R6 K31 ["ContextStack"]
-      305 CALL                             R3 3 -1
-      306 RETURN                           R3 -1
+      180 CALL                             R4 1 -1
+      181 FASTCALL                         TABLE_INSERT ; [+2]
+      182 GETIMPORT                        R2 K7 [table.insert]
+      184 CALL                             R2 -1 0
+      185 MOVE                             R3 R1
+      186 GETUPVAL                         R4 0
+      187 GETUPVAL                         R5 15
+      188 GETTABLEKS                       R5 R5 K4 ["Provider"]
+      190 DUPTABLE                         R6 K16 [{"dockWidget"}]
+      191 GETTABLEKS                       R7 R0 K15 ["dockWidget"]
+      193 SETTABLEKS                       R7 R6 K15 ["dockWidget"]
+      195 CALL                             R4 2 -1
+      196 FASTCALL                         TABLE_INSERT ; [+2]
+      197 GETIMPORT                        R2 K7 [table.insert]
+      199 CALL                             R2 -1 0
+      200 GETUPVAL                         R2 8
+      201 GETTABLEKS                       R2 R2 K17 ["FFlagAssistantCloseDropdownsOnWidgetHidden"]
+      203 JUMPIFNOT                        R2 ; [+13]
+      204 MOVE                             R3 R1
+      205 GETUPVAL                         R4 0
+      206 GETUPVAL                         R5 16
+      207 DUPTABLE                         R6 K16 [{"dockWidget"}]
+      208 GETTABLEKS                       R7 R0 K15 ["dockWidget"]
+      210 SETTABLEKS                       R7 R6 K15 ["dockWidget"]
+      212 CALL                             R4 2 -1
+      213 FASTCALL                         TABLE_INSERT ; [+2]
+      214 GETIMPORT                        R2 K7 [table.insert]
+      216 CALL                             R2 -1 0
+      217 MOVE                             R3 R1
+      218 GETUPVAL                         R4 0
+      219 GETUPVAL                         R5 17
+      220 GETTABLEKS                       R5 R5 K4 ["Provider"]
+      222 CALL                             R4 1 -1
+      223 FASTCALL                         TABLE_INSERT ; [+2]
+      224 GETIMPORT                        R2 K7 [table.insert]
+      226 CALL                             R2 -1 0
+      227 MOVE                             R3 R1
+      228 GETUPVAL                         R4 0
+      229 GETUPVAL                         R5 18
+      230 CALL                             R4 1 -1
+      231 FASTCALL                         TABLE_INSERT ; [+2]
+      232 GETIMPORT                        R2 K7 [table.insert]
+      234 CALL                             R2 -1 0
+      235 GETUPVAL                         R2 8
+      236 GETTABLEKS                       R2 R2 K18 ["FFlagPropertiesExposeContentView"]
+      238 JUMPIFNOT                        R2 ; [+14]
+      239 MOVE                             R3 R1
+      240 GETUPVAL                         R4 0
+      241 GETUPVAL                         R5 1
+      242 GETTABLEKS                       R5 R5 K0 ["Components"]
+      244 GETTABLEKS                       R5 R5 K1 ["Contexts"]
+      246 GETTABLEKS                       R5 R5 K19 ["PropertiesContextProvider"]
+      248 CALL                             R4 1 -1
+      249 FASTCALL                         TABLE_INSERT ; [+2]
+      250 GETIMPORT                        R2 K7 [table.insert]
+      252 CALL                             R2 -1 0
+      253 GETUPVAL                         R2 8
+      254 GETTABLEKS                       R2 R2 K20 ["FFlagAssistantFeedbackView"]
+      256 JUMPIFNOT                        R2 ; [+10]
+      257 MOVE                             R3 R1
+      258 GETUPVAL                         R4 0
+      259 GETUPVAL                         R5 19
+      260 GETTABLEKS                       R5 R5 K4 ["Provider"]
+      262 CALL                             R4 1 -1
+      263 FASTCALL                         TABLE_INSERT ; [+2]
+      264 GETIMPORT                        R2 K7 [table.insert]
+      266 CALL                             R2 -1 0
+      267 GETUPVAL                         R2 20
+      268 GETTABLEKS                       R3 R0 K21 ["args"]
+      270 GETTABLEKS                       R3 R3 K22 ["bridges"]
+      272 CALL                             R2 1 1
+      273 GETUPVAL                         R3 21
+      274 GETTABLEKS                       R3 R3 K23 ["append"]
+      276 MOVE                             R4 R1
+      277 MOVE                             R5 R2
+      278 CALL                             R3 2 0
+      279 GETUPVAL                         R3 0
+      280 GETUPVAL                         R4 22
+      281 DUPTABLE                         R5 K25 [{"onStyleSheetChange"}]
+      282 GETTABLEKS                       R6 R0 K26 ["onFoundationStyleSheetChange"]
+      284 SETTABLEKS                       R6 R5 K24 ["onStyleSheetChange"]
+      286 DUPTABLE                         R6 K28 [{"ContextStack"}]
+      287 GETUPVAL                         R7 0
+      288 GETUPVAL                         R8 23
+      289 GETTABLEKS                       R8 R8 K27 ["ContextStack"]
+      291 DUPTABLE                         R9 K30 [{"providers"}]
+      292 SETTABLEKS                       R1 R9 K29 ["providers"]
+      294 GETUPVAL                         R10 24
+      295 MOVE                             R11 R0
+      296 CALL                             R10 1 1
+      297 CALL                             R7 3 1
+      298 SETTABLEKS                       R7 R6 K27 ["ContextStack"]
+      300 CALL                             R3 3 -1
+      301 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

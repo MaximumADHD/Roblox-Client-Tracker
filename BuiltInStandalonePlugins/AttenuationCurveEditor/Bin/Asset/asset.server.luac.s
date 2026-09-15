@@ -56,54 +56,53 @@ PROTO_1:
        25 RETURN                           R0 0
        26 SETUPVAL                         R0 0
        27 GETTABLEN                        R1 R0 1
-       28 LOADK                            R3 K7 ["%* \"%*\""]
-       29 GETTABLEKS                       R5 R1 K8 ["ClassName"]
-       31 GETTABLEKS                       R6 R1 K9 ["Name"]
-       33 NAMECALL                         R3 R3 K10 ["format"]
-       35 CALL                             R3 3 1
-       36 MOVE                             R2 R3
-       37 LENGTH                           R3 R0
-       38 LOADN                            R4 1
-       39 JUMPIFNOTLT                      R4 R3 ; [+9]
-       41 LOADK                            R3 K11 ["%* (%* items)"]
-       42 GETTABLEKS                       R5 R1 K8 ["ClassName"]
-       44 LENGTH                           R6 R0
-       45 NAMECALL                         R3 R3 K10 ["format"]
-       47 CALL                             R3 3 1
-       48 MOVE                             R2 R3
-       49 GETUPVAL                         R3 2
-       50 GETTABLEKS                       R3 R3 K12 ["getDistanceAttenuation"]
-       52 MOVE                             R4 R1
-       53 CALL                             R3 1 1
-       54 SETUPVAL                         R3 1
-       55 GETUPVAL                         R4 1
-       56 FASTCALL2K                       ASSERT R4 K13 ; [+4]
-       58 LOADK                            R5 K13 ["currentCurve was nil"]
-       59 GETIMPORT                        R3 K15 [assert]
-       61 CALL                             R3 2 0
-       62 GETIMPORT                        R3 K17 [plugin]
-       64 LOADK                            R5 K18 ["OnOpen"]
-       65 GETUPVAL                         R6 2
-       66 GETTABLEKS                       R6 R6 K19 ["stringifyCurveTable"]
-       68 GETUPVAL                         R7 1
-       69 CALL                             R6 1 1
-       70 MOVE                             R7 R2
-       71 NAMECALL                         R3 R3 K20 ["Invoke"]
-       73 CALL                             R3 4 0
-       74 GETUPVAL                         R3 3
-       75 JUMPIFNOT                        R3 ; [+4]
-       76 GETUPVAL                         R3 3
-       77 NAMECALL                         R3 R3 K21 ["Disconnect"]
-       79 CALL                             R3 1 0
-       80 GETTABLEKS                       R3 R1 K22 ["Changed"]
-       82 NEWCLOSURE                       R5 P0
-       83 CAPTURE                          UPVAL U1
-       84 CAPTURE                          UPVAL U2
-       85 CAPTURE                          VAL R1
-       86 NAMECALL                         R3 R3 K23 ["Connect"]
-       88 CALL                             R3 2 1
-       89 SETUPVAL                         R3 3
-       90 RETURN                           R0 0
+       28 LOADK                            R2 K7 ["%* \"%*\""]
+       29 GETTABLEKS                       R4 R1 K8 ["ClassName"]
+       31 GETTABLEKS                       R5 R1 K9 ["Name"]
+       33 NAMECALL                         R2 R2 K10 ["format"]
+       35 CALL                             R2 3 1
+       36 LENGTH                           R3 R0
+       37 LOADN                            R4 1
+       38 JUMPIFNOTLT                      R4 R3 ; [+9]
+       40 LOADK                            R3 K11 ["%* (%* items)"]
+       41 GETTABLEKS                       R5 R1 K8 ["ClassName"]
+       43 LENGTH                           R6 R0
+       44 NAMECALL                         R3 R3 K10 ["format"]
+       46 CALL                             R3 3 1
+       47 MOVE                             R2 R3
+       48 GETUPVAL                         R3 2
+       49 GETTABLEKS                       R3 R3 K12 ["getDistanceAttenuation"]
+       51 MOVE                             R4 R1
+       52 CALL                             R3 1 1
+       53 SETUPVAL                         R3 1
+       54 GETUPVAL                         R4 1
+       55 FASTCALL2K                       ASSERT R4 K13 ; [+4]
+       57 LOADK                            R5 K13 ["currentCurve was nil"]
+       58 GETIMPORT                        R3 K15 [assert]
+       60 CALL                             R3 2 0
+       61 GETIMPORT                        R3 K17 [plugin]
+       63 LOADK                            R5 K18 ["OnOpen"]
+       64 GETUPVAL                         R6 2
+       65 GETTABLEKS                       R6 R6 K19 ["stringifyCurveTable"]
+       67 GETUPVAL                         R7 1
+       68 CALL                             R6 1 1
+       69 MOVE                             R7 R2
+       70 NAMECALL                         R3 R3 K20 ["Invoke"]
+       72 CALL                             R3 4 0
+       73 GETUPVAL                         R3 3
+       74 JUMPIFNOT                        R3 ; [+4]
+       75 GETUPVAL                         R3 3
+       76 NAMECALL                         R3 R3 K21 ["Disconnect"]
+       78 CALL                             R3 1 0
+       79 GETTABLEKS                       R3 R1 K22 ["Changed"]
+       81 NEWCLOSURE                       R5 P0
+       82 CAPTURE                          UPVAL U1
+       83 CAPTURE                          UPVAL U2
+       84 CAPTURE                          VAL R1
+       85 NAMECALL                         R3 R3 K23 ["Connect"]
+       87 CALL                             R3 2 1
+       88 SETUPVAL                         R3 3
+       89 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0

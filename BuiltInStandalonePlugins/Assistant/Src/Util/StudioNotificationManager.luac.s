@@ -168,73 +168,67 @@ PROTO_7:
        42 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["FFlagAssistantNotificationManager"]
-        3 FASTCALL2K                       ASSERT R2 K1 ; [+4]
-        5 LOADK                            R3 K1 ["NotificationManager should only be created when FFlagAssistantNotificationManager is enabled."]
-        6 GETIMPORT                        R1 K3 [assert]
-        8 CALL                             R1 2 0
-        9 NEWTABLE                         R1 0 0
-       11 NEWTABLE                         R2 0 0
-       13 NEWTABLE                         R3 0 0
-       15 LOADB                            R4 0
-       16 GETUPVAL                         R6 1
-       17 JUMPIFNOT                        R6 ; [+3]
-       18 GETTABLEKS                       R5 R0 K4 ["IsConnected"]
-       20 JUMP                             ; [+1]
-       21 LOADB                            R5 1
-       22 GETUPVAL                         R6 2
-       23 GETTABLEKS                       R6 R6 K5 ["new"]
-       25 CALL                             R6 0 1
-       26 NEWCLOSURE                       R7 P0
+        0 NEWTABLE                         R1 0 0
+        2 NEWTABLE                         R2 0 0
+        4 NEWTABLE                         R3 0 0
+        6 LOADB                            R4 0
+        7 GETUPVAL                         R6 0
+        8 JUMPIFNOT                        R6 ; [+3]
+        9 GETTABLEKS                       R5 R0 K0 ["IsConnected"]
+       11 JUMP                             ; [+1]
+       12 LOADB                            R5 1
+       13 GETUPVAL                         R6 1
+       14 GETTABLEKS                       R6 R6 K1 ["new"]
+       16 CALL                             R6 0 1
+       17 NEWCLOSURE                       R7 P0
+       18 CAPTURE                          VAL R2
+       19 CAPTURE                          UPVAL U1
+       20 NEWCLOSURE                       R8 P1
+       21 CAPTURE                          VAL R3
+       22 CAPTURE                          VAL R2
+       23 NEWCLOSURE                       R9 P2
+       24 CAPTURE                          REF R4
+       25 CAPTURE                          VAL R1
+       26 CAPTURE                          VAL R3
        27 CAPTURE                          VAL R2
-       28 CAPTURE                          UPVAL U2
-       29 NEWCLOSURE                       R8 P1
+       28 NEWCLOSURE                       R10 P3
+       29 CAPTURE                          REF R4
        30 CAPTURE                          VAL R3
        31 CAPTURE                          VAL R2
-       32 NEWCLOSURE                       R9 P2
-       33 CAPTURE                          REF R4
+       32 CAPTURE                          UPVAL U1
+       33 CAPTURE                          VAL R9
        34 CAPTURE                          VAL R1
-       35 CAPTURE                          VAL R3
-       36 CAPTURE                          VAL R2
-       37 NEWCLOSURE                       R10 P3
-       38 CAPTURE                          REF R4
-       39 CAPTURE                          VAL R3
-       40 CAPTURE                          VAL R2
-       41 CAPTURE                          UPVAL U2
-       42 CAPTURE                          VAL R9
-       43 CAPTURE                          VAL R1
-       44 NEWCLOSURE                       R11 P4
-       45 CAPTURE                          REF R5
-       46 LOADNIL                          R12
-       47 GETTABLEKS                       R13 R0 K6 ["RobloxEventReceived"]
-       49 NEWCLOSURE                       R15 P5
-       50 CAPTURE                          VAL R2
-       51 NAMECALL                         R13 R13 K7 ["Connect"]
-       53 CALL                             R13 2 1
-       54 MOVE                             R12 R13
-       55 LOADNIL                          R13
-       56 GETTABLEKS                       R14 R0 K8 ["RobloxConnectionChanged"]
-       58 NEWCLOSURE                       R16 P6
-       59 CAPTURE                          REF R5
-       60 CAPTURE                          VAL R6
-       61 NAMECALL                         R14 R14 K7 ["Connect"]
-       63 CALL                             R14 2 1
-       64 MOVE                             R13 R14
-       65 NEWCLOSURE                       R14 P7
-       66 CAPTURE                          REF R4
-       67 CAPTURE                          REF R12
-       68 CAPTURE                          REF R13
-       69 CAPTURE                          VAL R1
-       70 CAPTURE                          VAL R3
-       71 CAPTURE                          VAL R2
-       72 DUPTABLE                         R15 K13 [{"listen", "getIsConnected", "isConnectedChanged", "destroy"}]
-       73 SETTABLEKS                       R10 R15 K9 ["listen"]
-       75 SETTABLEKS                       R11 R15 K10 ["getIsConnected"]
-       77 SETTABLEKS                       R6 R15 K11 ["isConnectedChanged"]
-       79 SETTABLEKS                       R14 R15 K12 ["destroy"]
-       81 CLOSEUPVALS                      R4
-       82 RETURN                           R15 1
+       35 NEWCLOSURE                       R11 P4
+       36 CAPTURE                          REF R5
+       37 LOADNIL                          R12
+       38 GETTABLEKS                       R13 R0 K2 ["RobloxEventReceived"]
+       40 NEWCLOSURE                       R15 P5
+       41 CAPTURE                          VAL R2
+       42 NAMECALL                         R13 R13 K3 ["Connect"]
+       44 CALL                             R13 2 1
+       45 MOVE                             R12 R13
+       46 LOADNIL                          R13
+       47 GETTABLEKS                       R14 R0 K4 ["RobloxConnectionChanged"]
+       49 NEWCLOSURE                       R16 P6
+       50 CAPTURE                          REF R5
+       51 CAPTURE                          VAL R6
+       52 NAMECALL                         R14 R14 K3 ["Connect"]
+       54 CALL                             R14 2 1
+       55 MOVE                             R13 R14
+       56 NEWCLOSURE                       R14 P7
+       57 CAPTURE                          REF R4
+       58 CAPTURE                          REF R12
+       59 CAPTURE                          REF R13
+       60 CAPTURE                          VAL R1
+       61 CAPTURE                          VAL R3
+       62 CAPTURE                          VAL R2
+       63 DUPTABLE                         R15 K9 [{"listen", "getIsConnected", "isConnectedChanged", "destroy"}]
+       64 SETTABLEKS                       R10 R15 K5 ["listen"]
+       66 SETTABLEKS                       R11 R15 K6 ["getIsConnected"]
+       68 SETTABLEKS                       R6 R15 K7 ["isConnectedChanged"]
+       70 SETTABLEKS                       R14 R15 K8 ["destroy"]
+       72 CLOSEUPVALS                      R4
+       73 RETURN                           R15 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -251,18 +245,13 @@ MAIN:
        18 GETTABLEKS                       R3 R0 K9 ["Packages"]
        20 GETTABLEKS                       R3 R3 K10 ["Signal"]
        22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K6 ["Src"]
-       27 GETTABLEKS                       R4 R4 K11 ["Flags"]
-       29 CALL                             R3 1 1
-       30 GETIMPORT                        R4 K13 [game]
-       32 LOADK                            R6 K14 ["NotificationServiceIsConnectedAvailable"]
-       33 NAMECALL                         R4 R4 K15 ["GetEngineFeature"]
-       35 CALL                             R4 2 1
-       36 DUPCLOSURE                       R5 K16 [PROTO_8]
-       37 CAPTURE                          VAL R3
-       38 CAPTURE                          VAL R4
-       39 CAPTURE                          VAL R2
-       40 DUPTABLE                         R6 K18 [{"create"}]
-       41 SETTABLEKS                       R5 R6 K17 ["create"]
-       43 RETURN                           R6 1
+       23 GETIMPORT                        R3 K12 [game]
+       25 LOADK                            R5 K13 ["NotificationServiceIsConnectedAvailable"]
+       26 NAMECALL                         R3 R3 K14 ["GetEngineFeature"]
+       28 CALL                             R3 2 1
+       29 DUPCLOSURE                       R4 K15 [PROTO_8]
+       30 CAPTURE                          VAL R3
+       31 CAPTURE                          VAL R2
+       32 DUPTABLE                         R5 K17 [{"create"}]
+       33 SETTABLEKS                       R4 R5 K16 ["create"]
+       35 RETURN                           R5 1

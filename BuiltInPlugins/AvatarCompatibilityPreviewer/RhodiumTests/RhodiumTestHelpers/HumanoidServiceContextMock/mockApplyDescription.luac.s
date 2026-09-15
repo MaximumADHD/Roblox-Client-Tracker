@@ -28,14 +28,13 @@ PROTO_1:
        20 RETURN                           R0 0
 
 PROTO_2:
-        0 LOADK                            R4 K0 ["%*|%*|%*"]
-        1 GETTABLEKS                       R6 R0 K1 ["Name"]
-        3 MOVE                             R7 R1
-        4 MOVE                             R8 R2
-        5 NAMECALL                         R4 R4 K2 ["format"]
-        7 CALL                             R4 4 1
-        8 MOVE                             R3 R4
-        9 RETURN                           R3 1
+        0 LOADK                            R3 K0 ["%*|%*|%*"]
+        1 GETTABLEKS                       R5 R0 K1 ["Name"]
+        3 MOVE                             R6 R1
+        4 MOVE                             R7 R2
+        5 NAMECALL                         R3 R3 K2 ["format"]
+        7 CALL                             R3 4 1
+        8 RETURN                           R3 1
 
 PROTO_3:
         0 LOADK                            R4 K0 ["Head"]
@@ -124,20 +123,19 @@ PROTO_4:
         2 GETTABLEKS                       R3 R0 K0 ["Name"]
         4 JUMP                             ; [+1]
         5 LOADK                            R3 K1 ["nil"]
-        6 LOADK                            R5 K2 ["%*|%*|%*"]
-        7 MOVE                             R7 R3
+        6 LOADK                            R4 K2 ["%*|%*|%*"]
+        7 MOVE                             R6 R3
         8 FASTCALL1                        TOSTRING R1 ; [+3]
-        9 MOVE                             R9 R1
-       10 GETIMPORT                        R8 K4 [tostring]
-       12 CALL                             R8 1 1
+        9 MOVE                             R8 R1
+       10 GETIMPORT                        R7 K4 [tostring]
+       12 CALL                             R7 1 1
        13 FASTCALL1                        TOSTRING R2 ; [+3]
-       14 MOVE                             R10 R2
-       15 GETIMPORT                        R9 K4 [tostring]
-       17 CALL                             R9 1 1
-       18 NAMECALL                         R5 R5 K5 ["format"]
-       20 CALL                             R5 4 1
-       21 MOVE                             R4 R5
-       22 RETURN                           R4 1
+       14 MOVE                             R9 R2
+       15 GETIMPORT                        R8 K4 [tostring]
+       17 CALL                             R8 1 1
+       18 NAMECALL                         R4 R4 K5 ["format"]
+       20 CALL                             R4 4 1
+       21 RETURN                           R4 1
 
 PROTO_5:
         0 LOADB                            R4 1
@@ -223,7 +221,7 @@ PROTO_5:
       110 LOADB                            R12 1
       111 SETTABLE                         R12 R5 R11
       112 GETTABLE                         R12 R4 R11
-      113 JUMPIFNOTEQKNIL                  R12 ; [+94]
+      113 JUMPIFNOTEQKNIL                  R12 ; [+93]
       115 GETIMPORT                        R12 K27 [Instance.new]
       117 LOADK                            R13 K3 ["Accessory"]
       118 CALL                             R12 1 1
@@ -234,70 +232,69 @@ PROTO_5:
       126 GETTABLEKS                       R13 R10 K16 ["AccessoryType"]
       128 SETTABLEKS                       R13 R12 K16 ["AccessoryType"]
       130 GETTABLEKS                       R14 R10 K23 ["AssetId"]
-      132 JUMPIFEQKNIL                     R14 ; [+9]
-      134 LOADK                            R14 K28 ["rbxassetid://%*"]
-      135 GETTABLEKS                       R16 R10 K23 ["AssetId"]
-      137 NAMECALL                         R14 R14 K21 ["format"]
-      139 CALL                             R14 2 1
-      140 MOVE                             R13 R14
-      141 JUMP                             ; [+1]
-      142 LOADK                            R13 K29 [""]
-      143 LOADNIL                          R14
-      144 GETTABLEKS                       R15 R10 K24 ["IsLayered"]
-      146 JUMPIFNOT                        R15 ; [+28]
-      147 GETIMPORT                        R15 K27 [Instance.new]
-      149 LOADK                            R16 K30 ["MeshPart"]
-      150 CALL                             R15 1 1
-      151 MOVE                             R14 R15
-      152 GETIMPORT                        R15 K27 [Instance.new]
-      154 LOADK                            R16 K12 ["WrapLayer"]
-      155 CALL                             R15 1 1
-      156 GETTABLEKS                       R17 R10 K16 ["AccessoryType"]
-      158 GETTABLEKS                       R18 R10 K31 ["Order"]
-      160 ORK                              R19 R18 K32 [0]
-      161 JUMPIFEQKNIL                     R17 ; [+4]
-      163 GETUPVAL                         R22 0
-      164 GETTABLE                         R21 R22 R17
-      165 JUMP                             ; [+1]
-      166 LOADNIL                          R21
-      167 ORK                              R20 R21 K32 [0]
-      168 MULK                             R21 R20 K33 [1000]
-      169 ADD                              R16 R21 R19
-      170 SETTABLEKS                       R16 R15 K31 ["Order"]
-      172 SETTABLEKS                       R14 R15 K34 ["Parent"]
-      174 JUMP                             ; [+13]
-      175 GETIMPORT                        R15 K27 [Instance.new]
-      177 LOADK                            R16 K35 ["Part"]
-      178 CALL                             R15 1 1
-      179 MOVE                             R14 R15
-      180 GETIMPORT                        R15 K27 [Instance.new]
-      182 LOADK                            R16 K36 ["SpecialMesh"]
-      183 CALL                             R15 1 1
-      184 SETTABLEKS                       R13 R15 K37 ["MeshId"]
-      186 SETTABLEKS                       R14 R15 K34 ["Parent"]
-      188 LOADK                            R15 K7 ["Handle"]
-      189 SETTABLEKS                       R15 R14 K5 ["Name"]
-      191 LOADK                            R15 K38 [{1, 1, 1}]
-      192 SETTABLEKS                       R15 R14 K39 ["Size"]
-      194 SETTABLEKS                       R12 R14 K34 ["Parent"]
-      196 GETTABLEKS                       R15 R10 K23 ["AssetId"]
-      198 JUMPIFEQKNIL                     R15 ; [+7]
-      200 LOADK                            R17 K14 ["MockAssetId"]
-      201 GETTABLEKS                       R18 R10 K23 ["AssetId"]
-      203 NAMECALL                         R15 R14 K40 ["SetAttribute"]
-      205 CALL                             R15 3 0
-      206 SETTABLEKS                       R0 R12 K34 ["Parent"]
-      208 FORGLOOP                         R6 2 ; [-127]
-      210 MOVE                             R6 R4
-      211 LOADNIL                          R7
-      212 LOADNIL                          R8
-      213 FORGPREP                         R6
-      214 GETTABLE                         R11 R5 R9
-      215 JUMPIF                           R11 ; [+3]
-      216 NAMECALL                         R11 R10 K22 ["Destroy"]
-      218 CALL                             R11 1 0
-      219 FORGLOOP                         R6 2 ; [-6]
-      221 RETURN                           R0 0
+      132 JUMPIFEQKNIL                     R14 ; [+8]
+      134 LOADK                            R13 K28 ["rbxassetid://%*"]
+      135 GETTABLEKS                       R15 R10 K23 ["AssetId"]
+      137 NAMECALL                         R13 R13 K21 ["format"]
+      139 CALL                             R13 2 1
+      140 JUMP                             ; [+1]
+      141 LOADK                            R13 K29 [""]
+      142 LOADNIL                          R14
+      143 GETTABLEKS                       R15 R10 K24 ["IsLayered"]
+      145 JUMPIFNOT                        R15 ; [+28]
+      146 GETIMPORT                        R15 K27 [Instance.new]
+      148 LOADK                            R16 K30 ["MeshPart"]
+      149 CALL                             R15 1 1
+      150 MOVE                             R14 R15
+      151 GETIMPORT                        R15 K27 [Instance.new]
+      153 LOADK                            R16 K12 ["WrapLayer"]
+      154 CALL                             R15 1 1
+      155 GETTABLEKS                       R17 R10 K16 ["AccessoryType"]
+      157 GETTABLEKS                       R18 R10 K31 ["Order"]
+      159 ORK                              R19 R18 K32 [0]
+      160 JUMPIFEQKNIL                     R17 ; [+4]
+      162 GETUPVAL                         R22 0
+      163 GETTABLE                         R21 R22 R17
+      164 JUMP                             ; [+1]
+      165 LOADNIL                          R21
+      166 ORK                              R20 R21 K32 [0]
+      167 MULK                             R21 R20 K33 [1000]
+      168 ADD                              R16 R21 R19
+      169 SETTABLEKS                       R16 R15 K31 ["Order"]
+      171 SETTABLEKS                       R14 R15 K34 ["Parent"]
+      173 JUMP                             ; [+13]
+      174 GETIMPORT                        R15 K27 [Instance.new]
+      176 LOADK                            R16 K35 ["Part"]
+      177 CALL                             R15 1 1
+      178 MOVE                             R14 R15
+      179 GETIMPORT                        R15 K27 [Instance.new]
+      181 LOADK                            R16 K36 ["SpecialMesh"]
+      182 CALL                             R15 1 1
+      183 SETTABLEKS                       R13 R15 K37 ["MeshId"]
+      185 SETTABLEKS                       R14 R15 K34 ["Parent"]
+      187 LOADK                            R15 K7 ["Handle"]
+      188 SETTABLEKS                       R15 R14 K5 ["Name"]
+      190 LOADK                            R15 K38 [{1, 1, 1}]
+      191 SETTABLEKS                       R15 R14 K39 ["Size"]
+      193 SETTABLEKS                       R12 R14 K34 ["Parent"]
+      195 GETTABLEKS                       R15 R10 K23 ["AssetId"]
+      197 JUMPIFEQKNIL                     R15 ; [+7]
+      199 LOADK                            R17 K14 ["MockAssetId"]
+      200 GETTABLEKS                       R18 R10 K23 ["AssetId"]
+      202 NAMECALL                         R15 R14 K40 ["SetAttribute"]
+      204 CALL                             R15 3 0
+      205 SETTABLEKS                       R0 R12 K34 ["Parent"]
+      207 FORGLOOP                         R6 2 ; [-126]
+      209 MOVE                             R6 R4
+      210 LOADNIL                          R7
+      211 LOADNIL                          R8
+      212 FORGPREP                         R6
+      213 GETTABLE                         R11 R5 R9
+      214 JUMPIF                           R11 ; [+3]
+      215 NAMECALL                         R11 R10 K22 ["Destroy"]
+      217 CALL                             R11 1 0
+      218 FORGLOOP                         R6 2 ; [-6]
+      220 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R2 0

@@ -156,89 +156,88 @@ PROTO_1:
       140 GETUPVAL                         R12 5
       141 GETTABLEKS                       R12 R12 K31 ["Tag"]
       143 GETUPVAL                         R13 9
-      144 LOADK                            R15 K32 ["Component-RibbonSelectInput Role-Surface X-Row X-Middle data-testid=%*"]
-      145 GETUPVAL                         R17 10
-      146 GETTABLEKS                       R18 R0 K0 ["Uri"]
-      148 CALL                             R17 1 1
-      149 NAMECALL                         R15 R15 K33 ["format"]
-      151 CALL                             R15 2 1
-      152 MOVE                             R14 R15
-      153 GETTABLEKS                       R16 R0 K27 ["Disabled"]
-      155 JUMPIFNOT                        R16 ; [+2]
-      156 LOADK                            R15 K34 ["State-Disabled"]
-      157 JUMP                             ; [+1]
-      158 LOADK                            R15 K35 ["State-Default"]
-      159 JUMPIFNOT                        R2 ; [+2]
-      160 LOADK                            R16 K36 ["State-Focus"]
-      161 JUMP                             ; [+1]
-      162 LOADNIL                          R16
-      163 GETUPVAL                         R18 5
-      164 GETTABLEKS                       R18 R18 K31 ["Tag"]
-      166 GETTABLE                         R17 R0 R18
-      167 CALL                             R13 4 1
-      168 SETTABLE                         R13 R11 R12
-      169 DUPTABLE                         R12 K39 [{"Value", "DropdownIcon"}]
-      170 GETUPVAL                         R13 5
-      171 GETTABLEKS                       R13 R13 K21 ["createElement"]
-      173 LOADK                            R14 K40 ["Frame"]
-      174 NEWTABLE                         R15 1 0
-      176 GETUPVAL                         R16 5
-      177 GETTABLEKS                       R16 R16 K31 ["Tag"]
-      179 LOADK                            R17 K41 ["Role-Surface X-Fill X-Row X-Middle"]
-      180 SETTABLE                         R17 R15 R16
-      181 DUPTABLE                         R16 K42 [{"Icon", "Text"}]
-      182 JUMPIFNOT                        R5 ; [+18]
-      183 GETUPVAL                         R17 5
-      184 GETTABLEKS                       R17 R17 K21 ["createElement"]
-      186 LOADK                            R18 K43 ["ImageLabel"]
-      187 NEWTABLE                         R19 2 0
-      189 SETTABLEKS                       R5 R19 K44 ["Image"]
-      191 GETUPVAL                         R20 5
-      192 GETTABLEKS                       R20 R20 K31 ["Tag"]
-      194 GETUPVAL                         R21 9
-      195 LOADK                            R22 K45 ["Role-Surface"]
-      196 MOVE                             R23 R3
-      197 CALL                             R21 2 1
-      198 SETTABLE                         R21 R19 R20
-      199 CALL                             R17 2 1
-      200 JUMP                             ; [+1]
-      201 LOADNIL                          R17
-      202 SETTABLEKS                       R17 R16 K8 ["Icon"]
-      204 GETUPVAL                         R17 5
-      205 GETTABLEKS                       R17 R17 K21 ["createElement"]
-      207 LOADK                            R18 K46 ["TextLabel"]
-      208 NEWTABLE                         R19 2 0
-      210 GETTABLEKS                       R21 R0 K14 ["Text"]
-      212 ORK                              R20 R21 K47 [""]
-      213 SETTABLEKS                       R20 R19 K14 ["Text"]
-      215 GETUPVAL                         R20 5
-      216 GETTABLEKS                       R20 R20 K31 ["Tag"]
-      218 GETUPVAL                         R21 9
-      219 LOADK                            R22 K48 ["Role-Surface X-Fill"]
-      220 CALL                             R21 1 1
-      221 SETTABLE                         R21 R19 R20
-      222 CALL                             R17 2 1
-      223 SETTABLEKS                       R17 R16 K14 ["Text"]
-      225 CALL                             R13 3 1
-      226 SETTABLEKS                       R13 R12 K37 ["Value"]
-      228 GETUPVAL                         R13 5
-      229 GETTABLEKS                       R13 R13 K21 ["createElement"]
-      231 LOADK                            R14 K43 ["ImageLabel"]
-      232 NEWTABLE                         R15 1 0
-      234 GETUPVAL                         R16 5
-      235 GETTABLEKS                       R16 R16 K31 ["Tag"]
-      237 GETUPVAL                         R17 9
-      238 LOADK                            R18 K45 ["Role-Surface"]
-      239 JUMPIFNOT                        R2 ; [+2]
-      240 LOADK                            R19 K49 ["Icon-Up"]
-      241 JUMP                             ; [+1]
-      242 LOADNIL                          R19
-      243 CALL                             R17 2 1
-      244 SETTABLE                         R17 R15 R16
-      245 CALL                             R13 2 1
-      246 SETTABLEKS                       R13 R12 K38 ["DropdownIcon"]
-      248 CALL                             R9 3 -1
-      249 RETURN                           R9 -1
+      144 LOADK                            R14 K32 ["Component-RibbonSelectInput Role-Surface X-Row X-Middle data-testid=%*"]
+      145 GETUPVAL                         R16 10
+      146 GETTABLEKS                       R17 R0 K0 ["Uri"]
+      148 CALL                             R16 1 1
+      149 NAMECALL                         R14 R14 K33 ["format"]
+      151 CALL                             R14 2 1
+      152 GETTABLEKS                       R16 R0 K27 ["Disabled"]
+      154 JUMPIFNOT                        R16 ; [+2]
+      155 LOADK                            R15 K34 ["State-Disabled"]
+      156 JUMP                             ; [+1]
+      157 LOADK                            R15 K35 ["State-Default"]
+      158 JUMPIFNOT                        R2 ; [+2]
+      159 LOADK                            R16 K36 ["State-Focus"]
+      160 JUMP                             ; [+1]
+      161 LOADNIL                          R16
+      162 GETUPVAL                         R18 5
+      163 GETTABLEKS                       R18 R18 K31 ["Tag"]
+      165 GETTABLE                         R17 R0 R18
+      166 CALL                             R13 4 1
+      167 SETTABLE                         R13 R11 R12
+      168 DUPTABLE                         R12 K39 [{"Value", "DropdownIcon"}]
+      169 GETUPVAL                         R13 5
+      170 GETTABLEKS                       R13 R13 K21 ["createElement"]
+      172 LOADK                            R14 K40 ["Frame"]
+      173 NEWTABLE                         R15 1 0
+      175 GETUPVAL                         R16 5
+      176 GETTABLEKS                       R16 R16 K31 ["Tag"]
+      178 LOADK                            R17 K41 ["Role-Surface X-Fill X-Row X-Middle"]
+      179 SETTABLE                         R17 R15 R16
+      180 DUPTABLE                         R16 K42 [{"Icon", "Text"}]
+      181 JUMPIFNOT                        R5 ; [+18]
+      182 GETUPVAL                         R17 5
+      183 GETTABLEKS                       R17 R17 K21 ["createElement"]
+      185 LOADK                            R18 K43 ["ImageLabel"]
+      186 NEWTABLE                         R19 2 0
+      188 SETTABLEKS                       R5 R19 K44 ["Image"]
+      190 GETUPVAL                         R20 5
+      191 GETTABLEKS                       R20 R20 K31 ["Tag"]
+      193 GETUPVAL                         R21 9
+      194 LOADK                            R22 K45 ["Role-Surface"]
+      195 MOVE                             R23 R3
+      196 CALL                             R21 2 1
+      197 SETTABLE                         R21 R19 R20
+      198 CALL                             R17 2 1
+      199 JUMP                             ; [+1]
+      200 LOADNIL                          R17
+      201 SETTABLEKS                       R17 R16 K8 ["Icon"]
+      203 GETUPVAL                         R17 5
+      204 GETTABLEKS                       R17 R17 K21 ["createElement"]
+      206 LOADK                            R18 K46 ["TextLabel"]
+      207 NEWTABLE                         R19 2 0
+      209 GETTABLEKS                       R21 R0 K14 ["Text"]
+      211 ORK                              R20 R21 K47 [""]
+      212 SETTABLEKS                       R20 R19 K14 ["Text"]
+      214 GETUPVAL                         R20 5
+      215 GETTABLEKS                       R20 R20 K31 ["Tag"]
+      217 GETUPVAL                         R21 9
+      218 LOADK                            R22 K48 ["Role-Surface X-Fill"]
+      219 CALL                             R21 1 1
+      220 SETTABLE                         R21 R19 R20
+      221 CALL                             R17 2 1
+      222 SETTABLEKS                       R17 R16 K14 ["Text"]
+      224 CALL                             R13 3 1
+      225 SETTABLEKS                       R13 R12 K37 ["Value"]
+      227 GETUPVAL                         R13 5
+      228 GETTABLEKS                       R13 R13 K21 ["createElement"]
+      230 LOADK                            R14 K43 ["ImageLabel"]
+      231 NEWTABLE                         R15 1 0
+      233 GETUPVAL                         R16 5
+      234 GETTABLEKS                       R16 R16 K31 ["Tag"]
+      236 GETUPVAL                         R17 9
+      237 LOADK                            R18 K45 ["Role-Surface"]
+      238 JUMPIFNOT                        R2 ; [+2]
+      239 LOADK                            R19 K49 ["Icon-Up"]
+      240 JUMP                             ; [+1]
+      241 LOADNIL                          R19
+      242 CALL                             R17 2 1
+      243 SETTABLE                         R17 R15 R16
+      244 CALL                             R13 2 1
+      245 SETTABLEKS                       R13 R12 K38 ["DropdownIcon"]
+      247 CALL                             R9 3 -1
+      248 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

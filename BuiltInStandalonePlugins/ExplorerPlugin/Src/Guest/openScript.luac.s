@@ -6,15 +6,14 @@ PROTO_0:
         5 JUMPIFNOT                        R0 ; [+1]
         6 RETURN                           R0 0
         7 GETIMPORT                        R2 K2 [warn]
-        9 LOADK                            R4 K3 ["Couldn't open %*: %*"]
-       10 GETUPVAL                         R6 1
-       11 GETTABLEKS                       R6 R6 K4 ["Name"]
-       13 MOVE                             R7 R1
-       14 NAMECALL                         R4 R4 K5 ["format"]
-       16 CALL                             R4 3 1
-       17 MOVE                             R3 R4
-       18 CALL                             R2 1 0
-       19 RETURN                           R0 0
+        9 LOADK                            R3 K3 ["Couldn't open %*: %*"]
+       10 GETUPVAL                         R5 1
+       11 GETTABLEKS                       R5 R5 K4 ["Name"]
+       13 MOVE                             R6 R1
+       14 NAMECALL                         R3 R3 K5 ["format"]
+       16 CALL                             R3 3 1
+       17 CALL                             R2 1 0
+       18 RETURN                           R0 0
 
 PROTO_1:
         0 GETIMPORT                        R1 K2 [task.spawn]

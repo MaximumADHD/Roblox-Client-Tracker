@@ -85,16 +85,15 @@ PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 LOADK                            R4 K0 ["{}"]
-        3 LOADK                            R6 K1 ["%*"]
-        4 GETUPVAL                         R8 2
-        5 NAMECALL                         R6 R6 K2 ["format"]
-        7 CALL                             R6 2 1
-        8 MOVE                             R5 R6
-        9 NAMECALL                         R2 R2 K3 ["gsub"]
-       11 CALL                             R2 3 -1
-       12 NAMECALL                         R0 R0 K4 ["OpenBrowserWindow"]
-       14 CALL                             R0 -1 0
-       15 RETURN                           R0 0
+        3 LOADK                            R5 K1 ["%*"]
+        4 GETUPVAL                         R7 2
+        5 NAMECALL                         R5 R5 K2 ["format"]
+        7 CALL                             R5 2 1
+        8 NAMECALL                         R2 R2 K3 ["gsub"]
+       10 CALL                             R2 3 -1
+       11 NAMECALL                         R0 R0 K4 ["OpenBrowserWindow"]
+       13 CALL                             R0 -1 0
+       14 RETURN                           R0 0
 
 PROTO_6:
         0 JUMPIFNOT                        R0 ; [+16]

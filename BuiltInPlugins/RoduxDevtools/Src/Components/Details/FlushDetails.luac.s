@@ -111,41 +111,40 @@ PROTO_1:
        87 LOADN                            R12 0
        88 CALL                             R8 4 1
        89 SETTABLEKS                       R8 R7 K2 ["Size"]
-       91 LOADK                            R9 K49 ["%*/%*"]
-       92 GETTABLEKS                       R12 R0 K40 ["current"]
-       94 LOADN                            R13 0
-       95 GETTABLEKS                       R14 R0 K50 ["total"]
+       91 LOADK                            R8 K49 ["%*/%*"]
+       92 GETTABLEKS                       R11 R0 K40 ["current"]
+       94 LOADN                            R12 0
+       95 GETTABLEKS                       R13 R0 K50 ["total"]
        97 FASTCALL                         MATH_CLAMP ; [+2]
-       98 GETIMPORT                        R11 K53 [math.clamp]
-      100 CALL                             R11 3 1
-      101 GETTABLEKS                       R12 R0 K50 ["total"]
-      103 NAMECALL                         R9 R9 K54 ["format"]
-      105 CALL                             R9 3 1
-      106 MOVE                             R8 R9
-      107 SETTABLEKS                       R8 R7 K44 ["Text"]
-      109 CALL                             R5 2 1
-      110 SETTABLEKS                       R5 R4 K9 ["TextLabel"]
-      112 GETUPVAL                         R5 0
-      113 GETTABLEKS                       R5 R5 K0 ["createElement"]
-      115 GETUPVAL                         R6 1
-      116 DUPTABLE                         R7 K57 [{["LayoutOrder"] = 3, ["Size"], ["Disabled"], ["LeftIcon"] = "rbxasset://textures/DeveloperFramework/PageNavigation/button_control_next.png", ["IconSize"] = 24, ["OnClick"]}]
-      117 GETIMPORT                        R8 K39 [UDim2.fromOffset]
-      119 LOADN                            R9 24
-      120 LOADN                            R10 24
-      121 CALL                             R8 2 1
-      122 SETTABLEKS                       R8 R7 K2 ["Size"]
-      124 GETTABLEKS                       R9 R0 K40 ["current"]
-      126 GETTABLEKS                       R10 R0 K50 ["total"]
-      128 JUMPIFLE                         R10 R9 ; [+2]
-      130 LOADB                            R8 0 +1
-      131 LOADB                            R8 1
-      132 SETTABLEKS                       R8 R7 K30 ["Disabled"]
-      134 GETTABLEKS                       R8 R0 K58 ["onNext"]
-      136 SETTABLEKS                       R8 R7 K35 ["OnClick"]
-      138 CALL                             R5 2 1
-      139 SETTABLEKS                       R5 R4 K10 ["Next"]
-      141 CALL                             R1 3 -1
-      142 RETURN                           R1 -1
+       98 GETIMPORT                        R10 K53 [math.clamp]
+      100 CALL                             R10 3 1
+      101 GETTABLEKS                       R11 R0 K50 ["total"]
+      103 NAMECALL                         R8 R8 K54 ["format"]
+      105 CALL                             R8 3 1
+      106 SETTABLEKS                       R8 R7 K44 ["Text"]
+      108 CALL                             R5 2 1
+      109 SETTABLEKS                       R5 R4 K9 ["TextLabel"]
+      111 GETUPVAL                         R5 0
+      112 GETTABLEKS                       R5 R5 K0 ["createElement"]
+      114 GETUPVAL                         R6 1
+      115 DUPTABLE                         R7 K57 [{["LayoutOrder"] = 3, ["Size"], ["Disabled"], ["LeftIcon"] = "rbxasset://textures/DeveloperFramework/PageNavigation/button_control_next.png", ["IconSize"] = 24, ["OnClick"]}]
+      116 GETIMPORT                        R8 K39 [UDim2.fromOffset]
+      118 LOADN                            R9 24
+      119 LOADN                            R10 24
+      120 CALL                             R8 2 1
+      121 SETTABLEKS                       R8 R7 K2 ["Size"]
+      123 GETTABLEKS                       R9 R0 K40 ["current"]
+      125 GETTABLEKS                       R10 R0 K50 ["total"]
+      127 JUMPIFLE                         R10 R9 ; [+2]
+      129 LOADB                            R8 0 +1
+      130 LOADB                            R8 1
+      131 SETTABLEKS                       R8 R7 K30 ["Disabled"]
+      133 GETTABLEKS                       R8 R0 K58 ["onNext"]
+      135 SETTABLEKS                       R8 R7 K35 ["OnClick"]
+      137 CALL                             R5 2 1
+      138 SETTABLEKS                       R5 R4 K10 ["Next"]
+      140 CALL                             R1 3 -1
+      141 RETURN                           R1 -1
 
 PROTO_2:
         0 DUPTABLE                         R1 K1 [{"listenerIndex"}]

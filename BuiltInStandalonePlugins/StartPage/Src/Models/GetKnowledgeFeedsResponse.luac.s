@@ -278,40 +278,39 @@ PROTO_3:
         1 MOVE                             R2 R0
         2 GETIMPORT                        R1 K1 [typeof]
         4 CALL                             R1 1 1
-        5 JUMPIFEQKS                       R1 K2 ["table"] ; [+12]
-        7 LOADK                            R2 K3 ["Expected table, got %*"]
+        5 JUMPIFEQKS                       R1 K2 ["table"] ; [+11]
+        7 LOADK                            R1 K3 ["Expected table, got %*"]
         8 FASTCALL1                        TYPEOF R0 ; [+3]
-        9 MOVE                             R5 R0
-       10 GETIMPORT                        R4 K1 [typeof]
-       12 CALL                             R4 1 1
-       13 NAMECALL                         R2 R2 K4 ["format"]
-       15 CALL                             R2 2 1
-       16 MOVE                             R1 R2
-       17 RETURN                           R1 1
-       18 GETTABLEKS                       R2 R0 K5 ["feedItems"]
-       20 FASTCALL1                        TYPEOF R2 ; [+2]
-       21 GETIMPORT                        R1 K1 [typeof]
-       23 CALL                             R1 1 1
-       24 JUMPIFEQKS                       R1 K2 ["table"] ; [+3]
-       26 LOADK                            R1 K6 ["Expected table for feedItems"]
-       27 RETURN                           R1 1
-       28 GETIMPORT                        R1 K8 [ipairs]
-       30 GETTABLEKS                       R2 R0 K5 ["feedItems"]
-       32 CALL                             R1 1 3
-       33 FORGPREP_INEXT                   R1
-       34 GETUPVAL                         R6 0
-       35 MOVE                             R7 R5
-       36 CALL                             R6 1 1
-       37 JUMPIFNOT                        R6 ; [+1]
-       38 RETURN                           R6 1
-       39 FORGLOOP                         R1 2 [inext] ; [-6]
-       41 GETUPVAL                         R1 1
-       42 GETTABLEKS                       R2 R0 K9 ["meta"]
-       44 CALL                             R1 1 1
-       45 JUMPIFNOT                        R1 ; [+1]
-       46 RETURN                           R1 1
-       47 LOADNIL                          R2
-       48 RETURN                           R2 1
+        9 MOVE                             R4 R0
+       10 GETIMPORT                        R3 K1 [typeof]
+       12 CALL                             R3 1 1
+       13 NAMECALL                         R1 R1 K4 ["format"]
+       15 CALL                             R1 2 1
+       16 RETURN                           R1 1
+       17 GETTABLEKS                       R2 R0 K5 ["feedItems"]
+       19 FASTCALL1                        TYPEOF R2 ; [+2]
+       20 GETIMPORT                        R1 K1 [typeof]
+       22 CALL                             R1 1 1
+       23 JUMPIFEQKS                       R1 K2 ["table"] ; [+3]
+       25 LOADK                            R1 K6 ["Expected table for feedItems"]
+       26 RETURN                           R1 1
+       27 GETIMPORT                        R1 K8 [ipairs]
+       29 GETTABLEKS                       R2 R0 K5 ["feedItems"]
+       31 CALL                             R1 1 3
+       32 FORGPREP_INEXT                   R1
+       33 GETUPVAL                         R6 0
+       34 MOVE                             R7 R5
+       35 CALL                             R6 1 1
+       36 JUMPIFNOT                        R6 ; [+1]
+       37 RETURN                           R6 1
+       38 FORGLOOP                         R1 2 [inext] ; [-6]
+       40 GETUPVAL                         R1 1
+       41 GETTABLEKS                       R2 R0 K9 ["meta"]
+       43 CALL                             R1 1 1
+       44 JUMPIFNOT                        R1 ; [+1]
+       45 RETURN                           R1 1
+       46 LOADNIL                          R2
+       47 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

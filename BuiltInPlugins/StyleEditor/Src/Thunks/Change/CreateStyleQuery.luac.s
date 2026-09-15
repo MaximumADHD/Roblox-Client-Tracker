@@ -62,39 +62,38 @@ PROTO_0:
        78 MOVE                             R5 R2
        79 LOADK                            R6 K21 ["#(.*)"]
        80 CALL                             R4 2 1
-       81 LOADK                            R6 K22 ["%*%*"]
-       82 GETUPVAL                         R8 5
-       83 GETTABLEKS                       R8 R8 K23 ["SelectorSyntax"]
-       85 GETTABLEKS                       R8 R8 K24 ["Query"]
-       87 MOVE                             R9 R4
-       88 JUMPIF                           R9 ; [+3]
-       89 GETUPVAL                         R9 6
-       90 GETTABLEKS                       R9 R9 K25 ["ClassName"]
-       92 NAMECALL                         R6 R6 K26 ["format"]
-       94 CALL                             R6 3 1
-       95 MOVE                             R5 R6
-       96 GETIMPORT                        R6 K10 [Instance.new]
-       98 LOADK                            R7 K2 ["StyleRule"]
-       99 CALL                             R6 1 1
-      100 SETTABLEKS                       R5 R6 K15 ["Selector"]
-      102 SETTABLEKS                       R5 R6 K11 ["Name"]
-      104 GETUPVAL                         R7 7
-      105 JUMPIFNOT                        R7 ; [+5]
-      106 GETTABLEKS                       R7 R3 K17 ["Priority"]
-      108 SETTABLEKS                       R7 R6 K17 ["Priority"]
-      110 JUMP                             ; [+8]
-      111 GETUPVAL                         R7 4
-      112 GETTABLEKS                       R7 R7 K16 ["calculatePriority"]
-      114 MOVE                             R8 R1
-      115 MOVE                             R9 R5
-      116 CALL                             R7 2 1
-      117 SETTABLEKS                       R7 R6 K17 ["Priority"]
-      119 SETTABLEKS                       R0 R6 K12 ["Parent"]
-      121 GETUPVAL                         R7 2
-      122 JUMPIF                           R7 ; [+1]
-      123 SETUPVAL                         R3 2
-      124 GETIMPORT                        R7 K30 [Enum.FinishRecordingOperation.Commit]
-      126 RETURN                           R7 1
+       81 LOADK                            R5 K22 ["%*%*"]
+       82 GETUPVAL                         R7 5
+       83 GETTABLEKS                       R7 R7 K23 ["SelectorSyntax"]
+       85 GETTABLEKS                       R7 R7 K24 ["Query"]
+       87 MOVE                             R8 R4
+       88 JUMPIF                           R8 ; [+3]
+       89 GETUPVAL                         R8 6
+       90 GETTABLEKS                       R8 R8 K25 ["ClassName"]
+       92 NAMECALL                         R5 R5 K26 ["format"]
+       94 CALL                             R5 3 1
+       95 GETIMPORT                        R6 K10 [Instance.new]
+       97 LOADK                            R7 K2 ["StyleRule"]
+       98 CALL                             R6 1 1
+       99 SETTABLEKS                       R5 R6 K15 ["Selector"]
+      101 SETTABLEKS                       R5 R6 K11 ["Name"]
+      103 GETUPVAL                         R7 7
+      104 JUMPIFNOT                        R7 ; [+5]
+      105 GETTABLEKS                       R7 R3 K17 ["Priority"]
+      107 SETTABLEKS                       R7 R6 K17 ["Priority"]
+      109 JUMP                             ; [+8]
+      110 GETUPVAL                         R7 4
+      111 GETTABLEKS                       R7 R7 K16 ["calculatePriority"]
+      113 MOVE                             R8 R1
+      114 MOVE                             R9 R5
+      115 CALL                             R7 2 1
+      116 SETTABLEKS                       R7 R6 K17 ["Priority"]
+      118 SETTABLEKS                       R0 R6 K12 ["Parent"]
+      120 GETUPVAL                         R7 2
+      121 JUMPIF                           R7 ; [+1]
+      122 SETUPVAL                         R3 2
+      123 GETIMPORT                        R7 K30 [Enum.FinishRecordingOperation.Commit]
+      125 RETURN                           R7 1
 
 PROTO_1:
         0 LOADNIL                          R2

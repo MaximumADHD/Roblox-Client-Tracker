@@ -21,149 +21,140 @@ PROTO_0:
        26 GETUPVAL                         R3 4
        27 GETTABLEKS                       R3 R3 K9 ["LogAnalytics"]
        29 CALL                             R3 0 1
-       30 JUMPIFNOT                        R3 ; [+18]
+       30 JUMPIFNOT                        R3 ; [+17]
        31 GETIMPORT                        R3 K11 [print]
-       33 LOADK                            R5 K12 ["(EVENT) TerrainEditor reported event %* with payload %*"]
+       33 LOADK                            R4 K12 ["(EVENT) TerrainEditor reported event %* with payload %*"]
        34 FASTCALL1                        TOSTRING R0 ; [+3]
-       35 MOVE                             R8 R0
-       36 GETIMPORT                        R7 K14 [tostring]
-       38 CALL                             R7 1 1
-       39 GETUPVAL                         R8 5
-       40 MOVE                             R10 R1
-       41 NAMECALL                         R8 R8 K15 ["JSONEncode"]
-       43 CALL                             R8 2 1
-       44 NAMECALL                         R5 R5 K16 ["format"]
-       46 CALL                             R5 3 1
-       47 MOVE                             R4 R5
-       48 CALL                             R3 1 0
-       49 GETUPVAL                         R3 0
-       50 LOADK                            R5 K17 ["studio"]
-       51 LOADK                            R6 K18 ["TerrainEditor"]
-       52 MOVE                             R7 R0
-       53 MOVE                             R8 R1
-       54 NAMECALL                         R3 R3 K19 ["SendEventDeferred"]
-       56 CALL                             R3 5 0
-       57 RETURN                           R0 0
+       35 MOVE                             R7 R0
+       36 GETIMPORT                        R6 K14 [tostring]
+       38 CALL                             R6 1 1
+       39 GETUPVAL                         R7 5
+       40 MOVE                             R9 R1
+       41 NAMECALL                         R7 R7 K15 ["JSONEncode"]
+       43 CALL                             R7 2 1
+       44 NAMECALL                         R4 R4 K16 ["format"]
+       46 CALL                             R4 3 1
+       47 CALL                             R3 1 0
+       48 GETUPVAL                         R3 0
+       49 LOADK                            R5 K17 ["studio"]
+       50 LOADK                            R6 K18 ["TerrainEditor"]
+       51 MOVE                             R7 R0
+       52 MOVE                             R8 R1
+       53 NAMECALL                         R3 R3 K19 ["SendEventDeferred"]
+       55 CALL                             R3 5 0
+       56 RETURN                           R0 0
 
 PROTO_1:
         0 ORK                              R1 R1 K0 [1]
         1 GETUPVAL                         R2 0
         2 GETTABLEKS                       R2 R2 K1 ["LogAnalytics"]
         4 CALL                             R2 0 1
-        5 JUMPIFNOT                        R2 ; [+10]
+        5 JUMPIFNOT                        R2 ; [+9]
         6 GETIMPORT                        R2 K3 [print]
-        8 LOADK                            R4 K4 ["Terrain ReportCounter counterName=%* count=%*"]
-        9 MOVE                             R6 R0
-       10 MOVE                             R7 R1
-       11 NAMECALL                         R4 R4 K5 ["format"]
-       13 CALL                             R4 3 1
-       14 MOVE                             R3 R4
-       15 CALL                             R2 1 0
-       16 GETUPVAL                         R2 1
-       17 MOVE                             R4 R0
-       18 MOVE                             R5 R1
-       19 NAMECALL                         R2 R2 K6 ["ReportCounter"]
-       21 CALL                             R2 3 0
-       22 RETURN                           R0 0
+        8 LOADK                            R3 K4 ["Terrain ReportCounter counterName=%* count=%*"]
+        9 MOVE                             R5 R0
+       10 MOVE                             R6 R1
+       11 NAMECALL                         R3 R3 K5 ["format"]
+       13 CALL                             R3 3 1
+       14 CALL                             R2 1 0
+       15 GETUPVAL                         R2 1
+       16 MOVE                             R4 R0
+       17 MOVE                             R5 R1
+       18 NAMECALL                         R2 R2 K6 ["ReportCounter"]
+       20 CALL                             R2 3 0
+       21 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["LogAnalytics"]
         3 CALL                             R2 0 1
-        4 JUMPIFNOT                        R2 ; [+10]
+        4 JUMPIFNOT                        R2 ; [+9]
         5 GETIMPORT                        R2 K2 [print]
-        7 LOADK                            R4 K3 ["Terrain ReportCounter counterName=%* count=%*"]
-        8 MOVE                             R6 R0
-        9 MOVE                             R7 R1
-       10 NAMECALL                         R4 R4 K4 ["format"]
-       12 CALL                             R4 3 1
-       13 MOVE                             R3 R4
-       14 CALL                             R2 1 0
-       15 GETUPVAL                         R2 1
-       16 MOVE                             R4 R0
-       17 MOVE                             R5 R1
-       18 NAMECALL                         R2 R2 K5 ["ReportStats"]
-       20 CALL                             R2 3 0
-       21 RETURN                           R0 0
+        7 LOADK                            R3 K3 ["Terrain ReportCounter counterName=%* count=%*"]
+        8 MOVE                             R5 R0
+        9 MOVE                             R6 R1
+       10 NAMECALL                         R3 R3 K4 ["format"]
+       12 CALL                             R3 3 1
+       13 CALL                             R2 1 0
+       14 GETUPVAL                         R2 1
+       15 MOVE                             R4 R0
+       16 MOVE                             R5 R1
+       17 NAMECALL                         R2 R2 K5 ["ReportStats"]
+       19 CALL                             R2 3 0
+       20 RETURN                           R0 0
 
 PROTO_3:
-        0 LOADK                            R4 K0 ["%*ToolActivated"]
-        1 MOVE                             R6 R1
-        2 NAMECALL                         R4 R4 K1 ["format"]
-        4 CALL                             R4 2 1
-        5 MOVE                             R3 R4
-        6 MOVE                             R4 R2
-        7 ORK                              R4 R4 K2 [1]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R5 R5 K3 ["LogAnalytics"]
-       11 CALL                             R5 0 1
-       12 JUMPIFNOT                        R5 ; [+10]
-       13 GETIMPORT                        R5 K5 [print]
-       15 LOADK                            R7 K6 ["Terrain ReportCounter counterName=%* count=%*"]
-       16 MOVE                             R9 R3
-       17 MOVE                             R10 R4
-       18 NAMECALL                         R7 R7 K1 ["format"]
-       20 CALL                             R7 3 1
-       21 MOVE                             R6 R7
-       22 CALL                             R5 1 0
-       23 GETUPVAL                         R5 1
-       24 MOVE                             R7 R3
-       25 MOVE                             R8 R4
-       26 NAMECALL                         R5 R5 K7 ["ReportCounter"]
-       28 CALL                             R5 3 0
-       29 RETURN                           R0 0
+        0 LOADK                            R3 K0 ["%*ToolActivated"]
+        1 MOVE                             R5 R1
+        2 NAMECALL                         R3 R3 K1 ["format"]
+        4 CALL                             R3 2 1
+        5 MOVE                             R4 R2
+        6 ORK                              R4 R4 K2 [1]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K3 ["LogAnalytics"]
+       10 CALL                             R5 0 1
+       11 JUMPIFNOT                        R5 ; [+9]
+       12 GETIMPORT                        R5 K5 [print]
+       14 LOADK                            R6 K6 ["Terrain ReportCounter counterName=%* count=%*"]
+       15 MOVE                             R8 R3
+       16 MOVE                             R9 R4
+       17 NAMECALL                         R6 R6 K1 ["format"]
+       19 CALL                             R6 3 1
+       20 CALL                             R5 1 0
+       21 GETUPVAL                         R5 1
+       22 MOVE                             R7 R3
+       23 MOVE                             R8 R4
+       24 NAMECALL                         R5 R5 K7 ["ReportCounter"]
+       26 CALL                             R5 3 0
+       27 RETURN                           R0 0
 
 PROTO_4:
-        0 LOADK                            R4 K0 ["%*ToolUsage"]
-        1 MOVE                             R6 R1
-        2 NAMECALL                         R4 R4 K1 ["format"]
-        4 CALL                             R4 2 1
-        5 MOVE                             R3 R4
-        6 MOVE                             R4 R2
-        7 ORK                              R4 R4 K2 [1]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R5 R5 K3 ["LogAnalytics"]
-       11 CALL                             R5 0 1
-       12 JUMPIFNOT                        R5 ; [+10]
-       13 GETIMPORT                        R5 K5 [print]
-       15 LOADK                            R7 K6 ["Terrain ReportCounter counterName=%* count=%*"]
-       16 MOVE                             R9 R3
-       17 MOVE                             R10 R4
-       18 NAMECALL                         R7 R7 K1 ["format"]
-       20 CALL                             R7 3 1
-       21 MOVE                             R6 R7
-       22 CALL                             R5 1 0
-       23 GETUPVAL                         R5 1
-       24 MOVE                             R7 R3
-       25 MOVE                             R8 R4
-       26 NAMECALL                         R5 R5 K7 ["ReportCounter"]
-       28 CALL                             R5 3 0
-       29 RETURN                           R0 0
+        0 LOADK                            R3 K0 ["%*ToolUsage"]
+        1 MOVE                             R5 R1
+        2 NAMECALL                         R3 R3 K1 ["format"]
+        4 CALL                             R3 2 1
+        5 MOVE                             R4 R2
+        6 ORK                              R4 R4 K2 [1]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K3 ["LogAnalytics"]
+       10 CALL                             R5 0 1
+       11 JUMPIFNOT                        R5 ; [+9]
+       12 GETIMPORT                        R5 K5 [print]
+       14 LOADK                            R6 K6 ["Terrain ReportCounter counterName=%* count=%*"]
+       15 MOVE                             R8 R3
+       16 MOVE                             R9 R4
+       17 NAMECALL                         R6 R6 K1 ["format"]
+       19 CALL                             R6 3 1
+       20 CALL                             R5 1 0
+       21 GETUPVAL                         R5 1
+       22 MOVE                             R7 R3
+       23 MOVE                             R8 R4
+       24 NAMECALL                         R5 R5 K7 ["ReportCounter"]
+       26 CALL                             R5 3 0
+       27 RETURN                           R0 0
 
 PROTO_5:
-        0 LOADK                            R4 K0 ["%*ToolPerformance"]
-        1 MOVE                             R6 R1
-        2 NAMECALL                         R4 R4 K1 ["format"]
-        4 CALL                             R4 2 1
-        5 MOVE                             R3 R4
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R4 R4 K2 ["LogAnalytics"]
-        9 CALL                             R4 0 1
-       10 JUMPIFNOT                        R4 ; [+10]
-       11 GETIMPORT                        R4 K4 [print]
-       13 LOADK                            R6 K5 ["Terrain ReportCounter counterName=%* count=%*"]
-       14 MOVE                             R8 R3
-       15 MOVE                             R9 R2
-       16 NAMECALL                         R6 R6 K1 ["format"]
-       18 CALL                             R6 3 1
-       19 MOVE                             R5 R6
-       20 CALL                             R4 1 0
-       21 GETUPVAL                         R4 1
-       22 MOVE                             R6 R3
-       23 MOVE                             R7 R2
-       24 NAMECALL                         R4 R4 K6 ["ReportStats"]
-       26 CALL                             R4 3 0
-       27 RETURN                           R0 0
+        0 LOADK                            R3 K0 ["%*ToolPerformance"]
+        1 MOVE                             R5 R1
+        2 NAMECALL                         R3 R3 K1 ["format"]
+        4 CALL                             R3 2 1
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K2 ["LogAnalytics"]
+        8 CALL                             R4 0 1
+        9 JUMPIFNOT                        R4 ; [+9]
+       10 GETIMPORT                        R4 K4 [print]
+       12 LOADK                            R5 K5 ["Terrain ReportCounter counterName=%* count=%*"]
+       13 MOVE                             R7 R3
+       14 MOVE                             R8 R2
+       15 NAMECALL                         R5 R5 K1 ["format"]
+       17 CALL                             R5 3 1
+       18 CALL                             R4 1 0
+       19 GETUPVAL                         R4 1
+       20 MOVE                             R6 R3
+       21 MOVE                             R7 R2
+       22 NAMECALL                         R4 R4 K6 ["ReportStats"]
+       24 CALL                             R4 3 0
+       25 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R2 0

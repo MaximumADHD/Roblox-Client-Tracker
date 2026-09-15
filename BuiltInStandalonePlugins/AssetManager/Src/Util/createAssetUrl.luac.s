@@ -8,13 +8,12 @@ PROTO_0:
         8 CALL                             R4 1 1
         9 NAMECALL                         R2 R2 K3 ["UrlEncode"]
        11 CALL                             R2 2 1
-       12 LOADK                            R4 K4 ["%*library/%*/asset"]
-       13 MOVE                             R6 R1
-       14 MOVE                             R7 R2
-       15 NAMECALL                         R4 R4 K5 ["format"]
-       17 CALL                             R4 3 1
-       18 MOVE                             R3 R4
-       19 RETURN                           R3 1
+       12 LOADK                            R3 K4 ["%*library/%*/asset"]
+       13 MOVE                             R5 R1
+       14 MOVE                             R6 R2
+       15 NAMECALL                         R3 R3 K5 ["format"]
+       17 CALL                             R3 3 1
+       18 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

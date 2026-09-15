@@ -156,7 +156,7 @@ PROTO_5:
       137 CALL                             R22 3 1
       138 SETTABLE                         R22 R15 R21
       139 FORGLOOP                         R16 2 ; [-56]
-      141 JUMPIFNOT                        R6 ; [+41]
+      141 JUMPIFNOT                        R6 ; [+40]
       142 MOVE                             R17 R15
       143 GETUPVAL                         R18 1
       144 GETTABLEKS                       R18 R18 K15 ["createElement"]
@@ -171,98 +171,96 @@ PROTO_5:
       156 GETTABLEKS                       R22 R22 K15 ["createElement"]
       158 LOADK                            R23 K30 ["TextLabel"]
       159 NEWTABLE                         R24 2 0
-      161 LOADK                            R26 K31 ["+%*"]
-      162 LENGTH                           R29 R4
-      163 SUBK                             R28 R29 K32 [4]
-      164 NAMECALL                         R26 R26 K33 ["format"]
-      166 CALL                             R26 2 1
-      167 MOVE                             R25 R26
-      168 SETTABLEKS                       R25 R24 K7 ["Text"]
-      170 GETUPVAL                         R25 1
-      171 GETTABLEKS                       R25 R25 K17 ["Tag"]
-      173 LOADK                            R26 K34 ["X-AnchorCenter Role-Surface X-Fit"]
-      174 SETTABLE                         R26 R24 R25
-      175 CALL                             R22 2 1
-      176 SETTABLEKS                       R22 R21 K7 ["Text"]
-      178 CALL                             R18 3 -1
-      179 FASTCALL                         TABLE_INSERT ; [+2]
-      180 GETIMPORT                        R16 K37 [table.insert]
-      182 CALL                             R16 -1 0
-      183 GETUPVAL                         R16 1
-      184 GETTABLEKS                       R16 R16 K15 ["createElement"]
-      186 LOADK                            R17 K16 ["Frame"]
-      187 NEWTABLE                         R18 4 0
-      189 SETTABLEKS                       R12 R18 K38 ["ref"]
-      191 GETTABLEKS                       R19 R0 K39 ["LayoutOrder"]
-      193 SETTABLEKS                       R19 R18 K39 ["LayoutOrder"]
-      195 GETUPVAL                         R19 1
-      196 GETTABLEKS                       R19 R19 K17 ["Tag"]
-      198 GETUPVAL                         R20 6
-      199 LOADK                            R21 K40 ["Component-CollaboratorRibbon X-Middle X-Fit Role-Surface"]
-      200 LOADK                            R23 K41 ["data-testid=%*"]
-      201 GETUPVAL                         R25 8
-      202 GETUPVAL                         R26 2
-      203 CALL                             R25 1 1
-      204 NAMECALL                         R23 R23 K33 ["format"]
-      206 CALL                             R23 2 1
-      207 MOVE                             R22 R23
-      208 CALL                             R20 2 1
-      209 SETTABLE                         R20 R18 R19
-      210 DUPTABLE                         R19 K44 [{"CollaboratorContainer", "CollaboratorButton"}]
-      211 LENGTH                           R21 R4
-      212 LOADN                            R22 0
-      213 JUMPIFNOTLT                      R22 R21 ; [+46]
-      215 GETUPVAL                         R20 1
-      216 GETTABLEKS                       R20 R20 K15 ["createElement"]
-      218 LOADK                            R21 K45 ["TextButton"]
-      219 NEWTABLE                         R22 8 0
-      221 LOADK                            R23 K46 [""]
-      222 SETTABLEKS                       R23 R22 K7 ["Text"]
-      224 GETUPVAL                         R23 1
-      225 GETTABLEKS                       R23 R23 K47 ["Event"]
-      227 GETTABLEKS                       R23 R23 K48 ["Activated"]
-      229 NEWCLOSURE                       R24 P1
-      230 CAPTURE                          UPVAL U9
-      231 CAPTURE                          VAL R0
-      232 SETTABLE                         R24 R22 R23
-      233 GETUPVAL                         R23 1
-      234 GETTABLEKS                       R23 R23 K47 ["Event"]
-      236 GETTABLEKS                       R23 R23 K49 ["MouseEnter"]
-      238 SETTABLE                         R13 R22 R23
-      239 GETUPVAL                         R23 1
-      240 GETTABLEKS                       R23 R23 K47 ["Event"]
-      242 GETTABLEKS                       R23 R23 K50 ["MouseLeave"]
-      244 SETTABLE                         R14 R22 R23
-      245 GETUPVAL                         R23 1
-      246 GETTABLEKS                       R23 R23 K17 ["Tag"]
-      248 GETUPVAL                         R24 6
-      249 LOADK                            R25 K51 ["X-Middle X-Fit Role-Surface"]
-      250 JUMPIFNOT                        R6 ; [+2]
-      251 LOADK                            R26 K52 ["X-Row"]
-      252 JUMP                             ; [+1]
-      253 LOADK                            R26 K53 ["UnderMax"]
-      254 LOADK                            R27 K54 ["data-testid=LiveCollaboratorsContainer"]
-      255 CALL                             R24 3 1
-      256 SETTABLE                         R24 R22 R23
-      257 MOVE                             R23 R15
-      258 CALL                             R20 3 1
-      259 JUMP                             ; [+1]
-      260 LOADNIL                          R20
-      261 SETTABLEKS                       R20 R19 K42 ["CollaboratorContainer"]
-      263 GETUPVAL                         R20 1
-      264 GETTABLEKS                       R20 R20 K15 ["createElement"]
-      266 GETUPVAL                         R21 10
-      267 DUPTABLE                         R22 K56 [{"IsTeamCreateOn"}]
-      268 LENGTH                           R24 R4
-      269 LOADN                            R25 0
-      270 JUMPIFLT                         R25 R24 ; [+2]
-      272 LOADB                            R23 0 +1
-      273 LOADB                            R23 1
-      274 SETTABLEKS                       R23 R22 K55 ["IsTeamCreateOn"]
-      276 CALL                             R20 2 1
-      277 SETTABLEKS                       R20 R19 K43 ["CollaboratorButton"]
-      279 CALL                             R16 3 -1
-      280 RETURN                           R16 -1
+      161 LOADK                            R25 K31 ["+%*"]
+      162 LENGTH                           R28 R4
+      163 SUBK                             R27 R28 K32 [4]
+      164 NAMECALL                         R25 R25 K33 ["format"]
+      166 CALL                             R25 2 1
+      167 SETTABLEKS                       R25 R24 K7 ["Text"]
+      169 GETUPVAL                         R25 1
+      170 GETTABLEKS                       R25 R25 K17 ["Tag"]
+      172 LOADK                            R26 K34 ["X-AnchorCenter Role-Surface X-Fit"]
+      173 SETTABLE                         R26 R24 R25
+      174 CALL                             R22 2 1
+      175 SETTABLEKS                       R22 R21 K7 ["Text"]
+      177 CALL                             R18 3 -1
+      178 FASTCALL                         TABLE_INSERT ; [+2]
+      179 GETIMPORT                        R16 K37 [table.insert]
+      181 CALL                             R16 -1 0
+      182 GETUPVAL                         R16 1
+      183 GETTABLEKS                       R16 R16 K15 ["createElement"]
+      185 LOADK                            R17 K16 ["Frame"]
+      186 NEWTABLE                         R18 4 0
+      188 SETTABLEKS                       R12 R18 K38 ["ref"]
+      190 GETTABLEKS                       R19 R0 K39 ["LayoutOrder"]
+      192 SETTABLEKS                       R19 R18 K39 ["LayoutOrder"]
+      194 GETUPVAL                         R19 1
+      195 GETTABLEKS                       R19 R19 K17 ["Tag"]
+      197 GETUPVAL                         R20 6
+      198 LOADK                            R21 K40 ["Component-CollaboratorRibbon X-Middle X-Fit Role-Surface"]
+      199 LOADK                            R22 K41 ["data-testid=%*"]
+      200 GETUPVAL                         R24 8
+      201 GETUPVAL                         R25 2
+      202 CALL                             R24 1 1
+      203 NAMECALL                         R22 R22 K33 ["format"]
+      205 CALL                             R22 2 1
+      206 CALL                             R20 2 1
+      207 SETTABLE                         R20 R18 R19
+      208 DUPTABLE                         R19 K44 [{"CollaboratorContainer", "CollaboratorButton"}]
+      209 LENGTH                           R21 R4
+      210 LOADN                            R22 0
+      211 JUMPIFNOTLT                      R22 R21 ; [+46]
+      213 GETUPVAL                         R20 1
+      214 GETTABLEKS                       R20 R20 K15 ["createElement"]
+      216 LOADK                            R21 K45 ["TextButton"]
+      217 NEWTABLE                         R22 8 0
+      219 LOADK                            R23 K46 [""]
+      220 SETTABLEKS                       R23 R22 K7 ["Text"]
+      222 GETUPVAL                         R23 1
+      223 GETTABLEKS                       R23 R23 K47 ["Event"]
+      225 GETTABLEKS                       R23 R23 K48 ["Activated"]
+      227 NEWCLOSURE                       R24 P1
+      228 CAPTURE                          UPVAL U9
+      229 CAPTURE                          VAL R0
+      230 SETTABLE                         R24 R22 R23
+      231 GETUPVAL                         R23 1
+      232 GETTABLEKS                       R23 R23 K47 ["Event"]
+      234 GETTABLEKS                       R23 R23 K49 ["MouseEnter"]
+      236 SETTABLE                         R13 R22 R23
+      237 GETUPVAL                         R23 1
+      238 GETTABLEKS                       R23 R23 K47 ["Event"]
+      240 GETTABLEKS                       R23 R23 K50 ["MouseLeave"]
+      242 SETTABLE                         R14 R22 R23
+      243 GETUPVAL                         R23 1
+      244 GETTABLEKS                       R23 R23 K17 ["Tag"]
+      246 GETUPVAL                         R24 6
+      247 LOADK                            R25 K51 ["X-Middle X-Fit Role-Surface"]
+      248 JUMPIFNOT                        R6 ; [+2]
+      249 LOADK                            R26 K52 ["X-Row"]
+      250 JUMP                             ; [+1]
+      251 LOADK                            R26 K53 ["UnderMax"]
+      252 LOADK                            R27 K54 ["data-testid=LiveCollaboratorsContainer"]
+      253 CALL                             R24 3 1
+      254 SETTABLE                         R24 R22 R23
+      255 MOVE                             R23 R15
+      256 CALL                             R20 3 1
+      257 JUMP                             ; [+1]
+      258 LOADNIL                          R20
+      259 SETTABLEKS                       R20 R19 K42 ["CollaboratorContainer"]
+      261 GETUPVAL                         R20 1
+      262 GETTABLEKS                       R20 R20 K15 ["createElement"]
+      264 GETUPVAL                         R21 10
+      265 DUPTABLE                         R22 K56 [{"IsTeamCreateOn"}]
+      266 LENGTH                           R24 R4
+      267 LOADN                            R25 0
+      268 JUMPIFLT                         R25 R24 ; [+2]
+      270 LOADB                            R23 0 +1
+      271 LOADB                            R23 1
+      272 SETTABLEKS                       R23 R22 K55 ["IsTeamCreateOn"]
+      274 CALL                             R20 2 1
+      275 SETTABLEKS                       R20 R19 K43 ["CollaboratorButton"]
+      277 CALL                             R16 3 -1
+      278 RETURN                           R16 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -11,114 +11,108 @@ PROTO_0:
        11 LOADNIL                          R3
        12 FORGPREP                         R1
        13 GETTABLEKS                       R6 R5 K4 ["filepath"]
-       15 JUMPIFNOT                        R6 ; [+20]
+       15 JUMPIFNOT                        R6 ; [+19]
        16 GETTABLEKS                       R7 R5 K4 ["filepath"]
        18 FASTCALL1                        TYPE R7 ; [+2]
        19 GETIMPORT                        R6 K1 [type]
        21 CALL                             R6 1 1
-       22 JUMPIFEQKS                       R6 K5 ["string"] ; [+13]
+       22 JUMPIFEQKS                       R6 K5 ["string"] ; [+12]
        24 GETIMPORT                        R6 K7 [warn]
-       26 LOADK                            R8 K8 ["filepath for reimport config '%*' could not be loaded"]
-       27 MOVE                             R10 R4
-       28 NAMECALL                         R8 R8 K9 ["format"]
-       30 CALL                             R8 2 1
-       31 MOVE                             R7 R8
-       32 CALL                             R6 1 0
-       33 LOADNIL                          R6
-       34 SETTABLEKS                       R6 R5 K4 ["filepath"]
-       36 GETTABLEKS                       R6 R5 K10 ["preset"]
-       38 JUMPIFNOT                        R6 ; [+45]
-       39 GETTABLEKS                       R7 R5 K4 ["filepath"]
-       41 FASTCALL1                        TYPE R7 ; [+2]
-       42 GETIMPORT                        R6 K1 [type]
-       44 CALL                             R6 1 1
-       45 JUMPIFEQKS                       R6 K5 ["string"] ; [+14]
-       47 GETIMPORT                        R6 K7 [warn]
-       49 LOADK                            R8 K11 ["preset for reimport config '%*' could not be loaded"]
-       50 MOVE                             R10 R4
-       51 NAMECALL                         R8 R8 K9 ["format"]
-       53 CALL                             R8 2 1
-       54 MOVE                             R7 R8
-       55 CALL                             R6 1 0
-       56 LOADNIL                          R6
-       57 SETTABLEKS                       R6 R5 K10 ["preset"]
-       59 JUMP                             ; [+24]
-       60 GETUPVAL                         R6 0
-       61 GETTABLEKS                       R8 R5 K10 ["preset"]
-       63 NAMECALL                         R6 R6 K12 ["GetPreset"]
-       65 CALL                             R6 2 1
-       66 JUMPIFNOTEQKNIL                  R6 ; [+17]
-       68 GETIMPORT                        R6 K7 [warn]
-       70 LOADK                            R8 K13 ["preset '%*' does not exits, falling back to '%*' preset"]
-       71 GETTABLEKS                       R10 R5 K10 ["preset"]
-       73 GETUPVAL                         R11 1
-       74 GETTABLEKS                       R11 R11 K14 ["StudioDefaultPreset"]
-       76 NAMECALL                         R8 R8 K9 ["format"]
-       78 CALL                             R8 3 1
-       79 MOVE                             R7 R8
-       80 CALL                             R6 1 0
-       81 LOADNIL                          R6
-       82 SETTABLEKS                       R6 R5 K10 ["preset"]
-       84 GETUPVAL                         R6 2
-       85 CALL                             R6 0 1
-       86 JUMPIFNOT                        R6 ; [+84]
-       87 GETTABLEKS                       R6 R5 K15 ["creatorId"]
-       89 JUMPIFEQKNIL                     R6 ; [+21]
-       91 GETTABLEKS                       R7 R5 K15 ["creatorId"]
-       93 FASTCALL1                        TYPE R7 ; [+2]
-       94 GETIMPORT                        R6 K1 [type]
-       96 CALL                             R6 1 1
-       97 JUMPIFEQKS                       R6 K16 ["number"] ; [+13]
-       99 GETIMPORT                        R6 K7 [warn]
-      101 LOADK                            R8 K17 ["creatorId for reimport config '%*' could not be loaded"]
-      102 MOVE                             R10 R4
-      103 NAMECALL                         R8 R8 K9 ["format"]
-      105 CALL                             R8 2 1
-      106 MOVE                             R7 R8
-      107 CALL                             R6 1 0
-      108 LOADNIL                          R6
-      109 SETTABLEKS                       R6 R5 K15 ["creatorId"]
-      111 GETTABLEKS                       R6 R5 K18 ["creatorType"]
-      113 JUMPIFEQKNIL                     R6 ; [+43]
-      115 GETTABLEKS                       R7 R5 K18 ["creatorType"]
-      117 FASTCALL1                        TYPE R7 ; [+2]
-      118 GETIMPORT                        R6 K1 [type]
-      120 CALL                             R6 1 1
-      121 JUMPIFEQKS                       R6 K5 ["string"] ; [+13]
-      123 GETIMPORT                        R6 K7 [warn]
-      125 LOADK                            R8 K19 ["groupId for reimport config '%*' could not be loaded"]
-      126 MOVE                             R10 R4
-      127 NAMECALL                         R8 R8 K9 ["format"]
-      129 CALL                             R8 2 1
-      130 MOVE                             R7 R8
-      131 CALL                             R6 1 0
-      132 LOADNIL                          R6
-      133 SETTABLEKS                       R6 R5 K18 ["creatorType"]
-      135 GETTABLEKS                       R6 R5 K18 ["creatorType"]
-      137 JUMPIFEQKS                       R6 K20 ["user"] ; [+19]
-      139 GETTABLEKS                       R6 R5 K18 ["creatorType"]
-      141 JUMPIFEQKS                       R6 K21 ["group"] ; [+15]
-      143 GETIMPORT                        R6 K7 [warn]
-      145 LOADK                            R8 K22 ["creatorType for reimport config '%*' is invalid, must be either 'user' or 'group', found: '%*'"]
-      146 MOVE                             R10 R4
-      147 GETTABLEKS                       R11 R5 K18 ["creatorType"]
-      149 NAMECALL                         R8 R8 K9 ["format"]
-      151 CALL                             R8 3 1
-      152 MOVE                             R7 R8
-      153 CALL                             R6 1 0
-      154 LOADNIL                          R6
-      155 SETTABLEKS                       R6 R5 K18 ["creatorType"]
-      157 GETTABLEKS                       R6 R5 K18 ["creatorType"]
-      159 JUMPIFNOTEQKNIL                  R6 ; [+4]
-      161 LOADNIL                          R6
-      162 SETTABLEKS                       R6 R5 K15 ["creatorId"]
-      164 GETTABLEKS                       R6 R5 K15 ["creatorId"]
-      166 JUMPIFNOTEQKNIL                  R6 ; [+4]
-      168 LOADNIL                          R6
-      169 SETTABLEKS                       R6 R5 K18 ["creatorType"]
-      171 FORGLOOP                         R1 2 ; [-159]
-      173 LOADNIL                          R1
-      174 RETURN                           R1 1
+       26 LOADK                            R7 K8 ["filepath for reimport config '%*' could not be loaded"]
+       27 MOVE                             R9 R4
+       28 NAMECALL                         R7 R7 K9 ["format"]
+       30 CALL                             R7 2 1
+       31 CALL                             R6 1 0
+       32 LOADNIL                          R6
+       33 SETTABLEKS                       R6 R5 K4 ["filepath"]
+       35 GETTABLEKS                       R6 R5 K10 ["preset"]
+       37 JUMPIFNOT                        R6 ; [+43]
+       38 GETTABLEKS                       R7 R5 K4 ["filepath"]
+       40 FASTCALL1                        TYPE R7 ; [+2]
+       41 GETIMPORT                        R6 K1 [type]
+       43 CALL                             R6 1 1
+       44 JUMPIFEQKS                       R6 K5 ["string"] ; [+13]
+       46 GETIMPORT                        R6 K7 [warn]
+       48 LOADK                            R7 K11 ["preset for reimport config '%*' could not be loaded"]
+       49 MOVE                             R9 R4
+       50 NAMECALL                         R7 R7 K9 ["format"]
+       52 CALL                             R7 2 1
+       53 CALL                             R6 1 0
+       54 LOADNIL                          R6
+       55 SETTABLEKS                       R6 R5 K10 ["preset"]
+       57 JUMP                             ; [+23]
+       58 GETUPVAL                         R6 0
+       59 GETTABLEKS                       R8 R5 K10 ["preset"]
+       61 NAMECALL                         R6 R6 K12 ["GetPreset"]
+       63 CALL                             R6 2 1
+       64 JUMPIFNOTEQKNIL                  R6 ; [+16]
+       66 GETIMPORT                        R6 K7 [warn]
+       68 LOADK                            R7 K13 ["preset '%*' does not exits, falling back to '%*' preset"]
+       69 GETTABLEKS                       R9 R5 K10 ["preset"]
+       71 GETUPVAL                         R10 1
+       72 GETTABLEKS                       R10 R10 K14 ["StudioDefaultPreset"]
+       74 NAMECALL                         R7 R7 K9 ["format"]
+       76 CALL                             R7 3 1
+       77 CALL                             R6 1 0
+       78 LOADNIL                          R6
+       79 SETTABLEKS                       R6 R5 K10 ["preset"]
+       81 GETUPVAL                         R6 2
+       82 CALL                             R6 0 1
+       83 JUMPIFNOT                        R6 ; [+81]
+       84 GETTABLEKS                       R6 R5 K15 ["creatorId"]
+       86 JUMPIFEQKNIL                     R6 ; [+20]
+       88 GETTABLEKS                       R7 R5 K15 ["creatorId"]
+       90 FASTCALL1                        TYPE R7 ; [+2]
+       91 GETIMPORT                        R6 K1 [type]
+       93 CALL                             R6 1 1
+       94 JUMPIFEQKS                       R6 K16 ["number"] ; [+12]
+       96 GETIMPORT                        R6 K7 [warn]
+       98 LOADK                            R7 K17 ["creatorId for reimport config '%*' could not be loaded"]
+       99 MOVE                             R9 R4
+      100 NAMECALL                         R7 R7 K9 ["format"]
+      102 CALL                             R7 2 1
+      103 CALL                             R6 1 0
+      104 LOADNIL                          R6
+      105 SETTABLEKS                       R6 R5 K15 ["creatorId"]
+      107 GETTABLEKS                       R6 R5 K18 ["creatorType"]
+      109 JUMPIFEQKNIL                     R6 ; [+41]
+      111 GETTABLEKS                       R7 R5 K18 ["creatorType"]
+      113 FASTCALL1                        TYPE R7 ; [+2]
+      114 GETIMPORT                        R6 K1 [type]
+      116 CALL                             R6 1 1
+      117 JUMPIFEQKS                       R6 K5 ["string"] ; [+12]
+      119 GETIMPORT                        R6 K7 [warn]
+      121 LOADK                            R7 K19 ["groupId for reimport config '%*' could not be loaded"]
+      122 MOVE                             R9 R4
+      123 NAMECALL                         R7 R7 K9 ["format"]
+      125 CALL                             R7 2 1
+      126 CALL                             R6 1 0
+      127 LOADNIL                          R6
+      128 SETTABLEKS                       R6 R5 K18 ["creatorType"]
+      130 GETTABLEKS                       R6 R5 K18 ["creatorType"]
+      132 JUMPIFEQKS                       R6 K20 ["user"] ; [+18]
+      134 GETTABLEKS                       R6 R5 K18 ["creatorType"]
+      136 JUMPIFEQKS                       R6 K21 ["group"] ; [+14]
+      138 GETIMPORT                        R6 K7 [warn]
+      140 LOADK                            R7 K22 ["creatorType for reimport config '%*' is invalid, must be either 'user' or 'group', found: '%*'"]
+      141 MOVE                             R9 R4
+      142 GETTABLEKS                       R10 R5 K18 ["creatorType"]
+      144 NAMECALL                         R7 R7 K9 ["format"]
+      146 CALL                             R7 3 1
+      147 CALL                             R6 1 0
+      148 LOADNIL                          R6
+      149 SETTABLEKS                       R6 R5 K18 ["creatorType"]
+      151 GETTABLEKS                       R6 R5 K18 ["creatorType"]
+      153 JUMPIFNOTEQKNIL                  R6 ; [+4]
+      155 LOADNIL                          R6
+      156 SETTABLEKS                       R6 R5 K15 ["creatorId"]
+      158 GETTABLEKS                       R6 R5 K15 ["creatorId"]
+      160 JUMPIFNOTEQKNIL                  R6 ; [+4]
+      162 LOADNIL                          R6
+      163 SETTABLEKS                       R6 R5 K18 ["creatorType"]
+      165 FORGLOOP                         R1 2 ; [-153]
+      167 LOADNIL                          R1
+      168 RETURN                           R1 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -145,19 +139,18 @@ PROTO_1:
        27 GETUPVAL                         R4 2
        28 MOVE                             R5 R3
        29 CALL                             R4 1 1
-       30 JUMPIFEQKNIL                     R4 ; [+12]
+       30 JUMPIFEQKNIL                     R4 ; [+11]
        32 GETIMPORT                        R5 K7 [warn]
-       34 LOADK                            R7 K9 ["Reimport configs validation failed: %*"]
-       35 MOVE                             R9 R4
-       36 NAMECALL                         R7 R7 K10 ["format"]
-       38 CALL                             R7 2 1
-       39 MOVE                             R6 R7
-       40 CALL                             R5 1 0
-       41 NEWTABLE                         R3 0 0
-       43 LOADB                            R5 1
-       44 SETUPVAL                         R5 3
-       45 SETUPVAL                         R3 4
-       46 RETURN                           R0 0
+       34 LOADK                            R6 K9 ["Reimport configs validation failed: %*"]
+       35 MOVE                             R8 R4
+       36 NAMECALL                         R6 R6 K10 ["format"]
+       38 CALL                             R6 2 1
+       39 CALL                             R5 1 0
+       40 NEWTABLE                         R3 0 0
+       42 LOADB                            R5 1
+       43 SETUPVAL                         R5 3
+       44 SETUPVAL                         R3 4
+       45 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0

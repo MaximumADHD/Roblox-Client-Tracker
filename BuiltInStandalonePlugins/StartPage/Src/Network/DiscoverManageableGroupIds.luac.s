@@ -18,14 +18,13 @@ PROTO_1:
 
 PROTO_2:
         0 GETIMPORT                        R1 K1 [warn]
-        2 LOADK                            R3 K2 ["DiscoverManageableGroupIds experienced an error: %*"]
-        3 MOVE                             R5 R0
-        4 NAMECALL                         R3 R3 K3 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 CALL                             R1 1 0
-        9 NEWTABLE                         R1 0 0
-       11 RETURN                           R1 1
+        2 LOADK                            R2 K2 ["DiscoverManageableGroupIds experienced an error: %*"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R2 R2 K3 ["format"]
+        6 CALL                             R2 2 1
+        7 CALL                             R1 1 0
+        8 NEWTABLE                         R1 0 0
+       10 RETURN                           R1 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0

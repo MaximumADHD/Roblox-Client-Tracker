@@ -18,15 +18,14 @@ PROTO_0:
        25 RETURN                           R3 1
 
 PROTO_1:
-        0 LOADK                            R1 K0 ["Menu/%*"]
-        1 GETUPVAL                         R3 0
-        2 LOADB                            R5 0
-        3 NAMECALL                         R3 R3 K1 ["GenerateGUID"]
-        5 CALL                             R3 2 1
-        6 NAMECALL                         R1 R1 K2 ["format"]
-        8 CALL                             R1 2 1
-        9 MOVE                             R0 R1
-       10 RETURN                           R0 1
+        0 LOADK                            R0 K0 ["Menu/%*"]
+        1 GETUPVAL                         R2 0
+        2 LOADB                            R4 0
+        3 NAMECALL                         R2 R2 K1 ["GenerateGUID"]
+        5 CALL                             R2 2 1
+        6 NAMECALL                         R0 R0 K2 ["format"]
+        8 CALL                             R0 2 1
+        9 RETURN                           R0 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0

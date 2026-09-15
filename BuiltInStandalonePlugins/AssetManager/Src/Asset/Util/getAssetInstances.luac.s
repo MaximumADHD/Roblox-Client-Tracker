@@ -1,10 +1,9 @@
 PROTO_0:
-        0 LOADK                            R2 K0 ["rbxassetid://%*"]
-        1 MOVE                             R4 R0
-        2 NAMECALL                         R2 R2 K1 ["format"]
-        4 CALL                             R2 2 1
-        5 MOVE                             R1 R2
-        6 RETURN                           R1 1
+        0 LOADK                            R1 K0 ["rbxassetid://%*"]
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K1 ["format"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
 
 PROTO_1:
         0 NEWTABLE                         R0 0 1

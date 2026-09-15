@@ -4,34 +4,33 @@ PROTO_0:
         3 LOADNIL                          R3
         4 LOADNIL                          R4
         5 FORGPREP                         R2
-        6 LOADK                            R8 K0 ["Category%*_%*"]
-        7 MOVE                             R10 R5
-        8 MOVE                             R11 R6
-        9 NAMECALL                         R8 R8 K1 ["format"]
-       11 CALL                             R8 3 1
-       12 MOVE                             R7 R8
-       13 GETUPVAL                         R8 0
-       14 GETTABLEKS                       R8 R8 K2 ["createElement"]
-       16 GETUPVAL                         R9 1
-       17 DUPTABLE                         R10 K6 [{"text", "variant", "LayoutOrder"}]
-       18 SETTABLEKS                       R6 R10 K3 ["text"]
-       20 GETUPVAL                         R11 2
-       21 GETTABLEKS                       R11 R11 K7 ["Enums"]
-       23 GETTABLEKS                       R11 R11 K8 ["BadgeVariant"]
-       25 GETTABLEKS                       R11 R11 K9 ["Neutral"]
-       27 SETTABLEKS                       R11 R10 K4 ["variant"]
-       29 SETTABLEKS                       R5 R10 K5 ["LayoutOrder"]
-       31 CALL                             R8 2 1
-       32 SETTABLE                         R8 R1 R7
-       33 FORGLOOP                         R2 2 ; [-28]
-       35 GETUPVAL                         R2 0
-       36 GETTABLEKS                       R2 R2 K2 ["createElement"]
-       38 GETUPVAL                         R3 0
-       39 GETTABLEKS                       R3 R3 K10 ["Fragment"]
-       41 LOADNIL                          R4
-       42 MOVE                             R5 R1
-       43 CALL                             R2 3 -1
-       44 RETURN                           R2 -1
+        6 LOADK                            R7 K0 ["Category%*_%*"]
+        7 MOVE                             R9 R5
+        8 MOVE                             R10 R6
+        9 NAMECALL                         R7 R7 K1 ["format"]
+       11 CALL                             R7 3 1
+       12 GETUPVAL                         R8 0
+       13 GETTABLEKS                       R8 R8 K2 ["createElement"]
+       15 GETUPVAL                         R9 1
+       16 DUPTABLE                         R10 K6 [{"text", "variant", "LayoutOrder"}]
+       17 SETTABLEKS                       R6 R10 K3 ["text"]
+       19 GETUPVAL                         R11 2
+       20 GETTABLEKS                       R11 R11 K7 ["Enums"]
+       22 GETTABLEKS                       R11 R11 K8 ["BadgeVariant"]
+       24 GETTABLEKS                       R11 R11 K9 ["Neutral"]
+       26 SETTABLEKS                       R11 R10 K4 ["variant"]
+       28 SETTABLEKS                       R5 R10 K5 ["LayoutOrder"]
+       30 CALL                             R8 2 1
+       31 SETTABLE                         R8 R1 R7
+       32 FORGLOOP                         R2 2 ; [-27]
+       34 GETUPVAL                         R2 0
+       35 GETTABLEKS                       R2 R2 K2 ["createElement"]
+       37 GETUPVAL                         R3 0
+       38 GETTABLEKS                       R3 R3 K10 ["Fragment"]
+       40 LOADNIL                          R4
+       41 MOVE                             R5 R1
+       42 CALL                             R2 3 -1
+       43 RETURN                           R2 -1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["tutorialInfo"]

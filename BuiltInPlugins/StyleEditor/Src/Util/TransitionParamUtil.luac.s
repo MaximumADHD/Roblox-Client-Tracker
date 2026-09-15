@@ -51,17 +51,16 @@ PROTO_3:
         6 GETTABLEKS                       R3 R0 K1 ["DelayTime"]
         8 LOADN                            R4 3
         9 CALL                             R2 2 1
-       10 LOADK                            R4 K2 ["%*, %*, %*, %*"]
-       11 MOVE                             R6 R1
-       12 GETTABLEKS                       R7 R0 K3 ["EasingStyle"]
-       14 GETTABLEKS                       R7 R7 K4 ["Name"]
-       16 GETTABLEKS                       R8 R0 K5 ["EasingDirection"]
-       18 GETTABLEKS                       R8 R8 K4 ["Name"]
-       20 MOVE                             R9 R2
-       21 NAMECALL                         R4 R4 K6 ["format"]
-       23 CALL                             R4 5 1
-       24 MOVE                             R3 R4
-       25 RETURN                           R3 1
+       10 LOADK                            R3 K2 ["%*, %*, %*, %*"]
+       11 MOVE                             R5 R1
+       12 GETTABLEKS                       R6 R0 K3 ["EasingStyle"]
+       14 GETTABLEKS                       R6 R6 K4 ["Name"]
+       16 GETTABLEKS                       R7 R0 K5 ["EasingDirection"]
+       18 GETTABLEKS                       R7 R7 K4 ["Name"]
+       20 MOVE                             R8 R2
+       21 NAMECALL                         R3 R3 K6 ["format"]
+       23 CALL                             R3 5 1
+       24 RETURN                           R3 1
 
 PROTO_4:
         0 LOADK                            R3 K0 ["%s"]

@@ -446,296 +446,290 @@ PROTO_10:
       139 RETURN                           R21 1
       140 GETUPVAL                         R21 6
       141 CALL                             R21 0 1
-      142 JUMPIFNOT                        R21 ; [+45]
-      143 JUMPIFNOT                        R6 ; [+44]
+      142 JUMPIFNOT                        R21 ; [+44]
+      143 JUMPIFNOT                        R6 ; [+43]
       144 GETUPVAL                         R21 0
       145 GETTABLEKS                       R21 R21 K11 ["createElement"]
       147 GETUPVAL                         R22 17
       148 DUPTABLE                         R23 K16 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y", ["testId"]}]
       149 GETTABLEKS                       R24 R0 K12 ["LayoutOrder"]
       151 SETTABLEKS                       R24 R23 K12 ["LayoutOrder"]
-      153 LOADK                            R25 K17 ["action-%*"]
-      154 GETTABLEKS                       R27 R4 K18 ["name"]
-      156 NAMECALL                         R25 R25 K19 ["format"]
-      158 CALL                             R25 2 1
-      159 MOVE                             R24 R25
-      160 SETTABLEKS                       R24 R23 K15 ["testId"]
-      162 DUPTABLE                         R24 K21 [{"HeaderRow"}]
-      163 GETUPVAL                         R25 0
-      164 GETTABLEKS                       R25 R25 K11 ["createElement"]
-      166 GETUPVAL                         R26 18
-      167 DUPTABLE                         R27 K26 [{["bindings"], ["LayoutOrder"] = 1, ["nodeProps"], ["stateString"]}]
-      168 GETTABLEKS                       R28 R5 K27 ["All"]
-      170 SETTABLEKS                       R28 R27 K22 ["bindings"]
-      172 DUPTABLE                         R28 K32 [{["action"], ["depth"] = 1, ["icon"] = "InputAction", ["name"]}]
-      173 SETTABLEKS                       R4 R28 K28 ["action"]
-      175 GETTABLEKS                       R29 R4 K18 ["name"]
-      177 SETTABLEKS                       R29 R28 K18 ["name"]
-      179 SETTABLEKS                       R28 R27 K24 ["nodeProps"]
-      181 SETTABLEKS                       R6 R27 K25 ["stateString"]
-      183 CALL                             R25 2 1
-      184 SETTABLEKS                       R25 R24 K20 ["HeaderRow"]
-      186 CALL                             R21 3 -1
-      187 RETURN                           R21 -1
-      188 JUMPIFNOTEQKNIL                  R8 ; [+74]
-      190 GETTABLEKS                       R22 R5 K4 ["Keycode"]
-      192 LENGTH                           R21 R22
-      193 LOADN                            R22 1
-      194 JUMPIFNOTLE                      R21 R22 ; [+8]
-      196 GETTABLEKS                       R22 R5 K5 ["Composite"]
-      198 LENGTH                           R21 R22
-      199 JUMPIFNOTEQKN                    R21 K33 [0] ; [+3]
-      201 JUMPIFEQKNIL                     R14 ; [+3]
-      203 JUMPIFNOTEQKS                    R14 K4 ["Keycode"] ; [+59]
-      205 GETTABLEKS                       R22 R5 K4 ["Keycode"]
-      207 GETTABLEN                        R21 R22 1
-      208 JUMPIF                           R21 ; [+2]
-      209 NEWTABLE                         R21 0 0
-      211 GETUPVAL                         R22 0
-      212 GETTABLEKS                       R22 R22 K11 ["createElement"]
-      214 GETUPVAL                         R23 17
-      215 DUPTABLE                         R24 K16 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y", ["testId"]}]
-      216 GETTABLEKS                       R25 R0 K12 ["LayoutOrder"]
-      218 SETTABLEKS                       R25 R24 K12 ["LayoutOrder"]
-      220 LOADK                            R26 K17 ["action-%*"]
-      221 GETTABLEKS                       R28 R4 K18 ["name"]
-      223 NAMECALL                         R26 R26 K19 ["format"]
-      225 CALL                             R26 2 1
-      226 MOVE                             R25 R26
-      227 SETTABLEKS                       R25 R24 K15 ["testId"]
-      229 DUPTABLE                         R25 K21 [{"HeaderRow"}]
-      230 GETUPVAL                         R26 0
-      231 GETTABLEKS                       R26 R26 K11 ["createElement"]
-      233 GETUPVAL                         R27 19
-      234 DUPTABLE                         R28 K41 [{["action"], ["bindings"], ["isRoot"] = True, ["createMenu"], ["index"] = 1, ["LayoutOrder"], ["name"], ["onBindingEditCommand"], ["onCreateMenuItemSelected"], ["validBindingsBySchema"]}]
-      235 SETTABLEKS                       R4 R28 K28 ["action"]
-      237 SETTABLEKS                       R21 R28 K22 ["bindings"]
-      239 SETTABLEKS                       R7 R28 K36 ["createMenu"]
-      241 MOVE                             R29 R20
-      242 CALL                             R29 0 1
-      243 SETTABLEKS                       R29 R28 K12 ["LayoutOrder"]
-      245 GETTABLEKS                       R29 R4 K18 ["name"]
-      247 SETTABLEKS                       R29 R28 K18 ["name"]
+      153 LOADK                            R24 K17 ["action-%*"]
+      154 GETTABLEKS                       R26 R4 K18 ["name"]
+      156 NAMECALL                         R24 R24 K19 ["format"]
+      158 CALL                             R24 2 1
+      159 SETTABLEKS                       R24 R23 K15 ["testId"]
+      161 DUPTABLE                         R24 K21 [{"HeaderRow"}]
+      162 GETUPVAL                         R25 0
+      163 GETTABLEKS                       R25 R25 K11 ["createElement"]
+      165 GETUPVAL                         R26 18
+      166 DUPTABLE                         R27 K26 [{["bindings"], ["LayoutOrder"] = 1, ["nodeProps"], ["stateString"]}]
+      167 GETTABLEKS                       R28 R5 K27 ["All"]
+      169 SETTABLEKS                       R28 R27 K22 ["bindings"]
+      171 DUPTABLE                         R28 K32 [{["action"], ["depth"] = 1, ["icon"] = "InputAction", ["name"]}]
+      172 SETTABLEKS                       R4 R28 K28 ["action"]
+      174 GETTABLEKS                       R29 R4 K18 ["name"]
+      176 SETTABLEKS                       R29 R28 K18 ["name"]
+      178 SETTABLEKS                       R28 R27 K24 ["nodeProps"]
+      180 SETTABLEKS                       R6 R27 K25 ["stateString"]
+      182 CALL                             R25 2 1
+      183 SETTABLEKS                       R25 R24 K20 ["HeaderRow"]
+      185 CALL                             R21 3 -1
+      186 RETURN                           R21 -1
+      187 JUMPIFNOTEQKNIL                  R8 ; [+73]
+      189 GETTABLEKS                       R22 R5 K4 ["Keycode"]
+      191 LENGTH                           R21 R22
+      192 LOADN                            R22 1
+      193 JUMPIFNOTLE                      R21 R22 ; [+8]
+      195 GETTABLEKS                       R22 R5 K5 ["Composite"]
+      197 LENGTH                           R21 R22
+      198 JUMPIFNOTEQKN                    R21 K33 [0] ; [+3]
+      200 JUMPIFEQKNIL                     R14 ; [+3]
+      202 JUMPIFNOTEQKS                    R14 K4 ["Keycode"] ; [+58]
+      204 GETTABLEKS                       R22 R5 K4 ["Keycode"]
+      206 GETTABLEN                        R21 R22 1
+      207 JUMPIF                           R21 ; [+2]
+      208 NEWTABLE                         R21 0 0
+      210 GETUPVAL                         R22 0
+      211 GETTABLEKS                       R22 R22 K11 ["createElement"]
+      213 GETUPVAL                         R23 17
+      214 DUPTABLE                         R24 K16 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y", ["testId"]}]
+      215 GETTABLEKS                       R25 R0 K12 ["LayoutOrder"]
+      217 SETTABLEKS                       R25 R24 K12 ["LayoutOrder"]
+      219 LOADK                            R25 K17 ["action-%*"]
+      220 GETTABLEKS                       R27 R4 K18 ["name"]
+      222 NAMECALL                         R25 R25 K19 ["format"]
+      224 CALL                             R25 2 1
+      225 SETTABLEKS                       R25 R24 K15 ["testId"]
+      227 DUPTABLE                         R25 K21 [{"HeaderRow"}]
+      228 GETUPVAL                         R26 0
+      229 GETTABLEKS                       R26 R26 K11 ["createElement"]
+      231 GETUPVAL                         R27 19
+      232 DUPTABLE                         R28 K41 [{["action"], ["bindings"], ["isRoot"] = True, ["createMenu"], ["index"] = 1, ["LayoutOrder"], ["name"], ["onBindingCreateCommand"], ["onBindingEditCommand"], ["validBindingsBySchema"]}]
+      233 SETTABLEKS                       R4 R28 K28 ["action"]
+      235 SETTABLEKS                       R21 R28 K22 ["bindings"]
+      237 SETTABLEKS                       R7 R28 K36 ["createMenu"]
+      239 MOVE                             R29 R20
+      240 CALL                             R29 0 1
+      241 SETTABLEKS                       R29 R28 K12 ["LayoutOrder"]
+      243 GETTABLEKS                       R29 R4 K18 ["name"]
+      245 SETTABLEKS                       R29 R28 K18 ["name"]
+      247 SETTABLEKS                       R9 R28 K38 ["onBindingCreateCommand"]
       249 NEWCLOSURE                       R29 P4
       250 CAPTURE                          VAL R19
       251 CAPTURE                          VAL R21
-      252 SETTABLEKS                       R29 R28 K38 ["onBindingEditCommand"]
-      254 SETTABLEKS                       R9 R28 K39 ["onCreateMenuItemSelected"]
-      256 SETTABLEKS                       R16 R28 K40 ["validBindingsBySchema"]
-      258 CALL                             R26 2 1
-      259 SETTABLEKS                       R26 R25 K20 ["HeaderRow"]
-      261 CALL                             R22 3 -1
-      262 RETURN                           R22 -1
-      263 JUMPIFNOTEQKNIL                  R8 ; [+80]
-      265 GETTABLEKS                       R22 R5 K4 ["Keycode"]
-      267 LENGTH                           R21 R22
-      268 JUMPIFNOTEQKN                    R21 K33 [0] ; [+9]
-      270 GETTABLEKS                       R22 R5 K5 ["Composite"]
-      272 LENGTH                           R21 R22
-      273 LOADN                            R22 1
-      274 JUMPIFNOTLE                      R21 R22 ; [+3]
-      276 JUMPIFEQKNIL                     R14 ; [+3]
-      278 JUMPIFNOTEQKS                    R14 K5 ["Composite"] ; [+65]
-      280 GETTABLEKS                       R23 R5 K5 ["Composite"]
-      282 LENGTH                           R22 R23
-      283 LOADN                            R23 0
-      284 JUMPIFNOTLT                      R23 R22 ; [+5]
-      286 GETTABLEKS                       R22 R5 K5 ["Composite"]
-      288 GETTABLEN                        R21 R22 1
-      289 JUMP                             ; [+2]
-      290 NEWTABLE                         R21 0 0
-      292 GETUPVAL                         R22 0
-      293 GETTABLEKS                       R22 R22 K11 ["createElement"]
-      295 GETUPVAL                         R23 17
-      296 DUPTABLE                         R24 K16 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y", ["testId"]}]
-      297 GETTABLEKS                       R25 R0 K12 ["LayoutOrder"]
-      299 SETTABLEKS                       R25 R24 K12 ["LayoutOrder"]
-      301 LOADK                            R26 K17 ["action-%*"]
-      302 GETTABLEKS                       R28 R4 K18 ["name"]
-      304 NAMECALL                         R26 R26 K19 ["format"]
-      306 CALL                             R26 2 1
-      307 MOVE                             R25 R26
-      308 SETTABLEKS                       R25 R24 K15 ["testId"]
-      310 DUPTABLE                         R25 K21 [{"HeaderRow"}]
-      311 GETUPVAL                         R26 0
-      312 GETTABLEKS                       R26 R26 K11 ["createElement"]
-      314 GETUPVAL                         R27 20
-      315 DUPTABLE                         R28 K41 [{["action"], ["bindings"], ["isRoot"] = True, ["createMenu"], ["index"] = 1, ["LayoutOrder"], ["name"], ["onBindingEditCommand"], ["onCreateMenuItemSelected"], ["validBindingsBySchema"]}]
-      316 SETTABLEKS                       R4 R28 K28 ["action"]
-      318 SETTABLEKS                       R21 R28 K22 ["bindings"]
-      320 SETTABLEKS                       R7 R28 K36 ["createMenu"]
-      322 MOVE                             R29 R20
-      323 CALL                             R29 0 1
-      324 SETTABLEKS                       R29 R28 K12 ["LayoutOrder"]
-      326 GETTABLEKS                       R29 R4 K18 ["name"]
-      328 SETTABLEKS                       R29 R28 K18 ["name"]
-      330 NEWCLOSURE                       R29 P5
-      331 CAPTURE                          VAL R19
-      332 CAPTURE                          VAL R21
-      333 SETTABLEKS                       R29 R28 K38 ["onBindingEditCommand"]
-      335 SETTABLEKS                       R9 R28 K39 ["onCreateMenuItemSelected"]
-      337 SETTABLEKS                       R16 R28 K40 ["validBindingsBySchema"]
-      339 CALL                             R26 2 1
-      340 SETTABLEKS                       R26 R25 K20 ["HeaderRow"]
-      342 CALL                             R22 3 -1
-      343 RETURN                           R22 -1
-      344 DUPTABLE                         R21 K44 [{"HeaderRow", "CreatingKeyBind", "CreatingComposite"}]
-      345 GETUPVAL                         R22 0
-      346 GETTABLEKS                       R22 R22 K11 ["createElement"]
-      348 GETUPVAL                         R23 18
-      349 DUPTABLE                         R24 K45 [{"bindings", "LayoutOrder", "nodeProps"}]
-      350 GETTABLEKS                       R25 R5 K27 ["All"]
-      352 SETTABLEKS                       R25 R24 K22 ["bindings"]
-      354 MOVE                             R25 R20
-      355 CALL                             R25 0 1
-      356 SETTABLEKS                       R25 R24 K12 ["LayoutOrder"]
-      358 DUPTABLE                         R25 K50 [{["action"], ["createMenu"], ["depth"] = 1, ["editMenu"], ["expanded"], ["icon"] = "InputAction", ["name"], ["onCreateMenuItemSelected"], ["onEditMenuItemSelected"], ["setExpanded"]}]
-      359 SETTABLEKS                       R4 R25 K28 ["action"]
-      361 SETTABLEKS                       R7 R25 K36 ["createMenu"]
-      363 SETTABLEKS                       R18 R25 K46 ["editMenu"]
-      365 SETTABLEKS                       R12 R25 K47 ["expanded"]
-      367 GETTABLEKS                       R26 R4 K18 ["name"]
-      369 SETTABLEKS                       R26 R25 K18 ["name"]
-      371 SETTABLEKS                       R9 R25 K39 ["onCreateMenuItemSelected"]
-      373 SETTABLEKS                       R19 R25 K48 ["onEditMenuItemSelected"]
-      375 SETTABLEKS                       R13 R25 K49 ["setExpanded"]
-      377 SETTABLEKS                       R25 R24 K24 ["nodeProps"]
-      379 CALL                             R22 2 1
-      380 SETTABLEKS                       R22 R21 K20 ["HeaderRow"]
-      382 LOADB                            R22 0
-      383 JUMPIFNOTEQKS                    R8 K4 ["Keycode"] ; [+33]
-      385 GETUPVAL                         R22 0
-      386 GETTABLEKS                       R22 R22 K11 ["createElement"]
-      388 GETUPVAL                         R23 19
-      389 DUPTABLE                         R24 K53 [{"action", "bindings", "index", "LayoutOrder", "onCreated", "onCancelBinding", "onBindingEditCommand", "validBindingsBySchema"}]
-      390 SETTABLEKS                       R4 R24 K28 ["action"]
-      392 NEWTABLE                         R25 0 0
-      394 SETTABLEKS                       R25 R24 K22 ["bindings"]
-      396 GETTABLEKS                       R27 R5 K4 ["Keycode"]
-      398 LENGTH                           R26 R27
-      399 ADDK                             R25 R26 K23 [1]
-      400 SETTABLEKS                       R25 R24 K37 ["index"]
-      402 MOVE                             R25 R20
-      403 CALL                             R25 0 1
-      404 SETTABLEKS                       R25 R24 K12 ["LayoutOrder"]
-      406 SETTABLEKS                       R10 R24 K51 ["onCreated"]
-      408 SETTABLEKS                       R11 R24 K52 ["onCancelBinding"]
-      410 NEWCLOSURE                       R25 P6
-      411 CAPTURE                          VAL R19
-      412 SETTABLEKS                       R25 R24 K38 ["onBindingEditCommand"]
-      414 SETTABLEKS                       R16 R24 K40 ["validBindingsBySchema"]
-      416 CALL                             R22 2 1
-      417 SETTABLEKS                       R22 R21 K42 ["CreatingKeyBind"]
-      419 LOADB                            R22 0
-      420 JUMPIFNOTEQKS                    R8 K5 ["Composite"] ; [+33]
-      422 GETUPVAL                         R22 0
-      423 GETTABLEKS                       R22 R22 K11 ["createElement"]
-      425 GETUPVAL                         R23 20
-      426 DUPTABLE                         R24 K53 [{"action", "bindings", "index", "LayoutOrder", "onCreated", "onCancelBinding", "onBindingEditCommand", "validBindingsBySchema"}]
-      427 SETTABLEKS                       R4 R24 K28 ["action"]
-      429 NEWTABLE                         R25 0 0
-      431 SETTABLEKS                       R25 R24 K22 ["bindings"]
-      433 GETTABLEKS                       R27 R5 K5 ["Composite"]
-      435 LENGTH                           R26 R27
-      436 ADDK                             R25 R26 K23 [1]
-      437 SETTABLEKS                       R25 R24 K37 ["index"]
-      439 MOVE                             R25 R20
-      440 CALL                             R25 0 1
-      441 SETTABLEKS                       R25 R24 K12 ["LayoutOrder"]
-      443 SETTABLEKS                       R10 R24 K51 ["onCreated"]
-      445 SETTABLEKS                       R11 R24 K52 ["onCancelBinding"]
-      447 NEWCLOSURE                       R25 P7
-      448 CAPTURE                          VAL R19
-      449 SETTABLEKS                       R25 R24 K38 ["onBindingEditCommand"]
-      451 SETTABLEKS                       R16 R24 K40 ["validBindingsBySchema"]
-      453 CALL                             R22 2 1
-      454 SETTABLEKS                       R22 R21 K43 ["CreatingComposite"]
-      456 JUMPIFNOT                        R12 ; [+96]
-      457 GETTABLEKS                       R22 R5 K4 ["Keycode"]
-      459 LOADNIL                          R23
-      460 LOADNIL                          R24
-      461 FORGPREP                         R22
-      462 LOADK                            R28 K54 ["Keycode_%*"]
-      463 MOVE                             R30 R25
-      464 NAMECALL                         R28 R28 K19 ["format"]
-      466 CALL                             R28 2 1
-      467 MOVE                             R27 R28
-      468 GETUPVAL                         R28 0
-      469 GETTABLEKS                       R28 R28 K11 ["createElement"]
-      471 GETUPVAL                         R29 19
-      472 DUPTABLE                         R30 K56 [{"action", "bindings", "index", "LayoutOrder", "onBindingEditCommand", "previousBindings", "validBindingsBySchema"}]
-      473 SETTABLEKS                       R4 R30 K28 ["action"]
-      475 SETTABLEKS                       R26 R30 K22 ["bindings"]
-      477 SETTABLEKS                       R25 R30 K37 ["index"]
-      479 MOVE                             R31 R20
-      480 CALL                             R31 0 1
-      481 SETTABLEKS                       R31 R30 K12 ["LayoutOrder"]
-      483 NEWCLOSURE                       R31 P8
-      484 CAPTURE                          VAL R19
-      485 CAPTURE                          VAL R26
-      486 SETTABLEKS                       R31 R30 K38 ["onBindingEditCommand"]
-      488 LOADN                            R32 1
-      489 JUMPIFNOTLT                      R32 R25 ; [+6]
-      491 GETTABLEKS                       R32 R5 K4 ["Keycode"]
-      493 SUBK                             R33 R25 K23 [1]
-      494 GETTABLE                         R31 R32 R33
-      495 JUMP                             ; [+1]
-      496 LOADNIL                          R31
-      497 SETTABLEKS                       R31 R30 K55 ["previousBindings"]
-      499 SETTABLEKS                       R16 R30 K40 ["validBindingsBySchema"]
-      501 CALL                             R28 2 1
-      502 SETTABLE                         R28 R21 R27
-      503 FORGLOOP                         R22 2 ; [-42]
-      505 GETTABLEKS                       R22 R5 K5 ["Composite"]
-      507 LOADNIL                          R23
-      508 LOADNIL                          R24
-      509 FORGPREP                         R22
-      510 LOADK                            R28 K57 ["Composite_%*"]
-      511 MOVE                             R30 R25
-      512 NAMECALL                         R28 R28 K19 ["format"]
-      514 CALL                             R28 2 1
-      515 MOVE                             R27 R28
-      516 GETUPVAL                         R28 0
-      517 GETTABLEKS                       R28 R28 K11 ["createElement"]
-      519 GETUPVAL                         R29 20
-      520 DUPTABLE                         R30 K56 [{"action", "bindings", "index", "LayoutOrder", "onBindingEditCommand", "previousBindings", "validBindingsBySchema"}]
-      521 SETTABLEKS                       R4 R30 K28 ["action"]
-      523 SETTABLEKS                       R26 R30 K22 ["bindings"]
-      525 SETTABLEKS                       R25 R30 K37 ["index"]
-      527 MOVE                             R31 R20
-      528 CALL                             R31 0 1
-      529 SETTABLEKS                       R31 R30 K12 ["LayoutOrder"]
-      531 NEWCLOSURE                       R31 P9
-      532 CAPTURE                          VAL R19
-      533 CAPTURE                          VAL R26
-      534 SETTABLEKS                       R31 R30 K38 ["onBindingEditCommand"]
-      536 LOADN                            R32 1
-      537 JUMPIFNOTLT                      R32 R25 ; [+6]
-      539 GETTABLEKS                       R32 R5 K5 ["Composite"]
-      541 SUBK                             R33 R25 K23 [1]
-      542 GETTABLE                         R31 R32 R33
-      543 JUMP                             ; [+1]
-      544 LOADNIL                          R31
-      545 SETTABLEKS                       R31 R30 K55 ["previousBindings"]
-      547 SETTABLEKS                       R16 R30 K40 ["validBindingsBySchema"]
-      549 CALL                             R28 2 1
-      550 SETTABLE                         R28 R21 R27
-      551 FORGLOOP                         R22 2 ; [-42]
-      553 GETUPVAL                         R22 0
-      554 GETTABLEKS                       R22 R22 K11 ["createElement"]
-      556 GETUPVAL                         R23 17
-      557 DUPTABLE                         R24 K16 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y", ["testId"]}]
-      558 GETTABLEKS                       R25 R0 K12 ["LayoutOrder"]
-      560 SETTABLEKS                       R25 R24 K12 ["LayoutOrder"]
-      562 LOADK                            R26 K17 ["action-%*"]
-      563 GETTABLEKS                       R28 R4 K18 ["name"]
-      565 NAMECALL                         R26 R26 K19 ["format"]
-      567 CALL                             R26 2 1
-      568 MOVE                             R25 R26
-      569 SETTABLEKS                       R25 R24 K15 ["testId"]
-      571 MOVE                             R25 R21
-      572 CALL                             R22 3 -1
-      573 RETURN                           R22 -1
+      252 SETTABLEKS                       R29 R28 K39 ["onBindingEditCommand"]
+      254 SETTABLEKS                       R16 R28 K40 ["validBindingsBySchema"]
+      256 CALL                             R26 2 1
+      257 SETTABLEKS                       R26 R25 K20 ["HeaderRow"]
+      259 CALL                             R22 3 -1
+      260 RETURN                           R22 -1
+      261 JUMPIFNOTEQKNIL                  R8 ; [+79]
+      263 GETTABLEKS                       R22 R5 K4 ["Keycode"]
+      265 LENGTH                           R21 R22
+      266 JUMPIFNOTEQKN                    R21 K33 [0] ; [+9]
+      268 GETTABLEKS                       R22 R5 K5 ["Composite"]
+      270 LENGTH                           R21 R22
+      271 LOADN                            R22 1
+      272 JUMPIFNOTLE                      R21 R22 ; [+3]
+      274 JUMPIFEQKNIL                     R14 ; [+3]
+      276 JUMPIFNOTEQKS                    R14 K5 ["Composite"] ; [+64]
+      278 GETTABLEKS                       R23 R5 K5 ["Composite"]
+      280 LENGTH                           R22 R23
+      281 LOADN                            R23 0
+      282 JUMPIFNOTLT                      R23 R22 ; [+5]
+      284 GETTABLEKS                       R22 R5 K5 ["Composite"]
+      286 GETTABLEN                        R21 R22 1
+      287 JUMP                             ; [+2]
+      288 NEWTABLE                         R21 0 0
+      290 GETUPVAL                         R22 0
+      291 GETTABLEKS                       R22 R22 K11 ["createElement"]
+      293 GETUPVAL                         R23 17
+      294 DUPTABLE                         R24 K16 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y", ["testId"]}]
+      295 GETTABLEKS                       R25 R0 K12 ["LayoutOrder"]
+      297 SETTABLEKS                       R25 R24 K12 ["LayoutOrder"]
+      299 LOADK                            R25 K17 ["action-%*"]
+      300 GETTABLEKS                       R27 R4 K18 ["name"]
+      302 NAMECALL                         R25 R25 K19 ["format"]
+      304 CALL                             R25 2 1
+      305 SETTABLEKS                       R25 R24 K15 ["testId"]
+      307 DUPTABLE                         R25 K21 [{"HeaderRow"}]
+      308 GETUPVAL                         R26 0
+      309 GETTABLEKS                       R26 R26 K11 ["createElement"]
+      311 GETUPVAL                         R27 20
+      312 DUPTABLE                         R28 K41 [{["action"], ["bindings"], ["isRoot"] = True, ["createMenu"], ["index"] = 1, ["LayoutOrder"], ["name"], ["onBindingCreateCommand"], ["onBindingEditCommand"], ["validBindingsBySchema"]}]
+      313 SETTABLEKS                       R4 R28 K28 ["action"]
+      315 SETTABLEKS                       R21 R28 K22 ["bindings"]
+      317 SETTABLEKS                       R7 R28 K36 ["createMenu"]
+      319 MOVE                             R29 R20
+      320 CALL                             R29 0 1
+      321 SETTABLEKS                       R29 R28 K12 ["LayoutOrder"]
+      323 GETTABLEKS                       R29 R4 K18 ["name"]
+      325 SETTABLEKS                       R29 R28 K18 ["name"]
+      327 SETTABLEKS                       R9 R28 K38 ["onBindingCreateCommand"]
+      329 NEWCLOSURE                       R29 P5
+      330 CAPTURE                          VAL R19
+      331 CAPTURE                          VAL R21
+      332 SETTABLEKS                       R29 R28 K39 ["onBindingEditCommand"]
+      334 SETTABLEKS                       R16 R28 K40 ["validBindingsBySchema"]
+      336 CALL                             R26 2 1
+      337 SETTABLEKS                       R26 R25 K20 ["HeaderRow"]
+      339 CALL                             R22 3 -1
+      340 RETURN                           R22 -1
+      341 DUPTABLE                         R21 K44 [{"HeaderRow", "CreatingKeyBind", "CreatingComposite"}]
+      342 GETUPVAL                         R22 0
+      343 GETTABLEKS                       R22 R22 K11 ["createElement"]
+      345 GETUPVAL                         R23 18
+      346 DUPTABLE                         R24 K45 [{"bindings", "LayoutOrder", "nodeProps"}]
+      347 GETTABLEKS                       R25 R5 K27 ["All"]
+      349 SETTABLEKS                       R25 R24 K22 ["bindings"]
+      351 MOVE                             R25 R20
+      352 CALL                             R25 0 1
+      353 SETTABLEKS                       R25 R24 K12 ["LayoutOrder"]
+      355 DUPTABLE                         R25 K51 [{["action"], ["createMenu"], ["depth"] = 1, ["editMenu"], ["expanded"], ["icon"] = "InputAction", ["name"], ["onCreateMenuItemSelected"], ["onEditMenuItemSelected"], ["setExpanded"]}]
+      356 SETTABLEKS                       R4 R25 K28 ["action"]
+      358 SETTABLEKS                       R7 R25 K36 ["createMenu"]
+      360 SETTABLEKS                       R18 R25 K46 ["editMenu"]
+      362 SETTABLEKS                       R12 R25 K47 ["expanded"]
+      364 GETTABLEKS                       R26 R4 K18 ["name"]
+      366 SETTABLEKS                       R26 R25 K18 ["name"]
+      368 SETTABLEKS                       R9 R25 K48 ["onCreateMenuItemSelected"]
+      370 SETTABLEKS                       R19 R25 K49 ["onEditMenuItemSelected"]
+      372 SETTABLEKS                       R13 R25 K50 ["setExpanded"]
+      374 SETTABLEKS                       R25 R24 K24 ["nodeProps"]
+      376 CALL                             R22 2 1
+      377 SETTABLEKS                       R22 R21 K20 ["HeaderRow"]
+      379 LOADB                            R22 0
+      380 JUMPIFNOTEQKS                    R8 K4 ["Keycode"] ; [+33]
+      382 GETUPVAL                         R22 0
+      383 GETTABLEKS                       R22 R22 K11 ["createElement"]
+      385 GETUPVAL                         R23 19
+      386 DUPTABLE                         R24 K54 [{"action", "bindings", "index", "LayoutOrder", "onCreated", "onCancelBinding", "onBindingEditCommand", "validBindingsBySchema"}]
+      387 SETTABLEKS                       R4 R24 K28 ["action"]
+      389 NEWTABLE                         R25 0 0
+      391 SETTABLEKS                       R25 R24 K22 ["bindings"]
+      393 GETTABLEKS                       R27 R5 K4 ["Keycode"]
+      395 LENGTH                           R26 R27
+      396 ADDK                             R25 R26 K23 [1]
+      397 SETTABLEKS                       R25 R24 K37 ["index"]
+      399 MOVE                             R25 R20
+      400 CALL                             R25 0 1
+      401 SETTABLEKS                       R25 R24 K12 ["LayoutOrder"]
+      403 SETTABLEKS                       R10 R24 K52 ["onCreated"]
+      405 SETTABLEKS                       R11 R24 K53 ["onCancelBinding"]
+      407 NEWCLOSURE                       R25 P6
+      408 CAPTURE                          VAL R19
+      409 SETTABLEKS                       R25 R24 K39 ["onBindingEditCommand"]
+      411 SETTABLEKS                       R16 R24 K40 ["validBindingsBySchema"]
+      413 CALL                             R22 2 1
+      414 SETTABLEKS                       R22 R21 K42 ["CreatingKeyBind"]
+      416 LOADB                            R22 0
+      417 JUMPIFNOTEQKS                    R8 K5 ["Composite"] ; [+33]
+      419 GETUPVAL                         R22 0
+      420 GETTABLEKS                       R22 R22 K11 ["createElement"]
+      422 GETUPVAL                         R23 20
+      423 DUPTABLE                         R24 K54 [{"action", "bindings", "index", "LayoutOrder", "onCreated", "onCancelBinding", "onBindingEditCommand", "validBindingsBySchema"}]
+      424 SETTABLEKS                       R4 R24 K28 ["action"]
+      426 NEWTABLE                         R25 0 0
+      428 SETTABLEKS                       R25 R24 K22 ["bindings"]
+      430 GETTABLEKS                       R27 R5 K5 ["Composite"]
+      432 LENGTH                           R26 R27
+      433 ADDK                             R25 R26 K23 [1]
+      434 SETTABLEKS                       R25 R24 K37 ["index"]
+      436 MOVE                             R25 R20
+      437 CALL                             R25 0 1
+      438 SETTABLEKS                       R25 R24 K12 ["LayoutOrder"]
+      440 SETTABLEKS                       R10 R24 K52 ["onCreated"]
+      442 SETTABLEKS                       R11 R24 K53 ["onCancelBinding"]
+      444 NEWCLOSURE                       R25 P7
+      445 CAPTURE                          VAL R19
+      446 SETTABLEKS                       R25 R24 K39 ["onBindingEditCommand"]
+      448 SETTABLEKS                       R16 R24 K40 ["validBindingsBySchema"]
+      450 CALL                             R22 2 1
+      451 SETTABLEKS                       R22 R21 K43 ["CreatingComposite"]
+      453 JUMPIFNOT                        R12 ; [+94]
+      454 GETTABLEKS                       R22 R5 K4 ["Keycode"]
+      456 LOADNIL                          R23
+      457 LOADNIL                          R24
+      458 FORGPREP                         R22
+      459 LOADK                            R27 K55 ["Keycode_%*"]
+      460 MOVE                             R29 R25
+      461 NAMECALL                         R27 R27 K19 ["format"]
+      463 CALL                             R27 2 1
+      464 GETUPVAL                         R28 0
+      465 GETTABLEKS                       R28 R28 K11 ["createElement"]
+      467 GETUPVAL                         R29 19
+      468 DUPTABLE                         R30 K57 [{"action", "bindings", "index", "LayoutOrder", "onBindingEditCommand", "previousBindings", "validBindingsBySchema"}]
+      469 SETTABLEKS                       R4 R30 K28 ["action"]
+      471 SETTABLEKS                       R26 R30 K22 ["bindings"]
+      473 SETTABLEKS                       R25 R30 K37 ["index"]
+      475 MOVE                             R31 R20
+      476 CALL                             R31 0 1
+      477 SETTABLEKS                       R31 R30 K12 ["LayoutOrder"]
+      479 NEWCLOSURE                       R31 P8
+      480 CAPTURE                          VAL R19
+      481 CAPTURE                          VAL R26
+      482 SETTABLEKS                       R31 R30 K39 ["onBindingEditCommand"]
+      484 LOADN                            R32 1
+      485 JUMPIFNOTLT                      R32 R25 ; [+6]
+      487 GETTABLEKS                       R32 R5 K4 ["Keycode"]
+      489 SUBK                             R33 R25 K23 [1]
+      490 GETTABLE                         R31 R32 R33
+      491 JUMP                             ; [+1]
+      492 LOADNIL                          R31
+      493 SETTABLEKS                       R31 R30 K56 ["previousBindings"]
+      495 SETTABLEKS                       R16 R30 K40 ["validBindingsBySchema"]
+      497 CALL                             R28 2 1
+      498 SETTABLE                         R28 R21 R27
+      499 FORGLOOP                         R22 2 ; [-41]
+      501 GETTABLEKS                       R22 R5 K5 ["Composite"]
+      503 LOADNIL                          R23
+      504 LOADNIL                          R24
+      505 FORGPREP                         R22
+      506 LOADK                            R27 K58 ["Composite_%*"]
+      507 MOVE                             R29 R25
+      508 NAMECALL                         R27 R27 K19 ["format"]
+      510 CALL                             R27 2 1
+      511 GETUPVAL                         R28 0
+      512 GETTABLEKS                       R28 R28 K11 ["createElement"]
+      514 GETUPVAL                         R29 20
+      515 DUPTABLE                         R30 K57 [{"action", "bindings", "index", "LayoutOrder", "onBindingEditCommand", "previousBindings", "validBindingsBySchema"}]
+      516 SETTABLEKS                       R4 R30 K28 ["action"]
+      518 SETTABLEKS                       R26 R30 K22 ["bindings"]
+      520 SETTABLEKS                       R25 R30 K37 ["index"]
+      522 MOVE                             R31 R20
+      523 CALL                             R31 0 1
+      524 SETTABLEKS                       R31 R30 K12 ["LayoutOrder"]
+      526 NEWCLOSURE                       R31 P9
+      527 CAPTURE                          VAL R19
+      528 CAPTURE                          VAL R26
+      529 SETTABLEKS                       R31 R30 K39 ["onBindingEditCommand"]
+      531 LOADN                            R32 1
+      532 JUMPIFNOTLT                      R32 R25 ; [+6]
+      534 GETTABLEKS                       R32 R5 K5 ["Composite"]
+      536 SUBK                             R33 R25 K23 [1]
+      537 GETTABLE                         R31 R32 R33
+      538 JUMP                             ; [+1]
+      539 LOADNIL                          R31
+      540 SETTABLEKS                       R31 R30 K56 ["previousBindings"]
+      542 SETTABLEKS                       R16 R30 K40 ["validBindingsBySchema"]
+      544 CALL                             R28 2 1
+      545 SETTABLE                         R28 R21 R27
+      546 FORGLOOP                         R22 2 ; [-41]
+      548 GETUPVAL                         R22 0
+      549 GETTABLEKS                       R22 R22 K11 ["createElement"]
+      551 GETUPVAL                         R23 17
+      552 DUPTABLE                         R24 K16 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y", ["testId"]}]
+      553 GETTABLEKS                       R25 R0 K12 ["LayoutOrder"]
+      555 SETTABLEKS                       R25 R24 K12 ["LayoutOrder"]
+      557 LOADK                            R25 K17 ["action-%*"]
+      558 GETTABLEKS                       R27 R4 K18 ["name"]
+      560 NAMECALL                         R25 R25 K19 ["format"]
+      562 CALL                             R25 2 1
+      563 SETTABLEKS                       R25 R24 K15 ["testId"]
+      565 MOVE                             R25 R21
+      566 CALL                             R22 3 -1
+      567 RETURN                           R22 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -1935,21 +1935,20 @@ PROTO_74:
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
         5 GETTABLEKS                       R1 R1 K1 ["queryByTestId"]
-        7 LOADK                            R3 K2 ["import-item-price-%*"]
-        8 MOVE                             R5 R0
-        9 NAMECALL                         R3 R3 K3 ["format"]
-       11 CALL                             R3 2 1
-       12 MOVE                             R2 R3
-       13 CALL                             R1 1 1
-       14 JUMPIFEQKNIL                     R1 ; [+9]
-       16 LOADK                            R5 K4 ["TextLabel"]
-       17 NAMECALL                         R3 R1 K5 ["IsA"]
-       19 CALL                             R3 2 1
-       20 JUMPIFNOT                        R3 ; [+3]
-       21 GETTABLEKS                       R2 R1 K6 ["Text"]
-       23 RETURN                           R2 1
-       24 LOADNIL                          R2
-       25 RETURN                           R2 1
+        7 LOADK                            R2 K2 ["import-item-price-%*"]
+        8 MOVE                             R4 R0
+        9 NAMECALL                         R2 R2 K3 ["format"]
+       11 CALL                             R2 2 1
+       12 CALL                             R1 1 1
+       13 JUMPIFEQKNIL                     R1 ; [+9]
+       15 LOADK                            R5 K4 ["TextLabel"]
+       16 NAMECALL                         R3 R1 K5 ["IsA"]
+       18 CALL                             R3 2 1
+       19 JUMPIFNOT                        R3 ; [+3]
+       20 GETTABLEKS                       R2 R1 K6 ["Text"]
+       22 RETURN                           R2 1
+       23 LOADNIL                          R2
+       24 RETURN                           R2 1
 
 PROTO_75:
         0 GETUPVAL                         R1 0
@@ -1957,21 +1956,20 @@ PROTO_75:
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
         5 GETTABLEKS                       R1 R1 K1 ["queryByTestId"]
-        7 LOADK                            R3 K2 ["look-item-price-%*"]
-        8 MOVE                             R5 R0
-        9 NAMECALL                         R3 R3 K3 ["format"]
-       11 CALL                             R3 2 1
-       12 MOVE                             R2 R3
-       13 CALL                             R1 1 1
-       14 JUMPIFEQKNIL                     R1 ; [+9]
-       16 LOADK                            R5 K4 ["TextLabel"]
-       17 NAMECALL                         R3 R1 K5 ["IsA"]
-       19 CALL                             R3 2 1
-       20 JUMPIFNOT                        R3 ; [+3]
-       21 GETTABLEKS                       R2 R1 K6 ["Text"]
-       23 RETURN                           R2 1
-       24 LOADNIL                          R2
-       25 RETURN                           R2 1
+        7 LOADK                            R2 K2 ["look-item-price-%*"]
+        8 MOVE                             R4 R0
+        9 NAMECALL                         R2 R2 K3 ["format"]
+       11 CALL                             R2 2 1
+       12 CALL                             R1 1 1
+       13 JUMPIFEQKNIL                     R1 ; [+9]
+       15 LOADK                            R5 K4 ["TextLabel"]
+       16 NAMECALL                         R3 R1 K5 ["IsA"]
+       18 CALL                             R3 2 1
+       19 JUMPIFNOT                        R3 ; [+3]
+       20 GETTABLEKS                       R2 R1 K6 ["Text"]
+       22 RETURN                           R2 1
+       23 LOADNIL                          R2
+       24 RETURN                           R2 1
 
 PROTO_76:
         0 GETTABLEKS                       R1 R0 K0 ["Text"]
@@ -1998,16 +1996,15 @@ PROTO_78:
         2 JUMPIFNOTEQKNIL                  R1 ; [+2]
         4 LOADB                            R3 0 +1
         5 LOADB                            R3 1
-        6 LOADK                            R5 K0 ["No mock asset details for id %*"]
-        7 MOVE                             R7 R0
-        8 NAMECALL                         R5 R5 K1 ["format"]
-       10 CALL                             R5 2 1
-       11 MOVE                             R4 R5
-       12 FASTCALL2                        ASSERT R3 R4 ; [+3]
-       14 GETIMPORT                        R2 K3 [assert]
-       16 CALL                             R2 2 0
-       17 GETTABLEKS                       R2 R1 K4 ["Name"]
-       19 RETURN                           R2 1
+        6 LOADK                            R4 K0 ["No mock asset details for id %*"]
+        7 MOVE                             R6 R0
+        8 NAMECALL                         R4 R4 K1 ["format"]
+       10 CALL                             R4 2 1
+       11 FASTCALL2                        ASSERT R3 R4 ; [+3]
+       13 GETIMPORT                        R2 K3 [assert]
+       15 CALL                             R2 2 0
+       16 GETTABLEKS                       R2 R1 K4 ["Name"]
+       18 RETURN                           R2 1
 
 PROTO_79:
         0 GETUPVAL                         R0 0

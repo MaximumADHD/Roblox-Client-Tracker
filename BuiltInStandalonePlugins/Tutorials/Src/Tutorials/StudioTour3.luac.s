@@ -5,22 +5,21 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R3 K2 ["rbxassetid://%*"]
-        3 LOADK                            R5 K3 [17274156146]
-        4 NAMECALL                         R3 R3 K4 ["format"]
-        6 CALL                             R3 2 1
-        7 MOVE                             R2 R3
-        8 NAMECALL                         R0 R0 K5 ["GetObjects"]
-       10 CALL                             R0 2 1
-       11 GETTABLEN                        R1 R0 1
-       12 GETIMPORT                        R4 K8 [CFrame.new]
-       14 LOADK                            R5 K9 [{-363.583, 18.009, 74.073}]
-       15 CALL                             R4 1 -1
-       16 NAMECALL                         R2 R1 K10 ["SetPrimaryPartCFrame"]
-       18 CALL                             R2 -1 0
-       19 GETUPVAL                         R2 0
-       20 SETTABLEKS                       R2 R1 K11 ["Parent"]
-       22 RETURN                           R1 1
+        2 LOADK                            R2 K2 ["rbxassetid://%*"]
+        3 LOADK                            R4 K3 [17274156146]
+        4 NAMECALL                         R2 R2 K4 ["format"]
+        6 CALL                             R2 2 1
+        7 NAMECALL                         R0 R0 K5 ["GetObjects"]
+        9 CALL                             R0 2 1
+       10 GETTABLEN                        R1 R0 1
+       11 GETIMPORT                        R4 K8 [CFrame.new]
+       13 LOADK                            R5 K9 [{-363.583, 18.009, 74.073}]
+       14 CALL                             R4 1 -1
+       15 NAMECALL                         R2 R1 K10 ["SetPrimaryPartCFrame"]
+       17 CALL                             R2 -1 0
+       18 GETUPVAL                         R2 0
+       19 SETTABLEKS                       R2 R1 K11 ["Parent"]
+       21 RETURN                           R1 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0

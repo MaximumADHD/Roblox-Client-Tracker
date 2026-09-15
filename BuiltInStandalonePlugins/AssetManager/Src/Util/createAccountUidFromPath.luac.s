@@ -9,47 +9,45 @@ PROTO_0:
         9 GETUPVAL                         R3 1
        10 GETTABLEKS                       R3 R3 K3 ["ScopeType"]
        12 GETTABLEKS                       R2 R3 K4 ["Universe"]
-       14 JUMP                             ; [+27]
+       14 JUMP                             ; [+26]
        15 JUMPIFNOTEQKS                    R2 K5 ["groups"] ; [+7]
        17 GETUPVAL                         R3 1
        18 GETTABLEKS                       R3 R3 K3 ["ScopeType"]
        20 GETTABLEKS                       R2 R3 K6 ["Group"]
-       22 JUMP                             ; [+19]
+       22 JUMP                             ; [+18]
        23 JUMPIFNOTEQKS                    R2 K7 ["users"] ; [+7]
        25 GETUPVAL                         R3 1
        26 GETTABLEKS                       R3 R3 K3 ["ScopeType"]
        28 GETTABLEKS                       R2 R3 K8 ["User"]
-       30 JUMP                             ; [+11]
+       30 JUMP                             ; [+10]
        31 GETUPVAL                         R3 2
-       32 LOADK                            R5 K9 ["createAccountUidFromPath - Unrecognized account type %* in path %*"]
-       33 MOVE                             R7 R2
-       34 MOVE                             R8 R0
-       35 NAMECALL                         R5 R5 K10 ["format"]
-       37 CALL                             R5 3 1
-       38 MOVE                             R4 R5
-       39 CALL                             R3 1 0
-       40 LOADNIL                          R3
-       41 RETURN                           R3 1
-       42 GETTABLEN                        R4 R1 2
-       43 FASTCALL1                        TONUMBER R4 ; [+2]
-       44 GETIMPORT                        R3 K12 [tonumber]
-       46 CALL                             R3 1 1
-       47 JUMPIF                           R3 ; [+11]
-       48 GETUPVAL                         R4 2
-       49 LOADK                            R6 K13 ["createAccountUidFromPath - Invalid account id %* in path %*"]
-       50 GETTABLEN                        R8 R1 2
-       51 MOVE                             R9 R0
-       52 NAMECALL                         R6 R6 K10 ["format"]
-       54 CALL                             R6 3 1
-       55 MOVE                             R5 R6
-       56 CALL                             R4 1 0
-       57 LOADNIL                          R4
-       58 RETURN                           R4 1
-       59 GETUPVAL                         R4 3
-       60 MOVE                             R5 R2
-       61 MOVE                             R6 R3
-       62 CALL                             R4 2 1
-       63 RETURN                           R4 1
+       32 LOADK                            R4 K9 ["createAccountUidFromPath - Unrecognized account type %* in path %*"]
+       33 MOVE                             R6 R2
+       34 MOVE                             R7 R0
+       35 NAMECALL                         R4 R4 K10 ["format"]
+       37 CALL                             R4 3 1
+       38 CALL                             R3 1 0
+       39 LOADNIL                          R3
+       40 RETURN                           R3 1
+       41 GETTABLEN                        R4 R1 2
+       42 FASTCALL1                        TONUMBER R4 ; [+2]
+       43 GETIMPORT                        R3 K12 [tonumber]
+       45 CALL                             R3 1 1
+       46 JUMPIF                           R3 ; [+10]
+       47 GETUPVAL                         R4 2
+       48 LOADK                            R5 K13 ["createAccountUidFromPath - Invalid account id %* in path %*"]
+       49 GETTABLEN                        R7 R1 2
+       50 MOVE                             R8 R0
+       51 NAMECALL                         R5 R5 K10 ["format"]
+       53 CALL                             R5 3 1
+       54 CALL                             R4 1 0
+       55 LOADNIL                          R4
+       56 RETURN                           R4 1
+       57 GETUPVAL                         R4 3
+       58 MOVE                             R5 R2
+       59 MOVE                             R6 R3
+       60 CALL                             R4 2 1
+       61 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

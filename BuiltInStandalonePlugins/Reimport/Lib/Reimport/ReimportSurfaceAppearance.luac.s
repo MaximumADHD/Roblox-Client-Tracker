@@ -420,47 +420,46 @@ PROTO_8:
       178 LOADNIL                          R17
       179 FORGPREP                         R15
       180 GETTABLEKS                       R20 R1 K34 ["warning"]
-      182 LOADK                            R22 K35 ["Failed to upload map '%*': %*"]
-      183 GETTABLEKS                       R24 R19 K24 ["label"]
-      185 GETTABLEKS                       R25 R19 K25 ["message"]
-      187 NAMECALL                         R22 R22 K36 ["format"]
-      189 CALL                             R22 3 1
-      190 MOVE                             R21 R22
-      191 CALL                             R20 1 0
-      192 FORGLOOP                         R15 2 ; [-13]
-      194 GETUPVAL                         R15 8
-      195 LOADK                            R17 K37 ["Reimport apply instance"]
-      196 NAMECALL                         R15 R15 K38 ["TryBeginRecording"]
-      198 CALL                             R15 2 1
-      199 GETUPVAL                         R16 2
-      200 GETTABLEKS                       R16 R16 K39 ["setMaps"]
-      202 MOVE                             R17 R0
-      203 MOVE                             R18 R12
-      204 CALL                             R16 2 0
-      205 JUMPIFNOTEQKNIL                  R2 ; [+7]
-      207 GETUPVAL                         R16 0
-      208 GETTABLEKS                       R16 R16 K40 ["newConfig"]
-      210 MOVE                             R17 R3
-      211 CALL                             R16 1 1
-      212 MOVE                             R2 R16
-      213 GETUPVAL                         R18 0
-      214 GETTABLEKS                       R18 R18 K41 ["ATTRIBUTE_KEY"]
-      216 MOVE                             R19 R2
-      217 NAMECALL                         R16 R0 K42 ["SetAttribute"]
-      219 CALL                             R16 3 0
-      220 JUMPIFNOT                        R15 ; [+7]
-      221 GETUPVAL                         R16 8
-      222 MOVE                             R18 R15
-      223 GETIMPORT                        R19 K45 [Enum.FinishRecordingOperation.Commit]
-      225 NAMECALL                         R16 R16 K46 ["FinishRecording"]
-      227 CALL                             R16 3 0
-      228 GETIMPORT                        R16 K49 [task.delay]
-      230 LOADK                            R17 K50 [0.3]
-      231 NEWCLOSURE                       R18 P2
-      232 CAPTURE                          VAL R1
-      233 CALL                             R16 2 0
-      234 CLOSEUPVALS                      R6
-      235 RETURN                           R0 0
+      182 LOADK                            R21 K35 ["Failed to upload map '%*': %*"]
+      183 GETTABLEKS                       R23 R19 K24 ["label"]
+      185 GETTABLEKS                       R24 R19 K25 ["message"]
+      187 NAMECALL                         R21 R21 K36 ["format"]
+      189 CALL                             R21 3 1
+      190 CALL                             R20 1 0
+      191 FORGLOOP                         R15 2 ; [-12]
+      193 GETUPVAL                         R15 8
+      194 LOADK                            R17 K37 ["Reimport apply instance"]
+      195 NAMECALL                         R15 R15 K38 ["TryBeginRecording"]
+      197 CALL                             R15 2 1
+      198 GETUPVAL                         R16 2
+      199 GETTABLEKS                       R16 R16 K39 ["setMaps"]
+      201 MOVE                             R17 R0
+      202 MOVE                             R18 R12
+      203 CALL                             R16 2 0
+      204 JUMPIFNOTEQKNIL                  R2 ; [+7]
+      206 GETUPVAL                         R16 0
+      207 GETTABLEKS                       R16 R16 K40 ["newConfig"]
+      209 MOVE                             R17 R3
+      210 CALL                             R16 1 1
+      211 MOVE                             R2 R16
+      212 GETUPVAL                         R18 0
+      213 GETTABLEKS                       R18 R18 K41 ["ATTRIBUTE_KEY"]
+      215 MOVE                             R19 R2
+      216 NAMECALL                         R16 R0 K42 ["SetAttribute"]
+      218 CALL                             R16 3 0
+      219 JUMPIFNOT                        R15 ; [+7]
+      220 GETUPVAL                         R16 8
+      221 MOVE                             R18 R15
+      222 GETIMPORT                        R19 K45 [Enum.FinishRecordingOperation.Commit]
+      224 NAMECALL                         R16 R16 K46 ["FinishRecording"]
+      226 CALL                             R16 3 0
+      227 GETIMPORT                        R16 K49 [task.delay]
+      229 LOADK                            R17 K50 [0.3]
+      230 NEWCLOSURE                       R18 P2
+      231 CAPTURE                          VAL R1
+      232 CALL                             R16 2 0
+      233 CLOSEUPVALS                      R6
+      234 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

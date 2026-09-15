@@ -37,172 +37,167 @@ PROTO_1:
        32 GETTABLEKS                       R8 R3 K7 ["current"]
        34 SETLIST                          R6 R7 2 [1]
        36 CALL                             R4 2 0
-       37 LOADK                            R5 K8 ["%*-%*-%*"]
-       38 GETTABLEKS                       R7 R0 K9 ["property"]
-       40 GETTABLEKS                       R8 R0 K10 ["schema"]
-       42 GETTABLEKS                       R9 R0 K1 ["cellType"]
-       44 NAMECALL                         R5 R5 K11 ["format"]
-       46 CALL                             R5 4 1
-       47 MOVE                             R4 R5
-       48 GETUPVAL                         R5 1
-       49 GETTABLEKS                       R5 R5 K12 ["createElement"]
-       51 GETUPVAL                         R6 2
-       52 DUPTABLE                         R7 K18 [{"onActivated", "onStateChanged", "ref", "tag", "testId"}]
-       53 GETTABLEKS                       R8 R0 K13 ["onActivated"]
-       55 SETTABLEKS                       R8 R7 K13 ["onActivated"]
-       57 GETTABLEKS                       R8 R0 K14 ["onStateChanged"]
-       59 SETTABLEKS                       R8 R7 K14 ["onStateChanged"]
-       61 GETTABLEKS                       R8 R0 K19 ["inputRef"]
-       63 SETTABLEKS                       R8 R7 K15 ["ref"]
-       65 GETTABLEKS                       R9 R0 K20 ["selected"]
-       67 JUMPIFNOT                        R9 ; [+5]
-       68 GETUPVAL                         R9 3
-       69 CALL                             R9 0 1
-       70 JUMPIFNOT                        R9 ; [+2]
-       71 LOADK                            R8 K21 ["row align-y-center gap-small size-full-full padding-medium bg-system-emphasis"]
-       72 JUMP                             ; [+6]
-       73 GETTABLEKS                       R9 R0 K20 ["selected"]
-       75 JUMPIFNOT                        R9 ; [+2]
-       76 LOADK                            R8 K22 ["row align-y-center gap-small size-full-full padding-medium bg-shift-200"]
-       77 JUMP                             ; [+1]
-       78 LOADK                            R8 K23 ["row align-y-center gap-small size-full-full padding-medium"]
-       79 SETTABLEKS                       R8 R7 K16 ["tag"]
-       81 SETTABLEKS                       R4 R7 K17 ["testId"]
-       83 DUPTABLE                         R8 K28 [{"Icon", "Text", "Remove", "Chevron"}]
-       84 GETUPVAL                         R9 1
-       85 GETTABLEKS                       R9 R9 K12 ["createElement"]
-       87 GETUPVAL                         R10 4
-       88 DUPTABLE                         R11 K35 [{"buttonIcon", "cellType", "currentIcon", "layoutOrder", "message", "severity", "title"}]
-       89 GETTABLEKS                       R12 R0 K36 ["icon"]
-       91 GETTABLEKS                       R12 R12 K29 ["buttonIcon"]
-       93 SETTABLEKS                       R12 R11 K29 ["buttonIcon"]
-       95 GETTABLEKS                       R12 R0 K36 ["icon"]
-       97 GETTABLEKS                       R12 R12 K1 ["cellType"]
-       99 SETTABLEKS                       R12 R11 K1 ["cellType"]
-      101 GETTABLEKS                       R12 R0 K36 ["icon"]
-      103 GETTABLEKS                       R12 R12 K30 ["currentIcon"]
-      105 SETTABLEKS                       R12 R11 K30 ["currentIcon"]
-      107 MOVE                             R12 R1
-      108 CALL                             R12 0 1
-      109 SETTABLEKS                       R12 R11 K31 ["layoutOrder"]
-      111 GETTABLEKS                       R12 R0 K36 ["icon"]
-      113 GETTABLEKS                       R12 R12 K32 ["message"]
-      115 SETTABLEKS                       R12 R11 K32 ["message"]
-      117 GETTABLEKS                       R12 R0 K36 ["icon"]
-      119 GETTABLEKS                       R12 R12 K33 ["severity"]
-      121 SETTABLEKS                       R12 R11 K33 ["severity"]
-      123 GETTABLEKS                       R12 R0 K36 ["icon"]
-      125 GETTABLEKS                       R12 R12 K34 ["title"]
-      127 SETTABLEKS                       R12 R11 K34 ["title"]
-      129 CALL                             R9 2 1
-      130 SETTABLEKS                       R9 R8 K24 ["Icon"]
-      132 JUMPIFNOT                        R2 ; [+58]
-      133 GETTABLEKS                       R10 R0 K4 ["onFilterTextChanged"]
-      135 JUMPIFNOT                        R10 ; [+55]
-      136 GETUPVAL                         R9 1
-      137 GETTABLEKS                       R9 R9 K12 ["createElement"]
-      139 GETUPVAL                         R10 2
-      140 DUPTABLE                         R11 K39 [{["LayoutOrder"], ["tag"] = "align-y-center grow size-0-full"}]
-      141 MOVE                             R12 R1
-      142 CALL                             R12 0 1
-      143 SETTABLEKS                       R12 R11 K37 ["LayoutOrder"]
-      145 DUPTABLE                         R12 K41 [{"TextInput"}]
-      146 GETUPVAL                         R13 1
-      147 GETTABLEKS                       R13 R13 K12 ["createElement"]
-      149 GETUPVAL                         R14 5
-      150 DUPTABLE                         R15 K51 [{["label"] = "", ["onChanged"], ["size"], ["tag"] = "size-full-full", ["testId"], ["text"], ["textBoxRef"], ["textInputType"], ["width"]}]
-      151 GETTABLEKS                       R16 R0 K4 ["onFilterTextChanged"]
-      153 SETTABLEKS                       R16 R15 K44 ["onChanged"]
-      155 GETUPVAL                         R16 6
-      156 GETTABLEKS                       R16 R16 K52 ["Small"]
-      158 SETTABLEKS                       R16 R15 K45 ["size"]
-      160 LOADK                            R17 K53 ["%*--filter"]
-      161 MOVE                             R19 R4
-      162 NAMECALL                         R17 R17 K11 ["format"]
-      164 CALL                             R17 2 1
-      165 MOVE                             R16 R17
-      166 SETTABLEKS                       R16 R15 K17 ["testId"]
-      168 GETTABLEKS                       R17 R0 K54 ["filterText"]
-      170 ORK                              R16 R17 K43 [""]
-      171 SETTABLEKS                       R16 R15 K47 ["text"]
-      173 SETTABLEKS                       R3 R15 K48 ["textBoxRef"]
-      175 GETIMPORT                        R16 K58 [Enum.TextInputType.Default]
-      177 SETTABLEKS                       R16 R15 K49 ["textInputType"]
-      179 GETIMPORT                        R16 K61 [UDim.new]
-      181 LOADN                            R17 1
-      182 LOADN                            R18 0
-      183 CALL                             R16 2 1
-      184 SETTABLEKS                       R16 R15 K50 ["width"]
-      186 CALL                             R13 2 1
-      187 SETTABLEKS                       R13 R12 K40 ["TextInput"]
-      189 CALL                             R9 3 1
-      190 JUMP                             ; [+26]
-      191 GETUPVAL                         R9 1
-      192 GETTABLEKS                       R9 R9 K12 ["createElement"]
-      194 GETUPVAL                         R10 7
-      195 DUPTABLE                         R11 K64 [{["LayoutOrder"], ["tag"] = "grow size-0-full text-body-medium text-align-x-left", ["testId"], ["Text"], ["TextTruncate"]}]
-      196 MOVE                             R12 R1
-      197 CALL                             R12 0 1
-      198 SETTABLEKS                       R12 R11 K37 ["LayoutOrder"]
-      200 LOADK                            R13 K65 ["%*--text"]
-      201 MOVE                             R15 R4
-      202 NAMECALL                         R13 R13 K11 ["format"]
-      204 CALL                             R13 2 1
-      205 MOVE                             R12 R13
-      206 SETTABLEKS                       R12 R11 K17 ["testId"]
-      208 GETTABLEKS                       R12 R0 K47 ["text"]
-      210 SETTABLEKS                       R12 R11 K25 ["Text"]
-      212 GETIMPORT                        R12 K67 [Enum.TextTruncate.AtEnd]
-      214 SETTABLEKS                       R12 R11 K63 ["TextTruncate"]
-      216 CALL                             R9 2 1
-      217 SETTABLEKS                       R9 R8 K25 ["Text"]
-      219 GETTABLEKS                       R9 R0 K68 ["isHovered"]
-      221 JUMPIFNOT                        R9 ; [+30]
-      222 GETTABLEKS                       R9 R0 K69 ["onRemoveActivated"]
-      224 JUMPIFNOT                        R9 ; [+27]
-      225 GETUPVAL                         R9 1
-      226 GETTABLEKS                       R9 R9 K12 ["createElement"]
-      228 GETUPVAL                         R10 8
-      229 DUPTABLE                         R11 K72 [{["icon"] = "trash-can", ["LayoutOrder"], ["onActivated"], ["size"], ["tag"] = "icon padding-left-small", ["testId"]}]
-      230 MOVE                             R12 R1
-      231 CALL                             R12 0 1
-      232 SETTABLEKS                       R12 R11 K37 ["LayoutOrder"]
-      234 GETTABLEKS                       R12 R0 K69 ["onRemoveActivated"]
-      236 SETTABLEKS                       R12 R11 K13 ["onActivated"]
-      238 GETUPVAL                         R12 6
-      239 GETTABLEKS                       R12 R12 K73 ["XSmall"]
-      241 SETTABLEKS                       R12 R11 K45 ["size"]
-      243 LOADK                            R13 K74 ["%*--remove"]
-      244 MOVE                             R15 R4
-      245 NAMECALL                         R13 R13 K11 ["format"]
-      247 CALL                             R13 2 1
-      248 MOVE                             R12 R13
-      249 SETTABLEKS                       R12 R11 K17 ["testId"]
-      251 CALL                             R9 2 1
-      252 SETTABLEKS                       R9 R8 K26 ["Remove"]
-      254 LOADB                            R9 0
-      255 GETTABLEKS                       R10 R0 K1 ["cellType"]
-      257 JUMPIFNOTEQKS                    R10 K2 ["Dropdown"] ; [+24]
-      259 GETUPVAL                         R9 1
-      260 GETTABLEKS                       R9 R9 K12 ["createElement"]
-      262 GETUPVAL                         R10 9
-      263 DUPTABLE                         R11 K77 [{["LayoutOrder"], ["name"] = "chevron-large-down", ["size"], ["tag"] = "icon padding-left-small", ["testId"]}]
-      264 MOVE                             R12 R1
-      265 CALL                             R12 0 1
-      266 SETTABLEKS                       R12 R11 K37 ["LayoutOrder"]
-      268 GETUPVAL                         R12 6
-      269 GETTABLEKS                       R12 R12 K73 ["XSmall"]
-      271 SETTABLEKS                       R12 R11 K45 ["size"]
-      273 LOADK                            R13 K78 ["%*--control"]
-      274 MOVE                             R15 R4
-      275 NAMECALL                         R13 R13 K11 ["format"]
-      277 CALL                             R13 2 1
-      278 MOVE                             R12 R13
-      279 SETTABLEKS                       R12 R11 K17 ["testId"]
-      281 CALL                             R9 2 1
-      282 SETTABLEKS                       R9 R8 K27 ["Chevron"]
-      284 CALL                             R5 3 -1
-      285 RETURN                           R5 -1
+       37 LOADK                            R4 K8 ["%*-%*-%*"]
+       38 GETTABLEKS                       R6 R0 K9 ["property"]
+       40 GETTABLEKS                       R7 R0 K10 ["schema"]
+       42 GETTABLEKS                       R8 R0 K1 ["cellType"]
+       44 NAMECALL                         R4 R4 K11 ["format"]
+       46 CALL                             R4 4 1
+       47 GETUPVAL                         R5 1
+       48 GETTABLEKS                       R5 R5 K12 ["createElement"]
+       50 GETUPVAL                         R6 2
+       51 DUPTABLE                         R7 K18 [{"onActivated", "onStateChanged", "ref", "tag", "testId"}]
+       52 GETTABLEKS                       R8 R0 K13 ["onActivated"]
+       54 SETTABLEKS                       R8 R7 K13 ["onActivated"]
+       56 GETTABLEKS                       R8 R0 K14 ["onStateChanged"]
+       58 SETTABLEKS                       R8 R7 K14 ["onStateChanged"]
+       60 GETTABLEKS                       R8 R0 K19 ["inputRef"]
+       62 SETTABLEKS                       R8 R7 K15 ["ref"]
+       64 GETTABLEKS                       R9 R0 K20 ["selected"]
+       66 JUMPIFNOT                        R9 ; [+5]
+       67 GETUPVAL                         R9 3
+       68 CALL                             R9 0 1
+       69 JUMPIFNOT                        R9 ; [+2]
+       70 LOADK                            R8 K21 ["row align-y-center gap-small size-full-full padding-medium bg-system-emphasis"]
+       71 JUMP                             ; [+6]
+       72 GETTABLEKS                       R9 R0 K20 ["selected"]
+       74 JUMPIFNOT                        R9 ; [+2]
+       75 LOADK                            R8 K22 ["row align-y-center gap-small size-full-full padding-medium bg-shift-200"]
+       76 JUMP                             ; [+1]
+       77 LOADK                            R8 K23 ["row align-y-center gap-small size-full-full padding-medium"]
+       78 SETTABLEKS                       R8 R7 K16 ["tag"]
+       80 SETTABLEKS                       R4 R7 K17 ["testId"]
+       82 DUPTABLE                         R8 K28 [{"Icon", "Text", "Remove", "Chevron"}]
+       83 GETUPVAL                         R9 1
+       84 GETTABLEKS                       R9 R9 K12 ["createElement"]
+       86 GETUPVAL                         R10 4
+       87 DUPTABLE                         R11 K35 [{"buttonIcon", "cellType", "currentIcon", "layoutOrder", "message", "severity", "title"}]
+       88 GETTABLEKS                       R12 R0 K36 ["icon"]
+       90 GETTABLEKS                       R12 R12 K29 ["buttonIcon"]
+       92 SETTABLEKS                       R12 R11 K29 ["buttonIcon"]
+       94 GETTABLEKS                       R12 R0 K36 ["icon"]
+       96 GETTABLEKS                       R12 R12 K1 ["cellType"]
+       98 SETTABLEKS                       R12 R11 K1 ["cellType"]
+      100 GETTABLEKS                       R12 R0 K36 ["icon"]
+      102 GETTABLEKS                       R12 R12 K30 ["currentIcon"]
+      104 SETTABLEKS                       R12 R11 K30 ["currentIcon"]
+      106 MOVE                             R12 R1
+      107 CALL                             R12 0 1
+      108 SETTABLEKS                       R12 R11 K31 ["layoutOrder"]
+      110 GETTABLEKS                       R12 R0 K36 ["icon"]
+      112 GETTABLEKS                       R12 R12 K32 ["message"]
+      114 SETTABLEKS                       R12 R11 K32 ["message"]
+      116 GETTABLEKS                       R12 R0 K36 ["icon"]
+      118 GETTABLEKS                       R12 R12 K33 ["severity"]
+      120 SETTABLEKS                       R12 R11 K33 ["severity"]
+      122 GETTABLEKS                       R12 R0 K36 ["icon"]
+      124 GETTABLEKS                       R12 R12 K34 ["title"]
+      126 SETTABLEKS                       R12 R11 K34 ["title"]
+      128 CALL                             R9 2 1
+      129 SETTABLEKS                       R9 R8 K24 ["Icon"]
+      131 JUMPIFNOT                        R2 ; [+57]
+      132 GETTABLEKS                       R10 R0 K4 ["onFilterTextChanged"]
+      134 JUMPIFNOT                        R10 ; [+54]
+      135 GETUPVAL                         R9 1
+      136 GETTABLEKS                       R9 R9 K12 ["createElement"]
+      138 GETUPVAL                         R10 2
+      139 DUPTABLE                         R11 K39 [{["LayoutOrder"], ["tag"] = "align-y-center grow size-0-full"}]
+      140 MOVE                             R12 R1
+      141 CALL                             R12 0 1
+      142 SETTABLEKS                       R12 R11 K37 ["LayoutOrder"]
+      144 DUPTABLE                         R12 K41 [{"TextInput"}]
+      145 GETUPVAL                         R13 1
+      146 GETTABLEKS                       R13 R13 K12 ["createElement"]
+      148 GETUPVAL                         R14 5
+      149 DUPTABLE                         R15 K51 [{["label"] = "", ["onChanged"], ["size"], ["tag"] = "size-full-full", ["testId"], ["text"], ["textBoxRef"], ["textInputType"], ["width"]}]
+      150 GETTABLEKS                       R16 R0 K4 ["onFilterTextChanged"]
+      152 SETTABLEKS                       R16 R15 K44 ["onChanged"]
+      154 GETUPVAL                         R16 6
+      155 GETTABLEKS                       R16 R16 K52 ["Small"]
+      157 SETTABLEKS                       R16 R15 K45 ["size"]
+      159 LOADK                            R16 K53 ["%*--filter"]
+      160 MOVE                             R18 R4
+      161 NAMECALL                         R16 R16 K11 ["format"]
+      163 CALL                             R16 2 1
+      164 SETTABLEKS                       R16 R15 K17 ["testId"]
+      166 GETTABLEKS                       R17 R0 K54 ["filterText"]
+      168 ORK                              R16 R17 K43 [""]
+      169 SETTABLEKS                       R16 R15 K47 ["text"]
+      171 SETTABLEKS                       R3 R15 K48 ["textBoxRef"]
+      173 GETIMPORT                        R16 K58 [Enum.TextInputType.Default]
+      175 SETTABLEKS                       R16 R15 K49 ["textInputType"]
+      177 GETIMPORT                        R16 K61 [UDim.new]
+      179 LOADN                            R17 1
+      180 LOADN                            R18 0
+      181 CALL                             R16 2 1
+      182 SETTABLEKS                       R16 R15 K50 ["width"]
+      184 CALL                             R13 2 1
+      185 SETTABLEKS                       R13 R12 K40 ["TextInput"]
+      187 CALL                             R9 3 1
+      188 JUMP                             ; [+25]
+      189 GETUPVAL                         R9 1
+      190 GETTABLEKS                       R9 R9 K12 ["createElement"]
+      192 GETUPVAL                         R10 7
+      193 DUPTABLE                         R11 K64 [{["LayoutOrder"], ["tag"] = "grow size-0-full text-body-medium text-align-x-left", ["testId"], ["Text"], ["TextTruncate"]}]
+      194 MOVE                             R12 R1
+      195 CALL                             R12 0 1
+      196 SETTABLEKS                       R12 R11 K37 ["LayoutOrder"]
+      198 LOADK                            R12 K65 ["%*--text"]
+      199 MOVE                             R14 R4
+      200 NAMECALL                         R12 R12 K11 ["format"]
+      202 CALL                             R12 2 1
+      203 SETTABLEKS                       R12 R11 K17 ["testId"]
+      205 GETTABLEKS                       R12 R0 K47 ["text"]
+      207 SETTABLEKS                       R12 R11 K25 ["Text"]
+      209 GETIMPORT                        R12 K67 [Enum.TextTruncate.AtEnd]
+      211 SETTABLEKS                       R12 R11 K63 ["TextTruncate"]
+      213 CALL                             R9 2 1
+      214 SETTABLEKS                       R9 R8 K25 ["Text"]
+      216 GETTABLEKS                       R9 R0 K68 ["isHovered"]
+      218 JUMPIFNOT                        R9 ; [+29]
+      219 GETTABLEKS                       R9 R0 K69 ["onRemoveActivated"]
+      221 JUMPIFNOT                        R9 ; [+26]
+      222 GETUPVAL                         R9 1
+      223 GETTABLEKS                       R9 R9 K12 ["createElement"]
+      225 GETUPVAL                         R10 8
+      226 DUPTABLE                         R11 K72 [{["icon"] = "trash-can", ["LayoutOrder"], ["onActivated"], ["size"], ["tag"] = "icon padding-left-small", ["testId"]}]
+      227 MOVE                             R12 R1
+      228 CALL                             R12 0 1
+      229 SETTABLEKS                       R12 R11 K37 ["LayoutOrder"]
+      231 GETTABLEKS                       R12 R0 K69 ["onRemoveActivated"]
+      233 SETTABLEKS                       R12 R11 K13 ["onActivated"]
+      235 GETUPVAL                         R12 6
+      236 GETTABLEKS                       R12 R12 K73 ["XSmall"]
+      238 SETTABLEKS                       R12 R11 K45 ["size"]
+      240 LOADK                            R12 K74 ["%*--remove"]
+      241 MOVE                             R14 R4
+      242 NAMECALL                         R12 R12 K11 ["format"]
+      244 CALL                             R12 2 1
+      245 SETTABLEKS                       R12 R11 K17 ["testId"]
+      247 CALL                             R9 2 1
+      248 SETTABLEKS                       R9 R8 K26 ["Remove"]
+      250 LOADB                            R9 0
+      251 GETTABLEKS                       R10 R0 K1 ["cellType"]
+      253 JUMPIFNOTEQKS                    R10 K2 ["Dropdown"] ; [+23]
+      255 GETUPVAL                         R9 1
+      256 GETTABLEKS                       R9 R9 K12 ["createElement"]
+      258 GETUPVAL                         R10 9
+      259 DUPTABLE                         R11 K77 [{["LayoutOrder"], ["name"] = "chevron-large-down", ["size"], ["tag"] = "icon padding-left-small", ["testId"]}]
+      260 MOVE                             R12 R1
+      261 CALL                             R12 0 1
+      262 SETTABLEKS                       R12 R11 K37 ["LayoutOrder"]
+      264 GETUPVAL                         R12 6
+      265 GETTABLEKS                       R12 R12 K73 ["XSmall"]
+      267 SETTABLEKS                       R12 R11 K45 ["size"]
+      269 LOADK                            R12 K78 ["%*--control"]
+      270 MOVE                             R14 R4
+      271 NAMECALL                         R12 R12 K11 ["format"]
+      273 CALL                             R12 2 1
+      274 SETTABLEKS                       R12 R11 K17 ["testId"]
+      276 CALL                             R9 2 1
+      277 SETTABLEKS                       R9 R8 K27 ["Chevron"]
+      279 CALL                             R5 3 -1
+      280 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

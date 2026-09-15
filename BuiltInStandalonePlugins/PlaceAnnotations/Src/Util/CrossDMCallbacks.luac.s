@@ -1,63 +1,62 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["ParentId"]
-        3 JUMPIFNOT                        R2 ; [+21]
+        3 JUMPIFNOT                        R2 ; [+20]
         4 GETUPVAL                         R2 0
         5 GETTABLEKS                       R4 R0 K0 ["ParentId"]
         7 LOADB                            R5 1
         8 NAMECALL                         R2 R2 K1 ["FindFirstChild"]
        10 CALL                             R2 3 1
        11 MOVE                             R1 R2
-       12 LOADK                            R5 K2 ["Parent annotation %* not found."]
-       13 GETTABLEKS                       R7 R0 K0 ["ParentId"]
-       15 NAMECALL                         R5 R5 K3 ["format"]
-       17 CALL                             R5 2 1
-       18 MOVE                             R4 R5
-       19 FASTCALL2                        ASSERT R1 R4 ; [+4]
-       21 MOVE                             R3 R1
-       22 GETIMPORT                        R2 K5 [assert]
-       24 CALL                             R2 2 0
-       25 GETIMPORT                        R2 K8 [Instance.new]
-       27 LOADK                            R3 K9 ["Annotation"]
-       28 CALL                             R2 1 1
-       29 GETTABLEKS                       R3 R0 K10 ["UniqueId"]
-       31 SETTABLEKS                       R3 R2 K11 ["Name"]
-       33 GETTABLEKS                       R3 R0 K12 ["AuthorId"]
-       35 SETTABLEKS                       R3 R2 K12 ["AuthorId"]
-       37 GETTABLEKS                       R3 R0 K13 ["CreationTimeUnix"]
-       39 SETTABLEKS                       R3 R2 K13 ["CreationTimeUnix"]
-       41 GETTABLEKS                       R3 R0 K14 ["LastModifiedTimeUnix"]
-       43 SETTABLEKS                       R3 R2 K14 ["LastModifiedTimeUnix"]
-       45 GETTABLEKS                       R3 R0 K15 ["Contents"]
-       47 SETTABLEKS                       R3 R2 K15 ["Contents"]
-       49 GETTABLEKS                       R3 R0 K16 ["Resolved"]
-       51 SETTABLEKS                       R3 R2 K16 ["Resolved"]
-       53 GETTABLEKS                       R3 R0 K17 ["TaggedUsers"]
-       55 SETTABLEKS                       R3 R2 K17 ["TaggedUsers"]
-       57 SETTABLEKS                       R1 R2 K18 ["Parent"]
-       59 GETTABLEKS                       R3 R0 K19 ["ChannelId"]
-       61 SETTABLEKS                       R3 R2 K19 ["ChannelId"]
-       63 GETTABLEKS                       R3 R0 K20 ["HeaderInfo"]
-       65 JUMPIFNOT                        R3 ; [+16]
-       66 LOADK                            R5 K21 ["HeaderText"]
-       67 GETTABLEKS                       R6 R0 K20 ["HeaderInfo"]
-       69 GETTABLEKS                       R6 R6 K21 ["HeaderText"]
-       71 NAMECALL                         R3 R2 K22 ["SetAttribute"]
-       73 CALL                             R3 3 0
-       74 LOADK                            R5 K23 ["AdorneeClass"]
-       75 GETTABLEKS                       R6 R0 K20 ["HeaderInfo"]
-       77 GETTABLEKS                       R6 R6 K23 ["AdorneeClass"]
-       79 NAMECALL                         R3 R2 K22 ["SetAttribute"]
-       81 CALL                             R3 3 0
-       82 GETTABLEKS                       R3 R0 K24 ["ReplyCount"]
-       84 SETTABLEKS                       R3 R2 K24 ["ReplyCount"]
-       86 GETTABLEKS                       R3 R0 K25 ["TaggedUsersInThread"]
-       88 JUMPIFNOT                        R3 ; [+6]
-       89 LOADK                            R5 K25 ["TaggedUsersInThread"]
-       90 GETTABLEKS                       R6 R0 K25 ["TaggedUsersInThread"]
-       92 NAMECALL                         R3 R2 K22 ["SetAttribute"]
-       94 CALL                             R3 3 0
-       95 RETURN                           R0 0
+       12 LOADK                            R4 K2 ["Parent annotation %* not found."]
+       13 GETTABLEKS                       R6 R0 K0 ["ParentId"]
+       15 NAMECALL                         R4 R4 K3 ["format"]
+       17 CALL                             R4 2 1
+       18 FASTCALL2                        ASSERT R1 R4 ; [+4]
+       20 MOVE                             R3 R1
+       21 GETIMPORT                        R2 K5 [assert]
+       23 CALL                             R2 2 0
+       24 GETIMPORT                        R2 K8 [Instance.new]
+       26 LOADK                            R3 K9 ["Annotation"]
+       27 CALL                             R2 1 1
+       28 GETTABLEKS                       R3 R0 K10 ["UniqueId"]
+       30 SETTABLEKS                       R3 R2 K11 ["Name"]
+       32 GETTABLEKS                       R3 R0 K12 ["AuthorId"]
+       34 SETTABLEKS                       R3 R2 K12 ["AuthorId"]
+       36 GETTABLEKS                       R3 R0 K13 ["CreationTimeUnix"]
+       38 SETTABLEKS                       R3 R2 K13 ["CreationTimeUnix"]
+       40 GETTABLEKS                       R3 R0 K14 ["LastModifiedTimeUnix"]
+       42 SETTABLEKS                       R3 R2 K14 ["LastModifiedTimeUnix"]
+       44 GETTABLEKS                       R3 R0 K15 ["Contents"]
+       46 SETTABLEKS                       R3 R2 K15 ["Contents"]
+       48 GETTABLEKS                       R3 R0 K16 ["Resolved"]
+       50 SETTABLEKS                       R3 R2 K16 ["Resolved"]
+       52 GETTABLEKS                       R3 R0 K17 ["TaggedUsers"]
+       54 SETTABLEKS                       R3 R2 K17 ["TaggedUsers"]
+       56 SETTABLEKS                       R1 R2 K18 ["Parent"]
+       58 GETTABLEKS                       R3 R0 K19 ["ChannelId"]
+       60 SETTABLEKS                       R3 R2 K19 ["ChannelId"]
+       62 GETTABLEKS                       R3 R0 K20 ["HeaderInfo"]
+       64 JUMPIFNOT                        R3 ; [+16]
+       65 LOADK                            R5 K21 ["HeaderText"]
+       66 GETTABLEKS                       R6 R0 K20 ["HeaderInfo"]
+       68 GETTABLEKS                       R6 R6 K21 ["HeaderText"]
+       70 NAMECALL                         R3 R2 K22 ["SetAttribute"]
+       72 CALL                             R3 3 0
+       73 LOADK                            R5 K23 ["AdorneeClass"]
+       74 GETTABLEKS                       R6 R0 K20 ["HeaderInfo"]
+       76 GETTABLEKS                       R6 R6 K23 ["AdorneeClass"]
+       78 NAMECALL                         R3 R2 K22 ["SetAttribute"]
+       80 CALL                             R3 3 0
+       81 GETTABLEKS                       R3 R0 K24 ["ReplyCount"]
+       83 SETTABLEKS                       R3 R2 K24 ["ReplyCount"]
+       85 GETTABLEKS                       R3 R0 K25 ["TaggedUsersInThread"]
+       87 JUMPIFNOT                        R3 ; [+6]
+       88 LOADK                            R5 K25 ["TaggedUsersInThread"]
+       89 GETTABLEKS                       R6 R0 K25 ["TaggedUsersInThread"]
+       91 NAMECALL                         R3 R2 K22 ["SetAttribute"]
+       93 CALL                             R3 3 0
+       94 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R2 0

@@ -280,18 +280,17 @@ PROTO_3:
       197 DUPTABLE                         R20 K34 [{["LayoutOrder"], ["tag"], ["testId"] = "header-bar"}]
       198 GETTABLEKS                       R21 R0 K5 ["LayoutOrder"]
       200 SETTABLEKS                       R21 R20 K5 ["LayoutOrder"]
-      202 LOADK                            R22 K35 ["row align-x-left align-y-center size-full-1000 padding-left-xxsmall %*"]
+      202 LOADK                            R21 K35 ["row align-x-left align-y-center size-full-1000 padding-left-xxsmall %*"]
       203 JUMPIF                           R8 ; [+2]
-      204 LOADK                            R24 K36 ["am-padding-left-sidebar-toggle"]
+      204 LOADK                            R23 K36 ["am-padding-left-sidebar-toggle"]
       205 JUMP                             ; [+1]
-      206 LOADK                            R24 K2 [""]
-      207 NAMECALL                         R22 R22 K37 ["format"]
-      209 CALL                             R22 2 1
-      210 MOVE                             R21 R22
-      211 SETTABLEKS                       R21 R20 K31 ["tag"]
-      213 MOVE                             R21 R13
-      214 CALL                             R18 3 -1
-      215 RETURN                           R18 -1
+      206 LOADK                            R23 K2 [""]
+      207 NAMECALL                         R21 R21 K37 ["format"]
+      209 CALL                             R21 2 1
+      210 SETTABLEKS                       R21 R20 K31 ["tag"]
+      212 MOVE                             R21 R13
+      213 CALL                             R18 3 -1
+      214 RETURN                           R18 -1
 
 MAIN:
         0 PREPVARARGS                      0

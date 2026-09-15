@@ -212,105 +212,104 @@ PROTO_5:
       143 JUMP                             ; [+1]
       144 LOADNIL                          R17
       145 GETTABLEKS                       R19 R0 K7 ["WidgetUri"]
-      147 JUMPIFNOT                        R19 ; [+10]
-      148 LOADK                            R19 K33 ["data-testid=%*"]
-      149 GETUPVAL                         R21 8
-      150 GETTABLEKS                       R22 R0 K7 ["WidgetUri"]
-      152 CALL                             R21 1 1
-      153 NAMECALL                         R19 R19 K34 ["format"]
-      155 CALL                             R19 2 1
-      156 MOVE                             R18 R19
-      157 JUMP                             ; [+1]
-      158 LOADNIL                          R18
-      159 CALL                             R14 4 1
-      160 SETTABLE                         R14 R12 R13
-      161 DUPTABLE                         R13 K37 [{"Row", "Arrow"}]
-      162 GETUPVAL                         R14 6
-      163 GETTABLEKS                       R14 R14 K13 ["createElement"]
-      165 LOADK                            R15 K38 ["Frame"]
-      166 NEWTABLE                         R16 1 0
-      168 GETUPVAL                         R17 6
-      169 GETTABLEKS                       R17 R17 K22 ["Tag"]
-      171 LOADK                            R18 K39 ["Role-Surface X-Middle X-Fit"]
-      172 SETTABLE                         R18 R16 R17
-      173 DUPTABLE                         R17 K45 [{"Check", "CheckSpace", "Image", "Text", "ArrowSpace"}]
-      174 GETTABLEKS                       R19 R0 K46 ["ReserveCheckmarkSpace"]
-      176 JUMPIFNOT                        R19 ; [+9]
-      177 GETTABLEKS                       R19 R0 K28 ["Checkable"]
-      179 JUMPIFNOT                        R19 ; [+6]
-      180 GETUPVAL                         R18 6
-      181 GETTABLEKS                       R18 R18 K13 ["createElement"]
-      183 LOADK                            R19 K47 ["ImageLabel"]
-      184 CALL                             R18 1 1
-      185 JUMP                             ; [+1]
-      186 LOADNIL                          R18
-      187 SETTABLEKS                       R18 R17 K40 ["Check"]
-      189 GETTABLEKS                       R19 R0 K46 ["ReserveCheckmarkSpace"]
-      191 JUMPIFNOT                        R19 ; [+16]
-      192 GETTABLEKS                       R19 R0 K28 ["Checkable"]
-      194 JUMPIF                           R19 ; [+13]
-      195 GETUPVAL                         R18 6
-      196 GETTABLEKS                       R18 R18 K13 ["createElement"]
-      198 LOADK                            R19 K38 ["Frame"]
-      199 NEWTABLE                         R20 1 0
-      201 GETUPVAL                         R21 6
-      202 GETTABLEKS                       R21 R21 K22 ["Tag"]
-      204 LOADK                            R22 K48 ["Role-Surface X-Fit"]
-      205 SETTABLE                         R22 R20 R21
-      206 CALL                             R18 2 1
-      207 JUMP                             ; [+1]
-      208 LOADNIL                          R18
-      209 SETTABLEKS                       R18 R17 K41 ["CheckSpace"]
-      211 JUMPIFNOT                        R1 ; [+9]
-      212 GETUPVAL                         R18 6
-      213 GETTABLEKS                       R18 R18 K13 ["createElement"]
-      215 LOADK                            R19 K47 ["ImageLabel"]
-      216 DUPTABLE                         R20 K49 [{"Image"}]
-      217 SETTABLEKS                       R1 R20 K42 ["Image"]
-      219 CALL                             R18 2 1
-      220 JUMP                             ; [+1]
-      221 LOADNIL                          R18
-      222 SETTABLEKS                       R18 R17 K42 ["Image"]
-      224 GETUPVAL                         R18 6
-      225 GETTABLEKS                       R18 R18 K13 ["createElement"]
-      227 LOADK                            R19 K50 ["TextLabel"]
-      228 NEWTABLE                         R20 2 0
-      230 GETTABLEKS                       R22 R0 K43 ["Text"]
-      232 ORK                              R21 R22 K51 [""]
-      233 SETTABLEKS                       R21 R20 K43 ["Text"]
-      235 GETUPVAL                         R21 6
-      236 GETTABLEKS                       R21 R21 K22 ["Tag"]
-      238 LOADK                            R22 K52 ["X-Fit"]
-      239 SETTABLE                         R22 R20 R21
-      240 CALL                             R18 2 1
-      241 SETTABLEKS                       R18 R17 K43 ["Text"]
-      243 GETTABLEKS                       R19 R0 K21 ["Children"]
-      245 JUMPIFNOT                        R19 ; [+13]
-      246 GETUPVAL                         R18 6
-      247 GETTABLEKS                       R18 R18 K13 ["createElement"]
-      249 LOADK                            R19 K38 ["Frame"]
-      250 NEWTABLE                         R20 1 0
-      252 GETUPVAL                         R21 6
-      253 GETTABLEKS                       R21 R21 K22 ["Tag"]
-      255 LOADK                            R22 K48 ["Role-Surface X-Fit"]
-      256 SETTABLE                         R22 R20 R21
-      257 CALL                             R18 2 1
-      258 JUMP                             ; [+1]
-      259 LOADNIL                          R18
-      260 SETTABLEKS                       R18 R17 K44 ["ArrowSpace"]
-      262 CALL                             R14 3 1
-      263 SETTABLEKS                       R14 R13 K35 ["Row"]
-      265 GETTABLEKS                       R15 R0 K21 ["Children"]
-      267 JUMPIFNOT                        R15 ; [+6]
-      268 GETUPVAL                         R14 6
-      269 GETTABLEKS                       R14 R14 K13 ["createElement"]
-      271 LOADK                            R15 K47 ["ImageLabel"]
-      272 CALL                             R14 1 1
-      273 JUMP                             ; [+1]
-      274 LOADNIL                          R14
-      275 SETTABLEKS                       R14 R13 K36 ["Arrow"]
-      277 CALL                             R10 3 -1
-      278 RETURN                           R10 -1
+      147 JUMPIFNOT                        R19 ; [+9]
+      148 LOADK                            R18 K33 ["data-testid=%*"]
+      149 GETUPVAL                         R20 8
+      150 GETTABLEKS                       R21 R0 K7 ["WidgetUri"]
+      152 CALL                             R20 1 1
+      153 NAMECALL                         R18 R18 K34 ["format"]
+      155 CALL                             R18 2 1
+      156 JUMP                             ; [+1]
+      157 LOADNIL                          R18
+      158 CALL                             R14 4 1
+      159 SETTABLE                         R14 R12 R13
+      160 DUPTABLE                         R13 K37 [{"Row", "Arrow"}]
+      161 GETUPVAL                         R14 6
+      162 GETTABLEKS                       R14 R14 K13 ["createElement"]
+      164 LOADK                            R15 K38 ["Frame"]
+      165 NEWTABLE                         R16 1 0
+      167 GETUPVAL                         R17 6
+      168 GETTABLEKS                       R17 R17 K22 ["Tag"]
+      170 LOADK                            R18 K39 ["Role-Surface X-Middle X-Fit"]
+      171 SETTABLE                         R18 R16 R17
+      172 DUPTABLE                         R17 K45 [{"Check", "CheckSpace", "Image", "Text", "ArrowSpace"}]
+      173 GETTABLEKS                       R19 R0 K46 ["ReserveCheckmarkSpace"]
+      175 JUMPIFNOT                        R19 ; [+9]
+      176 GETTABLEKS                       R19 R0 K28 ["Checkable"]
+      178 JUMPIFNOT                        R19 ; [+6]
+      179 GETUPVAL                         R18 6
+      180 GETTABLEKS                       R18 R18 K13 ["createElement"]
+      182 LOADK                            R19 K47 ["ImageLabel"]
+      183 CALL                             R18 1 1
+      184 JUMP                             ; [+1]
+      185 LOADNIL                          R18
+      186 SETTABLEKS                       R18 R17 K40 ["Check"]
+      188 GETTABLEKS                       R19 R0 K46 ["ReserveCheckmarkSpace"]
+      190 JUMPIFNOT                        R19 ; [+16]
+      191 GETTABLEKS                       R19 R0 K28 ["Checkable"]
+      193 JUMPIF                           R19 ; [+13]
+      194 GETUPVAL                         R18 6
+      195 GETTABLEKS                       R18 R18 K13 ["createElement"]
+      197 LOADK                            R19 K38 ["Frame"]
+      198 NEWTABLE                         R20 1 0
+      200 GETUPVAL                         R21 6
+      201 GETTABLEKS                       R21 R21 K22 ["Tag"]
+      203 LOADK                            R22 K48 ["Role-Surface X-Fit"]
+      204 SETTABLE                         R22 R20 R21
+      205 CALL                             R18 2 1
+      206 JUMP                             ; [+1]
+      207 LOADNIL                          R18
+      208 SETTABLEKS                       R18 R17 K41 ["CheckSpace"]
+      210 JUMPIFNOT                        R1 ; [+9]
+      211 GETUPVAL                         R18 6
+      212 GETTABLEKS                       R18 R18 K13 ["createElement"]
+      214 LOADK                            R19 K47 ["ImageLabel"]
+      215 DUPTABLE                         R20 K49 [{"Image"}]
+      216 SETTABLEKS                       R1 R20 K42 ["Image"]
+      218 CALL                             R18 2 1
+      219 JUMP                             ; [+1]
+      220 LOADNIL                          R18
+      221 SETTABLEKS                       R18 R17 K42 ["Image"]
+      223 GETUPVAL                         R18 6
+      224 GETTABLEKS                       R18 R18 K13 ["createElement"]
+      226 LOADK                            R19 K50 ["TextLabel"]
+      227 NEWTABLE                         R20 2 0
+      229 GETTABLEKS                       R22 R0 K43 ["Text"]
+      231 ORK                              R21 R22 K51 [""]
+      232 SETTABLEKS                       R21 R20 K43 ["Text"]
+      234 GETUPVAL                         R21 6
+      235 GETTABLEKS                       R21 R21 K22 ["Tag"]
+      237 LOADK                            R22 K52 ["X-Fit"]
+      238 SETTABLE                         R22 R20 R21
+      239 CALL                             R18 2 1
+      240 SETTABLEKS                       R18 R17 K43 ["Text"]
+      242 GETTABLEKS                       R19 R0 K21 ["Children"]
+      244 JUMPIFNOT                        R19 ; [+13]
+      245 GETUPVAL                         R18 6
+      246 GETTABLEKS                       R18 R18 K13 ["createElement"]
+      248 LOADK                            R19 K38 ["Frame"]
+      249 NEWTABLE                         R20 1 0
+      251 GETUPVAL                         R21 6
+      252 GETTABLEKS                       R21 R21 K22 ["Tag"]
+      254 LOADK                            R22 K48 ["Role-Surface X-Fit"]
+      255 SETTABLE                         R22 R20 R21
+      256 CALL                             R18 2 1
+      257 JUMP                             ; [+1]
+      258 LOADNIL                          R18
+      259 SETTABLEKS                       R18 R17 K44 ["ArrowSpace"]
+      261 CALL                             R14 3 1
+      262 SETTABLEKS                       R14 R13 K35 ["Row"]
+      264 GETTABLEKS                       R15 R0 K21 ["Children"]
+      266 JUMPIFNOT                        R15 ; [+6]
+      267 GETUPVAL                         R14 6
+      268 GETTABLEKS                       R14 R14 K13 ["createElement"]
+      270 LOADK                            R15 K47 ["ImageLabel"]
+      271 CALL                             R14 1 1
+      272 JUMP                             ; [+1]
+      273 LOADNIL                          R14
+      274 SETTABLEKS                       R14 R13 K36 ["Arrow"]
+      276 CALL                             R10 3 -1
+      277 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

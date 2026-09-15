@@ -213,49 +213,39 @@ MAIN:
        64 GETTABLEKS                       R9 R9 K16 ["Flags"]
        66 GETTABLEKS                       R9 R9 K17 ["getFFlagLDP875ScriptSyncLuaDialog"]
        68 CALL                             R8 1 1
-       69 GETTABLEKS                       R10 R6 K18 ["SharedFlags"]
-       71 GETTABLEKS                       R10 R10 K19 ["getFFlagStudioFoundationDialogComponent"]
-       73 CALL                             R10 0 1
-       74 JUMPIFNOT                        R10 ; [+5]
-       75 GETTABLEKS                       R9 R6 K20 ["Components"]
-       77 GETTABLEKS                       R9 R9 K2 ["Dialog"]
-       79 JUMP                             ; [+9]
-       80 GETIMPORT                        R9 K5 [require]
-       82 GETTABLEKS                       R10 R0 K14 ["Src"]
-       84 GETTABLEKS                       R10 R10 K20 ["Components"]
-       86 GETTABLEKS                       R10 R10 K21 ["DEPRECATED_Dialog"]
-       88 CALL                             R9 1 1
-       89 GETTABLEKS                       R10 R3 K22 ["ContextServices"]
-       91 GETTABLEKS                       R10 R10 K23 ["Localization"]
-       93 GETTABLEKS                       R11 R6 K24 ["Util"]
-       95 GETTABLEKS                       R11 R11 K25 ["StudioUri"]
-       97 GETTABLEKS                       R12 R3 K24 ["Util"]
-       99 GETTABLEKS                       R12 R12 K26 ["counter"]
-      101 GETTABLEKS                       R13 R4 K27 ["createElement"]
-      103 DUPCLOSURE                       R14 K28 [PROTO_2]
-      104 CAPTURE                          VAL R10
-      105 CAPTURE                          VAL R12
-      106 CAPTURE                          VAL R4
-      107 CAPTURE                          VAL R13
-      108 CAPTURE                          VAL R9
-      109 CAPTURE                          VAL R2
-      110 CAPTURE                          VAL R5
-      111 CAPTURE                          VAL R1
-      112 MOVE                             R16 R8
-      113 CALL                             R16 0 1
-      114 JUMPIFNOT                        R16 ; [+18]
-      115 GETIMPORT                        R15 K31 [table.freeze]
-      117 DUPTABLE                         R16 K34 [{"uri", "component"}]
-      118 GETTABLEKS                       R17 R11 K35 ["fromWidget"]
-      120 LOADK                            R18 K36 ["ScriptSync"]
-      121 LOADK                            R19 K37 ["ConflictResolutionDialog"]
-      122 CALL                             R17 2 1
-      123 SETTABLEKS                       R17 R16 K32 ["uri"]
-      125 GETTABLEKS                       R17 R4 K38 ["memo"]
-      127 MOVE                             R18 R14
-      128 CALL                             R17 1 1
-      129 SETTABLEKS                       R17 R16 K33 ["component"]
-      131 CALL                             R15 1 1
-      132 RETURN                           R15 1
-      133 LOADNIL                          R15
-      134 RETURN                           R15 1
+       69 GETTABLEKS                       R9 R6 K18 ["Components"]
+       71 GETTABLEKS                       R9 R9 K2 ["Dialog"]
+       73 GETTABLEKS                       R10 R3 K19 ["ContextServices"]
+       75 GETTABLEKS                       R10 R10 K20 ["Localization"]
+       77 GETTABLEKS                       R11 R6 K21 ["Util"]
+       79 GETTABLEKS                       R11 R11 K22 ["StudioUri"]
+       81 GETTABLEKS                       R12 R3 K21 ["Util"]
+       83 GETTABLEKS                       R12 R12 K23 ["counter"]
+       85 GETTABLEKS                       R13 R4 K24 ["createElement"]
+       87 DUPCLOSURE                       R14 K25 [PROTO_2]
+       88 CAPTURE                          VAL R10
+       89 CAPTURE                          VAL R12
+       90 CAPTURE                          VAL R4
+       91 CAPTURE                          VAL R13
+       92 CAPTURE                          VAL R9
+       93 CAPTURE                          VAL R2
+       94 CAPTURE                          VAL R5
+       95 CAPTURE                          VAL R1
+       96 MOVE                             R16 R8
+       97 CALL                             R16 0 1
+       98 JUMPIFNOT                        R16 ; [+18]
+       99 GETIMPORT                        R15 K28 [table.freeze]
+      101 DUPTABLE                         R16 K31 [{"uri", "component"}]
+      102 GETTABLEKS                       R17 R11 K32 ["fromWidget"]
+      104 LOADK                            R18 K33 ["ScriptSync"]
+      105 LOADK                            R19 K34 ["ConflictResolutionDialog"]
+      106 CALL                             R17 2 1
+      107 SETTABLEKS                       R17 R16 K29 ["uri"]
+      109 GETTABLEKS                       R17 R4 K35 ["memo"]
+      111 MOVE                             R18 R14
+      112 CALL                             R17 1 1
+      113 SETTABLEKS                       R17 R16 K30 ["component"]
+      115 CALL                             R15 1 1
+      116 RETURN                           R15 1
+      117 LOADNIL                          R15
+      118 RETURN                           R15 1

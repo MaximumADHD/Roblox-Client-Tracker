@@ -1,22 +1,21 @@
 PROTO_0:
-        0 LOADK                            R2 K0 ["%*abusereport/asset?id=%*"]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R4 R4 K1 ["BaseUrl"]
-        4 GETUPVAL                         R5 1
+        0 LOADK                            R1 K0 ["%*abusereport/asset?id=%*"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K1 ["BaseUrl"]
+        4 GETUPVAL                         R4 1
         5 FASTCALL1                        TOSTRING R0 ; [+3]
-        6 MOVE                             R8 R0
-        7 GETIMPORT                        R7 K3 [tostring]
-        9 CALL                             R7 1 1
-       10 NAMECALL                         R5 R5 K4 ["UrlEncode"]
-       12 CALL                             R5 2 1
-       13 NAMECALL                         R2 R2 K5 ["format"]
-       15 CALL                             R2 3 1
-       16 MOVE                             R1 R2
-       17 GETUPVAL                         R2 2
-       18 MOVE                             R4 R1
-       19 NAMECALL                         R2 R2 K6 ["OpenBrowserWindow"]
-       21 CALL                             R2 2 0
-       22 RETURN                           R0 0
+        6 MOVE                             R7 R0
+        7 GETIMPORT                        R6 K3 [tostring]
+        9 CALL                             R6 1 1
+       10 NAMECALL                         R4 R4 K4 ["UrlEncode"]
+       12 CALL                             R4 2 1
+       13 NAMECALL                         R1 R1 K5 ["format"]
+       15 CALL                             R1 3 1
+       16 GETUPVAL                         R2 2
+       17 MOVE                             R4 R1
+       18 NAMECALL                         R2 R2 K6 ["OpenBrowserWindow"]
+       20 CALL                             R2 2 0
+       21 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
