@@ -261,6 +261,14 @@ Class AchievementService : Instance {🔒RobloxScript} [NotCreatable] [Service] 
 	Function AchievementService:IsAvailable() -> boolean {🔒RobloxScript}
 Class ActivityHistoryEventService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Event ActivityHistoryEventService.WriteActivityHistoryEventFromStudio(eventType: number, resourceId: number, metadata: string) {🔒RobloxScript}
+Class AdPlacement : Instance
+	Property AdPlacement.AdFormat: Enum.AdFormat {🚧Monetization}
+	Property AdPlacement.ActivationInstance: Instance? {🚧Monetization}
+	Property AdPlacement.PlacementId: number {🚧Monetization}
+	Property AdPlacement.RewardId: string [ReadOnly] {🚧Monetization}
+	Property AdPlacement.RewardImageContent: Content [ReadOnly] {🚧Monetization}
+	Property AdPlacement.RewardName: string [ReadOnly] {🚧Monetization}
+	Property AdPlacement.Visible: boolean [ReadOnly] {🚧Monetization}
 Class AdPortal : Instance
 	Property AdPortal.Status: Enum.AdUnitStatus [ReadOnly] {🚧Monetization}
 	Property AdPortal.PortalInvalidReason: string [ReadOnly] [NotScriptable] {🚧Monetization}
@@ -1749,7 +1757,7 @@ Class SolidModelContentProvider : CacheableContentProvider [NotCreatable] [Servi
 Class WrapContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
 Class CallingService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function CallingService:AnswerIncomingCall(callId: string) -> () {🔒RobloxScript}
-	Function CallingService:CreateCall(participantIds: { any }? = {}, chatChannelId: string? = "") -> string {🔒RobloxScript}
+	Function CallingService:CreateCallAsync(participantIds: { any }? = {}, chatChannelId: string? = "") -> { [string]: any } [Yields] {🔒RobloxScript}
 	Function CallingService:EndCall(callId: string, reason: string) -> () {🔒RobloxScript}
 	Function CallingService:GetCallingState(callId: string) -> { [string]: any } {🔒RobloxScript}
 	Event CallingService.OnCallingRemoved(callId: string) {🔒RobloxScript}
@@ -2800,6 +2808,10 @@ Class Explosion : Instance
 	Property Explosion.Visible: boolean {🚧AvatarBehavior}
 	Property Explosion.LocalTransparencyModifier: number [Hidden] [NotReplicated] {🚧AvatarBehavior}
 	Event Explosion.Hit(part: BasePart, distance: number) {🚧AvatarBehavior}
+Class ExternalIdentityService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
+	Function ExternalIdentityService:AcquireProofAsync(provider: string, nonce: string?, browserStartUrl: string?) -> ...any [Yields] {🔒RobloxScript}
+	Function ExternalIdentityService:CancelActiveOperation() -> () {🔒RobloxScript}
+	Function ExternalIdentityService:GetCapabilitiesAsync() -> { [string]: any } [Yields] {🔒RobloxScript}
 Class FaceAnimatorService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Property FaceAnimatorService.AudioAnimationEnabled: boolean [Hidden] [NotReplicated] {🔒RobloxScript}
 	Property FaceAnimatorService.FaceTrackingStatusEnum: Enum.TrackerFaceTrackingStatus [Hidden] [NotReplicated] {🔒RobloxScript}
@@ -4497,6 +4509,7 @@ Class LinkingService : Instance {🔒RobloxScript} [NotCreatable] [Service] [Not
 Class LiveScriptingService : Instance [NotCreatable] [Service]
 	Property LiveScriptingService.ServerLiveEditingMode: Enum.ServerLiveEditingMode [Hidden] [NotScriptable]
 	Event LiveScriptingService.BeginEdit(id: number, guid: string) [Hidden] {🔒RobloxEngine}
+	Event LiveScriptingService.BeginEditWithUri(id: number, uri: string) [Hidden] {🔒RobloxEngine}
 	Event LiveScriptingService.BroadcastMessage(message: string, type: Enum.LiveEditingBroadcastMessageType) [Hidden] {🔒RobloxEngine}
 	Event LiveScriptingService.EndEdit(id: number) [Hidden] {🔒RobloxEngine}
 	Event LiveScriptingService.FailedToOpen(id: number, legalToOpenLocal: boolean) [Hidden] {🔒RobloxEngine}
@@ -4504,6 +4517,7 @@ Class LiveScriptingService : Instance [NotCreatable] [Service]
 	Event LiveScriptingService.LiveEditingClientConfiguration(serializedConfig: string) [Hidden] {🔒RobloxEngine}
 	Event LiveScriptingService.OpenedWithSource(id: number, source: string) [Hidden] {🔒RobloxEngine}
 	Event LiveScriptingService.SendAtomicOperation(requestId: number, guid: string, op: string, hash: string) [Hidden] {🔒RobloxEngine}
+	Event LiveScriptingService.SendAtomicOperationWithUri(requestId: number, uri: string, op: string, hash: string) [Hidden] {🔒RobloxEngine}
 	Event LiveScriptingService.SendAtomicUpdateResponse(guid: number, response: Enum.LiveEditingAtomicUpdateResponse) [Hidden] {🔒RobloxEngine}
 	Event LiveScriptingService.SendOperation(id: number, op: string) [Hidden] {🔒RobloxEngine}
 Class LiveSyncService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -5345,11 +5359,13 @@ Class Terrain : BasePart [NotCreatable]
 	Function Terrain:ReadBufferAsync(region: Region3, resolution: number) -> VoxelBuffer [Yields] {🚧Environment} {🔒RobloxScript}
 	Function Terrain:ReplaceMaterialInTransform(cframe: CFrame, size: Vector3, sourceMaterial: Enum.Material, targetMaterial: Enum.Material) -> () {🚧Environment} {🔒RobloxScript}
 	Function Terrain:ReplaceMaterialInTransformSubregion(cframe: CFrame, size: Vector3, sourceMaterial: Enum.Material, targetMaterial: Enum.Material, targetRegion: Region3int16) -> () {🚧Environment} {🔒RobloxScript}
+	Function Terrain:ReplaceMaterialInTransformSubregionSlot(cframe: CFrame, size: Vector3, sourceMaterialIndex: number, targetMaterialIndex: number, targetRegion: Region3int16) -> () {🚧Environment} {🔒RobloxScript}
 	Function Terrain:ResetWaterFlowMap() -> () {🚧Environment} {🔒RobloxScript}
 	Function Terrain:SetCell(x: number, y: number, z: number, material: Enum.CellMaterial, block: Enum.CellBlock, orientation: Enum.CellOrientation) -> () [Deprecated] {🚧Environment}
 	Function Terrain:SetCells(region: Region3int16, material: Enum.CellMaterial, block: Enum.CellBlock, orientation: Enum.CellOrientation) -> () [Deprecated] {🚧Environment}
 	Function Terrain:SetMaterialInTransform(cframe: CFrame, size: Vector3, targetMaterial: Enum.Material) -> () {🚧Environment} {🔒RobloxScript}
 	Function Terrain:SetMaterialInTransformSubregion(cframe: CFrame, size: Vector3, targetMaterial: Enum.Material, targetRegion: Region3int16) -> () {🚧Environment} {🔒RobloxScript}
+	Function Terrain:SetMaterialInTransformSubregionSlot(cframe: CFrame, size: Vector3, targetMaterialIndex: number, targetRegion: Region3int16) -> () {🚧Environment} {🔒RobloxScript}
 	Function Terrain:SetWaterCell(x: number, y: number, z: number, force: Enum.WaterForce, direction: Enum.WaterDirection) -> () [Deprecated] {🚧Environment}
 	Function Terrain:SmoothRegion(region: Region3, resolution: number, strength: number) -> ...any [CustomLuaState] {🚧Environment} {🔒RobloxScript} {🧬Safe}
 	Function Terrain:SmoothRegionMaterialSlots(region: Region3, resolution: number, strength: number) -> ...any [CustomLuaState] {🚧Environment} {🔒RobloxScript} {🧬Safe}
@@ -5610,6 +5626,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.ImprovedAnimationConstraint: Enum.RolloutState [NotScriptable]
 	Property Workspace.ImprovedPhysicsReplication: Enum.RolloutState [NotScriptable]
 	Property Workspace.LayeredClothingCacheOptimizations: Enum.RolloutState [NotScriptable] {🚧AvatarAppearance}
+	Property Workspace.MapTVRemoteToGamepadKeycodes: Enum.RolloutState [NotScriptable]
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Workspace.MeshStreamingAndImprovedLods: Enum.RolloutState [NotScriptable]
 	Property Workspace.NextGenerationReplication: Enum.RolloutState [NotScriptable]
@@ -6525,6 +6542,8 @@ Class PublishService : Instance {🔒RobloxScript} [NotCreatable] [Service] [Not
 	Function PublishService:PublishDescendantAssets(instance: Instance) -> boolean {🔒RobloxScript}
 	Function PublishService:PublishDescendantAssetsAsync(instance: Instance) -> boolean [Yields] {🔒RobloxScript}
 	Function PublishService:TagEmoteAnimation(instance: Instance) -> () {🔒RobloxScript}
+Class QueueService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function QueueService:GetStandardQueue(name: string) -> StandardQueue {🚧DataStore}
 Class RTAnimationTracker : Instance [NotReplicated]
 	Property RTAnimationTracker.Active: boolean [Hidden] [NotReplicated]
 	Property RTAnimationTracker.EnableFallbackAudioInput: boolean [Hidden] [NotReplicated]
@@ -7417,6 +7436,10 @@ Class StackFrame : Instance {🔒RobloxScript} [NotCreatable] [NotReplicated]
 	Property StackFrame.Upvalues: DebuggerVariable? [Hidden] [ReadOnly] {🔒RobloxScript}
 	Property StackFrame.Populated: boolean [Hidden] [ReadOnly] {🔒RobloxScript}
 Class StandalonePluginScripts : Instance
+Class StandardQueue : Instance [NotCreatable] [NotReplicated]
+	Function StandardQueue:BatchCommitAsync(group: string, messageIds: { any }) -> () [Yields] {🚧DataStore}
+	Function StandardQueue:PublishAsync(data: any, messageKey: string? = "") -> () [Yields] {🚧DataStore}
+	Function StandardQueue:SubscribeAsync(group: string, callback: (...any) -> ...any) -> RBXScriptConnection [Yields] {🚧DataStore}
 Class StartPageService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function StartPageService:generateTempUrlInContentProvider(url: string) -> () {🔒RobloxScript}
 	Function StartPageService:getDaysSinceFirstUserLogin() -> number {🔒RobloxScript}
@@ -7487,6 +7510,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.GameSettingsScaleRangeProportion: NumberRange [Hidden] [NotReplicated] {🚧Players} {🔒RobloxScript}
 	Property StarterPlayer.GameSettingsScaleRangeWidth: NumberRange [Hidden] [NotReplicated] {🚧Players} {🔒RobloxScript}
 	Property StarterPlayer.LoadCharacterLayeredClothing: Enum.LoadCharacterLayeredClothing [Hidden] [NotScriptable] {🚧Players}
+	Property StarterPlayer.PlaceAvatarRules: Instance? [Hidden] {🚧Players} {🔒RobloxScript}
 	Property StarterPlayer.PlayerModuleStatus: number [Hidden] {🚧Players} {🔒RobloxScript}
 	Function StarterPlayer:ClearDefaults() -> () {🚧Players} {🔒RobloxScript}
 Class StarterPlayerScripts : Instance [NotCreatable]
@@ -7496,7 +7520,11 @@ Class StartupMessageService : Instance {🔒RobloxScript} [NotCreatable] [Servic
 	Function StartupMessageService:GetStartupMessage() -> any {🔒RobloxScript}
 Class StateMachineDefinition : Instance {🔒RobloxScript} [NotReplicated]
 	Property StateMachineDefinition.NodeId: string {🔒RobloxScript}
-Class StateMachineTransitionDefinition : Instance [NotReplicated]
+Class StateMachineTransitionDefinition : Instance
+	Property StateMachineTransitionDefinition.From: Instance? {🚧Animation}
+	Property StateMachineTransitionDefinition.Priority: number {🚧Animation}
+	Property StateMachineTransitionDefinition.To: Instance? {🚧Animation}
+	Property StateMachineTransitionDefinition.TransitionId: string {🚧Animation} {🔒RobloxScript}
 Class Stats : Instance [NotCreatable] [Service]
 	Property Stats.ContactsCount: number [ReadOnly]
 	Property Stats.DataReceiveKbps: number [ReadOnly]
@@ -8183,6 +8211,7 @@ Class TextBoxService : Instance [NotCreatable] [Service]
 Class TextChannel : Instance
 	Property TextChannel.AddPlayersOnJoin: boolean {🚧Chat}
 	Property TextChannel.DirectChatRequester: Player? [ReadOnly] {🚧Chat}
+	Property TextChannel.IsDefaultTextChannel: boolean [Hidden] {🚧Chat} {🔒RobloxScript}
 	Function TextChannel:AddUserAsync(userId: User) -> ...any [Yields] {🚧Chat}
 	Function TextChannel:DisplaySystemMessage(systemMessage: string, metadata: string? = "") -> TextChatMessage {🚧Chat}
 	Function TextChannel:SendAsync(message: string, metadata: string? = "") -> TextChatMessage [Yields] {🚧Chat}
@@ -8262,6 +8291,7 @@ Class ChatWindowConfiguration : TextChatConfigurations [NotCreatable]
 	Property ChatWindowConfiguration.TextStrokeTransparency: number {🚧Chat}
 	Property ChatWindowConfiguration.Enabled: boolean {🚧Chat}
 	Property ChatWindowConfiguration.HeightScale: number {🚧Chat}
+	Property ChatWindowConfiguration.TextChannelDisplayMode: Enum.TextChannelDisplayMode {🚧🔎Chat} {🚧✏️PluginOrOpenCloud}
 	Property ChatWindowConfiguration.WidthScale: number {🚧Chat}
 	Property ChatWindowConfiguration.AbsolutePosition: Vector2 [ReadOnly] {🚧Chat} {🧬Unsafe}
 	Property ChatWindowConfiguration.AbsoluteSize: Vector2 [ReadOnly] {🚧Chat} {🧬Unsafe}
@@ -8538,6 +8568,7 @@ Class UGCValidationService : Instance {🔒RobloxScript} [NotCreatable] [Service
 	Function UGCValidationService:GetExpectedTposeRotation(jointLabel: Enum.RigLabel, partsFolder: Instance) -> CFrame {🔒RobloxScript}
 	Function UGCValidationService:GetFacsDrivenJointNamesFromEditableMesh(editableMesh: EditableMesh) -> ...any {🔒RobloxScript}
 	Function UGCValidationService:GetLayeredClothingPostDeformationSize(accessory: Accessory, editableMesh: EditableMesh, meshScale: Vector3) -> Vector3 {🔒RobloxScript}
+	Function UGCValidationService:GetLayeredClothingPostDeformationSizeAsync(accessory: Accessory, editableMesh: EditableMesh, meshScale: Vector3) -> Vector3 [Yields] {🔒RobloxScript}
 	Function UGCValidationService:GetMaximalJointDistancesWithinFacs(editableMesh: EditableMesh) -> { any } {🔒RobloxScript}
 	Function UGCValidationService:GetMeshDataBinaryString(meshId: string) -> BinaryStringValue [Yields] {🔒RobloxScript}
 	Function UGCValidationService:GetMeshVerts(meshId: string) -> { any } [Yields] {🔒RobloxScript}
@@ -9535,6 +9566,10 @@ Enum AnimationClipFromVideoStatus
 Enum AnimationNodeBlend2DInputMode
 	EnumItem AnimationNodeBlend2DInputMode.Cartesian : 0
 	EnumItem AnimationNodeBlend2DInputMode.Polar : 1
+Enum AnimationNodeBlendMode
+	EnumItem AnimationNodeBlendMode.Over : 0
+	EnumItem AnimationNodeBlendMode.Add : 1
+	EnumItem AnimationNodeBlendMode.Subtract : 2
 Enum AnimationNodeInterruptible
 	EnumItem AnimationNodeInterruptible.Always : 0
 	EnumItem AnimationNodeInterruptible.Finished : 1
@@ -9569,6 +9604,8 @@ Enum AnimationNodeType
 	EnumItem AnimationNodeType.SequenceNode : 11
 	EnumItem AnimationNodeType.SpeedNode : 12
 	EnumItem AnimationNodeType.SubtractNode : 13
+	EnumItem AnimationNodeType.OneShotNode : 14
+	EnumItem AnimationNodeType.StateMachineNode : 16
 Enum AnimationNodeWaitFor
 	EnumItem AnimationNodeWaitFor.Finished : 0
 	EnumItem AnimationNodeWaitFor.Trigger : 1
@@ -12157,6 +12194,7 @@ Enum PromptCreateOutfitResult
 	EnumItem PromptCreateOutfitResult.Timeout : 5
 	EnumItem PromptCreateOutfitResult.NoUserInput : 6
 	EnumItem PromptCreateOutfitResult.UnknownFailure : 7
+	EnumItem PromptCreateOutfitResult.UGCValidationFailed : 8
 Enum PromptCreatePlatformContentResult
 	EnumItem PromptCreatePlatformContentResult.Success : 1
 	EnumItem PromptCreatePlatformContentResult.PermissionDenied : 2
@@ -12223,6 +12261,9 @@ Enum QualityLevel
 	EnumItem QualityLevel.Level19 : 19
 	EnumItem QualityLevel.Level20 : 20
 	EnumItem QualityLevel.Level21 : 21
+Enum QueueDecision
+	EnumItem QueueDecision.Commit : 0
+	EnumItem QueueDecision.Defer : 1
 Enum R15CollisionType
 	EnumItem R15CollisionType.OuterBox : 0
 	EnumItem R15CollisionType.InnerBox : 1
@@ -13109,6 +13150,9 @@ Enum TerrainSolidMergeOperation
 	EnumItem TerrainSolidMergeOperation.Intersect : 6
 	EnumItem TerrainSolidMergeOperation.Cut : 7
 	EnumItem TerrainSolidMergeOperation.Place : 8
+Enum TextChannelDisplayMode
+	EnumItem TextChannelDisplayMode.AllTextChannels : 0
+	EnumItem TextChannelDisplayMode.DefaultTextChannels : 1
 Enum TextChatMessageStatus
 	EnumItem TextChatMessageStatus.Unknown : 1
 	EnumItem TextChatMessageStatus.Success : 2

@@ -14,7 +14,9 @@ Slider is designed such that the consumer controls the current bar fill percenta
 
 To create a basic form field the main props to supply are `value` and `onValueChanged`. This is enough to allow the user to drag the bar around, and the `value` binding can then be read when submitting the form.
 
-When a slider is selected with directional navigation, Left/Right adjust the value and repeat while held. L1/R1 take a larger page step (~10% of the range). Up/Down continue moving focus away from the slider.
+When a horizontal slider is selected with directional navigation, Left/Right adjust the value and repeat while held. Up/Down continue moving focus away from the slider. A vertical slider uses Up/Down to adjust the value and allows Left/Right to move focus away. L1/R1 take a larger page step (~10% of the range) in either orientation.
+
+Set `orientation` to `Orientation.Vertical` to fill upward from the bottom of the track. For a vertical Slider, `width` specifies the track length.
 
 ```luau
 local Foundation = require(Packages.Foundation)

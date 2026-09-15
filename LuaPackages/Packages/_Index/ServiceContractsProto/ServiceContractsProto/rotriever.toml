@@ -1,6 +1,6 @@
 [package]
 name = "ServiceContractsProto"
-version = "1.0.2413+20260901"
+version = "1.0.2549+20260910"
 readme = "README.md"
 content_root = "protos/gen/luau"
 files = [
@@ -36,7 +36,12 @@ files = [
     "roblox/apppageplatform/partychat/v1beta1/*",
     "roblox/apppageplatform/templates/v1beta1/**/*",
     "roblox/apppageplatform/templates/v1beta1/*",
+    "roblox/apppageplatform/settings/v1beta1/**/*",
+    "roblox/apppageplatform/settings/v1beta1/*",
     "roblox/apppageplatform/*",
+    "roblox/posts/postasset/v1/**/*",
+    "roblox/posts/postasset/v1/*",
+    "roblox/posts/*",
 ]
 publish = true
 authors = [

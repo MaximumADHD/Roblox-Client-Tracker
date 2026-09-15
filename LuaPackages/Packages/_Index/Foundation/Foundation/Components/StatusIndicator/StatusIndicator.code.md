@@ -10,6 +10,8 @@ There are seven status indicator variants defined in [[StatusIndicatorVariant]]:
 
 The indicator supports three shapes defined in [[StatusIndicatorShape]]: `Circle` (default), `Ring`, and `Square`. The `shape` prop only applies when no `value` is provided — numeric indicators always render as a circle.
 
+The optional `mask` prop draws a colored border around the indicator to separate it from a busy background, such as an [[Avatar]] headshot. Pass a `colorStyle` value — typically the color sitting behind the indicator.
+
 The `StatusIndicator` can display in two modes:
 
 - If `value` is not provided, it will show as a dot in the configured shape
@@ -53,5 +55,11 @@ React.createElement(StatusIndicator, {
 	value = 150,
 	max = 99,
 	variant = StatusIndicatorVariant.Emphasis,
+})
+
+-- With a mask (draws a colored border around the indicator)
+React.createElement(StatusIndicator, {
+	variant = StatusIndicatorVariant.Success,
+	mask = tokens.Color.Surface.Surface_0,
 })
 ```
