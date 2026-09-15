@@ -84,6 +84,11 @@ type _Messages = {
 	ArrayOfStructProp_ConditionalOption: _ArrayOfStructProp_ConditionalOptionMessage,
 	ArrayOfStructProp_ConditionalOptions: _ArrayOfStructProp_ConditionalOptionsMessage,
 	ArrayOfStructProp_ArrayOfStructs: _ArrayOfStructProp_ArrayOfStructsMessage,
+	PymkItemData: _PymkItemDataMessage,
+	ArrayOfPymkItemDataProp: _ArrayOfPymkItemDataPropMessage,
+	ArrayOfPymkItemDataProp_ConditionalOption: _ArrayOfPymkItemDataProp_ConditionalOptionMessage,
+	ArrayOfPymkItemDataProp_ConditionalOptions: _ArrayOfPymkItemDataProp_ConditionalOptionsMessage,
+	ArrayOfPymkItemDataProp_PymkItems: _ArrayOfPymkItemDataProp_PymkItemsMessage,
 	UiScaledFloatProp: _UiScaledFloatPropMessage,
 	UiScaledFloatProp_ConditionalOption: _UiScaledFloatProp_ConditionalOptionMessage,
 	UiScaledFloatProp_ConditionalOptions: _UiScaledFloatProp_ConditionalOptionsMessage,
@@ -2352,6 +2357,148 @@ export type ArrayOfStructProp_ArrayOfStructs = typeof(setmetatable(
 type _ArrayOfStructProp_ArrayOfStructsMessage = proto.Message<
 	ArrayOfStructProp_ArrayOfStructs,
 	_ArrayOfStructProp_ArrayOfStructsPartialFields
+>
+
+type _PymkItemDataImpl = {
+	__index: _PymkItemDataImpl,
+	new: (fields: _PymkItemDataPartialFields?) -> PymkItemData,
+	encode: (self: PymkItemData) -> buffer,
+	decode: (input: buffer) -> PymkItemData,
+	jsonEncode: (self: PymkItemData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> PymkItemData,
+	descriptor: proto.Descriptor,
+}
+
+type _PymkItemDataFields = {
+	item_id: string,
+	has_pending_friend_request: boolean,
+}
+
+type _PymkItemDataPartialFields = {
+	item_id: string?,
+	has_pending_friend_request: boolean?,
+}
+
+export type PymkItemData = typeof(setmetatable({} :: _PymkItemDataFields, {} :: _PymkItemDataImpl))
+type _PymkItemDataMessage = proto.Message<PymkItemData, _PymkItemDataPartialFields>
+
+type _ArrayOfPymkItemDataPropImpl = {
+	__index: _ArrayOfPymkItemDataPropImpl,
+	new: (fields: _ArrayOfPymkItemDataPropPartialFields?) -> ArrayOfPymkItemDataProp,
+	encode: (self: ArrayOfPymkItemDataProp) -> buffer,
+	decode: (input: buffer) -> ArrayOfPymkItemDataProp,
+	jsonEncode: (self: ArrayOfPymkItemDataProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfPymkItemDataProp,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfPymkItemDataPropFields = {
+	kind: (
+		{ type: "literal", value: ArrayOfPymkItemDataProp_PymkItems }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: ArrayOfPymkItemDataProp_ConditionalOptions }
+	)?,
+}
+
+type _ArrayOfPymkItemDataPropPartialFields = {
+	kind: (
+		{ type: "literal", value: ArrayOfPymkItemDataProp_PymkItems }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: ArrayOfPymkItemDataProp_ConditionalOptions }
+	)?,
+}
+
+export type ArrayOfPymkItemDataProp = typeof(setmetatable(
+	{} :: _ArrayOfPymkItemDataPropFields,
+	{} :: _ArrayOfPymkItemDataPropImpl
+))
+type _ArrayOfPymkItemDataPropMessage = proto.Message<ArrayOfPymkItemDataProp, _ArrayOfPymkItemDataPropPartialFields>
+
+type _ArrayOfPymkItemDataProp_ConditionalOptionImpl = {
+	__index: _ArrayOfPymkItemDataProp_ConditionalOptionImpl,
+	new: (
+		fields: _ArrayOfPymkItemDataProp_ConditionalOptionPartialFields?
+	) -> ArrayOfPymkItemDataProp_ConditionalOption,
+	encode: (self: ArrayOfPymkItemDataProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> ArrayOfPymkItemDataProp_ConditionalOption,
+	jsonEncode: (self: ArrayOfPymkItemDataProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfPymkItemDataProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfPymkItemDataProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: ArrayOfPymkItemDataProp_PymkItems } | { type: "binding_path", value: string })?,
+}
+
+type _ArrayOfPymkItemDataProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: ArrayOfPymkItemDataProp_PymkItems } | { type: "binding_path", value: string })?,
+}
+
+export type ArrayOfPymkItemDataProp_ConditionalOption = typeof(setmetatable(
+	{} :: _ArrayOfPymkItemDataProp_ConditionalOptionFields,
+	{} :: _ArrayOfPymkItemDataProp_ConditionalOptionImpl
+))
+type _ArrayOfPymkItemDataProp_ConditionalOptionMessage = proto.Message<
+	ArrayOfPymkItemDataProp_ConditionalOption,
+	_ArrayOfPymkItemDataProp_ConditionalOptionPartialFields
+>
+
+type _ArrayOfPymkItemDataProp_ConditionalOptionsImpl = {
+	__index: _ArrayOfPymkItemDataProp_ConditionalOptionsImpl,
+	new: (
+		fields: _ArrayOfPymkItemDataProp_ConditionalOptionsPartialFields?
+	) -> ArrayOfPymkItemDataProp_ConditionalOptions,
+	encode: (self: ArrayOfPymkItemDataProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> ArrayOfPymkItemDataProp_ConditionalOptions,
+	jsonEncode: (self: ArrayOfPymkItemDataProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfPymkItemDataProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfPymkItemDataProp_ConditionalOptionsFields = {
+	options: { ArrayOfPymkItemDataProp_ConditionalOption },
+}
+
+type _ArrayOfPymkItemDataProp_ConditionalOptionsPartialFields = {
+	options: { ArrayOfPymkItemDataProp_ConditionalOption }?,
+}
+
+export type ArrayOfPymkItemDataProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _ArrayOfPymkItemDataProp_ConditionalOptionsFields,
+	{} :: _ArrayOfPymkItemDataProp_ConditionalOptionsImpl
+))
+type _ArrayOfPymkItemDataProp_ConditionalOptionsMessage = proto.Message<
+	ArrayOfPymkItemDataProp_ConditionalOptions,
+	_ArrayOfPymkItemDataProp_ConditionalOptionsPartialFields
+>
+
+type _ArrayOfPymkItemDataProp_PymkItemsImpl = {
+	__index: _ArrayOfPymkItemDataProp_PymkItemsImpl,
+	new: (fields: _ArrayOfPymkItemDataProp_PymkItemsPartialFields?) -> ArrayOfPymkItemDataProp_PymkItems,
+	encode: (self: ArrayOfPymkItemDataProp_PymkItems) -> buffer,
+	decode: (input: buffer) -> ArrayOfPymkItemDataProp_PymkItems,
+	jsonEncode: (self: ArrayOfPymkItemDataProp_PymkItems) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfPymkItemDataProp_PymkItems,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfPymkItemDataProp_PymkItemsFields = {
+	items: { PymkItemData },
+}
+
+type _ArrayOfPymkItemDataProp_PymkItemsPartialFields = {
+	items: { PymkItemData }?,
+}
+
+export type ArrayOfPymkItemDataProp_PymkItems = typeof(setmetatable(
+	{} :: _ArrayOfPymkItemDataProp_PymkItemsFields,
+	{} :: _ArrayOfPymkItemDataProp_PymkItemsImpl
+))
+type _ArrayOfPymkItemDataProp_PymkItemsMessage = proto.Message<
+	ArrayOfPymkItemDataProp_PymkItems,
+	_ArrayOfPymkItemDataProp_PymkItemsPartialFields
 >
 
 type _UiScaledFloatPropImpl = {
@@ -13442,6 +13589,658 @@ do
 end
 
 do
+	local _PymkItemDataImpl = {}
+	_PymkItemDataImpl.__index = _PymkItemDataImpl
+
+	function _PymkItemDataImpl.new(data: _PymkItemDataPartialFields?): PymkItemData
+		return setmetatable({
+			item_id = if data == nil or data.item_id == nil then "" else data.item_id,
+			has_pending_friend_request = if data == nil or data.has_pending_friend_request == nil
+				then false
+				else data.has_pending_friend_request,
+		}, _PymkItemDataImpl :: _PymkItemDataImpl)
+	end
+
+	function _PymkItemDataImpl.encode(self: PymkItemData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.item_id ~= nil and self.item_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_id)
+		end
+
+		if self.has_pending_friend_request then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.has_pending_friend_request then 1 else 0)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _PymkItemDataImpl.decode(input: buffer): PymkItemData
+		local self = _PymkItemDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.has_pending_friend_request = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _PymkItemDataImpl.jsonEncode(self: PymkItemData): any
+		local output = {}
+
+		if self.item_id ~= nil and self.item_id ~= "" then
+			output.itemId = self.item_id
+		end
+
+		if self.has_pending_friend_request then
+			output.hasPendingFriendRequest = self.has_pending_friend_request
+		end
+
+		return output
+	end
+
+	function _PymkItemDataImpl.jsonDecode(input: { [string]: any }): PymkItemData
+		local self = _PymkItemDataImpl.new()
+
+		if input.item_id ~= nil then
+			self.item_id = input.item_id
+		end
+
+		if input.itemId ~= nil then
+			self.item_id = input.itemId
+		end
+
+		if input.has_pending_friend_request ~= nil then
+			self.has_pending_friend_request = input.has_pending_friend_request
+		end
+
+		if input.hasPendingFriendRequest ~= nil then
+			self.has_pending_friend_request = input.hasPendingFriendRequest
+		end
+
+		return self
+	end
+
+	_PymkItemDataImpl.descriptor = {
+		name = "PymkItemData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PymkItemData",
+	}
+
+	messages.PymkItemData = _PymkItemDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.PymkItemData)
+end
+
+do
+	local _ArrayOfPymkItemDataPropImpl = {}
+	_ArrayOfPymkItemDataPropImpl.__index = _ArrayOfPymkItemDataPropImpl
+
+	function _ArrayOfPymkItemDataPropImpl.new(data: _ArrayOfPymkItemDataPropPartialFields?): ArrayOfPymkItemDataProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _ArrayOfPymkItemDataPropImpl :: _ArrayOfPymkItemDataPropImpl)
+	end
+
+	function _ArrayOfPymkItemDataPropImpl.encode(self: ArrayOfPymkItemDataProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfPymkItemDataPropImpl.decode(input: buffer): ArrayOfPymkItemDataProp
+		local self = _ArrayOfPymkItemDataPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = messages.ArrayOfPymkItemDataProp_PymkItems.decode(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "conditional",
+						value = messages.ArrayOfPymkItemDataProp_ConditionalOptions.decode(value),
+					}
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfPymkItemDataPropImpl.jsonEncode(self: ArrayOfPymkItemDataProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _ArrayOfPymkItemDataPropImpl.jsonDecode(input: { [string]: any }): ArrayOfPymkItemDataProp
+		local self = _ArrayOfPymkItemDataPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind =
+				{ type = "literal", value = messages.ArrayOfPymkItemDataProp_PymkItems.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.ArrayOfPymkItemDataProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		return self
+	end
+
+	_ArrayOfPymkItemDataPropImpl.descriptor = {
+		name = "ArrayOfPymkItemDataProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ArrayOfPymkItemDataProp",
+	}
+
+	messages.ArrayOfPymkItemDataProp = _ArrayOfPymkItemDataPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfPymkItemDataProp)
+end
+
+do
+	local _ArrayOfPymkItemDataProp_ConditionalOptionImpl = {}
+	_ArrayOfPymkItemDataProp_ConditionalOptionImpl.__index = _ArrayOfPymkItemDataProp_ConditionalOptionImpl
+
+	function _ArrayOfPymkItemDataProp_ConditionalOptionImpl.new(
+		data: _ArrayOfPymkItemDataProp_ConditionalOptionPartialFields?
+	): ArrayOfPymkItemDataProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _ArrayOfPymkItemDataProp_ConditionalOptionImpl :: _ArrayOfPymkItemDataProp_ConditionalOptionImpl)
+	end
+
+	function _ArrayOfPymkItemDataProp_ConditionalOptionImpl.encode(
+		self: ArrayOfPymkItemDataProp_ConditionalOption
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfPymkItemDataProp_ConditionalOptionImpl.decode(
+		input: buffer
+	): ArrayOfPymkItemDataProp_ConditionalOption
+		local self = _ArrayOfPymkItemDataProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = messages.ArrayOfPymkItemDataProp_PymkItems.decode(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfPymkItemDataProp_ConditionalOptionImpl.jsonEncode(
+		self: ArrayOfPymkItemDataProp_ConditionalOption
+	): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _ArrayOfPymkItemDataProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): ArrayOfPymkItemDataProp_ConditionalOption
+		local self = _ArrayOfPymkItemDataProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind =
+				{ type = "literal", value = messages.ArrayOfPymkItemDataProp_PymkItems.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_ArrayOfPymkItemDataProp_ConditionalOptionImpl.descriptor = {
+		name = "ArrayOfPymkItemDataProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.ArrayOfPymkItemDataProp_ConditionalOption = _ArrayOfPymkItemDataProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfPymkItemDataProp_ConditionalOption)
+end
+
+do
+	local _ArrayOfPymkItemDataProp_ConditionalOptionsImpl = {}
+	_ArrayOfPymkItemDataProp_ConditionalOptionsImpl.__index = _ArrayOfPymkItemDataProp_ConditionalOptionsImpl
+
+	function _ArrayOfPymkItemDataProp_ConditionalOptionsImpl.new(
+		data: _ArrayOfPymkItemDataProp_ConditionalOptionsPartialFields?
+	): ArrayOfPymkItemDataProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _ArrayOfPymkItemDataProp_ConditionalOptionsImpl :: _ArrayOfPymkItemDataProp_ConditionalOptionsImpl)
+	end
+
+	function _ArrayOfPymkItemDataProp_ConditionalOptionsImpl.encode(
+		self: ArrayOfPymkItemDataProp_ConditionalOptions
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfPymkItemDataProp_ConditionalOptionsImpl.decode(
+		input: buffer
+	): ArrayOfPymkItemDataProp_ConditionalOptions
+		local self = _ArrayOfPymkItemDataProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.ArrayOfPymkItemDataProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfPymkItemDataProp_ConditionalOptionsImpl.jsonEncode(
+		self: ArrayOfPymkItemDataProp_ConditionalOptions
+	): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _ArrayOfPymkItemDataProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): ArrayOfPymkItemDataProp_ConditionalOptions
+		local self = _ArrayOfPymkItemDataProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { ArrayOfPymkItemDataProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.ArrayOfPymkItemDataProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_ArrayOfPymkItemDataProp_ConditionalOptionsImpl.descriptor = {
+		name = "ArrayOfPymkItemDataProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.ArrayOfPymkItemDataProp_ConditionalOptions = _ArrayOfPymkItemDataProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfPymkItemDataProp_ConditionalOptions)
+end
+
+do
+	local _ArrayOfPymkItemDataProp_PymkItemsImpl = {}
+	_ArrayOfPymkItemDataProp_PymkItemsImpl.__index = _ArrayOfPymkItemDataProp_PymkItemsImpl
+
+	function _ArrayOfPymkItemDataProp_PymkItemsImpl.new(
+		data: _ArrayOfPymkItemDataProp_PymkItemsPartialFields?
+	): ArrayOfPymkItemDataProp_PymkItems
+		return setmetatable({
+			items = if data == nil or data.items == nil then {} else data.items,
+		}, _ArrayOfPymkItemDataProp_PymkItemsImpl :: _ArrayOfPymkItemDataProp_PymkItemsImpl)
+	end
+
+	function _ArrayOfPymkItemDataProp_PymkItemsImpl.encode(self: ArrayOfPymkItemDataProp_PymkItems): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.items ~= nil and #self.items > 0 then
+			for _, value in self.items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfPymkItemDataProp_PymkItemsImpl.decode(input: buffer): ArrayOfPymkItemDataProp_PymkItems
+		local self = _ArrayOfPymkItemDataProp_PymkItemsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.items, messages.PymkItemData.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfPymkItemDataProp_PymkItemsImpl.jsonEncode(self: ArrayOfPymkItemDataProp_PymkItems): any
+		local output = {}
+
+		if self.items ~= nil and #self.items > 0 then
+			local newOutput = {}
+			for _, value in self.items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.items = newOutput
+		end
+
+		return output
+	end
+
+	function _ArrayOfPymkItemDataProp_PymkItemsImpl.jsonDecode(
+		input: { [string]: any }
+	): ArrayOfPymkItemDataProp_PymkItems
+		local self = _ArrayOfPymkItemDataProp_PymkItemsImpl.new()
+
+		if input.items ~= nil then
+			local newOutput: { PymkItemData } = {}
+			for _, value in input.items do
+				table.insert(newOutput, messages.PymkItemData.jsonDecode(value))
+			end
+
+			self.items = newOutput
+		end
+
+		return self
+	end
+
+	_ArrayOfPymkItemDataProp_PymkItemsImpl.descriptor = {
+		name = "ArrayOfPymkItemDataProp_PymkItems",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PymkItems",
+	}
+
+	messages.ArrayOfPymkItemDataProp_PymkItems = _ArrayOfPymkItemDataProp_PymkItemsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfPymkItemDataProp_PymkItems)
+end
+
+do
 	local _UiScaledFloatPropImpl = {}
 	_UiScaledFloatPropImpl.__index = _UiScaledFloatPropImpl
 
@@ -16732,6 +17531,11 @@ return {
 	ArrayOfStructProp_ConditionalOption = messages.ArrayOfStructProp_ConditionalOption,
 	ArrayOfStructProp_ConditionalOptions = messages.ArrayOfStructProp_ConditionalOptions,
 	ArrayOfStructProp_ArrayOfStructs = messages.ArrayOfStructProp_ArrayOfStructs,
+	PymkItemData = messages.PymkItemData,
+	ArrayOfPymkItemDataProp = messages.ArrayOfPymkItemDataProp,
+	ArrayOfPymkItemDataProp_ConditionalOption = messages.ArrayOfPymkItemDataProp_ConditionalOption,
+	ArrayOfPymkItemDataProp_ConditionalOptions = messages.ArrayOfPymkItemDataProp_ConditionalOptions,
+	ArrayOfPymkItemDataProp_PymkItems = messages.ArrayOfPymkItemDataProp_PymkItems,
 	UiScaledFloatProp = messages.UiScaledFloatProp,
 	UiScaledFloatProp_ConditionalOption = messages.UiScaledFloatProp_ConditionalOption,
 	UiScaledFloatProp_ConditionalOptions = messages.UiScaledFloatProp_ConditionalOptions,

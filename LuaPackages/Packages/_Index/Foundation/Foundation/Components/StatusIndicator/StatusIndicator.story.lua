@@ -12,8 +12,10 @@ local StatusIndicatorShape = require(Foundation.Enums.StatusIndicatorShape)
 local StatusIndicatorSize = require(Foundation.Enums.StatusIndicatorSize)
 local StatusIndicatorVariant = require(Foundation.Enums.StatusIndicatorVariant)
 local Text = require(Foundation.Components.Text)
+local Tokens = require(Foundation.Providers.Style.Tokens)
 local ValidNumericVariants = require(Foundation.Components.StatusIndicator.ValidNumericVariants)
 local View = require(Foundation.Components.View)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
 type StatusIndicatorShape = StatusIndicatorShape.StatusIndicatorShape
 type StatusIndicatorSize = StatusIndicatorSize.StatusIndicatorSize
@@ -24,7 +26,10 @@ type Controls = {
 	size: StatusIndicatorSize,
 	value: number,
 	max: number,
+	mask: string,
 }
+
+local surfaceColorKeys = Dash.joinArrays({ "None" }, Dash.keys(Tokens.defaultTokens.Color.Surface))
 
 local function getVariants(): { StatusIndicatorVariant }
 	local variants: { StatusIndicatorVariant } = {}
@@ -42,6 +47,7 @@ end
 
 local function PlaygroundStory(props: { controls: Controls }): React.ReactNode
 	local controls = props.controls
+	local tokens = useTokens()
 	return React.createElement(View, {
 		tag = "col gap-large size-full-0 auto-y",
 	}, {
@@ -53,6 +59,7 @@ local function PlaygroundStory(props: { controls: Controls }): React.ReactNode
 				size = if Flags.FoundationAvatarBeta then controls.size else nil,
 				value = if controls.value > 0 then controls.value else nil,
 				max = controls.max,
+				mask = tokens.Color.Surface[controls.mask],
 			} :: any
 		),
 	})
@@ -107,6 +114,44 @@ local function AllVariantsStory(): React.ReactNode
 	}, children)
 end
 
+local function IndicatorRow(props: { masked: boolean, LayoutOrder: number }): React.ReactNode
+	local tokens = useTokens()
+	local backdrop = tokens.Color.Extended.Red.Red_800
+	local tileStyle = tokens.Color.Surface.Surface_100
+
+	return React.createElement(
+		View,
+		{ tag = "row align-y-center gap-large auto-xy", LayoutOrder = props.LayoutOrder },
+		Dash.map(shapes, function(shape: StatusIndicatorShape, i: number)
+			return React.createElement(View, {
+				tag = "align-x-center align-y-center radius-small",
+				Size = UDim2.fromOffset(48, 48),
+				backgroundStyle = tileStyle,
+				LayoutOrder = i,
+			}, {
+				Indicator = React.createElement(StatusIndicator, {
+					variant = StatusIndicatorVariant.Success,
+					shape = shape,
+					mask = if props.masked then backdrop else nil,
+				}),
+			})
+		end)
+	)
+end
+
+local function CustomBackgroundStory(): React.ReactNode
+	local tokens = useTokens()
+	local backdrop = tokens.Color.Extended.Red.Red_800
+
+	return React.createElement(View, {
+		tag = "col gap-large auto-xy padding-large",
+		backgroundStyle = backdrop,
+	}, {
+		WithoutMask = React.createElement(IndicatorRow, { masked = false, LayoutOrder = 1 }),
+		WithMask = React.createElement(IndicatorRow, { masked = true, LayoutOrder = 2 }),
+	})
+end
+
 return {
 	summary = "StatusIndicator",
 	stories = {
@@ -119,6 +164,11 @@ return {
 			summary = "All variant × shape permutations, plus numeric where supported",
 			story = AllVariantsStory,
 		},
+		{
+			name = "On custom background",
+			summary = "Mask against a non-system red background; bottom row applies the mask, top row does not",
+			story = CustomBackgroundStory,
+		},
 	},
 	controls = {
 		variant = Dash.values(StatusIndicatorVariant) :: { StatusIndicatorVariant },
@@ -130,5 +180,6 @@ return {
 		size = if Flags.FoundationAvatarBeta then Dash.values(StatusIndicatorSize) else nil,
 		value = 0,
 		max = 99,
+		mask = surfaceColorKeys,
 	},
 }

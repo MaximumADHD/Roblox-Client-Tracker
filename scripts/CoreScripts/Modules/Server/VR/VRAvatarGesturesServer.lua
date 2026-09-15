@@ -14,6 +14,8 @@ local VR_AVATAR_GESTURES_ANALYTICS_EVENT_NAME = "VRAvatarGestures"
 -- Analytics
 local FIntVRAvatarGesturesAnalyticsThrottleHundrethsPercent = game:DefineFastInt("VRAvatarGesturesAnalyticsThrottleHundrethsPercent", 0)
 
+local FFlagVRAvatarGesturesUseNilForHandChainRootRebuild = game:DefineFastFlag("VRAvatarGesturesUseNilForHandChainRootRebuild", false)
+
 local VRAvatarGesturesServer = {}
 VRAvatarGesturesServer.__index = VRAvatarGesturesServer
 
@@ -209,7 +211,13 @@ function VRAvatarGesturesServer:createHandCollider(side, character)
 			local ikRoot = character:FindFirstChild(side .. "UpperArm")
 			if ikRoot then
 				-- IKControl needs a reset if the character's proportions may have changed
-				ikControl.ChainRoot = part
+				if FFlagVRAvatarGesturesUseNilForHandChainRootRebuild then
+					-- Setting part as the ChainRoot causes an issue where recalculating the IK chain results in the arms disappearing.
+					-- Set the root as nil to avoid this issue while still allowing the IKControl to be reset.
+					ikControl.ChainRoot = nil
+				else
+					ikControl.ChainRoot = part
+				end
 				coroutine.wrap(function()
 					task.wait(0.1)
 					ikControl.ChainRoot = ikRoot

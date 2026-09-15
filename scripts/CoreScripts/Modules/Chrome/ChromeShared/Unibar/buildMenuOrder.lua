@@ -14,21 +14,20 @@ local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialE
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegration
 local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
-local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
 local FFlagShowSwitchServerButton = SharedFlags.FFlagShowSwitchServerButton
 local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
+local FFlagEnableSideSheetRobuxWidget = require(Chrome.Flags.FFlagEnableSideSheetRobuxWidget)
 
 local Traversal = if FFlagIntegrateTraversalHistoryInSideSheet
 	then require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
 	else nil
 local FFlagAddTraversalHistory = if Traversal then Traversal.Flags.FFlagAddTraversalHistory else false
-local shouldEnableSwitchServer = FFlagShowSwitchServerButton and FFlagEnableSideSheet
 
 type Array<T> = { [number]: T }
 
@@ -55,13 +54,15 @@ local function buildMenuOrder(): Array<string>
 	local traversalEnabled = FFlagAddTraversalHistory and FFlagIntegrateTraversalHistoryInSideSheet
 
 	local menuMap: { [string]: number? } = {
+		-- Side-sheet-only widget rendered before the standard menu entries.
+		RobuxWidget = if FFlagEnableSideSheetRobuxWidget and isSideSheetEnabled then 5 else nil,
 		invite_friends = if FFlagAddInviteFriendsIntegration then 10 else nil,
 		people = 20,
 		settings = 30,
 		trust_and_safety = 40,
 		connect_dropdown = if connectDropdownVisible then 50 else nil,
 		[Constants.AVATAR_SWITCHER_ID] = if FFlagEnableInExperienceAvatarSwitcher then 60 else nil,
-		[Constants.SWITCH_SERVER_ID] = if shouldEnableSwitchServer then 65 else nil,
+		[Constants.SWITCH_SERVER_ID] = if FFlagShowSwitchServerButton then 65 else nil,
 		[Constants.IN_EXPERIENCE_SHOP_ID] = if FFlagEnableInExperienceShop then 70 else nil,
 		leaderboard = 80,
 		emotes = 90,
@@ -72,31 +73,21 @@ local function buildMenuOrder(): Array<string>
 		gallery = 140,
 		selfie_view = if notVRControlsOrNotSpatial then 150 else nil,
 		music_entrypoint = if isNotVROrConsole then 160 else nil,
+		-- AccountUpsell is side-sheet-only, rendered before the action bindings
+		AccountUpsell = if isPioneerLaunch() then 170 else nil,
 		[SideSheet.Enums.ActionBinding.Leave] = 180,
 		[SideSheet.Enums.ActionBinding.Respawn] = 190,
 	}
 
-	if FFlagEnableSideSheet then
-		if FIntSideSheetVariant == 0 then
-			if shouldEnableSwitchServer then
-				reorder(menuMap, Constants.SWITCH_SERVER_ID, 102)
-			end
-			reorder(menuMap, "settings", 103)
-			reorder(menuMap, "trust_and_safety", 106)
-			reorder(menuMap, Constants.IN_EXPERIENCE_SHOP_ID, 143)
-			reorder(menuMap, "backpack", 146)
-		end
-
-		if isPioneerLaunch() then
-			menuMap.connect_dropdown = nil
-			menuMap.invite_friends = nil
-			menuMap[Constants.AVATAR_SWITCHER_ID] = nil
-			menuMap.emotes = nil
-			menuMap.traversal_history = nil
-			menuMap.camera_entrypoint = nil
-			menuMap.gallery = nil
-		end
-	else
+	if isPioneerLaunch() then
+		menuMap.connect_dropdown = nil
+		menuMap[Constants.AVATAR_SWITCHER_ID] = nil
+		menuMap.emotes = nil
+		menuMap.traversal_history = nil
+		menuMap.camera_entrypoint = nil
+		menuMap.gallery = nil
+		reorder(menuMap, Constants.SWITCH_SERVER_ID, 200)
+	elseif not isSideSheetEnabled then
 		reorder(menuMap, "connect_dropdown", 10)
 		reorder(menuMap, Constants.IN_EXPERIENCE_SHOP_ID, 20)
 		reorder(menuMap, "selfie_view", 30)

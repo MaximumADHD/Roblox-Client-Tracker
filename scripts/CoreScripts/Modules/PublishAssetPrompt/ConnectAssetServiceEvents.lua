@@ -9,6 +9,7 @@ local AssetService = game:GetService("AssetService")
 local AvatarCreationService = game:GetService("AvatarCreationService")
 local ExpAuthSvc = game:GetService("ExperienceAuthService")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+local CorePackages = game:GetService("CorePackages")
 
 local PublishAssetPrompt = script.Parent
 local OpenPublishAssetPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAssetPrompt)
@@ -20,8 +21,11 @@ local SetHumanoidModel = require(PublishAssetPrompt.Actions.SetHumanoidModel)
 local SetAccessoryInstance = require(PublishAssetPrompt.Actions.SetAccessoryInstance)
 local SetPriceInRobux = require(PublishAssetPrompt.Actions.SetPriceInRobux)
 local OpenValidationErrorModal = require(PublishAssetPrompt.Actions.OpenValidationErrorModal)
+local Analytics = require(CorePackages.Workspace.Packages.PurchasePrompt).PublishAssetAnalytics
 
 local GetFFlagUploadMakeupSupport = require(PublishAssetPrompt.Flags.GetFFlagUploadMakeupSupport)
+local FFlagPublishAssetPromptItemDetailsTelemetry =
+	require(PublishAssetPrompt.Flags.FFlagPublishAssetPromptItemDetailsTelemetry)
 local EngineFeaturePromptImportAnimationClipFromVideoAsyncEnabled =
 	game:GetEngineFeature("PromptImportAnimationClipFromVideoAsyncEnabled")
 
@@ -49,6 +53,18 @@ local function updateModelAttachmentsWithWrapDeformers(avatarModel: Instance)
 	end
 end
 
+local function setAnalyticsItemDetails(metadata)
+	if metadata["instanceToPublish"] or metadata["serializedInstance"] then
+		Analytics.setItemDetails(Analytics.ItemType.Asset, metadata["assetType"].Name)
+	elseif metadata["outfitToPublish"] then
+		Analytics.setItemDetails(Analytics.ItemType.Outfit, Enum.OutfitType.Avatar.Name)
+	elseif metadata["makeupLookToPublish"] then
+		Analytics.setItemDetails(Analytics.ItemType.Outfit, Enum.OutfitType.Makeup.Name)
+	elseif metadata["accessoryToPublish"] then
+		Analytics.setItemDetails(Analytics.ItemType.Asset, metadata["accessoryType"].Name)
+	end
+end
+
 local function ConnectAssetServiceEvents(store)
 	local connections = {}
 
@@ -64,6 +80,10 @@ local function ConnectAssetServiceEvents(store)
 				and scopes[1] == Enum.ExperienceAuthScope.CreatorAssetsCreate
 				and not isVideoToAnimationFlow
 			then
+				if FFlagPublishAssetPromptItemDetailsTelemetry then
+					setAnalyticsItemDetails(metadata)
+				end
+
 				-- We need to handle asset passed as either instance or as serialized string.
 				if metadata["instanceToPublish"] then
 					store:dispatch(

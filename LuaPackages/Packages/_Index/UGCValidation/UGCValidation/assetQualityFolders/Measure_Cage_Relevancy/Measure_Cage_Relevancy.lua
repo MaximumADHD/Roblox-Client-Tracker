@@ -5,7 +5,7 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 
 local getFFlagUGCValidateAQScoreWarnings = require(root.flags.getFFlagUGCValidateAQScoreWarnings)
 
-local minCageRelevancyThreshold = game:DefineFastInt("UGCMinCageRelevancyThreshold", 40)
+local minCageRelevancyThreshold = game:DefineFastInt("UGCMinCageRelevancyThreshold", 10)
 
 local Measure_Cage_Relevancy = {}
 

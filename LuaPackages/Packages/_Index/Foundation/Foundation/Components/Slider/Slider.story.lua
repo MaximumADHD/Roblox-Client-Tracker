@@ -8,6 +8,7 @@ local React = require(Packages.React)
 local IconName = BuilderIcons.Icon
 
 local Button = require(Foundation.Components.Button)
+local Flags = require(Foundation.Utility.Flags)
 local Icon = require(Foundation.Components.Icon)
 local Knob = require(Foundation.Components.Knob)
 local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
@@ -22,6 +23,7 @@ type MatrixGridRow = MatrixGridShared.MatrixGridRow
 
 local IconSize = require(Foundation.Enums.IconSize)
 local InputSize = require(Foundation.Enums.InputSize)
+local Orientation = require(Foundation.Enums.Orientation)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local SliderVariant = require(Foundation.Enums.SliderVariant)
@@ -48,9 +50,25 @@ local VISUAL_COLUMNS: { VisualColumn } = {
 local VISUALS_LABEL_COLUMN_WIDTH = 80
 local VISUALS_CELL_COLUMN_WIDTH = 200
 local VISUALS_SLIDER_WIDTH = UDim.new(0, 180)
+local VERTICAL_CELL_COLUMN_WIDTH = 80
+local VERTICAL_SLIDER_LENGTH = UDim.new(0, 240)
+local ORIENTATION_OPTIONS: { Orientation.Orientation } = if Flags.FoundationSliderBeta
+	then { Orientation.Horizontal, Orientation.Vertical }
+	else { Orientation.Horizontal }
+local KNOB_VISIBILITY_OPTIONS: { Visibility.Visibility } = {
+	Visibility.None,
+	Visibility.Always,
+	Visibility.Auto,
+}
+local SLIDER_VARIANT_OPTIONS: { SliderVariant.SliderVariant } = {
+	SliderVariant.Emphasis,
+	SliderVariant.Standard,
+	SliderVariant.Utility,
+}
 
 type Controls = {
 	size: InputSize.InputSize,
+	orientation: Orientation.Orientation,
 	knobVisibility: Visibility.Visibility,
 	isDisabled: boolean,
 	isContained: boolean,
@@ -63,29 +81,35 @@ type Controls = {
 
 local function PlaygroundStory(props: { controls: Controls })
 	local value, setValue = React.useBinding(0.5)
+	local isVertical = Flags.FoundationSliderBeta and props.controls.orientation == Orientation.Vertical
 
-	return React.createElement(Slider, {
-		value = value,
-		range = NumberRange.new(props.controls.rangeMin, props.controls.rangeMax),
-		size = props.controls.size,
-		knobVisibility = props.controls.knobVisibility,
-		variant = props.controls.variant,
-		isDisabled = props.controls.isDisabled,
-		isContained = props.controls.isContained,
-		step = props.controls.step,
-		onValueChanged = setValue,
-		knob = if props.controls.hasCustomKnob
-			then React.createElement(Icon, {
-				name = IconName.Tilt,
-				size = IconSize.Medium,
-			})
-			else nil,
-		onDragStarted = function()
-			print("Drag started. Previous value:", value:getValue())
-		end,
-		onDragEnded = function()
-			print("Drag ended. Final value:", value:getValue())
-		end,
+	return React.createElement(View, {
+		tag = if isVertical then "align-x-center size-full-3000" else "size-full-0 auto-y",
+	}, {
+		Slider = React.createElement(Slider, {
+			value = value,
+			range = NumberRange.new(props.controls.rangeMin, props.controls.rangeMax),
+			size = props.controls.size,
+			orientation = props.controls.orientation,
+			knobVisibility = props.controls.knobVisibility,
+			variant = props.controls.variant,
+			isDisabled = props.controls.isDisabled,
+			isContained = props.controls.isContained,
+			step = props.controls.step,
+			onValueChanged = setValue,
+			knob = if props.controls.hasCustomKnob
+				then React.createElement(Icon, {
+					name = IconName.Tilt,
+					size = IconSize.Medium,
+				})
+				else nil,
+			onDragStarted = function()
+				print("Drag started. Previous value:", value:getValue())
+			end,
+			onDragEnded = function()
+				print("Drag ended. Final value:", value:getValue())
+			end,
+		}),
 	})
 end
 
@@ -313,45 +337,86 @@ local function RotatedStory()
 	}, sliders)
 end
 
+local function VerticalVisualsStory()
+	local value = React.useBinding(0.5)
+
+	return React.createElement(MatrixGrid, {
+		labelColumnWidth = VISUALS_LABEL_COLUMN_WIDTH,
+		columnHeaders = Dash.map(VISUAL_COLUMNS, function(column)
+			return column.name
+		end),
+		cellColumnWidth = VERTICAL_CELL_COLUMN_WIDTH,
+		rowGap = "xxlarge",
+		rows = Dash.map(SIZE_ORDER, function(size): MatrixGridRow
+			return {
+				label = matrixLabel(size :: string),
+				cells = Dash.map(VISUAL_COLUMNS, function(column)
+					return React.createElement(Slider, {
+						value = value,
+						orientation = Orientation.Vertical,
+						size = size,
+						width = VERTICAL_SLIDER_LENGTH,
+						variant = column.variant,
+						isDisabled = column.isDisabled,
+						knobVisibility = Visibility.Always,
+					})
+				end),
+			}
+		end),
+	})
+end
+
+local stories = {
+	{
+		name = "Playground",
+		story = PlaygroundStory :: unknown,
+	},
+	{
+		name = "Horizontal visuals",
+		summary = "Standard and Emphasis sliders, enabled and disabled, across every size",
+		story = HorizontalVisualsStory,
+	},
+	{
+		name = "Media timeline",
+		summary = "Press the Play button to simulate media playback, then click and drag to seek around the timeline",
+		story = MediaTimelineStory,
+	},
+	{
+		name = "Custom",
+		summary = "Color slider with gradient background",
+		story = CustomStory,
+	},
+	{
+		name = "Rotated",
+		summary = "Sliders in containers rotated",
+		story = RotatedStory,
+	},
+	{
+		name = "Popover",
+		summary = "Slider mounted inside a Popover",
+		story = PopoverStory,
+	},
+}
+
+-- Collapse this into stories when FoundationSliderBeta is cleaned up.
+if Flags.FoundationSliderBeta then
+	table.insert(stories, 3, {
+		name = "Vertical visuals",
+		summary = "Standard and Emphasis vertical sliders, enabled and disabled, across every size",
+		story = VerticalVisualsStory,
+	})
+end
+
 return {
 	summary = `If dragging does not work make sure to deselect any tools in Studio! By default the "Select" tool is selected and will interfere with dragging behavior`,
-	stories = {
-		{
-			name = "Playground",
-			story = PlaygroundStory :: unknown,
-		},
-		{
-			name = "Horizontal visuals",
-			summary = "Standard and Emphasis sliders, enabled and disabled, across every size",
-			story = HorizontalVisualsStory,
-		},
-		{
-			name = "Media timeline",
-			summary = "Press the Play button to simulate media playback, then click and drag to seek around the timeline",
-			story = MediaTimelineStory,
-		},
-		{
-			name = "Custom",
-			summary = "Color slider with gradient background",
-			story = CustomStory,
-		},
-		{
-			name = "Rotated",
-			summary = "Sliders in containers rotated",
-			story = RotatedStory,
-		},
-		{
-			name = "Popover",
-			summary = "Slider mounted inside a Popover",
-			story = PopoverStory,
-		},
-	},
+	stories = stories,
 	controls = {
-		size = Dash.values(InputSize),
-		knobVisibility = Dash.values(Visibility),
+		size = SIZE_ORDER,
+		orientation = ORIENTATION_OPTIONS,
+		knobVisibility = KNOB_VISIBILITY_OPTIONS,
 		isDisabled = false,
 		isContained = false,
-		variant = Dash.values(SliderVariant),
+		variant = SLIDER_VARIANT_OPTIONS,
 		hasCustomKnob = false,
 		rangeMin = -50,
 		rangeMax = 100,

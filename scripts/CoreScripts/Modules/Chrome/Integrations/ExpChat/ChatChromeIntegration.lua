@@ -54,6 +54,7 @@ local GetFriendsChatIconUnreadStore = require(CorePackages.Workspace.Packages.Fr
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExpChatWindowSyncUnibar = SharedFlags.FFlagExpChatWindowSyncUnibar
+local FFlagExpChatInitializeWindowFromGameSettings = SharedFlags.FFlagExpChatInitializeWindowFromGameSettings
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
 local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
@@ -63,6 +64,8 @@ local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
 local ExpChatShared = require(CorePackages.Workspace.Packages.ExpChatShared)
 local GetFFlagTextChatEnableUniverseChatTabs = ExpChatShared.Flags.GetFFlagTextChatEnableUniverseChatTabs
+local shouldRenderTextChannelInDefaultWindow = ExpChatShared.shouldRenderTextChannelInDefaultWindow
+local getTextChannelDisplayMode = ExpChatShared.getTextChannelDisplayMode
 local FFlagExpChatSuppressWelcomeMessageUnibarUnread =
 	game:DefineFastFlag("ExpChatSuppressWelcomeMessageUnibarUnread", false)
 local FFlagExpChatUnibarThumbstickNavigate = game:DefineFastFlag("ExpChatUnibarThumbstickNavigate", false)
@@ -76,7 +79,14 @@ local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialE
 
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
-local chatVisibility: boolean = ChatSelector:GetVisibility()
+local chatVisibility: boolean
+if FFlagExpChatInitializeWindowFromGameSettings then
+	-- isSmallTouchScreen is applied later, so the window can still briefly appear on small touch screens.
+	chatVisibility = GameSettings.ChatVisible
+	ChatSelector:SetVisible(chatVisibility)
+else
+	chatVisibility = ChatSelector:GetVisibility()
+end
 local chatChromeIntegration: ChatIntegration
 
 local chatSelectorVisibilitySignal = ChatSelector.VisibilityStateChanged
@@ -358,6 +368,10 @@ local function shouldIgnoreUnreadForMessage(textChatMessage: TextChatMessage?): 
 end
 
 TextChatService.MessageReceived:Connect(function(textChatMessage: TextChatMessage)
+	local displayMode = getTextChannelDisplayMode()
+	if not shouldRenderTextChannelInDefaultWindow(textChatMessage.TextChannel, displayMode) then
+		return
+	end
 	if shouldIgnoreUnreadForMessage(textChatMessage) then
 		return
 	end

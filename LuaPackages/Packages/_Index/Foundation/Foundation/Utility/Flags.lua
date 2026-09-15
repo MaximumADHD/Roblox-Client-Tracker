@@ -6,10 +6,12 @@ local FoundationBottomSheetFixHeightCap = SafeFlags.createGetFFlag("FoundationBo
 local FoundationFixTabsFitBorderWidth = SafeFlags.createGetFFlag("FoundationFixTabsFitBorderWidth2")()
 local FoundationSliderAsSeenOnTV = SafeFlags.createGetFFlag("FoundationSliderAsSeenOnTV")()
 local FoundationSliderKnobSelection = SafeFlags.createGetFFlag("FoundationSliderKnobSelection")()
+local FoundationSliderOffloadDraggingMath = SafeFlags.createGetFFlag("FoundationSliderOffloadDraggingMath2")()
 local FoundationInternalInputBeta = SafeFlags.createGetFFlag("FoundationInternalInputBeta2")()
 local FoundationToggleBetaUpdate = SafeFlags.createGetFFlag("FoundationToggleBetaUpdate")()
 local FoundationCheckboxBeta = SafeFlags.createGetFFlag("FoundationCheckboxBeta")()
 local FoundationInputGroup = SafeFlags.createGetFFlag("FoundationInputGroup")()
+local FoundationStyleRulePseudoName = SafeFlags.createGetFFlag("FoundationStyleRulePseudoName")()
 local FoundationStyleSheetRefCounting = SafeFlags.createGetFFlag("FoundationStyleSheetRefCounting")()
 local FoundationThemeName = SafeFlags.createGetFFlag("FoundationThemeName")()
 local FoundationThemedTypography = SafeFlags.createGetFFlag("FoundationThemedTypography")()
@@ -113,12 +115,17 @@ return {
 
 	-- Foundation@1.104.0
 	FoundationProviderStableEmptyTable = SafeFlags.createGetFFlag("FoundationProviderStableEmptyTable")(),
-	FoundationSliderBeta = SafeFlags.createGetFFlag("FoundationSliderBeta")(),
-	FoundationStyleRulePseudoName = SafeFlags.createGetFFlag("FoundationStyleRulePseudoName")(),
+	FoundationStyleRulePseudoName = FoundationStyleRulePseudoName,
 	FoundationThemedTypography = FoundationStyleSheetRefCounting and FoundationThemeName and FoundationThemedTypography,
 
 	-- Foundation@1.107.0
-	FoundationSliderOffloadDraggingMath = SafeFlags.createGetFFlag("FoundationSliderOffloadDraggingMath2")(),
+	FoundationSliderOffloadDraggingMath = FoundationSliderOffloadDraggingMath,
+
+	-- Foundation@1.109.0
+	FoundationKnobRaisedShadow = FoundationStyleRulePseudoName
+		and SafeFlags.createGetFFlag("FoundationKnobRaisedShadow")(),
+	FoundationSliderBeta = FoundationSliderOffloadDraggingMath and SafeFlags.createGetFFlag("FoundationSliderBeta2")(),
+	FoundationStatusIndicatorMask = SafeFlags.createGetFFlag("FoundationStatusIndicatorMask")(),
 
 	-- Unreleased flags
 }

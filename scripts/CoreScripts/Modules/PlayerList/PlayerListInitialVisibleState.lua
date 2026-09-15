@@ -16,10 +16,16 @@ local FStringPlayerListOverrideType = require(PlayerList.Flags.FStringPlayerList
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagPlayerListUseMobileOnSmallDisplay = PlayerListPackage.Flags.FFlagPlayerListUseMobileOnSmallDisplay
 local FFlagPlayerListReskin = PlayerListPackage.Flags.FFlagPlayerListReskin
+local FFlagLuaSupportMicroGamepadPreferredInput =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaSupportMicroGamepadPreferredInput
 
 local function isTouchOrGamepad(): boolean
 	return UserInputService.PreferredInput == Enum.PreferredInput.Touch
 		or UserInputService.PreferredInput == Enum.PreferredInput.Gamepad
+		or (
+			FFlagLuaSupportMicroGamepadPreferredInput
+			and UserInputService.PreferredInput == Enum.PreferredInput.MicroGamepad
+		)
 end
 
 -- Reskin console-mobile routing kicks in only when the device would otherwise be a

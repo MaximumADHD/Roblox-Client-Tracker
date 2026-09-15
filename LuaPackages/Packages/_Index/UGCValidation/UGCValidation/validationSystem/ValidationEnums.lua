@@ -176,6 +176,7 @@ ValidationEnums.ValidationModule = {
 	CurveAnimLoopingRequired = "CurveAnimLoopingRequired",
 	CurveAnimStrictSchema = "CurveAnimStrictSchema",
 	EmissiveMapAllowed = "EmissiveMapAllowed",
+	EmissiveAreaChecks = "EmissiveAreaChecks",
 }
 
 ---- Camel case enums (module members) ----

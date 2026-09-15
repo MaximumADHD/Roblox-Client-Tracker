@@ -32,7 +32,7 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 -- Flags
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagSideSheetFocusNav = SharedFlags.FFlagSideSheetFocusNav
 local FFlagEnablePlaytestModeUnibar = SharedFlags.FFlagEnablePlaytestModeUnibar
 
@@ -101,7 +101,7 @@ local function MenuIcon(props: MenuIconProps)
 
     local iconForegroundStyle = if FFlagEnablePlaytestModeUnibar and isPlaytestMode 
             then (lightTokens :: Tokens).Color.Content.Emphasis
-        elseif FFlagEnableSideSheet 
+        elseif isSideSheetEnabled 
             then tokens.Color.ActionEmphasis.Foreground
         else nil
 	local iconBackgroundStyle = if FFlagEnablePlaytestModeUnibar and isPlaytestMode 
@@ -177,7 +177,7 @@ local function MenuIcon(props: MenuIconProps)
 		end)
 
 		local disposeSideSheetVisibilityEffect = nil
-		if FFlagEnableSideSheet then
+		if isSideSheetEnabled then
 			disposeSideSheetVisibilityEffect = Signals.createEffect(function(scope)
 				local isOpen = getSideSheetVisibility(scope)
 				animateMenuIcon(if isOpen then iconSizeStates.menuOpen else iconSizeStates.menuClosed)
@@ -193,7 +193,7 @@ local function MenuIcon(props: MenuIconProps)
         end
 
         return function()
-			if FFlagEnableSideSheet and disposeSideSheetVisibilityEffect then
+			if isSideSheetEnabled and disposeSideSheetVisibilityEffect then
 				disposeSideSheetVisibilityEffect()
 			end
             preferredTransparencyConn:Disconnect()
@@ -294,7 +294,7 @@ local function MenuIcon(props: MenuIconProps)
     local renderCallback = React.useCallback(function(triggerPointChanged) 
         return React.createElement(View, {
             tag = "radius-circle aspect-1-1",
-            backgroundStyle = if not FFlagEnableSideSheet 
+            backgroundStyle = if not isSideSheetEnabled 
 				then preferredTransparency:map(function(trans) 
 					local color = iconBackgroundStyle
 					color.Transparency = color.Transparency * trans
@@ -303,7 +303,7 @@ local function MenuIcon(props: MenuIconProps)
 				else nil,
             Size = UDim2.fromScale(1, 1),
             NextSelectionRight = nextSelectionRight,
-            selection = if not (FFlagEnableSideSheet and FFlagSideSheetFocusNav) then {
+            selection = if not (isSideSheetEnabled and FFlagSideSheetFocusNav) then {
                 Selectable = true,
                 SelectionImageObject = menuIconCursor
             } else {
@@ -317,8 +317,8 @@ local function MenuIcon(props: MenuIconProps)
             ref = props.menuIconRef,
             onAbsoluteSizeChanged = triggerPointChanged,
             onAbsolutePositionChanged = triggerPointChanged,
-            onActivated = if not FFlagEnableSideSheet then menuIconActivated else nil,
-            onStateChanged = if not FFlagEnableSideSheet then menuIconStateChanged else nil,
+            onActivated = if not isSideSheetEnabled then menuIconActivated else nil,
+            onStateChanged = if not isSideSheetEnabled then menuIconStateChanged else nil,
         }, {
             BadgeOver12 = if props.showBadgeOver12 then
                 React.createElement(BadgeOver12, {

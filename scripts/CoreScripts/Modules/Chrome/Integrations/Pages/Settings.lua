@@ -15,7 +15,7 @@ return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "settings",
 	label = "CoreScripts.InGameMenu.PageTitle.GameSettings",
-	sideSheetPlacement = SideSheetPlacement.Page,
+	sideSheetPlacement = SideSheetPlacement.AboveFold,
 	activated = function(self)
 		InGameMenuIntegrationUtils.toggleIGMPage("GameSettingsPage", pageOpenSignal:get())
 	end,

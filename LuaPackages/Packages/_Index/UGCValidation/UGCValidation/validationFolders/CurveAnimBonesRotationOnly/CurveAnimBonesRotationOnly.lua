@@ -11,7 +11,7 @@ local getFFlagUGCValidateAnimBonesSupport = require(root.flags.getFFlagUGCValida
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 local getFFlagUGCValidateAnimTranslationThreshold = require(root.flags.getFFlagUGCValidateAnimTranslationThreshold)
 local FIntUGCValidateBoneTranslationMaxDistanceHundredths =
-	game:DefineFastInt("UGCValidateBoneTranslationMaxDistanceHundredths", 50)
+	game:DefineFastInt("UGCValidateBoneTranslationMaxDistanceHundredths", 100)
 
 local CurveAnimBonesRotationOnly = {}
 

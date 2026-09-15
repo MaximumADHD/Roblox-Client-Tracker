@@ -29,7 +29,6 @@ local GetFFlagDisableConsentModalForExistingUsers =
 	require(script.Parent.Flags.GetFFlagDisableConsentModalForExistingUsers)
 local GetFFlagOnlyEnableJoinVoiceInVoiceEnabledUniverses =
 	require(script.Parent.Flags.GetFFlagOnlyEnableJoinVoiceInVoiceEnabledUniverses)
-local GetFFlagUpdateVoiceConnectionToasts = require(script.Parent.Flags.GetFFlagUpdateVoiceConnectionToasts)
 
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
@@ -55,8 +54,6 @@ local GetFFlagEnableCrossExperienceVoiceCaptureMute =
 local GetFFlagExpChatUseVoiceParticipantsStore =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagExpChatUseVoiceParticipantsStore
 local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
-local GetFFlagEnableVoiceTrustedConnectionsToasts =
-	require(script.Parent.Flags.GetFFlagEnableVoiceTrustedConnectionsToasts)
 local DebugShowAudioDeviceInputDebugger =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDebugShowAudioDeviceInputDebugger()
 local GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2 = require(script.Parent.Flags.GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2)
@@ -604,7 +601,7 @@ function VoiceChatServiceManager.new(
 			self:simulateVoiceConnectDisconnect()
 		end
 
-		if GetFFlagEnableVoiceTrustedConnectionsToasts() and not self.coreVoiceManager.initializedPostSuspension then
+		if not self.coreVoiceManager.initializedPostSuspension then
 			local success, value = pcall(function()
 				return AppStorageService:GetItem(VoiceConstants.VOICE_WITH_TC_TOAST_KEY) == "true"
 			end)
@@ -679,28 +676,14 @@ function VoiceChatServiceManager.new(
 	self.coreVoiceManager:subscribe("OnVoiceJoin", function()
 		if GetFFlagNonVoiceFTUX() and self.hasLeftFTUX then
 			self.hasLeftFTUX = false
-			if GetFFlagEnableVoiceTrustedConnectionsToasts() then
 				self:showJoinVoicePrompt()
-			elseif GetFFlagUpdateVoiceConnectionToasts() then
-				self:showPrompt(VoiceChatPromptType.UnifiedJoinVoiceToast)
-			else
-				self:showPrompt(VoiceChatPromptType.JoinedVoiceToast)
-			end
 
 			self.Analytics:reportConnectDisconnectEvents(
 				"voiceConnectFtuxLeaveEvent",
 				self:GetConnectDisconnectAnalyticsData()
 			)
 		elseif self:IsSeamlessVoice() then
-			if GetFFlagEnableVoiceTrustedConnectionsToasts() then
 				self:showJoinVoicePrompt()
-			elseif GetFFlagUpdateVoiceConnectionToasts() then
-				self:showPrompt(VoiceChatPromptType.UnifiedJoinVoiceToast)
-			elseif FFlagSeamlessVoiceV2JoinVoiceToast and self.isInitialJoin then
-				self:showPrompt(VoiceChatPromptType.JoinedVoiceToast)
-			else
-				self:showPrompt(VoiceChatPromptType.JoinVoice)
-			end
 			self:SetVoiceConnectCookieValue(true)
 		else
 			self:showPrompt(VoiceChatPromptType.VoiceConsentAcceptedToast)
@@ -1815,13 +1798,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		end
 		-- previously joined voice and left in the same session
 		self:RejoinPreviousChannel()
-		if GetFFlagEnableVoiceTrustedConnectionsToasts() then
 			self:showJoinVoicePrompt()
-		elseif GetFFlagUpdateVoiceConnectionToasts() then
-			self:showPrompt(VoiceChatPromptType.UnifiedJoinVoiceToast)
-		else
-			self:showPrompt(VoiceChatPromptType.JoinVoice)
-		end
 		self:ShowVoiceUI()
 		self:SetVoiceConnectCookieValue(true)
 	elseif GetFFlagNonVoiceFTUX() and self.isShowingFTUX then

@@ -5,14 +5,16 @@ local React = require(Packages.React)
 
 local PlannedComponent = require(Foundation.Utility.Stories.Shared.PlannedComponent)
 
+local function PlaygroundStory(): React.ReactNode
+	return React.createElement(PlannedComponent, { name = "Toolbar" })
+end
+
 return {
 	summary = "Toolbar is designed in Figma but is not implemented in Foundation yet.",
 	stories = {
 		{
 			name = "Playground",
-			story = function()
-				return React.createElement(PlannedComponent, { name = "Toolbar" })
-			end :: unknown,
+			story = PlaygroundStory :: unknown,
 		},
 	},
 }

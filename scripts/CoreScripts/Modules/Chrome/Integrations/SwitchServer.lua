@@ -15,6 +15,7 @@ local SwitchServer = require(CorePackages.Workspace.Packages.SwitchServer)
 local GetSwitchServerStore = SwitchServer.GetSwitchServerStore
 local SwitchServerConstants = SwitchServer.Constants
 local switchServerStore = GetSwitchServerStore(false)
+local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 
 -- Signals
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
@@ -39,7 +40,7 @@ local switchServerIntegration = ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Unavailable,
 	id = ChromeConstants.SWITCH_SERVER_ID,
 	label = SwitchServerConstants.BUTTON.LABEL,
-	sideSheetPlacement = SideSheetPlacement.Page,
+	sideSheetPlacement = if isPioneerLaunch() then SideSheetPlacement.SessionAction else SideSheetPlacement.BelowFold,
 	activated = function()
 		switchServerStore.setConfirmationOpen(true)
 	end,

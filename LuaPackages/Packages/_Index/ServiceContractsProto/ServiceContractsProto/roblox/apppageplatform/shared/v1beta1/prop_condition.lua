@@ -14,6 +14,7 @@ type _Messages = {
 	IsNotNullCondition: _IsNotNullConditionMessage,
 	IsEmptyCondition: _IsEmptyConditionMessage,
 	IsNotEmptyCondition: _IsNotEmptyConditionMessage,
+	ContainsCondition: _ContainsConditionMessage,
 	AndCondition: _AndConditionMessage,
 	OrCondition: _OrConditionMessage,
 }
@@ -38,6 +39,7 @@ type _PropConditionFields = {
 		| { type: "or_condition", value: OrCondition }
 		| { type: "is_empty", value: IsEmptyCondition }
 		| { type: "is_not_empty", value: IsNotEmptyCondition }
+		| { type: "contains", value: ContainsCondition }
 	)?,
 }
 
@@ -50,6 +52,7 @@ type _PropConditionPartialFields = {
 		| { type: "or_condition", value: OrCondition }
 		| { type: "is_empty", value: IsEmptyCondition }
 		| { type: "is_not_empty", value: IsNotEmptyCondition }
+		| { type: "contains", value: ContainsCondition }
 	)?,
 }
 
@@ -76,6 +79,7 @@ type _ComparisonConditionFields = {
 		| { type: "int64_value", value: number }
 		| { type: "float_value", value: number }
 		| { type: "double_value", value: number }
+		| { type: "binding_path_value", value: string }
 	)?,
 }
 
@@ -89,6 +93,7 @@ type _ComparisonConditionPartialFields = {
 		| { type: "int64_value", value: number }
 		| { type: "float_value", value: number }
 		| { type: "double_value", value: number }
+		| { type: "binding_path_value", value: string }
 	)?,
 }
 
@@ -182,6 +187,29 @@ type _IsNotEmptyConditionPartialFields = {
 export type IsNotEmptyCondition = typeof(setmetatable({} :: _IsNotEmptyConditionFields, {} :: _IsNotEmptyConditionImpl))
 type _IsNotEmptyConditionMessage = proto.Message<IsNotEmptyCondition, _IsNotEmptyConditionPartialFields>
 
+type _ContainsConditionImpl = {
+	__index: _ContainsConditionImpl,
+	new: (fields: _ContainsConditionPartialFields?) -> ContainsCondition,
+	encode: (self: ContainsCondition) -> buffer,
+	decode: (input: buffer) -> ContainsCondition,
+	jsonEncode: (self: ContainsCondition) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ContainsCondition,
+	descriptor: proto.Descriptor,
+}
+
+type _ContainsConditionFields = {
+	field: string,
+	kind: ({ type: "string_value", value: string } | { type: "binding_path_value", value: string })?,
+}
+
+type _ContainsConditionPartialFields = {
+	field: string?,
+	kind: ({ type: "string_value", value: string } | { type: "binding_path_value", value: string })?,
+}
+
+export type ContainsCondition = typeof(setmetatable({} :: _ContainsConditionFields, {} :: _ContainsConditionImpl))
+type _ContainsConditionMessage = proto.Message<ContainsCondition, _ContainsConditionPartialFields>
+
 type _AndConditionImpl = {
 	__index: _AndConditionImpl,
 	new: (fields: _AndConditionPartialFields?) -> AndCondition,
@@ -267,6 +295,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "contains" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -324,6 +356,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "is_not_empty", value = messages.IsNotEmptyCondition.decode(value) }
 					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "contains", value = messages.ContainsCondition.decode(value) }
+					continue
 				end
 
 				local length
@@ -366,6 +403,8 @@ do
 				output.isEmpty = self.kind.value:jsonEncode()
 			elseif self.kind.type == "is_not_empty" then
 				output.isNotEmpty = self.kind.value:jsonEncode()
+			elseif self.kind.type == "contains" then
+				output.contains = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -425,6 +464,10 @@ do
 
 		if input.isNotEmpty ~= nil then
 			self.kind = { type = "is_not_empty", value = messages.IsNotEmptyCondition.jsonDecode(input.isNotEmpty) }
+		end
+
+		if input.contains ~= nil then
+			self.kind = { type = "contains", value = messages.ContainsCondition.jsonDecode(input.contains) }
 		end
 
 		return self
@@ -490,6 +533,9 @@ do
 			elseif self.kind.type == "double_value" then
 				output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.i64)
 				output, cursor = proto.writeDouble(output, cursor, self.kind.value)
+			elseif self.kind.type == "binding_path_value" then
+				output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
 			end
 		end
 
@@ -541,6 +587,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "string_value", value = buffer.tostring(value) }
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path_value", value = buffer.tostring(value) }
 					continue
 				end
 
@@ -605,6 +656,8 @@ do
 				output.floatValue = proto.json.serializeNumber(self.kind.value)
 			elseif self.kind.type == "double_value" then
 				output.doubleValue = proto.json.serializeNumber(self.kind.value)
+			elseif self.kind.type == "binding_path_value" then
+				output.bindingPathValue = self.kind.value
 			end
 		end
 
@@ -670,6 +723,14 @@ do
 
 		if input.doubleValue ~= nil then
 			self.kind = { type = "double_value", value = proto.json.deserializeNumber(input.doubleValue) }
+		end
+
+		if input.binding_path_value ~= nil then
+			self.kind = { type = "binding_path_value", value = input.binding_path_value }
+		end
+
+		if input.bindingPathValue ~= nil then
+			self.kind = { type = "binding_path_value", value = input.bindingPathValue }
 		end
 
 		return self
@@ -1136,6 +1197,148 @@ do
 end
 
 do
+	local _ContainsConditionImpl = {}
+	_ContainsConditionImpl.__index = _ContainsConditionImpl
+
+	function _ContainsConditionImpl.new(data: _ContainsConditionPartialFields?): ContainsCondition
+		return setmetatable({
+			field = if data == nil or data.field == nil then "" else data.field,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _ContainsConditionImpl :: _ContainsConditionImpl)
+	end
+
+	function _ContainsConditionImpl.encode(self: ContainsCondition): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.field ~= nil and self.field ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.field)
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "string_value" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "binding_path_value" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ContainsConditionImpl.decode(input: buffer): ContainsCondition
+		local self = _ContainsConditionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.field = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "string_value", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path_value", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ContainsConditionImpl.jsonEncode(self: ContainsCondition): any
+		local output = {}
+
+		if self.field ~= nil and self.field ~= "" then
+			output.field = self.field
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "string_value" then
+				output.stringValue = self.kind.value
+			elseif self.kind.type == "binding_path_value" then
+				output.bindingPathValue = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _ContainsConditionImpl.jsonDecode(input: { [string]: any }): ContainsCondition
+		local self = _ContainsConditionImpl.new()
+
+		if input.field ~= nil then
+			self.field = input.field
+		end
+
+		if input.string_value ~= nil then
+			self.kind = { type = "string_value", value = input.string_value }
+		end
+
+		if input.stringValue ~= nil then
+			self.kind = { type = "string_value", value = input.stringValue }
+		end
+
+		if input.binding_path_value ~= nil then
+			self.kind = { type = "binding_path_value", value = input.binding_path_value }
+		end
+
+		if input.bindingPathValue ~= nil then
+			self.kind = { type = "binding_path_value", value = input.bindingPathValue }
+		end
+
+		return self
+	end
+
+	_ContainsConditionImpl.descriptor = {
+		name = "ContainsCondition",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ContainsCondition",
+	}
+
+	messages.ContainsCondition = _ContainsConditionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ContainsCondition)
+end
+
+do
 	local _AndConditionImpl = {}
 	_AndConditionImpl.__index = _AndConditionImpl
 
@@ -1361,6 +1564,7 @@ return {
 	IsNotNullCondition = messages.IsNotNullCondition,
 	IsEmptyCondition = messages.IsEmptyCondition,
 	IsNotEmptyCondition = messages.IsNotEmptyCondition,
+	ContainsCondition = messages.ContainsCondition,
 	AndCondition = messages.AndCondition,
 	OrCondition = messages.OrCondition,
 }

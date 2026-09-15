@@ -19,12 +19,20 @@ local FFlagPlayerListRemoveTopStat = require(PlayerList.Flags.FFlagPlayerListRem
 
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagPlayerListTopStatCheckGamepad = game:DefineFastFlag("PlayerListTopStatCheckGamepad", false)
+local FFlagLuaSupportMicroGamepadPreferredInput =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaSupportMicroGamepadPreferredInput
 
 -- TODO: This top stat thing is bad, can just make TenFootInterface fully responsible?
 -- Or just move this whole thing into new Roact PlayerList?
 local topStat = nil
 if not FFlagPlayerListRemoveTopStat then
-	local isGamepadInput = if FFlagPlayerListTopStatCheckGamepad then UserInputService.PreferredInput == Enum.PreferredInput.Gamepad else true
+	local isGamepadInput = if FFlagPlayerListTopStatCheckGamepad
+		then UserInputService.PreferredInput == Enum.PreferredInput.Gamepad
+			or (
+				FFlagLuaSupportMicroGamepadPreferredInput
+				and UserInputService.PreferredInput == Enum.PreferredInput.MicroGamepad
+			)
+		else true
 	local shouldSetupTopStat = if FFlagEnableMobilePlayerListOnConsole then GuiService.ViewportDisplaySize == Enum.DisplaySize.Large and isGamepadInput else TenFootInterface:IsEnabled()
 	if shouldSetupTopStat then
 		topStat = TenFootInterface:SetupTopStat()

@@ -12,7 +12,7 @@ local DataStatus = DataHydration.DataHydrationTypes.DataStatus
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagShowGameAgeRating = SharedFlags.FFlagShowGameAgeRating
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 
 type Props = {
 	position: UDim2,
@@ -24,7 +24,7 @@ return function(props: Props): React.React_Node
 	local style = useStyle()
 
 	local position = if FFlagShowGameAgeRating then 
-		if FFlagEnableSideSheet then UDim2.fromOffset(-6, -2) else UDim2.fromOffset(0, 2)
+		if isSideSheetEnabled then UDim2.fromOffset(-6, -2) else UDim2.fromOffset(0, 2)
 	else props.position
 
 	local displayText

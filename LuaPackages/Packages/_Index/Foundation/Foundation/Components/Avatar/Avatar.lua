@@ -94,18 +94,29 @@ local function Avatar(avatarProps: AvatarProps, ref: React.Ref<GuiObject>?)
 			}),
 			Indicator = if Flags.FoundationAvatarBeta
 				then if variantProps.statusIndicator.isVisible
-					then React.createElement(
-						View,
-						Dash.join(variantProps.statusIndicatorBackplate, {
-							testId = `{props.testId}--indicator-backplate`,
-						}),
-						React.createElement(StatusIndicator, {
+					then if Flags.FoundationStatusIndicatorMask
+						then React.createElement(StatusIndicator, {
 							testId = `{props.testId}--status-indicator`,
 							variant = variantProps.statusIndicator.variant,
 							shape = variantProps.statusIndicator.shape,
 							size = variantProps.statusIndicator.size,
+							mask = variantProps.statusIndicatorMask.mask,
+							ZIndex = variantProps.statusIndicatorMask.ZIndex,
+							AnchorPoint = variantProps.statusIndicatorMask.AnchorPoint,
+							Position = variantProps.statusIndicatorMask.Position,
 						})
-					)
+						else React.createElement(
+							View,
+							Dash.join(variantProps.statusIndicatorBackplate, {
+								testId = `{props.testId}--indicator-backplate`,
+							}),
+							React.createElement(StatusIndicator, {
+								testId = `{props.testId}--status-indicator`,
+								variant = variantProps.statusIndicator.variant,
+								shape = variantProps.statusIndicator.shape,
+								size = variantProps.statusIndicator.size,
+							})
+						)
 					else nil
 				elseif variantProps.indicator.isVisible then React.createElement(
 					View,

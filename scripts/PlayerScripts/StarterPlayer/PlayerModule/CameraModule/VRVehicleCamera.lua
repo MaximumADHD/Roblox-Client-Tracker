@@ -3,14 +3,6 @@
 	VRVehicleCamera - VR vehicle camera with orbital third-person and heading-locked first-person
 --]]
 
-local FFlagUserVRVehicleCamera
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRVehicleCameraOrbital")
-	end)
-	FFlagUserVRVehicleCamera = success and result
-end
-
 local MIN_ASSEMBLY_RADIUS = 5
 local ZOOM_MINIMUM = 0.5
 local DRIFT_MIN_VELOCITY = 2
@@ -139,11 +131,6 @@ local VRVehicleCamera = setmetatable({}, VRBaseCamera)
 VRVehicleCamera.__index = VRVehicleCamera
 
 function VRVehicleCamera.new()
-	if not FFlagUserVRVehicleCamera then
-		local VRVehicleCameraDeprecated = require(script.Parent:WaitForChild("VRVehicleCameraDeprecated"))
-		return VRVehicleCameraDeprecated.new()
-	end
-
 	local self = setmetatable(VRBaseCamera.new(), VRVehicleCamera)
 	self.skipOcclusion = true
 	self:Reset()

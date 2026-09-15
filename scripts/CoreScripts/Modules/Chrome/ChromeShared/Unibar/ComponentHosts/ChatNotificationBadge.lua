@@ -1,17 +1,12 @@
-local ChromeShared = script:FindFirstAncestor("ChromeShared")
-
 local CorePackages = game:GetService("CorePackages")
 local TextChatService = game:GetService("TextChatService")
 local React = require(CorePackages.Packages.React)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
-local ChromeService = require(ChromeShared.Service)
-
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local getGlobalChatTooltipStore = ExpChat.Stores.GetGlobalChatTooltipStore
 local getChatTooltipStore = ExpChat.Stores.GetChatTooltipStore
 local getChatStatusStore = ExpChat.Stores.GetChatStatusStore
-local getTransparencyStore = ExpChat.Stores.GetTransparencyStore
 local isUserChatEnabled = ExpChat.isUserChatEnabled
 
 local ExpChatShared = require(CorePackages.Workspace.Packages.ExpChatShared)
@@ -24,7 +19,6 @@ local ExpChatPresetChatBadgeFTUXExperimentation =
 
 local FFlagExpChatShowPresetTooltipToNonAgeChecked2 =
 	game:DefineFastFlag("ExpChatShowPresetTooltipToNonAgeChecked2", false)
-local FFlagExpChatFixTooltipBadgeTransientOpen = game:DefineFastFlag("ExpChatFixTooltipBadgeTransientOpen", false)
 
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 
@@ -152,44 +146,13 @@ local function ChatNotificationBadge(props: ChatNotificationBadgeProps): any?
 	end
 
 	local hasOpenedChat, setHasOpenedChat = React.useState(false)
-	if FFlagExpChatFixTooltipBadgeTransientOpen then
-		local isChatInputBarFocused = SignalsReact.useSignalState(getTransparencyStore(false).getIsTextBoxFocused)
-
-		React.useEffect(function()
-			if tooltipEligible and isChatInputBarFocused then
-				setHasOpenedChat(true)
-			end
-
-			if not tooltipEligible then
-				return
-			end
-
-			local connection = ChromeService:onIntegrationActivated():connect(function(activatedId)
-				if activatedId == "chat" and not isChatWindowOpen then
-					setHasOpenedChat(true)
-				end
-			end)
-			return function()
-				connection:disconnect()
-			end
-		end, { tooltipEligible, isChatInputBarFocused, isChatWindowOpen })
-	else
-		React.useEffect(function()
-			if tooltipEligible and isChatWindowOpen then
-				setHasOpenedChat(true)
-			end
-		end, { tooltipEligible, isChatWindowOpen })
-	end
+	React.useEffect(function()
+		if tooltipEligible and isChatWindowOpen then
+			setHasOpenedChat(true)
+		end
+	end, { tooltipEligible, isChatWindowOpen })
 
 	local shouldOfferBadge = tooltipEligible and not hasOpenedChat
-
-	if FFlagExpChatFixTooltipBadgeTransientOpen then
-		React.useEffect(function()
-			if shouldOfferBadge and presetShown and ExpChatPresetChatBadgeFTUXExperimentation.isExperimentEnabled then
-				ExpChatPresetChatBadgeFTUXExperimentation.logExposure()
-			end
-		end, { shouldOfferBadge, presetShown })
-	end
 
 	local badgeProps = table.clone(iconHostProps) :: any
 	if shouldOfferBadge then

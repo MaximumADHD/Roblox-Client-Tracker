@@ -15,6 +15,8 @@ type ColorStyleValue = Types.ColorStyleValue
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
 
+local indexBindable = require(Foundation.Utility.indexBindable)
+
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
@@ -27,6 +29,7 @@ type StatusIndicatorVariantProps = {
 	container: { tag: string, backgroundStyle: ColorStyleValue?, size: UDim2? }, -- only populated if bg tag is non-compliant },
 	content: { tag: string, style: ColorStyleValue?, font: Font },
 	ring: { tag: string, size: UDim2? }?,
+	stroke: Types.Stroke?,
 }
 
 -- To-Do: Remove and use tag when BuilderSansSemiBold is supported as token / tag
@@ -39,6 +42,12 @@ function variantsFactory(tokens: Tokens)
 			-- To-Do: Use tag for font when BuilderSansSemiBold is supported as token / tag
 			font = BuilderSansSemiBold,
 		},
+		-- Size-specific mask thickness comes from the size variants (behind FoundationAvatarBeta); fall back to a fixed weight otherwise.
+		stroke = if Flags.FoundationAvatarBeta
+			then nil
+			else {
+				Thickness = tokens.Size.Size_50,
+			},
 	}
 
 	local variants: { [StatusIndicatorVariant]: VariantProps } = {
@@ -131,6 +140,7 @@ function variantsFactory(tokens: Tokens)
 	local shape: { [StatusIndicatorShape]: any } = {
 		[StatusIndicatorShape.Circle] = {
 			container = { tag = "radius-circle" },
+			stroke = { LineJoinMode = Enum.LineJoinMode.Round },
 		},
 		[StatusIndicatorShape.Ring] = {
 			container = { tag = "align-x-center align-y-center radius-circle" },
@@ -139,9 +149,11 @@ function variantsFactory(tokens: Tokens)
 					then "radius-circle bg-surface-100"
 					else "size-100-100 radius-circle bg-surface-100",
 			},
+			stroke = { LineJoinMode = Enum.LineJoinMode.Round },
 		},
 		[StatusIndicatorShape.Square] = {
 			container = { tag = "radius-none" },
+			stroke = { LineJoinMode = Enum.LineJoinMode.Miter },
 		},
 	}
 
@@ -150,18 +162,22 @@ function variantsFactory(tokens: Tokens)
 			[StatusIndicatorSize.XSmall] = {
 				container = { size = UDim2.fromOffset(tokens.Size.Size_150, tokens.Size.Size_150) },
 				ring = { size = UDim2.fromOffset(tokens.Size.Size_150 / 2, tokens.Size.Size_150 / 2) },
+				stroke = { Thickness = tokens.Stroke.Standard },
 			},
 			[StatusIndicatorSize.Small] = {
 				container = { size = UDim2.fromOffset(tokens.Size.Size_200, tokens.Size.Size_200) },
 				ring = { size = UDim2.fromOffset(tokens.Size.Size_200 / 2, tokens.Size.Size_200 / 2) },
+				stroke = { Thickness = tokens.Size.Size_50 },
 			},
 			[StatusIndicatorSize.Medium] = {
 				container = { size = UDim2.fromOffset(tokens.Size.Size_250, tokens.Size.Size_250) },
 				ring = { size = UDim2.fromOffset(tokens.Size.Size_250 / 2, tokens.Size.Size_250 / 2) },
+				stroke = { Thickness = tokens.Size.Size_50 },
 			},
 			[StatusIndicatorSize.Pictogram] = {
 				container = { size = UDim2.fromOffset(tokens.Size.Size_500, tokens.Size.Size_500) },
 				ring = { size = UDim2.fromOffset(tokens.Size.Size_500 / 2, tokens.Size.Size_500 / 2) },
+				stroke = { Thickness = tokens.Stroke.Thicker },
 			},
 		}
 		else nil :: never
@@ -180,7 +196,8 @@ return function(
 	variant: StatusIndicatorVariant,
 	hasValue: boolean,
 	shape: StatusIndicatorShape,
-	size: StatusIndicatorSize
+	size: StatusIndicatorSize,
+	mask: Types.ColorStyle?
 ): StatusIndicatorVariantProps
 	if not Flags.FoundationStatusIndicatorVariantExperiment and isDevMode then
 		if variant == StatusIndicatorVariant.Contrast_Experiment then
@@ -191,6 +208,15 @@ return function(
 		end
 	end
 
+	local commonMask = if mask
+		then {
+			stroke = {
+				Color = indexBindable(mask, "Color3"),
+				Transparency = indexBindable(mask, "Transparency"),
+			},
+		}
+		else nil :: never
+
 	local props = VariantsContext.useVariants("StatusIndicator", variantsFactory, tokens)
 
 	return composeStyleVariant(
@@ -198,6 +224,7 @@ return function(
 		props.variants[variant],
 		props.hasValue[hasValue],
 		props.shape[shape],
-		if Flags.FoundationAvatarBeta then if not hasValue then props.sizes[size] else {} else nil :: never
+		if Flags.FoundationAvatarBeta then if not hasValue then props.sizes[size] else {} else nil :: never,
+		commonMask
 	)
 end

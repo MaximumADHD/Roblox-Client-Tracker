@@ -10,6 +10,9 @@ local ContextActionService = game:GetService("ContextActionService")
 
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local FFlagUserPlayerScriptsSupportTVRemoteKeycodes = FlagUtil.getUserFlag("UserPlayerScriptsSupportTVRemoteKeycodes")
+
 --[[ Constants ]]--
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local NONE = Enum.UserInputType.None
@@ -25,10 +28,11 @@ function Gamepad.new(CONTROL_ACTION_PRIORITY)
 
 	self.CONTROL_ACTION_PRIORITY = CONTROL_ACTION_PRIORITY
 
-	self.forwardValue  = 0
+	self.forwardValue = 0
 	self.backwardValue = 0
 	self.leftValue = 0
 	self.rightValue = 0
+	self.thumbstickVector = ZERO_VECTOR3
 
 	self.activeGamepad = NONE	-- Enum.UserInputType.Gamepad1, 2, 3...
 	self.gamepadConnectedConn = nil
@@ -44,10 +48,11 @@ function Gamepad:Enable(enable: boolean): boolean
 		return true
 	end
 
-	self.forwardValue  = 0
+	self.forwardValue = 0
 	self.backwardValue = 0
 	self.leftValue = 0
 	self.rightValue = 0
+	self.thumbstickVector = ZERO_VECTOR3
 	self.moveVector = ZERO_VECTOR3
 	self.isJumping = false
 
@@ -83,6 +88,10 @@ function Gamepad:GetHighestPriorityGamepad()
 	return bestGamepad
 end
 
+function Gamepad:UpdateMovement()
+	self.moveVector = self.thumbstickVector + Vector3.new(0, 0, self.forwardValue + self.backwardValue)
+end
+
 function Gamepad:BindContextActions()
 
 	if self.activeGamepad == NONE then
@@ -98,7 +107,12 @@ function Gamepad:BindContextActions()
 	local handleThumbstickInput = function(actionName, inputState, inputObject)
 
 		if inputState == Enum.UserInputState.Cancel then
-			self.moveVector = ZERO_VECTOR3
+			if FFlagUserPlayerScriptsSupportTVRemoteKeycodes then
+				self.thumbstickVector = ZERO_VECTOR3
+				self:UpdateMovement()
+			else
+				self.moveVector = ZERO_VECTOR3
+			end
 			return Enum.ContextActionResult.Sink
 		end
 
@@ -107,17 +121,56 @@ function Gamepad:BindContextActions()
 		end
 		if inputObject.KeyCode ~= Enum.KeyCode.Thumbstick1 then return end
 
-		if inputObject.Position.magnitude > thumbstickDeadzone then
-			self.moveVector  =  Vector3.new(inputObject.Position.X, 0, -inputObject.Position.Y)
+		if FFlagUserPlayerScriptsSupportTVRemoteKeycodes then
+			if inputObject.Position.magnitude > thumbstickDeadzone then
+				self.thumbstickVector = Vector3.new(inputObject.Position.X, 0, -inputObject.Position.Y)
+			else
+				self.thumbstickVector = ZERO_VECTOR3
+			end
+			self:UpdateMovement()
 		else
-			self.moveVector = ZERO_VECTOR3
+			if inputObject.Position.magnitude > thumbstickDeadzone then
+				self.moveVector = Vector3.new(inputObject.Position.X, 0, -inputObject.Position.Y)
+			else
+				self.moveVector = ZERO_VECTOR3
+			end
 		end
 		return Enum.ContextActionResult.Sink
 	end
 
+	local handleDirectionalButtonInput = function(actionName, inputState, inputObject)
+		if inputState == Enum.UserInputState.Cancel then
+			self.forwardValue = 0
+			self.backwardValue = 0
+			self:UpdateMovement()
+			return Enum.ContextActionResult.Sink
+		end
+
+		local inputValue = 0
+		if inputObject.Position.magnitude > thumbstickDeadzone then
+			inputValue = inputObject.Position.Z
+		end
+
+		if inputObject.KeyCode == Enum.KeyCode.ButtonUp then
+			self.forwardValue = -inputValue
+		elseif inputObject.KeyCode == Enum.KeyCode.ButtonDown then
+			self.backwardValue = inputValue
+		end
+
+		self:UpdateMovement()
+		return Enum.ContextActionResult.Sink
+	end
+
 	ContextActionService:BindActivate(self.activeGamepad, Enum.KeyCode.ButtonR2)
-	ContextActionService:BindActionAtPriority("jumpAction", handleJumpAction, false,
-		self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.ButtonA)
+	if FFlagUserPlayerScriptsSupportTVRemoteKeycodes then
+		ContextActionService:BindActionAtPriority("jumpAction", handleJumpAction, false,
+			self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.ButtonA, Enum.KeyCode.ButtonCenter)
+		ContextActionService:BindActionAtPriority("moveDirectionalButton", handleDirectionalButtonInput, false,
+			self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.ButtonUp, Enum.KeyCode.ButtonDown)
+	else
+		ContextActionService:BindActionAtPriority("jumpAction", handleJumpAction, false,
+			self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.ButtonA)
+	end
 	ContextActionService:BindActionAtPriority("moveThumbstick", handleThumbstickInput, false,
 		self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.Thumbstick1)
 
@@ -127,6 +180,9 @@ end
 function Gamepad:UnbindContextActions()
 	if self.activeGamepad ~= NONE then
 		ContextActionService:UnbindActivate(self.activeGamepad, Enum.KeyCode.ButtonR2)
+	end
+	if FFlagUserPlayerScriptsSupportTVRemoteKeycodes then
+		ContextActionService:UnbindAction("moveDirectionalButton")
 	end
 	ContextActionService:UnbindAction("moveThumbstick")
 	ContextActionService:UnbindAction("jumpAction")
@@ -194,7 +250,6 @@ function Gamepad:ConnectGamepadConnectionListeners()
 			self:OnCurrentGamepadDisconnected()
 		end
 	end)
-
 end
 
 function Gamepad:DisconnectGamepadConnectionListeners()

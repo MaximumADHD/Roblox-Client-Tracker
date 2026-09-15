@@ -60,7 +60,7 @@ end
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 local FFlagMenuButtonsMountWithIEM = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsMountWithIEM)
@@ -722,7 +722,7 @@ local function Initialize()
 	})
 	this.ButtonsContainer = buttonsContainer
 
-	if FFlagEnableSideSheet or (FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3)) then
+	if isSideSheetEnabled or (FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3)) then
 		buttonsContainer.Parent = nil
 	end
 
@@ -1888,7 +1888,7 @@ local function Initialize()
 
 		local hidePeoplePageInviteFriends = FFlagHidePeoplePageInviteFriends
 			and FFlagAddInviteFriendsIntegration
-			and FFlagEnableSideSheet
+			and isSideSheetEnabled
 
 		local showShareGameButton = canShareCurrentGame()
 			and not shareGameButton

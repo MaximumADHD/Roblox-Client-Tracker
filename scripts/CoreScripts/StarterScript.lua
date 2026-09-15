@@ -220,8 +220,8 @@ coroutine.wrap(safeRequire)(CoreGuiModules.SelfieView)
 coroutine.wrap(safeRequire)(CoreGuiModules.TopBar)
 
 -- SideSheet
-local FFlagEnableSideSheet = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableSideSheet
-if FFlagEnableSideSheet then
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
+if isSideSheetEnabled then
 	coroutine.wrap(safeRequire)(CoreGuiModules.InExperienceSideSheet)
 end
 
@@ -234,8 +234,10 @@ end
 -- BuildExperience ChatSheet
 local FFlagAppNavMyStatsTab = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAppNavMyStatsTab
 if FFlagAppNavMyStatsTab then
+	local BuildModeLaunch =
+		coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.BuildExperiencePlaytestLaunch.BuildModeLaunch)
 	local BuildExperience = coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.BuildExperience)
-	local isBuildModeActive = BuildExperience and BuildExperience.BuildModeLaunch:hasBuildMode()
+	local isBuildModeActive = BuildExperience and BuildModeLaunch and BuildModeLaunch:hasBuildMode()
 	if BuildExperience then
 		BuildExperience.mountCreatorAgentResumeToastReceiver(isBuildModeActive == true)
 	end

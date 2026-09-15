@@ -24,7 +24,7 @@ local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShort
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
 local FFlagChromeShortcutChatOpenKeyboard = SharedFlags.FFlagChromeShortcutChatOpenKeyboard
 local FFlagAddSwitchTabHintsToIEM = SharedFlags.FFlagAddSwitchTabHintsToIEM
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagSideSheetFocusNav = SharedFlags.FFlagSideSheetFocusNav
 
 local ChromeFlags = Chrome.Flags
@@ -258,7 +258,7 @@ function registerShortcuts()
 				then
 					ExpChatFocusNavigationStore.unfocusChatInputBar()
 				end
-				if FFlagEnableSideSheet and FFlagSideSheetFocusNav then
+				if isSideSheetEnabled and FFlagSideSheetFocusNav then
 					if not getSideSheetVisibility() then
 						toggleSideSheet(true)
 					end

@@ -7,12 +7,13 @@ local React = require(CorePackages.Packages.React)
 local Foundation = require(CorePackages.Packages.Foundation)
 
 local BuildExperience = require(CorePackages.Workspace.Packages.BuildExperience)
+local BuildModeLaunch = require(CorePackages.Workspace.Packages.BuildExperiencePlaytestLaunch.BuildModeLaunch)
 local ChromeService = require(Chrome.Service)
 
 local ButtonVariant = Foundation.Enums.ButtonVariant
 
 local function canShowAssistantBuild(): boolean
-	return BuildExperience.BuildModeLaunch:hasBuildMode() and not VRService.VREnabled
+	return BuildModeLaunch:hasBuildMode() and not VRService.VREnabled
 end
 
 local assistantBuild = ChromeService:register({

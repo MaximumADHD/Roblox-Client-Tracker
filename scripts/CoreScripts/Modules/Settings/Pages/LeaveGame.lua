@@ -89,13 +89,13 @@ local function LeaveButtonsContainer(props: Props)
 
 	local localizedText = useLocalization({
 		ConfirmLeaveGame = if isPioneerLaunch()
-			then SideSheetLocalizationKeys.LogoutConfirmation
+			then SideSheetLocalizationKeys.QuitConfirmation
 			else Constants.ConfirmLeaveGameLocalizedKey,
 		LeaveGame = if isPioneerLaunch()
-			then SideSheetLocalizationKeys.LogoutButton
+			then SideSheetLocalizationKeys.QuitButton
 			else Constants.LeaveGameLocalizedKey,
 		DontLeaveGame = if isPioneerLaunch()
-			then SideSheetLocalizationKeys.Cancel
+			then SideSheetLocalizationKeys.Resume
 			else Constants.DontLeaveGameLocalizedKey,
 	}) 
 
@@ -243,7 +243,7 @@ local function Initialize()
 		this.Page.Size = UDim2.new(1,0,0,0)
 	else
 		local leaveGameConfirmationText = if isPioneerLaunch()
-			then RobloxTranslator:FormatByKey(SideSheetLocalizationKeys.LogoutConfirmation)
+			then RobloxTranslator:FormatByKey(SideSheetLocalizationKeys.QuitConfirmation)
 			else RobloxTranslator:FormatByKey(Constants.ConfirmLeaveGameLocalizedKey)
 
 		local leaveGameText =  Create'TextLabel'
@@ -290,7 +290,7 @@ local function Initialize()
 		end
 
 		local leaveButtonText = if isPioneerLaunch()
-			then RobloxTranslator:FormatByKey(SideSheetLocalizationKeys.LogoutButton)
+			then RobloxTranslator:FormatByKey(SideSheetLocalizationKeys.QuitButton)
 			else "Leave"
 		this.LeaveGameButton = utility:MakeStyledButton("LeaveGame", leaveButtonText, nil, function()
 			if isPioneerLaunch() then

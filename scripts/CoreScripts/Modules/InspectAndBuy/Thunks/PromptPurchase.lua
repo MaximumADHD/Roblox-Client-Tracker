@@ -7,6 +7,9 @@ local Constants = require(InspectAndBuyFolder.Constants)
 local SetItemBeingPurchased = require(InspectAndBuyFolder.Actions.SetItemBeingPurchased)
 
 local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
+local ReportPurchaseAttemptUnifiedEvent = require(InspectAndBuyFolder.Thunks.ReportPurchaseAttemptUnifiedEvent)
+
+local FFlagAXIaBSinglePurchaseUnifiedEvents = require(InspectAndBuyFolder.Flags.FFlagAXIaBSinglePurchaseUnifiedEvents)
 
 local requiredServices = {
 	Analytics,
@@ -27,10 +30,17 @@ local function PromptPurchase(
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local analytics = services[Analytics]
 
-		store:dispatch(SetItemBeingPurchased(itemId, itemType))
-
 		local canUsePromptCollectiblesPurchase = collectibleLowestAvailableResaleProductId ~= nil
 			and itemType ~= Constants.ItemType.Bundle
+
+		-- Only the resale branch charges the resale price. A limited item with a
+		-- resale listing can still be bought at its original price, so reporting
+		-- the resale price outside this branch would overstate what was paid.
+		local resalePricePaid = if FFlagAXIaBSinglePurchaseUnifiedEvents and canUsePromptCollectiblesPurchase
+			then collectibleLowestResalePrice
+			else nil
+
+		store:dispatch(SetItemBeingPurchased(itemId, itemType, resalePricePaid))
 
 		if canUsePromptCollectiblesPurchase then
 			--[[
@@ -74,7 +84,11 @@ local function PromptPurchase(
 			store:dispatch(SendCounter(Constants.Counters.PromptPurchaseUnknownItemType))
 		end
 
-		analytics.reportPurchaseAttempt(itemType, itemId)
+		if FFlagAXIaBSinglePurchaseUnifiedEvents then
+			store:dispatch(ReportPurchaseAttemptUnifiedEvent(itemId, itemType, resalePricePaid))
+		else
+			analytics.reportPurchaseAttempt(itemType, itemId)
+		end
 	end)
 end
 

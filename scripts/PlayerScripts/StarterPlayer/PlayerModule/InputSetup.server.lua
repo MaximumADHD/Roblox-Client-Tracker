@@ -14,6 +14,7 @@ local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerSc
 local FFlagUserPlayerScriptsUseScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsUseScriptableBindings")
 local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs2")
 local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState2")
+local FFlagUserPlayerScriptsSupportTVRemoteKeycodes = FlagUtil.getUserFlag("UserPlayerScriptsSupportTVRemoteKeycodes")
 
 local AvatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationD
 	then require(script.Parent:WaitForChild("ControlModule"):WaitForChild("AvatarAbilitiesInterface"))
@@ -160,6 +161,49 @@ if not FFlagUserPlayerScriptsPlayerControlState then
 				updatePlayer(player)
 			end
 		end, Enum.StepFrequency.Hz60)
+	end
+end
+
+if FFlagUserPlayerScriptsSupportTVRemoteKeycodes then
+	local inputContexts = StarterPlayer.PlayerModule:FindFirstChild("InputContexts")
+	if not inputContexts then
+		warn("PlayerModule: InputContexts not found; skipping TV-remote (MicroGamepad) keycode bindings")
+	end
+	local characterContext = inputContexts and inputContexts:FindFirstChild("CharacterContext")
+	local cameraContext = inputContexts and inputContexts:FindFirstChild("CameraContext")
+
+	local function addMicroGamepadBinding(action: Instance?, configure: (InputBinding) -> ())
+		if action and not action:FindFirstChild("MicroGamepadBinding") then
+			local binding = Instance.new("InputBinding")
+			binding.Name = "MicroGamepadBinding"
+			configure(binding)
+			binding.Parent = action
+		end
+	end
+
+	if characterContext then
+		addMicroGamepadBinding(characterContext:FindFirstChild("MoveAction"), function(binding)
+			binding.Up = Enum.KeyCode.ButtonUp
+			binding.Down = Enum.KeyCode.ButtonDown
+		end)
+		addMicroGamepadBinding(characterContext:FindFirstChild("JumpAction"), function(binding)
+			binding.KeyCode = Enum.KeyCode.ButtonCenter
+		end)
+		addMicroGamepadBinding(characterContext:FindFirstChild("AbilityAction1"), function(binding)
+			binding.KeyCode = Enum.KeyCode.ButtonCenter
+		end)
+	elseif inputContexts then
+		warn("PlayerModule: CharacterContext not found; skipping TV-remote keycode bindings (ButtonUp/Down/Center) for character controls")
+	end
+
+	if cameraContext then
+		addMicroGamepadBinding(cameraContext:FindFirstChild("CameraRotationAction"), function(binding)
+			binding.Vector2Scale = Vector2.new(4.189, -3.225)
+			binding.Right = Enum.KeyCode.ButtonRight
+			binding.Left = Enum.KeyCode.ButtonLeft
+		end)
+	elseif inputContexts then
+		warn("PlayerModule: CameraContext not found; skipping TV-remote keycode bindings (ButtonLeft/Right) for camera rotation")
 	end
 end
 

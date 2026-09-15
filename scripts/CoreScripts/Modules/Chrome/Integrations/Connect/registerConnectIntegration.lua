@@ -40,7 +40,7 @@ return function(id: string, initialAvailability: number)
 	local isSquadIndicatorEnabled = id == "connect_unibar" and GetFFlagIsSquadEnabled()
 	local integration = ChromeService:register({
 		id = id,
-		sideSheetPlacement = if id == "connect_unibar" then SideSheetPlacement.Unibar else SideSheetPlacement.Vertical,
+		sideSheetPlacement = if id == "connect_unibar" then SideSheetPlacement.Unibar else SideSheetPlacement.BelowFold,
 		label = if ArgoPartyExperimentation.getIsRenameEnabled()
 			then if UniversalAppPolicy.getAppFeaturePolicies().getCanSeeChatTerminology()
 				then "Feature.Chat.Title.FriendsChat"

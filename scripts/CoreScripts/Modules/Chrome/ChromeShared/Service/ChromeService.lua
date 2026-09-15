@@ -33,9 +33,8 @@ local isInExperienceUIVREnabled =
 local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
 local FFlagChromeDeprecateMRUs = game:DefineFastFlag("ChromeDeprecateMRUs", false)
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagEnableSideSheetWidgets = SharedFlags.FFlagEnableSideSheetWidgets
-local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
 local FFlagEnableChromeWindowsNotInMenu = require(Root.Flags).FFlagEnableChromeWindowsNotInMenu
 local FFlagChromeNineDotActivityIndicator = require(Root.Flags).FFlagChromeNineDotActivityIndicator
 
@@ -243,7 +242,7 @@ local DummyIntegration = {
 	notification = NotifySignal.new(),
 	components = {},
 	hideNotificationCountWhileOpen = false,
-	sideSheetPlacement = if FFlagEnableSideSheet then SideSheetPlacement.None else nil :: never,
+	sideSheetPlacement = if isSideSheetEnabled then SideSheetPlacement.None else nil :: never,
 }
 
 function createUnibarLayoutInfo(position: Vector2, openSize: Vector2): UnibarLayoutInfo
@@ -419,7 +418,7 @@ function ChromeService:updateNineDotActivityIndicatorVisible()
 end
 
 function ChromeService:toggleSubMenu(subMenuId: IntegrationId)
-	if FFlagEnableSideSheet and toggleSideSheet then
+	if isSideSheetEnabled and toggleSideSheet then
 		toggleSideSheet(true)
 		return
 	end
@@ -568,9 +567,9 @@ function ChromeService:register(component: IntegrationRegisterProps): Integratio
 	self._integrationsConnections[component.id] = {}
 	local conns = self._integrationsConnections[component.id]
 
-	if FFlagEnableSideSheet then
+	if isSideSheetEnabled then
 		if component.sideSheetPlacement == nil then
-			component.sideSheetPlacement = SideSheetPlacement.Vertical
+			component.sideSheetPlacement = SideSheetPlacement.BelowFold
 		end
 	end
 
@@ -759,7 +758,7 @@ function ChromeService:updateMenuList()
 					error(`Only tables or strings should be passed into the items list, received {v} (at key {k})`)
 				end
 
-				if not FFlagEnableSideSheet and self._subMenuConfig[v] then
+				if not isSideSheetEnabled and self._subMenuConfig[v] then
 					-- This item has a sub-menu configured, populate the children
 					if self:isIntegrationValid(v) then
 						local child = iconProps(v)
@@ -816,12 +815,12 @@ function ChromeService:updateMenuList()
 	self:repairSelected()
 end
 
-if FFlagEnableSideSheet then
+if isSideSheetEnabled then
 	function ChromeService:updateSideSheet()
 		local order = 0 -- A general order that items are adding to the menu. Can be used to control LayoutOrder
-		local toggle = {}
+		local aboveFold = {}
 		local unibar = {}
-		local page = {}
+		local belowFold = {}
 		local sessionAction = {}
 		local scrollableWidgets = {}
 		local fixedFooterWidgets = {}
@@ -839,8 +838,10 @@ if FFlagEnableSideSheet then
 
 			if integration.sideSheetPlacement == SideSheetPlacement.Unibar then
 				table.insert(unibar, self:createIconProps(id, order))
-			elseif integration.sideSheetPlacement == SideSheetPlacement.Page then
-				table.insert(page, self:createIconProps(id, order))
+			elseif integration.sideSheetPlacement == SideSheetPlacement.AboveFold then
+				table.insert(aboveFold, self:createIconProps(id, order))
+			elseif integration.sideSheetPlacement == SideSheetPlacement.BelowFold then
+				table.insert(belowFold, self:createIconProps(id, order))
 			elseif integration.sideSheetPlacement == SideSheetPlacement.SessionAction then
 				table.insert(sessionAction, self:createIconProps(id, order))
 			elseif integration.sideSheetPlacement == SideSheetPlacement.ScrollableContentTop then
@@ -857,10 +858,6 @@ if FFlagEnableSideSheet then
 						table.insert(fixedFooterWidgets, widgetProps)
 					end
 				end
-			elseif integration.sideSheetPlacement == SideSheetPlacement.Vertical and FIntSideSheetVariant ~= 0 then
-				table.insert(page, self:createIconProps(id, order))
-			else
-				table.insert(toggle, self:createIconProps(id, order))
 			end
 		end
 
@@ -878,18 +875,10 @@ if FFlagEnableSideSheet then
 			end
 		end
 
-		if FIntSideSheetVariant == 0 then
-			for _, item in toggle do
-				table.insert(unibar, item)
-			end
-			toggle = unibar
-			unibar = {}
-		end
-
 		registerSideSheetIntegrations({
 			unibarIntegrations = unibar,
-			toggleIntegrations = toggle,
-			pageIntegrations = page,
+			aboveFoldIntegrations = aboveFold,
+			belowFoldIntegrations = belowFold,
 			sessionActionIntegrations = sessionAction,
 			scrollableWidgetIntegrations = scrollableWidgets,
 			fixedFooterWidgetIntegrations = fixedFooterWidgets,
@@ -900,7 +889,7 @@ end
 function ChromeService:availabilityChanged(component: IntegrationProps)
 	self:updateNotificationTotals()
 	self:updateMenuList()
-	if FFlagEnableSideSheet then
+	if isSideSheetEnabled then
 		self:updateSideSheet()
 	end
 end
@@ -993,7 +982,7 @@ function ChromeService:configureSubMenu(parent: IntegrationId, menuConfig: Integ
 	end
 	self:updateNotificationTotals()
 	self:updateMenuList()
-	if FFlagEnableSideSheet then
+	if isSideSheetEnabled then
 		self:updateSideSheet()
 	end
 end
@@ -1152,7 +1141,7 @@ function ChromeService:withinCurrentSubmenu(componentId: IntegrationId)
 	return false
 end
 
-if FFlagEnableSideSheet then
+if isSideSheetEnabled then
 	function ChromeService:withinOpenSideSheet(componentId: IntegrationId)
 		if not getSideSheetVisibility() then
 			return false

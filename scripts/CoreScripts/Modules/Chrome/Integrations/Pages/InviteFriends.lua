@@ -41,7 +41,7 @@ return ChromeService:register({
 	label = if FFlagConnectionsToFriendsRename
 		then "CoreScripts.InGameMenu.PageTitle.InviteFriends"
 		else "CommonUI.Features.Label.InviteConnections",
-	sideSheetPlacement = SideSheetPlacement.Vertical,
+	sideSheetPlacement = SideSheetPlacement.AboveFold,
 	activated = InGameMenuIntegrationUtils.toggleInviteFriendsPage,
 	isActivated = mappedGameInviteModalOpenSignal,
 	components = {

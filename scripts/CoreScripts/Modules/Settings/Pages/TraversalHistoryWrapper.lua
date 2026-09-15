@@ -12,18 +12,17 @@ local FoundationProvider = Foundation.FoundationProvider
 
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 
 local Constants = require(Settings.Integrations.Constants)
 local TraversalHistoryPage = require(Settings.Components.Traversal.TraversalHistoryPage)
 local SettingsPageFactory = require(Settings.SettingsPageFactory)
 local Utils = require(Settings.Integrations.Utils)
 
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 
 local function createTraversalHistoryWrapper()
 	local locales = Localization.new(LocalizationService.RobloxLocaleId)
-	
+
 	local this = SettingsPageFactory:CreateNewPage()
 
 	this.Page:ClearAllChildren()
@@ -33,24 +32,22 @@ local function createTraversalHistoryWrapper()
 	this.TabHeader.TabLabel.Title.Text = locales:Format(Constants.TRAVERSAL_HISTORY.TAB_HEADER.TEXT_KEY)
 
 	this.PageListLayout.Parent = nil
-	this.ShouldShowBottomBar = not FFlagEnableSideSheet
+	this.ShouldShowBottomBar = not isSideSheetEnabled
 	this.ShouldShowHubBar = true
 
 	this.Page.Size = UDim2.fromScale(1, 0)
-	
+
 	local tree = ReactRoblox.createRoot(this.Page)
-	tree:render(
-		React.createElement(FoundationProvider, {
-			colorMode = Foundation.Enums.ColorMode.Dark,
-			device = Utils.getDeviceType(),
+	tree:render(React.createElement(FoundationProvider, {
+		colorMode = Foundation.Enums.ColorMode.Dark,
+		device = Utils.getDeviceType(),
+	}, {
+		Localization = React.createElement(LocalizationProvider, {
+			localization = locales,
 		}, {
-			Localization = React.createElement(LocalizationProvider, {
-				localization = locales,
-			}, {
-				Page = React.createElement(TraversalHistoryPage),
-			})
-		})
-	)
+			Page = React.createElement(TraversalHistoryPage),
+		}),
+	}))
 
 	return this
 end

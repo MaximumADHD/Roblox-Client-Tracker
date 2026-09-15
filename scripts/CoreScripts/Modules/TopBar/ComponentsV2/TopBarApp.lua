@@ -38,7 +38,7 @@ local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagShowGameAgeRating = SharedFlags.FFlagShowGameAgeRating
 local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 local InExperienceShop = require(CorePackages.Workspace.Packages.InExperienceShop)
@@ -47,9 +47,14 @@ local FFlagEnableExperienceShopGlobalIcon = InExperienceShop.FFlagEnableExperien
 local FFlagCenterInExperienceShopWindow = InExperienceShop.FFlagCenterInExperienceShopWindow
 local FFlagExperienceShopNewIconography = InExperienceShop.FFlagExperienceShopNewIconography
 local FFlagShowSwitchServerButton = SharedFlags.FFlagShowSwitchServerButton
-local shouldAddSwitchServerToSideSheet = FFlagEnableSideSheet
+local shouldAddSwitchServerToSideSheet = isSideSheetEnabled
 	and FFlagShowSwitchServerButton
 local ShopGlobalIcon = InExperienceShop.ShopGlobalIcon
+local FFlagTopBarShopIconV2 = require(TopBar.Flags.FFlagTopBarShopIconV2)
+local ShopIcon
+if FFlagTopBarShopIconV2 then
+	ShopIcon = require(Components.Presentation.ShopIcon)
+end
 
 -- Components 
 local View = Foundation.View
@@ -67,6 +72,7 @@ local VRBottomBar = if isInExperienceUIVREnabled
 	then require(Components.VRBottomUnibar)
 	else require(Packages.VR.VRBottomBar.VRBottomBar)
 local BuildExperience = require(CorePackages.Workspace.Packages.BuildExperience)
+local BuildModeLaunch = require(CorePackages.Workspace.Packages.BuildExperiencePlaytestLaunch.BuildModeLaunch)
 local BuildPillMenuPortalHost = BuildExperience.BuildPillMenuPortalHost
 local UnpublishedPlaytestModeTooltip = BuildExperience.UnpublishedPlaytestModeTooltip
 local ChromeAnalytics = if game:GetEngineFeature("InGameChromeSignalAPI") 
@@ -136,7 +142,7 @@ local function handleShopGlobalIconActivated()
 end
 
 local function canShowAssistantBuild(): boolean
-	return BuildExperience.BuildModeLaunch:hasBuildMode() and not VRService.VREnabled
+	return BuildModeLaunch:hasBuildMode() and not VRService.VREnabled
 end
 
 local function getShouldEnableSwitchServer(scope)
@@ -175,7 +181,7 @@ local function TopBarApp(props: TopBarProps)
 	local shopGlobalStatusIndicatorEnabled = nil
 	local onShopGlobalIconActivated = nil
 	local shopGlobalIconIsActive = nil
-	if FFlagEnableExperienceShopGlobalIcon then
+	if FFlagEnableExperienceShopGlobalIcon and not FFlagTopBarShopIconV2 then
 		shopGlobalIconEnabled = SignalsReact.useSignalState(getShopGlobalIconEnabled)
 		shopGlobalStatusIndicatorEnabled = SignalsReact.useSignalState(getShopGlobalStatusIndicatorEnabled)
 		onShopGlobalIconActivated = handleShopGlobalIconActivated
@@ -293,7 +299,7 @@ local function TopBarApp(props: TopBarProps)
 				Position = UDim2.new(0, screenSideOffset, 0, topBarTopMargin),
 				Visible = showTopBar,
 			}, {
-				MenuIcon = if not FFlagEnableSideSheet then React.createElement(SelectionCursorProvider, {}, {
+				MenuIcon = if not isSideSheetEnabled then React.createElement(SelectionCursorProvider, {}, {
 					Icon = React.createElement(MenuIcon, {
 						showBadgeOver12 = showGameAgeRating,
 						menuIconRef = menuIconRef,
@@ -313,7 +319,14 @@ local function TopBarApp(props: TopBarProps)
 						menuRef = unibarMenuRef
 					}),
 				}),
-				ShopGlobalIcon = if FFlagEnableExperienceShopGlobalIcon
+				ShopIcon = if FFlagTopBarShopIconV2 and FFlagEnableExperienceShopGlobalIcon
+					then React.createElement(ShopIcon, {
+						buttonSize = topBarButtonHeight,
+						layoutOrder = 3,
+					})
+					else nil,
+				ShopGlobalIcon = if not FFlagTopBarShopIconV2
+						and FFlagEnableExperienceShopGlobalIcon
 						and shopGlobalIconEnabled
 						and ShopGlobalIcon ~= nil
 					then React.createElement(ShopGlobalIcon, {

@@ -34,8 +34,9 @@ type _Messages = {
 	HydrationContent_MomentEntry: _HydrationContent_MomentEntryMessage,
 	HydrationContent_CommunityEntry: _HydrationContent_CommunityEntryMessage,
 	HydrationContent_CommunityUserMembershipEntry: _HydrationContent_CommunityUserMembershipEntryMessage,
-	HydrationContent_UserRecommendationEntry: _HydrationContent_UserRecommendationEntryMessage,
-	HydrationContent_ContactEntry: _HydrationContent_ContactEntryMessage,
+	HydrationContent_FriendRecommendationEntry: _HydrationContent_FriendRecommendationEntryMessage,
+	HydrationContent_UniversePrivateServerEntry: _HydrationContent_UniversePrivateServerEntryMessage,
+	HydrationContent_NotificationBadgeEntry: _HydrationContent_NotificationBadgeEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -72,8 +73,11 @@ local _roblox_apppageplatform_shared_v1beta1_moment_data = require(script.Parent
 local _roblox_apppageplatform_shared_v1beta1_community_data = require(script.Parent.community_data)
 local _roblox_apppageplatform_shared_v1beta1_community_user_membership_data =
 	require(script.Parent.community_user_membership_data)
-local _roblox_apppageplatform_shared_v1beta1_user_recommendation_data = require(script.Parent.user_recommendation_data)
-local _roblox_apppageplatform_shared_v1beta1_contact_data = require(script.Parent.contact_data)
+local _roblox_apppageplatform_shared_v1beta1_friend_recommendation_data =
+	require(script.Parent.friend_recommendation_data)
+local _roblox_apppageplatform_shared_v1beta1_notification_badge_data = require(script.Parent.notification_badge_data)
+local _roblox_apppageplatform_shared_v1beta1_universe_private_server_data =
+	require(script.Parent.universe_private_server_data)
 
 type _HydrationContentImpl = {
 	__index: _HydrationContentImpl,
@@ -137,10 +141,15 @@ type _HydrationContentFields =
 		community_user_membership: {
 			[string]: _roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData,
 		},
-		user_recommendation: {
-			[string]: _roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData,
+		friend_recommendation: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_friend_recommendation_data.FriendRecommendationData,
 		},
-		contact: { [string]: _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData },
+		universe_private_server: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_universe_private_server_data.UniversePrivateServerData,
+		},
+		notification_badge: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData,
+		},
 	}
 
 type _HydrationContentPartialFields =
@@ -195,10 +204,15 @@ type _HydrationContentPartialFields =
 		community_user_membership: {
 			[string]: _roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData,
 		}?,
-		user_recommendation: {
-			[string]: _roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData,
+		friend_recommendation: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_friend_recommendation_data.FriendRecommendationData,
 		}?,
-		contact: { [string]: _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData }?,
+		universe_private_server: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_universe_private_server_data.UniversePrivateServerData,
+		}?,
+		notification_badge: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData,
+		}?,
 	}
 
 export type HydrationContent = typeof(setmetatable({} :: _HydrationContentFields, {} :: _HydrationContentImpl))
@@ -972,62 +986,95 @@ type _HydrationContent_CommunityUserMembershipEntryMessage = proto.Message<
 	_HydrationContent_CommunityUserMembershipEntryPartialFields
 >
 
-type _HydrationContent_UserRecommendationEntryImpl = {
-	__index: _HydrationContent_UserRecommendationEntryImpl,
-	new: (fields: _HydrationContent_UserRecommendationEntryPartialFields?) -> HydrationContent_UserRecommendationEntry,
-	encode: (self: HydrationContent_UserRecommendationEntry) -> buffer,
-	decode: (input: buffer) -> HydrationContent_UserRecommendationEntry,
-	jsonEncode: (self: HydrationContent_UserRecommendationEntry) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> HydrationContent_UserRecommendationEntry,
+type _HydrationContent_FriendRecommendationEntryImpl = {
+	__index: _HydrationContent_FriendRecommendationEntryImpl,
+	new: (
+		fields: _HydrationContent_FriendRecommendationEntryPartialFields?
+	) -> HydrationContent_FriendRecommendationEntry,
+	encode: (self: HydrationContent_FriendRecommendationEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_FriendRecommendationEntry,
+	jsonEncode: (self: HydrationContent_FriendRecommendationEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_FriendRecommendationEntry,
 	descriptor: proto.Descriptor,
 }
 
-type _HydrationContent_UserRecommendationEntryFields = {
+type _HydrationContent_FriendRecommendationEntryFields = {
 	key: string,
-	value: _roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData?,
+	value: _roblox_apppageplatform_shared_v1beta1_friend_recommendation_data.FriendRecommendationData?,
 }
 
-type _HydrationContent_UserRecommendationEntryPartialFields = {
+type _HydrationContent_FriendRecommendationEntryPartialFields = {
 	key: string?,
-	value: _roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData?,
+	value: _roblox_apppageplatform_shared_v1beta1_friend_recommendation_data.FriendRecommendationData?,
 }
 
-export type HydrationContent_UserRecommendationEntry = typeof(setmetatable(
-	{} :: _HydrationContent_UserRecommendationEntryFields,
-	{} :: _HydrationContent_UserRecommendationEntryImpl
+export type HydrationContent_FriendRecommendationEntry = typeof(setmetatable(
+	{} :: _HydrationContent_FriendRecommendationEntryFields,
+	{} :: _HydrationContent_FriendRecommendationEntryImpl
 ))
-type _HydrationContent_UserRecommendationEntryMessage = proto.Message<
-	HydrationContent_UserRecommendationEntry,
-	_HydrationContent_UserRecommendationEntryPartialFields
+type _HydrationContent_FriendRecommendationEntryMessage = proto.Message<
+	HydrationContent_FriendRecommendationEntry,
+	_HydrationContent_FriendRecommendationEntryPartialFields
 >
 
-type _HydrationContent_ContactEntryImpl = {
-	__index: _HydrationContent_ContactEntryImpl,
-	new: (fields: _HydrationContent_ContactEntryPartialFields?) -> HydrationContent_ContactEntry,
-	encode: (self: HydrationContent_ContactEntry) -> buffer,
-	decode: (input: buffer) -> HydrationContent_ContactEntry,
-	jsonEncode: (self: HydrationContent_ContactEntry) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> HydrationContent_ContactEntry,
+type _HydrationContent_UniversePrivateServerEntryImpl = {
+	__index: _HydrationContent_UniversePrivateServerEntryImpl,
+	new: (
+		fields: _HydrationContent_UniversePrivateServerEntryPartialFields?
+	) -> HydrationContent_UniversePrivateServerEntry,
+	encode: (self: HydrationContent_UniversePrivateServerEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_UniversePrivateServerEntry,
+	jsonEncode: (self: HydrationContent_UniversePrivateServerEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_UniversePrivateServerEntry,
 	descriptor: proto.Descriptor,
 }
 
-type _HydrationContent_ContactEntryFields = {
+type _HydrationContent_UniversePrivateServerEntryFields = {
 	key: string,
-	value: _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData?,
+	value: _roblox_apppageplatform_shared_v1beta1_universe_private_server_data.UniversePrivateServerData?,
 }
 
-type _HydrationContent_ContactEntryPartialFields = {
+type _HydrationContent_UniversePrivateServerEntryPartialFields = {
 	key: string?,
-	value: _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData?,
+	value: _roblox_apppageplatform_shared_v1beta1_universe_private_server_data.UniversePrivateServerData?,
 }
 
-export type HydrationContent_ContactEntry = typeof(setmetatable(
-	{} :: _HydrationContent_ContactEntryFields,
-	{} :: _HydrationContent_ContactEntryImpl
+export type HydrationContent_UniversePrivateServerEntry = typeof(setmetatable(
+	{} :: _HydrationContent_UniversePrivateServerEntryFields,
+	{} :: _HydrationContent_UniversePrivateServerEntryImpl
 ))
-type _HydrationContent_ContactEntryMessage = proto.Message<
-	HydrationContent_ContactEntry,
-	_HydrationContent_ContactEntryPartialFields
+type _HydrationContent_UniversePrivateServerEntryMessage = proto.Message<
+	HydrationContent_UniversePrivateServerEntry,
+	_HydrationContent_UniversePrivateServerEntryPartialFields
+>
+
+type _HydrationContent_NotificationBadgeEntryImpl = {
+	__index: _HydrationContent_NotificationBadgeEntryImpl,
+	new: (fields: _HydrationContent_NotificationBadgeEntryPartialFields?) -> HydrationContent_NotificationBadgeEntry,
+	encode: (self: HydrationContent_NotificationBadgeEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_NotificationBadgeEntry,
+	jsonEncode: (self: HydrationContent_NotificationBadgeEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_NotificationBadgeEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_NotificationBadgeEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData?,
+}
+
+type _HydrationContent_NotificationBadgeEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData?,
+}
+
+export type HydrationContent_NotificationBadgeEntry = typeof(setmetatable(
+	{} :: _HydrationContent_NotificationBadgeEntryFields,
+	{} :: _HydrationContent_NotificationBadgeEntryImpl
+))
+type _HydrationContent_NotificationBadgeEntryMessage = proto.Message<
+	HydrationContent_NotificationBadgeEntry,
+	_HydrationContent_NotificationBadgeEntryPartialFields
 >
 
 do
@@ -1077,10 +1124,13 @@ do
 			community_user_membership = if data == nil or data.community_user_membership == nil
 				then {}
 				else data.community_user_membership,
-			user_recommendation = if data == nil or data.user_recommendation == nil
+			friend_recommendation = if data == nil or data.friend_recommendation == nil
 				then {}
-				else data.user_recommendation,
-			contact = if data == nil or data.contact == nil then {} else data.contact,
+				else data.friend_recommendation,
+			universe_private_server = if data == nil or data.universe_private_server == nil
+				then {}
+				else data.universe_private_server,
+			notification_badge = if data == nil or data.notification_badge == nil then {} else data.notification_badge,
 		}, _HydrationContentImpl :: _HydrationContentImpl)
 	end
 
@@ -1455,8 +1505,8 @@ do
 			end
 		end
 
-		if self.user_recommendation ~= nil and next(self.user_recommendation) ~= nil then
-			for key, value in self.user_recommendation do
+		if self.friend_recommendation ~= nil and next(self.friend_recommendation) ~= nil then
+			for key, value in self.friend_recommendation do
 				local mapBuffer = buffer.create(0)
 				local mapCursor = 0
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
@@ -1469,8 +1519,8 @@ do
 			end
 		end
 
-		if self.contact ~= nil and next(self.contact) ~= nil then
-			for key, value in self.contact do
+		if self.universe_private_server ~= nil and next(self.universe_private_server) ~= nil then
+			for key, value in self.universe_private_server do
 				local mapBuffer = buffer.create(0)
 				local mapCursor = 0
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
@@ -1479,6 +1529,20 @@ do
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
 				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
 				output, cursor = proto.writeTag(output, cursor, 28, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.notification_badge ~= nil and next(self.notification_badge) ~= nil then
+			for key, value in self.notification_badge do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 29, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
 			end
 		end
@@ -1832,25 +1896,39 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 
-					local mapEntry = messages.HydrationContent_UserRecommendationEntry.decode(value)
+					local mapEntry = messages.HydrationContent_FriendRecommendationEntry.decode(value)
 
 					local keyDefault = ""
 					local valueDefault =
-						_roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData.new()
+						_roblox_apppageplatform_shared_v1beta1_friend_recommendation_data.FriendRecommendationData.new()
 
-					self.user_recommendation[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+					self.friend_recommendation[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
 				elseif field == 28 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 
-					local mapEntry = messages.HydrationContent_ContactEntry.decode(value)
+					local mapEntry = messages.HydrationContent_UniversePrivateServerEntry.decode(value)
 
 					local keyDefault = ""
-					local valueDefault = _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData.new()
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_universe_private_server_data.UniversePrivateServerData.new()
 
-					self.contact[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+					self.universe_private_server[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 29 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_NotificationBadgeEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData.new()
+
+					self.notification_badge[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
 				end
@@ -2091,20 +2169,28 @@ do
 			output.communityUserMembership = newOutput
 		end
 
-		if self.user_recommendation ~= nil and next(self.user_recommendation) ~= nil then
+		if self.friend_recommendation ~= nil and next(self.friend_recommendation) ~= nil then
 			local newOutput = {}
-			for key, value in self.user_recommendation do
+			for key, value in self.friend_recommendation do
 				newOutput[key] = value:jsonEncode()
 			end
-			output.userRecommendation = newOutput
+			output.friendRecommendation = newOutput
 		end
 
-		if self.contact ~= nil and next(self.contact) ~= nil then
+		if self.universe_private_server ~= nil and next(self.universe_private_server) ~= nil then
 			local newOutput = {}
-			for key, value in self.contact do
+			for key, value in self.universe_private_server do
 				newOutput[key] = value:jsonEncode()
 			end
-			output.contact = newOutput
+			output.universePrivateServer = newOutput
+		end
+
+		if self.notification_badge ~= nil and next(self.notification_badge) ~= nil then
+			local newOutput = {}
+			for key, value in self.notification_badge do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.notificationBadge = newOutput
 		end
 
 		return output
@@ -2626,39 +2712,82 @@ do
 			self.community_user_membership = newOutput
 		end
 
-		if input.user_recommendation ~= nil then
-			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData } =
+		if input.friend_recommendation ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_friend_recommendation_data.FriendRecommendationData } =
 				{}
-			for key, value in input.user_recommendation do
+			for key, value in input.friend_recommendation do
 				newOutput[key] =
-					_roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData.jsonDecode(
+					_roblox_apppageplatform_shared_v1beta1_friend_recommendation_data.FriendRecommendationData.jsonDecode(
 						value
 					)
 			end
 
-			self.user_recommendation = newOutput
+			self.friend_recommendation = newOutput
 		end
 
-		if input.userRecommendation ~= nil then
-			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData } =
+		if input.friendRecommendation ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_friend_recommendation_data.FriendRecommendationData } =
 				{}
-			for key, value in input.userRecommendation do
+			for key, value in input.friendRecommendation do
 				newOutput[key] =
-					_roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData.jsonDecode(
+					_roblox_apppageplatform_shared_v1beta1_friend_recommendation_data.FriendRecommendationData.jsonDecode(
 						value
 					)
 			end
 
-			self.user_recommendation = newOutput
+			self.friend_recommendation = newOutput
 		end
 
-		if input.contact ~= nil then
-			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData } = {}
-			for key, value in input.contact do
-				newOutput[key] = _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData.jsonDecode(value)
+		if input.universe_private_server ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_private_server_data.UniversePrivateServerData } =
+				{}
+			for key, value in input.universe_private_server do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_universe_private_server_data.UniversePrivateServerData.jsonDecode(
+						value
+					)
 			end
 
-			self.contact = newOutput
+			self.universe_private_server = newOutput
+		end
+
+		if input.universePrivateServer ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_private_server_data.UniversePrivateServerData } =
+				{}
+			for key, value in input.universePrivateServer do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_universe_private_server_data.UniversePrivateServerData.jsonDecode(
+						value
+					)
+			end
+
+			self.universe_private_server = newOutput
+		end
+
+		if input.notification_badge ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData } =
+				{}
+			for key, value in input.notification_badge do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData.jsonDecode(
+						value
+					)
+			end
+
+			self.notification_badge = newOutput
+		end
+
+		if input.notificationBadge ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData } =
+				{}
+			for key, value in input.notificationBadge do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData.jsonDecode(
+						value
+					)
+			end
+
+			self.notification_badge = newOutput
 		end
 
 		return self
@@ -5926,20 +6055,20 @@ do
 end
 
 do
-	local _HydrationContent_UserRecommendationEntryImpl = {}
-	_HydrationContent_UserRecommendationEntryImpl.__index = _HydrationContent_UserRecommendationEntryImpl
+	local _HydrationContent_FriendRecommendationEntryImpl = {}
+	_HydrationContent_FriendRecommendationEntryImpl.__index = _HydrationContent_FriendRecommendationEntryImpl
 
-	function _HydrationContent_UserRecommendationEntryImpl.new(
-		data: _HydrationContent_UserRecommendationEntryPartialFields?
-	): HydrationContent_UserRecommendationEntry
+	function _HydrationContent_FriendRecommendationEntryImpl.new(
+		data: _HydrationContent_FriendRecommendationEntryPartialFields?
+	): HydrationContent_FriendRecommendationEntry
 		return setmetatable({
 			key = if data == nil or data.key == nil then "" else data.key,
 			value = if data == nil or data.value == nil then nil else data.value,
-		}, _HydrationContent_UserRecommendationEntryImpl :: _HydrationContent_UserRecommendationEntryImpl)
+		}, _HydrationContent_FriendRecommendationEntryImpl :: _HydrationContent_FriendRecommendationEntryImpl)
 	end
 
-	function _HydrationContent_UserRecommendationEntryImpl.encode(
-		self: HydrationContent_UserRecommendationEntry
+	function _HydrationContent_FriendRecommendationEntryImpl.encode(
+		self: HydrationContent_FriendRecommendationEntry
 	): buffer
 		local output = buffer.create(0)
 		local cursor = 0
@@ -5960,10 +6089,10 @@ do
 		return shrunkBuffer
 	end
 
-	function _HydrationContent_UserRecommendationEntryImpl.decode(
+	function _HydrationContent_FriendRecommendationEntryImpl.decode(
 		input: buffer
-	): HydrationContent_UserRecommendationEntry
-		local self = _HydrationContent_UserRecommendationEntryImpl.new()
+	): HydrationContent_FriendRecommendationEntry
+		local self = _HydrationContent_FriendRecommendationEntryImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -5985,7 +6114,7 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.value =
-						_roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData.decode(
+						_roblox_apppageplatform_shared_v1beta1_friend_recommendation_data.FriendRecommendationData.decode(
 							value
 						)
 					continue
@@ -6013,8 +6142,8 @@ do
 		return self
 	end
 
-	function _HydrationContent_UserRecommendationEntryImpl.jsonEncode(
-		self: HydrationContent_UserRecommendationEntry
+	function _HydrationContent_FriendRecommendationEntryImpl.jsonEncode(
+		self: HydrationContent_FriendRecommendationEntry
 	): any
 		local output = {}
 
@@ -6029,10 +6158,10 @@ do
 		return output
 	end
 
-	function _HydrationContent_UserRecommendationEntryImpl.jsonDecode(
+	function _HydrationContent_FriendRecommendationEntryImpl.jsonDecode(
 		input: { [string]: any }
-	): HydrationContent_UserRecommendationEntry
-		local self = _HydrationContent_UserRecommendationEntryImpl.new()
+	): HydrationContent_FriendRecommendationEntry
+		local self = _HydrationContent_FriendRecommendationEntryImpl.new()
 
 		if input.key ~= nil then
 			self.key = input.key
@@ -6040,7 +6169,7 @@ do
 
 		if input.value ~= nil then
 			self.value =
-				_roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData.jsonDecode(
+				_roblox_apppageplatform_shared_v1beta1_friend_recommendation_data.FriendRecommendationData.jsonDecode(
 					input.value
 				)
 		end
@@ -6048,30 +6177,32 @@ do
 		return self
 	end
 
-	_HydrationContent_UserRecommendationEntryImpl.descriptor = {
-		name = "HydrationContent_UserRecommendationEntry",
-		fullName = "roblox.apppageplatform.shared.v1beta1.UserRecommendationEntry",
+	_HydrationContent_FriendRecommendationEntryImpl.descriptor = {
+		name = "HydrationContent_FriendRecommendationEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.FriendRecommendationEntry",
 	}
 
-	messages.HydrationContent_UserRecommendationEntry = _HydrationContent_UserRecommendationEntryImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.HydrationContent_FriendRecommendationEntry = _HydrationContent_FriendRecommendationEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.HydrationContent_UserRecommendationEntry)
+	typeRegistry.default:register(messages.HydrationContent_FriendRecommendationEntry)
 end
 
 do
-	local _HydrationContent_ContactEntryImpl = {}
-	_HydrationContent_ContactEntryImpl.__index = _HydrationContent_ContactEntryImpl
+	local _HydrationContent_UniversePrivateServerEntryImpl = {}
+	_HydrationContent_UniversePrivateServerEntryImpl.__index = _HydrationContent_UniversePrivateServerEntryImpl
 
-	function _HydrationContent_ContactEntryImpl.new(
-		data: _HydrationContent_ContactEntryPartialFields?
-	): HydrationContent_ContactEntry
+	function _HydrationContent_UniversePrivateServerEntryImpl.new(
+		data: _HydrationContent_UniversePrivateServerEntryPartialFields?
+	): HydrationContent_UniversePrivateServerEntry
 		return setmetatable({
 			key = if data == nil or data.key == nil then "" else data.key,
 			value = if data == nil or data.value == nil then nil else data.value,
-		}, _HydrationContent_ContactEntryImpl :: _HydrationContent_ContactEntryImpl)
+		}, _HydrationContent_UniversePrivateServerEntryImpl :: _HydrationContent_UniversePrivateServerEntryImpl)
 	end
 
-	function _HydrationContent_ContactEntryImpl.encode(self: HydrationContent_ContactEntry): buffer
+	function _HydrationContent_UniversePrivateServerEntryImpl.encode(
+		self: HydrationContent_UniversePrivateServerEntry
+	): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -6091,8 +6222,10 @@ do
 		return shrunkBuffer
 	end
 
-	function _HydrationContent_ContactEntryImpl.decode(input: buffer): HydrationContent_ContactEntry
-		local self = _HydrationContent_ContactEntryImpl.new()
+	function _HydrationContent_UniversePrivateServerEntryImpl.decode(
+		input: buffer
+	): HydrationContent_UniversePrivateServerEntry
+		local self = _HydrationContent_UniversePrivateServerEntryImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -6113,7 +6246,10 @@ do
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.value = _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData.decode(value)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_universe_private_server_data.UniversePrivateServerData.decode(
+							value
+						)
 					continue
 				end
 
@@ -6139,7 +6275,9 @@ do
 		return self
 	end
 
-	function _HydrationContent_ContactEntryImpl.jsonEncode(self: HydrationContent_ContactEntry): any
+	function _HydrationContent_UniversePrivateServerEntryImpl.jsonEncode(
+		self: HydrationContent_UniversePrivateServerEntry
+	): any
 		local output = {}
 
 		if self.key ~= nil and self.key ~= "" then
@@ -6153,28 +6291,160 @@ do
 		return output
 	end
 
-	function _HydrationContent_ContactEntryImpl.jsonDecode(input: { [string]: any }): HydrationContent_ContactEntry
-		local self = _HydrationContent_ContactEntryImpl.new()
+	function _HydrationContent_UniversePrivateServerEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_UniversePrivateServerEntry
+		local self = _HydrationContent_UniversePrivateServerEntryImpl.new()
 
 		if input.key ~= nil then
 			self.key = input.key
 		end
 
 		if input.value ~= nil then
-			self.value = _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData.jsonDecode(input.value)
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_universe_private_server_data.UniversePrivateServerData.jsonDecode(
+					input.value
+				)
 		end
 
 		return self
 	end
 
-	_HydrationContent_ContactEntryImpl.descriptor = {
-		name = "HydrationContent_ContactEntry",
-		fullName = "roblox.apppageplatform.shared.v1beta1.ContactEntry",
+	_HydrationContent_UniversePrivateServerEntryImpl.descriptor = {
+		name = "HydrationContent_UniversePrivateServerEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UniversePrivateServerEntry",
 	}
 
-	messages.HydrationContent_ContactEntry = _HydrationContent_ContactEntryImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.HydrationContent_UniversePrivateServerEntry = _HydrationContent_UniversePrivateServerEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.HydrationContent_ContactEntry)
+	typeRegistry.default:register(messages.HydrationContent_UniversePrivateServerEntry)
+end
+
+do
+	local _HydrationContent_NotificationBadgeEntryImpl = {}
+	_HydrationContent_NotificationBadgeEntryImpl.__index = _HydrationContent_NotificationBadgeEntryImpl
+
+	function _HydrationContent_NotificationBadgeEntryImpl.new(
+		data: _HydrationContent_NotificationBadgeEntryPartialFields?
+	): HydrationContent_NotificationBadgeEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_NotificationBadgeEntryImpl :: _HydrationContent_NotificationBadgeEntryImpl)
+	end
+
+	function _HydrationContent_NotificationBadgeEntryImpl.encode(self: HydrationContent_NotificationBadgeEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_NotificationBadgeEntryImpl.decode(input: buffer): HydrationContent_NotificationBadgeEntry
+		local self = _HydrationContent_NotificationBadgeEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_NotificationBadgeEntryImpl.jsonEncode(self: HydrationContent_NotificationBadgeEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_NotificationBadgeEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_NotificationBadgeEntry
+		local self = _HydrationContent_NotificationBadgeEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_NotificationBadgeEntryImpl.descriptor = {
+		name = "HydrationContent_NotificationBadgeEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.NotificationBadgeEntry",
+	}
+
+	messages.HydrationContent_NotificationBadgeEntry = _HydrationContent_NotificationBadgeEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_NotificationBadgeEntry)
 end
 
 return {

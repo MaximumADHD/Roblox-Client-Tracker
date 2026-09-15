@@ -1,3 +1,0 @@
-return {
-	Spacing = 8,
-}

@@ -35,6 +35,7 @@ type SliderVariantProps = {
 		stroke: Types.Stroke?,
 		hasShadow: boolean?,
 	},
+	selectionGroup: Types.SelectionGroup?,
 }
 
 local function variantsFactory(tokens: Tokens)
@@ -116,10 +117,30 @@ local function variantsFactory(tokens: Tokens)
 		},
 	}
 
-	return { common = common, variants = variants, sizes = sizes }
+	local orientation: { [boolean]: VariantProps } = {
+		-- [isVertical]
+		[true] = {
+			selectionGroup = {
+				SelectionBehaviorLeft = Enum.SelectionBehavior.Escape,
+				SelectionBehaviorRight = Enum.SelectionBehavior.Escape,
+				SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
+				SelectionBehaviorDown = Enum.SelectionBehavior.Stop,
+			},
+		},
+		[false] = {
+			selectionGroup = {
+				SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,
+				SelectionBehaviorRight = Enum.SelectionBehavior.Stop,
+				SelectionBehaviorUp = Enum.SelectionBehavior.Escape,
+				SelectionBehaviorDown = Enum.SelectionBehavior.Escape,
+			},
+		},
+	}
+
+	return { common = common, variants = variants, sizes = sizes, orientation = orientation }
 end
 
-return function(tokens: Tokens, size: InputSize, variant: SliderVariant): SliderVariantProps
+return function(tokens: Tokens, size: InputSize, variant: SliderVariant, isVertical: boolean): SliderVariantProps
 	local props = VariantsContext.useVariants("Slider", variantsFactory, tokens)
-	return composeStyleVariant(props.common, props.variants[variant], props.sizes[size])
+	return composeStyleVariant(props.common, props.variants[variant], props.sizes[size], props.orientation[isVertical])
 end

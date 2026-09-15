@@ -12,6 +12,7 @@ local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 local FFlagUserPSSinkUnknownTouchEvents = FlagUtil.getUserFlag("UserPSSinkUnknownTouchEvents")
 local FFlagUserPSTextboxResetCameraInput = FlagUtil.getUserFlag("UserPSTextboxResetCameraInput")
 local FFlagUserFixVRCameraGamepadReset = FlagUtil.getUserFlag("UserFixVRCameraGamepadReset")
+local FFlagUserPlayerScriptsSupportTVRemoteKeycodes = FlagUtil.getUserFlag("UserPlayerScriptsSupportTVRemoteKeycodes")
 
 local player = Players.LocalPlayer
 
@@ -144,6 +145,8 @@ do
 	local touchPitchSensitivity = 1
 	local gamepadState = {
 		Thumbstick2 = Vector2.new(),
+		ButtonLeft = 0,
+		ButtonRight = 0,
 	}
 	local keyboardState = {
 		Left = 0,
@@ -177,15 +180,27 @@ do
 	end
 	
 	function CameraInput.getRotationActivated(): boolean
-		return panInputCount > 0 or gamepadState.Thumbstick2.Magnitude > 0
+		if FFlagUserPlayerScriptsSupportTVRemoteKeycodes then
+			return panInputCount > 0
+				or gamepadState.Thumbstick2.Magnitude > 0
+				or gamepadState.ButtonRight - gamepadState.ButtonLeft ~= 0
+		else
+			return panInputCount > 0 or gamepadState.Thumbstick2.Magnitude > 0
+		end
 	end
-	
+
 	function CameraInput.getRotation(dt, disableKeyboardRotation: boolean?): Vector2
 		local inversionVector = Vector2.new(1, UserGameSettings:GetCameraYInvertValue())
 
 		-- keyboard input is non-coalesced, so must account for time delta
 		local kKeyboard = Vector2.new(keyboardState.Right - keyboardState.Left, 0) * dt
-		local kGamepad = gamepadState.Thumbstick2 * UserGameSettings.GamepadCameraSensitivity * dt
+		local kGamepad
+		if FFlagUserPlayerScriptsSupportTVRemoteKeycodes then
+			local kGamepadButtons = Vector2.new(gamepadState.ButtonRight - gamepadState.ButtonLeft, 0)
+			kGamepad = (gamepadState.Thumbstick2 + kGamepadButtons) * UserGameSettings.GamepadCameraSensitivity * dt
+		else
+			kGamepad = gamepadState.Thumbstick2 * UserGameSettings.GamepadCameraSensitivity * dt
+		end
 
 		local kMouse = mouseState.Movement
 		local kPointerAction = mouseState.Pan
@@ -216,6 +231,15 @@ do
 		local function thumbstick(action, state, input)
 			local position = input.Position
 			gamepadState[input.KeyCode.Name] = Vector2.new(thumbstickCurve(position.X), -thumbstickCurve(position.Y))
+			return Enum.ContextActionResult.Pass
+		end
+
+		local function directionalButtons(action, state, input)
+			if state == Enum.UserInputState.Cancel then
+				gamepadState[input.KeyCode.Name] = 0
+			else
+				gamepadState[input.KeyCode.Name] = thumbstickCurve(input.Position.Z)
+			end
 			return Enum.ContextActionResult.Pass
 		end
 
@@ -421,6 +445,17 @@ do
 					Enum.KeyCode.Thumbstick2
 				)
 
+				if FFlagUserPlayerScriptsSupportTVRemoteKeycodes then
+					ContextActionService:BindActionAtPriority(
+						"RbxCameraDirectionalButtons",
+						directionalButtons,
+						false,
+						CAMERA_INPUT_PRIORITY,
+						Enum.KeyCode.ButtonLeft,
+						Enum.KeyCode.ButtonRight
+					)
+				end
+
 				ContextActionService:BindActionAtPriority(
 					"RbxCameraKeypress",
 					keypress,
@@ -456,6 +491,9 @@ do
 
 			else -- disable
 				ContextActionService:UnbindAction("RbxCameraThumbstick")
+				if FFlagUserPlayerScriptsSupportTVRemoteKeycodes then
+					ContextActionService:UnbindAction("RbxCameraDirectionalButtons")
+				end
 				ContextActionService:UnbindAction("RbxCameraMouseMove")
 				ContextActionService:UnbindAction("RbxCameraMouseWheel")
 				ContextActionService:UnbindAction("RbxCameraKeypress")

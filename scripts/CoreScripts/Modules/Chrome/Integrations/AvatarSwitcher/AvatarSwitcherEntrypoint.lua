@@ -51,7 +51,7 @@ local integration = ChromeService:register({
 	initialAvailability = getInitialAvailability(),
 	id = Constants.AVATAR_SWITCHER_ID,
 	label = "Feature.AvatarSwitcher.Heading.SwitchAvatar",
-	sideSheetPlacement = SideSheetPlacement.Vertical,
+	sideSheetPlacement = SideSheetPlacement.AboveFold,
 	activated = function(self)
 		ChromeService:toggleWindow(Constants.AVATAR_SWITCHER_ID)
 	end,

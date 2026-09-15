@@ -7,9 +7,11 @@ local preloadedMeshValueNames = {
 
 local preloadedImageValueNames = {
 	TextureId = true,
+	ColorMap = true,
 	MetalnessMap = true,
 	NormalMap = true,
 	RoughnessMap = true,
+	EmissiveMask = true,
 }
 
 local function preloadEditablesFromRootInstance(rootInstance: Instance)

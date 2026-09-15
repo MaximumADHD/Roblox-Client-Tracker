@@ -6,12 +6,14 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
 local FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegration
 local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
 local FFlagShowSwitchServerButton = SharedFlags.FFlagShowSwitchServerButton
+local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
+local FFlagEnableSideSheetRobuxWidget = require(script.Parent.Flags.FFlagEnableSideSheetRobuxWidget)
 
 local Traversal = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
 local FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory
@@ -55,8 +57,10 @@ return {
 	TraversalHistory = if FFlagAddTraversalHistory and FFlagIntegrateTraversalHistoryInSideSheet
 		then require(script.Pages.TraversalHistory)
 		else nil,
-	LeaveConfirmation = if FFlagEnableSideSheet then require(script.Pages.LeaveConfirmation) else nil,
-	RespawnConfirmation = if FFlagEnableSideSheet then require(script.Pages.RespawnConfirmation) else nil,
+	LeaveConfirmation = if isSideSheetEnabled then require(script.Pages.LeaveConfirmation) else nil,
+	RespawnConfirmation = if isSideSheetEnabled then require(script.Pages.RespawnConfirmation) else nil,
+	RobuxWidget = if FFlagEnableSideSheetRobuxWidget and isSideSheetEnabled then require(script.RobuxWidget) else nil,
 	ShopEntrypoint = if FFlagEnableInExperienceShop then require(script.InExperienceShop.ShopEntrypoint) else nil,
-	SwitchServer = if FFlagEnableSideSheet and FFlagShowSwitchServerButton then require(script.SwitchServer) else nil,
+	SwitchServer = if isSideSheetEnabled and FFlagShowSwitchServerButton then require(script.SwitchServer) else nil,
+	AccountUpsell = if isPioneerLaunch() then require(script.AccountUpsell) else nil,
 }

@@ -16,7 +16,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableGameLeftMessage = SharedFlags.FFlagEnableGameLeftMessage
 local FFlagSurvBloxEventTypeEnabled = SharedFlags.FFlagSurvBloxEventTypeEnabled
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
-local FFlagRemoveExitModal = require(RobloxGui.Modules.Settings.Flags.FFlagRemoveExitModal)
+local isExitModalRemoved = require(RobloxGui.Modules.Settings.Flags.isExitModalRemoved)
 local FFlagVoiceVolumeControlsEnableVoiceVolumeImpressionsTelemetry =
 	require(CorePackages.Workspace.Packages.VoiceChatCore).Flags.GetFFlagVoiceVolumeControlsEnableVoiceVolumeImpressionsTelemetry()
 
@@ -115,13 +115,13 @@ local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?
     end
 
     -- return to app by default, unless shouldNativeExit is true then native exit
-    if not FFlagRemoveExitModal or (not props or not props.shouldNativeExit) then
+    if not isExitModalRemoved or (not props or not props.shouldNativeExit) then
         game:Shutdown()
     end
 
     settings().Rendering.QualityLevel = GetDefaultQualityLevel()
 
-    if FFlagRemoveExitModal and props and props.shouldNativeExit then
+    if isExitModalRemoved and props and props.shouldNativeExit then
         local NotificationType = GuiService:GetNotificationTypeList()
         GuiService:BroadcastNotification("", NotificationType.NATIVE_EXIT)
     end

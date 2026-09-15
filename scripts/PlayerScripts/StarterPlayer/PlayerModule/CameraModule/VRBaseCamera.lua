@@ -12,14 +12,6 @@ local VR_FADE_SPEED = 10 -- 1/10 second
 local VR_SCREEN_EGDE_BLEND_TIME = 0.14
 local VR_SEAT_OFFSET = Vector3.new(0,4,0)
 
-local FFlagUserVRVehicleCamera
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRVehicleCameraOrbital")
-	end)
-	FFlagUserVRVehicleCamera = success and result
-end
-
 local VRService = game:GetService("VRService")
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -106,14 +98,7 @@ function VRBaseCamera:OnEnabledChanged()
 
 		-- reset on options change
 		self.thirdPersonOptionChanged = VRService:GetPropertyChangedSignal("ThirdPersonFollowCamEnabled"):Connect(function()
-			if FFlagUserVRVehicleCamera then
-				self:Reset()
-			else
-				-- only need to reset third person options if in third person
-				if not self:IsInFirstPerson() then
-					self:Reset()
-				end 
-			end
+			self:Reset()
 		end)
 		
 		self.vrRecentered = VRService.UserCFrameChanged:Connect(function(userCFrame, _)
@@ -429,7 +414,7 @@ end
 -----------------------------
 
 function VRBaseCamera:HandleSubjectDistance(prevController)
-	if FFlagUserVRVehicleCamera and prevController and prevController.IsInFirstPerson and prevController:IsInFirstPerson() then
+	if prevController and prevController.IsInFirstPerson and prevController:IsInFirstPerson() then
 		self:SetCameraToSubjectDistance(0)
 	end
 end

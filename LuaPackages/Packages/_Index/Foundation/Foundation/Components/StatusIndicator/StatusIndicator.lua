@@ -31,6 +31,7 @@ type StatusIndicatorEmpty = {
 	variant: StatusIndicatorVariant?,
 	shape: StatusIndicatorShape?,
 	size: StatusIndicatorSize?,
+	mask: Types.ColorStyle?,
 	max: nil, -- discriminant union mechanism to avoid type errors
 	value: nil, -- discriminant union mechanism to avoid type errors
 } & Types.CommonProps
@@ -46,6 +47,7 @@ type StatusIndicatorNumeric = {
 	value: Bindable<number>,
 	size: StatusIndicatorSize?,
 	max: number?,
+	mask: Types.ColorStyle?,
 	shape: nil,
 }
 
@@ -85,7 +87,8 @@ local function StatusIndicator(statusIndicatorProps: StatusIndicatorProps, ref: 
 		props.variant,
 		hasValue,
 		refinedShape,
-		if Flags.FoundationAvatarBeta then props.size else nil :: never
+		if Flags.FoundationAvatarBeta then props.size else nil :: never,
+		props.mask
 	)
 
 	local formatValue = React.useCallback(function(value: number)
@@ -103,6 +106,7 @@ local function StatusIndicator(statusIndicatorProps: StatusIndicatorProps, ref: 
 			backgroundStyle = if variantProps.container.backgroundStyle
 				then variantProps.container.backgroundStyle
 				else nil,
+			stroke = if props.mask then variantProps.stroke else nil,
 			ref = ref,
 			Size = if Flags.FoundationAvatarBeta then variantProps.container.size else nil,
 		}),

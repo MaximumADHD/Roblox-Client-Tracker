@@ -62,6 +62,8 @@ local FFlagReplacePlayerIconRoduxWithSignal =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagReplacePlayerIconRoduxWithSignal
 local FFlagBadgeVisibilitySettingEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
+local FFlagLuaSupportMicroGamepadPreferredInput =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaSupportMicroGamepadPreferredInput
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagPlayerListUseMobileOnSmallDisplay = PlayerListPackage.Flags.FFlagPlayerListUseMobileOnSmallDisplay
@@ -90,6 +92,10 @@ end
 local function isTouchOrGamepadInput(): boolean
 	return UserInputService.PreferredInput == Enum.PreferredInput.Touch
 		or UserInputService.PreferredInput == Enum.PreferredInput.Gamepad
+		or (
+			FFlagLuaSupportMicroGamepadPreferredInput
+			and UserInputService.PreferredInput == Enum.PreferredInput.MicroGamepad
+		)
 end
 
 -- Reskin console-mobile routing kicks in only when the device would otherwise be a

@@ -179,8 +179,16 @@ type _Messages =
 		RefreshFeedEntryFromApiAction_Params: _RefreshFeedEntryFromApiAction_ParamsMessage,
 		OpenProfileFramesEditorAction: _OpenProfileFramesEditorActionMessage,
 		OpenProfileFramesEditorAction_Params: _OpenProfileFramesEditorAction_ParamsMessage,
+		ApplyDevStoreSeeAllCategoryFilterAction: _ApplyDevStoreSeeAllCategoryFilterActionMessage,
+		ApplyDevStoreSeeAllCategoryFilterAction_Params: _ApplyDevStoreSeeAllCategoryFilterAction_ParamsMessage,
 		SetGameTileNotInterestedAction: _SetGameTileNotInterestedActionMessage,
 		SetGameTileNotInterestedAction_Params: _SetGameTileNotInterestedAction_ParamsMessage,
+		UndoGameTileNotInterestedAction: _UndoGameTileNotInterestedActionMessage,
+		UndoGameTileNotInterestedAction_Params: _UndoGameTileNotInterestedAction_ParamsMessage,
+		OpenWhyThisAdAction: _OpenWhyThisAdActionMessage,
+		OpenWhyThisAdAction_Params: _OpenWhyThisAdAction_ParamsMessage,
+		RequestPushNotificationPermissionAction: _RequestPushNotificationPermissionActionMessage,
+		RequestPushNotificationPermissionAction_Params: _RequestPushNotificationPermissionAction_ParamsMessage,
 		Action: _ActionMessage,
 		ActionProp: _ActionPropMessage,
 		ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -399,12 +407,18 @@ type _OpenGameDetailsAction_ParamsFields = {
 	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	inherit_referral_session: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	place_id_override: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	experience_join_data: LaunchExperienceAction_ExperienceJoinData?,
+	skip_sponsored_click_recording: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _OpenGameDetailsAction_ParamsPartialFields = {
 	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	inherit_referral_session: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	place_id_override: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	experience_join_data: LaunchExperienceAction_ExperienceJoinData?,
+	skip_sponsored_click_recording: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type OpenGameDetailsAction_Params = typeof(setmetatable(
@@ -5175,6 +5189,64 @@ type _OpenProfileFramesEditorAction_ParamsMessage = proto.Message<
 	_OpenProfileFramesEditorAction_ParamsPartialFields
 >
 
+type _ApplyDevStoreSeeAllCategoryFilterActionImpl = {
+	__index: _ApplyDevStoreSeeAllCategoryFilterActionImpl,
+	new: (fields: _ApplyDevStoreSeeAllCategoryFilterActionPartialFields?) -> ApplyDevStoreSeeAllCategoryFilterAction,
+	encode: (self: ApplyDevStoreSeeAllCategoryFilterAction) -> buffer,
+	decode: (input: buffer) -> ApplyDevStoreSeeAllCategoryFilterAction,
+	jsonEncode: (self: ApplyDevStoreSeeAllCategoryFilterAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ApplyDevStoreSeeAllCategoryFilterAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ApplyDevStoreSeeAllCategoryFilterActionFields = {
+	action_type: ActionType,
+	action_params: ApplyDevStoreSeeAllCategoryFilterAction_Params?,
+}
+
+type _ApplyDevStoreSeeAllCategoryFilterActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ApplyDevStoreSeeAllCategoryFilterAction_Params?,
+}
+
+export type ApplyDevStoreSeeAllCategoryFilterAction = typeof(setmetatable(
+	{} :: _ApplyDevStoreSeeAllCategoryFilterActionFields,
+	{} :: _ApplyDevStoreSeeAllCategoryFilterActionImpl
+))
+type _ApplyDevStoreSeeAllCategoryFilterActionMessage = proto.Message<
+	ApplyDevStoreSeeAllCategoryFilterAction,
+	_ApplyDevStoreSeeAllCategoryFilterActionPartialFields
+>
+
+type _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl = {
+	__index: _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl,
+	new: (
+		fields: _ApplyDevStoreSeeAllCategoryFilterAction_ParamsPartialFields?
+	) -> ApplyDevStoreSeeAllCategoryFilterAction_Params,
+	encode: (self: ApplyDevStoreSeeAllCategoryFilterAction_Params) -> buffer,
+	decode: (input: buffer) -> ApplyDevStoreSeeAllCategoryFilterAction_Params,
+	jsonEncode: (self: ApplyDevStoreSeeAllCategoryFilterAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ApplyDevStoreSeeAllCategoryFilterAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ApplyDevStoreSeeAllCategoryFilterAction_ParamsFields = {
+	selected_category_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _ApplyDevStoreSeeAllCategoryFilterAction_ParamsPartialFields = {
+	selected_category_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type ApplyDevStoreSeeAllCategoryFilterAction_Params = typeof(setmetatable(
+	{} :: _ApplyDevStoreSeeAllCategoryFilterAction_ParamsFields,
+	{} :: _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl
+))
+type _ApplyDevStoreSeeAllCategoryFilterAction_ParamsMessage = proto.Message<
+	ApplyDevStoreSeeAllCategoryFilterAction_Params,
+	_ApplyDevStoreSeeAllCategoryFilterAction_ParamsPartialFields
+>
+
 type _SetGameTileNotInterestedActionImpl = {
 	__index: _SetGameTileNotInterestedActionImpl,
 	new: (fields: _SetGameTileNotInterestedActionPartialFields?) -> SetGameTileNotInterestedAction,
@@ -5218,12 +5290,14 @@ type _SetGameTileNotInterestedAction_ParamsFields = {
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	is_sponsored: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _SetGameTileNotInterestedAction_ParamsPartialFields = {
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	is_sponsored: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type SetGameTileNotInterestedAction_Params = typeof(setmetatable(
@@ -5233,6 +5307,178 @@ export type SetGameTileNotInterestedAction_Params = typeof(setmetatable(
 type _SetGameTileNotInterestedAction_ParamsMessage = proto.Message<
 	SetGameTileNotInterestedAction_Params,
 	_SetGameTileNotInterestedAction_ParamsPartialFields
+>
+
+type _UndoGameTileNotInterestedActionImpl = {
+	__index: _UndoGameTileNotInterestedActionImpl,
+	new: (fields: _UndoGameTileNotInterestedActionPartialFields?) -> UndoGameTileNotInterestedAction,
+	encode: (self: UndoGameTileNotInterestedAction) -> buffer,
+	decode: (input: buffer) -> UndoGameTileNotInterestedAction,
+	jsonEncode: (self: UndoGameTileNotInterestedAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UndoGameTileNotInterestedAction,
+	descriptor: proto.Descriptor,
+}
+
+type _UndoGameTileNotInterestedActionFields = {
+	action_type: ActionType,
+	action_params: UndoGameTileNotInterestedAction_Params?,
+}
+
+type _UndoGameTileNotInterestedActionPartialFields = {
+	action_type: ActionType?,
+	action_params: UndoGameTileNotInterestedAction_Params?,
+}
+
+export type UndoGameTileNotInterestedAction = typeof(setmetatable(
+	{} :: _UndoGameTileNotInterestedActionFields,
+	{} :: _UndoGameTileNotInterestedActionImpl
+))
+type _UndoGameTileNotInterestedActionMessage = proto.Message<
+	UndoGameTileNotInterestedAction,
+	_UndoGameTileNotInterestedActionPartialFields
+>
+
+type _UndoGameTileNotInterestedAction_ParamsImpl = {
+	__index: _UndoGameTileNotInterestedAction_ParamsImpl,
+	new: (fields: _UndoGameTileNotInterestedAction_ParamsPartialFields?) -> UndoGameTileNotInterestedAction_Params,
+	encode: (self: UndoGameTileNotInterestedAction_Params) -> buffer,
+	decode: (input: buffer) -> UndoGameTileNotInterestedAction_Params,
+	jsonEncode: (self: UndoGameTileNotInterestedAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UndoGameTileNotInterestedAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _UndoGameTileNotInterestedAction_ParamsFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _UndoGameTileNotInterestedAction_ParamsPartialFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type UndoGameTileNotInterestedAction_Params = typeof(setmetatable(
+	{} :: _UndoGameTileNotInterestedAction_ParamsFields,
+	{} :: _UndoGameTileNotInterestedAction_ParamsImpl
+))
+type _UndoGameTileNotInterestedAction_ParamsMessage = proto.Message<
+	UndoGameTileNotInterestedAction_Params,
+	_UndoGameTileNotInterestedAction_ParamsPartialFields
+>
+
+type _OpenWhyThisAdActionImpl = {
+	__index: _OpenWhyThisAdActionImpl,
+	new: (fields: _OpenWhyThisAdActionPartialFields?) -> OpenWhyThisAdAction,
+	encode: (self: OpenWhyThisAdAction) -> buffer,
+	decode: (input: buffer) -> OpenWhyThisAdAction,
+	jsonEncode: (self: OpenWhyThisAdAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenWhyThisAdAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenWhyThisAdActionFields = {
+	action_type: ActionType,
+	action_params: OpenWhyThisAdAction_Params?,
+}
+
+type _OpenWhyThisAdActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenWhyThisAdAction_Params?,
+}
+
+export type OpenWhyThisAdAction = typeof(setmetatable({} :: _OpenWhyThisAdActionFields, {} :: _OpenWhyThisAdActionImpl))
+type _OpenWhyThisAdActionMessage = proto.Message<OpenWhyThisAdAction, _OpenWhyThisAdActionPartialFields>
+
+type _OpenWhyThisAdAction_ParamsImpl = {
+	__index: _OpenWhyThisAdAction_ParamsImpl,
+	new: (fields: _OpenWhyThisAdAction_ParamsPartialFields?) -> OpenWhyThisAdAction_Params,
+	encode: (self: OpenWhyThisAdAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenWhyThisAdAction_Params,
+	jsonEncode: (self: OpenWhyThisAdAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenWhyThisAdAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenWhyThisAdAction_ParamsFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	payer_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	sponsored_user_cohort: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	content_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenWhyThisAdAction_ParamsPartialFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	payer_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	sponsored_user_cohort: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	content_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenWhyThisAdAction_Params = typeof(setmetatable(
+	{} :: _OpenWhyThisAdAction_ParamsFields,
+	{} :: _OpenWhyThisAdAction_ParamsImpl
+))
+type _OpenWhyThisAdAction_ParamsMessage = proto.Message<
+	OpenWhyThisAdAction_Params,
+	_OpenWhyThisAdAction_ParamsPartialFields
+>
+
+type _RequestPushNotificationPermissionActionImpl = {
+	__index: _RequestPushNotificationPermissionActionImpl,
+	new: (fields: _RequestPushNotificationPermissionActionPartialFields?) -> RequestPushNotificationPermissionAction,
+	encode: (self: RequestPushNotificationPermissionAction) -> buffer,
+	decode: (input: buffer) -> RequestPushNotificationPermissionAction,
+	jsonEncode: (self: RequestPushNotificationPermissionAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RequestPushNotificationPermissionAction,
+	descriptor: proto.Descriptor,
+}
+
+type _RequestPushNotificationPermissionActionFields = {
+	action_type: ActionType,
+	action_params: RequestPushNotificationPermissionAction_Params?,
+}
+
+type _RequestPushNotificationPermissionActionPartialFields = {
+	action_type: ActionType?,
+	action_params: RequestPushNotificationPermissionAction_Params?,
+}
+
+export type RequestPushNotificationPermissionAction = typeof(setmetatable(
+	{} :: _RequestPushNotificationPermissionActionFields,
+	{} :: _RequestPushNotificationPermissionActionImpl
+))
+type _RequestPushNotificationPermissionActionMessage = proto.Message<
+	RequestPushNotificationPermissionAction,
+	_RequestPushNotificationPermissionActionPartialFields
+>
+
+type _RequestPushNotificationPermissionAction_ParamsImpl = {
+	__index: _RequestPushNotificationPermissionAction_ParamsImpl,
+	new: (
+		fields: _RequestPushNotificationPermissionAction_ParamsPartialFields?
+	) -> RequestPushNotificationPermissionAction_Params,
+	encode: (self: RequestPushNotificationPermissionAction_Params) -> buffer,
+	decode: (input: buffer) -> RequestPushNotificationPermissionAction_Params,
+	jsonEncode: (self: RequestPushNotificationPermissionAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RequestPushNotificationPermissionAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _RequestPushNotificationPermissionAction_ParamsFields = {
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _RequestPushNotificationPermissionAction_ParamsPartialFields = {
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type RequestPushNotificationPermissionAction_Params = typeof(setmetatable(
+	{} :: _RequestPushNotificationPermissionAction_ParamsFields,
+	{} :: _RequestPushNotificationPermissionAction_ParamsImpl
+))
+type _RequestPushNotificationPermissionAction_ParamsMessage = proto.Message<
+	RequestPushNotificationPermissionAction_Params,
+	_RequestPushNotificationPermissionAction_ParamsPartialFields
 >
 
 type _ActionImpl = {
@@ -5331,6 +5577,10 @@ type _ActionFields = {
 		| { type: "navigate_action", value: NavigateAction }
 		| { type: "set_game_tile_not_interested_action", value: SetGameTileNotInterestedAction }
 		| { type: "refresh_home_action", value: RefreshHomeAction }
+		| { type: "undo_game_tile_not_interested_action", value: UndoGameTileNotInterestedAction }
+		| { type: "apply_dev_store_see_all_category_filter_action", value: ApplyDevStoreSeeAllCategoryFilterAction }
+		| { type: "open_why_this_ad_action", value: OpenWhyThisAdAction }
+		| { type: "request_push_notification_permission_action", value: RequestPushNotificationPermissionAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -5424,6 +5674,10 @@ type _ActionPartialFields = {
 		| { type: "navigate_action", value: NavigateAction }
 		| { type: "set_game_tile_not_interested_action", value: SetGameTileNotInterestedAction }
 		| { type: "refresh_home_action", value: RefreshHomeAction }
+		| { type: "undo_game_tile_not_interested_action", value: UndoGameTileNotInterestedAction }
+		| { type: "apply_dev_store_see_all_category_filter_action", value: ApplyDevStoreSeeAllCategoryFilterAction }
+		| { type: "open_why_this_ad_action", value: OpenWhyThisAdAction }
+		| { type: "request_push_notification_permission_action", value: RequestPushNotificationPermissionAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -5771,6 +6025,10 @@ export type ActionType =
 	| "ACTION_TYPE_NAVIGATE"
 	| "ACTION_TYPE_SET_GAME_TILE_NOT_INTERESTED"
 	| "ACTION_TYPE_REFRESH_HOME"
+	| "ACTION_TYPE_UNDO_GAME_TILE_NOT_INTERESTED"
+	| "ACTION_TYPE_APPLY_DEV_STORE_SEE_ALL_CATEGORY_FILTER"
+	| "ACTION_TYPE_OPEN_WHY_THIS_AD"
+	| "ACTION_TYPE_REQUEST_PUSH_NOTIFICATION_PERMISSION"
 	| number -- Unknown
 
 do
@@ -6830,6 +7088,13 @@ do
 			inherit_referral_session = if data == nil or data.inherit_referral_session == nil
 				then nil
 				else data.inherit_referral_session,
+			place_id_override = if data == nil or data.place_id_override == nil then nil else data.place_id_override,
+			experience_join_data = if data == nil or data.experience_join_data == nil
+				then nil
+				else data.experience_join_data,
+			skip_sponsored_click_recording = if data == nil or data.skip_sponsored_click_recording == nil
+				then nil
+				else data.skip_sponsored_click_recording,
 		}, _OpenGameDetailsAction_ParamsImpl :: _OpenGameDetailsAction_ParamsImpl)
 	end
 
@@ -6852,6 +7117,24 @@ do
 		if self.inherit_referral_session ~= nil then
 			local encoded = self.inherit_referral_session:encode()
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.place_id_override ~= nil then
+			local encoded = self.place_id_override:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.experience_join_data ~= nil then
+			local encoded = self.experience_join_data:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.skip_sponsored_click_recording ~= nil then
+			local encoded = self.skip_sponsored_click_recording:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -6888,6 +7171,22 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.inherit_referral_session =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.place_id_override = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.experience_join_data = messages.LaunchExperienceAction_ExperienceJoinData.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.skip_sponsored_click_recording =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				end
@@ -6929,6 +7228,18 @@ do
 			output.inheritReferralSession = self.inherit_referral_session:jsonEncode()
 		end
 
+		if self.place_id_override ~= nil then
+			output.placeIdOverride = self.place_id_override:jsonEncode()
+		end
+
+		if self.experience_join_data ~= nil then
+			output.experienceJoinData = self.experience_join_data:jsonEncode()
+		end
+
+		if self.skip_sponsored_click_recording ~= nil then
+			output.skipSponsoredClickRecording = self.skip_sponsored_click_recording:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -6960,6 +7271,37 @@ do
 		if input.inheritReferralSession ~= nil then
 			self.inherit_referral_session =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.inheritReferralSession)
+		end
+
+		if input.place_id_override ~= nil then
+			self.place_id_override =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.place_id_override)
+		end
+
+		if input.placeIdOverride ~= nil then
+			self.place_id_override =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.placeIdOverride)
+		end
+
+		if input.experience_join_data ~= nil then
+			self.experience_join_data =
+				messages.LaunchExperienceAction_ExperienceJoinData.jsonDecode(input.experience_join_data)
+		end
+
+		if input.experienceJoinData ~= nil then
+			self.experience_join_data =
+				messages.LaunchExperienceAction_ExperienceJoinData.jsonDecode(input.experienceJoinData)
+		end
+
+		if input.skip_sponsored_click_recording ~= nil then
+			self.skip_sponsored_click_recording = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+				input.skip_sponsored_click_recording
+			)
+		end
+
+		if input.skipSponsoredClickRecording ~= nil then
+			self.skip_sponsored_click_recording =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skipSponsoredClickRecording)
 		end
 
 		return self
@@ -31493,6 +31835,272 @@ do
 end
 
 do
+	local _ApplyDevStoreSeeAllCategoryFilterActionImpl = {}
+	_ApplyDevStoreSeeAllCategoryFilterActionImpl.__index = _ApplyDevStoreSeeAllCategoryFilterActionImpl
+
+	function _ApplyDevStoreSeeAllCategoryFilterActionImpl.new(
+		data: _ApplyDevStoreSeeAllCategoryFilterActionPartialFields?
+	): ApplyDevStoreSeeAllCategoryFilterAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ApplyDevStoreSeeAllCategoryFilterActionImpl :: _ApplyDevStoreSeeAllCategoryFilterActionImpl)
+	end
+
+	function _ApplyDevStoreSeeAllCategoryFilterActionImpl.encode(self: ApplyDevStoreSeeAllCategoryFilterAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ApplyDevStoreSeeAllCategoryFilterActionImpl.decode(input: buffer): ApplyDevStoreSeeAllCategoryFilterAction
+		local self = _ApplyDevStoreSeeAllCategoryFilterActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ApplyDevStoreSeeAllCategoryFilterAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ApplyDevStoreSeeAllCategoryFilterActionImpl.jsonEncode(self: ApplyDevStoreSeeAllCategoryFilterAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ApplyDevStoreSeeAllCategoryFilterActionImpl.jsonDecode(
+		input: { [string]: any }
+	): ApplyDevStoreSeeAllCategoryFilterAction
+		local self = _ApplyDevStoreSeeAllCategoryFilterActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ApplyDevStoreSeeAllCategoryFilterAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ApplyDevStoreSeeAllCategoryFilterAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ApplyDevStoreSeeAllCategoryFilterActionImpl.descriptor = {
+		name = "ApplyDevStoreSeeAllCategoryFilterAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ApplyDevStoreSeeAllCategoryFilterAction",
+	}
+
+	messages.ApplyDevStoreSeeAllCategoryFilterAction = _ApplyDevStoreSeeAllCategoryFilterActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ApplyDevStoreSeeAllCategoryFilterAction)
+end
+
+do
+	local _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl = {}
+	_ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl.__index = _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl
+
+	function _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl.new(
+		data: _ApplyDevStoreSeeAllCategoryFilterAction_ParamsPartialFields?
+	): ApplyDevStoreSeeAllCategoryFilterAction_Params
+		return setmetatable({
+			selected_category_id = if data == nil or data.selected_category_id == nil
+				then nil
+				else data.selected_category_id,
+		}, _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl :: _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl)
+	end
+
+	function _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl.encode(
+		self: ApplyDevStoreSeeAllCategoryFilterAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.selected_category_id ~= nil then
+			local encoded = self.selected_category_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl.decode(
+		input: buffer
+	): ApplyDevStoreSeeAllCategoryFilterAction_Params
+		local self = _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selected_category_id =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl.jsonEncode(
+		self: ApplyDevStoreSeeAllCategoryFilterAction_Params
+	): any
+		local output = {}
+
+		if self.selected_category_id ~= nil then
+			output.selectedCategoryId = self.selected_category_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): ApplyDevStoreSeeAllCategoryFilterAction_Params
+		local self = _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl.new()
+
+		if input.selected_category_id ~= nil then
+			self.selected_category_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.selected_category_id)
+		end
+
+		if input.selectedCategoryId ~= nil then
+			self.selected_category_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.selectedCategoryId)
+		end
+
+		return self
+	end
+
+	_ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl.descriptor = {
+		name = "ApplyDevStoreSeeAllCategoryFilterAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ApplyDevStoreSeeAllCategoryFilterAction_Params = _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ApplyDevStoreSeeAllCategoryFilterAction_Params)
+end
+
+do
 	local _SetGameTileNotInterestedActionImpl = {}
 	_SetGameTileNotInterestedActionImpl.__index = _SetGameTileNotInterestedActionImpl
 
@@ -31650,6 +32258,7 @@ do
 			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
 			place_id = if data == nil or data.place_id == nil then nil else data.place_id,
 			collection_id = if data == nil or data.collection_id == nil then nil else data.collection_id,
+			is_sponsored = if data == nil or data.is_sponsored == nil then nil else data.is_sponsored,
 		}, _SetGameTileNotInterestedAction_ParamsImpl :: _SetGameTileNotInterestedAction_ParamsImpl)
 	end
 
@@ -31672,6 +32281,12 @@ do
 		if self.collection_id ~= nil then
 			local encoded = self.collection_id:encode()
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.is_sponsored ~= nil then
+			local encoded = self.is_sponsored:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -31708,6 +32323,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.collection_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.is_sponsored = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				end
 
@@ -31748,6 +32368,10 @@ do
 			output.collectionId = self.collection_id:jsonEncode()
 		end
 
+		if self.is_sponsored ~= nil then
+			output.isSponsored = self.is_sponsored:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -31783,6 +32407,15 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collectionId)
 		end
 
+		if input.is_sponsored ~= nil then
+			self.is_sponsored =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.is_sponsored)
+		end
+
+		if input.isSponsored ~= nil then
+			self.is_sponsored = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isSponsored)
+		end
+
 		return self
 	end
 
@@ -31794,6 +32427,872 @@ do
 	messages.SetGameTileNotInterestedAction_Params = _SetGameTileNotInterestedAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.SetGameTileNotInterestedAction_Params)
+end
+
+do
+	local _UndoGameTileNotInterestedActionImpl = {}
+	_UndoGameTileNotInterestedActionImpl.__index = _UndoGameTileNotInterestedActionImpl
+
+	function _UndoGameTileNotInterestedActionImpl.new(
+		data: _UndoGameTileNotInterestedActionPartialFields?
+	): UndoGameTileNotInterestedAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _UndoGameTileNotInterestedActionImpl :: _UndoGameTileNotInterestedActionImpl)
+	end
+
+	function _UndoGameTileNotInterestedActionImpl.encode(self: UndoGameTileNotInterestedAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UndoGameTileNotInterestedActionImpl.decode(input: buffer): UndoGameTileNotInterestedAction
+		local self = _UndoGameTileNotInterestedActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.UndoGameTileNotInterestedAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UndoGameTileNotInterestedActionImpl.jsonEncode(self: UndoGameTileNotInterestedAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _UndoGameTileNotInterestedActionImpl.jsonDecode(input: { [string]: any }): UndoGameTileNotInterestedAction
+		local self = _UndoGameTileNotInterestedActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.UndoGameTileNotInterestedAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.UndoGameTileNotInterestedAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_UndoGameTileNotInterestedActionImpl.descriptor = {
+		name = "UndoGameTileNotInterestedAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UndoGameTileNotInterestedAction",
+	}
+
+	messages.UndoGameTileNotInterestedAction = _UndoGameTileNotInterestedActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UndoGameTileNotInterestedAction)
+end
+
+do
+	local _UndoGameTileNotInterestedAction_ParamsImpl = {}
+	_UndoGameTileNotInterestedAction_ParamsImpl.__index = _UndoGameTileNotInterestedAction_ParamsImpl
+
+	function _UndoGameTileNotInterestedAction_ParamsImpl.new(
+		data: _UndoGameTileNotInterestedAction_ParamsPartialFields?
+	): UndoGameTileNotInterestedAction_Params
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			collection_id = if data == nil or data.collection_id == nil then nil else data.collection_id,
+		}, _UndoGameTileNotInterestedAction_ParamsImpl :: _UndoGameTileNotInterestedAction_ParamsImpl)
+	end
+
+	function _UndoGameTileNotInterestedAction_ParamsImpl.encode(self: UndoGameTileNotInterestedAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.collection_id ~= nil then
+			local encoded = self.collection_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UndoGameTileNotInterestedAction_ParamsImpl.decode(input: buffer): UndoGameTileNotInterestedAction_Params
+		local self = _UndoGameTileNotInterestedAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UndoGameTileNotInterestedAction_ParamsImpl.jsonEncode(self: UndoGameTileNotInterestedAction_Params): any
+		local output = {}
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		if self.collection_id ~= nil then
+			output.collectionId = self.collection_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _UndoGameTileNotInterestedAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): UndoGameTileNotInterestedAction_Params
+		local self = _UndoGameTileNotInterestedAction_ParamsImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.collection_id ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collection_id)
+		end
+
+		if input.collectionId ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collectionId)
+		end
+
+		return self
+	end
+
+	_UndoGameTileNotInterestedAction_ParamsImpl.descriptor = {
+		name = "UndoGameTileNotInterestedAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.UndoGameTileNotInterestedAction_Params = _UndoGameTileNotInterestedAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UndoGameTileNotInterestedAction_Params)
+end
+
+do
+	local _OpenWhyThisAdActionImpl = {}
+	_OpenWhyThisAdActionImpl.__index = _OpenWhyThisAdActionImpl
+
+	function _OpenWhyThisAdActionImpl.new(data: _OpenWhyThisAdActionPartialFields?): OpenWhyThisAdAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenWhyThisAdActionImpl :: _OpenWhyThisAdActionImpl)
+	end
+
+	function _OpenWhyThisAdActionImpl.encode(self: OpenWhyThisAdAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenWhyThisAdActionImpl.decode(input: buffer): OpenWhyThisAdAction
+		local self = _OpenWhyThisAdActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenWhyThisAdAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenWhyThisAdActionImpl.jsonEncode(self: OpenWhyThisAdAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenWhyThisAdActionImpl.jsonDecode(input: { [string]: any }): OpenWhyThisAdAction
+		local self = _OpenWhyThisAdActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenWhyThisAdAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenWhyThisAdAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenWhyThisAdActionImpl.descriptor = {
+		name = "OpenWhyThisAdAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenWhyThisAdAction",
+	}
+
+	messages.OpenWhyThisAdAction = _OpenWhyThisAdActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenWhyThisAdAction)
+end
+
+do
+	local _OpenWhyThisAdAction_ParamsImpl = {}
+	_OpenWhyThisAdAction_ParamsImpl.__index = _OpenWhyThisAdAction_ParamsImpl
+
+	function _OpenWhyThisAdAction_ParamsImpl.new(
+		data: _OpenWhyThisAdAction_ParamsPartialFields?
+	): OpenWhyThisAdAction_Params
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			payer_name = if data == nil or data.payer_name == nil then nil else data.payer_name,
+			sponsored_user_cohort = if data == nil or data.sponsored_user_cohort == nil
+				then nil
+				else data.sponsored_user_cohort,
+			content_type = if data == nil or data.content_type == nil then nil else data.content_type,
+		}, _OpenWhyThisAdAction_ParamsImpl :: _OpenWhyThisAdAction_ParamsImpl)
+	end
+
+	function _OpenWhyThisAdAction_ParamsImpl.encode(self: OpenWhyThisAdAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.payer_name ~= nil then
+			local encoded = self.payer_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.sponsored_user_cohort ~= nil then
+			local encoded = self.sponsored_user_cohort:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.content_type ~= nil then
+			local encoded = self.content_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenWhyThisAdAction_ParamsImpl.decode(input: buffer): OpenWhyThisAdAction_Params
+		local self = _OpenWhyThisAdAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.payer_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sponsored_user_cohort =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.content_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenWhyThisAdAction_ParamsImpl.jsonEncode(self: OpenWhyThisAdAction_Params): any
+		local output = {}
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		if self.payer_name ~= nil then
+			output.payerName = self.payer_name:jsonEncode()
+		end
+
+		if self.sponsored_user_cohort ~= nil then
+			output.sponsoredUserCohort = self.sponsored_user_cohort:jsonEncode()
+		end
+
+		if self.content_type ~= nil then
+			output.contentType = self.content_type:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenWhyThisAdAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenWhyThisAdAction_Params
+		local self = _OpenWhyThisAdAction_ParamsImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.payer_name ~= nil then
+			self.payer_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.payer_name)
+		end
+
+		if input.payerName ~= nil then
+			self.payer_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.payerName)
+		end
+
+		if input.sponsored_user_cohort ~= nil then
+			self.sponsored_user_cohort =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sponsored_user_cohort)
+		end
+
+		if input.sponsoredUserCohort ~= nil then
+			self.sponsored_user_cohort =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sponsoredUserCohort)
+		end
+
+		if input.content_type ~= nil then
+			self.content_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.content_type)
+		end
+
+		if input.contentType ~= nil then
+			self.content_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.contentType)
+		end
+
+		return self
+	end
+
+	_OpenWhyThisAdAction_ParamsImpl.descriptor = {
+		name = "OpenWhyThisAdAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenWhyThisAdAction_Params = _OpenWhyThisAdAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenWhyThisAdAction_Params)
+end
+
+do
+	local _RequestPushNotificationPermissionActionImpl = {}
+	_RequestPushNotificationPermissionActionImpl.__index = _RequestPushNotificationPermissionActionImpl
+
+	function _RequestPushNotificationPermissionActionImpl.new(
+		data: _RequestPushNotificationPermissionActionPartialFields?
+	): RequestPushNotificationPermissionAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _RequestPushNotificationPermissionActionImpl :: _RequestPushNotificationPermissionActionImpl)
+	end
+
+	function _RequestPushNotificationPermissionActionImpl.encode(self: RequestPushNotificationPermissionAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RequestPushNotificationPermissionActionImpl.decode(input: buffer): RequestPushNotificationPermissionAction
+		local self = _RequestPushNotificationPermissionActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.RequestPushNotificationPermissionAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RequestPushNotificationPermissionActionImpl.jsonEncode(self: RequestPushNotificationPermissionAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RequestPushNotificationPermissionActionImpl.jsonDecode(
+		input: { [string]: any }
+	): RequestPushNotificationPermissionAction
+		local self = _RequestPushNotificationPermissionActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.RequestPushNotificationPermissionAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.RequestPushNotificationPermissionAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_RequestPushNotificationPermissionActionImpl.descriptor = {
+		name = "RequestPushNotificationPermissionAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RequestPushNotificationPermissionAction",
+	}
+
+	messages.RequestPushNotificationPermissionAction = _RequestPushNotificationPermissionActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RequestPushNotificationPermissionAction)
+end
+
+do
+	local _RequestPushNotificationPermissionAction_ParamsImpl = {}
+	_RequestPushNotificationPermissionAction_ParamsImpl.__index = _RequestPushNotificationPermissionAction_ParamsImpl
+
+	function _RequestPushNotificationPermissionAction_ParamsImpl.new(
+		data: _RequestPushNotificationPermissionAction_ParamsPartialFields?
+	): RequestPushNotificationPermissionAction_Params
+		return setmetatable({
+			source = if data == nil or data.source == nil then nil else data.source,
+		}, _RequestPushNotificationPermissionAction_ParamsImpl :: _RequestPushNotificationPermissionAction_ParamsImpl)
+	end
+
+	function _RequestPushNotificationPermissionAction_ParamsImpl.encode(
+		self: RequestPushNotificationPermissionAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.source ~= nil then
+			local encoded = self.source:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RequestPushNotificationPermissionAction_ParamsImpl.decode(
+		input: buffer
+	): RequestPushNotificationPermissionAction_Params
+		local self = _RequestPushNotificationPermissionAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RequestPushNotificationPermissionAction_ParamsImpl.jsonEncode(
+		self: RequestPushNotificationPermissionAction_Params
+	): any
+		local output = {}
+
+		if self.source ~= nil then
+			output.source = self.source:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RequestPushNotificationPermissionAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): RequestPushNotificationPermissionAction_Params
+		local self = _RequestPushNotificationPermissionAction_ParamsImpl.new()
+
+		if input.source ~= nil then
+			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		end
+
+		return self
+	end
+
+	_RequestPushNotificationPermissionAction_ParamsImpl.descriptor = {
+		name = "RequestPushNotificationPermissionAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.RequestPushNotificationPermissionAction_Params = _RequestPushNotificationPermissionAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RequestPushNotificationPermissionAction_Params)
 end
 
 do
@@ -32142,6 +33641,22 @@ do
 			elseif self.kind.type == "refresh_home_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 81, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "undo_game_tile_not_interested_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 82, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "apply_dev_store_see_all_category_filter_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 83, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_why_this_ad_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 84, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "request_push_notification_permission_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 85, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -32746,6 +34261,35 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "refresh_home_action", value = messages.RefreshHomeAction.decode(value) }
 					continue
+				elseif field == 82 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "undo_game_tile_not_interested_action",
+						value = messages.UndoGameTileNotInterestedAction.decode(value),
+					}
+					continue
+				elseif field == 83 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "apply_dev_store_see_all_category_filter_action",
+						value = messages.ApplyDevStoreSeeAllCategoryFilterAction.decode(value),
+					}
+					continue
+				elseif field == 84 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "open_why_this_ad_action", value = messages.OpenWhyThisAdAction.decode(value) }
+					continue
+				elseif field == 85 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "request_push_notification_permission_action",
+						value = messages.RequestPushNotificationPermissionAction.decode(value),
+					}
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -32957,6 +34501,14 @@ do
 				output.setGameTileNotInterestedAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "refresh_home_action" then
 				output.refreshHomeAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "undo_game_tile_not_interested_action" then
+				output.undoGameTileNotInterestedAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "apply_dev_store_see_all_category_filter_action" then
+				output.applyDevStoreSeeAllCategoryFilterAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_why_this_ad_action" then
+				output.openWhyThisAdAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "request_push_notification_permission_action" then
+				output.requestPushNotificationPermissionAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -34126,6 +35678,70 @@ do
 		if input.refreshHomeAction ~= nil then
 			self.kind =
 				{ type = "refresh_home_action", value = messages.RefreshHomeAction.jsonDecode(input.refreshHomeAction) }
+		end
+
+		if input.undo_game_tile_not_interested_action ~= nil then
+			self.kind = {
+				type = "undo_game_tile_not_interested_action",
+				value = messages.UndoGameTileNotInterestedAction.jsonDecode(input.undo_game_tile_not_interested_action),
+			}
+		end
+
+		if input.undoGameTileNotInterestedAction ~= nil then
+			self.kind = {
+				type = "undo_game_tile_not_interested_action",
+				value = messages.UndoGameTileNotInterestedAction.jsonDecode(input.undoGameTileNotInterestedAction),
+			}
+		end
+
+		if input.apply_dev_store_see_all_category_filter_action ~= nil then
+			self.kind = {
+				type = "apply_dev_store_see_all_category_filter_action",
+				value = messages.ApplyDevStoreSeeAllCategoryFilterAction.jsonDecode(
+					input.apply_dev_store_see_all_category_filter_action
+				),
+			}
+		end
+
+		if input.applyDevStoreSeeAllCategoryFilterAction ~= nil then
+			self.kind = {
+				type = "apply_dev_store_see_all_category_filter_action",
+				value = messages.ApplyDevStoreSeeAllCategoryFilterAction.jsonDecode(
+					input.applyDevStoreSeeAllCategoryFilterAction
+				),
+			}
+		end
+
+		if input.open_why_this_ad_action ~= nil then
+			self.kind = {
+				type = "open_why_this_ad_action",
+				value = messages.OpenWhyThisAdAction.jsonDecode(input.open_why_this_ad_action),
+			}
+		end
+
+		if input.openWhyThisAdAction ~= nil then
+			self.kind = {
+				type = "open_why_this_ad_action",
+				value = messages.OpenWhyThisAdAction.jsonDecode(input.openWhyThisAdAction),
+			}
+		end
+
+		if input.request_push_notification_permission_action ~= nil then
+			self.kind = {
+				type = "request_push_notification_permission_action",
+				value = messages.RequestPushNotificationPermissionAction.jsonDecode(
+					input.request_push_notification_permission_action
+				),
+			}
+		end
+
+		if input.requestPushNotificationPermissionAction ~= nil then
+			self.kind = {
+				type = "request_push_notification_permission_action",
+				value = messages.RequestPushNotificationPermissionAction.jsonDecode(
+					input.requestPushNotificationPermissionAction
+				),
+			}
 		end
 
 		if input.telemetry_handler ~= nil then
@@ -35524,6 +37140,14 @@ messages.ActionType = {
 			return "ACTION_TYPE_SET_GAME_TILE_NOT_INTERESTED"
 		elseif value == 81 then
 			return "ACTION_TYPE_REFRESH_HOME"
+		elseif value == 82 then
+			return "ACTION_TYPE_UNDO_GAME_TILE_NOT_INTERESTED"
+		elseif value == 83 then
+			return "ACTION_TYPE_APPLY_DEV_STORE_SEE_ALL_CATEGORY_FILTER"
+		elseif value == 84 then
+			return "ACTION_TYPE_OPEN_WHY_THIS_AD"
+		elseif value == 85 then
+			return "ACTION_TYPE_REQUEST_PUSH_NOTIFICATION_PERMISSION"
 		else
 			return nil
 		end
@@ -35694,6 +37318,14 @@ messages.ActionType = {
 			return 80
 		elseif self == "ACTION_TYPE_REFRESH_HOME" then
 			return 81
+		elseif self == "ACTION_TYPE_UNDO_GAME_TILE_NOT_INTERESTED" then
+			return 82
+		elseif self == "ACTION_TYPE_APPLY_DEV_STORE_SEE_ALL_CATEGORY_FILTER" then
+			return 83
+		elseif self == "ACTION_TYPE_OPEN_WHY_THIS_AD" then
+			return 84
+		elseif self == "ACTION_TYPE_REQUEST_PUSH_NOTIFICATION_PERMISSION" then
+			return 85
 		else
 			return self
 		end
@@ -35864,6 +37496,14 @@ messages.ActionType = {
 			return "ACTION_TYPE_SET_GAME_TILE_NOT_INTERESTED"
 		elseif name == "ACTION_TYPE_REFRESH_HOME" then
 			return "ACTION_TYPE_REFRESH_HOME"
+		elseif name == "ACTION_TYPE_UNDO_GAME_TILE_NOT_INTERESTED" then
+			return "ACTION_TYPE_UNDO_GAME_TILE_NOT_INTERESTED"
+		elseif name == "ACTION_TYPE_APPLY_DEV_STORE_SEE_ALL_CATEGORY_FILTER" then
+			return "ACTION_TYPE_APPLY_DEV_STORE_SEE_ALL_CATEGORY_FILTER"
+		elseif name == "ACTION_TYPE_OPEN_WHY_THIS_AD" then
+			return "ACTION_TYPE_OPEN_WHY_THIS_AD"
+		elseif name == "ACTION_TYPE_REQUEST_PUSH_NOTIFICATION_PERMISSION" then
+			return "ACTION_TYPE_REQUEST_PUSH_NOTIFICATION_PERMISSION"
 		else
 			return nil
 		end
@@ -36042,8 +37682,16 @@ return {
 	RefreshFeedEntryFromApiAction_Params = messages.RefreshFeedEntryFromApiAction_Params,
 	OpenProfileFramesEditorAction = messages.OpenProfileFramesEditorAction,
 	OpenProfileFramesEditorAction_Params = messages.OpenProfileFramesEditorAction_Params,
+	ApplyDevStoreSeeAllCategoryFilterAction = messages.ApplyDevStoreSeeAllCategoryFilterAction,
+	ApplyDevStoreSeeAllCategoryFilterAction_Params = messages.ApplyDevStoreSeeAllCategoryFilterAction_Params,
 	SetGameTileNotInterestedAction = messages.SetGameTileNotInterestedAction,
 	SetGameTileNotInterestedAction_Params = messages.SetGameTileNotInterestedAction_Params,
+	UndoGameTileNotInterestedAction = messages.UndoGameTileNotInterestedAction,
+	UndoGameTileNotInterestedAction_Params = messages.UndoGameTileNotInterestedAction_Params,
+	OpenWhyThisAdAction = messages.OpenWhyThisAdAction,
+	OpenWhyThisAdAction_Params = messages.OpenWhyThisAdAction_Params,
+	RequestPushNotificationPermissionAction = messages.RequestPushNotificationPermissionAction,
+	RequestPushNotificationPermissionAction_Params = messages.RequestPushNotificationPermissionAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

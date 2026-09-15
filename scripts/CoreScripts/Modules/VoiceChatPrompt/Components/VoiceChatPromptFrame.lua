@@ -53,10 +53,6 @@ local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 local GetFIntVoiceJoinM3ToastDurationSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceJoinM3ToastDurationSeconds)
 local GetFFlagEnableSeamlessVoiceDataConsentToast =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceDataConsentToast)
-local GetFFlagUpdateVoiceConnectionToasts =
-	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagUpdateVoiceConnectionToasts)
-local GetFFlagEnableVoiceTrustedConnectionsToasts =
-	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagEnableVoiceTrustedConnectionsToasts)
 local FFlagVoiceConnectToastCapturesTrustedFriendsSubtitle =
 	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagVoiceConnectToastCapturesTrustedFriendsSubtitle)
 local GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2 = require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2)
@@ -124,9 +120,8 @@ local PromptTitle = {
 	[PromptType.VoiceConsentModalV3] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.GetVoiceChat"),
 	[PromptType.JoinedVoiceToast] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.JoinedVoiceChat"),
 	[PromptType.JoinVoiceSTUX] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.JoinedVoiceChat"),
-	[PromptType.LeaveVoice] = if GetFFlagUpdateVoiceConnectionToasts()
-		then locales:Format("Feature.SettingsHub.Prompt.LeaveVoiceChatV2")
-		else RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.LeaveVoiceChat"),
+	[PromptType.LeaveVoice] = locales:Format("Feature.SettingsHub.Prompt.LeaveVoiceChatV2")
+,
 	[PromptType.JoinVoice] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.JoinedVoiceChatV2"),
 	[PromptType.DevicePermissionsModal] = RobloxTranslator:FormatByKey(
 		"Feature.SettingsHub.Prompt.NeedMicrophoneAccess"
@@ -134,13 +129,11 @@ local PromptTitle = {
 	[PromptType.VoiceDataConsentOptOutToast] = if GetFFlagEnableSeamlessVoiceDataConsentToast()
 		then locales:Format("Feature.SettingsHub.Prompt.Title.ImproveVoiceChat")
 		else nil,
-	[PromptType.UnifiedJoinVoiceToast] = if GetFFlagUpdateVoiceConnectionToasts()
-		then locales:Format("Feature.SettingsHub.Prompt.JoinedVoiceChatV3")
-		else nil,
+	[PromptType.UnifiedJoinVoiceToast] = locales:Format("Feature.SettingsHub.Prompt.JoinedVoiceChatV3")
+,
 	[PromptType.AgeCheckForVoiceToast] = locales:Format("Feature.SettingsHub.Prompt.Title.AgeCheckForVoiceToast"),
-	[PromptType.UpdateOnAutoJoinToast] = if GetFFlagEnableVoiceTrustedConnectionsToasts()
-		then locales:Format("Feature.SettingsHub.Prompt.UpdateToVoiceChat")
-		else nil,
+	[PromptType.UpdateOnAutoJoinToast] = locales:Format("Feature.SettingsHub.Prompt.UpdateToVoiceChat")
+,
 	[PromptType.VoiceChatSuspendedTemporaryBV2] = if GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2()
 		then RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceChatSuspendedV2")
 		else nil,
@@ -226,15 +219,11 @@ local PromptSubTitle = {
 		else nil,
 	[PromptType.UnifiedJoinVoiceToast] = if FFlagVoiceConnectToastCapturesTrustedFriendsSubtitle
 		then RobloxTranslator:FormatByKey("Feature.Captures.Prompt.Subtitle.VoiceChatRecordingTrustedFriendsAgeGroup")
-		elseif GetFFlagEnableVoiceTrustedConnectionsToasts() then locales:Format(unifiedJoinVoiceToastKey)
-		elseif GetFFlagUpdateVoiceConnectionToasts() then locales:Format(
-			"Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupV2"
-		)
-		else nil,
+		else locales:Format(unifiedJoinVoiceToastKey)
+,
 	[PromptType.AgeCheckForVoiceToast] = locales:Format("Feature.SettingsHub.Prompt.Subtitle.GoToAccountInfo"),
-	[PromptType.UpdateOnAutoJoinToast] = if GetFFlagEnableVoiceTrustedConnectionsToasts()
-		then locales:Format(updateOnAutoJoinToastKey)
-		else nil,
+	[PromptType.UpdateOnAutoJoinToast] = locales:Format(updateOnAutoJoinToastKey)
+,
 	[PromptType.VoiceChatSuspendedTemporaryBV2] = if GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2()
 		then RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.TemporaryVoiceBan1V2") 
 		else nil, 
@@ -311,7 +300,7 @@ end
 local function PromptTypeIsConnectDisconnectToast(promptType)
 	return promptType == PromptType.JoinVoice
 		or promptType == PromptType.LeaveVoice
-		or (GetFFlagUpdateVoiceConnectionToasts() and promptType == PromptType.UnifiedJoinVoiceToast)
+		or (promptType == PromptType.UnifiedJoinVoiceToast)
 end
 
 local function ShouldShowBannedUntil(promptType)
@@ -435,12 +424,12 @@ function VoiceChatPromptFrame:init()
 			end
 
 			local iconImage
-			if GetFFlagEnableVoiceTrustedConnectionsToasts() and promptType == PromptType.UpdateOnAutoJoinToast then
+			if promptType == PromptType.UpdateOnAutoJoinToast then
 				iconImage = Images["icons/controls/microphone"]
 			elseif
 				PromptTypeIsVoiceConsent(promptType)
 				or (promptType == PromptType.JoinedVoiceToast)
-				or (GetFFlagUpdateVoiceConnectionToasts() and promptType == PromptType.UnifiedJoinVoiceToast)
+				or (promptType == PromptType.UnifiedJoinVoiceToast)
 			then
 				iconImage = Images["icons/controls/publicAudioJoin"]
 			elseif PromptTypeIsConnectDisconnectToast(promptType) then

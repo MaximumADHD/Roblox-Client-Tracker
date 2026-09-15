@@ -59,6 +59,8 @@ local GetAssetsFromHumanoidDescription = if FFlagAXEnableFetchAvatarPreview
 	then require(InspectAndBuyFolder.Thunks.GetAssetsFromHumanoidDescriptionV2)
 	else require(InspectAndBuyFolder.Thunks.GetAssetsFromHumanoidDescription)
 local UpdateOwnedStatus = require(InspectAndBuyFolder.Thunks.UpdateOwnedStatus)
+local ReportPurchaseSuccessUnifiedEvent = require(InspectAndBuyFolder.Thunks.ReportPurchaseSuccessUnifiedEvent)
+local FFlagAXIaBSinglePurchaseUnifiedEvents = require(InspectAndBuyFolder.Flags.FFlagAXIaBSinglePurchaseUnifiedEvents)
 local GetCharacterModelFromUserId = require(InspectAndBuyFolder.Thunks.GetCharacterModelFromUserId)
 local GetPlayerName = require(InspectAndBuyFolder.Thunks.GetPlayerName)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
@@ -186,7 +188,17 @@ function InspectAndBuy:init()
 
 		self.analytics.sendCounter(Constants.Counters.PurchaseFinished)
 		if isPurchased and tostring(itemId) == purchasedInformation.itemId then
-			self.analytics.reportPurchaseSuccess(purchasedInformation.itemType, purchasedInformation.itemId)
+			if FFlagAXIaBSinglePurchaseUnifiedEvents then
+				self.state.store:dispatch(
+					ReportPurchaseSuccessUnifiedEvent(
+						purchasedInformation.itemId,
+						purchasedInformation.itemType,
+						purchasedInformation.resalePrice
+					)
+				)
+			else
+				self.analytics.reportPurchaseSuccess(purchasedInformation.itemType, purchasedInformation.itemId)
+			end
 			self.state.store:dispatch(UpdateOwnedStatus(purchasedInformation.itemId, purchasedInformation.itemType))
 
 			if purchasedInformation.itemType == Constants.ItemType.Asset then

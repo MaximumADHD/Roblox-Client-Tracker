@@ -6,6 +6,7 @@ local CommonIcon = require(Chrome.Integrations.CommonIcon)
 
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
+local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 
 local InGameMenuIntegrationUtils = require(script.Parent.InGameMenuIntegrationUtils)
 
@@ -15,7 +16,7 @@ return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "help",
 	label = "CoreScripts.Feedback.Help.MainHeader",
-	sideSheetPlacement = SideSheetPlacement.Page,
+	sideSheetPlacement = if isPioneerLaunch() then SideSheetPlacement.AboveFold else SideSheetPlacement.BelowFold,
 	activated = function(self)
 		InGameMenuIntegrationUtils.toggleIGMPage("HelpPage", pageOpenSignal:get())
 	end,

@@ -1,5 +1,5 @@
-game:DefineFastFlag("UGCValidateAnimTranslationThreshold", false)
+game:DefineFastFlag("UGCValidateAnimTranslationThreshold2", false)
 
 return function()
-	return game:GetFastFlag("UGCValidateAnimTranslationThreshold")
+	return game:GetFastFlag("UGCValidateAnimTranslationThreshold2")
 end

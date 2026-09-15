@@ -57,7 +57,7 @@ local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTok
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagShowGameAgeRating = SharedFlags.FFlagShowGameAgeRating
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagSideSheetFocusNav = SharedFlags.FFlagSideSheetFocusNav
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
@@ -111,7 +111,7 @@ end)
 local leaderboard = ChromeService:register({
 	id = "leaderboard",
 	label = "CoreScripts.TopBar.Leaderboard",
-	sideSheetPlacement = SideSheetPlacement.Vertical,
+	sideSheetPlacement = SideSheetPlacement.BelowFold,
 	activated = function(self)
 		if not isInExperienceUIVREnabled and VRService.VREnabled then
 			local InGameMenu = require(RobloxGui.Modules.InGameMenu)
@@ -145,7 +145,7 @@ end)
 local emotes = ChromeService:register({
 	id = "emotes",
 	label = "CoreScripts.TopBar.Emotes",
-	sideSheetPlacement = SideSheetPlacement.Vertical,
+	sideSheetPlacement = SideSheetPlacement.BelowFold,
 	activated = function(self)
 		if EmotesMenuMaster:isOpen() then
 			EmotesMenuMaster:close()
@@ -209,7 +209,7 @@ else
 end
 
 -- Hide shortcut bar if inventory was opened from side sheet
-if FFlagEnableSideSheet and FFlagSideSheetFocusNav and FFlagEnableConsoleExpControls then
+if isSideSheetEnabled and FFlagSideSheetFocusNav and FFlagEnableConsoleExpControls then
 	backpackActivatedSignal:connect(function(isBackpackOpen)
 		ChromeService:setHideShortcutBar("Backpack", isBackpackOpen)
 	end)
@@ -218,7 +218,7 @@ end
 local backpack = ChromeService:register({
 	id = "backpack",
 	label = "CoreScripts.TopBar.Inventory",
-	sideSheetPlacement = SideSheetPlacement.Page,
+	sideSheetPlacement = SideSheetPlacement.BelowFold,
 	activated = function(self)
 		if FFlagEnableNewBackpack then
 			if Features.getVisibility(Features.FeatureName.Backpack) then
@@ -262,7 +262,7 @@ ChromeUtils.setCoreGuiAvailability(backpack, Enum.CoreGuiType.Backpack)
 local respawn = ChromeService:register({
 	id = "respawn",
 	label = "CoreScripts.InGameMenu.QuickActions.Respawn",
-	sideSheetPlacement = SideSheetPlacement.Vertical,
+	sideSheetPlacement = SideSheetPlacement.BelowFold,
 	activated = function(self)
 		RespawnUtils.respawnPage()
 	end,
@@ -381,14 +381,14 @@ function HamburgerButton(props)
 			Name = "Corner",
 			CornerRadius = UDim.new(1, 0),
 		}) :: any,
-		if FFlagEnableSideSheet
+		if isSideSheetEnabled
 			then React.createElement(SelectionCursorProvider, {}, {
 				Icon = React.createElement(MenuIcon, {
 					showBadgeOver12 = showGameAgeRating,
 				}),
 			})
 			else nil,
-		if not FFlagEnableSideSheet
+		if not isSideSheetEnabled
 			then React.createElement(ImageSetLabel, {
 				Name = "Overflow",
 				AnchorPoint = Vector2.new(0.5, 0.5),
@@ -406,7 +406,7 @@ function HamburgerButton(props)
 				end),
 			}) :: any
 			else nil,
-		if not FFlagEnableSideSheet
+		if not isSideSheetEnabled
 			then React.createElement(ImageSetLabel, {
 				Name = "Close",
 				AnchorPoint = Vector2.new(0.5, 0.5),
@@ -455,9 +455,9 @@ end
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Pinned,
 	id = "nine_dot",
-	label = if FFlagEnableSideSheet then "CoreScripts.TopBar.RobloxMenu" else "CoreScripts.TopBar.MoreMenu",
+	label = if isSideSheetEnabled then "CoreScripts.TopBar.RobloxMenu" else "CoreScripts.TopBar.MoreMenu",
 	sideSheetPlacement = SideSheetPlacement.None,
-	hotkeyCodes = if FFlagEnableSideSheet then { Enum.KeyCode.Escape } else nil,
+	hotkeyCodes = if isSideSheetEnabled then { Enum.KeyCode.Escape } else nil,
 	isActivated = submenuVisibility,
 	components = {
 		Icon = function(props)

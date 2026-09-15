@@ -52,6 +52,7 @@ type _UniverseDataFields = {
 	refund_article_id: string?,
 	preview_video_id: number?,
 	creation_source: string?,
+	promotional_text: string?,
 }
 
 type _UniverseDataPartialFields = {
@@ -83,6 +84,7 @@ type _UniverseDataPartialFields = {
 	refund_article_id: string?,
 	preview_video_id: number?,
 	creation_source: string?,
+	promotional_text: string?,
 }
 
 export type UniverseData = typeof(setmetatable({} :: _UniverseDataFields, {} :: _UniverseDataImpl))
@@ -132,6 +134,7 @@ do
 			refund_article_id = if data == nil or data.refund_article_id == nil then nil else data.refund_article_id,
 			preview_video_id = if data == nil or data.preview_video_id == nil then nil else data.preview_video_id,
 			creation_source = if data == nil or data.creation_source == nil then nil else data.creation_source,
+			promotional_text = if data == nil or data.promotional_text == nil then nil else data.promotional_text,
 		}, _UniverseDataImpl :: _UniverseDataImpl)
 	end
 
@@ -277,6 +280,11 @@ do
 		if self.creation_source ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 28, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.creation_source)
+		end
+
+		if self.promotional_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 29, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.promotional_text)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -438,6 +446,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.creation_source = buffer.tostring(value)
 					continue
+				elseif field == 29 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.promotional_text = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -575,6 +588,10 @@ do
 
 		if self.creation_source ~= nil then
 			output.creationSource = self.creation_source
+		end
+
+		if self.promotional_text ~= nil then
+			output.promotionalText = self.promotional_text
 		end
 
 		return output
@@ -793,6 +810,14 @@ do
 
 		if input.creationSource ~= nil then
 			self.creation_source = input.creationSource
+		end
+
+		if input.promotional_text ~= nil then
+			self.promotional_text = input.promotional_text
+		end
+
+		if input.promotionalText ~= nil then
+			self.promotional_text = input.promotionalText
 		end
 
 		return self

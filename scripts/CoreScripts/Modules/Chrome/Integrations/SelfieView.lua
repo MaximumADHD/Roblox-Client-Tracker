@@ -60,7 +60,7 @@ local selfieViewChromeIntegration = ChromeService:register({
 	id = ID,
 	-- TODO: update localizations
 	label = LABEL,
-	sideSheetPlacement = SideSheetPlacement.Page,
+	sideSheetPlacement = SideSheetPlacement.BelowFold,
 	-- We haven't decided if we're going to allow hotkeys yet
 	-- Relevant ticket: https://roblox.atlassian.net/browse/APPEXP-817
 	-- hotkeyCodes = { Enum.KeyCode.LeftControl, Enum.KeyCode.LeftAlt, Enum.KeyCode.T },

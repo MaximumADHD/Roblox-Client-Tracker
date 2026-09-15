@@ -12,7 +12,9 @@ local getFFlagUGCValidateAnimPartsRotationOnly = require(root.flags.getFFlagUGCV
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 local getFFlagUGCValidateAnimTranslationThreshold = require(root.flags.getFFlagUGCValidateAnimTranslationThreshold)
 local FIntUGCValidateBodyPartTranslationMaxDistanceHundredths =
-	game:DefineFastInt("UGCValidateBodyPartTranslationMaxDistanceHundredths", 50)
+	game:DefineFastInt("UGCValidateBodyPartTranslationMaxDistanceHundredths", 100)
+local FIntUGCValidateLowerTorsoTranslationMaxDistanceHundredths =
+	game:DefineFastInt("UGCValidateLowerTorsoTranslationMaxDistanceHundredths", 200)
 
 local CurveAnimPartsRotateOnlyIfBones = {}
 
@@ -37,7 +39,9 @@ CurveAnimPartsRotateOnlyIfBones.prereqTests = { ValidationEnums.ValidationModule
 CurveAnimPartsRotateOnlyIfBones.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local isAnimationCategory = getFFlagUGCValidateAnimPartsRotationOnly()
 		and data.uploadCategory == ValidationEnums.UploadCategory.ANIMATION
-	local maxDistance = FIntUGCValidateBodyPartTranslationMaxDistanceHundredths / 100
+
+	local generalMaxDistance = FIntUGCValidateBodyPartTranslationMaxDistanceHundredths / 100
+	local lowerTorsoMaxDistance = FIntUGCValidateLowerTorsoTranslationMaxDistanceHundredths / 100
 
 	for _, inst in data.curveAnimations do
 		local curveAnim = inst :: CurveAnimation
@@ -58,6 +62,7 @@ CurveAnimPartsRotateOnlyIfBones.run = function(reporter: Types.ValidationReporte
 		for _, desc in curveAnim:GetDescendants() do
 			if desc:IsA("Folder") and CurveAnimationHierarchyUtils.isBodyPartFolderNameValid(desc.Name) then
 				if getFFlagUGCValidateAnimTranslationThreshold() then
+					local maxDistance = if desc.Name == "LowerTorso" then lowerTorsoMaxDistance else generalMaxDistance
 					local exceeds, distance = CurveAnimTranslationUtils.translationExceedsThreshold(desc, maxDistance)
 					if exceeds then
 						reporter:fail(ErrorSourceStrings.Keys.CurveAnim_BodyPartTranslationExceedsThreshold, {

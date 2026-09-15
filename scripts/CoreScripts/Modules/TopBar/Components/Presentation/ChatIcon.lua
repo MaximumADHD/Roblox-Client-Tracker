@@ -30,13 +30,10 @@ local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 local Constants = require(TopBar.Constants)
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
 local ChatIconFtuxTooltip = require(script.Parent.ChatIconFtuxTooltip)
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
 local FIntInExperienceChatTooltipShowDelayMs = game:DefineFastInt("InExperienceChatTooltipShowDelayMs", 1000)
 local FIntInExperienceChatTooltipDismissDelayMs = game:DefineFastInt("InExperienceChatTooltipDismissDelayMs", 7000)
-local FFlagUnibarHoldoutChatIconUseNewIconSize = game:DefineFastFlag("UnibarHoldoutChatIconUseNewIconSize", false)
 
 local GameSettings = UserSettings().GameSettings
 
@@ -48,7 +45,6 @@ local ChatIcon = Roact.PureComponent:extend("ChatIcon")
 
 local CHAT_ICON_AREA_WIDTH = 44
 
-local ICON_SIZE = 20
 local BADGE_OFFSET_X = 18
 local BADGE_OFFSET_Y = 2
 local EMPTY_BADGE_OFFSET_Y = 6
@@ -127,7 +123,7 @@ function ChatIcon:render()
 
 		local iconButton = Roact.createElement(IconButton, {
 			icon = chatIcon,
-			iconSize = if GetFFlagEnableAppChatInExperience() or FFlagUnibarHoldoutChatIconUseNewIconSize then iconSize else ICON_SIZE,
+			iconSize = iconSize,
 			onActivated = self.chatIconActivated,
 			[Roact.Change.AbsoluteSize] = onAreaChanged,
 			[Roact.Change.AbsolutePosition] = onAreaChanged,

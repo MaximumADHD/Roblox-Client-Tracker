@@ -1,3 +1,5 @@
+-- Remove when cleaning up FFlagFoundationSliderBeta
+
 --[[
 	Calculates a slider value from an absolute position, taking into account
 	the slider's orientation, range, and absolute bounds.

@@ -1,5 +1,3 @@
-local Chrome = script:FindFirstAncestor("Chrome")
-
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
@@ -14,12 +12,10 @@ local beforeEach = JestGlobals.beforeEach
 local afterEach = JestGlobals.afterEach
 
 local getIsChatWindowOpen, setIsChatWindowOpen = Signals.createSignal(false)
-local getIsChatInputBarFocused, setIsChatInputBarFocused = Signals.createSignal(false)
 local getActiveTooltipKey = Signals.createSignal("GlobalChatTooltip")
 local getIsChatInputBarVisible = Signals.createSignal(false)
 local getIsScreenWideEnough = Signals.createSignal(true)
 local capturedBadgeProps: any = nil
-local activationCallback: ((string) -> ())? = nil
 
 local chatTooltipStore = {
 	getIsChatWindowOpen = getIsChatWindowOpen,
@@ -29,18 +25,11 @@ local chatTooltipStore = {
 	setShouldShow = function() end,
 }
 
-local transparencyStore = {
-	getIsTextBoxFocused = getIsChatInputBarFocused,
-}
-
 jest.mock(CorePackages.Workspace.Packages.ExpChat, function()
 	return {
 		Stores = {
 			GetChatTooltipStore = function()
 				return chatTooltipStore
-			end,
-			GetTransparencyStore = function()
-				return transparencyStore
 			end,
 			GetGlobalChatTooltipStore = function()
 				return {}
@@ -67,27 +56,7 @@ jest.mock(CorePackages.Workspace.Packages.ExpChatShared, function()
 	}
 end)
 
-jest.mock(Chrome.ChromeShared.Service, function()
-	return {
-		onIntegrationActivated = function()
-			return {
-				connect = function(_self, callback)
-					activationCallback = callback
-					return {
-						disconnect = function()
-							if activationCallback == callback then
-								activationCallback = nil
-							end
-						end,
-					}
-				end,
-			}
-		end,
-	}
-end)
-
 local ChatNotificationBadge = require(script.Parent.ChatNotificationBadge)
-local FFlagExpChatFixTooltipBadgeTransientOpen = game:GetFastFlag("ExpChatFixTooltipBadgeTransientOpen")
 
 local container: Frame
 local root: any
@@ -120,9 +89,7 @@ end
 describe("ChatNotificationBadge", function()
 	beforeEach(function()
 		setIsChatWindowOpen(false)
-		setIsChatInputBarFocused(false)
 		capturedBadgeProps = nil
-		activationCallback = nil
 		container = Instance.new("Frame")
 		root = ReactRoblox.createRoot(container)
 	end)
@@ -134,50 +101,13 @@ describe("ChatNotificationBadge", function()
 		container:Destroy()
 	end)
 
-	if FFlagExpChatFixTooltipBadgeTransientOpen then
-		it("SHOULD retain the badge WHEN startup visibility transiently reports chat open", function()
-			renderBadge()
-			expect(capturedBadgeProps.minBadgeCount).toBe(1)
+	it("SHOULD dismiss the badge WHEN the eligible chat window opens", function()
+		renderBadge()
 
-			ReactRoblox.act(function()
-				setIsChatWindowOpen(true)
-			end)
-			ReactRoblox.act(function()
-				setIsChatWindowOpen(false)
-			end)
-
-			expect(capturedBadgeProps.minBadgeCount).toBe(1)
+		ReactRoblox.act(function()
+			setIsChatWindowOpen(true)
 		end)
 
-		it("SHOULD dismiss the badge WHEN the user activates the closed chat integration", function()
-			renderBadge()
-			expect(activationCallback).never.toBeNil()
-
-			ReactRoblox.act(function()
-				(activationCallback :: (string) -> ())("chat")
-			end)
-
-			expect(capturedBadgeProps.minBadgeCount).toBeNil()
-		end)
-
-		it("SHOULD dismiss the badge WHEN the user focuses the chat input", function()
-			renderBadge()
-
-			ReactRoblox.act(function()
-				setIsChatInputBarFocused(true)
-			end)
-
-			expect(capturedBadgeProps.minBadgeCount).toBeNil()
-		end)
-	else
-		it("SHOULD dismiss the badge WHEN the eligible chat window opens", function()
-			renderBadge()
-
-			ReactRoblox.act(function()
-				setIsChatWindowOpen(true)
-			end)
-
-			expect(capturedBadgeProps.minBadgeCount).toBeNil()
-		end)
-	end
+		expect(capturedBadgeProps.minBadgeCount).toBeNil()
+	end)
 end)

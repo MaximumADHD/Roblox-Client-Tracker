@@ -7,6 +7,8 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local Vector3Utils = require(root.util.Vector3Utils)
 local valueToString = require(root.util.valueToString)
 local LCDeformationWithinBounds = {}
+local getEngineFeatureEngineLayeredClothingDecomposition =
+	require(root.flags.getEngineFeatureLayeredClothingDecomposition)
 
 local FIntLCPostDeformSizeMultiplierEyebrowEyelash = game:DefineFastInt(
 	"LCPostDeformSizeMultiplierEyebrowEyelashHundredths",
@@ -41,12 +43,21 @@ LCDeformationWithinBounds.run = function(reporter: Types.ValidationReporter, dat
 
 	local multiplier = FIntLCPostDeformSizeMultiplier[assetType] or FIntLCPostDeformSizeMultiplierGeneral
 	local maxSize = sizeLimit * multiplier
-	local postDeformSize = (UGCValidationService :: any):GetLayeredClothingPostDeformationSize(
-		data.rootInstance,
-		handleEditableData.editable,
-		handleEditableData.scale
-	) :: Vector3
-
+	local postDeformSize: Vector3
+	local FFlagLayeredClothingDecomposition = getEngineFeatureEngineLayeredClothingDecomposition()
+	if FFlagLayeredClothingDecomposition then
+		postDeformSize = (UGCValidationService :: any):GetLayeredClothingPostDeformationSizeAsync(
+			data.rootInstance,
+			handleEditableData.editable,
+			handleEditableData.scale
+		)
+	else
+		postDeformSize = (UGCValidationService :: any):GetLayeredClothingPostDeformationSize(
+			data.rootInstance,
+			handleEditableData.editable,
+			handleEditableData.scale
+		)
+	end
 	if not Vector3Utils.isFirstLessOrEqual(postDeformSize, maxSize) then
 		reporter:fail(ErrorSourceStrings.Keys.LCDeformTooLarge, { maxSize = valueToString(maxSize) }, handleInst)
 	end

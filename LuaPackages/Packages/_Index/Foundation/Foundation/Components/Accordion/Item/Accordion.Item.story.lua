@@ -1,3 +1,20 @@
 local Foundation = script:FindFirstAncestor("Foundation")
+local Packages = Foundation.Parent
 
-return require(Foundation.Utility.Stories.createPlannedSubPartStory)("Accordion.Item")
+local React = require(Packages.React)
+
+local PlannedSubPart = require(Foundation.Utility.Stories.PlannedSubPart)
+
+local function PlaygroundStory(): React.ReactNode
+	return React.createElement(PlannedSubPart, { name = "Accordion.Item" })
+end
+
+return {
+	summary = "Accordion.Item documentation is in progress.",
+	stories = {
+		{
+			name = "Playground",
+			story = PlaygroundStory :: unknown,
+		},
+	},
+}

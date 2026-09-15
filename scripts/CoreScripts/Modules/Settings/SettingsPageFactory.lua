@@ -32,7 +32,7 @@ local FFlagIEMFocusNavSupportNewButtons = require(script.Parent.Flags.FFlagIEMFo
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local TEXT_BUTTON_FONT_SIZE_SMALL_TOUCH_SCREEN = 18
 local TEXT_BUTTON_FONT_SIZE = 24
 local TEXT_BUTTON_FONT_SIZE_TEN_FOOT = 48
@@ -45,7 +45,7 @@ local function Initialize()
 	this.TabPosition = 0
 	this.Active = false
 	this.OpenStateChangedCount = 0
-	this.ShouldShowBottomBar = not FFlagEnableSideSheet
+	this.ShouldShowBottomBar = not isSideSheetEnabled
 	this.ShouldShowHubBar = true
 	this.ShouldDisableDefaultScroll = false
 	this.IsPageClipped = true

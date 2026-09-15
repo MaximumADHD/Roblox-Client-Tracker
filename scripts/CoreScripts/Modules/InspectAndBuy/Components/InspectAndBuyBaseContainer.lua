@@ -70,7 +70,6 @@ local FIntViewportCameraFieldOfView = game:DefineFastInt("AXViewportCameraFieldO
 local FFlagAXEnableBatchItemDetailsFetchV2 = AvatarExperienceFlags.FFlagAXEnableBatchItemDetailsFetchV2
 local FFlagAXEnableInspectAndBuyFocusNavigation = AvatarExperienceFlags.FFlagAXEnableInspectAndBuyFocusNavigation
 local FFlagAXEnableIaBTimedOptionsBulkPurchase = AvatarExperienceFlags.FFlagAXEnableIaBTimedOptionsBulkPurchase
-local FFlagAXFixIaBTimedOptionsPopoverFocus = AvatarExperienceFlags.FFlagAXFixIaBTimedOptionsPopoverFocus
 local ItemSelectionStoreContext = if FFlagAXEnableIaBTimedOptionsBulkPurchase
 	then AvatarExperienceInspectAndBuy.Contexts.ItemSelectionStoreContext
 	else nil
@@ -368,15 +367,11 @@ local function InspectAndBuyBaseContainer(props)
 		-- Opt this CoreScripts subtree into manual popover-anchor focus restoration:
 		-- useGlobalFocusHandler is not mounted here, so timed-options popovers cannot
 		-- rely on it + SelectionGroup memory to return focus to the trigger on close.
-		if FFlagAXFixIaBTimedOptionsPopoverFocus then
-			return React.createElement(PopoverFocusRestorationContext.Provider, {
-				value = true,
-			}, {
-				InspectAndBuyContent = focusNavigationFrame,
-			}) :: React.ReactElement<any, any>
-		end
-
-		return focusNavigationFrame
+		return React.createElement(PopoverFocusRestorationContext.Provider, {
+			value = true,
+		}, {
+			InspectAndBuyContent = focusNavigationFrame,
+		}) :: React.ReactElement<any, any>
 	else
 		return React.createElement(Foundation.View, {
 			Size = viewBreakpoints.OverlaySize,

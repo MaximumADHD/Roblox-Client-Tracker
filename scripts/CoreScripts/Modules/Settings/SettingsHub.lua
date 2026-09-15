@@ -164,12 +164,10 @@ local Flags = {
 
 	FFlagFixDisabledScrollOnIos = game:DefineFastFlag("FixDisabledScrollOnIos", false),
 
-	FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet,
 	FFlagSideSheetAndroidBack = game:DefineFastFlag("SideSheetAndroidBack", false),
 	FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegration,
 	FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet,
-	FFlagIGMSelectionGroup = game:DefineFastFlag("IGMSelectionGroup", false),
-	FFlagRemoveExitModal = require(RobloxGui.Modules.Settings.Flags.FFlagRemoveExitModal),
+	isExitModalRemoved = require(RobloxGui.Modules.Settings.Flags.isExitModalRemoved),
 	FFlagEnableExitModalExposure = game:DefineFastFlag("EnableExitModalExposure", false),
 }
 
@@ -264,6 +262,7 @@ local SPRING_PARAMS = {
 local InExperienceSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet)
 local toggleSideSheet = InExperienceSideSheet.toggleSideSheet
 local getSideSheetVisibility = InExperienceSideSheet.getSideSheetVisibility
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 
 local ReactPageFactory = require(RobloxGui.Modules.Settings.ReactPageFactory)
 type ReactPage = ReactPageFactory.ReactPage
@@ -448,7 +447,7 @@ local function CreateSettingsHub()
 
 	local function shouldShowHubBar(whichPage)
 		whichPage = whichPage or this.Pages.CurrentPage
-		return if Flags.FFlagEnableSideSheet then whichPage.ShouldShowHubBar == true else whichPage.ShouldShowBottomBar == true
+		return if isSideSheetEnabled then whichPage.ShouldShowHubBar == true else whichPage.ShouldShowBottomBar == true
 	end
 
 	local function updatePageTitleHeader(page)
@@ -879,7 +878,7 @@ local function CreateSettingsHub()
 			else
 				setResetEnabled(false)
 			end
-			if Flags.FFlagEnableSideSheet then
+			if isSideSheetEnabled then
 				InExperienceSideSheet.setIsRespawnEnabled(false)
 			end
 		elseif not resetEnabledValue and (isBindableEvent or callback == true) then
@@ -888,7 +887,7 @@ local function CreateSettingsHub()
 			else
 				setResetEnabled(true)
 			end
-			if Flags.FFlagEnableSideSheet then
+			if isSideSheetEnabled then
 				InExperienceSideSheet.setIsRespawnEnabled(true)
 			end
 		end
@@ -1049,6 +1048,7 @@ local function CreateSettingsHub()
 		end
 		else nil :: never
 
+	-- lute-lint-ignore(noNestedReactDefinitions): pre-dates the lint rule
 	local function createGui()
 		local PageViewSizeReducer = 0
 		if utility:IsSmallTouchScreen() then
@@ -1602,7 +1602,7 @@ local function CreateSettingsHub()
 				Parent = menuParent
 			}
 
-			if not Flags.FFlagEnableSideSheet then
+			if not isSideSheetEnabled then
 				Create'Frame'
 				{
 					BackgroundColor3 = Theme.color("Divider"),
@@ -1616,7 +1616,7 @@ local function CreateSettingsHub()
 			end
 		end
 
-		if Flags.FFlagEnableSideSheet then
+		if isSideSheetEnabled then
 			this.PageTitleHeader = Create'Frame'
 			{
 				Name = "PageTitleHeader",
@@ -1804,18 +1804,11 @@ local function CreateSettingsHub()
 			ClipsDescendants = true,
 			LayoutOrder = 1,
 			Parent = menuParent,
-			SelectionGroup = if Flags.FFlagIGMSelectionGroup then true else nil,
-			SelectionBehaviorLeft = if Flags.FFlagIGMSelectionGroup then Enum.SelectionBehavior.Stop else nil,
-			SelectionBehaviorRight = if Flags.FFlagIGMSelectionGroup then Enum.SelectionBehavior.Stop else nil,
-			SelectionBehaviorDown = if Flags.FFlagIGMSelectionGroup then Enum.SelectionBehavior.Escape else nil,
-			SelectionBehaviorUp = if Flags.FFlagIGMSelectionGroup then Enum.SelectionBehavior.Escape else nil,
-
-			if Flags.FFlagIGMSelectionGroup then nil else Create'ImageButton'{
-				Name = 'InputCapture',
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, 0),
-				Image = ''
-			}
+			SelectionGroup = true ,
+			SelectionBehaviorLeft = Enum.SelectionBehavior.Stop ,
+			SelectionBehaviorRight = Enum.SelectionBehavior.Stop ,
+			SelectionBehaviorDown = Enum.SelectionBehavior.Escape ,
+			SelectionBehaviorUp = Enum.SelectionBehavior.Escape ,
 		}
 
 
@@ -1939,7 +1932,7 @@ local function CreateSettingsHub()
 				GuiService.SelectedCoreObject = nil
 		end
 
-		if Flags.FFlagEnableSideSheet then
+		if isSideSheetEnabled then
 			this.PageTitleCloseButton = utility:MakeStyledImageButton(
 				"PageTitleClose",
 				"rbxasset://textures/ui/InspectMenu/x.png",
@@ -2112,7 +2105,7 @@ local function CreateSettingsHub()
 				BackgroundTransparency = 1,
 				Size = UDim2.fromScale(1, 1),
 				Parent = this.HubBar,
-				Visible = not Flags.FFlagEnableSideSheet,
+				Visible = not isSideSheetEnabled,
 			}
 
 			this.TabHeaderContainerListLayout = Create "UIListLayout" {
@@ -2294,7 +2287,7 @@ local function CreateSettingsHub()
 			end
 		end
 
-		if Flags.FFlagEnableSideSheet or not Theme.AlwaysShowBottomBar() then
+		if isSideSheetEnabled or not Theme.AlwaysShowBottomBar() then
 			barSize = this.HubBar.Size.Y.Offset
 		else
 			barSize = this.HubBar.Size.Y.Offset + this.BottomButtonFrame.Size.Y.Offset
@@ -2776,7 +2769,7 @@ local function CreateSettingsHub()
 		this.Pages.CurrentPage.Active = true
 		this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
 
-		if Flags.FFlagEnableSideSheet then
+		if isSideSheetEnabled then
 			updatePageTitleHeader(this.Pages.CurrentPage)
 		end
 
@@ -2817,7 +2810,7 @@ local function CreateSettingsHub()
 			topExtra = UDim.new(0, this.HubBar.AbsoluteSize.Y)
 		end
 
-		if not Flags.FFlagEnableSideSheet then
+		if not isSideSheetEnabled then
 			if this.BottomButtonFrame and hasBottomButtons and not shouldShowBottomBar(pageToSwitchTo) then
 				bottomExtra = UDim.new(0, this.BottomButtonFrame.AbsoluteSize.Y)
 			end
@@ -2890,7 +2883,7 @@ local function CreateSettingsHub()
 		this.Pages.CurrentPage.Active = true
 		this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
 
-		if Flags.FFlagEnableSideSheet then
+		if isSideSheetEnabled then
 			updatePageTitleHeader(this.Pages.CurrentPage)
 		end
 
@@ -3277,7 +3270,7 @@ local function CreateSettingsHub()
 				Enum.UserInputType.Gamepad1, Enum.UserInputType.Gamepad2, Enum.UserInputType.Gamepad3, Enum.UserInputType.Gamepad4
 			)
 
-			if not Flags.FFlagEnableSideSheet then
+			if not isSideSheetEnabled then
 				ContextActionService:BindCoreAction("RbxSettingsHubSwitchTab", switchTabFromBumpers, false, Enum.KeyCode.ButtonR1, Enum.KeyCode.ButtonL1)
 			end
 			ContextActionService:BindCoreAction("RbxSettingsScrollHotkey", scrollHotkeyFunc, false, Enum.KeyCode.PageUp, Enum.KeyCode.PageDown)
@@ -3292,7 +3285,7 @@ local function CreateSettingsHub()
 				ChromeService:setShortcutBar(ChromeConstants.TILTMENU_SHORTCUTBAR_ID)
 			end
 
-			if not Flags.FFlagEnableSideSheet then
+			if not isSideSheetEnabled then
 				this.TabConnection = UserInputService.InputBegan:connect(switchTabFromKeyboard)
 			end
 
@@ -3522,7 +3515,7 @@ local function CreateSettingsHub()
 
 			clearMenuStack()
 
-			if not Flags.FFlagEnableSideSheet then
+			if not isSideSheetEnabled then
 				ContextActionService:UnbindCoreAction("RbxSettingsHubSwitchTab")
 			end
 			ContextActionService:UnbindCoreAction("RbxSettingsHubStopCharacter")
@@ -3857,7 +3850,7 @@ local function CreateSettingsHub()
 		this.PlayerProfilePage = require(RobloxGui.Modules.Settings.Pages.PlayerProfile)
 	end
 
-	if not Flags.FFlagRemoveExitModal and isSubjectToDesktopPolicies() then
+	if not Flags.isExitModalRemoved and isSubjectToDesktopPolicies() then
 		-- TODO: cleanup ExitModal file when flag is removed as true
 		this.ExitModalPage = require(RobloxGui.Modules.Settings.Pages.ExitModal)
 		this.ExitModalPage:SetHub(this)
@@ -3959,7 +3952,7 @@ local function CreateSettingsHub()
 			this:AddPage(this.RecordPage)
 		end
 	end
-	if not Flags.FFlagRemoveExitModal and this.ExitModalPage then
+	if not Flags.isExitModalRemoved and this.ExitModalPage then
 		this:AddPage(this.ExitModalPage)
 	end
 
@@ -3978,7 +3971,7 @@ local function CreateSettingsHub()
 			if not Flags.FFlagAddUILessMode or Flags.FIntAddUILessModeVariant == 0 then
 				local closeMenuFunc = function(name, inputState, input)
 					if inputState ~= Enum.UserInputState.Begin then return end
-					if Flags.FFlagEnableSideSheet then
+					if isSideSheetEnabled then
 						if getSideSheetVisibility() then
 							toggleSideSheet(false)
 						else
@@ -4008,7 +4001,7 @@ local function CreateSettingsHub()
 
 	-- connect back button on android
 	GuiService.ShowLeaveConfirmation:connect(function()
-		if Flags.FFlagEnableSideSheet and Flags.FFlagSideSheetAndroidBack then
+		if isSideSheetEnabled and Flags.FFlagSideSheetAndroidBack then
 			if getSideSheetVisibility() then
 				toggleSideSheet(false)
 			elseif #this.MenuStack > 0 then
@@ -4065,7 +4058,7 @@ local function CreateSettingsHub()
 		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(Flags.GetFStringExitModalIXPLayer())
 	end
 
-	if Flags.FFlagRemoveExitModal and isSubjectToDesktopPolicies() then
+	if Flags.isExitModalRemoved and isSubjectToDesktopPolicies() then
 		game:GetService("GuiService").NativeClose:Connect(function()
 			if Flags.FFlagEnableExitModalExposure then
 				logExitModalIXPExposureOnce()

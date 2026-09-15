@@ -14,7 +14,7 @@ return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "traversal_history",
 	label = "CoreScripts.TopBar.Traversal.History",
-	sideSheetPlacement = SideSheetPlacement.Page,
+	sideSheetPlacement = SideSheetPlacement.BelowFold,
 	activated = function(self)
 		InGameMenuIntegrationUtils.toggleIGMPage("TraversalHistoryPage", pageOpenSignal:get())
 	end,

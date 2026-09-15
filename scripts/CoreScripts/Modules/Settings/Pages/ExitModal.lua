@@ -38,10 +38,10 @@ local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
 local GetFFlagGateEducationalPopupVisibilityViaGUAC = require(SharedFlags).GetFFlagGateEducationalPopupVisibilityViaGUAC
 local InExperienceCapabilities =
 	require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
-local FFlagEnableSideSheet = require(SharedFlags).FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagSurvBloxEventTypeEnabled = require(SharedFlags).FFlagSurvBloxEventTypeEnabled
 local toggleSideSheet
-if FFlagEnableSideSheet then
+if isSideSheetEnabled then
 	toggleSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet).toggleSideSheet
 end
 
@@ -292,7 +292,7 @@ PageInstance.Displayed.Event:connect(function()
 		Enum.KeyCode.ButtonB
 	)
 
-	if FFlagEnableSideSheet then
+	if isSideSheetEnabled then
 		toggleSideSheet(false)
 	end
 end)

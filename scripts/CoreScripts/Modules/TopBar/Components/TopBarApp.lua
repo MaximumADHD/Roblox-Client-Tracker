@@ -38,6 +38,7 @@ local CLOSE_MENU_ICON = if FFlagCoreUiMigrateUIBloxToFoundation
 	else Images["icons/controls/close-ingame"]
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 local BuildExperience = require(CorePackages.Workspace.Packages.BuildExperience)
+local BuildModeLaunch = require(CorePackages.Workspace.Packages.BuildExperiencePlaytestLaunch.BuildModeLaunch)
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 
 local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
@@ -95,15 +96,20 @@ local FFlagEnableExperienceShopGlobalIcon = InExperienceShop.FFlagEnableExperien
 local FFlagCenterInExperienceShopWindow = InExperienceShop.FFlagCenterInExperienceShopWindow
 local FFlagExperienceShopNewIconography = InExperienceShop.FFlagExperienceShopNewIconography
 local ShopGlobalIcon = InExperienceShop.ShopGlobalIcon
+local FFlagTopBarShopIconV2 = require(script.Parent.Parent.Flags.FFlagTopBarShopIconV2)
+local ShopIcon
+if FFlagTopBarShopIconV2 then
+	ShopIcon = require(Presentation.ShopIcon)
+end
 
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagShowGameAgeRating = SharedFlags.FFlagShowGameAgeRating
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
 local FFlagShowSwitchServerButton = SharedFlags.FFlagShowSwitchServerButton
-local shouldAddSwitchServerToSideSheet = FFlagEnableSideSheet and FFlagShowSwitchServerButton
+local shouldAddSwitchServerToSideSheet = isSideSheetEnabled and FFlagShowSwitchServerButton
 local SwitchServer = require(CorePackages.Workspace.Packages.SwitchServer)
 local SwitchServerConfirmation = SwitchServer.SwitchServerConfirmation
 local GetSwitchServerStore = SwitchServer.GetSwitchServerStore
@@ -131,6 +137,13 @@ if ChromeEnabled() then
 		CommonIcon = require(Chrome.Integrations.CommonIcon)
 	end
 end
+
+-- Preconditions for the V2 shop-icon path, evaluated once and reused at every
+-- guard below. Requires FFlagAddTraversalBackButton because V2 lives inside
+-- TopBarLeftContainer, which only exists when that flag is on
+-- (FFlagAddTraversalBackButton is part of the Traversal IXP and not intended to
+-- be flipped on its own).
+local useV2ShopIcon = FFlagTopBarShopIconV2 and FFlagAddTraversalBackButton and ChromeEnabled()
 
 local Connection = require(script.Parent.Connection)
 
@@ -190,7 +203,7 @@ local function selectMenuOpen(state)
 end
 
 local function canShowAssistantBuild(): boolean
-	return BuildExperience.BuildModeLaunch:hasBuildMode() and not VRService.VREnabled
+	return BuildModeLaunch:hasBuildMode() and not VRService.VREnabled
 end
 
 local NUM_EXPERIENCES_USER_SEEN_UI_LESS_TOOLTIP_KEY = "NumExperiencesUserSeenUILessTooltipKey2"
@@ -350,7 +363,7 @@ function TopBarApp:init()
 			self.menuIconRef = Roact.createRef()
 		end
 
-		if FFlagEnableExperienceShopGlobalIcon then
+		if FFlagEnableExperienceShopGlobalIcon and not useV2ShopIcon then
 			self.shopGlobalIconDisposeEffect = Signals.createEffect(function(scope)
 				local getIconStore = InExperienceShop.GetShopGlobalIconStore
 				if not getIconStore then
@@ -415,7 +428,7 @@ function TopBarApp:didMount()
 			})
 		end)
 
-		if FFlagEnableExperienceShopGlobalIcon then
+		if FFlagEnableExperienceShopGlobalIcon and not useV2ShopIcon then
 			self.shopIsActiveConnection = ChromeService:onIntegrationStatusChanged():connect(function()
 				self:setState({
 					shopGlobalIconIsActive = ChromeService:isWindowOpen(ChromeConstants.IN_EXPERIENCE_SHOP_ID),
@@ -458,7 +471,7 @@ function TopBarApp:willUnmount()
 		self.disposeUiScaleEffect()
 	end
 
-	if FFlagEnableExperienceShopGlobalIcon then
+	if FFlagEnableExperienceShopGlobalIcon and not useV2ShopIcon then
 		if ChromeEnabled() and self.shopGlobalIconDisposeEffect then
 			self.shopGlobalIconDisposeEffect()
 		end
@@ -575,9 +588,13 @@ function TopBarApp:renderUnibarFrame(chromeEnabled: boolean)
 				onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas
 					then self.keepOutAreasStore.setKeepOutArea
 					else self.props.setKeepOutArea,
-				onMinWidthChanged = function(width: number)
-					self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
-				end,
+				-- ShopIcon V2 lays the left side out with Foundation flex (row auto-xy),
+				-- so the old manual right-side offset is unnecessary; nil disables it.
+				onMinWidthChanged = if useV2ShopIcon
+					then nil
+					else function(width: number)
+						self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
+					end,
 				menuRef = if chromeEnabled then self.unibarMenuRef else nil :: never,
 			}),
 		})
@@ -587,9 +604,12 @@ function TopBarApp:renderUnibarFrame(chromeEnabled: boolean)
 			onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas
 				then self.keepOutAreasStore.setKeepOutArea
 				else self.props.setKeepOutArea,
-			onMinWidthChanged = function(width: number)
-				self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
-			end,
+			-- See note above: ShopIcon V2 flex layout replaces manual right-side positioning.
+			onMinWidthChanged = if useV2ShopIcon
+				then nil
+				else function(width: number)
+					self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
+				end,
 		})
 	end
 end
@@ -608,6 +628,7 @@ function TopBarApp:renderWithStyle(style)
 	local topBarPadding = Constants.TopBarPadding * self.state.UiScale
 	local stackedElementsPaddingLeft = if FFlagAppNavMyStatsTab and canShowAssistantBuild()
 		then screenSideOffset
+		elseif useV2ShopIcon then topBarPadding
 		elseif FFlagEnableExperienceShopGlobalIcon and self.state.shopGlobalIconEnabled then 2
 			* ChromeConstants.UNIBAR_END_PADDING
 			* self.state.UiScale
@@ -740,7 +761,7 @@ function TopBarApp:renderWithStyle(style)
 		}, {
 			HurtOverlay = Roact.createElement(HurtOverlay),
 		}),
-		MenuIconHolder = if not FFlagEnableSideSheet
+		MenuIconHolder = if not isSideSheetEnabled
 				and showMenuIconAtTopLeft
 				and isNewTiltIconEnabled()
 			then Roact.createElement("Frame", {
@@ -925,14 +946,43 @@ function TopBarApp:renderWithStyle(style)
 					PaddingBottom = UDim.new(0, unibarFramePaddingBottom),
 					PaddingLeft = UDim.new(0, unibarFramePaddingLeft),
 				}),
-				TopBarLeftContainer = FFlagAddTraversalBackButton and React.createElement(View, {
-					tag = "row gap-xsmall auto-xy",
-				}, {
-					TraversalBackButton = if not (isInExperienceUIVREnabled and isSpatial())
-						then React.createElement(TraversalBackButton)
-						else nil,
-					UnibarFrame = self:renderUnibarFrame(chromeEnabled),
-				}),
+				TopBarLeftContainer = FFlagAddTraversalBackButton
+					and (
+						if useV2ShopIcon
+							then React.createElement(View, {
+								tag = "row auto-xy",
+							}, {
+								-- PaddedControlRow is not a logical grouping, but a visual one.
+								-- Its inter-item gap applies only to the back button and unibar.
+								-- ShopIcon is deliberately excluded - it animates in, and therefore
+								-- is responsible for animating its own gap.
+								PaddedControlRow = React.createElement(View, {
+									tag = "row gap-xsmall auto-xy",
+									LayoutOrder = 1,
+								}, {
+									TraversalBackButton = if not (isInExperienceUIVREnabled and isSpatial())
+										then React.createElement(TraversalBackButton)
+										else nil,
+									UnibarFrame = self:renderUnibarFrame(chromeEnabled),
+								}),
+								ShopIcon = React.createElement(ShopIcon, {
+									layoutOrder = 2,
+									buttonSize = Constants.TopBarButtonHeight * self.state.UiScale,
+									leftGap = topBarPadding,
+									onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas
+										then self.keepOutAreasStore.setKeepOutArea
+										else self.props.setKeepOutArea,
+								}),
+							})
+							else React.createElement(View, {
+								tag = "row gap-xsmall auto-xy",
+							}, {
+								TraversalBackButton = if not (isInExperienceUIVREnabled and isSpatial())
+									then React.createElement(TraversalBackButton)
+									else nil,
+								UnibarFrame = self:renderUnibarFrame(chromeEnabled),
+							})
+					),
 				Unibar = if not FFlagAddTraversalBackButton then self:renderUnibarFrame(chromeEnabled) else nil,
 
 				HealthBar = if UseUpdatedHealthBar then Roact.createElement(HealthBar, {}) else nil,
@@ -960,7 +1010,9 @@ function TopBarApp:renderWithStyle(style)
 						SortOrder = Enum.SortOrder.LayoutOrder,
 					}),
 
-					ShopGlobalIcon = if FFlagEnableExperienceShopGlobalIcon and self.state.shopGlobalIconEnabled
+					ShopGlobalIcon = if not useV2ShopIcon
+								and FFlagEnableExperienceShopGlobalIcon
+								and self.state.shopGlobalIconEnabled
 						then Roact.createElement(ShopGlobalIcon, {
 							buttonSize = Constants.TopBarButtonHeight * self.state.UiScale,
 							layoutOrder = 1,

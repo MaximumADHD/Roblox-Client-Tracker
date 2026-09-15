@@ -9,6 +9,7 @@ local GuiService = game:GetService("GuiService")
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPSTextboxResetCameraInput = FlagUtil.getUserFlag("UserPSTextboxResetCameraInput")
+local FFlagUserPlayerScriptsSupportTVRemoteKeycodes = FlagUtil.getUserFlag("UserPlayerScriptsSupportTVRemoteKeycodes")
 
 --[[ Input Actions ]]
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
@@ -18,6 +19,9 @@ local cameraRotationAction = cameraContext:WaitForChild("CameraRotationAction") 
 local cameraZoomAction = cameraContext:WaitForChild("CameraZoomAction") :: InputAction
 
 local cameraRotationGamepadBinding = cameraRotationAction:WaitForChild("GamepadBinding") :: InputBinding
+local cameraRotationMicroGamepadBinding = if FFlagUserPlayerScriptsSupportTVRemoteKeycodes
+	then cameraRotationAction:WaitForChild("MicroGamepadBinding") :: InputBinding
+	else nil
 
 local cameraRotationMouseBinding = cameraRotationAction:WaitForChild("MouseBinding") :: InputBinding
 local cameraRotationTrackpadBinding = cameraRotationAction:WaitForChild("TrackpadBinding") :: InputBinding
@@ -47,6 +51,9 @@ end
 
 local function updateGamepadCameraSensitivity()
 	cameraRotationGamepadBinding.Scale = UserGameSettings.GamepadCameraSensitivity
+	if FFlagUserPlayerScriptsSupportTVRemoteKeycodes and cameraRotationMicroGamepadBinding then
+		cameraRotationMicroGamepadBinding.Scale = UserGameSettings.GamepadCameraSensitivity
+	end
 end
 
 local function updateMouseCameraSensitivity()

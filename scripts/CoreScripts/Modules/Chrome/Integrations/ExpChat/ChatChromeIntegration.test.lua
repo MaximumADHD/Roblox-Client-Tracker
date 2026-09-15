@@ -75,6 +75,9 @@ local function createFakeAvailability()
 	}
 end
 
+local notificationFireCountSpy = jest.fn()
+local notificationClearSpy = jest.fn()
+
 local fakeChromeService = {
 	AvailabilitySignal = AvailabilitySignal,
 	register = function(_self, props)
@@ -82,7 +85,14 @@ local fakeChromeService = {
 		lastIntegration = {
 			id = props.id,
 			availability = createFakeAvailability(),
-			notification = nil,
+			notification = {
+				fireCount = function(_self2, count)
+					notificationFireCountSpy(count)
+				end,
+				clear = function(_self2)
+					notificationClearSpy()
+				end,
+			},
 		}
 		return lastIntegration
 	end,
@@ -104,10 +114,12 @@ jest.mock(Chrome.Service, function()
 end)
 
 local updateChatVisibility: ((boolean) -> ())? = nil
+local initialMappedVisibility: boolean? = nil
 jest.mock(Chrome.ChromeShared.Service.ChromeUtils, function()
 	return {
 		MappedSignal = {
-			new = function(_signal, _getValue, onValueChanged)
+			new = function(_signal, getValue, onValueChanged)
+				initialMappedVisibility = getValue()
 				updateChatVisibility = onValueChanged
 				return {
 					get = function()
@@ -176,7 +188,11 @@ jest.mock(Chrome.ChromeShared.Service.ViewportUtil, function()
 end)
 
 local chatWindowVisible = false
+local chatSelectorVisibilitySetBeforeRegister: boolean? = nil
 local setVisibleSpy = jest.fn(function(visible)
+	if lastRegisterProps == nil then
+		chatSelectorVisibilitySetBeforeRegister = visible
+	end
 	table.insert(callOrder, if visible then "showChat" else "hideChat")
 end)
 jest.mock(RobloxGui.Modules.ChatSelector, function()
@@ -289,13 +305,32 @@ jest.mock(CorePackages.Workspace.Packages.FriendsChat.GetFriendsChatIconUnreadSt
 	end
 end)
 
+-- The display-mode decision (channel + mode -> boolean) is owned and covered by
+-- shouldRenderTextChannelInDefaultWindow.test.lua. Here we only need to prove the
+-- badge handler honors that verdict, so stub the helper to a directly-controlled
+-- result. This also side-steps Enum.TextChannelDisplayMode, which does not exist
+-- on the test engine.
+--
+-- CLEANUP (ExpChatUseIsDefaultTextChannel, flag file
+-- exp-chat-shared/src/Flags/GetFFlagExpChatUseIsDefaultTextChannel.lua): this stub
+-- stays valid after the flag is removed -- it only asserts the badge handler
+-- reacts to the helper's boolean. If you later reimplement the badge decision
+-- inline instead of via shouldRenderTextChannelInDefaultWindow, revisit this mock.
+local mockUniverseChatTabsEnabled = false
+local mockShouldRenderInDefaultWindow = true
 jest.mock(CorePackages.Workspace.Packages.ExpChatShared, function()
 	return {
 		Flags = {
 			GetFFlagTextChatEnableUniverseChatTabs = function()
-				return false
+				return mockUniverseChatTabsEnabled
 			end,
 		},
+		getTextChannelDisplayMode = function(): any
+			return nil
+		end,
+		shouldRenderTextChannelInDefaultWindow = function(): boolean
+			return mockShouldRenderInDefaultWindow
+		end,
 	}
 end)
 
@@ -350,6 +385,7 @@ end)
 local mockSharedFlags = {
 	FFlagEnableConsoleExpControls = false,
 	FFlagExpChatWindowSyncUnibar = false,
+	FFlagExpChatInitializeWindowFromGameSettings = false,
 	FFlagChromeActivatedMappedSignal = false,
 	FFlagRemoveFriendsChatUnibarEntrypoints = false,
 	FFlagExpChatEnableFriendsTab = false,
@@ -390,6 +426,84 @@ local function closeRobloxMenu()
 	action()
 end
 
+local messageReceivedHandlers: { (any) -> () } = {}
+local universeMessageReceivedHandlers: { (any) -> () } = {}
+
+local function captureSignal(handlers: { (any) -> () })
+	return {
+		Connect = function(_self, callback)
+			table.insert(handlers, callback)
+			return { Disconnect = function() end }
+		end,
+	}
+end
+
+local fakeTextChatService = {
+	MessageReceived = captureSignal(messageReceivedHandlers),
+	UniverseChatMessageReceived = captureSignal(universeMessageReceivedHandlers),
+}
+
+-- Delegates everything to the real `game` except the TextChatService lookup.
+local rawGame = game :: any
+local gameOverride = setmetatable({
+	GetService = function(_self, serviceName: string)
+		if serviceName == "TextChatService" then
+			return fakeTextChatService
+		end
+		return rawGame:GetService(serviceName)
+	end,
+}, {
+	__index = function(_, key)
+		local value = rawGame[key]
+		if type(value) == "function" then
+			return function(_, ...)
+				return value(rawGame, ...)
+			end
+		end
+		return value
+	end,
+})
+
+local function fireMessageReceived(textChannel: any)
+	for _, handler in messageReceivedHandlers do
+		handler({ TextChannel = textChannel, Metadata = "" })
+	end
+end
+
+local function fireUniverseMessageReceived()
+	for _, handler in universeMessageReceivedHandlers do
+		handler({ TextChannel = nil, Metadata = "" })
+	end
+end
+
+-- Loads the integration under the game override so the badge handler binds to
+-- the fake TextChatService. Mirrors `loadIntegration`'s post-load priming.
+local function loadIntegrationForBadge(): any
+	mockSharedFlags.FFlagExpChatEnableFriendsTab = false
+	table.clear(messageReceivedHandlers)
+	table.clear(universeMessageReceivedHandlers)
+
+	local moduleFunction = debug["loadmodule"](script.Parent.ChatChromeIntegration)
+	local defaultEnvironment = getfenv(moduleFunction)
+	local globalRequire = require
+	local newEnvironment = setmetatable({
+		-- The test file's require is jest-patched, so the module's mocks resolve.
+		require = globalRequire,
+		game = gameOverride,
+	}, {
+		__index = defaultEnvironment,
+	})
+	setfenv(moduleFunction, newEnvironment :: any)
+	local integration = moduleFunction()
+
+	assert(updateChatVisibility ~= nil, "expected the integration to observe chat visibility")
+	updateChatVisibility(chatWindowVisible)
+	integration.availability:available()
+	notificationFireCountSpy:mockClear()
+	notificationClearSpy:mockClear()
+	return integration
+end
+
 describe("ChatChromeIntegration chat-open capability", function()
 	beforeEach(function()
 		lastRegisterProps = nil
@@ -408,13 +522,39 @@ describe("ChatChromeIntegration chat-open capability", function()
 		mockExperiments.isInExperienceUIVREnabled = false
 		mockRenameEnabled = false
 		mockSharedFlags.FFlagEnableConsoleExpControls = false
+		mockSharedFlags.FFlagExpChatInitializeWindowFromGameSettings = false
 		mockSharedFlags.FFlagExpChatEnableFriendsTab = false
 		mockSharedFlags.FFlagExpChatCanShowFriendsTab = false
 		mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = false
+		initialMappedVisibility = nil
+		chatSelectorVisibilitySetBeforeRegister = nil
 	end)
 
 	afterEach(function()
 		GameSettings.ChatVisible = originalChatVisible
+	end)
+
+	describe("startup visibility", function()
+		it("SHOULD align Chrome and ChatSelector with GameSettings WHEN initialization is enabled", function()
+			mockSharedFlags.FFlagExpChatInitializeWindowFromGameSettings = true
+			GameSettings.ChatVisible = false
+			chatWindowVisible = true
+
+			loadIntegration(false)
+
+			expect(initialMappedVisibility).toBe(false)
+			expect(chatSelectorVisibilitySetBeforeRegister).toBe(false)
+		end)
+
+		it("SHOULD preserve ChatSelector startup visibility WHEN initialization is disabled", function()
+			GameSettings.ChatVisible = false
+			chatWindowVisible = true
+
+			loadIntegration(false)
+
+			expect(initialMappedVisibility).toBe(true)
+			expect(chatSelectorVisibilitySetBeforeRegister).toBeNil()
+		end)
 	end)
 
 	describe("wiring", function()
@@ -570,5 +710,66 @@ describe("ChatChromeIntegration chat-open capability", function()
 
 			expect(lastRegisterProps.sideSheetPlacement).toBe(SideSheetPlacement.Unibar)
 		end)
+	end)
+end)
+
+describe("ChatChromeIntegration unibar badge gating", function()
+	-- The helper is stubbed, so a message only needs *a* channel; the channel's
+	-- shape does not drive the outcome (mockShouldRenderInDefaultWindow does).
+	local A_CHANNEL = { IsDefaultTextChannel = false }
+
+	beforeEach(function()
+		lastRegisterProps = nil
+		lastIntegration = nil
+		chatWindowVisible = false
+		mockUniverseChatTabsEnabled = false
+		mockShouldRenderInDefaultWindow = true
+		table.clear(messageReceivedHandlers)
+		table.clear(universeMessageReceivedHandlers)
+		notificationFireCountSpy:mockClear()
+		notificationClearSpy:mockClear()
+		mockSharedFlags.FFlagEnableConsoleExpControls = false
+		mockSharedFlags.FFlagExpChatEnableFriendsTab = false
+		mockSharedFlags.FFlagExpChatCanShowFriendsTab = false
+		mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = false
+	end)
+
+	afterEach(function()
+		GameSettings.ChatVisible = originalChatVisible
+	end)
+
+	-- When the helper says the channel renders in the default window (flag off, or
+	-- AllTextChannels, or a default channel), a message bumps the unibar badge.
+	it("SHOULD badge WHEN the helper renders the channel in the default window", function()
+		mockShouldRenderInDefaultWindow = true
+		loadIntegrationForBadge()
+
+		fireMessageReceived(A_CHANNEL)
+
+		expect(notificationFireCountSpy).toHaveBeenCalledWith(1)
+	end)
+
+	-- The fix: a channel the helper excludes from the default window (a custom
+	-- channel under DefaultTextChannels) must not bump the unibar unread badge.
+	it("SHOULD NOT badge WHEN the helper excludes the channel from the default window", function()
+		mockShouldRenderInDefaultWindow = false
+		loadIntegrationForBadge()
+
+		fireMessageReceived(A_CHANNEL)
+
+		expect(notificationFireCountSpy).never.toHaveBeenCalled()
+	end)
+
+	-- Regression: universe/global messages have no TextChannel and flow through
+	-- UniverseChatMessageReceived, which the window filter never touches; they must
+	-- keep badging even when the helper would exclude their (nil) channel.
+	it("SHOULD badge for a universe message even WHEN the helper would exclude it", function()
+		mockUniverseChatTabsEnabled = true
+		mockShouldRenderInDefaultWindow = false
+		loadIntegrationForBadge()
+
+		fireUniverseMessageReceived()
+
+		expect(notificationFireCountSpy).toHaveBeenCalledWith(1)
 	end)
 end)

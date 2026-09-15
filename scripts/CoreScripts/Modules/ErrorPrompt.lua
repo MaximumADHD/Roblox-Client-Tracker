@@ -16,6 +16,8 @@ local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScr
 local Constants = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Constants
 local Shimmer = require(RobloxGui.Modules.Shimmer)
 local GetFFlagDisplayChannelNameOnErrorPrompt = require(RobloxGui.Modules.Flags.GetFFlagDisplayChannelNameOnErrorPrompt)
+local FFlagLuaSupportMicroGamepadPreferredInput =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaSupportMicroGamepadPreferredInput
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
 -- Flags --
@@ -257,7 +259,17 @@ function ErrorPrompt:_open(errorMsg, errorCode, shouldShowChannelName)
 			self._frame.PromptScale.Scale = 1
 		end
 	end
-		if self._isOpen and (VRService.VREnabled or UserInputService.PreferredInput == Enum.PreferredInput.Gamepad) then
+		if
+			self._isOpen
+			and (
+				VRService.VREnabled
+				or UserInputService.PreferredInput == Enum.PreferredInput.Gamepad
+				or (
+					FFlagLuaSupportMicroGamepadPreferredInput
+					and UserInputService.PreferredInput == Enum.PreferredInput.MicroGamepad
+				)
+			)
+		then
 			GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
 		end
 		ContextActionService:BindCoreAction(ERROR_PROMPT_ACTION_NAME, sinkInput, false, Enum.KeyCode.ButtonSelect, Enum.KeyCode.ButtonStart)

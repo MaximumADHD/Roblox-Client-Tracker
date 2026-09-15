@@ -23,7 +23,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local FFlagGamepadIconSupportCheck = SharedFlags.FFlagGamepadIconSupportCheck
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagSideSheetFocusNav = SharedFlags.FFlagSideSheetFocusNav
 local FFlagEnableDrawerAnimatingHook = SharedFlags.FFlagEnableDrawerAnimatingHook
 
@@ -101,10 +101,12 @@ function ChromeShortcutBar(props)
 		end
 	end, {})
 
-	if FFlagEnableSideSheet and FFlagSideSheetFocusNav and FFlagEnableDrawerAnimatingHook then
+	if isSideSheetEnabled and FFlagSideSheetFocusNav and FFlagEnableDrawerAnimatingHook then
 		local isSideSheetVisible = getSideSheetVisibility(false)
+		-- lute-lint-ignore(rulesOfHooks): isSideSheetEnabled is stable, backed by a flag and static build condition.
 		local isDrawerAnimating = useDrawerAnimating()
 
+		-- lute-lint-ignore(rulesOfHooks): isSideSheetEnabled is stable, backed by a flag and static build condition.
 		React.useEffect(function()
 			ChromeService:setHideShortcutBar("SideSheet", isSideSheetVisible or isDrawerAnimating)
 		end, { isSideSheetVisible, isDrawerAnimating })

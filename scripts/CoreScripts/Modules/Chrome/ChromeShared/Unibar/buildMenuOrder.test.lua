@@ -30,9 +30,11 @@ jest.mock(Chrome.Integrations.Connect.isConnectDropdownEnabled, function()
 end)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
+local FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegration
+local FFlagEnableSideSheetRobuxWidget = require(Chrome.Flags.FFlagEnableSideSheetRobuxWidget)
+local shouldEnableRobuxWidget = FFlagEnableSideSheetRobuxWidget and isSideSheetEnabled
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
-local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
 local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
@@ -56,7 +58,7 @@ local function contains(list: { string }, id: string): boolean
 end
 
 describe("buildMenuOrder", function()
-	if FFlagEnableSideSheet then
+	if isSideSheetEnabled then
 		describe("side-sheet layout", function()
 			it("SHOULD include the people tab", function()
 				expect(contains(buildOrder(), "people")).toBe(true)
@@ -68,11 +70,45 @@ describe("buildMenuOrder", function()
 				expect(contains(order, RESPAWN_ACTION)).toBe(true)
 			end)
 
+			if shouldEnableRobuxWidget then
+				it("SHOULD place the Robux widget before standard menu entries", function()
+					local order = buildOrder()
+					expect(order[1]).toBe("RobuxWidget")
+				end)
+			else
+				it("SHOULD NOT include the Robux widget", function()
+					expect(contains(buildOrder(), "RobuxWidget")).toBe(false)
+				end)
+			end
+
+			if isPioneerLaunch() then
+				it("SHOULD include the account upsell", function()
+					expect(contains(buildOrder(), "AccountUpsell")).toBe(true)
+				end)
+
+				it("SHOULD place the account upsell above the side-sheet actions", function()
+					local order = buildOrder()
+					local accountUpsellIndex = table.find(order, "AccountUpsell")
+					local leaveIndex = table.find(order, LEAVE_ACTION)
+					local respawnIndex = table.find(order, RESPAWN_ACTION)
+
+					expect(accountUpsellIndex).never.toBeNil()
+					expect(leaveIndex).never.toBeNil()
+					expect(respawnIndex).never.toBeNil()
+					expect(accountUpsellIndex).toBeLessThan(leaveIndex)
+					expect(accountUpsellIndex).toBeLessThan(respawnIndex)
+				end)
+			else
+				it("SHOULD not include the account upsell outside Pioneer", function()
+					expect(contains(buildOrder(), "AccountUpsell")).toBe(false)
+				end)
+			end
+
 			if isPioneerLaunch() then
 				it("SHOULD remove integrations for pioneer", function()
 					local order = buildOrder()
 					expect(contains(order, "connect_dropdown")).toBe(false)
-					expect(contains(order, "invite_friends")).toBe(false)
+					expect(contains(order, "invite_friends")).toBe(FFlagAddInviteFriendsIntegration)
 					expect(contains(order, "avatar_switcher")).toBe(false)
 					expect(contains(order, "emotes")).toBe(false)
 					expect(contains(order, "traversal_history")).toBe(false)
@@ -82,27 +118,18 @@ describe("buildMenuOrder", function()
 			end
 
 			describe("reorder", function()
-				it("SHOULD reposition settings based on FIntSideSheetVariant", function()
+				it("SHOULD keep settings above the leaderboard", function()
 					local order = buildOrder()
 					local settingsIndex = table.find(order, "settings")
 					local leaderboardIndex = table.find(order, "leaderboard")
 
 					expect(settingsIndex).never.toBeNil()
 					expect(leaderboardIndex).never.toBeNil()
-
-					if FIntSideSheetVariant == 0 then
-						-- variant 0 pushes settings (30 -> 103) below leaderboard (80).
-						expect(settingsIndex).toBeGreaterThan(leaderboardIndex)
-					else
-						-- otherwise settings keeps its default placement above leaderboard.
-						expect(settingsIndex).toBeLessThan(leaderboardIndex)
-					end
+					expect(settingsIndex).toBeLessThan(leaderboardIndex)
 				end)
 
 				if not FFlagEnableInExperienceShop then
 					it("SHOULD NOT add an unavailable item to the map", function()
-						-- The shop is reordered under variant 0 but stays hidden while
-						-- its flag is off, since reorder only touches present items.
 						expect(contains(buildOrder(), IN_EXPERIENCE_SHOP_ID)).toBe(false)
 					end)
 				end
@@ -119,6 +146,14 @@ describe("buildMenuOrder", function()
 				expect(contains(order, LEAVE_ACTION)).toBe(false)
 				expect(contains(order, RESPAWN_ACTION)).toBe(false)
 			end)
+
+			it("SHOULD NOT include the account upsell", function()
+				expect(contains(buildOrder(), "AccountUpsell")).toBe(false)
+			end)
+
+			it("SHOULD NOT include the Robux widget", function()
+				expect(contains(buildOrder(), "RobuxWidget")).toBe(false)
+			end)
 		end)
 	end
 
@@ -126,7 +161,7 @@ describe("buildMenuOrder", function()
 		-- isConnectDropdownEnabled is mocked to true, so presence is decided by the
 		-- reorg gate (and, in the side-sheet layout, pioneer). The holdout keeps the
 		-- entrypoint; only the fully-shown arm removes it.
-		local pioneerHidesConnectDropdown = FFlagEnableSideSheet and isPioneerLaunch()
+		local pioneerHidesConnectDropdown = isSideSheetEnabled and isPioneerLaunch()
 
 		it("SHOULD retain connect_dropdown for the holdout (Friends tab hidden)", function()
 			if isConnectDropdownRemovalActive() or pioneerHidesConnectDropdown then

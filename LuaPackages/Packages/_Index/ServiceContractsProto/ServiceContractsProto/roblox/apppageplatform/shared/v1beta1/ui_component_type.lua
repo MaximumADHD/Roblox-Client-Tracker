@@ -29,6 +29,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_EVENT_TILE"
 	| "UI_COMPONENT_TYPE_PLACEHOLDER_TILE"
 	| "UI_COMPONENT_TYPE_SPONSORED_TWO_BY_ONE_TILE"
+	| "UI_COMPONENT_TYPE_SPONSORED_ONE_BY_TWO_TILE"
 	| "UI_COMPONENT_TYPE_BUTTON"
 	| "UI_COMPONENT_TYPE_IMAGE"
 	| "UI_COMPONENT_TYPE_TEXT"
@@ -92,6 +93,9 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_VERTICAL_LIST_WITH_IMPRESSIONS"
 	| "UI_COMPONENT_TYPE_REVEAL_ROWS_BUTTON_WITH_DIVIDER"
 	| "UI_COMPONENT_TYPE_HERO_UNIT_BOTTOM_ROW"
+	| "UI_COMPONENT_TYPE_HOME_USER_INFO_WIDGET"
+	| "UI_COMPONENT_TYPE_GAME_TILE_HIDDEN_STATE"
+	| "UI_COMPONENT_TYPE_PLUS_EARLY_ACCESS_UPSELL"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -103,9 +107,11 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_MARKETPLACE_FAVORITES_CATEGORY_MENU"
 	| "UI_COMPONENT_TYPE_CATALOG_ITEM_GRID"
 	| "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL"
+	| "UI_COMPONENT_TYPE_PILL_TABS_CAROUSEL"
 	| "UI_COMPONENT_TYPE_USER_LIST"
 	| "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON"
 	| "UI_COMPONENT_TYPE_FRIEND_CAROUSEL"
+	| "UI_COMPONENT_TYPE_PYMK_CAROUSEL"
 	| "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 	| number -- Unknown
 
@@ -143,6 +149,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_PLACEHOLDER_TILE"
 		elseif value == 107 then
 			return "UI_COMPONENT_TYPE_SPONSORED_TWO_BY_ONE_TILE"
+		elseif value == 108 then
+			return "UI_COMPONENT_TYPE_SPONSORED_ONE_BY_TWO_TILE"
 		elseif value == 200 then
 			return "UI_COMPONENT_TYPE_BUTTON"
 		elseif value == 201 then
@@ -269,6 +277,12 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_REVEAL_ROWS_BUTTON_WITH_DIVIDER"
 		elseif value == 262 then
 			return "UI_COMPONENT_TYPE_HERO_UNIT_BOTTOM_ROW"
+		elseif value == 263 then
+			return "UI_COMPONENT_TYPE_HOME_USER_INFO_WIDGET"
+		elseif value == 264 then
+			return "UI_COMPONENT_TYPE_GAME_TILE_HIDDEN_STATE"
+		elseif value == 265 then
+			return "UI_COMPONENT_TYPE_PLUS_EARLY_ACCESS_UPSELL"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -291,12 +305,16 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_CATALOG_ITEM_GRID"
 		elseif value == 700 then
 			return "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL"
+		elseif value == 701 then
+			return "UI_COMPONENT_TYPE_PILL_TABS_CAROUSEL"
 		elseif value == 800 then
 			return "UI_COMPONENT_TYPE_USER_LIST"
 		elseif value == 801 then
 			return "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON"
 		elseif value == 802 then
 			return "UI_COMPONENT_TYPE_FRIEND_CAROUSEL"
+		elseif value == 803 then
+			return "UI_COMPONENT_TYPE_PYMK_CAROUSEL"
 		elseif value == 9999 then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else
@@ -337,6 +355,8 @@ messages.UiComponentType = {
 			return 106
 		elseif self == "UI_COMPONENT_TYPE_SPONSORED_TWO_BY_ONE_TILE" then
 			return 107
+		elseif self == "UI_COMPONENT_TYPE_SPONSORED_ONE_BY_TWO_TILE" then
+			return 108
 		elseif self == "UI_COMPONENT_TYPE_BUTTON" then
 			return 200
 		elseif self == "UI_COMPONENT_TYPE_IMAGE" then
@@ -463,6 +483,12 @@ messages.UiComponentType = {
 			return 261
 		elseif self == "UI_COMPONENT_TYPE_HERO_UNIT_BOTTOM_ROW" then
 			return 262
+		elseif self == "UI_COMPONENT_TYPE_HOME_USER_INFO_WIDGET" then
+			return 263
+		elseif self == "UI_COMPONENT_TYPE_GAME_TILE_HIDDEN_STATE" then
+			return 264
+		elseif self == "UI_COMPONENT_TYPE_PLUS_EARLY_ACCESS_UPSELL" then
+			return 265
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -485,12 +511,16 @@ messages.UiComponentType = {
 			return 606
 		elseif self == "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL" then
 			return 700
+		elseif self == "UI_COMPONENT_TYPE_PILL_TABS_CAROUSEL" then
+			return 701
 		elseif self == "UI_COMPONENT_TYPE_USER_LIST" then
 			return 800
 		elseif self == "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON" then
 			return 801
 		elseif self == "UI_COMPONENT_TYPE_FRIEND_CAROUSEL" then
 			return 802
+		elseif self == "UI_COMPONENT_TYPE_PYMK_CAROUSEL" then
+			return 803
 		elseif self == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return 9999
 		else
@@ -531,6 +561,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_PLACEHOLDER_TILE"
 		elseif name == "UI_COMPONENT_TYPE_SPONSORED_TWO_BY_ONE_TILE" then
 			return "UI_COMPONENT_TYPE_SPONSORED_TWO_BY_ONE_TILE"
+		elseif name == "UI_COMPONENT_TYPE_SPONSORED_ONE_BY_TWO_TILE" then
+			return "UI_COMPONENT_TYPE_SPONSORED_ONE_BY_TWO_TILE"
 		elseif name == "UI_COMPONENT_TYPE_BUTTON" then
 			return "UI_COMPONENT_TYPE_BUTTON"
 		elseif name == "UI_COMPONENT_TYPE_IMAGE" then
@@ -657,6 +689,12 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_REVEAL_ROWS_BUTTON_WITH_DIVIDER"
 		elseif name == "UI_COMPONENT_TYPE_HERO_UNIT_BOTTOM_ROW" then
 			return "UI_COMPONENT_TYPE_HERO_UNIT_BOTTOM_ROW"
+		elseif name == "UI_COMPONENT_TYPE_HOME_USER_INFO_WIDGET" then
+			return "UI_COMPONENT_TYPE_HOME_USER_INFO_WIDGET"
+		elseif name == "UI_COMPONENT_TYPE_GAME_TILE_HIDDEN_STATE" then
+			return "UI_COMPONENT_TYPE_GAME_TILE_HIDDEN_STATE"
+		elseif name == "UI_COMPONENT_TYPE_PLUS_EARLY_ACCESS_UPSELL" then
+			return "UI_COMPONENT_TYPE_PLUS_EARLY_ACCESS_UPSELL"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -679,12 +717,16 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_CATALOG_ITEM_GRID"
 		elseif name == "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL" then
 			return "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL"
+		elseif name == "UI_COMPONENT_TYPE_PILL_TABS_CAROUSEL" then
+			return "UI_COMPONENT_TYPE_PILL_TABS_CAROUSEL"
 		elseif name == "UI_COMPONENT_TYPE_USER_LIST" then
 			return "UI_COMPONENT_TYPE_USER_LIST"
 		elseif name == "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON" then
 			return "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON"
 		elseif name == "UI_COMPONENT_TYPE_FRIEND_CAROUSEL" then
 			return "UI_COMPONENT_TYPE_FRIEND_CAROUSEL"
+		elseif name == "UI_COMPONENT_TYPE_PYMK_CAROUSEL" then
+			return "UI_COMPONENT_TYPE_PYMK_CAROUSEL"
 		elseif name == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else

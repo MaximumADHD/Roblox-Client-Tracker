@@ -57,6 +57,12 @@ type AvatarVariantProps = {
 		padding: UDim2,
 		ZIndex: number,
 	},
+	statusIndicatorMask: {
+		Position: UDim2,
+		AnchorPoint: Vector2,
+		ZIndex: number,
+		mask: Types.ColorStyle,
+	},
 	statusIndicator: {
 		size: StatusIndicatorSize?,
 		shape: StatusIndicatorShape?,
@@ -74,13 +80,23 @@ local function variantsFactory(tokens: Tokens)
 			tag = "position-bottom-right anchor-bottom-right auto-xy radius-circle bg-surface-0",
 			padding = UDim2.fromOffset(3, 3),
 		},
-		statusIndicatorBackplate = {
-			ZIndex = 2,
-			AnchorPoint = Vector2.new(1, 1),
-			Position = UDim2.fromScale(1, 1),
-			tag = "auto-xy radius-circle bg-surface-0",
-			padding = UDim2.fromOffset(tokens.Size.Size_150 / 2, tokens.Size.Size_150 / 2),
-		},
+		statusIndicatorBackplate = if Flags.FoundationStatusIndicatorMask
+			then nil :: never
+			else {
+				ZIndex = 2,
+				AnchorPoint = Vector2.new(1, 1),
+				Position = UDim2.fromScale(1, 1),
+				tag = "auto-xy radius-circle bg-surface-0",
+				padding = UDim2.fromOffset(tokens.Size.Size_150 / 2, tokens.Size.Size_150 / 2),
+			},
+		statusIndicatorMask = if Flags.FoundationStatusIndicatorMask
+			then {
+				ZIndex = 2,
+				AnchorPoint = Vector2.new(1, 1),
+				Position = UDim2.new(1, -tokens.Size.Size_150 / 2, 1, -tokens.Size.Size_150 / 2),
+				mask = tokens.Color.Surface.Surface_0,
+			}
+			else nil :: never,
 	}
 
 	local sizes: { [AvatarSize]: VariantProps } = if Flags.FoundationAvatarBeta

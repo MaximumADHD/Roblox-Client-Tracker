@@ -9,6 +9,7 @@ local SliderStepDirection = require(script.Parent.SliderStepDirection)
 local SliderStepSize = require(script.Parent.SliderStepSize)
 type SliderStepSize = SliderStepSize.SliderStepSize
 
+local Flags = require(Foundation.Utility.Flags)
 local calculateDirectionalStepValue = require(script.Parent.calculateDirectionalStepValue)
 
 -- Pushing the thumbstick this far past center starts stepping; matches the
@@ -25,16 +26,39 @@ local REPEAT_INTERVAL = 0.1
 -- Page steps stay on the bumpers only. Page Up/Down are claimed by the engine to
 -- scroll an ancestor ScrollingFrame while the slider is the SelectedObject, and
 -- that core keybind can't be sunk, so binding them here would double-fire.
-local function getStepForKeyCode(keyCode: Enum.KeyCode): { sign: number, size: SliderStepSize }?
-	if keyCode == Enum.KeyCode.Right or keyCode == Enum.KeyCode.DPadRight then
-		return { sign = 1, size = SliderStepSize.Step }
-	elseif keyCode == Enum.KeyCode.Left or keyCode == Enum.KeyCode.DPadLeft then
-		return { sign = -1, size = SliderStepSize.Step }
-	elseif keyCode == Enum.KeyCode.ButtonR1 then
-		return { sign = 1, size = SliderStepSize.Page }
-	elseif keyCode == Enum.KeyCode.ButtonL1 then
-		return { sign = -1, size = SliderStepSize.Page }
+local function getStepForKeyCode(keyCode: Enum.KeyCode, isVertical: boolean): { sign: number, size: SliderStepSize }?
+	if Flags.FoundationSliderBeta then
+		if keyCode == Enum.KeyCode.ButtonR1 then
+			return { sign = 1, size = SliderStepSize.Page }
+		elseif keyCode == Enum.KeyCode.ButtonL1 then
+			return { sign = -1, size = SliderStepSize.Page }
+		end
+
+		if isVertical then
+			if keyCode == Enum.KeyCode.Up or keyCode == Enum.KeyCode.DPadUp then
+				return { sign = 1, size = SliderStepSize.Step }
+			elseif keyCode == Enum.KeyCode.Down or keyCode == Enum.KeyCode.DPadDown then
+				return { sign = -1, size = SliderStepSize.Step }
+			end
+		else
+			if keyCode == Enum.KeyCode.Right or keyCode == Enum.KeyCode.DPadRight then
+				return { sign = 1, size = SliderStepSize.Step }
+			elseif keyCode == Enum.KeyCode.Left or keyCode == Enum.KeyCode.DPadLeft then
+				return { sign = -1, size = SliderStepSize.Step }
+			end
+		end
+	else
+		if keyCode == Enum.KeyCode.Right or keyCode == Enum.KeyCode.DPadRight then
+			return { sign = 1, size = SliderStepSize.Step }
+		elseif keyCode == Enum.KeyCode.Left or keyCode == Enum.KeyCode.DPadLeft then
+			return { sign = -1, size = SliderStepSize.Step }
+		elseif keyCode == Enum.KeyCode.ButtonR1 then
+			return { sign = 1, size = SliderStepSize.Page }
+		elseif keyCode == Enum.KeyCode.ButtonL1 then
+			return { sign = -1, size = SliderStepSize.Page }
+		end
 	end
+
 	return nil
 end
 
@@ -43,8 +67,13 @@ type Handlers = {
 	onStep: (newValue: number) -> (),
 }
 
--- Input is observed without sinking it so Up and Down remain available for focus navigation.
-local function useSliderDirectionalInput(isActive: boolean, step: number?, range: NumberRange, handlers: Handlers)
+local function useSliderDirectionalInput(
+	isActive: boolean,
+	step: number?,
+	range: NumberRange,
+	isVertical: boolean,
+	handlers: Handlers
+)
 	-- The listeners persist across value changes, so this ref prevents repeat callbacks from reading stale inputs.
 	local latestRef = React.useRef({
 		step = step,
@@ -117,17 +146,26 @@ local function useSliderDirectionalInput(isActive: boolean, step: number?, range
 		-- L1/R1 bumpers arrive via InputBegan; the analog thumbstick only ever reports
 		-- through InputChanged, so both signals share this handler.
 		local function evaluateInput(input: InputObject)
-			local stepConfig = getStepForKeyCode(input.KeyCode)
+			local stepConfig = getStepForKeyCode(input.KeyCode, isVertical)
 			if stepConfig then
 				startStepping(input, stepConfig.sign, stepConfig.size)
 				return
 			end
 
 			if input.KeyCode == Enum.KeyCode.Thumbstick1 then
-				if math.abs(input.Position.X) >= THUMBSTICK_DEADZONE then
-					startStepping(input, if input.Position.X > 0 then 1 else -1, SliderStepSize.Step)
+				if Flags.FoundationSliderBeta then
+					local stepAxis = if isVertical then input.Position.Y else input.Position.X
+					if math.abs(stepAxis) >= THUMBSTICK_DEADZONE then
+						startStepping(input, if stepAxis > 0 then 1 else -1, SliderStepSize.Step)
+					else
+						stopStepping(input)
+					end
 				else
-					stopStepping(input)
+					if math.abs(input.Position.X) >= THUMBSTICK_DEADZONE then
+						startStepping(input, if input.Position.X > 0 then 1 else -1, SliderStepSize.Step)
+					else
+						stopStepping(input)
+					end
 				end
 			end
 		end
@@ -144,7 +182,7 @@ local function useSliderDirectionalInput(isActive: boolean, step: number?, range
 				connection:Disconnect()
 			end
 		end
-	end, { isActive })
+	end, { isActive, isVertical } :: { unknown })
 end
 
 return useSliderDirectionalInput

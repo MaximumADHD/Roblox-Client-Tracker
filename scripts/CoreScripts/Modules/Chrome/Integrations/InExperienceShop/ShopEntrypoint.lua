@@ -98,7 +98,7 @@ end
 local integration = ChromeService:register({
 	initialAvailability = getInitialAvailability(),
 	id = Constants.IN_EXPERIENCE_SHOP_ID,
-	sideSheetPlacement = SideSheetPlacement.Page,
+	sideSheetPlacement = SideSheetPlacement.AboveFold,
 	-- TODO: Create a shop specific localization key (DMP-2402)
 	label = "Feature.Avatar.Action.Shop",
 	cachePosition = true,

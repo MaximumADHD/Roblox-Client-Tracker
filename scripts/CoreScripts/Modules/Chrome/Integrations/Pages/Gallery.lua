@@ -34,7 +34,7 @@ return ChromeService:register({
 		else ChromeService.AvailabilitySignal.Unavailable,
 	id = "gallery",
 	label = "Feature.Captures.Title.Gallery",
-	sideSheetPlacement = SideSheetPlacement.Page,
+	sideSheetPlacement = SideSheetPlacement.BelowFold,
 	activated = function(self)
 		InGameMenuIntegrationUtils.toggleIGMPage("CapturesPage", pageOpenSignal:get())
 	end,

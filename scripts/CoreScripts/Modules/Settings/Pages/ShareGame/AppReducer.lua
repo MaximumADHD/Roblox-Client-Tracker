@@ -9,6 +9,8 @@ local PlaceInfos = require(CorePackages.Workspace.Packages.PlaceInfoRodux).Reduc
 local Users = require(CorePackages.Workspace.Packages.UserLib).Reducers.UserReducer
 local Friends = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Reducers.Friends
 local FriendCount = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Reducers.FriendCount
+local FFlagRemoveUnusedFriendCountRoduxSlice =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveUnusedFriendCountRoduxSlice
 
 local ConversationsSearch = require(ShareGame.Reducers.ConversationsSearch)
 local DeviceInfo = require(ShareGame.Reducers.DeviceInfo)
@@ -34,7 +36,7 @@ return function(state, action)
 		Toasts = Toasts(state.Toasts, action),
 		Users = Users(state.Users, action),
 		Friends = Friends(state.Friends, action),
-		FriendCount = FriendCount(state.FriendCount, action),
+		FriendCount = if FFlagRemoveUnusedFriendCountRoduxSlice then nil else FriendCount(state.FriendCount, action),
 		ShareLinks = ShareLinks(state.ShareLinks, action),
 		GameInfo = GameInfo(state.GameInfo, action),
 		NetworkStatus = NetworkStatus(state.NetworkStatus, action),

@@ -3,7 +3,6 @@ local Root = script:FindFirstAncestor("ChromeShared")
 local CorePackages = game:GetService("CorePackages")
 
 local FFlagChromeNineDotActivityIndicator = require(Root.Flags).FFlagChromeNineDotActivityIndicator
-
 local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
 local expect = JestGlobals.expect
 local describe = JestGlobals.describe
@@ -28,8 +27,8 @@ local ChromeService = require(script.Parent.ChromeService)
 local ChromeUtils = require(script.Parent.ChromeUtils)
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagEnableSideSheetWidgets = SharedFlags.FFlagEnableSideSheetWidgets
+local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 
 local function setupMockIntegration(service: ChromeService.ChromeService, id: string, hasWindow: boolean)
@@ -330,7 +329,46 @@ describe("updateMenuList with FFlagEnableChromeWindowsNotInMenu", function()
 	end)
 end)
 
-if FFlagEnableSideSheet and (FFlagEnableSideSheetWidgets or isPioneerLaunch()) then
+if isSideSheetEnabled then
+	describe("updateSideSheet menu sections", function()
+		local function registerMenuIntegration(
+			service: ChromeService.ChromeService,
+			id: string,
+			placement: ChromePackage.SideSheetPlacement
+		)
+			service:register({
+				id = id,
+				label = "CoreScripts.TopBar.Leave",
+				initialAvailability = ChromeService.AvailabilitySignal.Available,
+				components = {
+					Icon = function()
+						return false
+					end,
+				},
+				activated = function() end,
+				sideSheetPlacement = placement,
+			})
+		end
+
+		beforeEach(function()
+			registerSideSheetIntegrationsMock.mockClear()
+		end)
+
+		it("SHOULD project integrations into above-fold and below-fold lists", function()
+			local service = ChromeService.new()
+			registerMenuIntegration(service, "above", ChromePackage.Enums.SideSheetPlacement.AboveFold)
+			registerMenuIntegration(service, "below", ChromePackage.Enums.SideSheetPlacement.BelowFold)
+			service:configureSubMenu("nine_dot", { "above", "below" })
+
+			local calls = registerSideSheetIntegrationsMock.mock.calls
+			local integrations = calls[#calls][1]
+			expect(integrations.aboveFoldIntegrations[1].id).toBe("above")
+			expect(integrations.belowFoldIntegrations[1].id).toBe("below")
+		end)
+	end)
+end
+
+if isSideSheetEnabled and (FFlagEnableSideSheetWidgets or isPioneerLaunch()) then
 	describe("updateSideSheet widgets", function()
 		local function registerWidget(
 			service: ChromeService.ChromeService,
@@ -398,7 +436,7 @@ if FFlagEnableSideSheet and (FFlagEnableSideSheetWidgets or isPioneerLaunch()) t
 			local integrations = calls[#calls][1]
 			expect(#integrations.scrollableWidgetIntegrations).toBe(0)
 			expect(#integrations.fixedFooterWidgetIntegrations).toBe(0)
-			expect(#integrations.toggleIntegrations).toBe(0)
+			expect(#integrations.aboveFoldIntegrations).toBe(0)
 		end)
 
 		it("SHOULD remove a widget when its Chrome availability becomes unavailable", function()

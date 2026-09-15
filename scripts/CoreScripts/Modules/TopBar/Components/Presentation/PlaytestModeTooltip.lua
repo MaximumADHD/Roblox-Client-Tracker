@@ -8,7 +8,7 @@ local Foundation = require(CorePackages.Packages.Foundation)
 local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 
-local BuildModeLaunch = require(CorePackages.Workspace.Packages.BuildExperience.BuildModeLaunch)
+local BuildModeLaunch = require(CorePackages.Workspace.Packages.BuildExperiencePlaytestLaunch.BuildModeLaunch)
 
 local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
 

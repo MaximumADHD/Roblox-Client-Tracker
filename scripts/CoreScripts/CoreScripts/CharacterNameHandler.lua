@@ -4,9 +4,6 @@ local CoreGui = game:GetService("CoreGui")
 
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local UserProfileStore = UserProfiles.Stores.UserProfileStore
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-
-local FFlagUserProfileStoreQueryRefetch = SharedFlags.FFlagUserProfileStoreQueryRefetch
 
 local FFlagFixCharacterNameHandlerNilProfileCrash =
 	game:DefineFastFlag("FixCharacterNameHandlerNilProfileCrash", false)
@@ -127,9 +124,7 @@ local function onPlayerRemoving(player: Player)
 		end
 		playerConnections[player] = nil
 	end
-	if FFlagUserProfileStoreQueryRefetch then
 		UserProfileStore.get().invalidateCachedNamesForUserIds({ tostring(player.UserId) })
-	end
 end
 
 setCurrentPlayersNames()

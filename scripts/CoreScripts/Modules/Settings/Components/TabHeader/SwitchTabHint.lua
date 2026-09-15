@@ -14,6 +14,7 @@ local HelpPageConstants = HelpPage.Constants.HELP_PAGE
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagGamepadIconSupportCheck = SharedFlags.FFlagGamepadIconSupportCheck
+local FFlagLuaSupportMicroGamepadPreferredInput = SharedFlags.FFlagLuaSupportMicroGamepadPreferredInput
 
 type SwitchTabHintProps = {
 	keycode: Enum.KeyCode,
@@ -28,6 +29,10 @@ end
 
 local function isPreferredInputTypeGamepad()
 	return UserInputService.PreferredInput == Enum.PreferredInput.Gamepad
+		or (
+			FFlagLuaSupportMicroGamepadPreferredInput
+			and UserInputService.PreferredInput == Enum.PreferredInput.MicroGamepad
+		)
 end
 
 local function isPlayStationGamepad()
