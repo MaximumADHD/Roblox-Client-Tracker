@@ -435,6 +435,19 @@ Studio.TerrainEditor.SmoothVoxels.Explanation,,,The upgrade will only be applied
 Studio.TerrainEditor.SmoothVoxels.Title,,,Smooth Voxels,Smooth Voxels
 Studio.TerrainEditor.NumberWarning.Minimum,,,Value must be greater than 0.,Value must be greater than 0.
 Studio.TerrainEditor.MaterialSettings.With,,,With,With
+Studio.TerrainEditor.ExpandedTerrainRestartDialog.Title,,,Restart Place,Restart Place
+Studio.TerrainEditor.ExpandedTerrainRestartDialog.Description,,,"Expanded Terrain (Terrain Optimizations and Custom Terrain Materials) will not be changed until you save and restart the Place.
+
+Save the Place, then close and reopen it to apply this change.","Expanded Terrain (Terrain Optimizations and Custom Terrain Materials) will not be changed until you save and restart the Place.
+
+Save the Place, then close and reopen it to apply this change."
+Studio.TerrainEditor.ExpandedTerrainRestartDialog.Restart,,,Restart,Restart
+Studio.TerrainEditor.ExpandedTerrainRestartDialog.RestartLater,,,Restart Later,Restart Later
+Studio.TerrainEditor.ExpandedTerrainRestartDialog.CloudDescription,,,"Would you like to restart the Place now?
+
+Expanded Terrain (Terrain Optimizations and Custom Terrain Materials) will not be changed until you restart the Place.","Would you like to restart the Place now?
+
+Expanded Terrain (Terrain Optimizations and Custom Terrain Materials) will not be changed until you restart the Place."
 Studio.App.GenerativeAI.CopiedToClipboard,,,Copied to clipboard,Copied to clipboard
 Studio.App.AddImageDialog.ChooseFile,,,Choose File,Choose File
 Studio.App.AddImageDialog.ChooseImageUpload,,,Choose image to upload,Choose image to upload
@@ -4762,7 +4775,7 @@ Studio.App.PropertyEnum.GeometryComplexity,,,GeometryComplexity,GeometryComplexi
 Studio.App.PropertyEnum.Transparent,,,Transparent,Transparent
 Studio.App.PropertyEnum.Decal,,,Decal,Decal
 Studio.App.TutorialPage.RestartTour,,,Restart Tour,Restart Tour
-Studio.App.AssetPrivacyPublishDialog.NoPermissionsTitle,,,No permission to use Asset(s),No permission to use Asset(s)
+Studio.App.AssetPrivacyPublishDialog.NoPermissionsTitle,,,Some assets need permission to load,Some assets need permission to load
 Studio.App.AssetPrivacyPublishDialog.NoPermissionsDescription,,,"This experience has no permission to use some assets. Please consider granting permissions to the destination Experience. If you do not grant permissions, assets will not be available for this experience.","This experience has no permission to use some assets. Please consider granting permissions to the destination Experience. If you do not grant permissions, assets will not be available for this experience."
 Studio.App.AssetPrivacyPublishDialog.PermissionsGrantedTitle,,,All permissions have been granted!,All permissions have been granted!
 Studio.App.AssetPrivacyPublishDialog.PermissionsGrantedDescription,,,All asset permissions have been granted to this experience.,All asset permissions have been granted to this experience.
@@ -5850,6 +5863,8 @@ Studio.App.AssetAccess.RequestAccessOutputMessageToolTip,,,Request access to ass
 Studio.App.RBXMainWindow.PublishStatus,,,Publish Status,Publish Status
 Studio.App.RBXMainWindow.PublishStatusTooltip,,,Show the publish status of the current experience,Show the publish status of the current experience
 Studio.App.AssetAccess.RequestAccessOutputMessageAllAssets,,,You do not have access to use certain assets. Click to request access,You do not have access to use certain assets. Click to request access
+Studio.App.AssetPrivacyPublishDialog.GrantPermissionsAndPublishButton,,,Grant Permissions and Publish,Grant Permissions and Publish
+Studio.App.AssetPrivacyPublishDialog.AssetsNeedPermissionDescription,,,"This place uses assets that the destination experience does not have permission to use. These permissions must be granted for the assets to load in the destination experience, otherwise they will be missing after publishing. Publishing continues as soon as the permissions are granted.","This place uses assets that the destination experience does not have permission to use. These permissions must be granted for the assets to load in the destination experience, otherwise they will be missing after publishing. Publishing continues as soon as the permissions are granted."
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -9802,6 +9817,20 @@ Studio.AssetManager.AssetState.Appeal,,,Appeal Your Content,Appeal Your Content
 Studio.AssetManager.ContextMenu.ViewDetails,,,View Details,View Details
 Studio.AssetManager.ContextMenu.CopyUri,,,Copy URI,Copy URI
 Studio.AssetManager.AssetState.LearnMore,,,Learn More,Learn More
+Studio.AssetManager.Tutorial.Intro.InsertOrImportNoResultsText,,,Click to start adding assets to your inventory!,Click to start adding assets to your inventory!
+Studio.AssetManager.Tutorial.Intro.InsertOrImportNoResultsTitle,,,Add assets,Add assets
+Studio.AssetManager.Tutorial.Intro.InsertOrImportText,,,"Once you've found your asset, insert it! Or right click for more options.","Once you've found your asset, insert it! Or right click for more options."
+Studio.AssetManager.Tutorial.Intro.WelcomeTitle,,,One unified library,One unified library
+Studio.AssetManager.Tutorial.Intro.WelcomeText,,,Anything here can be used across everything you build.,Anything here can be used across everything you build.
+Studio.AssetManager.Tutorial.Intro.SidebarTitle,,,Know which inventory you're in,Know which inventory you're in
+Studio.AssetManager.Tutorial.Intro.SidebarText,,,The sidebar lists every inventory you can reach. Try customizing the sidebar with a right click!,The sidebar lists every inventory you can reach. Try customizing the sidebar with a right click!
+Studio.AssetManager.Tutorial.Intro.InsertOrImportTitle,,,Use your asset,Use your asset
+Studio.AssetManager.Tutorial.Intro.SidebarClosedText,,,The sidebar lists every inventory you can reach.,The sidebar lists every inventory you can reach.
+Studio.AssetManager.Tutorial.Next,,,Next,Next
+Studio.AssetManager.Tutorial.Done,,,Done,Done
+Studio.AssetManager.Filters.Restricted,,,Restricted,Restricted
+Studio.AssetManager.AssetProperty.Status,,,Status,Status
+Studio.AssetManager.Tutorial.Intro.SidebarCompactText,,,Open the dropdown to view every inventory you can reach.,Open the dropdown to view every inventory you can reach.
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -11283,6 +11312,11 @@ Studio.ManageCollaborators.SearchBar.CountryBlockedError,,,Unable to add user be
 Studio.ManageCollaborators.SearchBar.LengthExceeded,,,Search input is too long. Shorten to under {maxLength} characters.,Search input is too long. Shorten to under {maxLength} characters.
 Studio.ManageCollaborators.PermissionDescriptions.InheritedPermission,,,This permission has been granted at a higher level.,This permission has been granted at a higher level.
 Studio.ManageCollaborators.Buttons.ViewAllPermissionsInCreatorHub,,,View all permissions in Creator Hub,View all permissions in Creator Hub
+Studio.ManageCollaborators.AudienceTabs.Editors,,,Editors,Editors
+Studio.ManageCollaborators.AudienceTabs.PlayTesters,,,Play testers,Play testers
+Studio.ManageCollaborators.AudienceTabs.CommunityPlayers,,,Community Players,Community Players
+Studio.ManageCollaborators.AudienceTabs.PlayTesterLimit,,,Play testing is limited to {maxNumPlayTesters:int} members per game,Play testing is limited to {maxNumPlayTesters:int} members per game
+Studio.ManageCollaborators.AudiencePermissionDescriptions.PlayTest,,,Can play and test game,Can play and test game
 Studio.DeviceEmulator.Plugin.Name,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Button,,,Toggle,Toggle
@@ -12010,6 +12044,7 @@ Studio.RobloxPropertiesWidget.Category.Behaviors,,,Behaviors,Behaviors
 Studio.RobloxPropertiesWidget.Category.Skin,,,Skin,Skin
 Studio.RobloxPropertiesWidget.SelectCurrent,,,Select current,Select current
 Studio.RobloxPropertiesWidget.SelectIncoming,,,Select incoming,Select incoming
+Studio.RobloxPropertiesWidget.Category.RewardedVideo,,,Rewarded Video,Rewarded Video
 Studio.DynamicHeadExportTool.Plugin.Name,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Toolbar,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Button,,,Toggle,Toggle
@@ -15338,10 +15373,39 @@ Studio.Assistant.JobWait.Waiting,,,Waiting for {tool} job...,Waiting for {tool} 
 Studio.Assistant.JobRun.RunningAfterResult,,,({jobId}) Running {tool} job...,({jobId}) Running {tool} job...
 Studio.Assistant.McpSetup.ConnectedClientCount,,,{name} ×{count},{name} ×{count}
 Studio.Assistant.SettingsDialog.OverflowMenuTitle,,,Settings,Settings
+Studio.Assistant.CreditMetering.BannerFreeUsageExhaustedSwitch,,,You're out of free usage for today. Now you’ll spend Robux as you create.,You're out of free usage for today. Now you’ll spend Robux as you create.
+Studio.Assistant.CreditMetering.BannerFreeTrialExhausted,,,"Buy more usage with your Robux to keep creating, or wait for your daily limit to reset.","Buy more usage with your Robux to keep creating, or wait for your daily limit to reset."
+Studio.Assistant.CreditMetering.BannerLimitReached,,,You’ve reached your usage limit.,You’ve reached your usage limit.
+Studio.Assistant.CreditMetering.ManageLimit,,,Manage limit.,Manage limit.
+Studio.Assistant.CreditMetering.Buy,,,Buy.,Buy.
+Studio.Assistant.CreditMetering.BannerOutOfRobux,,,"Buy more Robux to keep creating, or wait for your free usage to reset tomorrow.","Buy more Robux to keep creating, or wait for your free usage to reset tomorrow."
+Studio.Assistant.CreditMetering.BuyRobux,,,Buy Robux,Buy Robux
+Studio.Assistant.CreditMetering.DailyLimitTitle,,,Daily limit,Daily limit
+Studio.Assistant.CreditMetering.FreeUsagePercent,,,{percent}% used,{percent}% used
+Studio.Assistant.CreditMetering.FreeUsageTitle,,,Free usage,Free usage
+Studio.Assistant.CreditMetering.GoToSettings,,,Go to settings,Go to settings
+Studio.Assistant.CreditMetering.LoadingUsage,,,Loading usage...,Loading usage...
+Studio.Assistant.CreditMetering.NoLimit,,,No limit,No limit
+Studio.Assistant.CreditMetering.OutOfRobuxDescription,,,Based on your last 7 days of usage,Based on your last 7 days of usage
+Studio.Assistant.CreditMetering.OutOfRobuxTitle,,,Out of Robux,Out of Robux
+Studio.Assistant.CreditMetering.ResetsInHours,,,Resets in {hours} hours,Resets in {hours} hours
+Studio.Assistant.CreditMetering.ResetsInOneHour,,,Resets in 1 hour,Resets in 1 hour
+Studio.Assistant.CreditMetering.RobuxSpentToday,,,{spent} used,{spent} used
+Studio.Assistant.CreditMetering.GetMoreUsageTitle,,,Get more usage,Get more usage
+Studio.Assistant.CreditMetering.DailyLimitNoneLabel,,,None used,None used
+Studio.Assistant.CreditMetering.LoadUsageError,,,Something went wrong loading your usage.,Something went wrong loading your usage.
+Studio.Assistant.ErrorMessage.FreeTrialExhausted,,,Buy more usage with your Robux to keep creating,Buy more usage with your Robux to keep creating
+Studio.Assistant.ErrorMessage.DailyLimitReached,,,You’ve reached your usage limit.,You’ve reached your usage limit.
+Studio.Assistant.ErrorMessage.InsufficientRobuxBalance,,,Buy more Robux to keep creating,Buy more Robux to keep creating
+Studio.Assistant.CreditMetering.GetMoreUsageDescription,,,Use your Robux to automatically buy additional usage as you create. You can set a daily spend limit anytime.,Use your Robux to automatically buy additional usage as you create. You can set a daily spend limit anytime.
+Studio.Assistant.CreditMetering.AdditionalUsageTitle,,,Additional usage,Additional usage
+Studio.Assistant.CreditMetering.BuyFor,,,Buy for,Buy for
+Studio.Assistant.CreditMetering.RobuxPackageModalLoadError,,,Something went wrong loading Robux packages.,Something went wrong loading Robux packages.
 Studio.Assistant.AvatarAutoSetup.InputModel,,,Input Model,Input Model
 Studio.Assistant.AvatarAutoSetup.InputSetUpAvatar,,,Set up avatar,Set up avatar
 Studio.Assistant.AvatarAutoSetup.ModelRequired,,,Pick a Model,Pick a Model
 Studio.Assistant.SlashCommandDescriptions.AvatarAutoSetup,,,Rig a Model into an animatable avatar,Rig a Model into an animatable avatar
+Studio.Assistant.CreditMetering.RobuxBalance,,,Robux balance,Robux balance
 Studio.Assistant.AskInput.Requirement,,,"Cannot submit: a ""{kind}"" requirement is not yet met","Cannot submit: a ""{kind}"" requirement is not yet met"
 Studio.Assistant.AskInput.RequirementPresent,,,"""{field}"" is required","""{field}"" is required"
 Studio.Assistant.AskInput.RequirementAnyPresent,,,Fill in at least one of: {fields},Fill in at least one of: {fields}
@@ -15356,6 +15420,10 @@ Studio.Assistant.ThreadsMenu.Build,,,Synced chat,Synced chat
 Studio.Assistant.ThreadsMenu.Other,,,Chat history,Chat history
 Studio.Assistant.MessageActions.TooltipCopy,,,Copy,Copy
 Studio.Assistant.MessageActions.CopyText,,,Copy text,Copy text
+Studio.Assistant.Skills.ImportParseError,,,This file isn't a valid skill. It must start with frontmatter containing a name and description.,This file isn't a valid skill. It must start with frontmatter containing a name and description.
+Studio.Assistant.Skills.ImportEmptyBody,,,The file has no skill content below the frontmatter.,The file has no skill content below the frontmatter.
+Studio.Assistant.Skills.ImportReadFailed,,,Couldn't read that file. It may be too large.,Couldn't read that file. It may be too large.
+Studio.Assistant.Skills.ImportFailed,,,Couldn't import the skill. Please try again.,Couldn't import the skill. Please try again.
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -15671,6 +15739,15 @@ Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableTurning,,,Tu
 Studio.AvatarSettings.AnimationSettings.UserEmotesSection,,,Emotes,Emotes
 Studio.AvatarSettings.AnimationSettings.EnableEmotes,,,Enable Emotes,Enable Emotes
 Studio.AvatarSettings.AnimationSettings.EmotesDescription,,,Allow players to use emotes from their avatar.,Allow players to use emotes from their avatar.
+Studio.AvatarSettings.PlaceSettingsDialog.NoChangesDescription,,,None of your current changes can be set for a single place. Avatar type applies to your whole experience.,None of your current changes can be set for a single place. Avatar type applies to your whole experience.
+Studio.AvatarSettings.Publish.CreatePlaceSettings,,,Create Place Settings,Create Place Settings
+Studio.AvatarSettings.Publish.CreatePlaceSettingsTooltip,,,Copy experience settings to a place-specific override in PlaceAvatarRules,Copy experience settings to a place-specific override in PlaceAvatarRules
+Studio.AvatarSettings.Publish.CreatePlaceSettingsNoChangesTooltip,,,No changes to save to place settings,No changes to save to place settings
+Studio.AvatarSettings.PlaceSettingsDialog.ExistingTitle,,,Replace the existing place settings?,Replace the existing place settings?
+Studio.AvatarSettings.PlaceSettingsDialog.ExistingDescription,,,This place already has place settings. Replacing them discards the existing ones and rebuilds them from your current changes.,This place already has place settings. Replacing them discards the existing ones and rebuilds them from your current changes.
+Studio.AvatarSettings.PlaceSettingsDialog.ReplaceAction,,,Replace,Replace
+Studio.AvatarSettings.PlaceSettingsDialog.NoChangesTitle,,,No place settings to create,No place settings to create
+Studio.AvatarSettings.PlaceSettingsDialog.OkAction,,,OK,OK
 Studio.ExplorerLibrary.HistoryDropdown.TitleText,,,History,History
 Studio.ExplorerLibrary.SearchBar.PlaceholderText,,,Search,Search
 Studio.ExplorerLibrary.SearchBrowser.ResultCountSingular,,,1 match,1 match
@@ -16630,6 +16707,9 @@ Studio.SceneAnalysis.Tooltip.MeshTrianglesLabel,,,Mesh Tri: {value},Mesh Tri: {v
 Studio.SceneAnalysis.Studio.SceneAnalysis.Categories.SceneGeometry,,,Scene Geometry,Scene Geometry
 Studio.SceneAnalysis.ColumnHeaders.Change,,,Change,Change
 Studio.SceneAnalysis.Categories.SceneGeometry,,,Scene Geometry,Scene Geometry
+Studio.SceneAnalysis.DataModel.Edit,,,Edit,Edit
+Studio.SceneAnalysis.DataModel.Server,,,Server,Server
+Studio.SceneAnalysis.DataModel.ClientNumbered,,,Client {number},Client {number}
 Studio.DownloadPlaceCopy.PlaceFileDownloaded,,,Place file saved to: %1,Place file saved to: %1
 Studio.DownloadPlaceCopy.UnableToDownloadSaveFailed,,,Failed to download place file. Save failed.,Failed to download place file. Save failed.
 Studio.DownloadPlaceCopy.UnableToDownloadFetchContentUrlFailed,,,Failed to download place file. Couldn't fetch content URL.,Failed to download place file. Couldn't fetch content URL.
@@ -16930,6 +17010,9 @@ Studio.PublishPlace.AfterPublish.ViewCreatorHub,,,View on Creator Hub,View on Cr
 Studio.PublishPlace.AfterPublish.ViewQuestionnaire,,,View questionnaire,View questionnaire
 Studio.PublishPlace.AfterPublish.ViewQuestionnaireText,,,Changes published. Take the questionnaire to make your experience playable.,Changes published. Take the questionnaire to make your experience playable.
 Studio.PublishPlace.AfterPublish.ViewCreatorHubText,,,Changes published.,Changes published.
+Studio.PublishPlace.Button.GrantPermissionsAndPublish,,,Grant Permissions and Publish,Grant Permissions and Publish
+Studio.PublishPlace.Description.AssetPermissions,,,"This place uses assets that the destination experience does not have permission to use. These permissions must be granted for the assets to load in the destination experience, otherwise they will be missing after publishing. Publishing continues as soon as the permissions are granted.","This place uses assets that the destination experience does not have permission to use. These permissions must be granted for the assets to load in the destination experience, otherwise they will be missing after publishing. Publishing continues as soon as the permissions are granted."
+Studio.PublishPlace.Title.AssetPermissions,,,Some assets need permission to load,Some assets need permission to load
 Studio.ReactDevTools.Plugin.Name,,,React DevTools,React DevTools
 Studio.ReactDevTools.Plugin.Description,,,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.
 Studio.ReactDevTools.Plugin.Button,,,DevTools,DevTools
@@ -17265,6 +17348,8 @@ Studio.InputActionManager.Cell.None,,,None,None
 Studio.InputActionManager.Status.ModifierButtonTitle,,,Modifier Button,Modifier Button
 Studio.InputActionManager.Studio.ModifierButtonDescription,,,The primary modifier must be different from the binding's assigned UI button.,The primary modifier must be different from the binding's assigned UI button.
 Studio.InputActionManager.Status.ModifierButtonDescription,,,The primary modifier must be different from the binding's assigned UI button.,The primary modifier must be different from the binding's assigned UI button.
+Studio.InputActionManager.Menu.PrimaryModifier,,,Primary Modifier,Primary Modifier
+Studio.InputActionManager.Menu.SecondaryModifier,,,Secondary Modifier,Secondary Modifier
 Studio.AdPlacementManager.Label.AdPlacementManagerTitle,,,Ad Placement Manager,Ad Placement Manager
 Studio.AdPlacementManager.Label.AdPlacementManagerTooltip,,,View Ad Placement Manager,View Ad Placement Manager
 Studio.AdPlacementManager.Plugin.Description,,,Manage ad placements in your experience.,Manage ad placements in your experience.

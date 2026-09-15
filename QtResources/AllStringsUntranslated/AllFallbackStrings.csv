@@ -5708,6 +5708,13 @@ Studio.Auth.Studio.Login,The text for offering the user to login Studio using em
 Studio.Auth.Try.Again,The text for retrying launching Studio login,Try Again,Try Again
 Studio.Auth.VerifyUserIdMatchLocalCache.LoginError,"Error message that is shown when Studio fails to open due to credential mismatch, specifically when the cookie credential mismatch token credential",An error occurred while logging into Studio. Please close all other Studio instances and try again.,An error occurred while logging into Studio. Please close all other Studio instances and try again.
 Studio.Auth.WebLaunchCredentialMismatch.LoginError,"Error message that is shown when Studio fails to open due to credential mismatch, e.g. user launch Studio from the web but ended up using a different credential to login studio than the original one from the web",Studio failed to open due to mismatched credentials. Please login with the current web account when launching from the web.,Studio failed to open due to mismatched credentials. Please login with the current web account when launching from the web.
+Studio.AutoRecovery.FileFoundDialog.Body,The body for the dialog that appears when you open a place for which an auto save / auto recovery file exists (e.g. if Studio crashes and then you re-open the place),An automatic recovery file was found for this place. It may contain more recent work than what is currently open. Would you like to review it?,An automatic recovery file was found for this place. It may contain more recent work than what is currently open. Would you like to review it?
+Studio.AutoRecovery.FileFoundDialog.Ignore,Text for a dialog button that ignores an auto save / auto recovery file and closes the dialog,Ignore,Ignore
+Studio.AutoRecovery.FileFoundDialog.Review,Text for a dialog button that opens the related auto save / auto recovery file for the current place,Review,Review
+Studio.AutoRecovery.FileFoundDialog.Title,The title for the dialog that appears when you open a place for which an auto save / auto recovery file exists (e.g. if Studio crashes and then you re-open the place),Auto Recovery File Found,Auto Recovery File Found
+Studio.AutoRecovery.FileOpenedDialog.Body,The body for the dialog that appears when you open an auto save / auto recovery file,"This automatic recovery file may contain more recent work than the last save for this place. If this contains work you would like to keep, then save this session.","This automatic recovery file may contain more recent work than the last save for this place. If this contains work you would like to keep, then save this session."
+Studio.AutoRecovery.FileOpenedDialog.OK,The button to close the dialog that appears when you open an auto save / auto recovery file,OK,OK
+Studio.AutoRecovery.FileOpenedDialog.Title,The title for the dialog that appears when you open an auto save / auto recovery file,Auto Recovery File Opened,Auto Recovery File Opened
 Studio.AvatarSettings.AccessoriesSettings.AccessoryBehaviorsSection,Text for the Accessory Behaviors expandable section,Accessory Behaviors,Accessory Behaviors
 Studio.AvatarSettings.AccessoriesSettings.AccessoryBehaviorsSectionEnableSound,Label for the Enable Sound setting of Accessory Behaviors,Enable Sound,Enable Sound
 Studio.AvatarSettings.AccessoriesSettings.AccessoryBehaviorsSectionEnableVFX,Label for the Enable VFX setting of Accessory Behaviors,Enable VFX,Enable VFX
@@ -7380,7 +7387,23 @@ Studio.NativeDialog.TerminateBuiltInNoName,"The description given to users when 
 Studio.NativeDialog.TerminatePluginNoName,"The description given to users when we want to end a plugin that is taking too long to run. The user needs to know that stopping this plugin will not crash Studio, but will just kill that plugin. They will be able to continue working on their project and none of their work will get lost.","A plugin is taking too long to execute. Do you want to stop it and continue editing your place, or keep waiting?","A plugin is taking too long to execute. Do you want to stop it and continue editing your place, or keep waiting?"
 Studio.NativeDialog.TerminateUserPluginNoName,"The description given to users when we want to end a user plugin that is taking too long to run. The user needs to know that stopping this plugin will not crash Studio, but will just kill that plugin. They will be able to continue working on their project and none of their work will get lost.","A user plugin is taking too long to execute. Do you want to stop it and continue editing your place, or keep waiting a bit longer.","A user plugin is taking too long to execute. Do you want to stop it and continue editing your place, or keep waiting a bit longer."
 Studio.NativeDialog.Yes,Affirmative word,Yes,Yes
-Studio.NetworkSettings.Property.EnableNetworkEmulation,"When devs check this check box, it will enable functionality to mimic poor network conditions like packet loss and network latency",Enable Network Emulation,Enable Network Emulation
+Studio.NetworkSettings.Network.Name,Simulator name.,Network,Network
+Studio.NetworkSettings.NetworkControl.Inbound,Inbound section label.,Inbound,Inbound
+Studio.NetworkSettings.NetworkControl.Jitter,Jitter control label.,Jitter,Jitter
+Studio.NetworkSettings.NetworkControl.Latency,Latency control label.,Latency,Latency
+Studio.NetworkSettings.NetworkControl.Outbound,Outbound section label.,Outbound,Outbound
+Studio.NetworkSettings.NetworkControl.PacketLoss,Packet-loss control label.,Packet loss,Packet loss
+Studio.NetworkSettings.NetworkControl.Preset,Preset selector label.,Preset,Preset
+Studio.NetworkSettings.NetworkPreset.BadConnection,Network preset name.,Bad Connection (3G),Bad Connection (3G)
+Studio.NetworkSettings.NetworkPreset.HomeWifi,Network preset name.,Home Wi-Fi,Home Wi-Fi
+Studio.NetworkSettings.NetworkPreset.IdealFiber,Network preset name.,Ideal Fiber,Ideal Fiber
+Studio.NetworkSettings.NetworkPreset.StandardMobile,Network preset name.,Standard Mobile (4G/LTE),Standard Mobile (4G/LTE)
+Studio.NetworkSettings.NetworkPreset.WiredBroadband,Network preset name.,Wired Broadband,Wired Broadband
+Studio.NetworkSettings.NetworkType.Cellular3G,Network type label.,3G,3G
+Studio.NetworkSettings.NetworkType.Cellular4G,Network type label.,4G,4G
+Studio.NetworkSettings.NetworkType.Lan,Network type label.,LAN,LAN
+Studio.NetworkSettings.NetworkType.Wifi,Network type label.,Wifi,Wifi
+Studio.NetworkSettings.Property.EnableNetworkEmulation,"This is a check box which controls whether the latency, jitter, and packet loss settings below the box are applied to connections or not. The choice of ""simulation"" instead of ""emulation"" is deliberate.",Enable Network Simulation,Enable Network Simulation
 Studio.NetworkSettings.Property.InboundNetworkJitter,"This setting adds a random amount of delay to inbound (received) network packets, known as jitter. This delay is in addition to a fixed delay specified by InboundNetworkMinDelay. It accepts values between 0 and 1000, and the setting is in milliseconds.",Inbound Jitter (0-1000ms),Inbound Jitter (0-1000ms)
 Studio.NetworkSettings.Property.InboundNetworkMaxDelay,"This setting will add a delay to inbound (received) network packets. It is the maximum amount of delay, a separate setting will specify the minimum. It accepts values between 0 and 2000, and the setting is in milliseconds.",Max Inbound Delay (0-2000ms),Max Inbound Delay (0-2000ms)
 Studio.NetworkSettings.Property.InboundNetworkMinDelay,"This setting will add a delay to inbound (received) network packets. It is the minimum amount of delay, a separate setting will allow setting additional randomized delay (jitter).",Min Inbound Delay (0-1000ms),Min Inbound Delay (0-1000ms)
@@ -7494,7 +7517,9 @@ Studio.PublishPlace.AfterPublish.ViewQuestionnaire,Message to display after publ
 Studio.PublishPlace.AfterPublish.ViewQuestionnaireText,Message to display after publish in toast notification,Changes published. Take the questionnaire to make your experience playable.,Changes published. Take the questionnaire to make your experience playable.
 Studio.PublishPlace.Button.AudienceSettings,Button title to redirect to Audience Settings.,Manage audience,Manage audience
 Studio.PublishPlace.Button.Close,Button to close,Close,Close
+Studio.PublishPlace.Button.GrantPermissionsAndPublish,Button label on the pre-publish asset permissions dialog. Grants the destination experience permission to all affected assets and then continues publishing in one step.,Grant Permissions and Publish,Grant Permissions and Publish
 Studio.PublishPlace.Button.Manage,"Button to open a web page that displays user's ""eligibility""",Check eligibility,Check eligibility
+Studio.PublishPlace.Description.AssetPermissions,"Body text of the pre-publish dialog shown when the destination experience lacks permission to some assets in the place. States that permission must be granted for those assets to load in the destination experience, and that granting also continues the publish, so no separate confirmation dialog follows. Used only when the asset list is hidden; Studio.App.AssetPrivacyPublishDialog.NoPermissionsDescription is used when the list is shown.","This place uses assets that the destination experience does not have permission to use. These permissions must be granted for the assets to load in the destination experience, otherwise they will be missing after publishing. Publishing continues as soon as the permissions are granted.","This place uses assets that the destination experience does not have permission to use. These permissions must be granted for the assets to load in the destination experience, otherwise they will be missing after publishing. Publishing continues as soon as the permissions are granted."
 Studio.PublishPlace.Error.PublishEligibilityDescription,Shown when the user cannot publish their place due to eligibility checks.,Check your publishing eligibility in Creator Hub,Check your publishing eligibility in Creator Hub
 Studio.PublishPlace.Error.PublishEligibilityTitle,Shown when the user cannot publish their place to a universe,Can't publish place,Can't publish place
 Studio.PublishPlace.Error.SelectEligibilityDescription,Error dialog shown when publish is blocked to protect universe's select eligibility status.,"The experience has lost Select eligibility for new versions. Publishing now may significantly reduce reach. To publish without Select eligibility, configure your audience settings.","The experience has lost Select eligibility for new versions. Publishing now may significantly reduce reach. To publish without Select eligibility, configure your audience settings."
@@ -7513,6 +7538,7 @@ Studio.PublishPlace.Message.PlacePublished.GroupmembersAndPlaytesters,Message sh
 Studio.PublishPlace.Message.PlacePublished.Playtesters,Message in output window after publish showing who can play this version in Roblox in addition to Editors.,Place published. Playtesters can now play this place in Roblox.,Place published. Playtesters can now play this place in Roblox.
 Studio.PublishPlace.Message.PublishIneligible,Publish failed error in output window due to ineligibility of owner's account.,Publish failed. The account isn't eligible to publish experiences publicly. Review your account requirements and try again.,Publish failed. The account isn't eligible to publish experiences publicly. Review your account requirements and try again.
 Studio.PublishPlace.Message.QuickLinks,showing the next steps and useful links after the publish,Quick Links:,Quick Links:
+Studio.PublishPlace.Title.AssetPermissions,Title to the unsaved place permission dialog lettings users know that they need to grant permission to assets before publishing,Some assets need permission to load,Some assets need permission to load
 Studio.PublishPlace.Toast.AddNotes,Shown as a hyperlink on a toast after the user publish their game to Roblox,Add notes,Add notes
 Studio.PublishPlace.Toast.ChangesPublished,Shown on a toast after the game is published to Roblox,Changes published.,Changes published.
 Studio.PublishPlace.Toast.ManageExperience,Shown as a hyperlink to open the experience settings on creator hub to manage the who can play settings.,Manage experience,Manage experience
@@ -7853,6 +7879,7 @@ Studio.RobloxPropertiesWidget.Category.Networking,,Networking,Networking
 Studio.RobloxPropertiesWidget.Category.Orientation,,Orientation,Orientation
 Studio.RobloxPropertiesWidget.Category.Output,,Output,Output
 Studio.RobloxPropertiesWidget.Category.Part,,Part,Part
+Studio.RobloxPropertiesWidget.Category.ParticleEffects,A section containing new ParticleEmitter fields,Particle Effects,Particle Effects
 Studio.RobloxPropertiesWidget.Category.Particles,,Particles,Particles
 Studio.RobloxPropertiesWidget.Category.Parts,,Parts,Parts
 Studio.RobloxPropertiesWidget.Category.Performance,,Performance,Performance
@@ -7872,6 +7899,7 @@ Studio.RobloxPropertiesWidget.Category.Reflection,,Reflection,Reflection
 Studio.RobloxPropertiesWidget.Category.Regions,,Regions,Regions
 Studio.RobloxPropertiesWidget.Category.RenderingTest,,RenderingTest,RenderingTest
 Studio.RobloxPropertiesWidget.Category.Results,,Results,Results
+Studio.RobloxPropertiesWidget.Category.RewardedVideo,Rewarded Video,Rewarded Video,Rewarded Video
 Studio.RobloxPropertiesWidget.Category.Rod,,Rod,Rod
 Studio.RobloxPropertiesWidget.Category.Rope,,Rope,Rope
 Studio.RobloxPropertiesWidget.Category.Routing,,Routing,Routing
@@ -7894,6 +7922,7 @@ Studio.RobloxPropertiesWidget.Category.Spring,,Spring,Spring
 Studio.RobloxPropertiesWidget.Category.State,,State,State
 Studio.RobloxPropertiesWidget.Category.StateEditing,,State Editing,State Editing
 Studio.RobloxPropertiesWidget.Category.Streaming,,Streaming,Streaming
+Studio.RobloxPropertiesWidget.Category.SubsurfaceScattering,Subsurface Scattering,Subsurface Scattering,Subsurface Scattering
 Studio.RobloxPropertiesWidget.Category.Surface,,Surface,Surface
 Studio.RobloxPropertiesWidget.Category.SurfaceInputs,,Surface Inputs,Surface Inputs
 Studio.RobloxPropertiesWidget.Category.Tags,,Tags,Tags
@@ -7919,6 +7948,8 @@ Studio.RobloxPropertiesWidget.Category.Video,,Video,Video
 Studio.RobloxPropertiesWidget.Category.Visualization,,Visualization,Visualization
 Studio.RobloxPropertiesWidget.Category.Winch,,Winch,Winch
 Studio.RobloxPropertiesWidget.Color3Picker.HexLabel,,Hex:,Hex:
+Studio.RobloxPropertiesWidget.SelectCurrent,Merge-mode property dropdown item: apply the current branch (target) value.,Select current,Select current
+Studio.RobloxPropertiesWidget.SelectIncoming,Merge-mode property dropdown item: apply the incoming branch (source) value.,Select incoming,Select incoming
 Studio.RobloxPropertiesWidget.WorkspaceAuthorityModeDepProperty,Tooltip shown on properties who are forced to a value to support enabling Server Authority.,This property is required given your Server Authority settings.,This property is required given your Server Authority settings.
 Studio.SceneAnalysis.Categories.AnimationMemory,Title for a query that shows how much memory animations are using,Animation Memory,Animation Memory
 Studio.SceneAnalysis.Categories.AudioMemory,Title for a query that shows how much memory is being used by audio.,Audio Memory,Audio Memory
