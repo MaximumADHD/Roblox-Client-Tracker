@@ -1,0 +1,34 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["UI"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R0 R0 K4 ["Parent"]
+        9 GETIMPORT                        R1 K6 [require]
+       11 GETTABLEKS                       R2 R0 K7 ["Util"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R2 R1 K8 ["deepCopy"]
+       16 GETIMPORT                        R3 K6 [require]
+       18 GETTABLEKS                       R4 R0 K2 ["UI"]
+       20 GETTABLEKS                       R4 R4 K9 ["Components"]
+       22 GETTABLEKS                       R4 R4 K10 ["UIFolderData"]
+       24 CALL                             R3 1 1
+       25 GETIMPORT                        R4 K6 [require]
+       27 GETTABLEKS                       R5 R3 K11 ["Pane"]
+       29 GETTABLEKS                       R5 R5 K12 ["style"]
+       31 CALL                             R4 1 1
+       32 GETIMPORT                        R5 K6 [require]
+       34 GETTABLEKS                       R6 R0 K4 ["Parent"]
+       36 GETTABLEKS                       R6 R6 K13 ["Dash"]
+       38 CALL                             R5 1 1
+       39 GETTABLEKS                       R6 R5 K14 ["join"]
+       41 MOVE                             R7 R2
+       42 MOVE                             R8 R4
+       43 CALL                             R7 1 1
+       44 DUPTABLE                         R8 K19 [{["Padding"] = 2, ["RowHeight"] = 24}]
+       45 MOVE                             R9 R6
+       46 MOVE                             R10 R8
+       47 MOVE                             R11 R7
+       48 CALL                             R9 2 -1
+       49 RETURN                           R9 -1
