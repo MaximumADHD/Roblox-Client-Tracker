@@ -2212,6 +2212,85 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/NumberSequenceKeypoint#Value",
     "code_sample": ""
   },
+  "@roblox/global/InstanceHandle": {
+    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally.",
+    "keys": {
+      "new": "@roblox/global/InstanceHandle.new"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/InstanceHandle",
+    "code_sample": ""
+  },
+  "@roblox/global/InstanceHandle.new/param/0": {
+    "documentation": "The instance to refer to, or <code>nil</code> for an empty handle."
+  },
+  "@roblox/global/InstanceHandle.new": {
+    "documentation": "Returns a new <code>InstanceHandle</code> referring to the given <code>Instance</code>.",
+    "params": [
+      {
+        "name": "instance",
+        "documentation": "@roblox/global/InstanceHandle.new/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/InstanceHandle#new",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceHandle": {
+    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally.",
+    "keys": {
+      "Get": "@roblox/globaltype/InstanceHandle.Get",
+      "Wait": "@roblox/globaltype/InstanceHandle.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/InstanceHandle",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceHandle.Get/param/0": {
+    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally."
+  },
+  "@roblox/globaltype/InstanceHandle.Get/return/0": {
+    "documentation": "The referenced instance, or <code>nil</code> if it isn't available locally."
+  },
+  "@roblox/globaltype/InstanceHandle.Get": {
+    "documentation": "Returns the referenced <code>Instance</code> if it's available locally, otherwise <code>nil</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceHandle.Get/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceHandle.Get/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/InstanceHandle#Get",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceHandle.Wait/param/0": {
+    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally."
+  },
+  "@roblox/globaltype/InstanceHandle.Wait/param/1": {
+    "documentation": "How long to wait, in seconds. Must be greater than zero. Waits indefinitely when omitted."
+  },
+  "@roblox/globaltype/InstanceHandle.Wait/return/0": {
+    "documentation": "The referenced instance, or <code>nil</code> if the handle is empty, the target is inaccessible to the calling script, or <code>timeout</code> elapses first."
+  },
+  "@roblox/globaltype/InstanceHandle.Wait": {
+    "documentation": "Yields until the referenced <code>Instance</code> is available locally, then returns it.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceHandle.Wait/param/0"
+      },
+      {
+        "name": "timeout",
+        "documentation": "@roblox/globaltype/InstanceHandle.Wait/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceHandle.Wait/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/InstanceHandle#Wait",
+    "code_sample": ""
+  },
   "@roblox/global/Region3": {
     "documentation": "Describes a rectangular volume in 3D space.",
     "keys": {
@@ -6951,12 +7030,10 @@
       "Fail": "@roblox/globaltype/TestService.Fail",
       "isFeatureEnabled": "@roblox/globaltype/TestService.isFeatureEnabled",
       "Message": "@roblox/globaltype/TestService.Message",
-      "RegisterTest": "@roblox/globaltype/TestService.RegisterTest",
       "Require": "@roblox/globaltype/TestService.Require",
       "Run": "@roblox/globaltype/TestService.Run",
       "RunAsync": "@roblox/globaltype/TestService.RunAsync",
       "ScopeTime": "@roblox/globaltype/TestService.ScopeTime",
-      "TakeSnapshot": "@roblox/globaltype/TestService.TakeSnapshot",
       "Warn": "@roblox/globaltype/TestService.Warn"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService",
@@ -7256,33 +7333,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Message",
     "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Message(\"example\")"
   },
-  "@roblox/globaltype/TestService.RegisterTest/param/0": {
-    "documentation": "A service used by Roblox to run controlled tests of the engine. It is available for developers to use, to a limited degree."
-  },
-  "@roblox/globaltype/TestService.RegisterTest/param/1": {
-    "documentation": "A dictionary describing the test, requiring the string fields <code>SuiteName</code> and <code>TestCaseName</code> and optionally a numeric <code>Timeout</code> field."
-  },
-  "@roblox/globaltype/TestService.RegisterTest/return/0": {
-    "documentation": "The registered <code>TestCase</code>, or no value when registration isn't supported in the current context."
-  },
-  "@roblox/globaltype/TestService.RegisterTest": {
-    "documentation": "Registers a test case with the service and returns the resulting <code>TestCase</code>.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TestService.RegisterTest/param/0"
-      },
-      {
-        "name": "testOptions",
-        "documentation": "@roblox/globaltype/TestService.RegisterTest/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TestService.RegisterTest/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#RegisterTest",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TestService.Require/param/0": {
     "documentation": "A service used by Roblox to run controlled tests of the engine. It is available for developers to use, to a limited degree."
   },
@@ -7374,35 +7424,6 @@
       "@roblox/globaltype/TestService.ScopeTime/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ScopeTime",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/0": {
-    "documentation": "A service used by Roblox to run controlled tests of the engine. It is available for developers to use, to a limited degree."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
-    "documentation": "The name to associate with the captured snapshot."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/2": {
-    "documentation": "An optional script instance whose <code>Suite</code> and <code>TestName</code> attributes name the snapshot; defaults to <code>nil</code>."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot": {
-    "documentation": "Captures a named screenshot snapshot during a test run.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/0"
-      },
-      {
-        "name": "snapshotname",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/1"
-      },
-      {
-        "name": "source",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#TakeSnapshot",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Warn/param/0": {
@@ -56994,7 +57015,9 @@
     "keys": {
       "Color": "@roblox/globaltype/WrapTarget.Color",
       "DebugMode": "@roblox/globaltype/WrapTarget.DebugMode",
-      "Stiffness": "@roblox/globaltype/WrapTarget.Stiffness"
+      "Stiffness": "@roblox/globaltype/WrapTarget.Stiffness",
+      "CreateTextureInCageSpaceAsync": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync",
+      "CreateTextureInTargetSpaceAsync": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget",
     "code_sample": ""
@@ -57012,6 +57035,74 @@
   "@roblox/globaltype/WrapTarget.Stiffness": {
     "documentation": "<strong>Deprecated:</strong> <br>Defines how much the body mesh can be compressed by clothing.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#Stiffness",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/0": {
+    "documentation": "The WrapTarget object defines a target. A target is the 3D body with only an outer surface, or an Outer Cage."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/1": {
+    "documentation": "The <code>EditableImage</code> in the UV space of this <code>WrapTarget</code>'s parent <code>MeshPart</code>."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/2": {
+    "documentation": "Optional dictionary containing controls for the transfer: <ul> <li><code>MinUVBounds</code> – A <code>Vector2</code> specifying the minimum cage UV   bound.</li> <li><code>MaxUVBounds</code> – A <code>Vector2</code> specifying the maximum cage UV   bound.</li> </ul> Each omitted bound is calculated from the cage mesh. If neither is specified, the bounds include the entire cage."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/return/0": {
+    "documentation": "A new <code>EditableImage</code> in cage UV space, or <code>nil</code> if the device-specific editable memory budget is exhausted."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync": {
+    "documentation": "Creates a new <code>EditableImage</code> in cage UV space from a texture in the parent <code>MeshPart</code>'s UV space.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/0"
+      },
+      {
+        "name": "texture",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#CreateTextureInCageSpaceAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/0": {
+    "documentation": "The WrapTarget object defines a target. A target is the 3D body with only an outer surface, or an Outer Cage."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/1": {
+    "documentation": "The <code>EditableImage</code> in cage UV space."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/2": {
+    "documentation": "The <code>WrapTextureTransfer</code> associated with the same parent <code>MeshPart</code> as this <code>WrapTarget</code>."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/return/0": {
+    "documentation": "A new <code>EditableImage</code> in the parent <code>MeshPart</code>'s UV space, or <code>nil</code> if the device-specific editable memory budget is exhausted."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync": {
+    "documentation": "Creates a new <code>EditableImage</code> in the parent <code>MeshPart</code>'s UV space from a texture in cage UV space.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/0"
+      },
+      {
+        "name": "texture",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/1"
+      },
+      {
+        "name": "wrapTextureTransfer",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#CreateTextureInTargetSpaceAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/EchoSoundEffect": {
@@ -61456,6 +61547,7 @@
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
       "CreateDataModelContentAsync": "@roblox/globaltype/AssetService.CreateDataModelContentAsync",
+      "CreateDecalAsync": "@roblox/globaltype/AssetService.CreateDecalAsync",
       "CreateEditableImage": "@roblox/globaltype/AssetService.CreateEditableImage",
       "CreateEditableImageAsync": "@roblox/globaltype/AssetService.CreateEditableImageAsync",
       "CreateEditableMesh": "@roblox/globaltype/AssetService.CreateEditableMesh",
@@ -61635,6 +61727,33 @@
       "@roblox/globaltype/AssetService.CreateDataModelContentAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateDataModelContentAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/param/0": {
+    "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API."
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/param/1": {
+    "documentation": "Dictionary containing one or more of the following key-value pairs. Each value must be a <code>Content</code> object containing a <code>EditableImage</code>: <ul> <li><code>TextureContent</code> — The decal's color texture.</li> <li><code>NormalMapContent</code> — The decal's normal map.</li> <li><code>MetalnessMapContent</code> — The decal's metalness map.</li> <li><code>RoughnessMapContent</code> — The decal's roughness map.</li> </ul>"
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/return/0": {
+    "documentation": "A new <code>Decal</code> instance with the given maps from the <code>content</code> parameter."
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync": {
+    "documentation": "Creates a new <code>Decal</code> object using the provided <code>EditableImage</code> content maps.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.CreateDecalAsync/param/0"
+      },
+      {
+        "name": "content",
+        "documentation": "@roblox/globaltype/AssetService.CreateDecalAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.CreateDecalAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateDecalAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/0": {
@@ -82952,6 +83071,7 @@
       "GetUserSubscriptionDetailsAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync",
       "GetUserSubscriptionPaymentHistoryAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync",
       "GetUserSubscriptionStatusAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync",
+      "OpenShop": "@roblox/globaltype/MarketplaceService.OpenShop",
       "PlayerOwnsAsset": "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset",
       "PlayerOwnsAssetAsync": "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync",
       "PlayerOwnsBundle": "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle",
@@ -83285,6 +83405,28 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetUserSubscriptionStatusAsync",
     "code_sample": ""
+  },
+  "@roblox/globaltype/MarketplaceService.OpenShop/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.OpenShop/param/1": {
+    "documentation": "The <code>Player</code> for whom to open the shop. If called from a <code>LocalScript</code>, this must be the local player."
+  },
+  "@roblox/globaltype/MarketplaceService.OpenShop": {
+    "documentation": "Opens a personalized in-game Shop for the given player.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.OpenShop/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/MarketplaceService.OpenShop/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#OpenShop",
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nMarketplaceService:OpenShop(player)"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/0": {
     "documentation": "The service responsible for in-experience transactions."
@@ -106172,24 +106314,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VelocityConstraintMode",
     "code_sample": ""
   },
-  "@roblox/enum/Language.Default": {
-    "documentation": "Instructs the engine to use the player's system-determined locale for language resolution rather than a fixed override.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/Language#Default",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.Language": {
-    "documentation": "An enumeration embedded in <code>LocalizationService</code> that specifies a language context for localization operations; currently defines only <code>Default</code>.",
-    "keys": {
-      "Default": "@roblox/enum/Language.Default"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/Language",
-    "code_sample": ""
-  },
   "@roblox/enum/CustomCameraMode.Default": {
     "documentation": "The default camera mode is classic.",
     "keys": {
@@ -106399,6 +106523,16 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#SubtractNode",
     "code_sample": ""
   },
+  "@roblox/enum/AnimationNodeType.OneShotNode": {
+    "documentation": "A layering node that plays a one-shot pose over a looping base pose on trigger, blending it in and back out.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#OneShotNode",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.AnimationNodeType": {
     "documentation": "Specifies the type of an animation graph node, determining how it processes or combines animation data.",
     "keys": {
@@ -106415,7 +106549,8 @@
       "SelectNode": "@roblox/enum/AnimationNodeType.SelectNode",
       "SequenceNode": "@roblox/enum/AnimationNodeType.SequenceNode",
       "SpeedNode": "@roblox/enum/AnimationNodeType.SpeedNode",
-      "SubtractNode": "@roblox/enum/AnimationNodeType.SubtractNode"
+      "SubtractNode": "@roblox/enum/AnimationNodeType.SubtractNode",
+      "OneShotNode": "@roblox/enum/AnimationNodeType.OneShotNode"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType",
     "code_sample": ""
@@ -121692,6 +121827,46 @@
       "Enabled": "@roblox/enum/AntiAliasing.Enabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AntiAliasing",
+    "code_sample": ""
+  },
+  "@roblox/enum/AnimationNodeBlendMode.Over": {
+    "documentation": "Composites the one-shot pose on top of the base pose, replacing it by the current blend weight.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeBlendMode#Over",
+    "code_sample": ""
+  },
+  "@roblox/enum/AnimationNodeBlendMode.Add": {
+    "documentation": "Adds the one-shot pose to the base pose as an additive layer scaled by the current blend weight.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeBlendMode#Add",
+    "code_sample": ""
+  },
+  "@roblox/enum/AnimationNodeBlendMode.Subtract": {
+    "documentation": "Subtracts the one-shot pose from the base pose scaled by the current blend weight.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeBlendMode#Subtract",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.AnimationNodeBlendMode": {
+    "documentation": "Specifies how an <code>AnimationNodeType.OneShotNode</code> combines its one-shot pose with its base pose.",
+    "keys": {
+      "Over": "@roblox/enum/AnimationNodeBlendMode.Over",
+      "Add": "@roblox/enum/AnimationNodeBlendMode.Add",
+      "Subtract": "@roblox/enum/AnimationNodeBlendMode.Subtract"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeBlendMode",
     "code_sample": ""
   },
   "@roblox/enum/WebStreamClientType.SSE": {
