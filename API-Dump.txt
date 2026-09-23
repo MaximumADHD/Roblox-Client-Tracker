@@ -42,12 +42,12 @@ Class EditableImage : Object [NotCreatable]
 	Function EditableImage:Destroy() -> () {🚧DynamicGeneration}
 	Function EditableImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number, combineType: Enum.ImageCombineType, antiAliasing: Enum.AntiAliasing? = "Enabled") -> () {🚧DynamicGeneration}
 	Function EditableImage:DrawImage(position: Vector2, image: EditableImage, combineType: Enum.ImageCombineType) -> () {🚧DynamicGeneration}
-	Function EditableImage:DrawImageProjected(mesh: EditableMesh, projection: { [string]: any }, brushConfig: { [string]: any }) -> () {🚧DynamicGeneration}
+	Function EditableImage:DrawImageProjected(projectionSource: Object, projection: { [string]: any }, brushConfig: { [string]: any }) -> () {🚧DynamicGeneration}
 	Function EditableImage:DrawImageTransformed(position: Vector2, scale: Vector2, rotation: number, image: EditableImage, options: { [string]: any }?) -> () {🚧DynamicGeneration}
 	Function EditableImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType, antiAliasing: Enum.AntiAliasing? = "Enabled") -> () {🚧DynamicGeneration}
 	Function EditableImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> () {🚧DynamicGeneration}
 	Function EditableImage:ReadPixelsBuffer(position: Vector2, size: Vector2) -> buffer [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
-	Function EditableImage:SampleImageProjected(sourceMesh: EditableMesh, sourceTexture: EditableImage, projectionConfig: { [string]: any }, brushConfig: { [string]: any }) -> () {🚧DynamicGeneration}
+	Function EditableImage:SampleImageProjected(projectionSource: Object, sourceTexture: EditableImage, projectionConfig: { [string]: any }, brushConfig: { [string]: any }) -> () {🚧DynamicGeneration}
 	Function EditableImage:WritePixelsBuffer(position: Vector2, size: Vector2, buffer: buffer) -> () [CustomLuaState] {🚧DynamicGeneration}
 	Function EditableImage:DrawTriangle(p1: Vector2, p2: Vector2, p3: Vector2, color: Color3, transparency: number) -> () {🚧DynamicGeneration} {🔒RobloxScript}
 Class EditableMesh : Object [NotCreatable]
@@ -682,6 +682,7 @@ Class AssetPatchSettings : Instance [NotCreatable] [NotReplicated]
 Class AssetQualityService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function AssetQualityService:FetchAssetQualitySummaryFromGltfAsync(gltfData: string, desiredQualityChecks: { any }) -> { [string]: any } [Yields] {🔒RobloxScript}
 	Function AssetQualityService:FetchAssetQualitySummaryFromJobIdAsync(jobId: string, desiredQualityChecks: { any }) -> { [string]: any } [Yields] {🔒RobloxScript}
+	Function AssetQualityService:FetchAssetQualitySummaryFromJobIdV2Async(jobId: string, desiredQualityChecks: { any }) -> { [string]: any } [Yields] {🔒RobloxScript}
 	Function AssetQualityService:FetchAssetQualityValidationEntriesFromModelsAsync(models: { any }, assetTypeIds: { any }, settings: { [string]: any }) -> { [string]: any } [Yields] {🔒RobloxScript}
 	Function AssetQualityService:FetchAssetQualityValidationRawFromModelsAsync(models: { any }, assetTypeIds: { any }, settings: { [string]: any }) -> { [string]: any } [Yields] {🔒RobloxScript}
 	Function AssetQualityService:FetchAssetQualityVisualizationDataFromUrlAsync(visualizationUrl: string) -> { [string]: any } [Yields] {🔒RobloxScript}
@@ -1042,6 +1043,7 @@ Class AudioSpeechToText : Instance
 	Function AudioSpeechToText:GetOutputPins() -> { any } {🚧Audio}
 	Event AudioSpeechToText.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance) {🚧Audio}
 Class AudioTextToSpeech : Instance
+	Property AudioTextToSpeech.AutoLocalize: boolean {🚧Audio}
 	Property AudioTextToSpeech.IsLoaded: boolean [ReadOnly] {🚧Audio}
 	Property AudioTextToSpeech.Pitch: number {🚧Audio}
 	Property AudioTextToSpeech.Speed: number {🚧Audio}
@@ -1813,7 +1815,9 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:SaveScreenshotCapture(additionalInfo: string? = "") -> () {🚧Capture} {🔒RobloxScript}
 	Function CaptureService:SaveVideoCaptureToExternalStorage(videoCapture: VideoCapture) -> () {🚧Capture} {🔒RobloxScript}
 	Function CaptureService:StartUploadCaptureForSupportTicketAsync(capture: Capture) -> ...any [Yields] {🚧Capture} {🔒RobloxScript}
+	Function CaptureService:StartVideoCaptureForMCPAsync(onCaptureReady: (...any) -> ...any) -> Enum.VideoCaptureStartedResult [Yields] {🚧Capture} {🔒RobloxScript}
 	Function CaptureService:StartVideoCaptureInternalAsync() -> Enum.VideoCaptureStartedResult [Yields] {🚧Capture} {🔒RobloxScript}
+	Function CaptureService:StopVideoCaptureForMCP() -> () {🚧Capture} {🔒RobloxScript}
 	Function CaptureService:StopVideoCaptureInternal() -> () {🚧Capture} {🔒RobloxScript}
 	Function CaptureService:UploadCaptureAndPostMoment(capture: Capture, momentMetadata: { [string]: any }? = nil, feedRegistrationInfo: { [string]: any }? = nil) -> () {🚧Capture} {🔒RobloxScript}
 	Function CaptureService:UploadPostAsync(capture: Capture, postMetadata: { [string]: any }? = nil) -> { [string]: any } [Yields] {🚧Capture} {🔒RobloxScript}
@@ -4284,6 +4288,7 @@ Class InputAction : Instance
 	Property InputAction.Enabled: boolean {🚧Input} {🚀SimAccess}
 	Property InputAction.Type: Enum.InputActionType {🚧Input} {🚀SimAccess}
 	Property InputAction.PreferredBinding: InputBinding? [ReadOnly] {🚧Input}
+	Property InputAction.DisplayName: string {🚧Input} {🚀SimAccess}
 	Property InputAction.BoolState: boolean [ReadOnly] [NotScriptable] {🚧Input} {🔒RobloxScript}
 	Property InputAction.Direction1DState: number [ReadOnly] [NotScriptable] {🚧Input} {🔒RobloxScript}
 	Property InputAction.Direction2DState: Vector2 [ReadOnly] [NotScriptable] {🚧Input} {🔒RobloxScript}
@@ -4472,9 +4477,9 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Property Lighting.EnvironmentSpecularScale: number {🚧Environment}
 	Property Lighting.ExtendLightRangeTo120: Enum.RolloutState [NotScriptable] {🚧Environment}
 	Property Lighting.GlobalShadows: boolean {🚧Environment}
-	Property Lighting.LightingStyle: Enum.LightingStyle {🚧Environment} {✏️RobloxScript}
+	Property Lighting.LightingStyle: Enum.LightingStyle {🚧🔎Environment} {🚧✏️PluginOrOpenCloud}
 	Property Lighting.OutdoorAmbient: Color3 {🚧Environment}
-	Property Lighting.PrioritizeLightingQuality: boolean {🚧Environment} {✏️RobloxScript}
+	Property Lighting.PrioritizeLightingQuality: boolean {🚧🔎Environment} {🚧✏️PluginOrOpenCloud}
 	Property Lighting.ShadowSoftness: number {🚧Environment}
 	Property Lighting.ClockTime: number [NotReplicated] {🚧Environment} [📁LoadOnly]
 	Property Lighting.GeographicLatitude: number {🚧Environment}
@@ -4550,9 +4555,9 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function LocalizationService:GetCountryRegionForPlayerAsync(player: Instance) -> string [Yields] {🚧Basic}
 	Function LocalizationService:GetTableEntries(instance: Instance? = nil) -> { any } {🚧Basic}
 	Function LocalizationService:GetTranslatorForLocaleAsync(locale: string) -> Instance? [Yields] {🚧Basic}
-	Function LocalizationService:GetTranslatorForPlayer(player: Instance) -> Instance? {🚧Basic}
 	Function LocalizationService:GetTranslatorForPlayerAsync(player: Instance) -> Instance? [Yields] {🚧Basic}
 	Function LocalizationService:GetIsLoadingInternalTranslations() -> boolean {🚧Basic} {🔒RobloxScript}
+	Function LocalizationService:GetTranslatorForPlayer(player: Instance) -> Instance? [Deprecated] {🚧Basic}
 	Function LocalizationService:IsLoadingInternalTranslationsSettingChanged(newIsLoadingInternalTranslations: boolean) -> () {🚧Basic} {🔒RobloxScript}
 	Function LocalizationService:PromptDownloadGameTableToCSV(table: Instance) -> () [Yields] {🚧Basic} {🔒RobloxScript}
 	Function LocalizationService:PromptExportToCSVs() -> () [Yields] {🚧Basic} {🔒RobloxScript}
@@ -4752,6 +4757,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:PromptNativePurchaseWithPaymentSessionId(player: Instance, productId: string, paymentSessionId: string) -> () {🔒RobloxScript}
 	Function MarketplaceService:PromptPremiumPurchase(player: Instance) -> () [Deprecated] {🚧PromptExternalPurchase}
 	Function MarketplaceService:PromptRobloxPurchase(assetId: number, equipIfPurchased: boolean) -> () {🔒RobloxScript}
+	Function MarketplaceService:RefreshBulkPurchase(batchPurchaseAuthToken: string, options: { [string]: any }? = nil) -> () {🔒RobloxScript}
 	Function MarketplaceService:ReportAssetSale(assetId: string, robuxAmount: number) -> () {🔒RobloxScript}
 	Function MarketplaceService:ReportRobuxUpsellStarted() -> () {🔒RobloxScript}
 	Function MarketplaceService:SignalAssetTypePurchased(player: Instance, assetType: Enum.AssetType) -> () {🔒RobloxScript}
@@ -4795,6 +4801,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.NativePurchaseFinishedWithLocalPlayerV2(productId: string, wasPurchased: boolean, checkoutSessionId: string) {🔒RobloxScript}
 	Event MarketplaceService.OpenShopRequested(player: Player) {🔒RobloxScript}
 	Event MarketplaceService.PrepareCollectiblesPurchaseRequested(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number) {🔒RobloxScript}
+	Event MarketplaceService.PromptBulkPurchaseRefreshed(player: Instance, status: Enum.MarketplaceBulkPurchasePromptStatus, response: { [string]: any }) {🔒RobloxScript}
 	Event MarketplaceService.PromptBulkPurchaseRequested(player: Instance, displayData: { any }, orderRequest: { [string]: any }, purchaserRobuxBalance: number, orderTotalRobux: number, options: { [string]: any }) {🔒RobloxScript}
 	Event MarketplaceService.PromptBulkPurchaseRequestedV2(player: Instance, displayData: { any }, orderRequest: { [string]: any }, purchaserRobuxBalance: number, orderTotalRobux: number, options: { [string]: any }, discountInformation: { [string]: any }) {🔒RobloxScript}
 	Event MarketplaceService.PromptBundlePurchaseRequested(player: Instance, bundleId: number) {🔒RobloxScript}
@@ -4816,6 +4823,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.PromptRobuxTransferSubscriptionUpsellRequested() {🔒RobloxScript}
 	Event MarketplaceService.PromptSubscriptionPurchaseRequested(subscriptionId: string) {🔒RobloxScript}
 	Event MarketplaceService.PromptThirdPartyPurchaseRequested(player: Instance, productId: string) [Hidden] {🔒RobloxEngine}
+	Event MarketplaceService.RefreshBulkPurchaseRequested(playerId: number, batchPurchaseAuthToken: string, options: { [string]: any }) {🔒RobloxScript}
 	Event MarketplaceService.RobuxTransferCompleted(userId: number) {🔒RobloxScript}
 	Event MarketplaceService.ServerPurchaseVerification(serverResponseTable: { [string]: any }) {🔒RobloxScript}
 	Event MarketplaceService.UserSubscriptionStatusChanged(subscriptionId: string) {🔒RobloxScript}
@@ -5004,6 +5012,7 @@ Class ModerationService : Instance [NotCreatable] [Service] [NotReplicated]
 Class MomentsService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Function MomentsService:CheckMomentTextStatusAsync(token: string) -> ...any [Yields] {🚧Capture} {🔒RobloxScript}
 	Function MomentsService:CreatePostAsync(postRequest: { [string]: any }) -> { [string]: any } [Yields] {🚧Capture} {🔒RobloxScript}
+	Function MomentsService:FetchPostAsync(assetId: number) -> buffer [Yields] {🚧Capture} {🔒RobloxScript}
 	Function MomentsService:GenerateMomentTextAsync(capture: Capture, tone: string? = "") -> ...any [Yields] {🚧Capture} {🔒RobloxScript}
 Class Mouse : Instance [NotCreatable]
 	Property Mouse.Hit: CFrame [ReadOnly] {🚧Input}
@@ -5371,8 +5380,8 @@ Class Terrain : BasePart [NotCreatable]
 	Function Terrain:SmoothRegionMaterialSlots(region: Region3, resolution: number, strength: number) -> ...any [CustomLuaState] {🚧Environment} {🔒RobloxScript} {🧬Safe}
 	Event Terrain.GridBackendReloadRequired(wouldUseNewGrid: boolean) {🚧Environment} {🔒RobloxScript}
 Class TriangleMeshPart : BasePart [NotCreatable] [NotBrowsable]
-	Property TriangleMeshPart.FluidFidelity: Enum.FluidFidelity [NotReplicated] {🚧Basic} {✏️Plugin} [📁LoadOnly]
-	Property TriangleMeshPart.CollisionFidelity: Enum.CollisionFidelity [NotReplicated] {🚧Basic} {✏️Plugin} [📁LoadOnly]
+	Property TriangleMeshPart.FluidFidelity: Enum.FluidFidelity [NotReplicated] {🚧🔎Basic} {🚧✏️PluginOrOpenCloud} [📁LoadOnly]
+	Property TriangleMeshPart.CollisionFidelity: Enum.CollisionFidelity [NotReplicated] {🚧🔎Basic} {🚧✏️PluginOrOpenCloud} [📁LoadOnly]
 	Property TriangleMeshPart.CollisionPrecision: number [NotReplicated] {🚧Basic} {✏️Plugin} [📁LoadOnly]
 	Property TriangleMeshPart.MeshSize: Vector3 [ReadOnly] {🚧Basic}
 	Property TriangleMeshPart.FluidFidelityInternal: Enum.FluidFidelity [Hidden] [NotScriptable] {🚧Basic} {🔒RobloxEngine}
@@ -5404,8 +5413,8 @@ Class MeshPart : TriangleMeshPart
 	Property MeshPart.AlternateMeshHash: number [Hidden] [ReadOnly] [NotScriptable] {🚧Basic} {🔒RobloxEngine}
 	Function MeshPart:ApplyMesh(meshPart: Instance) -> () {🚧Basic}
 Class PartOperation : TriangleMeshPart
-	Property PartOperation.RenderFidelity: Enum.RenderFidelity {🚧Basic + CSG} {✏️Plugin}
-	Property PartOperation.SmoothingAngle: number {🚧Basic + CSG} {✏️Plugin}
+	Property PartOperation.RenderFidelity: Enum.RenderFidelity {🚧🔎Basic + CSG} {🚧✏️PluginOrOpenCloud}
+	Property PartOperation.SmoothingAngle: number {🚧🔎Basic + CSG} {🚧✏️PluginOrOpenCloud}
 	Property PartOperation.TriangleCount: number {🚧Basic + CSG} {✏️RobloxEngine}
 	Property PartOperation.UsePartColor: boolean {🚧Basic + CSG}
 	Property PartOperation.AssetId: string [Hidden] [NotScriptable] {🚧Basic + CSG} {🔒RobloxEngine}
@@ -5570,7 +5579,7 @@ Class WorldRoot : Model [NotCreatable]
 	Property WorldRoot.CollisionGroupData: BinaryString [Hidden] [NotScriptable] {🔒RobloxEngine}
 	Property WorldRoot.GravityDirection: Vector3 [Hidden] {🔒RobloxEngine} {🚀SimAccess}
 	Property WorldRoot.SimulationRate: number [Hidden] {🔒RobloxEngine}
-	Property WorldRoot.PhysicsStepTime: number [Hidden] [NotReplicated] {🔒RobloxScript}
+	Property WorldRoot.PhysicsStepTime: number [Hidden] [ReadOnly] {🔒RobloxScript}
 	Function WorldRoot:ArePartsTouchingOthers(partList: { Instance }, overlapIgnored: number? = 0.000199999995) -> boolean {🚀SimAccess}
 	Function WorldRoot:Blockcast(cframe: CFrame, size: Vector3, direction: Vector3, params: RaycastParams?) -> RaycastResult? {🧬Safe} {🚀SimAccess}
 	Function WorldRoot:BulkMoveTo(partList: { Instance }, cframeList: { any }, eventMode: Enum.BulkMoveMode? = "FireAllEvents") -> () {🚀SimAccess}
@@ -5670,6 +5679,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.TerrainWeldsFixed: boolean [Hidden] [NotScriptable]
 	Property Workspace.ThrottleLevel: number [Hidden] [NotScriptable] {🔒RobloxEngine}
 	Property Workspace.WatermarkHash: string [Hidden] [NotScriptable] {🔒RobloxEngine}
+	Property Workspace.StreamingEnabledStorage: boolean [Hidden] [NotReplicated] [NotScriptable] {🔒RobloxEngine}
 	Property Workspace.AuthorityMode: Enum.AuthorityMode {🔒RobloxScript}
 	Property Workspace.NextGenerationReplicationAlias: Enum.RolloutState [NotReplicated] [NotScriptable] {🔒RobloxEngine}
 	Property Workspace.PlayerScriptsUseInputActionSystemAlias: Enum.RolloutState [NotReplicated] [NotScriptable] {🔒RobloxEngine}
@@ -5868,6 +5878,7 @@ Class PausedStateException : PausedState {🔒RobloxScript} [NotCreatable] [NotR
 	Property PausedStateException.ExceptionText: string [Hidden] [ReadOnly] {🔒RobloxScript}
 Class PerformanceControlService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function PerformanceControlService:IsCrossExperienceLaunchFeasible(type: string) -> boolean {🔒RobloxScript}
+	Function PerformanceControlService:SetUserActivity(state: Enum.ScrollState) -> () {🔒RobloxScript}
 Class PermissionsService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Function PermissionsService:GetIsThirdPartyAssetAllowed() -> boolean {🔒RobloxScript}
 	Function PermissionsService:GetIsThirdPartyPurchaseAllowed() -> boolean {🔒RobloxScript}
@@ -6350,9 +6361,10 @@ Class Plugin : Instance [NotCreatable]
 	Function Plugin:Union(objects: { Instance }) -> Instance? {🔒Plugin}
 	Function Plugin:CreateDockWidgetPluginGui(pluginGuiId: string, dockWidgetPluginGuiInfo: DockWidgetPluginGuiInfo) -> DockWidgetPluginGui [Yields] [Deprecated] {🔒Plugin}
 	Function Plugin:CreateQWidgetPluginGui(pluginGuiId: string, pluginGuiOptions: { [string]: any }) -> QWidgetPluginGui [Yields] {🔒RobloxScript}
-	Function Plugin:FinishFullLoading() -> () {🔒RobloxScript}
+	Function Plugin:FinishFullLoading(payload: any) -> () [CustomLuaState] {🔒RobloxScript}
 	Function Plugin:GetItem(key: string, defaultValue: any) -> any {🔒RobloxScript}
 	Function Plugin:GetPluginComponent(name: string) -> any [CustomLuaState] {🔒RobloxScript}
+	Function Plugin:GetPreinitPayload() -> any [CustomLuaState] {🔒RobloxScript}
 	Function Plugin:GetStudioUserId() -> number [Deprecated] {🔒Plugin}
 	Function Plugin:GetUri() -> { [string]: any } {🔒RobloxScript}
 	Function Plugin:ImportFbxAnimation(rigModel: Instance, isR15: boolean? = true) -> Instance? [Yields] [Deprecated] {🔒Plugin}
@@ -7224,7 +7236,6 @@ Class SmoothVoxelsUpgraderService : Instance {🔒RobloxScript} [NotCreatable] [
 	Function SmoothVoxelsUpgraderService:Cancel() -> () {🔒RobloxScript}
 	Function SmoothVoxelsUpgraderService:Start() -> () {🔒RobloxScript}
 	Event SmoothVoxelsUpgraderService.Status(progressRatio: number) {🔒RobloxScript}
-Class SnippetService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SocialService:CanSendCallInviteAsync(player: Instance) -> boolean [Yields] {🚧Social}
 	Function SocialService:CanSendGameInviteAsync(player: Instance, recipientId: User?) -> boolean [Yields] {🚧Social}
@@ -8080,8 +8091,10 @@ Class TeleportAsyncResult : Instance [NotCreatable]
 	Property TeleportAsyncResult.ReservedServerAccessCode: string [ReadOnly] {🚧Teleport}
 Class TeleportOptions : Instance
 	Property TeleportOptions.ReservedServerAccessCode: string {🚧Teleport}
+	Property TeleportOptions.ReservedServerId: string {🚧Teleport}
 	Property TeleportOptions.ServerInstanceId: string {🚧Teleport}
 	Property TeleportOptions.ShouldReserveServer: boolean {🚧Teleport}
+	Property TeleportOptions.VipServerId: string {🚧Teleport}
 	Function TeleportOptions:GetTeleportData() -> any {🚧Teleport}
 	Function TeleportOptions:SetTeleportData(teleportData: any) -> () {🚧Teleport}
 Class TeleportService : Instance [NotCreatable] [Service]
@@ -8103,6 +8116,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function TeleportService:TeleportCancel() -> () {🚧Teleport} {🔒RobloxScript}
 	Function TeleportService:TeleportPartyAsync(placeId: number, players: { Instance }, teleportData: any, customLoadingScreen: Instance? = nil) -> string [Yields] [Deprecated] {🚧Teleport + UI}
 	Function TeleportService:TeleportReconnect() -> () {🚧Teleport} {🔒RobloxScript}
+	Function TeleportService:TeleportSwitchServer() -> () {🚧Teleport} {🔒RobloxScript}
 	Function TeleportService:TeleportToPlaceInstance(placeId: number, instanceId: string, player: Instance? = nil, spawnName: string? = "", teleportData: any, customLoadingScreen: Instance? = nil) -> () [Deprecated] {🚧Teleport + UI}
 	Function TeleportService:TeleportToPrivateServer(placeId: number, reservedServerAccessCode: string, players: { Instance }, spawnName: string? = "", teleportData: any, customLoadingScreen: Instance? = nil) -> () [Deprecated] {🚧Teleport + UI}
 	Function TeleportService:TeleportToSpawnByName(placeId: number, spawnName: string, player: Instance? = nil, teleportData: any, customLoadingScreen: Instance? = nil) -> () [Deprecated] {🚧Teleport + UI}
@@ -9316,6 +9330,7 @@ Class WrapTextureTransfer : Instance
 	Property WrapTextureTransfer.ReferenceCageMeshContent: Content {🚧AvatarAppearance}
 	Property WrapTextureTransfer.UVMaxBound: Vector2 {🚧AvatarAppearance}
 	Property WrapTextureTransfer.UVMinBound: Vector2 {🚧AvatarAppearance}
+	Function WrapTextureTransfer:PrepareProjectionMeshDataAsync() -> () [Yields] {🚧AvatarAppearance + DynamicGeneration}
 Class Logger : Object [NotCreatable] [NotReplicated]
 	Property Logger.FullPath: string [ReadOnly] {🚧Logging}
 	Property Logger.Name: string [ReadOnly] {🚧Logging}
@@ -11574,8 +11589,6 @@ Enum KeywordFilterType
 	EnumItem KeywordFilterType.Exclude : 1
 Enum KnownWindow
 	EnumItem KnownWindow.Main : 0
-Enum Language
-	EnumItem Language.Default : 0
 Enum LeftRight
 	EnumItem LeftRight.Left : 0
 	EnumItem LeftRight.Center : 1
@@ -13096,6 +13109,7 @@ Enum TeleportMethod
 	EnumItem TeleportMethod.TeleportToInstanceBack : 5
 	EnumItem TeleportMethod.TeleportUnknown : 6
 	EnumItem TeleportMethod.Teleport : 7
+	EnumItem TeleportMethod.TeleportSwitchServer : 8
 Enum TeleportResult
 	EnumItem TeleportResult.Success : 0
 	EnumItem TeleportResult.Failure : 1

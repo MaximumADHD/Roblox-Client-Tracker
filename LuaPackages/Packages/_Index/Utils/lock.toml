@@ -5,6 +5,6 @@ source = "registry"
 dependencies = [
     "GraphQL GraphQL 15.6.3 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "LuauRegExp RegExp 0.2.2 registry",
+    "LuauRegExp <patched> RegExp 0.3.0 registry",
     "Promise Promise 3.5.1 registry",
 ]

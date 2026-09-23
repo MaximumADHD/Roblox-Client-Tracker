@@ -39,6 +39,25 @@ local function FormSlider()
 end
 ```
 
+Use `SliderType.Range` with a `NumberRange` binding to select an interval. Range sliders support pointer interaction; directional input does not adjust their values.
+
+```luau
+local Foundation = require(Packages.Foundation)
+local Slider = Foundation.Slider
+local SliderType = Foundation.Enums.SliderType
+
+local function PriceRange()
+	local value, setValue = React.useBinding(NumberRange.new(25, 75))
+
+	return React.createElement(Slider, {
+		type = SliderType.Range,
+		value = value,
+		onValueChanged = setValue,
+		range = NumberRange.new(0, 100),
+	})
+end
+```
+
 A more complex example would be a media timeline that progresses independently and allows the user to scrub along it to skip to where they want in the media's playback.
 
 ```luau

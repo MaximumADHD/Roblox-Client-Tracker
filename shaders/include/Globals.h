@@ -34,7 +34,7 @@ struct Globals
     vec2 invViewportWH;
     vec2 viewportScale;
     float debugAuthLodMode;
-    float padding;
+    float shadowCameraRelative;
     float hqDist;
     float localLightDist;
     float sunDist;

@@ -5,13 +5,13 @@ registry_index = "https://apis.simulprod.com/rotriever-registry"
 
 [[package]]
 name = "ApolloClient"
-version = "0.3.12"
+version = "0.3.13"
 source = "registry"
 dependencies = [
     "GraphQL GraphQL 15.6.3 registry",
     "GraphQLTag GraphqlTag 2.12.9 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "LuauRegExp RegExp 0.2.2 registry",
+    "LuauRegExp <patched> RegExp 0.3.0 registry",
     "Promise Promise 3.5.1 registry",
     "React React 17.3.8 registry",
     "RobloxRequests RobloxRequests 0.1.0 registry",
@@ -23,13 +23,13 @@ name = "ApolloClientTesting"
 version = "0.3.10"
 source = "registry"
 dependencies = [
-    "ApolloClient ApolloClient 0.3.12 registry",
+    "ApolloClient ApolloClient 0.3.13 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphQLTag GraphqlTag 2.12.9 registry",
     "Jest Jest 3.19.0 registry",
     "JestGlobals JestGlobals 3.19.0 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "LuauRegExp RegExp 0.2.2 registry",
+    "LuauRegExp <patched> RegExp 0.3.0 registry",
     "Promise Promise 3.5.1 registry",
     "React React 17.3.8 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.3.4 registry",
@@ -92,7 +92,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 name = "CorePackages"
 version = "0.1.0"
 dependencies = [
-    "ApolloClient ApolloClient 0.3.12 registry",
+    "ApolloClient ApolloClient 0.3.13 registry",
     "ApolloClientTesting ApolloClientTesting 0.3.10 registry",
     "AvatarExperienceDeps AvatarExperienceDeps 0.0.1 registry",
     "BuilderIcons BuilderIcons 0.1.40 registry",
@@ -103,7 +103,7 @@ dependencies = [
     "EmojiList EmojiList 1.0.0 registry",
     "FitFrame RoactFitComponents 2.0.1 registry",
     "FocusBehaviors FocusBehaviors 2.1.0 registry",
-    "Foundation Foundation 1.109.0 registry",
+    "Foundation Foundation 1.111.0 registry",
     "FoundationCloudAssets FoundationCloudAssets 0.5.0 registry",
     "FoundationImages FoundationImages 2.5.0 registry",
     "FoundationTestingLibrary FoundationTestingLibrary 0.1.5 registry",
@@ -151,7 +151,7 @@ dependencies = [
     "ReactTestingUtils ReactTestingUtils 1.3.1 registry",
     "ReactUtils ReactUtils 1.13.1 registry",
     "RecordPlayback RecordPlayback 0.1.1 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
     "Resources Resources 0.6.0 registry",
     "Result lua-result 0.1.0 registry",
     "Rhodium Rhodium 0.5.0 registry",
@@ -168,7 +168,7 @@ dependencies = [
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "RoduxUsers RoduxUsers 1.6.0 registry",
     "Scheduler Scheduler 17.3.10 registry",
-    "ServiceContractsProto ServiceContractsProto 1.0.2549+20260910 registry",
+    "ServiceContractsProto ServiceContractsProto 1.0.2626+20260917 registry",
     "Signal Signal 1.0.0 registry",
     "Signals Signals 0.6.0 registry",
     "SignalsExperimental SignalsExperimental 0.6.0 registry",
@@ -176,7 +176,7 @@ dependencies = [
     "StringUtilities string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.6.2 registry",
-    "UGCValidation UGCValidation 1.19.3 registry",
+    "UGCValidation UGCValidation 1.22.0 registry",
     "UIBlox UIBlox 0.2.273 registry",
     "UltimateList ultimate-list 0.3.1 registry",
     "UrlBuilder UrlBuilder 1.2.24 registry",
@@ -235,7 +235,7 @@ dependencies = [
     "JestGetType JestGetType 3.19.0 registry",
     "JestGlobals JestGlobals 3.19.0 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "LuauRegExp RegExp 0.2.2 registry",
+    "LuauRegExp <patched> RegExp 0.3.0 registry",
     "PrettyFormat PrettyFormat 3.19.0 registry",
     "Promise Promise 3.5.1 registry",
     "RobloxShared RobloxShared 3.19.0 registry",
@@ -267,7 +267,7 @@ dependencies = [
     "JestMessageUtil JestMessageUtil 2.4.1 registry",
     "JestSnapshot JestSnapshot 2.4.1 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
     "RobloxShared RobloxShared 2.4.1 registry",
 ]
 
@@ -283,7 +283,7 @@ dependencies = [
     "JestUtil JestUtil 3.19.0 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Promise Promise 3.5.1 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
     "RobloxShared RobloxShared 3.19.0 registry",
     "Symbol Symbol 1.0.0 registry",
 ]
@@ -312,7 +312,7 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.109.0"
+version = "1.111.0"
 source = "registry"
 dependencies = [
     "BuilderIcons BuilderIcons 0.1.40 registry",
@@ -322,8 +322,7 @@ dependencies = [
     "Lumberyak lumberyak 0.1.1 registry",
     "Motion Motion 0.1.0 registry",
     "Otter Otter 1.3.7 registry",
-    "RbxDesignFoundations RbxDesignFoundations 4.0.7 registry",
-    "RbxDesignFoundationsV3 RbxDesignFoundations 3.0.5 registry",
+    "RbxDesignFoundations RbxDesignFoundations 4.0.11 registry",
     "React React 17.3.8 registry",
     "ReactIs ReactIs 17.3.8 registry",
     "ReactOtter ReactOtter 1.3.7 registry",
@@ -362,7 +361,7 @@ dependencies = [
     "BuilderIcons BuilderIcons 0.1.40 registry",
     "Dash <patched> Dash 3.3.1 registry",
     "DomTestingLibrary DomTestingLibrary 8.15.0 registry",
-    "Foundation Foundation 1.109.0 registry",
+    "Foundation Foundation 1.111.0 registry",
     "FoundationImages FoundationImages 2.5.0 registry",
     "JestGlobals JestGlobals 3.19.0 registry",
     "React React 17.3.8 registry",
@@ -391,7 +390,7 @@ source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Promise Promise 3.5.1 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
 ]
 
 [[package]]
@@ -462,7 +461,7 @@ version = "0.0.6"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.109.0 registry",
+    "Foundation Foundation 1.111.0 registry",
     "MarkdownCore MarkdownCore 0.0.6 registry",
     "React React 17.3.8 registry",
     "ReactIs ReactIs 17.3.8 registry",
@@ -526,7 +525,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "PrettyFormat PrettyFormat 3.19.0 registry",
     "Promise Promise 3.5.1 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
     "RobloxShared RobloxShared 3.19.0 registry",
     "Symbol Symbol 1.0.0 registry",
     "Throat Throat 3.19.0 registry",
@@ -545,7 +544,7 @@ dependencies = [
     "JestValidate JestValidate 3.19.0 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Promise Promise 3.5.1 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
     "RobloxShared RobloxShared 3.19.0 registry",
 ]
 
@@ -598,7 +597,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "PrettyFormat PrettyFormat 3.19.0 registry",
     "Promise Promise 3.5.1 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
     "RobloxShared RobloxShared 3.19.0 registry",
 ]
 
@@ -639,7 +638,7 @@ dependencies = [
     "JestUtil JestUtil 2.4.1 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
     "PrettyFormat PrettyFormat 2.4.1 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
 ]
 
 [[package]]
@@ -653,7 +652,7 @@ dependencies = [
     "JestUtil JestUtil 3.19.0 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "PrettyFormat PrettyFormat 3.19.0 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
 ]
 
 [[package]]
@@ -705,7 +704,7 @@ version = "2.4.1"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
 ]
 
 [[package]]
@@ -714,7 +713,7 @@ version = "3.19.0"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
 ]
 
 [[package]]
@@ -751,7 +750,7 @@ dependencies = [
     "JestGetType JestGetType 2.4.1 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
     "PrettyFormat PrettyFormat 2.4.1 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
 ]
 
 [[package]]
@@ -764,7 +763,7 @@ dependencies = [
     "JestGetType JestGetType 3.19.0 registry",
     "JestTypes JestTypes 3.19.0 registry",
     "PrettyFormat PrettyFormat 3.19.0 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
     "Symbol Symbol 1.0.0 registry",
 ]
 
@@ -782,7 +781,7 @@ dependencies = [
     "ChalkLua ChalkLua 0.3.0 registry",
     "JestTypes JestTypes 3.19.0 registry",
     "PrettyFormat PrettyFormat 3.19.0 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
     "RobloxShared RobloxShared 3.19.0 registry",
 ]
 
@@ -849,7 +848,7 @@ dependencies = [
     "JestUtil JestUtil 3.19.0 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Path Path 3.19.0 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
     "RobloxShared RobloxShared 3.19.0 registry",
     "TestUtils TestUtils 3.19.0 registry",
 ]
@@ -940,14 +939,14 @@ version = "2.4.1"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
 ]
 
 [[package]]
 name = "JestTypes"
 version = "3.19.0"
 source = "registry"
-dependencies = ["RegExp RegExp 0.2.2 registry"]
+dependencies = ["RegExp <patched> RegExp 0.3.0 registry"]
 
 [[package]]
 name = "JestUtil"
@@ -959,7 +958,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
     "Picomatch <patched> Picomatch 0.3.1 registry",
     "Promise Promise 3.5.1 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
     "RobloxShared RobloxShared 2.4.1 registry",
 ]
 
@@ -973,7 +972,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Picomatch <patched> Picomatch 0.3.1 registry",
     "Promise Promise 3.5.1 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
     "RobloxShared RobloxShared 3.19.0 registry",
     "Symbol Symbol 1.0.0 registry",
 ]
@@ -1077,7 +1076,7 @@ version = "1.0.0-alpha-5"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.109.0 registry",
+    "Foundation Foundation 1.111.0 registry",
     "InlineLayout InlineLayout 0.0.6 registry",
     "MarkdownCore MarkdownCore 0.0.6 registry",
     "React React 17.3.8 registry",
@@ -1090,7 +1089,7 @@ version = "0.0.6"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.109.0 registry",
+    "Foundation Foundation 1.111.0 registry",
     "React React 17.3.8 registry",
     "ReactIs ReactIs 17.3.8 registry",
     "ReactRoblox ReactRoblox 17.3.8 registry",
@@ -1119,7 +1118,7 @@ dependencies = [
     "BuilderIcons BuilderIcons 0.1.40 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.109.0 registry",
+    "Foundation Foundation 1.111.0 registry",
     "Promise Promise 3.5.1 registry",
     "React React 17.3.8 registry",
     "ReactOtter ReactOtter 1.3.7 registry",
@@ -1136,7 +1135,7 @@ dependencies = [
     "BuilderIcons BuilderIcons 0.1.40 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.109.0 registry",
+    "Foundation Foundation 1.111.0 registry",
     "MomentsCommon MomentsCommon 0.1.5 registry",
     "Promise Promise 3.5.1 registry",
     "React React 17.3.8 registry",
@@ -1302,7 +1301,7 @@ source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 0.4.2 registry",
     "Promise Promise 3.5.1 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
 ]
 
 [[package]]
@@ -1314,7 +1313,7 @@ dependencies = [
     "JestGetType JestGetType 2.4.1 registry",
     "LuauPolyfill LuauPolyfill 0.3.4 registry",
     "ReactIs ReactIs 17.3.8 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
     "RobloxShared RobloxShared 2.4.1 registry",
 ]
 
@@ -1327,7 +1326,7 @@ dependencies = [
     "JestGetType JestGetType 3.19.0 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "ReactIs ReactIs 17.3.8 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
     "RobloxShared RobloxShared 3.19.0 registry",
     "Symbol Symbol 1.0.0 registry",
 ]
@@ -1350,12 +1349,7 @@ dependencies = ["t t 1.2.6 registry"]
 
 [[package]]
 name = "RbxDesignFoundations"
-version = "3.0.5"
-source = "registry"
-
-[[package]]
-name = "RbxDesignFoundations"
-version = "4.0.7"
+version = "4.0.11"
 source = "registry"
 
 [[package]]
@@ -1580,7 +1574,7 @@ dependencies = [
 
 [[package]]
 name = "RegExp"
-version = "0.2.2"
+version = "0.3.0"
 source = "registry"
 
 [[package]]
@@ -1659,7 +1653,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Otter Otter 0.1.4 registry",
     "React React 17.3.8 registry",
-    "RegExp RegExp 0.2.2 registry",
+    "RegExp <patched> RegExp 0.3.0 registry",
 ]
 
 [[package]]
@@ -1843,7 +1837,7 @@ dependencies = [
 
 [[package]]
 name = "ServiceContractsProto"
-version = "1.0.2549+20260910"
+version = "1.0.2626+20260917"
 source = "registry"
 
 [[package]]
@@ -1902,7 +1896,7 @@ version = "4.3.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "Foundation Foundation 1.109.0 registry",
+    "Foundation Foundation 1.111.0 registry",
     "GenericPagination GenericPagination 0.1.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Lumberyak lumberyak 0.1.1 registry",
@@ -2004,7 +1998,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.19.3"
+version = "1.22.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -2019,14 +2013,14 @@ dependencies = [
     "BuilderIcons BuilderIcons 0.1.40 registry",
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.1 registry",
-    "Foundation Foundation 1.109.0 registry",
+    "Foundation Foundation 1.111.0 registry",
     "FoundationImages FoundationImages 2.5.0 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Otter Otter 1.3.7 registry",
     "Promise Promise 3.5.1 registry",
     "RbxDesignFoundations RbxDesignFoundations 1.1.107 registry",
-    "RbxDesignFoundationsV4 RbxDesignFoundations 4.0.7 registry",
+    "RbxDesignFoundationsV4 RbxDesignFoundations 4.0.11 registry",
     "React React 17.3.8 registry",
     "ReactOtter ReactOtter 1.3.7 registry",
     "ReactRoblox ReactRoblox 17.3.8 registry",
@@ -2070,7 +2064,7 @@ source = "registry"
 dependencies = [
     "GraphQL GraphQL 15.6.3 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "LuauRegExp RegExp 0.2.2 registry",
+    "LuauRegExp <patched> RegExp 0.3.0 registry",
     "Promise Promise 3.5.1 registry",
 ]
 

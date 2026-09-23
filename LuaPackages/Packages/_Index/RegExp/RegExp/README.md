@@ -1,4 +1,8 @@
 # RegExp for Luau
+
+[![Get it on Creator Store](./.github/assets/link-creator-store.svg)](https://create.roblox.com/store/asset/15239201134)
+[![Wally (external link)](./.github/assets/link-wally.svg)](https://wally.run/package/roblox/regexp)
+
 A regular expression library for Luau. Adapted from a regex implementation by github user Blockzez (https://github.com/Blockzez).
 
 ## API

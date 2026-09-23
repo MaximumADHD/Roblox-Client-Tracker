@@ -6,11 +6,9 @@ category: Layout
 
 `Dialogs` create a temporary, purposeful exchange (or dialog) between a user and our platform, helping surface important information or require user input without disrupting the larger experience.
 
-By default, Dialog renders in the center of its parent component without portaling to the root. If you need to portal the Dialog to the root (for example, to ensure it's always on top of other UI elements), you can set `disablePortal = false`.
+Dialog is modal and should always render through the overlay portal with a backdrop. Set `disablePortal = false` so the Dialog reliably overlays app content, and set `hasBackdrop = true` to visually and interactively separate it from the rest of the UI.
 
-The Dialog component does not include a backdrop by default. You can add a backdrop by setting `hasBackdrop = true` if you want to visually separate the dialog from the rest of the UI.
-
-If your application has its own modal window management system, you can render Dialog directly within it instead of using the built-in portal functionality.
+The `disablePortal` and `hasBackdrop` props are deprecated and retained for backwards compatibility. Do not use them to opt out of the portal or backdrop. Until their defaults are updated in a future breaking release, explicitly pass the recommended values shown above.
 
 ## Sizing Behavior
 
@@ -79,6 +77,8 @@ local DialogSize = Foundation.Enums.DialogSize
 
 return React.createElement(Dialog.Root, {
 		size = DialogSize.Large,
+		hasBackdrop = true,
+		disablePortal = false,
 		onClose = function(reason)
 			print("Dialog closed! Reason:", reason)
 		end,
@@ -89,6 +89,7 @@ return React.createElement(Dialog.Root, {
 		DialogMedia = React.createElement(Dialog.HeroMedia, {
 			media = "rbxassetid://0",
 			aspectRatio = 16 / 9,
+			scaleType = Enum.ScaleType.Fit,
 		}),
 		DialogContent = React.createElement(Dialog.Content, {
 			LayoutOrder = 2,
@@ -134,6 +135,7 @@ local function ConfirmDialog(props)
     return React.createElement(Dialog.Root, {
         size = DialogSize.Small,
 		hasBackdrop = true,
+		disablePortal = false,
         onClose = function(reason)
             if reason == OnCloseCallbackReason.BackdropClick then
                 -- Optionally prevent closing on backdrop click

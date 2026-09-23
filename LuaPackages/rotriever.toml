@@ -8,7 +8,7 @@ version = "0.1.0"
 registry_index = { url = "https://apis.simulprod.com/rotriever-registry", protocol = "zip" }
 
 [dependencies]
-ServiceContractsProto = "1.0.2549+20260910"
+ServiceContractsProto = "1.0.2626+20260917"
 Rodux = "1.0"
 RoactRodux = "0.5.1"
 RoactAppExperiment = "0.4.1"
@@ -19,7 +19,7 @@ llama = "1.0.0"
 LuaSocialLibrariesDeps = "2.0.2"
 AvatarExperienceDeps = "0.0.1"
 UIBlox = "0.2.273"
-Foundation = "1.109.0"
+Foundation = "1.111.0"
 FoundationCloudAssets = "0.5.0"
 FoundationImages = "2.5.0"
 Thumbnailing = "0.6.2"
@@ -54,7 +54,7 @@ UltimateList = { version = "0.3.1", package = "ultimate-list" }
 ViewRecyclerReact = "0.2.6"
 VirtualizedList = "1.5.1"
 LuauPolyfill = "1.2.3"
-RegExp = "0.2.1"
+RegExp = "0.3.0"
 RoduxNetworking = "3.4.1"
 NetworkingGames = "1.2.0"
 NetworkingUsers = "1.2.1"
@@ -65,7 +65,7 @@ QRCode = "0.1.0"
 Merge = "0.3.2"
 GraphqlToolsUtils = { version = "0.3.2", package = "Utils" }
 DataLoader = "0.2.0"
-UGCValidation = "1.19.3"
+UGCValidation = "1.22.0"
 RoduxPresence = "3.2.3"
 RoduxFriends = "4.3.0"
 RoduxUsers = "1.5.1"
@@ -129,6 +129,14 @@ Picomatch = "0.3.1"
 
 [config.patch."https://github.com/roblox/dash"]
 Dash = "3.3.1"
+
+[config.patch."github.com/roblox/luau-regexp"]
+RegExp = { version = "0.3.0", package = "RegExp"}
+LuauRegExp = { version = "0.3.0", package = "RegExp"}
+
+[config.patch."github.com/roblox/luau-regexp-internal"]
+RegExp = { version = "0.3.0", package = "RegExp"}
+LuauRegExp = { version = "0.3.0", package = "RegExp"}
 
 [config.patch."https://github.com/roblox/lua-app-networking"]
 NetworkingUserSettings = "1.17.5"

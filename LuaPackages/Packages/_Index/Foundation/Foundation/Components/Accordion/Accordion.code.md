@@ -18,6 +18,8 @@ local BuilderIcons = require(Packages.BuilderIcons)
 
 local Accordion = Foundation.Accordion
 local AccordionItem = Foundation.Accordion.Item
+local IconName = Foundation.Enums.IconName
+local InputPlacement = Foundation.Enums.InputPlacement
 local InputSize = Foundation.Enums.InputSize
 type InputSize = InputSize.InputSize
 type IconVariant = BuilderIcons.IconVariant
@@ -28,9 +30,10 @@ return React.createElement(Accordion, {
 }, {
     AccordionItem = React.createElement(AccordionItem, {
         text = "My First Item",
-        divider = true,
-        leadingIcon = {
-            name = "hat-fedora",
+        description = "Optional supporting details",
+        hasDivider = true,
+        icon = {
+            name = IconName.Star,
             variant = IconVariant.Filled,
         },
         id = 1
@@ -39,11 +42,35 @@ return React.createElement(Accordion, {
     }),
     AccordionItem2 = React.createElement(AccordionItem, {
         text = "My Second Item",
-        divider = false, -- defaults to true
-        leadingIcon = "robux",
+        hasDivider = false, -- defaults to true
+        icon = IconName.Robux,
         id = 2
     }, {
         accordionItemContent = React.createElement("TextButton", {}),
+    }),
+})
+```
+
+### Item Descriptions
+
+Use `description` for optional supporting context beneath an item's title. Descriptions remain on one line and truncate with an ellipsis when they exceed the available width.
+
+### Containment and Chevron Position
+
+Use `isContained` to add an inset to every item. `chevronPosition` uses `InputPlacement.End` by default and can be set to `InputPlacement.Start`.
+
+```luau
+return React.createElement(Accordion, {
+    width = UDim.new(0, 400),
+    isContained = true,
+    chevronPosition = InputPlacement.Start,
+}, {
+    AccordionItem = React.createElement(AccordionItem, {
+        text = "Item with a left chevron",
+        icon = IconName.Star,
+        id = 1,
+    }, {
+        Content = React.createElement("TextLabel", {}),
     }),
 })
 ```
