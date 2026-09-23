@@ -1,5 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local Flags = require(Foundation.Utility.Flags)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 
@@ -205,7 +206,10 @@ local function calculatePositions(
 	pos[mainAxis] = math.clamp(
 		pos[mainAxis],
 		mainAxisScreenStart,
-		math.max(mainAxisScreenEnd - mainAxisContentSize - mainAxisOffset, 0)
+		math.max(
+			mainAxisScreenEnd - mainAxisContentSize - mainAxisOffset,
+			if Flags.FoundationPopoverClampMinBound then mainAxisScreenStart else 0
+		)
 	)
 	-- Adjust for screen's top-left offset
 	pos.X -= screen.Min.X

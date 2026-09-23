@@ -57,7 +57,7 @@ local function validateHSRStructure(
 end
 
 HSRMeshIdsMatch.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	-- IEC may create HSR post-publish via editable instances; skip end-to-end.
+	-- Lifecycle-gated on consumerEnv (not validationEnv): IEC creates HSR post-publish, so a VaaS run (consumerEnv=IEC) still skips end-to-end.
 	if data.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.IEC then
 		return
 	end

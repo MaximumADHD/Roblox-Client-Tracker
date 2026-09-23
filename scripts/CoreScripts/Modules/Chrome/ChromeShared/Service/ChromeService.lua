@@ -822,8 +822,8 @@ if isSideSheetEnabled then
 		local unibar = {}
 		local belowFold = {}
 		local sessionAction = {}
-		local scrollableWidgets = {}
-		local fixedFooterWidgets = {}
+		local scrollableContentTopWidgets = {}
+		local scrollableContentBottomWidgets = {}
 
 		local function addIntegration(id: IntegrationId)
 			local integration = self._integrations[id]
@@ -848,14 +848,14 @@ if isSideSheetEnabled then
 				if FFlagEnableSideSheetWidgets or isPioneerLaunch() then
 					local widgetProps = self:createWidgetProps(id, order)
 					if widgetProps then
-						table.insert(scrollableWidgets, widgetProps)
+						table.insert(scrollableContentTopWidgets, widgetProps)
 					end
 				end
-			elseif integration.sideSheetPlacement == SideSheetPlacement.FixedFooterTop then
+			elseif integration.sideSheetPlacement == SideSheetPlacement.ScrollableContentBottom then
 				if FFlagEnableSideSheetWidgets or isPioneerLaunch() then
 					local widgetProps = self:createWidgetProps(id, order)
 					if widgetProps then
-						table.insert(fixedFooterWidgets, widgetProps)
+						table.insert(scrollableContentBottomWidgets, widgetProps)
 					end
 				end
 			end
@@ -880,8 +880,8 @@ if isSideSheetEnabled then
 			aboveFoldIntegrations = aboveFold,
 			belowFoldIntegrations = belowFold,
 			sessionActionIntegrations = sessionAction,
-			scrollableWidgetIntegrations = scrollableWidgets,
-			fixedFooterWidgetIntegrations = fixedFooterWidgets,
+			scrollableContentTopWidgetIntegrations = scrollableContentTopWidgets,
+			scrollableContentBottomWidgetIntegrations = scrollableContentBottomWidgets,
 		})
 	end
 end

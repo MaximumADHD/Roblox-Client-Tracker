@@ -17,6 +17,7 @@ local InExperienceSideSheetPackage = CorePackages.Workspace.Packages.InExperienc
 local AVAILABLE = 2
 local registeredDefinition: any
 local shopAvailable = true
+local shopWindowOpen = false
 local activateMock = jest.fn()
 local requestOpenToRobuxTabMock = jest.fn()
 local robuxWidgetComponent = function()
@@ -24,6 +25,9 @@ local robuxWidgetComponent = function()
 end
 local isIntegrationValidMock = jest.fn(function()
 	return shopAvailable
+end)
+local isWindowOpenMock = jest.fn(function()
+	return shopWindowOpen
 end)
 local registerMock = jest.fn(function(_self, definition)
 	registeredDefinition = definition
@@ -36,6 +40,7 @@ jest.mock(Chrome.Service, function()
 		},
 		activate = activateMock,
 		isIntegrationValid = isIntegrationValidMock,
+		isWindowOpen = isWindowOpenMock,
 		register = registerMock,
 	}
 end)
@@ -79,6 +84,7 @@ describe("RobuxWidget", function()
 
 		it("SHOULD activate the shop integration when it is available", function()
 			shopAvailable = true
+			shopWindowOpen = false
 			activateMock:mockClear()
 			requestOpenToRobuxTabMock:mockClear()
 
@@ -88,8 +94,21 @@ describe("RobuxWidget", function()
 			expect(activateMock).toHaveBeenCalledWith(expect.anything(), "in_experience_shop")
 		end)
 
+		it("SHOULD not request the Robux tab when the shop window is already open", function()
+			shopAvailable = true
+			shopWindowOpen = true
+			activateMock:mockClear()
+			requestOpenToRobuxTabMock:mockClear()
+
+			getOnBuyActivated()()
+
+			expect(requestOpenToRobuxTabMock).never.toHaveBeenCalled()
+			expect(activateMock).toHaveBeenCalledWith(expect.anything(), "in_experience_shop")
+		end)
+
 		it("SHOULD not activate the shop integration when it is unavailable", function()
 			shopAvailable = false
+			shopWindowOpen = false
 			activateMock:mockClear()
 			requestOpenToRobuxTabMock:mockClear()
 

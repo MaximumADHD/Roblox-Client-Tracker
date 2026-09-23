@@ -25,7 +25,6 @@ local getMeshInfo = require(root.util.getMeshInfo)
 local BoundsDataUtils = require(root.util.BoundsDataUtils)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
 local getFFlagUGCValidateLegFullBodySeparation = require(root.flags.getFFlagUGCValidateLegFullBodySeparation)
-local getFFlagUGCValidateMigrateBodyPartBounds = require(root.flags.getFFlagUGCValidateMigrateBodyPartBounds)
 local R15plusUtils = require(root.util.R15plusUtils)
 local getAttachmentCFrameInPartSpace = require(root.util.getAttachmentCFrameInPartSpace)
 
@@ -355,10 +354,6 @@ function BoundsCalculator.calculateAssetBoundsFromData(
 	assetTypeEnum: Enum.AssetType,
 	renderMeshesData: { [string]: any }
 ): (boolean, { string }?, Types.BoundsData?)
-	assert(
-		getFFlagUGCValidateMigrateBodyPartBounds(),
-		"calculateAssetBoundsFromData requires FFlagUGCValidateMigrateBodyPartBounds"
-	)
 	local validationContext = buildValidationContextFromRenderMeshes(inst, assetTypeEnum, renderMeshesData)
 	return BoundsCalculator.calculateAssetBounds(inst, validationContext)
 end
@@ -367,10 +362,6 @@ function BoundsCalculator.calculateFullBodyBoundsFromData(
 	fullBodyAssets: Types.AllBodyParts,
 	renderMeshesData: { [string]: any }
 ): (boolean, { string }?, Types.BoundsData?)
-	assert(
-		getFFlagUGCValidateMigrateBodyPartBounds(),
-		"calculateFullBodyBoundsFromData requires FFlagUGCValidateMigrateBodyPartBounds"
-	)
 	local firstPart = next(fullBodyAssets)
 	if not firstPart then
 		return false, { "No body parts provided" }
@@ -385,10 +376,6 @@ function BoundsCalculator.calculateIndividualAssetPartsDataFromData(
 	assetTypeEnum: Enum.AssetType,
 	renderMeshesData: { [string]: any }
 ): (boolean, { string }?, { [string]: any }?)
-	assert(
-		getFFlagUGCValidateMigrateBodyPartBounds(),
-		"calculateIndividualAssetPartsDataFromData requires FFlagUGCValidateMigrateBodyPartBounds"
-	)
 	local validationContext = buildValidationContextFromRenderMeshes(inst, assetTypeEnum, renderMeshesData)
 	return BoundsCalculator.calculateIndividualAssetPartsData(inst, validationContext)
 end

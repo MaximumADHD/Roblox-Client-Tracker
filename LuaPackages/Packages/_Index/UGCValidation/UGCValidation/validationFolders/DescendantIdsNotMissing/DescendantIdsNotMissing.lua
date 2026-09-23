@@ -32,6 +32,8 @@ DescendantIdsNotMissing.fflag = getFFlagUGCValidateMigrateSchemaProperties
 DescendantIdsNotMissing.expectedFailures = {}
 
 DescendantIdsNotMissing.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
+	-- Lifecycle-gated on consumerEnv: the empty-required-field editable-backing allowance is an IEC-origin exemption
+	-- (in-session editables have no content id), so IEC-origin keeps it even when re-run on a VaaS backend.
 	local isIEC = data.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.IEC
 
 	-- The data layer stores only non-empty, parseable content IDs, keyed by asset id, recording the
@@ -105,7 +107,7 @@ DescendantIdsNotMissing.run = function(reporter: Types.ValidationReporter, data:
 	-- Every referenced asset must be loadable. The data layer already deduped by asset id.
 	-- This check is a bit redundant and maybe doesnt belong here
 	-- This is carried over for legacy parity during migration, and can be audited later.
-	local isBackend = data.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Backend
+	local isBackend = data.consumerConfig.validationEnv == ValidationEnums.ValidationEnv.Backend
 	if isBackend or getFFlagUGCValidateCheckDescendantIdsLoadable() then
 		for assetId, entries in data.contentIds do
 			local firstEntry = entries[1]

@@ -396,40 +396,25 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		end
 	end, { valueChanged, props.onFocusLost, props.value, constrainValue } :: { unknown })
 
-	local onTextChanged = React.useCallback(
-		function(text)
-			setTextInput(text)
-			if not isFocused() then
-				return
-			end
+	local onTextChanged = React.useCallback(function(text)
+		setTextInput(text)
+		if not isFocused() then
+			return
+		end
+		local n = tonumber(text)
 
-			if Flags.FoundationNumberInputOnTextChanged then
-				local n = tonumber(text)
+		if props.onTextChanged ~= nil then
+			props.onTextChanged(text)
+		elseif n == nil then
+			setHasInvalidInput(true)
+			return
+		end
 
-				if props.onTextChanged ~= nil then
-					props.onTextChanged(text)
-				elseif n == nil then
-					setHasInvalidInput(true)
-					return
-				end
-
-				if n ~= nil then
-					setHasInvalidInput(false)
-					props.onChanged(n, OnChangeCallbackReason.Keyboard)
-				end
-			else
-				local n = tonumber(text)
-				if n == nil then
-					setHasInvalidInput(true)
-					return
-				else
-					setHasInvalidInput(false)
-				end
-				props.onChanged(n :: number, OnChangeCallbackReason.Keyboard)
-			end
-		end,
-		{ isFocused, props.onChanged, if Flags.FoundationNumberInputOnTextChanged then props.onTextChanged else nil } :: { unknown }
-	)
+		if n ~= nil then
+			setHasInvalidInput(false)
+			props.onChanged(n, OnChangeCallbackReason.Keyboard)
+		end
+	end, { isFocused, props.onChanged, props.onTextChanged } :: { unknown })
 
 	local onIncrement = React.useCallback(function()
 		if getBindableValue(isUpDisabled) then

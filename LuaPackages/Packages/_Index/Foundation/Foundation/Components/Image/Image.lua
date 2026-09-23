@@ -17,7 +17,6 @@ local getScaledSlice = require(script.Parent.ImageSet.getScaledSlice)
 local isCloudAsset = require(script.Parent.CloudAsset.isCloudAsset)
 local isFoundationImage = require(script.Parent.ImageSet.isFoundationImage)
 
-local Flags = require(Foundation.Utility.Flags)
 local GuiObjectChildren = require(Foundation.Utility.GuiObjectChildren)
 local Types = require(Foundation.Components.Types)
 local indexBindable = require(Foundation.Utility.indexBindable)
@@ -228,23 +227,21 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 	local tag = useStyleTags(tagsWithDefaults)
 	useOnLoaded(image, props.onLoaded)
 
-	local imageContent = if Flags.FoundationImageContentSupport
-		then React.useMemo(function(): Bindable<Content>?
-			if ReactIs.isBinding(props.ImageContent) then
-				return (props.ImageContent :: React.Binding<string | Content>):map(
-					function(value: string | Content): Content
-						if typeof(value) == "string" then
-							return Content.fromUri(value)
-						end
-						return value
+	local imageContent = React.useMemo(function(): Bindable<Content>?
+		if ReactIs.isBinding(props.ImageContent) then
+			return (props.ImageContent :: React.Binding<string | Content>):map(
+				function(value: string | Content): Content
+					if typeof(value) == "string" then
+						return Content.fromUri(value)
 					end
-				)
-			elseif typeof(props.ImageContent) == "string" then
-				return Content.fromUri(props.ImageContent)
-			end
-			return props.ImageContent :: Content?
-		end, { props.ImageContent })
-		else nil
+					return value
+				end
+			)
+		elseif typeof(props.ImageContent) == "string" then
+			return Content.fromUri(props.ImageContent)
+		end
+		return props.ImageContent :: Content?
+	end, { props.ImageContent })
 
 	local engineComponent = if isInteractable then "ImageButton" else "ImageLabel"
 

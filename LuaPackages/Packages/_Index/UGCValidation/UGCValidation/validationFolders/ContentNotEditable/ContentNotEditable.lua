@@ -18,8 +18,8 @@ ContentNotEditable.fflag = getFFlagUGCValidateBackendContentNotEditable
 ContentNotEditable.expectedFailures = {}
 
 ContentNotEditable.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	-- A live editable (non-nil Content.Object) is legitimate only in IEC, where its bytes are inspected
-	-- before upload; anywhere else it is an unmoderated publish-time bypass vector.
+	-- Lifecycle-gated on consumerEnv: a live editable is legitimate only for IEC-origin uploads (bytes inspected pre-upload);
+	-- elsewhere it's an unmoderated bypass vector. IEC-origin keeps skipping under VaaS.
 	if data.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.IEC then
 		return
 	end

@@ -20,8 +20,7 @@ HSRAssetStructureValid.fflag = getFFlagUGCValidateMigrateSchemaProperties
 HSRAssetStructureValid.expectedFailures = {}
 
 HSRAssetStructureValid.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	-- IEC creates HSR post-publish; AutoSetup previews pre-publish assets. Legacy
-	-- skipped both via bypassFlags.skipValidateHSR; we branch on consumer surface instead.
+	-- Lifecycle-gated on consumerEnv (not validationEnv): IEC/AutoSetup HSR is baked post-publish, so a VaaS run (consumerEnv=IEC) still skips.
 	if
 		data.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.IEC
 		or data.consumerConfig.source == "AutoSetup"

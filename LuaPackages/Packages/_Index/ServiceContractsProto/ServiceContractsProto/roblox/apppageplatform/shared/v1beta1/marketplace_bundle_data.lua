@@ -11,6 +11,10 @@ type _Messages = {
 }
 local messages: _Messages = {} :: _Messages
 
+local _roblox_apppageplatform_shared_v1beta1_custom_options = require(script.Parent.custom_options)
+local _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common =
+	require(script.Parent.marketplace_catalog_item_common)
+
 type _MarketplaceBundleDataImpl = {
 	__index: _MarketplaceBundleDataImpl,
 	new: (fields: _MarketplaceBundleDataPartialFields?) -> MarketplaceBundleData,
@@ -21,23 +25,81 @@ type _MarketplaceBundleDataImpl = {
 	descriptor: proto.Descriptor,
 }
 
-type _MarketplaceBundleDataFields = {
-	id: string,
-	name: string,
-	creator_name: string,
-	creator_has_verified_badge: boolean,
-	bundle_type: string,
-	price: number,
-}
+type _MarketplaceBundleDataFields =
+	{
+		id: string,
+		name: string,
+		creator_name: string,
+		creator_has_verified_badge: boolean,
+		bundle_type: string,
+		price: number,
+		description: string?,
+		creator_id: string?,
+		creator_type: string?,
+		creating_universe_id: string?,
+		taxonomy: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogTaxonomyNode },
+		render_properties: { string },
+		item_restrictions: { string },
+		is_high_definition: boolean?,
+		is_pbr: boolean?,
+		has_resellers: boolean?,
+		lowest_price: number?,
+		lowest_resale_price: number?,
+		total_quantity: number?,
+		units_available_for_consumption: number?,
+		favorite_count: number?,
+		timed_options: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogTimedOption },
+		collectible_item_id: string?,
+		is_off_sale: boolean?,
+		sale_location_type: string?,
+		item_status: { string },
+		price_status: string?,
+		product_id: string?,
+		owned: boolean?,
+		is_purchasable: boolean?,
+		variant_attributes: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogVariantAttribute },
+		genres: { string },
+		bundled_items: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogBundledItem },
+		is_recolorable: boolean?,
+	}
 
-type _MarketplaceBundleDataPartialFields = {
-	id: string?,
-	name: string?,
-	creator_name: string?,
-	creator_has_verified_badge: boolean?,
-	bundle_type: string?,
-	price: number?,
-}
+type _MarketplaceBundleDataPartialFields =
+	{
+		id: string?,
+		name: string?,
+		creator_name: string?,
+		creator_has_verified_badge: boolean?,
+		bundle_type: string?,
+		price: number?,
+		description: string?,
+		creator_id: string?,
+		creator_type: string?,
+		creating_universe_id: string?,
+		taxonomy: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogTaxonomyNode }?,
+		render_properties: { string }?,
+		item_restrictions: { string }?,
+		is_high_definition: boolean?,
+		is_pbr: boolean?,
+		has_resellers: boolean?,
+		lowest_price: number?,
+		lowest_resale_price: number?,
+		total_quantity: number?,
+		units_available_for_consumption: number?,
+		favorite_count: number?,
+		timed_options: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogTimedOption }?,
+		collectible_item_id: string?,
+		is_off_sale: boolean?,
+		sale_location_type: string?,
+		item_status: { string }?,
+		price_status: string?,
+		product_id: string?,
+		owned: boolean?,
+		is_purchasable: boolean?,
+		variant_attributes: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogVariantAttribute }?,
+		genres: { string }?,
+		bundled_items: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogBundledItem }?,
+		is_recolorable: boolean?,
+	}
 
 export type MarketplaceBundleData = typeof(setmetatable(
 	{} :: _MarketplaceBundleDataFields,
@@ -59,6 +121,42 @@ do
 				else data.creator_has_verified_badge,
 			bundle_type = if data == nil or data.bundle_type == nil then "" else data.bundle_type,
 			price = if data == nil or data.price == nil then 0 else data.price,
+			description = if data == nil or data.description == nil then nil else data.description,
+			creator_id = if data == nil or data.creator_id == nil then nil else data.creator_id,
+			creator_type = if data == nil or data.creator_type == nil then nil else data.creator_type,
+			creating_universe_id = if data == nil or data.creating_universe_id == nil
+				then nil
+				else data.creating_universe_id,
+			taxonomy = if data == nil or data.taxonomy == nil then {} else data.taxonomy,
+			render_properties = if data == nil or data.render_properties == nil then {} else data.render_properties,
+			item_restrictions = if data == nil or data.item_restrictions == nil then {} else data.item_restrictions,
+			is_high_definition = if data == nil or data.is_high_definition == nil then nil else data.is_high_definition,
+			is_pbr = if data == nil or data.is_pbr == nil then nil else data.is_pbr,
+			has_resellers = if data == nil or data.has_resellers == nil then nil else data.has_resellers,
+			lowest_price = if data == nil or data.lowest_price == nil then nil else data.lowest_price,
+			lowest_resale_price = if data == nil or data.lowest_resale_price == nil
+				then nil
+				else data.lowest_resale_price,
+			total_quantity = if data == nil or data.total_quantity == nil then nil else data.total_quantity,
+			units_available_for_consumption = if data == nil or data.units_available_for_consumption == nil
+				then nil
+				else data.units_available_for_consumption,
+			favorite_count = if data == nil or data.favorite_count == nil then nil else data.favorite_count,
+			timed_options = if data == nil or data.timed_options == nil then {} else data.timed_options,
+			collectible_item_id = if data == nil or data.collectible_item_id == nil
+				then nil
+				else data.collectible_item_id,
+			is_off_sale = if data == nil or data.is_off_sale == nil then nil else data.is_off_sale,
+			sale_location_type = if data == nil or data.sale_location_type == nil then nil else data.sale_location_type,
+			item_status = if data == nil or data.item_status == nil then {} else data.item_status,
+			price_status = if data == nil or data.price_status == nil then nil else data.price_status,
+			product_id = if data == nil or data.product_id == nil then nil else data.product_id,
+			owned = if data == nil or data.owned == nil then nil else data.owned,
+			is_purchasable = if data == nil or data.is_purchasable == nil then nil else data.is_purchasable,
+			variant_attributes = if data == nil or data.variant_attributes == nil then {} else data.variant_attributes,
+			genres = if data == nil or data.genres == nil then {} else data.genres,
+			bundled_items = if data == nil or data.bundled_items == nil then {} else data.bundled_items,
+			is_recolorable = if data == nil or data.is_recolorable == nil then nil else data.is_recolorable,
 		}, _MarketplaceBundleDataImpl :: _MarketplaceBundleDataImpl)
 	end
 
@@ -96,6 +194,166 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, self.price)
 		end
 
+		if self.description ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.description)
+		end
+
+		if self.creator_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creator_id)
+		end
+
+		if self.creator_type ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creator_type)
+		end
+
+		if self.creating_universe_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creating_universe_id)
+		end
+
+		if self.taxonomy ~= nil and #self.taxonomy > 0 then
+			for _, value in self.taxonomy do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.render_properties ~= nil and #self.render_properties > 0 then
+			for _, value in self.render_properties do
+				output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.item_restrictions ~= nil and #self.item_restrictions > 0 then
+			for _, value in self.item_restrictions do
+				output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.is_high_definition ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_high_definition then 1 else 0)
+		end
+
+		if self.is_pbr ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_pbr then 1 else 0)
+		end
+
+		if self.has_resellers ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.has_resellers then 1 else 0)
+		end
+
+		if self.lowest_price ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.lowest_price)
+		end
+
+		if self.lowest_resale_price ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.lowest_resale_price)
+		end
+
+		if self.total_quantity ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.total_quantity)
+		end
+
+		if self.units_available_for_consumption ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.units_available_for_consumption)
+		end
+
+		if self.favorite_count ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.favorite_count)
+		end
+
+		if self.timed_options ~= nil and #self.timed_options > 0 then
+			for _, value in self.timed_options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.collectible_item_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.collectible_item_id)
+		end
+
+		if self.is_off_sale ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_off_sale then 1 else 0)
+		end
+
+		if self.sale_location_type ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sale_location_type)
+		end
+
+		if self.item_status ~= nil and #self.item_status > 0 then
+			for _, value in self.item_status do
+				output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.price_status ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.price_status)
+		end
+
+		if self.product_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 28, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.product_id)
+		end
+
+		if self.owned ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 29, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.owned then 1 else 0)
+		end
+
+		if self.is_purchasable ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 30, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_purchasable then 1 else 0)
+		end
+
+		if self.variant_attributes ~= nil and #self.variant_attributes > 0 then
+			for _, value in self.variant_attributes do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 31, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.genres ~= nil and #self.genres > 0 then
+			for _, value in self.genres do
+				output, cursor = proto.writeTag(output, cursor, 32, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.bundled_items ~= nil and #self.bundled_items > 0 then
+			for _, value in self.bundled_items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 33, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.is_recolorable ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 34, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_recolorable then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -119,6 +377,66 @@ do
 					local value
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.price = value
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_high_definition = value ~= 0
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_pbr = value ~= 0
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.has_resellers = value ~= 0
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.lowest_price = value
+					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.lowest_resale_price = value
+					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.total_quantity = value
+					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.units_available_for_consumption = value
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.favorite_count = value
+					continue
+				elseif field == 24 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_off_sale = value ~= 0
+					continue
+				elseif field == 29 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.owned = value ~= 0
+					continue
+				elseif field == 30 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_purchasable = value ~= 0
+					continue
+				elseif field == 34 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_recolorable = value ~= 0
 					continue
 				end
 
@@ -144,6 +462,106 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.bundle_type = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.description = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_id = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_type = buffer.tostring(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creating_universe_id = buffer.tostring(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.taxonomy,
+						_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogTaxonomyNode.decode(
+							value
+						)
+					)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.render_properties, buffer.tostring(value))
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.item_restrictions, buffer.tostring(value))
+					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.timed_options,
+						_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogTimedOption.decode(
+							value
+						)
+					)
+					continue
+				elseif field == 23 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collectible_item_id = buffer.tostring(value)
+					continue
+				elseif field == 25 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sale_location_type = buffer.tostring(value)
+					continue
+				elseif field == 26 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.item_status, buffer.tostring(value))
+					continue
+				elseif field == 27 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.price_status = buffer.tostring(value)
+					continue
+				elseif field == 28 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.product_id = buffer.tostring(value)
+					continue
+				elseif field == 31 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.variant_attributes,
+						_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogVariantAttribute.decode(
+							value
+						)
+					)
+					continue
+				elseif field == 32 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.genres, buffer.tostring(value))
+					continue
+				elseif field == 33 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.bundled_items,
+						_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogBundledItem.decode(
+							value
+						)
+					)
 					continue
 				end
 
@@ -196,6 +614,150 @@ do
 			output.price = self.price
 		end
 
+		if self.description ~= nil then
+			output.description = self.description
+		end
+
+		if self.creator_id ~= nil then
+			output.creatorId = self.creator_id
+		end
+
+		if self.creator_type ~= nil then
+			output.creatorType = self.creator_type
+		end
+
+		if self.creating_universe_id ~= nil then
+			output.creatingUniverseId = self.creating_universe_id
+		end
+
+		if self.taxonomy ~= nil and #self.taxonomy > 0 then
+			local newOutput = {}
+			for _, value in self.taxonomy do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.taxonomy = newOutput
+		end
+
+		if self.render_properties ~= nil and #self.render_properties > 0 then
+			local newOutput = {}
+			for _, value in self.render_properties do
+				table.insert(newOutput, value)
+			end
+			output.renderProperties = newOutput
+		end
+
+		if self.item_restrictions ~= nil and #self.item_restrictions > 0 then
+			local newOutput = {}
+			for _, value in self.item_restrictions do
+				table.insert(newOutput, value)
+			end
+			output.itemRestrictions = newOutput
+		end
+
+		if self.is_high_definition ~= nil then
+			output.isHighDefinition = self.is_high_definition
+		end
+
+		if self.is_pbr ~= nil then
+			output.isPbr = self.is_pbr
+		end
+
+		if self.has_resellers ~= nil then
+			output.hasResellers = self.has_resellers
+		end
+
+		if self.lowest_price ~= nil then
+			output.lowestPrice = self.lowest_price
+		end
+
+		if self.lowest_resale_price ~= nil then
+			output.lowestResalePrice = self.lowest_resale_price
+		end
+
+		if self.total_quantity ~= nil then
+			output.totalQuantity = self.total_quantity
+		end
+
+		if self.units_available_for_consumption ~= nil then
+			output.unitsAvailableForConsumption = self.units_available_for_consumption
+		end
+
+		if self.favorite_count ~= nil then
+			output.favoriteCount = self.favorite_count
+		end
+
+		if self.timed_options ~= nil and #self.timed_options > 0 then
+			local newOutput = {}
+			for _, value in self.timed_options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.timedOptions = newOutput
+		end
+
+		if self.collectible_item_id ~= nil then
+			output.collectibleItemId = self.collectible_item_id
+		end
+
+		if self.is_off_sale ~= nil then
+			output.isOffSale = self.is_off_sale
+		end
+
+		if self.sale_location_type ~= nil then
+			output.saleLocationType = self.sale_location_type
+		end
+
+		if self.item_status ~= nil and #self.item_status > 0 then
+			local newOutput = {}
+			for _, value in self.item_status do
+				table.insert(newOutput, value)
+			end
+			output.itemStatus = newOutput
+		end
+
+		if self.price_status ~= nil then
+			output.priceStatus = self.price_status
+		end
+
+		if self.product_id ~= nil then
+			output.productId = self.product_id
+		end
+
+		if self.owned ~= nil then
+			output.owned = self.owned
+		end
+
+		if self.is_purchasable ~= nil then
+			output.isPurchasable = self.is_purchasable
+		end
+
+		if self.variant_attributes ~= nil and #self.variant_attributes > 0 then
+			local newOutput = {}
+			for _, value in self.variant_attributes do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.variantAttributes = newOutput
+		end
+
+		if self.genres ~= nil and #self.genres > 0 then
+			local newOutput = {}
+			for _, value in self.genres do
+				table.insert(newOutput, value)
+			end
+			output.genres = newOutput
+		end
+
+		if self.bundled_items ~= nil and #self.bundled_items > 0 then
+			local newOutput = {}
+			for _, value in self.bundled_items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.bundledItems = newOutput
+		end
+
+		if self.is_recolorable ~= nil then
+			output.isRecolorable = self.is_recolorable
+		end
+
 		return output
 	end
 
@@ -236,6 +798,326 @@ do
 
 		if input.price ~= nil then
 			self.price = input.price
+		end
+
+		if input.description ~= nil then
+			self.description = input.description
+		end
+
+		if input.creator_id ~= nil then
+			self.creator_id = input.creator_id
+		end
+
+		if input.creatorId ~= nil then
+			self.creator_id = input.creatorId
+		end
+
+		if input.creator_type ~= nil then
+			self.creator_type = input.creator_type
+		end
+
+		if input.creatorType ~= nil then
+			self.creator_type = input.creatorType
+		end
+
+		if input.creating_universe_id ~= nil then
+			self.creating_universe_id = input.creating_universe_id
+		end
+
+		if input.creatingUniverseId ~= nil then
+			self.creating_universe_id = input.creatingUniverseId
+		end
+
+		if input.taxonomy ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogTaxonomyNode } =
+				{}
+			for _, value in input.taxonomy do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogTaxonomyNode.jsonDecode(
+						value
+					)
+				)
+			end
+
+			self.taxonomy = newOutput
+		end
+
+		if input.render_properties ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.render_properties do
+				table.insert(newOutput, value)
+			end
+
+			self.render_properties = newOutput
+		end
+
+		if input.renderProperties ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.renderProperties do
+				table.insert(newOutput, value)
+			end
+
+			self.render_properties = newOutput
+		end
+
+		if input.item_restrictions ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.item_restrictions do
+				table.insert(newOutput, value)
+			end
+
+			self.item_restrictions = newOutput
+		end
+
+		if input.itemRestrictions ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.itemRestrictions do
+				table.insert(newOutput, value)
+			end
+
+			self.item_restrictions = newOutput
+		end
+
+		if input.is_high_definition ~= nil then
+			self.is_high_definition = input.is_high_definition
+		end
+
+		if input.isHighDefinition ~= nil then
+			self.is_high_definition = input.isHighDefinition
+		end
+
+		if input.is_pbr ~= nil then
+			self.is_pbr = input.is_pbr
+		end
+
+		if input.isPbr ~= nil then
+			self.is_pbr = input.isPbr
+		end
+
+		if input.has_resellers ~= nil then
+			self.has_resellers = input.has_resellers
+		end
+
+		if input.hasResellers ~= nil then
+			self.has_resellers = input.hasResellers
+		end
+
+		if input.lowest_price ~= nil then
+			self.lowest_price = input.lowest_price
+		end
+
+		if input.lowestPrice ~= nil then
+			self.lowest_price = input.lowestPrice
+		end
+
+		if input.lowest_resale_price ~= nil then
+			self.lowest_resale_price = input.lowest_resale_price
+		end
+
+		if input.lowestResalePrice ~= nil then
+			self.lowest_resale_price = input.lowestResalePrice
+		end
+
+		if input.total_quantity ~= nil then
+			self.total_quantity = input.total_quantity
+		end
+
+		if input.totalQuantity ~= nil then
+			self.total_quantity = input.totalQuantity
+		end
+
+		if input.units_available_for_consumption ~= nil then
+			self.units_available_for_consumption = input.units_available_for_consumption
+		end
+
+		if input.unitsAvailableForConsumption ~= nil then
+			self.units_available_for_consumption = input.unitsAvailableForConsumption
+		end
+
+		if input.favorite_count ~= nil then
+			self.favorite_count = input.favorite_count
+		end
+
+		if input.favoriteCount ~= nil then
+			self.favorite_count = input.favoriteCount
+		end
+
+		if input.timed_options ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogTimedOption } =
+				{}
+			for _, value in input.timed_options do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogTimedOption.jsonDecode(
+						value
+					)
+				)
+			end
+
+			self.timed_options = newOutput
+		end
+
+		if input.timedOptions ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogTimedOption } =
+				{}
+			for _, value in input.timedOptions do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogTimedOption.jsonDecode(
+						value
+					)
+				)
+			end
+
+			self.timed_options = newOutput
+		end
+
+		if input.collectible_item_id ~= nil then
+			self.collectible_item_id = input.collectible_item_id
+		end
+
+		if input.collectibleItemId ~= nil then
+			self.collectible_item_id = input.collectibleItemId
+		end
+
+		if input.is_off_sale ~= nil then
+			self.is_off_sale = input.is_off_sale
+		end
+
+		if input.isOffSale ~= nil then
+			self.is_off_sale = input.isOffSale
+		end
+
+		if input.sale_location_type ~= nil then
+			self.sale_location_type = input.sale_location_type
+		end
+
+		if input.saleLocationType ~= nil then
+			self.sale_location_type = input.saleLocationType
+		end
+
+		if input.item_status ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.item_status do
+				table.insert(newOutput, value)
+			end
+
+			self.item_status = newOutput
+		end
+
+		if input.itemStatus ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.itemStatus do
+				table.insert(newOutput, value)
+			end
+
+			self.item_status = newOutput
+		end
+
+		if input.price_status ~= nil then
+			self.price_status = input.price_status
+		end
+
+		if input.priceStatus ~= nil then
+			self.price_status = input.priceStatus
+		end
+
+		if input.product_id ~= nil then
+			self.product_id = input.product_id
+		end
+
+		if input.productId ~= nil then
+			self.product_id = input.productId
+		end
+
+		if input.owned ~= nil then
+			self.owned = input.owned
+		end
+
+		if input.is_purchasable ~= nil then
+			self.is_purchasable = input.is_purchasable
+		end
+
+		if input.isPurchasable ~= nil then
+			self.is_purchasable = input.isPurchasable
+		end
+
+		if input.variant_attributes ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogVariantAttribute } =
+				{}
+			for _, value in input.variant_attributes do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogVariantAttribute.jsonDecode(
+						value
+					)
+				)
+			end
+
+			self.variant_attributes = newOutput
+		end
+
+		if input.variantAttributes ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogVariantAttribute } =
+				{}
+			for _, value in input.variantAttributes do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogVariantAttribute.jsonDecode(
+						value
+					)
+				)
+			end
+
+			self.variant_attributes = newOutput
+		end
+
+		if input.genres ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.genres do
+				table.insert(newOutput, value)
+			end
+
+			self.genres = newOutput
+		end
+
+		if input.bundled_items ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogBundledItem } =
+				{}
+			for _, value in input.bundled_items do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogBundledItem.jsonDecode(
+						value
+					)
+				)
+			end
+
+			self.bundled_items = newOutput
+		end
+
+		if input.bundledItems ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogBundledItem } =
+				{}
+			for _, value in input.bundledItems do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogBundledItem.jsonDecode(
+						value
+					)
+				)
+			end
+
+			self.bundled_items = newOutput
+		end
+
+		if input.is_recolorable ~= nil then
+			self.is_recolorable = input.is_recolorable
+		end
+
+		if input.isRecolorable ~= nil then
+			self.is_recolorable = input.isRecolorable
 		end
 
 		return self

@@ -32,6 +32,7 @@ type BadgeVariantProps = {
 	icon: { style: Types.ColorStyle, size: IconSize },
 }
 
+-- selene: allow(high_cyclomatic_complexity) -- remove this when FoundationSystemEmphasisNonActions is cleaned up
 function variantsFactory(tokens: Tokens)
 	local common = {
 		container = {
@@ -148,12 +149,20 @@ function variantsFactory(tokens: Tokens)
 		},
 		[BadgeVariant.Emphasis] = {
 			container = {
-				backgroundStyle = tokens.Color.ActionEmphasis.Background,
+				backgroundStyle = if Flags.FoundationSystemEmphasisNonActions
+					then tokens.Color.System.Emphasis
+					else tokens.Color.ActionEmphasis.Background,
 			},
 			content = {
-				style = tokens.Color.ActionEmphasis.Foreground,
+				style = if Flags.FoundationSystemEmphasisNonActions
+					then tokens.DarkMode.Content.Emphasis
+					else tokens.Color.ActionEmphasis.Foreground,
 			},
-			icon = { style = tokens.Color.ActionEmphasis.Foreground },
+			icon = {
+				style = if Flags.FoundationSystemEmphasisNonActions
+					then tokens.DarkMode.Content.Emphasis
+					else tokens.Color.ActionEmphasis.Foreground,
+			},
 		},
 	}
 

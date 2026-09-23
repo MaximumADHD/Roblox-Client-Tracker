@@ -55,7 +55,7 @@ export type Radii = { { name: string, size: UDim } }
 export type Sizes = { { name: string, size: UDim } }
 
 export type TextStyle = {
-	Font: Enum.Font,
+	Font: Font | Enum.Font,
 	TextSize: number,
 	LineHeight: number,
 }

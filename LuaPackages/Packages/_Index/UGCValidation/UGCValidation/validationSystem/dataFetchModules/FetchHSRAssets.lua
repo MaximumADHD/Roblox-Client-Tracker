@@ -10,7 +10,7 @@ function FetchHSRAssets.getData(
 	rootInstance: Instance,
 	consumerConfig: Types.PreloadedConsumerConfigs
 ): { [string]: { Instance } }?
-	-- IEC may create HSR post-publish via editable instances, so HSR checks skip end-to-end.
+	-- Lifecycle-gated on consumerEnv (not validationEnv): IEC creates HSR post-publish, so a VaaS run (consumerEnv=IEC) still returns {}.
 	if consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.IEC then
 		return {}
 	end

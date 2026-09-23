@@ -4,6 +4,11 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local getFFlagUGCValidateAQMeshQualityBlockUpload = require(root.flags.getFFlagUGCValidateAQMeshQualityBlockUpload)
 
+local BLOCK_UPLOAD_CATEGORIES = {
+	[ValidationEnums.UploadCategory.FULL_BODY] = true,
+	[ValidationEnums.UploadCategory.DYNAMIC_HEAD] = true,
+}
+
 local Measure_Degen_Triangles = {}
 
 Measure_Degen_Triangles.categories = {
@@ -16,8 +21,10 @@ Measure_Degen_Triangles.fflag = require(root.flags.getFFlagUGCValidateAQMeshQual
 
 Measure_Degen_Triangles.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local summary = data.aqsSummaryData.Measure_Degen_Triangles
+	local shouldBlockUpload = getFFlagUGCValidateAQMeshQualityBlockUpload()
+		and BLOCK_UPLOAD_CATEGORIES[data.uploadCategory]
 	if summary == nil then
-		if getFFlagUGCValidateAQMeshQualityBlockUpload() then
+		if shouldBlockUpload then
 			error("Measure_Degen_Triangles: AQS summary data is nil")
 		else
 			reporter:warn(ErrorSourceStrings.Keys.AQSWarn_MissingData, {
@@ -43,7 +50,7 @@ Measure_Degen_Triangles.run = function(reporter: Types.ValidationReporter, data:
 					),
 					score = tostring(math.floor(tonumber(partData.score) or 0)),
 				}
-				if getFFlagUGCValidateAQMeshQualityBlockUpload() then
+				if shouldBlockUpload then
 					reporter:fail(ErrorSourceStrings.Keys.AQSWarn_DegenTriangles, params)
 				else
 					reporter:warn(ErrorSourceStrings.Keys.AQSWarn_DegenTriangles, params)

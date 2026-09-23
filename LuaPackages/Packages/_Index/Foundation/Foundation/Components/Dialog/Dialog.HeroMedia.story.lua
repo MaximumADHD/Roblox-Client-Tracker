@@ -31,10 +31,19 @@ local ASPECT_RATIOS: { { label: string, value: number } } = {
 	{ label = "1:1", value = 1 },
 	{ label = "21:9", value = 21 / 9 },
 }
+local SCALE_TYPES: { { label: string, value: Enum.ScaleType? } } = {
+	{ label = "Default (Stretch)", value = nil },
+	{ label = "Stretch", value = Enum.ScaleType.Stretch },
+	{ label = "Fit", value = Enum.ScaleType.Fit },
+	{ label = "Crop", value = Enum.ScaleType.Crop },
+}
 local ASPECT_RATIO_LABELS = Dash.map(ASPECT_RATIOS, function(ratio)
 	return ratio.label
 end)
 table.insert(ASPECT_RATIO_LABELS, "None")
+local SCALE_TYPE_LABELS = Dash.map(SCALE_TYPES, function(scaleType)
+	return scaleType.label
+end)
 
 local HERO_MEDIA_DEFAULT_LABEL = `Default hero image ({HERO_MEDIA})`
 local HERO_MEDIA_TRANSPARENT_LABEL = `Transparent asset ({HERO_MEDIA_TRANSPARENT})`
@@ -55,6 +64,16 @@ local function greenFill(tokens): ColorStyle
 	return tokens.Color.Extended.Green.Green_500
 end
 
+local function scaleTypeFromLabel(label: string?): Enum.ScaleType?
+	for _, scaleType in SCALE_TYPES do
+		if scaleType.label == label then
+			return scaleType.value
+		end
+	end
+
+	return nil
+end
+
 local function blueTint(tokens): ColorStyle
 	return {
 		Color3 = tokens.Color.Extended.Blue.Blue_500.Color3,
@@ -69,6 +88,7 @@ local function heroMediaFromControls(
 		backgroundStyle: string?,
 		mediaStyle: string?,
 		height: string?,
+		scaleType: string?,
 	},
 	tokens
 ): DialogHeroMediaOptions
@@ -78,6 +98,7 @@ local function heroMediaFromControls(
 		backgroundStyle = if controls.backgroundStyle == "green fill" then greenFill(tokens) else nil,
 		mediaStyle = if controls.mediaStyle == "blue tint" then blueTint(tokens) else nil,
 		height = if controls.height == "160px" then HERO_MEDIA_FIXED_HEIGHT else nil,
+		scaleType = scaleTypeFromLabel(controls.scaleType),
 	}
 end
 
@@ -89,6 +110,7 @@ local function Playground(props: {
 		backgroundStyle: string?,
 		mediaStyle: string?,
 		height: string?,
+		scaleType: string?,
 	},
 })
 	local tokens = useTokens()
@@ -96,7 +118,6 @@ local function Playground(props: {
 	return React.createElement(RootStory, {
 		controls = {
 			size = props.controls.rootSize or DEFAULT_SIZE,
-			hasBackdrop = true,
 		},
 		children = makeDialogChildren({
 			hasHeroMedia = true,
@@ -154,6 +175,33 @@ local function SizingStory()
 				children = heroMediaDialogChildren({
 					mediaStyle = blueTint(tokens),
 					height = HERO_MEDIA_FIXED_HEIGHT,
+				}),
+			}),
+		}),
+		ScaleType = React.createElement(Section, {
+			layoutOrder = 4,
+			name = "ScaleType",
+			note = "scaleType maps to Image.ScaleType. Default follows Image behavior.",
+		}, {
+			Stretch = React.createElement(LabeledDialogTrigger, {
+				label = "Stretch",
+				layoutOrder = 1,
+				children = heroMediaDialogChildren({
+					scaleType = Enum.ScaleType.Stretch,
+				}),
+			}),
+			Fit = React.createElement(LabeledDialogTrigger, {
+				label = "Fit",
+				layoutOrder = 2,
+				children = heroMediaDialogChildren({
+					scaleType = Enum.ScaleType.Fit,
+				}),
+			}),
+			Crop = React.createElement(LabeledDialogTrigger, {
+				label = "Crop",
+				layoutOrder = 3,
+				children = heroMediaDialogChildren({
+					scaleType = Enum.ScaleType.Crop,
 				}),
 			}),
 		}),
@@ -224,11 +272,12 @@ return {
 		},
 	},
 	controls = {
-		rootSize = Dash.values(DialogSize),
+		rootSize = SIZE_ORDER,
 		aspectRatio = ASPECT_RATIO_LABELS,
 		media = { HERO_MEDIA_DEFAULT_LABEL, HERO_MEDIA_TRANSPARENT_LABEL },
 		backgroundStyle = { "unset", "green fill" },
 		mediaStyle = { "unset", "blue tint" },
 		height = { "default scale", "160px" },
+		scaleType = SCALE_TYPE_LABELS,
 	},
 }

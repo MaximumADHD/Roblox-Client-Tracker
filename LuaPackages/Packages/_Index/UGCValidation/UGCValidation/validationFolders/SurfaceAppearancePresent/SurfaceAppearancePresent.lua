@@ -13,10 +13,7 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality =
 	require(root.flags.getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality)
 
--- IEC consumers (in-experience). Mirrors SOURCE_TO_ENV in ValidationManager.lua,
--- but read directly from `source` (always populated) so the IEC alternate-content
--- path works regardless of FFlagUGCValidateMigrateSchemaProperties — `consumerEnv`
--- is only assigned when that flag is on.
+-- Honest-origin routing (lifecycle): IEC-origin uploads carry live editable TextureContent.Object.
 local IEC_SOURCES = {
 	InExpServer = true,
 	InExpClient = true,
@@ -38,6 +35,7 @@ SurfaceAppearancePresent.expectedFailures = {}
 
 SurfaceAppearancePresent.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local rootInstance = data.rootInstance
+	-- Lifecycle (honest origin): IEC-origin keeps the editable-instance allowance even when re-run on a VaaS backend.
 	local allowEditableInstances = IEC_SOURCES[data.consumerConfig.source] == true
 
 	local allDescendants: { Instance } = rootInstance:GetDescendants()

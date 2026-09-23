@@ -5,8 +5,6 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.FetchAllDesiredData)
 
-local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
-
 local FORCE_OPAQUE_TEXTURES: { [string]: boolean } = {
 	ColorMap = true,
 	NormalMap = true,
@@ -22,8 +20,6 @@ SurfaceAppearanceOpacityValid.requiredData = {}
 SurfaceAppearanceOpacityValid.conditionalData = {
 	ValidationEnums.SharedDataMember.meshTextures,
 }
-
-SurfaceAppearanceOpacityValid.fflag = getFFlagUGCValidateMigrateTextureTransparency
 
 SurfaceAppearanceOpacityValid.expectedFailures = {}
 

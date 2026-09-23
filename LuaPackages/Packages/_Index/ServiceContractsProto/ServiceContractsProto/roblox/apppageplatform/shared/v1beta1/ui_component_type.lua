@@ -96,8 +96,13 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_HOME_USER_INFO_WIDGET"
 	| "UI_COMPONENT_TYPE_GAME_TILE_HIDDEN_STATE"
 	| "UI_COMPONENT_TYPE_PLUS_EARLY_ACCESS_UPSELL"
+	| "UI_COMPONENT_TYPE_TOGGLE"
+	| "UI_COMPONENT_TYPE_LIST_ROOT"
+	| "UI_COMPONENT_TYPE_LIST_ITEM"
+	| "UI_COMPONENT_TYPE_MARKDOWN_TEXT"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
+	| "UI_COMPONENT_TYPE_EXPERIMENTAL"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
 	| "UI_COMPONENT_TYPE_CATALOG_VIRTUALIZED_FEED"
 	| "UI_COMPONENT_TYPE_CATALOG_ITEM_GROUP"
@@ -283,10 +288,20 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_GAME_TILE_HIDDEN_STATE"
 		elseif value == 265 then
 			return "UI_COMPONENT_TYPE_PLUS_EARLY_ACCESS_UPSELL"
+		elseif value == 266 then
+			return "UI_COMPONENT_TYPE_TOGGLE"
+		elseif value == 267 then
+			return "UI_COMPONENT_TYPE_LIST_ROOT"
+		elseif value == 268 then
+			return "UI_COMPONENT_TYPE_LIST_ITEM"
+		elseif value == 269 then
+			return "UI_COMPONENT_TYPE_MARKDOWN_TEXT"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
 			return "UI_COMPONENT_TYPE_FRAGMENT"
+		elseif value == 401 then
+			return "UI_COMPONENT_TYPE_EXPERIMENTAL"
 		elseif value == 500 then
 			return "UI_COMPONENT_TYPE_VERTICAL_FEED"
 		elseif value == 600 then
@@ -489,10 +504,20 @@ messages.UiComponentType = {
 			return 264
 		elseif self == "UI_COMPONENT_TYPE_PLUS_EARLY_ACCESS_UPSELL" then
 			return 265
+		elseif self == "UI_COMPONENT_TYPE_TOGGLE" then
+			return 266
+		elseif self == "UI_COMPONENT_TYPE_LIST_ROOT" then
+			return 267
+		elseif self == "UI_COMPONENT_TYPE_LIST_ITEM" then
+			return 268
+		elseif self == "UI_COMPONENT_TYPE_MARKDOWN_TEXT" then
+			return 269
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
 			return 400
+		elseif self == "UI_COMPONENT_TYPE_EXPERIMENTAL" then
+			return 401
 		elseif self == "UI_COMPONENT_TYPE_VERTICAL_FEED" then
 			return 500
 		elseif self == "UI_COMPONENT_TYPE_CATALOG_VIRTUALIZED_FEED" then
@@ -695,10 +720,20 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_GAME_TILE_HIDDEN_STATE"
 		elseif name == "UI_COMPONENT_TYPE_PLUS_EARLY_ACCESS_UPSELL" then
 			return "UI_COMPONENT_TYPE_PLUS_EARLY_ACCESS_UPSELL"
+		elseif name == "UI_COMPONENT_TYPE_TOGGLE" then
+			return "UI_COMPONENT_TYPE_TOGGLE"
+		elseif name == "UI_COMPONENT_TYPE_LIST_ROOT" then
+			return "UI_COMPONENT_TYPE_LIST_ROOT"
+		elseif name == "UI_COMPONENT_TYPE_LIST_ITEM" then
+			return "UI_COMPONENT_TYPE_LIST_ITEM"
+		elseif name == "UI_COMPONENT_TYPE_MARKDOWN_TEXT" then
+			return "UI_COMPONENT_TYPE_MARKDOWN_TEXT"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then
 			return "UI_COMPONENT_TYPE_FRAGMENT"
+		elseif name == "UI_COMPONENT_TYPE_EXPERIMENTAL" then
+			return "UI_COMPONENT_TYPE_EXPERIMENTAL"
 		elseif name == "UI_COMPONENT_TYPE_VERTICAL_FEED" then
 			return "UI_COMPONENT_TYPE_VERTICAL_FEED"
 		elseif name == "UI_COMPONENT_TYPE_CATALOG_VIRTUALIZED_FEED" then

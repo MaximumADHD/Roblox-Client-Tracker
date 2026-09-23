@@ -8,9 +8,9 @@ local Rodux = require(CorePackages.Packages.Rodux)
 local InspectAndBuyFolder = script.Parent.Parent
 local SetAvatarPreviewDetails = require(InspectAndBuyFolder.Actions.SetAvatarPreviewDetails)
 local UpdateBulkPuchaseResults = require(InspectAndBuyFolder.Actions.UpdateBulkPuchaseResults)
-local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+local AvatarExperienceModel = require(CorePackages.Workspace.Packages.AvatarExperienceModel)
 local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
-local ItemType = AvatarExperienceCommon.Enums.ItemTypeEnum
+local ItemType = AvatarExperienceModel.Enums.ItemTypeEnum
 
 type AvatarItem = AvatarExperienceInspectAndBuy.AvatarItem
 

@@ -8,21 +8,28 @@ local BoundsCalculator = require(root.util.BoundsCalculator)
 local R15plusUtils = require(root.util.R15plusUtils)
 local getAttachmentCFrameInPartSpace = require(root.util.getAttachmentCFrameInPartSpace)
 
-local getFFlagUGCValidateMigrateBodyPartBounds = require(root.flags.getFFlagUGCValidateMigrateBodyPartBounds)
+local getFFlagUGCValidateHeadAboveTorso = require(root.flags.getFFlagUGCValidateHeadAboveTorso)
+
+local DataEnums = ValidationEnums.SharedDataMember
 
 local ExtentsWithinParent = {}
 
 ExtentsWithinParent.categories = {
 	ValidationEnums.UploadCategory.TORSO_AND_LIMBS,
 }
+if getFFlagUGCValidateHeadAboveTorso() then
+	table.insert(ExtentsWithinParent.categories, ValidationEnums.UploadCategory.FULL_BODY)
+end
 ExtentsWithinParent.requiredData = {
 	ValidationEnums.SharedDataMember.rootInstance,
 	ValidationEnums.SharedDataMember.uploadEnum,
 }
 ExtentsWithinParent.conditionalData = {
-	ValidationEnums.SharedDataMember.renderMeshesData,
+	DataEnums.renderMeshesData,
 }
-ExtentsWithinParent.fflag = getFFlagUGCValidateMigrateBodyPartBounds
+if getFFlagUGCValidateHeadAboveTorso() then
+	table.insert(ExtentsWithinParent.conditionalData, DataEnums.fullBodyPartsMetrics)
+end
 ExtentsWithinParent.expectedFailures = {}
 
 local checkSubPartRelativeBBoxOrderings = {
@@ -114,7 +121,62 @@ local function validateBasedOnAttachmentYPos(
 	end
 end
 
+local function validateHeadAboveTorso(reporter: Types.ValidationReporter, data: Types.SharedData)
+	local allPartsMetrics = data.fullBodyPartsMetrics
+	if not allPartsMetrics or not next(allPartsMetrics) then
+		return
+	end
+
+	local headMetrics = allPartsMetrics[Constants.NAMED_R15_BODY_PARTS.Head]
+	local torsoMetrics = allPartsMetrics[Constants.NAMED_R15_BODY_PARTS.UpperTorso]
+	if not headMetrics or not torsoMetrics then
+		return
+	end
+
+	local headBounds = headMetrics.boundsData :: Types.BoundsData
+	local torsoBounds = torsoMetrics.boundsData :: Types.BoundsData
+
+	if
+		not headBounds.maxOverall
+		or not headBounds.minOverall
+		or not torsoBounds.maxOverall
+		or not torsoBounds.minOverall
+	then
+		return
+	end
+
+	local headPart = data.rootInstance:FindFirstChild(Constants.NAMED_R15_BODY_PARTS.Head)
+
+	local attName = "NeckRigAttachment"
+
+	if headBounds.minOverall.Y < torsoBounds.minOverall.Y then
+		reporter:fail(ErrorSourceStrings.Keys.Extents_ParentBelowPart, {
+			upperPart = "Head",
+			lowerPart = "UpperTorso",
+			attachmentName = attName,
+		}, headPart)
+	end
+
+	local headCenterY = (headBounds.maxOverall.Y + headBounds.minOverall.Y) / 2
+	local headCenterZ = (headBounds.maxOverall.Z + headBounds.minOverall.Z) / 2
+	local isAboveTorso = headCenterY > torsoBounds.maxOverall.Y
+	local isInFrontOfTorso = headCenterZ < torsoBounds.minOverall.Z
+	if not isAboveTorso and not isInFrontOfTorso then
+		reporter:fail(ErrorSourceStrings.Keys.Extents_HeadBelowTorso, {}, headPart)
+	end
+end
+
 ExtentsWithinParent.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
+	local uploadCategory = (data :: any).uploadCategory
+
+	if uploadCategory == ValidationEnums.UploadCategory.FULL_BODY then
+		if getFFlagUGCValidateHeadAboveTorso() then
+			validateHeadAboveTorso(reporter, data)
+		end
+		return
+	end
+
+	-- TORSO_AND_LIMBS path: existing pairwise checks
 	local instance = data.rootInstance
 	local assetTypeEnum = data.uploadEnum.assetType
 

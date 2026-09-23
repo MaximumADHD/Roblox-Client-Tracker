@@ -4,7 +4,9 @@ local Packages = Foundation.Parent
 local BuilderIcons = require(Packages.BuilderIcons)
 local Dash = require(Packages.Dash)
 
-export type InputPlatform = "PS4" | "PS5" | "Xbox" | "Default"
+local InputPlatform = require(Foundation.Enums.InputPlatform)
+
+type InputPlatform = InputPlatform.InputPlatform
 
 local function resolveIconAsset(iconKey: string): string?
 	local asset = BuilderIcons.Icon[iconKey]
@@ -33,8 +35,7 @@ local function buildResolvedMappings(iconKeys: { [string]: string }): { [string]
 	return mappings
 end
 
--- Mirrors BuilderIcons KeycodeMappings (internal module, not exposed via the public package).
--- Icon keys are kept separately so missing assets (nil assignments) can still be detected.
+-- Mirrors internal BuilderIcons KeycodeMappings and preserves keys to detect missing assets.
 local psIconKeys: { [string]: string } = {
 	ButtonA = "PsX",
 	ButtonB = "PsCircle",

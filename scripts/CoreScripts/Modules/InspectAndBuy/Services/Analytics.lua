@@ -18,7 +18,7 @@ local UnifiedLoggingSurface =
 	require(CorePackages.Workspace.Packages.AvatarExperienceNavigation).Enums.UnifiedLoggingSurface
 local UnifiedEventLogConstants =
 	require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).UnifiedEventLogConstants
-local ItemTypeEnum = require(CorePackages.Workspace.Packages.AvatarExperienceCommon).Enums.ItemTypeEnum
+local ItemTypeEnum = require(CorePackages.Workspace.Packages.AvatarExperienceModel).Enums.ItemTypeEnum
 local TIMED_OPTION_BY_DAYS =
 	require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).Constants.TIMED_OPTION_BY_DAYS
 

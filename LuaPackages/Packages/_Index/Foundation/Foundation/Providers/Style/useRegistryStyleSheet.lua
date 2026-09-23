@@ -2,7 +2,6 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
-local Flags = require(Foundation.Utility.Flags)
 local React = require(Packages.React)
 local ThemeName = require(Foundation.Enums.ThemeName)
 local Tokens = require(Foundation.Providers.Style.Tokens)
@@ -43,10 +42,6 @@ local function useRegistryStyleSheet(
 			table.insert(requestedTags, tag)
 		end
 		styleSheetRegistry.addStyleTags(registryStyleSheet, requestedTags)
-
-		if not Flags.FoundationStyleSheetRefCounting then
-			return
-		end
 
 		-- Ref counting frees registry sheets for combinations no longer mounted.
 		styleSheetRegistry.acquireStyleSheet(registryStyleSheet)

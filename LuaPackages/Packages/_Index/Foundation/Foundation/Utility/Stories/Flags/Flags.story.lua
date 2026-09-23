@@ -1,13 +1,37 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local Button = require(Foundation.Components.Button)
+local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local Checkbox = require(Foundation.Components.Checkbox)
 local Dash = require(Packages.Dash)
+local Dialog = require(Foundation.Components.Dialog)
+local DialogSize = require(Foundation.Enums.DialogSize)
+local FFlagNames = require(Foundation.Utility.Stories.Flags.FFlagNames)
 local Flags = require(Foundation.Utility.Flags)
 local React = require(Packages.React)
 local Text = require(Foundation.Components.Text)
+local TextArea = require(Foundation.Components.TextArea)
 local TextInput = require(Foundation.Components.TextInput)
 local View = require(Foundation.Components.View)
+
+local function encodeFlagsJson(flags: { [string]: boolean }): string
+	local exportedNames = {}
+	local valuesByName: { [string]: boolean } = {}
+	for key, value in flags do
+		local name = `FFlag{FFlagNames[key] or key}`
+		table.insert(exportedNames, name)
+		valuesByName[name] = value
+	end
+	table.sort(exportedNames)
+
+	local lines = table.create(#exportedNames)
+	for _, name in exportedNames do
+		table.insert(lines, `\t"{name}": "{if valuesByName[name] then "True" else "False"}"`)
+	end
+
+	return "{\n" .. table.concat(lines, ",\n") .. "\n}"
+end
 
 -- Flipping this while Views are mounted changes hook counts and crashes React.
 local ISOLATED_FLAGS: { [string]: boolean } = {
@@ -16,6 +40,8 @@ local ISOLATED_FLAGS: { [string]: boolean } = {
 
 local function FlagsStory()
 	local searchText, setSearchText = React.useState("")
+	local isJsonOpen, setIsJsonOpen = React.useState(false)
+	local flagsJson, setFlagsJson = React.useState("")
 	local flags, setFlags = React.useState(function()
 		return table.clone(Flags)
 	end)
@@ -127,7 +153,40 @@ local function FlagsStory()
 				label = selectAllLabel,
 				LayoutOrder = 2,
 			}),
+			CopyJson = React.createElement(Button, {
+				text = "Copy flags as JSON",
+				onActivated = function()
+					setFlagsJson(encodeFlagsJson(flags))
+					setIsJsonOpen(true)
+				end,
+				variant = ButtonVariant.Standard,
+				LayoutOrder = 3,
+			}),
 		}),
+		JsonDialog = if isJsonOpen
+			then React.createElement(Dialog.Root, {
+				size = DialogSize.Large,
+				hasBackdrop = true,
+				disablePortal = false,
+				onClose = function()
+					setIsJsonOpen(false)
+				end,
+			}, {
+				DialogTitle = React.createElement(Dialog.Title, {
+					text = "Flags JSON",
+				}),
+				DialogContent = React.createElement(Dialog.Content, nil, {
+					FlagsJson = React.createElement(TextArea, {
+						label = "Flags",
+						text = flagsJson,
+						onChanged = setFlagsJson,
+						numLines = 16,
+						width = UDim.new(1, 0),
+						LayoutOrder = 1,
+					}),
+				}),
+			})
+			else nil,
 		List = React.createElement(
 			View,
 			{

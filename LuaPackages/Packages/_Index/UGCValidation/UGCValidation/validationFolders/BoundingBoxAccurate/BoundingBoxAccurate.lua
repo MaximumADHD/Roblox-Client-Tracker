@@ -67,9 +67,11 @@ BoundingBoxAccurate.run = function(reporter: Types.ValidationReporter, data: Typ
 	local inst = data.rootInstance
 	local editableMeshes = buildEditableMeshesFromSharedData(data)
 
+	local isServer = data.consumerConfig.validationEnv == ValidationEnums.ValidationEnv.Backend
+
 	local validationContext = {
 		assetTypeEnum = assetTypeEnum,
-		isServer = data.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Backend,
+		isServer = isServer,
 		editableMeshes = editableMeshes,
 		shouldYield = false,
 	} :: any

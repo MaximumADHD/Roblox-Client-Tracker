@@ -14,8 +14,10 @@ local GetFFlagTextChatEnableUniverseChatTabs = ExpChatShared.Flags.GetFFlagTextC
 local FFlagExpChatPresetChatEnabled = ExpChatShared.Flags.FFlagExpChatPresetChatEnabled
 local FFlagExpChatUseUnifiedTooltipStore = ExpChatShared.Flags.FFlagExpChatUseUnifiedTooltipStore
 
-local ExpChatPresetChatBadgeFTUXExperimentation =
-	require(CorePackages.Workspace.Packages.SocialExperiments).ExpChatPresetChatBadgeFTUXExperimentation
+local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
+local ExpChatPresetChatBadgeFTUXExperimentation = SocialExperiments.ExpChatPresetChatBadgeFTUXExperimentation
+local FFlagExpChatPresetChatBadgeExperimentCleanup =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagExpChatPresetChatBadgeExperimentCleanup
 
 local FFlagExpChatShowPresetTooltipToNonAgeChecked2 =
 	game:DefineFastFlag("ExpChatShowPresetTooltipToNonAgeChecked2", false)
@@ -153,6 +155,20 @@ local function ChatNotificationBadge(props: ChatNotificationBadgeProps): any?
 	end, { tooltipEligible, isChatWindowOpen })
 
 	local shouldOfferBadge = tooltipEligible and not hasOpenedChat
+
+	if FFlagExpChatPresetChatBadgeExperimentCleanup then
+		local shouldLogPresetBadgeExposure = shouldOfferBadge and presetShown and not isChatWindowOpen
+
+		React.useEffect(function()
+			if
+				not shouldLogPresetBadgeExposure or not ExpChatPresetChatBadgeFTUXExperimentation.isExperimentEnabled
+			then
+				return
+			end
+
+			ExpChatPresetChatBadgeFTUXExperimentation.logExposure()
+		end, { shouldLogPresetBadgeExposure })
+	end
 
 	local badgeProps = table.clone(iconHostProps) :: any
 	if shouldOfferBadge then

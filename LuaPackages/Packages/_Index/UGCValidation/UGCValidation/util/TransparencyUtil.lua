@@ -1,6 +1,4 @@
 --[[
-this file is mainly to allow smaller functions called from validateAssetTransparency to be unit tested
-
 transformTriangleToWorld:
 	takes in triangle verts and transforms them to world space
 ]]

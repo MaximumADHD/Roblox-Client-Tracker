@@ -3,499 +3,89 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Button = require(Foundation.Components.Button)
-local InputSize = require(Foundation.Enums.InputSize)
-local Popover = require(Foundation.Components.Popover)
-local PopoverAlign = require(Foundation.Enums.PopoverAlign)
-local PopoverSide = require(Foundation.Enums.PopoverSide)
-local Radius = require(Foundation.Enums.Radius)
-local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
-local Text = require(Foundation.Components.Text)
-local TextInput = require(Foundation.Components.TextInput)
-local Types = require(Foundation.Components.Types)
+local PopoverStoryHelpers = require(script.Parent.PopoverStoryHelpers)
+local StorySection = require(Foundation.Utility.Stories.Shared.StorySection)
 local View = require(Foundation.Components.View)
-local useMeasurableRef = require(Foundation.Components.Popover.useMeasurableRef)
-local useTokens = require(Foundation.Providers.Style.useTokens)
 
-type PopoverAlign = PopoverAlign.PopoverAlign
-type PopoverSide = PopoverSide.PopoverSide
+local LabeledCell = StorySection.LabeledCell
+local PopoverStage = PopoverStoryHelpers.PopoverStage
+local PopoverTarget = PopoverStoryHelpers.PopoverTarget
+local Section = StorySection.Section
 
-local useBackgroundStyle = function(key: string): Types.ColorStyle?
-	local tokens = useTokens()
-	return ({
-		Default = nil,
-		Surface_0 = tokens.Color.Surface.Surface_0,
-		Surface_200 = tokens.Color.Surface.Surface_200,
-		ActionAlert = tokens.Color.ActionAlert.Background,
-	})[key]
-end
--- This is required because storybook sucks, so the only way to order the options if you want to use a map is to use an array.
-local backgroundStyleOrderedKeys = { "Default", "Surface_0", "Surface_200", "ActionAlert" }
+local COMPOSITION_ORDER = PopoverStoryHelpers.COMPOSITION_ORDER
+local MATRIX_SECTION_TAG = PopoverStoryHelpers.MATRIX_SECTION_TAG
+local PAGE_TAG = PopoverStoryHelpers.PAGE_TAG
+local PLAYGROUND_FRAME_SIZE = PopoverStoryHelpers.PLAYGROUND_FRAME_SIZE
+local PLAYGROUND_TAG = PopoverStoryHelpers.PLAYGROUND_TAG
 
--- `Popover.Content` accepts only these three radii, and the `radius` control offers exactly them.
-type PopoverContentRadius = typeof(Radius.Small) | typeof(Radius.Medium) | typeof(Radius.Circle)
-
-local function PlaygroundStory(props: {
-	controls: {
-		side: PopoverSide,
-		align: PopoverAlign,
-		radius: PopoverContentRadius,
-		backgroundStyle: string,
-	},
-})
-	local backgroundStyle = useBackgroundStyle(props.controls.backgroundStyle)
+local function PlaygroundStory(): React.ReactNode
 	return React.createElement(View, {
-		Size = UDim2.new(1, 0, 0, 1000),
-		tag = "row align-x-center align-y-center",
+		tag = PLAYGROUND_TAG,
+		Size = PLAYGROUND_FRAME_SIZE,
 	}, {
-		Popover = React.createElement(Popover.Root, {
-			isOpen = true,
-		}, {
-			Anchor = React.createElement(
-				Popover.Anchor,
-				nil,
-				React.createElement(View, {
-					tag = "col gap-large auto-xy padding-large stroke-neutral radius-medium bg-surface-100",
-				}, {
-					Text = React.createElement(Text, {
-						Text = "I am a card",
-						tag = "auto-xy text-heading-medium",
-					}),
-					Button = React.createElement(Button, {
-						text = "Just a button!",
-						size = InputSize.Medium,
-						onActivated = function()
-							print("Button activated")
-						end,
-					}),
-				})
-			),
-			Content = React.createElement(
-				Popover.Content,
-				{
-					align = props.controls.align,
-					side = props.controls.side,
-					backgroundStyle = backgroundStyle,
-					radius = props.controls.radius,
-				},
-				React.createElement(View, {
-					tag = "col gap-small auto-xy padding-medium",
-				}, {
-					Title = React.createElement(Text, {
-						Text = "Tooltip Title",
-						tag = "auto-xy text-title-medium content-emphasis",
-					}),
-					Subtitle = React.createElement(Text, {
-						Text = "Here's the tootip's subtitle and content.",
-						tag = "auto-xy text-body-small",
-					}),
-				})
-			),
-		}),
+		Stage = React.createElement(PopoverStage, { LayoutOrder = 1 }),
 	})
 end
 
-local function ClickOutsideStory(props: {
-	controls: {
-		side: PopoverSide,
-		align: PopoverAlign,
-	},
-})
-	local open, setOpen = React.useState(false)
-
+local function ControlledStory(): React.ReactNode
 	return React.createElement(View, {
-		tag = "row align-x-center align-y-center size-full-0 auto-y",
+		tag = PAGE_TAG,
 	}, {
-		Popover = React.createElement(Popover.Root, {
-			isOpen = open,
+		Dismiss = React.createElement(Section, {
+			LayoutOrder = 1,
+			name = "Open, close, and dismiss",
+			note = "The caller owns isOpen; press the anchor to toggle, or press outside the panel to dismiss.",
+			contentTag = MATRIX_SECTION_TAG,
 		}, {
-			Anchor = React.createElement(
-				Popover.Anchor,
-				nil,
-				React.createElement(View, {
-					tag = "col gap-large auto-xy padding-large stroke-neutral radius-medium bg-surface-100",
-				}, {
-					Text = React.createElement(Text, {
-						Text = "I am a card",
-						tag = "auto-xy text-heading-medium",
-					}),
-					Button = React.createElement(Button, {
-						text = "Click me to toggle!",
-						size = InputSize.Medium,
-						onActivated = function()
-							setOpen(not open)
-						end,
-					}),
-				})
-			),
-			Content = React.createElement(
-				Popover.Content,
-				{
-					align = props.controls.align,
-					side = props.controls.side,
-					onPressedOutside = function()
-						setOpen(false)
-					end,
-				},
-				React.createElement(View, {
-					tag = "col gap-small auto-xy padding-medium",
-				}, {
-					Title = React.createElement(Text, {
-						Text = "Click outside example",
-						tag = "auto-xy text-title-medium content-emphasis",
-					}),
-					Subtitle = React.createElement(Text, {
-						Text = "Click anywhere outside to close this",
-						tag = "auto-xy text-body-small",
-					}),
-				})
-			),
-		}),
-	})
-end
-
-local function AnchorReferenceStory(props: {
-	controls: {
-		side: PopoverSide,
-		align: PopoverAlign,
-	},
-})
-	local buttonRef = React.useRef(nil)
-	local open, setOpen = React.useState(false)
-
-	return React.createElement(View, {
-		Size = UDim2.new(1, 0, 0, 1000),
-		tag = "row align-x-center align-y-center",
-	}, {
-		Button = React.createElement(Button, {
-			text = "Click me to toggle!",
-			size = InputSize.Medium,
-			ref = buttonRef,
-			onActivated = function()
-				setOpen(not open)
-			end,
-		}),
-		Popover = React.createElement(Popover.Root, {
-			isOpen = open,
-		}, {
-			Anchor = React.createElement(Popover.Anchor, {
-				anchorRef = buttonRef,
+			Stage = React.createElement(PopoverStage, {
+				LayoutOrder = 1,
+				hasOutsidePressDismiss = true,
+				hasOpenStateLabel = true,
 			}),
-			Content = React.createElement(
-				Popover.Content,
-				{
-					align = props.controls.align,
-					side = props.controls.side,
-					onPressedOutside = function()
-						setOpen(false)
-					end,
-				},
-				React.createElement(View, {
-					tag = "col gap-small auto-xy padding-medium",
-				}, {
-					Title = React.createElement(Text, {
-						Text = "Anchor Reference Example",
-						tag = "auto-xy text-title-medium content-emphasis",
-					}),
-					Subtitle = React.createElement(Text, {
-						Text = "This popover is anchored to a button using anchorRef",
-						tag = "auto-xy text-body-small",
-					}),
-				})
-			),
 		}),
 	})
 end
 
-local function KeyboardAwareInputStory()
-	local open, setOpen = React.useState(false)
-	local inputText, setInputText = React.useState("")
-
+local function ContentStory(): React.ReactNode
 	return React.createElement(View, {
-		tag = "col align-x-center align-y-center gap-large size-full-0 auto-y",
+		tag = PAGE_TAG,
 	}, {
-		Instructions = React.createElement(Text, {
-			Text = "Focus the input field to test keyboard-aware positioning",
-			tag = "auto-xy text-body-medium content-emphasis",
-			padding = {
-				bottom = UDim.new(0, 500),
+		FullComposition = React.createElement(
+			Section,
+			{
+				LayoutOrder = 1,
+				name = "Full composition",
 			},
-		}),
-		Popover = React.createElement(Popover.Root, {
-			isOpen = open,
-		}, {
-			Anchor = React.createElement(
-				Popover.Anchor,
-				nil,
-				React.createElement(View, {
-					tag = "col gap-medium auto-xy",
+			Dash.map(COMPOSITION_ORDER, function(composition, index)
+				return React.createElement(LabeledCell, {
+					key = composition,
+					LayoutOrder = index,
+					label = composition,
 				}, {
-					TextInputField = React.createElement(TextInput, {
-						size = InputSize.Medium,
-						label = "Test Input",
-						placeholder = "Type something here...",
-						text = inputText,
-						onChanged = function(newText)
-							setInputText(newText)
-						end,
-						onFocusGained = function()
-							setOpen(true)
-						end,
-						onFocusLost = function()
-							-- Small delay to allow popover interaction before closing
-							task.spawn(function()
-								task.wait(0.1)
-								setOpen(false)
-							end)
-						end,
-					}),
-					ToggleButton = React.createElement(Button, {
-						text = if open then "Close Popover" else "Open Popover",
-						size = InputSize.Medium,
-						onActivated = function()
-							setOpen(not open)
-						end,
+					Target = React.createElement(PopoverTarget, {
+						LayoutOrder = 1,
+						panel = PopoverStoryHelpers.makePanelChildren(composition),
 					}),
 				})
-			),
-			Content = React.createElement(
-				Popover.Content,
-				{
-					side = PopoverSide.Bottom,
-					align = PopoverAlign.Start,
-					onPressedOutside = function()
-						setOpen(false)
-					end,
-				},
-				React.createElement(View, {
-					tag = "col gap-small auto-xy padding-medium",
-					Size = UDim2.fromOffset(300, 0),
-				}, {
-					Title = React.createElement(Text, {
-						Text = "Keyboard-Aware Popover",
-						tag = "auto-xy text-title-medium content-emphasis",
-					}),
-					Description = React.createElement(Text, {
-						Text = "This popover should avoid the on-screen keyboard on touch devices.",
-						tag = "auto-xy text-body-small",
-					}),
-					CurrentText = React.createElement(Text, {
-						Text = `Current input: "{inputText}"`,
-						tag = "auto-xy text-body-small",
-					}),
-				})
-			),
-		}),
-	})
-end
-
-local function FocusablePluginInputStory()
-	local open, setOpen = React.useState(false)
-	local text, setText = React.useState("")
-
-	return React.createElement(View, {
-		tag = "size-full-0 auto-y",
-	}, {
-		Popover = React.createElement(Popover.Root, {
-			isOpen = open,
-		}, {
-			Anchor = React.createElement(Popover.Anchor, nil, {
-				Button = React.createElement(Button, {
-					text = if open then "Close focusable popover" else "Open focusable popover",
-					size = InputSize.Medium,
-					onActivated = function()
-						setOpen(not open)
-					end,
-				}),
-			}),
-			Content = React.createElement(Popover.Content, {
-				isFocusable = true,
-				onPressedOutside = function()
-					setOpen(false)
-				end,
-			}, {
-				Input = React.createElement(View, {
-					tag = "auto-xy padding-medium",
-				}, {
-					TextInput = React.createElement(TextInput, {
-						label = "Focusable text input",
-						text = text,
-						onChanged = setText,
-						placeholder = "Type or paste here",
-					}),
-				}),
-			}),
-		}),
-	})
-end
-
-local function MousePositionTooltipStory(props: {
-	controls: {
-		side: PopoverSide,
-		align: PopoverAlign,
-	},
-})
-	local open, setOpen = React.useState(false)
-	local virtualRef = useMeasurableRef(Vector2.zero)
-
-	local wrapperRef = React.useRef(nil :: GuiObject?)
-
-	React.useEffect(function()
-		if wrapperRef.current == nil then
-			return
-		end
-
-		local mouseMoveConnection = wrapperRef.current.MouseMoved:Connect(function(x, y)
-			virtualRef.current:SetPosition(Vector2.new(x, y))
-			setOpen(true)
-		end)
-
-		local mouseLeaveConnection = wrapperRef.current.MouseLeave:Connect(function()
-			setOpen(false)
-		end)
-
-		return function()
-			mouseMoveConnection:Disconnect()
-			mouseLeaveConnection:Disconnect()
-		end
-	end, {})
-
-	return React.createElement(View, {
-		tag = "row align-x-center align-y-center size-full-3000 bg-surface-200",
-		ref = wrapperRef,
-	}, {
-		Text = React.createElement(Text, {
-			Text = "Move the mouse over this area to see a tooltip",
-			tag = "text-align-x-center",
-		}),
-		Popover = React.createElement(Popover.Root, {
-			isOpen = open,
-		}, {
-			Anchor = React.createElement(Popover.Anchor, { anchorRef = virtualRef }),
-			Content = React.createElement(
-				Popover.Content,
-				{
-					align = props.controls.align,
-					side = props.controls.side,
-					-- hasArrow has no effect on the virtualRef anchors, and is always false
-				},
-				React.createElement(View, {
-					tag = "col gap-small auto-xy padding-medium",
-				}, {
-					Title = React.createElement(Text, {
-						Text = "Can't close unless you are in the area",
-						tag = "auto-xy text-title-medium content-emphasis",
-					}),
-				})
-			),
-		}),
-	})
-end
-
-local function ContextMenuStory(props: {
-	controls: {
-		side: PopoverSide,
-		align: PopoverAlign,
-	},
-})
-	local open, setOpen = React.useState(false)
-	local virtualRef = useMeasurableRef(Vector2.zero)
-	local wrapperRef = React.useRef(nil :: GuiButton?)
-
-	React.useEffect(function()
-		if wrapperRef.current == nil then
-			return
-		end
-
-		local mouseButtonRightConnection = wrapperRef.current.MouseButton2Up:Connect(function(x, y)
-			virtualRef.current:SetPosition(Vector2.new(x, y))
-			setOpen(true)
-		end)
-
-		return function()
-			mouseButtonRightConnection:Disconnect()
-		end
-	end, {})
-
-	return React.createElement(View, {
-		tag = "align-x-center align-y-center size-full-3000 bg-surface-200",
-		stateLayer = {
-			affordance = StateLayerAffordance.None,
-		},
-		onActivated = function() end,
-		ref = wrapperRef,
-	}, {
-		Text = React.createElement(Text, {
-			Text = "Right-click on this area to open the context menu.",
-			tag = "size-full-full text-align-x-center",
-		}),
-		Popover = React.createElement(Popover.Root, {
-			isOpen = open,
-		}, {
-			Anchor = React.createElement(Popover.Anchor, { anchorRef = virtualRef }),
-			Content = React.createElement(
-				Popover.Content,
-				{
-					align = props.controls.align,
-					side = props.controls.side,
-					-- hasArrow has no effect on the virtualRef anchors, and is always false
-					onPressedOutside = function()
-						setOpen(false)
-					end,
-				},
-				React.createElement(View, {
-					tag = "col gap-small auto-xy padding-medium",
-				}, {
-					Text1 = React.createElement(Text, {
-						Text = "Context Menu",
-						tag = "auto-xy text-title-medium content-emphasis",
-					}),
-					Text2 = React.createElement(Text, {
-						Text = "Right-click functionality enabled.",
-						tag = "auto-xy text-body-small",
-					}),
-				})
-			),
-		}),
+			end)
+		),
 	})
 end
 
 return {
-	summary = "Popover",
+	summary = "Coordinates an anchor with a floating panel and holds the caller-driven open state for both.",
 	stories = {
 		{
 			name = "Playground",
 			story = PlaygroundStory :: unknown,
 		},
 		{
-			name = "Click Outside",
-			story = ClickOutsideStory,
+			name = "Controlled component",
+			story = ControlledStory,
 		},
 		{
-			name = "Anchor Reference",
-			story = AnchorReferenceStory,
+			name = "Content",
+			story = ContentStory,
 		},
-		{
-			name = "Keyboard Aware Input",
-			story = KeyboardAwareInputStory,
-		},
-		{
-			name = "Focusable Plugin Input",
-			story = FocusablePluginInputStory,
-		},
-		{
-			name = "MousePositionTooltip",
-			story = MousePositionTooltipStory,
-		},
-		{
-			name = "Context menu",
-			story = ContextMenuStory,
-		},
-	},
-	controls = {
-		side = Dash.values(PopoverSide),
-		align = Dash.values(PopoverAlign),
-		radius = { Radius.Small, Radius.Medium, Radius.Circle } :: { Radius.Radius },
-		backgroundStyle = backgroundStyleOrderedKeys,
 	},
 }

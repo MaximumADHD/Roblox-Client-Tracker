@@ -52,7 +52,7 @@ local function getOverrideAttributes(
 		return result
 	end
 
-	local baseTokens = Tokens.getTokens(colorMode, device, 1, nil, if Flags.FoundationThemeName then themeName else nil)
+	local baseTokens = Tokens.getTokens(colorMode, device, 1, nil, themeName)
 
 	for targetPath, source in overrides do
 		local sourceValue = TokenProcessingUtilities.resolveTokenOverride(baseTokens, targetPath, source)

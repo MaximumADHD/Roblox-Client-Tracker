@@ -14,12 +14,6 @@ local function getGenerator(themeName: ThemeName, colorMode: ColorMode)
 	return if colorMode == ColorMode.Light then theme.Light else theme.Dark
 end
 
-local function getLegacyGenerator(colorMode: ColorMode)
-	local generators = require(Packages.RbxDesignFoundationsV3).Tokens
-	return if colorMode == ColorMode.Light then generators.Light else generators.Dark
-end
-
 return {
 	getGenerator = getGenerator,
-	getLegacyGenerator = getLegacyGenerator,
 }

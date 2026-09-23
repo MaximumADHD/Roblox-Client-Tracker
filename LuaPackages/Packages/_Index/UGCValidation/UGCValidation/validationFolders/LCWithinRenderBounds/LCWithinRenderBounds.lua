@@ -18,6 +18,7 @@ LCWithinRenderBounds.requiredData = {}
 LCWithinRenderBounds.expectedFailures = {}
 
 LCWithinRenderBounds.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
+	-- Lifecycle-gated on consumerEnv: IEC-origin skips today and keeps skipping under VaaS (enabling it there is a follow-up).
 	if data.consumerConfig.consumerEnv == "IEC" then
 		return
 	end

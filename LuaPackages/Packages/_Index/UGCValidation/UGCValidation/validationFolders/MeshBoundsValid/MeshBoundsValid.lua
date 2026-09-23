@@ -53,7 +53,7 @@ end
 MeshBoundsValid.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local instance = data.rootInstance
 	local assetTypeEnum = data.uploadEnum.assetType
-	local isBackend = data.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Backend
+	local isBackend = data.consumerConfig.validationEnv == ValidationEnums.ValidationEnv.Backend
 
 	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
 	if not assetInfo then
@@ -188,7 +188,7 @@ MeshBoundsValid.run = function(reporter: Types.ValidationReporter, data: Types.S
 		return
 	end
 
-	-- Mesh centering check (skip for IEC consumers, matching legacy allowEditableInstances behavior)
+	-- Mesh centering check: lifecycle-gated on consumerEnv (IEC-origin reuses live editables not yet centered — legacy allowEditableInstances skip).
 	local isIEC = data.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.IEC
 	if not isIEC then
 		local meshInfo = {

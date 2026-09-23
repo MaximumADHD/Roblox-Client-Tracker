@@ -12,8 +12,8 @@ local beforeEach = JestGlobals.beforeEach
 local afterEach = JestGlobals.afterEach
 
 local getIsChatWindowOpen, setIsChatWindowOpen = Signals.createSignal(false)
-local getActiveTooltipKey = Signals.createSignal("GlobalChatTooltip")
-local getIsChatInputBarVisible = Signals.createSignal(false)
+local getActiveTooltipKey, setActiveTooltipKey = Signals.createSignal("GlobalChatTooltip")
+local getIsChatInputBarVisible, setIsChatInputBarVisible = Signals.createSignal(false)
 local getIsScreenWideEnough = Signals.createSignal(true)
 local capturedBadgeProps: any = nil
 
@@ -50,11 +50,18 @@ jest.mock(CorePackages.Workspace.Packages.ExpChatShared, function()
 			GetFFlagTextChatEnableUniverseChatTabs = function()
 				return false
 			end,
-			FFlagExpChatPresetChatEnabled = false,
+			FFlagExpChatPresetChatEnabled = true,
 			FFlagExpChatUseUnifiedTooltipStore = true,
 		},
 	}
 end)
+
+local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
+local ExpChatPresetChatBadgeFTUXExperimentation = SocialExperiments.ExpChatPresetChatBadgeFTUXExperimentation
+local FFlagExpChatPresetChatBadgeExperimentCleanup =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagExpChatPresetChatBadgeExperimentCleanup
+local logExposureSpy = jest.spyOn(ExpChatPresetChatBadgeFTUXExperimentation, "logExposure")
+	.mockImplementation(function() end)
 
 local ChatNotificationBadge = require(script.Parent.ChatNotificationBadge)
 
@@ -89,6 +96,9 @@ end
 describe("ChatNotificationBadge", function()
 	beforeEach(function()
 		setIsChatWindowOpen(false)
+		setActiveTooltipKey("GlobalChatTooltip")
+		setIsChatInputBarVisible(false)
+		logExposureSpy.mockClear()
 		capturedBadgeProps = nil
 		container = Instance.new("Frame")
 		root = ReactRoblox.createRoot(container)
@@ -110,4 +120,41 @@ describe("ChatNotificationBadge", function()
 
 		expect(capturedBadgeProps.minBadgeCount).toBeNil()
 	end)
+
+	if
+		FFlagExpChatPresetChatBadgeExperimentCleanup and ExpChatPresetChatBadgeFTUXExperimentation.isExperimentEnabled
+	then
+		it("SHOULD log exposure WHEN the Preset Chat Tooltip has a badge opportunity", function()
+			setActiveTooltipKey("PresetChatTooltip")
+
+			renderBadge()
+
+			expect(logExposureSpy).toHaveBeenCalledTimes(1)
+		end)
+
+		it("SHOULD NOT log exposure WHEN the chat window is initially open", function()
+			setIsChatWindowOpen(true)
+			setIsChatInputBarVisible(true)
+			setActiveTooltipKey("PresetChatTooltip")
+
+			renderBadge()
+
+			expect(logExposureSpy).never.toHaveBeenCalled()
+		end)
+
+		it("SHOULD NOT log exposure WHEN Preset Chat Tooltip is queued behind Global Chat Tooltip", function()
+			renderBadge()
+			expect(capturedBadgeProps.minBadgeCount).toBe(1)
+
+			ReactRoblox.act(function()
+				setIsChatWindowOpen(true)
+			end)
+			ReactRoblox.act(function()
+				setIsChatInputBarVisible(true)
+				setActiveTooltipKey("PresetChatTooltip")
+			end)
+
+			expect(logExposureSpy).never.toHaveBeenCalled()
+		end)
+	end
 end)

@@ -344,8 +344,7 @@ local ColorPurpose = {
 	None = {},
 }
 
-local function DefaultRules(tokens: Tokens): { StyleRule }
-	local fontValue = tokens.Typography.BodyLarge.Font
+local function GuiObjectDefaultRules(): { StyleRule }
 	return {
 		{
 			tag = "gui-object-defaults",
@@ -354,29 +353,9 @@ local function DefaultRules(tokens: Tokens): { StyleRule }
 				BackgroundTransparency = 1,
 			},
 		},
-		-- TODO: When FoundationThemedTypography is cleaned up, drop this
-		-- `text-defaults` rule (keep `gui-object-defaults`). The themed typography
-		-- bucket always supplies `text-defaults` via DefaultFontRules, so this copy
-		-- is only the flag-off baseline. Regenerate CommonAttribute after removing.
-		{
-			tag = "text-defaults",
-			priority = -1,
-			properties = {
-				Font = "$FontBodyLarge",
-			},
-			attributes = {
-				{
-					name = "FontBodyLarge",
-					value = fontValue,
-				},
-			},
-		},
 	}
 end
 
--- TODO: When FoundationThemedTypography is cleaned up, fold this back into
--- DefaultRules as the single `text-defaults` source (this helper only exists to
--- bake the font into the themed typography bucket without `gui-object-defaults`).
 local function DefaultFontRules(tokens: Tokens): { StyleRule }
 	local fontValue = tokens.Typography.BodyLarge.Font
 	return {
@@ -1132,7 +1111,7 @@ local function rulesGenerator(
 	local margins = formattedTokens.margins
 
 	local common: { StyleRule } = Dash.joinArrays(
-		DefaultRules(tokens),
+		GuiObjectDefaultRules(),
 		EngineDefaultBypassRules(),
 		FlexItemRules(),
 		TextRules(),
@@ -1143,19 +1122,13 @@ local function rulesGenerator(
 		AspectRatioRules()
 	)
 
-	-- TODO: When FoundationThemedTypography is cleaned up, remove DefaultSizeRules
-	-- and TypographyRules from this `size` bucket. The themed typography bucket then
-	-- becomes the sole source of `text-size-defaults` and the `text-*` rules; these
-	-- are only the flag-off baseline. Regenerate Desktop/Console attributes after.
 	local size: { StyleRule } = Dash.joinArrays(
-		DefaultSizeRules(typography["body-large"], tokens.Config.Text.NominalScale),
 		ListLayoutRules(),
 		ListLayoutSpacingRules(gaps, gutters),
 		CornerRules(radii),
 		ShadowRules(tokens),
 		SizeRules(sizes),
 		StrokeSizeRules(strokes),
-		TypographyRules(typography, tokens.Config.Text.NominalScale),
 		PaddingRules(paddings, margins)
 	)
 

@@ -33,19 +33,33 @@ local options = {
 	-- Do note that empty regex patterns (comment-only patterns included) are never cached regardless
 	-- The default is 256
 	cacheSize = 256,
+};
 
-	-- A boolean that determines whether this use unicode data
+--[[
+	This parameter allows this script to make use of unicode data, assuming you have the scripts _unicodechar_category / _scripts / _xuc
+	somewhere in your tree. This parameter originally lived on the `options` local table above, and the intention was that you would modify this script to enable
+	unicode support. I have moved this to a constant because:
+	1) It is never mutated
+	2) It is only inspected
+	3) It is only set to `false`
+	4) It is never exported
+	5) There is no way to set the options field
+
+	This parameter is, has always been, and will always be false, and thus unicode support in this file has always been disabled.
+	The required scripts listed above, also do not exist in this repository or in this file tree, and thus are never referenced.
+
+	Just in case you truly wish to use this option, you can replace `false` in the variables u_categories, chr_scripts, xuc_chr with
+	the commented out code on the same line, and you will also have to provide the required scripts themselves, which will turn on support for unicode characters in regex.
+	-- USE_UNICODE_DATA is a boolean that determines whether regexp uses unicode data
 	-- If this value evalulates to false, you can remove _unicodechar_category, _scripts and _xuc safely and it'll now error if:
 	-- - You try to compile a RegEx with unicode flag
 	-- - You try to use the \p pattern
-	-- The default is true
-	unicodeData = false,
-};
-
---
-local u_categories = options.unicodeData and require(script:WaitForChild("_unicodechar_category"));
-local chr_scripts = options.unicodeData and require(script:WaitForChild("_scripts"));
-local xuc_chr = options.unicodeData and require(script:WaitForChild("_xuc"));
+	-- The default is false (and always has been false)
+]]--
+local USE_UNICODE_DATA = false
+local u_categories = false -- USE_UNICODE_DATA and require(script:WaitForChild("_unicodechar_category"));
+local chr_scripts = false -- USE_UNICODE_DATA and require(script:WaitForChild("_scripts"));
+local xuc_chr = false -- USE_UNICODE_DATA and require(script:WaitForChild("_xuc"));
 local proxy = setmetatable({ }, { __mode = 'k' });
 local re, re_m, match_m = { }, { }, { };
 local lockmsg;
@@ -1110,8 +1124,8 @@ local other_valid_group_char = {
 };
 
 local function tokenize_ptn(codes, flags)
-	if flags.unicode and not options.unicodeData then
-		return "options.unicodeData cannot be turned off while having unicode flag";
+	if flags.unicode and not USE_UNICODE_DATA then
+		return "USE_UNICODE_DATA has always been false, so you cannot also use the unicode flag";
 	end;
 	local i, len = 1, codes.n;
 	local group_n = 0;
@@ -1516,8 +1530,8 @@ local function tokenize_ptn(codes, flags)
 							return "invalid escape sequence";
 						end;
 					elseif codes[i] == 0x50 or codes[i] == 0x70 then
-						if not options.unicodeData then
-							return "options.unicodeData cannot be turned off when using \\p";
+						if not USE_UNICODE_DATA then
+							return "USE_UNICODE_DATA in regexp has always been disabled. Do not use the flag \\p";
 						end;
 						i += 1;
 						if codes[i] ~= 0x7B then
@@ -1656,8 +1670,8 @@ local function tokenize_ptn(codes, flags)
 					table.insert(outln, escape_chars[0x4E]);
 				end;
 			elseif escape_c == 0x50 or escape_c == 0x70 then
-				if not options.unicodeData then
-					return "options.unicodeData cannot be turned off when using \\p";
+				if not USE_UNICODE_DATA then
+					return "USE_UNICODE_DATA in regexp has always been disabled. Do not use the flag \\p";
 				end;
 				i += 1;
 				if codes[i] ~= 0x7B then

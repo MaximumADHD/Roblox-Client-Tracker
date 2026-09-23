@@ -11,6 +11,7 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
+local Flags = require(Foundation.Utility.Flags)
 local Image = require(Foundation.Components.Image)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local Types = require(Foundation.Components.Types)
@@ -263,7 +264,9 @@ local function BrickColorPicker(brickColorPickerProps: BrickColorPickerProps)
 					Position = position,
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Image = HEXAGON_IMAGE,
-					imageStyle = tokens.Color.ActionEmphasis.Background,
+					imageStyle = if Flags.FoundationSystemEmphasisNonActions
+						then tokens.Color.System.Emphasis
+						else tokens.Color.ActionEmphasis.Background,
 					ZIndex = 1,
 				})
 			end
@@ -279,7 +282,13 @@ local function BrickColorPicker(brickColorPickerProps: BrickColorPickerProps)
 
 			return elements
 		end,
-		{ gridBounds.offset.X, gridBounds.offset.Y, HEXAGON_WIDTH, HEXAGON_HEIGHT }
+		{
+			gridBounds.offset.X,
+			gridBounds.offset.Y,
+			HEXAGON_WIDTH,
+			HEXAGON_HEIGHT,
+			if Flags.FoundationSystemEmphasisNonActions then tokens else nil,
+		} :: { unknown }
 	)
 
 	local createHexagonVisuals = React.useCallback(function(): { [string]: React.ReactElement }

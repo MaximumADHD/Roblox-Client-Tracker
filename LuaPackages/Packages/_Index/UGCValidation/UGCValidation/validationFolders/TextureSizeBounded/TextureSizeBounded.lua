@@ -8,7 +8,6 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.FetchAllDesiredData)
 
-local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
 local getFFlagUGCValidateAllowEmissives = require(root.flags.getFFlagUGCValidateAllowEmissives)
 
 local TextureSizeBounded = {}
@@ -24,8 +23,6 @@ TextureSizeBounded.requiredData = {}
 TextureSizeBounded.conditionalData = {
 	ValidationEnums.SharedDataMember.meshTextures,
 }
-
-TextureSizeBounded.fflag = getFFlagUGCValidateMigrateTextureTransparency
 
 TextureSizeBounded.expectedFailures = {}
 
@@ -43,7 +40,7 @@ local function checkEditableImageSize(
 	end)
 
 	if not success then
-		if consumerConfig and consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Backend then
+		if consumerConfig and consumerConfig.validationEnv == ValidationEnums.ValidationEnv.Backend then
 			reporter:fetchError(
 				string.format(
 					"Failed to get texture size for '%s'. Make sure the texture exists and try again.",

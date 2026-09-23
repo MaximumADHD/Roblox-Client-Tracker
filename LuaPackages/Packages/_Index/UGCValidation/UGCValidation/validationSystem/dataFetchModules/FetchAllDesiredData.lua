@@ -11,11 +11,13 @@ local FetchCurveAnimComputedFrames = require(root.validationSystem.dataFetchModu
 local FetchContentIds = require(root.validationSystem.dataFetchModules.FetchContentIds)
 local FetchHSRAssets = require(root.validationSystem.dataFetchModules.FetchHSRAssets)
 local FetchCurveAnimBoneData = require(root.validationSystem.dataFetchModules.FetchCurveAnimBoneData)
+local FetchFullBodyPartsMetrics = require(root.validationSystem.dataFetchModules.FetchFullBodyPartsMetrics)
 local Types = require(root.util.Types)
 local DataEnums = ValidationEnums.SharedDataMember
 
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
-local getFFlagUGCValidateMigrateBodyPartBounds = require(root.flags.getFFlagUGCValidateMigrateBodyPartBounds)
+local getFFlagUGCValidationAllowFullVaas = require(root.flags.getFFlagUGCValidationAllowFullVaas)
+local getFFlagUGCValidateHeadAboveTorso = require(root.flags.getFFlagUGCValidateHeadAboveTorso)
 local resetPhysicsData = require(root.util.resetPhysicsData)
 
 local EDITABLE_ENUMS = {
@@ -38,14 +40,16 @@ function FetchAllDesiredData.storeDesiredData(sharedData: Types.SharedData, desi
 	local preloadedMeshes = sharedData.consumerConfig.preloadedEditableMeshes or {}
 	local preloadedImages = sharedData.consumerConfig.preloadedEditableImages or {}
 
-	if getFFlagUGCValidateMigrateBodyPartBounds() then
+	-- Under full VaaS the backend reset moves to ValidationManager; skip here to avoid a double reset.
+	if not getFFlagUGCValidationAllowFullVaas() then
 		if sharedData.consumerConfig.consumerEnv ~= ValidationEnums.ConsumerEnv.IEC then
 			local isServer = sharedData.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Backend
 			pcall(resetPhysicsData, { rootInstance }, { isServer = isServer, bypassFlags = {} } :: any)
 		end
 	end
 
-	-- IEC is the only env where editable instances can be re-used directly.
+	-- Lifecycle-gated on consumerEnv: only IEC-origin uploads re-use editable instances directly (kept even on a VaaS backend run,
+	-- else this fetch path diverges from the checks that consume it).
 	local allowEditableInstances
 	if getFFlagUGCValidateMigrateSchemaProperties() then
 		allowEditableInstances = sharedData.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.IEC
@@ -102,6 +106,23 @@ function FetchAllDesiredData.storeDesiredData(sharedData: Types.SharedData, desi
 	if desiredData[DataEnums.curveAnimBoneData] then
 		local boneData = FetchCurveAnimBoneData.getData(sharedData[DataEnums.curveAnimations])
 		sharedData[DataEnums.curveAnimBoneData] = boneData
+	end
+
+	if getFFlagUGCValidateHeadAboveTorso() and desiredData[DataEnums.fullBodyPartsMetrics] then
+		if
+			sharedData.uploadCategory == ValidationEnums.UploadCategory.FULL_BODY
+			and sharedData.renderMeshesData
+			and sharedData.renderMeshesData ~= FetchAllDesiredData.DATA_FETCH_FAILURE
+		then
+			local success, result = pcall(FetchFullBodyPartsMetrics.getData, sharedData)
+			if success and result then
+				sharedData.fullBodyPartsMetrics = result
+			else
+				sharedData.fullBodyPartsMetrics = {}
+			end
+		else
+			sharedData.fullBodyPartsMetrics = {}
+		end
 	end
 end
 

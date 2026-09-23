@@ -43,7 +43,8 @@ SerializedAssetSizeBounded.requiredData = {
 SerializedAssetSizeBounded.fflag = getFFlagUGCValidateSerializedAssetSizeBounded
 
 SerializedAssetSizeBounded.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	-- Only the Backend can reach the serialize services (RCC WebService identity); Studio/IEC no-op.
+	-- Lifecycle-gated on consumerEnv (not validationEnv): a first-publish/backend-origin outlier cap. In-engine
+	-- buffers baked post-publish (e.g. HSR) would skew a re-run, so IEC-origin uploads (incl. VaaS) no-op.
 	if data.consumerConfig.consumerEnv ~= ValidationEnums.ConsumerEnv.Backend then
 		return
 	end

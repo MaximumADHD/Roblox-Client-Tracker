@@ -8,8 +8,6 @@ local floatEquals = require(root.util.floatEquals)
 local getMeshSize = require(root.util.getMeshSize)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 
-local getFFlagUGCValidateMigrateBodyPartBounds = require(root.flags.getFFlagUGCValidateMigrateBodyPartBounds)
-
 local MeshSizePropertyCorrect = {}
 
 MeshSizePropertyCorrect.categories = {
@@ -24,7 +22,6 @@ MeshSizePropertyCorrect.requiredData = {
 MeshSizePropertyCorrect.conditionalData = {
 	ValidationEnums.SharedDataMember.renderMeshesData,
 }
-MeshSizePropertyCorrect.fflag = getFFlagUGCValidateMigrateBodyPartBounds
 MeshSizePropertyCorrect.expectedFailures = {}
 
 local function vector3Equals(v1: Vector3, v2: Vector3): boolean
@@ -58,10 +55,11 @@ end
 MeshSizePropertyCorrect.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local instance = data.rootInstance
 	local assetTypeEnum = data.uploadEnum.assetType
-	local consumerEnv = data.consumerConfig.consumerEnv
-	local isServer = consumerEnv == ValidationEnums.ConsumerEnv.Backend
+	-- Capability-gated: throw-to-retry on editable-mesh fetch failure only where RCC reschedules.
+	local isServer = data.consumerConfig.validationEnv == ValidationEnums.ValidationEnv.Backend
 
-	if consumerEnv == ValidationEnums.ConsumerEnv.IEC then
+	-- Lifecycle-gated on consumerEnv: IEC-origin MeshSize is not baked to match, so IEC-origin skips (incl. VaaS).
+	if data.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.IEC then
 		return
 	end
 

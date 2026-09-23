@@ -1,315 +1,287 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local Checkbox = require(Foundation.Components.Checkbox)
-local Text = require(Foundation.Components.Text)
+local Flags = require(Foundation.Utility.Flags)
+local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
+local StorySection = require(Foundation.Utility.Stories.Shared.StorySection)
 local View = require(Foundation.Components.View)
-local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local InputPlacement = require(Foundation.Enums.InputPlacement)
+type InputPlacement = InputPlacement.InputPlacement
 local InputSize = require(Foundation.Enums.InputSize)
+type InputSize = InputSize.InputSize
 
-local function activated(label: string)
-	return function()
-		print(`Checkbox: "{label}" activated`)
-	end
-end
+local matrixLabel = MatrixGridShared.matrixLabel
+type MatrixGridRow = MatrixGridShared.MatrixGridRow
 
-type GroupProps = {
-	caption: string,
-	contentTag: string,
+local Section = StorySection.Section
+local LabeledCell = StorySection.LabeledCell
+local StoryMatrixGrid = StorySection.StoryMatrixGrid
+local STORY_FRAME_TAG = StorySection.STORY_FRAME_TAG
+local STORY_PAGE_TAG = StorySection.STORY_PAGE_TAG
 
-	LayoutOrder: number?,
-	children: React.ReactNode?,
+local SIZE_ORDER: { InputSize } = {
+	InputSize.XSmall,
+	InputSize.Small,
+	InputSize.Medium,
+	InputSize.Large,
 }
 
-local function Group(props: GroupProps)
+local PLACEMENT_ORDER: { InputPlacement } = {
+	InputPlacement.Start,
+	InputPlacement.End,
+}
+
+local LABEL = "Label"
+local HINT = "Hint text"
+local LONG_LABEL = "This is a longer checkbox label than the container fits on a single line"
+local LONG_HINT = "A longer hint that also runs past the width its container gives it"
+
+local LABEL_COLUMN_WIDTH = 150
+local CELL_COLUMN_WIDTH = 170
+local BOUNDED_WIDTH = 200
+
+type StateFixture = {
+	label: string,
+	isChecked: boolean?,
+	isIndeterminate: boolean?,
+	isDisabled: boolean?,
+	hint: string?,
+}
+
+local STATE_ORDER: { StateFixture } = {
+	{ label = "unchecked" },
+	{ label = "checked", isChecked = true },
+	{ label = "indeterminate", isIndeterminate = true },
+	{ label = "isDisabled", isDisabled = true },
+	{ label = "isDisabled · checked", isChecked = true, isDisabled = true },
+	{ label = "isDisabled · indeterminate", isIndeterminate = true, isDisabled = true },
+}
+
+local HINT_FIXTURE: StateFixture = { label = "hint", hint = HINT }
+
+local SIZE_HEADERS = Dash.map(SIZE_ORDER, function(value): string
+	return value
+end)
+
+local function noop() end
+
+type PlaygroundControls = {
+	label: string,
+	hint: string,
+	size: InputSize,
+	placement: InputPlacement,
+	isChecked: boolean,
+	isIndeterminate: boolean,
+	isDisabled: boolean,
+}
+
+local function PlaygroundStory(props: { controls: PlaygroundControls })
+	local controls = props.controls
+
 	return React.createElement(View, {
-		tag = "col gap-medium auto-xy",
-		LayoutOrder = props.LayoutOrder,
+		tag = `auto-xy {STORY_FRAME_TAG}`,
 	}, {
-		Caption = React.createElement(Text, {
-			Text = props.caption,
-			tag = "auto-xy text-body-small content-default",
-			LayoutOrder = 1,
+		Checkbox = React.createElement(Checkbox, {
+			label = controls.label,
+			hint = if Flags.FoundationCheckboxBeta and controls.hint ~= "" then controls.hint else nil,
+			isChecked = controls.isChecked,
+			isIndeterminate = controls.isIndeterminate,
+			isDisabled = controls.isDisabled,
+			size = controls.size,
+			placement = controls.placement,
+			onActivated = noop,
 		}),
-		Content = React.createElement(View, {
-			tag = props.contentTag,
-			LayoutOrder = 2,
-		}, props.children),
 	})
 end
 
+local function SizingStory()
+	return React.createElement(View, {
+		tag = `col {STORY_PAGE_TAG}`,
+	}, {
+		Size = React.createElement(Section, {
+			LayoutOrder = 1,
+			name = "Size",
+			contentTag = "auto-xy",
+		}, {
+			Grid = React.createElement(StoryMatrixGrid, {
+				LayoutOrder = 1,
+				showLabelColumn = false,
+				columnHeaders = SIZE_HEADERS,
+				cellColumnWidth = CELL_COLUMN_WIDTH,
+				rows = {
+					{
+						label = matrixLabel(""),
+						cells = Dash.map(SIZE_ORDER, function(size)
+							return React.createElement(Checkbox, {
+								label = LABEL,
+								size = size,
+								onActivated = noop,
+							})
+						end),
+					},
+				},
+			}),
+		}),
+	})
+end
+
+local function PlacementStory()
+	return React.createElement(
+		View,
+		{
+			tag = `row align-y-top gap-xxlarge auto-xy {STORY_FRAME_TAG}`,
+		},
+		Dash.map(PLACEMENT_ORDER, function(placement, index)
+			return React.createElement(LabeledCell, {
+				LayoutOrder = index,
+				label = placement,
+			}, {
+				Checkbox = React.createElement(Checkbox, {
+					label = LABEL,
+					placement = placement,
+					onActivated = noop,
+				}),
+			})
+		end)
+	)
+end
+
+local function stateCheckbox(fixture: StateFixture, size: InputSize)
+	return React.createElement(Checkbox, {
+		label = LABEL,
+		hint = fixture.hint,
+		isChecked = fixture.isChecked,
+		isIndeterminate = fixture.isIndeterminate,
+		isDisabled = fixture.isDisabled,
+		size = size,
+		onActivated = noop,
+	})
+end
+
+local function StatesStory()
+	local fixtures = table.clone(STATE_ORDER)
+
+	if Flags.FoundationCheckboxBeta then
+		table.insert(fixtures, HINT_FIXTURE)
+	end
+
+	return React.createElement(View, {
+		tag = `col gap-xxlarge {STORY_PAGE_TAG}`,
+	}, {
+		Grid = React.createElement(StoryMatrixGrid, {
+			LayoutOrder = 1,
+			showLabelColumn = true,
+			labelColumnWidth = LABEL_COLUMN_WIDTH,
+			columnHeaders = SIZE_HEADERS,
+			cellColumnWidth = CELL_COLUMN_WIDTH,
+			rows = Dash.map(fixtures, function(fixture): MatrixGridRow
+				return {
+					label = matrixLabel(fixture.label),
+					cells = Dash.map(SIZE_ORDER, function(size)
+						return stateCheckbox(fixture, size)
+					end),
+				}
+			end),
+		}),
+	})
+end
+
+local function ControlledExample(props: {
+	LayoutOrder: number,
+})
+	local isChecked, setIsChecked = React.useState(false)
+
+	return React.createElement(Checkbox, {
+		label = LABEL,
+		isChecked = isChecked,
+		onActivated = setIsChecked,
+		LayoutOrder = props.LayoutOrder,
+	})
+end
+
+local function ControlledStory()
+	return React.createElement(View, {
+		tag = `auto-xy {STORY_FRAME_TAG}`,
+	}, {
+		Example = React.createElement(ControlledExample, { LayoutOrder = 1 }),
+	})
+end
+
+local function ContentStory()
+	local hint = if Flags.FoundationCheckboxBeta then LONG_HINT else nil
+
+	return React.createElement(View, {
+		tag = `col gap-xxlarge {STORY_PAGE_TAG}`,
+	}, {
+		Wrapping = React.createElement(
+			Section,
+			{
+				LayoutOrder = 1,
+				name = "Wrapping",
+			},
+			Dash.map(PLACEMENT_ORDER, function(placement, index)
+				return React.createElement(LabeledCell, {
+					LayoutOrder = index,
+					label = placement,
+				}, {
+					Frame = React.createElement(View, {
+						tag = "auto-y",
+						Size = UDim2.fromOffset(BOUNDED_WIDTH, 0),
+					}, {
+						Checkbox = React.createElement(Checkbox, {
+							label = LONG_LABEL,
+							hint = hint,
+							placement = placement,
+							onActivated = noop,
+						}),
+					}),
+				})
+			end)
+		),
+	})
+end
+
+local controls: { [string]: unknown } = Dash.join({
+	label = LABEL,
+	size = SIZE_ORDER,
+	placement = PLACEMENT_ORDER,
+	isChecked = false,
+	isIndeterminate = false,
+	isDisabled = false,
+}, if Flags.FoundationCheckboxBeta then { hint = HINT } else {})
+
 return {
-	summary = "Checkbox component",
+	summary = "Checkbox turns a single boolean on or off, with an optional label and hint beside it.",
 	stories = {
 		{
 			name = "Playground",
-			story = function(props)
-				local isChecked, setIsChecked = React.useState(true)
-
-				return React.createElement(Checkbox, {
-					isChecked = isChecked,
-					isDisabled = props.controls.isDisabled,
-					onActivated = function()
-						setIsChecked(not isChecked)
-					end,
-					size = props.controls.size,
-					label = props.controls.label or "",
-					hint = props.controls.hint,
-					placement = props.controls.placement,
-				})
-			end,
-		} :: { name: string, story: (props: any) -> React.Node },
+			story = PlaygroundStory :: unknown,
+		},
 		{
-			name = "Sizes",
-			summary = "Checkbox rendered at every supported size",
-			story = function()
-				local checkedBySize, setCheckedBySize = React.useState(function()
-					local init = {}
-					for _, size in InputSize do
-						init[size] = true
-					end
-					return init
-				end)
-
-				return React.createElement(
-					View,
-					{
-						tag = "col gap-xxlarge auto-xy",
-					},
-					Dash.map(
-						{ InputSize.XSmall, InputSize.Small, InputSize.Medium, InputSize.Large } :: { InputSize.InputSize },
-						function(size, _)
-							return React.createElement(Group, {
-								caption = size,
-								contentTag = "auto-xy",
-							}, {
-								Checkbox = React.createElement(Checkbox, {
-									isChecked = checkedBySize[size],
-									onActivated = function()
-										setCheckedBySize(Dash.join(checkedBySize, { [size] = not checkedBySize[size] }))
-									end,
-									size = size,
-									label = "Label",
-									placement = InputPlacement.Start,
-								}),
-							})
-						end
-					)
-				)
-			end,
+			name = "Sizing",
+			story = SizingStory,
 		},
 		{
 			name = "Placement",
-			summary = "Checkbox placement options",
-			story = function()
-				return React.createElement(
-					View,
-					{
-						tag = "row gap-xxlarge auto-xy",
-					},
-					Dash.map(InputPlacement, function(placement, name)
-						return React.createElement(Group, {
-							caption = name,
-							contentTag = "auto-xy",
-						}, {
-							Checkbox = React.createElement(Checkbox, {
-								isChecked = true,
-								onActivated = activated(name),
-								size = InputSize.Medium,
-								label = "Label",
-								placement = placement,
-							}),
-						})
-					end)
-				)
-			end,
+			story = PlacementStory,
 		},
 		{
-			name = "IsDisabled",
-			story = function()
-				return React.createElement(
-					View,
-					{
-						tag = "row gap-xxlarge auto-xy",
-					},
-					Dash.map({
-						{ caption = "False", isDisabled = false },
-						{ caption = "True", isDisabled = true },
-					}, function(option, index)
-						return React.createElement(Group, {
-							caption = option.caption,
-							contentTag = "auto-xy",
-							LayoutOrder = index,
-						}, {
-							Checkbox = React.createElement(Checkbox, {
-								isChecked = true,
-								onActivated = activated("IsDisabled " .. option.caption),
-								isDisabled = option.isDisabled,
-								size = InputSize.Medium,
-								label = "Label",
-								placement = InputPlacement.Start,
-							}),
-						})
-					end)
-				)
-			end,
+			name = "States",
+			story = StatesStory,
 		},
 		{
-			name = "IsIndeterminate",
-			story = function()
-				return React.createElement(
-					View,
-					{
-						tag = "row gap-xxlarge auto-xy",
-					},
-					Dash.map({
-						{ caption = "False", isIndeterminate = false },
-						{ caption = "True", isIndeterminate = true },
-					}, function(option, index)
-						return React.createElement(Group, {
-							caption = option.caption,
-							contentTag = "auto-xy",
-							LayoutOrder = index,
-						}, {
-							Checkbox = React.createElement(Checkbox, {
-								isChecked = true,
-								onActivated = activated("IsIndeterminate " .. option.caption),
-								isIndeterminate = option.isIndeterminate,
-								size = InputSize.Medium,
-								label = "Label",
-								placement = InputPlacement.Start,
-							}),
-						})
-					end)
-				)
-			end,
+			name = "Controlled component",
+			story = ControlledStory,
 		},
 		{
-			name = "Indeterminate Aggregation",
-			summary = "A checkbox with an indeterminate state aggregating other checkboxes",
-			story = function()
-				local isChecked1, setIsChecked1 = React.useState(false)
-				local isChecked2, setIsChecked2 = React.useState(false)
-				local isChecked3, setIsChecked3 = React.useState(true)
-
-				local isAggregationChecked = isChecked1 or isChecked2 or isChecked3
-				local isAggregationIndeterminate = isChecked1 ~= isChecked2 or isChecked2 ~= isChecked3
-
-				return React.createElement(View, {
-					tag = "col gap-medium size-3000-0 auto-xy",
-				}, {
-					Aggregation = React.createElement(Checkbox, {
-						LayoutOrder = 1,
-						isChecked = isAggregationChecked,
-						isIndeterminate = isAggregationIndeterminate,
-						onActivated = function(value)
-							setIsChecked1(value)
-							setIsChecked2(value)
-							setIsChecked3(value)
-						end,
-						size = InputSize.Medium,
-						label = "",
-						placement = InputPlacement.Start,
-					}),
-					Check1 = React.createElement(Checkbox, {
-						LayoutOrder = 2,
-						isChecked = isChecked1,
-						onActivated = function(value)
-							setIsChecked1(value)
-						end,
-						size = InputSize.Medium,
-						label = "Item 1",
-						placement = InputPlacement.Start,
-					}),
-					Check2 = React.createElement(Checkbox, {
-						LayoutOrder = 3,
-						isChecked = isChecked2,
-						onActivated = function(value)
-							setIsChecked2(value)
-						end,
-						size = InputSize.Medium,
-						label = "Item 2",
-						placement = InputPlacement.Start,
-					}),
-					Check3 = React.createElement(Checkbox, {
-						LayoutOrder = 4,
-						isChecked = isChecked3,
-						onActivated = function(value)
-							setIsChecked3(value)
-						end,
-						size = InputSize.Medium,
-						label = "Item 3",
-						placement = InputPlacement.Start,
-					}),
-				})
-			end,
-		},
-		{
-			name = "Custom Selection",
-			summary = "Select card container instead of checkbox",
-			story = function()
-				local isChecked, setIsChecked = React.useState(true)
-				local tokens = useTokens()
-
-				local cursor = React.useMemo(function()
-					return {
-						radius = UDim.new(0, tokens.Radius.Medium),
-						offset = tokens.Size.Size_150,
-						borderWidth = tokens.Stroke.Thicker,
-					}
-				end, { tokens })
-
-				return React.createElement(View, {
-					cursor = cursor,
-					onActivated = function()
-						setIsChecked(not isChecked)
-					end,
-					tag = "col align-x-center align-y-center gap-medium auto-y padding-large stroke-muted radius-medium bg-surface-100",
-					Size = UDim2.fromOffset(300, 120),
-				}, {
-					Checkbox = React.createElement(Checkbox, {
-						isChecked = isChecked,
-						onActivated = function()
-							setIsChecked(not isChecked)
-						end,
-						size = InputSize.Medium,
-						label = "Enable notifications",
-						placement = InputPlacement.Start,
-						Selectable = false,
-						LayoutOrder = 1,
-					}),
-					Description = React.createElement(Text, {
-						Text = "Get notified when someone mentions you or sends you a message",
-						tag = "size-full-0 auto-y text-body-small text-wrap content-muted",
-						LayoutOrder = 2,
-					}),
-				})
-			end,
-		},
-		{
-			name = "Uncontrolled",
-			summary = "State is controlled by the checkbox itself",
-			story = function()
-				return React.createElement(Checkbox, {
-					onActivated = function(value)
-						print("isChecked: ", value)
-					end,
-					size = InputSize.Medium,
-					label = "Label",
-					placement = InputPlacement.Start,
-				})
-			end,
+			name = "Content",
+			story = ContentStory,
 		},
 	},
-	controls = {
-		isDisabled = false,
-		label = "Label",
-		hint = "",
-		size = Dash.values(InputSize),
-		placement = Dash.values(InputPlacement),
-	},
+	controls = controls,
 }

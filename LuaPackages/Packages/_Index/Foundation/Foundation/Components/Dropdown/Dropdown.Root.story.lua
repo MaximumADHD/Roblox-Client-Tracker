@@ -1,409 +1,168 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local BuilderIcons = require(Packages.BuilderIcons)
+local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Dash = require(Packages.Dash)
-
+local AccessoryType = require(Foundation.Enums.AccessoryType)
 local BadgeVariant = require(Foundation.Enums.BadgeVariant)
 local Dropdown = require(Foundation.Components.Dropdown)
 local InputSize = require(Foundation.Enums.InputSize)
 local InputVariant = require(Foundation.Enums.InputVariant)
-local Text = require(Foundation.Components.Text)
+local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
+local StorySection = require(Foundation.Utility.Stories.Shared.StorySection)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 
+local IconName = BuilderIcons.Icon
+local LabeledCell = StorySection.LabeledCell
+local MatrixSection = StorySection.MatrixSection
+local Section = StorySection.Section
+local StoryMatrixGrid = StorySection.StoryMatrixGrid
+local matrixLabel = MatrixGridShared.matrixLabel
+local PAGE_TAG = `col gap-xxlarge {StorySection.STORY_PAGE_TAG}`
+local SINGLE_PAGE_TAG = `col {StorySection.STORY_PAGE_TAG}`
+local SWEEP_ROW_PAGE_TAG = `row wrap align-y-top gap-large {StorySection.STORY_PAGE_TAG}`
+
 type DropdownItem = Dropdown.DropdownItem
 type DropdownItems = Dropdown.DropdownItems
-type ItemId = Types.ItemId
+type DropdownProps = Dropdown.DropdownProps
 type InputSize = InputSize.InputSize
 type InputVariant = InputVariant.InputVariant
-type BadgeVariant = BadgeVariant.BadgeVariant
+type ItemId = Types.ItemId
 
-type Controls = {
-	size: InputSize,
-	variant: InputVariant,
-	isDisabled: boolean,
-	hasError: boolean,
-	hasIcon: boolean,
-	hasPlaceholder: boolean,
-	hasHint: boolean,
-	label: string,
-	placeholder: string,
-	hint: string,
-	width: number,
-	leading: string?,
-	trailing: string?,
+type DropdownElementProps = DropdownProps & { key: string? }
+type ControlOption<T> = T | typeof(React.None)
+
+local SIZE_ORDER: { InputSize } = {
+	InputSize.XSmall,
+	InputSize.Small,
+	InputSize.Medium,
+	InputSize.Large,
 }
 
-local LEADING_ICON_PALETTE = {
-	BuilderIcons.Icon.Pencil,
-	BuilderIcons.Icon.ClipboardPencil,
-	BuilderIcons.Icon.TextBBold,
-	BuilderIcons.Icon.PaperAirplane,
-	BuilderIcons.Icon.TwoStackedSquares,
-	BuilderIcons.Icon.TrashCan,
+local SIZE_HEADERS: { string } = Dash.map(SIZE_ORDER, function(size: InputSize): string
+	return size
+end)
+
+local VARIANT_ORDER: { InputVariant } = {
+	InputVariant.Standard,
+	InputVariant.Contrast,
+	InputVariant.Utility,
 }
 
-local HINT_PALETTE = { "\u{2318}B", "\u{2318}I", "\u{2318}C", "\u{2318}V", "\u{2318}S", "\u{2318}Z" }
+local LABEL_TEXT = "Label"
+local HINT_TEXT = "Hint"
+local PLACEHOLDER_TEXT = "Placeholder"
 
-local BADGE_PALETTE: { { text: string, variant: BadgeVariant } } = {
-	{ text = "New", variant = BadgeVariant.Success },
-	{ text = "Beta", variant = BadgeVariant.Warning },
-	{ text = "Pro", variant = BadgeVariant.Contrast },
-	{ text = "Soon", variant = BadgeVariant.Neutral },
+local DEFAULT_ITEMS: { DropdownItem } = {
+	{ id = "option-1", text = "Option 1" },
+	{ id = "option-2", text = "Option 2" },
 }
 
-local function leadingFor(mode: string?, index: number): any
-	if mode == nil or mode == "None" then
-		return nil
-	end
-	if mode == "Avatar" then
-		return { type = "Avatar", userId = 24813339 } :: any
-	end
-	if mode == "Mixed" then
-		local r = (index - 1) % 3
-		if r == 1 then
-			return { type = "Avatar", userId = 24813339 } :: any
-		elseif r == 2 then
-			return nil
-		end
-	end
-	return LEADING_ICON_PALETTE[((index - 1) % #LEADING_ICON_PALETTE) + 1]
-end
+local LONG_ITEMS: { DropdownItem } = {
+	{
+		id = "long",
+		text = "This is a longer label that should truncate on the closed field and in the open menu",
+	},
+	{ id = "option-1", text = "Option 1" },
+	{ id = "option-2", text = "Option 2" },
+}
 
-local function trailingFor(mode: string?, index: number): any
-	if mode == nil or mode == "None" then
-		return nil
-	end
-	if mode == "Hint" then
-		return { type = "Hint", text = HINT_PALETTE[((index - 1) % #HINT_PALETTE) + 1] } :: any
-	end
-	if mode == "Badge" then
-		local b = BADGE_PALETTE[((index - 1) % #BADGE_PALETTE) + 1]
-		return { type = "Badge", text = b.text, variant = b.variant } :: any
-	end
-	if index % 2 == 1 then
-		return { type = "Hint", text = HINT_PALETTE[((index - 1) % #HINT_PALETTE) + 1] } :: any
-	end
-	local b = BADGE_PALETTE[((index - 1) % #BADGE_PALETTE) + 1]
-	return { type = "Badge", text = b.text, variant = b.variant } :: any
-end
+--[[
+	`icon` is the older spelling of `leading`: BaseMenuItem resolves `leading or icon`, and a
+	bare string on either becomes an icon accessory. One cell per spelling would render the
+	same row twice, so the icon arm below is authored as `leading`.
+]]
+local LEADING_ICON_ITEMS: { DropdownItem } = {
+	{ id = "option-1", text = "Option 1", leading = IconName.Pencil },
+	{ id = "option-2", text = "Option 2", leading = IconName.TwoStackedSquares },
+}
 
-local function getItems(hasIcon: boolean?): { DropdownItem }
-	local icon = if hasIcon then BuilderIcons.Icon.ShieldCheck else nil
-	return {
-		{ id = "A", text = "Item A", icon = icon },
-		{ id = "B", text = "Item B", isDisabled = true },
-		{
-			id = "G",
-			text = "Long text item that should be truncated in the dropdown menu",
+local LEADING_AVATAR_ITEMS: { DropdownItem } = {
+	{ id = "option-1", text = "Option 1", leading = { type = AccessoryType.Avatar, userId = 1 } },
+	{ id = "option-2", text = "Option 2", leading = { type = AccessoryType.Avatar, userId = 156 } },
+}
+
+local TRAILING_HINT_ITEMS: { DropdownItem } = {
+	{ id = "option-1", text = "Option 1", trailing = { type = "Hint", text = "⌘E" } },
+	{ id = "option-2", text = "Option 2", trailing = { type = "Hint", text = "⌘C" } },
+}
+
+local TRAILING_BADGE_ITEMS: { DropdownItem } = {
+	{
+		id = "option-1",
+		text = "Option 1",
+		trailing = { type = "Badge", text = "New", variant = BadgeVariant.Success },
+	},
+	{ id = "option-2", text = "Option 2" },
+}
+
+local DISABLED_ITEM_ITEMS: { DropdownItem } = {
+	{ id = "option-1", text = "Option 1" },
+	{ id = "option-2", text = "Option 2", isDisabled = true },
+	{ id = "option-3", text = "Option 3" },
+}
+
+local GROUPED_ITEMS = {
+	{
+		title = "Section 1" :: string?,
+		items = {
+			{ id = "option-1", text = "Option 1" },
+			{ id = "option-2", text = "Option 2" },
 		},
-		{ id = "C", text = "Item C", icon = icon },
-	}
-end
+	},
+	{
+		title = "Section 2",
+		items = {
+			{ id = "option-3", text = "Option 3" },
+		},
+	},
+} :: DropdownItems
 
--- A Dropdown that owns its own selection state, used by all showcase stories
--- so we don't have to repeat useState plumbing for each example.
-type DemoDropdownProps = {
-	label: string,
-	size: InputSize?,
-	variant: InputVariant?,
-	isDisabled: boolean?,
-	hasError: boolean?,
-	hasIcon: boolean?,
-	placeholder: string?,
-	hint: string?,
-	items: DropdownItems?,
-	width: UDim?,
-	maxHeight: number?,
-	value: ItemId?,
-	scrollingFrameRef: React.Ref<ScrollingFrame>?,
+local VALUE_CONTROL_OPTIONS: { ControlOption<string> } = {
+	React.None,
+	"option-1",
+	"option-2",
 }
 
-local function DemoDropdown(props: DemoDropdownProps): React.ReactNode
-	local id, setId = React.useState(props.value)
-	return React.createElement(Dropdown.Root, {
-		value = id,
-		placeholder = props.placeholder,
-		onItemChanged = function(itemId: ItemId)
-			setId(itemId)
-		end,
-		hasError = props.hasError,
-		isDisabled = props.isDisabled,
-		items = if props.items then props.items else getItems(props.hasIcon),
-		size = props.size,
-		variant = props.variant,
-		label = props.label,
-		hint = props.hint,
-		width = props.width,
-		maxHeight = props.maxHeight,
-		scrollingFrameRef = props.scrollingFrameRef,
-	})
-end
+local SWEEP_CELL_WIDTH = 220
+local WIDTH_FRAME_WIDTH = 600
+local OVERFLOW_ITEM_COUNT = 12
+local OVERFLOW_MAX_HEIGHT_TIGHT = 96
+local OVERFLOW_MAX_HEIGHT = 160
+local SCROLL_TO_SELECTION_ITEM_COUNT = 20
+local SCROLL_TO_SELECTION_MAX_HEIGHT = 120
+local SCROLL_TO_SELECTION_ID = "item-12"
 
-local function Label(text: string, LayoutOrder: number)
-	return React.createElement(Text, {
-		Text = text,
-		tag = "auto-xy text-label-medium content-muted",
-		LayoutOrder = LayoutOrder,
-	})
-end
+local WIDTH_EXAMPLES: { { label: string, width: UDim?, hugWidth: boolean? } } = {
+	{ label = "Default", hugWidth = true },
+	{ label = "Fill — UDim.new(1, 0)", width = UDim.new(1, 0) },
+	{ label = "Constrained — UDim.new(0, 150)", width = UDim.new(0, 150) },
+}
 
-local function Section(
-	label: string,
-	LayoutOrder: number,
-	containerTag: string,
-	children: { [string]: React.ReactNode }
-)
-	return React.createElement(View, {
-		tag = "col gap-xsmall " .. containerTag,
-		LayoutOrder = LayoutOrder,
-	}, {
-		Label = Label(label, 1),
-		Content = React.createElement(View, {
-			tag = containerTag,
-			LayoutOrder = 2,
-		}, children),
-	})
-end
+local function noop() end
 
-local function PlaygroundStory(props: { controls: Controls }): React.ReactNode
-	local controls = props.controls
-	local items: { DropdownItem }? = nil
-	local leadingMode = controls.leading
-	local trailingMode = controls.trailing
-	local baseTexts = { "Action one", "Action two", "Action three", "Other one", "Other two", "Other three" }
-	local built: { DropdownItem } = {}
-	for index, text in baseTexts do
-		table.insert(built, {
+local function makeItems(count: number): { DropdownItem }
+	local items: { DropdownItem } = {}
+	for index = 1, count do
+		table.insert(items, {
 			id = `item-{index}`,
-			text = text,
-			leading = leadingFor(leadingMode, index),
-			trailing = trailingFor(trailingMode, index),
-			isDisabled = index == 5,
+			text = `Option {index}`,
 		})
 	end
-	items = built
-	return React.createElement(DemoDropdown, {
-		label = controls.label,
-		size = controls.size,
-		variant = controls.variant,
-		isDisabled = controls.isDisabled,
-		hasError = controls.hasError,
-		hasIcon = controls.hasIcon,
-		placeholder = if controls.hasPlaceholder then controls.placeholder else nil,
-		hint = if controls.hasHint then controls.hint else nil,
-		width = UDim.new(0, controls.width),
-		items = items,
-	})
+	return items
 end
 
-local SHOWCASE_WIDTH = UDim.new(0, 220)
+local SCROLL_TO_SELECTION_ITEMS = makeItems(SCROLL_TO_SELECTION_ITEM_COUNT)
 
-local function SizesStory(_props: { controls: Controls }): React.ReactNode
-	return React.createElement(View, {
-		tag = "col gap-xlarge size-full-0 auto-y",
-	}, {
-		Large = Section("Large", 1, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Label",
-				size = InputSize.Large,
-				placeholder = "Select an option",
-				width = SHOWCASE_WIDTH,
-			}),
-		}),
-		Medium = Section("Medium", 2, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Label",
-				size = InputSize.Medium,
-				placeholder = "Select an option",
-				width = SHOWCASE_WIDTH,
-			}),
-		}),
-		Small = Section("Small", 3, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Label",
-				size = InputSize.Small,
-				placeholder = "Select an option",
-				width = SHOWCASE_WIDTH,
-			}),
-		}),
-		XSmall = Section("XSmall", 4, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Label",
-				size = InputSize.XSmall,
-				placeholder = "Select an option",
-				width = SHOWCASE_WIDTH,
-			}),
-		}),
-	})
-end
-
-local function VariantsStory(_props: { controls: Controls }): React.ReactNode
-	return React.createElement(View, {
-		tag = "col gap-xlarge size-full-0 auto-y",
-	}, {
-		Standard = Section("Standard", 1, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Label",
-				variant = InputVariant.Standard,
-				placeholder = "Select an option",
-				width = SHOWCASE_WIDTH,
-			}),
-		}),
-		Contrast = Section("Contrast", 2, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Label",
-				variant = InputVariant.Contrast,
-				placeholder = "Select an option",
-				width = SHOWCASE_WIDTH,
-			}),
-		}),
-		Utility = Section("Utility", 3, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Label",
-				variant = InputVariant.Utility,
-				placeholder = "Select an option",
-				width = SHOWCASE_WIDTH,
-			}),
-		}),
-	})
-end
-
-local function StatesStory(_props: { controls: Controls }): React.ReactNode
-	return React.createElement(View, {
-		tag = "col gap-xlarge size-full-0 auto-y",
-	}, {
-		Default = Section("Default", 1, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Label",
-				placeholder = "Select an option",
-				width = SHOWCASE_WIDTH,
-			}),
-		}),
-		WithHint = Section("With hint", 2, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Label",
-				placeholder = "Select an option",
-				hint = "Pick wisely",
-				width = SHOWCASE_WIDTH,
-			}),
-		}),
-		Disabled = Section("Disabled", 3, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Label",
-				placeholder = "Select an option",
-				isDisabled = true,
-				width = SHOWCASE_WIDTH,
-			}),
-		}),
-		Error = Section("Error", 4, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Label",
-				placeholder = "Select an option",
-				hasError = true,
-				hint = "This field is required",
-				width = SHOWCASE_WIDTH,
-			}),
-		}),
-	})
-end
-
-local function WidthsStory(_props: { controls: Controls }): React.ReactNode
-	local narrowItems: DropdownItems = {
-		{ id = "A", text = "Item A" },
-		{ id = "B", text = "Item B", isDisabled = true },
-	}
-	return React.createElement(View, {
-		tag = "col gap-xlarge size-full-0 auto-y",
-	}, {
-		NarrowNarrow = Section("Narrow dropdown — narrow items", 1, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Label",
-				placeholder = "Pick one",
-				width = UDim.new(0, 150),
-				items = narrowItems,
-			}),
-		}),
-		NarrowWide = Section("Narrow dropdown — wide items (truncate)", 2, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Label",
-				placeholder = "Pick one",
-				width = UDim.new(0, 150),
-			}),
-		}),
-		Fill = Section("Fill width — narrow items", 3, "size-full-0 auto-y", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Label",
-				placeholder = "Pick one",
-				width = UDim.new(1, 0),
-				items = narrowItems,
-			}),
-		}),
-	})
-end
-
-local function ItemGroupsStory(_props: { controls: Controls }): React.ReactNode
-	local groupedItems: DropdownItems = {
-		{
-			title = "First title" :: string?,
-			items = {
-				{ id = "a1", icon = BuilderIcons.Icon.Robux, text = "Alpha 1" } :: DropdownItem,
-				{ id = "a2", text = "Alpha 2" },
-			},
-		},
-		{
-			items = {
-				{ id = "b1", text = "Beta 1" },
-				{ id = "b2", isDisabled = true, text = "Beta 2 (disabled)" },
-			},
-		},
-		{
-			items = {
-				{ id = "c1", text = "Untitled group item" },
-			},
-		},
-	}
-	return React.createElement(DemoDropdown, {
-		label = "With item groups",
-		placeholder = "Select an option",
-		width = SHOWCASE_WIDTH,
-		items = groupedItems,
-	})
-end
-
-local function OverflowStory(_props: { controls: Controls }): React.ReactNode
-	local items = React.useMemo(function()
-		local tempItems = {}
-		for i = 1, 100 do
-			local itemId = tostring(i)
-			table.insert(tempItems, {
-				id = itemId,
-				icon = BuilderIcons.Icon.Robux,
-				text = `Item {itemId}`,
-				isDisabled = i % 7 == 0,
-			})
-		end
-		return tempItems :: { DropdownItem }
-	end, {})
-
-	return React.createElement(DemoDropdown, {
-		label = "Overflow",
-		placeholder = "Choose a value",
-		width = SHOWCASE_WIDTH,
-		maxHeight = 500,
-		items = items,
-	})
-end
-
-local SCROLL_TO_SELECTION_MAX_HEIGHT = 120
-local SCROLL_TO_SELECTION_ITEM_COUNT = 20
-
--- Scroll from the scrollingFrameRef callback once the menu is measured and
--- clamped to maxHeight (canvas taller than the window). Before that, window
--- equals content height and centering math collapses to the top. Row position
--- is derived from canvasHeight / itemCount rather than AbsolutePosition.
+--[[
+	Centers the selected item when the menu opens. The scrolling frame only mounts while
+	the menu is open, so we scroll from the ref callback and wait until the menu is
+	measured and clamped (canvas taller than the window). Before that the window equals
+	the full content height and the centering math collapses to the top. Same approach as
+	DateTimePicker's month/year dropdowns.
+]]
 local function useScrollToSelectedRef(items: { DropdownItem }, selectedId: ItemId)
 	local connections = React.useRef(nil :: { RBXScriptConnection }?)
 	local disconnect = React.useCallback(function()
@@ -462,208 +221,404 @@ local function useScrollToSelectedRef(items: { DropdownItem }, selectedId: ItemI
 	return refCallback
 end
 
-local function ScrollToSelectionStory(_props: { controls: Controls }): React.ReactNode
-	local items = React.useMemo(function()
-		local list: { DropdownItem } = {}
-		for index = 1, SCROLL_TO_SELECTION_ITEM_COUNT do
-			table.insert(list, {
-				id = `item-{index}`,
-				text = `Item {index}`,
+type StaticDropdownProps = {
+	label: string?,
+	placeholder: string?,
+	hint: string?,
+	items: DropdownItems?,
+	value: ItemId?,
+	size: InputSize?,
+	variant: InputVariant?,
+	width: UDim?,
+	maxHeight: number?,
+	scrollingFrameRef: React.Ref<ScrollingFrame>?,
+	hasError: boolean?,
+	isDisabled: boolean?,
+	hugWidth: boolean?,
+	LayoutOrder: number?,
+}
+
+local function StaticDropdown(props: StaticDropdownProps): React.ReactNode
+	local remountKey, setRemountKey = React.useState(0)
+
+	return React.createElement(
+		Dropdown.Root,
+		{
+			key = tostring(remountKey),
+			LayoutOrder = props.LayoutOrder,
+			label = props.label or "",
+			placeholder = if props.placeholder ~= nil then props.placeholder else PLACEHOLDER_TEXT,
+			hint = props.hint,
+			items = props.items or DEFAULT_ITEMS,
+			value = props.value,
+			onItemChanged = function()
+				setRemountKey(function(key)
+					return key + 1
+				end)
+			end,
+			size = props.size,
+			variant = props.variant,
+			width = if props.hugWidth then nil else props.width or UDim.new(0, SWEEP_CELL_WIDTH),
+			maxHeight = props.maxHeight,
+			scrollingFrameRef = props.scrollingFrameRef,
+			hasError = props.hasError,
+			isDisabled = props.isDisabled,
+		} :: DropdownElementProps
+	)
+end
+
+local function itemsBySize(items: DropdownItems, value: ItemId?): { React.ReactNode }
+	return Dash.map(SIZE_ORDER, function(size: InputSize): React.ReactNode
+		return React.createElement(StaticDropdown, {
+			items = items,
+			value = value,
+			size = size,
+		})
+	end)
+end
+
+local function WidthFrame(props: { LayoutOrder: number?, children: React.ReactNode? }): React.ReactNode
+	return React.createElement(View, {
+		LayoutOrder = props.LayoutOrder,
+		tag = "col size-full-0 auto-y padding-medium radius-medium bg-surface-100",
+		Size = UDim2.fromOffset(WIDTH_FRAME_WIDTH, 0),
+	}, props.children)
+end
+
+local function PlaygroundStory(props: {
+	controls: {
+		label: string,
+		placeholder: string,
+		hint: string,
+		size: InputSize,
+		variant: InputVariant,
+		widthOffset: number,
+		maxHeight: number,
+		value: ControlOption<string>,
+		hasError: boolean,
+		isDisabled: boolean,
+	},
+}): React.ReactNode
+	local controls = props.controls
+
+	return React.createElement(View, {
+		tag = SINGLE_PAGE_TAG,
+	}, {
+		Dropdown = React.createElement(Dropdown.Root, {
+			LayoutOrder = 1,
+			label = controls.label,
+			placeholder = if controls.placeholder == "" then nil else controls.placeholder,
+			hint = if controls.hint == "" then nil else controls.hint,
+			items = DEFAULT_ITEMS,
+			value = if controls.value == React.None then nil else controls.value,
+			onItemChanged = noop,
+			size = controls.size,
+			variant = controls.variant,
+			width = UDim.new(0, controls.widthOffset),
+			maxHeight = if controls.maxHeight > 0 then controls.maxHeight else nil,
+			hasError = controls.hasError,
+			isDisabled = controls.isDisabled,
+		}),
+	})
+end
+
+local function VariantsStory(): React.ReactNode
+	return React.createElement(
+		View,
+		{
+			tag = SWEEP_ROW_PAGE_TAG,
+		},
+		Dash.map(VARIANT_ORDER, function(variant, index)
+			return React.createElement(LabeledCell, {
+				LayoutOrder = index,
+				label = variant,
+			}, {
+				Dropdown = React.createElement(StaticDropdown, {
+					LayoutOrder = 1,
+					variant = variant,
+				}),
 			})
-		end
-		return list
-	end, {})
+		end)
+	)
+end
 
-	local value, setValue = React.useState("item-18" :: ItemId)
-	local scrollingFrameRef = useScrollToSelectedRef(items, value)
-
-	return React.createElement(Dropdown.Root, {
-		label = "Year",
-		placeholder = "Choose a year",
-		width = SHOWCASE_WIDTH,
-		maxHeight = SCROLL_TO_SELECTION_MAX_HEIGHT,
-		value = value,
-		onItemChanged = setValue,
-		items = items,
-		scrollingFrameRef = scrollingFrameRef,
+local function SizingStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = PAGE_TAG,
+	}, {
+		Size = React.createElement(
+			Section,
+			{
+				LayoutOrder = 1,
+				name = "Size",
+			},
+			Dash.map(SIZE_ORDER, function(size, index)
+				return React.createElement(LabeledCell, {
+					LayoutOrder = index,
+					label = size,
+				}, {
+					Dropdown = React.createElement(StaticDropdown, {
+						LayoutOrder = 1,
+						label = LABEL_TEXT,
+						size = size,
+					}),
+				})
+			end)
+		),
+		Width = React.createElement(
+			Section,
+			{
+				LayoutOrder = 2,
+				name = "Width",
+				contentTag = "col gap-large auto-xy",
+			},
+			Dash.map(WIDTH_EXAMPLES, function(example, index)
+				return React.createElement(LabeledCell, {
+					LayoutOrder = index,
+					label = example.label,
+				}, {
+					Frame = React.createElement(WidthFrame, {
+						LayoutOrder = 1,
+					}, {
+						Dropdown = React.createElement(StaticDropdown, {
+							LayoutOrder = 1,
+							width = example.width,
+							hugWidth = example.hugWidth,
+						}),
+					}),
+				})
+			end)
+		),
 	})
 end
 
-local function LeadingAccessoriesStory(_props: { controls: Controls }): React.ReactNode
-	local iconItems: { DropdownItem } = {
-		{ id = "edit", text = "Edit", leading = BuilderIcons.Icon.Pencil },
-		{ id = "share", text = "Share", leading = BuilderIcons.Icon.PaperAirplane },
-		{ id = "copy", text = "Duplicate", leading = BuilderIcons.Icon.TwoStackedSquares },
-		{ id = "delete", text = "Delete", leading = BuilderIcons.Icon.TrashCan },
-	}
-	local avatarItems: { DropdownItem } = {
-		{ id = "u1", text = "Builderman", leading = { type = "Avatar", userId = 156 } :: any },
-		{ id = "u2", text = "User", leading = { type = "Avatar", userId = 24813339 } :: any },
-		{ id = "u3", text = "Roblox", leading = { type = "Avatar", userId = 1 } :: any },
-	}
-	local mixedItems: { DropdownItem } = {
-		{ id = "i1", text = "Settings", leading = BuilderIcons.Icon.Pencil },
-		{ id = "i2", text = "Profile", leading = { type = "Avatar", userId = 24813339 } :: any },
-		{ id = "i3", text = "No leading" },
-		{ id = "i4", text = "Trash", leading = BuilderIcons.Icon.TrashCan },
-	}
-
+local function StatesStory(): React.ReactNode
 	return React.createElement(View, {
-		tag = "col gap-xlarge size-full-0 auto-y",
+		tag = SWEEP_ROW_PAGE_TAG,
 	}, {
-		Icons = Section("Icon leading", 1, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Action",
-				placeholder = "Pick an action",
-				width = SHOWCASE_WIDTH,
-				items = iconItems,
+		Disabled = React.createElement(LabeledCell, {
+			LayoutOrder = 1,
+			label = "isDisabled",
+		}, {
+			Dropdown = React.createElement(StaticDropdown, {
+				LayoutOrder = 1,
+				label = LABEL_TEXT,
+				isDisabled = true,
 			}),
 		}),
-		Avatars = Section("Avatar leading", 2, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Member",
-				placeholder = "Pick a member",
-				width = SHOWCASE_WIDTH,
-				items = avatarItems,
+		Hint = React.createElement(LabeledCell, {
+			LayoutOrder = 2,
+			label = "hint",
+		}, {
+			Dropdown = React.createElement(StaticDropdown, {
+				LayoutOrder = 1,
+				label = LABEL_TEXT,
+				hint = HINT_TEXT,
 			}),
 		}),
-		Mixed = Section("Mixed leading (some items have none)", 3, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Sample",
-				placeholder = "Pick one",
-				width = SHOWCASE_WIDTH,
-				items = mixedItems,
-			}),
-		}),
-	})
-end
-
-local function TrailingAccessoriesStory(_props: { controls: Controls }): React.ReactNode
-	local hintItems: { DropdownItem } = {
-		{ id = "b", text = "Bold", trailing = { type = "Hint", text = "\u{2318}B" } :: any },
-		{ id = "i", text = "Italic", trailing = { type = "Hint", text = "\u{2318}I" } :: any },
-		{ id = "u", text = "Underline", trailing = { type = "Hint", text = "\u{2318}U" } :: any },
-	}
-	local badgeItems: { DropdownItem } = {
-		{
-			id = "new",
-			text = "New feature",
-			trailing = { type = "Badge", text = "New", variant = BadgeVariant.Success } :: any,
-		},
-		{
-			id = "beta",
-			text = "Beta channel",
-			trailing = { type = "Badge", text = "Beta", variant = BadgeVariant.Warning } :: any,
-		},
-		{
-			id = "pro",
-			text = "Pro mode",
-			trailing = { type = "Badge", text = "Pro", variant = BadgeVariant.Contrast } :: any,
-		},
-	}
-	local mixedItems: { DropdownItem } = {
-		{ id = "save", text = "Save", trailing = { type = "Hint", text = "\u{2318}S" } :: any },
-		{
-			id = "publish",
-			text = "Publish",
-			trailing = { type = "Badge", text = "New", variant = BadgeVariant.Success } :: any,
-		},
-		{ id = "plain", text = "Plain item" },
-	}
-
-	return React.createElement(View, {
-		tag = "col gap-xlarge size-full-0 auto-y",
-	}, {
-		Hints = Section("Hint trailing", 1, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Format",
-				placeholder = "Pick a style",
-				width = SHOWCASE_WIDTH,
-				items = hintItems,
-			}),
-		}),
-		Badges = Section("Badge trailing", 2, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Channel",
-				placeholder = "Pick a channel",
-				width = SHOWCASE_WIDTH,
-				items = badgeItems,
-			}),
-		}),
-		Mixed = Section("Mixed trailing", 3, "auto-xy", {
-			Dropdown = React.createElement(DemoDropdown, {
-				label = "Action",
-				placeholder = "Pick an action",
-				width = SHOWCASE_WIDTH,
-				items = mixedItems,
+		Error = React.createElement(LabeledCell, {
+			LayoutOrder = 3,
+			label = "hasError",
+		}, {
+			Dropdown = React.createElement(StaticDropdown, {
+				LayoutOrder = 1,
+				label = LABEL_TEXT,
+				hint = HINT_TEXT,
+				hasError = true,
 			}),
 		}),
 	})
 end
 
-local function CheckColumnStory(_props: { controls: Controls }): React.ReactNode
-	-- The selected item gets a checkmark, and every other row reserves the
-	-- check column slot so titles stay aligned — same behavior Apple's menus
-	-- use. The two dropdowns below differ only in their selected value to
-	-- show the column shifts as a unit.
-	local items: { DropdownItem } = {
-		{ id = "low", text = "Low quality", leading = BuilderIcons.Icon.Pencil },
-		{ id = "med", text = "Medium quality", leading = BuilderIcons.Icon.PaperAirplane },
-		{ id = "high", text = "High quality", leading = BuilderIcons.Icon.ClipboardPencil },
-	}
+local function ControlledStory(): React.ReactNode
+	local value, setValue = React.useState(nil :: ItemId?)
 
 	return React.createElement(View, {
-		tag = "col gap-xlarge size-full-0 auto-y",
+		tag = PAGE_TAG,
 	}, {
-		Selected = Section("Pre-selected (check + leading both visible)", 1, "auto-xy", {
+		OpenClose = React.createElement(Section, {
+			LayoutOrder = 1,
+			name = "Open, close, and dismiss",
+		}, {
 			Dropdown = React.createElement(Dropdown.Root, {
-				value = "med",
-				onItemChanged = function() end,
-				items = items,
-				label = "Quality",
-				width = SHOWCASE_WIDTH,
+				LayoutOrder = 1,
+				label = LABEL_TEXT,
+				placeholder = PLACEHOLDER_TEXT,
+				items = DEFAULT_ITEMS,
+				value = value,
+				onItemChanged = setValue,
+				width = UDim.new(0, SWEEP_CELL_WIDTH),
 			}),
 		}),
-		Empty = Section("Unselected (no check column reserved)", 2, "auto-xy", {
-			Dropdown = React.createElement(Dropdown.Root, {
-				onItemChanged = function() end,
-				items = items,
-				label = "Quality",
-				placeholder = "Pick a quality",
-				width = SHOWCASE_WIDTH,
+	})
+end
+
+local function ScrollToSelectionStory(): React.ReactNode
+	local selectedId, setSelectedId = React.useState(SCROLL_TO_SELECTION_ID :: ItemId)
+	local scrollingFrameRef = useScrollToSelectedRef(SCROLL_TO_SELECTION_ITEMS, selectedId)
+
+	return React.createElement(View, {
+		tag = SINGLE_PAGE_TAG,
+	}, {
+		Dropdown = React.createElement(Dropdown.Root, {
+			LayoutOrder = 1,
+			label = LABEL_TEXT,
+			placeholder = PLACEHOLDER_TEXT,
+			items = SCROLL_TO_SELECTION_ITEMS,
+			value = selectedId,
+			onItemChanged = setSelectedId,
+			width = UDim.new(0, SWEEP_CELL_WIDTH),
+			maxHeight = SCROLL_TO_SELECTION_MAX_HEIGHT,
+			scrollingFrameRef = scrollingFrameRef,
+		}),
+	})
+end
+
+local function ContentStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = PAGE_TAG,
+	}, {
+		Leading = React.createElement(MatrixSection, {
+			LayoutOrder = 1,
+			name = "Leading",
+			columnHeaders = SIZE_HEADERS,
+			cellColumnWidth = SWEEP_CELL_WIDTH,
+			rows = {
+				{
+					label = matrixLabel("Icon"),
+					cells = itemsBySize(LEADING_ICON_ITEMS),
+				},
+				{
+					label = matrixLabel("Avatar"),
+					cells = itemsBySize(LEADING_AVATAR_ITEMS),
+				},
+			},
+		}),
+		Trailing = React.createElement(MatrixSection, {
+			LayoutOrder = 2,
+			name = "Trailing",
+			columnHeaders = SIZE_HEADERS,
+			cellColumnWidth = SWEEP_CELL_WIDTH,
+			rows = {
+				{
+					label = matrixLabel("Hint"),
+					cells = itemsBySize(TRAILING_HINT_ITEMS),
+				},
+				{
+					label = matrixLabel("Badge"),
+					cells = itemsBySize(TRAILING_BADGE_ITEMS),
+				},
+			},
+		}),
+		DisabledItem = React.createElement(Section, {
+			LayoutOrder = 3,
+			name = "Disabled option",
+		}, {
+			Dropdown = React.createElement(StaticDropdown, {
+				LayoutOrder = 1,
+				items = DISABLED_ITEM_ITEMS,
+			}),
+		}),
+		Groups = React.createElement(Section, {
+			LayoutOrder = 4,
+			name = "Groups",
+			contentTag = "col auto-xy",
+		}, {
+			Grid = React.createElement(StoryMatrixGrid, {
+				LayoutOrder = 1,
+				showLabelColumn = false,
+				columnHeaders = SIZE_HEADERS,
+				cellColumnWidth = SWEEP_CELL_WIDTH,
+				rows = {
+					{ cells = itemsBySize(GROUPED_ITEMS) },
+				},
+			}),
+		}),
+		Truncation = React.createElement(Section, {
+			LayoutOrder = 5,
+			name = "Truncation",
+			contentTag = "col auto-xy",
+		}, {
+			Grid = React.createElement(StoryMatrixGrid, {
+				LayoutOrder = 1,
+				showLabelColumn = false,
+				columnHeaders = SIZE_HEADERS,
+				cellColumnWidth = SWEEP_CELL_WIDTH,
+				rows = {
+					{ cells = itemsBySize(LONG_ITEMS, "long") },
+				},
+			}),
+		}),
+		Overflow = React.createElement(Section, {
+			LayoutOrder = 6,
+			name = "Overflow",
+		}, {
+			Tight = React.createElement(LabeledCell, {
+				LayoutOrder = 1,
+				label = `maxHeight = {OVERFLOW_MAX_HEIGHT_TIGHT}`,
+			}, {
+				Dropdown = React.createElement(StaticDropdown, {
+					LayoutOrder = 1,
+					items = makeItems(OVERFLOW_ITEM_COUNT),
+					maxHeight = OVERFLOW_MAX_HEIGHT_TIGHT,
+				}),
+			}),
+			Roomy = React.createElement(LabeledCell, {
+				LayoutOrder = 2,
+				label = `maxHeight = {OVERFLOW_MAX_HEIGHT}`,
+			}, {
+				Dropdown = React.createElement(StaticDropdown, {
+					LayoutOrder = 1,
+					items = makeItems(OVERFLOW_ITEM_COUNT),
+					maxHeight = OVERFLOW_MAX_HEIGHT,
+				}),
 			}),
 		}),
 	})
 end
 
 return {
-	summary = "Dropdown",
+	summary = "Single-choice field that opens a menu. Dropdown owns isOpen internally; the open panel is signed off in Controlled component.",
 	stories = {
-		{ name = "Playground", story = PlaygroundStory :: unknown },
-		{ name = "Sizes", story = SizesStory },
-		{ name = "Variants", story = VariantsStory },
-		{ name = "States", story = StatesStory },
-		{ name = "Widths", story = WidthsStory },
-		{ name = "Item groups", story = ItemGroupsStory },
-		{ name = "Overflow", story = OverflowStory },
-		{ name = "Scroll-to-selection", story = ScrollToSelectionStory },
-		{ name = "Leading accessories", story = LeadingAccessoriesStory },
-		{ name = "Trailing accessories", story = TrailingAccessoriesStory },
-		{ name = "Check column", story = CheckColumnStory },
+		{
+			name = "Playground",
+			story = PlaygroundStory :: unknown,
+		},
+		{
+			name = "Variants",
+			story = VariantsStory,
+		},
+		{
+			name = "Sizing",
+			story = SizingStory,
+		},
+		{
+			name = "States",
+			story = StatesStory,
+		},
+		{
+			name = "Controlled component",
+			story = ControlledStory,
+		},
+		{
+			name = "Scroll to selection",
+			story = ScrollToSelectionStory,
+		},
+		{
+			name = "Content",
+			story = ContentStory,
+		},
 	},
 	controls = {
-		size = Dash.values(InputSize),
-		variant = Dash.values(InputVariant),
-		isDisabled = false,
+		label = LABEL_TEXT,
+		placeholder = PLACEHOLDER_TEXT,
+		hint = "",
+		size = SIZE_ORDER,
+		variant = VARIANT_ORDER,
+		widthOffset = 400,
+		maxHeight = 0,
+		value = VALUE_CONTROL_OPTIONS,
 		hasError = false,
-		hasIcon = nil :: never,
-		hasPlaceholder = false,
-		hasHint = false,
-		label = "Dropdown Label",
-		placeholder = "Choose an option",
-		hint = "Optional hint text",
-		width = 400,
-		leading = { "Icon", "Avatar", "Mixed", "None" },
-		trailing = { "Hint", "Badge", "Mixed", "None" },
+		isDisabled = false,
 	},
 }

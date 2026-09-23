@@ -1,459 +1,314 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
-local Grid = require(Foundation.Components.Grid).Root
-local GridCell = require(Foundation.Components.Grid).Cell
-local GridDebug = require(Foundation.Components.Grid.Debug)
+local Breakpoint = require(Foundation.Enums.Breakpoint)
+local BreakpointConfig = require(Foundation.Utility.Responsive.BreakpointConfig)
+local Grid = require(Foundation.Components.Grid)
+local GridConfig = require(Foundation.Utility.Responsive.GridConfig)
+local StorySectionShared = require(Foundation.Utility.Stories.Shared.StorySection)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
-local getGridMetrics = require(Foundation.Utility.getGridMetrics)
-local getGridSizeTag = require(Foundation.Utility.getGridSizeTag)
-local useTokens = require(Foundation.Providers.Style.useTokens)
+local View = require(Foundation.Components.View)
 
+local LabeledCell = StorySectionShared.LabeledCell
+local Section = StorySectionShared.Section
+
+type Breakpoint = Breakpoint.Breakpoint
 type ResponsiveValue<T> = Types.ResponsiveValue<T>
+type Span = number | ResponsiveValue<number>
 
-type GridMetrics = getGridMetrics.GridMetrics
+local STORY_FRAME_TAG = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0"
+local STACK_TAG = "col gap-xxlarge auto-xy"
+local CELL_TAG = "auto-y padding-small radius-small margin-bottom-medium bg-shift-300"
+local LABEL_TAG = "size-full-0 auto-y text-caption-small text-wrap text-align-x-center content-default"
 
-type ChildProps = {
-	name: string,
-	tag: string,
-	Size: UDim2?,
-	LayoutOrder: number,
-	debug: boolean?,
-	children: React.ReactNode,
+local DEFAULT_WIDTH = 900
+
+local ALIGN_ORDER: { Enum.ItemLineAlignment } = {
+	Enum.ItemLineAlignment.Start,
+	Enum.ItemLineAlignment.Center,
+	Enum.ItemLineAlignment.End,
 }
 
--- selene: allow(roblox_internal_custom_color)
-local WHITE = Color3.fromRGB(255, 255, 255)
+local SORT_ORDER_ORDER: { Enum.SortOrder } = {
+	Enum.SortOrder.LayoutOrder,
+	Enum.SortOrder.Name,
+}
 
-local function Child(props: ChildProps)
-	local tokens = useTokens()
-	return React.createElement(View, {
-		tag = `auto-y clip {props.tag}`,
-		Size = props.Size,
-		backgroundStyle = {
-			Transparency = 0.7,
-			Color3 = tokens.Color.ActionEmphasis.Background.Color3,
-		},
-		BorderSizePixel = if not props.debug then 1 else nil,
-		BorderColor3 = if not props.debug then tokens.Color.ActionEmphasis.Background.Color3 else nil,
+local WIDTH_OPTIONS: { number } = { 360, 600, 900 }
+
+local FULL_SPAN: ResponsiveValue<number> = { xs = 3, sm = 6, md = 12, lg = 12, xl = 12 }
+local THIRD_SPAN: ResponsiveValue<number> = { xs = 1, sm = 2, md = 4, lg = 4, xl = 4 }
+
+type WidthCase = {
+	width: number,
+	breakpoint: Breakpoint,
+	fullSpan: number,
+	thirdSpan: number,
+}
+
+-- Each width must stay at or below its breakpoint's ceiling in BreakpointConfig.widths, or the grid resolves a
+-- different breakpoint than the one these labels and spans are read from.
+local WIDTH_ORDER: { WidthCase } = {
+	{ width = 360, breakpoint = Breakpoint.XSmall, fullSpan = FULL_SPAN.xs, thirdSpan = THIRD_SPAN.xs },
+	{ width = 600, breakpoint = Breakpoint.Small, fullSpan = FULL_SPAN.sm, thirdSpan = THIRD_SPAN.sm },
+	{ width = 900, breakpoint = Breakpoint.Medium, fullSpan = FULL_SPAN.md, thirdSpan = THIRD_SPAN.md },
+}
+
+type CellProps = {
+	label: string,
+	size: Span,
+	LayoutOrder: number,
+}
+
+local function DemoCell(props: CellProps): React.ReactNode
+	return React.createElement(Grid.Cell, {
+		size = props.size,
+		tag = CELL_TAG,
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
-			tag = "position-center-center anchor-center-center size-full-2000 text-label-small text-wrap",
-			Text = `{props.name} {props.tag:gsub("%-col%-", ":")}`,
+			Text = props.label,
+			tag = LABEL_TAG,
 		}),
-	}, props.children)
+	})
 end
 
-type ChildCellProps = {
-	name: string,
-	size: ResponsiveValue<number>,
-	LayoutOrder: number,
-	debug: boolean?,
+type GridFrameProps = {
+	LayoutOrder: number?,
+	width: number,
+	align: Enum.ItemLineAlignment?,
+	Wraps: boolean?,
+	SortOrder: Enum.SortOrder?,
 	children: React.ReactNode,
 }
 
-local function ChildCell(props: ChildCellProps)
-	return React.createElement(GridCell, {
-		tag = "auto-y clip",
-		size = props.size,
-		backgroundStyle = {
-			Transparency = 0.15,
-		},
-		BorderSizePixel = if not props.debug then 1 else nil,
-		BorderColor3 = if not props.debug then WHITE else nil,
+local function GridFrame(props: GridFrameProps): React.ReactNode
+	return React.createElement(View, {
+		tag = "col auto-y bg-surface-100",
+		Size = UDim2.fromOffset(props.width, 0),
 		LayoutOrder = props.LayoutOrder,
 	}, {
-		Label = React.createElement(Text, {
-			tag = "position-center-center anchor-center-center size-full-2000 text-label-small text-wrap",
-			Text = `{props.name} {getGridSizeTag(props.size):gsub("%-col%-", ":")}`,
+		Root = React.createElement(Grid.Root, {
+			align = props.align,
+			Wraps = props.Wraps,
+			SortOrder = props.SortOrder,
+			LayoutOrder = 1,
+		}, props.children),
+	})
+end
+
+local function spanCells(count: number, size: Span): { [string]: React.ReactNode }
+	local cells: { [string]: React.ReactNode } = {}
+	for index = 1, count do
+		cells[`Cell{index}`] = React.createElement(DemoCell, {
+			label = string.char(64 + index),
+			size = size,
+			LayoutOrder = index,
+		})
+	end
+	return cells
+end
+
+type PlaygroundControls = {
+	align: Enum.ItemLineAlignment,
+	Wraps: boolean,
+	SortOrder: Enum.SortOrder,
+	containerWidth: number,
+}
+
+local function PlaygroundStory(props: { controls: PlaygroundControls }): React.ReactNode
+	local controls = props.controls
+
+	return React.createElement(View, {
+		tag = STORY_FRAME_TAG,
+	}, {
+		Frame = React.createElement(GridFrame, {
+			LayoutOrder = 1,
+			width = controls.containerWidth,
+			align = controls.align,
+			Wraps = controls.Wraps,
+			SortOrder = controls.SortOrder,
+		}, spanCells(4, THIRD_SPAN)),
+	})
+end
+
+local function widthFrames(): { [string]: React.ReactNode }
+	local frames: { [string]: React.ReactNode } = {}
+	for index, case in WIDTH_ORDER do
+		local shortName = BreakpointConfig.shortNames[case.breakpoint]
+		local columns = GridConfig.columns[case.breakpoint]
+		local thirdLabel = `size.{shortName} = {case.thirdSpan} of {columns}`
+
+		frames[`Width{index}`] = React.createElement(LabeledCell, {
+			LayoutOrder = index,
+			label = `parent {case.width}px → {shortName} · {columns} columns · margin {GridConfig.margins[case.breakpoint]}`
+				.. ` · gutter {GridConfig.gutters[case.breakpoint]}`,
+		}, {
+			Frame = React.createElement(GridFrame, { width = case.width }, {
+				Band = React.createElement(DemoCell, {
+					label = `size.{shortName} = {case.fullSpan} of {columns}`,
+					size = FULL_SPAN,
+					LayoutOrder = 1,
+				}),
+				ThirdA = React.createElement(DemoCell, {
+					label = thirdLabel,
+					size = THIRD_SPAN,
+					LayoutOrder = 2,
+				}),
+				ThirdB = React.createElement(DemoCell, {
+					label = thirdLabel,
+					size = THIRD_SPAN,
+					LayoutOrder = 3,
+				}),
+				ThirdC = React.createElement(DemoCell, {
+					label = thirdLabel,
+					size = THIRD_SPAN,
+					LayoutOrder = 4,
+				}),
+			}),
+		})
+	end
+	return frames
+end
+
+local function SizingStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = STORY_FRAME_TAG,
+	}, {
+		Width = React.createElement(Section, {
+			LayoutOrder = 1,
+			name = "Width",
+			note = "Grid has no width prop. It measures the parent it is dropped into, resolves a breakpoint from "
+				.. "that width, and reads column count, margin and gutter from it. All three frames hold the same "
+				.. "four cells with the same two responsive `size` maps, so each cell re-resolves its span per "
+				.. "breakpoint and keeps its share of the row as the parent grows.",
+			contentTag = STACK_TAG,
+		}, widthFrames()),
+	})
+end
+
+local function WrapsStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = STORY_FRAME_TAG,
+	}, {
+		Wrapping = React.createElement(LabeledCell, {
+			LayoutOrder = 1,
+			label = "Wraps = true",
+		}, {
+			Frame = React.createElement(GridFrame, {
+				width = DEFAULT_WIDTH,
+				Wraps = true,
+			}, spanCells(4, THIRD_SPAN)),
 		}),
-	}, props.children)
+		SingleLine = React.createElement(LabeledCell, {
+			LayoutOrder = 2,
+			label = "Wraps = false",
+		}, {
+			Frame = React.createElement(GridFrame, {
+				width = DEFAULT_WIDTH,
+				Wraps = false,
+			}, spanCells(4, THIRD_SPAN)),
+		}),
+	})
+end
+
+local function sortedCells(): { [string]: React.ReactNode }
+	return {
+		CellA = React.createElement(DemoCell, { label = "A · LayoutOrder 3", size = THIRD_SPAN, LayoutOrder = 3 }),
+		CellB = React.createElement(DemoCell, { label = "B · LayoutOrder 2", size = THIRD_SPAN, LayoutOrder = 2 }),
+		CellC = React.createElement(DemoCell, { label = "C · LayoutOrder 1", size = THIRD_SPAN, LayoutOrder = 1 }),
+	}
+end
+
+local function SortOrderStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = STORY_FRAME_TAG,
+	}, {
+		ByLayoutOrder = React.createElement(LabeledCell, {
+			LayoutOrder = 1,
+			label = "SortOrder = Enum.SortOrder.LayoutOrder",
+		}, {
+			Frame = React.createElement(GridFrame, {
+				width = DEFAULT_WIDTH,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}, sortedCells()),
+		}),
+		ByName = React.createElement(LabeledCell, {
+			LayoutOrder = 2,
+			label = "SortOrder = Enum.SortOrder.Name",
+		}, {
+			Frame = React.createElement(GridFrame, {
+				width = DEFAULT_WIDTH,
+				SortOrder = Enum.SortOrder.Name,
+			}, sortedCells()),
+		}),
+	})
+end
+
+local function ContentStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = STORY_FRAME_TAG,
+	}, {
+		Occupancy = React.createElement(Section, {
+			LayoutOrder = 1,
+			name = "Occupancy",
+			note = "A wrapped grid spaces its children with SpaceBetween, so a row that leaves columns unclaimed "
+				.. "spreads its children to the margins instead of packing them left.",
+			contentTag = STACK_TAG,
+		}, {
+			Complete = React.createElement(LabeledCell, {
+				LayoutOrder = 1,
+				label = "12 of 12 columns claimed",
+			}, {
+				Frame = React.createElement(GridFrame, { width = DEFAULT_WIDTH }, spanCells(3, THIRD_SPAN)),
+			}),
+			Incomplete = React.createElement(LabeledCell, {
+				LayoutOrder = 2,
+				label = "8 of 12 columns claimed",
+			}, {
+				Frame = React.createElement(GridFrame, { width = DEFAULT_WIDTH }, spanCells(2, THIRD_SPAN)),
+			}),
+		}),
+	})
 end
 
 return {
 	base = true,
-	summary = "Grid",
+	summary = "A responsive column layout that reads its breakpoint from its own container width; children claim "
+		.. "columns with Grid.Cell or `{breakpoint}-col-{n}` tags.",
 	stories = {
 		{
 			name = "Playground",
-			story = function(props)
-				local grid = React.createElement(Grid, {
-					align = props.controls.align,
-					Wraps = props.controls.wraps,
-				}, {
-					Child1 = React.createElement(Child, {
-						tag = "xs-col-1 sm-col-4 md-col-6 lg-col-8 xl-col-8",
-						name = "C1",
-						debug = props.controls.debug,
-						LayoutOrder = 1,
-					}),
-					Child2 = React.createElement(Child, {
-						tag = "xs-col-1 sm-col-4 md-col-6 lg-col-4 xl-col-4",
-						name = "C2",
-						debug = props.controls.debug,
-						LayoutOrder = 2,
-					}),
-					Child3 = React.createElement(Child, {
-						tag = "xs-col-1 sm-col-5 md-col-7 lg-col-10 xl-col-10",
-						name = "C3",
-						debug = props.controls.debug,
-						LayoutOrder = 3,
-					}),
-					Child4 = React.createElement(Child, {
-						tag = "xs-col-3 sm-col-1 md-col-5 lg-col-2 xl-col-2",
-						name = "C4",
-						debug = props.controls.debug,
-						LayoutOrder = 4,
-					}),
-					Child5 = React.createElement(Child, {
-						tag = "xs-col-1 sm-col-4 md-col-1 lg-col-3 xl-col-3",
-						name = "C5",
-						debug = props.controls.debug,
-						LayoutOrder = 5,
-					}),
-					Child6 = React.createElement(Child, {
-						tag = "xs-col-1 sm-col-3 md-col-11 lg-col-9 xl-col-9",
-						name = "C6",
-						debug = props.controls.debug,
-						LayoutOrder = 6,
-					}),
-				})
-				return if props.controls.debug
-					then React.createElement(GridDebug, { align = props.controls.align }, grid)
-					else grid
-			end,
+			story = PlaygroundStory :: unknown,
 		},
 		{
-			name = "Base w/ GridCell",
-			story = function(props)
-				local grid = React.createElement(Grid, {
-					align = props.controls.align,
-					Wraps = props.controls.wraps,
-				}, {
-					Child1 = React.createElement(ChildCell, {
-						name = "C1",
-						size = {
-							xs = 1,
-							sm = 4,
-							md = 8,
-							lg = 8,
-							xl = 8,
-						},
-						debug = props.controls.debug,
-						LayoutOrder = 1,
-					}),
-					Child2 = React.createElement(ChildCell, {
-						name = "C2",
-						size = {
-							xs = 1,
-							sm = 2,
-							md = 4,
-							lg = 4,
-							xl = 4,
-							xxl = 4,
-						},
-						debug = props.controls.debug,
-						LayoutOrder = 2,
-					}),
-					Child3 = React.createElement(ChildCell, {
-						name = "C3",
-						size = {
-							xs = 1,
-							sm = 5,
-							md = 7,
-							lg = 10,
-							xl = 10,
-						},
-						debug = props.controls.debug,
-						LayoutOrder = 3,
-					}),
-					Child4 = React.createElement(ChildCell, {
-						name = "C4",
-						size = {
-							xs = 3,
-							sm = 1,
-							md = 5,
-							lg = 2,
-							xl = 2,
-						},
-						debug = props.controls.debug,
-						LayoutOrder = 4,
-					}),
-					Child5 = React.createElement(ChildCell, {
-						name = "C5",
-						size = {
-							xs = 1,
-							sm = 4,
-							md = 1,
-							lg = 3,
-							xl = 3,
-						},
-						debug = props.controls.debug,
-						LayoutOrder = 5,
-					}),
-					Child6 = React.createElement(ChildCell, {
-						name = "C6",
-						size = {
-							xs = 1,
-							sm = 3,
-							md = 11,
-							lg = 9,
-							xl = 9,
-						},
-						debug = props.controls.debug,
-						LayoutOrder = 6,
-					}),
-				})
-				return if props.controls.debug
-					then React.createElement(GridDebug, { align = props.controls.align }, grid)
-					else grid
-			end,
+			name = "Sizing",
+			summary = "Medium and every wider breakpoint keep 12 columns and differ only in margin and gutter, so the "
+				.. "sweep stops at 900px; `align` moves the grid only in a container wider than its 1920px clamp.",
+			story = SizingStory,
 		},
 		{
-			name = "Grid",
-			story = function(props)
-				local n = 12
-
-				local cells = React.useMemo(function()
-					local items = {}
-
-					for i = 1, n do
-						table.insert(
-							items,
-							React.createElement(GridCell, {
-								size = { xs = 1, sm = 2, md = 3, lg = 4, xl = 6 },
-								tag = "size-full-full aspect-2-1 margin-bottom-large",
-								LayoutOrder = i,
-							}, {
-								Frame = React.createElement(View, {
-									tag = "size-full-full bg-action-emphasis",
-								}, {
-									Label = React.createElement(Text, {
-										tag = "position-center-center anchor-center-center size-full-full text-label-small text-wrap",
-										Text = `{i}`,
-									}),
-								}),
-							})
-						)
-					end
-
-					return items
-				end, { n })
-
-				local grid = React.createElement(Grid, {
-					align = props.controls.align,
-					Wraps = props.controls.wraps,
-				}, cells :: { any })
-				return if props.controls.debug
-					then React.createElement(GridDebug, { align = props.controls.align }, grid)
-					else grid
-			end,
+			name = "Wraps",
+			summary = "A wrapped row carries no vertical gap of its own, so every cell on this page adds "
+				.. "`margin-bottom-medium` to separate the rows it wraps into.",
+			story = WrapsStory,
 		},
 		{
-			name = "Fluid",
-			story = function(props)
-				local grid = React.createElement(Grid, {
-					align = props.controls.align,
-					Wraps = props.controls.wraps,
-				}, {
-					Child1 = React.createElement(Child, {
-						tag = "xs-col-3 sm-col-6 md-col-12 lg-col-12 xl-col-12",
-						name = "C1",
-						debug = props.controls.debug,
-						LayoutOrder = 1,
-					}),
-
-					Child2 = React.createElement(Child, {
-						tag = "xs-col-1 sm-col-3 md-col-6 lg-col-6 xl-col-6",
-						name = "C3",
-						debug = props.controls.debug,
-						LayoutOrder = 3,
-					}),
-					Child3 = React.createElement(Child, {
-						tag = "xs-col-1 sm-col-3 md-col-6 lg-col-6 xl-col-6",
-						name = "C3",
-						debug = props.controls.debug,
-						LayoutOrder = 3,
-					}),
-
-					Child4 = React.createElement(Child, {
-						tag = "xs-col-1 sm-col-2 md-col-4 lg-col-4 xl-col-4",
-						name = "C4",
-						debug = props.controls.debug,
-						LayoutOrder = 4,
-					}),
-					Child5 = React.createElement(Child, {
-						tag = "xs-col-1 sm-col-2 md-col-4 lg-col-4 xl-col-4",
-						name = "C5",
-						debug = props.controls.debug,
-						LayoutOrder = 5,
-					}),
-					Child6 = React.createElement(Child, {
-						tag = "xs-col-1 sm-col-2 md-col-4 lg-col-4 xl-col-4",
-						name = "C6",
-						debug = props.controls.debug,
-						LayoutOrder = 6,
-					}),
-
-					Child7 = React.createElement(Child, {
-						tag = "xs-col-0 sm-col-1 md-col-3 lg-col-3 xl-col-3",
-						name = "C3",
-						debug = props.controls.debug,
-						LayoutOrder = 7,
-					}),
-					Child8 = React.createElement(Child, {
-						tag = "xs-col-0 sm-col-2 md-col-3 lg-col-3 xl-col-3",
-						name = "C4",
-						debug = props.controls.debug,
-						LayoutOrder = 8,
-					}),
-					Child9 = React.createElement(Child, {
-						tag = "xs-col-0 sm-col-2 md-col-3 lg-col-3 xl-col-3",
-						name = "C5",
-						debug = props.controls.debug,
-						LayoutOrder = 9,
-					}),
-					Child10 = React.createElement(Child, {
-						tag = "xs-col-0 sm-col-1 md-col-3 lg-col-3 xl-col-3",
-						name = "C6",
-						debug = props.controls.debug,
-						LayoutOrder = 10,
-					}),
-
-					Child11 = React.createElement(Child, {
-						tag = "xs-col-0 sm-col-1 md-col-2 lg-col-2 xl-col-2",
-						name = "C3",
-						debug = props.controls.debug,
-						LayoutOrder = 11,
-					}),
-					Child12 = React.createElement(Child, {
-						tag = "xs-col-0 sm-col-1 md-col-2 lg-col-2 xl-col-2",
-						name = "C4",
-						debug = props.controls.debug,
-						LayoutOrder = 12,
-					}),
-					Child13 = React.createElement(Child, {
-						tag = "xs-col-0 sm-col-1 md-col-2 lg-col-2 xl-col-2",
-						name = "C5",
-						debug = props.controls.debug,
-						LayoutOrder = 13,
-					}),
-					Child14 = React.createElement(Child, {
-						tag = "xs-col-0 sm-col-1 md-col-2 lg-col-2 xl-col-2",
-						name = "C6",
-						debug = props.controls.debug,
-						LayoutOrder = 14,
-					}),
-					Child15 = React.createElement(Child, {
-						tag = "xs-col-0 sm-col-1 md-col-2 lg-col-2 xl-col-2",
-						name = "C6",
-						debug = props.controls.debug,
-						LayoutOrder = 15,
-					}),
-					Child16 = React.createElement(Child, {
-						tag = "xs-col-0 sm-col-1 md-col-2 lg-col-2 xl-col-2",
-						name = "C6",
-						debug = props.controls.debug,
-						LayoutOrder = 16,
-					}),
-				})
-				return if props.controls.debug
-					then React.createElement(GridDebug, { align = props.controls.align }, grid)
-					else grid
-			end,
+			name = "Sort order",
+			story = SortOrderStory,
 		},
 		{
-			name = "Template",
-			story = function(props)
-				return React.createElement(View, {
-					tag = "row size-full-3000 auto-y",
-				}, {
-					Left = React.createElement(View, {
-						tag = "col flex-y-fill items-stretch auto-y",
-						Size = UDim2.fromScale(0.666, 1),
-					}, {
-						ChildL1 = (function()
-							local grid = React.createElement(Grid, {
-								align = props.controls.align,
-								Wraps = props.controls.wraps,
-								LayoutOrder = 1,
-							}, {
-								SubChildL1 = React.createElement(Child, {
-									tag = "xs-col-2 sm-col-3 md-col-6 lg-col-8 xl-col-8",
-									name = "SC1",
-									Size = UDim2.fromOffset(0, 250),
-									debug = props.controls.debug,
-									LayoutOrder = 1,
-								}),
-								SubChildL2 = React.createElement(Child, {
-									tag = "xs-col-1 sm-col-3 md-col-6 lg-col-4 xl-col-4",
-									name = "SC1",
-									Size = UDim2.fromOffset(0, 250),
-									debug = props.controls.debug,
-									LayoutOrder = 1,
-								}),
-							})
-							return if props.controls.debug
-								then React.createElement(GridDebug, { align = props.controls.align }, grid)
-								else grid
-						end)(),
-					}),
-					Right = React.createElement(View, {
-						tag = "col flex-y-fill auto-y",
-						Size = UDim2.fromScale(0.333, 1),
-					}, {
-						ChildR1 = (function()
-							local grid = React.createElement(Grid, {
-								align = props.controls.align,
-								Wraps = props.controls.wraps,
-								LayoutOrder = 1,
-							}, {
-								SubChildR1 = React.createElement(Child, {
-									tag = "xs-col-3 sm-col-6 md-col-12 lg-col-12 xl-col-12",
-									name = "SC1",
-									Size = UDim2.fromOffset(0, 125),
-									debug = props.controls.debug,
-									LayoutOrder = 1,
-								}),
-							})
-							return if props.controls.debug
-								then React.createElement(GridDebug, { align = props.controls.align }, grid)
-								else grid
-						end)(),
-						ChildR2 = (function()
-							local grid = React.createElement(Grid, {
-								align = props.controls.align,
-								Wraps = props.controls.wraps,
-								LayoutOrder = 1,
-							}, {
-								SubChildR2 = React.createElement(Child, {
-									tag = "xs-col-3 sm-col-6 md-col-12 lg-col-12 xl-col-12",
-									name = "SC2",
-									Size = UDim2.fromOffset(0, 125),
-									debug = props.controls.debug,
-									LayoutOrder = 1,
-								}),
-							})
-							return if props.controls.debug
-								then React.createElement(GridDebug, { align = props.controls.align }, grid)
-								else grid
-						end)(),
-					}),
-				})
-			end,
+			name = "Content",
+			story = ContentStory,
 		},
-	} :: { any },
+	},
 	controls = {
-		align = {
-			Enum.ItemLineAlignment.Center,
-			Enum.ItemLineAlignment.Start,
-			Enum.ItemLineAlignment.End,
-		},
-		wraps = true,
-		debug = false,
+		align = ALIGN_ORDER,
+		Wraps = true,
+		SortOrder = SORT_ORDER_ORDER,
+		containerWidth = WIDTH_OPTIONS,
 	},
 }

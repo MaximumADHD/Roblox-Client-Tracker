@@ -5,7 +5,6 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 local ReactIs = require(Packages.ReactIs)
 
-local Flags = require(Foundation.Utility.Flags)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
@@ -59,7 +58,7 @@ export type StatusIndicatorProps = StatusIndicatorEmptyProps | StatusIndicatorNu
 local defaultProps = {
 	variant = StatusIndicatorVariant.Standard,
 	shape = StatusIndicatorShape.Circle,
-	size = if Flags.FoundationAvatarBeta then StatusIndicatorSize.Small else nil :: never,
+	size = StatusIndicatorSize.Small,
 	max = math.huge,
 	testId = "--foundation-status-indicator",
 }
@@ -82,14 +81,8 @@ local function StatusIndicator(statusIndicatorProps: StatusIndicatorProps, ref: 
 
 	local tokens = useTokens()
 	local hasValue = props.value ~= nil
-	local variantProps = useStatusIndicatorVariants(
-		tokens,
-		props.variant,
-		hasValue,
-		refinedShape,
-		if Flags.FoundationAvatarBeta then props.size else nil :: never,
-		props.mask
-	)
+	local variantProps =
+		useStatusIndicatorVariants(tokens, props.variant, hasValue, refinedShape, props.size, props.mask)
 
 	local formatValue = React.useCallback(function(value: number)
 		if props.max and value > props.max then
@@ -108,7 +101,7 @@ local function StatusIndicator(statusIndicatorProps: StatusIndicatorProps, ref: 
 				else nil,
 			stroke = if props.mask then variantProps.stroke else nil,
 			ref = ref,
-			Size = if Flags.FoundationAvatarBeta then variantProps.container.size else nil,
+			Size = variantProps.container.size,
 		}),
 		{
 			Text = if hasValue and variantProps.content.style
@@ -126,11 +119,10 @@ local function StatusIndicator(statusIndicatorProps: StatusIndicatorProps, ref: 
 					testId = `{props.testId}--text`,
 				})
 				else nil,
-			InnerRing = if (if Flags.FoundationAvatarBeta then refinedShape == StatusIndicatorShape.Ring else true)
-					and variantProps.ring
+			InnerRing = if (refinedShape == StatusIndicatorShape.Ring) and variantProps.ring
 				then React.createElement(View, {
 					tag = variantProps.ring.tag,
-					Size = if Flags.FoundationAvatarBeta then variantProps.ring.size else nil,
+					Size = variantProps.ring.size,
 					testId = `{props.testId}--ring`,
 				})
 				else nil,

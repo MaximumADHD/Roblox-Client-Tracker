@@ -62,6 +62,8 @@ export type CoachmarkProps = {
 	}?,
 	align: PopoverAlign?,
 	side: PopoverSide?,
+	-- Whether the tooltip should have an arrow. Defaults to true.
+	hasArrow: boolean?,
 	-- Reference to the element that will serve as an anchor
 	anchorRef: React.Ref<PopoverAnchor>?,
 	children: ReactNode?,
@@ -74,6 +76,7 @@ local defaultProps = {
 	isOpen = false,
 	align = PopoverAlign.Start,
 	side = PopoverSide.Right,
+	hasArrow = true,
 	testId = "--foundation-coachmark",
 }
 
@@ -144,7 +147,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 		Content = React.createElement(
 			Popover.Content,
 			{
-				hasArrow = true,
+				hasArrow = props.hasArrow,
 				align = props.align,
 				DO_NOT_USE_hasContentInputSink = true,
 				onPressedOutside = if Flags.FoundationCoachmarkPressedOutside then props.onPressedOutside else nil,

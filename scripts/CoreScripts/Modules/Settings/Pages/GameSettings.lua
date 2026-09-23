@@ -53,6 +53,15 @@ if FFlagIEMSettingsGroups then
 	renderSettingsHeader = require(RobloxGui.Modules.Settings.Components.renderSettingsHeader)
 	renderSettingsDivider = require(RobloxGui.Modules.Settings.Components.renderSettingsDivider)
 end
+local FFlagEnablePioneerIGMSettingsBanner =
+	require(RobloxGui.Modules.Settings.Flags.FFlagEnablePioneerIGMSettingsBanner)
+local renderMoreSettingsBanner
+if FFlagEnablePioneerIGMSettingsBanner then
+	local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
+	if isPioneerLaunch() then
+		renderMoreSettingsBanner = require(RobloxGui.Modules.Settings.Components.renderMoreSettingsBanner)
+	end
+end
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 local isVoiceFocused = require(CorePackages.Workspace.Packages.CrossExperience).Utils.isVoiceFocused
 local observeIsVoiceFocused = require(CorePackages.Workspace.Packages.CrossExperience).Utils.observeIsVoiceFocused
@@ -4812,6 +4821,13 @@ local function Initialize()
 	allSettingsCreated = true
 	if VRService.VREnabled then
 		onVRSettingsReady()
+	end
+
+	if renderMoreSettingsBanner then
+		this.MoreSettingsBanner = renderMoreSettingsBanner({
+			layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.MoreSettingsBanner,
+			parent = this.Page,
+		})
 	end
 
 	if FFlagIEMSettingsGroups then

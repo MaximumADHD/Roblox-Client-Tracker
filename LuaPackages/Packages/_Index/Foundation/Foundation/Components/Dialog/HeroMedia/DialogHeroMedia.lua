@@ -18,6 +18,7 @@ local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDia
 type Bindable<T> = Types.Bindable<T>
 type AspectRatio = Types.AspectRatio
 type ColorStyle = Types.ColorStyle
+type ScaleType = Bindable<Enum.ScaleType>
 
 export type DialogHeroMediaProps = {
 	media: Bindable<string>,
@@ -25,6 +26,7 @@ export type DialogHeroMediaProps = {
 	backgroundStyle: ColorStyle?,
 	height: UDim?,
 	aspectRatio: AspectRatio?,
+	scaleType: ScaleType?,
 }
 
 local defaultProps = {
@@ -57,6 +59,8 @@ local function DialogHeroMedia(mediaProps: DialogHeroMediaProps)
 			backgroundStyle = props.backgroundStyle,
 			tag = variants.heroMedia.tag,
 			aspectRatio = props.aspectRatio,
+			ScaleType = props.scaleType,
+			testId = `{dialogContext.testId}--hero-media-image`,
 			Position = UDim2.fromOffset(-offsetX, 0),
 			Size = UDim2.new(1, offsetX * 2, props.height.Scale, props.height.Offset),
 		}),

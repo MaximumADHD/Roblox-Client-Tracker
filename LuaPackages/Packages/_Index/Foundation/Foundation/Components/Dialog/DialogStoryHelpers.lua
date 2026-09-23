@@ -25,8 +25,6 @@ type Orientation = Orientation.Orientation
 
 export type DialogRootControls = {
 	size: DialogSize?,
-	disablePortal: boolean?,
-	hasBackdrop: boolean?,
 }
 
 export type DialogRootStoryChildren = {
@@ -47,6 +45,7 @@ export type DialogHeroMediaOptions = {
 	mediaStyle: ColorStyle?,
 	backgroundStyle: ColorStyle?,
 	height: UDim?,
+	scaleType: Enum.ScaleType?,
 }
 
 export type DialogChildrenOptions = {
@@ -126,6 +125,7 @@ local function makeDialogChildren(options: DialogChildrenOptions?): DialogRootSt
 				mediaStyle = if heroMedia then heroMedia.mediaStyle else nil,
 				backgroundStyle = if heroMedia then heroMedia.backgroundStyle else nil,
 				height = if heroMedia then heroMedia.height else nil,
+				scaleType = if heroMedia then heroMedia.scaleType else nil,
 			})
 			else nil,
 		DialogTitle = if config.hasTitle ~= false
@@ -228,15 +228,13 @@ end
 
 local function DialogExample(props: {
 	size: DialogSize?,
-	hasBackdrop: boolean?,
-	disablePortal: boolean?,
 	onClose: ((reason: OnCloseCallbackReason?) -> ())?,
 	children: DialogRootStoryChildren,
 })
 	return React.createElement(Dialog.Root, {
 		size = (props.size or DEFAULT_SIZE) :: DialogSize,
-		hasBackdrop = if props.hasBackdrop ~= nil then props.hasBackdrop else true,
-		disablePortal = if props.disablePortal ~= nil then props.disablePortal else false,
+		hasBackdrop = true,
+		disablePortal = false,
 		onClose = props.onClose,
 	}, {
 		DialogMedia = props.children.DialogMedia,
@@ -251,7 +249,6 @@ local function LabeledDialogTrigger(props: {
 	layoutOrder: number,
 	buttonText: string?,
 	size: DialogSize?,
-	hasBackdrop: boolean?,
 	children: DialogRootStoryChildren,
 })
 	local isOpen, setIsOpen = React.useState(false)
@@ -282,7 +279,6 @@ local function LabeledDialogTrigger(props: {
 		DialogRoot = if isOpen
 			then React.createElement(DialogExample, {
 				size = props.size,
-				hasBackdrop = props.hasBackdrop,
 				onClose = function()
 					setIsOpen(false)
 				end,
@@ -308,8 +304,6 @@ local function RootStory(props: DialogRootStoryProps)
 		DialogRoot = if isOpen
 			then React.createElement(DialogExample, {
 				size = props.controls.size,
-				hasBackdrop = props.controls.hasBackdrop,
-				disablePortal = props.controls.disablePortal,
 				onClose = function()
 					setIsOpen(false)
 				end,

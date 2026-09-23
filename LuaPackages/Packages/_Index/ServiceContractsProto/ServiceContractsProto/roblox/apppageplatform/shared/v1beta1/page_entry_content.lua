@@ -126,6 +126,7 @@ type _Messages =
 		PreAuthLandingStickyHeaderInputData: _PreAuthLandingStickyHeaderInputDataMessage,
 		ImageCtaSectionInputData: _ImageCtaSectionInputDataMessage,
 		SettingsRowInputData: _SettingsRowInputDataMessage,
+		SettingsToggleInputData: _SettingsToggleInputDataMessage,
 		HeroUnitInputData: _HeroUnitInputDataMessage,
 		HeroUnitInputData_VisualAsset: _HeroUnitInputData_VisualAssetMessage,
 		HeroUnitInputData_Gradient: _HeroUnitInputData_GradientMessage,
@@ -332,6 +333,7 @@ type _PageEntryInputDataFields = {
 		| { type: "pre_auth_landing_sticky_header", value: PreAuthLandingStickyHeaderInputData }
 		| { type: "community_announcement", value: CommunityAnnouncementInputData }
 		| { type: "settings_row", value: SettingsRowInputData }
+		| { type: "settings_toggle", value: SettingsToggleInputData }
 	)?,
 }
 
@@ -408,6 +410,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "pre_auth_landing_sticky_header", value: PreAuthLandingStickyHeaderInputData }
 		| { type: "community_announcement", value: CommunityAnnouncementInputData }
 		| { type: "settings_row", value: SettingsRowInputData }
+		| { type: "settings_toggle", value: SettingsToggleInputData }
 	)?,
 }
 
@@ -1291,6 +1294,8 @@ type _ExperienceCarouselInputDataFields = {
 	visible_rows_per_reveal: number?,
 	sponsored_user_cohort: string?,
 	anchor_tag: string?,
+	collection_item_size: string?,
+	sort_sub_id: string?,
 }
 
 type _ExperienceCarouselInputDataPartialFields = {
@@ -1313,6 +1318,8 @@ type _ExperienceCarouselInputDataPartialFields = {
 	visible_rows_per_reveal: number?,
 	sponsored_user_cohort: string?,
 	anchor_tag: string?,
+	collection_item_size: string?,
+	sort_sub_id: string?,
 }
 
 export type ExperienceCarouselInputData = typeof(setmetatable(
@@ -1359,6 +1366,8 @@ type _ExperienceCarouselInputData_UniverseItemFields = {
 	game_items: { GameItemInputData },
 	attribution_thumbnail_asset_id: string?,
 	game_items_compact: { GameItemInputData },
+	source_sort_id: string?,
+	new_game_enum: number?,
 }
 
 type _ExperienceCarouselInputData_UniverseItemPartialFields = {
@@ -1386,6 +1395,8 @@ type _ExperienceCarouselInputData_UniverseItemPartialFields = {
 	game_items: { GameItemInputData }?,
 	attribution_thumbnail_asset_id: string?,
 	game_items_compact: { GameItemInputData }?,
+	source_sort_id: string?,
+	new_game_enum: number?,
 }
 
 export type ExperienceCarouselInputData_UniverseItem = typeof(setmetatable(
@@ -3839,6 +3850,40 @@ export type SettingsRowInputData = typeof(setmetatable(
 ))
 type _SettingsRowInputDataMessage = proto.Message<SettingsRowInputData, _SettingsRowInputDataPartialFields>
 
+type _SettingsToggleInputDataImpl = {
+	__index: _SettingsToggleInputDataImpl,
+	new: (fields: _SettingsToggleInputDataPartialFields?) -> SettingsToggleInputData,
+	encode: (self: SettingsToggleInputData) -> buffer,
+	decode: (input: buffer) -> SettingsToggleInputData,
+	jsonEncode: (self: SettingsToggleInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SettingsToggleInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _SettingsToggleInputDataFields = {
+	setting_key: string,
+	label: string,
+	description: string,
+	is_checked: boolean,
+	is_disabled: boolean,
+	audit_data: string,
+}
+
+type _SettingsToggleInputDataPartialFields = {
+	setting_key: string?,
+	label: string?,
+	description: string?,
+	is_checked: boolean?,
+	is_disabled: boolean?,
+	audit_data: string?,
+}
+
+export type SettingsToggleInputData = typeof(setmetatable(
+	{} :: _SettingsToggleInputDataFields,
+	{} :: _SettingsToggleInputDataImpl
+))
+type _SettingsToggleInputDataMessage = proto.Message<SettingsToggleInputData, _SettingsToggleInputDataPartialFields>
+
 type _HeroUnitInputDataImpl = {
 	__index: _HeroUnitInputDataImpl,
 	new: (fields: _HeroUnitInputDataPartialFields?) -> HeroUnitInputData,
@@ -5178,6 +5223,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1500, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "settings_toggle" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1501, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -5656,6 +5705,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "settings_row", value = messages.SettingsRowInputData.decode(value) }
 					continue
+				elseif field == 1501 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "settings_toggle", value = messages.SettingsToggleInputData.decode(value) }
+					continue
 				end
 
 				local length
@@ -5826,6 +5880,8 @@ do
 				output.communityAnnouncement = self.kind.value:jsonEncode()
 			elseif self.kind.type == "settings_row" then
 				output.settingsRow = self.kind.value:jsonEncode()
+			elseif self.kind.type == "settings_toggle" then
+				output.settingsToggle = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -6699,6 +6755,16 @@ do
 
 		if input.settingsRow ~= nil then
 			self.kind = { type = "settings_row", value = messages.SettingsRowInputData.jsonDecode(input.settingsRow) }
+		end
+
+		if input.settings_toggle ~= nil then
+			self.kind =
+				{ type = "settings_toggle", value = messages.SettingsToggleInputData.jsonDecode(input.settings_toggle) }
+		end
+
+		if input.settingsToggle ~= nil then
+			self.kind =
+				{ type = "settings_toggle", value = messages.SettingsToggleInputData.jsonDecode(input.settingsToggle) }
 		end
 
 		return self
@@ -10841,6 +10907,10 @@ do
 				then nil
 				else data.sponsored_user_cohort,
 			anchor_tag = if data == nil or data.anchor_tag == nil then nil else data.anchor_tag,
+			collection_item_size = if data == nil or data.collection_item_size == nil
+				then nil
+				else data.collection_item_size,
+			sort_sub_id = if data == nil or data.sort_sub_id == nil then nil else data.sort_sub_id,
 		}, _ExperienceCarouselInputDataImpl :: _ExperienceCarouselInputDataImpl)
 	end
 
@@ -10944,6 +11014,16 @@ do
 		if self.anchor_tag ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.anchor_tag)
+		end
+
+		if self.collection_item_size ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.collection_item_size)
+		end
+
+		if self.sort_sub_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sort_sub_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -11060,6 +11140,16 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.anchor_tag = buffer.tostring(value)
 					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_item_size = buffer.tostring(value)
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_sub_id = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -11165,6 +11255,14 @@ do
 
 		if self.anchor_tag ~= nil then
 			output.anchorTag = self.anchor_tag
+		end
+
+		if self.collection_item_size ~= nil then
+			output.collectionItemSize = self.collection_item_size
+		end
+
+		if self.sort_sub_id ~= nil then
+			output.sortSubId = self.sort_sub_id
 		end
 
 		return output
@@ -11327,6 +11425,22 @@ do
 			self.anchor_tag = input.anchorTag
 		end
 
+		if input.collection_item_size ~= nil then
+			self.collection_item_size = input.collection_item_size
+		end
+
+		if input.collectionItemSize ~= nil then
+			self.collection_item_size = input.collectionItemSize
+		end
+
+		if input.sort_sub_id ~= nil then
+			self.sort_sub_id = input.sort_sub_id
+		end
+
+		if input.sortSubId ~= nil then
+			self.sort_sub_id = input.sortSubId
+		end
+
 		return self
 	end
 
@@ -11374,6 +11488,8 @@ do
 				then nil
 				else data.attribution_thumbnail_asset_id,
 			game_items_compact = if data == nil or data.game_items_compact == nil then {} else data.game_items_compact,
+			source_sort_id = if data == nil or data.source_sort_id == nil then nil else data.source_sort_id,
+			new_game_enum = if data == nil or data.new_game_enum == nil then nil else data.new_game_enum,
 		}, _ExperienceCarouselInputData_UniverseItemImpl :: _ExperienceCarouselInputData_UniverseItemImpl)
 	end
 
@@ -11509,6 +11625,16 @@ do
 			end
 		end
 
+		if self.source_sort_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.source_sort_id)
+		end
+
+		if self.new_game_enum ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.new_game_enum)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -11544,6 +11670,11 @@ do
 					local value
 					value, cursor = proto.readVarIntI32(input, cursor)
 					self.rank = value
+					continue
+				elseif field == 26 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.new_game_enum = value
 					continue
 				end
 
@@ -11644,6 +11775,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.game_items_compact, messages.GameItemInputData.decode(value))
+					continue
+				elseif field == 25 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source_sort_id = buffer.tostring(value)
 					continue
 				end
 
@@ -11781,6 +11917,14 @@ do
 				table.insert(newOutput, value:jsonEncode())
 			end
 			output.gameItemsCompact = newOutput
+		end
+
+		if self.source_sort_id ~= nil then
+			output.sourceSortId = self.source_sort_id
+		end
+
+		if self.new_game_enum ~= nil then
+			output.newGameEnum = self.new_game_enum
 		end
 
 		return output
@@ -11989,6 +12133,22 @@ do
 			end
 
 			self.game_items_compact = newOutput
+		end
+
+		if input.source_sort_id ~= nil then
+			self.source_sort_id = input.source_sort_id
+		end
+
+		if input.sourceSortId ~= nil then
+			self.source_sort_id = input.sourceSortId
+		end
+
+		if input.new_game_enum ~= nil then
+			self.new_game_enum = input.new_game_enum
+		end
+
+		if input.newGameEnum ~= nil then
+			self.new_game_enum = input.newGameEnum
 		end
 
 		return self
@@ -25272,6 +25432,214 @@ do
 end
 
 do
+	local _SettingsToggleInputDataImpl = {}
+	_SettingsToggleInputDataImpl.__index = _SettingsToggleInputDataImpl
+
+	function _SettingsToggleInputDataImpl.new(data: _SettingsToggleInputDataPartialFields?): SettingsToggleInputData
+		return setmetatable({
+			setting_key = if data == nil or data.setting_key == nil then "" else data.setting_key,
+			label = if data == nil or data.label == nil then "" else data.label,
+			description = if data == nil or data.description == nil then "" else data.description,
+			is_checked = if data == nil or data.is_checked == nil then false else data.is_checked,
+			is_disabled = if data == nil or data.is_disabled == nil then false else data.is_disabled,
+			audit_data = if data == nil or data.audit_data == nil then "" else data.audit_data,
+		}, _SettingsToggleInputDataImpl :: _SettingsToggleInputDataImpl)
+	end
+
+	function _SettingsToggleInputDataImpl.encode(self: SettingsToggleInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.setting_key ~= nil and self.setting_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.setting_key)
+		end
+
+		if self.label ~= nil and self.label ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.label)
+		end
+
+		if self.description ~= nil and self.description ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.description)
+		end
+
+		if self.is_checked then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_checked then 1 else 0)
+		end
+
+		if self.is_disabled then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_disabled then 1 else 0)
+		end
+
+		if self.audit_data ~= nil and self.audit_data ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.audit_data)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SettingsToggleInputDataImpl.decode(input: buffer): SettingsToggleInputData
+		local self = _SettingsToggleInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 4 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_checked = value ~= 0
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_disabled = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.setting_key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.label = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.description = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.audit_data = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SettingsToggleInputDataImpl.jsonEncode(self: SettingsToggleInputData): any
+		local output = {}
+
+		if self.setting_key ~= nil and self.setting_key ~= "" then
+			output.settingKey = self.setting_key
+		end
+
+		if self.label ~= nil and self.label ~= "" then
+			output.label = self.label
+		end
+
+		if self.description ~= nil and self.description ~= "" then
+			output.description = self.description
+		end
+
+		if self.is_checked then
+			output.isChecked = self.is_checked
+		end
+
+		if self.is_disabled then
+			output.isDisabled = self.is_disabled
+		end
+
+		if self.audit_data ~= nil and self.audit_data ~= "" then
+			output.auditData = self.audit_data
+		end
+
+		return output
+	end
+
+	function _SettingsToggleInputDataImpl.jsonDecode(input: { [string]: any }): SettingsToggleInputData
+		local self = _SettingsToggleInputDataImpl.new()
+
+		if input.setting_key ~= nil then
+			self.setting_key = input.setting_key
+		end
+
+		if input.settingKey ~= nil then
+			self.setting_key = input.settingKey
+		end
+
+		if input.label ~= nil then
+			self.label = input.label
+		end
+
+		if input.description ~= nil then
+			self.description = input.description
+		end
+
+		if input.is_checked ~= nil then
+			self.is_checked = input.is_checked
+		end
+
+		if input.isChecked ~= nil then
+			self.is_checked = input.isChecked
+		end
+
+		if input.is_disabled ~= nil then
+			self.is_disabled = input.is_disabled
+		end
+
+		if input.isDisabled ~= nil then
+			self.is_disabled = input.isDisabled
+		end
+
+		if input.audit_data ~= nil then
+			self.audit_data = input.audit_data
+		end
+
+		if input.auditData ~= nil then
+			self.audit_data = input.auditData
+		end
+
+		return self
+	end
+
+	_SettingsToggleInputDataImpl.descriptor = {
+		name = "SettingsToggleInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SettingsToggleInputData",
+	}
+
+	messages.SettingsToggleInputData = _SettingsToggleInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SettingsToggleInputData)
+end
+
+do
 	local _HeroUnitInputDataImpl = {}
 	_HeroUnitInputDataImpl.__index = _HeroUnitInputDataImpl
 
@@ -28416,6 +28784,7 @@ return {
 	PreAuthLandingStickyHeaderInputData = messages.PreAuthLandingStickyHeaderInputData,
 	ImageCtaSectionInputData = messages.ImageCtaSectionInputData,
 	SettingsRowInputData = messages.SettingsRowInputData,
+	SettingsToggleInputData = messages.SettingsToggleInputData,
 	HeroUnitInputData = messages.HeroUnitInputData,
 	HeroUnitInputData_VisualAsset = messages.HeroUnitInputData_VisualAsset,
 	HeroUnitInputData_Gradient = messages.HeroUnitInputData_Gradient,

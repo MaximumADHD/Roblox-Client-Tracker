@@ -77,6 +77,7 @@ PropertiesSensible.run = function(reporter: Types.ValidationReporter, data: Type
 	end
 
 	if getFFlagUGCValidateWrapDataCaps() then
+		-- Lifecycle-gated on consumerEnv (not validationEnv): these are first-publish caps, so a VaaS run (consumerEnv=IEC) doesn't trip them.
 		local consumerEnv = data.consumerConfig.consumerEnv
 		local capHSRDataEmpty = consumerEnv == ValidationEnums.ConsumerEnv.Backend
 		local capTemporaryIds = consumerEnv ~= ValidationEnums.ConsumerEnv.IEC

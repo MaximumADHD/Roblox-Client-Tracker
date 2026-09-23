@@ -6,8 +6,8 @@ local SetBundles = require(InspectAndBuyFolder.Actions.SetBundles)
 local SetFavoriteBundle = require(InspectAndBuyFolder.Actions.SetFavoriteBundle)
 local UpdateBulkPuchaseResults = require(InspectAndBuyFolder.Actions.UpdateBulkPuchaseResults)
 local SetAvatarPreviewDetails = require(InspectAndBuyFolder.Actions.SetAvatarPreviewDetails)
-local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
-local ItemType = AvatarExperienceCommon.Enums.ItemTypeEnum
+local AvatarExperienceModel = require(CorePackages.Workspace.Packages.AvatarExperienceModel)
+local ItemType = AvatarExperienceModel.Enums.ItemTypeEnum
 
 local FFlagAXEnableFetchAvatarPreview = require(InspectAndBuyFolder.Flags.FFlagAXEnableFetchAvatarPreview)
 local FFlagAXEnableInspectAndBuyBulkPurchase =

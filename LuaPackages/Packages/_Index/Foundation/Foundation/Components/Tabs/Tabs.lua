@@ -98,8 +98,7 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 	local borderPosition, borderWidth, activeTabHeight =
 		animatedBorder.highlightPosition, animatedBorder.highlightWidth, animatedBorder.activeItemHeight
 
-	local tabsSize: InputSize = if Flags.FoundationFixTabsFitBorderWidth then props.size else nil :: never
-
+	local tabsSize: InputSize = props.size
 	return React.createElement(
 		View,
 		withCommonProps(props, {
@@ -150,9 +149,8 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 										else nil,
 									tag = {
 										["row flex-y-fill auto-xy"] = true,
-										["gap-large"] = if Flags.FoundationFixTabsFitBorderWidth
-											then not isFill and (tabsSize == InputSize.Small or tabsSize == InputSize.XSmall)
-											else not isFill,
+										["gap-large"] = not isFill
+											and (tabsSize == InputSize.Small or tabsSize == InputSize.XSmall),
 									},
 									Size = if isFill then UDim2.fromScale(1, 0) else nil,
 									testId = `{props.testId}--list`,
@@ -201,13 +199,10 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 				Size = borderWidth:map(function(value)
 					return UDim2.fromOffset(value, tokens.Stroke.Thick)
 				end),
-				AnchorPoint = if Flags.FoundationFixTabsBorderPosition then Vector2.new(0, 1) else nil,
+				AnchorPoint = Vector2.new(0, 1),
 				Position = React.joinBindings({ borderPosition, activeTabHeight }):map(function(value)
 					local xPosition, yPosition = value[1], value[2]
-					return UDim2.fromOffset(
-						xPosition,
-						if Flags.FoundationFixTabsBorderPosition then yPosition else yPosition - tokens.Stroke.Thick
-					)
+					return UDim2.fromOffset(xPosition, yPosition)
 				end),
 				backgroundStyle = tokens.Color.System.Contrast,
 				testId = `{props.testId}--animated-border`,

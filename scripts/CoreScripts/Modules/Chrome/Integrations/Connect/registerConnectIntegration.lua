@@ -28,6 +28,9 @@ local FFlagAppChatInExpUseUnibarNotification = game:DefineFastFlag("AppChatInExp
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagIsSquadEnabled = SharedFlags.GetFFlagIsSquadEnabled
+local FFlagAppChatDistinctUnibarEntryPoint = SharedFlags.FFlagAppChatDistinctUnibarEntryPoint
+
+local ChatEntryPointNames = require(CorePackages.Workspace.Packages.SocialCommon).Enums.ChatEntryPointNames
 
 local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
 
@@ -38,6 +41,12 @@ end)
 return function(id: string, initialAvailability: number)
 	-- only enable squad (a.k.a. party) indicator for the unibar icon, other variants, like dropdown icon, won't need it
 	local isSquadIndicatorEnabled = id == "connect_unibar" and GetFFlagIsSquadEnabled()
+
+	-- connect_unibar is the unibar chat entry point in the rename-off arm; attribute
+	-- its opens to the unibar rather than the shared dropdown fallback.
+	local unibarEntryPoint = if FFlagAppChatDistinctUnibarEntryPoint and id == "connect_unibar"
+		then ChatEntryPointNames.ChromeUnibar
+		else nil
 	local integration = ChromeService:register({
 		id = id,
 		sideSheetPlacement = if id == "connect_unibar" then SideSheetPlacement.Unibar else SideSheetPlacement.BelowFold,
@@ -57,7 +66,7 @@ return function(id: string, initialAvailability: number)
 					if inputModeStore.getLastInputType(false) == Responsive.Input.Directional then
 						ChromeFocusUtils.FocusOffChrome()
 					end
-					InExperienceAppChatModal.default:setVisible(true)
+					InExperienceAppChatModal.default:setVisible(true, unibarEntryPoint)
 				end)
 			end
 			LocalStore.storeForLocalPlayer(GetFStringConnectTooltipLocalStorageKey(), true)

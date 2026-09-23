@@ -9,7 +9,6 @@ local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
 
 local getFFlagUGCValidateLegFullBodySeparation = require(root.flags.getFFlagUGCValidateLegFullBodySeparation)
-local getFFlagUGCValidateMigrateBodyPartBounds = require(root.flags.getFFlagUGCValidateMigrateBodyPartBounds)
 local getFFlagUGCValidateMigrateCageGeometry = require(root.flags.getFFlagUGCValidateMigrateCageGeometry)
 local getFFlagUGCValidateMigratePoseBlocking = require(root.flags.getFFlagUGCValidateMigratePoseBlocking)
 
@@ -17,7 +16,6 @@ local Types = require(root.util.Types)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local validateWithSchema = require(root.util.validateWithSchema)
 
-local validateAssetBounds = require(root.validation.validateAssetBounds)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local ValidateBodyBlockingTests = require(root.util.ValidateBodyBlockingTests)
 local ValidateAssetBodyPartCages = require(root.validation.ValidateAssetBodyPartCages)
@@ -254,10 +252,6 @@ local function validateFullBody(validationContext: Types.ValidationContext): (bo
 			reasonsAccumulator:updateReasons(
 				ValidateAssetBodyPartCages.validateFullBody(allBodyParts, validationContext)
 			)
-		end
-
-		if not getFFlagUGCValidateMigrateBodyPartBounds() then
-			reasonsAccumulator:updateReasons(validateAssetBounds(allBodyParts, nil, validationContext))
 		end
 
 		if not getFFlagUGCValidateMigratePoseBlocking() then

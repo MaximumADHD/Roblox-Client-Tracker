@@ -8,7 +8,6 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.FetchAllDesiredData)
 
-local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
 local getFFlagUGCValidateAllowEmissives = require(root.flags.getFFlagUGCValidateAllowEmissives)
 
 local FIntAccessoryColorMapMaxSize = game:DefineFastInt("AccessoryColorMapMaxSize", 1024)
@@ -41,8 +40,6 @@ SurfaceAppearanceTexturesBounded.conditionalData = {
 	ValidationEnums.SharedDataMember.meshTextures,
 }
 
-SurfaceAppearanceTexturesBounded.fflag = getFFlagUGCValidateMigrateTextureTransparency
-
 SurfaceAppearanceTexturesBounded.expectedFailures = {}
 
 SurfaceAppearanceTexturesBounded.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
@@ -55,6 +52,8 @@ SurfaceAppearanceTexturesBounded.run = function(reporter: Types.ValidationReport
 		reporter:fetchError("Failed to load texture data for surface appearance texture bounds check")
 		return
 	end
+
+	local isBackend = consumerConfig.validationEnv == ValidationEnums.ValidationEnv.Backend
 
 	local allInstances = rootInstance:GetDescendants()
 	table.insert(allInstances, rootInstance)
@@ -98,7 +97,7 @@ SurfaceAppearanceTexturesBounded.run = function(reporter: Types.ValidationReport
 			end)
 
 			if not success then
-				if consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Backend then
+				if isBackend then
 					reporter:fetchError(
 						string.format(
 							"Failed to get texture size for '%s'. Make sure the texture exists and try again.",

@@ -1,208 +1,237 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 
 local Dash = require(Packages.Dash)
-
-local BuilderIcons = require(Packages.BuilderIcons)
-local IconName = BuilderIcons.Icon
-
-local Icon = require(Foundation.Components.Icon)
-local RadioGroup = require(Foundation.Components.RadioGroup)
-local View = require(Foundation.Components.View)
-local useTokens = require(Foundation.Providers.Style.useTokens)
+local React = require(Packages.React)
 
 local Flags = require(Foundation.Utility.Flags)
-local IconSize = require(Foundation.Enums.IconSize)
+local RadioGroup = require(Foundation.Components.RadioGroup)
+local StorySection = require(Foundation.Utility.Stories.Shared.StorySection)
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
+
 local InputPlacement = require(Foundation.Enums.InputPlacement)
+type InputPlacement = InputPlacement.InputPlacement
 local InputSize = require(Foundation.Enums.InputSize)
-type InputSize = InputSize.InputSize
 
-local values = { "A", "B", "C", "D", "E" }
-local sizes: { InputSize } = { InputSize.XSmall, InputSize.Small, InputSize.Medium }
+type InputGroupSize = Types.InputGroupSize
 
-local function BasicStory(props)
-	local controls = props.controls
-	local optionLabel: string = controls.optionLabel
-	local items = {}
-	Dash.forEach(values, function(value, index)
-		table.insert(
-			items,
-			React.createElement(RadioGroup.Item, {
-				key = value,
-				value = value,
-				label = if #optionLabel > 0 then `{optionLabel} {value}` else "",
-				isDisabled = if value == "D" then true else controls.isDisabled,
-				size = if Flags.FoundationInputGroup then nil else controls.size,
-				placement = if Flags.FoundationInputGroup then nil else controls.placement,
-				LayoutOrder = index,
-			})
-		)
+local Section = StorySection.Section
+local LabeledCell = StorySection.LabeledCell
+local STORY_FRAME_TAG = StorySection.STORY_FRAME_TAG
+local STORY_PAGE_TAG = StorySection.STORY_PAGE_TAG
+
+local SIZE_ORDER: { InputGroupSize } = {
+	InputSize.XSmall,
+	InputSize.Small,
+	InputSize.Medium,
+}
+
+local PLACEMENT_ORDER: { InputPlacement } = {
+	InputPlacement.Start,
+	InputPlacement.End,
+}
+
+local LEGEND = "Legend"
+local LONG_LEGEND = "This is a longer group legend than the container fits on a single line"
+local ITEM_LABELS = { "Item 1", "Item 2", "Item 3" }
+local ITEM_VALUES = { "A", "B", "C" }
+local LONG_ITEM_LABELS = {
+	"This is a longer item label than the container fits on a single line",
+	"A second item label that also runs past the width it is given",
+	"A third item label that also runs past the width it is given",
+}
+local BOUNDED_WIDTH = 250
+
+local function noop(_value: string) end
+
+local function createItems(labels: { string }?): { React.ReactNode }
+	return Dash.map(ITEM_VALUES, function(value, index)
+		return React.createElement(RadioGroup.Item, {
+			value = value,
+			label = if labels then labels[index] else ITEM_LABELS[index],
+			LayoutOrder = index,
+		})
 	end)
-
-	return React.createElement(RadioGroup.Root, {
-		legend = if Flags.FoundationInputGroup then controls.legend else nil,
-		size = if Flags.FoundationInputGroup then controls.size else nil,
-		placement = if Flags.FoundationInputGroup then controls.placement else nil,
-		onValueChanged = function(value: string)
-			print("Checking value", value)
-		end,
-	}, items)
 end
 
-local function DifferentLabelLengthsStory(props)
-	local controls = props.controls
-	local itemsData = {
-		{ value = "A", label = "Short" },
-		{ value = "B", label = "Medium length label" },
-		{ value = "C", label = "A much, much longer label to test wrapping and layout in the radio group" },
-		{ value = "D", label = "Tiny" },
-		{
-			value = "E",
-			label = "Extremely long label that spans multiple lines to ensure alignment across items with a label on the left",
-		},
-	}
+local function StaticGroup(props: {
+	LayoutOrder: number?,
+	legend: string?,
+	size: InputGroupSize?,
+	placement: InputPlacement?,
+	labels: { string }?,
+}): React.ReactNode
+	local remountKey, setRemountKey = React.useState(0)
 
-	local items = {}
-	Dash.forEach(itemsData, function(item)
-		table.insert(
-			items,
-			React.createElement(RadioGroup.Item, {
-				value = item.value,
-				label = item.label,
-				size = controls.size,
-				placement = controls.placement,
-			})
-		)
-	end)
+	return React.createElement(RadioGroup.Root, {
+		key = tostring(remountKey),
+		legend = props.legend,
+		size = props.size,
+		placement = props.placement,
+		LayoutOrder = props.LayoutOrder,
+		onValueChanged = function()
+			setRemountKey(function(key)
+				return key + 1
+			end)
+		end,
+	}, createItems(props.labels))
+end
+
+type PlaygroundControls = {
+	legend: string?,
+	size: InputGroupSize?,
+	placement: InputPlacement?,
+}
+
+local function PlaygroundStory(props: { controls: PlaygroundControls })
+	local controls = props.controls
 
 	return React.createElement(View, {
-		tag = "auto-y",
-		Size = UDim2.fromOffset(400, 0),
+		tag = `auto-xy {STORY_FRAME_TAG}`,
 	}, {
-		RadioGroup = React.createElement(RadioGroup.Root, {
-			onValueChanged = function(value: string)
-				print("Checking value", value)
-			end,
-		}, items),
+		Group = React.createElement(RadioGroup.Root, {
+			legend = controls.legend,
+			size = controls.size,
+			placement = controls.placement,
+			onValueChanged = noop,
+		}, createItems()),
 	})
 end
 
-local function SizesStory(_)
-	local groups: { React.ReactNode } = {}
-	Dash.forEach(sizes, function(size, sizeIndex)
-		local items = {}
-		Dash.forEach(values, function(value, index)
-			table.insert(
-				items,
-				React.createElement(RadioGroup.Item, {
-					key = value,
-					value = value,
-					label = value,
-					size = if Flags.FoundationInputGroup then nil else size,
-					LayoutOrder = index,
-				})
-			)
-		end)
-
-		groups[size] = React.createElement(RadioGroup.Root, {
-			key = size,
-			legend = if Flags.FoundationInputGroup then size else nil,
-			size = if Flags.FoundationInputGroup then size else nil,
-			LayoutOrder = sizeIndex,
-			onValueChanged = function(value: string)
-				print("Checking value", value)
-			end,
-		}, items)
-	end)
-
+local function SizingStory()
 	return React.createElement(View, {
-		tag = "row wrap align-y-center gap-xlarge auto-xy",
-	}, groups)
+		tag = `col {STORY_PAGE_TAG}`,
+	}, {
+		Size = React.createElement(
+			Section,
+			{
+				LayoutOrder = 1,
+				name = "Size",
+			},
+			Dash.map(SIZE_ORDER, function(size, index)
+				return React.createElement(LabeledCell, {
+					LayoutOrder = index,
+					label = size,
+				}, {
+					Group = React.createElement(StaticGroup, {
+						legend = LEGEND,
+						size = size,
+					}),
+				})
+			end)
+		),
+	})
 end
 
-local function createSelectionCard(controls, value: string, icon: string, label: string, cursor, setSelectedValue)
+local function PlacementStory()
+	return React.createElement(
+		View,
+		{
+			tag = `row wrap gap-large auto-xy {STORY_FRAME_TAG}`,
+		},
+		Dash.map(PLACEMENT_ORDER, function(placement, index)
+			return React.createElement(LabeledCell, {
+				LayoutOrder = index,
+				label = placement,
+			}, {
+				Group = React.createElement(StaticGroup, {
+					legend = LEGEND,
+					placement = placement,
+				}),
+			})
+		end)
+	)
+end
+
+local function ControlledExample(props: {
+	LayoutOrder: number,
+})
+	local value, setValue = React.useState(nil :: string?)
+
+	return React.createElement(RadioGroup.Root, {
+		legend = LEGEND,
+		value = value,
+		onValueChanged = setValue,
+		LayoutOrder = props.LayoutOrder,
+	}, createItems())
+end
+
+local function ControlledStory()
 	return React.createElement(View, {
-		tag = "col align-x-center gap-small auto-xy padding-medium",
+		tag = `auto-xy {STORY_FRAME_TAG}`,
 	}, {
-		ImageContainer = React.createElement(View, {
-			cursor = cursor,
-			onActivated = function()
-				setSelectedValue(value)
-				print("Selected card:", value)
-			end,
-			tag = "col align-x-center align-y-center size-2000-2000 radius-medium bg-surface-100",
+		Example = React.createElement(ControlledExample, { LayoutOrder = 1 }),
+	})
+end
+
+local function ContentStory()
+	return React.createElement(View, {
+		tag = `col gap-xxlarge {STORY_PAGE_TAG}`,
+	}, {
+		Wrapping = React.createElement(Section, {
+			LayoutOrder = 1,
+			name = "Wrapping",
 		}, {
-			Icon = React.createElement(Icon, {
-				name = icon,
-				size = IconSize.XLarge,
+			Bounded = React.createElement(LabeledCell, {
+				LayoutOrder = 1,
+				label = `parent width = {BOUNDED_WIDTH}`,
+			}, {
+				Frame = React.createElement(View, {
+					tag = "auto-y",
+					Size = UDim2.fromOffset(BOUNDED_WIDTH, 0),
+				}, {
+					Group = React.createElement(StaticGroup, {
+						legend = LONG_LEGEND,
+						labels = LONG_ITEM_LABELS,
+					}),
+				}),
 			}),
 		}),
-		RadioButton = React.createElement(RadioGroup.Item, {
-			value = value,
-			label = label,
-			placement = controls and controls.placement or nil,
-		}),
 	})
 end
 
-local function CustomSelectionStory(props)
-	local controls = props.controls
-	local selectedValue, setSelectedValue = React.useState(nil :: string?)
-	local tokens = useTokens()
+type StoryEntry = {
+	name: string,
+	story: unknown,
+}
 
-	local cursor = React.useMemo(function()
-		return {
-			radius = UDim.new(0, tokens.Radius.Medium),
-			offset = tokens.Size.Size_150,
-			borderWidth = tokens.Stroke.Thicker,
-		}
-	end, { tokens })
+local stories: { StoryEntry } = {
+	{
+		name = "Playground",
+		story = PlaygroundStory :: unknown,
+	},
+	{
+		name = "Controlled component",
+		story = ControlledStory,
+	},
+	{
+		name = "Content",
+		story = ContentStory,
+	},
+}
 
-	return React.createElement(RadioGroup.Root, {
-		value = selectedValue,
-		onValueChanged = setSelectedValue,
-		-- Make the group non-selectable since individual items handle their own selection
-		Selectable = false,
-	}, {
-		Container = React.createElement(View, {
-			tag = "row wrap gap-large auto-xy",
-		}, {
-			CardA = createSelectionCard(controls, "A", IconName.CircleCheck, "Success", cursor, setSelectedValue),
-			CardB = createSelectionCard(controls, "B", IconName.TriangleExclamation, "Error", cursor, setSelectedValue),
-			CardC = createSelectionCard(controls, "C", IconName.CircleI, "Info", cursor, setSelectedValue),
-		}),
+if Flags.FoundationInputGroup then
+	table.insert(stories, 2, {
+		name = "Sizing",
+		story = SizingStory,
+	})
+	table.insert(stories, 3, {
+		name = "Placement",
+		story = PlacementStory,
 	})
 end
+
+local controls: { [string]: unknown } = if Flags.FoundationInputGroup
+	then {
+		legend = LEGEND,
+		size = SIZE_ORDER,
+		placement = PLACEMENT_ORDER,
+	}
+	else {}
 
 return {
-	summary = "Radio Group component",
-	stories = {
-		{
-			name = "Playground",
-			story = BasicStory :: unknown,
-		},
-		{
-			name = "Sizes",
-			summary = "Each size shown in a row",
-			story = SizesStory,
-		},
-		{
-			name = "Different Label Lengths",
-			summary = "Items with labels of varying length",
-			story = DifferentLabelLengthsStory,
-		},
-		{
-			name = "Custom Selection",
-			summary = "Select images instead of radio buttons",
-			story = CustomSelectionStory,
-		},
-	},
-	controls = {
-		legend = "Choose an option",
-		optionLabel = "Option",
-		size = sizes,
-		placement = Dash.values(InputPlacement),
-		isDisabled = false,
-	},
+	summary = "RadioGroup lets a caller pick one value from a set of items, and publishes legend, size, and placement to them.",
+	stories = stories,
+	controls = controls,
 }

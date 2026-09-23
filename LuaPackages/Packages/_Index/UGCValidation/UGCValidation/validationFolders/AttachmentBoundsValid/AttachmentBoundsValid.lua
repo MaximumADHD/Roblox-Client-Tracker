@@ -161,9 +161,11 @@ AttachmentBoundsValid.run = function(reporter: Types.ValidationReporter, data: T
 		end
 	end
 
+	local isServer = data.consumerConfig.validationEnv == ValidationEnums.ValidationEnv.Backend
+
 	local validationContext = {
 		assetTypeEnum = assetTypeEnum,
-		isServer = data.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Backend,
+		isServer = isServer,
 		editableMeshes = editableMeshes,
 	} :: any
 

@@ -22,11 +22,13 @@ local RecreateSceneFromEditables = require(root.util.RecreateSceneFromEditables)
 local stripMeshFromGltf = require(root.util.stripMeshFromGltf)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local R15plusUtils = require(root.util.R15plusUtils)
+local resetPhysicsData = require(root.util.resetPhysicsData)
 local getFFlagDebugAllowHRDUploadOnBundleBackend = require(root.flags.getFFlagDebugAllowHRDUploadOnBundleBackend)
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 local getEngineFeatureEngineUGCValidateInstanceTreesEquivalent =
 	require(root.flags.getEngineFeatureEngineUGCValidateInstanceTreesEquivalent)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
+local getFFlagUGCValidationAllowFullVaas = require(root.flags.getFFlagUGCValidationAllowFullVaas)
 local getFFlagDebugUGCDisableAssetQualityChecks = require(root.flags.getFFlagDebugUGCDisableAssetQualityChecks)
 local getEngineFeatureEngineUGCValidateEmoteAnimationExport =
 	require(root.flags.getEngineFeatureEngineUGCValidateEmoteAnimationExport)
@@ -45,7 +47,7 @@ local telemetryConfig = {
 		"EventIngest",
 	},
 	throttlingPercentage = game:GetFastInt("FullValidationTelemetryThrottleHundrethsPercent"),
-	lastUpdated = { 25, 11, 18 },
+	lastUpdated = { 26, 9, 4 },
 	description = [[Report result of ugc validation suite]],
 	links = "https://create.roblox.com/docs/art/validation-errors",
 }
@@ -192,16 +194,24 @@ local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: {
 
 	if success then
 		for iter = 1, 1 + getFIntUGCValidationFetchQualityMaxRetry() do
-			-- TODO: Log retry count
 			success, errors = pcall(function()
 				sharedData.aqsFetchMetrics.fetchAttemptCount = iter
 				local startTime = os.clock()
 				local results
 				if sharedData.consumerConfig.aqFetchStage == "jobId" then
-					results = (AssetQualityService :: any):FetchAssetQualitySummaryFromJobIdAsync(
-						sharedData.consumerConfig.aqFetchData,
-						qualityTests
-					)
+					local jobId = sharedData.consumerConfig.aqFetchData
+					-- Under full VaaS a provided jobId is already resolved, so trust it via the direct V2 fetch; V1 covers the no-jobId / pre-VaaS path.
+					if getFFlagUGCValidationAllowFullVaas() and jobId ~= nil and jobId ~= "" then
+						results = (AssetQualityService :: any):FetchAssetQualitySummaryFromJobIdV2Async(
+							jobId,
+							qualityTests
+						)
+					else
+						results = (AssetQualityService :: any):FetchAssetQualitySummaryFromJobIdAsync(
+							jobId,
+							qualityTests
+						)
+					end
 				else
 					results = AssetQualityService:FetchAssetQualitySummaryFromGltfAsync(gltfString, qualityTests)
 				end
@@ -315,6 +325,11 @@ local function reportFullResult(results: Types.ValidationResultData, sharedData:
 		aqJobId = sharedData.aqsFetchMetrics.aqJobId or "",
 	}
 
+	if getFFlagUGCValidationAllowFullVaas() then
+		telemetryResult.isVaas = sharedData.consumerConfig.isVaaS or false
+		telemetryResult.aqFetchStage = sharedData.consumerConfig.aqFetchStage
+	end
+
 	TelemetryService:LogEvent(telemetryConfig, { customFields = telemetryResult })
 
 	if getFFlagDebugUGCValidationPrintNewStructureResults() then
@@ -401,11 +416,25 @@ local function createConsumerConfigWithDefaults(
 	newConfigs.preloadedHsrAssets = newConfigs.preloadedHsrAssets or {}
 	newConfigs.skipModules = newConfigs.skipModules or {}
 	newConfigs.skipAssetQualityChecks = newConfigs.skipAssetQualityChecks or false
+	newConfigs.skipPhysicsDataReset = newConfigs.skipPhysicsDataReset or false
+	newConfigs.isVaaS = newConfigs.isVaaS or false
+	assert(
+		not (getFFlagUGCValidationAllowFullVaas() and newConfigs.isVaaS) or getFFlagUGCValidateMigrateSchemaProperties(),
+		"isVaaS requires FFlagUGCValidateMigrateSchemaProperties so the env axes resolve"
+	)
 
 	-- Resolve env only for the new system; flag-off keeps legacy behavior bit-identical.
 	if getFFlagUGCValidateMigrateSchemaProperties() then
+		-- Origin / lifecycle axis: always the honest source, so a VaaS run (IEC-origin) doesn't trip first-publish caps.
 		newConfigs.consumerEnv = SOURCE_TO_ENV[newConfigs.source]
 		assert(newConfigs.consumerEnv ~= nil, `unknown consumer source: {tostring(newConfigs.source)}`)
+
+		-- Execution / capability axis: VaaS runs IEC-origin uploads on the RCC backend, so backend-only capability checks run.
+		if getFFlagUGCValidationAllowFullVaas() and newConfigs.isVaaS then
+			newConfigs.validationEnv = ValidationEnums.ValidationEnv.Backend
+		else
+			newConfigs.validationEnv = newConfigs.consumerEnv
+		end
 
 		newConfigs.backendConfigs = newConfigs.backendConfigs or {}
 		newConfigs.iecConfigs = newConfigs.iecConfigs or {}
@@ -442,6 +471,7 @@ local function runValidationOnRootInstance(sharedData: Types.SharedData): Types.
 
 	local results: Types.ValidationResultData = {
 		validationJobId = sharedData.jobId,
+		telemetryBundleId = if getFFlagUGCValidationAllowFullVaas() then configs.telemetryBundleId else nil,
 		pass = true,
 		numFailures = 0,
 		numWarnings = 0,
@@ -474,13 +504,27 @@ local function runValidationOnRootInstance(sharedData: Types.SharedData): Types.
 		return results
 	end
 
+	-- Anti-tamper: reset MeshPart physics before any .Size check; let a backend load failure throw rather than validate tampered bounds.
+	if
+		getFFlagUGCValidationAllowFullVaas()
+		and sharedData.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Backend
+	then
+		local bypassFlags = { skipPhysicsDataReset = sharedData.consumerConfig.skipPhysicsDataReset }
+		resetPhysicsData({ sharedData.rootInstance }, { isServer = true, bypassFlags = bypassFlags } :: any)
+	end
+
+	-- A VaaS job keeps source=InExp* but executes on the RCC backend, which has no ambient heartbeat, so it must yield
+	-- like a backend consumer (sync fetch + manual RunService pump, no task.wait). Capability-gated on validationEnv.
+	local cannotYield = consumersThatCannotYield[configs.source]
+		or configs.validationEnv == ValidationEnums.ValidationEnv.Backend
+
 	-- Step 4: Fetch data and call AQS if needed
 	FetchAllDesiredData.storeDesiredData(sharedData, desiredData)
 	if #qualityTests > 0 then
 		-- if we are allowed to spawn up threads, we can do the fetching async and yeild later when all validations are finished
 		-- TODO: Play around with rccservice to do async as well
 		sharedData.aqsFetchMetrics.fetchStatus = AssetQualityFetchStatus.assetQualityFetchInProgress
-		if consumersThatCannotYield[configs.source] then
+		if cannotYield then
 			RunService:Run() -- Give rcc scripts a heartbeat so we can call delay() in cpp util
 			fetchQualityResults(sharedData, qualityTests)
 			RunService:Pause()
@@ -509,12 +553,12 @@ local function runValidationOnRootInstance(sharedData: Types.SharedData): Types.
 				sharedData.jobId,
 				configs.enforceShadowValidations
 			)
-			if consumersThatWantExtraYeild[configs.source] then
+			if consumersThatWantExtraYeild[configs.source] and not cannotYield then
 				task.wait()
 			end
 		end
 
-		if qualityInProgress and not consumersThatCannotYield[configs.source] then
+		if qualityInProgress and not cannotYield then
 			-- Avoid empty loop when waiting on quality results
 			task.wait()
 		end

@@ -4,7 +4,6 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
-local ConstantsInterface = require(root.ConstantsInterface)
 
 local validateLCCageQuality = require(root.validation.validateLCCageQuality)
 local validateInstanceTree = require(root.validation.validateInstanceTree)
@@ -13,7 +12,6 @@ local validateModeration = require(root.validation.validateModeration)
 local validateMaterials = require(root.validation.validateMaterials)
 local validateTags = require(root.validation.validateTags)
 local validateMeshBounds = require(root.validation.validateMeshBounds)
-local validateTextureSize = require(root.validation.validateTextureSize)
 local validatePropertyRequirements = require(root.validation.validatePropertyRequirements)
 local validateAttributes = require(root.validation.validateAttributes)
 local validateMeshVertColors = require(root.validation.validateMeshVertColors)
@@ -31,7 +29,6 @@ local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceAre
 local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
 local validateMaxCubeDensity = require(root.validation.validateMaxCubeDensity)
 local ValidateHSRData = require(root.validation.ValidateHSRData)
-local validateSurfaceAppearanceTextureSize = require(root.validation.validateSurfaceAppearanceTextureSize)
 local ValidateTexturePack = require(root.validation.ValidateTexturePack)
 
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
@@ -48,9 +45,6 @@ local getFIntUGCValidationLCHandleScaleOffsetMaximum =
 	require(root.flags.getFIntUGCValidationLCHandleScaleOffsetMaximum) -- / 1000
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
-local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFlagUGCValidateAccessoryAssetTextureLimit)
-local getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits =
-	require(root.flags.getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits)
 local getFFlagUGCValidateTexturePack = require(root.flags.getFFlagUGCValidateTexturePack)
 local getFFlagUGCValidateEyebrowEyelashThumbnailSchema =
 	require(root.flags.getFFlagUGCValidateEyebrowEyelashThumbnailSchema)
@@ -59,7 +53,6 @@ local ValidateMeshPartOnlySkinnedToR15 = require(root.validation.ValidateMeshPar
 local getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning =
 	require(root.flags.getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
-local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
 local getFFlagUGCValidateMigrateCageGeometry = require(root.flags.getFFlagUGCValidateMigrateCageGeometry)
 
 local function validateLayeredClothingAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
@@ -262,26 +255,6 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
-		end
-	end
-
-	if not getFFlagUGCValidateMigrateTextureTransparency() then
-		local textureSizeLimit = nil
-		if getFFlagUGCValidateAccessoryAssetTextureLimit() then
-			textureSizeLimit = ConstantsInterface.getTextureLimit(assetTypeEnum, handle, textureInfo.fieldName)
-		end
-		success, failedReason = validateTextureSize(textureInfo, true, validationContext, textureSizeLimit)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
-
-		if getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits() then
-			success, failedReason = validateSurfaceAppearanceTextureSize(instance, validationContext)
-			if not success then
-				table.insert(reasons, table.concat(failedReason, "\n"))
-				validationResult = false
-			end
 		end
 	end
 

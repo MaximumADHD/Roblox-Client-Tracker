@@ -27,7 +27,6 @@ local childrenHasFullBleed = require(script.Parent.childrenHasFullBleed)
 local useHardwareInsets = require(script.Parent.useHardwareInsets)
 local useScreenHeight = require(script.Parent.useScreenHeight)
 
-local Flags = require(Foundation.Utility.Flags)
 local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
 
@@ -122,12 +121,8 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	-- useCallback deps below cascades into the opening useEffect and
 	-- re-snaps the sheet to defaultSnapPointIndex on every parent render
 	-- when the consumer passes a non-memoized callback.
-	local onSnapPointChangedRef = if Flags.FoundationBottomSheetOnSnapPointChanged
-		then React.useRef(props.onSnapPointChanged)
-		else nil :: never
-	if Flags.FoundationBottomSheetOnSnapPointChanged then
-		onSnapPointChangedRef.current = props.onSnapPointChanged
-	end
+	local onSnapPointChangedRef = React.useRef(props.onSnapPointChanged)
+	onSnapPointChangedRef.current = props.onSnapPointChanged
 
 	local backdropTransparency, setBackdropTransparencyGoal = useAnimatedBinding(1, function()
 		if isClosing.current then
@@ -159,17 +154,15 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local isVerticalSheetGesture = nil
 	local setIsVerticalSheetGesture = nil
 	local setIsVerticalSheetGestureValue = nil
-	if Flags.FoundationBottomSheetGestureInteractionSink then
-		isVerticalSheetGestureRef = React.useRef(false)
-		isVerticalSheetGesture, setIsVerticalSheetGesture = React.useState(false)
-		setIsVerticalSheetGestureValue = React.useCallback(function(value: boolean)
-			if isVerticalSheetGestureRef.current == value then
-				return
-			end
-			isVerticalSheetGestureRef.current = value
-			setIsVerticalSheetGesture(value)
-		end, {})
-	end
+	isVerticalSheetGestureRef = React.useRef(false)
+	isVerticalSheetGesture, setIsVerticalSheetGesture = React.useState(false)
+	setIsVerticalSheetGestureValue = React.useCallback(function(value: boolean)
+		if isVerticalSheetGestureRef.current == value then
+			return
+		end
+		isVerticalSheetGestureRef.current = value
+		setIsVerticalSheetGesture(value)
+	end, {})
 
 	local stopSpringSimulation = React.useCallback(function()
 		if springConnection.current then
@@ -228,7 +221,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local springToSnapIndex = React.useCallback(function(index: number)
 		currentSnapIndex.current = index
 		startSpringSimulation(snapValueToPosition(snapPoints[index]))
-		if Flags.FoundationBottomSheetOnSnapPointChanged and onSnapPointChangedRef.current then
+		if onSnapPointChangedRef.current then
 			onSnapPointChangedRef.current(snapPoints[index], index)
 		end
 	end, { snapValueToPosition, snapPoints } :: { unknown })
@@ -239,7 +232,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		if outerScrollingRef.current then
 			outerScrollingRef.current.CanvasPosition = Vector2.new(0, snapValueToPosition(snapPoints[index]))
 		end
-		if Flags.FoundationBottomSheetOnSnapPointChanged and onSnapPointChangedRef.current then
+		if onSnapPointChangedRef.current then
 			onSnapPointChangedRef.current(snapPoints[index], index)
 		end
 	end, { stopSpringSimulation, snapValueToPosition, snapPoints } :: { unknown })
@@ -265,31 +258,22 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		end
 	end, { startSpringSimulation, stopSpringSimulation, reducedMotion } :: { unknown })
 
-	local isOuterScrollAtMax = if Flags.FoundationBottomSheetScrollAtMaxTolerance
-		then React.useCallback(function()
-			local target = math.floor(maxSheetHeight + safeAreaPadding)
-			return outerScrollY.current >= target - SCROLL_AT_MAX_TOLERANCE
-		end, { maxSheetHeight, safeAreaPadding } :: { unknown })
-		else nil :: never
+	local isOuterScrollAtMax = React.useCallback(function()
+		local target = math.floor(maxSheetHeight + safeAreaPadding)
+		return outerScrollY.current >= target - SCROLL_AT_MAX_TOLERANCE
+	end, { maxSheetHeight, safeAreaPadding } :: { unknown })
 
-	local updateInnerScrolling = React.useCallback(
-		function()
-			local isAtTopOfInnerScroll = innerScrollY:getValue() <= 0
-			local isAtMaxOfOuterScroll = if Flags.FoundationBottomSheetScrollAtMaxTolerance
-				then isOuterScrollAtMax()
-				else outerScrollY.current >= math.floor(maxSheetHeight + safeAreaPadding)
-			local isCollapsing = not isAtMaxOfOuterScroll and scrollVelocity.current < 0
+	local updateInnerScrolling = React.useCallback(function()
+		local isAtTopOfInnerScroll = innerScrollY:getValue() <= 0
+		local isAtMaxOfOuterScroll = isOuterScrollAtMax()
+		local isCollapsing = not isAtMaxOfOuterScroll and scrollVelocity.current < 0
 
-			if isCollapsing or (scrollVelocity.current > 0 and isAtTopOfInnerScroll and inputActive.current) then
-				setInnerScrollingEnabled(false)
-			elseif (scrollVelocity.current < 0 or (scrollVelocity.current == 0)) and isAtMaxOfOuterScroll then
-				setInnerScrollingEnabled(true)
-			end
-		end,
-		if Flags.FoundationBottomSheetScrollAtMaxTolerance
-			then { isOuterScrollAtMax }
-			else { maxSheetHeight, safeAreaPadding } :: { unknown }
-	)
+		if isCollapsing or (scrollVelocity.current > 0 and isAtTopOfInnerScroll and inputActive.current) then
+			setInnerScrollingEnabled(false)
+		elseif (scrollVelocity.current < 0 or (scrollVelocity.current == 0)) and isAtMaxOfOuterScroll then
+			setInnerScrollingEnabled(true)
+		end
+	end, { isOuterScrollAtMax })
 
 	local snapToClosestSwipeSnapPoint = React.useCallback(function()
 		local vel = scrollVelocity.current
@@ -355,21 +339,18 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			reducedMotion,
 		} :: { unknown }
 	)
-
-	if Flags.FoundationBottomSheetFixHeightCap then
-		React.useLayoutEffect(function()
-			if not overlay then
-				return
-			end
+	React.useLayoutEffect(function()
+		if not overlay then
+			return
+		end
+		setOverlayAvailableHeight(overlay.AbsoluteSize.Y)
+		local connection = overlay:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
 			setOverlayAvailableHeight(overlay.AbsoluteSize.Y)
-			local connection = overlay:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
-				setOverlayAvailableHeight(overlay.AbsoluteSize.Y)
-			end)
-			return function()
-				connection:Disconnect()
-			end
-		end, { overlay })
-	end
+		end)
+		return function()
+			connection:Disconnect()
+		end
+	end, { overlay })
 
 	-- TODO: maybe attach these to the outer scroll view instead of input service (does it make a difference?)
 	-- TODO: create a ScrollingInertia property that can be used instead of touchpan
@@ -379,13 +360,11 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			local touchPanConnection = game:GetService("UserInputService").TouchPan
 				:Connect(function(_, totalTranslation, velocity, _)
 					scrollVelocity.current = velocity.Y
-					if Flags.FoundationBottomSheetGestureInteractionSink then
-						if inputActive.current and totalTranslation then
-							local verticalDragDistance = math.abs(totalTranslation.Y)
-							local horizontalDragDistance = math.abs(totalTranslation.X)
-							if verticalDragDistance > horizontalDragDistance then
-								setIsVerticalSheetGestureValue(true)
-							end
+					if inputActive.current and totalTranslation then
+						local verticalDragDistance = math.abs(totalTranslation.Y)
+						local horizontalDragDistance = math.abs(totalTranslation.X)
+						if verticalDragDistance > horizontalDragDistance then
+							setIsVerticalSheetGestureValue(true)
 						end
 					end
 					updateInnerScrolling()
@@ -393,9 +372,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			local inputBeganConnection = game:GetService("UserInputService").InputBegan:Connect(function()
 				inputActive.current = true
 				scrollVelocity.current = 0
-				if Flags.FoundationBottomSheetGestureInteractionSink then
-					setIsVerticalSheetGestureValue(false)
-				end
+				setIsVerticalSheetGestureValue(false)
 				stopSpringSimulation()
 			end)
 			local inputEndedConnection = game:GetService("UserInputService").InputEnded:Connect(function()
@@ -404,9 +381,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				end
 
 				inputActive.current = false
-				if Flags.FoundationBottomSheetGestureInteractionSink then
-					setIsVerticalSheetGestureValue(false)
-				end
+				setIsVerticalSheetGestureValue(false)
 				local outerScrollVelocityY = if outerScrollingRef.current
 					then outerScrollingRef.current:GetScrollVelocity().Y
 					else 0
@@ -414,11 +389,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				scrollVelocity.current = outerScrollVelocityY
 
 				-- Don't handle snapping if outer scrolling is at maximum or sheet is closing
-				local shouldSkipSnapping = (
-					if Flags.FoundationBottomSheetScrollAtMaxTolerance
-						then isOuterScrollAtMax()
-						else outerScrollY.current >= math.floor(maxSheetHeight + safeAreaPadding)
-				) or isClosing.current
+				local shouldSkipSnapping = (isOuterScrollAtMax()) or isClosing.current
 
 				if shouldSkipSnapping then
 					setInnerScrollingEnabled(true)
@@ -429,30 +400,20 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			end)
 
 			return function()
-				if Flags.FoundationBottomSheetGestureInteractionSink then
-					setIsVerticalSheetGestureValue(false)
-				end
+				setIsVerticalSheetGestureValue(false)
 				touchPanConnection:Disconnect()
 				inputBeganConnection:Disconnect()
 				inputEndedConnection:Disconnect()
 			end
 		end,
-		if Flags.FoundationBottomSheetScrollAtMaxTolerance
-			then {
-				overlay,
-				snapToClosestSwipeSnapPoint,
-				updateInnerScrolling,
-				stopSpringSimulation,
-				isOuterScrollAtMax,
-				if Flags.FoundationBottomSheetGestureInteractionSink then setIsVerticalSheetGestureValue else nil,
-			} :: { unknown }
-			else {
-				overlay,
-				snapToClosestSwipeSnapPoint,
-				updateInnerScrolling,
-				stopSpringSimulation,
-				if Flags.FoundationBottomSheetGestureInteractionSink then setIsVerticalSheetGestureValue else nil,
-			} :: { unknown }
+		{
+			overlay,
+			snapToClosestSwipeSnapPoint,
+			updateInnerScrolling,
+			stopSpringSimulation,
+			isOuterScrollAtMax,
+			setIsVerticalSheetGestureValue,
+		} :: { unknown }
 	)
 
 	local closeAffordanceRef = React.useRef(nil) :: React.Ref<GuiObject>
@@ -498,9 +459,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				closeAffordanceRef = closeAffordanceRef,
 				contentStartRef = contentStartRef,
 				setContentStartRef = setContentStartRef,
-				isVerticalSheetGesture = if Flags.FoundationBottomSheetGestureInteractionSink
-					then isVerticalSheetGesture
-					else nil,
+				isVerticalSheetGesture = isVerticalSheetGesture,
 			}
 		end,
 		{
@@ -512,7 +471,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			closeAffordanceRef,
 			contentStartRef,
 			hasFullBleed,
-			if Flags.FoundationBottomSheetGestureInteractionSink then isVerticalSheetGesture else nil,
+			isVerticalSheetGesture,
 		} :: { unknown }
 	)
 
@@ -564,11 +523,6 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 					selectionGroup = SheetTypes.isolatedSelectionGroup,
 					tag = "size-full",
 					testId = `{props.testId}--surface`,
-					onAbsoluteSizeChanged = if not Flags.FoundationBottomSheetFixHeightCap
-						then function(rbx: GuiObject)
-							setOverlayAvailableHeight(rbx.AbsoluteSize.Y)
-						end
-						else nil,
 				},
 				React.createElement("ScrollingFrame", {
 					Size = UDim2.fromScale(1, 1),

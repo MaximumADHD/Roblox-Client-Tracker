@@ -43,7 +43,6 @@ local function Playground(props: {
 	return React.createElement(RootStory, {
 		controls = {
 			size = props.controls.rootSize or DEFAULT_SIZE,
-			hasBackdrop = true,
 		},
 		children = makeDialogChildren({
 			content = props.controls.text or SHORT_CONTENT,

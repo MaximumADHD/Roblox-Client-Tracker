@@ -33,6 +33,8 @@ local FIntChatModerationFrameLayoutOrder = game:DefineFastInt("ChatModerationFra
 -- Recall that layout order values are relative
 local SETTINGS_MENU_LAYOUT_ORDER = {}
 
+-- Pioneer "more settings available" banner, pinned above every setting
+SETTINGS_MENU_LAYOUT_ORDER.MoreSettingsBanner = 0
 -- Overscan Entry point, console only
 SETTINGS_MENU_LAYOUT_ORDER.OverscanAdjustButton = 1
 -- Chat Moderation Mode
@@ -147,6 +149,8 @@ if FFlagIEMSettingsGroups then
 	local nextOrder = ReactUtils.createNextOrder()
 
 	LAYOUT_ORDER_GROUPS = {
+		MoreSettingsBanner = nextOrder(),
+
 		AudioHeader = nextOrder(),
 		VolumeFrame = nextOrder(),
 		VoiceChatVolumeFrame = if FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider then nextOrder() else nil,

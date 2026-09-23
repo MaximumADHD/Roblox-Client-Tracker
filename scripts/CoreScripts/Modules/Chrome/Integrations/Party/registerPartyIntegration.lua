@@ -20,6 +20,11 @@ local React = require(CorePackages.Packages.React)
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 
+local SocialCommon = require(CorePackages.Workspace.Packages.SocialCommon)
+local ChatEntryPointNames = SocialCommon.Enums.ChatEntryPointNames
+local FFlagAppChatDistinctUnibarEntryPoint =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagAppChatDistinctUnibarEntryPoint
+
 local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 
 local partyVisibilitySignal = MappedSignal.new(InExperienceAppChatModal.default.visibilitySignal.Event, function()
@@ -40,7 +45,11 @@ return function(id: string, initialAvailability: number)
 					if inputModeStore.getLastInputType(false) == Responsive.Input.Directional then
 						ChromeFocusUtils.FocusOffChrome()
 					end
-					InExperienceAppChatModal.default:setVisible(true)
+					if FFlagAppChatDistinctUnibarEntryPoint then
+						InExperienceAppChatModal.default:setVisible(true, ChatEntryPointNames.ChromeUnibar)
+					else
+						InExperienceAppChatModal.default:setVisible(true)
+					end
 				end)
 			end
 			LocalStore.storeForLocalPlayer(GetFStringConnectTooltipLocalStorageKey(), true)

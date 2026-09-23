@@ -1,3 +1,4 @@
+-- **DEPRECATED**: KeyLabel is deprecated. Use Shortcut instead.
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
@@ -33,6 +34,7 @@ type HoldBehavior = {
 	onBeginHold: (() -> any)?,
 }
 
+-- **DEPRECATED**: KeyLabel is deprecated. Use Shortcut instead.
 export type KeyLabelProps = {
 	keyCode: Enum.KeyCode,
 	holdBehavior: HoldBehavior?,

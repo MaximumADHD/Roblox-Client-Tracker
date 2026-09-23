@@ -6,8 +6,6 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local BoundsCalculator = require(root.util.BoundsCalculator)
 
-local getFFlagUGCValidateMigrateBodyPartBounds = require(root.flags.getFFlagUGCValidateMigrateBodyPartBounds)
-
 local AssetBoundsValid = {}
 
 AssetBoundsValid.categories = {
@@ -22,7 +20,6 @@ AssetBoundsValid.requiredData = {
 AssetBoundsValid.conditionalData = {
 	ValidationEnums.SharedDataMember.renderMeshesData,
 }
-AssetBoundsValid.fflag = getFFlagUGCValidateMigrateBodyPartBounds
 AssetBoundsValid.expectedFailures = {}
 
 local function getScaleTypeFromInstance(instance: Instance): string?

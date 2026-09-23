@@ -42,12 +42,6 @@ function variantsFactory(tokens: Tokens)
 			-- To-Do: Use tag for font when BuilderSansSemiBold is supported as token / tag
 			font = BuilderSansSemiBold,
 		},
-		-- Size-specific mask thickness comes from the size variants (behind FoundationAvatarBeta); fall back to a fixed weight otherwise.
-		stroke = if Flags.FoundationAvatarBeta
-			then nil
-			else {
-				Thickness = tokens.Size.Size_50,
-			},
 	}
 
 	local variants: { [StatusIndicatorVariant]: VariantProps } = {
@@ -78,10 +72,14 @@ function variantsFactory(tokens: Tokens)
 		[StatusIndicatorVariant.Emphasis] = if Flags.FoundationActionEmphasisStatusIndicator
 			then {
 				container = {
-					tag = "bg-action-emphasis",
+					tag = if Flags.FoundationSystemEmphasisNonActions
+						then "bg-system-emphasis"
+						else "bg-action-emphasis",
 				},
 				content = {
-					style = tokens.Color.ActionEmphasis.Foreground,
+					style = if Flags.FoundationSystemEmphasisNonActions
+						then tokens.DarkMode.Content.Emphasis
+						else tokens.Color.ActionEmphasis.Foreground,
 				},
 			}
 			else {
@@ -124,18 +122,11 @@ function variantsFactory(tokens: Tokens)
 		},
 	}
 
-	local hasValue: { [boolean]: any } = if Flags.FoundationAvatarBeta
-		then {
-			[true] = {
-				container = { tag = "row align-x-center align-y-center size-400-400 auto-x padding-xsmall" },
-			},
-		}
-		else {
-			[false] = { container = { tag = "size-200-200" } },
-			[true] = {
-				container = { tag = "row align-x-center align-y-center size-400-400 auto-x padding-xsmall" },
-			},
-		}
+	local hasValue: { [boolean]: any } = {
+		[true] = {
+			container = { tag = "row align-x-center align-y-center size-400-400 auto-x padding-xsmall" },
+		},
+	}
 
 	local shape: { [StatusIndicatorShape]: any } = {
 		[StatusIndicatorShape.Circle] = {
@@ -145,9 +136,7 @@ function variantsFactory(tokens: Tokens)
 		[StatusIndicatorShape.Ring] = {
 			container = { tag = "align-x-center align-y-center radius-circle" },
 			ring = {
-				tag = if Flags.FoundationAvatarBeta
-					then "radius-circle bg-surface-100"
-					else "size-100-100 radius-circle bg-surface-100",
+				tag = "radius-circle bg-surface-100",
 			},
 			stroke = { LineJoinMode = Enum.LineJoinMode.Round },
 		},
@@ -157,30 +146,28 @@ function variantsFactory(tokens: Tokens)
 		},
 	}
 
-	local sizes: { [StatusIndicatorSize]: VariantProps } = if Flags.FoundationAvatarBeta
-		then {
-			[StatusIndicatorSize.XSmall] = {
-				container = { size = UDim2.fromOffset(tokens.Size.Size_150, tokens.Size.Size_150) },
-				ring = { size = UDim2.fromOffset(tokens.Size.Size_150 / 2, tokens.Size.Size_150 / 2) },
-				stroke = { Thickness = tokens.Stroke.Standard },
-			},
-			[StatusIndicatorSize.Small] = {
-				container = { size = UDim2.fromOffset(tokens.Size.Size_200, tokens.Size.Size_200) },
-				ring = { size = UDim2.fromOffset(tokens.Size.Size_200 / 2, tokens.Size.Size_200 / 2) },
-				stroke = { Thickness = tokens.Size.Size_50 },
-			},
-			[StatusIndicatorSize.Medium] = {
-				container = { size = UDim2.fromOffset(tokens.Size.Size_250, tokens.Size.Size_250) },
-				ring = { size = UDim2.fromOffset(tokens.Size.Size_250 / 2, tokens.Size.Size_250 / 2) },
-				stroke = { Thickness = tokens.Size.Size_50 },
-			},
-			[StatusIndicatorSize.Pictogram] = {
-				container = { size = UDim2.fromOffset(tokens.Size.Size_500, tokens.Size.Size_500) },
-				ring = { size = UDim2.fromOffset(tokens.Size.Size_500 / 2, tokens.Size.Size_500 / 2) },
-				stroke = { Thickness = tokens.Stroke.Thicker },
-			},
-		}
-		else nil :: never
+	local sizes: { [StatusIndicatorSize]: VariantProps } = {
+		[StatusIndicatorSize.XSmall] = {
+			container = { size = UDim2.fromOffset(tokens.Size.Size_150, tokens.Size.Size_150) },
+			ring = { size = UDim2.fromOffset(tokens.Size.Size_150 / 2, tokens.Size.Size_150 / 2) },
+			stroke = { Thickness = tokens.Stroke.Standard },
+		},
+		[StatusIndicatorSize.Small] = {
+			container = { size = UDim2.fromOffset(tokens.Size.Size_200, tokens.Size.Size_200) },
+			ring = { size = UDim2.fromOffset(tokens.Size.Size_200 / 2, tokens.Size.Size_200 / 2) },
+			stroke = { Thickness = tokens.Size.Size_50 },
+		},
+		[StatusIndicatorSize.Medium] = {
+			container = { size = UDim2.fromOffset(tokens.Size.Size_250, tokens.Size.Size_250) },
+			ring = { size = UDim2.fromOffset(tokens.Size.Size_250 / 2, tokens.Size.Size_250 / 2) },
+			stroke = { Thickness = tokens.Size.Size_50 },
+		},
+		[StatusIndicatorSize.Pictogram] = {
+			container = { size = UDim2.fromOffset(tokens.Size.Size_500, tokens.Size.Size_500) },
+			ring = { size = UDim2.fromOffset(tokens.Size.Size_500 / 2, tokens.Size.Size_500 / 2) },
+			stroke = { Thickness = tokens.Stroke.Thicker },
+		},
+	}
 
 	return {
 		common = common,
@@ -224,7 +211,7 @@ return function(
 		props.variants[variant],
 		props.hasValue[hasValue],
 		props.shape[shape],
-		if Flags.FoundationAvatarBeta then if not hasValue then props.sizes[size] else {} else nil :: never,
+		if not hasValue then props.sizes[size] else {},
 		commonMask
 	)
 end

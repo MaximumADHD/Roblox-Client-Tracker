@@ -1,289 +1,367 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
+local Flags = require(Foundation.Utility.Flags)
+local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
 local Text = require(Foundation.Components.Text)
 local Toggle = require(Foundation.Components.Toggle)
-local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
-local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local InputPlacement = require(Foundation.Enums.InputPlacement)
+type InputPlacement = InputPlacement.InputPlacement
 local InputSize = require(Foundation.Enums.InputSize)
+type InputSize = InputSize.InputSize
 
-local SIZES: { { name: string, value: InputSize.InputSize } } = {
-	{ name = "XSmall", value = InputSize.XSmall },
-	{ name = "Small", value = InputSize.Small },
-	{ name = "Medium", value = InputSize.Medium },
-	{ name = "Large", value = InputSize.Large },
+local MatrixGrid = MatrixGridShared.MatrixGrid
+local matrixLabel = MatrixGridShared.matrixLabel
+type MatrixGridRow = MatrixGridShared.MatrixGridRow
+
+local STORY_FRAME_TAG = "padding-y-large bg-surface-0"
+
+local SIZE_ORDER: { InputSize } = {
+	InputSize.XSmall,
+	InputSize.Small,
+	InputSize.Medium,
+	InputSize.Large,
 }
 
-local function activated(label: string)
-	return function()
-		print(`Toggle: "{label}" activated`)
-	end
-end
-
-type GroupProps = {
-	caption: string,
-	contentTag: string,
-
-	LayoutOrder: number?,
-	children: React.ReactNode?,
+local PLACEMENT_ORDER: { InputPlacement } = {
+	InputPlacement.Start,
+	InputPlacement.End,
 }
 
-local function Group(props: GroupProps)
+local LABEL = "Label"
+local HINT = "Hint text"
+local LONG_LABEL = "This is a longer toggle label than the container fits on a single line"
+local LONG_HINT = "A longer hint that also runs past the width its container gives it"
+
+local LABEL_COLUMN_WIDTH = 150
+local CELL_COLUMN_WIDTH = 170
+local BOUNDED_WIDTH = 200
+
+type StateFixture = {
+	label: string,
+	isChecked: boolean,
+	hint: string?,
+}
+
+local STATE_ORDER: { StateFixture } = {
+	{ label = "isChecked = false", isChecked = false },
+	{ label = "isChecked = true", isChecked = true },
+}
+
+local HINT_FIXTURE: StateFixture = { label = "hint", isChecked = false, hint = HINT }
+
+local SIZE_HEADERS = Dash.map(SIZE_ORDER, function(value): string
+	return value
+end)
+
+local function noop(_value: boolean) end
+
+local function Section(props: {
+	LayoutOrder: number,
+	name: string,
+	note: string?,
+	contentTag: string?,
+	children: React.ReactNode,
+})
 	return React.createElement(View, {
-		tag = "col gap-medium auto-xy",
+		tag = "col gap-medium size-full-0 auto-y",
 		LayoutOrder = props.LayoutOrder,
 	}, {
-		Caption = React.createElement(Text, {
-			Text = props.caption,
-			tag = "auto-xy text-body-small content-default",
+		Title = React.createElement(Text, {
+			Text = props.name,
+			tag = "auto-xy text-label-medium content-default",
+			LayoutOrder = 1,
+		}),
+		Note = if props.note
+			then React.createElement(Text, {
+				Text = props.note,
+				tag = "auto-xy text-body-small content-muted",
+				LayoutOrder = 2,
+			})
+			else nil,
+		Content = React.createElement(View, {
+			tag = props.contentTag or "row gap-large align-y-top auto-xy wrap",
+			LayoutOrder = 3,
+		}, props.children),
+	})
+end
+
+local function LabeledCell(props: {
+	LayoutOrder: number,
+	label: string,
+	children: React.ReactNode,
+})
+	return React.createElement(View, {
+		tag = "col align-x-left gap-small auto-xy",
+		LayoutOrder = props.LayoutOrder,
+	}, {
+		Label = React.createElement(Text, {
+			Text = props.label,
+			tag = "auto-xy text-caption-small text-align-x-left content-muted",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
-			tag = props.contentTag,
+			tag = "auto-xy",
 			LayoutOrder = 2,
 		}, props.children),
 	})
 end
 
-type ToggleCardProps = {
+local function BoundedFrame(props: {
+	children: React.ReactNode,
+})
+	return React.createElement(View, {
+		tag = "auto-y",
+		Size = UDim2.fromOffset(BOUNDED_WIDTH, 0),
+	}, props.children)
+end
+
+local function StoryMatrixGrid(props: {
+	LayoutOrder: number,
+	showLabelColumn: boolean?,
+	columnHeaders: { string },
+	rows: { MatrixGridRow },
+})
+	return React.createElement(View, {
+		tag = "auto-xy",
+		LayoutOrder = props.LayoutOrder,
+	}, {
+		Content = React.createElement(MatrixGrid, {
+			showLabelColumn = if props.showLabelColumn == nil then true else props.showLabelColumn,
+			labelColumnWidth = LABEL_COLUMN_WIDTH,
+			columnHeaders = props.columnHeaders,
+			cellColumnWidth = CELL_COLUMN_WIDTH,
+			headerTextAlign = "left",
+			cellAlign = "left",
+			rows = props.rows,
+		}),
+	})
+end
+
+type PlaygroundControls = {
 	label: string,
-	description: string,
+	hint: string?,
+	size: InputSize,
+	placement: InputPlacement,
 	isChecked: boolean,
-	onToggle: () -> (),
-	cursor: Types.CursorConfig,
+	isDisabled: boolean,
 }
 
-local function ToggleCard(props: ToggleCardProps)
+local function PlaygroundStory(props: { controls: PlaygroundControls })
+	local controls = props.controls
+
 	return React.createElement(View, {
-		cursor = props.cursor,
-		onActivated = props.onToggle,
-		tag = "col gap-medium padding-large stroke-muted radius-medium bg-surface-100",
-		Size = UDim2.fromOffset(320, 100),
+		tag = `auto-xy {STORY_FRAME_TAG}`,
 	}, {
-		TextContainer = React.createElement(View, {
-			tag = "row flex-x-between gap-small size-full-0 auto-y",
+		Toggle = React.createElement(Toggle, {
+			label = controls.label,
+			hint = if Flags.FoundationToggleBetaUpdate and controls.hint ~= "" then controls.hint else nil,
+			isChecked = controls.isChecked,
+			isDisabled = controls.isDisabled,
+			size = controls.size,
+			placement = controls.placement,
+			onActivated = noop,
+		}),
+	})
+end
+
+local function SizingStory()
+	return React.createElement(View, {
+		tag = `col auto-xy {STORY_FRAME_TAG}`,
+	}, {
+		Size = React.createElement(Section, {
 			LayoutOrder = 1,
+			name = "Size",
+			contentTag = "auto-xy",
 		}, {
-			Label = React.createElement(Text, {
-				Text = props.label,
-				tag = "auto-xy text-body-medium content-emphasis",
+			Grid = React.createElement(StoryMatrixGrid, {
 				LayoutOrder = 1,
-			}),
-			Toggle = React.createElement(Toggle, {
-				isChecked = props.isChecked,
-				onActivated = props.onToggle,
-				label = "",
-				Selectable = false,
-				LayoutOrder = 2,
+				showLabelColumn = false,
+				columnHeaders = SIZE_HEADERS,
+				rows = {
+					{
+						label = matrixLabel(""),
+						cells = Dash.map(SIZE_ORDER, function(size)
+							return React.createElement(Toggle, {
+								label = LABEL,
+								size = size,
+								isChecked = false,
+								onActivated = noop,
+							})
+						end),
+					},
+				},
 			}),
 		}),
-		Description = React.createElement(Text, {
-			Text = props.description,
-			tag = "auto-xy text-body-small text-wrap content-muted",
-			LayoutOrder = 2,
-		}),
 	})
-end
-
-local function PlaygroundStory(props: {
-	controls: {
-		isDisabled: boolean,
-		label: string,
-		hint: string,
-		size: InputSize.InputSize,
-		placement: InputPlacement.InputPlacement,
-	},
-})
-	local isChecked, setIsChecked = React.useState(false)
-
-	return React.createElement(Toggle, {
-		isChecked = isChecked,
-		isDisabled = props.controls.isDisabled,
-		onActivated = function()
-			setIsChecked(not isChecked)
-		end,
-		size = props.controls.size,
-		label = props.controls.label or "",
-		hint = props.controls.hint,
-		placement = props.controls.placement,
-	})
-end
-
-local function SizesStory()
-	local checkedBySize, setCheckedBySize = React.useState(function()
-		local init = {}
-		for _, entry in SIZES do
-			init[entry.value] = true
-		end
-		return init
-	end)
-
-	return React.createElement(
-		View,
-		{
-			tag = "col gap-xxlarge auto-xy",
-		},
-		Dash.map(SIZES, function(entry, index)
-			return React.createElement(Group, {
-				caption = entry.name,
-				contentTag = "auto-xy",
-				LayoutOrder = index,
-			}, {
-				Toggle = React.createElement(Toggle, {
-					isChecked = checkedBySize[entry.value],
-					onActivated = function()
-						setCheckedBySize(Dash.join(checkedBySize, { [entry.value] = not checkedBySize[entry.value] }))
-					end,
-					size = entry.value,
-					label = "Label",
-					placement = InputPlacement.Start,
-				}),
-			})
-		end)
-	)
 end
 
 local function PlacementStory()
 	return React.createElement(
 		View,
 		{
-			tag = "row gap-xxlarge auto-xy",
+			tag = `row align-y-top gap-xxlarge auto-xy {STORY_FRAME_TAG}`,
 		},
-		Dash.map(InputPlacement, function(placement, name)
-			return React.createElement(Group, {
-				caption = name,
-				contentTag = "size-3000-0 auto-y",
-			}, {
-				Toggle = React.createElement(Toggle, {
-					isChecked = true,
-					onActivated = activated(name),
-					size = InputSize.Medium,
-					label = "Label",
-					placement = placement,
-				}),
-			})
-		end)
-	)
-end
-
-local function IsDisabledStory()
-	return React.createElement(
-		View,
-		{
-			tag = "row gap-xxlarge auto-xy",
-		},
-		Dash.map({
-			{ caption = "False", isDisabled = false },
-			{ caption = "True", isDisabled = true },
-		}, function(option, index)
-			return React.createElement(Group, {
-				caption = option.caption,
-				contentTag = "auto-xy",
+		Dash.map(PLACEMENT_ORDER, function(placement, index)
+			return React.createElement(LabeledCell, {
 				LayoutOrder = index,
+				label = placement,
 			}, {
 				Toggle = React.createElement(Toggle, {
-					isChecked = true,
-					onActivated = activated("IsDisabled " .. option.caption),
-					isDisabled = option.isDisabled,
-					size = InputSize.Medium,
-					label = "Label",
-					placement = InputPlacement.Start,
+					label = LABEL,
+					placement = placement,
+					isChecked = false,
+					onActivated = noop,
 				}),
 			})
 		end)
 	)
 end
 
-local function CustomSelectionStory()
-	local isChatEnabled, setIsChatEnabled = React.useState(false)
-	local isNotifications, setIsNotifications = React.useState(true)
-	local tokens = useTokens()
+local function stateToggle(fixture: StateFixture, size: InputSize?, isDisabled: boolean?)
+	return React.createElement(Toggle, {
+		label = LABEL,
+		hint = fixture.hint,
+		isChecked = fixture.isChecked,
+		isDisabled = isDisabled,
+		size = size,
+		onActivated = noop,
+	})
+end
 
-	local cursor = React.useMemo(function()
-		return {
-			radius = UDim.new(0, tokens.Radius.Medium),
-			offset = tokens.Size.Size_150,
-			borderWidth = tokens.Stroke.Thicker,
-		}
-	end, { tokens })
+local function StatesStory()
+	local fixtures = table.clone(STATE_ORDER)
+
+	if Flags.FoundationToggleBetaUpdate then
+		table.insert(fixtures, HINT_FIXTURE)
+	end
 
 	return React.createElement(View, {
-		tag = "col gap-large auto-xy",
+		tag = `col gap-xxlarge auto-xy {STORY_FRAME_TAG}`,
 	}, {
-		NotificationsCard = React.createElement(ToggleCard, {
-			label = "Push Notifications",
-			description = "Receive notifications for messages and updates",
-			isChecked = isNotifications,
-			onToggle = function()
-				setIsNotifications(not isNotifications)
-			end,
-			cursor = cursor,
+		Grid = React.createElement(StoryMatrixGrid, {
+			LayoutOrder = 1,
+			columnHeaders = SIZE_HEADERS,
+			rows = Dash.map(fixtures, function(fixture): MatrixGridRow
+				return {
+					label = matrixLabel(fixture.label),
+					cells = Dash.map(SIZE_ORDER, function(size)
+						return stateToggle(fixture, size)
+					end),
+				}
+			end),
 		}),
-		ChatCard = React.createElement(ToggleCard, {
-			label = "Chat",
-			description = "Enable chat for real-time communication",
-			isChecked = isChatEnabled,
-			onToggle = function()
-				setIsChatEnabled(not isChatEnabled)
-			end,
-			cursor = cursor,
-		}),
+		Disabled = React.createElement(
+			Section,
+			{
+				LayoutOrder = 2,
+				name = "Disabled",
+			},
+			Dash.map(fixtures, function(fixture, index)
+				return React.createElement(LabeledCell, {
+					LayoutOrder = index,
+					label = fixture.label,
+				}, {
+					Toggle = stateToggle(fixture, nil, true),
+				})
+			end)
+		),
 	})
 end
 
-local function UncontrolledStory()
+local function ControlledExample(props: {
+	LayoutOrder: number,
+})
+	local isChecked, setIsChecked = React.useState(false)
+
 	return React.createElement(Toggle, {
-		onActivated = function(value)
-			print("isChecked: ", value)
-		end,
-		size = InputSize.Medium,
-		label = "Label",
-		placement = InputPlacement.Start,
+		label = LABEL,
+		isChecked = isChecked,
+		onActivated = setIsChecked,
+		LayoutOrder = props.LayoutOrder,
 	})
 end
+
+local function ControlledStory()
+	return React.createElement(View, {
+		tag = `auto-xy {STORY_FRAME_TAG}`,
+	}, {
+		Example = React.createElement(ControlledExample, { LayoutOrder = 1 }),
+	})
+end
+
+local function wrappingCells(): { React.ReactNode }
+	local hint = if Flags.FoundationToggleBetaUpdate then LONG_HINT else nil
+
+	return Dash.map(PLACEMENT_ORDER, function(placement, index)
+		return React.createElement(LabeledCell, {
+			LayoutOrder = index,
+			label = placement,
+		}, {
+			Frame = React.createElement(BoundedFrame, {}, {
+				Toggle = React.createElement(Toggle, {
+					label = LONG_LABEL,
+					hint = hint,
+					placement = placement,
+					isChecked = false,
+					onActivated = noop,
+				}),
+			}),
+		})
+	end)
+end
+
+local function ContentStory()
+	return React.createElement(View, {
+		tag = `col gap-xxlarge auto-xy {STORY_FRAME_TAG}`,
+	}, {
+		Wrapping = React.createElement(Section, {
+			LayoutOrder = 1,
+			name = "Wrapping",
+		}, wrappingCells()),
+	})
+end
+
+local controls: { [string]: unknown } = Dash.join({
+	label = LABEL,
+	size = SIZE_ORDER,
+	placement = PLACEMENT_ORDER,
+	isChecked = false,
+	isDisabled = false,
+}, if Flags.FoundationToggleBetaUpdate then { hint = HINT } else {})
 
 return {
-	summary = "Toggle component",
+	summary = "Toggle turns a single boolean on or off, with an optional label and hint beside it.",
 	stories = {
 		{
 			name = "Playground",
 			story = PlaygroundStory :: unknown,
 		},
 		{
-			name = "Sizes",
-			summary = "Toggle rendered at every supported size",
-			story = SizesStory,
+			name = "Sizing",
+			story = SizingStory,
 		},
 		{
 			name = "Placement",
-			summary = "Toggle placement options",
 			story = PlacementStory,
 		},
 		{
-			name = "IsDisabled",
-			story = IsDisabledStory,
+			name = "States",
+			story = StatesStory,
 		},
 		{
-			name = "Custom Selection",
-			summary = "Select card containers instead of toggles",
-			story = CustomSelectionStory,
+			name = "Controlled component",
+			story = ControlledStory,
 		},
 		{
-			name = "Uncontrolled",
-			summary = "State is controlled by the toggle itself",
-			story = UncontrolledStory,
+			name = "Content",
+			story = ContentStory,
 		},
 	},
-	controls = {
-		isDisabled = false,
-		label = "Label",
-		hint = "",
-		size = Dash.values(InputSize),
-		placement = Dash.values(InputPlacement),
-	},
+	controls = controls,
 }

@@ -6,7 +6,6 @@ local ReactUtils = require(Packages.ReactUtils)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Constants = require(Foundation.Constants)
-local Flags = require(Foundation.Utility.Flags)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 
 local Sheet = script:FindFirstAncestor("Sheet")
@@ -81,28 +80,24 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 		end)
 		else nil
 
-	local isVerticalSheetGesture = if Flags.FoundationBottomSheetGestureInteractionSink
-		then sheet.isVerticalSheetGesture
-		else nil
+	local isVerticalSheetGesture = sheet.isVerticalSheetGesture
 
 	-- Workaround: View with onActivated=noop acts as an interaction
 	-- sink to block accidental taps on content during vertical drags.
-	local interactionSinkElement = if Flags.FoundationBottomSheetGestureInteractionSink
-		then React.createElement("Folder", nil, {
-			ContentInteractionSink = if isVerticalSheetGesture
-				then React.createElement(View, {
-					Size = UDim2.fromScale(1, 1),
-					Selectable = false,
-					ZIndex = 2,
-					testId = `{testId}--content--interaction-sink`,
-					stateLayer = {
-						affordance = StateLayerAffordance.None,
-					},
-					onActivated = Dash.noop,
-				})
-				else nil,
-		})
-		else nil
+	local interactionSinkElement = React.createElement("Folder", nil, {
+		ContentInteractionSink = if isVerticalSheetGesture
+			then React.createElement(View, {
+				Size = UDim2.fromScale(1, 1),
+				Selectable = false,
+				ZIndex = 2,
+				testId = `{testId}--content--interaction-sink`,
+				stateLayer = {
+					affordance = StateLayerAffordance.None,
+				},
+				onActivated = Dash.noop,
+			})
+			else nil,
+	})
 
 	local scrollingFrameRef = useComposedRef(
 		innerScrollingRef :: React.Ref<any>,
@@ -173,9 +168,7 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 				})
 				else nil,
 			Children = React.createElement(React.Fragment, nil, props.children),
-			ContentInteractionSinkContainer = if Flags.FoundationBottomSheetGestureInteractionSink
-				then interactionSinkElement
-				else nil,
+			ContentInteractionSinkContainer = interactionSinkElement,
 		})
 	)
 end

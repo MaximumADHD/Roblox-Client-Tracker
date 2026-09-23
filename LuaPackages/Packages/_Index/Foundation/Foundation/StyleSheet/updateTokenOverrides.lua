@@ -23,8 +23,7 @@ local function updateTokenOverrides(
 	overrides: TokenOverrides?,
 	attributesCache: AttributesCache?
 )
-	local overrideAttributes =
-		getOverrideAttributes(if Flags.FoundationThemeName then themeName else nil, colorMode, device, overrides)
+	local overrideAttributes = getOverrideAttributes(themeName, colorMode, device, overrides)
 
 	for name, rawValue in overrideAttributes do
 		local value = if Flags.FoundationDisableTokenScaling then rawValue else scaleValue(rawValue, scale)

@@ -11,8 +11,6 @@ local tryYield = require(root.util.tryYield)
 
 local ConstantsTransparencyValidation = require(root.ConstantsTransparencyValidation)
 
-local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
-
 local AssetOpacityValid = {}
 
 AssetOpacityValid.categories = {
@@ -23,8 +21,6 @@ AssetOpacityValid.categories = {
 AssetOpacityValid.requiredData = {
 	ValidationEnums.SharedDataMember.renderMeshesData,
 }
-
-AssetOpacityValid.fflag = getFFlagUGCValidateMigrateTextureTransparency
 
 AssetOpacityValid.expectedFailures = {}
 
@@ -192,11 +188,11 @@ AssetOpacityValid.run = function(reporter: Types.ValidationReporter, data: Types
 	local rootInstance = data.rootInstance
 	local assetTypeEnum = data.uploadEnum.assetType
 	local renderMeshesData = data.renderMeshesData
-	local consumerEnv = data.consumerConfig.consumerEnv
+	local validationEnv = data.consumerConfig.validationEnv
 
 	-- Backend/RCC has no heartbeat; task.wait() would hang. IEC/Studio have heartbeats and need yielding.
 	local yieldContext: any = {
-		shouldYield = consumerEnv ~= ValidationEnums.ConsumerEnv.Backend,
+		shouldYield = validationEnv ~= ValidationEnums.ValidationEnv.Backend,
 		lastTickSeconds = tick(),
 	}
 

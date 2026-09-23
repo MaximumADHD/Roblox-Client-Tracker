@@ -16,6 +16,7 @@ local getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality =
 	require(root.flags.getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality)
 local getFFlagUGCValidateTexturePack = require(root.flags.getFFlagUGCValidateTexturePack)
 local getFFlagUGCValidateTexturePackOnRCCOnly = require(root.flags.getFFlagUGCValidateTexturePackOnRCCOnly)
+local getFFlagUGCValidationAllowFullVaas = require(root.flags.getFFlagUGCValidationAllowFullVaas)
 
 local SERVER_SOURCES = {
 	Publish = true,
@@ -24,10 +25,7 @@ local SERVER_SOURCES = {
 	Internal = true,
 }
 
--- IEC consumers (in-experience). Mirrors SOURCE_TO_ENV in ValidationManager.lua,
--- but read directly from `source` (always populated) so the IEC bypass works
--- regardless of FFlagUGCValidateMigrateSchemaProperties — `consumerEnv` is only
--- assigned when that flag is on.
+-- Flag-off routing: consumerEnv is unset pre-FFlagUGCValidateMigrateSchemaProperties, so route by source.
 local IEC_SOURCES = {
 	InExpServer = true,
 	InExpClient = true,
@@ -54,11 +52,18 @@ TexturePackConsistent.run = function(reporter: Types.ValidationReporter, data: T
 	end
 
 	local rootInstance = data.rootInstance
-	local source = data.consumerConfig.source
-	if IEC_SOURCES[source] == true then
+	local consumerConfig = data.consumerConfig
+	-- Lifecycle (honest origin): IEC-origin can't download/compare packs, so it skips today and keeps skipping under
+	-- VaaS (enabling it there is a follow-up).
+	local isIEC = IEC_SOURCES[consumerConfig.source] == true
+	if isIEC then
 		return
 	end
-	local isServer = SERVER_SOURCES[source] == true
+	-- Capability-gated: only the server escalates a pack load failure; route by validationEnv (=Backend for VaaS) under the flag.
+	local routeByEnv = getFFlagUGCValidationAllowFullVaas() and consumerConfig.isVaaS
+	local isServer = if routeByEnv
+		then consumerConfig.validationEnv == ValidationEnums.ValidationEnv.Backend
+		else SERVER_SOURCES[consumerConfig.source] == true
 
 	-- Body parts (torso/limbs and dynamic head) use allowEmpty = true; accessories use allowEmpty = false
 	local uploadCategory = data.uploadCategory

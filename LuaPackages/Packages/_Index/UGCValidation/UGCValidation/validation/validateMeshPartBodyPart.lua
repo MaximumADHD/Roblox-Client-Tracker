@@ -8,15 +8,11 @@ local Analytics = require(root.Analytics)
 
 local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
 
-local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
-local validateAssetBounds = require(root.validation.validateAssetBounds)
 local validateAccurateBoundingBoxRasterMethod = require(root.validation.validateAccurateBoundingBoxRasterMethod)
 local validateBodyPartChildAttachmentBounds = require(root.validation.validateBodyPartChildAttachmentBounds)
 local validateBodyPartChildAttachmentOrientations = require(root.validation.validateBodyPartChildAttachmentOrientations)
-local validateBodyPartExtentsRelativeToParent = require(root.validation.validateBodyPartExtentsRelativeToParent)
 local validateDependencies = require(root.validation.validateDependencies)
 local validateDescendantMeshMetrics = require(root.validation.validateDescendantMeshMetrics)
-local validateDescendantTextureMetrics = require(root.validation.validateDescendantTextureMetrics)
 local validateSurfaceAppearances = require(root.validation.validateSurfaceAppearances)
 local validateMaterials = require(root.validation.validateMaterials)
 local validateTags = require(root.validation.validateTags)
@@ -25,10 +21,8 @@ local validateAttributes = require(root.validation.validateAttributes)
 local validateHSR = require(root.validation.validateHSR)
 local validateBodyPartCollisionFidelity = require(root.validation.validateBodyPartCollisionFidelity)
 local validateModeration = require(root.validation.validateModeration)
-local validateAssetTransparency = require(root.validation.validateAssetTransparency)
 local validatePose = require(root.validation.validatePose)
 local ValidateBodyBlockingTests = require(root.util.ValidateBodyBlockingTests)
-local ValidateMeshSizeProperty = require(root.validation.ValidateMeshSizeProperty)
 local ValidatePropertiesSensible = require(root.validation.ValidatePropertiesSensible)
 local ValidateLegsSeparation = require(root.validation.ValidateLegsSeparation)
 local ValidateTexturePack = require(root.validation.ValidateTexturePack)
@@ -46,8 +40,6 @@ local resetPhysicsData = require(root.util.resetPhysicsData)
 local Types = require(root.util.Types)
 
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
-local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
-local getFFlagUGCValidateMigrateBodyPartBounds = require(root.flags.getFFlagUGCValidateMigrateBodyPartBounds)
 local getFFlagUGCValidateMigratePoseBlocking = require(root.flags.getFFlagUGCValidateMigratePoseBlocking)
 local getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality =
 	require(root.flags.getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality)
@@ -118,19 +110,7 @@ local function validateMeshPartBodyPart(
 		end
 	end
 
-	if not getFFlagUGCValidateMigrateBodyPartBounds() then
-		local successValidateMeshSizeProperty, errors =
-			ValidateMeshSizeProperty.validateBodyAsset(inst, validationContext)
-		if not successValidateMeshSizeProperty then
-			return false, errors
-		end
-	end
-
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
-
-	if not getFFlagUGCValidateMigrateBodyPartBounds() then
-		reasonsAccumulator:updateReasons(validateBodyPartMeshBounds(inst, validationContext))
-	end
 
 	if not getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality() then
 		if getFFlagUGCValidateTexturePack() then
@@ -141,9 +121,6 @@ local function validateMeshPartBodyPart(
 	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentBounds(inst, validationContext))
 	end
-	if not getFFlagUGCValidateMigrateBodyPartBounds() then
-		reasonsAccumulator:updateReasons(validateBodyPartExtentsRelativeToParent.runValidation(inst, validationContext))
-	end
 
 	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(
@@ -153,10 +130,6 @@ local function validateMeshPartBodyPart(
 
 	if not getFFlagUGCValidateMigratePoseBlocking() then
 		reasonsAccumulator:updateReasons(validatePose(inst, validationContext))
-	end
-
-	if not getFFlagUGCValidateMigrateBodyPartBounds() then
-		reasonsAccumulator:updateReasons(validateAssetBounds(nil, inst, validationContext))
 	end
 
 	if not getFFlagUGCValidateMigratePoseBlocking() then
@@ -179,18 +152,8 @@ local function validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons(validateDescendantMeshMetrics(inst, validationContext))
 
-	if not getFFlagUGCValidateMigrateTextureTransparency() then
-		reasonsAccumulator:updateReasons(validateDescendantTextureMetrics(inst, validationContext))
-	end
-
 	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(validateHSR(inst, validationContext))
-	end
-
-	if not getFFlagUGCValidateMigrateTextureTransparency() then
-		local startTime = tick()
-		reasonsAccumulator:updateReasons(validateAssetTransparency(inst, validationContext))
-		Analytics.recordScriptTime("validateAssetTransparency", startTime, validationContext)
 	end
 
 	if not getFFlagUGCValidateMigrateSchemaProperties() then

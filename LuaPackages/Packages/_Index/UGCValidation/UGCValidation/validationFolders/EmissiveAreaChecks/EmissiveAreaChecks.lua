@@ -18,6 +18,7 @@ local getFIntUGCValidateEmissiveR15BlockyBoundingBoxVolume =
 	require(root.flags.getFIntUGCValidateEmissiveR15BlockyBoundingBoxVolume)
 local getFIntUGCValidationMaxEmissiveStrengthForAreaChecks =
 	require(root.flags.getFIntUGCValidationMaxEmissiveStrengthForAreaChecks)
+local getFFlagUGCValidateEmissiveFixAreaChecks = require(root.flags.getFFlagUGCValidateEmissiveFixAreaChecks)
 
 local EmissiveAreaChecks = {}
 
@@ -112,6 +113,11 @@ EmissiveAreaChecks.run = function(reporter: Types.ValidationReporter, data: Type
 
 		if data.uploadCategory == ValidationEnums.UploadCategory.RIGID_ACCESSORY then
 			local weightedArea = getTotalEmissiveSurfaceArea(meshData, emissiveMask.editable)
+			if getFFlagUGCValidateEmissiveFixAreaChecks() then
+				weightedArea = weightedArea
+					* getEmissiveStrength(data, meshPartName)
+					/ getFIntUGCValidationMaxEmissiveStrengthForAreaChecks()
+			end
 			if weightedArea > getFIntUGCValidateMaxEmissiveAreaRigidAccessory() then
 				reporter:fail(ErrorSourceStrings.Keys.EmissiveArea_SurfaceAreaExceeded, {
 					meshName = meshPartName,
@@ -147,6 +153,11 @@ EmissiveAreaChecks.run = function(reporter: Types.ValidationReporter, data: Type
 
 			local areaScale = (volumeScale ^ (1 / 3)) ^ 2
 			local weightedArea = getTotalEmissiveSurfaceArea(meshData, emissiveMask.editable)
+			if getFFlagUGCValidateEmissiveFixAreaChecks() then
+				weightedArea = weightedArea
+					* getEmissiveStrength(data, meshPartName)
+					/ getFIntUGCValidationMaxEmissiveStrengthForAreaChecks()
+			end
 			weightedArea = weightedArea * areaScale
 
 			if weightedArea > getFIntUGCValidateMaxEmissiveAreaLayeredClothing() then

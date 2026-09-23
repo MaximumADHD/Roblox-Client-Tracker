@@ -36,6 +36,10 @@ type Orientation = Orientation.Orientation
 local SliderVariant = require(Foundation.Enums.SliderVariant)
 type SliderVariant = SliderVariant.SliderVariant
 
+local SliderType = require(Foundation.Enums.SliderType)
+
+local SliderKnob = require(script.Parent.SliderKnob)
+
 local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local ControlState = require(Foundation.Enums.ControlState)
 local CursorType = require(Foundation.Enums.CursorType)
@@ -64,8 +68,7 @@ local MAX_DIRECTIONAL_INPUT_DRAG_DELTA = 0.01
 
 type Bindable<T> = Types.Bindable<T>
 
-export type SliderProps = {
-	value: Bindable<number>,
+type CommonSliderProps = {
 	range: NumberRange?,
 
 	size: InputSize?,
@@ -78,10 +81,23 @@ export type SliderProps = {
 	knob: React.ReactElement?,
 	step: number?,
 
-	onValueChanged: ((newValue: number) -> ())?,
 	onDragStarted: (() -> ())?,
 	onDragEnded: (() -> ())?,
 } & Types.CommonProps
+
+export type SingleSliderProps = {
+	type: typeof(SliderType.Single)?,
+	value: Bindable<number>,
+	onValueChanged: ((newValue: number) -> ())?,
+} & CommonSliderProps
+
+export type RangeSliderProps = {
+	type: typeof(SliderType.Range),
+	value: Bindable<NumberRange>,
+	onValueChanged: ((newValue: NumberRange) -> ())?,
+} & CommonSliderProps
+
+export type SliderProps = SingleSliderProps | RangeSliderProps
 
 local defaultProps = {
 	range = NumberRange.new(0, 1),
@@ -110,13 +126,27 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 	local isVertical = if Flags.FoundationSliderBeta
 		then props.orientation :: Orientation == Orientation.Vertical
 		else nil :: never
+	local isRange = if Flags.FoundationSliderBeta then sliderProps.type == SliderType.Range else nil :: never
+	local singleValue = if sliderProps.type == SliderType.Range then 0 else sliderProps.value
+	local onSingleValueChanged = if sliderProps.type == SliderType.Range then nil else sliderProps.onValueChanged
+	local onRangeValueChanged = if Flags.FoundationSliderBeta
+		then if sliderProps.type == SliderType.Range then sliderProps.onValueChanged else nil
+		else nil :: never
 	local tokens = useTokens()
 	local controlState, setControlState = React.useState(ControlState.Initialize :: ControlState)
 	local isDragging, setIsDragging = React.useState(false)
 	local isKnobVisible, setIsKnobVisible = React.useState(false)
-	local value: React.Binding<number> = useBindable(props.value):map(function(currValue)
+	local rangeTrackIsMaxRef = if Flags.FoundationSliderBeta then React.useRef(false) else nil :: never
+	local rangeDragIsMaxKnob, setRangeDragIsMaxKnob
+	if Flags.FoundationSliderBeta then
+		rangeDragIsMaxKnob, setRangeDragIsMaxKnob = React.useState(false)
+	end
+	local value = useBindable(singleValue):map(function(currValue)
 		return math.clamp(currValue, props.range.Min, props.range.Max)
 	end)
+	local rangeBinding: React.Binding<NumberRange> = if Flags.FoundationSliderBeta
+		then useBindable(if sliderProps.type == SliderType.Range then sliderProps.value else NumberRange.new(0))
+		else nil :: never
 
 	local lastDragPosition = if Flags.FoundationSliderOffloadDraggingMath
 		then nil :: never
@@ -183,11 +213,11 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 		then React.useMemo(function(): Types.ColorStyleValue
 			if not isKnobVisible then
 				return { Color3 = variant.knob.style.Color3, Transparency = 1 }
-			elseif isDragging then
+			elseif isDragging and not isRange then
 				return variant.knob.dragStyle
 			end
 			return variant.knob.style
-		end, { variant, isKnobVisible, isDragging } :: { unknown })
+		end, { variant, isKnobVisible, isDragging, isRange } :: { unknown })
 		else nil :: never
 
 	local isSelected = if Flags.FoundationSliderKnobSelection
@@ -237,11 +267,53 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 
 	local updateValue = React.useCallback(function(newValue: number)
 		if newValue ~= value:getValue() then
-			if props.onValueChanged then
-				props.onValueChanged(newValue)
+			if onSingleValueChanged then
+				onSingleValueChanged(newValue)
 			end
 		end
-	end, { value, props.onValueChanged } :: { unknown })
+	end, { value, onSingleValueChanged } :: { unknown })
+
+	local updateRange = if Flags.FoundationSliderBeta
+		then React.useCallback(function(newRange: NumberRange)
+			local current = rangeBinding:getValue()
+			if
+				onRangeValueChanged
+				and (typeof(current) ~= "NumberRange" or newRange.Min ~= current.Min or newRange.Max ~= current.Max)
+			then
+				onRangeValueChanged(newRange)
+			end
+		end, { rangeBinding, onRangeValueChanged } :: { unknown })
+		else nil :: never
+
+	local onKnobDragStarted = if Flags.FoundationSliderBeta
+		then React.useCallback(function(isMaxKnob: boolean)
+			setRangeDragIsMaxKnob(isMaxKnob)
+			setIsDragging(true)
+			if props.onDragStarted then
+				props.onDragStarted()
+			end
+		end, { props.onDragStarted })
+		else nil :: never
+
+	local onKnobDragEnded = if Flags.FoundationSliderBeta
+		then React.useCallback(function()
+			setIsDragging(false)
+			if props.onDragEnded then
+				props.onDragEnded()
+			end
+		end, { props.onDragEnded })
+		else nil :: never
+
+	local onMinKnobDragStarted = if Flags.FoundationSliderBeta
+		then React.useCallback(function()
+			onKnobDragStarted(false)
+		end, { onKnobDragStarted })
+		else nil :: never
+	local onMaxKnobDragStarted = if Flags.FoundationSliderBeta
+		then React.useCallback(function()
+			onKnobDragStarted(true)
+		end, { onKnobDragStarted })
+		else nil :: never
 
 	local onSeek = if Flags.FoundationSliderOffloadDraggingMath
 		then nil :: never
@@ -250,21 +322,169 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 			updateValue(newValue)
 		end, { calculateValueFromAbsPosition, pointerPosition, updateValue } :: { unknown })
 
+	local toFraction = if Flags.FoundationSliderBeta
+		then React.useCallback(function(rawValue: number): number
+			return math.clamp((rawValue - props.range.Min) / (props.range.Max - props.range.Min), 0, 1)
+		end, { props.range.Min, props.range.Max } :: { unknown })
+		else nil :: never
+	local rawValueFromFraction = if Flags.FoundationSliderBeta
+		then React.useCallback(function(fraction: number): number
+			return props.range.Min + fraction * (props.range.Max - props.range.Min)
+		end, { props.range.Min, props.range.Max } :: { unknown })
+		else nil :: never
+	local valueFromFraction = if Flags.FoundationSliderBeta
+		then React.useCallback(function(fraction: number): number
+			local rawValue = rawValueFromFraction(fraction)
+			return if props.step then calculateSliderStepValue(rawValue, props.step, props.range) else rawValue
+		end, { rawValueFromFraction, props.step, props.range } :: { unknown })
+		else nil :: never
+
+	local getMinBounds = if Flags.FoundationSliderBeta
+		then React.useCallback(
+			function(): (number, number)
+				local maxFraction = toFraction(rangeBinding:getValue().Max)
+				if props.step and props.step > 0 then
+					local maxValue = rawValueFromFraction(maxFraction)
+					local stepCount = math.floor((maxValue - props.range.Min) / props.step + 0.5)
+					maxFraction = toFraction(props.range.Min + stepCount * props.step)
+				end
+				return 0, maxFraction
+			end,
+			{
+				rangeBinding,
+				toFraction,
+				props.step,
+				rawValueFromFraction,
+				props.range.Min,
+			} :: { unknown }
+		)
+		else nil :: never
+	local getMaxBounds = if Flags.FoundationSliderBeta
+		then React.useCallback(
+			function(): (number, number)
+				local minFraction = toFraction(rangeBinding:getValue().Min)
+				if props.step and props.step > 0 then
+					local minValue = rawValueFromFraction(minFraction)
+					local stepCount = math.floor((minValue - props.range.Min) / props.step + 0.5)
+					minFraction = toFraction(props.range.Min + stepCount * props.step)
+				end
+				return minFraction, 1
+			end,
+			{
+				rangeBinding,
+				toFraction,
+				props.step,
+				rawValueFromFraction,
+				props.range.Min,
+			} :: { unknown }
+		)
+		else nil :: never
+	local onSeekMin = if Flags.FoundationSliderBeta
+		then React.useCallback(function(fraction: number)
+			local currentRange = rangeBinding:getValue()
+			updateRange(NumberRange.new(math.min(valueFromFraction(fraction), currentRange.Max), currentRange.Max))
+		end, { rangeBinding, updateRange, valueFromFraction } :: { unknown })
+		else nil :: never
+	local onSeekMax = if Flags.FoundationSliderBeta
+		then React.useCallback(function(fraction: number)
+			local currentRange = rangeBinding:getValue()
+			updateRange(NumberRange.new(currentRange.Min, math.max(valueFromFraction(fraction), currentRange.Min)))
+		end, { rangeBinding, updateRange, valueFromFraction } :: { unknown })
+		else nil :: never
+
+	local seekRangeKnob = if Flags.FoundationSliderBeta
+		then React.useCallback(function(fraction: number, isMaxKnob: boolean)
+			if isMaxKnob then
+				local minBound, maxBound = getMaxBounds()
+				onSeekMax(math.clamp(fraction, minBound, maxBound))
+			else
+				local minBound, maxBound = getMinBounds()
+				onSeekMin(math.clamp(fraction, minBound, maxBound))
+			end
+		end, { getMaxBounds, getMinBounds, onSeekMax, onSeekMin } :: { unknown })
+		else nil :: never
+
+	local onRangeTrackDragStarted = if Flags.FoundationSliderBeta
+		then React.useCallback(
+			function(_rbx: UIDragDetector, inputPosition: Vector2)
+				if not isRange or lastInputMode == InputMode.Directional or not ref.current then
+					return
+				end
+
+				local fraction =
+					calculateSliderFraction(getGuiInputPosition(inputPosition, ref.current), ref.current, isVertical)
+				local currentRange = rangeBinding:getValue()
+				local minFraction = toFraction(currentRange.Min)
+				local maxFraction = toFraction(currentRange.Max)
+				local isMaxKnob = math.abs(maxFraction - fraction) < math.abs(fraction - minFraction)
+					or (minFraction == maxFraction and fraction > maxFraction)
+
+				rangeTrackIsMaxRef.current = isMaxKnob
+				onKnobDragStarted(isMaxKnob)
+				seekRangeKnob(fraction, isMaxKnob)
+			end,
+			{
+				isRange,
+				lastInputMode,
+				isVertical,
+				rangeBinding,
+				onKnobDragStarted,
+				seekRangeKnob,
+				toFraction,
+			} :: { unknown }
+		)
+		else nil :: never
+
+	local onRangeTrackDrag = if Flags.FoundationSliderBeta
+		then React.useCallback(function(_rbx: UIDragDetector, inputPosition: Vector2)
+			if not isRange or lastInputMode == InputMode.Directional or not ref.current then
+				return
+			end
+
+			local guiInputPosition = getGuiInputPosition(inputPosition, ref.current)
+			seekRangeKnob(
+				calculateSliderFraction(guiInputPosition, ref.current, isVertical),
+				rangeTrackIsMaxRef.current
+			)
+		end, { isRange, lastInputMode, isVertical, seekRangeKnob } :: { unknown })
+		else nil :: never
+
+	local onRangeTrackDragEnded = if Flags.FoundationSliderBeta
+		then React.useCallback(function()
+			if not isRange then
+				return
+			end
+			onKnobDragEnded()
+		end, { isRange, onKnobDragEnded } :: { unknown })
+		else nil :: never
+
+	local directionalInputHandlers = if Flags.FoundationSliderAsSeenOnTV
+		then React.useMemo(function()
+			return {
+				getValue = function()
+					return value:getValue()
+				end,
+				onStep = function(newValue: number)
+					updateValue(
+						if props.step then calculateSliderStepValue(newValue, props.step, props.range) else newValue
+					)
+				end,
+			}
+		end, { value, updateValue, props.step, props.range } :: { unknown })
+		else nil :: never
+
 	if Flags.FoundationSliderAsSeenOnTV then
 		if not Flags.FoundationSliderKnobSelection then
 			isSelected = controlState == ControlState.Selected or controlState == ControlState.SelectedPressed
 		end
 
-		useSliderDirectionalInput(isSelected and not props.isDisabled, props.step, props.range, isVertical, {
-			getValue = function()
-				return value:getValue()
-			end,
-			onStep = function(newValue: number)
-				updateValue(
-					if props.step then calculateSliderStepValue(newValue, props.step, props.range) else newValue
-				)
-			end,
-		})
+		useSliderDirectionalInput(
+			isSelected and not props.isDisabled and not isRange,
+			props.step,
+			props.range,
+			isVertical,
+			directionalInputHandlers
+		)
 	end
 
 	local onDrag = if Flags.FoundationSliderOffloadDraggingMath
@@ -477,10 +697,10 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 	local onStateChanged = React.useCallback(function(state: ControlState)
 		setControlState(state)
 
-		if not Flags.FoundationSliderOffloadDraggingMath and state == ControlState.Pressed then
+		if not isRange and not Flags.FoundationSliderOffloadDraggingMath and state == ControlState.Pressed then
 			onSeek()
 		end
-	end, { onSeek })
+	end, { onSeek, isRange } :: { unknown })
 
 	local presentationContext = if Flags.FoundationSliderKnobSelection then usePresentationContext() else nil :: never
 
@@ -554,6 +774,214 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 			setCustomKnobSize(rbx.AbsoluteSize)
 		end, {})
 		else nil :: never
+	local minKnobAppearance: SliderKnob.KnobAppearance = if Flags.FoundationSliderBeta
+		then React.useMemo(
+			function()
+				return {
+					size = props.size,
+					style = if isKnobVisible
+							and isDragging
+							and not rangeDragIsMaxKnob
+						then variant.knob.dragStyle
+						else knobStyle,
+					stroke = knobStroke,
+					hasShadow = variant.knob.hasShadow,
+				}
+			end,
+			{
+				props.size,
+				isKnobVisible,
+				isDragging,
+				rangeDragIsMaxKnob,
+				variant.knob.dragStyle,
+				knobStyle,
+				knobStroke,
+				variant.knob.hasShadow,
+			} :: { unknown }
+		)
+		else nil :: never
+	local maxKnobAppearance: SliderKnob.KnobAppearance = if Flags.FoundationSliderBeta
+		then React.useMemo(
+			function()
+				return {
+					size = props.size,
+					style = if isKnobVisible
+							and isDragging
+							and rangeDragIsMaxKnob
+						then variant.knob.dragStyle
+						else knobStyle,
+					stroke = knobStroke,
+					hasShadow = variant.knob.hasShadow,
+				}
+			end,
+			{
+				props.size,
+				isKnobVisible,
+				isDragging,
+				rangeDragIsMaxKnob,
+				variant.knob.dragStyle,
+				knobStyle,
+				knobStroke,
+				variant.knob.hasShadow,
+			} :: { unknown }
+		)
+		else nil :: never
+
+	local minFraction = if Flags.FoundationSliderBeta
+		then rangeBinding:map(function(currentRange: NumberRange)
+			return toFraction(currentRange.Min)
+		end)
+		else nil :: never
+	local maxFraction = if Flags.FoundationSliderBeta
+		then rangeBinding:map(function(currentRange: NumberRange)
+			return toFraction(currentRange.Max)
+		end)
+		else nil :: never
+
+	local dragDetector = if isRange
+		then React.createElement("UIDragDetector", {
+			DragStyle = Enum.UIDragDetectorDragStyle.Scriptable,
+			[React.Event.DragStart] = onRangeTrackDragStarted :: any,
+			[React.Event.DragContinue] = onRangeTrackDrag :: any,
+			[React.Event.DragEnd] = onRangeTrackDragEnded :: any,
+			SelectionModeDragSpeed = if Flags.FoundationSliderAsSeenOnTV then UDim2.new() else nil,
+			Enabled = not props.isDisabled,
+		})
+		else if Flags.FoundationSliderOffloadDraggingMath
+			then React.createElement("UIDragDetector", {
+				ref = dragDetectorRef,
+				ReferenceUIInstance = trackInstance,
+				DragStyle = Enum.UIDragDetectorDragStyle.TranslateLine,
+				DragAxis = if isVertical then Vector2.new(0, 1) else Vector2.new(1, 0),
+				ResponseStyle = Enum.UIDragDetectorResponseStyle.CustomScale,
+				DragRelativity = Enum.UIDragDetectorDragRelativity.Absolute,
+				MinDragTranslation = if Flags.FoundationSliderBeta then minDragTranslation else nil,
+				MaxDragTranslation = if Flags.FoundationSliderBeta then maxDragTranslation else nil,
+				[React.Event.DragStart] = onDragStarted,
+				[React.Event.DragContinue] = onDrag,
+				[React.Event.DragEnd] = onDragEnded,
+				SelectionModeDragSpeed = if Flags.FoundationSliderAsSeenOnTV then UDim2.new() else nil,
+				Enabled = not props.isDisabled,
+			})
+			else React.createElement("UIDragDetector", {
+				DragStyle = Enum.UIDragDetectorDragStyle.Scriptable,
+				[React.Event.DragStart] = onDragStarted :: any,
+				[React.Event.DragContinue] = onDrag :: any,
+				[React.Event.DragEnd] = onDragEnded :: any,
+				SelectionModeDragSpeed = if Flags.FoundationSliderAsSeenOnTV then UDim2.new() else nil,
+				Enabled = not props.isDisabled,
+			})
+
+	local barChildren: { [string]: React.ReactNode } = if isRange
+		then {
+			Fill = React.createElement(View, {
+				tag = variant.fill.tag,
+				AnchorPoint = Vector2.new(0, 0),
+				Position = if isVertical
+					then maxFraction:map(function(fraction: number)
+						return UDim2.fromScale(0, 1 - fraction)
+					end)
+					else minFraction:map(function(fraction: number)
+						return UDim2.fromScale(fraction, 0)
+					end),
+				Size = rangeBinding:map(function(currentRange: NumberRange)
+					local extent = toFraction(currentRange.Max) - toFraction(currentRange.Min)
+					return if isVertical then UDim2.fromScale(1, extent) else UDim2.fromScale(extent, 1)
+				end),
+				testId = `{props.testId}--fill`,
+			}),
+			MinKnob = React.createElement(SliderKnob, {
+				trackRef = ref,
+				fraction = minFraction,
+				isVertical = isVertical,
+				isDisabled = props.isDisabled,
+				knobAppearance = minKnobAppearance,
+				knob = props.knob,
+				isContained = props.isContained,
+				onSeek = onSeekMin,
+				getBounds = getMinBounds,
+				onDragStarted = onMinKnobDragStarted,
+				onDragEnded = onKnobDragEnded,
+				Visible = isKnobVisible,
+				LayoutOrder = 1,
+				testId = `{props.testId}--min`,
+			}),
+			MaxKnob = React.createElement(SliderKnob, {
+				trackRef = ref,
+				fraction = maxFraction,
+				isVertical = isVertical,
+				isDisabled = props.isDisabled,
+				knobAppearance = maxKnobAppearance,
+				knob = props.knob,
+				isContained = props.isContained,
+				onSeek = onSeekMax,
+				getBounds = getMaxBounds,
+				onDragStarted = onMaxKnobDragStarted,
+				onDragEnded = onKnobDragEnded,
+				Visible = isKnobVisible,
+				LayoutOrder = 2,
+				testId = `{props.testId}--max`,
+			}),
+		}
+		else {
+			Fill = React.createElement(View, {
+				tag = variant.fill.tag,
+				AnchorPoint = if isVertical then Vector2.new(0, 1) else nil,
+				Position = if isVertical then UDim2.fromScale(0, 1) else nil,
+				Size = value:map(function(alpha: number)
+					local fraction = (alpha - props.range.Min) / (props.range.Max - props.range.Min)
+					return if isVertical then UDim2.fromScale(1, fraction) else UDim2.fromScale(fraction, 1)
+				end),
+				testId = `{props.testId}--fill`,
+			}, {
+				SelectionCursor = if Flags.FoundationSliderKnobSelection and isSelected
+					then React.createElement(View, {
+						Size = if props.knob
+							then customKnobSize:map(function(size: Vector2)
+								return UDim2.fromOffset(size.X, size.Y)
+							end)
+							else getKnobSize(tokens, props.size),
+						AnchorPoint = knobAnchorPoint,
+						Position = knobPosition,
+						testId = `{props.testId}--selection-cursor`,
+					}, {
+						Cursor = React.createElement(CursorComponent, {
+							isVisible = true,
+							cornerRadius = UDim.new(0.5, 0),
+							offset = tokens.Padding.XSmall,
+							borderWidth = tokens.Stroke.Thicker,
+							colorNamespace = presentationContext.colorNamespace,
+						}),
+					})
+					else nil,
+				Knob = if props.knob
+					then React.createElement(View, {
+						tag = "size-0-0 auto-xy",
+						AnchorPoint = knobAnchorPoint,
+						Position = knobPosition,
+						Visible = isKnobVisible,
+						onAbsoluteSizeChanged = if Flags.FoundationSliderKnobSelection
+							then onCustomKnobSizeChanged
+							else nil,
+						testId = `{props.testId}--custom-knob`,
+					}, props.knob)
+					else React.createElement(PresentationContext.Provider, { value = IS_INVERSE }, {
+						Knob = React.createElement(Knob, {
+							AnchorPoint = knobAnchorPoint,
+							Position = knobPosition,
+							size = props.size,
+							style = if Flags.FoundationSliderBeta then knobStyle else currentMotionState.knobStyle,
+							stroke = if Flags.FoundationSliderBeta then knobStroke else variant.knob.stroke,
+							hasShadow = variant.knob.hasShadow,
+							testId = `{props.testId}--knob`,
+						}),
+					}),
+			}),
+		}
+
+	local barSize = if Flags.FoundationSliderBeta
+		then if isVertical then UDim2.new(0, variant.bar.height, 1, 0) else UDim2.new(1, 0, 0, variant.bar.height)
+		else nil
 
 	return React.createElement(
 		View,
@@ -567,103 +995,25 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 					affordance = StateLayerAffordance.None,
 				},
 				selectionGroup = if Flags.FoundationSliderAsSeenOnTV
-					then if Flags.FoundationSliderBeta then variant.selectionGroup else DIRECTIONAL_SELECTION_GROUP
+					then if isRange
+						then nil
+						else if Flags.FoundationSliderBeta
+							then variant.selectionGroup
+							else DIRECTIONAL_SELECTION_GROUP
 					else nil,
 				cursor = if Flags.FoundationSliderKnobSelection then CursorType.Invisible else nil,
 				onStateChanged = onStateChanged,
 				isDisabled = props.isDisabled,
-				ref = if Flags.FoundationSliderOffloadDraggingMath then setTrackRef else ref,
+				ref = if isRange then ref else if Flags.FoundationSliderOffloadDraggingMath then setTrackRef else ref,
 			} :: View.ViewProps
 		),
 		{
-			DragDetector = if Flags.FoundationSliderOffloadDraggingMath
-				then React.createElement("UIDragDetector", {
-					ref = dragDetectorRef,
-					ReferenceUIInstance = trackInstance,
-					DragStyle = Enum.UIDragDetectorDragStyle.TranslateLine,
-					DragAxis = if isVertical then Vector2.new(0, 1) else Vector2.new(1, 0),
-					ResponseStyle = Enum.UIDragDetectorResponseStyle.CustomScale,
-					DragRelativity = Enum.UIDragDetectorDragRelativity.Absolute,
-					MinDragTranslation = if Flags.FoundationSliderBeta then minDragTranslation else nil,
-					MaxDragTranslation = if Flags.FoundationSliderBeta then maxDragTranslation else nil,
-					[React.Event.DragStart] = onDragStarted,
-					[React.Event.DragContinue] = onDrag,
-					[React.Event.DragEnd] = onDragEnded,
-					SelectionModeDragSpeed = if Flags.FoundationSliderAsSeenOnTV then UDim2.new() else nil,
-					Enabled = not props.isDisabled,
-				})
-				else React.createElement("UIDragDetector", {
-					DragStyle = Enum.UIDragDetectorDragStyle.Scriptable,
-					[React.Event.DragStart] = onDragStarted :: any,
-					[React.Event.DragContinue] = onDrag :: any,
-					[React.Event.DragEnd] = onDragEnded :: any,
-					SelectionModeDragSpeed = if Flags.FoundationSliderAsSeenOnTV then UDim2.new() else nil,
-					Enabled = not props.isDisabled,
-				}),
-
+			DragDetector = dragDetector,
 			Bar = React.createElement(View, {
 				tag = variant.bar.tag,
-				Size = if Flags.FoundationSliderBeta
-					then if isVertical
-						then UDim2.new(0, variant.bar.height, 1, 0)
-						else UDim2.new(1, 0, 0, variant.bar.height)
-					else nil,
+				Size = barSize,
 				testId = `{props.testId}--bar`,
-			}, {
-				Fill = React.createElement(View, {
-					tag = variant.fill.tag,
-					AnchorPoint = if isVertical then Vector2.new(0, 1) else nil,
-					Position = if isVertical then UDim2.fromScale(0, 1) else nil,
-					Size = value:map(function(alpha: number)
-						local fraction = (alpha - props.range.Min) / (props.range.Max - props.range.Min)
-						return if isVertical then UDim2.fromScale(1, fraction) else UDim2.fromScale(fraction, 1)
-					end),
-					testId = `{props.testId}--fill`,
-				}, {
-					SelectionCursor = if Flags.FoundationSliderKnobSelection and isSelected
-						then React.createElement(View, {
-							Size = if props.knob
-								then customKnobSize:map(function(size: Vector2)
-									return UDim2.fromOffset(size.X, size.Y)
-								end)
-								else getKnobSize(tokens, props.size),
-							AnchorPoint = knobAnchorPoint,
-							Position = knobPosition,
-							testId = `{props.testId}--selection-cursor`,
-						}, {
-							Cursor = React.createElement(CursorComponent, {
-								isVisible = true,
-								cornerRadius = UDim.new(0.5, 0),
-								offset = tokens.Padding.XSmall,
-								borderWidth = tokens.Stroke.Thicker,
-								colorNamespace = presentationContext.colorNamespace,
-							}),
-						})
-						else nil,
-					Knob = if props.knob
-						then React.createElement(View, {
-							tag = "size-0-0 auto-xy",
-							AnchorPoint = knobAnchorPoint,
-							Position = knobPosition,
-							Visible = isKnobVisible,
-							onAbsoluteSizeChanged = if Flags.FoundationSliderKnobSelection
-								then onCustomKnobSizeChanged
-								else nil,
-							testId = `{props.testId}--custom-knob`,
-						}, props.knob)
-						else React.createElement(PresentationContext.Provider, { value = IS_INVERSE }, {
-							Knob = React.createElement(Knob, {
-								AnchorPoint = knobAnchorPoint,
-								Position = knobPosition,
-								size = props.size,
-								style = if Flags.FoundationSliderBeta then knobStyle else currentMotionState.knobStyle,
-								stroke = if Flags.FoundationSliderBeta then knobStroke else variant.knob.stroke,
-								hasShadow = variant.knob.hasShadow,
-								testId = `{props.testId}--knob`,
-							}),
-						}),
-				}),
-			}),
+			}, barChildren),
 		}
 	)
 end

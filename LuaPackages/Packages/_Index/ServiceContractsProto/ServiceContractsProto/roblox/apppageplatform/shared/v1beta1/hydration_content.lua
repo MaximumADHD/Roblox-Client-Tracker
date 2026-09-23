@@ -37,6 +37,7 @@ type _Messages = {
 	HydrationContent_FriendRecommendationEntry: _HydrationContent_FriendRecommendationEntryMessage,
 	HydrationContent_UniversePrivateServerEntry: _HydrationContent_UniversePrivateServerEntryMessage,
 	HydrationContent_NotificationBadgeEntry: _HydrationContent_NotificationBadgeEntryMessage,
+	HydrationContent_CollectibleItemEntry: _HydrationContent_CollectibleItemEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -78,6 +79,7 @@ local _roblox_apppageplatform_shared_v1beta1_friend_recommendation_data =
 local _roblox_apppageplatform_shared_v1beta1_notification_badge_data = require(script.Parent.notification_badge_data)
 local _roblox_apppageplatform_shared_v1beta1_universe_private_server_data =
 	require(script.Parent.universe_private_server_data)
+local _roblox_apppageplatform_shared_v1beta1_collectible_item_data = require(script.Parent.collectible_item_data)
 
 type _HydrationContentImpl = {
 	__index: _HydrationContentImpl,
@@ -150,6 +152,7 @@ type _HydrationContentFields =
 		notification_badge: {
 			[string]: _roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData,
 		},
+		collectible_item: { [string]: _roblox_apppageplatform_shared_v1beta1_collectible_item_data.CollectibleItemData },
 	}
 
 type _HydrationContentPartialFields =
@@ -213,6 +216,7 @@ type _HydrationContentPartialFields =
 		notification_badge: {
 			[string]: _roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData,
 		}?,
+		collectible_item: { [string]: _roblox_apppageplatform_shared_v1beta1_collectible_item_data.CollectibleItemData }?,
 	}
 
 export type HydrationContent = typeof(setmetatable({} :: _HydrationContentFields, {} :: _HydrationContentImpl))
@@ -1077,6 +1081,35 @@ type _HydrationContent_NotificationBadgeEntryMessage = proto.Message<
 	_HydrationContent_NotificationBadgeEntryPartialFields
 >
 
+type _HydrationContent_CollectibleItemEntryImpl = {
+	__index: _HydrationContent_CollectibleItemEntryImpl,
+	new: (fields: _HydrationContent_CollectibleItemEntryPartialFields?) -> HydrationContent_CollectibleItemEntry,
+	encode: (self: HydrationContent_CollectibleItemEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_CollectibleItemEntry,
+	jsonEncode: (self: HydrationContent_CollectibleItemEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_CollectibleItemEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_CollectibleItemEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_collectible_item_data.CollectibleItemData?,
+}
+
+type _HydrationContent_CollectibleItemEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_collectible_item_data.CollectibleItemData?,
+}
+
+export type HydrationContent_CollectibleItemEntry = typeof(setmetatable(
+	{} :: _HydrationContent_CollectibleItemEntryFields,
+	{} :: _HydrationContent_CollectibleItemEntryImpl
+))
+type _HydrationContent_CollectibleItemEntryMessage = proto.Message<
+	HydrationContent_CollectibleItemEntry,
+	_HydrationContent_CollectibleItemEntryPartialFields
+>
+
 do
 	local _HydrationContentImpl = {}
 	_HydrationContentImpl.__index = _HydrationContentImpl
@@ -1131,6 +1164,7 @@ do
 				then {}
 				else data.universe_private_server,
 			notification_badge = if data == nil or data.notification_badge == nil then {} else data.notification_badge,
+			collectible_item = if data == nil or data.collectible_item == nil then {} else data.collectible_item,
 		}, _HydrationContentImpl :: _HydrationContentImpl)
 	end
 
@@ -1547,6 +1581,20 @@ do
 			end
 		end
 
+		if self.collectible_item ~= nil and next(self.collectible_item) ~= nil then
+			for key, value in self.collectible_item do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 30, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -1931,6 +1979,19 @@ do
 					self.notification_badge[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 30 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_CollectibleItemEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_collectible_item_data.CollectibleItemData.new()
+
+					self.collectible_item[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -2191,6 +2252,14 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.notificationBadge = newOutput
+		end
+
+		if self.collectible_item ~= nil and next(self.collectible_item) ~= nil then
+			local newOutput = {}
+			for key, value in self.collectible_item do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.collectibleItem = newOutput
 		end
 
 		return output
@@ -2788,6 +2857,28 @@ do
 			end
 
 			self.notification_badge = newOutput
+		end
+
+		if input.collectible_item ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_collectible_item_data.CollectibleItemData } =
+				{}
+			for key, value in input.collectible_item do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_collectible_item_data.CollectibleItemData.jsonDecode(value)
+			end
+
+			self.collectible_item = newOutput
+		end
+
+		if input.collectibleItem ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_collectible_item_data.CollectibleItemData } =
+				{}
+			for key, value in input.collectibleItem do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_collectible_item_data.CollectibleItemData.jsonDecode(value)
+			end
+
+			self.collectible_item = newOutput
 		end
 
 		return self
@@ -6445,6 +6536,129 @@ do
 	messages.HydrationContent_NotificationBadgeEntry = _HydrationContent_NotificationBadgeEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.HydrationContent_NotificationBadgeEntry)
+end
+
+do
+	local _HydrationContent_CollectibleItemEntryImpl = {}
+	_HydrationContent_CollectibleItemEntryImpl.__index = _HydrationContent_CollectibleItemEntryImpl
+
+	function _HydrationContent_CollectibleItemEntryImpl.new(
+		data: _HydrationContent_CollectibleItemEntryPartialFields?
+	): HydrationContent_CollectibleItemEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_CollectibleItemEntryImpl :: _HydrationContent_CollectibleItemEntryImpl)
+	end
+
+	function _HydrationContent_CollectibleItemEntryImpl.encode(self: HydrationContent_CollectibleItemEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_CollectibleItemEntryImpl.decode(input: buffer): HydrationContent_CollectibleItemEntry
+		local self = _HydrationContent_CollectibleItemEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_collectible_item_data.CollectibleItemData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_CollectibleItemEntryImpl.jsonEncode(self: HydrationContent_CollectibleItemEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_CollectibleItemEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_CollectibleItemEntry
+		local self = _HydrationContent_CollectibleItemEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_collectible_item_data.CollectibleItemData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_CollectibleItemEntryImpl.descriptor = {
+		name = "HydrationContent_CollectibleItemEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CollectibleItemEntry",
+	}
+
+	messages.HydrationContent_CollectibleItemEntry = _HydrationContent_CollectibleItemEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_CollectibleItemEntry)
 end
 
 return {

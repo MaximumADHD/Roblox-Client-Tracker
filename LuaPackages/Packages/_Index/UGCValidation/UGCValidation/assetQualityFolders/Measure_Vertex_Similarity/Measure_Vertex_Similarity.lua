@@ -2,6 +2,12 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getFFlagUGCValidateAQMeshQualityBlockUpload = require(root.flags.getFFlagUGCValidateAQMeshQualityBlockUpload)
+
+local BLOCK_UPLOAD_CATEGORIES = {
+	[ValidationEnums.UploadCategory.FULL_BODY] = true,
+	[ValidationEnums.UploadCategory.DYNAMIC_HEAD] = true,
+}
 
 local maxSimilarVertexPercent = game:DefineFastInt("UGCValidationVertexSimilarityMaxPercent", 30)
 
@@ -17,10 +23,16 @@ Measure_Vertex_Similarity.fflag = require(root.flags.getFFlagUGCValidateAQMeshQu
 
 Measure_Vertex_Similarity.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local summary = data.aqsSummaryData.Measure_Vertex_Similarity
+	local shouldBlockUpload = getFFlagUGCValidateAQMeshQualityBlockUpload()
+		and BLOCK_UPLOAD_CATEGORIES[data.uploadCategory]
 	if summary == nil then
-		reporter:warn(ErrorSourceStrings.Keys.AQSWarn_MissingData, {
-			measureName = "Measure_Vertex_Similarity",
-		})
+		if shouldBlockUpload then
+			error("Measure_Vertex_Similarity: AQS summary data is nil")
+		else
+			reporter:warn(ErrorSourceStrings.Keys.AQSWarn_MissingData, {
+				measureName = "Measure_Vertex_Similarity",
+			})
+		end
 		return
 	end
 
@@ -37,11 +49,16 @@ Measure_Vertex_Similarity.run = function(reporter: Types.ValidationReporter, dat
 
 			local percent = tonumber(partData.similar_vertex_percent) or 0
 			if percent > threshold then
-				reporter:warn(ErrorSourceStrings.Keys.AQSWarn_VertexSimilarity, {
+				local params = {
 					partName = partName,
 					similar_vertex_percent = string.format("%.2f", percent * 100),
 					threshold = tostring(maxSimilarVertexPercent),
-				})
+				}
+				if shouldBlockUpload then
+					reporter:fail(ErrorSourceStrings.Keys.AQSWarn_VertexSimilarity, params)
+				else
+					reporter:warn(ErrorSourceStrings.Keys.AQSWarn_VertexSimilarity, params)
+				end
 			end
 		end
 	end

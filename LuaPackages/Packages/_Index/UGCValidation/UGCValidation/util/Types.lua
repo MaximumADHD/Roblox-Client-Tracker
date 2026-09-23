@@ -141,6 +141,7 @@ export type SharedData = {
 	contentIds: ContentIdEntriesMap,
 	hsrAssets: { [string]: { Instance } },
 	curveAnimBoneData: { hasBones: boolean }?,
+	fullBodyPartsMetrics: { [string]: any },
 }
 
 export type failureStringContext = {
@@ -165,6 +166,7 @@ export type SingleValidationResult = {
 
 export type ValidationResultData = {
 	validationJobId: string,
+	telemetryBundleId: string?,
 	pass: boolean,
 	numFailures: number,
 	numWarnings: number,
@@ -221,7 +223,11 @@ export type UGCValidationConsumerName =
 --   "jobId"  — AQ job already ran; fetch the AQS summary directly via aqFetchData
 export type AqFetchStage = "scene" | "gltf" | "jobId"
 
+-- Origin / lifecycle axis (where the upload came from).
 export type ConsumerEnv = "Studio" | "Backend" | "IEC"
+
+-- Execution / capability axis (where validation runs); differs from ConsumerEnv only for VaaS (Backend vs IEC).
+export type ValidationEnv = "Studio" | "Backend" | "IEC"
 
 -- Consumer-namespaced sub-tables for fields that only specific envs need. Each consumer
 -- populates the sub-table that matches its env. ValidationManager fills the non-matching
@@ -234,6 +240,24 @@ export type BackendConfigs = {
 	universeId: number?,
 }
 
+export type AssetQualityValidationInput = {
+	model: Instance,
+	assetType: Enum.AssetType,
+}
+
+export type AssetQualityValidationConfig = {
+	source: UGCValidationConsumerName,
+	mode: string?,
+	intendedBundleType: Enum.BundleType?,
+	validateSingleAssetsInBundle: boolean?,
+	backendConfigs: BackendConfigs?,
+}
+
+export type AssetQualityValidationResult = {
+	validationData: ValidationResultData,
+	assetType: Enum.AssetType?,
+}
+
 export type IECConfigs = {
 	token: string?,
 	universeId: number?,
@@ -243,6 +267,7 @@ export type IECConfigs = {
 -- Consumers identify themselves via `source`; validation resolves env and policy.
 export type UGCValidationConsumerConfigs = {
 	source: UGCValidationConsumerName,
+	isVaaS: boolean?, -- default FALSE
 	enforceR15FolderStructure: boolean?, -- default TRUE
 	enforceShadowValidations: boolean?, -- default FALSE
 	telemetryBundleId: string?,
@@ -257,6 +282,9 @@ export type UGCValidationConsumerConfigs = {
 	-- the test env. Production consumers leave this nil.
 	skipModules: { [string]: boolean }?,
 	skipAssetQualityChecks: boolean?, -- default FALSE; when true, drops all isAssetQualityModule modules
+	-- SystemTester-only: skip the pre-.Size anti-tamper physics reset, whose ResetCollisionFidelity needs
+	-- engine mesh content the fixtures cannot load. Production consumers leave this nil so the reset runs.
+	skipPhysicsDataReset: boolean?,
 	aqFetchStage: AqFetchStage?, -- default "scene"
 	aqFetchData: string?, -- jobId or GLTF payload; empty when stage == "scene"
 	backendConfigs: BackendConfigs?,
@@ -265,7 +293,9 @@ export type UGCValidationConsumerConfigs = {
 
 export type PreloadedConsumerConfigs = {
 	source: UGCValidationConsumerName,
+	isVaaS: boolean,
 	consumerEnv: ConsumerEnv,
+	validationEnv: ValidationEnv,
 	enforceR15FolderStructure: boolean,
 	enforceShadowValidations: boolean,
 	telemetryBundleId: string,
@@ -275,6 +305,7 @@ export type PreloadedConsumerConfigs = {
 	preloadedHsrAssets: { [string]: { Instance } },
 	skipModules: { [string]: boolean },
 	skipAssetQualityChecks: boolean,
+	skipPhysicsDataReset: boolean,
 	aqFetchStage: AqFetchStage,
 	aqFetchData: string,
 	backendConfigs: BackendConfigs,

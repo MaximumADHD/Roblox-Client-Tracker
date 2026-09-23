@@ -92,45 +92,14 @@ local function getTokens(
 )
 	local device: Device = deviceInput or Device.Desktop
 	local scale = getPlatformScale(device, scaleFactor)
-	local generator: (number) -> Tokens = if Flags.FoundationThemeName
-		then themeGenerators.getGenerator(themeName or ThemeName.Default, colorMode)
-		else themeGenerators.getLegacyGenerator(colorMode) :: never
-
-	return buildTokens(generator, scale, tokenOverrides)
-end
-
--- Flag-independent token resolvers used ONLY by offline rule generation
--- (`scripts/generate-rules.lua`), never on the runtime render path.
---
--- `getThemedTokens` always resolves the v4 themed token set so baked per-theme
--- color rules reflect each theme even while `FoundationThemeName` is still off at
--- runtime. `getLegacyTokens` always resolves the v3 flat token set so the legacy
--- (flag-off) generated rules stay byte-identical regardless of flag state.
-local function getThemedTokens(
-	themeName: ThemeName?,
-	colorMode: ColorMode,
-	deviceInput: Device?,
-	scaleFactor: number?,
-	tokenOverrides: TokenOverrides?
-)
-	local device: Device = deviceInput or Device.Desktop
-	local scale = getPlatformScale(device, scaleFactor)
 	local generator: (number) -> Tokens = themeGenerators.getGenerator(themeName or ThemeName.Default, colorMode)
-	return buildTokens(generator, scale, tokenOverrides)
-end
 
-local function getLegacyTokens(colorMode: ColorMode, deviceInput: Device?, scaleFactor: number?)
-	local device: Device = deviceInput or Device.Desktop
-	local scale = getPlatformScale(device, scaleFactor)
-	local generator: (number) -> Tokens = themeGenerators.getLegacyGenerator(colorMode) :: never
-	return buildTokens(generator, scale, nil)
+	return buildTokens(generator, scale, tokenOverrides)
 end
 
 local defaultTokens = getTokens(ColorMode.Dark, Device.Desktop)
 
 return {
 	getTokens = getTokens,
-	getThemedTokens = getThemedTokens,
-	getLegacyTokens = getLegacyTokens,
 	defaultTokens = defaultTokens,
 }

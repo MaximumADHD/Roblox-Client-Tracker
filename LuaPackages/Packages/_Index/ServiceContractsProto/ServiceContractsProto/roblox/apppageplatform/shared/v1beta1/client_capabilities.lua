@@ -8,11 +8,14 @@ local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typ
 
 type _Messages = {
 	ClientCapabilities: _ClientCapabilitiesMessage,
+	ClientCapabilities_RuntimeFlagValuesEntry: _ClientCapabilities_RuntimeFlagValuesEntryMessage,
 	Platform: _PlatformMessage,
 }
 local messages: _Messages = {} :: _Messages
 
+local _roblox_apppageplatform_shared_v1beta1_actions = require(script.Parent.actions)
 local _roblox_apppageplatform_shared_v1beta1_capability = require(script.Parent.capability)
+local _roblox_apppageplatform_shared_v1beta1_ui_component_type = require(script.Parent.ui_component_type)
 
 type _ClientCapabilitiesImpl = {
 	__index: _ClientCapabilitiesImpl,
@@ -28,16 +31,53 @@ type _ClientCapabilitiesFields = {
 	enabled_capabilities: { _roblox_apppageplatform_shared_v1beta1_capability.Capability },
 	proto_version: string,
 	platform: Platform,
+	registered_ui_component_types: { _roblox_apppageplatform_shared_v1beta1_ui_component_type.UiComponentType },
+	registered_action_types: { _roblox_apppageplatform_shared_v1beta1_actions.ActionType },
+	runtime_flag_values: { [string]: boolean },
 }
 
 type _ClientCapabilitiesPartialFields = {
 	enabled_capabilities: { _roblox_apppageplatform_shared_v1beta1_capability.Capability }?,
 	proto_version: string?,
 	platform: Platform?,
+	registered_ui_component_types: { _roblox_apppageplatform_shared_v1beta1_ui_component_type.UiComponentType }?,
+	registered_action_types: { _roblox_apppageplatform_shared_v1beta1_actions.ActionType }?,
+	runtime_flag_values: { [string]: boolean }?,
 }
 
 export type ClientCapabilities = typeof(setmetatable({} :: _ClientCapabilitiesFields, {} :: _ClientCapabilitiesImpl))
 type _ClientCapabilitiesMessage = proto.Message<ClientCapabilities, _ClientCapabilitiesPartialFields>
+
+type _ClientCapabilities_RuntimeFlagValuesEntryImpl = {
+	__index: _ClientCapabilities_RuntimeFlagValuesEntryImpl,
+	new: (
+		fields: _ClientCapabilities_RuntimeFlagValuesEntryPartialFields?
+	) -> ClientCapabilities_RuntimeFlagValuesEntry,
+	encode: (self: ClientCapabilities_RuntimeFlagValuesEntry) -> buffer,
+	decode: (input: buffer) -> ClientCapabilities_RuntimeFlagValuesEntry,
+	jsonEncode: (self: ClientCapabilities_RuntimeFlagValuesEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ClientCapabilities_RuntimeFlagValuesEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _ClientCapabilities_RuntimeFlagValuesEntryFields = {
+	key: string,
+	value: boolean,
+}
+
+type _ClientCapabilities_RuntimeFlagValuesEntryPartialFields = {
+	key: string?,
+	value: boolean?,
+}
+
+export type ClientCapabilities_RuntimeFlagValuesEntry = typeof(setmetatable(
+	{} :: _ClientCapabilities_RuntimeFlagValuesEntryFields,
+	{} :: _ClientCapabilities_RuntimeFlagValuesEntryImpl
+))
+type _ClientCapabilities_RuntimeFlagValuesEntryMessage = proto.Message<
+	ClientCapabilities_RuntimeFlagValuesEntry,
+	_ClientCapabilities_RuntimeFlagValuesEntryPartialFields
+>
 
 type _PlatformMessage = proto.Enum<Platform>
 export type Platform = "PLATFORM_INVALID" | "PLATFORM_WEB" | "PLATFORM_APP" | number -- Unknown
@@ -55,6 +95,15 @@ do
 			platform = if data == nil or data.platform == nil
 				then assert(messages.Platform.fromNumber(0), "Enum has no 0 default")
 				else data.platform,
+			registered_ui_component_types = if data == nil or data.registered_ui_component_types == nil
+				then {}
+				else data.registered_ui_component_types,
+			registered_action_types = if data == nil or data.registered_action_types == nil
+				then {}
+				else data.registered_action_types,
+			runtime_flag_values = if data == nil or data.runtime_flag_values == nil
+				then {}
+				else data.runtime_flag_values,
 		}, _ClientCapabilitiesImpl :: _ClientCapabilitiesImpl)
 	end
 
@@ -86,6 +135,41 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, messages.Platform.toNumber(self.platform :: any))
 		end
 
+		if self.registered_ui_component_types ~= nil and #self.registered_ui_component_types > 0 then
+			for _, value in self.registered_ui_component_types do
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
+				output, cursor = proto.writeVarInt(
+					output,
+					cursor,
+					_roblox_apppageplatform_shared_v1beta1_ui_component_type.UiComponentType.toNumber(value :: any)
+				)
+			end
+		end
+
+		if self.registered_action_types ~= nil and #self.registered_action_types > 0 then
+			for _, value in self.registered_action_types do
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+				output, cursor = proto.writeVarInt(
+					output,
+					cursor,
+					_roblox_apppageplatform_shared_v1beta1_actions.ActionType.toNumber(value :: any)
+				)
+			end
+		end
+
+		if self.runtime_flag_values ~= nil and next(self.runtime_flag_values) ~= nil then
+			for key, value in self.runtime_flag_values do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.varint)
+				mapBuffer, mapCursor = proto.writeVarInt(mapBuffer, mapCursor, if value then 1 else 0)
+				output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -113,6 +197,26 @@ do
 					value, cursor = proto.readVarIntI32(input, cursor)
 					self.platform = (messages.Platform.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					table.insert(
+						self.registered_ui_component_types,
+						(
+								_roblox_apppageplatform_shared_v1beta1_ui_component_type.UiComponentType.fromNumber(
+									value
+								) or value
+							) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					table.insert(
+						self.registered_action_types,
+						(_roblox_apppageplatform_shared_v1beta1_actions.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					)
+					continue
 				end
 
 				local _
@@ -122,6 +226,18 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.proto_version = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.ClientCapabilities_RuntimeFlagValuesEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = false
+
+					self.runtime_flag_values[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
 					continue
 				end
 
@@ -176,6 +292,42 @@ do
 				else messages.Platform.toNumber(self.platform :: any)
 		end
 
+		if self.registered_ui_component_types ~= nil and #self.registered_ui_component_types > 0 then
+			local newOutput = {}
+			for _, value in self.registered_ui_component_types do
+				table.insert(
+					newOutput,
+					if typeof(value) == "number"
+						then value
+						else _roblox_apppageplatform_shared_v1beta1_ui_component_type.UiComponentType.toNumber(
+							value :: any
+						)
+				)
+			end
+			output.registeredUiComponentTypes = newOutput
+		end
+
+		if self.registered_action_types ~= nil and #self.registered_action_types > 0 then
+			local newOutput = {}
+			for _, value in self.registered_action_types do
+				table.insert(
+					newOutput,
+					if typeof(value) == "number"
+						then value
+						else _roblox_apppageplatform_shared_v1beta1_actions.ActionType.toNumber(value :: any)
+				)
+			end
+			output.registeredActionTypes = newOutput
+		end
+
+		if self.runtime_flag_values ~= nil and next(self.runtime_flag_values) ~= nil then
+			local newOutput = {}
+			for key, value in self.runtime_flag_values do
+				newOutput[key] = value
+			end
+			output.runtimeFlagValues = newOutput
+		end
+
 		return output
 	end
 
@@ -224,6 +376,90 @@ do
 				else (messages.Platform.fromName(input.platform) or input.platform)
 		end
 
+		if input.registered_ui_component_types ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_ui_component_type.UiComponentType } = {}
+			for _, value in input.registered_ui_component_types do
+				table.insert(
+					newOutput,
+					if typeof(value) == "number"
+						then (
+							_roblox_apppageplatform_shared_v1beta1_ui_component_type.UiComponentType.fromNumber(value)
+							or value
+						)
+						else (_roblox_apppageplatform_shared_v1beta1_ui_component_type.UiComponentType.fromName(
+							value
+						) or value)
+				)
+			end
+
+			self.registered_ui_component_types = newOutput
+		end
+
+		if input.registeredUiComponentTypes ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_ui_component_type.UiComponentType } = {}
+			for _, value in input.registeredUiComponentTypes do
+				table.insert(
+					newOutput,
+					if typeof(value) == "number"
+						then (
+							_roblox_apppageplatform_shared_v1beta1_ui_component_type.UiComponentType.fromNumber(value)
+							or value
+						)
+						else (_roblox_apppageplatform_shared_v1beta1_ui_component_type.UiComponentType.fromName(
+							value
+						) or value)
+				)
+			end
+
+			self.registered_ui_component_types = newOutput
+		end
+
+		if input.registered_action_types ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_actions.ActionType } = {}
+			for _, value in input.registered_action_types do
+				table.insert(
+					newOutput,
+					if typeof(value) == "number"
+						then (_roblox_apppageplatform_shared_v1beta1_actions.ActionType.fromNumber(value) or value)
+						else (_roblox_apppageplatform_shared_v1beta1_actions.ActionType.fromName(value) or value)
+				)
+			end
+
+			self.registered_action_types = newOutput
+		end
+
+		if input.registeredActionTypes ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_actions.ActionType } = {}
+			for _, value in input.registeredActionTypes do
+				table.insert(
+					newOutput,
+					if typeof(value) == "number"
+						then (_roblox_apppageplatform_shared_v1beta1_actions.ActionType.fromNumber(value) or value)
+						else (_roblox_apppageplatform_shared_v1beta1_actions.ActionType.fromName(value) or value)
+				)
+			end
+
+			self.registered_action_types = newOutput
+		end
+
+		if input.runtime_flag_values ~= nil then
+			local newOutput: { [string]: boolean } = {}
+			for key, value in input.runtime_flag_values do
+				newOutput[key] = value
+			end
+
+			self.runtime_flag_values = newOutput
+		end
+
+		if input.runtimeFlagValues ~= nil then
+			local newOutput: { [string]: boolean } = {}
+			for key, value in input.runtimeFlagValues do
+				newOutput[key] = value
+			end
+
+			self.runtime_flag_values = newOutput
+		end
+
 		return self
 	end
 
@@ -235,6 +471,132 @@ do
 	messages.ClientCapabilities = _ClientCapabilitiesImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.ClientCapabilities)
+end
+
+do
+	local _ClientCapabilities_RuntimeFlagValuesEntryImpl = {}
+	_ClientCapabilities_RuntimeFlagValuesEntryImpl.__index = _ClientCapabilities_RuntimeFlagValuesEntryImpl
+
+	function _ClientCapabilities_RuntimeFlagValuesEntryImpl.new(
+		data: _ClientCapabilities_RuntimeFlagValuesEntryPartialFields?
+	): ClientCapabilities_RuntimeFlagValuesEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then false else data.value,
+		}, _ClientCapabilities_RuntimeFlagValuesEntryImpl :: _ClientCapabilities_RuntimeFlagValuesEntryImpl)
+	end
+
+	function _ClientCapabilities_RuntimeFlagValuesEntryImpl.encode(
+		self: ClientCapabilities_RuntimeFlagValuesEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.value then 1 else 0)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ClientCapabilities_RuntimeFlagValuesEntryImpl.decode(
+		input: buffer
+	): ClientCapabilities_RuntimeFlagValuesEntry
+		local self = _ClientCapabilities_RuntimeFlagValuesEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.value = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ClientCapabilities_RuntimeFlagValuesEntryImpl.jsonEncode(
+		self: ClientCapabilities_RuntimeFlagValuesEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value then
+			output.value = self.value
+		end
+
+		return output
+	end
+
+	function _ClientCapabilities_RuntimeFlagValuesEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): ClientCapabilities_RuntimeFlagValuesEntry
+		local self = _ClientCapabilities_RuntimeFlagValuesEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = input.value
+		end
+
+		return self
+	end
+
+	_ClientCapabilities_RuntimeFlagValuesEntryImpl.descriptor = {
+		name = "ClientCapabilities_RuntimeFlagValuesEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RuntimeFlagValuesEntry",
+	}
+
+	messages.ClientCapabilities_RuntimeFlagValuesEntry = _ClientCapabilities_RuntimeFlagValuesEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ClientCapabilities_RuntimeFlagValuesEntry)
 end
 
 messages.Platform = {

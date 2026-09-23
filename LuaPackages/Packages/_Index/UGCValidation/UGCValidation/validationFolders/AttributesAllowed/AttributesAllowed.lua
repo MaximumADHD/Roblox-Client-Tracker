@@ -97,12 +97,12 @@ local function walkInstanceTree(
 end
 
 AttributesAllowed.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	-- IEC allows AlternateMeshId for editable-instance wiring.
+	-- Lifecycle-gated on consumerEnv: IEC-origin allows AlternateMeshId for editable-instance wiring.
 	local allowEditableInstances = data.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.IEC
 
 	walkInstanceTree(reporter, data.rootInstance, allowEditableInstances)
 
-	-- R15Fixed is built from a separate folder (unreachable from rootInstance) and only Backend deserializes it; sweep it too.
+	-- R15Fixed lives in a separate folder (unreachable from rootInstance) and only exists on backend-origin uploads; sweep it too.
 	if
 		getFFlagUGCValidateR15FixedAttributes()
 		and data.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Backend

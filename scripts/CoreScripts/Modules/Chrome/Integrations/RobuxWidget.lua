@@ -16,7 +16,9 @@ type SideSheetWidgetProps = ChromePackage.SideSheetWidgetProps
 
 local function openShop()
 	if ChromeService:isIntegrationValid(Constants.IN_EXPERIENCE_SHOP_ID) then
-		InExperienceShop.requestOpenToRobuxTab()
+		if not ChromeService:isWindowOpen(Constants.IN_EXPERIENCE_SHOP_ID) then
+			InExperienceShop.requestOpenToRobuxTab()
+		end
 		ChromeService:activate(Constants.IN_EXPERIENCE_SHOP_ID)
 	end
 end

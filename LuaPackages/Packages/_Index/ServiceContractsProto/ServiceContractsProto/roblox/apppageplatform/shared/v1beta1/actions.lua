@@ -189,6 +189,11 @@ type _Messages =
 		OpenWhyThisAdAction_Params: _OpenWhyThisAdAction_ParamsMessage,
 		RequestPushNotificationPermissionAction: _RequestPushNotificationPermissionActionMessage,
 		RequestPushNotificationPermissionAction_Params: _RequestPushNotificationPermissionAction_ParamsMessage,
+		OpenBuildCreationChatAction: _OpenBuildCreationChatActionMessage,
+		OpenBuildCreationChatAction_Params: _OpenBuildCreationChatAction_ParamsMessage,
+		ExperimentalActionProp: _ExperimentalActionPropMessage,
+		ExperimentalAction: _ExperimentalActionMessage,
+		ExperimentalAction_ActionParamsEntry: _ExperimentalAction_ActionParamsEntryMessage,
 		Action: _ActionMessage,
 		ActionProp: _ActionPropMessage,
 		ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -203,6 +208,7 @@ type _Messages =
 	}
 local messages: _Messages = {} :: _Messages
 
+local _roblox_apppageplatform_shared_v1beta1_experimental_prop_types = require(script.Parent.experimental_prop_types)
 local _roblox_apppageplatform_shared_v1beta1_prop_condition = require(script.Parent.prop_condition)
 local _roblox_apppageplatform_shared_v1beta1_prop_types = require(script.Parent.prop_types)
 local _roblox_apppageplatform_shared_v1beta1_prop_types_engine = require(script.Parent.prop_types_engine)
@@ -410,6 +416,7 @@ type _OpenGameDetailsAction_ParamsFields = {
 	place_id_override: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	experience_join_data: LaunchExperienceAction_ExperienceJoinData?,
 	skip_sponsored_click_recording: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	canonical_url_path: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _OpenGameDetailsAction_ParamsPartialFields = {
@@ -419,6 +426,7 @@ type _OpenGameDetailsAction_ParamsPartialFields = {
 	place_id_override: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	experience_join_data: LaunchExperienceAction_ExperienceJoinData?,
 	skip_sponsored_click_recording: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	canonical_url_path: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type OpenGameDetailsAction_Params = typeof(setmetatable(
@@ -738,11 +746,15 @@ type _UpdateUserSettingsAction_ParamsImpl = {
 type _UpdateUserSettingsAction_ParamsFields = {
 	settings: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
 	audit_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	on_success: ActionProp?,
+	on_failure: ActionProp?,
 }
 
 type _UpdateUserSettingsAction_ParamsPartialFields = {
 	settings: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
 	audit_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	on_success: ActionProp?,
+	on_failure: ActionProp?,
 }
 
 export type UpdateUserSettingsAction_Params = typeof(setmetatable(
@@ -4307,6 +4319,8 @@ type _OpenAmpWizardAction_ParamsFields = {
 	name_space: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	entry_point_event_ctx: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	skip_facial_age_estimation_web_link_modal: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	on_open: ActionProp?,
+	on_success: ActionProp?,
 }
 
 type _OpenAmpWizardAction_ParamsPartialFields = {
@@ -4314,6 +4328,8 @@ type _OpenAmpWizardAction_ParamsPartialFields = {
 	name_space: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	entry_point_event_ctx: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	skip_facial_age_estimation_web_link_modal: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	on_open: ActionProp?,
+	on_success: ActionProp?,
 }
 
 export type OpenAmpWizardAction_Params = typeof(setmetatable(
@@ -5481,6 +5497,154 @@ type _RequestPushNotificationPermissionAction_ParamsMessage = proto.Message<
 	_RequestPushNotificationPermissionAction_ParamsPartialFields
 >
 
+type _OpenBuildCreationChatActionImpl = {
+	__index: _OpenBuildCreationChatActionImpl,
+	new: (fields: _OpenBuildCreationChatActionPartialFields?) -> OpenBuildCreationChatAction,
+	encode: (self: OpenBuildCreationChatAction) -> buffer,
+	decode: (input: buffer) -> OpenBuildCreationChatAction,
+	jsonEncode: (self: OpenBuildCreationChatAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenBuildCreationChatAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenBuildCreationChatActionFields = {
+	action_type: ActionType,
+	action_params: OpenBuildCreationChatAction_Params?,
+}
+
+type _OpenBuildCreationChatActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenBuildCreationChatAction_Params?,
+}
+
+export type OpenBuildCreationChatAction = typeof(setmetatable(
+	{} :: _OpenBuildCreationChatActionFields,
+	{} :: _OpenBuildCreationChatActionImpl
+))
+type _OpenBuildCreationChatActionMessage = proto.Message<
+	OpenBuildCreationChatAction,
+	_OpenBuildCreationChatActionPartialFields
+>
+
+type _OpenBuildCreationChatAction_ParamsImpl = {
+	__index: _OpenBuildCreationChatAction_ParamsImpl,
+	new: (fields: _OpenBuildCreationChatAction_ParamsPartialFields?) -> OpenBuildCreationChatAction_Params,
+	encode: (self: OpenBuildCreationChatAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenBuildCreationChatAction_Params,
+	jsonEncode: (self: OpenBuildCreationChatAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenBuildCreationChatAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenBuildCreationChatAction_ParamsFields = {
+	experience_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	session_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	creator_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenBuildCreationChatAction_ParamsPartialFields = {
+	experience_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	session_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	creator_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenBuildCreationChatAction_Params = typeof(setmetatable(
+	{} :: _OpenBuildCreationChatAction_ParamsFields,
+	{} :: _OpenBuildCreationChatAction_ParamsImpl
+))
+type _OpenBuildCreationChatAction_ParamsMessage = proto.Message<
+	OpenBuildCreationChatAction_Params,
+	_OpenBuildCreationChatAction_ParamsPartialFields
+>
+
+type _ExperimentalActionPropImpl = {
+	__index: _ExperimentalActionPropImpl,
+	new: (fields: _ExperimentalActionPropPartialFields?) -> ExperimentalActionProp,
+	encode: (self: ExperimentalActionProp) -> buffer,
+	decode: (input: buffer) -> ExperimentalActionProp,
+	jsonEncode: (self: ExperimentalActionProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperimentalActionProp,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperimentalActionPropFields = {
+	oneof_prop: ({
+		type: "value",
+		value: _roblox_apppageplatform_shared_v1beta1_experimental_prop_types.ExperimentalProp,
+	} | { type: "action", value: ActionProp })?,
+}
+
+type _ExperimentalActionPropPartialFields = {
+	oneof_prop: ({
+		type: "value",
+		value: _roblox_apppageplatform_shared_v1beta1_experimental_prop_types.ExperimentalProp,
+	} | { type: "action", value: ActionProp })?,
+}
+
+export type ExperimentalActionProp = typeof(setmetatable(
+	{} :: _ExperimentalActionPropFields,
+	{} :: _ExperimentalActionPropImpl
+))
+type _ExperimentalActionPropMessage = proto.Message<ExperimentalActionProp, _ExperimentalActionPropPartialFields>
+
+type _ExperimentalActionImpl = {
+	__index: _ExperimentalActionImpl,
+	new: (fields: _ExperimentalActionPartialFields?) -> ExperimentalAction,
+	encode: (self: ExperimentalAction) -> buffer,
+	decode: (input: buffer) -> ExperimentalAction,
+	jsonEncode: (self: ExperimentalAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperimentalAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperimentalActionFields = {
+	action_type: ActionType,
+	action_params: { [string]: ExperimentalActionProp },
+	experimental_type: string,
+}
+
+type _ExperimentalActionPartialFields = {
+	action_type: ActionType?,
+	action_params: { [string]: ExperimentalActionProp }?,
+	experimental_type: string?,
+}
+
+export type ExperimentalAction = typeof(setmetatable({} :: _ExperimentalActionFields, {} :: _ExperimentalActionImpl))
+type _ExperimentalActionMessage = proto.Message<ExperimentalAction, _ExperimentalActionPartialFields>
+
+type _ExperimentalAction_ActionParamsEntryImpl = {
+	__index: _ExperimentalAction_ActionParamsEntryImpl,
+	new: (fields: _ExperimentalAction_ActionParamsEntryPartialFields?) -> ExperimentalAction_ActionParamsEntry,
+	encode: (self: ExperimentalAction_ActionParamsEntry) -> buffer,
+	decode: (input: buffer) -> ExperimentalAction_ActionParamsEntry,
+	jsonEncode: (self: ExperimentalAction_ActionParamsEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperimentalAction_ActionParamsEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperimentalAction_ActionParamsEntryFields = {
+	key: string,
+	value: ExperimentalActionProp?,
+}
+
+type _ExperimentalAction_ActionParamsEntryPartialFields = {
+	key: string?,
+	value: ExperimentalActionProp?,
+}
+
+export type ExperimentalAction_ActionParamsEntry = typeof(setmetatable(
+	{} :: _ExperimentalAction_ActionParamsEntryFields,
+	{} :: _ExperimentalAction_ActionParamsEntryImpl
+))
+type _ExperimentalAction_ActionParamsEntryMessage = proto.Message<
+	ExperimentalAction_ActionParamsEntry,
+	_ExperimentalAction_ActionParamsEntryPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -5581,6 +5745,8 @@ type _ActionFields = {
 		| { type: "apply_dev_store_see_all_category_filter_action", value: ApplyDevStoreSeeAllCategoryFilterAction }
 		| { type: "open_why_this_ad_action", value: OpenWhyThisAdAction }
 		| { type: "request_push_notification_permission_action", value: RequestPushNotificationPermissionAction }
+		| { type: "open_build_creation_chat_action", value: OpenBuildCreationChatAction }
+		| { type: "experimental_action", value: ExperimentalAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -5678,6 +5844,8 @@ type _ActionPartialFields = {
 		| { type: "apply_dev_store_see_all_category_filter_action", value: ApplyDevStoreSeeAllCategoryFilterAction }
 		| { type: "open_why_this_ad_action", value: OpenWhyThisAdAction }
 		| { type: "request_push_notification_permission_action", value: RequestPushNotificationPermissionAction }
+		| { type: "open_build_creation_chat_action", value: OpenBuildCreationChatAction }
+		| { type: "experimental_action", value: ExperimentalAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -6029,6 +6197,8 @@ export type ActionType =
 	| "ACTION_TYPE_APPLY_DEV_STORE_SEE_ALL_CATEGORY_FILTER"
 	| "ACTION_TYPE_OPEN_WHY_THIS_AD"
 	| "ACTION_TYPE_REQUEST_PUSH_NOTIFICATION_PERMISSION"
+	| "ACTION_TYPE_OPEN_BUILD_CREATION_CHAT"
+	| "ACTION_TYPE_EXPERIMENTAL"
 	| number -- Unknown
 
 do
@@ -7095,6 +7265,7 @@ do
 			skip_sponsored_click_recording = if data == nil or data.skip_sponsored_click_recording == nil
 				then nil
 				else data.skip_sponsored_click_recording,
+			canonical_url_path = if data == nil or data.canonical_url_path == nil then nil else data.canonical_url_path,
 		}, _OpenGameDetailsAction_ParamsImpl :: _OpenGameDetailsAction_ParamsImpl)
 	end
 
@@ -7135,6 +7306,12 @@ do
 		if self.skip_sponsored_click_recording ~= nil then
 			local encoded = self.skip_sponsored_click_recording:encode()
 			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.canonical_url_path ~= nil then
+			local encoded = self.canonical_url_path:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -7189,6 +7366,11 @@ do
 					self.skip_sponsored_click_recording =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.canonical_url_path = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -7238,6 +7420,10 @@ do
 
 		if self.skip_sponsored_click_recording ~= nil then
 			output.skipSponsoredClickRecording = self.skip_sponsored_click_recording:jsonEncode()
+		end
+
+		if self.canonical_url_path ~= nil then
+			output.canonicalUrlPath = self.canonical_url_path:jsonEncode()
 		end
 
 		return output
@@ -7302,6 +7488,16 @@ do
 		if input.skipSponsoredClickRecording ~= nil then
 			self.skip_sponsored_click_recording =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skipSponsoredClickRecording)
+		end
+
+		if input.canonical_url_path ~= nil then
+			self.canonical_url_path =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.canonical_url_path)
+		end
+
+		if input.canonicalUrlPath ~= nil then
+			self.canonical_url_path =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.canonicalUrlPath)
 		end
 
 		return self
@@ -8829,6 +9025,8 @@ do
 		return setmetatable({
 			settings = if data == nil or data.settings == nil then nil else data.settings,
 			audit_data = if data == nil or data.audit_data == nil then nil else data.audit_data,
+			on_success = if data == nil or data.on_success == nil then nil else data.on_success,
+			on_failure = if data == nil or data.on_failure == nil then nil else data.on_failure,
 		}, _UpdateUserSettingsAction_ParamsImpl :: _UpdateUserSettingsAction_ParamsImpl)
 	end
 
@@ -8845,6 +9043,18 @@ do
 		if self.audit_data ~= nil then
 			local encoded = self.audit_data:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_success ~= nil then
+			local encoded = self.on_success:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_failure ~= nil then
+			local encoded = self.on_failure:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -8876,6 +9086,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.audit_data = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_success = messages.ActionProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_failure = messages.ActionProp.decode(value)
 					continue
 				end
 
@@ -8912,6 +9132,14 @@ do
 			output.auditData = self.audit_data:jsonEncode()
 		end
 
+		if self.on_success ~= nil then
+			output.onSuccess = self.on_success:jsonEncode()
+		end
+
+		if self.on_failure ~= nil then
+			output.onFailure = self.on_failure:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -8928,6 +9156,22 @@ do
 
 		if input.auditData ~= nil then
 			self.audit_data = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.auditData)
+		end
+
+		if input.on_success ~= nil then
+			self.on_success = messages.ActionProp.jsonDecode(input.on_success)
+		end
+
+		if input.onSuccess ~= nil then
+			self.on_success = messages.ActionProp.jsonDecode(input.onSuccess)
+		end
+
+		if input.on_failure ~= nil then
+			self.on_failure = messages.ActionProp.jsonDecode(input.on_failure)
+		end
+
+		if input.onFailure ~= nil then
+			self.on_failure = messages.ActionProp.jsonDecode(input.onFailure)
 		end
 
 		return self
@@ -27288,6 +27532,8 @@ do
 					or data.skip_facial_age_estimation_web_link_modal == nil
 				then nil
 				else data.skip_facial_age_estimation_web_link_modal,
+			on_open = if data == nil or data.on_open == nil then nil else data.on_open,
+			on_success = if data == nil or data.on_success == nil then nil else data.on_success,
 		}, _OpenAmpWizardAction_ParamsImpl :: _OpenAmpWizardAction_ParamsImpl)
 	end
 
@@ -27316,6 +27562,18 @@ do
 		if self.skip_facial_age_estimation_web_link_modal ~= nil then
 			local encoded = self.skip_facial_age_estimation_web_link_modal:encode()
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_open ~= nil then
+			local encoded = self.on_open:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_success ~= nil then
+			local encoded = self.on_success:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -27360,6 +27618,16 @@ do
 					self.skip_facial_age_estimation_web_link_modal =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_open = messages.ActionProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_success = messages.ActionProp.decode(value)
+					continue
 				end
 
 				local length
@@ -27401,6 +27669,14 @@ do
 
 		if self.skip_facial_age_estimation_web_link_modal ~= nil then
 			output.skipFacialAgeEstimationWebLinkModal = self.skip_facial_age_estimation_web_link_modal:jsonEncode()
+		end
+
+		if self.on_open ~= nil then
+			output.onOpen = self.on_open:jsonEncode()
+		end
+
+		if self.on_success ~= nil then
+			output.onSuccess = self.on_success:jsonEncode()
 		end
 
 		return output
@@ -27449,6 +27725,22 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
 					input.skipFacialAgeEstimationWebLinkModal
 				)
+		end
+
+		if input.on_open ~= nil then
+			self.on_open = messages.ActionProp.jsonDecode(input.on_open)
+		end
+
+		if input.onOpen ~= nil then
+			self.on_open = messages.ActionProp.jsonDecode(input.onOpen)
+		end
+
+		if input.on_success ~= nil then
+			self.on_success = messages.ActionProp.jsonDecode(input.on_success)
+		end
+
+		if input.onSuccess ~= nil then
+			self.on_success = messages.ActionProp.jsonDecode(input.onSuccess)
 		end
 
 		return self
@@ -33296,6 +33588,805 @@ do
 end
 
 do
+	local _OpenBuildCreationChatActionImpl = {}
+	_OpenBuildCreationChatActionImpl.__index = _OpenBuildCreationChatActionImpl
+
+	function _OpenBuildCreationChatActionImpl.new(
+		data: _OpenBuildCreationChatActionPartialFields?
+	): OpenBuildCreationChatAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenBuildCreationChatActionImpl :: _OpenBuildCreationChatActionImpl)
+	end
+
+	function _OpenBuildCreationChatActionImpl.encode(self: OpenBuildCreationChatAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenBuildCreationChatActionImpl.decode(input: buffer): OpenBuildCreationChatAction
+		local self = _OpenBuildCreationChatActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenBuildCreationChatAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenBuildCreationChatActionImpl.jsonEncode(self: OpenBuildCreationChatAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenBuildCreationChatActionImpl.jsonDecode(input: { [string]: any }): OpenBuildCreationChatAction
+		local self = _OpenBuildCreationChatActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenBuildCreationChatAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenBuildCreationChatAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenBuildCreationChatActionImpl.descriptor = {
+		name = "OpenBuildCreationChatAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenBuildCreationChatAction",
+	}
+
+	messages.OpenBuildCreationChatAction = _OpenBuildCreationChatActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenBuildCreationChatAction)
+end
+
+do
+	local _OpenBuildCreationChatAction_ParamsImpl = {}
+	_OpenBuildCreationChatAction_ParamsImpl.__index = _OpenBuildCreationChatAction_ParamsImpl
+
+	function _OpenBuildCreationChatAction_ParamsImpl.new(
+		data: _OpenBuildCreationChatAction_ParamsPartialFields?
+	): OpenBuildCreationChatAction_Params
+		return setmetatable({
+			experience_name = if data == nil or data.experience_name == nil then nil else data.experience_name,
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			session_id = if data == nil or data.session_id == nil then nil else data.session_id,
+			place_id = if data == nil or data.place_id == nil then nil else data.place_id,
+			creator_name = if data == nil or data.creator_name == nil then nil else data.creator_name,
+		}, _OpenBuildCreationChatAction_ParamsImpl :: _OpenBuildCreationChatAction_ParamsImpl)
+	end
+
+	function _OpenBuildCreationChatAction_ParamsImpl.encode(self: OpenBuildCreationChatAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.experience_name ~= nil then
+			local encoded = self.experience_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.session_id ~= nil then
+			local encoded = self.session_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.place_id ~= nil then
+			local encoded = self.place_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.creator_name ~= nil then
+			local encoded = self.creator_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenBuildCreationChatAction_ParamsImpl.decode(input: buffer): OpenBuildCreationChatAction_Params
+		local self = _OpenBuildCreationChatAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.experience_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.session_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenBuildCreationChatAction_ParamsImpl.jsonEncode(self: OpenBuildCreationChatAction_Params): any
+		local output = {}
+
+		if self.experience_name ~= nil then
+			output.experienceName = self.experience_name:jsonEncode()
+		end
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		if self.session_id ~= nil then
+			output.sessionId = self.session_id:jsonEncode()
+		end
+
+		if self.place_id ~= nil then
+			output.placeId = self.place_id:jsonEncode()
+		end
+
+		if self.creator_name ~= nil then
+			output.creatorName = self.creator_name:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenBuildCreationChatAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenBuildCreationChatAction_Params
+		local self = _OpenBuildCreationChatAction_ParamsImpl.new()
+
+		if input.experience_name ~= nil then
+			self.experience_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.experience_name)
+		end
+
+		if input.experienceName ~= nil then
+			self.experience_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.experienceName)
+		end
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.session_id ~= nil then
+			self.session_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.session_id)
+		end
+
+		if input.sessionId ~= nil then
+			self.session_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sessionId)
+		end
+
+		if input.place_id ~= nil then
+			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.place_id)
+		end
+
+		if input.placeId ~= nil then
+			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.placeId)
+		end
+
+		if input.creator_name ~= nil then
+			self.creator_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.creator_name)
+		end
+
+		if input.creatorName ~= nil then
+			self.creator_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.creatorName)
+		end
+
+		return self
+	end
+
+	_OpenBuildCreationChatAction_ParamsImpl.descriptor = {
+		name = "OpenBuildCreationChatAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenBuildCreationChatAction_Params = _OpenBuildCreationChatAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenBuildCreationChatAction_Params)
+end
+
+do
+	local _ExperimentalActionPropImpl = {}
+	_ExperimentalActionPropImpl.__index = _ExperimentalActionPropImpl
+
+	function _ExperimentalActionPropImpl.new(data: _ExperimentalActionPropPartialFields?): ExperimentalActionProp
+		return setmetatable({
+			oneof_prop = if data == nil or data.oneof_prop == nil then nil else data.oneof_prop,
+		}, _ExperimentalActionPropImpl :: _ExperimentalActionPropImpl)
+	end
+
+	function _ExperimentalActionPropImpl.encode(self: ExperimentalActionProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.oneof_prop ~= nil then
+			if self.oneof_prop.type == "value" then
+				local encoded = self.oneof_prop.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.oneof_prop.type == "action" then
+				local encoded = self.oneof_prop.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperimentalActionPropImpl.decode(input: buffer): ExperimentalActionProp
+		local self = _ExperimentalActionPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.oneof_prop = {
+						type = "value",
+						value = _roblox_apppageplatform_shared_v1beta1_experimental_prop_types.ExperimentalProp.decode(
+							value
+						),
+					}
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.oneof_prop = { type = "action", value = messages.ActionProp.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperimentalActionPropImpl.jsonEncode(self: ExperimentalActionProp): any
+		local output = {}
+
+		if self.oneof_prop ~= nil then
+			if self.oneof_prop.type == "value" then
+				output.value = self.oneof_prop.value:jsonEncode()
+			elseif self.oneof_prop.type == "action" then
+				output.action = self.oneof_prop.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _ExperimentalActionPropImpl.jsonDecode(input: { [string]: any }): ExperimentalActionProp
+		local self = _ExperimentalActionPropImpl.new()
+
+		if input.value ~= nil then
+			self.oneof_prop = {
+				type = "value",
+				value = _roblox_apppageplatform_shared_v1beta1_experimental_prop_types.ExperimentalProp.jsonDecode(
+					input.value
+				),
+			}
+		end
+
+		if input.action ~= nil then
+			self.oneof_prop = { type = "action", value = messages.ActionProp.jsonDecode(input.action) }
+		end
+
+		return self
+	end
+
+	_ExperimentalActionPropImpl.descriptor = {
+		name = "ExperimentalActionProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperimentalActionProp",
+	}
+
+	messages.ExperimentalActionProp = _ExperimentalActionPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperimentalActionProp)
+end
+
+do
+	local _ExperimentalActionImpl = {}
+	_ExperimentalActionImpl.__index = _ExperimentalActionImpl
+
+	function _ExperimentalActionImpl.new(data: _ExperimentalActionPartialFields?): ExperimentalAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then {} else data.action_params,
+			experimental_type = if data == nil or data.experimental_type == nil then "" else data.experimental_type,
+		}, _ExperimentalActionImpl :: _ExperimentalActionImpl)
+	end
+
+	function _ExperimentalActionImpl.encode(self: ExperimentalAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil and next(self.action_params) ~= nil then
+			for key, value in self.action_params do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.experimental_type ~= nil and self.experimental_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.experimental_type)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperimentalActionImpl.decode(input: buffer): ExperimentalAction
+		local self = _ExperimentalActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.ExperimentalAction_ActionParamsEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.ExperimentalActionProp.new()
+
+					self.action_params[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.experimental_type = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperimentalActionImpl.jsonEncode(self: ExperimentalAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil and next(self.action_params) ~= nil then
+			local newOutput = {}
+			for key, value in self.action_params do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.actionParams = newOutput
+		end
+
+		if self.experimental_type ~= nil and self.experimental_type ~= "" then
+			output.experimentalType = self.experimental_type
+		end
+
+		return output
+	end
+
+	function _ExperimentalActionImpl.jsonDecode(input: { [string]: any }): ExperimentalAction
+		local self = _ExperimentalActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			local newOutput: { [string]: ExperimentalActionProp } = {}
+			for key, value in input.action_params do
+				newOutput[key] = messages.ExperimentalActionProp.jsonDecode(value)
+			end
+
+			self.action_params = newOutput
+		end
+
+		if input.actionParams ~= nil then
+			local newOutput: { [string]: ExperimentalActionProp } = {}
+			for key, value in input.actionParams do
+				newOutput[key] = messages.ExperimentalActionProp.jsonDecode(value)
+			end
+
+			self.action_params = newOutput
+		end
+
+		if input.experimental_type ~= nil then
+			self.experimental_type = input.experimental_type
+		end
+
+		if input.experimentalType ~= nil then
+			self.experimental_type = input.experimentalType
+		end
+
+		return self
+	end
+
+	_ExperimentalActionImpl.descriptor = {
+		name = "ExperimentalAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperimentalAction",
+	}
+
+	messages.ExperimentalAction = _ExperimentalActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperimentalAction)
+end
+
+do
+	local _ExperimentalAction_ActionParamsEntryImpl = {}
+	_ExperimentalAction_ActionParamsEntryImpl.__index = _ExperimentalAction_ActionParamsEntryImpl
+
+	function _ExperimentalAction_ActionParamsEntryImpl.new(
+		data: _ExperimentalAction_ActionParamsEntryPartialFields?
+	): ExperimentalAction_ActionParamsEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _ExperimentalAction_ActionParamsEntryImpl :: _ExperimentalAction_ActionParamsEntryImpl)
+	end
+
+	function _ExperimentalAction_ActionParamsEntryImpl.encode(self: ExperimentalAction_ActionParamsEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperimentalAction_ActionParamsEntryImpl.decode(input: buffer): ExperimentalAction_ActionParamsEntry
+		local self = _ExperimentalAction_ActionParamsEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.ExperimentalActionProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperimentalAction_ActionParamsEntryImpl.jsonEncode(self: ExperimentalAction_ActionParamsEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ExperimentalAction_ActionParamsEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): ExperimentalAction_ActionParamsEntry
+		local self = _ExperimentalAction_ActionParamsEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.ExperimentalActionProp.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_ExperimentalAction_ActionParamsEntryImpl.descriptor = {
+		name = "ExperimentalAction_ActionParamsEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ActionParamsEntry",
+	}
+
+	messages.ExperimentalAction_ActionParamsEntry = _ExperimentalAction_ActionParamsEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperimentalAction_ActionParamsEntry)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -33657,6 +34748,14 @@ do
 			elseif self.kind.type == "request_push_notification_permission_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 85, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_build_creation_chat_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 86, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "experimental_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 87, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -34290,6 +35389,19 @@ do
 						value = messages.RequestPushNotificationPermissionAction.decode(value),
 					}
 					continue
+				elseif field == 86 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_build_creation_chat_action",
+						value = messages.OpenBuildCreationChatAction.decode(value),
+					}
+					continue
+				elseif field == 87 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "experimental_action", value = messages.ExperimentalAction.decode(value) }
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -34509,6 +35621,10 @@ do
 				output.openWhyThisAdAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "request_push_notification_permission_action" then
 				output.requestPushNotificationPermissionAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_build_creation_chat_action" then
+				output.openBuildCreationChatAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "experimental_action" then
+				output.experimentalAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -35741,6 +36857,34 @@ do
 				value = messages.RequestPushNotificationPermissionAction.jsonDecode(
 					input.requestPushNotificationPermissionAction
 				),
+			}
+		end
+
+		if input.open_build_creation_chat_action ~= nil then
+			self.kind = {
+				type = "open_build_creation_chat_action",
+				value = messages.OpenBuildCreationChatAction.jsonDecode(input.open_build_creation_chat_action),
+			}
+		end
+
+		if input.openBuildCreationChatAction ~= nil then
+			self.kind = {
+				type = "open_build_creation_chat_action",
+				value = messages.OpenBuildCreationChatAction.jsonDecode(input.openBuildCreationChatAction),
+			}
+		end
+
+		if input.experimental_action ~= nil then
+			self.kind = {
+				type = "experimental_action",
+				value = messages.ExperimentalAction.jsonDecode(input.experimental_action),
+			}
+		end
+
+		if input.experimentalAction ~= nil then
+			self.kind = {
+				type = "experimental_action",
+				value = messages.ExperimentalAction.jsonDecode(input.experimentalAction),
 			}
 		end
 
@@ -37148,6 +38292,10 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_WHY_THIS_AD"
 		elseif value == 85 then
 			return "ACTION_TYPE_REQUEST_PUSH_NOTIFICATION_PERMISSION"
+		elseif value == 86 then
+			return "ACTION_TYPE_OPEN_BUILD_CREATION_CHAT"
+		elseif value == 87 then
+			return "ACTION_TYPE_EXPERIMENTAL"
 		else
 			return nil
 		end
@@ -37326,6 +38474,10 @@ messages.ActionType = {
 			return 84
 		elseif self == "ACTION_TYPE_REQUEST_PUSH_NOTIFICATION_PERMISSION" then
 			return 85
+		elseif self == "ACTION_TYPE_OPEN_BUILD_CREATION_CHAT" then
+			return 86
+		elseif self == "ACTION_TYPE_EXPERIMENTAL" then
+			return 87
 		else
 			return self
 		end
@@ -37504,6 +38656,10 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_WHY_THIS_AD"
 		elseif name == "ACTION_TYPE_REQUEST_PUSH_NOTIFICATION_PERMISSION" then
 			return "ACTION_TYPE_REQUEST_PUSH_NOTIFICATION_PERMISSION"
+		elseif name == "ACTION_TYPE_OPEN_BUILD_CREATION_CHAT" then
+			return "ACTION_TYPE_OPEN_BUILD_CREATION_CHAT"
+		elseif name == "ACTION_TYPE_EXPERIMENTAL" then
+			return "ACTION_TYPE_EXPERIMENTAL"
 		else
 			return nil
 		end
@@ -37692,6 +38848,10 @@ return {
 	OpenWhyThisAdAction_Params = messages.OpenWhyThisAdAction_Params,
 	RequestPushNotificationPermissionAction = messages.RequestPushNotificationPermissionAction,
 	RequestPushNotificationPermissionAction_Params = messages.RequestPushNotificationPermissionAction_Params,
+	OpenBuildCreationChatAction = messages.OpenBuildCreationChatAction,
+	OpenBuildCreationChatAction_Params = messages.OpenBuildCreationChatAction_Params,
+	ExperimentalActionProp = messages.ExperimentalActionProp,
+	ExperimentalAction = messages.ExperimentalAction,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

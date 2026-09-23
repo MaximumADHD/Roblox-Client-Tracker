@@ -204,9 +204,7 @@ local function PlaygroundStory(props): React.ReactNode
 		onChanged = function(newValue: number)
 			setValue(newValue)
 		end,
-		onTextChanged = if Flags.FoundationNumberInputOnTextChanged and controls.onTextChanged
-			then handleTextChanged
-			else nil,
+		onTextChanged = if controls.onTextChanged then handleTextChanged else nil,
 		formatAsString = formatAsString,
 		label = controls.label,
 		size = controls.size,
@@ -754,14 +752,11 @@ local stories = {
 		story = ContentStory,
 	},
 }
-
-if Flags.FoundationNumberInputOnTextChanged then
-	table.insert(stories, {
-		name = "Expression input",
-		summary = "Uses `onTextChanged` to allow for custom expressions to be written instead of exclusively numbers.",
-		story = ExpressionInputStory,
-	})
-end
+table.insert(stories, {
+	name = "Expression input",
+	summary = "Uses `onTextChanged` to allow for custom expressions to be written instead of exclusively numbers.",
+	story = ExpressionInputStory,
+})
 
 return {
 	summary = "Numeric text input with steppers, scrubbing, prefix/suffix, formatting, and validation.",
@@ -776,7 +771,7 @@ return {
 		format = Dash.map(FORMAT_AS_STRING_CALLBACKS, function(entry)
 			return entry.name
 		end),
-		onTextChanged = if Flags.FoundationNumberInputOnTextChanged then false else nil,
+		onTextChanged = false,
 		hasError = false,
 		isDisabled = false,
 		maximum = 100,

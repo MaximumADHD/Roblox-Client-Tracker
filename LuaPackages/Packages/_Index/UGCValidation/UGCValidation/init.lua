@@ -31,7 +31,9 @@ local ValidationManager = require(root.validationSystem.ValidationManager)
 local getFFlagDebugUGCDisableAssetQualityChecks = require(root.flags.getFFlagDebugUGCDisableAssetQualityChecks)
 local getFFlagUGCValidateBackendInExperienceViaCanPublish =
 	require(root.flags.getFFlagUGCValidateBackendInExperienceViaCanPublish)
+local getFFlagUGCValidationAllowFullVaas = require(root.flags.getFFlagUGCValidationAllowFullVaas)
 local LegacyValidationAdapter = require(root.util.LegacyValidationAdapter)
+local AssetQualityValidationClient = require(root.util.AssetQualityValidationClient)
 local SplitHumanoidRigDescriptionForUpload = require(root.util.SplitHumanoidRigDescriptionForUpload)
 local UGCValidation = {}
 
@@ -42,7 +44,9 @@ UGCValidation.combineResultsIntoLegacy = LegacyValidationAdapter.combineResultsI
 UGCValidation.mergeLegacyIntoModern = LegacyValidationAdapter.mergeLegacyIntoModern
 UGCValidation.isBackendInExperienceViaCanPublishEnabled = getFFlagUGCValidateBackendInExperienceViaCanPublish
 UGCValidation.shouldSkipAssetQualityChecks = getFFlagDebugUGCDisableAssetQualityChecks
+UGCValidation.isFullVaasEnabled = getFFlagUGCValidationAllowFullVaas
 UGCValidation.SplitHrdInUpload = SplitHumanoidRigDescriptionForUpload.fixUploadInstance
+UGCValidation.AssetQualityValidationClient = AssetQualityValidationClient
 
 -- Old endpoints that we need to remove:
 

@@ -6,9 +6,11 @@ local ReactIs = require(Packages.ReactIs)
 
 local Interactable = require(Foundation.Components.Interactable)
 
+local Flags = require(Foundation.Utility.Flags)
 local GuiObjectChildren = require(Foundation.Utility.GuiObjectChildren)
 local Types = require(Foundation.Components.Types)
 local indexBindable = require(Foundation.Utility.indexBindable)
+local normalizeFontFace = require(Foundation.Utility.normalizeFontFace)
 local useDefaultTags = require(Foundation.Utility.useDefaultTags)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withGuiObjectProps = require(Foundation.Utility.withGuiObjectProps)
@@ -61,15 +63,20 @@ local function Text(textProps: TextProps, ref: React.Ref<GuiObject>?)
 	local tag = useStyleTags(tagsWithDefaults)
 
 	local fontFace = React.useMemo(function(): Bindable<Font>?
-		local fontFaceProp = if props.fontStyle ~= nil then props.fontStyle.Font else nil
-		if typeof(fontFaceProp) == "table" and not ReactIs.isBinding(fontFaceProp) then
-			local fontFaceTyped = fontFaceProp :: FontFaceTable -- We're sure because it's not a binding
-			return Font.new(fontFaceTyped.Family, fontFaceTyped.Weight, fontFaceTyped.Style)
+		if Flags.FoundationFontFaceMigration then
+			local font = if props.fontStyle ~= nil then props.fontStyle.Font else nil
+			return normalizeFontFace(font)
 		else
-			if typeof(fontFaceProp) == "EnumItem" then
-				return Font.fromEnum(fontFaceProp :: Enum.Font)
+			local fontFaceProp = if props.fontStyle ~= nil then props.fontStyle.Font else nil
+			if typeof(fontFaceProp) == "table" and not ReactIs.isBinding(fontFaceProp) then
+				local fontFaceTyped = fontFaceProp :: FontFaceTable -- We're sure because it's not a binding
+				return Font.new(fontFaceTyped.Family, fontFaceTyped.Weight, fontFaceTyped.Style)
 			else
-				return fontFaceProp :: Bindable<Font>? -- We're sure because it's not a table or an EnumItem
+				if typeof(fontFaceProp) == "EnumItem" then
+					return Font.fromEnum(fontFaceProp :: Enum.Font)
+				else
+					return fontFaceProp :: Bindable<Font>? -- We're sure because it's not a table or an EnumItem
+				end
 			end
 		end
 	end, { props.fontStyle })

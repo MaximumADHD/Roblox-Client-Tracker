@@ -403,22 +403,22 @@ if isSideSheetEnabled and (FFlagEnableSideSheetWidgets or isPioneerLaunch()) the
 
 		it("SHOULD project widgets into placement-specific lists", function()
 			local service = ChromeService.new()
-			registerWidget(service, "registered-first", ChromePackage.Enums.SideSheetPlacement.FixedFooterTop)
+			registerWidget(service, "registered-first", ChromePackage.Enums.SideSheetPlacement.ScrollableContentBottom)
 			registerWidget(service, "configured-first", ChromePackage.Enums.SideSheetPlacement.ScrollableContentTop)
 
 			service:configureSubMenu("nine_dot", { "configured-first", "registered-first" })
 
 			local calls = registerSideSheetIntegrationsMock.mock.calls
 			local integrations = calls[#calls][1]
-			local scrollableWidgets = integrations.scrollableWidgetIntegrations
-			local fixedFooterWidgets = integrations.fixedFooterWidgetIntegrations
-			expect(scrollableWidgets[1].id).toBe("configured-first")
-			expect(scrollableWidgets[1].integration.sideSheetPlacement).toBe(
+			local topWidgets = integrations.scrollableContentTopWidgetIntegrations
+			local bottomWidgets = integrations.scrollableContentBottomWidgetIntegrations
+			expect(topWidgets[1].id).toBe("configured-first")
+			expect(topWidgets[1].integration.sideSheetPlacement).toBe(
 				ChromePackage.Enums.SideSheetPlacement.ScrollableContentTop
 			)
-			expect(fixedFooterWidgets[1].id).toBe("registered-first")
-			expect(fixedFooterWidgets[1].integration.sideSheetPlacement).toBe(
-				ChromePackage.Enums.SideSheetPlacement.FixedFooterTop
+			expect(bottomWidgets[1].id).toBe("registered-first")
+			expect(bottomWidgets[1].integration.sideSheetPlacement).toBe(
+				ChromePackage.Enums.SideSheetPlacement.ScrollableContentBottom
 			)
 		end)
 
@@ -434,24 +434,27 @@ if isSideSheetEnabled and (FFlagEnableSideSheetWidgets or isPioneerLaunch()) the
 
 			local calls = registerSideSheetIntegrationsMock.mock.calls
 			local integrations = calls[#calls][1]
-			expect(#integrations.scrollableWidgetIntegrations).toBe(0)
-			expect(#integrations.fixedFooterWidgetIntegrations).toBe(0)
+			expect(#integrations.scrollableContentTopWidgetIntegrations).toBe(0)
+			expect(#integrations.scrollableContentBottomWidgetIntegrations).toBe(0)
 			expect(#integrations.aboveFoldIntegrations).toBe(0)
 		end)
 
 		it("SHOULD remove a widget when its Chrome availability becomes unavailable", function()
 			local service = ChromeService.new()
-			local availability =
-				registerWidget(service, "dynamic-widget", ChromePackage.Enums.SideSheetPlacement.FixedFooterTop)
+			local availability = registerWidget(
+				service,
+				"dynamic-widget",
+				ChromePackage.Enums.SideSheetPlacement.ScrollableContentBottom
+			)
 			service:configureSubMenu("nine_dot", { "dynamic-widget" })
 
 			local calls = registerSideSheetIntegrationsMock.mock.calls
-			expect(#calls[#calls][1].fixedFooterWidgetIntegrations).toBe(1)
+			expect(#calls[#calls][1].scrollableContentBottomWidgetIntegrations).toBe(1)
 
 			availability:unavailable()
 
 			calls = registerSideSheetIntegrationsMock.mock.calls
-			expect(#calls[#calls][1].fixedFooterWidgetIntegrations).toBe(0)
+			expect(#calls[#calls][1].scrollableContentBottomWidgetIntegrations).toBe(0)
 		end)
 	end)
 end

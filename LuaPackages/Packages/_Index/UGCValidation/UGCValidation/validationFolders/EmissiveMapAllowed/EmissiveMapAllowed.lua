@@ -71,14 +71,14 @@ EmissiveMapAllowed.run = function(reporter: Types.ValidationReporter, data: Type
 		return
 	end
 
-	local consumerEnv = data.consumerConfig.consumerEnv
+	local validationEnv = data.consumerConfig.validationEnv
 
-	if consumerEnv == ValidationEnums.ConsumerEnv.IEC then
+	if validationEnv == ValidationEnums.ValidationEnv.IEC then
 		reporter:fail(ErrorSourceStrings.Keys.EmissiveMap_NotAllowed)
 		return
 	end
 
-	if consumerEnv == ValidationEnums.ConsumerEnv.Backend then
+	if validationEnv == ValidationEnums.ValidationEnv.Backend then
 		local isAllowed = data.consumerConfig.backendConfigs.isEmissiveAllowed
 		if not isAllowed then
 			reporter:fail(ErrorSourceStrings.Keys.EmissiveMap_NotAllowed)

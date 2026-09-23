@@ -3,11 +3,13 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local InputPlacement = require(Foundation.Enums.InputPlacement)
 local InputSize = require(Foundation.Enums.InputSize)
 local Types = require(Foundation.Components.Types)
 
 local AccordionContext = require(script.Parent.AccordionContext)
 
+type InputPlacement = InputPlacement.InputPlacement
 type InputSize = InputSize.InputSize
 type ItemId = Types.ItemId
 
@@ -16,6 +18,8 @@ export type onAccordionItemActivated = (id: ItemId, isExpanded: boolean?) -> () 
 export type AccordionConfiguration = {
 	onAccordionItemActivated: onAccordionItemActivated,
 	itemSize: InputSize,
+	isContained: boolean,
+	chevronPosition: InputPlacement,
 	testId: string?,
 }
 

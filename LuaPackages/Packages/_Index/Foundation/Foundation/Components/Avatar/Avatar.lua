@@ -7,7 +7,6 @@ local Dash = require(Packages.Dash)
 
 local Flags = require(Foundation.Utility.Flags)
 local Image = require(Foundation.Components.Image)
-local Indicator = require(script.Parent.Indicator)
 local StatusIndicator = require(Foundation.Components.StatusIndicator)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
@@ -69,62 +68,42 @@ local function Avatar(avatarProps: AvatarProps, ref: React.Ref<GuiObject>?)
 		}),
 		{
 			Image = React.createElement(Image, {
-				Image = if Flags.FoundationAvatarBindableUserId
-					then mapBindable(props.userId, function(userId)
-						return getRbxThumb(
-							ThumbnailType.AvatarHeadShot,
-							userId,
-							ThumbnailSize.Medium,
-							if Flags.FoundationAvatarIncludeProfileFrame
-								then { includeProfileFrame = props.includeProfileFrame }
-								else nil
-						)
-					end)
-					else getRbxThumb(
+				Image = mapBindable(props.userId, function(userId)
+					return getRbxThumb(
 						ThumbnailType.AvatarHeadShot,
-						props.userId :: number,
+						userId,
 						ThumbnailSize.Medium,
-						if Flags.FoundationAvatarIncludeProfileFrame
-							then { includeProfileFrame = props.includeProfileFrame }
-							else nil
-					),
+						{ includeProfileFrame = props.includeProfileFrame }
+					)
+				end),
 				tag = variantProps.avatar.tag,
 				backgroundStyle = props.backgroundStyle,
-				testId = if Flags.FoundationAvatarBindableUserId then `{props.testId}--image` else nil,
+				testId = `{props.testId}--image`,
 			}),
-			Indicator = if Flags.FoundationAvatarBeta
-				then if variantProps.statusIndicator.isVisible
-					then if Flags.FoundationStatusIndicatorMask
-						then React.createElement(StatusIndicator, {
+			Indicator = if variantProps.statusIndicator.isVisible
+				then if Flags.FoundationStatusIndicatorMask
+					then React.createElement(StatusIndicator, {
+						testId = `{props.testId}--status-indicator`,
+						variant = variantProps.statusIndicator.variant,
+						shape = variantProps.statusIndicator.shape,
+						size = variantProps.statusIndicator.size,
+						mask = variantProps.statusIndicatorMask.mask,
+						ZIndex = variantProps.statusIndicatorMask.ZIndex,
+						AnchorPoint = variantProps.statusIndicatorMask.AnchorPoint,
+						Position = variantProps.statusIndicatorMask.Position,
+					})
+					else React.createElement(
+						View,
+						Dash.join(variantProps.statusIndicatorBackplate, {
+							testId = `{props.testId}--indicator-backplate`,
+						}),
+						React.createElement(StatusIndicator, {
 							testId = `{props.testId}--status-indicator`,
 							variant = variantProps.statusIndicator.variant,
 							shape = variantProps.statusIndicator.shape,
 							size = variantProps.statusIndicator.size,
-							mask = variantProps.statusIndicatorMask.mask,
-							ZIndex = variantProps.statusIndicatorMask.ZIndex,
-							AnchorPoint = variantProps.statusIndicatorMask.AnchorPoint,
-							Position = variantProps.statusIndicatorMask.Position,
 						})
-						else React.createElement(
-							View,
-							Dash.join(variantProps.statusIndicatorBackplate, {
-								testId = `{props.testId}--indicator-backplate`,
-							}),
-							React.createElement(StatusIndicator, {
-								testId = `{props.testId}--status-indicator`,
-								variant = variantProps.statusIndicator.variant,
-								shape = variantProps.statusIndicator.shape,
-								size = variantProps.statusIndicator.size,
-							})
-						)
-					else nil
-				elseif variantProps.indicator.isVisible then React.createElement(
-					View,
-					Dash.join(variantProps.indicatorBackplate, {
-						testId = `{props.testId}--indicator`,
-					}),
-					React.createElement(Indicator, variantProps.indicator :: any)
-				)
+					)
 				else nil,
 		}
 	)

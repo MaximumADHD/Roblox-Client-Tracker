@@ -22,6 +22,7 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local useAccordion = require(script.Parent.Parent.useAccordion)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
+local InputPlacement = require(Foundation.Enums.InputPlacement)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 type IconVariant = BuilderIcons.IconVariant
@@ -30,17 +31,22 @@ type ItemId = Types.ItemId
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
+local Flags = require(Foundation.Utility.Flags)
+
 local useAccordionItemVariants = require(script.Parent.Parent.useAccordionItemVariants)
 
 export type AccordionItemProps = {
-	-- leading BuilderIcon and it's variant
+	-- **DEPRECATED** BuilderIcon displayed opposite the collapse chevron
 	leadingIcon: string? | {
 		name: string,
 		variant: IconVariant,
 	}?,
+	-- BuilderIcon displayed opposite the collapse chevron
+	icon: string? | { name: string, variant: IconVariant }?,
 	-- Text to display in the AccordionItem header
 	text: string,
-	-- isContained: boolean?,
+	-- Optional supplementary text displayed below the title
+	description: string?,
 	-- Determine if the AccordionItem has a divider at its bottom
 	hasDivider: boolean?,
 	-- onActivated function that takes precedence over the default and onAccordionItemActivated passed by parent Accordion
@@ -53,7 +59,6 @@ export type AccordionItemProps = {
 } & Types.CommonProps
 
 local defaultProps = {
-	-- isContained = false,
 	hasDivider = true,
 	isExpanded = false,
 }
@@ -129,8 +134,13 @@ local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.
 
 	local accordionContext = useAccordion()
 	local onAccordionItemActivated, itemSize = accordionContext.onAccordionItemActivated, accordionContext.itemSize
+	local isContained = accordionContext.isContained
+	local chevronPosition = accordionContext.chevronPosition
 
-	local variantProps = useAccordionItemVariants(tokens, itemSize :: InputSize, false)
+	local variantProps = useAccordionItemVariants(tokens, itemSize :: InputSize, isContained)
+	local isChevronLeading = chevronPosition == InputPlacement.Start
+	local iconLayoutOrder = if isChevronLeading then 3 else 1
+	local collapseIconLayoutOrder = if isChevronLeading then 1 else 3
 
 	local defaultOnActivated = React.useCallback(function()
 		if isExpanded then
@@ -148,6 +158,20 @@ local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.
 
 	props.testId = `{accordionContext.testId}--item-{props.id}`
 
+	local hasDescription = props.description ~= nil
+	local title = React.createElement(Text, {
+		LayoutOrder = 2,
+		Text = props.text,
+		tag = {
+			[variantProps.text.tag] = true,
+			["grow"] = not hasDescription,
+			["size-full-0"] = hasDescription,
+		},
+		testId = `{props.testId}--title`,
+	})
+
+	local icon = if props.icon then props.icon else props.leadingIcon
+
 	return React.createElement(
 		View,
 		withCommonProps(props, {
@@ -160,28 +184,56 @@ local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.
 			Header = React.createElement(View, {
 				LayoutOrder = 1,
 				tag = variantProps.header.tag,
+				AutomaticSize = if hasDescription then Enum.AutomaticSize.Y else nil,
 				onActivated = onActivated,
 				testId = `{props.testId}--header`,
 			}, {
-				LeadingIcon = if props.leadingIcon
-					then React.createElement(Icon, {
-						LayoutOrder = 1,
-						name = if type(props.leadingIcon) == "table" then props.leadingIcon.name else props.leadingIcon,
-						variant = if type(props.leadingIcon) == "table" then props.leadingIcon.variant else nil,
-						style = variantProps.icon.style,
-						size = variantProps.icon.size,
-						testId = `{props.testId}--leading-icon`,
+				Icon = if Flags.FoundationAccordionBeta
+					then if icon
+						then React.createElement(Icon, {
+							LayoutOrder = iconLayoutOrder,
+							name = if type(icon) == "table" then icon.name else icon,
+							variant = if type(icon) == "table" then icon.variant else nil,
+							style = variantProps.icon.style,
+							size = variantProps.icon.size,
+							testId = `{props.testId}--leading-icon`,
+						})
+						else nil
+					else nil,
+				LeadingIcon = if Flags.FoundationAccordionBeta
+					then nil
+					else if icon
+						then React.createElement(Icon, {
+							LayoutOrder = iconLayoutOrder,
+							name = if type(icon) == "table" then icon.name else icon,
+							variant = if type(icon) == "table" then icon.variant else nil,
+							style = variantProps.icon.style,
+							size = variantProps.icon.size,
+							testId = `{props.testId}--leading-icon`,
+						})
+						else nil,
+				Title = if not hasDescription then title else nil,
+				TextContainer = if hasDescription
+					then React.createElement(View, {
+						LayoutOrder = 2,
+						tag = variantProps.textContainer.tag,
+						testId = `{props.testId}--text-container`,
+					}, {
+						Title = title,
+						Description = React.createElement(Text, {
+							LayoutOrder = 3,
+							Text = props.description,
+							TextWrapped = false,
+							TextTruncate = Enum.TextTruncate.AtEnd,
+							tag = variantProps.description.tag,
+							testId = `{props.testId}--description`,
+						}),
 					})
 					else nil,
-				Title = React.createElement(Text, {
-					LayoutOrder = 2,
-					Text = props.text,
-					tag = variantProps.text.tag,
-					testId = `{props.testId}--title`,
-				}),
 				CollapseIcon = React.createElement(View, {
 					tag = "auto-xy",
-					LayoutOrder = 3,
+					LayoutOrder = collapseIconLayoutOrder,
+					testId = `{props.testId}--collapse-icon-container`,
 				}, {
 					Icon = React.createElement(Icon, {
 						name = IconName.ChevronLargeDown,

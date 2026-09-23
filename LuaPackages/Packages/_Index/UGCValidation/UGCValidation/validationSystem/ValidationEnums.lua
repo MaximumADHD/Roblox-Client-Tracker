@@ -212,6 +212,7 @@ ValidationEnums.SharedDataMember = {
 	contentIds = "contentIds",
 	hsrAssets = "hsrAssets",
 	curveAnimBoneData = "curveAnimBoneData",
+	fullBodyPartsMetrics = "fullBodyPartsMetrics",
 }
 finalizeEnumTable("SharedDataMember")
 
@@ -245,13 +246,21 @@ ValidationEnums.AssetQualityFetchStatus = {
 }
 finalizeEnumTable("AssetQualityFetchStatus")
 
--- Resolved environment that env-aware validation modules switch on.
+-- Origin / lifecycle axis: where the upload came from; modules switch on this for publish-only policies.
 ValidationEnums.ConsumerEnv = {
 	Studio = "Studio",
 	Backend = "Backend",
 	IEC = "IEC",
 }
 finalizeEnumTable("ConsumerEnv")
+
+-- Execution / capability axis: where validation runs; differs from ConsumerEnv only for VaaS (Backend, vs IEC origin).
+ValidationEnums.ValidationEnv = {
+	Studio = "Studio",
+	Backend = "Backend",
+	IEC = "IEC",
+}
+finalizeEnumTable("ValidationEnv")
 
 ---- Upper case enums (constants) ----
 ValidationEnums.Status = {
@@ -286,6 +295,7 @@ ValidationEnums.AssetQualityCheck = {
 	Measure_Mesh_Island_Volume = "Measure_Mesh_Island_Volume",
 	Measure_Mesh_Island_ML = "Measure_Mesh_Island_ML",
 	Measure_Animation_Duration = "Measure_Animation_Duration",
+	Measure_Cage_Part_Placement = "Measure_Cage_Part_Placement",
 }
 finalizeEnumTable("AssetQualityCheck")
 

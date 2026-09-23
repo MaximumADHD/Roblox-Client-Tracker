@@ -18,10 +18,8 @@ SingleInstanceSelected.requiredData = {
 }
 
 local function deepEquals(inst1: Instance, inst2: Instance, consumerEnv: Types.ConsumerEnv): boolean
-	-- Only the Backend deserializes the untrusted R15Fixed copy, and only there is the fetched tree free of
-	-- in-experience editables; Studio/IEC stay permissive (editable behavior under the diff is unverified).
-	-- The engine-feature gate keeps older engines (method absent) permissive. No pcall: an engine error
-	-- should surface as validation telemetry.
+	-- Lifecycle-gated on consumerEnv (not validationEnv): the R15Fixed copy only exists on backend-origin (publish/backtest)
+	-- uploads, so IEC-origin runs (incl. VaaS) stay permissive; the folder layout is guaranteed correct by us.
 	-- todo: delete this wrapper after EngineUGCValidateInstanceTreesEquivalent flag removal (inline the call).
 	if
 		getEngineFeatureEngineUGCValidateInstanceTreesEquivalent()

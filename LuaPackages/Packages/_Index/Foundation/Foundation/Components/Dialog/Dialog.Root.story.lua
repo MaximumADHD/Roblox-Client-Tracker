@@ -118,7 +118,6 @@ local function ControlledExample(props: {
 		DialogRoot = if isOpen
 			then React.createElement(DialogExample, {
 				size = DEFAULT_SIZE,
-				hasBackdrop = props.hasOnClose,
 				onClose = if props.hasOnClose
 					then function(reason: OnCloseCallbackReason?)
 						dismiss(formatCloseReason(reason))
@@ -287,23 +286,6 @@ local function ContentStory()
 				},
 			}),
 		}),
-		Backdrop = React.createElement(Section, {
-			layoutOrder = 3,
-			name = "Backdrop",
-		}, {
-			WithBackdrop = React.createElement(LabeledDialogTrigger, {
-				label = "hasBackdrop = true",
-				layoutOrder = 1,
-				hasBackdrop = true,
-				children = minimalDialogChildren(),
-			}),
-			WithoutBackdrop = React.createElement(LabeledDialogTrigger, {
-				label = "hasBackdrop = false",
-				layoutOrder = 2,
-				hasBackdrop = false,
-				children = minimalDialogChildren(),
-			}),
-		}),
 	})
 end
 
@@ -325,13 +307,11 @@ return {
 		},
 		{
 			name = "Content",
-			summary = "Optional subparts and backdrop.",
+			summary = "Optional subparts and full compositions.",
 			story = ContentStory,
 		},
 	},
 	controls = {
 		size = Dash.values(DialogSize),
-		disablePortal = false,
-		hasBackdrop = true,
 	},
 }

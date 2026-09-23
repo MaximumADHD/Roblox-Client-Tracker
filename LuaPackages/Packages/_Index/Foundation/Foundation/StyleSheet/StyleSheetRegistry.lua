@@ -63,7 +63,7 @@ local function createStyleSheet(
 	local scale = scaleInput or 1
 	local themeName: ThemeName = themeNameInput or ThemeName.Default
 	local styleSheet = Instance.new("StyleSheet")
-	local themePrefix = if Flags.FoundationThemeName then `{themeName}-` else ""
+	local themePrefix = `{themeName}-`
 	styleSheet.Name = if tokenOverrides ~= nil
 		then `{themePrefix}{colorMode}-{device}-{scale}-{tostring(tokenOverrides)}`
 		else `{themePrefix}{colorMode}-{device}-{scale}`
@@ -74,15 +74,10 @@ local function createStyleSheet(
 		device = device,
 		scale = scale,
 		tokenOverrides = tokenOverrides,
-		overrideAttributes = getOverrideAttributes(
-			if Flags.FoundationThemeName then themeName else nil,
-			colorMode,
-			device,
-			tokenOverrides
-		),
+		overrideAttributes = getOverrideAttributes(themeName, colorMode, device, tokenOverrides),
 		instance = styleSheet,
 		tags = {},
-		rules = getGeneratedRules(if Flags.FoundationThemeName then themeName else nil, colorMode, device),
+		rules = getGeneratedRules(themeName, colorMode, device),
 		attributes = {},
 		refCount = 0,
 	}
@@ -186,18 +181,13 @@ local function resolveStyleSheet(
 	local themeName: ThemeName = themeNameInput or ThemeName.Default
 	for instance, foundationStyleSheet in styleSheetRegistry do
 		if
-			(not Flags.FoundationThemeName or foundationStyleSheet.themeName == themeName)
+			(foundationStyleSheet.themeName == themeName)
 			and foundationStyleSheet.colorMode == colorMode
 			and foundationStyleSheet.device == device
 			and foundationStyleSheet.scale == scale
 			and foundationStyleSheet.tokenOverrides == tokenOverrides
 		then
-			-- A render resolving this sheet cancels any pending teardown so the
-			-- deferred sweep can't destroy it in the window before the commit-phase
-			-- effect acquires a reference (e.g. interrupted/StrictMode renders).
-			if Flags.FoundationStyleSheetRefCounting then
-				pendingCleanup[instance] = nil
-			end
+			pendingCleanup[instance] = nil
 			return instance
 		end
 	end
@@ -251,9 +241,6 @@ local function scheduleCleanup(instance: StyleSheet)
 end
 
 local function acquireStyleSheet(sheet: StyleSheet)
-	if not Flags.FoundationStyleSheetRefCounting then
-		return
-	end
 	local foundationStyleSheet = styleSheetRegistry[sheet]
 	if foundationStyleSheet == nil then
 		return
@@ -264,9 +251,6 @@ local function acquireStyleSheet(sheet: StyleSheet)
 end
 
 local function releaseStyleSheet(sheet: StyleSheet)
-	if not Flags.FoundationStyleSheetRefCounting then
-		return
-	end
 	local foundationStyleSheet = styleSheetRegistry[sheet]
 	if foundationStyleSheet == nil or foundationStyleSheet.refCount == 0 then
 		return

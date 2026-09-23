@@ -53,14 +53,14 @@ CurveAnimBonesAllowed.run = function(reporter: Types.ValidationReporter, data: T
 		return
 	end
 
-	local consumerEnv = data.consumerConfig.consumerEnv
+	local validationEnv = data.consumerConfig.validationEnv
 
-	if consumerEnv == ValidationEnums.ConsumerEnv.IEC then
+	if validationEnv == ValidationEnums.ValidationEnv.IEC then
 		reporter:fail(ErrorSourceStrings.Keys.CurveAnim_BonesNotAllowed)
 		return
 	end
 
-	if consumerEnv == ValidationEnums.ConsumerEnv.Backend then
+	if validationEnv == ValidationEnums.ValidationEnv.Backend then
 		local isAllowed = data.consumerConfig.backendConfigs.isUserInTrustedCreatorProgram
 		if not isAllowed then
 			reporter:fail(ErrorSourceStrings.Keys.CurveAnim_BonesNotAllowed)

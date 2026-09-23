@@ -31,8 +31,6 @@ type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
 
 local useTabVariants = require(script.Parent.useTabItemVariants)
 
-local Flags = require(Foundation.Utility.Flags)
-
 export type TabItemIcon = {
 	name: string,
 	variant: IconVariant?,
@@ -117,17 +115,6 @@ local function TabItem(props: TabItemProps, ref: React.Ref<GuiObject>?)
 		end
 	end
 
-	local Size: UDim2
-	local Position: UDim2 | nil
-	if isFill or Flags.FoundationFixTabsFitBorderWidth then
-		Size = UDim2.fromScale(1, 1)
-		Position = nil
-	else
-		local hoverAreaOffset = tokens.Size.Size_100
-		Size = UDim2.new(1, hoverAreaOffset * 2, 1, 0)
-		Position = UDim2.fromOffset(-hoverAreaOffset, 0)
-	end
-
 	return React.createElement(View, {
 		tag = variantProps.container.tag,
 		GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
@@ -135,8 +122,7 @@ local function TabItem(props: TabItemProps, ref: React.Ref<GuiObject>?)
 	}, {
 		Interactive = React.createElement(View, {
 			LayoutOrder = 1,
-			Size = Size,
-			Position = Position,
+			Size = UDim2.fromScale(1, 1),
 			onActivated = function()
 				props.onActivated(props.id)
 			end,

@@ -50,7 +50,7 @@ local function FoundationProvider(props: FoundationProviderProps)
 		React.createElement(ElevationProvider, nil),
 		React.createElement(PreferencesProvider, preferences),
 		React.createElement(StyleProvider, {
-			themeName = if Flags.FoundationThemeName then props.themeName else nil,
+			themeName = props.themeName,
 			colorMode = props.colorMode,
 			-- **Deprecated**. Use `colorMode` instead. Kept for backward compatibility.
 			theme = props.theme,

@@ -3,8 +3,6 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
 
-local Flags = require(Foundation.Utility.Flags)
-
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
@@ -63,7 +61,7 @@ local function variantsFactory(tokens: Tokens)
 
 	local paddings: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {
-			content = { tag = if Flags.FoundationFixTabsFitBorderWidth then "padding-x-xsmall" else "padding-x-small" },
+			content = { tag = "padding-x-xsmall" },
 		},
 		[InputSize.Small] = { content = { tag = "padding-x-small" } },
 		[InputSize.Medium] = { content = { tag = "padding-x-medium" } },
@@ -84,12 +82,5 @@ end
 return function(tokens: Tokens, size: InputSize, isFill: boolean): TabVariantProps
 	local props = VariantsContext.useVariants("Tab", variantsFactory, tokens)
 
-	return composeStyleVariant(
-		props.common,
-		props.sizes[size],
-		props.isFill[isFill],
-		if Flags.FoundationFixTabsFitBorderWidth
-			then props.paddings[size]
-			else if isFill then props.paddings[size] else {}
-	)
+	return composeStyleVariant(props.common, props.sizes[size], props.isFill[isFill], props.paddings[size])
 end

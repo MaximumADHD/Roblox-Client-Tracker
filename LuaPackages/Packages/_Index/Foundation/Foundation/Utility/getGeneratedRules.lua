@@ -12,18 +12,10 @@ type ThemeName = ThemeName.ThemeName
 
 local TypographyVariants: { [ThemeName]: string } = require(Foundation.Generated.StyleRules.TypographyVariants)
 
-local requirePaths: { [typeof("Common") | ColorMode | Device]: () -> any } = {
+local requirePaths: { [typeof("Common") | Device]: () -> any } = {
 	Common = function()
 		return require(Foundation.Generated.StyleRules.CommonAttribute)
 	end,
-	-- TODO start: Remove when FoundationThemeName flag is cleaned up
-	Dark = function()
-		return require(Foundation.Generated.StyleRules.DarkAttribute)
-	end,
-	Light = function()
-		return require(Foundation.Generated.StyleRules.LightAttribute)
-	end,
-	-- TODO end: Remove when FoundationThemeName flag is cleaned up
 	Console = function()
 		return require(Foundation.Generated.StyleRules.ConsoleAttribute)
 	end,
@@ -32,7 +24,6 @@ local requirePaths: { [typeof("Common") | ColorMode | Device]: () -> any } = {
 	end,
 }
 
--- Color rules are baked per theme, so they are keyed by ThemeName then ColorMode.
 local colorRulePaths: { [ThemeName]: { [ColorMode]: () -> any } } = {
 	[ThemeName.CircuitRush] = {
 		Dark = function()
@@ -205,17 +196,8 @@ local function getGeneratedRules(themeNameInput: ThemeName?, colorMode: ColorMod
 	local themeName: ThemeName = themeNameInput or ThemeName.Default
 	local colorModeRules, sizeRules, commonRules
 	commonRules = requirePaths["Common"]()
-
-	if Flags.FoundationThemeName then
-		local themeColorPaths = colorRulePaths[themeName] or colorRulePaths[ThemeName.Default]
-		colorModeRules = themeColorPaths[colorMode]()
-	else
-		if colorMode == ColorMode.Dark then
-			colorModeRules = requirePaths["Dark" :: ColorMode]()
-		elseif colorMode == ColorMode.Light then
-			colorModeRules = requirePaths["Light" :: ColorMode]()
-		end
-	end
+	local themeColorPaths = colorRulePaths[themeName] or colorRulePaths[ThemeName.Default]
+	colorModeRules = themeColorPaths[colorMode]()
 
 	if device == Device.Console and not Flags.FoundationDisableTokenScaling then
 		sizeRules = requirePaths["Console" :: Device]()
@@ -236,21 +218,18 @@ local function getGeneratedRules(themeNameInput: ThemeName?, colorMode: ColorMod
 	for key, value in colorModeRules do
 		combinedRules[key] = value
 	end
+	local variant = TypographyVariants[themeName] or DEFAULT_TYPOGRAPHY_VARIANT
+	local variantPaths = typographyVariantPaths[variant] or typographyVariantPaths[DEFAULT_TYPOGRAPHY_VARIANT]
+	local typographyDevice: Device = if device == Device.Console and not Flags.FoundationDisableTokenScaling
+		then Device.Console
+		else Device.Desktop
+	local getTypographyRules = variantPaths[typographyDevice]
 
-	if Flags.FoundationThemedTypography then
-		local variant = TypographyVariants[themeName] or DEFAULT_TYPOGRAPHY_VARIANT
-		local variantPaths = typographyVariantPaths[variant] or typographyVariantPaths[DEFAULT_TYPOGRAPHY_VARIANT]
-		local typographyDevice: Device = if device == Device.Console and not Flags.FoundationDisableTokenScaling
-			then Device.Console
-			else Device.Desktop
-		local getTypographyRules = variantPaths[typographyDevice]
-
-		if getTypographyRules then
-			local typographyRules = getTypographyRules()
-			if typographyRules then
-				for key, value in typographyRules do
-					combinedRules[key] = value
-				end
+	if getTypographyRules then
+		local typographyRules = getTypographyRules()
+		if typographyRules then
+			for key, value in typographyRules do
+				combinedRules[key] = value
 			end
 		end
 	end

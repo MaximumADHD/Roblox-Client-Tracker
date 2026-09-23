@@ -10,8 +10,6 @@ local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
 local getMeshInfo = require(root.util.getMeshInfo)
 
-local getFFlagUGCValidateMigrateBodyPartBounds = require(root.flags.getFFlagUGCValidateMigrateBodyPartBounds)
-
 local BodyMeshSizesConsistent = {}
 
 BodyMeshSizesConsistent.categories = {
@@ -27,7 +25,6 @@ BodyMeshSizesConsistent.conditionalData = {
 	ValidationEnums.SharedDataMember.renderMeshesData,
 	ValidationEnums.SharedDataMember.outerCagesData,
 }
-BodyMeshSizesConsistent.fflag = getFFlagUGCValidateMigrateBodyPartBounds
 BodyMeshSizesConsistent.expectedFailures = {}
 
 local function calculateMeshSizeForPart(meshHandle: MeshPart, validationContext: any): (boolean, Vector3?)
@@ -112,8 +109,8 @@ end
 BodyMeshSizesConsistent.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local instance = data.rootInstance
 	local assetTypeEnum = data.uploadEnum.assetType
-	local consumerEnv = data.consumerConfig.consumerEnv
-	local isServer = consumerEnv == ValidationEnums.ConsumerEnv.Backend
+	local validationEnv = data.consumerConfig.validationEnv
+	local isServer = validationEnv == ValidationEnums.ValidationEnv.Backend
 
 	-- Build editableMeshes table from renderMeshesData + outerCagesData for legacy util compatibility
 	local editableMeshes: { [Instance]: { [string]: { instance: EditableMesh, created: boolean } } } = {}

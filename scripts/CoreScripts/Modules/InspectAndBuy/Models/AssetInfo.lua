@@ -27,8 +27,6 @@
 ]]
 local CorePackages = game:GetService("CorePackages")
 local Dash = require(CorePackages.Packages.Dash)
-local FFlagAXEnableIaBTimedOptionsBulkPurchase =
-	require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXEnableIaBTimedOptionsBulkPurchase
 
 local InspectAndBuyFolder = script.Parent.Parent
 
@@ -346,9 +344,7 @@ function AssetInfo.fromGetItemDetailsV2(itemDetails: ItemDetails): AssetInfo
 	newAsset.numFavorites = itemDetails.favoriteCount
 	newAsset.catalogPriceStatus = itemDetails.priceStatus
 
-	if FFlagAXEnableIaBTimedOptionsBulkPurchase then
-		newAsset.timedOptions = itemDetails.timedOptions
-	end
+	newAsset.timedOptions = itemDetails.timedOptions
 
 	return newAsset
 end

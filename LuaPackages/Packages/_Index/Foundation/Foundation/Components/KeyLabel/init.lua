@@ -1,3 +1,4 @@
+-- **DEPRECATED**: KeyLabel is deprecated. Use Shortcut instead.
 local KeyLabel = require(script.KeyLabel)
 
 export type KeyLabelProps = KeyLabel.KeyLabelProps

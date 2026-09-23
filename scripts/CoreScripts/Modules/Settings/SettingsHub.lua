@@ -167,6 +167,7 @@ local Flags = {
 	FFlagSideSheetAndroidBack = game:DefineFastFlag("SideSheetAndroidBack", false),
 	FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegration,
 	FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet,
+	FFlagShowSwitchServerButton = SharedFlags.FFlagShowSwitchServerButton,
 	isExitModalRemoved = require(RobloxGui.Modules.Settings.Flags.isExitModalRemoved),
 	FFlagEnableExitModalExposure = game:DefineFastFlag("EnableExitModalExposure", false),
 }
@@ -263,6 +264,7 @@ local InExperienceSideSheet = require(CorePackages.Workspace.Packages.InExperien
 local toggleSideSheet = InExperienceSideSheet.toggleSideSheet
 local getSideSheetVisibility = InExperienceSideSheet.getSideSheetVisibility
 local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
+local GetSwitchServerStore = require(CorePackages.Workspace.Packages.SwitchServer).GetSwitchServerStore
 
 local ReactPageFactory = require(RobloxGui.Modules.Settings.ReactPageFactory)
 type ReactPage = ReactPageFactory.ReactPage
@@ -3971,6 +3973,10 @@ local function CreateSettingsHub()
 			if not Flags.FFlagAddUILessMode or Flags.FIntAddUILessModeVariant == 0 then
 				local closeMenuFunc = function(name, inputState, input)
 					if inputState ~= Enum.UserInputState.Begin then return end
+					-- switch server confirmation dialog is open, let escape dismiss it
+					if Flags.FFlagShowSwitchServerButton and GetSwitchServerStore(false).isConfirmationOpen(false) then
+						return
+					end
 					if isSideSheetEnabled then
 						if getSideSheetVisibility() then
 							toggleSideSheet(false)

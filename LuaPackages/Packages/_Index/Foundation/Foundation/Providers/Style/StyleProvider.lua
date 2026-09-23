@@ -3,8 +3,6 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
 local StyleSheetContext = require(Style.StyleSheetContext)
@@ -51,7 +49,7 @@ local useRegistryStyleSheet = require(Style.useRegistryStyleSheet)
 
 -- After join, there are no optional values
 local defaultStyle = {
-	themeName = if Flags.FoundationThemeName then ThemeName.Default else nil,
+	themeName = ThemeName.Default,
 	colorMode = ColorMode.Dark :: ColorMode,
 	device = Device.Desktop :: Device,
 	scale = 1,
@@ -59,7 +57,7 @@ local defaultStyle = {
 
 local function StyleProvider(styleProviderProps: StyleProviderProps)
 	local props = withDefaults({
-		themeName = if Flags.FoundationThemeName then styleProviderProps.themeName else nil,
+		themeName = styleProviderProps.themeName,
 		colorMode = styleProviderProps.colorMode or styleProviderProps.theme,
 		device = styleProviderProps.device,
 		scale = styleProviderProps.scale,
@@ -74,7 +72,7 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 				props.device,
 				props.scale,
 				styleProviderProps.tokenOverrides,
-				if Flags.FoundationThemeName then props.themeName else nil
+				props.themeName
 			)
 		end,
 		{
@@ -82,7 +80,7 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 			props.device,
 			props.scale,
 			styleProviderProps.tokenOverrides,
-			if Flags.FoundationThemeName then props.themeName else nil,
+			props.themeName,
 		} :: { unknown }
 	)
 
@@ -94,7 +92,7 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 	end, { preferredTextSize })
 
 	local registryStyleSheet, addStyleTags = useRegistryStyleSheet(
-		if Flags.FoundationThemeName then props.themeName else nil,
+		props.themeName,
 		props.colorMode,
 		props.device,
 		props.scale,
