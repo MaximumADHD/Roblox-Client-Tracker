@@ -102,7 +102,7 @@ DefaultUnifiedGlassTransparentVS_00001800,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTransparentVS_00001802,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTransparentVS_00001806,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTransparentVS_00100801,Vertex,✔,✔,✔,✔,✔
-DefaultUnifiedGlassTransparentVS_00100807,Vertex,❌,❌,❌,✔,❌
+DefaultUnifiedGlassTransparentVS_00100807,Vertex,✔,✔,✔,✔,✔
 DefaultUnifiedGlassTransparentVS_00300800,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGlassTransparentVS_08000800,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTransparentVS_08000802,Vertex,❌,❌,❌,✔,❌
@@ -339,6 +339,7 @@ DefaultUnifiedTiledEmissiveHideDiffuseRepVS_00001806,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedTiledEmissiveHideDiffuseRepVS_00100801,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedTiledEmissiveHideDiffuseRepVS_00100807,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedTiledEmissiveHideDiffuseRepVS_10000000,Vertex,❌,❌,❌,✔,❌
+DefaultUnifiedTiledEmissiveHideDiffuseRepVS_10001000,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedTiledEmissiveHideDiffuseRepVS_10100001,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedTiledEmissiveHideDiffuseRepVS_10100007,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedWangFallbackFS,Fragment,✔,✔,✔,✔,✔

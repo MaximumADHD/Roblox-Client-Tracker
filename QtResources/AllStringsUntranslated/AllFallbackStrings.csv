@@ -4341,16 +4341,6 @@ Studio.App.SettingsHeader.ScriptEditor,,Script Editor,Script Editor
 Studio.App.SettingsHeader.Selection,,Selection,Selection
 Studio.App.SettingsHeader.Studio,,Studio,Studio
 Studio.App.SettingsHeader.TaskScheduler,,Task Scheduler,Task Scheduler
-Studio.App.SnippetWidget.BuiltinSnippet,,Built-in Snippets,Built-in Snippets
-Studio.App.SnippetWidget.Description,,Description,Description
-Studio.App.SnippetWidget.MySnippetPacks,,My Snippet Packs,My Snippet Packs
-Studio.App.SnippetWidget.NewSnippetName,,Snippet,Snippet
-Studio.App.SnippetWidget.NewSnippetPackName,,Snippet Pack,Snippet Pack
-Studio.App.SnippetWidget.Prefix,,Prefix,Prefix
-Studio.App.SnippetWidget.ShowInAutocomplete,,Show in Autocomplete,Show in Autocomplete
-Studio.App.SnippetWidget.Snippet,,Snippet,Snippet
-Studio.App.SnippetWidget.SnippetName,,Snippet Name,Snippet Name
-Studio.App.SnippetWidget.SnippetPackName,,Pack Name,Pack Name
 Studio.App.StartPageLogin.ForgotPassword,,Forgot Password?,Forgot Password?
 Studio.App.StartPageLogin.GenericError,Start page login,Login error. Please try again.,Login error. Please try again.
 Studio.App.StartPageLogin.LogIn,,Log In,Log In
@@ -5442,6 +5432,26 @@ Studio.App.VersionHistoryDialog.VersionColumnTitle,,Version,Version
 Studio.App.VersionHistoryDialog.VersionComparedWithFmt2,,Version %1 compared with %2,Version %1 compared with %2
 Studio.App.VersionHistoryDialog.VersionHistoryHashMismatch,,Current Source does not match latest commit.,Current Source does not match latest commit.
 Studio.App.VersionHistoryDialog.ViewButtonText,,View,View
+Studio.AssetAccess.AssetMetadataTable.ColumnId,Heading for a column of asset IDs in a table,Asset ID,Asset ID
+Studio.AssetAccess.AssetMetadataTable.ColumnName,Heading for a column of asset names in a table,Asset Name,Asset Name
+Studio.AssetAccess.AssetMetadataTable.ColumnOwner,Heading for a column of owners (username or group name) in a table,Owner,Owner
+Studio.AssetAccess.AssetMetadataTable.ColumnType,Heading for a column of asset types (e.g. Audio/Video) in a table,Asset Type,Asset Type
+Studio.AssetAccess.AssetMetadataTable.PlaceholderFailed,Placeholder text in a table cell for data that failed to load,Failed,Failed
+Studio.AssetAccess.AssetMetadataTable.PlaceholderLoading,Placeholder text in a table cell for data that is still loading,Loading,Loading
+Studio.AssetAccess.AssetMetadataTable.PlaceholderPrivate,Placeholder text in a table cell for data that is private,Private,Private
+Studio.AssetAccess.OutputMessage.RequestAccess,Output window message that appears when the user tries to use an asset that they dont have access to. They can click on the link to open the Access Request dialog,You do not have access to use certain assets. Click to request access,You do not have access to use certain assets. Click to request access
+Studio.AssetAccess.OutputMessage.RequestAccessToolTip,Tool tip when the user hovers over the OutputMessage.RequestAccess message,Request access to asset(s),Request access to asset(s)
+Studio.AssetAccess.OutputMessage.RequestAccessUnavailable,Message when the asset access request dialog is unavailable,Asset access requests unavailable,Asset access requests unavailable
+Studio.AssetAccess.Plugin.Name,,AssetAccess,AssetAccess
+Studio.AssetAccess.Plugin.Text,,Example Text!,Example Text!
+Studio.AssetAccess.ShareDialogView.CantShareBody,Body text that appears in a dialog when the user cannot share access to asset(s) with the experience,You don't have access to share the listed assets. Please get access from the asset owners. The listed assets will not be available if you proceed without sharing access to this experience.,You don't have access to share the listed assets. Please get access from the asset owners. The listed assets will not be available if you proceed without sharing access to this experience.
+Studio.AssetAccess.ShareDialogView.CantShareHeading,Heading text that appears in a dialog when the user cannot share access to asset(s) with the experience,Can't share access to assets,Can't share access to assets
+Studio.AssetAccess.ShareDialogView.PromptActionShare,Primary button text that appears in a dialog when the user cannot share access to asset(s) with the experience,Share access,Share access
+Studio.AssetAccess.ShareDialogView.PromptActionSharing,Same context as the PromptActionShare string but this string is shown after the user clicks the button and sharing is still in progress,Sharing...,Sharing...
+Studio.AssetAccess.ShareDialogView.PromptBody,Body text that appears in a dialog prompting the user to share access to used asset(s) with the experience,This experience needs access to the listed assets. You can only share access to assets that you have access to. The listed assets will not be available in this experience if you proceed without sharing access to this experience.,This experience needs access to the listed assets. You can only share access to assets that you have access to. The listed assets will not be available in this experience if you proceed without sharing access to this experience.
+Studio.AssetAccess.ShareDialogView.PromptHeading,Heading text that appears in a dialog prompting the user to share access to used asset(s) with the experience,Experience needs access to assets,Experience needs access to assets
+Studio.AssetAccess.ShareDialogView.UnexpectedErrorBody,Body text that appears in a dialog when trying to share access to asset(s) unexpectedly fails,An unexpected error occurred. Please try again later.,An unexpected error occurred. Please try again later.
+Studio.AssetAccess.ShareDialogView.UnexpectedErrorHeading,Heading text that appears in a dialog when trying to share access to asset(s) unexpectedly fails,Failed attempting to share assets,Failed attempting to share assets
 Studio.AssetExport.AssetType.Image,The name of an image asset type,Image,Image
 Studio.AssetExport.AssetType.Mesh,The name of an mesh asset type,Mesh,Mesh
 Studio.AssetExport.Buttons.Back,Text on the button that takes the user back to the main settings page of the exporter,Back,Back
@@ -6305,6 +6315,8 @@ Studio.BetaFeatures.UniversalImporterDescription,Description for the Universal I
 Studio.BetaFeatures.UniversalImporterTitle,Title for the Universal Importer feature allowing more import types in the Import Queue,Universal Importer,Universal Importer
 Studio.BetaFeatures.UpgradedUIGradientsDescription,The description of the Studio beta covering upgraded UIGradient capabilities.,"New gradient types (radial & conic), tile modes, and gradient scale controls.","New gradient types (radial & conic), tile modes, and gradient scale controls."
 Studio.BetaFeatures.UpgradedUIGradientsTitle,The title of the Studio beta covering upgraded UIGradient capabilities.,Upgraded UIGradients,Upgraded UIGradients
+Studio.BetaFeatures.UpgradedUIShadowsDescription,"The description of the Studio beta that adds UIShadow features. ""Inset"" refers to inset shadows, see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/box-shadow#inset. ""Knockout"" is a term in graphics design meaning the shadow is clipped, so the part of the shadow obscured by the shadow caster is not rendered. Or, the same feature as Figma's ""show behind transparent areas"" toggle. ""text mode"" means rendering a shadow for the text in TextLabel or TextButton. ""gradient"" refers to UIGradient, which can now affect the UIShadow's color.","Adding new shadow types (inset, knockout, and text mode) and compatibility with gradients.","Adding new shadow types (inset, knockout, and text mode) and compatibility with gradients."
+Studio.BetaFeatures.UpgradedUIShadowsTitle,The title of the Studio beta that adds new UIShadow features.,Upgraded UIShadows,Upgraded UIShadows
 Studio.BetaFeatures.VREmulatorDescription,,"Enable this feature to simulate a VR runtime environment, including headset and inputs, without needing a physical VR setup.","Enable this feature to simulate a VR runtime environment, including headset and inputs, without needing a physical VR setup."
 Studio.BetaFeatures.VREmulatorTitle,,VR Emulator,VR Emulator
 Studio.BetaFeatures.VideoApiDescription,,Enables the VideoPlayer instance for playing videos on multiple surfaces and compatibility with the new Audio API.,Enables the VideoPlayer instance for playing videos on multiple surfaces and compatibility with the new Audio API.

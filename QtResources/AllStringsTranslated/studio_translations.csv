@@ -8392,6 +8392,9 @@ Studio.Toolbox.AssetConfig.PayAndConfirmTotal,,,Total: {amount},Total: {amount}
 Studio.Toolbox.AssetUploadResult.UpdateSubmittedMessage,,,"Your asset is being updated. After it passes moderation, you'll see the
 updated version. Please don't submit another update while this update is in review.","Your asset is being updated. After it passes moderation, you'll see the
 updated version. Please don't submit another update while this update is in review."
+Studio.Toolbox.AssetConfig.UpdateAssetEmissiveChangeError,,,This update adds or removes the item's emissive texture. Emissive can't be changed when updating an item,This update adds or removes the item's emissive texture. Emissive can't be changed when updating an item
+Studio.Toolbox.AssetConfig.UpdateAssetPbrChangeError,,,This update adds or removes the item's SurfaceAppearance (PBR). It can't be changed when updating an item.,This update adds or removes the item's SurfaceAppearance (PBR). It can't be changed when updating an item.
+Studio.Toolbox.AssetConfig.ValidationErrorParseFailed,,,"Validation failed, but details are unavailable due to a parsing error. Please file a bug report and include your RBXM file.","Validation failed, but details are unavailable due to a parsing error. Please file a bug report and include your RBXM file."
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9460,7 +9463,7 @@ Studio.PublishPlaceAs.PublishSuccess.PostPublishInfoUnrated,,,Your experience is
 Studio.PublishPlaceAs.PublishSuccess.Private,,,Private,Private
 Studio.PublishPlaceAs.PublishSuccess.ViewQuestionnaire,,,View questionnaire,View questionnaire
 Studio.PublishPlaceAs.PublishSuccess.Public,,,Public,Public
-Studio.PublishPlaceAs.PublishStatus.Title,,,Publish Status,Publish Status
+Studio.PublishPlaceAs.PublishStatus.Title,,,Publish,Publish
 Studio.PublishPlaceAs.PublishStatus.LoadFailed,,,Publish status could not be loaded.,Publish status could not be loaded.
 Studio.PublishPlaceAs.PublishStatus.Retry,,,Retry,Retry
 Studio.PublishPlaceAs.PublishSuccess.ViewPublishStatus,,,View publish status,View publish status
@@ -9831,6 +9834,8 @@ Studio.AssetManager.Tutorial.Done,,,Done,Done
 Studio.AssetManager.Filters.Restricted,,,Restricted,Restricted
 Studio.AssetManager.AssetProperty.Status,,,Status,Status
 Studio.AssetManager.Tutorial.Intro.SidebarCompactText,,,Open the dropdown to view every inventory you can reach.,Open the dropdown to view every inventory you can reach.
+Studio.AssetManager.Search.Placeholder.SearchInScope,,,Search in {scopeName},Search in {scopeName}
+Studio.AssetManager.AssetState.Moderated,,,Restricted,Restricted
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10097,7 +10102,7 @@ Studio.LayeredClothingEditor.Editor.MeshPartMode,,,"Move, rotate, and scale Mesh
 Studio.LayeredClothingEditor.Select.Prompt,,,Click the part you want to become the accessory.,Click the part you want to become the accessory.
 Studio.LayeredClothingEditor.Select.Part,,,Part:,Part:
 Studio.LayeredClothingEditor.Select.LoseChanges,,,You have unpublished changes on the previous item. You will lose those changes if you select this new item. Proceed?,You have unpublished changes on the previous item. You will lose those changes if you select this new item. Proceed?
-Studio.LayeredClothingEditor.Flow.Next,,,Next,Next
+Studio.LayeredClothingEditor.Flow.Next,,,Continue,Continue
 Studio.LayeredClothingEditor.Flow.Back,,,Back,Back
 Studio.LayeredClothingEditor.Flow.Generate,,,Generate,Generate
 Studio.LayeredClothingEditor.Preview.Avatars,,,Avatars,Avatars
@@ -10163,7 +10168,7 @@ Studio.LayeredClothingEditor.AddEditingItemFromExplorer.ConfirmAddText,,,Adding 
 Studio.LayeredClothingEditor.AddEditingItemFromExplorer.AddWithNoCageText,,,Imported {itemName} does not contain an {cageName}. Please use Cage Generation in Edit to generate one.,Imported {itemName} does not contain an {cageName}. Please use Cage Generation in Edit to generate one.
 Studio.LayeredClothingEditor.AddEditingItemFromExplorer.InvalidAddText,,,Only avatar or clothing item can be added,Only avatar or clothing item can be added
 Studio.LayeredClothingEditor.Dialog.DefaultTitle,,,Layered Clothing Editor,Layered Clothing Editor
-Studio.LayeredClothingEditor.Dialog.Confirm,,,Confirm,Confirm
+Studio.LayeredClothingEditor.Dialog.Confirm,,,OK,OK
 Studio.LayeredClothingEditor.Dialog.Cancel,,,Cancel,Cancel
 Studio.LayeredClothingEditor.Transparency.Title,,,Transparency,Transparency
 Studio.LayeredClothingEditor.Transparency.Mesh,,,Mesh,Mesh
@@ -10223,6 +10228,7 @@ Studio.LayeredClothingEditor.ClothesHelper.NoAttachmentsError,,,The creation of 
 Studio.LayeredClothingEditor.AssetType.RightGrip,,,Right Grip,Right Grip
 Studio.LayeredClothingEditor.EditingMode.AutoWeightPreserve,,,Auto Skinning Behavior is set to EnabledPreserve,Auto Skinning Behavior is set to EnabledPreserve
 Studio.LayeredClothingEditor.EditingMode.AutoWeightOverride,,,Auto Skinning Behavior is set to EnabledOverride,Auto Skinning Behavior is set to EnabledOverride
+Studio.LayeredClothingEditor.Studio.LayeredClothingEditor.Dialog.OK,,,OK,OK
 Studio.MeshImporter.Plugin.Name,,,MeshImporter,MeshImporter
 Studio.MeshImporter.Plugin.Toolbar,,,Mesh Importer,Mesh Importer
 Studio.MeshImporter.Plugin.Button,,,Import,Import
@@ -10744,6 +10750,9 @@ Studio.AssetImporter.Buttons.Ok,,,Ok,Ok
 Studio.AssetImporter.ImportQueue.SafeToClose,,,It's safe to close this window while your files import.,It's safe to close this window while your files import.
 Studio.AssetImporter.Snackbar.VersionImportSuccess,,,A new version of your asset has been created,A new version of your asset has been created
 Studio.AssetImporter.Snackbar.VersionImportError,,,Error importing the new version,Error importing the new version
+Studio.AssetImporter.ImportQueue.StartImport,,,Start Import,Start Import
+Studio.AssetImporter.ImportQueue.StatusReady,,,Ready to Import,Ready to Import
+Studio.AssetImporter.ImportQueue.StatusComplete,,,Import Complete,Import Complete
 Studio.MaterialManager.Plugin.Name,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Button,,,Material Manager,Material Manager
@@ -11209,7 +11218,7 @@ Studio.ManageCollaborators.PermissionLabels.Admin,,,Manage,Manage
 Studio.ManageCollaborators.PermissionLabels.Owner,,,Owner,Owner
 Studio.ManageCollaborators.PermissionLabels.Multiple,,,(Multiple),(Multiple)
 Studio.ManageCollaborators.PermissionDescriptions.NoAccess,,,Cannot playtest or edit this game,Cannot playtest or edit this game
-Studio.ManageCollaborators.PermissionDescriptions.Play,,,Can playtest this game,Can playtest this game
+Studio.ManageCollaborators.PermissionDescriptions.Play,,,Can play this game,Can play this game
 Studio.ManageCollaborators.PermissionDescriptions.Edit,,,Can playtest and edit this game,Can playtest and edit this game
 Studio.ManageCollaborators.PermissionDescriptions.NoEditMustBeFriend,,,User must be a friend to edit,User must be a friend to edit
 Studio.ManageCollaborators.PermissionDescriptions.NoUserEditGroupGame,,,Must be in owner group to edit,Must be in owner group to edit
@@ -11317,6 +11326,8 @@ Studio.ManageCollaborators.AudienceTabs.PlayTesters,,,Play testers,Play testers
 Studio.ManageCollaborators.AudienceTabs.CommunityPlayers,,,Community Players,Community Players
 Studio.ManageCollaborators.AudienceTabs.PlayTesterLimit,,,Play testing is limited to {maxNumPlayTesters:int} members per game,Play testing is limited to {maxNumPlayTesters:int} members per game
 Studio.ManageCollaborators.AudiencePermissionDescriptions.PlayTest,,,Can play and test game,Can play and test game
+Studio.ManageCollaborators.AudiencePermissionLabels.PlayTest,,,Play Test,Play Test
+Studio.ManageCollaborators.AudiencePermissionLabels.Play,,,Play,Play
 Studio.DeviceEmulator.Plugin.Name,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Button,,,Toggle,Toggle
@@ -11819,6 +11830,7 @@ Studio.StyleEditor.Label.ValueErrorIncorrectType,,,Error: Incorrect value type f
 Studio.StyleEditor.ContextMenu.New.Query.Builtin,,,Builtin,Builtin
 Studio.StyleEditor.ContextMenu.New.Query.Custom,,,Custom,Custom
 Studio.StyleEditor.Table.ConditionNamePlaceholder,,,Add a Condition...,Add a Condition...
+Studio.StyleEditor.Control.ColorDropperTooltip,,,Pick a color from the viewport,Pick a color from the viewport
 Studio.AudioDiscovery.Plugin.Name,,,Audio Discovery,Audio Discovery
 Studio.AudioDiscovery.Plugin.Toolbar,,,Audio Discovery,Audio Discovery
 Studio.AudioDiscovery.Plugin.Button,,,View Sounds,View Sounds
@@ -15696,8 +15708,8 @@ Studio.AvatarSettings.UnsavedChangesDialog.SaveButton,,,Save,Save
 Studio.AvatarSettings.UnsavedChangesDialog.DiscardButton,,,Discard,Discard
 Studio.AvatarSettings.AvatarTypeSelector.PresetTooltipConsistentSizePhysics,,,Consistent size & physics,Consistent size & physics
 Studio.AvatarSettings.UnsavedChangesDialog.DiscardAction,,,Discard,Discard
-Studio.AvatarSettings.Publish.RevertChanges,,,Revert Changes,Revert Changes
-Studio.AvatarSettings.Publish.SaveChanges,,,Save Changes,Save Changes
+Studio.AvatarSettings.Publish.RevertChanges,,,Reset changes,Reset changes
+Studio.AvatarSettings.Publish.SaveChanges,,,Save changes,Save changes
 Studio.AvatarSettings.UnsavedChangesDialog.SaveAndRestartAction,,,Save and Restart,Save and Restart
 Studio.AvatarSettings.UnsavedChangesDialog.ServerRestartDescription,,,These changes will affect all places in your experience. Saving will restart all running places.,These changes will affect all places in your experience. Saving will restart all running places.
 Studio.AvatarSettings.UnsavedChangesDialog.SaveAction,,,Save,Save
@@ -15748,6 +15760,9 @@ Studio.AvatarSettings.PlaceSettingsDialog.ExistingDescription,,,This place alrea
 Studio.AvatarSettings.PlaceSettingsDialog.ReplaceAction,,,Replace,Replace
 Studio.AvatarSettings.PlaceSettingsDialog.NoChangesTitle,,,No place settings to create,No place settings to create
 Studio.AvatarSettings.PlaceSettingsDialog.OkAction,,,OK,OK
+Studio.AvatarSettings.PlaceSettingsDialog.SavedMessage,,,Place settings saved to ReplicatedStorage.PlaceAvatarRules,Place settings saved to ReplicatedStorage.PlaceAvatarRules
+Studio.AvatarSettings.PlaceSettingsDialog.SavedMessageWithRemoved,,,Place settings saved to ReplicatedStorage.PlaceAvatarRules. Removed {destroyed}.,Place settings saved to ReplicatedStorage.PlaceAvatarRules. Removed {destroyed}.
+Studio.AvatarSettings.ErrorText.AssetIdEmpty,,,Please enter an asset ID,Please enter an asset ID
 Studio.ExplorerLibrary.HistoryDropdown.TitleText,,,History,History
 Studio.ExplorerLibrary.SearchBar.PlaceholderText,,,Search,Search
 Studio.ExplorerLibrary.SearchBrowser.ResultCountSingular,,,1 match,1 match
@@ -16177,6 +16192,8 @@ Studio.BetaFeatures.UpgradedUIGradientsDescription,,,"New gradient types (radial
 Studio.BetaFeatures.UpgradedUIGradientsTitle,,,Upgraded UIGradients,Upgraded UIGradients
 Studio.BetaFeatures.NewDeviceSimulatorTitle,,,New Device Simulator,New Device Simulator
 Studio.BetaFeatures.NewDeviceSimulatorDescription,,,A modernized Device Simulator toolbar for updating device settings and simulated network behavior while building and testing.,A modernized Device Simulator toolbar for updating device settings and simulated network behavior while building and testing.
+Studio.BetaFeatures.UpgradedUIShadowsTitle,,,Upgraded UIShadows,Upgraded UIShadows
+Studio.BetaFeatures.UpgradedUIShadowsDescription,,,"Adding new shadow types (inset, knockout, and text mode) and compatibility with gradients.","Adding new shadow types (inset, knockout, and text mode) and compatibility with gradients."
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -17013,6 +17030,11 @@ Studio.PublishPlace.AfterPublish.ViewCreatorHubText,,,Changes published.,Changes
 Studio.PublishPlace.Button.GrantPermissionsAndPublish,,,Grant Permissions and Publish,Grant Permissions and Publish
 Studio.PublishPlace.Description.AssetPermissions,,,"This place uses assets that the destination experience does not have permission to use. These permissions must be granted for the assets to load in the destination experience, otherwise they will be missing after publishing. Publishing continues as soon as the permissions are granted.","This place uses assets that the destination experience does not have permission to use. These permissions must be granted for the assets to load in the destination experience, otherwise they will be missing after publishing. Publishing continues as soon as the permissions are granted."
 Studio.PublishPlace.Title.AssetPermissions,,,Some assets need permission to load,Some assets need permission to load
+Studio.PublishPlace.Title.AvatarRules,,,Avatar settings differ from this experience,Avatar settings differ from this experience
+Studio.PublishPlace.Description.AvatarRules,,,"This place's avatar settings are not the ones the destination experience uses. Choose which settings apply once the place is published, or close this dialog to cancel publishing.","This place's avatar settings are not the ones the destination experience uses. Choose which settings apply once the place is published, or close this dialog to cancel publishing."
+Studio.PublishPlace.Button.UpdateExperienceAvatarRules,,,Update experience settings,Update experience settings
+Studio.PublishPlace.Button.KeepPlaceAvatarRules,,,Keep for this place only,Keep for this place only
+Studio.PublishPlace.Button.UseExperienceAvatarRules,,,Use experience settings,Use experience settings
 Studio.ReactDevTools.Plugin.Name,,,React DevTools,React DevTools
 Studio.ReactDevTools.Plugin.Description,,,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.
 Studio.ReactDevTools.Plugin.Button,,,DevTools,DevTools
@@ -17145,6 +17167,8 @@ Studio.NetworkSettings.NetworkType.Wifi,,,Wifi,Wifi
 Studio.NetworkSettings.NetworkType.Cellular3G,,,3G,3G
 Studio.NetworkSettings.NetworkType.Cellular4G,,,4G,4G
 Studio.NetworkSettings.NetworkType.Lan,,,LAN,LAN
+Studio.NetworkSettings.NetworkType.Device,,,Device,Device
+Studio.NetworkSettings.NetworkPreset.Device,,,Device,Device
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForYears,,,Friends for {age:int} years,Friends for {age:int} years
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForOneYear,,,Connected for one year,Connected for one year
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForMonths,,,Connected for {age:int} months,Connected for {age:int} months
@@ -17265,6 +17289,7 @@ Studio.DialogPlugin.BuildSealedDialog.Title,,,Editing in Studio will change your
 Studio.DialogPlugin.BuildSealedDialog.Body,,,"Editing in Studio will remove your content rating, making it publicly unplayable. It will no longer be searchable or recommended.","Editing in Studio will remove your content rating, making it publicly unplayable. It will no longer be searchable or recommended."
 Studio.DialogPlugin.DialogButton.LearnMore,,,Learn more,Learn more
 Studio.DialogPlugin.BuildSealedDialog.Body.Second,,,Take the content questionnaire first to keep your game playable.,Take the content questionnaire first to keep your game playable.
+Studio.DialogPlugin.DialogSuppression.DontShowAgain,,,Don't show this again,Don't show this again
 Studio.IndividuallyRoundedCorners.CornerRadiusWarning,,,Overridden by some or all Individual Corners,Overridden by some or all Individual Corners
 Studio.Platform.YouHaveBeenKicked1,,,"You have been kicked by this experience or its moderators. Moderation message: 
 
@@ -17350,6 +17375,8 @@ Studio.InputActionManager.Studio.ModifierButtonDescription,,,The primary modifie
 Studio.InputActionManager.Status.ModifierButtonDescription,,,The primary modifier must be different from the binding's assigned UI button.,The primary modifier must be different from the binding's assigned UI button.
 Studio.InputActionManager.Menu.PrimaryModifier,,,Primary Modifier,Primary Modifier
 Studio.InputActionManager.Menu.SecondaryModifier,,,Secondary Modifier,Secondary Modifier
+Studio.InputActionManager.Menu.Enabled,,,Enabled,Enabled
+Studio.InputActionManager.Menu.Sink,,,Sink,Sink
 Studio.AdPlacementManager.Label.AdPlacementManagerTitle,,,Ad Placement Manager,Ad Placement Manager
 Studio.AdPlacementManager.Label.AdPlacementManagerTooltip,,,View Ad Placement Manager,View Ad Placement Manager
 Studio.AdPlacementManager.Plugin.Description,,,Manage ad placements in your experience.,Manage ad placements in your experience.
