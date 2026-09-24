@@ -1591,6 +1591,7 @@
 [C++] DFFlagLibMpTelemetryTwo
 [C++] DFFlagLibMpTelemUpdCont
 [C++] DFFlagLinkingProtocolAddSessionInfo
+[C++] DFFlagLinkingResumeOnDataModelThread
 [C++] DFFlagLivePackageUpdating2
 [C++] DFFlagLmsDisableReporting2
 [C++] DFFlagLmsFixHttpJobSignatureContext
@@ -1647,7 +1648,7 @@
 [C++] DFFlagMeshCompression
 [C++] DFFlagMeshCompressionTelemetryV2
 [C++] DFFlagMeshImporterEnableCustomScaleFactor
-[C++] DFFlagMeshImportWildMeshSimplifier2
+[C++] DFFlagMeshImportWildMeshSimplifier
 [C++] DFFlagMeshLODBoundsCheckMaxSkinRadius
 [C++] DFFlagMeshLODClampNegativeSkinningWeights
 [C++] DFFlagMeshLODClampVertexColors
@@ -3226,6 +3227,7 @@
 [C++] DFIntPowerTraceModule
 [C++] DFIntPowerTraceSessionObserver
 [C++] DFIntPPJProgressHalt
+[C++] DFIntPreloadedRbxmSerializer
 [C++] DFIntPreloadLinkedScriptsTiming
 [C++] DFIntPresetChatManager
 [C++] DFIntProductInfoBatching
@@ -3351,6 +3353,7 @@
 [C++] DFIntStreamJobLimits
 [C++] DFIntStreamMRF
 [C++] DFIntStreamPrefetch
+[C++] DFIntStudioDomInspector
 [C++] DFIntStudioHangingScriptLogs
 [C++] DFIntStudioPerformanceMeasurementsSummary
 [C++] DFIntStudioPluginImageCapture
@@ -3696,7 +3699,6 @@
 [C++] DFLogRM3Tier0ConfigServiceApiEndpoint
 [C++] DFLogRM3Tier0VisualFilterDefaultEncoding
 [C++] DFLogRobloxAnalyticsSubDomain
-[C++] DFLogRobloxAnalyticsURL
 [C++] DFLogRobloxTelemetryAdapterPointV2Prefix
 [C++] DFLogRobloxTelemetryCheckSumSalt
 [C++] DFLogRobloxTelemetryProdAdapterPointV2Prefix
@@ -4889,6 +4891,7 @@
 [C++] FFlagDebugStudioCreateGameWindowThrows
 [C++] FFlagDebugStudioDisableWebBrowserSecurity
 [C++] FFlagDebugStudioDisableWebBrowserWidgetMenu
+[C++] FFlagDebugStudioDomInspectorEnabled
 [C++] FFlagDebugStudioDoNotInitializeBuiltinActions
 [C++] FFlagDebugStudioEnableQSGInfo
 [C++] FFlagDebugStudioEnableWebBrowserDevTools
@@ -4897,7 +4900,6 @@
 [C++] FFlagDebugStudioFlagState
 [C++] FFlagDebugStudioIgnoreFetchTestArgsEvent
 [C++] FFlagDebugStudioLogSessionsOnTimer
-[C++] FFlagDebugStudioMeshSplitMockSpecificIssue
 [C++] FFlagDebugStudioMockTranslation
 [C++] FFlagDebugStudioNonTestingPathForOpenPlace
 [C++] FFlagDebugStudioNoSaveBeforeStartServer
@@ -5575,7 +5577,6 @@
 [C++] FFlagEnableWebViewParamsType
 [C++] FFlagEnableWebViewService2
 [C++] FFlagEnableWindowsFixPermissionsProtocol
-[C++] FFlagEnableWindowsMicPermissionAccess
 [C++] FFlagEnableWriteRequestingThreadHistory2
 [C++] FFlagEnableZoomExtentsRigSupport
 [C++] FFlagEnableZstdDictionaryForClientSettings
@@ -5820,7 +5821,7 @@
 [C++] FFlagFixSmallSurfaceGuiMouseInput
 [C++] FFlagFixSoundFailedLoadRetry
 [C++] FFlagFixSpaceConsistency
-[C++] FFlagFixSplitHashBitmapCorruption
+[C++] FFlagFixSplitHashBitmapCorruption2
 [C++] FFlagFixStartPageOpenedInEditMode
 [C++] FFlagFixStreamingFocusAutoComputedPrimaryPart
 [C++] FFlagFixStyleInputActionLabel
@@ -7504,6 +7505,7 @@
 [C++] FFlagStudioAutoUpdateWithNoEmergencyDialog
 [C++] FFlagStudioAvatarAutoSetupAllowRequestCompression
 [C++] FFlagStudioBackgroundUpdatesObserveApplicationStatesChange
+[C++] FFlagStudioBadgeCreateUrlUsesCreatorHub
 [C++] FFlagStudioBetterErrorForACCb
 [C++] FFlagStudioBuildSealedAssistantLayout
 [C++] FFlagStudioBypassFailingCollaborationSafetyChecks
@@ -8490,6 +8492,7 @@
 [C++] FFlagVideoWinCodecRefactor
 [C++] FFlagVideoWinHwEncoderFixFirstFrameMissing
 [C++] FFlagVideoWinHwEncoderScopedMFStartup
+[C++] FFlagVideoWinUseMarkerEvent
 [C++] FFlagViewInstanceLaunchTaskHandler
 [C++] FFlagViewportDisplaySizeAPI2BetaFeature
 [C++] FFlagViewportDragEventPropagation
@@ -8644,6 +8647,7 @@
 [C++] FIntAdornableLifetime
 [C++] FIntAdornRenderStats
 [C++] FIntAdornVB
+[C++] FIntAdsCache
 [C++] FIntAdService
 [C++] FIntAdsLifecycleManager
 [C++] FIntAdsTelemetryLogs
@@ -8712,6 +8716,7 @@
 [C++] FIntBackendConfigManager
 [C++] FIntBacktraceReporter
 [C++] FIntBadgeService
+[C++] FIntBaseExperienceController
 [C++] FIntBaseUrlProtocol
 [C++] FIntBaseWrapLogChannel
 [C++] FIntBetaFeatures
@@ -8888,7 +8893,6 @@
 [C++] FIntFMOD
 [C++] FIntFontProviderTimings
 [C++] FIntFontSubsystem
-[C++] FIntFriendsCallingExperienceController
 [C++] FIntFRM
 [C++] FIntFullRenderObjects
 [Lua] FIntFullscreenTitleBarTriggerDelayMillis
@@ -9064,7 +9068,6 @@
 [C++] FIntPathfindingDetail
 [C++] FIntPathfindingPerf
 [C++] FIntPaymentsProtocol
-[C++] FIntPaymentsProtocolInternal
 [C++] FIntPerformanceControlIXP
 [C++] FIntPerformanceControlPlanner
 [C++] FIntPerformanceControlService
@@ -9222,6 +9225,7 @@
 [C++] FIntScriptEditorBridge
 [C++] FIntScriptEditorBuilderMonoFontSwitcherLog
 [C++] FIntScriptingProductivityTelemetryLog
+[C++] FIntScriptModificationTracking
 [C++] FIntScriptPrint
 [C++] FIntScriptScannerService
 [C++] FIntScriptWatch
@@ -9426,6 +9430,7 @@
 [C++] FIntTaskSchedulerInit
 [C++] FIntTaskSchedulerRun
 [C++] FIntTDigest
+[C++] FIntTeamCreateConnectionIndicatorNew
 [C++] FIntTeamCreateConnectionMonitorComponent
 [C++] FIntTeamCreateDataModelWorker
 [C++] FIntTeamCreateEvictionManager
@@ -9613,7 +9618,6 @@
 [C++] FIntWebBrowserWidget
 [C++] FIntWebLoginProtocol
 [C++] FIntWebView
-[C++] FIntWebViewService
 [C++] FIntWidgets
 [C++] FIntWidgetsManager
 [C++] FIntWildMeshSimplifierLog
@@ -9855,7 +9859,6 @@
 [C++] FLogErrorUploadToBacktraceLuaAppToken
 [C++] FLogExperienceStateCaptureHighlightColor
 [C++] FLogExperienceStateCaptureOutlineColor
-[C++] FLogExplorerFilterHelpUrl
 [C++] FLogExplorerPackageIconIxpLayer
 [C++] FLogExplorerPackageIconIxpVariable
 [C++] FLogExternalUserPluginLoadDenyList
