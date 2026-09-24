@@ -5,32 +5,88 @@ PROTO_0:
         5 MOVE                             R3 R1
         6 CALL                             R2 1 1
         7 SETTABLEKS                       R2 R0 K2 ["bridge"]
-        9 RETURN                           R0 0
+        9 LOADNIL                          R2
+       10 SETTABLEKS                       R2 R0 K3 ["targetDataModel"]
+       12 RETURN                           R0 0
 
 PROTO_1:
         0 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEKS                       R3 R0 K0 ["bridge"]
-        2 MOVE                             R5 R1
-        3 MOVE                             R6 R2
-        4 NAMECALL                         R3 R3 K1 ["CallMethodAsync"]
-        6 CALL                             R3 3 1
-        7 FASTCALL1                        TYPE R3 ; [+3]
-        8 MOVE                             R5 R3
-        9 GETIMPORT                        R4 K3 [type]
-       11 CALL                             R4 1 1
-       12 JUMPIFNOTEQKS                    R4 K4 ["table"] ; [+13]
-       14 GETTABLEKS                       R4 R3 K5 ["Name"]
-       16 JUMPIF                           R4 ; [+6]
-       17 GETTABLEKS                       R4 R3 K6 ["name"]
-       19 JUMPIF                           R4 ; [+3]
-       20 GETTABLEKS                       R4 R3 K7 ["Id"]
-       22 JUMPIFNOT                        R4 ; [+3]
-       23 GETUPVAL                         R4 0
-       24 MOVE                             R5 R3
-       25 CALL                             R4 1 0
-       26 RETURN                           R3 1
+        0 SETTABLEKS                       R1 R0 K0 ["targetDataModel"]
+        2 RETURN                           R0 0
+
+PROTO_3:
+        0 GETTABLEKS                       R1 R0 K0 ["bridge"]
+        2 JUMPIFNOT                        R1 ; [+11]
+        3 GETTABLEKS                       R1 R0 K0 ["bridge"]
+        5 GETTABLEKS                       R1 R1 K1 ["getLiveDataModels"]
+        7 JUMPIFNOT                        R1 ; [+6]
+        8 GETTABLEKS                       R1 R0 K0 ["bridge"]
+       10 NAMECALL                         R1 R1 K1 ["getLiveDataModels"]
+       12 CALL                             R1 1 -1
+       13 RETURN                           R1 -1
+       14 NEWTABLE                         R1 0 0
+       16 RETURN                           R1 1
+
+PROTO_4:
+        0 RETURN                           R0 0
+
+PROTO_5:
+        0 GETTABLEKS                       R2 R0 K0 ["bridge"]
+        2 JUMPIFNOT                        R2 ; [+12]
+        3 GETTABLEKS                       R2 R0 K0 ["bridge"]
+        5 GETTABLEKS                       R2 R2 K1 ["onLiveDataModelsChanged"]
+        7 JUMPIFNOT                        R2 ; [+7]
+        8 GETTABLEKS                       R2 R0 K0 ["bridge"]
+       10 MOVE                             R4 R1
+       11 NAMECALL                         R2 R2 K1 ["onLiveDataModelsChanged"]
+       13 CALL                             R2 2 -1
+       14 RETURN                           R2 -1
+       15 DUPCLOSURE                       R2 K2 [PROTO_4]
+       16 RETURN                           R2 1
+
+PROTO_6:
+        0 GETTABLEKS                       R1 R0 K0 ["bridge"]
+        2 JUMPIFNOT                        R1 ; [+10]
+        3 GETTABLEKS                       R1 R0 K0 ["bridge"]
+        5 GETTABLEKS                       R1 R1 K1 ["DiscoverDataModels"]
+        7 JUMPIFNOT                        R1 ; [+5]
+        8 GETTABLEKS                       R1 R0 K0 ["bridge"]
+       10 NAMECALL                         R1 R1 K1 ["DiscoverDataModels"]
+       12 CALL                             R1 1 0
+       13 RETURN                           R0 0
+
+PROTO_7:
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["getFFlagSceneAnalysisMdiDataModelPicker"]
+        3 CALL                             R4 0 1
+        4 JUMPIFNOT                        R4 ; [+3]
+        5 GETTABLEKS                       R3 R0 K1 ["targetDataModel"]
+        7 JUMP                             ; [+1]
+        8 LOADNIL                          R3
+        9 GETTABLEKS                       R4 R0 K2 ["bridge"]
+       11 MOVE                             R6 R1
+       12 MOVE                             R7 R2
+       13 LOADNIL                          R8
+       14 MOVE                             R9 R3
+       15 NAMECALL                         R4 R4 K3 ["CallMethodAsync"]
+       17 CALL                             R4 5 1
+       18 FASTCALL1                        TYPE R4 ; [+3]
+       19 MOVE                             R6 R4
+       20 GETIMPORT                        R5 K5 [type]
+       22 CALL                             R5 1 1
+       23 JUMPIFNOTEQKS                    R5 K6 ["table"] ; [+13]
+       25 GETTABLEKS                       R5 R4 K7 ["Name"]
+       27 JUMPIF                           R5 ; [+6]
+       28 GETTABLEKS                       R5 R4 K8 ["name"]
+       30 JUMPIF                           R5 ; [+3]
+       31 GETTABLEKS                       R5 R4 K9 ["Id"]
+       33 JUMPIFNOT                        R5 ; [+3]
+       34 GETUPVAL                         R5 1
+       35 MOVE                             R6 R4
+       36 CALL                             R5 1 0
+       37 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -48,15 +104,31 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Util"]
        22 GETTABLEKS                       R3 R3 K9 ["injectStableIds"]
        24 CALL                             R2 1 1
-       25 NEWTABLE                         R3 4 0
-       27 LOADNIL                          R4
-       28 SETTABLEKS                       R4 R3 K10 ["bridge"]
-       30 DUPCLOSURE                       R4 K11 [PROTO_0]
-       31 CAPTURE                          VAL R1
-       32 SETTABLEKS                       R4 R3 K12 ["connect"]
-       34 DUPCLOSURE                       R4 K13 [PROTO_1]
-       35 SETTABLEKS                       R4 R3 K14 ["disconnect"]
-       37 DUPCLOSURE                       R4 K15 [PROTO_2]
-       38 CAPTURE                          VAL R2
-       39 SETTABLEKS                       R4 R3 K16 ["CallAssetPluginAsync"]
-       41 RETURN                           R3 1
+       25 GETIMPORT                        R3 K5 [require]
+       27 GETTABLEKS                       R4 R0 K10 ["Bin"]
+       29 GETTABLEKS                       R4 R4 K11 ["Common"]
+       31 GETTABLEKS                       R4 R4 K12 ["defineLuaFlags"]
+       33 CALL                             R3 1 1
+       34 NEWTABLE                         R4 16 0
+       36 LOADNIL                          R5
+       37 SETTABLEKS                       R5 R4 K13 ["bridge"]
+       39 LOADNIL                          R5
+       40 SETTABLEKS                       R5 R4 K14 ["targetDataModel"]
+       42 DUPCLOSURE                       R5 K15 [PROTO_0]
+       43 CAPTURE                          VAL R1
+       44 SETTABLEKS                       R5 R4 K16 ["connect"]
+       46 DUPCLOSURE                       R5 K17 [PROTO_1]
+       47 SETTABLEKS                       R5 R4 K18 ["disconnect"]
+       49 DUPCLOSURE                       R5 K19 [PROTO_2]
+       50 SETTABLEKS                       R5 R4 K20 ["setTargetDataModel"]
+       52 DUPCLOSURE                       R5 K21 [PROTO_3]
+       53 SETTABLEKS                       R5 R4 K22 ["getAvailableDataModels"]
+       55 DUPCLOSURE                       R5 K23 [PROTO_5]
+       56 SETTABLEKS                       R5 R4 K24 ["onAvailableDataModelsChanged"]
+       58 DUPCLOSURE                       R5 K25 [PROTO_6]
+       59 SETTABLEKS                       R5 R4 K26 ["refreshDataModels"]
+       61 DUPCLOSURE                       R5 K27 [PROTO_7]
+       62 CAPTURE                          VAL R3
+       63 CAPTURE                          VAL R2
+       64 SETTABLEKS                       R5 R4 K28 ["CallAssetPluginAsync"]
+       66 RETURN                           R4 1

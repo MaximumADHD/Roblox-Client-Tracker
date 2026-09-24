@@ -35,50 +35,59 @@ PROTO_0:
        47 GETTABLEKS                       R9 R9 K9 ["Tag"]
        49 LOADK                            R10 K10 ["X-Column"]
        50 SETTABLE                         R10 R8 R9
-       51 DUPTABLE                         R9 K16 [{"NavigationBar", "Body", "PublishBar", "UnsavedChangesDialog", "SaveToRobloxPage"}]
+       51 DUPTABLE                         R9 K17 [{"NavigationBar", "Body", "PublishBar", "UnsavedChangesDialog", "CreatePlaceSettingsDialog", "SaveToRobloxPage"}]
        52 MOVE                             R10 R4
        53 JUMPIFNOT                        R10 ; [+8]
        54 GETUPVAL                         R10 4
        55 GETUPVAL                         R11 6
-       56 DUPTABLE                         R12 K18 [{"layoutOrder"}]
+       56 DUPTABLE                         R12 K19 [{"layoutOrder"}]
        57 MOVE                             R13 R5
        58 CALL                             R13 0 1
-       59 SETTABLEKS                       R13 R12 K17 ["layoutOrder"]
+       59 SETTABLEKS                       R13 R12 K18 ["layoutOrder"]
        61 CALL                             R10 2 1
        62 SETTABLEKS                       R10 R9 K11 ["NavigationBar"]
        64 MOVE                             R10 R4
        65 JUMPIFNOT                        R10 ; [+8]
        66 GETUPVAL                         R10 4
        67 GETUPVAL                         R11 7
-       68 DUPTABLE                         R12 K18 [{"layoutOrder"}]
+       68 DUPTABLE                         R12 K19 [{"layoutOrder"}]
        69 MOVE                             R13 R5
        70 CALL                             R13 0 1
-       71 SETTABLEKS                       R13 R12 K17 ["layoutOrder"]
+       71 SETTABLEKS                       R13 R12 K18 ["layoutOrder"]
        73 CALL                             R10 2 1
        74 SETTABLEKS                       R10 R9 K12 ["Body"]
        76 MOVE                             R10 R4
        77 JUMPIFNOT                        R10 ; [+8]
        78 GETUPVAL                         R10 4
        79 GETUPVAL                         R11 8
-       80 DUPTABLE                         R12 K18 [{"layoutOrder"}]
+       80 DUPTABLE                         R12 K19 [{"layoutOrder"}]
        81 MOVE                             R13 R5
        82 CALL                             R13 0 1
-       83 SETTABLEKS                       R13 R12 K17 ["layoutOrder"]
+       83 SETTABLEKS                       R13 R12 K18 ["layoutOrder"]
        85 CALL                             R10 2 1
        86 SETTABLEKS                       R10 R9 K13 ["PublishBar"]
        88 MOVE                             R10 R4
        89 JUMPIFNOT                        R10 ; [+3]
-       90 GETTABLEKS                       R10 R1 K19 ["getUnsavedChangesDialog"]
+       90 GETTABLEKS                       R10 R1 K20 ["getUnsavedChangesDialog"]
        92 CALL                             R10 0 1
        93 SETTABLEKS                       R10 R9 K14 ["UnsavedChangesDialog"]
-       95 NOT                              R10 R4
-       96 JUMPIFNOT                        R10 ; [+3]
-       97 GETUPVAL                         R10 4
-       98 GETUPVAL                         R11 9
-       99 CALL                             R10 1 1
-      100 SETTABLEKS                       R10 R9 K15 ["SaveToRobloxPage"]
-      102 CALL                             R6 3 -1
-      103 RETURN                           R6 -1
+       95 MOVE                             R10 R4
+       96 JUMPIFNOT                        R10 ; [+6]
+       97 GETUPVAL                         R10 9
+       98 CALL                             R10 0 1
+       99 JUMPIFNOT                        R10 ; [+3]
+      100 GETUPVAL                         R10 4
+      101 GETUPVAL                         R11 10
+      102 CALL                             R10 1 1
+      103 SETTABLEKS                       R10 R9 K15 ["CreatePlaceSettingsDialog"]
+      105 NOT                              R10 R4
+      106 JUMPIFNOT                        R10 ; [+3]
+      107 GETUPVAL                         R10 4
+      108 GETUPVAL                         R11 11
+      109 CALL                             R10 1 1
+      110 SETTABLEKS                       R10 R9 K16 ["SaveToRobloxPage"]
+      112 CALL                             R6 3 -1
+      113 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -92,58 +101,70 @@ MAIN:
        13 GETTABLEKS                       R2 R2 K8 ["Body"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R3 K10 ["Framework"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K6 ["Src"]
-       27 GETTABLEKS                       R4 R4 K7 ["Components"]
-       29 GETTABLEKS                       R4 R4 K11 ["NavigationBar"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Components"]
+       22 GETTABLEKS                       R3 R3 K9 ["CreatePlaceSettingsDialog"]
+       24 CALL                             R2 1 1
+       25 GETIMPORT                        R3 K5 [require]
+       27 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K11 ["Framework"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
        34 GETTABLEKS                       R5 R0 K6 ["Src"]
        36 GETTABLEKS                       R5 R5 K7 ["Components"]
-       38 GETTABLEKS                       R5 R5 K12 ["PublishBar"]
+       38 GETTABLEKS                       R5 R5 K12 ["NavigationBar"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
        43 GETTABLEKS                       R6 R0 K6 ["Src"]
        45 GETTABLEKS                       R6 R6 K7 ["Components"]
-       47 GETTABLEKS                       R6 R6 K13 ["Contexts"]
-       49 GETTABLEKS                       R6 R6 K14 ["PublishProvider"]
-       51 GETTABLEKS                       R6 R6 K15 ["PublishContext"]
-       53 CALL                             R5 1 1
-       54 GETIMPORT                        R6 K5 [require]
-       56 GETTABLEKS                       R7 R0 K9 ["Packages"]
-       58 GETTABLEKS                       R7 R7 K16 ["React"]
-       60 CALL                             R6 1 1
-       61 GETIMPORT                        R7 K5 [require]
-       63 GETTABLEKS                       R8 R0 K9 ["Packages"]
-       65 GETTABLEKS                       R8 R8 K17 ["ReactUtils"]
-       67 CALL                             R7 1 1
-       68 GETIMPORT                        R8 K5 [require]
-       70 GETTABLEKS                       R9 R0 K6 ["Src"]
-       72 GETTABLEKS                       R9 R9 K7 ["Components"]
-       74 GETTABLEKS                       R9 R9 K18 ["SaveToRobloxPage"]
+       47 GETTABLEKS                       R6 R6 K13 ["PublishBar"]
+       49 CALL                             R5 1 1
+       50 GETIMPORT                        R6 K5 [require]
+       52 GETTABLEKS                       R7 R0 K6 ["Src"]
+       54 GETTABLEKS                       R7 R7 K7 ["Components"]
+       56 GETTABLEKS                       R7 R7 K14 ["Contexts"]
+       58 GETTABLEKS                       R7 R7 K15 ["PublishProvider"]
+       60 GETTABLEKS                       R7 R7 K16 ["PublishContext"]
+       62 CALL                             R6 1 1
+       63 GETIMPORT                        R7 K5 [require]
+       65 GETTABLEKS                       R8 R0 K10 ["Packages"]
+       67 GETTABLEKS                       R8 R8 K17 ["React"]
+       69 CALL                             R7 1 1
+       70 GETIMPORT                        R8 K5 [require]
+       72 GETTABLEKS                       R9 R0 K10 ["Packages"]
+       74 GETTABLEKS                       R9 R9 K18 ["ReactUtils"]
        76 CALL                             R8 1 1
        77 GETIMPORT                        R9 K5 [require]
        79 GETTABLEKS                       R10 R0 K6 ["Src"]
        81 GETTABLEKS                       R10 R10 K7 ["Components"]
-       83 GETTABLEKS                       R10 R10 K13 ["Contexts"]
-       85 GETTABLEKS                       R10 R10 K19 ["UnsavedChangesDialogContext"]
-       87 CALL                             R9 1 1
-       88 GETTABLEKS                       R10 R7 K20 ["createNextOrder"]
-       90 GETTABLEKS                       R11 R2 K21 ["UI"]
-       92 GETTABLEKS                       R12 R11 K22 ["Pane"]
-       94 GETTABLEKS                       R13 R6 K23 ["createElement"]
-       96 DUPCLOSURE                       R14 K24 [PROTO_0]
-       97 CAPTURE                          VAL R6
-       98 CAPTURE                          VAL R9
-       99 CAPTURE                          VAL R5
-      100 CAPTURE                          VAL R10
-      101 CAPTURE                          VAL R13
-      102 CAPTURE                          VAL R12
-      103 CAPTURE                          VAL R3
-      104 CAPTURE                          VAL R1
-      105 CAPTURE                          VAL R4
-      106 CAPTURE                          VAL R8
-      107 RETURN                           R14 1
+       83 GETTABLEKS                       R10 R10 K19 ["SaveToRobloxPage"]
+       85 CALL                             R9 1 1
+       86 GETIMPORT                        R10 K5 [require]
+       88 GETTABLEKS                       R11 R0 K6 ["Src"]
+       90 GETTABLEKS                       R11 R11 K7 ["Components"]
+       92 GETTABLEKS                       R11 R11 K14 ["Contexts"]
+       94 GETTABLEKS                       R11 R11 K20 ["UnsavedChangesDialogContext"]
+       96 CALL                             R10 1 1
+       97 GETIMPORT                        R11 K5 [require]
+       99 GETTABLEKS                       R12 R0 K6 ["Src"]
+      101 GETTABLEKS                       R12 R12 K21 ["Flags"]
+      103 GETTABLEKS                       R12 R12 K22 ["getEngineFeatureAvatarSettingsPlaceAvatarRules"]
+      105 CALL                             R11 1 1
+      106 GETTABLEKS                       R12 R8 K23 ["createNextOrder"]
+      108 GETTABLEKS                       R13 R3 K24 ["UI"]
+      110 GETTABLEKS                       R14 R13 K25 ["Pane"]
+      112 GETTABLEKS                       R15 R7 K26 ["createElement"]
+      114 DUPCLOSURE                       R16 K27 [PROTO_0]
+      115 CAPTURE                          VAL R7
+      116 CAPTURE                          VAL R10
+      117 CAPTURE                          VAL R6
+      118 CAPTURE                          VAL R12
+      119 CAPTURE                          VAL R15
+      120 CAPTURE                          VAL R14
+      121 CAPTURE                          VAL R4
+      122 CAPTURE                          VAL R1
+      123 CAPTURE                          VAL R5
+      124 CAPTURE                          VAL R11
+      125 CAPTURE                          VAL R2
+      126 CAPTURE                          VAL R9
+      127 RETURN                           R16 1

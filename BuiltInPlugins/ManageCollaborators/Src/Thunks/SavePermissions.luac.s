@@ -2,6 +2,36 @@ PROTO_0:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["Permissions"]
         3 GETTABLEKS                       R0 R0 K1 ["CurrentPermissions"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K0 ["Permissions"]
+        8 GETTABLEKS                       R2 R2 K2 ["NewPermissions"]
+       10 OR                               R1 R2 R0
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K3 ["PendingPlayTesters"]
+       14 GETTABLEKS                       R3 R2 K4 ["CurrentPlayTesters"]
+       16 GETTABLEKS                       R5 R2 K5 ["NewPlayTesters"]
+       18 OR                               R4 R5 R3
+       19 GETUPVAL                         R5 1
+       20 GETUPVAL                         R6 2
+       21 GETUPVAL                         R7 3
+       22 GETUPVAL                         R8 4
+       23 MOVE                             R9 R0
+       24 MOVE                             R10 R1
+       25 MOVE                             R11 R3
+       26 MOVE                             R12 R4
+       27 CALL                             R5 7 2
+       28 GETUPVAL                         R7 5
+       29 GETTABLEKS                       R7 R7 K6 ["reportSaveCollaboratorsPressed"]
+       31 GETUPVAL                         R8 6
+       32 MOVE                             R9 R5
+       33 MOVE                             R10 R6
+       34 CALL                             R7 3 0
+       35 RETURN                           R0 0
+
+PROTO_1:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Permissions"]
+        3 GETTABLEKS                       R0 R0 K1 ["CurrentPermissions"]
         5 GETUPVAL                         R1 0
         6 GETTABLEKS                       R1 R1 K0 ["Permissions"]
         8 GETTABLEKS                       R1 R1 K2 ["NewPermissions"]
@@ -20,7 +50,7 @@ PROTO_0:
        25 CALL                             R4 3 0
        26 RETURN                           R0 0
 
-PROTO_1:
+PROTO_2:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["GranularPermissions"]
         3 GETTABLEKS                       R0 R0 K1 ["UpdatedPermissionValues"]
@@ -50,7 +80,7 @@ PROTO_1:
        36 CALL                             R3 5 0
        37 RETURN                           R0 0
 
-PROTO_2:
+PROTO_3:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["Permissions"]
         3 GETTABLEKS                       R0 R0 K1 ["CurrentPermissions"]
@@ -72,7 +102,7 @@ PROTO_2:
        25 CALL                             R4 3 0
        26 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+12]
         2 GETUPVAL                         R0 1
@@ -86,76 +116,92 @@ PROTO_3:
        13 CALL                             R1 4 0
        14 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
         0 NAMECALL                         R4 R0 K0 ["getState"]
         2 CALL                             R4 1 1
         3 GETIMPORT                        R5 K2 [game]
         5 GETTABLEKS                       R5 R5 K3 ["GameId"]
         7 GETTABLEKS                       R6 R1 K4 ["gamePermissionsController"]
         9 GETTABLEKS                       R7 R1 K5 ["granularPermissionsController"]
-       11 GETUPVAL                         R9 0
-       12 GETTABLEKS                       R9 R9 K6 ["fflagCollabPV2GroupMigration"]
-       14 JUMPIFNOT                        R9 ; [+4]
-       15 GETUPVAL                         R8 1
-       16 MOVE                             R9 R4
-       17 CALL                             R8 1 1
-       18 JUMP                             ; [+3]
-       19 GETUPVAL                         R8 2
-       20 GETTABLEKS                       R8 R8 K7 ["NOT_MIGRATED"]
-       22 GETUPVAL                         R9 0
-       23 GETTABLEKS                       R9 R9 K6 ["fflagCollabPV2GroupMigration"]
-       25 JUMPIFNOT                        R9 ; [+8]
-       26 GETUPVAL                         R9 2
-       27 GETTABLEKS                       R9 R9 K8 ["MIGRATING"]
-       29 JUMPIFNOTEQ                      R8 R9 ; [+4]
-       31 NEWTABLE                         R9 0 0
-       33 RETURN                           R9 1
-       34 GETUPVAL                         R9 0
-       35 GETTABLEKS                       R9 R9 K6 ["fflagCollabPV2GroupMigration"]
-       37 JUMPIFNOT                        R9 ; [+33]
-       38 GETUPVAL                         R9 2
-       39 GETTABLEKS                       R9 R9 K9 ["MIGRATED"]
-       41 JUMPIFNOTEQ                      R8 R9 ; [+29]
-       43 NEWTABLE                         R9 0 0
-       45 NEWCLOSURE                       R12 P0
-       46 CAPTURE                          VAL R4
+       11 GETTABLEKS                       R8 R1 K6 ["playTestersController"]
+       13 GETUPVAL                         R10 0
+       14 GETTABLEKS                       R10 R10 K7 ["fflagCollabPV2GroupMigration"]
+       16 JUMPIFNOT                        R10 ; [+4]
+       17 GETUPVAL                         R9 1
+       18 MOVE                             R10 R4
+       19 CALL                             R9 1 1
+       20 JUMP                             ; [+3]
+       21 GETUPVAL                         R9 2
+       22 GETTABLEKS                       R9 R9 K8 ["NOT_MIGRATED"]
+       24 GETUPVAL                         R10 0
+       25 GETTABLEKS                       R10 R10 K7 ["fflagCollabPV2GroupMigration"]
+       27 JUMPIFNOT                        R10 ; [+8]
+       28 GETUPVAL                         R10 2
+       29 GETTABLEKS                       R10 R10 K9 ["MIGRATING"]
+       31 JUMPIFNOTEQ                      R9 R10 ; [+4]
+       33 NEWTABLE                         R10 0 0
+       35 RETURN                           R10 1
+       36 GETUPVAL                         R10 0
+       37 GETTABLEKS                       R10 R10 K10 ["fflagAddPlayTesterPermission"]
+       39 JUMPIFNOT                        R10 ; [+14]
+       40 JUMPIF                           R2 ; [+13]
+       41 NEWTABLE                         R10 0 1
+       43 NEWCLOSURE                       R11 P0
+       44 CAPTURE                          VAL R4
+       45 CAPTURE                          UPVAL U3
+       46 CAPTURE                          VAL R5
        47 CAPTURE                          VAL R6
-       48 CAPTURE                          VAL R5
-       49 CAPTURE                          UPVAL U3
+       48 CAPTURE                          VAL R8
+       49 CAPTURE                          UPVAL U4
        50 CAPTURE                          VAL R2
-       51 FASTCALL2                        TABLE_INSERT R9 R12 ; [+4]
-       53 MOVE                             R11 R9
-       54 GETIMPORT                        R10 K12 [table.insert]
-       56 CALL                             R10 2 0
-       57 JUMPIFNOT                        R2 ; [+12]
-       58 NEWCLOSURE                       R12 P1
-       59 CAPTURE                          VAL R4
-       60 CAPTURE                          UPVAL U4
-       61 CAPTURE                          VAL R7
-       62 CAPTURE                          VAL R5
-       63 CAPTURE                          VAL R3
-       64 FASTCALL2                        TABLE_INSERT R9 R12 ; [+4]
-       66 MOVE                             R11 R9
-       67 GETIMPORT                        R10 K12 [table.insert]
-       69 CALL                             R10 2 0
-       70 RETURN                           R9 1
-       71 NEWTABLE                         R9 0 2
-       73 NEWCLOSURE                       R10 P2
-       74 CAPTURE                          VAL R4
-       75 CAPTURE                          VAL R6
-       76 CAPTURE                          VAL R5
-       77 CAPTURE                          UPVAL U3
-       78 CAPTURE                          VAL R2
-       79 NEWCLOSURE                       R11 P3
-       80 CAPTURE                          VAL R2
-       81 CAPTURE                          VAL R4
-       82 CAPTURE                          VAL R7
-       83 CAPTURE                          VAL R5
-       84 CAPTURE                          VAL R3
-       85 SETLIST                          R9 R10 2 [1]
-       87 RETURN                           R9 1
+       51 SETLIST                          R10 R11 1 [1]
+       53 RETURN                           R10 1
+       54 GETUPVAL                         R10 0
+       55 GETTABLEKS                       R10 R10 K7 ["fflagCollabPV2GroupMigration"]
+       57 JUMPIFNOT                        R10 ; [+33]
+       58 GETUPVAL                         R10 2
+       59 GETTABLEKS                       R10 R10 K11 ["MIGRATED"]
+       61 JUMPIFNOTEQ                      R9 R10 ; [+29]
+       63 NEWTABLE                         R10 0 0
+       65 NEWCLOSURE                       R13 P1
+       66 CAPTURE                          VAL R4
+       67 CAPTURE                          VAL R6
+       68 CAPTURE                          VAL R5
+       69 CAPTURE                          UPVAL U4
+       70 CAPTURE                          VAL R2
+       71 FASTCALL2                        TABLE_INSERT R10 R13 ; [+4]
+       73 MOVE                             R12 R10
+       74 GETIMPORT                        R11 K14 [table.insert]
+       76 CALL                             R11 2 0
+       77 JUMPIFNOT                        R2 ; [+12]
+       78 NEWCLOSURE                       R13 P2
+       79 CAPTURE                          VAL R4
+       80 CAPTURE                          UPVAL U5
+       81 CAPTURE                          VAL R7
+       82 CAPTURE                          VAL R5
+       83 CAPTURE                          VAL R3
+       84 FASTCALL2                        TABLE_INSERT R10 R13 ; [+4]
+       86 MOVE                             R12 R10
+       87 GETIMPORT                        R11 K14 [table.insert]
+       89 CALL                             R11 2 0
+       90 RETURN                           R10 1
+       91 NEWTABLE                         R10 0 2
+       93 NEWCLOSURE                       R11 P3
+       94 CAPTURE                          VAL R4
+       95 CAPTURE                          VAL R6
+       96 CAPTURE                          VAL R5
+       97 CAPTURE                          UPVAL U4
+       98 CAPTURE                          VAL R2
+       99 NEWCLOSURE                       R12 P4
+      100 CAPTURE                          VAL R2
+      101 CAPTURE                          VAL R4
+      102 CAPTURE                          VAL R7
+      103 CAPTURE                          VAL R5
+      104 CAPTURE                          VAL R3
+      105 SETLIST                          R10 R11 2 [1]
+      107 RETURN                           R10 1
 
-PROTO_5:
+PROTO_6:
         0 GETIMPORT                        R0 K1 [pcall]
         2 GETUPVAL                         R1 0
         3 CALL                             R0 1 2
@@ -193,7 +239,7 @@ PROTO_5:
        41 CALL                             R2 -1 0
        42 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 MOVE                             R4 R1
@@ -240,7 +286,7 @@ PROTO_6:
        52 CLOSEUPVALS                      R3
        53 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          VAL R0
@@ -290,15 +336,21 @@ MAIN:
        65 GETTABLEKS                       R8 R8 K15 ["Selectors"]
        67 GETTABLEKS                       R8 R8 K16 ["GetMigrationStatus"]
        69 CALL                             R7 1 1
-       70 DUPCLOSURE                       R8 K17 [PROTO_4]
-       71 CAPTURE                          VAL R1
-       72 CAPTURE                          VAL R7
-       73 CAPTURE                          VAL R6
-       74 CAPTURE                          VAL R5
-       75 CAPTURE                          VAL R4
-       76 DUPCLOSURE                       R9 K18 [PROTO_7]
-       77 CAPTURE                          VAL R8
-       78 CAPTURE                          VAL R2
-       79 CAPTURE                          VAL R3
+       70 GETIMPORT                        R8 K4 [require]
+       72 GETTABLEKS                       R9 R0 K7 ["Src"]
+       74 GETTABLEKS                       R9 R9 K10 ["Util"]
+       76 GETTABLEKS                       R9 R9 K17 ["SaveAudiencePermissions"]
+       78 CALL                             R8 1 1
+       79 DUPCLOSURE                       R9 K18 [PROTO_5]
        80 CAPTURE                          VAL R1
-       81 RETURN                           R9 1
+       81 CAPTURE                          VAL R7
+       82 CAPTURE                          VAL R6
+       83 CAPTURE                          VAL R8
+       84 CAPTURE                          VAL R5
+       85 CAPTURE                          VAL R4
+       86 DUPCLOSURE                       R10 K19 [PROTO_8]
+       87 CAPTURE                          VAL R9
+       88 CAPTURE                          VAL R2
+       89 CAPTURE                          VAL R3
+       90 CAPTURE                          VAL R1
+       91 RETURN                           R10 1

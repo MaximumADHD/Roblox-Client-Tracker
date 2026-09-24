@@ -272,7 +272,7 @@ PROTO_7:
       234 CALL                             R39 1 1
       235 SETTABLEKS                       R39 R38 K22 ["LayoutOrder"]
       237 LOADK                            R41 K45 ["MappingsDialog"]
-      238 LOADK                            R42 K46 ["RestoreDefaultsButtonLabel"]
+      238 LOADK                            R42 K46 ["ResetToDefaultButtonLabel"]
       239 NAMECALL                         R39 R2 K47 ["getText"]
       241 CALL                             R39 3 1
       242 SETTABLEKS                       R39 R38 K48 ["Text"]

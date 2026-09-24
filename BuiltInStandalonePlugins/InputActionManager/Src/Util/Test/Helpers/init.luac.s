@@ -93,6 +93,8 @@ MAIN:
       176 SETTABLEKS                       R6 R5 K75 ["toggleFilterItem"]
       178 GETTABLEKS                       R6 R1 K76 ["ToggleFilterMenu"]
       180 SETTABLEKS                       R6 R5 K77 ["toggleFilterMenu"]
-      182 GETTABLEKS                       R6 R3 K78 ["updateStyling"]
-      184 SETTABLEKS                       R6 R5 K78 ["updateStyling"]
-      186 RETURN                           R5 1
+      182 GETTABLEKS                       R6 R4 K78 ["ToggleBooleanProperty"]
+      184 SETTABLEKS                       R6 R5 K79 ["toggleBooleanProperty"]
+      186 GETTABLEKS                       R6 R3 K80 ["updateStyling"]
+      188 SETTABLEKS                       R6 R5 K80 ["updateStyling"]
+      190 RETURN                           R5 1

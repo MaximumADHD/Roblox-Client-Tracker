@@ -44,50 +44,44 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["Collab8766_LogCollabSearchItemClickedEventV4"]
-        4 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["ManageCollaborators"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 JUMPIFNOT                        R0 ; [+67]
-        8 GETIMPORT                        R1 K5 [script]
-       10 LOADK                            R3 K6 ["ManageCollaborators"]
-       11 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
-       13 CALL                             R1 2 1
-       14 GETIMPORT                        R2 K9 [require]
-       16 GETTABLEKS                       R3 R1 K10 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K11 ["Cryo"]
-       20 CALL                             R2 1 1
-       21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R4 R1 K12 ["Src"]
-       25 GETTABLEKS                       R4 R4 K13 ["Actions"]
-       27 GETTABLEKS                       R4 R4 K14 ["SetSearchItemLogs"]
-       29 CALL                             R3 1 1
-       30 GETIMPORT                        R4 K9 [require]
-       32 GETTABLEKS                       R5 R1 K12 ["Src"]
-       34 GETTABLEKS                       R5 R5 K15 ["Util"]
-       36 GETTABLEKS                       R5 R5 K16 ["Telemetry"]
-       38 GETTABLEKS                       R5 R5 K17 ["CollaboratorSearchItemClickedEvent"]
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Actions"]
+       20 GETTABLEKS                       R3 R3 K10 ["SetSearchItemLogs"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Util"]
+       29 GETTABLEKS                       R4 R4 K12 ["Telemetry"]
+       31 GETTABLEKS                       R4 R4 K13 ["CollaboratorSearchItemClickedEvent"]
+       33 CALL                             R3 1 1
+       34 GETIMPORT                        R4 K5 [require]
+       36 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       38 GETTABLEKS                       R5 R5 K14 ["TelemetryProtocol"]
        40 CALL                             R4 1 1
-       41 GETIMPORT                        R5 K9 [require]
-       43 GETTABLEKS                       R6 R1 K10 ["Packages"]
-       45 GETTABLEKS                       R6 R6 K18 ["TelemetryProtocol"]
-       47 CALL                             R5 1 1
-       48 GETTABLEKS                       R6 R5 K19 ["new"]
-       50 CALL                             R6 0 1
-       51 GETIMPORT                        R7 K9 [require]
-       53 GETTABLEKS                       R8 R1 K12 ["Src"]
-       55 GETTABLEKS                       R8 R8 K15 ["Util"]
-       57 GETTABLEKS                       R8 R8 K20 ["Constants"]
-       59 CALL                             R7 1 1
-       60 NEWTABLE                         R8 0 2
-       62 GETTABLEKS                       R9 R7 K21 ["COLLABORATORTYPE_USER"]
-       64 GETTABLEKS                       R10 R7 K22 ["COLLABORATORTYPE_GROUP"]
-       66 SETLIST                          R8 R9 2 [1]
-       68 DUPCLOSURE                       R9 K23 [PROTO_1]
-       69 CAPTURE                          VAL R8
-       70 CAPTURE                          VAL R2
-       71 CAPTURE                          VAL R6
-       72 CAPTURE                          VAL R4
-       73 CAPTURE                          VAL R3
-       74 RETURN                           R9 1
-       75 RETURN                           R0 0
+       41 GETTABLEKS                       R5 R4 K15 ["new"]
+       43 CALL                             R5 0 1
+       44 GETIMPORT                        R6 K5 [require]
+       46 GETTABLEKS                       R7 R0 K8 ["Src"]
+       48 GETTABLEKS                       R7 R7 K11 ["Util"]
+       50 GETTABLEKS                       R7 R7 K16 ["Constants"]
+       52 CALL                             R6 1 1
+       53 NEWTABLE                         R7 0 2
+       55 GETTABLEKS                       R8 R6 K17 ["COLLABORATORTYPE_USER"]
+       57 GETTABLEKS                       R9 R6 K18 ["COLLABORATORTYPE_GROUP"]
+       59 SETLIST                          R7 R8 2 [1]
+       61 DUPCLOSURE                       R8 K19 [PROTO_1]
+       62 CAPTURE                          VAL R7
+       63 CAPTURE                          VAL R1
+       64 CAPTURE                          VAL R5
+       65 CAPTURE                          VAL R3
+       66 CAPTURE                          VAL R2
+       67 RETURN                           R8 1

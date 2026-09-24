@@ -374,5 +374,5 @@ MAIN:
       205 DUPCLOSURE                       R19 K72 [PROTO_8]
       206 CAPTURE                          VAL R3
       207 CAPTURE                          VAL R15
-      208 SETTABLEKS                       R19 R18 K73 ["reportAnalytics"]
+      208 SETTABLEKS                       R19 R18 K73 ["reportToolAnalytics"]
       210 RETURN                           R18 1

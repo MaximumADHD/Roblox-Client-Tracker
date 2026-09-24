@@ -111,26 +111,29 @@ PROTO_7:
        22 CALL                             R5 2 1
        23 CALL                             R4 1 0
        24 DUPTABLE                         R2 K8 [{"universeId", "isWebViewSupported"}]
-       25 GETIMPORT                        R3 K10 [game]
-       27 GETTABLEKS                       R3 R3 K11 ["GameId"]
-       29 SETTABLEKS                       R3 R2 K6 ["universeId"]
-       31 SETTABLEKS                       R1 R2 K7 ["isWebViewSupported"]
-       33 SETTABLEKS                       R2 R0 K12 ["state"]
-       35 GETUPVAL                         R2 1
-       36 GETTABLEKS                       R2 R2 K13 ["create"]
-       38 DUPTABLE                         R3 K17 [{"onCloseRequested", "onContentSizeRequested", "onStudioActionRequested"}]
-       39 NEWCLOSURE                       R4 P1
-       40 CAPTURE                          VAL R0
-       41 SETTABLEKS                       R4 R3 K14 ["onCloseRequested"]
-       43 NEWCLOSURE                       R4 P2
-       44 CAPTURE                          VAL R0
-       45 SETTABLEKS                       R4 R3 K15 ["onContentSizeRequested"]
-       47 NEWCLOSURE                       R4 P3
-       48 CAPTURE                          VAL R0
-       49 SETTABLEKS                       R4 R3 K16 ["onStudioActionRequested"]
-       51 CALL                             R2 1 1
-       52 SETTABLEKS                       R2 R0 K18 ["eventHandlers"]
-       54 RETURN                           R0 0
+       25 GETTABLEKS                       R3 R0 K9 ["props"]
+       27 GETTABLEKS                       R3 R3 K10 ["UniverseId"]
+       29 JUMPIF                           R3 ; [+4]
+       30 GETIMPORT                        R3 K12 [game]
+       32 GETTABLEKS                       R3 R3 K13 ["GameId"]
+       34 SETTABLEKS                       R3 R2 K6 ["universeId"]
+       36 SETTABLEKS                       R1 R2 K7 ["isWebViewSupported"]
+       38 SETTABLEKS                       R2 R0 K14 ["state"]
+       40 GETUPVAL                         R2 1
+       41 GETTABLEKS                       R2 R2 K15 ["create"]
+       43 DUPTABLE                         R3 K19 [{"onCloseRequested", "onContentSizeRequested", "onStudioActionRequested"}]
+       44 NEWCLOSURE                       R4 P1
+       45 CAPTURE                          VAL R0
+       46 SETTABLEKS                       R4 R3 K16 ["onCloseRequested"]
+       48 NEWCLOSURE                       R4 P2
+       49 CAPTURE                          VAL R0
+       50 SETTABLEKS                       R4 R3 K17 ["onContentSizeRequested"]
+       52 NEWCLOSURE                       R4 P3
+       53 CAPTURE                          VAL R0
+       54 SETTABLEKS                       R4 R3 K18 ["onStudioActionRequested"]
+       56 CALL                             R2 1 1
+       57 SETTABLEKS                       R2 R0 K20 ["eventHandlers"]
+       59 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0
@@ -339,68 +342,73 @@ MAIN:
        44 GETTABLEKS                       R9 R6 K17 ["getFFlagWebViewImprovedErrorHandling"]
        46 GETIMPORT                        R10 K8 [require]
        48 GETTABLEKS                       R11 R0 K18 ["Src"]
-       50 GETTABLEKS                       R11 R11 K19 ["Network"]
-       52 GETTABLEKS                       R11 R11 K20 ["Http"]
+       50 GETTABLEKS                       R11 R11 K19 ["Flags"]
+       52 GETTABLEKS                       R11 R11 K20 ["getEngineFeatureStudioUnifiedPublishAction"]
        54 CALL                             R10 1 1
        55 GETIMPORT                        R11 K8 [require]
        57 GETTABLEKS                       R12 R0 K18 ["Src"]
-       59 GETTABLEKS                       R12 R12 K21 ["Util"]
-       61 GETTABLEKS                       R12 R12 K22 ["PublishStatusInfo"]
+       59 GETTABLEKS                       R12 R12 K21 ["Network"]
+       61 GETTABLEKS                       R12 R12 K22 ["Http"]
        63 CALL                             R11 1 1
        64 GETIMPORT                        R12 K8 [require]
        66 GETTABLEKS                       R13 R0 K18 ["Src"]
-       68 GETTABLEKS                       R13 R13 K21 ["Util"]
-       70 GETTABLEKS                       R13 R13 K23 ["PublishStatusWebEventHandlers"]
+       68 GETTABLEKS                       R13 R13 K23 ["Util"]
+       70 GETTABLEKS                       R13 R13 K24 ["PublishStatusInfo"]
        72 CALL                             R12 1 1
-       73 GETIMPORT                        R13 K4 [game]
-       75 LOADK                            R15 K24 ["PublishStatusWebViewInitAutoRetryMaxAttempts"]
-       76 LOADN                            R16 5
-       77 NAMECALL                         R13 R13 K25 ["DefineFastInt"]
-       79 CALL                             R13 3 0
-       80 GETIMPORT                        R13 K4 [game]
-       82 LOADK                            R15 K26 ["PublishStatusFallbackPath"]
-       83 LOADK                            R16 K27 ["dashboard/creations/experiences/{universeId}/publishing"]
-       84 NAMECALL                         R13 R13 K28 ["DefineFastString"]
-       86 CALL                             R13 3 0
-       87 GETIMPORT                        R13 K4 [game]
-       89 LOADK                            R15 K29 ["PublishStatusPath"]
-       90 LOADK                            R16 K30 ["dashboard/creations/experiences/{universeId}/publishing/studio"]
-       91 NAMECALL                         R13 R13 K28 ["DefineFastString"]
-       93 CALL                             R13 3 0
-       94 GETTABLEKS                       R13 R2 K31 ["PureComponent"]
-       96 LOADK                            R15 K32 ["PublishStatusWebView"]
-       97 NAMECALL                         R13 R13 K33 ["extend"]
-       99 CALL                             R13 2 1
-      100 DUPCLOSURE                       R14 K34 [PROTO_0]
-      101 CAPTURE                          VAL R10
-      102 DUPCLOSURE                       R15 K35 [PROTO_1]
-      103 CAPTURE                          VAL R14
-      104 DUPCLOSURE                       R16 K36 [PROTO_2]
-      105 CAPTURE                          VAL R14
-      106 DUPCLOSURE                       R17 K37 [PROTO_7]
-      107 CAPTURE                          VAL R9
-      108 CAPTURE                          VAL R12
-      109 SETTABLEKS                       R17 R13 K38 ["init"]
-      111 DUPCLOSURE                       R17 K39 [PROTO_9]
-      112 SETTABLEKS                       R17 R13 K40 ["didMount"]
-      114 DUPCLOSURE                       R17 K41 [PROTO_10]
-      115 SETTABLEKS                       R17 R13 K42 ["willUnmount"]
-      117 DUPCLOSURE                       R17 K43 [PROTO_12]
-      118 CAPTURE                          VAL R10
-      119 CAPTURE                          VAL R1
-      120 CAPTURE                          VAL R16
-      121 CAPTURE                          VAL R9
-      122 CAPTURE                          VAL R2
-      123 CAPTURE                          VAL R7
-      124 CAPTURE                          VAL R11
-      125 CAPTURE                          VAL R8
-      126 SETTABLEKS                       R17 R13 K44 ["render"]
-      128 MOVE                             R17 R5
-      129 DUPTABLE                         R18 K46 [{"Localization"}]
-      130 GETTABLEKS                       R19 R4 K45 ["Localization"]
-      132 SETTABLEKS                       R19 R18 K45 ["Localization"]
-      134 CALL                             R17 1 1
-      135 MOVE                             R18 R13
-      136 CALL                             R17 1 1
-      137 MOVE                             R13 R17
-      138 RETURN                           R13 1
+       73 GETIMPORT                        R13 K8 [require]
+       75 GETTABLEKS                       R14 R0 K18 ["Src"]
+       77 GETTABLEKS                       R14 R14 K23 ["Util"]
+       79 GETTABLEKS                       R14 R14 K25 ["PublishStatusWebEventHandlers"]
+       81 CALL                             R13 1 1
+       82 GETIMPORT                        R14 K4 [game]
+       84 LOADK                            R16 K26 ["PublishStatusWebViewInitAutoRetryMaxAttempts"]
+       85 LOADN                            R17 5
+       86 NAMECALL                         R14 R14 K27 ["DefineFastInt"]
+       88 CALL                             R14 3 0
+       89 GETIMPORT                        R14 K4 [game]
+       91 LOADK                            R16 K28 ["PublishStatusFallbackPath"]
+       92 LOADK                            R17 K29 ["dashboard/creations/experiences/{universeId}/publishing"]
+       93 NAMECALL                         R14 R14 K30 ["DefineFastString"]
+       95 CALL                             R14 3 0
+       96 GETIMPORT                        R14 K4 [game]
+       98 LOADK                            R16 K31 ["PublishStatusPath"]
+       99 LOADK                            R17 K32 ["dashboard/creations/experiences/{universeId}/publishing/studio"]
+      100 NAMECALL                         R14 R14 K30 ["DefineFastString"]
+      102 CALL                             R14 3 0
+      103 GETTABLEKS                       R14 R2 K33 ["PureComponent"]
+      105 LOADK                            R16 K34 ["PublishStatusWebView"]
+      106 NAMECALL                         R14 R14 K35 ["extend"]
+      108 CALL                             R14 2 1
+      109 DUPCLOSURE                       R15 K36 [PROTO_0]
+      110 CAPTURE                          VAL R11
+      111 DUPCLOSURE                       R16 K37 [PROTO_1]
+      112 CAPTURE                          VAL R15
+      113 DUPCLOSURE                       R17 K38 [PROTO_2]
+      114 CAPTURE                          VAL R15
+      115 DUPCLOSURE                       R18 K39 [PROTO_7]
+      116 CAPTURE                          VAL R9
+      117 CAPTURE                          VAL R13
+      118 SETTABLEKS                       R18 R14 K40 ["init"]
+      120 DUPCLOSURE                       R18 K41 [PROTO_9]
+      121 SETTABLEKS                       R18 R14 K42 ["didMount"]
+      123 DUPCLOSURE                       R18 K43 [PROTO_10]
+      124 SETTABLEKS                       R18 R14 K44 ["willUnmount"]
+      126 DUPCLOSURE                       R18 K45 [PROTO_12]
+      127 CAPTURE                          VAL R11
+      128 CAPTURE                          VAL R1
+      129 CAPTURE                          VAL R17
+      130 CAPTURE                          VAL R9
+      131 CAPTURE                          VAL R2
+      132 CAPTURE                          VAL R7
+      133 CAPTURE                          VAL R12
+      134 CAPTURE                          VAL R8
+      135 SETTABLEKS                       R18 R14 K46 ["render"]
+      137 MOVE                             R18 R5
+      138 DUPTABLE                         R19 K48 [{"Localization"}]
+      139 GETTABLEKS                       R20 R4 K47 ["Localization"]
+      141 SETTABLEKS                       R20 R19 K47 ["Localization"]
+      143 CALL                             R18 1 1
+      144 MOVE                             R19 R14
+      145 CALL                             R18 1 1
+      146 MOVE                             R14 R18
+      147 RETURN                           R14 1

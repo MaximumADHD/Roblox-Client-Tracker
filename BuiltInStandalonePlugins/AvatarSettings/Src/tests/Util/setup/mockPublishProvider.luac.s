@@ -60,23 +60,23 @@ PROTO_6:
        24 NEWTABLE                         R5 0 0
        26 CALL                             R3 2 0
        27 DUPTABLE                         R3 K5 [{"content"}]
-       28 DUPTABLE                         R4 K12 [{[1], ["canPublish"] = False, ["isAvatarTypeOutOfSync"], ["isSettingOutOfSync"], ["saveUnpublishedSettings"], ["discardUnpublishedSettings"]}]
+       28 DUPTABLE                         R4 K13 [{[1], ["canPublish"] = False, ["canCreatePlaceSettings"] = False, ["isAvatarTypeOutOfSync"], ["isSettingOutOfSync"], ["saveUnpublishedSettings"], ["discardUnpublishedSettings"]}]
        29 SETTABLEKS                       R1 R4 K0 ["databaseLoaded"]
-       31 DUPCLOSURE                       R5 K13 [PROTO_2]
-       32 SETTABLEKS                       R5 R4 K8 ["isAvatarTypeOutOfSync"]
-       34 DUPCLOSURE                       R5 K14 [PROTO_3]
-       35 SETTABLEKS                       R5 R4 K9 ["isSettingOutOfSync"]
-       37 DUPCLOSURE                       R5 K15 [PROTO_4]
-       38 SETTABLEKS                       R5 R4 K10 ["saveUnpublishedSettings"]
-       40 DUPCLOSURE                       R5 K16 [PROTO_5]
-       41 SETTABLEKS                       R5 R4 K11 ["discardUnpublishedSettings"]
+       31 DUPCLOSURE                       R5 K14 [PROTO_2]
+       32 SETTABLEKS                       R5 R4 K9 ["isAvatarTypeOutOfSync"]
+       34 DUPCLOSURE                       R5 K15 [PROTO_3]
+       35 SETTABLEKS                       R5 R4 K10 ["isSettingOutOfSync"]
+       37 DUPCLOSURE                       R5 K16 [PROTO_4]
+       38 SETTABLEKS                       R5 R4 K11 ["saveUnpublishedSettings"]
+       40 DUPCLOSURE                       R5 K17 [PROTO_5]
+       41 SETTABLEKS                       R5 R4 K12 ["discardUnpublishedSettings"]
        43 SETTABLEKS                       R4 R3 K4 ["content"]
        45 GETUPVAL                         R4 4
        46 GETUPVAL                         R5 5
-       47 GETTABLEKS                       R5 R5 K17 ["Provider"]
-       49 DUPTABLE                         R6 K19 [{"value"}]
-       50 SETTABLEKS                       R3 R6 K18 ["value"]
-       52 GETTABLEKS                       R7 R0 K20 ["children"]
+       47 GETTABLEKS                       R5 R5 K18 ["Provider"]
+       49 DUPTABLE                         R6 K20 [{"value"}]
+       50 SETTABLEKS                       R3 R6 K19 ["value"]
+       52 GETTABLEKS                       R7 R0 K21 ["children"]
        54 CALL                             R4 3 -1
        55 RETURN                           R4 -1
 

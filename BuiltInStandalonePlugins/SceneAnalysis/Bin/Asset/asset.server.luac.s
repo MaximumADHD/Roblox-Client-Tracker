@@ -202,6 +202,20 @@ PROTO_7:
        59 CALL                             R1 2 0
        60 RETURN                           R0 0
 
+PROTO_8:
+        0 LOADB                            R0 0
+        1 SETUPVAL                         R0 0
+        2 LOADNIL                          R0
+        3 SETUPVAL                         R0 1
+        4 GETUPVAL                         R0 2
+        5 JUMPIFNOT                        R0 ; [+6]
+        6 GETUPVAL                         R0 2
+        7 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        9 CALL                             R0 1 0
+       10 LOADNIL                          R0
+       11 SETUPVAL                         R0 2
+       12 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [plugin]
@@ -268,35 +282,60 @@ MAIN:
        82 CAPTURE                          VAL R2
        83 CAPTURE                          VAL R7
        84 CAPTURE                          VAL R0
-       85 GETIMPORT                        R13 K1 [plugin]
-       87 GETTABLEKS                       R13 R13 K22 ["MultipleDocumentInterfaceInstance"]
-       89 MOVE                             R14 R12
-       90 GETTABLEKS                       R15 R13 K23 ["FocusedDataModelSession"]
-       92 CALL                             R14 1 0
-       93 GETIMPORT                        R14 K7 [require]
-       95 GETTABLEKS                       R15 R0 K17 ["Bin"]
-       97 GETTABLEKS                       R15 R15 K18 ["Common"]
-       99 GETTABLEKS                       R15 R15 K24 ["pluginType"]
-      101 CALL                             R14 1 1
-      102 GETTABLEKS                       R15 R14 K25 ["get"]
-      104 CALL                             R15 0 1
-      105 GETTABLEKS                       R16 R14 K26 ["Asset"]
-      107 JUMPIFEQ                         R15 R16 ; [+3]
-      109 CLOSEUPVALS                      R5
-      110 RETURN                           R0 0
-      111 GETIMPORT                        R15 K7 [require]
-      113 GETTABLEKS                       R16 R0 K17 ["Bin"]
-      115 GETTABLEKS                       R16 R16 K18 ["Common"]
-      117 GETTABLEKS                       R16 R16 K27 ["setup"]
-      119 CALL                             R15 1 1
-      120 GETIMPORT                        R16 K7 [require]
-      122 GETTABLEKS                       R17 R0 K17 ["Bin"]
-      124 GETTABLEKS                       R17 R17 K18 ["Common"]
-      126 GETTABLEKS                       R17 R17 K28 ["setupMain"]
-      128 CALL                             R16 1 1
-      129 MOVE                             R17 R15
-      130 GETIMPORT                        R18 K1 [plugin]
-      132 MOVE                             R19 R16
-      133 CALL                             R17 2 0
-      134 CLOSEUPVALS                      R5
-      135 RETURN                           R0 0
+       85 GETTABLEKS                       R13 R4 K22 ["getFFlagSceneAnalysisMdiDataModelPicker"]
+       87 CALL                             R13 0 1
+       88 JUMPIFNOT                        R13 ; [+30]
+       89 JUMPIFNOT                        R6 ; [+4]
+       90 NAMECALL                         R13 R6 K23 ["Disconnect"]
+       92 CALL                             R13 1 0
+       93 LOADNIL                          R6
+       94 GETTABLEKS                       R13 R2 K24 ["new"]
+       96 GETIMPORT                        R14 K1 [plugin]
+       98 CALL                             R13 1 1
+       99 MOVE                             R6 R13
+      100 MOVE                             R13 R7
+      101 GETTABLEKS                       R14 R0 K11 ["Src"]
+      103 GETTABLEKS                       R14 R14 K25 ["Queries"]
+      105 MOVE                             R15 R6
+      106 CALL                             R13 2 0
+      107 GETIMPORT                        R13 K1 [plugin]
+      109 GETTABLEKS                       R13 R13 K26 ["Unloading"]
+      111 NEWCLOSURE                       R15 P5
+      112 CAPTURE                          REF R9
+      113 CAPTURE                          REF R5
+      114 CAPTURE                          REF R6
+      115 NAMECALL                         R13 R13 K27 ["Connect"]
+      117 CALL                             R13 2 0
+      118 JUMP                             ; [+8]
+      119 GETIMPORT                        R13 K1 [plugin]
+      121 GETTABLEKS                       R13 R13 K28 ["MultipleDocumentInterfaceInstance"]
+      123 MOVE                             R14 R12
+      124 GETTABLEKS                       R15 R13 K29 ["FocusedDataModelSession"]
+      126 CALL                             R14 1 0
+      127 GETIMPORT                        R13 K7 [require]
+      129 GETTABLEKS                       R14 R0 K17 ["Bin"]
+      131 GETTABLEKS                       R14 R14 K18 ["Common"]
+      133 GETTABLEKS                       R14 R14 K30 ["pluginType"]
+      135 CALL                             R13 1 1
+      136 GETTABLEKS                       R14 R13 K31 ["get"]
+      138 CALL                             R14 0 1
+      139 GETTABLEKS                       R15 R13 K32 ["Asset"]
+      141 JUMPIFEQ                         R14 R15 ; [+3]
+      143 CLOSEUPVALS                      R5
+      144 RETURN                           R0 0
+      145 GETIMPORT                        R14 K7 [require]
+      147 GETTABLEKS                       R15 R0 K17 ["Bin"]
+      149 GETTABLEKS                       R15 R15 K18 ["Common"]
+      151 GETTABLEKS                       R15 R15 K33 ["setup"]
+      153 CALL                             R14 1 1
+      154 GETIMPORT                        R15 K7 [require]
+      156 GETTABLEKS                       R16 R0 K17 ["Bin"]
+      158 GETTABLEKS                       R16 R16 K18 ["Common"]
+      160 GETTABLEKS                       R16 R16 K34 ["setupMain"]
+      162 CALL                             R15 1 1
+      163 MOVE                             R16 R14
+      164 GETIMPORT                        R17 K1 [plugin]
+      166 MOVE                             R18 R15
+      167 CALL                             R16 2 0
+      168 CLOSEUPVALS                      R5
+      169 RETURN                           R0 0

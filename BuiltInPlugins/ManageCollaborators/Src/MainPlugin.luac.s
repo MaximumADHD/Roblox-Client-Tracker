@@ -480,7 +480,7 @@ PROTO_17:
        42 NEWCLOSURE                       R2 P3
        43 CAPTURE                          VAL R0
        44 SETTABLEKS                       R2 R0 K15 ["onWidgetEnabledChanged"]
-       46 NEWTABLE                         R2 8 0
+       46 NEWTABLE                         R2 16 0
        48 GETUPVAL                         R3 3
        49 GETTABLEKS                       R3 R3 K0 ["new"]
        51 CALL                             R3 0 1
@@ -529,122 +529,131 @@ PROTO_17:
       110 SETTABLEKS                       R4 R2 K18 ["groupMetadataController"]
       112 SETTABLEKS                       R5 R2 K19 ["groupRolePermisionsController"]
       114 SETTABLEKS                       R6 R2 K20 ["gamePermissionsController"]
-      116 SETTABLEKS                       R7 R2 K21 ["granularPermissionsController"]
-      118 SETTABLEKS                       R8 R2 K22 ["gameMetadataController"]
-      120 SETTABLEKS                       R9 R2 K23 ["socialController"]
-      122 GETUPVAL                         R11 10
-      123 JUMPIFNOT                        R11 ; [+2]
-      124 SETTABLEKS                       R10 R2 K24 ["likelyCollaboratorsController"]
-      126 GETUPVAL                         R11 12
-      127 GETTABLEKS                       R11 R11 K25 ["ThunkWithArgsMiddleware"]
-      129 MOVE                             R12 R2
-      130 CALL                             R11 1 1
-      131 NEWTABLE                         R12 0 1
-      133 MOVE                             R13 R11
-      134 SETLIST                          R12 R13 1 [1]
-      136 GETUPVAL                         R13 13
-      137 GETTABLEKS                       R13 R13 K26 ["Store"]
-      139 GETTABLEKS                       R13 R13 K0 ["new"]
-      141 GETUPVAL                         R14 14
-      142 LOADNIL                          R15
-      143 MOVE                             R16 R12
-      144 CALL                             R13 3 1
-      145 SETTABLEKS                       R13 R0 K27 ["store"]
-      147 GETUPVAL                         R13 15
-      148 GETTABLEKS                       R13 R13 K28 ["Localization"]
-      150 GETTABLEKS                       R13 R13 K0 ["new"]
-      152 DUPTABLE                         R14 K33 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "ManageCollaborators"}]
-      153 GETUPVAL                         R15 16
-      154 SETTABLEKS                       R15 R14 K29 ["stringResourceTable"]
-      156 GETUPVAL                         R15 17
-      157 SETTABLEKS                       R15 R14 K30 ["translationResourceTable"]
-      159 CALL                             R13 1 1
-      160 SETTABLEKS                       R13 R0 K34 ["localization"]
-      162 GETUPVAL                         R13 15
-      163 GETTABLEKS                       R13 R13 K35 ["Analytics"]
-      165 GETTABLEKS                       R13 R13 K0 ["new"]
-      167 DUPCLOSURE                       R14 K36 [PROTO_5]
-      168 NEWTABLE                         R15 0 0
-      170 CALL                             R13 2 1
-      171 SETTABLEKS                       R13 R0 K37 ["analytics"]
-      173 GETTABLEKS                       R13 R1 K1 ["Plugin"]
-      175 LOADK                            R15 K38 ["Actions"]
-      176 NAMECALL                         R13 R13 K39 ["GetPluginComponent"]
-      178 CALL                             R13 2 1
-      179 DUPTABLE                         R16 K48 [{["DataModel"] = "Standalone", ["PluginId"] = "ManageCollaborators", ["PluginType"] = "Unknown", ["Category"] = "Actions", ["ItemId"] = "Open"}]
-      180 NAMECALL                         R14 R13 K49 ["BindToActivatedAsync"]
-      182 CALL                             R14 2 1
-      183 NEWCLOSURE                       R16 P5
-      184 CAPTURE                          VAL R0
-      185 NAMECALL                         R14 R14 K50 ["Connect"]
-      187 CALL                             R14 2 1
-      188 SETTABLEKS                       R14 R0 K51 ["onActionActivated"]
-      190 GETUPVAL                         R14 18
-      191 GETTABLEKS                       R14 R14 K52 ["Util"]
-      193 GETTABLEKS                       R14 R14 K53 ["createFoundationDesignBinding"]
-      195 CALL                             R14 0 2
-      196 SETTABLEKS                       R15 R0 K54 ["onFoundationStyleSheetChange"]
-      198 GETUPVAL                         R16 19
-      199 GETTABLEKS                       R16 R16 K0 ["new"]
-      201 GETUPVAL                         R17 20
-      202 GETTABLEKS                       R18 R1 K1 ["Plugin"]
-      204 LOADNIL                          R19
-      205 LOADNIL                          R20
-      206 NEWTABLE                         R21 0 1
-      208 MOVE                             R22 R14
-      209 SETLIST                          R21 R22 1 [1]
-      211 CALL                             R17 4 -1
-      212 CALL                             R16 -1 1
-      213 SETTABLEKS                       R16 R0 K55 ["design"]
-      215 GETUPVAL                         R16 21
-      216 JUMPIFNOT                        R16 ; [+33]
-      217 NEWCLOSURE                       R16 P6
-      218 CAPTURE                          UPVAL U22
-      219 CAPTURE                          UPVAL U23
-      220 CAPTURE                          UPVAL U24
-      221 CAPTURE                          UPVAL U1
-      222 NEWCLOSURE                       R17 P7
-      223 CAPTURE                          VAL R0
-      224 CAPTURE                          UPVAL U25
-      225 CAPTURE                          UPVAL U26
-      226 CAPTURE                          UPVAL U27
-      227 CAPTURE                          UPVAL U1
-      228 CAPTURE                          VAL R16
-      229 SETTABLEKS                       R17 R0 K56 ["fetchLink"]
-      231 NEWCLOSURE                       R18 P8
-      232 CAPTURE                          UPVAL U28
-      233 CAPTURE                          VAL R17
+      116 GETUPVAL                         R11 12
+      117 GETTABLEKS                       R11 R11 K21 ["fflagAddPlayTesterPermission"]
+      119 JUMPIFNOT                        R11 ; [+9]
+      120 GETUPVAL                         R11 13
+      121 GETTABLEKS                       R11 R11 K0 ["new"]
+      123 NAMECALL                         R12 R3 K16 ["get"]
+      125 CALL                             R12 1 -1
+      126 CALL                             R11 -1 1
+      127 SETTABLEKS                       R11 R2 K22 ["playTestersController"]
+      129 SETTABLEKS                       R7 R2 K23 ["granularPermissionsController"]
+      131 SETTABLEKS                       R8 R2 K24 ["gameMetadataController"]
+      133 SETTABLEKS                       R9 R2 K25 ["socialController"]
+      135 GETUPVAL                         R11 10
+      136 JUMPIFNOT                        R11 ; [+2]
+      137 SETTABLEKS                       R10 R2 K26 ["likelyCollaboratorsController"]
+      139 GETUPVAL                         R11 14
+      140 GETTABLEKS                       R11 R11 K27 ["ThunkWithArgsMiddleware"]
+      142 MOVE                             R12 R2
+      143 CALL                             R11 1 1
+      144 NEWTABLE                         R12 0 1
+      146 MOVE                             R13 R11
+      147 SETLIST                          R12 R13 1 [1]
+      149 GETUPVAL                         R13 15
+      150 GETTABLEKS                       R13 R13 K28 ["Store"]
+      152 GETTABLEKS                       R13 R13 K0 ["new"]
+      154 GETUPVAL                         R14 16
+      155 LOADNIL                          R15
+      156 MOVE                             R16 R12
+      157 CALL                             R13 3 1
+      158 SETTABLEKS                       R13 R0 K29 ["store"]
+      160 GETUPVAL                         R13 17
+      161 GETTABLEKS                       R13 R13 K30 ["Localization"]
+      163 GETTABLEKS                       R13 R13 K0 ["new"]
+      165 DUPTABLE                         R14 K35 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "ManageCollaborators"}]
+      166 GETUPVAL                         R15 18
+      167 SETTABLEKS                       R15 R14 K31 ["stringResourceTable"]
+      169 GETUPVAL                         R15 19
+      170 SETTABLEKS                       R15 R14 K32 ["translationResourceTable"]
+      172 CALL                             R13 1 1
+      173 SETTABLEKS                       R13 R0 K36 ["localization"]
+      175 GETUPVAL                         R13 17
+      176 GETTABLEKS                       R13 R13 K37 ["Analytics"]
+      178 GETTABLEKS                       R13 R13 K0 ["new"]
+      180 DUPCLOSURE                       R14 K38 [PROTO_5]
+      181 NEWTABLE                         R15 0 0
+      183 CALL                             R13 2 1
+      184 SETTABLEKS                       R13 R0 K39 ["analytics"]
+      186 GETTABLEKS                       R13 R1 K1 ["Plugin"]
+      188 LOADK                            R15 K40 ["Actions"]
+      189 NAMECALL                         R13 R13 K41 ["GetPluginComponent"]
+      191 CALL                             R13 2 1
+      192 DUPTABLE                         R16 K50 [{["DataModel"] = "Standalone", ["PluginId"] = "ManageCollaborators", ["PluginType"] = "Unknown", ["Category"] = "Actions", ["ItemId"] = "Open"}]
+      193 NAMECALL                         R14 R13 K51 ["BindToActivatedAsync"]
+      195 CALL                             R14 2 1
+      196 NEWCLOSURE                       R16 P5
+      197 CAPTURE                          VAL R0
+      198 NAMECALL                         R14 R14 K52 ["Connect"]
+      200 CALL                             R14 2 1
+      201 SETTABLEKS                       R14 R0 K53 ["onActionActivated"]
+      203 GETUPVAL                         R14 20
+      204 GETTABLEKS                       R14 R14 K54 ["Util"]
+      206 GETTABLEKS                       R14 R14 K55 ["createFoundationDesignBinding"]
+      208 CALL                             R14 0 2
+      209 SETTABLEKS                       R15 R0 K56 ["onFoundationStyleSheetChange"]
+      211 GETUPVAL                         R16 21
+      212 GETTABLEKS                       R16 R16 K0 ["new"]
+      214 GETUPVAL                         R17 22
+      215 GETTABLEKS                       R18 R1 K1 ["Plugin"]
+      217 LOADNIL                          R19
+      218 LOADNIL                          R20
+      219 NEWTABLE                         R21 0 1
+      221 MOVE                             R22 R14
+      222 SETLIST                          R21 R22 1 [1]
+      224 CALL                             R17 4 -1
+      225 CALL                             R16 -1 1
+      226 SETTABLEKS                       R16 R0 K57 ["design"]
+      228 GETUPVAL                         R16 23
+      229 JUMPIFNOT                        R16 ; [+33]
+      230 NEWCLOSURE                       R16 P6
+      231 CAPTURE                          UPVAL U24
+      232 CAPTURE                          UPVAL U25
+      233 CAPTURE                          UPVAL U26
       234 CAPTURE                          UPVAL U1
-      235 GETIMPORT                        R19 K58 [game]
-      237 GETTABLEKS                       R19 R19 K59 ["PlaceId"]
-      239 JUMPIFEQKN                       R19 K60 [0] ; [+10]
-      241 GETUPVAL                         R19 28
-      242 CALL                             R19 0 1
-      243 JUMPIF                           R19 ; [+1]
-      244 JUMP                             ; [+5]
-      245 MOVE                             R19 R17
-      246 GETUPVAL                         R20 1
-      247 GETTABLEKS                       R20 R20 K8 ["LINKTYPE_EDIT"]
-      249 CALL                             R19 1 0
-      250 GETUPVAL                         R17 29
-      251 NOT                              R16 R17
-      252 JUMPIFNOT                        R16 ; [+14]
-      253 NEWCLOSURE                       R16 P9
-      254 CAPTURE                          UPVAL U28
-      255 CAPTURE                          UPVAL U25
-      256 CAPTURE                          UPVAL U26
-      257 CAPTURE                          UPVAL U27
-      258 CAPTURE                          UPVAL U23
-      259 CAPTURE                          UPVAL U30
-      260 CAPTURE                          UPVAL U31
-      261 CAPTURE                          UPVAL U32
-      262 CAPTURE                          UPVAL U33
-      263 CAPTURE                          UPVAL U34
-      264 CAPTURE                          VAL R1
-      265 CAPTURE                          UPVAL U35
-      266 CAPTURE                          UPVAL U36
-      267 SETTABLEKS                       R16 R0 K61 ["getCollabAuthStatus"]
-      269 RETURN                           R0 0
+      235 NEWCLOSURE                       R17 P7
+      236 CAPTURE                          VAL R0
+      237 CAPTURE                          UPVAL U27
+      238 CAPTURE                          UPVAL U28
+      239 CAPTURE                          UPVAL U29
+      240 CAPTURE                          UPVAL U1
+      241 CAPTURE                          VAL R16
+      242 SETTABLEKS                       R17 R0 K58 ["fetchLink"]
+      244 NEWCLOSURE                       R18 P8
+      245 CAPTURE                          UPVAL U30
+      246 CAPTURE                          VAL R17
+      247 CAPTURE                          UPVAL U1
+      248 GETIMPORT                        R19 K60 [game]
+      250 GETTABLEKS                       R19 R19 K61 ["PlaceId"]
+      252 JUMPIFEQKN                       R19 K62 [0] ; [+10]
+      254 GETUPVAL                         R19 30
+      255 CALL                             R19 0 1
+      256 JUMPIF                           R19 ; [+1]
+      257 JUMP                             ; [+5]
+      258 MOVE                             R19 R17
+      259 GETUPVAL                         R20 1
+      260 GETTABLEKS                       R20 R20 K8 ["LINKTYPE_EDIT"]
+      262 CALL                             R19 1 0
+      263 GETUPVAL                         R17 31
+      264 NOT                              R16 R17
+      265 JUMPIFNOT                        R16 ; [+14]
+      266 NEWCLOSURE                       R16 P9
+      267 CAPTURE                          UPVAL U30
+      268 CAPTURE                          UPVAL U27
+      269 CAPTURE                          UPVAL U28
+      270 CAPTURE                          UPVAL U29
+      271 CAPTURE                          UPVAL U25
+      272 CAPTURE                          UPVAL U32
+      273 CAPTURE                          UPVAL U33
+      274 CAPTURE                          UPVAL U34
+      275 CAPTURE                          UPVAL U35
+      276 CAPTURE                          UPVAL U36
+      277 CAPTURE                          VAL R1
+      278 CAPTURE                          UPVAL U37
+      279 CAPTURE                          UPVAL U38
+      280 SETTABLEKS                       R16 R0 K63 ["getCollabAuthStatus"]
+      282 RETURN                           R0 0
 
 PROTO_18:
         0 DUPTABLE                         R1 K1 [{"shouldPromptCollabAuth"}]
@@ -813,264 +822,279 @@ MAIN:
        10 NAMECALL                         R1 R1 K6 ["GetFastFlag"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K8 [require]
-       15 GETTABLEKS                       R3 R0 K9 ["Packages"]
-       17 GETTABLEKS                       R3 R3 K10 ["Roact"]
+       15 GETTABLEKS                       R3 R0 K9 ["Bin"]
+       17 GETTABLEKS                       R3 R3 K10 ["defineLuaFlags"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K8 [require]
-       22 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       24 GETTABLEKS                       R4 R4 K11 ["Rodux"]
+       22 GETTABLEKS                       R4 R0 K11 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["Roact"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K8 [require]
-       29 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       31 GETTABLEKS                       R5 R5 K12 ["Framework"]
+       29 GETTABLEKS                       R5 R0 K11 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K13 ["Rodux"]
        33 CALL                             R4 1 1
-       34 GETTABLEKS                       R5 R4 K13 ["Util"]
-       36 GETTABLEKS                       R6 R5 K14 ["Promise"]
-       38 GETIMPORT                        R7 K4 [game]
-       40 LOADK                            R9 K15 ["Collab8864_ShowCopyLinkButton"]
-       41 NAMECALL                         R7 R7 K6 ["GetFastFlag"]
-       43 CALL                             R7 2 1
-       44 GETIMPORT                        R8 K4 [game]
-       46 LOADK                            R10 K16 ["Collab9119_LogLinkFetchFailures"]
-       47 NAMECALL                         R8 R8 K6 ["GetFastFlag"]
-       49 CALL                             R8 2 1
-       50 GETIMPORT                        R9 K8 [require]
-       52 GETTABLEKS                       R10 R0 K9 ["Packages"]
-       54 GETTABLEKS                       R10 R10 K17 ["React"]
-       56 CALL                             R9 1 1
+       34 GETIMPORT                        R5 K8 [require]
+       36 GETTABLEKS                       R6 R0 K11 ["Packages"]
+       38 GETTABLEKS                       R6 R6 K14 ["Framework"]
+       40 CALL                             R5 1 1
+       41 GETTABLEKS                       R6 R5 K15 ["Util"]
+       43 GETTABLEKS                       R7 R6 K16 ["Promise"]
+       45 GETIMPORT                        R8 K4 [game]
+       47 LOADK                            R10 K17 ["Collab8864_ShowCopyLinkButton"]
+       48 NAMECALL                         R8 R8 K6 ["GetFastFlag"]
+       50 CALL                             R8 2 1
+       51 GETIMPORT                        R9 K4 [game]
+       53 LOADK                            R11 K18 ["Collab9119_LogLinkFetchFailures"]
+       54 NAMECALL                         R9 R9 K6 ["GetFastFlag"]
+       56 CALL                             R9 2 1
        57 GETIMPORT                        R10 K8 [require]
-       59 GETTABLEKS                       R11 R0 K9 ["Packages"]
-       61 GETTABLEKS                       R11 R11 K18 ["StudioFoundation"]
+       59 GETTABLEKS                       R11 R0 K11 ["Packages"]
+       61 GETTABLEKS                       R11 R11 K19 ["React"]
        63 CALL                             R10 1 1
-       64 GETTABLEKS                       R11 R10 K19 ["Components"]
-       66 GETTABLEKS                       R11 R11 K20 ["FoundationProviderAdapter"]
-       68 GETTABLEKS                       R12 R4 K21 ["Styling"]
-       70 GETTABLEKS                       R12 R12 K22 ["registerPluginStyles"]
-       72 GETTABLEKS                       R13 R4 K23 ["ContextServices"]
-       74 GETTABLEKS                       R13 R13 K24 ["Design"]
-       76 GETTABLEKS                       R14 R4 K25 ["UI"]
-       78 GETTABLEKS                       R15 R14 K26 ["Dialog"]
-       80 GETTABLEKS                       R16 R4 K23 ["ContextServices"]
-       82 GETTABLEKS                       R17 R16 K27 ["Plugin"]
-       84 GETTABLEKS                       R18 R16 K28 ["Mouse"]
-       86 GETTABLEKS                       R19 R16 K29 ["Store"]
-       88 GETIMPORT                        R20 K8 [require]
-       90 GETTABLEKS                       R21 R0 K30 ["Src"]
-       92 GETTABLEKS                       R21 R21 K31 ["Reducers"]
-       94 GETTABLEKS                       R21 R21 K32 ["MainReducer"]
-       96 CALL                             R20 1 1
-       97 GETIMPORT                        R21 K8 [require]
-       99 GETTABLEKS                       R22 R0 K30 ["Src"]
-      101 GETTABLEKS                       R22 R22 K33 ["Resources"]
-      103 GETTABLEKS                       R22 R22 K34 ["MakeTheme"]
-      105 CALL                             R21 1 1
-      106 GETTABLEKS                       R22 R0 K30 ["Src"]
-      108 GETTABLEKS                       R22 R22 K33 ["Resources"]
-      110 GETTABLEKS                       R22 R22 K35 ["Localization"]
-      112 GETTABLEKS                       R22 R22 K36 ["SourceStrings"]
-      114 GETTABLEKS                       R23 R0 K30 ["Src"]
-      116 GETTABLEKS                       R23 R23 K33 ["Resources"]
-      118 GETTABLEKS                       R23 R23 K35 ["Localization"]
-      120 GETTABLEKS                       R23 R23 K37 ["LocalizedStrings"]
-      122 GETTABLEKS                       R24 R0 K30 ["Src"]
-      124 GETTABLEKS                       R24 R24 K19 ["Components"]
-      126 GETIMPORT                        R25 K8 [require]
-      128 GETTABLEKS                       R26 R24 K38 ["PermissionsView"]
-      130 CALL                             R25 1 1
-      131 GETIMPORT                        R26 K8 [require]
-      133 GETTABLEKS                       R27 R24 K39 ["SaveToRobloxView"]
-      135 CALL                             R26 1 1
-      136 GETTABLEKS                       R27 R2 K40 ["PureComponent"]
-      138 LOADK                            R29 K41 ["MainPlugin"]
-      139 NAMECALL                         R27 R27 K42 ["extend"]
-      141 CALL                             R27 2 1
-      142 GETIMPORT                        R28 K8 [require]
-      144 GETTABLEKS                       R29 R0 K30 ["Src"]
-      146 GETTABLEKS                       R29 R29 K43 ["Networking"]
-      148 GETTABLEKS                       R29 R29 K43 ["Networking"]
-      150 CALL                             R28 1 1
-      151 GETIMPORT                        R29 K8 [require]
-      153 GETTABLEKS                       R30 R0 K30 ["Src"]
-      155 GETTABLEKS                       R30 R30 K44 ["Controllers"]
-      157 GETTABLEKS                       R30 R30 K45 ["GroupMetadataController"]
-      159 CALL                             R29 1 1
-      160 GETIMPORT                        R30 K8 [require]
-      162 GETTABLEKS                       R31 R0 K30 ["Src"]
-      164 GETTABLEKS                       R31 R31 K44 ["Controllers"]
-      166 GETTABLEKS                       R31 R31 K46 ["GroupRolePermissionsController"]
-      168 CALL                             R30 1 1
-      169 GETIMPORT                        R31 K8 [require]
-      171 GETTABLEKS                       R32 R0 K30 ["Src"]
-      173 GETTABLEKS                       R32 R32 K44 ["Controllers"]
-      175 GETTABLEKS                       R32 R32 K47 ["GamePermissionsController"]
-      177 CALL                             R31 1 1
-      178 GETIMPORT                        R32 K8 [require]
-      180 GETTABLEKS                       R33 R0 K30 ["Src"]
-      182 GETTABLEKS                       R33 R33 K44 ["Controllers"]
-      184 GETTABLEKS                       R33 R33 K48 ["GranularPermissionsController"]
-      186 CALL                             R32 1 1
-      187 GETIMPORT                        R33 K8 [require]
-      189 GETTABLEKS                       R34 R0 K30 ["Src"]
-      191 GETTABLEKS                       R34 R34 K44 ["Controllers"]
-      193 GETTABLEKS                       R34 R34 K49 ["GameMetadataController"]
-      195 CALL                             R33 1 1
-      196 GETIMPORT                        R34 K8 [require]
-      198 GETTABLEKS                       R35 R0 K30 ["Src"]
-      200 GETTABLEKS                       R35 R35 K44 ["Controllers"]
-      202 GETTABLEKS                       R35 R35 K50 ["SocialController"]
-      204 CALL                             R34 1 1
-      205 GETIMPORT                        R35 K8 [require]
-      207 GETTABLEKS                       R36 R0 K30 ["Src"]
-      209 GETTABLEKS                       R36 R36 K13 ["Util"]
-      211 GETTABLEKS                       R36 R36 K51 ["IsLikelyCollaboratorPrefetchEnabled"]
-      213 CALL                             R35 1 1
-      214 MOVE                             R36 R35
-      215 CALL                             R36 0 1
-      216 LOADNIL                          R37
-      217 JUMPIFNOT                        R36 ; [+10]
-      218 GETIMPORT                        R38 K8 [require]
-      220 GETTABLEKS                       R39 R0 K30 ["Src"]
-      222 GETTABLEKS                       R39 R39 K44 ["Controllers"]
-      224 GETTABLEKS                       R39 R39 K52 ["LikelyCollaboratorsController"]
-      226 CALL                             R38 1 1
-      227 MOVE                             R37 R38
-      228 GETIMPORT                        R38 K8 [require]
-      230 GETTABLEKS                       R39 R0 K30 ["Src"]
-      232 GETTABLEKS                       R39 R39 K53 ["Actions"]
-      234 GETTABLEKS                       R39 R39 K54 ["ResetStore"]
-      236 CALL                             R38 1 1
-      237 GETIMPORT                        R39 K8 [require]
-      239 GETTABLEKS                       R40 R0 K30 ["Src"]
-      241 GETTABLEKS                       R40 R40 K13 ["Util"]
-      243 GETTABLEKS                       R40 R40 K55 ["Constants"]
-      245 CALL                             R39 1 1
-      246 LOADNIL                          R40
-      247 GETIMPORT                        R41 K4 [game]
-      249 LOADK                            R43 K56 ["StudioService"]
-      250 NAMECALL                         R41 R41 K57 ["GetService"]
-      252 CALL                             R41 2 1
-      253 GETIMPORT                        R42 K8 [require]
-      255 GETTABLEKS                       R43 R0 K30 ["Src"]
-      257 GETTABLEKS                       R43 R43 K43 ["Networking"]
-      259 GETTABLEKS                       R43 R43 K58 ["Http"]
-      261 CALL                             R42 1 1
-      262 GETIMPORT                        R43 K4 [game]
-      264 LOADK                            R45 K59 ["HttpService"]
-      265 NAMECALL                         R43 R43 K57 ["GetService"]
-      267 CALL                             R43 2 1
-      268 GETIMPORT                        R44 K8 [require]
-      270 GETTABLEKS                       R45 R0 K30 ["Src"]
-      272 GETTABLEKS                       R45 R45 K13 ["Util"]
-      274 GETTABLEKS                       R45 R45 K60 ["IsTeamCreateEnabled"]
-      276 CALL                             R44 1 1
-      277 GETIMPORT                        R45 K8 [require]
-      279 GETTABLEKS                       R46 R0 K9 ["Packages"]
-      281 GETTABLEKS                       R46 R46 K61 ["TelemetryProtocol"]
-      283 CALL                             R45 1 1
-      284 GETTABLEKS                       R46 R45 K62 ["new"]
-      286 CALL                             R46 0 1
-      287 JUMPIFNOT                        R8 ; [+12]
-      288 GETIMPORT                        R47 K8 [require]
-      290 GETTABLEKS                       R48 R0 K30 ["Src"]
-      292 GETTABLEKS                       R48 R48 K13 ["Util"]
-      294 GETTABLEKS                       R48 R48 K63 ["Telemetry"]
-      296 GETTABLEKS                       R48 R48 K64 ["LinkFetchFailureEvent"]
-      298 CALL                             R47 1 1
-      299 MOVE                             R40 R47
-      300 GETIMPORT                        R47 K4 [game]
-      302 LOADK                            R49 K65 ["AddVerifyAgeActionToLogoutMenu"]
-      303 NAMECALL                         R47 R47 K6 ["GetFastFlag"]
-      305 CALL                             R47 2 1
-      306 GETIMPORT                        R48 K4 [game]
-      308 LOADK                            R50 K66 ["UpsellCollabSafety2"]
-      309 NAMECALL                         R48 R48 K6 ["GetFastFlag"]
-      311 CALL                             R48 2 1
-      312 GETIMPORT                        R49 K8 [require]
-      314 GETTABLEKS                       R50 R0 K30 ["Src"]
-      316 GETTABLEKS                       R50 R50 K13 ["Util"]
-      318 GETTABLEKS                       R50 R50 K63 ["Telemetry"]
-      320 GETTABLEKS                       R50 R50 K67 ["FetchAMPStatusFailureEvent"]
-      322 CALL                             R49 1 1
-      323 GETIMPORT                        R50 K8 [require]
-      325 GETTABLEKS                       R51 R0 K30 ["Src"]
-      327 GETTABLEKS                       R51 R51 K13 ["Util"]
-      329 GETTABLEKS                       R51 R51 K63 ["Telemetry"]
-      331 GETTABLEKS                       R51 R51 K68 ["SafetyUpsellBannerShownEvent"]
-      333 CALL                             R50 1 1
-      334 DUPTABLE                         R51 K74 [{["Uri"], ["Text"] = "placeholder", ["Enabled"] = True}]
-      335 DUPTABLE                         R52 K83 [{["DataModel"] = "Standalone", ["PluginId"] = "LogoutMenu", ["Category"] = "Settings", ["ItemId"] = "UserIsAMPAgeVerified"}]
-      336 SETTABLEKS                       R52 R51 K69 ["Uri"]
-      338 GETIMPORT                        R52 K4 [game]
-      340 LOADK                            R54 K84 ["UpsellTreatAMPErrorAsShowBanner"]
-      341 NAMECALL                         R52 R52 K6 ["GetFastFlag"]
-      343 CALL                             R52 2 1
-      344 GETIMPORT                        R53 K4 [game]
-      346 LOADK                            R55 K85 ["UpsellTreatAMPActionableAsShowBanner"]
-      347 NAMECALL                         R53 R53 K6 ["GetFastFlag"]
-      349 CALL                             R53 2 1
-      350 GETIMPORT                        R54 K4 [game]
-      352 LOADK                            R56 K86 ["UpsellCollabTrustedConnection2"]
-      353 NAMECALL                         R54 R54 K6 ["GetFastFlag"]
-      355 CALL                             R54 2 1
-      356 NEWCLOSURE                       R55 P0
-      357 CAPTURE                          VAL R17
-      358 CAPTURE                          VAL R39
-      359 CAPTURE                          VAL R38
-      360 CAPTURE                          VAL R28
-      361 CAPTURE                          VAL R29
-      362 CAPTURE                          VAL R30
-      363 CAPTURE                          VAL R31
-      364 CAPTURE                          VAL R32
-      365 CAPTURE                          VAL R33
-      366 CAPTURE                          VAL R34
-      367 CAPTURE                          VAL R36
-      368 CAPTURE                          REF R37
-      369 CAPTURE                          VAL R5
-      370 CAPTURE                          VAL R3
-      371 CAPTURE                          VAL R20
-      372 CAPTURE                          VAL R16
-      373 CAPTURE                          VAL R22
-      374 CAPTURE                          VAL R23
-      375 CAPTURE                          VAL R10
-      376 CAPTURE                          VAL R13
-      377 CAPTURE                          VAL R12
-      378 CAPTURE                          VAL R7
-      379 CAPTURE                          VAL R8
-      380 CAPTURE                          VAL R46
-      381 CAPTURE                          REF R40
-      382 CAPTURE                          VAL R6
-      383 CAPTURE                          VAL R42
-      384 CAPTURE                          VAL R43
-      385 CAPTURE                          VAL R44
-      386 CAPTURE                          VAL R54
-      387 CAPTURE                          VAL R49
-      388 CAPTURE                          VAL R41
-      389 CAPTURE                          VAL R52
-      390 CAPTURE                          VAL R53
-      391 CAPTURE                          VAL R47
-      392 CAPTURE                          VAL R51
-      393 CAPTURE                          VAL R50
-      394 SETTABLEKS                       R55 R27 K87 ["init"]
-      396 DUPCLOSURE                       R55 K88 [PROTO_22]
-      397 CAPTURE                          VAL R48
-      398 CAPTURE                          VAL R54
-      399 SETTABLEKS                       R55 R27 K89 ["didUpdate"]
-      401 DUPCLOSURE                       R55 K90 [PROTO_23]
-      402 SETTABLEKS                       R55 R27 K91 ["componentWillUnmount"]
-      404 DUPCLOSURE                       R55 K92 [PROTO_24]
-      405 CAPTURE                          VAL R21
-      406 CAPTURE                          VAL R16
-      407 CAPTURE                          VAL R19
-      408 CAPTURE                          VAL R18
-      409 CAPTURE                          VAL R2
-      410 CAPTURE                          VAL R15
-      411 CAPTURE                          VAL R1
-      412 CAPTURE                          VAL R9
-      413 CAPTURE                          VAL R11
-      414 CAPTURE                          VAL R25
-      415 CAPTURE                          VAL R48
-      416 CAPTURE                          VAL R54
-      417 CAPTURE                          VAL R26
-      418 SETTABLEKS                       R55 R27 K93 ["render"]
-      420 CLOSEUPVALS                      R37
-      421 RETURN                           R27 1
+       64 GETIMPORT                        R11 K8 [require]
+       66 GETTABLEKS                       R12 R0 K11 ["Packages"]
+       68 GETTABLEKS                       R12 R12 K20 ["StudioFoundation"]
+       70 CALL                             R11 1 1
+       71 GETTABLEKS                       R12 R11 K21 ["Components"]
+       73 GETTABLEKS                       R12 R12 K22 ["FoundationProviderAdapter"]
+       75 GETTABLEKS                       R13 R5 K23 ["Styling"]
+       77 GETTABLEKS                       R13 R13 K24 ["registerPluginStyles"]
+       79 GETTABLEKS                       R14 R5 K25 ["ContextServices"]
+       81 GETTABLEKS                       R14 R14 K26 ["Design"]
+       83 GETTABLEKS                       R15 R5 K27 ["UI"]
+       85 GETTABLEKS                       R16 R15 K28 ["Dialog"]
+       87 GETTABLEKS                       R17 R5 K25 ["ContextServices"]
+       89 GETTABLEKS                       R18 R17 K29 ["Plugin"]
+       91 GETTABLEKS                       R19 R17 K30 ["Mouse"]
+       93 GETTABLEKS                       R20 R17 K31 ["Store"]
+       95 GETIMPORT                        R21 K8 [require]
+       97 GETTABLEKS                       R22 R0 K32 ["Src"]
+       99 GETTABLEKS                       R22 R22 K33 ["Reducers"]
+      101 GETTABLEKS                       R22 R22 K34 ["MainReducer"]
+      103 CALL                             R21 1 1
+      104 GETIMPORT                        R22 K8 [require]
+      106 GETTABLEKS                       R23 R0 K32 ["Src"]
+      108 GETTABLEKS                       R23 R23 K35 ["Resources"]
+      110 GETTABLEKS                       R23 R23 K36 ["MakeTheme"]
+      112 CALL                             R22 1 1
+      113 GETTABLEKS                       R23 R0 K32 ["Src"]
+      115 GETTABLEKS                       R23 R23 K35 ["Resources"]
+      117 GETTABLEKS                       R23 R23 K37 ["Localization"]
+      119 GETTABLEKS                       R23 R23 K38 ["SourceStrings"]
+      121 GETTABLEKS                       R24 R0 K32 ["Src"]
+      123 GETTABLEKS                       R24 R24 K35 ["Resources"]
+      125 GETTABLEKS                       R24 R24 K37 ["Localization"]
+      127 GETTABLEKS                       R24 R24 K39 ["LocalizedStrings"]
+      129 GETTABLEKS                       R25 R0 K32 ["Src"]
+      131 GETTABLEKS                       R25 R25 K21 ["Components"]
+      133 GETIMPORT                        R26 K8 [require]
+      135 GETTABLEKS                       R27 R25 K40 ["PermissionsView"]
+      137 CALL                             R26 1 1
+      138 GETIMPORT                        R27 K8 [require]
+      140 GETTABLEKS                       R28 R25 K41 ["SaveToRobloxView"]
+      142 CALL                             R27 1 1
+      143 GETTABLEKS                       R28 R3 K42 ["PureComponent"]
+      145 LOADK                            R30 K43 ["MainPlugin"]
+      146 NAMECALL                         R28 R28 K44 ["extend"]
+      148 CALL                             R28 2 1
+      149 GETIMPORT                        R29 K8 [require]
+      151 GETTABLEKS                       R30 R0 K32 ["Src"]
+      153 GETTABLEKS                       R30 R30 K45 ["Networking"]
+      155 GETTABLEKS                       R30 R30 K45 ["Networking"]
+      157 CALL                             R29 1 1
+      158 GETIMPORT                        R30 K8 [require]
+      160 GETTABLEKS                       R31 R0 K32 ["Src"]
+      162 GETTABLEKS                       R31 R31 K46 ["Controllers"]
+      164 GETTABLEKS                       R31 R31 K47 ["GroupMetadataController"]
+      166 CALL                             R30 1 1
+      167 GETIMPORT                        R31 K8 [require]
+      169 GETTABLEKS                       R32 R0 K32 ["Src"]
+      171 GETTABLEKS                       R32 R32 K46 ["Controllers"]
+      173 GETTABLEKS                       R32 R32 K48 ["GroupRolePermissionsController"]
+      175 CALL                             R31 1 1
+      176 GETIMPORT                        R32 K8 [require]
+      178 GETTABLEKS                       R33 R0 K32 ["Src"]
+      180 GETTABLEKS                       R33 R33 K46 ["Controllers"]
+      182 GETTABLEKS                       R33 R33 K49 ["GamePermissionsController"]
+      184 CALL                             R32 1 1
+      185 GETTABLEKS                       R34 R2 K50 ["fflagAddPlayTesterPermission"]
+      187 JUMPIFNOT                        R34 ; [+10]
+      188 GETIMPORT                        R33 K8 [require]
+      190 GETTABLEKS                       R34 R0 K32 ["Src"]
+      192 GETTABLEKS                       R34 R34 K46 ["Controllers"]
+      194 GETTABLEKS                       R34 R34 K51 ["PlayTestersController"]
+      196 CALL                             R33 1 1
+      197 JUMP                             ; [+1]
+      198 LOADNIL                          R33
+      199 GETIMPORT                        R34 K8 [require]
+      201 GETTABLEKS                       R35 R0 K32 ["Src"]
+      203 GETTABLEKS                       R35 R35 K46 ["Controllers"]
+      205 GETTABLEKS                       R35 R35 K52 ["GranularPermissionsController"]
+      207 CALL                             R34 1 1
+      208 GETIMPORT                        R35 K8 [require]
+      210 GETTABLEKS                       R36 R0 K32 ["Src"]
+      212 GETTABLEKS                       R36 R36 K46 ["Controllers"]
+      214 GETTABLEKS                       R36 R36 K53 ["GameMetadataController"]
+      216 CALL                             R35 1 1
+      217 GETIMPORT                        R36 K8 [require]
+      219 GETTABLEKS                       R37 R0 K32 ["Src"]
+      221 GETTABLEKS                       R37 R37 K46 ["Controllers"]
+      223 GETTABLEKS                       R37 R37 K54 ["SocialController"]
+      225 CALL                             R36 1 1
+      226 GETIMPORT                        R37 K8 [require]
+      228 GETTABLEKS                       R38 R0 K32 ["Src"]
+      230 GETTABLEKS                       R38 R38 K15 ["Util"]
+      232 GETTABLEKS                       R38 R38 K55 ["IsLikelyCollaboratorPrefetchEnabled"]
+      234 CALL                             R37 1 1
+      235 MOVE                             R38 R37
+      236 CALL                             R38 0 1
+      237 LOADNIL                          R39
+      238 JUMPIFNOT                        R38 ; [+10]
+      239 GETIMPORT                        R40 K8 [require]
+      241 GETTABLEKS                       R41 R0 K32 ["Src"]
+      243 GETTABLEKS                       R41 R41 K46 ["Controllers"]
+      245 GETTABLEKS                       R41 R41 K56 ["LikelyCollaboratorsController"]
+      247 CALL                             R40 1 1
+      248 MOVE                             R39 R40
+      249 GETIMPORT                        R40 K8 [require]
+      251 GETTABLEKS                       R41 R0 K32 ["Src"]
+      253 GETTABLEKS                       R41 R41 K57 ["Actions"]
+      255 GETTABLEKS                       R41 R41 K58 ["ResetStore"]
+      257 CALL                             R40 1 1
+      258 GETIMPORT                        R41 K8 [require]
+      260 GETTABLEKS                       R42 R0 K32 ["Src"]
+      262 GETTABLEKS                       R42 R42 K15 ["Util"]
+      264 GETTABLEKS                       R42 R42 K59 ["Constants"]
+      266 CALL                             R41 1 1
+      267 LOADNIL                          R42
+      268 GETIMPORT                        R43 K4 [game]
+      270 LOADK                            R45 K60 ["StudioService"]
+      271 NAMECALL                         R43 R43 K61 ["GetService"]
+      273 CALL                             R43 2 1
+      274 GETIMPORT                        R44 K8 [require]
+      276 GETTABLEKS                       R45 R0 K32 ["Src"]
+      278 GETTABLEKS                       R45 R45 K45 ["Networking"]
+      280 GETTABLEKS                       R45 R45 K62 ["Http"]
+      282 CALL                             R44 1 1
+      283 GETIMPORT                        R45 K4 [game]
+      285 LOADK                            R47 K63 ["HttpService"]
+      286 NAMECALL                         R45 R45 K61 ["GetService"]
+      288 CALL                             R45 2 1
+      289 GETIMPORT                        R46 K8 [require]
+      291 GETTABLEKS                       R47 R0 K32 ["Src"]
+      293 GETTABLEKS                       R47 R47 K15 ["Util"]
+      295 GETTABLEKS                       R47 R47 K64 ["IsTeamCreateEnabled"]
+      297 CALL                             R46 1 1
+      298 GETIMPORT                        R47 K8 [require]
+      300 GETTABLEKS                       R48 R0 K11 ["Packages"]
+      302 GETTABLEKS                       R48 R48 K65 ["TelemetryProtocol"]
+      304 CALL                             R47 1 1
+      305 GETTABLEKS                       R48 R47 K66 ["new"]
+      307 CALL                             R48 0 1
+      308 JUMPIFNOT                        R9 ; [+12]
+      309 GETIMPORT                        R49 K8 [require]
+      311 GETTABLEKS                       R50 R0 K32 ["Src"]
+      313 GETTABLEKS                       R50 R50 K15 ["Util"]
+      315 GETTABLEKS                       R50 R50 K67 ["Telemetry"]
+      317 GETTABLEKS                       R50 R50 K68 ["LinkFetchFailureEvent"]
+      319 CALL                             R49 1 1
+      320 MOVE                             R42 R49
+      321 GETIMPORT                        R49 K4 [game]
+      323 LOADK                            R51 K69 ["AddVerifyAgeActionToLogoutMenu"]
+      324 NAMECALL                         R49 R49 K6 ["GetFastFlag"]
+      326 CALL                             R49 2 1
+      327 GETIMPORT                        R50 K4 [game]
+      329 LOADK                            R52 K70 ["UpsellCollabSafety2"]
+      330 NAMECALL                         R50 R50 K6 ["GetFastFlag"]
+      332 CALL                             R50 2 1
+      333 GETIMPORT                        R51 K8 [require]
+      335 GETTABLEKS                       R52 R0 K32 ["Src"]
+      337 GETTABLEKS                       R52 R52 K15 ["Util"]
+      339 GETTABLEKS                       R52 R52 K67 ["Telemetry"]
+      341 GETTABLEKS                       R52 R52 K71 ["FetchAMPStatusFailureEvent"]
+      343 CALL                             R51 1 1
+      344 GETIMPORT                        R52 K8 [require]
+      346 GETTABLEKS                       R53 R0 K32 ["Src"]
+      348 GETTABLEKS                       R53 R53 K15 ["Util"]
+      350 GETTABLEKS                       R53 R53 K67 ["Telemetry"]
+      352 GETTABLEKS                       R53 R53 K72 ["SafetyUpsellBannerShownEvent"]
+      354 CALL                             R52 1 1
+      355 DUPTABLE                         R53 K78 [{["Uri"], ["Text"] = "placeholder", ["Enabled"] = True}]
+      356 DUPTABLE                         R54 K87 [{["DataModel"] = "Standalone", ["PluginId"] = "LogoutMenu", ["Category"] = "Settings", ["ItemId"] = "UserIsAMPAgeVerified"}]
+      357 SETTABLEKS                       R54 R53 K73 ["Uri"]
+      359 GETIMPORT                        R54 K4 [game]
+      361 LOADK                            R56 K88 ["UpsellTreatAMPErrorAsShowBanner"]
+      362 NAMECALL                         R54 R54 K6 ["GetFastFlag"]
+      364 CALL                             R54 2 1
+      365 GETIMPORT                        R55 K4 [game]
+      367 LOADK                            R57 K89 ["UpsellTreatAMPActionableAsShowBanner"]
+      368 NAMECALL                         R55 R55 K6 ["GetFastFlag"]
+      370 CALL                             R55 2 1
+      371 GETIMPORT                        R56 K4 [game]
+      373 LOADK                            R58 K90 ["UpsellCollabTrustedConnection2"]
+      374 NAMECALL                         R56 R56 K6 ["GetFastFlag"]
+      376 CALL                             R56 2 1
+      377 NEWCLOSURE                       R57 P0
+      378 CAPTURE                          VAL R18
+      379 CAPTURE                          VAL R41
+      380 CAPTURE                          VAL R40
+      381 CAPTURE                          VAL R29
+      382 CAPTURE                          VAL R30
+      383 CAPTURE                          VAL R31
+      384 CAPTURE                          VAL R32
+      385 CAPTURE                          VAL R34
+      386 CAPTURE                          VAL R35
+      387 CAPTURE                          VAL R36
+      388 CAPTURE                          VAL R38
+      389 CAPTURE                          REF R39
+      390 CAPTURE                          VAL R2
+      391 CAPTURE                          VAL R33
+      392 CAPTURE                          VAL R6
+      393 CAPTURE                          VAL R4
+      394 CAPTURE                          VAL R21
+      395 CAPTURE                          VAL R17
+      396 CAPTURE                          VAL R23
+      397 CAPTURE                          VAL R24
+      398 CAPTURE                          VAL R11
+      399 CAPTURE                          VAL R14
+      400 CAPTURE                          VAL R13
+      401 CAPTURE                          VAL R8
+      402 CAPTURE                          VAL R9
+      403 CAPTURE                          VAL R48
+      404 CAPTURE                          REF R42
+      405 CAPTURE                          VAL R7
+      406 CAPTURE                          VAL R44
+      407 CAPTURE                          VAL R45
+      408 CAPTURE                          VAL R46
+      409 CAPTURE                          VAL R56
+      410 CAPTURE                          VAL R51
+      411 CAPTURE                          VAL R43
+      412 CAPTURE                          VAL R54
+      413 CAPTURE                          VAL R55
+      414 CAPTURE                          VAL R49
+      415 CAPTURE                          VAL R53
+      416 CAPTURE                          VAL R52
+      417 SETTABLEKS                       R57 R28 K91 ["init"]
+      419 DUPCLOSURE                       R57 K92 [PROTO_22]
+      420 CAPTURE                          VAL R50
+      421 CAPTURE                          VAL R56
+      422 SETTABLEKS                       R57 R28 K93 ["didUpdate"]
+      424 DUPCLOSURE                       R57 K94 [PROTO_23]
+      425 SETTABLEKS                       R57 R28 K95 ["componentWillUnmount"]
+      427 DUPCLOSURE                       R57 K96 [PROTO_24]
+      428 CAPTURE                          VAL R22
+      429 CAPTURE                          VAL R17
+      430 CAPTURE                          VAL R20
+      431 CAPTURE                          VAL R19
+      432 CAPTURE                          VAL R3
+      433 CAPTURE                          VAL R16
+      434 CAPTURE                          VAL R1
+      435 CAPTURE                          VAL R10
+      436 CAPTURE                          VAL R12
+      437 CAPTURE                          VAL R26
+      438 CAPTURE                          VAL R50
+      439 CAPTURE                          VAL R56
+      440 CAPTURE                          VAL R27
+      441 SETTABLEKS                       R57 R28 K97 ["render"]
+      443 CLOSEUPVALS                      R39
+      444 RETURN                           R28 1

@@ -34,13 +34,33 @@ PROTO_1:
        20 RETURN                           R0 0
 
 PROTO_2:
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIF                           R1 ; [+1]
+        3 RETURN                           R0 0
+        4 GETTABLEKS                       R1 R0 K0 ["pluginController"]
+        6 NAMECALL                         R1 R1 K1 ["getTutorialController"]
+        8 CALL                             R1 1 1
+        9 JUMPIFNOT                        R1 ; [+14]
+       10 GETTABLEKS                       R2 R0 K2 ["searchController"]
+       12 NAMECALL                         R2 R2 K3 ["getShowSearchOptions"]
+       14 CALL                             R2 1 1
+       15 JUMPIF                           R2 ; [+8]
+       16 GETUPVAL                         R4 1
+       17 GETTABLEKS                       R4 R4 K4 ["TutorialEvent"]
+       19 GETTABLEKS                       R4 R4 K5 ["BrowseModeEntered"]
+       21 NAMECALL                         R2 R1 K6 ["notify"]
+       23 CALL                             R2 2 0
+       24 RETURN                           R0 0
+
+PROTO_3:
         0 DUPTABLE                         R1 K1 [{"enabled"}]
         1 GETTABLEKS                       R3 R0 K0 ["enabled"]
         3 NOT                              R2 R3
         4 SETTABLEKS                       R2 R1 K0 ["enabled"]
         6 RETURN                           R1 1
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["state"]
         3 GETTABLEKS                       R0 R0 K1 ["enabled"]
@@ -95,12 +115,19 @@ PROTO_3:
        75 CALL                             R2 1 -1
        76 CALL                             R0 -1 0
        77 GETUPVAL                         R0 0
-       78 DUPCLOSURE                       R2 K24 [PROTO_2]
+       78 DUPCLOSURE                       R2 K24 [PROTO_3]
        79 NAMECALL                         R0 R0 K25 ["setState"]
        81 CALL                             R0 2 0
-       82 RETURN                           R0 0
+       82 GETUPVAL                         R0 0
+       83 GETTABLEKS                       R0 R0 K0 ["state"]
+       85 GETTABLEKS                       R0 R0 K1 ["enabled"]
+       87 JUMPIF                           R0 ; [+4]
+       88 GETUPVAL                         R0 0
+       89 NAMECALL                         R0 R0 K26 ["_notifyTutorialThatPluginIsEnabled"]
+       91 CALL                             R0 1 0
+       92 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["ixpController"]
         3 NAMECALL                         R0 R0 K1 ["cancelRefresh"]
@@ -118,7 +145,7 @@ PROTO_4:
        19 CALL                             R0 -1 0
        20 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 JUMPIFNOT                        R0 ; [+42]
         1 GETUPVAL                         R1 0
         2 GETTABLEKS                       R1 R1 K0 ["sendEnabledEvent"]
@@ -156,9 +183,13 @@ PROTO_5:
        51 SETTABLEKS                       R0 R3 K18 ["enabled"]
        53 NAMECALL                         R1 R1 K20 ["setState"]
        55 CALL                             R1 2 0
-       56 RETURN                           R0 0
+       56 JUMPIFNOT                        R0 ; [+4]
+       57 GETUPVAL                         R1 1
+       58 NAMECALL                         R1 R1 K21 ["_notifyTutorialThatPluginIsEnabled"]
+       60 CALL                             R1 1 0
+       61 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["Enabled"]
         2 JUMPIFNOT                        R1 ; [+42]
         3 GETUPVAL                         R1 0
@@ -198,9 +229,14 @@ PROTO_6:
        55 SETTABLEKS                       R4 R3 K19 ["enabled"]
        57 NAMECALL                         R1 R1 K21 ["setState"]
        59 CALL                             R1 2 0
-       60 RETURN                           R0 0
+       60 GETTABLEKS                       R1 R0 K0 ["Enabled"]
+       62 JUMPIFNOT                        R1 ; [+4]
+       63 GETUPVAL                         R1 1
+       64 NAMECALL                         R1 R1 K22 ["_notifyTutorialThatPluginIsEnabled"]
+       66 CALL                             R1 1 0
+       67 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R0 R0 K1 ["PluginLoaderContext"]
@@ -211,7 +247,7 @@ PROTO_7:
        12 CALL                             R0 2 0
        13 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETUPVAL                         R2 0
         1 CALL                             R2 0 1
         2 JUMPIFNOT                        R2 ; [+9]
@@ -377,7 +413,7 @@ PROTO_8:
       256 CALL                             R2 2 0
       257 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R1 R1 K1 ["PluginLoaderContext"]
         4 GETTABLEKS                       R1 R1 K2 ["mainButton"]
@@ -387,7 +423,7 @@ PROTO_9:
        12 CALL                             R1 2 0
        13 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["pluginController"]
         3 NAMECALL                         R2 R2 K1 ["getPlugin"]
@@ -410,18 +446,23 @@ PROTO_10:
        30 GETTABLEKS                       R1 R0 K7 ["itemsController"]
        32 NAMECALL                         R1 R1 K4 ["destroy"]
        34 CALL                             R1 1 0
-       35 GETTABLEKS                       R1 R0 K8 ["searchController"]
-       37 NAMECALL                         R1 R1 K4 ["destroy"]
-       39 CALL                             R1 1 0
-       40 GETTABLEKS                       R1 R0 K9 ["layoutController"]
-       42 NAMECALL                         R1 R1 K4 ["destroy"]
-       44 CALL                             R1 1 0
-       45 GETTABLEKS                       R1 R0 K10 ["ixpController"]
-       47 NAMECALL                         R1 R1 K4 ["destroy"]
-       49 CALL                             R1 1 0
-       50 RETURN                           R0 0
+       35 GETTABLEKS                       R1 R0 K8 ["tutorialController"]
+       37 JUMPIFNOT                        R1 ; [+5]
+       38 GETTABLEKS                       R1 R0 K8 ["tutorialController"]
+       40 NAMECALL                         R1 R1 K4 ["destroy"]
+       42 CALL                             R1 1 0
+       43 GETTABLEKS                       R1 R0 K9 ["searchController"]
+       45 NAMECALL                         R1 R1 K4 ["destroy"]
+       47 CALL                             R1 1 0
+       48 GETTABLEKS                       R1 R0 K10 ["layoutController"]
+       50 NAMECALL                         R1 R1 K4 ["destroy"]
+       52 CALL                             R1 1 0
+       53 GETTABLEKS                       R1 R0 K11 ["ixpController"]
+       55 NAMECALL                         R1 R1 K4 ["destroy"]
+       57 CALL                             R1 1 0
+       58 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["input"]
         3 GETTABLEKS                       R3 R0 K1 ["KeyCode"]
@@ -429,7 +470,7 @@ PROTO_11:
         7 CALL                             R1 2 0
         8 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["input"]
         3 GETTABLEKS                       R3 R0 K1 ["KeyCode"]
@@ -437,7 +478,7 @@ PROTO_12:
         7 CALL                             R1 2 0
         8 RETURN                           R0 0
 
-PROTO_13:
+PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Plugin"]
@@ -758,51 +799,55 @@ MAIN:
       319 CAPTURE                          VAL R35
       320 CAPTURE                          VAL R43
       321 SETTABLEKS                       R45 R44 K66 ["_loadSettingsIntoControllers"]
-      323 DUPCLOSURE                       R45 K67 [PROTO_8]
-      324 CAPTURE                          VAL R41
-      325 CAPTURE                          VAL R33
-      326 CAPTURE                          VAL R3
-      327 CAPTURE                          VAL R11
-      328 CAPTURE                          VAL R40
-      329 CAPTURE                          VAL R10
-      330 CAPTURE                          VAL R36
-      331 CAPTURE                          VAL R15
-      332 CAPTURE                          VAL R21
-      333 CAPTURE                          VAL R22
-      334 CAPTURE                          VAL R19
-      335 CAPTURE                          VAL R20
-      336 CAPTURE                          VAL R42
-      337 CAPTURE                          VAL R37
-      338 CAPTURE                          VAL R27
-      339 CAPTURE                          VAL R32
-      340 CAPTURE                          VAL R29
-      341 CAPTURE                          VAL R28
-      342 CAPTURE                          VAL R25
-      343 CAPTURE                          VAL R30
-      344 CAPTURE                          VAL R26
-      345 CAPTURE                          VAL R24
-      346 CAPTURE                          VAL R43
-      347 CAPTURE                          VAL R31
-      348 SETTABLEKS                       R45 R44 K68 ["init"]
-      350 DUPCLOSURE                       R45 K69 [PROTO_9]
-      351 SETTABLEKS                       R45 R44 K70 ["didUpdate"]
-      353 DUPCLOSURE                       R45 K71 [PROTO_10]
-      354 CAPTURE                          VAL R36
-      355 SETTABLEKS                       R45 R44 K72 ["willUnmount"]
-      357 DUPCLOSURE                       R45 K73 [PROTO_13]
-      358 CAPTURE                          VAL R39
-      359 CAPTURE                          VAL R4
-      360 CAPTURE                          VAL R6
-      361 CAPTURE                          VAL R15
-      362 CAPTURE                          VAL R16
-      363 CAPTURE                          VAL R17
-      364 CAPTURE                          VAL R18
-      365 CAPTURE                          VAL R1
-      366 CAPTURE                          VAL R13
-      367 CAPTURE                          VAL R9
-      368 CAPTURE                          VAL R34
-      369 CAPTURE                          VAL R38
-      370 CAPTURE                          VAL R23
-      371 CAPTURE                          VAL R14
-      372 SETTABLEKS                       R45 R44 K74 ["render"]
-      374 RETURN                           R44 1
+      323 DUPCLOSURE                       R45 K67 [PROTO_2]
+      324 CAPTURE                          VAL R43
+      325 CAPTURE                          VAL R2
+      326 SETTABLEKS                       R45 R44 K68 ["_notifyTutorialThatPluginIsEnabled"]
+      328 DUPCLOSURE                       R45 K69 [PROTO_9]
+      329 CAPTURE                          VAL R41
+      330 CAPTURE                          VAL R33
+      331 CAPTURE                          VAL R3
+      332 CAPTURE                          VAL R11
+      333 CAPTURE                          VAL R40
+      334 CAPTURE                          VAL R10
+      335 CAPTURE                          VAL R36
+      336 CAPTURE                          VAL R15
+      337 CAPTURE                          VAL R21
+      338 CAPTURE                          VAL R22
+      339 CAPTURE                          VAL R19
+      340 CAPTURE                          VAL R20
+      341 CAPTURE                          VAL R42
+      342 CAPTURE                          VAL R37
+      343 CAPTURE                          VAL R27
+      344 CAPTURE                          VAL R32
+      345 CAPTURE                          VAL R29
+      346 CAPTURE                          VAL R28
+      347 CAPTURE                          VAL R25
+      348 CAPTURE                          VAL R30
+      349 CAPTURE                          VAL R26
+      350 CAPTURE                          VAL R24
+      351 CAPTURE                          VAL R43
+      352 CAPTURE                          VAL R31
+      353 SETTABLEKS                       R45 R44 K70 ["init"]
+      355 DUPCLOSURE                       R45 K71 [PROTO_10]
+      356 SETTABLEKS                       R45 R44 K72 ["didUpdate"]
+      358 DUPCLOSURE                       R45 K73 [PROTO_11]
+      359 CAPTURE                          VAL R36
+      360 SETTABLEKS                       R45 R44 K74 ["willUnmount"]
+      362 DUPCLOSURE                       R45 K75 [PROTO_14]
+      363 CAPTURE                          VAL R39
+      364 CAPTURE                          VAL R4
+      365 CAPTURE                          VAL R6
+      366 CAPTURE                          VAL R15
+      367 CAPTURE                          VAL R16
+      368 CAPTURE                          VAL R17
+      369 CAPTURE                          VAL R18
+      370 CAPTURE                          VAL R1
+      371 CAPTURE                          VAL R13
+      372 CAPTURE                          VAL R9
+      373 CAPTURE                          VAL R34
+      374 CAPTURE                          VAL R38
+      375 CAPTURE                          VAL R23
+      376 CAPTURE                          VAL R14
+      377 SETTABLEKS                       R45 R44 K76 ["render"]
+      379 RETURN                           R44 1

@@ -83,39 +83,47 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K8 ["Util"]
        20 GETTABLEKS                       R3 R3 K9 ["Images"]
        22 CALL                             R2 1 1
-       23 NEWTABLE                         R3 8 0
-       25 GETTABLEKS                       R4 R1 K10 ["AssetInfoField"]
-       27 GETTABLEKS                       R4 R4 K11 ["DisplayName"]
-       29 LOADB                            R5 1
-       30 SETTABLE                         R5 R3 R4
-       31 GETTABLEKS                       R4 R1 K10 ["AssetInfoField"]
-       33 GETTABLEKS                       R4 R4 K12 ["ModerationStatus"]
-       35 LOADB                            R5 1
-       36 SETTABLE                         R5 R3 R4
-       37 GETTABLEKS                       R4 R1 K10 ["AssetInfoField"]
-       39 GETTABLEKS                       R4 R4 K13 ["VersionNumber"]
-       41 LOADB                            R5 1
-       42 SETTABLE                         R5 R3 R4
-       43 GETTABLEKS                       R4 R1 K10 ["AssetInfoField"]
-       45 GETTABLEKS                       R4 R4 K14 ["IsPackage"]
-       47 LOADB                            R5 1
-       48 SETTABLE                         R5 R3 R4
-       49 GETTABLEKS                       R4 R1 K10 ["AssetInfoField"]
-       51 GETTABLEKS                       R4 R4 K15 ["Archived"]
-       53 LOADB                            R5 1
-       54 SETTABLE                         R5 R3 R4
-       55 GETTABLEKS                       R4 R1 K10 ["AssetInfoField"]
-       57 GETTABLEKS                       R4 R4 K16 ["Path"]
-       59 LOADB                            R5 1
-       60 SETTABLE                         R5 R3 R4
-       61 GETTABLEKS                       R4 R1 K10 ["AssetInfoField"]
-       63 GETTABLEKS                       R4 R4 K17 ["SearchRank"]
-       65 LOADB                            R5 1
-       66 SETTABLE                         R5 R3 R4
-       67 DUPCLOSURE                       R4 K18 [PROTO_0]
-       68 CAPTURE                          VAL R3
-       69 DUPCLOSURE                       R5 K19 [PROTO_4]
-       70 CAPTURE                          VAL R1
-       71 CAPTURE                          VAL R3
-       72 CAPTURE                          VAL R2
-       73 RETURN                           R5 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K10 ["Flags"]
+       29 GETTABLEKS                       R4 R4 K11 ["getFFlagAmrEnableVersioning"]
+       31 CALL                             R3 1 1
+       32 NEWTABLE                         R4 8 0
+       34 GETTABLEKS                       R5 R1 K12 ["AssetInfoField"]
+       36 GETTABLEKS                       R5 R5 K13 ["DisplayName"]
+       38 LOADB                            R6 1
+       39 SETTABLE                         R6 R4 R5
+       40 GETTABLEKS                       R5 R1 K12 ["AssetInfoField"]
+       42 GETTABLEKS                       R5 R5 K14 ["ModerationStatus"]
+       44 LOADB                            R6 1
+       45 SETTABLE                         R6 R4 R5
+       46 GETTABLEKS                       R5 R1 K12 ["AssetInfoField"]
+       48 GETTABLEKS                       R5 R5 K15 ["IsPackage"]
+       50 LOADB                            R6 1
+       51 SETTABLE                         R6 R4 R5
+       52 GETTABLEKS                       R5 R1 K12 ["AssetInfoField"]
+       54 GETTABLEKS                       R5 R5 K16 ["Archived"]
+       56 LOADB                            R6 1
+       57 SETTABLE                         R6 R4 R5
+       58 GETTABLEKS                       R5 R1 K12 ["AssetInfoField"]
+       60 GETTABLEKS                       R5 R5 K17 ["Path"]
+       62 LOADB                            R6 1
+       63 SETTABLE                         R6 R4 R5
+       64 GETTABLEKS                       R5 R1 K12 ["AssetInfoField"]
+       66 GETTABLEKS                       R5 R5 K18 ["SearchRank"]
+       68 LOADB                            R6 1
+       69 SETTABLE                         R6 R4 R5
+       70 MOVE                             R5 R3
+       71 CALL                             R5 0 1
+       72 JUMPIF                           R5 ; [+6]
+       73 GETTABLEKS                       R5 R1 K12 ["AssetInfoField"]
+       75 GETTABLEKS                       R5 R5 K19 ["VersionNumber"]
+       77 LOADB                            R6 1
+       78 SETTABLE                         R6 R4 R5
+       79 DUPCLOSURE                       R5 K20 [PROTO_0]
+       80 CAPTURE                          VAL R4
+       81 DUPCLOSURE                       R6 K21 [PROTO_4]
+       82 CAPTURE                          VAL R1
+       83 CAPTURE                          VAL R4
+       84 CAPTURE                          VAL R2
+       85 RETURN                           R6 1

@@ -118,6 +118,10 @@ PROTO_6:
         9 RETURN                           R3 1
 
 PROTO_7:
+        0 NEWTABLE                         R0 0 0
+        2 RETURN                           R0 1
+
+PROTO_8:
         0 JUMPIFNOTEQKS                    R1 K0 ["AssetAccessController"] ; [+5]
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K1 ["MockAssetAccessController"]
@@ -127,7 +131,7 @@ PROTO_7:
         9 CALL                             R2 1 0
        10 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 NEWTABLE                         R0 16 0
         2 NEWTABLE                         R1 0 0
         4 NEWTABLE                         R2 0 0
@@ -178,11 +182,16 @@ PROTO_8:
        65 SETTABLEKS                       R4 R0 K8 ["MockAssetAccessController"]
        67 GETUPVAL                         R4 0
        68 GETTABLEKS                       R4 R4 K0 ["fn"]
-       70 NEWCLOSURE                       R5 P5
-       71 CAPTURE                          VAL R0
-       72 CALL                             R4 1 1
-       73 SETTABLEKS                       R4 R0 K9 ["GetPluginComponent"]
-       75 RETURN                           R0 1
+       70 DUPCLOSURE                       R5 K9 [PROTO_7]
+       71 CALL                             R4 1 1
+       72 SETTABLEKS                       R4 R0 K10 ["GetUri"]
+       74 GETUPVAL                         R4 0
+       75 GETTABLEKS                       R4 R4 K0 ["fn"]
+       77 NEWCLOSURE                       R5 P6
+       78 CAPTURE                          VAL R0
+       79 CALL                             R4 1 1
+       80 SETTABLEKS                       R4 R0 K11 ["GetPluginComponent"]
+       82 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -201,7 +210,7 @@ MAIN:
        22 GETTABLEKS                       R3 R3 K11 ["createMockAssetAccessController"]
        24 CALL                             R2 1 1
        25 GETTABLEKS                       R3 R1 K12 ["jest"]
-       27 DUPCLOSURE                       R4 K13 [PROTO_8]
+       27 DUPCLOSURE                       R4 K13 [PROTO_9]
        28 CAPTURE                          VAL R3
        29 CAPTURE                          VAL R2
        30 RETURN                           R4 1

@@ -90,41 +90,54 @@ PROTO_5:
 
 PROTO_6:
         0 LOADNIL                          R1
-        1 LOADK                            R4 K0 ["PlaceManager"]
-        2 NAMECALL                         R2 R0 K1 ["GetPluginComponent"]
-        4 CALL                             R2 2 1
-        5 LOADN                            R4 0
-        6 NEWCLOSURE                       R5 P0
-        7 CAPTURE                          UPVAL U0
-        8 CAPTURE                          REF R1
-        9 CAPTURE                          VAL R0
-       10 CAPTURE                          UPVAL U1
-       11 NAMECALL                         R2 R2 K2 ["RegisterCloseHold"]
-       13 CALL                             R2 3 0
-       14 GETUPVAL                         R4 1
-       15 GETTABLEKS                       R4 R4 K3 ["releaseStudioCloseHold"]
-       17 NEWCLOSURE                       R5 P1
-       18 CAPTURE                          REF R1
-       19 NAMECALL                         R2 R0 K4 ["OnInvoke"]
-       21 CALL                             R2 3 0
-       22 LOADNIL                          R2
-       23 GETUPVAL                         R3 2
-       24 LOADN                            R5 0
-       25 NEWCLOSURE                       R6 P2
-       26 CAPTURE                          UPVAL U0
-       27 CAPTURE                          REF R2
-       28 CAPTURE                          VAL R0
-       29 CAPTURE                          UPVAL U1
-       30 NAMECALL                         R3 R3 K5 ["RegisterPublishHold"]
-       32 CALL                             R3 3 0
-       33 GETUPVAL                         R5 1
-       34 GETTABLEKS                       R5 R5 K6 ["releaseStudioPublishHold"]
-       36 NEWCLOSURE                       R6 P3
-       37 CAPTURE                          REF R2
-       38 NAMECALL                         R3 R0 K4 ["OnInvoke"]
-       40 CALL                             R3 3 0
-       41 CLOSEUPVALS                      R1
-       42 RETURN                           R0 0
+        1 NEWCLOSURE                       R2 P0
+        2 CAPTURE                          UPVAL U0
+        3 CAPTURE                          REF R1
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U1
+        6 LOADK                            R5 K0 ["PlaceManager"]
+        7 NAMECALL                         R3 R0 K1 ["GetPluginComponent"]
+        9 CALL                             R3 2 1
+       10 LOADN                            R5 0
+       11 MOVE                             R6 R2
+       12 NAMECALL                         R3 R3 K2 ["RegisterCloseHold"]
+       14 CALL                             R3 3 0
+       15 GETIMPORT                        R3 K4 [game]
+       17 LOADK                            R5 K5 ["StudioPlaceCloserCloseHold"]
+       18 NAMECALL                         R3 R3 K6 ["GetEngineFeature"]
+       20 CALL                             R3 2 1
+       21 JUMPIFNOT                        R3 ; [+9]
+       22 LOADK                            R5 K7 ["PlaceCloser"]
+       23 NAMECALL                         R3 R0 K1 ["GetPluginComponent"]
+       25 CALL                             R3 2 1
+       26 LOADN                            R5 0
+       27 MOVE                             R6 R2
+       28 NAMECALL                         R3 R3 K8 ["RegisterCloseHoldAsync"]
+       30 CALL                             R3 3 0
+       31 GETUPVAL                         R5 1
+       32 GETTABLEKS                       R5 R5 K9 ["releaseStudioCloseHold"]
+       34 NEWCLOSURE                       R6 P1
+       35 CAPTURE                          REF R1
+       36 NAMECALL                         R3 R0 K10 ["OnInvoke"]
+       38 CALL                             R3 3 0
+       39 LOADNIL                          R3
+       40 GETUPVAL                         R4 2
+       41 LOADN                            R6 0
+       42 NEWCLOSURE                       R7 P2
+       43 CAPTURE                          UPVAL U0
+       44 CAPTURE                          REF R3
+       45 CAPTURE                          VAL R0
+       46 CAPTURE                          UPVAL U1
+       47 NAMECALL                         R4 R4 K11 ["RegisterPublishHold"]
+       49 CALL                             R4 3 0
+       50 GETUPVAL                         R6 1
+       51 GETTABLEKS                       R6 R6 K12 ["releaseStudioPublishHold"]
+       53 NEWCLOSURE                       R7 P3
+       54 CAPTURE                          REF R3
+       55 NAMECALL                         R4 R0 K10 ["OnInvoke"]
+       57 CALL                             R4 3 0
+       58 CLOSEUPVALS                      R1
+       59 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

@@ -1,45 +1,86 @@
 PROTO_0:
-        0 NEWTABLE                         R1 0 1
-        2 DUPTABLE                         R2 K4 [{[1] = "pencil", ["id"], ["text"]}]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R3 R3 K5 ["RENAME"]
-        6 SETTABLEKS                       R3 R2 K2 ["id"]
-        8 LOADK                            R5 K6 ["Menu"]
-        9 LOADK                            R6 K7 ["Rename"]
-       10 NAMECALL                         R3 R0 K8 ["getText"]
-       12 CALL                             R3 3 1
-       13 SETTABLEKS                       R3 R2 K3 ["text"]
-       15 SETLIST                          R1 R2 1 [1]
-       17 GETUPVAL                         R2 1
-       18 CALL                             R2 0 1
-       19 JUMPIFNOT                        R2 ; [+19]
-       20 DUPTABLE                         R4 K9 [{"id", "text"}]
-       21 GETUPVAL                         R5 0
-       22 GETTABLEKS                       R5 R5 K10 ["DUPLICATE"]
-       24 SETTABLEKS                       R5 R4 K2 ["id"]
-       26 LOADK                            R7 K6 ["Menu"]
-       27 LOADK                            R8 K11 ["Duplicate"]
-       28 NAMECALL                         R5 R0 K8 ["getText"]
-       30 CALL                             R5 3 1
-       31 SETTABLEKS                       R5 R4 K3 ["text"]
-       33 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
-       35 MOVE                             R3 R1
-       36 GETIMPORT                        R2 K14 [table.insert]
-       38 CALL                             R2 2 0
-       39 DUPTABLE                         R4 K16 [{[1] = "trash-can", ["id"], ["text"]}]
-       40 GETUPVAL                         R5 0
-       41 GETTABLEKS                       R5 R5 K17 ["DELETE"]
-       43 SETTABLEKS                       R5 R4 K2 ["id"]
-       45 LOADK                            R7 K6 ["Menu"]
-       46 LOADK                            R8 K18 ["Delete"]
-       47 NAMECALL                         R5 R0 K8 ["getText"]
-       49 CALL                             R5 3 1
-       50 SETTABLEKS                       R5 R4 K3 ["text"]
-       52 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
-       54 MOVE                             R3 R1
-       55 GETIMPORT                        R2 K14 [table.insert]
-       57 CALL                             R2 2 0
-       58 RETURN                           R1 1
+        0 GETUPVAL                         R4 0
+        1 CALL                             R4 0 1
+        2 JUMPIFNOT                        R4 ; [+2]
+        3 NOT                              R3 R1
+        4 JUMP                             ; [+1]
+        5 LOADNIL                          R3
+        6 NEWTABLE                         R4 0 1
+        8 DUPTABLE                         R5 K5 [{[1] = "pencil", ["id"], ["isDisabled"], ["text"]}]
+        9 GETUPVAL                         R6 1
+       10 GETTABLEKS                       R6 R6 K6 ["RENAME"]
+       12 SETTABLEKS                       R6 R5 K2 ["id"]
+       14 SETTABLEKS                       R3 R5 K3 ["isDisabled"]
+       16 LOADK                            R8 K7 ["Menu"]
+       17 LOADK                            R9 K8 ["Rename"]
+       18 NAMECALL                         R6 R0 K9 ["getText"]
+       20 CALL                             R6 3 1
+       21 SETTABLEKS                       R6 R5 K4 ["text"]
+       23 SETLIST                          R4 R5 1 [1]
+       25 GETUPVAL                         R5 2
+       26 CALL                             R5 0 1
+       27 JUMPIFNOT                        R5 ; [+21]
+       28 DUPTABLE                         R7 K10 [{"id", "isDisabled", "text"}]
+       29 GETUPVAL                         R8 1
+       30 GETTABLEKS                       R8 R8 K11 ["DUPLICATE"]
+       32 SETTABLEKS                       R8 R7 K2 ["id"]
+       34 SETTABLEKS                       R3 R7 K3 ["isDisabled"]
+       36 LOADK                            R10 K7 ["Menu"]
+       37 LOADK                            R11 K12 ["Duplicate"]
+       38 NAMECALL                         R8 R0 K9 ["getText"]
+       40 CALL                             R8 3 1
+       41 SETTABLEKS                       R8 R7 K4 ["text"]
+       43 FASTCALL2                        TABLE_INSERT R4 R7 ; [+4]
+       45 MOVE                             R6 R4
+       46 GETIMPORT                        R5 K15 [table.insert]
+       48 CALL                             R5 2 0
+       49 DUPTABLE                         R7 K17 [{[1] = "trash-can", ["id"], ["text"]}]
+       50 GETUPVAL                         R8 1
+       51 GETTABLEKS                       R8 R8 K18 ["DELETE"]
+       53 SETTABLEKS                       R8 R7 K2 ["id"]
+       55 LOADK                            R10 K7 ["Menu"]
+       56 LOADK                            R11 K19 ["Delete"]
+       57 NAMECALL                         R8 R0 K9 ["getText"]
+       59 CALL                             R8 3 1
+       60 SETTABLEKS                       R8 R7 K4 ["text"]
+       62 FASTCALL2                        TABLE_INSERT R4 R7 ; [+4]
+       64 MOVE                             R6 R4
+       65 GETIMPORT                        R5 K15 [table.insert]
+       67 CALL                             R5 2 0
+       68 GETUPVAL                         R5 0
+       69 CALL                             R5 0 1
+       70 JUMPIF                           R5 ; [+1]
+       71 RETURN                           R4 1
+       72 NEWTABLE                         R5 0 2
+       74 DUPTABLE                         R6 K21 [{"id", "isChecked", "text"}]
+       75 GETUPVAL                         R7 1
+       76 GETTABLEKS                       R7 R7 K22 ["ENABLED"]
+       78 SETTABLEKS                       R7 R6 K2 ["id"]
+       80 SETTABLEKS                       R1 R6 K20 ["isChecked"]
+       82 LOADK                            R9 K7 ["Menu"]
+       83 LOADK                            R10 K23 ["Enabled"]
+       84 NAMECALL                         R7 R0 K9 ["getText"]
+       86 CALL                             R7 3 1
+       87 SETTABLEKS                       R7 R6 K4 ["text"]
+       89 DUPTABLE                         R7 K24 [{"id", "isChecked", "isDisabled", "text"}]
+       90 GETUPVAL                         R8 1
+       91 GETTABLEKS                       R8 R8 K25 ["SINK"]
+       93 SETTABLEKS                       R8 R7 K2 ["id"]
+       95 SETTABLEKS                       R2 R7 K20 ["isChecked"]
+       97 SETTABLEKS                       R3 R7 K3 ["isDisabled"]
+       99 LOADK                            R10 K7 ["Menu"]
+      100 LOADK                            R11 K26 ["Sink"]
+      101 NAMECALL                         R8 R0 K9 ["getText"]
+      103 CALL                             R8 3 1
+      104 SETTABLEKS                       R8 R7 K4 ["text"]
+      106 SETLIST                          R5 R6 2 [1]
+      108 NEWTABLE                         R6 0 2
+      110 DUPTABLE                         R7 K28 [{"items"}]
+      111 SETTABLEKS                       R4 R7 K27 ["items"]
+      113 DUPTABLE                         R8 K28 [{"items"}]
+      114 SETTABLEKS                       R5 R8 K27 ["items"]
+      116 SETLIST                          R6 R7 2 [1]
+      118 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -64,9 +105,13 @@ MAIN:
        32 GETTABLEKS                       R4 R0 K8 ["Src"]
        34 GETTABLEKS                       R4 R4 K13 ["Flags"]
        36 GETIMPORT                        R5 K5 [require]
-       38 GETTABLEKS                       R6 R4 K14 ["getFFlagIAMDuplicate"]
+       38 GETTABLEKS                       R6 R4 K14 ["getFFlagIAMBooleanProperties"]
        40 CALL                             R5 1 1
-       41 DUPCLOSURE                       R6 K15 [PROTO_0]
-       42 CAPTURE                          VAL R3
-       43 CAPTURE                          VAL R5
-       44 RETURN                           R6 1
+       41 GETIMPORT                        R6 K5 [require]
+       43 GETTABLEKS                       R7 R4 K15 ["getFFlagIAMDuplicate"]
+       45 CALL                             R6 1 1
+       46 DUPCLOSURE                       R7 K16 [PROTO_0]
+       47 CAPTURE                          VAL R5
+       48 CAPTURE                          VAL R3
+       49 CAPTURE                          VAL R6
+       50 RETURN                           R7 1

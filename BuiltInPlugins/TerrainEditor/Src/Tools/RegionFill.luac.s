@@ -95,19 +95,15 @@ PROTO_1:
       124 NAMECALL                         R4 R4 K24 ["Connect"]
       126 CALL                             R4 2 1
       127 SETTABLEKS                       R4 R0 K25 ["_operationFinishedConnection"]
-      129 GETTABLEKS                       R4 R0 K22 ["_operation"]
-      131 GETUPVAL                         R6 5
-      132 GETTABLEKS                       R6 R6 K26 ["join"]
-      134 DUPTABLE                         R7 K28 [{"Payload"}]
-      135 SETTABLEKS                       R2 R7 K27 ["Payload"]
-      137 MOVE                             R8 R1
-      138 CALL                             R6 2 -1
-      139 NAMECALL                         R4 R4 K29 ["start"]
-      141 CALL                             R4 -1 0
-      142 GETTABLEKS                       R4 R0 K30 ["OnOperationChanged"]
-      144 NAMECALL                         R4 R4 K31 ["Fire"]
-      146 CALL                             R4 1 0
-      147 RETURN                           R0 0
+      129 GETTABLEKS                       R6 R0 K22 ["_operation"]
+      131 MOVE                             R7 R2
+      132 MOVE                             R8 R1
+      133 NAMECALL                         R4 R0 K26 ["startMaterialOperation"]
+      135 CALL                             R4 4 0
+      136 GETTABLEKS                       R4 R0 K27 ["OnOperationChanged"]
+      138 NAMECALL                         R4 R4 K28 ["Fire"]
+      140 CALL                             R4 1 0
+      141 RETURN                           R0 0
 
 PROTO_2:
         0 NAMECALL                         R1 R0 K0 ["hasError"]
@@ -364,102 +360,97 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
-       13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETIMPORT                        R3 K1 [script]
-       18 GETTABLEKS                       R3 R3 K8 ["Parent"]
-       20 GETTABLEKS                       R3 R3 K9 ["BaseTool"]
+        9 GETIMPORT                        R2 K1 [script]
+       11 GETTABLEKS                       R2 R2 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R2 K7 ["BaseTool"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R3 R0 K8 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Types"]
        22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K10 ["Src"]
-       27 GETTABLEKS                       R4 R4 K11 ["Types"]
-       29 CALL                             R3 1 1
-       30 GETTABLEKS                       R4 R3 K12 ["Category"]
-       32 GETTABLEKS                       R5 R3 K13 ["FillMode"]
-       34 GETTABLEKS                       R6 R3 K14 ["Gizmo"]
-       36 GETTABLEKS                       R7 R3 K15 ["MaterialSettings"]
-       38 GETTABLEKS                       R8 R3 K16 ["Storage"]
-       40 GETTABLEKS                       R9 R3 K17 ["Tab"]
-       42 GETTABLEKS                       R10 R3 K18 ["Tool"]
-       44 GETTABLEKS                       R11 R0 K10 ["Src"]
-       46 GETTABLEKS                       R11 R11 K19 ["Util"]
+       23 GETTABLEKS                       R3 R2 K10 ["Category"]
+       25 GETTABLEKS                       R4 R2 K11 ["FillMode"]
+       27 GETTABLEKS                       R5 R2 K12 ["Gizmo"]
+       29 GETTABLEKS                       R6 R2 K13 ["MaterialSettings"]
+       31 GETTABLEKS                       R7 R2 K14 ["Storage"]
+       33 GETTABLEKS                       R8 R2 K15 ["Tab"]
+       35 GETTABLEKS                       R9 R2 K16 ["Tool"]
+       37 GETTABLEKS                       R10 R0 K8 ["Src"]
+       39 GETTABLEKS                       R10 R10 K17 ["Util"]
+       41 GETIMPORT                        R11 K5 [require]
+       43 GETTABLEKS                       R12 R10 K18 ["Operations"]
+       45 GETTABLEKS                       R12 R12 K19 ["FillOperation"]
+       47 CALL                             R11 1 1
        48 GETIMPORT                        R12 K5 [require]
-       50 GETTABLEKS                       R13 R11 K20 ["Operations"]
-       52 GETTABLEKS                       R13 R13 K21 ["FillOperation"]
-       54 CALL                             R12 1 1
-       55 GETIMPORT                        R13 K5 [require]
-       57 GETTABLEKS                       R14 R11 K22 ["TerrainMaterialPickerRequester"]
-       59 CALL                             R13 1 1
-       60 GETIMPORT                        R14 K5 [require]
-       62 GETTABLEKS                       R15 R0 K10 ["Src"]
-       64 GETTABLEKS                       R15 R15 K23 ["Flags"]
-       66 GETTABLEKS                       R15 R15 K24 ["getFFlagEnableTerrainPalette"]
-       68 CALL                             R14 1 1
-       69 NEWTABLE                         R15 0 2
-       71 DUPTABLE                         R16 K27 [{"Defaults", "Id"}]
-       72 NEWTABLE                         R17 0 0
-       74 SETTABLEKS                       R17 R16 K25 ["Defaults"]
-       76 GETTABLEKS                       R17 R4 K28 ["SelectionSettings"]
-       78 SETTABLEKS                       R17 R16 K26 ["Id"]
-       80 DUPTABLE                         R17 K27 [{"Defaults", "Id"}]
-       81 NEWTABLE                         R18 4 0
-       83 GETTABLEKS                       R19 R7 K13 ["FillMode"]
-       85 GETTABLEKS                       R20 R5 K29 ["Fill"]
-       87 SETTABLE                         R20 R18 R19
-       88 GETTABLEKS                       R19 R7 K30 ["SourceMaterial"]
-       90 GETIMPORT                        R20 K34 [Enum.Material.Grass]
-       92 SETTABLE                         R20 R18 R19
-       93 GETTABLEKS                       R19 R7 K35 ["TargetMaterial"]
-       95 GETIMPORT                        R20 K34 [Enum.Material.Grass]
-       97 SETTABLE                         R20 R18 R19
-       98 SETTABLEKS                       R18 R17 K25 ["Defaults"]
-      100 GETTABLEKS                       R18 R4 K15 ["MaterialSettings"]
-      102 SETTABLEKS                       R18 R17 K26 ["Id"]
-      104 SETLIST                          R15 R16 2 [1]
-      106 NEWTABLE                         R16 0 1
-      108 DUPTABLE                         R17 K37 [{"Id", "Schema"}]
-      109 GETTABLEKS                       R18 R6 K38 ["Region"]
-      111 SETTABLEKS                       R18 R17 K26 ["Id"]
-      113 DUPTABLE                         R18 K43 [{["Type"], ["Wireframe"] = False, ["Rotation"] = False}]
-      114 GETTABLEKS                       R19 R6 K38 ["Region"]
-      116 SETTABLEKS                       R19 R18 K39 ["Type"]
-      118 SETTABLEKS                       R18 R17 K36 ["Schema"]
-      120 SETLIST                          R16 R17 1 [1]
-      122 GETTABLEKS                       R19 R10 K29 ["Fill"]
-      124 GETTABLEKS                       R20 R9 K44 ["Edit"]
-      126 MOVE                             R21 R15
-      127 MOVE                             R22 R16
-      128 NAMECALL                         R17 R2 K45 ["new"]
-      130 CALL                             R17 5 1
-      131 DUPCLOSURE                       R18 K46 [PROTO_1]
-      132 CAPTURE                          VAL R2
-      133 CAPTURE                          VAL R4
-      134 CAPTURE                          VAL R7
-      135 CAPTURE                          VAL R5
-      136 CAPTURE                          VAL R12
-      137 CAPTURE                          VAL R1
-      138 SETTABLEKS                       R18 R17 K47 ["startOperation"]
-      140 DUPCLOSURE                       R18 K48 [PROTO_2]
-      141 CAPTURE                          VAL R4
+       50 GETTABLEKS                       R13 R10 K20 ["TerrainMaterialPickerRequester"]
+       52 CALL                             R12 1 1
+       53 GETIMPORT                        R13 K5 [require]
+       55 GETTABLEKS                       R14 R0 K8 ["Src"]
+       57 GETTABLEKS                       R14 R14 K21 ["Flags"]
+       59 GETTABLEKS                       R14 R14 K22 ["getFFlagEnableTerrainPalette"]
+       61 CALL                             R13 1 1
+       62 NEWTABLE                         R14 0 2
+       64 DUPTABLE                         R15 K25 [{"Defaults", "Id"}]
+       65 NEWTABLE                         R16 0 0
+       67 SETTABLEKS                       R16 R15 K23 ["Defaults"]
+       69 GETTABLEKS                       R16 R3 K26 ["SelectionSettings"]
+       71 SETTABLEKS                       R16 R15 K24 ["Id"]
+       73 DUPTABLE                         R16 K25 [{"Defaults", "Id"}]
+       74 NEWTABLE                         R17 4 0
+       76 GETTABLEKS                       R18 R6 K11 ["FillMode"]
+       78 GETTABLEKS                       R19 R4 K27 ["Fill"]
+       80 SETTABLE                         R19 R17 R18
+       81 GETTABLEKS                       R18 R6 K28 ["SourceMaterial"]
+       83 GETIMPORT                        R19 K32 [Enum.Material.Grass]
+       85 SETTABLE                         R19 R17 R18
+       86 GETTABLEKS                       R18 R6 K33 ["TargetMaterial"]
+       88 GETIMPORT                        R19 K32 [Enum.Material.Grass]
+       90 SETTABLE                         R19 R17 R18
+       91 SETTABLEKS                       R17 R16 K23 ["Defaults"]
+       93 GETTABLEKS                       R17 R3 K13 ["MaterialSettings"]
+       95 SETTABLEKS                       R17 R16 K24 ["Id"]
+       97 SETLIST                          R14 R15 2 [1]
+       99 NEWTABLE                         R15 0 1
+      101 DUPTABLE                         R16 K35 [{"Id", "Schema"}]
+      102 GETTABLEKS                       R17 R5 K36 ["Region"]
+      104 SETTABLEKS                       R17 R16 K24 ["Id"]
+      106 DUPTABLE                         R17 K41 [{["Type"], ["Wireframe"] = False, ["Rotation"] = False}]
+      107 GETTABLEKS                       R18 R5 K36 ["Region"]
+      109 SETTABLEKS                       R18 R17 K37 ["Type"]
+      111 SETTABLEKS                       R17 R16 K34 ["Schema"]
+      113 SETLIST                          R15 R16 1 [1]
+      115 GETTABLEKS                       R18 R9 K27 ["Fill"]
+      117 GETTABLEKS                       R19 R8 K42 ["Edit"]
+      119 MOVE                             R20 R14
+      120 MOVE                             R21 R15
+      121 NAMECALL                         R16 R1 K43 ["new"]
+      123 CALL                             R16 5 1
+      124 DUPCLOSURE                       R17 K44 [PROTO_1]
+      125 CAPTURE                          VAL R1
+      126 CAPTURE                          VAL R3
+      127 CAPTURE                          VAL R6
+      128 CAPTURE                          VAL R4
+      129 CAPTURE                          VAL R11
+      130 SETTABLEKS                       R17 R16 K45 ["startOperation"]
+      132 DUPCLOSURE                       R17 K46 [PROTO_2]
+      133 CAPTURE                          VAL R3
+      134 CAPTURE                          VAL R6
+      135 SETTABLEKS                       R17 R16 K47 ["setDisabledState"]
+      137 DUPCLOSURE                       R17 K48 [PROTO_10]
+      138 CAPTURE                          VAL R1
+      139 CAPTURE                          VAL R13
+      140 CAPTURE                          VAL R12
+      141 CAPTURE                          VAL R3
       142 CAPTURE                          VAL R7
-      143 SETTABLEKS                       R18 R17 K49 ["setDisabledState"]
-      145 DUPCLOSURE                       R18 K50 [PROTO_10]
-      146 CAPTURE                          VAL R2
-      147 CAPTURE                          VAL R14
-      148 CAPTURE                          VAL R13
-      149 CAPTURE                          VAL R4
-      150 CAPTURE                          VAL R8
-      151 CAPTURE                          VAL R7
-      152 SETTABLEKS                       R18 R17 K51 ["init"]
-      154 DUPCLOSURE                       R18 K52 [PROTO_11]
-      155 CAPTURE                          VAL R2
-      156 SETTABLEKS                       R18 R17 K53 ["deactivate"]
-      158 DUPCLOSURE                       R18 K54 [PROTO_12]
-      159 SETTABLEKS                       R18 R17 K55 ["operation"]
-      161 DUPCLOSURE                       R18 K56 [PROTO_13]
-      162 CAPTURE                          VAL R2
-      163 CAPTURE                          VAL R10
-      164 SETTABLEKS                       R18 R17 K57 ["activate"]
-      166 RETURN                           R17 1
+      143 CAPTURE                          VAL R6
+      144 SETTABLEKS                       R17 R16 K49 ["init"]
+      146 DUPCLOSURE                       R17 K50 [PROTO_11]
+      147 CAPTURE                          VAL R1
+      148 SETTABLEKS                       R17 R16 K51 ["deactivate"]
+      150 DUPCLOSURE                       R17 K52 [PROTO_12]
+      151 SETTABLEKS                       R17 R16 K53 ["operation"]
+      153 DUPCLOSURE                       R17 K54 [PROTO_13]
+      154 CAPTURE                          VAL R1
+      155 CAPTURE                          VAL R9
+      156 SETTABLEKS                       R17 R16 K55 ["activate"]
+      158 RETURN                           R16 1

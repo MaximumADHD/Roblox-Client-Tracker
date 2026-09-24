@@ -138,24 +138,20 @@ PROTO_9:
        41 LOADN                            R4 1
        42 FORNPREP                         R3
        43 GETTABLE                         R6 R1 R5
-       44 JUMPIFNOT                        R6 ; [+24]
+       44 JUMPIFNOT                        R6 ; [+20]
        45 DUPTABLE                         R9 K23 [{"UserId", "Name", "DisplayName"}]
        46 GETTABLEKS                       R10 R6 K24 ["contentId"]
        48 SETTABLEKS                       R10 R9 K20 ["UserId"]
        50 GETTABLEKS                       R10 R6 K25 ["username"]
        52 SETTABLEKS                       R10 R9 K21 ["Name"]
-       54 GETUPVAL                         R11 4
-       55 JUMPIFNOT                        R11 ; [+3]
-       56 GETTABLEKS                       R10 R6 K26 ["displayName"]
-       58 JUMP                             ; [+1]
-       59 LOADNIL                          R10
-       60 SETTABLEKS                       R10 R9 K22 ["DisplayName"]
-       62 FASTCALL2                        TABLE_INSERT R2 R9 ; [+4]
-       64 MOVE                             R8 R2
-       65 GETIMPORT                        R7 K29 [table.insert]
-       67 CALL                             R7 2 0
-       68 FORNLOOP                         R3
-       69 RETURN                           R2 1
+       54 GETTABLEKS                       R10 R6 K26 ["displayName"]
+       56 SETTABLEKS                       R10 R9 K22 ["DisplayName"]
+       58 FASTCALL2                        TABLE_INSERT R2 R9 ; [+4]
+       60 MOVE                             R8 R2
+       61 GETIMPORT                        R7 K29 [table.insert]
+       63 CALL                             R7 2 0
+       64 FORNLOOP                         R3
+       65 RETURN                           R2 1
 
 PROTO_10:
         0 GETIMPORT                        R2 K1 [pcall]
@@ -164,12 +160,11 @@ PROTO_10:
         4 CAPTURE                          VAL R1
         5 CAPTURE                          UPVAL U0
         6 CAPTURE                          UPVAL U1
-        7 CAPTURE                          UPVAL U2
-        8 CALL                             R2 1 2
-        9 JUMPIFNOT                        R2 ; [+1]
-       10 RETURN                           R3 1
-       11 NEWTABLE                         R4 0 0
-       13 RETURN                           R4 1
+        7 CALL                             R2 1 2
+        8 JUMPIFNOT                        R2 ; [+1]
+        9 RETURN                           R3 1
+       10 NEWTABLE                         R4 0 0
+       12 RETURN                           R4 1
 
 PROTO_11:
         0 GETTABLEKS                       R2 R0 K0 ["__networking"]
@@ -289,52 +284,81 @@ PROTO_19:
         7 LENGTH                           R8 R5
         8 ADD                              R6 R7 R8
         9 LOADN                            R7 60
-       10 JUMPIFNOTLT                      R7 R6 ; [+29]
-       12 GETUPVAL                         R7 1
-       13 JUMPIFNOT                        R7 ; [+18]
-       14 GETIMPORT                        R7 K2 [error]
-       16 LOADK                            R9 K3 ["Too many changes ("]
-       17 FASTCALL1                        TOSTRING R6 ; [+3]
-       18 MOVE                             R14 R6
-       19 GETIMPORT                        R13 K5 [tostring]
-       21 CALL                             R13 1 1
-       22 MOVE                             R10 R13
-       23 LOADK                            R11 K6 [") to permissions. Maximum at once is "]
-       24 LOADN                            R13 60
-       25 FASTCALL1                        TOSTRING R13 ; [+2]
-       26 GETIMPORT                        R12 K5 [tostring]
-       28 CALL                             R12 1 1
-       29 CONCAT                           R8 R9 R12
-       30 CALL                             R7 1 0
-       31 JUMP                             ; [+8]
-       32 GETIMPORT                        R7 K2 [error]
-       34 LOADK                            R9 K3 ["Too many changes ("]
-       35 MOVE                             R10 R6
-       36 LOADK                            R12 K6 [") to permissions. Maximum at once is "]
-       37 ADDK                             R11 R12 K7 [60]
-       38 CONCAT                           R8 R9 R11
-       39 CALL                             R7 1 0
-       40 LENGTH                           R7 R4
-       41 LOADN                            R8 0
-       42 JUMPIFNOTLT                      R8 R7 ; [+9]
-       44 MOVE                             R9 R1
-       45 MOVE                             R10 R4
-       46 NAMECALL                         R7 R0 K8 ["permissionsBatchedV2POST"]
-       48 CALL                             R7 3 1
-       49 NAMECALL                         R7 R7 K9 ["await"]
-       51 CALL                             R7 1 0
-       52 LENGTH                           R7 R5
-       53 LOADN                            R8 0
-       54 JUMPIFNOTLT                      R8 R7 ; [+9]
-       56 MOVE                             R9 R1
-       57 MOVE                             R10 R5
-       58 NAMECALL                         R7 R0 K10 ["permissionsBatchedV2DELETE"]
-       60 CALL                             R7 3 1
-       61 NAMECALL                         R7 R7 K9 ["await"]
-       63 CALL                             R7 1 0
-       64 RETURN                           R4 2
+       10 JUMPIFNOTLT                      R7 R6 ; [+18]
+       12 GETIMPORT                        R7 K2 [error]
+       14 LOADK                            R9 K3 ["Too many changes ("]
+       15 FASTCALL1                        TOSTRING R6 ; [+3]
+       16 MOVE                             R14 R6
+       17 GETIMPORT                        R13 K5 [tostring]
+       19 CALL                             R13 1 1
+       20 MOVE                             R10 R13
+       21 LOADK                            R11 K6 [") to permissions. Maximum at once is "]
+       22 LOADN                            R13 60
+       23 FASTCALL1                        TOSTRING R13 ; [+2]
+       24 GETIMPORT                        R12 K5 [tostring]
+       26 CALL                             R12 1 1
+       27 CONCAT                           R8 R9 R12
+       28 CALL                             R7 1 0
+       29 LENGTH                           R7 R4
+       30 LOADN                            R8 0
+       31 JUMPIFNOTLT                      R8 R7 ; [+9]
+       33 MOVE                             R9 R1
+       34 MOVE                             R10 R4
+       35 NAMECALL                         R7 R0 K7 ["permissionsBatchedV2POST"]
+       37 CALL                             R7 3 1
+       38 NAMECALL                         R7 R7 K8 ["await"]
+       40 CALL                             R7 1 0
+       41 LENGTH                           R7 R5
+       42 LOADN                            R8 0
+       43 JUMPIFNOTLT                      R8 R7 ; [+9]
+       45 MOVE                             R9 R1
+       46 MOVE                             R10 R5
+       47 NAMECALL                         R7 R0 K9 ["permissionsBatchedV2DELETE"]
+       49 CALL                             R7 3 1
+       50 NAMECALL                         R7 R7 K8 ["await"]
+       52 CALL                             R7 1 0
+       53 RETURN                           R4 2
 
 PROTO_20:
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["SerializePermissions"]
+        3 MOVE                             R5 R2
+        4 MOVE                             R6 R3
+        5 CALL                             R4 2 2
+        6 LENGTH                           R7 R4
+        7 LENGTH                           R8 R5
+        8 ADD                              R6 R7 R8
+        9 LOADN                            R7 60
+       10 JUMPIFNOTLT                      R7 R6 ; [+11]
+       12 GETIMPORT                        R7 K2 [error]
+       14 LOADK                            R9 K3 ["Too many permission changes: "]
+       15 FASTCALL1                        TOSTRING R6 ; [+3]
+       16 MOVE                             R11 R6
+       17 GETIMPORT                        R10 K5 [tostring]
+       19 CALL                             R10 1 1
+       20 CONCAT                           R8 R9 R10
+       21 CALL                             R7 1 0
+       22 LENGTH                           R7 R5
+       23 LOADN                            R8 0
+       24 JUMPIFNOTLT                      R8 R7 ; [+9]
+       26 MOVE                             R9 R1
+       27 MOVE                             R10 R5
+       28 NAMECALL                         R7 R0 K6 ["permissionsBatchedV2DELETE"]
+       30 CALL                             R7 3 1
+       31 NAMECALL                         R7 R7 K7 ["await"]
+       33 CALL                             R7 1 0
+       34 LENGTH                           R7 R4
+       35 LOADN                            R8 0
+       36 JUMPIFNOTLT                      R8 R7 ; [+9]
+       38 MOVE                             R9 R1
+       39 MOVE                             R10 R4
+       40 NAMECALL                         R7 R0 K8 ["permissionsBatchedV2POST"]
+       42 CALL                             R7 3 1
+       43 NAMECALL                         R7 R7 K7 ["await"]
+       45 CALL                             R7 1 0
+       46 RETURN                           R4 2
+
+PROTO_21:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["GetUserIdFromNameAsync"]
@@ -343,47 +367,39 @@ PROTO_20:
         6 MOVE                             R3 R0
         7 NAMECALL                         R1 R1 K1 ["GetNameFromUserIdAsync"]
         9 CALL                             R1 2 1
-       10 LOADNIL                          R2
-       11 GETUPVAL                         R3 2
-       12 JUMPIFNOT                        R3 ; [+13]
-       13 GETUPVAL                         R4 3
-       14 NEWTABLE                         R6 0 1
-       16 MOVE                             R7 R0
-       17 SETLIST                          R6 R7 1 [1]
-       19 NAMECALL                         R4 R4 K2 ["GetUserInfosByUserIdsAsync"]
-       21 CALL                             R4 2 1
-       22 LOADN                            R5 0
-       23 GETTABLE                         R3 R4 R5
-       24 GETTABLEKS                       R2 R3 K3 ["DisplayName"]
-       26 GETUPVAL                         R4 4
-       27 NEWTABLE                         R5 4 0
-       29 GETUPVAL                         R6 5
-       30 GETTABLEKS                       R6 R6 K4 ["SubjectNameKey"]
-       32 SETTABLE                         R1 R5 R6
-       33 GETUPVAL                         R6 5
-       34 GETTABLEKS                       R6 R6 K5 ["SubjectDisplayNameKey"]
-       36 GETUPVAL                         R8 2
-       37 JUMPIFNOT                        R8 ; [+2]
-       38 MOVE                             R7 R2
-       39 JUMP                             ; [+1]
-       40 LOADNIL                          R7
-       41 SETTABLE                         R7 R5 R6
-       42 GETUPVAL                         R6 5
-       43 GETTABLEKS                       R6 R6 K6 ["SubjectIdKey"]
-       45 SETTABLE                         R0 R5 R6
-       46 FASTCALL2                        TABLE_INSERT R4 R5 ; [+3]
-       48 GETIMPORT                        R3 K9 [table.insert]
-       50 CALL                             R3 2 0
-       51 RETURN                           R0 0
+       10 GETUPVAL                         R3 2
+       11 NEWTABLE                         R5 0 1
+       13 MOVE                             R6 R0
+       14 SETLIST                          R5 R6 1 [1]
+       16 NAMECALL                         R3 R3 K2 ["GetUserInfosByUserIdsAsync"]
+       18 CALL                             R3 2 1
+       19 LOADN                            R4 0
+       20 GETTABLE                         R2 R3 R4
+       21 GETTABLEKS                       R3 R2 K3 ["DisplayName"]
+       23 GETUPVAL                         R5 3
+       24 NEWTABLE                         R6 4 0
+       26 GETUPVAL                         R7 4
+       27 GETTABLEKS                       R7 R7 K4 ["SubjectNameKey"]
+       29 SETTABLE                         R1 R6 R7
+       30 GETUPVAL                         R7 4
+       31 GETTABLEKS                       R7 R7 K5 ["SubjectDisplayNameKey"]
+       33 SETTABLE                         R3 R6 R7
+       34 GETUPVAL                         R7 4
+       35 GETTABLEKS                       R7 R7 K6 ["SubjectIdKey"]
+       37 SETTABLE                         R0 R6 R7
+       38 FASTCALL2                        TABLE_INSERT R5 R6 ; [+3]
+       40 GETIMPORT                        R4 K9 [table.insert]
+       42 CALL                             R4 2 0
+       43 RETURN                           R0 0
 
-PROTO_21:
+PROTO_22:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["apisSearchUsers"]
         3 CALL                             R2 2 1
         4 NEWTABLE                         R3 0 0
         6 LENGTH                           R4 R2
         7 LOADN                            R5 0
-        8 JUMPIFNOTLT                      R5 R4 ; [+39]
+        8 JUMPIFNOTLT                      R5 R4 ; [+35]
        10 GETIMPORT                        R4 K2 [pairs]
        12 MOVE                             R5 R2
        13 CALL                             R4 1 3
@@ -395,38 +411,33 @@ PROTO_21:
        22 SETTABLE                         R13 R11 R12
        23 GETUPVAL                         R12 0
        24 GETTABLEKS                       R12 R12 K5 ["SubjectDisplayNameKey"]
-       26 GETUPVAL                         R14 1
-       27 JUMPIFNOT                        R14 ; [+3]
-       28 GETTABLEKS                       R13 R8 K6 ["DisplayName"]
-       30 JUMP                             ; [+1]
-       31 LOADNIL                          R13
-       32 SETTABLE                         R13 R11 R12
-       33 GETUPVAL                         R12 0
-       34 GETTABLEKS                       R12 R12 K7 ["SubjectIdKey"]
-       36 GETTABLEKS                       R13 R8 K8 ["UserId"]
-       38 SETTABLE                         R13 R11 R12
-       39 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
-       41 MOVE                             R10 R3
-       42 GETIMPORT                        R9 K11 [table.insert]
-       44 CALL                             R9 2 0
-       45 FORGLOOP                         R4 2 ; [-31]
-       47 JUMP                             ; [+10]
-       48 GETIMPORT                        R4 K13 [pcall]
-       50 NEWCLOSURE                       R5 P0
-       51 CAPTURE                          UPVAL U2
-       52 CAPTURE                          VAL R1
-       53 CAPTURE                          UPVAL U1
-       54 CAPTURE                          UPVAL U3
-       55 CAPTURE                          VAL R3
-       56 CAPTURE                          UPVAL U0
-       57 CALL                             R4 1 0
-       58 NEWTABLE                         R4 1 0
-       60 GETUPVAL                         R5 0
-       61 GETTABLEKS                       R5 R5 K14 ["UserSubjectKey"]
-       63 SETTABLE                         R3 R4 R5
-       64 RETURN                           R4 1
+       26 GETTABLEKS                       R13 R8 K6 ["DisplayName"]
+       28 SETTABLE                         R13 R11 R12
+       29 GETUPVAL                         R12 0
+       30 GETTABLEKS                       R12 R12 K7 ["SubjectIdKey"]
+       32 GETTABLEKS                       R13 R8 K8 ["UserId"]
+       34 SETTABLE                         R13 R11 R12
+       35 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
+       37 MOVE                             R10 R3
+       38 GETIMPORT                        R9 K11 [table.insert]
+       40 CALL                             R9 2 0
+       41 FORGLOOP                         R4 2 ; [-27]
+       43 JUMP                             ; [+9]
+       44 GETIMPORT                        R4 K13 [pcall]
+       46 NEWCLOSURE                       R5 P0
+       47 CAPTURE                          UPVAL U1
+       48 CAPTURE                          VAL R1
+       49 CAPTURE                          UPVAL U2
+       50 CAPTURE                          VAL R3
+       51 CAPTURE                          UPVAL U0
+       52 CALL                             R4 1 0
+       53 NEWTABLE                         R4 1 0
+       55 GETUPVAL                         R5 0
+       56 GETTABLEKS                       R5 R5 K14 ["UserSubjectKey"]
+       58 SETTABLE                         R3 R4 R5
+       59 RETURN                           R4 1
 
-PROTO_22:
+PROTO_23:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["searchGroupsV1GET"]
         3 CALL                             R2 2 1
@@ -464,7 +475,7 @@ PROTO_22:
        52 SETTABLE                         R5 R4 R6
        53 RETURN                           R4 1
 
-PROTO_23:
+PROTO_24:
         0 GETTABLEKS                       R3 R0 K0 ["__networking"]
         2 LOADK                            R6 K1 ["apis"]
         3 LOADK                            R7 K2 ["/experience-guidelines-service/v1beta1/multi-creator-eligibility"]
@@ -480,7 +491,7 @@ PROTO_23:
        19 CALL                             R4 4 -1
        20 RETURN                           R4 -1
 
-PROTO_24:
+PROTO_25:
         0 MOVE                             R5 R1
         1 NAMECALL                         R3 R0 K0 ["searchUsers"]
         3 CALL                             R3 2 1
@@ -549,7 +560,7 @@ PROTO_24:
        88 CALL                             R6 2 1
        89 RETURN                           R6 1
 
-PROTO_25:
+PROTO_26:
         0 GETTABLEKS                       R2 R0 K0 ["__networking"]
         2 LOADK                            R5 K1 ["apis"]
         3 LOADK                            R6 K2 ["/experience-guidelines-service/v1beta1/multi-age-recommendation"]
@@ -564,7 +575,7 @@ PROTO_25:
        17 CALL                             R3 4 -1
        18 RETURN                           R3 -1
 
-PROTO_26:
+PROTO_27:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["guidelinesPOST"]
         3 CALL                             R2 2 1
@@ -634,96 +645,79 @@ MAIN:
        62 NAMECALL                         R7 R7 K17 ["GetService"]
        64 CALL                             R7 2 1
        65 GETIMPORT                        R8 K15 [game]
-       67 LOADK                            R10 K20 ["Collab8766_LogCollabSearchItemClickedEventV4"]
-       68 NAMECALL                         R8 R8 K21 ["GetFastFlag"]
+       67 LOADK                            R10 K20 ["UserService"]
+       68 NAMECALL                         R8 R8 K17 ["GetService"]
        70 CALL                             R8 2 1
-       71 GETIMPORT                        R9 K15 [game]
-       73 LOADK                            R11 K22 ["Collab8818_ShowSearchItemDisplayName"]
-       74 NAMECALL                         R9 R9 K21 ["GetFastFlag"]
-       76 CALL                             R9 2 1
-       77 OR                               R10 R8 R9
-       78 LOADNIL                          R11
-       79 JUMPIFNOT                        R10 ; [+7]
-       80 GETIMPORT                        R12 K15 [game]
-       82 LOADK                            R14 K23 ["UserService"]
-       83 NAMECALL                         R12 R12 K17 ["GetService"]
-       85 CALL                             R12 2 1
-       86 MOVE                             R11 R12
-       87 GETIMPORT                        R12 K15 [game]
-       89 LOADK                            R14 K24 ["COLLAB8937FixPrintNumToString"]
-       90 NAMECALL                         R12 R12 K21 ["GetFastFlag"]
-       92 CALL                             R12 2 1
-       93 LOADB                            R15 0
-       94 NAMECALL                         R13 R6 K25 ["GenerateGUID"]
-       96 CALL                             R13 2 1
-       97 NEWTABLE                         R14 32 0
-       99 SETTABLEKS                       R14 R14 K26 ["__index"]
-      101 DUPCLOSURE                       R15 K27 [PROTO_0]
-      102 CAPTURE                          VAL R14
-      103 SETTABLEKS                       R15 R14 K28 ["new"]
-      105 DUPCLOSURE                       R15 K29 [PROTO_1]
-      106 SETTABLEKS                       R15 R14 K30 ["universesV1GET"]
-      108 DUPCLOSURE                       R15 K31 [PROTO_2]
-      109 SETTABLEKS                       R15 R14 K32 ["universesActivateV1POST"]
-      111 DUPCLOSURE                       R15 K33 [PROTO_3]
-      112 SETTABLEKS                       R15 R14 K34 ["universesDeactivateV1POST"]
-      114 DUPCLOSURE                       R15 K35 [PROTO_4]
-      115 SETTABLEKS                       R15 R14 K36 ["configurationV2GET"]
-      117 DUPCLOSURE                       R15 K37 [PROTO_5]
-      118 SETTABLEKS                       R15 R14 K38 ["configurationV2PATCH"]
-      120 DUPCLOSURE                       R15 K39 [PROTO_6]
-      121 SETTABLEKS                       R15 R14 K40 ["permissionsV2GET"]
-      123 DUPCLOSURE                       R15 K41 [PROTO_7]
-      124 SETTABLEKS                       R15 R14 K42 ["permissionsBatchedV2POST"]
-      126 DUPCLOSURE                       R15 K43 [PROTO_8]
-      127 SETTABLEKS                       R15 R14 K44 ["permissionsBatchedV2DELETE"]
-      129 DUPCLOSURE                       R15 K45 [PROTO_10]
-      130 CAPTURE                          VAL R13
-      131 CAPTURE                          VAL R4
-      132 CAPTURE                          VAL R10
-      133 SETTABLEKS                       R15 R14 K46 ["apisSearchUsers"]
-      135 DUPCLOSURE                       R15 K47 [PROTO_11]
-      136 SETTABLEKS                       R15 R14 K48 ["usersGetByUsernamesV1POST"]
-      138 DUPCLOSURE                       R15 K49 [PROTO_12]
-      139 CAPTURE                          VAL R4
-      140 SETTABLEKS                       R15 R14 K50 ["searchGroupsV1GET"]
-      142 DUPCLOSURE                       R15 K51 [PROTO_13]
-      143 SETTABLEKS                       R15 R14 K52 ["isFriendsOnly"]
-      145 DUPCLOSURE                       R15 K53 [PROTO_14]
-      146 SETTABLEKS                       R15 R14 K54 ["setFriendsOnly"]
-      148 DUPCLOSURE                       R15 K55 [PROTO_15]
-      149 SETTABLEKS                       R15 R14 K56 ["isActive"]
-      151 DUPCLOSURE                       R15 K57 [PROTO_16]
-      152 SETTABLEKS                       R15 R14 K58 ["setActive"]
-      154 DUPCLOSURE                       R15 K59 [PROTO_17]
-      155 CAPTURE                          VAL R2
-      156 SETTABLEKS                       R15 R14 K60 ["getPermissions_DEPRECATED"]
-      158 DUPCLOSURE                       R15 K61 [PROTO_18]
-      159 CAPTURE                          VAL R2
-      160 SETTABLEKS                       R15 R14 K62 ["getPermissions"]
-      162 DUPCLOSURE                       R15 K63 [PROTO_19]
-      163 CAPTURE                          VAL R3
-      164 CAPTURE                          VAL R12
-      165 SETTABLEKS                       R15 R14 K64 ["setPermissions"]
-      167 NEWCLOSURE                       R15 P19
-      168 CAPTURE                          VAL R4
-      169 CAPTURE                          VAL R10
-      170 CAPTURE                          VAL R7
-      171 CAPTURE                          REF R11
-      172 SETTABLEKS                       R15 R14 K65 ["searchUsers"]
-      174 DUPCLOSURE                       R15 K66 [PROTO_22]
-      175 CAPTURE                          VAL R4
-      176 SETTABLEKS                       R15 R14 K67 ["searchGroups"]
-      178 DUPCLOSURE                       R15 K68 [PROTO_23]
-      179 CAPTURE                          VAL R5
-      180 SETTABLEKS                       R15 R14 K69 ["creatorEligibilitiesPOST"]
-      182 DUPCLOSURE                       R15 K70 [PROTO_24]
-      183 CAPTURE                          VAL R4
-      184 CAPTURE                          VAL R1
-      185 SETTABLEKS                       R15 R14 K71 ["search"]
-      187 DUPCLOSURE                       R15 K72 [PROTO_25]
-      188 SETTABLEKS                       R15 R14 K73 ["guidelinesPOST"]
-      190 DUPCLOSURE                       R15 K74 [PROTO_26]
-      191 SETTABLEKS                       R15 R14 K75 ["getMinimumAgeRecommendation"]
-      193 CLOSEUPVALS                      R11
-      194 RETURN                           R14 1
+       71 LOADB                            R11 0
+       72 NAMECALL                         R9 R6 K21 ["GenerateGUID"]
+       74 CALL                             R9 2 1
+       75 NEWTABLE                         R10 32 0
+       77 SETTABLEKS                       R10 R10 K22 ["__index"]
+       79 DUPCLOSURE                       R11 K23 [PROTO_0]
+       80 CAPTURE                          VAL R10
+       81 SETTABLEKS                       R11 R10 K24 ["new"]
+       83 DUPCLOSURE                       R11 K25 [PROTO_1]
+       84 SETTABLEKS                       R11 R10 K26 ["universesV1GET"]
+       86 DUPCLOSURE                       R11 K27 [PROTO_2]
+       87 SETTABLEKS                       R11 R10 K28 ["universesActivateV1POST"]
+       89 DUPCLOSURE                       R11 K29 [PROTO_3]
+       90 SETTABLEKS                       R11 R10 K30 ["universesDeactivateV1POST"]
+       92 DUPCLOSURE                       R11 K31 [PROTO_4]
+       93 SETTABLEKS                       R11 R10 K32 ["configurationV2GET"]
+       95 DUPCLOSURE                       R11 K33 [PROTO_5]
+       96 SETTABLEKS                       R11 R10 K34 ["configurationV2PATCH"]
+       98 DUPCLOSURE                       R11 K35 [PROTO_6]
+       99 SETTABLEKS                       R11 R10 K36 ["permissionsV2GET"]
+      101 DUPCLOSURE                       R11 K37 [PROTO_7]
+      102 SETTABLEKS                       R11 R10 K38 ["permissionsBatchedV2POST"]
+      104 DUPCLOSURE                       R11 K39 [PROTO_8]
+      105 SETTABLEKS                       R11 R10 K40 ["permissionsBatchedV2DELETE"]
+      107 DUPCLOSURE                       R11 K41 [PROTO_10]
+      108 CAPTURE                          VAL R9
+      109 CAPTURE                          VAL R4
+      110 SETTABLEKS                       R11 R10 K42 ["apisSearchUsers"]
+      112 DUPCLOSURE                       R11 K43 [PROTO_11]
+      113 SETTABLEKS                       R11 R10 K44 ["usersGetByUsernamesV1POST"]
+      115 DUPCLOSURE                       R11 K45 [PROTO_12]
+      116 CAPTURE                          VAL R4
+      117 SETTABLEKS                       R11 R10 K46 ["searchGroupsV1GET"]
+      119 DUPCLOSURE                       R11 K47 [PROTO_13]
+      120 SETTABLEKS                       R11 R10 K48 ["isFriendsOnly"]
+      122 DUPCLOSURE                       R11 K49 [PROTO_14]
+      123 SETTABLEKS                       R11 R10 K50 ["setFriendsOnly"]
+      125 DUPCLOSURE                       R11 K51 [PROTO_15]
+      126 SETTABLEKS                       R11 R10 K52 ["isActive"]
+      128 DUPCLOSURE                       R11 K53 [PROTO_16]
+      129 SETTABLEKS                       R11 R10 K54 ["setActive"]
+      131 DUPCLOSURE                       R11 K55 [PROTO_17]
+      132 CAPTURE                          VAL R2
+      133 SETTABLEKS                       R11 R10 K56 ["getPermissions_DEPRECATED"]
+      135 DUPCLOSURE                       R11 K57 [PROTO_18]
+      136 CAPTURE                          VAL R2
+      137 SETTABLEKS                       R11 R10 K58 ["getPermissions"]
+      139 DUPCLOSURE                       R11 K59 [PROTO_19]
+      140 CAPTURE                          VAL R3
+      141 SETTABLEKS                       R11 R10 K60 ["setPermissions"]
+      143 DUPCLOSURE                       R11 K61 [PROTO_20]
+      144 CAPTURE                          VAL R3
+      145 SETTABLEKS                       R11 R10 K62 ["setPermissionsDeletesFirst"]
+      147 DUPCLOSURE                       R11 K63 [PROTO_22]
+      148 CAPTURE                          VAL R4
+      149 CAPTURE                          VAL R7
+      150 CAPTURE                          VAL R8
+      151 SETTABLEKS                       R11 R10 K64 ["searchUsers"]
+      153 DUPCLOSURE                       R11 K65 [PROTO_23]
+      154 CAPTURE                          VAL R4
+      155 SETTABLEKS                       R11 R10 K66 ["searchGroups"]
+      157 DUPCLOSURE                       R11 K67 [PROTO_24]
+      158 CAPTURE                          VAL R5
+      159 SETTABLEKS                       R11 R10 K68 ["creatorEligibilitiesPOST"]
+      161 DUPCLOSURE                       R11 K69 [PROTO_25]
+      162 CAPTURE                          VAL R4
+      163 CAPTURE                          VAL R1
+      164 SETTABLEKS                       R11 R10 K70 ["search"]
+      166 DUPCLOSURE                       R11 K71 [PROTO_26]
+      167 SETTABLEKS                       R11 R10 K72 ["guidelinesPOST"]
+      169 DUPCLOSURE                       R11 K73 [PROTO_27]
+      170 SETTABLEKS                       R11 R10 K74 ["getMinimumAgeRecommendation"]
+      172 RETURN                           R10 1

@@ -415,6 +415,28 @@ PROTO_9:
 
 PROTO_10:
         0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["fflagAddPlayTesterPermission"]
+        3 JUMPIFNOT                        R0 ; [+21]
+        4 GETUPVAL                         R0 1
+        5 GETUPVAL                         R2 2
+        6 NAMECALL                         R0 R0 K1 ["getCreatorType"]
+        8 CALL                             R0 2 1
+        9 GETIMPORT                        R1 K5 [Enum.CreatorType.User]
+       11 JUMPIFNOTEQ                      R0 R1 ; [+13]
+       13 GETUPVAL                         R0 3
+       14 GETUPVAL                         R2 2
+       15 NAMECALL                         R0 R0 K6 ["getPlayTesters"]
+       17 CALL                             R0 2 1
+       18 GETUPVAL                         R1 4
+       19 GETUPVAL                         R3 5
+       20 MOVE                             R4 R0
+       21 CALL                             R3 1 -1
+       22 NAMECALL                         R1 R1 K7 ["dispatch"]
+       24 CALL                             R1 -1 0
+       25 RETURN                           R0 0
+
+PROTO_11:
+        0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["getMinimumAgeRecommendation"]
         4 CALL                             R0 2 1
@@ -427,79 +449,87 @@ PROTO_10:
        12 CALL                             R1 -1 0
        13 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETTABLEKS                       R3 R1 K0 ["gameMetadataController"]
         2 GETTABLEKS                       R4 R1 K1 ["groupMetadataController"]
         4 GETTABLEKS                       R5 R1 K2 ["groupRolePermisionsController"]
         6 GETTABLEKS                       R6 R1 K3 ["gamePermissionsController"]
         8 GETTABLEKS                       R7 R1 K4 ["granularPermissionsController"]
-       10 GETIMPORT                        R8 K6 [game]
-       12 GETTABLEKS                       R8 R8 K7 ["GameId"]
-       14 GETGLOBAL                        R9 K8 ["GetLoadFriendsJob"]
-       16 MOVE                             R10 R0
-       17 MOVE                             R11 R1
-       18 CALL                             R9 2 1
-       19 NEWTABLE                         R10 0 6
-       21 NEWCLOSURE                       R11 P0
-       22 CAPTURE                          VAL R3
-       23 CAPTURE                          VAL R8
-       24 CAPTURE                          UPVAL U0
-       25 CAPTURE                          VAL R2
-       26 CAPTURE                          UPVAL U1
-       27 CAPTURE                          VAL R7
-       28 CAPTURE                          VAL R0
-       29 CAPTURE                          UPVAL U2
-       30 NEWCLOSURE                       R12 P1
-       31 CAPTURE                          VAL R3
-       32 CAPTURE                          VAL R8
-       33 CAPTURE                          UPVAL U0
-       34 CAPTURE                          VAL R4
-       35 CAPTURE                          VAL R6
-       36 CAPTURE                          VAL R2
-       37 CAPTURE                          UPVAL U1
-       38 CAPTURE                          UPVAL U3
-       39 CAPTURE                          VAL R0
-       40 CAPTURE                          UPVAL U4
-       41 CAPTURE                          UPVAL U5
-       42 CAPTURE                          UPVAL U6
-       43 CAPTURE                          UPVAL U7
-       44 CAPTURE                          UPVAL U8
-       45 NEWCLOSURE                       R13 P2
-       46 CAPTURE                          VAL R3
-       47 CAPTURE                          VAL R8
-       48 CAPTURE                          VAL R0
-       49 CAPTURE                          UPVAL U9
-       50 CAPTURE                          VAL R4
-       51 CAPTURE                          UPVAL U10
-       52 CAPTURE                          UPVAL U7
-       53 CAPTURE                          VAL R5
-       54 CAPTURE                          UPVAL U11
-       55 CAPTURE                          VAL R9
-       56 NEWCLOSURE                       R14 P3
-       57 CAPTURE                          VAL R3
-       58 CAPTURE                          VAL R8
-       59 CAPTURE                          VAL R0
-       60 CAPTURE                          UPVAL U12
-       61 NEWCLOSURE                       R15 P4
-       62 CAPTURE                          VAL R3
-       63 CAPTURE                          VAL R8
-       64 CAPTURE                          VAL R0
-       65 CAPTURE                          UPVAL U13
-       66 NEWCLOSURE                       R16 P5
-       67 CAPTURE                          VAL R6
-       68 CAPTURE                          VAL R8
-       69 CAPTURE                          VAL R0
-       70 CAPTURE                          UPVAL U14
-       71 SETLIST                          R10 R11 6 [1]
-       73 RETURN                           R10 1
+       10 GETTABLEKS                       R8 R1 K5 ["playTestersController"]
+       12 GETIMPORT                        R9 K7 [game]
+       14 GETTABLEKS                       R9 R9 K8 ["GameId"]
+       16 GETGLOBAL                        R10 K9 ["GetLoadFriendsJob"]
+       18 MOVE                             R11 R0
+       19 MOVE                             R12 R1
+       20 CALL                             R10 2 1
+       21 NEWTABLE                         R11 0 7
+       23 NEWCLOSURE                       R12 P0
+       24 CAPTURE                          VAL R3
+       25 CAPTURE                          VAL R9
+       26 CAPTURE                          UPVAL U0
+       27 CAPTURE                          VAL R2
+       28 CAPTURE                          UPVAL U1
+       29 CAPTURE                          VAL R7
+       30 CAPTURE                          VAL R0
+       31 CAPTURE                          UPVAL U2
+       32 NEWCLOSURE                       R13 P1
+       33 CAPTURE                          VAL R3
+       34 CAPTURE                          VAL R9
+       35 CAPTURE                          UPVAL U0
+       36 CAPTURE                          VAL R4
+       37 CAPTURE                          VAL R6
+       38 CAPTURE                          VAL R2
+       39 CAPTURE                          UPVAL U1
+       40 CAPTURE                          UPVAL U3
+       41 CAPTURE                          VAL R0
+       42 CAPTURE                          UPVAL U4
+       43 CAPTURE                          UPVAL U5
+       44 CAPTURE                          UPVAL U6
+       45 CAPTURE                          UPVAL U7
+       46 CAPTURE                          UPVAL U8
+       47 NEWCLOSURE                       R14 P2
+       48 CAPTURE                          VAL R3
+       49 CAPTURE                          VAL R9
+       50 CAPTURE                          VAL R0
+       51 CAPTURE                          UPVAL U9
+       52 CAPTURE                          VAL R4
+       53 CAPTURE                          UPVAL U10
+       54 CAPTURE                          UPVAL U7
+       55 CAPTURE                          VAL R5
+       56 CAPTURE                          UPVAL U11
+       57 CAPTURE                          VAL R10
+       58 NEWCLOSURE                       R15 P3
+       59 CAPTURE                          VAL R3
+       60 CAPTURE                          VAL R9
+       61 CAPTURE                          VAL R0
+       62 CAPTURE                          UPVAL U12
+       63 NEWCLOSURE                       R16 P4
+       64 CAPTURE                          VAL R3
+       65 CAPTURE                          VAL R9
+       66 CAPTURE                          VAL R0
+       67 CAPTURE                          UPVAL U13
+       68 NEWCLOSURE                       R17 P5
+       69 CAPTURE                          UPVAL U0
+       70 CAPTURE                          VAL R3
+       71 CAPTURE                          VAL R9
+       72 CAPTURE                          VAL R8
+       73 CAPTURE                          VAL R0
+       74 CAPTURE                          UPVAL U14
+       75 NEWCLOSURE                       R18 P6
+       76 CAPTURE                          VAL R6
+       77 CAPTURE                          VAL R9
+       78 CAPTURE                          VAL R0
+       79 CAPTURE                          UPVAL U15
+       80 SETLIST                          R11 R12 7 [1]
+       82 RETURN                           R11 1
 
-PROTO_12:
+PROTO_13:
         0 GETIMPORT                        R0 K1 [pcall]
         2 GETUPVAL                         R1 0
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_13:
+PROTO_14:
         0 GETGLOBAL                        R2 K0 ["GetLoadFriendsJob"]
         2 MOVE                             R3 R0
         3 MOVE                             R4 R1
@@ -512,11 +542,11 @@ PROTO_13:
        11 CALL                             R4 0 0
        12 RETURN                           R0 0
 
-PROTO_14:
-        0 DUPCLOSURE                       R1 K0 [PROTO_13]
+PROTO_15:
+        0 DUPCLOSURE                       R1 K0 [PROTO_14]
         1 RETURN                           R1 1
 
-PROTO_15:
+PROTO_16:
         0 GETIMPORT                        R0 K1 [pcall]
         2 GETUPVAL                         R1 0
         3 CALL                             R0 1 2
@@ -554,7 +584,7 @@ PROTO_15:
        41 CALL                             R2 -1 0
        42 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["NOT_MIGRATED"]
         3 GETUPVAL                         R3 1
@@ -626,8 +656,8 @@ PROTO_16:
        87 CLOSEUPVALS                      R3
        88 RETURN                           R0 0
 
-PROTO_17:
-        0 DUPCLOSURE                       R1 K0 [PROTO_16]
+PROTO_18:
+        0 DUPCLOSURE                       R1 K0 [PROTO_17]
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          UPVAL U1
         3 CAPTURE                          UPVAL U2
@@ -678,114 +708,120 @@ MAIN:
        66 GETIMPORT                        R9 K4 [require]
        68 GETTABLEKS                       R10 R1 K12 ["Src"]
        70 GETTABLEKS                       R10 R10 K13 ["Actions"]
-       72 GETTABLEKS                       R10 R10 K19 ["SetCurrentGranularPermissions"]
+       72 GETTABLEKS                       R10 R10 K19 ["SetCurrentPlayTesters"]
        74 CALL                             R9 1 1
        75 GETIMPORT                        R10 K4 [require]
        77 GETTABLEKS                       R11 R1 K12 ["Src"]
        79 GETTABLEKS                       R11 R11 K13 ["Actions"]
-       81 GETTABLEKS                       R11 R11 K20 ["SetCurrentGroupMetadata"]
+       81 GETTABLEKS                       R11 R11 K20 ["SetCurrentGranularPermissions"]
        83 CALL                             R10 1 1
        84 GETIMPORT                        R11 K4 [require]
        86 GETTABLEKS                       R12 R1 K12 ["Src"]
        88 GETTABLEKS                       R12 R12 K13 ["Actions"]
-       90 GETTABLEKS                       R12 R12 K21 ["SetCreatorType"]
+       90 GETTABLEKS                       R12 R12 K21 ["SetCurrentGroupMetadata"]
        92 CALL                             R11 1 1
        93 GETIMPORT                        R12 K4 [require]
        95 GETTABLEKS                       R13 R1 K12 ["Src"]
        97 GETTABLEKS                       R13 R13 K13 ["Actions"]
-       99 GETTABLEKS                       R13 R13 K22 ["SetCreatorName"]
+       99 GETTABLEKS                       R13 R13 K22 ["SetCreatorType"]
       101 CALL                             R12 1 1
       102 GETIMPORT                        R13 K4 [require]
       104 GETTABLEKS                       R14 R1 K12 ["Src"]
       106 GETTABLEKS                       R14 R14 K13 ["Actions"]
-      108 GETTABLEKS                       R14 R14 K23 ["SetCreatorId"]
+      108 GETTABLEKS                       R14 R14 K23 ["SetCreatorName"]
       110 CALL                             R13 1 1
       111 GETIMPORT                        R14 K4 [require]
       113 GETTABLEKS                       R15 R1 K12 ["Src"]
       115 GETTABLEKS                       R15 R15 K13 ["Actions"]
-      117 GETTABLEKS                       R15 R15 K24 ["SetCreatorFriends"]
+      117 GETTABLEKS                       R15 R15 K24 ["SetCreatorId"]
       119 CALL                             R14 1 1
       120 GETIMPORT                        R15 K4 [require]
       122 GETTABLEKS                       R16 R1 K12 ["Src"]
       124 GETTABLEKS                       R16 R16 K13 ["Actions"]
-      126 GETTABLEKS                       R16 R16 K25 ["SetGroupOwnerId"]
+      126 GETTABLEKS                       R16 R16 K25 ["SetCreatorFriends"]
       128 CALL                             R15 1 1
       129 GETIMPORT                        R16 K4 [require]
       131 GETTABLEKS                       R17 R1 K12 ["Src"]
       133 GETTABLEKS                       R17 R17 K13 ["Actions"]
-      135 GETTABLEKS                       R17 R17 K26 ["SetGroupRolePermissions"]
+      135 GETTABLEKS                       R17 R17 K26 ["SetGroupOwnerId"]
       137 CALL                             R16 1 1
       138 GETIMPORT                        R17 K4 [require]
       140 GETTABLEKS                       R18 R1 K12 ["Src"]
       142 GETTABLEKS                       R18 R18 K13 ["Actions"]
-      144 GETTABLEKS                       R18 R18 K27 ["SetUserMinimumAge"]
+      144 GETTABLEKS                       R18 R18 K27 ["SetGroupRolePermissions"]
       146 CALL                             R17 1 1
       147 GETIMPORT                        R18 K4 [require]
       149 GETTABLEKS                       R19 R1 K12 ["Src"]
-      151 GETTABLEKS                       R19 R19 K28 ["Thunks"]
-      153 GETTABLEKS                       R19 R19 K29 ["FetchCanCollaborateResponses"]
+      151 GETTABLEKS                       R19 R19 K13 ["Actions"]
+      153 GETTABLEKS                       R19 R19 K28 ["SetUserMinimumAge"]
       155 CALL                             R18 1 1
       156 GETIMPORT                        R19 K4 [require]
       158 GETTABLEKS                       R20 R1 K12 ["Src"]
-      160 GETTABLEKS                       R20 R20 K15 ["Util"]
-      162 GETTABLEKS                       R20 R20 K30 ["getFFlagCallNewFriendsAPI"]
+      160 GETTABLEKS                       R20 R20 K29 ["Thunks"]
+      162 GETTABLEKS                       R20 R20 K30 ["FetchCanCollaborateResponses"]
       164 CALL                             R19 1 1
       165 GETIMPORT                        R20 K4 [require]
       167 GETTABLEKS                       R21 R1 K12 ["Src"]
       169 GETTABLEKS                       R21 R21 K15 ["Util"]
-      171 GETTABLEKS                       R21 R21 K31 ["MigrationStatus"]
+      171 GETTABLEKS                       R21 R21 K31 ["getFFlagCallNewFriendsAPI"]
       173 CALL                             R20 1 1
       174 GETIMPORT                        R21 K4 [require]
       176 GETTABLEKS                       R22 R1 K12 ["Src"]
-      178 GETTABLEKS                       R22 R22 K32 ["Networking"]
-      180 GETTABLEKS                       R22 R22 K33 ["Requests"]
-      182 GETTABLEKS                       R22 R22 K34 ["GetGroupMigrationStatus"]
-      184 CALL                             R21 1 1
-      185 GETIMPORT                        R22 K4 [require]
-      187 GETTABLEKS                       R23 R1 K12 ["Src"]
-      189 GETTABLEKS                       R23 R23 K13 ["Actions"]
-      191 GETTABLEKS                       R23 R23 K35 ["SetGroupMigrationStatus"]
+      178 GETTABLEKS                       R22 R22 K15 ["Util"]
+      180 GETTABLEKS                       R22 R22 K32 ["MigrationStatus"]
+      182 CALL                             R21 1 1
+      183 GETIMPORT                        R22 K4 [require]
+      185 GETTABLEKS                       R23 R1 K12 ["Src"]
+      187 GETTABLEKS                       R23 R23 K33 ["Networking"]
+      189 GETTABLEKS                       R23 R23 K34 ["Requests"]
+      191 GETTABLEKS                       R23 R23 K35 ["GetGroupMigrationStatus"]
       193 CALL                             R22 1 1
       194 GETIMPORT                        R23 K4 [require]
-      196 GETTABLEKS                       R24 R1 K36 ["Packages"]
-      198 GETTABLEKS                       R24 R24 K37 ["Cryo"]
-      200 CALL                             R23 1 1
-      201 DUPCLOSURE                       R24 K38 [PROTO_1]
-      202 CAPTURE                          VAL R19
-      203 CAPTURE                          VAL R4
-      204 CAPTURE                          VAL R14
-      205 SETGLOBAL                        R24 K39 ["GetLoadFriendsJob"]
-      207 DUPCLOSURE                       R24 K40 [PROTO_2]
-      208 CAPTURE                          VAL R2
-      209 CAPTURE                          VAL R18
-      210 DUPCLOSURE                       R25 K41 [PROTO_3]
-      211 CAPTURE                          VAL R7
-      212 CAPTURE                          VAL R23
-      213 DUPCLOSURE                       R26 K42 [PROTO_11]
-      214 CAPTURE                          VAL R2
-      215 CAPTURE                          VAL R20
-      216 CAPTURE                          VAL R9
-      217 CAPTURE                          VAL R25
-      218 CAPTURE                          VAL R8
-      219 CAPTURE                          VAL R10
+      196 GETTABLEKS                       R24 R1 K12 ["Src"]
+      198 GETTABLEKS                       R24 R24 K13 ["Actions"]
+      200 GETTABLEKS                       R24 R24 K36 ["SetGroupMigrationStatus"]
+      202 CALL                             R23 1 1
+      203 GETIMPORT                        R24 K4 [require]
+      205 GETTABLEKS                       R25 R1 K37 ["Packages"]
+      207 GETTABLEKS                       R25 R25 K38 ["Cryo"]
+      209 CALL                             R24 1 1
+      210 DUPCLOSURE                       R25 K39 [PROTO_1]
+      211 CAPTURE                          VAL R20
+      212 CAPTURE                          VAL R4
+      213 CAPTURE                          VAL R15
+      214 SETGLOBAL                        R25 K40 ["GetLoadFriendsJob"]
+      216 DUPCLOSURE                       R25 K41 [PROTO_2]
+      217 CAPTURE                          VAL R2
+      218 CAPTURE                          VAL R19
+      219 DUPCLOSURE                       R26 K42 [PROTO_3]
       220 CAPTURE                          VAL R7
-      221 CAPTURE                          VAL R3
-      222 CAPTURE                          VAL R18
-      223 CAPTURE                          VAL R11
-      224 CAPTURE                          VAL R15
-      225 CAPTURE                          VAL R16
-      226 CAPTURE                          VAL R12
-      227 CAPTURE                          VAL R13
-      228 CAPTURE                          VAL R17
-      229 SETGLOBAL                        R26 K43 ["GetPermissionsLoadJobs"]
-      231 DUPCLOSURE                       R26 K44 [PROTO_14]
-      232 SETTABLEKS                       R26 R0 K45 ["LoadFriends"]
-      234 DUPCLOSURE                       R26 K46 [PROTO_17]
-      235 CAPTURE                          VAL R20
-      236 CAPTURE                          VAL R2
-      237 CAPTURE                          VAL R21
-      238 CAPTURE                          VAL R22
-      239 CAPTURE                          VAL R5
-      240 CAPTURE                          VAL R6
-      241 SETTABLEKS                       R26 R0 K47 ["LoadPermissions"]
-      243 RETURN                           R0 1
+      221 CAPTURE                          VAL R24
+      222 DUPCLOSURE                       R27 K43 [PROTO_12]
+      223 CAPTURE                          VAL R2
+      224 CAPTURE                          VAL R21
+      225 CAPTURE                          VAL R10
+      226 CAPTURE                          VAL R26
+      227 CAPTURE                          VAL R8
+      228 CAPTURE                          VAL R11
+      229 CAPTURE                          VAL R7
+      230 CAPTURE                          VAL R3
+      231 CAPTURE                          VAL R19
+      232 CAPTURE                          VAL R12
+      233 CAPTURE                          VAL R16
+      234 CAPTURE                          VAL R17
+      235 CAPTURE                          VAL R13
+      236 CAPTURE                          VAL R14
+      237 CAPTURE                          VAL R9
+      238 CAPTURE                          VAL R18
+      239 SETGLOBAL                        R27 K44 ["GetPermissionsLoadJobs"]
+      241 DUPCLOSURE                       R27 K45 [PROTO_15]
+      242 SETTABLEKS                       R27 R0 K46 ["LoadFriends"]
+      244 DUPCLOSURE                       R27 K47 [PROTO_18]
+      245 CAPTURE                          VAL R21
+      246 CAPTURE                          VAL R2
+      247 CAPTURE                          VAL R22
+      248 CAPTURE                          VAL R23
+      249 CAPTURE                          VAL R5
+      250 CAPTURE                          VAL R6
+      251 SETTABLEKS                       R27 R0 K48 ["LoadPermissions"]
+      253 RETURN                           R0 1

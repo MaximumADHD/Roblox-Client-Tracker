@@ -19,49 +19,46 @@ PROTO_0:
        27 GETTABLEKS                       R7 R7 K2 ["createElement"]
        29 GETUPVAL                         R8 2
        30 GETTABLEKS                       R8 R8 K14 ["Text"]
-       32 DUPTABLE                         R9 K17 [{["tag"] = "auto-y text-title-small text-align-x-left text-align-y-top content-emphasis", ["Text"], ["TextWrapped"], ["LayoutOrder"], ["Size"]}]
+       32 DUPTABLE                         R9 K18 [{["tag"] = "auto-y text-title-small text-align-x-left text-align-y-top content-emphasis", ["Text"], ["TextWrapped"] = True, ["LayoutOrder"], ["Size"]}]
        33 GETTABLEKS                       R10 R1 K11 ["Title"]
        35 SETTABLEKS                       R10 R9 K14 ["Text"]
-       37 GETUPVAL                         R10 3
-       38 CALL                             R10 0 1
-       39 SETTABLEKS                       R10 R9 K16 ["TextWrapped"]
-       41 NAMECALL                         R10 R2 K18 ["getNextOrder"]
-       43 CALL                             R10 1 1
-       44 SETTABLEKS                       R10 R9 K6 ["LayoutOrder"]
-       46 GETIMPORT                        R10 K20 [UDim2.new]
-       48 LOADN                            R11 0
-       49 GETUPVAL                         R12 4
-       50 GETTABLEKS                       R12 R12 K21 ["TITLE_GUTTER_WIDTH"]
-       52 LOADN                            R13 0
-       53 LOADN                            R14 0
-       54 CALL                             R10 4 1
-       55 SETTABLEKS                       R10 R9 K7 ["Size"]
-       57 CALL                             R7 2 1
-       58 SETTABLEKS                       R7 R6 K11 ["Title"]
-       60 GETUPVAL                         R7 1
-       61 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       63 GETUPVAL                         R8 2
-       64 GETTABLEKS                       R8 R8 K3 ["View"]
-       66 DUPTABLE                         R9 K23 [{["tag"] = "auto-y", ["LayoutOrder"], ["Size"]}]
-       67 NAMECALL                         R10 R2 K18 ["getNextOrder"]
-       69 CALL                             R10 1 1
-       70 SETTABLEKS                       R10 R9 K6 ["LayoutOrder"]
-       72 GETIMPORT                        R10 K20 [UDim2.new]
-       74 LOADN                            R11 1
-       75 GETUPVAL                         R13 4
-       76 GETTABLEKS                       R13 R13 K21 ["TITLE_GUTTER_WIDTH"]
-       78 MINUS                            R12 R13
-       79 LOADN                            R13 0
-       80 LOADN                            R14 0
-       81 CALL                             R10 4 1
-       82 SETTABLEKS                       R10 R9 K7 ["Size"]
-       84 GETUPVAL                         R11 5
-       85 GETTABLEKS                       R11 R11 K24 ["Children"]
-       87 GETTABLE                         R10 R1 R11
-       88 CALL                             R7 3 1
-       89 SETTABLEKS                       R7 R6 K12 ["Contents"]
-       91 CALL                             R3 3 -1
-       92 RETURN                           R3 -1
+       37 NAMECALL                         R10 R2 K19 ["getNextOrder"]
+       39 CALL                             R10 1 1
+       40 SETTABLEKS                       R10 R9 K6 ["LayoutOrder"]
+       42 GETIMPORT                        R10 K21 [UDim2.new]
+       44 LOADN                            R11 0
+       45 GETUPVAL                         R12 3
+       46 GETTABLEKS                       R12 R12 K22 ["TITLE_GUTTER_WIDTH"]
+       48 LOADN                            R13 0
+       49 LOADN                            R14 0
+       50 CALL                             R10 4 1
+       51 SETTABLEKS                       R10 R9 K7 ["Size"]
+       53 CALL                             R7 2 1
+       54 SETTABLEKS                       R7 R6 K11 ["Title"]
+       56 GETUPVAL                         R7 1
+       57 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       59 GETUPVAL                         R8 2
+       60 GETTABLEKS                       R8 R8 K3 ["View"]
+       62 DUPTABLE                         R9 K24 [{["tag"] = "auto-y", ["LayoutOrder"], ["Size"]}]
+       63 NAMECALL                         R10 R2 K19 ["getNextOrder"]
+       65 CALL                             R10 1 1
+       66 SETTABLEKS                       R10 R9 K6 ["LayoutOrder"]
+       68 GETIMPORT                        R10 K21 [UDim2.new]
+       70 LOADN                            R11 1
+       71 GETUPVAL                         R13 3
+       72 GETTABLEKS                       R13 R13 K22 ["TITLE_GUTTER_WIDTH"]
+       74 MINUS                            R12 R13
+       75 LOADN                            R13 0
+       76 LOADN                            R14 0
+       77 CALL                             R10 4 1
+       78 SETTABLEKS                       R10 R9 K7 ["Size"]
+       80 GETUPVAL                         R11 4
+       81 GETTABLEKS                       R11 R11 K25 ["Children"]
+       83 GETTABLE                         R10 R1 R11
+       84 CALL                             R7 3 1
+       85 SETTABLEKS                       R7 R6 K12 ["Contents"]
+       87 CALL                             R3 3 -1
+       88 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -83,53 +80,47 @@ MAIN:
        28 GETIMPORT                        R5 K5 [require]
        30 GETTABLEKS                       R6 R1 K9 ["Foundation"]
        32 CALL                             R5 1 1
-       33 GETIMPORT                        R6 K5 [require]
-       35 GETTABLEKS                       R7 R0 K10 ["Src"]
-       37 GETTABLEKS                       R7 R7 K11 ["Flags"]
-       39 GETTABLEKS                       R7 R7 K12 ["getFFlagEnableUploadingAvatarAnimations"]
-       41 CALL                             R6 1 1
-       42 GETTABLEKS                       R7 R0 K10 ["Src"]
-       44 GETTABLEKS                       R7 R7 K13 ["Util"]
-       46 GETIMPORT                        R8 K5 [require]
-       48 GETTABLEKS                       R9 R7 K14 ["AssetConfigConstants"]
-       50 CALL                             R8 1 1
-       51 GETTABLEKS                       R9 R4 K13 ["Util"]
-       53 GETTABLEKS                       R9 R9 K15 ["LayoutOrderIterator"]
-       55 GETTABLEKS                       R10 R4 K16 ["ContextServices"]
-       57 GETTABLEKS                       R11 R10 K17 ["withContext"]
-       59 GETTABLEKS                       R12 R4 K18 ["Wrappers"]
-       61 GETTABLEKS                       R12 R12 K19 ["withForwardRef"]
-       63 GETTABLEKS                       R13 R3 K20 ["PureComponent"]
-       65 LOADK                            R15 K21 ["ConfigureSectionWrapper"]
-       66 NAMECALL                         R13 R13 K22 ["extend"]
-       68 CALL                             R13 2 1
-       69 DUPTABLE                         R14 K24 [{"Size"}]
-       70 GETIMPORT                        R15 K27 [UDim2.new]
-       72 LOADN                            R16 1
-       73 LOADN                            R17 0
-       74 LOADN                            R18 0
-       75 LOADN                            R19 0
-       76 CALL                             R15 4 1
-       77 SETTABLEKS                       R15 R14 K23 ["Size"]
-       79 SETTABLEKS                       R14 R13 K28 ["defaultProps"]
-       81 DUPCLOSURE                       R14 K29 [PROTO_0]
-       82 CAPTURE                          VAL R9
-       83 CAPTURE                          VAL R2
-       84 CAPTURE                          VAL R5
-       85 CAPTURE                          VAL R6
-       86 CAPTURE                          VAL R8
-       87 CAPTURE                          VAL R3
-       88 SETTABLEKS                       R14 R13 K30 ["render"]
-       90 MOVE                             R14 R11
-       91 DUPTABLE                         R15 K32 [{"Stylizer"}]
-       92 GETTABLEKS                       R16 R10 K31 ["Stylizer"]
-       94 SETTABLEKS                       R16 R15 K31 ["Stylizer"]
-       96 CALL                             R14 1 1
-       97 MOVE                             R15 R13
-       98 CALL                             R14 1 1
-       99 MOVE                             R13 R14
-      100 MOVE                             R14 R12
-      101 MOVE                             R15 R13
-      102 CALL                             R14 1 1
-      103 MOVE                             R13 R14
-      104 RETURN                           R13 1
+       33 GETTABLEKS                       R6 R0 K10 ["Src"]
+       35 GETTABLEKS                       R6 R6 K11 ["Util"]
+       37 GETIMPORT                        R7 K5 [require]
+       39 GETTABLEKS                       R8 R6 K12 ["AssetConfigConstants"]
+       41 CALL                             R7 1 1
+       42 GETTABLEKS                       R8 R4 K11 ["Util"]
+       44 GETTABLEKS                       R8 R8 K13 ["LayoutOrderIterator"]
+       46 GETTABLEKS                       R9 R4 K14 ["ContextServices"]
+       48 GETTABLEKS                       R10 R9 K15 ["withContext"]
+       50 GETTABLEKS                       R11 R4 K16 ["Wrappers"]
+       52 GETTABLEKS                       R11 R11 K17 ["withForwardRef"]
+       54 GETTABLEKS                       R12 R3 K18 ["PureComponent"]
+       56 LOADK                            R14 K19 ["ConfigureSectionWrapper"]
+       57 NAMECALL                         R12 R12 K20 ["extend"]
+       59 CALL                             R12 2 1
+       60 DUPTABLE                         R13 K22 [{"Size"}]
+       61 GETIMPORT                        R14 K25 [UDim2.new]
+       63 LOADN                            R15 1
+       64 LOADN                            R16 0
+       65 LOADN                            R17 0
+       66 LOADN                            R18 0
+       67 CALL                             R14 4 1
+       68 SETTABLEKS                       R14 R13 K21 ["Size"]
+       70 SETTABLEKS                       R13 R12 K26 ["defaultProps"]
+       72 DUPCLOSURE                       R13 K27 [PROTO_0]
+       73 CAPTURE                          VAL R8
+       74 CAPTURE                          VAL R2
+       75 CAPTURE                          VAL R5
+       76 CAPTURE                          VAL R7
+       77 CAPTURE                          VAL R3
+       78 SETTABLEKS                       R13 R12 K28 ["render"]
+       80 MOVE                             R13 R10
+       81 DUPTABLE                         R14 K30 [{"Stylizer"}]
+       82 GETTABLEKS                       R15 R9 K29 ["Stylizer"]
+       84 SETTABLEKS                       R15 R14 K29 ["Stylizer"]
+       86 CALL                             R13 1 1
+       87 MOVE                             R14 R12
+       88 CALL                             R13 1 1
+       89 MOVE                             R12 R13
+       90 MOVE                             R13 R11
+       91 MOVE                             R14 R12
+       92 CALL                             R13 1 1
+       93 MOVE                             R12 R13
+       94 RETURN                           R12 1

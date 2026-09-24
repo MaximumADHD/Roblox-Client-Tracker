@@ -185,150 +185,129 @@ PROTO_10:
        25 NAMECALL                         R2 R2 K7 ["build"]
        27 CALL                             R2 1 -1
        28 RETURN                           R2 -1
-       29 LOADNIL                          R1
-       30 GETUPVAL                         R2 0
-       31 GETTABLEKS                       R2 R2 K8 ["FFlagAssistantMarkdownPlanMode"]
-       33 JUMPIFNOT                        R2 ; [+42]
-       34 GETIMPORT                        R2 K10 [pcall]
-       36 GETUPVAL                         R3 4
-       37 GETTABLEKS                       R3 R3 K11 ["getHandler"]
-       39 GETTABLEKS                       R4 R0 K12 ["name"]
-       41 CALL                             R2 2 2
-       42 JUMPIF                           R2 ; [+31]
-       43 GETIMPORT                        R4 K14 [warn]
-       45 LOADK                            R5 K15 ["[startMcpHost] Failed to get handler for tool:"]
-       46 GETTABLEKS                       R6 R0 K12 ["name"]
-       48 LOADK                            R7 K16 [":"]
-       49 FASTCALL1                        TOSTRING R3 ; [+3]
-       50 MOVE                             R9 R3
-       51 GETIMPORT                        R8 K18 [tostring]
-       53 CALL                             R8 1 1
-       54 CALL                             R4 4 0
-       55 GETUPVAL                         R4 3
-       56 CALL                             R4 0 1
-       57 LOADK                            R6 K19 ["Tool handler not found: %*"]
-       58 GETTABLEKS                       R8 R0 K12 ["name"]
-       60 NAMECALL                         R6 R6 K20 ["format"]
-       62 CALL                             R6 2 1
-       63 NAMECALL                         R4 R4 K5 ["addText"]
-       65 CALL                             R4 2 1
-       66 LOADB                            R6 1
-       67 NAMECALL                         R4 R4 K6 ["setError"]
-       69 CALL                             R4 2 1
-       70 NAMECALL                         R4 R4 K7 ["build"]
-       72 CALL                             R4 1 -1
-       73 RETURN                           R4 -1
-       74 MOVE                             R1 R3
-       75 JUMP                             ; [+7]
-       76 GETUPVAL                         R2 4
-       77 GETTABLEKS                       R2 R2 K11 ["getHandler"]
-       79 GETTABLEKS                       R3 R0 K12 ["name"]
-       81 CALL                             R2 1 1
-       82 MOVE                             R1 R2
-       83 GETTABLEKS                       R2 R0 K21 ["meta"]
-       85 GETUPVAL                         R3 5
-       86 GETTABLEKS                       R3 R3 K22 ["getToolAvailableDataModelTypes"]
-       88 GETTABLEKS                       R4 R0 K12 ["name"]
-       90 CALL                             R3 1 1
-       91 GETIMPORT                        R4 K10 [pcall]
-       93 NEWCLOSURE                       R5 P0
-       94 CAPTURE                          UPVAL U6
-       95 CAPTURE                          VAL R0
-       96 CAPTURE                          VAL R3
-       97 CAPTURE                          REF R2
-       98 CALL                             R4 1 2
-       99 JUMPIF                           R4 ; [+19]
-      100 GETUPVAL                         R6 3
-      101 CALL                             R6 0 1
-      102 FASTCALL1                        TOSTRING R5 ; [+3]
-      103 MOVE                             R9 R5
-      104 GETIMPORT                        R8 K18 [tostring]
-      106 CALL                             R8 1 1
-      107 NAMECALL                         R6 R6 K5 ["addText"]
-      109 CALL                             R6 2 1
-      110 LOADB                            R8 1
-      111 NAMECALL                         R6 R6 K6 ["setError"]
-      113 CALL                             R6 2 1
-      114 NAMECALL                         R6 R6 K7 ["build"]
-      116 CALL                             R6 1 -1
-      117 CLOSEUPVALS                      R2
-      118 RETURN                           R6 -1
-      119 MOVE                             R6 R2
-      120 JUMPIF                           R6 ; [+2]
-      121 NEWTABLE                         R6 0 0
-      123 SETTABLEKS                       R5 R6 K23 ["targetDataModel"]
-      125 MOVE                             R2 R6
-      126 GETUPVAL                         R7 7
-      127 GETTABLEKS                       R8 R0 K24 ["extra"]
-      129 DUPTABLE                         R9 K27 [{"listTools", "callTool"}]
-      130 GETTABLEKS                       R10 R0 K25 ["listTools"]
-      132 SETTABLEKS                       R10 R9 K25 ["listTools"]
-      134 NEWCLOSURE                       R10 P1
-      135 CAPTURE                          UPVAL U8
-      136 CAPTURE                          UPVAL U7
-      137 CAPTURE                          VAL R0
-      138 SETTABLEKS                       R10 R9 K26 ["callTool"]
-      140 CALL                             R7 2 1
-      141 GETUPVAL                         R8 0
-      142 GETTABLEKS                       R8 R8 K28 ["FFlagAssistantReplaceJobRunWithAsyncArg"]
-      144 JUMPIFNOT                        R8 ; [+22]
-      145 GETUPVAL                         R8 9
-      146 GETTABLEKS                       R8 R8 K29 ["tryRunAsync"]
-      148 DUPTABLE                         R9 K33 [{"toolName", "handler", "args", "meta", "extra"}]
-      149 GETTABLEKS                       R10 R0 K12 ["name"]
-      151 SETTABLEKS                       R10 R9 K30 ["toolName"]
-      153 SETTABLEKS                       R1 R9 K31 ["handler"]
-      155 GETTABLEKS                       R10 R0 K32 ["args"]
-      157 SETTABLEKS                       R10 R9 K32 ["args"]
-      159 SETTABLEKS                       R2 R9 K21 ["meta"]
-      161 SETTABLEKS                       R7 R9 K24 ["extra"]
-      163 CALL                             R8 1 1
-      164 JUMPIFNOT                        R8 ; [+2]
-      165 CLOSEUPVALS                      R2
-      166 RETURN                           R8 1
-      167 GETUPVAL                         R8 0
-      168 GETTABLEKS                       R8 R8 K8 ["FFlagAssistantMarkdownPlanMode"]
-      170 JUMPIFNOT                        R8 ; [+42]
-      171 GETIMPORT                        R8 K10 [pcall]
-      173 MOVE                             R9 R1
-      174 GETTABLEKS                       R10 R0 K32 ["args"]
-      176 MOVE                             R11 R2
-      177 MOVE                             R12 R7
-      178 CALL                             R8 4 2
-      179 JUMPIF                           R8 ; [+31]
-      180 GETIMPORT                        R10 K14 [warn]
-      182 LOADK                            R11 K34 ["[startMcpHost] Tool handler error for"]
-      183 GETTABLEKS                       R12 R0 K12 ["name"]
-      185 LOADK                            R13 K16 [":"]
-      186 FASTCALL1                        TOSTRING R9 ; [+3]
-      187 MOVE                             R15 R9
-      188 GETIMPORT                        R14 K18 [tostring]
-      190 CALL                             R14 1 1
-      191 CALL                             R10 4 0
-      192 GETUPVAL                         R10 3
-      193 CALL                             R10 0 1
-      194 FASTCALL1                        TOSTRING R9 ; [+3]
-      195 MOVE                             R13 R9
-      196 GETIMPORT                        R12 K18 [tostring]
-      198 CALL                             R12 1 1
-      199 NAMECALL                         R10 R10 K5 ["addText"]
-      201 CALL                             R10 2 1
-      202 LOADB                            R12 1
-      203 NAMECALL                         R10 R10 K6 ["setError"]
-      205 CALL                             R10 2 1
-      206 NAMECALL                         R10 R10 K7 ["build"]
-      208 CALL                             R10 1 -1
-      209 CLOSEUPVALS                      R2
-      210 RETURN                           R10 -1
-      211 CLOSEUPVALS                      R2
-      212 RETURN                           R9 1
-      213 MOVE                             R8 R1
-      214 GETTABLEKS                       R9 R0 K32 ["args"]
-      216 MOVE                             R10 R2
-      217 MOVE                             R11 R7
-      218 CALL                             R8 3 -1
-      219 CLOSEUPVALS                      R2
-      220 RETURN                           R8 -1
+       29 GETIMPORT                        R1 K9 [pcall]
+       31 GETUPVAL                         R2 4
+       32 GETTABLEKS                       R2 R2 K10 ["getHandler"]
+       34 GETTABLEKS                       R3 R0 K11 ["name"]
+       36 CALL                             R1 2 2
+       37 JUMPIF                           R1 ; [+31]
+       38 GETIMPORT                        R3 K13 [warn]
+       40 LOADK                            R4 K14 ["[startMcpHost] Failed to get handler for tool:"]
+       41 GETTABLEKS                       R5 R0 K11 ["name"]
+       43 LOADK                            R6 K15 [":"]
+       44 FASTCALL1                        TOSTRING R2 ; [+3]
+       45 MOVE                             R8 R2
+       46 GETIMPORT                        R7 K17 [tostring]
+       48 CALL                             R7 1 1
+       49 CALL                             R3 4 0
+       50 GETUPVAL                         R3 3
+       51 CALL                             R3 0 1
+       52 LOADK                            R5 K18 ["Tool handler not found: %*"]
+       53 GETTABLEKS                       R7 R0 K11 ["name"]
+       55 NAMECALL                         R5 R5 K19 ["format"]
+       57 CALL                             R5 2 1
+       58 NAMECALL                         R3 R3 K5 ["addText"]
+       60 CALL                             R3 2 1
+       61 LOADB                            R5 1
+       62 NAMECALL                         R3 R3 K6 ["setError"]
+       64 CALL                             R3 2 1
+       65 NAMECALL                         R3 R3 K7 ["build"]
+       67 CALL                             R3 1 -1
+       68 RETURN                           R3 -1
+       69 GETTABLEKS                       R3 R0 K20 ["meta"]
+       71 GETUPVAL                         R4 5
+       72 GETTABLEKS                       R4 R4 K21 ["getToolAvailableDataModelTypes"]
+       74 GETTABLEKS                       R5 R0 K11 ["name"]
+       76 CALL                             R4 1 1
+       77 GETIMPORT                        R5 K9 [pcall]
+       79 NEWCLOSURE                       R6 P0
+       80 CAPTURE                          UPVAL U6
+       81 CAPTURE                          VAL R0
+       82 CAPTURE                          VAL R4
+       83 CAPTURE                          REF R3
+       84 CALL                             R5 1 2
+       85 JUMPIF                           R5 ; [+19]
+       86 GETUPVAL                         R7 3
+       87 CALL                             R7 0 1
+       88 FASTCALL1                        TOSTRING R6 ; [+3]
+       89 MOVE                             R10 R6
+       90 GETIMPORT                        R9 K17 [tostring]
+       92 CALL                             R9 1 1
+       93 NAMECALL                         R7 R7 K5 ["addText"]
+       95 CALL                             R7 2 1
+       96 LOADB                            R9 1
+       97 NAMECALL                         R7 R7 K6 ["setError"]
+       99 CALL                             R7 2 1
+      100 NAMECALL                         R7 R7 K7 ["build"]
+      102 CALL                             R7 1 -1
+      103 CLOSEUPVALS                      R3
+      104 RETURN                           R7 -1
+      105 MOVE                             R7 R3
+      106 JUMPIF                           R7 ; [+2]
+      107 NEWTABLE                         R7 0 0
+      109 SETTABLEKS                       R6 R7 K22 ["targetDataModel"]
+      111 MOVE                             R3 R7
+      112 GETUPVAL                         R8 7
+      113 GETTABLEKS                       R9 R0 K23 ["extra"]
+      115 DUPTABLE                         R10 K26 [{"listTools", "callTool"}]
+      116 GETTABLEKS                       R11 R0 K24 ["listTools"]
+      118 SETTABLEKS                       R11 R10 K24 ["listTools"]
+      120 NEWCLOSURE                       R11 P1
+      121 CAPTURE                          UPVAL U8
+      122 CAPTURE                          UPVAL U7
+      123 CAPTURE                          VAL R0
+      124 SETTABLEKS                       R11 R10 K25 ["callTool"]
+      126 CALL                             R8 2 1
+      127 GETUPVAL                         R9 0
+      128 GETTABLEKS                       R9 R9 K27 ["FFlagAssistantReplaceJobRunWithAsyncArg"]
+      130 JUMPIFNOT                        R9 ; [+22]
+      131 GETUPVAL                         R9 9
+      132 GETTABLEKS                       R9 R9 K28 ["tryRunAsync"]
+      134 DUPTABLE                         R10 K32 [{"toolName", "handler", "args", "meta", "extra"}]
+      135 GETTABLEKS                       R11 R0 K11 ["name"]
+      137 SETTABLEKS                       R11 R10 K29 ["toolName"]
+      139 SETTABLEKS                       R2 R10 K30 ["handler"]
+      141 GETTABLEKS                       R11 R0 K31 ["args"]
+      143 SETTABLEKS                       R11 R10 K31 ["args"]
+      145 SETTABLEKS                       R3 R10 K20 ["meta"]
+      147 SETTABLEKS                       R8 R10 K23 ["extra"]
+      149 CALL                             R9 1 1
+      150 JUMPIFNOT                        R9 ; [+2]
+      151 CLOSEUPVALS                      R3
+      152 RETURN                           R9 1
+      153 GETIMPORT                        R9 K9 [pcall]
+      155 MOVE                             R10 R2
+      156 GETTABLEKS                       R11 R0 K31 ["args"]
+      158 MOVE                             R12 R3
+      159 MOVE                             R13 R8
+      160 CALL                             R9 4 2
+      161 JUMPIF                           R9 ; [+31]
+      162 GETIMPORT                        R11 K13 [warn]
+      164 LOADK                            R12 K33 ["[startMcpHost] Tool handler error for"]
+      165 GETTABLEKS                       R13 R0 K11 ["name"]
+      167 LOADK                            R14 K15 [":"]
+      168 FASTCALL1                        TOSTRING R10 ; [+3]
+      169 MOVE                             R16 R10
+      170 GETIMPORT                        R15 K17 [tostring]
+      172 CALL                             R15 1 1
+      173 CALL                             R11 4 0
+      174 GETUPVAL                         R11 3
+      175 CALL                             R11 0 1
+      176 FASTCALL1                        TOSTRING R10 ; [+3]
+      177 MOVE                             R14 R10
+      178 GETIMPORT                        R13 K17 [tostring]
+      180 CALL                             R13 1 1
+      181 NAMECALL                         R11 R11 K5 ["addText"]
+      183 CALL                             R11 2 1
+      184 LOADB                            R13 1
+      185 NAMECALL                         R11 R11 K6 ["setError"]
+      187 CALL                             R11 2 1
+      188 NAMECALL                         R11 R11 K7 ["build"]
+      190 CALL                             R11 1 -1
+      191 CLOSEUPVALS                      R3
+      192 RETURN                           R11 -1
+      193 CLOSEUPVALS                      R3
+      194 RETURN                           R10 1
 
 PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["name"]

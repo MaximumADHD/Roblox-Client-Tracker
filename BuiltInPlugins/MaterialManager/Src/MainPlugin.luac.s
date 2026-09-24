@@ -205,24 +205,14 @@ PROTO_10:
       144 GETTABLEKS                       R5 R0 K34 ["pluginController"]
       146 NAMECALL                         R5 R5 K35 ["initialize"]
       148 CALL                             R5 1 0
-      149 GETIMPORT                        R5 K37 [game]
-      151 LOADK                            R7 K38 ["MaterialPickerBetaEnabled"]
-      152 NAMECALL                         R5 R5 K39 ["GetEngineFeature"]
-      154 CALL                             R5 2 1
-      155 JUMPIF                           R5 ; [+7]
-      156 GETIMPORT                        R5 K37 [game]
-      158 LOADK                            R7 K40 ["ShowMaterialManagerFromElsewhere"]
-      159 NAMECALL                         R5 R5 K41 ["GetFastFlag"]
-      161 CALL                             R5 2 1
-      162 JUMPIFNOT                        R5 ; [+9]
-      163 GETUPVAL                         R5 4
-      164 GETUPVAL                         R7 5
-      165 GETTABLEKS                       R7 R7 K42 ["SHOW_MATERIAL_MANAGER_PLUGIN_EVENT"]
-      167 NEWCLOSURE                       R8 P6
-      168 CAPTURE                          VAL R0
-      169 NAMECALL                         R5 R5 K43 ["Bind"]
-      171 CALL                             R5 3 0
-      172 RETURN                           R0 0
+      149 GETUPVAL                         R5 4
+      150 GETUPVAL                         R7 5
+      151 GETTABLEKS                       R7 R7 K36 ["SHOW_MATERIAL_MANAGER_PLUGIN_EVENT"]
+      153 NEWCLOSURE                       R8 P6
+      154 CAPTURE                          VAL R0
+      155 NAMECALL                         R5 R5 K37 ["Bind"]
+      157 CALL                             R5 3 0
+      158 RETURN                           R0 0
 
 PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["imageLoader"]

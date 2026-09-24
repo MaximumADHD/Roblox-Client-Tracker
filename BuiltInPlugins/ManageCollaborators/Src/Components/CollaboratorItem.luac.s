@@ -1144,79 +1144,82 @@ MAIN:
       166 GETTABLEKS                       R32 R26 K49 ["PlayKey"]
       168 LOADK                            R33 K50 ["Play"]
       169 SETTABLE                         R33 R31 R32
-      170 GETTABLEKS                       R32 R26 K51 ["EditKey"]
-      172 LOADK                            R33 K52 ["Edit"]
+      170 GETTABLEKS                       R32 R26 K51 ["PlayTestKey"]
+      172 LOADK                            R33 K52 ["PlayTest"]
       173 SETTABLE                         R33 R31 R32
-      174 GETTABLEKS                       R32 R26 K53 ["NoAccessKey"]
-      176 LOADK                            R33 K54 ["NoAccess"]
+      174 GETTABLEKS                       R32 R26 K53 ["EditKey"]
+      176 LOADK                            R33 K54 ["Edit"]
       177 SETTABLE                         R33 R31 R32
-      178 GETTABLEKS                       R32 R26 K55 ["AdminKey"]
-      180 LOADK                            R33 K56 ["Admin"]
+      178 GETTABLEKS                       R32 R26 K55 ["NoAccessKey"]
+      180 LOADK                            R33 K56 ["NoAccess"]
       181 SETTABLE                         R33 R31 R32
-      182 DUPCLOSURE                       R32 K57 [PROTO_0]
-      183 SETTABLEKS                       R32 R28 K58 ["init"]
-      185 DUPCLOSURE                       R32 K59 [PROTO_4]
-      186 CAPTURE                          VAL R4
-      187 SETTABLEKS                       R32 R28 K60 ["render"]
-      189 MOVE                             R32 R10
-      190 DUPTABLE                         R33 K61 [{"Stylizer"}]
-      191 SETTABLEKS                       R8 R33 K18 ["Stylizer"]
-      193 CALL                             R32 1 1
-      194 MOVE                             R33 R28
-      195 CALL                             R32 1 1
-      196 MOVE                             R28 R32
-      197 GETTABLEKS                       R32 R4 K42 ["PureComponent"]
-      199 LOADK                            R34 K62 ["CollaboratorItem"]
-      200 NAMECALL                         R32 R32 K44 ["extend"]
-      202 CALL                             R32 2 1
-      203 DUPTABLE                         R33 K67 [{["Writable"] = True, ["Loading"] = False}]
-      204 SETTABLEKS                       R33 R32 K68 ["defaultProps"]
-      206 DUPCLOSURE                       R33 K69 [PROTO_5]
-      207 CAPTURE                          VAL R26
-      208 CAPTURE                          VAL R1
-      209 CAPTURE                          VAL R2
-      210 CAPTURE                          VAL R31
-      211 CAPTURE                          VAL R21
-      212 SETTABLEKS                       R33 R32 K70 ["getCurrentPermissionLabel"]
-      214 DUPCLOSURE                       R33 K71 [PROTO_6]
-      215 CAPTURE                          VAL R4
-      216 CAPTURE                          VAL R16
-      217 SETGLOBAL                        R33 K72 ["createTextLabel"]
-      219 DUPCLOSURE                       R33 K73 [PROTO_9]
-      220 CAPTURE                          VAL R4
-      221 CAPTURE                          VAL R15
-      222 CAPTURE                          VAL R18
-      223 SETTABLEKS                       R33 R32 K58 ["init"]
-      225 DUPCLOSURE                       R33 K74 [PROTO_10]
-      226 CAPTURE                          VAL R6
-      227 CAPTURE                          VAL R0
-      228 CAPTURE                          VAL R27
-      229 CAPTURE                          VAL R25
-      230 CAPTURE                          VAL R24
-      231 CAPTURE                          VAL R22
-      232 SETTABLEKS                       R33 R32 K75 ["didUpdate"]
-      234 NEWCLOSURE                       R33 P6
-      235 CAPTURE                          VAL R0
-      236 CAPTURE                          VAL R6
-      237 CAPTURE                          VAL R20
-      238 CAPTURE                          VAL R29
-      239 CAPTURE                          VAL R27
-      240 CAPTURE                          VAL R4
-      241 CAPTURE                          VAL R5
-      242 CAPTURE                          VAL R19
-      243 CAPTURE                          VAL R14
-      244 CAPTURE                          VAL R18
-      245 CAPTURE                          REF R28
-      246 CAPTURE                          VAL R30
-      247 CAPTURE                          VAL R17
-      248 SETTABLEKS                       R33 R32 K60 ["render"]
-      250 MOVE                             R33 R10
-      251 DUPTABLE                         R34 K76 [{"Stylizer", "Localization"}]
-      252 SETTABLEKS                       R8 R34 K18 ["Stylizer"]
-      254 SETTABLEKS                       R11 R34 K21 ["Localization"]
-      256 CALL                             R33 1 1
-      257 MOVE                             R34 R32
-      258 CALL                             R33 1 1
-      259 MOVE                             R32 R33
-      260 CLOSEUPVALS                      R28
-      261 RETURN                           R32 1
+      182 GETTABLEKS                       R32 R26 K57 ["AdminKey"]
+      184 LOADK                            R33 K58 ["Admin"]
+      185 SETTABLE                         R33 R31 R32
+      186 DUPCLOSURE                       R32 K59 [PROTO_0]
+      187 SETTABLEKS                       R32 R28 K60 ["init"]
+      189 DUPCLOSURE                       R32 K61 [PROTO_4]
+      190 CAPTURE                          VAL R4
+      191 SETTABLEKS                       R32 R28 K62 ["render"]
+      193 MOVE                             R32 R10
+      194 DUPTABLE                         R33 K63 [{"Stylizer"}]
+      195 SETTABLEKS                       R8 R33 K18 ["Stylizer"]
+      197 CALL                             R32 1 1
+      198 MOVE                             R33 R28
+      199 CALL                             R32 1 1
+      200 MOVE                             R28 R32
+      201 GETTABLEKS                       R32 R4 K42 ["PureComponent"]
+      203 LOADK                            R34 K64 ["CollaboratorItem"]
+      204 NAMECALL                         R32 R32 K44 ["extend"]
+      206 CALL                             R32 2 1
+      207 DUPTABLE                         R33 K69 [{["Writable"] = True, ["Loading"] = False}]
+      208 SETTABLEKS                       R33 R32 K70 ["defaultProps"]
+      210 DUPCLOSURE                       R33 K71 [PROTO_5]
+      211 CAPTURE                          VAL R26
+      212 CAPTURE                          VAL R1
+      213 CAPTURE                          VAL R2
+      214 CAPTURE                          VAL R31
+      215 CAPTURE                          VAL R21
+      216 SETTABLEKS                       R33 R32 K72 ["getCurrentPermissionLabel"]
+      218 DUPCLOSURE                       R33 K73 [PROTO_6]
+      219 CAPTURE                          VAL R4
+      220 CAPTURE                          VAL R16
+      221 SETGLOBAL                        R33 K74 ["createTextLabel"]
+      223 DUPCLOSURE                       R33 K75 [PROTO_9]
+      224 CAPTURE                          VAL R4
+      225 CAPTURE                          VAL R15
+      226 CAPTURE                          VAL R18
+      227 SETTABLEKS                       R33 R32 K60 ["init"]
+      229 DUPCLOSURE                       R33 K76 [PROTO_10]
+      230 CAPTURE                          VAL R6
+      231 CAPTURE                          VAL R0
+      232 CAPTURE                          VAL R27
+      233 CAPTURE                          VAL R25
+      234 CAPTURE                          VAL R24
+      235 CAPTURE                          VAL R22
+      236 SETTABLEKS                       R33 R32 K77 ["didUpdate"]
+      238 NEWCLOSURE                       R33 P6
+      239 CAPTURE                          VAL R0
+      240 CAPTURE                          VAL R6
+      241 CAPTURE                          VAL R20
+      242 CAPTURE                          VAL R29
+      243 CAPTURE                          VAL R27
+      244 CAPTURE                          VAL R4
+      245 CAPTURE                          VAL R5
+      246 CAPTURE                          VAL R19
+      247 CAPTURE                          VAL R14
+      248 CAPTURE                          VAL R18
+      249 CAPTURE                          REF R28
+      250 CAPTURE                          VAL R30
+      251 CAPTURE                          VAL R17
+      252 SETTABLEKS                       R33 R32 K62 ["render"]
+      254 MOVE                             R33 R10
+      255 DUPTABLE                         R34 K78 [{"Stylizer", "Localization"}]
+      256 SETTABLEKS                       R8 R34 K18 ["Stylizer"]
+      258 SETTABLEKS                       R11 R34 K21 ["Localization"]
+      260 CALL                             R33 1 1
+      261 MOVE                             R34 R32
+      262 CALL                             R33 1 1
+      263 MOVE                             R32 R33
+      264 CLOSEUPVALS                      R28
+      265 RETURN                           R32 1

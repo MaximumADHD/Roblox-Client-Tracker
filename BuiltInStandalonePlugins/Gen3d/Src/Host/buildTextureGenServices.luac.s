@@ -47,30 +47,36 @@ PROTO_3:
        17 SETTABLEKS                       R4 R3 K2 ["buildRequest"]
        19 GETUPVAL                         R2 2
        20 CALL                             R2 0 2
-       21 DUPTABLE                         R4 K9 [{"selection", "instances", "textureGeneration", "meshGen", "preview", "recording"}]
-       22 GETUPVAL                         R5 3
-       23 CALL                             R5 0 1
-       24 SETTABLEKS                       R5 R4 K3 ["selection"]
-       26 SETTABLEKS                       R2 R4 K4 ["instances"]
-       28 GETUPVAL                         R5 4
-       29 CALL                             R5 0 1
-       30 SETTABLEKS                       R5 R4 K5 ["textureGeneration"]
-       32 GETUPVAL                         R5 5
-       33 CALL                             R5 0 1
-       34 SETTABLEKS                       R5 R4 K6 ["meshGen"]
-       36 GETUPVAL                         R5 6
-       37 MOVE                             R6 R0
-       38 CALL                             R5 1 1
-       39 SETTABLEKS                       R5 R4 K7 ["preview"]
-       41 GETUPVAL                         R5 7
-       42 CALL                             R5 0 1
-       43 SETTABLEKS                       R5 R4 K8 ["recording"]
-       45 DUPTABLE                         R5 K12 [{"registerInstance", "destroy"}]
-       46 GETTABLEKS                       R6 R3 K13 ["register"]
-       48 SETTABLEKS                       R6 R5 K10 ["registerInstance"]
-       50 GETTABLEKS                       R6 R3 K11 ["destroy"]
-       52 SETTABLEKS                       R6 R5 K11 ["destroy"]
-       54 RETURN                           R4 2
+       21 GETUPVAL                         R4 3
+       22 CALL                             R4 0 1
+       23 DUPTABLE                         R5 K4 [{"debugLog"}]
+       24 GETUPVAL                         R6 0
+       25 GETTABLEKS                       R6 R6 K5 ["getFFlagTextureGenDebugLog"]
+       27 CALL                             R6 0 1
+       28 SETTABLEKS                       R6 R5 K3 ["debugLog"]
+       30 SETTABLEKS                       R5 R4 K6 ["capabilities"]
+       32 DUPTABLE                         R5 K13 [{"selection", "instances", "textureGeneration", "meshGen", "preview", "recording"}]
+       33 GETUPVAL                         R6 4
+       34 CALL                             R6 0 1
+       35 SETTABLEKS                       R6 R5 K7 ["selection"]
+       37 SETTABLEKS                       R2 R5 K8 ["instances"]
+       39 SETTABLEKS                       R4 R5 K9 ["textureGeneration"]
+       41 GETUPVAL                         R6 5
+       42 CALL                             R6 0 1
+       43 SETTABLEKS                       R6 R5 K10 ["meshGen"]
+       45 GETUPVAL                         R6 6
+       46 MOVE                             R7 R0
+       47 CALL                             R6 1 1
+       48 SETTABLEKS                       R6 R5 K11 ["preview"]
+       50 GETUPVAL                         R6 7
+       51 CALL                             R6 0 1
+       52 SETTABLEKS                       R6 R5 K12 ["recording"]
+       54 DUPTABLE                         R6 K16 [{"registerInstance", "destroy"}]
+       55 GETTABLEKS                       R7 R3 K17 ["register"]
+       57 SETTABLEKS                       R7 R6 K14 ["registerInstance"]
+       59 GETTABLEKS                       R7 R3 K15 ["destroy"]
+       61 SETTABLEKS                       R7 R6 K15 ["destroy"]
+       63 RETURN                           R5 2
 
 MAIN:
         0 PREPVARARGS                      0
@@ -135,8 +141,8 @@ MAIN:
       101 CAPTURE                          VAL R3
       102 CAPTURE                          VAL R2
       103 CAPTURE                          VAL R5
-      104 CAPTURE                          VAL R4
-      105 CAPTURE                          VAL R9
+      104 CAPTURE                          VAL R9
+      105 CAPTURE                          VAL R4
       106 CAPTURE                          VAL R6
       107 CAPTURE                          VAL R8
       108 CAPTURE                          VAL R7

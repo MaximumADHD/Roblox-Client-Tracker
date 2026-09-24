@@ -79,7 +79,7 @@ PROTO_1:
        61 RETURN                           R14 2
        62 GETUPVAL                         R14 4
        63 CALL                             R14 0 1
-       64 JUMPIFNOT                        R14 ; [+36]
+       64 JUMPIFNOT                        R14 ; [+39]
        65 FASTCALL1                        TYPEOF R9 ; [+3]
        66 MOVE                             R15 R9
        67 GETIMPORT                        R14 K18 [typeof]
@@ -93,7 +93,7 @@ PROTO_1:
        78 JUMPIFNOT                        R14 ; [+19]
        79 GETUPVAL                         R14 6
        80 GETTABLEKS                       R14 R14 K21 ["Replace"]
-       82 JUMPIFNOTEQ                      R6 R14 ; [+18]
+       82 JUMPIFNOTEQ                      R6 R14 ; [+21]
        84 FASTCALL1                        TYPEOF R11 ; [+3]
        85 MOVE                             R15 R11
        86 GETIMPORT                        R14 K18 [typeof]
@@ -104,67 +104,71 @@ PROTO_1:
        94 MOVE                             R15 R3
        95 MOVE                             R16 R11
        96 CALL                             R14 2 1
-       97 JUMPIF                           R14 ; [+3]
-       98 LOADB                            R14 0
-       99 LOADN                            R15 0
-      100 RETURN                           R14 2
-      101 GETUPVAL                         R14 4
-      102 CALL                             R14 0 1
-      103 JUMPIFNOT                        R14 ; [+14]
-      104 GETUPVAL                         R14 6
-      105 GETTABLEKS                       R14 R14 K21 ["Replace"]
-      107 JUMPIFNOTEQ                      R6 R14 ; [+10]
-      109 MOVE                             R16 R12
-      110 MOVE                             R17 R7
-      111 MOVE                             R18 R9
-      112 MOVE                             R19 R11
-      113 MOVE                             R20 R13
-      114 NAMECALL                         R14 R3 K22 ["ReplaceMaterialInTransformSubregionSlot"]
-      116 CALL                             R14 6 0
-      117 JUMP                             ; [+32]
-      118 GETUPVAL                         R14 4
-      119 CALL                             R14 0 1
-      120 JUMPIFNOT                        R14 ; [+8]
-      121 MOVE                             R16 R12
-      122 MOVE                             R17 R7
-      123 MOVE                             R18 R9
-      124 MOVE                             R19 R13
-      125 NAMECALL                         R14 R3 K23 ["SetMaterialInTransformSubregionSlot"]
-      127 CALL                             R14 5 0
-      128 JUMP                             ; [+21]
-      129 GETUPVAL                         R14 6
-      130 GETTABLEKS                       R14 R14 K21 ["Replace"]
-      132 JUMPIFNOTEQ                      R6 R14 ; [+10]
-      134 MOVE                             R16 R12
-      135 MOVE                             R17 R7
-      136 MOVE                             R18 R8
-      137 MOVE                             R19 R10
-      138 MOVE                             R20 R13
-      139 NAMECALL                         R14 R3 K24 ["ReplaceMaterialInTransformSubregion"]
-      141 CALL                             R14 6 0
-      142 JUMP                             ; [+7]
-      143 MOVE                             R16 R12
-      144 MOVE                             R17 R7
-      145 MOVE                             R18 R8
-      146 MOVE                             R19 R13
-      147 NAMECALL                         R14 R3 K25 ["SetMaterialInTransformSubregion"]
-      149 CALL                             R14 5 0
-      150 GETTABLEKS                       R14 R2 K16 ["CurrentIndex"]
-      152 GETTABLEKS                       R16 R2 K15 ["Regions"]
-      154 LENGTH                           R15 R16
-      155 JUMPIFNOTEQ                      R14 R15 ; [+4]
-      157 LOADB                            R14 0
-      158 LOADN                            R15 0
-      159 RETURN                           R14 2
-      160 GETTABLEKS                       R14 R2 K16 ["CurrentIndex"]
-      162 ADDK                             R14 R14 K26 [1]
-      163 SETTABLEKS                       R14 R2 K16 ["CurrentIndex"]
-      165 LOADB                            R14 1
-      166 GETTABLEKS                       R16 R2 K16 ["CurrentIndex"]
-      168 GETTABLEKS                       R18 R2 K15 ["Regions"]
-      170 LENGTH                           R17 R18
-      171 DIV                              R15 R16 R17
-      172 RETURN                           R14 2
+       97 JUMPIF                           R14 ; [+6]
+       98 NAMECALL                         R14 R1 K22 ["reportInvalidMaterialSlot"]
+      100 CALL                             R14 1 0
+      101 LOADB                            R14 0
+      102 LOADN                            R15 0
+      103 RETURN                           R14 2
+      104 GETUPVAL                         R14 4
+      105 CALL                             R14 0 1
+      106 JUMPIFNOT                        R14 ; [+14]
+      107 GETUPVAL                         R14 6
+      108 GETTABLEKS                       R14 R14 K21 ["Replace"]
+      110 JUMPIFNOTEQ                      R6 R14 ; [+10]
+      112 MOVE                             R16 R12
+      113 MOVE                             R17 R7
+      114 MOVE                             R18 R9
+      115 MOVE                             R19 R11
+      116 MOVE                             R20 R13
+      117 NAMECALL                         R14 R3 K23 ["ReplaceMaterialInTransformSubregionSlot"]
+      119 CALL                             R14 6 0
+      120 JUMP                             ; [+32]
+      121 GETUPVAL                         R14 4
+      122 CALL                             R14 0 1
+      123 JUMPIFNOT                        R14 ; [+8]
+      124 MOVE                             R16 R12
+      125 MOVE                             R17 R7
+      126 MOVE                             R18 R9
+      127 MOVE                             R19 R13
+      128 NAMECALL                         R14 R3 K24 ["SetMaterialInTransformSubregionSlot"]
+      130 CALL                             R14 5 0
+      131 JUMP                             ; [+21]
+      132 GETUPVAL                         R14 6
+      133 GETTABLEKS                       R14 R14 K21 ["Replace"]
+      135 JUMPIFNOTEQ                      R6 R14 ; [+10]
+      137 MOVE                             R16 R12
+      138 MOVE                             R17 R7
+      139 MOVE                             R18 R8
+      140 MOVE                             R19 R10
+      141 MOVE                             R20 R13
+      142 NAMECALL                         R14 R3 K25 ["ReplaceMaterialInTransformSubregion"]
+      144 CALL                             R14 6 0
+      145 JUMP                             ; [+7]
+      146 MOVE                             R16 R12
+      147 MOVE                             R17 R7
+      148 MOVE                             R18 R8
+      149 MOVE                             R19 R13
+      150 NAMECALL                         R14 R3 K26 ["SetMaterialInTransformSubregion"]
+      152 CALL                             R14 5 0
+      153 NAMECALL                         R14 R1 K27 ["recordMaterialApplied"]
+      155 CALL                             R14 1 0
+      156 GETTABLEKS                       R14 R2 K16 ["CurrentIndex"]
+      158 GETTABLEKS                       R16 R2 K15 ["Regions"]
+      160 LENGTH                           R15 R16
+      161 JUMPIFNOTEQ                      R14 R15 ; [+4]
+      163 LOADB                            R14 0
+      164 LOADN                            R15 0
+      165 RETURN                           R14 2
+      166 GETTABLEKS                       R14 R2 K16 ["CurrentIndex"]
+      168 ADDK                             R14 R14 K28 [1]
+      169 SETTABLEKS                       R14 R2 K16 ["CurrentIndex"]
+      171 LOADB                            R14 1
+      172 GETTABLEKS                       R16 R2 K16 ["CurrentIndex"]
+      174 GETTABLEKS                       R18 R2 K15 ["Regions"]
+      176 LENGTH                           R17 R18
+      177 DIV                              R15 R16 R17
+      178 RETURN                           R14 2
 
 PROTO_2:
         0 GETTABLEKS                       R3 R0 K0 ["State"]

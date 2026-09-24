@@ -1616,35 +1616,35 @@ MAIN:
       108 NAMECALL                         R16 R16 K36 ["ToIsoDate"]
       110 CALL                             R16 1 1
       111 DUPTABLE                         R17 K40 [{"FreeTrialExhausted", "DailyLimitReached", "InsufficientRobuxBalance"}]
-      112 DUPTABLE                         R18 K57 [{["freeTrialDailyAllowance"] = 25, ["freeTrialRemaining"] = 0, ["freeTrialPctUsed"] = 1, ["nextResetEligibleTime"], ["robuxBalance"] = 500, ["limitSettings"], ["robuxSpentToday"] = 0, ["limitRemaining"] = 0, ["allowed"] = False, ["reason"] = "BLOCK_REASON_FREE_TRIAL_EXHAUSTED"}]
+      112 DUPTABLE                         R18 K59 [{["freeTrialDailyAllowance"] = 25, ["freeTrialRemaining"] = 0, ["freeTrialPctUsed"] = 1, ["nextResetEligibleTime"], ["freeTrialResetPeriod"] = "FREE_TRIAL_RESET_PERIOD_DAILY", ["robuxBalance"] = 500, ["limitSettings"], ["robuxSpentToday"] = 0, ["limitRemaining"] = 0, ["allowed"] = False, ["reason"] = "BLOCK_REASON_FREE_TRIAL_EXHAUSTED"}]
       113 SETTABLEKS                       R16 R18 K47 ["nextResetEligibleTime"]
-      115 DUPTABLE                         R19 K61 [{["additionalUsageEnabled"] = False, ["dailyLimitSet"] = False, ["dailyLimit"] = 0}]
-      116 SETTABLEKS                       R19 R18 K50 ["limitSettings"]
+      115 DUPTABLE                         R19 K63 [{["additionalUsageEnabled"] = False, ["dailyLimitSet"] = False, ["dailyLimit"] = 0}]
+      116 SETTABLEKS                       R19 R18 K52 ["limitSettings"]
       118 SETTABLEKS                       R18 R17 K37 ["FreeTrialExhausted"]
-      120 DUPTABLE                         R18 K63 [{["freeTrialDailyAllowance"] = 25, ["freeTrialRemaining"] = 0, ["freeTrialPctUsed"] = 1, ["nextResetEligibleTime"], ["robuxBalance"] = 500, ["limitSettings"], ["robuxSpentToday"] = 500, ["limitRemaining"] = 0, ["allowed"] = False, ["reason"] = "BLOCK_REASON_DAILY_LIMIT_REACHED"}]
+      120 DUPTABLE                         R18 K65 [{["freeTrialDailyAllowance"] = 25, ["freeTrialRemaining"] = 0, ["freeTrialPctUsed"] = 1, ["nextResetEligibleTime"], ["freeTrialResetPeriod"] = "FREE_TRIAL_RESET_PERIOD_DAILY", ["robuxBalance"] = 500, ["limitSettings"], ["robuxSpentToday"] = 500, ["limitRemaining"] = 0, ["allowed"] = False, ["reason"] = "BLOCK_REASON_DAILY_LIMIT_REACHED"}]
       121 SETTABLEKS                       R16 R18 K47 ["nextResetEligibleTime"]
-      123 DUPTABLE                         R19 K65 [{["additionalUsageEnabled"] = True, ["dailyLimitSet"] = True, ["dailyLimit"] = 500}]
-      124 SETTABLEKS                       R19 R18 K50 ["limitSettings"]
+      123 DUPTABLE                         R19 K67 [{["additionalUsageEnabled"] = True, ["dailyLimitSet"] = True, ["dailyLimit"] = 500}]
+      124 SETTABLEKS                       R19 R18 K52 ["limitSettings"]
       126 SETTABLEKS                       R18 R17 K38 ["DailyLimitReached"]
-      128 DUPTABLE                         R18 K67 [{["freeTrialDailyAllowance"] = 25, ["freeTrialRemaining"] = 0, ["freeTrialPctUsed"] = 1, ["nextResetEligibleTime"], ["robuxBalance"] = 0, ["limitSettings"], ["robuxSpentToday"] = 500, ["limitRemaining"] = 0, ["allowed"] = False, ["reason"] = "BLOCK_REASON_INSUFFICIENT_ROBUX_BALANCE"}]
+      128 DUPTABLE                         R18 K69 [{["freeTrialDailyAllowance"] = 25, ["freeTrialRemaining"] = 0, ["freeTrialPctUsed"] = 1, ["nextResetEligibleTime"], ["freeTrialResetPeriod"] = "FREE_TRIAL_RESET_PERIOD_DAILY", ["robuxBalance"] = 0, ["limitSettings"], ["robuxSpentToday"] = 500, ["limitRemaining"] = 0, ["allowed"] = False, ["reason"] = "BLOCK_REASON_INSUFFICIENT_ROBUX_BALANCE"}]
       129 SETTABLEKS                       R16 R18 K47 ["nextResetEligibleTime"]
-      131 DUPTABLE                         R19 K68 [{["additionalUsageEnabled"] = True, ["dailyLimitSet"] = False, ["dailyLimit"] = 0}]
-      132 SETTABLEKS                       R19 R18 K50 ["limitSettings"]
+      131 DUPTABLE                         R19 K70 [{["additionalUsageEnabled"] = True, ["dailyLimitSet"] = False, ["dailyLimit"] = 0}]
+      132 SETTABLEKS                       R19 R18 K52 ["limitSettings"]
       134 SETTABLEKS                       R18 R17 K39 ["InsufficientRobuxBalance"]
-      136 DUPCLOSURE                       R18 K69 [PROTO_1]
+      136 DUPCLOSURE                       R18 K71 [PROTO_1]
       137 NEWTABLE                         R19 0 4
-      139 DUPTABLE                         R20 K75 [{["productId"] = 1, ["robuxAmount"] = 800, ["currencyAmountStr"] = "$9.99"}]
-      140 DUPTABLE                         R21 K79 [{["productId"] = 2, ["robuxAmount"] = 1700, ["currencyAmountStr"] = "$19.99"}]
-      141 DUPTABLE                         R22 K83 [{["productId"] = 3, ["robuxAmount"] = 4500, ["currencyAmountStr"] = "$49.99"}]
-      142 DUPTABLE                         R23 K87 [{["productId"] = 4, ["robuxAmount"] = 10000, ["currencyAmountStr"] = "$99.99"}]
+      139 DUPTABLE                         R20 K77 [{["productId"] = 1, ["robuxAmount"] = 800, ["currencyAmountStr"] = "$9.99"}]
+      140 DUPTABLE                         R21 K81 [{["productId"] = 2, ["robuxAmount"] = 1700, ["currencyAmountStr"] = "$19.99"}]
+      141 DUPTABLE                         R22 K85 [{["productId"] = 3, ["robuxAmount"] = 4500, ["currencyAmountStr"] = "$49.99"}]
+      142 DUPTABLE                         R23 K89 [{["productId"] = 4, ["robuxAmount"] = 10000, ["currencyAmountStr"] = "$99.99"}]
       143 SETLIST                          R19 R20 4 [1]
       145 LOADNIL                          R20
-      146 DUPCLOSURE                       R21 K88 [PROTO_2]
+      146 DUPCLOSURE                       R21 K90 [PROTO_2]
       147 CAPTURE                          VAL R3
       148 CAPTURE                          VAL R17
       149 NEWCLOSURE                       R22 P3
       150 CAPTURE                          REF R20
-      151 DUPCLOSURE                       R23 K89 [PROTO_4]
+      151 DUPCLOSURE                       R23 K91 [PROTO_4]
       152 CAPTURE                          VAL R3
       153 NEWCLOSURE                       R24 P5
       154 CAPTURE                          VAL R3
@@ -1653,17 +1653,17 @@ MAIN:
       157 CAPTURE                          REF R20
       158 CAPTURE                          VAL R9
       159 CAPTURE                          VAL R14
-      160 DUPCLOSURE                       R25 K90 [PROTO_8]
+      160 DUPCLOSURE                       R25 K92 [PROTO_8]
       161 CAPTURE                          VAL R3
       162 CAPTURE                          VAL R17
       163 CAPTURE                          VAL R23
       164 CAPTURE                          VAL R19
       165 CAPTURE                          VAL R9
       166 CAPTURE                          VAL R2
-      167 DUPCLOSURE                       R26 K91 [PROTO_10]
+      167 DUPCLOSURE                       R26 K93 [PROTO_10]
       168 CAPTURE                          VAL R9
       169 CAPTURE                          VAL R14
-      170 DUPCLOSURE                       R27 K92 [PROTO_18]
+      170 DUPCLOSURE                       R27 K94 [PROTO_18]
       171 CAPTURE                          VAL R10
       172 CAPTURE                          VAL R7
       173 CAPTURE                          VAL R11
@@ -1682,7 +1682,7 @@ MAIN:
       186 CAPTURE                          VAL R25
       187 CAPTURE                          VAL R15
       188 CAPTURE                          VAL R11
-      189 DUPCLOSURE                       R29 K93 [PROTO_53]
+      189 DUPCLOSURE                       R29 K95 [PROTO_53]
       190 CAPTURE                          VAL R10
       191 CAPTURE                          VAL R12
       192 CAPTURE                          VAL R11

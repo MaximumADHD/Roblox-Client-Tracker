@@ -43,120 +43,117 @@ PROTO_0:
        65 GETTABLEKS                       R13 R0 K28 ["model"]
        67 SETTABLEKS                       R13 R12 K31 ["Model"]
        69 CALL                             R10 2 1
-       70 JUMP                             ; [+48]
-       71 GETUPVAL                         R11 4
-       72 CALL                             R11 0 1
-       73 JUMPIFNOT                        R11 ; [+25]
-       74 GETTABLEKS                       R11 R0 K36 ["previewImage"]
-       76 JUMPIFEQKNIL                     R11 ; [+22]
-       78 GETTABLEKS                       R11 R0 K36 ["previewImage"]
-       80 JUMPIFEQKS                       R11 K37 [""] ; [+18]
-       82 GETUPVAL                         R10 1
-       83 GETTABLEKS                       R10 R10 K1 ["createElement"]
-       85 GETUPVAL                         R11 2
-       86 GETTABLEKS                       R11 R11 K38 ["Image"]
-       88 DUPTABLE                         R12 K41 [{["tag"] = "size-full", ["Image"], ["ScaleType"]}]
-       89 GETTABLEKS                       R13 R0 K36 ["previewImage"]
-       91 SETTABLEKS                       R13 R12 K38 ["Image"]
-       93 GETIMPORT                        R13 K44 [Enum.ScaleType.Fit]
-       95 SETTABLEKS                       R13 R12 K40 ["ScaleType"]
-       97 CALL                             R10 2 1
-       98 JUMP                             ; [+20]
-       99 GETUPVAL                         R10 1
-      100 GETTABLEKS                       R10 R10 K1 ["createElement"]
-      102 GETUPVAL                         R11 2
-      103 GETTABLEKS                       R11 R11 K38 ["Image"]
-      105 DUPTABLE                         R12 K46 [{["tag"] = "size-full", ["Image"], ["imageStyle"]}]
-      106 GETUPVAL                         R13 5
-      107 GETTABLEKS                       R13 R13 K47 ["PLACEHOLDER_ICON"]
-      109 SETTABLEKS                       R13 R12 K38 ["Image"]
-      111 DUPTABLE                         R13 K18 [{["Color3"], ["Transparency"] = 0}]
-      112 GETTABLEKS                       R14 R0 K48 ["placeholderIconColor"]
-      114 SETTABLEKS                       R14 R13 K15 ["Color3"]
-      116 SETTABLEKS                       R13 R12 K45 ["imageStyle"]
-      118 CALL                             R10 2 1
-      119 SETTABLEKS                       R10 R9 K25 ["PreviewModel"]
-      121 CALL                             R6 3 1
-      122 SETTABLEKS                       R6 R5 K7 ["Preview"]
-      124 GETUPVAL                         R6 1
-      125 GETTABLEKS                       R6 R6 K1 ["createElement"]
-      127 GETUPVAL                         R7 2
-      128 GETTABLEKS                       R7 R7 K49 ["Text"]
-      130 DUPTABLE                         R8 K52 [{["tag"] = "auto-xy text-body-medium text-align-x-left content-default", ["LayoutOrder"], ["Text"], ["sizeConstraint"]}]
-      131 NAMECALL                         R9 R1 K20 ["getNextOrder"]
-      133 CALL                             R9 1 1
-      134 SETTABLEKS                       R9 R8 K5 ["LayoutOrder"]
-      136 GETTABLEKS                       R9 R0 K53 ["assetDisplayName"]
-      138 SETTABLEKS                       R9 R8 K49 ["Text"]
-      140 DUPTABLE                         R9 K55 [{"MinSize"}]
-      141 GETIMPORT                        R10 K57 [Vector2.new]
-      143 GETTABLEKS                       R11 R0 K58 ["nameMinWidth"]
-      145 LOADN                            R12 0
-      146 CALL                             R10 2 1
-      147 SETTABLEKS                       R10 R9 K54 ["MinSize"]
-      149 SETTABLEKS                       R9 R8 K51 ["sizeConstraint"]
-      151 CALL                             R6 2 1
-      152 SETTABLEKS                       R6 R5 K8 ["AssetName"]
-      154 GETUPVAL                         R6 1
-      155 GETTABLEKS                       R6 R6 K1 ["createElement"]
-      157 GETUPVAL                         R7 2
-      158 GETTABLEKS                       R7 R7 K2 ["View"]
-      160 DUPTABLE                         R8 K60 [{["tag"] = "row align-x-left align-y-center gap-small auto-xy", ["LayoutOrder"]}]
-      161 NAMECALL                         R9 R1 K20 ["getNextOrder"]
-      163 CALL                             R9 1 1
-      164 SETTABLEKS                       R9 R8 K5 ["LayoutOrder"]
-      166 DUPTABLE                         R9 K63 [{"ValidationIcon", "ValidationText"}]
-      167 GETUPVAL                         R10 1
-      168 GETTABLEKS                       R10 R10 K1 ["createElement"]
-      170 GETUPVAL                         R11 2
-      171 GETTABLEKS                       R11 R11 K38 ["Image"]
-      173 DUPTABLE                         R12 K66 [{["Image"], ["imageStyle"], ["LayoutOrder"] = 1, ["Size"], ["onActivated"]}]
-      174 GETTABLEKS                       R13 R0 K67 ["validationStatusImage"]
-      176 SETTABLEKS                       R13 R12 K38 ["Image"]
-      178 DUPTABLE                         R13 K18 [{["Color3"], ["Transparency"] = 0}]
-      179 GETTABLEKS                       R14 R0 K68 ["iconColor"]
-      181 SETTABLEKS                       R14 R13 K15 ["Color3"]
-      183 SETTABLEKS                       R13 R12 K45 ["imageStyle"]
-      185 GETIMPORT                        R13 K23 [UDim2.fromOffset]
-      187 GETTABLEKS                       R14 R0 K69 ["validationIconSize"]
-      189 GETTABLEKS                       R15 R0 K69 ["validationIconSize"]
-      191 CALL                             R13 2 1
-      192 SETTABLEKS                       R13 R12 K13 ["Size"]
-      194 GETTABLEKS                       R14 R0 K70 ["isValidationError"]
-      196 JUMPIFNOT                        R14 ; [+6]
-      197 GETTABLEKS                       R14 R0 K71 ["onClickError"]
-      199 JUMPIFNOT                        R14 ; [+3]
-      200 GETTABLEKS                       R13 R0 K71 ["onClickError"]
-      202 JUMP                             ; [+1]
-      203 LOADNIL                          R13
-      204 SETTABLEKS                       R13 R12 K65 ["onActivated"]
-      206 CALL                             R10 2 1
-      207 SETTABLEKS                       R10 R9 K61 ["ValidationIcon"]
-      209 GETUPVAL                         R10 1
-      210 GETTABLEKS                       R10 R10 K1 ["createElement"]
-      212 GETUPVAL                         R11 2
-      213 GETTABLEKS                       R11 R11 K49 ["Text"]
-      215 DUPTABLE                         R12 K75 [{["tag"] = "text-body-medium text-align-x-left", ["Text"], ["textStyle"], ["LayoutOrder"] = 2, ["onActivated"]}]
-      216 GETTABLEKS                       R13 R0 K76 ["validationMessage"]
-      218 SETTABLEKS                       R13 R12 K49 ["Text"]
-      220 DUPTABLE                         R13 K77 [{"Color3"}]
-      221 GETTABLEKS                       R14 R0 K78 ["textColor"]
-      223 SETTABLEKS                       R14 R13 K15 ["Color3"]
-      225 SETTABLEKS                       R13 R12 K73 ["textStyle"]
-      227 GETTABLEKS                       R14 R0 K70 ["isValidationError"]
-      229 JUMPIFNOT                        R14 ; [+6]
-      230 GETTABLEKS                       R14 R0 K71 ["onClickError"]
-      232 JUMPIFNOT                        R14 ; [+3]
-      233 GETTABLEKS                       R13 R0 K71 ["onClickError"]
-      235 JUMP                             ; [+1]
-      236 LOADNIL                          R13
-      237 SETTABLEKS                       R13 R12 K65 ["onActivated"]
-      239 CALL                             R10 2 1
-      240 SETTABLEKS                       R10 R9 K62 ["ValidationText"]
-      242 CALL                             R6 3 1
-      243 SETTABLEKS                       R6 R5 K9 ["ValidationArea"]
-      245 CALL                             R2 3 -1
-      246 RETURN                           R2 -1
+       70 JUMP                             ; [+45]
+       71 GETTABLEKS                       R11 R0 K36 ["previewImage"]
+       73 JUMPIFEQKNIL                     R11 ; [+22]
+       75 GETTABLEKS                       R11 R0 K36 ["previewImage"]
+       77 JUMPIFEQKS                       R11 K37 [""] ; [+18]
+       79 GETUPVAL                         R10 1
+       80 GETTABLEKS                       R10 R10 K1 ["createElement"]
+       82 GETUPVAL                         R11 2
+       83 GETTABLEKS                       R11 R11 K38 ["Image"]
+       85 DUPTABLE                         R12 K41 [{["tag"] = "size-full", ["Image"], ["ScaleType"]}]
+       86 GETTABLEKS                       R13 R0 K36 ["previewImage"]
+       88 SETTABLEKS                       R13 R12 K38 ["Image"]
+       90 GETIMPORT                        R13 K44 [Enum.ScaleType.Fit]
+       92 SETTABLEKS                       R13 R12 K40 ["ScaleType"]
+       94 CALL                             R10 2 1
+       95 JUMP                             ; [+20]
+       96 GETUPVAL                         R10 1
+       97 GETTABLEKS                       R10 R10 K1 ["createElement"]
+       99 GETUPVAL                         R11 2
+      100 GETTABLEKS                       R11 R11 K38 ["Image"]
+      102 DUPTABLE                         R12 K46 [{["tag"] = "size-full", ["Image"], ["imageStyle"]}]
+      103 GETUPVAL                         R13 4
+      104 GETTABLEKS                       R13 R13 K47 ["PLACEHOLDER_ICON"]
+      106 SETTABLEKS                       R13 R12 K38 ["Image"]
+      108 DUPTABLE                         R13 K18 [{["Color3"], ["Transparency"] = 0}]
+      109 GETTABLEKS                       R14 R0 K48 ["placeholderIconColor"]
+      111 SETTABLEKS                       R14 R13 K15 ["Color3"]
+      113 SETTABLEKS                       R13 R12 K45 ["imageStyle"]
+      115 CALL                             R10 2 1
+      116 SETTABLEKS                       R10 R9 K25 ["PreviewModel"]
+      118 CALL                             R6 3 1
+      119 SETTABLEKS                       R6 R5 K7 ["Preview"]
+      121 GETUPVAL                         R6 1
+      122 GETTABLEKS                       R6 R6 K1 ["createElement"]
+      124 GETUPVAL                         R7 2
+      125 GETTABLEKS                       R7 R7 K49 ["Text"]
+      127 DUPTABLE                         R8 K52 [{["tag"] = "auto-xy text-body-medium text-align-x-left content-default", ["LayoutOrder"], ["Text"], ["sizeConstraint"]}]
+      128 NAMECALL                         R9 R1 K20 ["getNextOrder"]
+      130 CALL                             R9 1 1
+      131 SETTABLEKS                       R9 R8 K5 ["LayoutOrder"]
+      133 GETTABLEKS                       R9 R0 K53 ["assetDisplayName"]
+      135 SETTABLEKS                       R9 R8 K49 ["Text"]
+      137 DUPTABLE                         R9 K55 [{"MinSize"}]
+      138 GETIMPORT                        R10 K57 [Vector2.new]
+      140 GETTABLEKS                       R11 R0 K58 ["nameMinWidth"]
+      142 LOADN                            R12 0
+      143 CALL                             R10 2 1
+      144 SETTABLEKS                       R10 R9 K54 ["MinSize"]
+      146 SETTABLEKS                       R9 R8 K51 ["sizeConstraint"]
+      148 CALL                             R6 2 1
+      149 SETTABLEKS                       R6 R5 K8 ["AssetName"]
+      151 GETUPVAL                         R6 1
+      152 GETTABLEKS                       R6 R6 K1 ["createElement"]
+      154 GETUPVAL                         R7 2
+      155 GETTABLEKS                       R7 R7 K2 ["View"]
+      157 DUPTABLE                         R8 K60 [{["tag"] = "row align-x-left align-y-center gap-small auto-xy", ["LayoutOrder"]}]
+      158 NAMECALL                         R9 R1 K20 ["getNextOrder"]
+      160 CALL                             R9 1 1
+      161 SETTABLEKS                       R9 R8 K5 ["LayoutOrder"]
+      163 DUPTABLE                         R9 K63 [{"ValidationIcon", "ValidationText"}]
+      164 GETUPVAL                         R10 1
+      165 GETTABLEKS                       R10 R10 K1 ["createElement"]
+      167 GETUPVAL                         R11 2
+      168 GETTABLEKS                       R11 R11 K38 ["Image"]
+      170 DUPTABLE                         R12 K66 [{["Image"], ["imageStyle"], ["LayoutOrder"] = 1, ["Size"], ["onActivated"]}]
+      171 GETTABLEKS                       R13 R0 K67 ["validationStatusImage"]
+      173 SETTABLEKS                       R13 R12 K38 ["Image"]
+      175 DUPTABLE                         R13 K18 [{["Color3"], ["Transparency"] = 0}]
+      176 GETTABLEKS                       R14 R0 K68 ["iconColor"]
+      178 SETTABLEKS                       R14 R13 K15 ["Color3"]
+      180 SETTABLEKS                       R13 R12 K45 ["imageStyle"]
+      182 GETIMPORT                        R13 K23 [UDim2.fromOffset]
+      184 GETTABLEKS                       R14 R0 K69 ["validationIconSize"]
+      186 GETTABLEKS                       R15 R0 K69 ["validationIconSize"]
+      188 CALL                             R13 2 1
+      189 SETTABLEKS                       R13 R12 K13 ["Size"]
+      191 GETTABLEKS                       R14 R0 K70 ["isValidationError"]
+      193 JUMPIFNOT                        R14 ; [+6]
+      194 GETTABLEKS                       R14 R0 K71 ["onClickError"]
+      196 JUMPIFNOT                        R14 ; [+3]
+      197 GETTABLEKS                       R13 R0 K71 ["onClickError"]
+      199 JUMP                             ; [+1]
+      200 LOADNIL                          R13
+      201 SETTABLEKS                       R13 R12 K65 ["onActivated"]
+      203 CALL                             R10 2 1
+      204 SETTABLEKS                       R10 R9 K61 ["ValidationIcon"]
+      206 GETUPVAL                         R10 1
+      207 GETTABLEKS                       R10 R10 K1 ["createElement"]
+      209 GETUPVAL                         R11 2
+      210 GETTABLEKS                       R11 R11 K49 ["Text"]
+      212 DUPTABLE                         R12 K75 [{["tag"] = "text-body-medium text-align-x-left", ["Text"], ["textStyle"], ["LayoutOrder"] = 2, ["onActivated"]}]
+      213 GETTABLEKS                       R13 R0 K76 ["validationMessage"]
+      215 SETTABLEKS                       R13 R12 K49 ["Text"]
+      217 DUPTABLE                         R13 K77 [{"Color3"}]
+      218 GETTABLEKS                       R14 R0 K78 ["textColor"]
+      220 SETTABLEKS                       R14 R13 K15 ["Color3"]
+      222 SETTABLEKS                       R13 R12 K73 ["textStyle"]
+      224 GETTABLEKS                       R14 R0 K70 ["isValidationError"]
+      226 JUMPIFNOT                        R14 ; [+6]
+      227 GETTABLEKS                       R14 R0 K71 ["onClickError"]
+      229 JUMPIFNOT                        R14 ; [+3]
+      230 GETTABLEKS                       R13 R0 K71 ["onClickError"]
+      232 JUMP                             ; [+1]
+      233 LOADNIL                          R13
+      234 SETTABLEKS                       R13 R12 K65 ["onActivated"]
+      236 CALL                             R10 2 1
+      237 SETTABLEKS                       R10 R9 K62 ["ValidationText"]
+      239 CALL                             R6 3 1
+      240 SETTABLEKS                       R6 R5 K9 ["ValidationArea"]
+      242 CALL                             R2 3 -1
+      243 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -185,16 +182,10 @@ MAIN:
        40 GETIMPORT                        R7 K5 [require]
        42 GETTABLEKS                       R8 R6 K15 ["Images"]
        44 CALL                             R7 1 1
-       45 GETIMPORT                        R8 K5 [require]
-       47 GETTABLEKS                       R9 R0 K14 ["Src"]
-       49 GETTABLEKS                       R9 R9 K16 ["Flags"]
-       51 GETTABLEKS                       R9 R9 K17 ["getFFlagEnableUploadingAvatarAnimations"]
-       53 CALL                             R8 1 1
-       54 DUPCLOSURE                       R9 K18 [PROTO_0]
-       55 CAPTURE                          VAL R5
-       56 CAPTURE                          VAL R1
-       57 CAPTURE                          VAL R2
-       58 CAPTURE                          VAL R4
-       59 CAPTURE                          VAL R8
-       60 CAPTURE                          VAL R7
-       61 RETURN                           R9 1
+       45 DUPCLOSURE                       R8 K16 [PROTO_0]
+       46 CAPTURE                          VAL R5
+       47 CAPTURE                          VAL R1
+       48 CAPTURE                          VAL R2
+       49 CAPTURE                          VAL R4
+       50 CAPTURE                          VAL R7
+       51 RETURN                           R8 1

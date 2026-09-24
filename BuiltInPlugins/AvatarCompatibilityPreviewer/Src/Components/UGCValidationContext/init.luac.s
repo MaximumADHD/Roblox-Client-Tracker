@@ -51,26 +51,6 @@ PROTO_4:
         3 CALL                             R1 1 1
         4 MOVE                             R0 R1
         5 GETUPVAL                         R1 0
-        6 DUPTABLE                         R2 K6 [{["completed"] = False, ["ugcValidationResponse"]}]
-        7 GETUPVAL                         R3 1
-        8 SETTABLEKS                       R3 R2 K5 ["ugcValidationResponse"]
-       10 SETTABLE                         R2 R0 R1
-       11 RETURN                           R0 1
-
-PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 NEWCLOSURE                       R2 P0
-        2 CAPTURE                          UPVAL U1
-        3 CAPTURE                          VAL R0
-        4 CALL                             R1 1 0
-        5 RETURN                           R0 0
-
-PROTO_6:
-        0 GETIMPORT                        R1 K2 [table.clone]
-        2 MOVE                             R2 R0
-        3 CALL                             R1 1 1
-        4 MOVE                             R0 R1
-        5 GETUPVAL                         R1 0
         6 DUPTABLE                         R2 K7 [{["completed"] = True, ["duration"], ["ugcValidationResponse"]}]
         7 GETIMPORT                        R4 K10 [os.clock]
         9 CALL                             R4 0 1
@@ -82,7 +62,7 @@ PROTO_6:
        17 SETTABLE                         R2 R0 R1
        18 RETURN                           R0 1
 
-PROTO_7:
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 NEWCLOSURE                       R2 P0
         2 CAPTURE                          UPVAL U1
@@ -91,7 +71,71 @@ PROTO_7:
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
 
+PROTO_6:
+        0 GETIMPORT                        R1 K2 [table.clone]
+        2 MOVE                             R2 R0
+        3 CALL                             R1 1 1
+        4 MOVE                             R0 R1
+        5 GETUPVAL                         R1 0
+        6 DUPTABLE                         R2 K6 [{["completed"] = False, ["ugcValidationResponse"]}]
+        7 GETUPVAL                         R3 1
+        8 SETTABLEKS                       R3 R2 K5 ["ugcValidationResponse"]
+       10 SETTABLE                         R2 R0 R1
+       11 RETURN                           R0 1
+
+PROTO_7:
+        0 GETUPVAL                         R1 0
+        1 NEWCLOSURE                       R2 P0
+        2 CAPTURE                          UPVAL U1
+        3 CAPTURE                          VAL R0
+        4 CALL                             R1 1 0
+        5 RETURN                           R0 0
+
 PROTO_8:
+        0 GETIMPORT                        R1 K1 [warn]
+        2 LOADK                            R3 K2 ["[AvatarCompatibilityPreviewer] UGC validation service error: "]
+        3 FASTCALL1                        TOSTRING R0 ; [+3]
+        4 MOVE                             R5 R0
+        5 GETIMPORT                        R4 K4 [tostring]
+        7 CALL                             R4 1 1
+        8 CONCAT                           R2 R3 R4
+        9 CALL                             R1 1 0
+       10 DUPTABLE                         R1 K7 [{"errors", "pieces"}]
+       11 NEWTABLE                         R2 0 1
+       13 DUPTABLE                         R3 K9 [{"error"}]
+       14 DUPTABLE                         R4 K12 [{["type"] = "message", ["message"]}]
+       15 DUPTABLE                         R6 K16 [{["key"] = "Common.UGCValidation.ErrorLabel.FailureWithoutReason", ["params"]}]
+       16 NEWTABLE                         R7 0 0
+       18 SETTABLEKS                       R7 R6 K15 ["params"]
+       20 GETTABLEKS                       R7 R6 K13 ["key"]
+       22 LOADK                            R9 K17 ["."]
+       23 NAMECALL                         R7 R7 K18 ["split"]
+       25 CALL                             R7 2 1
+       26 GETUPVAL                         R8 0
+       27 LOADK                            R10 K19 ["Common"]
+       28 LOADK                            R11 K20 ["UGCValidation"]
+       29 LOADK                            R12 K21 ["ErrorLabel"]
+       30 LENGTH                           R14 R7
+       31 GETTABLE                         R13 R7 R14
+       32 GETTABLEKS                       R14 R6 K15 ["params"]
+       34 NAMECALL                         R8 R8 K22 ["getExternalText"]
+       36 CALL                             R8 6 1
+       37 MOVE                             R5 R8
+       38 SETTABLEKS                       R5 R4 K11 ["message"]
+       40 SETTABLEKS                       R4 R3 K8 ["error"]
+       42 SETLIST                          R2 R3 1 [1]
+       44 SETTABLEKS                       R2 R1 K5 ["errors"]
+       46 NEWTABLE                         R2 0 0
+       48 SETTABLEKS                       R2 R1 K6 ["pieces"]
+       50 GETUPVAL                         R2 1
+       51 NEWCLOSURE                       R3 P0
+       52 CAPTURE                          UPVAL U2
+       53 CAPTURE                          UPVAL U3
+       54 CAPTURE                          VAL R1
+       55 CALL                             R2 1 0
+       56 RETURN                           R0 0
+
+PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["type"]
         2 JUMPIFEQKS                       R1 K1 ["success"] ; [+2]
         4 RETURN                           R0 0
@@ -108,31 +152,82 @@ PROTO_8:
        21 CALL                             R1 0 1
        22 NEWCLOSURE                       R2 P0
        23 CAPTURE                          UPVAL U1
-       24 DUPTABLE                         R3 K14 [{["skipValidateHSR"] = True, ["studioPluginName"] = "AutoSetup", ["enforceShadowValidations"] = True, ["localizationCallback"]}]
-       25 SETTABLEKS                       R2 R3 K13 ["localizationCallback"]
-       27 GETUPVAL                         R4 2
-       28 GETTABLEKS                       R4 R4 K15 ["validateBundleReadyForUpload"]
-       30 GETUPVAL                         R5 3
-       31 GETTABLEKS                       R6 R0 K16 ["metadata"]
-       33 GETTABLEKS                       R6 R6 K17 ["allowedBundleTypeSettings"]
-       35 LOADK                            R7 K18 ["Body"]
-       36 NEWCLOSURE                       R8 P1
-       37 CAPTURE                          UPVAL U4
-       38 CAPTURE                          UPVAL U5
-       39 LOADNIL                          R9
-       40 MOVE                             R10 R3
-       41 CALL                             R4 6 1
-       42 NEWCLOSURE                       R6 P2
-       43 CAPTURE                          UPVAL U4
-       44 CAPTURE                          UPVAL U5
-       45 CAPTURE                          VAL R1
-       46 NAMECALL                         R4 R4 K19 ["andThen"]
-       48 CALL                             R4 2 1
-       49 NAMECALL                         R4 R4 K20 ["finally"]
-       51 CALL                             R4 1 0
-       52 RETURN                           R0 0
+       24 NEWCLOSURE                       R3 P1
+       25 CAPTURE                          UPVAL U2
+       26 CAPTURE                          UPVAL U3
+       27 CAPTURE                          VAL R1
+       28 NEWCLOSURE                       R4 P2
+       29 CAPTURE                          UPVAL U2
+       30 CAPTURE                          UPVAL U3
+       31 GETUPVAL                         R5 4
+       32 CALL                             R5 0 1
+       33 JUMPIFNOT                        R5 ; [+61]
+       34 DUPTABLE                         R5 K10 [{"errors", "pieces"}]
+       35 NEWTABLE                         R6 0 0
+       37 SETTABLEKS                       R6 R5 K8 ["errors"]
+       39 NEWTABLE                         R6 0 0
+       41 SETTABLEKS                       R6 R5 K9 ["pieces"]
+       43 GETUPVAL                         R6 2
+       44 NEWCLOSURE                       R7 P3
+       45 CAPTURE                          UPVAL U3
+       46 CAPTURE                          VAL R5
+       47 CALL                             R6 1 0
+       48 DUPTABLE                         R6 K14 [{["key"] = "Common.UGCValidation.ErrorLabel.FolderStructureMismatch", ["params"]}]
+       49 NEWTABLE                         R7 0 0
+       51 SETTABLEKS                       R7 R6 K13 ["params"]
+       53 GETTABLEKS                       R7 R6 K11 ["key"]
+       55 LOADK                            R9 K15 ["."]
+       56 NAMECALL                         R7 R7 K16 ["split"]
+       58 CALL                             R7 2 1
+       59 GETUPVAL                         R8 1
+       60 LOADK                            R10 K17 ["Common"]
+       61 LOADK                            R11 K18 ["UGCValidation"]
+       62 LOADK                            R12 K19 ["ErrorLabel"]
+       63 LENGTH                           R14 R7
+       64 GETTABLE                         R13 R7 R14
+       65 GETTABLEKS                       R14 R6 K13 ["params"]
+       67 NAMECALL                         R8 R8 K20 ["getExternalText"]
+       69 CALL                             R8 6 1
+       70 MOVE                             R5 R8
+       71 GETUPVAL                         R6 5
+       72 GETTABLEKS                       R6 R6 K21 ["validateBundle"]
+       74 GETUPVAL                         R7 6
+       75 GETTABLEKS                       R8 R0 K22 ["metadata"]
+       77 GETTABLEKS                       R8 R8 K23 ["allowedBundleTypeSettings"]
+       79 MOVE                             R9 R2
+       80 MOVE                             R10 R5
+       81 CALL                             R6 4 1
+       82 MOVE                             R8 R3
+       83 NAMECALL                         R6 R6 K24 ["andThen"]
+       85 CALL                             R6 2 1
+       86 NEWCLOSURE                       R8 P4
+       87 CAPTURE                          UPVAL U1
+       88 CAPTURE                          UPVAL U2
+       89 CAPTURE                          UPVAL U3
+       90 CAPTURE                          VAL R1
+       91 NAMECALL                         R6 R6 K25 ["catch"]
+       93 CALL                             R6 2 0
+       94 RETURN                           R0 0
+       95 DUPTABLE                         R5 K32 [{["skipValidateHSR"] = True, ["studioPluginName"] = "AutoSetup", ["enforceShadowValidations"] = True, ["localizationCallback"]}]
+       96 SETTABLEKS                       R2 R5 K31 ["localizationCallback"]
+       98 GETUPVAL                         R6 7
+       99 GETTABLEKS                       R6 R6 K33 ["validateBundleReadyForUpload"]
+      101 GETUPVAL                         R7 6
+      102 GETTABLEKS                       R8 R0 K22 ["metadata"]
+      104 GETTABLEKS                       R8 R8 K23 ["allowedBundleTypeSettings"]
+      106 LOADK                            R9 K34 ["Body"]
+      107 MOVE                             R10 R4
+      108 LOADNIL                          R11
+      109 MOVE                             R12 R5
+      110 CALL                             R6 6 1
+      111 MOVE                             R8 R3
+      112 NAMECALL                         R6 R6 K24 ["andThen"]
+      114 CALL                             R6 2 1
+      115 NAMECALL                         R6 R6 K35 ["finally"]
+      117 CALL                             R6 1 0
+      118 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["computeHashSerializeContext"]
         3 NEWTABLE                         R2 0 1
@@ -186,15 +281,17 @@ PROTO_9:
        70 NEWCLOSURE                       R5 P2
        71 CAPTURE                          UPVAL U5
        72 CAPTURE                          UPVAL U6
-       73 CAPTURE                          UPVAL U3
-       74 CAPTURE                          VAL R0
-       75 CAPTURE                          UPVAL U7
-       76 CAPTURE                          VAL R2
-       77 NAMECALL                         R3 R3 K12 ["andThen"]
-       79 CALL                             R3 2 0
-       80 RETURN                           R0 0
+       73 CAPTURE                          UPVAL U7
+       74 CAPTURE                          VAL R2
+       75 CAPTURE                          UPVAL U8
+       76 CAPTURE                          UPVAL U9
+       77 CAPTURE                          VAL R0
+       78 CAPTURE                          UPVAL U3
+       79 NAMECALL                         R3 R3 K12 ["andThen"]
+       81 CALL                             R3 2 0
+       82 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["computeHashSerializeContext"]
         3 NEWTABLE                         R2 0 1
@@ -216,7 +313,7 @@ PROTO_10:
        23 CALL                             R3 1 0
        24 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["use"]
         3 CALL                             R1 1 1
@@ -264,48 +361,50 @@ PROTO_11:
        60 CAPTURE                          UPVAL U3
        61 CAPTURE                          VAL R2
        62 CAPTURE                          VAL R4
-       63 NEWTABLE                         R10 0 0
-       65 CALL                             R8 2 1
-       66 GETUPVAL                         R9 2
-       67 GETTABLEKS                       R9 R9 K7 ["useCallback"]
-       69 NEWCLOSURE                       R10 P2
-       70 CAPTURE                          UPVAL U4
-       71 CAPTURE                          VAL R5
-       72 CAPTURE                          VAL R8
-       73 NEWTABLE                         R11 0 1
-       75 MOVE                             R12 R8
-       76 SETLIST                          R11 R12 1 [1]
-       78 CALL                             R9 2 1
-       79 GETUPVAL                         R10 6
-       80 GETUPVAL                         R11 5
-       81 GETTABLEKS                       R11 R11 K8 ["util"]
-       83 GETTABLEKS                       R11 R11 K9 ["canUploadBundlesAsync"]
-       85 CALL                             R10 1 2
-       86 DUPTABLE                         R12 K19 [{"cachedResponses", "validateBundle", "revalidateBundle", "calculateScaleToValidateBoundsAsync", "preprocessDataAsync", "isPreprocessDataCached", "findCachedValidationResponse", "canUploadBundles", "requestCanUploadBundles"}]
-       87 SETTABLEKS                       R3 R12 K10 ["cachedResponses"]
-       89 SETTABLEKS                       R8 R12 K11 ["validateBundle"]
-       91 SETTABLEKS                       R9 R12 K12 ["revalidateBundle"]
-       93 GETUPVAL                         R13 5
-       94 GETTABLEKS                       R13 R13 K13 ["calculateScaleToValidateBoundsAsync"]
-       96 SETTABLEKS                       R13 R12 K13 ["calculateScaleToValidateBoundsAsync"]
-       98 GETUPVAL                         R13 5
-       99 GETTABLEKS                       R13 R13 K14 ["preprocessDataAsync"]
-      101 SETTABLEKS                       R13 R12 K14 ["preprocessDataAsync"]
-      103 GETUPVAL                         R13 5
-      104 GETTABLEKS                       R13 R13 K15 ["isPreprocessDataCached"]
-      106 SETTABLEKS                       R13 R12 K15 ["isPreprocessDataCached"]
-      108 SETTABLEKS                       R7 R12 K16 ["findCachedValidationResponse"]
-      110 SETTABLEKS                       R10 R12 K17 ["canUploadBundles"]
-      112 SETTABLEKS                       R11 R12 K18 ["requestCanUploadBundles"]
-      114 GETUPVAL                         R13 2
-      115 GETTABLEKS                       R13 R13 K20 ["createElement"]
-      117 GETUPVAL                         R14 7
-      118 GETTABLEKS                       R14 R14 K21 ["Provider"]
-      120 DUPTABLE                         R15 K23 [{"value"}]
-      121 SETTABLEKS                       R12 R15 K22 ["value"]
-      123 GETTABLEKS                       R16 R0 K24 ["children"]
-      125 CALL                             R13 3 -1
-      126 RETURN                           R13 -1
+       63 CAPTURE                          UPVAL U6
+       64 CAPTURE                          UPVAL U7
+       65 NEWTABLE                         R10 0 0
+       67 CALL                             R8 2 1
+       68 GETUPVAL                         R9 2
+       69 GETTABLEKS                       R9 R9 K7 ["useCallback"]
+       71 NEWCLOSURE                       R10 P2
+       72 CAPTURE                          UPVAL U4
+       73 CAPTURE                          VAL R5
+       74 CAPTURE                          VAL R8
+       75 NEWTABLE                         R11 0 1
+       77 MOVE                             R12 R8
+       78 SETLIST                          R11 R12 1 [1]
+       80 CALL                             R9 2 1
+       81 GETUPVAL                         R10 8
+       82 GETUPVAL                         R11 5
+       83 GETTABLEKS                       R11 R11 K8 ["util"]
+       85 GETTABLEKS                       R11 R11 K9 ["canUploadBundlesAsync"]
+       87 CALL                             R10 1 2
+       88 DUPTABLE                         R12 K19 [{"cachedResponses", "validateBundle", "revalidateBundle", "calculateScaleToValidateBoundsAsync", "preprocessDataAsync", "isPreprocessDataCached", "findCachedValidationResponse", "canUploadBundles", "requestCanUploadBundles"}]
+       89 SETTABLEKS                       R3 R12 K10 ["cachedResponses"]
+       91 SETTABLEKS                       R8 R12 K11 ["validateBundle"]
+       93 SETTABLEKS                       R9 R12 K12 ["revalidateBundle"]
+       95 GETUPVAL                         R13 5
+       96 GETTABLEKS                       R13 R13 K13 ["calculateScaleToValidateBoundsAsync"]
+       98 SETTABLEKS                       R13 R12 K13 ["calculateScaleToValidateBoundsAsync"]
+      100 GETUPVAL                         R13 5
+      101 GETTABLEKS                       R13 R13 K14 ["preprocessDataAsync"]
+      103 SETTABLEKS                       R13 R12 K14 ["preprocessDataAsync"]
+      105 GETUPVAL                         R13 5
+      106 GETTABLEKS                       R13 R13 K15 ["isPreprocessDataCached"]
+      108 SETTABLEKS                       R13 R12 K15 ["isPreprocessDataCached"]
+      110 SETTABLEKS                       R7 R12 K16 ["findCachedValidationResponse"]
+      112 SETTABLEKS                       R10 R12 K17 ["canUploadBundles"]
+      114 SETTABLEKS                       R11 R12 K18 ["requestCanUploadBundles"]
+      116 GETUPVAL                         R13 2
+      117 GETTABLEKS                       R13 R13 K20 ["createElement"]
+      119 GETUPVAL                         R14 9
+      120 GETTABLEKS                       R14 R14 K21 ["Provider"]
+      122 DUPTABLE                         R15 K23 [{"value"}]
+      123 SETTABLEKS                       R12 R15 K22 ["value"]
+      125 GETTABLEKS                       R16 R0 K24 ["children"]
+      127 CALL                             R13 3 -1
+      128 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -344,54 +443,66 @@ MAIN:
        57 GETTABLEKS                       R8 R8 K11 ["Util"]
        59 GETTABLEKS                       R8 R8 K15 ["CharacterHashUtils"]
        61 CALL                             R7 1 1
-       62 GETTABLEKS                       R8 R1 K16 ["ContextServices"]
-       64 GETTABLEKS                       R8 R8 K17 ["Analytics"]
-       66 GETTABLEKS                       R9 R1 K16 ["ContextServices"]
-       68 GETTABLEKS                       R9 R9 K18 ["Localization"]
-       70 DUPTABLE                         R10 K29 [{["cachedResponses"], ["validateBundle"], ["revalidateBundle"], ["findCachedValidationResponse"], ["calculateScaleToValidateBoundsAsync"], ["preprocessDataAsync"], ["isPreprocessDataCached"], ["canUploadBundles"] = , ["requestCanUploadBundles"]}]
-       71 NEWTABLE                         R11 0 0
-       73 SETTABLEKS                       R11 R10 K19 ["cachedResponses"]
-       75 MOVE                             R11 R5
-       76 LOADK                            R12 K20 ["validateBundle"]
-       77 CALL                             R11 1 1
-       78 SETTABLEKS                       R11 R10 K20 ["validateBundle"]
-       80 MOVE                             R11 R5
-       81 LOADK                            R12 K21 ["revalidateBundle"]
-       82 CALL                             R11 1 1
-       83 SETTABLEKS                       R11 R10 K21 ["revalidateBundle"]
-       85 MOVE                             R11 R5
-       86 LOADK                            R12 K22 ["findCachedValidationResponse"]
-       87 CALL                             R11 1 1
-       88 SETTABLEKS                       R11 R10 K22 ["findCachedValidationResponse"]
-       90 MOVE                             R11 R5
-       91 LOADK                            R12 K23 ["calculateScaleToValidateBoundsAsync"]
-       92 CALL                             R11 1 1
-       93 SETTABLEKS                       R11 R10 K23 ["calculateScaleToValidateBoundsAsync"]
-       95 MOVE                             R11 R5
-       96 LOADK                            R12 K24 ["preprocessDataAsync"]
-       97 CALL                             R11 1 1
-       98 SETTABLEKS                       R11 R10 K24 ["preprocessDataAsync"]
-      100 MOVE                             R11 R5
-      101 LOADK                            R12 K25 ["isPreprocessDataCached"]
-      102 CALL                             R11 1 1
-      103 SETTABLEKS                       R11 R10 K25 ["isPreprocessDataCached"]
-      105 MOVE                             R11 R5
-      106 LOADK                            R12 K28 ["requestCanUploadBundles"]
-      107 CALL                             R11 1 1
-      108 SETTABLEKS                       R11 R10 K28 ["requestCanUploadBundles"]
-      110 GETTABLEKS                       R11 R2 K30 ["createContext"]
-      112 MOVE                             R12 R10
-      113 CALL                             R11 1 1
-      114 DUPCLOSURE                       R12 K31 [PROTO_11]
-      115 CAPTURE                          VAL R8
-      116 CAPTURE                          VAL R9
-      117 CAPTURE                          VAL R2
-      118 CAPTURE                          VAL R4
-      119 CAPTURE                          VAL R7
-      120 CAPTURE                          VAL R3
-      121 CAPTURE                          VAL R6
-      122 CAPTURE                          VAL R11
-      123 DUPTABLE                         R13 K34 [{"Context", "Provider"}]
-      124 SETTABLEKS                       R11 R13 K32 ["Context"]
-      126 SETTABLEKS                       R12 R13 K33 ["Provider"]
-      128 RETURN                           R13 1
+       62 GETIMPORT                        R8 K5 [require]
+       64 GETTABLEKS                       R9 R0 K10 ["Src"]
+       66 GETTABLEKS                       R9 R9 K11 ["Util"]
+       68 GETTABLEKS                       R9 R9 K16 ["fetchUGCValidationFromService"]
+       70 CALL                             R8 1 1
+       71 GETIMPORT                        R9 K5 [require]
+       73 GETTABLEKS                       R10 R0 K10 ["Src"]
+       75 GETTABLEKS                       R10 R10 K17 ["Flags"]
+       77 GETTABLEKS                       R10 R10 K18 ["getAvatarPreviewerUGCValidationViaAQSEnabled"]
+       79 CALL                             R9 1 1
+       80 GETTABLEKS                       R10 R1 K19 ["ContextServices"]
+       82 GETTABLEKS                       R10 R10 K20 ["Analytics"]
+       84 GETTABLEKS                       R11 R1 K19 ["ContextServices"]
+       86 GETTABLEKS                       R11 R11 K21 ["Localization"]
+       88 DUPTABLE                         R12 K32 [{["cachedResponses"], ["validateBundle"], ["revalidateBundle"], ["findCachedValidationResponse"], ["calculateScaleToValidateBoundsAsync"], ["preprocessDataAsync"], ["isPreprocessDataCached"], ["canUploadBundles"] = , ["requestCanUploadBundles"]}]
+       89 NEWTABLE                         R13 0 0
+       91 SETTABLEKS                       R13 R12 K22 ["cachedResponses"]
+       93 MOVE                             R13 R5
+       94 LOADK                            R14 K23 ["validateBundle"]
+       95 CALL                             R13 1 1
+       96 SETTABLEKS                       R13 R12 K23 ["validateBundle"]
+       98 MOVE                             R13 R5
+       99 LOADK                            R14 K24 ["revalidateBundle"]
+      100 CALL                             R13 1 1
+      101 SETTABLEKS                       R13 R12 K24 ["revalidateBundle"]
+      103 MOVE                             R13 R5
+      104 LOADK                            R14 K25 ["findCachedValidationResponse"]
+      105 CALL                             R13 1 1
+      106 SETTABLEKS                       R13 R12 K25 ["findCachedValidationResponse"]
+      108 MOVE                             R13 R5
+      109 LOADK                            R14 K26 ["calculateScaleToValidateBoundsAsync"]
+      110 CALL                             R13 1 1
+      111 SETTABLEKS                       R13 R12 K26 ["calculateScaleToValidateBoundsAsync"]
+      113 MOVE                             R13 R5
+      114 LOADK                            R14 K27 ["preprocessDataAsync"]
+      115 CALL                             R13 1 1
+      116 SETTABLEKS                       R13 R12 K27 ["preprocessDataAsync"]
+      118 MOVE                             R13 R5
+      119 LOADK                            R14 K28 ["isPreprocessDataCached"]
+      120 CALL                             R13 1 1
+      121 SETTABLEKS                       R13 R12 K28 ["isPreprocessDataCached"]
+      123 MOVE                             R13 R5
+      124 LOADK                            R14 K31 ["requestCanUploadBundles"]
+      125 CALL                             R13 1 1
+      126 SETTABLEKS                       R13 R12 K31 ["requestCanUploadBundles"]
+      128 GETTABLEKS                       R13 R2 K33 ["createContext"]
+      130 MOVE                             R14 R12
+      131 CALL                             R13 1 1
+      132 DUPCLOSURE                       R14 K34 [PROTO_12]
+      133 CAPTURE                          VAL R10
+      134 CAPTURE                          VAL R11
+      135 CAPTURE                          VAL R2
+      136 CAPTURE                          VAL R4
+      137 CAPTURE                          VAL R7
+      138 CAPTURE                          VAL R3
+      139 CAPTURE                          VAL R9
+      140 CAPTURE                          VAL R8
+      141 CAPTURE                          VAL R6
+      142 CAPTURE                          VAL R13
+      143 DUPTABLE                         R15 K37 [{"Context", "Provider"}]
+      144 SETTABLEKS                       R13 R15 K35 ["Context"]
+      146 SETTABLEKS                       R14 R15 K36 ["Provider"]
+      148 RETURN                           R15 1

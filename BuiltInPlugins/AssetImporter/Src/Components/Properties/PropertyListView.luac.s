@@ -646,26 +646,26 @@ MAIN:
       174 GETTABLEKS                       R31 R31 K45 ["Flags"]
       176 GETTABLEKS                       R31 R31 K46 ["getFFlagAssetImporterVersionedAnimationUx"]
       178 CALL                             R30 1 1
-      179 DUPTABLE                         R31 K54 [{["RigType"] = True, ["RigScale"] = True, ["RestPose"] = True, ["AnimationIdForRestPose"] = True, ["ScaleUnit"] = True, ["ScaleFactor"] = True}]
-      180 GETTABLEKS                       R32 R4 K55 ["PureComponent"]
-      182 LOADK                            R34 K56 ["PropertyListView"]
-      183 NAMECALL                         R32 R32 K57 ["extend"]
+      179 DUPTABLE                         R31 K55 [{["RigType"] = True, ["RigScale"] = True, ["PhysicalConstraintType"] = True, ["RestPose"] = True, ["AnimationIdForRestPose"] = True, ["ScaleUnit"] = True, ["ScaleFactor"] = True}]
+      180 GETTABLEKS                       R32 R4 K56 ["PureComponent"]
+      182 LOADK                            R34 K57 ["PropertyListView"]
+      183 NAMECALL                         R32 R32 K58 ["extend"]
       185 CALL                             R32 2 1
-      186 DUPCLOSURE                       R33 K58 [PROTO_2]
+      186 DUPCLOSURE                       R33 K59 [PROTO_2]
       187 CAPTURE                          VAL R29
-      188 SETTABLEKS                       R33 R32 K59 ["init"]
-      190 DUPCLOSURE                       R33 K60 [PROTO_3]
-      191 SETTABLEKS                       R33 R32 K61 ["willUpdate"]
-      193 DUPCLOSURE                       R33 K62 [PROTO_4]
+      188 SETTABLEKS                       R33 R32 K60 ["init"]
+      190 DUPCLOSURE                       R33 K61 [PROTO_3]
+      191 SETTABLEKS                       R33 R32 K62 ["willUpdate"]
+      193 DUPCLOSURE                       R33 K63 [PROTO_4]
       194 CAPTURE                          VAL R27
       195 CAPTURE                          VAL R4
       196 CAPTURE                          VAL R17
-      197 DUPCLOSURE                       R34 K63 [PROTO_5]
+      197 DUPCLOSURE                       R34 K64 [PROTO_5]
       198 CAPTURE                          VAL R4
       199 CAPTURE                          VAL R22
-      200 DUPCLOSURE                       R35 K64 [PROTO_6]
+      200 DUPCLOSURE                       R35 K65 [PROTO_6]
       201 CAPTURE                          VAL R2
-      202 DUPCLOSURE                       R36 K65 [PROTO_8]
+      202 DUPCLOSURE                       R36 K66 [PROTO_8]
       203 CAPTURE                          VAL R19
       204 CAPTURE                          VAL R2
       205 CAPTURE                          VAL R20
@@ -674,8 +674,8 @@ MAIN:
       208 CAPTURE                          VAL R18
       209 CAPTURE                          VAL R12
       210 CAPTURE                          VAL R17
-      211 SETTABLEKS                       R36 R32 K66 ["createHeader"]
-      213 DUPCLOSURE                       R36 K67 [PROTO_10]
+      211 SETTABLEKS                       R36 R32 K67 ["createHeader"]
+      213 DUPCLOSURE                       R36 K68 [PROTO_10]
       214 CAPTURE                          VAL R33
       215 CAPTURE                          VAL R25
       216 CAPTURE                          VAL R30
@@ -686,26 +686,26 @@ MAIN:
       221 CAPTURE                          VAL R4
       222 CAPTURE                          VAL R14
       223 CAPTURE                          VAL R20
-      224 SETTABLEKS                       R36 R32 K68 ["buildSection"]
-      226 DUPCLOSURE                       R36 K69 [PROTO_12]
+      224 SETTABLEKS                       R36 R32 K69 ["buildSection"]
+      226 DUPCLOSURE                       R36 K70 [PROTO_12]
       227 CAPTURE                          VAL R28
       228 CAPTURE                          VAL R4
       229 CAPTURE                          VAL R16
       230 CAPTURE                          VAL R3
       231 CAPTURE                          VAL R24
-      232 SETTABLEKS                       R36 R32 K70 ["render"]
+      232 SETTABLEKS                       R36 R32 K71 ["render"]
       234 MOVE                             R36 R9
-      235 DUPTABLE                         R37 K72 [{"Localization", "Stylizer", "Plugin"}]
+      235 DUPTABLE                         R37 K73 [{"Localization", "Stylizer", "Plugin"}]
       236 SETTABLEKS                       R10 R37 K19 ["Localization"]
       238 SETTABLEKS                       R11 R37 K20 ["Stylizer"]
-      240 GETTABLEKS                       R38 R8 K71 ["Plugin"]
-      242 SETTABLEKS                       R38 R37 K71 ["Plugin"]
+      240 GETTABLEKS                       R38 R8 K72 ["Plugin"]
+      242 SETTABLEKS                       R38 R37 K72 ["Plugin"]
       244 CALL                             R36 1 1
       245 MOVE                             R37 R32
       246 CALL                             R36 1 1
       247 MOVE                             R32 R36
-      248 DUPCLOSURE                       R36 K73 [PROTO_13]
-      249 GETTABLEKS                       R37 R5 K74 ["connect"]
+      248 DUPCLOSURE                       R36 K74 [PROTO_13]
+      249 GETTABLEKS                       R37 R5 K75 ["connect"]
       251 MOVE                             R38 R36
       252 CALL                             R37 1 1
       253 MOVE                             R38 R32

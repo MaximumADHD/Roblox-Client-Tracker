@@ -6,34 +6,102 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+5]
-        2 GETUPVAL                         R0 1
-        3 GETTABLEKS                       R0 R0 K0 ["unmount"]
-        5 GETUPVAL                         R1 0
-        6 CALL                             R0 1 0
-        7 GETUPVAL                         R0 2
-        8 LOADB                            R1 0
-        9 SETTABLEKS                       R1 R0 K1 ["Enabled"]
-       11 RETURN                           R0 0
+        1 CALL                             R0 0 1
+        2 JUMPIFNOT                        R0 ; [+27]
+        3 GETUPVAL                         R0 1
+        4 JUMPIFNOT                        R0 ; [+25]
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K0 ["funnelId"]
+        8 JUMPIFNOT                        R0 ; [+21]
+        9 GETUPVAL                         R0 2
+       10 NAMECALL                         R0 R0 K1 ["getState"]
+       12 CALL                             R0 1 1
+       13 GETTABLEKS                       R0 R0 K2 ["PublishedPlace"]
+       15 GETTABLEKS                       R0 R0 K3 ["isPublishing"]
+       17 JUMPIF                           R0 ; [+12]
+       18 GETUPVAL                         R0 3
+       19 GETTABLEKS                       R0 R0 K4 ["reportFinished"]
+       21 GETUPVAL                         R1 1
+       22 GETTABLEKS                       R1 R1 K0 ["funnelId"]
+       24 LOADB                            R2 0
+       25 LOADNIL                          R3
+       26 LOADK                            R4 K5 ["cancelled"]
+       27 CALL                             R0 4 0
+       28 LOADNIL                          R0
+       29 SETUPVAL                         R0 1
+       30 GETUPVAL                         R0 4
+       31 JUMPIFNOT                        R0 ; [+5]
+       32 GETUPVAL                         R0 5
+       33 GETTABLEKS                       R0 R0 K6 ["unmount"]
+       35 GETUPVAL                         R1 4
+       36 CALL                             R0 1 0
+       37 GETUPVAL                         R0 6
+       38 LOADB                            R1 0
+       39 SETTABLEKS                       R1 R0 K7 ["Enabled"]
+       41 RETURN                           R0 0
 
 PROTO_2:
+        0 GETUPVAL                         R2 0
+        1 CALL                             R2 0 1
+        2 JUMPIF                           R2 ; [+1]
+        3 RETURN                           R0 0
+        4 GETUPVAL                         R2 1
+        5 LOADNIL                          R3
+        6 SETUPVAL                         R3 1
+        7 JUMPIFNOT                        R2 ; [+11]
+        8 GETTABLEKS                       R3 R2 K0 ["funnelId"]
+       10 JUMPIFNOT                        R3 ; [+8]
+       11 GETUPVAL                         R3 2
+       12 GETTABLEKS                       R3 R3 K1 ["reportFinished"]
+       14 GETTABLEKS                       R4 R2 K0 ["funnelId"]
+       16 MOVE                             R5 R0
+       17 MOVE                             R6 R1
+       18 CALL                             R3 3 0
+       19 JUMPIFNOT                        R0 ; [+3]
+       20 JUMPIFNOT                        R2 ; [+2]
+       21 GETUPVAL                         R3 3
+       22 JUMPIF                           R3 ; [+1]
+       23 RETURN                           R0 0
+       24 GETTABLEKS                       R3 R2 K2 ["useTeamCreateSetting"]
+       26 JUMPIFNOT                        R3 ; [+14]
+       27 GETUPVAL                         R4 4
+       28 NAMECALL                         R4 R4 K3 ["getState"]
+       30 CALL                             R4 1 1
+       31 GETTABLEKS                       R4 R4 K4 ["NewGameSettings"]
+       33 GETTABLEKS                       R4 R4 K5 ["changed"]
+       35 GETTABLEKS                       R4 R4 K6 ["teamCreateEnabled"]
+       37 JUMPIFEQKB                       R4 TRUE ; [+2]
+       39 LOADB                            R3 0 +1
+       40 LOADB                            R3 1
+       41 GETUPVAL                         R4 2
+       42 GETTABLEKS                       R4 R4 K7 ["showPublishStatus"]
+       44 DUPTABLE                         R5 K13 [{"publishStatusPanel", "studioPublishService", "universeId", "closeMode", "teamCreateEnabled", "closeSaveDialog", "funnelId"}]
+       45 GETUPVAL                         R6 3
+       46 SETTABLEKS                       R6 R5 K8 ["publishStatusPanel"]
+       48 GETUPVAL                         R6 5
+       49 SETTABLEKS                       R6 R5 K9 ["studioPublishService"]
+       51 SETTABLEKS                       R1 R5 K10 ["universeId"]
+       53 GETTABLEKS                       R6 R2 K11 ["closeMode"]
+       55 SETTABLEKS                       R6 R5 K11 ["closeMode"]
+       57 SETTABLEKS                       R3 R5 K6 ["teamCreateEnabled"]
+       59 GETUPVAL                         R6 6
+       60 SETTABLEKS                       R6 R5 K12 ["closeSaveDialog"]
+       62 GETTABLEKS                       R6 R2 K0 ["funnelId"]
+       64 SETTABLEKS                       R6 R5 K0 ["funnelId"]
+       66 CALL                             R4 1 0
+       67 RETURN                           R0 0
+
+PROTO_3:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+4]
         2 GETUPVAL                         R0 1
         3 NAMECALL                         R0 R0 K0 ["SaveOrPublishPlaceToRobloxIsCanceled"]
         5 CALL                             R0 1 0
         6 GETUPVAL                         R0 2
-        7 JUMPIFNOT                        R0 ; [+5]
-        8 GETUPVAL                         R0 3
-        9 GETTABLEKS                       R0 R0 K1 ["unmount"]
-       11 GETUPVAL                         R1 2
-       12 CALL                             R0 1 0
-       13 GETUPVAL                         R0 4
-       14 LOADB                            R1 0
-       15 SETTABLEKS                       R1 R0 K2 ["Enabled"]
-       17 RETURN                           R0 0
+        7 CALL                             R0 0 0
+        8 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["Name"]
         3 GETUPVAL                         R1 2
@@ -79,80 +147,108 @@ PROTO_3:
        57 CAPTURE                          UPVAL U5
        58 CAPTURE                          UPVAL U6
        59 CAPTURE                          UPVAL U7
-       60 CAPTURE                          UPVAL U8
-       61 CAPTURE                          UPVAL U1
-       62 NAMECALL                         R1 R1 K22 ["BindToClose"]
-       64 CALL                             R1 2 0
-       65 RETURN                           R0 0
-
-PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R3 R3 K0 ["createElement"]
-        3 GETUPVAL                         R4 1
-        4 DUPTABLE                         R5 K9 [{"focusGui", "localization", "mouse", "plugin", "store", "theme", "calloutController", "publishStatusPanel"}]
-        5 GETUPVAL                         R6 2
-        6 SETTABLEKS                       R6 R5 K1 ["focusGui"]
-        8 GETUPVAL                         R6 3
-        9 SETTABLEKS                       R6 R5 K2 ["localization"]
-       11 GETUPVAL                         R6 4
-       12 NAMECALL                         R6 R6 K10 ["getMouse"]
-       14 CALL                             R6 1 1
-       15 SETTABLEKS                       R6 R5 K3 ["mouse"]
-       17 GETUPVAL                         R6 4
-       18 SETTABLEKS                       R6 R5 K4 ["plugin"]
-       20 GETUPVAL                         R6 5
-       21 SETTABLEKS                       R6 R5 K5 ["store"]
-       23 GETUPVAL                         R6 6
-       24 CALL                             R6 0 1
-       25 SETTABLEKS                       R6 R5 K6 ["theme"]
-       27 GETUPVAL                         R6 7
-       28 SETTABLEKS                       R6 R5 K7 ["calloutController"]
-       30 GETUPVAL                         R6 8
-       31 SETTABLEKS                       R6 R5 K8 ["publishStatusPanel"]
-       33 NEWTABLE                         R6 0 1
-       35 GETUPVAL                         R7 0
-       36 GETTABLEKS                       R7 R7 K0 ["createElement"]
-       38 GETUPVAL                         R8 9
-       39 DUPTABLE                         R9 K15 [{"OnClose", "IsPublish", "CloseMode", "IsSaveOrPublishAs"}]
-       40 GETUPVAL                         R10 10
-       41 SETTABLEKS                       R10 R9 K11 ["OnClose"]
-       43 SETTABLEKS                       R1 R9 K12 ["IsPublish"]
-       45 SETTABLEKS                       R2 R9 K13 ["CloseMode"]
-       47 SETTABLEKS                       R0 R9 K14 ["IsSaveOrPublishAs"]
-       49 CALL                             R7 2 -1
-       50 SETLIST                          R6 R7 -1 [1]
-       52 CALL                             R3 3 1
-       53 GETUPVAL                         R4 5
-       54 GETUPVAL                         R6 11
-       55 GETUPVAL                         R8 12
-       56 JUMPIFNOT                        R8 ; [+7]
-       57 GETUPVAL                         R7 3
-       58 LOADK                            R9 K16 ["General"]
-       59 LOADK                            R10 K17 ["UntitledExperience"]
-       60 NAMECALL                         R7 R7 K18 ["getText"]
-       62 CALL                             R7 3 1
-       63 JUMP                             ; [+6]
-       64 GETUPVAL                         R7 3
-       65 LOADK                            R9 K16 ["General"]
-       66 LOADK                            R10 K19 ["UntitledGame"]
-       67 NAMECALL                         R7 R7 K18 ["getText"]
-       69 CALL                             R7 3 1
-       70 MOVE                             R8 R0
-       71 CALL                             R6 2 -1
-       72 NAMECALL                         R4 R4 K20 ["dispatch"]
-       74 CALL                             R4 -1 0
-       75 GETUPVAL                         R4 0
-       76 GETTABLEKS                       R4 R4 K21 ["mount"]
-       78 MOVE                             R5 R3
-       79 GETUPVAL                         R6 2
-       80 CALL                             R4 2 1
-       81 SETUPVAL                         R4 13
-       82 GETUPVAL                         R4 2
-       83 LOADB                            R5 1
-       84 SETTABLEKS                       R5 R4 K22 ["Enabled"]
-       86 RETURN                           R0 0
+       60 NAMECALL                         R1 R1 K22 ["BindToClose"]
+       62 CALL                             R1 2 0
+       63 RETURN                           R0 0
 
 PROTO_5:
+        0 GETUPVAL                         R3 0
+        1 CALL                             R3 0 1
+        2 JUMPIFNOT                        R3 ; [+35]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K0 ["isFirstPublish"]
+        6 MOVE                             R4 R1
+        7 GETIMPORT                        R5 K2 [game]
+        9 GETTABLEKS                       R5 R5 K3 ["GameId"]
+       11 CALL                             R3 2 1
+       12 JUMPIFNOT                        R3 ; [+17]
+       13 GETUPVAL                         R3 1
+       14 GETTABLEKS                       R3 R3 K4 ["createFunnelId"]
+       16 CALL                             R3 0 1
+       17 DUPTABLE                         R4 K11 [{["closeMode"], ["useTeamCreateSetting"] = True, ["keepOnDialogOpen"] = False, ["funnelId"]}]
+       18 SETTABLEKS                       R2 R4 K5 ["closeMode"]
+       20 SETTABLEKS                       R3 R4 K10 ["funnelId"]
+       22 SETUPVAL                         R4 2
+       23 GETUPVAL                         R4 1
+       24 GETTABLEKS                       R4 R4 K12 ["reportDialogOpened"]
+       26 MOVE                             R5 R3
+       27 MOVE                             R6 R0
+       28 CALL                             R4 2 0
+       29 JUMP                             ; [+8]
+       30 GETUPVAL                         R3 2
+       31 JUMPIFNOT                        R3 ; [+4]
+       32 GETUPVAL                         R3 2
+       33 GETTABLEKS                       R3 R3 K8 ["keepOnDialogOpen"]
+       35 JUMPIF                           R3 ; [+2]
+       36 LOADNIL                          R3
+       37 SETUPVAL                         R3 2
+       38 GETUPVAL                         R3 3
+       39 GETTABLEKS                       R3 R3 K13 ["createElement"]
+       41 GETUPVAL                         R4 4
+       42 DUPTABLE                         R5 K22 [{"focusGui", "localization", "mouse", "plugin", "store", "theme", "calloutController", "publishStatusPanel"}]
+       43 GETUPVAL                         R6 5
+       44 SETTABLEKS                       R6 R5 K14 ["focusGui"]
+       46 GETUPVAL                         R6 6
+       47 SETTABLEKS                       R6 R5 K15 ["localization"]
+       49 GETUPVAL                         R6 7
+       50 NAMECALL                         R6 R6 K23 ["getMouse"]
+       52 CALL                             R6 1 1
+       53 SETTABLEKS                       R6 R5 K16 ["mouse"]
+       55 GETUPVAL                         R6 7
+       56 SETTABLEKS                       R6 R5 K17 ["plugin"]
+       58 GETUPVAL                         R6 8
+       59 SETTABLEKS                       R6 R5 K18 ["store"]
+       61 GETUPVAL                         R6 9
+       62 CALL                             R6 0 1
+       63 SETTABLEKS                       R6 R5 K19 ["theme"]
+       65 GETUPVAL                         R6 10
+       66 SETTABLEKS                       R6 R5 K20 ["calloutController"]
+       68 GETUPVAL                         R6 11
+       69 SETTABLEKS                       R6 R5 K21 ["publishStatusPanel"]
+       71 NEWTABLE                         R6 0 1
+       73 GETUPVAL                         R7 3
+       74 GETTABLEKS                       R7 R7 K13 ["createElement"]
+       76 GETUPVAL                         R8 12
+       77 DUPTABLE                         R9 K28 [{"OnClose", "IsPublish", "CloseMode", "IsSaveOrPublishAs"}]
+       78 GETUPVAL                         R10 13
+       79 SETTABLEKS                       R10 R9 K24 ["OnClose"]
+       81 SETTABLEKS                       R1 R9 K25 ["IsPublish"]
+       83 SETTABLEKS                       R2 R9 K26 ["CloseMode"]
+       85 SETTABLEKS                       R0 R9 K27 ["IsSaveOrPublishAs"]
+       87 CALL                             R7 2 -1
+       88 SETLIST                          R6 R7 -1 [1]
+       90 CALL                             R3 3 1
+       91 GETUPVAL                         R4 8
+       92 GETUPVAL                         R6 14
+       93 GETUPVAL                         R8 15
+       94 JUMPIFNOT                        R8 ; [+7]
+       95 GETUPVAL                         R7 6
+       96 LOADK                            R9 K29 ["General"]
+       97 LOADK                            R10 K30 ["UntitledExperience"]
+       98 NAMECALL                         R7 R7 K31 ["getText"]
+      100 CALL                             R7 3 1
+      101 JUMP                             ; [+6]
+      102 GETUPVAL                         R7 6
+      103 LOADK                            R9 K29 ["General"]
+      104 LOADK                            R10 K32 ["UntitledGame"]
+      105 NAMECALL                         R7 R7 K31 ["getText"]
+      107 CALL                             R7 3 1
+      108 MOVE                             R8 R0
+      109 CALL                             R6 2 -1
+      110 NAMECALL                         R4 R4 K33 ["dispatch"]
+      112 CALL                             R4 -1 0
+      113 GETUPVAL                         R4 3
+      114 GETTABLEKS                       R4 R4 K34 ["mount"]
+      116 MOVE                             R5 R3
+      117 GETUPVAL                         R6 5
+      118 CALL                             R4 2 1
+      119 SETUPVAL                         R4 16
+      120 GETUPVAL                         R4 5
+      121 LOADB                            R5 1
+      122 SETTABLEKS                       R5 R4 K35 ["Enabled"]
+      124 RETURN                           R0 0
+
+PROTO_6:
         0 JUMPIFNOT                        R1 ; [+19]
         1 GETUPVAL                         R3 0
         2 GETUPVAL                         R5 1
@@ -192,37 +288,135 @@ PROTO_5:
        42 CALL                             R3 3 0
        43 RETURN                           R0 0
 
-PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 LOADB                            R4 0
-        3 CALL                             R3 1 -1
-        4 NAMECALL                         R1 R1 K0 ["dispatch"]
-        6 CALL                             R1 -1 0
-        7 RETURN                           R0 0
-
 PROTO_7:
-        0 GETUPVAL                         R0 0
-        1 NAMECALL                         R0 R0 K0 ["clearUploadNames"]
-        3 CALL                             R0 1 0
-        4 GETUPVAL                         R0 1
-        5 JUMPIFNOT                        R0 ; [+5]
-        6 GETUPVAL                         R0 2
-        7 GETTABLEKS                       R0 R0 K1 ["unmount"]
-        9 GETUPVAL                         R1 1
-       10 CALL                             R0 1 0
-       11 GETUPVAL                         R0 3
-       12 LOADB                            R1 0
-       13 SETTABLEKS                       R1 R0 K2 ["Enabled"]
-       15 RETURN                           R0 0
+        0 GETUPVAL                         R2 0
+        1 GETUPVAL                         R4 1
+        2 LOADB                            R5 0
+        3 CALL                             R4 1 -1
+        4 NAMECALL                         R2 R2 K0 ["dispatch"]
+        6 CALL                             R2 -1 0
+        7 GETUPVAL                         R2 2
+        8 CALL                             R2 0 1
+        9 JUMPIFNOT                        R2 ; [+9]
+       10 GETUPVAL                         R2 3
+       11 JUMPIFNOT                        R2 ; [+7]
+       12 DUPTABLE                         R2 K3 [{"success", "universeId"}]
+       13 SETTABLEKS                       R0 R2 K1 ["success"]
+       15 SETTABLEKS                       R1 R2 K2 ["universeId"]
+       17 SETUPVAL                         R2 4
+       18 RETURN                           R0 0
+       19 GETUPVAL                         R2 5
+       20 MOVE                             R3 R0
+       21 MOVE                             R4 R1
+       22 CALL                             R2 2 0
+       23 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0
-        1 NAMECALL                         R0 R0 K0 ["open"]
-        3 CALL                             R0 1 0
-        4 RETURN                           R0 0
+        1 CALL                             R0 0 1
+        2 JUMPIFNOT                        R0 ; [+20]
+        3 GETUPVAL                         R0 1
+        4 JUMPIFNOT                        R0 ; [+14]
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K0 ["funnelId"]
+        8 JUMPIFNOT                        R0 ; [+10]
+        9 GETUPVAL                         R0 2
+       10 GETTABLEKS                       R0 R0 K1 ["reportFinished"]
+       12 GETUPVAL                         R1 1
+       13 GETTABLEKS                       R1 R1 K0 ["funnelId"]
+       15 LOADB                            R2 0
+       16 LOADNIL                          R3
+       17 LOADK                            R4 K2 ["cancelled"]
+       18 CALL                             R0 4 0
+       19 LOADNIL                          R0
+       20 SETUPVAL                         R0 1
+       21 LOADNIL                          R0
+       22 SETUPVAL                         R0 3
+       23 GETUPVAL                         R0 4
+       24 NAMECALL                         R0 R0 K3 ["clearUploadNames"]
+       26 CALL                             R0 1 0
+       27 GETUPVAL                         R0 5
+       28 CALL                             R0 0 0
+       29 RETURN                           R0 0
 
 PROTO_9:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["openPublishStatus"]
+        3 DUPTABLE                         R1 K4 [{["publishStatusPanel"], ["source"] = "fileMenu"}]
+        4 GETUPVAL                         R2 1
+        5 SETTABLEKS                       R2 R1 K1 ["publishStatusPanel"]
+        7 CALL                             R0 1 0
+        8 RETURN                           R0 0
+
+PROTO_10:
+        0 LOADB                            R1 0
+        1 SETUPVAL                         R1 0
+        2 GETIMPORT                        R1 K1 [game]
+        4 GETTABLEKS                       R1 R1 K2 ["PlaceId"]
+        6 GETUPVAL                         R2 1
+        7 JUMPIFNOTEQ                      R1 R2 ; [+3]
+        9 GETUPVAL                         R1 2
+       10 JUMPIFNOT                        R1 ; [+3]
+       11 LOADNIL                          R1
+       12 SETUPVAL                         R1 3
+       13 RETURN                           R0 0
+       14 JUMPIF                           R0 ; [+6]
+       15 DUPTABLE                         R1 K8 [{["closeMode"], ["useTeamCreateSetting"] = False, ["keepOnDialogOpen"] = True}]
+       16 GETIMPORT                        R2 K12 [Enum.StudioCloseMode.None]
+       18 SETTABLEKS                       R2 R1 K3 ["closeMode"]
+       20 SETUPVAL                         R1 2
+       21 GETUPVAL                         R1 3
+       22 LOADNIL                          R2
+       23 SETUPVAL                         R2 3
+       24 JUMPIFNOT                        R1 ; [+6]
+       25 GETUPVAL                         R2 4
+       26 GETTABLEKS                       R3 R1 K13 ["success"]
+       28 GETTABLEKS                       R4 R1 K14 ["universeId"]
+       30 CALL                             R2 2 0
+       31 RETURN                           R0 0
+
+PROTO_11:
+        0 LOADB                            R1 0
+        1 SETUPVAL                         R1 0
+        2 LOADNIL                          R1
+        3 SETUPVAL                         R1 1
+        4 GETIMPORT                        R1 K1 [warn]
+        6 LOADK                            R2 K2 ["Failed to check for published place versions: %*"]
+        7 MOVE                             R4 R0
+        8 NAMECALL                         R2 R2 K3 ["format"]
+       10 CALL                             R2 2 1
+       11 CALL                             R1 1 0
+       12 RETURN                           R0 0
+
+PROTO_12:
+        0 GETUPVAL                         R0 0
+        1 JUMPIF                           R0 ; [+2]
+        2 GETUPVAL                         R0 1
+        3 JUMPIFNOT                        R0 ; [+1]
+        4 RETURN                           R0 0
+        5 GETIMPORT                        R0 K1 [game]
+        7 GETTABLEKS                       R0 R0 K2 ["PlaceId"]
+        9 JUMPIFNOTEQKN                    R0 K3 [0] ; [+2]
+       11 RETURN                           R0 0
+       12 LOADB                            R1 1
+       13 SETUPVAL                         R1 0
+       14 GETUPVAL                         R1 2
+       15 MOVE                             R2 R0
+       16 CALL                             R1 1 1
+       17 NEWCLOSURE                       R3 P0
+       18 CAPTURE                          UPVAL U0
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          UPVAL U1
+       21 CAPTURE                          UPVAL U3
+       22 CAPTURE                          UPVAL U4
+       23 NEWCLOSURE                       R4 P1
+       24 CAPTURE                          UPVAL U0
+       25 CAPTURE                          UPVAL U3
+       26 NAMECALL                         R1 R1 K4 ["andThen"]
+       28 CALL                             R1 3 0
+       29 RETURN                           R0 0
+
+PROTO_13:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETTABLEKS                       R1 R1 K0 ["Name"]
@@ -245,37 +439,61 @@ PROTO_9:
        26 NEWCLOSURE                       R2 P1
        27 CAPTURE                          UPVAL U8
        28 CAPTURE                          UPVAL U9
-       29 NAMECALL                         R0 R0 K3 ["Connect"]
-       31 CALL                             R0 2 0
-       32 GETUPVAL                         R1 3
-       33 GETTABLEKS                       R1 R1 K2 ["signals"]
-       35 GETTABLEKS                       R0 R1 K5 ["StudioPublishService.GamePublishCancelled"]
-       37 NEWCLOSURE                       R2 P2
-       38 CAPTURE                          UPVAL U10
-       39 CAPTURE                          UPVAL U11
-       40 CAPTURE                          UPVAL U12
-       41 CAPTURE                          UPVAL U4
-       42 NAMECALL                         R0 R0 K3 ["Connect"]
-       44 CALL                             R0 2 0
-       45 GETUPVAL                         R0 13
-       46 CALL                             R0 0 1
-       47 JUMPIFNOT                        R0 ; [+16]
-       48 GETUPVAL                         R0 3
-       49 GETTABLEKS                       R0 R0 K6 ["actionTriggeredSignals"]
-       51 JUMPIFNOT                        R0 ; [+4]
-       52 GETUPVAL                         R1 3
-       53 GETTABLEKS                       R1 R1 K6 ["actionTriggeredSignals"]
-       55 GETTABLEN                        R0 R1 1
-       56 JUMPIFNOT                        R0 ; [+7]
-       57 GETUPVAL                         R1 14
-       58 JUMPIFNOT                        R1 ; [+5]
-       59 NEWCLOSURE                       R3 P3
-       60 CAPTURE                          UPVAL U14
-       61 NAMECALL                         R1 R0 K3 ["Connect"]
-       63 CALL                             R1 2 0
-       64 RETURN                           R0 0
+       29 CAPTURE                          UPVAL U10
+       30 CAPTURE                          UPVAL U11
+       31 CAPTURE                          UPVAL U12
+       32 CAPTURE                          UPVAL U13
+       33 NAMECALL                         R0 R0 K3 ["Connect"]
+       35 CALL                             R0 2 0
+       36 GETUPVAL                         R1 3
+       37 GETTABLEKS                       R1 R1 K2 ["signals"]
+       39 GETTABLEKS                       R0 R1 K5 ["StudioPublishService.GamePublishCancelled"]
+       41 NEWCLOSURE                       R2 P2
+       42 CAPTURE                          UPVAL U10
+       43 CAPTURE                          UPVAL U14
+       44 CAPTURE                          UPVAL U15
+       45 CAPTURE                          UPVAL U12
+       46 CAPTURE                          UPVAL U16
+       47 CAPTURE                          UPVAL U17
+       48 NAMECALL                         R0 R0 K3 ["Connect"]
+       50 CALL                             R0 2 0
+       51 GETUPVAL                         R0 10
+       52 CALL                             R0 0 1
+       53 JUMPIFNOT                        R0 ; [+37]
+       54 GETUPVAL                         R0 3
+       55 GETTABLEKS                       R0 R0 K6 ["actionTriggeredSignals"]
+       57 JUMPIFNOT                        R0 ; [+4]
+       58 GETUPVAL                         R1 3
+       59 GETTABLEKS                       R1 R1 K6 ["actionTriggeredSignals"]
+       61 GETTABLEN                        R0 R1 1
+       62 JUMPIFNOT                        R0 ; [+8]
+       63 GETUPVAL                         R1 18
+       64 JUMPIFNOT                        R1 ; [+6]
+       65 NEWCLOSURE                       R3 P3
+       66 CAPTURE                          UPVAL U15
+       67 CAPTURE                          UPVAL U18
+       68 NAMECALL                         R1 R0 K3 ["Connect"]
+       70 CALL                             R1 2 0
+       71 GETUPVAL                         R1 3
+       72 GETTABLEKS                       R1 R1 K6 ["actionTriggeredSignals"]
+       74 JUMPIFNOT                        R1 ; [+4]
+       75 GETUPVAL                         R2 3
+       76 GETTABLEKS                       R2 R2 K6 ["actionTriggeredSignals"]
+       78 GETTABLEN                        R1 R2 2
+       79 JUMPIFNOT                        R1 ; [+11]
+       80 GETUPVAL                         R2 18
+       81 JUMPIFNOT                        R2 ; [+9]
+       82 NEWCLOSURE                       R4 P4
+       83 CAPTURE                          UPVAL U11
+       84 CAPTURE                          UPVAL U14
+       85 CAPTURE                          UPVAL U19
+       86 CAPTURE                          UPVAL U12
+       87 CAPTURE                          UPVAL U13
+       88 NAMECALL                         R2 R1 K3 ["Connect"]
+       90 CALL                             R2 2 0
+       91 RETURN                           R0 0
 
-PROTO_10:
+PROTO_14:
         0 JUMPIF                           R0 ; [+1]
         1 RETURN                           R0 0
         2 GETIMPORT                        R2 K1 [script]
@@ -363,87 +581,109 @@ PROTO_10:
       142 CALL                             R18 2 0
       143 LOADNIL                          R18
       144 LOADNIL                          R19
-      145 GETIMPORT                        R20 K4 [require]
-      147 GETTABLEKS                       R21 R2 K10 ["Src"]
-      149 GETTABLEKS                       R21 R21 K18 ["Actions"]
-      151 GETTABLEKS                       R21 R21 K38 ["SetIsPublishing"]
-      153 CALL                             R20 1 1
-      154 NEWCLOSURE                       R21 P1
-      155 CAPTURE                          REF R18
-      156 CAPTURE                          VAL R3
-      157 CAPTURE                          REF R19
-      158 NEWCLOSURE                       R22 P2
-      159 CAPTURE                          VAL R2
-      160 CAPTURE                          REF R19
-      161 CAPTURE                          VAL R0
-      162 CAPTURE                          UPVAL U2
-      163 CAPTURE                          VAL R16
-      164 CAPTURE                          UPVAL U3
-      165 CAPTURE                          UPVAL U4
-      166 CAPTURE                          REF R18
-      167 CAPTURE                          VAL R3
-      168 GETIMPORT                        R23 K4 [require]
-      170 GETTABLEKS                       R24 R2 K10 ["Src"]
-      172 GETTABLEKS                       R24 R24 K39 ["Util"]
-      174 GETTABLEKS                       R24 R24 K40 ["CalloutController"]
-      176 CALL                             R23 1 1
-      177 GETTABLEKS                       R24 R23 K25 ["new"]
-      179 CALL                             R24 0 1
-      180 GETUPVAL                         R25 5
-      181 JUMPIF                           R25 ; [+23]
-      182 LOADK                            R27 K41 ["TcToggleCallout"]
-      183 LOADK                            R28 K42 ["Title"]
-      184 NAMECALL                         R25 R16 K43 ["getText"]
-      186 CALL                             R25 3 1
-      187 LOADK                            R28 K41 ["TcToggleCallout"]
-      188 LOADK                            R29 K44 ["Description"]
-      189 NAMECALL                         R26 R16 K43 ["getText"]
-      191 CALL                             R26 3 1
-      192 GETIMPORT                        R27 K46 [game]
-      194 LOADK                            R29 K47 ["TeamCreateLink"]
-      195 NAMECALL                         R27 R27 K48 ["GetFastString"]
-      197 CALL                             R27 2 1
-      198 LOADK                            R30 K49 ["PublishPlaceAsTeamCreateToggleCallout"]
-      199 MOVE                             R31 R25
-      200 MOVE                             R32 R26
-      201 MOVE                             R33 R27
-      202 NAMECALL                         R28 R24 K50 ["defineCallout"]
-      204 CALL                             R28 5 0
-      205 NEWCLOSURE                       R25 P3
-      206 CAPTURE                          VAL R3
-      207 CAPTURE                          VAL R7
-      208 CAPTURE                          REF R19
-      209 CAPTURE                          VAL R16
-      210 CAPTURE                          VAL R0
-      211 CAPTURE                          VAL R15
-      212 CAPTURE                          VAL R12
-      213 CAPTURE                          VAL R24
-      214 CAPTURE                          REF R17
-      215 CAPTURE                          VAL R8
-      216 CAPTURE                          VAL R21
-      217 CAPTURE                          VAL R11
-      218 CAPTURE                          UPVAL U6
-      219 CAPTURE                          REF R18
-      220 NEWCLOSURE                       R26 P4
-      221 CAPTURE                          VAL R0
-      222 CAPTURE                          VAL R2
-      223 CAPTURE                          VAL R22
-      224 CAPTURE                          VAL R1
+      145 LOADNIL                          R20
+      146 LOADB                            R21 0
+      147 LOADNIL                          R22
+      148 GETIMPORT                        R23 K4 [require]
+      150 GETTABLEKS                       R24 R2 K10 ["Src"]
+      152 GETTABLEKS                       R24 R24 K18 ["Actions"]
+      154 GETTABLEKS                       R24 R24 K38 ["SetIsPublishing"]
+      156 CALL                             R23 1 1
+      157 NEWCLOSURE                       R24 P1
+      158 CAPTURE                          UPVAL U0
+      159 CAPTURE                          REF R20
+      160 CAPTURE                          VAL R15
+      161 CAPTURE                          UPVAL U2
+      162 CAPTURE                          REF R18
+      163 CAPTURE                          VAL R3
+      164 CAPTURE                          REF R19
+      165 NEWCLOSURE                       R25 P2
+      166 CAPTURE                          UPVAL U0
+      167 CAPTURE                          REF R20
+      168 CAPTURE                          UPVAL U2
+      169 CAPTURE                          REF R17
+      170 CAPTURE                          VAL R15
+      171 CAPTURE                          UPVAL U3
+      172 CAPTURE                          VAL R24
+      173 NEWCLOSURE                       R26 P3
+      174 CAPTURE                          VAL R2
+      175 CAPTURE                          REF R19
+      176 CAPTURE                          VAL R0
+      177 CAPTURE                          UPVAL U4
+      178 CAPTURE                          VAL R16
+      179 CAPTURE                          UPVAL U5
+      180 CAPTURE                          UPVAL U3
+      181 CAPTURE                          VAL R24
+      182 GETIMPORT                        R27 K4 [require]
+      184 GETTABLEKS                       R28 R2 K10 ["Src"]
+      186 GETTABLEKS                       R28 R28 K39 ["Util"]
+      188 GETTABLEKS                       R28 R28 K40 ["CalloutController"]
+      190 CALL                             R27 1 1
+      191 GETTABLEKS                       R28 R27 K25 ["new"]
+      193 CALL                             R28 0 1
+      194 GETUPVAL                         R29 6
+      195 JUMPIF                           R29 ; [+23]
+      196 LOADK                            R31 K41 ["TcToggleCallout"]
+      197 LOADK                            R32 K42 ["Title"]
+      198 NAMECALL                         R29 R16 K43 ["getText"]
+      200 CALL                             R29 3 1
+      201 LOADK                            R32 K41 ["TcToggleCallout"]
+      202 LOADK                            R33 K44 ["Description"]
+      203 NAMECALL                         R30 R16 K43 ["getText"]
+      205 CALL                             R30 3 1
+      206 GETIMPORT                        R31 K46 [game]
+      208 LOADK                            R33 K47 ["TeamCreateLink"]
+      209 NAMECALL                         R31 R31 K48 ["GetFastString"]
+      211 CALL                             R31 2 1
+      212 LOADK                            R34 K49 ["PublishPlaceAsTeamCreateToggleCallout"]
+      213 MOVE                             R35 R29
+      214 MOVE                             R36 R30
+      215 MOVE                             R37 R31
+      216 NAMECALL                         R32 R28 K50 ["defineCallout"]
+      218 CALL                             R32 5 0
+      219 NEWCLOSURE                       R29 P4
+      220 CAPTURE                          UPVAL U0
+      221 CAPTURE                          UPVAL U2
+      222 CAPTURE                          REF R20
+      223 CAPTURE                          VAL R3
+      224 CAPTURE                          VAL R7
       225 CAPTURE                          REF R19
-      226 CAPTURE                          UPVAL U6
-      227 CAPTURE                          VAL R16
-      228 CAPTURE                          VAL R25
-      229 CAPTURE                          VAL R15
-      230 CAPTURE                          VAL R20
-      231 CAPTURE                          UPVAL U4
-      232 CAPTURE                          REF R18
-      233 CAPTURE                          VAL R3
-      234 CAPTURE                          UPVAL U0
-      235 CAPTURE                          REF R17
-      236 MOVE                             R27 R26
-      237 CALL                             R27 0 0
-      238 CLOSEUPVALS                      R17
-      239 RETURN                           R0 0
+      226 CAPTURE                          VAL R16
+      227 CAPTURE                          VAL R0
+      228 CAPTURE                          VAL R15
+      229 CAPTURE                          VAL R12
+      230 CAPTURE                          VAL R28
+      231 CAPTURE                          REF R17
+      232 CAPTURE                          VAL R8
+      233 CAPTURE                          VAL R24
+      234 CAPTURE                          VAL R11
+      235 CAPTURE                          UPVAL U7
+      236 CAPTURE                          REF R18
+      237 NEWCLOSURE                       R30 P5
+      238 CAPTURE                          VAL R0
+      239 CAPTURE                          VAL R2
+      240 CAPTURE                          VAL R26
+      241 CAPTURE                          VAL R1
+      242 CAPTURE                          REF R19
+      243 CAPTURE                          UPVAL U7
+      244 CAPTURE                          VAL R16
+      245 CAPTURE                          VAL R29
+      246 CAPTURE                          VAL R15
+      247 CAPTURE                          VAL R23
+      248 CAPTURE                          UPVAL U0
+      249 CAPTURE                          REF R21
+      250 CAPTURE                          REF R22
+      251 CAPTURE                          VAL R25
+      252 CAPTURE                          REF R20
+      253 CAPTURE                          UPVAL U2
+      254 CAPTURE                          UPVAL U3
+      255 CAPTURE                          VAL R24
+      256 CAPTURE                          REF R17
+      257 CAPTURE                          UPVAL U8
+      258 MOVE                             R31 R30
+      259 CALL                             R31 0 0
+      260 CLOSEUPVALS                      R17
+      261 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -489,12 +729,25 @@ MAIN:
        65 CALL                             R7 1 1
        66 JUMP                             ; [+1]
        67 LOADNIL                          R7
-       68 DUPCLOSURE                       R8 K19 [PROTO_10]
-       69 CAPTURE                          VAL R6
-       70 CAPTURE                          VAL R7
-       71 CAPTURE                          VAL R2
-       72 CAPTURE                          VAL R5
-       73 CAPTURE                          VAL R1
-       74 CAPTURE                          VAL R3
-       75 CAPTURE                          VAL R4
-       76 RETURN                           R8 1
+       68 GETIMPORT                        R8 K11 [require]
+       70 GETTABLEKS                       R9 R0 K12 ["Src"]
+       72 GETTABLEKS                       R9 R9 K17 ["Util"]
+       74 GETTABLEKS                       R9 R9 K19 ["FirstPublishFlow"]
+       76 CALL                             R8 1 1
+       77 GETIMPORT                        R9 K11 [require]
+       79 GETTABLEKS                       R10 R0 K12 ["Src"]
+       81 GETTABLEKS                       R10 R10 K20 ["Network"]
+       83 GETTABLEKS                       R10 R10 K21 ["Requests"]
+       85 GETTABLEKS                       R10 R10 K22 ["ApiFetchPublishedVersionStatus"]
+       87 CALL                             R9 1 1
+       88 DUPCLOSURE                       R10 K23 [PROTO_14]
+       89 CAPTURE                          VAL R6
+       90 CAPTURE                          VAL R7
+       91 CAPTURE                          VAL R8
+       92 CAPTURE                          VAL R1
+       93 CAPTURE                          VAL R2
+       94 CAPTURE                          VAL R5
+       95 CAPTURE                          VAL R3
+       96 CAPTURE                          VAL R4
+       97 CAPTURE                          VAL R9
+       98 RETURN                           R10 1

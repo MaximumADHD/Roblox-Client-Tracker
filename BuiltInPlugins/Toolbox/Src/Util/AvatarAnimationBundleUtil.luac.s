@@ -92,27 +92,19 @@ MAIN:
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R2 K8 ["getFFlagEnableUploadingAvatarAnimations"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFFlagToolboxAnimationRemoveModelWrapper"]
        15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R3 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R3 K7 ["Flags"]
-       22 GETTABLEKS                       R3 R3 K9 ["getFFlagToolboxAnimationRemoveModelWrapper"]
-       24 CALL                             R2 1 1
-       25 NEWTABLE                         R3 4 0
-       27 MOVE                             R4 R1
-       28 CALL                             R4 0 1
-       29 JUMPIFNOT                        R4 ; [+16]
-       30 DUPCLOSURE                       R4 K10 [PROTO_0]
-       31 SETTABLEKS                       R4 R3 K11 ["getBundlePartFolderNameVariants"]
-       33 DUPCLOSURE                       R4 K12 [PROTO_1]
-       34 SETTABLEKS                       R4 R3 K13 ["bundlePartContainerHasR15Anim"]
-       36 DUPCLOSURE                       R4 K14 [PROTO_2]
-       37 CAPTURE                          VAL R3
-       38 SETTABLEKS                       R4 R3 K15 ["resolveBundlePartContainer"]
-       40 MOVE                             R4 R2
-       41 CALL                             R4 0 1
-       42 JUMPIFNOT                        R4 ; [+3]
-       43 DUPCLOSURE                       R4 K16 [PROTO_3]
-       44 SETTABLEKS                       R4 R3 K17 ["transformBundleForUpload"]
-       46 RETURN                           R3 1
+       16 NEWTABLE                         R2 4 0
+       18 DUPCLOSURE                       R3 K9 [PROTO_0]
+       19 SETTABLEKS                       R3 R2 K10 ["getBundlePartFolderNameVariants"]
+       21 DUPCLOSURE                       R3 K11 [PROTO_1]
+       22 SETTABLEKS                       R3 R2 K12 ["bundlePartContainerHasR15Anim"]
+       24 DUPCLOSURE                       R3 K13 [PROTO_2]
+       25 CAPTURE                          VAL R2
+       26 SETTABLEKS                       R3 R2 K14 ["resolveBundlePartContainer"]
+       28 MOVE                             R3 R1
+       29 CALL                             R3 0 1
+       30 JUMPIFNOT                        R3 ; [+3]
+       31 DUPCLOSURE                       R3 K15 [PROTO_3]
+       32 SETTABLEKS                       R3 R2 K16 ["transformBundleForUpload"]
+       34 RETURN                           R2 1

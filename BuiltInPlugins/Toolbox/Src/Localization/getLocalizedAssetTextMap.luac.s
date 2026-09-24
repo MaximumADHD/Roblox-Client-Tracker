@@ -222,64 +222,51 @@ PROTO_0:
       294 NAMECALL                         R3 R0 K6 ["getText"]
       296 CALL                             R3 3 1
       297 SETTABLE                         R3 R1 R2
-      298 GETUPVAL                         R2 0
-      299 CALL                             R2 0 1
-      300 JUMPIFNOT                        R2 ; [+56]
-      301 GETIMPORT                        R2 K115 [Enum.AssetType.ClimbAnimation]
-      303 LOADK                            R5 K4 ["General"]
-      304 LOADK                            R6 K116 ["AssetTypeClimbAnimation"]
-      305 NAMECALL                         R3 R0 K6 ["getText"]
-      307 CALL                             R3 3 1
-      308 SETTABLE                         R3 R1 R2
-      309 GETIMPORT                        R2 K118 [Enum.AssetType.FallAnimation]
-      311 LOADK                            R5 K4 ["General"]
-      312 LOADK                            R6 K119 ["AssetTypeFallAnimation"]
-      313 NAMECALL                         R3 R0 K6 ["getText"]
-      315 CALL                             R3 3 1
-      316 SETTABLE                         R3 R1 R2
-      317 GETIMPORT                        R2 K121 [Enum.AssetType.IdleAnimation]
-      319 LOADK                            R5 K4 ["General"]
-      320 LOADK                            R6 K122 ["AssetTypeIdleAnimation"]
-      321 NAMECALL                         R3 R0 K6 ["getText"]
-      323 CALL                             R3 3 1
-      324 SETTABLE                         R3 R1 R2
-      325 GETIMPORT                        R2 K124 [Enum.AssetType.JumpAnimation]
-      327 LOADK                            R5 K4 ["General"]
-      328 LOADK                            R6 K125 ["AssetTypeJumpAnimation"]
-      329 NAMECALL                         R3 R0 K6 ["getText"]
-      331 CALL                             R3 3 1
-      332 SETTABLE                         R3 R1 R2
-      333 GETIMPORT                        R2 K127 [Enum.AssetType.RunAnimation]
-      335 LOADK                            R5 K4 ["General"]
-      336 LOADK                            R6 K128 ["AssetTypeRunAnimation"]
-      337 NAMECALL                         R3 R0 K6 ["getText"]
-      339 CALL                             R3 3 1
-      340 SETTABLE                         R3 R1 R2
-      341 GETIMPORT                        R2 K130 [Enum.AssetType.SwimAnimation]
-      343 LOADK                            R5 K4 ["General"]
-      344 LOADK                            R6 K131 ["AssetTypeSwimAnimation"]
-      345 NAMECALL                         R3 R0 K6 ["getText"]
-      347 CALL                             R3 3 1
-      348 SETTABLE                         R3 R1 R2
-      349 GETIMPORT                        R2 K133 [Enum.AssetType.WalkAnimation]
-      351 LOADK                            R5 K4 ["General"]
-      352 LOADK                            R6 K134 ["AssetTypeWalkAnimation"]
-      353 NAMECALL                         R3 R0 K6 ["getText"]
-      355 CALL                             R3 3 1
-      356 SETTABLE                         R3 R1 R2
-      357 RETURN                           R1 1
+      298 GETIMPORT                        R2 K115 [Enum.AssetType.ClimbAnimation]
+      300 LOADK                            R5 K4 ["General"]
+      301 LOADK                            R6 K116 ["AssetTypeClimbAnimation"]
+      302 NAMECALL                         R3 R0 K6 ["getText"]
+      304 CALL                             R3 3 1
+      305 SETTABLE                         R3 R1 R2
+      306 GETIMPORT                        R2 K118 [Enum.AssetType.FallAnimation]
+      308 LOADK                            R5 K4 ["General"]
+      309 LOADK                            R6 K119 ["AssetTypeFallAnimation"]
+      310 NAMECALL                         R3 R0 K6 ["getText"]
+      312 CALL                             R3 3 1
+      313 SETTABLE                         R3 R1 R2
+      314 GETIMPORT                        R2 K121 [Enum.AssetType.IdleAnimation]
+      316 LOADK                            R5 K4 ["General"]
+      317 LOADK                            R6 K122 ["AssetTypeIdleAnimation"]
+      318 NAMECALL                         R3 R0 K6 ["getText"]
+      320 CALL                             R3 3 1
+      321 SETTABLE                         R3 R1 R2
+      322 GETIMPORT                        R2 K124 [Enum.AssetType.JumpAnimation]
+      324 LOADK                            R5 K4 ["General"]
+      325 LOADK                            R6 K125 ["AssetTypeJumpAnimation"]
+      326 NAMECALL                         R3 R0 K6 ["getText"]
+      328 CALL                             R3 3 1
+      329 SETTABLE                         R3 R1 R2
+      330 GETIMPORT                        R2 K127 [Enum.AssetType.RunAnimation]
+      332 LOADK                            R5 K4 ["General"]
+      333 LOADK                            R6 K128 ["AssetTypeRunAnimation"]
+      334 NAMECALL                         R3 R0 K6 ["getText"]
+      336 CALL                             R3 3 1
+      337 SETTABLE                         R3 R1 R2
+      338 GETIMPORT                        R2 K130 [Enum.AssetType.SwimAnimation]
+      340 LOADK                            R5 K4 ["General"]
+      341 LOADK                            R6 K131 ["AssetTypeSwimAnimation"]
+      342 NAMECALL                         R3 R0 K6 ["getText"]
+      344 CALL                             R3 3 1
+      345 SETTABLE                         R3 R1 R2
+      346 GETIMPORT                        R2 K133 [Enum.AssetType.WalkAnimation]
+      348 LOADK                            R5 K4 ["General"]
+      349 LOADK                            R6 K134 ["AssetTypeWalkAnimation"]
+      350 NAMECALL                         R3 R0 K6 ["getText"]
+      352 CALL                             R3 3 1
+      353 SETTABLE                         R3 R1 R2
+      354 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [script]
-        3 LOADK                            R2 K2 ["Toolbox"]
-        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
-        6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R2 K8 ["getFFlagEnableUploadingAvatarAnimations"]
-       15 CALL                             R1 1 1
-       16 DUPCLOSURE                       R2 K9 [PROTO_0]
-       17 CAPTURE                          VAL R1
-       18 RETURN                           R2 1
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 RETURN                           R0 1

@@ -245,6 +245,45 @@ PROTO_8:
        27 CALL                             R5 3 1
        28 GETUPVAL                         R6 3
        29 MOVE                             R7 R5
+       30 MOVE                             R8 R2
+       31 LOADK                            R9 K5 ["%* option not found"]
+       32 MOVE                             R11 R2
+       33 NAMECALL                         R9 R9 K1 ["format"]
+       35 CALL                             R9 2 1
+       36 CALL                             R6 3 1
+       37 GETUPVAL                         R7 4
+       38 MOVE                             R8 R6
+       39 CALL                             R7 1 0
+       40 RETURN                           R0 0
+
+PROTO_9:
+        0 GETUPVAL                         R3 0
+        1 MOVE                             R4 R1
+        2 CALL                             R3 1 1
+        3 GETUPVAL                         R4 1
+        4 MOVE                             R5 R0
+        5 LOADK                            R6 K0 ["node-%*"]
+        6 MOVE                             R8 R3
+        7 NAMECALL                         R6 R6 K1 ["format"]
+        9 CALL                             R6 2 1
+       10 LOADK                            R7 K2 ["Node '%*' not found"]
+       11 MOVE                             R9 R1
+       12 NAMECALL                         R7 R7 K1 ["format"]
+       14 CALL                             R7 2 1
+       15 CALL                             R4 3 1
+       16 GETUPVAL                         R5 2
+       17 MOVE                             R6 R4
+       18 CALL                             R5 1 0
+       19 GETUPVAL                         R5 1
+       20 MOVE                             R6 R0
+       21 LOADK                            R7 K3 ["edit-menu-%*--content"]
+       22 MOVE                             R9 R3
+       23 NAMECALL                         R7 R7 K1 ["format"]
+       25 CALL                             R7 2 1
+       26 LOADK                            R8 K4 ["Edit menu not found"]
+       27 CALL                             R5 3 1
+       28 GETUPVAL                         R6 3
+       29 MOVE                             R7 R5
        30 LOADK                            R8 K5 ["Change Action Type"]
        31 LOADK                            R9 K6 ["Change Action Type option not found"]
        32 CALL                             R6 3 1
@@ -284,7 +323,7 @@ PROTO_8:
        75 CALL                             R8 1 0
        76 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R1
         2 CALL                             R3 1 1
@@ -340,7 +379,7 @@ PROTO_9:
        61 CALL                             R9 0 0
        62 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R1
         2 CALL                             R3 1 1
@@ -435,7 +474,7 @@ PROTO_10:
       104 CALL                             R6 1 0
       105 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 MOVE                             R4 R1
@@ -448,7 +487,7 @@ PROTO_11:
         9 CALL                             R2 3 0
        10 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 MOVE                             R4 R1
@@ -461,7 +500,7 @@ PROTO_12:
         9 CALL                             R2 3 0
        10 RETURN                           R0 0
 
-PROTO_13:
+PROTO_14:
         0 GETUPVAL                         R3 0
         1 CALL                             R3 0 0
         2 GETUPVAL                         R3 1
@@ -532,7 +571,7 @@ PROTO_13:
        77 CALL                             R8 3 0
        78 RETURN                           R0 0
 
-PROTO_14:
+PROTO_15:
         0 JUMPIFNOTEQKS                    R2 K0 ["Keycode"] ; [+7]
         2 LOADK                            R3 K1 ["keycode-binding-%*"]
         3 MOVE                             R5 R1
@@ -598,7 +637,7 @@ PROTO_14:
        73 CALL                             R10 1 0
        74 RETURN                           R0 0
 
-PROTO_15:
+PROTO_16:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 MOVE                             R4 R1
@@ -606,7 +645,7 @@ PROTO_15:
         4 CALL                             R2 3 0
         5 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 MOVE                             R4 R1
@@ -614,13 +653,13 @@ PROTO_16:
         4 CALL                             R2 3 0
         5 RETURN                           R0 0
 
-PROTO_17:
+PROTO_18:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 SETTABLEKS                       R1 R0 K0 ["Text"]
         4 RETURN                           R0 0
 
-PROTO_18:
+PROTO_19:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 LOADK                            R4 K0 ["header"]
@@ -661,13 +700,13 @@ PROTO_18:
        41 CALL                             R5 2 0
        42 RETURN                           R0 0
 
-PROTO_19:
+PROTO_20:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 SETTABLEKS                       R1 R0 K0 ["Text"]
         4 RETURN                           R0 0
 
-PROTO_20:
+PROTO_21:
         0 GETUPVAL                         R4 0
         1 MOVE                             R5 R1
         2 CALL                             R4 1 1
@@ -738,7 +777,7 @@ PROTO_20:
        77 CALL                             R10 2 0
        78 RETURN                           R0 0
 
-PROTO_21:
+PROTO_22:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R0
         2 LOADK                            R5 K0 ["node-%*"]
@@ -753,7 +792,7 @@ PROTO_21:
        13 LOADB                            R2 1
        14 RETURN                           R2 1
 
-PROTO_22:
+PROTO_23:
         0 LOADB                            R2 1
         1 MOVE                             R3 R1
         2 LOADNIL                          R4
@@ -770,7 +809,7 @@ PROTO_22:
        14 FORGLOOP                         R3 2 ; [-10]
        16 RETURN                           R2 1
 
-PROTO_23:
+PROTO_24:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R0
         2 LOADK                            R5 K0 ["schema-%*"]
@@ -872,80 +911,87 @@ MAIN:
       124 CAPTURE                          VAL R10
       125 CAPTURE                          VAL R16
       126 CAPTURE                          VAL R9
-      127 CAPTURE                          VAL R8
-      128 CAPTURE                          VAL R13
-      129 SETTABLEKS                       R19 R18 K42 ["ChangeActionType"]
-      131 DUPCLOSURE                       R19 K43 [PROTO_9]
-      132 CAPTURE                          VAL R3
-      133 CAPTURE                          VAL R14
-      134 CAPTURE                          VAL R10
-      135 CAPTURE                          VAL R16
-      136 CAPTURE                          VAL R9
-      137 CAPTURE                          VAL R8
-      138 SETTABLEKS                       R19 R18 K44 ["ChangeRowBehavior"]
-      140 DUPCLOSURE                       R19 K45 [PROTO_10]
-      141 CAPTURE                          VAL R3
-      142 CAPTURE                          VAL R6
-      143 CAPTURE                          VAL R8
-      144 CAPTURE                          VAL R14
-      145 CAPTURE                          VAL R13
-      146 CAPTURE                          VAL R9
-      147 CAPTURE                          VAL R10
-      148 CAPTURE                          VAL R16
-      149 DUPCLOSURE                       R20 K46 [PROTO_11]
-      150 CAPTURE                          VAL R19
-      151 CAPTURE                          VAL R6
-      152 SETTABLEKS                       R20 R18 K47 ["AddPrimaryModifier"]
-      154 DUPCLOSURE                       R20 K48 [PROTO_12]
-      155 CAPTURE                          VAL R19
-      156 CAPTURE                          VAL R6
-      157 SETTABLEKS                       R20 R18 K49 ["AddSecondaryModifier"]
-      159 DUPCLOSURE                       R20 K50 [PROTO_13]
-      160 CAPTURE                          VAL R8
-      161 CAPTURE                          VAL R3
-      162 CAPTURE                          VAL R14
-      163 CAPTURE                          VAL R13
-      164 CAPTURE                          VAL R9
-      165 CAPTURE                          VAL R16
-      166 SETTABLEKS                       R20 R18 K51 ["AddBinding"]
-      168 DUPCLOSURE                       R20 K52 [PROTO_14]
-      169 CAPTURE                          VAL R14
-      170 CAPTURE                          VAL R3
-      171 CAPTURE                          VAL R10
-      172 CAPTURE                          VAL R16
-      173 CAPTURE                          VAL R9
-      174 DUPCLOSURE                       R21 K53 [PROTO_15]
-      175 CAPTURE                          VAL R20
-      176 SETTABLEKS                       R21 R18 K54 ["CancelCreateKeycode"]
-      178 DUPCLOSURE                       R21 K55 [PROTO_16]
-      179 CAPTURE                          VAL R20
-      180 SETTABLEKS                       R21 R18 K56 ["CancelCreateComposite"]
-      182 DUPCLOSURE                       R21 K57 [PROTO_18]
-      183 CAPTURE                          VAL R14
-      184 CAPTURE                          VAL R13
-      185 CAPTURE                          VAL R9
-      186 CAPTURE                          VAL R7
-      187 CAPTURE                          VAL R11
-      188 CAPTURE                          VAL R12
-      189 SETTABLEKS                       R21 R18 K58 ["CreateContext"]
-      191 DUPCLOSURE                       R21 K59 [PROTO_20]
-      192 CAPTURE                          VAL R3
-      193 CAPTURE                          VAL R14
-      194 CAPTURE                          VAL R13
-      195 CAPTURE                          VAL R9
-      196 CAPTURE                          VAL R16
-      197 CAPTURE                          VAL R7
-      198 CAPTURE                          VAL R11
-      199 CAPTURE                          VAL R12
-      200 SETTABLEKS                       R21 R18 K60 ["CreateAction"]
-      202 DUPCLOSURE                       R21 K61 [PROTO_21]
-      203 CAPTURE                          VAL R17
-      204 CAPTURE                          VAL R3
-      205 SETTABLEKS                       R21 R18 K62 ["CheckNodeExists"]
-      207 DUPCLOSURE                       R21 K63 [PROTO_22]
-      208 CAPTURE                          VAL R18
-      209 SETTABLEKS                       R21 R18 K64 ["CheckNodesExist"]
-      211 DUPCLOSURE                       R21 K65 [PROTO_23]
-      212 CAPTURE                          VAL R17
-      213 SETTABLEKS                       R21 R18 K66 ["SchemaExists"]
-      215 RETURN                           R18 1
+      127 SETTABLEKS                       R19 R18 K42 ["ToggleBooleanProperty"]
+      129 DUPCLOSURE                       R19 K43 [PROTO_9]
+      130 CAPTURE                          VAL R3
+      131 CAPTURE                          VAL R14
+      132 CAPTURE                          VAL R10
+      133 CAPTURE                          VAL R16
+      134 CAPTURE                          VAL R9
+      135 CAPTURE                          VAL R8
+      136 CAPTURE                          VAL R13
+      137 SETTABLEKS                       R19 R18 K44 ["ChangeActionType"]
+      139 DUPCLOSURE                       R19 K45 [PROTO_10]
+      140 CAPTURE                          VAL R3
+      141 CAPTURE                          VAL R14
+      142 CAPTURE                          VAL R10
+      143 CAPTURE                          VAL R16
+      144 CAPTURE                          VAL R9
+      145 CAPTURE                          VAL R8
+      146 SETTABLEKS                       R19 R18 K46 ["ChangeRowBehavior"]
+      148 DUPCLOSURE                       R19 K47 [PROTO_11]
+      149 CAPTURE                          VAL R3
+      150 CAPTURE                          VAL R6
+      151 CAPTURE                          VAL R8
+      152 CAPTURE                          VAL R14
+      153 CAPTURE                          VAL R13
+      154 CAPTURE                          VAL R9
+      155 CAPTURE                          VAL R10
+      156 CAPTURE                          VAL R16
+      157 DUPCLOSURE                       R20 K48 [PROTO_12]
+      158 CAPTURE                          VAL R19
+      159 CAPTURE                          VAL R6
+      160 SETTABLEKS                       R20 R18 K49 ["AddPrimaryModifier"]
+      162 DUPCLOSURE                       R20 K50 [PROTO_13]
+      163 CAPTURE                          VAL R19
+      164 CAPTURE                          VAL R6
+      165 SETTABLEKS                       R20 R18 K51 ["AddSecondaryModifier"]
+      167 DUPCLOSURE                       R20 K52 [PROTO_14]
+      168 CAPTURE                          VAL R8
+      169 CAPTURE                          VAL R3
+      170 CAPTURE                          VAL R14
+      171 CAPTURE                          VAL R13
+      172 CAPTURE                          VAL R9
+      173 CAPTURE                          VAL R16
+      174 SETTABLEKS                       R20 R18 K53 ["AddBinding"]
+      176 DUPCLOSURE                       R20 K54 [PROTO_15]
+      177 CAPTURE                          VAL R14
+      178 CAPTURE                          VAL R3
+      179 CAPTURE                          VAL R10
+      180 CAPTURE                          VAL R16
+      181 CAPTURE                          VAL R9
+      182 DUPCLOSURE                       R21 K55 [PROTO_16]
+      183 CAPTURE                          VAL R20
+      184 SETTABLEKS                       R21 R18 K56 ["CancelCreateKeycode"]
+      186 DUPCLOSURE                       R21 K57 [PROTO_17]
+      187 CAPTURE                          VAL R20
+      188 SETTABLEKS                       R21 R18 K58 ["CancelCreateComposite"]
+      190 DUPCLOSURE                       R21 K59 [PROTO_19]
+      191 CAPTURE                          VAL R14
+      192 CAPTURE                          VAL R13
+      193 CAPTURE                          VAL R9
+      194 CAPTURE                          VAL R7
+      195 CAPTURE                          VAL R11
+      196 CAPTURE                          VAL R12
+      197 SETTABLEKS                       R21 R18 K60 ["CreateContext"]
+      199 DUPCLOSURE                       R21 K61 [PROTO_21]
+      200 CAPTURE                          VAL R3
+      201 CAPTURE                          VAL R14
+      202 CAPTURE                          VAL R13
+      203 CAPTURE                          VAL R9
+      204 CAPTURE                          VAL R16
+      205 CAPTURE                          VAL R7
+      206 CAPTURE                          VAL R11
+      207 CAPTURE                          VAL R12
+      208 SETTABLEKS                       R21 R18 K62 ["CreateAction"]
+      210 DUPCLOSURE                       R21 K63 [PROTO_22]
+      211 CAPTURE                          VAL R17
+      212 CAPTURE                          VAL R3
+      213 SETTABLEKS                       R21 R18 K64 ["CheckNodeExists"]
+      215 DUPCLOSURE                       R21 K65 [PROTO_23]
+      216 CAPTURE                          VAL R18
+      217 SETTABLEKS                       R21 R18 K66 ["CheckNodesExist"]
+      219 DUPCLOSURE                       R21 K67 [PROTO_24]
+      220 CAPTURE                          VAL R17
+      221 SETTABLEKS                       R21 R18 K68 ["SchemaExists"]
+      223 RETURN                           R18 1

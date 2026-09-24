@@ -101,7 +101,7 @@ PROTO_1:
       115 JUMP                             ; [0]
       116 FORGLOOP                         R7 2 ; [-71]
       118 LENGTH                           R7 R5
-      119 JUMPIFEQKN                       R7 K21 [0] ; [+22]
+      119 JUMPIFEQKN                       R7 K21 [0] ; [+34]
       121 GETUPVAL                         R7 2
       122 MOVE                             R9 R5
       123 NAMECALL                         R7 R7 K22 ["Set"]
@@ -113,12 +113,22 @@ PROTO_1:
       131 GETIMPORT                        R7 K4 [game]
       133 GETTABLEKS                       R7 R7 K5 ["Workspace"]
       135 GETTABLEKS                       R7 R7 K25 ["CurrentCamera"]
-      137 JUMPIFNOT                        R7 ; [+4]
+      137 JUMPIFNOT                        R7 ; [+16]
       138 GETUPVAL                         R8 9
-      139 MOVE                             R9 R7
-      140 MOVE                             R10 R5
-      141 CALL                             R8 2 0
-      142 RETURN                           R0 0
+      139 CALL                             R8 0 1
+      140 JUMPIFNOT                        R8 ; [+9]
+      141 GETUPVAL                         R8 10
+      142 GETTABLEKS                       R8 R8 K26 ["Utils"]
+      144 GETTABLEKS                       R8 R8 K27 ["cameraZoomToExtents"]
+      146 MOVE                             R9 R7
+      147 MOVE                             R10 R5
+      148 CALL                             R8 2 0
+      149 RETURN                           R0 0
+      150 GETUPVAL                         R8 11
+      151 MOVE                             R9 R7
+      152 MOVE                             R10 R5
+      153 CALL                             R8 2 0
+      154 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -127,59 +137,70 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetInsertFramework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Src"]
-       18 GETTABLEKS                       R3 R3 K8 ["Asset"]
-       20 GETTABLEKS                       R3 R3 K9 ["Util"]
-       22 GETTABLEKS                       R3 R3 K10 ["getAssetInstances"]
-       24 CALL                             R2 1 1
-       25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R4 R0 K6 ["Src"]
-       29 GETTABLEKS                       R4 R4 K8 ["Asset"]
-       31 GETTABLEKS                       R4 R4 K9 ["Util"]
-       33 GETTABLEKS                       R4 R4 K11 ["cameraZoomToExtents"]
-       35 CALL                             R3 1 1
-       36 GETIMPORT                        R4 K5 [require]
-       38 GETTABLEKS                       R5 R0 K6 ["Src"]
-       40 GETTABLEKS                       R5 R5 K8 ["Asset"]
-       42 GETTABLEKS                       R5 R5 K9 ["Util"]
-       44 GETTABLEKS                       R5 R5 K12 ["getInsertPosition"]
-       46 CALL                             R4 1 1
-       47 GETIMPORT                        R5 K5 [require]
-       49 GETTABLEKS                       R6 R0 K6 ["Src"]
-       51 GETTABLEKS                       R6 R6 K9 ["Util"]
-       53 GETTABLEKS                       R6 R6 K13 ["logIfDebug"]
-       55 CALL                             R5 1 1
-       56 GETIMPORT                        R6 K15 [game]
-       58 LOADK                            R8 K16 ["ChangeHistoryService"]
-       59 NAMECALL                         R6 R6 K17 ["GetService"]
-       61 CALL                             R6 2 1
-       62 GETIMPORT                        R7 K15 [game]
-       64 LOADK                            R9 K18 ["HttpService"]
-       65 NAMECALL                         R7 R7 K17 ["GetService"]
-       67 CALL                             R7 2 1
-       68 GETIMPORT                        R8 K15 [game]
-       70 LOADK                            R10 K19 ["Selection"]
-       71 NAMECALL                         R8 R8 K17 ["GetService"]
-       73 CALL                             R8 2 1
-       74 GETIMPORT                        R9 K5 [require]
-       76 GETTABLEKS                       R10 R0 K6 ["Src"]
-       78 GETTABLEKS                       R10 R10 K20 ["Flags"]
-       80 GETTABLEKS                       R10 R10 K21 ["getFFlagAudioAssetInsertAssetManagerUsesSelection"]
-       82 CALL                             R9 1 1
-       83 DUPCLOSURE                       R10 K22 [PROTO_0]
-       84 DUPCLOSURE                       R11 K23 [PROTO_1]
-       85 CAPTURE                          VAL R7
-       86 CAPTURE                          VAL R4
-       87 CAPTURE                          VAL R8
-       88 CAPTURE                          VAL R2
-       89 CAPTURE                          VAL R1
-       90 CAPTURE                          VAL R10
-       91 CAPTURE                          VAL R9
-       92 CAPTURE                          VAL R5
-       93 CAPTURE                          VAL R6
-       94 CAPTURE                          VAL R3
-       95 RETURN                           R11 1
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K8 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Asset"]
+       27 GETTABLEKS                       R4 R4 K11 ["Util"]
+       29 GETTABLEKS                       R4 R4 K12 ["getAssetInstances"]
+       31 CALL                             R3 1 1
+       32 GETIMPORT                        R4 K5 [require]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K10 ["Asset"]
+       38 GETTABLEKS                       R5 R5 K11 ["Util"]
+       40 GETTABLEKS                       R5 R5 K13 ["cameraZoomToExtents"]
+       42 CALL                             R4 1 1
+       43 GETIMPORT                        R5 K5 [require]
+       45 GETTABLEKS                       R6 R0 K8 ["Src"]
+       47 GETTABLEKS                       R6 R6 K10 ["Asset"]
+       49 GETTABLEKS                       R6 R6 K11 ["Util"]
+       51 GETTABLEKS                       R6 R6 K14 ["getInsertPosition"]
+       53 CALL                             R5 1 1
+       54 GETIMPORT                        R6 K5 [require]
+       56 GETTABLEKS                       R7 R0 K8 ["Src"]
+       58 GETTABLEKS                       R7 R7 K11 ["Util"]
+       60 GETTABLEKS                       R7 R7 K15 ["logIfDebug"]
+       62 CALL                             R6 1 1
+       63 GETIMPORT                        R7 K17 [game]
+       65 LOADK                            R9 K18 ["ChangeHistoryService"]
+       66 NAMECALL                         R7 R7 K19 ["GetService"]
+       68 CALL                             R7 2 1
+       69 GETIMPORT                        R8 K17 [game]
+       71 LOADK                            R10 K20 ["HttpService"]
+       72 NAMECALL                         R8 R8 K19 ["GetService"]
+       74 CALL                             R8 2 1
+       75 GETIMPORT                        R9 K17 [game]
+       77 LOADK                            R11 K21 ["Selection"]
+       78 NAMECALL                         R9 R9 K19 ["GetService"]
+       80 CALL                             R9 2 1
+       81 GETIMPORT                        R10 K5 [require]
+       83 GETTABLEKS                       R11 R0 K8 ["Src"]
+       85 GETTABLEKS                       R11 R11 K22 ["Flags"]
+       87 GETTABLEKS                       R11 R11 K23 ["getFFlagAmrMigrateToUseLibraries"]
+       89 CALL                             R10 1 1
+       90 GETIMPORT                        R11 K5 [require]
+       92 GETTABLEKS                       R12 R0 K8 ["Src"]
+       94 GETTABLEKS                       R12 R12 K22 ["Flags"]
+       96 GETTABLEKS                       R12 R12 K24 ["getFFlagAudioAssetInsertAssetManagerUsesSelection"]
+       98 CALL                             R11 1 1
+       99 DUPCLOSURE                       R12 K25 [PROTO_0]
+      100 DUPCLOSURE                       R13 K26 [PROTO_1]
+      101 CAPTURE                          VAL R8
+      102 CAPTURE                          VAL R5
+      103 CAPTURE                          VAL R9
+      104 CAPTURE                          VAL R3
+      105 CAPTURE                          VAL R2
+      106 CAPTURE                          VAL R12
+      107 CAPTURE                          VAL R11
+      108 CAPTURE                          VAL R6
+      109 CAPTURE                          VAL R7
+      110 CAPTURE                          VAL R10
+      111 CAPTURE                          VAL R1
+      112 CAPTURE                          VAL R4
+      113 RETURN                           R13 1

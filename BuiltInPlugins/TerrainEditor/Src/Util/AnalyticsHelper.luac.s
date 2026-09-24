@@ -1,4 +1,22 @@
 PROTO_0:
+        0 GETIMPORT                        R1 K1 [workspace]
+        2 GETTABLEKS                       R1 R1 K2 ["Terrain"]
+        4 JUMPIFEQKNIL                     R0 ; [+3]
+        6 JUMPIFNOTEQKNIL                  R1 ; [+4]
+        8 LOADNIL                          R2
+        9 LOADNIL                          R3
+       10 RETURN                           R2 2
+       11 MOVE                             R4 R0
+       12 NAMECALL                         R2 R1 K3 ["GetMaterialSlot"]
+       14 CALL                             R2 2 2
+       15 MOVE                             R4 R2
+       16 JUMPIFEQKS                       R3 K4 [""] ; [+3]
+       18 MOVE                             R5 R3
+       19 RETURN                           R4 2
+       20 LOADNIL                          R5
+       21 RETURN                           R4 2
+
+PROTO_1:
         0 DUPTABLE                         R3 K7 [{"averageTime", "height", "locked", "shape", "size", "strength", "tool"}]
         1 SETTABLEKS                       R1 R3 K0 ["averageTime"]
         3 GETUPVAL                         R6 0
@@ -46,71 +64,155 @@ PROTO_0:
        63 SETTABLEKS                       R2 R3 K6 ["tool"]
        65 RETURN                           R3 1
 
-PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R4 R4 K0 ["MaterialSettings"]
-        3 GETTABLE                         R3 R0 R4
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R4 R4 K1 ["AutoMaterial"]
-        7 GETTABLE                         R2 R3 R4
-        8 LOADB                            R3 1
-        9 GETUPVAL                         R6 0
-       10 GETTABLEKS                       R6 R6 K0 ["MaterialSettings"]
-       12 GETTABLE                         R5 R0 R6
-       13 GETUPVAL                         R6 1
-       14 GETTABLEKS                       R6 R6 K2 ["FillMode"]
-       16 GETTABLE                         R4 R5 R6
-       17 GETUPVAL                         R5 2
-       18 GETTABLEKS                       R5 R5 K3 ["Replace"]
-       20 JUMPIFEQ                         R4 R5 ; [+16]
-       22 GETUPVAL                         R6 0
-       23 GETTABLEKS                       R6 R6 K0 ["MaterialSettings"]
-       25 GETTABLE                         R5 R0 R6
-       26 GETUPVAL                         R6 1
-       27 GETTABLEKS                       R6 R6 K4 ["MaterialMode"]
-       29 GETTABLE                         R4 R5 R6
-       30 GETUPVAL                         R5 3
-       31 GETTABLEKS                       R5 R5 K3 ["Replace"]
-       33 JUMPIFEQ                         R4 R5 ; [+2]
-       35 LOADB                            R3 0 +1
-       36 LOADB                            R3 1
-       37 GETUPVAL                         R6 0
-       38 GETTABLEKS                       R6 R6 K0 ["MaterialSettings"]
-       40 GETTABLE                         R5 R0 R6
-       41 GETUPVAL                         R6 1
-       42 GETTABLEKS                       R6 R6 K5 ["SourceMaterial"]
-       44 GETTABLE                         R4 R5 R6
-       45 GETUPVAL                         R7 0
-       46 GETTABLEKS                       R7 R7 K0 ["MaterialSettings"]
-       48 GETTABLE                         R6 R0 R7
-       49 GETUPVAL                         R7 1
-       50 GETTABLEKS                       R7 R7 K6 ["TargetMaterial"]
-       52 GETTABLE                         R5 R6 R7
-       53 JUMPIFNOT                        R3 ; [+2]
-       54 MOVE                             R6 R5
-       55 JUMP                             ; [+1]
-       56 MOVE                             R6 R4
-       57 JUMPIFNOT                        R3 ; [+2]
-       58 MOVE                             R7 R4
-       59 JUMP                             ; [+1]
-       60 LOADNIL                          R7
-       61 DUPTABLE                         R8 K12 [{"autoMaterial", "replace", "material", "secondaryMaterial", "tool"}]
-       62 SETTABLEKS                       R2 R8 K7 ["autoMaterial"]
-       64 SETTABLEKS                       R3 R8 K8 ["replace"]
-       66 JUMPIF                           R2 ; [+2]
-       67 MOVE                             R9 R6
-       68 JUMP                             ; [+1]
-       69 LOADNIL                          R9
-       70 SETTABLEKS                       R9 R8 K9 ["material"]
-       72 JUMPIF                           R2 ; [+2]
-       73 MOVE                             R9 R7
-       74 JUMP                             ; [+1]
-       75 LOADNIL                          R9
-       76 SETTABLEKS                       R9 R8 K10 ["secondaryMaterial"]
-       78 SETTABLEKS                       R1 R8 K11 ["tool"]
-       80 RETURN                           R8 1
-
 PROTO_2:
+        0 GETUPVAL                         R6 0
+        1 GETTABLEKS                       R6 R6 K0 ["MaterialSettings"]
+        3 GETTABLE                         R5 R0 R6
+        4 GETUPVAL                         R6 1
+        5 GETTABLEKS                       R6 R6 K1 ["AutoMaterial"]
+        7 GETTABLE                         R4 R5 R6
+        8 JUMPIFEQKB                       R4 TRUE ; [+2]
+       10 LOADB                            R3 0 +1
+       11 LOADB                            R3 1
+       12 LOADB                            R4 1
+       13 GETUPVAL                         R7 0
+       14 GETTABLEKS                       R7 R7 K0 ["MaterialSettings"]
+       16 GETTABLE                         R6 R0 R7
+       17 GETUPVAL                         R7 1
+       18 GETTABLEKS                       R7 R7 K2 ["FillMode"]
+       20 GETTABLE                         R5 R6 R7
+       21 GETUPVAL                         R6 2
+       22 GETTABLEKS                       R6 R6 K3 ["Replace"]
+       24 JUMPIFEQ                         R5 R6 ; [+16]
+       26 GETUPVAL                         R7 0
+       27 GETTABLEKS                       R7 R7 K0 ["MaterialSettings"]
+       29 GETTABLE                         R6 R0 R7
+       30 GETUPVAL                         R7 1
+       31 GETTABLEKS                       R7 R7 K4 ["MaterialMode"]
+       33 GETTABLE                         R5 R6 R7
+       34 GETUPVAL                         R6 3
+       35 GETTABLEKS                       R6 R6 K3 ["Replace"]
+       37 JUMPIFEQ                         R5 R6 ; [+2]
+       39 LOADB                            R4 0 +1
+       40 LOADB                            R4 1
+       41 GETUPVAL                         R7 0
+       42 GETTABLEKS                       R7 R7 K0 ["MaterialSettings"]
+       44 GETTABLE                         R6 R0 R7
+       45 GETUPVAL                         R7 1
+       46 GETTABLEKS                       R7 R7 K5 ["SourceMaterial"]
+       48 GETTABLE                         R5 R6 R7
+       49 GETUPVAL                         R8 0
+       50 GETTABLEKS                       R8 R8 K0 ["MaterialSettings"]
+       52 GETTABLE                         R7 R0 R8
+       53 GETUPVAL                         R8 1
+       54 GETTABLEKS                       R8 R8 K6 ["TargetMaterial"]
+       56 GETTABLE                         R6 R7 R8
+       57 JUMPIFNOT                        R2 ; [+7]
+       58 GETTABLEKS                       R8 R2 K7 ["usingSlots"]
+       60 JUMPIFEQKNIL                     R8 ; [+4]
+       62 GETTABLEKS                       R7 R2 K7 ["usingSlots"]
+       64 JUMP                             ; [+2]
+       65 GETUPVAL                         R7 4
+       66 CALL                             R7 0 1
+       67 NOT                              R8 R3
+       68 JUMPIF                           R7 ; [+24]
+       69 DUPTABLE                         R9 K14 [{["autoMaterial"], ["material"], ["replace"], ["secondaryMaterial"], ["tool"], ["usingSlots"] = False}]
+       70 SETTABLEKS                       R3 R9 K8 ["autoMaterial"]
+       72 JUMPIFNOT                        R8 ; [+5]
+       73 JUMPIFNOT                        R4 ; [+2]
+       74 MOVE                             R10 R6
+       75 JUMP                             ; [+3]
+       76 MOVE                             R10 R5
+       77 JUMP                             ; [+1]
+       78 LOADNIL                          R10
+       79 SETTABLEKS                       R10 R9 K9 ["material"]
+       81 SETTABLEKS                       R4 R9 K10 ["replace"]
+       83 JUMPIFNOT                        R8 ; [+3]
+       84 JUMPIFNOT                        R4 ; [+2]
+       85 MOVE                             R10 R5
+       86 JUMP                             ; [+1]
+       87 LOADNIL                          R10
+       88 SETTABLEKS                       R10 R9 K11 ["secondaryMaterial"]
+       90 SETTABLEKS                       R1 R9 K12 ["tool"]
+       92 RETURN                           R9 1
+       93 JUMPIFNOT                        R2 ; [+6]
+       94 GETTABLEKS                       R10 R2 K15 ["resolveMaterialSlot"]
+       96 JUMPIFNOT                        R10 ; [+3]
+       97 GETTABLEKS                       R9 R2 K15 ["resolveMaterialSlot"]
+       99 JUMP                             ; [+1]
+      100 GETUPVAL                         R9 5
+      101 JUMPIFNOT                        R4 ; [+9]
+      102 GETUPVAL                         R12 0
+      103 GETTABLEKS                       R12 R12 K0 ["MaterialSettings"]
+      105 GETTABLE                         R11 R0 R12
+      106 GETUPVAL                         R12 1
+      107 GETTABLEKS                       R12 R12 K16 ["TargetMaterialSlot"]
+      109 GETTABLE                         R10 R11 R12
+      110 JUMP                             ; [+8]
+      111 GETUPVAL                         R12 0
+      112 GETTABLEKS                       R12 R12 K0 ["MaterialSettings"]
+      114 GETTABLE                         R11 R0 R12
+      115 GETUPVAL                         R12 1
+      116 GETTABLEKS                       R12 R12 K17 ["SourceMaterialSlot"]
+      118 GETTABLE                         R10 R11 R12
+      119 JUMPIFNOT                        R4 ; [+9]
+      120 GETUPVAL                         R13 0
+      121 GETTABLEKS                       R13 R13 K0 ["MaterialSettings"]
+      123 GETTABLE                         R12 R0 R13
+      124 GETUPVAL                         R13 1
+      125 GETTABLEKS                       R13 R13 K17 ["SourceMaterialSlot"]
+      127 GETTABLE                         R11 R12 R13
+      128 JUMP                             ; [+1]
+      129 LOADNIL                          R11
+      130 LOADNIL                          R12
+      131 LOADNIL                          R13
+      132 LOADNIL                          R14
+      133 LOADNIL                          R15
+      134 JUMPIFNOT                        R8 ; [+11]
+      135 MOVE                             R16 R9
+      136 MOVE                             R17 R10
+      137 CALL                             R16 1 2
+      138 MOVE                             R12 R16
+      139 MOVE                             R13 R17
+      140 JUMPIFNOT                        R4 ; [+5]
+      141 MOVE                             R16 R9
+      142 MOVE                             R17 R11
+      143 CALL                             R16 1 2
+      144 MOVE                             R14 R16
+      145 MOVE                             R15 R17
+      146 DUPTABLE                         R16 K25 [{["autoMaterial"], ["baseMaterial"], ["isVariant"], ["replace"], ["secondaryBaseMaterial"], ["secondaryIsVariant"], ["secondarySlotIndex"], ["slotIndex"], ["tool"], ["usingSlots"] = True}]
+      147 SETTABLEKS                       R3 R16 K8 ["autoMaterial"]
+      149 SETTABLEKS                       R12 R16 K18 ["baseMaterial"]
+      151 JUMPIFEQKNIL                     R12 ; [+6]
+      153 JUMPIFNOTEQKNIL                  R13 ; [+2]
+      155 LOADB                            R17 0 +1
+      156 LOADB                            R17 1
+      157 JUMP                             ; [+1]
+      158 LOADNIL                          R17
+      159 SETTABLEKS                       R17 R16 K19 ["isVariant"]
+      161 SETTABLEKS                       R4 R16 K10 ["replace"]
+      163 SETTABLEKS                       R14 R16 K20 ["secondaryBaseMaterial"]
+      165 JUMPIFEQKNIL                     R14 ; [+6]
+      167 JUMPIFNOTEQKNIL                  R15 ; [+2]
+      169 LOADB                            R17 0 +1
+      170 LOADB                            R17 1
+      171 JUMP                             ; [+1]
+      172 LOADNIL                          R17
+      173 SETTABLEKS                       R17 R16 K21 ["secondaryIsVariant"]
+      175 JUMPIFNOT                        R8 ; [+2]
+      176 MOVE                             R17 R11
+      177 JUMP                             ; [+1]
+      178 LOADNIL                          R17
+      179 SETTABLEKS                       R17 R16 K22 ["secondarySlotIndex"]
+      181 JUMPIFNOT                        R8 ; [+2]
+      182 MOVE                             R17 R10
+      183 JUMP                             ; [+1]
+      184 LOADNIL                          R17
+      185 SETTABLEKS                       R17 R16 K23 ["slotIndex"]
+      187 SETTABLEKS                       R1 R16 K12 ["tool"]
+      189 RETURN                           R16 1
+
+PROTO_3:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R4 R4 K0 ["SeaLevel"]
         3 JUMPIFNOTEQ                      R2 R4 ; [+10]
@@ -173,7 +275,7 @@ PROTO_2:
        85 SETTABLEKS                       R2 R5 K10 ["tool"]
        87 RETURN                           R5 1
 
-PROTO_3:
+PROTO_4:
         0 GETIMPORT                        R4 K2 [os.clock]
         2 CALL                             R4 0 1
         3 SUB                              R3 R4 R0
@@ -199,7 +301,7 @@ PROTO_3:
        29 MOVE                             R6 R5
        30 RETURN                           R6 1
 
-PROTO_4:
+PROTO_5:
         0 GETIMPORT                        R3 K2 [os.clock]
         2 CALL                             R3 0 1
         3 SUB                              R2 R3 R0
@@ -211,7 +313,7 @@ PROTO_4:
        10 MULK                             R3 R4 K3 [1000]
        11 RETURN                           R3 1
 
-PROTO_5:
+PROTO_6:
         0 GETIMPORT                        R3 K2 [os.clock]
         2 CALL                             R3 0 1
         3 SUB                              R2 R3 R0
@@ -253,47 +355,60 @@ MAIN:
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
        18 GETTABLEKS                       R3 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R3 K7 ["Resources"]
-       22 GETTABLEKS                       R3 R3 K9 ["Constants"]
+       20 GETTABLEKS                       R3 R3 K9 ["Util"]
+       22 GETTABLEKS                       R3 R3 K10 ["TerrainMaterialTelemetry"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
        27 GETTABLEKS                       R4 R0 K6 ["Src"]
-       29 GETTABLEKS                       R4 R4 K10 ["Types"]
-       31 CALL                             R3 1 1
-       32 GETTABLEKS                       R4 R3 K11 ["BrushSettings"]
-       34 GETTABLEKS                       R5 R3 K12 ["Category"]
-       36 GETTABLEKS                       R6 R3 K13 ["FillMode"]
-       38 GETTABLEKS                       R7 R3 K14 ["MaterialMode"]
-       40 GETTABLEKS                       R8 R3 K15 ["MaterialSettings"]
-       42 GETTABLEKS                       R9 R3 K16 ["SeaLevelSettings"]
-       44 GETTABLEKS                       R10 R3 K17 ["SelectionSettings"]
-       46 GETTABLEKS                       R11 R3 K18 ["Tool"]
-       48 GETTABLEKS                       R12 R3 K19 ["TransformSettings"]
-       50 NEWTABLE                         R13 8 0
-       52 DUPCLOSURE                       R14 K20 [PROTO_0]
-       53 CAPTURE                          VAL R5
-       54 CAPTURE                          VAL R4
-       55 SETTABLEKS                       R14 R13 K21 ["getBrushPayload"]
-       57 DUPCLOSURE                       R14 K22 [PROTO_1]
-       58 CAPTURE                          VAL R5
-       59 CAPTURE                          VAL R8
-       60 CAPTURE                          VAL R6
-       61 CAPTURE                          VAL R7
-       62 SETTABLEKS                       R14 R13 K23 ["getMaterialPayload"]
-       64 DUPCLOSURE                       R14 K24 [PROTO_2]
-       65 CAPTURE                          VAL R11
-       66 CAPTURE                          VAL R5
-       67 CAPTURE                          VAL R9
-       68 CAPTURE                          VAL R12
-       69 CAPTURE                          VAL R10
-       70 SETTABLEKS                       R14 R13 K25 ["getRegionPayload"]
-       72 DUPCLOSURE                       R14 K26 [PROTO_3]
-       73 CAPTURE                          VAL R2
-       74 SETTABLEKS                       R14 R13 K27 ["NormalizeBrushTimer"]
-       76 DUPCLOSURE                       R14 K28 [PROTO_4]
-       77 CAPTURE                          VAL R2
-       78 SETTABLEKS                       R14 R13 K29 ["NormalizeDepthFirstSearch"]
-       80 DUPCLOSURE                       R14 K30 [PROTO_5]
-       81 CAPTURE                          VAL R2
-       82 SETTABLEKS                       R14 R13 K31 ["NormalizeRegionTimer"]
-       84 RETURN                           R13 1
+       29 GETTABLEKS                       R4 R4 K11 ["Flags"]
+       31 GETTABLEKS                       R4 R4 K12 ["getFFlagEnableTerrainPalette"]
+       33 CALL                             R3 1 1
+       34 GETIMPORT                        R4 K5 [require]
+       36 GETTABLEKS                       R5 R0 K6 ["Src"]
+       38 GETTABLEKS                       R5 R5 K7 ["Resources"]
+       40 GETTABLEKS                       R5 R5 K13 ["Constants"]
+       42 CALL                             R4 1 1
+       43 GETIMPORT                        R5 K5 [require]
+       45 GETTABLEKS                       R6 R0 K6 ["Src"]
+       47 GETTABLEKS                       R6 R6 K14 ["Types"]
+       49 CALL                             R5 1 1
+       50 GETTABLEKS                       R6 R5 K15 ["BrushSettings"]
+       52 GETTABLEKS                       R7 R5 K16 ["Category"]
+       54 GETTABLEKS                       R8 R5 K17 ["FillMode"]
+       56 GETTABLEKS                       R9 R5 K18 ["MaterialMode"]
+       58 GETTABLEKS                       R10 R5 K19 ["MaterialSettings"]
+       60 GETTABLEKS                       R11 R5 K20 ["SeaLevelSettings"]
+       62 GETTABLEKS                       R12 R5 K21 ["SelectionSettings"]
+       64 GETTABLEKS                       R13 R5 K22 ["Tool"]
+       66 GETTABLEKS                       R14 R5 K23 ["TransformSettings"]
+       68 NEWTABLE                         R15 8 0
+       70 DUPCLOSURE                       R16 K24 [PROTO_0]
+       71 DUPCLOSURE                       R17 K25 [PROTO_1]
+       72 CAPTURE                          VAL R7
+       73 CAPTURE                          VAL R6
+       74 SETTABLEKS                       R17 R15 K26 ["getBrushPayload"]
+       76 DUPCLOSURE                       R17 K27 [PROTO_2]
+       77 CAPTURE                          VAL R7
+       78 CAPTURE                          VAL R10
+       79 CAPTURE                          VAL R8
+       80 CAPTURE                          VAL R9
+       81 CAPTURE                          VAL R3
+       82 CAPTURE                          VAL R16
+       83 SETTABLEKS                       R17 R15 K28 ["getMaterialPayload"]
+       85 DUPCLOSURE                       R17 K29 [PROTO_3]
+       86 CAPTURE                          VAL R13
+       87 CAPTURE                          VAL R7
+       88 CAPTURE                          VAL R11
+       89 CAPTURE                          VAL R14
+       90 CAPTURE                          VAL R12
+       91 SETTABLEKS                       R17 R15 K30 ["getRegionPayload"]
+       93 DUPCLOSURE                       R17 K31 [PROTO_4]
+       94 CAPTURE                          VAL R4
+       95 SETTABLEKS                       R17 R15 K32 ["NormalizeBrushTimer"]
+       97 DUPCLOSURE                       R17 K33 [PROTO_5]
+       98 CAPTURE                          VAL R4
+       99 SETTABLEKS                       R17 R15 K34 ["NormalizeDepthFirstSearch"]
+      101 DUPCLOSURE                       R17 K35 [PROTO_6]
+      102 CAPTURE                          VAL R4
+      103 SETTABLEKS                       R17 R15 K36 ["NormalizeRegionTimer"]
+      105 RETURN                           R15 1

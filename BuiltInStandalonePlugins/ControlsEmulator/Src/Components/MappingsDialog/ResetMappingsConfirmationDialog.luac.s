@@ -77,7 +77,7 @@ PROTO_1:
        89 LOADK                            R17 K32 ["TextLabel"]
        90 DUPTABLE                         R18 K33 [{["Name"] = "ConfirmationText", ["Text"], ["LayoutOrder"]}]
        91 LOADK                            R21 K34 ["ResetMappingsConfirmationDialog"]
-       92 LOADK                            R22 K35 ["RestoreDefaultsConfirmation"]
+       92 LOADK                            R22 K35 ["ResetToDefaultConfirmation"]
        93 NAMECALL                         R19 R1 K36 ["getText"]
        95 CALL                             R19 3 1
        96 SETTABLEKS                       R19 R18 K14 ["Text"]

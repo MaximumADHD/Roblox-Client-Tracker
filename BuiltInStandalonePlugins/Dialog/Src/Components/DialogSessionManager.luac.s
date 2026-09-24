@@ -32,7 +32,16 @@ PROTO_0:
        49 GETTABLEKS                       R4 R0 K19 ["ShowIndeterminateProgressIndicator"]
        51 ORK                              R3 R4 K18 [False]
        52 CALL                             R2 1 0
-       53 RETURN                           R0 0
+       53 GETUPVAL                         R2 0
+       54 CALL                             R2 0 1
+       55 JUMPIFNOT                        R2 ; [+9]
+       56 GETTABLEKS                       R2 R1 K20 ["setSuppressible"]
+       58 GETTABLEKS                       R4 R0 K21 ["Suppression"]
+       60 JUMPIFNOTEQKNIL                  R4 ; [+2]
+       62 LOADB                            R3 0 +1
+       63 LOADB                            R3 1
+       64 CALL                             R2 1 0
+       65 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -96,24 +105,47 @@ PROTO_5:
         2 DUPTABLE                         R3 K2 [{"SelectedButtonUri", "WasSuppressionRequested"}]
         3 GETUPVAL                         R4 2
         4 SETTABLEKS                       R4 R3 K0 ["SelectedButtonUri"]
-        6 GETUPVAL                         R5 3
-        7 CALL                             R5 0 1
-        8 JUMPIFNOT                        R5 ; [+2]
-        9 LOADB                            R4 0
-       10 JUMP                             ; [+1]
-       11 LOADNIL                          R4
-       12 SETTABLEKS                       R4 R3 K1 ["WasSuppressionRequested"]
-       14 NAMECALL                         R0 R0 K3 ["UserInteractedAsync"]
-       16 CALL                             R0 3 0
-       17 GETUPVAL                         R0 4
-       18 GETTABLEKS                       R0 R0 K4 ["CloseOnFirstInteraction"]
-       20 JUMPIFNOT                        R0 ; [+3]
-       21 GETUPVAL                         R0 5
-       22 GETUPVAL                         R1 1
-       23 CALL                             R0 1 0
-       24 RETURN                           R0 0
+        6 GETUPVAL                         R4 3
+        7 SETTABLEKS                       R4 R3 K1 ["WasSuppressionRequested"]
+        9 NAMECALL                         R0 R0 K3 ["UserInteractedAsync"]
+       11 CALL                             R0 3 0
+       12 GETUPVAL                         R0 4
+       13 GETTABLEKS                       R0 R0 K4 ["CloseOnFirstInteraction"]
+       15 JUMPIFNOT                        R0 ; [+3]
+       16 GETUPVAL                         R0 5
+       17 GETUPVAL                         R1 1
+       18 CALL                             R0 1 0
+       19 RETURN                           R0 0
 
 PROTO_6:
+        0 GETIMPORT                        R2 K2 [task.spawn]
+        2 NEWCLOSURE                       R3 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          VAL R0
+        6 CAPTURE                          VAL R1
+        7 CAPTURE                          UPVAL U2
+        8 CAPTURE                          UPVAL U3
+        9 CALL                             R2 1 0
+       10 RETURN                           R0 0
+
+PROTO_7:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 DUPTABLE                         R3 K3 [{[1], ["WasSuppressionRequested"] = }]
+        3 GETUPVAL                         R4 2
+        4 SETTABLEKS                       R4 R3 K0 ["SelectedButtonUri"]
+        6 NAMECALL                         R0 R0 K4 ["UserInteractedAsync"]
+        8 CALL                             R0 3 0
+        9 GETUPVAL                         R0 3
+       10 GETTABLEKS                       R0 R0 K5 ["CloseOnFirstInteraction"]
+       12 JUMPIFNOT                        R0 ; [+3]
+       13 GETUPVAL                         R0 4
+       14 GETUPVAL                         R1 1
+       15 CALL                             R0 1 0
+       16 RETURN                           R0 0
+
+PROTO_8:
         0 GETIMPORT                        R1 K2 [task.spawn]
         2 NEWCLOSURE                       R2 P0
         3 CAPTURE                          UPVAL U0
@@ -121,11 +153,10 @@ PROTO_6:
         5 CAPTURE                          VAL R0
         6 CAPTURE                          UPVAL U2
         7 CAPTURE                          UPVAL U3
-        8 CAPTURE                          UPVAL U4
-        9 CALL                             R1 1 0
-       10 RETURN                           R0 0
+        8 CALL                             R1 1 0
+        9 RETURN                           R0 0
 
-PROTO_7:
+PROTO_9:
         0 GETUPVAL                         R4 0
         1 CALL                             R4 0 1
         2 GETUPVAL                         R5 1
@@ -144,18 +175,26 @@ PROTO_7:
        18 CALL                             R8 1 1
        19 SETTABLEKS                       R8 R7 K4 ["uri"]
        21 SETTABLEKS                       R4 R7 K5 ["signals"]
-       23 NEWCLOSURE                       R8 P0
-       24 CAPTURE                          UPVAL U3
-       25 CAPTURE                          VAL R1
-       26 CAPTURE                          UPVAL U4
-       27 CAPTURE                          VAL R3
-       28 CAPTURE                          UPVAL U5
-       29 SETTABLEKS                       R8 R7 K6 ["onUserInteracted"]
-       31 CALL                             R6 1 1
-       32 SETTABLE                         R6 R0 R5
-       33 RETURN                           R0 0
+       23 GETUPVAL                         R9 3
+       24 CALL                             R9 0 1
+       25 JUMPIFNOT                        R9 ; [+6]
+       26 NEWCLOSURE                       R8 P0
+       27 CAPTURE                          UPVAL U4
+       28 CAPTURE                          VAL R1
+       29 CAPTURE                          VAL R3
+       30 CAPTURE                          UPVAL U5
+       31 JUMP                             ; [+5]
+       32 NEWCLOSURE                       R8 P1
+       33 CAPTURE                          UPVAL U4
+       34 CAPTURE                          VAL R1
+       35 CAPTURE                          VAL R3
+       36 CAPTURE                          UPVAL U5
+       37 SETTABLEKS                       R8 R7 K6 ["onUserInteracted"]
+       39 CALL                             R6 1 1
+       40 SETTABLE                         R6 R0 R5
+       41 RETURN                           R0 0
 
-PROTO_8:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 LOADNIL                          R3
@@ -163,7 +202,7 @@ PROTO_8:
         5 CALL                             R0 3 0
         6 RETURN                           R0 0
 
-PROTO_9:
+PROTO_11:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETUPVAL                         R3 2
@@ -174,7 +213,7 @@ PROTO_9:
         8 CALL                             R0 1 0
         9 RETURN                           R0 0
 
-PROTO_10:
+PROTO_12:
         0 GETIMPORT                        R1 K2 [task.spawn]
         2 NEWCLOSURE                       R2 P0
         3 CAPTURE                          UPVAL U0
@@ -184,7 +223,7 @@ PROTO_10:
         7 CALL                             R1 1 0
         8 RETURN                           R0 0
 
-PROTO_11:
+PROTO_13:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["toString"]
         3 MOVE                             R4 R1
@@ -222,208 +261,55 @@ PROTO_11:
        44 SETTABLE                         R5 R0 R3
        45 RETURN                           R0 0
 
-PROTO_12:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 DUPTABLE                         R3 K2 [{"SelectedButtonUri", "WasSuppressionRequested"}]
-        3 GETUPVAL                         R4 2
-        4 SETTABLEKS                       R4 R3 K0 ["SelectedButtonUri"]
-        6 GETUPVAL                         R5 3
-        7 CALL                             R5 0 1
-        8 JUMPIFNOT                        R5 ; [+2]
-        9 LOADB                            R4 0
-       10 JUMP                             ; [+1]
-       11 LOADNIL                          R4
-       12 SETTABLEKS                       R4 R3 K1 ["WasSuppressionRequested"]
-       14 NAMECALL                         R0 R0 K3 ["UserInteractedAsync"]
-       16 CALL                             R0 3 0
-       17 GETUPVAL                         R0 4
-       18 GETTABLEKS                       R0 R0 K4 ["CloseOnFirstInteraction"]
-       20 JUMPIFNOT                        R0 ; [+3]
-       21 GETUPVAL                         R0 5
-       22 GETUPVAL                         R1 1
-       23 CALL                             R0 1 0
-       24 RETURN                           R0 0
-
-PROTO_13:
-        0 GETIMPORT                        R1 K2 [task.spawn]
-        2 NEWCLOSURE                       R2 P0
-        3 CAPTURE                          UPVAL U0
-        4 CAPTURE                          UPVAL U1
-        5 CAPTURE                          VAL R0
-        6 CAPTURE                          UPVAL U2
-        7 CAPTURE                          UPVAL U3
-        8 CAPTURE                          UPVAL U4
-        9 CALL                             R1 1 0
-       10 RETURN                           R0 0
-
 PROTO_14:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 MOVE                             R2 R0
         3 CALL                             R1 1 1
         4 GETUPVAL                         R2 0
-        5 CALL                             R2 0 1
-        6 JUMPIFNOT                        R2 ; [+7]
-        7 GETUPVAL                         R2 1
-        8 MOVE                             R3 R1
-        9 GETUPVAL                         R4 2
-       10 GETUPVAL                         R5 3
-       11 GETUPVAL                         R6 4
-       12 CALL                             R2 4 0
-       13 JUMP                             ; [+33]
-       14 GETUPVAL                         R2 5
-       15 CALL                             R2 0 1
-       16 GETUPVAL                         R3 6
-       17 GETUPVAL                         R4 3
-       18 MOVE                             R5 R2
-       19 CALL                             R3 2 0
-       20 GETUPVAL                         R3 7
-       21 GETTABLEKS                       R3 R3 K3 ["toString"]
-       23 GETUPVAL                         R4 2
-       24 CALL                             R3 1 1
-       25 GETIMPORT                        R4 K5 [table.freeze]
-       27 DUPTABLE                         R5 K9 [{"uri", "signals", "onUserInteracted"}]
-       28 GETUPVAL                         R6 7
-       29 GETTABLEKS                       R6 R6 K10 ["wrap"]
-       31 GETUPVAL                         R7 2
-       32 CALL                             R6 1 1
-       33 SETTABLEKS                       R6 R5 K6 ["uri"]
-       35 SETTABLEKS                       R2 R5 K7 ["signals"]
-       37 NEWCLOSURE                       R6 P0
-       38 CAPTURE                          UPVAL U8
-       39 CAPTURE                          UPVAL U2
-       40 CAPTURE                          UPVAL U9
-       41 CAPTURE                          UPVAL U4
-       42 CAPTURE                          UPVAL U10
-       43 SETTABLEKS                       R6 R5 K8 ["onUserInteracted"]
-       45 CALL                             R4 1 1
-       46 SETTABLE                         R4 R1 R3
-       47 GETIMPORT                        R2 K5 [table.freeze]
-       49 MOVE                             R3 R1
-       50 CALL                             R2 1 -1
-       51 RETURN                           R2 -1
+        5 MOVE                             R3 R1
+        6 GETUPVAL                         R4 1
+        7 GETUPVAL                         R5 2
+        8 GETUPVAL                         R6 3
+        9 CALL                             R2 4 0
+       10 GETIMPORT                        R2 K4 [table.freeze]
+       12 MOVE                             R3 R1
+       13 CALL                             R2 1 -1
+       14 RETURN                           R2 -1
 
 PROTO_15:
         0 GETUPVAL                         R3 0
         1 NEWCLOSURE                       R4 P0
         2 CAPTURE                          UPVAL U1
-        3 CAPTURE                          UPVAL U2
-        4 CAPTURE                          VAL R0
-        5 CAPTURE                          VAL R1
-        6 CAPTURE                          VAL R2
-        7 CAPTURE                          UPVAL U3
-        8 CAPTURE                          UPVAL U4
-        9 CAPTURE                          UPVAL U5
-       10 CAPTURE                          UPVAL U6
-       11 CAPTURE                          UPVAL U7
-       12 CAPTURE                          UPVAL U8
-       13 CALL                             R3 1 0
-       14 RETURN                           R0 0
+        3 CAPTURE                          VAL R0
+        4 CAPTURE                          VAL R1
+        5 CAPTURE                          VAL R2
+        6 CALL                             R3 1 0
+        7 RETURN                           R0 0
 
 PROTO_16:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 LOADNIL                          R3
-        3 NAMECALL                         R0 R0 K0 ["ResolveCustomDialogAsync"]
-        5 CALL                             R0 3 0
-        6 RETURN                           R0 0
+        0 GETIMPORT                        R1 K2 [table.clone]
+        2 MOVE                             R2 R0
+        3 CALL                             R1 1 1
+        4 GETUPVAL                         R2 0
+        5 MOVE                             R3 R1
+        6 GETUPVAL                         R4 1
+        7 GETUPVAL                         R5 2
+        8 CALL                             R2 3 0
+        9 GETIMPORT                        R2 K4 [table.freeze]
+       11 MOVE                             R3 R1
+       12 CALL                             R2 1 -1
+       13 RETURN                           R2 -1
 
 PROTO_17:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETUPVAL                         R3 2
-        3 NAMECALL                         R0 R0 K0 ["ResolveCustomDialogAsync"]
-        5 CALL                             R0 3 0
-        6 GETUPVAL                         R0 3
-        7 GETUPVAL                         R1 1
-        8 CALL                             R0 1 0
-        9 RETURN                           R0 0
-
-PROTO_18:
-        0 GETIMPORT                        R1 K2 [task.spawn]
-        2 NEWCLOSURE                       R2 P0
-        3 CAPTURE                          UPVAL U0
-        4 CAPTURE                          UPVAL U1
-        5 CAPTURE                          VAL R0
-        6 CAPTURE                          UPVAL U2
-        7 CALL                             R1 1 0
-        8 RETURN                           R0 0
-
-PROTO_19:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+14]
-        3 GETIMPORT                        R1 K2 [table.clone]
-        5 MOVE                             R2 R0
-        6 CALL                             R1 1 1
-        7 GETUPVAL                         R2 1
-        8 MOVE                             R3 R1
-        9 GETUPVAL                         R4 2
-       10 GETUPVAL                         R5 3
-       11 CALL                             R2 3 0
-       12 GETIMPORT                        R2 K4 [table.freeze]
-       14 MOVE                             R3 R1
-       15 CALL                             R2 1 -1
-       16 RETURN                           R2 -1
-       17 GETUPVAL                         R1 4
-       18 GETTABLEKS                       R1 R1 K5 ["toString"]
-       20 GETUPVAL                         R2 2
-       21 CALL                             R1 1 1
-       22 GETUPVAL                         R3 5
-       23 GETTABLE                         R2 R3 R1
-       24 JUMPIF                           R2 ; [+15]
-       25 GETIMPORT                        R3 K7 [warn]
-       27 LOADK                            R4 K8 ["[Dialog] Could not locate custom dialog with URI: %*"]
-       28 MOVE                             R6 R1
-       29 NAMECALL                         R4 R4 K9 ["format"]
-       31 CALL                             R4 2 1
-       32 CALL                             R3 1 0
-       33 GETIMPORT                        R3 K12 [task.spawn]
-       35 NEWCLOSURE                       R4 P0
-       36 CAPTURE                          UPVAL U6
-       37 CAPTURE                          UPVAL U2
-       38 CALL                             R3 1 0
-       39 RETURN                           R0 1
-       40 GETIMPORT                        R3 K2 [table.clone]
-       42 MOVE                             R4 R0
-       43 CALL                             R3 1 1
-       44 GETIMPORT                        R4 K4 [table.freeze]
-       46 DUPTABLE                         R5 K17 [{"component", "uri", "input", "onResolved"}]
-       47 SETTABLEKS                       R2 R5 K13 ["component"]
-       49 GETUPVAL                         R6 4
-       50 GETTABLEKS                       R6 R6 K18 ["wrap"]
-       52 GETUPVAL                         R7 2
-       53 CALL                             R6 1 1
-       54 SETTABLEKS                       R6 R5 K14 ["uri"]
-       56 GETUPVAL                         R6 3
-       57 SETTABLEKS                       R6 R5 K15 ["input"]
-       59 NEWCLOSURE                       R6 P1
-       60 CAPTURE                          UPVAL U6
-       61 CAPTURE                          UPVAL U2
-       62 CAPTURE                          UPVAL U7
-       63 SETTABLEKS                       R6 R5 K16 ["onResolved"]
-       65 CALL                             R4 1 1
-       66 SETTABLE                         R4 R3 R1
-       67 GETIMPORT                        R4 K4 [table.freeze]
-       69 MOVE                             R5 R3
-       70 CALL                             R4 1 -1
-       71 RETURN                           R4 -1
-
-PROTO_20:
         0 GETUPVAL                         R2 0
         1 NEWCLOSURE                       R3 P0
         2 CAPTURE                          UPVAL U1
-        3 CAPTURE                          UPVAL U2
-        4 CAPTURE                          VAL R0
-        5 CAPTURE                          VAL R1
-        6 CAPTURE                          UPVAL U3
-        7 CAPTURE                          UPVAL U4
-        8 CAPTURE                          UPVAL U5
-        9 CAPTURE                          UPVAL U6
-       10 CALL                             R2 1 0
-       11 RETURN                           R0 0
+        3 CAPTURE                          VAL R0
+        4 CAPTURE                          VAL R1
+        5 CALL                             R2 1 0
+        6 RETURN                           R0 0
 
-PROTO_21:
+PROTO_18:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["toString"]
         3 GETUPVAL                         R2 1
@@ -437,7 +323,7 @@ PROTO_21:
        12 CALL                             R3 2 0
        13 RETURN                           R0 1
 
-PROTO_22:
+PROTO_19:
         0 GETUPVAL                         R2 0
         1 NEWCLOSURE                       R3 P0
         2 CAPTURE                          UPVAL U1
@@ -447,7 +333,7 @@ PROTO_22:
         6 CALL                             R2 1 0
         7 RETURN                           R0 0
 
-PROTO_23:
+PROTO_20:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 MOVE                             R2 R0
         3 CALL                             R1 1 1
@@ -474,7 +360,7 @@ PROTO_23:
        32 CALL                             R2 1 -1
        33 RETURN                           R2 -1
 
-PROTO_24:
+PROTO_21:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 MOVE                             R2 R0
         3 CALL                             R1 1 1
@@ -500,7 +386,7 @@ PROTO_24:
        30 CALL                             R2 1 -1
        31 RETURN                           R2 -1
 
-PROTO_25:
+PROTO_22:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["GetStateAsync"]
         3 CALL                             R0 1 1
@@ -518,7 +404,7 @@ PROTO_25:
        15 CALL                             R1 1 0
        16 RETURN                           R0 0
 
-PROTO_26:
+PROTO_23:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
@@ -531,79 +417,57 @@ PROTO_26:
        12 GETUPVAL                         R0 3
        13 NAMECALL                         R0 R0 K0 ["Disconnect"]
        15 CALL                             R0 1 0
-       16 GETUPVAL                         R0 4
-       17 CALL                             R0 0 1
-       18 JUMPIFNOT                        R0 ; [+4]
-       19 GETIMPORT                        R0 K3 [task.cancel]
-       21 GETUPVAL                         R1 5
-       22 CALL                             R0 1 0
-       23 RETURN                           R0 0
+       16 GETIMPORT                        R0 K3 [task.cancel]
+       18 GETUPVAL                         R1 4
+       19 CALL                             R0 1 0
+       20 RETURN                           R0 0
 
-PROTO_27:
+PROTO_24:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["ShowDialog"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
-        6 CAPTURE                          UPVAL U3
-        7 CAPTURE                          UPVAL U4
-        8 CAPTURE                          UPVAL U5
-        9 CAPTURE                          UPVAL U6
-       10 CAPTURE                          UPVAL U0
-       11 CAPTURE                          UPVAL U7
-       12 CAPTURE                          UPVAL U8
-       13 NAMECALL                         R0 R0 K1 ["Connect"]
-       15 CALL                             R0 2 1
-       16 GETUPVAL                         R1 0
-       17 GETTABLEKS                       R1 R1 K2 ["ShowCustomDialog"]
-       19 NEWCLOSURE                       R3 P1
-       20 CAPTURE                          UPVAL U9
-       21 CAPTURE                          UPVAL U2
-       22 CAPTURE                          UPVAL U10
-       23 CAPTURE                          UPVAL U6
-       24 CAPTURE                          UPVAL U11
-       25 CAPTURE                          UPVAL U0
-       26 CAPTURE                          UPVAL U8
-       27 NAMECALL                         R1 R1 K1 ["Connect"]
-       29 CALL                             R1 2 1
-       30 GETUPVAL                         R2 0
-       31 GETTABLEKS                       R2 R2 K3 ["UpdateDialog"]
-       33 NEWCLOSURE                       R4 P2
-       34 CAPTURE                          UPVAL U1
-       35 CAPTURE                          UPVAL U6
-       36 CAPTURE                          UPVAL U5
-       37 NAMECALL                         R2 R2 K1 ["Connect"]
-       39 CALL                             R2 2 1
-       40 GETUPVAL                         R3 0
-       41 GETTABLEKS                       R3 R3 K4 ["DestroyDialog"]
-       43 GETUPVAL                         R5 8
-       44 NAMECALL                         R3 R3 K1 ["Connect"]
-       46 CALL                             R3 2 1
-       47 LOADNIL                          R4
-       48 GETUPVAL                         R5 2
-       49 CALL                             R5 0 1
-       50 JUMPIFNOT                        R5 ; [+11]
-       51 GETIMPORT                        R5 K7 [task.spawn]
-       53 NEWCLOSURE                       R6 P3
-       54 CAPTURE                          UPVAL U0
-       55 CAPTURE                          UPVAL U1
-       56 CAPTURE                          UPVAL U6
-       57 CAPTURE                          UPVAL U3
-       58 CAPTURE                          UPVAL U9
-       59 CAPTURE                          UPVAL U10
-       60 CALL                             R5 1 1
-       61 MOVE                             R4 R5
-       62 NEWCLOSURE                       R5 P4
-       63 CAPTURE                          VAL R0
-       64 CAPTURE                          VAL R1
-       65 CAPTURE                          VAL R2
-       66 CAPTURE                          VAL R3
-       67 CAPTURE                          UPVAL U2
-       68 CAPTURE                          REF R4
-       69 CLOSEUPVALS                      R4
-       70 RETURN                           R5 1
+        6 NAMECALL                         R0 R0 K1 ["Connect"]
+        8 CALL                             R0 2 1
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K2 ["ShowCustomDialog"]
+       12 NEWCLOSURE                       R3 P1
+       13 CAPTURE                          UPVAL U3
+       14 CAPTURE                          UPVAL U4
+       15 NAMECALL                         R1 R1 K1 ["Connect"]
+       17 CALL                             R1 2 1
+       18 GETUPVAL                         R2 0
+       19 GETTABLEKS                       R2 R2 K3 ["UpdateDialog"]
+       21 NEWCLOSURE                       R4 P2
+       22 CAPTURE                          UPVAL U1
+       23 CAPTURE                          UPVAL U5
+       24 CAPTURE                          UPVAL U6
+       25 NAMECALL                         R2 R2 K1 ["Connect"]
+       27 CALL                             R2 2 1
+       28 GETUPVAL                         R3 0
+       29 GETTABLEKS                       R3 R3 K4 ["DestroyDialog"]
+       31 GETUPVAL                         R5 7
+       32 NAMECALL                         R3 R3 K1 ["Connect"]
+       34 CALL                             R3 2 1
+       35 GETIMPORT                        R4 K7 [task.spawn]
+       37 NEWCLOSURE                       R5 P3
+       38 CAPTURE                          UPVAL U0
+       39 CAPTURE                          UPVAL U1
+       40 CAPTURE                          UPVAL U5
+       41 CAPTURE                          UPVAL U2
+       42 CAPTURE                          UPVAL U3
+       43 CAPTURE                          UPVAL U4
+       44 CALL                             R4 1 1
+       45 NEWCLOSURE                       R5 P4
+       46 CAPTURE                          VAL R0
+       47 CAPTURE                          VAL R1
+       48 CAPTURE                          VAL R2
+       49 CAPTURE                          VAL R3
+       50 CAPTURE                          VAL R4
+       51 RETURN                           R5 1
 
-PROTO_28:
+PROTO_25:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["use"]
         3 CALL                             R0 0 1
@@ -640,105 +504,80 @@ PROTO_28:
        46 MOVE                             R10 R5
        47 SETLIST                          R8 R9 2 [1]
        49 CALL                             R6 2 1
-       50 LOADNIL                          R7
-       51 GETUPVAL                         R8 3
-       52 CALL                             R8 0 1
-       53 JUMPIFNOT                        R8 ; [+18]
-       54 GETUPVAL                         R8 1
-       55 GETTABLEKS                       R8 R8 K7 ["useCallback"]
-       57 NEWCLOSURE                       R9 P2
-       58 CAPTURE                          UPVAL U4
-       59 CAPTURE                          UPVAL U5
-       60 CAPTURE                          UPVAL U2
-       61 CAPTURE                          VAL R1
-       62 CAPTURE                          UPVAL U6
-       63 CAPTURE                          VAL R6
-       64 NEWTABLE                         R10 0 2
-       66 MOVE                             R11 R1
-       67 MOVE                             R12 R6
-       68 SETLIST                          R10 R11 2 [1]
-       70 CALL                             R8 2 1
-       71 MOVE                             R7 R8
-       72 LOADNIL                          R8
-       73 GETUPVAL                         R9 3
-       74 CALL                             R9 0 1
-       75 JUMPIFNOT                        R9 ; [+16]
-       76 GETUPVAL                         R9 1
-       77 GETTABLEKS                       R9 R9 K7 ["useCallback"]
-       79 NEWCLOSURE                       R10 P3
-       80 CAPTURE                          UPVAL U2
-       81 CAPTURE                          UPVAL U7
-       82 CAPTURE                          VAL R1
-       83 CAPTURE                          VAL R6
-       84 NEWTABLE                         R11 0 2
-       86 MOVE                             R12 R1
-       87 MOVE                             R13 R6
-       88 SETLIST                          R11 R12 2 [1]
-       90 CALL                             R9 2 1
-       91 MOVE                             R8 R9
-       92 GETUPVAL                         R9 1
-       93 GETTABLEKS                       R9 R9 K8 ["useEffect"]
-       95 NEWCLOSURE                       R10 P4
-       96 CAPTURE                          VAL R1
-       97 CAPTURE                          VAL R3
-       98 CAPTURE                          UPVAL U3
-       99 CAPTURE                          REF R7
-      100 CAPTURE                          UPVAL U4
-      101 CAPTURE                          UPVAL U5
-      102 CAPTURE                          UPVAL U2
-      103 CAPTURE                          UPVAL U6
-      104 CAPTURE                          VAL R6
-      105 CAPTURE                          VAL R5
-      106 CAPTURE                          REF R8
-      107 CAPTURE                          UPVAL U7
-      108 NEWTABLE                         R11 0 6
-      110 MOVE                             R12 R1
-      111 MOVE                             R13 R3
-      112 MOVE                             R14 R6
-      113 MOVE                             R15 R5
-      114 GETUPVAL                         R17 3
-      115 CALL                             R17 0 1
-      116 JUMPIFNOT                        R17 ; [+2]
-      117 MOVE                             R16 R7
-      118 JUMP                             ; [+1]
-      119 LOADNIL                          R16
-      120 GETUPVAL                         R18 3
-      121 CALL                             R18 0 1
-      122 JUMPIFNOT                        R18 ; [+2]
-      123 MOVE                             R17 R8
-      124 JUMP                             ; [+1]
-      125 LOADNIL                          R17
-      126 SETLIST                          R11 R12 6 [1]
-      128 CALL                             R9 2 0
-      129 NEWTABLE                         R9 0 0
-      131 MOVE                             R10 R2
-      132 LOADNIL                          R11
-      133 LOADNIL                          R12
-      134 FORGPREP                         R10
-      135 GETUPVAL                         R15 8
-      136 GETUPVAL                         R16 9
-      137 MOVE                             R17 R14
-      138 CALL                             R15 2 1
-      139 SETTABLE                         R15 R9 R13
-      140 FORGLOOP                         R10 2 ; [-6]
-      142 MOVE                             R10 R4
-      143 LOADNIL                          R11
-      144 LOADNIL                          R12
-      145 FORGPREP                         R10
-      146 GETUPVAL                         R15 8
-      147 GETTABLEKS                       R16 R14 K9 ["component"]
-      149 MOVE                             R17 R14
-      150 CALL                             R15 2 1
-      151 SETTABLE                         R15 R9 R13
-      152 FORGLOOP                         R10 2 ; [-7]
-      154 GETUPVAL                         R10 8
-      155 GETUPVAL                         R11 1
-      156 GETTABLEKS                       R11 R11 K10 ["Fragment"]
-      158 LOADNIL                          R12
-      159 MOVE                             R13 R9
-      160 CALL                             R10 3 -1
-      161 CLOSEUPVALS                      R7
-      162 RETURN                           R10 -1
+       50 GETUPVAL                         R7 1
+       51 GETTABLEKS                       R7 R7 K7 ["useCallback"]
+       53 NEWCLOSURE                       R8 P2
+       54 CAPTURE                          UPVAL U3
+       55 CAPTURE                          UPVAL U4
+       56 CAPTURE                          UPVAL U2
+       57 CAPTURE                          UPVAL U5
+       58 CAPTURE                          VAL R1
+       59 CAPTURE                          VAL R6
+       60 NEWTABLE                         R9 0 2
+       62 MOVE                             R10 R1
+       63 MOVE                             R11 R6
+       64 SETLIST                          R9 R10 2 [1]
+       66 CALL                             R7 2 1
+       67 GETUPVAL                         R8 1
+       68 GETTABLEKS                       R8 R8 K7 ["useCallback"]
+       70 NEWCLOSURE                       R9 P3
+       71 CAPTURE                          UPVAL U2
+       72 CAPTURE                          UPVAL U6
+       73 CAPTURE                          VAL R1
+       74 CAPTURE                          VAL R6
+       75 NEWTABLE                         R10 0 2
+       77 MOVE                             R11 R1
+       78 MOVE                             R12 R6
+       79 SETLIST                          R10 R11 2 [1]
+       81 CALL                             R8 2 1
+       82 GETUPVAL                         R9 1
+       83 GETTABLEKS                       R9 R9 K8 ["useEffect"]
+       85 NEWCLOSURE                       R10 P4
+       86 CAPTURE                          VAL R1
+       87 CAPTURE                          VAL R3
+       88 CAPTURE                          VAL R7
+       89 CAPTURE                          VAL R5
+       90 CAPTURE                          VAL R8
+       91 CAPTURE                          UPVAL U2
+       92 CAPTURE                          UPVAL U4
+       93 CAPTURE                          VAL R6
+       94 NEWTABLE                         R11 0 6
+       96 MOVE                             R12 R1
+       97 MOVE                             R13 R3
+       98 MOVE                             R14 R6
+       99 MOVE                             R15 R5
+      100 MOVE                             R16 R7
+      101 MOVE                             R17 R8
+      102 SETLIST                          R11 R12 6 [1]
+      104 CALL                             R9 2 0
+      105 NEWTABLE                         R9 0 0
+      107 MOVE                             R10 R2
+      108 LOADNIL                          R11
+      109 LOADNIL                          R12
+      110 FORGPREP                         R10
+      111 GETUPVAL                         R15 7
+      112 GETUPVAL                         R16 8
+      113 MOVE                             R17 R14
+      114 CALL                             R15 2 1
+      115 SETTABLE                         R15 R9 R13
+      116 FORGLOOP                         R10 2 ; [-6]
+      118 MOVE                             R10 R4
+      119 LOADNIL                          R11
+      120 LOADNIL                          R12
+      121 FORGPREP                         R10
+      122 GETUPVAL                         R15 7
+      123 GETTABLEKS                       R16 R14 K9 ["component"]
+      125 MOVE                             R17 R14
+      126 CALL                             R15 2 1
+      127 SETTABLE                         R15 R9 R13
+      128 FORGLOOP                         R10 2 ; [-7]
+      130 GETUPVAL                         R10 7
+      131 GETUPVAL                         R11 1
+      132 GETTABLEKS                       R11 R11 K10 ["Fragment"]
+      134 LOADNIL                          R12
+      135 MOVE                             R13 R9
+      136 CALL                             R10 3 -1
+      137 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -782,29 +621,24 @@ MAIN:
        66 GETTABLEKS                       R9 R9 K17 ["Flags"]
        68 GETTABLEKS                       R9 R9 K18 ["getFFlagStudioDialogManagerSuppression"]
        70 CALL                             R8 1 1
-       71 GETIMPORT                        R9 K5 [require]
-       73 GETTABLEKS                       R10 R0 K6 ["Src"]
-       75 GETTABLEKS                       R10 R10 K17 ["Flags"]
-       77 GETTABLEKS                       R10 R10 K19 ["getFFlagStudioDialogManagerUIBridgeGetState"]
-       79 CALL                             R9 1 1
-       80 GETTABLEKS                       R10 R3 K20 ["ContextServices"]
-       82 GETTABLEKS                       R10 R10 K21 ["Plugin"]
-       84 GETTABLEKS                       R11 R5 K15 ["Util"]
-       86 GETTABLEKS                       R11 R11 K22 ["StudioUri"]
-       88 GETTABLEKS                       R12 R4 K23 ["createElement"]
-       90 DUPCLOSURE                       R13 K24 [PROTO_0]
-       91 DUPCLOSURE                       R14 K25 [PROTO_28]
-       92 CAPTURE                          VAL R10
-       93 CAPTURE                          VAL R4
-       94 CAPTURE                          VAL R11
-       95 CAPTURE                          VAL R9
-       96 CAPTURE                          VAL R7
-       97 CAPTURE                          VAL R13
-       98 CAPTURE                          VAL R8
-       99 CAPTURE                          VAL R1
-      100 CAPTURE                          VAL R12
-      101 CAPTURE                          VAL R2
-      102 GETTABLEKS                       R15 R4 K26 ["memo"]
-      104 MOVE                             R16 R14
-      105 CALL                             R15 1 -1
-      106 RETURN                           R15 -1
+       71 GETTABLEKS                       R9 R3 K19 ["ContextServices"]
+       73 GETTABLEKS                       R9 R9 K20 ["Plugin"]
+       75 GETTABLEKS                       R10 R5 K15 ["Util"]
+       77 GETTABLEKS                       R10 R10 K21 ["StudioUri"]
+       79 GETTABLEKS                       R11 R4 K22 ["createElement"]
+       81 DUPCLOSURE                       R12 K23 [PROTO_0]
+       82 CAPTURE                          VAL R8
+       83 DUPCLOSURE                       R13 K24 [PROTO_25]
+       84 CAPTURE                          VAL R9
+       85 CAPTURE                          VAL R4
+       86 CAPTURE                          VAL R10
+       87 CAPTURE                          VAL R7
+       88 CAPTURE                          VAL R12
+       89 CAPTURE                          VAL R8
+       90 CAPTURE                          VAL R1
+       91 CAPTURE                          VAL R11
+       92 CAPTURE                          VAL R2
+       93 GETTABLEKS                       R14 R4 K25 ["memo"]
+       95 MOVE                             R15 R13
+       96 CALL                             R14 1 -1
+       97 RETURN                           R14 -1

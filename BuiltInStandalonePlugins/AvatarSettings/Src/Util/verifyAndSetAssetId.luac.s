@@ -153,148 +153,153 @@ PROTO_2:
 
 PROTO_3:
         0 JUMPIFEQKS                       R0 K0 [""] ; [+3]
-        2 JUMPIFNOTEQKS                    R0 K1 ["0"] ; [+21]
-        4 JUMPIFNOT                        R14 ; [+9]
-        5 JUMPIFNOT                        R5 ; [+8]
+        2 JUMPIFNOTEQKS                    R0 K1 ["0"] ; [+26]
+        4 JUMPIFNOT                        R14 ; [+14]
+        5 JUMPIFNOT                        R5 ; [+13]
         6 MOVE                             R16 R4
         7 LOADK                            R19 K2 ["ErrorText"]
-        8 LOADK                            R20 K3 ["AssetDoesNotExist"]
-        9 NAMECALL                         R17 R12 K4 ["getText"]
-       11 CALL                             R17 3 -1
-       12 CALL                             R16 -1 0
-       13 RETURN                           R0 0
-       14 MOVE                             R16 R4
-       15 LOADK                            R17 K0 [""]
-       16 CALL                             R16 1 0
-       17 MOVE                             R16 R2
-       18 GETUPVAL                         R17 0
-       19 GETTABLEKS                       R17 R17 K5 ["INVALID_ASSETID"]
-       21 LOADB                            R18 0
-       22 CALL                             R16 2 0
-       23 RETURN                           R0 0
-       24 FASTCALL1                        TONUMBER R0 ; [+3]
-       25 MOVE                             R17 R0
-       26 GETIMPORT                        R16 K7 [tonumber]
-       28 CALL                             R16 1 1
-       29 JUMPIF                           R16 ; [+8]
-       30 MOVE                             R17 R4
-       31 LOADK                            R20 K2 ["ErrorText"]
-       32 LOADK                            R21 K8 ["NotANumber"]
-       33 NAMECALL                         R18 R12 K4 ["getText"]
-       35 CALL                             R18 3 -1
-       36 CALL                             R17 -1 0
-       37 RETURN                           R0 0
-       38 GETIMPORT                        R17 K10 [pcall]
-       40 NEWCLOSURE                       R18 P0
-       41 CAPTURE                          VAL R6
-       42 CAPTURE                          VAL R16
-       43 CALL                             R17 1 2
-       44 JUMPIF                           R17 ; [+35]
-       45 GETUPVAL                         R19 1
-       46 MOVE                             R20 R13
-       47 MOVE                             R21 R16
-       48 MOVE                             R22 R8
-       49 MOVE                             R23 R9
-       50 MOVE                             R24 R7
-       51 CALL                             R19 5 1
-       52 JUMPIFNOT                        R19 ; [+19]
-       53 MOVE                             R20 R4
-       54 LOADK                            R21 K0 [""]
-       55 CALL                             R20 1 0
-       56 MOVE                             R20 R2
-       57 MOVE                             R21 R19
-       58 LOADB                            R22 0
-       59 GETTABLEKS                       R23 R18 K11 ["AssetTypeId"]
-       61 CALL                             R20 3 0
-       62 JUMPIFEQ                         R16 R19 ; [+8]
-       64 MOVE                             R20 R1
-       65 FASTCALL1                        TOSTRING R19 ; [+3]
-       66 MOVE                             R22 R19
-       67 GETIMPORT                        R21 K13 [tostring]
-       69 CALL                             R21 1 1
-       70 CALL                             R20 1 0
-       71 RETURN                           R0 0
-       72 MOVE                             R20 R4
-       73 LOADK                            R23 K2 ["ErrorText"]
-       74 LOADK                            R24 K3 ["AssetDoesNotExist"]
-       75 NAMECALL                         R21 R12 K4 ["getText"]
-       77 CALL                             R21 3 -1
-       78 CALL                             R20 -1 0
-       79 RETURN                           R0 0
-       80 LOADB                            R19 0
-       81 MOVE                             R20 R16
-       82 FASTCALL1                        TYPEOF R13 ; [+3]
-       83 MOVE                             R22 R13
-       84 GETIMPORT                        R21 K15 [typeof]
-       86 CALL                             R21 1 1
-       87 JUMPIFNOTEQKS                    R21 K16 ["table"] ; [+16]
-       89 MOVE                             R21 R13
-       90 LOADNIL                          R22
-       91 LOADNIL                          R23
-       92 FORGPREP                         R21
-       93 GETTABLEKS                       R26 R18 K11 ["AssetTypeId"]
-       95 GETTABLEKS                       R27 R25 K17 ["Value"]
-       97 JUMPIFNOTEQ                      R26 R27 ; [+3]
-       99 LOADB                            R19 1
-      100 JUMP                             ; [+29]
-      101 FORGLOOP                         R21 2 ; [-9]
-      103 JUMP                             ; [+26]
-      104 GETUPVAL                         R21 2
-      105 GETTABLEKS                       R22 R13 K17 ["Value"]
-      107 CALL                             R21 1 1
-      108 JUMPIFNOT                        R21 ; [+13]
-      109 GETTABLEKS                       R21 R7 K18 ["getAnimationIdFrom"]
-      111 MOVE                             R22 R16
-      112 GETTABLEKS                       R23 R18 K11 ["AssetTypeId"]
-      114 MOVE                             R24 R15
-      115 CALL                             R21 3 1
-      116 JUMPIFNOT                        R21 ; [+3]
-      117 MOVE                             R20 R21
-      118 LOADB                            R19 1
-      119 JUMP                             ; [+10]
-      120 LOADB                            R19 0
-      121 JUMP                             ; [+8]
-      122 GETTABLEKS                       R21 R18 K11 ["AssetTypeId"]
-      124 GETTABLEKS                       R22 R13 K17 ["Value"]
-      126 JUMPIFEQ                         R21 R22 ; [+2]
-      128 LOADB                            R19 0 +1
-      129 LOADB                            R19 1
-      130 JUMPIF                           R19 ; [+8]
-      131 MOVE                             R21 R4
-      132 LOADK                            R24 K2 ["ErrorText"]
-      133 LOADK                            R25 K19 ["AssetTypeNotSupported"]
-      134 NAMECALL                         R22 R12 K4 ["getText"]
-      136 CALL                             R22 3 -1
-      137 CALL                             R21 -1 0
-      138 RETURN                           R0 0
-      139 MOVE                             R21 R4
-      140 LOADK                            R22 K0 [""]
-      141 CALL                             R21 1 0
-      142 MOVE                             R21 R2
-      143 MOVE                             R22 R20
-      144 LOADB                            R23 0
-      145 GETTABLEKS                       R24 R18 K11 ["AssetTypeId"]
-      147 CALL                             R21 3 0
-      148 JUMPIFEQ                         R20 R16 ; [+8]
-      150 MOVE                             R21 R1
-      151 FASTCALL1                        TOSTRING R20 ; [+3]
-      152 MOVE                             R23 R20
-      153 GETIMPORT                        R22 K13 [tostring]
-      155 CALL                             R22 1 1
-      156 CALL                             R21 1 0
-      157 JUMPIFNOT                        R11 ; [+16]
-      158 JUMPIFNOTEQKNIL                  R10 ; [+2]
-      160 LOADB                            R22 0 +1
-      161 LOADB                            R22 1
-      162 FASTCALL2K                       ASSERT R22 K20 ; [+4]
-      164 LOADK                            R23 K20 ["assetIdSetting must not be nil"]
-      165 GETIMPORT                        R21 K22 [assert]
-      167 CALL                             R21 2 0
-      168 GETTABLEKS                       R21 R10 K23 ["enabled"]
-      170 GETTABLEKS                       R21 R21 K24 ["set"]
-      172 LOADB                            R22 1
-      173 CALL                             R21 1 0
-      174 RETURN                           R0 0
+        8 GETUPVAL                         R21 0
+        9 CALL                             R21 0 1
+       10 JUMPIFNOT                        R21 ; [+2]
+       11 LOADK                            R20 K3 ["AssetIdEmpty"]
+       12 JUMP                             ; [+1]
+       13 LOADK                            R20 K4 ["AssetDoesNotExist"]
+       14 NAMECALL                         R17 R12 K5 ["getText"]
+       16 CALL                             R17 3 -1
+       17 CALL                             R16 -1 0
+       18 RETURN                           R0 0
+       19 MOVE                             R16 R4
+       20 LOADK                            R17 K0 [""]
+       21 CALL                             R16 1 0
+       22 MOVE                             R16 R2
+       23 GETUPVAL                         R17 1
+       24 GETTABLEKS                       R17 R17 K6 ["INVALID_ASSETID"]
+       26 LOADB                            R18 0
+       27 CALL                             R16 2 0
+       28 RETURN                           R0 0
+       29 FASTCALL1                        TONUMBER R0 ; [+3]
+       30 MOVE                             R17 R0
+       31 GETIMPORT                        R16 K8 [tonumber]
+       33 CALL                             R16 1 1
+       34 JUMPIF                           R16 ; [+8]
+       35 MOVE                             R17 R4
+       36 LOADK                            R20 K2 ["ErrorText"]
+       37 LOADK                            R21 K9 ["NotANumber"]
+       38 NAMECALL                         R18 R12 K5 ["getText"]
+       40 CALL                             R18 3 -1
+       41 CALL                             R17 -1 0
+       42 RETURN                           R0 0
+       43 GETIMPORT                        R17 K11 [pcall]
+       45 NEWCLOSURE                       R18 P0
+       46 CAPTURE                          VAL R6
+       47 CAPTURE                          VAL R16
+       48 CALL                             R17 1 2
+       49 JUMPIF                           R17 ; [+35]
+       50 GETUPVAL                         R19 2
+       51 MOVE                             R20 R13
+       52 MOVE                             R21 R16
+       53 MOVE                             R22 R8
+       54 MOVE                             R23 R9
+       55 MOVE                             R24 R7
+       56 CALL                             R19 5 1
+       57 JUMPIFNOT                        R19 ; [+19]
+       58 MOVE                             R20 R4
+       59 LOADK                            R21 K0 [""]
+       60 CALL                             R20 1 0
+       61 MOVE                             R20 R2
+       62 MOVE                             R21 R19
+       63 LOADB                            R22 0
+       64 GETTABLEKS                       R23 R18 K12 ["AssetTypeId"]
+       66 CALL                             R20 3 0
+       67 JUMPIFEQ                         R16 R19 ; [+8]
+       69 MOVE                             R20 R1
+       70 FASTCALL1                        TOSTRING R19 ; [+3]
+       71 MOVE                             R22 R19
+       72 GETIMPORT                        R21 K14 [tostring]
+       74 CALL                             R21 1 1
+       75 CALL                             R20 1 0
+       76 RETURN                           R0 0
+       77 MOVE                             R20 R4
+       78 LOADK                            R23 K2 ["ErrorText"]
+       79 LOADK                            R24 K4 ["AssetDoesNotExist"]
+       80 NAMECALL                         R21 R12 K5 ["getText"]
+       82 CALL                             R21 3 -1
+       83 CALL                             R20 -1 0
+       84 RETURN                           R0 0
+       85 LOADB                            R19 0
+       86 MOVE                             R20 R16
+       87 FASTCALL1                        TYPEOF R13 ; [+3]
+       88 MOVE                             R22 R13
+       89 GETIMPORT                        R21 K16 [typeof]
+       91 CALL                             R21 1 1
+       92 JUMPIFNOTEQKS                    R21 K17 ["table"] ; [+16]
+       94 MOVE                             R21 R13
+       95 LOADNIL                          R22
+       96 LOADNIL                          R23
+       97 FORGPREP                         R21
+       98 GETTABLEKS                       R26 R18 K12 ["AssetTypeId"]
+      100 GETTABLEKS                       R27 R25 K18 ["Value"]
+      102 JUMPIFNOTEQ                      R26 R27 ; [+3]
+      104 LOADB                            R19 1
+      105 JUMP                             ; [+29]
+      106 FORGLOOP                         R21 2 ; [-9]
+      108 JUMP                             ; [+26]
+      109 GETUPVAL                         R21 3
+      110 GETTABLEKS                       R22 R13 K18 ["Value"]
+      112 CALL                             R21 1 1
+      113 JUMPIFNOT                        R21 ; [+13]
+      114 GETTABLEKS                       R21 R7 K19 ["getAnimationIdFrom"]
+      116 MOVE                             R22 R16
+      117 GETTABLEKS                       R23 R18 K12 ["AssetTypeId"]
+      119 MOVE                             R24 R15
+      120 CALL                             R21 3 1
+      121 JUMPIFNOT                        R21 ; [+3]
+      122 MOVE                             R20 R21
+      123 LOADB                            R19 1
+      124 JUMP                             ; [+10]
+      125 LOADB                            R19 0
+      126 JUMP                             ; [+8]
+      127 GETTABLEKS                       R21 R18 K12 ["AssetTypeId"]
+      129 GETTABLEKS                       R22 R13 K18 ["Value"]
+      131 JUMPIFEQ                         R21 R22 ; [+2]
+      133 LOADB                            R19 0 +1
+      134 LOADB                            R19 1
+      135 JUMPIF                           R19 ; [+8]
+      136 MOVE                             R21 R4
+      137 LOADK                            R24 K2 ["ErrorText"]
+      138 LOADK                            R25 K20 ["AssetTypeNotSupported"]
+      139 NAMECALL                         R22 R12 K5 ["getText"]
+      141 CALL                             R22 3 -1
+      142 CALL                             R21 -1 0
+      143 RETURN                           R0 0
+      144 MOVE                             R21 R4
+      145 LOADK                            R22 K0 [""]
+      146 CALL                             R21 1 0
+      147 MOVE                             R21 R2
+      148 MOVE                             R22 R20
+      149 LOADB                            R23 0
+      150 GETTABLEKS                       R24 R18 K12 ["AssetTypeId"]
+      152 CALL                             R21 3 0
+      153 JUMPIFEQ                         R20 R16 ; [+8]
+      155 MOVE                             R21 R1
+      156 FASTCALL1                        TOSTRING R20 ; [+3]
+      157 MOVE                             R23 R20
+      158 GETIMPORT                        R22 K14 [tostring]
+      160 CALL                             R22 1 1
+      161 CALL                             R21 1 0
+      162 JUMPIFNOT                        R11 ; [+16]
+      163 JUMPIFNOTEQKNIL                  R10 ; [+2]
+      165 LOADB                            R22 0 +1
+      166 LOADB                            R22 1
+      167 FASTCALL2K                       ASSERT R22 K21 ; [+4]
+      169 LOADK                            R23 K21 ["assetIdSetting must not be nil"]
+      170 GETIMPORT                        R21 K23 [assert]
+      172 CALL                             R21 2 0
+      173 GETTABLEKS                       R21 R10 K24 ["enabled"]
+      175 GETTABLEKS                       R21 R21 K25 ["set"]
+      177 LOADB                            R22 1
+      178 CALL                             R21 1 0
+      179 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -348,13 +353,19 @@ MAIN:
        85 CALL                             R8 1 1
        86 GETIMPORT                        R9 K9 [require]
        88 GETTABLEKS                       R10 R1 K10 ["Src"]
-       90 GETTABLEKS                       R10 R10 K15 ["Util"]
-       92 GETTABLEKS                       R10 R10 K22 ["isAnimationAssetType"]
+       90 GETTABLEKS                       R10 R10 K22 ["Flags"]
+       92 GETTABLEKS                       R10 R10 K23 ["getFFlagAvatarSettingsFixEmptyAssetIdErrorMessage"]
        94 CALL                             R9 1 1
-       95 DUPCLOSURE                       R10 K23 [PROTO_1]
-       96 CAPTURE                          VAL R0
-       97 DUPCLOSURE                       R11 K24 [PROTO_3]
-       98 CAPTURE                          VAL R5
-       99 CAPTURE                          VAL R10
-      100 CAPTURE                          VAL R9
-      101 RETURN                           R11 1
+       95 GETIMPORT                        R10 K9 [require]
+       97 GETTABLEKS                       R11 R1 K10 ["Src"]
+       99 GETTABLEKS                       R11 R11 K15 ["Util"]
+      101 GETTABLEKS                       R11 R11 K24 ["isAnimationAssetType"]
+      103 CALL                             R10 1 1
+      104 DUPCLOSURE                       R11 K25 [PROTO_1]
+      105 CAPTURE                          VAL R0
+      106 DUPCLOSURE                       R12 K26 [PROTO_3]
+      107 CAPTURE                          VAL R9
+      108 CAPTURE                          VAL R5
+      109 CAPTURE                          VAL R11
+      110 CAPTURE                          VAL R10
+      111 RETURN                           R12 1

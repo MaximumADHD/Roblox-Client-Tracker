@@ -1109,5 +1109,5 @@ MAIN:
       260 CAPTURE                          VAL R11
       261 CAPTURE                          VAL R15
       262 CAPTURE                          VAL R13
-      263 SETTABLEKS                       R25 R24 K88 ["reportAnalytics"]
+      263 SETTABLEKS                       R25 R24 K88 ["reportToolAnalytics"]
       265 RETURN                           R24 1

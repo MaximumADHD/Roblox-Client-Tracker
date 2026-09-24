@@ -224,104 +224,92 @@ PROTO_1:
       301 SUB                              R20 R18 R17
       302 ADD                              R19 R15 R20
       303 ADDK                             R15 R19 K64 [16]
-      304 LOADNIL                          R19
-      305 GETUPVAL                         R20 5
-      306 CALL                             R20 0 1
-      307 JUMPIFNOT                        R20 ; [+17]
-      308 GETTABLEKS                       R22 R14 K77 ["X"]
-      310 GETTABLEKS                       R22 R22 K76 ["Offset"]
-      312 SUB                              R21 R6 R22
-      313 GETTABLEKS                       R23 R1 K4 ["Footer"]
-      315 GETTABLEKS                       R23 R23 K6 ["Padding"]
-      317 MULK                             R22 R23 K78 [2]
-      318 SUB                              R20 R21 R22
-      319 GETTABLEKS                       R21 R1 K4 ["Footer"]
-      321 GETTABLEKS                       R21 R21 K12 ["Spacing"]
-      323 SUB                              R19 R20 R21
-      324 JUMP                             ; [+11]
-      325 GETTABLEKS                       R22 R1 K4 ["Footer"]
-      327 GETTABLEKS                       R22 R22 K6 ["Padding"]
-      329 MULK                             R21 R22 K78 [2]
-      330 SUB                              R20 R6 R21
-      331 GETTABLEKS                       R21 R1 K4 ["Footer"]
-      333 GETTABLEKS                       R21 R21 K12 ["Spacing"]
-      335 SUB                              R19 R20 R21
-      336 JUMPIFNOTLT                      R19 R15 ; [+3]
-      338 SUB                              R20 R15 R19
-      339 ADD                              R6 R6 R20
-      340 DUPTABLE                         R20 K95 [{"Size", "TerrainSize"}]
-      341 GETIMPORT                        R21 K92 [Vector2.new]
-      343 MOVE                             R22 R6
-      344 MOVE                             R23 R12
-      345 CALL                             R21 2 1
-      346 SETTABLEKS                       R21 R20 K11 ["Size"]
-      348 GETIMPORT                        R21 K92 [Vector2.new]
-      350 LOADN                            R22 272
-      351 LOADN                            R23 340
-      352 CALL                             R21 2 1
-      353 SETTABLEKS                       R21 R20 K94 ["TerrainSize"]
-      355 SETTABLEKS                       R20 R1 K96 ["Popup"]
-      357 GETTABLEKS                       R20 R1 K4 ["Footer"]
-      359 GETTABLEKS                       R20 R20 K60 ["IconButton"]
-      361 GETTABLEKS                       R20 R20 K65 ["MaterialManagerButton"]
-      363 GETIMPORT                        R21 K19 [UDim2.new]
-      365 LOADN                            R22 0
-      366 MOVE                             R23 R15
-      367 LOADN                            R24 1
-      368 LOADN                            R25 0
-      369 CALL                             R21 4 1
-      370 SETTABLEKS                       R21 R20 K11 ["Size"]
-      372 GETTABLEKS                       R20 R1 K3 ["MaterialGrid"]
-      374 GETIMPORT                        R21 K98 [NumberRange.new]
-      376 LOADN                            R22 0
-      377 GETTABLEKS                       R24 R1 K96 ["Popup"]
-      379 GETTABLEKS                       R24 R24 K11 ["Size"]
-      381 GETTABLEKS                       R24 R24 K77 ["X"]
-      383 GETTABLEKS                       R25 R1 K0 ["MainView"]
-      385 GETTABLEKS                       R25 R25 K8 ["ScrollBarThickness"]
-      387 SUB                              R23 R24 R25
-      388 CALL                             R21 2 1
-      389 SETTABLEKS                       R21 R20 K99 ["ContainerXBounds"]
-      391 GETTABLEKS                       R20 R1 K3 ["MaterialGrid"]
-      393 GETIMPORT                        R21 K98 [NumberRange.new]
-      395 GETTABLEKS                       R23 R1 K1 ["PrimaryTools"]
-      397 GETTABLEKS                       R23 R23 K11 ["Size"]
-      399 GETTABLEKS                       R23 R23 K75 ["Y"]
-      401 GETTABLEKS                       R23 R23 K76 ["Offset"]
-      403 GETTABLEKS                       R24 R1 K2 ["Filters"]
-      405 GETTABLEKS                       R24 R24 K11 ["Size"]
-      407 GETTABLEKS                       R24 R24 K75 ["Y"]
-      409 GETTABLEKS                       R24 R24 K76 ["Offset"]
-      411 ADD                              R22 R23 R24
-      412 GETTABLEKS                       R24 R1 K96 ["Popup"]
-      414 GETTABLEKS                       R24 R24 K11 ["Size"]
-      416 GETTABLEKS                       R24 R24 K75 ["Y"]
-      418 GETTABLEKS                       R25 R1 K4 ["Footer"]
-      420 GETTABLEKS                       R25 R25 K11 ["Size"]
-      422 GETTABLEKS                       R25 R25 K75 ["Y"]
-      424 GETTABLEKS                       R25 R25 K76 ["Offset"]
-      426 SUB                              R23 R24 R25
-      427 CALL                             R21 2 1
-      428 SETTABLEKS                       R21 R20 K100 ["ContainerYBounds"]
-      430 GETTABLEKS                       R20 R1 K3 ["MaterialGrid"]
-      432 GETIMPORT                        R21 K19 [UDim2.new]
-      434 LOADN                            R22 1
-      435 LOADN                            R23 0
-      436 LOADN                            R24 0
-      437 MOVE                             R25 R8
-      438 CALL                             R21 4 1
-      439 SETTABLEKS                       R21 R20 K11 ["Size"]
-      441 NEWTABLE                         R20 2 0
-      443 NEWCLOSURE                       R21 P0
-      444 CAPTURE                          VAL R0
-      445 CAPTURE                          UPVAL U6
-      446 CAPTURE                          UPVAL U7
-      447 CAPTURE                          UPVAL U8
-      448 CAPTURE                          VAL R1
-      449 SETTABLEKS                       R21 R20 K101 ["createTheme"]
-      451 GETTABLEKS                       R21 R1 K96 ["Popup"]
-      453 SETTABLEKS                       R21 R20 K96 ["Popup"]
-      455 RETURN                           R20 1
+      304 GETTABLEKS                       R22 R14 K77 ["X"]
+      306 GETTABLEKS                       R22 R22 K76 ["Offset"]
+      308 SUB                              R21 R6 R22
+      309 GETTABLEKS                       R23 R1 K4 ["Footer"]
+      311 GETTABLEKS                       R23 R23 K6 ["Padding"]
+      313 MULK                             R22 R23 K78 [2]
+      314 SUB                              R20 R21 R22
+      315 GETTABLEKS                       R21 R1 K4 ["Footer"]
+      317 GETTABLEKS                       R21 R21 K12 ["Spacing"]
+      319 SUB                              R19 R20 R21
+      320 JUMPIFNOTLT                      R19 R15 ; [+3]
+      322 SUB                              R20 R15 R19
+      323 ADD                              R6 R6 R20
+      324 DUPTABLE                         R20 K95 [{"Size", "TerrainSize"}]
+      325 GETIMPORT                        R21 K92 [Vector2.new]
+      327 MOVE                             R22 R6
+      328 MOVE                             R23 R12
+      329 CALL                             R21 2 1
+      330 SETTABLEKS                       R21 R20 K11 ["Size"]
+      332 GETIMPORT                        R21 K92 [Vector2.new]
+      334 LOADN                            R22 272
+      335 LOADN                            R23 340
+      336 CALL                             R21 2 1
+      337 SETTABLEKS                       R21 R20 K94 ["TerrainSize"]
+      339 SETTABLEKS                       R20 R1 K96 ["Popup"]
+      341 GETTABLEKS                       R20 R1 K4 ["Footer"]
+      343 GETTABLEKS                       R20 R20 K60 ["IconButton"]
+      345 GETTABLEKS                       R20 R20 K65 ["MaterialManagerButton"]
+      347 GETIMPORT                        R21 K19 [UDim2.new]
+      349 LOADN                            R22 0
+      350 MOVE                             R23 R15
+      351 LOADN                            R24 1
+      352 LOADN                            R25 0
+      353 CALL                             R21 4 1
+      354 SETTABLEKS                       R21 R20 K11 ["Size"]
+      356 GETTABLEKS                       R20 R1 K3 ["MaterialGrid"]
+      358 GETIMPORT                        R21 K98 [NumberRange.new]
+      360 LOADN                            R22 0
+      361 GETTABLEKS                       R24 R1 K96 ["Popup"]
+      363 GETTABLEKS                       R24 R24 K11 ["Size"]
+      365 GETTABLEKS                       R24 R24 K77 ["X"]
+      367 GETTABLEKS                       R25 R1 K0 ["MainView"]
+      369 GETTABLEKS                       R25 R25 K8 ["ScrollBarThickness"]
+      371 SUB                              R23 R24 R25
+      372 CALL                             R21 2 1
+      373 SETTABLEKS                       R21 R20 K99 ["ContainerXBounds"]
+      375 GETTABLEKS                       R20 R1 K3 ["MaterialGrid"]
+      377 GETIMPORT                        R21 K98 [NumberRange.new]
+      379 GETTABLEKS                       R23 R1 K1 ["PrimaryTools"]
+      381 GETTABLEKS                       R23 R23 K11 ["Size"]
+      383 GETTABLEKS                       R23 R23 K75 ["Y"]
+      385 GETTABLEKS                       R23 R23 K76 ["Offset"]
+      387 GETTABLEKS                       R24 R1 K2 ["Filters"]
+      389 GETTABLEKS                       R24 R24 K11 ["Size"]
+      391 GETTABLEKS                       R24 R24 K75 ["Y"]
+      393 GETTABLEKS                       R24 R24 K76 ["Offset"]
+      395 ADD                              R22 R23 R24
+      396 GETTABLEKS                       R24 R1 K96 ["Popup"]
+      398 GETTABLEKS                       R24 R24 K11 ["Size"]
+      400 GETTABLEKS                       R24 R24 K75 ["Y"]
+      402 GETTABLEKS                       R25 R1 K4 ["Footer"]
+      404 GETTABLEKS                       R25 R25 K11 ["Size"]
+      406 GETTABLEKS                       R25 R25 K75 ["Y"]
+      408 GETTABLEKS                       R25 R25 K76 ["Offset"]
+      410 SUB                              R23 R24 R25
+      411 CALL                             R21 2 1
+      412 SETTABLEKS                       R21 R20 K100 ["ContainerYBounds"]
+      414 GETTABLEKS                       R20 R1 K3 ["MaterialGrid"]
+      416 GETIMPORT                        R21 K19 [UDim2.new]
+      418 LOADN                            R22 1
+      419 LOADN                            R23 0
+      420 LOADN                            R24 0
+      421 MOVE                             R25 R8
+      422 CALL                             R21 4 1
+      423 SETTABLEKS                       R21 R20 K11 ["Size"]
+      425 NEWTABLE                         R20 2 0
+      427 NEWCLOSURE                       R21 P0
+      428 CAPTURE                          VAL R0
+      429 CAPTURE                          UPVAL U5
+      430 CAPTURE                          UPVAL U6
+      431 CAPTURE                          UPVAL U7
+      432 CAPTURE                          VAL R1
+      433 SETTABLEKS                       R21 R20 K101 ["createTheme"]
+      435 GETTABLEKS                       R21 R1 K96 ["Popup"]
+      437 SETTABLEKS                       R21 R20 K96 ["Popup"]
+      439 RETURN                           R20 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -361,129 +349,123 @@ MAIN:
        62 LOADK                            R11 K23 ["TextService"]
        63 NAMECALL                         R9 R9 K24 ["GetService"]
        65 CALL                             R9 2 1
-       66 GETIMPORT                        R10 K5 [require]
-       68 GETTABLEKS                       R11 R0 K17 ["Src"]
-       70 GETTABLEKS                       R11 R11 K25 ["Flags"]
-       72 GETTABLEKS                       R11 R11 K26 ["getFFlagEnableMaterialGenerator"]
-       74 CALL                             R10 1 1
-       75 GETIMPORT                        R11 K29 [string.format]
-       77 LOADK                            R12 K30 ["rbxasset://studio_svg_textures/Lua/MaterialPicker/%s/Standard/Generate.png"]
-       78 LOADK                            R13 K31 ["Light"]
-       79 CALL                             R11 2 1
-       80 GETIMPORT                        R12 K29 [string.format]
-       82 LOADK                            R13 K30 ["rbxasset://studio_svg_textures/Lua/MaterialPicker/%s/Standard/Generate.png"]
-       83 LOADK                            R14 K32 ["Dark"]
-       84 CALL                             R12 2 1
-       85 GETIMPORT                        R13 K29 [string.format]
-       87 LOADK                            R14 K33 ["rbxasset://studio_svg_textures/Shared/Modeling/%s/Large/Material.png"]
-       88 LOADK                            R15 K31 ["Light"]
-       89 CALL                             R13 2 1
-       90 GETIMPORT                        R14 K29 [string.format]
-       92 LOADK                            R15 K33 ["rbxasset://studio_svg_textures/Shared/Modeling/%s/Large/Material.png"]
-       93 LOADK                            R16 K32 ["Dark"]
-       94 CALL                             R14 2 1
-       95 GETIMPORT                        R15 K29 [string.format]
-       97 LOADK                            R16 K34 ["rbxasset://studio_svg_textures/Lua/MaterialPicker/%s/Standard/Grid.png"]
-       98 LOADK                            R17 K31 ["Light"]
-       99 CALL                             R15 2 1
-      100 GETIMPORT                        R16 K29 [string.format]
-      102 LOADK                            R17 K34 ["rbxasset://studio_svg_textures/Lua/MaterialPicker/%s/Standard/Grid.png"]
-      103 LOADK                            R18 K32 ["Dark"]
-      104 CALL                             R16 2 1
-      105 GETIMPORT                        R17 K29 [string.format]
-      107 LOADK                            R18 K35 ["rbxasset://studio_svg_textures/Lua/MaterialPicker/%s/Standard/List.png"]
-      108 LOADK                            R19 K31 ["Light"]
-      109 CALL                             R17 2 1
-      110 GETIMPORT                        R18 K29 [string.format]
-      112 LOADK                            R19 K35 ["rbxasset://studio_svg_textures/Lua/MaterialPicker/%s/Standard/List.png"]
-      113 LOADK                            R20 K32 ["Dark"]
-      114 CALL                             R18 2 1
-      115 NEWTABLE                         R19 16 0
-      117 GETTABLEKS                       R20 R5 K36 ["MaterialGeneratorButtonIcon"]
-      119 SETTABLE                         R12 R19 R20
-      120 GETTABLEKS                       R20 R5 K37 ["MaterialManagerButtonIcon"]
-      122 SETTABLE                         R14 R19 R20
-      123 GETTABLEKS                       R20 R5 K38 ["ViewToggleButtonGridIcon"]
-      125 SETTABLE                         R16 R19 R20
-      126 GETTABLEKS                       R20 R5 K39 ["ViewToggleButtonListIcon"]
-      128 SETTABLE                         R18 R19 R20
-      129 GETTABLEKS                       R20 R5 K40 ["FilterChipTextColor"]
-      131 GETIMPORT                        R21 K43 [Color3.fromHex]
-      133 LOADK                            R22 K44 ["FFFFFF"]
-      134 CALL                             R21 1 1
-      135 SETTABLE                         R21 R19 R20
-      136 GETTABLEKS                       R20 R5 K45 ["FilterChipBorderColor"]
-      138 GETIMPORT                        R21 K43 [Color3.fromHex]
-      140 LOADK                            R22 K46 ["262626"]
-      141 CALL                             R21 1 1
-      142 SETTABLE                         R21 R19 R20
-      143 GETTABLEKS                       R20 R5 K47 ["FilterChipInactiveBackgroundColor"]
-      145 GETIMPORT                        R21 K43 [Color3.fromHex]
-      147 LOADK                            R22 K48 ["3C3C3C"]
-      148 CALL                             R21 1 1
-      149 SETTABLE                         R21 R19 R20
-      150 GETTABLEKS                       R20 R5 K49 ["FilterChipInactiveHoverBackgroundColor"]
-      152 GETIMPORT                        R21 K43 [Color3.fromHex]
-      154 LOADK                            R22 K50 ["424242"]
-      155 CALL                             R21 1 1
-      156 SETTABLE                         R21 R19 R20
-      157 GETTABLEKS                       R20 R5 K51 ["FilterChipActiveBackgroundColor"]
-      159 GETIMPORT                        R21 K43 [Color3.fromHex]
-      161 LOADK                            R22 K52 ["1A1A1A"]
-      162 CALL                             R21 1 1
-      163 SETTABLE                         R21 R19 R20
-      164 GETTABLEKS                       R20 R5 K53 ["FilterChipActiveHoverBackgroundColor"]
-      166 GETIMPORT                        R21 K43 [Color3.fromHex]
-      168 LOADK                            R22 K54 ["252525"]
-      169 CALL                             R21 1 1
-      170 SETTABLE                         R21 R19 R20
-      171 NEWTABLE                         R20 16 0
-      173 GETTABLEKS                       R21 R5 K36 ["MaterialGeneratorButtonIcon"]
-      175 SETTABLE                         R11 R20 R21
-      176 GETTABLEKS                       R21 R5 K37 ["MaterialManagerButtonIcon"]
-      178 SETTABLE                         R13 R20 R21
-      179 GETTABLEKS                       R21 R5 K38 ["ViewToggleButtonGridIcon"]
-      181 SETTABLE                         R15 R20 R21
-      182 GETTABLEKS                       R21 R5 K39 ["ViewToggleButtonListIcon"]
-      184 SETTABLE                         R17 R20 R21
-      185 GETTABLEKS                       R21 R5 K40 ["FilterChipTextColor"]
-      187 GETIMPORT                        R22 K43 [Color3.fromHex]
-      189 LOADK                            R23 K55 ["000000"]
-      190 CALL                             R22 1 1
-      191 SETTABLE                         R22 R20 R21
-      192 GETTABLEKS                       R21 R5 K45 ["FilterChipBorderColor"]
-      194 GETIMPORT                        R22 K43 [Color3.fromHex]
-      196 LOADK                            R23 K56 ["B6B6B6"]
-      197 CALL                             R22 1 1
-      198 SETTABLE                         R22 R20 R21
-      199 GETTABLEKS                       R21 R5 K47 ["FilterChipInactiveBackgroundColor"]
-      201 GETIMPORT                        R22 K43 [Color3.fromHex]
-      203 LOADK                            R23 K44 ["FFFFFF"]
-      204 CALL                             R22 1 1
-      205 SETTABLE                         R22 R20 R21
-      206 GETTABLEKS                       R21 R5 K49 ["FilterChipInactiveHoverBackgroundColor"]
-      208 GETIMPORT                        R22 K43 [Color3.fromHex]
-      210 LOADK                            R23 K57 ["E4EEFE"]
-      211 CALL                             R22 1 1
-      212 SETTABLE                         R22 R20 R21
-      213 GETTABLEKS                       R21 R5 K51 ["FilterChipActiveBackgroundColor"]
-      215 GETIMPORT                        R22 K43 [Color3.fromHex]
-      217 LOADK                            R23 K58 ["A8A8A8"]
-      218 CALL                             R22 1 1
-      219 SETTABLE                         R22 R20 R21
-      220 GETTABLEKS                       R21 R5 K53 ["FilterChipActiveHoverBackgroundColor"]
-      222 GETIMPORT                        R22 K43 [Color3.fromHex]
-      224 LOADK                            R23 K59 ["D8E6FF"]
-      225 CALL                             R22 1 1
-      226 SETTABLE                         R22 R20 R21
-      227 DUPCLOSURE                       R21 K60 [PROTO_1]
-      228 CAPTURE                          VAL R5
-      229 CAPTURE                          VAL R6
-      230 CAPTURE                          VAL R7
-      231 CAPTURE                          VAL R8
-      232 CAPTURE                          VAL R9
-      233 CAPTURE                          VAL R10
-      234 CAPTURE                          VAL R4
-      235 CAPTURE                          VAL R19
-      236 CAPTURE                          VAL R20
-      237 RETURN                           R21 1
+       66 GETIMPORT                        R10 K27 [string.format]
+       68 LOADK                            R11 K28 ["rbxasset://studio_svg_textures/Lua/MaterialPicker/%s/Standard/Generate.png"]
+       69 LOADK                            R12 K29 ["Light"]
+       70 CALL                             R10 2 1
+       71 GETIMPORT                        R11 K27 [string.format]
+       73 LOADK                            R12 K28 ["rbxasset://studio_svg_textures/Lua/MaterialPicker/%s/Standard/Generate.png"]
+       74 LOADK                            R13 K30 ["Dark"]
+       75 CALL                             R11 2 1
+       76 GETIMPORT                        R12 K27 [string.format]
+       78 LOADK                            R13 K31 ["rbxasset://studio_svg_textures/Shared/Modeling/%s/Large/Material.png"]
+       79 LOADK                            R14 K29 ["Light"]
+       80 CALL                             R12 2 1
+       81 GETIMPORT                        R13 K27 [string.format]
+       83 LOADK                            R14 K31 ["rbxasset://studio_svg_textures/Shared/Modeling/%s/Large/Material.png"]
+       84 LOADK                            R15 K30 ["Dark"]
+       85 CALL                             R13 2 1
+       86 GETIMPORT                        R14 K27 [string.format]
+       88 LOADK                            R15 K32 ["rbxasset://studio_svg_textures/Lua/MaterialPicker/%s/Standard/Grid.png"]
+       89 LOADK                            R16 K29 ["Light"]
+       90 CALL                             R14 2 1
+       91 GETIMPORT                        R15 K27 [string.format]
+       93 LOADK                            R16 K32 ["rbxasset://studio_svg_textures/Lua/MaterialPicker/%s/Standard/Grid.png"]
+       94 LOADK                            R17 K30 ["Dark"]
+       95 CALL                             R15 2 1
+       96 GETIMPORT                        R16 K27 [string.format]
+       98 LOADK                            R17 K33 ["rbxasset://studio_svg_textures/Lua/MaterialPicker/%s/Standard/List.png"]
+       99 LOADK                            R18 K29 ["Light"]
+      100 CALL                             R16 2 1
+      101 GETIMPORT                        R17 K27 [string.format]
+      103 LOADK                            R18 K33 ["rbxasset://studio_svg_textures/Lua/MaterialPicker/%s/Standard/List.png"]
+      104 LOADK                            R19 K30 ["Dark"]
+      105 CALL                             R17 2 1
+      106 NEWTABLE                         R18 16 0
+      108 GETTABLEKS                       R19 R5 K34 ["MaterialGeneratorButtonIcon"]
+      110 SETTABLE                         R11 R18 R19
+      111 GETTABLEKS                       R19 R5 K35 ["MaterialManagerButtonIcon"]
+      113 SETTABLE                         R13 R18 R19
+      114 GETTABLEKS                       R19 R5 K36 ["ViewToggleButtonGridIcon"]
+      116 SETTABLE                         R15 R18 R19
+      117 GETTABLEKS                       R19 R5 K37 ["ViewToggleButtonListIcon"]
+      119 SETTABLE                         R17 R18 R19
+      120 GETTABLEKS                       R19 R5 K38 ["FilterChipTextColor"]
+      122 GETIMPORT                        R20 K41 [Color3.fromHex]
+      124 LOADK                            R21 K42 ["FFFFFF"]
+      125 CALL                             R20 1 1
+      126 SETTABLE                         R20 R18 R19
+      127 GETTABLEKS                       R19 R5 K43 ["FilterChipBorderColor"]
+      129 GETIMPORT                        R20 K41 [Color3.fromHex]
+      131 LOADK                            R21 K44 ["262626"]
+      132 CALL                             R20 1 1
+      133 SETTABLE                         R20 R18 R19
+      134 GETTABLEKS                       R19 R5 K45 ["FilterChipInactiveBackgroundColor"]
+      136 GETIMPORT                        R20 K41 [Color3.fromHex]
+      138 LOADK                            R21 K46 ["3C3C3C"]
+      139 CALL                             R20 1 1
+      140 SETTABLE                         R20 R18 R19
+      141 GETTABLEKS                       R19 R5 K47 ["FilterChipInactiveHoverBackgroundColor"]
+      143 GETIMPORT                        R20 K41 [Color3.fromHex]
+      145 LOADK                            R21 K48 ["424242"]
+      146 CALL                             R20 1 1
+      147 SETTABLE                         R20 R18 R19
+      148 GETTABLEKS                       R19 R5 K49 ["FilterChipActiveBackgroundColor"]
+      150 GETIMPORT                        R20 K41 [Color3.fromHex]
+      152 LOADK                            R21 K50 ["1A1A1A"]
+      153 CALL                             R20 1 1
+      154 SETTABLE                         R20 R18 R19
+      155 GETTABLEKS                       R19 R5 K51 ["FilterChipActiveHoverBackgroundColor"]
+      157 GETIMPORT                        R20 K41 [Color3.fromHex]
+      159 LOADK                            R21 K52 ["252525"]
+      160 CALL                             R20 1 1
+      161 SETTABLE                         R20 R18 R19
+      162 NEWTABLE                         R19 16 0
+      164 GETTABLEKS                       R20 R5 K34 ["MaterialGeneratorButtonIcon"]
+      166 SETTABLE                         R10 R19 R20
+      167 GETTABLEKS                       R20 R5 K35 ["MaterialManagerButtonIcon"]
+      169 SETTABLE                         R12 R19 R20
+      170 GETTABLEKS                       R20 R5 K36 ["ViewToggleButtonGridIcon"]
+      172 SETTABLE                         R14 R19 R20
+      173 GETTABLEKS                       R20 R5 K37 ["ViewToggleButtonListIcon"]
+      175 SETTABLE                         R16 R19 R20
+      176 GETTABLEKS                       R20 R5 K38 ["FilterChipTextColor"]
+      178 GETIMPORT                        R21 K41 [Color3.fromHex]
+      180 LOADK                            R22 K53 ["000000"]
+      181 CALL                             R21 1 1
+      182 SETTABLE                         R21 R19 R20
+      183 GETTABLEKS                       R20 R5 K43 ["FilterChipBorderColor"]
+      185 GETIMPORT                        R21 K41 [Color3.fromHex]
+      187 LOADK                            R22 K54 ["B6B6B6"]
+      188 CALL                             R21 1 1
+      189 SETTABLE                         R21 R19 R20
+      190 GETTABLEKS                       R20 R5 K45 ["FilterChipInactiveBackgroundColor"]
+      192 GETIMPORT                        R21 K41 [Color3.fromHex]
+      194 LOADK                            R22 K42 ["FFFFFF"]
+      195 CALL                             R21 1 1
+      196 SETTABLE                         R21 R19 R20
+      197 GETTABLEKS                       R20 R5 K47 ["FilterChipInactiveHoverBackgroundColor"]
+      199 GETIMPORT                        R21 K41 [Color3.fromHex]
+      201 LOADK                            R22 K55 ["E4EEFE"]
+      202 CALL                             R21 1 1
+      203 SETTABLE                         R21 R19 R20
+      204 GETTABLEKS                       R20 R5 K49 ["FilterChipActiveBackgroundColor"]
+      206 GETIMPORT                        R21 K41 [Color3.fromHex]
+      208 LOADK                            R22 K56 ["A8A8A8"]
+      209 CALL                             R21 1 1
+      210 SETTABLE                         R21 R19 R20
+      211 GETTABLEKS                       R20 R5 K51 ["FilterChipActiveHoverBackgroundColor"]
+      213 GETIMPORT                        R21 K41 [Color3.fromHex]
+      215 LOADK                            R22 K57 ["D8E6FF"]
+      216 CALL                             R21 1 1
+      217 SETTABLE                         R21 R19 R20
+      218 DUPCLOSURE                       R20 K58 [PROTO_1]
+      219 CAPTURE                          VAL R5
+      220 CAPTURE                          VAL R6
+      221 CAPTURE                          VAL R7
+      222 CAPTURE                          VAL R8
+      223 CAPTURE                          VAL R9
+      224 CAPTURE                          VAL R4
+      225 CAPTURE                          VAL R18
+      226 CAPTURE                          VAL R19
+      227 RETURN                           R20 1

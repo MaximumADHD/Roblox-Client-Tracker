@@ -5,11 +5,17 @@ PROTO_0:
 PROTO_1:
         0 SETUPVAL                         R0 0
         1 GETUPVAL                         R1 0
-        2 JUMPIFEQKS                       R1 K0 ["Movement"] ; [+5]
+        2 JUMPIFEQKS                       R1 K0 ["Movement"] ; [+12]
         4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R1 R1 K1 ["terminate"]
-        7 CALL                             R1 0 0
-        8 RETURN                           R0 0
+        5 CALL                             R1 0 1
+        6 JUMPIFNOT                        R1 ; [+4]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K1 ["stopCycling"]
+       10 CALL                             R1 0 0
+       11 GETUPVAL                         R1 2
+       12 GETTABLEKS                       R1 R1 K2 ["terminate"]
+       14 CALL                             R1 0 0
+       15 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R2 R0 K0 ["Parent"]
@@ -152,36 +158,42 @@ MAIN:
        46 CALL                             R4 1 1
        47 GETIMPORT                        R5 K5 [require]
        49 GETTABLEKS                       R6 R0 K6 ["Src"]
-       51 GETTABLEKS                       R6 R6 K7 ["Util"]
-       53 GETTABLEKS                       R6 R6 K8 ["AvatarPreview"]
-       55 GETTABLEKS                       R6 R6 K16 ["horizontalAligner"]
-       57 CALL                             R5 1 1
-       58 GETIMPORT                        R6 K5 [require]
-       60 GETTABLEKS                       R7 R0 K6 ["Src"]
-       62 GETTABLEKS                       R7 R7 K7 ["Util"]
-       64 GETTABLEKS                       R7 R7 K8 ["AvatarPreview"]
-       66 GETTABLEKS                       R7 R7 K17 ["previewAnimationManager"]
-       68 CALL                             R6 1 1
-       69 NEWTABLE                         R7 4 0
-       71 LOADNIL                          R8
-       72 NEWCLOSURE                       R9 P0
-       73 CAPTURE                          REF R8
-       74 SETTABLEKS                       R9 R7 K18 ["getCurrentSettingsPage"]
-       76 NEWCLOSURE                       R9 P1
-       77 CAPTURE                          REF R8
-       78 CAPTURE                          VAL R6
-       79 SETTABLEKS                       R9 R7 K19 ["setCurrentSettingsPage"]
-       81 NEWCLOSURE                       R9 P2
-       82 CAPTURE                          VAL R4
-       83 CAPTURE                          REF R8
-       84 CAPTURE                          VAL R1
-       85 SETTABLEKS                       R9 R7 K20 ["setCollisionBoxTransparency"]
-       87 DUPCLOSURE                       R9 K21 [PROTO_4]
-       88 CAPTURE                          VAL R3
-       89 CAPTURE                          VAL R5
-       90 CAPTURE                          VAL R4
-       91 CAPTURE                          VAL R7
-       92 CAPTURE                          VAL R6
-       93 SETTABLEKS                       R9 R7 K22 ["applyAvatarRules"]
-       95 CLOSEUPVALS                      R8
-       96 RETURN                           R7 1
+       51 GETTABLEKS                       R6 R6 K16 ["Flags"]
+       53 GETTABLEKS                       R6 R6 K17 ["getFFlagAvatarSettingsPreviewStandardWalkAnimation"]
+       55 CALL                             R5 1 1
+       56 GETIMPORT                        R6 K5 [require]
+       58 GETTABLEKS                       R7 R0 K6 ["Src"]
+       60 GETTABLEKS                       R7 R7 K7 ["Util"]
+       62 GETTABLEKS                       R7 R7 K8 ["AvatarPreview"]
+       64 GETTABLEKS                       R7 R7 K18 ["horizontalAligner"]
+       66 CALL                             R6 1 1
+       67 GETIMPORT                        R7 K5 [require]
+       69 GETTABLEKS                       R8 R0 K6 ["Src"]
+       71 GETTABLEKS                       R8 R8 K7 ["Util"]
+       73 GETTABLEKS                       R8 R8 K8 ["AvatarPreview"]
+       75 GETTABLEKS                       R8 R8 K19 ["previewAnimationManager"]
+       77 CALL                             R7 1 1
+       78 NEWTABLE                         R8 4 0
+       80 LOADNIL                          R9
+       81 NEWCLOSURE                       R10 P0
+       82 CAPTURE                          REF R9
+       83 SETTABLEKS                       R10 R8 K20 ["getCurrentSettingsPage"]
+       85 NEWCLOSURE                       R10 P1
+       86 CAPTURE                          REF R9
+       87 CAPTURE                          VAL R5
+       88 CAPTURE                          VAL R7
+       89 SETTABLEKS                       R10 R8 K21 ["setCurrentSettingsPage"]
+       91 NEWCLOSURE                       R10 P2
+       92 CAPTURE                          VAL R4
+       93 CAPTURE                          REF R9
+       94 CAPTURE                          VAL R1
+       95 SETTABLEKS                       R10 R8 K22 ["setCollisionBoxTransparency"]
+       97 DUPCLOSURE                       R10 K23 [PROTO_4]
+       98 CAPTURE                          VAL R3
+       99 CAPTURE                          VAL R6
+      100 CAPTURE                          VAL R4
+      101 CAPTURE                          VAL R8
+      102 CAPTURE                          VAL R7
+      103 SETTABLEKS                       R10 R8 K24 ["applyAvatarRules"]
+      105 CLOSEUPVALS                      R9
+      106 RETURN                           R8 1

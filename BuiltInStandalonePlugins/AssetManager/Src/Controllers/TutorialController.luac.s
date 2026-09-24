@@ -9,38 +9,103 @@ PROTO_0:
         9 RETURN                           R2 1
 
 PROTO_1:
-        0 DUPTABLE                         R3 K14 [{[1], ["_pluginController"], ["_explorerController"], ["_layoutController"], ["_itemsController"], ["_searchController"], ["_tutorials"], ["_activeTutorialState"] = , ["_activeTutorialDefinition"] = , ["_finishedTutorials"], ["_sessionFinishedCount"] = 0, ["OnTutorialStateChanged"]}]
-        1 ORK                              R4 R1 K15 [False]
+        0 JUMPIFNOT                        R0 ; [+9]
+        1 GETUPVAL                         R1 0
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R3 R3 K0 ["TutorialEvent"]
+        5 GETTABLEKS                       R3 R3 K1 ["SearchSessionOpened"]
+        7 NAMECALL                         R1 R1 K2 ["notify"]
+        9 CALL                             R1 2 0
+       10 RETURN                           R0 0
+
+PROTO_2:
+        0 LENGTH                           R2 R0
+        1 LOADN                            R3 0
+        2 JUMPIFLT                         R3 R2 ; [+2]
+        4 LOADB                            R1 0 +1
+        5 LOADB                            R1 1
+        6 GETUPVAL                         R2 0
+        7 JUMPIFNOT                        R2 ; [+10]
+        8 JUMPIF                           R1 ; [+9]
+        9 GETUPVAL                         R2 1
+       10 GETUPVAL                         R4 2
+       11 GETTABLEKS                       R4 R4 K0 ["TutorialEvent"]
+       13 GETTABLEKS                       R4 R4 K1 ["ContextMenuClosed"]
+       15 NAMECALL                         R2 R2 K2 ["notify"]
+       17 CALL                             R2 2 0
+       18 SETUPVAL                         R1 0
+       19 RETURN                           R0 0
+
+PROTO_3:
+        0 DUPTABLE                         R3 K15 [{[1], ["_pluginController"], ["_explorerController"], ["_layoutController"], ["_itemsController"], ["_searchController"], ["_tutorials"], ["_activeTutorialState"] = , ["_activeTutorialDefinition"] = , ["_finishedTutorials"], ["_sessionFinishedCount"] = 0, ["_connections"], ["OnTutorialStateChanged"]}]
+        1 ORK                              R4 R1 K16 [False]
         2 SETTABLEKS                       R4 R3 K0 ["_isMock"]
-        4 GETTABLEKS                       R4 R0 K16 ["PluginController"]
+        4 GETTABLEKS                       R4 R0 K17 ["PluginController"]
         6 SETTABLEKS                       R4 R3 K1 ["_pluginController"]
-        8 GETTABLEKS                       R4 R0 K17 ["ExplorerController"]
+        8 GETTABLEKS                       R4 R0 K18 ["ExplorerController"]
        10 SETTABLEKS                       R4 R3 K2 ["_explorerController"]
-       12 GETTABLEKS                       R4 R0 K18 ["LayoutController"]
+       12 GETTABLEKS                       R4 R0 K19 ["LayoutController"]
        14 SETTABLEKS                       R4 R3 K3 ["_layoutController"]
-       16 GETTABLEKS                       R4 R0 K19 ["ItemsController"]
+       16 GETTABLEKS                       R4 R0 K20 ["ItemsController"]
        18 SETTABLEKS                       R4 R3 K4 ["_itemsController"]
-       20 GETTABLEKS                       R4 R0 K20 ["SearchController"]
+       20 GETTABLEKS                       R4 R0 K21 ["SearchController"]
        22 SETTABLEKS                       R4 R3 K5 ["_searchController"]
-       24 GETTABLEKS                       R4 R0 K21 ["Tutorials"]
+       24 GETTABLEKS                       R4 R0 K22 ["Tutorials"]
        26 JUMPIF                           R4 ; [+4]
        27 GETUPVAL                         R4 0
-       28 GETTABLEKS                       R4 R4 K22 ["getTutorials"]
+       28 GETTABLEKS                       R4 R4 K23 ["getTutorials"]
        30 CALL                             R4 0 1
        31 SETTABLEKS                       R4 R3 K6 ["_tutorials"]
        33 NEWTABLE                         R4 0 0
        35 SETTABLEKS                       R4 R3 K10 ["_finishedTutorials"]
-       37 GETUPVAL                         R4 1
-       38 GETTABLEKS                       R4 R4 K23 ["new"]
-       40 CALL                             R4 0 1
-       41 SETTABLEKS                       R4 R3 K13 ["OnTutorialStateChanged"]
-       43 GETUPVAL                         R4 2
-       44 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
-       46 GETIMPORT                        R2 K25 [setmetatable]
-       48 CALL                             R2 2 1
-       49 RETURN                           R2 1
+       37 NEWTABLE                         R4 0 0
+       39 SETTABLEKS                       R4 R3 K13 ["_connections"]
+       41 GETUPVAL                         R4 1
+       42 GETTABLEKS                       R4 R4 K24 ["new"]
+       44 CALL                             R4 0 1
+       45 SETTABLEKS                       R4 R3 K14 ["OnTutorialStateChanged"]
+       47 GETUPVAL                         R4 2
+       48 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
+       50 GETIMPORT                        R2 K26 [setmetatable]
+       52 CALL                             R2 2 1
+       53 GETTABLEKS                       R3 R2 K5 ["_searchController"]
+       55 JUMPIFNOT                        R3 ; [+21]
+       56 GETTABLEKS                       R3 R2 K5 ["_searchController"]
+       58 GETTABLEKS                       R3 R3 K27 ["OnShowSearchOptionsChanged"]
+       60 JUMPIFNOT                        R3 ; [+16]
+       61 GETTABLEKS                       R4 R2 K13 ["_connections"]
+       63 GETTABLEKS                       R5 R2 K5 ["_searchController"]
+       65 GETTABLEKS                       R5 R5 K27 ["OnShowSearchOptionsChanged"]
+       67 NEWCLOSURE                       R7 P0
+       68 CAPTURE                          VAL R2
+       69 CAPTURE                          UPVAL U3
+       70 NAMECALL                         R5 R5 K28 ["Connect"]
+       72 CALL                             R5 2 -1
+       73 FASTCALL                         TABLE_INSERT ; [+2]
+       74 GETIMPORT                        R3 K31 [table.insert]
+       76 CALL                             R3 -1 0
+       77 GETTABLEKS                       R3 R2 K1 ["_pluginController"]
+       79 JUMPIFNOT                        R3 ; [+24]
+       80 GETTABLEKS                       R3 R2 K1 ["_pluginController"]
+       82 GETTABLEKS                       R3 R3 K32 ["OnContextMenuChanged"]
+       84 JUMPIFNOT                        R3 ; [+19]
+       85 LOADB                            R3 0
+       86 GETTABLEKS                       R5 R2 K13 ["_connections"]
+       88 GETTABLEKS                       R6 R2 K1 ["_pluginController"]
+       90 GETTABLEKS                       R6 R6 K32 ["OnContextMenuChanged"]
+       92 NEWCLOSURE                       R8 P1
+       93 CAPTURE                          REF R3
+       94 CAPTURE                          VAL R2
+       95 CAPTURE                          UPVAL U3
+       96 NAMECALL                         R6 R6 K28 ["Connect"]
+       98 CALL                             R6 2 -1
+       99 FASTCALL                         TABLE_INSERT ; [+2]
+      100 GETIMPORT                        R4 K31 [table.insert]
+      102 CALL                             R4 -1 0
+      103 CLOSEUPVALS                      R3
+      104 RETURN                           R2 1
 
-PROTO_2:
+PROTO_4:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 MOVE                             R2 R0
@@ -48,7 +113,13 @@ PROTO_2:
         5 CALL                             R1 2 -1
         6 RETURN                           R1 -1
 
-PROTO_3:
+PROTO_5:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R2 R0 K0 ["_connections"]
+        3 CALL                             R1 1 0
+        4 RETURN                           R0 0
+
+PROTO_6:
         0 NEWTABLE                         R2 0 0
         2 JUMPIFNOT                        R1 ; [+20]
         3 GETTABLEKS                       R3 R0 K0 ["_tutorials"]
@@ -68,82 +139,86 @@ PROTO_3:
        23 SETTABLEKS                       R2 R0 K5 ["_finishedTutorials"]
        25 RETURN                           R0 0
 
-PROTO_4:
+PROTO_7:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 GETTABLEKS                       R2 R0 K3 ["_finishedTutorials"]
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
 
-PROTO_5:
+PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["_activeTutorialState"]
         2 RETURN                           R1 1
 
-PROTO_6:
-        0 GETTABLEKS                       R2 R0 K0 ["_activeTutorialState"]
-        2 JUMPIFNOT                        R2 ; [+52]
-        3 GETTABLEKS                       R2 R0 K1 ["_activeTutorialDefinition"]
-        5 JUMPIFNOT                        R2 ; [+49]
-        6 GETTABLEKS                       R3 R0 K1 ["_activeTutorialDefinition"]
-        8 GETTABLEKS                       R3 R3 K2 ["steps"]
-       10 GETTABLEKS                       R4 R0 K0 ["_activeTutorialState"]
-       12 GETTABLEKS                       R4 R4 K3 ["index"]
-       14 GETTABLE                         R2 R3 R4
-       15 JUMPIFNOT                        R2 ; [+21]
-       16 GETTABLEKS                       R4 R2 K4 ["completeOn"]
-       18 GETIMPORT                        R5 K7 [table.find]
-       20 MOVE                             R6 R4
-       21 MOVE                             R7 R1
-       22 CALL                             R5 2 1
-       23 JUMPIFNOTEQKNIL                  R5 ; [+2]
-       25 LOADB                            R3 0 +1
-       26 LOADB                            R3 1
-       27 JUMPIFNOT                        R3 ; [+9]
-       28 GETUPVAL                         R5 0
-       29 GETTABLEKS                       R5 R5 K8 ["TutorialAdvanceSource"]
-       31 GETTABLEKS                       R5 R5 K9 ["AutoAdvance"]
-       33 NAMECALL                         R3 R0 K10 ["advance"]
-       35 CALL                             R3 2 0
-       36 RETURN                           R0 0
-       37 GETTABLEKS                       R4 R0 K1 ["_activeTutorialDefinition"]
-       39 GETTABLEKS                       R4 R4 K11 ["pauseOn"]
-       41 GETIMPORT                        R5 K7 [table.find]
-       43 MOVE                             R6 R4
-       44 MOVE                             R7 R1
-       45 CALL                             R5 2 1
-       46 JUMPIFNOTEQKNIL                  R5 ; [+2]
-       48 LOADB                            R3 0 +1
-       49 LOADB                            R3 1
-       50 JUMPIFNOT                        R3 ; [+3]
-       51 NAMECALL                         R3 R0 K12 ["pause"]
-       53 CALL                             R3 1 0
-       54 RETURN                           R0 0
-       55 GETTABLEKS                       R2 R0 K13 ["_tutorials"]
-       57 LOADNIL                          R3
-       58 LOADNIL                          R4
-       59 FORGPREP                         R2
-       60 GETTABLEKS                       R8 R6 K14 ["trigger"]
-       62 GETIMPORT                        R9 K7 [table.find]
-       64 MOVE                             R10 R8
-       65 MOVE                             R11 R1
-       66 CALL                             R9 2 1
-       67 JUMPIFNOTEQKNIL                  R9 ; [+2]
-       69 LOADB                            R7 0 +1
-       70 LOADB                            R7 1
-       71 JUMPIFNOT                        R7 ; [+16]
-       72 GETTABLEKS                       R8 R0 K15 ["_finishedTutorials"]
-       74 GETTABLEKS                       R9 R6 K16 ["id"]
-       76 GETTABLE                         R7 R8 R9
-       77 JUMPIFEQKNIL                     R7 ; [+5]
-       79 GETTABLEKS                       R8 R6 K17 ["version"]
-       81 JUMPIFNOTLT                      R7 R8 ; [+6]
-       83 MOVE                             R10 R6
-       84 NAMECALL                         R8 R0 K18 ["_tryStart"]
-       86 CALL                             R8 2 0
-       87 RETURN                           R0 0
-       88 FORGLOOP                         R2 2 ; [-29]
-       90 RETURN                           R0 0
+PROTO_9:
+        0 GETUPVAL                         R2 0
+        1 CALL                             R2 0 1
+        2 JUMPIF                           R2 ; [+1]
+        3 RETURN                           R0 0
+        4 GETTABLEKS                       R2 R0 K0 ["_activeTutorialState"]
+        6 JUMPIFNOT                        R2 ; [+52]
+        7 GETTABLEKS                       R2 R0 K1 ["_activeTutorialDefinition"]
+        9 JUMPIFNOT                        R2 ; [+49]
+       10 GETTABLEKS                       R3 R0 K1 ["_activeTutorialDefinition"]
+       12 GETTABLEKS                       R3 R3 K2 ["steps"]
+       14 GETTABLEKS                       R4 R0 K0 ["_activeTutorialState"]
+       16 GETTABLEKS                       R4 R4 K3 ["index"]
+       18 GETTABLE                         R2 R3 R4
+       19 JUMPIFNOT                        R2 ; [+21]
+       20 GETTABLEKS                       R4 R2 K4 ["completeOn"]
+       22 GETIMPORT                        R5 K7 [table.find]
+       24 MOVE                             R6 R4
+       25 MOVE                             R7 R1
+       26 CALL                             R5 2 1
+       27 JUMPIFNOTEQKNIL                  R5 ; [+2]
+       29 LOADB                            R3 0 +1
+       30 LOADB                            R3 1
+       31 JUMPIFNOT                        R3 ; [+9]
+       32 GETUPVAL                         R5 1
+       33 GETTABLEKS                       R5 R5 K8 ["TutorialAdvanceSource"]
+       35 GETTABLEKS                       R5 R5 K9 ["AutoAdvance"]
+       37 NAMECALL                         R3 R0 K10 ["advance"]
+       39 CALL                             R3 2 0
+       40 RETURN                           R0 0
+       41 GETTABLEKS                       R4 R0 K1 ["_activeTutorialDefinition"]
+       43 GETTABLEKS                       R4 R4 K11 ["pauseOn"]
+       45 GETIMPORT                        R5 K7 [table.find]
+       47 MOVE                             R6 R4
+       48 MOVE                             R7 R1
+       49 CALL                             R5 2 1
+       50 JUMPIFNOTEQKNIL                  R5 ; [+2]
+       52 LOADB                            R3 0 +1
+       53 LOADB                            R3 1
+       54 JUMPIFNOT                        R3 ; [+3]
+       55 NAMECALL                         R3 R0 K12 ["pause"]
+       57 CALL                             R3 1 0
+       58 RETURN                           R0 0
+       59 GETTABLEKS                       R2 R0 K13 ["_tutorials"]
+       61 LOADNIL                          R3
+       62 LOADNIL                          R4
+       63 FORGPREP                         R2
+       64 GETTABLEKS                       R8 R6 K14 ["trigger"]
+       66 GETIMPORT                        R9 K7 [table.find]
+       68 MOVE                             R10 R8
+       69 MOVE                             R11 R1
+       70 CALL                             R9 2 1
+       71 JUMPIFNOTEQKNIL                  R9 ; [+2]
+       73 LOADB                            R7 0 +1
+       74 LOADB                            R7 1
+       75 JUMPIFNOT                        R7 ; [+16]
+       76 GETTABLEKS                       R8 R0 K15 ["_finishedTutorials"]
+       78 GETTABLEKS                       R9 R6 K16 ["id"]
+       80 GETTABLE                         R7 R8 R9
+       81 JUMPIFEQKNIL                     R7 ; [+5]
+       83 GETTABLEKS                       R8 R6 K17 ["version"]
+       85 JUMPIFNOTLT                      R7 R8 ; [+6]
+       87 MOVE                             R10 R6
+       88 NAMECALL                         R8 R0 K18 ["_tryStart"]
+       90 CALL                             R8 2 0
+       91 RETURN                           R0 0
+       92 FORGLOOP                         R2 2 ; [-29]
+       94 RETURN                           R0 0
 
-PROTO_7:
+PROTO_10:
         0 GETTABLEKS                       R2 R0 K0 ["_activeTutorialState"]
         2 GETTABLEKS                       R3 R0 K1 ["_activeTutorialDefinition"]
         4 JUMPIFNOT                        R2 ; [+1]
@@ -194,7 +269,7 @@ PROTO_7:
        73 CALL                             R6 3 0
        74 RETURN                           R0 0
 
-PROTO_8:
+PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["_activeTutorialState"]
         2 JUMPIF                           R1 ; [+1]
         3 RETURN                           R0 0
@@ -207,7 +282,7 @@ PROTO_8:
        14 CALL                             R1 1 0
        15 RETURN                           R0 0
 
-PROTO_9:
+PROTO_12:
         0 GETTABLEKS                       R1 R0 K0 ["_activeTutorialState"]
         2 JUMPIF                           R1 ; [+1]
         3 RETURN                           R0 0
@@ -220,7 +295,7 @@ PROTO_9:
        14 CALL                             R1 1 0
        15 RETURN                           R0 0
 
-PROTO_10:
+PROTO_13:
         0 SETTABLEKS                       R1 R0 K0 ["_activeTutorialState"]
         2 SETTABLEKS                       R2 R0 K1 ["_activeTutorialDefinition"]
         4 GETTABLEKS                       R3 R0 K2 ["OnTutorialStateChanged"]
@@ -229,7 +304,7 @@ PROTO_10:
         9 CALL                             R3 2 0
        10 RETURN                           R0 0
 
-PROTO_11:
+PROTO_14:
         0 LOADNIL                          R1
         1 SETTABLEKS                       R1 R0 K0 ["_activeTutorialState"]
         3 LOADNIL                          R1
@@ -240,7 +315,7 @@ PROTO_11:
        11 CALL                             R1 2 0
        12 RETURN                           R0 0
 
-PROTO_12:
+PROTO_15:
         0 GETUPVAL                         R2 0
         1 CALL                             R2 0 1
         2 GETTABLEKS                       R3 R0 K0 ["_sessionFinishedCount"]
@@ -268,7 +343,7 @@ PROTO_12:
        37 CALL                             R4 2 0
        38 RETURN                           R0 0
 
-PROTO_13:
+PROTO_16:
         0 GETTABLEKS                       R1 R0 K0 ["_activeTutorialDefinition"]
         2 JUMPIFNOT                        R1 ; [+12]
         3 GETTABLEKS                       R2 R0 K1 ["_finishedTutorials"]
@@ -282,7 +357,7 @@ PROTO_13:
        17 CALL                             R2 1 0
        18 RETURN                           R0 0
 
-PROTO_14:
+PROTO_17:
         0 GETTABLEKS                       R3 R0 K0 ["_isMock"]
         2 JUMPIFNOT                        R3 ; [+1]
         3 RETURN                           R0 0
@@ -351,49 +426,64 @@ MAIN:
        49 CALL                             R6 1 1
        50 GETIMPORT                        R7 K5 [require]
        52 GETTABLEKS                       R8 R0 K10 ["Src"]
-       54 GETTABLEKS                       R8 R8 K15 ["Flags"]
-       56 GETTABLEKS                       R8 R8 K16 ["getFIntAmrMaxTutorialsPerSession"]
+       54 GETTABLEKS                       R8 R8 K8 ["Util"]
+       56 GETTABLEKS                       R8 R8 K15 ["cleanConnections"]
        58 CALL                             R7 1 1
-       59 NEWTABLE                         R8 16 0
-       61 SETTABLEKS                       R8 R8 K17 ["__index"]
-       63 DUPCLOSURE                       R9 K18 [PROTO_0]
-       64 DUPCLOSURE                       R10 K19 [PROTO_1]
-       65 CAPTURE                          VAL R6
-       66 CAPTURE                          VAL R2
-       67 CAPTURE                          VAL R8
-       68 SETTABLEKS                       R10 R8 K20 ["new"]
-       70 DUPCLOSURE                       R10 K21 [PROTO_2]
-       71 CAPTURE                          VAL R8
-       72 SETTABLEKS                       R10 R8 K22 ["mock"]
-       74 DUPCLOSURE                       R10 K23 [PROTO_3]
-       75 SETTABLEKS                       R10 R8 K24 ["populateSavedSettings"]
-       77 DUPCLOSURE                       R10 K25 [PROTO_4]
-       78 SETTABLEKS                       R10 R8 K26 ["getFinishedTutorials"]
-       80 DUPCLOSURE                       R10 K27 [PROTO_5]
-       81 SETTABLEKS                       R10 R8 K28 ["getTutorialState"]
-       83 DUPCLOSURE                       R10 K29 [PROTO_6]
-       84 CAPTURE                          VAL R4
-       85 SETTABLEKS                       R10 R8 K30 ["notify"]
-       87 DUPCLOSURE                       R10 K31 [PROTO_7]
-       88 CAPTURE                          VAL R4
-       89 SETTABLEKS                       R10 R8 K32 ["advance"]
-       91 DUPCLOSURE                       R10 K33 [PROTO_8]
-       92 CAPTURE                          VAL R4
-       93 SETTABLEKS                       R10 R8 K34 ["dismiss"]
-       95 DUPCLOSURE                       R10 K35 [PROTO_9]
-       96 CAPTURE                          VAL R4
-       97 SETTABLEKS                       R10 R8 K36 ["pause"]
-       99 DUPCLOSURE                       R10 K37 [PROTO_10]
-      100 SETTABLEKS                       R10 R8 K38 ["_setActive"]
-      102 DUPCLOSURE                       R10 K39 [PROTO_11]
-      103 SETTABLEKS                       R10 R8 K40 ["_clearActive"]
-      105 DUPCLOSURE                       R10 K41 [PROTO_12]
-      106 CAPTURE                          VAL R7
-      107 CAPTURE                          VAL R4
-      108 SETTABLEKS                       R10 R8 K42 ["_tryStart"]
-      110 DUPCLOSURE                       R10 K43 [PROTO_13]
-      111 SETTABLEKS                       R10 R8 K44 ["_finish"]
-      113 DUPCLOSURE                       R10 K45 [PROTO_14]
-      114 CAPTURE                          VAL R3
-      115 SETTABLEKS                       R10 R8 K46 ["_sendTutorialEvent"]
-      117 RETURN                           R8 1
+       59 GETIMPORT                        R8 K5 [require]
+       61 GETTABLEKS                       R9 R0 K10 ["Src"]
+       63 GETTABLEKS                       R9 R9 K16 ["Flags"]
+       65 GETTABLEKS                       R9 R9 K17 ["getFIntAmrMaxTutorialsPerSession"]
+       67 CALL                             R8 1 1
+       68 GETIMPORT                        R9 K5 [require]
+       70 GETTABLEKS                       R10 R0 K10 ["Src"]
+       72 GETTABLEKS                       R10 R10 K16 ["Flags"]
+       74 GETTABLEKS                       R10 R10 K18 ["getFFlagAmrEnableTutorials"]
+       76 CALL                             R9 1 1
+       77 NEWTABLE                         R10 16 0
+       79 SETTABLEKS                       R10 R10 K19 ["__index"]
+       81 DUPCLOSURE                       R11 K20 [PROTO_0]
+       82 DUPCLOSURE                       R12 K21 [PROTO_3]
+       83 CAPTURE                          VAL R6
+       84 CAPTURE                          VAL R2
+       85 CAPTURE                          VAL R10
+       86 CAPTURE                          VAL R5
+       87 SETTABLEKS                       R12 R10 K22 ["new"]
+       89 DUPCLOSURE                       R12 K23 [PROTO_4]
+       90 CAPTURE                          VAL R10
+       91 SETTABLEKS                       R12 R10 K24 ["mock"]
+       93 DUPCLOSURE                       R12 K25 [PROTO_5]
+       94 CAPTURE                          VAL R7
+       95 SETTABLEKS                       R12 R10 K26 ["destroy"]
+       97 DUPCLOSURE                       R12 K27 [PROTO_6]
+       98 SETTABLEKS                       R12 R10 K28 ["populateSavedSettings"]
+      100 DUPCLOSURE                       R12 K29 [PROTO_7]
+      101 SETTABLEKS                       R12 R10 K30 ["getFinishedTutorials"]
+      103 DUPCLOSURE                       R12 K31 [PROTO_8]
+      104 SETTABLEKS                       R12 R10 K32 ["getTutorialState"]
+      106 DUPCLOSURE                       R12 K33 [PROTO_9]
+      107 CAPTURE                          VAL R9
+      108 CAPTURE                          VAL R4
+      109 SETTABLEKS                       R12 R10 K34 ["notify"]
+      111 DUPCLOSURE                       R12 K35 [PROTO_10]
+      112 CAPTURE                          VAL R4
+      113 SETTABLEKS                       R12 R10 K36 ["advance"]
+      115 DUPCLOSURE                       R12 K37 [PROTO_11]
+      116 CAPTURE                          VAL R4
+      117 SETTABLEKS                       R12 R10 K38 ["dismiss"]
+      119 DUPCLOSURE                       R12 K39 [PROTO_12]
+      120 CAPTURE                          VAL R4
+      121 SETTABLEKS                       R12 R10 K40 ["pause"]
+      123 DUPCLOSURE                       R12 K41 [PROTO_13]
+      124 SETTABLEKS                       R12 R10 K42 ["_setActive"]
+      126 DUPCLOSURE                       R12 K43 [PROTO_14]
+      127 SETTABLEKS                       R12 R10 K44 ["_clearActive"]
+      129 DUPCLOSURE                       R12 K45 [PROTO_15]
+      130 CAPTURE                          VAL R8
+      131 CAPTURE                          VAL R4
+      132 SETTABLEKS                       R12 R10 K46 ["_tryStart"]
+      134 DUPCLOSURE                       R12 K47 [PROTO_16]
+      135 SETTABLEKS                       R12 R10 K48 ["_finish"]
+      137 DUPCLOSURE                       R12 K49 [PROTO_17]
+      138 CAPTURE                          VAL R3
+      139 SETTABLEKS                       R12 R10 K50 ["_sendTutorialEvent"]
+      141 RETURN                           R10 1

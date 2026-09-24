@@ -33,6 +33,13 @@ PROTO_4:
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
+PROTO_5:
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["SceneAnalysisMdiDataModelPicker"]
+        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
@@ -60,15 +67,22 @@ MAIN:
        32 LOADB                            R3 0
        33 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        35 CALL                             R0 3 0
-       36 DUPTABLE                         R0 K13 [{"getFFlagEnableRIDE11651", "getFFlagSceneAnalysisRenderAttribution", "getFFlagSceneAnalysisBugfixesMay2026", "getFFlagRIDE12959", "getFFlagSceneManagerRemoveActive"}]
-       37 DUPCLOSURE                       R1 K14 [PROTO_0]
-       38 SETTABLEKS                       R1 R0 K8 ["getFFlagEnableRIDE11651"]
-       40 DUPCLOSURE                       R1 K15 [PROTO_1]
-       41 SETTABLEKS                       R1 R0 K9 ["getFFlagSceneAnalysisRenderAttribution"]
-       43 DUPCLOSURE                       R1 K16 [PROTO_2]
-       44 SETTABLEKS                       R1 R0 K10 ["getFFlagSceneAnalysisBugfixesMay2026"]
-       46 DUPCLOSURE                       R1 K17 [PROTO_3]
-       47 SETTABLEKS                       R1 R0 K11 ["getFFlagRIDE12959"]
-       49 DUPCLOSURE                       R1 K18 [PROTO_4]
-       50 SETTABLEKS                       R1 R0 K12 ["getFFlagSceneManagerRemoveActive"]
-       52 RETURN                           R0 1
+       36 GETIMPORT                        R0 K1 [game]
+       38 LOADK                            R2 K8 ["SceneAnalysisMdiDataModelPicker"]
+       39 LOADB                            R3 0
+       40 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
+       42 CALL                             R0 3 0
+       43 DUPTABLE                         R0 K15 [{"getFFlagEnableRIDE11651", "getFFlagSceneAnalysisRenderAttribution", "getFFlagSceneAnalysisBugfixesMay2026", "getFFlagRIDE12959", "getFFlagSceneManagerRemoveActive", "getFFlagSceneAnalysisMdiDataModelPicker"}]
+       44 DUPCLOSURE                       R1 K16 [PROTO_0]
+       45 SETTABLEKS                       R1 R0 K9 ["getFFlagEnableRIDE11651"]
+       47 DUPCLOSURE                       R1 K17 [PROTO_1]
+       48 SETTABLEKS                       R1 R0 K10 ["getFFlagSceneAnalysisRenderAttribution"]
+       50 DUPCLOSURE                       R1 K18 [PROTO_2]
+       51 SETTABLEKS                       R1 R0 K11 ["getFFlagSceneAnalysisBugfixesMay2026"]
+       53 DUPCLOSURE                       R1 K19 [PROTO_3]
+       54 SETTABLEKS                       R1 R0 K12 ["getFFlagRIDE12959"]
+       56 DUPCLOSURE                       R1 K20 [PROTO_4]
+       57 SETTABLEKS                       R1 R0 K13 ["getFFlagSceneManagerRemoveActive"]
+       59 DUPCLOSURE                       R1 K21 [PROTO_5]
+       60 SETTABLEKS                       R1 R0 K14 ["getFFlagSceneAnalysisMdiDataModelPicker"]
+       62 RETURN                           R0 1

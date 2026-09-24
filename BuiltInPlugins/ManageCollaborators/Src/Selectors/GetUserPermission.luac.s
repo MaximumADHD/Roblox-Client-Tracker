@@ -1,32 +1,42 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["Permissions"]
-        2 GETTABLEKS                       R2 R2 K1 ["NewPermissions"]
-        4 JUMPIF                           R2 ; [+4]
-        5 GETTABLEKS                       R2 R0 K0 ["Permissions"]
-        7 GETTABLEKS                       R2 R2 K2 ["CurrentPermissions"]
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R3 R3 K3 ["fflagFixMCSearchWidgetErrors"]
-       12 JUMPIFNOT                        R3 ; [+14]
-       13 GETUPVAL                         R4 1
-       14 GETTABLEKS                       R4 R4 K4 ["UserSubjectKey"]
-       16 GETTABLE                         R3 R2 R4
-       17 MOVE                             R4 R3
-       18 JUMPIFNOT                        R4 ; [+1]
-       19 GETTABLE                         R4 R3 R1
-       20 MOVE                             R5 R4
-       21 JUMPIFNOT                        R5 ; [+4]
-       22 GETUPVAL                         R6 1
-       23 GETTABLEKS                       R6 R6 K5 ["ActionKey"]
-       25 GETTABLE                         R5 R4 R6
-       26 RETURN                           R5 1
-       27 GETUPVAL                         R5 1
-       28 GETTABLEKS                       R5 R5 K4 ["UserSubjectKey"]
-       30 GETTABLE                         R4 R2 R5
-       31 GETTABLE                         R3 R4 R1
-       32 GETUPVAL                         R5 1
-       33 GETTABLEKS                       R5 R5 K5 ["ActionKey"]
-       35 GETTABLE                         R4 R3 R5
-       36 RETURN                           R4 1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["fflagAddPlayTesterPermission"]
+        3 JUMPIFNOT                        R2 ; [+8]
+        4 GETTABLEKS                       R2 R0 K1 ["PendingPlayTesters"]
+        6 JUMPIFNOT                        R2 ; [+5]
+        7 GETUPVAL                         R2 1
+        8 MOVE                             R3 R0
+        9 MOVE                             R4 R1
+       10 CALL                             R2 2 2
+       11 RETURN                           R3 1
+       12 GETTABLEKS                       R2 R0 K2 ["Permissions"]
+       14 GETTABLEKS                       R2 R2 K3 ["NewPermissions"]
+       16 JUMPIF                           R2 ; [+4]
+       17 GETTABLEKS                       R2 R0 K2 ["Permissions"]
+       19 GETTABLEKS                       R2 R2 K4 ["CurrentPermissions"]
+       21 GETUPVAL                         R3 0
+       22 GETTABLEKS                       R3 R3 K5 ["fflagFixMCSearchWidgetErrors"]
+       24 JUMPIFNOT                        R3 ; [+14]
+       25 GETUPVAL                         R4 2
+       26 GETTABLEKS                       R4 R4 K6 ["UserSubjectKey"]
+       28 GETTABLE                         R3 R2 R4
+       29 MOVE                             R4 R3
+       30 JUMPIFNOT                        R4 ; [+1]
+       31 GETTABLE                         R4 R3 R1
+       32 MOVE                             R5 R4
+       33 JUMPIFNOT                        R5 ; [+4]
+       34 GETUPVAL                         R6 2
+       35 GETTABLEKS                       R6 R6 K7 ["ActionKey"]
+       37 GETTABLE                         R5 R4 R6
+       38 RETURN                           R5 1
+       39 GETUPVAL                         R5 2
+       40 GETTABLEKS                       R5 R5 K6 ["UserSubjectKey"]
+       42 GETTABLE                         R4 R2 R5
+       43 GETTABLE                         R3 R4 R1
+       44 GETUPVAL                         R5 2
+       45 GETTABLEKS                       R5 R5 K7 ["ActionKey"]
+       47 GETTABLE                         R4 R3 R5
+       48 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -43,7 +53,17 @@ MAIN:
        20 GETTABLEKS                       R3 R0 K8 ["Bin"]
        22 GETTABLEKS                       R3 R3 K9 ["defineLuaFlags"]
        24 CALL                             R2 1 1
-       25 DUPCLOSURE                       R3 K10 [PROTO_0]
-       26 CAPTURE                          VAL R2
-       27 CAPTURE                          VAL R1
-       28 RETURN                           R3 1
+       25 GETTABLEKS                       R4 R2 K10 ["fflagAddPlayTesterPermission"]
+       27 JUMPIFNOT                        R4 ; [+10]
+       28 GETIMPORT                        R3 K4 [require]
+       30 GETTABLEKS                       R4 R0 K5 ["Src"]
+       32 GETTABLEKS                       R4 R4 K11 ["Selectors"]
+       34 GETTABLEKS                       R4 R4 K12 ["GetAudienceRole"]
+       36 CALL                             R3 1 1
+       37 JUMP                             ; [+1]
+       38 LOADNIL                          R3
+       39 DUPCLOSURE                       R4 K13 [PROTO_0]
+       40 CAPTURE                          VAL R2
+       41 CAPTURE                          VAL R3
+       42 CAPTURE                          VAL R1
+       43 RETURN                           R4 1

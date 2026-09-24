@@ -613,10 +613,10 @@ PROTO_22:
       152 GETTABLEKS                       R9 R9 K23 ["createOrchestrator"]
       154 GETUPVAL                         R10 14
       155 CALL                             R10 0 1
-      156 DUPTABLE                         R11 K35 [{["slotCount"] = 4, ["textPrompt"], ["model"], ["seedImage"], ["extraImages"], ["pollIntervalSeconds"] = 2, ["timeoutSeconds"] = 180, ["onSlotChanged"]}]
+      156 DUPTABLE                         R11 K33 [{["slotCount"] = 4, ["textPrompt"], ["model"], ["seedImage"], ["extraImages"], ["timeoutSeconds"] = 180, ["onSlotChanged"]}]
       157 SETTABLEKS                       R5 R11 K26 ["textPrompt"]
       159 GETUPVAL                         R12 11
-      160 GETTABLEKS                       R12 R12 K36 ["getFStringAssistantTextureGenImageGenModelOverride"]
+      160 GETTABLEKS                       R12 R12 K34 ["getFStringAssistantTextureGenImageGenModelOverride"]
       162 CALL                             R12 0 1
       163 SETTABLEKS                       R12 R11 K27 ["model"]
       165 SETTABLEKS                       R4 R11 K28 ["seedImage"]
@@ -634,13 +634,13 @@ PROTO_22:
       179 CAPTURE                          REF R8
       180 CAPTURE                          UPVAL U0
       181 CAPTURE                          UPVAL U1
-      182 SETTABLEKS                       R12 R11 K34 ["onSlotChanged"]
+      182 SETTABLEKS                       R12 R11 K32 ["onSlotChanged"]
       184 CALL                             R9 2 1
       185 MOVE                             R8 R9
       186 GETUPVAL                         R9 9
       187 GETTABLEKS                       R9 R9 K10 ["current"]
       189 SETTABLE                         R8 R9 R3
-      190 GETTABLEKS                       R9 R8 K37 ["start"]
+      190 GETTABLEKS                       R9 R8 K35 ["start"]
       192 CALL                             R9 0 0
       193 CLOSEUPVALS                      R7
       194 RETURN                           R0 0

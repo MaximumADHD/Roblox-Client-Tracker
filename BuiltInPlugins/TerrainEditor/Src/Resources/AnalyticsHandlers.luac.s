@@ -134,6 +134,13 @@ PROTO_4:
        27 RETURN                           R0 0
 
 PROTO_5:
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R4 R1
+        2 NAMECALL                         R2 R2 K0 ["reportInvalidMaterialSlot"]
+        4 CALL                             R2 2 0
+        5 RETURN                           R0 0
+
+PROTO_6:
         0 LOADK                            R3 K0 ["%*ToolPerformance"]
         1 MOVE                             R5 R1
         2 NAMECALL                         R3 R3 K1 ["format"]
@@ -154,66 +161,83 @@ PROTO_5:
        21 MOVE                             R7 R2
        22 NAMECALL                         R4 R4 K6 ["ReportStats"]
        24 CALL                             R4 3 0
-       25 RETURN                           R0 0
+       25 GETUPVAL                         R3 2
+       26 MOVE                             R5 R1
+       27 GETUPVAL                         R6 3
+       28 CALL                             R6 0 1
+       29 MOVE                             R7 R2
+       30 NAMECALL                         R3 R3 K7 ["reportToolPerformance"]
+       32 CALL                             R3 4 0
+       33 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R2 0
         1 LOADK                            R3 K0 ["terrainEditorBrushProperties"]
         2 MOVE                             R4 R1
         3 CALL                             R2 2 0
         4 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R2 0
         1 LOADK                            R3 K0 ["terrainEditorRegionProperties"]
         2 MOVE                             R4 R1
         3 CALL                             R2 2 0
         4 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETUPVAL                         R2 0
         1 LOADK                            R3 K0 ["terrainEditorMaterialProperties"]
         2 MOVE                             R4 R1
         3 CALL                             R2 2 0
-        4 RETURN                           R0 0
+        4 GETUPVAL                         R2 1
+        5 MOVE                             R4 R1
+        6 NAMECALL                         R2 R2 K1 ["reportMaterialProperties"]
+        8 CALL                             R2 2 0
+        9 RETURN                           R0 0
 
-PROTO_9:
-        0 NEWCLOSURE                       R1 P0
+PROTO_10:
+        0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          VAL R0
         2 CAPTURE                          UPVAL U0
         3 CAPTURE                          UPVAL U1
         4 CAPTURE                          UPVAL U2
         5 CAPTURE                          UPVAL U3
         6 CAPTURE                          UPVAL U4
-        7 NEWCLOSURE                       R2 P1
+        7 NEWCLOSURE                       R3 P1
         8 CAPTURE                          UPVAL U3
         9 CAPTURE                          VAL R0
-       10 NEWCLOSURE                       R3 P2
+       10 NEWCLOSURE                       R4 P2
        11 CAPTURE                          UPVAL U3
        12 CAPTURE                          VAL R0
-       13 DUPTABLE                         R4 K6 [{"Activated", "Usage", "Performance", "BrushProperties", "RegionProperties", "MaterialProperties"}]
-       14 NEWCLOSURE                       R5 P3
+       13 DUPTABLE                         R5 K7 [{"Activated", "Usage", "InvalidMaterialSlot", "Performance", "BrushProperties", "RegionProperties", "MaterialProperties"}]
+       14 NEWCLOSURE                       R6 P3
        15 CAPTURE                          UPVAL U3
        16 CAPTURE                          VAL R0
-       17 SETTABLEKS                       R5 R4 K0 ["Activated"]
-       19 NEWCLOSURE                       R5 P4
+       17 SETTABLEKS                       R6 R5 K0 ["Activated"]
+       19 NEWCLOSURE                       R6 P4
        20 CAPTURE                          UPVAL U3
        21 CAPTURE                          VAL R0
-       22 SETTABLEKS                       R5 R4 K1 ["Usage"]
-       24 NEWCLOSURE                       R5 P5
-       25 CAPTURE                          UPVAL U3
-       26 CAPTURE                          VAL R0
-       27 SETTABLEKS                       R5 R4 K2 ["Performance"]
-       29 NEWCLOSURE                       R5 P6
-       30 CAPTURE                          VAL R1
-       31 SETTABLEKS                       R5 R4 K3 ["BrushProperties"]
-       33 NEWCLOSURE                       R5 P7
-       34 CAPTURE                          VAL R1
-       35 SETTABLEKS                       R5 R4 K4 ["RegionProperties"]
-       37 NEWCLOSURE                       R5 P8
-       38 CAPTURE                          VAL R1
-       39 SETTABLEKS                       R5 R4 K5 ["MaterialProperties"]
-       41 RETURN                           R4 1
+       22 SETTABLEKS                       R6 R5 K1 ["Usage"]
+       24 NEWCLOSURE                       R6 P5
+       25 CAPTURE                          VAL R1
+       26 SETTABLEKS                       R6 R5 K2 ["InvalidMaterialSlot"]
+       28 NEWCLOSURE                       R6 P6
+       29 CAPTURE                          UPVAL U3
+       30 CAPTURE                          VAL R0
+       31 CAPTURE                          VAL R1
+       32 CAPTURE                          UPVAL U5
+       33 SETTABLEKS                       R6 R5 K3 ["Performance"]
+       35 NEWCLOSURE                       R6 P7
+       36 CAPTURE                          VAL R2
+       37 SETTABLEKS                       R6 R5 K4 ["BrushProperties"]
+       39 NEWCLOSURE                       R6 P8
+       40 CAPTURE                          VAL R2
+       41 SETTABLEKS                       R6 R5 K5 ["RegionProperties"]
+       43 NEWCLOSURE                       R6 P9
+       44 CAPTURE                          VAL R2
+       45 CAPTURE                          VAL R1
+       46 SETTABLEKS                       R6 R5 K6 ["MaterialProperties"]
+       48 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -235,21 +259,30 @@ MAIN:
        27 GETTABLEKS                       R6 R3 K12 ["DebugFlags"]
        29 CALL                             R5 1 1
        30 GETIMPORT                        R6 K5 [require]
-       32 GETTABLEKS                       R7 R0 K9 ["Src"]
-       34 GETTABLEKS                       R7 R7 K13 ["Types"]
-       36 CALL                             R6 1 1
-       37 GETIMPORT                        R7 K15 [game]
-       39 LOADK                            R9 K16 ["HttpService"]
-       40 NAMECALL                         R7 R7 K17 ["GetService"]
-       42 CALL                             R7 2 1
-       43 GETIMPORT                        R8 K15 [game]
-       45 LOADK                            R10 K18 ["StudioService"]
-       46 NAMECALL                         R8 R8 K17 ["GetService"]
-       48 CALL                             R8 2 1
-       49 DUPCLOSURE                       R9 K19 [PROTO_9]
-       50 CAPTURE                          VAL R8
-       51 CAPTURE                          VAL R4
-       52 CAPTURE                          VAL R2
-       53 CAPTURE                          VAL R5
-       54 CAPTURE                          VAL R7
-       55 RETURN                           R9 1
+       32 GETTABLEKS                       R7 R3 K13 ["TerrainMaterialTelemetry"]
+       34 CALL                             R6 1 1
+       35 GETIMPORT                        R7 K5 [require]
+       37 GETTABLEKS                       R8 R0 K9 ["Src"]
+       39 GETTABLEKS                       R8 R8 K14 ["Flags"]
+       41 GETTABLEKS                       R8 R8 K15 ["getFFlagEnableTerrainPalette"]
+       43 CALL                             R7 1 1
+       44 GETIMPORT                        R8 K5 [require]
+       46 GETTABLEKS                       R9 R0 K9 ["Src"]
+       48 GETTABLEKS                       R9 R9 K16 ["Types"]
+       50 CALL                             R8 1 1
+       51 GETIMPORT                        R9 K18 [game]
+       53 LOADK                            R11 K19 ["HttpService"]
+       54 NAMECALL                         R9 R9 K20 ["GetService"]
+       56 CALL                             R9 2 1
+       57 GETIMPORT                        R10 K18 [game]
+       59 LOADK                            R12 K21 ["StudioService"]
+       60 NAMECALL                         R10 R10 K20 ["GetService"]
+       62 CALL                             R10 2 1
+       63 DUPCLOSURE                       R11 K22 [PROTO_10]
+       64 CAPTURE                          VAL R10
+       65 CAPTURE                          VAL R4
+       66 CAPTURE                          VAL R2
+       67 CAPTURE                          VAL R5
+       68 CAPTURE                          VAL R9
+       69 CAPTURE                          VAL R7
+       70 RETURN                           R11 1

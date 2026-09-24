@@ -64,28 +64,53 @@ PROTO_1:
        44 GETTABLEKS                       R16 R16 K0 ["createSignal"]
        46 LOADB                            R17 0
        47 CALL                             R16 1 2
-       48 GETIMPORT                        R18 K4 [table.freeze]
-       50 DUPTABLE                         R19 K23 [{"getType", "setType", "getTitle", "setTitle", "getDescription", "setDescription", "getPrimaryButton", "setPrimaryButton", "getSecondaryButton", "setSecondaryButton", "getTertiaryButton", "setTertiaryButton", "getImageUri", "setImageUri", "getEscapeButtonUri", "setEscapeButtonUri", "getShowIndeterminateProgressIndicator", "setShowIndeterminateProgressIndicator"}]
-       51 SETTABLEKS                       R0 R19 K5 ["getType"]
-       53 SETTABLEKS                       R1 R19 K6 ["setType"]
-       55 SETTABLEKS                       R2 R19 K7 ["getTitle"]
-       57 SETTABLEKS                       R3 R19 K8 ["setTitle"]
-       59 SETTABLEKS                       R4 R19 K9 ["getDescription"]
-       61 SETTABLEKS                       R5 R19 K10 ["setDescription"]
-       63 SETTABLEKS                       R6 R19 K11 ["getPrimaryButton"]
-       65 SETTABLEKS                       R7 R19 K12 ["setPrimaryButton"]
-       67 SETTABLEKS                       R8 R19 K13 ["getSecondaryButton"]
-       69 SETTABLEKS                       R9 R19 K14 ["setSecondaryButton"]
-       71 SETTABLEKS                       R10 R19 K15 ["getTertiaryButton"]
-       73 SETTABLEKS                       R11 R19 K16 ["setTertiaryButton"]
-       75 SETTABLEKS                       R14 R19 K17 ["getImageUri"]
-       77 SETTABLEKS                       R15 R19 K18 ["setImageUri"]
-       79 SETTABLEKS                       R12 R19 K19 ["getEscapeButtonUri"]
-       81 SETTABLEKS                       R13 R19 K20 ["setEscapeButtonUri"]
-       83 SETTABLEKS                       R16 R19 K21 ["getShowIndeterminateProgressIndicator"]
-       85 SETTABLEKS                       R17 R19 K22 ["setShowIndeterminateProgressIndicator"]
-       87 CALL                             R18 1 -1
-       88 RETURN                           R18 -1
+       48 LOADNIL                          R18
+       49 LOADNIL                          R19
+       50 GETUPVAL                         R20 2
+       51 CALL                             R20 0 1
+       52 JUMPIFNOT                        R20 ; [+7]
+       53 GETUPVAL                         R20 0
+       54 GETTABLEKS                       R20 R20 K0 ["createSignal"]
+       56 LOADB                            R21 0
+       57 CALL                             R20 1 2
+       58 MOVE                             R18 R20
+       59 MOVE                             R19 R21
+       60 GETIMPORT                        R20 K4 [table.freeze]
+       62 DUPTABLE                         R21 K25 [{"getType", "setType", "getTitle", "setTitle", "getDescription", "setDescription", "getPrimaryButton", "setPrimaryButton", "getSecondaryButton", "setSecondaryButton", "getTertiaryButton", "setTertiaryButton", "getImageUri", "setImageUri", "getEscapeButtonUri", "setEscapeButtonUri", "getShowIndeterminateProgressIndicator", "setShowIndeterminateProgressIndicator", "getSuppressible", "setSuppressible"}]
+       63 SETTABLEKS                       R0 R21 K5 ["getType"]
+       65 SETTABLEKS                       R1 R21 K6 ["setType"]
+       67 SETTABLEKS                       R2 R21 K7 ["getTitle"]
+       69 SETTABLEKS                       R3 R21 K8 ["setTitle"]
+       71 SETTABLEKS                       R4 R21 K9 ["getDescription"]
+       73 SETTABLEKS                       R5 R21 K10 ["setDescription"]
+       75 SETTABLEKS                       R6 R21 K11 ["getPrimaryButton"]
+       77 SETTABLEKS                       R7 R21 K12 ["setPrimaryButton"]
+       79 SETTABLEKS                       R8 R21 K13 ["getSecondaryButton"]
+       81 SETTABLEKS                       R9 R21 K14 ["setSecondaryButton"]
+       83 SETTABLEKS                       R10 R21 K15 ["getTertiaryButton"]
+       85 SETTABLEKS                       R11 R21 K16 ["setTertiaryButton"]
+       87 SETTABLEKS                       R14 R21 K17 ["getImageUri"]
+       89 SETTABLEKS                       R15 R21 K18 ["setImageUri"]
+       91 SETTABLEKS                       R12 R21 K19 ["getEscapeButtonUri"]
+       93 SETTABLEKS                       R13 R21 K20 ["setEscapeButtonUri"]
+       95 SETTABLEKS                       R16 R21 K21 ["getShowIndeterminateProgressIndicator"]
+       97 SETTABLEKS                       R17 R21 K22 ["setShowIndeterminateProgressIndicator"]
+       99 GETUPVAL                         R23 2
+      100 CALL                             R23 0 1
+      101 JUMPIFNOT                        R23 ; [+2]
+      102 MOVE                             R22 R18
+      103 JUMP                             ; [+1]
+      104 LOADNIL                          R22
+      105 SETTABLEKS                       R22 R21 K23 ["getSuppressible"]
+      107 GETUPVAL                         R23 2
+      108 CALL                             R23 0 1
+      109 JUMPIFNOT                        R23 ; [+2]
+      110 MOVE                             R22 R19
+      111 JUMP                             ; [+1]
+      112 LOADNIL                          R22
+      113 SETTABLEKS                       R22 R21 K24 ["setSuppressible"]
+      115 CALL                             R20 1 -1
+      116 RETURN                           R20 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -105,11 +130,17 @@ MAIN:
        23 GETTABLEKS                       R4 R0 K9 ["Src"]
        25 GETTABLEKS                       R4 R4 K10 ["Types"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R4 R2 K11 ["Util"]
-       30 GETTABLEKS                       R4 R4 K12 ["StudioUri"]
-       32 DUPCLOSURE                       R5 K13 [PROTO_0]
-       33 CAPTURE                          VAL R4
-       34 DUPCLOSURE                       R6 K14 [PROTO_1]
-       35 CAPTURE                          VAL R1
-       36 CAPTURE                          VAL R5
-       37 RETURN                           R6 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R5 R0 K9 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Flags"]
+       34 GETTABLEKS                       R5 R5 K12 ["getFFlagStudioDialogManagerSuppression"]
+       36 CALL                             R4 1 1
+       37 GETTABLEKS                       R5 R2 K13 ["Util"]
+       39 GETTABLEKS                       R5 R5 K14 ["StudioUri"]
+       41 DUPCLOSURE                       R6 K15 [PROTO_0]
+       42 CAPTURE                          VAL R5
+       43 DUPCLOSURE                       R7 K16 [PROTO_1]
+       44 CAPTURE                          VAL R1
+       45 CAPTURE                          VAL R6
+       46 CAPTURE                          VAL R4
+       47 RETURN                           R7 1

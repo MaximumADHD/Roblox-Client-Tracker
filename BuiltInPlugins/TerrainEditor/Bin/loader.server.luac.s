@@ -31,6 +31,16 @@ PROTO_4:
         5 CALL                             R3 4 -1
         6 RETURN                           R3 -1
 
+PROTO_5:
+        0 GETIMPORT                        R1 K1 [workspace]
+        2 GETTABLEKS                       R1 R1 K2 ["Terrain"]
+        4 FASTCALL2K                       ASSERT R1 K3 ; [+4]
+        6 LOADK                            R2 K3 ["Workspace must contain Terrain"]
+        7 GETIMPORT                        R0 K5 [assert]
+        9 CALL                             R0 2 1
+       10 GETTABLEKS                       R1 R0 K6 ["GridBackendReloadRequired"]
+       12 RETURN                           R1 1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
@@ -122,22 +132,22 @@ MAIN:
       139 LOADK                            R11 K49 ["RaiseAssistantVisibility"]
       140 NAMECALL                         R9 R9 K50 ["GetEngineFeature"]
       142 CALL                             R9 2 1
-      143 DUPTABLE                         R10 K61 [{["plugin"], ["pluginName"] = "TerrainEditor", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["getToolbarName"], ["buttonInfo"], ["dockWidgetInfo"]}]
-      144 GETIMPORT                        R11 K62 [plugin]
+      143 DUPTABLE                         R10 K62 [{["plugin"], ["pluginName"] = "TerrainEditor", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["getToolbarName"], ["buttonInfo"], ["dockWidgetInfo"], ["extraTriggers"]}]
+      144 GETIMPORT                        R11 K63 [plugin]
       146 SETTABLEKS                       R11 R10 K51 ["plugin"]
       148 SETTABLEKS                       R8 R10 K53 ["translationResourceTable"]
       150 SETTABLEKS                       R7 R10 K54 ["fallbackResourceTable"]
-      152 DUPCLOSURE                       R11 K63 [PROTO_1]
+      152 DUPCLOSURE                       R11 K64 [PROTO_1]
       153 SETTABLEKS                       R11 R10 K58 ["getToolbarName"]
-      155 DUPTABLE                         R11 K69 [{["getName"], ["getDescription"], ["icon"] = "", ["text"] = , ["clickableWhenViewportHidden"] = True}]
-      156 DUPCLOSURE                       R12 K70 [PROTO_2]
-      157 SETTABLEKS                       R12 R11 K64 ["getName"]
-      159 DUPCLOSURE                       R12 K71 [PROTO_3]
-      160 SETTABLEKS                       R12 R11 K65 ["getDescription"]
+      155 DUPTABLE                         R11 K70 [{["getName"], ["getDescription"], ["icon"] = "", ["text"] = , ["clickableWhenViewportHidden"] = True}]
+      156 DUPCLOSURE                       R12 K71 [PROTO_2]
+      157 SETTABLEKS                       R12 R11 K65 ["getName"]
+      159 DUPCLOSURE                       R12 K72 [PROTO_3]
+      160 SETTABLEKS                       R12 R11 K66 ["getDescription"]
       162 SETTABLEKS                       R11 R10 K59 ["buttonInfo"]
-      164 DUPTABLE                         R11 K76 [{["id"] = "TerrainEditor", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
-      165 GETIMPORT                        R12 K79 [DockWidgetPluginGuiInfo.new]
-      167 GETIMPORT                        R13 K83 [Enum.InitialDockState.Left]
+      164 DUPTABLE                         R11 K77 [{["id"] = "TerrainEditor", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
+      165 GETIMPORT                        R12 K80 [DockWidgetPluginGuiInfo.new]
+      167 GETIMPORT                        R13 K84 [Enum.InitialDockState.Left]
       169 JUMPIFNOT                        R9 ; [+2]
       170 LOADB                            R14 0
       171 JUMP                             ; [+1]
@@ -148,22 +158,26 @@ MAIN:
       176 LOADN                            R18 350
       177 LOADN                            R19 200
       178 CALL                             R12 7 1
-      179 SETTABLEKS                       R12 R11 K73 ["dockWidgetPluginGuiInfo"]
-      181 DUPCLOSURE                       R12 K84 [PROTO_4]
-      182 SETTABLEKS                       R12 R11 K74 ["getDockTitle"]
-      184 GETIMPORT                        R12 K87 [Enum.ZIndexBehavior.Sibling]
-      186 SETTABLEKS                       R12 R11 K75 ["zIndexBehavior"]
+      179 SETTABLEKS                       R12 R11 K74 ["dockWidgetPluginGuiInfo"]
+      181 DUPCLOSURE                       R12 K85 [PROTO_4]
+      182 SETTABLEKS                       R12 R11 K75 ["getDockTitle"]
+      184 GETIMPORT                        R12 K88 [Enum.ZIndexBehavior.Sibling]
+      186 SETTABLEKS                       R12 R11 K76 ["zIndexBehavior"]
       188 SETTABLEKS                       R11 R10 K60 ["dockWidgetInfo"]
-      190 GETTABLEKS                       R11 R6 K88 ["build"]
-      192 MOVE                             R12 R10
-      193 CALL                             R11 1 1
-      194 GETTABLEKS                       R12 R11 K89 ["pluginLoader"]
-      196 NAMECALL                         R12 R12 K90 ["waitForUserInteraction"]
-      198 CALL                             R12 1 1
-      199 JUMPIF                           R12 ; [+1]
-      200 RETURN                           R0 0
-      201 MOVE                             R13 R0
-      202 GETIMPORT                        R14 K62 [plugin]
-      204 MOVE                             R15 R11
-      205 CALL                             R13 2 0
+      190 DUPTABLE                         R11 K90 [{"GridBackendReloadRequired"}]
+      191 DUPCLOSURE                       R12 K91 [PROTO_5]
+      192 SETTABLEKS                       R12 R11 K89 ["GridBackendReloadRequired"]
+      194 SETTABLEKS                       R11 R10 K61 ["extraTriggers"]
+      196 GETTABLEKS                       R11 R6 K92 ["build"]
+      198 MOVE                             R12 R10
+      199 CALL                             R11 1 1
+      200 GETTABLEKS                       R12 R11 K93 ["pluginLoader"]
+      202 NAMECALL                         R12 R12 K94 ["waitForUserInteraction"]
+      204 CALL                             R12 1 1
+      205 JUMPIF                           R12 ; [+1]
       206 RETURN                           R0 0
+      207 MOVE                             R13 R0
+      208 GETIMPORT                        R14 K63 [plugin]
+      210 MOVE                             R15 R11
+      211 CALL                             R13 2 0
+      212 RETURN                           R0 0

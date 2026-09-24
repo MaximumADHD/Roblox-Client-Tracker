@@ -211,6 +211,14 @@ PROTO_11:
         4 CALL                             R2 3 0
         5 RETURN                           R0 0
 
+PROTO_12:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["ItemInteraction"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -320,4 +328,7 @@ MAIN:
       156 DUPCLOSURE                       R17 K47 [PROTO_11]
       157 CAPTURE                          VAL R16
       158 SETTABLEKS                       R17 R14 K48 ["sendContextMenuItemClickedEvent"]
-      160 RETURN                           R14 1
+      160 DUPCLOSURE                       R17 K49 [PROTO_12]
+      161 CAPTURE                          VAL R16
+      162 SETTABLEKS                       R17 R14 K50 ["sendItemInteractionEvent"]
+      164 RETURN                           R14 1

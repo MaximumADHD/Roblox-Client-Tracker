@@ -141,7 +141,7 @@ MAIN:
        72 CALL                             R6 2 1
        73 SETTABLEKS                       R6 R5 K37 ["path"]
        75 DUPTABLE                         R6 K46 [{["asset"], ["sources"], ["isPackage"] = False}]
-       76 DUPTABLE                         R7 K62 [{["createTime"] = "2021-01-01T00:00:00Z", ["updateTime"] = "2021-01-16T00:00:00Z", ["assetId"] = 1234567890, ["displayName"] = "Test Model", ["description"] = "This is a test model", ["assetType"] = "ASSET_TYPE_MODEL", ["creationContext"], ["state"] = "APPROVED"}]
+       76 DUPTABLE                         R7 K62 [{["createTime"] = "2021-01-01T00:00:00Z", ["updateTime"] = "2021-01-16T00:00:00Z", ["assetId"] = 1234567890, ["displayName"] = "Test Model", ["description"] = "This is a test model", ["assetType"] = "ASSET_TYPE_MODEL", ["creationContext"], ["state"] = "Active"}]
        77 DUPTABLE                         R8 K64 [{"creator"}]
        78 DUPTABLE                         R9 K67 [{["userId"] = 123}]
        79 SETTABLEKS                       R9 R8 K63 ["creator"]

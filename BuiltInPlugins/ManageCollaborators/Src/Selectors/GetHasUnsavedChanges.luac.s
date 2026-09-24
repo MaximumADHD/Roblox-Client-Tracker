@@ -75,7 +75,14 @@ PROTO_1:
        64 JUMPIFNOTEQKNIL                  R3 ; [+2]
        66 LOADB                            R1 0 +1
        67 LOADB                            R1 1
-       68 RETURN                           R1 1
+       68 JUMPIF                           R1 ; [+10]
+       69 GETTABLEKS                       R2 R0 K10 ["PendingPlayTesters"]
+       71 JUMPIFNOT                        R2 ; [+7]
+       72 GETTABLEKS                       R2 R0 K10 ["PendingPlayTesters"]
+       74 GETTABLEKS                       R2 R2 K11 ["NewPlayTesters"]
+       76 JUMPIFEQKNIL                     R2 ; [+2]
+       78 LOADB                            R1 1
+       79 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

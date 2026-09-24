@@ -112,6 +112,40 @@ PROTO_3:
        33 CALL                             R3 5 0
        34 RETURN                           R0 0
 
+PROTO_4:
+        0 GETUPVAL                         R2 0
+        1 CALL                             R2 0 1
+        2 JUMPIF                           R2 ; [+1]
+        3 RETURN                           R0 0
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        7 GETTABLEKS                       R2 R2 K1 ["join"]
+        9 MOVE                             R3 R1
+       10 DUPTABLE                         R4 K6 [{"userId", "studioSid", "placeId", "universeId"}]
+       11 GETUPVAL                         R5 2
+       12 NAMECALL                         R5 R5 K7 ["GetUserId"]
+       14 CALL                             R5 1 1
+       15 SETTABLEKS                       R5 R4 K2 ["userId"]
+       17 GETUPVAL                         R5 3
+       18 NAMECALL                         R5 R5 K8 ["GetSessionId"]
+       20 CALL                             R5 1 1
+       21 SETTABLEKS                       R5 R4 K3 ["studioSid"]
+       23 GETIMPORT                        R5 K10 [game]
+       25 GETTABLEKS                       R5 R5 K11 ["PlaceId"]
+       27 SETTABLEKS                       R5 R4 K4 ["placeId"]
+       29 GETIMPORT                        R5 K10 [game]
+       31 GETTABLEKS                       R5 R5 K12 ["GameId"]
+       33 SETTABLEKS                       R5 R4 K5 ["universeId"]
+       35 CALL                             R2 2 1
+       36 GETUPVAL                         R3 3
+       37 LOADK                            R5 K13 ["studio"]
+       38 LOADK                            R6 K14 ["FirstPublishFlow"]
+       39 MOVE                             R7 R0
+       40 MOVE                             R8 R2
+       41 NAMECALL                         R3 R3 K15 ["SendEventDeferred"]
+       43 CALL                             R3 5 0
+       44 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
@@ -135,19 +169,30 @@ MAIN:
        32 LOADK                            R7 K12 ["AddGetPlaceIsPersistedToCloudPscBridge"]
        33 NAMECALL                         R5 R5 K13 ["GetEngineFeature"]
        35 CALL                             R5 2 1
-       36 DUPCLOSURE                       R6 K14 [PROTO_1]
-       37 CAPTURE                          VAL R1
-       38 CAPTURE                          VAL R0
-       39 CAPTURE                          VAL R5
-       40 CAPTURE                          VAL R3
-       41 SETTABLEKS                       R6 R4 K15 ["reportSaveCancel"]
-       43 DUPCLOSURE                       R6 K16 [PROTO_2]
-       44 CAPTURE                          VAL R1
-       45 CAPTURE                          VAL R0
-       46 SETTABLEKS                       R6 R4 K17 ["reportDataSharingToEventIngest"]
-       48 DUPCLOSURE                       R6 K18 [PROTO_3]
+       36 GETIMPORT                        R6 K9 [require]
+       38 GETTABLEKS                       R7 R2 K14 ["Src"]
+       40 GETTABLEKS                       R7 R7 K15 ["Flags"]
+       42 GETTABLEKS                       R7 R7 K16 ["getEngineFeatureStudioUnifiedPublishAction"]
+       44 CALL                             R6 1 1
+       45 DUPCLOSURE                       R7 K17 [PROTO_1]
+       46 CAPTURE                          VAL R1
+       47 CAPTURE                          VAL R0
+       48 CAPTURE                          VAL R5
        49 CAPTURE                          VAL R3
-       50 CAPTURE                          VAL R1
-       51 CAPTURE                          VAL R0
-       52 SETTABLEKS                       R6 R4 K19 ["sendEventDeferred"]
-       54 RETURN                           R4 1
+       50 SETTABLEKS                       R7 R4 K18 ["reportSaveCancel"]
+       52 DUPCLOSURE                       R7 K19 [PROTO_2]
+       53 CAPTURE                          VAL R1
+       54 CAPTURE                          VAL R0
+       55 SETTABLEKS                       R7 R4 K20 ["reportDataSharingToEventIngest"]
+       57 DUPCLOSURE                       R7 K21 [PROTO_3]
+       58 CAPTURE                          VAL R3
+       59 CAPTURE                          VAL R1
+       60 CAPTURE                          VAL R0
+       61 SETTABLEKS                       R7 R4 K22 ["sendEventDeferred"]
+       63 DUPCLOSURE                       R7 K23 [PROTO_4]
+       64 CAPTURE                          VAL R6
+       65 CAPTURE                          VAL R3
+       66 CAPTURE                          VAL R1
+       67 CAPTURE                          VAL R0
+       68 SETTABLEKS                       R7 R4 K24 ["reportFirstPublishFlow"]
+       70 RETURN                           R4 1

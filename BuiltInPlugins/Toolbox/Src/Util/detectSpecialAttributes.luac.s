@@ -32,6 +32,34 @@ PROTO_0:
        44 CALL                             R3 1 0
        45 RETURN                           R2 1
 
+PROTO_1:
+        0 LOADB                            R1 0
+        1 NAMECALL                         R2 R0 K0 ["GetDescendants"]
+        3 CALL                             R2 1 3
+        4 FORGPREP                         R2
+        5 LOADK                            R9 K1 ["SurfaceAppearance"]
+        6 NAMECALL                         R7 R6 K2 ["IsA"]
+        8 CALL                             R7 2 1
+        9 JUMPIFNOT                        R7 ; [+2]
+       10 LOADB                            R1 1
+       11 JUMP                             ; [+2]
+       12 FORGLOOP                         R2 2 ; [-8]
+       14 GETUPVAL                         R2 0
+       15 MOVE                             R3 R0
+       16 CALL                             R2 1 1
+       17 GETIMPORT                        R4 K5 [table.find]
+       19 MOVE                             R5 R2
+       20 GETUPVAL                         R6 1
+       21 GETTABLEKS                       R6 R6 K6 ["Emissive"]
+       23 CALL                             R4 2 1
+       24 JUMPIFNOTEQKNIL                  R4 ; [+2]
+       26 LOADB                            R3 0 +1
+       27 LOADB                            R3 1
+       28 DUPTABLE                         R4 K9 [{"hasSurfaceAppearance", "hasEmissive"}]
+       29 SETTABLEKS                       R1 R4 K7 ["hasSurfaceAppearance"]
+       31 SETTABLEKS                       R3 R4 K8 ["hasEmissive"]
+       33 RETURN                           R4 1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -43,6 +71,12 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["Util"]
        13 GETTABLEKS                       R2 R2 K8 ["MetadataType"]
        15 CALL                             R1 1 1
-       16 DUPCLOSURE                       R2 K9 [PROTO_0]
-       17 CAPTURE                          VAL R1
-       18 RETURN                           R2 1
+       16 NEWTABLE                         R2 2 0
+       18 DUPCLOSURE                       R3 K9 [PROTO_0]
+       19 CAPTURE                          VAL R1
+       20 DUPCLOSURE                       R4 K10 [PROTO_1]
+       21 CAPTURE                          VAL R3
+       22 CAPTURE                          VAL R1
+       23 SETTABLEKS                       R3 R2 K11 ["detectSpecialAttributes"]
+       25 SETTABLEKS                       R4 R2 K12 ["detectMaterialProperties"]
+       27 RETURN                           R2 1

@@ -193,6 +193,20 @@ PROTO_12:
        17 RETURN                           R0 0
 
 PROTO_13:
+        0 DUPTABLE                         R0 K2 [{"DialogComponent", "DialogUri"}]
+        1 GETUPVAL                         R1 0
+        2 SETTABLEKS                       R1 R0 K0 ["DialogComponent"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K3 ["join"]
+        7 GETUPVAL                         R2 2
+        8 NAMECALL                         R2 R2 K4 ["GetUri"]
+       10 CALL                             R2 1 1
+       11 DUPTABLE                         R3 K9 [{["Category"] = "Widget", ["ItemId"] = "Dialog/UnsavedChanges"}]
+       12 CALL                             R1 2 1
+       13 SETTABLEKS                       R1 R0 K1 ["DialogUri"]
+       15 RETURN                           R0 1
+
+PROTO_14:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+3]
         2 GETUPVAL                         R0 1
@@ -202,7 +216,7 @@ PROTO_13:
         6 CALL                             R0 0 0
         7 RETURN                           R0 0
 
-PROTO_14:
+PROTO_15:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 CALL                             R1 1 1
@@ -338,64 +352,79 @@ PROTO_14:
       159 CAPTURE                          UPVAL U11
       160 CAPTURE                          VAL R7
       161 SETTABLEKS                       R18 R17 K12 ["OnActivated"]
-      163 GETUPVAL                         R18 12
-      164 DUPTABLE                         R19 K31 [{["Intent"], ["Heading"], ["Body"], ["ActionPrimary"], ["ActionSecondary"], ["ActionTertiary"], ["DisableTitleBar"] = True, ["OnClosed"], ["Width"] = 410, ["Modal"] = True}]
-      165 GETTABLEKS                       R21 R5 K32 ["current"]
-      167 JUMPIFNOT                        R21 ; [+2]
-      168 LOADK                            R20 K33 ["Destructive"]
-      169 JUMP                             ; [+1]
-      170 LOADK                            R20 K34 ["Warning"]
-      171 SETTABLEKS                       R20 R19 K20 ["Intent"]
-      173 LOADK                            R22 K14 ["UnsavedChangesDialog"]
-      174 LOADK                            R23 K35 ["Title"]
-      175 NAMECALL                         R20 R9 K16 ["getText"]
-      177 CALL                             R20 3 1
-      178 SETTABLEKS                       R20 R19 K21 ["Heading"]
-      180 GETTABLEKS                       R21 R5 K32 ["current"]
-      182 JUMPIFNOT                        R21 ; [+6]
-      183 LOADK                            R22 K14 ["UnsavedChangesDialog"]
-      184 LOADK                            R23 K36 ["ServerRestartDescription"]
-      185 NAMECALL                         R20 R9 K16 ["getText"]
-      187 CALL                             R20 3 1
-      188 JUMP                             ; [+5]
-      189 LOADK                            R22 K14 ["UnsavedChangesDialog"]
-      190 LOADK                            R23 K37 ["Description"]
-      191 NAMECALL                         R20 R9 K16 ["getText"]
-      193 CALL                             R20 3 1
-      194 SETTABLEKS                       R20 R19 K22 ["Body"]
-      196 GETTABLEKS                       R21 R5 K32 ["current"]
-      198 JUMPIFNOT                        R21 ; [+2]
-      199 MOVE                             R20 R15
-      200 JUMP                             ; [+1]
-      201 MOVE                             R20 R14
-      202 SETTABLEKS                       R20 R19 K23 ["ActionPrimary"]
-      204 JUMPIFNOT                        R3 ; [+2]
-      205 MOVE                             R20 R16
-      206 JUMP                             ; [+1]
-      207 MOVE                             R20 R17
-      208 SETTABLEKS                       R20 R19 K24 ["ActionSecondary"]
-      210 JUMPIFNOT                        R3 ; [+2]
-      211 LOADNIL                          R20
-      212 JUMP                             ; [+1]
-      213 MOVE                             R20 R16
-      214 SETTABLEKS                       R20 R19 K25 ["ActionTertiary"]
-      216 GETTABLEKS                       R20 R17 K12 ["OnActivated"]
-      218 SETTABLEKS                       R20 R19 K27 ["OnClosed"]
-      220 CALL                             R18 1 2
-      221 GETUPVAL                         R20 10
-      222 NEWCLOSURE                       R21 P9
-      223 CAPTURE                          VAL R6
-      224 CAPTURE                          VAL R18
-      225 CAPTURE                          VAL R19
-      226 NEWTABLE                         R22 0 1
-      228 MOVE                             R23 R6
-      229 SETLIST                          R22 R23 1 [1]
-      231 CALL                             R20 2 0
-      232 GETUPVAL                         R20 13
-      233 GETUPVAL                         R21 3
-      234 GETTABLEKS                       R21 R21 K38 ["Fragment"]
-      236 CALL                             R20 1 -1
-      237 RETURN                           R20 -1
+      163 GETUPVAL                         R19 12
+      164 JUMPIFNOT                        R19 ; [+14]
+      165 GETUPVAL                         R18 3
+      166 GETTABLEKS                       R18 R18 K20 ["useMemo"]
+      168 NEWCLOSURE                       R19 P9
+      169 CAPTURE                          UPVAL U13
+      170 CAPTURE                          UPVAL U14
+      171 CAPTURE                          VAL R8
+      172 NEWTABLE                         R20 0 1
+      174 MOVE                             R21 R8
+      175 SETLIST                          R20 R21 1 [1]
+      177 CALL                             R18 2 1
+      178 JUMP                             ; [+1]
+      179 LOADNIL                          R18
+      180 GETUPVAL                         R19 15
+      181 DUPTABLE                         R20 K33 [{["Intent"], ["Heading"], ["Body"], ["ActionPrimary"], ["ActionSecondary"], ["ActionTertiary"], ["DisableTitleBar"] = True, ["OnClosed"], ["Width"] = 410, ["Modal"] = True, ["MigrateToStudioFoundation"]}]
+      182 GETTABLEKS                       R22 R5 K34 ["current"]
+      184 JUMPIFNOT                        R22 ; [+2]
+      185 LOADK                            R21 K35 ["Destructive"]
+      186 JUMP                             ; [+1]
+      187 LOADK                            R21 K36 ["Warning"]
+      188 SETTABLEKS                       R21 R20 K21 ["Intent"]
+      190 LOADK                            R23 K14 ["UnsavedChangesDialog"]
+      191 LOADK                            R24 K37 ["Title"]
+      192 NAMECALL                         R21 R9 K16 ["getText"]
+      194 CALL                             R21 3 1
+      195 SETTABLEKS                       R21 R20 K22 ["Heading"]
+      197 GETTABLEKS                       R22 R5 K34 ["current"]
+      199 JUMPIFNOT                        R22 ; [+6]
+      200 LOADK                            R23 K14 ["UnsavedChangesDialog"]
+      201 LOADK                            R24 K38 ["ServerRestartDescription"]
+      202 NAMECALL                         R21 R9 K16 ["getText"]
+      204 CALL                             R21 3 1
+      205 JUMP                             ; [+5]
+      206 LOADK                            R23 K14 ["UnsavedChangesDialog"]
+      207 LOADK                            R24 K39 ["Description"]
+      208 NAMECALL                         R21 R9 K16 ["getText"]
+      210 CALL                             R21 3 1
+      211 SETTABLEKS                       R21 R20 K23 ["Body"]
+      213 GETTABLEKS                       R22 R5 K34 ["current"]
+      215 JUMPIFNOT                        R22 ; [+2]
+      216 MOVE                             R21 R15
+      217 JUMP                             ; [+1]
+      218 MOVE                             R21 R14
+      219 SETTABLEKS                       R21 R20 K24 ["ActionPrimary"]
+      221 JUMPIFNOT                        R3 ; [+2]
+      222 MOVE                             R21 R16
+      223 JUMP                             ; [+1]
+      224 MOVE                             R21 R17
+      225 SETTABLEKS                       R21 R20 K25 ["ActionSecondary"]
+      227 JUMPIFNOT                        R3 ; [+2]
+      228 LOADNIL                          R21
+      229 JUMP                             ; [+1]
+      230 MOVE                             R21 R16
+      231 SETTABLEKS                       R21 R20 K26 ["ActionTertiary"]
+      233 GETTABLEKS                       R21 R17 K12 ["OnActivated"]
+      235 SETTABLEKS                       R21 R20 K28 ["OnClosed"]
+      237 SETTABLEKS                       R18 R20 K32 ["MigrateToStudioFoundation"]
+      239 CALL                             R19 1 2
+      240 GETUPVAL                         R21 10
+      241 NEWCLOSURE                       R22 P10
+      242 CAPTURE                          VAL R6
+      243 CAPTURE                          VAL R19
+      244 CAPTURE                          VAL R20
+      245 NEWTABLE                         R23 0 1
+      247 MOVE                             R24 R6
+      248 SETLIST                          R23 R24 1 [1]
+      250 CALL                             R21 2 0
+      251 GETUPVAL                         R21 16
+      252 GETUPVAL                         R22 3
+      253 GETTABLEKS                       R22 R22 K40 ["Fragment"]
+      255 CALL                             R21 1 -1
+      256 RETURN                           R21 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -429,46 +458,63 @@ MAIN:
        49 GETTABLEKS                       R6 R0 K12 ["Packages"]
        51 GETTABLEKS                       R6 R6 K16 ["React"]
        53 CALL                             R5 1 1
-       54 GETTABLEKS                       R6 R3 K17 ["UI"]
-       56 GETTABLEKS                       R6 R6 K18 ["Hooks"]
-       58 GETTABLEKS                       R6 R6 K19 ["useDialog"]
-       60 GETTABLEKS                       R7 R3 K20 ["ContextServices"]
-       62 GETTABLEKS                       R8 R7 K21 ["Plugin"]
-       64 GETTABLEKS                       R9 R7 K22 ["Localization"]
-       66 GETIMPORT                        R10 K5 [require]
-       68 GETTABLEKS                       R11 R0 K6 ["Src"]
-       70 GETTABLEKS                       R11 R11 K7 ["Util"]
-       72 GETTABLEKS                       R11 R11 K23 ["Telemetry"]
-       74 GETTABLEKS                       R11 R11 K24 ["TelemetryContext"]
-       76 CALL                             R10 1 1
-       77 GETTABLEKS                       R11 R5 K25 ["createElement"]
-       79 GETTABLEKS                       R12 R5 K26 ["useState"]
-       81 GETTABLEKS                       R13 R5 K27 ["useEffect"]
-       83 GETTABLEKS                       R14 R5 K28 ["useContext"]
-       85 GETIMPORT                        R15 K5 [require]
-       87 GETTABLEKS                       R16 R0 K6 ["Src"]
-       89 GETTABLEKS                       R16 R16 K7 ["Util"]
-       91 GETTABLEKS                       R16 R16 K29 ["InvokeKeys"]
-       93 CALL                             R15 1 1
-       94 GETIMPORT                        R16 K5 [require]
-       96 GETTABLEKS                       R17 R0 K6 ["Src"]
-       98 GETTABLEKS                       R17 R17 K30 ["Flags"]
-      100 GETTABLEKS                       R17 R17 K31 ["getFFlagReportPresetOnPublish"]
-      102 CALL                             R16 1 1
-      103 CALL                             R16 0 1
-      104 DUPCLOSURE                       R17 K32 [PROTO_14]
-      105 CAPTURE                          VAL R14
-      106 CAPTURE                          VAL R4
-      107 CAPTURE                          VAL R12
-      108 CAPTURE                          VAL R5
-      109 CAPTURE                          VAL R8
-      110 CAPTURE                          VAL R9
-      111 CAPTURE                          VAL R2
-      112 CAPTURE                          VAL R16
-      113 CAPTURE                          VAL R1
-      114 CAPTURE                          VAL R10
-      115 CAPTURE                          VAL R13
-      116 CAPTURE                          VAL R15
-      117 CAPTURE                          VAL R6
-      118 CAPTURE                          VAL R11
-      119 RETURN                           R17 1
+       54 GETIMPORT                        R6 K5 [require]
+       56 GETTABLEKS                       R7 R0 K12 ["Packages"]
+       58 GETTABLEKS                       R7 R7 K17 ["StudioFoundation"]
+       60 CALL                             R6 1 1
+       61 GETTABLEKS                       R7 R3 K18 ["UI"]
+       63 GETTABLEKS                       R7 R7 K19 ["Hooks"]
+       65 GETTABLEKS                       R7 R7 K20 ["RESTRICTED_useDialog"]
+       67 GETTABLEKS                       R8 R6 K9 ["Components"]
+       69 GETTABLEKS                       R8 R8 K21 ["Dialog"]
+       71 GETTABLEKS                       R9 R6 K7 ["Util"]
+       73 GETTABLEKS                       R9 R9 K22 ["StudioUri"]
+       75 GETTABLEKS                       R10 R3 K23 ["ContextServices"]
+       77 GETTABLEKS                       R11 R10 K24 ["Plugin"]
+       79 GETTABLEKS                       R12 R10 K25 ["Localization"]
+       81 GETIMPORT                        R13 K5 [require]
+       83 GETTABLEKS                       R14 R0 K6 ["Src"]
+       85 GETTABLEKS                       R14 R14 K7 ["Util"]
+       87 GETTABLEKS                       R14 R14 K26 ["Telemetry"]
+       89 GETTABLEKS                       R14 R14 K27 ["TelemetryContext"]
+       91 CALL                             R13 1 1
+       92 GETTABLEKS                       R14 R5 K28 ["createElement"]
+       94 GETTABLEKS                       R15 R5 K29 ["useState"]
+       96 GETTABLEKS                       R16 R5 K30 ["useEffect"]
+       98 GETTABLEKS                       R17 R5 K31 ["useContext"]
+      100 GETIMPORT                        R18 K5 [require]
+      102 GETTABLEKS                       R19 R0 K6 ["Src"]
+      104 GETTABLEKS                       R19 R19 K7 ["Util"]
+      106 GETTABLEKS                       R19 R19 K32 ["InvokeKeys"]
+      108 CALL                             R18 1 1
+      109 GETIMPORT                        R19 K5 [require]
+      111 GETTABLEKS                       R20 R0 K6 ["Src"]
+      113 GETTABLEKS                       R20 R20 K33 ["Flags"]
+      115 GETTABLEKS                       R20 R20 K34 ["getFFlagAvatarSettingsMigrateUseDialog"]
+      117 CALL                             R19 1 1
+      118 CALL                             R19 0 1
+      119 GETIMPORT                        R20 K5 [require]
+      121 GETTABLEKS                       R21 R0 K6 ["Src"]
+      123 GETTABLEKS                       R21 R21 K33 ["Flags"]
+      125 GETTABLEKS                       R21 R21 K35 ["getFFlagReportPresetOnPublish"]
+      127 CALL                             R20 1 1
+      128 CALL                             R20 0 1
+      129 DUPCLOSURE                       R21 K36 [PROTO_15]
+      130 CAPTURE                          VAL R17
+      131 CAPTURE                          VAL R4
+      132 CAPTURE                          VAL R15
+      133 CAPTURE                          VAL R5
+      134 CAPTURE                          VAL R11
+      135 CAPTURE                          VAL R12
+      136 CAPTURE                          VAL R2
+      137 CAPTURE                          VAL R20
+      138 CAPTURE                          VAL R1
+      139 CAPTURE                          VAL R13
+      140 CAPTURE                          VAL R16
+      141 CAPTURE                          VAL R18
+      142 CAPTURE                          VAL R19
+      143 CAPTURE                          VAL R8
+      144 CAPTURE                          VAL R9
+      145 CAPTURE                          VAL R7
+      146 CAPTURE                          VAL R14
+      147 RETURN                           R21 1

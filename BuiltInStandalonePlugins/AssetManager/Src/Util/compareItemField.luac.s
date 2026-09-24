@@ -79,6 +79,32 @@ PROTO_2:
        38 RETURN                           R3 1
 
 PROTO_3:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["None"]
+        3 JUMPIFEQ                         R0 R3 ; [+2]
+        5 JUMP                             ; [+1]
+        6 LOADN                            R0 0
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K0 ["None"]
+       10 JUMPIFEQ                         R1 R3 ; [+2]
+       12 JUMP                             ; [+1]
+       13 LOADN                            R1 0
+       14 MOVE                             R4 R0
+       15 MOVE                             R5 R1
+       16 JUMPIFNOTEQ                      R4 R5 ; [+3]
+       18 LOADN                            R3 0
+       19 RETURN                           R3 1
+       20 JUMPIFNOT                        R2 ; [+2]
+       21 LOADN                            R6 1
+       22 JUMP                             ; [+1]
+       23 LOADN                            R6 -1
+       24 JUMPIFNOTLT                      R4 R5 ; [+3]
+       26 MOVE                             R3 R6
+       27 RETURN                           R3 1
+       28 MINUS                            R3 R6
+       29 RETURN                           R3 1
+
+PROTO_4:
         0 JUMPIFNOTEQ                      R0 R1 ; [+3]
         2 LOADN                            R3 0
         3 RETURN                           R3 1
@@ -99,39 +125,57 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R2 R1 K8 ["AssetInfoField"]
-       16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R4 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R4 K9 ["Util"]
-       22 GETTABLEKS                       R4 R4 K10 ["naturalCompare"]
-       24 CALL                             R3 1 1
-       25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R5 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R5 K11 ["Flags"]
-       31 GETTABLEKS                       R5 R5 K12 ["getFFlagAmrNaturalSortOrder"]
-       33 CALL                             R4 1 1
-       34 NEWTABLE                         R5 0 0
-       36 DUPCLOSURE                       R6 K13 [PROTO_0]
-       37 GETTABLEKS                       R7 R2 K14 ["DisplayName"]
-       39 DUPCLOSURE                       R8 K15 [PROTO_1]
-       40 CAPTURE                          VAL R4
-       41 CAPTURE                          VAL R3
-       42 SETTABLE                         R8 R5 R7
-       43 GETTABLEKS                       R7 R2 K16 ["Creator"]
-       45 DUPCLOSURE                       R8 K17 [PROTO_2]
-       46 CAPTURE                          VAL R4
-       47 CAPTURE                          VAL R3
-       48 SETTABLE                         R8 R5 R7
-       49 GETTABLEKS                       R7 R1 K18 ["asList"]
-       51 MOVE                             R8 R2
-       52 CALL                             R7 1 3
-       53 FORGPREP                         R7
-       54 GETTABLE                         R12 R5 R11
-       55 JUMPIF                           R12 ; [+2]
-       56 DUPCLOSURE                       R12 K19 [PROTO_3]
-       57 SETTABLE                         R12 R5 R11
-       58 FORGLOOP                         R7 2 ; [-5]
-       60 RETURN                           R5 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R3 R2 K10 ["AssetInfoField"]
+       23 GETIMPORT                        R4 K5 [require]
+       25 GETTABLEKS                       R5 R0 K8 ["Src"]
+       27 GETTABLEKS                       R5 R5 K11 ["Util"]
+       29 GETTABLEKS                       R5 R5 K12 ["naturalCompare"]
+       31 CALL                             R4 1 1
+       32 GETIMPORT                        R5 K5 [require]
+       34 GETTABLEKS                       R6 R0 K8 ["Src"]
+       36 GETTABLEKS                       R6 R6 K13 ["Flags"]
+       38 GETTABLEKS                       R6 R6 K14 ["getFFlagAmrNaturalSortOrder"]
+       40 CALL                             R5 1 1
+       41 GETIMPORT                        R6 K5 [require]
+       43 GETTABLEKS                       R7 R0 K8 ["Src"]
+       45 GETTABLEKS                       R7 R7 K13 ["Flags"]
+       47 GETTABLEKS                       R7 R7 K15 ["getFFlagAmrEnableVersioning"]
+       49 CALL                             R6 1 1
+       50 NEWTABLE                         R7 0 0
+       52 DUPCLOSURE                       R8 K16 [PROTO_0]
+       53 GETTABLEKS                       R9 R3 K17 ["DisplayName"]
+       55 DUPCLOSURE                       R10 K18 [PROTO_1]
+       56 CAPTURE                          VAL R5
+       57 CAPTURE                          VAL R4
+       58 SETTABLE                         R10 R7 R9
+       59 GETTABLEKS                       R9 R3 K19 ["Creator"]
+       61 DUPCLOSURE                       R10 K20 [PROTO_2]
+       62 CAPTURE                          VAL R5
+       63 CAPTURE                          VAL R4
+       64 SETTABLE                         R10 R7 R9
+       65 GETTABLEKS                       R9 R3 K21 ["VersionNumber"]
+       67 MOVE                             R11 R6
+       68 CALL                             R11 0 1
+       69 JUMPIFNOT                        R11 ; [+3]
+       70 DUPCLOSURE                       R10 K22 [PROTO_3]
+       71 CAPTURE                          VAL R1
+       72 JUMP                             ; [+1]
+       73 LOADNIL                          R10
+       74 SETTABLE                         R10 R7 R9
+       75 GETTABLEKS                       R9 R2 K23 ["asList"]
+       77 MOVE                             R10 R3
+       78 CALL                             R9 1 3
+       79 FORGPREP                         R9
+       80 GETTABLE                         R14 R7 R13
+       81 JUMPIF                           R14 ; [+2]
+       82 DUPCLOSURE                       R14 K24 [PROTO_4]
+       83 SETTABLE                         R14 R7 R13
+       84 FORGLOOP                         R9 2 ; [-5]
+       86 RETURN                           R7 1

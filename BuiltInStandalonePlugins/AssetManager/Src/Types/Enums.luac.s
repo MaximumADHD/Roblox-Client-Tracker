@@ -1,34 +1,3 @@
-PROTO_0:
-        0 NEWTABLE                         R1 0 0
-        2 MOVE                             R2 R0
-        3 LOADNIL                          R3
-        4 LOADNIL                          R4
-        5 FORGPREP                         R2
-        6 FASTCALL2                        TABLE_INSERT R1 R6 ; [+5]
-        8 MOVE                             R8 R1
-        9 MOVE                             R9 R6
-       10 GETIMPORT                        R7 K2 [table.insert]
-       12 CALL                             R7 2 0
-       13 FORGLOOP                         R2 2 ; [-8]
-       15 RETURN                           R1 1
-
-PROTO_1:
-        0 JUMPIFLT                         R0 R1 ; [+2]
-        2 LOADB                            R2 0 +1
-        3 LOADB                            R2 1
-        4 RETURN                           R2 1
-
-PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["asList"]
-        3 MOVE                             R2 R0
-        4 CALL                             R1 1 1
-        5 GETIMPORT                        R2 K3 [table.sort]
-        7 MOVE                             R3 R1
-        8 DUPCLOSURE                       R4 K4 [PROTO_1]
-        9 CALL                             R2 2 0
-       10 RETURN                           R1 1
-
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -39,49 +8,61 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
        11 GETTABLEKS                       R2 R2 K7 ["enumerate"]
        13 CALL                             R1 1 1
-       14 NEWTABLE                         R2 32 0
-       16 DUPCLOSURE                       R3 K8 [PROTO_0]
-       17 SETTABLEKS                       R3 R2 K9 ["asList"]
-       19 DUPCLOSURE                       R3 K10 [PROTO_2]
-       20 CAPTURE                          VAL R2
-       21 SETTABLEKS                       R3 R2 K11 ["asSortedList"]
-       23 DUPTABLE                         R3 K19 [{["User"] = "User", ["Group"] = "Group", ["Universe"] = "Universe", ["ProjectPlaces"] = "ProjectPlaces", ["Folder"] = "Folder", ["Header"] = "Header", ["RecentUploads"] = "RecentUploads"}]
-       24 SETTABLEKS                       R3 R2 K20 ["ScopeType"]
-       26 DUPTABLE                         R4 K32 [{["Animation"] = "Animation", ["Audio"] = "Audio", ["Decal"] = "Decal", ["FontFamily"] = "FontFamily", ["Image"] = "Image", ["Mesh"] = "Mesh", ["MeshPart"] = "MeshPart", ["Model"] = "Model", ["Place"] = "Place", ["Plugin"] = "Plugin", ["Video"] = "Video", ["Folder"] = "Folder"}]
-       27 SETTABLEKS                       R4 R2 K33 ["AssetType"]
-       29 DUPTABLE                         R5 K38 [{["Reviewing"] = "Reviewing", ["Rejected"] = "Rejected", ["Approved"] = "Approved", ["Placeholder"] = "Placeholder"}]
-       30 SETTABLEKS                       R5 R2 K39 ["ModerationStatus"]
-       32 DUPTABLE                         R6 K43 [{["FoldersReady"] = "FoldersReady", ["FoldersNotReady"] = "FoldersNotReady", ["Invalid"] = "Invalid"}]
-       33 SETTABLEKS                       R6 R2 K44 ["InventoryFolderStatus"]
-       35 DUPTABLE                         R7 K56 [{["Path"] = "Path", ["AssetId"] = "AssetId", ["AssetType"] = "AssetType", ["DisplayName"] = "DisplayName", ["VersionNumber"] = "VersionNumber", ["Created"] = "Created", ["Modified"] = "Modified", ["ModerationStatus"] = "ModerationStatus", ["Creator"] = "Creator", ["Source"] = "Source", ["Archived"] = "Archived", ["IsPackage"] = "IsPackage", ["SearchRank"] = "SearchRank"}]
-       36 SETTABLEKS                       R7 R2 K57 ["AssetInfoField"]
-       38 DUPTABLE                         R8 K62 [{["Uploaded"] = "Uploaded", ["CreatorStore"] = "CreatorStore", ["SharedWithMe"] = "SharedWithMe", ["Unknown"] = "Unknown"}]
-       39 SETTABLEKS                       R8 R2 K63 ["AssetSource"]
-       41 MOVE                             R9 R1
-       42 LOADK                            R10 K64 ["ViewType"]
-       43 DUPTABLE                         R11 K71 [{["List"] = 1, ["Grid"] = 2, ["Unsupported"] = 3}]
-       44 CALL                             R9 2 1
-       45 SETTABLEKS                       R9 R2 K64 ["ViewType"]
-       47 DUPTABLE                         R10 K75 [{["Asset"] = "Asset", ["Column"] = "Column", ["Sidebar"] = "Sidebar"}]
-       48 SETTABLEKS                       R10 R2 K76 ["MenuContext"]
-       50 DUPTABLE                         R11 K80 [{["Recent"] = "Recent", ["Project"] = "Project", ["Inventories"] = "Inventories"}]
-       51 SETTABLEKS                       R11 R2 K81 ["SidebarHeader"]
-       53 DUPTABLE                         R12 K84 [{["Browser"] = "Browser", ["Sidebar"] = "Sidebar", ["Filters"] = "Filters"}]
-       54 SETTABLEKS                       R12 R2 K85 ["UiZone"]
-       56 DUPTABLE                         R13 K88 [{["Invalid"] = "Invalid", ["User"] = "User", ["Group"] = "Group", ["GroupRoleset"] = "GroupRoleset", ["All"] = "All", ["Universe"] = "Universe"}]
-       57 SETTABLEKS                       R13 R2 K89 ["PermissionsSubject"]
-       59 DUPTABLE                         R14 K99 [{["Invalid"] = "Invalid", ["Edit"] = "Edit", ["Use"] = "Use", ["Download"] = "Download", ["CreateAssetVersion"] = "CreateAssetVersion", ["UpdateAssetText"] = "UpdateAssetText", ["GrantAssetPermissions"] = "GrantAssetPermissions", ["CreateAssetFromAsset"] = "CreateAssetFromAsset", ["CopyFromRcc"] = "CopyFromRcc", ["UpdateFromRcc"] = "UpdateFromRcc"}]
-       60 SETTABLEKS                       R14 R2 K100 ["PermissionsAction"]
-       62 DUPTABLE                         R15 K105 [{["UnknownError"] = "UnknownError", ["HasPermission"] = "HasPermission", ["NoPermission"] = "NoPermission", ["AssetNotFound"] = "AssetNotFound"}]
-       63 SETTABLEKS                       R15 R2 K106 ["ApiPermissionStatus"]
-       65 DUPTABLE                         R16 K112 [{["Test"] = "Test", ["QuickShare"] = "QuickShare", ["Confirm"] = "Confirm", ["AssetError"] = "AssetError", ["Move"] = "Move"}]
-       66 SETTABLEKS                       R16 R2 K113 ["DialogType"]
-       68 DUPTABLE                         R17 K115 [{["TestExperiment"] = "TestExperiment"}]
-       69 SETTABLEKS                       R17 R2 K116 ["IxpVariable"]
-       71 DUPTABLE                         R18 K121 [{["Control"] = "control", ["Experiment"] = "experiment"}]
-       72 SETTABLEKS                       R18 R2 K122 ["IxpValue"]
-       74 NEWTABLE                         R19 0 0
-       76 SETTABLEKS                       R19 R2 K123 ["TutorialId"]
-       78 NEWTABLE                         R20 0 0
-       80 SETTABLEKS                       R20 R2 K124 ["TutorialEvent"]
-       82 RETURN                           R2 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["AssetManagement"]
+       20 CALL                             R2 1 1
+       21 NEWTABLE                         R3 32 0
+       23 GETTABLEKS                       R4 R2 K9 ["Enums"]
+       25 GETTABLEKS                       R4 R4 K10 ["asList"]
+       27 SETTABLEKS                       R4 R3 K10 ["asList"]
+       29 GETTABLEKS                       R4 R2 K9 ["Enums"]
+       31 GETTABLEKS                       R4 R4 K11 ["asSortedList"]
+       33 SETTABLEKS                       R4 R3 K11 ["asSortedList"]
+       35 GETTABLEKS                       R4 R2 K9 ["Enums"]
+       37 GETTABLEKS                       R4 R4 K12 ["ScopeType"]
+       39 SETTABLEKS                       R4 R3 K12 ["ScopeType"]
+       41 GETTABLEKS                       R4 R2 K9 ["Enums"]
+       43 GETTABLEKS                       R4 R4 K13 ["CreatorInventoryItemType"]
+       45 SETTABLEKS                       R4 R3 K14 ["AssetType"]
+       47 GETTABLEKS                       R4 R2 K9 ["Enums"]
+       49 GETTABLEKS                       R4 R4 K15 ["ModerationStatus"]
+       51 SETTABLEKS                       R4 R3 K15 ["ModerationStatus"]
+       53 DUPTABLE                         R4 K19 [{["FoldersReady"] = "FoldersReady", ["FoldersNotReady"] = "FoldersNotReady", ["Invalid"] = "Invalid"}]
+       54 SETTABLEKS                       R4 R3 K20 ["InventoryFolderStatus"]
+       56 GETTABLEKS                       R5 R2 K9 ["Enums"]
+       58 GETTABLEKS                       R5 R5 K21 ["ItemInfoField"]
+       60 SETTABLEKS                       R5 R3 K22 ["AssetInfoField"]
+       62 GETTABLEKS                       R5 R2 K9 ["Enums"]
+       64 GETTABLEKS                       R5 R5 K23 ["ItemSource"]
+       66 SETTABLEKS                       R5 R3 K24 ["AssetSource"]
+       68 MOVE                             R5 R1
+       69 LOADK                            R6 K25 ["ViewType"]
+       70 DUPTABLE                         R7 K32 [{["List"] = 1, ["Grid"] = 2, ["Unsupported"] = 3}]
+       71 CALL                             R5 2 1
+       72 SETTABLEKS                       R5 R3 K25 ["ViewType"]
+       74 DUPTABLE                         R6 K36 [{["Asset"] = "Asset", ["Column"] = "Column", ["Sidebar"] = "Sidebar"}]
+       75 SETTABLEKS                       R6 R3 K37 ["MenuContext"]
+       77 DUPTABLE                         R7 K41 [{["Recent"] = "Recent", ["Project"] = "Project", ["Inventories"] = "Inventories"}]
+       78 SETTABLEKS                       R7 R3 K42 ["SidebarHeader"]
+       80 DUPTABLE                         R8 K45 [{["Browser"] = "Browser", ["Sidebar"] = "Sidebar", ["Filters"] = "Filters"}]
+       81 SETTABLEKS                       R8 R3 K46 ["UiZone"]
+       83 DUPTABLE                         R9 K52 [{["Invalid"] = "Invalid", ["User"] = "User", ["Group"] = "Group", ["GroupRoleset"] = "GroupRoleset", ["All"] = "All", ["Universe"] = "Universe"}]
+       84 SETTABLEKS                       R9 R3 K53 ["PermissionsSubject"]
+       86 DUPTABLE                         R10 K63 [{["Invalid"] = "Invalid", ["Edit"] = "Edit", ["Use"] = "Use", ["Download"] = "Download", ["CreateAssetVersion"] = "CreateAssetVersion", ["UpdateAssetText"] = "UpdateAssetText", ["GrantAssetPermissions"] = "GrantAssetPermissions", ["CreateAssetFromAsset"] = "CreateAssetFromAsset", ["CopyFromRcc"] = "CopyFromRcc", ["UpdateFromRcc"] = "UpdateFromRcc"}]
+       87 SETTABLEKS                       R10 R3 K64 ["PermissionsAction"]
+       89 DUPTABLE                         R11 K69 [{["UnknownError"] = "UnknownError", ["HasPermission"] = "HasPermission", ["NoPermission"] = "NoPermission", ["AssetNotFound"] = "AssetNotFound"}]
+       90 SETTABLEKS                       R11 R3 K70 ["ApiPermissionStatus"]
+       92 DUPTABLE                         R12 K76 [{["Test"] = "Test", ["QuickShare"] = "QuickShare", ["Confirm"] = "Confirm", ["AssetError"] = "AssetError", ["Move"] = "Move"}]
+       93 SETTABLEKS                       R12 R3 K77 ["DialogType"]
+       95 DUPTABLE                         R13 K79 [{["TestExperiment"] = "TestExperiment"}]
+       96 SETTABLEKS                       R13 R3 K80 ["IxpVariable"]
+       98 DUPTABLE                         R14 K85 [{["Control"] = "control", ["Experiment"] = "experiment"}]
+       99 SETTABLEKS                       R14 R3 K86 ["IxpValue"]
+      101 DUPTABLE                         R15 K88 [{["Intro"] = "Intro"}]
+      102 SETTABLEKS                       R15 R3 K89 ["TutorialId"]
+      104 DUPTABLE                         R16 K92 [{["Welcome"] = "Welcome", ["Sidebar"] = "Sidebar", ["InsertOrImport"] = "InsertOrImport"}]
+      105 SETTABLEKS                       R16 R3 K93 ["TutorialStepId"]
+      107 DUPTABLE                         R17 K100 [{["BrowseModeEntered"] = "BrowseModeEntered", ["SearchSessionOpened"] = "SearchSessionOpened", ["ContextMenuClosed"] = "ContextMenuClosed", ["ScopeSelectorClosed"] = "ScopeSelectorClosed", ["ClickedOutsideTooltip"] = "ClickedOutsideTooltip", ["ImportClicked"] = "ImportClicked"}]
+      108 SETTABLEKS                       R17 R3 K101 ["TutorialEvent"]
+      110 RETURN                           R3 1

@@ -64,9 +64,20 @@ PROTO_2:
        62 CALL                             R2 1 -1
        63 RETURN                           R2 -1
 
+PROTO_3:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["loadAssetShouldError"]
+        3 JUMPIFNOT                        R2 ; [+4]
+        4 GETIMPORT                        R2 K2 [error]
+        6 LOADK                            R3 K3 ["MockInsertService: LoadAsset error"]
+        7 CALL                             R2 1 0
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K4 ["loadAssetResult"]
+       11 RETURN                           R2 1
+
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 4 0
+        1 NEWTABLE                         R0 8 0
         3 SETTABLEKS                       R0 R0 K0 ["__index"]
         5 DUPCLOSURE                       R1 K1 [PROTO_0]
         6 CAPTURE                          VAL R0
@@ -75,4 +86,11 @@ MAIN:
        10 SETTABLEKS                       R1 R0 K4 ["LoadAssetWithFormat"]
        12 DUPCLOSURE                       R1 K5 [PROTO_2]
        13 SETTABLEKS                       R1 R0 K6 ["LoadLocalAsset"]
-       15 RETURN                           R0 1
+       15 LOADNIL                          R1
+       16 SETTABLEKS                       R1 R0 K7 ["loadAssetResult"]
+       18 LOADB                            R1 0
+       19 SETTABLEKS                       R1 R0 K8 ["loadAssetShouldError"]
+       21 DUPCLOSURE                       R1 K9 [PROTO_3]
+       22 CAPTURE                          VAL R0
+       23 SETTABLEKS                       R1 R0 K10 ["LoadAsset"]
+       25 RETURN                           R0 1

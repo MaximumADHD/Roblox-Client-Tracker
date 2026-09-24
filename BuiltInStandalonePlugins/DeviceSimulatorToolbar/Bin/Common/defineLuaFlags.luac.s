@@ -49,12 +49,19 @@ PROTO_6:
 
 PROTO_7:
         0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R2 K2 ["StudioDeviceSimulatorRequireExplicitControlIds"]
+        2 LOADK                            R2 K2 ["DeviceSimulatorNetworkSettingsLocalization"]
         3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
 PROTO_8:
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["StudioDeviceSimulatorRequireExplicitControlIds"]
+        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
+
+PROTO_9:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["DeviceSimulatorToolbarWaitForDataModel"]
         3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
@@ -94,32 +101,39 @@ MAIN:
        40 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        42 CALL                             R0 3 0
        43 GETIMPORT                        R0 K1 [game]
-       45 LOADK                            R2 K9 ["StudioDeviceSimulatorRequireExplicitControlIds"]
+       45 LOADK                            R2 K9 ["DeviceSimulatorNetworkSettingsLocalization"]
        46 LOADB                            R3 0
        47 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        49 CALL                             R0 3 0
        50 GETIMPORT                        R0 K1 [game]
-       52 LOADK                            R2 K10 ["DeviceSimulatorToolbarWaitForDataModel"]
+       52 LOADK                            R2 K10 ["StudioDeviceSimulatorRequireExplicitControlIds"]
        53 LOADB                            R3 0
        54 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        56 CALL                             R0 3 0
-       57 DUPTABLE                         R0 K20 [{"getFFlagEnableDeviceSimulatorToolbar", "getFFlagEnableDeviceSimulatorRegistry", "getFFlagEnableDeviceSimulatorDeviceVisibility", "getFFlagEnableDeviceSimulatorClientViewportOnly", "getEngineFeatureStudioDeviceEmulatorDefaultScreenDpiFromSystem", "getFFlagDontReloadDeviceOnBridgeChanged", "getFFlagDeviceSimulatorBoundDropdownLabels", "getFFlagStudioDeviceSimulatorRequireExplicitControlIds", "getFFlagDeviceSimulatorToolbarWaitForDataModel"}]
-       58 DUPCLOSURE                       R1 K21 [PROTO_0]
-       59 SETTABLEKS                       R1 R0 K11 ["getFFlagEnableDeviceSimulatorToolbar"]
-       61 DUPCLOSURE                       R1 K22 [PROTO_1]
-       62 SETTABLEKS                       R1 R0 K12 ["getFFlagEnableDeviceSimulatorRegistry"]
-       64 DUPCLOSURE                       R1 K23 [PROTO_2]
-       65 SETTABLEKS                       R1 R0 K13 ["getFFlagEnableDeviceSimulatorDeviceVisibility"]
-       67 DUPCLOSURE                       R1 K24 [PROTO_3]
-       68 SETTABLEKS                       R1 R0 K14 ["getFFlagEnableDeviceSimulatorClientViewportOnly"]
-       70 DUPCLOSURE                       R1 K25 [PROTO_4]
-       71 SETTABLEKS                       R1 R0 K15 ["getEngineFeatureStudioDeviceEmulatorDefaultScreenDpiFromSystem"]
-       73 DUPCLOSURE                       R1 K26 [PROTO_5]
-       74 SETTABLEKS                       R1 R0 K16 ["getFFlagDontReloadDeviceOnBridgeChanged"]
-       76 DUPCLOSURE                       R1 K27 [PROTO_6]
-       77 SETTABLEKS                       R1 R0 K17 ["getFFlagDeviceSimulatorBoundDropdownLabels"]
-       79 DUPCLOSURE                       R1 K28 [PROTO_7]
-       80 SETTABLEKS                       R1 R0 K18 ["getFFlagStudioDeviceSimulatorRequireExplicitControlIds"]
-       82 DUPCLOSURE                       R1 K29 [PROTO_8]
-       83 SETTABLEKS                       R1 R0 K19 ["getFFlagDeviceSimulatorToolbarWaitForDataModel"]
-       85 RETURN                           R0 1
+       57 GETIMPORT                        R0 K1 [game]
+       59 LOADK                            R2 K11 ["DeviceSimulatorToolbarWaitForDataModel"]
+       60 LOADB                            R3 0
+       61 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
+       63 CALL                             R0 3 0
+       64 DUPTABLE                         R0 K22 [{"getFFlagEnableDeviceSimulatorToolbar", "getFFlagEnableDeviceSimulatorRegistry", "getFFlagEnableDeviceSimulatorDeviceVisibility", "getFFlagEnableDeviceSimulatorClientViewportOnly", "getEngineFeatureStudioDeviceEmulatorDefaultScreenDpiFromSystem", "getFFlagDontReloadDeviceOnBridgeChanged", "getFFlagDeviceSimulatorBoundDropdownLabels", "getFFlagDeviceSimulatorNetworkSettingsLocalization", "getFFlagStudioDeviceSimulatorRequireExplicitControlIds", "getFFlagDeviceSimulatorToolbarWaitForDataModel"}]
+       65 DUPCLOSURE                       R1 K23 [PROTO_0]
+       66 SETTABLEKS                       R1 R0 K12 ["getFFlagEnableDeviceSimulatorToolbar"]
+       68 DUPCLOSURE                       R1 K24 [PROTO_1]
+       69 SETTABLEKS                       R1 R0 K13 ["getFFlagEnableDeviceSimulatorRegistry"]
+       71 DUPCLOSURE                       R1 K25 [PROTO_2]
+       72 SETTABLEKS                       R1 R0 K14 ["getFFlagEnableDeviceSimulatorDeviceVisibility"]
+       74 DUPCLOSURE                       R1 K26 [PROTO_3]
+       75 SETTABLEKS                       R1 R0 K15 ["getFFlagEnableDeviceSimulatorClientViewportOnly"]
+       77 DUPCLOSURE                       R1 K27 [PROTO_4]
+       78 SETTABLEKS                       R1 R0 K16 ["getEngineFeatureStudioDeviceEmulatorDefaultScreenDpiFromSystem"]
+       80 DUPCLOSURE                       R1 K28 [PROTO_5]
+       81 SETTABLEKS                       R1 R0 K17 ["getFFlagDontReloadDeviceOnBridgeChanged"]
+       83 DUPCLOSURE                       R1 K29 [PROTO_6]
+       84 SETTABLEKS                       R1 R0 K18 ["getFFlagDeviceSimulatorBoundDropdownLabels"]
+       86 DUPCLOSURE                       R1 K30 [PROTO_7]
+       87 SETTABLEKS                       R1 R0 K19 ["getFFlagDeviceSimulatorNetworkSettingsLocalization"]
+       89 DUPCLOSURE                       R1 K31 [PROTO_8]
+       90 SETTABLEKS                       R1 R0 K20 ["getFFlagStudioDeviceSimulatorRequireExplicitControlIds"]
+       92 DUPCLOSURE                       R1 K32 [PROTO_9]
+       93 SETTABLEKS                       R1 R0 K21 ["getFFlagDeviceSimulatorToolbarWaitForDataModel"]
+       95 RETURN                           R0 1

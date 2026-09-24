@@ -95,211 +95,215 @@ PROTO_2:
        35 MOVE                             R3 R1
        36 GETUPVAL                         R4 0
        37 GETUPVAL                         R5 5
-       38 CALL                             R4 1 -1
-       39 FASTCALL                         TABLE_INSERT ; [+2]
-       40 GETIMPORT                        R2 K7 [table.insert]
-       42 CALL                             R2 -1 0
-       43 MOVE                             R3 R1
-       44 GETUPVAL                         R4 0
-       45 GETUPVAL                         R5 6
-       46 CALL                             R4 1 -1
-       47 FASTCALL                         TABLE_INSERT ; [+2]
-       48 GETIMPORT                        R2 K7 [table.insert]
-       50 CALL                             R2 -1 0
-       51 MOVE                             R3 R1
-       52 GETUPVAL                         R4 0
-       53 GETUPVAL                         R5 7
-       54 GETTABLEKS                       R5 R5 K4 ["Provider"]
-       56 CALL                             R4 1 -1
-       57 FASTCALL                         TABLE_INSERT ; [+2]
-       58 GETIMPORT                        R2 K7 [table.insert]
-       60 CALL                             R2 -1 0
-       61 MOVE                             R3 R1
-       62 GETUPVAL                         R4 0
-       63 GETUPVAL                         R5 1
-       64 GETTABLEKS                       R5 R5 K0 ["Components"]
-       66 GETTABLEKS                       R5 R5 K1 ["Contexts"]
-       68 GETTABLEKS                       R5 R5 K8 ["SettingsContextProvider"]
-       70 CALL                             R4 1 -1
-       71 FASTCALL                         TABLE_INSERT ; [+2]
-       72 GETIMPORT                        R2 K7 [table.insert]
-       74 CALL                             R2 -1 0
-       75 GETUPVAL                         R2 8
-       76 GETTABLEKS                       R2 R2 K9 ["FFlagAssistantEval"]
-       78 JUMPIFNOT                        R2 ; [+14]
-       79 MOVE                             R3 R1
-       80 GETUPVAL                         R4 0
-       81 GETUPVAL                         R5 1
-       82 GETTABLEKS                       R5 R5 K0 ["Components"]
-       84 GETTABLEKS                       R5 R5 K1 ["Contexts"]
-       86 GETTABLEKS                       R5 R5 K10 ["EvalContextProvider"]
-       88 CALL                             R4 1 -1
-       89 FASTCALL                         TABLE_INSERT ; [+2]
-       90 GETIMPORT                        R2 K7 [table.insert]
-       92 CALL                             R2 -1 0
-       93 MOVE                             R3 R1
-       94 GETUPVAL                         R4 0
-       95 GETUPVAL                         R5 1
-       96 GETTABLEKS                       R5 R5 K0 ["Components"]
-       98 GETTABLEKS                       R5 R5 K1 ["Contexts"]
-      100 GETTABLEKS                       R5 R5 K11 ["LLMProviderSelectionContextProvider"]
-      102 CALL                             R4 1 -1
-      103 FASTCALL                         TABLE_INSERT ; [+2]
-      104 GETIMPORT                        R2 K7 [table.insert]
-      106 CALL                             R2 -1 0
-      107 MOVE                             R3 R1
-      108 GETUPVAL                         R4 0
-      109 GETUPVAL                         R5 1
-      110 GETTABLEKS                       R5 R5 K0 ["Components"]
-      112 GETTABLEKS                       R5 R5 K1 ["Contexts"]
-      114 GETTABLEKS                       R5 R5 K12 ["PersistentPlanContext"]
-      116 GETTABLEKS                       R5 R5 K4 ["Provider"]
-      118 CALL                             R4 1 -1
-      119 FASTCALL                         TABLE_INSERT ; [+2]
-      120 GETIMPORT                        R2 K7 [table.insert]
-      122 CALL                             R2 -1 0
-      123 GETUPVAL                         R2 9
-      124 CALL                             R2 0 1
-      125 JUMPIFNOT                        R2 ; [+8]
-      126 MOVE                             R3 R1
-      127 GETUPVAL                         R4 0
-      128 GETUPVAL                         R5 10
-      129 CALL                             R4 1 -1
-      130 FASTCALL                         TABLE_INSERT ; [+2]
-      131 GETIMPORT                        R2 K7 [table.insert]
-      133 CALL                             R2 -1 0
-      134 GETUPVAL                         R2 8
-      135 GETTABLEKS                       R2 R2 K13 ["FFlagDebugEnableTestLLMAdapter"]
-      137 JUMPIFNOT                        R2 ; [+15]
-      138 MOVE                             R3 R1
-      139 GETUPVAL                         R4 0
-      140 GETUPVAL                         R5 1
-      141 GETTABLEKS                       R5 R5 K0 ["Components"]
-      143 GETTABLEKS                       R5 R5 K1 ["Contexts"]
-      145 GETTABLEKS                       R5 R5 K14 ["TestLLMPackageContextProvider"]
-      147 CALL                             R4 1 -1
-      148 FASTCALL                         TABLE_INSERT ; [+2]
-      149 GETIMPORT                        R2 K7 [table.insert]
-      151 CALL                             R2 -1 0
-      152 JUMP                             ; [+8]
-      153 MOVE                             R3 R1
-      154 GETUPVAL                         R4 0
-      155 GETUPVAL                         R5 11
-      156 CALL                             R4 1 -1
-      157 FASTCALL                         TABLE_INSERT ; [+2]
-      158 GETIMPORT                        R2 K7 [table.insert]
-      160 CALL                             R2 -1 0
-      161 MOVE                             R3 R1
-      162 GETUPVAL                         R4 0
-      163 GETUPVAL                         R5 12
-      164 CALL                             R4 1 -1
-      165 FASTCALL                         TABLE_INSERT ; [+2]
-      166 GETIMPORT                        R2 K7 [table.insert]
-      168 CALL                             R2 -1 0
-      169 MOVE                             R3 R1
-      170 GETUPVAL                         R4 0
-      171 GETUPVAL                         R5 13
-      172 CALL                             R4 1 -1
-      173 FASTCALL                         TABLE_INSERT ; [+2]
-      174 GETIMPORT                        R2 K7 [table.insert]
-      176 CALL                             R2 -1 0
-      177 MOVE                             R3 R1
-      178 GETUPVAL                         R4 0
-      179 GETUPVAL                         R5 14
-      180 CALL                             R4 1 -1
-      181 FASTCALL                         TABLE_INSERT ; [+2]
-      182 GETIMPORT                        R2 K7 [table.insert]
-      184 CALL                             R2 -1 0
-      185 MOVE                             R3 R1
-      186 GETUPVAL                         R4 0
-      187 GETUPVAL                         R5 15
-      188 GETTABLEKS                       R5 R5 K4 ["Provider"]
-      190 DUPTABLE                         R6 K16 [{"dockWidget"}]
-      191 GETTABLEKS                       R7 R0 K15 ["dockWidget"]
-      193 SETTABLEKS                       R7 R6 K15 ["dockWidget"]
-      195 CALL                             R4 2 -1
-      196 FASTCALL                         TABLE_INSERT ; [+2]
-      197 GETIMPORT                        R2 K7 [table.insert]
-      199 CALL                             R2 -1 0
-      200 GETUPVAL                         R2 8
-      201 GETTABLEKS                       R2 R2 K17 ["FFlagAssistantCloseDropdownsOnWidgetHidden"]
-      203 JUMPIFNOT                        R2 ; [+13]
-      204 MOVE                             R3 R1
-      205 GETUPVAL                         R4 0
-      206 GETUPVAL                         R5 16
-      207 DUPTABLE                         R6 K16 [{"dockWidget"}]
-      208 GETTABLEKS                       R7 R0 K15 ["dockWidget"]
-      210 SETTABLEKS                       R7 R6 K15 ["dockWidget"]
-      212 CALL                             R4 2 -1
-      213 FASTCALL                         TABLE_INSERT ; [+2]
-      214 GETIMPORT                        R2 K7 [table.insert]
-      216 CALL                             R2 -1 0
-      217 MOVE                             R3 R1
-      218 GETUPVAL                         R4 0
-      219 GETUPVAL                         R5 17
-      220 GETTABLEKS                       R5 R5 K4 ["Provider"]
-      222 CALL                             R4 1 -1
-      223 FASTCALL                         TABLE_INSERT ; [+2]
-      224 GETIMPORT                        R2 K7 [table.insert]
-      226 CALL                             R2 -1 0
-      227 MOVE                             R3 R1
-      228 GETUPVAL                         R4 0
-      229 GETUPVAL                         R5 18
-      230 CALL                             R4 1 -1
-      231 FASTCALL                         TABLE_INSERT ; [+2]
-      232 GETIMPORT                        R2 K7 [table.insert]
-      234 CALL                             R2 -1 0
-      235 GETUPVAL                         R2 8
-      236 GETTABLEKS                       R2 R2 K18 ["FFlagPropertiesExposeContentView"]
-      238 JUMPIFNOT                        R2 ; [+14]
-      239 MOVE                             R3 R1
-      240 GETUPVAL                         R4 0
-      241 GETUPVAL                         R5 1
-      242 GETTABLEKS                       R5 R5 K0 ["Components"]
-      244 GETTABLEKS                       R5 R5 K1 ["Contexts"]
-      246 GETTABLEKS                       R5 R5 K19 ["PropertiesContextProvider"]
-      248 CALL                             R4 1 -1
-      249 FASTCALL                         TABLE_INSERT ; [+2]
-      250 GETIMPORT                        R2 K7 [table.insert]
-      252 CALL                             R2 -1 0
-      253 GETUPVAL                         R2 8
-      254 GETTABLEKS                       R2 R2 K20 ["FFlagAssistantFeedbackView"]
-      256 JUMPIFNOT                        R2 ; [+10]
-      257 MOVE                             R3 R1
-      258 GETUPVAL                         R4 0
-      259 GETUPVAL                         R5 19
-      260 GETTABLEKS                       R5 R5 K4 ["Provider"]
-      262 CALL                             R4 1 -1
-      263 FASTCALL                         TABLE_INSERT ; [+2]
-      264 GETIMPORT                        R2 K7 [table.insert]
-      266 CALL                             R2 -1 0
-      267 GETUPVAL                         R2 20
-      268 GETTABLEKS                       R3 R0 K21 ["args"]
-      270 GETTABLEKS                       R3 R3 K22 ["bridges"]
-      272 CALL                             R2 1 1
-      273 GETUPVAL                         R3 21
-      274 GETTABLEKS                       R3 R3 K23 ["append"]
-      276 MOVE                             R4 R1
-      277 MOVE                             R5 R2
-      278 CALL                             R3 2 0
-      279 GETUPVAL                         R3 0
-      280 GETUPVAL                         R4 22
-      281 DUPTABLE                         R5 K25 [{"onStyleSheetChange"}]
-      282 GETTABLEKS                       R6 R0 K26 ["onFoundationStyleSheetChange"]
-      284 SETTABLEKS                       R6 R5 K24 ["onStyleSheetChange"]
-      286 DUPTABLE                         R6 K28 [{"ContextStack"}]
-      287 GETUPVAL                         R7 0
-      288 GETUPVAL                         R8 23
-      289 GETTABLEKS                       R8 R8 K27 ["ContextStack"]
-      291 DUPTABLE                         R9 K30 [{"providers"}]
-      292 SETTABLEKS                       R1 R9 K29 ["providers"]
-      294 GETUPVAL                         R10 24
-      295 MOVE                             R11 R0
-      296 CALL                             R10 1 1
-      297 CALL                             R7 3 1
-      298 SETTABLEKS                       R7 R6 K27 ["ContextStack"]
-      300 CALL                             R3 3 -1
-      301 RETURN                           R3 -1
+       38 DUPTABLE                         R6 K6 [{"externalServerController"}]
+       39 GETTABLEKS                       R7 R0 K7 ["args"]
+       41 GETTABLEKS                       R7 R7 K5 ["externalServerController"]
+       43 SETTABLEKS                       R7 R6 K5 ["externalServerController"]
+       45 CALL                             R4 2 -1
+       46 FASTCALL                         TABLE_INSERT ; [+2]
+       47 GETIMPORT                        R2 K10 [table.insert]
+       49 CALL                             R2 -1 0
+       50 MOVE                             R3 R1
+       51 GETUPVAL                         R4 0
+       52 GETUPVAL                         R5 6
+       53 CALL                             R4 1 -1
+       54 FASTCALL                         TABLE_INSERT ; [+2]
+       55 GETIMPORT                        R2 K10 [table.insert]
+       57 CALL                             R2 -1 0
+       58 MOVE                             R3 R1
+       59 GETUPVAL                         R4 0
+       60 GETUPVAL                         R5 7
+       61 GETTABLEKS                       R5 R5 K4 ["Provider"]
+       63 CALL                             R4 1 -1
+       64 FASTCALL                         TABLE_INSERT ; [+2]
+       65 GETIMPORT                        R2 K10 [table.insert]
+       67 CALL                             R2 -1 0
+       68 MOVE                             R3 R1
+       69 GETUPVAL                         R4 0
+       70 GETUPVAL                         R5 1
+       71 GETTABLEKS                       R5 R5 K0 ["Components"]
+       73 GETTABLEKS                       R5 R5 K1 ["Contexts"]
+       75 GETTABLEKS                       R5 R5 K11 ["SettingsContextProvider"]
+       77 CALL                             R4 1 -1
+       78 FASTCALL                         TABLE_INSERT ; [+2]
+       79 GETIMPORT                        R2 K10 [table.insert]
+       81 CALL                             R2 -1 0
+       82 GETUPVAL                         R2 8
+       83 GETTABLEKS                       R2 R2 K12 ["FFlagAssistantEval"]
+       85 JUMPIFNOT                        R2 ; [+14]
+       86 MOVE                             R3 R1
+       87 GETUPVAL                         R4 0
+       88 GETUPVAL                         R5 1
+       89 GETTABLEKS                       R5 R5 K0 ["Components"]
+       91 GETTABLEKS                       R5 R5 K1 ["Contexts"]
+       93 GETTABLEKS                       R5 R5 K13 ["EvalContextProvider"]
+       95 CALL                             R4 1 -1
+       96 FASTCALL                         TABLE_INSERT ; [+2]
+       97 GETIMPORT                        R2 K10 [table.insert]
+       99 CALL                             R2 -1 0
+      100 MOVE                             R3 R1
+      101 GETUPVAL                         R4 0
+      102 GETUPVAL                         R5 1
+      103 GETTABLEKS                       R5 R5 K0 ["Components"]
+      105 GETTABLEKS                       R5 R5 K1 ["Contexts"]
+      107 GETTABLEKS                       R5 R5 K14 ["LLMProviderSelectionContextProvider"]
+      109 CALL                             R4 1 -1
+      110 FASTCALL                         TABLE_INSERT ; [+2]
+      111 GETIMPORT                        R2 K10 [table.insert]
+      113 CALL                             R2 -1 0
+      114 MOVE                             R3 R1
+      115 GETUPVAL                         R4 0
+      116 GETUPVAL                         R5 1
+      117 GETTABLEKS                       R5 R5 K0 ["Components"]
+      119 GETTABLEKS                       R5 R5 K1 ["Contexts"]
+      121 GETTABLEKS                       R5 R5 K15 ["PersistentPlanContext"]
+      123 GETTABLEKS                       R5 R5 K4 ["Provider"]
+      125 CALL                             R4 1 -1
+      126 FASTCALL                         TABLE_INSERT ; [+2]
+      127 GETIMPORT                        R2 K10 [table.insert]
+      129 CALL                             R2 -1 0
+      130 GETUPVAL                         R2 9
+      131 CALL                             R2 0 1
+      132 JUMPIFNOT                        R2 ; [+8]
+      133 MOVE                             R3 R1
+      134 GETUPVAL                         R4 0
+      135 GETUPVAL                         R5 10
+      136 CALL                             R4 1 -1
+      137 FASTCALL                         TABLE_INSERT ; [+2]
+      138 GETIMPORT                        R2 K10 [table.insert]
+      140 CALL                             R2 -1 0
+      141 GETUPVAL                         R2 8
+      142 GETTABLEKS                       R2 R2 K16 ["FFlagDebugEnableTestLLMAdapter"]
+      144 JUMPIFNOT                        R2 ; [+15]
+      145 MOVE                             R3 R1
+      146 GETUPVAL                         R4 0
+      147 GETUPVAL                         R5 1
+      148 GETTABLEKS                       R5 R5 K0 ["Components"]
+      150 GETTABLEKS                       R5 R5 K1 ["Contexts"]
+      152 GETTABLEKS                       R5 R5 K17 ["TestLLMPackageContextProvider"]
+      154 CALL                             R4 1 -1
+      155 FASTCALL                         TABLE_INSERT ; [+2]
+      156 GETIMPORT                        R2 K10 [table.insert]
+      158 CALL                             R2 -1 0
+      159 JUMP                             ; [+8]
+      160 MOVE                             R3 R1
+      161 GETUPVAL                         R4 0
+      162 GETUPVAL                         R5 11
+      163 CALL                             R4 1 -1
+      164 FASTCALL                         TABLE_INSERT ; [+2]
+      165 GETIMPORT                        R2 K10 [table.insert]
+      167 CALL                             R2 -1 0
+      168 MOVE                             R3 R1
+      169 GETUPVAL                         R4 0
+      170 GETUPVAL                         R5 12
+      171 CALL                             R4 1 -1
+      172 FASTCALL                         TABLE_INSERT ; [+2]
+      173 GETIMPORT                        R2 K10 [table.insert]
+      175 CALL                             R2 -1 0
+      176 MOVE                             R3 R1
+      177 GETUPVAL                         R4 0
+      178 GETUPVAL                         R5 13
+      179 CALL                             R4 1 -1
+      180 FASTCALL                         TABLE_INSERT ; [+2]
+      181 GETIMPORT                        R2 K10 [table.insert]
+      183 CALL                             R2 -1 0
+      184 MOVE                             R3 R1
+      185 GETUPVAL                         R4 0
+      186 GETUPVAL                         R5 14
+      187 CALL                             R4 1 -1
+      188 FASTCALL                         TABLE_INSERT ; [+2]
+      189 GETIMPORT                        R2 K10 [table.insert]
+      191 CALL                             R2 -1 0
+      192 MOVE                             R3 R1
+      193 GETUPVAL                         R4 0
+      194 GETUPVAL                         R5 15
+      195 GETTABLEKS                       R5 R5 K4 ["Provider"]
+      197 DUPTABLE                         R6 K19 [{"dockWidget"}]
+      198 GETTABLEKS                       R7 R0 K18 ["dockWidget"]
+      200 SETTABLEKS                       R7 R6 K18 ["dockWidget"]
+      202 CALL                             R4 2 -1
+      203 FASTCALL                         TABLE_INSERT ; [+2]
+      204 GETIMPORT                        R2 K10 [table.insert]
+      206 CALL                             R2 -1 0
+      207 GETUPVAL                         R2 8
+      208 GETTABLEKS                       R2 R2 K20 ["FFlagAssistantCloseDropdownsOnWidgetHidden"]
+      210 JUMPIFNOT                        R2 ; [+13]
+      211 MOVE                             R3 R1
+      212 GETUPVAL                         R4 0
+      213 GETUPVAL                         R5 16
+      214 DUPTABLE                         R6 K19 [{"dockWidget"}]
+      215 GETTABLEKS                       R7 R0 K18 ["dockWidget"]
+      217 SETTABLEKS                       R7 R6 K18 ["dockWidget"]
+      219 CALL                             R4 2 -1
+      220 FASTCALL                         TABLE_INSERT ; [+2]
+      221 GETIMPORT                        R2 K10 [table.insert]
+      223 CALL                             R2 -1 0
+      224 MOVE                             R3 R1
+      225 GETUPVAL                         R4 0
+      226 GETUPVAL                         R5 17
+      227 GETTABLEKS                       R5 R5 K4 ["Provider"]
+      229 CALL                             R4 1 -1
+      230 FASTCALL                         TABLE_INSERT ; [+2]
+      231 GETIMPORT                        R2 K10 [table.insert]
+      233 CALL                             R2 -1 0
+      234 MOVE                             R3 R1
+      235 GETUPVAL                         R4 0
+      236 GETUPVAL                         R5 18
+      237 CALL                             R4 1 -1
+      238 FASTCALL                         TABLE_INSERT ; [+2]
+      239 GETIMPORT                        R2 K10 [table.insert]
+      241 CALL                             R2 -1 0
+      242 GETUPVAL                         R2 8
+      243 GETTABLEKS                       R2 R2 K21 ["FFlagPropertiesExposeContentView"]
+      245 JUMPIFNOT                        R2 ; [+14]
+      246 MOVE                             R3 R1
+      247 GETUPVAL                         R4 0
+      248 GETUPVAL                         R5 1
+      249 GETTABLEKS                       R5 R5 K0 ["Components"]
+      251 GETTABLEKS                       R5 R5 K1 ["Contexts"]
+      253 GETTABLEKS                       R5 R5 K22 ["PropertiesContextProvider"]
+      255 CALL                             R4 1 -1
+      256 FASTCALL                         TABLE_INSERT ; [+2]
+      257 GETIMPORT                        R2 K10 [table.insert]
+      259 CALL                             R2 -1 0
+      260 GETUPVAL                         R2 8
+      261 GETTABLEKS                       R2 R2 K23 ["FFlagAssistantFeedbackView"]
+      263 JUMPIFNOT                        R2 ; [+10]
+      264 MOVE                             R3 R1
+      265 GETUPVAL                         R4 0
+      266 GETUPVAL                         R5 19
+      267 GETTABLEKS                       R5 R5 K4 ["Provider"]
+      269 CALL                             R4 1 -1
+      270 FASTCALL                         TABLE_INSERT ; [+2]
+      271 GETIMPORT                        R2 K10 [table.insert]
+      273 CALL                             R2 -1 0
+      274 GETUPVAL                         R2 20
+      275 GETTABLEKS                       R3 R0 K7 ["args"]
+      277 GETTABLEKS                       R3 R3 K24 ["bridges"]
+      279 CALL                             R2 1 1
+      280 GETUPVAL                         R3 21
+      281 GETTABLEKS                       R3 R3 K25 ["append"]
+      283 MOVE                             R4 R1
+      284 MOVE                             R5 R2
+      285 CALL                             R3 2 0
+      286 GETUPVAL                         R3 0
+      287 GETUPVAL                         R4 22
+      288 DUPTABLE                         R5 K27 [{"onStyleSheetChange"}]
+      289 GETTABLEKS                       R6 R0 K28 ["onFoundationStyleSheetChange"]
+      291 SETTABLEKS                       R6 R5 K26 ["onStyleSheetChange"]
+      293 DUPTABLE                         R6 K30 [{"ContextStack"}]
+      294 GETUPVAL                         R7 0
+      295 GETUPVAL                         R8 23
+      296 GETTABLEKS                       R8 R8 K29 ["ContextStack"]
+      298 DUPTABLE                         R9 K32 [{"providers"}]
+      299 SETTABLEKS                       R1 R9 K31 ["providers"]
+      301 GETUPVAL                         R10 24
+      302 MOVE                             R11 R0
+      303 CALL                             R10 1 1
+      304 CALL                             R7 3 1
+      305 SETTABLEKS                       R7 R6 K29 ["ContextStack"]
+      307 CALL                             R3 3 -1
+      308 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -316,149 +320,154 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K8 ["Dash"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R4 K9 ["React"]
-       27 CALL                             R3 1 1
-       28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R5 K10 ["ReactUtils"]
-       34 CALL                             R4 1 1
-       35 GETIMPORT                        R5 K5 [require]
-       37 GETTABLEKS                       R6 R0 K11 ["Src"]
-       39 GETTABLEKS                       R6 R6 K12 ["Components"]
-       41 GETTABLEKS                       R6 R6 K13 ["Contexts"]
-       43 GETTABLEKS                       R6 R6 K14 ["StudioCreditMeteringContextProvider"]
-       45 CALL                             R5 1 1
-       46 GETIMPORT                        R6 K5 [require]
-       48 GETTABLEKS                       R7 R0 K11 ["Src"]
-       50 GETTABLEKS                       R7 R7 K12 ["Components"]
-       52 GETTABLEKS                       R7 R7 K13 ["Contexts"]
-       54 GETTABLEKS                       R7 R7 K15 ["StudioExternalServerContextProvider"]
-       56 CALL                             R6 1 1
-       57 GETIMPORT                        R7 K5 [require]
-       59 GETTABLEKS                       R8 R0 K6 ["Packages"]
-       61 GETTABLEKS                       R8 R8 K16 ["StudioFoundation"]
-       63 CALL                             R7 1 1
-       64 GETIMPORT                        R8 K5 [require]
-       66 GETTABLEKS                       R9 R0 K11 ["Src"]
-       68 GETTABLEKS                       R9 R9 K12 ["Components"]
-       70 GETTABLEKS                       R9 R9 K13 ["Contexts"]
-       72 GETTABLEKS                       R9 R9 K17 ["StudioHarnessDepsContextProvider"]
-       74 CALL                             R8 1 1
-       75 GETIMPORT                        R9 K5 [require]
-       77 GETTABLEKS                       R10 R0 K11 ["Src"]
-       79 GETTABLEKS                       R10 R10 K12 ["Components"]
-       81 GETTABLEKS                       R10 R10 K13 ["Contexts"]
-       83 GETTABLEKS                       R10 R10 K18 ["StudioInputStateContextProvider"]
-       85 CALL                             R9 1 1
-       86 GETIMPORT                        R10 K5 [require]
-       88 GETTABLEKS                       R11 R0 K11 ["Src"]
-       90 GETTABLEKS                       R11 R11 K12 ["Components"]
-       92 GETTABLEKS                       R11 R11 K13 ["Contexts"]
-       94 GETTABLEKS                       R11 R11 K19 ["StudioLLM"]
-       96 GETTABLEKS                       R11 R11 K20 ["StudioLLMPackageContextProvider"]
-       98 CALL                             R10 1 1
-       99 GETIMPORT                        R11 K5 [require]
-      101 GETTABLEKS                       R12 R0 K11 ["Src"]
-      103 GETTABLEKS                       R12 R12 K12 ["Components"]
-      105 GETTABLEKS                       R12 R12 K13 ["Contexts"]
-      107 GETTABLEKS                       R12 R12 K21 ["StudioMcpClientContextProvider"]
-      109 CALL                             R11 1 1
-      110 GETIMPORT                        R12 K5 [require]
-      112 GETTABLEKS                       R13 R0 K11 ["Src"]
-      114 GETTABLEKS                       R13 R13 K12 ["Components"]
-      116 GETTABLEKS                       R13 R13 K13 ["Contexts"]
-      118 GETTABLEKS                       R13 R13 K22 ["StudioOptionsContextProvider"]
-      120 CALL                             R12 1 1
-      121 GETIMPORT                        R13 K5 [require]
-      123 GETTABLEKS                       R14 R0 K11 ["Src"]
-      125 GETTABLEKS                       R14 R14 K12 ["Components"]
-      127 GETTABLEKS                       R14 R14 K13 ["Contexts"]
-      129 GETTABLEKS                       R14 R14 K23 ["StudioPopoutWidgetContextProvider"]
-      131 CALL                             R13 1 1
-      132 GETIMPORT                        R14 K5 [require]
-      134 GETTABLEKS                       R15 R0 K11 ["Src"]
-      136 GETTABLEKS                       R15 R15 K12 ["Components"]
-      138 GETTABLEKS                       R15 R15 K13 ["Contexts"]
-      140 GETTABLEKS                       R15 R15 K24 ["StudioSessionIdContextProvider"]
-      142 CALL                             R14 1 1
-      143 GETIMPORT                        R15 K5 [require]
-      145 GETTABLEKS                       R16 R0 K11 ["Src"]
-      147 GETTABLEKS                       R16 R16 K12 ["Components"]
-      149 GETTABLEKS                       R16 R16 K13 ["Contexts"]
-      151 GETTABLEKS                       R16 R16 K25 ["StudioWidgetVisibilityContextProvider"]
-      153 CALL                             R15 1 1
-      154 GETIMPORT                        R16 K5 [require]
-      156 GETTABLEKS                       R17 R0 K11 ["Src"]
-      158 GETTABLEKS                       R17 R17 K26 ["Util"]
-      160 GETTABLEKS                       R17 R17 K27 ["StudioWindowInput"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Host"]
+       27 GETTABLEKS                       R4 R4 K11 ["ExternalServerController"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K5 [require]
+       32 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K12 ["React"]
+       36 CALL                             R4 1 1
+       37 GETIMPORT                        R5 K5 [require]
+       39 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       41 GETTABLEKS                       R6 R6 K13 ["ReactUtils"]
+       43 CALL                             R5 1 1
+       44 GETIMPORT                        R6 K5 [require]
+       46 GETTABLEKS                       R7 R0 K9 ["Src"]
+       48 GETTABLEKS                       R7 R7 K14 ["Components"]
+       50 GETTABLEKS                       R7 R7 K15 ["Contexts"]
+       52 GETTABLEKS                       R7 R7 K16 ["StudioCreditMeteringContextProvider"]
+       54 CALL                             R6 1 1
+       55 GETIMPORT                        R7 K5 [require]
+       57 GETTABLEKS                       R8 R0 K9 ["Src"]
+       59 GETTABLEKS                       R8 R8 K14 ["Components"]
+       61 GETTABLEKS                       R8 R8 K15 ["Contexts"]
+       63 GETTABLEKS                       R8 R8 K17 ["StudioExternalServerContextProvider"]
+       65 CALL                             R7 1 1
+       66 GETIMPORT                        R8 K5 [require]
+       68 GETTABLEKS                       R9 R0 K6 ["Packages"]
+       70 GETTABLEKS                       R9 R9 K18 ["StudioFoundation"]
+       72 CALL                             R8 1 1
+       73 GETIMPORT                        R9 K5 [require]
+       75 GETTABLEKS                       R10 R0 K9 ["Src"]
+       77 GETTABLEKS                       R10 R10 K14 ["Components"]
+       79 GETTABLEKS                       R10 R10 K15 ["Contexts"]
+       81 GETTABLEKS                       R10 R10 K19 ["StudioHarnessDepsContextProvider"]
+       83 CALL                             R9 1 1
+       84 GETIMPORT                        R10 K5 [require]
+       86 GETTABLEKS                       R11 R0 K9 ["Src"]
+       88 GETTABLEKS                       R11 R11 K14 ["Components"]
+       90 GETTABLEKS                       R11 R11 K15 ["Contexts"]
+       92 GETTABLEKS                       R11 R11 K20 ["StudioInputStateContextProvider"]
+       94 CALL                             R10 1 1
+       95 GETIMPORT                        R11 K5 [require]
+       97 GETTABLEKS                       R12 R0 K9 ["Src"]
+       99 GETTABLEKS                       R12 R12 K14 ["Components"]
+      101 GETTABLEKS                       R12 R12 K15 ["Contexts"]
+      103 GETTABLEKS                       R12 R12 K21 ["StudioLLM"]
+      105 GETTABLEKS                       R12 R12 K22 ["StudioLLMPackageContextProvider"]
+      107 CALL                             R11 1 1
+      108 GETIMPORT                        R12 K5 [require]
+      110 GETTABLEKS                       R13 R0 K9 ["Src"]
+      112 GETTABLEKS                       R13 R13 K14 ["Components"]
+      114 GETTABLEKS                       R13 R13 K15 ["Contexts"]
+      116 GETTABLEKS                       R13 R13 K23 ["StudioMcpClientContextProvider"]
+      118 CALL                             R12 1 1
+      119 GETIMPORT                        R13 K5 [require]
+      121 GETTABLEKS                       R14 R0 K9 ["Src"]
+      123 GETTABLEKS                       R14 R14 K14 ["Components"]
+      125 GETTABLEKS                       R14 R14 K15 ["Contexts"]
+      127 GETTABLEKS                       R14 R14 K24 ["StudioOptionsContextProvider"]
+      129 CALL                             R13 1 1
+      130 GETIMPORT                        R14 K5 [require]
+      132 GETTABLEKS                       R15 R0 K9 ["Src"]
+      134 GETTABLEKS                       R15 R15 K14 ["Components"]
+      136 GETTABLEKS                       R15 R15 K15 ["Contexts"]
+      138 GETTABLEKS                       R15 R15 K25 ["StudioPopoutWidgetContextProvider"]
+      140 CALL                             R14 1 1
+      141 GETIMPORT                        R15 K5 [require]
+      143 GETTABLEKS                       R16 R0 K9 ["Src"]
+      145 GETTABLEKS                       R16 R16 K14 ["Components"]
+      147 GETTABLEKS                       R16 R16 K15 ["Contexts"]
+      149 GETTABLEKS                       R16 R16 K26 ["StudioSessionIdContextProvider"]
+      151 CALL                             R15 1 1
+      152 GETIMPORT                        R16 K5 [require]
+      154 GETTABLEKS                       R17 R0 K9 ["Src"]
+      156 GETTABLEKS                       R17 R17 K14 ["Components"]
+      158 GETTABLEKS                       R17 R17 K15 ["Contexts"]
+      160 GETTABLEKS                       R17 R17 K27 ["StudioWidgetVisibilityContextProvider"]
       162 CALL                             R16 1 1
       163 GETIMPORT                        R17 K5 [require]
-      165 GETTABLEKS                       R18 R0 K11 ["Src"]
-      167 GETTABLEKS                       R18 R18 K12 ["Components"]
-      169 GETTABLEKS                       R18 R18 K28 ["WidgetTrackingMainView"]
+      165 GETTABLEKS                       R18 R0 K9 ["Src"]
+      167 GETTABLEKS                       R18 R18 K28 ["Util"]
+      169 GETTABLEKS                       R18 R18 K29 ["StudioWindowInput"]
       171 CALL                             R17 1 1
       172 GETIMPORT                        R18 K5 [require]
-      174 GETTABLEKS                       R19 R0 K11 ["Src"]
-      176 GETTABLEKS                       R19 R19 K29 ["Flags"]
-      178 CALL                             R18 1 1
-      179 GETTABLEKS                       R19 R7 K12 ["Components"]
-      181 GETTABLEKS                       R19 R19 K30 ["FoundationProviderAdapter"]
-      183 GETTABLEKS                       R20 R1 K12 ["Components"]
-      185 GETTABLEKS                       R20 R20 K13 ["Contexts"]
-      187 GETTABLEKS                       R20 R20 K31 ["FeedbackContext"]
-      189 GETTABLEKS                       R21 R1 K12 ["Components"]
-      191 GETTABLEKS                       R21 R21 K13 ["Contexts"]
-      193 GETTABLEKS                       R21 R21 K32 ["McpAuthorizerManagerContext"]
-      195 GETTABLEKS                       R22 R1 K12 ["Components"]
-      197 GETTABLEKS                       R22 R22 K13 ["Contexts"]
-      199 GETTABLEKS                       R22 R22 K33 ["ModelQualityContext"]
-      201 GETTABLEKS                       R23 R1 K12 ["Components"]
-      203 GETTABLEKS                       R23 R23 K13 ["Contexts"]
-      205 GETTABLEKS                       R23 R23 K34 ["PersistedIntegrationContext"]
-      207 GETTABLEKS                       R24 R1 K12 ["Components"]
-      209 GETTABLEKS                       R24 R24 K13 ["Contexts"]
-      211 GETTABLEKS                       R24 R24 K35 ["PersistedSettingsContext"]
-      213 GETTABLEKS                       R25 R1 K36 ["Resources"]
-      215 GETTABLEKS                       R25 R25 K37 ["Localization"]
-      217 GETTABLEKS                       R25 R25 K38 ["Translator"]
-      219 GETTABLEKS                       R26 R1 K39 ["FlagUtils"]
-      221 GETTABLEKS                       R26 R26 K40 ["getIsCreditMeteringEnabled"]
-      223 GETTABLEKS                       R27 R1 K12 ["Components"]
-      225 GETTABLEKS                       R27 R27 K41 ["Hooks"]
-      227 GETTABLEKS                       R27 R27 K42 ["useBridges"]
-      229 GETTABLEKS                       R28 R3 K43 ["createElement"]
-      231 DUPCLOSURE                       R29 K44 [PROTO_1]
-      232 CAPTURE                          VAL R18
-      233 CAPTURE                          VAL R3
-      234 CAPTURE                          VAL R22
-      235 CAPTURE                          VAL R25
-      236 CAPTURE                          VAL R28
-      237 CAPTURE                          VAL R17
-      238 DUPCLOSURE                       R30 K45 [PROTO_2]
-      239 CAPTURE                          VAL R28
-      240 CAPTURE                          VAL R1
-      241 CAPTURE                          VAL R14
-      242 CAPTURE                          VAL R21
+      174 GETTABLEKS                       R19 R0 K9 ["Src"]
+      176 GETTABLEKS                       R19 R19 K14 ["Components"]
+      178 GETTABLEKS                       R19 R19 K30 ["WidgetTrackingMainView"]
+      180 CALL                             R18 1 1
+      181 GETIMPORT                        R19 K5 [require]
+      183 GETTABLEKS                       R20 R0 K9 ["Src"]
+      185 GETTABLEKS                       R20 R20 K31 ["Flags"]
+      187 CALL                             R19 1 1
+      188 GETTABLEKS                       R20 R8 K14 ["Components"]
+      190 GETTABLEKS                       R20 R20 K32 ["FoundationProviderAdapter"]
+      192 GETTABLEKS                       R21 R1 K14 ["Components"]
+      194 GETTABLEKS                       R21 R21 K15 ["Contexts"]
+      196 GETTABLEKS                       R21 R21 K33 ["FeedbackContext"]
+      198 GETTABLEKS                       R22 R1 K14 ["Components"]
+      200 GETTABLEKS                       R22 R22 K15 ["Contexts"]
+      202 GETTABLEKS                       R22 R22 K34 ["McpAuthorizerManagerContext"]
+      204 GETTABLEKS                       R23 R1 K14 ["Components"]
+      206 GETTABLEKS                       R23 R23 K15 ["Contexts"]
+      208 GETTABLEKS                       R23 R23 K35 ["ModelQualityContext"]
+      210 GETTABLEKS                       R24 R1 K14 ["Components"]
+      212 GETTABLEKS                       R24 R24 K15 ["Contexts"]
+      214 GETTABLEKS                       R24 R24 K36 ["PersistedIntegrationContext"]
+      216 GETTABLEKS                       R25 R1 K14 ["Components"]
+      218 GETTABLEKS                       R25 R25 K15 ["Contexts"]
+      220 GETTABLEKS                       R25 R25 K37 ["PersistedSettingsContext"]
+      222 GETTABLEKS                       R26 R1 K38 ["Resources"]
+      224 GETTABLEKS                       R26 R26 K39 ["Localization"]
+      226 GETTABLEKS                       R26 R26 K40 ["Translator"]
+      228 GETTABLEKS                       R27 R1 K41 ["FlagUtils"]
+      230 GETTABLEKS                       R27 R27 K42 ["getIsCreditMeteringEnabled"]
+      232 GETTABLEKS                       R28 R1 K14 ["Components"]
+      234 GETTABLEKS                       R28 R28 K43 ["Hooks"]
+      236 GETTABLEKS                       R28 R28 K44 ["useBridges"]
+      238 GETTABLEKS                       R29 R4 K45 ["createElement"]
+      240 DUPCLOSURE                       R30 K46 [PROTO_1]
+      241 CAPTURE                          VAL R19
+      242 CAPTURE                          VAL R4
       243 CAPTURE                          VAL R23
-      244 CAPTURE                          VAL R6
-      245 CAPTURE                          VAL R11
-      246 CAPTURE                          VAL R24
-      247 CAPTURE                          VAL R18
-      248 CAPTURE                          VAL R26
-      249 CAPTURE                          VAL R5
-      250 CAPTURE                          VAL R10
-      251 CAPTURE                          VAL R8
-      252 CAPTURE                          VAL R12
-      253 CAPTURE                          VAL R9
-      254 CAPTURE                          VAL R16
-      255 CAPTURE                          VAL R15
-      256 CAPTURE                          VAL R22
-      257 CAPTURE                          VAL R13
-      258 CAPTURE                          VAL R20
-      259 CAPTURE                          VAL R27
-      260 CAPTURE                          VAL R2
-      261 CAPTURE                          VAL R19
-      262 CAPTURE                          VAL R4
-      263 CAPTURE                          VAL R29
-      264 RETURN                           R30 1
+      244 CAPTURE                          VAL R26
+      245 CAPTURE                          VAL R29
+      246 CAPTURE                          VAL R18
+      247 DUPCLOSURE                       R31 K47 [PROTO_2]
+      248 CAPTURE                          VAL R29
+      249 CAPTURE                          VAL R1
+      250 CAPTURE                          VAL R15
+      251 CAPTURE                          VAL R22
+      252 CAPTURE                          VAL R24
+      253 CAPTURE                          VAL R7
+      254 CAPTURE                          VAL R12
+      255 CAPTURE                          VAL R25
+      256 CAPTURE                          VAL R19
+      257 CAPTURE                          VAL R27
+      258 CAPTURE                          VAL R6
+      259 CAPTURE                          VAL R11
+      260 CAPTURE                          VAL R9
+      261 CAPTURE                          VAL R13
+      262 CAPTURE                          VAL R10
+      263 CAPTURE                          VAL R17
+      264 CAPTURE                          VAL R16
+      265 CAPTURE                          VAL R23
+      266 CAPTURE                          VAL R14
+      267 CAPTURE                          VAL R21
+      268 CAPTURE                          VAL R28
+      269 CAPTURE                          VAL R2
+      270 CAPTURE                          VAL R20
+      271 CAPTURE                          VAL R5
+      272 CAPTURE                          VAL R30
+      273 RETURN                           R31 1

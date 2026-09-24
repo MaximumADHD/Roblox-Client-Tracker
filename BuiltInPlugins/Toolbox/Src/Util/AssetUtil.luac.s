@@ -150,26 +150,18 @@ MAIN:
        29 GETTABLEKS                       R4 R4 K9 ["Util"]
        31 GETTABLEKS                       R4 R4 K11 ["AssetConfigConstants"]
        33 CALL                             R3 1 1
-       34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R5 R0 K6 ["Src"]
-       38 GETTABLEKS                       R5 R5 K12 ["Flags"]
-       40 GETTABLEKS                       R5 R5 K13 ["getFFlagEnableUploadingAvatarAnimations"]
-       42 CALL                             R4 1 1
-       43 NEWTABLE                         R5 8 0
-       45 DUPCLOSURE                       R6 K14 [PROTO_0]
-       46 CAPTURE                          VAL R1
-       47 CAPTURE                          VAL R2
-       48 SETTABLEKS                       R6 R5 K15 ["getAssetSize"]
-       50 MOVE                             R6 R4
-       51 CALL                             R6 0 1
-       52 JUMPIFNOT                        R6 ; [+6]
-       53 DUPCLOSURE                       R6 K16 [PROTO_1]
-       54 SETTABLEKS                       R6 R5 K17 ["parseDependencyContentIdToAssetIdString"]
-       56 DUPCLOSURE                       R6 K18 [PROTO_2]
-       57 SETTABLEKS                       R6 R5 K19 ["parsePositiveIntegerFromText"]
-       59 DUPCLOSURE                       R6 K20 [PROTO_3]
-       60 SETTABLEKS                       R6 R5 K21 ["trimmedStringInputHasContent"]
-       62 DUPCLOSURE                       R6 K22 [PROTO_4]
-       63 CAPTURE                          VAL R3
-       64 SETTABLEKS                       R6 R5 K23 ["getStatus"]
-       66 RETURN                           R5 1
+       34 NEWTABLE                         R4 8 0
+       36 DUPCLOSURE                       R5 K12 [PROTO_0]
+       37 CAPTURE                          VAL R1
+       38 CAPTURE                          VAL R2
+       39 SETTABLEKS                       R5 R4 K13 ["getAssetSize"]
+       41 DUPCLOSURE                       R5 K14 [PROTO_1]
+       42 SETTABLEKS                       R5 R4 K15 ["parseDependencyContentIdToAssetIdString"]
+       44 DUPCLOSURE                       R5 K16 [PROTO_2]
+       45 SETTABLEKS                       R5 R4 K17 ["parsePositiveIntegerFromText"]
+       47 DUPCLOSURE                       R5 K18 [PROTO_3]
+       48 SETTABLEKS                       R5 R4 K19 ["trimmedStringInputHasContent"]
+       50 DUPCLOSURE                       R5 K20 [PROTO_4]
+       51 CAPTURE                          VAL R3
+       52 SETTABLEKS                       R5 R4 K21 ["getStatus"]
+       54 RETURN                           R4 1

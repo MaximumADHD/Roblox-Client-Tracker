@@ -5,7 +5,7 @@ PROTO_0:
         6 LOADB                            R1 0
         7 RETURN                           R1 1
         8 GETIMPORT                        R1 K4 [game]
-       10 LOADK                            R3 K5 ["EnableTerrainPalette2"]
+       10 LOADK                            R3 K5 ["EnableTerrainPalette3"]
        11 NAMECALL                         R1 R1 K6 ["GetFastFlag"]
        13 CALL                             R1 2 1
        14 JUMPIFNOT                        R1 ; [+2]
@@ -15,7 +15,7 @@ PROTO_0:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["EnableTerrainPalette2"]
+        3 LOADK                            R2 K2 ["EnableTerrainPalette3"]
         4 LOADB                            R3 0
         5 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
         7 CALL                             R0 3 0

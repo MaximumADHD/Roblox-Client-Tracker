@@ -19,16 +19,20 @@ PROTO_0:
        28 DUPTABLE                         R4 K12 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "DeviceSimulatorToolbar", ["libraries"], ["overrideLocaleId"]}]
        29 SETTABLEKS                       R1 R4 K6 ["stringResourceTable"]
        31 SETTABLEKS                       R2 R4 K7 ["translationResourceTable"]
-       33 DUPTABLE                         R5 K14 [{"DeviceSimulator"}]
-       34 DUPTABLE                         R6 K15 [{"stringResourceTable", "translationResourceTable"}]
+       33 DUPTABLE                         R5 K15 [{"DeviceSimulator", "NetworkSettings"}]
+       34 DUPTABLE                         R6 K16 [{"stringResourceTable", "translationResourceTable"}]
        35 SETTABLEKS                       R1 R6 K6 ["stringResourceTable"]
        37 SETTABLEKS                       R2 R6 K7 ["translationResourceTable"]
        39 SETTABLEKS                       R6 R5 K13 ["DeviceSimulator"]
-       41 SETTABLEKS                       R5 R4 K10 ["libraries"]
-       43 GETTABLEKS                       R5 R0 K11 ["overrideLocaleId"]
-       45 SETTABLEKS                       R5 R4 K11 ["overrideLocaleId"]
-       47 CALL                             R3 1 -1
-       48 RETURN                           R3 -1
+       41 DUPTABLE                         R6 K16 [{"stringResourceTable", "translationResourceTable"}]
+       42 SETTABLEKS                       R1 R6 K6 ["stringResourceTable"]
+       44 SETTABLEKS                       R2 R6 K7 ["translationResourceTable"]
+       46 SETTABLEKS                       R6 R5 K14 ["NetworkSettings"]
+       48 SETTABLEKS                       R5 R4 K10 ["libraries"]
+       50 GETTABLEKS                       R5 R0 K11 ["overrideLocaleId"]
+       52 SETTABLEKS                       R5 R4 K11 ["overrideLocaleId"]
+       54 CALL                             R3 1 -1
+       55 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

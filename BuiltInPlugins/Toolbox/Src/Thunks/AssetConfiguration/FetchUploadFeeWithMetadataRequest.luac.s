@@ -141,15 +141,16 @@ MAIN:
        42 GETTABLEKS                       R5 R5 K13 ["Util"]
        44 GETTABLEKS                       R5 R5 K14 ["detectSpecialAttributes"]
        46 CALL                             R4 1 1
-       47 GETIMPORT                        R5 K5 [require]
-       49 GETTABLEKS                       R6 R0 K6 ["Src"]
-       51 GETTABLEKS                       R6 R6 K13 ["Util"]
-       53 GETTABLEKS                       R6 R6 K15 ["MetadataType"]
-       55 CALL                             R5 1 1
-       56 DUPCLOSURE                       R6 K16 [PROTO_2]
-       57 CAPTURE                          VAL R1
-       58 CAPTURE                          VAL R3
-       59 CAPTURE                          VAL R4
-       60 CAPTURE                          VAL R5
-       61 CAPTURE                          VAL R2
-       62 RETURN                           R6 1
+       47 GETTABLEKS                       R4 R4 K14 ["detectSpecialAttributes"]
+       49 GETIMPORT                        R5 K5 [require]
+       51 GETTABLEKS                       R6 R0 K6 ["Src"]
+       53 GETTABLEKS                       R6 R6 K13 ["Util"]
+       55 GETTABLEKS                       R6 R6 K15 ["MetadataType"]
+       57 CALL                             R5 1 1
+       58 DUPCLOSURE                       R6 K16 [PROTO_2]
+       59 CAPTURE                          VAL R1
+       60 CAPTURE                          VAL R3
+       61 CAPTURE                          VAL R4
+       62 CAPTURE                          VAL R5
+       63 CAPTURE                          VAL R2
+       64 RETURN                           R6 1

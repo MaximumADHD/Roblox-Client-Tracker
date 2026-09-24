@@ -82,39 +82,41 @@ PROTO_2:
        70 SETTABLEKS                       R11 R0 K30 ["_errors"]
        72 LOADB                            R11 0
        73 SETTABLEKS                       R11 R0 K31 ["_isRunning"]
-       75 NEWTABLE                         R11 0 0
-       77 SETTABLEKS                       R11 R0 K32 ["_validateFunctions"]
-       79 GETUPVAL                         R11 0
-       80 GETTABLEKS                       R11 R11 K33 ["new"]
-       82 CALL                             R11 0 1
-       83 SETTABLEKS                       R11 R0 K34 ["OnFormChanged"]
-       85 GETUPVAL                         R11 0
-       86 GETTABLEKS                       R11 R11 K33 ["new"]
-       88 CALL                             R11 0 1
-       89 SETTABLEKS                       R11 R0 K35 ["OnGizmoChanged"]
-       91 GETUPVAL                         R11 0
-       92 GETTABLEKS                       R11 R11 K33 ["new"]
-       94 CALL                             R11 0 1
-       95 SETTABLEKS                       R11 R0 K36 ["OnInternalsChanged"]
-       97 GETUPVAL                         R11 0
-       98 GETTABLEKS                       R11 R11 K33 ["new"]
-      100 CALL                             R11 0 1
-      101 SETTABLEKS                       R11 R0 K37 ["OnNoteChanged"]
-      103 GETUPVAL                         R11 0
-      104 GETTABLEKS                       R11 R11 K33 ["new"]
-      106 CALL                             R11 0 1
-      107 SETTABLEKS                       R11 R0 K38 ["OnShortcutChanged"]
-      109 GETUPVAL                         R11 0
-      110 GETTABLEKS                       R11 R11 K33 ["new"]
-      112 CALL                             R11 0 1
-      113 SETTABLEKS                       R11 R0 K39 ["OnOperationChanged"]
-      115 NEWTABLE                         R11 0 0
-      117 SETTABLEKS                       R11 R0 K40 ["_shortcutConnections"]
-      119 NEWTABLE                         R11 0 0
-      121 SETTABLEKS                       R11 R0 K41 ["_shortcuts"]
-      123 NAMECALL                         R11 R0 K42 ["registerShortcuts"]
-      125 CALL                             R11 1 0
-      126 RETURN                           R0 1
+       75 LOADNIL                          R11
+       76 SETTABLEKS                       R11 R0 K32 ["_materialPayload"]
+       78 NEWTABLE                         R11 0 0
+       80 SETTABLEKS                       R11 R0 K33 ["_validateFunctions"]
+       82 GETUPVAL                         R11 0
+       83 GETTABLEKS                       R11 R11 K34 ["new"]
+       85 CALL                             R11 0 1
+       86 SETTABLEKS                       R11 R0 K35 ["OnFormChanged"]
+       88 GETUPVAL                         R11 0
+       89 GETTABLEKS                       R11 R11 K34 ["new"]
+       91 CALL                             R11 0 1
+       92 SETTABLEKS                       R11 R0 K36 ["OnGizmoChanged"]
+       94 GETUPVAL                         R11 0
+       95 GETTABLEKS                       R11 R11 K34 ["new"]
+       97 CALL                             R11 0 1
+       98 SETTABLEKS                       R11 R0 K37 ["OnInternalsChanged"]
+      100 GETUPVAL                         R11 0
+      101 GETTABLEKS                       R11 R11 K34 ["new"]
+      103 CALL                             R11 0 1
+      104 SETTABLEKS                       R11 R0 K38 ["OnNoteChanged"]
+      106 GETUPVAL                         R11 0
+      107 GETTABLEKS                       R11 R11 K34 ["new"]
+      109 CALL                             R11 0 1
+      110 SETTABLEKS                       R11 R0 K39 ["OnShortcutChanged"]
+      112 GETUPVAL                         R11 0
+      113 GETTABLEKS                       R11 R11 K34 ["new"]
+      115 CALL                             R11 0 1
+      116 SETTABLEKS                       R11 R0 K40 ["OnOperationChanged"]
+      118 NEWTABLE                         R11 0 0
+      120 SETTABLEKS                       R11 R0 K41 ["_shortcutConnections"]
+      122 NEWTABLE                         R11 0 0
+      124 SETTABLEKS                       R11 R0 K42 ["_shortcuts"]
+      126 NAMECALL                         R11 R0 K43 ["registerShortcuts"]
+      128 CALL                             R11 1 0
+      129 RETURN                           R0 1
 
 PROTO_3:
         0 MOVE                             R2 R0
@@ -575,21 +577,28 @@ PROTO_22:
         6 RETURN                           R0 0
 
 PROTO_23:
-        0 NEWTABLE                         R1 1 0
-        2 GETUPVAL                         R2 0
-        3 NEWTABLE                         R3 1 0
-        5 GETUPVAL                         R4 1
-        6 SETTABLE                         R0 R3 R4
-        7 SETTABLE                         R3 R1 R2
-        8 GETUPVAL                         R2 2
-        9 MOVE                             R4 R1
-       10 NAMECALL                         R2 R2 K0 ["setPayload"]
-       12 CALL                             R2 2 0
-       13 GETIMPORT                        R2 K3 [task.spawn]
-       15 NEWCLOSURE                       R3 P0
-       16 CAPTURE                          UPVAL U2
-       17 CALL                             R2 1 0
-       18 RETURN                           R0 0
+        0 NEWTABLE                         R2 1 0
+        2 GETUPVAL                         R3 0
+        3 NEWTABLE                         R4 1 0
+        5 GETUPVAL                         R5 1
+        6 SETTABLE                         R0 R4 R5
+        7 SETTABLE                         R4 R2 R3
+        8 JUMPIFEQKNIL                     R1 ; [+7]
+       10 GETUPVAL                         R4 0
+       11 GETTABLE                         R3 R2 R4
+       12 GETUPVAL                         R5 1
+       13 LOADK                            R6 K0 ["Slot"]
+       14 CONCAT                           R4 R5 R6
+       15 SETTABLE                         R1 R3 R4
+       16 GETUPVAL                         R3 2
+       17 MOVE                             R5 R2
+       18 NAMECALL                         R3 R3 K1 ["setPayload"]
+       20 CALL                             R3 2 0
+       21 GETIMPORT                        R3 K4 [task.spawn]
+       23 NEWCLOSURE                       R4 P0
+       24 CAPTURE                          UPVAL U2
+       25 CALL                             R3 1 0
+       26 RETURN                           R0 0
 
 PROTO_24:
         0 GETUPVAL                         R0 0
@@ -700,6 +709,70 @@ PROTO_31:
         0 RETURN                           R0 0
 
 PROTO_32:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_analytics"]
+        3 LOADK                            R2 K1 ["InvalidMaterialSlot"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["_name"]
+        7 NAMECALL                         R0 R0 K3 ["report"]
+        9 CALL                             R0 3 0
+       10 RETURN                           R0 0
+
+PROTO_33:
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["getMaterialPayload"]
+        4 MOVE                             R3 R0
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K1 ["_name"]
+        8 CALL                             R2 2 1
+        9 SETTABLEKS                       R2 R1 K2 ["_materialPayload"]
+       11 RETURN                           R0 0
+
+PROTO_34:
+        0 DUPTABLE                         R1 K2 [{"OnInvalidMaterialSlot", "OnMaterialApplied"}]
+        1 NEWCLOSURE                       R2 P0
+        2 CAPTURE                          VAL R0
+        3 SETTABLEKS                       R2 R1 K0 ["OnInvalidMaterialSlot"]
+        5 NEWCLOSURE                       R2 P1
+        6 CAPTURE                          VAL R0
+        7 CAPTURE                          UPVAL U0
+        8 SETTABLEKS                       R2 R1 K1 ["OnMaterialApplied"]
+       10 RETURN                           R1 1
+
+PROTO_35:
+        0 GETUPVAL                         R6 0
+        1 GETTABLEKS                       R6 R6 K0 ["join"]
+        3 NAMECALL                         R7 R0 K1 ["getMaterialOperationOptions"]
+        5 CALL                             R7 1 1
+        6 DUPTABLE                         R8 K3 [{"Payload"}]
+        7 SETTABLEKS                       R2 R8 K2 ["Payload"]
+        9 MOVE                             R9 R3
+       10 CALL                             R6 3 -1
+       11 NAMECALL                         R4 R1 K4 ["start"]
+       13 CALL                             R4 -1 0
+       14 RETURN                           R0 0
+
+PROTO_36:
+        0 GETTABLEKS                       R1 R0 K0 ["_materialPayload"]
+        2 JUMPIFNOT                        R1 ; [+8]
+        3 GETTABLEKS                       R1 R0 K1 ["_analytics"]
+        5 LOADK                            R3 K2 ["MaterialProperties"]
+        6 GETTABLEKS                       R4 R0 K0 ["_materialPayload"]
+        8 NAMECALL                         R1 R1 K3 ["report"]
+       10 CALL                             R1 3 0
+       11 LOADNIL                          R1
+       12 SETTABLEKS                       R1 R0 K0 ["_materialPayload"]
+       14 RETURN                           R0 0
+
+PROTO_37:
+        0 NAMECALL                         R1 R0 K0 ["reportToolAnalytics"]
+        2 CALL                             R1 1 0
+        3 NAMECALL                         R1 R0 K1 ["reportMaterialAnalytics"]
+        5 CALL                             R1 1 0
+        6 RETURN                           R0 0
+
+PROTO_38:
         0 NAMECALL                         R1 R0 K0 ["deactivateShortcuts"]
         2 CALL                             R1 1 0
         3 NAMECALL                         R1 R0 K1 ["reportAnalytics"]
@@ -711,17 +784,17 @@ PROTO_32:
        13 CALL                             R1 1 0
        14 RETURN                           R0 0
 
-PROTO_33:
+PROTO_39:
         0 LOADB                            R2 1
         1 SETTABLEKS                       R2 R0 K0 ["_isRunning"]
         3 NAMECALL                         R2 R0 K1 ["setDisabledState"]
         5 CALL                             R2 1 0
         6 RETURN                           R0 0
 
-PROTO_34:
+PROTO_40:
         0 RETURN                           R0 0
 
-PROTO_35:
+PROTO_41:
         0 GETTABLEKS                       R5 R0 K0 ["_errors"]
         2 GETTABLE                         R4 R5 R1
         3 JUMPIF                           R4 ; [+5]
@@ -736,7 +809,7 @@ PROTO_35:
        16 CALL                             R4 1 0
        17 RETURN                           R0 0
 
-PROTO_36:
+PROTO_42:
         0 GETTABLEKS                       R4 R0 K0 ["_errors"]
         2 GETTABLE                         R3 R4 R1
         3 JUMPIF                           R3 ; [+1]
@@ -757,7 +830,7 @@ PROTO_36:
        24 CALL                             R3 1 0
        25 RETURN                           R0 0
 
-PROTO_37:
+PROTO_43:
         0 LOADB                            R1 1
         1 GETIMPORT                        R2 K1 [next]
         3 GETTABLEKS                       R3 R0 K2 ["_errors"]
@@ -766,7 +839,7 @@ PROTO_37:
         8 GETTABLEKS                       R1 R0 K3 ["_isRunning"]
        10 RETURN                           R1 1
 
-PROTO_38:
+PROTO_44:
         0 GETTABLEKS                       R5 R0 K0 ["_validateFunctions"]
         2 GETTABLE                         R4 R5 R1
         3 JUMPIF                           R4 ; [+5]
@@ -778,7 +851,7 @@ PROTO_38:
        12 SETTABLE                         R3 R4 R2
        13 RETURN                           R0 0
 
-PROTO_39:
+PROTO_45:
         0 GETTABLEKS                       R4 R0 K0 ["_validateFunctions"]
         2 GETTABLE                         R3 R4 R1
         3 JUMPIF                           R3 ; [+1]
@@ -788,10 +861,10 @@ PROTO_39:
         8 GETTABLE                         R3 R4 R2
         9 RETURN                           R3 1
 
-PROTO_40:
+PROTO_46:
         0 RETURN                           R0 0
 
-PROTO_41:
+PROTO_47:
         0 LOADB                            R1 0
         1 SETTABLEKS                       R1 R0 K0 ["_isRunning"]
         3 GETTABLEKS                       R1 R0 K1 ["_operation"]
@@ -839,7 +912,7 @@ PROTO_41:
        67 CALL                             R1 1 0
        68 RETURN                           R0 0
 
-PROTO_42:
+PROTO_48:
         0 RETURN                           R0 0
 
 MAIN:
@@ -850,124 +923,138 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R3 K9 ["Types"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R3 R2 K10 ["BrushSettings"]
-       23 GETTABLEKS                       R4 R2 K11 ["Category"]
-       25 GETTABLEKS                       R5 R2 K12 ["Storage"]
-       27 GETIMPORT                        R6 K5 [require]
-       29 GETTABLEKS                       R7 R0 K8 ["Src"]
-       31 GETTABLEKS                       R7 R7 K13 ["Flags"]
-       33 GETTABLEKS                       R7 R7 K14 ["getFFlagTerrainEditorOptimizeRaycastUpdates"]
-       35 CALL                             R6 1 1
-       36 GETIMPORT                        R7 K5 [require]
-       38 GETTABLEKS                       R8 R0 K8 ["Src"]
-       40 GETTABLEKS                       R8 R8 K15 ["Util"]
-       42 GETTABLEKS                       R8 R8 K16 ["SettingsHelper"]
-       44 CALL                             R7 1 1
-       45 GETTABLEKS                       R8 R1 K15 ["Util"]
-       47 GETTABLEKS                       R8 R8 K17 ["Signal"]
-       49 GETIMPORT                        R9 K5 [require]
-       51 GETTABLEKS                       R10 R0 K8 ["Src"]
-       53 GETTABLEKS                       R10 R10 K18 ["Schemas"]
-       55 GETTABLEKS                       R10 R10 K19 ["Settings"]
-       57 CALL                             R9 1 1
-       58 GETIMPORT                        R10 K5 [require]
-       60 GETTABLEKS                       R11 R0 K8 ["Src"]
-       62 GETTABLEKS                       R11 R11 K20 ["Resources"]
-       64 GETTABLEKS                       R11 R11 K21 ["Constants"]
-       66 CALL                             R10 1 1
-       67 GETTABLEKS                       R11 R0 K8 ["Src"]
-       69 GETTABLEKS                       R11 R11 K15 ["Util"]
-       71 GETIMPORT                        R12 K5 [require]
-       73 GETTABLEKS                       R13 R11 K22 ["AnalyticsHelper"]
-       75 CALL                             R12 1 1
-       76 GETIMPORT                        R13 K5 [require]
-       78 GETTABLEKS                       R14 R0 K8 ["Src"]
-       80 GETTABLEKS                       R14 R14 K15 ["Util"]
-       82 GETTABLEKS                       R14 R14 K23 ["deepJoinWithExceptions"]
-       84 CALL                             R13 1 1
-       85 NEWTABLE                         R14 32 0
-       87 DUPCLOSURE                       R15 K24 [PROTO_0]
-       88 CAPTURE                          VAL R4
-       89 CAPTURE                          VAL R3
-       90 SETTABLEKS                       R14 R14 K25 ["__index"]
-       92 DUPCLOSURE                       R16 K26 [PROTO_1]
-       93 SETTABLEKS                       R16 R14 K27 ["new"]
-       95 DUPCLOSURE                       R16 K28 [PROTO_2]
-       96 CAPTURE                          VAL R8
-       97 SETTABLEKS                       R16 R14 K29 ["init"]
-       99 DUPCLOSURE                       R16 K30 [PROTO_5]
-      100 CAPTURE                          VAL R10
-      101 CAPTURE                          VAL R9
-      102 CAPTURE                          VAL R5
-      103 SETTABLEKS                       R16 R14 K31 ["registerSettings"]
-      105 DUPCLOSURE                       R16 K32 [PROTO_6]
-      106 SETTABLEKS                       R16 R14 K33 ["registerShortcuts"]
-      108 DUPCLOSURE                       R16 K34 [PROTO_7]
-      109 CAPTURE                          VAL R14
-      110 SETTABLEKS                       R16 R14 K35 ["empty"]
-      112 DUPCLOSURE                       R16 K36 [PROTO_8]
-      113 CAPTURE                          VAL R7
-      114 SETTABLEKS                       R16 R14 K37 ["getPayload"]
-      116 DUPCLOSURE                       R16 K38 [PROTO_10]
-      117 CAPTURE                          VAL R9
-      118 CAPTURE                          VAL R7
-      119 CAPTURE                          VAL R13
-      120 SETTABLEKS                       R16 R14 K39 ["setPayload"]
-      122 DUPCLOSURE                       R16 K40 [PROTO_11]
-      123 SETTABLEKS                       R16 R14 K41 ["getShouldBeCompact"]
-      125 DUPCLOSURE                       R16 K42 [PROTO_13]
-      126 CAPTURE                          VAL R9
-      127 CAPTURE                          VAL R7
-      128 SETTABLEKS                       R16 R14 K43 ["form"]
-      130 DUPCLOSURE                       R16 K44 [PROTO_14]
-      131 SETTABLEKS                       R16 R14 K45 ["gizmos"]
-      133 DUPCLOSURE                       R16 K46 [PROTO_16]
-      134 SETTABLEKS                       R16 R14 K47 ["saveForm"]
-      136 DUPCLOSURE                       R16 K48 [PROTO_18]
-      137 CAPTURE                          VAL R6
-      138 CAPTURE                          VAL R15
-      139 SETTABLEKS                       R16 R14 K49 ["saveGizmos"]
-      141 DUPCLOSURE                       R16 K50 [PROTO_19]
-      142 SETTABLEKS                       R16 R14 K51 ["checkDisabledState"]
-      144 DUPCLOSURE                       R16 K52 [PROTO_20]
-      145 SETTABLEKS                       R16 R14 K53 ["getCategory"]
-      147 DUPCLOSURE                       R16 K54 [PROTO_21]
-      148 SETTABLEKS                       R16 R14 K55 ["getTile"]
-      150 DUPCLOSURE                       R16 K56 [PROTO_26]
-      151 SETTABLEKS                       R16 R14 K57 ["activateShortcuts"]
-      153 DUPCLOSURE                       R16 K58 [PROTO_27]
-      154 SETTABLEKS                       R16 R14 K59 ["deactivateShortcuts"]
-      156 DUPCLOSURE                       R16 K60 [PROTO_30]
-      157 SETTABLEKS                       R16 R14 K61 ["activate"]
-      159 DUPCLOSURE                       R16 K62 [PROTO_31]
-      160 SETTABLEKS                       R16 R14 K63 ["reportAnalytics"]
-      162 DUPCLOSURE                       R16 K64 [PROTO_32]
-      163 SETTABLEKS                       R16 R14 K65 ["deactivate"]
-      165 DUPCLOSURE                       R16 K66 [PROTO_33]
-      166 SETTABLEKS                       R16 R14 K67 ["startOperation"]
-      168 DUPCLOSURE                       R16 K68 [PROTO_34]
-      169 SETTABLEKS                       R16 R14 K69 ["operation"]
-      171 DUPCLOSURE                       R16 K70 [PROTO_35]
-      172 SETTABLEKS                       R16 R14 K71 ["reportError"]
-      174 DUPCLOSURE                       R16 K72 [PROTO_36]
-      175 SETTABLEKS                       R16 R14 K73 ["clearError"]
-      177 DUPCLOSURE                       R16 K74 [PROTO_37]
-      178 SETTABLEKS                       R16 R14 K75 ["hasError"]
-      180 DUPCLOSURE                       R16 K76 [PROTO_38]
-      181 SETTABLEKS                       R16 R14 K77 ["setValidateFunction"]
-      183 DUPCLOSURE                       R16 K78 [PROTO_39]
-      184 SETTABLEKS                       R16 R14 K79 ["getValidateFunction"]
-      186 DUPCLOSURE                       R16 K80 [PROTO_40]
-      187 SETTABLEKS                       R16 R14 K81 ["setDisabledState"]
-      189 DUPCLOSURE                       R16 K82 [PROTO_41]
-      190 CAPTURE                          VAL R12
-      191 SETTABLEKS                       R16 R14 K83 ["finishOperation"]
-      193 DUPCLOSURE                       R16 K84 [PROTO_42]
-      194 SETTABLEKS                       R16 R14 K85 ["note"]
-      196 RETURN                           R14 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Types"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R4 R3 K11 ["BrushSettings"]
+       30 GETTABLEKS                       R5 R3 K12 ["Category"]
+       32 GETTABLEKS                       R6 R3 K13 ["Storage"]
+       34 GETIMPORT                        R7 K5 [require]
+       36 GETTABLEKS                       R8 R0 K9 ["Src"]
+       38 GETTABLEKS                       R8 R8 K14 ["Flags"]
+       40 GETTABLEKS                       R8 R8 K15 ["getFFlagTerrainEditorOptimizeRaycastUpdates"]
+       42 CALL                             R7 1 1
+       43 GETIMPORT                        R8 K5 [require]
+       45 GETTABLEKS                       R9 R0 K9 ["Src"]
+       47 GETTABLEKS                       R9 R9 K16 ["Util"]
+       49 GETTABLEKS                       R9 R9 K17 ["SettingsHelper"]
+       51 CALL                             R8 1 1
+       52 GETTABLEKS                       R9 R2 K16 ["Util"]
+       54 GETTABLEKS                       R9 R9 K18 ["Signal"]
+       56 GETIMPORT                        R10 K5 [require]
+       58 GETTABLEKS                       R11 R0 K9 ["Src"]
+       60 GETTABLEKS                       R11 R11 K19 ["Schemas"]
+       62 GETTABLEKS                       R11 R11 K20 ["Settings"]
+       64 CALL                             R10 1 1
+       65 GETIMPORT                        R11 K5 [require]
+       67 GETTABLEKS                       R12 R0 K9 ["Src"]
+       69 GETTABLEKS                       R12 R12 K21 ["Resources"]
+       71 GETTABLEKS                       R12 R12 K22 ["Constants"]
+       73 CALL                             R11 1 1
+       74 GETTABLEKS                       R12 R0 K9 ["Src"]
+       76 GETTABLEKS                       R12 R12 K16 ["Util"]
+       78 GETIMPORT                        R13 K5 [require]
+       80 GETTABLEKS                       R14 R12 K23 ["AnalyticsHelper"]
+       82 CALL                             R13 1 1
+       83 GETIMPORT                        R14 K5 [require]
+       85 GETTABLEKS                       R15 R0 K9 ["Src"]
+       87 GETTABLEKS                       R15 R15 K16 ["Util"]
+       89 GETTABLEKS                       R15 R15 K24 ["deepJoinWithExceptions"]
+       91 CALL                             R14 1 1
+       92 NEWTABLE                         R15 64 0
+       94 DUPCLOSURE                       R16 K25 [PROTO_0]
+       95 CAPTURE                          VAL R5
+       96 CAPTURE                          VAL R4
+       97 SETTABLEKS                       R15 R15 K26 ["__index"]
+       99 DUPCLOSURE                       R17 K27 [PROTO_1]
+      100 SETTABLEKS                       R17 R15 K28 ["new"]
+      102 DUPCLOSURE                       R17 K29 [PROTO_2]
+      103 CAPTURE                          VAL R9
+      104 SETTABLEKS                       R17 R15 K30 ["init"]
+      106 DUPCLOSURE                       R17 K31 [PROTO_5]
+      107 CAPTURE                          VAL R11
+      108 CAPTURE                          VAL R10
+      109 CAPTURE                          VAL R6
+      110 SETTABLEKS                       R17 R15 K32 ["registerSettings"]
+      112 DUPCLOSURE                       R17 K33 [PROTO_6]
+      113 SETTABLEKS                       R17 R15 K34 ["registerShortcuts"]
+      115 DUPCLOSURE                       R17 K35 [PROTO_7]
+      116 CAPTURE                          VAL R15
+      117 SETTABLEKS                       R17 R15 K36 ["empty"]
+      119 DUPCLOSURE                       R17 K37 [PROTO_8]
+      120 CAPTURE                          VAL R8
+      121 SETTABLEKS                       R17 R15 K38 ["getPayload"]
+      123 DUPCLOSURE                       R17 K39 [PROTO_10]
+      124 CAPTURE                          VAL R10
+      125 CAPTURE                          VAL R8
+      126 CAPTURE                          VAL R14
+      127 SETTABLEKS                       R17 R15 K40 ["setPayload"]
+      129 DUPCLOSURE                       R17 K41 [PROTO_11]
+      130 SETTABLEKS                       R17 R15 K42 ["getShouldBeCompact"]
+      132 DUPCLOSURE                       R17 K43 [PROTO_13]
+      133 CAPTURE                          VAL R10
+      134 CAPTURE                          VAL R8
+      135 SETTABLEKS                       R17 R15 K44 ["form"]
+      137 DUPCLOSURE                       R17 K45 [PROTO_14]
+      138 SETTABLEKS                       R17 R15 K46 ["gizmos"]
+      140 DUPCLOSURE                       R17 K47 [PROTO_16]
+      141 SETTABLEKS                       R17 R15 K48 ["saveForm"]
+      143 DUPCLOSURE                       R17 K49 [PROTO_18]
+      144 CAPTURE                          VAL R7
+      145 CAPTURE                          VAL R16
+      146 SETTABLEKS                       R17 R15 K50 ["saveGizmos"]
+      148 DUPCLOSURE                       R17 K51 [PROTO_19]
+      149 SETTABLEKS                       R17 R15 K52 ["checkDisabledState"]
+      151 DUPCLOSURE                       R17 K53 [PROTO_20]
+      152 SETTABLEKS                       R17 R15 K54 ["getCategory"]
+      154 DUPCLOSURE                       R17 K55 [PROTO_21]
+      155 SETTABLEKS                       R17 R15 K56 ["getTile"]
+      157 DUPCLOSURE                       R17 K57 [PROTO_26]
+      158 SETTABLEKS                       R17 R15 K58 ["activateShortcuts"]
+      160 DUPCLOSURE                       R17 K59 [PROTO_27]
+      161 SETTABLEKS                       R17 R15 K60 ["deactivateShortcuts"]
+      163 DUPCLOSURE                       R17 K61 [PROTO_30]
+      164 SETTABLEKS                       R17 R15 K62 ["activate"]
+      166 DUPCLOSURE                       R17 K63 [PROTO_31]
+      167 SETTABLEKS                       R17 R15 K64 ["reportToolAnalytics"]
+      169 DUPCLOSURE                       R17 K65 [PROTO_34]
+      170 CAPTURE                          VAL R13
+      171 SETTABLEKS                       R17 R15 K66 ["getMaterialOperationOptions"]
+      173 DUPCLOSURE                       R17 K67 [PROTO_35]
+      174 CAPTURE                          VAL R1
+      175 SETTABLEKS                       R17 R15 K68 ["startMaterialOperation"]
+      177 DUPCLOSURE                       R17 K69 [PROTO_36]
+      178 SETTABLEKS                       R17 R15 K70 ["reportMaterialAnalytics"]
+      180 DUPCLOSURE                       R17 K71 [PROTO_37]
+      181 SETTABLEKS                       R17 R15 K72 ["reportAnalytics"]
+      183 DUPCLOSURE                       R17 K73 [PROTO_38]
+      184 SETTABLEKS                       R17 R15 K74 ["deactivate"]
+      186 DUPCLOSURE                       R17 K75 [PROTO_39]
+      187 SETTABLEKS                       R17 R15 K76 ["startOperation"]
+      189 DUPCLOSURE                       R17 K77 [PROTO_40]
+      190 SETTABLEKS                       R17 R15 K78 ["operation"]
+      192 DUPCLOSURE                       R17 K79 [PROTO_41]
+      193 SETTABLEKS                       R17 R15 K80 ["reportError"]
+      195 DUPCLOSURE                       R17 K81 [PROTO_42]
+      196 SETTABLEKS                       R17 R15 K82 ["clearError"]
+      198 DUPCLOSURE                       R17 K83 [PROTO_43]
+      199 SETTABLEKS                       R17 R15 K84 ["hasError"]
+      201 DUPCLOSURE                       R17 K85 [PROTO_44]
+      202 SETTABLEKS                       R17 R15 K86 ["setValidateFunction"]
+      204 DUPCLOSURE                       R17 K87 [PROTO_45]
+      205 SETTABLEKS                       R17 R15 K88 ["getValidateFunction"]
+      207 DUPCLOSURE                       R17 K89 [PROTO_46]
+      208 SETTABLEKS                       R17 R15 K90 ["setDisabledState"]
+      210 DUPCLOSURE                       R17 K91 [PROTO_47]
+      211 CAPTURE                          VAL R13
+      212 SETTABLEKS                       R17 R15 K92 ["finishOperation"]
+      214 DUPCLOSURE                       R17 K93 [PROTO_48]
+      215 SETTABLEKS                       R17 R15 K94 ["note"]
+      217 RETURN                           R15 1

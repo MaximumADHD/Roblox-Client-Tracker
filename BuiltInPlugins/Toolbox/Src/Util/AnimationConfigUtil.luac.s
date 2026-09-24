@@ -328,33 +328,25 @@ MAIN:
        28 GETIMPORT                        R5 K6 [require]
        30 GETTABLEKS                       R6 R0 K3 ["Src"]
        32 GETTABLEKS                       R6 R6 K10 ["Flags"]
-       34 GETTABLEKS                       R6 R6 K11 ["getFFlagEnableUploadingAvatarAnimations"]
+       34 GETTABLEKS                       R6 R6 K11 ["getFFlagToolboxAnimationRemoveModelWrapper"]
        36 CALL                             R5 1 1
-       37 GETIMPORT                        R6 K6 [require]
-       39 GETTABLEKS                       R7 R0 K3 ["Src"]
-       41 GETTABLEKS                       R7 R7 K10 ["Flags"]
-       43 GETTABLEKS                       R7 R7 K12 ["getFFlagToolboxAnimationRemoveModelWrapper"]
-       45 CALL                             R6 1 1
-       46 NEWTABLE                         R7 4 0
-       48 MOVE                             R8 R5
-       49 CALL                             R8 0 1
-       50 JUMPIFNOT                        R8 ; [+22]
-       51 DUPCLOSURE                       R8 K13 [PROTO_0]
-       52 DUPCLOSURE                       R9 K14 [PROTO_1]
-       53 DUPCLOSURE                       R10 K15 [PROTO_2]
-       54 CAPTURE                          VAL R3
-       55 CAPTURE                          VAL R2
-       56 CAPTURE                          VAL R4
-       57 CAPTURE                          VAL R6
-       58 SETTABLEKS                       R10 R7 K16 ["createAvatarAnimationsPartFolders"]
-       60 DUPCLOSURE                       R10 K17 [PROTO_3]
-       61 CAPTURE                          VAL R2
-       62 SETTABLEKS                       R10 R7 K18 ["getSubAnimationInfo"]
-       64 DUPCLOSURE                       R10 K19 [PROTO_4]
-       65 CAPTURE                          VAL R2
-       66 DUPCLOSURE                       R11 K20 [PROTO_5]
-       67 CAPTURE                          VAL R10
-       68 SETTABLEKS                       R11 R7 K21 ["createAnimationInstanceInWorkspace"]
-       70 DUPCLOSURE                       R11 K22 [PROTO_6]
-       71 SETTABLEKS                       R11 R7 K23 ["createEmoteAnimationInstanceInWorkspace"]
-       73 RETURN                           R7 1
+       37 NEWTABLE                         R6 4 0
+       39 DUPCLOSURE                       R7 K12 [PROTO_0]
+       40 DUPCLOSURE                       R8 K13 [PROTO_1]
+       41 DUPCLOSURE                       R9 K14 [PROTO_2]
+       42 CAPTURE                          VAL R3
+       43 CAPTURE                          VAL R2
+       44 CAPTURE                          VAL R4
+       45 CAPTURE                          VAL R5
+       46 SETTABLEKS                       R9 R6 K15 ["createAvatarAnimationsPartFolders"]
+       48 DUPCLOSURE                       R9 K16 [PROTO_3]
+       49 CAPTURE                          VAL R2
+       50 SETTABLEKS                       R9 R6 K17 ["getSubAnimationInfo"]
+       52 DUPCLOSURE                       R9 K18 [PROTO_4]
+       53 CAPTURE                          VAL R2
+       54 DUPCLOSURE                       R10 K19 [PROTO_5]
+       55 CAPTURE                          VAL R9
+       56 SETTABLEKS                       R10 R6 K20 ["createAnimationInstanceInWorkspace"]
+       58 DUPCLOSURE                       R10 K21 [PROTO_6]
+       59 SETTABLEKS                       R10 R6 K22 ["createEmoteAnimationInstanceInWorkspace"]
+       61 RETURN                           R6 1

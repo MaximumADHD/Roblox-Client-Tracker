@@ -158,119 +158,153 @@ PROTO_7:
        16 RETURN                           R0 -1
 
 PROTO_8:
+        0 DUPTABLE                         R0 K2 [{"DialogComponent", "DialogUri"}]
+        1 GETUPVAL                         R1 0
+        2 SETTABLEKS                       R1 R0 K0 ["DialogComponent"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K3 ["join"]
+        7 GETUPVAL                         R2 2
+        8 NAMECALL                         R2 R2 K4 ["GetUri"]
+       10 CALL                             R2 1 1
+       11 DUPTABLE                         R3 K9 [{["Category"] = "Widget", ["ItemId"] = "Dialog/Moderation"}]
+       12 CALL                             R1 2 1
+       13 SETTABLEKS                       R1 R0 K1 ["DialogUri"]
+       15 RETURN                           R0 1
+
+PROTO_9:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["use"]
         3 CALL                             R1 1 1
         4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R2 R2 K1 ["useState"]
-        7 LOADB                            R3 0
-        8 CALL                             R2 1 2
-        9 LOADNIL                          R4
-       10 GETUPVAL                         R5 2
-       11 JUMPIFNOT                        R5 ; [+13]
-       12 GETUPVAL                         R5 1
-       13 GETTABLEKS                       R5 R5 K2 ["useMemo"]
-       15 NEWCLOSURE                       R6 P0
-       16 CAPTURE                          VAL R0
-       17 NEWTABLE                         R7 0 1
-       19 GETTABLEKS                       R8 R0 K3 ["ModerationEndDateTime"]
-       21 SETLIST                          R7 R8 1 [1]
-       23 CALL                             R5 2 1
-       24 MOVE                             R4 R5
-       25 GETUPVAL                         R5 1
-       26 GETTABLEKS                       R5 R5 K2 ["useMemo"]
-       28 NEWCLOSURE                       R6 P1
-       29 CAPTURE                          VAL R1
-       30 CAPTURE                          UPVAL U2
-       31 CAPTURE                          VAL R0
-       32 CAPTURE                          VAL R2
-       33 CAPTURE                          REF R4
-       34 NEWTABLE                         R7 0 3
-       36 MOVE                             R8 R2
-       37 MOVE                             R9 R4
-       38 GETTABLEKS                       R10 R1 K4 ["locale"]
-       40 SETLIST                          R7 R8 3 [1]
-       42 CALL                             R5 2 1
-       43 GETUPVAL                         R6 1
-       44 GETTABLEKS                       R6 R6 K2 ["useMemo"]
-       46 NEWCLOSURE                       R7 P2
-       47 CAPTURE                          VAL R1
-       48 CAPTURE                          VAL R0
-       49 NEWTABLE                         R8 0 1
-       51 GETTABLEKS                       R9 R1 K4 ["locale"]
-       53 SETLIST                          R8 R9 1 [1]
-       55 CALL                             R6 2 1
-       56 GETUPVAL                         R7 1
-       57 GETTABLEKS                       R7 R7 K2 ["useMemo"]
-       59 NEWCLOSURE                       R8 P3
-       60 CAPTURE                          VAL R1
-       61 CAPTURE                          VAL R0
-       62 NEWTABLE                         R9 0 1
-       64 GETTABLEKS                       R10 R1 K4 ["locale"]
-       66 SETLIST                          R9 R10 1 [1]
-       68 CALL                             R7 2 1
-       69 LOADNIL                          R8
-       70 GETTABLEKS                       R10 R0 K5 ["Type"]
-       72 JUMPIFNOTEQKS                    R10 K6 ["Warn"] ; [+2]
-       74 LOADB                            R9 0 +1
-       75 LOADB                            R9 1
-       76 GETUPVAL                         R10 2
-       77 JUMPIFNOT                        R10 ; [+7]
-       78 LOADB                            R10 0
-       79 GETTABLEKS                       R11 R0 K5 ["Type"]
-       81 JUMPIFEQKS                       R11 K6 ["Warn"] ; [+2]
-       83 NOT                              R10 R4
-       84 MOVE                             R9 R10
-       85 GETUPVAL                         R10 3
-       86 DUPTABLE                         R11 K18 [{["Intent"], ["Heading"], ["Contents"], ["ActionPrimary"], ["ActionSecondary"], ["Modal"] = True, ["DisableTitleBar"], ["OnClosed"], ["Width"] = 510}]
-       87 JUMPIF                           R9 ; [+2]
-       88 LOADK                            R12 K19 ["Warning"]
-       89 JUMP                             ; [+1]
-       90 LOADK                            R12 K20 ["Error"]
-       91 SETTABLEKS                       R12 R11 K7 ["Intent"]
-       93 GETUPVAL                         R12 4
-       94 GETTABLEKS                       R13 R0 K5 ["Type"]
-       96 CALL                             R12 1 1
-       97 SETTABLEKS                       R12 R11 K8 ["Heading"]
-       99 GETUPVAL                         R12 5
-      100 DUPTABLE                         R13 K26 [{"ModeratorNote", "Reason", "SetChecked", "Checked", "Type", "ModerationStartDateTime", "ModerationEndDateTime"}]
-      101 GETTABLEKS                       R14 R0 K21 ["ModeratorNote"]
-      103 SETTABLEKS                       R14 R13 K21 ["ModeratorNote"]
-      105 GETTABLEKS                       R14 R0 K22 ["Reason"]
-      107 SETTABLEKS                       R14 R13 K22 ["Reason"]
-      109 SETTABLEKS                       R3 R13 K23 ["SetChecked"]
-      111 SETTABLEKS                       R2 R13 K24 ["Checked"]
-      113 GETTABLEKS                       R14 R0 K5 ["Type"]
-      115 SETTABLEKS                       R14 R13 K5 ["Type"]
-      117 GETTABLEKS                       R14 R0 K25 ["ModerationStartDateTime"]
-      119 SETTABLEKS                       R14 R13 K25 ["ModerationStartDateTime"]
-      121 GETTABLEKS                       R14 R0 K3 ["ModerationEndDateTime"]
-      123 SETTABLEKS                       R14 R13 K3 ["ModerationEndDateTime"]
-      125 CALL                             R12 1 1
-      126 SETTABLEKS                       R12 R11 K9 ["Contents"]
-      128 JUMPIF                           R9 ; [+2]
-      129 MOVE                             R12 R5
-      130 JUMP                             ; [+1]
-      131 MOVE                             R12 R6
-      132 SETTABLEKS                       R12 R11 K10 ["ActionPrimary"]
-      134 JUMPIF                           R9 ; [+2]
-      135 MOVE                             R12 R6
-      136 JUMP                             ; [+1]
-      137 MOVE                             R12 R7
-      138 SETTABLEKS                       R12 R11 K11 ["ActionSecondary"]
-      140 SETTABLEKS                       R9 R11 K14 ["DisableTitleBar"]
-      142 GETTABLEKS                       R12 R0 K27 ["OpenQuitDialog"]
-      144 SETTABLEKS                       R12 R11 K15 ["OnClosed"]
-      146 CALL                             R10 1 1
-      147 MOVE                             R8 R10
-      148 GETUPVAL                         R10 1
-      149 GETTABLEKS                       R10 R10 K28 ["useEffect"]
-      151 MOVE                             R11 R8
-      152 NEWTABLE                         R12 0 0
-      154 CALL                             R10 2 0
-      155 LOADNIL                          R10
-      156 CLOSEUPVALS                      R4
-      157 RETURN                           R10 1
+        5 NAMECALL                         R2 R2 K0 ["use"]
+        7 CALL                             R2 1 1
+        8 NAMECALL                         R2 R2 K1 ["get"]
+       10 CALL                             R2 1 1
+       11 GETUPVAL                         R3 2
+       12 GETTABLEKS                       R3 R3 K2 ["useState"]
+       14 LOADB                            R4 0
+       15 CALL                             R3 1 2
+       16 LOADNIL                          R5
+       17 GETUPVAL                         R6 3
+       18 JUMPIFNOT                        R6 ; [+13]
+       19 GETUPVAL                         R6 2
+       20 GETTABLEKS                       R6 R6 K3 ["useMemo"]
+       22 NEWCLOSURE                       R7 P0
+       23 CAPTURE                          VAL R0
+       24 NEWTABLE                         R8 0 1
+       26 GETTABLEKS                       R9 R0 K4 ["ModerationEndDateTime"]
+       28 SETLIST                          R8 R9 1 [1]
+       30 CALL                             R6 2 1
+       31 MOVE                             R5 R6
+       32 GETUPVAL                         R6 2
+       33 GETTABLEKS                       R6 R6 K3 ["useMemo"]
+       35 NEWCLOSURE                       R7 P1
+       36 CAPTURE                          VAL R1
+       37 CAPTURE                          UPVAL U3
+       38 CAPTURE                          VAL R0
+       39 CAPTURE                          VAL R3
+       40 CAPTURE                          REF R5
+       41 NEWTABLE                         R8 0 3
+       43 MOVE                             R9 R3
+       44 MOVE                             R10 R5
+       45 GETTABLEKS                       R11 R1 K5 ["locale"]
+       47 SETLIST                          R8 R9 3 [1]
+       49 CALL                             R6 2 1
+       50 GETUPVAL                         R7 2
+       51 GETTABLEKS                       R7 R7 K3 ["useMemo"]
+       53 NEWCLOSURE                       R8 P2
+       54 CAPTURE                          VAL R1
+       55 CAPTURE                          VAL R0
+       56 NEWTABLE                         R9 0 1
+       58 GETTABLEKS                       R10 R1 K5 ["locale"]
+       60 SETLIST                          R9 R10 1 [1]
+       62 CALL                             R7 2 1
+       63 GETUPVAL                         R8 2
+       64 GETTABLEKS                       R8 R8 K3 ["useMemo"]
+       66 NEWCLOSURE                       R9 P3
+       67 CAPTURE                          VAL R1
+       68 CAPTURE                          VAL R0
+       69 NEWTABLE                         R10 0 1
+       71 GETTABLEKS                       R11 R1 K5 ["locale"]
+       73 SETLIST                          R10 R11 1 [1]
+       75 CALL                             R8 2 1
+       76 LOADNIL                          R9
+       77 GETTABLEKS                       R11 R0 K6 ["Type"]
+       79 JUMPIFNOTEQKS                    R11 K7 ["Warn"] ; [+2]
+       81 LOADB                            R10 0 +1
+       82 LOADB                            R10 1
+       83 GETUPVAL                         R11 3
+       84 JUMPIFNOT                        R11 ; [+7]
+       85 LOADB                            R11 0
+       86 GETTABLEKS                       R12 R0 K6 ["Type"]
+       88 JUMPIFEQKS                       R12 K7 ["Warn"] ; [+2]
+       90 NOT                              R11 R5
+       91 MOVE                             R10 R11
+       92 GETUPVAL                         R12 4
+       93 JUMPIFNOT                        R12 ; [+14]
+       94 GETUPVAL                         R11 2
+       95 GETTABLEKS                       R11 R11 K3 ["useMemo"]
+       97 NEWCLOSURE                       R12 P4
+       98 CAPTURE                          UPVAL U5
+       99 CAPTURE                          UPVAL U6
+      100 CAPTURE                          VAL R2
+      101 NEWTABLE                         R13 0 1
+      103 MOVE                             R14 R2
+      104 SETLIST                          R13 R14 1 [1]
+      106 CALL                             R11 2 1
+      107 JUMP                             ; [+1]
+      108 LOADNIL                          R11
+      109 GETUPVAL                         R12 7
+      110 DUPTABLE                         R13 K20 [{["Intent"], ["Heading"], ["Contents"], ["ActionPrimary"], ["ActionSecondary"], ["Modal"] = True, ["DisableTitleBar"], ["OnClosed"], ["Width"] = 510, ["MigrateToStudioFoundation"]}]
+      111 JUMPIF                           R10 ; [+2]
+      112 LOADK                            R14 K21 ["Warning"]
+      113 JUMP                             ; [+1]
+      114 LOADK                            R14 K22 ["Error"]
+      115 SETTABLEKS                       R14 R13 K8 ["Intent"]
+      117 GETUPVAL                         R14 8
+      118 GETTABLEKS                       R15 R0 K6 ["Type"]
+      120 CALL                             R14 1 1
+      121 SETTABLEKS                       R14 R13 K9 ["Heading"]
+      123 GETUPVAL                         R14 9
+      124 DUPTABLE                         R15 K28 [{"ModeratorNote", "Reason", "SetChecked", "Checked", "Type", "ModerationStartDateTime", "ModerationEndDateTime"}]
+      125 GETTABLEKS                       R16 R0 K23 ["ModeratorNote"]
+      127 SETTABLEKS                       R16 R15 K23 ["ModeratorNote"]
+      129 GETTABLEKS                       R16 R0 K24 ["Reason"]
+      131 SETTABLEKS                       R16 R15 K24 ["Reason"]
+      133 SETTABLEKS                       R4 R15 K25 ["SetChecked"]
+      135 SETTABLEKS                       R3 R15 K26 ["Checked"]
+      137 GETTABLEKS                       R16 R0 K6 ["Type"]
+      139 SETTABLEKS                       R16 R15 K6 ["Type"]
+      141 GETTABLEKS                       R16 R0 K27 ["ModerationStartDateTime"]
+      143 SETTABLEKS                       R16 R15 K27 ["ModerationStartDateTime"]
+      145 GETTABLEKS                       R16 R0 K4 ["ModerationEndDateTime"]
+      147 SETTABLEKS                       R16 R15 K4 ["ModerationEndDateTime"]
+      149 CALL                             R14 1 1
+      150 SETTABLEKS                       R14 R13 K10 ["Contents"]
+      152 JUMPIF                           R10 ; [+2]
+      153 MOVE                             R14 R6
+      154 JUMP                             ; [+1]
+      155 MOVE                             R14 R7
+      156 SETTABLEKS                       R14 R13 K11 ["ActionPrimary"]
+      158 JUMPIF                           R10 ; [+2]
+      159 MOVE                             R14 R7
+      160 JUMP                             ; [+1]
+      161 MOVE                             R14 R8
+      162 SETTABLEKS                       R14 R13 K12 ["ActionSecondary"]
+      164 SETTABLEKS                       R10 R13 K15 ["DisableTitleBar"]
+      166 GETTABLEKS                       R14 R0 K29 ["OpenQuitDialog"]
+      168 SETTABLEKS                       R14 R13 K16 ["OnClosed"]
+      170 SETTABLEKS                       R11 R13 K19 ["MigrateToStudioFoundation"]
+      172 CALL                             R12 1 1
+      173 MOVE                             R9 R12
+      174 GETUPVAL                         R12 2
+      175 GETTABLEKS                       R12 R12 K30 ["useEffect"]
+      177 MOVE                             R13 R9
+      178 NEWTABLE                         R14 0 0
+      180 CALL                             R12 2 0
+      181 LOADNIL                          R12
+      182 CLOSEUPVALS                      R5
+      183 RETURN                           R12 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -286,30 +320,49 @@ MAIN:
        16 GETTABLEKS                       R3 R0 K6 ["Packages"]
        18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
-       23 GETTABLEKS                       R4 R3 K10 ["Localization"]
-       25 GETTABLEKS                       R5 R2 K11 ["UI"]
-       27 GETTABLEKS                       R5 R5 K12 ["Hooks"]
-       29 GETTABLEKS                       R5 R5 K13 ["useDialog"]
-       31 GETIMPORT                        R6 K5 [require]
-       33 GETTABLEKS                       R7 R0 K14 ["Src"]
-       35 GETTABLEKS                       R7 R7 K15 ["Components"]
-       37 GETTABLEKS                       R7 R7 K16 ["DialogContents"]
-       39 CALL                             R6 1 1
-       40 GETIMPORT                        R7 K5 [require]
-       42 GETTABLEKS                       R8 R0 K14 ["Src"]
-       44 GETTABLEKS                       R8 R8 K17 ["SharedFlags"]
-       46 GETTABLEKS                       R8 R8 K18 ["getFFlagStudioUserModerationV2Migration"]
-       48 CALL                             R7 1 1
-       49 CALL                             R7 0 1
-       50 DUPCLOSURE                       R8 K19 [PROTO_0]
-       51 CAPTURE                          VAL R4
-       52 CAPTURE                          VAL R7
-       53 DUPCLOSURE                       R9 K20 [PROTO_8]
-       54 CAPTURE                          VAL R4
-       55 CAPTURE                          VAL R1
-       56 CAPTURE                          VAL R7
-       57 CAPTURE                          VAL R5
-       58 CAPTURE                          VAL R8
-       59 CAPTURE                          VAL R6
-       60 RETURN                           R9 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["StudioFoundation"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R4 R2 K10 ["ContextServices"]
+       30 GETTABLEKS                       R5 R4 K11 ["Localization"]
+       32 GETTABLEKS                       R6 R4 K12 ["Plugin"]
+       34 GETTABLEKS                       R7 R2 K13 ["UI"]
+       36 GETTABLEKS                       R7 R7 K14 ["Hooks"]
+       38 GETTABLEKS                       R7 R7 K15 ["RESTRICTED_useDialog"]
+       40 GETTABLEKS                       R8 R3 K16 ["Components"]
+       42 GETTABLEKS                       R8 R8 K17 ["Dialog"]
+       44 GETTABLEKS                       R9 R3 K18 ["Util"]
+       46 GETTABLEKS                       R9 R9 K19 ["StudioUri"]
+       48 GETIMPORT                        R10 K5 [require]
+       50 GETTABLEKS                       R11 R0 K20 ["Src"]
+       52 GETTABLEKS                       R11 R11 K16 ["Components"]
+       54 GETTABLEKS                       R11 R11 K21 ["DialogContents"]
+       56 CALL                             R10 1 1
+       57 GETIMPORT                        R11 K5 [require]
+       59 GETTABLEKS                       R12 R0 K20 ["Src"]
+       61 GETTABLEKS                       R12 R12 K22 ["SharedFlags"]
+       63 GETTABLEKS                       R12 R12 K23 ["getFFlagStudioUserModerationV2Migration"]
+       65 CALL                             R11 1 1
+       66 CALL                             R11 0 1
+       67 GETIMPORT                        R12 K5 [require]
+       69 GETTABLEKS                       R13 R0 K20 ["Src"]
+       71 GETTABLEKS                       R13 R13 K22 ["SharedFlags"]
+       73 GETTABLEKS                       R13 R13 K24 ["getFFlagModerationDialogMigrateUseDialog"]
+       75 CALL                             R12 1 1
+       76 CALL                             R12 0 1
+       77 DUPCLOSURE                       R13 K25 [PROTO_0]
+       78 CAPTURE                          VAL R5
+       79 CAPTURE                          VAL R11
+       80 DUPCLOSURE                       R14 K26 [PROTO_9]
+       81 CAPTURE                          VAL R5
+       82 CAPTURE                          VAL R6
+       83 CAPTURE                          VAL R1
+       84 CAPTURE                          VAL R11
+       85 CAPTURE                          VAL R12
+       86 CAPTURE                          VAL R8
+       87 CAPTURE                          VAL R9
+       88 CAPTURE                          VAL R7
+       89 CAPTURE                          VAL R13
+       90 CAPTURE                          VAL R10
+       91 RETURN                           R14 1

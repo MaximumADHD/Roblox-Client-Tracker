@@ -117,23 +117,33 @@ PROTO_4:
         5 GETIMPORT                        R1 K2 [warn]
         7 LOADK                            R2 K3 ["Lua toolbox: Could not upload catalog item"]
         8 CALL                             R1 1 0
-        9 GETUPVAL                         R1 1
-       10 GETUPVAL                         R3 2
-       11 MOVE                             R4 R0
-       12 CALL                             R3 1 -1
-       13 NAMECALL                         R1 R1 K4 ["dispatch"]
-       15 CALL                             R1 -1 0
-       16 GETUPVAL                         R1 1
-       17 GETUPVAL                         R3 3
-       18 LOADB                            R4 0
-       19 CALL                             R3 1 -1
-       20 NAMECALL                         R1 R1 K4 ["dispatch"]
-       22 CALL                             R1 -1 0
-       23 GETUPVAL                         R1 4
-       24 GETTABLEKS                       R1 R1 K5 ["incrementUploadAssetFailure"]
-       26 GETUPVAL                         R2 5
-       27 CALL                             R1 1 0
-       28 RETURN                           R0 0
+        9 MOVE                             R1 R0
+       10 GETUPVAL                         R2 1
+       11 CALL                             R2 0 1
+       12 JUMPIFNOT                        R2 ; [+7]
+       13 GETUPVAL                         R2 2
+       14 MOVE                             R3 R0
+       15 GETUPVAL                         R4 3
+       16 CALL                             R2 2 1
+       17 JUMPIFEQKNIL                     R2 ; [+2]
+       19 MOVE                             R1 R2
+       20 GETUPVAL                         R2 4
+       21 GETUPVAL                         R4 5
+       22 MOVE                             R5 R1
+       23 CALL                             R4 1 -1
+       24 NAMECALL                         R2 R2 K4 ["dispatch"]
+       26 CALL                             R2 -1 0
+       27 GETUPVAL                         R2 4
+       28 GETUPVAL                         R4 6
+       29 LOADB                            R5 0
+       30 CALL                             R4 1 -1
+       31 NAMECALL                         R2 R2 K4 ["dispatch"]
+       33 CALL                             R2 -1 0
+       34 GETUPVAL                         R2 7
+       35 GETTABLEKS                       R2 R2 K5 ["incrementUploadAssetFailure"]
+       37 GETUPVAL                         R3 8
+       38 CALL                             R2 1 0
+       39 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R2 0
@@ -222,15 +232,18 @@ PROTO_5:
        98 CALL                             R6 2 1
        99 NEWCLOSURE                       R8 P2
       100 CAPTURE                          UPVAL U22
-      101 CAPTURE                          VAL R0
-      102 CAPTURE                          UPVAL U23
-      103 CAPTURE                          UPVAL U16
-      104 CAPTURE                          UPVAL U17
-      105 CAPTURE                          UPVAL U9
-      106 NAMECALL                         R6 R6 K22 ["catch"]
-      108 CALL                             R6 2 -1
-      109 CLOSEUPVALS                      R4
-      110 RETURN                           R6 -1
+      101 CAPTURE                          UPVAL U23
+      102 CAPTURE                          UPVAL U24
+      103 CAPTURE                          UPVAL U21
+      104 CAPTURE                          VAL R0
+      105 CAPTURE                          UPVAL U25
+      106 CAPTURE                          UPVAL U16
+      107 CAPTURE                          UPVAL U17
+      108 CAPTURE                          UPVAL U9
+      109 NAMECALL                         R6 R6 K22 ["catch"]
+      111 CALL                             R6 2 -1
+      112 CLOSEUPVALS                      R4
+      113 RETURN                           R6 -1
 
 PROTO_6:
         0 NEWCLOSURE                       R10 P0
@@ -258,8 +271,10 @@ PROTO_6:
        22 CAPTURE                          VAL R7
        23 CAPTURE                          UPVAL U12
        24 CAPTURE                          UPVAL U13
-       25 CLOSEUPVALS                      R1
-       26 RETURN                           R10 1
+       25 CAPTURE                          UPVAL U14
+       26 CAPTURE                          UPVAL U15
+       27 CLOSEUPVALS                      R1
+       28 RETURN                           R10 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -324,27 +339,37 @@ MAIN:
       105 GETTABLEKS                       R14 R14 K11 ["Util"]
       107 GETTABLEKS                       R14 R14 K24 ["Promise"]
       109 GETIMPORT                        R15 K4 [require]
-      111 GETTABLEKS                       R16 R5 K25 ["Services"]
-      113 CALL                             R15 1 1
-      114 GETTABLEKS                       R16 R15 K26 ["GetService"]
-      116 LOADK                            R17 K27 ["PublishService"]
-      117 CALL                             R16 1 1
-      118 GETTABLEKS                       R17 R15 K26 ["GetService"]
-      120 LOADK                            R18 K28 ["UGCValidationService"]
-      121 CALL                             R17 1 1
-      122 DUPCLOSURE                       R18 K29 [PROTO_6]
-      123 CAPTURE                          VAL R8
-      124 CAPTURE                          VAL R3
-      125 CAPTURE                          VAL R17
-      126 CAPTURE                          VAL R7
-      127 CAPTURE                          VAL R14
-      128 CAPTURE                          VAL R11
-      129 CAPTURE                          VAL R9
-      130 CAPTURE                          VAL R16
-      131 CAPTURE                          VAL R1
-      132 CAPTURE                          VAL R4
-      133 CAPTURE                          VAL R10
-      134 CAPTURE                          VAL R12
-      135 CAPTURE                          VAL R6
-      136 CAPTURE                          VAL R2
-      137 RETURN                           R18 1
+      111 GETTABLEKS                       R16 R0 K5 ["Src"]
+      113 GETTABLEKS                       R16 R16 K17 ["Flags"]
+      115 GETTABLEKS                       R16 R16 K25 ["getFFlagToolboxParsePublishValidationErrors"]
+      117 CALL                             R15 1 1
+      118 GETIMPORT                        R16 K4 [require]
+      120 GETTABLEKS                       R17 R5 K26 ["extractPublishValidationRejection"]
+      122 CALL                             R16 1 1
+      123 GETIMPORT                        R17 K4 [require]
+      125 GETTABLEKS                       R18 R5 K27 ["Services"]
+      127 CALL                             R17 1 1
+      128 GETTABLEKS                       R18 R17 K28 ["GetService"]
+      130 LOADK                            R19 K29 ["PublishService"]
+      131 CALL                             R18 1 1
+      132 GETTABLEKS                       R19 R17 K28 ["GetService"]
+      134 LOADK                            R20 K30 ["UGCValidationService"]
+      135 CALL                             R19 1 1
+      136 DUPCLOSURE                       R20 K31 [PROTO_6]
+      137 CAPTURE                          VAL R8
+      138 CAPTURE                          VAL R3
+      139 CAPTURE                          VAL R19
+      140 CAPTURE                          VAL R7
+      141 CAPTURE                          VAL R14
+      142 CAPTURE                          VAL R11
+      143 CAPTURE                          VAL R9
+      144 CAPTURE                          VAL R18
+      145 CAPTURE                          VAL R1
+      146 CAPTURE                          VAL R4
+      147 CAPTURE                          VAL R10
+      148 CAPTURE                          VAL R12
+      149 CAPTURE                          VAL R6
+      150 CAPTURE                          VAL R15
+      151 CAPTURE                          VAL R16
+      152 CAPTURE                          VAL R2
+      153 RETURN                           R20 1

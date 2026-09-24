@@ -138,40 +138,42 @@ MAIN:
       161 LOADK                            R20 K4 ["Gen3d"]
       162 SETTABLEKS                       R20 R19 K46 ["Name"]
       164 GETIMPORT                        R20 K18 [game]
-      166 GETTABLEKS                       R20 R20 K47 ["CoreGui"]
-      168 SETTABLEKS                       R20 R19 K48 ["Parent"]
-      170 GETIMPORT                        R20 K44 [Instance.new]
-      172 LOADK                            R21 K49 ["ScreenGui"]
-      173 CALL                             R20 1 1
-      174 LOADK                            R21 K50 ["Gen3dGui"]
-      175 SETTABLEKS                       R21 R20 K46 ["Name"]
-      177 GETIMPORT                        R21 K54 [Enum.ZIndexBehavior.Sibling]
-      179 SETTABLEKS                       R21 R20 K52 ["ZIndexBehavior"]
-      181 LOADN                            R21 1000
-      182 SETTABLEKS                       R21 R20 K55 ["DisplayOrder"]
-      184 SETTABLEKS                       R19 R20 K48 ["Parent"]
-      186 GETTABLEKS                       R21 R12 K56 ["createRoot"]
-      188 MOVE                             R22 R20
-      189 CALL                             R21 1 1
-      190 GETTABLEKS                       R24 R11 K57 ["createElement"]
-      192 MOVE                             R25 R13
-      193 DUPTABLE                         R26 K60 [{"Plugin", "EditSessionId"}]
-      194 GETIMPORT                        R27 K1 [plugin]
-      196 SETTABLEKS                       R27 R26 K58 ["Plugin"]
-      198 SETTABLEKS                       R10 R26 K59 ["EditSessionId"]
-      200 CALL                             R24 2 -1
-      201 NAMECALL                         R22 R21 K61 ["render"]
-      203 CALL                             R22 -1 0
-      204 GETIMPORT                        R22 K1 [plugin]
-      206 GETTABLEKS                       R22 R22 K62 ["Unloading"]
-      208 NEWCLOSURE                       R24 P0
-      209 CAPTURE                          REF R21
-      210 CAPTURE                          REF R19
-      211 CAPTURE                          VAL R18
-      212 CAPTURE                          VAL R16
-      213 CAPTURE                          VAL R17
-      214 CAPTURE                          VAL R5
-      215 NAMECALL                         R22 R22 K63 ["Connect"]
-      217 CALL                             R22 2 0
-      218 CLOSEUPVALS                      R19
-      219 RETURN                           R0 0
+      166 LOADK                            R22 K47 ["CoreGui"]
+      167 NAMECALL                         R20 R20 K20 ["GetService"]
+      169 CALL                             R20 2 1
+      170 SETTABLEKS                       R20 R19 K48 ["Parent"]
+      172 GETIMPORT                        R20 K44 [Instance.new]
+      174 LOADK                            R21 K49 ["ScreenGui"]
+      175 CALL                             R20 1 1
+      176 LOADK                            R21 K50 ["Gen3dGui"]
+      177 SETTABLEKS                       R21 R20 K46 ["Name"]
+      179 GETIMPORT                        R21 K54 [Enum.ZIndexBehavior.Sibling]
+      181 SETTABLEKS                       R21 R20 K52 ["ZIndexBehavior"]
+      183 LOADN                            R21 1000
+      184 SETTABLEKS                       R21 R20 K55 ["DisplayOrder"]
+      186 SETTABLEKS                       R19 R20 K48 ["Parent"]
+      188 GETTABLEKS                       R21 R12 K56 ["createRoot"]
+      190 MOVE                             R22 R20
+      191 CALL                             R21 1 1
+      192 GETTABLEKS                       R24 R11 K57 ["createElement"]
+      194 MOVE                             R25 R13
+      195 DUPTABLE                         R26 K60 [{"Plugin", "EditSessionId"}]
+      196 GETIMPORT                        R27 K1 [plugin]
+      198 SETTABLEKS                       R27 R26 K58 ["Plugin"]
+      200 SETTABLEKS                       R10 R26 K59 ["EditSessionId"]
+      202 CALL                             R24 2 -1
+      203 NAMECALL                         R22 R21 K61 ["render"]
+      205 CALL                             R22 -1 0
+      206 GETIMPORT                        R22 K1 [plugin]
+      208 GETTABLEKS                       R22 R22 K62 ["Unloading"]
+      210 NEWCLOSURE                       R24 P0
+      211 CAPTURE                          REF R21
+      212 CAPTURE                          REF R19
+      213 CAPTURE                          VAL R18
+      214 CAPTURE                          VAL R16
+      215 CAPTURE                          VAL R17
+      216 CAPTURE                          VAL R5
+      217 NAMECALL                         R22 R22 K63 ["Connect"]
+      219 CALL                             R22 2 0
+      220 CLOSEUPVALS                      R19
+      221 RETURN                           R0 0

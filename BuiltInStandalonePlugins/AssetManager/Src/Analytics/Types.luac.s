@@ -8,7 +8,7 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 NEWTABLE                         R2 8 0
+       14 NEWTABLE                         R2 16 0
        16 DUPTABLE                         R3 K14 [{["Grid"] = "grid", ["List"] = "list", ["Unknown"] = "unknown"}]
        17 SETTABLEKS                       R3 R2 K15 ["ViewMode"]
        19 DUPTABLE                         R4 K24 [{["Drag"] = "drag", ["RightClickCamera"] = "right_click_camera", ["RightClickPosition"] = "right_click_position", ["DoubleClick"] = "double_click"}]
@@ -23,6 +23,8 @@ MAIN:
        32 SETTABLEKS                       R8 R2 K59 ["TutorialAction"]
        34 DUPTABLE                         R9 K64 [{["ManualAdvance"] = "manualAdvance", ["AutoAdvance"] = "autoAdvance"}]
        35 SETTABLEKS                       R9 R2 K65 ["TutorialAdvanceSource"]
-       37 DUPTABLE                         R10 K72 [{["FirstLoad"] = "FirstLoad", ["Insert"] = "Insert", ["Share"] = "Share", ["LoadNewScope"] = "LoadNewScope", ["Sort"] = "Sort", ["Filter"] = "Filter"}]
-       38 SETTABLEKS                       R10 R2 K73 ["BenchmarkingEvent"]
-       40 RETURN                           R2 1
+       37 DUPTABLE                         R10 K68 [{["CopyAssetId"] = "copyAssetId"}]
+       38 SETTABLEKS                       R10 R2 K69 ["ItemInteraction"]
+       40 DUPTABLE                         R11 K76 [{["FirstLoad"] = "FirstLoad", ["Insert"] = "Insert", ["Share"] = "Share", ["LoadNewScope"] = "LoadNewScope", ["Sort"] = "Sort", ["Filter"] = "Filter"}]
+       41 SETTABLEKS                       R11 R2 K77 ["BenchmarkingEvent"]
+       43 RETURN                           R2 1
