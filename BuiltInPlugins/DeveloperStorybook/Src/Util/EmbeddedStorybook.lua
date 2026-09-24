@@ -72,27 +72,36 @@ end
 function FoundationProviderAdapter(props)
 	if FFlagStorybookEmbeddedRemoveFoundationDerives then
 		return React.createElement(FoundationProvider, {
-			theme = props.theme,
+			colorMode = props.colorMode,
+			themeName = props.themeName,
+			-- Deprecated Foundation prop kept while consumers migrate.
+			theme = props.colorMode,
 		}, {
 			StyleLinkWrapper = React.createElement(StyleLinkWrapper, {
 				design = props.design,
-				theme = props.theme,
+				theme = props.colorMode,
 			}, props.children),
 		})
 	else
 		return React.createElement(
 			FoundationProvider,
 			Dash.join(props, {
-				theme = props.theme,
+				colorMode = props.colorMode,
+				themeName = props.themeName,
+				theme = props.colorMode,
 			})
 		)
 	end
 end
 
--- Hack to react to the theme change, we update value in the rodux store, but initially it's empty.
--- When the ThemeSwitcher has the correct value and doesn't have Default which may map to a different theme in Foundation.
-FoundationProviderAdapter = RoactRodux.connect(function()
-	return { theme = ThemeSwitcher.getThemeName() }
+-- Hack to react to the color mode change: we update the Rodux store, but initially it's empty.
+FoundationProviderAdapter = RoactRodux.connect(function(state)
+	local colorMode = state.Stories.colorMode or ThemeSwitcher.getThemeName()
+	return {
+		colorMode = colorMode,
+		themeName = state.Stories.themeName,
+		theme = colorMode,
+	}
 end)(FoundationProviderAdapter)
 -- End of copy
 

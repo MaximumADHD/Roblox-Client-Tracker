@@ -88,6 +88,9 @@ function MainPlugin:init(props)
 			settings = newState.Stories.settings,
 			embedded = newState.Stories.embedded,
 			searchFilter = newState.Stories.searchFilter,
+			colorMode = newState.Stories.colorMode,
+			themeName = newState.Stories.themeName,
+			-- Deprecated. Keep writing this during the colorMode migration.
 			theme = newState.Stories.theme,
 			platform = newState.Stories.platform,
 		})

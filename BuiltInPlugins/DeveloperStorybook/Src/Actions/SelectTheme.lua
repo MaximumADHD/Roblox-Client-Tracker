@@ -1,5 +1,6 @@
 --[[
-	Sets which theme is currently being used.
+	Deprecated. Sets the color mode for backward compatibility.
+	Use SelectColorMode instead.
 ]]
 
 local Main = script.Parent.Parent.Parent

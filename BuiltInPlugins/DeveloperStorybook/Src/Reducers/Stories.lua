@@ -15,6 +15,8 @@ local joinDeep = Dash.joinDeep
 
 local SelectStory = require(Main.Src.Actions.SelectStory)
 local SelectTheme = require(Main.Src.Actions.SelectTheme)
+local SelectColorMode = require(Main.Src.Actions.SelectColorMode)
+local SelectThemeName = require(Main.Src.Actions.SelectThemeName)
 local SelectPlatform = require(Main.Src.Actions.SelectPlatform)
 local ToggleStory = require(Main.Src.Actions.ToggleStory)
 local SetStories = require(Main.Src.Actions.SetStories)
@@ -40,6 +42,9 @@ local function getExpandedStoriesKey(state: State)
 end
 
 export type State = {
+	colorMode: string?,
+	themeName: string,
+	-- Deprecated. Use colorMode instead.
 	theme: string?,
 	platform: string,
 	settings: Types.Settings,
@@ -57,6 +62,8 @@ return Rodux.createReducer({
 	live = false,
 	searchFilter = "",
 	searchStories = {},
+	colorMode = nil,
+	themeName = "Default",
 	theme = nil,
 	platform = "Default",
 	settings = {
@@ -122,6 +129,21 @@ return Rodux.createReducer({
 	[SelectTheme.name] = function(state: State, action: SelectTheme.Props): State
 		return join(state, {
 			theme = action.theme,
+			colorMode = action.theme,
+		})
+	end,
+	[SelectColorMode.name] = function(state: State, action: SelectColorMode.Props): State
+		-- A nil colorMode has to be erased rather than merged, so the consumers fall
+		-- back to Studio's color mode.
+		return join(state, {
+			colorMode = action.colorMode or Dash.None,
+			-- Keep the deprecated value synchronized while consumers migrate.
+			theme = action.colorMode or Dash.None,
+		})
+	end,
+	[SelectThemeName.name] = function(state: State, action: SelectThemeName.Props): State
+		return join(state, {
+			themeName = action.themeName,
 		})
 	end,
 	[SelectPlatform.name] = function(state: State, action: SelectPlatform.Props): State

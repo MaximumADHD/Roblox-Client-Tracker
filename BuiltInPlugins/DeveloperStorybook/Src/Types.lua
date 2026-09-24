@@ -77,7 +77,10 @@ export type StoryItem = {
 export type StoryProps = {
 	controls: StoryControls,
 	setControls: (StoryControls) -> (),
+	-- Deprecated. Use colorMode instead.
 	theme: string,
+	colorMode: string,
+	themeName: string,
 	definition: StoryDefinition,
 }
 

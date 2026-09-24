@@ -7,6 +7,11 @@ local Types = require(Main.Src.Types)
 local SetStories = require(Main.Src.Actions.SetStories)
 local SelectStory = require(Main.Src.Actions.SelectStory)
 local SetSearch = require(Main.Src.Actions.SetSearch)
+local SelectColorMode = require(Main.Src.Actions.SelectColorMode)
+local SelectThemeName = require(Main.Src.Actions.SelectThemeName)
+
+local Framework = require(Main.Packages.Framework)
+local ThemeSwitcher = Framework.Style.ThemeSwitcher
 
 local StoryTreeUtils = require(Main.Src.Util.StoryTreeUtils)
 local findStorybooks = require(Main.Src.Util.findStorybooks)
@@ -29,6 +34,15 @@ return function(state)
 		local lastStory = findFirstByName(stories, state.lastStoryName)
 		if lastStory then
 			store:dispatch(SelectStory(lastStory))
+		end
+
+		local colorMode = state.colorMode or state.theme
+		if colorMode == "Light" or colorMode == "Dark" then
+			ThemeSwitcher.setTheme(colorMode)
+			store:dispatch(SelectColorMode(colorMode))
+		end
+		if state.themeName then
+			store:dispatch(SelectThemeName(state.themeName))
 		end
 	end
 end
