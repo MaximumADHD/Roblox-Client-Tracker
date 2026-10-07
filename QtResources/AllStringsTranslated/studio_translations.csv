@@ -8396,6 +8396,10 @@ updated version. Please don't submit another update while this update is in revi
 Studio.Toolbox.AssetConfig.UpdateAssetEmissiveChangeError,,,This update adds or removes the item's emissive texture. Emissive can't be changed when updating an item,This update adds or removes the item's emissive texture. Emissive can't be changed when updating an item
 Studio.Toolbox.AssetConfig.UpdateAssetPbrChangeError,,,This update adds or removes the item's SurfaceAppearance (PBR). It can't be changed when updating an item.,This update adds or removes the item's SurfaceAppearance (PBR). It can't be changed when updating an item.
 Studio.Toolbox.AssetConfig.ValidationErrorParseFailed,,,"Validation failed, but details are unavailable due to a parsing error. Please file a bug report and include your RBXM file.","Validation failed, but details are unavailable due to a parsing error. Please file a bug report and include your RBXM file."
+Studio.Toolbox.Studio.Toolbox.AssetUploadResult.UpdateOriginalIdLabel,,,Original ID:,Original ID:
+Studio.Toolbox.Studio.Toolbox.AssetUploadResult.UpdateRefIdLabel,,,Ref ID:,Ref ID:
+Studio.Toolbox.AssetUploadResult.UpdateOriginalIdLabel,,,Original ID:,Original ID:
+Studio.Toolbox.AssetUploadResult.UpdateRefIdLabel,,,Ref ID:,Ref ID:
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9828,7 +9832,7 @@ Studio.AssetManager.Tutorial.Intro.InsertOrImportNoResultsTitle,,,Add assets,Add
 Studio.AssetManager.Tutorial.Intro.InsertOrImportText,,,"Once you've found your asset, insert it! Or right click for more options.","Once you've found your asset, insert it! Or right click for more options."
 Studio.AssetManager.Tutorial.Intro.WelcomeTitle,,,One unified library,One unified library
 Studio.AssetManager.Tutorial.Intro.WelcomeText,,,Anything here can be used across everything you build.,Anything here can be used across everything you build.
-Studio.AssetManager.Tutorial.Intro.SidebarTitle,,,Know which inventory you're in,Know which inventory you're in
+Studio.AssetManager.Tutorial.Intro.SidebarTitle,,,Navigate your inventories,Navigate your inventories
 Studio.AssetManager.Tutorial.Intro.SidebarText,,,The sidebar lists every inventory you can reach. Try customizing the sidebar with a right click!,The sidebar lists every inventory you can reach. Try customizing the sidebar with a right click!
 Studio.AssetManager.Tutorial.Intro.InsertOrImportTitle,,,Use your asset,Use your asset
 Studio.AssetManager.Tutorial.Intro.SidebarClosedText,,,The sidebar lists every inventory you can reach.,The sidebar lists every inventory you can reach.
@@ -11382,6 +11386,11 @@ Studio.ManageCollaborators.Description.Loading,,,Loading...,Loading...
 Studio.ManageCollaborators.FailureMessage.RoleSensitivePermissions,,,"Permissions saved. Role has sensitive permissions, please configure members on Creator Hub.","Permissions saved. Role has sensitive permissions, please configure members on Creator Hub."
 Studio.ManageCollaborators.Description.AddMembersToRole,,,Add up to {maxEarlyTesters} members to preview your game. Changes here will update the member list for role {roleName} at the group level.,Add up to {maxEarlyTesters} members to preview your game. Changes here will update the member list for role {roleName} at the group level.
 Studio.ManageCollaborators.Heading.InviteEarlyTesters,,,Invite early testers,Invite early testers
+Studio.ManageCollaborators.Description.EarlyTesterRoleBanner,,,This role is assigned as an early tester and has a {maxEarlyTesters} member limit. Early tester access is managed under an experience's permissions.,This role is assigned as an early tester and has a {maxEarlyTesters} member limit. Early tester access is managed under an experience's permissions.
+Studio.ManageCollaborators.Error.ReachedEarlyTesterLimit,,,You’ve reached the {maxEarlyTesters} early tester limit.,You’ve reached the {maxEarlyTesters} early tester limit.
+Studio.ManageCollaborators.Button.GoToRoles,,,Go to roles,Go to roles
+Studio.ManageCollaborators.Action.ManageRoles,,,Manage roles,Manage roles
+Studio.ManageCollaborators.Action.Verify,,,Verify,Verify
 Studio.DeviceEmulator.Plugin.Name,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Button,,,Toggle,Toggle
@@ -15447,6 +15456,7 @@ Studio.Assistant.SettingsDialog.OverflowMenuTitle,,,Settings,Settings
 Studio.Assistant.CreditMetering.BannerFreeUsageExhaustedSwitch,,,You're out of free usage for today. Now you’ll spend Robux as you create.,You're out of free usage for today. Now you’ll spend Robux as you create.
 Studio.Assistant.CreditMetering.BannerFreeTrialExhausted,,,"Buy more usage with your Robux to keep creating, or wait for your daily limit to reset.","Buy more usage with your Robux to keep creating, or wait for your daily limit to reset."
 Studio.Assistant.CreditMetering.BannerLimitReached,,,You’ve reached your usage limit.,You’ve reached your usage limit.
+Studio.Assistant.CreditMetering.ViewUsage,,,View usage.,View usage.
 Studio.Assistant.CreditMetering.ManageLimit,,,Manage limit.,Manage limit.
 Studio.Assistant.CreditMetering.Buy,,,Buy.,Buy.
 Studio.Assistant.CreditMetering.BannerOutOfRobux,,,"Buy more Robux to keep creating, or wait for your free usage to reset tomorrow.","Buy more Robux to keep creating, or wait for your free usage to reset tomorrow."
@@ -15462,9 +15472,11 @@ Studio.Assistant.CreditMetering.OutOfRobuxTitle,,,Out of Robux,Out of Robux
 Studio.Assistant.CreditMetering.ResetsInHours,,,Resets in {hours} hours,Resets in {hours} hours
 Studio.Assistant.CreditMetering.ResetsInOneHour,,,Resets in 1 hour,Resets in 1 hour
 Studio.Assistant.CreditMetering.RobuxSpentToday,,,{spent} used,{spent} used
+Studio.Assistant.CreditMetering.UsageTitle,,,Usage,Usage
 Studio.Assistant.CreditMetering.GetMoreUsageTitle,,,Get more usage,Get more usage
 Studio.Assistant.CreditMetering.DailyLimitNoneLabel,,,None used,None used
 Studio.Assistant.CreditMetering.LoadUsageError,,,Something went wrong loading your usage.,Something went wrong loading your usage.
+Studio.Assistant.CreditMetering.UsageBarPercentLabel,,,{percent}% used,{percent}% used
 Studio.Assistant.ErrorMessage.FreeTrialExhausted,,,Buy more usage with your Robux to keep creating,Buy more usage with your Robux to keep creating
 Studio.Assistant.ErrorMessage.DailyLimitReached,,,You’ve reached your usage limit.,You’ve reached your usage limit.
 Studio.Assistant.ErrorMessage.InsufficientRobuxBalance,,,Buy more Robux to keep creating,Buy more Robux to keep creating
@@ -15495,6 +15507,19 @@ Studio.Assistant.Skills.ImportParseError,,,This file isn't a valid skill. It mus
 Studio.Assistant.Skills.ImportEmptyBody,,,The file has no skill content below the frontmatter.,The file has no skill content below the frontmatter.
 Studio.Assistant.Skills.ImportReadFailed,,,Couldn't read that file. It may be too large.,Couldn't read that file. It may be too large.
 Studio.Assistant.Skills.ImportFailed,,,Couldn't import the skill. Please try again.,Couldn't import the skill. Please try again.
+Studio.Assistant.CreditMetering.BannerFreeUsageExhaustedSwitchMonthly,,,You're out of free usage for this month. Now you’ll spend Robux as you create.,You're out of free usage for this month. Now you’ll spend Robux as you create.
+Studio.Assistant.CreditMetering.BannerFreeTrialExhaustedMonthly,,,"Buy more usage with your Robux to keep creating, or wait for your monthly limit to reset.","Buy more usage with your Robux to keep creating, or wait for your monthly limit to reset."
+Studio.Assistant.CreditMetering.BannerFreeTrialExhaustedWeekly,,,"Buy more usage with your Robux to keep creating, or wait for your weekly limit to reset.","Buy more usage with your Robux to keep creating, or wait for your weekly limit to reset."
+Studio.Assistant.CreditMetering.BannerFreeUsageExhaustedSwitchWeekly,,,You're out of free usage for this week. Now you’ll spend Robux as you create.,You're out of free usage for this week. Now you’ll spend Robux as you create.
+Studio.Assistant.CreditMetering.BannerOutOfRobuxMonthly,,,"Buy more Robux to keep creating, or wait for your free usage to reset next month.","Buy more Robux to keep creating, or wait for your free usage to reset next month."
+Studio.Assistant.CreditMetering.BannerOutOfRobuxWeekly,,,"Buy more Robux to keep creating, or wait for your free usage to reset next week.","Buy more Robux to keep creating, or wait for your free usage to reset next week."
+Studio.Assistant.CreditMetering.ResetsInDays,,,Resets in {days} days,Resets in {days} days
+Studio.Assistant.CreditMetering.ResetsInOneDay,,,Resets in 1 day,Resets in 1 day
+Studio.Assistant.CreditMetering.ResetsInOneWeek,,,Resets in 1 week,Resets in 1 week
+Studio.Assistant.CreditMetering.ResetsInWeeks,,,Resets in {weeks} weeks,Resets in {weeks} weeks
+Studio.Assistant.CreditMetering.RobuxAvailable,,,{balance} available,{balance} available
+Studio.Assistant.CreditMetering.YoureOutOfRobux,,,You're out of Robux,You're out of Robux
+Studio.Assistant.CreditMetering.BuyMoreToKeepGoing,,,Buy more to keep going.,Buy more to keep going.
 Studio.Assistant.ErrorMessage.QuotaExceededAPIKeyCMS,,,"The server is temporarily unavailable. Please try again later, or add your own API key to continue using Assistant.","The server is temporarily unavailable. Please try again later, or add your own API key to continue using Assistant."
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
@@ -15827,6 +15852,11 @@ Studio.AvatarSettings.Unpublished.WaitingForDatabase,,,Loading Avatar Settings..
 Studio.AvatarSettings.Publish.CreatePlaceSettingsNoUniverseTooltip,,,Save this place to Roblox to create place settings,Save this place to Roblox to create place settings
 Studio.AvatarSettings.AnimationSettings.StarterPlayerEmotesDisabled,,,"Emotes are still disabled in StarterPlayer, which prevents them from playing.","Emotes are still disabled in StarterPlayer, which prevents them from playing."
 Studio.AvatarSettings.AnimationSettings.EnableStarterPlayerEmotes,,,Enable in StarterPlayer,Enable in StarterPlayer
+Studio.AvatarSettings.MovementSettings.BodyPartCollisionsOnDeath,,,Enable body part collisions on death,Enable body part collisions on death
+Studio.AvatarSettings.MovementSettings.CollisionSectionBodyPartsCollidableOnDeath,,,Enable body part collisions on death,Enable body part collisions on death
+Studio.AvatarSettings.PlaceSaveWarning.Title,,,Avatar Settings changes are not saved,Avatar Settings changes are not saved
+Studio.AvatarSettings.PlaceSaveWarning.Description,,,"Saving your place does not save pending Avatar Settings changes. To preserve them, click Save in Avatar Settings.","Saving your place does not save pending Avatar Settings changes. To preserve them, click Save in Avatar Settings."
+Studio.AvatarSettings.MovementSettings.CollisionSectionDeathCollisionDescription,,,Allow avatar body parts to collide with the environment after death.,Allow avatar body parts to collide with the environment after death.
 Studio.ExplorerLibrary.HistoryDropdown.TitleText,,,History,History
 Studio.ExplorerLibrary.SearchBar.PlaceholderText,,,Search,Search
 Studio.ExplorerLibrary.SearchBrowser.ResultCountSingular,,,1 match,1 match
@@ -16260,6 +16290,8 @@ Studio.BetaFeatures.UpgradedUIShadowsTitle,,,Upgraded UIShadows,Upgraded UIShado
 Studio.BetaFeatures.UpgradedUIShadowsDescription,,,"Adding new shadow types (inset, knockout, and text mode) and compatibility with gradients.","Adding new shadow types (inset, knockout, and text mode) and compatibility with gradients."
 Studio.BetaFeatures.LuauIfLocalTitle,,,If Local/Const Bindings,If Local/Const Bindings
 Studio.BetaFeatures.LuauIfLocalDescription,,,Enables Luau scripting support for named conditional bindings,Enables Luau scripting support for named conditional bindings
+Studio.BetaFeatures.AnimationGraphStateMachineTitle,,,Animation Graph State Machines,Animation Graph State Machines
+Studio.BetaFeatures.AnimationGraphStateMachineDescription,,,Create state machines and use Luau expressions in animation graphs.,Create state machines and use Luau expressions in animation graphs.
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -17455,6 +17487,8 @@ Studio.InputActionManager.Menu.Scale,,,Scale,Scale
 Studio.InputActionManager.Menu.Vector2Scale,,,Vector2 Scale,Vector2 Scale
 Studio.InputActionManager.Menu.Vector3Scale,,,Vector3 Scale,Vector3 Scale
 Studio.InputActionManager.Menu.ResponseCurve,,,Response Curve,Response Curve
+Studio.InputActionManager.Menu.Priority,,,Priority,Priority
+Studio.InputActionManager.Menu.Scriptable,,,Scriptable Binding,Scriptable Binding
 Studio.AdPlacementManager.Label.AdPlacementManagerTitle,,,Ad Placement Manager,Ad Placement Manager
 Studio.AdPlacementManager.Label.AdPlacementManagerTooltip,,,View Ad Placement Manager,View Ad Placement Manager
 Studio.AdPlacementManager.Plugin.Description,,,Manage ad placements in your experience.,Manage ad placements in your experience.
@@ -17585,3 +17619,8 @@ Studio.DeviceSimulator.NetworkPreset.StandardMobile,,,Standard Mobile (4G/LTE),S
 Studio.DeviceSimulator.NetworkPreset.BadConnection,,,Bad Connection (3G),Bad Connection (3G)
 Studio.SurfaceAppearancePropertyItem.SurfaceSlot.All,,,All,All
 Studio.SurfaceAppearancePropertyItem.SurfaceSlot.Invalid,,,"This SurfaceAppearance is assigned to a SurfaceSlot that does not exist on the parent MeshPart, so it will not be applied. Choose a SurfaceSlot from the list, or All.","This SurfaceAppearance is assigned to a SurfaceSlot that does not exist on the parent MeshPart, so it will not be applied. Choose a SurfaceSlot from the list, or All."
+Studio.CollectionDebugger.Plugin.Name,,,Collections,Collections
+Studio.CollectionDebugger.Plugin.Description,,,Inspects collections and their callbacks,Inspects collections and their callbacks
+Studio.CollectionDebugger.App.FilterPlaceholder,,,Filter collections,Filter collections
+Studio.CollectionDebugger.App.NoCollections,,,No active collections,No active collections
+Studio.CollectionDebugger.App.InstanceCount,,,{count} inst,{count} inst
