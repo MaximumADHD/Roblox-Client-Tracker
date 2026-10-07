@@ -39,12 +39,15 @@ local CoreVoiceManagerKlass = require(CorePackages.Workspace.Packages.VoiceChatC
 local GetFFlagFixGetPlayerByUserIdStringCast =
 	require(CorePackages.Workspace.Packages.VoiceChatCore).Flags.GetFFlagFixGetPlayerByUserIdStringCast
 
+local FFlagProactiveVoiceRestrictionsUFR = require(script.Parent.Flags.FFlagProactiveVoiceRestrictionsUFR)
+
 local GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2 =
 	require(script.Parent.Flags.GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2)
 local GetFFlagVoiceChatDisruptiveVoiceNudgeForceUseNewDACopy =
 	require(script.Parent.Flags.GetFFlagVoiceChatDisruptiveVoiceNudgeForceUseNewDACopy)
 
 local noop = function() end
+local legacyIt = if FFlagProactiveVoiceRestrictionsUFR then it.skip else it
 local stub = function(val)
 	return function()
 		return val
@@ -97,9 +100,15 @@ log:addSink({
 	log = function(self, message, context) end,
 })
 
+local showProactiveVoiceRestriction = jest.fn()
+jest.mock(script.Parent.Helpers.showProactiveVoiceRestriction, function()
+	return showProactiveVoiceRestriction
+end)
+
 local VoiceChatServiceManagerKlass = require(script.Parent.VoiceChatServiceManager)
 local VoiceChatConstants = require(script.Parent.Constants)
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol
+
 local BlockMock = Instance.new("BindableEvent")
 local VoiceChatServiceManager
 local AvatarChatServiceStub =
@@ -515,7 +524,7 @@ describe("Voice Chat Service Manager", function()
 			end)
 		end
 
-		it("shows or does not show toast when user is voice banned and has acknowledged ban", function()
+		legacyIt("shows or does not show toast when user is voice banned and has acknowledged ban", function()
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
 				createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
 				VoiceChatServiceStub,
@@ -550,7 +559,7 @@ describe("Voice Chat Service Manager", function()
 			expect(mock).toHaveBeenCalledWith(VoiceChatPromptType.VoiceChatSuspendedTemporaryToast)
 		end)
 
-		it("shows correct ban modal for ban reason 7 when calling userAndPlaceCanUseVoice", function()
+		legacyIt("shows correct ban modal for ban reason 7 when calling userAndPlaceCanUseVoice", function()
 			local core = createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub)
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(core, VoiceChatServiceStub, HTTPServiceStub)
 			VoiceChatServiceManager.policyMapper = mockPolicyMapper
@@ -607,7 +616,7 @@ describe("Voice Chat Service Manager", function()
 			end
 		end)
 
-		it("shows correct ban modal for ban reason 7 when calling ShowPlayerModeratedMessage", function()
+		legacyIt("shows correct ban modal for ban reason 7 when calling ShowPlayerModeratedMessage", function()
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
 				createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
 				VoiceChatServiceStub,
@@ -651,7 +660,7 @@ describe("Voice Chat Service Manager", function()
 			end
 		end)
 
-		it("shows correct ban modal for ban reason not equal to 7 when calling ShowPlayerModeratedMessage", function()
+		legacyIt("shows ban modal for ban reason other than 7 from ShowPlayerModeratedMessage", function()
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
 				createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
 				VoiceChatServiceStub,
@@ -736,7 +745,7 @@ describe("Voice Chat Service Manager", function()
 			end
 		end)
 
-		it("shows correct ban modal for ban reason not equal to 7 when calling userAndPlaceCanUseVoice", function()
+		legacyIt("shows ban modal for ban reason other than 7 from userAndPlaceCanUseVoice", function()
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
 				createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
 				VoiceChatServiceStub,
@@ -873,7 +882,7 @@ describe("Voice Chat Service Manager", function()
 			end)
 		end
 
-		it("shows or does not show toast when user is voice banned and has acknowledged ban", function()
+		legacyIt("shows or does not show toast when user is voice banned and has acknowledged ban", function()
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
 				createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
 				VoiceChatServiceStub,
@@ -908,7 +917,7 @@ describe("Voice Chat Service Manager", function()
 			expect(mock).toHaveBeenCalledWith(VoiceChatPromptType.VoiceChatSuspendedTemporaryToast)
 		end)
 
-		it("shows correct ban modal for ban reason 7 when calling userAndPlaceCanUseVoice", function()
+		legacyIt("shows correct ban modal for ban reason 7 when calling userAndPlaceCanUseVoice", function()
 			local core = createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub)
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(core, VoiceChatServiceStub, HTTPServiceStub)
 			VoiceChatServiceManager.policyMapper = mockPolicyMapper
@@ -1116,6 +1125,119 @@ describe("Voice Chat Service Manager", function()
 		game:SetFastFlagForTesting("FixGetPlayerByUserIdStringCast", currentFlagFixGetPlayerByUserId)
 	end)
 end)
+
+if FFlagProactiveVoiceRestrictionsUFR then
+	describe("VoiceChatServiceManager proactive UFR routing", function()
+		local settings
+		local informed
+		local requests
+		local showPrompt
+
+		beforeEach(function()
+			settings = { isBanned = true, banReason = 7, bannedUntil = { Seconds = 2000000000 } }
+			informed = false
+			requests = {}
+			showPrompt = jest.fn()
+			rawset(VoiceChatServiceManager, "showPrompt", showPrompt)
+			-- __newindex stores ban fields on the shared class table, so they would otherwise leak between tests.
+			VoiceChatServiceManager.bannedUntil = nil
+			VoiceChatServiceManager.banReason = nil
+			VoiceChatServiceManager.coreVoiceManager.HttpRbxApiService = HTTPServiceStub
+			HTTPServiceStub.GetAsyncFullUrlCB = function(url)
+				table.insert(requests, url)
+				if string.find(url, "/v1/settings/", 1, true) then
+					return HttpService:JSONEncode(settings)
+				end
+				if string.find(url, "/v1/moderation/informed-of-ban", 1, true) then
+					return HttpService:JSONEncode({ informedOfBan = informed })
+				end
+				error("Unexpected voice restriction request: " .. url)
+			end
+			showProactiveVoiceRestriction:mockClear()
+		end)
+
+		it("routes a join-time ban without a reason through direct UFR and existing informed status", function()
+			settings.banReason = 0
+			local refreshSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "refresh")
+			VoiceChatServiceManager.coreVoiceManager:emit("OnUserAndPlaceCanUseVoiceResolved", settings, {})
+			refreshSpy.mock.results[1].value:await()
+			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("restricted")
+			expect(showProactiveVoiceRestriction).toHaveBeenCalledTimes(1)
+			expect(showProactiveVoiceRestriction.mock.calls[1][1].settings).toBe(settings)
+			expect(showProactiveVoiceRestriction.mock.calls[1][1].origin).toBe("gameJoin")
+			expect(requests).toHaveLength(1)
+			expect(requests[1]).toContain("/v1/moderation/informed-of-ban")
+			expect(showPrompt).never.toHaveBeenCalled()
+		end)
+
+		it("keeps an informed join passive and resurfaces it on mic activation", function()
+			informed = true
+			local refreshSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "refresh")
+			VoiceChatServiceManager.coreVoiceManager:emit("OnUserAndPlaceCanUseVoiceResolved", settings, {})
+			refreshSpy.mock.results[1].value:await()
+			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("restricted")
+			expect(showProactiveVoiceRestriction).never.toHaveBeenCalled()
+			VoiceChatServiceManager:ShowVoiceRestriction()
+			refreshSpy.mock.results[2].value:await()
+			expect(requests).toHaveLength(2)
+			expect(requests[2]).toContain("/v1/settings/")
+			expect(showProactiveVoiceRestriction).toHaveBeenCalledTimes(1)
+			expect(showProactiveVoiceRestriction.mock.calls[1][1].origin).toBe("mic")
+			expect(showPrompt).never.toHaveBeenCalled()
+		end)
+
+		it("uses settings for realtime moderation without fetching informed status", function()
+			local refreshSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "refresh")
+			VoiceChatServiceManager:ShowPlayerModeratedMessage()
+			refreshSpy.mock.results[1].value:await()
+			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("restricted")
+			expect(requests).toHaveLength(1)
+			expect(requests[1]).toContain("/v1/settings/")
+			expect(showProactiveVoiceRestriction).toHaveBeenCalledTimes(1)
+			expect(showProactiveVoiceRestriction.mock.calls[1][1].settings).toEqual(settings)
+			expect(showProactiveVoiceRestriction.mock.calls[1][1].origin).toBe("realtime")
+			expect(showPrompt).never.toHaveBeenCalled()
+		end)
+
+		it("suppresses the leave voice toast only while voice is restricted", function()
+			local function shownPrompts()
+				local prompts = {}
+				for _, call in showPrompt.mock.calls do
+					table.insert(prompts, call[2])
+				end
+				return prompts
+			end
+
+			VoiceChatServiceManager.runService = runServiceStub
+			local VoiceChatState = (Enum :: any).VoiceChatState
+			VoiceChatServiceManager.coreVoiceManager:emit("OnStateChanged", VoiceChatState.Joined, VoiceChatState.Ended)
+			expect(shownPrompts()).toContain(VoiceChatPromptType.LeaveVoice)
+
+			showPrompt:mockClear()
+			settings.bannedUntil = nil
+			local refreshSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "refresh")
+			VoiceChatServiceManager:ShowPlayerModeratedMessage()
+			refreshSpy.mock.results[1].value:await()
+			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("restricted")
+			VoiceChatServiceManager.coreVoiceManager:emit("OnStateChanged", VoiceChatState.Joined, VoiceChatState.Ended)
+			expect(shownPrompts()).never.toContain(VoiceChatPromptType.LeaveVoice)
+		end)
+
+		it("migrates modal nudges while keeping toxicity toasts and live voice presentation", function()
+			VoiceChatServiceManager.coreVoiceManager:emit("OnVoiceToxicityModal")
+			expect(showProactiveVoiceRestriction.mock.calls[1][1].settings).toBeNil()
+			expect(showProactiveVoiceRestriction.mock.calls[1][1].origin).toBe("realtime")
+			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("normal")
+			expect(requests).toHaveLength(0)
+			VoiceChatServiceManager.coreVoiceManager:emit("OnVoiceToxicityToast")
+			expect(showPrompt).toHaveBeenCalledTimes(1)
+			local prompt = showPrompt.mock.calls[1][2]
+			expect(
+				prompt == VoiceChatPromptType.VoiceToxicityToast or prompt == VoiceChatPromptType.VoiceToxicityToastV2
+			).toBe(true)
+		end)
+	end)
+end
 
 describe("Voice ConnectCookie", function()
 	it("VoiceConnectCookie Get/Set Work Correctly", function()

@@ -6,10 +6,6 @@ local CreateExpectedSchema = require(root.util.CreateExpectedSchema)
 local validateInstanceTreeAgainstSchema = require(root.util.validateInstanceTreeAgainstSchema)
 
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
-local getFFlagUGCValidationAnimationPackFolderStructure =
-	require(root.flags.getFFlagUGCValidationAnimationPackFolderStructure)
-local getFFlagUGCValidationAnimationPackDisableModelStructure =
-	require(root.flags.getFFlagUGCValidationAnimationPackDisableModelStructure)
 local getEngineFeatureEngineUGCValidateInstanceTreesEquivalent =
 	require(root.flags.getEngineFeatureEngineUGCValidateInstanceTreesEquivalent)
 local shouldValidateR15LegacyDuplicate = require(root.util.shouldValidateR15LegacyDuplicate)
@@ -39,14 +35,7 @@ ExpectedRootSchema.run = function(reporter: Types.ValidationReporter, data: Type
 
 	if uploadEnum.bundleType then
 		if uploadEnum.bundleType == Enum.BundleType.Animations then
-			if
-				not getFFlagUGCValidationAnimationPackDisableModelStructure()
-				and getFFlagUGCValidationAnimationPackFolderStructure()
-			then
-				schema = CreateExpectedSchema.generateAnimationPackBundleSchema(instance)
-			else
-				schema = CreateExpectedSchema.generateAnimationPackBundleSchema(nil)
-			end
+			schema = CreateExpectedSchema.generateAnimationPackBundleSchema()
 		else
 			-- For bundle uploads, we will recheck all the asset schemas and display an early abort message upon failure
 			local fullBodyData = data.entrypointInput :: Types.FullBodyData

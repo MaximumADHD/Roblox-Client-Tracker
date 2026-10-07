@@ -145,6 +145,7 @@ type _Messages =
 		ContentPool: _ContentPoolMessage,
 		ItemLayout: _ItemLayoutMessage,
 		CommunityAnnouncementInputData: _CommunityAnnouncementInputDataMessage,
+		GroupAnnouncementInputData: _GroupAnnouncementInputDataMessage,
 		PageEntryFormat: _PageEntryFormatMessage,
 	}
 local messages: _Messages = {} :: _Messages
@@ -338,6 +339,7 @@ type _PageEntryInputDataFields = {
 		| { type: "party_chat_conversation_upsell", value: PartyChatConversationUpsellInputData }
 		| { type: "pre_auth_landing_sticky_header", value: PreAuthLandingStickyHeaderInputData }
 		| { type: "community_announcement", value: CommunityAnnouncementInputData }
+		| { type: "group_announcement", value: GroupAnnouncementInputData }
 		| { type: "settings_row", value: SettingsRowInputData }
 		| { type: "settings_toggle", value: SettingsToggleInputData }
 	)?,
@@ -417,6 +419,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "party_chat_conversation_upsell", value: PartyChatConversationUpsellInputData }
 		| { type: "pre_auth_landing_sticky_header", value: PreAuthLandingStickyHeaderInputData }
 		| { type: "community_announcement", value: CommunityAnnouncementInputData }
+		| { type: "group_announcement", value: GroupAnnouncementInputData }
 		| { type: "settings_row", value: SettingsRowInputData }
 		| { type: "settings_toggle", value: SettingsToggleInputData }
 	)?,
@@ -1178,11 +1181,19 @@ type _ExperiencePlayWithRewardInputDataImpl = {
 type _ExperiencePlayWithRewardInputDataFields = {
 	universe_id: string,
 	place_id: string,
+	product_id: string,
+	product_image_asset_id: string,
+	product_name: string,
+	variant_id: string,
 }
 
 type _ExperiencePlayWithRewardInputDataPartialFields = {
 	universe_id: string?,
 	place_id: string?,
+	product_id: string?,
+	product_image_asset_id: string?,
+	product_name: string?,
+	variant_id: string?,
 }
 
 export type ExperiencePlayWithRewardInputData = typeof(setmetatable(
@@ -1304,6 +1315,7 @@ type _ExperienceCarouselInputDataFields = {
 	anchor_tag: string?,
 	collection_item_size: string?,
 	sort_sub_id: string?,
+	enable_game_tile_videos: boolean,
 }
 
 type _ExperienceCarouselInputDataPartialFields = {
@@ -1328,6 +1340,7 @@ type _ExperienceCarouselInputDataPartialFields = {
 	anchor_tag: string?,
 	collection_item_size: string?,
 	sort_sub_id: string?,
+	enable_game_tile_videos: boolean?,
 }
 
 export type ExperienceCarouselInputData = typeof(setmetatable(
@@ -3693,11 +3706,15 @@ type _VideoInputDataImpl = {
 type _VideoInputDataFields = {
 	video_asset_id: string,
 	loading_image_asset_id: string,
+	max_quality: string,
+	adaptive_resolution: boolean,
 }
 
 type _VideoInputDataPartialFields = {
 	video_asset_id: string?,
 	loading_image_asset_id: string?,
+	max_quality: string?,
+	adaptive_resolution: boolean?,
 }
 
 export type VideoInputData = typeof(setmetatable({} :: _VideoInputDataFields, {} :: _VideoInputDataImpl))
@@ -3716,11 +3733,13 @@ type _TextInputDataImpl = {
 type _TextInputDataFields = {
 	text: string,
 	is_rendered_text: boolean,
+	url: string,
 }
 
 type _TextInputDataPartialFields = {
 	text: string?,
 	is_rendered_text: boolean?,
+	url: string?,
 }
 
 export type TextInputData = typeof(setmetatable({} :: _TextInputDataFields, {} :: _TextInputDataImpl))
@@ -4479,6 +4498,49 @@ export type CommunityAnnouncementInputData = typeof(setmetatable(
 type _CommunityAnnouncementInputDataMessage = proto.Message<
 	CommunityAnnouncementInputData,
 	_CommunityAnnouncementInputDataPartialFields
+>
+
+type _GroupAnnouncementInputDataImpl = {
+	__index: _GroupAnnouncementInputDataImpl,
+	new: (fields: _GroupAnnouncementInputDataPartialFields?) -> GroupAnnouncementInputData,
+	encode: (self: GroupAnnouncementInputData) -> buffer,
+	decode: (input: buffer) -> GroupAnnouncementInputData,
+	jsonEncode: (self: GroupAnnouncementInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GroupAnnouncementInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _GroupAnnouncementInputDataFields = {
+	group_id: string,
+	announcement_id: string,
+	message_id: string,
+	title: string,
+	body: string,
+	creator_key: string,
+	creator_role_name: string?,
+	media_asset_id: string?,
+	created_time: _google_protobuf_timestamp.Timestamp?,
+}
+
+type _GroupAnnouncementInputDataPartialFields = {
+	group_id: string?,
+	announcement_id: string?,
+	message_id: string?,
+	title: string?,
+	body: string?,
+	creator_key: string?,
+	creator_role_name: string?,
+	media_asset_id: string?,
+	created_time: _google_protobuf_timestamp.Timestamp?,
+}
+
+export type GroupAnnouncementInputData = typeof(setmetatable(
+	{} :: _GroupAnnouncementInputDataFields,
+	{} :: _GroupAnnouncementInputDataImpl
+))
+type _GroupAnnouncementInputDataMessage = proto.Message<
+	GroupAnnouncementInputData,
+	_GroupAnnouncementInputDataPartialFields
 >
 
 type _PageEntryFormatMessage = proto.Enum<PageEntryFormat>
@@ -5334,6 +5396,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1400, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "group_announcement" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1401, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "settings_row" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1500, proto.wireTypes.lengthDelimited)
@@ -5828,6 +5894,12 @@ do
 						value = messages.CommunityAnnouncementInputData.decode(value),
 					}
 					continue
+				elseif field == 1401 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "group_announcement", value = messages.GroupAnnouncementInputData.decode(value) }
+					continue
 				elseif field == 1500 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -6010,6 +6082,8 @@ do
 				output.preAuthLandingStickyHeader = self.kind.value:jsonEncode()
 			elseif self.kind.type == "community_announcement" then
 				output.communityAnnouncement = self.kind.value:jsonEncode()
+			elseif self.kind.type == "group_announcement" then
+				output.groupAnnouncement = self.kind.value:jsonEncode()
 			elseif self.kind.type == "settings_row" then
 				output.settingsRow = self.kind.value:jsonEncode()
 			elseif self.kind.type == "settings_toggle" then
@@ -6902,6 +6976,20 @@ do
 			self.kind = {
 				type = "community_announcement",
 				value = messages.CommunityAnnouncementInputData.jsonDecode(input.communityAnnouncement),
+			}
+		end
+
+		if input.group_announcement ~= nil then
+			self.kind = {
+				type = "group_announcement",
+				value = messages.GroupAnnouncementInputData.jsonDecode(input.group_announcement),
+			}
+		end
+
+		if input.groupAnnouncement ~= nil then
+			self.kind = {
+				type = "group_announcement",
+				value = messages.GroupAnnouncementInputData.jsonDecode(input.groupAnnouncement),
 			}
 		end
 
@@ -10582,6 +10670,12 @@ do
 		return setmetatable({
 			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
 			place_id = if data == nil or data.place_id == nil then "" else data.place_id,
+			product_id = if data == nil or data.product_id == nil then "" else data.product_id,
+			product_image_asset_id = if data == nil or data.product_image_asset_id == nil
+				then ""
+				else data.product_image_asset_id,
+			product_name = if data == nil or data.product_name == nil then "" else data.product_name,
+			variant_id = if data == nil or data.variant_id == nil then "" else data.variant_id,
 		}, _ExperiencePlayWithRewardInputDataImpl :: _ExperiencePlayWithRewardInputDataImpl)
 	end
 
@@ -10597,6 +10691,26 @@ do
 		if self.place_id ~= nil and self.place_id ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.place_id)
+		end
+
+		if self.product_id ~= nil and self.product_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.product_id)
+		end
+
+		if self.product_image_asset_id ~= nil and self.product_image_asset_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.product_image_asset_id)
+		end
+
+		if self.product_name ~= nil and self.product_name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.product_name)
+		end
+
+		if self.variant_id ~= nil and self.variant_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.variant_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -10627,6 +10741,26 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.place_id = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.product_id = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.product_image_asset_id = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.product_name = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.variant_id = buffer.tostring(value)
 					continue
 				end
 
@@ -10663,6 +10797,22 @@ do
 			output.placeId = self.place_id
 		end
 
+		if self.product_id ~= nil and self.product_id ~= "" then
+			output.productId = self.product_id
+		end
+
+		if self.product_image_asset_id ~= nil and self.product_image_asset_id ~= "" then
+			output.productImageAssetId = self.product_image_asset_id
+		end
+
+		if self.product_name ~= nil and self.product_name ~= "" then
+			output.productName = self.product_name
+		end
+
+		if self.variant_id ~= nil and self.variant_id ~= "" then
+			output.variantId = self.variant_id
+		end
+
 		return output
 	end
 
@@ -10685,6 +10835,38 @@ do
 
 		if input.placeId ~= nil then
 			self.place_id = input.placeId
+		end
+
+		if input.product_id ~= nil then
+			self.product_id = input.product_id
+		end
+
+		if input.productId ~= nil then
+			self.product_id = input.productId
+		end
+
+		if input.product_image_asset_id ~= nil then
+			self.product_image_asset_id = input.product_image_asset_id
+		end
+
+		if input.productImageAssetId ~= nil then
+			self.product_image_asset_id = input.productImageAssetId
+		end
+
+		if input.product_name ~= nil then
+			self.product_name = input.product_name
+		end
+
+		if input.productName ~= nil then
+			self.product_name = input.productName
+		end
+
+		if input.variant_id ~= nil then
+			self.variant_id = input.variant_id
+		end
+
+		if input.variantId ~= nil then
+			self.variant_id = input.variantId
 		end
 
 		return self
@@ -11067,6 +11249,9 @@ do
 				then nil
 				else data.collection_item_size,
 			sort_sub_id = if data == nil or data.sort_sub_id == nil then nil else data.sort_sub_id,
+			enable_game_tile_videos = if data == nil or data.enable_game_tile_videos == nil
+				then false
+				else data.enable_game_tile_videos,
 		}, _ExperienceCarouselInputDataImpl :: _ExperienceCarouselInputDataImpl)
 	end
 
@@ -11182,6 +11367,11 @@ do
 			output, cursor = proto.writeString(output, cursor, self.sort_sub_id)
 		end
 
+		if self.enable_game_tile_videos then
+			output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.enable_game_tile_videos then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -11230,6 +11420,11 @@ do
 					local value
 					value, cursor = proto.readVarIntI32(input, cursor)
 					self.visible_rows_per_reveal = value
+					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.enable_game_tile_videos = value ~= 0
 					continue
 				end
 
@@ -11421,6 +11616,10 @@ do
 			output.sortSubId = self.sort_sub_id
 		end
 
+		if self.enable_game_tile_videos then
+			output.enableGameTileVideos = self.enable_game_tile_videos
+		end
+
 		return output
 	end
 
@@ -11595,6 +11794,14 @@ do
 
 		if input.sortSubId ~= nil then
 			self.sort_sub_id = input.sortSubId
+		end
+
+		if input.enable_game_tile_videos ~= nil then
+			self.enable_game_tile_videos = input.enable_game_tile_videos
+		end
+
+		if input.enableGameTileVideos ~= nil then
+			self.enable_game_tile_videos = input.enableGameTileVideos
 		end
 
 		return self
@@ -24620,6 +24827,10 @@ do
 			loading_image_asset_id = if data == nil or data.loading_image_asset_id == nil
 				then ""
 				else data.loading_image_asset_id,
+			max_quality = if data == nil or data.max_quality == nil then "" else data.max_quality,
+			adaptive_resolution = if data == nil or data.adaptive_resolution == nil
+				then false
+				else data.adaptive_resolution,
 		}, _VideoInputDataImpl :: _VideoInputDataImpl)
 	end
 
@@ -24637,6 +24848,16 @@ do
 			output, cursor = proto.writeString(output, cursor, self.loading_image_asset_id)
 		end
 
+		if self.max_quality ~= nil and self.max_quality ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.max_quality)
+		end
+
+		if self.adaptive_resolution then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.adaptive_resolution then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -24651,7 +24872,12 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				-- No fields
+				if field == 4 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.adaptive_resolution = value ~= 0
+					continue
+				end
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -24665,6 +24891,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.loading_image_asset_id = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.max_quality = buffer.tostring(value)
 					continue
 				end
 
@@ -24701,6 +24932,14 @@ do
 			output.loadingImageAssetId = self.loading_image_asset_id
 		end
 
+		if self.max_quality ~= nil and self.max_quality ~= "" then
+			output.maxQuality = self.max_quality
+		end
+
+		if self.adaptive_resolution then
+			output.adaptiveResolution = self.adaptive_resolution
+		end
+
 		return output
 	end
 
@@ -24721,6 +24960,22 @@ do
 
 		if input.loadingImageAssetId ~= nil then
 			self.loading_image_asset_id = input.loadingImageAssetId
+		end
+
+		if input.max_quality ~= nil then
+			self.max_quality = input.max_quality
+		end
+
+		if input.maxQuality ~= nil then
+			self.max_quality = input.maxQuality
+		end
+
+		if input.adaptive_resolution ~= nil then
+			self.adaptive_resolution = input.adaptive_resolution
+		end
+
+		if input.adaptiveResolution ~= nil then
+			self.adaptive_resolution = input.adaptiveResolution
 		end
 
 		return self
@@ -24744,6 +24999,7 @@ do
 		return setmetatable({
 			text = if data == nil or data.text == nil then "" else data.text,
 			is_rendered_text = if data == nil or data.is_rendered_text == nil then false else data.is_rendered_text,
+			url = if data == nil or data.url == nil then "" else data.url,
 		}, _TextInputDataImpl :: _TextInputDataImpl)
 	end
 
@@ -24759,6 +25015,11 @@ do
 		if self.is_rendered_text then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, if self.is_rendered_text then 1 else 0)
+		end
+
+		if self.url ~= nil and self.url ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.url)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -24789,6 +25050,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.text = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.url = buffer.tostring(value)
 					continue
 				end
 
@@ -24825,6 +25091,10 @@ do
 			output.isRenderedText = self.is_rendered_text
 		end
 
+		if self.url ~= nil and self.url ~= "" then
+			output.url = self.url
+		end
+
 		return output
 	end
 
@@ -24841,6 +25111,10 @@ do
 
 		if input.isRenderedText ~= nil then
 			self.is_rendered_text = input.isRenderedText
+		end
+
+		if input.url ~= nil then
+			self.url = input.url
 		end
 
 		return self
@@ -29319,6 +29593,286 @@ do
 	typeRegistry.default:register(messages.CommunityAnnouncementInputData)
 end
 
+do
+	local _GroupAnnouncementInputDataImpl = {}
+	_GroupAnnouncementInputDataImpl.__index = _GroupAnnouncementInputDataImpl
+
+	function _GroupAnnouncementInputDataImpl.new(
+		data: _GroupAnnouncementInputDataPartialFields?
+	): GroupAnnouncementInputData
+		return setmetatable({
+			group_id = if data == nil or data.group_id == nil then "" else data.group_id,
+			announcement_id = if data == nil or data.announcement_id == nil then "" else data.announcement_id,
+			message_id = if data == nil or data.message_id == nil then "" else data.message_id,
+			title = if data == nil or data.title == nil then "" else data.title,
+			body = if data == nil or data.body == nil then "" else data.body,
+			creator_key = if data == nil or data.creator_key == nil then "" else data.creator_key,
+			creator_role_name = if data == nil or data.creator_role_name == nil then nil else data.creator_role_name,
+			media_asset_id = if data == nil or data.media_asset_id == nil then nil else data.media_asset_id,
+			created_time = if data == nil or data.created_time == nil then nil else data.created_time,
+		}, _GroupAnnouncementInputDataImpl :: _GroupAnnouncementInputDataImpl)
+	end
+
+	function _GroupAnnouncementInputDataImpl.encode(self: GroupAnnouncementInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.group_id ~= nil and self.group_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.group_id)
+		end
+
+		if self.announcement_id ~= nil and self.announcement_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.announcement_id)
+		end
+
+		if self.message_id ~= nil and self.message_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.message_id)
+		end
+
+		if self.title ~= nil and self.title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.body ~= nil and self.body ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.body)
+		end
+
+		if self.creator_key ~= nil and self.creator_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creator_key)
+		end
+
+		if self.creator_role_name ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creator_role_name)
+		end
+
+		if self.media_asset_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.media_asset_id)
+		end
+
+		if self.created_time ~= nil then
+			local encoded = self.created_time:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GroupAnnouncementInputDataImpl.decode(input: buffer): GroupAnnouncementInputData
+		local self = _GroupAnnouncementInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.group_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.announcement_id = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.message_id = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.body = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_key = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_role_name = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.media_asset_id = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.created_time = _google_protobuf_timestamp.Timestamp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GroupAnnouncementInputDataImpl.jsonEncode(self: GroupAnnouncementInputData): any
+		local output = {}
+
+		if self.group_id ~= nil and self.group_id ~= "" then
+			output.groupId = self.group_id
+		end
+
+		if self.announcement_id ~= nil and self.announcement_id ~= "" then
+			output.announcementId = self.announcement_id
+		end
+
+		if self.message_id ~= nil and self.message_id ~= "" then
+			output.messageId = self.message_id
+		end
+
+		if self.title ~= nil and self.title ~= "" then
+			output.title = self.title
+		end
+
+		if self.body ~= nil and self.body ~= "" then
+			output.body = self.body
+		end
+
+		if self.creator_key ~= nil and self.creator_key ~= "" then
+			output.creatorKey = self.creator_key
+		end
+
+		if self.creator_role_name ~= nil then
+			output.creatorRoleName = self.creator_role_name
+		end
+
+		if self.media_asset_id ~= nil then
+			output.mediaAssetId = self.media_asset_id
+		end
+
+		if self.created_time ~= nil then
+			output.createdTime = self.created_time:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _GroupAnnouncementInputDataImpl.jsonDecode(input: { [string]: any }): GroupAnnouncementInputData
+		local self = _GroupAnnouncementInputDataImpl.new()
+
+		if input.group_id ~= nil then
+			self.group_id = input.group_id
+		end
+
+		if input.groupId ~= nil then
+			self.group_id = input.groupId
+		end
+
+		if input.announcement_id ~= nil then
+			self.announcement_id = input.announcement_id
+		end
+
+		if input.announcementId ~= nil then
+			self.announcement_id = input.announcementId
+		end
+
+		if input.message_id ~= nil then
+			self.message_id = input.message_id
+		end
+
+		if input.messageId ~= nil then
+			self.message_id = input.messageId
+		end
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.body ~= nil then
+			self.body = input.body
+		end
+
+		if input.creator_key ~= nil then
+			self.creator_key = input.creator_key
+		end
+
+		if input.creatorKey ~= nil then
+			self.creator_key = input.creatorKey
+		end
+
+		if input.creator_role_name ~= nil then
+			self.creator_role_name = input.creator_role_name
+		end
+
+		if input.creatorRoleName ~= nil then
+			self.creator_role_name = input.creatorRoleName
+		end
+
+		if input.media_asset_id ~= nil then
+			self.media_asset_id = input.media_asset_id
+		end
+
+		if input.mediaAssetId ~= nil then
+			self.media_asset_id = input.mediaAssetId
+		end
+
+		if input.created_time ~= nil then
+			self.created_time = _google_protobuf_timestamp.Timestamp.jsonDecode(input.created_time)
+		end
+
+		if input.createdTime ~= nil then
+			self.created_time = _google_protobuf_timestamp.Timestamp.jsonDecode(input.createdTime)
+		end
+
+		return self
+	end
+
+	_GroupAnnouncementInputDataImpl.descriptor = {
+		name = "GroupAnnouncementInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GroupAnnouncementInputData",
+	}
+
+	messages.GroupAnnouncementInputData = _GroupAnnouncementInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GroupAnnouncementInputData)
+end
+
 messages.PageEntryFormat = {
 	fromNumber = function(value: number): PageEntryFormat?
 		if value == 0 then
@@ -29478,5 +30032,6 @@ return {
 	ContentPool = messages.ContentPool,
 	ItemLayout = messages.ItemLayout,
 	CommunityAnnouncementInputData = messages.CommunityAnnouncementInputData,
+	GroupAnnouncementInputData = messages.GroupAnnouncementInputData,
 	PageEntryFormat = messages.PageEntryFormat,
 }

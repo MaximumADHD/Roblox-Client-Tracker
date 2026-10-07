@@ -9,6 +9,7 @@ local InstanceTreeMatchesSchema = {}
 
 InstanceTreeMatchesSchema.categories = {
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 	ValidationEnums.UploadCategory.RIGID_ACCESSORY,
 	ValidationEnums.UploadCategory.EMOTE_ANIMATION,
 	ValidationEnums.UploadCategory.MAKEUP,

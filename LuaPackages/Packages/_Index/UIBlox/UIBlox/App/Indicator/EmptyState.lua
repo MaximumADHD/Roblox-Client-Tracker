@@ -13,6 +13,7 @@ local t = require(Packages.t)
 local RoactGamepad = require(Packages.RoactGamepad)
 
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
+local GetFontFromFontStyle = require(UIBlox.Core.Text.GetFontFromFontStyle)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local validateImage = require(UIBlox.Core.ImageSet.Validator.validateImage)
 local withStyle = require(UIBlox.Core.Style.withStyle)
@@ -150,7 +151,7 @@ function EmptyState:render()
 							TextYAlignment = Enum.TextYAlignment.Center,
 							Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Title.Font,
 							FontFace = if FFlagFoundationFontFaceMigration
-								then normalizeFontFace(style.Font.Title.Font)
+								then normalizeFontFace(GetFontFromFontStyle(style.Font.Title))
 								else nil,
 							TextSize = style.Font.Header1.RelativeSize * style.Font.BaseSize,
 							TextColor3 = style.Theme.TextEmphasis.Color,

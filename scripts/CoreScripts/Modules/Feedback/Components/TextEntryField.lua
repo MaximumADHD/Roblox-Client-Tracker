@@ -10,6 +10,10 @@ local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local t = require(CorePackages.Packages.t)
 
 local FeedbackModule = script.Parent.Parent
@@ -65,7 +69,15 @@ function TextEntryField:calculateNeedsRescroll(style, textFont)
 			local textBeforeCursor = prevProps.text:sub(1, prevState.cursorPosition - 1)
 			local fontHeight = textFont.RelativeSize * style.Font.BaseSize
 			local availableSpace = Vector2.new(prevProps.textBoxWidth, 10000)
-			local textSize = TextService:GetTextSize(textBeforeCursor, fontHeight, textFont.Font, availableSpace)
+			local textSize = if FFlagFoundationFontFaceMigration
+				then GetTextSize(
+					textBeforeCursor,
+					fontHeight,
+					style.Tokens.Typography.BodyLarge.Font,
+					availableSpace,
+					{ addTemporaryPadding = false }
+				)
+				else TextService:GetTextSize(textBeforeCursor, fontHeight, textFont.Font, availableSpace)
 
 			if textSize.Y > prevState.scrollingFrameHeight + prevState.canvasPosition then
 				return {
@@ -105,12 +117,21 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 		local textTheme = style.Theme.TextDefault
 		local textFont = style.Font.Body
 
-		local textSize = TextService:GetTextSize(
-			self.props.text,
-			textFont.RelativeSize * style.Font.BaseSize,
-			textFont.Font,
-			Vector2.new(self.state.textBoxWidth, 10000)
-		)
+		local bounds = Vector2.new(self.state.textBoxWidth, 10000)
+		local textSize = if FFlagFoundationFontFaceMigration
+			then GetTextSize(
+				self.props.text,
+				textFont.RelativeSize * style.Font.BaseSize,
+				style.Tokens.Typography.BodyLarge.Font,
+				bounds,
+				{ addTemporaryPadding = false }
+			)
+			else TextService:GetTextSize(
+				self.props.text,
+				textFont.RelativeSize * style.Font.BaseSize,
+				textFont.Font,
+				bounds
+			)
 
 		return Roact.createElement(ImageSetLabel, {
 			BackgroundTransparency = 1,
@@ -159,7 +180,10 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 					TextYAlignment = Enum.TextYAlignment.Top,
 					TextColor3 = textTheme.Color,
 					TextTransparency = textTheme.Transparency,
-					Font = textFont.Font,
+					Font = if FFlagFoundationFontFaceMigration then nil else textFont.Font,
+					FontFace = if FFlagFoundationFontFaceMigration
+						then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
+						else nil,
 					TextSize = textFont.RelativeSize * style.Font.BaseSize,
 					TextWrapped = true,
 					MultiLine = true,

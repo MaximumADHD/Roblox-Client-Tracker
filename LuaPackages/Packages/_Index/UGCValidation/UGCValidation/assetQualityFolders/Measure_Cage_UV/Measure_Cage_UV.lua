@@ -10,7 +10,10 @@ local minCageUVScoreThreshold = game:DefineFastInt("UGCValidateLCCageUVMinScore"
 
 local Measure_Cage_UV = {}
 
-Measure_Cage_UV.categories = { ValidationEnums.UploadCategory.LAYERED_CLOTHING }
+Measure_Cage_UV.categories = {
+	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
+}
 Measure_Cage_UV.fflag = require(root.flags.getFFlagUGCValidateAQCageQualityLC)
 
 local cageNames = {
@@ -23,7 +26,10 @@ Measure_Cage_UV.run = function(reporter: Types.ValidationReporter, data: Types.S
 	if summary == nil then
 		error("Measure_Cage_UV: AQS summary data is nil")
 	end
-	local useScoreCheck = getFFlagUGCValidateLCCageUVScoreCheck()
+	-- Eyebrow/eyelash cages only cover the head, so the score's coverage of the full-body UV template is always low.
+	-- Judge them on incorrect_uv_count alone, which only counts problems on the cage itself.
+	local isHeadOnlyCage = data.uploadCategory == ValidationEnums.UploadCategory.EYEBROW_EYELASH
+	local useScoreCheck = getFFlagUGCValidateLCCageUVScoreCheck() and not isHeadOnlyCage
 	for _, cageName in cageNames do
 		if summary[cageName] == nil or summary[cageName].incorrect_uv_count == nil then
 			error("Measure_Cage_UV: AQS summary missing required fields for cage " .. cageName)
@@ -65,8 +71,8 @@ Measure_Cage_UV.run = function(reporter: Types.ValidationReporter, data: Types.S
 				end
 			else
 				----------------------------------------------------------------
-				-- Flag OFF: original behavior, unchanged.
-				-- Fail on incorrect_uv_count > threshold; warn on score != 100.
+				-- Flag OFF, or a head-only cage: original behavior.
+				-- Fail on incorrect_uv_count > threshold; warn on score != 100 (full-body cages only).
 				----------------------------------------------------------------
 				if incorrectUVCount > maxIncorrectUVThreshold then
 					reporter:fail(ErrorSourceStrings.Keys.MeasureCageUV, {
@@ -74,7 +80,7 @@ Measure_Cage_UV.run = function(reporter: Types.ValidationReporter, data: Types.S
 						incorrect_uv_count = incorrectUVCount,
 					})
 				end
-				if getFFlagUGCValidateAQScoreWarnings() and score ~= nil and score ~= 100 then
+				if getFFlagUGCValidateAQScoreWarnings() and not isHeadOnlyCage and score ~= nil and score ~= 100 then
 					reporter:warn(ErrorSourceStrings.Keys.AQSWarn_CageUV, {
 						cage_name = cageName,
 						incorrect_uv_count = tostring(incorrectUVCount),

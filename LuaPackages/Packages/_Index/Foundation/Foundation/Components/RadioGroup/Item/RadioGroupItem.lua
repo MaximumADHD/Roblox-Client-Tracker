@@ -12,7 +12,6 @@ local View = require(Components.View)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
-local withDefaults = require(Foundation.Utility.withDefaults)
 
 local useRadioGroupItemVariants = require(script.Parent.useRadioGroupItemVariants)
 
@@ -24,8 +23,6 @@ type InputPlacement = InputPlacement.InputPlacement
 
 local useInputGroupDefaults = require(Foundation.Components.InternalInputGroup.useInputGroupDefaults)
 local useRadioGroup = require(script.Parent.Parent.useRadioGroup)
-
-local Flags = require(Foundation.Utility.Flags)
 
 export type RadioGroupItemProps = {
 	-- A unique value for the radio item.
@@ -50,9 +47,7 @@ local defaultProps = {
 }
 
 local function RadioGroupItem(radioGroupItemProps: RadioGroupItemProps, ref: React.Ref<GuiObject>?)
-	local props: RadioGroupItemProps & typeof(defaultProps) = if Flags.FoundationInputGroup
-		then useInputGroupDefaults(radioGroupItemProps, defaultProps)
-		else withDefaults(radioGroupItemProps, defaultProps)
+	local props: RadioGroupItemProps & typeof(defaultProps) = useInputGroupDefaults(radioGroupItemProps, defaultProps)
 	local isDisabled = props.isDisabled
 	local radioGroupContext = useRadioGroup()
 

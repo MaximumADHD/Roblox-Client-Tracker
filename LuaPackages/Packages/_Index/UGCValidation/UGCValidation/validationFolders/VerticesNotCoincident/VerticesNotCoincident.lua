@@ -10,7 +10,10 @@ local getFIntUGCLCCageVerticesSimilarityMaximum = require(root.flags.getFIntUGCL
 
 local VerticesNotCoincident = {}
 
-VerticesNotCoincident.categories = { ValidationEnums.UploadCategory.LAYERED_CLOTHING }
+VerticesNotCoincident.categories = {
+	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
+}
 VerticesNotCoincident.requiredData = {
 	ValidationEnums.SharedDataMember.innerCagesData,
 	ValidationEnums.SharedDataMember.outerCagesData,

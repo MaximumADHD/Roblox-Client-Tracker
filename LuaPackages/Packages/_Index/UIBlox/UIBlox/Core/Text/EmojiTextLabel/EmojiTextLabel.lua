@@ -7,12 +7,15 @@ local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
+local Foundation = require(Packages.Foundation)
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local StyleTypes = require(UIBlox.App.Style.StyleTypes)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local GetFontFromFontStyle = require(UIBlox.Core.Text.GetFontFromFontStyle)
 
 local EmojiRoot = UIBlox.Core.Emoji
 local Emoji = require(EmojiRoot.Emoji)
@@ -53,7 +56,7 @@ local function EmojiTextLabel(props: Props)
 	local colorStyle = props.colorStyle
 
 	local fontStyle = props.fontStyle
-	local textFont = fontStyle.Font
+	local textFont = if FFlagFoundationFontFaceMigration then GetFontFromFontStyle(fontStyle) else fontStyle.Font
 
 	local fontSize = if fontStyle.RelativeSize then baseSize * fontStyle.RelativeSize else fontStyle.FontSize
 

@@ -103,6 +103,8 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_SIGN_UP_FORM"
 	| "UI_COMPONENT_TYPE_BANNER_CONTEXT"
 	| "UI_COMPONENT_TYPE_VIEWPORT_VISIBILITY"
+	| "UI_COMPONENT_TYPE_PROGRESS"
+	| "UI_COMPONENT_TYPE_LINE_LIMITED_TEXT"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_EXPERIMENTAL"
@@ -307,6 +309,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_BANNER_CONTEXT"
 		elseif value == 272 then
 			return "UI_COMPONENT_TYPE_VIEWPORT_VISIBILITY"
+		elseif value == 273 then
+			return "UI_COMPONENT_TYPE_PROGRESS"
+		elseif value == 274 then
+			return "UI_COMPONENT_TYPE_LINE_LIMITED_TEXT"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -533,6 +539,10 @@ messages.UiComponentType = {
 			return 271
 		elseif self == "UI_COMPONENT_TYPE_VIEWPORT_VISIBILITY" then
 			return 272
+		elseif self == "UI_COMPONENT_TYPE_PROGRESS" then
+			return 273
+		elseif self == "UI_COMPONENT_TYPE_LINE_LIMITED_TEXT" then
+			return 274
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -759,6 +769,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_BANNER_CONTEXT"
 		elseif name == "UI_COMPONENT_TYPE_VIEWPORT_VISIBILITY" then
 			return "UI_COMPONENT_TYPE_VIEWPORT_VISIBILITY"
+		elseif name == "UI_COMPONENT_TYPE_PROGRESS" then
+			return "UI_COMPONENT_TYPE_PROGRESS"
+		elseif name == "UI_COMPONENT_TYPE_LINE_LIMITED_TEXT" then
+			return "UI_COMPONENT_TYPE_LINE_LIMITED_TEXT"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

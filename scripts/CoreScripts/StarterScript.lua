@@ -132,6 +132,11 @@ while not localPlayer do
 	localPlayer = Players.LocalPlayer
 end
 
+local isBuildLibraryMode = require(CorePackages.Workspace.Packages.BuildExperiencePlaytestLaunch.teamCreateUtils).isViewer()
+if isBuildLibraryMode then
+	require(CorePackages.Workspace.Packages.BuildExperience.mountTeamCreateViewer)(game.PlaceId, UserInputService)
+end
+
 if game:GetEngineFeature("SoundServiceControlsDefaultListenerLocation") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/DefaultListenerLocation", script.Parent)
 end
@@ -215,7 +220,7 @@ if game:GetEngineFeature("ProtocolLaunchPrivateChannelUpdateCheckEngineFeature")
 end
 
 -- Chrome
-if GetFFlagChromeCentralizedConfiguration() then
+if not isBuildLibraryMode and GetFFlagChromeCentralizedConfiguration() then
 	coroutine.wrap(safeRequire)(CoreGuiModules.Chrome.ConfigureChrome)
 end
 
@@ -223,11 +228,13 @@ end
 coroutine.wrap(safeRequire)(CoreGuiModules.SelfieView)
 
 -- TopBar
-coroutine.wrap(safeRequire)(CoreGuiModules.TopBar)
+if not isBuildLibraryMode then
+	coroutine.wrap(safeRequire)(CoreGuiModules.TopBar)
+end
 
 -- SideSheet
 local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
-if isSideSheetEnabled then
+if not isBuildLibraryMode and isSideSheetEnabled then
 	coroutine.wrap(safeRequire)(CoreGuiModules.InExperienceSideSheet)
 end
 
@@ -247,9 +254,18 @@ if FFlagAppNavMyStatsTab then
 	if BuildExperience then
 		BuildExperience.mountCreatorAgentResumeToastReceiver(isBuildModeActive == true)
 	end
-	if BuildExperience and isBuildModeActive then
+	if BuildExperience and isBuildModeActive and not isBuildLibraryMode then
 		game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
-		BuildExperience.mountChatSheet()
+		local FFlagBuildExperienceInGameCaptureToChat =
+			require(CorePackages.Workspace.Packages.SharedFlags).FFlagBuildExperienceInGameCaptureToChat
+		BuildExperience.mountChatSheet(if FFlagBuildExperienceInGameCaptureToChat
+			then {
+				-- CapturesApp mounts later in this script, so resolve it when a capture is requested.
+				takeCapture = function(options)
+					require(RobloxGui.Modules.Captures.CapturesApp).takeCapture(options)
+				end,
+			}
+			else nil)
 	end
 end
 

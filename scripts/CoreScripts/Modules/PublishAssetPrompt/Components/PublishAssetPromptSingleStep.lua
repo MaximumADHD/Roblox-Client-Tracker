@@ -18,6 +18,9 @@ local t = require(CorePackages.Packages.t)
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withStyle = UIBlox.Style.withStyle
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
@@ -294,7 +297,10 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 				}, {
 					NameLabel = Roact.createElement("TextLabel", {
 						Size = UDim2.new(1, 0, 0, LABEL_HEIGHT),
-						Font = font.Body.Font,
+						Font = if FFlagFoundationFontFaceMigration then nil else font.Body.Font,
+						FontFace = if FFlagFoundationFontFaceMigration
+							then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
+							else nil,
 						Text = localized[NAME_TEXT],
 						TextSize = LABEL_TEXT_SIZE,
 						TextColor3 = theme.TextDefault.Color,
@@ -313,7 +319,10 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 					DescriptionLabel = Roact.createElement("TextLabel", {
 						Size = UDim2.new(1, 0, 0, LABEL_HEIGHT),
 						Position = UDim2.new(0, 0, 0, 60),
-						Font = font.Body.Font,
+						Font = if FFlagFoundationFontFaceMigration then nil else font.Body.Font,
+						FontFace = if FFlagFoundationFontFaceMigration
+							then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
+							else nil,
 						TextSize = LABEL_TEXT_SIZE,
 						Text = localized[DESCRIPTION_TEXT],
 						TextColor3 = theme.TextDefault.Color,
@@ -334,7 +343,10 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 				Size = UDim2.new(1, 0, 0, DISCLAIMER_HEIGHT_PIXELS),
 				TextYAlignment = Enum.TextYAlignment.Center,
 				Text = localized[DISCLAIMER_TEXT],
-				Font = font.Body.Font,
+				Font = if FFlagFoundationFontFaceMigration then nil else font.Body.Font,
+				FontFace = if FFlagFoundationFontFaceMigration
+					then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
+					else nil,
 				TextSize = DISCLAIMER_TEXT_SIZE,
 				TextColor3 = theme.TextEmphasis.Color,
 				BackgroundTransparency = 1,

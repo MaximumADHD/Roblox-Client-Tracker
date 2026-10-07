@@ -8,6 +8,8 @@ local FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegr
 local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
+-- Already composed with FFlagEnableUserOffers at its definition, so this alone gates the trigger.
+local FFlagEnableOffersPrefetch = SharedFlags.FFlagEnableOffersPrefetch
 local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
@@ -61,6 +63,10 @@ return {
 	RespawnConfirmation = if isSideSheetEnabled then require(script.Pages.RespawnConfirmation) else nil,
 	RobuxWidget = if FFlagEnableSideSheetRobuxWidget and isSideSheetEnabled then require(script.RobuxWidget) else nil,
 	ShopEntrypoint = if FFlagEnableInExperienceShop then require(script.InExperienceShop.ShopEntrypoint) else nil,
+	-- Kicks off the decoupled game-join offers prefetch; see InExperienceOffers/initOffersPrefetch.
+	InitOffersPrefetch = if FFlagEnableOffersPrefetch
+		then require(script.InExperienceOffers.initOffersPrefetch)
+		else nil,
 	SwitchServer = if isSideSheetEnabled and (isPioneerLaunch() or FFlagShowSwitchServerButton)
 		then require(script.SwitchServer)
 		else nil,

@@ -13,6 +13,7 @@ local ThumbnailConfigValid = {}
 
 ThumbnailConfigValid.categories = {
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 	ValidationEnums.UploadCategory.RIGID_ACCESSORY,
 }
 ThumbnailConfigValid.requiredData = {

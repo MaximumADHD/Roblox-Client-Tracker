@@ -24,9 +24,18 @@ local ThrottleFunctionCall = require(ShareGame.ThrottleFunctionCall)
 
 local SingleUserThumbnail = require(ShareGame.Components.SingleUserThumbnail)
 
+local Signals = require(CorePackages.Packages.Signals)
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+local UserProfileStore = UserProfiles.Stores.UserProfileStore
+
+local LoadingModal = require(ShareGame.Components.LoadingModal)
+
 local GetFFlagAbuseReportAnalyticsHasLaunchData =
 	require(Modules.Settings.Flags.GetFFlagAbuseReportAnalyticsHasLaunchData)
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
+local FFlagFixPromptGameInviteUIMissingDisplayName =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagFixPromptGameInviteUIMissingDisplayName
 local GetFFlagThrottleInviteSendEndpoint = require(Modules.Flags.GetFFlagThrottleInviteSendEndpoint)
 local GetFIntThrottleInviteSendEndpointDelay = require(Modules.Flags.GetFIntThrottleInviteSendEndpointDelay)
 local GetFFlagSingleUserInvitePageKeybind = require(Modules.Settings.Flags.GetFFlagSingleUserInvitePageKeybind)
@@ -55,6 +64,40 @@ local InviteSingleUserContainer = function(props)
 
 	local style = useStyle()
 	local sendingInvite, setSendingInvite = React.useState(false)
+
+	-- The friends endpoint no longer returns usable names, so the recipient's name has to
+	-- come from the profile store rather than from the Rodux friends entry.
+	local fetchProfileNames = if FFlagFixPromptGameInviteUIMissingDisplayName
+		then React.useMemo(function()
+			return UserProfileStore.get().fetchNamesByUserIds({ tostring(props.inviteUserId) })
+		end, { props.inviteUserId })
+		else nil :: never
+
+	local getProfileNameState = if FFlagFixPromptGameInviteUIMissingDisplayName
+		then React.useMemo(function()
+			return Signals.createComputed(function(scope)
+				local fetchResult = fetchProfileNames(scope)
+				local profile = fetchResult and fetchResult.data and fetchResult.data[1]
+				local names = profile and profile.names
+				local resolvedName = ""
+				if names then
+					resolvedName = names.getCombinedName(scope)
+					if resolvedName == "" then
+						resolvedName = names.getUsername(scope)
+					end
+				end
+
+				return {
+					name = resolvedName,
+					isFetching = fetchResult == nil or fetchResult.status == "fetching",
+				}
+			end)
+		end, { fetchProfileNames })
+		else nil :: never
+
+	local profileNameState = if FFlagFixPromptGameInviteUIMissingDisplayName
+		then SignalsReact.useSignalState(getProfileNameState)
+		else nil :: never
 
 	React.useEffect(function()
 		if props.promptMessage and props.analytics then
@@ -177,6 +220,13 @@ local InviteSingleUserContainer = function(props)
 		end
 		return
 	end
+	if FFlagFixPromptGameInviteUIMissingDisplayName and profileNameState.name == "" and profileNameState.isFetching then
+		return React.createElement(LoadingModal)
+	end
+
+	local displayName = if FFlagFixPromptGameInviteUIMissingDisplayName
+		then (if profileNameState.name ~= "" then profileNameState.name else friend.displayName or "")
+		else friend.displayName
 
 	local inviteAlreadySent = inviteStatus and inviteStatus ~= InviteStatus.Failed
 	local inviteTextKey = if inviteAlreadySent
@@ -208,7 +258,7 @@ local InviteSingleUserContainer = function(props)
 			fontStyle = style.Font.Header1,
 			colorStyle = style.Theme.TextEmphasis,
 			text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Heading.InviteUser", {
-				DisplayName = friend.displayName,
+				DisplayName = displayName,
 			}),
 			size = UDim2.new(1, 0, 0, HEADER_SIZE),
 			textXAlignment = Enum.TextXAlignment.Center,
@@ -244,7 +294,7 @@ local InviteSingleUserContainer = function(props)
 				colorStyle = style.Theme.TextEmphasis,
 				text = props.promptMessage
 					or RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.DefaultInviteMessage", {
-						DisplayName = friend.displayName,
+						DisplayName = displayName,
 					}),
 				textXAlignment = Enum.TextXAlignment.Center,
 				automaticSize = Enum.AutomaticSize.Y,

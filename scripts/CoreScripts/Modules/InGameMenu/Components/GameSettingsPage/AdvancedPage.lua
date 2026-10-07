@@ -14,7 +14,10 @@ local UIBlox = InGameMenuDependencies.UIBlox
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local Foundation = require(CorePackages.Packages.Foundation)
-local FFlagCoreUiMigrateUIBloxToFoundation = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreUiMigrateUIBloxToFoundation
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
+local FFlagCoreUiMigrateUIBloxToFoundation =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreUiMigrateUIBloxToFoundation
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
 	then Foundation.UNSTABLE.withCursorMigration
@@ -78,12 +81,19 @@ end
 function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
+			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
 			Theme = {
-				TextEmphasis = { Color = tokens.Color.Content.Emphasis.Color3, Transparency = tokens.Color.Content.Emphasis.Transparency },
+				TextEmphasis = {
+					Color = tokens.Color.Content.Emphasis.Color3,
+					Transparency = tokens.Color.Content.Emphasis.Transparency,
+				},
 			},
 			Font = {
 				BaseSize = 1,
-				Header2 = { Font = tokens.Typography.TitleLarge.Font, RelativeSize = tokens.Typography.TitleLarge.FontSize },
+				Header2 = {
+					Font = tokens.Typography.TitleLarge.Font,
+					RelativeSize = tokens.Typography.TitleLarge.FontSize,
+				},
 			},
 		}
 	end, function(style)
@@ -141,7 +151,10 @@ function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 					Size = UDim2.new(1, 0, 0, 54),
 					Text = localized.text,
 					TextColor3 = style.Theme.TextEmphasis.Color,
-					Font = style.Font.Header2.Font,
+					Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Header2.Font,
+					FontFace = if FFlagFoundationFontFaceMigration
+						then normalizeFontFace(style.Tokens.Typography.TitleLarge.Font)
+						else nil,
 					TextSize = style.Font.Header2.RelativeSize * style.Font.BaseSize,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					LayoutOrder = 4,

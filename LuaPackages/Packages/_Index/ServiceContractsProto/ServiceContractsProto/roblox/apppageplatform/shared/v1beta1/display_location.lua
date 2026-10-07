@@ -37,6 +37,7 @@ export type DisplayLocation =
 	| "DISPLAY_LOCATION_MARKETPLACE_ITEM_DETAILS"
 	| "DISPLAY_LOCATION_HOME_SORT_DETAIL"
 	| "DISPLAY_LOCATION_SANDBOX"
+	| "DISPLAY_LOCATION_GROUP_PROFILE"
 	| number -- Unknown
 
 messages.DisplayLocation = {
@@ -89,6 +90,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_HOME_SORT_DETAIL"
 		elseif value == 23 then
 			return "DISPLAY_LOCATION_SANDBOX"
+		elseif value == 24 then
+			return "DISPLAY_LOCATION_GROUP_PROFILE"
 		else
 			return nil
 		end
@@ -143,6 +146,8 @@ messages.DisplayLocation = {
 			return 22
 		elseif self == "DISPLAY_LOCATION_SANDBOX" then
 			return 23
+		elseif self == "DISPLAY_LOCATION_GROUP_PROFILE" then
+			return 24
 		else
 			return self
 		end
@@ -197,6 +202,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_HOME_SORT_DETAIL"
 		elseif name == "DISPLAY_LOCATION_SANDBOX" then
 			return "DISPLAY_LOCATION_SANDBOX"
+		elseif name == "DISPLAY_LOCATION_GROUP_PROFILE" then
+			return "DISPLAY_LOCATION_GROUP_PROFILE"
 		else
 			return nil
 		end

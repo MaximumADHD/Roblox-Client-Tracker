@@ -102,8 +102,6 @@ local Flags = {
 	EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId"),
 	EngineFeatureTeleportHistoryButtons = game:GetEngineFeature("TeleportHistoryButtons"),
 	EngineFeaturePlayerScriptStatusProperty = game:GetEngineFeature("PlayerScriptStatusProperty"),
-
-	FFlagRemoveRecordPage = game:DefineFastFlag("RemoveRecordPage", false),
 	FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false),
 	FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false),
 	FFlagFixDisableTopPaddingError = game:DefineFastFlag("FixDisableTopPaddingError", false),
@@ -272,7 +270,10 @@ local toggleSideSheet = InExperienceSideSheet.toggleSideSheet
 local getSideSheetVisibility = InExperienceSideSheet.getSideSheetVisibility
 local setupInGameMenuPeoplePageActions = InExperienceSideSheet.setupInGameMenuPeoplePageActions
 local setupPeoplePageOpenTracking = InExperienceSideSheet.setupPeoplePageOpenTracking
+local closePeoplePageWhenNoRoomBesideSideSheet = InExperienceSideSheet.closePeoplePageWhenNoRoomBesideSideSheet
 local FFlagSideSheetOpenPeoplePage = InExperienceSideSheet.Flags.FFlagSideSheetOpenPeoplePage
+local FFlagClosePeoplePageWhenNoRoomBesideSideSheet =
+	InExperienceSideSheet.Flags.FFlagClosePeoplePageWhenNoRoomBesideSideSheet
 local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local GetSwitchServerStore = require(CorePackages.Workspace.Packages.SwitchServer).GetSwitchServerStore
 local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
@@ -2317,6 +2318,16 @@ local function CreateSettingsHub()
 	end
 
 	local function onScreenSizeChanged()
+		-- Use the menu's current width because the camera viewport can lag behind a rotation.
+		-- Close only the People page when the paired layout no longer fits.
+		if
+			FFlagClosePeoplePageWhenNoRoomBesideSideSheet
+			and shouldUseSideSheetPeoplePageLayout()
+			and closePeoplePageWhenNoRoomBesideSideSheet(RobloxGui.AbsoluteSize.X)
+		then
+			return
+		end
+
 		local function getBackBarVisible()
 			if not this.BackBarRef:getValue() then
 				return false
@@ -4058,15 +4069,6 @@ local function CreateSettingsHub()
 		this.HelpPageIXPFetched = false
 	end
 
-	if not Flags.FFlagRemoveRecordPage then
-		local shouldShowRecord = not CachedPolicyService:IsSubjectToChinaPolicies()
-
-		if platform == Enum.Platform.Windows and shouldShowRecord then
-			this.RecordPage = require(RobloxGui.Modules.Settings.Pages.Record)
-			this.RecordPage:SetHub(this)
-		end
-	end
-
 	if InExperienceCapabilities.canListPeopleInSameServer then
 		this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.PeopleWrapper)
 		this.PlayersPage:SetHub(this)
@@ -4178,11 +4180,6 @@ local function CreateSettingsHub()
 	end
 
 	this:AddPage(this.HelpPage)
-	if not Flags.FFlagRemoveRecordPage then
-		if this.RecordPage and not this.CapturesPage then
-			this:AddPage(this.RecordPage)
-		end
-	end
 	if not Flags.isExitModalRemoved and this.ExitModalPage then
 		this:AddPage(this.ExitModalPage)
 	end
@@ -4245,7 +4242,12 @@ local function CreateSettingsHub()
 	-- hook up to necessary signals
 
 	-- connect back button on android
+	local isBuildLibraryViewer = require(CorePackages.Workspace.Packages.BuildExperiencePlaytestLaunch.teamCreateUtils).isViewer()
 	GuiService.ShowLeaveConfirmation:connect(function()
+		-- The Build Library owns Back in the TeamCreate viewer, which has no in-game menu.
+		if isBuildLibraryViewer then
+			return
+		end
 		if isSideSheetEnabled and (Flags.FFlagSideSheetAndroidBack or shouldAndroidBackUseSideSheet()) then
 			if getSideSheetVisibility() then
 				if isSideSheetPairedWithPeoplePage() and getIsPeoplePageOpen() then

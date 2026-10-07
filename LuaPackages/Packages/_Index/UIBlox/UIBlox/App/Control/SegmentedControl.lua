@@ -8,6 +8,8 @@ local Core = UIBlox.Core
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
+local Foundation = require(Packages.Foundation)
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local Otter = require(Packages.Otter)
 local Images = require(UIBlox.App.ImageSet.Images)
@@ -21,6 +23,7 @@ local getContentStyle = require(Core.Button.getContentStyle)
 local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local GetFontFromFontStyle = require(UIBlox.Core.Text.GetFontFromFontStyle)
 
 local FRAME_PADDING = 4
 local MIN_TAB_WIDTH = 80
@@ -168,7 +171,14 @@ function SegmentedControl:render()
 				local curTab = self.props.tabs[i].tabName
 				largestTabWidth = math.max(
 					largestTabWidth,
-					GetTextSize(curTab, tabFontSize, Enum.Font.BuilderSans, Vector2.new(math.huge, math.huge)).X
+					GetTextSize(
+						curTab,
+						tabFontSize,
+						if FFlagFoundationFontFaceMigration
+							then GetFontFromFontStyle(style.Font.Header2)
+							else Enum.Font.BuilderSans,
+						Vector2.new(math.huge, math.huge)
+					).X
 				)
 			end
 			local minTabWidth = largestTabWidth + FRAME_PADDING * 2

@@ -17,6 +17,7 @@ local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.Core
 local InGameMenu = script.Parent.Parent.Parent
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
+local FFlagIGMDialogButtonsUseUIBloxButton = require(Flags.FFlagIGMDialogButtonsUseUIBloxButton)
 
 local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 
@@ -165,6 +166,7 @@ function ReportDialog:renderButtons(style, localized, reportChildren)
 			size = UDim2.fromOffset(144, 36),
 			text = localized.cancel,
 			onActivated = self.props.dispatchCloseReportDialog,
+			DO_NOT_USE_useUIBloxButton = if FFlagIGMDialogButtonsUseUIBloxButton then true else nil,
 		}),
 		ConfirmButton = Roact.createElement(Button, {
 			buttonType = ButtonType.PrimarySystem,
@@ -173,6 +175,7 @@ function ReportDialog:renderButtons(style, localized, reportChildren)
 			isDisabled = not (textInBounds and abuseTypeSelected),
 			text = localized.report,
 			onActivated = onConfirmActivated,
+			DO_NOT_USE_useUIBloxButton = if FFlagIGMDialogButtonsUseUIBloxButton then true else nil,
 		}),
 	})
 end

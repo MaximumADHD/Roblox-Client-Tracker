@@ -10,7 +10,10 @@ local getEngineFeatureEngineUGCValidationLCOOB = require(root.flags.getEngineFea
 
 local LCWithinRenderBounds = {}
 
-LCWithinRenderBounds.categories = { ValidationEnums.UploadCategory.LAYERED_CLOTHING }
+LCWithinRenderBounds.categories = {
+	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
+}
 LCWithinRenderBounds.requiredData = {}
 LCWithinRenderBounds.expectedFailures = {}
 

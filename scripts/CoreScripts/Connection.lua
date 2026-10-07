@@ -136,17 +136,12 @@ if FFlagRAKickLogic then
 		supportsRemoteAttestationEnums = true
 	end
 end
-
-local FFlagConnectionAmpUpsellOnLeave =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionAmpUpsellOnLeave
 local FFlagConnectionAmpParentalApprovalUpsell =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionAmpParentalApprovalUpsell
 local FFlagConnectionParentalApprovalLeaveOnly =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionParentalApprovalLeaveOnly
 local FFlagConnectionUpsellAnalytics =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionUpsellAnalytics
-local FFlagUniversalFeatureRestrictionReceivers =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagUniversalFeatureRestrictionReceivers
 local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 local FFlagErrorPromptUseLeaveGameHelper =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagErrorPromptUseLeaveGameHelper
@@ -163,15 +158,11 @@ end
 local FFlagAddCollaborationCoreGatedConnectionError = game:DefineFastFlag("AddCollaborationCoreGatedConnectionError2", false)
 local EngineFeaturePlacelaunchCollaborationCoreGatedConnectionError =
 	game:GetEngineFeature("PlacelaunchCollaborationCoreGatedConnectionError")
-local FFlagRobloxExperienceKickOverride = game:DefineFastFlag("RobloxExperienceKickOverride", false)
 
 -- ConnectionAmpUpsellOnLeave owns AMP-specific bits (ApolloClient lookup,
 -- feature names, telemetry, wizard display order). Required only when the
 -- flag is on so the disabled path pays nothing.
-local ConnectionAmpUpsellOnLeave
-if FFlagConnectionAmpUpsellOnLeave then
-	ConnectionAmpUpsellOnLeave = require(RobloxGui.Modules.ConnectionAmpUpsellOnLeave)
-end
+local ConnectionAmpUpsellOnLeave = require(RobloxGui.Modules.ConnectionAmpUpsellOnLeave)
 
 local buildRobloxExperienceKickContent = require(CorePackages.Workspace.Packages.InterventionShared.buildRobloxExperienceKickContent)
 local showFeatureRestrictionDirect = require(CorePackages.Workspace.Packages.UniversalFeatureRestrictions.showFeatureRestrictionDirect)
@@ -254,11 +245,8 @@ local ErrorTitles = {
 	[ConnectionPromptState.RECONNECT_CONNECT_FAILURE] = "Connection Failed",
 	[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = "Connection Failed",
 }
-
-if FFlagConnectionAmpUpsellOnLeave then
 	ErrorTitles[ConnectionPromptState.RECONNECT_AGE_CHECK_REQUIRED] = "Join Error"
 	ErrorTitles[ConnectionPromptState.RECONNECT_PARENT_APPROVAL_REQUIRED] = "Join Error"
-end
 
 if FFlagAddCollaborationCoreGatedConnectionError then
 	ErrorTitles[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] = "Join Error"
@@ -279,11 +267,8 @@ local ErrorTitleLocalizationKey = {
 	[ConnectionPromptState.RECONNECT_CONNECT_FAILURE] = "InGame.ConnectionError.Title.ConnectionFailed",
 	[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = "InGame.ConnectionError.Title.ConnectionFailed",
 }
-
-if FFlagConnectionAmpUpsellOnLeave then
 	ErrorTitleLocalizationKey[ConnectionPromptState.RECONNECT_AGE_CHECK_REQUIRED] = "InGame.ConnectionError.Title.JoinError"
 	ErrorTitleLocalizationKey[ConnectionPromptState.RECONNECT_PARENT_APPROVAL_REQUIRED] = "InGame.ConnectionError.Title.JoinError"
-end
 
 if FFlagAddCollaborationCoreGatedConnectionError then
 	ErrorTitleLocalizationKey[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] =
@@ -814,8 +799,6 @@ local ButtonList = {
 		},
 	},
 }
-
-if FFlagConnectionAmpUpsellOnLeave then
 	local openAgeCheckWizardThenReconnect = ConnectionAmpUpsellOnLeave.createAgeCheckCallback(
 		connectionEventConfig,
 		reconnectViaPlacelaunch,
@@ -836,7 +819,6 @@ if FFlagConnectionAmpUpsellOnLeave then
 			Primary = true,
 		},
 	}
-end
 
 if FFlagConnectionAmpParentalApprovalUpsell then
 	local openParentApprovalWizardThenReconnect = ConnectionAmpUpsellOnLeave.createParentalApprovalCallback(
@@ -983,8 +965,6 @@ local updateFullScreenEffect = {
 		promptOverlay.Transparency = 0.3
 	end,
 }
-
-if FFlagConnectionAmpUpsellOnLeave then
 	-- The new AMP-on-Leave states reuse RECONNECT_PLACELAUNCH's full-screen
 	-- effect verbatim (the AMP wizard renders above the prompt at a higher
 	-- DisplayOrder); aliasing keeps them in sync if the placelaunch effect
@@ -994,7 +974,6 @@ if FFlagConnectionAmpUpsellOnLeave then
 	if FFlagConnectionAmpParentalApprovalUpsell then
 		updateFullScreenEffect[ConnectionPromptState.RECONNECT_PARENT_APPROVAL_REQUIRED] = placelaunchEffect
 	end
-end
 
 if FFlagAddCollaborationCoreGatedConnectionError then
 	updateFullScreenEffect[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] = function()
@@ -1092,7 +1071,6 @@ local function stateTransit(errorType, errorCode, oldState)
 			return ConnectionPromptState.RECONNECT_DISCONNECT
 		elseif errorType == Enum.ConnectionError.PlacelaunchErrors then
 			errorForReconnect = Enum.ConnectionError.PlacelaunchErrors
-			if FFlagConnectionAmpUpsellOnLeave then
 				local ageEnum = ConnectionAmpUpsellOnLeave.AgeVerificationRequiredEnum
 				if ageEnum and errorCode == ageEnum then
 					TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "PlaceLaunchAgeVerificationRequired"}}, 1.0)
@@ -1101,7 +1079,6 @@ local function stateTransit(errorType, errorCode, oldState)
 					end
 					return ConnectionPromptState.RECONNECT_AGE_CHECK_REQUIRED
 				end
-			end
 			if FFlagConnectionAmpParentalApprovalUpsell then
 				local parentEnum = ConnectionAmpUpsellOnLeave.ParentalApprovalRequiredEnum
 				if parentEnum and errorCode == parentEnum then
@@ -1429,11 +1406,7 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 end
 
 local function updateErrorPrompt(errorMsg, errorCode, errorType)
-	if
-		FFlagRobloxExperienceKickOverride and
-		FFlagUniversalFeatureRestrictionReceivers and
-		errorCode == Enum.ConnectionError.DisconnectLuaKick
-	then
+	if errorCode == Enum.ConnectionError.DisconnectLuaKick then
 		local errorDetails = GuiService:GetErrorDetails()
 
 		-- Since DisconnectLuaKick is used for both Roblox and developer initiated kicks, we branch out here for the Roblox case.

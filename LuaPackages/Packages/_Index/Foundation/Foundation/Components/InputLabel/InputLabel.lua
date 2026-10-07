@@ -3,7 +3,6 @@ local Packages = Foundation.Parent
 
 local Text = require(Foundation.Components.Text)
 
-local Flags = require(Foundation.Utility.Flags)
 local React = require(Packages.React)
 local Translator = require(Foundation.Utility.Localization.Translator)
 
@@ -47,9 +46,7 @@ local function labelText(text: string, isRequired: boolean?): string
 	end
 
 	return if isRequired
-		then if Flags.FoundationIncludeSpaceRequiredLabel
-			then text .. ` {REQUIRED_INDICATOR}`
-			else text .. REQUIRED_INDICATOR
+		then text .. ` {REQUIRED_INDICATOR}`
 		else Translator:FormatByKey("CommonUI.Controls.Input.Optional", { inputLabel = text })
 end
 

@@ -10,6 +10,15 @@ UIBlox.init(uiBloxConfig)
 
 -- Flags
 local FFlagFeedbackModuleEarlyFontInitialization = game:DefineFastFlag("FeedbackModuleEarlyFontInitialization", false)
+local FFlagBuildExperienceInstanceSelection =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagBuildExperienceInstanceSelection
+local InstanceSelectionProtocol = if FFlagBuildExperienceInstanceSelection
+	then require(CorePackages.Workspace.Packages.BuildExperience.InstanceSelectionProtocol)
+	else nil :: never
+
+local function isSelectingInstance(): boolean
+	return FFlagBuildExperienceInstanceSelection and InstanceSelectionProtocol.getActiveRequest() ~= nil
+end
 
 if FFlagFeedbackModuleEarlyFontInitialization then
 	-- Early load font to prevent feedback module components from initially rendering with incorrect underlying text widths that cause unexpected text wrapping issues.
@@ -26,6 +35,10 @@ end
 	local SCENE_EXIT_MID = MessageBusService:GetMessageId("CaptureMode", "sceneSelectionExitReason")
 
 	local function handleNativeExit()
+		if isSelectingInstance() then
+			InstanceSelectionProtocol.finishSelection({ status = "cancelled" })
+			return
+		end
 			MessageBusService:Publish(SCENE_EXIT_MID, { reason = "nativeExit" })
 		game:GetService("ExperienceStateCaptureService"):ToggleCaptureMode()
 	end
@@ -35,7 +48,9 @@ end
 	game:WaitForChild("SafetyService")
 	local SafetyService = game:GetService("SafetyService")
 
-	if SafetyService.IsCaptureModeForReport then
+	if isSelectingInstance() then
+		require(CorePackages.Workspace.Packages.BuildExperience.mountInstanceSelection)()
+	elseif SafetyService.IsCaptureModeForReport then
 		-- Initialize and mount In-Game Asset Reporting application specifically
 		local InGameAssetReporting = require(CorePackages.Workspace.Packages.InGameAssetReporting)
 		InGameAssetReporting.initialize()

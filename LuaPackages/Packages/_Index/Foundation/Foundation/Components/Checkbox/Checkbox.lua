@@ -14,7 +14,6 @@ local useUncontrolledState = require(Components.InternalInput.useUncontrolledSta
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
-local withDefaults = require(Foundation.Utility.withDefaults)
 
 local useCheckboxVariants = require(script.Parent.useCheckboxVariants)
 
@@ -24,7 +23,6 @@ type InputSize = InputSize.InputSize
 local InputPlacement = require(Foundation.Enums.InputPlacement)
 type InputPlacement = InputPlacement.InputPlacement
 
-local Flags = require(Foundation.Utility.Flags)
 local useInputGroupDefaults = require(Components.InternalInputGroup.useInputGroupDefaults)
 
 export type CheckboxProps = {
@@ -56,9 +54,7 @@ local defaultProps = {
 }
 
 local function Checkbox(checkboxProps: CheckboxProps, ref: React.Ref<GuiObject>?)
-	local props = if Flags.FoundationInputGroup
-		then useInputGroupDefaults(checkboxProps, defaultProps)
-		else withDefaults(checkboxProps, defaultProps)
+	local props = useInputGroupDefaults(checkboxProps, defaultProps)
 
 	local tokens = useTokens()
 	local variantProps = useCheckboxVariants(tokens, props.size)

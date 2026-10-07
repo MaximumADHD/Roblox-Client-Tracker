@@ -3,6 +3,8 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
+local Foundation = require(Packages.Foundation)
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local ImagesTypes = require(App.ImageSet.ImagesTypes)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
@@ -10,6 +12,7 @@ local StatWidget = require(App.Indicator.StatWidget)
 local Fonts = require(App.Style.Fonts)
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local GetFontFromFontStyle = require(UIBlox.Core.Text.GetFontFromFontStyle)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local StyleTypes = require(UIBlox.App.Style.StyleTypes)
 
@@ -33,7 +36,8 @@ local function getTextWidth(text, fontStyle: Fonts.FontInfo, style)
 	local baseSize = style.Font.BaseSize
 	local fontSize = fontStyle.RelativeSize * baseSize
 	local bounds = Vector2.new(TEXT_MAX_BOUND, TEXT_MAX_BOUND)
-	return GetTextSize(text, fontSize, fontStyle.Font, bounds).X
+	local textFont = if FFlagFoundationFontFaceMigration then GetFontFromFontStyle(fontStyle) else fontStyle.Font
+	return GetTextSize(text, fontSize, textFont, bounds).X
 end
 
 local function getMeasuredSectionWidth(countInfo, style: StyleTypes.AppStyle)

@@ -24,8 +24,6 @@ local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 
-local FFlagUserVRRemoveLuaEdgeBlur = FlagUtil.getUserFlag("UserVRRemoveLuaEdgeBlur")
-
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
 local cameraContext = inputContexts:WaitForChild("CameraContext")
 local cameraGamepadResetAction = cameraContext:WaitForChild("CameraGamepadResetAction") :: InputAction
@@ -131,10 +129,6 @@ function VRBaseCamera:OnEnabledChanged()
 		cameraGamepadResetAction.Enabled = false
 
 		-- reset VR effects
-		if not FFlagUserVRRemoveLuaEdgeBlur then
-			self.VREdgeBlurTimer = 0
-			self:UpdateEdgeBlur(player, 1)
-		end
 		local VRFade = Lighting:FindFirstChild("VRFade")
 		if VRFade then
 			VRFade.Brightness = 0

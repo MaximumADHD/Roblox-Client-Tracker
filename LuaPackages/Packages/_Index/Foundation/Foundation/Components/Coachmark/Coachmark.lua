@@ -96,7 +96,10 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 	local maxXSize = useScaledValue(
 		if Flags.FoundationEducationalTooltipRefresh then Constants.TOOLTIP_MAX_WIDTH else MAX_WIDTH_DEPRECATED
 	)
-	local minXSize = useScaledValue(MIN_WIDTH)
+	local scaledMinWidth = useScaledValue(MIN_WIDTH)
+	local minXSize = if Flags.FoundationEducationalTooltipMinMediaWidth
+		then if props.media then scaledMinWidth else tokens.Size.Size_3000
+		else scaledMinWidth
 	-- Size constraint for text elements when close affordance is present
 	local textSizeConstraint = if props.onClose
 		then {
@@ -170,6 +173,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 						else { colorNamespace = ColorNamespace.Inverse },
 				},
 				React.createElement(View, {
+					testId = props.testId,
 					tag = if Flags.FoundationEducationalTooltipRefresh
 						then "col auto-xy"
 						else "col gap-medium auto-xy padding-bottom-medium",
@@ -229,9 +233,15 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 							then React.createElement(Text, {
 								LayoutOrder = 3,
 								Text = props.text,
-								tag = "size-full-0 auto-y text-body-medium text-wrap text-align-x-left content-inverse-default",
+								tag = if Flags.FoundationEducationalTooltipMinMediaWidth
+									then "auto-xy text-body-medium text-wrap text-align-x-left content-inverse-default"
+									else "size-full-0 auto-y text-body-medium text-wrap text-align-x-left content-inverse-default",
 								padding = if Flags.FoundationEducationalTooltipRefresh
-									then { top = UDim.new(0, tokens.Size.Size_100) }
+									then if Flags.FoundationEducationalTooltipMinMediaWidth
+										then if props.title ~= ""
+											then { top = UDim.new(0, tokens.Size.Size_100) }
+											else nil
+										else { top = UDim.new(0, tokens.Size.Size_100) }
 									else nil,
 								testId = `{props.testId}--text`,
 							})

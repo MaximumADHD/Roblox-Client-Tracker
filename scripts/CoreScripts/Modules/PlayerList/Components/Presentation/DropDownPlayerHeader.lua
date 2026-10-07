@@ -6,6 +6,8 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local UserLib = require(CorePackages.Workspace.Packages.UserLib)
 local Cryo = require(CorePackages.Packages.Cryo)
+local Foundation = require(CorePackages.Packages.Foundation)
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
@@ -19,6 +21,7 @@ local useVerifiedBadge = UserProfiles.Hooks.useVerifiedBadge
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableVerifiedBadgeStore = SharedFlags.FFlagEnableVerifiedBadgeStore
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local EmojiTextLabel = UIBlox.Core.Text.EmojiTextLabel
 local Emoji = UIBlox.App.Emoji.Enum.Emoji
@@ -40,6 +43,7 @@ function DropDownPlayerHeader:render()
 	return WithLayoutValues(function(layoutValues)
 		return withFoundationOrUIBloxStyle(function(tokens)
 			return {
+				Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
 				Theme = {
 					Divider = {
 						Color = tokens.Color.Stroke.Emphasis.Color3,
@@ -79,8 +83,11 @@ function DropDownPlayerHeader:render()
 			local showVerifiedBadge = if FFlagEnableVerifiedBadgeStore
 				then self.props.showVerifiedBadge
 				else UserLib.Utils.isPlayerVerified(player)
-			local emojiFontStyle = if FFlagCoreUiMigrateUIBloxToFoundation and style.Font.Header2.FontSize
-				then {
+			local emojiFontStyle = if FFlagFoundationFontFaceMigration
+				then Cryo.Dictionary.join(style.Font.Header2, {
+					Font = style.Tokens.Typography.TitleLarge.Font,
+				})
+				elseif FFlagCoreUiMigrateUIBloxToFoundation and style.Font.Header2.FontSize then {
 					Font = style.Font.Header2.Font,
 					FontSize = style.Font.Header2.FontSize,
 					LineHeight = style.Font.Header2.LineHeight,
@@ -132,7 +139,10 @@ function DropDownPlayerHeader:render()
 							LayoutOrder = 1,
 							Size = UDim2.new(1, 0, 0, TEXT_HEIGHT),
 							Text = player.DisplayName,
-							Font = style.Font.Header2.Font,
+							Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Header2.Font,
+							FontFace = if FFlagFoundationFontFaceMigration
+								then normalizeFontFace(style.Tokens.Typography.TitleLarge.Font)
+								else nil,
 							TextSize = style.Font.BaseSize * style.Font.Header2.RelativeSize,
 							TextColor3 = style.Theme.TextEmphasis.Color,
 							TextTransparency = style.Theme.TextEmphasis.Transparency,
@@ -151,7 +161,10 @@ function DropDownPlayerHeader:render()
 							LayoutOrder = 2,
 							Size = UDim2.new(1, 0, 0, TEXT_HEIGHT),
 							Text = "@" .. player.Name,
-							Font = style.Font.CaptionHeader.Font,
+							Font = if FFlagFoundationFontFaceMigration then nil else style.Font.CaptionHeader.Font,
+							FontFace = if FFlagFoundationFontFaceMigration
+								then normalizeFontFace(style.Tokens.Typography.CaptionLarge.Font)
+								else nil,
 							TextSize = style.Font.BaseSize * style.Font.CaptionHeader.RelativeSize,
 							TextColor3 = style.Theme.TextMuted.Color,
 							TextTransparency = style.Theme.TextMuted.Transparency,

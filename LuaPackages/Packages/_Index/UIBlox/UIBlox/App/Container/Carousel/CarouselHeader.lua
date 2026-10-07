@@ -7,9 +7,12 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local Foundation = require(Packages.Foundation)
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local GetFontFromFontStyle = require(UIBlox.Core.Text.GetFontFromFontStyle)
 
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
@@ -56,7 +59,7 @@ function CarouselHeader:render()
 		local fontStyle = style.Font.Header1
 		local baseSize = style.Font.BaseSize
 		local fontSize = fontStyle.RelativeSize * baseSize
-		local textFont = fontStyle.Font
+		local textFont = if FFlagFoundationFontFaceMigration then GetFontFromFontStyle(fontStyle) else fontStyle.Font
 
 		local textboxBounds = GetTextSize(headerText, fontSize, textFont, Vector2.new(MAX_BOUND, MAX_BOUND))
 		local textboxSize =

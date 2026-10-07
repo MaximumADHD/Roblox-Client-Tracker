@@ -10,6 +10,7 @@ local ReferenceUVValues = require(root.WrapTargetCageUVReferenceValues)
 local createEditableInstancesForContext = require(root.util.createEditableInstancesForContext)
 
 local getFFlagUGCValidationAllowFullVaas = require(root.flags.getFFlagUGCValidationAllowFullVaas)
+local getFFlagUGCValidateTransitionMakeupBounds = require(root.flags.getFFlagUGCValidateTransitionMakeupBounds)
 
 -- Server-side and IEC consumer routing. Read directly from `consumerConfig.source`
 -- (always populated) so the RCC-retry and IEC pre-load paths work regardless of
@@ -24,6 +25,9 @@ local IEC_SOURCES = {
 	InExpServer = true,
 	InExpClient = true,
 }
+
+local OLD_MIN_BOUND = Vector2.new(3.28941798, 0.313124001)
+local OLD_MAX_BOUND = Vector2.new(3.71058202, 0.734287024)
 
 local WrapTextureValid = {}
 
@@ -121,21 +125,42 @@ WrapTextureValid.run = function(reporter: Types.ValidationReporter, data: Types.
 	-- Validate UV bounds match expected values
 	local makeupInfo = Constants.MAKEUP_INFO
 
-	if not wrapTextureTransfer.UVMinBound:FuzzyEq(makeupInfo.WrapTextureTransferUVBounds.MinBound) then
-		reporter:fail(ErrorSourceStrings.Keys.WrapTexture_InvalidMinBound, {
-			instanceName = wrapTextureTransfer:GetFullName(),
-			actual = tostring(wrapTextureTransfer.UVMinBound),
-			expected = tostring(makeupInfo.WrapTextureTransferUVBounds.MinBound),
-		})
-		return
+	-- to support transition period of taking new and old bounds. If everyone moves to new bounds, we should flip this flag off then remove as false
+	local matchesOldBounds = false
+	if getFFlagUGCValidateTransitionMakeupBounds() then
+		-- oldMinBound is 3.28941798, 0.313124001
+		-- oldMaxBound is 3.71058202, 0.734287024
+		matchesOldBounds = wrapTextureTransfer.UVMinBound:FuzzyEq(OLD_MIN_BOUND)
+			and wrapTextureTransfer.UVMaxBound:FuzzyEq(OLD_MAX_BOUND)
+	end
+	if not matchesOldBounds then
+		-- makeupInfo.WrapTextureTransferUVBounds is expected to use new values set by FInts with UGCValidationUseFIntsInUVMinMaxBounds
+		if not wrapTextureTransfer.UVMinBound:FuzzyEq(makeupInfo.WrapTextureTransferUVBounds.MinBound) then
+			reporter:fail(ErrorSourceStrings.Keys.WrapTexture_InvalidMinBound, {
+				instanceName = wrapTextureTransfer:GetFullName(),
+				actual = tostring(wrapTextureTransfer.UVMinBound),
+				expected = tostring(makeupInfo.WrapTextureTransferUVBounds.MinBound),
+			})
+			return
+		end
+		if not wrapTextureTransfer.UVMaxBound:FuzzyEq(makeupInfo.WrapTextureTransferUVBounds.MaxBound) then
+			reporter:fail(ErrorSourceStrings.Keys.WrapTexture_InvalidMaxBound, {
+				instanceName = wrapTextureTransfer:GetFullName(),
+				actual = tostring(wrapTextureTransfer.UVMaxBound),
+				expected = tostring(makeupInfo.WrapTextureTransferUVBounds.MaxBound),
+			})
+			if getFFlagUGCValidateTransitionMakeupBounds() then
+				return
+			end
+		end
 	end
 
-	if not wrapTextureTransfer.UVMaxBound:FuzzyEq(makeupInfo.WrapTextureTransferUVBounds.MaxBound) then
-		reporter:fail(ErrorSourceStrings.Keys.WrapTexture_InvalidMaxBound, {
-			instanceName = wrapTextureTransfer:GetFullName(),
-			actual = tostring(wrapTextureTransfer.UVMaxBound),
-			expected = tostring(makeupInfo.WrapTextureTransferUVBounds.MaxBound),
-		})
+	if getFFlagUGCValidateTransitionMakeupBounds() and isBackend then
+		if matchesOldBounds then
+			reporter:setTelemetryContext("makeupBounds=Old")
+		else
+			reporter:setTelemetryContext("makeupBounds=New")
+		end
 	end
 end
 

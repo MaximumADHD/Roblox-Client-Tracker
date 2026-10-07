@@ -7,6 +7,9 @@ local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Images = UIBlox.App.ImageSet.Images
@@ -70,7 +73,7 @@ local function DevicePermissionsModal(props: Props, ref: React.Ref<GuiObject>?)
 
 	local titleFont = props.promptStyle.Font.Header1.Font
 	local titleFontSize = props.promptStyle.Font.Header1.RelativeSize * props.promptStyle.Font.BaseSize
-	local titleTextHeight = TextService:GetTextSize(
+	local titleTextHeight = if FFlagFoundationFontFaceMigration then GetTextSize(props.titleText, titleFontSize, titleFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y else TextService:GetTextSize(
 		props.titleText,
 		titleFontSize,
 		titleFont,
@@ -80,7 +83,7 @@ local function DevicePermissionsModal(props: Props, ref: React.Ref<GuiObject>?)
 
 	local bodyFont = props.promptStyle.Font.Body.Font
 	local bodyFontSize = props.promptStyle.Font.Body.RelativeSize * props.promptStyle.Font.BaseSize
-	local bodyTextHeight = TextService:GetTextSize(
+	local bodyTextHeight = if FFlagFoundationFontFaceMigration then GetTextSize(props.bodyText, bodyFontSize, bodyFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y else TextService:GetTextSize(
 		props.bodyText,
 		bodyFontSize,
 		bodyFont,
@@ -92,7 +95,7 @@ local function DevicePermissionsModal(props: Props, ref: React.Ref<GuiObject>?)
 	if primingText then
 		local primingFont = props.promptStyle.Font.CaptionHeader.Font
 		local primingFontSize = props.promptStyle.Font.CaptionHeader.RelativeSize * props.promptStyle.Font.BaseSize
-		local primingTextHeight = TextService:GetTextSize(
+		local primingTextHeight = if FFlagFoundationFontFaceMigration then GetTextSize(primingText, primingFontSize, primingFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y else TextService:GetTextSize(
 			primingText,
 			primingFontSize,
 			primingFont,
@@ -105,7 +108,7 @@ local function DevicePermissionsModal(props: Props, ref: React.Ref<GuiObject>?)
 	if infoText then
 		local infoFont = props.promptStyle.Font.Body.Font
 		local infoFontSize = props.promptStyle.Font.Body.RelativeSize * props.promptStyle.Font.BaseSize
-		local infoTextHeight = TextService:GetTextSize(
+		local infoTextHeight = if FFlagFoundationFontFaceMigration then GetTextSize(infoText, infoFontSize, infoFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y else TextService:GetTextSize(
 			infoText,
 			infoFontSize,
 			infoFont,

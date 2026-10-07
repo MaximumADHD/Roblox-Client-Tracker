@@ -4,7 +4,6 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
 local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
 local RadioGroup = require(Foundation.Components.RadioGroup)
 local StorySection = require(Foundation.Utility.Stories.Shared.StorySection)
@@ -36,13 +35,6 @@ local SIZE_ORDER: { InputSize } = {
 	InputSize.XSmall,
 	InputSize.Small,
 	InputSize.Medium,
-}
-
-local PLAYGROUND_SIZE_ORDER: { InputSize } = {
-	InputSize.XSmall,
-	InputSize.Small,
-	InputSize.Medium,
-	InputSize.Large,
 }
 
 local PLAYGROUND_SIZE_OPTIONS: { SizeControl } = {
@@ -346,22 +338,16 @@ local stories: { StoryEntry } = {
 	},
 }
 
-local controls: { [string]: unknown } = Dash.join(
-	{
-		label = LABEL,
-		size = if Flags.FoundationInputGroup then PLAYGROUND_SIZE_OPTIONS else PLAYGROUND_SIZE_ORDER,
-		placement = if Flags.FoundationInputGroup then PLAYGROUND_PLACEMENT_OPTIONS else PLACEMENT_ORDER,
-		isChecked = false,
-		isDisabled = false,
-		hint = HINT,
-	},
-	if Flags.FoundationInputGroup
-		then {
-			rootSize = PLAYGROUND_ROOT_SIZE_OPTIONS,
-			rootPlacement = PLAYGROUND_PLACEMENT_OPTIONS,
-		}
-		else {}
-)
+local controls: { [string]: unknown } = {
+	label = LABEL,
+	size = PLAYGROUND_SIZE_OPTIONS,
+	placement = PLAYGROUND_PLACEMENT_OPTIONS,
+	isChecked = false,
+	isDisabled = false,
+	hint = HINT,
+	rootSize = PLAYGROUND_ROOT_SIZE_OPTIONS,
+	rootPlacement = PLAYGROUND_PLACEMENT_OPTIONS,
+}
 
 return {
 	summary = "RadioGroup.Item is one exclusive choice in a RadioGroup, with an optional label and hint beside the control.",

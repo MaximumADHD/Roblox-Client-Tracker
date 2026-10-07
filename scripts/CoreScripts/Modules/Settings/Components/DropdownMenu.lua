@@ -10,6 +10,9 @@ local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local Roact = require(CorePackages.Packages.Roact)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local t = require(CorePackages.Packages.t)
 local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 
@@ -92,7 +95,10 @@ local function DropdownMenu(props: Props)
 			Text = props.dropdownList[props.selectedIndex],
 			TextColor3 = Color3.new(1, 1, 1),
 			TextSize = fontSize,
-			Font = fontStyle.Font,
+			Font = if FFlagFoundationFontFaceMigration then nil else fontStyle.Font,
+			FontFace = if FFlagFoundationFontFaceMigration
+				then normalizeFontFace(style.Tokens.Typography.CaptionLarge.Font)
+				else nil,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			BackgroundColor3 = backgroundColor,
 			BackgroundTransparency = 0,

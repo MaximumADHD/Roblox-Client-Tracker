@@ -6,11 +6,26 @@ local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependenc
 local Roact = InGameMenuDependencies.Roact
 local Cryo = InGameMenuDependencies.Cryo
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
 local t = InGameMenuDependencies.t
 
 local withStyle = UIBlox.Core.Style.withStyle
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local FeedbackModule = script.Parent.Parent.Parent
 local GlobalConfig = require(FeedbackModule.GlobalConfig)
+
+local FOUNDATION_TYPOGRAPHY_BY_FONT_KEY = {
+	Title = "HeadingLarge",
+	Header1 = "HeadingSmall",
+	Header2 = "TitleLarge",
+	SubHeader1 = "TitleLarge",
+	Body = "BodyLarge",
+	CaptionHeader = "CaptionMedium",
+	CaptionSubHeader = "CaptionMedium",
+	CaptionBody = "BodySmall",
+	Footer = "CaptionSmall",
+}
 
 local validateProps = t.strictInterface({
 	themeKey = t.optional(t.string),
@@ -52,7 +67,12 @@ local function ThemedTextLabel(props)
 				fontKey = Cryo.None,
 				themeKey = Cryo.None,
 				BackgroundTransparency = 1,
-				Font = textFont.Font,
+				Font = if FFlagFoundationFontFaceMigration then Cryo.None else textFont.Font,
+				FontFace = if FFlagFoundationFontFaceMigration
+					then normalizeFontFace(
+						style.Tokens.Typography[FOUNDATION_TYPOGRAPHY_BY_FONT_KEY[props.fontKey or "Body"]].Font
+					)
+					else nil,
 				TextSize = textFont.RelativeSize * style.Font.BaseSize,
 			}
 		)

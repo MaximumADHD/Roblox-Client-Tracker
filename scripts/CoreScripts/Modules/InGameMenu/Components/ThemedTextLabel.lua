@@ -5,9 +5,24 @@ local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependenc
 local Roact = InGameMenuDependencies.Roact
 local Cryo = InGameMenuDependencies.Cryo
 local t = InGameMenuDependencies.t
+local Foundation = require(CorePackages.Packages.Foundation)
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local InGameMenu = script.Parent.Parent
 local GlobalConfig = require(InGameMenu.GlobalConfig)
+
+local FOUNDATION_TYPOGRAPHY_BY_FONT_KEY = {
+	Title = "HeadingLarge",
+	Header1 = "HeadingSmall",
+	Header2 = "TitleLarge",
+	SubHeader1 = "TitleLarge",
+	Body = "BodyLarge",
+	CaptionHeader = "CaptionLarge",
+	CaptionSubHeader = "CaptionLarge",
+	CaptionBody = "BodySmall",
+	Footer = "CaptionSmall",
+}
 
 local validateProps = t.strictInterface({
 	themeKey = t.optional(t.string),
@@ -37,6 +52,7 @@ local function ThemedTextLabel(props)
 
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
+			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
 			Theme = {
 				BackgroundDefault = {
 					Color = tokens.Color.Surface.Surface_0.Color3,
@@ -212,6 +228,13 @@ local function ThemedTextLabel(props)
 		local textTheme = style.Theme[props.themeKey or "TextDefault"]
 		local textFont = style.Font[props.fontKey or "Body"]
 
+		local fontFace = nil
+		if FFlagFoundationFontFaceMigration then
+			local typography = style.Tokens.Typography[FOUNDATION_TYPOGRAPHY_BY_FONT_KEY[props.fontKey or "Body"]]
+				or textFont
+			fontFace = normalizeFontFace(typography.Font)
+		end
+
 		-- We want to allow you to override TextColor3 or TextTransparency if
 		-- desired, so those two props come first.
 		local primitiveProps = Cryo.Dictionary.join(
@@ -225,7 +248,8 @@ local function ThemedTextLabel(props)
 				themeKey = Cryo.None,
 
 				BackgroundTransparency = 1,
-				Font = textFont.Font,
+				Font = if FFlagFoundationFontFaceMigration then Cryo.None else textFont.Font,
+				FontFace = fontFace,
 				TextSize = textFont.RelativeSize * style.Font.BaseSize,
 			}
 		)

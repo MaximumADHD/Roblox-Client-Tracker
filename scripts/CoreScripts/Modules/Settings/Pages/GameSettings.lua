@@ -31,19 +31,15 @@ local ExperienceStateCaptureService = nil
 if game:GetEngineFeature("CaptureModeEnabled") then
 	ExperienceStateCaptureService = game:GetService("ExperienceStateCaptureService")
 end
-local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
-	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local FFlagIEMSettingsGroups = require(RobloxGui.Modules.Settings.Flags.FFlagIEMSettingsGroups)
 
 local locales = nil
-if GetFFlagEnableConnectDisconnectInSettingsAndChrome() or isInExperienceUIVREnabled then
-	local LocalizationService = game:GetService("LocalizationService")
-	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+local LocalizationService = game:GetService("LocalizationService")
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
-	locales = Localization.new(LocalizationService.RobloxLocaleId)
-end
+locales = Localization.new(LocalizationService.RobloxLocaleId)
 
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
@@ -4541,38 +4537,36 @@ local function Initialize()
 
 					else
 						local isCurrentlyVoiceFocused = false
-						if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
-							createVoiceConnectDisconnect()
+						createVoiceConnectDisconnect()
 
-							if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
-								isCurrentlyVoiceFocused = isVoiceFocused()
+						if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
+							isCurrentlyVoiceFocused = isVoiceFocused()
 
-								observeIsVoiceFocused(function(isFocused)
-									isCurrentlyVoiceFocused = isFocused
+							observeIsVoiceFocused(function(isFocused)
+								isCurrentlyVoiceFocused = isFocused
 
-									if isFocused then
-										if this[VOICE_CONNECT_FRAME_KEY] then
-											this[VOICE_CONNECT_FRAME_KEY].Visible = false
-										end
-										if this[VOICE_DISCONNECT_FRAME_KEY] then
-											this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
-										end
-									elseif VoiceChatServiceManager:ShouldShowJoinVoice() then
-										if this[VOICE_CONNECT_FRAME_KEY] then
-											this[VOICE_CONNECT_FRAME_KEY].Visible = true
-										end
-										if this[VOICE_DISCONNECT_FRAME_KEY] then
-											this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
-										end
+								if isFocused then
+									if this[VOICE_CONNECT_FRAME_KEY] then
+										this[VOICE_CONNECT_FRAME_KEY].Visible = false
 									end
-								end)
-							end
+									if this[VOICE_DISCONNECT_FRAME_KEY] then
+										this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
+									end
+								elseif VoiceChatServiceManager:ShouldShowJoinVoice() then
+									if this[VOICE_CONNECT_FRAME_KEY] then
+										this[VOICE_CONNECT_FRAME_KEY].Visible = true
+									end
+									if this[VOICE_DISCONNECT_FRAME_KEY] then
+										this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
+									end
+								end
+							end)
 						end
 
-						if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY] then
+						if this[VOICE_CONNECT_FRAME_KEY] then
 							this[VOICE_CONNECT_FRAME_KEY].Visible = false
 						end
-						if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_DISCONNECT_FRAME_KEY] then
+						if this[VOICE_DISCONNECT_FRAME_KEY] then
 							if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
 								this[VOICE_DISCONNECT_FRAME_KEY].Visible = not isCurrentlyVoiceFocused
 							else
@@ -4586,15 +4580,10 @@ local function Initialize()
 							end
 							this.VoiceChatOptionsEnabled = true
 							updateInputDeviceVisibility()
-							if
-								GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY]
-							then
+							if this[VOICE_CONNECT_FRAME_KEY] then
 								this[VOICE_CONNECT_FRAME_KEY].Visible = false
 							end
-							if
-								GetFFlagEnableConnectDisconnectInSettingsAndChrome()
-								and this[VOICE_DISCONNECT_FRAME_KEY]
-							then
+							if this[VOICE_DISCONNECT_FRAME_KEY] then
 								this[VOICE_DISCONNECT_FRAME_KEY].Visible = true
 							end
 						end)
@@ -4604,15 +4593,10 @@ local function Initialize()
 							end
 							this.VoiceChatOptionsEnabled = false
 							updateInputDeviceVisibility()
-							if
-								GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY]
-							then
+							if this[VOICE_CONNECT_FRAME_KEY] then
 								this[VOICE_CONNECT_FRAME_KEY].Visible = true
 							end
-							if
-								GetFFlagEnableConnectDisconnectInSettingsAndChrome()
-								and this[VOICE_DISCONNECT_FRAME_KEY]
-							then
+							if this[VOICE_DISCONNECT_FRAME_KEY] then
 								this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
 							end
 						end)

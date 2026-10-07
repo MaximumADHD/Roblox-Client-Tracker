@@ -4,7 +4,6 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
 local RadioGroup = require(Foundation.Components.RadioGroup)
 local StorySection = require(Foundation.Utility.Stories.Shared.StorySection)
 local Types = require(Foundation.Components.Types)
@@ -202,6 +201,14 @@ local stories: { StoryEntry } = {
 		story = PlaygroundStory :: unknown,
 	},
 	{
+		name = "Sizing",
+		story = SizingStory,
+	},
+	{
+		name = "Placement",
+		story = PlacementStory,
+	},
+	{
 		name = "Controlled component",
 		story = ControlledStory,
 	},
@@ -211,24 +218,11 @@ local stories: { StoryEntry } = {
 	},
 }
 
-if Flags.FoundationInputGroup then
-	table.insert(stories, 2, {
-		name = "Sizing",
-		story = SizingStory,
-	})
-	table.insert(stories, 3, {
-		name = "Placement",
-		story = PlacementStory,
-	})
-end
-
-local controls: { [string]: unknown } = if Flags.FoundationInputGroup
-	then {
-		legend = LEGEND,
-		size = SIZE_ORDER,
-		placement = PLACEMENT_ORDER,
-	}
-	else {}
+local controls: { [string]: unknown } = {
+	legend = LEGEND,
+	size = SIZE_ORDER,
+	placement = PLACEMENT_ORDER,
+}
 
 return {
 	summary = "RadioGroup lets a caller pick one value from a set of items, and publishes legend, size, and placement to them.",

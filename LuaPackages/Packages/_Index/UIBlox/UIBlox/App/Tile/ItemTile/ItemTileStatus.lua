@@ -13,6 +13,7 @@ local normalizeFontFace = Foundation.Utility.normalizeFontFace
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local GetFontFromFontStyle = require(UIBlox.Core.Text.GetFontFromFontStyle)
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local ItemTileEnums = require(TileRoot.Enum.ItemTileEnums)
@@ -60,7 +61,9 @@ function ItemTileStatus:render()
 		local statusText = self.props.statusText
 		local statusStyle = self.props.statusStyle
 
-		local font = fontInfo.CaptionHeader.Font
+		local font = if FFlagFoundationFontFaceMigration
+			then GetFontFromFontStyle(fontInfo.CaptionHeader)
+			else fontInfo.CaptionHeader.Font
 		local fontSize = fontInfo.BaseSize * fontInfo.CaptionHeader.RelativeSize
 		local textSize = GetTextSize(statusText, fontSize, font, MAX_TEXT_SIZE)
 

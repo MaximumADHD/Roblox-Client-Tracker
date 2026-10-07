@@ -3,6 +3,9 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
@@ -87,6 +90,7 @@ end
 function ReportActionSelection:render()
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
+			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
 			Theme = {
 				Divider = {
 					Color = tokens.Color.Stroke.Emphasis.Color3,
@@ -144,7 +148,10 @@ function ReportActionSelection:render()
 				TextColor3 = style.Theme.TextEmphasis.Color,
 				TextTransparency = style.Theme.TextEmphasis.Transparency,
 				TextSize = style.Font.Header1.RelativeSize * baseSize,
-				Font = style.Font.Header1.Font,
+				Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Header1.Font,
+				FontFace = if FFlagFoundationFontFaceMigration
+					then normalizeFontFace(style.Tokens.Typography.HeadingSmall.Font)
+					else nil,
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.XY,
 				LayoutOrder = 1,
@@ -156,7 +163,10 @@ function ReportActionSelection:render()
 				TextColor3 = style.Theme.TextEmphasis.Color,
 				TextTransparency = style.Theme.TextEmphasis.Transparency,
 				TextSize = style.Font.CaptionHeader.RelativeSize * baseSize,
-				Font = style.Font.CaptionHeader.Font,
+				Font = if FFlagFoundationFontFaceMigration then nil else style.Font.CaptionHeader.Font,
+				FontFace = if FFlagFoundationFontFaceMigration
+					then normalizeFontFace(style.Tokens.Typography.CaptionLarge.Font)
+					else nil,
 				TextWrapped = true,
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
@@ -183,7 +193,10 @@ function ReportActionSelection:render()
 					TextColor3 = style.Theme.TextDefault.Color,
 					TextTransparency = style.Theme.TextDefault.Transparency,
 					TextSize = style.Font.CaptionHeader.RelativeSize * baseSize,
-					Font = style.Font.CaptionHeader.Font,
+					Font = if FFlagFoundationFontFaceMigration then nil else style.Font.CaptionHeader.Font,
+					FontFace = if FFlagFoundationFontFaceMigration
+						then normalizeFontFace(style.Tokens.Typography.CaptionLarge.Font)
+						else nil,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					BackgroundTransparency = 1,
 					AutomaticSize = Enum.AutomaticSize.Y,

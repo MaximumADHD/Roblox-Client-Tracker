@@ -7,7 +7,10 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local LCSkinnedToSchema = {}
 
 LCSkinnedToSchema.fflag = require(root.flags.getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning)
-LCSkinnedToSchema.categories = { ValidationEnums.UploadCategory.LAYERED_CLOTHING }
+LCSkinnedToSchema.categories = {
+	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
+}
 LCSkinnedToSchema.requiredData = { ValidationEnums.SharedDataMember.renderMeshesData }
 
 LCSkinnedToSchema.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)

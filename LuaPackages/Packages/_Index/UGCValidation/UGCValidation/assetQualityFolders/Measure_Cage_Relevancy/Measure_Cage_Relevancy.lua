@@ -9,7 +9,10 @@ local minCageRelevancyThreshold = game:DefineFastInt("UGCMinCageRelevancyThresho
 
 local Measure_Cage_Relevancy = {}
 
-Measure_Cage_Relevancy.categories = { ValidationEnums.UploadCategory.LAYERED_CLOTHING }
+Measure_Cage_Relevancy.categories = {
+	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
+}
 Measure_Cage_Relevancy.fflag = require(root.flags.getFFlagUGCValidateAQCageQualityLC)
 
 Measure_Cage_Relevancy.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)

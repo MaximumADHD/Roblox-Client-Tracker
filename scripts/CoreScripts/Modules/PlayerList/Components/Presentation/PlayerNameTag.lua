@@ -8,6 +8,8 @@ local t = require(CorePackages.Packages.t)
 local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 local UserLib = require(CorePackages.Workspace.Packages.UserLib)
 local Cryo = require(CorePackages.Packages.Cryo)
+local Foundation = require(CorePackages.Packages.Foundation)
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local PlayerList = script.Parent.Parent.Parent
 local Connection = PlayerList.Components.Connection
@@ -41,6 +43,7 @@ PlayerNameTag.validateProps = t.strictInterface({
 		Size = t.number,
 		MinSize = t.number,
 		Font = t.enum(Enum.Font),
+		FontFace = t.optional(t.typeof("Font")),
 	}),
 })
 
@@ -58,6 +61,7 @@ type Props = {
 		Size: number,
 		MinSize: number,
 		Font: Enum.Font,
+		FontFace: Font?,
 	},
 }
 
@@ -69,6 +73,7 @@ function PlayerNameTag:render()
 		end
 
 		local playerNameFont = self.props.textFont.Font
+		local playerNameFontFace = self.props.textFont.FontFace
 		local textSize = self.props.textFont.Size
 
 		local playerNameChildren = {}
@@ -131,7 +136,8 @@ function PlayerNameTag:render()
 							AutomaticSize = Enum.AutomaticSize.X,
 							ClipsDescendants = false,
 							Size = UDim2.fromScale(0, 1),
-							Font = playerNameFont,
+							Font = if FFlagFoundationFontFaceMigration then nil else playerNameFont,
+							FontFace = if FFlagFoundationFontFaceMigration then playerNameFontFace else nil,
 							Text = self.props.name,
 							TextSize = textSize,
 							TextColor3 = self.props.textStyle.Color,
@@ -157,7 +163,8 @@ function PlayerNameTag:render()
 					PlayerName = React.createElement("TextLabel", {
 						AutomaticSize = Enum.AutomaticSize.X,
 						Size = UDim2.fromScale(0, 1),
-						Font = playerNameFont,
+						Font = if FFlagFoundationFontFaceMigration then nil else playerNameFont,
+						FontFace = if FFlagFoundationFontFaceMigration then playerNameFontFace else nil,
 						Text = self.props.name,
 						TextSize = textSize,
 						TextColor3 = self.props.textStyle.Color,

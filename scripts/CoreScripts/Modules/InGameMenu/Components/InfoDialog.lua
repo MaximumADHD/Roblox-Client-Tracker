@@ -10,6 +10,9 @@ local t = InGameMenuDependencies.t
 
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
+local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
+local Foundation = require(CorePackages.Packages.Foundation)
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local InGameMenu = script.Parent.Parent
@@ -43,25 +46,43 @@ function InfoDialog:render()
 
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
+			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
 			Theme = {
-				Overlay = { Color = tokens.Color.Common.Scrim.Color3, Transparency = tokens.Color.Common.Scrim.Transparency },
-				BackgroundUIDefault = { Color = tokens.Color.Surface.Surface_300.Color3, Transparency = tokens.Color.Surface.Surface_300.Transparency },
+				Overlay = {
+					Color = tokens.Color.Common.Scrim.Color3,
+					Transparency = tokens.Color.Common.Scrim.Transparency,
+				},
+				BackgroundUIDefault = {
+					Color = tokens.Color.Surface.Surface_300.Color3,
+					Transparency = tokens.Color.Surface.Surface_300.Transparency,
+				},
 			},
 			Font = {
 				BaseSize = 1,
-				Body = { Font = tokens.Typography.BodyLarge.Font, RelativeSize = tokens.Typography.BodyLarge.FontSize },
+				Body = {
+					Font = tokens.Typography.BodyLarge.Font,
+					RelativeSize = tokens.Typography.BodyLarge.FontSize,
+				},
 			},
 		}
 	end, function(style)
 		local bodyFont = style.Font.Body.Font
 		local bodyFontSize = style.Font.Body.RelativeSize * style.Font.BaseSize
 		local bodyText = props.bodyText
-		local textHeight = TextService:GetTextSize(
-			bodyText,
-			bodyFontSize,
-			bodyFont,
-			Vector2.new(DIALOG_WIDTH - DIALOG_PADDING * 2, math.huge)
-		).Y
+		local textHeight = if FFlagFoundationFontFaceMigration
+			then GetTextSize(
+				bodyText,
+				bodyFontSize,
+				style.Tokens.Typography.BodyLarge.Font,
+				Vector2.new(DIALOG_WIDTH - DIALOG_PADDING * 2, math.huge),
+				{ addTemporaryPadding = false }
+			).Y
+			else TextService:GetTextSize(
+				bodyText,
+				bodyFontSize,
+				bodyFont,
+				Vector2.new(DIALOG_WIDTH - DIALOG_PADDING * 2, math.huge)
+			).Y
 
 		-- 24px padding top, 24px padding bottom
 		-- Minimum height of two lines of text.

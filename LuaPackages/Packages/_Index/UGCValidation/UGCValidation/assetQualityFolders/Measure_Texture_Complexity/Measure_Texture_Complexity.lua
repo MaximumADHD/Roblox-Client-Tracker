@@ -8,6 +8,7 @@ local Measure_Texture_Complexity = {}
 Measure_Texture_Complexity.categories = {
 	ValidationEnums.UploadCategory.FULL_BODY,
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 	ValidationEnums.UploadCategory.RIGID_ACCESSORY,
 	ValidationEnums.UploadCategory.DYNAMIC_HEAD,
 }

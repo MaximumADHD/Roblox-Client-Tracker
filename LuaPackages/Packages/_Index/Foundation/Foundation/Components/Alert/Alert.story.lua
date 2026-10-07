@@ -1,5 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local BuilderIcons = require(Packages.BuilderIcons)
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
@@ -10,6 +11,7 @@ local Breakpoint = require(Foundation.Enums.Breakpoint)
 local BreakpointConfig = require(Foundation.Utility.Responsive.BreakpointConfig)
 local Button = require(Foundation.Components.Button)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+local Flags = require(Foundation.Utility.Flags)
 local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
 local StorySection = require(Foundation.Utility.Stories.Shared.StorySection)
 local Text = require(Foundation.Components.Text)
@@ -18,6 +20,8 @@ local View = require(Foundation.Components.View)
 local MatrixGrid = MatrixGridShared.MatrixGrid
 local matrixLabel = MatrixGridShared.matrixLabel
 local Section = StorySection.Section
+local IconName = BuilderIcons.Icon
+local IconVariant = BuilderIcons.IconVariant
 type AlertSeverity = AlertSeverity.AlertSeverity
 type AlertVariant = AlertVariant.AlertVariant
 type AlertAction = {
@@ -39,9 +43,13 @@ local SEVERITY_ORDER: { AlertSeverity } = {
 
 local INLINE_WIDTH = 480
 local STACKED_WIDTH = BreakpointConfig.widths[Breakpoint.XSmall]
+local CUSTOM_ICON = { name = IconName.CircleQuestion, variant = IconVariant.Filled }
+local CUSTOM_REGULAR_ICON = { name = IconName.Key, variant = IconVariant.Regular }
 local DEFAULT_TEXT = "Alert text"
 local LONG_TEXT =
 	"Your session is about to expire. You have been inactive for a while, so please save any in-progress work and sign in again to continue."
+local RICH_TEXT =
+	"<b>Your session is about to expire.</b> You have been inactive for a while, so please save any in-progress work and <font color='#4b9fff'>sign in again</font> to continue."
 
 type AlertActions = {
 	primary: AlertAction,
@@ -49,6 +57,7 @@ type AlertActions = {
 }?
 
 local LONG_LINK_TEXT = "Read the full maintenance schedule and what it means for your experiences"
+local SHORT_LINK_TEXT = "Read schedule"
 
 type ActionLabels = {
 	primary: string,
@@ -158,17 +167,22 @@ local function PlaygroundStory(props: {
 		text: string,
 		hasActions: string,
 		isDismissable: boolean,
+		richText: boolean,
+		hasCustomIcon: boolean,
 	},
 }): React.ReactNode
 	local controls = props.controls
 	local onClose = if controls.isDismissable then noop else nil
+	local icon = if controls.hasCustomIcon then CUSTOM_ICON else nil
 
 	local alert: React.ReactNode
 	if controls.hasActions == "Link" then
 		alert = React.createElement(Alert, {
 			variant = controls.variant,
 			severity = controls.severity,
+			icon = icon,
 			text = controls.text,
+			richText = controls.richText,
 			link = { text = "Link text", onActivated = noop },
 			onClose = onClose,
 			LayoutOrder = 1,
@@ -177,7 +191,9 @@ local function PlaygroundStory(props: {
 		alert = React.createElement(Alert, {
 			variant = controls.variant,
 			severity = controls.severity,
+			icon = icon,
 			text = controls.text,
+			richText = controls.richText,
 			actions = buildActions(if controls.hasActions == "Two actions" then 2 else 1),
 			onClose = onClose,
 			LayoutOrder = 1,
@@ -186,7 +202,9 @@ local function PlaygroundStory(props: {
 		alert = React.createElement(Alert, {
 			variant = controls.variant,
 			severity = controls.severity,
+			icon = icon,
 			text = controls.text,
+			richText = controls.richText,
 			onClose = onClose,
 			LayoutOrder = 1,
 		})
@@ -368,11 +386,17 @@ end
 type TrailingConfig = {
 	label: string,
 	hasLink: boolean,
+	linkText: string?,
 	actionCount: number,
 }
 
+local LINK_TRAILING_LABEL = if Flags.FoundationAlertStackTrailingOnOverflow
+	then "Link + close — the link stacks once it needs more than the message minimum leaves"
+	else "Link + close"
+
 local TRAILING_CONFIGS: { TrailingConfig } = {
-	{ label = "Link + close", hasLink = true, actionCount = 0 },
+	{ label = "Short link + close", hasLink = true, linkText = SHORT_LINK_TEXT, actionCount = 0 },
+	{ label = LINK_TRAILING_LABEL, hasLink = true, actionCount = 0 },
 	{ label = "Primary + close", hasLink = false, actionCount = 1 },
 	{ label = "Primary + secondary + close", hasLink = false, actionCount = 2 },
 }
@@ -388,7 +412,7 @@ local function buildWrappingExamples(): { [string]: React.ReactNode }
 				return if config.hasLink
 					then React.createElement(Alert, {
 						text = LONG_TEXT,
-						link = { text = LONG_LINK_TEXT, onActivated = noop },
+						link = { text = config.linkText or LONG_LINK_TEXT, onActivated = noop },
 						onClose = noop,
 					})
 					else React.createElement(Alert, {
@@ -453,6 +477,42 @@ local function ContentStory(): React.ReactNode
 			name = "Wrapping",
 			contentTag = "col gap-large size-full-0 auto-y",
 		}, buildWrappingExamples()),
+		RichText = React.createElement(Section, {
+			LayoutOrder = 4,
+			name = "Rich text",
+			contentTag = "col gap-large size-full-0 auto-y",
+		}, {
+			Pair = React.createElement(WidthPair, {
+				LayoutOrder = 1,
+				label = "richText interprets markup and stays wrapped",
+				renderAlert = function()
+					return React.createElement(Alert, {
+						text = RICH_TEXT,
+						richText = true,
+					})
+				end,
+			}),
+		}),
+		CustomIcon = React.createElement(Section, {
+			LayoutOrder = 5,
+			name = "Custom icon",
+			contentTag = "col gap-large size-full-0 auto-y",
+		}, {
+			Filled = React.createElement(BoundedAlert, { LayoutOrder = 1 }, {
+				Alert = React.createElement(Alert, {
+					severity = AlertSeverity.Info,
+					icon = CUSTOM_ICON,
+					text = DEFAULT_TEXT,
+				}),
+			}),
+			Regular = React.createElement(BoundedAlert, { LayoutOrder = 2 }, {
+				Alert = React.createElement(Alert, {
+					severity = AlertSeverity.Info,
+					icon = CUSTOM_REGULAR_ICON,
+					text = DEFAULT_TEXT,
+				}),
+			}),
+		}),
 	})
 end
 
@@ -490,5 +550,7 @@ return {
 		text = DEFAULT_TEXT,
 		hasActions = HAS_ACTIONS_OPTIONS,
 		isDismissable = false,
+		richText = false,
+		hasCustomIcon = false,
 	},
 }

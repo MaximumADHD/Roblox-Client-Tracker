@@ -9,11 +9,13 @@ local Foundation = require(CorePackages.Packages.Foundation)
 local IconName = Foundation.Enums.IconName
 local IconVariant = Foundation.Enums.IconVariant
 local IconSize = Foundation.Enums.IconSize
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -90,6 +92,7 @@ function DropDownButton:render()
 	return WithLayoutValues(function(layoutValues)
 		return withFoundationOrUIBloxStyle(function(tokens, preferences)
 			return {
+				Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
 				Theme = {
 					BackgroundContrast = {
 						Color = tokens.Color.Surface.Surface_100.Color3,
@@ -345,7 +348,10 @@ function DropDownButton:render()
 						LayoutOrder = 2,
 						Size = UDim2.new(1, -textLabelSizeOffset, 1, 0),
 						Text = self.props.text,
-						Font = style.Font.Header2.Font,
+						Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Header2.Font,
+						FontFace = if FFlagFoundationFontFaceMigration
+							then normalizeFontFace(style.Tokens.Typography.TitleLarge.Font)
+							else nil,
 						TextSize = style.Font.BaseSize * style.Font.Header2.RelativeSize,
 						TextColor3 = style.Theme.TextEmphasis.Color,
 						TextTransparency = style.Theme.TextEmphasis.Transparency,

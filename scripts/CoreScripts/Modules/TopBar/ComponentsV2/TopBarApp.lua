@@ -268,6 +268,7 @@ local function TopBarApp(props: TopBarProps)
 	}, {
 		MenuIcon = if not isSideSheetEnabled then React.createElement(SelectionCursorProvider, {}, {
 				Icon = React.createElement(MenuIcon, {
+					buttonSize = if useAgeRatingLayout then topBarButtonHeight else nil,
 					showBadgeOver12 = showGameAgeRating and not persistentAgeRating,
 					menuIconRef = menuIconRef,
 					unibarMenuRef = unibarMenuRef,

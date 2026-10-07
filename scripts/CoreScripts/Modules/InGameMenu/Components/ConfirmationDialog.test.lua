@@ -1,4 +1,5 @@
 --!nonstrict
+local CollectionService = game:GetService("CollectionService")
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
@@ -7,16 +8,28 @@ local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
 local describe = JestGlobals.describe
 local it = JestGlobals.it
 local expect = JestGlobals.expect
+local jest = JestGlobals.jest
+local afterAll = JestGlobals.afterAll
+local beforeAll = JestGlobals.beforeAll
 
 local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
+local UIBlox = InGameMenuDependencies.UIBlox
 local UnitTestHelpers = require(CorePackages.Workspace.Packages.UnitTestHelpers)
 local Cryo = require(CorePackages.Packages.Cryo)
+local Foundation = require(CorePackages.Packages.Foundation)
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
+local foundationTypography = Foundation.Utility.getTokens(Foundation.Enums.ColorMode.Dark).Typography
+local Style = require(CorePackages.Workspace.Packages.Style)
+local getTextSizeSpy = jest.spyOn(Style, "GetTextSize")
+
+local FOUNDATION_BUTTON_TAG = "data-testid=--foundation-button"
 
 local InGameMenu = script.Parent.Parent
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local Constants = require(InGameMenu.Resources.Constants)
+local FFlagIGMDialogButtonsUseUIBloxButton = require(InGameMenu.Flags.FFlagIGMDialogButtonsUseUIBloxButton)
 local FocusHandlerContextProvider = require(script.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
@@ -73,7 +86,53 @@ describe("Mounting and destroying", function()
 		expect(CoreGui:FindFirstChild("InGameMenuConfirmationDialog")).never.toBeNil()
 		Roact.unmount(instance)
 	end)
+
+	if FFlagFoundationFontFaceMigration then
+		it("should measure body text without temporary padding", function()
+			jest.clearAllMocks()
+			local instance = Roact.mount(getMountableComponent())
+
+			expect(getTextSizeSpy).toHaveBeenCalledWith(
+				dummyDialogProps.bodyText,
+				expect.anything(),
+				foundationTypography.BodyLarge.Font,
+				expect.anything(),
+				{ addTemporaryPadding = false }
+			)
+
+			Roact.unmount(instance)
+		end)
+	end
 end)
+
+if FFlagIGMDialogButtonsUseUIBloxButton then
+	describe("Button styling (SVR-1583)", function()
+		local originalUseFoundationButton
+		beforeAll(function()
+			originalUseFoundationButton = UIBlox.Config.useFoundationButton
+			UIBlox.Config.useFoundationButton = true
+		end)
+		afterAll(function()
+			UIBlox.Config.useFoundationButton = originalUseFoundationButton
+		end)
+
+		it("renders the confirm and cancel buttons via the UIBlox (non-Foundation) path", function()
+			local instance = Roact.mount(getMountableComponent())
+
+			local dialog = CoreGui:FindFirstChild("InGameMenuConfirmationDialog")
+			expect(dialog).never.toBeNil()
+			local confirmButton = dialog:FindFirstChild("ConfirmButton", true)
+			local cancelButton = dialog:FindFirstChild("CancelButton", true)
+			expect(confirmButton).never.toBeNil()
+			expect(cancelButton).never.toBeNil()
+
+			expect(CollectionService:HasTag(confirmButton, FOUNDATION_BUTTON_TAG)).toBe(false)
+			expect(CollectionService:HasTag(cancelButton, FOUNDATION_BUTTON_TAG)).toBe(false)
+
+			Roact.unmount(instance)
+		end)
+	end)
+end
 
 describe("Focus management", function()
 	it("Should not gain focus when gamepad is not the last used device", function()

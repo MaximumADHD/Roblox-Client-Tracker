@@ -32,4 +32,6 @@ return {
 	UnifiedJoinVoiceToast = "UnifiedJoinVoiceToast",
 	AgeCheckForVoiceToast = "AgeCheckForVoiceToast",
 	UpdateOnAutoJoinToast = "UpdateOnAutoJoinToast",
+	MicPermissionDenied = "MicPermissionDenied",
+	MicFirstUnmutePrivacy = "MicFirstUnmutePrivacy",
 }

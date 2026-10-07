@@ -15,6 +15,7 @@ local Measure_Triangle_Intersection = {}
 
 Measure_Triangle_Intersection.categories = {
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 	ValidationEnums.UploadCategory.FULL_BODY,
 	ValidationEnums.UploadCategory.RIGID_ACCESSORY,
 	ValidationEnums.UploadCategory.DYNAMIC_HEAD,

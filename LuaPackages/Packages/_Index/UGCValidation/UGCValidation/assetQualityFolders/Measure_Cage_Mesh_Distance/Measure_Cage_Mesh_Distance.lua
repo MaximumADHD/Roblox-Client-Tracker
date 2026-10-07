@@ -10,7 +10,10 @@ local getFFlagUGCValidateAQScoreWarnings = require(root.flags.getFFlagUGCValidat
 
 local Measure_Cage_Mesh_Distance = {}
 
-Measure_Cage_Mesh_Distance.categories = { ValidationEnums.UploadCategory.LAYERED_CLOTHING }
+Measure_Cage_Mesh_Distance.categories = {
+	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
+}
 Measure_Cage_Mesh_Distance.fflag = require(root.flags.getFFlagUGCValidateAQCageQualityLC)
 
 Measure_Cage_Mesh_Distance.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)

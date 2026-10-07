@@ -4,6 +4,13 @@ local TopBar = script.Parent
 local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
 local describe, it, expect = JestGlobals.describe, JestGlobals.it, JestGlobals.expect
 local beforeEach, afterEach, jest = JestGlobals.beforeEach, JestGlobals.afterEach, JestGlobals.jest
+jest.mock(Packages.Chrome, function()
+	local actual = table.clone(jest.requireActual(Packages.Chrome))
+	actual.Enabled = function()
+		return true
+	end
+	return actual
+end)
 local React = require(CorePackages.Packages.React)
 local RTL = require(CorePackages.Packages.Dev.ReactTestingLibrary)
 local act = require(CorePackages.Packages.ReactRoblox).act
@@ -32,6 +39,12 @@ local function control(props: { layoutOrder: number? })
 		[React.Tag] = "data-testid=control",
 	})
 end
+
+local mockMenuIcon = jest.fn(control)
+
+jest.mock(Packages.InExperienceSideSheetUtils.isSideSheetEnabled, function()
+	return false
+end)
 
 jest.mock(Packages.CoreGuiCommon, function()
 	local actual = table.clone(jest.requireActual(Packages.CoreGuiCommon))
@@ -150,7 +163,9 @@ jest.mock(TopBar.Components.TraversalBackButton, function()
 	return control
 end)
 jest.mock(TopBar.ComponentsV2.MenuIcon, function()
-	return control
+	return function(props)
+		return mockMenuIcon(props)
+	end
 end)
 jest.mock(TopBar.Components.Presentation.MenuIcon, function()
 	return control
@@ -252,6 +267,23 @@ local function render(legacy)
 	settleLayout()
 	return screen
 end
+
+describe("ExperienceAgeRating V2 menu sizing", function()
+	if FFlagExperienceAgeRatingBadge and FFlagShowGameAgeRating then
+		it("passes the scaled button height to the menu icon when the badge layout is enabled", function()
+			RTL.render(element(false))
+			local props = mockMenuIcon.mock.calls[1][1]
+			local uiScale = require(Packages.Display).GetDisplayStore(false).getUIScale(false)
+			expect(props.buttonSize).toBe(require(TopBar.Constants).TopBarButtonHeight * uiScale)
+		end)
+	else
+		it("leaves menu sizing to the parent when the badge layout is disabled", function()
+			RTL.render(element(false))
+			local props = mockMenuIcon.mock.calls[1][1]
+			expect(props.buttonSize).toBeNil()
+		end)
+	end
+end)
 
 for _, legacy in { false, true } do
 	describe(if legacy then "ExperienceAgeRating legacy" else "ExperienceAgeRating V2", function()

@@ -85,6 +85,7 @@ local BADGE_OFFSET = 4
 type Tokens = Foundation.Tokens
 
 type MenuIconProps = {
+	buttonSize: number?,
 	menuIconRef: React.RefObject<GuiObject?>?,
 	unibarMenuRef: React.RefObject<GuiObject?>?,
 	showBadgeOver12: boolean?,
@@ -111,7 +112,6 @@ local function MenuIcon(props: MenuIconProps)
 	local uiScale = SignalsReact.useSignalState(function(scope) 
 		return Display.GetDisplayStore(scope).getUIScale(scope)
 	end)
-	local backgroundSize = Constants.TopBarButtonHeight * uiScale
 	local topBarButtonPadding = Constants.TopBarButtonPadding * uiScale
 
 	local baseMenuIconSize = Constants.MENU_ICON_SIZE * uiScale
@@ -301,7 +301,9 @@ local function MenuIcon(props: MenuIconProps)
 					return color
 				end) 
 				else nil,
-            Size = UDim2.fromScale(1, 1),
+				Size = if props.buttonSize
+					then UDim2.fromOffset(props.buttonSize, props.buttonSize)
+					else UDim2.fromScale(1, 1),
             NextSelectionRight = nextSelectionRight,
             selection = if not (isSideSheetEnabled and FFlagSideSheetFocusNav) then {
                 Selectable = true,
@@ -332,7 +334,19 @@ local function MenuIcon(props: MenuIconProps)
 				style = iconForegroundStyle,
             })
         })
-    end, { preferredTransparency, nextSelectionRight, menuIconCursor, menuIconActivated, menuIconStateChanged, props.showBadgeOver12, iconForegroundStyle, iconBackgroundStyle } :: {unknown})
+		end,
+		{
+			preferredTransparency,
+			nextSelectionRight,
+			menuIconCursor,
+			menuIconActivated,
+			menuIconStateChanged,
+			props.showBadgeOver12,
+			iconForegroundStyle,
+			iconBackgroundStyle,
+			props.buttonSize,
+		} :: { unknown }
+	)
 
     return renderWithTooltipCompat(tooltipProps, tooltipOptions, renderCallback)
 end

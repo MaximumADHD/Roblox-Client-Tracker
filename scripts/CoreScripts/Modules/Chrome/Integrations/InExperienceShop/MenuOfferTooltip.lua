@@ -16,6 +16,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local useMappedSignal = require(CorePackages.Workspace.Packages.Chrome).Hooks.useMappedSignal
 
 local FFlagOfferNotifyOnGlobalIcon = SharedFlags.FFlagOfferNotifyOnGlobalIcon
+local FFlagHideOfferNotificationsWhenShopEmpty = SharedFlags.FFlagHideOfferNotificationsWhenShopEmpty
 local InExperienceShop: any = nil
 local toggleInExperienceShopWindow: (() -> ())? = nil
 if FFlagOfferNotifyOnGlobalIcon then
@@ -40,6 +41,7 @@ local getOffersStore = Offers.getOffersStore
 local isNotificationEligible = Offers.Utils.isNotificationEligible
 local selectActiveOffer = Offers.Utils.selectActiveOffer
 local useOffersForKey = Offers.Hooks.useOffersForKey
+local useShopHasItems = Offers.Hooks.useShopHasItems
 local useSignalState = SignalsReact.useSignalState
 
 type SelectedOffer = Offers.SelectedOffer
@@ -126,11 +128,17 @@ local function MenuOfferTooltipContent(props: Props): React.ReactNode
 		hasShopOpened = useSignalState(getOffersStore(false).getHasInExperienceShopOpened)
 	end
 
+	-- lute-lint-ignore(rulesOfHooks): flag is stable for process lifetime
+	local suppressForEmptyShop = FFlagHideOfferNotificationsWhenShopEmpty and not useShopHasItems()
+
 	local canShow = content ~= nil and props.visible == true and isShopAvailable and isAnchorReady and not isDismissed
 	if FFlagOfferNotifyOnGlobalIcon then
 		-- Opening the shop is the acknowledgement; do not keep the tooltip up after.
 		-- Dont check for isShopAvailable since it may be disabled and globalicon enabled
 		canShow = content ~= nil and props.visible == true and isAnchorReady and not isDismissed and not hasShopOpened
+	end
+	if suppressForEmptyShop then
+		canShow = false
 	end
 
 	React.useEffect(function(): (() -> ())?

@@ -1,9 +1,5 @@
 local root = script.Parent.Parent
 local Constants = require(root.Constants)
-local getFFlagUGCValidationAnimationPackFolderStructure =
-	require(root.flags.getFFlagUGCValidationAnimationPackFolderStructure)
-local getFFlagUGCValidationAnimationAssetDisableModelStructure =
-	require(root.flags.getFFlagUGCValidationAnimationAssetDisableModelStructure)
 
 local function createAnimationEntry(optional: boolean?, includeWeight: boolean?): { [string]: any }
 	local entry: { [string]: any } = {
@@ -43,7 +39,7 @@ local function createStringValueWithAnimations(
 	}
 end
 
-local function createAnimationSchema(assetTypeEnum: Enum.AssetType, rootInstance: Instance?): { [string]: any }
+local function createAnimationSchema(assetTypeEnum: Enum.AssetType): { [string]: any }
 	local assetInfo = Constants.ANIMATION_ASSET_INFO[assetTypeEnum]
 	assert(assetInfo, `No ANIMATION_ASSET_INFO for {assetTypeEnum}`)
 
@@ -57,23 +53,10 @@ local function createAnimationSchema(assetTypeEnum: Enum.AssetType, rootInstance
 		end
 	end
 
-	local r15AnimSchema = {
+	return {
 		Name = "R15Anim",
 		ClassName = "Folder",
 		_children = r15AnimChildren,
-	}
-
-	if
-		getFFlagUGCValidationAnimationAssetDisableModelStructure()
-		or (getFFlagUGCValidationAnimationPackFolderStructure() and rootInstance and rootInstance.Name == "R15Anim")
-	then
-		return r15AnimSchema
-	end
-
-	return {
-		ClassName = "Model",
-		Name = assetInfo.modelName,
-		_children = { r15AnimSchema },
 	}
 end
 

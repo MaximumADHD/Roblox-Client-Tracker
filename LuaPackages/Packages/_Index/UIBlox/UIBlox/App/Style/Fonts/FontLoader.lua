@@ -4,6 +4,10 @@ local App = Style.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Cryo = require(Packages.Cryo)
+local Foundation = require(Packages.Foundation)
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
+local Constants = require(Style.Constants)
 local StyleTypes = require(Style.StyleTypes)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
@@ -11,6 +15,16 @@ local FONT_CONFIG = {
 	BASE_SIZE = 16,
 	FACTOR = 1.26,
 }
+
+local function getOverrideFontFace(fontOverride: Font | Enum.Font, tokenFontFace: Font): Font
+	if typeof(fontOverride) == "Font" then
+		return fontOverride
+	elseif fontOverride == Enum.Font.Cartoon then
+		-- Font.fromEnum(Cartoon) resolves to Comic Neue Angular, not the Comic Neue family used by typography tokens.
+		return Font.new(Constants.ComicNeueFontFamily, tokenFontFace.Weight, tokenFontFace.Style)
+	end
+	return Font.fromEnum(fontOverride)
+end
 
 local FontLoader = {}
 FontLoader.__index = FontLoader
@@ -32,6 +46,9 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 		HeadingLarge = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansBold,
+			FontFace = if FFlagFoundationFontFaceMigration
+				then normalizeFontFace(tokens.Typography.HeadingLarge.Font) :: Font
+				else nil,
 			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
 				then tokens.Size.Size_700
 				else tokens.Global.Size_350) / baseSize,
@@ -42,6 +59,9 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 		HeadingSmall = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansBold,
+			FontFace = if FFlagFoundationFontFaceMigration
+				then normalizeFontFace(tokens.Typography.HeadingSmall.Font) :: Font
+				else nil,
 			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
 				then tokens.Size.Size_500
 				else tokens.Global.Size_250) / baseSize,
@@ -52,6 +72,9 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 		TitleLarge = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansBold,
+			FontFace = if FFlagFoundationFontFaceMigration
+				then normalizeFontFace(tokens.Typography.TitleLarge.Font) :: Font
+				else nil,
 			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
 				then tokens.Size.Size_400
 				else tokens.Global.Size_200) / baseSize,
@@ -62,6 +85,9 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 		BodyLarge = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSans,
+			FontFace = if FFlagFoundationFontFaceMigration
+				then normalizeFontFace(tokens.Typography.BodyLarge.Font) :: Font
+				else nil,
 			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
 				then tokens.Size.Size_400
 				else tokens.Global.Size_200) / baseSize,
@@ -72,6 +98,9 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 		CaptionLarge = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansMedium,
+			FontFace = if FFlagFoundationFontFaceMigration
+				then normalizeFontFace(tokens.Typography.CaptionLarge.Font) :: Font
+				else nil,
 			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
 				then tokens.Size.Size_300
 				else tokens.Global.Size_150) / baseSize,
@@ -82,6 +111,9 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 		BodySmall = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSans,
+			FontFace = if FFlagFoundationFontFaceMigration
+				then normalizeFontFace(tokens.Typography.BodySmall.Font) :: Font
+				else nil,
 			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
 				then tokens.Size.Size_300
 				else tokens.Global.Size_150) / baseSize,
@@ -92,6 +124,9 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 		CaptionSmall = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansMedium,
+			FontFace = if FFlagFoundationFontFaceMigration
+				then normalizeFontFace(tokens.Typography.CaptionSmall.Font) :: Font
+				else nil,
 			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
 				then tokens.Size.Size_250
 				else tokens.Global.Size_125) / baseSize,
@@ -105,6 +140,9 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 		for _, entry in fontWithToken do
 			if type(entry) == "table" and (entry :: any).Font ~= nil then
 				(entry :: any).Font = fontOverride
+				if FFlagFoundationFontFaceMigration then
+					(entry :: any).FontFace = getOverrideFontFace(fontOverride, (entry :: any).FontFace)
+				end
 			end
 		end
 	end

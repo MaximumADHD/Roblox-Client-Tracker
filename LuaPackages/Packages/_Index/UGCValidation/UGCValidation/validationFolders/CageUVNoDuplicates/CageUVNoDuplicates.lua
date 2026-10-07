@@ -22,6 +22,7 @@ local CageUVNoDuplicates = {}
 
 CageUVNoDuplicates.categories = {
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 }
 
 CageUVNoDuplicates.requiredData = {

@@ -154,7 +154,6 @@ local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 local GetFFlagEnableCrossExperienceVoiceCaptureMute =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExperienceVoiceCaptureMute
-local FFlagLogPartyVoiceReconnect = game:DefineFastFlag("LogPartyVoiceReconnect", false)
 local FFlagPartyVoiceFixCaptureVideoCheck = game:DefineFastFlag("PartyVoiceFixCaptureVideoCheck", false)
 local FIntPartyVoiceUndeafenDelayMS = SharedFlags.FIntPartyVoiceUndeafenDelayMS
 local FFlagPartyVoiceExecuteVoiceActionsPostAsyncInit =
@@ -812,11 +811,7 @@ local function setupListeners()
 	end)
 
 	CoreVoiceManager:subscribe("OnRetryRequested", function()
-		if FFlagLogPartyVoiceReconnect then
 			notifyVoiceStatusChange(Constants.VOICE_STATUS.VOICE_RECONNECTING, "Retry requested")
-		else
-			notifyVoiceStatusChange(Constants.VOICE_STATUS.VOICE_CONNECTING, "Retry requested")
-		end
 	end)
 
 	CoreVoiceManager:subscribe("OnStateChanged", function(oldState, newState)

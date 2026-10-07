@@ -5,6 +5,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local React = require(CorePackages.Packages.React)
+local Signals = require(CorePackages.Packages.Signals)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
@@ -20,13 +21,11 @@ local useIsVoiceConnecting = CrossExperienceVoice.Hooks.useIsVoiceConnecting
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local VOICE_JOIN_PROGRESS = VoiceConstants.VOICE_JOIN_PROGRESS
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
-
-local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
-	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
 local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
 local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
 local FFlagVoiceRewarmTelemetry = require(CorePackages.Workspace.Packages.SharedFlags).FFlagVoiceRewarmTelemetry
+local FFlagProactiveVoiceRestrictionsUFR = require(RobloxGui.Modules.VoiceChat.Flags.FFlagProactiveVoiceRestrictionsUFR)
 
 local Once = function(fn)
 	local called = false
@@ -63,6 +62,14 @@ local function JoinVoiceBinder()
 
 	local setAvailability = React.useCallback(function(availability: number)
 		if not integration or not ChromeService then
+			return
+		end
+
+		if
+			FFlagProactiveVoiceRestrictionsUFR
+			and VoiceChatServiceManager:GetVoiceRestrictionState(false) ~= "normal"
+		then
+			integration.availability:unavailable()
 			return
 		end
 
@@ -103,6 +110,14 @@ local function JoinVoiceBinder()
 			return
 		end
 
+		if
+			FFlagProactiveVoiceRestrictionsUFR
+			and VoiceChatServiceManager:GetVoiceRestrictionState(false) ~= "normal"
+		then
+			integration.availability:unavailable()
+			return
+		end
+
 		if isVoiceActive or isCEVFocused() then
 			integration.availability:unavailable()
 		elseif state == VOICE_JOIN_PROGRESS.Idle then
@@ -124,6 +139,13 @@ local function JoinVoiceBinder()
 	end, { integration })
 
 	local onHideVoiceUI = React.useCallback(function()
+		if
+			FFlagProactiveVoiceRestrictionsUFR
+			and VoiceChatServiceManager:GetVoiceRestrictionState(false) ~= "normal"
+		then
+			integration.availability:unavailable()
+			return
+		end
 		if isVoiceActive or isCEVFocused() then
 			integration.availability:unavailable()
 		else
@@ -134,16 +156,24 @@ local function JoinVoiceBinder()
 	local registerEventListeners = React.useCallback(function()
 		local showVoiceUIConnection
 		local hideVoiceUIConnection
+		local disposeRestrictionEffect
+		if FFlagProactiveVoiceRestrictionsUFR and integration then
+			disposeRestrictionEffect = Signals.createEffect(function(scope)
+				if VoiceChatServiceManager:GetVoiceRestrictionState(scope) ~= "normal" then
+					integration.availability:unavailable()
+				end
+			end)
+		end
 		local connection = VoiceChatServiceManager.VoiceJoinProgressChanged.Event:Connect(hideOrShowJoinVoiceButton)
-
-		if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
-			showVoiceUIConnection = VoiceChatServiceManager.showVoiceUI.Event:Connect(onShowVoiceUI)
-			if not GetFFlagEnableVoiceUxUpdates() then
-				hideVoiceUIConnection = VoiceChatServiceManager.hideVoiceUI.Event:Connect(onHideVoiceUI)
-			end
+		showVoiceUIConnection = VoiceChatServiceManager.showVoiceUI.Event:Connect(onShowVoiceUI)
+		if not GetFFlagEnableVoiceUxUpdates() then
+			hideVoiceUIConnection = VoiceChatServiceManager.hideVoiceUI.Event:Connect(onHideVoiceUI)
 		end
 
 		return function()
+			if disposeRestrictionEffect then
+				disposeRestrictionEffect()
+			end
 			if connection then
 				connection:Disconnect()
 			end
@@ -156,9 +186,14 @@ local function JoinVoiceBinder()
 		end
 	end, {})
 
-	React.useEffect(function()
+	React.useEffect(function(): (() -> ())?
 		applyInitialJoinVoiceState()
-		registerEventListeners()
+		if FFlagProactiveVoiceRestrictionsUFR then
+			return registerEventListeners()
+		else
+			registerEventListeners()
+			return nil
+		end
 	end, {})
 
 	React.useEffect(function()

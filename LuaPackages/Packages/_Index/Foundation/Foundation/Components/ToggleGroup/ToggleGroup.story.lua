@@ -4,7 +4,6 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
 local StorySection = require(Foundation.Utility.Stories.Shared.StorySection)
 local Toggle = require(Foundation.Components.Toggle)
 local ToggleGroup = require(Foundation.Components.ToggleGroup)
@@ -90,7 +89,7 @@ local function PlaygroundStory(props: { controls: PlaygroundControls })
 		Group = React.createElement(ToggleGroup, {
 			legend = controls.legend,
 			size = controls.size,
-			placement = if Flags.FoundationInputGroup then controls.placement else nil,
+			placement = controls.placement,
 		}, createItems(ITEM_FIXTURES)),
 	})
 end
@@ -181,22 +180,20 @@ local stories: { StoryEntry } = {
 		story = SizingStory,
 	},
 	{
+		name = "Placement",
+		story = PlacementStory,
+	},
+	{
 		name = "Content",
 		story = ContentStory,
 	},
 }
 
-if Flags.FoundationInputGroup then
-	table.insert(stories, 3, {
-		name = "Placement",
-		story = PlacementStory,
-	})
-end
-
-local controls: { [string]: unknown } = Dash.join({
+local controls: { [string]: unknown } = {
 	legend = LEGEND,
 	size = SIZE_ORDER,
-}, if Flags.FoundationInputGroup then { placement = PLACEMENT_ORDER } else {})
+	placement = PLACEMENT_ORDER,
+}
 
 return {
 	summary = "ToggleGroup lays related toggles under a shared legend and publishes size and placement to them.",

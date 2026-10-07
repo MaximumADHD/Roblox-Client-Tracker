@@ -10,6 +10,7 @@ HSRAssetStructureValid.categories = {
 	ValidationEnums.UploadCategory.TORSO_AND_LIMBS,
 	ValidationEnums.UploadCategory.DYNAMIC_HEAD,
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 }
 HSRAssetStructureValid.requiredData = {
 	ValidationEnums.SharedDataMember.rootInstance,

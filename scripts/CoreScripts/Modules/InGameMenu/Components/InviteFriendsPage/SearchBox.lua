@@ -8,8 +8,10 @@ local UIBlox = InGameMenuDependencies.UIBlox
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local Foundation = require(CorePackages.Packages.Foundation)
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
 	then Foundation.UNSTABLE.withCursorMigration
@@ -59,15 +61,31 @@ function SearchBox:renderWithSelectionCursor(getSelectionCursor)
 	})(function(localized)
 		return withFoundationOrUIBloxStyle(function(tokens)
 			return {
+				Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
 				Theme = {
-					TextEmphasis = { Color = tokens.Color.Content.Emphasis.Color3, Transparency = tokens.Color.Content.Emphasis.Transparency },
-					IconEmphasis = { Color = tokens.Color.Content.Emphasis.Color3, Transparency = tokens.Color.Content.Emphasis.Transparency },
-					BackgroundUIContrast = { Color = tokens.Color.OverMedia.OverMedia_0.Color3, Transparency = tokens.Color.OverMedia.OverMedia_0.Transparency },
-					Divider = { Color = tokens.Color.Stroke.Emphasis.Color3, Transparency = tokens.Color.Stroke.Emphasis.Transparency },
+					TextEmphasis = {
+						Color = tokens.Color.Content.Emphasis.Color3,
+						Transparency = tokens.Color.Content.Emphasis.Transparency,
+					},
+					IconEmphasis = {
+						Color = tokens.Color.Content.Emphasis.Color3,
+						Transparency = tokens.Color.Content.Emphasis.Transparency,
+					},
+					BackgroundUIContrast = {
+						Color = tokens.Color.OverMedia.OverMedia_0.Color3,
+						Transparency = tokens.Color.OverMedia.OverMedia_0.Transparency,
+					},
+					Divider = {
+						Color = tokens.Color.Stroke.Emphasis.Color3,
+						Transparency = tokens.Color.Stroke.Emphasis.Transparency,
+					},
 				},
 				Font = {
 					BaseSize = 1,
-					Body = { Font = tokens.Typography.BodyLarge.Font, RelativeSize = tokens.Typography.BodyLarge.FontSize },
+					Body = {
+						Font = tokens.Typography.BodyLarge.Font,
+						RelativeSize = tokens.Typography.BodyLarge.FontSize,
+					},
 				},
 			}
 		end, function(style)
@@ -108,7 +126,10 @@ function SearchBox:renderWithSelectionCursor(getSelectionCursor)
 					then Roact.createElement(Image, {
 						Size = UDim2.fromScale(1, 1),
 						Image = Assets.Images.ClearIcon.Image,
-						imageRect = { offset = Assets.Images.ClearIcon.ImageRectOffset, size = Assets.Images.ClearIcon.ImageRectSize },
+						imageRect = {
+							offset = Assets.Images.ClearIcon.ImageRectOffset,
+							size = Assets.Images.ClearIcon.ImageRectSize,
+						},
 						imageStyle = { Color3 = style.Theme.IconEmphasis.Color, Transparency = 0 },
 					})
 					else Roact.createElement(ImageSetLabel, {
@@ -148,7 +169,10 @@ function SearchBox:renderWithSelectionCursor(getSelectionCursor)
 						Position = UDim2.new(0, 22, 0.5, 0),
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Image = Assets.Images.SearchIcon.Image,
-						imageRect = { offset = Assets.Images.SearchIcon.ImageRectOffset, size = Assets.Images.SearchIcon.ImageRectSize },
+						imageRect = {
+							offset = Assets.Images.SearchIcon.ImageRectOffset,
+							size = Assets.Images.SearchIcon.ImageRectSize,
+						},
 						imageStyle = { Color3 = style.Theme.IconEmphasis.Color, Transparency = 0 },
 					})
 					else Roact.createElement(ImageSetLabel, {
@@ -172,7 +196,10 @@ function SearchBox:renderWithSelectionCursor(getSelectionCursor)
 
 					TextColor3 = textTheme.Color,
 					TextTransparency = textTheme.Transparency,
-					Font = textFont.Font,
+					Font = if FFlagFoundationFontFaceMigration then nil else textFont.Font,
+					FontFace = if FFlagFoundationFontFaceMigration
+						then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
+						else nil,
 					TextSize = textFont.RelativeSize * style.Font.BaseSize,
 					TextWrapped = false,
 

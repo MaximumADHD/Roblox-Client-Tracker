@@ -33,6 +33,7 @@ local SurfaceAppearanceTexturesBounded = {}
 SurfaceAppearanceTexturesBounded.categories = {
 	ValidationEnums.UploadCategory.RIGID_ACCESSORY,
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 }
 
 SurfaceAppearanceTexturesBounded.requiredData = {}

@@ -10,6 +10,7 @@ local getFIntMaxTotalSurfaceArea = require(root.flags.getFIntMaxTotalSurfaceArea
 local SurfaceAreaBounded = {}
 SurfaceAreaBounded.categories = {
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 	ValidationEnums.UploadCategory.RIGID_ACCESSORY,
 	ValidationEnums.UploadCategory.TORSO_AND_LIMBS,
 	ValidationEnums.UploadCategory.DYNAMIC_HEAD,

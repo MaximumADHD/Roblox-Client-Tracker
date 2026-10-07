@@ -8,12 +8,15 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 local Cryo = InGameMenuDependencies.Cryo
 
+local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local Images = UIBlox.App.ImageSet.Images
 
 local Foundation = require(CorePackages.Packages.Foundation)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
 
 local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
 	then Foundation.UNSTABLE.withCursorMigration
@@ -79,7 +82,11 @@ function TextEntryField:calculateNeedsRescroll(style, textFont)
 		local textBeforeCursor = prevProps.text:sub(1, prevState.cursorPosition - 1)
 		local fontHeight = textFont.RelativeSize * style.Font.BaseSize
 		local availableSpace = Vector2.new(prevProps.textBoxWidth, 10000)
-		local textSize = TextService:GetTextSize(textBeforeCursor, fontHeight, textFont.Font, availableSpace)
+		local textSize = if FFlagFoundationFontFaceMigration
+			then GetTextSize(textBeforeCursor, fontHeight, style.Tokens.Typography.BodyLarge.Font, availableSpace, {
+				addTemporaryPadding = false,
+			})
+			else TextService:GetTextSize(textBeforeCursor, fontHeight, textFont.Font, availableSpace)
 
 		if textSize.Y > prevState.scrollingFrameHeight + prevState.canvasPosition then
 			return {
@@ -97,25 +104,43 @@ end
 function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
+			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
 			Theme = {
-				TextDefault = { Color = tokens.Color.Content.Default.Color3, Transparency = tokens.Color.Content.Default.Transparency },
-				BackgroundMuted = { Color = tokens.Color.Surface.Surface_200.Color3, Transparency = tokens.Color.Surface.Surface_200.Transparency },
+				TextDefault = {
+					Color = tokens.Color.Content.Default.Color3,
+					Transparency = tokens.Color.Content.Default.Transparency,
+				},
+				BackgroundMuted = {
+					Color = tokens.Color.Surface.Surface_200.Color3,
+					Transparency = tokens.Color.Surface.Surface_200.Transparency,
+				},
 			},
 			Font = {
 				BaseSize = 1,
-				Body = { Font = tokens.Typography.BodyLarge.Font, RelativeSize = tokens.Typography.BodyLarge.FontSize },
+				Body = {
+					Font = tokens.Typography.BodyLarge.Font,
+					RelativeSize = tokens.Typography.BodyLarge.FontSize,
+				},
 			},
 		}
 	end, function(style)
 		local textTheme = style.Theme.TextDefault
 		local textFont = style.Font.Body
 
-		local textSize = TextService:GetTextSize(
-			self.props.text,
-			textFont.RelativeSize * style.Font.BaseSize,
-			textFont.Font,
-			Vector2.new(self.state.textBoxWidth, 10000)
-		)
+		local textSize = if FFlagFoundationFontFaceMigration
+			then GetTextSize(
+				self.props.text,
+				textFont.RelativeSize * style.Font.BaseSize,
+				style.Tokens.Typography.BodyLarge.Font,
+				Vector2.new(self.state.textBoxWidth, 10000),
+				{ addTemporaryPadding = false }
+			)
+			else TextService:GetTextSize(
+				self.props.text,
+				textFont.RelativeSize * style.Font.BaseSize,
+				textFont.Font,
+				Vector2.new(self.state.textBoxWidth, 10000)
+			)
 
 		local imageSize = CIRCLE_BACKGROUND_ASSET.ImageRectSize
 		local imageOffset = CIRCLE_BACKGROUND_ASSET.ImageRectOffset
@@ -160,7 +185,8 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 
 					TextColor3 = textTheme.Color,
 					TextTransparency = textTheme.Transparency,
-					Font = textFont.Font,
+					Font = if FFlagFoundationFontFaceMigration then nil else textFont.Font,
+					FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font) else nil,
 					TextSize = textFont.RelativeSize * style.Font.BaseSize,
 					TextWrapped = true,
 					SelectionImageObject = getSelectionCursor(CursorKind.InputFields),

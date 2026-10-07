@@ -10,7 +10,10 @@ local LeaderSkinnedVertsNearCageIslands = {}
 
 LeaderSkinnedVertsNearCageIslands.fflag =
 	require(root.flags.getEngineFeatureEngineUGCValidateLeaderVertsNearCageIslands)
-LeaderSkinnedVertsNearCageIslands.categories = { ValidationEnums.UploadCategory.LAYERED_CLOTHING }
+LeaderSkinnedVertsNearCageIslands.categories = {
+	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
+}
 LeaderSkinnedVertsNearCageIslands.requiredData = {
 	ValidationEnums.SharedDataMember.renderMeshesData,
 	ValidationEnums.SharedDataMember.innerCagesData,

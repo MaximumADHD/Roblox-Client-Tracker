@@ -193,6 +193,7 @@ export type ValidationReporter = {
 	err: (self: ValidationReporter, logMessage: string) -> nil,
 	setReportingInstance: (self: ValidationReporter, instance: Instance?) -> nil,
 	setReportingRoot: (self: ValidationReporter, rootInstance: Instance) -> nil,
+	setTelemetryContext: (self: ValidationReporter, context: string) -> nil,
 	-- Backend-only: throws past ValidationManager so RCC reschedules the job.
 	forceError: (self: ValidationReporter, message: string) -> never,
 	-- Aborts the current test. Backend re-raises (RCC reschedules); Studio/IEC reports as err.

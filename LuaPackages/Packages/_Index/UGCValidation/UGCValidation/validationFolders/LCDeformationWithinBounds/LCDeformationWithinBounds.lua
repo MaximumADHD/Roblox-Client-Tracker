@@ -24,7 +24,10 @@ local FIntLCPostDeformSizeMultiplierGeneral = game:DefineFastInt("LCPostDeformSi
 	/ 100
 
 LCDeformationWithinBounds.fflag = require(root.flags.getEngineFeatureEngineUGCValidationExactLCDeformationSize)
-LCDeformationWithinBounds.categories = { ValidationEnums.UploadCategory.LAYERED_CLOTHING }
+LCDeformationWithinBounds.categories = {
+	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
+}
 LCDeformationWithinBounds.requiredData = { ValidationEnums.SharedDataMember.renderMeshesData }
 
 LCDeformationWithinBounds.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)

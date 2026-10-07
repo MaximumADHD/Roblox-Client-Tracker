@@ -5,6 +5,9 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
 local withStyle = UIBlox.Core.Style.withStyle
@@ -110,7 +113,10 @@ function MenuHeader:render()
 						Size = UDim2.new(1, 0, 1, -(TEXT_PADDING_TOP + TEXT_PADDING_BOTTOM)),
 						Position = UDim2.fromOffset(0, TEXT_PADDING_TOP),
 
-						Font = font.Header1.Font,
+						Font = if FFlagFoundationFontFaceMigration then nil else font.Header1.Font,
+						FontFace = if FFlagFoundationFontFaceMigration
+							then normalizeFontFace(style.Tokens.Typography.HeadingSmall.Font)
+							else nil,
 						Text = self.props.gameName,
 						TextSize = font.BaseSize * font.Header1.RelativeSize,
 						TextColor3 = theme.TextEmphasis.Color,

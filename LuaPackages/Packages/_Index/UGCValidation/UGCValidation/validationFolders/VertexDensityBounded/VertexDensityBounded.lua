@@ -8,7 +8,10 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 
 local getFIntUGCValidationVertexDensityThreshold = require(root.flags.getFIntUGCValidationVertexDensityThreshold)
 local VertexDensityBounded = {}
-VertexDensityBounded.categories = { ValidationEnums.UploadCategory.LAYERED_CLOTHING }
+VertexDensityBounded.categories = {
+	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
+}
 VertexDensityBounded.requiredData = { ValidationEnums.SharedDataMember.renderMeshesData }
 VertexDensityBounded.expectedFailures = {}
 

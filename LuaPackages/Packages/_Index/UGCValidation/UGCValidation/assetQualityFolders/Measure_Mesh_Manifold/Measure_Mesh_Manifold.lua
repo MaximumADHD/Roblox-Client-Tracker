@@ -7,6 +7,7 @@ local Measure_Mesh_Manifold = {}
 
 Measure_Mesh_Manifold.categories = {
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 	ValidationEnums.UploadCategory.FULL_BODY,
 	ValidationEnums.UploadCategory.RIGID_ACCESSORY,
 	ValidationEnums.UploadCategory.DYNAMIC_HEAD,

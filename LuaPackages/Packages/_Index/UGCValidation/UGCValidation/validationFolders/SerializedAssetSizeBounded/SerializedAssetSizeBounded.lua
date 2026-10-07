@@ -29,6 +29,7 @@ local CATEGORY_TO_MAX_SIZE_GETTER: { [string]: () -> number } = {
 	[ValidationEnums.UploadCategory.TORSO_AND_LIMBS] = getFIntUGCValidateMaxSerializedAssetSizeBytesTorsoAndLimbs,
 	[ValidationEnums.UploadCategory.DYNAMIC_HEAD] = getFIntUGCValidateMaxSerializedAssetSizeBytesDynamicHead,
 	[ValidationEnums.UploadCategory.LAYERED_CLOTHING] = getFIntUGCValidateMaxSerializedAssetSizeBytesLayeredClothing,
+	[ValidationEnums.UploadCategory.EYEBROW_EYELASH] = getFIntUGCValidateMaxSerializedAssetSizeBytesLayeredClothing,
 	[ValidationEnums.UploadCategory.RIGID_ACCESSORY] = getFIntUGCValidateMaxSerializedAssetSizeBytesRigidAccessory,
 }
 

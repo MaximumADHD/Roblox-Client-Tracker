@@ -33,8 +33,7 @@ export type StyleProviderProps = {
 	derives: { StyleSheet }?,
 	-- Partial token overrides to apply on top of the base tokens.
 	-- Allows remapping token values (e.g., Color.Surface.Surface_0 to a different color path).
-	-- With FoundationTokenOverrides: map values are source paths (strings) or literals; both are validated against the target token shape.
-	-- Only available when FoundationTokenOverrides flag is enabled.
+	-- Map values are source paths (strings) or literals; both are validated against the target token shape.
 	tokenOverrides: Tokens.TokenOverrides?,
 	children: React.ReactNode,
 }

@@ -7,12 +7,15 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
+local Foundation = require(Packages.Foundation)
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local ControllerBarHint = require(script.Parent.ControllerBarHint)
 
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local GetFontFromFontStyle = require(UIBlox.Core.Text.GetFontFromFontStyle)
 
 local HINT_INNER_PADDING = require(script.Parent.BarConstants).ControllerBarHintInternalPadding
 local ICON_SIZE = require(App.Menu.MenuConstants).DefaultKeyLabelSize
@@ -112,7 +115,7 @@ function ControllerBar:calculateHintSize(controllerBarWidth, font)
 	local minSize = GetTextSize(
 		self.state.hintStringsConcat,
 		MIN_FONT_SIZE,
-		font.Header2.Font,
+		if FFlagFoundationFontFaceMigration then GetFontFromFontStyle(font.Header2) else font.Header2.Font,
 		Vector2.new(BIG_ENOUGH_NOT_TO_WRAP, BIG_ENOUGH_NOT_TO_WRAP)
 	).X
 
@@ -121,7 +124,7 @@ function ControllerBar:calculateHintSize(controllerBarWidth, font)
 		local maxSize = GetTextSize(
 			self.state.hintStringsConcat,
 			MAX_FONT_SIZE,
-			font.Header2.Font,
+			if FFlagFoundationFontFaceMigration then GetFontFromFontStyle(font.Header2) else font.Header2.Font,
 			Vector2.new(BIG_ENOUGH_NOT_TO_WRAP, BIG_ENOUGH_NOT_TO_WRAP)
 		).X
 		local m = (MAX_FONT_SIZE - MIN_FONT_SIZE) / (maxSize - minSize)

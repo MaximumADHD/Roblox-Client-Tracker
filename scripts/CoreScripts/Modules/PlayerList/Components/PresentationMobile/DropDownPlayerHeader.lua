@@ -6,6 +6,8 @@ local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local UserLib = require(CorePackages.Workspace.Packages.UserLib)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
@@ -100,7 +102,11 @@ function DropDownPlayerHeader:render()
 						}),
 
 						DisplayName = showVerifiedBadge and Roact.createElement(EmojiTextLabel, {
-							fontStyle = style.Font.Header2,
+							fontStyle = if FFlagFoundationFontFaceMigration
+								then Cryo.Dictionary.join(style.Font.Header2, {
+									Font = style.Tokens.Typography.TitleLarge.Font,
+								})
+								else style.Font.Header2,
 							colorStyle = style.Theme.TextEmphasis,
 							fluidSizing = false,
 							emoji = Emoji.Verified,
@@ -117,7 +123,10 @@ function DropDownPlayerHeader:render()
 							LayoutOrder = 1,
 							Size = UDim2.new(1, 0, 0, textHeight),
 							Text = player.DisplayName,
-							Font = style.Font.Header2.Font,
+							Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Header2.Font,
+							FontFace = if FFlagFoundationFontFaceMigration
+								then normalizeFontFace(style.Tokens.Typography.TitleLarge.Font)
+								else nil,
 							TextSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.DropDownHeaderDisplayNameTextSize else style.Font.BaseSize * style.Font.Header2.RelativeSize,
 							TextColor3 = style.Theme.TextEmphasis.Color,
 							TextTransparency = style.Theme.TextEmphasis.Transparency,
@@ -138,7 +147,10 @@ function DropDownPlayerHeader:render()
 							LayoutOrder = 2,
 							Size = UDim2.new(1, 0, 0, textHeight),
 							Text = "@" .. player.Name,
-							Font = style.Font.CaptionHeader.Font,
+							Font = if FFlagFoundationFontFaceMigration then nil else style.Font.CaptionHeader.Font,
+							FontFace = if FFlagFoundationFontFaceMigration
+								then normalizeFontFace(style.Tokens.Typography.CaptionLarge.Font)
+								else nil,
 							TextSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.DropDownHeaderPlayerNameTextSize else style.Font.BaseSize * style.Font.CaptionHeader.RelativeSize,
 							TextColor3 = style.Theme.TextMuted.Color,
 							TextTransparency = style.Theme.TextMuted.Transparency,

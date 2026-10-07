@@ -11,6 +11,8 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local Foundation = require(Packages.Foundation)
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local Alert = require(AlertRoot.Alert)
 local AlertType = require(AlertRoot.Enum.AlertType)
@@ -29,6 +31,7 @@ local DEFAULT_FOOTER_HEIGHT = 100
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
+local GetFontFromFontStyle = require(UIBlox.Core.Text.GetFontFromFontStyle)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
@@ -96,7 +99,7 @@ function InteractiveAlert:render()
 		) * 10 -- 40 * 10 = 400
 		local theme = stylePalette.Theme
 		local font = stylePalette.Font
-		local textFont = font.Body.Font
+		local textFont = if FFlagFoundationFontFaceMigration then GetFontFromFontStyle(font.Body) else font.Body.Font
 
 		local fontSize = font.BaseSize * font.Body.RelativeSize
 
@@ -130,10 +133,13 @@ function InteractiveAlert:render()
 
 		local footerContent = self.props.footerContent
 		if self.props.footerText then
+			local footerFontSize = if FFlagFoundationFontFaceMigration
+				then font.BaseSize * font.Footer.RelativeSize
+				else nil
 			local fullFooterTextHeight = self.props.footerText
 					and GetTextHeight(
 						self.props.footerText,
-						font.Footer.Font,
+						if FFlagFoundationFontFaceMigration then GetFontFromFontStyle(font.Footer) else font.Footer.Font,
 						font.BaseSize * font.Footer.RelativeSize,
 						innerWidth,
 						DEFAULT_FOOTER_HEIGHT
@@ -147,7 +153,7 @@ function InteractiveAlert:render()
 					fontStyle = font.Footer,
 					LayoutOrder = 4,
 					Text = self.props.footerText,
-					TextSize = fontSize,
+					TextSize = if FFlagFoundationFontFaceMigration then footerFontSize else fontSize,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					Size = UDim2.new(1, 0, 0, fullFooterTextHeight),
 				})

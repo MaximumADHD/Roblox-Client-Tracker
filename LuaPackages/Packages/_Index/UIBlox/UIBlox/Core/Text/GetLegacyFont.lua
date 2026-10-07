@@ -1,6 +1,9 @@
+local UIBlox = script.Parent.Parent.Parent
+local Constants = require(UIBlox.App.Style.Constants)
+
 local legacyFontsByFace: { [string]: Enum.Font } = {}
 local COMIC_NEUE_ANGULAR_FAMILY = Font.fromEnum(Enum.Font.Cartoon).Family
-local COMIC_NEUE_FAMILY = "rbxassetid://127896232205472"
+local COMIC_NEUE_FAMILY = Constants.ComicNeueFontFamily
 
 local function getFaceKey(font: Font): string
 	return `{font.Family}|{font.Weight.Value}|{font.Style.Value}`

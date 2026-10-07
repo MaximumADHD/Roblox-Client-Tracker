@@ -5,7 +5,6 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local Avatar = require(Foundation.Components.Avatar)
-local Flags = require(Foundation.Utility.Flags)
 local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
 local StatusIndicator = require(Foundation.Components.StatusIndicator)
 local StatusIndicatorShape = require(Foundation.Enums.StatusIndicatorShape)
@@ -45,10 +44,6 @@ local VARIANT_ORDER: { StatusIndicatorVariant } = {
 	StatusIndicatorVariant.Alert,
 	StatusIndicatorVariant.Voice,
 }
-
-if Flags.FoundationStatusIndicatorVariantExperiment then
-	table.insert(VARIANT_ORDER, StatusIndicatorVariant.Contrast_Experiment)
-end
 
 local SHAPE_ORDER: { StatusIndicatorShape } = {
 	StatusIndicatorShape.Circle,

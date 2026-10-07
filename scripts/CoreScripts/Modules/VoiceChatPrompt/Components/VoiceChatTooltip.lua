@@ -10,8 +10,6 @@ local React = require(CorePackages.Packages.React)
 local Roact = require(CorePackages.Packages.Roact)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local utility = require(RobloxGui.Modules.Settings.Utility)
-local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
-	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
 
 local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
 local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
@@ -71,10 +69,7 @@ local function VoiceChatTooltip(props: Props)
 	local anchorPaddingOffset = 10 -- Offset that centers the tooltip on the button
 	local anchorHeight = 38 -- PermissionsButtons.lua: Y_HEIGHT
 	local anchorWidth = isSmallScreenSize and 54 + anchorPaddingOffset or 74 - anchorPaddingOffset -- PermissionsButtons.lua: UIPaddingPermissionsContainer Close Button Location
-
-	if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
-		anchorHeight = TopBarHeight
-	end
+	anchorHeight = TopBarHeight
 	anchorHeight = TopBarConstants.useDisplayScaleState(TopBarHeight)
 
 	local tooltipProps = {

@@ -17,7 +17,7 @@ type ColorStyleValue = Types.ColorStyleValue
 
 export type Tokens = RbxDesignFoundations.Tokens
 export type TokenPath = RbxDesignFoundations.TokenPath
--- Non-string values are literals. With FoundationTokenOverrides, literals and path remaps must match the target (typeof or table keys/values).
+-- Non-string values are literals. Literals and path remaps must match the target (typeof or table keys/values).
 export type TokenOverrideValue = TokenPath | Color3 | ColorStyleValue | number | UDim | UDim2
 export type TokenOverrides = { [TokenPath]: TokenOverrideValue }
 
@@ -37,10 +37,6 @@ local function getPlatformScale(device: Device, scaleFactor: number?)
 end
 
 local function applyTokenOverrides(tokens: any, overrides: TokenOverrides): any
-	if not Flags.FoundationTokenOverrides then
-		return tokens
-	end
-
 	for targetPath, source in overrides do
 		local sourceValue = TokenProcessingUtilities.resolveTokenOverride(tokens, targetPath, source)
 		if sourceValue ~= nil then

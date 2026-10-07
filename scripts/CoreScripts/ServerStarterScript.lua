@@ -28,6 +28,8 @@ local FFlagAXEnableInspectAndBuyBulkPurchase =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagAXEnableInspectAndBuyBulkPurchase
 local FFlagPlatformLeaderboardRccEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagPlatformLeaderboardRccEnabled
+local FFlagDebugServerPlatformLeaderboardDevMock =
+	game:DefineFastFlag("DebugServerPlatformLeaderboardDevMock", false)
 local FFlagEmoteSkinningDisableEnabled = game:DefineFastFlag("EmoteSkinningDisableEnabled", false)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
@@ -46,9 +48,7 @@ end
 require(RobloxGui.Modules.Server.RemoteAllowList)()
 
 -- OpenCloud
-if game:DefineFastFlag("OpenCloudCoreScriptLuaEnabled", false) then
-	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/OpenCloud/OpenCloudV2", script.Parent)
-end
+ScriptContext:AddCoreScriptLocal("ServerCoreScripts/OpenCloud/OpenCloudV2", script.Parent)
 if game:DefineFastFlag("OpenCloudClientLibraryCoreScriptEnabled", false) then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/OpenCloud/OpenCloudClientLibraryCoreScript", script.Parent)
 end
@@ -58,7 +58,9 @@ ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerSocialScript", script.
 if FFlagEmoteSkinningDisableEnabled then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/EmoteSkinningDisable", script.Parent)
 end
-if FFlagPlatformLeaderboardRccEnabled then
+if FFlagDebugServerPlatformLeaderboardDevMock and runService:IsStudio() then
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerPlatformLeaderboardDevMock", script.Parent)
+elseif FFlagPlatformLeaderboardRccEnabled then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerPlatformLeaderboard", script.Parent)
 end
 

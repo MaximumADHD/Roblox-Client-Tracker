@@ -6,7 +6,6 @@ local React = require(Packages.React)
 
 local Checkbox = require(Foundation.Components.Checkbox)
 local CheckboxGroup = require(Foundation.Components.CheckboxGroup)
-local Flags = require(Foundation.Utility.Flags)
 local StorySection = require(Foundation.Utility.Stories.Shared.StorySection)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
@@ -193,6 +192,10 @@ local stories: { StoryEntry } = {
 		story = SizingStory,
 	},
 	{
+		name = "Placement",
+		story = PlacementStory,
+	},
+	{
 		name = "Controlled component",
 		story = ControlledStory,
 	},
@@ -202,17 +205,11 @@ local stories: { StoryEntry } = {
 	},
 }
 
-if Flags.FoundationInputGroup then
-	table.insert(stories, 3, {
-		name = "Placement",
-		story = PlacementStory,
-	})
-end
-
-local controls: { [string]: unknown } = Dash.join({
+local controls: { [string]: unknown } = {
 	legend = LEGEND,
 	size = SIZE_ORDER,
-}, if Flags.FoundationInputGroup then { placement = PLACEMENT_ORDER } else {})
+	placement = PLACEMENT_ORDER,
+}
 
 return {
 	summary = "CheckboxGroup lays related checkboxes under a shared legend and publishes size and placement to them.",

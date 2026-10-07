@@ -9,8 +9,11 @@ local ReactUtils = require(CorePackages.Packages.ReactUtils)
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local Foundation = require(CorePackages.Packages.Foundation)
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
 
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local useExternalEvent = ReactUtils.useEventConnection
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
@@ -133,7 +136,8 @@ local function MenuNavigationToggleDialog(props: Props)
 			TextXAlignment = Enum.TextXAlignment.Center,
 			TextYAlignment = Enum.TextYAlignment.Center,
 			TextColor3 = textColor,
-			Font = font.Font,
+			Font = if FFlagFoundationFontFaceMigration then nil else font.Font,
+			FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(font.Font) else nil,
 			TextSize = font.FontSize,
 			TextWrapped = false,
 			BackgroundTransparency = 1,
@@ -151,7 +155,8 @@ local function MenuNavigationToggleDialog(props: Props)
 			TextXAlignment = Enum.TextXAlignment.Center,
 			TextYAlignment = Enum.TextYAlignment.Center,
 			TextColor3 = textColor,
-			Font = font.Font,
+			Font = if FFlagFoundationFontFaceMigration then nil else font.Font,
+			FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(font.Font) else nil,
 			TextSize = font.FontSize,
 			TextWrapped = false,
 			BackgroundTransparency = 1,

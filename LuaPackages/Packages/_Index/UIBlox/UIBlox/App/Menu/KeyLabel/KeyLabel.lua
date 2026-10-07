@@ -14,6 +14,7 @@ local Types = require(KeyLabelRoot.Types)
 local Constants = require(KeyLabelRoot.Constants)
 local Utilities = require(KeyLabelRoot.Utilities)
 local useStyle = require(UIBlox.Core.Style.useStyle)
+local GetFontFromFontStyle = require(UIBlox.Core.Text.GetFontFromFontStyle)
 local Images = require(App.ImageSet.Images)
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 
@@ -103,7 +104,9 @@ local function KeyLabel(props: KeyLabelProps)
 					TextYAlignment = Enum.TextYAlignment.Center,
 					TextSize = fontSize,
 					Font = if FFlagFoundationFontFaceMigration then nil else textFont.Font,
-					FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(textFont.Font) else nil,
+					FontFace = if FFlagFoundationFontFaceMigration
+						then normalizeFontFace(GetFontFromFontStyle(textFont))
+						else nil,
 					RichText = false,
 					Position = UDim2.fromOffset(0, Constants.TEXT_CENTER_OFFSET),
 					Size = UDim2.fromScale(1, 1),

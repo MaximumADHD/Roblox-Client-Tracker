@@ -8,6 +8,8 @@ local SocialContextToastPackage = require(CorePackages.Workspace.Packages.Social
 local SocialContextToastContainer = SocialContextToastPackage.SocialContextToastContainer
 local GetFFlagSocialContextToastEventStream = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSocialContextToastEventStream
 local FFlagEnablePartyNudgeAfterJoin = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeAfterJoin
+local FFlagShowFriendJoinedYouToastForNonReferredJoins =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagShowFriendJoinedYouToastForNonReferredJoins
 local GetFFlagEnableReferredPlayerJoinRemoteEvent =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableReferredPlayerJoinRemoteEvent
 local GetFIntReferredPlayerJoinRemoteEventTimeout =
@@ -35,8 +37,10 @@ end
 local ShowFriendJoinedPlayerToast = nil
 local ShowPlayerJoinedFriendsToast = nil
 local FIntFriendPlayerJoinedRemoteEventTimeout = game:DefineFastInt("FriendPlayerJoinedRemoteEventTimeout", 5)
-if FFlagEnablePartyNudgeAfterJoin then
+if FFlagEnablePartyNudgeAfterJoin or FFlagShowFriendJoinedYouToastForNonReferredJoins then
     ShowFriendJoinedPlayerToast = RobloxReplicatedStorage:WaitForChild("ShowFriendJoinedPlayerToast", FIntFriendPlayerJoinedRemoteEventTimeout) :: RemoteEvent
+end
+if FFlagEnablePartyNudgeAfterJoin then
     ShowPlayerJoinedFriendsToast = RobloxReplicatedStorage:WaitForChild("ShowPlayerJoinedFriendsToast", FIntFriendPlayerJoinedRemoteEventTimeout) :: RemoteEvent
 end
 

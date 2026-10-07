@@ -1,4 +1,5 @@
 --!nonstrict
+local CollectionService = game:GetService("CollectionService")
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
@@ -6,13 +7,18 @@ local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
 local describe = JestGlobals.describe
 local it = JestGlobals.it
 local beforeEach = JestGlobals.beforeEach
+local beforeAll = JestGlobals.beforeAll
+local afterAll = JestGlobals.afterAll
 local jestExpect = JestGlobals.expect
 
 local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local Rodux = InGameMenuDependencies.Rodux
 local RoactRodux = InGameMenuDependencies.RoactRodux
+local UIBlox = InGameMenuDependencies.UIBlox
 local UnitTestHelpers = require(CorePackages.Workspace.Packages.UnitTestHelpers)
+
+local FOUNDATION_BUTTON_TAG = "data-testid=--foundation-button"
 
 local act = Roact.act
 
@@ -25,6 +31,7 @@ local reducer = require(InGameMenu.reducer)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
+local FFlagIGMDialogButtonsUseUIBloxButton = require(InGameMenu.Flags.FFlagIGMDialogButtonsUseUIBloxButton)
 
 local FocusHandlerContextProvider =
 	require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
@@ -95,6 +102,37 @@ describe("Mount/unmount", function()
 		Roact.unmount(instance)
 	end)
 end)
+
+if FFlagIGMDialogButtonsUseUIBloxButton then
+	describe("Button styling (SVR-1583)", function()
+		local originalUseFoundationButton
+		beforeAll(function()
+			originalUseFoundationButton = UIBlox.Config.useFoundationButton
+			UIBlox.Config.useFoundationButton = true
+		end)
+		afterAll(function()
+			UIBlox.Config.useFoundationButton = originalUseFoundationButton
+		end)
+
+		it("renders the confirm and cancel buttons via the UIBlox (non-Foundation) path", function()
+			local element = getMountableTreeAndStore({
+				isOpen = true,
+				placeName = "Crossroads",
+			})
+			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+
+			local confirmButton = Players.LocalPlayer.PlayerGui:FindFirstChild("ConfirmButton", true)
+			local cancelButton = Players.LocalPlayer.PlayerGui:FindFirstChild("CancelButton", true)
+			jestExpect(confirmButton).toBeDefined()
+			jestExpect(cancelButton).toBeDefined()
+
+			jestExpect(CollectionService:HasTag(confirmButton, FOUNDATION_BUTTON_TAG)).toBe(false)
+			jestExpect(CollectionService:HasTag(cancelButton, FOUNDATION_BUTTON_TAG)).toBe(false)
+
+			Roact.unmount(instance)
+		end)
+	end)
+end
 
 describe("Gamepad support", function()
 	it("Should not gain focus when gamepad is not the last used device", function()

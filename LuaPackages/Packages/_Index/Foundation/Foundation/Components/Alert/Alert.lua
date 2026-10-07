@@ -13,6 +13,7 @@ local ButtonGroup = require(Foundation.Components.ButtonGroup)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
+local Flags = require(Foundation.Utility.Flags)
 local Icon = require(Foundation.Components.Icon)
 local IconSize = require(Foundation.Enums.IconSize)
 local InputSize = require(Foundation.Enums.InputSize)
@@ -21,6 +22,7 @@ local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local escapeRichText = require(Foundation.Utility.escapeRichText)
+local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
@@ -28,10 +30,12 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local useAlertVariants = require(script.Parent.useAlertVariants)
 
 local IconVariant = BuilderIcons.IconVariant
+type IconVariant = BuilderIcons.IconVariant
 
 type AlertSeverity = AlertSeverity.AlertSeverity
 type AlertVariant = AlertVariant.AlertVariant
 type ButtonGroupItem = ButtonGroup.ButtonGroupItem
+type IconConfig = Types.IconConfig
 
 type AlertInteraction = {
 	text: string,
@@ -50,8 +54,13 @@ type AlertBaseProps = {
 	variant: AlertVariant?,
 	-- Semantic severity, which drives color and icon
 	severity: AlertSeverity?,
+	-- Replaces the glyph on `Info` alerts, keeping the severity color. Other severities ignore it.
+	-- Builder Icons only. Nil, empty, or non-Builder Icons fall back to the Info glyph.
+	icon: IconConfig?,
 	-- Message shown in the alert
 	text: string,
+	-- Interprets markup in `text` (e.g. bold, color, links).
+	richText: boolean?,
 	-- The close affordance is only rendered when the alert is dismissable.
 	onClose: (() -> ())?,
 } & Types.CommonProps
@@ -86,6 +95,8 @@ local VARIANT_FALLBACKS: { [AlertVariant]: AlertVariant } = {
 local STACK_MAX_WIDTH = BreakpointConfig.widths[Breakpoint.XSmall]
 -- Arbitrary 40% cap so the message keeps some min width.
 local TRAILING_MAX_WIDTH_RATIO = 0.4
+-- Trailing content stacks once it needs more than 30% of the alert width.
+local STACKING_TRAILING_MAX_WIDTH_RATIO = 0.3
 
 -- Any label change remeasures the trailing slot, so a shorter one can go back inline.
 local function getTrailingLabels(link: AlertInteraction?, actions: AlertActions?): string
@@ -97,6 +108,55 @@ local function getTrailingLabels(link: AlertInteraction?, actions: AlertActions?
 	end
 
 	return ""
+end
+
+-- TODO UIBLOX-5430: Clean up after Engine UI fix
+local function WrappingRichText(props: {
+	slot: { tag: string, padding: Types.Padding? },
+	text: string,
+	LayoutOrder: number,
+	testId: string,
+	alertWidth: number,
+	onActivated: (() -> ())?,
+	stateLayer: Types.StateLayer?,
+})
+	local slotWidth, setSlotWidth = React.useState(0)
+	local alertWidth = props.alertWidth
+	local onSlotAbsoluteSizeChanged = React.useCallback(function(rbx: GuiObject)
+		local width = rbx.AbsoluteSize.X
+		if alertWidth <= 0 or width <= alertWidth then
+			setSlotWidth(width)
+		end
+	end, { alertWidth })
+
+	-- Keyed on the settled slot width: a plain MaxSize clamps the frame but
+	-- doesn't always make the engine re-solve the wrap, so remounting the
+	-- label once the width settles forces a fresh solve at the real width.
+	-- Floor to whole pixels so sub-pixel jitter doesn't churn the remount.
+	local children: { [string]: React.ReactNode } = {
+		[`Label-{math.floor(slotWidth)}`] = React.createElement(Text, {
+			Text = props.text,
+			RichText = true,
+			-- Keep the label's styling, but pin its width to the slot so it wraps
+			-- at the measured width; the flex tag is inert since the wrapper, not
+			-- the label, is the flex child.
+			tag = {
+				["size-full-0"] = true,
+				[props.slot.tag] = true,
+			},
+			padding = props.slot.padding,
+			sizeConstraint = if slotWidth > 0 then { MaxSize = Vector2.new(slotWidth, math.huge) } else nil,
+			stateLayer = props.stateLayer,
+			onActivated = props.onActivated,
+			testId = props.testId,
+		}),
+	}
+
+	return React.createElement(View, {
+		tag = props.slot.tag,
+		LayoutOrder = props.LayoutOrder,
+		onAbsoluteSizeChanged = onSlotAbsoluteSizeChanged,
+	}, children)
 end
 
 local function Alert(alertProps: AlertProps, ref: React.Ref<Instance>)
@@ -129,8 +189,14 @@ local function Alert(alertProps: AlertProps, ref: React.Ref<Instance>)
 	end, { trailingLabels })
 
 	local isNarrow = alertSize.X > 0 and alertSize.X <= STACK_MAX_WIDTH
-	local maxTrailingWidth = alertSize.X * TRAILING_MAX_WIDTH_RATIO
-	local isStacked = isNarrow or (props.actions ~= nil and maxTrailingWidth > 0 and trailingWidth > maxTrailingWidth)
+	local maxTrailingWidth = alertSize.X
+		* if Flags.FoundationAlertStackTrailingOnOverflow
+			then STACKING_TRAILING_MAX_WIDTH_RATIO
+			else TRAILING_MAX_WIDTH_RATIO
+
+	local isStacked = if Flags.FoundationAlertStackTrailingOnOverflow
+		then isNarrow or (maxTrailingWidth > 0 and trailingWidth > maxTrailingWidth)
+		else isNarrow or (props.actions ~= nil and maxTrailingWidth > 0 and trailingWidth > maxTrailingWidth)
 
 	local variantProps = useAlertVariants(tokens, props.severity :: AlertSeverity, variant, isStacked)
 
@@ -157,11 +223,25 @@ local function Alert(alertProps: AlertProps, ref: React.Ref<Instance>)
 		return items
 	end, { props.actions })
 
+	local iconName = AlertConstants.SEVERITY_TO_ICON[props.severity :: AlertSeverity]
+	local iconVariant: IconVariant = IconVariant.Filled
 	local backplate = variantProps.iconBackplate
-	local severityIcon = React.createElement(Icon, {
-		name = AlertConstants.SEVERITY_TO_ICON[props.severity :: AlertSeverity],
+	local customIcon = props.icon
+	if customIcon ~= nil and props.severity == AlertSeverity.Info then
+		local customName = if typeof(customIcon) == "string" then customIcon else customIcon.name
+		if isBuilderIcon(customName) then
+			iconName = customName
+			iconVariant = if typeof(customIcon) == "table" and customIcon.variant
+				then customIcon.variant
+				else IconVariant.Filled
+			-- The disc fills the knockout in the severity glyphs; a custom glyph may not have one.
+			backplate = nil
+		end
+	end
+	local leadingIcon = React.createElement(Icon, {
+		name = iconName,
 		size = IconSize.Medium,
-		variant = IconVariant.Filled,
+		variant = iconVariant,
 		style = variantProps.icon.style,
 		LayoutOrder = 2,
 		ZIndex = 2,
@@ -185,37 +265,59 @@ local function Alert(alertProps: AlertProps, ref: React.Ref<Instance>)
 					ZIndex = 1,
 					testId = `{props.testId}--icon-backplate`,
 				}),
-				Icon = severityIcon,
+				Icon = leadingIcon,
 			})
-			else severityIcon,
+			else leadingIcon,
 	})
 
-	local message = React.createElement(Text, {
-		Text = props.text,
-		tag = variantProps.message.tag,
-		padding = variantProps.message.padding,
-		LayoutOrder = 2,
-		testId = `{props.testId}--message`,
-	})
+	local message = if props.richText
+		then React.createElement(WrappingRichText, {
+			slot = variantProps.message,
+			text = props.text,
+			LayoutOrder = 2,
+			testId = `{props.testId}--message`,
+			alertWidth = alertSize.X,
+		})
+		else React.createElement(Text, {
+			Text = props.text,
+			tag = variantProps.message.tag,
+			padding = variantProps.message.padding,
+			LayoutOrder = 2,
+			testId = `{props.testId}--message`,
+		})
 
 	-- Measuring while stacked feeds the stacked width back into the 40% check.
 	local measureTrailing = if not isStacked then onTrailingAbsoluteSizeChanged else nil
 
 	local trailing: React.ReactNode = if props.link
-		then React.createElement(Text, {
-			Text = `<u>{escapeRichText(props.link.text)}</u>`,
-			RichText = true,
-			tag = variantProps.link.tag,
-			padding = variantProps.link.padding,
-			sizeConstraint = if not isStacked and maxTrailingWidth > 0
-				then { MaxSize = Vector2.new(maxTrailingWidth, math.huge) }
-				else nil,
-			stateLayer = { affordance = StateLayerAffordance.None },
-			onActivated = props.link.onActivated,
-			LayoutOrder = 3,
-			testId = `{props.testId}--link`,
-			onAbsoluteSizeChanged = measureTrailing,
-		})
+		then if isStacked and Flags.FoundationAlertLinkWrap
+			-- Stacked: the underline wraps full-width, so cap it at the slot.
+			then React.createElement(WrappingRichText, {
+				slot = variantProps.link,
+				text = `<u>{escapeRichText(props.link.text)}</u>`,
+				LayoutOrder = 3,
+				testId = `{props.testId}--link`,
+				alertWidth = alertSize.X,
+				onActivated = props.link.onActivated,
+				stateLayer = { affordance = StateLayerAffordance.None },
+			})
+			-- Inline: single line. Capped at the trailing cap unless the flag lets it stack instead.
+			else React.createElement(Text, {
+				Text = `<u>{escapeRichText(props.link.text)}</u>`,
+				RichText = true,
+				tag = variantProps.link.tag,
+				padding = variantProps.link.padding,
+				sizeConstraint = if Flags.FoundationAlertStackTrailingOnOverflow
+					then nil :: never
+					else if not isStacked and maxTrailingWidth > 0
+						then { MaxSize = Vector2.new(maxTrailingWidth, math.huge) }
+						else nil,
+				stateLayer = { affordance = StateLayerAffordance.None },
+				onActivated = props.link.onActivated,
+				LayoutOrder = 3,
+				testId = `{props.testId}--link`,
+				onAbsoluteSizeChanged = measureTrailing,
+			})
 		elseif buttons then React.createElement(ButtonGroup, {
 			buttons = buttons,
 			size = InputSize.Small,

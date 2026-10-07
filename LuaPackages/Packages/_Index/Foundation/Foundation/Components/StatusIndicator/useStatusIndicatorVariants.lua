@@ -186,7 +186,7 @@ return function(
 	size: StatusIndicatorSize,
 	mask: Types.ColorStyle?
 ): StatusIndicatorVariantProps
-	if not Flags.FoundationStatusIndicatorVariantExperiment and isDevMode then
+	if isDevMode then
 		if variant == StatusIndicatorVariant.Contrast_Experiment then
 			error("Contrast is not a supported StatusIndicator variant.")
 		end

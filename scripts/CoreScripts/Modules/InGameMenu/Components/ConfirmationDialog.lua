@@ -13,11 +13,15 @@ local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
+local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
+local Foundation = require(CorePackages.Packages.Foundation)
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local InGameMenu = script.Parent.Parent
 local Constants = require(InGameMenu.Resources.Constants)
 local Assets = require(InGameMenu.Resources.Assets)
+local FFlagIGMDialogButtonsUseUIBloxButton = require(InGameMenu.Flags.FFlagIGMDialogButtonsUseUIBloxButton)
 
 local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 
@@ -77,27 +81,48 @@ function ConfirmationDialog:render()
 
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
+			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
 			Theme = {
-				Overlay = { Color = tokens.Color.Common.Scrim.Color3, Transparency = tokens.Color.Common.Scrim.Transparency },
-				BackgroundUIDefault = { Color = tokens.Color.Surface.Surface_300.Color3, Transparency = tokens.Color.Surface.Surface_300.Transparency },
-				Divider = { Color = tokens.Color.Stroke.Emphasis.Color3, Transparency = tokens.Color.Stroke.Emphasis.Transparency },
+				Overlay = {
+					Color = tokens.Color.Common.Scrim.Color3,
+					Transparency = tokens.Color.Common.Scrim.Transparency,
+				},
+				BackgroundUIDefault = {
+					Color = tokens.Color.Surface.Surface_300.Color3,
+					Transparency = tokens.Color.Surface.Surface_300.Transparency,
+				},
+				Divider = {
+					Color = tokens.Color.Stroke.Emphasis.Color3,
+					Transparency = tokens.Color.Stroke.Emphasis.Transparency,
+				},
 			},
 			Font = {
 				BaseSize = 1,
-				Body = { Font = tokens.Typography.BodyLarge.Font, RelativeSize = tokens.Typography.BodyLarge.FontSize },
+				Body = {
+					Font = tokens.Typography.BodyLarge.Font,
+					RelativeSize = tokens.Typography.BodyLarge.FontSize,
+				},
 			},
 		}
 	end, function(style)
 		local bodyFont = style.Font.Body.Font
 		local bodyFontSize = style.Font.Body.RelativeSize * style.Font.BaseSize
 		local bodyText = props.bodyText
-		local textHeight = TextService:GetTextSize(
-			bodyText,
-			bodyFontSize,
-			bodyFont,
-			-- 335 (width) - 20px padding on left and right
-			Vector2.new(335 - 20 - 20, math.huge)
-		).Y
+		local textHeight = if FFlagFoundationFontFaceMigration
+			then GetTextSize(
+				bodyText,
+				bodyFontSize,
+				style.Tokens.Typography.BodyLarge.Font,
+				Vector2.new(335 - 20 - 20, math.huge),
+				{ addTemporaryPadding = false }
+			).Y
+			else TextService:GetTextSize(
+				bodyText,
+				bodyFontSize,
+				bodyFont,
+				-- 335 (width) - 20px padding on left and right
+				Vector2.new(335 - 20 - 20, math.huge)
+			).Y
 
 		-- 20px padding top, 20px padding bottom
 		-- Minimum height of two lines of text.
@@ -191,6 +216,7 @@ function ConfirmationDialog:render()
 							size = UDim2.new(0.5, -5, 1, 0),
 							text = props.cancelText,
 							onActivated = props.onCancel,
+							DO_NOT_USE_useUIBloxButton = if FFlagIGMDialogButtonsUseUIBloxButton then true else nil,
 						}),
 						ConfirmButton = Roact.createElement(Button, {
 							buttonType = ButtonType.PrimarySystem,
@@ -199,6 +225,7 @@ function ConfirmationDialog:render()
 							text = props.confirmText,
 							onActivated = props.onConfirm,
 							[Roact.Ref] = self.confirmButtonRef,
+							DO_NOT_USE_useUIBloxButton = if FFlagIGMDialogButtonsUseUIBloxButton then true else nil,
 						}),
 					}),
 				}),

@@ -60,6 +60,7 @@ type _GetChartsPageRequestFields = {
 	collection_layout: CollectionLayoutInfo?,
 	cached_roblox_component_to_template_id: { [string]: string },
 	client_capabilities: _roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities?,
+	audience: string,
 }
 
 type _GetChartsPageRequestPartialFields = {
@@ -78,6 +79,7 @@ type _GetChartsPageRequestPartialFields = {
 	collection_layout: CollectionLayoutInfo?,
 	cached_roblox_component_to_template_id: { [string]: string }?,
 	client_capabilities: _roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities?,
+	audience: string?,
 }
 
 export type GetChartsPageRequest = typeof(setmetatable(
@@ -283,6 +285,7 @@ type _GetChartsSortDetailRequestFields = {
 	selected_genre: string,
 	cached_roblox_component_to_template_id: { [string]: string },
 	client_capabilities: _roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities?,
+	audience: string,
 }
 
 type _GetChartsSortDetailRequestPartialFields = {
@@ -296,6 +299,7 @@ type _GetChartsSortDetailRequestPartialFields = {
 	selected_genre: string?,
 	cached_roblox_component_to_template_id: { [string]: string }?,
 	client_capabilities: _roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities?,
+	audience: string?,
 }
 
 export type GetChartsSortDetailRequest = typeof(setmetatable(
@@ -472,6 +476,7 @@ do
 			client_capabilities = if data == nil or data.client_capabilities == nil
 				then nil
 				else data.client_capabilities,
+			audience = if data == nil or data.audience == nil then "" else data.audience,
 		}, _GetChartsPageRequestImpl :: _GetChartsPageRequestImpl)
 	end
 
@@ -578,6 +583,11 @@ do
 			local encoded = self.client_capabilities:encode()
 			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.audience ~= nil and self.audience ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.audience)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -687,6 +697,11 @@ do
 					self.client_capabilities =
 						_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.decode(value)
 					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.audience = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -790,6 +805,10 @@ do
 
 		if self.client_capabilities ~= nil then
 			output.clientCapabilities = self.client_capabilities:jsonEncode()
+		end
+
+		if self.audience ~= nil and self.audience ~= "" then
+			output.audience = self.audience
 		end
 
 		return output
@@ -936,6 +955,10 @@ do
 				_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.jsonDecode(
 					input.clientCapabilities
 				)
+		end
+
+		if input.audience ~= nil then
+			self.audience = input.audience
 		end
 
 		return self
@@ -1877,6 +1900,7 @@ do
 			client_capabilities = if data == nil or data.client_capabilities == nil
 				then nil
 				else data.client_capabilities,
+			audience = if data == nil or data.audience == nil then "" else data.audience,
 		}, _GetChartsSortDetailRequestImpl :: _GetChartsSortDetailRequestImpl)
 	end
 
@@ -1944,6 +1968,11 @@ do
 			local encoded = self.client_capabilities:encode()
 			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.audience ~= nil and self.audience ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.audience)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -2025,6 +2054,11 @@ do
 					self.client_capabilities =
 						_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.decode(value)
 					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.audience = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -2097,6 +2131,10 @@ do
 
 		if self.client_capabilities ~= nil then
 			output.clientCapabilities = self.client_capabilities:jsonEncode()
+		end
+
+		if self.audience ~= nil and self.audience ~= "" then
+			output.audience = self.audience
 		end
 
 		return output
@@ -2191,6 +2229,10 @@ do
 				_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.jsonDecode(
 					input.clientCapabilities
 				)
+		end
+
+		if input.audience ~= nil then
+			self.audience = input.audience
 		end
 
 		return self

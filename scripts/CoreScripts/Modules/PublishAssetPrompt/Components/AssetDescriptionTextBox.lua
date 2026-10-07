@@ -15,6 +15,10 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 local Focusable = RoactGamepad.Focusable
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
+local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withStyle = UIBlox.Style.withStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
@@ -108,7 +112,15 @@ function AssetDescriptionTextBox:calculateNeedsRescroll(
 	local textBeforeCursor = assetDescription:sub(1, self.state.cursorPosition - 1)
 	local fontHeight = textFont.RelativeSize * style.Font.BaseSize
 	local availableSpace = Vector2.new(self.state.textBoxWidth, 10000)
-	local textSize = TextService:GetTextSize(textBeforeCursor, fontHeight, textFont.Font, availableSpace)
+	local textSize = if FFlagFoundationFontFaceMigration
+		then GetTextSize(
+			textBeforeCursor,
+			fontHeight,
+			style.Tokens.Typography.BodySmall.Font,
+			availableSpace,
+			{ addTemporaryPadding = false }
+		)
+		else TextService:GetTextSize(textBeforeCursor, fontHeight, textFont.Font, availableSpace)
 
 	if textSize.Y > self.state.scrollingFrameHeight + self.state.canvasPosition then
 		-- The cursor is below the visible frame. Scroll down just enough to show the cursor.
@@ -145,7 +157,15 @@ function AssetDescriptionTextBox:onTextChanged(
 
 	local fontHeight = textFont.RelativeSize * style.Font.BaseSize
 	local availableSpace = Vector2.new(self.state.textBoxWidth, 10000)
-	local textSize = TextService:GetTextSize(assetDescription, fontHeight, textFont.Font, availableSpace)
+	local textSize = if FFlagFoundationFontFaceMigration
+		then GetTextSize(
+			assetDescription,
+			fontHeight,
+			style.Tokens.Typography.BodySmall.Font,
+			availableSpace,
+			{ addTemporaryPadding = false }
+		)
+		else TextService:GetTextSize(assetDescription, fontHeight, textFont.Font, availableSpace)
 
 	self:setState({
 		lastValidDescription = lastValidDescription,
@@ -205,7 +225,10 @@ function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionC
 					Text = self.state.assetDescription,
 					BackgroundTransparency = 1,
 					ClearTextOnFocus = false,
-					Font = font.Header2.Font,
+					Font = if FFlagFoundationFontFaceMigration then nil else font.Header2.Font,
+					FontFace = if FFlagFoundationFontFaceMigration
+						then normalizeFontFace(stylePalette.Tokens.Typography.TitleLarge.Font)
+						else nil,
 					TextSize = font.BaseSize * fontType.RelativeSize,
 					PlaceholderColor3 = theme.PlaceHolder.Color,
 					PlaceholderText = RobloxTranslator:FormatByKey(
@@ -269,7 +292,10 @@ function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionC
 			Size = UDim2.new(0.8, 0, 0, 20),
 			TextColor3 = theme.Alert.Color,
 			TextWrapped = true,
-			Font = font.Body.Font,
+			Font = if FFlagFoundationFontFaceMigration then nil else font.Body.Font,
+			FontFace = if FFlagFoundationFontFaceMigration
+				then normalizeFontFace(stylePalette.Tokens.Typography.BodyLarge.Font)
+				else nil,
 			TextSize = WARNING_TEXT_SIZE,
 		}),
 	})

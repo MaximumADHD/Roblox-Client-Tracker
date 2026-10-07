@@ -4,7 +4,7 @@ local Style = Tokens.Parent
 local Core = Style.Parent
 local UIBlox = Core.Parent
 local Packages = UIBlox.Parent
-local RbxDesignFoundations = require(Packages.RbxDesignFoundations)
+local RbxDesignFoundationsV1 = require(Packages.RbxDesignFoundationsV1)
 local Constants = require(Style.Constants)
 
 type ThemeName = Constants.ThemeName
@@ -13,9 +13,9 @@ return {
 	GetTokenGenerators = function(themeName: ThemeName | string)
 		local theme = themeName:lower()
 		if theme == Constants.ThemeName.Dark:lower() then
-			return RbxDesignFoundations.tokens.Common.Builder.Dark
+			return RbxDesignFoundationsV1.tokens.Common.Builder.Dark
 		elseif theme == Constants.ThemeName.Light:lower() then
-			return RbxDesignFoundations.tokens.Common.Builder.Light
+			return RbxDesignFoundationsV1.tokens.Common.Builder.Light
 		else
 			return nil
 		end

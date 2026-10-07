@@ -307,6 +307,8 @@ ValidationEnums.UploadCategory = {
 	TORSO_AND_LIMBS = "TORSO_AND_LIMBS",
 	DYNAMIC_HEAD = "DYNAMIC_HEAD",
 	LAYERED_CLOTHING = "LAYERED_CLOTHING",
+	-- Layered eyebrows/eyelashes: their cages only cover the head, unlike the full-body cage of LAYERED_CLOTHING
+	EYEBROW_EYELASH = "EYEBROW_EYELASH",
 	RIGID_ACCESSORY = "RIGID_ACCESSORY",
 	EMOTE_ANIMATION = "EMOTE_ANIMATION",
 	MAKEUP = "MAKEUP",

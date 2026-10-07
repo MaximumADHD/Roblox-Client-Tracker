@@ -33,6 +33,8 @@ local FFlagEnableCreatePartyNudge = game:DefineFastFlag("EnableCreatePartyNudge"
 local FFlagEnableCreatePartyNudgeWithVersion = game:DefineFastFlag("EnableCreatePartyNudgeWithVersion", false)
 local FFlagEnablePartyNudgeAfterJoin =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeAfterJoin
+local FFlagShowFriendJoinedYouToastForNonReferredJoins =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagShowFriendJoinedYouToastForNonReferredJoins
 local FFlagBadgeVisibilitySettingEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
 local FFlagEnableModerateChatRemoteEvent =
@@ -51,6 +53,7 @@ local FFlagUseGetCanManageAsync = game:DefineFastFlag("UseGetCanManageAsync", fa
 	and game:GetEngineFeature("LuaGetCanManageAsync")
 local FFlagUserPresenceTokenRccCheckPermissionsLua =
 	require(RobloxGui.Modules.Common.Flags.FFlagUserPresenceTokenRccCheckPermissionsLua)
+local shouldShowFriendJoinedPlayerToast = require(RobloxGui.Modules.Server.shouldShowFriendJoinedPlayerToast)
 local FFlagGatePrivateServerNudge = game:DefineFastFlag("GatePrivateServerNudge", false)
 local FFlagGlobalUserBlockingLuaReadsFromSCMCache = game:DefineFastFlag("GlobalUserBlockingLuaReadsFromSCMCache", false)
 
@@ -143,7 +146,9 @@ if FFlagEnablePartyNudgeAfterJoin then
 	RemoteEvent_ShowPlayerJoinedFriendsToast = Instance.new("RemoteEvent")
 	RemoteEvent_ShowPlayerJoinedFriendsToast.Name = "ShowPlayerJoinedFriendsToast"
 	RemoteEvent_ShowPlayerJoinedFriendsToast.Parent = RobloxReplicatedStorage
+end
 
+if FFlagEnablePartyNudgeAfterJoin or FFlagShowFriendJoinedYouToastForNonReferredJoins then
 	RemoteEvent_ShowFriendJoinedPlayerToast = Instance.new("RemoteEvent")
 	RemoteEvent_ShowFriendJoinedPlayerToast.Name = "ShowFriendJoinedPlayerToast"
 	RemoteEvent_ShowFriendJoinedPlayerToast.Parent = RobloxReplicatedStorage
@@ -528,7 +533,12 @@ local sendFriendExperienceJoinToast = function(newPlayer)
 	end
 
 	local createPartyNudgeSuccess = false
-	if FFlagEnableCreatePartyNudge and canCreatePartyNudge(followedPlayer) and canCreatePartyNudge(newPlayer) then
+	if
+		FFlagEnablePartyNudgeAfterJoin
+		and FFlagEnableCreatePartyNudge
+		and canCreatePartyNudge(followedPlayer)
+		and canCreatePartyNudge(newPlayer)
+	then
 		local response
 		createPartyNudgeSuccess, response =
 			createPartyNudge(newPlayer.UserId, followedPlayer.UserId, "OneToOneNudgeInExperience")
@@ -539,11 +549,19 @@ local sendFriendExperienceJoinToast = function(newPlayer)
 
 	if not createPartyNudgeSuccess and #players > 0 then
 		-- Both follower and followee are in the same server
-		if followedPlayer then
+		if
+			followedPlayer
+			and (
+				not FFlagShowFriendJoinedYouToastForNonReferredJoins
+				or shouldShowFriendJoinedPlayerToast(newPlayer)
+			)
+		then
 			RemoteEvent_ShowFriendJoinedPlayerToast:FireClient(followedPlayer, newPlayer)
 		end
 
-		RemoteEvent_ShowPlayerJoinedFriendsToast:FireClient(newPlayer)
+		if FFlagEnablePartyNudgeAfterJoin then
+			RemoteEvent_ShowPlayerJoinedFriendsToast:FireClient(newPlayer)
+		end
 	end
 end
 
@@ -563,7 +581,7 @@ local function onPlayerAdded(newPlayer)
 
 	sendCanChatWith(newPlayer)
 
-	if FFlagEnablePartyNudgeAfterJoin then
+	if FFlagEnablePartyNudgeAfterJoin or FFlagShowFriendJoinedYouToastForNonReferredJoins then
 		coroutine.wrap(sendFriendExperienceJoinToast)(newPlayer)
 	end
 end

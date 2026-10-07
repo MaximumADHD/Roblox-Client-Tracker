@@ -14,6 +14,7 @@ local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerSc
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
 local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState2")
 local FFlagUserAbilitiesUserInterfaceB = FlagUtil.getUserFlag("UserAbilitiesUserInterfaceB")
+local FFlagUserPSUseBindToAnimation = FlagUtil.getUserFlag("UserPSUseBindToAnimation")
 local PCSInstanceName = if FFlagUserAbilitiesUserInterfaceB then "ControlState" else "PlayerControlState"
 
 local InputSlots = {}
@@ -82,12 +83,21 @@ function InputSlots.setupSlotActions(player, isServerAuthority)
 	end
 
 	if not FFlagUserPlayerScriptsPlayerControlState then
-		RunService:BindToSimulation(function(dt)
-			if avatarAbilitiesInterface:isEnabled() then
-				InputReplication.FireCustomInputs(player)
-				InputReplication.SendInputToCCLCharacter(player)
-			end
-		end, Enum.StepFrequency.Hz60)
+		if FFlagUserPSUseBindToAnimation then
+			RunService:BindToAnimation(function(dt)
+				if avatarAbilitiesInterface:isEnabled() then
+					InputReplication.FireCustomInputs(player)
+					InputReplication.SendInputToCCLCharacter(player)
+				end
+			end, Enum.StepFrequency.Hz60)
+		else
+			RunService:BindToSimulation(function(dt)
+				if avatarAbilitiesInterface:isEnabled() then
+					InputReplication.FireCustomInputs(player)
+					InputReplication.SendInputToCCLCharacter(player)
+				end
+			end, Enum.StepFrequency.Hz60)
+		end
 	end
 
 	local previousSelectedSlotForAbility = {}

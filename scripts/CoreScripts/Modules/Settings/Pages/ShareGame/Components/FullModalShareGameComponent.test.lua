@@ -10,10 +10,56 @@ local describe = JestGlobals.describe
 local it = JestGlobals.it
 local expect = JestGlobals.expect
 local beforeAll = JestGlobals.beforeAll
+local beforeEach = JestGlobals.beforeEach
 local afterAll = JestGlobals.afterAll
+local jest = JestGlobals.jest
 
 local Modules = CoreGui.RobloxGui.Modules
 local FFlagFixPromptGameInviteUIButtonScaling = require(Modules.Flags.FFlagFixPromptGameInviteUIButtonScaling)
+local FFlagFixPromptGameInviteUIMissingDisplayName =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagFixPromptGameInviteUIMissingDisplayName
+
+-- Declared before jest.mock so the hoisted factory closes over these bindings.
+local mockProfileCombinedName = ""
+local mockProfileUsername = ""
+local mockProfileFetchStatus = "success"
+
+-- The single-user prompt resolves the recipient's name through UserProfileStore, which
+-- would otherwise issue a real HTTP request on mount.
+jest.mock(CorePackages.Workspace.Packages.UserProfiles, function()
+	local Signals = require(CorePackages.Packages.Signals)
+
+	local mockUserProfileStore = {
+		fetchNamesByUserIds = function()
+			local getResult = Signals.createSignal({
+				status = mockProfileFetchStatus,
+				data = {
+					{
+						names = {
+							getCombinedName = function()
+								return mockProfileCombinedName
+							end,
+							getUsername = function()
+								return mockProfileUsername
+							end,
+						},
+					},
+				},
+			})
+			return getResult
+		end,
+	}
+
+	return {
+		Stores = {
+			UserProfileStore = {
+				get = function()
+					return mockUserProfileStore
+				end,
+			},
+		},
+	}
+end)
 
 local ShareGameAppReducer = require(script.Parent.Parent.AppReducer)
 
@@ -113,6 +159,12 @@ describe("single user invite prompt", function()
 		c.oldFlagValue = game:SetFastFlagForTesting("EnableNewInviteMenuStyle", true)
 	end)
 
+	beforeEach(function()
+		mockProfileCombinedName = ""
+		mockProfileUsername = ""
+		mockProfileFetchStatus = "success"
+	end)
+
 	afterAll(function()
 		game:SetFastFlagForTesting("EnableNewInviteMenuStyle", c.oldFlagValue)
 	end)
@@ -168,6 +220,90 @@ describe("single user invite prompt", function()
 		expect(folder:FindFirstChild("TextBody", true).Text).toBe("Custom Text")
 		expect(mock.callCount).toBeGreaterThan(0)
 	end)
+
+	it("should name the recipient from their profile when the friends entry has no name", function()
+		mockProfileCombinedName = "ProfileUser"
+
+		local mock = createMockRequestImpl()
+		local folder = Instance.new("Folder")
+		local instance = Roact.mount(
+			Roact.createElement(FullModalShareGameComponent, {
+				store = createStoreWithState({
+					Users = {
+						["416"] = {
+							id = 416,
+							displayName = "",
+						},
+					},
+				}),
+				isVisible = true,
+				inviteUserId = 416,
+				requestImpl = mock.requestImpl,
+			}),
+			folder
+		)
+
+		expect(instance).never.toBeNil()
+		if FFlagFixPromptGameInviteUIMissingDisplayName then
+			expect(folder:FindFirstChild("Header", true).Text:match("ProfileUser")).never.toBeNil()
+			expect(folder:FindFirstChild("TextBody", true).Text:match("ProfileUser")).never.toBeNil()
+		else
+			expect(folder:FindFirstChild("Header", true).Text:match("ProfileUser")).toBeNil()
+		end
+	end)
+
+	if FFlagFixPromptGameInviteUIMissingDisplayName then
+		it("should fall back to the username when the profile has no combined name", function()
+			mockProfileUsername = "profile_user"
+
+			local mock = createMockRequestImpl()
+			local folder = Instance.new("Folder")
+			Roact.mount(
+				Roact.createElement(FullModalShareGameComponent, {
+					store = createStoreWithState({
+						Users = {
+							["416"] = {
+								id = 416,
+								displayName = "",
+							},
+						},
+					}),
+					isVisible = true,
+					inviteUserId = 416,
+					requestImpl = mock.requestImpl,
+				}),
+				folder
+			)
+
+			expect(folder:FindFirstChild("Header", true).Text:match("profile_user")).never.toBeNil()
+		end)
+
+		it("should withhold the prompt while the recipient's name is still resolving", function()
+			mockProfileFetchStatus = "fetching"
+
+			local mock = createMockRequestImpl()
+			local folder = Instance.new("Folder")
+			Roact.mount(
+				Roact.createElement(FullModalShareGameComponent, {
+					store = createStoreWithState({
+						Users = {
+							["416"] = {
+								id = 416,
+								displayName = "",
+							},
+						},
+					}),
+					isVisible = true,
+					inviteUserId = 416,
+					requestImpl = mock.requestImpl,
+				}),
+				folder
+			)
+
+			expect(folder:FindFirstChild("Header", true)).toBeNil()
+			expect(folder:FindFirstChild("TextBody", true)).toBeNil()
+		end)
+	end
 end)
 
 describe("FixPromptGameInviteUIButtonScaling", function()

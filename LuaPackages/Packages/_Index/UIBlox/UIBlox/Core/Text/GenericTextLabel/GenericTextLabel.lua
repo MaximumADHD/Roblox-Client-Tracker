@@ -13,6 +13,7 @@ local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local GetFontFromFontStyle = require(UIBlox.Core.Text.GetFontFromFontStyle)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
 local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
@@ -65,7 +66,7 @@ function GenericTextLabel:render()
 		local fontSizeMin = if font.RelativeMinSize then baseSize * font.RelativeMinSize else font.FontSize
 		local fontSizeMax = if font.RelativeSize then baseSize * font.RelativeSize else font.FontSize
 
-		local textFont = font.Font
+		local textFont = if FFlagFoundationFontFaceMigration then GetFontFromFontStyle(font) else font.Font
 
 		local textboxSize = self.props.Size
 		if textboxSize == nil then

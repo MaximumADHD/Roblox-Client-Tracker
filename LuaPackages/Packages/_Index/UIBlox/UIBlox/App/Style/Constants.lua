@@ -18,6 +18,8 @@ Constants.FontName = {
 	Classic = "Classic",
 }
 
+Constants.ComicNeueFontFamily = "rbxassetid://127896232205472"
+
 export type DeviceType = "Desktop" | "Tablet" | "Phone" | "Console" | "VR" | "Unknown"
 
 Constants.DeviceType = {

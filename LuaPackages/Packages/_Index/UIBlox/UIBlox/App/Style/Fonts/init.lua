@@ -1,5 +1,7 @@
 export type FontInfo = {
 	Font: Font | Enum.Font,
+	-- Typography token Font for rendering; `Font` stays the legacy value for Enum.Font-only APIs.
+	FontFace: Font?,
 	RelativeSize: number,
 	RelativeMinSize: number,
 }

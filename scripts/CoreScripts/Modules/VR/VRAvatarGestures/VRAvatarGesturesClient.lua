@@ -22,9 +22,20 @@ local VRPLAYERS_REMOTE_EVENT_NAME = "AvatarGesturesVRPlayer"
 -- flag to enable immersion mode for all player including non VR for testing purposes
 local FFlagDebugImmersionModeNonVR = game:DefineFastFlag("DebugImmersionModeNonVR", false)
 
+local FFlagVRAvatarGesturesFixFirstPersonHeadScale = game:DefineFastFlag("VRAvatarGesturesFixFirstPersonHeadScale", false)
+
 -- Analytics
 local FIntVRAvatarGesturesAnalyticsThrottleHundrethsPercent = game:DefineFastInt("VRAvatarGesturesAnalyticsThrottleHundrethsPercent", 0)
 local VR_AVATAR_GESTURES_ANALYTICS_EVENT_NAME = "VRAvatarGestures"
+
+local function isVRFirstPerson(camera: Camera): boolean
+	local threshold = FIRST_PERSON_THRESHOLD_DISTANCE
+	if FFlagVRAvatarGesturesFixFirstPersonHeadScale then
+		-- Third-person distance ~VR_ZOOM*HeadScale; scale the threshold so small avatars aren't misread as first person.
+		threshold = FIRST_PERSON_THRESHOLD_DISTANCE * camera.HeadScale
+	end
+	return (camera.CFrame.Position - camera.Focus.Position).Magnitude <= threshold
+end
 
 export type VRAvatarGesturesClientType = {
 	--------------- Member Variables ------------------------
@@ -86,7 +97,7 @@ function VRAvatarGesturesClient:onCharacterChanged(character)
 	local function updateSeated(seated)
 		-- head IKControlType = Transform will slightly shift the car. Turn off while driving.
 		local isVehicle = camera.CameraSubject and camera.CameraSubject:IsA("VehicleSeat")
-		local firstPerson = (camera.CFrame.Position - camera.Focus.Position).Magnitude <= FIRST_PERSON_THRESHOLD_DISTANCE
+		local firstPerson = isVRFirstPerson(camera)
 
 		local headIKControl = humanoid:FindFirstChild("TrackedIKHead") :: IKControl
 		if headIKControl then
@@ -102,7 +113,7 @@ function VRAvatarGesturesClient:onCharacterChanged(character)
 	self.connections:connect("Seated", humanoid.Seated, function(seated)
 		updateSeated(seated)
 		-- recenter when sitting down in first person
-		if seated and (camera.CFrame.Position - camera.Focus.Position).Magnitude <= FIRST_PERSON_THRESHOLD_DISTANCE then
+		if seated and isVRFirstPerson(camera) then
 			VRService:RecenterUserHeadCFrame()
 		end
 	end)
@@ -201,7 +212,7 @@ function VRAvatarGesturesClient:updateCFrames(partName, cframeOffset)
 		local head = character:FindFirstChild("Head") :: Part
 
 		-- third person
-		if (camera.CFrame.Position - camera.Focus.Position).Magnitude > FIRST_PERSON_THRESHOLD_DISTANCE and head then
+		if not isVRFirstPerson(camera) and head then
 			local headCframeOffset = VRService:GetUserCFrame(Enum.UserCFrame.Head)
 			headCframeOffset = headCframeOffset.Rotation + headCframeOffset.Position * camera.HeadScale
 			local headWorld = camera.CFrame * headCframeOffset * CFrame.new(0, 0, 0.5)

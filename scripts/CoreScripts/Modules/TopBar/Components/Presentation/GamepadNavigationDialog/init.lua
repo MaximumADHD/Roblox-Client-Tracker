@@ -39,7 +39,6 @@ local function GamepadNavigationDialogContainer(props)
 				connection = nil
 			end
 		end
-		-- selene: allow(denylist_filter)
 		if UserInputService:GetGamepadConnected(Enum.UserInputType.Gamepad1) then
 			setGamepadNavigationDialogOpen(true)
 		else

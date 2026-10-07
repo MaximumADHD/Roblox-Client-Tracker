@@ -1020,7 +1020,7 @@ function module.setupAnimation(character)
 	end
 	-- Bind at priority 1000 so initialization runs before stepAnimate (priority 4000)
 	-- on the same simulation tick once HumanoidRootPart starts being simulated.
-	initConnection = RunService:BindToSimulation(initializeAnimState, Enum.StepFrequency.Hz60, 1000)
+	initConnection = RunService:BindToAnimation(initializeAnimState, Enum.StepFrequency.Hz60, 1000)
 
 	--------------------------------------------------------------------------------
 	-- Humanoid state transition functions

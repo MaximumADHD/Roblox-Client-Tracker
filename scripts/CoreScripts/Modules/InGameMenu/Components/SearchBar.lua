@@ -15,8 +15,10 @@ local Images = UIBlox.App.ImageSet.Images
 local Foundation = require(CorePackages.Packages.Foundation)
 local Icon = Foundation.Icon
 local IconSize = Foundation.Enums.IconSize
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local InGameMenu = script.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
@@ -125,13 +127,23 @@ end
 function SearchBar:render()
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
+			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
 			Theme = {
-				TextEmphasis = { Color = tokens.Color.Content.Emphasis.Color3, Transparency = tokens.Color.Content.Emphasis.Transparency },
-				TextDefault = { Color = tokens.Color.Content.Default.Color3, Transparency = tokens.Color.Content.Default.Transparency },
+				TextEmphasis = {
+					Color = tokens.Color.Content.Emphasis.Color3,
+					Transparency = tokens.Color.Content.Emphasis.Transparency,
+				},
+				TextDefault = {
+					Color = tokens.Color.Content.Default.Color3,
+					Transparency = tokens.Color.Content.Default.Transparency,
+				},
 			},
 			Font = {
 				BaseSize = 1,
-				Body = { Font = tokens.Typography.BodyLarge.Font, RelativeSize = tokens.Typography.BodyLarge.FontSize },
+				Body = {
+					Font = tokens.Typography.BodyLarge.Font,
+					RelativeSize = tokens.Typography.BodyLarge.FontSize,
+				},
 			},
 		}
 	end, function(style)
@@ -223,7 +235,10 @@ function SearchBar:render()
 								0,
 								SEARCH_TEXTBOX_HEIGHT
 							),
-							Font = inputFontStyle.Font,
+							Font = if FFlagFoundationFontFaceMigration then nil else inputFontStyle.Font,
+							FontFace = if FFlagFoundationFontFaceMigration
+								then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
+								else nil,
 							Text = self.props.text or "",
 							TextInputType = textInputType,
 							TextSize = inputTextSize,
@@ -245,7 +260,10 @@ function SearchBar:render()
 					LayoutOrder = 2,
 					BackgroundTransparency = 1,
 					Size = UDim2.fromOffset(SEARCH_CANCEL_WIDTH, SEARCH_CANCEL_HEIGHT),
-					Font = cancelFontStyle.Font,
+					Font = if FFlagFoundationFontFaceMigration then nil else cancelFontStyle.Font,
+					FontFace = if FFlagFoundationFontFaceMigration
+						then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
+						else nil,
 					TextSize = cancelTextSize,
 					Text = localized.cancel,
 					TextColor3 = style.Theme.TextEmphasis.Color,

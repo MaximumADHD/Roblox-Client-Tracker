@@ -10,6 +10,8 @@ type _Messages = {
 	CustomPrompt: _CustomPromptMessage,
 	CustomPrompt_ParametersEntry: _CustomPrompt_ParametersEntryMessage,
 	CustomPrompt_TranslationsEntry: _CustomPrompt_TranslationsEntryMessage,
+	GetEligiblePromptsRequest: _GetEligiblePromptsRequestMessage,
+	GetEligiblePromptsRequest_ClientAttributesEntry: _GetEligiblePromptsRequest_ClientAttributesEntryMessage,
 	GetEligiblePromptsResponse: _GetEligiblePromptsResponseMessage,
 	GetEligiblePromptsResponse_TemplatesEntry: _GetEligiblePromptsResponse_TemplatesEntryMessage,
 	GetEligiblePromptsResponse_CustomPromptsEntry: _GetEligiblePromptsResponse_CustomPromptsEntryMessage,
@@ -17,6 +19,8 @@ type _Messages = {
 }
 local messages: _Messages = {} :: _Messages
 
+local _roblox_apppageplatform_shared_v1beta1_client_capabilities =
+	require(script.Parent.Parent.Parent.shared.v1beta1.client_capabilities)
 local _roblox_apppageplatform_shared_v1beta1_hydration_content =
 	require(script.Parent.Parent.Parent.shared.v1beta1.hydration_content)
 local _roblox_apppageplatform_shared_v1beta1_page_entry_content =
@@ -103,6 +107,72 @@ export type CustomPrompt_TranslationsEntry = typeof(setmetatable(
 type _CustomPrompt_TranslationsEntryMessage = proto.Message<
 	CustomPrompt_TranslationsEntry,
 	_CustomPrompt_TranslationsEntryPartialFields
+>
+
+type _GetEligiblePromptsRequestImpl = {
+	__index: _GetEligiblePromptsRequestImpl,
+	new: (fields: _GetEligiblePromptsRequestPartialFields?) -> GetEligiblePromptsRequest,
+	encode: (self: GetEligiblePromptsRequest) -> buffer,
+	decode: (input: buffer) -> GetEligiblePromptsRequest,
+	jsonEncode: (self: GetEligiblePromptsRequest) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GetEligiblePromptsRequest,
+	descriptor: proto.Descriptor,
+}
+
+type _GetEligiblePromptsRequestFields = {
+	entry_points: { string },
+	deeplink_detected: boolean,
+	prompt_styles: { string },
+	client_attributes: { [string]: string },
+	client_capabilities: _roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities?,
+}
+
+type _GetEligiblePromptsRequestPartialFields = {
+	entry_points: { string }?,
+	deeplink_detected: boolean?,
+	prompt_styles: { string }?,
+	client_attributes: { [string]: string }?,
+	client_capabilities: _roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities?,
+}
+
+export type GetEligiblePromptsRequest = typeof(setmetatable(
+	{} :: _GetEligiblePromptsRequestFields,
+	{} :: _GetEligiblePromptsRequestImpl
+))
+type _GetEligiblePromptsRequestMessage = proto.Message<
+	GetEligiblePromptsRequest,
+	_GetEligiblePromptsRequestPartialFields
+>
+
+type _GetEligiblePromptsRequest_ClientAttributesEntryImpl = {
+	__index: _GetEligiblePromptsRequest_ClientAttributesEntryImpl,
+	new: (
+		fields: _GetEligiblePromptsRequest_ClientAttributesEntryPartialFields?
+	) -> GetEligiblePromptsRequest_ClientAttributesEntry,
+	encode: (self: GetEligiblePromptsRequest_ClientAttributesEntry) -> buffer,
+	decode: (input: buffer) -> GetEligiblePromptsRequest_ClientAttributesEntry,
+	jsonEncode: (self: GetEligiblePromptsRequest_ClientAttributesEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GetEligiblePromptsRequest_ClientAttributesEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _GetEligiblePromptsRequest_ClientAttributesEntryFields = {
+	key: string,
+	value: string,
+}
+
+type _GetEligiblePromptsRequest_ClientAttributesEntryPartialFields = {
+	key: string?,
+	value: string?,
+}
+
+export type GetEligiblePromptsRequest_ClientAttributesEntry = typeof(setmetatable(
+	{} :: _GetEligiblePromptsRequest_ClientAttributesEntryFields,
+	{} :: _GetEligiblePromptsRequest_ClientAttributesEntryImpl
+))
+type _GetEligiblePromptsRequest_ClientAttributesEntryMessage = proto.Message<
+	GetEligiblePromptsRequest_ClientAttributesEntry,
+	_GetEligiblePromptsRequest_ClientAttributesEntryPartialFields
 >
 
 type _GetEligiblePromptsResponseImpl = {
@@ -631,6 +701,399 @@ do
 	messages.CustomPrompt_TranslationsEntry = _CustomPrompt_TranslationsEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.CustomPrompt_TranslationsEntry)
+end
+
+do
+	local _GetEligiblePromptsRequestImpl = {}
+	_GetEligiblePromptsRequestImpl.__index = _GetEligiblePromptsRequestImpl
+
+	function _GetEligiblePromptsRequestImpl.new(
+		data: _GetEligiblePromptsRequestPartialFields?
+	): GetEligiblePromptsRequest
+		return setmetatable({
+			entry_points = if data == nil or data.entry_points == nil then {} else data.entry_points,
+			deeplink_detected = if data == nil or data.deeplink_detected == nil then false else data.deeplink_detected,
+			prompt_styles = if data == nil or data.prompt_styles == nil then {} else data.prompt_styles,
+			client_attributes = if data == nil or data.client_attributes == nil then {} else data.client_attributes,
+			client_capabilities = if data == nil or data.client_capabilities == nil
+				then nil
+				else data.client_capabilities,
+		}, _GetEligiblePromptsRequestImpl :: _GetEligiblePromptsRequestImpl)
+	end
+
+	function _GetEligiblePromptsRequestImpl.encode(self: GetEligiblePromptsRequest): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.entry_points ~= nil and #self.entry_points > 0 then
+			for _, value in self.entry_points do
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.deeplink_detected then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.deeplink_detected then 1 else 0)
+		end
+
+		if self.prompt_styles ~= nil and #self.prompt_styles > 0 then
+			for _, value in self.prompt_styles do
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.client_attributes ~= nil and next(self.client_attributes) ~= nil then
+			for key, value in self.client_attributes do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, value)
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.client_capabilities ~= nil then
+			local encoded = self.client_capabilities:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GetEligiblePromptsRequestImpl.decode(input: buffer): GetEligiblePromptsRequest
+		local self = _GetEligiblePromptsRequestImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.deeplink_detected = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.entry_points, buffer.tostring(value))
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.prompt_styles, buffer.tostring(value))
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.GetEligiblePromptsRequest_ClientAttributesEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = ""
+
+					self.client_attributes[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.client_capabilities =
+						_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GetEligiblePromptsRequestImpl.jsonEncode(self: GetEligiblePromptsRequest): any
+		local output = {}
+
+		if self.entry_points ~= nil and #self.entry_points > 0 then
+			local newOutput = {}
+			for _, value in self.entry_points do
+				table.insert(newOutput, value)
+			end
+			output.entryPoints = newOutput
+		end
+
+		if self.deeplink_detected then
+			output.deeplinkDetected = self.deeplink_detected
+		end
+
+		if self.prompt_styles ~= nil and #self.prompt_styles > 0 then
+			local newOutput = {}
+			for _, value in self.prompt_styles do
+				table.insert(newOutput, value)
+			end
+			output.promptStyles = newOutput
+		end
+
+		if self.client_attributes ~= nil and next(self.client_attributes) ~= nil then
+			local newOutput = {}
+			for key, value in self.client_attributes do
+				newOutput[key] = value
+			end
+			output.clientAttributes = newOutput
+		end
+
+		if self.client_capabilities ~= nil then
+			output.clientCapabilities = self.client_capabilities:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _GetEligiblePromptsRequestImpl.jsonDecode(input: { [string]: any }): GetEligiblePromptsRequest
+		local self = _GetEligiblePromptsRequestImpl.new()
+
+		if input.entry_points ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.entry_points do
+				table.insert(newOutput, value)
+			end
+
+			self.entry_points = newOutput
+		end
+
+		if input.entryPoints ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.entryPoints do
+				table.insert(newOutput, value)
+			end
+
+			self.entry_points = newOutput
+		end
+
+		if input.deeplink_detected ~= nil then
+			self.deeplink_detected = input.deeplink_detected
+		end
+
+		if input.deeplinkDetected ~= nil then
+			self.deeplink_detected = input.deeplinkDetected
+		end
+
+		if input.prompt_styles ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.prompt_styles do
+				table.insert(newOutput, value)
+			end
+
+			self.prompt_styles = newOutput
+		end
+
+		if input.promptStyles ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.promptStyles do
+				table.insert(newOutput, value)
+			end
+
+			self.prompt_styles = newOutput
+		end
+
+		if input.client_attributes ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.client_attributes do
+				newOutput[key] = value
+			end
+
+			self.client_attributes = newOutput
+		end
+
+		if input.clientAttributes ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.clientAttributes do
+				newOutput[key] = value
+			end
+
+			self.client_attributes = newOutput
+		end
+
+		if input.client_capabilities ~= nil then
+			self.client_capabilities =
+				_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.jsonDecode(
+					input.client_capabilities
+				)
+		end
+
+		if input.clientCapabilities ~= nil then
+			self.client_capabilities =
+				_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.jsonDecode(
+					input.clientCapabilities
+				)
+		end
+
+		return self
+	end
+
+	_GetEligiblePromptsRequestImpl.descriptor = {
+		name = "GetEligiblePromptsRequest",
+		fullName = "roblox.apppageplatform.prompts.v1beta1.GetEligiblePromptsRequest",
+	}
+
+	messages.GetEligiblePromptsRequest = _GetEligiblePromptsRequestImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GetEligiblePromptsRequest)
+end
+
+do
+	local _GetEligiblePromptsRequest_ClientAttributesEntryImpl = {}
+	_GetEligiblePromptsRequest_ClientAttributesEntryImpl.__index = _GetEligiblePromptsRequest_ClientAttributesEntryImpl
+
+	function _GetEligiblePromptsRequest_ClientAttributesEntryImpl.new(
+		data: _GetEligiblePromptsRequest_ClientAttributesEntryPartialFields?
+	): GetEligiblePromptsRequest_ClientAttributesEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then "" else data.value,
+		}, _GetEligiblePromptsRequest_ClientAttributesEntryImpl :: _GetEligiblePromptsRequest_ClientAttributesEntryImpl)
+	end
+
+	function _GetEligiblePromptsRequest_ClientAttributesEntryImpl.encode(
+		self: GetEligiblePromptsRequest_ClientAttributesEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.value)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GetEligiblePromptsRequest_ClientAttributesEntryImpl.decode(
+		input: buffer
+	): GetEligiblePromptsRequest_ClientAttributesEntry
+		local self = _GetEligiblePromptsRequest_ClientAttributesEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GetEligiblePromptsRequest_ClientAttributesEntryImpl.jsonEncode(
+		self: GetEligiblePromptsRequest_ClientAttributesEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output.value = self.value
+		end
+
+		return output
+	end
+
+	function _GetEligiblePromptsRequest_ClientAttributesEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): GetEligiblePromptsRequest_ClientAttributesEntry
+		local self = _GetEligiblePromptsRequest_ClientAttributesEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = input.value
+		end
+
+		return self
+	end
+
+	_GetEligiblePromptsRequest_ClientAttributesEntryImpl.descriptor = {
+		name = "GetEligiblePromptsRequest_ClientAttributesEntry",
+		fullName = "roblox.apppageplatform.prompts.v1beta1.ClientAttributesEntry",
+	}
+
+	messages.GetEligiblePromptsRequest_ClientAttributesEntry =
+		_GetEligiblePromptsRequest_ClientAttributesEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GetEligiblePromptsRequest_ClientAttributesEntry)
 end
 
 do
@@ -1327,5 +1790,6 @@ end
 
 return {
 	CustomPrompt = messages.CustomPrompt,
+	GetEligiblePromptsRequest = messages.GetEligiblePromptsRequest,
 	GetEligiblePromptsResponse = messages.GetEligiblePromptsResponse,
 }

@@ -17,6 +17,9 @@ local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 local useLastInput = Responsive.useLastInput
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local SlideFromTopToast = UIBlox.App.Dialog.Toast
@@ -33,6 +36,7 @@ local DevicePermissionsModal = require(script.Parent.DevicePermissionsModal)
 local Assets = require(script.Parent.Parent.Parent.InGameMenu.Resources.Assets)
 
 local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
+local GetFFlagMicConsumerRegistry = VoiceChatCore.Flags and VoiceChatCore.Flags.GetFFlagMicConsumerRegistry
 local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 
 local VoiceChatFlags = VoiceChat.Flags
@@ -53,8 +57,6 @@ local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 local GetFIntVoiceJoinM3ToastDurationSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceJoinM3ToastDurationSeconds)
 local GetFFlagEnableSeamlessVoiceDataConsentToast =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceDataConsentToast)
-local FFlagVoiceConnectToastCapturesTrustedFriendsSubtitle =
-	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagVoiceConnectToastCapturesTrustedFriendsSubtitle)
 local GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2 = require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2)
 local VoiceNudgeUseNewDACopy = require(script.Parent.Parent.Parent.VoiceChat.Helpers.VoiceNudgeUseNewDACopy)
 local FFlagVoiceNudgeUseNewConfirmButton = game:DefineFastFlag("VoiceNudgeUseNewConfirmButton", false)
@@ -79,6 +81,39 @@ local EXTRA_PADDING_HEIGHT = 7
 local CLOSE_VOICE_BAN_PROMPT = "CloseVoiceBanPrompt"
 local COLOR_WHITE = Color3.fromRGB(255, 255, 255)
 local COLOR_LIGHT_GRAY = Color3.fromRGB(220, 220, 220)
+
+local function formatMicPromptText(key, fallback)
+	if not GetFFlagMicConsumerRegistry() then
+		return nil
+	end
+
+	local ok, result = pcall(function()
+		return locales:Format(key)
+	end)
+	return if ok then result else fallback
+end
+
+local function getMicPermissionDeniedTitle()
+	return formatMicPromptText("Feature.SettingsHub.Prompt.MicPermissionDenied", "Can't access microphone")
+end
+
+local function getMicFirstUnmutePrivacyTitle()
+	return formatMicPromptText("Feature.SettingsHub.Prompt.MicFirstUnmutePrivacy", "Microphone is active")
+end
+
+local function getMicPermissionDeniedSubtitle()
+	return formatMicPromptText(
+		"Feature.SettingsHub.Prompt.Subtitle.MicPermissionDenied",
+		"To use your microphone, tap here to update your device settings."
+	)
+end
+
+local function getMicFirstUnmutePrivacySubtitle()
+	return formatMicPromptText(
+		"Feature.SettingsHub.Prompt.Subtitle.MicFirstUnmutePrivacy",
+		"We process and then delete your audio. Tap to view our privacy policy."
+	)
+end
 
 local VoiceChatPromptFrame = Roact.PureComponent:extend("VoiceChatPromptFrame")
 
@@ -143,6 +178,8 @@ local PromptTitle = {
 	[PromptType.VoiceToxicityToastV2] = if GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2()
 		then  RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.RememberRulesVoiceChat")
 		else nil,
+	[PromptType.MicPermissionDenied] = getMicPermissionDeniedTitle,
+	[PromptType.MicFirstUnmutePrivacy] = getMicFirstUnmutePrivacyTitle,
 }
 
 local unifiedJoinVoiceToastKey = if FFlagConnectionsToFriendsRename
@@ -217,9 +254,7 @@ local PromptSubTitle = {
 	[PromptType.VoiceDataConsentOptOutToast] = if GetFFlagEnableSeamlessVoiceDataConsentToast()
 		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.ThanksForVoiceData")
 		else nil,
-	[PromptType.UnifiedJoinVoiceToast] = if FFlagVoiceConnectToastCapturesTrustedFriendsSubtitle
-		then RobloxTranslator:FormatByKey("Feature.Captures.Prompt.Subtitle.VoiceChatRecordingTrustedFriendsAgeGroup")
-		else locales:Format(unifiedJoinVoiceToastKey)
+	[PromptType.UnifiedJoinVoiceToast] = RobloxTranslator:FormatByKey("Feature.Captures.Prompt.Subtitle.VoiceChatRecordingTrustedFriendsAgeGroup")
 ,
 	[PromptType.AgeCheckForVoiceToast] = locales:Format("Feature.SettingsHub.Prompt.Subtitle.GoToAccountInfo"),
 	[PromptType.UpdateOnAutoJoinToast] = locales:Format(updateOnAutoJoinToastKey)
@@ -233,6 +268,8 @@ local PromptSubTitle = {
 	[PromptType.VoiceToxicityToastV2] =if GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2()
 		then RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.VoiceToxicityToastV2") 
 		else nil, 
+	[PromptType.MicPermissionDenied] = getMicPermissionDeniedSubtitle,
+	[PromptType.MicFirstUnmutePrivacy] = getMicFirstUnmutePrivacySubtitle,
 }
 
 if runService:IsStudio() then
@@ -424,7 +461,27 @@ function VoiceChatPromptFrame:init()
 			end
 
 			local iconImage
-			if promptType == PromptType.UpdateOnAutoJoinToast then
+			local onActivatedOverride
+			if GetFFlagMicConsumerRegistry() and promptType == PromptType.MicPermissionDenied then
+				iconImage = Images["icons/status/alert"]
+				onActivatedOverride = function()
+					local LinkingProtocolModule = require(CorePackages.Workspace.Packages.LinkingProtocol)
+					local linkingProtocol = LinkingProtocolModule.LinkingProtocol.default
+					local SettingsRoute = LinkingProtocolModule.Enums.SettingsRoute
+					local settingsRoute = if SettingsRoute then SettingsRoute.Microphone else nil
+					local success, supported = linkingProtocol:supportsSwitchToSettingsApp(settingsRoute):await()
+					if success and supported then
+						linkingProtocol:switchToSettingsApp(settingsRoute):catch(function() end)
+					end
+				end
+			elseif GetFFlagMicConsumerRegistry() and promptType == PromptType.MicFirstUnmutePrivacy then
+				iconImage = Images["icons/controls/microphone"]
+				onActivatedOverride = function()
+					local LinkingProtocolModule = require(CorePackages.Workspace.Packages.LinkingProtocol)
+					local linkingProtocol = LinkingProtocolModule.LinkingProtocol.default
+					linkingProtocol:openURL("https://en.help.roblox.com/hc/articles/115004630823"):catch(function() end)
+				end
+			elseif promptType == PromptType.UpdateOnAutoJoinToast then
 				iconImage = Images["icons/controls/microphone"]
 			elseif
 				PromptTypeIsVoiceConsent(promptType)
@@ -446,7 +503,7 @@ function VoiceChatPromptFrame:init()
 					iconImage = iconImage,
 					toastTitle = toastTitle,
 					toastSubtitle = toastSubtitle,
-					onActivated = function()
+					onActivated = onActivatedOverride or function()
 						if self.props.onPrimaryActivated then
 							self.props.onPrimaryActivated()
 						end
@@ -553,7 +610,7 @@ function VoiceChatPromptFrame:render()
 		local titleText = self.state.toastContent.toastTitle
 		local titleFont = self.promptStyle.Font.Header1.Font
 		local titleFontSize = self.promptStyle.Font.Header1.RelativeSize * self.promptStyle.Font.BaseSize
-		local titleTextHeight = TextService:GetTextSize(
+		local titleTextHeight = if FFlagFoundationFontFaceMigration then GetTextSize(titleText, titleFontSize, titleFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y else TextService:GetTextSize(
 			titleText,
 			titleFontSize,
 			titleFont,
@@ -569,7 +626,7 @@ function VoiceChatPromptFrame:render()
 		local bodyText = errorText or successText
 		local bodyFont = self.promptStyle.Font.Body.Font
 		local bodyFontSize = self.promptStyle.Font.Body.RelativeSize * self.promptStyle.Font.BaseSize
-		local bodyTextHeight = TextService:GetTextSize(
+		local bodyTextHeight = if FFlagFoundationFontFaceMigration then GetTextSize(bodyText, bodyFontSize, bodyFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y else TextService:GetTextSize(
 			bodyText,
 			bodyFontSize,
 			bodyFont,
@@ -581,7 +638,7 @@ function VoiceChatPromptFrame:render()
 		end
 
 		local subBodyText = if isUpdatedBanModalB then voiceChatLimitsOnAccount elseif (GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and isUpdatedBanModalBV2) then voiceChatLimitsOnAccountV2 else voiceChatFutureViolations
-		local subTextHeight = TextService:GetTextSize(
+		local subTextHeight = if FFlagFoundationFontFaceMigration then GetTextSize(subBodyText, bodyFontSize, bodyFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y else TextService:GetTextSize(
 			subBodyText,
 			bodyFontSize,
 			bodyFont,

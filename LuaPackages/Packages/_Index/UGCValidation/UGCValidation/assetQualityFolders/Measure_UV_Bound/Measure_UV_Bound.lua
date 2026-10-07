@@ -8,6 +8,7 @@ local Measure_UV_Bound = {}
 
 Measure_UV_Bound.categories = {
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 	ValidationEnums.UploadCategory.FULL_BODY,
 	ValidationEnums.UploadCategory.RIGID_ACCESSORY,
 	ValidationEnums.UploadCategory.DYNAMIC_HEAD,

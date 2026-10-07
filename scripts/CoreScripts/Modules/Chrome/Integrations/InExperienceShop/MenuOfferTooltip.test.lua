@@ -38,6 +38,7 @@ local OffersPackage = CorePackages.Workspace.Packages.InExperienceOffers
 local ShopPackage = CorePackages.Workspace.Packages.InExperienceShop
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagOfferNotifyOnGlobalIcon = SharedFlags.FFlagOfferNotifyOnGlobalIcon
+local FFlagHideOfferNotificationsWhenShopEmpty = SharedFlags.FFlagHideOfferNotificationsWhenShopEmpty
 
 local TOOLTIP_ID = "MENU_OFFER_TOOLTIP"
 local OFFER_TITLE = "Limited time offer"
@@ -92,6 +93,7 @@ local getExposureSnapshot, setExposureSnapshot = Signals.createSignal(nil :: any
 local getIsInExperienceShopGlobalIconAvailable, setIsInExperienceShopGlobalIconAvailable = Signals.createSignal(false)
 local getHasInExperienceShopOpened, setHasInExperienceShopOpened = Signals.createSignal(false)
 local getGlobalIconInstance, setGlobalIconInstance = Signals.createSignal(nil :: GuiObject?)
+local getShopHasItems, setShopHasItems = Signals.createSignal(true)
 
 local activateMock = jest.fn()
 local toggleInExperienceShopWindowMock = jest.fn()
@@ -124,6 +126,9 @@ jest.mock(OffersPackage, function()
 			useOffersForKey = function(featureKey: string)
 				requestedFeatureKey = featureKey
 				return SignalsReact.useSignalState(getOffers)
+			end,
+			useShopHasItems = function()
+				return SignalsReact.useSignalState(getShopHasItems)
 			end,
 		},
 		getOffersStore = function(_scope: boolean?)
@@ -323,6 +328,7 @@ describe("MenuOfferTooltip", function()
 		setIsInExperienceShopGlobalIconAvailable(false)
 		setHasInExperienceShopOpened(false)
 		setGlobalIconInstance(nil)
+		setShopHasItems(true)
 		requestedFeatureKey = nil
 		isCurrentTooltip = true
 		isIntegrationValid = true
@@ -369,6 +375,16 @@ describe("MenuOfferTooltip", function()
 	end)
 
 	describe("gating", function()
+		if FFlagHideOfferNotificationsWhenShopEmpty then
+			it("SHOULD NOT show the tooltip when the shop has no items", function()
+				setShopHasItems(false)
+				renderTooltip()
+
+				expect(tooltipPropsCapture).toBeNil()
+				expect(registerTooltipMock).never.toHaveBeenCalled()
+			end)
+		end
+
 		if not FFlagOfferNotifyOnGlobalIcon then
 			it("SHOULD keep the hamburger tooltip when the shop global icon is available", function()
 				-- The global icon signal only steers the tooltip on the flag-on path. Off

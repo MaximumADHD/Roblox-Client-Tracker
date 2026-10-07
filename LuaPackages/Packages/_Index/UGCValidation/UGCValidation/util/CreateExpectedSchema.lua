@@ -11,11 +11,7 @@ local createAccessorySchema = require(root.util.createAccessorySchema)
 local createEmoteSchema = require(root.util.createEmoteSchema)
 local createAnimationSchema = require(root.util.createAnimationSchema)
 local getUploadCategory = require(root.util.getUploadCategory)
-
-local getFFlagUGCValidationAnimationPackFolderStructure =
-	require(root.flags.getFFlagUGCValidationAnimationPackFolderStructure)
-local getFFlagUGCValidationAnimationPackDisableModelStructure =
-	require(root.flags.getFFlagUGCValidationAnimationPackDisableModelStructure)
+local getFFlagUGCValidationEyebrowEyelashCategory = require(root.flags.getFFlagUGCValidationEyebrowEyelashCategory)
 
 local CreateExpectedSchema = {}
 -- NOTE: We are not going to enforce the R15ArtistIntent name here. These schemas are for the root folder/instance, and not for the copy
@@ -83,11 +79,17 @@ local categoryToSchemaGenerator = {
 		return createBodyPartSchema(assetEnum)
 	end,
 	LAYERED_CLOTHING = function(assetEnum: Enum.AssetType, _rootInstance: Instance)
-		if assetEnum == Enum.AssetType.EyebrowAccessory or assetEnum == Enum.AssetType.EyelashAccessory then
+		if
+			not getFFlagUGCValidationEyebrowEyelashCategory()
+			and (assetEnum == Enum.AssetType.EyebrowAccessory or assetEnum == Enum.AssetType.EyelashAccessory)
+		then
 			return createEyebrowEyelashSchema(Constants.ASSET_TYPE_INFO[assetEnum].attachmentNames)
 		else
 			return createLayeredClothingSchema(Constants.ASSET_TYPE_INFO[assetEnum].attachmentNames)
 		end
+	end,
+	EYEBROW_EYELASH = function(assetEnum: Enum.AssetType, _rootInstance: Instance)
+		return createEyebrowEyelashSchema(Constants.ASSET_TYPE_INFO[assetEnum].attachmentNames)
 	end,
 	RIGID_ACCESSORY = function(assetEnum: Enum.AssetType, rootInstance: Instance)
 		local assetInfo = Constants.ASSET_TYPE_INFO[assetEnum]
@@ -103,8 +105,8 @@ local categoryToSchemaGenerator = {
 	end,
 }
 
-categoryToSchemaGenerator.ANIMATION = function(assetEnum: Enum.AssetType, rootInstance: Instance)
-	return createAnimationSchema(assetEnum, rootInstance)
+categoryToSchemaGenerator.ANIMATION = function(assetEnum: Enum.AssetType, _rootInstance: Instance)
+	return createAnimationSchema(assetEnum)
 end
 
 function CreateExpectedSchema.generateAssetSchema(
@@ -115,40 +117,16 @@ function CreateExpectedSchema.generateAssetSchema(
 	return categoryToSchemaGenerator[uploadCategory](assetEnum, rootInstance)
 end
 
-local function hasTopLevelR15Anim(rootInstance: Instance?): boolean
-	if not rootInstance then
-		return false
-	end
-
-	for _, child in rootInstance:GetChildren() do
-		if child.Name == "R15Anim" then
-			return true
-		end
-	end
-	return false
-end
-
-function CreateExpectedSchema.generateAnimationPackBundleSchema(rootInstance: Instance?): { [string]: any }
+function CreateExpectedSchema.generateAnimationPackBundleSchema(): { [string]: any }
 	local rootModelSchema = {
 		ClassName = "Model",
 		_children = {},
 	}
 
-	local useFolderAnim = getFFlagUGCValidationAnimationPackDisableModelStructure()
-		or (getFFlagUGCValidationAnimationPackFolderStructure() and hasTopLevelR15Anim(rootInstance))
-	for _, info in Constants.ANIMATION_ASSET_INFO do
-		if useFolderAnim then
-			table.insert(rootModelSchema._children, {
-				ClassName = "Folder",
-				Name = "R15Anim",
-				_ignoreDescendants = true,
-			})
-			continue
-		end
-
+	for _ in Constants.ANIMATION_ASSET_INFO do
 		table.insert(rootModelSchema._children, {
-			ClassName = "Model",
-			Name = info.modelName,
+			ClassName = "Folder",
+			Name = "R15Anim",
 			_ignoreDescendants = true,
 		})
 	end

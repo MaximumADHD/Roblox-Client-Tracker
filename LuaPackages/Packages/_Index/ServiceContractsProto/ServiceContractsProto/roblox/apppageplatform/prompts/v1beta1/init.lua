@@ -10,6 +10,7 @@ local prompts = require(script.prompts)
 
 -- Exported types
 export type CustomPrompt = prompts.CustomPrompt
+export type GetEligiblePromptsRequest = prompts.GetEligiblePromptsRequest
 export type GetEligiblePromptsResponse = prompts.GetEligiblePromptsResponse
 
 return {

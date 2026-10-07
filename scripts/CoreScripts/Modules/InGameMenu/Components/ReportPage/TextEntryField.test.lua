@@ -6,6 +6,8 @@ local expect = JestGlobals.expect
 local it = JestGlobals.it
 local jest = JestGlobals.jest
 
+local Foundation = require(CorePackages.Packages.Foundation)
+
 local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local Roact = InGameMenuDependencies.Roact
@@ -17,10 +19,23 @@ local InGameMenu = script.Parent.Parent.Parent
 local Localization = require(InGameMenu.Localization.Localization)
 local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 local reducer = require(InGameMenu.reducer)
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
+local foundationTypography = Foundation.Utility.getTokens(Foundation.Enums.ColorMode.Dark).Typography
+local Style = require(CorePackages.Workspace.Packages.Style)
+local getTextSizeSpy = jest.spyOn(Style, "GetTextSize")
 
 local TextEntryField = require(script.Parent.TextEntryField)
 
+local function expectTextMeasurementsWithoutTemporaryPadding()
+	expect(#getTextSizeSpy.mock.calls).toBeGreaterThan(0)
+	for _, call in getTextSizeSpy.mock.calls do
+		expect(call[3]).toEqual(foundationTypography.BodyLarge.Font)
+		expect(call[5]).toEqual({ addTemporaryPadding = false })
+	end
+end
+
 it("should create and destroy without errors", function()
+	jest.clearAllMocks()
 	local element = Roact.createElement(RoactRodux.StoreProvider, {
 		store = Rodux.Store.new(reducer),
 	}, {
@@ -46,10 +61,16 @@ it("should create and destroy without errors", function()
 	})
 
 	local instance = Roact.mount(element)
+
+	if FFlagFoundationFontFaceMigration then
+		expectTextMeasurementsWithoutTemporaryPadding()
+	end
+
 	Roact.unmount(instance)
 end)
 
 it("should call textChanged when the user enters text", function()
+	jest.clearAllMocks()
 	local textChangedSpy, textChangedFn = jest.fn()
 
 	local element = Roact.createElement(RoactRodux.StoreProvider, {
@@ -85,6 +106,9 @@ it("should call textChanged when the user enters text", function()
 	end)
 
 	expect(textChangedSpy).toHaveBeenCalled()
+	if FFlagFoundationFontFaceMigration then
+		expectTextMeasurementsWithoutTemporaryPadding()
+	end
 
 	Roact.unmount(instance)
 end)

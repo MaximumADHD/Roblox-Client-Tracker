@@ -1,6 +1,6 @@
 --!nonstrict
-local CorePackages = game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
+local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 
 local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
@@ -10,6 +10,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
+local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local InGameMenu = script.Parent.Parent.Parent
@@ -25,6 +26,7 @@ local RootedConnection = require(InGameMenu.Components.Connection.RootedConnecti
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local Foundation = require(CorePackages.Packages.Foundation)
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local Image = Foundation.Image
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
@@ -49,9 +51,13 @@ function LoadingFriendsError:render()
 
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
+			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
 			Font = {
 				BaseSize = 1,
-				Body = { Font = tokens.Typography.BodyLarge.Font, RelativeSize = tokens.Typography.BodyLarge.FontSize },
+				Body = {
+					Font = tokens.Typography.BodyLarge.Font,
+					RelativeSize = tokens.Typography.BodyLarge.FontSize,
+				},
 			},
 		}
 	end, function(style)
@@ -60,12 +66,20 @@ function LoadingFriendsError:render()
 		})(function(localized)
 			local bodyFont = style.Font.Body.Font
 			local bodyFontSize = style.Font.Body.RelativeSize * style.Font.BaseSize
-			local textHeight = TextService:GetTextSize(
-				localized.errorOccured,
-				bodyFontSize,
-				bodyFont,
-				Vector2.new(CONTAINER_WIDTH, math.huge)
-			).Y
+			local textHeight = if FFlagFoundationFontFaceMigration
+				then GetTextSize(
+					localized.errorOccured,
+					bodyFontSize,
+					style.Tokens.Typography.BodyLarge.Font,
+					Vector2.new(CONTAINER_WIDTH, math.huge),
+					{ addTemporaryPadding = false }
+				).Y
+				else TextService:GetTextSize(
+					localized.errorOccured,
+					bodyFontSize,
+					bodyFont,
+					Vector2.new(CONTAINER_WIDTH, math.huge)
+				).Y
 
 			local totalTextPadding = TEXT_PADDING_TOP + TEXT_PADDING_BOTTOM
 
@@ -85,7 +99,10 @@ function LoadingFriendsError:render()
 				Icon = if FFlagCoreUiMigrateUIBloxToFoundation
 					then Roact.createElement(Image, {
 						Image = Assets.Images.Friends.Image,
-						imageRect = { offset = Assets.Images.Friends.ImageRectOffset, size = Assets.Images.Friends.ImageRectSize },
+						imageRect = {
+							offset = Assets.Images.Friends.ImageRectOffset,
+							size = Assets.Images.Friends.ImageRectSize,
+						},
 						Size = UDim2.new(0, 64, 0, 64),
 						imageStyle = { Color3 = Color3.new(1, 1, 1), Transparency = 0.5 },
 						LayoutOrder = 1,
@@ -123,16 +140,14 @@ function LoadingFriendsError:render()
 								GuiService.SelectedCoreObject = self.buttonRef:getValue()
 							end,
 						}, {
-							RetryButton = isRooted
-									and Roact.createElement(Button, {
-										buttonType = ButtonType.Secondary,
-										layoutOrder = 3,
-										size = UDim2.new(1, 0, 0, 48),
-										icon = Assets.Images.RetryIcon,
-										onActivated = props.onRetry,
-										buttonRef = self.buttonRef,
-									})
-								or nil,
+							RetryButton = isRooted and Roact.createElement(Button, {
+								buttonType = ButtonType.Secondary,
+								layoutOrder = 3,
+								size = UDim2.new(1, 0, 0, 48),
+								icon = Assets.Images.RetryIcon,
+								onActivated = props.onRetry,
+								buttonRef = self.buttonRef,
+							}) or nil,
 						})
 					end,
 				}),

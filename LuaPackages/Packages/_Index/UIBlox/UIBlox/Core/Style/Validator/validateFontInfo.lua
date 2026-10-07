@@ -14,10 +14,12 @@ export type FontInfo = {
 	RelativeSize: number,
 	RelativeMinSize: number,
 	Font: Font | Enum.Font,
+	FontFace: Font?,
 }
 
 return t.strictInterface({
 	RelativeSize = t.numberMinExclusive(0),
 	RelativeMinSize = t.numberMinExclusive(0),
 	Font = if FFlagFoundationFontFaceMigration then t.union(t.EnumItem, validateFontFace) else t.EnumItem,
+	FontFace = if FFlagFoundationFontFaceMigration then t.optional(validateFontFace) else nil,
 })

@@ -11,12 +11,6 @@ local destroyEditableInstances = require(root.util.destroyEditableInstances)
 
 local validateBundleReadyForUpload = require(root.validation.validateBundleReadyForUpload)
 
-local getFFlagUGCValidationAnimationPackFolderStructure =
-	require(root.flags.getFFlagUGCValidationAnimationPackFolderStructure)
-local getFFlagUGCValidationAnimationPackDisableModelStructure =
-	require(root.flags.getFFlagUGCValidationAnimationPackDisableModelStructure)
-local getFFlagUGCValidationAnimationPackMissingTypeMessage =
-	require(root.flags.getFFlagUGCValidationAnimationPackMissingTypeMessage)
 local LegacyValidationAdapter = require(root.util.LegacyValidationAdapter)
 local HttpService = game:GetService("HttpService")
 
@@ -89,69 +83,37 @@ local function validateAnimationBundleReadyForUpload(
 		-- original bundle here. When migrating the bundle entry point to the new
 		-- validationFolders framework, consider passing the original bundle instance
 		-- through so that modules like ExpectedRootSchema can enforce this directly.
-		if
-			getFFlagUGCValidationAnimationPackDisableModelStructure()
-			or (getFFlagUGCValidationAnimationPackFolderStructure() and bundle:FindFirstChild("R15Anim") ~= nil)
-		then
-			local matchedAnimationContainers: { [Instance]: boolean } = {}
+		local matchedAnimationContainers: { [Instance]: boolean } = {}
 
-			for assetTypeEnum, info in Constants.ANIMATION_ASSET_INFO do
-				local matchedAnimation = false
-				for _, child in bundle:GetChildren() do
-					-- The new bundle format has seven sibling R15Anim folders, so the StringValue
-					-- names identify which animation type each folder represents.
-					local matchesAnimation = child.Name == "R15Anim"
-						and child:IsA("Folder")
-						and hasExactStringValueNames(child, info.stringValueNames)
-
-					if not matchedAnimationContainers[child] and matchesAnimation then
-						animationModels[assetTypeEnum] = { child }
-						matchedAnimationContainers[child] = true
-						matchedAnimation = true
-						break
-					end
-				end
-
-				if not matchedAnimation then
-					table.insert(missingAnimationTypes, assetTypeEnum.Name)
-				end
-			end
-
+		for assetTypeEnum, info in Constants.ANIMATION_ASSET_INFO do
+			local matchedAnimation = false
 			for _, child in bundle:GetChildren() do
-				if
-					not matchedAnimationContainers[child]
-					and (child.Name ~= "R15Anim" or not getFFlagUGCValidationAnimationPackMissingTypeMessage())
-				then
-					table.insert(unexpectedNames, child.Name)
-				end
-			end
-		else
-			local expectedNames = {}
-			for _, info in Constants.ANIMATION_ASSET_INFO do
-				expectedNames[info.modelName] = true
-			end
+				-- The new bundle format has seven sibling R15Anim folders, so the StringValue
+				-- names identify which animation type each folder represents.
+				local matchesAnimation = child.Name == "R15Anim"
+					and child:IsA("Folder")
+					and hasExactStringValueNames(child, info.stringValueNames)
 
-			for assetTypeEnum, info in Constants.ANIMATION_ASSET_INFO do
-				local child = bundle:FindFirstChild(info.modelName)
-				if child then
+				if not matchedAnimationContainers[child] and matchesAnimation then
 					animationModels[assetTypeEnum] = { child }
+					matchedAnimationContainers[child] = true
+					matchedAnimation = true
+					break
 				end
 			end
 
-			-- Unlike other bundle flows, ValidateFinalizedBundle reconstructs the root instance
-			-- from only the matched animation models, so unexpected children in the original
-			-- bundle are silently dropped before the schema check runs. We must validate the
-			-- original bundle here. When migrating the bundle entry point to the new
-			-- validationFolders framework, consider passing the original bundle instance
-			-- through so that modules like ExpectedRootSchema can enforce this directly.
-			for _, child in bundle:GetChildren() do
-				if not expectedNames[child.Name] then
-					table.insert(unexpectedNames, child.Name)
-				end
+			if not matchedAnimation then
+				table.insert(missingAnimationTypes, assetTypeEnum.Name)
 			end
 		end
 
-		if getFFlagUGCValidationAnimationPackMissingTypeMessage() and #missingAnimationTypes > 0 then
+		for _, child in bundle:GetChildren() do
+			if not matchedAnimationContainers[child] and child.Name ~= "R15Anim" then
+				table.insert(unexpectedNames, child.Name)
+			end
+		end
+
+		if #missingAnimationTypes > 0 then
 			local message = string.gsub(
 				ErrorSourceStrings.Values.AnimationPack_InvalidR15AnimChildren,
 				"{missingAnimationTypes}",

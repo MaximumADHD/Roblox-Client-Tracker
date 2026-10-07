@@ -3,6 +3,7 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
 local getFStringUGCLCAllowedAssetTypeIds = require(root.flags.getFStringUGCLCAllowedAssetTypeIds)
+local getFFlagUGCValidationEyebrowEyelashCategory = require(root.flags.getFFlagUGCValidationEyebrowEyelashCategory)
 local LC_ENUMS = string.split(getFStringUGCLCAllowedAssetTypeIds(), ",")
 
 local function getUploadCategory(
@@ -30,7 +31,11 @@ local function getUploadCategory(
 		category = assetTypeEnum == Enum.AssetType.DynamicHead and ValidationEnums.UploadCategory.DYNAMIC_HEAD
 			or ValidationEnums.UploadCategory.TORSO_AND_LIMBS
 	elseif table.find(LC_ENUMS, tostring(assetTypeEnum.Value)) then
-		category = ValidationEnums.UploadCategory.LAYERED_CLOTHING
+		local isEyebrowOrEyelash = assetTypeEnum == Enum.AssetType.EyebrowAccessory
+			or assetTypeEnum == Enum.AssetType.EyelashAccessory
+		category = if getFFlagUGCValidationEyebrowEyelashCategory() and isEyebrowOrEyelash
+			then ValidationEnums.UploadCategory.EYEBROW_EYELASH
+			else ValidationEnums.UploadCategory.LAYERED_CLOTHING
 	elseif Constants.ASSET_TYPE_INFO[assetTypeEnum] and Constants.ASSET_TYPE_INFO[assetTypeEnum].rigidAllowed then
 		category = ValidationEnums.UploadCategory.RIGID_ACCESSORY
 	elseif ConstantsInterface.isMakeupAsset(assetTypeEnum) then

@@ -3,11 +3,16 @@ local Menu = KeyLabelRoot.Parent
 local App = Menu.Parent
 local UIBlox = App.Parent
 
+local Packages = UIBlox.Parent
+local Foundation = require(Packages.Foundation)
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
+
 local Types = require(KeyLabelRoot.Types)
 local Constants = require(KeyLabelRoot.Constants)
 local Fonts = require(App.Style.Fonts)
 local Images = require(App.ImageSet.Images)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local GetFontFromFontStyle = require(UIBlox.Core.Text.GetFontFromFontStyle)
 local platformIconMap = require(Menu.platformIconMap)
 
 local UserInputService = game:GetService("UserInputService")
@@ -68,7 +73,10 @@ local function getWidthFromContent(content: Types.KeyLabelContent, font: Fonts.F
 			local textFont = font.CaptionBody
 			local fontSize = baseSize * textFont.RelativeSize
 			-- is this expenseive? we only run on a few different strings, so we could memoize
-			local innerWidth = GetTextSize(content.content, fontSize, textFont.Font, Vector2.zero).X
+			local measureFont = if FFlagFoundationFontFaceMigration
+				then GetFontFromFontStyle(textFont)
+				else textFont.Font
+			local innerWidth = GetTextSize(content.content, fontSize, measureFont, Vector2.zero).X
 			if innerWidth + 2 * Constants.MIN_SIDE_PADDING > Constants.PREFERRED_WIDTH then
 				return innerWidth + 2 * Constants.SIDE_PADDING
 			end

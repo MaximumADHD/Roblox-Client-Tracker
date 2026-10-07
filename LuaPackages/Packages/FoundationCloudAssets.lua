@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["FoundationCloudAssets-31ab8d40-0.5.0"]["FoundationCloudAssets"])
+local Package = require(PackageIndex["FoundationCloudAssets-31ab8d40-0.6.0"]["FoundationCloudAssets"])
 
 return Package

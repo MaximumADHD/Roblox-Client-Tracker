@@ -10,10 +10,13 @@ local RoactGamepad = require(Packages.RoactGamepad)
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
+local Foundation = require(Packages.Foundation)
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
 local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local GetFontFromFontStyle = require(UIBlox.Core.Text.GetFontFromFontStyle)
 local GetWrappedTextWithIcon = require(UIBlox.Core.Text.GetWrappedTextWithIcon)
 local withTextSizeOffset = require(UIBlox.Core.Style.withTextSizeOffset)
 
@@ -289,7 +292,9 @@ function Tile:render()
 					else
 						local textToMeasure = name or ""
 
-						local titleFont = titleFontStyle.Font
+						local titleFont = if FFlagFoundationFontFaceMigration
+							then GetFontFromFontStyle(titleFontStyle)
+							else titleFontStyle.Font
 
 						if titleIcon then
 							local iconWidth = titleIcon.ImageRectSize.X / Images.ImagesResolutionScale

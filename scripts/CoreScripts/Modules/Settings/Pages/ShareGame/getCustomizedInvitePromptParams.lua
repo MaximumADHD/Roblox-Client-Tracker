@@ -1,6 +1,9 @@
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local Modules = CoreGui.RobloxGui.Modules
 local Constants = require(Modules.Settings.Pages.ShareGame.Constants)
+local FFlagFixPromptGameInviteUIMissingDisplayName =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagFixPromptGameInviteUIMissingDisplayName
 
 -- Returns parameters from ExperienceInviteOptions based on if the feature is
 -- enabled and customization options are present. If nil is returned, the modal
@@ -30,6 +33,10 @@ return function(
 	end
 
 	local params = {}
+	if FFlagFixPromptGameInviteUIMissingDisplayName and inviteUserId then
+		params.inviteUserId = inviteUserId
+	end
+
 	if canCustomize and experienceInviteOptions then
 		if experienceInviteOptions.InviteMessageId ~= "" then
 			params.inviteMessageId = experienceInviteOptions.InviteMessageId

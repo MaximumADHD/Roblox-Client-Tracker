@@ -26,6 +26,13 @@ if FFlagEnableExperienceGenericChallengeRenderingOnLoadingScript then
 	end)()
 end
 
+if require(CorePackages.Workspace.Packages.BuildExperiencePlaytestLaunch.teamCreateUtils).isViewer() then
+	local UIBlox = require(CorePackages.Packages.UIBlox)
+	UIBlox.init(require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig)
+	require(CorePackages.Workspace.Packages.BuildExperience.mountTeamCreateViewer)(PLACE_ID_FROM_ENGINE)
+	return
+end
+
 -- Currently this is only used by VR, where refresh rate in experiences is set to 90,
 -- so that the FRM oscillates somewhere between 72 and 90 instead of dipping below 72.
 -- So the actual target FPS should be anything above 72.

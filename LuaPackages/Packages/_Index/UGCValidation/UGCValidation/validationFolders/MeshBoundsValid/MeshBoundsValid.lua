@@ -28,6 +28,7 @@ local MeshBoundsValid = {}
 
 MeshBoundsValid.categories = {
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 	ValidationEnums.UploadCategory.RIGID_ACCESSORY,
 }
 MeshBoundsValid.requiredData = { ValidationEnums.SharedDataMember.renderMeshesData }

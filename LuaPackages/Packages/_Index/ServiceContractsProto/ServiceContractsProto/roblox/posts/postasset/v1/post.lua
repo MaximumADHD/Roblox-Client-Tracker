@@ -517,6 +517,15 @@ export type EnumeratedFont =
 	| "ENUMERATED_FONT_SOURCE_SANS_BOLD"
 	| "ENUMERATED_FONT_FREDOKA_ONE"
 	| "ENUMERATED_FONT_BANGERS"
+	| "ENUMERATED_FONT_BUILDER_SANS_MEDIUM"
+	| "ENUMERATED_FONT_LUCKIEST_GUY"
+	| "ENUMERATED_FONT_PERMANENT_MARKER"
+	| "ENUMERATED_FONT_CREEPSTER"
+	| "ENUMERATED_FONT_ARCADE"
+	| "ENUMERATED_FONT_SCI_FI"
+	| "ENUMERATED_FONT_INDIE_FLOWER"
+	| "ENUMERATED_FONT_GRENZE_GOTISCH"
+	| "ENUMERATED_FONT_SPECIAL_ELITE"
 	| number -- Unknown
 
 type _TextXAlignmentMessage = proto.Enum<TextXAlignment>
@@ -3274,6 +3283,24 @@ messages.EnumeratedFont = {
 			return "ENUMERATED_FONT_FREDOKA_ONE"
 		elseif value == 6 then
 			return "ENUMERATED_FONT_BANGERS"
+		elseif value == 7 then
+			return "ENUMERATED_FONT_BUILDER_SANS_MEDIUM"
+		elseif value == 8 then
+			return "ENUMERATED_FONT_LUCKIEST_GUY"
+		elseif value == 9 then
+			return "ENUMERATED_FONT_PERMANENT_MARKER"
+		elseif value == 10 then
+			return "ENUMERATED_FONT_CREEPSTER"
+		elseif value == 11 then
+			return "ENUMERATED_FONT_ARCADE"
+		elseif value == 12 then
+			return "ENUMERATED_FONT_SCI_FI"
+		elseif value == 13 then
+			return "ENUMERATED_FONT_INDIE_FLOWER"
+		elseif value == 14 then
+			return "ENUMERATED_FONT_GRENZE_GOTISCH"
+		elseif value == 15 then
+			return "ENUMERATED_FONT_SPECIAL_ELITE"
 		else
 			return nil
 		end
@@ -3294,6 +3321,24 @@ messages.EnumeratedFont = {
 			return 5
 		elseif self == "ENUMERATED_FONT_BANGERS" then
 			return 6
+		elseif self == "ENUMERATED_FONT_BUILDER_SANS_MEDIUM" then
+			return 7
+		elseif self == "ENUMERATED_FONT_LUCKIEST_GUY" then
+			return 8
+		elseif self == "ENUMERATED_FONT_PERMANENT_MARKER" then
+			return 9
+		elseif self == "ENUMERATED_FONT_CREEPSTER" then
+			return 10
+		elseif self == "ENUMERATED_FONT_ARCADE" then
+			return 11
+		elseif self == "ENUMERATED_FONT_SCI_FI" then
+			return 12
+		elseif self == "ENUMERATED_FONT_INDIE_FLOWER" then
+			return 13
+		elseif self == "ENUMERATED_FONT_GRENZE_GOTISCH" then
+			return 14
+		elseif self == "ENUMERATED_FONT_SPECIAL_ELITE" then
+			return 15
 		else
 			return self
 		end
@@ -3314,6 +3359,24 @@ messages.EnumeratedFont = {
 			return "ENUMERATED_FONT_FREDOKA_ONE"
 		elseif name == "ENUMERATED_FONT_BANGERS" then
 			return "ENUMERATED_FONT_BANGERS"
+		elseif name == "ENUMERATED_FONT_BUILDER_SANS_MEDIUM" then
+			return "ENUMERATED_FONT_BUILDER_SANS_MEDIUM"
+		elseif name == "ENUMERATED_FONT_LUCKIEST_GUY" then
+			return "ENUMERATED_FONT_LUCKIEST_GUY"
+		elseif name == "ENUMERATED_FONT_PERMANENT_MARKER" then
+			return "ENUMERATED_FONT_PERMANENT_MARKER"
+		elseif name == "ENUMERATED_FONT_CREEPSTER" then
+			return "ENUMERATED_FONT_CREEPSTER"
+		elseif name == "ENUMERATED_FONT_ARCADE" then
+			return "ENUMERATED_FONT_ARCADE"
+		elseif name == "ENUMERATED_FONT_SCI_FI" then
+			return "ENUMERATED_FONT_SCI_FI"
+		elseif name == "ENUMERATED_FONT_INDIE_FLOWER" then
+			return "ENUMERATED_FONT_INDIE_FLOWER"
+		elseif name == "ENUMERATED_FONT_GRENZE_GOTISCH" then
+			return "ENUMERATED_FONT_GRENZE_GOTISCH"
+		elseif name == "ENUMERATED_FONT_SPECIAL_ELITE" then
+			return "ENUMERATED_FONT_SPECIAL_ELITE"
 		else
 			return nil
 		end

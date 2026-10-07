@@ -37,6 +37,7 @@ local FFlagUserPlayerScriptsTaskDeferSimulation = FlagUtil.getUserFlag("UserPlay
 local FFlagUserPlayerScriptsFixSAuthRenderStepMove = FlagUtil.getUserFlag("UserPlayerScriptsFixSAuthRenderStepMove")
 local FFlagUserPlayerScriptsSupportMicroGamepad = FlagUtil.getUserFlag("UserPlayerScriptsSupportMicroGamepad")
 local FFlagUserAbilitiesUserInterfaceC = FlagUtil.getUserFlag("UserAbilitiesUserInterfaceC")
+local FFlagUserPSUseBindToAnimation = FlagUtil.getUserFlag("UserPSUseBindToAnimation")
 local CONNECTIONS = {
 	SERVER_AUTHORITY_CHANGED = "SERVER_AUTHORITY_CHANGED",
 }
@@ -305,11 +306,19 @@ function ControlModule:InitializeServerAuthority()
 			end)
 		end
 		-- Server processes all input
-		RunService:BindToSimulation(function(dt)
-			for _, player in Players:GetPlayers() do
-				self:ProcessInputs(player, dt)
-			end
-		end, Enum.StepFrequency.Hz60)
+		if FFlagUserPSUseBindToAnimation then
+			RunService:BindToAnimation(function(dt)
+				for _, player in Players:GetPlayers() do
+					self:ProcessInputs(player, dt)
+				end
+			end, Enum.StepFrequency.Hz60)		
+		else
+			RunService:BindToSimulation(function(dt)
+				for _, player in Players:GetPlayers() do
+					self:ProcessInputs(player, dt)
+				end
+			end, Enum.StepFrequency.Hz60)
+		end
 	else
 		if FFlagUserPlayerScriptsPlayerControlState then
 			InputReplication.watchForPlayerControlState(Players.LocalPlayer)
@@ -325,9 +334,15 @@ function ControlModule:InitializeServerAuthority()
 			end
 		end)
 		-- Client processes local player input only
-		RunService:BindToSimulation(function(dt)
-			self:ProcessInputs(Players.LocalPlayer, dt)
-		end, Enum.StepFrequency.Hz60)
+		if FFlagUserPSUseBindToAnimation then
+			RunService:BindToAnimation(function(dt)
+				self:ProcessInputs(Players.LocalPlayer, dt)
+			end, Enum.StepFrequency.Hz60)
+		else			
+			RunService:BindToSimulation(function(dt)
+				self:ProcessInputs(Players.LocalPlayer, dt)
+			end, Enum.StepFrequency.Hz60)
+		end
 	end
 
 	if self.data and self.data.eventBus then

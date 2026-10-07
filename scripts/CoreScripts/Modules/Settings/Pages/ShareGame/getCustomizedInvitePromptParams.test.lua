@@ -1,5 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 
+local FFlagFixPromptGameInviteUIMissingDisplayName =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagFixPromptGameInviteUIMissingDisplayName
+
 local GetCustomizedInvitePromptParams = require(script.Parent.getCustomizedInvitePromptParams)
 
 local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
@@ -34,7 +37,7 @@ it("returns nil when and invite cannot be sent", function()
 	expect(optionsParams).toBeNil()
 end)
 
-it("returns an empty table when customization is disabled", function()
+it("drops customization-only options when customization is disabled", function()
 	local nilParams = GetCustomizedInvitePromptParams(nil, mockCustomizationDisabled)
 	expect(nilParams).toEqual({})
 
@@ -46,7 +49,25 @@ it("returns an empty table when customization is disabled", function()
 		return
 	end
 	local optionsParams = GetCustomizedInvitePromptParams(options, mockCustomizationDisabled)
-	expect(optionsParams).toEqual({})
+	assert(optionsParams ~= nil, "expected params when invite can be sent")
+	expect(optionsParams.inviteMessageId).toBeNil()
+	expect(optionsParams.promptMessage).toBeNil()
+	expect(optionsParams.launchData).toBeNil()
+end)
+
+it("keeps the invite recipient when customization is disabled", function()
+	local options = mockDefinedOptions()
+	if typeof(options.InviteMessageId) ~= "string" then
+		return
+	end
+	local optionsParams = GetCustomizedInvitePromptParams(options, mockCustomizationDisabled)
+	assert(optionsParams ~= nil, "expected params when invite can be sent")
+
+	if FFlagFixPromptGameInviteUIMissingDisplayName then
+		expect(optionsParams.inviteUserId).toBe(options.InviteUser)
+	else
+		expect(optionsParams.inviteUserId).toBeNil()
+	end
 end)
 
 it("returns an empty table when no ExperienceInviteOptions are provided", function()

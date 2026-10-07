@@ -290,7 +290,7 @@ local function tokenOverrideValuesCompatible(a: any, b: any): boolean
 	return true
 end
 
--- String source = token path (lookup on tokens); anything else = literal. Callers must gate on FoundationTokenOverrides.
+-- String source = token path (lookup on tokens); anything else = literal.
 local function resolveTokenOverrideSource(tokens: any, source: any): any?
 	if type(source) == "string" then
 		local value = getTokenValue(tokens, source)

@@ -18,12 +18,19 @@ local SocialUpsell = require(CorePackages.Workspace.Packages.SocialUpsell)
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol).default
 local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
+local AppUserLayers = require(CorePackages.Workspace.Packages.ExperimentLayers).AppUserLayers
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 
 local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
 local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 
 local GlobalVoiceManager = VoiceChat.GlobalVoiceManager.default
+local createVoiceRestrictionController = require(CorePackages.Workspace.Packages.VoiceChat.createVoiceRestrictionController)
+local showProactiveVoiceRestriction = require(script.Parent.Helpers.showProactiveVoiceRestriction)
+
+local FFlagProactiveVoiceRestrictionsUFR = require(script.Parent.Flags.FFlagProactiveVoiceRestrictionsUFR)
+local FFlagProactiveVoiceRestrictionsUFRIXPExposure =
+	require(script.Parent.Flags.FFlagProactiveVoiceRestrictionsUFRIXPExposure)
 
 local GetFFlagDisableConsentModalForExistingUsers =
 	require(script.Parent.Flags.GetFFlagDisableConsentModalForExistingUsers)
@@ -47,6 +54,7 @@ local GetFFlagEnableSeamlessVoiceDataConsentToast =
 local GetFFlagSeamlessVoiceConsentToastPolicy =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeamlessVoiceConsentToastPolicy
 local GetFFlagEnableFtuxExitOnMuteToggle = VoiceChatCore.Flags.GetFFlagEnableFtuxExitOnMuteToggle
+local GetFFlagMicConsumerRegistry = VoiceChatCore.Flags.GetFFlagMicConsumerRegistry
 local GetFFlagEnableVoiceChatMuteForVideoCaptures =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceChatMuteForVideoCaptures
 local GetFFlagEnableCrossExperienceVoiceCaptureMute =
@@ -73,8 +81,6 @@ local FFlagVoiceEndedCheckDisregardIdleState = game:DefineFastFlag("VoiceEndedCh
 local FFlagDisableLeaveToastInStudio = game:DefineFastFlag("DisableLeaveToastInStudio", false)
 local FFlagEnableVerifiedCheckViaOverlay = game:DefineFastFlag("EnableVerifiedCheckViaOverlay", false)
 local GetFIntThrottleParticipantsUpdateMs = VoiceChatCore.Flags.GetFIntThrottleParticipantsUpdateMs
-local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
-	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
 local FStringVoiceUIImprovementsIXPLayerName =
 	game:DefineFastString("VoiceUIImprovementsIXPLayerName", "Voice.Exposure")
 local FStringThrottleParticipantsUpdateIXPLayerValue =
@@ -391,6 +397,12 @@ function VoiceChatServiceManager:__newindex(index, value)
 	end
 end
 
+local function bind(t, k)
+	return function(...)
+		return t[k](t, ...)
+	end
+end
+
 function VoiceChatServiceManager.new(
 	coreVoiceManager,
 	VoiceChatService,
@@ -419,6 +431,33 @@ function VoiceChatServiceManager.new(
 		CaptureService = CaptureService,
 		voiceConnectEventReportedForActiveSession = false,
 	}, VoiceChatServiceManager)
+
+	if FFlagProactiveVoiceRestrictionsUFR then
+		-- rawset bypasses __newindex, which would store this on the shared class table. The controller's callbacks
+		-- are bound to this instance, so sharing it would let each new() overwrite it and dispose() affect all instances.
+		rawset(self, "voiceRestrictionController", createVoiceRestrictionController({
+			getSettings = function()
+				return GetUserSettings(bind(self, "GetRequest")) or nil
+			end,
+			getInformedOfBan = function()
+				local result = GetInformedOfBan(bind(self, "GetRequest"))
+				return if result then result.informedOfBan else nil
+			end,
+			showRestriction = function(settings, origin, isCurrent)
+				self.bannedUntil = settings.bannedUntil
+				self.banReason = settings.banReason
+				showProactiveVoiceRestriction({
+					manager = self,
+					settings = settings,
+					origin = origin,
+					isCurrent = isCurrent,
+				})
+			end,
+			onError = function(reason)
+				self:_reportJoinFailed(reason, Analytics.ERROR)
+			end,
+		}))
+	end
 
 	for _, v in WATCHED_MESSAGE_TYPES do
 		self.SignalREventTable[v :: WatchedMessageTypes] = Instance.new("BindableEvent")
@@ -515,6 +554,16 @@ function VoiceChatServiceManager.new(
 		end
 	end)
 
+	if GetFFlagMicConsumerRegistry() then
+		self.coreVoiceManager:subscribe("OnMicPermissionDeniedToast", function()
+			self:showPrompt("MicPermissionDenied")
+		end)
+
+		self.coreVoiceManager:subscribe("OnMicFirstUnmutePrivacy", function()
+			self:showPrompt("MicFirstUnmutePrivacy")
+		end)
+	end
+
 	if DebugShowAudioDeviceInputDebugger then
 		self.coreVoiceManager:subscribe("OnDevicePlayerChanged", function()
 			self:UpdateAudioDeviceInputDebugger()
@@ -583,10 +632,11 @@ function VoiceChatServiceManager.new(
 			self.pendingDisconnectReason = nil
 		end
 
-		if inEndedState and self.bannedUntil == nil then
-			if not GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
-				self:HideVoiceUI()
-			end
+		if
+			inEndedState
+			and self.bannedUntil == nil
+			and (not FFlagProactiveVoiceRestrictionsUFR or self:GetVoiceRestrictionState(false) == "normal")
+		then
 			if FFlagDisableLeaveToastInStudio and self.runService:IsStudio() then
 				return
 			end
@@ -630,6 +680,22 @@ function VoiceChatServiceManager.new(
 	end)
 	self.coreVoiceManager:subscribe("OnVoiceToxicityModal", function()
 		log:debug("Showing Voice Toxicity Modal")
+
+		if FFlagProactiveVoiceRestrictionsUFRIXPExposure then
+			IXPServiceWrapper:LogFlagLinkedUserLayerExposure(AppUserLayers.VoiceUserIDLayer)
+		end
+		if FFlagProactiveVoiceRestrictionsUFR then
+			showProactiveVoiceRestriction({
+				manager = self,
+				settings = nil,
+				origin = "realtime",
+				isCurrent = function()
+					return true
+				end,
+			})
+			return
+		end
+
 		if GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and VoiceNudgeUseNewDACopy() then
 			self:showPrompt(VoiceChatPromptType.VoiceToxicityModalV2)
 		else 
@@ -716,12 +782,6 @@ local function shorten(id)
 	return "..." .. string.sub(tostring(id), -4)
 end
 
-local function bind(t, k)
-	return function(...)
-		return t[k](t, ...)
-	end
-end
-
 function VoiceChatServiceManager:subscribe(eventName: CoreVoiceManagerEvent, callback: any)
 	return self.coreVoiceManager:subscribe(eventName, callback)
 end
@@ -748,6 +808,10 @@ end
 
 function VoiceChatServiceManager:getService()
 	return self.service
+end
+
+function VoiceChatServiceManager:GetMicManager()
+	return self.coreVoiceManager and self.coreVoiceManager.micManager or nil
 end
 
 function VoiceChatServiceManager:GetMutedAnyone()
@@ -986,6 +1050,14 @@ end
 function VoiceChatServiceManager:_onUserAndPlaceCanUseVoiceResolved(userSettings, universePlaceSettings)
 	self.bannedUntil = nil
 	if userSettings and userSettings.isBanned then
+		if FFlagProactiveVoiceRestrictionsUFRIXPExposure then
+			IXPServiceWrapper:LogFlagLinkedUserLayerExposure(AppUserLayers.VoiceUserIDLayer)
+		end
+		if FFlagProactiveVoiceRestrictionsUFR then
+			self.voiceRestrictionController.refresh("gameJoin", userSettings)
+			return
+		end
+
 		local informedOfBanResult = GetInformedOfBan(bind(self, "GetRequest"))
 		if informedOfBanResult and not informedOfBanResult.informedOfBan then
 			-- AvatarChatService currently cant provide more than flags, hence we still need an additional request here for banned users.
@@ -1150,7 +1222,15 @@ function VoiceChatServiceManager:SetNewUserFTUXCookieValue(value: boolean): bool
 	return self.coreVoiceManager:SetNewUserFTUXCookieValue(value)
 end
 
-function VoiceChatServiceManager:ShowPlayerModeratedMessage(informedOfBan: boolean)
+function VoiceChatServiceManager:ShowPlayerModeratedMessage(informedOfBan: boolean?)
+	if FFlagProactiveVoiceRestrictionsUFRIXPExposure then
+		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(AppUserLayers.VoiceUserIDLayer)
+	end
+	if FFlagProactiveVoiceRestrictionsUFR then
+		self.voiceRestrictionController.refresh(if informedOfBan == nil then "realtime" else "gameJoin")
+		return
+	end
+
 	local userSettings = GetUserSettings(bind(self, "GetRequest"))
 	if not userSettings or not userSettings.isBanned then
 		self:_reportJoinFailed("PlayerModeratedBadState", Analytics.ERROR)
@@ -1177,6 +1257,14 @@ function VoiceChatServiceManager:ShowPlayerModeratedMessage(informedOfBan: boole
 			end
 		end
 	end
+end
+
+function VoiceChatServiceManager:GetVoiceRestrictionState(scope)
+	return self.voiceRestrictionController.getPresentationState(scope)
+end
+
+function VoiceChatServiceManager:ShowVoiceRestriction()
+	self.voiceRestrictionController.refresh("mic")
 end
 
 function VoiceChatServiceManager:CheckCallState()
@@ -1792,7 +1880,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		self.Analytics:reportJoinVoiceButtonEvent("clicked", self:GetInExpUpsellAnalyticsData())
 	end
 
-	if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self.previousGroupId then
+	if self.previousGroupId then
 		if FFlagVoiceRewarmTelemetry then
 			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.REJOIN_PREVIOUS_CHANNEL
 		end
@@ -1817,7 +1905,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		else
 			self:CheckAndShowPermissionPrompt():finallyReturn(Promise.reject())
 		end
-	elseif GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self:UserVoiceEnabled() then
+	elseif self:UserVoiceEnabled() then
 		if FFlagVoiceRewarmTelemetry then
 			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.FIRST_JOIN_SESSION
 		end
@@ -1960,15 +2048,11 @@ function VoiceChatServiceManager:ShouldShowJoinVoice()
 		end
 	else
 		if GetFFlagOnlyEnableJoinVoiceInVoiceEnabledUniverses() then
-			if
-				GetFFlagEnableConnectDisconnectInSettingsAndChrome()
-				and self:IsSeamlessVoice()
-				and self:verifyUniverseAndPlaceCanUseVoice()
-			then
+			if self:IsSeamlessVoice() and self:verifyUniverseAndPlaceCanUseVoice() then
 				return not self.voiceUIVisible
 			end
 		else
-			if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self:IsSeamlessVoice() then
+			if self:IsSeamlessVoice() then
 				return not self.voiceUIVisible
 			end
 		end
@@ -2071,7 +2155,7 @@ end
 
 function VoiceChatServiceManager:Leave()
 	self:ensureInitialized("leave")
-	if GetFFlagDisconnectToastClientRewrite() and GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
+	if GetFFlagDisconnectToastClientRewrite() then
 		self:SetVoiceConnectCookieValue(false)
 	end
 	self.Analytics:reportConnectDisconnectEvents("voiceDisconnectEvent", self:GetConnectDisconnectAnalyticsData())
@@ -2088,7 +2172,7 @@ function VoiceChatServiceManager:Leave()
 	self:HideVoiceUI()
 	self.previousGroupId = previousGroupId
 	self.previousMutedState = previousMutedState
-	if not GetFFlagDisconnectToastClientRewrite() and GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
+	if not GetFFlagDisconnectToastClientRewrite() then
 		self:SetVoiceConnectCookieValue(false)
 	end
 	if FFlagSendUserConnectionStatus and self:IsSeamlessVoice() then
@@ -2140,6 +2224,9 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 end
 
 function VoiceChatServiceManager:Disconnect()
+	if FFlagProactiveVoiceRestrictionsUFR then
+		self.voiceRestrictionController.dispose()
+	end
 	self.coreVoiceManager:Disconnect()
 	self.coreVoiceManager:unsubscribeAll()
 end

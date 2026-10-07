@@ -305,7 +305,9 @@ function TopBar.new()
 		Name = "TopBarApp",
 	}, self.root)
 
-	self.element = Roact.mount(self.root, CoreGui, "TopBar")
+	if not require(CorePackages.Workspace.Packages.BuildExperiencePlaytestLaunch.teamCreateUtils).isViewer() then
+		self.element = Roact.mount(self.root, CoreGui, "TopBar")
+	end
 
 	-- add binding
 	if not FFlagTopBarDeprecateChatRodux then

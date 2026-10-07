@@ -15,6 +15,7 @@ local FFlagUserPlayerScriptsUseScriptableBindings = FlagUtil.getUserFlag("UserPl
 local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs2")
 local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState2")
 local FFlagUserPlayerScriptsSupportTVRemoteKeycodes = FlagUtil.getUserFlag("UserPlayerScriptsSupportTVRemoteKeycodes")
+local FFlagUserPSUseBindToAnimation = FlagUtil.getUserFlag("UserPSUseBindToAnimation")
 local FFlagUserPlayerScriptsTaskDeferSimulation = FlagUtil.getUserFlag("UserPlayerScriptsTaskDeferSimulation")
 
 local AvatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationD
@@ -158,11 +159,19 @@ if not FFlagUserPlayerScriptsPlayerControlState then
 			attemptCreateActionsIfAbsent(player)
 		end
 
-		RunService:BindToSimulation(function(dt)
-			for _, player in Players:GetPlayers() do
-				updatePlayer(player)
-			end
-		end, Enum.StepFrequency.Hz60)
+		if FFlagUserPSUseBindToAnimation then
+			RunService:BindToAnimation(function(dt)
+				for _, player in Players:GetPlayers() do
+					updatePlayer(player)
+				end
+			end, Enum.StepFrequency.Hz60)
+		else
+			RunService:BindToSimulation(function(dt)
+				for _, player in Players:GetPlayers() do
+					updatePlayer(player)
+				end
+			end, Enum.StepFrequency.Hz60)
+		end
 	end
 end
 

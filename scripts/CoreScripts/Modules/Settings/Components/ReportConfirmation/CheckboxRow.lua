@@ -6,11 +6,13 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 
 local Checkbox = Foundation.Checkbox
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
@@ -41,6 +43,7 @@ CheckboxRow.validateProps = t.interface({
 function CheckboxRow:render()
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
+			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
 			Theme = {
 				IconDefault = {
 					Color = tokens.Color.Content.Default.Color3,
@@ -125,7 +128,10 @@ function CheckboxRow:render()
 				TextColor3 = textTheme.Color,
 				TextTransparency = textTheme.Transparency,
 				TextSize = style.Font.Header2.RelativeSize * baseSize,
-				Font = style.Font.Header2.Font,
+				Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Header2.Font,
+				FontFace = if FFlagFoundationFontFaceMigration
+					then normalizeFontFace(style.Tokens.Typography.TitleLarge.Font)
+					else nil,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				LayoutOrder = 2,
 			}),

@@ -8,6 +8,7 @@ local Measure_Texture_Resolution = {}
 Measure_Texture_Resolution.categories = {
 	ValidationEnums.UploadCategory.FULL_BODY,
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 	ValidationEnums.UploadCategory.RIGID_ACCESSORY,
 	ValidationEnums.UploadCategory.DYNAMIC_HEAD,
 }

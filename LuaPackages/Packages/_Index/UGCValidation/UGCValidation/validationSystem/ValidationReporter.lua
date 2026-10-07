@@ -59,6 +59,11 @@ function ValidationReporter:setReportingRoot(rootInstance: Instance)
 	self._rootInstance = rootInstance
 end
 
+-- Included as additional_info in the single-validation result event.
+function ValidationReporter:setTelemetryContext(context: string)
+	self._telemetryContext = context
+end
+
 function ValidationReporter:fail(key: string, params: { [string]: any }?, instance: Instance?)
 	self._status = ValidationEnums.Status.FAIL
 	table.insert(self._failures, {

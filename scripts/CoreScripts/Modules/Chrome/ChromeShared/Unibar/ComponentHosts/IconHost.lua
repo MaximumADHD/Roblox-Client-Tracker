@@ -25,7 +25,6 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local Foundation = require(CorePackages.Packages.Foundation)
 local useCursor = Foundation.Hooks.useCursor
-local FoundationFlags = Foundation.Utility.Flags
 local StatusIndicator = Foundation.StatusIndicator
 local StatusIndicatorVariant = Foundation.Enums.StatusIndicatorVariant
 local MAX_BADGE_VALUE = 99
@@ -191,9 +190,7 @@ function NotificationBadge(props: IconHostProps): any?
 				StatusIndicator,
 				{
 					value = badgeValue,
-					variant = if FoundationFlags.FoundationStatusIndicatorVariantExperiment
-						then StatusIndicatorVariant.Contrast_Experiment
-						else StatusIndicatorVariant.Emphasis,
+					variant = StatusIndicatorVariant.Emphasis,
 					AnchorPoint = Vector2.new(0, 0),
 					Position = UDim2.new(0, iconBadgeOffsetX, 0, iconBadgeOffsetY),
 				} :: any
