@@ -2213,7 +2213,7 @@
     "code_sample": ""
   },
   "@roblox/global/InstanceHandle": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally.",
+    "documentation": "로컬에서 사용할 수 없을 수도 있는 <code>Instance</code>에 대한 가벼운 약한 참조입니다.",
     "keys": {
       "new": "@roblox/global/InstanceHandle.new"
     },
@@ -2221,10 +2221,10 @@
     "code_sample": ""
   },
   "@roblox/global/InstanceHandle.new/param/0": {
-    "documentation": "The instance to refer to, or <code>nil</code> for an empty handle."
+    "documentation": "참조할 인스턴스 또는 빈 핸들을 위한 <code>nil</code>입니다."
   },
   "@roblox/global/InstanceHandle.new": {
-    "documentation": "Returns a new <code>InstanceHandle</code> referring to the given <code>Instance</code>.",
+    "documentation": "주어진 <code>Instance</code>를 참조하는 새로운 <code>InstanceHandle</code>을 반환합니다.",
     "params": [
       {
         "name": "instance",
@@ -2236,7 +2236,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally.",
+    "documentation": "로컬에서 사용할 수 없을 수도 있는 <code>Instance</code>에 대한 가벼운 약한 참조입니다.",
     "keys": {
       "Get": "@roblox/globaltype/InstanceHandle.Get",
       "Wait": "@roblox/globaltype/InstanceHandle.Wait"
@@ -2245,13 +2245,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle.Get/param/0": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally."
+    "documentation": "로컬에서 사용할 수 없을 수도 있는 <code>Instance</code>에 대한 가벼운 약한 참조입니다."
   },
   "@roblox/globaltype/InstanceHandle.Get/return/0": {
-    "documentation": "The referenced instance, or <code>nil</code> if it isn't available locally."
+    "documentation": "참조된 인스턴스 또는 로컬에서 사용 가능하지 않은 경우 <code>nil</code>입니다."
   },
   "@roblox/globaltype/InstanceHandle.Get": {
-    "documentation": "Returns the referenced <code>Instance</code> if it's available locally, otherwise <code>nil</code>.",
+    "documentation": "로컬에서 사용 가능한 경우 참조된 <code>Instance</code>를 반환하고, 그렇지 않으면 <code>nil</code>을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -2265,16 +2265,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle.Wait/param/0": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally."
+    "documentation": "로컬에서 사용할 수 없을 수도 있는 <code>Instance</code>에 대한 가벼운 약한 참조입니다."
   },
   "@roblox/globaltype/InstanceHandle.Wait/param/1": {
-    "documentation": "How long to wait, in seconds. Must be greater than zero. Waits indefinitely when omitted."
+    "documentation": "대기할 시간(초). 0보다 커야 합니다. 생략하면 무한정 대기합니다."
   },
   "@roblox/globaltype/InstanceHandle.Wait/return/0": {
-    "documentation": "The referenced instance, or <code>nil</code> if the handle is empty, the target is inaccessible to the calling script, or <code>timeout</code> elapses first."
+    "documentation": "참조된 인스턴스 또는 핸들이 비어 있거나, 대상을 호출 스크립트에서 접근할 수 없거나, <code>timeout</code>이 먼저 경과하면 <code>nil</code>입니다."
   },
   "@roblox/globaltype/InstanceHandle.Wait": {
-    "documentation": "Yields until the referenced <code>Instance</code> is available locally, then returns it.",
+    "documentation": "로컬에서 사용 가능한 경우 참조된 <code>Instance</code>가 반환될 때까지 대기한 후 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -7030,12 +7030,10 @@
       "Fail": "@roblox/globaltype/TestService.Fail",
       "isFeatureEnabled": "@roblox/globaltype/TestService.isFeatureEnabled",
       "Message": "@roblox/globaltype/TestService.Message",
-      "RegisterTest": "@roblox/globaltype/TestService.RegisterTest",
       "Require": "@roblox/globaltype/TestService.Require",
       "Run": "@roblox/globaltype/TestService.Run",
       "RunAsync": "@roblox/globaltype/TestService.RunAsync",
       "ScopeTime": "@roblox/globaltype/TestService.ScopeTime",
-      "TakeSnapshot": "@roblox/globaltype/TestService.TakeSnapshot",
       "Warn": "@roblox/globaltype/TestService.Warn"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService",
@@ -7335,38 +7333,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Message",
     "code_sample": "local TestService = game:GetService(\"TestService\")\n\n-- 'example' 메시지를 전송합니다.\nTestService:Message(\"example\")"
   },
-  "@roblox/globaltype/TestService.RegisterTest/param/0": {
-    "documentation": "로블록스에서 엔진의 제어된 테스트를 실행하는 데 사용되는 서비스입니다. 개발자가 제한된 정도로 사용할 수 있습니다."
-  },
-  "@roblox/globaltype/TestService.RegisterTest/param/1": {
-    "documentation": "테스트를 설명하는 사전으로, 문자열 필드 <code>SuiteName</code>과 <code>TestCaseName</code>이 필요하며 선택적으로 숫자 <code>Timeout</code> 필드를 포함합니다."
-  },
-  "@roblox/globaltype/TestService.RegisterTest/return/0": {
-    "documentation": "등록된 <code>TestCase</code> 또는 현재 컨텍스트에서 등록이 지원되지 않을 때는 값이 없습니다."
-  },
-  "@roblox/globaltype/TestService.RegisterTest": {
-    "documentation": "서비스에 테스트 케이스를 등록하고 결과로 <code>TestCase</code>를 반환합니다.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TestService.RegisterTest/param/0"
-      },
-      {
-        "name": "testOptions",
-        "documentation": "@roblox/globaltype/TestService.RegisterTest/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TestService.RegisterTest/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#RegisterTest",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TestService.Require/param/0": {
     "documentation": "로블록스에서 엔진의 제어된 테스트를 실행하는 데 사용되는 서비스입니다. 개발자가 제한된 정도로 사용할 수 있습니다."
   },
   "@roblox/globaltype/TestService.Require/param/1": {
-    "documentation": "필수 주장을 평가하기 위한 불리언 표현식입니다."
+    "documentation": "필수 주장을 평가할 부울 표현식입니다."
   },
   "@roblox/globaltype/TestService.Require/param/2": {
     "documentation": "테스트 출력에서 이 요구 사항을 식별하는 레이블입니다."
@@ -7455,40 +7426,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ScopeTime",
     "code_sample": ""
   },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/0": {
-    "documentation": "로블록스에서 엔진의 제어된 테스트를 실행하는 데 사용되는 서비스입니다. 개발자가 제한된 정도로 사용할 수 있습니다."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
-    "documentation": "캡처된 스냅샷과 연관될 이름입니다."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/2": {
-    "documentation": "스냅샷의 이름을 지정하는 <code>Suite</code> 및 <code>TestName</code> 속성을 가진 선택적 스크립트 인스턴스입니다; 기본값은 <code>nil</code>입니다."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot": {
-    "documentation": "테스트 실행 중에 명명된 스크린샷 스냅샷을 캡처합니다.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/0"
-      },
-      {
-        "name": "snapshotname",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/1"
-      },
-      {
-        "name": "source",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#TakeSnapshot",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TestService.Warn/param/0": {
     "documentation": "로블록스에서 엔진의 제어된 테스트를 실행하는 데 사용되는 서비스입니다. 개발자가 제한된 정도로 사용할 수 있습니다."
   },
   "@roblox/globaltype/TestService.Warn/param/1": {
-    "documentation": "경고 주장을 평가하기 위한 불리언 표현식입니다."
+    "documentation": "경고 주장을 평가할 부울 표현식입니다."
   },
   "@roblox/globaltype/TestService.Warn/param/2": {
     "documentation": "테스트 출력에서 이 경고 검사를 식별하는 레이블입니다."
@@ -7500,7 +7442,7 @@
     "documentation": "경고가 호출된 소스 스크립트의 줄 번호입니다. 기본값은 <code>0</code>입니다."
   },
   "@roblox/globaltype/TestService.Warn": {
-    "documentation": "조건이 <code>true</code>이면 출력에 경고를 인쇄합니다.",
+    "documentation": "조건이 <code>true</code>인 경우 출력하고, 그렇지 않으면 경고를 출력합니다.",
     "params": [
       {
         "name": "self",
@@ -14660,7 +14602,7 @@
     "documentation": "닫기 버튼에 바인딩할 함수입니다. 함수가 지정되지 않으면 이전에 지정된 함수가 바인딩 해제됩니다."
   },
   "@roblox/globaltype/PluginGui.BindToClose": {
-    "documentation": "<code>PluginGui</code> 닫기 버튼에 함수를 바인딩하여 기본 동작을 재정의합니다.",
+    "documentation": "<code>PluginGui</code>를 닫을 때 실행되는 함수를 바인딩합니다.",
     "params": [
       {
         "name": "self",
@@ -37441,7 +37383,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting": {
-    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다.",
+    "documentation": "<code>Lighting</code> 서비스는 경험의 전역 조명을 제어합니다. 조명이 어떻게 보이고 다른 객체와 상호작용하는지를 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다.",
     "keys": {
       "Ambient": "@roblox/globaltype/Lighting.Ambient",
       "Brightness": "@roblox/globaltype/Lighting.Brightness",
@@ -37477,7 +37419,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Ambient": {
-    "documentation": "하늘에서 가려진 지역, 예를 들어 실내 지역에 적용되는 조명의 색조입니다.",
+    "documentation": "하늘에서 가려진 지역, 예를 들어 실내 지역에 적용되는 조명 색조입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Ambient",
     "code_sample": ""
   },
@@ -37487,27 +37429,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ClockTime": {
-    "documentation": "'Lighting'에서 사용하는 현재 시간의 시간에 대한 숫자 표현입니다.",
+    "documentation": "<code>Lighting</code>에서 사용되는 현재 시간의 숫자 표현(시간 단위)입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ClockTime",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Bottom": {
-    "documentation": "태양이나 달을 향하지 않은 표면에 반사된 빛에서 나타나는 색조입니다.",
+    "documentation": "태양이나 달을 향하지 않은 반대 표면에 반사된 빛에서 나타나는 색조입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Bottom",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Top": {
-    "documentation": "태양이나 달을 향하는 표면에서 반사된 색조입니다.",
+    "documentation": "태양이나 달을 향한 표면에서 반사된 빛에서 나타나는 색조입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Top",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.EnvironmentDiffuseScale": {
-    "documentation": "환경에서 파생된 주변 조명입니다.",
+    "documentation": "환경에서 유래된 주변 조명입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#EnvironmentDiffuseScale",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.EnvironmentSpecularScale": {
-    "documentation": "환경에서 파생된 스페큘러 조명입니다.",
+    "documentation": "환경에서 유래된 반사광입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#EnvironmentSpecularScale",
     "code_sample": ""
   },
@@ -37517,27 +37459,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ExtendLightRangeTo120": {
-    "documentation": "사용되지 않음. Light <code>Range</code>는 항상 120 스튜드로 제한됩니다.",
+    "documentation": "사용되지 않음. 조명 <code>Range</code>는 항상 120 스터드로 제한됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ExtendLightRangeTo120",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogColor": {
-    "documentation": "'Lighting' 안개 색상을 제공하는 'Datatype.Color3' 값입니다.",
+    "documentation": "<code>Lighting</code> 안개 색조를 제공하는 <code>Color3</code> 값입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogEnd": {
-    "documentation": "안개가 완전히 불투명하게 되는 'Class.Workspace.CurrentCamera'로부터의 깊이(스튜드).",
+    "documentation": "안개가 완전히 불투명해지는 <code>Workspace.CurrentCamera</code>로부터의 깊이(스터드 단위)입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogEnd",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogStart": {
-    "documentation": "안개가 나타나기 시작하는 'Class.Workspace.CurrentCamera'로부터의 깊이(스튜드).",
+    "documentation": "안개가 나타나기 시작하는 <code>Workspace.CurrentCamera</code>로부터의 깊이(스터드 단위)입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogStart",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GeographicLatitude": {
-    "documentation": "장면의 지리적 위도(도), 이는 태양과 달의 위치에 대한 'Lighting' 시간의 결과에 영향을 미칩니다.",
+    "documentation": "장면의 지리적 위도(도 단위)로, 태양과 달의 위치에 대한 <code>Lighting</code> 시간의 결과에 영향을 미칩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#GeographicLatitude",
     "code_sample": ""
   },
@@ -37547,53 +37489,53 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.LightingStyle": {
-    "documentation": "경험에서 조명의 예술적 의도를 결정합니다.",
+    "documentation": "경험에서 조명의 예술적 의도입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#LightingStyle",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.OutdoorAmbient": {
-    "documentation": "야외 지역에 적용되는 조명의 색조입니다.",
+    "documentation": "야외 지역에 적용되는 조명 색조입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#OutdoorAmbient",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Outlines": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 지원되지 않습니다. 윤곽선 기능이 Roblox 플랫폼에서 제거되었습니다.<br>장소에서 윤곽선이 활성화되거나 비활성화되었는지 결정합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 지원되지 않으며 윤곽선 기능이 Roblox 플랫폼에서 제거되었습니다.<br>장소에서 윤곽선이 활성화되거나 비활성화되는지를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Outlines",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.PrioritizeLightingQuality": {
-    "documentation": "조명/그림자 품질 또는 보기 거리를 우선시할지 설정합니다.",
+    "documentation": "조명/음영 품질 또는 뷰 거리 중 어떤 것을 먼저 축소할지를 나타냅니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#PrioritizeLightingQuality",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ShadowColor": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며 현재 기능이 없습니다. 새로운 작업에 사용하지 마십시오.<br>플레이어 그림자의 색상을 변경하는 것으로 되어 있지만 현재는 아무런 기능이 없습니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며 현재 기능이 없습니다. 새로운 작업에 사용하지 마십시오.<br>플레이어 그림자의 색상을 변경하는 것으로 예상되지만 현재는 아무런 작용을 하지 않습니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ShadowColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ShadowSoftness": {
-    "documentation": "그림자가 얼마나 흐림 처리되는지를 제어합니다.",
+    "documentation": "그림자가 얼마나 흐릿한지를 제어합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ShadowSoftness",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Technology": {
-    "documentation": "3D 세계를 렌더링하기 위한 조명 시스템을 결정합니다. 스크립트로 설정할 수 없습니다.",
+    "documentation": "3D 세계를 렌더링하기 위한 조명 시스템을 결정합니다. 스크립트에서 사용할 수 없습니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Technology",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.TimeOfDay": {
-    "documentation": "'Lighting'에서 사용하는 현재 시간의 24시간 문자열 표현입니다.",
+    "documentation": "<code>Lighting</code>에서 사용되는 현재 시간의 24시간 문자열 표현입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#TimeOfDay",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight/param/0": {
-    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
+    "documentation": "<code>Lighting</code> 서비스는 경험의 전역 조명을 제어합니다. 조명이 어떻게 보이고 다른 객체와 상호작용하는지를 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight/return/0": {
     "documentation": "자정 이후의 분 수입니다."
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight": {
-    "documentation": "조명용으로 자정 이후 지나간 분 수를 반환합니다.",
+    "documentation": "조명을 위한 자정 이후 경과된 분 수를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -37607,13 +37549,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight/param/0": {
-    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
+    "documentation": "<code>Lighting</code> 서비스는 경험의 전역 조명을 제어합니다. 조명이 어떻게 보이고 다른 객체와 상호작용하는지를 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>Lighting:GetMinutesAfterMidnight()</code>의 사용이 권장되는 구식 변형입니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>Lighting:GetMinutesAfterMidnight()</code>의 더 이상 사용되지 않는 변형입니다. 대신 사용해야 합니다.",
     "params": [
       {
         "name": "self",
@@ -37627,10 +37569,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMoonDirection/param/0": {
-    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
+    "documentation": "<code>Lighting</code> 서비스는 경험의 전역 조명을 제어합니다. 조명이 어떻게 보이고 다른 객체와 상호작용하는지를 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
   },
   "@roblox/globaltype/Lighting.GetMoonDirection/return/0": {
-    "documentation": "달의 방향을 나타내는 <code>Vector3</code>."
+    "documentation": "달의 방향을 나타내는 <code>Vector3</code>입니다."
   },
   "@roblox/globaltype/Lighting.GetMoonDirection": {
     "documentation": "달의 방향을 나타내는 <code>Vector3</code>를 반환합니다.",
@@ -37647,7 +37589,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMoonPhase/param/0": {
-    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
+    "documentation": "<code>Lighting</code> 서비스는 경험의 전역 조명을 제어합니다. 조명이 어떻게 보이고 다른 객체와 상호작용하는지를 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
   },
   "@roblox/globaltype/Lighting.GetMoonPhase/return/0": {
     "documentation": ""
@@ -37667,10 +37609,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetSunDirection/param/0": {
-    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
+    "documentation": "<code>Lighting</code> 서비스는 경험의 전역 조명을 제어합니다. 조명이 어떻게 보이고 다른 객체와 상호작용하는지를 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
   },
   "@roblox/globaltype/Lighting.GetSunDirection/return/0": {
-    "documentation": "태양의 방향을 나타내는 <code>Vector3</code>."
+    "documentation": "태양의 방향을 나타내는 <code>Vector3</code>입니다."
   },
   "@roblox/globaltype/Lighting.GetSunDirection": {
     "documentation": "태양의 방향을 나타내는 <code>Vector3</code>를 반환합니다.",
@@ -37687,13 +37629,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight/param/0": {
-    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
+    "documentation": "<code>Lighting</code> 서비스는 경험의 전역 조명을 제어합니다. 조명이 어떻게 보이고 다른 객체와 상호작용하는지를 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight/param/1": {
-    "documentation": "자정 이후 분 수입니다."
+    "documentation": "자정 이후의 분 수입니다."
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight": {
-    "documentation": "<code>TimeOfDay</code>와 <code>ClockTime</code>을 자정 이후 주어진 분 수로 설정합니다.",
+    "documentation": "<code>TimeOfDay</code> 및 <code>ClockTime</code>을 자정 이후 주어진 분 수로 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -37709,13 +37651,13 @@
     "code_sample": "local Lighting = game:GetService(\"Lighting\")\n\nlocal TIME_SPEED = 60  -- 1분 = 1시간\nlocal START_TIME = 9  -- 오전 9시\n\nlocal minutesAfterMidnight = START_TIME * 60\nlocal waitTime = 60 / TIME_SPEED\n\nwhile true do\n\tminutesAfterMidnight = minutesAfterMidnight + 1\n\n\tLighting:SetMinutesAfterMidnight(minutesAfterMidnight)\n\n\ttask.wait(waitTime)\nend"
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/0": {
-    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
+    "documentation": "<code>Lighting</code> 서비스는 경험의 전역 조명을 제어합니다. 조명이 어떻게 보이고 다른 객체와 상호작용하는지를 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> 이 메서드는 'Class.Lighting:SetMinutesAfterMidnight()'의 더 이상 사용되지 않는 변형입니다. 대신 사용해야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>Lighting:SetMinutesAfterMidnight()</code>의 더 이상 사용되지 않는 변형입니다. 대신 사용해야 합니다.",
     "params": [
       {
         "name": "self",
@@ -37808,7 +37750,7 @@
     "returns": []
   },
   "@roblox/globaltype/Lighting.LightingChanged": {
-    "documentation": "이 이벤트는 'Lighting' 속성이 변경되거나 'Class.Sky'가 'Lighting'에 추가되거나 제거될 때 발사됩니다.",
+    "documentation": "<code>Lighting</code> 속성이 변경되거나 <code>Sky</code>가 <code>Lighting</code>에 추가되거나 제거될 때 이 이벤트가 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Lighting.LightingChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Lighting.LightingChanged.ConnectParallel",
@@ -38077,7 +38019,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.Size": {
-    "documentation": "<code>EditableImage</code>의 픽셀 크기.",
+    "documentation": "<code>EditableImage</code>의 크기(픽셀 단위)입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableImage#Size",
     "code_sample": ""
   },
@@ -38100,10 +38042,10 @@
     "documentation": "런타임에서 이미지를 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/1": {
-    "documentation": "<code>EditableImage</code>의 왼쪽 상단 코너를 기준으로 하는 원의 중심. 캔버스 경계 밖의 위치도 가능합니다."
+    "documentation": "<code>EditableImage</code>의 왼쪽 상단 모서리를 기준으로 한 원의 중심입니다. 캔버스 경계를 벗어난 위치도 허용됩니다."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/2": {
-    "documentation": "픽셀 단위의 원의 반지름입니다."
+    "documentation": "원 반지름(픽셀 단위)입니다."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/3": {
     "documentation": "원의 색상입니다."
@@ -38112,10 +38054,10 @@
     "documentation": "원의 투명도로, 0은 완전히 불투명하고 1은 완전히 투명합니다."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/5": {
-    "documentation": "그리기한 픽셀(소스)이 이 이미지(대상)의 기존 픽셀과 결합되는 방법입니다."
+    "documentation": "그려진 픽셀(소스)이 이 이미지의 기존 픽셀(대상)과 결합되는 방식입니다."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/6": {
-    "documentation": "원에 안티 앨리어싱이 적용되는지 여부를 결정합니다. <code>AntiAliasing.Enabled</code>로 설정하면, 원의 가장자리가 부드럽습니다. <code>AntiAliasing.Disabled</code>로 설정하면, 원의 가장자리가 단단합니다."
+    "documentation": "원에 안티 앨리어싱이 적용되는지 여부를 결정합니다. <code>AntiAliasing.Enabled</code>로 설정하면 원의 가장자리가 부드럽습니다. <code>AntiAliasing.Disabled</code>로 설정하면 원의 가장자리가 단단합니다."
   },
   "@roblox/globaltype/EditableImage.DrawCircle": {
     "documentation": "지정된 지점에 원을 그립니다.",
@@ -38157,16 +38099,16 @@
     "documentation": "런타임에서 이미지를 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/1": {
-    "documentation": "소스 이미지의 왼쪽 상단 모서리를 그릴 위치입니다."
+    "documentation": "소스 이미지의 왼쪽 상단 모서리가 그려질 위치입니다."
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/2": {
-    "documentation": "이 <code>EditableImage</code>에 그릴 소스 <code>EditableImage</code>입니다."
+    "documentation": "이 <code>EditableImage</code>에 그려질 소스 <code>EditableImage</code>입니다."
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/3": {
-    "documentation": "소스 이미지의 픽셀이 이 이미지(대상)의 기존 픽셀과 결합되는 방법입니다."
+    "documentation": "소스 이미지의 픽셀이 이 이미지의 기존 픽셀(대상)과 결합되는 방식입니다."
   },
   "@roblox/globaltype/EditableImage.DrawImage": {
-    "documentation": "지정된 위치에 이 <code>EditableImage</code> 안에 다른 <code>EditableImage</code>를 그립니다.",
+    "documentation": "지정된 위치에 이 <code>EditableImage</code>에 다른 <code>EditableImage</code>를 그립니다.",
     "params": [
       {
         "name": "self",
@@ -38193,16 +38135,16 @@
     "documentation": "런타임에서 이미지를 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/1": {
-    "documentation": "투사하는 데 사용되는 <code>EditableMesh</code>입니다."
+    "documentation": "투사에 사용되는 <code>EditableMesh</code>입니다."
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/2": {
-    "documentation": "다음 키-값 쌍을 포함하는 투사 구성 딕셔너리: <ul> <li><code>Direction</code> (<code>Vector3</code>): 프로젝터가 향하는 방향입니다.</li> <li><code>Position</code> (<code>Vector3</code>): 메쉬에 대한 지역 공간의 위치입니다.</li> <li><code>Size</code> (<code>Vector3</code>): 프로젝터의 크기입니다.</li> <li><code>Up</code> (<code>Vector3</code>): 메쉬에 대한 지역 공간에서의 프로젝터의 위쪽 벡터입니다.</li> </ul>"
+    "documentation": "다음 키-값 쌍을 포함하는 투사 구성 사전: <ul> <li><code>Direction</code> (<code>Vector3</code>): 프로젝터가 향하는 방향입니다.</li> <li><code>Position</code> (<code>Vector3</code>): 메시에 대한 로컬 공간의 위치입니다.</li> <li><code>Size</code> (<code>Vector3</code>): 프로젝터의 크기입니다.</li> <li><code>Up</code> (<code>Vector3</code>): 메시에 대한 로컬 공간의 프로젝터의 위쪽 벡터입니다.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/3": {
-    "documentation": "브러시 구성 딕셔너리로, 다음과 같은 키-값 쌍을 포함합니다: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>): 이 투사가 알파 값을 혼합하는 방식을 결정합니다.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>): 이 투사가 색 값들을 혼합하는 방식을 결정합니다.</li> <li><code>Decal</code> (<code>EditableImage</code>): 투사용 이미지입니다.</li> <li><code>FadeAngle</code> (number): 투사 가장자리가 떨어지기 시작하는 각도(도)입니다. 투사는 90도에서 완전히 사라집니다. 0도의 각도는 0도에서 즉각적으로 사라지기 시작하며, 90도의 각도는 사라지지 않고 90도에서 경계가 생깁니다. 70도의 각도는 70도에서 사라지기 시작하고 90도에서 완전히 사라집니다.</li> <li><code>BlendIntensity</code> (number): 투사가 결과 이미지에 얼마나 혼합될지를 제어하는 값으로 <code>0</code>과 <code>1</code> 사이의 값입니다.</li> </ul>"
+    "documentation": "다음 키-값 쌍을 포함하는 브러시 구성 사전: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>): 이 투사가 알파 값을 혼합하는 방식을 결정합니다.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>): 이 투사가 색상 값을 혼합하는 방식을 결정합니다.</li> <li><code>Decal</code> (<code>EditableImage</code>): 투사에 사용되는 이미지입니다.</li> <li><code>FadeAngle</code> (number): 투사 가장자리가 사라지기 시작하는 각도(도)입니다. 투사는 90도에서 완전히 사라집니다. 0도는 사라지기 시작하는 즉시 0도에서 시작하며, 90도는 사라지지 않고 90도에서 단단한 가장자리를 의미합니다. 70도는 투사가 70도에서 사라지기 시작하고 90도에서 완전히 사라진다는 것을 의미합니다.</li> <li><code>BlendIntensity</code> (number): 투사가 결과 이미지에 얼마나 혼합되는지를 제어하는 값으로, <code>0</code>과 <code>1</code> 사이의 값입니다.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected": {
-    "documentation": "다른 <code>EditableImage</code>를 <code>EditableMesh</code>에 투사하고 이 <code>EditableImage</code>에 결과를 저장합니다.",
+    "documentation": "다른 <code>EditableImage</code>를 <code>EditableMesh</code>에 투사하고 결과를 이 <code>EditableImage</code>에 저장합니다.",
     "params": [
       {
         "name": "self",
@@ -38229,16 +38171,16 @@
     "documentation": "런타임에서 이미지를 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/1": {
-    "documentation": "<code>sourceTexture</code>를 샘플링하는 표면에 매핑된 <code>EditableMesh</code>입니다."
+    "documentation": "<code>sourceTexture</code>를 샘플링하는 표면에 매핑하는 <code>EditableMesh</code>입니다."
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/2": {
     "documentation": "픽셀이 샘플링되는 <code>EditableImage</code>입니다."
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/3": {
-    "documentation": "다음 키-값 쌍을 포함하는 프로젝션 구성 사전: <ul> <li><code>Direction</code> (<code>Vector3</code>): 프로젝터가 향하는 방향입니다.</li> <li><code>Position</code> (<code>Vector3</code>): 메쉬에 대한 로컬 공간에서의 프로젝터 위치입니다.</li> <li><code>Size</code> (<code>Vector3</code>): 프로젝터의 크기입니다. <strong>X</strong>와 <strong>Y</strong> 구성 요소는 그 치수를 지정하고, <strong>Z</strong> 구성 요소는 프로젝션 깊이를 지정합니다.</li> <li><code>Up</code> (<code>Vector3</code>): 메쉬에 대한 로컬 공간에서의 프로젝터의 위 벡터입니다.</li> </ul>"
+    "documentation": "다음 키-값 쌍을 포함하는 투사 구성 사전: <ul> <li><code>Direction</code> (<code>Vector3</code>): 프로젝터가 향하는 방향입니다.</li> <li><code>Position</code> (<code>Vector3</code>): 메시에 대한 로컬 공간의 프로젝터 위치입니다.</li> <li><code>Size</code> (<code>Vector3</code>): 프로젝터의 크기입니다. <strong>X</strong> 및 <strong>Y</strong> 구성 요소는 크기를 지정하고, <strong>Z</strong> 구성 요소는 투사 깊이를 지정합니다.</li> <li><code>Up</code> (<code>Vector3</code>): 메시에 대한 로컬 공간의 프로젝터의 위쪽 벡터입니다.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/4": {
-    "documentation": "브러시 구성 사전으로 다음 키-값 쌍을 포함합니다: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>): 샘플링된 알파 값이 어떻게 혼합되는지를 결정합니다.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>): 샘플링된 색상 값이 어떻게 혼합되는지를 결정합니다.</li> <li><code>FadeAngle</code> (number): 표면 법선에 따라 프로젝션이 페이드되기 시작하는 각도(도)입니다. <code>180</code>의 값은 법선 각도 페이드를 적용하지 않습니다.</li> </ul>"
+    "documentation": "다음 키-값 쌍을 포함하는 브러시 구성 사전: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>): 샘플링된 알파 값이 혼합되는 방식을 결정합니다.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>): 샘플링된 색상 값이 혼합되는 방식을 결정합니다.</li> <li><code>FadeAngle</code> (number): 표면 법선에 따라 투사가 사라지기 시작하는 각도(도)입니다. <code>180</code>의 값은 법선 각도 사라짐이 적용되지 않습니다.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected": {
     "documentation": "<code>EditableMesh</code> 텍스처의 픽셀을 이 <code>EditableImage</code>에 투사합니다.",
@@ -38272,10 +38214,10 @@
     "documentation": "런타임에서 이미지를 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/1": {
-    "documentation": "소스 이미지의 피벗 포인트가 이 이미지에 배치될 픽셀 위치입니다."
+    "documentation": "소스 이미지의 피벗 포인트가 이 이미지에 배치될 위치(픽셀 단위)입니다."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/2": {
-    "documentation": "X 및 Y 축을 따라 소스 이미지의 크기 조정 계수입니다."
+    "documentation": "X 및 Y 축을 따라 소스 이미지의 스케일링 계수입니다."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/3": {
     "documentation": "소스 이미지의 피벗 포인트를 중심으로 적용되는 회전 각도(도)입니다."
@@ -38284,10 +38226,10 @@
     "documentation": "이 이미지에 그려질 소스 <code>EditableImage</code>입니다."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/5": {
-    "documentation": "추가 구성을 위한 선택적 사전: <ul> <li><code>CombineType</code>: 소스 이미지의 픽셀이 목적지의 픽셀과 어떻게 혼합되는지를 지정합니다. 기본값은   <code>ImageCombineType.AlphaBlend</code>입니다.</li> <li><code>SamplingMode</code>: 샘플링 방법을 지정합니다 (예: <code>Default</code>는 양선형, <code>Pixelated</code>는 최근접 이웃). 기본값은   <code>ResamplerMode.Default</code>입니다.</li> <li><code>PivotPoint</code>: 크기 조정 및 회전을 위한 소스 이미지 내의 피벗 포인트를 지정합니다. 기본값은 소스 이미지의 중심입니다   (즉, <code>Size / 2</code>)입니다.</li> </ul>"
+    "documentation": "추가 구성을 위한 선택적 사전: <ul> <li><code>CombineType</code>: 소스 이미지의 픽셀이 대상 픽셀과 혼합되는 방식을 지정합니다. 기본값은   <code>ImageCombineType.AlphaBlend</code>입니다.</li> <li><code>SamplingMode</code>: 샘플링 방법을 지정합니다(예: <code>Default</code>는 양선형, <code>Pixelated</code>는 최근접 이웃). 기본값은   <code>ResamplerMode.Default</code>입니다.</li> <li><code>PivotPoint</code>: 스케일링 및 회전을 위한 소스 이미지 내의 피벗 포인트를 지정합니다. 기본값은 소스 이미지의 중심   (즉, <code>Size / 2</code>)입니다.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed": {
-    "documentation": "변환을 포함하여 이 <code>EditableImage</code>에 이미지를 그립니다. 크기 조정 및 회전이 포함되며, 지정된 위치에 배치됩니다.",
+    "documentation": "변환(스케일링 및 회전 포함)을 적용하여 이 <code>EditableImage</code>에 이미지를 그립니다. 지정된 위치에 배치합니다.",
     "params": [
       {
         "name": "self",
@@ -38334,10 +38276,10 @@
     "documentation": "선의 투명도입니다."
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/5": {
-    "documentation": "그리기한 픽셀(소스)이 이 이미지(대상)의 기존 픽셀과 결합되는 방법입니다."
+    "documentation": "그려진 픽셀(소스)이 이 이미지의 기존 픽셀(대상)과 결합되는 방식입니다."
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/6": {
-    "documentation": "선에 안티 앨리어싱이 적용되는지 여부를 결정합니다. <code>AntiAliasing.Enabled</code>로 설정하면 선의 가장자리가 부드럽습니다. <code>AntiAliasing.Disabled</code>로 설정하면 선의 가장자리가 뚜렷합니다."
+    "documentation": "선에 안티 앨리어싱이 적용되는지 여부를 결정합니다. <code>AntiAliasing.Enabled</code>로 설정하면 선의 가장자리가 부드럽습니다. <code>AntiAliasing.Disabled</code>로 설정하면 선의 가장자리가 단단합니다."
   },
   "@roblox/globaltype/EditableImage.DrawLine": {
     "documentation": "제공된 두 점 사이에 선을 그립니다.",
@@ -38382,7 +38324,7 @@
     "documentation": "사각형의 왼쪽 상단 위치입니다. 다른 그리기 방법과 달리, 이는 <code>EditableImage</code>의 캔버스 경계를 벗어날 수 없습니다."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/2": {
-    "documentation": "그릴 사각형의 크기(픽셀)입니다."
+    "documentation": "그릴 사각형의 크기(픽셀 단위)입니다."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/3": {
     "documentation": "사각형의 색상입니다."
@@ -38391,7 +38333,7 @@
     "documentation": "사각형의 투명도입니다."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/5": {
-    "documentation": "그려진 픽셀(소스)이 이 이미지의 기존 픽셀(목적지)과 어떻게 결합되는지를 나타냅니다."
+    "documentation": "그려진 픽셀(소스)이 이 이미지의 기존 픽셀(대상)과 결합되는 방식입니다."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle": {
     "documentation": "지정된 크기의 사각형을 지정된 왼쪽 상단 위치에 그립니다.",
@@ -38438,7 +38380,7 @@
     "documentation": "각 픽셀이 네 개의 바이트(빨강, 초록, 파랑 및 알파)로 표현되는 버퍼입니다. 버퍼의 길이는 <code>X * Size.Y * 4</code> 바이트로 계산할 수 있습니다."
   },
   "@roblox/globaltype/EditableImage.ReadPixelsBuffer": {
-    "documentation": "픽셀의 직사각형 영역을 버퍼로 읽습니다.",
+    "documentation": "버퍼에 픽셀의 직사각형 영역을 읽습니다.",
     "params": [
       {
         "name": "self",
@@ -41475,6 +41417,7 @@
     "documentation": "물리적 기하학 속성을 관리하는 추상 중간 클래스입니다. PartOperations 및 MeshParts에 대해.",
     "keys": {
       "CollisionFidelity": "@roblox/globaltype/TriangleMeshPart.CollisionFidelity",
+      "CollisionPrecision": "@roblox/globaltype/TriangleMeshPart.CollisionPrecision",
       "FluidFidelity": "@roblox/globaltype/TriangleMeshPart.FluidFidelity",
       "MeshSize": "@roblox/globaltype/TriangleMeshPart.MeshSize"
     },
@@ -41486,13 +41429,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#CollisionFidelity",
     "code_sample": ""
   },
+  "@roblox/globaltype/TriangleMeshPart.CollisionPrecision": {
+    "documentation": "<code>CollisionFidelity.Tunable</code> 충돌 기하학의 정밀도 또는 성능을 <code>0</code>에서 <code>1</code>까지 정량화합니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#CollisionPrecision",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TriangleMeshPart.FluidFidelity": {
-    "documentation": "항공역학적 힘과 토크를 계산하는 데 사용되는 기하학적 표현을 결정합니다.",
+    "documentation": "공기역학적 힘과 토크를 계산하는 데 사용되는 기하학적 표현을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#FluidFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/TriangleMeshPart.MeshSize": {
-    "documentation": "부품의 소스 메시 기하학의 원래 크기, <code>BasePart.Size</code>를 통해 적용된 스케일링 이전의 크기입니다.",
+    "documentation": "<code>BasePart.Size</code>를 통해 적용된 스케일링 이전의 부품의 원래 메시 기하학 크기입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#MeshSize",
     "code_sample": ""
   },
@@ -57073,7 +57021,9 @@
     "keys": {
       "Color": "@roblox/globaltype/WrapTarget.Color",
       "DebugMode": "@roblox/globaltype/WrapTarget.DebugMode",
-      "Stiffness": "@roblox/globaltype/WrapTarget.Stiffness"
+      "Stiffness": "@roblox/globaltype/WrapTarget.Stiffness",
+      "CreateTextureInCageSpaceAsync": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync",
+      "CreateTextureInTargetSpaceAsync": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget",
     "code_sample": ""
@@ -57091,6 +57041,74 @@
   "@roblox/globaltype/WrapTarget.Stiffness": {
     "documentation": "<strong>Deprecated:</strong> <br>옷에 의해 본체 메쉬가 얼마나 압축될 수 있는지를 정의합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#Stiffness",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/0": {
+    "documentation": "WrapTarget 객체는 대상을 정의합니다. 대상은 오직 외부 표면만 있는 3D 본체이거나 Outer Cage입니다."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/1": {
+    "documentation": "이 <code>WrapTarget</code>의 부모 <code>MeshPart</code>의 UV 공간에 있는 <code>EditableImage</code>입니다."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/2": {
+    "documentation": "전송을 위한 제어를 포함하는 선택적 사전: <ul> <li><code>MinUVBounds</code> – 최소 케이지 UV 경계를 지정하는 <code>Vector2</code>입니다.</li> <li><code>MaxUVBounds</code> – 최대 케이지 UV 경계를 지정하는 <code>Vector2</code>입니다.</li> </ul> 생략된 각 경계는 케이지 메쉬에서 계산됩니다. 둘 다 지정되지 않으면 경계는 전체 케이지를 포함합니다."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/return/0": {
+    "documentation": "케이지 UV 공간에 새로운 <code>EditableImage</code>, 또는 장치별 편집 가능한 메모리 예산이 소진된 경우 <code>nil</code>입니다."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync": {
+    "documentation": "부모 <code>MeshPart</code>의 UV 공간에서 텍스처를 사용하여 케이지 UV 공간에 새로운 <code>EditableImage</code>를 생성합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/0"
+      },
+      {
+        "name": "texture",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#CreateTextureInCageSpaceAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/0": {
+    "documentation": "WrapTarget 객체는 대상을 정의합니다. 대상은 오직 외부 표면만 있는 3D 본체이거나 Outer Cage입니다."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/1": {
+    "documentation": "케이지 UV 공간에 있는 <code>EditableImage</code>입니다."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/2": {
+    "documentation": "이 <code>WrapTarget</code>과 동일한 부모 <code>MeshPart</code>와 관련된 <code>WrapTextureTransfer</code>입니다."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/return/0": {
+    "documentation": "부모 <code>MeshPart</code>의 UV 공간에 새로운 <code>EditableImage</code>, 또는 장치별 편집 가능한 메모리 예산이 소진된 경우 <code>nil</code>입니다."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync": {
+    "documentation": "케이지 UV 공간의 텍스처를 사용하여 부모 <code>MeshPart</code>의 UV 공간에 새로운 <code>EditableImage</code>를 생성합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/0"
+      },
+      {
+        "name": "texture",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/1"
+      },
+      {
+        "name": "wrapTextureTransfer",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#CreateTextureInTargetSpaceAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/EchoSoundEffect": {
@@ -61535,6 +61553,7 @@
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
       "CreateDataModelContentAsync": "@roblox/globaltype/AssetService.CreateDataModelContentAsync",
+      "CreateDecalAsync": "@roblox/globaltype/AssetService.CreateDecalAsync",
       "CreateEditableImage": "@roblox/globaltype/AssetService.CreateEditableImage",
       "CreateEditableImageAsync": "@roblox/globaltype/AssetService.CreateEditableImageAsync",
       "CreateEditableMesh": "@roblox/globaltype/AssetService.CreateEditableMesh",
@@ -61716,14 +61735,41 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateDataModelContentAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/param/0": {
+    "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/param/1": {
+    "documentation": "하나 이상의 다음 키-값 쌍을 포함하는 사전입니다. 각 값은 <code>Content</code> 객체로, <code>EditableImage</code>를 포함해야 합니다: <ul> <li><code>TextureContent</code> — 데칼의 색상 텍스처.</li> <li><code>NormalMapContent</code> — 데칼의 노멀 맵.</li> <li><code>MetalnessMapContent</code> — 데칼의 금속성 맵.</li> <li><code>RoughnessMapContent</code> — 데칼의 거칠기 맵.</li> </ul>"
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/return/0": {
+    "documentation": "주어진 맵을 가진 새로운 <code>Decal</code> 인스턴스입니다."
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync": {
+    "documentation": "제공된 <code>EditableImage</code> 콘텐츠 맵을 사용하여 새로운 <code>Decal</code> 객체를 생성합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.CreateDecalAsync/param/0"
+      },
+      {
+        "name": "content",
+        "documentation": "@roblox/globaltype/AssetService.CreateDecalAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.CreateDecalAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateDecalAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/0": {
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/1": {
-    "documentation": "메서드에 대한 제어를 포함하는 옵션 테이블: <ul> <li><code>Size</code> – 이미지의 원하는 너비와 높이를 지정하는 <code>Vector2</code>.</li> </ul>"
+    "documentation": "메서드에 대한 제어를 포함하는 옵션 테이블: <ul> <li><code>Size</code> – 이미지의 원하는 너비와 높이를 지정하는 <code>Vector2</code>입니다.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/return/0": {
-    "documentation": "새로운 <code>EditableImage</code> 또는 장치별 편집 가능한 메모리 예산이 소진된 경우 <code>nil</code>입니다."
+    "documentation": "새로운 <code>EditableImage</code>, 또는 장치별 편집 가능한 메모리 예산이 소진된 경우 <code>nil</code>입니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableImage": {
     "documentation": "새로운 <code>EditableImage</code>를 생성합니다.",
@@ -61747,16 +61793,16 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/1": {
-    "documentation": "외부에 저장된 자산 콘텐츠 또는 장소 내의 객체에 대한 참조로, 지원되는 <code>ContentSourceType</code> 값 중 하나의 단일 값을 래핑합니다."
+    "documentation": "장소 내에 저장된 외부 자산 콘텐츠에 대한 참조로, 지원되는 <code>ContentSourceType</code> 값 중 하나의 단일 값을 래핑합니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/2": {
-    "documentation": "생성된 <code>EditableImage</code>에 대한 옵션을 포함하는 테이블입니다. 현재는 <code>Size</code>를 통한 크기 조정이 지원되지 않기 때문에 사용할 수 있는 옵션이 없습니다."
+    "documentation": "생성된 <code>EditableImage</code>에 대한 옵션을 포함하는 테이블입니다. 현재 크기 조정이 지원되지 않기 때문에 사용 가능한 옵션이 없습니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/return/0": {
-    "documentation": "제공된 이미지가 포함된 새 <code>EditableImage</code>입니다."
+    "documentation": "제공된 이미지를 포함하는 새로운 <code>EditableImage</code>입니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync": {
-    "documentation": "주어진 이미지로 채워진 새 <code>EditableImage</code> 객체를 생성합니다.",
+    "documentation": "주어진 이미지로 채워진 새로운 <code>EditableImage</code> 객체를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -61781,13 +61827,13 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/param/1": {
-    "documentation": "생성된 <code>EditableMesh</code>에 대한 옵션을 포함하는 테이블입니다. 현재 빈 편집 가능 메쉬에 대해 <code>FixedSize</code>가 항상 <code>false</code>이기 때문에 사용할 수 있는 옵션이 없습니다."
+    "documentation": "생성된 <code>EditableMesh</code>에 대한 옵션을 포함하는 테이블입니다. 현재 빈 편집 가능한 메쉬에 대해 <code>FixedSize</code>가 항상 <code>false</code>이므로 사용 가능한 옵션이 없습니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/return/0": {
-    "documentation": "새로운 <code>EditableMesh</code> 또는 장치별 편집 가능한 메모리 예산이 소진된 경우 <code>nil</code>입니다."
+    "documentation": "새로운 <code>EditableMesh</code>, 또는 장치별 편집 가능한 메모리 예산이 소진된 경우 <code>nil</code>입니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh": {
-    "documentation": "새롭고 빈 <code>EditableMesh</code>를 생성합니다.",
+    "documentation": "새로운 빈 <code>EditableMesh</code>를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -61808,16 +61854,16 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/1": {
-    "documentation": "자산 콘텐츠를 외부에 저장하거나 장소 내의 객체로 참조한 것으로, 지원되는 <code>ContentSourceType</code> 값 중 하나의 단일 값을 래핑합니다."
+    "documentation": "외부에 저장된 자산 콘텐츠 또는 장소 내의 객체에 대한 참조로, 지원되는 <code>ContentSourceType</code> 값 중 하나의 단일 값을 래핑합니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/2": {
-    "documentation": "메서드에 대한 제어를 포함하는 옵션 테이블: <ul> <li><code>FixedSize</code> – <code>bool</code> 기본값은 <code>true</code>이며,   반환된 <code>EditableMesh</code>는 정점을 추가하거나 제거할 수 없고,   값만 수정할 수 있습니다. 메시 토폴로지를 변경할 수 있는 기능이 필요한 경우,   메모리를 더 사용하면서 <code>false</code>로 설정하십시오.</li> </ul>"
+    "documentation": "메서드에 대한 제어를 포함하는 옵션 테이블: <ul> <li><code>FixedSize</code> – <code>bool</code>. 기본값은 <code>true</code>이며, 반환된 <code>EditableMesh</code>는 정점을 추가하거나 제거할 수 없고, 값만 수정할 수 있습니다. 메쉬 토폴로지를 변경할 수 있는 기능이 필요한 경우 <code>false</code>로 설정하면 더 많은 메모리를 사용하게 됩니다.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/return/0": {
     "documentation": "새로운 <code>EditableMesh</code> 객체입니다."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync": {
-    "documentation": "기존 메쉬 콘텐츠 ID에서 생성된 새 <code>EditableMesh</code> 객체를 반환합니다.",
+    "documentation": "기존 메쉬 콘텐츠 ID로 생성된 새로운 <code>EditableMesh</code> 객체를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -61842,16 +61888,16 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/1": {
-    "documentation": "외부에 저장된 자산 콘텐츠 또는 장소 내의 객체에 대한 참조로, 지원되는 <code>ContentSourceType</code> 값 중 하나의 단일 값을 래핑합니다."
+    "documentation": "장소 내에 저장된 외부 자산 콘텐츠에 대한 참조로, 지원되는 <code>ContentSourceType</code> 값 중 하나의 단일 값을 래핑합니다."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/2": {
-    "documentation": "메서드에 대한 하나 이상의 제어를 포함하는 옵션 테이블: <ul> <li><code>CollisionFidelity</code> – 결과 파트의 <code>CollisionFidelity</code> 값입니다.   옵션이 없거나 <code>options</code> 테이블이 <code>nil</code>이면 기본값은 <code>CollisionFidelity.Default</code>입니다.</li> <li><code>RenderFidelity</code> – 결과 파트의 <code>RenderFidelity</code> 값입니다.   옵션이 없거나 <code>options</code> 테이블이 <code>nil</code>이면 기본값은 <code>RenderFidelity.Automatic</code>입니다.</li> <li><code>FluidFidelity</code> – 결과 파트의 <code>FluidFidelity</code> 값입니다.   옵션이 없거나 <code>options</code> 테이블이 <code>nil</code>이면 기본값은 <code>FluidFidelity.Automatic</code>입니다.</li> </ul>"
+    "documentation": "메서드에 대한 제어를 포함하는 옵션 테이블: <ul> <li><code>CollisionFidelity</code> – 결과 파트의 <code>CollisionFidelity</code> 값입니다. 옵션이 없거나 <code>options</code> 테이블이 <code>nil</code>인 경우 기본값은 <code>CollisionFidelity.Default</code>입니다.</li> <li><code>RenderFidelity</code> – 결과 파트의 <code>RenderFidelity</code> 값입니다. 옵션이 없거나 <code>options</code> 테이블이 <code>nil</code>인 경우 기본값은 <code>RenderFidelity.Automatic</code>입니다.</li> <li><code>FluidFidelity</code> – 결과 파트의 <code>FluidFidelity</code> 값입니다. 옵션이 없거나 <code>options</code> 테이블이 <code>nil</code>인 경우 기본값은 <code>FluidFidelity.Automatic</code>입니다.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/return/0": {
-    "documentation": "지정된 메시 및 충실도 설정이 적용된 새로운 <code>MeshPart</code>입니다."
+    "documentation": "지정된 메쉬 및 충실도 설정이 적용된 새로운 <code>MeshPart</code>입니다."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync": {
-    "documentation": "지정된 메쉬 ID 및 선택적 정밀도 값 테이블로 새로운 <code>MeshPart</code>를 생성합니다.",
+    "documentation": "지정된 메쉬 ID와 선택적 충실도 값 테이블로 새로운 <code>MeshPart</code>를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -61876,16 +61922,16 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/1": {
-    "documentation": "새 장소의 이름입니다."
+    "documentation": "새로운 장소의 이름입니다."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/2": {
     "documentation": "복제할 장소의 <code>PlaceId</code>입니다."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/3": {
-    "documentation": "새 장소의 설명입니다."
+    "documentation": "새로운 장소의 설명입니다."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/return/0": {
-    "documentation": "새 장소의 <code>PlaceId</code>입니다."
+    "documentation": "<code>PlaceId</code> 새로운 장소의 ID입니다."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync": {
     "documentation": "주어진 <code>templatePlaceID</code>를 통해 장소를 복제합니다.",
@@ -61923,13 +61969,13 @@
     "documentation": "새로운 장소의 이름입니다."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/3": {
-    "documentation": "<code>PlaceId</code> 복제할 장소의 ID입니다."
+    "documentation": "복제할 장소의 <code>PlaceId</code>입니다."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/4": {
-    "documentation": "새로운 장소에 대한 설명입니다."
+    "documentation": "새로운 장소의 설명입니다."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/return/0": {
-    "documentation": "<code>PlaceId</code> 새로운 장소의 ID입니다."
+    "documentation": "새로운 장소의 <code>PlaceId</code>입니다."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync": {
     "documentation": "주어진 <code>templatePlaceID</code>를 통해 장소를 복제하고, 주어진 플레이어의 인벤토리에 넣습니다.",
@@ -61965,10 +62011,10 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "다음 키-값 쌍을 포함하는 사전입니다: <ul> <li><code>ColorMap</code> — 색상 맵을 포함하는 <code>Content</code> 객체입니다. 기본값은 <code>nil</code></li> <li><code>MetalnessMap</code> — 금속성 맵을 포함하는 <code>Content</code> 객체입니다. 여러 채널이 있는 경우   빨간 채널만 사용됩니다. 기본값은 <code>nil</code></li> <li><code>NormalMap</code> — 노멀 맵을 포함하는 <code>Content</code> 객체입니다. 기본값은 <code>nil</code></li> <li><code>RoughnessMap</code> — 거칠기 맵을 포함하는 <code>Content</code> 객체입니다. 여러 채널이 있는 경우   빨간 채널만 사용됩니다. 기본값은 <code>nil</code></li> <li><code>EmissiveMask</code> — 발광 마스크를 포함하는 <code>Content</code> 객체입니다. 여러 채널이 있는 경우   빨간 채널만 사용됩니다. 기본값은 <code>nil</code>입니다.</li> </ul>"
+    "documentation": "다음 키-값 쌍을 포함하는 사전: <ul> <li><code>ColorMap</code> — 색상 맵을 포함하는 <code>Content</code> 객체입니다. 기본값은 <code>nil</code></li> <li><code>MetalnessMap</code> — 금속성 맵을 포함하는 <code>Content</code> 객체입니다. 채널이 둘 이상인 경우, 빨간 채널만 사용됩니다. 기본값은 <code>nil</code></li> <li><code>NormalMap</code> — 노멀 맵을 포함하는 <code>Content</code> 객체입니다. 기본값은 <code>nil</code></li> <li><code>RoughnessMap</code> — 거칠기 맵을 포함하는 <code>Content</code> 객체입니다. 채널이 둘 이상인 경우, 빨간 채널만 사용됩니다. 기본값은 <code>nil</code></li> <li><code>EmissiveMask</code> — 방출 마스크를 포함하는 <code>Content</code> 객체입니다. 채널이 둘 이상인 경우, 빨간 채널만 사용됩니다. 기본값은 <code>nil</code>입니다.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "제공된 맵을 가진 새로운 <code>SurfaceAppearance</code> 인스턴스입니다."
+    "documentation": "주어진 맵을 가진 새로운 <code>SurfaceAppearance</code> 인스턴스입니다."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
     "documentation": "제공된 콘텐츠 맵을 사용하여 새로운 <code>SurfaceAppearance</code> 객체를 생성합니다.",
@@ -61995,10 +62041,10 @@
     "documentation": "쿼리할 패키지의 자산 ID입니다."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage/return/0": {
-    "documentation": "지정된 번들에 포함된 자산 ID입니다."
+    "documentation": "지정된 패키지에 포함된 자산 ID입니다."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage": {
-    "documentation": "<strong>Deprecated:</strong> 대신에 <code>GetAssetIdsForPackageAsync()</code> 을 사용하세요.<br>지정된 번들에 포함된 자산 ID 배열을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 대신 <code>GetAssetIdsForPackageAsync()</code>를 사용하십시오.<br>지정된 패키지에 포함된 자산 ID 배열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -62025,7 +62071,7 @@
     "documentation": "지정된 패키지에 포함된 자산 ID입니다."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync": {
-    "documentation": "지정된 패키지에 포함된 자산 ID 배열을 반환합니다.",
+    "documentation": "지정된 패키지에 포함된 자산 ID의 배열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -62049,7 +62095,7 @@
     "documentation": "메타데이터를 검색할 자산 또는 콘텐츠 ID의 배열입니다. 최대 배치 크기는 30입니다."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/return/0": {
-    "documentation": "요청과 동일한 순서로 각 자산/콘텐츠에 대한 다음 메타데이터를 포함하는 사전 테이블의 배열입니다: <ul> <li> <code>AssetId</code> (문자열) </li> <li> <code>Title</code> (문자열) </li> <li> <code>Artist</code> (문자열) </li> <li> <code>Duration</code> (초 단위의 숫자) </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> 요청된 자산의 메타데이터를 가져오는 중 오류가 발생할 경우\\,(예: 자산 ID가 존재하지 않는 경우) 해당 사전 테이블은 반환된 배열에 포함되지만, 참조용으로 <code>AssetId</code> 필드만 포함합니다. 또한, 특정 자산의 <code>AudioType</code>을 확인할 수 없는 경우(예: 비공개 오디오일 수 있음) 결과 사전에는 <code>AudioType</code> 항목이 포함되지 않습니다."
+    "documentation": "요청과 동일한 순서로 배열된 사전 테이블의 배열로, 각 사전은 해당 자산/콘텐츠에 대한 다음 메타데이터를 포함합니다: <ul> <li> <code>AssetId</code> (문자열) </li> <li> <code>Title</code> (문자열) </li> <li> <code>Artist</code> (문자열) </li> <li> <code>Duration</code> (초 단위의 숫자) </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> 요청된 자산 중 하나의 메타데이터를 가져오는 동안 오류가 발생하면, 예를 들어 자산 ID가 존재하지 않는 경우, 해당 사전 테이블은 반환된 배열에 포함되지만 참조 목적으로 <code>AssetId</code> 필드만 포함됩니다. 또한, 주어진 자산에 대해 <code>AudioType</code>을 결정할 수 없는 경우(아마도 비공개 오디오 때문), 결과 사전에는 <code>AudioType</code> 항목이 포함되지 않습니다."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync": {
     "documentation": "특정 오디오 소스에 대한 관련 메타데이터를 제공합니다.",
@@ -62076,10 +62122,10 @@
     "documentation": "지정된 번들의 ID입니다."
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/return/0": {
-    "documentation": "지정된 번들에 대한 세부정보를 포함하는 다음 키-값 쌍을 가진 사전: <ul> <li> <code>Id</code> — 번들 ID (전달된 <code>bundleId</code> 인수와 동일) </li> <li> <code>Name</code> — 번들 이름 </li> <li> <code>Description</code> — 번들 설명 </li> <li> <code>BundleType</code> — <code>BundleType</code>을 나타내는 문자열, 예를 들어 <code>\"BodyParts\"</code> 또는 <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — 번들 내 항목의 배열, 각 항목은 다음 키들을 통해 세부사항을 나타냅니다: </li> <li> <code>Id</code> — 항목 ID </li> <li> <code>Name</code> — 항목 이름 </li> <li> <code>Type</code> — <code>\"Asset\"</code>와 같은 항목 유형 </li> <li> <code>AssetType</code> — <code>AvatarAssetType</code>을 나타내는 문자열 </li> <li> <code>SupportsHeadShapes</code> — 자산이 머리 형태 교체를 지원하는지 여부. <code>AssetType</code>이 <code>\"DynamicHead\"</code>일 때만 존재합니다. </li> </ul>"
+    "documentation": "지정된 번들에 대한 세부 정보를 포함하는 다음 키-값 쌍을 포함하는 사전: <ul> <li> <code>Id</code> — 번들 ID (전달된 <code>bundleId</code> 인수와 동일) </li> <li> <code>Name</code> — 번들 이름 </li> <li> <code>Description</code> — 번들 설명 </li> <li> <code>BundleType</code> — <code>BundleType</code>을 나타내는 문자열, 예를 들어 <code>\"BodyParts\"</code> 또는 <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — 번들 내 항목의 배열, 각 항목은 다음 키를 통해 세부 정보를 나타냅니다: </li> <li> <code>Id</code> — 항목 ID </li> <li> <code>Name</code> — 항목 이름 </li> <li> <code>Type</code> — <code>\"Asset\"</code>와 같은 항목 유형 </li> <li> <code>AssetType</code> — <code>AvatarAssetType</code>을 나타내는 문자열 </li> <li> <code>SupportsHeadShapes</code> — 자산이 머리 모양 교체를 지원하는지 여부. <code>AssetType</code>이 <code>\"DynamicHead\"</code>인 경우에만 존재합니다. </li> </ul>"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync": {
-    "documentation": "지정된 번들 내용의 세부 정보를 반환합니다.",
+    "documentation": "지정된 번들의 내용에 대한 세부 정보를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -62106,7 +62152,7 @@
     "documentation": "자산을 생성한 계정의 <code>Player.UserId</code>입니다."
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 작동하지 않으며 더 이상 사용되지 않습니다. 새로운 작업에 사용하지 마십시오.<br>creationID 자산을 생성한 계정의 UserId를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 deprecated 되었으며 더 이상 올바르게 작동하지 않습니다. 새로운 작업에 사용하지 마십시오.<br>생성된 creationID 자산의 계정을 만든 사용자의 UserId를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -62127,10 +62173,10 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync/return/0": {
-    "documentation": "현재 경험의 각 장소의 이름과 <code>PlaceId</code>를 포함하는 <code>StandardPages</code> 객체입니다."
+    "documentation": "현재 경험의 각 장소의 이름과 <code>PlaceId</code>를 포함하는 페이지를 가진 <code>StandardPages</code> 객체입니다."
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync": {
-    "documentation": "<code>StandardPages</code> 객체를 반환하여 현재 경험 내의 장소의 이름과 <code>PlaceId</code>를 포함합니다.",
+    "documentation": "현재 경험 내의 장소 이름과 <code>PlaceId</code>를 포함하는 <code>StandardPages</code> 객체를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -62147,13 +62193,13 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync/param/1": {
-    "documentation": "로드할 자산의 자산 ID 번호입니다."
+    "documentation": "로드되는 자산의 자산 ID 번호입니다."
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync/return/0": {
-    "documentation": "로드된 자산이 포함된 <code>Model</code> 인스턴스입니다."
+    "documentation": "로드된 자산을 포함하는 <code>Model</code> 인스턴스입니다."
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync": {
-    "documentation": "자산 ID를 기준으로 <code>Model</code> 인스턴스를 로드합니다. 이는 <code>InsertService:LoadAsset()</code>의 현대적 대체물입니다.",
+    "documentation": "자산 ID를 주어진 <code>Model</code> 인스턴스를 로드합니다. 이는 <code>InsertService:LoadAsset()</code>의 현대적인 대체입니다.",
     "params": [
       {
         "name": "self",
@@ -62177,16 +62223,16 @@
     "documentation": "자산 생성을 제출하는 사용자입니다."
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync/param/2": {
-    "documentation": "생성할 자산입니다. 현재 스크립트를 포함하거나 비공식 자산을 중첩할 수 없습니다."
+    "documentation": "생성될 자산입니다. 현재 스크립트를 포함하거나 비공식 자산을 중첩할 수 없습니다."
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync/param/3": {
     "documentation": "자산 유형입니다. 현재는 <code>AssetType.Model</code>만 가능합니다."
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync/return/0": {
-    "documentation": "성공할 경우 <code>PromptCreatePlatformContentResult</code>와 자산 ID 쌍입니다."
+    "documentation": "성공 시 <code>PromptCreatePlatformContentResult</code> 및 자산 ID 쌍입니다."
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync": {
-    "documentation": "사용자가 게시 대화 상자를 통해 경험 내 자산을 생성할 수 있도록 허용합니다.",
+    "documentation": "사용자에게 게시 대화 상자를 표시하여 경험 내 자산 생성을 허용합니다.",
     "params": [
       {
         "name": "self",
@@ -62218,10 +62264,10 @@
     "documentation": "비디오를 선택하고 업로드하도록 요청받는 플레이어입니다. 비디오가 업로드되기 전에 플레이어의 동의가 필요합니다."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/param/2": {
-    "documentation": "비디오가 업로드되고 처리되는 동안 상태 업데이트( <code>AnimationClipFromVideoStatus</code> 값)를 수신하는 함수입니다."
+    "documentation": "비디오가 업로드되고 처리되는 동안 상태 업데이트를 수신하는 함수입니다( <code>AnimationClipFromVideoStatus</code> 값)."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/return/0": {
-    "documentation": "결과를 설명하는 <code>AnimationClipFromVideoStatus</code>와 성공 시 결과 <code>AnimationClip</code>이 포함된 튜플입니다."
+    "documentation": "<code>AnimationClipFromVideoStatus</code>를 설명하는 튜플과 성공 시 결과 <code>AnimationClip</code>(<code>nil</code>인 경우는 제외)입니다."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync": {
     "documentation": "지정된 플레이어에게 비디오를 선택하고 업로드하도록 요청하며, 이후 <code>AnimationClip</code>으로 변환됩니다.",
@@ -62249,7 +62295,7 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "<code>SaveWithoutPublish</code>라는 부울을 포함하여 게시 여부를 저장할지 여부를 나타내는 선택적 사전과 <code>PlaceId</code>, 저장할 대상 장소 ID입니다. 예시 사용법은: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})입니다. PlaceId가 제공되지 않으면 기본 동작은 SavePlaceAsync를 호출하는 현재 원래 장소를 덮어 저장합니다. SaveWithoutPublish가 제공되지 않으면 기본 동작은 SaveWithoutPublish=false입니다."
+    "documentation": "게시 여부를 저장할지 여부를 나타내는 부울인 <code>SaveWithoutPublish</code>와 저장할 대상 장소 ID인 <code>PlaceId</code>를 포함하는 선택적 사전입니다. 예제 사용법은 다음과 같습니다: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). PlaceId가 제공되지 않으면 기본 동작은 SavePlaceAsync를 호출하는 현재 원래 장소를 저장합니다. SaveWithoutPublish가 제공되지 않으면 기본 동작은 SaveWithoutPublish=false입니다."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "현재 장소의 상태를 저장합니다.",
@@ -62271,7 +62317,7 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.SearchAudio/param/1": {
-    "documentation": "키워드, 제목, 아티스트, 오디오 유형 및 지속 시간 범위와 같은 검색 기준을 정의하는 <code>AudioSearchParams</code> 객체입니다."
+    "documentation": "<code>AudioSearchParams</code> 객체로, 키워드, 제목, 아티스트, 오디오 유형 및 지속 시간 범위와 같은 검색 기준을 정의합니다."
   },
   "@roblox/globaltype/AssetService.SearchAudio/return/0": {
     "documentation": "오디오 검색의 페이지화된 결과를 포함하는 <code>AudioPages</code> 객체입니다."
@@ -62298,7 +62344,7 @@
     "documentation": "Roblox 웹 API에 대한 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync/param/1": {
-    "documentation": "<code>AudioSearchParams</code> 객체로, 키워드, 제목, 아티스트, 오디오 유형 및 지속 시간 범위와 같은 검색 기준을 정의합니다."
+    "documentation": "키워드, 제목, 아티스트, 오디오 유형 및 지속 시간 범주와 같은 검색 기준을 정의하는 <code>AudioSearchParams</code> 객체입니다."
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync/return/0": {
     "documentation": "오디오 검색의 페이지화된 결과를 포함하는 <code>AudioPages</code> 객체입니다."
@@ -67116,6 +67162,7 @@
       "FixedSize": "@roblox/globaltype/EditableMesh.FixedSize",
       "AddBone": "@roblox/globaltype/EditableMesh.AddBone",
       "AddColor": "@roblox/globaltype/EditableMesh.AddColor",
+      "AddFace": "@roblox/globaltype/EditableMesh.AddFace",
       "AddNormal": "@roblox/globaltype/EditableMesh.AddNormal",
       "AddTriangle": "@roblox/globaltype/EditableMesh.AddTriangle",
       "AddUV": "@roblox/globaltype/EditableMesh.AddUV",
@@ -67278,14 +67325,41 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddColor",
     "code_sample": ""
   },
+  "@roblox/globaltype/EditableMesh.AddFace/param/0": {
+    "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
+  },
+  "@roblox/globaltype/EditableMesh.AddFace/param/1": {
+    "documentation": "면 주위의 새로운 정점 ID 배열입니다. 삼각형을 생성하려면 3개의 ID를 제공하고, 사각형을 생성하려면 4개의 ID를 제공합니다."
+  },
+  "@roblox/globaltype/EditableMesh.AddFace/return/0": {
+    "documentation": "새로운 면의 면 ID입니다."
+  },
+  "@roblox/globaltype/EditableMesh.AddFace": {
+    "documentation": "메시에 새로운 삼각형 또는 사각형 면을 추가하고 면 ID를 반환합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.AddFace/param/0"
+      },
+      {
+        "name": "vertexIds",
+        "documentation": "@roblox/globaltype/EditableMesh.AddFace/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.AddFace/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddFace",
+    "code_sample": ""
+  },
   "@roblox/globaltype/EditableMesh.AddNormal/param/0": {
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.AddNormal/param/1": {
-    "documentation": "법선 벡터입니다. 법선 값이 지정되지 않으면 법선이 자동으로 계산됩니다."
+    "documentation": "법선 벡터입니다. 법선 값이 지정되지 않은 경우, 법선은 자동으로 계산됩니다."
   },
   "@roblox/globaltype/EditableMesh.AddNormal/return/0": {
-    "documentation": "새로운 법선의 법선 ID."
+    "documentation": "새로운 법선의 법선 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.AddNormal": {
     "documentation": "기하학에 새로운 법선을 추가하고 법선 ID를 반환합니다.",
@@ -67318,7 +67392,7 @@
     "documentation": "삼각형의 세 번째 정점 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.AddTriangle/return/0": {
-    "documentation": "새로운 면의 면 ID."
+    "documentation": "새로운 면의 안정적인 면 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.AddTriangle": {
     "documentation": "메시에 새로운 삼각형을 추가하고 면 ID를 반환합니다.",
@@ -67353,7 +67427,7 @@
     "documentation": "새로운 UV 좌표입니다."
   },
   "@roblox/globaltype/EditableMesh.AddUV/return/0": {
-    "documentation": "새로운 UV의 UV ID."
+    "documentation": "새로운 UV의 UV ID입니다."
   },
   "@roblox/globaltype/EditableMesh.AddUV": {
     "documentation": "기하학에 새로운 UV를 추가하고 UV ID를 반환합니다.",
@@ -67377,10 +67451,10 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.AddVertex/param/1": {
-    "documentation": "메시의 로컬 객체 공간 내의 위치입니다."
+    "documentation": "메시의 로컬 객체 공간에서의 위치입니다."
   },
   "@roblox/globaltype/EditableMesh.AddVertex/return/0": {
-    "documentation": "새로운 정점의 정점 ID."
+    "documentation": "새로운 정점의 정점 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.AddVertex": {
     "documentation": "기하학에 새로운 정점을 추가하고 정점 ID를 반환합니다.",
@@ -67404,16 +67478,16 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchAdd/param/1": {
-    "documentation": "<code>MeshAttribute</code> 유형의 요소를 생성합니다."
+    "documentation": "생성할 요소의 <code>MeshAttribute</code> 유형입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchAdd/param/2": {
-    "documentation": "새로운 요소를 초기화할 값들. <code>Vertex</code> 또는 <code>Normal</code>의 경우 <code>Vector3</code> 배열; <code>UV</code>의 경우 <code>Vector2</code> 배열; <code>Color</code>의 경우 <code>Color3</code> 배열과 일치하는 길이의 알파 숫자 배열; <code>Face</code>의 경우 정점 ID 배열의 2D 배열."
+    "documentation": "새로운 요소를 초기화할 값입니다. <code>Vertex</code> 또는 <code>Normal</code>의 경우 <code>Vector3</code> 배열; <code>UV</code>의 경우 <code>Vector2</code> 배열; <code>Color</code>의 경우 <code>Color3</code> 배열과 일치하는 길이의 알파 숫자 배열; <code>Face</code>의 경우 정점 ID 배열의 2D 배열입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchAdd/return/0": {
-    "documentation": "입력 순서와 일치하는 새로운 요소 ID의 정렬된 배열."
+    "documentation": "입력 순서와 일치하는 새로운 요소 ID의 정렬된 배열입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchAdd": {
-    "documentation": "주어진 속성 유형의 새로운 메시 요소를 생성하고 그들의 ID를 반환합니다.",
+    "documentation": "주어진 속성 유형의 새로운 메시 요소를 생성하고 해당 ID를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -67438,13 +67512,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes/param/1": {
-    "documentation": "각 면의 모서리에 대해 검색할 속성. <code>MeshAttribute.Vertex</code>, <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, 또는 <code>MeshAttribute.UV</code>여야 하며; <code>MeshAttribute.Face</code>는 지원되지 않으며 오류를 발생시킵니다."
+    "documentation": "각 면의 모서리에 대해 검색할 속성입니다. <code>MeshAttribute.Vertex</code>, <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, 또는 <code>MeshAttribute.UV</code>여야 하며; <code>MeshAttribute.Face</code>는 지원되지 않으며 오류를 발생시킵니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes/param/2": {
-    "documentation": "쿼리할 면들."
+    "documentation": "쿼리할 면입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes/return/0": {
-    "documentation": "<code>result[i]</code>가 <code>faceIds[i]</code>의 모서리에 있는 속성 ID 배열인 2D 배열."
+    "documentation": "2D 배열로, <code>result[i]</code>는 <code>faceIds[i]</code>의 모서리에 있는 속성 ID 배열입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes": {
     "documentation": "배치에서 각 면의 모서리 속성 ID를 반환합니다.",
@@ -67472,13 +67546,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues/param/1": {
-    "documentation": "읽을 요소의 ID. 모두 동일한 속성 유형 — 정점, 법선, 색상 또는 UV여야 합니다. 속성은 ID 유형에 의해 결정되므로 <code>MeshAttribute</code> 인수가 필요하지 않습니다. 유형 혼합 또는 면 또는 뼈 ID 전달은 오류를 발생시킵니다."
+    "documentation": "읽을 요소의 ID입니다. 모두 동일한 속성 유형 — 정점, 법선, 색상 또는 UV여야 합니다. 속성은 ID 유형에 의해 결정되므로 <code>MeshAttribute</code> 인수가 필요하지 않습니다. 유형을 혼합하거나 면 또는 뼈 ID를 전달하면 오류가 발생합니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues/return/0": {
-    "documentation": "두 개의 값으로 이루어진 튜플. 첫 번째는 속성 값의 배열입니다: 정점 또는 법선 ID의 경우 <code>Vector3</code>, UV ID의 경우 <code>Vector2</code>, 색상 ID의 경우 <code>Color3</code>. 두 번째는 모든 속성 유형에 대해 <code>nil</code>이며, 색상인 경우 알파 숫자 배열입니다."
+    "documentation": "두 개의 값으로 구성된 튜플입니다. 첫 번째는 속성 값의 배열입니다: 정점 또는 법선 ID의 경우 <code>Vector3</code>, UV ID의 경우 <code>Vector2</code>, 색상 ID의 경우 <code>Color3</code>입니다. 두 번째는 모든 속성 유형에 대해 <code>nil</code>이며, 색상인 경우 알파 숫자의 배열입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues": {
-    "documentation": "배치에서 각 ID의 속성 값을 반환합니다.",
+    "documentation": "배치에서 각 ID에 대한 속성 값을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -67499,16 +67573,16 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes/param/1": {
-    "documentation": "조회할 속성 유형. <code>MeshAttribute.Face</code>(각 정점을 참조하는 면), <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, 또는 <code>MeshAttribute.UV</code>여야 하며; <code>MeshAttribute.Vertex</code>는 지원되지 않으며 오류를 발생시킵니다(정점 위치를 읽으려면 <code>BatchGetValues()</code>를 사용하세요)."
+    "documentation": "조회할 속성 유형입니다. <code>MeshAttribute.Face</code>(각 정점을 참조하는 면), <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, 또는 <code>MeshAttribute.UV</code>여야 하며; <code>MeshAttribute.Vertex</code>는 지원되지 않으며 오류를 발생시킵니다(정점 위치를 읽으려면 <code>BatchGetValues()</code>를 사용하세요)."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes/param/2": {
-    "documentation": "쿼리할 정점들."
+    "documentation": "쿼리할 정점입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes/return/0": {
-    "documentation": "<code>result[i]</code>가 <code>vertexIds[i]</code>와 관련된 속성 ID 배열인 2D 배열."
+    "documentation": "2D 배열로, <code>result[i]</code>는 <code>vertexIds[i]</code>에 연결된 속성 ID 배열입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes": {
-    "documentation": "배치에서 각 정점과 관련된 속성 ID를 반환합니다.",
+    "documentation": "배치에서 각 정점에 연결된 속성 ID를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -67533,19 +67607,19 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/param/1": {
-    "documentation": "검색할 속성. <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, 또는 <code>MeshAttribute.UV</code>여야 하며; <code>MeshAttribute.Vertex</code> 및 <code>MeshAttribute.Face</code>는 지원되지 않으며 오류를 발생시킵니다."
+    "documentation": "검색할 속성입니다. <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, 또는 <code>MeshAttribute.UV</code>여야 하며; <code>MeshAttribute.Vertex</code> 및 <code>MeshAttribute.Face</code>는 지원되지 않으며 오류를 발생시킵니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/param/2": {
-    "documentation": "각 모서리를 식별하는 정점들."
+    "documentation": "각 모서리를 식별하는 정점입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/param/3": {
-    "documentation": "각 모서리를 식별하는 면. <code>vertexIds</code>와 동일한 길이여야 합니다."
+    "documentation": "각 모서리를 식별하는 면입니다. <code>vertexIds</code>와 동일한 길이여야 합니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/return/0": {
-    "documentation": "입력과 동일한 순서로 각 모서리의 속성 ID 배열."
+    "documentation": "입력과 동일한 순서로 각 모서리에서 속성 ID의 배열입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes": {
-    "documentation": "정점-면 쌍의 배치에서 각 지정된 모서리의 속성 ID를 반환합니다.",
+    "documentation": "정점-면 쌍에 대해 지정된 각 모서리의 속성 ID를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -67574,10 +67648,10 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchRemove/param/1": {
-    "documentation": "제거할 면 ID. 유효하지 않거나 이미 제거된 ID는 오류를 발생시키고 아무것도 제거하지 않으며; 중복 ID는 단일 제거로 축소됩니다."
+    "documentation": "제거할 면 ID입니다. 유효하지 않거나 이미 제거된 ID는 오류를 발생시키고 아무것도 제거하지 않으며; 중복 ID는 단일 제거로 축소됩니다."
   },
   "@roblox/globaltype/EditableMesh.BatchRemove": {
-    "documentation": "면의 배치를 제거합니다.",
+    "documentation": "면 배치를 제거합니다.",
     "params": [
       {
         "name": "self",
@@ -67596,10 +67670,10 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes/param/1": {
-    "documentation": "업데이트할 면 ID. <code>attrIdArrays</code>와 동일한 길이여야 합니다."
+    "documentation": "업데이트할 면 ID입니다. <code>attrIdArrays</code>와 동일한 길이여야 합니다."
   },
   "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes/param/2": {
-    "documentation": "2D 배열. <code>attrIdArrays[i]</code>는 <code>faceIds[i]</code>의 모서리 속성 ID 목록입니다. 각 내부 배열은 면의 모서리당 하나의 항목을 가져야 합니다. 모든 ID는 동일한 속성 유형 — 정점, 법선, 색상 또는 UV여야 하며; 유형 혼합(또는 다른 ID 유형 전달)은 오류를 발생시킵니다."
+    "documentation": "2D 배열입니다. <code>attrIdArrays[i]</code>는 <code>faceIds[i]</code>의 모서리에 대한 속성 ID 목록입니다. 각 내부 배열은 면의 모서리마다 하나의 항목을 가져야 합니다. 모든 ID는 동일한 속성 유형 — 정점, 법선, 색상 또는 UV여야 하며; 유형을 혼합하거나(또는 다른 ID 유형을 전달하면) 오류가 발생합니다."
   },
   "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes": {
     "documentation": "배치에서 각 면의 모서리 속성 ID를 설정합니다.",
@@ -67625,13 +67699,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues/param/1": {
-    "documentation": "쓰기 위한 요소의 ID. 모두 동일한 속성 유형 — 정점, 법선, 색상 또는 UV여야 합니다. 속성은 ID 유형에 의해 결정되므로 <code>MeshAttribute</code> 인수가 필요하지 않습니다. 유형 혼합 또는 면 또는 뼈 ID 전달은 오류를 발생시킵니다."
+    "documentation": "쓸 요소의 ID입니다. 모두 동일한 속성 유형 — 정점, 법선, 색상 또는 UV여야 합니다. 속성은 ID 유형에 의해 결정되므로 <code>MeshAttribute</code> 인수가 필요하지 않습니다. 유형을 혼합하거나 면 또는 뼈 ID를 전달하면 오류가 발생합니다."
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues/param/2": {
-    "documentation": "할당할 값들. 유형은 ID 유형에 따라 다릅니다: 정점 또는 법선 ID의 경우 <code>Vector3</code>, UV ID의 경우 <code>Vector2</code>, 색상 ID의 경우 <code>Color3</code> 또는 숫자. 각 법선을 자동 계산 값으로 재설정하려면 법선 ID에 대해 <code>nil</code>을 전달합니다. 이는 각 법선에 대해 <code>ResetNormal()</code>을 호출하는 것과 같습니다."
+    "documentation": "할당할 값입니다. 유형은 ID 유형에 따라 다릅니다: 정점 또는 법선 ID의 경우 <code>Vector3</code>, UV ID의 경우 <code>Vector2</code>, 색상 ID의 경우 <code>Color3</code> 또는 숫자입니다. 각 법선을 자동 계산 값으로 재설정하려면 법선 ID에 <code>nil</code>을 전달합니다. 이는 각 법선에 대해 <code>ResetNormal()</code>을 호출하는 것과 동등합니다."
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues": {
-    "documentation": "메시 요소 ID의 배치에 속성 값을 씁니다.",
+    "documentation": "메시 요소 ID 배치에 속성 값을 씁니다.",
     "params": [
       {
         "name": "self",
@@ -67654,16 +67728,16 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes/param/1": {
-    "documentation": "각 모서리를 식별하는 정점 ID."
+    "documentation": "각 모서리를 식별하는 정점 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes/param/2": {
-    "documentation": "각 모서리를 식별하는 면 ID. <code>vertexIds</code>와 동일한 길이여야 합니다."
+    "documentation": "각 모서리를 식별하는 면 ID입니다. <code>vertexIds</code>와 동일한 길이여야 합니다."
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes/param/3": {
-    "documentation": "할당할 속성 ID, 쌍당 하나; <code>vertexIds</code>와 동일한 길이여야 합니다. 모두 동일한 속성 유형 — 법선, 색상 또는 UV여야 하며; 정점 또는 면 ID를 전달하면 오류가 발생합니다."
+    "documentation": "할당할 속성 ID입니다. 쌍마다 하나씩; <code>vertexIds</code>와 동일한 길이여야 합니다. 모두 동일한 속성 유형 — 법선, 색상 또는 UV여야 하며; 정점 또는 면 ID를 전달하면 오류가 발생합니다."
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes": {
-    "documentation": "각 정점-면 쌍의 배치에서 특정 모서리에 속성을 설정합니다.",
+    "documentation": "배치에서 각 정점-면 쌍에 대해 특정 모서리의 속성을 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -67720,10 +67794,10 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface/param/1": {
-    "documentation": "메시의 로컬 객체 공간에서의 점 위치."
+    "documentation": "메시의 로컬 객체 공간에서의 점 위치입니다."
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface/return/0": {
-    "documentation": "면 ID, 로컬 객체 공간의 메시에서의 점 및 면 내 위치의 바리센트릭 좌표의 튜플입니다."
+    "documentation": "면 ID, 로컬 객체 공간의 메시 점, 면 내 위치의 바리센트릭 좌표 및 바리센트릭 좌표의 가중치에 해당하는 3개의 정점 ID의 튜플입니다."
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface": {
     "documentation": "메시 표면에서 가장 가까운 점을 찾습니다.",
@@ -67750,7 +67824,7 @@
     "documentation": "메시의 로컬 객체 공간에서의 점 위치입니다."
   },
   "@roblox/globaltype/EditableMesh.FindClosestVertex/return/0": {
-    "documentation": "지정된 공간의 가장 가까운 정점 ID."
+    "documentation": "지정된 공간의 가장 가까운 정점 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.FindClosestVertex": {
     "documentation": "특정 공간의 점에 가장 가까운 정점을 찾습니다.",
@@ -67774,13 +67848,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere/param/1": {
-    "documentation": "메시의 로컬 객체 공간에서의 구의 중심입니다."
+    "documentation": "메시의 로컬 객체 공간에서의 구체 중심입니다."
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere/param/2": {
-    "documentation": "구의 반지름입니다."
+    "documentation": "구체의 반지름입니다."
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere/return/0": {
-    "documentation": "요청된 구체 내의 정점 ID 목록."
+    "documentation": "요청된 구체 내의 정점 ID 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere": {
     "documentation": "특정 구체 내의 모든 정점을 찾습니다.",
@@ -67808,7 +67882,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentFaces/param/1": {
-    "documentation": "인접한 면을 가져올 면 ID."
+    "documentation": "인접 면을 가져올 면 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentFaces/return/0": {
     "documentation": "주어진 면에 인접한 면 ID 목록입니다."
@@ -67865,10 +67939,10 @@
     "documentation": "검색할 뼈 이름입니다."
   },
   "@roblox/globaltype/EditableMesh.GetBoneByName/return/0": {
-    "documentation": "주어진 이름의 뼈의 뼈 ID입니다."
+    "documentation": "주어진 이름의 뼈 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetBoneByName": {
-    "documentation": "주어진 이름의 뼈의 뼈 ID를 찾습니다.",
+    "documentation": "주어진 이름의 뼈 ID를 찾습니다.",
     "params": [
       {
         "name": "self",
@@ -67889,10 +67963,10 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1": {
-    "documentation": "초기 <code>CFrame</code>을 가져올 뼈 ID입니다."
+    "documentation": "<code>CFrame</code>을 가져올 뼈 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetBoneCFrame/return/0": {
-    "documentation": "메시의 바인드 포즈에서 뼈의 초기 <code>CFrame</code>입니다."
+    "documentation": "메시의 바인드 포즈에서 뼈의 초기 <code>CFrame</code>, 메시의 로컬 공간에서."
   },
   "@roblox/globaltype/EditableMesh.GetBoneCFrame": {
     "documentation": "메시의 바인드 포즈에서 뼈의 초기 <code>CFrame</code>을 반환합니다.",
@@ -67946,7 +68020,7 @@
     "documentation": "이름을 가져올 뼈 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetBoneName/return/0": {
-    "documentation": "주어진 뼈 ID의 뼈 이름입니다."
+    "documentation": "주어진 뼈 ID의 이름입니다."
   },
   "@roblox/globaltype/EditableMesh.GetBoneName": {
     "documentation": "뼈 이름을 반환합니다.",
@@ -67997,7 +68071,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetBones/return/0": {
-    "documentation": "뼈 ID 목록."
+    "documentation": "뼈 ID 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetBones": {
     "documentation": "메시의 모든 뼈를 반환합니다.",
@@ -68017,7 +68091,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetCenter/return/0": {
-    "documentation": "<code>EditableMesh</code>의 경계 상자의 중심입니다."
+    "documentation": "EditableMesh의 경계 상자의 중심입니다."
   },
   "@roblox/globaltype/EditableMesh.GetCenter": {
     "documentation": "메시의 축 정렬 경계 상자의 중심을 반환합니다.",
@@ -68040,7 +68114,7 @@
     "documentation": "색상을 가져올 색상 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetColor/return/0": {
-    "documentation": "요청된 색상 ID의 색상."
+    "documentation": "요청된 색상 ID의 색상입니다."
   },
   "@roblox/globaltype/EditableMesh.GetColor": {
     "documentation": "주어진 색상 ID에 대한 색상을 반환합니다.",
@@ -68067,7 +68141,7 @@
     "documentation": "알파를 가져올 색상 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetColorAlpha/return/0": {
-    "documentation": "요청된 색상 ID의 색상 알파."
+    "documentation": "요청된 색상 ID의 색상 알파입니다."
   },
   "@roblox/globaltype/EditableMesh.GetColorAlpha": {
     "documentation": "주어진 색상 ID에서 색상 알파(투명도)를 반환합니다.",
@@ -68091,7 +68165,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetColors/return/0": {
-    "documentation": "색상 ID 목록."
+    "documentation": "색상 ID 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetColors": {
     "documentation": "메시의 모든 색상을 반환합니다.",
@@ -68117,7 +68191,7 @@
     "documentation": "주어진 면의 정점에 사용된 색상 ID 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFaceColors": {
-    "documentation": "면의 정점에 대한 색상 ID를 반환합니다.",
+    "documentation": "면의 정점에 대한 면의 색상 ID를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68138,13 +68212,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals/param/1": {
-    "documentation": "노멀 ID를 가져올 면 ID입니다."
+    "documentation": "법선 ID를 가져올 면 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals/return/0": {
-    "documentation": "주어진 면의 정점에 사용된 노멀 ID 목록입니다."
+    "documentation": "주어진 면의 정점에 사용된 법선 ID 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals": {
-    "documentation": "면의 정점에 대한 노멀 ID를 반환합니다.",
+    "documentation": "면의 정점에 대한 면의 법선 ID를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68165,7 +68239,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFaces/return/0": {
-    "documentation": "면 ID 목록."
+    "documentation": "면 ID 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFaces": {
     "documentation": "메시의 모든 면을 반환합니다.",
@@ -68185,13 +68259,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute/param/1": {
-    "documentation": "면을 찾기 위해 사용할 속성 ID입니다."
+    "documentation": "면을 찾을 속성 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute/return/0": {
     "documentation": "주어진 속성 ID를 사용하는 면 ID 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute": {
-    "documentation": "<strong>Deprecated:</strong> 이 메서드는 더 이상 사용되지 않습니다. 새로운 작업에 사용하지 마십시오.<br>주어진 속성 ID를 사용하는 면 목록을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 더 이상 사용되지 않습니다. 새로운 작업에 사용하지 마세요.<br>주어진 속성 ID를 사용하는 면 목록을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68212,7 +68286,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1": {
-    "documentation": "면을 찾기 위한 색상 ID입니다."
+    "documentation": "면을 찾을 색상 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0": {
     "documentation": "제공된 색상 ID를 사용하는 면 ID 목록입니다."
@@ -68239,13 +68313,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1": {
-    "documentation": "면을 찾기 위한 노멀 ID입니다."
+    "documentation": "면을 찾기 위한 노말 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0": {
-    "documentation": "제공된 노멀 ID를 사용하는 면 ID 목록입니다."
+    "documentation": "제공된 노말 ID를 사용하는 면 ID의 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal": {
-    "documentation": "주어진 노멀 ID를 사용하는 면 ID 배열을 반환합니다.",
+    "documentation": "주어진 노말 ID를 사용하는 면 ID의 배열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68269,10 +68343,10 @@
     "documentation": "면을 찾기 위한 UV ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0": {
-    "documentation": "제공된 UV ID를 사용하는 면 ID 목록입니다."
+    "documentation": "제공된 UV ID를 사용하는 면 ID의 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithUV": {
-    "documentation": "주어진 UV ID를 사용하는 면 ID 배열을 반환합니다.",
+    "documentation": "주어진 UV ID를 사용하는 면 ID의 배열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68296,7 +68370,7 @@
     "documentation": "UV ID를 가져올 면 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs/return/0": {
-    "documentation": "주어진 면의 정점에 사용된 UV ID 목록입니다."
+    "documentation": "주어진 면의 정점에 사용된 UV ID의 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs": {
     "documentation": "면의 정점에 대한 UV ID를 반환합니다.",
@@ -68320,7 +68394,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFaceVertices/param/1": {
-    "documentation": "정점 ID를 가져올 면 ID."
+    "documentation": "정점 ID를 가져올 면 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFaceVertices/return/0": {
     "documentation": "주어진 면 주위의 정점 ID 목록입니다."
@@ -68347,13 +68421,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/1": {
-    "documentation": "수정 포즈로 적용할 2 또는 3개의 <code>FacsActionUnit</code> 값 배열입니다."
+    "documentation": "교정 포즈를 지정하는 2 또는 3개의 <code>FacsActionUnit</code> 값의 배열입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0": {
-    "documentation": "뼈 ID 배열과 해당 뼈 <code>CFrame</code>의 배열입니다."
+    "documentation": "뼈 ID의 배열과 해당하는 뼈 <code>CFrames</code>의 배열입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose": {
-    "documentation": "특정 FACS 수정 포즈의 모든 뼈 ID와 뼈 <code>CFrames</code>를 반환합니다.",
+    "documentation": "특정 FACS 교정 포즈의 모든 뼈에 대한 뼈 ID와 뼈 <code>CFrames</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68374,10 +68448,10 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/return/0": {
-    "documentation": "수정 포즈 배열입니다. 각 수정 포즈는 2 또는 3개의 <code>FacsActionUnit</code> 값으로 지정된 작은 배열입니다."
+    "documentation": "교정 포즈의 배열입니다. 각 교정 포즈는 2 또는 3개의 <code>FacsActionUnit</code> 값으로 지정된 작은 배열입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses": {
-    "documentation": "사용 중인 모든 FACS 수정 포즈를 반환합니다.",
+    "documentation": "사용 중인 모든 FACS 교정 포즈를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68397,10 +68471,10 @@
     "documentation": "포즈를 가져올 FACS 액션 유닛입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPose/return/0": {
-    "documentation": "뼈 ID 배열과 해당 뼈 <code>CFrame</code>의 배열입니다."
+    "documentation": "뼈 ID의 배열과 해당하는 뼈 <code>CFrame</code>의 배열입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPose": {
-    "documentation": "특정 FACS 액션 유닛의 모든 뼈 ID와 뼈 <code>CFrames</code>를 반환합니다.",
+    "documentation": "특정 FACS 액션 유닛의 모든 뼈에 대한 뼈 ID와 뼈 <code>CFrames</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68421,10 +68495,10 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0": {
-    "documentation": "포즈가 정의된 각 FACS 액션 유닛에 대한 <code>FacsActionUnit</code> 배열입니다."
+    "documentation": "포즈가 정의된 각 FACS 액션 유닛에 대해 하나씩의 <code>FacsActionUnit</code> 배열입니다."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPoses": {
-    "documentation": "포즈가 정의된 모든 FACS 액션 유닛을 반환합니다.",
+    "documentation": "정의된 포즈가 있는 모든 FACS 액션 유닛을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68441,13 +68515,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetNormal/param/1": {
-    "documentation": "노멀 벡터를 가져올 노멀 ID입니다."
+    "documentation": "노말 벡터를 가져올 노말 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetNormal/return/0": {
-    "documentation": "요청된 노멀 ID의 노멀 벡터입니다."
+    "documentation": "요청된 노말 ID의 노말 벡터입니다."
   },
   "@roblox/globaltype/EditableMesh.GetNormal": {
-    "documentation": "주어진 노멀 ID에 대한 노멀 벡터를 반환합니다.",
+    "documentation": "주어진 노말 ID에 대한 노말 벡터를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68468,10 +68542,10 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetNormals/return/0": {
-    "documentation": "법선 ID 목록."
+    "documentation": "노말 ID의 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetNormals": {
-    "documentation": "메시의 모든 노멀을 반환합니다.",
+    "documentation": "메쉬의 모든 노말을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68488,10 +68562,10 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetPosition/param/1": {
-    "documentation": "위치를 가져올 정점 ID."
+    "documentation": "위치를 가져올 정점 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetPosition/return/0": {
-    "documentation": "메시의 로컬 객체 공간에서 정점의 위치입니다."
+    "documentation": "메쉬의 로컬 객체 공간에서 정점의 위치입니다."
   },
   "@roblox/globaltype/EditableMesh.GetPosition": {
     "documentation": "정점의 위치를 가져옵니다.",
@@ -68518,7 +68592,7 @@
     "documentation": "<code>EditableMesh</code>의 크기입니다."
   },
   "@roblox/globaltype/EditableMesh.GetSize": {
-    "documentation": "메시의 축 정렬 경계 상자의 크기를 반환합니다.",
+    "documentation": "메쉬의 축 정렬 경계 상자의 크기를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68562,10 +68636,10 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetUVs/return/0": {
-    "documentation": "UV ID 목록."
+    "documentation": "UV ID의 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetUVs": {
-    "documentation": "메시의 모든 UV를 반환합니다.",
+    "documentation": "메쉬의 모든 UV를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68582,7 +68656,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBones/param/1": {
-    "documentation": "관련 뼈를 가져올 정점 ID입니다."
+    "documentation": "관련된 뼈를 가져올 정점 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBones/return/0": {
     "documentation": "스키닝을 위한 정점과 관련된 뼈 ID입니다."
@@ -68609,7 +68683,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1": {
-    "documentation": "관련 뼈 가중치를 가져올 정점 ID입니다."
+    "documentation": "관련된 뼈 가중치를 가져올 정점 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0": {
     "documentation": "정점과 관련된 각 뼈에 대한 스키닝 블렌드 가중치입니다."
@@ -68636,7 +68710,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexColors/param/1": {
-    "documentation": "색상 ID를 찾을 정점 ID."
+    "documentation": "색상 ID를 찾기 위한 정점 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexColors/return/0": {
     "documentation": "주어진 정점에 연결된 면의 색상 ID 배열입니다."
@@ -68669,7 +68743,7 @@
     "documentation": "면 ID."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0": {
-    "documentation": "정점/면 쌍의 색상 ID."
+    "documentation": "정점/면 쌍의 색상 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceColor": {
     "documentation": "정점/면 쌍의 색상 ID를 반환합니다.",
@@ -68697,16 +68771,16 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1": {
-    "documentation": "정점 ID."
+    "documentation": "정점 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2": {
-    "documentation": "면 ID."
+    "documentation": "면 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0": {
-    "documentation": "정점/면 쌍의 법선 ID."
+    "documentation": "정점/면 쌍의 노말 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal": {
-    "documentation": "정점/면 쌍의 노멀 ID를 반환합니다.",
+    "documentation": "정점/면 쌍의 노말 ID를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68731,7 +68805,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1": {
-    "documentation": "면을 찾을 정점 ID."
+    "documentation": "면을 찾기 위한 정점 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0": {
     "documentation": "주어진 정점에 연결된 면 ID 배열입니다."
@@ -68758,13 +68832,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1": {
-    "documentation": "정점 ID."
+    "documentation": "정점 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2": {
-    "documentation": "면 ID."
+    "documentation": "면 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0": {
-    "documentation": "정점/면 쌍의 UV ID."
+    "documentation": "정점/면 쌍의 UV ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV": {
     "documentation": "정점/면 쌍의 UV ID를 반환합니다.",
@@ -68792,13 +68866,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1": {
-    "documentation": "법선 ID를 찾을 정점 ID."
+    "documentation": "노말 ID를 찾기 위한 정점 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0": {
-    "documentation": "주어진 정점에 연결된 면의 노멀 ID 배열입니다."
+    "documentation": "주어진 정점에 연결된 면의 노말 ID 배열입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexNormals": {
-    "documentation": "주어진 정점에 연결된 면의 노멀 ID를 반환합니다.",
+    "documentation": "주어진 정점에 연결된 면의 노말 ID를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68819,7 +68893,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1": {
-    "documentation": "UV ID를 찾을 정점 ID."
+    "documentation": "UV ID를 찾기 위한 정점 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0": {
     "documentation": "주어진 정점에 연결된 면의 UV ID 배열입니다."
@@ -68846,10 +68920,10 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertices/return/0": {
-    "documentation": "정점 ID 목록."
+    "documentation": "정점 ID의 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVertices": {
-    "documentation": "모든 정점을 정점 ID 목록으로 반환합니다.",
+    "documentation": "정점 ID의 목록으로 모든 정점을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68866,10 +68940,10 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute/param/1": {
-    "documentation": "정점을 찾기 위해 사용할 속성 ID입니다."
+    "documentation": "정점을 찾기 위한 속성 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute/return/0": {
-    "documentation": "주어진 속성 ID를 사용하는 정점 ID 목록입니다."
+    "documentation": "주어진 속성 ID를 사용하는 정점 ID의 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute": {
     "documentation": "<strong>Deprecated:</strong> 이 메서드는 더 이상 사용되지 않습니다. 새로운 작업에 사용하지 마십시오.<br>주어진 속성 ID를 사용하는 정점 목록을 반환합니다.",
@@ -68893,13 +68967,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1": {
-    "documentation": "정점을 찾기 위한 색상 ID입니다."
+    "documentation": "면을 찾기 위한 색상 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0": {
-    "documentation": "제공된 색상 ID를 사용하는 정점 ID 목록입니다."
+    "documentation": "제공된 색상 ID를 사용하는 면 ID의 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor": {
-    "documentation": "주어진 색상 ID를 사용하는 정점 ID 배열을 반환합니다.",
+    "documentation": "주어진 색상 ID를 사용하는 정점 ID의 배열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68920,13 +68994,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1": {
-    "documentation": "정점을 찾기 위한 노멀 ID입니다."
+    "documentation": "면을 찾기 위한 노말 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0": {
-    "documentation": "제공된 노멀 ID를 사용하는 정점 ID 목록입니다."
+    "documentation": "제공된 노말 ID를 사용하는 정점 ID의 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithNormal": {
-    "documentation": "주어진 노멀 ID를 사용하는 정점 ID 배열을 반환합니다.",
+    "documentation": "주어진 노말 ID를 사용하는 정점 ID의 배열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -68947,13 +69021,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1": {
-    "documentation": "정점을 찾기 위한 UV ID입니다."
+    "documentation": "면을 찾기 위한 UV ID입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithUV/return/0": {
-    "documentation": "제공된 UV ID를 사용하는 정점 ID 목록입니다."
+    "documentation": "제공된 UV ID를 사용하는 정점 ID의 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithUV": {
-    "documentation": "주어진 UV ID를 사용하는 정점 ID 배열을 반환합니다.",
+    "documentation": "주어진 UV ID를 사용하는 정점 ID의 배열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -69028,13 +69102,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/param/1": {
-    "documentation": "메시의 로컬 객체 공간에서 레이의 원점입니다."
+    "documentation": "메쉬의 로컬 객체 공간에서 레이의 원점입니다."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/param/2": {
     "documentation": "레이의 방향입니다."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/return/0": {
-    "documentation": "교차점, 면 ID 및 바리센트릭 좌표의 튜플입니다."
+    "documentation": "면 ID, 교차점, 바리센트릭 좌표 및 바리센트릭 좌표의 가중치를 가진 3개의 정점 ID의 튜플입니다."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal": {
     "documentation": "레이를 쏘고 교차점, 면 ID 및 바리센트릭 좌표를 반환합니다.",
@@ -69062,7 +69136,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.RemoveBone/param/1": {
-    "documentation": "제거할 뼈의 뼈 ID."
+    "documentation": "제거할 뼈의 뼈 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.RemoveBone": {
     "documentation": "뼈 ID를 사용하여 뼈를 제거합니다.",
@@ -69084,7 +69158,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.RemoveFace/param/1": {
-    "documentation": "제거할 면의 면 ID."
+    "documentation": "제거할 면의 면 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.RemoveFace": {
     "documentation": "면 ID를 사용하여 면을 제거합니다.",
@@ -69106,10 +69180,10 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.RemoveUnused/return/0": {
-    "documentation": "모든 제거된 ID."
+    "documentation": "모든 제거된 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.RemoveUnused": {
-    "documentation": "사용되지 않는 모든 정점, 노멀, UV 및 색상을 제거하고 제거된 ID를 반환합니다.",
+    "documentation": "사용하지 않는 모든 정점, 노말, UV 및 색상을 제거하고 제거된 ID를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -69126,10 +69200,10 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.ResetNormal/param/1": {
-    "documentation": "재설정할 법선 ID."
+    "documentation": "재설정할 노말 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.ResetNormal": {
-    "documentation": "이 노멀 ID를 자동으로 계산되도록 재설정합니다.",
+    "documentation": "이 노말 ID를 자동으로 계산되도록 재설정합니다.",
     "params": [
       {
         "name": "self",
@@ -69151,10 +69225,10 @@
     "documentation": "초기 <code>CFrame</code>을 설정할 뼈 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/2": {
-    "documentation": "메시의 바인드 포즈에서 뼈의 초기 <code>CFrame</code>입니다."
+    "documentation": "메쉬의 바인드 포즈에서 뼈의 초기 <code>CFrame</code>입니다. 메쉬의 로컬 공간에 있습니다."
   },
   "@roblox/globaltype/EditableMesh.SetBoneCFrame": {
-    "documentation": "메시의 바인드 포즈에서 뼈의 초기 <code>CFrame</code>을 설정합니다.",
+    "documentation": "메쉬의 바인드 포즈에서 뼈의 초기 <code>CFrame</code>을 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -69183,7 +69257,7 @@
     "documentation": "뼈가 가상이어야 하는지 여부입니다."
   },
   "@roblox/globaltype/EditableMesh.SetBoneIsVirtual": {
-    "documentation": "뼈가 가상인지 여부를 설정합니다.",
+    "documentation": "뼈가 가상인지 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -69264,7 +69338,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.SetColor/param/1": {
-    "documentation": "색상을 설정할 색상 ID."
+    "documentation": "색상을 설정할 색상 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.SetColor/param/2": {
     "documentation": "설정할 색상입니다."
@@ -69293,7 +69367,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.SetColorAlpha/param/1": {
-    "documentation": "색상 알파를 설정할 색상 ID."
+    "documentation": "색상 알파를 설정할 색상 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.SetColorAlpha/param/2": {
     "documentation": "설정할 알파입니다."
@@ -69325,7 +69399,7 @@
     "documentation": "정점 색상을 업데이트할 면 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.SetFaceColors/param/2": {
-    "documentation": "주어진 면의 정점에 사용할 새로운 색상 ID 목록."
+    "documentation": "주어진 면의 정점에 사용할 새로운 색상 ID 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.SetFaceColors": {
     "documentation": "면의 정점 색상을 새로운 색상 ID로 설정합니다.",
@@ -69351,13 +69425,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals/param/1": {
-    "documentation": "정점 노멀을 업데이트할 면 ID입니다."
+    "documentation": "정점 노말을 업데이트할 면 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals/param/2": {
-    "documentation": "주어진 면의 정점에 사용할 새로운 법선 ID 목록."
+    "documentation": "주어진 면의 정점에 사용할 새로운 노말 ID 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals": {
-    "documentation": "면의 정점 노멀을 새로운 노멀 ID로 설정합니다.",
+    "documentation": "면의 정점 노말을 새로운 노말 ID로 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -69383,7 +69457,7 @@
     "documentation": "정점 UV를 업데이트할 면 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.SetFaceUVs/param/2": {
-    "documentation": "주어진 면의 정점에 사용할 새로운 UV ID 목록."
+    "documentation": "주어진 면의 정점에 사용할 새로운 UV ID 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.SetFaceUVs": {
     "documentation": "면의 정점 UV를 새로운 UV ID로 설정합니다.",
@@ -69412,7 +69486,7 @@
     "documentation": "정점을 업데이트할 면 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.SetFaceVertices/param/2": {
-    "documentation": "주어진 면에 사용할 새로운 정점 ID 목록."
+    "documentation": "주어진 면에 사용할 새로운 정점 ID 목록입니다."
   },
   "@roblox/globaltype/EditableMesh.SetFaceVertices": {
     "documentation": "면의 정점을 새로운 정점 ID로 설정합니다.",
@@ -69444,10 +69518,10 @@
     "documentation": "이 포즈에 대한 <code>CFrame</code>을 설정할 뼈입니다."
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3": {
-    "documentation": "뼈를 메시의 바인드 포즈에서 초기 뼈 <code>CFrame</code>으로부터 이 포즈의 결합된 뼈 <code>CFrame</code>으로 변환하는 <code>CFrame</code>입니다. 모든 <code>CFrames</code>는 메시의 로컬 공간에 있습니다."
+    "documentation": "뼈를 초기 뼈 <code>CFrame</code>에서 메쉬의 바인드 포즈로 변환하는 <code>CFrame</code>입니다. 모든 <code>CFrames</code>는 메쉬의 로컬 공간에 있습니다."
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose": {
-    "documentation": "특정 FACS 액션 유닛의 개별 뼈에 대한 <code>CFrame</code>을 설정합니다.",
+    "documentation": "특정 FACS 액션 유닛에서 개별 뼈에 대한 <code>CFrame</code>을 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -69474,16 +69548,16 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/1": {
-    "documentation": "수정 포즈로 적용할 2 또는 3개의 <code>FacsActionUnit</code> 값 배열입니다."
+    "documentation": "교정 포즈로 적용할 2 또는 3개의 <code>FacsActionUnit</code> 값의 배열입니다."
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/2": {
     "documentation": "이 포즈에 대한 <code>CFrame</code>을 설정할 뼈입니다."
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3": {
-    "documentation": "이 수정 포즈의 뼈에 대한 <code>CFrame</code> 변환입니다. 각 뼈 <code>CFrame</code>은 메시의 바인드 포즈에서 초기 뼈 <code>CFrame</code>으로부터 이 포즈의 결합된 뼈 <code>CFrame</code>으로 뼈를 변환합니다. 모든 <code>CFrames</code>는 메시의 로컬 공간에 있습니다."
+    "documentation": "이 교정 포즈의 뼈에 대한 <code>CFrame</code> 변환입니다. 각 뼈 <code>CFrame</code>은 메쉬의 바인드 포즈에서 초기 뼈 <code>CFrame</code>으로부터 이 포즈의 결합된 뼈 <code>CFrame</code>으로 뼈를 변환합니다. 모든 <code>CFrames</code>는 메쉬의 로컬 공간에 있습니다."
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose": {
-    "documentation": "특정 FACS 수정 포즈의 모든 뼈에 대한 포즈를 설정합니다.",
+    "documentation": "특정 FACS 교정 포즈의 모든 뼈에 대한 포즈를 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -69516,7 +69590,7 @@
     "documentation": "이 포즈에 대한 <code>CFrame</code>을 설정할 뼈입니다."
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose/param/3": {
-    "documentation": "이 포즈의 뼈에 대한 <code>CFrame</code> 변환입니다. 각 뼈 <code>CFrame</code>은 메시의 바인드 포즈에서 초기 뼈 <code>CFrame</code>으로부터 이 포즈의 결합된 뼈 <code>CFrame</code>으로 뼈를 변환합니다. 모든 <code>CFrames</code>는 메시의 로컬 공간에 있습니다."
+    "documentation": "이 포즈의 뼈에 대한 <code>CFrame</code> 변환입니다. 각 뼈 <code>CFrame</code>은 메쉬의 바인드 포즈에서 초기 뼈 <code>CFrame</code>으로부터 이 포즈의 결합된 뼈 <code>CFrame</code>으로 뼈를 변환합니다. 모든 <code>CFrames</code>는 메쉬의 로컬 공간에 있습니다."
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose": {
     "documentation": "특정 FACS 액션 유닛의 모든 뼈에 대한 포즈를 설정합니다.",
@@ -69546,13 +69620,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.SetNormal/param/1": {
-    "documentation": "노멀 벡터를 설정할 노멀 ID입니다."
+    "documentation": "노말 벡터를 설정할 노말 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.SetNormal/param/2": {
-    "documentation": "설정할 노멀 벡터입니다."
+    "documentation": "설정할 노말 벡터입니다."
   },
   "@roblox/globaltype/EditableMesh.SetNormal": {
-    "documentation": "노멀 ID에 대한 노멀을 설정합니다.",
+    "documentation": "노말 ID에 대한 노말을 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -69575,13 +69649,13 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.SetPosition/param/1": {
-    "documentation": "위치할 정점의 정점 ID입니다."
+    "documentation": "위치를 설정할 정점 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.SetPosition/param/2": {
-    "documentation": "메시의 로컬 객체 공간에서의 위치입니다."
+    "documentation": "메쉬의 로컬 객체 공간에서 위치입니다."
   },
   "@roblox/globaltype/EditableMesh.SetPosition": {
-    "documentation": "메시의 로컬 객체 공간에서 정점 위치를 설정합니다.",
+    "documentation": "메쉬의 로컬 객체 공간에서 정점 위치를 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -69639,7 +69713,7 @@
     "documentation": "이 정점과 함께 사용할 뼈 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBones": {
-    "documentation": "스키닝을 위해 정점과 함께 뼈 목록을 할당합니다.",
+    "documentation": "정점에 대한 스키닝을 위해 뼈 목록을 할당합니다.",
     "params": [
       {
         "name": "self",
@@ -69733,10 +69807,10 @@
     "documentation": "면 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3": {
-    "documentation": "정점/면 쌍에 대해 설정할 노멀 ID입니다."
+    "documentation": "정점/면 쌍에 대해 설정할 노말 ID입니다."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceNormal": {
-    "documentation": "정점/면 쌍의 노멀 ID를 설정합니다.",
+    "documentation": "정점/면 쌍의 노말 ID를 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -69799,7 +69873,7 @@
     "documentation": "메시를 런타임에 생성하고 조작할 수 있는 객체입니다."
   },
   "@roblox/globaltype/EditableMesh.Triangulate": {
-    "documentation": "메시의 모든 면을 삼각형으로 분할합니다.",
+    "documentation": "메쉬의 모든 면을 삼각형으로 분할합니다.",
     "params": [
       {
         "name": "self",
@@ -71589,12 +71663,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LocalizationService.RobloxLocaleId": {
-    "documentation": "핵심 및 내부 기능을 로컬라이징하는 데 사용되는 로케일 ID입니다.",
+    "documentation": "핵심 및 내부 기능을 지역화하는 데 사용되는 로케일 ID입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LocalizationService#RobloxLocaleId",
     "code_sample": ""
   },
   "@roblox/globaltype/LocalizationService.SystemLocaleId": {
-    "documentation": "로컬 플레이어가 운영 체제에 설정한 로케일 ID입니다.",
+    "documentation": "로컬 플레이어가 운영 체제에 대해 설정한 로케일 ID입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LocalizationService#SystemLocaleId",
     "code_sample": ""
   },
@@ -71602,10 +71676,10 @@
     "documentation": "자동 번역을 처리합니다."
   },
   "@roblox/globaltype/LocalizationService.GetCorescriptLocalizations/return/0": {
-    "documentation": "<code>LocalizationTable</code> 객체의 목록으로, CoreScripts의 현지화에 사용됩니다."
+    "documentation": "CoreScripts를 지역화하는 데 사용되는 <code>LocalizationTable</code> 객체의 목록입니다."
   },
   "@roblox/globaltype/LocalizationService.GetCorescriptLocalizations": {
-    "documentation": "<code>LocalizationTable</code> 객체의 목록을 반환하여 핵심 스크립트를 로컬라이징합니다.",
+    "documentation": "<code>LocalizationTable</code> 객체의 목록을 반환하여 핵심 스크립트를 지역화합니다.",
     "params": [
       {
         "name": "self",
@@ -71622,10 +71696,10 @@
     "documentation": "자동 번역을 처리합니다."
   },
   "@roblox/globaltype/LocalizationService.GetCountryRegionForPlayerAsync/param/1": {
-    "documentation": "국가/지역 정보를 가져올 플레이어입니다."
+    "documentation": "국가/지역 정보를 가져오려는 플레이어입니다."
   },
   "@roblox/globaltype/LocalizationService.GetCountryRegionForPlayerAsync/return/0": {
-    "documentation": "플레이어의 국가/지역 코드입니다."
+    "documentation": "플레이어의 국가/지역 코드를 나타내는 문자열입니다."
   },
   "@roblox/globaltype/LocalizationService.GetCountryRegionForPlayerAsync": {
     "documentation": "플레이어의 클라이언트 IP 지리적 위치에 따라 국가/지역 코드 문자열을 반환합니다.",
@@ -71649,13 +71723,13 @@
     "documentation": "자동 번역을 처리합니다."
   },
   "@roblox/globaltype/LocalizationService.GetTableEntries/param/1": {
-    "documentation": "정렬된 현지화 테이블 항목을 검색할 <code>Instance</code>입니다. nil인 경우, <code>LocalizationService</code> 계층 및 클라우드 <code>LocalizationTable</code>에서만 항목이 반환됩니다."
+    "documentation": "정렬된 지역화 테이블 항목을 검색할 <code>Instance</code>입니다. nil인 경우, <code>LocalizationService</code> 계층과 클라우드 <code>LocalizationTable</code>의 항목만 반환됩니다."
   },
   "@roblox/globaltype/LocalizationService.GetTableEntries/return/0": {
-    "documentation": "각 배열이 <code>LocalizationTable:GetEntries()</code>에 설명된 형식의 배열인 배열입니다."
+    "documentation": "각 배열이 <code>LocalizationTable:GetEntries()</code>에서 설명된 것과 동일한 형식인 배열의 배열입니다."
   },
   "@roblox/globaltype/LocalizationService.GetTableEntries": {
-    "documentation": "자동 로컬라이징에 사용되는 모든 항목을 가져옵니다.",
+    "documentation": "자동화된 지역화를 위해 사용되는 모든 항목을 가져옵니다.",
     "params": [
       {
         "name": "self",
@@ -71679,10 +71753,10 @@
     "documentation": "Roblox에서 지원하는 언어 또는 로케일 코드입니다."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForLocaleAsync/return/0": {
-    "documentation": "지정된 로케일의 <code>Translator</code> 인스턴스입니다."
+    "documentation": "지정된 로케일에 대한 <code>Translator</code> 인스턴스입니다."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForLocaleAsync": {
-    "documentation": "인수 로케일을 위한 클라우드 <code>LocalizationTable</code>가 로드될 때까지 대기합니다 - 사용 가능하다면. 제공된 로케일에 대한 번역에 사용될 <code>Translator</code> 인스턴스를 반환합니다.",
+    "documentation": "인수 로케일에 대한 클라우드 <code>LocalizationTable</code>이 로드될 때까지 대기합니다 - 사용 가능한 경우. 제공된 로케일에 대한 번역에 사용될 <code>Translator</code> 인스턴스를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -71703,13 +71777,13 @@
     "documentation": "자동 번역을 처리합니다."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayer/param/1": {
-    "documentation": "지정한 <code>Translator</code>를 가져오려는 <code>Player</code>입니다."
+    "documentation": "지정된 <code>Translator</code>를 가져오려는 <code>Player</code>입니다."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayer/return/0": {
-    "documentation": "지정된 로케일의 <code>Translator</code> 인스턴스입니다."
+    "documentation": "지정된 로케일에 대한 <code>Translator</code> 인스턴스입니다."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayer": {
-    "documentation": "로드된 로케일 데이터를 사용하여 번역에 사용할 <code>Translator</code>를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>LocalizationService:GetTranslatorForPlayerAsync()</code>에 의해 더 이상 사용되지 않으며, 이는 유사하게 작동하지만 클라우드 테이블이 로드될 때까지 대기합니다. 새로운 작업에서는 이를 사용해 주십시오.<br>로드된 로케일 데이터를 사용하여 번역에 사용할 <code>Translator</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -71730,13 +71804,13 @@
     "documentation": "자동 번역을 처리합니다."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayerAsync/param/1": {
-    "documentation": "지정한 <code>Translator</code>를 가져오려는 <code>Player</code>입니다."
+    "documentation": "지정된 <code>Translator</code>를 가져오려는 <code>Player</code>입니다."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayerAsync/return/0": {
-    "documentation": "지정된 로케일의 <code>Translator</code> 인스턴스입니다."
+    "documentation": "지정된 로케일에 대한 <code>Translator</code> 인스턴스입니다."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayerAsync": {
-    "documentation": "플레이어의 로케일에 대한 클라우드 <code>LocalizationTable</code>가 로드될 때까지 대기합니다 - 사용 가능하다면. 제공된 로케일에 대한 번역에 사용될 <code>Translator</code> 인스턴스를 반환합니다.",
+    "documentation": "플레이어의 로케일에 대한 클라우드 <code>LocalizationTable</code>이 로드될 때까지 대기합니다 - 사용 가능한 경우. 제공된 로케일에 대한 번역에 사용할 <code>Translator</code> 인스턴스를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -80435,7 +80509,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation": {
-    "documentation": "모든 솔리드 모델링 기반 부품이 상속하는 추상 클래스입니다.",
+    "documentation": "모델링 기반의 모든 부분이 상속하는 추상 클래스입니다.",
     "keys": {
       "RenderFidelity": "@roblox/globaltype/PartOperation.RenderFidelity",
       "SmoothingAngle": "@roblox/globaltype/PartOperation.SmoothingAngle",
@@ -80447,30 +80521,30 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.RenderFidelity": {
-    "documentation": "솔리드 모델링된 부품을 렌더링하는 데 사용되는 세부 사항의 수준입니다.",
+    "documentation": "고체 모델링된 부분을 렌더링하는 데 사용되는 세부 수준입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#RenderFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.SmoothingAngle": {
-    "documentation": "솔리드 모델링된 부품의 부드러운 음영에 영향을 미치는 각도(도)입니다.",
+    "documentation": "고체 모델링된 부분의 부드러운 음영에 영향을 미치는 각도(도)입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#SmoothingAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.TriangleCount": {
-    "documentation": "이 솔리드 모델의 폴리곤 수입니다.",
+    "documentation": "이 고체 모델의 다각형 수입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#TriangleCount",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.UsePartColor": {
-    "documentation": "<code>PartOperation</code>이 상속된 색상 속성을 사용하여 재색할 수 있는지 여부를 설정합니다.",
+    "documentation": "<code>PartOperation</code>이 상속된 색상 속성을 사용하여 색상을 변경할 수 있는지 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#UsePartColor",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry/param/0": {
-    "documentation": "모든 솔리드 모델링 기반 부품이 상속하는 추상 클래스입니다."
+    "documentation": "모델링 기반의 모든 부분이 상속하는 추상 클래스입니다."
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry/param/1": {
-    "documentation": "이 <code>PartOperation</code>의 기하학이 대체될 <code>PartOperation</code>입니다."
+    "documentation": "이 <code>PartOperation</code>의 기하학을 대체할 <code>PartOperation</code>입니다."
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry": {
     "documentation": "이 <code>PartOperation</code>의 기하학을 다른 <code>PartOperation</code>의 기하학으로 대체합니다.",
@@ -83031,6 +83105,7 @@
       "GetUserSubscriptionDetailsAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync",
       "GetUserSubscriptionPaymentHistoryAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync",
       "GetUserSubscriptionStatusAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync",
+      "OpenShop": "@roblox/globaltype/MarketplaceService.OpenShop",
       "PlayerOwnsAsset": "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset",
       "PlayerOwnsAssetAsync": "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync",
       "PlayerOwnsBundle": "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle",
@@ -83365,6 +83440,28 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetUserSubscriptionStatusAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/MarketplaceService.OpenShop/param/0": {
+    "documentation": "경험 내 트랜잭션을 담당하는 서비스입니다."
+  },
+  "@roblox/globaltype/MarketplaceService.OpenShop/param/1": {
+    "documentation": "상점을 열 플레이어의 <code>Player</code>입니다. <code>LocalScript</code>에서 호출할 경우, 이는 로컬 플레이어여야 합니다."
+  },
+  "@roblox/globaltype/MarketplaceService.OpenShop": {
+    "documentation": "주어진 플레이어를 위한 개인화된 게임 내 상점을 엽니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.OpenShop/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/MarketplaceService.OpenShop/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#OpenShop",
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nMarketplaceService:OpenShop(player)"
+  },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/0": {
     "documentation": "경험 내 트랜잭션을 담당하는 서비스입니다."
   },
@@ -83403,13 +83500,13 @@
     "documentation": "경험 내 트랜잭션을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/1": {
-    "documentation": "주어진 자산 소유 여부를 검사할 <code>Player</code>입니다."
+    "documentation": "주어진 자산의 소유권을 테스트할 <code>Player</code>입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/2": {
-    "documentation": "주어진 사용자의 인벤토리를 확인할 자산 ID입니다."
+    "documentation": "주어진 플레이어의 인벤토리를 테스트할 자산 ID입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/return/0": {
-    "documentation": "주어진 사용자의 인벤토리에 주어진 자산이 포함되어 있는지를 나타냅니다."
+    "documentation": "주어진 플레이어의 인벤토리에 주어진 자산이 포함되어 있는지 여부를 나타냅니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync": {
     "documentation": "주어진 사용자가 주어진 자산을 소유하고 있는지 여부를 반환합니다.",
@@ -83471,13 +83568,13 @@
     "documentation": "경험 내 트랜잭션을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/1": {
-    "documentation": "주어진 번들 소유 여부를 검사할 <code>Player</code>입니다."
+    "documentation": "주어진 번들의 소유권을 테스트할 <code>Player</code>입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/2": {
-    "documentation": "주어진 사용자의 인벤토리를 확인할 번들 ID입니다."
+    "documentation": "주어진 플레이어의 인벤토리를 테스트할 번들 ID입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/return/0": {
-    "documentation": "주어진 사용자의 인벤토리에 주어진 번들이 포함되어 있는지를 나타냅니다."
+    "documentation": "주어진 플레이어의 인벤토리에 주어진 번들이 포함되어 있는지 여부를 나타냅니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync": {
     "documentation": "주어진 플레이어가 주어진 번들을 소유하고 있는지 여부를 반환합니다.",
@@ -83505,16 +83602,16 @@
     "documentation": "경험 내 트랜잭션을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/1": {
-    "documentation": "항목을 구매하도록 요청할 사용자입니다."
+    "documentation": "아이템 구매를 요청할 사용자입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "대량 구매에 포함될 아바타 아이템의 배열입니다. 각 항목은 다음 구조를 가지고 있습니다: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string,   PurchaseOptions: { {Type: PurchaseOption, Value: number?} }? } </code></pre> 각 항목에는 다음 쌍이 포함됩니다: <ul> <li><code>Type</code>: 해당하는 <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: 자산 또는 번들의 ID입니다.</li> <li><code>PurchaseOptions</code>: 선택 사항입니다. 프롬프트에 표시할 단일 구매 옵션을 포함하는 배열입니다. 생략 시, 영구 구매가 프롬프트됩니다. 아래의 PurchaseOptions 섹션을 참조하여 자세한 내용을 확인하십시오.</li> </ul>"
+    "documentation": "대량 구매에 포함될 아바타 아이템의 배열입니다. 각 항목은 다음 구조를 포함합니다: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string,   PurchaseOptions: { {Type: PurchaseOption, Value: number?} }? } </code></pre> 각 항목은 다음 쌍을 포함합니다: <ul> <li><code>Type</code>: 해당하는 <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: 자산 또는 번들의 ID입니다.</li> <li><code>PurchaseOptions</code>: 선택 사항입니다. 프롬프트에 표시할 단일 구매 옵션을 포함하는 배열입니다. 생략할 경우, 영구 구매가 요청됩니다. 아래의 PurchaseOptions 섹션을 참조하십시오.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
     "documentation": "현재 사용할 수 없습니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
-    "documentation": "주어진 <code>assetId</code> 또는 <code>bundleId</code>로 여러 아바타 아이템 구매를 사용자에게 요청합니다.",
+    "documentation": "주어진 <code>assetId</code> 또는 <code>bundleId</code>로 여러 아바타 아이템을 구매하도록 사용자에게 요청합니다.",
     "params": [
       {
         "name": "self",
@@ -83547,7 +83644,7 @@
     "documentation": "구매할 번들의 ID입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase": {
-    "documentation": "주어진 <code>bundleId</code>로 번 구매를 사용자에게 요청합니다.",
+    "documentation": "주어진 <code>bundleId</code>로 번들을 구매하도록 사용자에게 요청합니다.",
     "params": [
       {
         "name": "self",
@@ -83576,7 +83673,7 @@
     "documentation": "취소할 구독의 ID입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptCancelSubscription": {
-    "documentation": "주어진 <code>subscriptionId</code>에 대한 구독 취소를 사용자에게 요청합니다.",
+    "documentation": "주어진 <code>subscriptionId</code>에 대한 구독을 취소하도록 사용자에게 요청합니다.",
     "params": [
       {
         "name": "self",
@@ -83599,10 +83696,10 @@
     "documentation": "경험 내 트랜잭션을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/1": {
-    "documentation": "프롬프트를 표시할 <code>Player</code>입니다."
+    "documentation": "요청할 <code>Player</code>입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/2": {
-    "documentation": "구매할 패스 ID입니다. 이는 <code>InfoType</code>이 <code>GamePass</code>일 때 <code>GetProductInfo()</code>에서 반환된 <code>TargetId</code> 패스의 자산 ID가 아니며 <code>ProductId</code>도 아닙니다."
+    "documentation": "구매할 패스의 ID입니다. 이는 <code>InfoType</code>가 <code>GamePass</code>일 때 <code>GetProductInfo()</code>에서 반환된 <code>TargetId</code> 패스의 자산 ID가 아니며, <code>ProductId</code>도 아닙니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase": {
     "documentation": "주어진 <code>gamePassId</code>로 패스를 구매하도록 사용자에게 요청합니다.",
@@ -83628,10 +83725,10 @@
     "documentation": "경험 내 트랜잭션을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/1": {
-    "documentation": "Premium 구매를 제안할 사용자입니다."
+    "documentation": "Premium 구매를 요청받는 사용자입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
-    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>PromptRobloxSubscriptionPurchase()</code>로 대체되었습니다.<br>사용자에게 Roblox Premium 구매를 요청합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>PromptRobloxSubscriptionPurchase()</code>로 대체되었습니다.<br>사용자에게 Roblox Premium을 구매하도록 요청합니다.",
     "params": [
       {
         "name": "self",
@@ -83659,10 +83756,10 @@
     "documentation": "무시됨."
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/4": {
-    "documentation": "무시됨."
+    "documentation": "무시됩니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase": {
-    "documentation": "주어진 <code>productId</code>로 개발자 제품 구매를 사용자에게 요청합니다.",
+    "documentation": "주어진 <code>productId</code>로 개발자 제품을 구매하도록 사용자에게 요청합니다.",
     "params": [
       {
         "name": "self",
@@ -83693,19 +83790,19 @@
     "documentation": "경험 내 트랜잭션을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/1": {
-    "documentation": "프롬프트를 표시할 <code>Player</code>입니다."
+    "documentation": "요청할 <code>Player</code>입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/2": {
     "documentation": "구매할 자산의 ID입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/3": {
-    "documentation": "무시됨."
+    "documentation": "무시됩니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/4": {
     "documentation": "무시됩니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase": {
-    "documentation": "주어진 <code>assetId</code>로 아이템 구매를 사용자에게 요청합니다. USD Creator Store 구매에는 작동하지 않습니다.",
+    "documentation": "주어진 <code>assetId</code>로 아이템을 구매하도록 사용자에게 요청합니다. USD Creator Store 구매에는 작동하지 않습니다.",
     "params": [
       {
         "name": "self",
@@ -83736,10 +83833,10 @@
     "documentation": "경험 내 트랜잭션을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchase/param/1": {
-    "documentation": "Roblox Plus 구매를 제안할 <code>Player</code>입니다."
+    "documentation": "Roblox Plus 구매를 요청받는 <code>Player</code>입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchase": {
-    "documentation": "사용자에게 Roblox Plus 구독 구매를 요청합니다.",
+    "documentation": "사용자에게 Roblox Plus 구독을 구매하도록 요청합니다.",
     "params": [
       {
         "name": "self",
@@ -83761,16 +83858,16 @@
     "documentation": "전송을 시작하는 <code>Player</code>입니다. 현재 서버에 있는 유효한 플레이어여야 합니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/param/2": {
-    "documentation": "Robux를 받을 사용자 ID입니다: <code>UserId</code>."
+    "documentation": "Robux를 받을 사용자의 <code>UserId</code>입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/param/3": {
-    "documentation": "전송할 Robux의 양입니다. 긍정적인 정수여야 합니다."
+    "documentation": "전송할 Robux의 양입니다. 양의 정수여야 합니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/return/0": {
-    "documentation": "이 전송 요청을 고유하게 식별하는 문자열 <code>transferRequestId</code> 이 ID를 사용하여 <code>Class.MarketplaceService:BindReceiptHandler()|BindReceiptHandler</code>를 통해 전달된 영수증과 연관지어 사용하세요."
+    "documentation": "이 전송 요청을 고유하게 식별하는 문자열 <code>transferRequestId</code> 이 ID를 사용하여 <code>Class.MarketplaceService:BindReceiptHandler()|BindReceiptHandler</code>를 통해 전달된 영수증과 연관시킵니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync": {
-    "documentation": "발신자에서 다른 사용자로의 Robux 전송을 시작합니다.",
+    "documentation": "발신자에서 다른 사용자로 Robux 전송을 시작합니다.",
     "params": [
       {
         "name": "self",
@@ -83799,13 +83896,13 @@
     "documentation": "경험 내 트랜잭션을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1": {
-    "documentation": "<code>Player</code> 객체로, 구독하도록 요청됩니다."
+    "documentation": "구독을 요청할 <code>Player</code> 객체입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
     "documentation": "구독할 구독의 ID입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase": {
-    "documentation": "지정된 <code>subscriptionId</code>에 대한 구독을 구매하도록 사용자에게 요청합니다.",
+    "documentation": "주어진 <code>subscriptionId</code>에 대한 구독을 구매하도록 사용자에게 요청합니다.",
     "params": [
       {
         "name": "self",
@@ -83828,13 +83925,13 @@
     "documentation": "경험 내 트랜잭션을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "순위를 매기고자 하는 제품을 식별하는 객체 배열입니다. 이 배열은 최대 50개의 항목을 포함할 수 있습니다. 각 <code>ProductIdentifier</code>는 다음을 포함합니다: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li><code>InfoType.GamePass</code> 또는 <code>InfoType.Product</code> 중 하나여야 합니다.</li> <li><code>Id</code>: number</li> <li>게임 패스 또는 개발자 제품의 ID입니다.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "순위를 매기고자 하는 제품을 식별하는 객체의 배열입니다. 이 배열은 최대 50개의 항목을 포함할 수 있습니다. 각 <code>ProductIdentifier</code>는 다음을 포함합니다: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li><code>InfoType.GamePass</code> 또는 <code>InfoType.Product</code> 중 하나여야 합니다.</li> <li><code>Id</code>: number</li> <li>게임 패스 또는 개발자 제품의 ID입니다.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "현재 사용자에 대한 개인화된 순서의 항목 배열입니다. 각 배열은 다음을 포함합니다: <ul> <li><code>ProductIdentifier</code>: 입력 배열의 해당 ID입니다.</li> <li><code>ProductInfo</code>: <code>GetProductInfoAsync</code>에 의해 반환된 표준 제품 정보 사전입니다.</li> </ul>"
+    "documentation": "현재 사용자에 대한 개인화된 순서로 정렬된 항목 배열입니다. 각 배열은 다음을 포함합니다: <ul> <li><code>ProductIdentifier</code>: 입력 배열에서 해당하는 ID입니다.</li> <li><code>ProductInfo</code>: <code>GetProductInfoAsync</code>에서 반환된 표준 제품 정보 사전입니다.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
-    "documentation": "제품 ID 목록을 가져와서 해당 제품의 개인화된 정렬된 목록을 반환합니다.",
+    "documentation": "제품 ID 목록을 가져와 개인화된 정렬된 제품 목록을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -83855,13 +83952,13 @@
     "documentation": "경험 내 트랜잭션을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "추천을 받을 제품 유형을 지정하는 <code>InfoType</code> 값 배열입니다. 지원되는 <code>InfoTypes</code>: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "추천을 받을 제품 유형을 지정하는 <code>InfoType</code> 값의 배열입니다. 지원되는 <code>InfoTypes</code>: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "제공된 <code>InfoTypes</code>를 기반으로 사용자가 가장 많이 참여할 가능성이 있는 최대 50개 항목의 정렬된 목록입니다. 추천할 수 없는 경우, 메서드는 빈 목록을 반환합니다."
+    "documentation": "제공된 <code>InfoTypes</code>를 기반으로 사용자가 가장 많이 참여할 가능성이 있는 최대 50개의 항목의 정렬된 목록입니다. 추천할 수 없는 경우, 메서드는 빈 목록을 반환합니다."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li><code>InfoType</code> 배열을 가져와서 사용자가 가장 많이 참여할 가능성이 있는 제품을 나타내는 최대 50개 항목을 반환합니다.</li> </ul>",
+    "documentation": "<ul> <li><code>InfoType</code> 배열을 가져와 사용자가 가장 많이 참여하고 구매할 가능성이 있는 제품을 나타내는 최대 50개의 항목을 반환합니다.</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -83882,16 +83979,16 @@
     "documentation": "경험 내 트랜잭션을 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/1": {
-    "documentation": "객체의 인벤토리를 확인하려는 <code>Player</code>의 <code>UserId</code>입니다."
+    "documentation": "체크할 <code>Player</code>의 <code>UserId</code>입니다."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/2": {
-    "documentation": "확인하려는 패스의 ID입니다. 자산 ID와 혼동하지 마십시오."
+    "documentation": "확인할 패스 ID입니다. 자산 ID와 혼동하지 마십시오."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/return/0": {
     "documentation": "사용자가 패스를 소유하고 있는지 여부입니다."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync": {
-    "documentation": "지정된 <code>UserId</code>를 가진 플레이어가 지정된 <code>gamePassId</code>로 패스를 소유하고 있는지 여부를 반환합니다.",
+    "documentation": "주어진 <code>UserId</code>를 가진 플레이어가 주어진 <code>gamePassId</code>를 소유하고 있는 경우 true를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -91715,6 +91812,7 @@
       "Direction1DState": "@roblox/globaltype/InputAction.Direction1DState",
       "Direction2DState": "@roblox/globaltype/InputAction.Direction2DState",
       "Direction3DState": "@roblox/globaltype/InputAction.Direction3DState",
+      "DisplayName": "@roblox/globaltype/InputAction.DisplayName",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "PreferredBinding": "@roblox/globaltype/InputAction.PreferredBinding",
       "Type": "@roblox/globaltype/InputAction.Type",
@@ -91745,6 +91843,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction3DState",
     "code_sample": ""
   },
+  "@roblox/globaltype/InputAction.DisplayName": {
+    "documentation": "이 동작에 대한 지역화된 표시 이름입니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#DisplayName",
+    "code_sample": ""
+  },
   "@roblox/globaltype/InputAction.Enabled": {
     "documentation": "<code>InputAction</code>이 활성화되어 있는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Enabled",
@@ -91756,12 +91859,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Type": {
-    "documentation": "액션이 기대하는 입력 값의 유형을 지정합니다.",
+    "documentation": "동작이 기대하는 입력 값의 유형을 지정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Type",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.ViewportPositionState": {
-    "documentation": "디버깅에 유용한 비스크립트 읽기 전용 속성입니다. <code>ViewportPosition</code> 입력 액션에 사용됩니다.",
+    "documentation": "디버깅에 유용한 비스크립트 읽기 전용 속성입니다. <code>ViewportPosition</code> 입력 동작에 대해.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
     "code_sample": ""
   },
@@ -106460,6 +106563,26 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#SubtractNode",
     "code_sample": ""
   },
+  "@roblox/enum/AnimationNodeType.OneShotNode": {
+    "documentation": "트리거 시 루프 기본 포즈 위에 원샷 포즈를 재생하는 레이어링 노드로, 이를 혼합하여 다시 원래 상태로 돌아갑니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#OneShotNode",
+    "code_sample": ""
+  },
+  "@roblox/enum/AnimationNodeType.StateMachineNode": {
+    "documentation": "상태 머신 정의에 따라 애니메이션 상태를 선택하고 전환하는 노드입니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#StateMachineNode",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.AnimationNodeType": {
     "documentation": "애니메이션 그래프 노드의 유형을 지정하여 애니메이션 데이터를 처리하거나 결합하는 방식을 결정합니다.",
     "keys": {
@@ -106476,7 +106599,9 @@
       "SelectNode": "@roblox/enum/AnimationNodeType.SelectNode",
       "SequenceNode": "@roblox/enum/AnimationNodeType.SequenceNode",
       "SpeedNode": "@roblox/enum/AnimationNodeType.SpeedNode",
-      "SubtractNode": "@roblox/enum/AnimationNodeType.SubtractNode"
+      "SubtractNode": "@roblox/enum/AnimationNodeType.SubtractNode",
+      "OneShotNode": "@roblox/enum/AnimationNodeType.OneShotNode",
+      "StateMachineNode": "@roblox/enum/AnimationNodeType.StateMachineNode"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType",
     "code_sample": ""
@@ -106890,6 +107015,46 @@
       "Always": "@roblox/enum/AssetTypeVerification.Always"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AssetTypeVerification",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.New": {
+    "documentation": "The player is playing the experience for the first time.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.Returning": {
+    "documentation": "The player has played the experience before.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#Returning",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.UserNewReturningStatus": {
+    "documentation": "Describes whether a player is new to the current experience or has played it before.",
+    "keys": {
+      "Unknown": "@roblox/enum/UserNewReturningStatus.Unknown",
+      "New": "@roblox/enum/UserNewReturningStatus.New",
+      "Returning": "@roblox/enum/UserNewReturningStatus.Returning"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarSettingsScaleMode.PlayerChoice": {
@@ -107830,6 +107995,68 @@
       "PauseEventTriggered": "@roblox/enum/AdUIEventType.PauseEventTriggered"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AdUIEventType",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Inactive": {
+    "documentation": "The player did not play the experience in the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Inactive",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Low": {
+    "documentation": "The player played the experience on 1 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Low",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Medium": {
+    "documentation": "The player played the experience on 2 or 3 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Medium",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.High": {
+    "documentation": "The player played the experience on 4 to 7 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#High",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.EngagementLevel": {
+    "documentation": "Describes how many days a player played the current experience in the last 7 days, represented as a bucket.",
+    "keys": {
+      "Unknown": "@roblox/enum/EngagementLevel.Unknown",
+      "Inactive": "@roblox/enum/EngagementLevel.Inactive",
+      "Low": "@roblox/enum/EngagementLevel.Low",
+      "Medium": "@roblox/enum/EngagementLevel.Medium",
+      "High": "@roblox/enum/EngagementLevel.High"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel",
     "code_sample": ""
   },
   "@roblox/enum/StartCorner.TopLeft": {
@@ -112534,6 +112761,57 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PositionAlignmentMode",
     "code_sample": ""
   },
+  "@roblox/enum/FrustumStreamingMode.Default": {
+    "documentation": "Default behavior, currently equivalent to <code>Disabled</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Default",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Enabled": {
+    "documentation": "Always stream camera view.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Disabled": {
+    "documentation": "Disable camera view streaming.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Automatic": {
+    "documentation": "Allow the engine to decide when to stream the camera view based client ability and gameplay factors.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Automatic",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.FrustumStreamingMode": {
+    "documentation": "Used with <code>Player.FrustumStreaming</code> to control the engine's instance streaming behavior for their camera view",
+    "keys": {
+      "Default": "@roblox/enum/FrustumStreamingMode.Default",
+      "Enabled": "@roblox/enum/FrustumStreamingMode.Enabled",
+      "Disabled": "@roblox/enum/FrustumStreamingMode.Disabled",
+      "Automatic": "@roblox/enum/FrustumStreamingMode.Automatic"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode",
+    "code_sample": ""
+  },
   "@roblox/enum/AssetCreatorType.User": {
     "documentation": "자산이 개인 사용자에 의해 소유되고 있습니다; 동반하는 생성자 ID는 사용자 ID입니다.",
     "keys": {
@@ -113645,7 +113923,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ImageCombineType.Add": {
-    "documentation": "소스의 픽셀과 목적지의 픽셀을 더합니다.",
+    "documentation": "소스의 픽셀과 대상의 픽셀을 함께 추가합니다. 소스 RGB 값은 소스 알파에 의해 스케일링되며, 소스 알파는 대상 알파에 직접 추가됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113685,7 +113963,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ImageCombineType.Subtract": {
-    "documentation": "목적지의 픽셀에서 소스의 픽셀을 뺍니다.",
+    "documentation": "대상의 픽셀에서 소스의 픽셀을 뺍니다. 소스 RGB 값은 소스 알파에 의해 스케일링되며, 소스 알파는 대상 알파에서 직접 빼집니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116152,6 +116430,134 @@
       "High": "@roblox/enum/VerifiedLevel.High"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VerifiedLevel",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.PendingAttribution": {
+    "documentation": "The player started playing recently, and their acquisition source is not available yet.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#PendingAttribution",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.HomeRecommendation": {
+    "documentation": "The player first joined from a recommendation on the Home page.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#HomeRecommendation",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.ContinueToPlay": {
+    "documentation": "The player first joined from the Continue section.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#ContinueToPlay",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Curation": {
+    "documentation": "The player first joined from content curated by Roblox, such as featured experiences or events.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Curation",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Friends": {
+    "documentation": "The player first joined through a friend.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Friends",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Search": {
+    "documentation": "The player first joined from search results.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Search",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Teleport": {
+    "documentation": "The player first joined by teleporting from another experience.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Teleport",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Ads": {
+    "documentation": "The player first joined from an ad, such as a sponsored ad, search ad, or portal ad.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Ads",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.HomeOther": {
+    "documentation": "The player first joined from a part of the Roblox app other than Home recommendations, such as Charts or Favorites.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#HomeOther",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Other": {
+    "documentation": "The player first joined from another source, such as a share link, chat, or a notification.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Other",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.UserAcquisitionSource": {
+    "documentation": "Describes how a player first found the current experience.",
+    "keys": {
+      "Unknown": "@roblox/enum/UserAcquisitionSource.Unknown",
+      "PendingAttribution": "@roblox/enum/UserAcquisitionSource.PendingAttribution",
+      "HomeRecommendation": "@roblox/enum/UserAcquisitionSource.HomeRecommendation",
+      "ContinueToPlay": "@roblox/enum/UserAcquisitionSource.ContinueToPlay",
+      "Curation": "@roblox/enum/UserAcquisitionSource.Curation",
+      "Friends": "@roblox/enum/UserAcquisitionSource.Friends",
+      "Search": "@roblox/enum/UserAcquisitionSource.Search",
+      "Teleport": "@roblox/enum/UserAcquisitionSource.Teleport",
+      "Ads": "@roblox/enum/UserAcquisitionSource.Ads",
+      "HomeOther": "@roblox/enum/UserAcquisitionSource.HomeOther",
+      "Other": "@roblox/enum/UserAcquisitionSource.Other"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource",
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnCreatingChatWindow": {
@@ -121756,7 +122162,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Over": {
-    "documentation": "Composites the one-shot pose on top of the base pose, replacing it by the current blend weight.",
+    "documentation": "현재 혼합 가중치로 기본 포즈 위에 단일 포즈를 합성하여 대체합니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121766,7 +122172,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Add": {
-    "documentation": "Adds the one-shot pose to the base pose as an additive layer scaled by the current blend weight.",
+    "documentation": "현재 혼합 가중치로 스케일된 추가 레이어로 기본 포즈에 단일 포즈를 추가합니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121776,7 +122182,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Subtract": {
-    "documentation": "Subtracts the one-shot pose from the base pose scaled by the current blend weight.",
+    "documentation": "현재 혼합 가중치로 스케일된 기본 포즈에서 단일 포즈를 뺍니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121786,7 +122192,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnimationNodeBlendMode": {
-    "documentation": "Specifies how an <code>AnimationNodeType.OneShotNode</code> combines its one-shot pose with its base pose.",
+    "documentation": "<code>AnimationNodeType.OneShotNode</code>가 단일 포즈를 기본 포즈와 결합하는 방법을 지정합니다.",
     "keys": {
       "Over": "@roblox/enum/AnimationNodeBlendMode.Over",
       "Add": "@roblox/enum/AnimationNodeBlendMode.Add",
@@ -136223,6 +136629,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SafeAreaCompatibility",
     "code_sample": ""
   },
+  "@roblox/enum/PlayerPlatformActivationStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.New": {
+    "documentation": "The player signed up for Roblox within the last 60 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Active": {
+    "documentation": "The player played on Roblox in the last 60 days and is not <code>New</code> or <code>Reactivated</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Lapsed": {
+    "documentation": "The player has not played on Roblox in the last 60 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Lapsed",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Reactivated": {
+    "documentation": "The player returned to Roblox within the last 60 days after being <code>Lapsed</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Reactivated",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PlayerPlatformActivationStatus": {
+    "documentation": "Describes whether a player is new, active, lapsed, or reactivated on Roblox.",
+    "keys": {
+      "Unknown": "@roblox/enum/PlayerPlatformActivationStatus.Unknown",
+      "New": "@roblox/enum/PlayerPlatformActivationStatus.New",
+      "Active": "@roblox/enum/PlayerPlatformActivationStatus.Active",
+      "Lapsed": "@roblox/enum/PlayerPlatformActivationStatus.Lapsed",
+      "Reactivated": "@roblox/enum/PlayerPlatformActivationStatus.Reactivated"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus",
+    "code_sample": ""
+  },
   "@roblox/enum/ModelLevelOfDetail.Automatic": {
     "documentation": "기본 동작으로, 현재 <code>Disabled</code>와 동일합니다.",
     "keys": {
@@ -139594,6 +140062,68 @@
       "MicroGamepad": "@roblox/enum/PreferredInput.MicroGamepad"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PreferredInput",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.New": {
+    "documentation": "The player first played the experience within the last 30 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Active": {
+    "documentation": "The player played the experience in the last 30 days and is not <code>New</code> or <code>Reactivated</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Lapsed": {
+    "documentation": "The player has not played the experience in the last 30 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Lapsed",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Reactivated": {
+    "documentation": "The player returned to the experience within the last 30 days after being <code>Lapsed</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Reactivated",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ExperienceActivationStatus": {
+    "documentation": "Describes whether a player is new, active, lapsed, or reactivated in the current experience.",
+    "keys": {
+      "Unknown": "@roblox/enum/ExperienceActivationStatus.Unknown",
+      "New": "@roblox/enum/ExperienceActivationStatus.New",
+      "Active": "@roblox/enum/ExperienceActivationStatus.Active",
+      "Lapsed": "@roblox/enum/ExperienceActivationStatus.Lapsed",
+      "Reactivated": "@roblox/enum/ExperienceActivationStatus.Reactivated"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarItemType.Asset": {

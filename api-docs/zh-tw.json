@@ -2213,7 +2213,7 @@
     "code_sample": ""
   },
   "@roblox/global/InstanceHandle": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally.",
+    "documentation": "一個輕量級的弱引用，指向可能在本地不可用的 <code>Instance</code>。",
     "keys": {
       "new": "@roblox/global/InstanceHandle.new"
     },
@@ -2221,10 +2221,10 @@
     "code_sample": ""
   },
   "@roblox/global/InstanceHandle.new/param/0": {
-    "documentation": "The instance to refer to, or <code>nil</code> for an empty handle."
+    "documentation": "要引用的實例，或 <code>nil</code> 以獲得空句柄。"
   },
   "@roblox/global/InstanceHandle.new": {
-    "documentation": "Returns a new <code>InstanceHandle</code> referring to the given <code>Instance</code>.",
+    "documentation": "返回一個新的 <code>InstanceHandle</code>，指向給定的 <code>Instance</code>。",
     "params": [
       {
         "name": "instance",
@@ -2236,7 +2236,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally.",
+    "documentation": "一個輕量級的弱引用，指向可能在本地不可用的 <code>Instance</code>。",
     "keys": {
       "Get": "@roblox/globaltype/InstanceHandle.Get",
       "Wait": "@roblox/globaltype/InstanceHandle.Wait"
@@ -2245,13 +2245,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle.Get/param/0": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally."
+    "documentation": "一個輕量級的弱引用，指向可能在本地不可用的 <code>Instance</code>。"
   },
   "@roblox/globaltype/InstanceHandle.Get/return/0": {
-    "documentation": "The referenced instance, or <code>nil</code> if it isn't available locally."
+    "documentation": "引用的實例，或如果在本地不可用則返回 <code>nil</code>。"
   },
   "@roblox/globaltype/InstanceHandle.Get": {
-    "documentation": "Returns the referenced <code>Instance</code> if it's available locally, otherwise <code>nil</code>.",
+    "documentation": "如果引用的 <code>Instance</code> 在本地可用，則返回該實例，否則返回 <code>nil</code>。",
     "params": [
       {
         "name": "self",
@@ -2265,16 +2265,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle.Wait/param/0": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally."
+    "documentation": "一個輕量級的弱引用，指向可能在本地不可用的 <code>Instance</code>。"
   },
   "@roblox/globaltype/InstanceHandle.Wait/param/1": {
-    "documentation": "How long to wait, in seconds. Must be greater than zero. Waits indefinitely when omitted."
+    "documentation": "等待的時間，以秒為單位。必須大於零。省略時將無限期等待。"
   },
   "@roblox/globaltype/InstanceHandle.Wait/return/0": {
-    "documentation": "The referenced instance, or <code>nil</code> if the handle is empty, the target is inaccessible to the calling script, or <code>timeout</code> elapses first."
+    "documentation": "引用的實例，或如果句柄為空、目標對調用腳本不可訪問，或 <code>timeout</code> 首先到期，則返回 <code>nil</code>。"
   },
   "@roblox/globaltype/InstanceHandle.Wait": {
-    "documentation": "Yields until the referenced <code>Instance</code> is available locally, then returns it.",
+    "documentation": "在引用的 <code>Instance</code> 在本地可用之前暫停，然後返回它。",
     "params": [
       {
         "name": "self",
@@ -7030,12 +7030,10 @@
       "Fail": "@roblox/globaltype/TestService.Fail",
       "isFeatureEnabled": "@roblox/globaltype/TestService.isFeatureEnabled",
       "Message": "@roblox/globaltype/TestService.Message",
-      "RegisterTest": "@roblox/globaltype/TestService.RegisterTest",
       "Require": "@roblox/globaltype/TestService.Require",
       "Run": "@roblox/globaltype/TestService.Run",
       "RunAsync": "@roblox/globaltype/TestService.RunAsync",
       "ScopeTime": "@roblox/globaltype/TestService.ScopeTime",
-      "TakeSnapshot": "@roblox/globaltype/TestService.TakeSnapshot",
       "Warn": "@roblox/globaltype/TestService.Warn"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService",
@@ -7335,50 +7333,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Message",
     "code_sample": "local TestService = game:GetService(\"TestService\")\n\n\n    TestService:Message(\"範例\")"
   },
-  "@roblox/globaltype/TestService.RegisterTest/param/0": {
-    "documentation": "一個由 Roblox 用於運行引擎控制測試的服務。它對開發者可用，程度有限。"
-  },
-  "@roblox/globaltype/TestService.RegisterTest/param/1": {
-    "documentation": "描述測試的字典，要求字符串字段 <code>SuiteName</code> 和 <code>TestCaseName</code>，並可選擇數字 <code>Timeout</code> 字段。"
-  },
-  "@roblox/globaltype/TestService.RegisterTest/return/0": {
-    "documentation": "已註冊的 <code>TestCase</code>，或在當前上下文中不支持註冊時無值。"
-  },
-  "@roblox/globaltype/TestService.RegisterTest": {
-    "documentation": "向服務註冊測試用例並返回結果 <code>TestCase</code>。",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TestService.RegisterTest/param/0"
-      },
-      {
-        "name": "testOptions",
-        "documentation": "@roblox/globaltype/TestService.RegisterTest/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TestService.RegisterTest/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#RegisterTest",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TestService.Require/param/0": {
     "documentation": "一個由 Roblox 用於運行引擎控制測試的服務。它對開發者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.Require/param/1": {
-    "documentation": "要評估的布林表達式作為必需的斷言。"
+    "documentation": "要評估為必要斷言的布林表達式。"
   },
   "@roblox/globaltype/TestService.Require/param/2": {
     "documentation": "在測試輸出中識別此要求的標籤。"
   },
   "@roblox/globaltype/TestService.Require/param/3": {
-    "documentation": "調用要求的腳本實例，用於輸出歸屬。默認為 <code>nil</code>。"
+    "documentation": "調用該要求的腳本實例，用於輸出 歸屬。默認為 <code>nil</code>。"
   },
   "@roblox/globaltype/TestService.Require/param/4": {
-    "documentation": "在源腳本中調用要求的行號。默認為 <code>0</code>。"
+    "documentation": "在源腳本中調用該要求的行號。 默認為 <code>0</code>。"
   },
   "@roblox/globaltype/TestService.Require": {
-    "documentation": "打印條件是否為真以及描述字符串。",
+    "documentation": "列印條件是否為真以及描述字串。",
     "params": [
       {
         "name": "self",
@@ -7439,10 +7410,10 @@
     "documentation": "一個由 Roblox 用於運行引擎控制測試的服務。它對開發者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.ScopeTime/return/0": {
-    "documentation": "將物理模擬範圍映射到其測量的步驟時間的字典。"
+    "documentation": "一個字典，將物理模擬範圍映射到其測量的步驟 時間。"
   },
   "@roblox/globaltype/TestService.ScopeTime": {
-    "documentation": "返回每個範圍的物理模擬時間字典，用於性能測試。",
+    "documentation": "返回每個範圍的物理模擬時間字典，用於 性能測試。",
     "params": [
       {
         "name": "self",
@@ -7455,52 +7426,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ScopeTime",
     "code_sample": ""
   },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/0": {
-    "documentation": "一個由 Roblox 用於運行引擎控制測試的服務。它對開發者可用，程度有限。"
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
-    "documentation": "與捕獲的快照關聯的名稱。"
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/2": {
-    "documentation": "可選的腳本實例，其 <code>Suite</code> 和 <code>TestName</code> 屬性命名快照；默認為 <code>nil</code>。"
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot": {
-    "documentation": "在測試運行期間捕獲命名的截圖快照。",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/0"
-      },
-      {
-        "name": "snapshotname",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/1"
-      },
-      {
-        "name": "source",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#TakeSnapshot",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TestService.Warn/param/0": {
     "documentation": "一個由 Roblox 用於運行引擎控制測試的服務。它對開發者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.Warn/param/1": {
-    "documentation": "要評估的布林表達式作為警告斷言。"
+    "documentation": "要評估為警告斷言的布林表達式。"
   },
   "@roblox/globaltype/TestService.Warn/param/2": {
     "documentation": "在測試輸出中識別此警告檢查的標籤。"
   },
   "@roblox/globaltype/TestService.Warn/param/3": {
-    "documentation": "調用警告的腳本實例，用於輸出歸屬。默認為 <code>nil</code>。"
+    "documentation": "調用該警告的腳本實例，用於輸出 歸屬。默認為 <code>nil</code>。"
   },
   "@roblox/globaltype/TestService.Warn/param/4": {
-    "documentation": "在源腳本中調用警告的行號。默認為 <code>0</code>。"
+    "documentation": "在源腳本中調用該警告的行號。 默認為 <code>0</code>。"
   },
   "@roblox/globaltype/TestService.Warn": {
-    "documentation": "打印條件是否為 <code>true</code>，否則打印警告。",
+    "documentation": "如果條件為 <code>true</code>，則列印，否則列印警告。",
     "params": [
       {
         "name": "self",
@@ -14660,7 +14602,7 @@
     "documentation": "要綁定到關閉按鈕的函數。如果未指定函數，則任何先前指定的函數將被解除綁定。"
   },
   "@roblox/globaltype/PluginGui.BindToClose": {
-    "documentation": "將函數綁定到 <code>PluginGui</code> 關閉按鈕，覆蓋默認行為。",
+    "documentation": "綁定一個在用戶關閉 <code>PluginGui</code> 時運行的函數。",
     "params": [
       {
         "name": "self",
@@ -37441,7 +37383,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting": {
-    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，可以用來改變光照的外觀和與其他物體的交互。",
+    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，您可以使用這些屬性來改變光照的外觀及其與其他物體的互動。",
     "keys": {
       "Ambient": "@roblox/globaltype/Lighting.Ambient",
       "Brightness": "@roblox/globaltype/Lighting.Brightness",
@@ -37477,27 +37419,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Ambient": {
-    "documentation": "應用於從天空遮蔽的區域（例如室內區域）的光照色調。",
+    "documentation": "應用於被天空遮蔽區域（例如室內區域）的光照色調。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Ambient",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Brightness": {
-    "documentation": "該地方的照明強度。",
+    "documentation": "該地點的照明強度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Brightness",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ClockTime": {
-    "documentation": "用於 <code>Lighting</code> 的當前時間的數值表示（以小時為單位）。",
+    "documentation": "由 <code>Lighting</code> 使用的當前時間的數字表示（以小時為單位）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ClockTime",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Bottom": {
-    "documentation": "光線在面對太陽或月亮的相對表面上反射的色調。",
+    "documentation": "在面對太陽或月亮的相對表面上反射的光的色調。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Bottom",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Top": {
-    "documentation": "從面對太陽或月亮的表面反射的光線色調。",
+    "documentation": "從面對太陽或月亮的表面反射的光的色調。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Top",
     "code_sample": ""
   },
@@ -37507,7 +37449,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.EnvironmentSpecularScale": {
-    "documentation": "來自環境的鏡面光。",
+    "documentation": "來自環境的高光。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#EnvironmentSpecularScale",
     "code_sample": ""
   },
@@ -37517,37 +37459,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ExtendLightRangeTo120": {
-    "documentation": "未使用。Light <code>Range</code> 始終限制在 120 studs。",
+    "documentation": "未使用。光 <code>Range</code> 始終限制為 120 studs。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ExtendLightRangeTo120",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogColor": {
-    "documentation": "給 <code>Lighting</code> 霧的色調的 <code>Color3</code> 值。",
+    "documentation": "給定 <code>Lighting</code> 霧的色調的 <code>Color3</code> 值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogEnd": {
-    "documentation": "從 <code>Workspace.CurrentCamera</code> 開始的深度，以 studs 為單位，在該深度霧將完全不透明。",
+    "documentation": "從 <code>Workspace.CurrentCamera</code> 的深度，以 studs 為單位，霧將完全不透明。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogEnd",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogStart": {
-    "documentation": "從 <code>Workspace.CurrentCamera</code> 開始的深度，以 studs 為單位，在該深度霧開始顯示。",
+    "documentation": "從 <code>Workspace.CurrentCamera</code> 的深度，以 studs 為單位，霧開始顯示。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogStart",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GeographicLatitude": {
-    "documentation": "該場景的地理緯度（以度為單位），影響 <code>Lighting</code> 時間對太陽和月亮位置的影響。",
+    "documentation": "場景的地理緯度（以度為單位），影響 <code>Lighting</code> 時間對太陽和月亮位置的結果。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#GeographicLatitude",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GlobalShadows": {
-    "documentation": "切換地方的基於體素的動態光照。",
+    "documentation": "切換場景中的基於體素的動態光照。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#GlobalShadows",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.LightingStyle": {
-    "documentation": "體驗中光照背後的藝術意圖。",
+    "documentation": "體驗中光照的藝術意圖。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#LightingStyle",
     "code_sample": ""
   },
@@ -37557,17 +37499,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Outlines": {
-    "documentation": "<strong>Deprecated:</strong> 此項目不再受支持，因為輪廓功能已從 Roblox 平台中移除。<br>確定地方中是否啟用或禁用輪廓。",
+    "documentation": "<strong>Deprecated:</strong> 此項目不再受支持，因為輪廓功能已從 Roblox 平台中移除。<br>決定在場景中是否啟用或禁用輪廓。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Outlines",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.PrioritizeLightingQuality": {
-    "documentation": "表示您是否更偏好燈光/陰影質量或視距優先縮小。",
+    "documentation": "指示您更喜歡光照/陰影質量還是視距優先縮小。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#PrioritizeLightingQuality",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ShadowColor": {
-    "documentation": "<strong>Deprecated:</strong> 此項目已棄用，並且目前沒有功能。請勿在新的工作中使用它。<br>這應該用來改變玩家陰影的顏色，但目前不會有任何效果。",
+    "documentation": "<strong>Deprecated:</strong> 此項目已被棄用，並且目前沒有功能。請勿在新工作中使用它。<br>這應該改變玩家陰影的顏色，但目前沒有任何作用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ShadowColor",
     "code_sample": ""
   },
@@ -37577,23 +37519,23 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Technology": {
-    "documentation": "確定渲染 3D 世界的光照系統。不可腳本化。",
+    "documentation": "決定用於渲染 3D 世界的光照系統。不可腳本化。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Technology",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.TimeOfDay": {
-    "documentation": "用於 <code>Lighting</code> 的當前時間的 24 小時字符串表示。",
+    "documentation": "由 <code>Lighting</code> 使用的當前時間的 24 小時字符串表示。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#TimeOfDay",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight/param/0": {
-    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，可以用來改變光照的外觀和與其他物體的交互。"
+    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，您可以使用這些屬性來改變光照的外觀及其與其他物體的互動。"
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight/return/0": {
     "documentation": "午夜後的分鐘數。"
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight": {
-    "documentation": "返回午夜後已經過的分鐘數，用於光照的目的。",
+    "documentation": "返回午夜後經過的分鐘數，用於光照目的。",
     "params": [
       {
         "name": "self",
@@ -37607,13 +37549,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight/param/0": {
-    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，可以用來改變光照的外觀和與其他物體的交互。"
+    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，您可以使用這些屬性來改變光照的外觀及其與其他物體的互動。"
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> 這個方法是<code>Lighting:GetMinutesAfterMidnight()</code>的已棄用變體，應使用該方法。",
+    "documentation": "<strong>Deprecated:</strong> 此方法是 <code>Lighting:GetMinutesAfterMidnight()</code> 的棄用變體，應該使用該方法。",
     "params": [
       {
         "name": "self",
@@ -37627,13 +37569,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMoonDirection/param/0": {
-    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，可以用來改變光照的外觀和與其他物體的交互。"
+    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，您可以使用這些屬性來改變光照的外觀及其與其他物體的互動。"
   },
   "@roblox/globaltype/Lighting.GetMoonDirection/return/0": {
-    "documentation": "<code>Vector3</code>表示月亮的方向。"
+    "documentation": "<code>Vector3</code> 表示月亮的方向。"
   },
   "@roblox/globaltype/Lighting.GetMoonDirection": {
-    "documentation": "返回一個<code>Vector3</code>，表示月亮的方向。",
+    "documentation": "返回表示月亮方向的 <code>Vector3</code>。",
     "params": [
       {
         "name": "self",
@@ -37647,7 +37589,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMoonPhase/param/0": {
-    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，可以用來改變光照的外觀和與其他物體的交互。"
+    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，您可以使用這些屬性來改變光照的外觀及其與其他物體的互動。"
   },
   "@roblox/globaltype/Lighting.GetMoonPhase/return/0": {
     "documentation": ""
@@ -37667,13 +37609,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetSunDirection/param/0": {
-    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，可以用來改變光照的外觀和與其他物體的交互。"
+    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，您可以使用這些屬性來改變光照的外觀及其與其他物體的互動。"
   },
   "@roblox/globaltype/Lighting.GetSunDirection/return/0": {
-    "documentation": "<code>Vector3</code>表示太陽的方向。"
+    "documentation": "<code>Vector3</code> 表示太陽的方向。"
   },
   "@roblox/globaltype/Lighting.GetSunDirection": {
-    "documentation": "返回一個<code>Vector3</code>，表示太陽的方向。",
+    "documentation": "返回表示太陽方向的 <code>Vector3</code>。",
     "params": [
       {
         "name": "self",
@@ -37687,13 +37629,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight/param/0": {
-    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，可以用來改變光照的外觀和與其他物體的交互。"
+    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，您可以使用這些屬性來改變光照的外觀及其與其他物體的互動。"
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight/param/1": {
-    "documentation": "午夜之後的分鐘數。"
+    "documentation": "午夜後的分鐘數。"
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight": {
-    "documentation": "將<code>TimeOfDay</code>和<code>ClockTime</code>設置為午夜之後的給定分鐘數。",
+    "documentation": "將 <code>TimeOfDay</code> 和 <code>ClockTime</code> 設置為給定的午夜後分鐘數。",
     "params": [
       {
         "name": "self",
@@ -37709,7 +37651,7 @@
     "code_sample": "local Lighting = game:GetService(\"Lighting\")\n\nlocal TIME_SPEED = 60  -- 1 分鐘 = 1 小時\nlocal START_TIME = 9  -- 早上 9 點\n\nlocal minutesAfterMidnight = START_TIME * 60\nlocal waitTime = 60 / TIME_SPEED\n\nwhile true do\n\tminutesAfterMidnight = minutesAfterMidnight + 1\n\n\tLighting:SetMinutesAfterMidnight(minutesAfterMidnight)\n\n\ttask.wait(waitTime)\nend"
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/0": {
-    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，可以用來改變光照的外觀和與其他物體的交互。"
+    "documentation": "<code>Lighting</code> 服務控制體驗中的全局光照。它包括一系列可調整的屬性，您可以使用這些屬性來改變光照的外觀及其與其他物體的互動。"
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/1": {
     "documentation": ""
@@ -37808,7 +37750,7 @@
     "returns": []
   },
   "@roblox/globaltype/Lighting.LightingChanged": {
-    "documentation": "當 <code>Lighting</code> 權屬性被更改或 <code>Sky</code> 被添加或從 <code>Lighting</code> 移除時，將觸發此事件。",
+    "documentation": "當 <code>Lighting</code> 屬性更改或 <code>Sky</code> 被添加或移除時，觸發此事件。",
     "keys": {
       "Connect": "@roblox/globaltype/Lighting.LightingChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Lighting.LightingChanged.ConnectParallel",
@@ -38085,7 +38027,7 @@
     "documentation": "允許在運行時創建和操作圖像的對象。"
   },
   "@roblox/globaltype/EditableImage.Destroy": {
-    "documentation": "銷毀圖像內容並立即回收它們使用的內存。",
+    "documentation": "銷毀圖像內容並立即回收它們使用的記憶體。",
     "params": [
       {
         "name": "self",
@@ -38100,25 +38042,25 @@
     "documentation": "允許在運行時創建和操作圖像的對象。"
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/1": {
-    "documentation": "圓心，相對於 <code>EditableImage</code> 的左上角。允許超出畫布邊界的 位置。"
+    "documentation": "圓心，相對於 <code>EditableImage</code> 的左上角。允許在畫布邊界之外的位置。"
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/2": {
-    "documentation": "圓的半徑，以像素為單位。"
+    "documentation": "圓形的半徑（以像素為單位）。"
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/3": {
-    "documentation": "圓的顏色。"
+    "documentation": "圓形的顏色。"
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/4": {
-    "documentation": "圓的透明度，0 代表完全不透明，1 代表完全透明。"
+    "documentation": "圓形的透明度，0 為完全不透明，1 為完全透明。"
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/5": {
-    "documentation": "繪製的像素（來源）如何與此圖像（目標）現有的像素結合。"
+    "documentation": "繪製的像素（源）如何與此圖像的現有像素（目標）結合。"
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/6": {
-    "documentation": "決定是否將抗鋸齒應用於圓形。當設置為 <code>AntiAliasing.Enabled</code> 時，圓的邊緣是柔和的。當設置為 <code>AntiAliasing.Disabled</code> 時，圓的邊緣是硬的。"
+    "documentation": "確定是否對圓形應用抗鋸齒。設置為 <code>AntiAliasing.Enabled</code> 時，圓形邊緣是柔和的。設置為 <code>AntiAliasing.Disabled</code> 時，圓形邊緣是硬的。"
   },
   "@roblox/globaltype/EditableImage.DrawCircle": {
-    "documentation": "在指定位置畫一個圓圈。",
+    "documentation": "在指定點繪製圓形。",
     "params": [
       {
         "name": "self",
@@ -38157,16 +38099,16 @@
     "documentation": "允許在運行時創建和操作圖像的對象。"
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/1": {
-    "documentation": "來源圖像的左上角將繪製的位置。"
+    "documentation": "源圖像的左上角將被繪製的位置。"
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/2": {
-    "documentation": "要繪製到此 <code>EditableImage</code> 中的來源 <code>EditableImage</code>。"
+    "documentation": "要繪製到此 <code>EditableImage</code> 的源 <code>EditableImage</code>。"
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/3": {
-    "documentation": "來源圖像的像素如何與此圖像（目標）現有的像素結合。"
+    "documentation": "源圖像的像素如何與此圖像的現有像素（目標）結合。"
   },
   "@roblox/globaltype/EditableImage.DrawImage": {
-    "documentation": "在給定位置將另一個 <code>EditableImage</code> 畫入此 <code>EditableImage</code>。",
+    "documentation": "在給定位置將另一個 <code>EditableImage</code> 繪製到此 <code>EditableImage</code> 中。",
     "params": [
       {
         "name": "self",
@@ -38193,16 +38135,16 @@
     "documentation": "允許在運行時創建和操作圖像的對象。"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/1": {
-    "documentation": "用於投射的 <code>EditableMesh</code>。"
+    "documentation": "用於投影的 <code>EditableMesh</code>。"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/2": {
-    "documentation": "投影配置字典，包括以下鍵值對： <ul> <li><code>Direction</code> (<code>Vector3</code>) 表示投影器的方向。</li> <li><code>Position</code> (<code>Vector3</code>) 表示相對於網格的本地空間位置。</li> <li><code>Size</code> (<code>Vector3</code>) 表示投影器的大小。</li> <li><code>Up</code> (<code>Vector3</code>) 作為投影器在網格的本地空間的上向量。</li> </ul>"
+    "documentation": "投影配置字典，包括以下鍵值對： <ul> <li><code>Direction</code> (<code>Vector3</code>) 投影儀面向的方向。</li> <li><code>Position</code> (<code>Vector3</code>) 在本地空間中的位置，與網格相關。</li> <li><code>Size</code> (<code>Vector3</code>) 投影儀的大小。</li> <li><code>Up</code> (<code>Vector3</code>) 投影儀在本地空間中的上向量，與網格相關。</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/3": {
-    "documentation": "刷子配置字典，包括以下鍵值對： <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) 確定此   投影如何混合 alpha 值。</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) 確定此   投影如何混合顏色值。</li> <li><code>Decal</code> (<code>EditableImage</code>) 作為用於投影的圖像。</li> <li><code>FadeAngle</code>（數字）表示投影邊緣開始漸變的角度（以度為單位）。   投影在 90 度時完全消失。0 意味著漸變從0度處立刻開始，90度則意味着沒有漸變而是   在90度時形成硬邊。70度的角度意味着投影   在70度開始漸變並在90度時完全消失。</li> <li><code>BlendIntensity</code>（數字）為0到1之間的值，   控制投影在結果圖像中混合的程度。</li> </ul>"
+    "documentation": "畫筆配置字典，包括以下鍵值對： <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) 確定此投影如何混合 alpha 值。</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) 確定此投影如何混合顏色值。</li> <li><code>Decal</code> (<code>EditableImage</code>) 用於投影的圖像。</li> <li><code>FadeAngle</code>（數字）作為投影邊緣開始衰減的角度（以度為單位）。投影在 90 度時完全消失。0 的角度意味著衰減立即在 0 度開始，90 的角度意味著沒有衰減，而是在 90 度時有一個硬邊緣。70 度的角度意味著投影在 70 度時開始衰減，並在 90 度時完全消失。</li> <li><code>BlendIntensity</code>（數字）作為 <code>0</code> 和 <code>1</code> 之間的值，控制投影混合到結果圖像中的程度。</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected": {
-    "documentation": "將另一個 <code>EditableImage</code> 投射到 <code>EditableMesh</code> 並將結果存儲 在此 <code>EditableImage</code> 上。",
+    "documentation": "將另一個 <code>EditableImage</code> 投影到 <code>EditableMesh</code> 中，並將結果存儲在此 <code>EditableImage</code> 中。",
     "params": [
       {
         "name": "self",
@@ -38235,13 +38177,13 @@
     "documentation": "從中取樣像素的 <code>EditableImage</code>。"
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/3": {
-    "documentation": "投影配置字典，包含以下鍵值對： <ul> <li><code>Direction</code> (<code>Vector3</code>) 投影儀面向的方向。</li> <li><code>Position</code> (<code>Vector3</code>) 投影儀在相對於網格的本地空間中的位置。</li> <li><code>Size</code> (<code>Vector3</code>) 投影儀的大小。<strong>X</strong> 和 <strong>Y</strong> 分量指定其尺寸，而 <strong>Z</strong> 分量指定投影深度。</li> <li><code>Up</code> (<code>Vector3</code>) 投影儀在相對於網格的本地空間中的上向量。</li> </ul>"
+    "documentation": "投影配置字典，包含以下鍵值對： <ul> <li><code>Direction</code> (<code>Vector3</code>) 投影儀面向的方向。</li> <li><code>Position</code> (<code>Vector3</code>) 作為投影儀在本地空間中的位置，與網格相關。</li> <li><code>Size</code> (<code>Vector3</code>) 作為投影儀的大小。<strong>X</strong> 和 <strong>Y</strong> 分量指定其尺寸，而 <strong>Z</strong> 分量指定投影深度。</li> <li><code>Up</code> (<code>Vector3</code>) 作為投影儀在本地空間中的上向量，與網格相關。</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/4": {
-    "documentation": "刷子配置字典，包含以下鍵值對： <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) 決定取樣的 alpha 值如何混合。</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) 決定取樣的顏色值如何混合。</li> <li><code>FadeAngle</code> (number) 以度為單位的角度，根據表面法線開始淡化投影。值為 <code>180</code> 時不應用法線角度淡化。</li> </ul>"
+    "documentation": "畫筆配置字典，包含以下鍵值對： <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) 確定取樣的 alpha 值如何混合。</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) 確定取樣的顏色值如何混合。</li> <li><code>FadeAngle</code>（數字）作為基於表面法線的投影開始衰減的角度。值為 <code>180</code> 時不應用法線角度衰減。</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected": {
-    "documentation": "將像素從 <code>EditableMesh</code> 紋理投影到這個 <code>EditableImage</code>。",
+    "documentation": "將 <code>EditableMesh</code> 紋理中的像素投影到此 <code>EditableImage</code> 中。",
     "params": [
       {
         "name": "self",
@@ -38272,22 +38214,22 @@
     "documentation": "允許在運行時創建和操作圖像的對象。"
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/1": {
-    "documentation": "以像素為單位的樞紐點位置，源圖像將放置在此圖像上。"
+    "documentation": "以像素為單位的源圖像樞紐點在此圖像上的位置。"
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/2": {
     "documentation": "源圖像在 X 和 Y 軸上的縮放因子。"
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/3": {
-    "documentation": "圍繞源圖像的樞紐點應用的旋轉角度（以度為單位）。"
+    "documentation": "圍繞源圖像樞紐點應用的旋轉角度（以度為單位）。"
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/4": {
-    "documentation": "要繪製到此圖像中的源 <code>EditableImage</code>。"
+    "documentation": "要繪製到此圖像的源 <code>EditableImage</code>。"
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/5": {
     "documentation": "可選字典以進行額外配置： <ul> <li><code>CombineType</code>：指定源圖像的像素如何與目標的像素混合。默認為 <code>ImageCombineType.AlphaBlend</code>。</li> <li><code>SamplingMode</code>：指定取樣方法（例如，<code>Default</code> 用於雙線性或 <code>Pixelated</code> 用於最近鄰）。默認為 <code>ResamplerMode.Default</code>。</li> <li><code>PivotPoint</code>：指定源圖像內的樞紐點，用於縮放和旋轉。默認為源圖像的中心（即 <code>Size / 2</code>）。</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed": {
-    "documentation": "將圖像繪製到這個 <code>EditableImage</code> 中，並進行縮放和旋轉等變換，將其放置在指定位置。",
+    "documentation": "將圖像繪製到此 <code>EditableImage</code> 中，並進行縮放和旋轉等變換，將其放置在指定位置。",
     "params": [
       {
         "name": "self",
@@ -38334,10 +38276,10 @@
     "documentation": "線的透明度。"
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/5": {
-    "documentation": "繪製的像素（來源）如何與此圖像（目標）現有的像素結合。"
+    "documentation": "繪製的像素（源）如何與此圖像的現有像素（目標）結合。"
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/6": {
-    "documentation": "決定是否對線應用抗鋸齒。設置為 <code>AntiAliasing.Enabled</code> 時，線邊緣會變得柔和。設置為 <code>AntiAliasing.Disabled</code> 時，線邊緣會變得銳利。"
+    "documentation": "確定是否對線應用抗鋸齒。設置為 <code>AntiAliasing.Enabled</code> 時，線邊緣是柔和的。設置為 <code>AntiAliasing.Disabled</code> 時，線邊緣是硬的。"
   },
   "@roblox/globaltype/EditableImage.DrawLine": {
     "documentation": "在兩個提供的點之間繪製一條線。",
@@ -38382,7 +38324,7 @@
     "documentation": "矩形的左上角位置。與其他繪製方法不同，這不能超出 <code>EditableImage</code> 的畫布邊界。"
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/2": {
-    "documentation": "要繪製的矩形大小，以像素為單位。"
+    "documentation": "要繪製的矩形大小（以像素為單位）。"
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/3": {
     "documentation": "矩形的顏色。"
@@ -38394,7 +38336,7 @@
     "documentation": "繪製的像素（源）如何與此圖像的現有像素（目標）結合。"
   },
   "@roblox/globaltype/EditableImage.DrawRectangle": {
-    "documentation": "在給定的左上角位置繪製指定大小的矩形。",
+    "documentation": "在給定的左上位置繪製給定大小的矩形。",
     "params": [
       {
         "name": "self",
@@ -38463,13 +38405,13 @@
     "documentation": "允許在運行時創建和操作圖像的對象。"
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer/param/1": {
-    "documentation": "要繪製像素的矩形區域的左上角。"
+    "documentation": "要將像素繪製到的矩形區域的左上角。"
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer/param/2": {
     "documentation": "要寫入的矩形區域的大小。"
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer/param/3": {
-    "documentation": "一個緩衝區，其中每個像素由四個字節（分別為紅色、綠色、藍色和 alpha）表示。緩衝區的長度應為 <code>X * Size.Y * 4</code> 字節。"
+    "documentation": "緩衝區，其中每個像素由四個字節（分別為紅色、綠色、藍色和 alpha）表示。緩衝區的長度應為 <code>X * Size.Y * 4</code> 字節。"
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer": {
     "documentation": "將矩形區域的像素寫入圖像中。",
@@ -41475,6 +41417,7 @@
     "documentation": "抽象中介類別，管理 PartOperations 和 MeshParts 的物理幾何屬性。",
     "keys": {
       "CollisionFidelity": "@roblox/globaltype/TriangleMeshPart.CollisionFidelity",
+      "CollisionPrecision": "@roblox/globaltype/TriangleMeshPart.CollisionPrecision",
       "FluidFidelity": "@roblox/globaltype/TriangleMeshPart.FluidFidelity",
       "MeshSize": "@roblox/globaltype/TriangleMeshPart.MeshSize"
     },
@@ -41486,8 +41429,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#CollisionFidelity",
     "code_sample": ""
   },
+  "@roblox/globaltype/TriangleMeshPart.CollisionPrecision": {
+    "documentation": "量化 <code>CollisionFidelity.Tunable</code> 碰撞幾何的精確度或性能，範圍從 <code>0</code> 到 <code>1</code>。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#CollisionPrecision",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TriangleMeshPart.FluidFidelity": {
-    "documentation": "決定用於計算空氣動力學力和扭矩的幾何表示。",
+    "documentation": "確定用於計算空氣動力學力和扭矩的幾何表示。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#FluidFidelity",
     "code_sample": ""
   },
@@ -57073,7 +57021,9 @@
     "keys": {
       "Color": "@roblox/globaltype/WrapTarget.Color",
       "DebugMode": "@roblox/globaltype/WrapTarget.DebugMode",
-      "Stiffness": "@roblox/globaltype/WrapTarget.Stiffness"
+      "Stiffness": "@roblox/globaltype/WrapTarget.Stiffness",
+      "CreateTextureInCageSpaceAsync": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync",
+      "CreateTextureInTargetSpaceAsync": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget",
     "code_sample": ""
@@ -57091,6 +57041,74 @@
   "@roblox/globaltype/WrapTarget.Stiffness": {
     "documentation": "<strong>Deprecated:</strong> <br>定義身體網格可以被衣物壓縮的程度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#Stiffness",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/0": {
+    "documentation": "WrapTarget 物件定義了一個目標。目標是只有外部表面的 3D 體，或稱為外部圍籬。"
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/1": {
+    "documentation": "這個 <code>WrapTarget</code> 的父 <code>MeshPart</code> 中的 UV 空間中的 <code>EditableImage</code>。"
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/2": {
+    "documentation": "可選字典，包含轉移的控制項： <ul> <li><code>MinUVBounds</code> – 一個 <code>Vector2</code>，指定最小籠子 UV 邊界。</li> <li><code>MaxUVBounds</code> – 一個 <code>Vector2</code>，指定最大籠子 UV 邊界。</li> </ul> 每個省略的邊界都是從籠子網格計算得出的。如果兩者都未指定，則邊界包括整個籠子。"
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/return/0": {
+    "documentation": "在籠子 UV 空間中的一個新的 <code>EditableImage</code>，如果設備特定的可編輯內存預算耗盡則返回 <code>nil</code>。"
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync": {
+    "documentation": "從父 <code>MeshPart</code> 的 UV 空間中的紋理創建一個新的 <code>EditableImage</code> 在籠子 UV 空間中。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/0"
+      },
+      {
+        "name": "texture",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#CreateTextureInCageSpaceAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/0": {
+    "documentation": "WrapTarget 物件定義了一個目標。目標是只有外部表面的 3D 體，或稱為外部圍籬。"
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/1": {
+    "documentation": "在籠子 UV 空間中的 <code>EditableImage</code>。"
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/2": {
+    "documentation": "與這個 <code>WrapTarget</code> 具有相同父 <code>MeshPart</code> 的 <code>WrapTextureTransfer</code>。"
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/return/0": {
+    "documentation": "在父 <code>MeshPart</code> 的 UV 空間中的一個新的 <code>EditableImage</code>，如果設備特定的可編輯內存預算耗盡則返回 <code>nil</code>。"
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync": {
+    "documentation": "從籠子 UV 空間中的紋理創建一個新的 <code>EditableImage</code> 在父 <code>MeshPart</code> 的 UV 空間中。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/0"
+      },
+      {
+        "name": "texture",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/1"
+      },
+      {
+        "name": "wrapTextureTransfer",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#CreateTextureInTargetSpaceAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/EchoSoundEffect": {
@@ -61535,6 +61553,7 @@
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
       "CreateDataModelContentAsync": "@roblox/globaltype/AssetService.CreateDataModelContentAsync",
+      "CreateDecalAsync": "@roblox/globaltype/AssetService.CreateDecalAsync",
       "CreateEditableImage": "@roblox/globaltype/AssetService.CreateEditableImage",
       "CreateEditableImageAsync": "@roblox/globaltype/AssetService.CreateEditableImageAsync",
       "CreateEditableMesh": "@roblox/globaltype/AssetService.CreateEditableMesh",
@@ -61716,11 +61735,38 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateDataModelContentAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/param/0": {
+    "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/param/1": {
+    "documentation": "包含一個或多個以下鍵值對的字典。 每個值必須是包含 <code>EditableImage</code> 的 <code>Content</code> 對象： <ul> <li><code>TextureContent</code> — decal 的顏色紋理。</li> <li><code>NormalMapContent</code> — decal 的法線圖。</li> <li><code>MetalnessMapContent</code> — decal 的金屬度圖。</li> <li><code>RoughnessMapContent</code> — decal 的粗糙度圖。</li> </ul>"
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/return/0": {
+    "documentation": "一個新的 <code>Decal</code> 實例，包含來自 <code>content</code> 參數的地圖。"
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync": {
+    "documentation": "使用提供的 <code>EditableImage</code> 內容地圖創建一個新的 <code>Decal</code> 對象。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.CreateDecalAsync/param/0"
+      },
+      {
+        "name": "content",
+        "documentation": "@roblox/globaltype/AssetService.CreateDecalAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.CreateDecalAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateDecalAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/0": {
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/1": {
-    "documentation": "包含方法控制的選項表： <ul> <li><code>Size</code> – 一個 <code>Vector2</code>，指定圖像期望的   寬度和高度。</li> </ul>"
+    "documentation": "包含方法控制的選項表： <ul> <li><code>Size</code> – 一個 <code>Vector2</code>，指定圖像的期望寬度和高度。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/return/0": {
     "documentation": "新的 <code>EditableImage</code>，如果設備特定的可編輯內存預算耗盡則為 <code>nil</code>。"
@@ -61747,16 +61793,16 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/1": {
-    "documentation": "對外部存儲的資產內容或作為場所內對象的引用，包裹一個支持的 <code>ContentSourceType</code> 值中的單一值。"
+    "documentation": "對外部存儲的資產內容或作為場景內對象的引用，包裝一個支持的 <code>ContentSourceType</code> 值的單個值。"
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/2": {
-    "documentation": "包含創建的 <code>EditableImage</code> 的選項表。 當前沒有可用選項，因為通過 <code>Size</code> 不支持調整大小。"
+    "documentation": "包含為創建的 <code>EditableImage</code> 提供選項的表格。 目前沒有可用的選項，因為不支持通過 <code>Size</code> 進行調整大小。"
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/return/0": {
-    "documentation": "一個包含提供圖像的新 <code>EditableImage</code>。"
+    "documentation": "一個新的 <code>EditableImage</code>，包含提供的圖像。"
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync": {
-    "documentation": "創建一個填充指定圖像的新 <code>EditableImage</code> 對象。",
+    "documentation": "創建一個新的 <code>EditableImage</code> 對象，填充給定的圖像。",
     "params": [
       {
         "name": "self",
@@ -61781,7 +61827,7 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/param/1": {
-    "documentation": "包含創建的 <code>EditableMesh</code> 的選項表。 當前沒有可用選項，因為 <code>FixedSize</code> 對於 空的可編輯網格將始終為 <code>false</code>。"
+    "documentation": "包含為創建的 <code>EditableMesh</code> 提供選項的表格。 目前沒有可用的選項，因為對於空的可編輯網格，<code>FixedSize</code> 將始終為 <code>false</code>。"
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/return/0": {
     "documentation": "新的 <code>EditableMesh</code>，如果設備特定的可編輯內存預算耗盡則為 <code>nil</code>。"
@@ -61808,16 +61854,16 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/1": {
-    "documentation": "引用存儲在外部或作為場景內對象的資產內容，包裝 支持的 <code>ContentSourceType</code> 值之一的單個值。"
+    "documentation": "對外部存儲的資產內容或作為場所內對象的引用，包裹一個支持的 <code>ContentSourceType</code> 值中的單一值。"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/2": {
-    "documentation": "包含方法控制的選項表： <ul> <li><code>FixedSize</code> – 一個 <code>bool</code>。默認值為 <code>true</code>，返回的   <code>EditableMesh</code> 將不允許您添加或刪除頂點，   只能修改它們的值。如果需要更改網格拓撲的能力，則設置為 <code>false</code>，這將消耗更多內存。</li> </ul>"
+    "documentation": "包含方法控制的選項表： <ul> <li><code>FixedSize</code> – 一個 <code>bool</code>。默認值為 <code>true</code>，返回的 <code>EditableMesh</code> 將不允許您添加或刪除頂點，只能修改其值。如果需要更改網格拓撲的能力，則設置為 <code>false</code>，但會消耗更多內存。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/return/0": {
-    "documentation": "新的 <code>EditableMesh</code> 物件。"
+    "documentation": "新的 <code>EditableMesh</code> 對象。"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync": {
-    "documentation": "返回一個從現有網格內容ID創建的新 <code>EditableMesh</code> 對象。",
+    "documentation": "返回從現有網格內容 ID 創建的新 <code>EditableMesh</code> 對象。",
     "params": [
       {
         "name": "self",
@@ -61842,16 +61888,16 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/1": {
-    "documentation": "對外部存儲的資產內容或作為場所內對象的引用，包裹一個支持的 <code>ContentSourceType</code> 值中的單一值。"
+    "documentation": "對外部存儲的資產內容或作為場景內對象的引用，包裝一個支持的 <code>ContentSourceType</code> 值的單個值。"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/2": {
-    "documentation": "包含一個或多個方法控制的選項表： <ul> <li><code>CollisionFidelity</code> – 在   生成部分中的 <code>CollisionFidelity</code> 值。當未提供   選項或 <code>options</code> 表為 <code>nil</code> 時，默認為 <code>CollisionFidelity.Default</code>。</li> <li><code>RenderFidelity</code> – 在   生成部分中的 <code>RenderFidelity</code> 值。當未提供   選項或 <code>options</code> 表為 <code>nil</code> 時，默認為 <code>RenderFidelity.Automatic</code>。</li> <li><code>FluidFidelity</code> – 在   生成部分中的 <code>FluidFidelity</code> 值。當未提供   選項或 <code>options</code> 表為 <code>nil</code> 時，默認為 <code>FluidFidelity.Automatic</code>。</li> </ul>"
+    "documentation": "包含一個或多個方法控制的選項表： <ul> <li><code>CollisionFidelity</code> – 在結果部件中 <code>CollisionFidelity</code> 的值。如果選項缺失或 <code>options</code> 表為 <code>nil</code>，則默認為 <code>CollisionFidelity.Default</code>。</li> <li><code>RenderFidelity</code> – 在結果部件中 <code>RenderFidelity</code> 的值。如果選項缺失或 <code>options</code> 表為 <code>nil</code>，則默認為 <code>RenderFidelity.Automatic</code>。</li> <li><code>FluidFidelity</code> – 在結果部件中 <code>FluidFidelity</code> 的值。如果選項缺失或 <code>options</code> 表為 <code>nil</code>，則默認為 <code>FluidFidelity.Automatic</code>。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/return/0": {
-    "documentation": "應用指定的網格和保真度設置的新 <code>MeshPart</code>。"
+    "documentation": "具有指定網格和保真度設置的新 <code>MeshPart</code>。"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync": {
-    "documentation": "創建一個具有指定網格 ID 和可選保真度值表的新 <code>MeshPart</code>。",
+    "documentation": "創建一個具有指定網格 ID 和可選的保真度值表的新的 <code>MeshPart</code>。",
     "params": [
       {
         "name": "self",
@@ -61879,13 +61925,13 @@
     "documentation": "新地方的名稱。"
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/2": {
-    "documentation": "<code>PlaceId</code> 的地方來克隆。"
+    "documentation": "<code>PlaceId</code> 要克隆的地方。"
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/3": {
     "documentation": "新地方的描述。"
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/return/0": {
-    "documentation": "<code>PlaceId</code> 的新地方。"
+    "documentation": "<code>PlaceId</code> 新地方的 ID。"
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync": {
     "documentation": "通過給定的 <code>templatePlaceID</code> 克隆一個地方。",
@@ -61929,10 +61975,10 @@
     "documentation": "新地方的描述。"
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/return/0": {
-    "documentation": "<code>PlaceId</code> 新地方的 ID。"
+    "documentation": "<code>PlaceId</code> 新地方的。"
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync": {
-    "documentation": "通過給定的 <code>templatePlaceID</code> 克隆一個地方並將其放入給定玩家的 庫中。",
+    "documentation": "通過給定的 <code>templatePlaceID</code> 克隆一個地方並將其放入給定玩家的庫中。",
     "params": [
       {
         "name": "self",
@@ -61965,13 +62011,13 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "包含以下鍵值對的字典： <ul> <li><code>ColorMap</code> — 包含顏色   地圖的 <code>Content</code> 對象。默認為 <code>nil</code>。</li> <li><code>MetalnessMap</code> — 包含金屬質量   地圖的 <code>Content</code> 對象。如果存在多個通道，僅使用紅色   通道。默認為 <code>nil</code>。</li> <li><code>NormalMap</code> — 包含法線   地圖的 <code>Content</code> 對象。默認為 <code>nil</code>。</li> <li><code>RoughnessMap</code> — 包含粗糙度   地圖的 <code>Content</code> 對象。如果存在多個通道，僅使用紅色   通道。默認為 <code>nil</code>。</li> <li><code>EmissiveMask</code> — 包含發光掩碼的   <code>Content</code> 對象。如果存在多個通道，僅使用紅色   通道。默認為 <code>nil</code>。</li> </ul>"
+    "documentation": "包含以下鍵值對的字典： <ul> <li><code>ColorMap</code> — 包含顏色地圖的 <code>Content</code> 對象。默認為 <code>nil</code>。</li> <li><code>MetalnessMap</code> — 包含金屬度地圖的 <code>Content</code> 對象。如果存在多個通道，則僅使用紅色通道。默認為 <code>nil</code>。</li> <li><code>NormalMap</code> — 包含法線圖的 <code>Content</code> 對象。默認為 <code>nil</code>。</li> <li><code>RoughnessMap</code> — 包含粗糙度圖的 <code>Content</code> 對象。如果存在多個通道，則僅使用紅色通道。默認為 <code>nil</code>。</li> <li><code>EmissiveMask</code> — 包含發光遮罩的 <code>Content</code> 對象。如果存在多個通道，則僅使用紅色通道。默認為 <code>nil</code>。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "一個新的 <code>SurfaceAppearance</code> 實例，與 <code>content</code> 參數中的映射。"
+    "documentation": "一個新的 <code>SurfaceAppearance</code> 實例，包含來自 <code>content</code> 參數的地圖。"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
-    "documentation": "使用提供的內容映射創建一個新的 <code>SurfaceAppearance</code> 對象。",
+    "documentation": "使用提供的內容地圖創建一個新的 <code>SurfaceAppearance</code> 對象。",
     "params": [
       {
         "name": "self",
@@ -62046,13 +62092,13 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/param/1": {
-    "documentation": "要檢索元數據的資產或內容 ID 陣列。最大 批量大小為 30。"
+    "documentation": "要檢索元數據的資產或內容 ID 陣列。最大批量大小為 30。"
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/return/0": {
-    "documentation": "以請求的相同順序返回字典表，每個字典包含其資產/內容的以下元數據： <ul> <li> <code>AssetId</code> （字符串） </li> <li> <code>Title</code> （字符串） </li> <li> <code>Artist</code> （字符串） </li> <li> <code>Duration</code> （數字）以秒計 </li> <li> <code>AudioType</code> （<code>AudioSubType</code>） </li> </ul> 請注意，如果在獲取任何請求資產的元數據時發生錯誤，例如資產 ID 不存在，則其 字典表仍包含在返回的陣列中，但僅包含 <code>AssetId</code> 字段以供參考。此外，如果無法確定給定資產的 <code>AudioType</code>（可能是因為它是私人音頻），則結果字典將不包含 <code>AudioType</code> 條目。"
+    "documentation": "與請求相同順序的字典表陣列，每個字典包含其資產/內容的以下元數據： <ul> <li> <code>AssetId</code> (字符串) </li> <li> <code>Title</code> (字符串) </li> <li> <code>Artist</code> (字符串) </li> <li> <code>Duration</code> (數字) 以秒為單位 </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> 請注意，如果在檢索任何請求資產的元數據時發生錯誤，例如資產 ID 不存在，則其字典表仍包含在返回的數組中，但僅包含 <code>AssetId</code> 字段以供參考。此外，如果無法確定給定資產的 <code>AudioType</code>（可能是因為它是私有音頻），則結果字典將不包含 <code>AudioType</code> 項。"
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync": {
-    "documentation": "提供特定音頻源的相關元數據。",
+    "documentation": "提供有關特定音頻源的相關元數據。",
     "params": [
       {
         "name": "self",
@@ -62076,7 +62122,7 @@
     "documentation": "指定包的 ID。"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/return/0": {
-    "documentation": "字典包含以下鍵值對，詳述指定的套件： <ul> <li> <code>Id</code> — 套件 ID（與傳入的 <code>bundleId</code> 參數相同） </li> <li> <code>Name</code> — 套件名稱 </li> <li> <code>Description</code> — 套件描述 </li> <li> <code>BundleType</code> — 代表 <code>BundleType</code> 的字符串，例如 <code>\"BodyParts\"</code> 或 <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — 套件中的項目數組，每個項目都包含以下鍵的詳細信息： </li> <li> <code>Id</code> — 項目 ID </li> <li> <code>Name</code> — 項目名稱 </li> <li> <code>Type</code> — 項目類型，例如 <code>\"Asset\"</code> </li> <li> <code>AssetType</code> — 代表 <code>AvatarAssetType</code> 的字符串 </li> <li> <code>SupportsHeadShapes</code> — 資產是否支持頭部形狀交換。僅當 <code>AssetType</code> 為 <code>\"DynamicHead\"</code> 時才存在。 </li> </ul>"
+    "documentation": "包含有關指定包的詳細信息的字典，包含以下鍵值對： <ul> <li> <code>Id</code> — 包 ID（與傳遞的 <code>bundleId</code> 參數相同） </li> <li> <code>Name</code> — 包名稱 </li> <li> <code>Description</code> — 包描述 </li> <li> <code>BundleType</code> — 表示 <code>BundleType</code> 的字符串，例如 <code>\"BodyParts\"</code> 或 <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — 包中項目的數組，每個項目都有以下鍵表示的詳細信息： </li> <li> <code>Id</code> — 項目 ID </li> <li> <code>Name</code> — 項目名稱 </li> <li> <code>Type</code> — 項目類型，例如 <code>\"Asset\"</code> </li> <li> <code>AssetType</code> — 表示 <code>AvatarAssetType</code> 的字符串 </li> <li> <code>SupportsHeadShapes</code> — 資產是否支持頭形狀交換。僅在 <code>AssetType</code> 為 <code>\"DynamicHead\"</code> 時存在。 </li> </ul>"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync": {
     "documentation": "返回指定包的內容詳細信息。",
@@ -62103,10 +62149,10 @@
     "documentation": "要查找創建者信息的資產 ID。"
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID/return/0": {
-    "documentation": "創建該資產的帳戶的 <code>Player.UserId</code>。"
+    "documentation": "創建資產的帳戶的 <code>Player.UserId</code>。"
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID": {
-    "documentation": "<strong>Deprecated:</strong> 此項已被逐出，並不再正常運行。不要在新的工作中使用它。<br>返回創建 creationID 資產的帳戶的 UserId。",
+    "documentation": "<strong>Deprecated:</strong> 此項已棄用，並且不再正常工作。請勿在新工作中使用它。<br>返回創建了 creationID 資產的帳戶的 UserId。",
     "params": [
       {
         "name": "self",
@@ -62130,7 +62176,7 @@
     "documentation": "一個 <code>StandardPages</code> 對象，其頁面包含當前體驗中每個地方的名稱和 <code>PlaceId</code>。"
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync": {
-    "documentation": "返回包含當前經驗中地方名稱和 <code>PlaceId</code> 的 <code>StandardPages</code> 對象。",
+    "documentation": "返回一個 <code>StandardPages</code> 對象，其中包含當前體驗中地方的名稱和 <code>PlaceId</code>。",
     "params": [
       {
         "name": "self",
@@ -62153,7 +62199,7 @@
     "documentation": "包含加載資產的 <code>Model</code> 實例。"
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync": {
-    "documentation": "加載給定資產 ID 的 <code>Model</code> 實例。這是現代的 替代方案  <code>InsertService:LoadAsset()</code> 並支持加載 第三方資產。",
+    "documentation": "根據其資產 ID 加載 <code>Model</code> 實例。這是 <code>InsertService:LoadAsset()</code> 的現代替代品，支持加載第三方資產。",
     "params": [
       {
         "name": "self",
@@ -62177,16 +62223,16 @@
     "documentation": "提交資產創建的用戶。"
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync/param/2": {
-    "documentation": "要創建的資產。目前不能包含腳本或嵌套非公開資產。"
+    "documentation": "要創建的資產。目前不能包含腳本或嵌套非公共資產。"
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync/param/3": {
     "documentation": "資產類型。目前只能是 <code>AssetType.Model</code>。"
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync/return/0": {
-    "documentation": "如果成功，返回 <code>PromptCreatePlatformContentResult</code> 和資產 ID 的配對。"
+    "documentation": "如果成功，則為 <code>PromptCreatePlatformContentResult</code> 和資產 ID 對。"
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync": {
-    "documentation": "允許用戶在體驗中創建資產，通過提示發佈對話框。",
+    "documentation": "通過提示發布對話框允許用戶在體驗中創建資產。",
     "params": [
       {
         "name": "self",
@@ -62215,16 +62261,16 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/param/1": {
-    "documentation": "在他們自己的客戶端上被提示選擇並上傳視頻的玩家。上傳視頻之前需要玩家的同意。"
+    "documentation": "被提示的玩家，在其客戶端上選擇並上傳視頻。上傳視頻之前需要玩家的同意。"
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/param/2": {
-    "documentation": "一個函數，在視頻上傳和處理期間接收狀態更新（<code>AnimationClipFromVideoStatus</code> 值）。"
+    "documentation": "在視頻上傳和處理期間接收狀態更新的函數（<code>AnimationClipFromVideoStatus</code> 值）。"
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/return/0": {
-    "documentation": "一個元組，包含描述結果的 <code>AnimationClipFromVideoStatus</code>，如果成功，則返回結果的 <code>AnimationClip</code>（否則為 <code>nil</code>）。"
+    "documentation": "包含描述結果的 <code>AnimationClipFromVideoStatus</code> 的元組，成功時返回結果的 <code>AnimationClip</code>（否則為 <code>nil</code>）。"
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync": {
-    "documentation": "提示指定的玩家選擇並上傳視頻，然後將其轉換為 <code>AnimationClip</code>。",
+    "documentation": "提示指定玩家選擇並上傳視頻，然後將其轉換為 <code>AnimationClip</code>。",
     "params": [
       {
         "name": "self",
@@ -62249,10 +62295,10 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "可選字典，包括 <code>SaveWithoutPublish</code>，一個布林值，指示是否要保存時發佈或不發佈，以及 <code>PlaceId</code>，要保存的目標地點 ID。示例用法為：AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})。如果未提供 PlaceId，默認行為將保存當前原始地點，該地點正在調用 SavePlaceAsync。如果未提供 SaveWithoutPublish，默認行為為 SaveWithoutPublish=false。"
+    "documentation": "可選字典，包括 <code>SaveWithoutPublish</code>，一個布爾值，指示是否保存時不發布，以及 <code>PlaceId</code>，要保存的目標地方 ID。示例用法為：AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})。如果未提供 PlaceId，則默認行為將保存當前原始地方，該地方正在調用 SavePlaceAsync。如果未提供 SaveWithoutPublish，則默認行為為 SaveWithoutPublish=false。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
-    "documentation": "保存當前地點的狀態。",
+    "documentation": "保存當前地方的狀態。",
     "params": [
       {
         "name": "self",
@@ -62277,7 +62323,7 @@
     "documentation": "一個 <code>AudioPages</code> 對象，包含音頻搜索的分頁結果。"
   },
   "@roblox/globaltype/AssetService.SearchAudio": {
-    "documentation": "<strong>Deprecated:</strong> 請改用 <code>SearchAudioAsync()</code>。<br>根據各種搜索條件查找音頻資產。",
+    "documentation": "<strong>Deprecated:</strong> 請改用 <code>SearchAudioAsync()</code>。<br>查找匹配各種搜索條件的音頻資產。",
     "params": [
       {
         "name": "self",
@@ -62298,7 +62344,7 @@
     "documentation": "一個非復制的服務，用於處理與 Roblox 網路 API 相關的資產查詢。"
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync/param/1": {
-    "documentation": "一個 <code>AudioSearchParams</code> 對象，定義搜索條件，如關鍵字、標題、藝術家、音頻類型和持續時間範圍。"
+    "documentation": "一個 <code>AudioSearchParams</code> 對象，定義搜索條件，例如關鍵字、標題、藝術家、音頻類型和持續時間範圍。"
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync/return/0": {
     "documentation": "一個 <code>AudioPages</code> 對象，包含音頻搜索的分頁結果。"
@@ -67116,6 +67162,7 @@
       "FixedSize": "@roblox/globaltype/EditableMesh.FixedSize",
       "AddBone": "@roblox/globaltype/EditableMesh.AddBone",
       "AddColor": "@roblox/globaltype/EditableMesh.AddColor",
+      "AddFace": "@roblox/globaltype/EditableMesh.AddFace",
       "AddNormal": "@roblox/globaltype/EditableMesh.AddNormal",
       "AddTriangle": "@roblox/globaltype/EditableMesh.AddTriangle",
       "AddUV": "@roblox/globaltype/EditableMesh.AddUV",
@@ -67278,17 +67325,44 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddColor",
     "code_sample": ""
   },
+  "@roblox/globaltype/EditableMesh.AddFace/param/0": {
+    "documentation": "可以在運行時創建和操作網格的對象。"
+  },
+  "@roblox/globaltype/EditableMesh.AddFace/param/1": {
+    "documentation": "新面的頂點 ID 數組，按面周圍的順序提供。提供 3 個 ID 創建三角形或 4 個 ID 創建四邊形。"
+  },
+  "@roblox/globaltype/EditableMesh.AddFace/return/0": {
+    "documentation": "新面的面 ID。"
+  },
+  "@roblox/globaltype/EditableMesh.AddFace": {
+    "documentation": "向網格添加一個新的三角形或四邊形面並返回面 ID。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.AddFace/param/0"
+      },
+      {
+        "name": "vertexIds",
+        "documentation": "@roblox/globaltype/EditableMesh.AddFace/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.AddFace/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddFace",
+    "code_sample": ""
+  },
   "@roblox/globaltype/EditableMesh.AddNormal/param/0": {
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.AddNormal/param/1": {
-    "documentation": "法線向量。如果未指定法線值，則會自動計算法線。"
+    "documentation": "法線向量。如果未指定法線值，則法線將自動計算。"
   },
   "@roblox/globaltype/EditableMesh.AddNormal/return/0": {
     "documentation": "新法線的法線 ID。"
   },
   "@roblox/globaltype/EditableMesh.AddNormal": {
-    "documentation": "向幾何體添加一個新法線並返回法線 ID。",
+    "documentation": "向幾何體添加一個新的法線並返回法線 ID。",
     "params": [
       {
         "name": "self",
@@ -67309,19 +67383,19 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.AddTriangle/param/1": {
-    "documentation": "三角形第一個頂點的 ID。"
+    "documentation": "三角形的第一個頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.AddTriangle/param/2": {
-    "documentation": "三角形第二個頂點的 ID。"
+    "documentation": "三角形的第二個頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.AddTriangle/param/3": {
-    "documentation": "三角形第三個頂點的 ID。"
+    "documentation": "三角形的第三個頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.AddTriangle/return/0": {
-    "documentation": "新面 ID。"
+    "documentation": "新面的穩定面 ID。"
   },
   "@roblox/globaltype/EditableMesh.AddTriangle": {
-    "documentation": "向網格添加一個新三角形並返回面 ID。",
+    "documentation": "向網格添加一個新的三角形並返回面 ID。",
     "params": [
       {
         "name": "self",
@@ -67356,7 +67430,7 @@
     "documentation": "新 UV 的 UV ID。"
   },
   "@roblox/globaltype/EditableMesh.AddUV": {
-    "documentation": "向幾何體添加一個新 UV 並返回 UV ID。",
+    "documentation": "向幾何體添加一個新的 UV 並返回 UV ID。",
     "params": [
       {
         "name": "self",
@@ -67377,13 +67451,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.AddVertex/param/1": {
-    "documentation": "在網格的局部物件空間中的位置。"
+    "documentation": "在網格的本地物件空間中的位置。"
   },
   "@roblox/globaltype/EditableMesh.AddVertex/return/0": {
     "documentation": "新頂點的頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.AddVertex": {
-    "documentation": "向幾何體添加一個新頂點並返回頂點 ID。",
+    "documentation": "向幾何體添加一個新的頂點並返回頂點 ID。",
     "params": [
       {
         "name": "self",
@@ -67438,16 +67512,16 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes/param/1": {
-    "documentation": "要檢索的每個面角的屬性。必須是 <code>MeshAttribute.Vertex</code>、<code>MeshAttribute.Normal</code>、<code>MeshAttribute.Color</code> 或 <code>MeshAttribute.UV</code>；不支持 <code>MeshAttribute.Face</code>，並會拋出錯誤。"
+    "documentation": "要檢索的每個面角的屬性。必須是 <code>MeshAttribute.Vertex</code>、<code>MeshAttribute.Normal</code>、<code>MeshAttribute.Color</code> 或 <code>MeshAttribute.UV</code>；不支持 <code>MeshAttribute.Face</code>，並會引發錯誤。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes/param/2": {
     "documentation": "要查詢的面。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes/return/0": {
-    "documentation": "2D 數組，其中 <code>result[i]</code> 是 <code>faceIds[i]</code> 角的屬性 ID 數組。"
+    "documentation": "2D 數組，其中 <code>result[i]</code> 是 <code>faceIds[i]</code> 的角落的屬性 ID 數組。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes": {
-    "documentation": "返回每個面的每個角的屬性 ID 的批次。",
+    "documentation": "返回每個面的每個角的屬性 ID 的批處理。",
     "params": [
       {
         "name": "self",
@@ -67472,13 +67546,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues/param/1": {
-    "documentation": "要讀取的元素的 ID。所有必須是相同的屬性類型 — 頂點、法線、顏色或 UV。屬性由 ID 類型確定，因此不需要 <code>MeshAttribute</code> 參數。混合類型或傳遞面或骨骼 ID 將拋出錯誤。"
+    "documentation": "要讀取的元素的 ID。所有必須是相同的屬性類型 — 頂點、法線、顏色或 UV。屬性由 ID 類型確定，因此不需要 <code>MeshAttribute</code> 參數。混合類型或傳遞面或骨骼 ID 將引發錯誤。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues/return/0": {
-    "documentation": "一個元組，包含兩個值。第一個是屬性值的數組：對於頂點或法線 ID 為 <code>Vector3</code>，對於 UV ID 為 <code>Vector2</code>，對於顏色 ID 為 <code>Color3</code>。第二個對於所有屬性類型都是 <code>nil</code>，除了顏色，對於顏色則是一個 alpha 數字的數組。"
+    "documentation": "一個元組，包含兩個值。第一個是屬性值的數組：<code>Vector3</code> 用於頂點或法線 ID，<code>Vector2</code> 用於 UV ID，<code>Color3</code> 用於顏色 ID。第二個對於所有屬性類型都是 <code>nil</code>，除了顏色，對於顏色則是一個透明度數字的數組。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues": {
-    "documentation": "返回每個 ID 的屬性值的批次。",
+    "documentation": "返回每個 ID 的屬性值的批處理。",
     "params": [
       {
         "name": "self",
@@ -67499,16 +67573,16 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes/param/1": {
-    "documentation": "要查找的屬性類型。必須是 <code>MeshAttribute.Face</code>（引用每個頂點的面）、<code>MeshAttribute.Normal</code>、<code>MeshAttribute.Color</code> 或 <code>MeshAttribute.UV</code>；不支持 <code>MeshAttribute.Vertex</code>，並會拋出錯誤（要讀取頂點位置，請使用 <code>BatchGetValues()</code>）。"
+    "documentation": "要查找的屬性類型。必須是 <code>MeshAttribute.Face</code>（引用每個頂點的面）、<code>MeshAttribute.Normal</code>、<code>MeshAttribute.Color</code> 或 <code>MeshAttribute.UV</code>；不支持 <code>MeshAttribute.Vertex</code>，並會引發錯誤（要讀取頂點位置，請使用 <code>BatchGetValues()</code>）。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes/param/2": {
     "documentation": "要查詢的頂點。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes/return/0": {
-    "documentation": "2D 數組，其中 <code>result[i]</code> 是與 <code>vertexIds[i]</code> 相關聯的屬性 ID 數組。"
+    "documentation": "2D 數組，其中 <code>result[i]</code> 是與 <code>vertexIds[i]</code> 相關的屬性 ID 數組。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes": {
-    "documentation": "返回與每個頂點相關聯的屬性 ID 的批次。",
+    "documentation": "返回每個頂點的屬性 ID 的批處理。",
     "params": [
       {
         "name": "self",
@@ -67533,19 +67607,19 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/param/1": {
-    "documentation": "要檢索的屬性。必須是 <code>MeshAttribute.Normal</code>、<code>MeshAttribute.Color</code> 或 <code>MeshAttribute.UV</code>；不支持 <code>MeshAttribute.Vertex</code> 和 <code>MeshAttribute.Face</code>，並會拋出錯誤。"
+    "documentation": "要檢索的屬性。必須是 <code>MeshAttribute.Normal</code>、<code>MeshAttribute.Color</code> 或 <code>MeshAttribute.UV</code>；不支持 <code>MeshAttribute.Vertex</code> 和 <code>MeshAttribute.Face</code>，並會引發錯誤。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/param/2": {
-    "documentation": "識別每個角的頂點。"
+    "documentation": "識別每個角落的頂點。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/param/3": {
-    "documentation": "標識每個角的面。必須與 <code>vertexIds</code> 的長度相同。"
+    "documentation": "識別每個角落的面。必須與 <code>vertexIds</code> 的長度相同。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/return/0": {
-    "documentation": "每個角的屬性 ID 數組，與輸入順序相同。"
+    "documentation": "每個角落的屬性 ID 數組，按輸入的相同順序。"
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes": {
-    "documentation": "返回每個指定角的屬性 ID，對於一批頂點–面對。",
+    "documentation": "返回每個指定角落的屬性 ID，針對一批頂點–面對。",
     "params": [
       {
         "name": "self",
@@ -67574,7 +67648,7 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.BatchRemove/param/1": {
-    "documentation": "要刪除的面 ID。無效或已刪除的 ID 將拋出錯誤並不會刪除任何內容；重複的 ID 會合併為單次刪除。"
+    "documentation": "要刪除的面 ID。無效或已刪除的 ID 將引發錯誤並不會刪除任何內容；重複的 ID 被合併為單次刪除。"
   },
   "@roblox/globaltype/EditableMesh.BatchRemove": {
     "documentation": "刪除一批面。",
@@ -67599,10 +67673,10 @@
     "documentation": "要更新的面 ID。必須與 <code>attrIdArrays</code> 的長度相同。"
   },
   "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes/param/2": {
-    "documentation": "2D 數組。<code>attrIdArrays[i]</code> 是 <code>faceIds[i]</code> 的角的屬性 ID 列表，按順序排列。每個內部數組必須對應於面的一個角。所有 ID 必須是相同的屬性類型 — 法線、顏色或 UV；混合類型（或傳遞其他 ID 類型）將拋出錯誤。"
+    "documentation": "2D 數組。<code>attrIdArrays[i]</code> 是 <code>faceIds[i]</code> 的角落的屬性 ID 列表，按順序排列。每個內部數組必須對於面的每個角落有一個條目。所有 ID 必須是相同的屬性類型 — 頂點、法線、顏色或 UV；混合類型（或傳遞其他 ID 類型）將引發錯誤。"
   },
   "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes": {
-    "documentation": "設置每個面的每個角的屬性 ID 的批次。",
+    "documentation": "設置每個面的每個角的屬性 ID 的批處理。",
     "params": [
       {
         "name": "self",
@@ -67625,10 +67699,10 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues/param/1": {
-    "documentation": "要寫入的元素的 ID。所有必須是相同的屬性類型 — 頂點、法線、顏色或 UV。屬性由 ID 類型確定，因此不需要 <code>MeshAttribute</code> 參數。混合類型或傳遞面或骨骼 ID 將拋出錯誤。"
+    "documentation": "要寫入的元素的 ID。所有必須是相同的屬性類型 — 頂點、法線、顏色或 UV。屬性由 ID 類型確定，因此不需要 <code>MeshAttribute</code> 參數。混合類型或傳遞面或骨骼 ID 將引發錯誤。"
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues/param/2": {
-    "documentation": "要分配的值。類型取決於 ID 類型：<code>Vector3</code> 用於頂點或法線 ID，<code>Vector2</code> 用於 UV ID，<code>Color3</code> 或數字用於顏色 ID。對於法線 ID，傳遞 <code>nil</code> 以將每個法線重置為自動計算的值，等同於對每個法線調用 <code>ResetNormal()</code>。"
+    "documentation": "要分配的值。類型取決於 ID 類型：<code>Vector3</code> 用於頂點或法線 ID，<code>Vector2</code> 用於 UV ID，<code>Color3</code> 或數字用於顏色 ID。傳遞 <code>nil</code> 用於法線 ID 以將每個法線重置為自動計算的值，相當於對每個法線調用 <code>ResetNormal()</code>。"
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues": {
     "documentation": "將屬性值寫入一批網格元素 ID。",
@@ -67654,16 +67728,16 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes/param/1": {
-    "documentation": "標識每個角的頂點 ID。"
+    "documentation": "識別每個角落的頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes/param/2": {
-    "documentation": "標識每個角的面 ID。必須與 <code>vertexIds</code> 的長度相同。"
+    "documentation": "識別每個角落的面 ID。必須與 <code>vertexIds</code> 的長度相同。"
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes/param/3": {
-    "documentation": "要分配的屬性 ID，每對一個；必須與 <code>vertexIds</code> 的長度相同。所有必須是相同的屬性類型 — 法線、顏色或 UV；傳遞頂點或面 ID 將拋出錯誤。"
+    "documentation": "要分配的屬性 ID，每對一個；必須與 <code>vertexIds</code> 的長度相同。所有必須是相同的屬性類型 — 法線、顏色或 UV；傳遞頂點或面 ID 將引發錯誤。"
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes": {
-    "documentation": "設置每個頂點–面對組在批次中的特定角的屬性。",
+    "documentation": "設置每個頂點–面對組的每個角的屬性。",
     "params": [
       {
         "name": "self",
@@ -67690,7 +67764,7 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.Clear": {
-    "documentation": "清除所有可編輯網格的幾何形狀。",
+    "documentation": "清除所有 EditableMesh 的幾何體。",
     "params": [
       {
         "name": "self",
@@ -67720,13 +67794,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface/param/1": {
-    "documentation": "網格的本地物件空間中的點位置。"
+    "documentation": "網格本地物體空間中的點位置。"
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface/return/0": {
-    "documentation": "面ID、在本地物體空間中的網格點和該位置在面內的重心坐標的元組。"
+    "documentation": "面 ID、網格中的點（在本地物件空間中）、該位置在面的重心坐標，以及與重心坐標權重相對應的 3 個頂點 ID 的元組。"
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface": {
-    "documentation": "找到網格表面上最近的點。",
+    "documentation": "查找網格表面上最近的點。",
     "params": [
       {
         "name": "self",
@@ -67747,13 +67821,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.FindClosestVertex/param/1": {
-    "documentation": "網格本地物體空間中的點位置。"
+    "documentation": "網格的本地物件空間中的點位置。"
   },
   "@roblox/globaltype/EditableMesh.FindClosestVertex/return/0": {
     "documentation": "距指定空間點最近的頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.FindClosestVertex": {
-    "documentation": "找到空間中特定點最近的頂點。",
+    "documentation": "查找距特定空間點最近的頂點。",
     "params": [
       {
         "name": "self",
@@ -67774,7 +67848,7 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere/param/1": {
-    "documentation": "網格本地物體空間中的球體中心。"
+    "documentation": "網格的本地物件空間中的球體中心。"
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere/param/2": {
     "documentation": "球體的半徑。"
@@ -67783,7 +67857,7 @@
     "documentation": "在請求的球體內的頂點 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere": {
-    "documentation": "找到特定球體內的所有頂點。",
+    "documentation": "查找特定球體內的所有頂點。",
     "params": [
       {
         "name": "self",
@@ -67811,7 +67885,7 @@
     "documentation": "要獲取相鄰面的面 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentFaces/return/0": {
-    "documentation": "與給定面相鄰的面ID列表。"
+    "documentation": "與給定面相鄰的面 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentFaces": {
     "documentation": "返回與給定面相鄰的面列表。",
@@ -67835,10 +67909,10 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentVertices/param/1": {
-    "documentation": "要獲取相鄰頂點的頂點ID。"
+    "documentation": "要獲取相鄰頂點的頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentVertices/return/0": {
-    "documentation": "給定頂點ID周圍的相鄰頂點ID列表。"
+    "documentation": "給定頂點 ID 周圍的相鄰頂點 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentVertices": {
     "documentation": "返回與給定頂點相鄰的頂點列表。",
@@ -67865,10 +67939,10 @@
     "documentation": "要查找的骨骼名稱。"
   },
   "@roblox/globaltype/EditableMesh.GetBoneByName/return/0": {
-    "documentation": "具有給定名稱的骨骼ID。"
+    "documentation": "具有給定名稱的骨骼 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetBoneByName": {
-    "documentation": "找到具有給定名稱的骨骼ID。",
+    "documentation": "查找具有給定名稱的骨骼 ID。",
     "params": [
       {
         "name": "self",
@@ -67889,13 +67963,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1": {
-    "documentation": "要獲取<code>CFrame</code>的骨骼ID。"
+    "documentation": "要獲取 <code>CFrame</code> 的骨骼 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetBoneCFrame/return/0": {
-    "documentation": "網格的綁定姿勢中骨骼的初始<code>CFrame</code>，在網格的本地空間中。"
+    "documentation": "骨骼在網格綁定姿勢中的初始 <code>CFrame</code>，在網格的本地空間中。"
   },
   "@roblox/globaltype/EditableMesh.GetBoneCFrame": {
-    "documentation": "返回骨骼在網格的綁定姿勢中的初始<code>CFrame</code>。",
+    "documentation": "返回骨骼在網格綁定姿勢中的初始 <code>CFrame</code>。",
     "params": [
       {
         "name": "self",
@@ -67916,13 +67990,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/1": {
-    "documentation": "要獲取骨骼是否虛擬的骨骼ID。"
+    "documentation": "要獲取骨骼是否虛擬的骨骼 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/return/0": {
-    "documentation": "給定骨骼ID的骨骼是否虛擬。虛擬骨骼只能綁定到<code>FaceControls</code>實例。"
+    "documentation": "具有給定骨骼 ID 的骨骼是否虛擬。虛擬骨骼只能綁定到 <code>FaceControls</code> 實例。"
   },
   "@roblox/globaltype/EditableMesh.GetBoneIsVirtual": {
-    "documentation": "如果骨骼是虛擬的，則返回<code>true</code>。",
+    "documentation": "如果骨骼是虛擬的，則返回 <code>true</code>。",
     "params": [
       {
         "name": "self",
@@ -67943,10 +68017,10 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetBoneName/param/1": {
-    "documentation": "要獲取名稱的骨骼ID。"
+    "documentation": "要獲取名稱的骨骼 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetBoneName/return/0": {
-    "documentation": "具有給定骨骼ID的骨骼名稱。"
+    "documentation": "具有給定骨骼 ID 的骨骼名稱。"
   },
   "@roblox/globaltype/EditableMesh.GetBoneName": {
     "documentation": "返回骨骼名稱。",
@@ -67970,13 +68044,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetBoneParent/param/1": {
-    "documentation": "要獲取父骨骼的骨骼ID。"
+    "documentation": "要獲取父級的骨骼 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetBoneParent/return/0": {
-    "documentation": "給定骨骼ID的父骨骼ID。如果沒有父骨骼，則返回<code>0</code>。"
+    "documentation": "具有給定骨骼 ID 的骨骼的父級 ID。如果沒有父級，則返回 <code>0</code>。"
   },
   "@roblox/globaltype/EditableMesh.GetBoneParent": {
-    "documentation": "返回父骨骼ID（如果有）。",
+    "documentation": "返回父骨骼 ID（如果有）。",
     "params": [
       {
         "name": "self",
@@ -68017,7 +68091,7 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetCenter/return/0": {
-    "documentation": "可編輯網格的邊界框中心。"
+    "documentation": "<code>EditableMesh</code> 的邊界框中心。"
   },
   "@roblox/globaltype/EditableMesh.GetCenter": {
     "documentation": "返回網格的軸對齊邊界框的中心。",
@@ -68037,13 +68111,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetColor/param/1": {
-    "documentation": "要獲取顏色的顏色ID。"
+    "documentation": "要獲取顏色的顏色 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetColor/return/0": {
     "documentation": "請求的顏色 ID 的顏色。"
   },
   "@roblox/globaltype/EditableMesh.GetColor": {
-    "documentation": "返回給定顏色ID的顏色。",
+    "documentation": "返回給定顏色 ID 的顏色。",
     "params": [
       {
         "name": "self",
@@ -68064,13 +68138,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetColorAlpha/param/1": {
-    "documentation": "要獲取透明度的顏色ID。"
+    "documentation": "要獲取透明度的顏色 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetColorAlpha/return/0": {
-    "documentation": "請求顏色 ID 的顏色 alpha。"
+    "documentation": "請求顏色 ID 的顏色透明度。"
   },
   "@roblox/globaltype/EditableMesh.GetColorAlpha": {
-    "documentation": "返回給定顏色ID的顏色透明度。",
+    "documentation": "返回給定顏色 ID 的顏色透明度（透明度）。",
     "params": [
       {
         "name": "self",
@@ -68111,13 +68185,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetFaceColors/param/1": {
-    "documentation": "要獲取顏色ID的面ID。"
+    "documentation": "要獲取顏色 ID 的面 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetFaceColors/return/0": {
-    "documentation": "用於給定面的頂點的顏色ID列表。"
+    "documentation": "用於給定面的頂點的顏色 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetFaceColors": {
-    "documentation": "返回面上頂點的顏色ID。",
+    "documentation": "返回面的顏色 ID，對於面的頂點。",
     "params": [
       {
         "name": "self",
@@ -68138,13 +68212,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals/param/1": {
-    "documentation": "要獲取法線ID的面ID。"
+    "documentation": "要獲取法線 ID 的面 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals/return/0": {
-    "documentation": "用於給定面的頂點的法線ID列表。"
+    "documentation": "用於給定面的頂點的法線 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals": {
-    "documentation": "返回面上頂點的法線ID。",
+    "documentation": "返回面的法線 ID，對於面的頂點。",
     "params": [
       {
         "name": "self",
@@ -68185,13 +68259,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute/param/1": {
-    "documentation": "要查找使用的屬性ID。"
+    "documentation": "要查找使用的屬性 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute/return/0": {
-    "documentation": "使用給定屬性ID的面ID列表。"
+    "documentation": "使用給定屬性 ID 的面 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被棄用。請勿在新工作中使用。<br>返回使用給定屬性ID的面列表。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被棄用。請勿在新工作中使用。<br>返回使用給定屬性 ID 的面列表。",
     "params": [
       {
         "name": "self",
@@ -68212,13 +68286,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1": {
-    "documentation": "要查找面用的顏色ID。"
+    "documentation": "要查找面的顏色 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0": {
-    "documentation": "使用提供的顏色ID的面ID列表。"
+    "documentation": "使用提供的顏色 ID 的面 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor": {
-    "documentation": "返回使用給定顏色ID的面ID數組。",
+    "documentation": "返回使用給定顏色 ID 的面 ID 數組。",
     "params": [
       {
         "name": "self",
@@ -68239,13 +68313,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1": {
-    "documentation": "要查找面用的法線ID。"
+    "documentation": "要查找面的法線 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0": {
-    "documentation": "使用提供的法線ID的面ID列表。"
+    "documentation": "使用提供的法線 ID 的面 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal": {
-    "documentation": "返回使用給定法線ID的面ID數組。",
+    "documentation": "返回使用給定法線 ID 的面 ID 數組。",
     "params": [
       {
         "name": "self",
@@ -68266,13 +68340,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1": {
-    "documentation": "要查找面用的UV ID。"
+    "documentation": "要查找面的 UV ID。"
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0": {
-    "documentation": "使用提供的UV ID的面ID列表。"
+    "documentation": "使用提供的 UV ID 的面 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithUV": {
-    "documentation": "返回使用給定UV ID的面ID數組。",
+    "documentation": "返回使用給定 UV ID 的面 ID 數組。",
     "params": [
       {
         "name": "self",
@@ -68293,13 +68367,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs/param/1": {
-    "documentation": "要獲取UV ID的面ID。"
+    "documentation": "要獲取 UV ID 的面 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs/return/0": {
-    "documentation": "用於給定面的頂點的UV ID列表。"
+    "documentation": "用於給定面的頂點的 UV ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs": {
-    "documentation": "返回面上頂點的UV ID。",
+    "documentation": "返回面的 UV ID，對於面的頂點。",
     "params": [
       {
         "name": "self",
@@ -68323,10 +68397,10 @@
     "documentation": "要獲取頂點 ID 的面 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetFaceVertices/return/0": {
-    "documentation": "給定面的頂點ID列表。"
+    "documentation": "給定面周圍的頂點 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetFaceVertices": {
-    "documentation": "返回面的頂點ID。",
+    "documentation": "返回面的頂點 ID。",
     "params": [
       {
         "name": "self",
@@ -68347,13 +68421,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/1": {
-    "documentation": "指定修正姿勢的2或3個<code>FacsActionUnit</code>值的數組。"
+    "documentation": "指定修正姿勢的 2 或 3 個 <code>FacsActionUnit</code> 值的陣列。"
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0": {
-    "documentation": "骨骼ID的數組和相應的骨骼<code>CFrames</code>的數組。"
+    "documentation": "骨骼 ID 陣列和相應的骨骼 <code>CFrames</code> 陣列。"
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose": {
-    "documentation": "返回特定FACS修正姿勢中所有骨骼的骨骼ID和骨骼<code>CFrames</code>。",
+    "documentation": "返回特定 FACS 修正姿勢中所有骨骼的骨骼 ID 和骨骼 <code>CFrames</code>。",
     "params": [
       {
         "name": "self",
@@ -68374,10 +68448,10 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/return/0": {
-    "documentation": "修正姿勢的數組。每個修正姿勢由2或3個<code>FacsActionUnit</code>值的小數組指定。"
+    "documentation": "修正姿勢的陣列。每個修正姿勢由一個小陣列的 2 或 3 個 <code>FacsActionUnit</code> 值指定。"
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses": {
-    "documentation": "返回所有正在使用的FACS修正姿勢。",
+    "documentation": "返回所有正在使用的 FACS 修正姿勢。",
     "params": [
       {
         "name": "self",
@@ -68394,13 +68468,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetFacsPose/param/1": {
-    "documentation": "要獲取姿勢的FACS動作單元。"
+    "documentation": "要獲取姿勢的 FACS 動作單元。"
   },
   "@roblox/globaltype/EditableMesh.GetFacsPose/return/0": {
-    "documentation": "骨骼ID的數組和相應的骨骼<code>CFrame</code>的數組。"
+    "documentation": "骨骼 ID 陣列和相應的骨骼 <code>CFrame</code> 陣列。"
   },
   "@roblox/globaltype/EditableMesh.GetFacsPose": {
-    "documentation": "返回特定FACS動作單元中所有骨骼的骨骼ID和骨骼<code>CFrames</code>。",
+    "documentation": "返回特定 FACS 動作單元中所有骨骼的骨骼 ID 和骨骼 <code>CFrames</code>。",
     "params": [
       {
         "name": "self",
@@ -68421,10 +68495,10 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0": {
-    "documentation": "每個已定義姿勢的FACS動作單元的<code>FacsActionUnit</code>數組。"
+    "documentation": "每個已定義姿勢的 FACS 動作單元的 <code>FacsActionUnit</code> 陣列。"
   },
   "@roblox/globaltype/EditableMesh.GetFacsPoses": {
-    "documentation": "返回所有已定義姿勢的FACS動作單元。",
+    "documentation": "返回所有已定義姿勢的 FACS 動作單元。",
     "params": [
       {
         "name": "self",
@@ -68441,13 +68515,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetNormal/param/1": {
-    "documentation": "要獲取法線向量的法線ID。"
+    "documentation": "要獲取法線向量的法線 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetNormal/return/0": {
-    "documentation": "請求的法線ID的法線向量。"
+    "documentation": "請求的法線 ID 的法線向量。"
   },
   "@roblox/globaltype/EditableMesh.GetNormal": {
-    "documentation": "返回給定法線ID的法線向量。",
+    "documentation": "返回給定法線 ID 的法線向量。",
     "params": [
       {
         "name": "self",
@@ -68491,7 +68565,7 @@
     "documentation": "要獲取位置的頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetPosition/return/0": {
-    "documentation": "網格本地物體空間中頂點的位置。"
+    "documentation": "網格本地物件空間中頂點的位置。"
   },
   "@roblox/globaltype/EditableMesh.GetPosition": {
     "documentation": "獲取頂點的位置。",
@@ -68515,7 +68589,7 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetSize/return/0": {
-    "documentation": "可編輯網格的大小。"
+    "documentation": "<code>EditableMesh</code> 的大小。"
   },
   "@roblox/globaltype/EditableMesh.GetSize": {
     "documentation": "返回網格的軸對齊邊界框的大小。",
@@ -68535,13 +68609,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetUV/param/1": {
-    "documentation": "要獲取UV坐標的UV ID。"
+    "documentation": "要獲取 UV 坐標的 UV ID。"
   },
   "@roblox/globaltype/EditableMesh.GetUV/return/0": {
-    "documentation": "請求的UV ID的UV坐標。"
+    "documentation": "請求的 UV ID 的 UV 坐標。"
   },
   "@roblox/globaltype/EditableMesh.GetUV": {
-    "documentation": "返回給定UV ID的UV坐標。",
+    "documentation": "返回給定 UV ID 的 UV 坐標。",
     "params": [
       {
         "name": "self",
@@ -68565,7 +68639,7 @@
     "documentation": "UV ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetUVs": {
-    "documentation": "返回網格的所有UV。",
+    "documentation": "返回網格的所有 UV。",
     "params": [
       {
         "name": "self",
@@ -68582,13 +68656,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexBones/param/1": {
-    "documentation": "要獲取相關骨骼的頂點ID。"
+    "documentation": "要獲取相關骨骼的頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexBones/return/0": {
-    "documentation": "與頂點相關聯的骨骼ID。"
+    "documentation": "與頂點相關聯的骨骼 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexBones": {
-    "documentation": "返回與頂點相關聯的所有骨骼ID以進行綁定。",
+    "documentation": "返回與頂點相關聯的所有骨骼 ID 以進行蒙皮。",
     "params": [
       {
         "name": "self",
@@ -68609,13 +68683,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1": {
-    "documentation": "要獲取相關骨骼權重的頂點ID。"
+    "documentation": "要獲取相關骨骼權重的頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0": {
-    "documentation": "與頂點相關聯的每個骨骼的綁定混合權重。"
+    "documentation": "與頂點相關聯的每根骨骼的蒙皮混合權重。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights": {
-    "documentation": "返回與頂點相關聯的每個骨骼的綁定混合權重。",
+    "documentation": "返回與頂點相關聯的每根骨骼的蒙皮混合權重。",
     "params": [
       {
         "name": "self",
@@ -68639,10 +68713,10 @@
     "documentation": "要查找顏色 ID 的頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexColors/return/0": {
-    "documentation": "附加到給定頂點的面的顏色ID數組。"
+    "documentation": "附加到給定頂點的面的顏色 ID 陣列。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexColors": {
-    "documentation": "返回附加到給定頂點的面的顏色ID。",
+    "documentation": "返回附加到給定頂點的面的顏色 ID。",
     "params": [
       {
         "name": "self",
@@ -68669,10 +68743,10 @@
     "documentation": "面 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0": {
-    "documentation": "頂點/面對組合的顏色 ID。"
+    "documentation": "頂點/面對的顏色 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceColor": {
-    "documentation": "返回頂點/面對的顏色ID。",
+    "documentation": "返回頂點/面對的顏色 ID。",
     "params": [
       {
         "name": "self",
@@ -68703,10 +68777,10 @@
     "documentation": "面 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0": {
-    "documentation": "頂點/面對組合的法線 ID。"
+    "documentation": "頂點/面對的法線 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal": {
-    "documentation": "返回頂點/面對的法線ID。",
+    "documentation": "返回頂點/面對的法線 ID。",
     "params": [
       {
         "name": "self",
@@ -68734,10 +68808,10 @@
     "documentation": "要查找面的頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0": {
-    "documentation": "附加到給定頂點的面的法線ID數組。"
+    "documentation": "附加到給定頂點的面 ID 陣列。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaces": {
-    "documentation": "返回附加到給定頂點的面的法線ID。",
+    "documentation": "返回附加到給定頂點的面的面 ID。",
     "params": [
       {
         "name": "self",
@@ -68764,10 +68838,10 @@
     "documentation": "面 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0": {
-    "documentation": "頂點/面對組合的 UV ID。"
+    "documentation": "頂點/面對的 UV ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV": {
-    "documentation": "返回頂點/面對的UV ID。",
+    "documentation": "返回頂點/面對的 UV ID。",
     "params": [
       {
         "name": "self",
@@ -68795,10 +68869,10 @@
     "documentation": "要查找法線 ID 的頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0": {
-    "documentation": "附加到給定頂點的面的法線ID數組。"
+    "documentation": "附加到給定頂點的面的法線 ID 陣列。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexNormals": {
-    "documentation": "返回附加到給定頂點的面的法線ID。",
+    "documentation": "返回附加到給定頂點的面的法線 ID。",
     "params": [
       {
         "name": "self",
@@ -68822,10 +68896,10 @@
     "documentation": "要查找 UV ID 的頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0": {
-    "documentation": "附加到給定頂點的面的UV ID數組。"
+    "documentation": "附加到給定頂點的面的 UV ID 陣列。"
   },
   "@roblox/globaltype/EditableMesh.GetVertexUVs": {
-    "documentation": "返回附加到給定頂點的面的UV ID。",
+    "documentation": "返回附加到給定頂點的面的 UV ID。",
     "params": [
       {
         "name": "self",
@@ -68849,7 +68923,7 @@
     "documentation": "頂點 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetVertices": {
-    "documentation": "返回所有頂點的頂點 ID 列表。",
+    "documentation": "返回所有頂點作為頂點 ID 的列表。",
     "params": [
       {
         "name": "self",
@@ -68866,13 +68940,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute/param/1": {
-    "documentation": "要查找使用的屬性ID。"
+    "documentation": "要查找使用的屬性 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute/return/0": {
-    "documentation": "使用給定屬性ID的頂點ID列表。"
+    "documentation": "使用給定屬性 ID 的頂點 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被棄用。請勿在新工作中使用。<br>返回使用給定屬性ID的頂點列表。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被棄用。請勿在新工作中使用。<br>返回使用給定屬性 ID 的頂點列表。",
     "params": [
       {
         "name": "self",
@@ -68893,13 +68967,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1": {
-    "documentation": "要查找面用的顏色ID。"
+    "documentation": "要查找面的顏色 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0": {
-    "documentation": "使用提供的顏色ID的頂點ID列表。"
+    "documentation": "使用提供的顏色 ID 的面 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor": {
-    "documentation": "返回使用給定顏色ID的頂點ID數組。",
+    "documentation": "返回使用給定顏色 ID 的頂點 ID 陣列。",
     "params": [
       {
         "name": "self",
@@ -68920,13 +68994,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1": {
-    "documentation": "要查找頂點用的法線ID。"
+    "documentation": "要查找的法線 ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0": {
-    "documentation": "使用提供的法線ID的頂點ID列表。"
+    "documentation": "使用提供的法線 ID 的頂點 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithNormal": {
-    "documentation": "返回使用給定法線ID的頂點ID數組。",
+    "documentation": "返回使用給定法線 ID 的頂點 ID 陣列。",
     "params": [
       {
         "name": "self",
@@ -68947,13 +69021,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1": {
-    "documentation": "要查找頂點用的UV ID。"
+    "documentation": "要查找的 UV ID。"
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithUV/return/0": {
-    "documentation": "使用提供的UV ID的頂點ID列表。"
+    "documentation": "使用提供的 UV ID 的頂點 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithUV": {
-    "documentation": "返回使用給定UV ID的頂點ID數組。",
+    "documentation": "返回使用給定 UV ID 的頂點 ID 陣列。",
     "params": [
       {
         "name": "self",
@@ -68974,10 +69048,10 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/param/1": {
-    "documentation": "要返回調試信息字符串的ID。"
+    "documentation": "要返回調試信息字符串的 ID。"
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/return/0": {
-    "documentation": "以人類可讀格式描述ID的字符串。"
+    "documentation": "以人類可讀格式描述 ID 的字符串。"
   },
   "@roblox/globaltype/EditableMesh.IdDebugString": {
     "documentation": "返回描述 ID 的字符串，對於調試目的非常有用。",
@@ -69001,10 +69075,10 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.MergeVertices/param/1": {
-    "documentation": "被認為相互接觸的頂點的距離。"
+    "documentation": "考慮頂點彼此接觸的距離。"
   },
   "@roblox/globaltype/EditableMesh.MergeVertices/return/0": {
-    "documentation": "已合併的頂點的舊頂點ID到新頂點ID的映射。"
+    "documentation": "已合併的頂點的舊頂點 ID 到新頂點 ID 的映射。"
   },
   "@roblox/globaltype/EditableMesh.MergeVertices": {
     "documentation": "合併相互接觸的頂點。",
@@ -69028,16 +69102,16 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/param/1": {
-    "documentation": "射線在網格的本地物體空間中的起點。"
+    "documentation": "光線在網格的本地物件空間中的起點。"
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/param/2": {
-    "documentation": "射線的方向。"
+    "documentation": "光線的方向。"
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/return/0": {
-    "documentation": "交點、面ID和重心坐標的元組。"
+    "documentation": "面 ID、交點、重心坐標的元組，以及重心坐標加權的 3 個頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal": {
-    "documentation": "發射一條射線並返回交點、面 ID 和重心坐標。",
+    "documentation": "發射光線並返回交點、面 ID 和重心坐標。",
     "params": [
       {
         "name": "self",
@@ -69062,10 +69136,10 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.RemoveBone/param/1": {
-    "documentation": "要刪除的骨骼 ID。"
+    "documentation": "要刪除的骨骼的骨骼 ID。"
   },
   "@roblox/globaltype/EditableMesh.RemoveBone": {
-    "documentation": "使用其骨骼 ID 刪除一個骨骼。",
+    "documentation": "使用其骨骼 ID 刪除骨骼。",
     "params": [
       {
         "name": "self",
@@ -69087,7 +69161,7 @@
     "documentation": "要刪除的面 ID。"
   },
   "@roblox/globaltype/EditableMesh.RemoveFace": {
-    "documentation": "使用其面 ID 刪除一個面。",
+    "documentation": "使用其面 ID 刪除面。",
     "params": [
       {
         "name": "self",
@@ -69109,7 +69183,7 @@
     "documentation": "所有已刪除的 ID。"
   },
   "@roblox/globaltype/EditableMesh.RemoveUnused": {
-    "documentation": "移除所有未使用的頂點、法線、UV和顏色，並返回移除的ID。",
+    "documentation": "刪除所有未使用的頂點、法線、UV 和顏色，並返回已刪除的 ID。",
     "params": [
       {
         "name": "self",
@@ -69129,7 +69203,7 @@
     "documentation": "要重置的法線 ID。"
   },
   "@roblox/globaltype/EditableMesh.ResetNormal": {
-    "documentation": "重置此法線ID以自動計算。",
+    "documentation": "重置此法線 ID 以自動計算。",
     "params": [
       {
         "name": "self",
@@ -69148,13 +69222,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/1": {
-    "documentation": "要設置初始<code>CFrame</code>的骨骼ID。"
+    "documentation": "要設置初始 <code>CFrame</code> 的骨骼 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/2": {
-    "documentation": "網格綁定姿勢中骨骼的初始<code>CFrame</code>，在網格的本地空間中。"
+    "documentation": "網格綁定姿勢中骨骼的初始 <code>CFrame</code>，位於網格的本地空間中。"
   },
   "@roblox/globaltype/EditableMesh.SetBoneCFrame": {
-    "documentation": "設置網格綁定姿勢中骨骼的初始<code>CFrame</code>。",
+    "documentation": "設置網格綁定姿勢中骨骼的初始 <code>CFrame</code>。",
     "params": [
       {
         "name": "self",
@@ -69177,10 +69251,10 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/1": {
-    "documentation": "要設置骨骼是否為虛擬的骨骼ID。"
+    "documentation": "要設置骨骼是否為虛擬的骨骼 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/2": {
-    "documentation": "骨骼是否應該是虛擬的。"
+    "documentation": "骨骼是否應該是虛擬。"
   },
   "@roblox/globaltype/EditableMesh.SetBoneIsVirtual": {
     "documentation": "設置骨骼是否為虛擬。",
@@ -69206,7 +69280,7 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.SetBoneName/param/1": {
-    "documentation": "要設置名稱的骨骼ID。"
+    "documentation": "要設置名稱的骨骼 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetBoneName/param/2": {
     "documentation": "要設置的骨骼名稱。"
@@ -69235,10 +69309,10 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.SetBoneParent/param/1": {
-    "documentation": "要設置父級的骨骼ID。"
+    "documentation": "要設置父級的骨骼 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetBoneParent/param/2": {
-    "documentation": "父骨骼ID。"
+    "documentation": "父骨骼 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetBoneParent": {
     "documentation": "設置骨骼的父級。",
@@ -69270,7 +69344,7 @@
     "documentation": "要設置的顏色。"
   },
   "@roblox/globaltype/EditableMesh.SetColor": {
-    "documentation": "設置顏色ID的顏色。",
+    "documentation": "設置顏色 ID 的顏色。",
     "params": [
       {
         "name": "self",
@@ -69296,10 +69370,10 @@
     "documentation": "要設置顏色 alpha 的顏色 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetColorAlpha/param/2": {
-    "documentation": "要設置的透明度。"
+    "documentation": "要設置的 alpha。"
   },
   "@roblox/globaltype/EditableMesh.SetColorAlpha": {
-    "documentation": "設置顏色ID的顏色透明度。",
+    "documentation": "設置顏色 ID 的顏色 alpha（透明度）。",
     "params": [
       {
         "name": "self",
@@ -69322,13 +69396,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.SetFaceColors/param/1": {
-    "documentation": "要更新頂點顏色的面ID。"
+    "documentation": "要更新頂點顏色的面 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetFaceColors/param/2": {
     "documentation": "要用於給定面頂點的新顏色 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.SetFaceColors": {
-    "documentation": "將面的頂點顏色設置為新的顏色ID。",
+    "documentation": "將面的頂點顏色設置為新的顏色 ID。",
     "params": [
       {
         "name": "self",
@@ -69351,13 +69425,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals/param/1": {
-    "documentation": "要更新頂點法線的面ID。"
+    "documentation": "要更新頂點法線的面 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals/param/2": {
     "documentation": "要用於給定面頂點的新法線 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals": {
-    "documentation": "將面的頂點法線設置為新的法線ID。",
+    "documentation": "將面的頂點法線設置為新的法線 ID。",
     "params": [
       {
         "name": "self",
@@ -69380,13 +69454,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.SetFaceUVs/param/1": {
-    "documentation": "要更新頂點UV的面ID。"
+    "documentation": "要更新頂點 UV 的面 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetFaceUVs/param/2": {
     "documentation": "要用於給定面頂點的新 UV ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.SetFaceUVs": {
-    "documentation": "將面的頂點UV設置為新的UV ID。",
+    "documentation": "將面的頂點 UV 設置為新的 UV ID。",
     "params": [
       {
         "name": "self",
@@ -69409,13 +69483,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.SetFaceVertices/param/1": {
-    "documentation": "要更新頂點的面ID。"
+    "documentation": "要更新頂點的面 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetFaceVertices/param/2": {
     "documentation": "要用於給定面的新頂點 ID 列表。"
   },
   "@roblox/globaltype/EditableMesh.SetFaceVertices": {
-    "documentation": "將面的頂點設置為新的頂點ID。",
+    "documentation": "將面的頂點設置為新的頂點 ID。",
     "params": [
       {
         "name": "self",
@@ -69438,16 +69512,16 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/1": {
-    "documentation": "要設置姿勢的FACS動作單元。"
+    "documentation": "要設置姿勢的 FACS 動作單元。"
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/2": {
-    "documentation": "要為此姿勢設置<code>CFrame</code>的骨骼。"
+    "documentation": "要為此姿勢設置 <code>CFrame</code> 的骨骼。"
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3": {
-    "documentation": "<code>CFrame</code>將骨骼從網格的綁定姿勢中的初始骨骼<code>CFrame</code>轉換為此姿勢的組合骨骼<code>CFrame</code>。所有<code>CFrames</code>都在網格的本地空間中。"
+    "documentation": "<code>CFrame</code> 將骨骼從網格的綁定姿勢中的初始骨骼 <code>CFrame</code> 轉換到此姿勢的合併骨骼 <code>CFrame</code>。所有 <code>CFrames</code> 都在網格的本地空間中。"
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose": {
-    "documentation": "為特定FACS動作單元中的單個骨骼設置<code>CFrame</code>。",
+    "documentation": "為特定 FACS 動作單元中的單個骨骼設置 <code>CFrame</code>。",
     "params": [
       {
         "name": "self",
@@ -69474,16 +69548,16 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/1": {
-    "documentation": "要應用作為修正姿勢的2或3個<code>FacsActionUnit</code>值的數組。"
+    "documentation": "要應用作為修正姿勢的 2 或 3 個 <code>FacsActionUnit</code> 值的陣列。"
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/2": {
-    "documentation": "要為此姿勢設置<code>CFrame</code>的骨骼。"
+    "documentation": "要為此姿勢設置 <code>CFrame</code> 的骨骼。"
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3": {
-    "documentation": "<code>CFrame</code>用於此修正姿勢中的骨骼。 每個骨骼<code>CFrame</code>將骨骼從網格的綁定姿勢中的初始骨骼<code>CFrame</code>轉換為此姿勢的組合骨骼<code>CFrame</code>。所有<code>CFrames</code>都在網格的本地空間中。"
+    "documentation": "<code>CFrame</code> 轉換此修正姿勢中的骨骼。 每個骨骼 <code>CFrame</code> 將骨骼從網格的綁定姿勢中的初始骨骼 <code>CFrame</code> 轉換到此姿勢的合併骨骼 <code>CFrame</code>。所有 <code>CFrames</code> 都在網格的本地空間中。"
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose": {
-    "documentation": "為特定FACS修正姿勢中的所有骨骼設置姿勢。",
+    "documentation": "為特定 FACS 修正姿勢中的所有骨骼設置姿勢。",
     "params": [
       {
         "name": "self",
@@ -69510,16 +69584,16 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose/param/1": {
-    "documentation": "要設置姿勢的FACS動作單元。"
+    "documentation": "要設置姿勢的 FACS 動作單元。"
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose/param/2": {
-    "documentation": "要為此姿勢設置<code>CFrame</code>的骨骼。"
+    "documentation": "要為此姿勢設置 <code>CFrame</code> 的骨骼。"
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose/param/3": {
-    "documentation": "<code>CFrame</code>用於此姿勢中的骨骼。 每個骨骼<code>CFrame</code>將骨骼從網格的綁定姿勢中的初始骨骼<code>CFrame</code>轉換為此姿勢的組合骨骼<code>CFrame</code>。所有<code>CFrames</code>都在網格的本地空間中。"
+    "documentation": "<code>CFrame</code> 轉換此姿勢中的骨骼。 每個骨骼 <code>CFrame</code> 將骨骼從網格的綁定姿勢中的初始骨骼 <code>CFrame</code> 轉換到此姿勢的合併骨骼 <code>CFrame</code>。所有 <code>CFrames</code> 都在網格的本地空間中。"
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose": {
-    "documentation": "為特定FACS動作單元中的所有骨骼設置姿勢。",
+    "documentation": "為特定 FACS 動作單元中的所有骨骼設置姿勢。",
     "params": [
       {
         "name": "self",
@@ -69552,7 +69626,7 @@
     "documentation": "要設置的法線向量。"
   },
   "@roblox/globaltype/EditableMesh.SetNormal": {
-    "documentation": "設置法線ID的法線。",
+    "documentation": "設置法線 ID 的法線。",
     "params": [
       {
         "name": "self",
@@ -69578,10 +69652,10 @@
     "documentation": "要定位的頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetPosition/param/2": {
-    "documentation": "在網格的本地物體空間中的位置。"
+    "documentation": "在網格的本地物件空間中的位置。"
   },
   "@roblox/globaltype/EditableMesh.SetPosition": {
-    "documentation": "在網格的本地物體空間中設置頂點位置。",
+    "documentation": "在網格的本地物件空間中設置頂點位置。",
     "params": [
       {
         "name": "self",
@@ -69604,13 +69678,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.SetUV/param/1": {
-    "documentation": "要設置UV坐標的UV ID。"
+    "documentation": "要設置 UV 坐標的 UV ID。"
   },
   "@roblox/globaltype/EditableMesh.SetUV/param/2": {
-    "documentation": "UV坐標。"
+    "documentation": "UV 坐標。"
   },
   "@roblox/globaltype/EditableMesh.SetUV": {
-    "documentation": "為UV ID設置UV坐標。",
+    "documentation": "為 UV ID 設置 UV 坐標。",
     "params": [
       {
         "name": "self",
@@ -69633,13 +69707,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.SetVertexBones/param/1": {
-    "documentation": "要設置頂點綁定骨骼的頂點ID。"
+    "documentation": "要設置頂點蒙皮骨骼的頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetVertexBones/param/2": {
-    "documentation": "要與此頂點一起使用的骨骼ID。"
+    "documentation": "要與此頂點一起使用的骨骼 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetVertexBones": {
-    "documentation": "將一組骨骼分配給頂點以進行綁定。",
+    "documentation": "為頂點分配一組骨骼以進行蒙皮。",
     "params": [
       {
         "name": "self",
@@ -69662,13 +69736,13 @@
     "documentation": "可以在運行時創建和操作網格的對象。"
   },
   "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1": {
-    "documentation": "要設置綁定混合權重的頂點ID。"
+    "documentation": "要設置蒙皮混合權重的頂點 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/2": {
-    "documentation": "要在頂點上設置的綁定混合權重。"
+    "documentation": "要設置在頂點上的蒙皮混合權重。"
   },
   "@roblox/globaltype/EditableMesh.SetVertexBoneWeights": {
-    "documentation": "為與頂點相關聯的每個骨骼設置綁定混合權重。",
+    "documentation": "為與頂點相關聯的每根骨骼設置蒙皮混合權重。",
     "params": [
       {
         "name": "self",
@@ -69697,10 +69771,10 @@
     "documentation": "面 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3": {
-    "documentation": "要為頂點/面對設置的顏色 ID。"
+    "documentation": "要設置的頂點/面對的顏色 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceColor": {
-    "documentation": "設置頂點/面對的顏色ID。",
+    "documentation": "設置頂點/面對的顏色 ID。",
     "params": [
       {
         "name": "self",
@@ -69733,10 +69807,10 @@
     "documentation": "面 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3": {
-    "documentation": "要為頂點/面對設置的法線 ID。"
+    "documentation": "要設置的頂點/面對的法線 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceNormal": {
-    "documentation": "設置頂點/面對的法線ID。",
+    "documentation": "設置頂點/面對的法線 ID。",
     "params": [
       {
         "name": "self",
@@ -69769,10 +69843,10 @@
     "documentation": "面 ID。"
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3": {
-    "documentation": "要為頂點/面對設置的 UV ID。"
+    "documentation": "要設置的頂點/面對的 UV ID。"
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceUV": {
-    "documentation": "設置頂點/面對的UV ID。",
+    "documentation": "設置頂點/面對的 UV ID。",
     "params": [
       {
         "name": "self",
@@ -71589,12 +71663,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LocalizationService.RobloxLocaleId": {
-    "documentation": "用於本地化核心和內部功能的語言區域 ID。",
+    "documentation": "用於本地化核心和內部功能的區域 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LocalizationService#RobloxLocaleId",
     "code_sample": ""
   },
   "@roblox/globaltype/LocalizationService.SystemLocaleId": {
-    "documentation": "本地玩家為其操作系統設置的語言區域 ID。",
+    "documentation": "本地玩家為其操作系統設置的區域 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LocalizationService#SystemLocaleId",
     "code_sample": ""
   },
@@ -71605,7 +71679,7 @@
     "documentation": "用於本地化 CoreScripts 的 <code>LocalizationTable</code> 物件列表。"
   },
   "@roblox/globaltype/LocalizationService.GetCorescriptLocalizations": {
-    "documentation": "返回用於本地化核心腳本的 <code>LocalizationTable</code> 對象列表。",
+    "documentation": "返回用於本地化核心腳本的 <code>LocalizationTable</code> 物件列表。",
     "params": [
       {
         "name": "self",
@@ -71622,10 +71696,10 @@
     "documentation": "處理自動翻譯。"
   },
   "@roblox/globaltype/LocalizationService.GetCountryRegionForPlayerAsync/param/1": {
-    "documentation": "您正在獲取國家/地區信息的玩家。"
+    "documentation": "您要獲取國家/地區信息的玩家。"
   },
   "@roblox/globaltype/LocalizationService.GetCountryRegionForPlayerAsync/return/0": {
-    "documentation": "一個字符串，指示玩家的國家/地區代碼。"
+    "documentation": "表示玩家的國家/地區代碼的字符串。"
   },
   "@roblox/globaltype/LocalizationService.GetCountryRegionForPlayerAsync": {
     "documentation": "根據玩家的客戶端 IP 地理位置返回國家/地區代碼字符串。",
@@ -71649,7 +71723,7 @@
     "documentation": "處理自動翻譯。"
   },
   "@roblox/globaltype/LocalizationService.GetTableEntries/param/1": {
-    "documentation": "要檢索其有序本地化表條目的 <code>Instance</code>。如果為 nil，則僅返回來自 <code>LocalizationService</code> 階層和雲端 <code>LocalizationTable</code> 的條目。"
+    "documentation": "要檢索有序本地化表條目的 <code>Instance</code>。如果為 nil，則僅返回來自 <code>LocalizationService</code> 層次結構和雲端 <code>LocalizationTable</code> 的條目。"
   },
   "@roblox/globaltype/LocalizationService.GetTableEntries/return/0": {
     "documentation": "一個數組的數組，其中每個數組的格式與 <code>LocalizationTable:GetEntries()</code> 中描述的相同。"
@@ -71676,13 +71750,13 @@
     "documentation": "處理自動翻譯。"
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForLocaleAsync/param/1": {
-    "documentation": "一個 Roblox 支持的語言或語言區域代碼。"
+    "documentation": "Roblox 支持的語言或區域代碼。"
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForLocaleAsync/return/0": {
-    "documentation": "指定語言區域的 <code>Translator</code> 實例。"
+    "documentation": "指定區域的 <code>Translator</code> 實例。"
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForLocaleAsync": {
-    "documentation": "在雲端的 <code>LocalizationTable</code> 為參數語言區域加載之前會讓出控制 - 如果可用。返回一個 <code>Translator</code> 實例，以供對提供的語言區域進行翻譯。",
+    "documentation": "在雲端 <code>LocalizationTable</code> 為參數區域加載之前讓出 - 如果可用。返回一個 <code>Translator</code> 實例，用於提供的區域的翻譯。",
     "params": [
       {
         "name": "self",
@@ -71703,13 +71777,13 @@
     "documentation": "處理自動翻譯。"
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayer/param/1": {
-    "documentation": "您正在獲取 <code>Translator</code> 的 <code>Player</code>。"
+    "documentation": "您要獲取 <code>Translator</code> 的 <code>Player</code>。"
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayer/return/0": {
-    "documentation": "指定語言區域的 <code>Translator</code> 實例。"
+    "documentation": "指定區域的 <code>Translator</code> 實例。"
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayer": {
-    "documentation": "返回一個 <code>Translator</code>，以供使用已加載的語言區域數據進行翻譯。",
+    "documentation": "<strong>Deprecated:</strong> 此函數已被 <code>LocalizationService:GetTranslatorForPlayerAsync()</code> 替代，該函數的功能相似，但會讓出直到雲端表加載。請在新工作中使用它。<br>返回一個 <code>Translator</code>，用於使用已加載的區域數據進行翻譯。",
     "params": [
       {
         "name": "self",
@@ -71730,13 +71804,13 @@
     "documentation": "處理自動翻譯。"
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayerAsync/param/1": {
-    "documentation": "您正在獲取 <code>Translator</code> 的 <code>Player</code>。"
+    "documentation": "您要獲取 <code>Translator</code> 的 <code>Player</code>。"
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayerAsync/return/0": {
-    "documentation": "指定語言區域的 <code>Translator</code> 實例。"
+    "documentation": "指定區域的 <code>Translator</code> 實例。"
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayerAsync": {
-    "documentation": "在雲端 <code>LocalizationTable</code> 為玩家的語言區域加載之前會讓出控制 - 如果可用。返回一個 <code>Translator</code> 實例，以供對提供的語言區域進行翻譯。",
+    "documentation": "在雲端 <code>LocalizationTable</code> 為玩家的區域加載之前讓出 - 如果可用。返回一個 <code>Translator</code> 實例，用於提供的區域的翻譯。",
     "params": [
       {
         "name": "self",
@@ -80457,12 +80531,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.TriangleCount": {
-    "documentation": "此實體模型的多邊形數量。",
+    "documentation": "此實體模型中的多邊形數量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#TriangleCount",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.UsePartColor": {
-    "documentation": "設置是否可以使用繼承的 顏色屬性重新著色 <code>PartOperation</code>。",
+    "documentation": "設置 <code>PartOperation</code> 是否可以使用繼承的 顏色屬性重新上色。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#UsePartColor",
     "code_sample": ""
   },
@@ -80470,10 +80544,10 @@
     "documentation": "所有基於實體建模的部分所繼承的抽象類別。"
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry/param/1": {
-    "documentation": "將用此 <code>PartOperation</code> 的幾何形狀替代該 <code>PartOperation</code> 的幾何形狀的 <code>PartOperation</code>。"
+    "documentation": "將用於替換此 <code>PartOperation</code> 幾何形狀的 <code>PartOperation</code>。"
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry": {
-    "documentation": "用另一個 <code>PartOperation</code> 的幾何形狀替代此 <code>PartOperation</code> 的幾何形狀。",
+    "documentation": "用另一個 <code>PartOperation</code> 的幾何形狀替換此 <code>PartOperation</code> 的幾何形狀。",
     "params": [
       {
         "name": "self",
@@ -83031,6 +83105,7 @@
       "GetUserSubscriptionDetailsAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync",
       "GetUserSubscriptionPaymentHistoryAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync",
       "GetUserSubscriptionStatusAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync",
+      "OpenShop": "@roblox/globaltype/MarketplaceService.OpenShop",
       "PlayerOwnsAsset": "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset",
       "PlayerOwnsAssetAsync": "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync",
       "PlayerOwnsBundle": "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle",
@@ -83365,20 +83440,42 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetUserSubscriptionStatusAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/MarketplaceService.OpenShop/param/0": {
+    "documentation": "負責體驗內部交易的服務。"
+  },
+  "@roblox/globaltype/MarketplaceService.OpenShop/param/1": {
+    "documentation": "要為其打開商店的 <code>Player</code>。如果從 <code>LocalScript</code> 調用，則必須是本地玩家。"
+  },
+  "@roblox/globaltype/MarketplaceService.OpenShop": {
+    "documentation": "為指定玩家打開個性化的遊戲內商店。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.OpenShop/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/MarketplaceService.OpenShop/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#OpenShop",
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nMarketplaceService:OpenShop(player)"
+  },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/0": {
     "documentation": "負責體驗內部交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/1": {
-    "documentation": "要檢查是否擁有給定資產的 <code>Player</code>。"
+    "documentation": "要測試其擁有該資產的庫存的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/2": {
-    "documentation": "要檢查的資產 ID。"
+    "documentation": "要測試的資產 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/return/0": {
-    "documentation": "指示給定玩家的庫存是否包含給定資產。"
+    "documentation": "指示該玩家的庫存中是否包含該資產。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>PlayerOwnsAssetAsync()</code> 取代。<br>返回給定用戶是否擁有給定資產。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>PlayerOwnsAssetAsync()</code> 取代。<br>返回該用戶是否擁有該資產。",
     "params": [
       {
         "name": "self",
@@ -83403,16 +83500,16 @@
     "documentation": "負責體驗內部交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/1": {
-    "documentation": "要測試其擁有該資產的庫存的 <code>Player</code>。"
+    "documentation": "要檢查擁有權的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/2": {
-    "documentation": "要測試的資產 ID。"
+    "documentation": "要檢查的給定玩家庫存的資產 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/return/0": {
-    "documentation": "指示該玩家的庫存中是否包含該資產。"
+    "documentation": "指示給定玩家的庫存是否包含該資產。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync": {
-    "documentation": "返回該用戶是否擁有該資產。",
+    "documentation": "返回指定用戶是否擁有指定資產。",
     "params": [
       {
         "name": "self",
@@ -83437,16 +83534,16 @@
     "documentation": "負責體驗內部交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/1": {
-    "documentation": "要檢查是否擁有給定包裝的 <code>Player</code>。"
+    "documentation": "要測試其擁有該捆綁包的庫存的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/2": {
-    "documentation": "要檢查的包裝 ID。"
+    "documentation": "要測試的捆綁包 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0": {
-    "documentation": "指示給定玩家的庫存是否包含給定包裝。"
+    "documentation": "指示該玩家的庫存中是否包含該捆綁包。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>PlayerOwnsBundleAsync()</code> 取代。<br>返回給定玩家是否擁有給定包裝。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>PlayerOwnsBundleAsync()</code> 取代。<br>返回該玩家是否擁有該捆綁包。",
     "params": [
       {
         "name": "self",
@@ -83471,16 +83568,16 @@
     "documentation": "負責體驗內部交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/1": {
-    "documentation": "要測試其擁有該捆綁包的庫存的 <code>Player</code>。"
+    "documentation": "要檢查擁有權的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/2": {
-    "documentation": "要測試的捆綁包 ID。"
+    "documentation": "要檢查的給定玩家庫存的捆綁包 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/return/0": {
-    "documentation": "指示該玩家的庫存中是否包含該捆綁包。"
+    "documentation": "指示給定玩家的庫存是否包含該捆綁包。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync": {
-    "documentation": "返回該玩家是否擁有該捆綁包。",
+    "documentation": "返回指定玩家是否擁有指定的捆綁包。",
     "params": [
       {
         "name": "self",
@@ -83508,13 +83605,13 @@
     "documentation": "要提示購買物品的用戶。"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "要包含在批量購買中的角色項目數組。 每個項目包含以下結構： <pre><code class=\"language-lua\">{   類型: MarketplaceProductType,   ID: string,   購買選項: { {類型: PurchaseOption, 值: number?} }? } </code></pre> 每個項目包含以下對： <ul> <li><code>類型</code>: 對應的 <code>MarketplaceProductType</code> (Enum)。</li> <li><code>ID</code>: 資產或包的 ID。</li> <li><code>購買選項</code>: 可選。包含要在提示中顯示的單個購買選項的數組。如果省略，將提示永久購買。請參見下面的購買選項部分以獲取詳細資訊。</li> </ul>"
+    "documentation": "要包含在批量購買中的虛擬物品陣列。 每個項目包含以下結構： <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string,   PurchaseOptions: { {Type: PurchaseOption, Value: number?} }? } </code></pre> 每個項目包含以下對： <ul> <li><code>Type</code>: 對應的 <code>MarketplaceProductType</code>（Enum）。</li> <li><code>Id</code>: 資產或捆綁包的 ID。</li> <li><code>PurchaseOptions</code>: 可選。包含一個顯示在提示中的購買選項的陣列。如果省略，則提示永久購買。請參見下面的 PurchaseOptions 部分以獲取詳細信息。</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
-    "documentation": "暫時無法使用。"
+    "documentation": "目前不可用。"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
-    "documentation": "提示用戶購買多個具有給定 <code>assetId</code> 或 <code>bundleId</code> 的虛擬人物物品。",
+    "documentation": "提示用戶購買多個帶有給定 <code>assetId</code> 或 <code>bundleId</code> 的虛擬物品。",
     "params": [
       {
         "name": "self",
@@ -83544,10 +83641,10 @@
     "documentation": "要提示的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/2": {
-    "documentation": "要購買的捆綁包 ID。"
+    "documentation": "要購買的捆綁包的 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase": {
-    "documentation": "提示用戶購買具有給定 <code>bundleId</code> 的包裝。",
+    "documentation": "提示用戶購買帶有給定 <code>bundleId</code> 的捆綁包。",
     "params": [
       {
         "name": "self",
@@ -83573,10 +83670,10 @@
     "documentation": "要提示的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/2": {
-    "documentation": "要取消的訂閱 ID。"
+    "documentation": "要取消的訂閱的 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PromptCancelSubscription": {
-    "documentation": "提示用戶取消具有給定 <code>subscriptionId</code> 的訂閱。",
+    "documentation": "提示用戶取消帶有給定 <code>subscriptionId</code> 的訂閱。",
     "params": [
       {
         "name": "self",
@@ -83602,10 +83699,10 @@
     "documentation": "要提示的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/2": {
-    "documentation": "要購買的通行證 ID。這是 <code>GetProductInfo()</code> 當 <code>InfoType</code> 為 <code>GamePass</code> 時返回的 <code>TargetId</code>。這不是通行證的資產 ID，也不是其 <code>ProductId</code>。"
+    "documentation": "要購買的通行證 ID。這是 <code>GetProductInfo()</code> 返回的 <code>TargetId</code>，當 <code>InfoType</code> 為 <code>GamePass</code> 時。這不是通行證的資產 ID，也不是它的 <code>ProductId</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase": {
-    "documentation": "提示用戶購買具有給定 <code>gamePassId</code> 的通行證。",
+    "documentation": "提示用戶購買帶有給定 <code>gamePassId</code> 的通行證。",
     "params": [
       {
         "name": "self",
@@ -83628,7 +83725,7 @@
     "documentation": "負責體驗內部交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/1": {
-    "documentation": "即將提示以購買 Premium 的用戶。"
+    "documentation": "被提示購買 Premium 的用戶。"
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
     "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>PromptRobloxSubscriptionPurchase()</code> 取代。<br>提示用戶購買 Roblox Premium。",
@@ -83653,7 +83750,7 @@
     "documentation": "要提示的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/2": {
-    "documentation": "要購買的開發者產品 ID。"
+    "documentation": "要購買的開發者產品的 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/3": {
     "documentation": "被忽略。"
@@ -83662,7 +83759,7 @@
     "documentation": "被忽略。"
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase": {
-    "documentation": "提示用戶購買具有給定 <code>productId</code> 的開發者產品。",
+    "documentation": "提示用戶購買帶有給定 <code>productId</code> 的開發者產品。",
     "params": [
       {
         "name": "self",
@@ -83705,7 +83802,7 @@
     "documentation": "被忽略。"
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase": {
-    "documentation": "提示用戶購買具有給定 <code>assetId</code> 的物品。對 USD 創作者商店購買無效。",
+    "documentation": "提示用戶購買帶有給定 <code>assetId</code> 的物品。對於 USD 創作者商店購買無法使用。",
     "params": [
       {
         "name": "self",
@@ -83736,7 +83833,7 @@
     "documentation": "負責體驗內部交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchase/param/1": {
-    "documentation": "即將提示購買 Roblox Plus 的 <code>Player</code>。"
+    "documentation": "要提示購買 Roblox Plus 的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchase": {
     "documentation": "提示用戶購買 Roblox Plus 訂閱。",
@@ -83767,10 +83864,10 @@
     "documentation": "要轉移的 Robux 數量。必須是正整數。"
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/return/0": {
-    "documentation": "一個字符串 <code>transferRequestId</code>，唯一標識此轉移請求。使用此 ID 來對應通過 <code>BindReceiptHandler</code> 傳送的收據。"
+    "documentation": "一個字符串 <code>transferRequestId</code>，唯一標識此轉移請求。使用此 ID 與通過 <code>BindReceiptHandler</code> 發送的收據進行關聯。"
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync": {
-    "documentation": "發起從發送者轉移 Robux 到另一個用戶。",
+    "documentation": "從發送者轉移 Robux 到另一個用戶。",
     "params": [
       {
         "name": "self",
@@ -83799,13 +83896,13 @@
     "documentation": "負責體驗內部交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1": {
-    "documentation": "即將被提示訂閱的 <code>Player</code> 對象。"
+    "documentation": "要提示訂閱的 <code>Player</code> 對象。"
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
     "documentation": "要訂閱的訂閱 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase": {
-    "documentation": "提示用戶購買具有給定 <code>subscriptionId</code> 的訂閱。",
+    "documentation": "提示用戶購買帶有給定 <code>subscriptionId</code> 的訂閱。",
     "params": [
       {
         "name": "self",
@@ -83828,10 +83925,10 @@
     "documentation": "負責體驗內部交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "一個對象數組，標識您要排序的產品。該數組最多可以包含 50 個項目。 每個 <code>ProductIdentifier</code> 都具有： <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>必須是 <code>InfoType.GamePass</code> 或 <code>InfoType.Product</code>。</li> <li><code>Id</code>: number</li> <li>遊戲通行證或開發者產品的 ID。</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "一個對象陣列，標識您想要排名的產品。此陣列最多可以包含 50 個項目。 每個 <code>ProductIdentifier</code> 包含： <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>必須是 <code>InfoType.GamePass</code> 或 <code>InfoType.Product</code>。</li> <li><code>Id</code>: number</li> <li>遊戲通行證或開發者產品的 ID。</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "為當前用戶提供的按個性化順序排好的項目數組。 每個數組都具有： <ul> <li><code>ProductIdentifier</code>：來自輸入數組的相應 ID。</li> <li><code>ProductInfo</code>：由 <code>GetProductInfoAsync</code> 返回的標準產品資訊字典。</li> </ul>"
+    "documentation": "當前用戶的個性化排序項目陣列。 每個陣列包含： <ul> <li><code>ProductIdentifier</code>: 來自輸入陣列的對應 ID。</li> <li><code>ProductInfo</code>: 由 <code>GetProductInfoAsync</code> 返回的標準產品信息字典。</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
     "documentation": "接受一個產品 ID 列表並返回這些產品的個性化排序列表。",
@@ -83855,13 +83952,13 @@
     "documentation": "負責體驗內部交易的服務。"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "一個 <code>InfoType</code> 值數組，指定要檢索推薦的產品類型。 支持的 <code>InfoTypes</code>：<code>InfoType.GamePass</code>，<code>InfoType.Product</code>。 <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "一個 <code>InfoType</code> 值的陣列，指定要檢索推薦的產品類型。 支持的 <code>InfoTypes</code>: <code>InfoType.GamePass</code>，<code>InfoType.Product</code>。 <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "基於提供的 <code>InfoTypes</code> 返回用戶最有可能參與的最多 50 項資料的排名列表。如果無法確定推薦，則該方法返回一個空列表。"
+    "documentation": "根據提供的 <code>InfoTypes</code>，用戶最有可能參與的最多 50 個項目的排名列表。如果無法確定推薦，則該方法返回空列表。"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li>接受一個 <code>InfoType</code> 數組並返回最多 50 項代表用戶最可能參與和購買的產品。</li> </ul>",
+    "documentation": "<ul> <li>接受一個 <code>InfoType</code> 陣列並返回最多 50 個項目，表示用戶最有可能參與和購買的產品。</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -83891,7 +83988,7 @@
     "documentation": "用戶是否擁有該通行證。"
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync": {
-    "documentation": "如果擁有給定 <code>UserId</code> 的玩家擁有給定的 <code>gamePassId</code> 通行證，則返回 true。",
+    "documentation": "如果擁有給定 <code>gamePassId</code> 的玩家具有給定的 <code>UserId</code>，則返回 true。",
     "params": [
       {
         "name": "self",
@@ -91715,6 +91812,7 @@
       "Direction1DState": "@roblox/globaltype/InputAction.Direction1DState",
       "Direction2DState": "@roblox/globaltype/InputAction.Direction2DState",
       "Direction3DState": "@roblox/globaltype/InputAction.Direction3DState",
+      "DisplayName": "@roblox/globaltype/InputAction.DisplayName",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "PreferredBinding": "@roblox/globaltype/InputAction.PreferredBinding",
       "Type": "@roblox/globaltype/InputAction.Type",
@@ -91745,6 +91843,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction3DState",
     "code_sample": ""
   },
+  "@roblox/globaltype/InputAction.DisplayName": {
+    "documentation": "此操作的本地化顯示名稱。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#DisplayName",
+    "code_sample": ""
+  },
   "@roblox/globaltype/InputAction.Enabled": {
     "documentation": "確定 <code>InputAction</code> 是否啟用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Enabled",
@@ -91756,12 +91859,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Type": {
-    "documentation": "指定動作期望的輸入值類型。",
+    "documentation": "指定操作期望的輸入值類型。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Type",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.ViewportPositionState": {
-    "documentation": "不可腳本化的只讀屬性，對於調試 <code>ViewportPosition</code> 輸入動作非常有用。",
+    "documentation": "對於調試 <code>ViewportPosition</code> 輸入操作非常有用的不可腳本化只讀屬性。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
     "code_sample": ""
   },
@@ -106460,6 +106563,26 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#SubtractNode",
     "code_sample": ""
   },
+  "@roblox/enum/AnimationNodeType.OneShotNode": {
+    "documentation": "一個分層節點，當觸發時播放一次性姿勢，並在循環基礎姿勢上進行混合，然後再回到原來的姿勢。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#OneShotNode",
+    "code_sample": ""
+  },
+  "@roblox/enum/AnimationNodeType.StateMachineNode": {
+    "documentation": "一個根據狀態機定義選擇和過渡動畫狀態的節點。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#StateMachineNode",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.AnimationNodeType": {
     "documentation": "指定動畫圖節點的類型，決定它如何處理或結合動畫數據。",
     "keys": {
@@ -106476,7 +106599,9 @@
       "SelectNode": "@roblox/enum/AnimationNodeType.SelectNode",
       "SequenceNode": "@roblox/enum/AnimationNodeType.SequenceNode",
       "SpeedNode": "@roblox/enum/AnimationNodeType.SpeedNode",
-      "SubtractNode": "@roblox/enum/AnimationNodeType.SubtractNode"
+      "SubtractNode": "@roblox/enum/AnimationNodeType.SubtractNode",
+      "OneShotNode": "@roblox/enum/AnimationNodeType.OneShotNode",
+      "StateMachineNode": "@roblox/enum/AnimationNodeType.StateMachineNode"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType",
     "code_sample": ""
@@ -106890,6 +107015,46 @@
       "Always": "@roblox/enum/AssetTypeVerification.Always"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AssetTypeVerification",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.New": {
+    "documentation": "The player is playing the experience for the first time.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.Returning": {
+    "documentation": "The player has played the experience before.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#Returning",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.UserNewReturningStatus": {
+    "documentation": "Describes whether a player is new to the current experience or has played it before.",
+    "keys": {
+      "Unknown": "@roblox/enum/UserNewReturningStatus.Unknown",
+      "New": "@roblox/enum/UserNewReturningStatus.New",
+      "Returning": "@roblox/enum/UserNewReturningStatus.Returning"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarSettingsScaleMode.PlayerChoice": {
@@ -107830,6 +107995,68 @@
       "PauseEventTriggered": "@roblox/enum/AdUIEventType.PauseEventTriggered"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AdUIEventType",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Inactive": {
+    "documentation": "The player did not play the experience in the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Inactive",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Low": {
+    "documentation": "The player played the experience on 1 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Low",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Medium": {
+    "documentation": "The player played the experience on 2 or 3 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Medium",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.High": {
+    "documentation": "The player played the experience on 4 to 7 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#High",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.EngagementLevel": {
+    "documentation": "Describes how many days a player played the current experience in the last 7 days, represented as a bucket.",
+    "keys": {
+      "Unknown": "@roblox/enum/EngagementLevel.Unknown",
+      "Inactive": "@roblox/enum/EngagementLevel.Inactive",
+      "Low": "@roblox/enum/EngagementLevel.Low",
+      "Medium": "@roblox/enum/EngagementLevel.Medium",
+      "High": "@roblox/enum/EngagementLevel.High"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel",
     "code_sample": ""
   },
   "@roblox/enum/StartCorner.TopLeft": {
@@ -112534,6 +112761,57 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PositionAlignmentMode",
     "code_sample": ""
   },
+  "@roblox/enum/FrustumStreamingMode.Default": {
+    "documentation": "Default behavior, currently equivalent to <code>Disabled</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Default",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Enabled": {
+    "documentation": "Always stream camera view.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Disabled": {
+    "documentation": "Disable camera view streaming.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Automatic": {
+    "documentation": "Allow the engine to decide when to stream the camera view based client ability and gameplay factors.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Automatic",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.FrustumStreamingMode": {
+    "documentation": "Used with <code>Player.FrustumStreaming</code> to control the engine's instance streaming behavior for their camera view",
+    "keys": {
+      "Default": "@roblox/enum/FrustumStreamingMode.Default",
+      "Enabled": "@roblox/enum/FrustumStreamingMode.Enabled",
+      "Disabled": "@roblox/enum/FrustumStreamingMode.Disabled",
+      "Automatic": "@roblox/enum/FrustumStreamingMode.Automatic"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode",
+    "code_sample": ""
+  },
   "@roblox/enum/AssetCreatorType.User": {
     "documentation": "該資產由個別用戶擁有；隨附的創建者 ID 是一個 用戶 ID。",
     "keys": {
@@ -113645,7 +113923,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ImageCombineType.Add": {
-    "documentation": "將源中的像素與目的地中的像素相加。",
+    "documentation": "將來源的像素和目標的像素相加。 來源的 RGB 值會根據來源的 alpha 進行縮放，而來源的 alpha 會 直接加到目標的 alpha 上。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113685,7 +113963,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ImageCombineType.Subtract": {
-    "documentation": "從目標的像素中減去來源的像素。",
+    "documentation": "從目標的像素中減去來源的像素。來源的 RGB 值 會根據來源的 alpha 進行縮放，而來源的 alpha 會直接從目標的 alpha 中減去。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116152,6 +116430,134 @@
       "High": "@roblox/enum/VerifiedLevel.High"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VerifiedLevel",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.PendingAttribution": {
+    "documentation": "The player started playing recently, and their acquisition source is not available yet.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#PendingAttribution",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.HomeRecommendation": {
+    "documentation": "The player first joined from a recommendation on the Home page.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#HomeRecommendation",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.ContinueToPlay": {
+    "documentation": "The player first joined from the Continue section.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#ContinueToPlay",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Curation": {
+    "documentation": "The player first joined from content curated by Roblox, such as featured experiences or events.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Curation",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Friends": {
+    "documentation": "The player first joined through a friend.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Friends",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Search": {
+    "documentation": "The player first joined from search results.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Search",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Teleport": {
+    "documentation": "The player first joined by teleporting from another experience.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Teleport",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Ads": {
+    "documentation": "The player first joined from an ad, such as a sponsored ad, search ad, or portal ad.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Ads",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.HomeOther": {
+    "documentation": "The player first joined from a part of the Roblox app other than Home recommendations, such as Charts or Favorites.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#HomeOther",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Other": {
+    "documentation": "The player first joined from another source, such as a share link, chat, or a notification.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Other",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.UserAcquisitionSource": {
+    "documentation": "Describes how a player first found the current experience.",
+    "keys": {
+      "Unknown": "@roblox/enum/UserAcquisitionSource.Unknown",
+      "PendingAttribution": "@roblox/enum/UserAcquisitionSource.PendingAttribution",
+      "HomeRecommendation": "@roblox/enum/UserAcquisitionSource.HomeRecommendation",
+      "ContinueToPlay": "@roblox/enum/UserAcquisitionSource.ContinueToPlay",
+      "Curation": "@roblox/enum/UserAcquisitionSource.Curation",
+      "Friends": "@roblox/enum/UserAcquisitionSource.Friends",
+      "Search": "@roblox/enum/UserAcquisitionSource.Search",
+      "Teleport": "@roblox/enum/UserAcquisitionSource.Teleport",
+      "Ads": "@roblox/enum/UserAcquisitionSource.Ads",
+      "HomeOther": "@roblox/enum/UserAcquisitionSource.HomeOther",
+      "Other": "@roblox/enum/UserAcquisitionSource.Other"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource",
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnCreatingChatWindow": {
@@ -121756,7 +122162,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Over": {
-    "documentation": "Composites the one-shot pose on top of the base pose, replacing it by the current blend weight.",
+    "documentation": "將一次性姿勢合成在基礎姿勢之上，並用當前的混合權重替換它。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121766,7 +122172,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Add": {
-    "documentation": "Adds the one-shot pose to the base pose as an additive layer scaled by the current blend weight.",
+    "documentation": "將一次性姿勢作為加法層添加到基礎姿勢中，並按當前的混合權重進行縮放。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121776,7 +122182,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Subtract": {
-    "documentation": "Subtracts the one-shot pose from the base pose scaled by the current blend weight.",
+    "documentation": "從基礎姿勢中減去一次性姿勢，並按當前的混合權重進行縮放。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121786,7 +122192,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnimationNodeBlendMode": {
-    "documentation": "Specifies how an <code>AnimationNodeType.OneShotNode</code> combines its one-shot pose with its base pose.",
+    "documentation": "指定 <code>AnimationNodeType.OneShotNode</code> 如何將其一次性姿勢與其基礎姿勢結合。",
     "keys": {
       "Over": "@roblox/enum/AnimationNodeBlendMode.Over",
       "Add": "@roblox/enum/AnimationNodeBlendMode.Add",
@@ -136223,6 +136629,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SafeAreaCompatibility",
     "code_sample": ""
   },
+  "@roblox/enum/PlayerPlatformActivationStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.New": {
+    "documentation": "The player signed up for Roblox within the last 60 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Active": {
+    "documentation": "The player played on Roblox in the last 60 days and is not <code>New</code> or <code>Reactivated</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Lapsed": {
+    "documentation": "The player has not played on Roblox in the last 60 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Lapsed",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Reactivated": {
+    "documentation": "The player returned to Roblox within the last 60 days after being <code>Lapsed</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Reactivated",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PlayerPlatformActivationStatus": {
+    "documentation": "Describes whether a player is new, active, lapsed, or reactivated on Roblox.",
+    "keys": {
+      "Unknown": "@roblox/enum/PlayerPlatformActivationStatus.Unknown",
+      "New": "@roblox/enum/PlayerPlatformActivationStatus.New",
+      "Active": "@roblox/enum/PlayerPlatformActivationStatus.Active",
+      "Lapsed": "@roblox/enum/PlayerPlatformActivationStatus.Lapsed",
+      "Reactivated": "@roblox/enum/PlayerPlatformActivationStatus.Reactivated"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus",
+    "code_sample": ""
+  },
   "@roblox/enum/ModelLevelOfDetail.Automatic": {
     "documentation": "預設行為，當前等同於 <code>Disabled</code>。",
     "keys": {
@@ -139594,6 +140062,68 @@
       "MicroGamepad": "@roblox/enum/PreferredInput.MicroGamepad"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PreferredInput",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.New": {
+    "documentation": "The player first played the experience within the last 30 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Active": {
+    "documentation": "The player played the experience in the last 30 days and is not <code>New</code> or <code>Reactivated</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Lapsed": {
+    "documentation": "The player has not played the experience in the last 30 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Lapsed",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Reactivated": {
+    "documentation": "The player returned to the experience within the last 30 days after being <code>Lapsed</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Reactivated",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ExperienceActivationStatus": {
+    "documentation": "Describes whether a player is new, active, lapsed, or reactivated in the current experience.",
+    "keys": {
+      "Unknown": "@roblox/enum/ExperienceActivationStatus.Unknown",
+      "New": "@roblox/enum/ExperienceActivationStatus.New",
+      "Active": "@roblox/enum/ExperienceActivationStatus.Active",
+      "Lapsed": "@roblox/enum/ExperienceActivationStatus.Lapsed",
+      "Reactivated": "@roblox/enum/ExperienceActivationStatus.Reactivated"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarItemType.Asset": {

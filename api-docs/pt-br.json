@@ -2213,7 +2213,7 @@
     "code_sample": ""
   },
   "@roblox/global/InstanceHandle": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally.",
+    "documentation": "Uma referência leve e fraca a um <code>Instance</code> que pode não estar disponível localmente.",
     "keys": {
       "new": "@roblox/global/InstanceHandle.new"
     },
@@ -2221,10 +2221,10 @@
     "code_sample": ""
   },
   "@roblox/global/InstanceHandle.new/param/0": {
-    "documentation": "The instance to refer to, or <code>nil</code> for an empty handle."
+    "documentation": "A instância a que se referir, ou <code>nil</code> para uma referência vazia."
   },
   "@roblox/global/InstanceHandle.new": {
-    "documentation": "Returns a new <code>InstanceHandle</code> referring to the given <code>Instance</code>.",
+    "documentation": "Retorna um novo <code>InstanceHandle</code> referindo-se ao dado <code>Instance</code>.",
     "params": [
       {
         "name": "instance",
@@ -2236,7 +2236,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally.",
+    "documentation": "Uma referência leve e fraca a um <code>Instance</code> que pode não estar disponível localmente.",
     "keys": {
       "Get": "@roblox/globaltype/InstanceHandle.Get",
       "Wait": "@roblox/globaltype/InstanceHandle.Wait"
@@ -2245,13 +2245,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle.Get/param/0": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally."
+    "documentation": "Uma referência leve e fraca a um <code>Instance</code> que pode não estar disponível localmente."
   },
   "@roblox/globaltype/InstanceHandle.Get/return/0": {
-    "documentation": "The referenced instance, or <code>nil</code> if it isn't available locally."
+    "documentation": "A instância referenciada, ou <code>nil</code> se não estiver disponível localmente."
   },
   "@roblox/globaltype/InstanceHandle.Get": {
-    "documentation": "Returns the referenced <code>Instance</code> if it's available locally, otherwise <code>nil</code>.",
+    "documentation": "Retorna o <code>Instance</code> referenciado se estiver disponível localmente, caso contrário, <code>nil</code>.",
     "params": [
       {
         "name": "self",
@@ -2265,16 +2265,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle.Wait/param/0": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally."
+    "documentation": "Uma referência leve e fraca a um <code>Instance</code> que pode não estar disponível localmente."
   },
   "@roblox/globaltype/InstanceHandle.Wait/param/1": {
-    "documentation": "How long to wait, in seconds. Must be greater than zero. Waits indefinitely when omitted."
+    "documentation": "Quanto tempo esperar, em segundos. Deve ser maior que zero. Aguarda indefinidamente quando omitido."
   },
   "@roblox/globaltype/InstanceHandle.Wait/return/0": {
-    "documentation": "The referenced instance, or <code>nil</code> if the handle is empty, the target is inaccessible to the calling script, or <code>timeout</code> elapses first."
+    "documentation": "A instância referenciada, ou <code>nil</code> se a referência estiver vazia, o alvo for inacessível ao script chamador, ou se o <code>timeout</code> expirar primeiro."
   },
   "@roblox/globaltype/InstanceHandle.Wait": {
-    "documentation": "Yields until the referenced <code>Instance</code> is available locally, then returns it.",
+    "documentation": "Aguarda até que o <code>Instance</code> referenciado esteja disponível localmente, então o retorna.",
     "params": [
       {
         "name": "self",
@@ -7030,12 +7030,10 @@
       "Fail": "@roblox/globaltype/TestService.Fail",
       "isFeatureEnabled": "@roblox/globaltype/TestService.isFeatureEnabled",
       "Message": "@roblox/globaltype/TestService.Message",
-      "RegisterTest": "@roblox/globaltype/TestService.RegisterTest",
       "Require": "@roblox/globaltype/TestService.Require",
       "Run": "@roblox/globaltype/TestService.Run",
       "RunAsync": "@roblox/globaltype/TestService.RunAsync",
       "ScopeTime": "@roblox/globaltype/TestService.ScopeTime",
-      "TakeSnapshot": "@roblox/globaltype/TestService.TakeSnapshot",
       "Warn": "@roblox/globaltype/TestService.Warn"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService",
@@ -7335,47 +7333,20 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Message",
     "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Mensagem(\"exemplo\")"
   },
-  "@roblox/globaltype/TestService.RegisterTest/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para os desenvolvedores usarem, em um grau limitado."
-  },
-  "@roblox/globaltype/TestService.RegisterTest/param/1": {
-    "documentation": "Um dicionário descrevendo o teste, exigindo os campos de string <code>SuiteName</code> e <code>TestCaseName</code> e opcionalmente um campo numérico <code>Timeout</code>."
-  },
-  "@roblox/globaltype/TestService.RegisterTest/return/0": {
-    "documentation": "O <code>TestCase</code> registrado, ou nenhum valor quando o registro não é suportado no contexto atual."
-  },
-  "@roblox/globaltype/TestService.RegisterTest": {
-    "documentation": "Registra um caso de teste no serviço e retorna o <code>TestCase</code> resultante.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TestService.RegisterTest/param/0"
-      },
-      {
-        "name": "testOptions",
-        "documentation": "@roblox/globaltype/TestService.RegisterTest/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TestService.RegisterTest/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#RegisterTest",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TestService.Require/param/0": {
     "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.Require/param/1": {
-    "documentation": "A expressão booleana a ser avaliada como uma asserção obrigatória."
+    "documentation": "A expressão booleana a ser avaliada como uma asserção requerida."
   },
   "@roblox/globaltype/TestService.Require/param/2": {
     "documentation": "Um rótulo que identifica este requisito na saída do teste."
   },
   "@roblox/globaltype/TestService.Require/param/3": {
-    "documentation": "A instância do script que invocou o requisito, usada para atribuição de saída. Padrão é <code>nil</code>."
+    "documentation": "A instância do script que invocou o requisito, usada para atribuição na saída. O padrão é <code>nil</code>."
   },
   "@roblox/globaltype/TestService.Require/param/4": {
-    "documentation": "O número da linha no script fonte onde o requisito foi chamado. Padrão é <code>0</code>."
+    "documentation": "O número da linha no script fonte onde o requisito foi chamado. O padrão é <code>0</code>."
   },
   "@roblox/globaltype/TestService.Require": {
     "documentation": "Imprime se uma condição é verdadeira junto com uma string de descrição.",
@@ -7439,10 +7410,10 @@
     "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.ScopeTime/return/0": {
-    "documentation": "Um dicionário mapeando escopos de simulação de física para seus tempos de passo medidos."
+    "documentation": "Um dicionário que mapeia escopos de simulação de física para seus tempos de passo medidos."
   },
   "@roblox/globaltype/TestService.ScopeTime": {
-    "documentation": "Retorna um dicionário de tempos de simulação de física por escopo para testes de desempenho.",
+    "documentation": "Retorna um dicionário de tempos de simulação de física por escopo para teste de desempenho.",
     "params": [
       {
         "name": "self",
@@ -7455,35 +7426,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ScopeTime",
     "code_sample": ""
   },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para os desenvolvedores usarem, em um grau limitado."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
-    "documentation": "O nome a ser associado à captura de tela capturada."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/2": {
-    "documentation": "Uma instância de script opcional cujos atributos <code>Suite</code> e <code>TestName</code> nomeiam a captura; padrão é <code>nil</code>."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot": {
-    "documentation": "Captura uma captura de tela nomeada durante uma execução de teste.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/0"
-      },
-      {
-        "name": "snapshotname",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/1"
-      },
-      {
-        "name": "source",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#TakeSnapshot",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TestService.Warn/param/0": {
     "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para os desenvolvedores usarem, em um grau limitado."
   },
@@ -7494,10 +7436,10 @@
     "documentation": "Um rótulo que identifica esta verificação de aviso na saída do teste."
   },
   "@roblox/globaltype/TestService.Warn/param/3": {
-    "documentation": "A instância do script que invocou o aviso, usada para atribuição de saída. Padrão é <code>nil</code>."
+    "documentation": "A instância do script que invocou o aviso, usada para atribuição na saída. O padrão é <code>nil</code>."
   },
   "@roblox/globaltype/TestService.Warn/param/4": {
-    "documentation": "O número da linha no script fonte onde o aviso foi chamado. Padrão é <code>0</code>."
+    "documentation": "O número da linha no script fonte onde o aviso foi chamado. O padrão é <code>0</code>."
   },
   "@roblox/globaltype/TestService.Warn": {
     "documentation": "Imprime se uma condição é <code>true</code>, caso contrário imprime um aviso.",
@@ -14660,7 +14602,7 @@
     "documentation": "A função a ser vinculada ao botão de fechar. Se nenhuma função for especificada, qualquer função especificada anteriormente será desvinculada."
   },
   "@roblox/globaltype/PluginGui.BindToClose": {
-    "documentation": "Vincula uma função ao botão de fechar do <code>PluginGui</code>, substituindo o comportamento padrão.",
+    "documentation": "Vincula uma função que é executada quando o usuário fecha o <code>PluginGui</code>.",
     "params": [
       {
         "name": "self",
@@ -37441,7 +37383,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting": {
-    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui um conjunto de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos.",
+    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui uma variedade de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos.",
     "keys": {
       "Ambient": "@roblox/globaltype/Lighting.Ambient",
       "Brightness": "@roblox/globaltype/Lighting.Brightness",
@@ -37477,7 +37419,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Ambient": {
-    "documentation": "A tonalidade de iluminação aplicada a áreas que são ocluídas do céu, como áreas internas.",
+    "documentation": "O tom de iluminação aplicado a áreas que estão ocultas do céu, como áreas internas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Ambient",
     "code_sample": ""
   },
@@ -37487,17 +37429,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ClockTime": {
-    "documentation": "Uma representação numérica (em horas) da hora atual do dia utilizada pelo <code>Lighting</code>.",
+    "documentation": "Uma representação numérica (em horas) da hora atual do dia usada pelo <code>Lighting</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ClockTime",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Bottom": {
-    "documentation": "A tonalidade representada na luz refletida nas superfícies opostas àquelas que estão voltadas para o sol ou lua.",
+    "documentation": "O tom representado na luz refletida nas superfícies opostas àquelas que estão voltadas para o sol ou a lua.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Bottom",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Top": {
-    "documentation": "A tonalidade representada na luz refletida de superfícies voltadas para o sol ou lua.",
+    "documentation": "O tom representado na luz refletida das superfícies voltadas para o sol ou a lua.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Top",
     "code_sample": ""
   },
@@ -37517,17 +37459,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ExtendLightRangeTo120": {
-    "documentation": "Não utilizado. A <code>Range</code> é sempre limitada a 120 studs.",
+    "documentation": "Não utilizado. A luz <code>Range</code> é sempre limitada a 120 studs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ExtendLightRangeTo120",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogColor": {
-    "documentation": "Um valor <code>Color3</code> que dá a tonalidade da neblina do <code>Lighting</code>.",
+    "documentation": "Um valor <code>Color3</code> que dá o tom da neblina do <code>Lighting</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogEnd": {
-    "documentation": "A profundidade a partir da <code>Workspace.CurrentCamera</code>, em studs, na qual a neblina ficará completamente opaca.",
+    "documentation": "A profundidade a partir da <code>Workspace.CurrentCamera</code>, em studs, na qual a neblina será completamente opaca.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogEnd",
     "code_sample": ""
   },
@@ -37542,7 +37484,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GlobalShadows": {
-    "documentation": "Ativa a iluminação dinâmica baseada em voxel para o local.",
+    "documentation": "Ativa ou desativa a iluminação dinâmica baseada em voxel para o local.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#GlobalShadows",
     "code_sample": ""
   },
@@ -37552,7 +37494,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.OutdoorAmbient": {
-    "documentation": "A tonalidade de iluminação aplicada a áreas externas.",
+    "documentation": "O tom de iluminação aplicado a áreas externas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#OutdoorAmbient",
     "code_sample": ""
   },
@@ -37562,32 +37504,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.PrioritizeLightingQuality": {
-    "documentation": "Indica se você prefere qualidade de iluminação/sombreamento ou distância de visão para reduzir primeiro.",
+    "documentation": "Indica se você prefere qualidade de iluminação/sombreamento ou distância de visualização para escalar primeiro.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#PrioritizeLightingQuality",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ShadowColor": {
-    "documentation": "<strong>Deprecated:</strong> Este item está abandonado e não tem funcionalidade atual. Não o use para novos trabalhos.<br>Isso deveria mudar a cor das sombras dos jogadores, mas atualmente não faz nada.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto e não tem funcionalidade atual. Não o use para novos trabalhos.<br>Isso deveria mudar a cor das sombras dos jogadores, mas atualmente não faz nada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ShadowColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ShadowSoftness": {
-    "documentation": "Controla o quão borradas as sombras são.",
+    "documentation": "Controla quão borradas as sombras são.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ShadowSoftness",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Technology": {
-    "documentation": "Determina o sistema de iluminação para renderizar o mundo 3D. Não-scritável.",
+    "documentation": "Determina o sistema de iluminação para renderizar o mundo 3D. Não scriptável.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Technology",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.TimeOfDay": {
-    "documentation": "Uma representação de string de 24 horas da hora atual do dia usada pelo <code>Lighting</code>.",
+    "documentation": "Uma representação em string de 24 horas da hora atual do dia usada pelo <code>Lighting</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#TimeOfDay",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight/param/0": {
-    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui um conjunto de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos."
+    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui uma variedade de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos."
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight/return/0": {
     "documentation": "O número de minutos após a meia-noite."
@@ -37607,13 +37549,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight/param/0": {
-    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui um conjunto de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos."
+    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui uma variedade de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos."
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> Este método é uma variante obsoleta de <code>Lighting:GetMinutesAfterMidnight()</code> que deve ser usada no lugar.",
+    "documentation": "<strong>Deprecated:</strong> Este método é uma variante obsoleta de <code>Lighting:GetMinutesAfterMidnight()</code> que deve ser usada em vez disso.",
     "params": [
       {
         "name": "self",
@@ -37627,7 +37569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMoonDirection/param/0": {
-    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui um conjunto de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos."
+    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui uma variedade de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos."
   },
   "@roblox/globaltype/Lighting.GetMoonDirection/return/0": {
     "documentation": "<code>Vector3</code> representando a direção da lua."
@@ -37647,7 +37589,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMoonPhase/param/0": {
-    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui um conjunto de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos."
+    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui uma variedade de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos."
   },
   "@roblox/globaltype/Lighting.GetMoonPhase/return/0": {
     "documentation": ""
@@ -37667,7 +37609,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetSunDirection/param/0": {
-    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui um conjunto de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos."
+    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui uma variedade de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos."
   },
   "@roblox/globaltype/Lighting.GetSunDirection/return/0": {
     "documentation": "<code>Vector3</code> representando a direção do sol."
@@ -37687,13 +37629,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight/param/0": {
-    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui um conjunto de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos."
+    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui uma variedade de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos."
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight/param/1": {
-    "documentation": "O número de minutos após meia-noite."
+    "documentation": "O número de minutos após a meia-noite."
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight": {
-    "documentation": "Define <code>TimeOfDay</code> e <code>ClockTime</code> para o número dado de minutos após meia-noite.",
+    "documentation": "Define <code>TimeOfDay</code> e <code>ClockTime</code> para o número dado de minutos após a meia-noite.",
     "params": [
       {
         "name": "self",
@@ -37709,13 +37651,13 @@
     "code_sample": "local Lighting = game:GetService(\"Lighting\")\n\nlocal TIME_SPEED = 60  -- 1 min = 1 hora\nlocal START_TIME = 9  -- 9 AM\n\nlocal minutesAfterMidnight = START_TIME * 60\nlocal waitTime = 60 / TIME_SPEED\n\nwhile true do\n\tminutesAfterMidnight = minutesAfterMidnight + 1\n\n\tLighting:SetMinutesAfterMidnight(minutesAfterMidnight)\n\n\ttask.wait(waitTime)\nend"
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/0": {
-    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui um conjunto de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos."
+    "documentation": "O serviço <code>Lighting</code> controla a iluminação global em uma experiência. Inclui uma variedade de propriedades ajustáveis que você pode usar para mudar como a iluminação aparece e interage com outros objetos."
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> Este método é uma variante abandonada de <code>Lighting:SetMinutesAfterMidnight()</code> que deve ser usada em vez disso.",
+    "documentation": "<strong>Deprecated:</strong> Este método é uma variante obsoleta de <code>Lighting:SetMinutesAfterMidnight()</code> que deve ser usada em vez disso.",
     "params": [
       {
         "name": "self",
@@ -37808,7 +37750,7 @@
     "returns": []
   },
   "@roblox/globaltype/Lighting.LightingChanged": {
-    "documentation": "Este evento é disparado quando uma propriedade de <code>Lighting</code> é alterada ou um <code>Sky</code> é adicionado ou removido do <code>Lighting</code>.",
+    "documentation": "Este evento é acionado quando uma propriedade do <code>Lighting</code> é alterada ou um <code>Sky</code> é adicionado ou removido do <code>Lighting</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Lighting.LightingChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Lighting.LightingChanged.ConnectParallel",
@@ -38077,7 +38019,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.Size": {
-    "documentation": "Tamanho da <code>EditableImage</code> em pixels.",
+    "documentation": "Tamanho do <code>EditableImage</code> em pixels.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableImage#Size",
     "code_sample": ""
   },
@@ -38109,13 +38051,13 @@
     "documentation": "Cor do círculo."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/4": {
-    "documentation": "Transparência do círculo, sendo 0 totalmente opaco e 1 totalmente transparente."
+    "documentation": "Transparência do círculo, onde 0 é totalmente opaco e 1 é totalmente transparente."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/5": {
-    "documentation": "Como os pixels desenhados (origem) são combinados com os pixels existentes nesta imagem (destino)."
+    "documentation": "Como os pixels desenhados (fonte) são combinados com os pixels existentes nesta imagem (destino)."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/6": {
-    "documentation": "Determina se o anti-aliasing é aplicado ao círculo. Quando definido como <code>AntiAliasing.Enabled</code>, as bordas do círculo são suaves. Quando definido como <code>AntiAliasing.Disabled</code>, as bordas do círculo são duras."
+    "documentation": "Determina se a suavização de bordas é aplicada ao círculo. Quando definido como <code>AntiAliasing.Enabled</code>, as bordas do círculo são suaves. Quando definido como <code>AntiAliasing.Disabled</code>, as bordas do círculo são duras."
   },
   "@roblox/globaltype/EditableImage.DrawCircle": {
     "documentation": "Desenha um círculo no ponto especificado.",
@@ -38160,13 +38102,13 @@
     "documentation": "Posição na qual o canto superior esquerdo da imagem de origem será desenhado."
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/2": {
-    "documentation": "A <code>EditableImage</code> de origem para desenhar nesta <code>EditableImage</code>."
+    "documentation": "O <code>EditableImage</code> de origem a ser desenhado neste <code>EditableImage</code>."
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/3": {
     "documentation": "Como os pixels da imagem de origem são combinados com os pixels existentes nesta imagem (destino)."
   },
   "@roblox/globaltype/EditableImage.DrawImage": {
-    "documentation": "Desenha outra <code>EditableImage</code> nesta <code>EditableImage</code> na posição dada.",
+    "documentation": "Desenha outro <code>EditableImage</code> neste <code>EditableImage</code> na posição dada.",
     "params": [
       {
         "name": "self",
@@ -38196,13 +38138,13 @@
     "documentation": "O <code>EditableMesh</code> usado para projetar."
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/2": {
-    "documentation": "Dicionário de configuração de projeção, incluindo os seguintes pares de chave-valor: <ul> <li><code>Direction</code> (<code>Vector3</code>) onde o projetor está voltado.</li> <li><code>Position</code> (<code>Vector3</code>) como a posição no espaço local com   respeito à malha.</li> <li><code>Size</code> (<code>Vector3</code>) como o tamanho do projetor.</li> <li><code>Up</code> (<code>Vector3</code>) como o vetor para cima do projetor no espaço   local com respeito à malha.</li> </ul>"
+    "documentation": "Dicionário de configuração de projeção incluindo os seguintes pares chave-valor: <ul> <li><code>Direction</code> (<code>Vector3</code>) para onde o projetor está apontando.</li> <li><code>Position</code> (<code>Vector3</code>) como a posição no espaço local em relação à malha.</li> <li><code>Size</code> (<code>Vector3</code>) como o tamanho do projetor.</li> <li><code>Up</code> (<code>Vector3</code>) como o vetor para cima do projetor no espaço local em relação à malha.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/3": {
-    "documentation": "Dicionário de configuração do pincel, incluindo os seguintes pares de chave-valor: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) que determina como esta   projeção irá mesclar os valores de alpha.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) que determina como esta   projeção irá mesclar os valores de cor.</li> <li><code>Decal</code> (<code>EditableImage</code>) como a imagem usada para projeção.</li> <li><code>FadeAngle</code> (número) como o ângulo em graus para que as bordas da projeção   comecem a desbotar. A projeção será totalmente desbotada   a 90 graus. Um ângulo de 0 significa que o desbotamento começa imediatamente em 0   graus e um ângulo de 90 significa nenhum desbotamento, mas sim uma borda dura   a 90 graus. Um ângulo de 70 graus significa que a projeção   começa a desbotar a 70 graus e está totalmente desbotada a 90 graus.</li> <li><code>BlendIntensity</code> (número) como o valor entre <code>0</code> e <code>1</code> que   controla quanto da projeção é mesclada na imagem resultante.</li> </ul>"
+    "documentation": "Dicionário de configuração do pincel incluindo os seguintes pares chave-valor: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) que determina como esta   projeção irá mesclar valores alfa.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) que determina como esta   projeção irá mesclar valores de cor.</li> <li><code>Decal</code> (<code>EditableImage</code>) como a imagem usada para projeção.</li> <li><code>FadeAngle</code> (número) como o ângulo em graus para as bordas da projeção   começarem a desvanecer. A projeção será totalmente desvanecida   a 90 graus. Um ângulo de 0 significa que o desvanecimento começa imediatamente a 0   graus e um ângulo de 90 significa que não há desvanecimento, mas sim uma borda dura   a 90 graus. Um ângulo de 70 graus significaria que a projeção   começa a desvanecer a 70 graus e está totalmente desvanecida a 90 graus.</li> <li><code>BlendIntensity</code> (número) como o valor entre <code>0</code> e <code>1</code> que   controla quanto da projeção é mesclada na imagem resultante.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected": {
-    "documentation": "Projeta outra <code>EditableImage</code> em um <code>EditableMesh</code> e armazena o resultado nesta <code>EditableImage</code>.",
+    "documentation": "Projeta outro <code>EditableImage</code> em um <code>EditableMesh</code> e armazena o resultado neste <code>EditableImage</code>.",
     "params": [
       {
         "name": "self",
@@ -38232,16 +38174,16 @@
     "documentation": "A <code>EditableMesh</code> que mapeia <code>sourceTexture</code> na superfície sendo amostrada."
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/2": {
-    "documentation": "A <code>EditableImage</code> da qual os pixels são amostrados."
+    "documentation": "O <code>EditableImage</code> do qual os pixels são amostrados."
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/3": {
-    "documentation": "Dicionário de configuração de projeção contendo os seguintes pares de chave-valor: <ul> <li><code>Direction</code> (<code>Vector3</code>) para onde o projetor está voltado.</li> <li><code>Position</code> (<code>Vector3</code>) como a posição do projetor no espaço local   em relação à malha.</li> <li><code>Size</code> (<code>Vector3</code>) como o tamanho do projetor. Os componentes <strong>X</strong>   e <strong>Y</strong> especificam suas dimensões, enquanto o componente <strong>Z</strong>   especifica a profundidade da projeção.</li> <li><code>Up</code> (<code>Vector3</code>) como o vetor para cima do projetor no espaço local   em relação à malha.</li> </ul>"
+    "documentation": "Dicionário de configuração de projeção contendo os seguintes pares chave-valor: <ul> <li><code>Direction</code> (<code>Vector3</code>) para onde o projetor está apontando.</li> <li><code>Position</code> (<code>Vector3</code>) como a posição do projetor no espaço local em relação à malha.</li> <li><code>Size</code> (<code>Vector3</code>) como o tamanho do projetor. Os componentes <strong>X</strong>   e <strong>Y</strong> especificam suas dimensões, enquanto o componente <strong>Z</strong>   especifica a profundidade da projeção.</li> <li><code>Up</code> (<code>Vector3</code>) como o vetor para cima do projetor no espaço local em relação à malha.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/4": {
-    "documentation": "Dicionário de configuração do pincel contendo os seguintes pares de chave-valor: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) que determina como os   valores de alfa amostrados são mesclados.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) que determina como os   valores de cor amostrados são mesclados.</li> <li><code>FadeAngle</code> (número) como o ângulo em graus em que a projeção   começa a desvanecer com base na normal da superfície. Um valor de <code>180</code> aplica   nenhum desvanecimento de ângulo normal.</li> </ul>"
+    "documentation": "Dicionário de configuração do pincel contendo os seguintes pares chave-valor: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) que determina como os   valores alfa amostrados são mesclados.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) que determina como os   valores de cor amostrados são mesclados.</li> <li><code>FadeAngle</code> (número) como o ângulo em graus no qual a projeção   começa a desvanecer com base na normal da superfície. Um valor de <code>180</code> aplica   nenhum desvanecimento de ângulo normal.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected": {
-    "documentation": "Projeta pixels de uma textura <code>EditableMesh</code> nesta <code>EditableImage</code>.",
+    "documentation": "Projeta pixels de uma textura <code>EditableMesh</code> neste <code>EditableImage</code>.",
     "params": [
       {
         "name": "self",
@@ -38275,19 +38217,19 @@
     "documentation": "Posição em pixels onde o ponto de pivô da imagem de origem será colocado nesta imagem."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/2": {
-    "documentation": "Fatores de escala para a imagem de origem ao longo dos eixos X e Y."
+    "documentation": "Fatores de escalonamento para a imagem de origem ao longo dos eixos X e Y."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/3": {
     "documentation": "O ângulo de rotação em graus, aplicado em torno do ponto de pivô da imagem de origem."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/4": {
-    "documentation": "A <code>EditableImage</code> de origem a ser desenhada nesta imagem."
+    "documentation": "O <code>EditableImage</code> de origem a ser desenhado nesta imagem."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/5": {
-    "documentation": "Dicionário opcional para configuração adicional: <ul> <li><code>CombineType</code>: Especifica como os pixels da imagem de origem se mesclam   com os da imagem de destino. O padrão é   <code>ImageCombineType.AlphaBlend</code>.</li> <li><code>SamplingMode</code>: Especifica o método de amostragem (por exemplo, <code>Default</code> para   bilinear ou <code>Pixelated</code> para vizinho mais próximo). O padrão é   <code>ResamplerMode.Default</code>.</li> <li><code>PivotPoint</code>: Especifica o ponto de pivô dentro da imagem de origem para   escala e rotação. O padrão é o centro da imagem de origem   (ou seja, <code>Size / 2</code>).</li> </ul>"
+    "documentation": "Dicionário opcional para configuração adicional: <ul> <li><code>CombineType</code>: Especifica como os pixels da imagem de origem se mesclam   com os da imagem de destino. O padrão é   <code>ImageCombineType.AlphaBlend</code>.</li> <li><code>SamplingMode</code>: Especifica o método de amostragem (por exemplo, <code>Default</code> para   bilinear ou <code>Pixelated</code> para vizinho mais próximo). O padrão é   <code>ResamplerMode.Default</code>.</li> <li><code>PivotPoint</code>: Especifica o ponto de pivô dentro da imagem de origem para   escalonamento e rotação. O padrão é o centro da imagem de origem   (ou seja, <code>Size / 2</code>).</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed": {
-    "documentation": "Desenha uma imagem nesta <code>EditableImage</code> com transformações incluindo escala e rotação, colocando-a na posição especificada.",
+    "documentation": "Desenha uma imagem neste <code>EditableImage</code> com transformações incluindo escalonamento e rotação, colocando-a na posição especificada.",
     "params": [
       {
         "name": "self",
@@ -38322,7 +38264,7 @@
     "documentation": "Objeto que permite a criação e manipulação de imagens em tempo de execução."
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/1": {
-    "documentation": "Ponto de início da linha."
+    "documentation": "Ponto inicial da linha."
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/2": {
     "documentation": "Ponto final da linha."
@@ -38334,10 +38276,10 @@
     "documentation": "Transparência da linha."
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/5": {
-    "documentation": "Como os pixels desenhados (origem) são combinados com os pixels existentes nesta imagem (destino)."
+    "documentation": "Como os pixels desenhados (fonte) são combinados com os pixels existentes nesta imagem (destino)."
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/6": {
-    "documentation": "Determina se o anti-aliasing é aplicado à linha. Quando definido como <code>AntiAliasing.Enabled</code>, as bordas da linha são suaves. Quando definido como <code>AntiAliasing.Disabled</code>, as bordas da linha são duras."
+    "documentation": "Determina se a suavização de bordas é aplicada à linha. Quando definido como <code>AntiAliasing.Enabled</code>, as bordas da linha são suaves. Quando definido como <code>AntiAliasing.Disabled</code>, as bordas da linha são duras."
   },
   "@roblox/globaltype/EditableImage.DrawLine": {
     "documentation": "Desenha uma linha entre dois pontos fornecidos.",
@@ -38379,7 +38321,7 @@
     "documentation": "Objeto que permite a criação e manipulação de imagens em tempo de execução."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/1": {
-    "documentation": "Posição do canto superior esquerdo do retângulo. Ao contrário de outros métodos de desenho, isto não pode estar fora dos limites do canvas da <code>EditableImage</code>."
+    "documentation": "Posição do canto superior esquerdo do retângulo. Ao contrário de outros métodos de desenho, isto não pode estar fora dos limites da tela do <code>EditableImage</code>."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/2": {
     "documentation": "Tamanho do retângulo a ser desenhado, em pixels."
@@ -38391,7 +38333,7 @@
     "documentation": "Transparência do retângulo."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/5": {
-    "documentation": "Como os pixels desenhados (origem) são combinados com os pixels existentes nesta imagem (destino)."
+    "documentation": "Como os pixels desenhados (fonte) são combinados com os pixels existentes nesta imagem (destino)."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle": {
     "documentation": "Desenha um retângulo do tamanho dado na posição superior esquerda dada.",
@@ -38435,7 +38377,7 @@
     "documentation": "Tamanho da região retangular de pixels a ser lida."
   },
   "@roblox/globaltype/EditableImage.ReadPixelsBuffer/return/0": {
-    "documentation": "Buffer onde cada pixel é representado por quatro bytes (vermelho, verde, azul e alfa, respectivamente). O comprimento do buffer pode ser calculado como <code>X * Size.Y * 4</code> bytes."
+    "documentation": "Buffer onde cada pixel é representado por quatro bytes (vermelho, verde, azul  e alfa, respectivamente). O comprimento do buffer pode ser calculado como <code>X * Size.Y * 4</code> bytes."
   },
   "@roblox/globaltype/EditableImage.ReadPixelsBuffer": {
     "documentation": "Lê uma região retangular de pixels em um buffer.",
@@ -38469,7 +38411,7 @@
     "documentation": "Tamanho da região retangular de pixels a ser escrita."
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer/param/3": {
-    "documentation": "Um buffer onde cada pixel é representado por quatro bytes (vermelho, verde, azul e alfa, respectivamente). O comprimento do buffer deve ser <code>X * Size.Y * 4</code> bytes."
+    "documentation": "Um buffer onde cada pixel é representado por quatro bytes (vermelho, verde,  azul e alfa, respectivamente). O comprimento do buffer deve ser <code>X * Size.Y * 4</code> bytes."
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer": {
     "documentation": "Escreve uma região retangular de pixels na imagem.",
@@ -41475,6 +41417,7 @@
     "documentation": "Classe intermediária abstrata que gerencia propriedades de geometria física para PartOperations e MeshParts.",
     "keys": {
       "CollisionFidelity": "@roblox/globaltype/TriangleMeshPart.CollisionFidelity",
+      "CollisionPrecision": "@roblox/globaltype/TriangleMeshPart.CollisionPrecision",
       "FluidFidelity": "@roblox/globaltype/TriangleMeshPart.FluidFidelity",
       "MeshSize": "@roblox/globaltype/TriangleMeshPart.MeshSize"
     },
@@ -41486,13 +41429,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#CollisionFidelity",
     "code_sample": ""
   },
+  "@roblox/globaltype/TriangleMeshPart.CollisionPrecision": {
+    "documentation": "Quantifica quão preciso ou performático é um <code>CollisionFidelity.Tunable</code> geometria de colisão, de <code>0</code> a <code>1</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#CollisionPrecision",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TriangleMeshPart.FluidFidelity": {
     "documentation": "Determina a representação geométrica usada para calcular forças e torques aerodinâmicos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#FluidFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/TriangleMeshPart.MeshSize": {
-    "documentation": "O tamanho original da geometria da malha fonte da parte, antes de qualquer escala aplicada através de <code>BasePart.Size</code>.",
+    "documentation": "O tamanho original da geometria da malha fonte da peça, antes de qualquer escalonamento aplicado através de <code>BasePart.Size</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#MeshSize",
     "code_sample": ""
   },
@@ -57073,7 +57021,9 @@
     "keys": {
       "Color": "@roblox/globaltype/WrapTarget.Color",
       "DebugMode": "@roblox/globaltype/WrapTarget.DebugMode",
-      "Stiffness": "@roblox/globaltype/WrapTarget.Stiffness"
+      "Stiffness": "@roblox/globaltype/WrapTarget.Stiffness",
+      "CreateTextureInCageSpaceAsync": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync",
+      "CreateTextureInTargetSpaceAsync": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget",
     "code_sample": ""
@@ -57091,6 +57041,74 @@
   "@roblox/globaltype/WrapTarget.Stiffness": {
     "documentation": "<strong>Deprecated:</strong> <br>Define o quanto a malha do corpo pode ser comprimida pelas roupas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#Stiffness",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/0": {
+    "documentation": "O objeto WrapTarget define um alvo. Um alvo é o corpo 3D com apenas uma superfície externa, ou uma Capa Externa."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/1": {
+    "documentation": "A <code>EditableImage</code> no espaço UV do <code>WrapTarget</code> pai."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/2": {
+    "documentation": "Dicionário opcional contendo controles para a transferência: <ul> <li><code>MinUVBounds</code> – Um <code>Vector2</code> especificando o limite mínimo da gaiola UV.</li> <li><code>MaxUVBounds</code> – Um <code>Vector2</code> especificando o limite máximo da gaiola UV.</li> </ul> Cada limite omitido é calculado a partir da malha da gaiola. Se nenhum for especificado, os limites incluem toda a gaiola."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/return/0": {
+    "documentation": "Uma nova <code>EditableImage</code> no espaço UV da gaiola, ou <code>nil</code> se o orçamento de memória editável específico do dispositivo for esgotado."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync": {
+    "documentation": "Cria uma nova <code>EditableImage</code> no espaço UV da gaiola a partir de uma textura no espaço UV do <code>MeshPart</code> pai.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/0"
+      },
+      {
+        "name": "texture",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#CreateTextureInCageSpaceAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/0": {
+    "documentation": "O objeto WrapTarget define um alvo. Um alvo é o corpo 3D com apenas uma superfície externa, ou uma Capa Externa."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/1": {
+    "documentation": "A <code>EditableImage</code> no espaço UV da gaiola."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/2": {
+    "documentation": "O <code>WrapTextureTransfer</code> associado ao mesmo <code>MeshPart</code> pai que este <code>WrapTarget</code>."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/return/0": {
+    "documentation": "Uma nova <code>EditableImage</code> no espaço UV do <code>MeshPart</code> pai, ou <code>nil</code> se o orçamento de memória editável específico do dispositivo for esgotado."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync": {
+    "documentation": "Cria uma nova <code>EditableImage</code> no espaço UV do <code>MeshPart</code> pai a partir de uma textura no espaço UV da gaiola.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/0"
+      },
+      {
+        "name": "texture",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/1"
+      },
+      {
+        "name": "wrapTextureTransfer",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#CreateTextureInTargetSpaceAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/EchoSoundEffect": {
@@ -61535,6 +61553,7 @@
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
       "CreateDataModelContentAsync": "@roblox/globaltype/AssetService.CreateDataModelContentAsync",
+      "CreateDecalAsync": "@roblox/globaltype/AssetService.CreateDecalAsync",
       "CreateEditableImage": "@roblox/globaltype/AssetService.CreateEditableImage",
       "CreateEditableImageAsync": "@roblox/globaltype/AssetService.CreateEditableImageAsync",
       "CreateEditableMesh": "@roblox/globaltype/AssetService.CreateEditableMesh",
@@ -61716,14 +61735,41 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateDataModelContentAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/param/0": {
+    "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/param/1": {
+    "documentation": "Dicionário contendo uma ou mais das seguintes pares chave-valor. Cada valor deve ser um objeto <code>Content</code> contendo um <code>EditableImage</code>: <ul> <li><code>TextureContent</code> — A textura de cor do decalque.</li> <li><code>NormalMapContent</code> — O mapa normal do decalque.</li> <li><code>MetalnessMapContent</code> — O mapa de metalicidade do decalque.</li> <li><code>RoughnessMapContent</code> — O mapa de rugosidade do decalque.</li> </ul>"
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/return/0": {
+    "documentation": "Uma nova instância de <code>Decal</code> com os mapas fornecidos do parâmetro <code>content</code>."
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync": {
+    "documentation": "Cria um novo objeto <code>Decal</code> usando os mapas de conteúdo <code>EditableImage</code> fornecidos.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.CreateDecalAsync/param/0"
+      },
+      {
+        "name": "content",
+        "documentation": "@roblox/globaltype/AssetService.CreateDecalAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.CreateDecalAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateDecalAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/0": {
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/1": {
-    "documentation": "Tabela de opções contendo controles para o método: <ul> <li><code>Size</code> – Um <code>Vector2</code> que especifica a largura e a altura desejadas   da imagem.</li> </ul>"
+    "documentation": "Tabela de opções contendo controles para o método: <ul> <li><code>Size</code> – Um <code>Vector2</code> que especifica a largura e altura desejadas da imagem.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/return/0": {
-    "documentation": "O novo <code>EditableImage</code>, ou <code>nil</code> se o orçamento de memória editável específico do dispositivo estiver esgotado."
+    "documentation": "A nova <code>EditableImage</code>, ou <code>nil</code> se o orçamento de memória editável específico do dispositivo for exaurido."
   },
   "@roblox/globaltype/AssetService.CreateEditableImage": {
     "documentation": "Cria uma nova <code>EditableImage</code>.",
@@ -61747,7 +61793,7 @@
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/1": {
-    "documentation": "Referência ao conteúdo do ativo armazenado externamente ou como um objeto dentro do local, envolvendo um único valor de um dos valores suportados <code>ContentSourceType</code>."
+    "documentation": "Referência ao conteúdo do ativo armazenado externamente ou como um objeto no local, envolvendo um único valor de um dos valores suportados de <code>ContentSourceType</code>."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/2": {
     "documentation": "Tabela contendo opções para o <code>EditableImage</code> criado. Atualmente, nenhuma opção está disponível, pois redimensionar via <code>Size</code> não é suportado."
@@ -61781,10 +61827,10 @@
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/param/1": {
-    "documentation": "Tabela contendo opções para o <code>EditableMesh</code> criado. Atualmente, nenhuma opção está disponível, uma vez que <code>FixedSize</code> sempre será <code>false</code> para malhas editáveis vazias."
+    "documentation": "Tabela contendo opções para o <code>EditableMesh</code> criado. Atualmente, nenhuma opção está disponível, pois <code>FixedSize</code> sempre será <code>false</code> para malhas editáveis vazias."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/return/0": {
-    "documentation": "O novo <code>EditableMesh</code>, ou <code>nil</code> se o orçamento de memória editável específico do dispositivo estiver esgotado."
+    "documentation": "O novo <code>EditableMesh</code>, ou <code>nil</code> se o orçamento de memória editável específico do dispositivo for exaurido."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh": {
     "documentation": "Cria um novo <code>EditableMesh</code> vazio.",
@@ -61808,10 +61854,10 @@
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/1": {
-    "documentation": "Referência ao conteúdo do ativo armazenado externamente ou como um objeto dentro do local, envolvendo um único valor de um dos valores suportados de <code>ContentSourceType</code>."
+    "documentation": "Referência ao conteúdo do ativo armazenado externamente ou como um objeto dentro do local, envolvendo um único valor de um dos valores suportados <code>ContentSourceType</code>."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/2": {
-    "documentation": "Tabela de opções contendo controles para o método: <ul> <li><code>FixedSize</code> – Um <code>bool</code>. O valor padrão é <code>true</code>, e o <code>EditableMesh</code> retornado   não permitirá que você adicione ou remova vértices,   apenas modifique seus valores. Defina como <code>false</code> se a capacidade de mudar   a topologia da malha for necessária, com o custo de usar mais memória.</li> </ul>"
+    "documentation": "Tabela de opções contendo controles para o método: <ul> <li><code>FixedSize</code> – Um <code>bool</code>. O valor padrão é <code>true</code>, e o <code>EditableMesh</code>   retornado não permitirá que você adicione ou remova vértices,   apenas modifique seus valores. Defina como <code>false</code> se a capacidade de   mudar a topologia da malha for necessária, à custa de usar mais memória.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/return/0": {
     "documentation": "O novo objeto <code>EditableMesh</code>."
@@ -61842,16 +61888,16 @@
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/1": {
-    "documentation": "Referência ao conteúdo do ativo armazenado externamente ou como um objeto dentro do local, envolvendo um único valor de um dos valores suportados <code>ContentSourceType</code>."
+    "documentation": "Referência ao conteúdo do ativo armazenado externamente ou como um objeto no local, envolvendo um único valor de um dos valores suportados de <code>ContentSourceType</code>."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/2": {
-    "documentation": "Tabela de opções contendo um ou mais controles para o método: <ul> <li><code>CollisionFidelity</code> – O valor de   <code>CollisionFidelity</code> na   parte resultante. O padrão é <code>CollisionFidelity.Default</code> se a   opção estiver ausente ou a tabela <code>options</code> for <code>nil</code>.</li> <li><code>RenderFidelity</code> – O valor de   <code>RenderFidelity</code> na parte resultante. O padrão é   <code>RenderFidelity.Automatic</code> se a opção estiver ausente ou a tabela <code>options</code>   for <code>nil</code>.</li> <li><code>FluidFidelity</code> – O valor de   <code>FluidFidelity</code> na parte resultante.   O padrão é <code>FluidFidelity.Automatic</code> se a opção estiver ausente   ou a tabela <code>options</code> for <code>nil</code>.</li> </ul>"
+    "documentation": "Tabela de opções contendo um ou mais controles para o método: <ul> <li><code>CollisionFidelity</code> – O valor de   <code>CollisionFidelity</code> na   parte resultante. O padrão é <code>CollisionFidelity.Default</code> se a   opção estiver ausente ou a tabela <code>options</code> for <code>nil</code>.</li> <li><code>RenderFidelity</code> – O valor de   <code>RenderFidelity</code> na parte resultante.   O padrão é <code>RenderFidelity.Automatic</code> se a opção estiver   ausente ou a tabela <code>options</code> for <code>nil</code>.</li> <li><code>FluidFidelity</code> – O valor de   <code>FluidFidelity</code> na parte resultante.   O padrão é <code>FluidFidelity.Automatic</code> se a opção estiver ausente   ou a tabela <code>options</code> for <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/return/0": {
     "documentation": "O novo <code>MeshPart</code> com as configurações de malha e fidelidade especificadas aplicadas."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync": {
-    "documentation": "Cria uma nova <code>MeshPart</code> com um ID de malha especificado e uma tabela opcional de valores de fidelidade.",
+    "documentation": "Cria um novo <code>MeshPart</code> com um ID de malha especificado e uma tabela opcional de valores de fidelidade.",
     "params": [
       {
         "name": "self",
@@ -61876,19 +61922,19 @@
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/1": {
-    "documentation": "Nome do novo lugar."
+    "documentation": "Nome do novo local."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/2": {
-    "documentation": "<code>PlaceId</code> do lugar a ser clonado."
+    "documentation": "<code>PlaceId</code> do local a ser clonado."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/3": {
-    "documentation": "Descrição do novo lugar."
+    "documentation": "Descrição do novo local."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/return/0": {
     "documentation": "<code>PlaceId</code> do novo lugar."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync": {
-    "documentation": "Clona um lugar através do dado <code>templatePlaceID</code>.",
+    "documentation": "Clona um local através do <code>templatePlaceID</code> fornecido.",
     "params": [
       {
         "name": "self",
@@ -61917,22 +61963,22 @@
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/1": {
-    "documentation": "O <code>Player</code> cujo inventário recebe o lugar clonado."
+    "documentation": "O <code>Player</code> cujo inventário recebe o local clonado."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/2": {
-    "documentation": "Nome para o novo lugar."
+    "documentation": "Nome para o novo local."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/3": {
-    "documentation": "<code>PlaceId</code> do lugar a ser clonado."
+    "documentation": "<code>PlaceId</code> do local a ser clonado."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/4": {
-    "documentation": "Descrição para o novo lugar."
+    "documentation": "Descrição para o novo local."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/return/0": {
-    "documentation": "<code>PlaceId</code> do novo lugar."
+    "documentation": "<code>PlaceId</code> do novo local."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync": {
-    "documentation": "Clona um lugar através do dado <code>templatePlaceID</code> e coloca-o no inventário do jogador dado.",
+    "documentation": "Clona um local através do <code>templatePlaceID</code> fornecido e o coloca no inventário do jogador fornecido.",
     "params": [
       {
         "name": "self",
@@ -61965,7 +62011,7 @@
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "Dicionário contendo os seguintes pares chave-valor: <ul> <li><code>ColorMap</code> — Um objeto <code>Content</code> que contém o mapa de cor.   O padrão é <code>nil</code>.</li> <li><code>MetalnessMap</code> — Um objeto <code>Content</code> que contém o   mapa de metalidade. Se mais de um canal estiver presente, apenas o canal vermelho   é usado. O padrão é <code>nil</code>.</li> <li><code>NormalMap</code> — Um objeto <code>Content</code> que contém o mapa   normal. O padrão é <code>nil</code>.</li> <li><code>RoughnessMap</code> — Um objeto <code>Content</code> que contém o mapa   de rugosidade. Se mais de um canal estiver presente, apenas o canal vermelho   é usado. O padrão é <code>nil</code>.</li> <li><code>EmissiveMask</code> — Um objeto <code>Content</code> que contém o   máscara emissiva. Se mais de um canal estiver presente, apenas o canal vermelho   é usado. O padrão é <code>nil</code>.</li> </ul>"
+    "documentation": "Dicionário contendo os seguintes pares chave-valor: <ul> <li><code>ColorMap</code> — Um objeto <code>Content</code> que contém o mapa de cor.   O padrão é <code>nil</code>.</li> <li><code>MetalnessMap</code> — Um objeto <code>Content</code> que contém o mapa de   metalicidade. Se mais de um canal estiver presente, apenas o canal   vermelho é usado. O padrão é <code>nil</code>.</li> <li><code>NormalMap</code> — Um objeto <code>Content</code> que contém o mapa normal.   O padrão é <code>nil</code>.</li> <li><code>RoughnessMap</code> — Um objeto <code>Content</code> que contém o mapa de   rugosidade. Se mais de um canal estiver presente, apenas o canal   vermelho é usado. O padrão é <code>nil</code>.</li> <li><code>EmissiveMask</code> — Um objeto <code>Content</code> que contém a máscara   emissiva. Se mais de um canal estiver presente, apenas o canal   vermelho é usado. O padrão é <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
     "documentation": "Uma nova instância de <code>SurfaceAppearance</code> com os mapas fornecidos do parâmetro <code>content</code>."
@@ -61998,7 +62044,7 @@
     "documentation": "IDs de ativos que estão contidos em um pacote especificado."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage": {
-    "documentation": "<strong>Deprecated:</strong> Use <code>GetAssetIdsForPackageAsync()</code> instead.<br>Retorna um array de IDs de ativos que estão contidos em um pacote especificado.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>GetAssetIdsForPackageAsync()</code> em vez disso.<br>Retorna um array de IDs de ativos que estão contidos em um pacote especificado.",
     "params": [
       {
         "name": "self",
@@ -62046,10 +62092,10 @@
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/param/1": {
-    "documentation": "Array de IDs de ativos ou de conteúdo para os quais recuperar metadados. Tamanho máximo é 30."
+    "documentation": "Array de IDs de ativos ou conteúdo para os quais recuperar metadados. O máximo de tamanho do lote é 30."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/return/0": {
-    "documentation": "Array de tabelas dicionário na mesma ordem da solicitação, onde cada dicionário contém os seguintes metadados para seu ativo/conteúdo: <ul> <li> <code>AssetId</code> (string) </li> <li> <code>Title</code> (string) </li> <li> <code>Artist</code> (string) </li> <li> <code>Duration</code> (number) em segundos </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> Observe que, se ocorrer um erro ao buscar metadados para qualquer um dos ativos solicitados, por exemplo, se o ID do ativo não existir, sua tabela de dicionário ainda será incluída na matriz retornada, mas conterá apenas o campo <code>AssetId</code> para fins de referência. Além disso, se o <code>AudioType</code> não puder ser determinado para um determinado ativo (talvez porque seja áudio privado), o dicionário resultante não conterá uma entrada de <code>AudioType</code>."
+    "documentation": "Array de tabelas de dicionário na mesma ordem que a solicitação, onde each dicionário contém os seguintes metadados para seu ativo/conteúdo: <ul> <li> <code>AssetId</code> (string) </li> <li> <code>Title</code> (string) </li> <li> <code>Artist</code> (string) </li> <li> <code>Duration</code> (number) em segundos </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> Observe que se ocorrer um erro ao buscar metadados para qualquer um dos ativos solicitados, por exemplo, se o ID do ativo não existir, sua tabela de dicionário ainda será incluída no array retornado, mas conterá apenas o campo <code>AssetId</code> para fins de referência. Além disso, se o <code>AudioType</code> não puder ser determinado para um determinado ativo (talvez porque seja áudio privado), o dicionário resultante não conterá uma entrada <code>AudioType</code>."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync": {
     "documentation": "Fornece metadados relevantes sobre uma fonte de áudio específica.",
@@ -62076,10 +62122,10 @@
     "documentation": "O ID do pacote especificado."
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/return/0": {
-    "documentation": "Dicionário com os seguintes pares chave-valor contendo detalhes sobre o pacote especificado: <ul> <li> <code>Id</code> — ID do pacote (mesmo que o argumento <code>bundleId</code> passado) </li> <li> <code>Name</code> — Nome do pacote </li> <li> <code>Description</code> — Descrição do pacote </li> <li> <code>BundleType</code> — String representando o <code>BundleType</code>, por   exemplo <code>\"BodyParts\"</code> ou <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — Array de itens no pacote, cada um com detalhes   representados através das seguintes chaves: </li> <li> <code>Id</code> — ID do item </li> <li> <code>Name</code> — Nome do item </li> <li> <code>Type</code> — Tipo de item como <code>\"Asset\"</code> </li> <li> <code>AssetType</code> — String representando o <code>AvatarAssetType</code> </li> <li> <code>SupportsHeadShapes</code> — Se o ativo suporta a     troca de formato de cabeça. Presente apenas se <code>AssetType</code> é <code>\"DynamicHead\"</code>. </li> </ul>"
+    "documentation": "Dicionário com os seguintes pares chave-valor contendo detalhes sobre o pacote especificado: <ul> <li> <code>Id</code> — ID do pacote (mesmo que o argumento <code>bundleId</code> passado) </li> <li> <code>Name</code> — Nome do pacote </li> <li> <code>Description</code> — Descrição do pacote </li> <li> <code>BundleType</code> — String representando o <code>BundleType</code>, por   exemplo <code>\"BodyParts\"</code> ou <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — Array de itens no pacote, cada um com detalhes   representados através das seguintes chaves: </li> <li> <code>Id</code> — ID do item </li> <li> <code>Name</code> — Nome do item </li> <li> <code>Type</code> — Tipo do item, como <code>\"Asset\"</code> </li> <li> <code>AssetType</code> — String representando o <code>AvatarAssetType</code> </li> <li> <code>SupportsHeadShapes</code> — Se o ativo suporta troca de forma de cabeça.     Presente apenas se <code>AssetType</code> for <code>\"DynamicHead\"</code>. </li> </ul>"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync": {
-    "documentation": "Retorna detalhes dos conteúdos de um pacote especificado.",
+    "documentation": "Retorna detalhes do conteúdo do pacote especificado.",
     "params": [
       {
         "name": "self",
@@ -62100,13 +62146,13 @@
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID/param/1": {
-    "documentation": "O ID do ativo para procurar informações do criador."
+    "documentation": "O ID do ativo a ser consultado para informações do criador."
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID/return/0": {
     "documentation": "O <code>Player.UserId</code> da conta que criou o ativo."
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID": {
-    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto e não funciona corretamente. Não o use para novos trabalhos.<br>Retorna o UserId da conta que criou o ativo creationID.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto e não funciona mais corretamente. Não o use para novos trabalhos.<br>Retorna o UserId da conta que criou o ativo creationID.",
     "params": [
       {
         "name": "self",
@@ -62127,10 +62173,10 @@
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync/return/0": {
-    "documentation": "Um objeto <code>StandardPages</code> cujas páginas contêm o nome e <code>PlaceId</code> de cada lugar na experiência atual."
+    "documentation": "Um objeto <code>StandardPages</code> cujas páginas contêm o nome e o <code>PlaceId</code> de cada local na experiência atual."
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync": {
-    "documentation": "Retorna um objeto <code>StandardPages</code> que contém o nome e <code>PlaceId</code> dos lugares dentro da experiência atual.",
+    "documentation": "Retorna um objeto <code>StandardPages</code> que contém o nome e o <code>PlaceId</code> dos locais dentro da experiência atual.",
     "params": [
       {
         "name": "self",
@@ -62153,7 +62199,7 @@
     "documentation": "Uma instância de <code>Model</code> contendo o ativo carregado."
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync": {
-    "documentation": "Carrega uma instância de <code>Model</code> dado seu ID de ativo. Esta é a substituição moderna para <code>InsertService:LoadAsset()</code> e suporta carregar ativos de terceiros.",
+    "documentation": "Carrega uma instância de <code>Model</code> dado seu ID de ativo. Esta é a substituição moderna para <code>InsertService:LoadAsset()</code> e suporta o carregamento de ativos de terceiros.",
     "params": [
       {
         "name": "self",
@@ -62174,7 +62220,7 @@
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync/param/1": {
-    "documentation": "O usuário que envia a criação de um ativo."
+    "documentation": "O usuário que submete a criação de um ativo."
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync/param/2": {
     "documentation": "O ativo a ser criado. Atualmente não pode conter scripts ou aninhar ativos não públicos."
@@ -62186,7 +62232,7 @@
     "documentation": "O par <code>PromptCreatePlatformContentResult</code> e ID do ativo se for bem-sucedido."
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync": {
-    "documentation": "Permite a criação de ativos dentro da experiência para os usuários, solicitando um dialogo de publicação.",
+    "documentation": "Permite a criação de ativos dentro da experiência para usuários, solicitando um diálogo de publicação.",
     "params": [
       {
         "name": "self",
@@ -62215,16 +62261,16 @@
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/param/1": {
-    "documentation": "O jogador que é solicitado, em seu próprio cliente, a selecionar e enviar um vídeo. O consentimento do jogador é necessário antes que o vídeo seja enviado."
+    "documentation": "O jogador que é solicitado, em seu próprio cliente, a selecionar e fazer o upload de um vídeo. O consentimento do jogador é necessário antes que o vídeo seja enviado."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/param/2": {
-    "documentation": "Uma função que recebe atualizações de status (um <code>AnimationClipFromVideoStatus</code> valor) enquanto o vídeo é enviado e processado."
+    "documentation": "Uma função que recebe atualizações de status (um valor de <code>AnimationClipFromVideoStatus</code>) enquanto o vídeo é enviado e processado."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/return/0": {
     "documentation": "Uma tupla contendo um <code>AnimationClipFromVideoStatus</code> descrevendo o resultado e, em caso de sucesso, o <code>AnimationClip</code> resultante (<code>nil</code> caso contrário)."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync": {
-    "documentation": "Solicita ao jogador especificado que selecione e envie um vídeo, que é então convertido em um <code>AnimationClip</code>.",
+    "documentation": "Solicita ao jogador especificado que selecione e faça o upload de um vídeo, que é então convertido em um <code>AnimationClip</code>.",
     "params": [
       {
         "name": "self",
@@ -62249,10 +62295,10 @@
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "Dicionário opcional que inclui <code>SaveWithoutPublish</code>, um booleano indicando se deve salvar com publicação ou sem publicação, e <code>PlaceId</code>, o ID do lugar de destino para salvar. Um exemplo de uso seria: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Se PlaceId não for fornecido, o comportamento padrão salvará o lugar original atual que está chamando SavePlaceAsync. Se SaveWithoutPublish não for fornecido, o comportamento padrão é SaveWithoutPublish=false."
+    "documentation": "Dicionário opcional que inclui <code>SaveWithoutPublish</code>, um booleano indicando se deve salvar com publicação ou sem publicação, e <code>PlaceId</code>, o ID do local de destino a ser salvo. Um exemplo de uso seria: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Se o PlaceId não for fornecido, o comportamento padrão salvará sobre o local original atual que está chamando SavePlaceAsync. Se SaveWithoutPublish não for fornecido, o comportamento padrão é SaveWithoutPublish=false."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
-    "documentation": "Salva o estado do lugar atual.",
+    "documentation": "Salva o estado do local atual.",
     "params": [
       {
         "name": "self",
@@ -62277,7 +62323,7 @@
     "documentation": "Um objeto <code>AudioPages</code> contendo os resultados paginados da busca de áudio."
   },
   "@roblox/globaltype/AssetService.SearchAudio": {
-    "documentation": "<strong>Deprecated:</strong> Use <code>SearchAudioAsync()</code> em vez disso.<br>Encontra ativos de áudio correspondendo a uma variedade de critérios de pesquisa.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>SearchAudioAsync()</code> em vez disso.<br>Encontra ativos de áudio que correspondem a uma variedade de critérios de busca.",
     "params": [
       {
         "name": "self",
@@ -62298,13 +62344,13 @@
     "documentation": "Um serviço não replicado que lida com consultas relacionadas a ativos na API web do Roblox."
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync/param/1": {
-    "documentation": "Um objeto <code>AudioSearchParams</code> definindo os critérios de busca, como palavra-chave, título, artista, tipo de áudio e intervalo de duração."
+    "documentation": "Um objeto <code>AudioSearchParams</code> definindo os critérios de pesquisa, como palavra-chave, título, artista, tipo de áudio e intervalo de duração."
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync/return/0": {
-    "documentation": "Um objeto <code>AudioPages</code> contendo os resultados paginados da busca de áudio."
+    "documentation": "Um objeto <code>AudioPages</code> contendo os resultados paginados da pesquisa de áudio."
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync": {
-    "documentation": "Encontra ativos de áudio que correspondem a uma variedade de critérios de busca.",
+    "documentation": "Encontra ativos de áudio que correspondem a uma variedade de critérios de pesquisa.",
     "params": [
       {
         "name": "self",
@@ -67116,6 +67162,7 @@
       "FixedSize": "@roblox/globaltype/EditableMesh.FixedSize",
       "AddBone": "@roblox/globaltype/EditableMesh.AddBone",
       "AddColor": "@roblox/globaltype/EditableMesh.AddColor",
+      "AddFace": "@roblox/globaltype/EditableMesh.AddFace",
       "AddNormal": "@roblox/globaltype/EditableMesh.AddNormal",
       "AddTriangle": "@roblox/globaltype/EditableMesh.AddTriangle",
       "AddUV": "@roblox/globaltype/EditableMesh.AddUV",
@@ -67278,6 +67325,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddColor",
     "code_sample": ""
   },
+  "@roblox/globaltype/EditableMesh.AddFace/param/0": {
+    "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
+  },
+  "@roblox/globaltype/EditableMesh.AddFace/param/1": {
+    "documentation": "Array dos IDs de vértice da nova face, na ordem ao redor da face. Forneça 3 IDs para criar um triângulo ou 4 IDs para criar um quad."
+  },
+  "@roblox/globaltype/EditableMesh.AddFace/return/0": {
+    "documentation": "ID da face da nova face."
+  },
+  "@roblox/globaltype/EditableMesh.AddFace": {
+    "documentation": "Adiciona um novo triângulo ou face quad à malha e retorna um ID de face.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.AddFace/param/0"
+      },
+      {
+        "name": "vertexIds",
+        "documentation": "@roblox/globaltype/EditableMesh.AddFace/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.AddFace/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddFace",
+    "code_sample": ""
+  },
   "@roblox/globaltype/EditableMesh.AddNormal/param/0": {
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
@@ -67318,7 +67392,7 @@
     "documentation": "ID do terceiro vértice do triângulo."
   },
   "@roblox/globaltype/EditableMesh.AddTriangle/return/0": {
-    "documentation": "ID da face da nova face."
+    "documentation": "ID de face estável da nova face."
   },
   "@roblox/globaltype/EditableMesh.AddTriangle": {
     "documentation": "Adiciona um novo triângulo à malha e retorna um ID de face.",
@@ -67438,7 +67512,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes/param/1": {
-    "documentation": "O atributo a ser recuperado para os cantos de cada face. Deve ser <code>MeshAttribute.Vertex</code>, <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, ou <code>MeshAttribute.UV</code>; <code>MeshAttribute.Face</code> não é suportado e lança um erro."
+    "documentation": "O atributo a ser recuperado para os cantos de cada face. Deve ser <code>MeshAttribute.Vertex</code>, <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, ou <code>MeshAttribute.UV</code>; <code>MeshAttribute.Face</code> não é suportado e gera um erro."
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes/param/2": {
     "documentation": "Faces a serem consultadas."
@@ -67472,10 +67546,10 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues/param/1": {
-    "documentation": "IDs dos elementos a serem lidos. Todos devem ser do mesmo tipo de atributo — vértice, normal, cor ou UV. O atributo é determinado pelo tipo de ID, portanto nenhum argumento <code>MeshAttribute</code> é necessário. Misturar tipos, ou passar IDs de face ou osso, lança um erro."
+    "documentation": "IDs dos elementos a serem lidos. Todos devem ser do mesmo tipo de atributo — vértice, normal, cor ou UV. O atributo é determinado pelo tipo de ID, portanto nenhum argumento <code>MeshAttribute</code> é necessário. Misturar tipos, ou passar IDs de face ou osso, gera um erro."
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues/return/0": {
-    "documentation": "Uma tupla de dois valores. O primeiro é um array de valores de atributos: <code>Vector3</code> para IDs de vértices ou normais, <code>Vector2</code> para IDs de UV, <code>Color3</code> para IDs de cor. O segundo é <code>nil</code> para todos os tipos de atributos, exceto cor, onde é um array de números alfa."
+    "documentation": "Uma tupla de dois valores. O primeiro é um array de valores de atributos: <code>Vector3</code> para IDs de vértice ou normal, <code>Vector2</code> para IDs de UV, <code>Color3</code> para IDs de cor. O segundo é <code>nil</code> para todos os tipos de atributos, exceto cor, onde é um array de números alpha."
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues": {
     "documentation": "Retorna valores de atributos para cada ID em um lote.",
@@ -67499,7 +67573,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes/param/1": {
-    "documentation": "O tipo de atributo a ser pesquisado. Deve ser <code>MeshAttribute.Face</code> (faces que referenciam cada vértice), <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, ou <code>MeshAttribute.UV</code>; <code>MeshAttribute.Vertex</code> não é suportado e lança um erro (para ler posições de vértice, use <code>BatchGetValues()</code>)."
+    "documentation": "O tipo de atributo a ser pesquisado. Deve ser <code>MeshAttribute.Face</code> (faces que referenciam cada vértice), <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, ou <code>MeshAttribute.UV</code>; <code>MeshAttribute.Vertex</code> não é suportado e gera um erro (para ler posições de vértices, use <code>BatchGetValues()</code>)."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes/param/2": {
     "documentation": "Vértices a serem consultados."
@@ -67533,7 +67607,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/param/1": {
-    "documentation": "O atributo a ser recuperado. Deve ser <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, ou <code>MeshAttribute.UV</code>; <code>MeshAttribute.Vertex</code> e <code>MeshAttribute.Face</code> não são suportados e lançam um erro."
+    "documentation": "O atributo a ser recuperado. Deve ser <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, ou <code>MeshAttribute.UV</code>; <code>MeshAttribute.Vertex</code> e <code>MeshAttribute.Face</code> não são suportados e geram um erro."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/param/2": {
     "documentation": "Vértices que identificam cada canto."
@@ -67542,7 +67616,7 @@
     "documentation": "Faces que identificam cada canto. Deve ter o mesmo comprimento que <code>vertexIds</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/return/0": {
-    "documentation": "Array de IDs de atributos em cada canto, na mesma ordem que os inputs."
+    "documentation": "Array de IDs de atributos em cada canto, na mesma ordem que as entradas."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes": {
     "documentation": "Retorna o ID de atributo em cada canto especificado para um lote de pares vértice-face.",
@@ -67574,7 +67648,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.BatchRemove/param/1": {
-    "documentation": "IDs de face a serem removidos. Um ID inválido ou já removido lança um erro e não remove nada; IDs duplicados são colapsados em uma única remoção."
+    "documentation": "IDs de face a serem removidos. Um ID inválido ou já removido gera um erro e não remove nada; IDs duplicados são colapsados em uma única remoção."
   },
   "@roblox/globaltype/EditableMesh.BatchRemove": {
     "documentation": "Remove um lote de faces.",
@@ -67596,10 +67670,10 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes/param/1": {
-    "documentation": "IDs de face a serem atualizados. Deve ter o mesmo comprimento que <code>attrIdArrays</code>."
+    "documentation": "IDs de face a serem atualizados. Devem ter o mesmo comprimento que <code>attrIdArrays</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes/param/2": {
-    "documentation": "Array 2D. <code>attrIdArrays[i]</code> é a lista de IDs de atributos para os cantos de <code>faceIds[i]</code>, na ordem. Cada array interno deve ter uma entrada por canto da face. Todos os IDs devem ser do mesmo tipo de atributo — vértice, normal, cor ou UV; misturar tipos (ou passar outro ID tipo) lança um erro."
+    "documentation": "Array 2D. <code>attrIdArrays[i]</code> é a lista de IDs de atributos para os cantos de <code>faceIds[i]</code>, na ordem. Cada array interno deve ter uma entrada por canto da face. Todos os IDs devem ser do mesmo tipo de atributo — vértice, normal, cor ou UV; misturar tipos (ou passar outro tipo de ID) gera um erro."
   },
   "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes": {
     "documentation": "Define os IDs de atributos por canto para cada face em um lote.",
@@ -67625,10 +67699,10 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues/param/1": {
-    "documentation": "IDs dos elementos a serem escritos. Todos devem ser do mesmo tipo de atributo — vértice, normal, cor ou UV. O atributo é determinado pelo tipo de ID, portanto nenhum argumento <code>MeshAttribute</code> é necessário. Misturar tipos, ou passar IDs de face ou osso, lança um erro."
+    "documentation": "IDs dos elementos a serem escritos. Todos devem ser do mesmo tipo de atributo — vértice, normal, cor ou UV. O atributo é determinado pelo tipo de ID, portanto nenhum argumento <code>MeshAttribute</code> é necessário. Misturar tipos, ou passar IDs de face ou osso, gera um erro."
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues/param/2": {
-    "documentation": "Valores a serem atribuídos. O tipo depende do tipo de ID: <code>Vector3</code> para IDs de vértices ou normais, <code>Vector2</code> para IDs de UV, <code>Color3</code> ou um número para IDs de cor. Passe <code>nil</code> para IDs de normais para redefinir cada normal para valores auto-computados, equivalente a chamar <code>ResetNormal()</code> em cada um."
+    "documentation": "Valores a serem atribuídos. O tipo depende do tipo de ID: <code>Vector3</code> para IDs de vértice ou normal, <code>Vector2</code> para IDs de UV, <code>Color3</code> ou um número para IDs de cor. Passe <code>nil</code> para IDs de normal para redefinir cada normal para valores auto-computados, equivalente a chamar <code>ResetNormal()</code> em cada um."
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues": {
     "documentation": "Escreve valores de atributos para um lote de IDs de elementos de malha.",
@@ -67660,7 +67734,7 @@
     "documentation": "IDs de face que identificam cada canto. Deve ter o mesmo comprimento que <code>vertexIds</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes/param/3": {
-    "documentation": "IDs de atributo a serem atribuídos, um por par; deve ter o mesmo comprimento que <code>vertexIds</code>. Todos devem ser do mesmo tipo de atributo — normal, cor ou UV; passar um ID de vértice ou face lança um erro."
+    "documentation": "IDs de atributos a serem atribuídos, um por par; deve ter o mesmo comprimento que <code>vertexIds</code>. Todos devem ser do mesmo tipo de atributo — normal, cor ou UV; passar um ID de vértice ou face gera um erro."
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes": {
     "documentation": "Define o atributo em um canto específico para cada par vértice-face em um lote.",
@@ -67723,7 +67797,7 @@
     "documentation": "Posição do ponto no espaço local do objeto da malha."
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface/return/0": {
-    "documentation": "Tupla do ID da face, ponto na malha no espaço do objeto local e a coordenada baricêntrica da posição dentro da face."
+    "documentation": "Tupla do ID da face, ponto na malha no espaço local do objeto, a coordenada baricêntrica da posição dentro da face, e os 3 IDs de vértice que o peso da coordenada baricêntrica."
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface": {
     "documentation": "Encontra o ponto mais próximo na superfície da malha.",
@@ -67780,7 +67854,7 @@
     "documentation": "Raio da esfera."
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere/return/0": {
-    "documentation": "Lista de IDs de vértice dentro da esfera solicitada."
+    "documentation": "Lista de IDs de vértices dentro da esfera solicitada."
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere": {
     "documentation": "Encontra todos os vértices dentro de uma esfera específica.",
@@ -67811,7 +67885,7 @@
     "documentation": "ID da face para a qual obter faces adjacentes."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentFaces/return/0": {
-    "documentation": "Lista de IDs de faces adjacentes à face dada."
+    "documentation": "Lista de IDs de face adjacentes à face dada."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentFaces": {
     "documentation": "Retorna uma lista de faces adjacentes a uma face dada.",
@@ -67838,7 +67912,7 @@
     "documentation": "ID do vértice ao redor do qual obter vértices adjacentes."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentVertices/return/0": {
-    "documentation": "Lista de IDs de vértices adjacentes ao redor do ID de vértice dado."
+    "documentation": "Lista de IDs de vértices adjacentes ao ID de vértice dado."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentVertices": {
     "documentation": "Retorna uma lista de vértices adjacentes a um vértice dado.",
@@ -67919,7 +67993,7 @@
     "documentation": "ID do osso para o qual verificar se o osso é virtual."
   },
   "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/return/0": {
-    "documentation": "Se o osso com o ID de osso dado é virtual. Ossos virtuais podem ser vinculados apenas a uma instância de <code>FaceControls</code>."
+    "documentation": "Se o osso com o ID de osso dado é virtual. Ossos virtuais só podem ser vinculados a uma instância de <code>FaceControls</code>."
   },
   "@roblox/globaltype/EditableMesh.GetBoneIsVirtual": {
     "documentation": "Retorna <code>true</code> se o osso for virtual.",
@@ -67997,7 +68071,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetBones/return/0": {
-    "documentation": "Lista de IDs de osso."
+    "documentation": "Lista de IDs de ossos."
   },
   "@roblox/globaltype/EditableMesh.GetBones": {
     "documentation": "Retorna todos os ossos da malha.",
@@ -68138,13 +68212,13 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals/param/1": {
-    "documentation": "ID da face para a qual obter os IDs normais."
+    "documentation": "ID da face para a qual obter os IDs de normais."
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals/return/0": {
-    "documentation": "Lista de IDs normais usados para os vértices na face dada."
+    "documentation": "Lista de IDs de normais usados para os vértices na face dada."
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals": {
-    "documentation": "Retorna os IDs normais da face para os vértices na face.",
+    "documentation": "Retorna os IDs de normais da face para os vértices na face.",
     "params": [
       {
         "name": "self",
@@ -68188,10 +68262,10 @@
     "documentation": "ID de atributo para o qual encontrar faces que o utilizam."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute/return/0": {
-    "documentation": "Lista de IDs de faces que usam o ID de atributo dado."
+    "documentation": "Lista de IDs de face que usam o ID de atributo dado."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute": {
-    "documentation": "<strong>Deprecated:</strong> Este método está obsoleto. Não o utilize para novos trabalhos.<br>Retorna uma lista de faces que usam um dado ID de atributo.",
+    "documentation": "<strong>Deprecated:</strong> Este método está obsoleto. Não o use para novos trabalhos.<br>Retorna uma lista de faces que usam um dado ID de atributo.",
     "params": [
       {
         "name": "self",
@@ -68215,10 +68289,10 @@
     "documentation": "ID de cor para encontrar faces."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0": {
-    "documentation": "Lista de IDs de faces que usam o ID de cor fornecido."
+    "documentation": "Lista de IDs de face que usam o ID de cor fornecido."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor": {
-    "documentation": "Retorna um array de IDs de faces que usam o dado ID de cor.",
+    "documentation": "Retorna um array de IDs de face que usam o ID de cor dado.",
     "params": [
       {
         "name": "self",
@@ -68239,13 +68313,13 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1": {
-    "documentation": "ID normal para encontrar faces."
+    "documentation": "ID de normal para encontrar faces."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0": {
-    "documentation": "Lista de IDs de faces que usam o ID normal fornecido."
+    "documentation": "Lista de IDs de face que usam o ID de normal fornecido."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal": {
-    "documentation": "Retorna um array de IDs de faces que usam o dado ID normal.",
+    "documentation": "Retorna um array de IDs de face que usam o ID de normal dado.",
     "params": [
       {
         "name": "self",
@@ -68266,13 +68340,13 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1": {
-    "documentation": "ID UV para encontrar faces."
+    "documentation": "ID de UV para encontrar faces."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0": {
-    "documentation": "Lista de IDs de faces que usam o ID UV fornecido."
+    "documentation": "Lista de IDs de face que usam o ID de UV fornecido."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithUV": {
-    "documentation": "Retorna um array de IDs de faces que usam o dado ID UV.",
+    "documentation": "Retorna um array de IDs de face que usam o ID de UV dado.",
     "params": [
       {
         "name": "self",
@@ -68293,13 +68367,13 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs/param/1": {
-    "documentation": "ID da face para a qual obter os IDs UV."
+    "documentation": "ID da face para a qual obter os IDs de UV."
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs/return/0": {
-    "documentation": "Lista de IDs UV usados para os vértices na face dada."
+    "documentation": "Lista de IDs de UV usados para os vértices na face dada."
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs": {
-    "documentation": "Retorna os IDs UV da face para os vértices na face.",
+    "documentation": "Retorna os IDs de UV da face para os vértices na face.",
     "params": [
       {
         "name": "self",
@@ -68320,13 +68394,13 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetFaceVertices/param/1": {
-    "documentation": "ID da face para a qual obter os IDs de vértice."
+    "documentation": "ID da face para a qual obter os IDs dos vértices."
   },
   "@roblox/globaltype/EditableMesh.GetFaceVertices/return/0": {
     "documentation": "Lista de IDs de vértices ao redor da face dada."
   },
   "@roblox/globaltype/EditableMesh.GetFaceVertices": {
-    "documentation": "Retorna os IDs dos vértices da face.",
+    "documentation": "Retorna os IDs de vértice da face.",
     "params": [
       {
         "name": "self",
@@ -68350,10 +68424,10 @@
     "documentation": "Array de 2 ou 3 valores <code>FacsActionUnit</code> que especificam uma pose corretiva."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0": {
-    "documentation": "Array de IDs de ossos e array correspondente de <code>CFrames</code> de ossos."
+    "documentation": "Array de IDs de ossos e array correspondente de <code>CFrames</code>."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose": {
-    "documentation": "Retorna IDs de ossos e <code>CFrames</code> de todos os ossos em uma pose corretiva FACS específica.",
+    "documentation": "Retorna IDs de ossos e <code>CFrames</code> para todos os ossos em uma pose corretiva FACS específica.",
     "params": [
       {
         "name": "self",
@@ -68397,10 +68471,10 @@
     "documentation": "Unidade de ação FACS para a qual obter a pose."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPose/return/0": {
-    "documentation": "Array de IDs de ossos e array correspondente de <code>CFrame</code> de ossos."
+    "documentation": "Array de IDs de ossos e array correspondente de <code>CFrame</code>."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPose": {
-    "documentation": "Retorna IDs de ossos e <code>CFrames</code> de todos os ossos em uma unidade de ação FACS específica.",
+    "documentation": "Retorna IDs de ossos e <code>CFrames</code> para todos os ossos em uma unidade de ação FACS específica.",
     "params": [
       {
         "name": "self",
@@ -68447,7 +68521,7 @@
     "documentation": "Vetor normal no ID normal solicitado."
   },
   "@roblox/globaltype/EditableMesh.GetNormal": {
-    "documentation": "Retorna o vetor normal para o dado ID normal.",
+    "documentation": "Retorna o vetor normal para o ID normal dado.",
     "params": [
       {
         "name": "self",
@@ -68468,7 +68542,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetNormals/return/0": {
-    "documentation": "Lista de IDs de normal."
+    "documentation": "Lista de IDs normais."
   },
   "@roblox/globaltype/EditableMesh.GetNormals": {
     "documentation": "Retorna todos os normais da malha.",
@@ -68488,7 +68562,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetPosition/param/1": {
-    "documentation": "ID de vértice para o qual obter a posição."
+    "documentation": "ID do vértice para o qual obter a posição."
   },
   "@roblox/globaltype/EditableMesh.GetPosition/return/0": {
     "documentation": "Posição de um vértice no espaço local do objeto da malha."
@@ -68541,7 +68615,7 @@
     "documentation": "Coordenadas UV no ID UV solicitado."
   },
   "@roblox/globaltype/EditableMesh.GetUV": {
-    "documentation": "Retorna coordenadas UV no dado ID UV.",
+    "documentation": "Retorna coordenadas UV no ID UV dado.",
     "params": [
       {
         "name": "self",
@@ -68562,7 +68636,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetUVs/return/0": {
-    "documentation": "Lista de IDs de UV."
+    "documentation": "Lista de IDs UV."
   },
   "@roblox/globaltype/EditableMesh.GetUVs": {
     "documentation": "Retorna todos os UVs da malha.",
@@ -68582,7 +68656,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBones/param/1": {
-    "documentation": "ID de vértice para o qual obter os ossos associados."
+    "documentation": "ID do vértice para o qual obter os ossos associados."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBones/return/0": {
     "documentation": "IDs de ossos associados ao vértice para skinning."
@@ -68609,13 +68683,13 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1": {
-    "documentation": "ID de vértice para o qual obter os pesos de osso associados."
+    "documentation": "ID do vértice para o qual obter os pesos de ossos associados."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0": {
-    "documentation": "Pesos de mistura de skinning para cada osso que está associado ao vértice."
+    "documentation": "Pesos de mistura de skinning para cada osso associado ao vértice."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights": {
-    "documentation": "Retorna pesos de mistura de skinning para cada osso que está associado ao vértice.",
+    "documentation": "Retorna pesos de mistura de skinning para cada osso associado ao vértice.",
     "params": [
       {
         "name": "self",
@@ -68636,7 +68710,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetVertexColors/param/1": {
-    "documentation": "ID de vértice para encontrar IDs de cor."
+    "documentation": "ID do vértice para encontrar IDs de cor."
   },
   "@roblox/globaltype/EditableMesh.GetVertexColors/return/0": {
     "documentation": "Array de IDs de cor das faces anexadas ao vértice dado."
@@ -68697,13 +68771,13 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1": {
-    "documentation": "ID de vértice."
+    "documentation": "ID do vértice."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2": {
-    "documentation": "ID de face."
+    "documentation": "ID da face."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0": {
-    "documentation": "ID de normal do par vértice/face."
+    "documentation": "ID normal do par vértice/face."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal": {
     "documentation": "Retorna o ID normal de um par vértice/face.",
@@ -68731,10 +68805,10 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1": {
-    "documentation": "ID de vértice para encontrar faces."
+    "documentation": "ID do vértice para encontrar faces."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0": {
-    "documentation": "Array de IDs de faces anexadas ao vértice dado."
+    "documentation": "Array de IDs de face anexadas ao vértice dado."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaces": {
     "documentation": "Retorna os IDs das faces anexadas ao vértice dado.",
@@ -68758,13 +68832,13 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1": {
-    "documentation": "ID de vértice."
+    "documentation": "ID do vértice."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2": {
-    "documentation": "ID de face."
+    "documentation": "ID da face."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0": {
-    "documentation": "ID de UV do par vértice/face."
+    "documentation": "ID UV do par vértice/face."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV": {
     "documentation": "Retorna o ID UV de um par vértice/face.",
@@ -68792,7 +68866,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1": {
-    "documentation": "ID de vértice para encontrar IDs de normal."
+    "documentation": "ID do vértice para encontrar IDs normais."
   },
   "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0": {
     "documentation": "Array de IDs normais das faces anexadas ao vértice dado."
@@ -68819,7 +68893,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1": {
-    "documentation": "ID de vértice para encontrar IDs de UV."
+    "documentation": "ID do vértice para encontrar IDs UV."
   },
   "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0": {
     "documentation": "Array de IDs UV das faces anexadas ao vértice dado."
@@ -68846,10 +68920,10 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetVertices/return/0": {
-    "documentation": "Lista de IDs de vértice."
+    "documentation": "Lista de IDs de vértices."
   },
   "@roblox/globaltype/EditableMesh.GetVertices": {
-    "documentation": "Retorna todos os vértices como uma lista de IDs de vértice.",
+    "documentation": "Retorna todos os vértices como uma lista de IDs de vértices.",
     "params": [
       {
         "name": "self",
@@ -68869,7 +68943,7 @@
     "documentation": "ID de atributo para o qual encontrar vértices que o utilizam."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute/return/0": {
-    "documentation": "Lista de IDs de vértices que usam o ID de atributo dado."
+    "documentation": "Lista de IDs de vértices que usam o dado ID de atributo."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute": {
     "documentation": "<strong>Deprecated:</strong> Este método está obsoleto. Não o utilize para novos trabalhos.<br>Retorna uma lista de vértices que usam um dado ID de atributo.",
@@ -68893,10 +68967,10 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1": {
-    "documentation": "ID de cor para encontrar vértices."
+    "documentation": "ID de cor para encontrar faces."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0": {
-    "documentation": "Lista de IDs de vértices que usam o ID de cor fornecido."
+    "documentation": "Lista de IDs de face que usam o ID de cor fornecido."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor": {
     "documentation": "Retorna um array de IDs de vértices que usam o dado ID de cor.",
@@ -69034,10 +69108,10 @@
     "documentation": "Direção do raio."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/return/0": {
-    "documentation": "Tupla do ponto de interseção, ID da face e coordenadas baricêntricas."
+    "documentation": "Tupla do ID da face, ponto de interseção, coordenadas barycêntricas, e os 3 IDs de vértice que as coordenadas barycêntricas ponderam."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal": {
-    "documentation": "Lança um raio e retorna o ponto de interseção, ID da face e coordenadas baricêntricas.",
+    "documentation": "Lança um raio e retorna o ponto de interseção, ID da face e coordenadas barycêntricas.",
     "params": [
       {
         "name": "self",
@@ -69062,7 +69136,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.RemoveBone/param/1": {
-    "documentation": "ID de osso do osso a ser removido."
+    "documentation": "ID do osso a ser removido."
   },
   "@roblox/globaltype/EditableMesh.RemoveBone": {
     "documentation": "Remove um osso usando seu ID de osso.",
@@ -69084,7 +69158,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.RemoveFace/param/1": {
-    "documentation": "ID de face da face a ser removida."
+    "documentation": "ID da face a ser removida."
   },
   "@roblox/globaltype/EditableMesh.RemoveFace": {
     "documentation": "Remove uma face usando seu ID de face.",
@@ -69109,7 +69183,7 @@
     "documentation": "Todos os IDs removidos."
   },
   "@roblox/globaltype/EditableMesh.RemoveUnused": {
-    "documentation": "Remove todos os vértices, normais, UVs e cores não utilizados e retorna os IDs removidos.",
+    "documentation": "Remove todos os vértices, normais, UVs e cores não utilizados, e retorna os IDs removidos.",
     "params": [
       {
         "name": "self",
@@ -69126,7 +69200,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.ResetNormal/param/1": {
-    "documentation": "ID de normal a ser redefinido."
+    "documentation": "ID normal a ser redefinido."
   },
   "@roblox/globaltype/EditableMesh.ResetNormal": {
     "documentation": "Redefine este ID normal para ser calculado automaticamente.",
@@ -69296,10 +69370,10 @@
     "documentation": "ID de cor para o qual definir o alpha da cor."
   },
   "@roblox/globaltype/EditableMesh.SetColorAlpha/param/2": {
-    "documentation": "Alpha a ser definida."
+    "documentation": "Alpha a ser definido."
   },
   "@roblox/globaltype/EditableMesh.SetColorAlpha": {
-    "documentation": "Define o alpha da cor (transparência) para um ID de cor.",
+    "documentation": "Define o alpha (transparência) da cor para um ID de cor.",
     "params": [
       {
         "name": "self",
@@ -69351,13 +69425,13 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals/param/1": {
-    "documentation": "ID da face para a qual atualizar as normais dos vértices."
+    "documentation": "ID da face para a qual atualizar os normais dos vértices."
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals/param/2": {
-    "documentation": "Lista de novos IDs de normal a serem usados para os vértices da face dada."
+    "documentation": "Lista de novos IDs normais a serem usados para os vértices da face dada."
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals": {
-    "documentation": "Define as normais dos vértices da face para novos IDs normais.",
+    "documentation": "Define os normais dos vértices da face para novos IDs normais.",
     "params": [
       {
         "name": "self",
@@ -69383,7 +69457,7 @@
     "documentation": "ID da face para a qual atualizar os UVs dos vértices."
   },
   "@roblox/globaltype/EditableMesh.SetFaceUVs/param/2": {
-    "documentation": "Lista de novos IDs de UV a serem usados para os vértices da face dada."
+    "documentation": "Lista de novos IDs UV a serem usados para os vértices da face dada."
   },
   "@roblox/globaltype/EditableMesh.SetFaceUVs": {
     "documentation": "Define os UVs dos vértices da face para novos IDs UV.",
@@ -69444,10 +69518,10 @@
     "documentation": "Osso para o qual definir um <code>CFrame</code> para esta pose."
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3": {
-    "documentation": "<code>CFrame</code> que transforma o osso do <code>CFrame</code> inicial do osso na pose de ligação da malha para o <code>CFrame</code> combinado do osso para esta pose. Todos os <code>CFrames</code> estão no espaço local da malha."
+    "documentation": "<code>CFrame</code> que transforma o osso da <code>CFrame</code> inicial do osso na pose de ligação da malha para a <code>CFrame</code> combinada do osso para esta pose. Todos os <code>CFrames</code> estão no espaço local da malha."
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose": {
-    "documentation": "Define o <code>CFrame</code> para um osso individual em uma unidade de ação FACS específica.",
+    "documentation": "Define <code>CFrame</code> para um osso individual em uma unidade de ação FACS específica.",
     "params": [
       {
         "name": "self",
@@ -69480,7 +69554,7 @@
     "documentation": "Ossos para os quais definir um <code>CFrame</code> para esta pose."
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3": {
-    "documentation": "<code>CFrame</code> transforma para os ossos nesta pose corretiva. Cada <code>CFrame</code> de osso transforma o osso do <code>CFrame</code> inicial na pose de ligação da malha para o <code>CFrame</code> combinado do osso para esta pose. Todos os <code>CFrames</code> estão no espaço local da malha."
+    "documentation": "<code>CFrame</code> transforma para os ossos nesta pose corretiva. Cada <code>CFrame</code> de osso transforma o osso da <code>CFrame</code> inicial do osso na pose de ligação da malha para a <code>CFrame</code> combinada do osso para esta pose. Todos os <code>CFrames</code> estão no espaço local da malha."
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose": {
     "documentation": "Define a pose para todos os ossos em uma pose corretiva FACS específica.",
@@ -69516,7 +69590,7 @@
     "documentation": "Ossos para os quais definir um <code>CFrame</code> para esta pose."
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose/param/3": {
-    "documentation": "<code>CFrame</code> transforma para os ossos nesta pose. Cada <code>CFrame</code> de osso transforma o osso do <code>CFrame</code> inicial na pose de ligação da malha para o <code>CFrame</code> combinado do osso para esta pose. Todos os <code>CFrames</code> estão no espaço local da malha."
+    "documentation": "<code>CFrame</code> transforma para os ossos nesta pose. Cada <code>CFrame</code> de osso transforma o osso da <code>CFrame</code> inicial do osso na pose de ligação da malha para a <code>CFrame</code> combinada do osso para esta pose. Todos os <code>CFrames</code> estão no espaço local da malha."
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose": {
     "documentation": "Define a pose para todos os ossos em uma unidade de ação FACS específica.",
@@ -69546,7 +69620,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.SetNormal/param/1": {
-    "documentation": "ID de normal para o qual definir o vetor normal."
+    "documentation": "ID normal para o qual definir o vetor normal."
   },
   "@roblox/globaltype/EditableMesh.SetNormal/param/2": {
     "documentation": "Vetor normal a ser definido."
@@ -69575,7 +69649,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.SetPosition/param/1": {
-    "documentation": "ID de vértice do vértice a ser posicionado."
+    "documentation": "ID do vértice a ser posicionado."
   },
   "@roblox/globaltype/EditableMesh.SetPosition/param/2": {
     "documentation": "Posição no espaço local do objeto da malha."
@@ -69633,7 +69707,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBones/param/1": {
-    "documentation": "ID de vértice para definir os ossos de skinning do vértice."
+    "documentation": "ID do vértice para definir os ossos de skinning."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBones/param/2": {
     "documentation": "IDs de ossos a serem usados com este vértice para skinning."
@@ -69662,7 +69736,7 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1": {
-    "documentation": "ID de vértice no qual definir pesos de mistura de skinning."
+    "documentation": "ID do vértice no qual definir os pesos de mistura de skinning."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/2": {
     "documentation": "Pesos de mistura de skinning a serem definidos no vértice."
@@ -69691,10 +69765,10 @@
     "documentation": "Objeto que permite a criação e manipulação de malhas em tempo de execução."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1": {
-    "documentation": "ID de vértice."
+    "documentation": "ID do vértice."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/2": {
-    "documentation": "ID de face."
+    "documentation": "ID da face."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3": {
     "documentation": "ID de cor a ser definido para o par vértice/face."
@@ -71709,7 +71783,7 @@
     "documentation": "A instância de <code>Translator</code> para a localidade especificada."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayer": {
-    "documentation": "Retorna um <code>Translator</code> a ser usado para traduções usando os dados de localidade carregados.",
+    "documentation": "<strong>Deprecated:</strong> Esta função foi obsoleta por <code>LocalizationService:GetTranslatorForPlayerAsync()</code>, que funciona de forma semelhante, exceto que gera yield até que a tabela na nuvem tenha sido carregada. Por favor, use-a em novos trabalhos em vez disso.<br>Retorna um <code>Translator</code> a ser usado para traduções usando os dados de localidade carregados.",
     "params": [
       {
         "name": "self",
@@ -80452,7 +80526,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.SmoothingAngle": {
-    "documentation": "Um ângulo em graus que afeta a suavização do sombreamento de uma parte modelada sólida.",
+    "documentation": "Um ângulo em graus que afeta o sombreamento suave de uma parte modelada sólida.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#SmoothingAngle",
     "code_sample": ""
   },
@@ -80462,7 +80536,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.UsePartColor": {
-    "documentation": "Define se o <code>PartOperation</code> pode ser recolorido usando propriedades de cor herdadas.",
+    "documentation": "Define se o <code>PartOperation</code> pode ser recolorido usando as propriedades herdadas de cor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#UsePartColor",
     "code_sample": ""
   },
@@ -83031,6 +83105,7 @@
       "GetUserSubscriptionDetailsAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync",
       "GetUserSubscriptionPaymentHistoryAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync",
       "GetUserSubscriptionStatusAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync",
+      "OpenShop": "@roblox/globaltype/MarketplaceService.OpenShop",
       "PlayerOwnsAsset": "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset",
       "PlayerOwnsAssetAsync": "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync",
       "PlayerOwnsBundle": "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle",
@@ -83365,6 +83440,28 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetUserSubscriptionStatusAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/MarketplaceService.OpenShop/param/0": {
+    "documentation": "O serviço responsável por transações dentro da experiência."
+  },
+  "@roblox/globaltype/MarketplaceService.OpenShop/param/1": {
+    "documentation": "O <code>Player</code> para quem abrir a loja. Se chamado de um <code>LocalScript</code>, isso deve ser o jogador local."
+  },
+  "@roblox/globaltype/MarketplaceService.OpenShop": {
+    "documentation": "Abre uma Loja personalizada no jogo para o jogador dado.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.OpenShop/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/MarketplaceService.OpenShop/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#OpenShop",
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nMarketplaceService:OpenShop(player)"
+  },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/0": {
     "documentation": "O serviço responsável por transações dentro da experiência."
   },
@@ -83403,10 +83500,10 @@
     "documentation": "O serviço responsável por transações dentro da experiência."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/1": {
-    "documentation": "O <code>Player</code> cuja inventário está sendo testado para propriedade do ativo dado."
+    "documentation": "O <code>Player</code> cujo inventário está sendo testado para a posse do ativo dado."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/2": {
-    "documentation": "O ID do ativo para o qual o inventário do dado jogador está sendo testado."
+    "documentation": "O ID do ativo para o qual o inventário do jogador dado está sendo testado."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/return/0": {
     "documentation": "Indica se o inventário do jogador dado contém o ativo dado."
@@ -83471,10 +83568,10 @@
     "documentation": "O serviço responsável por transações dentro da experiência."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/1": {
-    "documentation": "O <code>Player</code> cuja inventário está sendo testado para propriedade do pacote dado."
+    "documentation": "O <code>Player</code> cujo inventário está sendo testado para a posse do pacote dado."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/2": {
-    "documentation": "O ID do pacote para o qual o dado jogador está sendo testado."
+    "documentation": "O ID do pacote para o qual o inventário do jogador dado está sendo testado."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/return/0": {
     "documentation": "Indica se o inventário do jogador dado contém o pacote dado."
@@ -83508,7 +83605,7 @@
     "documentation": "O usuário a ser solicitado a comprar itens."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "Um array de itens de avatar a serem incluídos na compra em massa. Cada item de linha contém a seguinte estrutura: <pre><code class=\"language-lua\">{   Tipo: MarketplaceProductType,   Id: string,   PurchaseOptions: { {Tipo: PurchaseOption, Valor: number?} }? } </code></pre> Cada item de linha contém os seguintes pares: <ul> <li><code>Tipo</code>: O correspondente <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: O ID do ativo ou pacote.</li> <li><code>PurchaseOptions</code>: Opcional. Um array contendo uma única opção de compra   para exibir na solicitação. Se omitido, a compra permanente   é solicitada. Veja a seção PurchaseOptions abaixo para detalhes.</li> </ul>"
+    "documentation": "Um array de itens de avatar a serem incluídos na compra em massa. Cada item de linha contém a seguinte estrutura: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string,   PurchaseOptions: { {Type: PurchaseOption, Value: number?} }? } </code></pre> Cada item de linha contém os seguintes pares: <ul> <li><code>Type</code>: O correspondente <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: O ID do ativo ou pacote.</li> <li><code>PurchaseOptions</code>: Opcional. Um array contendo uma única opção de compra   a ser exibida no prompt. Se omitido, a compra permanente   é solicitada. Veja a seção PurchaseOptions abaixo para detalhes.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
     "documentation": "Não disponível no momento."
@@ -83602,7 +83699,7 @@
     "documentation": "O <code>Player</code> a ser solicitado."
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/2": {
-    "documentation": "O ID do passe a ser comprado. Este é o <code>TargetId</code> retornado por <code>GetProductInfo()</code> quando <code>InfoType</code> é <code>GamePass</code>. Não é o ID do ativo do passe e não é seu <code>ProductId</code>."
+    "documentation": "O ID do passe a ser comprado. Este é o <code>TargetId</code> retornado por <code>GetProductInfo()</code> quando <code>InfoType</code> é <code>GamePass</code>. Não é o ID do ativo do passe e não seu <code>ProductId</code>."
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase": {
     "documentation": "Solicita a um usuário que compre um passe com o dado <code>gamePassId</code>.",
@@ -83628,10 +83725,10 @@
     "documentation": "O serviço responsável por transações dentro da experiência."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/1": {
-    "documentation": "O usuário que está sendo solicitado a comprar Premium."
+    "documentation": "O usuário sendo solicitado a comprar o Premium."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
-    "documentation": "<strong>Deprecated:</strong> Este método foi substituído por <code>PromptRobloxSubscriptionPurchase()</code>.<br>Solicita a um usuário que compre Roblox Premium.",
+    "documentation": "<strong>Deprecated:</strong> Este método foi substituído por <code>PromptRobloxSubscriptionPurchase()</code>.<br>Solicita a um usuário que compre o Roblox Premium.",
     "params": [
       {
         "name": "self",
@@ -83653,7 +83750,7 @@
     "documentation": "O <code>Player</code> a ser solicitado."
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/2": {
-    "documentation": "O ID do produto de desenvolvedor a ser comprado."
+    "documentation": "O ID do produto do desenvolvedor a ser comprado."
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/3": {
     "documentation": "Ignorado."
@@ -83758,16 +83855,16 @@
     "documentation": "O serviço responsável por transações dentro da experiência."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/param/1": {
-    "documentation": "O <code>Player</code> que inicia a transferência. Deve ser um jogador válido ainda no servidor."
+    "documentation": "O <code>Player</code> iniciando a transferência. Deve ser um jogador válido atualmente no servidor."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/param/2": {
     "documentation": "O <code>UserId</code> do usuário que receberá os Robux."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/param/3": {
-    "documentation": "A quantidade de Robux a ser transferida. Deve ser um inteiro positivo."
+    "documentation": "A quantidade de Robux a transferir. Deve ser um inteiro positivo."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/return/0": {
-    "documentation": "Uma string <code>transferRequestId</code> que identifica exclusivamente essa solicitação de transferência. Use este ID para correlacionar com os recibos entregues pelo <code>BindReceiptHandler</code>."
+    "documentation": "Uma string <code>transferRequestId</code> que identifica exclusivamente esta solicitação de transferência. Use este ID para correlacionar com recibos entregues através <code>BindReceiptHandler</code>."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync": {
     "documentation": "Inicia uma transferência de Robux do remetente para outro usuário.",
@@ -83828,13 +83925,13 @@
     "documentation": "O serviço responsável por transações dentro da experiência."
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "Um array de objetos identificando os produtos que você deseja classificar. Este array pode incluir até 50 itens. Cada <code>ProductIdentifier</code> tem: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>Deve ser <code>InfoType.GamePass</code> ou     <code>InfoType.Product</code>.</li> <li><code>Id</code>: number</li> <li>O ID do passe de jogo ou do produto do desenvolvedor.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "Um array de objetos identificando os produtos que você deseja classificar. Este array pode incluir até 50 itens. Cada <code>ProductIdentifier</code> tem: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>Deve ser <code>InfoType.GamePass</code> ou     <code>InfoType.Product</code>.</li> <li><code>Id</code>: número</li> <li>O ID do passe de jogo ou produto do desenvolvedor.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "O array de itens classificados em uma ordem personalizada para o usuário atual. Cada array contém: <ul> <li><code>ProductIdentifier</code>: O ID correspondente do array de entrada.</li> <li><code>ProductInfo</code>: O dicionário padrão de informações do produto retornado por   <code>GetProductInfoAsync</code>.</li> </ul>"
+    "documentation": "O array de itens classificados em uma ordem personalizada para o usuário atual. Cada array tem: <ul> <li><code>ProductIdentifier</code>: O ID correspondente do array de entrada.</li> <li><code>ProductInfo</code>: O dicionário padrão de informações do produto retornado por   <code>GetProductInfoAsync</code>.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
-    "documentation": "Recebe uma lista de IDs de produtos e retorna uma lista ordenada personalizada para esses produtos.",
+    "documentation": "Recebe uma lista de IDs de produtos e retorna uma lista ordenada personalizada desses produtos.",
     "params": [
       {
         "name": "self",
@@ -83855,13 +83952,13 @@
     "documentation": "O serviço responsável por transações dentro da experiência."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "Um array de valores <code>InfoType</code> especificando os tipos de produtos para os quais recuperar recomendações. <code>InfoTypes</code> suportados: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "Um array de valores <code>InfoType</code> especificando os tipos de produto para recuperar recomendações. <code>InfoTypes</code> suportados: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "Uma lista classificada de até 50 itens com os quais o usuário é mais provável de interagir, basado nos <code>InfoTypes</code> fornecidos. Se não for possível determinar recomendações, o método retorna uma lista vazia."
+    "documentation": "Uma lista classificada de até 50 itens com os quais o usuário é mais provável de interagir, basado nos <code>InfoTypes</code> fornecidos. Se nenhuma recomendação puder ser determinada, o método retorna uma lista vazia."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li>Recebe um array de <code>InfoType</code> e retorna até 50 itens   representando os produtos com os quais um usuário é mais provável de interagir e   adquirir.</li> </ul>",
+    "documentation": "<ul> <li>Recebe um array de <code>InfoType</code> e retorna até 50 itens   representando os produtos com os quais um usuário é mais provável de interagir e   comprar.</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -83882,7 +83979,7 @@
     "documentation": "O serviço responsável por transações dentro da experiência."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/1": {
-    "documentation": "O <code>UserId</code> do <code>Player</code> cuja inventário você está verificando."
+    "documentation": "O <code>UserId</code> do <code>Player</code> cujo inventário você está verificando."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/2": {
     "documentation": "O ID do passe que você deseja verificar. Não deve ser confundido com um ID de ativo."
@@ -91715,6 +91812,7 @@
       "Direction1DState": "@roblox/globaltype/InputAction.Direction1DState",
       "Direction2DState": "@roblox/globaltype/InputAction.Direction2DState",
       "Direction3DState": "@roblox/globaltype/InputAction.Direction3DState",
+      "DisplayName": "@roblox/globaltype/InputAction.DisplayName",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "PreferredBinding": "@roblox/globaltype/InputAction.PreferredBinding",
       "Type": "@roblox/globaltype/InputAction.Type",
@@ -91745,6 +91843,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction3DState",
     "code_sample": ""
   },
+  "@roblox/globaltype/InputAction.DisplayName": {
+    "documentation": "Nome de exibição localizado para esta ação.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#DisplayName",
+    "code_sample": ""
+  },
   "@roblox/globaltype/InputAction.Enabled": {
     "documentation": "Determina se o <code>InputAction</code> está habilitado ou não.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Enabled",
@@ -91761,7 +91864,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.ViewportPositionState": {
-    "documentation": "Propriedade somente de leitura não programável útil para depuração de ações de entrada <code>ViewportPosition</code>.",
+    "documentation": "Propriedade somente leitura não scriptável útil para depuração <code>ViewportPosition</code> ações de entrada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
     "code_sample": ""
   },
@@ -106460,6 +106563,26 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#SubtractNode",
     "code_sample": ""
   },
+  "@roblox/enum/AnimationNodeType.OneShotNode": {
+    "documentation": "Um nó de sobreposição que reproduz uma pose única sobre uma pose base em loop ao ser acionado, misturando-a para dentro e para fora.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#OneShotNode",
+    "code_sample": ""
+  },
+  "@roblox/enum/AnimationNodeType.StateMachineNode": {
+    "documentation": "Um nó que seleciona e transita entre estados de animação de acordo com a definição de uma máquina de estados.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#StateMachineNode",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.AnimationNodeType": {
     "documentation": "Especifica o tipo de um nó de gráfico de animação, determinando como ele processa ou combina dados de animação.",
     "keys": {
@@ -106476,7 +106599,9 @@
       "SelectNode": "@roblox/enum/AnimationNodeType.SelectNode",
       "SequenceNode": "@roblox/enum/AnimationNodeType.SequenceNode",
       "SpeedNode": "@roblox/enum/AnimationNodeType.SpeedNode",
-      "SubtractNode": "@roblox/enum/AnimationNodeType.SubtractNode"
+      "SubtractNode": "@roblox/enum/AnimationNodeType.SubtractNode",
+      "OneShotNode": "@roblox/enum/AnimationNodeType.OneShotNode",
+      "StateMachineNode": "@roblox/enum/AnimationNodeType.StateMachineNode"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType",
     "code_sample": ""
@@ -106890,6 +107015,46 @@
       "Always": "@roblox/enum/AssetTypeVerification.Always"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AssetTypeVerification",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.New": {
+    "documentation": "The player is playing the experience for the first time.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.Returning": {
+    "documentation": "The player has played the experience before.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#Returning",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.UserNewReturningStatus": {
+    "documentation": "Describes whether a player is new to the current experience or has played it before.",
+    "keys": {
+      "Unknown": "@roblox/enum/UserNewReturningStatus.Unknown",
+      "New": "@roblox/enum/UserNewReturningStatus.New",
+      "Returning": "@roblox/enum/UserNewReturningStatus.Returning"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarSettingsScaleMode.PlayerChoice": {
@@ -107830,6 +107995,68 @@
       "PauseEventTriggered": "@roblox/enum/AdUIEventType.PauseEventTriggered"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AdUIEventType",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Inactive": {
+    "documentation": "The player did not play the experience in the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Inactive",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Low": {
+    "documentation": "The player played the experience on 1 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Low",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Medium": {
+    "documentation": "The player played the experience on 2 or 3 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Medium",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.High": {
+    "documentation": "The player played the experience on 4 to 7 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#High",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.EngagementLevel": {
+    "documentation": "Describes how many days a player played the current experience in the last 7 days, represented as a bucket.",
+    "keys": {
+      "Unknown": "@roblox/enum/EngagementLevel.Unknown",
+      "Inactive": "@roblox/enum/EngagementLevel.Inactive",
+      "Low": "@roblox/enum/EngagementLevel.Low",
+      "Medium": "@roblox/enum/EngagementLevel.Medium",
+      "High": "@roblox/enum/EngagementLevel.High"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel",
     "code_sample": ""
   },
   "@roblox/enum/StartCorner.TopLeft": {
@@ -112534,6 +112761,57 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PositionAlignmentMode",
     "code_sample": ""
   },
+  "@roblox/enum/FrustumStreamingMode.Default": {
+    "documentation": "Default behavior, currently equivalent to <code>Disabled</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Default",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Enabled": {
+    "documentation": "Always stream camera view.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Disabled": {
+    "documentation": "Disable camera view streaming.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Automatic": {
+    "documentation": "Allow the engine to decide when to stream the camera view based client ability and gameplay factors.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Automatic",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.FrustumStreamingMode": {
+    "documentation": "Used with <code>Player.FrustumStreaming</code> to control the engine's instance streaming behavior for their camera view",
+    "keys": {
+      "Default": "@roblox/enum/FrustumStreamingMode.Default",
+      "Enabled": "@roblox/enum/FrustumStreamingMode.Enabled",
+      "Disabled": "@roblox/enum/FrustumStreamingMode.Disabled",
+      "Automatic": "@roblox/enum/FrustumStreamingMode.Automatic"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode",
+    "code_sample": ""
+  },
   "@roblox/enum/AssetCreatorType.User": {
     "documentation": "O ativo é possuído por um usuário individual; o ID do criador acompanhante é um ID de usuário.",
     "keys": {
@@ -113645,7 +113923,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ImageCombineType.Add": {
-    "documentation": "Adiciona pixels da fonte e pixels do destino juntos.",
+    "documentation": "Adiciona pixels da fonte e pixels do destino juntos. Os valores RGB da fonte são escalonados pela alpha da fonte, enquanto a alpha da fonte é adicionada diretamente à alpha do destino.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113685,7 +113963,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ImageCombineType.Subtract": {
-    "documentation": "Subtrai pixels da fonte dos pixels do destino.",
+    "documentation": "Subtrai pixels da fonte dos pixels do destino. Os valores RGB da fonte são escalonados pela alpha da fonte, enquanto a alpha da fonte é subtraída diretamente da alpha do destino.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116152,6 +116430,134 @@
       "High": "@roblox/enum/VerifiedLevel.High"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VerifiedLevel",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.PendingAttribution": {
+    "documentation": "The player started playing recently, and their acquisition source is not available yet.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#PendingAttribution",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.HomeRecommendation": {
+    "documentation": "The player first joined from a recommendation on the Home page.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#HomeRecommendation",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.ContinueToPlay": {
+    "documentation": "The player first joined from the Continue section.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#ContinueToPlay",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Curation": {
+    "documentation": "The player first joined from content curated by Roblox, such as featured experiences or events.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Curation",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Friends": {
+    "documentation": "The player first joined through a friend.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Friends",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Search": {
+    "documentation": "The player first joined from search results.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Search",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Teleport": {
+    "documentation": "The player first joined by teleporting from another experience.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Teleport",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Ads": {
+    "documentation": "The player first joined from an ad, such as a sponsored ad, search ad, or portal ad.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Ads",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.HomeOther": {
+    "documentation": "The player first joined from a part of the Roblox app other than Home recommendations, such as Charts or Favorites.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#HomeOther",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Other": {
+    "documentation": "The player first joined from another source, such as a share link, chat, or a notification.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Other",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.UserAcquisitionSource": {
+    "documentation": "Describes how a player first found the current experience.",
+    "keys": {
+      "Unknown": "@roblox/enum/UserAcquisitionSource.Unknown",
+      "PendingAttribution": "@roblox/enum/UserAcquisitionSource.PendingAttribution",
+      "HomeRecommendation": "@roblox/enum/UserAcquisitionSource.HomeRecommendation",
+      "ContinueToPlay": "@roblox/enum/UserAcquisitionSource.ContinueToPlay",
+      "Curation": "@roblox/enum/UserAcquisitionSource.Curation",
+      "Friends": "@roblox/enum/UserAcquisitionSource.Friends",
+      "Search": "@roblox/enum/UserAcquisitionSource.Search",
+      "Teleport": "@roblox/enum/UserAcquisitionSource.Teleport",
+      "Ads": "@roblox/enum/UserAcquisitionSource.Ads",
+      "HomeOther": "@roblox/enum/UserAcquisitionSource.HomeOther",
+      "Other": "@roblox/enum/UserAcquisitionSource.Other"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource",
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnCreatingChatWindow": {
@@ -121756,7 +122162,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Over": {
-    "documentation": "Composites the one-shot pose on top of the base pose, replacing it by the current blend weight.",
+    "documentation": "Composita a pose de um único shot em cima da pose base, substituindo-a pelo peso de mistura atual.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121766,7 +122172,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Add": {
-    "documentation": "Adds the one-shot pose to the base pose as an additive layer scaled by the current blend weight.",
+    "documentation": "Adiciona a pose de um único shot à pose base como uma camada aditiva escalada pelo peso de mistura atual.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121776,7 +122182,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Subtract": {
-    "documentation": "Subtracts the one-shot pose from the base pose scaled by the current blend weight.",
+    "documentation": "Subtrai a pose de um único shot da pose base escalada pelo peso de mistura atual.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121786,7 +122192,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnimationNodeBlendMode": {
-    "documentation": "Specifies how an <code>AnimationNodeType.OneShotNode</code> combines its one-shot pose with its base pose.",
+    "documentation": "Especifica como um <code>AnimationNodeType.OneShotNode</code> combina sua pose de um único shot com sua pose base.",
     "keys": {
       "Over": "@roblox/enum/AnimationNodeBlendMode.Over",
       "Add": "@roblox/enum/AnimationNodeBlendMode.Add",
@@ -136223,6 +136629,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SafeAreaCompatibility",
     "code_sample": ""
   },
+  "@roblox/enum/PlayerPlatformActivationStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.New": {
+    "documentation": "The player signed up for Roblox within the last 60 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Active": {
+    "documentation": "The player played on Roblox in the last 60 days and is not <code>New</code> or <code>Reactivated</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Lapsed": {
+    "documentation": "The player has not played on Roblox in the last 60 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Lapsed",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Reactivated": {
+    "documentation": "The player returned to Roblox within the last 60 days after being <code>Lapsed</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Reactivated",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PlayerPlatformActivationStatus": {
+    "documentation": "Describes whether a player is new, active, lapsed, or reactivated on Roblox.",
+    "keys": {
+      "Unknown": "@roblox/enum/PlayerPlatformActivationStatus.Unknown",
+      "New": "@roblox/enum/PlayerPlatformActivationStatus.New",
+      "Active": "@roblox/enum/PlayerPlatformActivationStatus.Active",
+      "Lapsed": "@roblox/enum/PlayerPlatformActivationStatus.Lapsed",
+      "Reactivated": "@roblox/enum/PlayerPlatformActivationStatus.Reactivated"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus",
+    "code_sample": ""
+  },
   "@roblox/enum/ModelLevelOfDetail.Automatic": {
     "documentation": "Comportamento padrão, atualmente equivalente a <code>Desativado</code>.",
     "keys": {
@@ -139594,6 +140062,68 @@
       "MicroGamepad": "@roblox/enum/PreferredInput.MicroGamepad"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PreferredInput",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.New": {
+    "documentation": "The player first played the experience within the last 30 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Active": {
+    "documentation": "The player played the experience in the last 30 days and is not <code>New</code> or <code>Reactivated</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Lapsed": {
+    "documentation": "The player has not played the experience in the last 30 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Lapsed",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Reactivated": {
+    "documentation": "The player returned to the experience within the last 30 days after being <code>Lapsed</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Reactivated",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ExperienceActivationStatus": {
+    "documentation": "Describes whether a player is new, active, lapsed, or reactivated in the current experience.",
+    "keys": {
+      "Unknown": "@roblox/enum/ExperienceActivationStatus.Unknown",
+      "New": "@roblox/enum/ExperienceActivationStatus.New",
+      "Active": "@roblox/enum/ExperienceActivationStatus.Active",
+      "Lapsed": "@roblox/enum/ExperienceActivationStatus.Lapsed",
+      "Reactivated": "@roblox/enum/ExperienceActivationStatus.Reactivated"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarItemType.Asset": {

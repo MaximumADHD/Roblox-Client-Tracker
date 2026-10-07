@@ -2213,7 +2213,7 @@
     "code_sample": ""
   },
   "@roblox/global/InstanceHandle": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally.",
+    "documentation": "Referensi ringan, lemah ke <code>Instance</code> yang mungkin tidak tersedia secara lokal.",
     "keys": {
       "new": "@roblox/global/InstanceHandle.new"
     },
@@ -2221,10 +2221,10 @@
     "code_sample": ""
   },
   "@roblox/global/InstanceHandle.new/param/0": {
-    "documentation": "The instance to refer to, or <code>nil</code> for an empty handle."
+    "documentation": "Instance yang dirujuk, atau <code>nil</code> untuk handle kosong."
   },
   "@roblox/global/InstanceHandle.new": {
-    "documentation": "Returns a new <code>InstanceHandle</code> referring to the given <code>Instance</code>.",
+    "documentation": "Mengembalikan <code>InstanceHandle</code> baru yang merujuk ke <code>Instance</code> yang diberikan.",
     "params": [
       {
         "name": "instance",
@@ -2236,7 +2236,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally.",
+    "documentation": "Referensi ringan, lemah ke <code>Instance</code> yang mungkin tidak tersedia secara lokal.",
     "keys": {
       "Get": "@roblox/globaltype/InstanceHandle.Get",
       "Wait": "@roblox/globaltype/InstanceHandle.Wait"
@@ -2245,13 +2245,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle.Get/param/0": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally."
+    "documentation": "Referensi ringan, lemah ke <code>Instance</code> yang mungkin tidak tersedia secara lokal."
   },
   "@roblox/globaltype/InstanceHandle.Get/return/0": {
-    "documentation": "The referenced instance, or <code>nil</code> if it isn't available locally."
+    "documentation": "Instance yang dirujuk, atau <code>nil</code> jika tidak tersedia secara lokal."
   },
   "@roblox/globaltype/InstanceHandle.Get": {
-    "documentation": "Returns the referenced <code>Instance</code> if it's available locally, otherwise <code>nil</code>.",
+    "documentation": "Mengembalikan <code>Instance</code> yang dirujuk jika tersedia secara lokal, jika tidak <code>nil</code>.",
     "params": [
       {
         "name": "self",
@@ -2265,16 +2265,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle.Wait/param/0": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally."
+    "documentation": "Referensi ringan, lemah ke <code>Instance</code> yang mungkin tidak tersedia secara lokal."
   },
   "@roblox/globaltype/InstanceHandle.Wait/param/1": {
-    "documentation": "How long to wait, in seconds. Must be greater than zero. Waits indefinitely when omitted."
+    "documentation": "Berapa lama untuk menunggu, dalam detik. Harus lebih besar dari nol. Menunggu tanpa batas ketika diabaikan."
   },
   "@roblox/globaltype/InstanceHandle.Wait/return/0": {
-    "documentation": "The referenced instance, or <code>nil</code> if the handle is empty, the target is inaccessible to the calling script, or <code>timeout</code> elapses first."
+    "documentation": "Instance yang dirujuk, atau <code>nil</code> jika handle kosong, target tidak dapat diakses oleh skrip yang memanggil, atau <code>timeout</code> berakhir terlebih dahulu."
   },
   "@roblox/globaltype/InstanceHandle.Wait": {
-    "documentation": "Yields until the referenced <code>Instance</code> is available locally, then returns it.",
+    "documentation": "Menunggu hingga <code>Instance</code> yang dirujuk tersedia secara lokal, kemudian mengembalikannya.",
     "params": [
       {
         "name": "self",
@@ -7030,12 +7030,10 @@
       "Fail": "@roblox/globaltype/TestService.Fail",
       "isFeatureEnabled": "@roblox/globaltype/TestService.isFeatureEnabled",
       "Message": "@roblox/globaltype/TestService.Message",
-      "RegisterTest": "@roblox/globaltype/TestService.RegisterTest",
       "Require": "@roblox/globaltype/TestService.Require",
       "Run": "@roblox/globaltype/TestService.Run",
       "RunAsync": "@roblox/globaltype/TestService.RunAsync",
       "ScopeTime": "@roblox/globaltype/TestService.ScopeTime",
-      "TakeSnapshot": "@roblox/globaltype/TestService.TakeSnapshot",
       "Warn": "@roblox/globaltype/TestService.Warn"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService",
@@ -7335,33 +7333,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Message",
     "code_sample": "local TestService = game:GetService(\"TestService\")\n\n\n    TestService:Message(\"contoh\")"
   },
-  "@roblox/globaltype/TestService.RegisterTest/param/0": {
-    "documentation": "Sebuah layanan yang digunakan oleh Roblox untuk menjalankan tes terkontrol dari mesin. Ini tersedia untuk digunakan oleh pengembang, dengan batasan tertentu."
-  },
-  "@roblox/globaltype/TestService.RegisterTest/param/1": {
-    "documentation": "Sebuah kamus yang menggambarkan uji, memerlukan bidang string <code>SuiteName</code> dan <code>TestCaseName</code> dan secara opsional bidang numerik <code>Timeout</code> ."
-  },
-  "@roblox/globaltype/TestService.RegisterTest/return/0": {
-    "documentation": "<code>TestCase</code> yang terdaftar, atau tidak ada nilai ketika pendaftaran tidak didukung dalam konteks saat ini."
-  },
-  "@roblox/globaltype/TestService.RegisterTest": {
-    "documentation": "Mendaftarkan kasus uji dengan layanan dan mengembalikan <code>TestCase</code> yang dihasilkan.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TestService.RegisterTest/param/0"
-      },
-      {
-        "name": "testOptions",
-        "documentation": "@roblox/globaltype/TestService.RegisterTest/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TestService.RegisterTest/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#RegisterTest",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TestService.Require/param/0": {
     "documentation": "Sebuah layanan yang digunakan oleh Roblox untuk menjalankan tes terkontrol dari mesin. Ini tersedia untuk digunakan oleh pengembang, dengan batasan tertentu."
   },
@@ -7369,7 +7340,7 @@
     "documentation": "Ekspresi boolean yang dievaluasi sebagai pernyataan yang diperlukan."
   },
   "@roblox/globaltype/TestService.Require/param/2": {
-    "documentation": "Label yang mengidentifikasi persyaratan ini dalam output uji."
+    "documentation": "Sebuah label yang mengidentifikasi persyaratan ini dalam output tes."
   },
   "@roblox/globaltype/TestService.Require/param/3": {
     "documentation": "Instansi skrip yang memanggil persyaratan, digunakan untuk atribusi output. Defaultnya adalah <code>nil</code>."
@@ -7455,35 +7426,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ScopeTime",
     "code_sample": ""
   },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/0": {
-    "documentation": "Sebuah layanan yang digunakan oleh Roblox untuk menjalankan tes terkontrol dari mesin. Ini tersedia untuk digunakan oleh pengembang, dengan batasan tertentu."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
-    "documentation": "Nama yang akan diasosiasikan dengan snapshot yang diambil."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/2": {
-    "documentation": "Instansi skrip opsional yang atribut <code>Suite</code> dan <code>TestName</code> menamai snapshot; defaultnya adalah <code>nil</code>."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot": {
-    "documentation": "Mengambil snapshot tangkapan layar bernama selama jalannya uji.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/0"
-      },
-      {
-        "name": "snapshotname",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/1"
-      },
-      {
-        "name": "source",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#TakeSnapshot",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TestService.Warn/param/0": {
     "documentation": "Sebuah layanan yang digunakan oleh Roblox untuk menjalankan tes terkontrol dari mesin. Ini tersedia untuk digunakan oleh pengembang, dengan batasan tertentu."
   },
@@ -7491,7 +7433,7 @@
     "documentation": "Ekspresi boolean yang dievaluasi sebagai pernyataan peringatan."
   },
   "@roblox/globaltype/TestService.Warn/param/2": {
-    "documentation": "Label yang mengidentifikasi pemeriksaan peringatan ini dalam output uji."
+    "documentation": "Sebuah label yang mengidentifikasi pemeriksaan peringatan ini dalam output tes."
   },
   "@roblox/globaltype/TestService.Warn/param/3": {
     "documentation": "Instansi skrip yang memanggil peringatan, digunakan untuk atribusi output. Defaultnya adalah <code>nil</code>."
@@ -14660,7 +14602,7 @@
     "documentation": "Fungsi yang akan diikat ke tombol tutup. Jika tidak ada fungsi yang ditentukan, maka fungsi yang telah ditentukan sebelumnya akan dibatalkan."
   },
   "@roblox/globaltype/PluginGui.BindToClose": {
-    "documentation": "Mengikat fungsi ke tombol tutup <code>PluginGui</code>, menimpa perilaku standar.",
+    "documentation": "Mengikat sebuah fungsi yang dijalankan ketika pengguna menutup <code>PluginGui</code>.",
     "params": [
       {
         "name": "self",
@@ -37441,7 +37383,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting": {
-    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan terlihat dan berinteraksi dengan objek lain.",
+    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan muncul dan berinteraksi dengan objek lainnya.",
     "keys": {
       "Ambient": "@roblox/globaltype/Lighting.Ambient",
       "Brightness": "@roblox/globaltype/Lighting.Brightness",
@@ -37477,12 +37419,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Ambient": {
-    "documentation": "Nada pencahayaan yang diterapkan ke area yang terhalang dari langit, seperti area dalam ruangan.",
+    "documentation": "Hue pencahayaan yang diterapkan pada area yang terhalang dari langit, seperti area dalam ruangan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Ambient",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Brightness": {
-    "documentation": "Kekuatan pencahayaan di tempat tersebut.",
+    "documentation": "Intensitas pencahayaan di tempat tersebut.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Brightness",
     "code_sample": ""
   },
@@ -37492,17 +37434,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Bottom": {
-    "documentation": "Nada yang ditampilkan dalam cahaya yang dipantulkan di permukaan berlawanan dari yang menghadapi matahari atau bulan.",
+    "documentation": "Hue yang diwakili dalam cahaya yang dipantulkan di permukaan yang berlawanan dari permukaan yang menghadap matahari atau bulan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Bottom",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Top": {
-    "documentation": "Nada yang ditampilkan dalam cahaya yang dipantulkan dari permukaan yang menghadap matahari atau bulan.",
+    "documentation": "Hue yang diwakili dalam cahaya yang dipantulkan dari permukaan yang menghadap matahari atau bulan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Top",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.EnvironmentDiffuseScale": {
-    "documentation": "Cahaya ambien yang berasal dari lingkungan.",
+    "documentation": "Cahaya ambient yang berasal dari lingkungan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#EnvironmentDiffuseScale",
     "code_sample": ""
   },
@@ -37517,22 +37459,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ExtendLightRangeTo120": {
-    "documentation": "Tidak terpakai. <code>Range</code> selalu dibatasi hingga 120 stud.",
+    "documentation": "Tidak terpakai. Jangkauan cahaya <code>Range</code> selalu dibatasi hingga 120 studs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ExtendLightRangeTo120",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogColor": {
-    "documentation": "Nilai <code>Color3</code> yang memberikan nada kabut <code>Lighting</code>.",
+    "documentation": "Nilai <code>Color3</code> yang memberikan hue dari kabut <code>Lighting</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogEnd": {
-    "documentation": "Kedalaman dari <code>Workspace.CurrentCamera</code>, dalam stud, di mana kabut akan sepenuhnya buram.",
+    "documentation": "Kedalaman dari <code>Workspace.CurrentCamera</code>, dalam studs, di mana kabut akan sepenuhnya opak.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogEnd",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogStart": {
-    "documentation": "Kedalaman dari <code>Workspace.CurrentCamera</code>, dalam stud, di mana kabut mulai terlihat.",
+    "documentation": "Kedalaman dari <code>Workspace.CurrentCamera</code>, dalam studs, di mana kabut mulai terlihat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogStart",
     "code_sample": ""
   },
@@ -37542,32 +37484,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GlobalShadows": {
-    "documentation": "Mengalihkan pencahayaan dinamis berbasis voxel untuk tempat tersebut.",
+    "documentation": "Mengaktifkan atau menonaktifkan pencahayaan dinamis berbasis voxel untuk tempat tersebut.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#GlobalShadows",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.LightingStyle": {
-    "documentation": "Niat artistik di balik pencahayaan dalam pengalaman tersebut.",
+    "documentation": "Niat artistik di balik pencahayaan dalam pengalaman.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#LightingStyle",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.OutdoorAmbient": {
-    "documentation": "Nada pencahayaan yang diterapkan ke area luar ruangan.",
+    "documentation": "Hue pencahayaan yang diterapkan pada area luar ruangan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#OutdoorAmbient",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Outlines": {
-    "documentation": "<strong>Deprecated:</strong> Item ini tidak lagi didukung karena fitur garis luar dihapus dari platform Roblox.<br>Menentukan apakah garis luar diaktifkan atau dinonaktifkan di suatu tempat.",
+    "documentation": "<strong>Deprecated:</strong> Item ini tidak lagi didukung karena fitur garis luar telah dihapus dari platform Roblox.<br>Menentukan apakah garis luar diaktifkan atau dinonaktifkan di suatu tempat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Outlines",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.PrioritizeLightingQuality": {
-    "documentation": "Menunjukkan apakah Anda lebih memilih kualitas pencahayaan/penyinaran atau jarak pandang untuk skala lebih dulu.",
+    "documentation": "Menunjukkan apakah Anda lebih memilih kualitas pencahayaan/peneduhan atau jarak pandang untuk menyusut terlebih dahulu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#PrioritizeLightingQuality",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ShadowColor": {
-    "documentation": "<strong>Deprecated:</strong> Item ini telah di-depresi dan tidak memiliki fungsi saat ini. Jangan gunakan itu untuk pekerjaan baru.<br>Ini supposed untuk mengubah warna bayangan pemain, tetapi saat ini tidak melakukan apa-apa.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan dan tidak memiliki fungsionalitas saat ini. Jangan gunakan untuk pekerjaan baru.<br>Ini seharusnya mengubah warna bayangan pemain, tetapi saat ini tidak melakukan apa-apa.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ShadowColor",
     "code_sample": ""
   },
@@ -37577,17 +37519,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Technology": {
-    "documentation": "Menentukan sistem pencahayaan untuk merender dunia 3D. Tidak dapat diskrip.",
+    "documentation": "Menentukan sistem pencahayaan untuk merender dunia 3D. Tidak dapat diprogram.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Technology",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.TimeOfDay": {
-    "documentation": "Representasi string 24-jam dari waktu saat ini yang digunakan oleh <code>Lighting</code>.",
+    "documentation": "Representasi string 24 jam dari waktu saat ini yang digunakan oleh <code>Lighting</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#TimeOfDay",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight/param/0": {
-    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan terlihat dan berinteraksi dengan objek lain."
+    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan muncul dan berinteraksi dengan objek lainnya."
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight/return/0": {
     "documentation": "Jumlah menit setelah tengah malam."
@@ -37607,13 +37549,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight/param/0": {
-    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan terlihat dan berinteraksi dengan objek lain."
+    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan muncul dan berinteraksi dengan objek lainnya."
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> Metode ini adalah varian yang sudah usang dari <code>Lighting:GetMinutesAfterMidnight()</code> yang harus digunakan sebagai gantinya.",
+    "documentation": "<strong>Deprecated:</strong> Metode ini adalah varian yang sudah tidak digunakan dari <code>Lighting:GetMinutesAfterMidnight()</code> yang seharusnya digunakan sebagai gantinya.",
     "params": [
       {
         "name": "self",
@@ -37627,7 +37569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMoonDirection/param/0": {
-    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan terlihat dan berinteraksi dengan objek lain."
+    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan muncul dan berinteraksi dengan objek lainnya."
   },
   "@roblox/globaltype/Lighting.GetMoonDirection/return/0": {
     "documentation": "<code>Vector3</code> yang mewakili arah bulan."
@@ -37647,7 +37589,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMoonPhase/param/0": {
-    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan terlihat dan berinteraksi dengan objek lain."
+    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan muncul dan berinteraksi dengan objek lainnya."
   },
   "@roblox/globaltype/Lighting.GetMoonPhase/return/0": {
     "documentation": ""
@@ -37667,7 +37609,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetSunDirection/param/0": {
-    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan terlihat dan berinteraksi dengan objek lain."
+    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan muncul dan berinteraksi dengan objek lainnya."
   },
   "@roblox/globaltype/Lighting.GetSunDirection/return/0": {
     "documentation": "<code>Vector3</code> yang mewakili arah matahari."
@@ -37687,13 +37629,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight/param/0": {
-    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan terlihat dan berinteraksi dengan objek lain."
+    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan muncul dan berinteraksi dengan objek lainnya."
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight/param/1": {
-    "documentation": "Jumlah menit setelah setengah malam."
+    "documentation": "Jumlah menit setelah tengah malam."
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight": {
-    "documentation": "Mengatur <code>TimeOfDay</code> dan <code>ClockTime</code> ke jumlah menit yang diberikan setelah setengah malam.",
+    "documentation": "Mengatur <code>TimeOfDay</code> dan <code>ClockTime</code> ke jumlah menit setelah tengah malam yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -37709,13 +37651,13 @@
     "code_sample": "local Lighting = game:GetService(\"Lighting\")\n\nlocal TIME_SPEED = 60  -- 1 menit = 1 jam\nlocal START_TIME = 9  -- 9 Pagi\n\nlocal minutesAfterMidnight = START_TIME * 60\nlocal waitTime = 60 / TIME_SPEED\n\nwhile true do\n\tminutesAfterMidnight = minutesAfterMidnight + 1\n\n\tLighting:SetMinutesAfterMidnight(minutesAfterMidnight)\n\n\ttask.wait(waitTime)\nend"
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/0": {
-    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan terlihat dan berinteraksi dengan objek lain."
+    "documentation": "Layanan <code>Lighting</code> mengontrol pencahayaan global dalam sebuah pengalaman. Ini mencakup berbagai properti yang dapat disesuaikan yang dapat Anda gunakan untuk mengubah bagaimana pencahayaan muncul dan berinteraksi dengan objek lainnya."
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> Metode ini adalah varian yang telah di-depresi dari <code>Lighting:SetMinutesAfterMidnight()</code> yang sebaiknya digunakan sebagai gantinya.",
+    "documentation": "<strong>Deprecated:</strong> Metode ini adalah varian yang sudah tidak digunakan dari <code>Lighting:SetMinutesAfterMidnight()</code> yang seharusnya digunakan sebagai gantinya.",
     "params": [
       {
         "name": "self",
@@ -37808,7 +37750,7 @@
     "returns": []
   },
   "@roblox/globaltype/Lighting.LightingChanged": {
-    "documentation": "Peristiwa ini terjadi ketika properti <code>Lighting</code> diubah atau <code>Sky</code> ditambahkan atau dihapus dari <code>Lighting</code>.",
+    "documentation": "Acara ini terjadi ketika properti <code>Lighting</code> diubah atau <code>Sky</code> ditambahkan atau dihapus dari <code>Lighting</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Lighting.LightingChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Lighting.LightingChanged.ConnectParallel",
@@ -38059,7 +38001,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage": {
-    "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi gambar secara runtime.",
+    "documentation": "Objek yang memungkinkan pembuatan dan manipulasi gambar secara runtime.",
     "keys": {
       "Size": "@roblox/globaltype/EditableImage.Size",
       "Destroy": "@roblox/globaltype/EditableImage.Destroy",
@@ -38082,7 +38024,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.Destroy/param/0": {
-    "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi gambar secara runtime."
+    "documentation": "Objek yang memungkinkan pembuatan dan manipulasi gambar secara runtime."
   },
   "@roblox/globaltype/EditableImage.Destroy": {
     "documentation": "Menghancurkan konten gambar dan segera mengklaim kembali memori yang mereka gunakan.",
@@ -38097,10 +38039,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/0": {
-    "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi gambar secara runtime."
+    "documentation": "Objek yang memungkinkan pembuatan dan manipulasi gambar secara runtime."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/1": {
-    "documentation": "Titik pusat lingkaran, relatif terhadap sudut kiri atas dari <code>EditableImage</code>. Posisi di luar batas kanvas diperbolehkan."
+    "documentation": "Tengah lingkaran, relatif terhadap sudut kiri atas dari <code>EditableImage</code>. Posisi di luar batas kanvas diperbolehkan."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/2": {
     "documentation": "Radius lingkaran dalam piksel."
@@ -38109,13 +38051,13 @@
     "documentation": "Warna lingkaran."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/4": {
-    "documentation": "Transparansi lingkaran dengan 0 menjadi sepenuhnya tidak transparan dan 1 menjadi sepenuhnya transparan."
+    "documentation": "Transparansi lingkaran dengan 0 berarti sepenuhnya opak dan 1 berarti sepenuhnya transparan."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/5": {
-    "documentation": "Bagaimana pixel yang digambar (sumber) digabungkan dengan pixel yang ada dari gambar ini (tujuan)."
+    "documentation": "Bagaimana piksel yang digambar (sumber) digabungkan dengan piksel yang ada dari gambar ini (tujuan)."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/6": {
-    "documentation": "Menentukan apakah anti-aliasing diterapkan pada lingkaran. Ketika diatur ke <code>AntiAliasing.Enabled</code>, tepi lingkaran akan lembut. Ketika diatur ke <code>AntiAliasing.Disabled</code>, tepi lingkaran akan keras."
+    "documentation": "Menentukan apakah anti-aliasing diterapkan pada lingkaran. Ketika diatur ke <code>AntiAliasing.Enabled</code>, tepi lingkaran menjadi lembut. Ketika diatur ke <code>AntiAliasing.Disabled</code>, tepi lingkaran menjadi keras."
   },
   "@roblox/globaltype/EditableImage.DrawCircle": {
     "documentation": "Menggambar lingkaran di titik yang ditentukan.",
@@ -38154,16 +38096,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/0": {
-    "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi gambar secara runtime."
+    "documentation": "Objek yang memungkinkan pembuatan dan manipulasi gambar secara runtime."
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/1": {
-    "documentation": "Posisi di mana sudut kiri atas dari gambar sumber akan digambar."
+    "documentation": "Posisi di mana sudut kiri atas gambar sumber akan digambar."
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/2": {
     "documentation": "<code>EditableImage</code> sumber yang akan digambar ke dalam <code>EditableImage</code> ini."
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/3": {
-    "documentation": "Bagaimana pixel dari gambar sumber digabungkan dengan pixel yang ada gambar ini (tujuan)."
+    "documentation": "Bagaimana piksel dari gambar sumber digabungkan dengan piksel yang ada gambar ini (tujuan)."
   },
   "@roblox/globaltype/EditableImage.DrawImage": {
     "documentation": "Menggambar <code>EditableImage</code> lain ke dalam <code>EditableImage</code> ini di posisi yang diberikan.",
@@ -38190,16 +38132,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/0": {
-    "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi gambar secara runtime."
+    "documentation": "Objek yang memungkinkan pembuatan dan manipulasi gambar secara runtime."
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/1": {
     "documentation": "<code>EditableMesh</code> yang digunakan untuk memproyeksikan."
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/2": {
-    "documentation": "Kamus konfigurasi proyeksi yang mencakup pasangan kunci-nilai berikut: <ul> <li><code>Direction</code> (<code>Vector3</code>) di mana proyektor menghadap.</li> <li><code>Position</code> (<code>Vector3</code>) sebagai posisi dalam ruang lokal terhadap   mesh.</li> <li><code>Size</code> (<code>Vector3</code>) sebagai ukuran proyektor.</li> <li><code>Up</code> (<code>Vector3</code>) sebagai vektor atas dari proyektor dalam ruang   lokal terhadap mesh.</li> </ul>"
+    "documentation": "Kamus konfigurasi proyeksi yang mencakup pasangan kunci-nilai berikut: <ul> <li><code>Direction</code> (<code>Vector3</code>) di mana proyektor menghadap.</li> <li><code>Position</code> (<code>Vector3</code>) sebagai posisi dalam ruang lokal dengan   menghormati mesh.</li> <li><code>Size</code> (<code>Vector3</code>) sebagai ukuran proyektor.</li> <li><code>Up</code> (<code>Vector3</code>) sebagai vektor atas proyektor dalam ruang lokal   dengan menghormati mesh.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/3": {
-    "documentation": "Kamus konfigurasi kuas yang mencakup pasangan kunci-nilai berikut: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) yang menentukan bagaimana   proyeksi ini akan mencampurkan nilai alpha.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) yang menentukan bagaimana   proyeksi ini akan mencampurkan nilai warna.</li> <li><code>Decal</code> (<code>EditableImage</code>) sebagai gambar yang digunakan untuk proyeksi.</li> <li><code>FadeAngle</code> (number) sebagai sudut dalam derajat untuk batas proyeksi yang mulai memudar. Proyeksi akan sepenuhnya memudar pada sudut 90 derajat. Sudut 0 berarti pudar dimulai segera pada 0 derajat dan sudut 90 berarti tidak ada pudar tetapi sebagai garis keras pada 90 derajat. Sudut 70 derajat berarti proyeksi mulai memudar pada 70 derajat dan sepenuhnya memudar pada 90 derajat.</li> <li><code>BlendIntensity</code> (number) sebagai nilai antara <code>0</code> dan <code>1</code> yang   mengontrol seberapa banyak proyeksi dicampurkan ke dalam gambar yang dihasilkan.</li> </ul>"
+    "documentation": "Kamus konfigurasi kuas yang mencakup pasangan kunci-nilai berikut: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) yang menentukan bagaimana proyeksi ini   akan mencampur nilai alpha.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) yang menentukan bagaimana proyeksi ini   akan mencampur nilai warna.</li> <li><code>Decal</code> (<code>EditableImage</code>) sebagai gambar yang digunakan untuk proyeksi.</li> <li><code>FadeAngle</code> (angka) sebagai sudut dalam derajat untuk tepi proyeksi   mulai memudar. Proyeksi akan sepenuhnya memudar pada   90 derajat. Sudut 0 berarti memudar dimulai segera pada 0   derajat dan sudut 90 berarti tidak ada pemudaran tetapi sebaliknya tepi keras   pada 90 derajat. Sudut 70 derajat berarti proyeksi   mulai memudar pada 70 derajat dan sepenuhnya memudar pada 90 derajat.</li> <li><code>BlendIntensity</code> (angka) sebagai nilai antara <code>0</code> dan <code>1</code> yang   mengontrol seberapa banyak proyeksi dicampur ke dalam gambar yang dihasilkan.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected": {
     "documentation": "Memproyeksikan <code>EditableImage</code> lain ke dalam <code>EditableMesh</code> dan menyimpan hasilnya di <code>EditableImage</code> ini.",
@@ -38226,19 +38168,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/0": {
-    "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi gambar secara runtime."
+    "documentation": "Objek yang memungkinkan pembuatan dan manipulasi gambar secara runtime."
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/1": {
-    "documentation": "<code>EditableMesh</code> yang memetakan <code>sourceTexture</code> ke permukaan yang diambil sampelnya."
+    "documentation": "<code>EditableMesh</code> yang memetakan <code>sourceTexture</code> ke permukaan yang sedang diambil sampel."
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/2": {
-    "documentation": "<code>EditableImage</code> dari mana piksel diambil sampelnya."
+    "documentation": "<code>EditableImage</code> dari mana piksel diambil sampel."
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/3": {
-    "documentation": "Kamus konfigurasi proyeksi yang berisi pasangan kunci-nilai berikut: <ul> <li><code>Direction</code> (<code>Vector3</code>) di mana proyektor menghadap.</li> <li><code>Position</code> (<code>Vector3</code>) sebagai posisi proyektor dalam ruang lokal   terkait dengan mesh.</li> <li><code>Size</code> (<code>Vector3</code>) sebagai ukuran proyektor. Komponen <strong>X</strong>   dan <strong>Y</strong> menentukan dimensinya, sementara komponen <strong>Z</strong>   menentukan kedalaman proyeksi.</li> <li><code>Up</code> (<code>Vector3</code>) sebagai vektor atas proyektor dalam ruang lokal   terkait dengan mesh.</li> </ul>"
+    "documentation": "Kamus konfigurasi proyeksi yang berisi pasangan kunci-nilai berikut: <ul> <li><code>Direction</code> (<code>Vector3</code>) di mana proyektor menghadap.</li> <li><code>Position</code> (<code>Vector3</code>) sebagai posisi proyektor dalam ruang lokal   dengan menghormati mesh.</li> <li><code>Size</code> (<code>Vector3</code>) sebagai ukuran proyektor. Komponen <strong>X</strong>   dan <strong>Y</strong> menentukan dimensinya, sementara komponen <strong>Z</strong>   menentukan kedalaman proyeksi.</li> <li><code>Up</code> (<code>Vector3</code>) sebagai vektor atas proyektor dalam ruang lokal   dengan menghormati mesh.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/4": {
-    "documentation": "Kamus konfigurasi kuas yang berisi pasangan kunci-nilai berikut: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) yang menentukan bagaimana   nilai alpha yang diambil sampelnya dicampur.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) yang menentukan bagaimana   nilai warna yang diambil sampelnya dicampur.</li> <li><code>FadeAngle</code> (angka) sebagai sudut dalam derajat di mana proyeksi   mulai memudar berdasarkan normal permukaan. Nilai <code>180</code> tidak menerapkan   pemudaran sudut normal.</li> </ul>"
+    "documentation": "Kamus konfigurasi kuas yang berisi pasangan kunci-nilai berikut: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) yang menentukan bagaimana nilai   alpha yang diambil sampel dicampur.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) yang menentukan bagaimana nilai   warna yang diambil sampel dicampur.</li> <li><code>FadeAngle</code> (angka) sebagai sudut dalam derajat di mana proyeksi   mulai memudar berdasarkan normal permukaan. Nilai <code>180</code> tidak menerapkan   pemudaran sudut normal.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected": {
     "documentation": "Memproyeksikan piksel dari tekstur <code>EditableMesh</code> ke dalam <code>EditableImage</code> ini.",
@@ -38269,7 +38211,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/0": {
-    "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi gambar secara runtime."
+    "documentation": "Objek yang memungkinkan pembuatan dan manipulasi gambar secara runtime."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/1": {
     "documentation": "Posisi dalam piksel di mana titik pivot dari gambar sumber akan ditempatkan pada gambar ini."
@@ -38281,10 +38223,10 @@
     "documentation": "Sudut rotasi dalam derajat, diterapkan di sekitar titik pivot dari gambar sumber."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/4": {
-    "documentation": "Sumber <code>EditableImage</code> yang akan digambar ke dalam gambar ini."
+    "documentation": "<code>EditableImage</code> sumber yang akan digambar ke dalam gambar ini."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/5": {
-    "documentation": "Kamus opsional untuk konfigurasi tambahan: <ul> <li><code>CombineType</code>: Menentukan bagaimana piksel dari gambar sumber dicampur   dengan piksel tujuan. Default adalah   <code>ImageCombineType.AlphaBlend</code>.</li> <li><code>SamplingMode</code>: Menentukan metode pengambilan sampel (misalnya <code>Default</code> untuk   bilinear atau <code>Pixelated</code> untuk tetangga terdekat). Default adalah   <code>ResamplerMode.Default</code>.</li> <li><code>PivotPoint</code>: Menentukan titik pivot dalam gambar sumber untuk   skala dan rotasi. Default adalah pusat gambar sumber   (yaitu <code>Size / 2</code>).</li> </ul>"
+    "documentation": "Kamus opsional untuk konfigurasi tambahan: <ul> <li><code>CombineType</code>: Menentukan bagaimana piksel dari gambar sumber bercampur   dengan piksel tujuan. Default adalah   <code>ImageCombineType.AlphaBlend</code>.</li> <li><code>SamplingMode</code>: Menentukan metode pengambilan sampel (misalnya <code>Default</code> untuk   bilinear atau <code>Pixelated</code> untuk tetangga terdekat). Default adalah   <code>ResamplerMode.Default</code>.</li> <li><code>PivotPoint</code>: Menentukan titik pivot dalam gambar sumber untuk   skala dan rotasi. Default adalah pusat gambar sumber   (yaitu <code>Size / 2</code>).</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed": {
     "documentation": "Menggambar gambar ke dalam <code>EditableImage</code> ini dengan transformasi termasuk skala dan rotasi, menempatkannya di posisi yang ditentukan.",
@@ -38319,7 +38261,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/0": {
-    "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi gambar secara runtime."
+    "documentation": "Objek yang memungkinkan pembuatan dan manipulasi gambar secara runtime."
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/1": {
     "documentation": "Titik awal garis."
@@ -38334,7 +38276,7 @@
     "documentation": "Transparansi garis."
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/5": {
-    "documentation": "Bagaimana pixel yang digambar (sumber) digabungkan dengan pixel yang ada dari gambar ini (tujuan)."
+    "documentation": "Bagaimana piksel yang digambar (sumber) digabungkan dengan piksel yang ada dari gambar ini (tujuan)."
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/6": {
     "documentation": "Menentukan apakah anti-aliasing diterapkan pada garis. Ketika diatur ke <code>AntiAliasing.Enabled</code>, tepi garis menjadi lembut. Ketika diatur ke <code>AntiAliasing.Disabled</code>, tepi garis menjadi keras."
@@ -38376,10 +38318,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/0": {
-    "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi gambar secara runtime."
+    "documentation": "Objek yang memungkinkan pembuatan dan manipulasi gambar secara runtime."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/1": {
-    "documentation": "Posisi kiri atas dari persegi panjang. Berbeda dengan metode menggambar lainnya, ini tidak dapat berada di luar batas kanvas dari <code>EditableImage</code>."
+    "documentation": "Posisi sudut kiri atas dari persegi panjang. Tidak seperti metode menggambar lainnya, ini tidak dapat berada di luar batas kanvas dari <code>EditableImage</code>."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/2": {
     "documentation": "Ukuran persegi panjang yang akan digambar, dalam piksel."
@@ -38391,7 +38333,7 @@
     "documentation": "Transparansi persegi panjang."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/5": {
-    "documentation": "Bagaimana piksel yang digambar (sumber) digabungkan dengan piksel yang ada gambar ini (tujuan)."
+    "documentation": "Bagaimana piksel yang digambar (sumber) digabungkan dengan piksel yang ada dari gambar ini (tujuan)."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle": {
     "documentation": "Menggambar persegi panjang dengan ukuran yang diberikan di posisi kiri atas yang diberikan.",
@@ -38426,16 +38368,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.ReadPixelsBuffer/param/0": {
-    "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi gambar secara runtime."
+    "documentation": "Objek yang memungkinkan pembuatan dan manipulasi gambar secara runtime."
   },
   "@roblox/globaltype/EditableImage.ReadPixelsBuffer/param/1": {
-    "documentation": "Titik kiri atas dari wilayah persegi panjang piksel yang akan dibaca."
+    "documentation": "Sudut kiri atas dari wilayah persegi panjang piksel yang akan dibaca."
   },
   "@roblox/globaltype/EditableImage.ReadPixelsBuffer/param/2": {
     "documentation": "Ukuran wilayah persegi panjang piksel yang akan dibaca."
   },
   "@roblox/globaltype/EditableImage.ReadPixelsBuffer/return/0": {
-    "documentation": "Buffer di mana setiap piksel diwakili oleh empat byte (merah, hijau, biru dan alpha masing-masing). Panjang buffer dapat dihitung sebagai <code>X * Size.Y * 4</code> byte."
+    "documentation": "Buffer di mana setiap piksel diwakili oleh empat byte (merah, hijau, biru  dan alpha masing-masing). Panjang buffer dapat dihitung sebagai <code>X * Size.Y * 4</code> byte."
   },
   "@roblox/globaltype/EditableImage.ReadPixelsBuffer": {
     "documentation": "Membaca wilayah persegi panjang piksel ke dalam buffer.",
@@ -38460,10 +38402,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer/param/0": {
-    "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi gambar secara runtime."
+    "documentation": "Objek yang memungkinkan pembuatan dan manipulasi gambar secara runtime."
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer/param/1": {
-    "documentation": "Titik kiri atas dari wilayah persegi panjang untuk menggambar piksel ke dalam."
+    "documentation": "Sudut kiri atas dari wilayah persegi panjang untuk menggambar piksel ke dalam."
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer/param/2": {
     "documentation": "Ukuran wilayah persegi panjang piksel yang akan ditulis."
@@ -41475,6 +41417,7 @@
     "documentation": "Kelas perantara abstrak yang mengelola properti geometri fisik untuk PartOperations dan MeshParts.",
     "keys": {
       "CollisionFidelity": "@roblox/globaltype/TriangleMeshPart.CollisionFidelity",
+      "CollisionPrecision": "@roblox/globaltype/TriangleMeshPart.CollisionPrecision",
       "FluidFidelity": "@roblox/globaltype/TriangleMeshPart.FluidFidelity",
       "MeshSize": "@roblox/globaltype/TriangleMeshPart.MeshSize"
     },
@@ -41486,13 +41429,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#CollisionFidelity",
     "code_sample": ""
   },
+  "@roblox/globaltype/TriangleMeshPart.CollisionPrecision": {
+    "documentation": "Mengukur seberapa tepat atau efisien geometri tabrakan <code>CollisionFidelity.Tunable</code> dari <code>0</code> hingga <code>1</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#CollisionPrecision",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TriangleMeshPart.FluidFidelity": {
-    "documentation": "Menentukan representasi geometris yang digunakan untuk menghitung gaya aerodinamis dan torsi.",
+    "documentation": "Menentukan representasi geometris yang digunakan untuk menghitung gaya  dan torsi aerodinamis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#FluidFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/TriangleMeshPart.MeshSize": {
-    "documentation": "Ukuran asli dari geometri mesh sumber bagian, sebelum ada skala yang diterapkan melalui <code>BasePart.Size</code>.",
+    "documentation": "Ukuran asli dari geometri mesh sumber bagian, sebelum ada skala  yang diterapkan melalui <code>BasePart.Size</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#MeshSize",
     "code_sample": ""
   },
@@ -57073,7 +57021,9 @@
     "keys": {
       "Color": "@roblox/globaltype/WrapTarget.Color",
       "DebugMode": "@roblox/globaltype/WrapTarget.DebugMode",
-      "Stiffness": "@roblox/globaltype/WrapTarget.Stiffness"
+      "Stiffness": "@roblox/globaltype/WrapTarget.Stiffness",
+      "CreateTextureInCageSpaceAsync": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync",
+      "CreateTextureInTargetSpaceAsync": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget",
     "code_sample": ""
@@ -57091,6 +57041,74 @@
   "@roblox/globaltype/WrapTarget.Stiffness": {
     "documentation": "<strong>Deprecated:</strong> <br>Mendefinisikan seberapa banyak mesh tubuh dapat dikompresi oleh pakaian.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#Stiffness",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/0": {
+    "documentation": "Objek WrapTarget mendefinisikan sebuah target. Target adalah tubuh 3D dengan hanya permukaan luar, atau Kandang Luar."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/1": {
+    "documentation": "<code>EditableImage</code> di ruang UV dari <code>WrapTarget</code> induk <code>MeshPart</code> ini."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/2": {
+    "documentation": "Kamus opsional yang berisi kontrol untuk transfer: <ul> <li><code>MinUVBounds</code> – Sebuah <code>Vector2</code> yang menentukan batas minimum   UV cage.</li> <li><code>MaxUVBounds</code> – Sebuah <code>Vector2</code> yang menentukan batas maksimum   UV cage.</li> </ul> Setiap batas yang diabaikan dihitung dari mesh cage. Jika tidak ada yang spesifik, batas mencakup seluruh cage."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/return/0": {
+    "documentation": "<code>EditableImage</code> baru di ruang UV cage, atau <code>nil</code> jika anggaran memori editable spesifik perangkat habis."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync": {
+    "documentation": "Membuat <code>EditableImage</code> baru di ruang UV cage dari tekstur di ruang UV <code>MeshPart</code> induk.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/0"
+      },
+      {
+        "name": "texture",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#CreateTextureInCageSpaceAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/0": {
+    "documentation": "Objek WrapTarget mendefinisikan sebuah target. Target adalah tubuh 3D dengan hanya permukaan luar, atau Kandang Luar."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/1": {
+    "documentation": "<code>EditableImage</code> di ruang UV cage."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/2": {
+    "documentation": "<code>WrapTextureTransfer</code> yang terkait dengan <code>MeshPart</code> induk yang sama dengan <code>WrapTarget</code> ini."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/return/0": {
+    "documentation": "<code>EditableImage</code> baru di ruang UV <code>MeshPart</code> induk, atau <code>nil</code> jika anggaran memori editable spesifik perangkat habis."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync": {
+    "documentation": "Membuat <code>EditableImage</code> baru di ruang UV <code>MeshPart</code> induk dari tekstur di ruang UV cage.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/0"
+      },
+      {
+        "name": "texture",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/1"
+      },
+      {
+        "name": "wrapTextureTransfer",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#CreateTextureInTargetSpaceAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/EchoSoundEffect": {
@@ -61535,6 +61553,7 @@
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
       "CreateDataModelContentAsync": "@roblox/globaltype/AssetService.CreateDataModelContentAsync",
+      "CreateDecalAsync": "@roblox/globaltype/AssetService.CreateDecalAsync",
       "CreateEditableImage": "@roblox/globaltype/AssetService.CreateEditableImage",
       "CreateEditableImageAsync": "@roblox/globaltype/AssetService.CreateEditableImageAsync",
       "CreateEditableMesh": "@roblox/globaltype/AssetService.CreateEditableMesh",
@@ -61716,14 +61735,41 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateDataModelContentAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/param/0": {
+    "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/param/1": {
+    "documentation": "Kamus yang berisi satu atau lebih pasangan kunci-nilai berikut. Setiap nilai harus merupakan objek <code>Content</code> yang mengandung <code>EditableImage</code>: <ul> <li><code>TextureContent</code> — Tekstur warna decal.</li> <li><code>NormalMapContent</code> — Peta normal decal.</li> <li><code>MetalnessMapContent</code> — Peta metalness decal.</li> <li><code>RoughnessMapContent</code> — Peta roughness decal.</li> </ul>"
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/return/0": {
+    "documentation": "Sebuah instance <code>Decal</code> baru dengan peta yang diberikan dari parameter <code>content</code>."
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync": {
+    "documentation": "Membuat objek <code>Decal</code> baru menggunakan peta konten <code>EditableImage</code> yang disediakan.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.CreateDecalAsync/param/0"
+      },
+      {
+        "name": "content",
+        "documentation": "@roblox/globaltype/AssetService.CreateDecalAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.CreateDecalAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateDecalAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/0": {
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/1": {
-    "documentation": "Tabel opsi yang berisi kontrol untuk metode: <ul> <li><code>Size</code> – Sebuah <code>Vector2</code> yang menentukan lebar dan tinggi   gambar yang diinginkan.</li> </ul>"
+    "documentation": "Meja opsi yang berisi kontrol untuk metode: <ul> <li><code>Size</code> – Sebuah <code>Vector2</code> yang menentukan lebar dan tinggi   gambar yang diinginkan.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/return/0": {
-    "documentation": "<code>EditableImage</code> baru, atau <code>nil</code> jika anggaran memori editable spesifik perangkat telah habis."
+    "documentation": "<code>EditableImage</code> baru, atau <code>nil</code> jika anggaran memori yang dapat  diedit spesifik perangkat habis."
   },
   "@roblox/globaltype/AssetService.CreateEditableImage": {
     "documentation": "Membuat <code>EditableImage</code> baru.",
@@ -61747,16 +61793,16 @@
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/1": {
-    "documentation": "Referensi ke konten aset yang disimpan secara eksternal atau sebagai objek dalam tempat, membungkus satu nilai dari salah satu <code>ContentSourceType</code> yang didukung."
+    "documentation": "Referensi ke konten aset yang disimpan secara eksternal atau sebagai objek  di dalam tempat, membungkus satu nilai dari salah satu nilai  <code>ContentSourceType</code> yang didukung."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/2": {
-    "documentation": "Tabel yang berisi opsi untuk <code>EditableImage</code> yang dibuat. Saat ini tidak ada opsi yang tersedia karena pengubah ukuran melalui <code>Size</code> tidak didukung."
+    "documentation": "Tabel yang berisi opsi untuk <code>EditableImage</code> yang dibuat. Saat ini tidak ada opsi yang tersedia karena pengubahan ukuran melalui <code>Size</code> tidak didukung."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/return/0": {
     "documentation": "Sebuah <code>EditableImage</code> baru yang berisi gambar yang diberikan."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync": {
-    "documentation": "Membuat objek <code>EditableImage</code> baru yang diisi dengan gambar yang diberikan.",
+    "documentation": "Membuat objek <code>EditableImage</code> baru yang diisi dengan gambar yang  diberikan.",
     "params": [
       {
         "name": "self",
@@ -61781,10 +61827,10 @@
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/param/1": {
-    "documentation": "Tabel yang berisi opsi untuk <code>EditableMesh</code> yang dibuat. Saat ini tidak ada opsi yang tersedia karena <code>FixedSize</code> akan selalu <code>false</code> untuk mesh yang dapat diedit yang kosong."
+    "documentation": "Tabel yang berisi opsi untuk <code>EditableMesh</code> yang dibuat. Saat ini tidak ada opsi yang tersedia karena <code>FixedSize</code> akan selalu <code>false</code> untuk mesh yang dapat diedit kosong."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/return/0": {
-    "documentation": "<code>EditableMesh</code> baru, atau <code>nil</code> jika anggaran memori editable spesifik perangkat telah habis."
+    "documentation": "<code>EditableMesh</code> baru, atau <code>nil</code> jika anggaran memori yang dapat  diedit spesifik perangkat habis."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh": {
     "documentation": "Membuat <code>EditableMesh</code> baru yang kosong.",
@@ -61808,16 +61854,16 @@
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/1": {
-    "documentation": "Referensi ke konten aset yang disimpan secara eksternal atau sebagai objek dalam tempat, membungkus nilai tunggal dari salah satu nilai <code>ContentSourceType</code> yang didukung."
+    "documentation": "Referensi ke konten aset yang disimpan secara eksternal atau sebagai objek dalam tempat, membungkus satu nilai dari salah satu <code>ContentSourceType</code> yang didukung."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/2": {
-    "documentation": "Tabel opsi yang berisi kontrol untuk metode: <ul> <li><code>FixedSize</code> – Sebuah <code>bool</code>. Nilai default adalah <code>true</code>, dan   <code>EditableMesh</code> yang dikembalikan tidak akan memungkinkan Anda untuk   menambah atau menghapus vertex,   hanya memodifikasi nilai mereka. Atur ke <code>false</code> jika kemampuan untuk mengubah   topologi mesh diperlukan, dengan biaya penggunaan lebih banyak memori.</li> </ul>"
+    "documentation": "Tabel opsi yang berisi kontrol untuk metode: <ul> <li><code>FixedSize</code> – Sebuah <code>bool</code>. Nilai default adalah <code>true</code>, dan <code>EditableMesh</code> yang dikembalikan tidak akan memungkinkan Anda untuk menambah atau menghapus vertex, hanya memodifikasi nilainya. Atur ke <code>false</code> jika kemampuan untuk mengubah topologi mesh diperlukan, dengan mengorbankan penggunaan lebih banyak memori.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/return/0": {
-    "documentation": "Objek <code>EditableMesh</code> yang baru."
+    "documentation": "Objek <code>EditableMesh</code> baru."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync": {
-    "documentation": "Mengembalikan objek <code>EditableMesh</code> baru yang dibuat dari ID konten mesh yang ada.",
+    "documentation": "Mengembalikan objek <code>EditableMesh</code> baru yang dibuat dari ID konten  mesh yang ada.",
     "params": [
       {
         "name": "self",
@@ -61842,16 +61888,16 @@
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/1": {
-    "documentation": "Referensi ke konten aset yang disimpan secara eksternal atau sebagai objek dalam tempat, membungkus satu nilai dari salah satu <code>ContentSourceType</code> yang didukung."
+    "documentation": "Referensi ke konten aset yang disimpan secara eksternal atau sebagai objek  di dalam tempat, membungkus satu nilai dari salah satu nilai  <code>ContentSourceType</code> yang didukung."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/2": {
-    "documentation": "Tabel opsi yang berisi satu atau lebih kontrol untuk metode: <ul> <li><code>CollisionFidelity</code> – Nilai dari   <code>CollisionFidelity</code> dalam   bagian hasil. Default adalah <code>CollisionFidelity.Default</code> jika opsi   tidak ada atau tabel <code>options</code> adalah <code>nil</code>.</li> <li><code>RenderFidelity</code> – Nilai dari   <code>RenderFidelity</code> dalam   bagian hasil. Default adalah <code>RenderFidelity.Automatic</code> jika opsi   tidak ada atau tabel <code>options</code> adalah <code>nil</code>.</li> <li><code>FluidFidelity</code> – Nilai dari   <code>FluidFidelity</code> dalam   bagian hasil. Default adalah <code>FluidFidelity.Automatic</code> jika opsi   tidak ada atau tabel <code>options</code> adalah <code>nil</code>.</li> </ul>"
+    "documentation": "Tabel opsi yang berisi satu atau lebih kontrol untuk metode: <ul> <li><code>CollisionFidelity</code> – Nilai dari   <code>CollisionFidelity</code> di bagian yang   dihasilkan. Defaultnya adalah <code>CollisionFidelity.Default</code> jika opsi   tidak ada atau tabel <code>options</code> adalah <code>nil</code>.</li> <li><code>RenderFidelity</code> – Nilai dari   <code>RenderFidelity</code> di bagian yang   dihasilkan. Defaultnya adalah <code>RenderFidelity.Automatic</code> jika opsi   tidak ada atau tabel <code>options</code> adalah <code>nil</code>.</li> <li><code>FluidFidelity</code> – Nilai dari   <code>FluidFidelity</code> di bagian yang dihasilkan.   Defaultnya adalah <code>FluidFidelity.Automatic</code> jika opsi tidak ada   atau tabel <code>options</code> adalah <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/return/0": {
-    "documentation": "<code>MeshPart</code> baru dengan pengaturan mesh dan fidelitas yang diterapkan."
+    "documentation": "<code>MeshPart</code> baru dengan pengaturan mesh dan fidelitas yang ditentukan  diterapkan."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync": {
-    "documentation": "Membuat <code>MeshPart</code> baru dengan ID mesh yang ditentukan dan tabel nilai fidelitas opsional.",
+    "documentation": "Membuat <code>MeshPart</code> baru dengan ID mesh yang ditentukan dan tabel  nilai fidelitas opsional.",
     "params": [
       {
         "name": "self",
@@ -61879,7 +61925,7 @@
     "documentation": "Nama tempat baru."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/2": {
-    "documentation": "<code>PlaceId</code> dari tempat yang akan diklon."
+    "documentation": "<code>PlaceId</code> dari tempat yang akan dikloning."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/3": {
     "documentation": "Deskripsi tempat baru."
@@ -61917,13 +61963,13 @@
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/1": {
-    "documentation": "<code>Player</code> yang inventarisnya menerima tempat yang diklon."
+    "documentation": "Pemain <code>Player</code> yang inventarisnya menerima tempat yang dikloning."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/2": {
     "documentation": "Nama untuk tempat baru."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/3": {
-    "documentation": "<code>PlaceId</code> dari tempat yang akan diklon."
+    "documentation": "<code>PlaceId</code> dari tempat yang akan dikloning."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/4": {
     "documentation": "Deskripsi untuk tempat baru."
@@ -61932,7 +61978,7 @@
     "documentation": "<code>PlaceId</code> dari tempat baru."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync": {
-    "documentation": "Mengkloning tempat melalui <code>templatePlaceID</code> yang diberikan dan menaruhnya dalam inventaris pemain yang diberikan.",
+    "documentation": "Mengkloning tempat melalui <code>templatePlaceID</code> yang diberikan dan menempatkannya  ke dalam inventaris pemain yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -61965,13 +62011,13 @@
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "Kamus yang berisi pasangan kunci-nilai berikut: <ul> <li><code>ColorMap</code> — Objek <code>Content</code> yang berisi peta warna.   Default adalah <code>nil</code>.</li> <li><code>MetalnessMap</code> — Objek <code>Content</code> yang berisi peta metalness. Jika lebih dari satu channel ada, hanya channel merah yang digunakan. Default adalah <code>nil</code>.</li> <li><code>NormalMap</code> — Objek <code>Content</code> yang berisi peta normal.   Default adalah <code>nil</code>.</li> <li><code>RoughnessMap</code> — Objek <code>Content</code> yang berisi peta ker Roughness. Jika lebih dari satu channel ada, hanya channel merah yang digunakan. Default adalah <code>nil</code>.</li> <li><code>EmissiveMask</code> — Objek <code>Content</code> yang berisi masker emissive. Jika lebih dari satu channel ada, hanya channel merah yang digunakan. Default adalah <code>nil</code>.</li> </ul>"
+    "documentation": "Kamus yang berisi pasangan kunci-nilai berikut: <ul> <li><code>ColorMap</code> — Objek <code>Content</code> yang mengandung peta warna.   Defaultnya adalah <code>nil</code>.</li> <li><code>MetalnessMap</code> — Objek <code>Content</code> yang mengandung peta   metalness. Jika lebih dari satu saluran ada, hanya saluran merah   yang digunakan. Defaultnya adalah <code>nil</code>.</li> <li><code>NormalMap</code> — Objek <code>Content</code> yang mengandung peta   normal. Defaultnya adalah <code>nil</code>.</li> <li><code>RoughnessMap</code> — Objek <code>Content</code> yang mengandung peta   roughness. Jika lebih dari satu saluran ada, hanya saluran merah   yang digunakan. Defaultnya adalah <code>nil</code>.</li> <li><code>EmissiveMask</code> — Objek <code>Content</code> yang mengandung   masker emissive. Jika lebih dari satu saluran ada, hanya saluran merah   yang digunakan. Defaultnya adalah <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "Instansi <code>SurfaceAppearance</code> baru dengan peta yang diberikan dari parameter <code>content</code>."
+    "documentation": "Sebuah instance <code>SurfaceAppearance</code> baru dengan peta yang diberikan dari parameter <code>content</code>."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
-    "documentation": "Membuat objek <code>SurfaceAppearance</code> baru menggunakan peta konten yang diberikan.",
+    "documentation": "Membuat objek <code>SurfaceAppearance</code> baru menggunakan peta konten  yang disediakan.",
     "params": [
       {
         "name": "self",
@@ -61995,10 +62041,10 @@
     "documentation": "ID aset dari paket yang akan ditanyakan."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage/return/0": {
-    "documentation": "ID aset yang terdapat dalam paket tertentu."
+    "documentation": "ID aset yang terdapat dalam paket yang ditentukan."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage": {
-    "documentation": "<strong>Deprecated:</strong> Gunakan <code>GetAssetIdsForPackageAsync()</code> sebagai ganti.<br>Mengembalikan array ID aset yang terdapat dalam paket tertentu.",
+    "documentation": "<strong>Deprecated:</strong> Gunakan <code>GetAssetIdsForPackageAsync()</code> sebagai gantinya.<br>Mengembalikan array ID aset yang terdapat dalam paket yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -62022,10 +62068,10 @@
     "documentation": "ID aset dari paket yang akan ditanyakan."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync/return/0": {
-    "documentation": "ID aset yang terdapat dalam paket yang ditentukan."
+    "documentation": "ID aset yang terkandung dalam paket yang ditentukan."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync": {
-    "documentation": "Mengembalikan array ID aset yang terdapat dalam paket yang ditentukan.",
+    "documentation": "Mengembalikan array ID aset yang terkandung dalam paket yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -62046,13 +62092,13 @@
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/param/1": {
-    "documentation": "Array ID aset atau konten untuk yang akan diambil metadata. Max ukuran batch adalah 30."
+    "documentation": "Array ID aset atau konten untuk yang akan diambil metadata. Ukuran  batch maksimum adalah 30."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/return/0": {
-    "documentation": "Array tabel kamus dalam urutan yang sama seperti permintaan, di mana masing-masing kamus berisi metadata berikut untuk aset/kontennya: <ul> <li> <code>AssetId</code> (string) </li> <li> <code>Title</code> (string) </li> <li> <code>Artist</code> (string) </li> <li> <code>Duration</code> (number) dalam detik </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> Perhatikan bahwa jika terjadi kesalahan saat mengambil metadata untuk salah satu dari aset yang diminta, misalnya jika ID aset tidak ada, tabel kamus tersebut tetap dimasukkan dalam array yang dikembalikan tetapi hanya mencakup bidang <code>AssetId</code> untuk referensi. Selain itu, jika <code>AudioType</code> tidak dapat ditentukan untuk aset tertentu (mungkin karena itu adalah audio privat), kamus yang dihasilkan tidak akan berisi entri <code>AudioType</code>."
+    "documentation": "Array tabel kamus dalam urutan yang sama dengan permintaan, di mana  setiap kamus berisi metadata berikut untuk aset/kontennya: <ul> <li> <code>AssetId</code> (string) </li> <li> <code>Title</code> (string) </li> <li> <code>Artist</code> (string) </li> <li> <code>Duration</code> (number) dalam detik </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> Perhatikan bahwa jika terjadi kesalahan saat mengambil metadata untuk aset yang diminta, misalnya ID aset tidak ada, tabel kamusnya tetap termasuk dalam array yang dikembalikan tetapi hanya berisi bidang <code>AssetId</code> untuk tujuan referensi. Selain itu, jika <code>AudioType</code> tidak dapat ditetapkan untuk aset tertentu (mungkin karena itu audio pribadi), kamus  yang dihasilkan tidak akan mengandung entri <code>AudioType</code>."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync": {
-    "documentation": "Menyediakan metadata relevan tentang sumber audio tertentu.",
+    "documentation": "Memberikan metadata relevan tentang sumber audio tertentu.",
     "params": [
       {
         "name": "self",
@@ -62073,13 +62119,13 @@
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/param/1": {
-    "documentation": "ID dari bundle yang ditentukan."
+    "documentation": "ID dari bundel yang ditentukan."
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/return/0": {
-    "documentation": "Kamus dengan pasangan kunci-nilai berikut yang berisi detail tentang paket yang ditentukan: <ul> <li> <code>Id</code> — ID Paket (sama dengan argumen <code>bundleId</code> yang diteruskan) </li> <li> <code>Name</code> — Nama Paket </li> <li> <code>Description</code> — Deskripsi Paket </li> <li> <code>BundleType</code> — String yang mewakili <code>BundleType</code>, misalnya   <code>\"BodyParts\"</code> atau <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — Array item dalam paket, masing-masing dengan detail   yang diwakili melalui kunci-kunci berikut: </li> <li> <code>Id</code> — ID Item </li> <li> <code>Name</code> — Nama Item </li> <li> <code>Type</code> — Tipe Item seperti <code>\"Asset\"</code> </li> <li> <code>AssetType</code> — String yang mewakili <code>AvatarAssetType</code> </li> <li> <code>SupportsHeadShapes</code> — Apakah aset mendukung     penggantian bentuk kepala. Hanya ada jika <code>AssetType</code> adalah     <code>\"DynamicHead\"</code>. </li> </ul>"
+    "documentation": "Kamus dengan pasangan kunci-nilai berikut yang berisi detail tentang  bundel yang ditentukan: <ul> <li> <code>Id</code> — ID bundel (sama dengan argumen <code>bundleId</code> yang diberikan) </li> <li> <code>Name</code> — Nama bundel </li> <li> <code>Description</code> — Deskripsi bundel </li> <li> <code>BundleType</code> — String yang mewakili <code>BundleType</code>, misalnya   <code>\"BodyParts\"</code> atau <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — Array item dalam bundel, masing-masing dengan detail   yang diwakili melalui kunci berikut: </li> <li> <code>Id</code> — ID item </li> <li> <code>Name</code> — Nama item </li> <li> <code>Type</code> — Tipe item seperti <code>\"Asset\"</code> </li> <li> <code>AssetType</code> — String yang mewakili <code>AvatarAssetType</code> </li> <li> <code>SupportsHeadShapes</code> — Apakah aset mendukung     penggantian bentuk kepala. Hanya ada jika <code>AssetType</code> adalah     <code>\"DynamicHead\"</code>. </li> </ul>"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync": {
-    "documentation": "Mengembalikan detail konten dari bundle yang ditentukan.",
+    "documentation": "Mengembalikan detail konten dari bundel yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -62100,13 +62146,13 @@
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID/param/1": {
-    "documentation": "ID aset untuk mencari informasi pencipta."
+    "documentation": "ID aset yang dicari untuk informasi pencipta."
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID/return/0": {
-    "documentation": "<code>Player.UserId</code> dari akun yang membuat aset."
+    "documentation": "<code>Player.UserId</code> dari akun yang membuat aset tersebut."
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak didukung dan tidak berfungsi dengan benar lagi. Jangan gunakan untuk pekerjaan baru.<br>Mengembalikan UserId dari akun yang membuat aset creationID.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan dan tidak lagi berfungsi dengan benar. Jangan  menggunakannya untuk pekerjaan baru.<br>Mengembalikan UserId dari akun yang membuat aset creationID.",
     "params": [
       {
         "name": "self",
@@ -62127,10 +62173,10 @@
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync/return/0": {
-    "documentation": "Objek <code>StandardPages</code> yang halamannya berisi nama dan <code>PlaceId</code> dari setiap tempat dalam pengalaman saat ini."
+    "documentation": "Objek <code>StandardPages</code> yang halamannya berisi nama dan <code>PlaceId</code> dari setiap tempat dalam pengalaman  saat ini."
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync": {
-    "documentation": "Mengembalikan objek <code>StandardPages</code> yang berisi nama dan <code>PlaceId</code> tempat-tempat dalam pengalaman saat ini.",
+    "documentation": "Mengembalikan objek <code>StandardPages</code> yang berisi nama dan <code>PlaceId</code> dari tempat-tempat dalam pengalaman saat ini.",
     "params": [
       {
         "name": "self",
@@ -62150,10 +62196,10 @@
     "documentation": "Nomor ID aset dari aset yang sedang dimuat."
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync/return/0": {
-    "documentation": "Instansi <code>Model</code> yang berisi aset yang dimuat."
+    "documentation": "Sebuah instance <code>Model</code> yang berisi aset yang dimuat."
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync": {
-    "documentation": "Memuat instansi <code>Model</code> berdasarkan ID asetnya. Ini adalah pengganti modern untuk <code>InsertService:LoadAsset()</code> dan mendukung pemuatan aset pihak ketiga.",
+    "documentation": "Memuat instance <code>Model</code> berdasarkan ID asetnya. Ini adalah  pengganti modern untuk <code>InsertService:LoadAsset()</code> dan mendukung  memuat aset pihak ketiga.",
     "params": [
       {
         "name": "self",
@@ -62177,16 +62223,16 @@
     "documentation": "Pengguna yang mengirimkan pembuatan aset."
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync/param/2": {
-    "documentation": "Aset yang akan dibuat. Saat ini tidak dapat mengandung skrip atau menyimpan aset non-publik."
+    "documentation": "Aset yang akan dibuat. Saat ini tidak dapat mengandung skrip atau  menempatkan aset non-publik."
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync/param/3": {
-    "documentation": "Tipe aset. Saat ini hanya dapat <code>AssetType.Model</code>."
+    "documentation": "Tipe aset. Saat ini hanya dapat berupa <code>AssetType.Model</code>."
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync/return/0": {
-    "documentation": "Pasangan <code>PromptCreatePlatformContentResult</code> dan ID aset jika berhasil."
+    "documentation": "Pasangan <code>PromptCreatePlatformContentResult</code> dan ID aset jika  berhasil."
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync": {
-    "documentation": "Memungkinkan pembuatan aset dalam pengalaman untuk pengguna dengan menampilkan dialog penerbitan.",
+    "documentation": "Memungkinkan pembuatan aset dalam pengalaman untuk pengguna dengan  menampilkan dialog publikasi.",
     "params": [
       {
         "name": "self",
@@ -62215,16 +62261,16 @@
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/param/1": {
-    "documentation": "Pemain yang ditampilkan, di klien mereka sendiri, untuk memilih dan mengunggah a video. Persetujuan pemain diperlukan sebelum video diunggah."
+    "documentation": "Pemain yang ditampilkan, di klien mereka sendiri, untuk memilih dan  mengunggah video. Persetujuan pemain diperlukan sebelum video diunggah."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/param/2": {
-    "documentation": "Sebuah fungsi yang menerima pembaruan status (nilai <code>AnimationClipFromVideoStatus</code>) saat video diunggah  dan diproses."
+    "documentation": "Fungsi yang menerima pembaruan status (nilai  <code>AnimationClipFromVideoStatus</code>) saat video diunggah dan diproses."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/return/0": {
-    "documentation": "Sebuah tuple yang berisi <code>AnimationClipFromVideoStatus</code> yang menggambarkan hasil dan, jika berhasil, <code>AnimationClip</code> yang dihasilkan (<code>nil</code> jika tidak)."
+    "documentation": "Sebuah tuple yang berisi <code>AnimationClipFromVideoStatus</code> yang  menggambarkan hasil dan, jika berhasil, <code>AnimationClip</code>  (<code>nil</code> sebaliknya)."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync": {
-    "documentation": "Menampilkan pemain yang ditentukan untuk memilih dan mengunggah video, yang kemudian akan diubah menjadi <code>AnimationClip</code>.",
+    "documentation": "Menampilkan pemain yang ditentukan untuk memilih dan mengunggah video,  yang kemudian diubah menjadi <code>AnimationClip</code>.",
     "params": [
       {
         "name": "self",
@@ -62249,7 +62295,7 @@
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "Kamus opsional yang mencakup <code>SaveWithoutPublish</code>, sebuah boolean yang menunjukkan apakah akan menyimpan dengan penerbitan atau tanpa penerbitan, dan <code>PlaceId</code>, ID tempat tujuan untuk disimpan. Contoh penggunaan adalah: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Jika PlaceId tidak diberikan, perilaku default akan menyimpan dari tempat asli saat ini yang memanggil SavePlaceAsync. Jika SaveWithoutPublish tidak diberikan, perilaku default adalah SaveWithoutPublish=false."
+    "documentation": "Kamus opsional yang mencakup <code>SaveWithoutPublish</code>, boolean  yang menunjukkan apakah akan menyimpan dengan publikasi atau tanpa publikasi, dan <code>PlaceId</code>, ID tempat tujuan untuk disimpan. Contoh penggunaan  adalah: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish  = true}). Jika PlaceId tidak disediakan, perilaku default akan menyimpan  di tempat asli saat ini yang memanggil SavePlaceAsync. Jika  SaveWithoutPublish tidak disediakan, perilaku default adalah  SaveWithoutPublish=false."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "Menyimpan status tempat saat ini.",
@@ -62271,13 +62317,13 @@
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.SearchAudio/param/1": {
-    "documentation": "Objek <code>AudioSearchParams</code> yang mendefinisikan kriteria pencarian seperti kata kunci, judul, artis, jenis audio, dan rentang durasi."
+    "documentation": "Objek <code>AudioSearchParams</code> yang mendefinisikan kriteria pencarian seperti kata kunci, judul, artis, tipe audio, dan rentang durasi."
   },
   "@roblox/globaltype/AssetService.SearchAudio/return/0": {
-    "documentation": "Objek <code>AudioPages</code> yang berisi hasil pencarian audio yang terpaginasikan."
+    "documentation": "Objek <code>AudioPages</code> yang berisi hasil yang dipaginasi dari pencarian audio."
   },
   "@roblox/globaltype/AssetService.SearchAudio": {
-    "documentation": "<strong>Deprecated:</strong> Gunakan <code>SearchAudioAsync()</code> sebagai gantinya.<br>Mencari aset audio yang cocok dengan berbagai kriteria pencarian.",
+    "documentation": "<strong>Deprecated:</strong> Gunakan <code>SearchAudioAsync()</code> sebagai gantinya.<br>Menemukan aset audio yang cocok dengan berbagai kriteria pencarian.",
     "params": [
       {
         "name": "self",
@@ -62298,10 +62344,10 @@
     "documentation": "Sebuah layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync/param/1": {
-    "documentation": "Objek <code>AudioSearchParams</code> yang mendefinisikan kriteria pencarian seperti kata kunci, judul, artis, tipe audio, dan rentang durasi."
+    "documentation": "Objek <code>AudioSearchParams</code> yang mendefinisikan kriteria pencarian  seperti kata kunci, judul, artis, tipe audio, dan rentang durasi."
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync/return/0": {
-    "documentation": "Objek <code>AudioPages</code> yang berisi hasil yang dipaginasi dari pencarian audio."
+    "documentation": "Objek <code>AudioPages</code> yang berisi hasil pencarian audio yang dipaginasi."
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync": {
     "documentation": "Menemukan aset audio yang cocok dengan berbagai kriteria pencarian.",
@@ -67116,6 +67162,7 @@
       "FixedSize": "@roblox/globaltype/EditableMesh.FixedSize",
       "AddBone": "@roblox/globaltype/EditableMesh.AddBone",
       "AddColor": "@roblox/globaltype/EditableMesh.AddColor",
+      "AddFace": "@roblox/globaltype/EditableMesh.AddFace",
       "AddNormal": "@roblox/globaltype/EditableMesh.AddNormal",
       "AddTriangle": "@roblox/globaltype/EditableMesh.AddTriangle",
       "AddUV": "@roblox/globaltype/EditableMesh.AddUV",
@@ -67278,6 +67325,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddColor",
     "code_sample": ""
   },
+  "@roblox/globaltype/EditableMesh.AddFace/param/0": {
+    "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
+  },
+  "@roblox/globaltype/EditableMesh.AddFace/param/1": {
+    "documentation": "Array dari ID vertex permukaan baru, dalam urutan di sekitar permukaan. Berikan 3 ID untuk membuat segitiga atau 4 ID untuk membuat quad."
+  },
+  "@roblox/globaltype/EditableMesh.AddFace/return/0": {
+    "documentation": "ID permukaan dari permukaan baru."
+  },
+  "@roblox/globaltype/EditableMesh.AddFace": {
+    "documentation": "Menambahkan permukaan segitiga atau quad baru ke mesh dan mengembalikan ID permukaan.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.AddFace/param/0"
+      },
+      {
+        "name": "vertexIds",
+        "documentation": "@roblox/globaltype/EditableMesh.AddFace/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.AddFace/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddFace",
+    "code_sample": ""
+  },
   "@roblox/globaltype/EditableMesh.AddNormal/param/0": {
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
@@ -67318,10 +67392,10 @@
     "documentation": "ID dari vertex ketiga segitiga."
   },
   "@roblox/globaltype/EditableMesh.AddTriangle/return/0": {
-    "documentation": "ID face dari face baru."
+    "documentation": "ID permukaan stabil dari permukaan baru."
   },
   "@roblox/globaltype/EditableMesh.AddTriangle": {
-    "documentation": "Menambahkan segitiga baru ke mesh dan mengembalikan ID face.",
+    "documentation": "Menambahkan segitiga baru ke mesh dan mengembalikan ID permukaan.",
     "params": [
       {
         "name": "self",
@@ -67407,7 +67481,7 @@
     "documentation": "Jenis elemen <code>MeshAttribute</code> yang akan dibuat."
   },
   "@roblox/globaltype/EditableMesh.BatchAdd/param/2": {
-    "documentation": "Nilai untuk menginisialisasi elemen baru. Sebuah array dari <code>Vector3</code> untuk <code>Vertex</code> atau <code>Normal</code>; sebuah array dari <code>Vector2</code> untuk <code>UV</code>; sebuah array dari <code>Color3</code> diikuti oleh array angka alpha yang cocok (panjang yang sama) untuk <code>Color</code>; sebuah array 2D dari array ID vertex untuk <code>Face</code>."
+    "documentation": "Nilai untuk menginisialisasi elemen baru. Array dari <code>Vector3</code> untuk <code>Vertex</code> atau <code>Normal</code>; array dari <code>Vector2</code> untuk <code>UV</code>; array dari <code>Color3</code> diikuti oleh array angka alpha yang cocok (panjang yang sama) untuk <code>Color</code>; array 2D dari array ID vertex untuk <code>Face</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchAdd/return/0": {
     "documentation": "Array terurut dari ID elemen baru yang sesuai dengan urutan input."
@@ -67438,16 +67512,16 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes/param/1": {
-    "documentation": "Atribut yang akan diambil untuk setiap sudut face. Harus <code>MeshAttribute.Vertex</code>, <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, atau <code>MeshAttribute.UV</code>; <code>MeshAttribute.Face</code> tidak didukung dan melempar kesalahan."
+    "documentation": "Atribut yang akan diambil untuk setiap sudut permukaan. Harus <code>MeshAttribute.Vertex</code>, <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, atau <code>MeshAttribute.UV</code>; <code>MeshAttribute.Face</code> tidak didukung dan menghasilkan kesalahan."
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes/param/2": {
-    "documentation": "Wajah yang akan ditanyakan."
+    "documentation": "Permukaan untuk ditanyakan."
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes/return/0": {
     "documentation": "Array 2D di mana <code>result[i]</code> adalah array ID atribut di sudut <code>faceIds[i]</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes": {
-    "documentation": "Mengembalikan ID atribut per-sudut untuk setiap wajah dalam batch.",
+    "documentation": "Mengembalikan ID atribut per-sudut untuk setiap permukaan dalam batch.",
     "params": [
       {
         "name": "self",
@@ -67472,10 +67546,10 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues/param/1": {
-    "documentation": "ID elemen yang akan dibaca. Semua harus memiliki tipe atribut yang sama — vertex, normal, color, atau UV. Atribut ditentukan oleh tipe ID, sehingga tidak diperlukan argumen <code>MeshAttribute</code>. Mencampur tipe, atau mengirimkan ID face atau bone, melempar kesalahan."
+    "documentation": "ID elemen yang akan dibaca. Semua harus memiliki jenis atribut yang sama — vertex, normal, color, atau UV. Atribut ditentukan oleh jenis ID, sehingga tidak diperlukan argumen <code>MeshAttribute</code>. Mencampur jenis, atau mengirimkan ID permukaan atau bone, menghasilkan kesalahan."
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues/return/0": {
-    "documentation": "Sebuah tuple dari dua nilai. Yang pertama adalah array nilai atribut: <code>Vector3</code> untuk ID vertex atau normal, <code>Vector2</code> untuk ID UV, <code>Color3</code> untuk ID warna. Yang kedua adalah <code>nil</code> untuk semua tipe atribut kecuali warna, di mana itu adalah array angka alpha."
+    "documentation": "Tuple dari dua nilai. Yang pertama adalah array nilai atribut: <code>Vector3</code> untuk ID vertex atau normal, <code>Vector2</code> untuk ID UV, <code>Color3</code> untuk ID warna. Yang kedua adalah <code>nil</code> untuk semua jenis atribut kecuali warna, di mana itu adalah array angka alpha."
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues": {
     "documentation": "Mengembalikan nilai atribut untuk setiap ID dalam batch.",
@@ -67499,13 +67573,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes/param/1": {
-    "documentation": "Tipe atribut yang akan dicari. Harus <code>MeshAttribute.Face</code> (face yang merujuk ke setiap vertex), <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, atau <code>MeshAttribute.UV</code>; <code>MeshAttribute.Vertex</code> tidak didukung dan melempar kesalahan (untuk membaca posisi vertex, gunakan <code>BatchGetValues()</code>)."
+    "documentation": "Jenis atribut yang akan dicari. Harus <code>MeshAttribute.Face</code> (permukaan yang mereferensikan setiap vertex), <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, atau <code>MeshAttribute.UV</code>; <code>MeshAttribute.Vertex</code> tidak didukung dan menghasilkan kesalahan (untuk membaca posisi vertex, gunakan <code>BatchGetValues()</code>)."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes/param/2": {
-    "documentation": "Vertex yang akan ditanyakan."
+    "documentation": "Vertex untuk ditanyakan."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes/return/0": {
-    "documentation": "Array 2D di mana <code>result[i]</code> adalah array ID atribut yang terkait <code>vertexIds[i]</code>."
+    "documentation": "Array 2D di mana <code>result[i]</code> adalah array ID atribut yang terkait dengan <code>vertexIds[i]</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes": {
     "documentation": "Mengembalikan ID atribut yang terkait dengan setiap vertex dalam batch.",
@@ -67533,19 +67607,19 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/param/1": {
-    "documentation": "Atribut yang akan diambil. Harus <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, atau <code>MeshAttribute.UV</code>; <code>MeshAttribute.Vertex</code> dan <code>MeshAttribute.Face</code> tidak didukung dan melempar kesalahan."
+    "documentation": "Atribut yang akan diambil. Harus <code>MeshAttribute.Normal</code>, <code>MeshAttribute.Color</code>, atau <code>MeshAttribute.UV</code>; <code>MeshAttribute.Vertex</code> dan <code>MeshAttribute.Face</code> tidak didukung dan menghasilkan kesalahan."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/param/2": {
     "documentation": "Vertex yang mengidentifikasi setiap sudut."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/param/3": {
-    "documentation": "Faces yang mengidentifikasi setiap sudut. Harus memiliki panjang yang sama seperti <code>vertexIds</code>."
+    "documentation": "Permukaan yang mengidentifikasi setiap sudut. Harus memiliki panjang yang sama sebagai <code>vertexIds</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/return/0": {
     "documentation": "Array ID atribut di setiap sudut, dalam urutan yang sama dengan input."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes": {
-    "documentation": "Mengembalikan ID atribut di setiap sudut yang ditentukan untuk batch pasangan vertex–wajah.",
+    "documentation": "Mengembalikan ID atribut di setiap sudut yang ditentukan untuk batch pasangan vertex–permukaan.",
     "params": [
       {
         "name": "self",
@@ -67574,10 +67648,10 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.BatchRemove/param/1": {
-    "documentation": "ID face untuk dihapus. ID yang tidak valid atau sudah dihapus melempar kesalahan dan tidak menghapus apa pun; ID duplikat digabungkan menjadi satu penghapusan."
+    "documentation": "ID permukaan untuk dihapus. ID yang tidak valid atau sudah dihapus akan menghasilkan kesalahan  dan tidak menghapus apa pun; ID duplikat digabungkan menjadi satu penghapusan."
   },
   "@roblox/globaltype/EditableMesh.BatchRemove": {
-    "documentation": "Menghapus batch wajah.",
+    "documentation": "Menghapus batch permukaan.",
     "params": [
       {
         "name": "self",
@@ -67596,13 +67670,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes/param/1": {
-    "documentation": "ID face untuk diperbarui. Harus memiliki panjang yang sama dengan <code>attrIdArrays</code>."
+    "documentation": "ID permukaan untuk diperbarui. Harus memiliki panjang yang sama dengan <code>attrIdArrays</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes/param/2": {
-    "documentation": "Array 2D. <code>attrIdArrays[i]</code> adalah daftar ID atribut untuk sudut <code>faceIds[i]</code>, dalam urutan. Setiap array dalam harus memiliki satu entri per sudut face. Semua ID harus memiliki tipe atribut yang sama — vertex, normal, color, atau UV; mencampur tipe (atau mengirimkan tipe ID lain) melempar kesalahan."
+    "documentation": "Array 2D. <code>attrIdArrays[i]</code> adalah daftar ID atribut untuk sudut <code>faceIds[i]</code>, dalam urutan. Setiap array dalam harus memiliki satu entri per sudut permukaan. Semua ID harus memiliki jenis atribut yang sama — vertex, normal, color, atau UV; mencampur jenis (atau mengirimkan jenis ID lain) akan menghasilkan kesalahan."
   },
   "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes": {
-    "documentation": "Mengatur ID atribut per-sudut untuk setiap wajah dalam batch.",
+    "documentation": "Mengatur ID atribut per-sudut untuk setiap permukaan dalam batch.",
     "params": [
       {
         "name": "self",
@@ -67625,10 +67699,10 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues/param/1": {
-    "documentation": "ID elemen yang akan ditulis. Semua harus memiliki tipe atribut yang sama — vertex, normal, color, atau UV. Atribut ditentukan oleh tipe ID, sehingga tidak diperlukan argumen <code>MeshAttribute</code>. Mencampur tipe, atau mengirimkan ID face atau bone, melempar kesalahan."
+    "documentation": "ID elemen yang akan ditulis. Semua harus memiliki jenis atribut yang sama — vertex, normal, color, atau UV. Atribut ditentukan oleh jenis ID, sehingga tidak diperlukan argumen <code>MeshAttribute</code>. Mencampur jenis, atau mengirimkan ID permukaan atau bone, menghasilkan kesalahan."
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues/param/2": {
-    "documentation": "Nilai yang akan ditetapkan. Tipe tergantung pada tipe ID: <code>Vector3</code> untuk ID vertex atau normal, <code>Vector2</code> untuk ID UV, <code>Color3</code> atau angka untuk ID warna. Kirimkan <code>nil</code> untuk ID normal untuk mengatur ulang setiap normal ke nilai yang dihitung otomatis, setara dengan memanggil <code>ResetNormal()</code> pada masing-masing."
+    "documentation": "Nilai untuk ditetapkan. Jenis tergantung pada jenis ID: <code>Vector3</code> untuk ID vertex atau normal, <code>Vector2</code> untuk ID UV, <code>Color3</code> atau angka untuk ID warna. Kirimkan <code>nil</code> untuk ID normal untuk mengatur ulang setiap normal ke nilai yang dihitung otomatis, setara dengan memanggil <code>ResetNormal()</code> pada masing-masing."
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues": {
     "documentation": "Menulis nilai atribut ke batch ID elemen mesh.",
@@ -67657,13 +67731,13 @@
     "documentation": "ID vertex yang mengidentifikasi setiap sudut."
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes/param/2": {
-    "documentation": "ID face yang mengidentifikasi setiap sudut. Harus memiliki panjang yang sama seperti <code>vertexIds</code>."
+    "documentation": "ID permukaan yang mengidentifikasi setiap sudut. Harus memiliki panjang yang sama sebagai <code>vertexIds</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes/param/3": {
-    "documentation": "ID atribut yang akan ditugaskan, satu per pasangan; harus memiliki panjang yang sama seperti <code>vertexIds</code>. Semua harus memiliki tipe atribut yang sama — normal, color, atau UV; mengirimkan ID vertex atau face melempar kesalahan."
+    "documentation": "ID atribut untuk ditetapkan, satu per pasangan; harus memiliki panjang yang sama sebagai <code>vertexIds</code>. Semua harus memiliki jenis atribut yang sama — normal, warna, atau UV; mengirimkan ID vertex atau permukaan menghasilkan kesalahan."
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes": {
-    "documentation": "Mengatur atribut di sudut tertentu untuk setiap pasangan vertex–wajah dalam batch.",
+    "documentation": "Mengatur atribut di sudut tertentu untuk setiap pasangan vertex–permukaan dalam batch.",
     "params": [
       {
         "name": "self",
@@ -67723,7 +67797,7 @@
     "documentation": "Posisi titik dalam ruang objek lokal mesh."
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface/return/0": {
-    "documentation": "Tuple dari ID wajah, titik pada mesh dalam ruang objek lokal, dan koordinat barycentric dari posisi dalam wajah."
+    "documentation": "Tuple dari ID permukaan, titik pada mesh dalam ruang objek lokal, koordinat barycentric dari posisi dalam permukaan, dan 3 ID vertex yang berat koordinat barycentric."
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface": {
     "documentation": "Menemukan titik terdekat di permukaan mesh.",
@@ -67808,13 +67882,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentFaces/param/1": {
-    "documentation": "ID face untuk mendapatkan face yang berdekatan."
+    "documentation": "ID permukaan untuk mendapatkan permukaan yang berdekatan."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentFaces/return/0": {
-    "documentation": "Daftar ID wajah yang berdekatan dengan wajah yang diberikan."
+    "documentation": "Daftar ID permukaan yang berdekatan dengan permukaan yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentFaces": {
-    "documentation": "Mengembalikan daftar wajah yang berdekatan dengan wajah yang diberikan.",
+    "documentation": "Mengembalikan daftar permukaan yang berdekatan dengan permukaan tertentu.",
     "params": [
       {
         "name": "self",
@@ -67835,13 +67909,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentVertices/param/1": {
-    "documentation": "ID vertex di sekitar yang ingin diambil vertex yang berdekatan."
+    "documentation": "ID vertex di sekitar yang akan mendapatkan vertex yang berdekatan."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentVertices/return/0": {
     "documentation": "Daftar ID vertex yang berdekatan di sekitar ID vertex yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentVertices": {
-    "documentation": "Mengembalikan daftar vertex yang berdekatan dengan vertex yang diberikan.",
+    "documentation": "Mengembalikan daftar vertex yang berdekatan dengan vertex tertentu.",
     "params": [
       {
         "name": "self",
@@ -67862,13 +67936,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetBoneByName/param/1": {
-    "documentation": "Nama tulang yang dicari."
+    "documentation": "Nama bone untuk dicari."
   },
   "@roblox/globaltype/EditableMesh.GetBoneByName/return/0": {
-    "documentation": "ID tulang dari tulang dengan nama yang diberikan."
+    "documentation": "ID bone dari bone dengan nama yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.GetBoneByName": {
-    "documentation": "Menemukan ID tulang dari tulang dengan nama yang diberikan.",
+    "documentation": "Menemukan ID bone dari bone dengan nama yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -67889,13 +67963,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1": {
-    "documentation": "ID tulang untuk mendapatkan <code>CFrame</code>."
+    "documentation": "ID bone untuk mendapatkan <code>CFrame</code>."
   },
   "@roblox/globaltype/EditableMesh.GetBoneCFrame/return/0": {
-    "documentation": "<code>CFrame</code> awal dari tulang dalam pose bind dari mesh, dalam ruang lokal mesh."
+    "documentation": "<code>CFrame</code> awal dari bone dalam pose bind dari mesh, dalam ruang lokal mesh."
   },
   "@roblox/globaltype/EditableMesh.GetBoneCFrame": {
-    "documentation": "Mengembalikan <code>CFrame</code> awal dari tulang dalam pose bind dari mesh.",
+    "documentation": "Mengembalikan <code>CFrame</code> awal dari bone dalam pose bind dari mesh.",
     "params": [
       {
         "name": "self",
@@ -67916,13 +67990,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/1": {
-    "documentation": "ID tulang untuk mendapatkan apakah tulang tersebut virtual."
+    "documentation": "ID bone untuk mendapatkan apakah bone bersifat virtual."
   },
   "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/return/0": {
-    "documentation": "Apakah tulang dengan ID tulang yang diberikan bersifat virtual. Tulang virtual dapat hanya diikat ke instansi <code>FaceControls</code>."
+    "documentation": "Apakah bone dengan ID bone yang diberikan bersifat virtual. Bone virtual hanya bisa diikat ke instansi <code>FaceControls</code>."
   },
   "@roblox/globaltype/EditableMesh.GetBoneIsVirtual": {
-    "documentation": "Mengembalikan <code>true</code> jika tulang bersifat virtual.",
+    "documentation": "Mengembalikan <code>true</code> jika bone bersifat virtual.",
     "params": [
       {
         "name": "self",
@@ -67943,13 +68017,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetBoneName/param/1": {
-    "documentation": "ID tulang untuk mendapatkan nama."
+    "documentation": "ID bone untuk mendapatkan nama."
   },
   "@roblox/globaltype/EditableMesh.GetBoneName/return/0": {
-    "documentation": "Nama tulang dengan ID tulang yang diberikan."
+    "documentation": "Nama bone dengan ID bone yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.GetBoneName": {
-    "documentation": "Mengembalikan nama tulang.",
+    "documentation": "Mengembalikan nama bone.",
     "params": [
       {
         "name": "self",
@@ -67970,13 +68044,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetBoneParent/param/1": {
-    "documentation": "ID tulang untuk mendapatkan induk."
+    "documentation": "ID bone untuk mendapatkan induk."
   },
   "@roblox/globaltype/EditableMesh.GetBoneParent/return/0": {
-    "documentation": "ID tulang untuk induk dari tulang dengan ID tulang yang diberikan. Jika tidak ada induk, mengembalikan <code>0</code>."
+    "documentation": "ID bone untuk induk dari bone dengan ID bone yang diberikan. Jika tidak ada induk, mengembalikan <code>0</code>."
   },
   "@roblox/globaltype/EditableMesh.GetBoneParent": {
-    "documentation": "Mengembalikan ID tulang induk, jika ada.",
+    "documentation": "Mengembalikan ID bone induk, jika ada.",
     "params": [
       {
         "name": "self",
@@ -67997,10 +68071,10 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetBones/return/0": {
-    "documentation": "Daftar ID tulang."
+    "documentation": "Daftar ID bone."
   },
   "@roblox/globaltype/EditableMesh.GetBones": {
-    "documentation": "Mengembalikan semua tulang dari mesh.",
+    "documentation": "Mengembalikan semua bone dari mesh.",
     "params": [
       {
         "name": "self",
@@ -68020,7 +68094,7 @@
     "documentation": "Pusat dari bounding box dari <code>EditableMesh</code>."
   },
   "@roblox/globaltype/EditableMesh.GetCenter": {
-    "documentation": "Mengembalikan pusat dari bounding box yang sejajar dengan sumbu mesh.",
+    "documentation": "Mengembalikan pusat dari bounding box yang sejajar sumbu mesh.",
     "params": [
       {
         "name": "self",
@@ -68111,13 +68185,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetFaceColors/param/1": {
-    "documentation": "ID wajah untuk mendapatkan ID warna."
+    "documentation": "ID permukaan untuk mendapatkan ID warna."
   },
   "@roblox/globaltype/EditableMesh.GetFaceColors/return/0": {
-    "documentation": "Daftar ID warna yang digunakan untuk vertex pada wajah yang diberikan."
+    "documentation": "Daftar ID warna yang digunakan untuk vertex pada permukaan yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.GetFaceColors": {
-    "documentation": "Mengembalikan ID warna wajah untuk vertex pada wajah.",
+    "documentation": "Mengembalikan ID warna permukaan untuk vertex pada permukaan.",
     "params": [
       {
         "name": "self",
@@ -68138,13 +68212,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals/param/1": {
-    "documentation": "ID wajah untuk mendapatkan ID normal."
+    "documentation": "ID permukaan untuk mendapatkan ID normal."
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals/return/0": {
-    "documentation": "Daftar ID normal yang digunakan untuk vertex pada wajah yang diberikan."
+    "documentation": "Daftar ID normal yang digunakan untuk vertex pada permukaan yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals": {
-    "documentation": "Mengembalikan ID normal wajah untuk vertex pada wajah.",
+    "documentation": "Mengembalikan ID normal permukaan untuk vertex pada permukaan.",
     "params": [
       {
         "name": "self",
@@ -68165,10 +68239,10 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetFaces/return/0": {
-    "documentation": "Daftar ID face."
+    "documentation": "Daftar ID permukaan."
   },
   "@roblox/globaltype/EditableMesh.GetFaces": {
-    "documentation": "Mengembalikan semua wajah dari mesh.",
+    "documentation": "Mengembalikan semua permukaan dari mesh.",
     "params": [
       {
         "name": "self",
@@ -68185,13 +68259,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute/param/1": {
-    "documentation": "ID atribut untuk menemukan wajah yang menggunakannya."
+    "documentation": "ID atribut untuk menemukan permukaan yang menggunakannya."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute/return/0": {
-    "documentation": "Daftar ID wajah yang menggunakan ID atribut yang diberikan."
+    "documentation": "Daftar ID permukaan yang menggunakan ID atribut yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute": {
-    "documentation": "<strong>Deprecated:</strong> Metode ini sudah tidak digunakan. Jangan gunakan untuk pekerjaan baru.<br>Mengembalikan daftar wajah yang menggunakan ID atribut yang diberikan.",
+    "documentation": "<strong>Deprecated:</strong> Metode ini sudah tidak digunakan. Jangan gunakan untuk pekerjaan baru.<br>Mengembalikan daftar permukaan yang menggunakan ID atribut yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -68212,13 +68286,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1": {
-    "documentation": "ID warna untuk menemukan wajah."
+    "documentation": "ID warna untuk menemukan permukaan."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0": {
-    "documentation": "Daftar ID wajah yang menggunakan ID warna yang diberikan."
+    "documentation": "Daftar ID permukaan yang menggunakan ID warna yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor": {
-    "documentation": "Mengembalikan array ID wajah yang menggunakan ID warna yang diberikan.",
+    "documentation": "Mengembalikan array ID permukaan yang menggunakan ID warna yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -68239,13 +68313,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1": {
-    "documentation": "ID normal untuk menemukan wajah."
+    "documentation": "ID normal untuk menemukan permukaan."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0": {
-    "documentation": "Daftar ID wajah yang menggunakan ID normal yang diberikan."
+    "documentation": "Daftar ID permukaan yang menggunakan ID normal yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal": {
-    "documentation": "Mengembalikan array ID wajah yang menggunakan ID normal yang diberikan.",
+    "documentation": "Mengembalikan array ID permukaan yang menggunakan ID normal yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -68266,13 +68340,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1": {
-    "documentation": "ID UV untuk menemukan wajah."
+    "documentation": "ID UV untuk menemukan permukaan."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithUV/return/0": {
-    "documentation": "Daftar ID wajah yang menggunakan ID UV yang diberikan."
+    "documentation": "Daftar ID permukaan yang menggunakan ID UV yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithUV": {
-    "documentation": "Mengembalikan array ID wajah yang menggunakan ID UV yang diberikan.",
+    "documentation": "Mengembalikan array ID permukaan yang menggunakan ID UV yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -68293,13 +68367,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs/param/1": {
-    "documentation": "ID wajah untuk mendapatkan ID UV."
+    "documentation": "ID permukaan untuk mendapatkan ID UV."
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs/return/0": {
-    "documentation": "Daftar ID UV yang digunakan untuk vertex pada wajah yang diberikan."
+    "documentation": "Daftar ID UV yang digunakan untuk vertex pada permukaan yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs": {
-    "documentation": "Mengembalikan ID UV wajah untuk vertex pada wajah.",
+    "documentation": "Mengembalikan ID UV permukaan untuk vertex pada permukaan.",
     "params": [
       {
         "name": "self",
@@ -68320,13 +68394,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetFaceVertices/param/1": {
-    "documentation": "ID face untuk mendapatkan ID vertex."
+    "documentation": "ID wajah untuk mendapatkan ID vertex."
   },
   "@roblox/globaltype/EditableMesh.GetFaceVertices/return/0": {
     "documentation": "Daftar ID vertex di sekitar wajah yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.GetFaceVertices": {
-    "documentation": "Mengembalikan ID vertex wajah.",
+    "documentation": "Mengembalikan ID vertex permukaan.",
     "params": [
       {
         "name": "self",
@@ -68350,10 +68424,10 @@
     "documentation": "Array atau 2 atau 3 nilai <code>FacsActionUnit</code> yang menentukan pose korektif."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0": {
-    "documentation": "Array ID tulang dan array yang sesuai dari <code>CFrames</code> tulang."
+    "documentation": "Array ID tulang dan array <code>CFrames</code> yang sesuai."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose": {
-    "documentation": "Mengembalikan ID tulang dan <code>CFrames</code> tulang untuk semua tulang dalam pose korektif FACS tertentu.",
+    "documentation": "Mengembalikan ID tulang dan <code>CFrames</code> untuk semua tulang dalam pose korektif FACS tertentu.",
     "params": [
       {
         "name": "self",
@@ -68374,7 +68448,7 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/return/0": {
-    "documentation": "Array pose korektif. Setiap pose korektif ditentukan oleh array kecil dari 2 atau 3 nilai <code>FacsActionUnit</code>."
+    "documentation": "Array pose korektif. Setiap pose korektif ditentukan oleh array kecil 2 atau 3 nilai <code>FacsActionUnit</code>."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses": {
     "documentation": "Mengembalikan semua pose korektif FACS yang sedang digunakan.",
@@ -68397,10 +68471,10 @@
     "documentation": "Unit aksi FACS untuk mendapatkan pose."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPose/return/0": {
-    "documentation": "Array ID tulang dan array yang sesuai dari <code>CFrame</code> tulang."
+    "documentation": "Array ID tulang dan array <code>CFrame</code> yang sesuai."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPose": {
-    "documentation": "Mengembalikan ID tulang dan <code>CFrames</code> tulang untuk semua tulang dalam unit aksi FACS tertentu.",
+    "documentation": "Mengembalikan ID tulang dan <code>CFrames</code> untuk semua tulang dalam unit aksi FACS tertentu.",
     "params": [
       {
         "name": "self",
@@ -68421,7 +68495,7 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0": {
-    "documentation": "Array dari <code>FacsActionUnit</code>, satu untuk setiap unit aksi FACS yang memiliki pose yang ditentukan."
+    "documentation": "Array <code>FacsActionUnit</code>, satu untuk setiap unit aksi FACS yang memiliki pose yang ditentukan."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPoses": {
     "documentation": "Mengembalikan semua unit aksi FACS yang memiliki pose yang ditentukan.",
@@ -68491,10 +68565,10 @@
     "documentation": "ID vertex untuk mendapatkan posisi."
   },
   "@roblox/globaltype/EditableMesh.GetPosition/return/0": {
-    "documentation": "Posisi dari vertex dalam ruang objek lokal mesh."
+    "documentation": "Posisi dari sebuah vertex dalam ruang objek lokal mesh."
   },
   "@roblox/globaltype/EditableMesh.GetPosition": {
-    "documentation": "Mengambil posisi dari vertex.",
+    "documentation": "Mendapatkan posisi dari sebuah vertex.",
     "params": [
       {
         "name": "self",
@@ -68518,7 +68592,7 @@
     "documentation": "Ukuran dari <code>EditableMesh</code>."
   },
   "@roblox/globaltype/EditableMesh.GetSize": {
-    "documentation": "Mengembalikan ukuran bounding box yang sejajar dengan sumbu mesh.",
+    "documentation": "Mengembalikan ukuran dari bounding box yang sejajar sumbu mesh.",
     "params": [
       {
         "name": "self",
@@ -68612,10 +68686,10 @@
     "documentation": "ID vertex untuk mendapatkan bobot tulang yang terkait."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0": {
-    "documentation": "Bobot campuran skinning untuk setiap tulang yang terkait dengan vertex."
+    "documentation": "Bobot blend skinning untuk setiap tulang yang terkait dengan vertex."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights": {
-    "documentation": "Mengembalikan bobot campuran skinning untuk setiap tulang yang terkait dengan vertex.",
+    "documentation": "Mengembalikan bobot blend skinning untuk setiap tulang yang terkait dengan vertex.",
     "params": [
       {
         "name": "self",
@@ -68669,7 +68743,7 @@
     "documentation": "ID face."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceColor/return/0": {
-    "documentation": "ID warna dari pasangan vertex/face."
+    "documentation": "ID warna dari pasangan vertex/wajah."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceColor": {
     "documentation": "Mengembalikan ID warna dari pasangan vertex/wajah.",
@@ -68700,10 +68774,10 @@
     "documentation": "ID vertex."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/2": {
-    "documentation": "ID face."
+    "documentation": "ID wajah."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/return/0": {
-    "documentation": "ID normal dari pasangan vertex/face."
+    "documentation": "ID normal dari pasangan vertex/wajah."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal": {
     "documentation": "Mengembalikan ID normal dari pasangan vertex/wajah.",
@@ -68731,7 +68805,7 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1": {
-    "documentation": "ID vertex untuk menemukan face."
+    "documentation": "ID vertex untuk menemukan wajah."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0": {
     "documentation": "Array ID wajah yang terpasang pada vertex yang diberikan."
@@ -68761,10 +68835,10 @@
     "documentation": "ID vertex."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/2": {
-    "documentation": "ID face."
+    "documentation": "ID wajah."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV/return/0": {
-    "documentation": "ID UV dari pasangan vertex/face."
+    "documentation": "ID UV dari pasangan vertex/wajah."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV": {
     "documentation": "Mengembalikan ID UV dari pasangan vertex/wajah.",
@@ -68893,10 +68967,10 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1": {
-    "documentation": "ID warna untuk menemukan vertex."
+    "documentation": "ID warna untuk menemukan wajah."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0": {
-    "documentation": "Daftar ID vertex yang menggunakan ID warna yang diberikan."
+    "documentation": "Daftar ID wajah yang menggunakan ID warna yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor": {
     "documentation": "Mengembalikan array ID vertex yang menggunakan ID warna yang diberikan.",
@@ -68977,10 +69051,10 @@
     "documentation": "ID untuk mengembalikan string informasi debugging."
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/return/0": {
-    "documentation": "String yang menggambarkan ID dalam format yang dapat dibaca manusia."
+    "documentation": "String yang menjelaskan ID dalam format yang dapat dibaca manusia."
   },
   "@roblox/globaltype/EditableMesh.IdDebugString": {
-    "documentation": "Mengembalikan string yang menggambarkan ID, berguna untuk tujuan debugging.",
+    "documentation": "Mengembalikan string yang menjelaskan sebuah ID, berguna untuk tujuan debugging.",
     "params": [
       {
         "name": "self",
@@ -69004,7 +69078,7 @@
     "documentation": "Jarak di mana vertex dianggap saling bersentuhan."
   },
   "@roblox/globaltype/EditableMesh.MergeVertices/return/0": {
-    "documentation": "Pemetaan ID vertex lama ke ID vertex baru untuk vertex yang telah digabungkan."
+    "documentation": "Pemetaan ID vertex lama ke ID vertex baru untuk vertex yang telah digabung."
   },
   "@roblox/globaltype/EditableMesh.MergeVertices": {
     "documentation": "Menggabungkan vertex yang saling bersentuhan.",
@@ -69034,10 +69108,10 @@
     "documentation": "Arah sinar."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/return/0": {
-    "documentation": "Tuple dari titik perpotongan, ID wajah, dan koordinat barycentric."
+    "documentation": "Tuple dari ID wajah, titik perpotongan, koordinat barycentric, dan 3 ID vertex yang dibobot oleh koordinat barycentric."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal": {
-    "documentation": "Menghantam sinar dan mengembalikan titik perpotongan, ID face, dan koordinat barycentric.",
+    "documentation": "Mengirimkan sinar dan mengembalikan titik perpotongan, ID wajah, dan koordinat barycentric.",
     "params": [
       {
         "name": "self",
@@ -69084,10 +69158,10 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.RemoveFace/param/1": {
-    "documentation": "ID face dari face yang akan dihapus."
+    "documentation": "ID wajah dari wajah yang akan dihapus."
   },
   "@roblox/globaltype/EditableMesh.RemoveFace": {
-    "documentation": "Menghapus face menggunakan ID face.",
+    "documentation": "Menghapus wajah menggunakan ID wajah.",
     "params": [
       {
         "name": "self",
@@ -69109,7 +69183,7 @@
     "documentation": "Semua ID yang dihapus."
   },
   "@roblox/globaltype/EditableMesh.RemoveUnused": {
-    "documentation": "Menghapus semua vertex, normal, UV, dan warna yang tidak digunakan, dan mengembalikan ID yang dihapus.",
+    "documentation": "Menghapus semua vertex, normal, UV, dan warna yang tidak terpakai, dan mengembalikan ID yang dihapus.",
     "params": [
       {
         "name": "self",
@@ -69148,13 +69222,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/1": {
-    "documentation": "ID tulang untuk diatur <code>CFrame</code> awalnya."
+    "documentation": "ID tulang untuk mengatur <code>CFrame</code> awal."
   },
   "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/2": {
     "documentation": "<code>CFrame</code> awal untuk tulang dalam pose bind mesh, dalam ruang lokal mesh."
   },
   "@roblox/globaltype/EditableMesh.SetBoneCFrame": {
-    "documentation": "Set <code>CFrame</code> awal untuk tulang dalam pose bind mesh.",
+    "documentation": "Atur <code>CFrame</code> awal untuk tulang dalam pose bind mesh.",
     "params": [
       {
         "name": "self",
@@ -69177,13 +69251,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/1": {
-    "documentation": "ID tulang untuk diatur apakah tulang tersebut virtual."
+    "documentation": "ID tulang untuk mengatur apakah tulang bersifat virtual."
   },
   "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/2": {
     "documentation": "Apakah tulang harus bersifat virtual."
   },
   "@roblox/globaltype/EditableMesh.SetBoneIsVirtual": {
-    "documentation": "Set apakah tulang bersifat virtual.",
+    "documentation": "Atur apakah tulang bersifat virtual.",
     "params": [
       {
         "name": "self",
@@ -69206,13 +69280,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.SetBoneName/param/1": {
-    "documentation": "ID tulang untuk diatur namanya."
+    "documentation": "ID tulang untuk mengatur nama."
   },
   "@roblox/globaltype/EditableMesh.SetBoneName/param/2": {
     "documentation": "Nama tulang untuk diatur."
   },
   "@roblox/globaltype/EditableMesh.SetBoneName": {
-    "documentation": "Mengatur nama untuk tulang.",
+    "documentation": "Mengatur nama untuk sebuah tulang.",
     "params": [
       {
         "name": "self",
@@ -69235,13 +69309,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.SetBoneParent/param/1": {
-    "documentation": "ID tulang untuk diatur induknya."
+    "documentation": "ID tulang untuk mengatur induk."
   },
   "@roblox/globaltype/EditableMesh.SetBoneParent/param/2": {
     "documentation": "ID tulang induk."
   },
   "@roblox/globaltype/EditableMesh.SetBoneParent": {
-    "documentation": "Set induk untuk tulang.",
+    "documentation": "Atur induk untuk sebuah tulang.",
     "params": [
       {
         "name": "self",
@@ -69325,7 +69399,7 @@
     "documentation": "ID wajah untuk memperbarui warna vertex."
   },
   "@roblox/globaltype/EditableMesh.SetFaceColors/param/2": {
-    "documentation": "Daftar ID warna baru untuk digunakan pada vertex face yang diberikan."
+    "documentation": "Daftar ID warna baru untuk digunakan pada vertex wajah yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.SetFaceColors": {
     "documentation": "Mengatur warna vertex wajah ke ID warna baru.",
@@ -69354,7 +69428,7 @@
     "documentation": "ID wajah untuk memperbarui normal vertex."
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals/param/2": {
-    "documentation": "Daftar ID normal baru untuk digunakan pada vertex face yang diberikan."
+    "documentation": "Daftar ID normal baru untuk digunakan pada vertex wajah yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals": {
     "documentation": "Mengatur normal vertex wajah ke ID normal baru.",
@@ -69383,7 +69457,7 @@
     "documentation": "ID wajah untuk memperbarui UV vertex."
   },
   "@roblox/globaltype/EditableMesh.SetFaceUVs/param/2": {
-    "documentation": "Daftar ID UV baru untuk digunakan pada vertex face yang diberikan."
+    "documentation": "Daftar ID UV baru untuk digunakan pada vertex wajah yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.SetFaceUVs": {
     "documentation": "Mengatur UV vertex wajah ke ID UV baru.",
@@ -69412,7 +69486,7 @@
     "documentation": "ID wajah untuk memperbarui vertex."
   },
   "@roblox/globaltype/EditableMesh.SetFaceVertices/param/2": {
-    "documentation": "Daftar ID vertex baru untuk digunakan pada face yang diberikan."
+    "documentation": "Daftar ID vertex baru untuk digunakan pada wajah yang diberikan."
   },
   "@roblox/globaltype/EditableMesh.SetFaceVertices": {
     "documentation": "Mengatur vertex wajah ke ID vertex baru.",
@@ -69438,16 +69512,16 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/1": {
-    "documentation": "Unit aksi FACS untuk diatur posenya."
+    "documentation": "Unit aksi FACS untuk mengatur pose."
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/2": {
-    "documentation": "Tulang untuk diatur <code>CFrame</code> untuk pose ini."
+    "documentation": "Tulang untuk mengatur <code>CFrame</code> untuk pose ini."
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3": {
-    "documentation": "<code>CFrame</code> yang mengubah tulang dari <code>CFrame</code> tulang awal dalam pose bind mesh ke <code>CFrame</code> tulang gabungan untuk pose ini. Semua <code>CFrames</code> berada dalam ruang lokal mesh."
+    "documentation": "<code>CFrame</code> yang mengubah tulang dari <code>CFrame</code> tulang awal pada pose bind mesh ke <code>CFrame</code> tulang gabungan untuk pose ini. Semua <code>CFrames</code> berada dalam ruang lokal mesh."
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose": {
-    "documentation": "Set <code>CFrame</code> untuk tulang individu dalam unit aksi FACS tertentu.",
+    "documentation": "Atur <code>CFrame</code> untuk tulang individu dalam unit aksi FACS tertentu.",
     "params": [
       {
         "name": "self",
@@ -69477,13 +69551,13 @@
     "documentation": "Array atau 2 atau 3 nilai <code>FacsActionUnit</code> untuk diterapkan sebagai pose korektif."
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/2": {
-    "documentation": "Tulang untuk diatur <code>CFrame</code> untuk pose ini."
+    "documentation": "Tulang untuk mengatur <code>CFrame</code> untuk pose ini."
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3": {
-    "documentation": "<code>CFrame</code> transformasi untuk tulang dalam pose korektif ini. Setiap <code>CFrame</code> tulang mengubah tulang dari <code>CFrame</code> tulang awal dalam pose bind mesh ke <code>CFrame</code> tulang gabungan untuk pose ini. Semua <code>CFrames</code> berada dalam ruang lokal mesh."
+    "documentation": "<code>CFrame</code> transformasi untuk tulang dalam pose korektif ini. Setiap <code>CFrame</code> tulang mengubah tulang dari <code>CFrame</code> tulang awal pada pose bind mesh ke <code>CFrame</code> tulang gabungan untuk pose ini. Semua <code>CFrames</code> berada dalam ruang lokal mesh."
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose": {
-    "documentation": "Set pose untuk semua tulang dalam pose korektif FACS tertentu.",
+    "documentation": "Atur pose untuk semua tulang dalam pose korektif FACS tertentu.",
     "params": [
       {
         "name": "self",
@@ -69510,16 +69584,16 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose/param/1": {
-    "documentation": "Unit aksi FACS untuk diatur posenya."
+    "documentation": "Unit aksi FACS untuk mengatur pose."
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose/param/2": {
-    "documentation": "Tulang untuk diatur <code>CFrame</code> untuk pose ini."
+    "documentation": "Tulang untuk mengatur <code>CFrame</code> untuk pose ini."
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose/param/3": {
-    "documentation": "<code>CFrame</code> transformasi untuk tulang dalam pose ini. Setiap <code>CFrame</code> tulang mengubah tulang dari <code>CFrame</code> tulang awal dalam pose bind mesh ke <code>CFrame</code> tulang gabungan untuk pose ini. Semua <code>CFrames</code> berada dalam ruang lokal mesh."
+    "documentation": "<code>CFrame</code> transformasi untuk tulang dalam pose ini. Setiap <code>CFrame</code> tulang mengubah tulang dari <code>CFrame</code> tulang awal pada pose bind mesh ke <code>CFrame</code> tulang gabungan untuk pose ini. Semua <code>CFrames</code> berada dalam ruang lokal mesh."
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose": {
-    "documentation": "Set pose untuk semua tulang dalam unit aksi FACS tertentu.",
+    "documentation": "Atur pose untuk semua tulang dalam unit aksi FACS tertentu.",
     "params": [
       {
         "name": "self",
@@ -69552,7 +69626,7 @@
     "documentation": "Vektor normal untuk diatur."
   },
   "@roblox/globaltype/EditableMesh.SetNormal": {
-    "documentation": "Set normal untuk ID normal.",
+    "documentation": "Atur normal untuk ID normal.",
     "params": [
       {
         "name": "self",
@@ -69604,7 +69678,7 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.SetUV/param/1": {
-    "documentation": "ID UV untuk diatur koordinat UV-nya."
+    "documentation": "ID UV untuk mengatur koordinat UV."
   },
   "@roblox/globaltype/EditableMesh.SetUV/param/2": {
     "documentation": "Koordinat UV."
@@ -69633,7 +69707,7 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBones/param/1": {
-    "documentation": "ID vertex untuk mengatur tulang skinning."
+    "documentation": "ID vertex untuk mengatur tulang skinning vertex."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBones/param/2": {
     "documentation": "ID tulang untuk digunakan dengan vertex ini untuk skinning."
@@ -69662,13 +69736,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1": {
-    "documentation": "ID vertex di mana bobot campuran skinning akan diatur."
+    "documentation": "ID vertex di mana bobot blend skinning akan diatur."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/2": {
-    "documentation": "Bobot campuran skinning yang akan diatur pada vertex."
+    "documentation": "Bobot blend skinning yang akan diatur pada vertex."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBoneWeights": {
-    "documentation": "Mengatur bobot campuran skinning untuk setiap tulang yang terkait dengan vertex.",
+    "documentation": "Mengatur bobot blend skinning untuk setiap tulang yang terkait dengan vertex.",
     "params": [
       {
         "name": "self",
@@ -69691,13 +69765,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1": {
-    "documentation": "ID vertex."
+    "documentation": "ID Vertex."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/2": {
-    "documentation": "ID face."
+    "documentation": "ID Wajah."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3": {
-    "documentation": "ID Warna yang akan diatur untuk pasangan vertex/wajah."
+    "documentation": "ID warna untuk diatur untuk pasangan vertex/wajah."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceColor": {
     "documentation": "Mengatur ID warna dari pasangan vertex/wajah.",
@@ -69733,7 +69807,7 @@
     "documentation": "ID Wajah."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3": {
-    "documentation": "ID Normal yang akan diatur untuk pasangan vertex/wajah."
+    "documentation": "ID normal untuk diatur untuk pasangan vertex/wajah."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceNormal": {
     "documentation": "Mengatur ID normal dari pasangan vertex/wajah.",
@@ -69763,13 +69837,13 @@
     "documentation": "Objek yang memungkinkan untuk pembuatan dan manipulasi mesh saat runtime."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/1": {
-    "documentation": "ID Vertex."
+    "documentation": "ID vertex."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/2": {
-    "documentation": "ID Wajah."
+    "documentation": "ID wajah."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3": {
-    "documentation": "ID UV yang akan diatur untuk pasangan vertex/wajah."
+    "documentation": "ID UV untuk diatur untuk pasangan vertex/wajah."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceUV": {
     "documentation": "Mengatur ID UV dari pasangan vertex/wajah.",
@@ -71589,7 +71663,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LocalizationService.RobloxLocaleId": {
-    "documentation": "ID lokal yang digunakan untuk melokalkan fitur inti dan internal.",
+    "documentation": "ID lokal yang digunakan untuk melokalisasi fitur inti dan internal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LocalizationService#RobloxLocaleId",
     "code_sample": ""
   },
@@ -71605,7 +71679,7 @@
     "documentation": "Daftar objek <code>LocalizationTable</code> yang digunakan untuk melokalisasi CoreScripts."
   },
   "@roblox/globaltype/LocalizationService.GetCorescriptLocalizations": {
-    "documentation": "Mengembalikan daftar objek <code>LocalizationTable</code> yang digunakan untuk melokalkan skrip inti.",
+    "documentation": "Mengembalikan daftar objek <code>LocalizationTable</code> yang digunakan untuk melokalisasi skrip inti.",
     "params": [
       {
         "name": "self",
@@ -71628,7 +71702,7 @@
     "documentation": "Sebuah string yang menunjukkan kode negara/wilayah dari seorang pemain."
   },
   "@roblox/globaltype/LocalizationService.GetCountryRegionForPlayerAsync": {
-    "documentation": "Mengembalikan string kode negara/wilayah sesuai dengan IP klien pemain dari geolokasi.",
+    "documentation": "Mengembalikan string kode negara/wilayah sesuai dengan geolokasi IP klien pemain.",
     "params": [
       {
         "name": "self",
@@ -71649,13 +71723,13 @@
     "documentation": "Menangani terjemahan otomatis."
   },
   "@roblox/globaltype/LocalizationService.GetTableEntries/param/1": {
-    "documentation": "<code>Instance</code> untuk mengambil entri tabel lokal yang terurut. Jika nil, hanya entri dari hierarki <code>LocalizationService</code> dan <code>LocalizationTable</code> cloud yang dikembalikan."
+    "documentation": "<code>Instance</code> untuk yang mana entri tabel lokalisasi terurut akan diambil. Jika nil, hanya entri dari hierarki <code>LocalizationService</code> dan tabel cloud <code>LocalizationTable</code> yang dikembalikan."
   },
   "@roblox/globaltype/LocalizationService.GetTableEntries/return/0": {
-    "documentation": "Sebuah array dari array, di mana setiap array dalam format yang sama seperti yang dijelaskan dalam <code>LocalizationTable:GetEntries()</code>."
+    "documentation": "Sebuah array dari array, di mana setiap array memiliki format yang sama seperti yang dijelaskan dalam <code>LocalizationTable:GetEntries()</code>."
   },
   "@roblox/globaltype/LocalizationService.GetTableEntries": {
-    "documentation": "Mengambil semua entri yang digunakan untuk lokalitas otomatis.",
+    "documentation": "Mengambil semua entri yang digunakan untuk lokalisasi otomatis.",
     "params": [
       {
         "name": "self",
@@ -71682,7 +71756,7 @@
     "documentation": "Instance <code>Translator</code> untuk lokal yang ditentukan."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForLocaleAsync": {
-    "documentation": "Yield sampai tabel cloud <code>LocalizationTable</code> untuk lokal yang argumennya telah dimuat - jika tersedia. Mengembalikan sebuah instance <code>Translator</code> yang dapat digunakan untuk terjemahan untuk lokal yang diberikan.",
+    "documentation": "Menghasilkan sampai tabel cloud <code>LocalizationTable</code> untuk lokal argumen telah dimuat - jika tersedia. Mengembalikan sebuah instance <code>Translator</code> untuk  digunakan dalam terjemahan untuk lokal yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -71703,13 +71777,13 @@
     "documentation": "Menangani terjemahan otomatis."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayer/param/1": {
-    "documentation": "Pemain <code>Player</code> yang sedang Anda ambil <code>Translator</code>-nya."
+    "documentation": "<code>Player</code> yang Anda ambil <code>Translator</code>-nya."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayer/return/0": {
     "documentation": "Instance <code>Translator</code> untuk lokal yang ditentukan."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayer": {
-    "documentation": "Mengembalikan <code>Translator</code> yang akan digunakan untuk terjemahan menggunakan data lokal yang dimuat.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah dinyatakan usang oleh <code>LocalizationService:GetTranslatorForPlayerAsync()</code>, yang berfungsi serupa kecuali bahwa ia menghasilkan sampai tabel cloud telah dimuat. Silakan gunakan dalam pekerjaan baru sebagai gantinya.<br>Mengembalikan <code>Translator</code> yang akan digunakan untuk terjemahan menggunakan data lokal  yang dimuat.",
     "params": [
       {
         "name": "self",
@@ -71730,13 +71804,13 @@
     "documentation": "Menangani terjemahan otomatis."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayerAsync/param/1": {
-    "documentation": "Pemain <code>Player</code> yang sedang Anda ambil <code>Translator</code>-nya."
+    "documentation": "<code>Player</code> yang Anda ambil <code>Translator</code>-nya."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayerAsync/return/0": {
     "documentation": "Instance <code>Translator</code> untuk lokal yang ditentukan."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayerAsync": {
-    "documentation": "Yield sampai tabel cloud <code>LocalizationTable</code> untuk lokal pemain yang telah dimuat - jika tersedia. Mengembalikan instance <code>Translator</code> yang dapat digunakan untuk terjemahan untuk lokal yang diberikan.",
+    "documentation": "Menghasilkan sampai tabel cloud <code>LocalizationTable</code> untuk lokal pemain  telah dimuat - jika tersedia. Mengembalikan sebuah instance <code>Translator</code> untuk  digunakan dalam terjemahan untuk lokal yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -80435,7 +80509,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation": {
-    "documentation": "Sebuah kelas abstrak yang diwarisi oleh semua bagian yang berbasis pada pemodelan solid.",
+    "documentation": "Kelas abstrak yang diwarisi oleh semua bagian yang berdasarkan pemodelan padat.",
     "keys": {
       "RenderFidelity": "@roblox/globaltype/PartOperation.RenderFidelity",
       "SmoothingAngle": "@roblox/globaltype/PartOperation.SmoothingAngle",
@@ -80447,33 +80521,33 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.RenderFidelity": {
-    "documentation": "Tingkat detail yang digunakan untuk merender bagian yang dimodelkan secara solid.",
+    "documentation": "Tingkat detail yang digunakan untuk merender bagian yang dimodelkan secara padat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#RenderFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.SmoothingAngle": {
-    "documentation": "Sebuah sudut dalam derajat yang mempengaruhi bayangan halus dari bagian yang dimodelkan secara solid.",
+    "documentation": "Sebuah sudut dalam derajat yang mempengaruhi pencahayaan halus dari bagian yang dimodelkan secara padat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#SmoothingAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.TriangleCount": {
-    "documentation": "Jumlah poligon dalam model solid ini.",
+    "documentation": "Jumlah poligon dalam model padat ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#TriangleCount",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.UsePartColor": {
-    "documentation": "Menetapkan apakah <code>PartOperation</code> dapat diwarnai kembali menggunakan properti warna yang diwarisi.",
+    "documentation": "Menentukan apakah <code>PartOperation</code> dapat diwarnai ulang menggunakan properti warna yang diwarisi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#UsePartColor",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry/param/0": {
-    "documentation": "Sebuah kelas abstrak yang diwarisi oleh semua bagian yang berbasis pada pemodelan solid."
+    "documentation": "Kelas abstrak yang diwarisi oleh semua bagian yang berdasarkan pemodelan padat."
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry/param/1": {
     "documentation": "<code>PartOperation</code> yang geometri nya akan menggantikan geometri <code>PartOperation</code> ini."
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry": {
-    "documentation": "Mengganti geometri dari <code>PartOperation</code> ini dengan geometri <code>PartOperation</code> lainnya.",
+    "documentation": "Mengganti geometri dari <code>PartOperation</code> ini dengan geometri <code>PartOperation</code> lain.",
     "params": [
       {
         "name": "self",
@@ -83031,6 +83105,7 @@
       "GetUserSubscriptionDetailsAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync",
       "GetUserSubscriptionPaymentHistoryAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync",
       "GetUserSubscriptionStatusAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync",
+      "OpenShop": "@roblox/globaltype/MarketplaceService.OpenShop",
       "PlayerOwnsAsset": "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset",
       "PlayerOwnsAssetAsync": "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync",
       "PlayerOwnsBundle": "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle",
@@ -83365,6 +83440,28 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetUserSubscriptionStatusAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/MarketplaceService.OpenShop/param/0": {
+    "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
+  },
+  "@roblox/globaltype/MarketplaceService.OpenShop/param/1": {
+    "documentation": "<code>Player</code> untuk siapa toko akan dibuka. Jika dipanggil dari <code>LocalScript</code>, ini harus menjadi pemain lokal."
+  },
+  "@roblox/globaltype/MarketplaceService.OpenShop": {
+    "documentation": "Membuka Toko dalam permainan yang dipersonalisasi untuk pemain yang diberikan.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.OpenShop/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/MarketplaceService.OpenShop/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#OpenShop",
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nMarketplaceService:OpenShop(player)"
+  },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/0": {
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
@@ -83403,13 +83500,13 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/1": {
-    "documentation": "Objek <code>Player</code> yang inventarisnya diuji untuk kepemilikan aset yang diberikan."
+    "documentation": "<code>Player</code> yang inventarisnya diuji untuk kepemilikan aset yang diberikan."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/2": {
-    "documentation": "ID aset yang mana inventaris pemain yang diberikan diuji."
+    "documentation": "ID aset yang inventaris pemain yang diberikan diuji."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/return/0": {
-    "documentation": "Menunjukkan apakah inventaris pemain yang diberikan berisi aset yang diberikan."
+    "documentation": "Menunjukkan apakah inventaris pemain yang diberikan mengandung aset yang diberikan."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync": {
     "documentation": "Mengembalikan apakah pengguna yang diberikan memiliki aset yang diberikan.",
@@ -83471,13 +83568,13 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/1": {
-    "documentation": "Objek <code>Player</code> yang inventarisnya diuji untuk kepemilikan bundle yang diberikan."
+    "documentation": "<code>Player</code> yang inventarisnya diuji untuk kepemilikan bundle yang diberikan."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/2": {
-    "documentation": "ID bundle yang mana inventaris pemain yang diberikan diuji."
+    "documentation": "ID bundle yang inventaris pemain yang diberikan diuji."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/return/0": {
-    "documentation": "Menunjukkan apakah inventaris pemain yang diberikan berisi bundle yang diberikan."
+    "documentation": "Menunjukkan apakah inventaris pemain yang diberikan mengandung bundle yang diberikan."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync": {
     "documentation": "Mengembalikan apakah pemain yang diberikan memiliki bundle yang diberikan.",
@@ -83505,16 +83602,16 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/1": {
-    "documentation": "Pengguna yang akan diajak membeli item."
+    "documentation": "Pengguna yang akan diajak untuk membeli item."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "Sebuah array item avatar untuk dimasukkan dalam pembelian massal. Setiap item garis berisi struktur berikut: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string,   PurchaseOptions: { {Type: PurchaseOption, Value: number?} }? } </code></pre> Setiap item garis berisi pasangan berikut: <ul> <li><code>Type</code>: <code>MarketplaceProductType</code> yang sesuai (Enum).</li> <li><code>Id</code>: ID dari aset atau bundel.</li> <li><code>PurchaseOptions</code>: Opsional. Sebuah array yang berisi satu opsi pembelian   untuk ditampilkan dalam tawaran. Jika dihapus, pembelian permanen   akan ditawarkan. Lihat bagian OpsiPembelian di bawah untuk detail.</li> </ul>"
+    "documentation": "Array item avatar yang akan disertakan dalam pembelian massal. Setiap item berisi struktur berikut: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string,   PurchaseOptions: { {Type: PurchaseOption, Value: number?} }? } </code></pre> Setiap item berisi pasangan berikut: <ul> <li><code>Type</code>: <code>MarketplaceProductType</code> yang sesuai (Enum).</li> <li><code>Id</code>: ID aset atau bundle.</li> <li><code>PurchaseOptions</code>: Opsional. Array yang berisi satu opsi pembelian   untuk ditampilkan dalam pengajuan. Jika diabaikan, pembelian permanen   diajukan. Lihat bagian PurchaseOptions di bawah untuk detail.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
     "documentation": "Tidak tersedia saat ini."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
-    "documentation": "Mengajukan kepada pengguna untuk membeli beberapa item avatar dengan <code>assetId</code> atau <code>bundleId</code> yang diberikan.",
+    "documentation": "Mengajak pengguna untuk membeli beberapa item avatar dengan <code>assetId</code> yang diberikan atau <code>bundleId</code>.",
     "params": [
       {
         "name": "self",
@@ -83544,10 +83641,10 @@
     "documentation": "Objek <code>Player</code> yang akan diminta."
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/2": {
-    "documentation": "ID bundel yang akan dibeli."
+    "documentation": "ID bundle yang akan dibeli."
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase": {
-    "documentation": "Mengajukan kepada pengguna untuk membeli bundle dengan <code>bundleId</code> yang diberikan.",
+    "documentation": "Mengajak pengguna untuk membeli bundle dengan <code>bundleId</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -83576,7 +83673,7 @@
     "documentation": "ID langganan yang akan dibatalkan."
   },
   "@roblox/globaltype/MarketplaceService.PromptCancelSubscription": {
-    "documentation": "Mengajukan kepada pengguna untuk membatalkan langganan untuk <code>subscriptionId</code> yang diberikan.",
+    "documentation": "Mengajak pengguna untuk membatalkan langganan untuk <code>subscriptionId</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -83599,13 +83696,13 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/1": {
-    "documentation": "Objek <code>Player</code> yang akan diminta."
+    "documentation": "<code>Player</code> yang akan diajak."
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/2": {
     "documentation": "ID pass yang akan dibeli. Ini adalah <code>TargetId</code> yang dikembalikan oleh <code>GetProductInfo()</code> ketika <code>InfoType</code> adalah <code>GamePass</code>. Ini bukan ID aset pass dan bukan <code>ProductId</code>-nya."
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase": {
-    "documentation": "Mengajukan kepada pengguna untuk membeli pass dengan <code>gamePassId</code> yang diberikan.",
+    "documentation": "Mengajak pengguna untuk membeli pass dengan <code>gamePassId</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -83631,7 +83728,7 @@
     "documentation": "Pengguna yang diajak untuk membeli Premium."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
-    "documentation": "<strong>Deprecated:</strong> Metode ini telah digantikan oleh <code>PromptRobloxSubscriptionPurchase()</code>.<br>Mengajukan kepada pengguna untuk membeli Roblox Premium.",
+    "documentation": "<strong>Deprecated:</strong> Metode ini telah digantikan oleh <code>PromptRobloxSubscriptionPurchase()</code>.<br>Mengajak pengguna untuk membeli Roblox Premium.",
     "params": [
       {
         "name": "self",
@@ -83662,7 +83759,7 @@
     "documentation": "Diabaikan."
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase": {
-    "documentation": "Mengajukan kepada pengguna untuk membeli produk pengembang dengan <code>productId</code> yang diberikan.",
+    "documentation": "Mengajak pengguna untuk membeli produk pengembang dengan <code>productId</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -83693,7 +83790,7 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/1": {
-    "documentation": "Objek <code>Player</code> yang akan diminta."
+    "documentation": "<code>Player</code> yang akan diajak."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/2": {
     "documentation": "ID aset yang akan dibeli."
@@ -83705,7 +83802,7 @@
     "documentation": "Diabaikan."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase": {
-    "documentation": "Mengajukan kepada pengguna untuk membeli item dengan <code>assetId</code> yang diberikan. Tidak berfungsi untuk pembelian di Toko Kreator USD.",
+    "documentation": "Mengajak pengguna untuk membeli item dengan <code>assetId</code> yang diberikan. Tidak berfungsi untuk pembelian Toko Kreator USD.",
     "params": [
       {
         "name": "self",
@@ -83736,10 +83833,10 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchase/param/1": {
-    "documentation": "Objek <code>Player</code> yang akan diajak untuk membeli Roblox Plus."
+    "documentation": "<code>Player</code> yang akan diajak untuk membeli Roblox Plus."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchase": {
-    "documentation": "Mengajukan kepada pengguna untuk membeli langganan Roblox Plus.",
+    "documentation": "Mengajak pengguna untuk membeli langganan Roblox Plus.",
     "params": [
       {
         "name": "self",
@@ -83758,16 +83855,16 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/param/1": {
-    "documentation": "Objek <code>Player</code> yang memulai transfer. Harus merupakan pemain yang valid yang saat ini ada di server."
+    "documentation": "<code>Player</code> yang memulai transfer. Harus menjadi pemain valid yang saat ini berada di server."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/param/2": {
-    "documentation": "ID <code>UserId</code> dari pengguna yang akan menerima Robux."
+    "documentation": "<code>UserId</code> dari pengguna yang akan menerima Robux."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/param/3": {
-    "documentation": "Jumlah Robux yang akan ditransfer. Harus merupakan integer positif."
+    "documentation": "Jumlah Robux yang akan ditransfer. Harus integer positif."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/return/0": {
-    "documentation": "Sebuah string <code>transferRequestId</code> yang secara unik mengidentifikasi permintaan transfer ini. Gunakan ID ini untuk mengaitkan dengan tanda terima yang dikirimkan melalui <code>BindReceiptHandler</code>."
+    "documentation": "Sebuah string <code>transferRequestId</code> yang secara unik mengidentifikasi permintaan transfer ini. Gunakan ID ini untuk menghubungkan dengan kwitansi yang dikirim melalui <code>BindReceiptHandler</code>."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync": {
     "documentation": "Memulai transfer Robux dari pengirim ke pengguna lain.",
@@ -83799,13 +83896,13 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1": {
-    "documentation": "Objek <code>Player</code> yang akan diajak untuk berlangganan."
+    "documentation": "<code>Player</code> objek yang akan diajak untuk berlangganan."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
-    "documentation": "ID langganan yang akan diberikan untuk berlangganan."
+    "documentation": "ID langganan yang akan diikuti."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase": {
-    "documentation": "Mengajukan kepada pengguna untuk membeli langganan untuk <code>subscriptionId</code> yang diberikan.",
+    "documentation": "Mengajak pengguna untuk membeli langganan untuk <code>subscriptionId</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -83828,13 +83925,13 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "Array objek yang mengidentifikasi produk yang ingin Anda urutkan. Array ini bisa mencakup hingga 50 item. Setiap <code>ProductIdentifier</code> memiliki: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>Harus berupa <code>InfoType.GamePass</code> atau     <code>InfoType.Product</code>.</li> <li><code>Id</code>: number</li> <li>ID game pass atau produk pengembang.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "Array objek yang mengidentifikasi produk yang ingin Anda urutkan. Array ini bisa mencakup hingga 50 item. Setiap <code>ProductIdentifier</code> memiliki: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>Harus berupa <code>InfoType.GamePass</code> atau     <code>InfoType.Product</code>.</li> <li><code>Id</code>: number</li> <li>ID dari game pass atau produk pengembang.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "Array item yang diurutkan dalam urutan pribadi untuk pengguna saat ini. Setiap array memiliki: <ul> <li><code>ProductIdentifier</code>: ID yang sesuai dari array input.</li> <li><code>ProductInfo</code>: Kamus info produk standar yang dikembalikan oleh   <code>GetProductInfoAsync</code>.</li> </ul>"
+    "documentation": "Array item yang terurut dalam urutan personalisasi untuk pengguna saat ini. Setiap array memiliki: <ul> <li><code>ProductIdentifier</code>: ID yang sesuai dari array input.</li> <li><code>ProductInfo</code>: Kamus info produk standar yang dikembalikan oleh   <code>GetProductInfoAsync</code>.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
-    "documentation": "Mengambil daftar ID produk dan mengembalikan daftar yang diurutkan secara pribadi dari produk tersebut.",
+    "documentation": "Mengambil daftar ID produk dan mengembalikan daftar terurut yang dipersonalisasi dari produk-produk tersebut.",
     "params": [
       {
         "name": "self",
@@ -83855,13 +83952,13 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "Sebuah array dari nilai <code>InfoType</code> yang menentukan jenis produk untuk mengambil rekomendasi. <code>InfoTypes</code> yang didukung: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "Array nilai <code>InfoType</code> yang menentukan jenis produk untuk mengambil rekomendasi. <code>InfoTypes</code> yang didukung: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "Daftar yang terurut dari hingga 50 item yang paling mungkin akan terlibat oleh pengguna, berdasarkan <code>InfoTypes</code> yang diberikan. Jika tidak ada rekomendasi yang dapat ditentukan, metode ini mengembalikan daftar kosong."
+    "documentation": "Daftar terurut hingga 50 item yang kemungkinan besar akan terlibat oleh pengguna, dasarkan <code>InfoTypes</code> yang diberikan. Jika tidak ada rekomendasi yang dapat ditentukan, metode ini mengembalikan daftar kosong."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li>Mengambil array dari <code>InfoType</code> dan mengembalikan hingga 50 item   yang mewakili produk yang kemungkinan besar akan dilibatkan dan dibelanjakan oleh pengguna.</li> </ul>",
+    "documentation": "<ul> <li>Mengambil array <code>InfoType</code> dan mengembalikan hingga 50 item   yang mewakili produk yang kemungkinan besar akan terlibat dan   dibeli oleh pengguna.</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -83885,7 +83982,7 @@
     "documentation": "<code>UserId</code> dari <code>Player</code> yang inventarisnya Anda periksa."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/2": {
-    "documentation": "ID pass yang ingin Anda periksa. Tidak boleh disamakan dengan ID aset."
+    "documentation": "ID pass yang ingin Anda periksa. Tidak boleh bingung dengan ID aset."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/return/0": {
     "documentation": "Apakah pengguna memiliki pass tersebut."
@@ -91715,6 +91812,7 @@
       "Direction1DState": "@roblox/globaltype/InputAction.Direction1DState",
       "Direction2DState": "@roblox/globaltype/InputAction.Direction2DState",
       "Direction3DState": "@roblox/globaltype/InputAction.Direction3DState",
+      "DisplayName": "@roblox/globaltype/InputAction.DisplayName",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "PreferredBinding": "@roblox/globaltype/InputAction.PreferredBinding",
       "Type": "@roblox/globaltype/InputAction.Type",
@@ -91745,13 +91843,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction3DState",
     "code_sample": ""
   },
+  "@roblox/globaltype/InputAction.DisplayName": {
+    "documentation": "Nama tampilan yang dilokalisasi untuk aksi ini.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#DisplayName",
+    "code_sample": ""
+  },
   "@roblox/globaltype/InputAction.Enabled": {
     "documentation": "Menentukan apakah <code>InputAction</code> diaktifkan atau tidak.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.PreferredBinding": {
-    "documentation": "<code>InputBinding</code> yang paling cocok dengan perangkat input saat ini pemain.",
+    "documentation": "<code>InputBinding</code> yang paling cocok dengan perangkat input pemain saat ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#PreferredBinding",
     "code_sample": ""
   },
@@ -91761,7 +91864,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.ViewportPositionState": {
-    "documentation": "Properti baca-saja yang tidak dapat diprogram dan berguna untuk debugging <code>ViewportPosition</code> aksi input.",
+    "documentation": "Properti baca-saja yang tidak dapat diprogram dan berguna untuk debugging aksi input <code>ViewportPosition</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
     "code_sample": ""
   },
@@ -106460,6 +106563,26 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#SubtractNode",
     "code_sample": ""
   },
+  "@roblox/enum/AnimationNodeType.OneShotNode": {
+    "documentation": "Sebuah node lapisan yang memainkan pose satu kali di atas pose dasar yang berulang saat pemicu, menggabungkannya masuk dan keluar.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#OneShotNode",
+    "code_sample": ""
+  },
+  "@roblox/enum/AnimationNodeType.StateMachineNode": {
+    "documentation": "Sebuah node yang memilih dan bertransisi antara status animasi sesuai dengan definisi mesin status.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#StateMachineNode",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.AnimationNodeType": {
     "documentation": "Menentukan jenis node grafik animasi, yang menentukan bagaimana ia memproses atau menggabungkan data animasi.",
     "keys": {
@@ -106476,7 +106599,9 @@
       "SelectNode": "@roblox/enum/AnimationNodeType.SelectNode",
       "SequenceNode": "@roblox/enum/AnimationNodeType.SequenceNode",
       "SpeedNode": "@roblox/enum/AnimationNodeType.SpeedNode",
-      "SubtractNode": "@roblox/enum/AnimationNodeType.SubtractNode"
+      "SubtractNode": "@roblox/enum/AnimationNodeType.SubtractNode",
+      "OneShotNode": "@roblox/enum/AnimationNodeType.OneShotNode",
+      "StateMachineNode": "@roblox/enum/AnimationNodeType.StateMachineNode"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType",
     "code_sample": ""
@@ -106890,6 +107015,46 @@
       "Always": "@roblox/enum/AssetTypeVerification.Always"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AssetTypeVerification",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.New": {
+    "documentation": "The player is playing the experience for the first time.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.Returning": {
+    "documentation": "The player has played the experience before.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#Returning",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.UserNewReturningStatus": {
+    "documentation": "Describes whether a player is new to the current experience or has played it before.",
+    "keys": {
+      "Unknown": "@roblox/enum/UserNewReturningStatus.Unknown",
+      "New": "@roblox/enum/UserNewReturningStatus.New",
+      "Returning": "@roblox/enum/UserNewReturningStatus.Returning"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarSettingsScaleMode.PlayerChoice": {
@@ -107830,6 +107995,68 @@
       "PauseEventTriggered": "@roblox/enum/AdUIEventType.PauseEventTriggered"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AdUIEventType",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Inactive": {
+    "documentation": "The player did not play the experience in the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Inactive",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Low": {
+    "documentation": "The player played the experience on 1 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Low",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Medium": {
+    "documentation": "The player played the experience on 2 or 3 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Medium",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.High": {
+    "documentation": "The player played the experience on 4 to 7 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#High",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.EngagementLevel": {
+    "documentation": "Describes how many days a player played the current experience in the last 7 days, represented as a bucket.",
+    "keys": {
+      "Unknown": "@roblox/enum/EngagementLevel.Unknown",
+      "Inactive": "@roblox/enum/EngagementLevel.Inactive",
+      "Low": "@roblox/enum/EngagementLevel.Low",
+      "Medium": "@roblox/enum/EngagementLevel.Medium",
+      "High": "@roblox/enum/EngagementLevel.High"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel",
     "code_sample": ""
   },
   "@roblox/enum/StartCorner.TopLeft": {
@@ -112534,6 +112761,57 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PositionAlignmentMode",
     "code_sample": ""
   },
+  "@roblox/enum/FrustumStreamingMode.Default": {
+    "documentation": "Default behavior, currently equivalent to <code>Disabled</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Default",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Enabled": {
+    "documentation": "Always stream camera view.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Disabled": {
+    "documentation": "Disable camera view streaming.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Automatic": {
+    "documentation": "Allow the engine to decide when to stream the camera view based client ability and gameplay factors.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Automatic",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.FrustumStreamingMode": {
+    "documentation": "Used with <code>Player.FrustumStreaming</code> to control the engine's instance streaming behavior for their camera view",
+    "keys": {
+      "Default": "@roblox/enum/FrustumStreamingMode.Default",
+      "Enabled": "@roblox/enum/FrustumStreamingMode.Enabled",
+      "Disabled": "@roblox/enum/FrustumStreamingMode.Disabled",
+      "Automatic": "@roblox/enum/FrustumStreamingMode.Automatic"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode",
+    "code_sample": ""
+  },
   "@roblox/enum/AssetCreatorType.User": {
     "documentation": "Aset ini dimiliki oleh pengguna individu; ID pencipta yang menyertainya adalah sebuah ID pengguna.",
     "keys": {
@@ -113645,7 +113923,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ImageCombineType.Add": {
-    "documentation": "Menambahkan piksel dari sumber dan piksel dari tujuan bersama-sama.",
+    "documentation": "Menambahkan piksel dari sumber dan piksel dari tujuan bersama-sama. Nilai RGB sumber diskalakan oleh alpha sumber, sementara alpha sumber ditambahkan langsung ke alpha tujuan.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113685,7 +113963,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ImageCombineType.Subtract": {
-    "documentation": "Mengurangi piksel dari sumber dari piksel tujuan.",
+    "documentation": "Mengurangi piksel dari sumber dari piksel tujuan. Nilai RGB sumber diskalakan oleh alpha sumber, sementara alpha sumber dikurangi dari alpha tujuan secara langsung.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116152,6 +116430,134 @@
       "High": "@roblox/enum/VerifiedLevel.High"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VerifiedLevel",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.PendingAttribution": {
+    "documentation": "The player started playing recently, and their acquisition source is not available yet.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#PendingAttribution",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.HomeRecommendation": {
+    "documentation": "The player first joined from a recommendation on the Home page.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#HomeRecommendation",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.ContinueToPlay": {
+    "documentation": "The player first joined from the Continue section.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#ContinueToPlay",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Curation": {
+    "documentation": "The player first joined from content curated by Roblox, such as featured experiences or events.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Curation",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Friends": {
+    "documentation": "The player first joined through a friend.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Friends",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Search": {
+    "documentation": "The player first joined from search results.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Search",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Teleport": {
+    "documentation": "The player first joined by teleporting from another experience.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Teleport",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Ads": {
+    "documentation": "The player first joined from an ad, such as a sponsored ad, search ad, or portal ad.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Ads",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.HomeOther": {
+    "documentation": "The player first joined from a part of the Roblox app other than Home recommendations, such as Charts or Favorites.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#HomeOther",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Other": {
+    "documentation": "The player first joined from another source, such as a share link, chat, or a notification.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Other",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.UserAcquisitionSource": {
+    "documentation": "Describes how a player first found the current experience.",
+    "keys": {
+      "Unknown": "@roblox/enum/UserAcquisitionSource.Unknown",
+      "PendingAttribution": "@roblox/enum/UserAcquisitionSource.PendingAttribution",
+      "HomeRecommendation": "@roblox/enum/UserAcquisitionSource.HomeRecommendation",
+      "ContinueToPlay": "@roblox/enum/UserAcquisitionSource.ContinueToPlay",
+      "Curation": "@roblox/enum/UserAcquisitionSource.Curation",
+      "Friends": "@roblox/enum/UserAcquisitionSource.Friends",
+      "Search": "@roblox/enum/UserAcquisitionSource.Search",
+      "Teleport": "@roblox/enum/UserAcquisitionSource.Teleport",
+      "Ads": "@roblox/enum/UserAcquisitionSource.Ads",
+      "HomeOther": "@roblox/enum/UserAcquisitionSource.HomeOther",
+      "Other": "@roblox/enum/UserAcquisitionSource.Other"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource",
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnCreatingChatWindow": {
@@ -121756,7 +122162,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Over": {
-    "documentation": "Composites the one-shot pose on top of the base pose, replacing it by the current blend weight.",
+    "documentation": "Menggabungkan pose satu kali di atas pose dasar, menggantinya dengan berat pencampuran saat ini.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121766,7 +122172,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Add": {
-    "documentation": "Adds the one-shot pose to the base pose as an additive layer scaled by the current blend weight.",
+    "documentation": "Menambahkan pose satu kali ke pose dasar sebagai lapisan aditif yang diskalakan oleh berat pencampuran saat ini.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121776,7 +122182,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Subtract": {
-    "documentation": "Subtracts the one-shot pose from the base pose scaled by the current blend weight.",
+    "documentation": "Mengurangi pose satu kali dari pose dasar yang diskalakan oleh berat pencampuran saat ini.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121786,7 +122192,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnimationNodeBlendMode": {
-    "documentation": "Specifies how an <code>AnimationNodeType.OneShotNode</code> combines its one-shot pose with its base pose.",
+    "documentation": "Menentukan bagaimana <code>AnimationNodeType.OneShotNode</code> menggabungkan pose satu kali nya dengan pose dasar.",
     "keys": {
       "Over": "@roblox/enum/AnimationNodeBlendMode.Over",
       "Add": "@roblox/enum/AnimationNodeBlendMode.Add",
@@ -136223,6 +136629,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SafeAreaCompatibility",
     "code_sample": ""
   },
+  "@roblox/enum/PlayerPlatformActivationStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.New": {
+    "documentation": "The player signed up for Roblox within the last 60 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Active": {
+    "documentation": "The player played on Roblox in the last 60 days and is not <code>New</code> or <code>Reactivated</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Lapsed": {
+    "documentation": "The player has not played on Roblox in the last 60 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Lapsed",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Reactivated": {
+    "documentation": "The player returned to Roblox within the last 60 days after being <code>Lapsed</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Reactivated",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PlayerPlatformActivationStatus": {
+    "documentation": "Describes whether a player is new, active, lapsed, or reactivated on Roblox.",
+    "keys": {
+      "Unknown": "@roblox/enum/PlayerPlatformActivationStatus.Unknown",
+      "New": "@roblox/enum/PlayerPlatformActivationStatus.New",
+      "Active": "@roblox/enum/PlayerPlatformActivationStatus.Active",
+      "Lapsed": "@roblox/enum/PlayerPlatformActivationStatus.Lapsed",
+      "Reactivated": "@roblox/enum/PlayerPlatformActivationStatus.Reactivated"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus",
+    "code_sample": ""
+  },
   "@roblox/enum/ModelLevelOfDetail.Automatic": {
     "documentation": "Perilaku default, saat ini setara dengan <code>Disabled</code>.",
     "keys": {
@@ -139594,6 +140062,68 @@
       "MicroGamepad": "@roblox/enum/PreferredInput.MicroGamepad"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PreferredInput",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.New": {
+    "documentation": "The player first played the experience within the last 30 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Active": {
+    "documentation": "The player played the experience in the last 30 days and is not <code>New</code> or <code>Reactivated</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Lapsed": {
+    "documentation": "The player has not played the experience in the last 30 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Lapsed",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Reactivated": {
+    "documentation": "The player returned to the experience within the last 30 days after being <code>Lapsed</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Reactivated",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ExperienceActivationStatus": {
+    "documentation": "Describes whether a player is new, active, lapsed, or reactivated in the current experience.",
+    "keys": {
+      "Unknown": "@roblox/enum/ExperienceActivationStatus.Unknown",
+      "New": "@roblox/enum/ExperienceActivationStatus.New",
+      "Active": "@roblox/enum/ExperienceActivationStatus.Active",
+      "Lapsed": "@roblox/enum/ExperienceActivationStatus.Lapsed",
+      "Reactivated": "@roblox/enum/ExperienceActivationStatus.Reactivated"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarItemType.Asset": {

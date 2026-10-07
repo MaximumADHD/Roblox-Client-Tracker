@@ -2213,7 +2213,7 @@
     "code_sample": ""
   },
   "@roblox/global/InstanceHandle": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally.",
+    "documentation": "Một tham chiếu yếu nhẹ đến một <code>Instance</code> có thể không có sẵn tại địa phương.",
     "keys": {
       "new": "@roblox/global/InstanceHandle.new"
     },
@@ -2221,10 +2221,10 @@
     "code_sample": ""
   },
   "@roblox/global/InstanceHandle.new/param/0": {
-    "documentation": "The instance to refer to, or <code>nil</code> for an empty handle."
+    "documentation": "Instance để tham chiếu, hoặc <code>nil</code> cho một handle trống."
   },
   "@roblox/global/InstanceHandle.new": {
-    "documentation": "Returns a new <code>InstanceHandle</code> referring to the given <code>Instance</code>.",
+    "documentation": "Trả về một <code>InstanceHandle</code> mới tham chiếu đến <code>Instance</code> đã cho.",
     "params": [
       {
         "name": "instance",
@@ -2236,7 +2236,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally.",
+    "documentation": "Một tham chiếu yếu nhẹ đến một <code>Instance</code> có thể không có sẵn tại địa phương.",
     "keys": {
       "Get": "@roblox/globaltype/InstanceHandle.Get",
       "Wait": "@roblox/globaltype/InstanceHandle.Wait"
@@ -2245,13 +2245,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle.Get/param/0": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally."
+    "documentation": "Một tham chiếu yếu nhẹ đến một <code>Instance</code> có thể không có sẵn tại địa phương."
   },
   "@roblox/globaltype/InstanceHandle.Get/return/0": {
-    "documentation": "The referenced instance, or <code>nil</code> if it isn't available locally."
+    "documentation": "Instance được tham chiếu, hoặc <code>nil</code> nếu nó không có sẵn tại địa phương."
   },
   "@roblox/globaltype/InstanceHandle.Get": {
-    "documentation": "Returns the referenced <code>Instance</code> if it's available locally, otherwise <code>nil</code>.",
+    "documentation": "Trả về <code>Instance</code> được tham chiếu nếu nó có sẵn tại địa phương, ngược lại trả về <code>nil</code>.",
     "params": [
       {
         "name": "self",
@@ -2265,16 +2265,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceHandle.Wait/param/0": {
-    "documentation": "A lightweight, weak reference to an <code>Instance</code> that might not be available locally."
+    "documentation": "Một tham chiếu yếu nhẹ đến một <code>Instance</code> có thể không có sẵn tại địa phương."
   },
   "@roblox/globaltype/InstanceHandle.Wait/param/1": {
-    "documentation": "How long to wait, in seconds. Must be greater than zero. Waits indefinitely when omitted."
+    "documentation": "Thời gian chờ, tính bằng giây. Phải lớn hơn không. Chờ vô thời hạn khi bị bỏ qua."
   },
   "@roblox/globaltype/InstanceHandle.Wait/return/0": {
-    "documentation": "The referenced instance, or <code>nil</code> if the handle is empty, the target is inaccessible to the calling script, or <code>timeout</code> elapses first."
+    "documentation": "Instance được tham chiếu, hoặc <code>nil</code> nếu handle trống, mục tiêu không thể truy cập từ script gọi, hoặc <code>timeout</code> hết hạn trước."
   },
   "@roblox/globaltype/InstanceHandle.Wait": {
-    "documentation": "Yields until the referenced <code>Instance</code> is available locally, then returns it.",
+    "documentation": "Chờ cho đến khi <code>Instance</code> được tham chiếu có sẵn tại địa phương, sau đó trả về nó.",
     "params": [
       {
         "name": "self",
@@ -7030,12 +7030,10 @@
       "Fail": "@roblox/globaltype/TestService.Fail",
       "isFeatureEnabled": "@roblox/globaltype/TestService.isFeatureEnabled",
       "Message": "@roblox/globaltype/TestService.Message",
-      "RegisterTest": "@roblox/globaltype/TestService.RegisterTest",
       "Require": "@roblox/globaltype/TestService.Require",
       "Run": "@roblox/globaltype/TestService.Run",
       "RunAsync": "@roblox/globaltype/TestService.RunAsync",
       "ScopeTime": "@roblox/globaltype/TestService.ScopeTime",
-      "TakeSnapshot": "@roblox/globaltype/TestService.TakeSnapshot",
       "Warn": "@roblox/globaltype/TestService.Warn"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService",
@@ -7335,38 +7333,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Message",
     "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Message(\"ví dụ\")"
   },
-  "@roblox/globaltype/TestService.RegisterTest/param/0": {
-    "documentation": "Một dịch vụ được Roblox sử dụng để chạy các bài kiểm tra có kiểm soát của engine. Nó có sẵn cho các nhà phát triển sử dụng, trong một giới hạn nhất định."
-  },
-  "@roblox/globaltype/TestService.RegisterTest/param/1": {
-    "documentation": "Một từ điển mô tả kiểm tra, yêu cầu các trường chuỗi <code>SuiteName</code> và <code>TestCaseName</code> và tùy chọn một trường số <code>Timeout</code>."
-  },
-  "@roblox/globaltype/TestService.RegisterTest/return/0": {
-    "documentation": "Trường hợp kiểm tra đã đăng ký, hoặc không có giá trị khi việc đăng ký không được hỗ trợ trong ngữ cảnh hiện tại."
-  },
-  "@roblox/globaltype/TestService.RegisterTest": {
-    "documentation": "Đăng ký một trường hợp kiểm tra với dịch vụ và trả về <code>TestCase</code> kết quả.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TestService.RegisterTest/param/0"
-      },
-      {
-        "name": "testOptions",
-        "documentation": "@roblox/globaltype/TestService.RegisterTest/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TestService.RegisterTest/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#RegisterTest",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TestService.Require/param/0": {
     "documentation": "Một dịch vụ được Roblox sử dụng để chạy các bài kiểm tra có kiểm soát của engine. Nó có sẵn cho các nhà phát triển sử dụng, trong một giới hạn nhất định."
   },
   "@roblox/globaltype/TestService.Require/param/1": {
-    "documentation": "Biểu thức boolean để đánh giá như là một sự khẳng định bắt buộc."
+    "documentation": "Biểu thức boolean để đánh giá như một khẳng định yêu cầu."
   },
   "@roblox/globaltype/TestService.Require/param/2": {
     "documentation": "Một nhãn xác định yêu cầu này trong đầu ra kiểm tra."
@@ -7378,7 +7349,7 @@
     "documentation": "Số dòng trong kịch bản nguồn nơi yêu cầu được gọi. Mặc định là <code>0</code>."
   },
   "@roblox/globaltype/TestService.Require": {
-    "documentation": "In xem một điều kiện có đúng hay không cùng với một chuỗi mô tả.",
+    "documentation": "In ra xem một điều kiện có đúng hay không cùng với một chuỗi mô tả.",
     "params": [
       {
         "name": "self",
@@ -7409,7 +7380,7 @@
     "documentation": "Một dịch vụ được Roblox sử dụng để chạy các bài kiểm tra có kiểm soát của engine. Nó có sẵn cho các nhà phát triển sử dụng, trong một giới hạn nhất định."
   },
   "@roblox/globaltype/TestService.Run": {
-    "documentation": "<strong>Deprecated:</strong> Sử dụng <code>RunAsync()</code> thay vào đó.<br>Chạy các script được gán cho <code>TestService</code>.",
+    "documentation": "<strong>Deprecated:</strong> Sử dụng <code>RunAsync()</code> thay thế.<br>Chạy các kịch bản được gán cho <code>TestService</code>.",
     "params": [
       {
         "name": "self",
@@ -7439,10 +7410,10 @@
     "documentation": "Một dịch vụ được Roblox sử dụng để chạy các bài kiểm tra có kiểm soát của engine. Nó có sẵn cho các nhà phát triển sử dụng, trong một giới hạn nhất định."
   },
   "@roblox/globaltype/TestService.ScopeTime/return/0": {
-    "documentation": "Một từ điển ánh xạ các phạm vi mô phỏng vật lý đến thời gian bước đo được của chúng."
+    "documentation": "Một từ điển ánh xạ các phạm vi mô phỏng vật lý đến thời gian bước dược đo."
   },
   "@roblox/globaltype/TestService.ScopeTime": {
-    "documentation": "Trả về một từ điển về thời gian mô phỏng vật lý theo phạm vi cho việc kiểm tra hiệu suất.",
+    "documentation": "Trả về một từ điển về thời gian mô phỏng vật lý theo phạm vi cho kiểm tra hiệu suất.",
     "params": [
       {
         "name": "self",
@@ -7455,40 +7426,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ScopeTime",
     "code_sample": ""
   },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/0": {
-    "documentation": "Một dịch vụ được Roblox sử dụng để chạy các bài kiểm tra có kiểm soát của engine. Nó có sẵn cho các nhà phát triển sử dụng, trong một giới hạn nhất định."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
-    "documentation": "Tên để liên kết với ảnh chụp màn hình đã chụp."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot/param/2": {
-    "documentation": "Một thể hiện kịch bản tùy chọn mà thuộc tính <code>Suite</code> và <code>TestName</code> đặt tên cho ảnh chụp; mặc định là <code>nil</code>."
-  },
-  "@roblox/globaltype/TestService.TakeSnapshot": {
-    "documentation": "Chụp một ảnh chụp màn hình có tên trong quá trình chạy kiểm tra.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/0"
-      },
-      {
-        "name": "snapshotname",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/1"
-      },
-      {
-        "name": "source",
-        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#TakeSnapshot",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TestService.Warn/param/0": {
     "documentation": "Một dịch vụ được Roblox sử dụng để chạy các bài kiểm tra có kiểm soát của engine. Nó có sẵn cho các nhà phát triển sử dụng, trong một giới hạn nhất định."
   },
   "@roblox/globaltype/TestService.Warn/param/1": {
-    "documentation": "Biểu thức boolean để đánh giá như là sự khẳng định cảnh báo."
+    "documentation": "Biểu thức boolean để đánh giá như một khẳng định cảnh báo."
   },
   "@roblox/globaltype/TestService.Warn/param/2": {
     "documentation": "Một nhãn xác định kiểm tra cảnh báo này trong đầu ra kiểm tra."
@@ -7500,7 +7442,7 @@
     "documentation": "Số dòng trong kịch bản nguồn nơi cảnh báo được gọi. Mặc định là <code>0</code>."
   },
   "@roblox/globaltype/TestService.Warn": {
-    "documentation": "In nếu một điều kiện là <code>true</code>, nếu không in một cảnh báo.",
+    "documentation": "In ra nếu một điều kiện là <code>true</code>, ngược lại in ra một cảnh báo.",
     "params": [
       {
         "name": "self",
@@ -14660,7 +14602,7 @@
     "documentation": "Hàm để ràng buộc nút đóng. Nếu không chỉ định hàm nào, thì bất kỳ hàm nào đã được chỉ định trước đó sẽ bị hủy ràng buộc."
   },
   "@roblox/globaltype/PluginGui.BindToClose": {
-    "documentation": "Ràng buộc một hàm với nút đóng của <code>PluginGui</code>, ghi đè hành vi mặc định.",
+    "documentation": "Ràng buộc một hàm sẽ chạy khi người dùng đóng <code>PluginGui</code>.",
     "params": [
       {
         "name": "self",
@@ -37477,12 +37419,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Ambient": {
-    "documentation": "Màu sắc ánh sáng được áp dụng cho các khu vực bị che khuất từ bầu trời, chẳng hạn như các khu vực trong nhà.",
+    "documentation": "Màu sắc ánh sáng áp dụng cho các khu vực bị che khuất khỏi bầu trời, chẳng hạn như các khu vực trong nhà.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Ambient",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Brightness": {
-    "documentation": "Cường độ ánh sáng trong địa điểm.",
+    "documentation": "Cường độ ánh sáng trong nơi đó.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Brightness",
     "code_sample": ""
   },
@@ -37492,7 +37434,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Bottom": {
-    "documentation": "Màu sắc được thể hiện trong ánh sáng phản chiếu ở các bề mặt đối diện với mặt trời hoặc mặt trăng.",
+    "documentation": "Màu sắc được thể hiện trong ánh sáng phản chiếu trên các bề mặt đối diện với mặt trời hoặc mặt trăng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Bottom",
     "code_sample": ""
   },
@@ -37507,7 +37449,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.EnvironmentSpecularScale": {
-    "documentation": "Ánh sáng phản chiếu từ môi trường.",
+    "documentation": "Ánh sáng phản xạ từ môi trường.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#EnvironmentSpecularScale",
     "code_sample": ""
   },
@@ -37517,57 +37459,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ExtendLightRangeTo120": {
-    "documentation": "Không sử dụng. Độ sáng <code>Range</code> luôn bị giới hạn ở 120 studs.",
+    "documentation": "Không sử dụng. Ánh sáng <code>Range</code> luôn bị giới hạn ở 120 studs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ExtendLightRangeTo120",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogColor": {
-    "documentation": "Một giá trị <code>Color3</code> thể hiện màu sắc của sương mù <code>Lighting</code>.",
+    "documentation": "Một giá trị <code>Color3</code> cho màu sắc của sương mù <code>Lighting</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogEnd": {
-    "documentation": "Độ sâu từ <code>Workspace.CurrentCamera</code>, tính bằng studs, nơi mà sương mù sẽ hoàn toàn mờ đục.",
+    "documentation": "Độ sâu từ <code>Workspace.CurrentCamera</code>, tính bằng studs, tại đó sương mù sẽ hoàn toàn không trong suốt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogEnd",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogStart": {
-    "documentation": "Độ sâu từ <code>Workspace.CurrentCamera</code>, tính bằng studs, nơi mà sương mù bắt đầu xuất hiện.",
+    "documentation": "Độ sâu từ <code>Workspace.CurrentCamera</code>, tính bằng studs, tại đó sương mù bắt đầu xuất hiện.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogStart",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GeographicLatitude": {
-    "documentation": "Vĩ độ địa lý, tính bằng độ, của cảnh, ảnh hưởng đến kết quả của thời gian <code>Lighting</code> đối với vị trí của mặt trời và mặt trăng.",
+    "documentation": "Vĩ độ địa lý, tính bằng độ, của cảnh, ảnh hưởng đến kết quả của thời gian <code>Lighting</code> trên vị trí của mặt trời và mặt trăng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#GeographicLatitude",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GlobalShadows": {
-    "documentation": "Chuyển đổi ánh sáng động dựa trên voxel cho địa điểm.",
+    "documentation": "Bật hoặc tắt ánh sáng động dựa trên voxel cho nơi đó.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#GlobalShadows",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.LightingStyle": {
-    "documentation": "Mục đích nghệ thuật đằng sau ánh sáng trong trải nghiệm.",
+    "documentation": "Ý định nghệ thuật đằng sau ánh sáng trong trải nghiệm.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#LightingStyle",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.OutdoorAmbient": {
-    "documentation": "Màu sắc ánh sáng được áp dụng cho các khu vực ngoài trời.",
+    "documentation": "Màu sắc ánh sáng áp dụng cho các khu vực ngoài trời.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#OutdoorAmbient",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Outlines": {
-    "documentation": "<strong>Deprecated:</strong> Mục này không còn được hỗ trợ nữa vì tính năng viền đã bị gỡ bỏ khỏi nền tảng Roblox.<br>Xác định xem viền có được bật hay tắt trong một địa điểm.",
+    "documentation": "<strong>Deprecated:</strong> Mục này không còn được hỗ trợ vì tính năng đường viền đã bị xóa khỏi nền tảng Roblox.<br>Xác định xem các đường viền có được bật hay tắt trong một nơi hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Outlines",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.PrioritizeLightingQuality": {
-    "documentation": "Chỉ ra liệu bạn thích chất lượng ánh sáng/đổ bóng hay khoảng cách nhìn để giảm quy mô trước.",
+    "documentation": "Chỉ ra liệu bạn thích chất lượng ánh sáng/đổ bóng hay khoảng cách nhìn được giảm trước.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#PrioritizeLightingQuality",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ShadowColor": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã bị loại bỏ và hiện không có chức năng. Đừng sử dụng nó cho công việc mới.<br>Điều này dự kiến sẽ thay đổi màu sắc bóng của người chơi, nhưng hiện tại không làm gì cả.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã bị loại bỏ và không có chức năng hiện tại. Không sử dụng nó cho công việc mới.<br>Điều này được cho là thay đổi màu sắc của bóng người chơi, nhưng hiện tại không làm gì cả.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ShadowColor",
     "code_sample": ""
   },
@@ -37577,7 +37519,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Technology": {
-    "documentation": "Xác định hệ thống ánh sáng để render thế giới 3D. Không thể lập trình.",
+    "documentation": "Xác định hệ thống ánh sáng để kết xuất thế giới 3D. Không thể lập trình.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Technology",
     "code_sample": ""
   },
@@ -37613,7 +37555,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> Phương thức này là một biến thể đã lỗi thời của <code>Lighting:GetMinutesAfterMidnight()</code> mà nên được sử dụng thay thế.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này là một biến thể đã bị loại bỏ của <code>Lighting:GetMinutesAfterMidnight()</code> mà nên được sử dụng thay thế.",
     "params": [
       {
         "name": "self",
@@ -37653,7 +37595,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.GetMoonPhase": {
-    "documentation": "Trả về giai đoạn hiện tại của mặt trăng.",
+    "documentation": "Trả về pha hiện tại của mặt trăng.",
     "params": [
       {
         "name": "self",
@@ -37693,7 +37635,7 @@
     "documentation": "Số phút sau nửa đêm."
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight": {
-    "documentation": "Đặt <code>TimeOfDay</code> và <code>ClockTime</code> thành số phút sau nửa đêm được cho.",
+    "documentation": "Đặt <code>TimeOfDay</code> và <code>ClockTime</code> thành số phút đã cho sau nửa đêm.",
     "params": [
       {
         "name": "self",
@@ -37715,7 +37657,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> Phương thức này là một biến thể đã lỗi thời của <code>Lighting:SetMinutesAfterMidnight()</code> mà nên được sử dụng thay vào đó.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này là một biến thể đã bị loại bỏ của <code>Lighting:SetMinutesAfterMidnight()</code> mà nên được sử dụng thay thế.",
     "params": [
       {
         "name": "self",
@@ -37808,7 +37750,7 @@
     "returns": []
   },
   "@roblox/globaltype/Lighting.LightingChanged": {
-    "documentation": "Sự kiện này phát ra khi một thuộc tính <code>Lighting</code> bị thay đổi hoặc một <code>Sky</code> được thêm vào hoặc gỡ bỏ từ <code>Lighting</code>.",
+    "documentation": "Sự kiện này được kích hoạt khi một thuộc tính <code>Lighting</code> được thay đổi hoặc một <code>Sky</code> bị thêm hoặc xóa khỏi <code>Lighting</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Lighting.LightingChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Lighting.LightingChanged.ConnectParallel",
@@ -38077,7 +38019,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.Size": {
-    "documentation": "Kích thước của <code>EditableImage</code> theo đơn vị pixel.",
+    "documentation": "Kích thước của <code>EditableImage</code> tính bằng pixel.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableImage#Size",
     "code_sample": ""
   },
@@ -38085,7 +38027,7 @@
     "documentation": "Đối tượng cho phép tạo và thao tác hình ảnh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableImage.Destroy": {
-    "documentation": "Hủy bỏ nội dung hình ảnh và ngay lập tức thu hồi bộ nhớ mà chúng sử dụng.",
+    "documentation": "Hủy nội dung hình ảnh và ngay lập tức thu hồi bộ nhớ mà chúng sử dụng.",
     "params": [
       {
         "name": "self",
@@ -38100,10 +38042,10 @@
     "documentation": "Đối tượng cho phép tạo và thao tác hình ảnh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/1": {
-    "documentation": "Tâm của hình tròn, tương đối với góc trên bên trái của <code>EditableImage</code>. Các vị trí ngoài biên của canvas được phép."
+    "documentation": "Tâm của hình tròn, tương đối với góc trên bên trái của <code>EditableImage</code>. Các vị trí ngoài ranh giới của canvas được phép."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/2": {
-    "documentation": "Bán kính của hình tròn theo đơn vị pixel."
+    "documentation": "Bán kính của hình tròn tính bằng pixel."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/3": {
     "documentation": "Màu sắc của hình tròn."
@@ -38112,10 +38054,10 @@
     "documentation": "Độ trong suốt của hình tròn với 0 là hoàn toàn không trong suốt và 1 là hoàn toàn trong suốt."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/5": {
-    "documentation": "Cách các pixel được vẽ (nguồn) được kết hợp với các pixel hiện có của hình ảnh này (đích)."
+    "documentation": "Cách mà các pixel được vẽ (nguồn) được kết hợp với các pixel hiện có của hình ảnh này (đích)."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/6": {
-    "documentation": "Xác định liệu chống răng cưa có được áp dụng cho hình tròn hay không. Khi thiết lập thành <code>AntiAliasing.Enabled</code>, các cạnh hình tròn sẽ mềm mại. Khi thiết lập thành <code>AntiAliasing.Disabled</code>, các cạnh hình tròn sẽ cứng."
+    "documentation": "Xác định xem có áp dụng chống răng cưa cho hình tròn hay không. Khi được đặt thành <code>AntiAliasing.Enabled</code>, các cạnh của hình tròn sẽ mềm mại. Khi được đặt thành <code>AntiAliasing.Disabled</code>, các cạnh của hình tròn sẽ cứng."
   },
   "@roblox/globaltype/EditableImage.DrawCircle": {
     "documentation": "Vẽ một hình tròn tại điểm đã chỉ định.",
@@ -38157,13 +38099,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác hình ảnh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/1": {
-    "documentation": "Vị trí mà góc trái trên của hình ảnh nguồn sẽ được vẽ."
+    "documentation": "Vị trí mà góc trên bên trái của hình ảnh nguồn sẽ được vẽ."
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/2": {
     "documentation": "Hình ảnh <code>EditableImage</code> nguồn để vẽ vào <code>EditableImage</code> này."
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/3": {
-    "documentation": "Cách các pixel của hình ảnh nguồn được kết hợp với các pixel hiện có của hình ảnh này (đích)."
+    "documentation": "Cách mà các pixel của hình ảnh nguồn được kết hợp với các pixel hiện có của hình ảnh này (đích)."
   },
   "@roblox/globaltype/EditableImage.DrawImage": {
     "documentation": "Vẽ một <code>EditableImage</code> khác vào <code>EditableImage</code> này tại vị trí đã cho.",
@@ -38196,10 +38138,10 @@
     "documentation": "<code>EditableMesh</code> được sử dụng để chiếu vào."
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/2": {
-    "documentation": "Từ điển cấu hình chiếu bao gồm các cặp khóa-giá trị sau: <ul> <li><code>Direction</code> (<code>Vector3</code>) nơi mà máy chiếu đang hướng tới.</li> <li><code>Position</code> (<code>Vector3</code>) với tư cách là vị trí trong không gian cục bộ   liên quan đến lưới.</li> <li><code>Size</code> (<code>Vector3</code>) như kích thước của máy chiếu.</li> <li><code>Up</code> (<code>Vector3</code>) như vector lên của máy chiếu trong không gian cục bộ   liên quan đến lưới.</li> </ul>"
+    "documentation": "Từ điển cấu hình chiếu bao gồm các cặp khóa-giá trị sau: <ul> <li><code>Direction</code> (<code>Vector3</code>) nơi mà máy chiếu đang hướng tới.</li> <li><code>Position</code> (<code>Vector3</code>) là vị trí trong không gian địa phương với   liên quan đến lưới.</li> <li><code>Size</code> (<code>Vector3</code>) là kích thước của máy chiếu.</li> <li><code>Up</code> (<code>Vector3</code>) là vector lên của máy chiếu trong không gian   địa phương với liên quan đến lưới.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/3": {
-    "documentation": "Từ điển cấu hình cọ vẽ bao gồm các cặp khóa-giá trị sau: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) xác định cách mà việc   chiếu này sẽ pha trộn các giá trị alpha.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) xác định cách mà việc   chiếu này sẽ pha trộn các giá trị màu sắc.</li> <li><code>Decal</code> (<code>EditableImage</code>) là hình ảnh được sử dụng cho việc chiếu.</li> <li><code>FadeAngle</code> (số) như góc trong độ cho các cạnh chiếu bắt đầu mờ đi. Việc chiếu   sẽ hoàn toàn được mờ đi tại 90 độ. Một góc 0 có nghĩa là mờ bắt đầu ngay lập tức tại 0   độ và một góc 90 có nghĩa là không mờ mà thay vào đó có một cạnh cứng   tại 90 độ. Một góc 70 độ có nghĩa là việc chiếu bắt đầu mờ tại 70 độ và hoàn toàn   mờ tại 90 độ.</li> <li><code>BlendIntensity</code> (số) như giá trị giữa <code>0</code> và <code>1</code> kiểm soát bao nhiêu phần trăm   của việc chiếu được pha trộn vào hình ảnh kết quả.</li> </ul>"
+    "documentation": "Từ điển cấu hình cọ vẽ bao gồm các cặp khóa-giá trị sau: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) xác định cách mà chiếu này   sẽ hòa trộn các giá trị alpha.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) xác định cách mà chiếu này   sẽ hòa trộn các giá trị màu.</li> <li><code>Decal</code> (<code>EditableImage</code>) là hình ảnh được sử dụng cho chiếu.</li> <li><code>FadeAngle</code> (số) là góc tính bằng độ mà các cạnh chiếu bắt đầu mờ đi. Chiếu sẽ hoàn toàn mờ đi   ở 90 độ. Một góc 0 có nghĩa là mờ bắt đầu ngay lập tức ở 0   độ và một góc 90 có nghĩa là không mờ mà thay vào đó là một cạnh cứng   ở 90 độ. Một góc 70 độ có nghĩa là chiếu   bắt đầu mờ ở 70 độ và hoàn toàn mờ đi ở 90 độ.</li> <li><code>BlendIntensity</code> (số) là giá trị giữa <code>0</code> và <code>1</code> mà   kiểm soát mức độ chiếu được hòa trộn vào hình ảnh kết quả.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected": {
     "documentation": "Chiếu một <code>EditableImage</code> khác vào một <code>EditableMesh</code> và lưu kết quả trên <code>EditableImage</code> này.",
@@ -38229,16 +38171,16 @@
     "documentation": "Đối tượng cho phép tạo và thao tác hình ảnh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/1": {
-    "documentation": "Kết cấu <code>EditableMesh</code> ánh xạ <code>sourceTexture</code> lên bề mặt đang được lấy mẫu."
+    "documentation": "<code>EditableMesh</code> ánh xạ <code>sourceTexture</code> lên bề mặt đang được lấy mẫu."
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/2": {
-    "documentation": "<code>EditableImage</code> từ đó các pixel được lấy mẫu."
+    "documentation": "Hình ảnh <code>EditableImage</code> mà từ đó các pixel được lấy mẫu."
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/3": {
-    "documentation": "Từ điển cấu hình chiếu chứa các cặp khóa-giá trị sau: <ul> <li><code>Direction</code> (<code>Vector3</code>) nơi mà máy chiếu đang hướng tới.</li> <li><code>Position</code> (<code>Vector3</code>) là vị trí của máy chiếu trong không gian cục bộ liên quan đến mesh.</li> <li><code>Size</code> (<code>Vector3</code>) là kích thước của máy chiếu. Các thành phần <strong>X</strong> và <strong>Y</strong> xác định kích thước của nó, trong khi thành phần <strong>Z</strong> xác định độ sâu chiếu.</li> <li><code>Up</code> (<code>Vector3</code>) là vector hướng lên của máy chiếu trong không gian cục bộ liên quan đến mesh.</li> </ul>"
+    "documentation": "Từ điển cấu hình chiếu chứa các cặp khóa-giá trị sau: <ul> <li><code>Direction</code> (<code>Vector3</code>) nơi mà máy chiếu đang hướng tới.</li> <li><code>Position</code> (<code>Vector3</code>) là vị trí của máy chiếu trong không gian địa phương   với liên quan đến lưới.</li> <li><code>Size</code> (<code>Vector3</code>) là kích thước của máy chiếu. Các thành phần <strong>X</strong>   và <strong>Y</strong> xác định kích thước của nó, trong khi thành phần <strong>Z</strong>   xác định độ sâu chiếu.</li> <li><code>Up</code> (<code>Vector3</code>) là vector lên của máy chiếu trong không gian   địa phương với liên quan đến lưới.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected/param/4": {
-    "documentation": "Từ điển cấu hình cọ chứa các cặp khóa-giá trị sau: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) xác định cách các giá trị alpha được lấy mẫu được pha trộn.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) xác định cách các giá trị màu được lấy mẫu được pha trộn.</li> <li><code>FadeAngle</code> (số) là góc tính bằng độ mà tại đó chiếu bắt đầu mờ dựa trên pháp tuyến bề mặt. Giá trị <code>180</code> không áp dụng mờ theo góc pháp tuyến.</li> </ul>"
+    "documentation": "Từ điển cấu hình cọ vẽ chứa các cặp khóa-giá trị sau: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) xác định cách mà các   giá trị alpha đã lấy mẫu được hòa trộn.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) xác định cách mà các   giá trị màu đã lấy mẫu được hòa trộn.</li> <li><code>FadeAngle</code> (số) là góc tính bằng độ mà chiếu   bắt đầu mờ dựa trên pháp tuyến bề mặt. Một giá trị <code>180</code> không áp dụng   mờ theo góc pháp tuyến.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.SampleImageProjected": {
     "documentation": "Chiếu các pixel từ một kết cấu <code>EditableMesh</code> vào <code>EditableImage</code> này.",
@@ -38275,7 +38217,7 @@
     "documentation": "Vị trí tính bằng pixel nơi điểm pivot của hình ảnh nguồn sẽ được đặt trên hình ảnh này."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/2": {
-    "documentation": "Các yếu tố tỷ lệ cho hình ảnh nguồn theo trục X và Y."
+    "documentation": "Các yếu tố thay đổi kích thước cho hình ảnh nguồn theo trục X và Y."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/3": {
     "documentation": "Góc xoay tính bằng độ, áp dụng quanh điểm pivot của hình ảnh nguồn."
@@ -38284,10 +38226,10 @@
     "documentation": "Hình ảnh <code>EditableImage</code> nguồn sẽ được vẽ vào hình ảnh này."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/5": {
-    "documentation": "Từ điển tùy chọn cho cấu hình bổ sung: <ul> <li><code>CombineType</code>: Xác định cách các pixel của hình ảnh nguồn hòa trộn với các pixel của đích. Mặc định là <code>ImageCombineType.AlphaBlend</code>.</li> <li><code>SamplingMode</code>: Xác định phương pháp lấy mẫu (ví dụ: <code>Default</code> cho bilinear hoặc <code>Pixelated</code> cho nearest neighbor). Mặc định là <code>ResamplerMode.Default</code>.</li> <li><code>PivotPoint</code>: Xác định điểm pivot trong hình ảnh nguồn cho tỷ lệ và xoay. Mặc định là trung tâm của hình ảnh nguồn (tức là <code>Size / 2</code>).</li> </ul>"
+    "documentation": "Từ điển tùy chọn cho cấu hình bổ sung: <ul> <li><code>CombineType</code>: Xác định cách mà các pixel của hình ảnh nguồn hòa trộn   với các pixel của đích. Mặc định là   <code>ImageCombineType.AlphaBlend</code>.</li> <li><code>SamplingMode</code>: Xác định phương pháp lấy mẫu (ví dụ: <code>Default</code> cho   bilinear hoặc <code>Pixelated</code> cho nearest neighbor). Mặc định là   <code>ResamplerMode.Default</code>.</li> <li><code>PivotPoint</code>: Xác định điểm pivot trong hình ảnh nguồn cho   thay đổi kích thước và xoay. Mặc định là trung tâm của hình ảnh nguồn   (tức là <code>Size / 2</code>).</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed": {
-    "documentation": "Vẽ một hình ảnh vào <code>EditableImage</code> này với các biến đổi bao gồm tỷ lệ và xoay, đặt nó ở vị trí đã chỉ định.",
+    "documentation": "Vẽ một hình ảnh vào <code>EditableImage</code> này với các biến đổi bao gồm thay đổi kích thước và xoay, đặt nó tại vị trí đã chỉ định.",
     "params": [
       {
         "name": "self",
@@ -38334,7 +38276,7 @@
     "documentation": "Độ trong suốt của đường."
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/5": {
-    "documentation": "Cách các pixel được vẽ (nguồn) được kết hợp với các pixel hiện có của hình ảnh này (đích)."
+    "documentation": "Cách mà các pixel được vẽ (nguồn) được kết hợp với các pixel hiện có của hình ảnh này (đích)."
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/6": {
     "documentation": "Xác định xem có áp dụng chống răng cưa cho đường hay không. Khi được đặt thành <code>AntiAliasing.Enabled</code>, các cạnh của đường sẽ mềm mại. Khi được đặt thành <code>AntiAliasing.Disabled</code>, các cạnh của đường sẽ cứng."
@@ -38379,7 +38321,7 @@
     "documentation": "Đối tượng cho phép tạo và thao tác hình ảnh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/1": {
-    "documentation": "Vị trí của góc trên cùng bên trái của hình chữ nhật. Không giống như các phương pháp vẽ khác, điều này không thể nằm ngoài giới hạn canvas của <code>EditableImage</code>."
+    "documentation": "Vị trí của góc trên bên trái của hình chữ nhật. Không giống như các phương pháp vẽ khác, điều này không thể nằm ngoài ranh giới của canvas của <code>EditableImage</code>."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/2": {
     "documentation": "Kích thước của hình chữ nhật để vẽ, tính bằng pixel."
@@ -38391,10 +38333,10 @@
     "documentation": "Độ trong suốt của hình chữ nhật."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/5": {
-    "documentation": "Cách mà các pixel đã vẽ (nguồn) được kết hợp với các pixel hiện có của hình ảnh này (đích)."
+    "documentation": "Cách mà các pixel được vẽ (nguồn) được kết hợp với các pixel hiện có của hình ảnh này (đích)."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle": {
-    "documentation": "Vẽ một hình chữ nhật có kích thước đã cho tại vị trí trên cùng bên trái đã cho.",
+    "documentation": "Vẽ một hình chữ nhật có kích thước đã cho tại vị trí góc trên bên trái đã cho.",
     "params": [
       {
         "name": "self",
@@ -38429,7 +38371,7 @@
     "documentation": "Đối tượng cho phép tạo và thao tác hình ảnh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableImage.ReadPixelsBuffer/param/1": {
-    "documentation": "Góc trên cùng bên trái của vùng hình chữ nhật của các pixel để đọc."
+    "documentation": "Góc trên bên trái của vùng hình chữ nhật của các pixel để đọc."
   },
   "@roblox/globaltype/EditableImage.ReadPixelsBuffer/param/2": {
     "documentation": "Kích thước của vùng hình chữ nhật của các pixel để đọc."
@@ -38463,13 +38405,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác hình ảnh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer/param/1": {
-    "documentation": "Góc trên cùng bên trái của vùng hình chữ nhật để vẽ các pixel vào."
+    "documentation": "Góc trên bên trái của vùng hình chữ nhật để vẽ các pixel vào."
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer/param/2": {
     "documentation": "Kích thước của vùng hình chữ nhật của các pixel để ghi."
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer/param/3": {
-    "documentation": "Một bộ đệm mà mỗi pixel được đại diện bởi bốn byte (đỏ, xanh lá, xanh dương và alpha tương ứng). Độ dài của bộ đệm nên là <code>X * Size.Y * 4</code> byte."
+    "documentation": "Một bộ đệm mà mỗi pixel được đại diện bởi bốn byte (đỏ, xanh lá,  xanh dương và alpha tương ứng). Độ dài của bộ đệm nên là <code>X * Size.Y * 4</code> byte."
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer": {
     "documentation": "Ghi một vùng hình chữ nhật của các pixel vào hình ảnh.",
@@ -41475,6 +41417,7 @@
     "documentation": "Lớp trung gian trừu tượng quản lý các thuộc tính hình học vật lý cho PartOperations và MeshParts.",
     "keys": {
       "CollisionFidelity": "@roblox/globaltype/TriangleMeshPart.CollisionFidelity",
+      "CollisionPrecision": "@roblox/globaltype/TriangleMeshPart.CollisionPrecision",
       "FluidFidelity": "@roblox/globaltype/TriangleMeshPart.FluidFidelity",
       "MeshSize": "@roblox/globaltype/TriangleMeshPart.MeshSize"
     },
@@ -41486,13 +41429,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#CollisionFidelity",
     "code_sample": ""
   },
+  "@roblox/globaltype/TriangleMeshPart.CollisionPrecision": {
+    "documentation": "Định lượng độ chính xác hoặc hiệu suất của một <code>CollisionFidelity.Tunable</code> hình học va chạm, từ <code>0</code> đến <code>1</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#CollisionPrecision",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TriangleMeshPart.FluidFidelity": {
-    "documentation": "Xác định đại diện hình học được sử dụng để tính toán lực khí động học và mô men.",
+    "documentation": "Xác định đại diện hình học được sử dụng để tính toán lực và mô men khí động.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#FluidFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/TriangleMeshPart.MeshSize": {
-    "documentation": "Kích thước ban đầu của hình học lưới nguồn của vật thể, trước khi bất kỳ thay đổi tỷ lệ nào được áp dụng thông qua <code>BasePart.Size</code>.",
+    "documentation": "Kích thước ban đầu của hình học lưới nguồn của phần, trước khi bất kỳ thay đổi tỷ lệ nào được áp dụng thông qua <code>BasePart.Size</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TriangleMeshPart#MeshSize",
     "code_sample": ""
   },
@@ -57073,7 +57021,9 @@
     "keys": {
       "Color": "@roblox/globaltype/WrapTarget.Color",
       "DebugMode": "@roblox/globaltype/WrapTarget.DebugMode",
-      "Stiffness": "@roblox/globaltype/WrapTarget.Stiffness"
+      "Stiffness": "@roblox/globaltype/WrapTarget.Stiffness",
+      "CreateTextureInCageSpaceAsync": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync",
+      "CreateTextureInTargetSpaceAsync": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget",
     "code_sample": ""
@@ -57091,6 +57041,74 @@
   "@roblox/globaltype/WrapTarget.Stiffness": {
     "documentation": "<strong>Deprecated:</strong> <br>Định nghĩa mức độ mà mesh cơ thể có thể bị nén bởi quần áo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#Stiffness",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/0": {
+    "documentation": "Đối tượng WrapTarget định nghĩa một mục tiêu. Một mục tiêu là cơ thể 3D chỉ có bề mặt ngoài, hoặc một Outer Cage."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/1": {
+    "documentation": "<code>EditableImage</code> trong không gian UV của <code>WrapTarget</code> cha của nó."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/2": {
+    "documentation": "Từ điển tùy chọn chứa các điều khiển cho việc chuyển giao: <ul> <li><code>MinUVBounds</code> – Một <code>Vector2</code> chỉ định giới hạn UV cage tối thiểu.</li> <li><code>MaxUVBounds</code> – Một <code>Vector2</code> chỉ định giới hạn UV cage tối đa.</li> </ul> Mỗi giới hạn bị bỏ qua sẽ được tính toán từ lưới cage. Nếu không có giới hạn nào được chỉ định, các giới hạn sẽ bao gồm toàn bộ cage."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/return/0": {
+    "documentation": "Một <code>EditableImage</code> mới trong không gian UV của cage, hoặc <code>nil</code> nếu ngân sách bộ nhớ có thể chỉnh sửa cụ thể cho thiết bị bị cạn kiệt."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync": {
+    "documentation": "Tạo một <code>EditableImage</code> mới trong không gian UV của cage từ một kết cấu trong không gian UV của <code>MeshPart</code> cha.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/0"
+      },
+      {
+        "name": "texture",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/WrapTarget.CreateTextureInCageSpaceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#CreateTextureInCageSpaceAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/0": {
+    "documentation": "Đối tượng WrapTarget định nghĩa một mục tiêu. Một mục tiêu là cơ thể 3D chỉ có bề mặt ngoài, hoặc một Outer Cage."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/1": {
+    "documentation": "<code>EditableImage</code> trong không gian UV của cage."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/2": {
+    "documentation": "<code>WrapTextureTransfer</code> liên quan đến cùng một <code>MeshPart</code> cha với <code>WrapTarget</code> này."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/return/0": {
+    "documentation": "Một <code>EditableImage</code> mới trong không gian UV của <code>MeshPart</code> cha, hoặc <code>nil</code> nếu ngân sách bộ nhớ có thể chỉnh sửa cụ thể cho thiết bị bị cạn kiệt."
+  },
+  "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync": {
+    "documentation": "Tạo một <code>EditableImage</code> mới trong không gian UV của <code>MeshPart</code> cha từ một kết cấu trong không gian UV của cage.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/0"
+      },
+      {
+        "name": "texture",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/1"
+      },
+      {
+        "name": "wrapTextureTransfer",
+        "documentation": "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/WrapTarget.CreateTextureInTargetSpaceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTarget#CreateTextureInTargetSpaceAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/EchoSoundEffect": {
@@ -61535,6 +61553,7 @@
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
       "CreateDataModelContentAsync": "@roblox/globaltype/AssetService.CreateDataModelContentAsync",
+      "CreateDecalAsync": "@roblox/globaltype/AssetService.CreateDecalAsync",
       "CreateEditableImage": "@roblox/globaltype/AssetService.CreateEditableImage",
       "CreateEditableImageAsync": "@roblox/globaltype/AssetService.CreateEditableImageAsync",
       "CreateEditableMesh": "@roblox/globaltype/AssetService.CreateEditableMesh",
@@ -61716,6 +61735,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateDataModelContentAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/param/0": {
+    "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/param/1": {
+    "documentation": "Từ điển chứa một hoặc nhiều cặp khóa-giá trị sau đây. Mỗi giá trị phải là một đối tượng <code>Content</code> chứa một <code>EditableImage</code>: <ul> <li><code>TextureContent</code> — Kết cấu màu của decal.</li> <li><code>NormalMapContent</code> — Bản đồ bình thường của decal.</li> <li><code>MetalnessMapContent</code> — Bản đồ kim loại của decal.</li> <li><code>RoughnessMapContent</code> — Bản đồ độ nhám của decal.</li> </ul>"
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync/return/0": {
+    "documentation": "Một thể hiện <code>Decal</code> mới với các bản đồ đã cho từ tham số <code>content</code>."
+  },
+  "@roblox/globaltype/AssetService.CreateDecalAsync": {
+    "documentation": "Tạo một đối tượng <code>Decal</code> mới bằng cách sử dụng các bản đồ nội dung <code>EditableImage</code> đã cung cấp.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.CreateDecalAsync/param/0"
+      },
+      {
+        "name": "content",
+        "documentation": "@roblox/globaltype/AssetService.CreateDecalAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.CreateDecalAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateDecalAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/0": {
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
   },
@@ -61723,7 +61769,7 @@
     "documentation": "Bảng tùy chọn chứa các điều khiển cho phương thức: <ul> <li><code>Size</code> – Một <code>Vector2</code> xác định chiều rộng và chiều cao mong muốn của hình ảnh.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/return/0": {
-    "documentation": "Một <code>EditableImage</code> mới, hoặc <code>nil</code> nếu ngân sách bộ nhớ có thể chỉnh sửa cụ thể cho thiết bị đã hết."
+    "documentation": "Một <code>EditableImage</code> mới, hoặc <code>nil</code> nếu ngân sách bộ nhớ có thể chỉnh sửa cụ thể cho thiết bị bị cạn kiệt."
   },
   "@roblox/globaltype/AssetService.CreateEditableImage": {
     "documentation": "Tạo một <code>EditableImage</code> mới.",
@@ -61747,7 +61793,7 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/1": {
-    "documentation": "Tham chiếu đến nội dung tài sản được lưu trữ bên ngoài hoặc như một đối tượng trong nơi diễn ra, bao bọc một giá trị duy nhất của một trong các giá trị <code>ContentSourceType</code> được hỗ trợ."
+    "documentation": "Tham chiếu đến nội dung tài sản được lưu trữ bên ngoài hoặc như một đối tượng trong nơi, bọc một giá trị duy nhất của một trong các giá trị <code>ContentSourceType</code> được hỗ trợ."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/2": {
     "documentation": "Bảng chứa các tùy chọn cho <code>EditableImage</code> được tạo. Hiện tại không có tùy chọn nào có sẵn vì việc thay đổi kích thước thông qua <code>Size</code> không được hỗ trợ."
@@ -61756,7 +61802,7 @@
     "documentation": "Một <code>EditableImage</code> mới chứa hình ảnh đã cung cấp."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync": {
-    "documentation": "Tạo một đối tượng <code>EditableImage</code> mới được điền với hình ảnh đã cho.",
+    "documentation": "Tạo một đối tượng <code>EditableImage</code> mới được lấp đầy với hình ảnh đã cho.",
     "params": [
       {
         "name": "self",
@@ -61781,13 +61827,13 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/param/1": {
-    "documentation": "Bảng chứa các tùy chọn cho <code>EditableMesh</code> được tạo. Hiện tại không có tùy chọn nào có sẵn vì <code>FixedSize</code> sẽ luôn là <code>false</code> đối với các lưới có thể chỉnh sửa rỗng."
+    "documentation": "Bảng chứa các tùy chọn cho <code>EditableMesh</code> được tạo. Hiện tại không có tùy chọn nào có sẵn vì <code>FixedSize</code> sẽ luôn là <code>false</code> cho các lưới có thể chỉnh sửa trống."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/return/0": {
-    "documentation": "Một <code>EditableMesh</code> mới, hoặc <code>nil</code> nếu ngân sách bộ nhớ có thể chỉnh sửa cụ thể cho thiết bị đã hết."
+    "documentation": "Một <code>EditableMesh</code> mới, hoặc <code>nil</code> nếu ngân sách bộ nhớ có thể chỉnh sửa cụ thể cho thiết bị bị cạn kiệt."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh": {
-    "documentation": "Tạo một <code>EditableMesh</code> mới, rỗng.",
+    "documentation": "Tạo một <code>EditableMesh</code> mới, trống.",
     "params": [
       {
         "name": "self",
@@ -61808,16 +61854,16 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/1": {
-    "documentation": "Tham chiếu đến nội dung tài sản được lưu trữ bên ngoài hoặc như một đối tượng trong tại nơi, bao bọc một giá trị đơn của một trong các giá trị <code>ContentSourceType</code> được hỗ trợ."
+    "documentation": "Tham chiếu đến nội dung tài sản được lưu trữ bên ngoài hoặc như một đối tượng trong nơi diễn ra, bao bọc một giá trị duy nhất của một trong các giá trị <code>ContentSourceType</code> được hỗ trợ."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/2": {
-    "documentation": "Bảng tùy chọn chứa các điều khiển cho phương thức: <ul> <li><code>FixedSize</code> – Một <code>bool</code>. Giá trị mặc định là <code>true</code>, và <code>EditableMesh</code> được trả về sẽ không cho phép bạn thêm hoặc xóa các đỉnh,   chỉ sửa đổi giá trị của chúng. Đặt thành <code>false</code> nếu cần khả năng thay đổi   hình dạng mesh, sẽ tiêu tốn nhiều bộ nhớ hơn.</li> </ul>"
+    "documentation": "Bảng tùy chọn chứa các điều khiển cho phương thức: <ul> <li><code>FixedSize</code> – Một <code>bool</code>. Giá trị mặc định là <code>true</code>, và <code>EditableMesh</code> được trả về sẽ không cho phép bạn thêm hoặc xóa các đỉnh, chỉ sửa đổi giá trị của chúng. Đặt thành <code>false</code> nếu cần khả năng thay đổi hình dạng lưới, với chi phí sử dụng nhiều bộ nhớ hơn.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/return/0": {
     "documentation": "Đối tượng <code>EditableMesh</code> mới."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync": {
-    "documentation": "Trả về một đối tượng <code>EditableMesh</code> mới được tạo từ một mesh ID nội dung tồn tại.",
+    "documentation": "Trả về một đối tượng <code>EditableMesh</code> mới được tạo từ một ID nội dung lưới hiện có.",
     "params": [
       {
         "name": "self",
@@ -61842,16 +61888,16 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/1": {
-    "documentation": "Tham chiếu đến nội dung tài sản được lưu trữ bên ngoài hoặc như một đối tượng trong nơi diễn ra, bao bọc một giá trị duy nhất của một trong các giá trị <code>ContentSourceType</code> được hỗ trợ."
+    "documentation": "Tham chiếu đến nội dung tài sản được lưu trữ bên ngoài hoặc như một đối tượng trong nơi, bọc một giá trị duy nhất của một trong các giá trị <code>ContentSourceType</code> được hỗ trợ."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/2": {
-    "documentation": "Bảng tùy chọn chứa một hoặc nhiều điều khiển cho phương thức: <ul> <li><code>CollisionFidelity</code> – Giá trị của   <code>CollisionFidelity</code> trong phần   kết quả. Mặc định là <code>CollisionFidelity.Default</code> nếu tùy chọn   vắng mặt hoặc bảng <code>options</code> là <code>nil</code>.</li> <li><code>RenderFidelity</code> – Giá trị của   <code>RenderFidelity</code> trong phần   kết quả. Mặc định là <code>RenderFidelity.Automatic</code> nếu tùy chọn là   vắng mặt hoặc bảng <code>options</code> là <code>nil</code>.</li> <li><code>FluidFidelity</code> – Giá trị của   <code>FluidFidelity</code> trong phần kết quả.   Mặc định là <code>FluidFidelity.Automatic</code> nếu tùy chọn vắng mặt   hoặc bảng <code>options</code> là <code>nil</code>.</li> </ul>"
+    "documentation": "Bảng tùy chọn chứa một hoặc nhiều điều khiển cho phương thức: <ul> <li><code>CollisionFidelity</code> – Giá trị của <code>CollisionFidelity</code> trong phần kết quả. Mặc định là <code>CollisionFidelity.Default</code> nếu tùy chọn không có hoặc bảng <code>options</code> là <code>nil</code>.</li> <li><code>RenderFidelity</code> – Giá trị của <code>RenderFidelity</code> trong phần kết quả. Mặc định là <code>RenderFidelity.Automatic</code> nếu tùy chọn không có hoặc bảng <code>options</code> là <code>nil</code>.</li> <li><code>FluidFidelity</code> – Giá trị của <code>FluidFidelity</code> trong phần kết quả. Mặc định là <code>FluidFidelity.Automatic</code> nếu tùy chọn không có hoặc bảng <code>options</code> là <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/return/0": {
-    "documentation": "Một <code>MeshPart</code> mới với các thiết lập mesh và độ trung thực đã được áp dụng."
+    "documentation": "Phần <code>MeshPart</code> mới với các thiết lập lưới và độ trung thực được chỉ định."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync": {
-    "documentation": "Tạo một <code>MeshPart</code> mới với một mesh ID cụ thể và một bảng tùy chọn các giá trị độ trung thực.",
+    "documentation": "Tạo một <code>MeshPart</code> mới với một ID lưới được chỉ định và một bảng tùy chọn các giá trị độ trung thực.",
     "params": [
       {
         "name": "self",
@@ -61879,13 +61925,13 @@
     "documentation": "Tên của nơi mới."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/2": {
-    "documentation": "<code>PlaceId</code> của nơi được sao chép."
+    "documentation": "<code>PlaceId</code> của nơi để sao chép."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/3": {
     "documentation": "Mô tả của nơi mới."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/return/0": {
-    "documentation": "<code>PlaceId</code> của nơi mới."
+    "documentation": "<code>PlaceId</code> của địa điểm mới."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync": {
     "documentation": "Sao chép một nơi thông qua <code>templatePlaceID</code> đã cho.",
@@ -61917,19 +61963,19 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/1": {
-    "documentation": "Người chơi <code>Player</code> mà kho đồ của họ nhận được địa điểm đã sao chép."
+    "documentation": "Người chơi <code>Player</code> mà kho của họ nhận nơi đã sao chép."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/2": {
-    "documentation": "Tên cho địa điểm mới."
+    "documentation": "Tên cho nơi mới."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/3": {
-    "documentation": "<code>PlaceId</code> của địa điểm để sao chép."
+    "documentation": "<code>PlaceId</code> của nơi để sao chép."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/param/4": {
-    "documentation": "Mô tả cho địa điểm mới."
+    "documentation": "Mô tả cho nơi mới."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync/return/0": {
-    "documentation": "<code>PlaceId</code> của địa điểm mới."
+    "documentation": "<code>PlaceId</code> của nơi mới."
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync": {
     "documentation": "Sao chép một nơi thông qua <code>templatePlaceID</code> đã cho và đưa nó vào kho của người chơi đã cho.",
@@ -61965,10 +62011,10 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "Từ điển chứa các cặp khóa-giá trị sau: <ul> <li><code>ColorMap</code> — Một đối tượng <code>Content</code> chứa bản đồ màu.   Mặc định là <code>nil</code>.</li> <li><code>MetalnessMap</code> — Một đối tượng <code>Content</code> chứa bản đồ độ kim loại. Nếu có nhiều hơn một kênh, chỉ sử dụng kênh màu đỏ. Mặc định là <code>nil</code>.</li> <li><code>NormalMap</code> — Một đối tượng <code>Content</code> chứa bản đồ bình thường.   Mặc định là <code>nil</code>.</li> <li><code>RoughnessMap</code> — Một đối tượng <code>Content</code> chứa bản đồ độ nhám. Nếu có nhiều hơn một kênh, chỉ sử dụng kênh màu đỏ. Mặc định là <code>nil</code>.</li> <li><code>EmissiveMask</code> — Một đối tượng <code>Content</code> chứa mặt nạ phát sáng. Nếu có nhiều hơn một kênh, chỉ sử dụng kênh màu đỏ. Mặc định là <code>nil</code>.</li> </ul>"
+    "documentation": "Từ điển chứa các cặp khóa-giá trị sau: <ul> <li><code>ColorMap</code> — Một đối tượng <code>Content</code> chứa bản đồ màu. Mặc định là <code>nil</code>.</li> <li><code>MetalnessMap</code> — Một đối tượng <code>Content</code> chứa bản đồ kim loại. Nếu có nhiều hơn một kênh, chỉ kênh đỏ được sử dụng. Mặc định là <code>nil</code>.</li> <li><code>NormalMap</code> — Một đối tượng <code>Content</code> chứa bản đồ bình thường. Mặc định là <code>nil</code>.</li> <li><code>RoughnessMap</code> — Một đối tượng <code>Content</code> chứa bản đồ độ nhám. Nếu có nhiều hơn một kênh, chỉ kênh đỏ được sử dụng. Mặc định là <code>nil</code>.</li> <li><code>EmissiveMask</code> — Một đối tượng <code>Content</code> chứa mặt nạ phát sáng. Nếu có nhiều hơn một kênh, chỉ kênh đỏ được sử dụng. Mặc định là <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "Một phiên bản <code>SurfaceAppearance</code> mới với các bản đồ đã cho từ tham số <code>content</code>."
+    "documentation": "Một thể hiện <code>SurfaceAppearance</code> mới với các bản đồ đã cho từ tham số <code>content</code>."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
     "documentation": "Tạo một đối tượng <code>SurfaceAppearance</code> mới bằng cách sử dụng các bản đồ nội dung đã cung cấp.",
@@ -61995,10 +62041,10 @@
     "documentation": "ID tài sản của gói để truy vấn."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage/return/0": {
-    "documentation": "ID tài sản chứa trong một gói xác định."
+    "documentation": "Các ID tài sản có trong một gói đã chỉ định."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage": {
-    "documentation": "<strong>Deprecated:</strong> Sử dụng <code>GetAssetIdsForPackageAsync()</code> thay vì.<br>Trả về một mảng các ID tài sản chứa trong một gói xác định.",
+    "documentation": "<strong>Deprecated:</strong> Sử dụng <code>GetAssetIdsForPackageAsync()</code> thay vào đó.<br>Trả về một mảng các ID tài sản có trong một gói đã chỉ định.",
     "params": [
       {
         "name": "self",
@@ -62022,10 +62068,10 @@
     "documentation": "ID tài sản của gói để truy vấn."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync/return/0": {
-    "documentation": "Các ID tài sản có trong một gói đã chỉ định."
+    "documentation": "Các ID tài sản chứa trong một gói được chỉ định."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync": {
-    "documentation": "Trả về một mảng các ID tài sản có trong một gói đã chỉ định.",
+    "documentation": "Trả về một mảng các ID tài sản chứa trong một gói được chỉ định.",
     "params": [
       {
         "name": "self",
@@ -62046,13 +62092,13 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/param/1": {
-    "documentation": "Mảng các ID tài sản hoặc nội dung mà để lấy siêu dữ liệu. Kích thước tối đa bảng là 30."
+    "documentation": "Mảng các ID tài sản hoặc nội dung mà bạn muốn lấy siêu dữ liệu. Kích thước tối đa của lô là 30."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/return/0": {
-    "documentation": "Mảng các bảng từ điển theo thứ tự giống như yêu cầu, trong đó mỗi từ điển chứa siêu dữ liệu sau cho tài sản/nội dung của nó: <ul> <li> <code>AssetId</code> (chuỗi) </li> <li> <code>Title</code> (chuỗi) </li> <li> <code>Artist</code> (chuỗi) </li> <li> <code>Duration</code> (số) tính bằng giây </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> Lưu ý rằng nếu có lỗi xảy ra trong việc lấy siêu dữ liệu cho bất kỳ tài sản nào được yêu cầu, chẳng hạn như ID tài sản không tồn tại, bảng từ điển của nó vẫn được bao gồm trong mảng trả về nhưng chỉ chứa trường <code>AssetId</code> để tham khảo. Ngoài ra, nếu type âm thanh không thể được xác định cho một tài sản nhất định (có thể là do âm thanh riêng tư), từ điển kết quả sẽ không chứa mục <code>AudioType</code>."
+    "documentation": "Mảng các bảng từ điển theo cùng thứ tự như yêu cầu, trong đó mỗi từ điển chứa siêu dữ liệu sau cho tài sản/nội dung của nó: <ul> <li> <code>AssetId</code> (chuỗi) </li> <li> <code>Title</code> (chuỗi) </li> <li> <code>Artist</code> (chuỗi) </li> <li> <code>Duration</code> (số) tính bằng giây </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> Lưu ý rằng nếu có lỗi xảy ra khi lấy siêu dữ liệu cho bất kỳ tài sản nào được yêu cầu, ví dụ như ID tài sản không tồn tại, bảng từ điển của nó vẫn được bao gồm trong mảng trả về nhưng chỉ chứa trường <code>AssetId</code> để tham khảo. Thêm vào đó, nếu <code>AudioType</code> không thể xác định cho một tài sản nhất định (có thể vì đó là âm thanh riêng tư), từ điển kết quả sẽ không chứa mục <code>AudioType</code>."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync": {
-    "documentation": "Cung cấp siêu dữ liệu liên quan đến một nguồn âm thanh cụ thể.",
+    "documentation": "Cung cấp siêu dữ liệu liên quan về một nguồn âm thanh cụ thể.",
     "params": [
       {
         "name": "self",
@@ -62073,13 +62119,13 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/param/1": {
-    "documentation": "ID của gói đã chỉ định."
+    "documentation": "ID của gói được chỉ định."
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/return/0": {
-    "documentation": "Từ điển với các cặp khóa-giá trị sau chứa thông tin về bộ đã chỉ định: <ul> <li> <code>Id</code> — ID bộ (cùng với tham số <code>bundleId</code> đã truyền vào) </li> <li> <code>Name</code> — Tên bộ </li> <li> <code>Description</code> — Mô tả bộ </li> <li> <code>BundleType</code> — Chuỗi đại diện cho <code>BundleType</code>, ví dụ là <code>\"BodyParts\"</code> hoặc <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — Mảng các mục trong bộ, mỗi mục có chi tiết   được thể hiện qua các khóa sau: </li> <li> <code>Id</code> — ID mục </li> <li> <code>Name</code> — Tên mục </li> <li> <code>Type</code> — Loại mục như <code>\"Asset\"</code> </li> <li> <code>AssetType</code> — Chuỗi đại diện cho <code>AvatarAssetType</code> </li> <li> <code>SupportsHeadShapes</code> — Liệu tài sản có hỗ trợ việc thay đổi hình dạng đầu     hay không. Chỉ có nếu <code>AssetType</code> là <code>\"DynamicHead\"</code>. </li> </ul>"
+    "documentation": "Từ điển với các cặp khóa-giá trị sau chứa chi tiết về gói được chỉ định: <ul> <li> <code>Id</code> — ID gói (giống như tham số <code>bundleId</code> đã truyền) </li> <li> <code>Name</code> — Tên gói </li> <li> <code>Description</code> — Mô tả gói </li> <li> <code>BundleType</code> — Chuỗi đại diện cho <code>BundleType</code>, ví dụ <code>\"BodyParts\"</code> hoặc <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — Mảng các mục trong gói, mỗi mục có chi tiết được đại diện thông qua các khóa sau: </li> <li> <code>Id</code> — ID mục </li> <li> <code>Name</code> — Tên mục </li> <li> <code>Type</code> — Loại mục như <code>\"Asset\"</code> </li> <li> <code>AssetType</code> — Chuỗi đại diện cho <code>AvatarAssetType</code> </li> <li> <code>SupportsHeadShapes</code> — Liệu tài sản có hỗ trợ thay đổi hình dạng đầu hay không. Chỉ có mặt nếu <code>AssetType</code> là <code>\"DynamicHead\"</code>. </li> </ul>"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync": {
-    "documentation": "Trả về thông tin chi tiết về nội dung của gói đã chỉ định.",
+    "documentation": "Trả về chi tiết nội dung của gói được chỉ định.",
     "params": [
       {
         "name": "self",
@@ -62100,13 +62146,13 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID/param/1": {
-    "documentation": "ID tài sản để tra cứu thông tin người tạo."
+    "documentation": "ID tài sản để tra cứu thông tin người sáng tạo."
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID/return/0": {
-    "documentation": "ID người dùng <code>Player.UserId</code> của tài khoản đã tạo ra tài sản."
+    "documentation": "<code>Player.UserId</code> của tài khoản đã tạo tài sản."
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã bị lỗi thời và không còn hoạt động chính xác. Không sử dụng nó cho công việc mới.<br>Trả về UserId của tài khoản đã tạo tài sản creationID.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời và không còn hoạt động chính xác. Không sử dụng nó cho công việc mới.<br>Trả về UserId của tài khoản đã tạo tài sản creationID.",
     "params": [
       {
         "name": "self",
@@ -62127,7 +62173,7 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync/return/0": {
-    "documentation": "Một đối tượng <code>StandardPages</code> mà các trang của nó chứa tên và <code>PlaceId</code> của mỗi địa điểm trong trải nghiệm hiện tại."
+    "documentation": "Một đối tượng <code>StandardPages</code> mà các trang của nó chứa tên và <code>PlaceId</code> của mỗi nơi trong trải nghiệm hiện tại."
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync": {
     "documentation": "Trả về một đối tượng <code>StandardPages</code> chứa tên và <code>PlaceId</code> của các nơi trong trải nghiệm hiện tại.",
@@ -62150,10 +62196,10 @@
     "documentation": "Số ID tài sản của tài sản đang được tải."
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync/return/0": {
-    "documentation": "Một phiên bản <code>Model</code> chứa tài sản đã được tải."
+    "documentation": "Một thể hiện <code>Model</code> chứa tài sản đã được tải."
   },
   "@roblox/globaltype/AssetService.LoadAssetAsync": {
-    "documentation": "Tải một phiên bản <code>Model</code> với ID tài sản của nó. Đây là sự thay thế hiện đại cho <code>InsertService:LoadAsset()</code> và hỗ trợ tải các tài sản bên thứ ba.",
+    "documentation": "Tải một thể hiện <code>Model</code> dựa trên ID tài sản của nó. Đây là sự thay thế hiện đại cho <code>InsertService:LoadAsset()</code> và hỗ trợ tải tài sản của bên thứ ba.",
     "params": [
       {
         "name": "self",
@@ -62177,7 +62223,7 @@
     "documentation": "Người dùng gửi yêu cầu tạo tài sản."
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync/param/2": {
-    "documentation": "Tài sản sẽ được tạo. Hiện tại không thể chứa các script hoặc lồng ghép các tài sản không công khai."
+    "documentation": "Tài sản sẽ được tạo. Hiện tại không thể chứa các kịch bản hoặc lồng ghép các tài sản không công khai."
   },
   "@roblox/globaltype/AssetService.PromptCreatePlatformContentAsync/param/3": {
     "documentation": "Loại tài sản. Hiện tại chỉ có thể là <code>AssetType.Model</code>."
@@ -62215,16 +62261,16 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/param/1": {
-    "documentation": "Người chơi được yêu cầu, trên máy khách của họ, chọn và tải lên a video. Sự đồng ý của người chơi là cần thiết trước khi video được  tải lên."
+    "documentation": "Người chơi được hiển thị, trên máy khách của họ, để chọn và tải lên một video. Sự đồng ý của người chơi là cần thiết trước khi video được tải lên."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/param/2": {
-    "documentation": "Một hàm nhận các cập nhật trạng thái (một giá trị <code>AnimationClipFromVideoStatus</code>) trong khi video được tải lên và xử lý."
+    "documentation": "Một hàm nhận các cập nhật trạng thái (một giá trị <code>AnimationClipFromVideoStatus</code>) trong khi video đang được tải lên và xử lý."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync/return/0": {
-    "documentation": "Một tuple chứa một <code>AnimationClipFromVideoStatus</code> mô tả kết quả và, nếu thành công, <code>AnimationClip</code> (<code>nil</code> nếu không)."
+    "documentation": "Một tuple chứa một <code>AnimationClipFromVideoStatus</code> mô tả kết quả và, nếu thành công, <code>AnimationClip</code> kết quả (<code>nil</code> nếu không)."
   },
   "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync": {
-    "documentation": "Yêu cầu người chơi đã chỉ định chọn và tải lên một video, sau đó được chuyển đổi thành <code>AnimationClip</code>.",
+    "documentation": "Hiển thị cho người chơi đã chỉ định để chọn và tải lên một video, sau đó được chuyển đổi thành <code>AnimationClip</code>.",
     "params": [
       {
         "name": "self",
@@ -62249,7 +62295,7 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "Từ điển tùy chọn bao gồm <code>SaveWithoutPublish</code>, một giá trị boolean cho biết liệu có lưu với xuất bản hay không, và <code>PlaceId</code>, ID nơi đích để lưu đè lên. Một ví dụ sử dụng sẽ là: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Nếu PlaceId không được cung cấp, hành vi mặc định sẽ lưu đè lên nơi gốc hiện tại đang gọi SavePlaceAsync. Nếu SaveWithoutPublish không được cung cấp, hành vi mặc định là SaveWithoutPublish=false."
+    "documentation": "Từ điển tùy chọn bao gồm <code>SaveWithoutPublish</code>, một boolean cho biết liệu có lưu với xuất bản hay không và <code>PlaceId</code>, ID nơi đích để lưu đè lên. Một ví dụ sử dụng sẽ là: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Nếu PlaceId không được cung cấp, hành vi mặc định sẽ lưu đè lên nơi gốc hiện tại đang gọi SavePlaceAsync. Nếu SaveWithoutPublish không được cung cấp, hành vi mặc định là SaveWithoutPublish=false."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "Lưu trạng thái của nơi hiện tại.",
@@ -62271,13 +62317,13 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web Roblox."
   },
   "@roblox/globaltype/AssetService.SearchAudio/param/1": {
-    "documentation": "Một đối tượng <code>AudioSearchParams</code> xác định các tiêu chí tìm kiếm như từ khóa, tiêu đề, nghệ sĩ, loại âm thanh và khoảng thời gian."
+    "documentation": "Một đối tượng <code>AudioSearchParams</code> xác định tiêu chí tìm kiếm như từ khóa, tiêu đề, nghệ sĩ, loại âm thanh và khoảng thời gian."
   },
   "@roblox/globaltype/AssetService.SearchAudio/return/0": {
     "documentation": "Một đối tượng <code>AudioPages</code> chứa các kết quả phân trang của tìm kiếm âm thanh."
   },
   "@roblox/globaltype/AssetService.SearchAudio": {
-    "documentation": "<strong>Deprecated:</strong> Sử dụng <code>SearchAudioAsync()</code> thay vào đó.<br>Tìm các tài sản âm thanh phù hợp với nhiều tiêu chí tìm kiếm khác nhau.",
+    "documentation": "<strong>Deprecated:</strong> Sử dụng <code>SearchAudioAsync()</code> thay vào đó.<br>Tìm các tài sản âm thanh phù hợp với nhiều tiêu chí tìm kiếm.",
     "params": [
       {
         "name": "self",
@@ -62304,7 +62350,7 @@
     "documentation": "Một đối tượng <code>AudioPages</code> chứa các kết quả phân trang của tìm kiếm âm thanh."
   },
   "@roblox/globaltype/AssetService.SearchAudioAsync": {
-    "documentation": "Tìm các tài sản âm thanh phù hợp với nhiều tiêu chí tìm kiếm.",
+    "documentation": "Tìm các tài sản âm thanh phù hợp với nhiều tiêu chí tìm kiếm khác nhau.",
     "params": [
       {
         "name": "self",
@@ -67116,6 +67162,7 @@
       "FixedSize": "@roblox/globaltype/EditableMesh.FixedSize",
       "AddBone": "@roblox/globaltype/EditableMesh.AddBone",
       "AddColor": "@roblox/globaltype/EditableMesh.AddColor",
+      "AddFace": "@roblox/globaltype/EditableMesh.AddFace",
       "AddNormal": "@roblox/globaltype/EditableMesh.AddNormal",
       "AddTriangle": "@roblox/globaltype/EditableMesh.AddTriangle",
       "AddUV": "@roblox/globaltype/EditableMesh.AddUV",
@@ -67278,11 +67325,38 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddColor",
     "code_sample": ""
   },
+  "@roblox/globaltype/EditableMesh.AddFace/param/0": {
+    "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
+  },
+  "@roblox/globaltype/EditableMesh.AddFace/param/1": {
+    "documentation": "Mảng các ID đỉnh của mặt mới, theo thứ tự xung quanh mặt. Cung cấp 3 ID để tạo một tam giác hoặc 4 ID để tạo một tứ giác."
+  },
+  "@roblox/globaltype/EditableMesh.AddFace/return/0": {
+    "documentation": "ID mặt của mặt mới."
+  },
+  "@roblox/globaltype/EditableMesh.AddFace": {
+    "documentation": "Thêm một mặt tam giác hoặc tứ giác mới vào lưới và trả về một ID mặt.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.AddFace/param/0"
+      },
+      {
+        "name": "vertexIds",
+        "documentation": "@roblox/globaltype/EditableMesh.AddFace/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EditableMesh.AddFace/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#AddFace",
+    "code_sample": ""
+  },
   "@roblox/globaltype/EditableMesh.AddNormal/param/0": {
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.AddNormal/param/1": {
-    "documentation": "Vectòr bình thường. Nếu giá trị bình thường không được chỉ định, bình thường sẽ được tính toán tự động."
+    "documentation": "Vector bình thường. Nếu giá trị bình thường không được chỉ định, bình thường sẽ được tính toán tự động."
   },
   "@roblox/globaltype/EditableMesh.AddNormal/return/0": {
     "documentation": "ID bình thường của bình thường mới."
@@ -67318,7 +67392,7 @@
     "documentation": "ID của đỉnh thứ ba của tam giác."
   },
   "@roblox/globaltype/EditableMesh.AddTriangle/return/0": {
-    "documentation": "ID mặt của mặt mới."
+    "documentation": "ID mặt ổn định của mặt mới."
   },
   "@roblox/globaltype/EditableMesh.AddTriangle": {
     "documentation": "Thêm một tam giác mới vào lưới và trả về một ID mặt.",
@@ -67377,7 +67451,7 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.AddVertex/param/1": {
-    "documentation": "Vị trí trong không gian đối tượng cục bộ của mesh."
+    "documentation": "Vị trí trong không gian đối tượng cục bộ của lưới."
   },
   "@roblox/globaltype/EditableMesh.AddVertex/return/0": {
     "documentation": "ID đỉnh của đỉnh mới."
@@ -67410,7 +67484,7 @@
     "documentation": "Giá trị để khởi tạo các phần tử mới. Một mảng <code>Vector3</code> cho <code>Vertex</code> hoặc <code>Normal</code>; một mảng <code>Vector2</code> cho <code>UV</code>; một mảng <code>Color3</code> theo sau là một mảng số alpha tương ứng (có cùng độ dài) cho <code>Color</code>; một mảng 2D của các mảng ID đỉnh cho <code>Face</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchAdd/return/0": {
-    "documentation": "Mảng có thứ tự của các ID phần tử mới phù hợp với thứ tự đầu vào."
+    "documentation": "Mảng có thứ tự của các ID phần tử mới khớp với thứ tự đầu vào."
   },
   "@roblox/globaltype/EditableMesh.BatchAdd": {
     "documentation": "Tạo các phần tử lưới mới của loại thuộc tính đã cho và trả về các ID của chúng.",
@@ -67447,7 +67521,7 @@
     "documentation": "Mảng 2D mà <code>result[i]</code> là mảng các ID thuộc tính tại các góc của <code>faceIds[i]</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchGetFaceAttributes": {
-    "documentation": "Trả về các ID thuộc tính theo góc cho mỗi mặt trong một lô.",
+    "documentation": "Trả về các ID thuộc tính theo góc cho mỗi mặt trong một nhóm.",
     "params": [
       {
         "name": "self",
@@ -67472,13 +67546,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues/param/1": {
-    "documentation": "Các ID của các phần tử để đọc. Tất cả phải là cùng một loại thuộc tính — đỉnh, bình thường, màu sắc, hoặc UV. Thuộc tính được xác định bởi loại ID, do đó không cần tham số <code>MeshAttribute</code>. Kết hợp các loại, hoặc truyền ID mặt hoặc xương sẽ ném ra lỗi."
+    "documentation": "Các ID của các phần tử để đọc. Tất cả phải là cùng một loại thuộc tính — đỉnh, bình thường, màu sắc, hoặc UV. Thuộc tính được xác định bởi loại ID,  vì vậy không cần tham số <code>MeshAttribute</code>. Việc trộn các loại, hoặc truyền ID mặt hoặc xương sẽ gây ra lỗi."
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues/return/0": {
     "documentation": "Một tuple gồm hai giá trị. Giá trị đầu tiên là một mảng các giá trị thuộc tính: <code>Vector3</code> cho ID đỉnh hoặc bình thường, <code>Vector2</code> cho ID UV, <code>Color3</code> cho ID màu sắc. Giá trị thứ hai là <code>nil</code> cho tất cả các loại thuộc tính ngoại trừ màu sắc, nơi nó là một mảng các số alpha."
   },
   "@roblox/globaltype/EditableMesh.BatchGetValues": {
-    "documentation": "Trả về các giá trị thuộc tính cho mỗi ID trong một lô.",
+    "documentation": "Trả về giá trị thuộc tính cho mỗi ID trong một nhóm.",
     "params": [
       {
         "name": "self",
@@ -67508,7 +67582,7 @@
     "documentation": "Mảng 2D mà <code>result[i]</code> là mảng các ID thuộc tính liên kết với <code>vertexIds[i]</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexAttributes": {
-    "documentation": "Trả về các ID thuộc tính liên kết với mỗi đỉnh trong một lô.",
+    "documentation": "Trả về các ID thuộc tính liên kết với mỗi đỉnh trong một nhóm.",
     "params": [
       {
         "name": "self",
@@ -67539,13 +67613,13 @@
     "documentation": "Các đỉnh xác định mỗi góc."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/param/3": {
-    "documentation": "Các mặt xác định mỗi góc. Phải có cùng độ dài với <code>vertexIds</code>."
+    "documentation": "Các mặt xác định mỗi góc. Phải có cùng độ dài như <code>vertexIds</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes/return/0": {
-    "documentation": "Mảng các ID thuộc tính tại mỗi góc, theo cùng thứ tự với các đầu vào."
+    "documentation": "Mảng các ID thuộc tính tại mỗi góc, theo cùng thứ tự như các đầu vào."
   },
   "@roblox/globaltype/EditableMesh.BatchGetVertexFaceAttributes": {
-    "documentation": "Trả về ID thuộc tính tại mỗi góc được chỉ định cho một lô các cặp đỉnh–mặt.",
+    "documentation": "Trả về ID thuộc tính tại mỗi góc được chỉ định cho một nhóm các cặp đỉnh–mặt.",
     "params": [
       {
         "name": "self",
@@ -67574,10 +67648,10 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.BatchRemove/param/1": {
-    "documentation": "ID mặt để xóa. Một ID không hợp lệ hoặc đã bị xóa sẽ ném ra lỗi và không xóa gì cả; các ID trùng lặp sẽ được gộp lại thành một lần xóa duy nhất."
+    "documentation": "ID mặt để xóa. Một ID không hợp lệ hoặc đã bị xóa sẽ gây ra lỗi và không xóa gì cả; các ID trùng lặp sẽ được gộp lại thành một lần xóa duy nhất."
   },
   "@roblox/globaltype/EditableMesh.BatchRemove": {
-    "documentation": "Xóa một lô các mặt.",
+    "documentation": "Xóa một nhóm các mặt.",
     "params": [
       {
         "name": "self",
@@ -67596,13 +67670,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes/param/1": {
-    "documentation": "ID mặt để cập nhật. Phải có cùng độ dài với <code>attrIdArrays</code>."
+    "documentation": "ID mặt để cập nhật. Phải có cùng độ dài như <code>attrIdArrays</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes/param/2": {
-    "documentation": "Mảng 2D. <code>attrIdArrays[i]</code> là danh sách các ID thuộc tính cho các góc của <code>faceIds[i]</code>, theo thứ tự. Mỗi mảng bên trong phải có một mục cho mỗi góc của mặt. Tất cả các ID phải cùng loại thuộc tính — đỉnh, bình thường, màu, hoặc UV; kết hợp các loại (hoặc truyền một loại ID khác) sẽ ném ra lỗi."
+    "documentation": "Mảng 2D. <code>attrIdArrays[i]</code> là danh sách các ID thuộc tính cho các góc của <code>faceIds[i]</code>, theo thứ tự. Mỗi mảng bên trong phải có một mục cho mỗi góc của mặt. Tất cả các ID phải cùng loại thuộc tính — đỉnh, bình thường, màu sắc, hoặc UV; việc trộn các loại (hoặc truyền một loại ID khác) sẽ gây ra lỗi."
   },
   "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes": {
-    "documentation": "Đặt các ID thuộc tính theo góc cho mỗi mặt trong một lô.",
+    "documentation": "Đặt các ID thuộc tính theo góc cho mỗi mặt trong một nhóm.",
     "params": [
       {
         "name": "self",
@@ -67625,13 +67699,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues/param/1": {
-    "documentation": "ID của các phần tử để ghi. Tất cả phải là cùng một loại thuộc tính — đỉnh, bình thường, màu, hoặc UV. Thuộc tính được xác định bởi loại ID, do đó không cần tham số <code>MeshAttribute</code>. Kết hợp các loại, hoặc truyền ID mặt hoặc xương sẽ ném ra lỗi."
+    "documentation": "ID của các phần tử để ghi. Tất cả phải là cùng một loại thuộc tính — đỉnh, bình thường, màu sắc, hoặc UV. Thuộc tính được xác định bởi loại ID,  vì vậy không cần tham số <code>MeshAttribute</code>. Việc trộn các loại, hoặc truyền ID mặt hoặc xương sẽ gây ra lỗi."
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues/param/2": {
     "documentation": "Giá trị để gán. Loại phụ thuộc vào loại ID: <code>Vector3</code> cho ID đỉnh hoặc bình thường, <code>Vector2</code> cho ID UV, <code>Color3</code> hoặc một số cho ID màu sắc. Truyền <code>nil</code> cho ID bình thường để đặt lại mỗi bình thường về các giá trị tính toán tự động, tương đương với việc gọi <code>ResetNormal()</code> trên mỗi cái."
   },
   "@roblox/globaltype/EditableMesh.BatchSetValues": {
-    "documentation": "Ghi các giá trị thuộc tính vào một lô các ID phần tử lưới.",
+    "documentation": "Ghi các giá trị thuộc tính vào một nhóm các ID phần tử lưới.",
     "params": [
       {
         "name": "self",
@@ -67657,13 +67731,13 @@
     "documentation": "ID đỉnh xác định mỗi góc."
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes/param/2": {
-    "documentation": "ID mặt xác định mỗi góc. Phải có cùng độ dài với <code>vertexIds</code>."
+    "documentation": "ID mặt xác định mỗi góc. Phải có cùng độ dài như <code>vertexIds</code>."
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes/param/3": {
-    "documentation": "ID thuộc tính để gán, một cho mỗi cặp; phải có cùng độ dài với <code>vertexIds</code>. Tất cả phải là cùng loại thuộc tính — bình thường, màu, hoặc UV; truyền một ID đỉnh hoặc mặt sẽ ném ra lỗi."
+    "documentation": "ID thuộc tính để gán, một cho mỗi cặp; phải có cùng độ dài như <code>vertexIds</code>. Tất cả phải là cùng loại thuộc tính — bình thường, màu sắc, hoặc UV; việc truyền một ID đỉnh hoặc mặt sẽ gây ra lỗi."
   },
   "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes": {
-    "documentation": "Đặt thuộc tính tại một góc cụ thể cho mỗi cặp đỉnh–mặt trong một lô.",
+    "documentation": "Đặt thuộc tính tại một góc cụ thể cho mỗi cặp đỉnh–mặt trong một nhóm.",
     "params": [
       {
         "name": "self",
@@ -67705,7 +67779,7 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.Destroy": {
-    "documentation": "Hủy bỏ mesh.",
+    "documentation": "Hủy diệt lưới.",
     "params": [
       {
         "name": "self",
@@ -67720,13 +67794,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface/param/1": {
-    "documentation": "Vị trí điểm trong không gian đối tượng cục bộ của lưới."
+    "documentation": "Vị trí điểm trong không gian đối tượng cục bộ của mesh."
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface/return/0": {
-    "documentation": "Tuple của ID mặt, điểm trên mesh trong không gian đối tượng cục bộ, và tọa độ barycentric của vị trí trong mặt."
+    "documentation": "Tuple của ID mặt, điểm trên lưới trong không gian đối tượng cục bộ, tọa độ barycentric của vị trí trong mặt, và 3 ID đỉnh mà tọa độ barycentric nặng."
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface": {
-    "documentation": "Tìm điểm gần nhất trên bề mặt của mesh.",
+    "documentation": "Tìm điểm gần nhất trên bề mặt của lưới.",
     "params": [
       {
         "name": "self",
@@ -67747,7 +67821,7 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.FindClosestVertex/param/1": {
-    "documentation": "Vị trí điểm trong không gian đối tượng cục bộ của mesh."
+    "documentation": "Vị trí điểm trong không gian đối tượng cục bộ của lưới."
   },
   "@roblox/globaltype/EditableMesh.FindClosestVertex/return/0": {
     "documentation": "ID đỉnh gần nhất đến điểm được chỉ định trong không gian."
@@ -67774,13 +67848,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere/param/1": {
-    "documentation": "Tâm của hình cầu trong không gian đối tượng cục bộ của mesh."
+    "documentation": "Tâm của hình cầu trong không gian đối tượng cục bộ của lưới."
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere/param/2": {
     "documentation": "Bán kính của hình cầu."
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere/return/0": {
-    "documentation": "Danh sách các ID đỉnh trong hình cầu yêu cầu."
+    "documentation": "Danh sách các ID đỉnh trong hình cầu được yêu cầu."
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere": {
     "documentation": "Tìm tất cả các đỉnh trong một hình cầu cụ thể.",
@@ -67808,13 +67882,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentFaces/param/1": {
-    "documentation": "ID mặt để lấy các mặt liền kề."
+    "documentation": "ID mặt mà bạn muốn lấy các mặt liền kề."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentFaces/return/0": {
     "documentation": "Danh sách các ID mặt liền kề với mặt đã cho."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentFaces": {
-    "documentation": "Trả về danh sách các mặt liền kề với một mặt cho trước.",
+    "documentation": "Trả về danh sách các mặt liền kề với một mặt đã cho.",
     "params": [
       {
         "name": "self",
@@ -67835,13 +67909,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentVertices/param/1": {
-    "documentation": "ID đỉnh xung quanh mà để lấy các đỉnh liền kề."
+    "documentation": "ID đỉnh mà bạn muốn lấy các đỉnh liền kề."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentVertices/return/0": {
     "documentation": "Danh sách các ID của các đỉnh liền kề xung quanh ID đỉnh đã cho."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentVertices": {
-    "documentation": "Trả về danh sách các đỉnh liền kề với một đỉnh cho trước.",
+    "documentation": "Trả về danh sách các đỉnh liền kề với một đỉnh đã cho.",
     "params": [
       {
         "name": "self",
@@ -67889,13 +67963,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1": {
-    "documentation": "ID xương mà để lấy <code>CFrame</code>."
+    "documentation": "ID xương mà bạn muốn lấy <code>CFrame</code>."
   },
   "@roblox/globaltype/EditableMesh.GetBoneCFrame/return/0": {
-    "documentation": "<code>CFrame</code> ban đầu của xương trong tư thế bind của mesh, trong không gian cục bộ của mesh."
+    "documentation": "<code>CFrame</code> ban đầu của xương trong tư thế liên kết của lưới, trong  không gian cục bộ của lưới."
   },
   "@roblox/globaltype/EditableMesh.GetBoneCFrame": {
-    "documentation": "Trả về <code>CFrame</code> ban đầu của xương trong tư thế bind của mesh.",
+    "documentation": "Trả về <code>CFrame</code> ban đầu của xương trong tư thế liên kết của lưới.",
     "params": [
       {
         "name": "self",
@@ -67916,10 +67990,10 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/1": {
-    "documentation": "ID xương mà để kiểm tra xem xương có phải là ảo hay không."
+    "documentation": "ID xương mà bạn muốn biết liệu xương đó có phải là ảo hay không."
   },
   "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/return/0": {
-    "documentation": "Liệu xương với ID xương đã cho có phải là ảo hay không. Các xương ảo có chỉ có thể được gán cho một thể hiện <code>FaceControls</code>."
+    "documentation": "Liệu xương với ID xương đã cho có phải là ảo hay không. Các xương ảo có chỉ có thể được liên kết với một thể hiện <code>FaceControls</code>."
   },
   "@roblox/globaltype/EditableMesh.GetBoneIsVirtual": {
     "documentation": "Trả về <code>true</code> nếu xương là ảo.",
@@ -67943,13 +68017,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetBoneName/param/1": {
-    "documentation": "ID xương mà để lấy tên."
+    "documentation": "ID xương mà bạn muốn lấy tên."
   },
   "@roblox/globaltype/EditableMesh.GetBoneName/return/0": {
     "documentation": "Tên của xương với ID xương đã cho."
   },
   "@roblox/globaltype/EditableMesh.GetBoneName": {
-    "documentation": "Trả về tên của xương.",
+    "documentation": "Trả về tên xương.",
     "params": [
       {
         "name": "self",
@@ -67970,10 +68044,10 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetBoneParent/param/1": {
-    "documentation": "ID xương mà để lấy cha."
+    "documentation": "ID xương mà bạn muốn lấy cha."
   },
   "@roblox/globaltype/EditableMesh.GetBoneParent/return/0": {
-    "documentation": "ID xương cho cha của xương với ID xương đã cho. Nếu không có cha, trả về <code>0</code>."
+    "documentation": "ID xương của cha của xương với ID xương đã cho. Nếu không có cha, trả về <code>0</code>."
   },
   "@roblox/globaltype/EditableMesh.GetBoneParent": {
     "documentation": "Trả về ID xương cha, nếu có.",
@@ -68000,7 +68074,7 @@
     "documentation": "Danh sách các ID xương."
   },
   "@roblox/globaltype/EditableMesh.GetBones": {
-    "documentation": "Trả về tất cả các xương của mesh.",
+    "documentation": "Trả về tất cả các xương của lưới.",
     "params": [
       {
         "name": "self",
@@ -68017,10 +68091,10 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetCenter/return/0": {
-    "documentation": "Tâm của hộp bao quanh của <code>EditableMesh</code>."
+    "documentation": "Trung tâm của hộp bao trùm của <code>EditableMesh</code>."
   },
   "@roblox/globaltype/EditableMesh.GetCenter": {
-    "documentation": "Trả về trung tâm của hộp bao bọc theo trục của lưới.",
+    "documentation": "Trả về trung tâm của hộp bao trùm theo trục của lưới.",
     "params": [
       {
         "name": "self",
@@ -68037,13 +68111,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetColor/param/1": {
-    "documentation": "ID màu mà để lấy màu sắc."
+    "documentation": "ID màu sắc mà bạn muốn lấy màu sắc."
   },
   "@roblox/globaltype/EditableMesh.GetColor/return/0": {
-    "documentation": "Màu sắc cho ID màu yêu cầu."
+    "documentation": "Màu sắc cho ID màu sắc đã yêu cầu."
   },
   "@roblox/globaltype/EditableMesh.GetColor": {
-    "documentation": "Trả về màu sắc cho ID màu đã cho.",
+    "documentation": "Trả về màu sắc cho ID màu sắc đã cho.",
     "params": [
       {
         "name": "self",
@@ -68064,13 +68138,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetColorAlpha/param/1": {
-    "documentation": "ID màu mà để lấy alpha."
+    "documentation": "ID màu sắc mà bạn muốn lấy alpha."
   },
   "@roblox/globaltype/EditableMesh.GetColorAlpha/return/0": {
-    "documentation": "Alpha màu tại ID màu yêu cầu."
+    "documentation": "Alpha màu sắc tại ID màu sắc yêu cầu."
   },
   "@roblox/globaltype/EditableMesh.GetColorAlpha": {
-    "documentation": "Trả về alpha màu (độ trong suốt) tại ID màu đã cho.",
+    "documentation": "Trả về alpha màu sắc (độ trong suốt) tại ID màu sắc đã cho.",
     "params": [
       {
         "name": "self",
@@ -68091,10 +68165,10 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetColors/return/0": {
-    "documentation": "Danh sách các ID màu."
+    "documentation": "Danh sách các ID màu sắc."
   },
   "@roblox/globaltype/EditableMesh.GetColors": {
-    "documentation": "Trả về tất cả màu sắc của mesh.",
+    "documentation": "Trả về tất cả các màu sắc của lưới.",
     "params": [
       {
         "name": "self",
@@ -68111,13 +68185,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetFaceColors/param/1": {
-    "documentation": "ID mặt mà để lấy ID màu."
+    "documentation": "ID mặt mà bạn muốn lấy ID màu sắc."
   },
   "@roblox/globaltype/EditableMesh.GetFaceColors/return/0": {
-    "documentation": "Danh sách các ID màu được sử dụng cho các đỉnh trên mặt đã cho."
+    "documentation": "Danh sách các ID màu sắc được sử dụng cho các đỉnh trên mặt đã cho."
   },
   "@roblox/globaltype/EditableMesh.GetFaceColors": {
-    "documentation": "Trả về ID màu của mặt cho các đỉnh trên mặt.",
+    "documentation": "Trả về ID màu sắc của mặt cho các đỉnh trên mặt.",
     "params": [
       {
         "name": "self",
@@ -68138,13 +68212,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals/param/1": {
-    "documentation": "ID mặt mà để lấy ID pháp tuyến."
+    "documentation": "ID mặt mà bạn muốn lấy ID bình thường."
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals/return/0": {
-    "documentation": "Danh sách các ID pháp tuyến được sử dụng cho các đỉnh trên mặt đã cho."
+    "documentation": "Danh sách các ID bình thường được sử dụng cho các đỉnh trên mặt đã cho."
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals": {
-    "documentation": "Trả về ID pháp tuyến của mặt cho các đỉnh trên mặt.",
+    "documentation": "Trả về ID bình thường của mặt cho các đỉnh trên mặt.",
     "params": [
       {
         "name": "self",
@@ -68168,7 +68242,7 @@
     "documentation": "Danh sách các ID mặt."
   },
   "@roblox/globaltype/EditableMesh.GetFaces": {
-    "documentation": "Trả về tất cả các mặt của mesh.",
+    "documentation": "Trả về tất cả các mặt của lưới.",
     "params": [
       {
         "name": "self",
@@ -68185,13 +68259,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute/param/1": {
-    "documentation": "ID thuộc tính mà để tìm các mặt sử dụng nó."
+    "documentation": "ID thuộc tính mà bạn muốn tìm các mặt sử dụng."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute/return/0": {
     "documentation": "Danh sách các ID mặt sử dụng ID thuộc tính đã cho."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute": {
-    "documentation": "<strong>Deprecated:</strong> Phương thức này đã bị ngừng sử dụng. Không sử dụng nó cho công việc mới.<br>Trả về danh sách các mặt sử dụng một ID thuộc tính cho trước.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã bị ngừng sử dụng. Đừng sử dụng nó cho công việc mới.<br>Trả về danh sách các mặt sử dụng một ID thuộc tính đã cho.",
     "params": [
       {
         "name": "self",
@@ -68212,13 +68286,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1": {
-    "documentation": "ID màu để tìm các mặt."
+    "documentation": "ID màu sắc để tìm các mặt."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor/return/0": {
-    "documentation": "Danh sách các ID mặt sử dụng ID màu đã cung cấp."
+    "documentation": "Danh sách các ID mặt sử dụng ID màu sắc đã cung cấp."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor": {
-    "documentation": "Trả về một mảng các ID mặt sử dụng ID màu đã cho.",
+    "documentation": "Trả về một mảng các ID mặt sử dụng ID màu sắc đã cho.",
     "params": [
       {
         "name": "self",
@@ -68239,13 +68313,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1": {
-    "documentation": "ID pháp tuyến để tìm các mặt."
+    "documentation": "ID bình thường để tìm các mặt."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal/return/0": {
-    "documentation": "Danh sách các ID mặt sử dụng ID pháp tuyến đã cung cấp."
+    "documentation": "Danh sách các ID mặt sử dụng ID bình thường đã cung cấp."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal": {
-    "documentation": "Trả về một mảng các ID mặt sử dụng ID pháp tuyến đã cho.",
+    "documentation": "Trả về một mảng các ID mặt sử dụng ID bình thường đã cho.",
     "params": [
       {
         "name": "self",
@@ -68293,13 +68367,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs/param/1": {
-    "documentation": "ID mặt mà để lấy ID UV."
+    "documentation": "ID mặt để lấy các ID UV."
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs/return/0": {
     "documentation": "Danh sách các ID UV được sử dụng cho các đỉnh trên mặt đã cho."
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs": {
-    "documentation": "Trả về ID UV của mặt cho các đỉnh trên mặt.",
+    "documentation": "Trả về các ID UV của mặt cho các đỉnh trên mặt.",
     "params": [
       {
         "name": "self",
@@ -68326,7 +68400,7 @@
     "documentation": "Danh sách các ID đỉnh xung quanh mặt đã cho."
   },
   "@roblox/globaltype/EditableMesh.GetFaceVertices": {
-    "documentation": "Trả về ID đỉnh của các đỉnh trên mặt.",
+    "documentation": "Trả về các ID đỉnh của mặt.",
     "params": [
       {
         "name": "self",
@@ -68350,10 +68424,10 @@
     "documentation": "Mảng hoặc 2 hoặc 3 giá trị <code>FacsActionUnit</code> xác định một tư thế sửa chữa."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/return/0": {
-    "documentation": "Mảng ID xương và mảng tương ứng của <code>CFrames</code>."
+    "documentation": "Mảng các ID xương và mảng tương ứng của <code>CFrames</code>."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose": {
-    "documentation": "Trả về ID xương và <code>CFrames</code> cho tất cả các xương trong một tư thế sửa chữa FACS cụ thể.",
+    "documentation": "Trả về các ID xương và <code>CFrames</code> cho tất cả các xương trong một tư thế sửa chữa FACS cụ thể.",
     "params": [
       {
         "name": "self",
@@ -68394,13 +68468,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPose/param/1": {
-    "documentation": "Đơn vị hành động FACS mà để lấy tư thế."
+    "documentation": "Đơn vị hành động FACS để lấy tư thế."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPose/return/0": {
-    "documentation": "Mảng ID xương và mảng tương ứng của <code>CFrame</code>."
+    "documentation": "Mảng các ID xương và mảng tương ứng của <code>CFrame</code>."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPose": {
-    "documentation": "Trả về ID xương và <code>CFrames</code> cho tất cả các xương trong một đơn vị hành động FACS cụ thể.",
+    "documentation": "Trả về các ID xương và <code>CFrames</code> cho tất cả các xương trong một đơn vị hành động FACS cụ thể.",
     "params": [
       {
         "name": "self",
@@ -68421,7 +68495,7 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0": {
-    "documentation": "Mảng <code>FacsActionUnit</code>, một cho mỗi đơn vị hành động FACS có tư thế được xác định."
+    "documentation": "Mảng của <code>FacsActionUnit</code>, một cho mỗi đơn vị hành động FACS có tư thế được xác định."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPoses": {
     "documentation": "Trả về tất cả các đơn vị hành động FACS có tư thế được xác định.",
@@ -68441,13 +68515,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetNormal/param/1": {
-    "documentation": "ID pháp tuyến mà để lấy vector pháp tuyến."
+    "documentation": "ID bình thường để lấy vector bình thường."
   },
   "@roblox/globaltype/EditableMesh.GetNormal/return/0": {
-    "documentation": "Vector pháp tuyến tại ID pháp tuyến đã yêu cầu."
+    "documentation": "Vector bình thường tại ID bình thường đã yêu cầu."
   },
   "@roblox/globaltype/EditableMesh.GetNormal": {
-    "documentation": "Trả về vector pháp tuyến cho ID pháp tuyến đã cho.",
+    "documentation": "Trả về vector bình thường cho ID bình thường đã cho.",
     "params": [
       {
         "name": "self",
@@ -68471,7 +68545,7 @@
     "documentation": "Danh sách các ID bình thường."
   },
   "@roblox/globaltype/EditableMesh.GetNormals": {
-    "documentation": "Trả về tất cả các pháp tuyến của mesh.",
+    "documentation": "Trả về tất cả các vector bình thường của lưới.",
     "params": [
       {
         "name": "self",
@@ -68491,7 +68565,7 @@
     "documentation": "ID đỉnh để lấy vị trí."
   },
   "@roblox/globaltype/EditableMesh.GetPosition/return/0": {
-    "documentation": "Vị trí của một đỉnh trong không gian đối tượng cục bộ của mesh."
+    "documentation": "Vị trí của một đỉnh trong không gian đối tượng cục bộ của lưới."
   },
   "@roblox/globaltype/EditableMesh.GetPosition": {
     "documentation": "Lấy vị trí của một đỉnh.",
@@ -68518,7 +68592,7 @@
     "documentation": "Kích thước của <code>EditableMesh</code>."
   },
   "@roblox/globaltype/EditableMesh.GetSize": {
-    "documentation": "Trả về kích thước của hộp bao bọc theo trục của lưới.",
+    "documentation": "Trả về kích thước của hộp bao trục của lưới.",
     "params": [
       {
         "name": "self",
@@ -68535,7 +68609,7 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetUV/param/1": {
-    "documentation": "ID UV mà để lấy tọa độ UV."
+    "documentation": "ID UV để lấy tọa độ UV."
   },
   "@roblox/globaltype/EditableMesh.GetUV/return/0": {
     "documentation": "Tọa độ UV tại ID UV đã yêu cầu."
@@ -68565,7 +68639,7 @@
     "documentation": "Danh sách các ID UV."
   },
   "@roblox/globaltype/EditableMesh.GetUVs": {
-    "documentation": "Trả về tất cả các UV của mesh.",
+    "documentation": "Trả về tất cả các UV của lưới.",
     "params": [
       {
         "name": "self",
@@ -68582,13 +68656,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBones/param/1": {
-    "documentation": "ID đỉnh mà để lấy các xương liên kết."
+    "documentation": "ID đỉnh để lấy các xương liên kết."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBones/return/0": {
-    "documentation": "ID xương liên kết với đỉnh để skinning."
+    "documentation": "ID xương liên kết với đỉnh để tạo hình."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBones": {
-    "documentation": "Trả về tất cả ID xương liên kết với đỉnh để skinning.",
+    "documentation": "Trả về tất cả các ID xương liên kết với đỉnh để tạo hình.",
     "params": [
       {
         "name": "self",
@@ -68609,13 +68683,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1": {
-    "documentation": "ID đỉnh mà để lấy trọng số xương liên kết."
+    "documentation": "ID đỉnh để lấy các trọng số xương liên kết."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/return/0": {
-    "documentation": "Trọng số pha trộn skinning cho mỗi xương liên kết với đỉnh."
+    "documentation": "Trọng số pha trộn tạo hình cho mỗi xương liên kết với đỉnh."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights": {
-    "documentation": "Trả về trọng số pha trộn skinning cho mỗi xương liên kết với đỉnh.",
+    "documentation": "Trả về trọng số pha trộn tạo hình cho mỗi xương liên kết với đỉnh.",
     "params": [
       {
         "name": "self",
@@ -68639,10 +68713,10 @@
     "documentation": "ID đỉnh để tìm các ID màu."
   },
   "@roblox/globaltype/EditableMesh.GetVertexColors/return/0": {
-    "documentation": "Mảng ID màu của các mặt gắn với đỉnh đã cho."
+    "documentation": "Mảng các ID màu của các mặt gắn với đỉnh đã cho."
   },
   "@roblox/globaltype/EditableMesh.GetVertexColors": {
-    "documentation": "Trả về ID màu của các mặt gắn với đỉnh đã cho.",
+    "documentation": "Trả về các ID màu của các mặt gắn với đỉnh đã cho.",
     "params": [
       {
         "name": "self",
@@ -68706,7 +68780,7 @@
     "documentation": "ID bình thường của cặp đỉnh/mặt."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal": {
-    "documentation": "Trả về ID pháp tuyến của một cặp đỉnh/mặt.",
+    "documentation": "Trả về ID bình thường của một cặp đỉnh/mặt.",
     "params": [
       {
         "name": "self",
@@ -68734,10 +68808,10 @@
     "documentation": "ID đỉnh để tìm các mặt."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaces/return/0": {
-    "documentation": "Mảng ID mặt gắn với đỉnh đã cho."
+    "documentation": "Mảng các ID mặt gắn với đỉnh đã cho."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaces": {
-    "documentation": "Trả về ID mặt của các mặt gắn với đỉnh đã cho.",
+    "documentation": "Trả về các ID mặt của các mặt gắn với đỉnh đã cho.",
     "params": [
       {
         "name": "self",
@@ -68795,10 +68869,10 @@
     "documentation": "ID đỉnh để tìm các ID bình thường."
   },
   "@roblox/globaltype/EditableMesh.GetVertexNormals/return/0": {
-    "documentation": "Mảng ID pháp tuyến của các mặt gắn với đỉnh đã cho."
+    "documentation": "Mảng các ID bình thường của các mặt gắn với đỉnh đã cho."
   },
   "@roblox/globaltype/EditableMesh.GetVertexNormals": {
-    "documentation": "Trả về ID pháp tuyến của các mặt gắn với đỉnh đã cho.",
+    "documentation": "Trả về các ID bình thường của các mặt gắn với đỉnh đã cho.",
     "params": [
       {
         "name": "self",
@@ -68822,10 +68896,10 @@
     "documentation": "ID đỉnh để tìm các ID UV."
   },
   "@roblox/globaltype/EditableMesh.GetVertexUVs/return/0": {
-    "documentation": "Mảng ID UV của các mặt gắn với đỉnh đã cho."
+    "documentation": "Mảng các ID UV của các mặt gắn với đỉnh đã cho."
   },
   "@roblox/globaltype/EditableMesh.GetVertexUVs": {
-    "documentation": "Trả về ID UV của các mặt gắn với đỉnh đã cho.",
+    "documentation": "Trả về các ID UV của các mặt gắn với đỉnh đã cho.",
     "params": [
       {
         "name": "self",
@@ -68866,13 +68940,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute/param/1": {
-    "documentation": "ID thuộc tính mà để tìm các đỉnh sử dụng nó."
+    "documentation": "ID thuộc tính để tìm các đỉnh sử dụng nó."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute/return/0": {
     "documentation": "Danh sách các ID đỉnh sử dụng ID thuộc tính đã cho."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute": {
-    "documentation": "<strong>Deprecated:</strong> Phương thức này đã bị ngừng sử dụng. Không sử dụng nó cho công việc mới.<br>Trả về danh sách các đỉnh sử dụng một ID thuộc tính cho trước.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã lỗi thời. Không sử dụng nó cho công việc mới.<br>Trả về một danh sách các đỉnh sử dụng một ID thuộc tính đã cho.",
     "params": [
       {
         "name": "self",
@@ -68896,7 +68970,7 @@
     "documentation": "ID màu để tìm các mặt."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor/return/0": {
-    "documentation": "Danh sách các ID đỉnh sử dụng ID màu đã cung cấp."
+    "documentation": "Danh sách các ID mặt sử dụng ID màu đã cung cấp."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor": {
     "documentation": "Trả về một mảng các ID đỉnh sử dụng ID màu đã cho.",
@@ -68920,13 +68994,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1": {
-    "documentation": "ID pháp tuyến để tìm các đỉnh."
+    "documentation": "ID bình thường để tìm các đỉnh."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/return/0": {
-    "documentation": "Danh sách các ID đỉnh sử dụng ID pháp tuyến đã cung cấp."
+    "documentation": "Danh sách các ID đỉnh sử dụng ID bình thường đã cung cấp."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithNormal": {
-    "documentation": "Trả về một mảng các ID đỉnh sử dụng ID pháp tuyến đã cho.",
+    "documentation": "Trả về một mảng các ID đỉnh sử dụng ID bình thường đã cho.",
     "params": [
       {
         "name": "self",
@@ -68974,7 +69048,7 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/param/1": {
-    "documentation": "ID mà để trả về chuỗi thông tin gỡ lỗi."
+    "documentation": "ID để trả về một chuỗi thông tin gỡ lỗi."
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/return/0": {
     "documentation": "Chuỗi mô tả ID theo định dạng dễ đọc."
@@ -69028,13 +69102,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/param/1": {
-    "documentation": "Nguồn gốc của tia trong không gian đối tượng cục bộ của mesh."
+    "documentation": "Nguồn gốc của tia trong không gian đối tượng cục bộ của lưới."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/param/2": {
     "documentation": "Hướng của tia."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/return/0": {
-    "documentation": "Tuple của điểm giao nhau, ID mặt, và các tọa độ barycentric."
+    "documentation": "Tuple của ID mặt, điểm giao nhau, tọa độ barycentric, và 3 ID đỉnh mà tọa độ barycentric có trọng số."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal": {
     "documentation": "Phát ra một tia và trả về điểm giao nhau, ID mặt, và tọa độ barycentric.",
@@ -69065,7 +69139,7 @@
     "documentation": "ID xương của xương cần xóa."
   },
   "@roblox/globaltype/EditableMesh.RemoveBone": {
-    "documentation": "Xóa một xương bằng cách sử dụng ID xương của nó.",
+    "documentation": "Xóa một xương bằng ID xương của nó.",
     "params": [
       {
         "name": "self",
@@ -69087,7 +69161,7 @@
     "documentation": "ID mặt của mặt cần xóa."
   },
   "@roblox/globaltype/EditableMesh.RemoveFace": {
-    "documentation": "Xóa một mặt bằng cách sử dụng ID mặt của nó.",
+    "documentation": "Xóa một mặt bằng ID mặt của nó.",
     "params": [
       {
         "name": "self",
@@ -69109,7 +69183,7 @@
     "documentation": "Tất cả các ID đã xóa."
   },
   "@roblox/globaltype/EditableMesh.RemoveUnused": {
-    "documentation": "Xóa tất cả các đỉnh, pháp tuyến, UV, và màu sắc không được sử dụng, và trả về các ID đã bị xóa.",
+    "documentation": "Xóa tất cả các đỉnh, bình thường, UV, và màu không sử dụng, và trả về các ID đã xóa.",
     "params": [
       {
         "name": "self",
@@ -69129,7 +69203,7 @@
     "documentation": "ID bình thường để đặt lại."
   },
   "@roblox/globaltype/EditableMesh.ResetNormal": {
-    "documentation": "Đặt ID pháp tuyến này để được tính toán tự động.",
+    "documentation": "Đặt lại ID bình thường này để được tính toán tự động.",
     "params": [
       {
         "name": "self",
@@ -69148,13 +69222,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/1": {
-    "documentation": "ID xương mà để đặt <code>CFrame</code> ban đầu."
+    "documentation": "ID xương để đặt <code>CFrame</code> ban đầu."
   },
   "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/2": {
-    "documentation": "<code>CFrame</code> ban đầu cho xương trong tư thế bind của mesh, trong không gian cục bộ của mesh."
+    "documentation": "<code>CFrame</code> ban đầu cho xương trong tư thế liên kết của lưới, trong không gian cục bộ của lưới."
   },
   "@roblox/globaltype/EditableMesh.SetBoneCFrame": {
-    "documentation": "Đặt <code>CFrame</code> ban đầu cho một xương trong tư thế bind của mesh.",
+    "documentation": "Đặt <code>CFrame</code> ban đầu cho một xương trong tư thế liên kết của lưới.",
     "params": [
       {
         "name": "self",
@@ -69177,13 +69251,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/1": {
-    "documentation": "ID xương mà để đặt xem xương có phải là ảo hay không."
+    "documentation": "ID xương để đặt xem xương có ảo hay không."
   },
   "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/2": {
     "documentation": "Liệu xương có nên là ảo hay không."
   },
   "@roblox/globaltype/EditableMesh.SetBoneIsVirtual": {
-    "documentation": "Đặt xem một xương có phải là ảo hay không.",
+    "documentation": "Đặt xem một xương có ảo hay không.",
     "params": [
       {
         "name": "self",
@@ -69206,7 +69280,7 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.SetBoneName/param/1": {
-    "documentation": "ID xương mà để đặt tên."
+    "documentation": "ID xương để đặt tên."
   },
   "@roblox/globaltype/EditableMesh.SetBoneName/param/2": {
     "documentation": "Tên xương để đặt."
@@ -69235,13 +69309,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.SetBoneParent/param/1": {
-    "documentation": "ID xương mà để đặt cha."
+    "documentation": "ID xương để đặt bậc cha."
   },
   "@roblox/globaltype/EditableMesh.SetBoneParent/param/2": {
-    "documentation": "ID xương cha."
+    "documentation": "ID bậc cha."
   },
   "@roblox/globaltype/EditableMesh.SetBoneParent": {
-    "documentation": "Đặt một cha cho một xương.",
+    "documentation": "Đặt một bậc cha cho một xương.",
     "params": [
       {
         "name": "self",
@@ -69322,7 +69396,7 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.SetFaceColors/param/1": {
-    "documentation": "ID mặt mà để cập nhật màu của các đỉnh."
+    "documentation": "ID mặt để cập nhật màu đỉnh."
   },
   "@roblox/globaltype/EditableMesh.SetFaceColors/param/2": {
     "documentation": "Danh sách các ID màu mới để sử dụng cho các đỉnh của mặt đã cho."
@@ -69351,13 +69425,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals/param/1": {
-    "documentation": "ID mặt mà để cập nhật pháp tuyến của các đỉnh."
+    "documentation": "ID mặt để cập nhật các bình thường đỉnh."
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals/param/2": {
     "documentation": "Danh sách các ID bình thường mới để sử dụng cho các đỉnh của mặt đã cho."
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals": {
-    "documentation": "Đặt pháp tuyến của các đỉnh mặt thành các ID pháp tuyến mới.",
+    "documentation": "Đặt các bình thường của mặt thành các ID bình thường mới.",
     "params": [
       {
         "name": "self",
@@ -69380,13 +69454,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.SetFaceUVs/param/1": {
-    "documentation": "ID mặt mà để cập nhật UV của các đỉnh."
+    "documentation": "ID mặt để cập nhật các UV đỉnh."
   },
   "@roblox/globaltype/EditableMesh.SetFaceUVs/param/2": {
     "documentation": "Danh sách các ID UV mới để sử dụng cho các đỉnh của mặt đã cho."
   },
   "@roblox/globaltype/EditableMesh.SetFaceUVs": {
-    "documentation": "Đặt UV của các đỉnh mặt thành các ID UV mới.",
+    "documentation": "Đặt các UV của mặt thành các ID UV mới.",
     "params": [
       {
         "name": "self",
@@ -69409,7 +69483,7 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.SetFaceVertices/param/1": {
-    "documentation": "ID mặt mà để cập nhật các đỉnh."
+    "documentation": "ID mặt để cập nhật các đỉnh."
   },
   "@roblox/globaltype/EditableMesh.SetFaceVertices/param/2": {
     "documentation": "Danh sách các ID đỉnh mới để sử dụng cho mặt đã cho."
@@ -69438,16 +69512,16 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/1": {
-    "documentation": "Đơn vị hành động FACS mà để đặt tư thế."
+    "documentation": "Đơn vị hành động FACS để đặt tư thế."
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/2": {
     "documentation": "Xương để đặt <code>CFrame</code> cho tư thế này."
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/3": {
-    "documentation": "<code>CFrame</code> biến đổi xương từ <code>CFrame</code> ban đầu của xương trong tư thế bind của mesh đến <code>CFrame</code> xương kết hợp cho tư thế này. Tất cả <code>CFrames</code> đều ở trong không gian cục bộ của mesh."
+    "documentation": "<code>CFrame</code> biến đổi xương từ <code>CFrame</code> xương ban đầu trong tư thế liên kết của lưới đến <code>CFrame</code> xương kết hợp cho tư thế này. Tất cả <code>CFrames</code> đều ở không gian cục bộ của lưới."
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose": {
-    "documentation": "Đặt <code>CFrame</code> cho một xương cá nhân trong một đơn vị hành động FACS cụ thể.",
+    "documentation": "Đặt <code>CFrame</code> cho một xương riêng lẻ trong một đơn vị hành động FACS cụ thể.",
     "params": [
       {
         "name": "self",
@@ -69480,7 +69554,7 @@
     "documentation": "Các xương để đặt <code>CFrame</code> cho tư thế này."
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/3": {
-    "documentation": "<code>CFrame</code> biến đổi cho các xương trong tư thế sửa chữa này. Mỗi <code>CFrame</code> của xương biến đổi xương từ <code>CFrame</code> ban đầu của xương trong tư thế bind của mesh đến <code>CFrame</code> xương kết hợp cho tư thế này. Tất cả <code>CFrames</code> đều ở trong không gian cục bộ của mesh."
+    "documentation": "<code>CFrame</code> biến đổi cho các xương trong tư thế sửa chữa này. Mỗi <code>CFrame</code> xương biến đổi xương từ <code>CFrame</code> xương ban đầu trong tư thế liên kết của lưới đến <code>CFrame</code> xương kết hợp cho tư thế này. Tất cả <code>CFrames</code> đều ở không gian cục bộ của lưới."
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose": {
     "documentation": "Đặt tư thế cho tất cả các xương trong một tư thế sửa chữa FACS cụ thể.",
@@ -69513,10 +69587,10 @@
     "documentation": "Đơn vị hành động FACS để đặt tư thế cho."
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose/param/2": {
-    "documentation": "Các xương mà để đặt <code>CFrame</code> cho tư thế này."
+    "documentation": "Các xương để đặt <code>CFrame</code> cho tư thế này."
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose/param/3": {
-    "documentation": "<code>CFrame</code> biến đổi cho các xương trong tư thế này. Mỗi <code>CFrame</code> của xương biến đổi xương từ <code>CFrame</code> ban đầu của xương trong tư thế bind của mesh đến <code>CFrame</code> xương kết hợp cho tư thế này. Tất cả <code>CFrames</code> đều ở trong không gian cục bộ của mesh."
+    "documentation": "<code>CFrame</code> biến đổi cho các xương trong tư thế này. Mỗi <code>CFrame</code> xương biến đổi xương từ <code>CFrame</code> xương ban đầu trong tư thế liên kết của lưới đến <code>CFrame</code> xương kết hợp cho tư thế này. Tất cả <code>CFrames</code> đều ở không gian cục bộ của lưới."
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose": {
     "documentation": "Đặt tư thế cho tất cả các xương trong một đơn vị hành động FACS cụ thể.",
@@ -69546,13 +69620,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.SetNormal/param/1": {
-    "documentation": "ID bình thường để thiết lập vector bình thường."
+    "documentation": "ID bình thường để đặt vector bình thường."
   },
   "@roblox/globaltype/EditableMesh.SetNormal/param/2": {
-    "documentation": "Vector pháp tuyến để đặt."
+    "documentation": "Vector bình thường để đặt."
   },
   "@roblox/globaltype/EditableMesh.SetNormal": {
-    "documentation": "Đặt pháp tuyến cho một ID pháp tuyến.",
+    "documentation": "Đặt bình thường cho một ID bình thường.",
     "params": [
       {
         "name": "self",
@@ -69578,10 +69652,10 @@
     "documentation": "ID đỉnh của đỉnh cần định vị."
   },
   "@roblox/globaltype/EditableMesh.SetPosition/param/2": {
-    "documentation": "Vị trí trong không gian đối tượng cục bộ của mesh."
+    "documentation": "Vị trí trong không gian đối tượng cục bộ của lưới."
   },
   "@roblox/globaltype/EditableMesh.SetPosition": {
-    "documentation": "Đặt vị trí của một đỉnh trong không gian đối tượng cục bộ của mesh.",
+    "documentation": "Đặt vị trí của một đỉnh trong không gian đối tượng cục bộ của lưới.",
     "params": [
       {
         "name": "self",
@@ -69604,7 +69678,7 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.SetUV/param/1": {
-    "documentation": "ID UV mà để đặt tọa độ UV."
+    "documentation": "ID UV để đặt tọa độ UV."
   },
   "@roblox/globaltype/EditableMesh.SetUV/param/2": {
     "documentation": "Tọa độ UV."
@@ -69633,13 +69707,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBones/param/1": {
-    "documentation": "ID đỉnh để đặt các xương skinning cho đỉnh."
+    "documentation": "ID đỉnh để đặt các xương tạo hình cho đỉnh."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBones/param/2": {
-    "documentation": "ID xương để sử dụng với đỉnh này cho skinning."
+    "documentation": "ID xương để sử dụng với đỉnh này cho việc tạo hình."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBones": {
-    "documentation": "Gán một danh sách các xương với đỉnh để skinning.",
+    "documentation": "Gán một danh sách các xương với đỉnh để tạo hình.",
     "params": [
       {
         "name": "self",
@@ -69662,13 +69736,13 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1": {
-    "documentation": "ID đỉnh mà để đặt trọng số pha trộn skinning."
+    "documentation": "ID đỉnh mà bạn muốn đặt trọng số pha trộn tạo hình."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/2": {
-    "documentation": "Trọng số pha trộn skinning để đặt trên đỉnh."
+    "documentation": "Trọng số pha trộn tạo hình để đặt trên đỉnh."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBoneWeights": {
-    "documentation": "Đặt trọng số pha trộn skinning cho mỗi xương liên kết với đỉnh.",
+    "documentation": "Đặt trọng số pha trộn tạo hình cho mỗi xương liên kết với đỉnh.",
     "params": [
       {
         "name": "self",
@@ -69697,7 +69771,7 @@
     "documentation": "ID mặt."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/3": {
-    "documentation": "ID màu để thiết lập cho cặp đỉnh/mặt."
+    "documentation": "ID màu để đặt cho cặp đỉnh/mặt."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceColor": {
     "documentation": "Đặt ID màu của một cặp đỉnh/mặt.",
@@ -69733,10 +69807,10 @@
     "documentation": "ID mặt."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/3": {
-    "documentation": "ID bình thường để thiết lập cho cặp đỉnh/mặt."
+    "documentation": "ID bình thường để đặt cho cặp đỉnh/mặt."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceNormal": {
-    "documentation": "Đặt ID pháp tuyến của một cặp đỉnh/mặt.",
+    "documentation": "Đặt ID bình thường của một cặp đỉnh/mặt.",
     "params": [
       {
         "name": "self",
@@ -69769,7 +69843,7 @@
     "documentation": "ID mặt."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/3": {
-    "documentation": "ID UV để thiết lập cho cặp đỉnh/mặt."
+    "documentation": "ID UV để đặt cho cặp đỉnh/mặt."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceUV": {
     "documentation": "Đặt ID UV của một cặp đỉnh/mặt.",
@@ -69799,7 +69873,7 @@
     "documentation": "Đối tượng cho phép tạo và thao tác mesh trong thời gian chạy."
   },
   "@roblox/globaltype/EditableMesh.Triangulate": {
-    "documentation": "Chia tất cả các mặt trên mesh thành các tam giác.",
+    "documentation": "Chia tất cả các mặt trên lưới thành các tam giác.",
     "params": [
       {
         "name": "self",
@@ -71602,7 +71676,7 @@
     "documentation": "Xử lý dịch tự động."
   },
   "@roblox/globaltype/LocalizationService.GetCorescriptLocalizations/return/0": {
-    "documentation": "Một danh sách các đối tượng <code>LocalizationTable</code> được sử dụng để định vị hóa CoreScripts."
+    "documentation": "Danh sách các đối tượng <code>LocalizationTable</code> được sử dụng để định vị hóa CoreScripts."
   },
   "@roblox/globaltype/LocalizationService.GetCorescriptLocalizations": {
     "documentation": "Trả về danh sách các đối tượng <code>LocalizationTable</code> được sử dụng để định vị hóa các kịch bản cốt lõi.",
@@ -71709,7 +71783,7 @@
     "documentation": "Thể hiện <code>Translator</code> cho ngôn ngữ đã chỉ định."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayer": {
-    "documentation": "Trả về một <code>Translator</code> để được sử dụng cho các bản dịch sử dụng dữ liệu ngôn ngữ đã tải.",
+    "documentation": "<strong>Deprecated:</strong> Hàm này đã bị ngừng sử dụng bởi <code>LocalizationService:GetTranslatorForPlayerAsync()</code>, hàm này hoạt động tương tự ngoại trừ việc nó yield cho đến khi bảng đám mây đã được tải. Vui lòng sử dụng nó trong công việc mới thay thế.<br>Trả về một <code>Translator</code> để được sử dụng cho các bản dịch sử dụng dữ liệu ngôn ngữ đã tải.",
     "params": [
       {
         "name": "self",
@@ -71736,7 +71810,7 @@
     "documentation": "Thể hiện <code>Translator</code> cho ngôn ngữ đã chỉ định."
   },
   "@roblox/globaltype/LocalizationService.GetTranslatorForPlayerAsync": {
-    "documentation": "Yield cho đến khi bảng đám mây <code>LocalizationTable</code> cho ngôn ngữ của người chơi được tải - nếu có. Trả về một thể hiện <code>Translator</code> để được sử dụng cho các bản dịch cho ngôn ngữ đã cung cấp.",
+    "documentation": "Yield cho đến khi bảng đám mây <code>LocalizationTable</code> cho ngôn ngữ của người chơi đã được tải - nếu có. Trả về một thể hiện <code>Translator</code> để được sử dụng cho các bản dịch cho ngôn ngữ đã cung cấp.",
     "params": [
       {
         "name": "self",
@@ -80435,7 +80509,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation": {
-    "documentation": "Một lớp trừu tượng mà tất cả các phần dựa trên mô hình rắn kế thừa từ.",
+    "documentation": "Một lớp trừu tượng mà tất cả các phần dựa trên mô hình rắn kế thừa từ đó.",
     "keys": {
       "RenderFidelity": "@roblox/globaltype/PartOperation.RenderFidelity",
       "SmoothingAngle": "@roblox/globaltype/PartOperation.SmoothingAngle",
@@ -80452,7 +80526,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.SmoothingAngle": {
-    "documentation": "Một góc tính bằng độ ảnh hưởng đến việc làm mịn bóng của phần mô hình rắn.",
+    "documentation": "Một góc tính bằng độ ảnh hưởng đến độ mịn của bóng của một phần mô hình rắn.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#SmoothingAngle",
     "code_sample": ""
   },
@@ -80462,15 +80536,15 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.UsePartColor": {
-    "documentation": "Xác định xem <code>PartOperation</code> có thể được tô màu lại bằng cách sử dụng các thuộc tính màu kế thừa hay không.",
+    "documentation": "Đặt xem liệu <code>PartOperation</code> có thể được tô màu lại bằng cách sử dụng các thuộc tính màu kế thừa hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#UsePartColor",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry/param/0": {
-    "documentation": "Một lớp trừu tượng mà tất cả các phần dựa trên mô hình rắn kế thừa từ."
+    "documentation": "Một lớp trừu tượng mà tất cả các phần dựa trên mô hình rắn kế thừa từ đó."
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry/param/1": {
-    "documentation": "<code>PartOperation</code> có hình học sẽ thay thế hình học của <code>PartOperation</code> này."
+    "documentation": "<code>PartOperation</code> mà hình học của nó sẽ thay thế hình học của <code>PartOperation</code> này."
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry": {
     "documentation": "Thay thế hình học của <code>PartOperation</code> này bằng hình học của một <code>PartOperation</code> khác.",
@@ -83031,6 +83105,7 @@
       "GetUserSubscriptionDetailsAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync",
       "GetUserSubscriptionPaymentHistoryAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync",
       "GetUserSubscriptionStatusAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync",
+      "OpenShop": "@roblox/globaltype/MarketplaceService.OpenShop",
       "PlayerOwnsAsset": "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset",
       "PlayerOwnsAssetAsync": "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync",
       "PlayerOwnsBundle": "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle",
@@ -83365,6 +83440,28 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetUserSubscriptionStatusAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/MarketplaceService.OpenShop/param/0": {
+    "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
+  },
+  "@roblox/globaltype/MarketplaceService.OpenShop/param/1": {
+    "documentation": "Người chơi <code>Player</code> mà bạn muốn mở cửa hàng cho. Nếu gọi từ một <code>LocalScript</code>, điều này phải là người chơi địa phương."
+  },
+  "@roblox/globaltype/MarketplaceService.OpenShop": {
+    "documentation": "Mở một Cửa Hàng trong trò chơi cá nhân hóa cho người chơi đã cho.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.OpenShop/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/MarketplaceService.OpenShop/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#OpenShop",
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nMarketplaceService:OpenShop(player)"
+  },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/0": {
     "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
   },
@@ -83372,13 +83469,13 @@
     "documentation": "Đối tượng <code>Player</code> mà sẽ kiểm tra sở hữu của tài sản đã cho."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/2": {
-    "documentation": "ID tài sản mà sẽ kiểm tra trong kho của người chơi đã cho."
+    "documentation": "ID tài sản mà sẽ kiểm tra kho của người chơi đã cho."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/return/0": {
     "documentation": "Chỉ ra việc kho của người chơi đã cho có chứa tài sản đã cho hay không."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
-    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>PlayerOwnsAssetAsync()</code>.<br>Trả về việc người dùng cho trước có sở hữu tài sản đã cho không.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>PlayerOwnsAssetAsync()</code>.<br>Trả về việc người dùng đã cho có sở hữu tài sản đã cho không.",
     "params": [
       {
         "name": "self",
@@ -83403,16 +83500,16 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/1": {
-    "documentation": "Đối tượng <code>Player</code> mà sẽ kiểm tra sở hữu của tài sản đã cho."
+    "documentation": "Người chơi <code>Player</code> mà kho đồ của họ được kiểm tra để xác định quyền sở hữu của tài sản đã cho."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/2": {
-    "documentation": "ID tài sản mà sẽ kiểm tra kho của người chơi đã cho."
+    "documentation": "ID tài sản mà kho đồ của người chơi đã cho được kiểm tra."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/return/0": {
-    "documentation": "Chỉ ra việc kho của người chơi đã cho có chứa tài sản đã cho hay không."
+    "documentation": "Chỉ ra liệu kho đồ của người chơi đã cho có chứa tài sản đã cho hay không."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync": {
-    "documentation": "Trả về việc người dùng đã cho có sở hữu tài sản đã cho không.",
+    "documentation": "Trả về việc người dùng đã cho có tài sản đã cho hay không.",
     "params": [
       {
         "name": "self",
@@ -83471,16 +83568,16 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/1": {
-    "documentation": "Đối tượng <code>Player</code> mà sẽ kiểm tra sở hữu của gói đã cho."
+    "documentation": "Người chơi <code>Player</code> mà kho đồ của họ được kiểm tra để xác định quyền sở hữu của gói đã cho."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/2": {
-    "documentation": "ID gói mà sẽ kiểm tra kho của người chơi đã cho."
+    "documentation": "ID gói mà kho đồ của người chơi đã cho được kiểm tra."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/return/0": {
-    "documentation": "Chỉ ra việc kho của người chơi đã cho có chứa gói đã cho hay không."
+    "documentation": "Chỉ ra liệu kho đồ của người chơi đã cho có chứa gói đã cho hay không."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync": {
-    "documentation": "Trả về việc người chơi đã cho có sở hữu gói đã cho không.",
+    "documentation": "Trả về việc người chơi đã cho sở hữu gói đã cho hay không.",
     "params": [
       {
         "name": "self",
@@ -83505,16 +83602,16 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/1": {
-    "documentation": "Người dùng được yêu cầu mua các mục."
+    "documentation": "Người dùng được yêu cầu mua các mặt hàng."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "Một mảng các mục avatar sẽ được bao gồm trong việc mua hàng loạt. Mỗi mục trong danh sách chứa cấu trúc sau: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: chuỗi,   PurchaseOptions: { {Type: PurchaseOption, Value: số?} }? } </code></pre> Mỗi mục trong danh sách chứa các cặp sau: <ul> <li><code>Type</code>: Loại tương ứng của <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: ID của tài sản hoặc gói.</li> <li><code>PurchaseOptions</code>: Tùy chọn. Một mảng chứa một tùy chọn mua   để hiển thị trong kêu gọi. Nếu bị bỏ qua, mua hàng vĩnh viễn   sẽ được kêu gọi. Xem phần PurchaseOptions bên dưới để biết chi tiết.</li> </ul>"
+    "documentation": "Một mảng các mặt hàng avatar sẽ được bao gồm trong yêu cầu mua số lượng lớn. Mỗi mục trong dòng chứa cấu trúc sau: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string,   PurchaseOptions: { {Type: PurchaseOption, Value: number?} }? } </code></pre> Mỗi mục trong dòng chứa các cặp sau: <ul> <li><code>Type</code>: Loại tương ứng <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: ID của tài sản hoặc gói.</li> <li><code>PurchaseOptions</code>: Tùy chọn. Một mảng chứa một tùy chọn mua   để hiển thị trong yêu cầu. Nếu bị bỏ qua, yêu cầu mua vĩnh viễn   sẽ được yêu cầu. Xem phần PurchaseOptions bên dưới để biết chi tiết.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
     "documentation": "Không có sẵn vào thời điểm này."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
-    "documentation": "Yêu cầu người dùng mua nhiều mục avatar với <code>assetId</code> hoặc <code>bundleId</code> đã cho.",
+    "documentation": "Yêu cầu người dùng mua nhiều mặt hàng avatar với <code>assetId</code> hoặc <code>bundleId</code> đã cho.",
     "params": [
       {
         "name": "self",
@@ -83576,7 +83673,7 @@
     "documentation": "ID của đăng ký để hủy."
   },
   "@roblox/globaltype/MarketplaceService.PromptCancelSubscription": {
-    "documentation": "Yêu cầu người dùng hủy một đăng ký với <code>subscriptionId</code> đã cho.",
+    "documentation": "Yêu cầu người dùng hủy một đăng ký cho <code>subscriptionId</code> đã cho.",
     "params": [
       {
         "name": "self",
@@ -83599,7 +83696,7 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/1": {
-    "documentation": "Đối tượng <code>Player</code> để nhắc nhở."
+    "documentation": "Người chơi <code>Player</code> để yêu cầu."
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/2": {
     "documentation": "ID thẻ để mua. Đây là <code>TargetId</code> được trả về bởi <code>GetProductInfo()</code> khi <code>InfoType</code> là <code>GamePass</code>. Nó không phải là ID tài sản của thẻ và không phải là <code>ProductId</code> của nó."
@@ -83662,7 +83759,7 @@
     "documentation": "Bỏ qua."
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase": {
-    "documentation": "Yêu cầu người dùng mua một sản phẩm của nhà phát triển với <code>productId</code> đã cho.",
+    "documentation": "Yêu cầu người dùng mua một sản phẩm phát triển với <code>productId</code> đã cho.",
     "params": [
       {
         "name": "self",
@@ -83693,19 +83790,19 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/1": {
-    "documentation": "Đối tượng <code>Player</code> để nhắc nhở."
+    "documentation": "Người chơi <code>Player</code> để yêu cầu."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/2": {
     "documentation": "ID của tài sản để mua."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/3": {
-    "documentation": "Bỏ qua."
+    "documentation": "Bị bỏ qua."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/4": {
-    "documentation": "Bỏ qua."
+    "documentation": "Bị bỏ qua."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase": {
-    "documentation": "Yêu cầu người dùng mua một mục với <code>assetId</code> đã cho. Không hoạt động cho các giao dịch USD Creator Store.",
+    "documentation": "Yêu cầu người dùng mua một mặt hàng với <code>assetId</code> đã cho. Không hoạt động cho các giao dịch mua trong Cửa Hàng Creator USD.",
     "params": [
       {
         "name": "self",
@@ -83736,7 +83833,7 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchase/param/1": {
-    "documentation": "Đối tượng <code>Player</code> sẽ được yêu cầu mua Roblox Plus."
+    "documentation": "Người chơi <code>Player</code> sẽ được yêu cầu mua Roblox Plus."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobloxSubscriptionPurchase": {
     "documentation": "Yêu cầu người dùng mua một đăng ký Roblox Plus.",
@@ -83758,19 +83855,19 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/param/1": {
-    "documentation": "Đối tượng <code>Player</code> người khởi tạo chuyển nhượng. Phải là một người chơi hợp lệ tại server hiện tại."
+    "documentation": "Người chơi <code>Player</code> khởi động chuyển khoản. Phải là một người chơi hợp lệ hiện đang ở trong máy chủ."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/param/2": {
-    "documentation": "ID của người dùng là người sẽ nhận Robux."
+    "documentation": "ID của người dùng sẽ nhận Robux."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/param/3": {
-    "documentation": "Số lượng Robux sẽ được chuyển. Phải là một số nguyên dương."
+    "documentation": "Số lượng Robux để chuyển. Phải là một số nguyên dương."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync/return/0": {
-    "documentation": "Một chuỗi <code>transferRequestId</code> xác định duy nhất yêu cầu chuyển này. Sử dụng ID này để tương quan với các biên lai được giao qua <code>BindReceiptHandler</code>."
+    "documentation": "Một chuỗi <code>transferRequestId</code> xác định duy nhất yêu cầu chuyển khoản này. Sử dụng ID này để liên kết với các biên lai được gửi qua <code>BindReceiptHandler</code>."
   },
   "@roblox/globaltype/MarketplaceService.PromptRobuxTransferAsync": {
-    "documentation": "Khởi động một chuyển nhượng Robux từ người gửi đến một người dùng khác.",
+    "documentation": "Khởi động một chuyển khoản Robux từ người gửi đến một người dùng khác.",
     "params": [
       {
         "name": "self",
@@ -83802,10 +83899,10 @@
     "documentation": "Đối tượng <code>Player</code> sẽ được yêu cầu đăng ký."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
-    "documentation": "ID của gói đăng ký cần đăng ký."
+    "documentation": "ID của đăng ký để đăng ký."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase": {
-    "documentation": "Yêu cầu người dùng mua một gói đăng ký cho <code>subscriptionId</code> đã cho.",
+    "documentation": "Yêu cầu người dùng mua một đăng ký cho <code>subscriptionId</code> đã cho.",
     "params": [
       {
         "name": "self",
@@ -83828,13 +83925,13 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "Một mảng các đối tượng xác định các sản phẩm bạn muốn xếp hạng. Mảng này có thể chứa tối đa 50 mục. Mỗi <code>ProductIdentifier</code> có: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>Phải là <code>InfoType.GamePass</code> hoặc     <code>InfoType.Product</code>.</li> <li><code>Id</code>: số</li> <li>ID của gói game hoặc sản phẩm phát triển.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "Một mảng các đối tượng xác định các sản phẩm bạn muốn xếp hạng. Mảng này có thể bao gồm tối đa 50 mục. Mỗi <code>ProductIdentifier</code> có: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>Phải là <code>InfoType.GamePass</code> hoặc     <code>InfoType.Product</code>.</li> <li><code>Id</code>: số</li> <li>ID của thẻ trò chơi hoặc sản phẩm phát triển.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
     "documentation": "Mảng các mục đã được xếp hạng theo thứ tự cá nhân hóa cho người dùng hiện tại. Mỗi mảng có: <ul> <li><code>ProductIdentifier</code>: ID tương ứng từ mảng đầu vào.</li> <li><code>ProductInfo</code>: Từ điển thông tin sản phẩm tiêu chuẩn được trả về bởi   <code>GetProductInfoAsync</code>.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
-    "documentation": "Nhận một danh sách ID sản phẩm và trả về một danh sách được sắp xếp cá nhân hóa của các sản phẩm đó.",
+    "documentation": "Lấy một danh sách các ID sản phẩm và trả về một danh sách cá nhân hóa đã được sắp xếp của các sản phẩm đó.",
     "params": [
       {
         "name": "self",
@@ -83855,13 +83952,13 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "Một mảng các giá trị <code>InfoType</code> chỉ định các loại sản phẩm để nhận đề xuất cho. <code>InfoTypes</code> được hỗ trợ: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "Một mảng các giá trị <code>InfoType</code> xác định các loại sản phẩm để lấy đề xuất. Các <code>InfoTypes</code> được hỗ trợ: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "Một danh sách xếp hạng tối đa 50 mục mà người dùng có khả năng tương tác với, dựa trên các <code>InfoTypes</code> đã cung cấp. Nếu không thể xác định được đề xuất nào, phương thức sẽ trả về danh sách trống."
+    "documentation": "Một danh sách đã được xếp hạng tối đa 50 mục mà người dùng có khả năng tương tác với, dựa trên các <code>InfoTypes</code> đã cung cấp. Nếu không thể xác định được đề xuất nào, phương thức sẽ trả về một danh sách trống."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li>Nhận một mảng <code>InfoType</code> và trả về tối đa 50 mục   đại diện cho các sản phẩm mà người dùng có khả năng tương tác và   mua cao nhất.</li> </ul>",
+    "documentation": "<ul> <li>Lấy một mảng <code>InfoType</code> và trả về tối đa 50 mục   đại diện cho các sản phẩm mà người dùng có khả năng tương tác và   mua nhất.</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -83882,16 +83979,16 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/1": {
-    "documentation": "ID <code>UserId</code> của <code>Player</code> mà bạn đang kiểm tra tồn tại danh mục."
+    "documentation": "ID <code>UserId</code> của <code>Player</code> mà bạn đang kiểm tra kho đồ."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/2": {
-    "documentation": "ID của gói mà bạn muốn kiểm tra. Không nên nhầm lẫn với ID tài sản."
+    "documentation": "ID thẻ mà bạn muốn kiểm tra. Không nên nhầm lẫn với ID tài sản."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/return/0": {
     "documentation": "Liệu người dùng có sở hữu thẻ hay không."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync": {
-    "documentation": "Trả về true nếu người chơi với <code>UserId</code> đã cho sở hữu gói với <code>gamePassId</code> đã cho.",
+    "documentation": "Trả về true nếu người chơi với <code>UserId</code> đã cho sở hữu thẻ với <code>gamePassId</code> đã cho.",
     "params": [
       {
         "name": "self",
@@ -91715,6 +91812,7 @@
       "Direction1DState": "@roblox/globaltype/InputAction.Direction1DState",
       "Direction2DState": "@roblox/globaltype/InputAction.Direction2DState",
       "Direction3DState": "@roblox/globaltype/InputAction.Direction3DState",
+      "DisplayName": "@roblox/globaltype/InputAction.DisplayName",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "PreferredBinding": "@roblox/globaltype/InputAction.PreferredBinding",
       "Type": "@roblox/globaltype/InputAction.Type",
@@ -91743,6 +91841,11 @@
   "@roblox/globaltype/InputAction.Direction3DState": {
     "documentation": "Thuộc tính chỉ đọc không thể lập trình hữu ích cho việc gỡ lỗi các hành động đầu vào <code>Direction3D</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction3DState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.DisplayName": {
+    "documentation": "Tên hiển thị địa phương hóa cho hành động này.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#DisplayName",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Enabled": {
@@ -106460,6 +106563,26 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#SubtractNode",
     "code_sample": ""
   },
+  "@roblox/enum/AnimationNodeType.OneShotNode": {
+    "documentation": "Một nút lớp mà phát một tư thế một lần trên một tư thế cơ bản lặp lại khi kích hoạt, hòa trộn nó vào và ra ngoài.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#OneShotNode",
+    "code_sample": ""
+  },
+  "@roblox/enum/AnimationNodeType.StateMachineNode": {
+    "documentation": "Một nút chọn và chuyển tiếp giữa các trạng thái hoạt hình theo definition của máy trạng thái.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType#StateMachineNode",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.AnimationNodeType": {
     "documentation": "Xác định loại của một nút đồ thị hoạt hình, xác định cách nó xử lý hoặc kết hợp dữ liệu hoạt hình.",
     "keys": {
@@ -106476,7 +106599,9 @@
       "SelectNode": "@roblox/enum/AnimationNodeType.SelectNode",
       "SequenceNode": "@roblox/enum/AnimationNodeType.SequenceNode",
       "SpeedNode": "@roblox/enum/AnimationNodeType.SpeedNode",
-      "SubtractNode": "@roblox/enum/AnimationNodeType.SubtractNode"
+      "SubtractNode": "@roblox/enum/AnimationNodeType.SubtractNode",
+      "OneShotNode": "@roblox/enum/AnimationNodeType.OneShotNode",
+      "StateMachineNode": "@roblox/enum/AnimationNodeType.StateMachineNode"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimationNodeType",
     "code_sample": ""
@@ -106890,6 +107015,46 @@
       "Always": "@roblox/enum/AssetTypeVerification.Always"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AssetTypeVerification",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.New": {
+    "documentation": "The player is playing the experience for the first time.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserNewReturningStatus.Returning": {
+    "documentation": "The player has played the experience before.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus#Returning",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.UserNewReturningStatus": {
+    "documentation": "Describes whether a player is new to the current experience or has played it before.",
+    "keys": {
+      "Unknown": "@roblox/enum/UserNewReturningStatus.Unknown",
+      "New": "@roblox/enum/UserNewReturningStatus.New",
+      "Returning": "@roblox/enum/UserNewReturningStatus.Returning"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserNewReturningStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarSettingsScaleMode.PlayerChoice": {
@@ -107830,6 +107995,68 @@
       "PauseEventTriggered": "@roblox/enum/AdUIEventType.PauseEventTriggered"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AdUIEventType",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Inactive": {
+    "documentation": "The player did not play the experience in the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Inactive",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Low": {
+    "documentation": "The player played the experience on 1 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Low",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.Medium": {
+    "documentation": "The player played the experience on 2 or 3 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#Medium",
+    "code_sample": ""
+  },
+  "@roblox/enum/EngagementLevel.High": {
+    "documentation": "The player played the experience on 4 to 7 of the last 7 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel#High",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.EngagementLevel": {
+    "documentation": "Describes how many days a player played the current experience in the last 7 days, represented as a bucket.",
+    "keys": {
+      "Unknown": "@roblox/enum/EngagementLevel.Unknown",
+      "Inactive": "@roblox/enum/EngagementLevel.Inactive",
+      "Low": "@roblox/enum/EngagementLevel.Low",
+      "Medium": "@roblox/enum/EngagementLevel.Medium",
+      "High": "@roblox/enum/EngagementLevel.High"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EngagementLevel",
     "code_sample": ""
   },
   "@roblox/enum/StartCorner.TopLeft": {
@@ -112534,6 +112761,57 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PositionAlignmentMode",
     "code_sample": ""
   },
+  "@roblox/enum/FrustumStreamingMode.Default": {
+    "documentation": "Default behavior, currently equivalent to <code>Disabled</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Default",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Enabled": {
+    "documentation": "Always stream camera view.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Disabled": {
+    "documentation": "Disable camera view streaming.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/FrustumStreamingMode.Automatic": {
+    "documentation": "Allow the engine to decide when to stream the camera view based client ability and gameplay factors.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode#Automatic",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.FrustumStreamingMode": {
+    "documentation": "Used with <code>Player.FrustumStreaming</code> to control the engine's instance streaming behavior for their camera view",
+    "keys": {
+      "Default": "@roblox/enum/FrustumStreamingMode.Default",
+      "Enabled": "@roblox/enum/FrustumStreamingMode.Enabled",
+      "Disabled": "@roblox/enum/FrustumStreamingMode.Disabled",
+      "Automatic": "@roblox/enum/FrustumStreamingMode.Automatic"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FrustumStreamingMode",
+    "code_sample": ""
+  },
   "@roblox/enum/AssetCreatorType.User": {
     "documentation": "Tài sản thuộc sở hữu của một người dùng cá nhân; ID người sáng tạo đi kèm là một ID người dùng.",
     "keys": {
@@ -113645,7 +113923,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ImageCombineType.Add": {
-    "documentation": "Cộng các pixel từ nguồn và các pixel từ đích với nhau.",
+    "documentation": "Thêm các pixel từ nguồn và các pixel từ đích lại với nhau. Giá trị RGB của nguồn được điều chỉnh theo alpha của nguồn, trong khi alpha của nguồn được cộng trực tiếp vào alpha của đích.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113685,7 +113963,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ImageCombineType.Subtract": {
-    "documentation": "Trừ các pixel của nguồn từ các pixel của đích.",
+    "documentation": "Trừ các pixel của nguồn khỏi các pixel của đích. Giá trị RGB của nguồn được điều chỉnh theo alpha của nguồn, trong khi alpha của nguồn được trừ trực tiếp từ alpha của đích.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116152,6 +116430,134 @@
       "High": "@roblox/enum/VerifiedLevel.High"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VerifiedLevel",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.PendingAttribution": {
+    "documentation": "The player started playing recently, and their acquisition source is not available yet.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#PendingAttribution",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.HomeRecommendation": {
+    "documentation": "The player first joined from a recommendation on the Home page.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#HomeRecommendation",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.ContinueToPlay": {
+    "documentation": "The player first joined from the Continue section.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#ContinueToPlay",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Curation": {
+    "documentation": "The player first joined from content curated by Roblox, such as featured experiences or events.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Curation",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Friends": {
+    "documentation": "The player first joined through a friend.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Friends",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Search": {
+    "documentation": "The player first joined from search results.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Search",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Teleport": {
+    "documentation": "The player first joined by teleporting from another experience.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Teleport",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Ads": {
+    "documentation": "The player first joined from an ad, such as a sponsored ad, search ad, or portal ad.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Ads",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.HomeOther": {
+    "documentation": "The player first joined from a part of the Roblox app other than Home recommendations, such as Charts or Favorites.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#HomeOther",
+    "code_sample": ""
+  },
+  "@roblox/enum/UserAcquisitionSource.Other": {
+    "documentation": "The player first joined from another source, such as a share link, chat, or a notification.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource#Other",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.UserAcquisitionSource": {
+    "documentation": "Describes how a player first found the current experience.",
+    "keys": {
+      "Unknown": "@roblox/enum/UserAcquisitionSource.Unknown",
+      "PendingAttribution": "@roblox/enum/UserAcquisitionSource.PendingAttribution",
+      "HomeRecommendation": "@roblox/enum/UserAcquisitionSource.HomeRecommendation",
+      "ContinueToPlay": "@roblox/enum/UserAcquisitionSource.ContinueToPlay",
+      "Curation": "@roblox/enum/UserAcquisitionSource.Curation",
+      "Friends": "@roblox/enum/UserAcquisitionSource.Friends",
+      "Search": "@roblox/enum/UserAcquisitionSource.Search",
+      "Teleport": "@roblox/enum/UserAcquisitionSource.Teleport",
+      "Ads": "@roblox/enum/UserAcquisitionSource.Ads",
+      "HomeOther": "@roblox/enum/UserAcquisitionSource.HomeOther",
+      "Other": "@roblox/enum/UserAcquisitionSource.Other"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserAcquisitionSource",
     "code_sample": ""
   },
   "@roblox/enum/ChatCallbackType.OnCreatingChatWindow": {
@@ -121756,7 +122162,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Over": {
-    "documentation": "Composites the one-shot pose on top of the base pose, replacing it by the current blend weight.",
+    "documentation": "Tổng hợp tư thế một lần lên trên tư thế cơ bản, thay thế nó bằng trọng số pha trộn hiện tại.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121766,7 +122172,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Add": {
-    "documentation": "Adds the one-shot pose to the base pose as an additive layer scaled by the current blend weight.",
+    "documentation": "Thêm tư thế một lần vào tư thế cơ bản như một lớp cộng thêm được điều chỉnh bởi trọng số pha trộn hiện tại.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121776,7 +122182,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AnimationNodeBlendMode.Subtract": {
-    "documentation": "Subtracts the one-shot pose from the base pose scaled by the current blend weight.",
+    "documentation": "Trừ tư thế một lần từ tư thế cơ bản được điều chỉnh bởi trọng số pha trộn hiện tại.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121786,7 +122192,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AnimationNodeBlendMode": {
-    "documentation": "Specifies how an <code>AnimationNodeType.OneShotNode</code> combines its one-shot pose with its base pose.",
+    "documentation": "Xác định cách mà <code>AnimationNodeType.OneShotNode</code> kết hợp tư thế một lần của nó với tư thế cơ bản của nó.",
     "keys": {
       "Over": "@roblox/enum/AnimationNodeBlendMode.Over",
       "Add": "@roblox/enum/AnimationNodeBlendMode.Add",
@@ -136223,6 +136629,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SafeAreaCompatibility",
     "code_sample": ""
   },
+  "@roblox/enum/PlayerPlatformActivationStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.New": {
+    "documentation": "The player signed up for Roblox within the last 60 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Active": {
+    "documentation": "The player played on Roblox in the last 60 days and is not <code>New</code> or <code>Reactivated</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Lapsed": {
+    "documentation": "The player has not played on Roblox in the last 60 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Lapsed",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerPlatformActivationStatus.Reactivated": {
+    "documentation": "The player returned to Roblox within the last 60 days after being <code>Lapsed</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus#Reactivated",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PlayerPlatformActivationStatus": {
+    "documentation": "Describes whether a player is new, active, lapsed, or reactivated on Roblox.",
+    "keys": {
+      "Unknown": "@roblox/enum/PlayerPlatformActivationStatus.Unknown",
+      "New": "@roblox/enum/PlayerPlatformActivationStatus.New",
+      "Active": "@roblox/enum/PlayerPlatformActivationStatus.Active",
+      "Lapsed": "@roblox/enum/PlayerPlatformActivationStatus.Lapsed",
+      "Reactivated": "@roblox/enum/PlayerPlatformActivationStatus.Reactivated"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerPlatformActivationStatus",
+    "code_sample": ""
+  },
   "@roblox/enum/ModelLevelOfDetail.Automatic": {
     "documentation": "Hành vi mặc định, hiện tại tương đương với <code>Disabled</code>.",
     "keys": {
@@ -139594,6 +140062,68 @@
       "MicroGamepad": "@roblox/enum/PreferredInput.MicroGamepad"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PreferredInput",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Unknown": {
+    "documentation": "Segment data is unavailable.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.New": {
+    "documentation": "The player first played the experience within the last 30 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#New",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Active": {
+    "documentation": "The player played the experience in the last 30 days and is not <code>New</code> or <code>Reactivated</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Lapsed": {
+    "documentation": "The player has not played the experience in the last 30 days.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Lapsed",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceActivationStatus.Reactivated": {
+    "documentation": "The player returned to the experience within the last 30 days after being <code>Lapsed</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus#Reactivated",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ExperienceActivationStatus": {
+    "documentation": "Describes whether a player is new, active, lapsed, or reactivated in the current experience.",
+    "keys": {
+      "Unknown": "@roblox/enum/ExperienceActivationStatus.Unknown",
+      "New": "@roblox/enum/ExperienceActivationStatus.New",
+      "Active": "@roblox/enum/ExperienceActivationStatus.Active",
+      "Lapsed": "@roblox/enum/ExperienceActivationStatus.Lapsed",
+      "Reactivated": "@roblox/enum/ExperienceActivationStatus.Reactivated"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceActivationStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarItemType.Asset": {
