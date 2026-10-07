@@ -1,6 +1,6 @@
 [package]
 name = "UIBlox"
-version = "0.2.282"
+version = "0.2.285"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -25,7 +25,7 @@ package = "RoactFitComponents"
 version = "^2.1.0"
 
 [dependencies.Foundation]
-version = "^1.112.0"
+version = "^1.114.1"
 
 [dependencies.FoundationImages]
 version = "^2.0.0"
@@ -47,7 +47,11 @@ target = "https://github.com/roblox/roblox-lua-promise"
 version = "^3.3.0"
 
 [dependencies.RbxDesignFoundations]
-version = "^1.1.107"
+version = "^5.0.0"
+
+[dependencies.RbxDesignFoundationsV1]
+package = "RbxDesignFoundations"
+version = "= 1.1.107"
 
 [dependencies.RbxDesignFoundationsV4]
 package = "RbxDesignFoundations"

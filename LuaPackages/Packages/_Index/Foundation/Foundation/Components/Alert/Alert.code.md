@@ -14,6 +14,8 @@ category: Display
 
 There are four severity levels defined in [[AlertSeverity]]: `Info`, `Warning`, `Success`, and `Error`. Each severity level automatically displays an appropriate icon and colors the alert border/background accordingly.
 
+`Info` alerts accept a custom Builder Icon via `icon`, which keeps the `Info` color. Missing or invalid icons fall back to the default glyph. Other severities ignore `icon`.
+
 ---
 
 ## Usage
@@ -47,5 +49,18 @@ return React.createElement(Alert, {
 	onClose = function()
 		print("Alert dismissed")
 	end,
+})
+```
+
+Pass `icon` as a name, or as a table when you need a variant.
+
+```luau
+local IconName = Foundation.Enums.IconName
+local IconVariant = Foundation.Enums.IconVariant
+
+return React.createElement(Alert, {
+	severity = AlertSeverity.Info,
+	icon = { name = IconName.CircleQuestion, variant = IconVariant.Filled },
+	text = "Studio now suggests edits as you type.",
 })
 ```

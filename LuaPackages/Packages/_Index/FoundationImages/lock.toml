@@ -3,6 +3,6 @@ name = "FoundationImages"
 version = "2.5.0"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.40 registry",
+    "BuilderIcons BuilderIcons 0.1.42 registry",
     "SafeFlags SafeFlags 0.1.2 registry",
 ]

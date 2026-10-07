@@ -3434,7 +3434,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Delay</string>
-            <double name="UIMinimum">0.1</double>
+            <double name="UIMinimum">0.01</double>
             <double name="UIMaximum">5</double>
             <double name="UINumTicks">100</double>
           </Properties>
@@ -3459,7 +3459,7 @@
           <Properties>
             <string name="Name">WetLevel</string>
             <double name="UIMinimum">-80</double>
-            <double name="UIMaximum">100</double>
+            <double name="UIMaximum">10</double>
             <double name="UINumTicks">100</double>
           </Properties>
         </Item>
@@ -3746,7 +3746,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">GainMakeup</string>
-            <double name="UIMinimum">0</double>
+            <double name="UIMinimum">-30</double>
             <double name="UIMaximum">30</double>
             <double name="UINumTicks">100</double>
           </Properties>

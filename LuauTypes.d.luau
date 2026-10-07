@@ -676,11 +676,5 @@ type AnimatedImageFrameEntry = {
     Duration: number
 }
 
-type AnimatedImagePlaybackOptions = {
-    StartFrame: number?,
-    PlaybackSpeed: number?,
-    RepeatCount: number?
-}
-
 
 -- SECTION END: Reflection Adjacent
