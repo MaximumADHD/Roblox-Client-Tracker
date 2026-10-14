@@ -8,7 +8,7 @@ version = "0.1.0"
 registry_index = { url = "https://apis.simulprod.com/rotriever-registry", protocol = "zip" }
 
 [dependencies]
-ServiceContractsProto = "1.0.2826+20261001"
+ServiceContractsProto = "1.0.2921+20261007"
 Rodux = "1.0"
 RoactRodux = "0.5.1"
 RoactAppExperiment = "0.4.1"
@@ -18,10 +18,10 @@ Dash = "3.3.1"
 llama = "1.0.0"
 LuaSocialLibrariesDeps = "2.0.3"
 AvatarExperienceDeps = "0.0.1"
-UIBlox = "0.2.285"
-Foundation = "1.114.1"
+UIBlox = "0.2.288"
+Foundation = "1.115.0"
 FoundationCloudAssets = "0.6.0"
-FoundationImages = "2.5.0"
+FoundationImages = "2.5.2"
 Thumbnailing = "0.6.2"
 Otter = "1.3.7"
 ReactOtter = "1.3.7"
@@ -30,7 +30,7 @@ enumerate = "1.0.0"
 PolicyProvider = { version = "0.1.5", package = "LuaRoactPolicyProvider" }
 Lumberyak = { version = "0.1.1", package = "lumberyak" }
 StringUtilities = { version = "1.0.0", package = "string-utilities" }
-UrlBuilder = "1.2.24"
+UrlBuilder = "1.2.25"
 FitFrame = { version = "2.1.0", package = "RoactFitComponents" }
 NetworkingFriends = "2.12.1"
 NetworkingUserSettings = "1.17.5"
@@ -40,18 +40,19 @@ RoduxGames = "1.4.3"
 ReactFocusNavigation = "2.1.0"
 FocusBehaviors = "2.0.0"
 InputHandlers = "2.0.0"
-Roact = { version = "17.3.8", package = "RoactCompat" }
-React = "17.3.8"
-ReactIs = "17.3.8"
-ReactGlobals = "17.3.10"
-ReactReconciler = "17.3.8"
-ReactRoblox = "17.3.8"
-Scheduler = "17.3.10"
+Roact = { version = "17.3.12", package = "RoactCompat" }
+React = "17.3.12"
+ReactIs = "17.3.12"
+ReactGlobals = "17.3.12"
+ReactReconciler = "17.3.12"
+ReactRoblox = "17.3.12"
+Scheduler = "17.3.12"
 ReactSceneUnderstanding = "0.13.1"
 ReactUtils = "1.13.1"
 Promise = "3.5.1"
 UltimateList = { version = "0.3.3-roblox.1", package = "ultimate-list" }
 ViewRecyclerReact = "0.2.6"
+ViewRecyclerReact06 = { version = "0.6.0", package = "ViewRecyclerReact" }
 VirtualizedList = "1.5.1"
 LuauPolyfill = "1.2.3"
 RegExp = "0.3.0"
@@ -104,9 +105,9 @@ Rhodium = "0.5.0"
 TagUtils = "0.1.0"
 RecordPlayback = "0.1.1"
 RoduxDevtools = "1.0.0-rc.1"
-ReactDevtoolsCore = "17.3.8"
+ReactDevtoolsCore = "17.3.12"
 # Dependencies for the Roact17 inspector
-ReactDevtoolsExtensions = "17.3.8"
+ReactDevtoolsExtensions = "17.3.12"
 DeveloperTools = "0.2.7"
 ApolloClientTesting = "0.3.10"
 UsageTracker = "0.1.1"
@@ -120,7 +121,11 @@ Rodux = "3.3.0"
 
 # Roact 17 - Patch in roact compat for legacy roact
 [config.patch."github.com/roblox/roact"]
-Roact = { version = "17.3.8", package = "RoactCompat" }
+Roact = { version = "17.3.12", package = "RoactCompat" }
+
+[config.patch."https://github.com/roblox/roact-alignment"]
+React = "17.3.12"
+ReactRoblox = "17.3.12"
 
 # Patch over a deep jest dependency in order to preempt a new analysis error
 # that caught several mistranslation bugs

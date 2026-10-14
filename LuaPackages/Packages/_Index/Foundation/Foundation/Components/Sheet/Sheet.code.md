@@ -28,6 +28,10 @@ Snap points define the height(s) at which a bottom sheet can rest. These do not 
 
 If snap points are omitted, the bottom sheet will automatically size to fit its content.
 
+## Reversed Content
+
+Set `isReversed` on `Sheet.Content` for content anchored to its bottom edge, such as a chat log. The content opens scrolled to the end, content shorter than the viewport sits against the bottom, and new content is followed while the user is scrolled to the end. In a bottom sheet with multiple snap points, lower snap points keep the newest content in place, so moving between snap points reveals more content at the top. The content scrolls at every snap point and can still be scrolled all the way to the top at a lower snap point. A drag on the content moves the sheet only at the content's edges: dragging up at the end expands the sheet, and dragging down at the top collapses or closes it. The header divider shows while content is hidden above the visible area, and the actions divider shows while content is hidden below it. `isReversed` cannot be combined with `Sheet.FullBleed`.
+
 ---
 
 ## Usage

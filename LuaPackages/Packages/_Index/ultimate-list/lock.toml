@@ -2,4 +2,4 @@
 name = "ultimate-list"
 version = "0.3.3-roblox.1"
 source = "registry"
-dependencies = ["React React 17.3.8 registry"]
+dependencies = ["React <patched> React 17.3.12 registry"]

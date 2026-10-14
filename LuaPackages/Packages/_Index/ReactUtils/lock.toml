@@ -5,7 +5,7 @@ source = "registry"
 dependencies = [
     "GoodSignal GoodSignal 0.3.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "React React 17.3.8 registry",
-    "ReactRoblox ReactRoblox 17.3.8 registry",
+    "React <patched> React 17.3.12 registry",
+    "ReactRoblox <patched> ReactRoblox 17.3.12 registry",
     "SafeFlags SafeFlags 0.1.2 registry",
 ]

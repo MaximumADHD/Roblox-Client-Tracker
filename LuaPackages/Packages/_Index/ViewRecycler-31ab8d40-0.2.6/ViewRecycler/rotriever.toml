@@ -1,0 +1,25 @@
+[package]
+name = "ViewRecycler"
+version = "0.2.6"
+readme = "README.md"
+content_root = "src"
+files = ["*"]
+publish = true
+authors = ["App Foundation <app-foundation@roblox.com>"]
+description = "Framework-neutral view recycling and virtualization for Luau"
+repository = "https://github.com/Roblox/view-recycler"
+homepage = "https://roblox.github.io/view-recycler/"
+documentation = "https://roblox.github.io/view-recycler/"
+[dependencies.Signal]
+version = "^1.0.0"
+
+[dependencies.Signals]
+version = "^0.6.0"
+
+[dependencies.SignalsExperimental]
+version = "^0.6.0"
+[dev_dependencies.Jest]
+version = "^3.13.0"
+
+[dev_dependencies.JestGlobals]
+path = "../../../lua-apps/modules/proxy-packages/jest-globals-3"

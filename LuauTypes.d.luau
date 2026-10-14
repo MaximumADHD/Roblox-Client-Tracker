@@ -28,6 +28,8 @@ declare function printidentity(prefix: string?)
 
 declare function collectgarbage(mode: string): number
 
+declare function loadstring<A...>(src: string, chunkname: string?): (((A...) -> any)?, string?)
+
 declare function stats()
 declare Stats: typeof(stats)
 
@@ -670,6 +672,19 @@ type CameraState = {
     FieldOfView: number,
     ViewportSize: Vector2,
 }
+
+type FeatureMatchingSchema = {
+    SchemaName: string?,
+    Normalization: Enum.FeatureNormalization?,
+    Channels: { { Name: string, Width: number, Weight: number?, ElementWidth: number?, Offset: number?, Normalize: Enum.FeatureNormalization?, Encoding: Enum.FeatureChannelEncoding? } },
+    Fields: { { Name: string, Type: Enum.MetadataFieldType?, Width: number? } }?,
+    NormalizationField: string?,
+    BlendSpaces: { [string]: { BlendDim: number, Frames: { any } } }?
+}
+
+type FeatureMatchingColumns = buffer | { [string]: { number } | buffer }
+
+type FeatureMatchingMetadataColumns = { [string]: { any } | buffer }
 
 type AnimatedImageFrameEntry = {
     FrameName: string,

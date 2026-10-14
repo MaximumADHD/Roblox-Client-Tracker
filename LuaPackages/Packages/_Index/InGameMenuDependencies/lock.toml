@@ -8,9 +8,9 @@ dependencies = [
     "Otter Otter 0.1.4 registry",
     "PolicyProvider LuaRoactPolicyProvider 0.1.5 registry",
     "Promise Promise 3.5.1 registry",
-    "Roact RoactCompat 17.3.8 registry",
+    "Roact RoactCompat 17.3.12 registry",
     "RoactRodux RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
-    "UIBlox UIBlox 0.2.285 registry",
+    "UIBlox UIBlox 0.2.288 registry",
     "t t 1.2.6 registry",
 ]

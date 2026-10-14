@@ -1,0 +1,100 @@
+local AutoScrollPolicy = require(script.Core.Enums.AutoScrollPolicy)
+local AutoScrollTarget = require(script.Core.Enums.AutoScrollTarget)
+local Axis = require(script.Core.Enums.Axis)
+local ChatPreset = require(script.Core.ViewportBehavior.ChatPreset)
+local DataPrefetch = require(script.Core.DataPrefetch)
+local DataSource = require(script.Core.DataSource)
+local DataSourceChangeType = require(script.Core.Enums.DataSourceChangeType)
+local Diagnostics = require(script.Core.Diagnostics)
+local IdentityKind = require(script.Core.Enums.IdentityKind)
+local Layout = require(script.Core.Layout)
+local PinnedItems = require(script.Core.PinnedItems)
+local PinnedPosition = require(script.Core.Enums.PinnedPosition)
+local ReachedThreshold = require(script.Core.ViewportBehavior.ReachedThreshold)
+local Recycling = require(script.Core.Recycling)
+local ScrollAlignment = require(script.Core.Enums.ScrollAlignment)
+local ScrollObservationKind = require(script.Core.Enums.ScrollObservationKind)
+local ShallowTable = require(script.Internal.ShallowTable)
+local Types = require(script.Core.Types)
+local createRecyclingScope = Recycling.createScope
+local createSlotBinder = require(script.Core.Recycling.SlotBinder)
+local createVirtualizer = require(script.Core.Virtualizer.Virtualizer)
+
+export type DataSource<T> = DataSource.DataSource<T>
+export type MutableSequence<T> = DataSource.MutableSequence<T>
+export type GetItemKey<T> = DataSource.GetItemKey<T>
+export type DataSourceChangeBatch = DataSource.ChangeBatch
+export type IndexRange = Types.IndexRange
+export type ItemLayout = Types.ItemLayout
+export type ItemMeasurement = Types.ItemMeasurement
+export type DataSourceChange = Types.DataSourceChange
+export type DiagnosticEvent = Diagnostics.Event
+export type DiagnosticCallback = Diagnostics.Callback
+export type DataPrefetchOptions = DataPrefetch.Options
+export type DataPrefetchRequest = DataPrefetch.Request
+export type DataPrefetchEdge = DataPrefetch.Edge
+export type ScrollState = createVirtualizer.ScrollState
+export type ScrollAnchorSnapshot = createVirtualizer.ScrollAnchorSnapshot
+export type ScrollAnchorItem = createVirtualizer.ScrollAnchorItem
+export type ScrollObservation = createVirtualizer.ScrollObservation
+export type ScrollObservationKind = ScrollObservationKind.ScrollObservationKind
+export type PinnedItem<T, ItemViewType> = PinnedItems.PinnedItem<T, ItemViewType>
+export type ItemPlacement = createVirtualizer.ItemPlacement
+export type ViewState<T> = createVirtualizer.ViewState<T>
+export type ItemViewMeasurement<ItemView, T> = createVirtualizer.Measurement<ItemView, T>
+export type VirtualizerPolicy<T, ItemViewType> = createVirtualizer.Policy<T, ItemViewType>
+export type VirtualizerRecord<ItemView, T> = createVirtualizer.Record<ItemView, T>
+export type ChatPresetOptions = ChatPreset.Options
+export type ChatPresetProps = ChatPreset.Props
+export type ReachedThreshold = ReachedThreshold.ReachedThreshold
+export type Assignment<T> = createVirtualizer.Assignment<T>
+export type DesiredAssignment<T> = createVirtualizer.DesiredAssignment<T>
+export type Virtualizer<ItemView, T, ItemViewType> = createVirtualizer.Virtualizer<ItemView, T, ItemViewType>
+export type RecyclingRequest<ViewType> = createRecyclingScope.Request<ViewType>
+export type RecyclingBinding<View, ViewType> = createRecyclingScope.Binding<View, ViewType>
+export type RecyclingBindResult<View> = createRecyclingScope.BindResult<View>
+export type RecyclingScopeAdapter<View, ViewType> = createRecyclingScope.Adapter<View, ViewType>
+export type RecyclingScopeOptions<View, ViewType> = createRecyclingScope.Options<View, ViewType>
+export type RecyclingScope<View, ViewType> = createRecyclingScope.RecyclingScope<View, ViewType>
+export type Slot<T, ViewType> = createSlotBinder.Slot<T, ViewType>
+export type SlotBinding<View, T, ViewType> = createSlotBinder.Binding<View, T, ViewType>
+export type SlotBinderChanges<View, T, ViewType> = createSlotBinder.Changes<View, T, ViewType>
+export type SlotBinderOptions<View, T, ViewType> = createSlotBinder.Options<View, T, ViewType>
+export type SlotBinder<View, T, ViewType> = createSlotBinder.SlotBinder<View, T, ViewType>
+export type VirtualizerOptions<ItemView, T, ItemViewType> = createVirtualizer.Options<ItemView, T, ItemViewType>
+export type Axis = Axis.Axis
+export type AutoScrollPolicy = AutoScrollPolicy.AutoScrollPolicy
+export type AutoScrollTarget = AutoScrollTarget.AutoScrollTarget
+export type ScrollAlignment = ScrollAlignment.ScrollAlignment
+export type PinnedPosition = PinnedPosition.PinnedPosition
+export type IdentityKind = IdentityKind.IdentityKind
+export type DataSourceChangeType = DataSourceChangeType.DataSourceChangeType
+
+local Adapter = table.freeze({
+	createRecyclingScope = createRecyclingScope,
+	createVirtualizer = createVirtualizer,
+	createSlotBinder = createSlotBinder,
+	_Private = table.freeze({
+		ShallowTable = ShallowTable,
+	}),
+})
+
+return table.freeze({
+	DataSource = DataSource,
+	Diagnostics = Diagnostics,
+	Layout = Layout,
+	ChatPreset = ChatPreset,
+
+	Axis = Axis,
+	AutoScrollPolicy = AutoScrollPolicy,
+	AutoScrollTarget = AutoScrollTarget,
+	ScrollAlignment = ScrollAlignment,
+	ScrollObservationKind = ScrollObservationKind,
+	PinnedPosition = PinnedPosition,
+	IdentityKind = IdentityKind,
+	DataPrefetchEdge = DataPrefetch.Edge,
+	DataSourceChangeType = DataSourceChangeType,
+
+	Adapter = Adapter,
+	["jest.config"] = script["jest.config"],
+})

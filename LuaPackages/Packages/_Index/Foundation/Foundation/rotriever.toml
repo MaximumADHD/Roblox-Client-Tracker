@@ -1,6 +1,6 @@
 [package]
 name = "Foundation"
-version = "1.114.1"
+version = "1.115.0"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -40,7 +40,7 @@ version = "^3.3.0"
 version = "^0.4.4"
 
 [dependencies.FoundationImages]
-version = "^2.5.0"
+version = "^2.5.2"
 
 [dependencies.Lumberyak]
 package = "lumberyak"
