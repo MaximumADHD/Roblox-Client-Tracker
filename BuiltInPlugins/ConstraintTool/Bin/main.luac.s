@@ -347,19 +347,19 @@ PROTO_10:
         3 GETTABLEKS                       R5 R5 K2 ["Packages"]
         5 GETTABLEKS                       R5 R5 K3 ["Roact"]
         7 CALL                             R4 1 1
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R5 R5 K2 ["Packages"]
-       11 GETTABLEKS                       R5 R5 K4 ["DraggerFramework"]
-       13 GETUPVAL                         R6 0
-       14 GETTABLEKS                       R6 R6 K2 ["Packages"]
-       16 GETTABLEKS                       R6 R6 K5 ["DraggerSchemaCore"]
-       18 GETIMPORT                        R7 K1 [require]
-       20 GETTABLEKS                       R8 R6 K6 ["DraggerSchema"]
-       22 CALL                             R7 1 1
-       23 GETIMPORT                        R8 K1 [require]
-       25 GETTABLEKS                       R9 R5 K7 ["Implementation"]
-       27 GETTABLEKS                       R9 R9 K8 ["DraggerContext_PluginImpl"]
-       29 CALL                             R8 1 1
+        8 GETIMPORT                        R5 K1 [require]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K2 ["Packages"]
+       13 GETTABLEKS                       R6 R6 K4 ["DraggerFramework"]
+       15 CALL                             R5 1 1
+       16 GETIMPORT                        R6 K1 [require]
+       18 GETUPVAL                         R7 0
+       19 GETTABLEKS                       R7 R7 K2 ["Packages"]
+       21 GETTABLEKS                       R7 R7 K5 ["DraggerSchemaCore"]
+       23 CALL                             R6 1 1
+       24 GETTABLEKS                       R7 R6 K6 ["DraggerSchema"]
+       26 GETTABLEKS                       R8 R5 K7 ["Implementation"]
+       28 GETTABLEKS                       R8 R8 K8 ["DraggerContext_PluginImpl"]
        30 GETIMPORT                        R9 K1 [require]
        32 GETUPVAL                         R10 0
        33 GETTABLEKS                       R10 R10 K9 ["Src"]

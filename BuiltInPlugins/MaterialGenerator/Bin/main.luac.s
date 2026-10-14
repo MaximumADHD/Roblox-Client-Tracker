@@ -91,62 +91,68 @@ PROTO_4:
        41 GETIMPORT                        R6 K1 [require]
        43 GETTABLEKS                       R7 R3 K13 ["SharedPluginConstants"]
        45 CALL                             R6 1 1
-       46 GETIMPORT                        R7 K1 [require]
-       48 GETTABLEKS                       R8 R3 K11 ["Packages"]
-       50 GETTABLEKS                       R8 R8 K14 ["React"]
-       52 CALL                             R7 1 1
-       53 GETIMPORT                        R8 K1 [require]
-       55 GETTABLEKS                       R9 R3 K11 ["Packages"]
-       57 GETTABLEKS                       R9 R9 K15 ["ReactRoblox"]
-       59 CALL                             R8 1 1
-       60 GETIMPORT                        R9 K1 [require]
-       62 GETTABLEKS                       R10 R3 K16 ["Src"]
-       64 GETTABLEKS                       R10 R10 K17 ["MainPlugin"]
-       66 CALL                             R9 1 1
-       67 LOADNIL                          R10
-       68 LOADNIL                          R11
-       69 GETTABLEKS                       R12 R5 K18 ["hasInternalPermission"]
-       71 CALL                             R12 0 1
-       72 JUMPIFNOT                        R12 ; [+16]
-       73 GETIMPORT                        R12 K1 [require]
-       75 GETTABLEKS                       R13 R3 K11 ["Packages"]
-       77 GETTABLEKS                       R13 R13 K19 ["Dev"]
-       79 GETTABLEKS                       R13 R13 K20 ["DeveloperTools"]
-       81 CALL                             R12 1 1
-       82 GETTABLEKS                       R13 R12 K21 ["forPlugin"]
-       84 GETTABLEKS                       R14 R3 K22 ["Name"]
-       86 MOVE                             R15 R0
-       87 CALL                             R13 2 1
-       88 MOVE                             R11 R13
-       89 NEWCLOSURE                       R12 P0
-       90 CAPTURE                          VAL R0
-       91 CAPTURE                          VAL R3
-       92 CAPTURE                          VAL R7
-       93 CAPTURE                          VAL R9
-       94 CAPTURE                          VAL R1
-       95 CAPTURE                          REF R10
-       96 CAPTURE                          VAL R8
-       97 CAPTURE                          REF R11
-       98 GETTABLEKS                       R13 R0 K23 ["Unloading"]
-      100 NEWCLOSURE                       R15 P1
-      101 CAPTURE                          REF R11
-      102 CAPTURE                          REF R10
-      103 NAMECALL                         R13 R13 K24 ["Connect"]
-      105 CALL                             R13 2 0
-      106 GETTABLEKS                       R14 R1 K25 ["signals"]
-      108 LOADK                            R16 K26 ["MemStorageService."]
-      109 GETTABLEKS                       R17 R6 K27 ["LOAD_MATERIAL_GENERATOR"]
-      111 CONCAT                           R15 R16 R17
-      112 GETTABLE                         R13 R14 R15
-      113 NEWCLOSURE                       R15 P2
-      114 CAPTURE                          VAL R4
-      115 CAPTURE                          VAL R6
-      116 NAMECALL                         R13 R13 K24 ["Connect"]
-      118 CALL                             R13 2 0
-      119 MOVE                             R13 R12
-      120 CALL                             R13 0 0
-      121 CLOSEUPVALS                      R10
-      122 RETURN                           R0 0
+       46 GETIMPORT                        R7 K8 [game]
+       48 LOADK                            R9 K14 ["EnableMaterialGenerator"]
+       49 NAMECALL                         R7 R7 K15 ["GetFastFlag"]
+       51 CALL                             R7 2 1
+       52 JUMPIF                           R7 ; [+1]
+       53 RETURN                           R0 0
+       54 GETIMPORT                        R7 K1 [require]
+       56 GETTABLEKS                       R8 R3 K11 ["Packages"]
+       58 GETTABLEKS                       R8 R8 K16 ["React"]
+       60 CALL                             R7 1 1
+       61 GETIMPORT                        R8 K1 [require]
+       63 GETTABLEKS                       R9 R3 K11 ["Packages"]
+       65 GETTABLEKS                       R9 R9 K17 ["ReactRoblox"]
+       67 CALL                             R8 1 1
+       68 GETIMPORT                        R9 K1 [require]
+       70 GETTABLEKS                       R10 R3 K18 ["Src"]
+       72 GETTABLEKS                       R10 R10 K19 ["MainPlugin"]
+       74 CALL                             R9 1 1
+       75 LOADNIL                          R10
+       76 LOADNIL                          R11
+       77 GETTABLEKS                       R12 R5 K20 ["hasInternalPermission"]
+       79 CALL                             R12 0 1
+       80 JUMPIFNOT                        R12 ; [+16]
+       81 GETIMPORT                        R12 K1 [require]
+       83 GETTABLEKS                       R13 R3 K11 ["Packages"]
+       85 GETTABLEKS                       R13 R13 K21 ["Dev"]
+       87 GETTABLEKS                       R13 R13 K22 ["DeveloperTools"]
+       89 CALL                             R12 1 1
+       90 GETTABLEKS                       R13 R12 K23 ["forPlugin"]
+       92 GETTABLEKS                       R14 R3 K24 ["Name"]
+       94 MOVE                             R15 R0
+       95 CALL                             R13 2 1
+       96 MOVE                             R11 R13
+       97 NEWCLOSURE                       R12 P0
+       98 CAPTURE                          VAL R0
+       99 CAPTURE                          VAL R3
+      100 CAPTURE                          VAL R7
+      101 CAPTURE                          VAL R9
+      102 CAPTURE                          VAL R1
+      103 CAPTURE                          REF R10
+      104 CAPTURE                          VAL R8
+      105 CAPTURE                          REF R11
+      106 GETTABLEKS                       R13 R0 K25 ["Unloading"]
+      108 NEWCLOSURE                       R15 P1
+      109 CAPTURE                          REF R11
+      110 CAPTURE                          REF R10
+      111 NAMECALL                         R13 R13 K26 ["Connect"]
+      113 CALL                             R13 2 0
+      114 GETTABLEKS                       R14 R1 K27 ["signals"]
+      116 LOADK                            R16 K28 ["MemStorageService."]
+      117 GETTABLEKS                       R17 R6 K29 ["LOAD_MATERIAL_GENERATOR"]
+      119 CONCAT                           R15 R16 R17
+      120 GETTABLE                         R13 R14 R15
+      121 NEWCLOSURE                       R15 P2
+      122 CAPTURE                          VAL R4
+      123 CAPTURE                          VAL R6
+      124 NAMECALL                         R13 R13 K26 ["Connect"]
+      126 CALL                             R13 2 0
+      127 MOVE                             R13 R12
+      128 CALL                             R13 0 0
+      129 CLOSEUPVALS                      R10
+      130 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

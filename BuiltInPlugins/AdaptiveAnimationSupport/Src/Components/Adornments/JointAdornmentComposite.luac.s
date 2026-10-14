@@ -560,7 +560,7 @@ PROTO_11:
        10 CAPTURE                          UPVAL U1
        11 GETUPVAL                         R3 2
        12 CALL                             R3 0 1
-       13 JUMPIFNOT                        R3 ; [+24]
+       13 JUMPIFNOT                        R3 ; [+23]
        14 GETUPVAL                         R3 3
        15 GETUPVAL                         R4 4
        16 NEWCLOSURE                       R5 P2
@@ -581,16 +581,15 @@ PROTO_11:
        34 CAPTURE                          VAL R0
        35 CLOSEUPVALS                      R3
        36 RETURN                           R5 1
-       37 CLOSEUPVALS                      R3
-       38 MOVE                             R3 R1
-       39 GETUPVAL                         R4 3
-       40 CALL                             R3 1 0
-       41 GETUPVAL                         R3 4
-       42 SETTABLEKS                       R1 R3 K0 ["current"]
-       44 NEWCLOSURE                       R3 P5
-       45 CAPTURE                          UPVAL U4
-       46 CAPTURE                          VAL R0
-       47 RETURN                           R3 1
+       37 MOVE                             R3 R1
+       38 GETUPVAL                         R4 3
+       39 CALL                             R3 1 0
+       40 GETUPVAL                         R3 4
+       41 SETTABLEKS                       R1 R3 K0 ["current"]
+       43 NEWCLOSURE                       R3 P5
+       44 CAPTURE                          UPVAL U4
+       45 CAPTURE                          VAL R0
+       46 RETURN                           R3 1
 
 PROTO_12:
         0 GETUPVAL                         R0 0

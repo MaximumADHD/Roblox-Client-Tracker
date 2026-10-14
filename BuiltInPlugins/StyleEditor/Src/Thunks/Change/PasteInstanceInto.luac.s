@@ -29,7 +29,7 @@ PROTO_2:
         2 CALL                             R2 1 1
         3 GETTABLEKS                       R3 R2 K1 ["Clipboard"]
         5 GETUPVAL                         R4 0
-        6 JUMPIFNOT                        R4 ; [+42]
+        6 JUMPIFNOT                        R4 ; [+41]
         7 GETTABLEKS                       R4 R3 K2 ["Instances"]
         9 LENGTH                           R5 R4
        10 JUMPIFNOTEQKN                    R5 K3 [0] ; [+3]
@@ -63,40 +63,38 @@ PROTO_2:
        45 CALL                             R7 -1 0
        46 CLOSEUPVALS                      R5
        47 RETURN                           R5 1
-       48 CLOSEUPVALS                      R5
-       49 GETTABLEKS                       R4 R3 K14 ["DEPRECATED_Instance"]
-       51 JUMPIF                           R4 ; [+2]
-       52 LOADNIL                          R5
-       53 RETURN                           R5 1
-       54 JUMPIFNOTEQKNIL                  R4 ; [+2]
-       56 LOADB                            R6 0 +1
-       57 LOADB                            R6 1
-       58 FASTCALL2K                       ASSERT R6 K15 ; [+4]
-       60 LOADK                            R7 K15 ["expecting valid instance"]
-       61 GETIMPORT                        R5 K17 [assert]
-       63 CALL                             R5 2 0
-       64 LOADNIL                          R5
-       65 GETTABLEKS                       R6 R1 K4 ["recordChange"]
-       67 DUPTABLE                         R7 K18 [{["Name"] = "StyleEditor/PasteInstanceInto", ["DisplayName"] = "StyleEditor - Paste Instance", ["DoChange"]}]
-       68 NEWCLOSURE                       R8 P1
-       69 CAPTURE                          REF R5
-       70 CAPTURE                          VAL R4
-       71 CAPTURE                          UPVAL U1
-       72 SETTABLEKS                       R8 R7 K8 ["DoChange"]
-       74 CALL                             R6 1 0
-       75 JUMPIFNOT                        R5 ; [+11]
-       76 GETUPVAL                         R6 2
-       77 GETTABLEKS                       R6 R6 K12 ["createItemId"]
-       79 MOVE                             R7 R5
-       80 CALL                             R6 1 1
-       81 GETUPVAL                         R9 3
-       82 MOVE                             R10 R6
-       83 CALL                             R9 1 -1
-       84 NAMECALL                         R7 R0 K13 ["dispatch"]
-       86 CALL                             R7 -1 0
-       87 CLOSEUPVALS                      R5
-       88 RETURN                           R5 1
-       89 CLOSEUPVALS                      R5
+       48 GETTABLEKS                       R4 R3 K14 ["DEPRECATED_Instance"]
+       50 JUMPIF                           R4 ; [+2]
+       51 LOADNIL                          R5
+       52 RETURN                           R5 1
+       53 JUMPIFNOTEQKNIL                  R4 ; [+2]
+       55 LOADB                            R6 0 +1
+       56 LOADB                            R6 1
+       57 FASTCALL2K                       ASSERT R6 K15 ; [+4]
+       59 LOADK                            R7 K15 ["expecting valid instance"]
+       60 GETIMPORT                        R5 K17 [assert]
+       62 CALL                             R5 2 0
+       63 LOADNIL                          R5
+       64 GETTABLEKS                       R6 R1 K4 ["recordChange"]
+       66 DUPTABLE                         R7 K18 [{["Name"] = "StyleEditor/PasteInstanceInto", ["DisplayName"] = "StyleEditor - Paste Instance", ["DoChange"]}]
+       67 NEWCLOSURE                       R8 P1
+       68 CAPTURE                          REF R5
+       69 CAPTURE                          VAL R4
+       70 CAPTURE                          UPVAL U1
+       71 SETTABLEKS                       R8 R7 K8 ["DoChange"]
+       73 CALL                             R6 1 0
+       74 JUMPIFNOT                        R5 ; [+11]
+       75 GETUPVAL                         R6 2
+       76 GETTABLEKS                       R6 R6 K12 ["createItemId"]
+       78 MOVE                             R7 R5
+       79 CALL                             R6 1 1
+       80 GETUPVAL                         R9 3
+       81 MOVE                             R10 R6
+       82 CALL                             R9 1 -1
+       83 NAMECALL                         R7 R0 K13 ["dispatch"]
+       85 CALL                             R7 -1 0
+       86 CLOSEUPVALS                      R5
+       87 RETURN                           R5 1
 
 PROTO_3:
         0 NEWCLOSURE                       R1 P0

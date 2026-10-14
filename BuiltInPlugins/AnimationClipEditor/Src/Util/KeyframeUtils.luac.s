@@ -1121,57 +1121,59 @@ MAIN:
        35 NAMECALL                         R4 R4 K14 ["GetService"]
        37 CALL                             R4 2 1
        38 GETIMPORT                        R5 K5 [require]
-       40 GETTABLEKS                       R6 R0 K15 ["LuaFlags"]
-       42 GETTABLEKS                       R6 R6 K16 ["GetFFlagFacialAnimationRecordingInStudio"]
-       44 CALL                             R5 1 1
-       45 GETIMPORT                        R6 K5 [require]
-       47 GETTABLEKS                       R7 R0 K15 ["LuaFlags"]
-       49 GETTABLEKS                       R7 R7 K17 ["GetFFlagControlRig"]
-       51 CALL                             R6 1 1
-       52 NEWTABLE                         R7 16 0
-       54 DUPCLOSURE                       R8 K18 [PROTO_0]
-       55 CAPTURE                          VAL R1
-       56 CAPTURE                          VAL R6
-       57 SETTABLEKS                       R8 R7 K19 ["getDefaultValue"]
-       59 DUPCLOSURE                       R8 K20 [PROTO_1]
-       60 SETTABLEKS                       R8 R7 K21 ["findNearestKeyframes"]
-       62 DUPCLOSURE                       R8 K22 [PROTO_2]
-       63 SETTABLEKS                       R8 R7 K23 ["findNearestKeyframesProperly"]
-       65 DUPCLOSURE                       R8 K24 [PROTO_3]
-       66 SETTABLEKS                       R8 R7 K25 ["findKeyframe"]
-       68 DUPCLOSURE                       R8 K26 [PROTO_4]
-       69 SETTABLEKS                       R8 R7 K27 ["findInsertIndex"]
-       71 DUPCLOSURE                       R8 K28 [PROTO_5]
-       72 SETTABLEKS                       R8 R7 K29 ["interpolate"]
-       74 DUPCLOSURE                       R8 K30 [PROTO_6]
-       75 SETTABLEKS                       R8 R7 K31 ["getNearestTick"]
-       77 DUPCLOSURE                       R8 K32 [PROTO_7]
-       78 CAPTURE                          VAL R1
-       79 SETTABLEKS                       R8 R7 K33 ["getNearestFrame"]
-       81 DUPCLOSURE                       R8 K34 [PROTO_8]
-       82 CAPTURE                          VAL R7
-       83 SETTABLEKS                       R8 R7 K35 ["snapToFrame"]
-       85 DUPCLOSURE                       R8 K36 [PROTO_14]
+       40 GETTABLEKS                       R6 R0 K6 ["Src"]
+       42 GETTABLEKS                       R6 R6 K15 ["Flags"]
+       44 GETTABLEKS                       R6 R6 K16 ["getFFlagFacialAnimationRecordingInStudio"]
+       46 CALL                             R5 1 1
+       47 GETIMPORT                        R6 K5 [require]
+       49 GETTABLEKS                       R7 R0 K6 ["Src"]
+       51 GETTABLEKS                       R7 R7 K15 ["Flags"]
+       53 GETTABLEKS                       R7 R7 K17 ["getFFlagControlRig"]
+       55 CALL                             R6 1 1
+       56 NEWTABLE                         R7 16 0
+       58 DUPCLOSURE                       R8 K18 [PROTO_0]
+       59 CAPTURE                          VAL R1
+       60 CAPTURE                          VAL R6
+       61 SETTABLEKS                       R8 R7 K19 ["getDefaultValue"]
+       63 DUPCLOSURE                       R8 K20 [PROTO_1]
+       64 SETTABLEKS                       R8 R7 K21 ["findNearestKeyframes"]
+       66 DUPCLOSURE                       R8 K22 [PROTO_2]
+       67 SETTABLEKS                       R8 R7 K23 ["findNearestKeyframesProperly"]
+       69 DUPCLOSURE                       R8 K24 [PROTO_3]
+       70 SETTABLEKS                       R8 R7 K25 ["findKeyframe"]
+       72 DUPCLOSURE                       R8 K26 [PROTO_4]
+       73 SETTABLEKS                       R8 R7 K27 ["findInsertIndex"]
+       75 DUPCLOSURE                       R8 K28 [PROTO_5]
+       76 SETTABLEKS                       R8 R7 K29 ["interpolate"]
+       78 DUPCLOSURE                       R8 K30 [PROTO_6]
+       79 SETTABLEKS                       R8 R7 K31 ["getNearestTick"]
+       81 DUPCLOSURE                       R8 K32 [PROTO_7]
+       82 CAPTURE                          VAL R1
+       83 SETTABLEKS                       R8 R7 K33 ["getNearestFrame"]
+       85 DUPCLOSURE                       R8 K34 [PROTO_8]
        86 CAPTURE                          VAL R7
-       87 CAPTURE                          VAL R1
-       88 SETTABLEKS                       R8 R7 K37 ["getSlope"]
-       90 DUPCLOSURE                       R8 K38 [PROTO_15]
-       91 CAPTURE                          VAL R2
-       92 CAPTURE                          VAL R7
-       93 CAPTURE                          VAL R1
-       94 SETTABLEKS                       R8 R7 K39 ["getSlopes"]
-       96 DUPCLOSURE                       R8 K40 [PROTO_16]
-       97 CAPTURE                          VAL R7
-       98 CAPTURE                          VAL R1
-       99 SETTABLEKS                       R8 R7 K41 ["blendCurveKeyframes"]
-      101 DUPCLOSURE                       R8 K42 [PROTO_17]
-      102 CAPTURE                          VAL R4
-      103 CAPTURE                          VAL R7
-      104 SETTABLEKS                       R8 R7 K43 ["blendKeyframes"]
-      106 DUPCLOSURE                       R8 K44 [PROTO_18]
-      107 CAPTURE                          VAL R2
-      108 CAPTURE                          VAL R7
-      109 CAPTURE                          VAL R1
-      110 CAPTURE                          VAL R5
-      111 SETTABLEKS                       R8 R7 K45 ["getValue"]
-      113 RETURN                           R7 1
+       87 SETTABLEKS                       R8 R7 K35 ["snapToFrame"]
+       89 DUPCLOSURE                       R8 K36 [PROTO_14]
+       90 CAPTURE                          VAL R7
+       91 CAPTURE                          VAL R1
+       92 SETTABLEKS                       R8 R7 K37 ["getSlope"]
+       94 DUPCLOSURE                       R8 K38 [PROTO_15]
+       95 CAPTURE                          VAL R2
+       96 CAPTURE                          VAL R7
+       97 CAPTURE                          VAL R1
+       98 SETTABLEKS                       R8 R7 K39 ["getSlopes"]
+      100 DUPCLOSURE                       R8 K40 [PROTO_16]
+      101 CAPTURE                          VAL R7
+      102 CAPTURE                          VAL R1
+      103 SETTABLEKS                       R8 R7 K41 ["blendCurveKeyframes"]
+      105 DUPCLOSURE                       R8 K42 [PROTO_17]
+      106 CAPTURE                          VAL R4
+      107 CAPTURE                          VAL R7
+      108 SETTABLEKS                       R8 R7 K43 ["blendKeyframes"]
+      110 DUPCLOSURE                       R8 K44 [PROTO_18]
+      111 CAPTURE                          VAL R2
+      112 CAPTURE                          VAL R7
+      113 CAPTURE                          VAL R1
+      114 CAPTURE                          VAL R5
+      115 SETTABLEKS                       R8 R7 K45 ["getValue"]
+      117 RETURN                           R7 1

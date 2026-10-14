@@ -111,35 +111,29 @@ MAIN:
        43 CALL                             R3 0 1
        44 JUMPIFNOT                        R3 ; [+1]
        45 RETURN                           R0 0
-       46 GETIMPORT                        R3 K12 [game]
-       48 LOADK                            R5 K20 ["EnableAssetManager"]
-       49 NAMECALL                         R3 R3 K14 ["GetFastFlag"]
-       51 CALL                             R3 2 1
-       52 JUMPIF                           R3 ; [+1]
-       53 RETURN                           R0 0
-       54 GETTABLEKS                       R3 R2 K21 ["getDebugFlags"]
-       56 LOADK                            R4 K4 ["AssetManager"]
-       57 CALL                             R3 1 1
-       58 GETIMPORT                        R4 K1 [plugin]
-       60 GETTABLEKS                       R4 R4 K22 ["MultipleDocumentInterfaceInstance"]
-       62 GETTABLEKS                       R5 R4 K23 ["FocusedDataModelSession"]
-       64 GETIMPORT                        R6 K9 [require]
-       66 GETTABLEKS                       R7 R0 K18 ["Src"]
-       68 GETTABLEKS                       R7 R7 K24 ["Asset"]
-       70 GETTABLEKS                       R7 R7 K25 ["setupAssetsDm"]
-       72 CALL                             R6 1 1
-       73 MOVE                             R7 R6
-       74 GETIMPORT                        R8 K1 [plugin]
-       76 CALL                             R7 1 1
-       77 DUPCLOSURE                       R8 K26 [PROTO_1]
-       78 CAPTURE                          VAL R3
-       79 CAPTURE                          VAL R0
-       80 CAPTURE                          VAL R7
-       81 CAPTURE                          VAL R5
-       82 GETTABLEKS                       R9 R5 K27 ["CurrentDataModelTypeChanged"]
-       84 MOVE                             R11 R8
-       85 NAMECALL                         R9 R9 K28 ["Connect"]
-       87 CALL                             R9 2 0
-       88 MOVE                             R9 R8
-       89 CALL                             R9 0 0
-       90 RETURN                           R0 0
+       46 GETTABLEKS                       R3 R2 K20 ["getDebugFlags"]
+       48 LOADK                            R4 K4 ["AssetManager"]
+       49 CALL                             R3 1 1
+       50 GETIMPORT                        R4 K1 [plugin]
+       52 GETTABLEKS                       R4 R4 K21 ["MultipleDocumentInterfaceInstance"]
+       54 GETTABLEKS                       R5 R4 K22 ["FocusedDataModelSession"]
+       56 GETIMPORT                        R6 K9 [require]
+       58 GETTABLEKS                       R7 R0 K18 ["Src"]
+       60 GETTABLEKS                       R7 R7 K23 ["Asset"]
+       62 GETTABLEKS                       R7 R7 K24 ["setupAssetsDm"]
+       64 CALL                             R6 1 1
+       65 MOVE                             R7 R6
+       66 GETIMPORT                        R8 K1 [plugin]
+       68 CALL                             R7 1 1
+       69 DUPCLOSURE                       R8 K25 [PROTO_1]
+       70 CAPTURE                          VAL R3
+       71 CAPTURE                          VAL R0
+       72 CAPTURE                          VAL R7
+       73 CAPTURE                          VAL R5
+       74 GETTABLEKS                       R9 R5 K26 ["CurrentDataModelTypeChanged"]
+       76 MOVE                             R11 R8
+       77 NAMECALL                         R9 R9 K27 ["Connect"]
+       79 CALL                             R9 2 0
+       80 MOVE                             R9 R8
+       81 CALL                             R9 0 0
+       82 RETURN                           R0 0

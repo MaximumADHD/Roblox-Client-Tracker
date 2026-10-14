@@ -22,9 +22,15 @@ PROTO_2:
         8 CAPTURE                          UPVAL U2
         9 NAMECALL                         R0 R0 K1 ["OnGuestEvent"]
        11 CALL                             R0 3 2
-       12 NEWCLOSURE                       R2 P1
-       13 CAPTURE                          VAL R1
-       14 RETURN                           R2 1
+       12 GETUPVAL                         R2 0
+       13 GETUPVAL                         R4 1
+       14 GETTABLEKS                       R4 R4 K2 ["RequestHostSession"]
+       16 LOADNIL                          R5
+       17 NAMECALL                         R2 R2 K3 ["FireHost"]
+       19 CALL                             R2 3 0
+       20 NEWCLOSURE                       R2 P1
+       21 CAPTURE                          VAL R1
+       22 RETURN                           R2 1
 
 PROTO_3:
         0 GETUPVAL                         R0 0

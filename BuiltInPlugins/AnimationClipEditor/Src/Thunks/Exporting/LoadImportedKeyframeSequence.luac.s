@@ -166,20 +166,22 @@ MAIN:
        46 GETTABLEKS                       R10 R7 K15 ["RigSerialization"]
        48 CALL                             R9 1 1
        49 GETIMPORT                        R10 K7 [require]
-       51 GETTABLEKS                       R11 R0 K16 ["LuaFlags"]
-       53 GETTABLEKS                       R11 R11 K17 ["GetFFlagUseFileNameForImportedAnimation"]
-       55 CALL                             R10 1 1
-       56 GETIMPORT                        R11 K7 [require]
-       58 GETTABLEKS                       R12 R0 K16 ["LuaFlags"]
-       60 GETTABLEKS                       R12 R12 K18 ["GetFFlagACEImportScale"]
-       62 CALL                             R11 1 1
-       63 DUPCLOSURE                       R12 K19 [PROTO_1]
-       64 CAPTURE                          VAL R9
-       65 CAPTURE                          VAL R11
-       66 CAPTURE                          VAL R8
-       67 CAPTURE                          VAL R10
-       68 CAPTURE                          VAL R6
-       69 CAPTURE                          VAL R2
-       70 CAPTURE                          VAL R3
-       71 CAPTURE                          VAL R4
-       72 RETURN                           R12 1
+       51 GETTABLEKS                       R11 R0 K4 ["Src"]
+       53 GETTABLEKS                       R11 R11 K16 ["Flags"]
+       55 GETTABLEKS                       R11 R11 K17 ["getFFlagUseFileNameForImportedAnimation"]
+       57 CALL                             R10 1 1
+       58 GETIMPORT                        R11 K7 [require]
+       60 GETTABLEKS                       R12 R0 K4 ["Src"]
+       62 GETTABLEKS                       R12 R12 K16 ["Flags"]
+       64 GETTABLEKS                       R12 R12 K18 ["getFFlagACEImportScale"]
+       66 CALL                             R11 1 1
+       67 DUPCLOSURE                       R12 K19 [PROTO_1]
+       68 CAPTURE                          VAL R9
+       69 CAPTURE                          VAL R11
+       70 CAPTURE                          VAL R8
+       71 CAPTURE                          VAL R10
+       72 CAPTURE                          VAL R6
+       73 CAPTURE                          VAL R2
+       74 CAPTURE                          VAL R3
+       75 CAPTURE                          VAL R4
+       76 RETURN                           R12 1

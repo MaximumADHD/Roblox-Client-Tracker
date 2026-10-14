@@ -31,7 +31,14 @@ PROTO_1:
        15 GETTABLEKS                       R5 R2 K4 ["Tutorial"]
        17 NAMECALL                         R3 R3 K2 ["populateSavedSettings"]
        19 CALL                             R3 2 0
-       20 RETURN                           R0 0
+       20 GETUPVAL                         R3 2
+       21 CALL                             R3 0 1
+       22 JUMPIFNOT                        R3 ; [+7]
+       23 GETTABLEKS                       R3 R0 K5 ["explorerController"]
+       25 GETTABLEKS                       R5 R2 K6 ["Explorer"]
+       27 NAMECALL                         R3 R3 K2 ["populateSavedSettings"]
+       29 CALL                             R3 2 0
+       30 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -43,7 +50,7 @@ PROTO_2:
         8 CALL                             R1 1 1
         9 JUMPIFNOT                        R1 ; [+14]
        10 GETTABLEKS                       R2 R0 K2 ["searchController"]
-       12 NAMECALL                         R2 R2 K3 ["getShowSearchOptions"]
+       12 NAMECALL                         R2 R2 K3 ["getIsSearchInitiated"]
        14 CALL                             R2 1 1
        15 JUMPIF                           R2 ; [+8]
        16 GETUPVAL                         R4 1
@@ -326,86 +333,90 @@ PROTO_9:
       119 SETTABLEKS                       R2 R0 K31 ["layoutController"]
       121 GETUPVAL                         R2 16
       122 GETTABLEKS                       R2 R2 K13 ["new"]
-      124 DUPTABLE                         R3 K34 [{"PluginController", "LayoutController", "Networking"}]
+      124 DUPTABLE                         R3 K35 [{"PluginController", "LayoutController", "Networking", "IxpController"}]
       125 GETTABLEKS                       R4 R0 K26 ["pluginController"]
       127 SETTABLEKS                       R4 R3 K29 ["PluginController"]
       129 GETTABLEKS                       R4 R0 K31 ["layoutController"]
       131 SETTABLEKS                       R4 R3 K32 ["LayoutController"]
       133 GETTABLEKS                       R4 R0 K25 ["networking"]
       135 SETTABLEKS                       R4 R3 K33 ["Networking"]
-      137 CALL                             R2 1 1
-      138 SETTABLEKS                       R2 R0 K35 ["explorerController"]
-      140 GETUPVAL                         R2 17
-      141 GETTABLEKS                       R2 R2 K13 ["new"]
-      143 DUPTABLE                         R3 K38 [{"PluginController", "ExplorerController", "Networking", "IxpController"}]
-      144 GETTABLEKS                       R4 R0 K26 ["pluginController"]
-      146 SETTABLEKS                       R4 R3 K29 ["PluginController"]
-      148 GETTABLEKS                       R4 R0 K35 ["explorerController"]
-      150 SETTABLEKS                       R4 R3 K36 ["ExplorerController"]
-      152 GETTABLEKS                       R4 R0 K25 ["networking"]
-      154 SETTABLEKS                       R4 R3 K33 ["Networking"]
-      156 GETTABLEKS                       R4 R0 K24 ["ixpController"]
-      158 SETTABLEKS                       R4 R3 K37 ["IxpController"]
-      160 CALL                             R2 1 1
-      161 SETTABLEKS                       R2 R0 K39 ["searchController"]
-      163 GETUPVAL                         R2 18
-      164 GETTABLEKS                       R2 R2 K13 ["new"]
-      166 DUPTABLE                         R3 K41 [{"PluginController", "ExplorerController", "SearchController", "LayoutController", "Networking", "IxpController"}]
-      167 GETTABLEKS                       R4 R0 K26 ["pluginController"]
-      169 SETTABLEKS                       R4 R3 K29 ["PluginController"]
-      171 GETTABLEKS                       R4 R0 K35 ["explorerController"]
-      173 SETTABLEKS                       R4 R3 K36 ["ExplorerController"]
-      175 GETTABLEKS                       R4 R0 K39 ["searchController"]
-      177 SETTABLEKS                       R4 R3 K40 ["SearchController"]
-      179 GETTABLEKS                       R4 R0 K31 ["layoutController"]
-      181 SETTABLEKS                       R4 R3 K32 ["LayoutController"]
-      183 GETTABLEKS                       R4 R0 K25 ["networking"]
-      185 SETTABLEKS                       R4 R3 K33 ["Networking"]
-      187 GETTABLEKS                       R4 R0 K24 ["ixpController"]
-      189 SETTABLEKS                       R4 R3 K37 ["IxpController"]
-      191 CALL                             R2 1 1
-      192 SETTABLEKS                       R2 R0 K42 ["itemsController"]
-      194 GETUPVAL                         R2 19
-      195 GETTABLEKS                       R2 R2 K13 ["new"]
-      197 DUPTABLE                         R3 K44 [{"PluginController", "LayoutController", "ItemsController", "SearchController", "ExplorerController"}]
-      198 GETTABLEKS                       R4 R0 K26 ["pluginController"]
-      200 SETTABLEKS                       R4 R3 K29 ["PluginController"]
-      202 GETTABLEKS                       R4 R0 K31 ["layoutController"]
-      204 SETTABLEKS                       R4 R3 K32 ["LayoutController"]
-      206 GETTABLEKS                       R4 R0 K42 ["itemsController"]
-      208 SETTABLEKS                       R4 R3 K43 ["ItemsController"]
-      210 GETTABLEKS                       R4 R0 K39 ["searchController"]
-      212 SETTABLEKS                       R4 R3 K40 ["SearchController"]
-      214 GETTABLEKS                       R4 R0 K35 ["explorerController"]
-      216 SETTABLEKS                       R4 R3 K36 ["ExplorerController"]
-      218 CALL                             R2 1 1
-      219 SETTABLEKS                       R2 R0 K45 ["input"]
-      221 GETUPVAL                         R2 20
-      222 CALL                             R2 0 1
-      223 JUMPIFNOT                        R2 ; [+34]
-      224 GETUPVAL                         R2 21
-      225 GETTABLEKS                       R2 R2 K13 ["new"]
-      227 DUPTABLE                         R3 K46 [{"PluginController", "ExplorerController", "LayoutController", "ItemsController", "SearchController"}]
-      228 GETTABLEKS                       R4 R0 K26 ["pluginController"]
-      230 SETTABLEKS                       R4 R3 K29 ["PluginController"]
-      232 GETTABLEKS                       R4 R0 K35 ["explorerController"]
-      234 SETTABLEKS                       R4 R3 K36 ["ExplorerController"]
-      236 GETTABLEKS                       R4 R0 K31 ["layoutController"]
-      238 SETTABLEKS                       R4 R3 K32 ["LayoutController"]
-      240 GETTABLEKS                       R4 R0 K42 ["itemsController"]
-      242 SETTABLEKS                       R4 R3 K43 ["ItemsController"]
-      244 GETTABLEKS                       R4 R0 K39 ["searchController"]
-      246 SETTABLEKS                       R4 R3 K40 ["SearchController"]
-      248 CALL                             R2 1 1
-      249 SETTABLEKS                       R2 R0 K47 ["tutorialController"]
-      251 GETTABLEKS                       R2 R0 K26 ["pluginController"]
-      253 GETTABLEKS                       R4 R0 K47 ["tutorialController"]
-      255 NAMECALL                         R2 R2 K48 ["setTutorialController"]
-      257 CALL                             R2 2 0
-      258 GETTABLEKS                       R4 R1 K21 ["Plugin"]
-      260 NAMECALL                         R2 R0 K49 ["_loadSettingsIntoControllers"]
-      262 CALL                             R2 2 0
-      263 RETURN                           R0 0
+      137 GETTABLEKS                       R4 R0 K24 ["ixpController"]
+      139 SETTABLEKS                       R4 R3 K34 ["IxpController"]
+      141 CALL                             R2 1 1
+      142 SETTABLEKS                       R2 R0 K36 ["explorerController"]
+      144 GETUPVAL                         R2 17
+      145 GETTABLEKS                       R2 R2 K13 ["new"]
+      147 DUPTABLE                         R3 K38 [{"PluginController", "ExplorerController", "Networking", "IxpController"}]
+      148 GETTABLEKS                       R4 R0 K26 ["pluginController"]
+      150 SETTABLEKS                       R4 R3 K29 ["PluginController"]
+      152 GETTABLEKS                       R4 R0 K36 ["explorerController"]
+      154 SETTABLEKS                       R4 R3 K37 ["ExplorerController"]
+      156 GETTABLEKS                       R4 R0 K25 ["networking"]
+      158 SETTABLEKS                       R4 R3 K33 ["Networking"]
+      160 GETTABLEKS                       R4 R0 K24 ["ixpController"]
+      162 SETTABLEKS                       R4 R3 K34 ["IxpController"]
+      164 CALL                             R2 1 1
+      165 SETTABLEKS                       R2 R0 K39 ["searchController"]
+      167 GETUPVAL                         R2 18
+      168 GETTABLEKS                       R2 R2 K13 ["new"]
+      170 DUPTABLE                         R3 K41 [{"PluginController", "ExplorerController", "SearchController", "LayoutController", "Networking", "IxpController"}]
+      171 GETTABLEKS                       R4 R0 K26 ["pluginController"]
+      173 SETTABLEKS                       R4 R3 K29 ["PluginController"]
+      175 GETTABLEKS                       R4 R0 K36 ["explorerController"]
+      177 SETTABLEKS                       R4 R3 K37 ["ExplorerController"]
+      179 GETTABLEKS                       R4 R0 K39 ["searchController"]
+      181 SETTABLEKS                       R4 R3 K40 ["SearchController"]
+      183 GETTABLEKS                       R4 R0 K31 ["layoutController"]
+      185 SETTABLEKS                       R4 R3 K32 ["LayoutController"]
+      187 GETTABLEKS                       R4 R0 K25 ["networking"]
+      189 SETTABLEKS                       R4 R3 K33 ["Networking"]
+      191 GETTABLEKS                       R4 R0 K24 ["ixpController"]
+      193 SETTABLEKS                       R4 R3 K34 ["IxpController"]
+      195 CALL                             R2 1 1
+      196 SETTABLEKS                       R2 R0 K42 ["itemsController"]
+      198 GETUPVAL                         R2 19
+      199 GETTABLEKS                       R2 R2 K13 ["new"]
+      201 DUPTABLE                         R3 K44 [{"PluginController", "LayoutController", "ItemsController", "SearchController", "ExplorerController"}]
+      202 GETTABLEKS                       R4 R0 K26 ["pluginController"]
+      204 SETTABLEKS                       R4 R3 K29 ["PluginController"]
+      206 GETTABLEKS                       R4 R0 K31 ["layoutController"]
+      208 SETTABLEKS                       R4 R3 K32 ["LayoutController"]
+      210 GETTABLEKS                       R4 R0 K42 ["itemsController"]
+      212 SETTABLEKS                       R4 R3 K43 ["ItemsController"]
+      214 GETTABLEKS                       R4 R0 K39 ["searchController"]
+      216 SETTABLEKS                       R4 R3 K40 ["SearchController"]
+      218 GETTABLEKS                       R4 R0 K36 ["explorerController"]
+      220 SETTABLEKS                       R4 R3 K37 ["ExplorerController"]
+      222 CALL                             R2 1 1
+      223 SETTABLEKS                       R2 R0 K45 ["input"]
+      225 GETUPVAL                         R2 20
+      226 CALL                             R2 0 1
+      227 JUMPIFNOT                        R2 ; [+38]
+      228 GETUPVAL                         R2 21
+      229 GETTABLEKS                       R2 R2 K13 ["new"]
+      231 DUPTABLE                         R3 K46 [{"PluginController", "ExplorerController", "LayoutController", "ItemsController", "SearchController", "IxpController"}]
+      232 GETTABLEKS                       R4 R0 K26 ["pluginController"]
+      234 SETTABLEKS                       R4 R3 K29 ["PluginController"]
+      236 GETTABLEKS                       R4 R0 K36 ["explorerController"]
+      238 SETTABLEKS                       R4 R3 K37 ["ExplorerController"]
+      240 GETTABLEKS                       R4 R0 K31 ["layoutController"]
+      242 SETTABLEKS                       R4 R3 K32 ["LayoutController"]
+      244 GETTABLEKS                       R4 R0 K42 ["itemsController"]
+      246 SETTABLEKS                       R4 R3 K43 ["ItemsController"]
+      248 GETTABLEKS                       R4 R0 K39 ["searchController"]
+      250 SETTABLEKS                       R4 R3 K40 ["SearchController"]
+      252 GETTABLEKS                       R4 R0 K24 ["ixpController"]
+      254 SETTABLEKS                       R4 R3 K34 ["IxpController"]
+      256 CALL                             R2 1 1
+      257 SETTABLEKS                       R2 R0 K47 ["tutorialController"]
+      259 GETTABLEKS                       R2 R0 K26 ["pluginController"]
+      261 GETTABLEKS                       R4 R0 K47 ["tutorialController"]
+      263 NAMECALL                         R2 R2 K48 ["setTutorialController"]
+      265 CALL                             R2 2 0
+      266 GETTABLEKS                       R4 R1 K21 ["Plugin"]
+      268 NAMECALL                         R2 R0 K49 ["_loadSettingsIntoControllers"]
+      270 CALL                             R2 2 0
+      271 RETURN                           R0 0
 
 PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -774,63 +785,69 @@ MAIN:
       288 GETTABLEKS                       R42 R42 K52 ["Flags"]
       290 GETTABLEKS                       R42 R42 K57 ["getFFlagAmrEnableTutorials"]
       292 CALL                             R41 1 1
-      293 GETTABLEKS                       R42 R1 K58 ["PureComponent"]
-      295 LOADK                            R44 K59 ["MainPlugin"]
-      296 NAMECALL                         R42 R42 K60 ["extend"]
-      298 CALL                             R42 2 1
-      299 DUPCLOSURE                       R43 K61 [PROTO_0]
-      300 SETTABLEKS                       R43 R42 K62 ["_getAllControllers"]
-      302 DUPCLOSURE                       R43 K63 [PROTO_1]
-      303 CAPTURE                          VAL R34
-      304 CAPTURE                          VAL R41
-      305 SETTABLEKS                       R43 R42 K64 ["_loadSettingsIntoControllers"]
-      307 DUPCLOSURE                       R43 K65 [PROTO_2]
-      308 CAPTURE                          VAL R41
-      309 CAPTURE                          VAL R2
-      310 SETTABLEKS                       R43 R42 K66 ["_notifyTutorialThatPluginIsEnabled"]
-      312 DUPCLOSURE                       R43 K67 [PROTO_9]
-      313 CAPTURE                          VAL R39
-      314 CAPTURE                          VAL R32
-      315 CAPTURE                          VAL R3
-      316 CAPTURE                          VAL R10
-      317 CAPTURE                          VAL R35
-      318 CAPTURE                          VAL R14
-      319 CAPTURE                          VAL R20
-      320 CAPTURE                          VAL R21
-      321 CAPTURE                          VAL R18
-      322 CAPTURE                          VAL R19
-      323 CAPTURE                          VAL R40
-      324 CAPTURE                          VAL R36
-      325 CAPTURE                          VAL R26
-      326 CAPTURE                          VAL R31
-      327 CAPTURE                          VAL R28
-      328 CAPTURE                          VAL R27
-      329 CAPTURE                          VAL R24
-      330 CAPTURE                          VAL R29
-      331 CAPTURE                          VAL R25
-      332 CAPTURE                          VAL R23
-      333 CAPTURE                          VAL R41
-      334 CAPTURE                          VAL R30
-      335 SETTABLEKS                       R43 R42 K68 ["init"]
-      337 DUPCLOSURE                       R43 K69 [PROTO_10]
-      338 SETTABLEKS                       R43 R42 K70 ["didUpdate"]
-      340 DUPCLOSURE                       R43 K71 [PROTO_11]
-      341 CAPTURE                          VAL R35
-      342 SETTABLEKS                       R43 R42 K72 ["willUnmount"]
-      344 DUPCLOSURE                       R43 K73 [PROTO_14]
-      345 CAPTURE                          VAL R38
-      346 CAPTURE                          VAL R4
-      347 CAPTURE                          VAL R6
-      348 CAPTURE                          VAL R14
-      349 CAPTURE                          VAL R15
-      350 CAPTURE                          VAL R16
-      351 CAPTURE                          VAL R17
-      352 CAPTURE                          VAL R1
-      353 CAPTURE                          VAL R12
-      354 CAPTURE                          VAL R9
-      355 CAPTURE                          VAL R33
-      356 CAPTURE                          VAL R37
-      357 CAPTURE                          VAL R22
-      358 CAPTURE                          VAL R13
-      359 SETTABLEKS                       R43 R42 K74 ["render"]
-      361 RETURN                           R42 1
+      293 GETIMPORT                        R42 K5 [require]
+      295 GETTABLEKS                       R43 R0 K8 ["Src"]
+      297 GETTABLEKS                       R43 R43 K52 ["Flags"]
+      299 GETTABLEKS                       R43 R43 K58 ["getFFlagAmrSaveToggledGroups"]
+      301 CALL                             R42 1 1
+      302 GETTABLEKS                       R43 R1 K59 ["PureComponent"]
+      304 LOADK                            R45 K60 ["MainPlugin"]
+      305 NAMECALL                         R43 R43 K61 ["extend"]
+      307 CALL                             R43 2 1
+      308 DUPCLOSURE                       R44 K62 [PROTO_0]
+      309 SETTABLEKS                       R44 R43 K63 ["_getAllControllers"]
+      311 DUPCLOSURE                       R44 K64 [PROTO_1]
+      312 CAPTURE                          VAL R34
+      313 CAPTURE                          VAL R41
+      314 CAPTURE                          VAL R42
+      315 SETTABLEKS                       R44 R43 K65 ["_loadSettingsIntoControllers"]
+      317 DUPCLOSURE                       R44 K66 [PROTO_2]
+      318 CAPTURE                          VAL R41
+      319 CAPTURE                          VAL R2
+      320 SETTABLEKS                       R44 R43 K67 ["_notifyTutorialThatPluginIsEnabled"]
+      322 DUPCLOSURE                       R44 K68 [PROTO_9]
+      323 CAPTURE                          VAL R39
+      324 CAPTURE                          VAL R32
+      325 CAPTURE                          VAL R3
+      326 CAPTURE                          VAL R10
+      327 CAPTURE                          VAL R35
+      328 CAPTURE                          VAL R14
+      329 CAPTURE                          VAL R20
+      330 CAPTURE                          VAL R21
+      331 CAPTURE                          VAL R18
+      332 CAPTURE                          VAL R19
+      333 CAPTURE                          VAL R40
+      334 CAPTURE                          VAL R36
+      335 CAPTURE                          VAL R26
+      336 CAPTURE                          VAL R31
+      337 CAPTURE                          VAL R28
+      338 CAPTURE                          VAL R27
+      339 CAPTURE                          VAL R24
+      340 CAPTURE                          VAL R29
+      341 CAPTURE                          VAL R25
+      342 CAPTURE                          VAL R23
+      343 CAPTURE                          VAL R41
+      344 CAPTURE                          VAL R30
+      345 SETTABLEKS                       R44 R43 K69 ["init"]
+      347 DUPCLOSURE                       R44 K70 [PROTO_10]
+      348 SETTABLEKS                       R44 R43 K71 ["didUpdate"]
+      350 DUPCLOSURE                       R44 K72 [PROTO_11]
+      351 CAPTURE                          VAL R35
+      352 SETTABLEKS                       R44 R43 K73 ["willUnmount"]
+      354 DUPCLOSURE                       R44 K74 [PROTO_14]
+      355 CAPTURE                          VAL R38
+      356 CAPTURE                          VAL R4
+      357 CAPTURE                          VAL R6
+      358 CAPTURE                          VAL R14
+      359 CAPTURE                          VAL R15
+      360 CAPTURE                          VAL R16
+      361 CAPTURE                          VAL R17
+      362 CAPTURE                          VAL R1
+      363 CAPTURE                          VAL R12
+      364 CAPTURE                          VAL R9
+      365 CAPTURE                          VAL R33
+      366 CAPTURE                          VAL R37
+      367 CAPTURE                          VAL R22
+      368 CAPTURE                          VAL R13
+      369 SETTABLEKS                       R44 R43 K75 ["render"]
+      371 RETURN                           R43 1

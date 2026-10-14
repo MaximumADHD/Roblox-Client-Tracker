@@ -452,7 +452,7 @@ PROTO_27:
         5 GETUPVAL                         R2 0
         6 GETTABLEKS                       R2 R2 K2 ["Status"]
         8 GETTABLEKS                       R2 R2 K3 ["Started"]
-       10 JUMPIFNOTEQ                      R1 R2 ; [+40]
+       10 JUMPIFNOTEQ                      R1 R2 ; [+39]
        12 LOADNIL                          R1
        13 LOADNIL                          R2
        14 GETIMPORT                        R3 K6 [Instance.new]
@@ -484,34 +484,33 @@ PROTO_27:
        47 CALL                             R6 3 -1
        48 CLOSEUPVALS                      R1
        49 RETURN                           R5 -1
-       50 CLOSEUPVALS                      R1
-       51 GETTABLEKS                       R1 R0 K1 ["_status"]
-       53 GETUPVAL                         R2 0
-       54 GETTABLEKS                       R2 R2 K2 ["Status"]
-       56 GETTABLEKS                       R2 R2 K14 ["Resolved"]
-       58 JUMPIFNOTEQ                      R1 R2 ; [+12]
-       60 LOADB                            R1 1
-       61 GETTABLEKS                       R3 R0 K15 ["_values"]
-       63 LOADN                            R4 1
-       64 GETTABLEKS                       R5 R0 K16 ["_valuesLength"]
-       66 FASTCALL                         TABLE_UNPACK ; [+2]
-       67 GETIMPORT                        R2 K13 [unpack]
-       69 CALL                             R2 3 -1
-       70 RETURN                           R1 -1
-       71 GETTABLEKS                       R1 R0 K1 ["_status"]
-       73 GETUPVAL                         R2 0
-       74 GETTABLEKS                       R2 R2 K2 ["Status"]
-       76 GETTABLEKS                       R2 R2 K17 ["Rejected"]
-       78 JUMPIFNOTEQ                      R1 R2 ; [+12]
-       80 LOADB                            R1 0
-       81 GETTABLEKS                       R3 R0 K15 ["_values"]
-       83 LOADN                            R4 1
-       84 GETTABLEKS                       R5 R0 K16 ["_valuesLength"]
-       86 FASTCALL                         TABLE_UNPACK ; [+2]
-       87 GETIMPORT                        R2 K13 [unpack]
-       89 CALL                             R2 3 -1
-       90 RETURN                           R1 -1
-       91 RETURN                           R0 0
+       50 GETTABLEKS                       R1 R0 K1 ["_status"]
+       52 GETUPVAL                         R2 0
+       53 GETTABLEKS                       R2 R2 K2 ["Status"]
+       55 GETTABLEKS                       R2 R2 K14 ["Resolved"]
+       57 JUMPIFNOTEQ                      R1 R2 ; [+12]
+       59 LOADB                            R1 1
+       60 GETTABLEKS                       R3 R0 K15 ["_values"]
+       62 LOADN                            R4 1
+       63 GETTABLEKS                       R5 R0 K16 ["_valuesLength"]
+       65 FASTCALL                         TABLE_UNPACK ; [+2]
+       66 GETIMPORT                        R2 K13 [unpack]
+       68 CALL                             R2 3 -1
+       69 RETURN                           R1 -1
+       70 GETTABLEKS                       R1 R0 K1 ["_status"]
+       72 GETUPVAL                         R2 0
+       73 GETTABLEKS                       R2 R2 K2 ["Status"]
+       75 GETTABLEKS                       R2 R2 K17 ["Rejected"]
+       77 JUMPIFNOTEQ                      R1 R2 ; [+12]
+       79 LOADB                            R1 0
+       80 GETTABLEKS                       R3 R0 K15 ["_values"]
+       82 LOADN                            R4 1
+       83 GETTABLEKS                       R5 R0 K16 ["_valuesLength"]
+       85 FASTCALL                         TABLE_UNPACK ; [+2]
+       86 GETIMPORT                        R2 K13 [unpack]
+       88 CALL                             R2 3 -1
+       89 RETURN                           R1 -1
+       90 RETURN                           R0 0
 
 PROTO_28:
         0 GETTABLEKS                       R1 R0 K0 ["_status"]

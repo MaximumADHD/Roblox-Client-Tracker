@@ -6,11 +6,11 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+83]
+        1 JUMPIFNOT                        R0 ; [+82]
         2 GETUPVAL                         R0 1
         3 GETUPVAL                         R1 2
         4 GETTABLEKS                       R1 R1 K0 ["Transform"]
-        6 JUMPIFNOTEQ                      R0 R1 ; [+65]
+        6 JUMPIFNOTEQ                      R0 R1 ; [+64]
         8 GETUPVAL                         R2 3
         9 GETUPVAL                         R3 4
        10 GETTABLEKS                       R3 R3 K1 ["TransformSettings"]
@@ -59,21 +59,20 @@ PROTO_1:
        68 CAPTURE                          REF R1
        69 CLOSEUPVALS                      R1
        70 RETURN                           R2 1
-       71 CLOSEUPVALS                      R1
-       72 GETUPVAL                         R0 7
-       73 GETUPVAL                         R1 9
-       74 GETUPVAL                         R3 10
-       75 GETTABLEKS                       R3 R3 K0 ["Transform"]
-       77 GETUPVAL                         R4 10
-       78 GETTABLEKS                       R4 R4 K10 ["Size"]
-       80 NAMECALL                         R1 R1 K11 ["GetTerrainWireframe"]
-       82 CALL                             R1 3 -1
-       83 CALL                             R0 -1 0
-       84 RETURN                           R0 0
-       85 GETUPVAL                         R0 7
-       86 NEWTABLE                         R1 0 0
-       88 CALL                             R0 1 0
-       89 RETURN                           R0 0
+       71 GETUPVAL                         R0 7
+       72 GETUPVAL                         R1 9
+       73 GETUPVAL                         R3 10
+       74 GETTABLEKS                       R3 R3 K0 ["Transform"]
+       76 GETUPVAL                         R4 10
+       77 GETTABLEKS                       R4 R4 K10 ["Size"]
+       79 NAMECALL                         R1 R1 K11 ["GetTerrainWireframe"]
+       81 CALL                             R1 3 -1
+       82 CALL                             R0 -1 0
+       83 RETURN                           R0 0
+       84 GETUPVAL                         R0 7
+       85 NEWTABLE                         R1 0 0
+       87 CALL                             R0 1 0
+       88 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R4 0

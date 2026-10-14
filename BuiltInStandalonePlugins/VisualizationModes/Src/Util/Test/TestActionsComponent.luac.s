@@ -100,10 +100,22 @@ PROTO_4:
        13 RETURN                           R2 -1
 
 PROTO_5:
+        0 GETUPVAL                         R3 0
+        1 MOVE                             R4 R1
+        2 GETUPVAL                         R5 1
+        3 CALL                             R3 2 0
+        4 GETUPVAL                         R3 2
+        5 MOVE                             R5 R1
+        6 MOVE                             R6 R2
+        7 NAMECALL                         R3 R3 K0 ["MultiBindToChangedAsync"]
+        9 CALL                             R3 3 -1
+       10 RETURN                           R3 -1
+
+PROTO_6:
         0 GETUPVAL                         R2 0
         1 NAMECALL                         R2 R2 K0 ["CreateWeak"]
         3 CALL                             R2 1 1
-        4 DUPTABLE                         R3 K4 [{"GetAsync", "ActivateAsync", "BindToChangedAsync"}]
+        4 DUPTABLE                         R3 K5 [{"GetAsync", "ActivateAsync", "BindToChangedAsync", "MultiBindToChangedAsync"}]
         5 NEWCLOSURE                       R4 P0
         6 CAPTURE                          UPVAL U1
         7 CAPTURE                          VAL R1
@@ -119,9 +131,14 @@ PROTO_5:
        19 CAPTURE                          VAL R1
        20 CAPTURE                          VAL R2
        21 SETTABLEKS                       R4 R3 K3 ["BindToChangedAsync"]
-       23 RETURN                           R3 1
+       23 NEWCLOSURE                       R4 P3
+       24 CAPTURE                          UPVAL U1
+       25 CAPTURE                          VAL R1
+       26 CAPTURE                          VAL R2
+       27 SETTABLEKS                       R4 R3 K4 ["MultiBindToChangedAsync"]
+       29 RETURN                           R3 1
 
-PROTO_6:
+PROTO_7:
         0 NEWTABLE                         R2 0 0
         2 MOVE                             R3 R1
         3 LOADNIL                          R4
@@ -146,7 +163,7 @@ PROTO_6:
        26 FORGLOOP                         R3 2 ; [-21]
        28 RETURN                           R2 1
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R1
         2 JUMPIF                           R2 ; [+1]
@@ -168,7 +185,7 @@ PROTO_7:
        23 CALL                             R2 2 0
        24 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R1
         2 JUMPIF                           R2 ; [+5]
@@ -181,9 +198,35 @@ PROTO_8:
        10 GETTABLEKS                       R2 R2 K1 ["_signal"]
        12 RETURN                           R2 1
 
-PROTO_9:
+PROTO_10:
+        0 NEWTABLE                         R3 0 0
+        2 MOVE                             R4 R1
+        3 LOADNIL                          R5
+        4 LOADNIL                          R6
+        5 FORGPREP                         R4
+        6 GETUPVAL                         R10 0
+        7 GETTABLE                         R9 R10 R8
+        8 JUMPIF                           R9 ; [+9]
+        9 GETUPVAL                         R9 0
+       10 DUPTABLE                         R10 K3 [{[1] = False, ["_signal"]}]
+       11 GETUPVAL                         R11 1
+       12 GETTABLEKS                       R11 R11 K4 ["new"]
+       14 CALL                             R11 0 1
+       15 SETTABLEKS                       R11 R10 K2 ["_signal"]
+       17 SETTABLE                         R10 R9 R8
+       18 GETUPVAL                         R12 0
+       19 GETTABLE                         R11 R12 R8
+       20 GETTABLEKS                       R11 R11 K2 ["_signal"]
+       22 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
+       24 MOVE                             R10 R3
+       25 GETIMPORT                        R9 K7 [table.insert]
+       27 CALL                             R9 2 0
+       28 FORGLOOP                         R4 2 ; [-23]
+       30 RETURN                           R3 1
+
+PROTO_11:
         0 NEWTABLE                         R1 0 0
-        2 DUPTABLE                         R2 K3 [{"GetAsync", "ActivateAsync", "BindToChangedAsync"}]
+        2 DUPTABLE                         R2 K4 [{"GetAsync", "ActivateAsync", "BindToChangedAsync", "MultiBindToChangedAsync"}]
         3 NEWCLOSURE                       R3 P0
         4 CAPTURE                          VAL R1
         5 CAPTURE                          UPVAL U0
@@ -195,7 +238,11 @@ PROTO_9:
        13 CAPTURE                          VAL R1
        14 CAPTURE                          UPVAL U0
        15 SETTABLEKS                       R3 R2 K2 ["BindToChangedAsync"]
-       17 RETURN                           R2 1
+       17 NEWCLOSURE                       R3 P3
+       18 CAPTURE                          VAL R1
+       19 CAPTURE                          UPVAL U0
+       20 SETTABLEKS                       R3 R2 K3 ["MultiBindToChangedAsync"]
+       22 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -215,11 +262,11 @@ MAIN:
        23 NEWTABLE                         R3 2 0
        25 DUPCLOSURE                       R4 K10 [PROTO_0]
        26 DUPCLOSURE                       R5 K11 [PROTO_1]
-       27 DUPCLOSURE                       R6 K12 [PROTO_5]
+       27 DUPCLOSURE                       R6 K12 [PROTO_6]
        28 CAPTURE                          VAL R3
        29 CAPTURE                          VAL R5
        30 SETTABLEKS                       R6 R3 K13 ["CreateStrict"]
-       32 DUPCLOSURE                       R6 K14 [PROTO_9]
+       32 DUPCLOSURE                       R6 K14 [PROTO_11]
        33 CAPTURE                          VAL R2
        34 SETTABLEKS                       R6 R3 K15 ["CreateWeak"]
        36 RETURN                           R3 1

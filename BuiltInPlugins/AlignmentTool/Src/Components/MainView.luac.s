@@ -299,138 +299,136 @@ MAIN:
         3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R0 K3 ["Packages"]
-       11 GETTABLEKS                       R1 R1 K4 ["DraggerSchemaCore"]
-       13 GETIMPORT                        R2 K6 [require]
-       15 GETTABLEKS                       R3 R1 K7 ["BoundsChangedTracker"]
-       17 CALL                             R2 1 1
-       18 GETIMPORT                        R3 K6 [require]
-       20 GETTABLEKS                       R4 R1 K8 ["Selection"]
-       22 CALL                             R3 1 1
-       23 GETIMPORT                        R4 K6 [require]
-       25 GETTABLEKS                       R5 R0 K3 ["Packages"]
-       27 GETTABLEKS                       R5 R5 K9 ["FitFrame"]
-       29 CALL                             R4 1 1
-       30 GETTABLEKS                       R4 R4 K10 ["FitFrameVertical"]
-       32 GETIMPORT                        R5 K6 [require]
-       34 GETTABLEKS                       R6 R0 K3 ["Packages"]
-       36 GETTABLEKS                       R6 R6 K11 ["Roact"]
-       38 CALL                             R5 1 1
-       39 GETIMPORT                        R6 K6 [require]
-       41 GETTABLEKS                       R7 R0 K3 ["Packages"]
-       43 GETTABLEKS                       R7 R7 K12 ["RoactRodux"]
-       45 CALL                             R6 1 1
-       46 GETIMPORT                        R7 K6 [require]
-       48 GETTABLEKS                       R8 R0 K3 ["Packages"]
-       50 GETTABLEKS                       R8 R8 K13 ["Framework"]
-       52 CALL                             R7 1 1
-       53 GETTABLEKS                       R8 R7 K14 ["ContextServices"]
-       55 GETTABLEKS                       R9 R8 K15 ["withContext"]
-       57 GETTABLEKS                       R10 R7 K16 ["UI"]
-       59 GETTABLEKS                       R11 R10 K17 ["Button"]
-       61 GETTABLEKS                       R12 R10 K18 ["Container"]
-       63 GETTABLEKS                       R13 R10 K19 ["ScrollingFrame"]
-       65 GETTABLEKS                       R14 R10 K20 ["Box"]
-       67 GETTABLEKS                       R15 R10 K21 ["TextLabel"]
-       69 GETTABLEKS                       R16 R7 K22 ["Util"]
-       71 GETTABLEKS                       R17 R16 K23 ["LayoutOrderIterator"]
-       73 GETTABLEKS                       R18 R16 K24 ["StyleModifier"]
-       75 GETIMPORT                        R19 K6 [require]
-       77 GETTABLEKS                       R20 R0 K25 ["Src"]
-       79 GETTABLEKS                       R20 R20 K26 ["Actions"]
-       81 GETTABLEKS                       R20 R20 K27 ["SetAlignableObjects"]
-       83 CALL                             R19 1 1
-       84 GETIMPORT                        R20 K6 [require]
-       86 GETTABLEKS                       R21 R0 K25 ["Src"]
-       88 GETTABLEKS                       R21 R21 K28 ["Components"]
-       90 GETTABLEKS                       R21 R21 K29 ["AlignmentSettings"]
-       92 CALL                             R20 1 1
-       93 GETIMPORT                        R21 K6 [require]
-       95 GETTABLEKS                       R22 R0 K25 ["Src"]
-       97 GETTABLEKS                       R22 R22 K28 ["Components"]
-       99 GETTABLEKS                       R22 R22 K30 ["AlignObjectsPreview"]
-      101 CALL                             R21 1 1
-      102 GETIMPORT                        R22 K6 [require]
-      104 GETTABLEKS                       R23 R0 K25 ["Src"]
-      106 GETTABLEKS                       R23 R23 K31 ["Thunks"]
-      108 GETTABLEKS                       R23 R23 K32 ["UpdateAlignEnabled"]
-      110 CALL                             R22 1 1
-      111 GETIMPORT                        R23 K6 [require]
-      113 GETTABLEKS                       R24 R0 K25 ["Src"]
-      115 GETTABLEKS                       R24 R24 K31 ["Thunks"]
-      117 GETTABLEKS                       R24 R24 K33 ["UpdateAlignment"]
-      119 CALL                             R23 1 1
-      120 GETIMPORT                        R24 K6 [require]
-      122 GETIMPORT                        R25 K1 [script]
-      124 GETTABLEKS                       R25 R25 K2 ["Parent"]
-      126 GETTABLEKS                       R25 R25 K34 ["TeachingCallout"]
-      128 CALL                             R24 1 1
-      129 GETIMPORT                        R25 K6 [require]
-      131 GETTABLEKS                       R26 R0 K25 ["Src"]
-      133 GETTABLEKS                       R26 R26 K35 ["Utility"]
-      135 GETTABLEKS                       R26 R26 K36 ["AlignToolError"]
-      137 CALL                             R25 1 1
-      138 GETIMPORT                        R26 K6 [require]
-      140 GETTABLEKS                       R27 R0 K25 ["Src"]
-      142 GETTABLEKS                       R27 R27 K35 ["Utility"]
-      144 GETTABLEKS                       R27 R27 K37 ["getAlignableObjects"]
-      146 CALL                             R26 1 1
-      147 GETTABLEKS                       R27 R3 K38 ["new"]
-      149 CALL                             R27 0 1
-      150 GETTABLEKS                       R28 R5 K39 ["PureComponent"]
-      152 LOADK                            R30 K40 ["MainView"]
-      153 NAMECALL                         R28 R28 K41 ["extend"]
-      155 CALL                             R28 2 1
-      156 DUPCLOSURE                       R29 K42 [PROTO_1]
-      157 CAPTURE                          VAL R2
-      158 SETTABLEKS                       R29 R28 K43 ["init"]
-      160 DUPCLOSURE                       R29 K44 [PROTO_3]
-      161 CAPTURE                          VAL R17
-      162 CAPTURE                          VAL R25
-      163 CAPTURE                          VAL R5
-      164 CAPTURE                          VAL R12
-      165 CAPTURE                          VAL R14
-      166 CAPTURE                          VAL R13
-      167 CAPTURE                          VAL R20
-      168 CAPTURE                          VAL R15
-      169 CAPTURE                          VAL R4
-      170 CAPTURE                          VAL R11
-      171 CAPTURE                          VAL R18
-      172 CAPTURE                          VAL R24
-      173 CAPTURE                          VAL R21
-      174 SETTABLEKS                       R29 R28 K45 ["render"]
-      176 DUPCLOSURE                       R29 K46 [PROTO_4]
-      177 CAPTURE                          VAL R27
-      178 CAPTURE                          VAL R26
-      179 SETTABLEKS                       R29 R28 K47 ["_updateSelectionInfo"]
-      181 DUPCLOSURE                       R29 K48 [PROTO_6]
-      182 CAPTURE                          VAL R27
-      183 SETTABLEKS                       R29 R28 K49 ["didMount"]
-      185 DUPCLOSURE                       R29 K50 [PROTO_7]
-      186 SETTABLEKS                       R29 R28 K51 ["willUnmount"]
-      188 MOVE                             R29 R9
-      189 DUPTABLE                         R30 K56 [{"Localization", "Plugin", "Stylizer", "Analytics"}]
-      190 GETTABLEKS                       R31 R8 K52 ["Localization"]
-      192 SETTABLEKS                       R31 R30 K52 ["Localization"]
-      194 GETTABLEKS                       R31 R8 K53 ["Plugin"]
-      196 SETTABLEKS                       R31 R30 K53 ["Plugin"]
-      198 GETTABLEKS                       R31 R8 K54 ["Stylizer"]
-      200 SETTABLEKS                       R31 R30 K54 ["Stylizer"]
-      202 GETTABLEKS                       R31 R8 K55 ["Analytics"]
-      204 SETTABLEKS                       R31 R30 K55 ["Analytics"]
-      206 CALL                             R29 1 1
-      207 MOVE                             R30 R28
-      208 CALL                             R29 1 1
-      209 MOVE                             R28 R29
-      210 DUPCLOSURE                       R29 K57 [PROTO_8]
-      211 DUPCLOSURE                       R30 K58 [PROTO_12]
-      212 CAPTURE                          VAL R22
-      213 CAPTURE                          VAL R23
-      214 CAPTURE                          VAL R19
-      215 GETTABLEKS                       R31 R6 K59 ["connect"]
-      217 MOVE                             R32 R29
-      218 MOVE                             R33 R30
-      219 CALL                             R31 2 1
-      220 MOVE                             R32 R28
-      221 CALL                             R31 1 -1
-      222 RETURN                           R31 -1
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["DraggerSchemaCore"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R2 R1 K7 ["BoundsChangedTracker"]
+       18 GETTABLEKS                       R3 R1 K8 ["Selection"]
+       20 GETIMPORT                        R4 K4 [require]
+       22 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       24 GETTABLEKS                       R5 R5 K9 ["FitFrame"]
+       26 CALL                             R4 1 1
+       27 GETTABLEKS                       R4 R4 K10 ["FitFrameVertical"]
+       29 GETIMPORT                        R5 K4 [require]
+       31 GETTABLEKS                       R6 R0 K5 ["Packages"]
+       33 GETTABLEKS                       R6 R6 K11 ["Roact"]
+       35 CALL                             R5 1 1
+       36 GETIMPORT                        R6 K4 [require]
+       38 GETTABLEKS                       R7 R0 K5 ["Packages"]
+       40 GETTABLEKS                       R7 R7 K12 ["RoactRodux"]
+       42 CALL                             R6 1 1
+       43 GETIMPORT                        R7 K4 [require]
+       45 GETTABLEKS                       R8 R0 K5 ["Packages"]
+       47 GETTABLEKS                       R8 R8 K13 ["Framework"]
+       49 CALL                             R7 1 1
+       50 GETTABLEKS                       R8 R7 K14 ["ContextServices"]
+       52 GETTABLEKS                       R9 R8 K15 ["withContext"]
+       54 GETTABLEKS                       R10 R7 K16 ["UI"]
+       56 GETTABLEKS                       R11 R10 K17 ["Button"]
+       58 GETTABLEKS                       R12 R10 K18 ["Container"]
+       60 GETTABLEKS                       R13 R10 K19 ["ScrollingFrame"]
+       62 GETTABLEKS                       R14 R10 K20 ["Box"]
+       64 GETTABLEKS                       R15 R10 K21 ["TextLabel"]
+       66 GETTABLEKS                       R16 R7 K22 ["Util"]
+       68 GETTABLEKS                       R17 R16 K23 ["LayoutOrderIterator"]
+       70 GETTABLEKS                       R18 R16 K24 ["StyleModifier"]
+       72 GETIMPORT                        R19 K4 [require]
+       74 GETTABLEKS                       R20 R0 K25 ["Src"]
+       76 GETTABLEKS                       R20 R20 K26 ["Actions"]
+       78 GETTABLEKS                       R20 R20 K27 ["SetAlignableObjects"]
+       80 CALL                             R19 1 1
+       81 GETIMPORT                        R20 K4 [require]
+       83 GETTABLEKS                       R21 R0 K25 ["Src"]
+       85 GETTABLEKS                       R21 R21 K28 ["Components"]
+       87 GETTABLEKS                       R21 R21 K29 ["AlignmentSettings"]
+       89 CALL                             R20 1 1
+       90 GETIMPORT                        R21 K4 [require]
+       92 GETTABLEKS                       R22 R0 K25 ["Src"]
+       94 GETTABLEKS                       R22 R22 K28 ["Components"]
+       96 GETTABLEKS                       R22 R22 K30 ["AlignObjectsPreview"]
+       98 CALL                             R21 1 1
+       99 GETIMPORT                        R22 K4 [require]
+      101 GETTABLEKS                       R23 R0 K25 ["Src"]
+      103 GETTABLEKS                       R23 R23 K31 ["Thunks"]
+      105 GETTABLEKS                       R23 R23 K32 ["UpdateAlignEnabled"]
+      107 CALL                             R22 1 1
+      108 GETIMPORT                        R23 K4 [require]
+      110 GETTABLEKS                       R24 R0 K25 ["Src"]
+      112 GETTABLEKS                       R24 R24 K31 ["Thunks"]
+      114 GETTABLEKS                       R24 R24 K33 ["UpdateAlignment"]
+      116 CALL                             R23 1 1
+      117 GETIMPORT                        R24 K4 [require]
+      119 GETIMPORT                        R25 K1 [script]
+      121 GETTABLEKS                       R25 R25 K2 ["Parent"]
+      123 GETTABLEKS                       R25 R25 K34 ["TeachingCallout"]
+      125 CALL                             R24 1 1
+      126 GETIMPORT                        R25 K4 [require]
+      128 GETTABLEKS                       R26 R0 K25 ["Src"]
+      130 GETTABLEKS                       R26 R26 K35 ["Utility"]
+      132 GETTABLEKS                       R26 R26 K36 ["AlignToolError"]
+      134 CALL                             R25 1 1
+      135 GETIMPORT                        R26 K4 [require]
+      137 GETTABLEKS                       R27 R0 K25 ["Src"]
+      139 GETTABLEKS                       R27 R27 K35 ["Utility"]
+      141 GETTABLEKS                       R27 R27 K37 ["getAlignableObjects"]
+      143 CALL                             R26 1 1
+      144 GETTABLEKS                       R27 R3 K38 ["new"]
+      146 CALL                             R27 0 1
+      147 GETTABLEKS                       R28 R5 K39 ["PureComponent"]
+      149 LOADK                            R30 K40 ["MainView"]
+      150 NAMECALL                         R28 R28 K41 ["extend"]
+      152 CALL                             R28 2 1
+      153 DUPCLOSURE                       R29 K42 [PROTO_1]
+      154 CAPTURE                          VAL R2
+      155 SETTABLEKS                       R29 R28 K43 ["init"]
+      157 DUPCLOSURE                       R29 K44 [PROTO_3]
+      158 CAPTURE                          VAL R17
+      159 CAPTURE                          VAL R25
+      160 CAPTURE                          VAL R5
+      161 CAPTURE                          VAL R12
+      162 CAPTURE                          VAL R14
+      163 CAPTURE                          VAL R13
+      164 CAPTURE                          VAL R20
+      165 CAPTURE                          VAL R15
+      166 CAPTURE                          VAL R4
+      167 CAPTURE                          VAL R11
+      168 CAPTURE                          VAL R18
+      169 CAPTURE                          VAL R24
+      170 CAPTURE                          VAL R21
+      171 SETTABLEKS                       R29 R28 K45 ["render"]
+      173 DUPCLOSURE                       R29 K46 [PROTO_4]
+      174 CAPTURE                          VAL R27
+      175 CAPTURE                          VAL R26
+      176 SETTABLEKS                       R29 R28 K47 ["_updateSelectionInfo"]
+      178 DUPCLOSURE                       R29 K48 [PROTO_6]
+      179 CAPTURE                          VAL R27
+      180 SETTABLEKS                       R29 R28 K49 ["didMount"]
+      182 DUPCLOSURE                       R29 K50 [PROTO_7]
+      183 SETTABLEKS                       R29 R28 K51 ["willUnmount"]
+      185 MOVE                             R29 R9
+      186 DUPTABLE                         R30 K56 [{"Localization", "Plugin", "Stylizer", "Analytics"}]
+      187 GETTABLEKS                       R31 R8 K52 ["Localization"]
+      189 SETTABLEKS                       R31 R30 K52 ["Localization"]
+      191 GETTABLEKS                       R31 R8 K53 ["Plugin"]
+      193 SETTABLEKS                       R31 R30 K53 ["Plugin"]
+      195 GETTABLEKS                       R31 R8 K54 ["Stylizer"]
+      197 SETTABLEKS                       R31 R30 K54 ["Stylizer"]
+      199 GETTABLEKS                       R31 R8 K55 ["Analytics"]
+      201 SETTABLEKS                       R31 R30 K55 ["Analytics"]
+      203 CALL                             R29 1 1
+      204 MOVE                             R30 R28
+      205 CALL                             R29 1 1
+      206 MOVE                             R28 R29
+      207 DUPCLOSURE                       R29 K57 [PROTO_8]
+      208 DUPCLOSURE                       R30 K58 [PROTO_12]
+      209 CAPTURE                          VAL R22
+      210 CAPTURE                          VAL R23
+      211 CAPTURE                          VAL R19
+      212 GETTABLEKS                       R31 R6 K59 ["connect"]
+      214 MOVE                             R32 R29
+      215 MOVE                             R33 R30
+      216 CALL                             R31 2 1
+      217 MOVE                             R32 R28
+      218 CALL                             R31 1 -1
+      219 RETURN                           R31 -1

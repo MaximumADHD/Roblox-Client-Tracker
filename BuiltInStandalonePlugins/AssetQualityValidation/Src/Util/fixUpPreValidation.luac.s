@@ -50,7 +50,7 @@ PROTO_0:
        68 JUMPIFNOT                        R7 ; [+4]
        69 NAMECALL                         R7 R6 K20 ["Destroy"]
        71 CALL                             R7 1 0
-       72 JUMP                             ; [+76]
+       72 JUMP                             ; [+69]
        73 LOADK                            R9 K21 ["BasePart"]
        74 NAMECALL                         R7 R6 K11 ["IsA"]
        76 CALL                             R7 2 1
@@ -82,32 +82,27 @@ PROTO_0:
       112 LOADK                            R9 K29 ["SurfaceAppearance"]
       113 CALL                             R8 1 1
       114 SETTABLEKS                       R6 R8 K9 ["Parent"]
-      116 GETIMPORT                        R8 K5 [game]
-      118 LOADK                            R10 K34 ["RemoveAttributesForAccessoryParts"]
-      119 NAMECALL                         R8 R8 K35 ["GetFastFlag"]
-      121 CALL                             R8 2 1
-      122 JUMPIFNOT                        R8 ; [+26]
-      123 LOADK                            R10 K26 ["MeshPart"]
-      124 NAMECALL                         R8 R6 K11 ["IsA"]
-      126 CALL                             R8 2 1
-      127 JUMPIF                           R8 ; [+5]
-      128 LOADK                            R10 K36 ["Part"]
-      129 NAMECALL                         R8 R6 K11 ["IsA"]
-      131 CALL                             R8 2 1
-      132 JUMPIFNOT                        R8 ; [+16]
-      133 GETTABLEKS                       R8 R6 K12 ["Name"]
-      135 JUMPIFNOTEQKS                    R8 K37 ["Handle"] ; [+13]
-      137 JUMPIFNOT                        R7 ; [+11]
-      138 NAMECALL                         R8 R6 K38 ["GetAttributes"]
-      140 CALL                             R8 1 3
-      141 FORGPREP                         R8
-      142 MOVE                             R15 R11
-      143 LOADNIL                          R16
-      144 NAMECALL                         R13 R6 K39 ["SetAttribute"]
-      146 CALL                             R13 3 0
-      147 FORGLOOP                         R8 1 ; [-6]
-      149 FORGLOOP                         R2 2 ; [-124]
-      151 RETURN                           R0 0
+      116 LOADK                            R10 K26 ["MeshPart"]
+      117 NAMECALL                         R8 R6 K11 ["IsA"]
+      119 CALL                             R8 2 1
+      120 JUMPIF                           R8 ; [+5]
+      121 LOADK                            R10 K34 ["Part"]
+      122 NAMECALL                         R8 R6 K11 ["IsA"]
+      124 CALL                             R8 2 1
+      125 JUMPIFNOT                        R8 ; [+16]
+      126 GETTABLEKS                       R8 R6 K12 ["Name"]
+      128 JUMPIFNOTEQKS                    R8 K35 ["Handle"] ; [+13]
+      130 JUMPIFNOT                        R7 ; [+11]
+      131 NAMECALL                         R8 R6 K36 ["GetAttributes"]
+      133 CALL                             R8 1 3
+      134 FORGPREP                         R8
+      135 MOVE                             R15 R11
+      136 LOADNIL                          R16
+      137 NAMECALL                         R13 R6 K37 ["SetAttribute"]
+      139 CALL                             R13 3 0
+      140 FORGLOOP                         R8 1 ; [-6]
+      142 FORGLOOP                         R2 2 ; [-117]
+      144 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -119,11 +114,6 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
        11 GETTABLEKS                       R2 R2 K7 ["UGCValidation"]
        13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K9 [game]
-       16 LOADK                            R4 K10 ["RemoveAttributesForAccessoryParts"]
-       17 LOADB                            R5 0
-       18 NAMECALL                         R2 R2 K11 ["DefineFastFlag"]
-       20 CALL                             R2 3 0
-       21 DUPCLOSURE                       R2 K12 [PROTO_0]
-       22 CAPTURE                          VAL R1
-       23 RETURN                           R2 1
+       14 DUPCLOSURE                       R2 K8 [PROTO_0]
+       15 CAPTURE                          VAL R1
+       16 RETURN                           R2 1

@@ -668,78 +668,81 @@ MAIN:
       152 NAMECALL                         R18 R18 K35 ["DefineFastFlag"]
       154 CALL                             R18 3 1
       155 GETIMPORT                        R19 K5 [require]
-      157 GETTABLEKS                       R20 R0 K36 ["LuaFlags"]
-      159 GETTABLEKS                       R20 R20 K37 ["GetFFlagControlRig"]
-      161 CALL                             R19 1 1
-      162 GETIMPORT                        R20 K5 [require]
-      164 GETTABLEKS                       R21 R0 K36 ["LuaFlags"]
-      166 GETTABLEKS                       R21 R21 K38 ["GetFFlagAnimationExportSupport"]
-      168 CALL                             R20 1 1
-      169 GETIMPORT                        R21 K5 [require]
-      171 GETTABLEKS                       R22 R0 K36 ["LuaFlags"]
-      173 GETTABLEKS                       R22 R22 K39 ["GetFFlagAnimationExportUI"]
-      175 CALL                             R21 1 1
-      176 GETTABLEKS                       R22 R1 K40 ["PureComponent"]
-      178 LOADK                            R24 K41 ["AnimationClipMenu"]
-      179 NAMECALL                         R22 R22 K42 ["extend"]
-      181 CALL                             R22 2 1
-      182 DUPCLOSURE                       R23 K43 [PROTO_1]
-      183 CAPTURE                          VAL R20
-      184 CAPTURE                          VAL R21
-      185 CAPTURE                          VAL R6
-      186 SETTABLEKS                       R23 R22 K44 ["init"]
-      188 DUPCLOSURE                       R23 K45 [PROTO_3]
-      189 SETTABLEKS                       R23 R22 K46 ["didMount"]
-      191 DUPCLOSURE                       R23 K47 [PROTO_5]
-      192 CAPTURE                          VAL R5
-      193 SETTABLEKS                       R23 R22 K48 ["makeLoadMenu"]
-      195 DUPCLOSURE                       R23 K49 [PROTO_8]
-      196 CAPTURE                          VAL R5
-      197 CAPTURE                          VAL R7
-      198 SETTABLEKS                       R23 R22 K50 ["makeSaveAsMenu"]
-      200 DUPCLOSURE                       R23 K51 [PROTO_9]
-      201 CAPTURE                          VAL R18
-      202 CAPTURE                          VAL R4
-      203 SETTABLEKS                       R23 R22 K52 ["makeImportMenu"]
-      205 DUPCLOSURE                       R23 K53 [PROTO_11]
-      206 SETTABLEKS                       R23 R22 K54 ["makePriorityMenu"]
-      208 DUPCLOSURE                       R23 K55 [PROTO_12]
-      209 SETTABLEKS                       R23 R22 K56 ["makeAction"]
-      211 DUPCLOSURE                       R23 K57 [PROTO_15]
-      212 CAPTURE                          VAL R7
-      213 CAPTURE                          VAL R17
-      214 CAPTURE                          VAL R20
-      215 CAPTURE                          VAL R21
-      216 CAPTURE                          VAL R19
-      217 SETTABLEKS                       R23 R22 K58 ["makeMenuActions"]
-      219 DUPCLOSURE                       R23 K59 [PROTO_16]
-      220 CAPTURE                          VAL R1
-      221 CAPTURE                          VAL R10
-      222 SETTABLEKS                       R23 R22 K60 ["render"]
-      224 MOVE                             R23 R9
-      225 DUPTABLE                         R24 K64 [{"Localization", "Plugin", "Analytics"}]
-      226 GETTABLEKS                       R25 R8 K61 ["Localization"]
-      228 SETTABLEKS                       R25 R24 K61 ["Localization"]
-      230 GETTABLEKS                       R25 R8 K62 ["Plugin"]
-      232 SETTABLEKS                       R25 R24 K62 ["Plugin"]
-      234 GETTABLEKS                       R25 R8 K63 ["Analytics"]
-      236 SETTABLEKS                       R25 R24 K63 ["Analytics"]
-      238 CALL                             R23 1 1
-      239 MOVE                             R24 R22
-      240 CALL                             R23 1 1
-      241 MOVE                             R22 R23
-      242 DUPCLOSURE                       R23 K65 [PROTO_17]
-      243 DUPCLOSURE                       R24 K66 [PROTO_23]
-      244 CAPTURE                          VAL R12
-      245 CAPTURE                          VAL R11
-      246 CAPTURE                          VAL R16
-      247 CAPTURE                          VAL R14
-      248 CAPTURE                          VAL R15
-      249 CAPTURE                          VAL R13
-      250 GETTABLEKS                       R25 R2 K67 ["connect"]
-      252 MOVE                             R26 R23
-      253 MOVE                             R27 R24
-      254 CALL                             R25 2 1
-      255 MOVE                             R26 R22
-      256 CALL                             R25 1 -1
-      257 RETURN                           R25 -1
+      157 GETTABLEKS                       R20 R0 K10 ["Src"]
+      159 GETTABLEKS                       R20 R20 K36 ["Flags"]
+      161 GETTABLEKS                       R20 R20 K37 ["getFFlagControlRig"]
+      163 CALL                             R19 1 1
+      164 GETIMPORT                        R20 K5 [require]
+      166 GETTABLEKS                       R21 R0 K10 ["Src"]
+      168 GETTABLEKS                       R21 R21 K36 ["Flags"]
+      170 GETTABLEKS                       R21 R21 K38 ["getFFlagAnimationExportSupport"]
+      172 CALL                             R20 1 1
+      173 GETIMPORT                        R21 K5 [require]
+      175 GETTABLEKS                       R22 R0 K10 ["Src"]
+      177 GETTABLEKS                       R22 R22 K36 ["Flags"]
+      179 GETTABLEKS                       R22 R22 K39 ["getFFlagAnimationExportUI"]
+      181 CALL                             R21 1 1
+      182 GETTABLEKS                       R22 R1 K40 ["PureComponent"]
+      184 LOADK                            R24 K41 ["AnimationClipMenu"]
+      185 NAMECALL                         R22 R22 K42 ["extend"]
+      187 CALL                             R22 2 1
+      188 DUPCLOSURE                       R23 K43 [PROTO_1]
+      189 CAPTURE                          VAL R20
+      190 CAPTURE                          VAL R21
+      191 CAPTURE                          VAL R6
+      192 SETTABLEKS                       R23 R22 K44 ["init"]
+      194 DUPCLOSURE                       R23 K45 [PROTO_3]
+      195 SETTABLEKS                       R23 R22 K46 ["didMount"]
+      197 DUPCLOSURE                       R23 K47 [PROTO_5]
+      198 CAPTURE                          VAL R5
+      199 SETTABLEKS                       R23 R22 K48 ["makeLoadMenu"]
+      201 DUPCLOSURE                       R23 K49 [PROTO_8]
+      202 CAPTURE                          VAL R5
+      203 CAPTURE                          VAL R7
+      204 SETTABLEKS                       R23 R22 K50 ["makeSaveAsMenu"]
+      206 DUPCLOSURE                       R23 K51 [PROTO_9]
+      207 CAPTURE                          VAL R18
+      208 CAPTURE                          VAL R4
+      209 SETTABLEKS                       R23 R22 K52 ["makeImportMenu"]
+      211 DUPCLOSURE                       R23 K53 [PROTO_11]
+      212 SETTABLEKS                       R23 R22 K54 ["makePriorityMenu"]
+      214 DUPCLOSURE                       R23 K55 [PROTO_12]
+      215 SETTABLEKS                       R23 R22 K56 ["makeAction"]
+      217 DUPCLOSURE                       R23 K57 [PROTO_15]
+      218 CAPTURE                          VAL R7
+      219 CAPTURE                          VAL R17
+      220 CAPTURE                          VAL R20
+      221 CAPTURE                          VAL R21
+      222 CAPTURE                          VAL R19
+      223 SETTABLEKS                       R23 R22 K58 ["makeMenuActions"]
+      225 DUPCLOSURE                       R23 K59 [PROTO_16]
+      226 CAPTURE                          VAL R1
+      227 CAPTURE                          VAL R10
+      228 SETTABLEKS                       R23 R22 K60 ["render"]
+      230 MOVE                             R23 R9
+      231 DUPTABLE                         R24 K64 [{"Localization", "Plugin", "Analytics"}]
+      232 GETTABLEKS                       R25 R8 K61 ["Localization"]
+      234 SETTABLEKS                       R25 R24 K61 ["Localization"]
+      236 GETTABLEKS                       R25 R8 K62 ["Plugin"]
+      238 SETTABLEKS                       R25 R24 K62 ["Plugin"]
+      240 GETTABLEKS                       R25 R8 K63 ["Analytics"]
+      242 SETTABLEKS                       R25 R24 K63 ["Analytics"]
+      244 CALL                             R23 1 1
+      245 MOVE                             R24 R22
+      246 CALL                             R23 1 1
+      247 MOVE                             R22 R23
+      248 DUPCLOSURE                       R23 K65 [PROTO_17]
+      249 DUPCLOSURE                       R24 K66 [PROTO_23]
+      250 CAPTURE                          VAL R12
+      251 CAPTURE                          VAL R11
+      252 CAPTURE                          VAL R16
+      253 CAPTURE                          VAL R14
+      254 CAPTURE                          VAL R15
+      255 CAPTURE                          VAL R13
+      256 GETTABLEKS                       R25 R2 K67 ["connect"]
+      258 MOVE                             R26 R23
+      259 MOVE                             R27 R24
+      260 CALL                             R25 2 1
+      261 MOVE                             R26 R22
+      262 CALL                             R25 1 -1
+      263 RETURN                           R25 -1

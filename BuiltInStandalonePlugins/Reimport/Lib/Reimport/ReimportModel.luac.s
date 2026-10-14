@@ -382,58 +382,55 @@ PROTO_7:
       118 CALL                             R12 1 1
       119 LOADB                            R13 0
       120 SETTABLEKS                       R13 R12 K20 ["AddModelToInventory"]
-      122 GETUPVAL                         R13 5
-      123 CALL                             R13 0 1
-      124 JUMPIFNOT                        R13 ; [+8]
-      125 GETTABLEKS                       R13 R8 K21 ["creatorId"]
-      127 JUMPIFEQKNIL                     R13 ; [+5]
-      129 GETTABLEKS                       R13 R8 K21 ["creatorId"]
-      131 SETTABLEKS                       R13 R12 K22 ["PreferredUploadId"]
-      133 GETTABLEKS                       R13 R8 K23 ["preset"]
-      135 JUMPIFEQKNIL                     R13 ; [+11]
-      137 GETUPVAL                         R13 1
-      138 GETTABLEKS                       R15 R8 K23 ["preset"]
-      140 NAMECALL                         R13 R13 K24 ["GetPreset"]
-      142 CALL                             R13 2 1
-      143 MOVE                             R16 R13
-      144 NAMECALL                         R14 R9 K25 ["ApplyPreset"]
-      146 CALL                             R14 2 0
-      147 GETUPVAL                         R13 6
-      148 CALL                             R13 0 1
-      149 JUMPIFNOT                        R13 ; [+9]
-      150 GETTABLEKS                       R13 R12 K26 ["MergeMeshes"]
-      152 JUMPIFNOT                        R13 ; [+6]
-      153 GETTABLEKS                       R13 R1 K2 ["error"]
-      155 LOADK                            R14 K27 ["Reimport does not support merged meshes. Please select a different import preset."]
-      156 CALL                             R13 1 0
-      157 CLOSEUPVALS                      R4
-      158 RETURN                           R0 0
+      122 GETTABLEKS                       R13 R8 K21 ["creatorId"]
+      124 JUMPIFEQKNIL                     R13 ; [+5]
+      126 GETTABLEKS                       R13 R8 K21 ["creatorId"]
+      128 SETTABLEKS                       R13 R12 K22 ["PreferredUploadId"]
+      130 GETTABLEKS                       R13 R8 K23 ["preset"]
+      132 JUMPIFEQKNIL                     R13 ; [+11]
+      134 GETUPVAL                         R13 1
+      135 GETTABLEKS                       R15 R8 K23 ["preset"]
+      137 NAMECALL                         R13 R13 K24 ["GetPreset"]
+      139 CALL                             R13 2 1
+      140 MOVE                             R16 R13
+      141 NAMECALL                         R14 R9 K25 ["ApplyPreset"]
+      143 CALL                             R14 2 0
+      144 GETUPVAL                         R13 5
+      145 CALL                             R13 0 1
+      146 JUMPIFNOT                        R13 ; [+9]
+      147 GETTABLEKS                       R13 R12 K26 ["MergeMeshes"]
+      149 JUMPIFNOT                        R13 ; [+6]
+      150 GETTABLEKS                       R13 R1 K2 ["error"]
+      152 LOADK                            R14 K27 ["Reimport does not support merged meshes. Please select a different import preset."]
+      153 CALL                             R13 1 0
+      154 CLOSEUPVALS                      R4
+      155 RETURN                           R0 0
+      156 GETUPVAL                         R13 6
+      157 CALL                             R13 0 1
+      158 JUMPIFNOT                        R13 ; [+4]
       159 GETUPVAL                         R13 7
-      160 CALL                             R13 0 1
-      161 JUMPIFNOT                        R13 ; [+4]
-      162 GETUPVAL                         R13 8
-      163 MOVE                             R14 R9
-      164 MOVE                             R15 R0
-      165 CALL                             R13 2 0
-      166 GETUPVAL                         R13 4
-      167 CALL                             R13 0 1
-      168 JUMPIFNOT                        R13 ; [+9]
-      169 GETUPVAL                         R13 9
-      170 GETTABLEKS                       R13 R13 K28 ["acquireLock"]
-      172 GETTABLEKS                       R14 R8 K5 ["filepath"]
-      174 GETTABLEKS                       R15 R8 K21 ["creatorId"]
-      176 CALL                             R13 2 1
-      177 MOVE                             R11 R13
-      178 NAMECALL                         R13 R9 K29 ["Upload"]
-      180 CALL                             R13 1 0
-      181 ADDK                             R4 R4 K16 [0.1]
-      182 MULK                             R14 R5 K8 [0.6]
-      183 ADD                              R13 R4 R14
-      184 GETTABLEKS                       R14 R1 K9 ["progress"]
-      186 MOVE                             R15 R13
-      187 CALL                             R14 1 0
-      188 CLOSEUPVALS                      R4
-      189 RETURN                           R0 0
+      160 MOVE                             R14 R9
+      161 MOVE                             R15 R0
+      162 CALL                             R13 2 0
+      163 GETUPVAL                         R13 4
+      164 CALL                             R13 0 1
+      165 JUMPIFNOT                        R13 ; [+9]
+      166 GETUPVAL                         R13 8
+      167 GETTABLEKS                       R13 R13 K28 ["acquireLock"]
+      169 GETTABLEKS                       R14 R8 K5 ["filepath"]
+      171 GETTABLEKS                       R15 R8 K21 ["creatorId"]
+      173 CALL                             R13 2 1
+      174 MOVE                             R11 R13
+      175 NAMECALL                         R13 R9 K29 ["Upload"]
+      177 CALL                             R13 1 0
+      178 ADDK                             R4 R4 K16 [0.1]
+      179 MULK                             R14 R5 K8 [0.6]
+      180 ADD                              R13 R4 R14
+      181 GETTABLEKS                       R14 R1 K9 ["progress"]
+      183 MOVE                             R15 R13
+      184 CALL                             R14 1 0
+      185 CLOSEUPVALS                      R4
+      186 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -477,42 +474,37 @@ MAIN:
        67 CALL                             R7 1 1
        68 GETIMPORT                        R8 K5 [require]
        70 GETTABLEKS                       R9 R0 K15 ["Flags"]
-       72 GETTABLEKS                       R9 R9 K17 ["GetFFlagEnableGroupUpload"]
+       72 GETTABLEKS                       R9 R9 K17 ["GetFFlagReimportEmptyModelPivotFix"]
        74 CALL                             R8 1 1
        75 GETIMPORT                        R9 K5 [require]
        77 GETTABLEKS                       R10 R0 K15 ["Flags"]
-       79 GETTABLEKS                       R10 R10 K18 ["GetFFlagReimportEmptyModelPivotFix"]
+       79 GETTABLEKS                       R10 R10 K18 ["GetFFlagReimportFileWatcher"]
        81 CALL                             R9 1 1
        82 GETIMPORT                        R10 K5 [require]
        84 GETTABLEKS                       R11 R0 K15 ["Flags"]
-       86 GETTABLEKS                       R11 R11 K19 ["GetFFlagReimportFileWatcher"]
+       86 GETTABLEKS                       R11 R11 K19 ["GetFFlagReimportRejectMergeMeshes"]
        88 CALL                             R10 1 1
        89 GETIMPORT                        R11 K5 [require]
-       91 GETTABLEKS                       R12 R0 K15 ["Flags"]
-       93 GETTABLEKS                       R12 R12 K20 ["GetFFlagReimportRejectMergeMeshes"]
-       95 CALL                             R11 1 1
-       96 GETIMPORT                        R12 K5 [require]
-       98 GETIMPORT                        R13 K1 [script]
-      100 GETTABLEKS                       R13 R13 K21 ["Parent"]
-      102 GETTABLEKS                       R13 R13 K22 ["Types"]
-      104 CALL                             R12 1 1
-      105 DUPCLOSURE                       R13 K23 [PROTO_0]
-      106 NEWTABLE                         R14 2 0
-      108 DUPCLOSURE                       R15 K24 [PROTO_1]
-      109 CAPTURE                          VAL R9
-      110 CAPTURE                          VAL R13
-      111 CAPTURE                          VAL R5
-      112 SETTABLEKS                       R15 R14 K25 ["doReimportApply"]
-      114 DUPCLOSURE                       R15 K26 [PROTO_7]
-      115 CAPTURE                          VAL R4
-      116 CAPTURE                          VAL R1
-      117 CAPTURE                          VAL R2
-      118 CAPTURE                          VAL R14
-      119 CAPTURE                          VAL R10
-      120 CAPTURE                          VAL R8
-      121 CAPTURE                          VAL R11
-      122 CAPTURE                          VAL R7
-      123 CAPTURE                          VAL R3
-      124 CAPTURE                          VAL R6
-      125 SETTABLEKS                       R15 R14 K27 ["reimport"]
-      127 RETURN                           R14 1
+       91 GETIMPORT                        R12 K1 [script]
+       93 GETTABLEKS                       R12 R12 K20 ["Parent"]
+       95 GETTABLEKS                       R12 R12 K21 ["Types"]
+       97 CALL                             R11 1 1
+       98 DUPCLOSURE                       R12 K22 [PROTO_0]
+       99 NEWTABLE                         R13 2 0
+      101 DUPCLOSURE                       R14 K23 [PROTO_1]
+      102 CAPTURE                          VAL R8
+      103 CAPTURE                          VAL R12
+      104 CAPTURE                          VAL R5
+      105 SETTABLEKS                       R14 R13 K24 ["doReimportApply"]
+      107 DUPCLOSURE                       R14 K25 [PROTO_7]
+      108 CAPTURE                          VAL R4
+      109 CAPTURE                          VAL R1
+      110 CAPTURE                          VAL R2
+      111 CAPTURE                          VAL R13
+      112 CAPTURE                          VAL R9
+      113 CAPTURE                          VAL R10
+      114 CAPTURE                          VAL R7
+      115 CAPTURE                          VAL R3
+      116 CAPTURE                          VAL R6
+      117 SETTABLEKS                       R14 R13 K26 ["reimport"]
+      119 RETURN                           R13 1

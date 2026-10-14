@@ -26,7 +26,7 @@ PROTO_0:
        30 NAMECALL                         R0 R0 K6 ["getText"]
        32 CALL                             R0 3 1
        33 GETUPVAL                         R1 4
-       34 GETTABLEKS                       R1 R1 K9 ["setDockWidgetTitle"]
+       34 GETTABLEKS                       R1 R1 K9 ["current"]
        36 MOVE                             R2 R0
        37 CALL                             R1 1 0
        38 RETURN                           R0 0
@@ -34,7 +34,7 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantQualityChangeWidgetTitle"]
-        3 JUMPIFNOT                        R1 ; [+24]
+        3 JUMPIFNOT                        R1 ; [+34]
         4 GETUPVAL                         R1 1
         5 GETTABLEKS                       R1 R1 K1 ["useContext"]
         7 GETUPVAL                         R2 2
@@ -42,29 +42,35 @@ PROTO_1:
        10 CALL                             R1 1 1
        11 GETTABLEKS                       R2 R1 K3 ["modelQuality"]
        13 GETUPVAL                         R3 1
-       14 GETTABLEKS                       R3 R3 K4 ["useEffect"]
-       16 NEWCLOSURE                       R4 P0
-       17 CAPTURE                          VAL R2
-       18 CAPTURE                          UPVAL U2
-       19 CAPTURE                          UPVAL U3
-       20 CAPTURE                          UPVAL U0
-       21 CAPTURE                          VAL R0
-       22 NEWTABLE                         R5 0 1
-       24 MOVE                             R6 R2
-       25 SETLIST                          R5 R6 1 [1]
-       27 CALL                             R3 2 0
-       28 DUPTABLE                         R1 K6 [{"MainView"}]
-       29 GETUPVAL                         R2 4
-       30 GETUPVAL                         R3 5
-       31 GETTABLEKS                       R3 R3 K7 ["WidgetTrackingMainView"]
-       33 DUPTABLE                         R4 K10 [{"textBoxRef", "externalInterfaceRef"}]
-       34 GETTABLEKS                       R5 R0 K8 ["textBoxRef"]
-       36 SETTABLEKS                       R5 R4 K8 ["textBoxRef"]
-       38 GETTABLEKS                       R5 R0 K9 ["externalInterfaceRef"]
-       40 SETTABLEKS                       R5 R4 K9 ["externalInterfaceRef"]
-       42 CALL                             R2 2 1
-       43 SETTABLEKS                       R2 R1 K5 ["MainView"]
-       45 RETURN                           R1 1
+       14 GETTABLEKS                       R3 R3 K4 ["useRef"]
+       16 GETTABLEKS                       R4 R0 K5 ["setDockWidgetTitle"]
+       18 CALL                             R3 1 1
+       19 GETTABLEKS                       R4 R0 K5 ["setDockWidgetTitle"]
+       21 SETTABLEKS                       R4 R3 K6 ["current"]
+       23 GETUPVAL                         R4 1
+       24 GETTABLEKS                       R4 R4 K7 ["useEffect"]
+       26 NEWCLOSURE                       R5 P0
+       27 CAPTURE                          VAL R2
+       28 CAPTURE                          UPVAL U2
+       29 CAPTURE                          UPVAL U3
+       30 CAPTURE                          UPVAL U0
+       31 CAPTURE                          VAL R3
+       32 NEWTABLE                         R6 0 1
+       34 MOVE                             R7 R2
+       35 SETLIST                          R6 R7 1 [1]
+       37 CALL                             R4 2 0
+       38 DUPTABLE                         R1 K9 [{"MainView"}]
+       39 GETUPVAL                         R2 4
+       40 GETUPVAL                         R3 5
+       41 GETTABLEKS                       R3 R3 K10 ["WidgetTrackingMainView"]
+       43 DUPTABLE                         R4 K13 [{"textBoxRef", "externalInterfaceRef"}]
+       44 GETTABLEKS                       R5 R0 K11 ["textBoxRef"]
+       46 SETTABLEKS                       R5 R4 K11 ["textBoxRef"]
+       48 GETTABLEKS                       R5 R0 K12 ["externalInterfaceRef"]
+       50 SETTABLEKS                       R5 R4 K12 ["externalInterfaceRef"]
+       52 CALL                             R2 2 1
+       53 SETTABLEKS                       R2 R1 K8 ["MainView"]
+       55 RETURN                           R1 1
 
 PROTO_2:
         0 NEWTABLE                         R1 0 5
@@ -277,33 +283,55 @@ PROTO_2:
       270 FASTCALL                         TABLE_INSERT ; [+2]
       271 GETIMPORT                        R2 K10 [table.insert]
       273 CALL                             R2 -1 0
-      274 GETUPVAL                         R2 20
-      275 GETTABLEKS                       R3 R0 K7 ["args"]
-      277 GETTABLEKS                       R3 R3 K24 ["bridges"]
-      279 CALL                             R2 1 1
-      280 GETUPVAL                         R3 21
-      281 GETTABLEKS                       R3 R3 K25 ["append"]
-      283 MOVE                             R4 R1
-      284 MOVE                             R5 R2
-      285 CALL                             R3 2 0
-      286 GETUPVAL                         R3 0
-      287 GETUPVAL                         R4 22
-      288 DUPTABLE                         R5 K27 [{"onStyleSheetChange"}]
-      289 GETTABLEKS                       R6 R0 K28 ["onFoundationStyleSheetChange"]
-      291 SETTABLEKS                       R6 R5 K26 ["onStyleSheetChange"]
-      293 DUPTABLE                         R6 K30 [{"ContextStack"}]
-      294 GETUPVAL                         R7 0
-      295 GETUPVAL                         R8 23
-      296 GETTABLEKS                       R8 R8 K29 ["ContextStack"]
-      298 DUPTABLE                         R9 K32 [{"providers"}]
-      299 SETTABLEKS                       R1 R9 K31 ["providers"]
-      301 GETUPVAL                         R10 24
-      302 MOVE                             R11 R0
-      303 CALL                             R10 1 1
-      304 CALL                             R7 3 1
-      305 SETTABLEKS                       R7 R6 K29 ["ContextStack"]
-      307 CALL                             R3 3 -1
-      308 RETURN                           R3 -1
+      274 GETUPVAL                         R2 8
+      275 GETTABLEKS                       R2 R2 K24 ["FFlagAssistantUseNewDMNetworking"]
+      277 JUMPIFNOT                        R2 ; [+18]
+      278 MOVE                             R3 R1
+      279 GETUPVAL                         R4 0
+      280 GETUPVAL                         R5 20
+      281 GETTABLEKS                       R5 R5 K4 ["Provider"]
+      283 DUPTABLE                         R6 K26 [{"net"}]
+      284 GETTABLEKS                       R7 R0 K7 ["args"]
+      286 GETTABLEKS                       R7 R7 K25 ["net"]
+      288 SETTABLEKS                       R7 R6 K25 ["net"]
+      290 CALL                             R4 2 -1
+      291 FASTCALL                         TABLE_INSERT ; [+2]
+      292 GETIMPORT                        R2 K10 [table.insert]
+      294 CALL                             R2 -1 0
+      295 JUMP                             ; [+20]
+      296 GETTABLEKS                       R2 R0 K7 ["args"]
+      298 GETTABLEKS                       R2 R2 K27 ["bridges"]
+      300 FASTCALL2K                       ASSERT R2 K28 ; [+5]
+      302 MOVE                             R4 R2
+      303 LOADK                            R5 K28 ["App requires bridges"]
+      304 GETIMPORT                        R3 K30 [assert]
+      306 CALL                             R3 2 0
+      307 GETUPVAL                         R3 21
+      308 MOVE                             R4 R2
+      309 CALL                             R3 1 1
+      310 GETUPVAL                         R4 22
+      311 GETTABLEKS                       R4 R4 K31 ["append"]
+      313 MOVE                             R5 R1
+      314 MOVE                             R6 R3
+      315 CALL                             R4 2 0
+      316 GETUPVAL                         R2 0
+      317 GETUPVAL                         R3 23
+      318 DUPTABLE                         R4 K33 [{"onStyleSheetChange"}]
+      319 GETTABLEKS                       R5 R0 K34 ["onFoundationStyleSheetChange"]
+      321 SETTABLEKS                       R5 R4 K32 ["onStyleSheetChange"]
+      323 DUPTABLE                         R5 K36 [{"ContextStack"}]
+      324 GETUPVAL                         R6 0
+      325 GETUPVAL                         R7 24
+      326 GETTABLEKS                       R7 R7 K35 ["ContextStack"]
+      328 DUPTABLE                         R8 K38 [{"providers"}]
+      329 SETTABLEKS                       R1 R8 K37 ["providers"]
+      331 GETUPVAL                         R9 25
+      332 MOVE                             R10 R0
+      333 CALL                             R9 1 1
+      334 CALL                             R6 3 1
+      335 SETTABLEKS                       R6 R5 K35 ["ContextStack"]
+      337 CALL                             R2 3 -1
+      338 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -311,163 +339,166 @@ MAIN:
         3 LOADK                            R2 K2 ["Assistant"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
-       13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["Dash"]
-       20 CALL                             R2 1 1
-       21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R4 R0 K9 ["Src"]
-       25 GETTABLEKS                       R4 R4 K10 ["Host"]
-       27 GETTABLEKS                       R4 R4 K11 ["ExternalServerController"]
-       29 CALL                             R3 1 1
-       30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       34 GETTABLEKS                       R5 R5 K12 ["React"]
-       36 CALL                             R4 1 1
-       37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       41 GETTABLEKS                       R6 R6 K13 ["ReactUtils"]
-       43 CALL                             R5 1 1
-       44 GETIMPORT                        R6 K5 [require]
-       46 GETTABLEKS                       R7 R0 K9 ["Src"]
-       48 GETTABLEKS                       R7 R7 K14 ["Components"]
-       50 GETTABLEKS                       R7 R7 K15 ["Contexts"]
-       52 GETTABLEKS                       R7 R7 K16 ["StudioCreditMeteringContextProvider"]
-       54 CALL                             R6 1 1
-       55 GETIMPORT                        R7 K5 [require]
-       57 GETTABLEKS                       R8 R0 K9 ["Src"]
-       59 GETTABLEKS                       R8 R8 K14 ["Components"]
-       61 GETTABLEKS                       R8 R8 K15 ["Contexts"]
-       63 GETTABLEKS                       R8 R8 K17 ["StudioExternalServerContextProvider"]
-       65 CALL                             R7 1 1
-       66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R9 R0 K6 ["Packages"]
-       70 GETTABLEKS                       R9 R9 K18 ["StudioFoundation"]
-       72 CALL                             R8 1 1
-       73 GETIMPORT                        R9 K5 [require]
-       75 GETTABLEKS                       R10 R0 K9 ["Src"]
-       77 GETTABLEKS                       R10 R10 K14 ["Components"]
-       79 GETTABLEKS                       R10 R10 K15 ["Contexts"]
-       81 GETTABLEKS                       R10 R10 K19 ["StudioHarnessDepsContextProvider"]
-       83 CALL                             R9 1 1
-       84 GETIMPORT                        R10 K5 [require]
-       86 GETTABLEKS                       R11 R0 K9 ["Src"]
-       88 GETTABLEKS                       R11 R11 K14 ["Components"]
-       90 GETTABLEKS                       R11 R11 K15 ["Contexts"]
-       92 GETTABLEKS                       R11 R11 K20 ["StudioInputStateContextProvider"]
-       94 CALL                             R10 1 1
-       95 GETIMPORT                        R11 K5 [require]
-       97 GETTABLEKS                       R12 R0 K9 ["Src"]
-       99 GETTABLEKS                       R12 R12 K14 ["Components"]
-      101 GETTABLEKS                       R12 R12 K15 ["Contexts"]
-      103 GETTABLEKS                       R12 R12 K21 ["StudioLLM"]
-      105 GETTABLEKS                       R12 R12 K22 ["StudioLLMPackageContextProvider"]
-      107 CALL                             R11 1 1
-      108 GETIMPORT                        R12 K5 [require]
-      110 GETTABLEKS                       R13 R0 K9 ["Src"]
-      112 GETTABLEKS                       R13 R13 K14 ["Components"]
-      114 GETTABLEKS                       R13 R13 K15 ["Contexts"]
-      116 GETTABLEKS                       R13 R13 K23 ["StudioMcpClientContextProvider"]
-      118 CALL                             R12 1 1
-      119 GETIMPORT                        R13 K5 [require]
-      121 GETTABLEKS                       R14 R0 K9 ["Src"]
-      123 GETTABLEKS                       R14 R14 K14 ["Components"]
-      125 GETTABLEKS                       R14 R14 K15 ["Contexts"]
-      127 GETTABLEKS                       R14 R14 K24 ["StudioOptionsContextProvider"]
-      129 CALL                             R13 1 1
-      130 GETIMPORT                        R14 K5 [require]
-      132 GETTABLEKS                       R15 R0 K9 ["Src"]
-      134 GETTABLEKS                       R15 R15 K14 ["Components"]
-      136 GETTABLEKS                       R15 R15 K15 ["Contexts"]
-      138 GETTABLEKS                       R15 R15 K25 ["StudioPopoutWidgetContextProvider"]
-      140 CALL                             R14 1 1
-      141 GETIMPORT                        R15 K5 [require]
-      143 GETTABLEKS                       R16 R0 K9 ["Src"]
-      145 GETTABLEKS                       R16 R16 K14 ["Components"]
-      147 GETTABLEKS                       R16 R16 K15 ["Contexts"]
-      149 GETTABLEKS                       R16 R16 K26 ["StudioSessionIdContextProvider"]
-      151 CALL                             R15 1 1
-      152 GETIMPORT                        R16 K5 [require]
-      154 GETTABLEKS                       R17 R0 K9 ["Src"]
-      156 GETTABLEKS                       R17 R17 K14 ["Components"]
-      158 GETTABLEKS                       R17 R17 K15 ["Contexts"]
-      160 GETTABLEKS                       R17 R17 K27 ["StudioWidgetVisibilityContextProvider"]
-      162 CALL                             R16 1 1
-      163 GETIMPORT                        R17 K5 [require]
-      165 GETTABLEKS                       R18 R0 K9 ["Src"]
-      167 GETTABLEKS                       R18 R18 K28 ["Util"]
-      169 GETTABLEKS                       R18 R18 K29 ["StudioWindowInput"]
-      171 CALL                             R17 1 1
-      172 GETIMPORT                        R18 K5 [require]
-      174 GETTABLEKS                       R19 R0 K9 ["Src"]
-      176 GETTABLEKS                       R19 R19 K14 ["Components"]
-      178 GETTABLEKS                       R19 R19 K30 ["WidgetTrackingMainView"]
-      180 CALL                             R18 1 1
-      181 GETIMPORT                        R19 K5 [require]
-      183 GETTABLEKS                       R20 R0 K9 ["Src"]
-      185 GETTABLEKS                       R20 R20 K31 ["Flags"]
-      187 CALL                             R19 1 1
-      188 GETTABLEKS                       R20 R8 K14 ["Components"]
-      190 GETTABLEKS                       R20 R20 K32 ["FoundationProviderAdapter"]
-      192 GETTABLEKS                       R21 R1 K14 ["Components"]
-      194 GETTABLEKS                       R21 R21 K15 ["Contexts"]
-      196 GETTABLEKS                       R21 R21 K33 ["FeedbackContext"]
-      198 GETTABLEKS                       R22 R1 K14 ["Components"]
-      200 GETTABLEKS                       R22 R22 K15 ["Contexts"]
-      202 GETTABLEKS                       R22 R22 K34 ["McpAuthorizerManagerContext"]
-      204 GETTABLEKS                       R23 R1 K14 ["Components"]
-      206 GETTABLEKS                       R23 R23 K15 ["Contexts"]
-      208 GETTABLEKS                       R23 R23 K35 ["ModelQualityContext"]
-      210 GETTABLEKS                       R24 R1 K14 ["Components"]
-      212 GETTABLEKS                       R24 R24 K15 ["Contexts"]
-      214 GETTABLEKS                       R24 R24 K36 ["PersistedIntegrationContext"]
-      216 GETTABLEKS                       R25 R1 K14 ["Components"]
-      218 GETTABLEKS                       R25 R25 K15 ["Contexts"]
-      220 GETTABLEKS                       R25 R25 K37 ["PersistedSettingsContext"]
-      222 GETTABLEKS                       R26 R1 K38 ["Resources"]
-      224 GETTABLEKS                       R26 R26 K39 ["Localization"]
-      226 GETTABLEKS                       R26 R26 K40 ["Translator"]
-      228 GETTABLEKS                       R27 R1 K41 ["FlagUtils"]
-      230 GETTABLEKS                       R27 R27 K42 ["getIsCreditMeteringEnabled"]
-      232 GETTABLEKS                       R28 R1 K14 ["Components"]
-      234 GETTABLEKS                       R28 R28 K43 ["Hooks"]
-      236 GETTABLEKS                       R28 R28 K44 ["useBridges"]
-      238 GETTABLEKS                       R29 R4 K45 ["createElement"]
-      240 DUPCLOSURE                       R30 K46 [PROTO_1]
-      241 CAPTURE                          VAL R19
-      242 CAPTURE                          VAL R4
-      243 CAPTURE                          VAL R23
-      244 CAPTURE                          VAL R26
-      245 CAPTURE                          VAL R29
-      246 CAPTURE                          VAL R18
-      247 DUPCLOSURE                       R31 K47 [PROTO_2]
-      248 CAPTURE                          VAL R29
-      249 CAPTURE                          VAL R1
-      250 CAPTURE                          VAL R15
-      251 CAPTURE                          VAL R22
-      252 CAPTURE                          VAL R24
-      253 CAPTURE                          VAL R7
-      254 CAPTURE                          VAL R12
-      255 CAPTURE                          VAL R25
-      256 CAPTURE                          VAL R19
-      257 CAPTURE                          VAL R27
-      258 CAPTURE                          VAL R6
-      259 CAPTURE                          VAL R11
-      260 CAPTURE                          VAL R9
-      261 CAPTURE                          VAL R13
-      262 CAPTURE                          VAL R10
-      263 CAPTURE                          VAL R17
+        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
+        9 GETIMPORT                        R2 K6 [require]
+       11 GETTABLEKS                       R3 R1 K7 ["AssistantUI"]
+       13 CALL                             R2 1 1
+       14 GETIMPORT                        R3 K6 [require]
+       16 GETTABLEKS                       R4 R1 K8 ["DMNetworking"]
+       18 CALL                             R3 1 1
+       19 GETIMPORT                        R4 K6 [require]
+       21 GETTABLEKS                       R5 R1 K9 ["Dash"]
+       23 CALL                             R4 1 1
+       24 GETIMPORT                        R5 K6 [require]
+       26 GETTABLEKS                       R6 R1 K10 ["React"]
+       28 CALL                             R5 1 1
+       29 GETIMPORT                        R6 K6 [require]
+       31 GETTABLEKS                       R7 R1 K11 ["ReactUtils"]
+       33 CALL                             R6 1 1
+       34 GETIMPORT                        R7 K6 [require]
+       36 GETTABLEKS                       R8 R1 K12 ["StudioFoundation"]
+       38 CALL                             R7 1 1
+       39 GETIMPORT                        R8 K6 [require]
+       41 GETTABLEKS                       R9 R0 K13 ["Src"]
+       43 GETTABLEKS                       R9 R9 K14 ["Host"]
+       45 GETTABLEKS                       R9 R9 K15 ["ExternalServerController"]
+       47 CALL                             R8 1 1
+       48 GETIMPORT                        R9 K6 [require]
+       50 GETTABLEKS                       R10 R0 K13 ["Src"]
+       52 GETTABLEKS                       R10 R10 K16 ["Flags"]
+       54 CALL                             R9 1 1
+       55 GETIMPORT                        R10 K6 [require]
+       57 GETTABLEKS                       R11 R0 K13 ["Src"]
+       59 GETTABLEKS                       R11 R11 K17 ["Components"]
+       61 GETTABLEKS                       R11 R11 K18 ["Contexts"]
+       63 GETTABLEKS                       R11 R11 K19 ["StudioCreditMeteringContextProvider"]
+       65 CALL                             R10 1 1
+       66 GETIMPORT                        R11 K6 [require]
+       68 GETTABLEKS                       R12 R0 K13 ["Src"]
+       70 GETTABLEKS                       R12 R12 K17 ["Components"]
+       72 GETTABLEKS                       R12 R12 K18 ["Contexts"]
+       74 GETTABLEKS                       R12 R12 K20 ["StudioExternalServerContextProvider"]
+       76 CALL                             R11 1 1
+       77 GETIMPORT                        R12 K6 [require]
+       79 GETTABLEKS                       R13 R0 K13 ["Src"]
+       81 GETTABLEKS                       R13 R13 K17 ["Components"]
+       83 GETTABLEKS                       R13 R13 K18 ["Contexts"]
+       85 GETTABLEKS                       R13 R13 K21 ["StudioHarnessDepsContextProvider"]
+       87 CALL                             R12 1 1
+       88 GETIMPORT                        R13 K6 [require]
+       90 GETTABLEKS                       R14 R0 K13 ["Src"]
+       92 GETTABLEKS                       R14 R14 K17 ["Components"]
+       94 GETTABLEKS                       R14 R14 K18 ["Contexts"]
+       96 GETTABLEKS                       R14 R14 K22 ["StudioInputStateContextProvider"]
+       98 CALL                             R13 1 1
+       99 GETIMPORT                        R14 K6 [require]
+      101 GETTABLEKS                       R15 R0 K13 ["Src"]
+      103 GETTABLEKS                       R15 R15 K17 ["Components"]
+      105 GETTABLEKS                       R15 R15 K18 ["Contexts"]
+      107 GETTABLEKS                       R15 R15 K23 ["StudioLLM"]
+      109 GETTABLEKS                       R15 R15 K24 ["StudioLLMPackageContextProvider"]
+      111 CALL                             R14 1 1
+      112 GETIMPORT                        R15 K6 [require]
+      114 GETTABLEKS                       R16 R0 K13 ["Src"]
+      116 GETTABLEKS                       R16 R16 K17 ["Components"]
+      118 GETTABLEKS                       R16 R16 K18 ["Contexts"]
+      120 GETTABLEKS                       R16 R16 K25 ["StudioMcpClientContextProvider"]
+      122 CALL                             R15 1 1
+      123 GETIMPORT                        R16 K6 [require]
+      125 GETTABLEKS                       R17 R0 K13 ["Src"]
+      127 GETTABLEKS                       R17 R17 K17 ["Components"]
+      129 GETTABLEKS                       R17 R17 K18 ["Contexts"]
+      131 GETTABLEKS                       R17 R17 K26 ["StudioOptionsContextProvider"]
+      133 CALL                             R16 1 1
+      134 GETIMPORT                        R17 K6 [require]
+      136 GETTABLEKS                       R18 R0 K13 ["Src"]
+      138 GETTABLEKS                       R18 R18 K17 ["Components"]
+      140 GETTABLEKS                       R18 R18 K18 ["Contexts"]
+      142 GETTABLEKS                       R18 R18 K27 ["StudioPopoutWidgetContextProvider"]
+      144 CALL                             R17 1 1
+      145 GETIMPORT                        R18 K6 [require]
+      147 GETTABLEKS                       R19 R0 K13 ["Src"]
+      149 GETTABLEKS                       R19 R19 K17 ["Components"]
+      151 GETTABLEKS                       R19 R19 K18 ["Contexts"]
+      153 GETTABLEKS                       R19 R19 K28 ["StudioSessionIdContextProvider"]
+      155 CALL                             R18 1 1
+      156 GETIMPORT                        R19 K6 [require]
+      158 GETTABLEKS                       R20 R0 K13 ["Src"]
+      160 GETTABLEKS                       R20 R20 K17 ["Components"]
+      162 GETTABLEKS                       R20 R20 K18 ["Contexts"]
+      164 GETTABLEKS                       R20 R20 K29 ["StudioWidgetVisibilityContextProvider"]
+      166 CALL                             R19 1 1
+      167 GETIMPORT                        R20 K6 [require]
+      169 GETTABLEKS                       R21 R0 K13 ["Src"]
+      171 GETTABLEKS                       R21 R21 K30 ["Util"]
+      173 GETTABLEKS                       R21 R21 K31 ["StudioWindowInput"]
+      175 CALL                             R20 1 1
+      176 GETIMPORT                        R21 K6 [require]
+      178 GETTABLEKS                       R22 R0 K13 ["Src"]
+      180 GETTABLEKS                       R22 R22 K17 ["Components"]
+      182 GETTABLEKS                       R22 R22 K32 ["WidgetTrackingMainView"]
+      184 CALL                             R21 1 1
+      185 GETTABLEKS                       R22 R7 K17 ["Components"]
+      187 GETTABLEKS                       R22 R22 K33 ["FoundationProviderAdapter"]
+      189 GETTABLEKS                       R23 R2 K17 ["Components"]
+      191 GETTABLEKS                       R23 R23 K18 ["Contexts"]
+      193 GETTABLEKS                       R23 R23 K34 ["FeedbackContext"]
+      195 GETTABLEKS                       R24 R2 K17 ["Components"]
+      197 GETTABLEKS                       R24 R24 K18 ["Contexts"]
+      199 GETTABLEKS                       R24 R24 K35 ["McpAuthorizerManagerContext"]
+      201 GETTABLEKS                       R25 R2 K17 ["Components"]
+      203 GETTABLEKS                       R25 R25 K18 ["Contexts"]
+      205 GETTABLEKS                       R25 R25 K36 ["ModelQualityContext"]
+      207 GETTABLEKS                       R26 R2 K17 ["Components"]
+      209 GETTABLEKS                       R26 R26 K18 ["Contexts"]
+      211 GETTABLEKS                       R26 R26 K37 ["NetworkingContext"]
+      213 GETTABLEKS                       R27 R2 K17 ["Components"]
+      215 GETTABLEKS                       R27 R27 K18 ["Contexts"]
+      217 GETTABLEKS                       R27 R27 K38 ["PersistedIntegrationContext"]
+      219 GETTABLEKS                       R28 R2 K17 ["Components"]
+      221 GETTABLEKS                       R28 R28 K18 ["Contexts"]
+      223 GETTABLEKS                       R28 R28 K39 ["PersistedSettingsContext"]
+      225 GETTABLEKS                       R29 R2 K40 ["Resources"]
+      227 GETTABLEKS                       R29 R29 K41 ["Localization"]
+      229 GETTABLEKS                       R29 R29 K42 ["Translator"]
+      231 GETTABLEKS                       R30 R2 K43 ["FlagUtils"]
+      233 GETTABLEKS                       R30 R30 K44 ["getIsCreditMeteringEnabled"]
+      235 GETTABLEKS                       R31 R2 K17 ["Components"]
+      237 GETTABLEKS                       R31 R31 K45 ["Hooks"]
+      239 GETTABLEKS                       R31 R31 K46 ["useBridges"]
+      241 GETTABLEKS                       R32 R5 K47 ["createElement"]
+      243 DUPCLOSURE                       R33 K48 [PROTO_1]
+      244 CAPTURE                          VAL R9
+      245 CAPTURE                          VAL R5
+      246 CAPTURE                          VAL R25
+      247 CAPTURE                          VAL R29
+      248 CAPTURE                          VAL R32
+      249 CAPTURE                          VAL R21
+      250 DUPCLOSURE                       R34 K49 [PROTO_2]
+      251 CAPTURE                          VAL R32
+      252 CAPTURE                          VAL R2
+      253 CAPTURE                          VAL R18
+      254 CAPTURE                          VAL R24
+      255 CAPTURE                          VAL R27
+      256 CAPTURE                          VAL R11
+      257 CAPTURE                          VAL R15
+      258 CAPTURE                          VAL R28
+      259 CAPTURE                          VAL R9
+      260 CAPTURE                          VAL R30
+      261 CAPTURE                          VAL R10
+      262 CAPTURE                          VAL R14
+      263 CAPTURE                          VAL R12
       264 CAPTURE                          VAL R16
-      265 CAPTURE                          VAL R23
-      266 CAPTURE                          VAL R14
-      267 CAPTURE                          VAL R21
-      268 CAPTURE                          VAL R28
-      269 CAPTURE                          VAL R2
-      270 CAPTURE                          VAL R20
-      271 CAPTURE                          VAL R5
-      272 CAPTURE                          VAL R30
-      273 RETURN                           R31 1
+      265 CAPTURE                          VAL R13
+      266 CAPTURE                          VAL R20
+      267 CAPTURE                          VAL R19
+      268 CAPTURE                          VAL R25
+      269 CAPTURE                          VAL R17
+      270 CAPTURE                          VAL R23
+      271 CAPTURE                          VAL R26
+      272 CAPTURE                          VAL R31
+      273 CAPTURE                          VAL R4
+      274 CAPTURE                          VAL R22
+      275 CAPTURE                          VAL R6
+      276 CAPTURE                          VAL R33
+      277 RETURN                           R34 1

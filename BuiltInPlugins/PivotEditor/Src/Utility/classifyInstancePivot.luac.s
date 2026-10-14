@@ -37,12 +37,12 @@ MAIN:
         3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R0 K3 ["Packages"]
-       11 GETTABLEKS                       R1 R1 K4 ["DraggerFramework"]
-       13 GETIMPORT                        R2 K6 [require]
-       15 GETTABLEKS                       R3 R1 K7 ["Utility"]
-       17 GETTABLEKS                       R3 R3 K8 ["classifyPivot"]
-       19 CALL                             R2 1 1
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["DraggerFramework"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R2 R1 K7 ["Utility"]
+       18 GETTABLEKS                       R2 R2 K8 ["classifyPivot"]
        20 DUPCLOSURE                       R3 K9 [PROTO_0]
        21 CAPTURE                          VAL R2
        22 RETURN                           R3 1

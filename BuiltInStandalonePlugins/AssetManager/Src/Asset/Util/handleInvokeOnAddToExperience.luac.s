@@ -61,69 +61,66 @@ PROTO_1:
        68 GETTABLEKS                       R9 R9 K21 ["CreatorType"]
        70 GETIMPORT                        R10 K16 [game]
        72 GETTABLEKS                       R10 R10 K22 ["CreatorId"]
-       74 GETUPVAL                         R11 4
-       75 MOVE                             R12 R3
-       76 GETTABLEKS                       R13 R1 K23 ["creators"]
-       78 CALL                             R11 2 -1
-       79 CALL                             R6 -1 1
-       80 MOVE                             R7 R3
-       81 MOVE                             R8 R4
-       82 GETIMPORT                        R9 K25 [next]
-       84 MOVE                             R10 R6
-       85 CALL                             R9 1 1
-       86 JUMPIFEQKNIL                     R9 ; [+27]
-       88 NEWTABLE                         R7 0 0
-       90 NEWTABLE                         R8 0 0
-       92 MOVE                             R9 R3
-       93 LOADNIL                          R10
-       94 LOADNIL                          R11
-       95 FORGPREP                         R9
-       96 GETTABLE                         R14 R6 R13
-       97 JUMPIF                           R14 ; [+14]
-       98 FASTCALL2                        TABLE_INSERT R7 R13 ; [+5]
-      100 MOVE                             R15 R7
-      101 MOVE                             R16 R13
-      102 GETIMPORT                        R14 K5 [table.insert]
-      104 CALL                             R14 2 0
-      105 GETTABLE                         R16 R4 R12
-      106 FASTCALL2                        TABLE_INSERT R8 R16 ; [+4]
-      108 MOVE                             R15 R8
-      109 GETIMPORT                        R14 K5 [table.insert]
-      111 CALL                             R14 2 0
-      112 FORGLOOP                         R9 2 ; [-17]
-      114 LENGTH                           R10 R7
-      115 LOADN                            R11 0
-      116 JUMPIFNOTLT                      R11 R10 ; [+11]
-      118 GETUPVAL                         R9 2
-      119 GETTABLEKS                       R9 R9 K18 ["Utils"]
-      121 GETTABLEKS                       R9 R9 K19 ["grantUniversePermissions"]
-      123 MOVE                             R10 R7
-      124 MOVE                             R11 R8
-      125 MOVE                             R12 R5
-      126 CALL                             R9 3 1
-      127 JUMP                             ; [+2]
-      128 NEWTABLE                         R9 0 0
-      130 MOVE                             R10 R6
-      131 LOADNIL                          R11
-      132 LOADNIL                          R12
-      133 FORGPREP                         R10
-      134 LOADB                            R15 1
-      135 SETTABLE                         R15 R9 R13
-      136 FORGLOOP                         R10 1 ; [-3]
-      138 GETUPVAL                         R10 5
-      139 LOADK                            R11 K26 ["addToExperience: granted %* of %* asset(s) after the publish gate"]
-      140 LENGTH                           R13 R7
-      141 LENGTH                           R14 R3
-      142 NAMECALL                         R11 R11 K27 ["format"]
-      144 CALL                             R11 3 1
-      145 CALL                             R10 1 0
-      146 LOADK                            R12 K20 ["OnAddToExperienceFinished"]
-      147 MOVE                             R13 R1
-      148 MOVE                             R14 R9
-      149 MOVE                             R15 R2
-      150 NAMECALL                         R10 R0 K14 ["Invoke"]
-      152 CALL                             R10 5 0
-      153 RETURN                           R0 0
+       74 GETTABLEKS                       R11 R1 K23 ["creators"]
+       76 CALL                             R6 5 1
+       77 MOVE                             R7 R3
+       78 MOVE                             R8 R4
+       79 GETIMPORT                        R9 K25 [next]
+       81 MOVE                             R10 R6
+       82 CALL                             R9 1 1
+       83 JUMPIFEQKNIL                     R9 ; [+27]
+       85 NEWTABLE                         R7 0 0
+       87 NEWTABLE                         R8 0 0
+       89 MOVE                             R9 R3
+       90 LOADNIL                          R10
+       91 LOADNIL                          R11
+       92 FORGPREP                         R9
+       93 GETTABLE                         R14 R6 R13
+       94 JUMPIF                           R14 ; [+14]
+       95 FASTCALL2                        TABLE_INSERT R7 R13 ; [+5]
+       97 MOVE                             R15 R7
+       98 MOVE                             R16 R13
+       99 GETIMPORT                        R14 K5 [table.insert]
+      101 CALL                             R14 2 0
+      102 GETTABLE                         R16 R4 R12
+      103 FASTCALL2                        TABLE_INSERT R8 R16 ; [+4]
+      105 MOVE                             R15 R8
+      106 GETIMPORT                        R14 K5 [table.insert]
+      108 CALL                             R14 2 0
+      109 FORGLOOP                         R9 2 ; [-17]
+      111 LENGTH                           R10 R7
+      112 LOADN                            R11 0
+      113 JUMPIFNOTLT                      R11 R10 ; [+11]
+      115 GETUPVAL                         R9 2
+      116 GETTABLEKS                       R9 R9 K18 ["Utils"]
+      118 GETTABLEKS                       R9 R9 K19 ["grantUniversePermissions"]
+      120 MOVE                             R10 R7
+      121 MOVE                             R11 R8
+      122 MOVE                             R12 R5
+      123 CALL                             R9 3 1
+      124 JUMP                             ; [+2]
+      125 NEWTABLE                         R9 0 0
+      127 MOVE                             R10 R6
+      128 LOADNIL                          R11
+      129 LOADNIL                          R12
+      130 FORGPREP                         R10
+      131 LOADB                            R15 1
+      132 SETTABLE                         R15 R9 R13
+      133 FORGLOOP                         R10 1 ; [-3]
+      135 GETUPVAL                         R10 4
+      136 LOADK                            R11 K26 ["addToExperience: granted %* of %* asset(s) after the publish gate"]
+      137 LENGTH                           R13 R7
+      138 LENGTH                           R14 R3
+      139 NAMECALL                         R11 R11 K27 ["format"]
+      141 CALL                             R11 3 1
+      142 CALL                             R10 1 0
+      143 LOADK                            R12 K20 ["OnAddToExperienceFinished"]
+      144 MOVE                             R13 R1
+      145 MOVE                             R14 R9
+      146 MOVE                             R15 R2
+      147 NAMECALL                         R10 R0 K14 ["Invoke"]
+      149 CALL                             R10 5 0
+      150 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -148,30 +145,23 @@ MAIN:
        32 GETTABLEKS                       R5 R0 K6 ["Src"]
        34 GETTABLEKS                       R5 R5 K12 ["Asset"]
        36 GETTABLEKS                       R5 R5 K10 ["Util"]
-       38 GETTABLEKS                       R5 R5 K13 ["buildKnownAssetOwners"]
+       38 GETTABLEKS                       R5 R5 K13 ["publishDraftAssetsForInsert"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
        43 GETTABLEKS                       R6 R0 K6 ["Src"]
-       45 GETTABLEKS                       R6 R6 K12 ["Asset"]
-       47 GETTABLEKS                       R6 R6 K10 ["Util"]
-       49 GETTABLEKS                       R6 R6 K14 ["publishDraftAssets"]
-       51 CALL                             R5 1 1
-       52 GETIMPORT                        R6 K5 [require]
-       54 GETTABLEKS                       R7 R0 K6 ["Src"]
-       56 GETTABLEKS                       R7 R7 K10 ["Util"]
-       58 GETTABLEKS                       R7 R7 K15 ["logIfDebug"]
-       60 CALL                             R6 1 1
-       61 GETIMPORT                        R7 K5 [require]
-       63 GETTABLEKS                       R8 R0 K6 ["Src"]
-       65 GETTABLEKS                       R8 R8 K16 ["Flags"]
-       67 GETTABLEKS                       R8 R8 K17 ["getFFlagAmrPublishDraftAssetsOnInsert"]
-       69 CALL                             R7 1 1
-       70 DUPCLOSURE                       R8 K18 [PROTO_0]
-       71 DUPCLOSURE                       R9 K19 [PROTO_1]
-       72 CAPTURE                          VAL R3
-       73 CAPTURE                          VAL R7
-       74 CAPTURE                          VAL R2
-       75 CAPTURE                          VAL R5
-       76 CAPTURE                          VAL R4
-       77 CAPTURE                          VAL R6
-       78 RETURN                           R9 1
+       45 GETTABLEKS                       R6 R6 K10 ["Util"]
+       47 GETTABLEKS                       R6 R6 K14 ["logIfDebug"]
+       49 CALL                             R5 1 1
+       50 GETIMPORT                        R6 K5 [require]
+       52 GETTABLEKS                       R7 R0 K6 ["Src"]
+       54 GETTABLEKS                       R7 R7 K15 ["Flags"]
+       56 GETTABLEKS                       R7 R7 K16 ["getFFlagAmrPublishDraftAssetsOnInsert"]
+       58 CALL                             R6 1 1
+       59 DUPCLOSURE                       R7 K17 [PROTO_0]
+       60 DUPCLOSURE                       R8 K18 [PROTO_1]
+       61 CAPTURE                          VAL R3
+       62 CAPTURE                          VAL R6
+       63 CAPTURE                          VAL R2
+       64 CAPTURE                          VAL R4
+       65 CAPTURE                          VAL R5
+       66 RETURN                           R8 1

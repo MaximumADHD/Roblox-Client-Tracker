@@ -732,12 +732,12 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["Util"]
        16 GETTABLEKS                       R2 R2 K9 ["Math"]
-       18 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       20 GETTABLEKS                       R3 R3 K10 ["DraggerFramework"]
-       22 GETIMPORT                        R4 K5 [require]
-       24 GETTABLEKS                       R5 R3 K11 ["Utility"]
-       26 GETTABLEKS                       R5 R5 K9 ["Math"]
-       28 CALL                             R4 1 1
+       18 GETIMPORT                        R3 K5 [require]
+       20 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K10 ["DraggerFramework"]
+       24 CALL                             R3 1 1
+       25 GETTABLEKS                       R4 R3 K11 ["Utility"]
+       27 GETTABLEKS                       R4 R4 K9 ["Math"]
        29 GETTABLEKS                       R5 R0 K12 ["Src"]
        31 GETTABLEKS                       R5 R5 K8 ["Util"]
        33 GETIMPORT                        R6 K5 [require]

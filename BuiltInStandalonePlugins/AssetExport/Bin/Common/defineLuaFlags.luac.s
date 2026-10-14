@@ -4,15 +4,14 @@ MAIN:
         3 LOADK                            R2 K2 ["AssetExport"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R1 R0 K4 ["Bin"]
-        9 GETTABLEKS                       R1 R1 K5 ["Common"]
-       11 GETIMPORT                        R2 K7 [require]
-       13 GETTABLEKS                       R3 R1 K8 ["safeGetFFlagCallback"]
-       15 CALL                             R2 1 1
-       16 DUPTABLE                         R3 K10 [{"getFFlagEnableAssetExport"}]
-       17 MOVE                             R4 R2
-       18 LOADK                            R5 K11 ["EnableAssetExport"]
-       19 LOADB                            R6 0
-       20 CALL                             R4 2 1
-       21 SETTABLEKS                       R4 R3 K9 ["getFFlagEnableAssetExport"]
-       23 RETURN                           R3 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["SafeFlags"]
+       13 CALL                             R1 1 1
+       14 DUPTABLE                         R2 K9 [{"getFFlagEnableAssetExport"}]
+       15 GETTABLEKS                       R3 R1 K10 ["createGetFFlag"]
+       17 LOADK                            R4 K11 ["EnableAssetExport"]
+       18 LOADB                            R5 0
+       19 CALL                             R3 2 1
+       20 SETTABLEKS                       R3 R2 K8 ["getFFlagEnableAssetExport"]
+       22 RETURN                           R2 1

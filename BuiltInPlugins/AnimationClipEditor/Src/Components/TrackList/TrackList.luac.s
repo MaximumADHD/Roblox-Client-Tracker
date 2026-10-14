@@ -1043,76 +1043,77 @@ MAIN:
       143 GETTABLEKS                       R18 R18 K28 ["WideScrollingFrame"]
       145 CALL                             R17 1 1
       146 GETIMPORT                        R18 K5 [require]
-      148 GETTABLEKS                       R19 R0 K29 ["LuaFlags"]
-      150 GETTABLEKS                       R19 R19 K30 ["GetFFlagControlRig"]
-      152 CALL                             R18 1 1
-      153 GETTABLEKS                       R19 R1 K31 ["PureComponent"]
-      155 LOADK                            R21 K24 ["TrackList"]
-      156 NAMECALL                         R19 R19 K32 ["extend"]
-      158 CALL                             R19 2 1
-      159 DUPCLOSURE                       R20 K33 [PROTO_13]
-      160 CAPTURE                          VAL R5
-      161 CAPTURE                          VAL R11
-      162 SETTABLEKS                       R20 R19 K34 ["init"]
-      164 DUPCLOSURE                       R20 K35 [PROTO_14]
-      165 CAPTURE                          VAL R11
-      166 CAPTURE                          VAL R1
-      167 CAPTURE                          VAL R14
-      168 SETTABLEKS                       R20 R19 K36 ["renderSummaryTrack"]
-      170 DUPCLOSURE                       R20 K37 [PROTO_17]
-      171 CAPTURE                          VAL R11
-      172 CAPTURE                          VAL R4
-      173 CAPTURE                          VAL R1
-      174 CAPTURE                          VAL R16
-      175 SETTABLEKS                       R20 R19 K38 ["renderExpandedCFrameTrack"]
-      177 DUPCLOSURE                       R20 K39 [PROTO_18]
-      178 CAPTURE                          VAL R1
-      179 CAPTURE                          VAL R15
-      180 CAPTURE                          VAL R11
-      181 SETTABLEKS                       R20 R19 K40 ["renderExpandedGenericTrack"]
-      183 DUPCLOSURE                       R20 K41 [PROTO_19]
-      184 CAPTURE                          VAL R11
-      185 SETTABLEKS                       R20 R19 K42 ["renderExpandedTracks"]
-      187 DUPCLOSURE                       R20 K43 [PROTO_20]
-      188 SETTABLEKS                       R20 R19 K44 ["isSelected"]
-      190 DUPCLOSURE                       R20 K45 [PROTO_25]
-      191 CAPTURE                          VAL R18
-      192 CAPTURE                          VAL R11
-      193 CAPTURE                          VAL R4
-      194 CAPTURE                          VAL R12
-      195 CAPTURE                          VAL R2
-      196 CAPTURE                          VAL R10
-      197 CAPTURE                          VAL R13
-      198 CAPTURE                          VAL R1
-      199 CAPTURE                          VAL R16
-      200 SETTABLEKS                       R20 R19 K46 ["renderTrack"]
-      202 DUPCLOSURE                       R20 K47 [PROTO_26]
-      203 CAPTURE                          VAL R1
-      204 SETTABLEKS                       R20 R19 K48 ["renderTracks"]
-      206 DUPCLOSURE                       R20 K49 [PROTO_27]
-      207 CAPTURE                          VAL R11
-      208 CAPTURE                          VAL R1
-      209 CAPTURE                          VAL R17
-      210 SETTABLEKS                       R20 R19 K50 ["render"]
-      212 MOVE                             R20 R9
-      213 DUPTABLE                         R21 K54 [{"Stylizer", "Analytics", "Localization", "Signals"}]
-      214 GETTABLEKS                       R22 R8 K51 ["Stylizer"]
-      216 SETTABLEKS                       R22 R21 K51 ["Stylizer"]
-      218 GETTABLEKS                       R22 R8 K52 ["Analytics"]
-      220 SETTABLEKS                       R22 R21 K52 ["Analytics"]
-      222 GETTABLEKS                       R22 R8 K53 ["Localization"]
-      224 SETTABLEKS                       R22 R21 K53 ["Localization"]
-      226 SETTABLEKS                       R6 R21 K15 ["Signals"]
-      228 CALL                             R20 1 1
-      229 MOVE                             R21 R19
+      148 GETTABLEKS                       R19 R0 K10 ["Src"]
+      150 GETTABLEKS                       R19 R19 K29 ["Flags"]
+      152 GETTABLEKS                       R19 R19 K30 ["getFFlagControlRig"]
+      154 CALL                             R18 1 1
+      155 GETTABLEKS                       R19 R1 K31 ["PureComponent"]
+      157 LOADK                            R21 K24 ["TrackList"]
+      158 NAMECALL                         R19 R19 K32 ["extend"]
+      160 CALL                             R19 2 1
+      161 DUPCLOSURE                       R20 K33 [PROTO_13]
+      162 CAPTURE                          VAL R5
+      163 CAPTURE                          VAL R11
+      164 SETTABLEKS                       R20 R19 K34 ["init"]
+      166 DUPCLOSURE                       R20 K35 [PROTO_14]
+      167 CAPTURE                          VAL R11
+      168 CAPTURE                          VAL R1
+      169 CAPTURE                          VAL R14
+      170 SETTABLEKS                       R20 R19 K36 ["renderSummaryTrack"]
+      172 DUPCLOSURE                       R20 K37 [PROTO_17]
+      173 CAPTURE                          VAL R11
+      174 CAPTURE                          VAL R4
+      175 CAPTURE                          VAL R1
+      176 CAPTURE                          VAL R16
+      177 SETTABLEKS                       R20 R19 K38 ["renderExpandedCFrameTrack"]
+      179 DUPCLOSURE                       R20 K39 [PROTO_18]
+      180 CAPTURE                          VAL R1
+      181 CAPTURE                          VAL R15
+      182 CAPTURE                          VAL R11
+      183 SETTABLEKS                       R20 R19 K40 ["renderExpandedGenericTrack"]
+      185 DUPCLOSURE                       R20 K41 [PROTO_19]
+      186 CAPTURE                          VAL R11
+      187 SETTABLEKS                       R20 R19 K42 ["renderExpandedTracks"]
+      189 DUPCLOSURE                       R20 K43 [PROTO_20]
+      190 SETTABLEKS                       R20 R19 K44 ["isSelected"]
+      192 DUPCLOSURE                       R20 K45 [PROTO_25]
+      193 CAPTURE                          VAL R18
+      194 CAPTURE                          VAL R11
+      195 CAPTURE                          VAL R4
+      196 CAPTURE                          VAL R12
+      197 CAPTURE                          VAL R2
+      198 CAPTURE                          VAL R10
+      199 CAPTURE                          VAL R13
+      200 CAPTURE                          VAL R1
+      201 CAPTURE                          VAL R16
+      202 SETTABLEKS                       R20 R19 K46 ["renderTrack"]
+      204 DUPCLOSURE                       R20 K47 [PROTO_26]
+      205 CAPTURE                          VAL R1
+      206 SETTABLEKS                       R20 R19 K48 ["renderTracks"]
+      208 DUPCLOSURE                       R20 K49 [PROTO_27]
+      209 CAPTURE                          VAL R11
+      210 CAPTURE                          VAL R1
+      211 CAPTURE                          VAL R17
+      212 SETTABLEKS                       R20 R19 K50 ["render"]
+      214 MOVE                             R20 R9
+      215 DUPTABLE                         R21 K54 [{"Stylizer", "Analytics", "Localization", "Signals"}]
+      216 GETTABLEKS                       R22 R8 K51 ["Stylizer"]
+      218 SETTABLEKS                       R22 R21 K51 ["Stylizer"]
+      220 GETTABLEKS                       R22 R8 K52 ["Analytics"]
+      222 SETTABLEKS                       R22 R21 K52 ["Analytics"]
+      224 GETTABLEKS                       R22 R8 K53 ["Localization"]
+      226 SETTABLEKS                       R22 R21 K53 ["Localization"]
+      228 SETTABLEKS                       R6 R21 K15 ["Signals"]
       230 CALL                             R20 1 1
-      231 MOVE                             R19 R20
-      232 DUPCLOSURE                       R20 K55 [PROTO_28]
-      233 DUPCLOSURE                       R21 K56 [PROTO_29]
-      234 GETTABLEKS                       R22 R3 K57 ["connect"]
-      236 MOVE                             R23 R20
-      237 MOVE                             R24 R21
-      238 CALL                             R22 2 1
-      239 MOVE                             R23 R19
-      240 CALL                             R22 1 -1
-      241 RETURN                           R22 -1
+      231 MOVE                             R21 R19
+      232 CALL                             R20 1 1
+      233 MOVE                             R19 R20
+      234 DUPCLOSURE                       R20 K55 [PROTO_28]
+      235 DUPCLOSURE                       R21 K56 [PROTO_29]
+      236 GETTABLEKS                       R22 R3 K57 ["connect"]
+      238 MOVE                             R23 R20
+      239 MOVE                             R24 R21
+      240 CALL                             R22 2 1
+      241 MOVE                             R23 R19
+      242 CALL                             R22 1 -1
+      243 RETURN                           R22 -1

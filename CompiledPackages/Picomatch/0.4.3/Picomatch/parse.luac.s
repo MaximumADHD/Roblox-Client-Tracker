@@ -891,14 +891,14 @@ PROTO_20:
       299 CAPTURE                          REF R32
       300 CAPTURE                          VAL R30
       301 GETTABLEKS                       R45 R2 K69 ["fastpaths"]
-      303 JUMPIFEQKB                       R45 FALSE ; [+58]
+      303 JUMPIFEQKB                       R45 FALSE ; [+57]
       305 GETUPVAL                         R45 8
       306 LOADK                            R46 K70 ["(^[*!]|[/()[\\]{}\"])"]
       307 CALL                             R45 1 1
       308 MOVE                             R47 R0
       309 NAMECALL                         R45 R45 K71 ["test"]
       311 CALL                             R45 2 1
-      312 JUMPIF                           R45 ; [+49]
+      312 JUMPIF                           R45 ; [+48]
       313 LOADB                            R45 0
       314 GETUPVAL                         R46 10
       315 MOVE                             R47 R0
@@ -936,1659 +936,1658 @@ PROTO_20:
       357 SETTABLEKS                       R47 R27 K21 ["output"]
       359 CLOSEUPVALS                      R0
       360 RETURN                           R27 1
-      361 CLOSEUPVALS                      R45
-      362 GETTABLEKS                       R46 R27 K50 ["index"]
-      364 JUMPIFEQ                         R46 R4 ; [+2]
-      366 LOADB                            R45 0 +1
-      367 LOADB                            R45 1
-      368 JUMPIF                           R45 ; [+2184]
-      369 MOVE                             R45 R35
-      370 CALL                             R45 0 1
-      371 MOVE                             R32 R45
-      372 JUMPIFEQKS                       R32 K76 ["\0"] ; [+2179]
-      374 JUMPIFNOTEQKS                    R32 K77 ["\\"] ; [+86]
-      376 MOVE                             R45 R34
-      377 CALL                             R45 0 1
-      378 JUMPIFNOTEQKS                    R45 K78 ["/"] ; [+5]
-      380 GETTABLEKS                       R46 R2 K43 ["bash"]
-      382 JUMPIFNOTEQKB                    R46 TRUE ; [+2169]
-      384 JUMPIFEQKS                       R45 K79 ["."] ; [+2167]
-      386 JUMPIFEQKS                       R45 K80 [";"] ; [+2165]
-      388 GETUPVAL                         R46 4
-      389 GETTABLEKS                       R46 R46 K24 ["toJSBoolean"]
-      391 MOVE                             R47 R45
-      392 CALL                             R46 1 1
-      393 JUMPIF                           R46 ; [+9]
-      394 MOVE                             R46 R32
-      395 LOADK                            R47 K77 ["\\"]
-      396 CONCAT                           R32 R46 R47
-      397 MOVE                             R46 R42
-      398 DUPTABLE                         R47 K82 [{["type"] = "text", ["value"]}]
-      399 SETTABLEKS                       R32 R47 K19 ["value"]
-      401 CALL                             R46 1 0
-      402 JUMP                             ; [+2149]
-      403 GETUPVAL                         R46 8
-      404 LOADK                            R47 K83 ["^\\\\+"]
-      405 CALL                             R46 1 1
-      406 GETTABLEKS                       R51 R27 K50 ["index"]
-      408 ADDK                             R50 R51 K53 [1]
-      409 FASTCALL2                        STRING_SUB R0 R50 ; [+4]
-      411 MOVE                             R49 R0
-      412 GETIMPORT                        R48 K85 [string.sub]
-      414 CALL                             R48 2 1
-      415 NAMECALL                         R46 R46 K86 ["exec"]
-      417 CALL                             R46 2 1
-      418 LOADN                            R47 0
-      419 JUMPIFEQKNIL                     R46 ; [+19]
-      421 GETTABLEN                        R49 R46 1
-      422 LENGTH                           R48 R49
-      423 LOADN                            R49 2
-      424 JUMPIFNOTLT                      R49 R48 ; [+14]
-      426 GETTABLEN                        R48 R46 1
-      427 LENGTH                           R47 R48
-      428 GETTABLEKS                       R48 R27 K50 ["index"]
-      430 ADD                              R48 R48 R47
-      431 SETTABLEKS                       R48 R27 K50 ["index"]
-      433 MODK                             R48 R47 K87 [2]
-      434 JUMPIFEQKN                       R48 K51 [0] ; [+4]
-      436 MOVE                             R48 R32
-      437 LOADK                            R49 K77 ["\\"]
-      438 CONCAT                           R32 R48 R49
-      439 GETTABLEKS                       R48 R2 K72 ["unescape"]
-      441 JUMPIFNOTEQKB                    R48 TRUE ; [+5]
-      443 MOVE                             R48 R35
-      444 CALL                             R48 0 1
-      445 MOVE                             R32 R48
-      446 JUMP                             ; [+4]
-      447 MOVE                             R48 R32
-      448 MOVE                             R49 R35
-      449 CALL                             R49 0 1
-      450 CONCAT                           R32 R48 R49
-      451 GETTABLEKS                       R48 R27 K59 ["brackets"]
-      453 JUMPIFNOTEQKN                    R48 K51 [0] ; [+7]
-      455 MOVE                             R48 R42
-      456 DUPTABLE                         R49 K82 [{["type"] = "text", ["value"]}]
-      457 SETTABLEKS                       R32 R49 K19 ["value"]
-      459 CALL                             R48 1 0
-      460 JUMP                             ; [+2091]
-      461 GETTABLEKS                       R45 R27 K59 ["brackets"]
-      463 LOADN                            R46 0
-      464 JUMPIFNOTLT                      R46 R45 ; [+179]
-      466 JUMPIFNOTEQKS                    R32 K88 ["]"] ; [+9]
-      468 GETTABLEKS                       R45 R31 K19 ["value"]
-      470 JUMPIFEQKS                       R45 K89 ["["] ; [+5]
-      472 GETTABLEKS                       R45 R31 K19 ["value"]
-      474 JUMPIFNOTEQKS                    R45 K90 ["[^"] ; [+169]
-      476 GETTABLEKS                       R45 R2 K91 ["posix"]
-      478 JUMPIFEQKB                       R45 FALSE ; [+82]
-      480 JUMPIFNOTEQKS                    R32 K92 [":"] ; [+80]
-      482 GETUPVAL                         R45 7
-      483 GETTABLEKS                       R45 R45 K93 ["slice"]
-      485 GETTABLEKS                       R46 R31 K19 ["value"]
-      487 LOADN                            R47 1
-      488 CALL                             R45 2 1
-      489 LOADK                            R48 K89 ["["]
-      490 LOADN                            R49 1
-      491 LOADB                            R50 1
-      492 NAMECALL                         R46 R45 K94 ["find"]
-      494 CALL                             R46 4 1
-      495 JUMPIFEQKNIL                     R46 ; [+65]
-      497 LOADB                            R46 1
-      498 SETTABLEKS                       R46 R31 K91 ["posix"]
-      500 LOADK                            R48 K92 [":"]
-      501 LOADN                            R49 1
-      502 LOADB                            R50 1
-      503 NAMECALL                         R46 R45 K94 ["find"]
-      505 CALL                             R46 4 1
-      506 JUMPIFEQKNIL                     R46 ; [+54]
-      508 GETUPVAL                         R46 7
-      509 GETTABLEKS                       R46 R46 K95 ["lastIndexOf"]
-      511 GETTABLEKS                       R47 R31 K19 ["value"]
-      513 LOADK                            R48 K89 ["["]
-      514 CALL                             R46 2 1
-      515 GETUPVAL                         R47 7
-      516 GETTABLEKS                       R47 R47 K93 ["slice"]
-      518 GETTABLEKS                       R48 R31 K19 ["value"]
-      520 LOADN                            R49 1
-      521 MOVE                             R50 R46
-      522 CALL                             R47 3 1
-      523 GETUPVAL                         R48 7
-      524 GETTABLEKS                       R48 R48 K93 ["slice"]
-      526 GETTABLEKS                       R49 R31 K19 ["value"]
-      528 ADDK                             R50 R46 K87 [2]
-      529 CALL                             R48 2 1
-      530 GETUPVAL                         R50 12
-      531 GETTABLE                         R49 R50 R48
-      532 JUMPIFNOT                        R49 ; [+28]
-      533 MOVE                             R51 R47
-      534 MOVE                             R52 R49
-      535 CONCAT                           R50 R51 R52
-      536 SETTABLEKS                       R50 R31 K19 ["value"]
-      538 LOADB                            R50 1
-      539 SETTABLEKS                       R50 R27 K56 ["backtrack"]
-      541 MOVE                             R50 R35
-      542 CALL                             R50 0 0
-      543 GETUPVAL                         R50 4
-      544 GETTABLEKS                       R50 R50 K24 ["toJSBoolean"]
-      546 GETTABLEKS                       R51 R5 K21 ["output"]
-      548 CALL                             R50 1 1
-      549 JUMPIF                           R50 ; [+2002]
-      550 GETUPVAL                         R50 13
-      551 GETTABLEKS                       R50 R50 K96 ["indexOf"]
-      553 MOVE                             R51 R6
-      554 MOVE                             R52 R31
-      555 CALL                             R50 2 1
-      556 JUMPIFNOTEQKN                    R50 K87 [2] ; [+1995]
-      558 SETTABLEKS                       R14 R5 K21 ["output"]
-      560 JUMP                             ; [+1991]
-      561 JUMPIFNOTEQKS                    R32 K89 ["["] ; [+5]
-      563 MOVE                             R45 R34
-      564 CALL                             R45 0 1
-      565 JUMPIFNOTEQKS                    R45 K92 [":"] ; [+7]
-      567 JUMPIFNOTEQKS                    R32 K97 ["-"] ; [+11]
-      569 MOVE                             R45 R34
-      570 CALL                             R45 0 1
-      571 JUMPIFNOTEQKS                    R45 K88 ["]"] ; [+7]
-      573 LOADK                            R45 K98 ["\\%s"]
-      574 MOVE                             R47 R32
-      575 NAMECALL                         R45 R45 K16 ["format"]
-      577 CALL                             R45 2 1
-      578 MOVE                             R32 R45
-      579 JUMPIFNOTEQKS                    R32 K88 ["]"] ; [+15]
-      581 GETTABLEKS                       R45 R31 K19 ["value"]
-      583 JUMPIFEQKS                       R45 K89 ["["] ; [+5]
-      585 GETTABLEKS                       R45 R31 K19 ["value"]
-      587 JUMPIFNOTEQKS                    R45 K90 ["[^"] ; [+7]
-      589 LOADK                            R45 K98 ["\\%s"]
-      590 MOVE                             R47 R32
-      591 NAMECALL                         R45 R45 K16 ["format"]
-      593 CALL                             R45 2 1
-      594 MOVE                             R32 R45
-      595 GETTABLEKS                       R45 R2 K91 ["posix"]
-      597 JUMPIFNOTEQKB                    R45 TRUE ; [+8]
-      599 JUMPIFNOTEQKS                    R32 K99 ["!"] ; [+6]
-      601 GETTABLEKS                       R45 R31 K19 ["value"]
-      603 JUMPIFNOTEQKS                    R45 K89 ["["] ; [+2]
-      605 LOADK                            R32 K100 ["^"]
-      606 GETTABLEKS                       R46 R31 K19 ["value"]
-      608 MOVE                             R47 R32
-      609 CONCAT                           R45 R46 R47
-      610 SETTABLEKS                       R45 R31 K19 ["value"]
-      612 DUPTABLE                         R45 K101 [{"value"}]
-      613 SETTABLEKS                       R32 R45 K19 ["value"]
-      615 GETTABLEKS                       R47 R27 K21 ["output"]
-      617 GETTABLEKS                       R49 R45 K21 ["output"]
-      619 JUMPIFEQKNIL                     R49 ; [+4]
-      621 GETTABLEKS                       R48 R45 K21 ["output"]
-      623 JUMP                             ; [+2]
-      624 GETTABLEKS                       R48 R45 K19 ["value"]
-      626 CONCAT                           R46 R47 R48
-      627 SETTABLEKS                       R46 R27 K21 ["output"]
-      629 GETTABLEKS                       R46 R45 K19 ["value"]
-      631 ORK                              R47 R46 K20 [""]
-      632 GETTABLEKS                       R49 R27 K54 ["consumed"]
-      634 MOVE                             R50 R47
-      635 CONCAT                           R48 R49 R50
-      636 SETTABLEKS                       R48 R27 K54 ["consumed"]
-      638 GETTABLEKS                       R48 R27 K50 ["index"]
-      640 ADDK                             R48 R48 K51 [0]
-      641 SETTABLEKS                       R48 R27 K50 ["index"]
-      643 JUMP                             ; [+1908]
-      644 GETTABLEKS                       R45 R27 K62 ["quotes"]
-      646 JUMPIFNOTEQKN                    R45 K53 [1] ; [+47]
-      648 JUMPIFEQKS                       R32 K102 ["\""] ; [+45]
-      650 GETUPVAL                         R45 5
-      651 GETTABLEKS                       R45 R45 K103 ["escapeRegex"]
-      653 MOVE                             R46 R32
-      654 CALL                             R45 1 1
-      655 MOVE                             R32 R45
-      656 GETTABLEKS                       R46 R31 K19 ["value"]
-      658 MOVE                             R47 R32
-      659 CONCAT                           R45 R46 R47
-      660 SETTABLEKS                       R45 R31 K19 ["value"]
-      662 DUPTABLE                         R45 K101 [{"value"}]
-      663 SETTABLEKS                       R32 R45 K19 ["value"]
-      665 GETTABLEKS                       R47 R27 K21 ["output"]
-      667 GETTABLEKS                       R49 R45 K21 ["output"]
-      669 JUMPIFEQKNIL                     R49 ; [+4]
-      671 GETTABLEKS                       R48 R45 K21 ["output"]
-      673 JUMP                             ; [+2]
-      674 GETTABLEKS                       R48 R45 K19 ["value"]
-      676 CONCAT                           R46 R47 R48
-      677 SETTABLEKS                       R46 R27 K21 ["output"]
-      679 GETTABLEKS                       R46 R45 K19 ["value"]
-      681 ORK                              R47 R46 K20 [""]
-      682 GETTABLEKS                       R49 R27 K54 ["consumed"]
-      684 MOVE                             R50 R47
-      685 CONCAT                           R48 R49 R50
-      686 SETTABLEKS                       R48 R27 K54 ["consumed"]
-      688 GETTABLEKS                       R48 R27 K50 ["index"]
-      690 ADDK                             R48 R48 K51 [0]
-      691 SETTABLEKS                       R48 R27 K50 ["index"]
-      693 JUMP                             ; [+1858]
-      694 JUMPIFNOTEQKS                    R32 K102 ["\""] ; [+20]
-      696 GETTABLEKS                       R46 R27 K62 ["quotes"]
-      698 JUMPIFNOTEQKN                    R46 K53 [1] ; [+3]
-      700 LOADN                            R45 0
-      701 JUMP                             ; [+1]
-      702 LOADN                            R45 1
-      703 SETTABLEKS                       R45 R27 K62 ["quotes"]
-      705 GETTABLEKS                       R45 R2 K104 ["keepQuotes"]
-      707 JUMPIFNOTEQKB                    R45 TRUE ; [+1844]
-      709 MOVE                             R45 R42
-      710 DUPTABLE                         R46 K82 [{["type"] = "text", ["value"]}]
-      711 SETTABLEKS                       R32 R46 K19 ["value"]
-      713 CALL                             R45 1 0
-      714 JUMP                             ; [+1837]
-      715 JUMPIFNOTEQKS                    R32 K105 ["("] ; [+19]
-      717 GETTABLEKS                       R45 R27 K61 ["parens"]
-      719 ADDK                             R45 R45 K53 [1]
-      720 SETTABLEKS                       R45 R27 K61 ["parens"]
-      722 FASTCALL2K                       TABLE_INSERT R30 K61 ; [+5]
-      724 MOVE                             R46 R30
-      725 LOADK                            R47 K61 ["parens"]
-      726 GETIMPORT                        R45 K108 [table.insert]
-      728 CALL                             R45 2 0
-      729 MOVE                             R45 R42
-      730 DUPTABLE                         R46 K110 [{["type"] = "paren", ["value"]}]
-      731 SETTABLEKS                       R32 R46 K19 ["value"]
-      733 CALL                             R45 1 0
-      734 JUMP                             ; [+1817]
-      735 JUMPIFNOTEQKS                    R32 K111 [")"] ; [+70]
-      737 GETTABLEKS                       R45 R27 K61 ["parens"]
-      739 JUMPIFNOTEQKN                    R45 K51 [0] ; [+21]
-      741 GETTABLEKS                       R45 R2 K112 ["strictBrackets"]
-      743 JUMPIFNOTEQKB                    R45 TRUE ; [+17]
-      745 GETIMPORT                        R45 K4 [error]
-      747 GETUPVAL                         R46 0
-      748 GETTABLEKS                       R46 R46 K5 ["new"]
-      750 LOADK                            R48 K113 ["SyntaxError: "]
-      751 LOADK                            R49 K114 ["Missing %s: \"%s\" - use \"\\%s\" to match literal characters"]
-      752 LOADK                            R51 K115 ["opening"]
-      753 LOADK                            R52 K105 ["("]
-      754 LOADK                            R53 K105 ["("]
-      755 NAMECALL                         R49 R49 K16 ["format"]
-      757 CALL                             R49 4 1
-      758 CONCAT                           R47 R48 R49
-      759 CALL                             R46 1 -1
-      760 CALL                             R45 -1 0
-      761 LENGTH                           R46 R28
-      762 GETTABLE                         R45 R28 R46
-      763 JUMPIFEQKNIL                     R45 ; [+15]
-      765 GETTABLEKS                       R46 R27 K61 ["parens"]
-      767 GETTABLEKS                       R48 R45 K61 ["parens"]
-      769 ADDK                             R47 R48 K53 [1]
-      770 JUMPIFNOTEQ                      R46 R47 ; [+8]
-      772 MOVE                             R46 R44
-      773 GETIMPORT                        R47 K117 [table.remove]
-      775 MOVE                             R48 R28
-      776 CALL                             R47 1 1
-      777 CALL                             R46 1 0
-      778 JUMP                             ; [+1773]
-      779 MOVE                             R46 R42
-      780 DUPTABLE                         R47 K118 [{["type"] = "paren", ["value"], ["output"]}]
-      781 SETTABLEKS                       R32 R47 K19 ["value"]
-      783 GETUPVAL                         R49 4
-      784 GETTABLEKS                       R49 R49 K24 ["toJSBoolean"]
-      786 GETTABLEKS                       R50 R27 K61 ["parens"]
-      788 CALL                             R49 1 1
-      789 JUMPIFNOT                        R49 ; [+2]
-      790 LOADK                            R48 K111 [")"]
-      791 JUMP                             ; [+1]
-      792 LOADK                            R48 K119 ["\\)"]
-      793 SETTABLEKS                       R48 R47 K21 ["output"]
-      795 CALL                             R46 1 0
-      796 GETTABLEKS                       R46 R27 K61 ["parens"]
-      798 SUBK                             R46 R46 K53 [1]
-      799 SETTABLEKS                       R46 R27 K61 ["parens"]
-      801 GETIMPORT                        R46 K117 [table.remove]
-      803 MOVE                             R47 R30
-      804 CALL                             R46 1 0
-      805 JUMP                             ; [+1746]
-      806 JUMPIFNOTEQKS                    R32 K89 ["["] ; [+71]
-      808 GETTABLEKS                       R45 R2 K120 ["nobracket"]
-      810 JUMPIFEQKB                       R45 TRUE ; [+18]
-      812 GETTABLEKS                       R48 R27 K50 ["index"]
-      814 ADDK                             R47 R48 K53 [1]
-      815 FASTCALL2                        STRING_SUB R0 R47 ; [+4]
-      817 MOVE                             R46 R0
-      818 GETIMPORT                        R45 K85 [string.sub]
-      820 CALL                             R45 2 1
-      821 LOADK                            R47 K88 ["]"]
-      822 LOADN                            R48 1
-      823 LOADB                            R49 1
-      824 NAMECALL                         R45 R45 K94 ["find"]
-      826 CALL                             R45 4 1
-      827 JUMPIFNOTEQKNIL                  R45 ; [+32]
-      829 GETTABLEKS                       R45 R2 K120 ["nobracket"]
-      831 JUMPIFEQKB                       R45 TRUE ; [+21]
-      833 GETTABLEKS                       R45 R2 K112 ["strictBrackets"]
-      835 JUMPIFNOTEQKB                    R45 TRUE ; [+17]
-      837 GETIMPORT                        R45 K4 [error]
-      839 GETUPVAL                         R46 0
-      840 GETTABLEKS                       R46 R46 K5 ["new"]
-      842 LOADK                            R48 K113 ["SyntaxError: "]
-      843 LOADK                            R49 K114 ["Missing %s: \"%s\" - use \"\\%s\" to match literal characters"]
-      844 LOADK                            R51 K121 ["closing"]
-      845 LOADK                            R52 K88 ["]"]
-      846 LOADK                            R53 K88 ["]"]
-      847 NAMECALL                         R49 R49 K16 ["format"]
-      849 CALL                             R49 4 1
-      850 CONCAT                           R47 R48 R49
-      851 CALL                             R46 1 -1
-      852 CALL                             R45 -1 0
-      853 LOADK                            R45 K98 ["\\%s"]
-      854 MOVE                             R47 R32
-      855 NAMECALL                         R45 R45 K16 ["format"]
-      857 CALL                             R45 2 1
-      858 MOVE                             R32 R45
-      859 JUMP                             ; [+12]
-      860 GETTABLEKS                       R45 R27 K59 ["brackets"]
-      862 ADDK                             R45 R45 K53 [1]
-      863 SETTABLEKS                       R45 R27 K59 ["brackets"]
-      865 FASTCALL2K                       TABLE_INSERT R30 K59 ; [+5]
-      867 MOVE                             R46 R30
-      868 LOADK                            R47 K59 ["brackets"]
-      869 GETIMPORT                        R45 K108 [table.insert]
-      871 CALL                             R45 2 0
-      872 MOVE                             R45 R42
-      873 DUPTABLE                         R46 K123 [{["type"] = "bracket", ["value"]}]
-      874 SETTABLEKS                       R32 R46 K19 ["value"]
-      876 CALL                             R45 1 0
-      877 JUMP                             ; [+1674]
-      878 JUMPIFNOTEQKS                    R32 K88 ["]"] ; [+204]
-      880 GETTABLEKS                       R45 R2 K120 ["nobracket"]
-      882 JUMPIFEQKB                       R45 TRUE ; [+12]
-      884 JUMPIFEQKNIL                     R31 ; [+23]
-      886 GETTABLEKS                       R45 R31 K17 ["type"]
-      888 JUMPIFNOTEQKS                    R45 K122 ["bracket"] ; [+19]
-      890 GETTABLEKS                       R46 R31 K19 ["value"]
-      892 LENGTH                           R45 R46
-      893 JUMPIFNOTEQKN                    R45 K53 [1] ; [+14]
-      895 MOVE                             R45 R42
-      896 DUPTABLE                         R46 K124 [{["type"] = "text", ["value"], ["output"]}]
-      897 SETTABLEKS                       R32 R46 K19 ["value"]
-      899 LOADK                            R47 K98 ["\\%s"]
-      900 MOVE                             R49 R32
-      901 NAMECALL                         R47 R47 K16 ["format"]
-      903 CALL                             R47 2 1
-      904 SETTABLEKS                       R47 R46 K21 ["output"]
-      906 CALL                             R45 1 0
-      907 JUMP                             ; [+1644]
-      908 GETTABLEKS                       R45 R27 K59 ["brackets"]
-      910 JUMPIFNOTEQKN                    R45 K51 [0] ; [+34]
-      912 GETTABLEKS                       R45 R2 K112 ["strictBrackets"]
-      914 JUMPIFNOTEQKB                    R45 TRUE ; [+17]
-      916 GETIMPORT                        R45 K4 [error]
-      918 GETUPVAL                         R46 0
-      919 GETTABLEKS                       R46 R46 K5 ["new"]
-      921 LOADK                            R48 K113 ["SyntaxError: "]
-      922 LOADK                            R49 K114 ["Missing %s: \"%s\" - use \"\\%s\" to match literal characters"]
-      923 LOADK                            R51 K115 ["opening"]
-      924 LOADK                            R52 K89 ["["]
-      925 LOADK                            R53 K89 ["["]
-      926 NAMECALL                         R49 R49 K16 ["format"]
-      928 CALL                             R49 4 1
-      929 CONCAT                           R47 R48 R49
-      930 CALL                             R46 1 -1
-      931 CALL                             R45 -1 0
-      932 MOVE                             R45 R42
-      933 DUPTABLE                         R46 K124 [{["type"] = "text", ["value"], ["output"]}]
-      934 SETTABLEKS                       R32 R46 K19 ["value"]
-      936 LOADK                            R47 K98 ["\\%s"]
-      937 MOVE                             R49 R32
-      938 NAMECALL                         R47 R47 K16 ["format"]
-      940 CALL                             R47 2 1
-      941 SETTABLEKS                       R47 R46 K21 ["output"]
-      943 CALL                             R45 1 0
-      944 JUMP                             ; [+1607]
-      945 GETTABLEKS                       R45 R27 K59 ["brackets"]
-      947 SUBK                             R45 R45 K53 [1]
-      948 SETTABLEKS                       R45 R27 K59 ["brackets"]
-      950 GETIMPORT                        R45 K117 [table.remove]
-      952 MOVE                             R46 R30
-      953 CALL                             R45 1 0
-      954 GETUPVAL                         R45 7
-      955 GETTABLEKS                       R45 R45 K93 ["slice"]
-      957 GETTABLEKS                       R46 R31 K19 ["value"]
-      959 LOADN                            R47 2
-      960 CALL                             R45 2 1
-      961 GETTABLEKS                       R46 R31 K91 ["posix"]
-      963 JUMPIFEQKB                       R46 TRUE ; [+22]
-      965 LOADN                            R48 1
-      966 LOADN                            R49 1
-      967 NAMECALL                         R46 R45 K84 ["sub"]
-      969 CALL                             R46 3 1
-      970 JUMPIFNOTEQKS                    R46 K100 ["^"] ; [+15]
-      972 LOADK                            R48 K78 ["/"]
-      973 LOADN                            R49 1
-      974 LOADB                            R50 1
-      975 NAMECALL                         R46 R45 K94 ["find"]
-      977 CALL                             R46 4 1
-      978 JUMPIFNOTEQKNIL                  R46 ; [+7]
-      980 LOADK                            R46 K125 ["/%s"]
-      981 MOVE                             R48 R32
-      982 NAMECALL                         R46 R46 K16 ["format"]
-      984 CALL                             R46 2 1
-      985 MOVE                             R32 R46
-      986 GETTABLEKS                       R47 R31 K19 ["value"]
-      988 MOVE                             R48 R32
-      989 CONCAT                           R46 R47 R48
-      990 SETTABLEKS                       R46 R31 K19 ["value"]
-      992 DUPTABLE                         R46 K101 [{"value"}]
-      993 SETTABLEKS                       R32 R46 K19 ["value"]
-      995 GETTABLEKS                       R48 R27 K21 ["output"]
-      997 GETTABLEKS                       R50 R46 K21 ["output"]
-      999 JUMPIFEQKNIL                     R50 ; [+4]
-     1001 GETTABLEKS                       R49 R46 K21 ["output"]
-     1003 JUMP                             ; [+2]
-     1004 GETTABLEKS                       R49 R46 K19 ["value"]
-     1006 CONCAT                           R47 R48 R49
-     1007 SETTABLEKS                       R47 R27 K21 ["output"]
-     1009 GETTABLEKS                       R47 R46 K19 ["value"]
-     1011 ORK                              R48 R47 K20 [""]
-     1012 GETTABLEKS                       R50 R27 K54 ["consumed"]
-     1014 MOVE                             R51 R48
-     1015 CONCAT                           R49 R50 R51
-     1016 SETTABLEKS                       R49 R27 K54 ["consumed"]
-     1018 GETTABLEKS                       R49 R27 K50 ["index"]
-     1020 ADDK                             R49 R49 K51 [0]
-     1021 SETTABLEKS                       R49 R27 K50 ["index"]
-     1023 GETTABLEKS                       R46 R2 K126 ["literalBrackets"]
-     1025 JUMPIFEQKB                       R46 FALSE ; [+1526]
-     1027 GETUPVAL                         R46 5
-     1028 GETTABLEKS                       R46 R46 K127 ["hasRegexChars"]
-     1030 MOVE                             R47 R45
-     1031 CALL                             R46 1 1
-     1032 JUMPIF                           R46 ; [+1519]
-     1033 GETUPVAL                         R46 5
-     1034 GETTABLEKS                       R46 R46 K103 ["escapeRegex"]
-     1036 GETTABLEKS                       R47 R31 K19 ["value"]
-     1038 CALL                             R46 1 1
-     1039 GETUPVAL                         R47 7
-     1040 GETTABLEKS                       R47 R47 K93 ["slice"]
-     1042 GETTABLEKS                       R48 R27 K21 ["output"]
-     1044 LOADN                            R49 1
-     1045 GETTABLEKS                       R52 R31 K19 ["value"]
-     1047 LENGTH                           R51 R52
-     1048 MINUS                            R50 R51
-     1049 CALL                             R47 3 1
-     1050 SETTABLEKS                       R47 R27 K21 ["output"]
-     1052 GETTABLEKS                       R47 R2 K126 ["literalBrackets"]
-     1054 JUMPIFNOTEQKB                    R47 TRUE ; [+10]
-     1056 GETTABLEKS                       R48 R27 K21 ["output"]
-     1058 MOVE                             R49 R46
-     1059 CONCAT                           R47 R48 R49
-     1060 SETTABLEKS                       R47 R27 K21 ["output"]
-     1062 SETTABLEKS                       R46 R31 K19 ["value"]
-     1064 JUMP                             ; [+1487]
-     1065 LOADK                            R47 K128 ["(%s%s|%s)"]
-     1066 MOVE                             R49 R7
-     1067 MOVE                             R50 R46
-     1068 GETTABLEKS                       R51 R31 K19 ["value"]
-     1070 NAMECALL                         R47 R47 K16 ["format"]
-     1072 CALL                             R47 4 1
-     1073 SETTABLEKS                       R47 R31 K19 ["value"]
-     1075 GETTABLEKS                       R48 R27 K21 ["output"]
-     1077 GETTABLEKS                       R49 R31 K19 ["value"]
-     1079 CONCAT                           R47 R48 R49
-     1080 SETTABLEKS                       R47 R27 K21 ["output"]
-     1082 JUMP                             ; [+1469]
-     1083 JUMPIFNOTEQKS                    R32 K129 ["{"] ; [+41]
-     1085 GETTABLEKS                       R45 R2 K130 ["nobrace"]
-     1087 JUMPIFEQKB                       R45 TRUE ; [+37]
-     1089 GETTABLEKS                       R45 R27 K60 ["braces"]
-     1091 ADDK                             R45 R45 K53 [1]
-     1092 SETTABLEKS                       R45 R27 K60 ["braces"]
-     1094 FASTCALL2K                       TABLE_INSERT R30 K60 ; [+5]
-     1096 MOVE                             R46 R30
-     1097 LOADK                            R47 K60 ["braces"]
-     1098 GETIMPORT                        R45 K108 [table.insert]
-     1100 CALL                             R45 2 0
-     1101 DUPTABLE                         R45 K134 [{["type"] = "brace", ["value"], ["output"] = "(", ["outputIndex"], ["tokensIndex"]}]
-     1102 SETTABLEKS                       R32 R45 K19 ["value"]
-     1104 GETTABLEKS                       R47 R27 K21 ["output"]
-     1106 LENGTH                           R46 R47
-     1107 SETTABLEKS                       R46 R45 K132 ["outputIndex"]
-     1109 GETTABLEKS                       R47 R27 K64 ["tokens"]
-     1111 LENGTH                           R46 R47
-     1112 SETTABLEKS                       R46 R45 K133 ["tokensIndex"]
-     1114 FASTCALL2                        TABLE_INSERT R29 R45 ; [+5]
-     1116 MOVE                             R47 R29
-     1117 MOVE                             R48 R45
-     1118 GETIMPORT                        R46 K108 [table.insert]
-     1120 CALL                             R46 2 0
-     1121 MOVE                             R46 R42
-     1122 MOVE                             R47 R45
-     1123 CALL                             R46 1 0
-     1124 JUMP                             ; [+1427]
-     1125 JUMPIFNOTEQKS                    R32 K135 ["}"] ; [+151]
-     1127 LENGTH                           R46 R29
-     1128 GETTABLE                         R45 R29 R46
-     1129 GETTABLEKS                       R46 R2 K130 ["nobrace"]
-     1131 JUMPIFEQKB                       R46 TRUE ; [+7]
-     1133 GETUPVAL                         R46 4
-     1134 GETTABLEKS                       R46 R46 K24 ["toJSBoolean"]
-     1136 MOVE                             R47 R45
-     1137 CALL                             R46 1 1
-     1138 JUMPIF                           R46 ; [+8]
-     1139 MOVE                             R46 R42
-     1140 DUPTABLE                         R47 K124 [{["type"] = "text", ["value"], ["output"]}]
-     1141 SETTABLEKS                       R32 R47 K19 ["value"]
-     1143 SETTABLEKS                       R32 R47 K21 ["output"]
-     1145 CALL                             R46 1 0
-     1146 JUMP                             ; [+1405]
-     1147 LOADK                            R46 K111 [")"]
-     1148 GETTABLEKS                       R47 R45 K136 ["dots"]
-     1150 JUMPIFNOTEQKB                    R47 TRUE ; [+45]
-     1152 GETUPVAL                         R47 13
-     1153 GETTABLEKS                       R47 R47 K93 ["slice"]
-     1155 MOVE                             R48 R6
-     1156 CALL                             R47 1 1
-     1157 NEWTABLE                         R48 0 0
-     1159 LENGTH                           R51 R47
-     1160 LOADN                            R49 1
-     1161 LOADN                            R50 -1
-     1162 FORNPREP                         R49
-     1163 GETIMPORT                        R52 K117 [table.remove]
-     1165 MOVE                             R53 R6
-     1166 CALL                             R52 1 0
-     1167 GETTABLE                         R52 R47 R51
-     1168 GETTABLEKS                       R52 R52 K17 ["type"]
-     1170 JUMPIFEQKS                       R52 K131 ["brace"] ; [+17]
-     1172 GETTABLE                         R52 R47 R51
-     1173 GETTABLEKS                       R52 R52 K17 ["type"]
-     1175 JUMPIFEQKS                       R52 K136 ["dots"] ; [+11]
-     1177 LOADN                            R54 1
-     1178 GETTABLE                         R55 R47 R51
-     1179 GETTABLEKS                       R55 R55 K19 ["value"]
-     1181 FASTCALL3                        TABLE_INSERT R48 R54 R55
-     1183 MOVE                             R53 R48
-     1184 GETIMPORT                        R52 K108 [table.insert]
-     1186 CALL                             R52 3 0
-     1187 FORNLOOP                         R49
-     1188 GETUPVAL                         R49 14
-     1189 MOVE                             R50 R48
-     1190 MOVE                             R51 R2
-     1191 CALL                             R49 2 1
-     1192 MOVE                             R46 R49
-     1193 LOADB                            R49 1
-     1194 SETTABLEKS                       R49 R27 K56 ["backtrack"]
-     1196 GETTABLEKS                       R47 R45 K137 ["comma"]
-     1198 JUMPIFEQKB                       R47 TRUE ; [+57]
-     1200 GETTABLEKS                       R47 R45 K136 ["dots"]
-     1202 JUMPIFEQKB                       R47 TRUE ; [+53]
-     1204 GETUPVAL                         R47 7
-     1205 GETTABLEKS                       R47 R47 K93 ["slice"]
-     1207 GETTABLEKS                       R48 R27 K21 ["output"]
-     1209 LOADN                            R49 1
-     1210 GETTABLEKS                       R50 R45 K132 ["outputIndex"]
-     1212 CALL                             R47 3 1
-     1213 GETUPVAL                         R48 13
-     1214 GETTABLEKS                       R48 R48 K93 ["slice"]
-     1216 GETTABLEKS                       R49 R27 K64 ["tokens"]
-     1218 GETTABLEKS                       R50 R45 K133 ["tokensIndex"]
-     1220 CALL                             R48 2 1
-     1221 LOADK                            R49 K138 ["\\{"]
-     1222 SETTABLEKS                       R49 R45 K21 ["output"]
-     1224 GETTABLEKS                       R49 R45 K21 ["output"]
-     1226 SETTABLEKS                       R49 R45 K19 ["value"]
-     1228 LOADK                            R46 K139 ["\\}"]
-     1229 MOVE                             R32 R46
-     1230 SETTABLEKS                       R47 R27 K21 ["output"]
-     1232 GETIMPORT                        R49 K141 [ipairs]
-     1234 MOVE                             R50 R48
-     1235 CALL                             R49 1 3
-     1236 FORGPREP_INEXT                   R49
-     1237 GETTABLEKS                       R55 R27 K21 ["output"]
-     1239 GETUPVAL                         R57 4
-     1240 GETTABLEKS                       R57 R57 K24 ["toJSBoolean"]
-     1242 GETTABLEKS                       R58 R53 K21 ["output"]
-     1244 CALL                             R57 1 1
-     1245 JUMPIFNOT                        R57 ; [+3]
-     1246 GETTABLEKS                       R56 R53 K21 ["output"]
-     1248 JUMP                             ; [+2]
-     1249 GETTABLEKS                       R56 R53 K19 ["value"]
-     1251 CONCAT                           R54 R55 R56
-     1252 SETTABLEKS                       R54 R27 K21 ["output"]
-     1254 FORGLOOP                         R49 2 [inext] ; [-18]
-     1256 MOVE                             R47 R42
-     1257 DUPTABLE                         R48 K142 [{["type"] = "brace", ["value"], ["output"]}]
-     1258 SETTABLEKS                       R32 R48 K19 ["value"]
-     1260 SETTABLEKS                       R46 R48 K21 ["output"]
-     1262 CALL                             R47 1 0
-     1263 GETTABLEKS                       R47 R27 K60 ["braces"]
-     1265 SUBK                             R47 R47 K53 [1]
-     1266 SETTABLEKS                       R47 R27 K60 ["braces"]
-     1268 GETIMPORT                        R47 K117 [table.remove]
-     1270 MOVE                             R48 R30
-     1271 CALL                             R47 1 0
-     1272 GETIMPORT                        R47 K117 [table.remove]
-     1274 MOVE                             R48 R29
-     1275 CALL                             R47 1 0
-     1276 JUMP                             ; [+1275]
-     1277 JUMPIFNOTEQKS                    R32 K143 ["|"] ; [+18]
-     1279 LENGTH                           R45 R28
-     1280 LOADN                            R46 0
-     1281 JUMPIFNOTLT                      R46 R45 ; [+8]
-     1283 LENGTH                           R46 R28
-     1284 GETTABLE                         R45 R28 R46
-     1285 GETTABLEKS                       R46 R45 K144 ["conditions"]
-     1287 ADDK                             R46 R46 K53 [1]
-     1288 SETTABLEKS                       R46 R45 K144 ["conditions"]
-     1290 MOVE                             R45 R42
-     1291 DUPTABLE                         R46 K82 [{["type"] = "text", ["value"]}]
-     1292 SETTABLEKS                       R32 R46 K19 ["value"]
-     1294 CALL                             R45 1 0
-     1295 JUMP                             ; [+1256]
-     1296 JUMPIFNOTEQKS                    R32 K145 [","] ; [+26]
-     1298 MOVE                             R45 R32
-     1299 LENGTH                           R47 R29
-     1300 GETTABLE                         R46 R29 R47
-     1301 GETUPVAL                         R47 4
-     1302 GETTABLEKS                       R47 R47 K24 ["toJSBoolean"]
-     1304 MOVE                             R48 R46
-     1305 CALL                             R47 1 1
-     1306 JUMPIFNOT                        R47 ; [+8]
-     1307 LENGTH                           R48 R30
-     1308 GETTABLE                         R47 R30 R48
-     1309 JUMPIFNOTEQKS                    R47 K60 ["braces"] ; [+5]
-     1311 LOADB                            R47 1
-     1312 SETTABLEKS                       R47 R46 K137 ["comma"]
-     1314 LOADK                            R45 K143 ["|"]
-     1315 MOVE                             R47 R42
-     1316 DUPTABLE                         R48 K146 [{["type"] = "comma", ["value"], ["output"]}]
-     1317 SETTABLEKS                       R32 R48 K19 ["value"]
-     1319 SETTABLEKS                       R45 R48 K21 ["output"]
-     1321 CALL                             R47 1 0
-     1322 JUMP                             ; [+1229]
-     1323 JUMPIFNOTEQKS                    R32 K78 ["/"] ; [+37]
-     1325 GETTABLEKS                       R45 R31 K17 ["type"]
-     1327 JUMPIFNOTEQKS                    R45 K42 ["dot"] ; [+25]
-     1329 GETTABLEKS                       R45 R27 K50 ["index"]
-     1331 GETTABLEKS                       R47 R27 K52 ["start"]
-     1333 ADDK                             R46 R47 K53 [1]
-     1334 JUMPIFNOTEQ                      R45 R46 ; [+18]
-     1336 GETTABLEKS                       R46 R27 K50 ["index"]
-     1338 ADDK                             R45 R46 K53 [1]
-     1339 SETTABLEKS                       R45 R27 K52 ["start"]
-     1341 LOADK                            R45 K20 [""]
-     1342 SETTABLEKS                       R45 R27 K54 ["consumed"]
-     1344 LOADK                            R45 K20 [""]
-     1345 SETTABLEKS                       R45 R27 K21 ["output"]
-     1347 GETIMPORT                        R45 K117 [table.remove]
-     1349 MOVE                             R46 R6
-     1350 CALL                             R45 1 0
-     1351 MOVE                             R31 R5
-     1352 JUMP                             ; [+1199]
-     1353 MOVE                             R45 R42
-     1354 DUPTABLE                         R46 K148 [{["type"] = "slash", ["value"], ["output"]}]
-     1355 SETTABLEKS                       R32 R46 K19 ["value"]
-     1357 SETTABLEKS                       R13 R46 K21 ["output"]
-     1359 CALL                             R45 1 0
-     1360 JUMP                             ; [+1191]
-     1361 JUMPIFNOTEQKS                    R32 K79 ["."] ; [+68]
-     1363 GETTABLEKS                       R45 R27 K60 ["braces"]
-     1365 LOADN                            R46 0
-     1366 JUMPIFNOTLT                      R46 R45 ; [+32]
-     1368 GETTABLEKS                       R45 R31 K17 ["type"]
-     1370 JUMPIFNOTEQKS                    R45 K42 ["dot"] ; [+28]
-     1372 GETTABLEKS                       R45 R31 K19 ["value"]
-     1374 JUMPIFNOTEQKS                    R45 K79 ["."] ; [+3]
-     1376 SETTABLEKS                       R11 R31 K21 ["output"]
-     1378 LENGTH                           R46 R29
-     1379 GETTABLE                         R45 R29 R46
-     1380 LOADK                            R46 K136 ["dots"]
-     1381 SETTABLEKS                       R46 R31 K17 ["type"]
-     1383 GETTABLEKS                       R47 R31 K21 ["output"]
-     1385 MOVE                             R48 R32
-     1386 CONCAT                           R46 R47 R48
-     1387 SETTABLEKS                       R46 R31 K21 ["output"]
-     1389 GETTABLEKS                       R47 R31 K19 ["value"]
-     1391 MOVE                             R48 R32
-     1392 CONCAT                           R46 R47 R48
-     1393 SETTABLEKS                       R46 R31 K19 ["value"]
-     1395 LOADB                            R46 1
-     1396 SETTABLEKS                       R46 R45 K136 ["dots"]
-     1398 JUMP                             ; [+1153]
-     1399 GETTABLEKS                       R46 R27 K60 ["braces"]
-     1401 GETTABLEKS                       R47 R27 K61 ["parens"]
-     1403 ADD                              R45 R46 R47
-     1404 JUMPIFNOTEQKN                    R45 K51 [0] ; [+17]
-     1406 GETTABLEKS                       R45 R31 K17 ["type"]
-     1408 JUMPIFEQKS                       R45 K18 ["bos"] ; [+13]
-     1410 GETTABLEKS                       R45 R31 K17 ["type"]
-     1412 JUMPIFEQKS                       R45 K147 ["slash"] ; [+9]
-     1414 MOVE                             R45 R42
-     1415 DUPTABLE                         R46 K124 [{["type"] = "text", ["value"], ["output"]}]
-     1416 SETTABLEKS                       R32 R46 K19 ["value"]
-     1418 SETTABLEKS                       R11 R46 K21 ["output"]
-     1420 CALL                             R45 1 0
-     1421 JUMP                             ; [+1130]
-     1422 MOVE                             R45 R42
-     1423 DUPTABLE                         R46 K149 [{["type"] = "dot", ["value"], ["output"]}]
-     1424 SETTABLEKS                       R32 R46 K19 ["value"]
-     1426 SETTABLEKS                       R11 R46 K21 ["output"]
-     1428 CALL                             R45 1 0
-     1429 JUMP                             ; [+1122]
-     1430 JUMPIFNOTEQKS                    R32 K150 ["?"] ; [+136]
-     1432 GETUPVAL                         R45 4
-     1433 GETTABLEKS                       R45 R45 K24 ["toJSBoolean"]
-     1435 MOVE                             R46 R31
-     1436 CALL                             R45 1 1
-     1437 JUMPIFNOT                        R45 ; [+6]
-     1438 GETTABLEKS                       R46 R31 K19 ["value"]
-     1440 JUMPIFEQKS                       R46 K105 ["("] ; [+2]
-     1442 LOADB                            R45 0 +1
-     1443 LOADB                            R45 1
-     1444 JUMPIF                           R45 ; [+22]
-     1445 GETUPVAL                         R46 4
-     1446 GETTABLEKS                       R46 R46 K24 ["toJSBoolean"]
-     1448 GETTABLEKS                       R47 R2 K48 ["noextglob"]
-     1450 CALL                             R46 1 1
-     1451 JUMPIFEQKB                       R46 TRUE ; [+15]
-     1453 MOVE                             R46 R34
-     1454 CALL                             R46 0 1
-     1455 JUMPIFNOTEQKS                    R46 K105 ["("] ; [+11]
-     1457 MOVE                             R46 R34
-     1458 LOADN                            R47 2
-     1459 CALL                             R46 1 1
-     1460 JUMPIFEQKS                       R46 K150 ["?"] ; [+6]
-     1462 MOVE                             R46 R43
-     1463 LOADK                            R47 K151 ["qmark"]
-     1464 MOVE                             R48 R32
-     1465 CALL                             R46 2 0
-     1466 JUMP                             ; [+1085]
-     1467 GETUPVAL                         R46 4
-     1468 GETTABLEKS                       R46 R46 K24 ["toJSBoolean"]
-     1470 MOVE                             R47 R31
-     1471 CALL                             R46 1 1
-     1472 JUMPIFNOT                        R46 ; [+66]
-     1473 GETTABLEKS                       R46 R31 K17 ["type"]
-     1475 JUMPIFNOTEQKS                    R46 K109 ["paren"] ; [+63]
-     1477 MOVE                             R46 R34
-     1478 CALL                             R46 0 1
-     1479 MOVE                             R47 R32
-     1480 JUMPIFNOTEQKS                    R46 K152 ["<"] ; [+14]
-     1482 GETUPVAL                         R48 5
-     1483 GETTABLEKS                       R48 R48 K153 ["supportsLookbehinds"]
-     1485 CALL                             R48 0 1
-     1486 JUMPIF                           R48 ; [+8]
-     1487 GETIMPORT                        R48 K4 [error]
-     1489 GETUPVAL                         R49 0
-     1490 GETTABLEKS                       R49 R49 K5 ["new"]
-     1492 LOADK                            R50 K154 ["Node.js v10 or higher is required for regex lookbehinds"]
-     1493 CALL                             R49 1 -1
-     1494 CALL                             R48 -1 0
-     1495 GETTABLEKS                       R48 R31 K19 ["value"]
-     1497 JUMPIFNOTEQKS                    R48 K105 ["("] ; [+9]
-     1499 GETUPVAL                         R48 8
-     1500 LOADK                            R49 K155 ["[!=<:]"]
-     1501 CALL                             R48 1 1
-     1502 MOVE                             R50 R46
-     1503 NAMECALL                         R48 R48 K71 ["test"]
-     1505 CALL                             R48 2 1
-     1506 JUMPIFNOT                        R48 ; [+18]
-     1507 JUMPIFNOTEQKS                    R46 K152 ["<"] ; [+23]
-     1509 GETUPVAL                         R48 8
-     1510 LOADK                            R49 K156 ["<([!=]|\\w+>)"]
-     1511 CALL                             R48 1 1
-     1512 GETTABLEKS                       R53 R27 K50 ["index"]
-     1514 ADDK                             R52 R53 K53 [1]
-     1515 FASTCALL2                        STRING_SUB R0 R52 ; [+4]
-     1517 MOVE                             R51 R0
-     1518 GETIMPORT                        R50 K85 [string.sub]
-     1520 CALL                             R50 2 1
-     1521 NAMECALL                         R48 R48 K71 ["test"]
-     1523 CALL                             R48 2 1
-     1524 JUMPIF                           R48 ; [+6]
-     1525 LOADK                            R48 K98 ["\\%s"]
-     1526 MOVE                             R50 R32
-     1527 NAMECALL                         R48 R48 K16 ["format"]
-     1529 CALL                             R48 2 1
-     1530 MOVE                             R47 R48
-     1531 MOVE                             R48 R42
-     1532 DUPTABLE                         R49 K124 [{["type"] = "text", ["value"], ["output"]}]
-     1533 SETTABLEKS                       R32 R49 K19 ["value"]
-     1535 SETTABLEKS                       R47 R49 K21 ["output"]
-     1537 CALL                             R48 1 0
-     1538 JUMP                             ; [+1013]
-     1539 GETTABLEKS                       R46 R2 K42 ["dot"]
-     1541 JUMPIFEQKB                       R46 TRUE ; [+17]
-     1543 GETTABLEKS                       R46 R31 K17 ["type"]
-     1545 JUMPIFEQKS                       R46 K147 ["slash"] ; [+5]
-     1547 GETTABLEKS                       R46 R31 K17 ["type"]
-     1549 JUMPIFNOTEQKS                    R46 K18 ["bos"] ; [+9]
-     1551 MOVE                             R46 R42
-     1552 DUPTABLE                         R47 K157 [{["type"] = "qmark", ["value"], ["output"]}]
-     1553 SETTABLEKS                       R32 R47 K19 ["value"]
-     1555 SETTABLEKS                       R20 R47 K21 ["output"]
-     1557 CALL                             R46 1 0
-     1558 JUMP                             ; [+993]
-     1559 MOVE                             R46 R42
-     1560 DUPTABLE                         R47 K157 [{["type"] = "qmark", ["value"], ["output"]}]
-     1561 SETTABLEKS                       R32 R47 K19 ["value"]
-     1563 SETTABLEKS                       R19 R47 K21 ["output"]
-     1565 CALL                             R46 1 0
-     1566 JUMP                             ; [+985]
-     1567 JUMPIFNOTEQKS                    R32 K99 ["!"] ; [+44]
-     1569 GETUPVAL                         R45 4
-     1570 GETTABLEKS                       R45 R45 K24 ["toJSBoolean"]
-     1572 GETTABLEKS                       R46 R2 K48 ["noextglob"]
-     1574 CALL                             R45 1 1
-     1575 JUMPIFEQKB                       R45 TRUE ; [+25]
-     1577 MOVE                             R45 R34
-     1578 CALL                             R45 0 1
-     1579 JUMPIFNOTEQKS                    R45 K105 ["("] ; [+21]
-     1581 MOVE                             R45 R34
-     1582 LOADN                            R46 2
-     1583 CALL                             R45 1 1
-     1584 JUMPIFNOTEQKS                    R45 K150 ["?"] ; [+11]
-     1586 GETUPVAL                         R45 8
-     1587 LOADK                            R46 K155 ["[!=<:]"]
-     1588 CALL                             R45 1 1
-     1589 MOVE                             R47 R34
-     1590 LOADN                            R48 3
-     1591 CALL                             R47 1 -1
-     1592 NAMECALL                         R45 R45 K71 ["test"]
-     1594 CALL                             R45 -1 1
-     1595 JUMPIF                           R45 ; [+5]
-     1596 MOVE                             R45 R43
-     1597 LOADK                            R46 K158 ["negate"]
-     1598 MOVE                             R47 R32
-     1599 CALL                             R45 2 0
-     1600 JUMP                             ; [+951]
-     1601 GETTABLEKS                       R45 R2 K159 ["nonegate"]
-     1603 JUMPIFEQKB                       R45 TRUE ; [+8]
-     1605 GETTABLEKS                       R45 R27 K50 ["index"]
-     1607 JUMPIFNOTEQKN                    R45 K53 [1] ; [+4]
-     1609 MOVE                             R45 R39
-     1610 CALL                             R45 0 0
-     1611 JUMP                             ; [+940]
-     1612 JUMPIFNOTEQKS                    R32 K160 ["+"] ; [+72]
-     1614 GETUPVAL                         R45 4
-     1615 GETTABLEKS                       R45 R45 K24 ["toJSBoolean"]
-     1617 GETTABLEKS                       R46 R2 K48 ["noextglob"]
-     1619 CALL                             R45 1 1
-     1620 JUMPIFEQKB                       R45 TRUE ; [+15]
-     1622 MOVE                             R45 R34
-     1623 CALL                             R45 0 1
-     1624 JUMPIFNOTEQKS                    R45 K105 ["("] ; [+11]
-     1626 MOVE                             R45 R34
-     1627 LOADN                            R46 2
-     1628 CALL                             R45 1 1
-     1629 JUMPIFEQKS                       R45 K150 ["?"] ; [+6]
-     1631 MOVE                             R45 R43
-     1632 LOADK                            R46 K161 ["plus"]
-     1633 MOVE                             R47 R32
-     1634 CALL                             R45 2 0
-     1635 JUMP                             ; [+916]
-     1636 JUMPIFEQKNIL                     R31 ; [+5]
-     1638 GETTABLEKS                       R45 R31 K19 ["value"]
-     1640 JUMPIFEQKS                       R45 K105 ["("] ; [+5]
-     1642 GETTABLEKS                       R45 R2 K162 ["regex"]
-     1644 JUMPIFNOTEQKB                    R45 FALSE ; [+9]
-     1646 MOVE                             R45 R42
-     1647 DUPTABLE                         R46 K163 [{["type"] = "plus", ["value"], ["output"]}]
-     1648 SETTABLEKS                       R32 R46 K19 ["value"]
-     1650 SETTABLEKS                       R12 R46 K21 ["output"]
-     1652 CALL                             R45 1 0
-     1653 JUMP                             ; [+898]
-     1654 JUMPIFEQKNIL                     R31 ; [+13]
-     1656 GETTABLEKS                       R45 R31 K17 ["type"]
-     1658 JUMPIFEQKS                       R45 K122 ["bracket"] ; [+14]
-     1660 GETTABLEKS                       R45 R31 K17 ["type"]
-     1662 JUMPIFEQKS                       R45 K109 ["paren"] ; [+10]
-     1664 GETTABLEKS                       R45 R31 K17 ["type"]
-     1666 JUMPIFEQKS                       R45 K131 ["brace"] ; [+6]
-     1668 GETTABLEKS                       R45 R27 K61 ["parens"]
-     1670 LOADN                            R46 0
-     1671 JUMPIFNOTLT                      R46 R45 ; [+7]
-     1673 MOVE                             R45 R42
-     1674 DUPTABLE                         R46 K164 [{["type"] = "plus", ["value"]}]
-     1675 SETTABLEKS                       R32 R46 K19 ["value"]
-     1677 CALL                             R45 1 0
-     1678 JUMP                             ; [+873]
-     1679 MOVE                             R45 R42
-     1680 DUPTABLE                         R46 K164 [{["type"] = "plus", ["value"]}]
-     1681 SETTABLEKS                       R12 R46 K19 ["value"]
-     1683 CALL                             R45 1 0
-     1684 JUMP                             ; [+867]
-     1685 JUMPIFNOTEQKS                    R32 K165 ["@"] ; [+30]
-     1687 GETUPVAL                         R45 4
-     1688 GETTABLEKS                       R45 R45 K24 ["toJSBoolean"]
-     1690 GETTABLEKS                       R46 R2 K48 ["noextglob"]
-     1692 CALL                             R45 1 1
-     1693 JUMPIFEQKB                       R45 TRUE ; [+16]
-     1695 MOVE                             R45 R34
-     1696 CALL                             R45 0 1
-     1697 JUMPIFNOTEQKS                    R45 K105 ["("] ; [+12]
-     1699 MOVE                             R45 R34
-     1700 LOADN                            R46 2
-     1701 CALL                             R45 1 1
-     1702 JUMPIFEQKS                       R45 K150 ["?"] ; [+7]
-     1704 MOVE                             R45 R42
-     1705 DUPTABLE                         R46 K169 [{["type"] = "at", ["extglob"] = True, ["value"], ["output"] = ""}]
-     1706 SETTABLEKS                       R32 R46 K19 ["value"]
-     1708 CALL                             R45 1 0
-     1709 JUMP                             ; [+842]
-     1710 MOVE                             R45 R42
-     1711 DUPTABLE                         R46 K82 [{["type"] = "text", ["value"]}]
-     1712 SETTABLEKS                       R32 R46 K19 ["value"]
-     1714 CALL                             R45 1 0
-     1715 JUMP                             ; [+836]
-     1716 JUMPIFEQKS                       R32 K170 ["*"] ; [+41]
-     1718 JUMPIFEQKS                       R32 K171 ["$"] ; [+3]
-     1720 JUMPIFNOTEQKS                    R32 K100 ["^"] ; [+7]
-     1722 LOADK                            R45 K98 ["\\%s"]
-     1723 MOVE                             R47 R32
-     1724 NAMECALL                         R45 R45 K16 ["format"]
-     1726 CALL                             R45 2 1
-     1727 MOVE                             R32 R45
-     1728 GETIMPORT                        R45 K173 [string.match]
-     1730 GETTABLEKS                       R49 R27 K50 ["index"]
-     1732 ADDK                             R48 R49 K53 [1]
-     1733 FASTCALL2                        STRING_SUB R0 R48 ; [+4]
-     1735 MOVE                             R47 R0
-     1736 GETIMPORT                        R46 K85 [string.sub]
-     1738 CALL                             R46 2 1
-     1739 GETUPVAL                         R47 15
-     1740 CALL                             R45 2 1
-     1741 JUMPIFEQKNIL                     R45 ; [+10]
-     1743 MOVE                             R46 R32
-     1744 MOVE                             R47 R45
-     1745 CONCAT                           R32 R46 R47
-     1746 GETTABLEKS                       R46 R27 K50 ["index"]
-     1748 LENGTH                           R47 R45
-     1749 ADD                              R46 R46 R47
-     1750 SETTABLEKS                       R46 R27 K50 ["index"]
-     1752 MOVE                             R46 R42
-     1753 DUPTABLE                         R47 K82 [{["type"] = "text", ["value"]}]
-     1754 SETTABLEKS                       R32 R47 K19 ["value"]
-     1756 CALL                             R46 1 0
-     1757 JUMP                             ; [+794]
-     1758 JUMPIFEQKNIL                     R31 ; [+43]
-     1760 GETTABLEKS                       R45 R31 K17 ["type"]
-     1762 JUMPIFEQKS                       R45 K63 ["globstar"] ; [+5]
-     1764 GETTABLEKS                       R45 R31 K174 ["star"]
-     1766 JUMPIFNOTEQKB                    R45 TRUE ; [+35]
-     1768 LOADK                            R45 K174 ["star"]
-     1769 SETTABLEKS                       R45 R31 K17 ["type"]
-     1771 LOADB                            R45 1
-     1772 SETTABLEKS                       R45 R31 K174 ["star"]
-     1774 GETTABLEKS                       R46 R31 K19 ["value"]
-     1776 MOVE                             R47 R32
-     1777 CONCAT                           R45 R46 R47
-     1778 SETTABLEKS                       R45 R31 K19 ["value"]
-     1780 SETTABLEKS                       R26 R31 K21 ["output"]
-     1782 LOADB                            R45 1
-     1783 SETTABLEKS                       R45 R27 K56 ["backtrack"]
-     1785 LOADB                            R45 1
-     1786 SETTABLEKS                       R45 R27 K63 ["globstar"]
-     1788 MOVE                             R45 R32
-     1789 ORK                              R46 R45 K20 [""]
-     1790 GETTABLEKS                       R48 R27 K54 ["consumed"]
-     1792 MOVE                             R49 R46
-     1793 CONCAT                           R47 R48 R49
-     1794 SETTABLEKS                       R47 R27 K54 ["consumed"]
-     1796 GETTABLEKS                       R47 R27 K50 ["index"]
-     1798 ADDK                             R47 R47 K51 [0]
-     1799 SETTABLEKS                       R47 R27 K50 ["index"]
-     1801 JUMP                             ; [+750]
-     1802 GETTABLEKS                       R48 R27 K50 ["index"]
-     1804 ADDK                             R47 R48 K53 [1]
-     1805 FASTCALL2                        STRING_SUB R0 R47 ; [+4]
-     1807 MOVE                             R46 R0
-     1808 GETIMPORT                        R45 K85 [string.sub]
-     1810 CALL                             R45 2 1
-     1811 GETUPVAL                         R46 4
-     1812 GETTABLEKS                       R46 R46 K24 ["toJSBoolean"]
-     1814 GETTABLEKS                       R47 R2 K48 ["noextglob"]
-     1816 CALL                             R46 1 1
-     1817 JUMPIFEQKB                       R46 TRUE ; [+14]
-     1819 GETUPVAL                         R46 8
-     1820 LOADK                            R47 K175 ["^\\([^?]"]
-     1821 CALL                             R46 1 1
-     1822 MOVE                             R48 R45
-     1823 NAMECALL                         R46 R46 K71 ["test"]
-     1825 CALL                             R46 2 1
-     1826 JUMPIFNOT                        R46 ; [+5]
-     1827 MOVE                             R46 R43
-     1828 LOADK                            R47 K174 ["star"]
-     1829 MOVE                             R48 R32
-     1830 CALL                             R46 2 0
-     1831 JUMP                             ; [+720]
-     1832 GETTABLEKS                       R46 R31 K17 ["type"]
-     1834 JUMPIFNOTEQKS                    R46 K174 ["star"] ; [+588]
-     1836 GETTABLEKS                       R46 R2 K176 ["noglobstar"]
-     1838 JUMPIFNOTEQKB                    R46 TRUE ; [+15]
-     1840 MOVE                             R46 R32
-     1841 ORK                              R47 R46 K20 [""]
-     1842 GETTABLEKS                       R49 R27 K54 ["consumed"]
-     1844 MOVE                             R50 R47
-     1845 CONCAT                           R48 R49 R50
-     1846 SETTABLEKS                       R48 R27 K54 ["consumed"]
-     1848 GETTABLEKS                       R48 R27 K50 ["index"]
-     1850 ADDK                             R48 R48 K51 [0]
-     1851 SETTABLEKS                       R48 R27 K50 ["index"]
-     1853 JUMP                             ; [+698]
-     1854 GETTABLEKS                       R46 R31 K177 ["prev"]
-     1856 GETTABLEKS                       R47 R46 K177 ["prev"]
-     1858 LOADB                            R48 1
-     1859 GETTABLEKS                       R49 R46 K17 ["type"]
-     1861 JUMPIFEQKS                       R49 K147 ["slash"] ; [+7]
-     1863 GETTABLEKS                       R49 R46 K17 ["type"]
-     1865 JUMPIFEQKS                       R49 K18 ["bos"] ; [+2]
-     1867 LOADB                            R48 0 +1
-     1868 LOADB                            R48 1
-     1869 GETUPVAL                         R50 4
-     1870 GETTABLEKS                       R50 R50 K24 ["toJSBoolean"]
-     1872 MOVE                             R51 R47
-     1873 CALL                             R50 1 1
-     1874 JUMPIFNOT                        R50 ; [+12]
-     1875 LOADB                            R49 1
-     1876 GETTABLEKS                       R50 R47 K17 ["type"]
-     1878 JUMPIFEQKS                       R50 K174 ["star"] ; [+9]
-     1880 GETTABLEKS                       R50 R47 K17 ["type"]
-     1882 JUMPIFEQKS                       R50 K63 ["globstar"] ; [+2]
-     1884 LOADB                            R49 0 +1
-     1885 LOADB                            R49 1
-     1886 JUMP                             ; [+1]
-     1887 MOVE                             R49 R47
-     1888 GETTABLEKS                       R50 R2 K43 ["bash"]
-     1890 JUMPIFNOTEQKB                    R50 TRUE ; [+22]
-     1892 JUMPIFNOT                        R48 ; [+14]
-     1893 LOADN                            R52 1
-     1894 LOADN                            R53 1
-     1895 NAMECALL                         R50 R45 K84 ["sub"]
-     1897 CALL                             R50 3 1
-     1898 JUMPIFEQKNIL                     R50 ; [+14]
-     1900 LOADN                            R52 1
-     1901 LOADN                            R53 1
-     1902 NAMECALL                         R50 R45 K84 ["sub"]
-     1904 CALL                             R50 3 1
-     1905 JUMPIFEQKS                       R50 K78 ["/"] ; [+7]
-     1907 MOVE                             R50 R42
-     1908 DUPTABLE                         R51 K178 [{["type"] = "star", ["value"], ["output"] = ""}]
-     1909 SETTABLEKS                       R32 R51 K19 ["value"]
-     1911 CALL                             R50 1 0
-     1912 JUMP                             ; [+639]
-     1913 LOADB                            R50 0
-     1914 GETTABLEKS                       R51 R27 K60 ["braces"]
-     1916 LOADN                            R52 0
-     1917 JUMPIFNOTLT                      R52 R51 ; [+12]
-     1919 LOADB                            R50 1
-     1920 GETTABLEKS                       R51 R46 K17 ["type"]
-     1922 JUMPIFEQKS                       R51 K137 ["comma"] ; [+7]
-     1924 GETTABLEKS                       R51 R46 K17 ["type"]
-     1926 JUMPIFEQKS                       R51 K131 ["brace"] ; [+2]
-     1928 LOADB                            R50 0 +1
-     1929 LOADB                            R50 1
-     1930 LOADB                            R51 0
-     1931 LENGTH                           R52 R28
-     1932 LOADN                            R53 0
-     1933 JUMPIFNOTLT                      R53 R52 ; [+12]
-     1935 LOADB                            R51 1
-     1936 GETTABLEKS                       R52 R46 K17 ["type"]
-     1938 JUMPIFEQKS                       R52 K179 ["pipe"] ; [+7]
-     1940 GETTABLEKS                       R52 R46 K17 ["type"]
-     1942 JUMPIFEQKS                       R52 K109 ["paren"] ; [+2]
-     1944 LOADB                            R51 0 +1
-     1945 LOADB                            R51 1
-     1946 JUMPIF                           R48 ; [+12]
-     1947 GETTABLEKS                       R52 R46 K17 ["type"]
-     1949 JUMPIFEQKS                       R52 K109 ["paren"] ; [+9]
-     1951 JUMPIF                           R50 ; [+7]
-     1952 JUMPIF                           R51 ; [+6]
-     1953 MOVE                             R52 R42
-     1954 DUPTABLE                         R53 K178 [{["type"] = "star", ["value"], ["output"] = ""}]
-     1955 SETTABLEKS                       R32 R53 K19 ["value"]
-     1957 CALL                             R52 1 0
-     1958 JUMP                             ; [+593]
-     1959 GETUPVAL                         R52 7
-     1960 GETTABLEKS                       R52 R52 K93 ["slice"]
-     1962 MOVE                             R53 R45
-     1963 LOADN                            R54 1
-     1964 LOADN                            R55 4
-     1965 CALL                             R52 3 1
-     1966 JUMPIFNOTEQKS                    R52 K180 ["/**"] ; [+37]
-     1968 GETTABLEKS                       R55 R27 K50 ["index"]
-     1970 ADDK                             R54 R55 K181 [4]
-     1971 GETTABLEKS                       R56 R27 K50 ["index"]
-     1973 ADDK                             R55 R56 K181 [4]
-     1974 NAMECALL                         R52 R0 K84 ["sub"]
-     1976 CALL                             R52 3 1
-     1977 GETUPVAL                         R53 4
-     1978 GETTABLEKS                       R53 R53 K24 ["toJSBoolean"]
-     1980 MOVE                             R54 R52
-     1981 CALL                             R53 1 1
-     1982 JUMPIFNOT                        R53 ; [+2]
-     1983 JUMPIFNOTEQKS                    R52 K78 ["/"] ; [+20]
-     1985 GETUPVAL                         R53 7
-     1986 GETTABLEKS                       R53 R53 K93 ["slice"]
-     1988 MOVE                             R54 R45
-     1989 LOADN                            R55 4
-     1990 CALL                             R53 2 1
-     1991 MOVE                             R45 R53
-     1992 GETTABLEKS                       R54 R27 K54 ["consumed"]
-     1994 LOADK                            R55 K180 ["/**"]
-     1995 CONCAT                           R53 R54 R55
-     1996 SETTABLEKS                       R53 R27 K54 ["consumed"]
-     1998 GETTABLEKS                       R53 R27 K50 ["index"]
-     2000 ADDK                             R53 R53 K182 [3]
-     2001 SETTABLEKS                       R53 R27 K50 ["index"]
-     2003 JUMPBACK                         ; [-45]
-     2004 GETTABLEKS                       R52 R46 K17 ["type"]
-     2006 JUMPIFNOTEQKS                    R52 K18 ["bos"] ; [+56]
-     2008 GETTABLEKS                       R53 R27 K50 ["index"]
-     2010 JUMPIFEQ                         R53 R4 ; [+2]
-     2012 LOADB                            R52 0 +1
-     2013 LOADB                            R52 1
-     2014 JUMPIFNOT                        R52 ; [+48]
-     2015 LOADK                            R52 K63 ["globstar"]
-     2016 SETTABLEKS                       R52 R31 K17 ["type"]
-     2018 GETTABLEKS                       R53 R31 K19 ["value"]
-     2020 MOVE                             R54 R32
-     2021 CONCAT                           R52 R53 R54
-     2022 SETTABLEKS                       R52 R31 K19 ["value"]
-     2024 LOADK                            R52 K44 ["(%s(?:(?!%s%s).)*?)"]
-     2025 MOVE                             R54 R7
-     2026 MOVE                             R55 R22
-     2027 GETUPVAL                         R57 4
-     2028 GETTABLEKS                       R57 R57 K24 ["toJSBoolean"]
-     2030 GETTABLEKS                       R58 R2 K42 ["dot"]
-     2032 CALL                             R57 1 1
-     2033 JUMPIFNOT                        R57 ; [+2]
-     2034 MOVE                             R56 R15
-     2035 JUMP                             ; [+1]
-     2036 MOVE                             R56 R11
-     2037 NAMECALL                         R52 R52 K16 ["format"]
-     2039 CALL                             R52 4 1
-     2040 SETTABLEKS                       R52 R31 K21 ["output"]
-     2042 GETTABLEKS                       R52 R31 K21 ["output"]
-     2044 SETTABLEKS                       R52 R27 K21 ["output"]
-     2046 LOADB                            R52 1
-     2047 SETTABLEKS                       R52 R27 K63 ["globstar"]
-     2049 MOVE                             R52 R32
-     2050 ORK                              R53 R52 K20 [""]
-     2051 GETTABLEKS                       R55 R27 K54 ["consumed"]
-     2053 MOVE                             R56 R53
-     2054 CONCAT                           R54 R55 R56
-     2055 SETTABLEKS                       R54 R27 K54 ["consumed"]
-     2057 GETTABLEKS                       R54 R27 K50 ["index"]
-     2059 ADDK                             R54 R54 K51 [0]
-     2060 SETTABLEKS                       R54 R27 K50 ["index"]
-     2062 JUMP                             ; [+489]
-     2063 GETTABLEKS                       R52 R46 K17 ["type"]
-     2065 JUMPIFNOTEQKS                    R52 K147 ["slash"] ; [+105]
-     2067 GETTABLEKS                       R52 R46 K177 ["prev"]
-     2069 GETTABLEKS                       R52 R52 K17 ["type"]
-     2071 JUMPIFEQKS                       R52 K18 ["bos"] ; [+99]
-     2073 GETUPVAL                         R52 4
-     2074 GETTABLEKS                       R52 R52 K24 ["toJSBoolean"]
-     2076 MOVE                             R53 R49
-     2077 CALL                             R52 1 1
-     2078 JUMPIF                           R52 ; [+92]
-     2079 GETTABLEKS                       R53 R27 K50 ["index"]
-     2081 JUMPIFEQ                         R53 R4 ; [+2]
-     2083 LOADB                            R52 0 +1
-     2084 LOADB                            R52 1
-     2085 JUMPIFNOT                        R52 ; [+85]
-     2086 GETUPVAL                         R52 7
-     2087 GETTABLEKS                       R52 R52 K93 ["slice"]
-     2089 GETTABLEKS                       R53 R27 K21 ["output"]
-     2091 LOADN                            R54 1
-     2092 GETTABLEKS                       R58 R46 K21 ["output"]
-     2094 GETTABLEKS                       R59 R31 K21 ["output"]
-     2096 CONCAT                           R57 R58 R59
-     2097 LENGTH                           R56 R57
-     2098 MINUS                            R55 R56
-     2099 CALL                             R52 3 1
-     2100 SETTABLEKS                       R52 R27 K21 ["output"]
-     2102 LOADK                            R52 K183 ["(?:%s"]
-     2103 GETTABLEKS                       R54 R46 K21 ["output"]
-     2105 NAMECALL                         R52 R52 K16 ["format"]
-     2107 CALL                             R52 2 1
-     2108 SETTABLEKS                       R52 R46 K21 ["output"]
-     2110 LOADK                            R52 K63 ["globstar"]
-     2111 SETTABLEKS                       R52 R31 K17 ["type"]
-     2113 LOADK                            R55 K44 ["(%s(?:(?!%s%s).)*?)"]
-     2114 MOVE                             R57 R7
-     2115 MOVE                             R58 R22
-     2116 GETUPVAL                         R60 4
-     2117 GETTABLEKS                       R60 R60 K24 ["toJSBoolean"]
-     2119 GETTABLEKS                       R61 R2 K42 ["dot"]
-     2121 CALL                             R60 1 1
-     2122 JUMPIFNOT                        R60 ; [+2]
-     2123 MOVE                             R59 R15
-     2124 JUMP                             ; [+1]
-     2125 MOVE                             R59 R11
-     2126 NAMECALL                         R55 R55 K16 ["format"]
-     2128 CALL                             R55 4 1
-     2129 MOVE                             R53 R55
-     2130 GETTABLEKS                       R55 R2 K184 ["strictSlashes"]
-     2132 JUMPIFNOT                        R55 ; [+2]
-     2133 LOADK                            R54 K111 [")"]
-     2134 JUMP                             ; [+1]
-     2135 LOADK                            R54 K185 ["|$)"]
-     2136 CONCAT                           R52 R53 R54
-     2137 SETTABLEKS                       R52 R31 K21 ["output"]
-     2139 GETTABLEKS                       R53 R31 K19 ["value"]
-     2141 MOVE                             R54 R32
-     2142 CONCAT                           R52 R53 R54
-     2143 SETTABLEKS                       R52 R31 K19 ["value"]
-     2145 LOADB                            R52 1
-     2146 SETTABLEKS                       R52 R27 K63 ["globstar"]
-     2148 GETTABLEKS                       R53 R27 K21 ["output"]
-     2150 GETTABLEKS                       R54 R46 K21 ["output"]
-     2152 GETTABLEKS                       R55 R31 K21 ["output"]
-     2154 CONCAT                           R52 R53 R55
-     2155 SETTABLEKS                       R52 R27 K21 ["output"]
-     2157 MOVE                             R52 R32
-     2158 ORK                              R53 R52 K20 [""]
-     2159 GETTABLEKS                       R55 R27 K54 ["consumed"]
-     2161 MOVE                             R56 R53
-     2162 CONCAT                           R54 R55 R56
-     2163 SETTABLEKS                       R54 R27 K54 ["consumed"]
-     2165 GETTABLEKS                       R54 R27 K50 ["index"]
-     2167 ADDK                             R54 R54 K51 [0]
-     2168 SETTABLEKS                       R54 R27 K50 ["index"]
-     2170 JUMP                             ; [+381]
-     2171 GETTABLEKS                       R52 R46 K17 ["type"]
-     2173 JUMPIFNOTEQKS                    R52 K147 ["slash"] ; [+114]
-     2175 GETTABLEKS                       R52 R46 K177 ["prev"]
-     2177 GETTABLEKS                       R52 R52 K17 ["type"]
-     2179 JUMPIFEQKS                       R52 K18 ["bos"] ; [+108]
-     2181 LOADN                            R54 1
-     2182 LOADN                            R55 1
-     2183 NAMECALL                         R52 R45 K84 ["sub"]
-     2185 CALL                             R52 3 1
-     2186 JUMPIFNOTEQKS                    R52 K78 ["/"] ; [+101]
-     2188 LOADN                            R55 2
-     2189 LOADN                            R56 2
-     2190 NAMECALL                         R53 R45 K84 ["sub"]
-     2192 CALL                             R53 3 1
-     2193 JUMPIFEQKNIL                     R53 ; [+3]
-     2195 LOADK                            R52 K186 ["|$"]
-     2196 JUMP                             ; [+1]
-     2197 LOADK                            R52 K20 [""]
-     2198 GETUPVAL                         R53 7
-     2199 GETTABLEKS                       R53 R53 K93 ["slice"]
-     2201 GETTABLEKS                       R54 R27 K21 ["output"]
-     2203 LOADN                            R55 1
-     2204 GETTABLEKS                       R59 R46 K21 ["output"]
-     2206 GETTABLEKS                       R60 R31 K21 ["output"]
-     2208 CONCAT                           R58 R59 R60
-     2209 LENGTH                           R57 R58
-     2210 MINUS                            R56 R57
-     2211 CALL                             R53 3 1
-     2212 SETTABLEKS                       R53 R27 K21 ["output"]
-     2214 LOADK                            R53 K183 ["(?:%s"]
-     2215 GETTABLEKS                       R55 R46 K21 ["output"]
-     2217 NAMECALL                         R53 R53 K16 ["format"]
-     2219 CALL                             R53 2 1
-     2220 SETTABLEKS                       R53 R46 K21 ["output"]
-     2222 LOADK                            R53 K63 ["globstar"]
-     2223 SETTABLEKS                       R53 R31 K17 ["type"]
-     2225 LOADK                            R53 K187 ["%s%s|%s%s)"]
-     2226 LOADK                            R55 K44 ["(%s(?:(?!%s%s).)*?)"]
-     2227 MOVE                             R57 R7
-     2228 MOVE                             R58 R22
-     2229 GETUPVAL                         R60 4
-     2230 GETTABLEKS                       R60 R60 K24 ["toJSBoolean"]
-     2232 GETTABLEKS                       R61 R2 K42 ["dot"]
-     2234 CALL                             R60 1 1
-     2235 JUMPIFNOT                        R60 ; [+2]
-     2236 MOVE                             R59 R15
-     2237 JUMP                             ; [+1]
-     2238 MOVE                             R59 R11
-     2239 NAMECALL                         R55 R55 K16 ["format"]
-     2241 CALL                             R55 4 1
-     2242 MOVE                             R56 R13
-     2243 MOVE                             R57 R13
-     2244 MOVE                             R58 R52
-     2245 NAMECALL                         R53 R53 K16 ["format"]
-     2247 CALL                             R53 5 1
-     2248 SETTABLEKS                       R53 R31 K21 ["output"]
-     2250 GETTABLEKS                       R54 R31 K19 ["value"]
-     2252 MOVE                             R55 R32
-     2253 CONCAT                           R53 R54 R55
-     2254 SETTABLEKS                       R53 R31 K19 ["value"]
-     2256 GETTABLEKS                       R54 R27 K21 ["output"]
-     2258 GETTABLEKS                       R55 R46 K21 ["output"]
-     2260 GETTABLEKS                       R56 R31 K21 ["output"]
-     2262 CONCAT                           R53 R54 R56
-     2263 SETTABLEKS                       R53 R27 K21 ["output"]
-     2265 LOADB                            R53 1
-     2266 SETTABLEKS                       R53 R27 K63 ["globstar"]
-     2268 MOVE                             R54 R32
-     2269 MOVE                             R55 R35
-     2270 CALL                             R55 0 1
-     2271 CONCAT                           R53 R54 R55
-     2272 ORK                              R54 R53 K20 [""]
-     2273 GETTABLEKS                       R56 R27 K54 ["consumed"]
-     2275 MOVE                             R57 R54
-     2276 CONCAT                           R55 R56 R57
-     2277 SETTABLEKS                       R55 R27 K54 ["consumed"]
-     2279 GETTABLEKS                       R55 R27 K50 ["index"]
-     2281 ADDK                             R55 R55 K51 [0]
-     2282 SETTABLEKS                       R55 R27 K50 ["index"]
-     2284 MOVE                             R53 R42
-     2285 DUPTABLE                         R54 K188 [{["type"] = "slash", ["value"] = "/", ["output"] = ""}]
-     2286 CALL                             R53 1 0
-     2287 JUMP                             ; [+264]
-     2288 GETTABLEKS                       R52 R46 K17 ["type"]
-     2290 JUMPIFNOTEQKS                    R52 K18 ["bos"] ; [+68]
-     2292 LOADN                            R54 1
-     2293 LOADN                            R55 1
-     2294 NAMECALL                         R52 R45 K84 ["sub"]
-     2296 CALL                             R52 3 1
-     2297 JUMPIFNOTEQKS                    R52 K78 ["/"] ; [+61]
-     2299 LOADK                            R52 K63 ["globstar"]
-     2300 SETTABLEKS                       R52 R31 K17 ["type"]
-     2302 GETTABLEKS                       R53 R31 K19 ["value"]
-     2304 MOVE                             R54 R32
-     2305 CONCAT                           R52 R53 R54
-     2306 SETTABLEKS                       R52 R31 K19 ["value"]
-     2308 LOADK                            R52 K189 ["(?:^|%s|%s%s)"]
-     2309 MOVE                             R54 R13
-     2310 LOADK                            R55 K44 ["(%s(?:(?!%s%s).)*?)"]
-     2311 MOVE                             R57 R7
-     2312 MOVE                             R58 R22
-     2313 GETUPVAL                         R60 4
-     2314 GETTABLEKS                       R60 R60 K24 ["toJSBoolean"]
-     2316 GETTABLEKS                       R61 R2 K42 ["dot"]
-     2318 CALL                             R60 1 1
-     2319 JUMPIFNOT                        R60 ; [+2]
-     2320 MOVE                             R59 R15
-     2321 JUMP                             ; [+1]
-     2322 MOVE                             R59 R11
-     2323 NAMECALL                         R55 R55 K16 ["format"]
-     2325 CALL                             R55 4 1
-     2326 MOVE                             R56 R13
-     2327 NAMECALL                         R52 R52 K16 ["format"]
-     2329 CALL                             R52 4 1
-     2330 SETTABLEKS                       R52 R31 K21 ["output"]
-     2332 GETTABLEKS                       R52 R31 K21 ["output"]
-     2334 SETTABLEKS                       R52 R27 K21 ["output"]
-     2336 LOADB                            R52 1
-     2337 SETTABLEKS                       R52 R27 K63 ["globstar"]
-     2339 MOVE                             R53 R32
-     2340 MOVE                             R54 R35
-     2341 CALL                             R54 0 1
-     2342 CONCAT                           R52 R53 R54
-     2343 ORK                              R53 R52 K20 [""]
-     2344 GETTABLEKS                       R55 R27 K54 ["consumed"]
-     2346 MOVE                             R56 R53
-     2347 CONCAT                           R54 R55 R56
-     2348 SETTABLEKS                       R54 R27 K54 ["consumed"]
-     2350 GETTABLEKS                       R54 R27 K50 ["index"]
-     2352 ADDK                             R54 R54 K51 [0]
-     2353 SETTABLEKS                       R54 R27 K50 ["index"]
-     2355 MOVE                             R52 R42
-     2356 DUPTABLE                         R53 K188 [{["type"] = "slash", ["value"] = "/", ["output"] = ""}]
-     2357 CALL                             R52 1 0
-     2358 JUMP                             ; [+193]
-     2359 GETUPVAL                         R52 7
-     2360 GETTABLEKS                       R52 R52 K93 ["slice"]
-     2362 GETTABLEKS                       R53 R27 K21 ["output"]
-     2364 LOADN                            R54 1
-     2365 GETTABLEKS                       R57 R31 K21 ["output"]
-     2367 LENGTH                           R56 R57
-     2368 MINUS                            R55 R56
-     2369 CALL                             R52 3 1
-     2370 SETTABLEKS                       R52 R27 K21 ["output"]
-     2372 LOADK                            R52 K63 ["globstar"]
-     2373 SETTABLEKS                       R52 R31 K17 ["type"]
-     2375 LOADK                            R52 K44 ["(%s(?:(?!%s%s).)*?)"]
-     2376 MOVE                             R54 R7
-     2377 MOVE                             R55 R22
-     2378 GETUPVAL                         R57 4
-     2379 GETTABLEKS                       R57 R57 K24 ["toJSBoolean"]
-     2381 GETTABLEKS                       R58 R2 K42 ["dot"]
-     2383 CALL                             R57 1 1
-     2384 JUMPIFNOT                        R57 ; [+2]
-     2385 MOVE                             R56 R15
-     2386 JUMP                             ; [+1]
-     2387 MOVE                             R56 R11
-     2388 NAMECALL                         R52 R52 K16 ["format"]
-     2390 CALL                             R52 4 1
-     2391 SETTABLEKS                       R52 R31 K21 ["output"]
-     2393 GETTABLEKS                       R53 R31 K19 ["value"]
-     2395 MOVE                             R54 R32
-     2396 CONCAT                           R52 R53 R54
-     2397 SETTABLEKS                       R52 R31 K19 ["value"]
-     2399 GETTABLEKS                       R53 R27 K21 ["output"]
-     2401 GETTABLEKS                       R54 R31 K21 ["output"]
-     2403 CONCAT                           R52 R53 R54
-     2404 SETTABLEKS                       R52 R27 K21 ["output"]
-     2406 LOADB                            R52 1
-     2407 SETTABLEKS                       R52 R27 K63 ["globstar"]
-     2409 MOVE                             R52 R32
-     2410 ORK                              R53 R52 K20 [""]
-     2411 GETTABLEKS                       R55 R27 K54 ["consumed"]
-     2413 MOVE                             R56 R53
-     2414 CONCAT                           R54 R55 R56
-     2415 SETTABLEKS                       R54 R27 K54 ["consumed"]
-     2417 GETTABLEKS                       R54 R27 K50 ["index"]
-     2419 ADDK                             R54 R54 K51 [0]
-     2420 SETTABLEKS                       R54 R27 K50 ["index"]
-     2422 JUMP                             ; [+129]
-     2423 DUPTABLE                         R46 K190 [{["type"] = "star", ["value"], ["output"]}]
-     2424 SETTABLEKS                       R32 R46 K19 ["value"]
-     2426 SETTABLEKS                       R26 R46 K21 ["output"]
-     2428 GETTABLEKS                       R47 R2 K43 ["bash"]
-     2430 JUMPIFNOTEQKB                    R47 TRUE ; [+22]
-     2432 LOADK                            R47 K191 [".*?"]
-     2433 SETTABLEKS                       R47 R46 K21 ["output"]
-     2435 GETTABLEKS                       R47 R31 K17 ["type"]
-     2437 JUMPIFEQKS                       R47 K18 ["bos"] ; [+5]
-     2439 GETTABLEKS                       R47 R31 K17 ["type"]
-     2441 JUMPIFNOTEQKS                    R47 K147 ["slash"] ; [+7]
-     2443 MOVE                             R48 R24
-     2444 GETTABLEKS                       R49 R46 K21 ["output"]
-     2446 CONCAT                           R47 R48 R49
-     2447 SETTABLEKS                       R47 R46 K21 ["output"]
-     2449 MOVE                             R47 R42
-     2450 MOVE                             R48 R46
-     2451 CALL                             R47 1 0
-     2452 JUMP                             ; [+99]
-     2453 JUMPIFEQKNIL                     R31 ; [+19]
-     2455 GETTABLEKS                       R47 R31 K17 ["type"]
-     2457 JUMPIFEQKS                       R47 K122 ["bracket"] ; [+5]
-     2459 GETTABLEKS                       R47 R31 K17 ["type"]
-     2461 JUMPIFNOTEQKS                    R47 K109 ["paren"] ; [+11]
-     2463 GETTABLEKS                       R47 R2 K162 ["regex"]
-     2465 JUMPIFNOTEQKB                    R47 TRUE ; [+7]
-     2467 SETTABLEKS                       R32 R46 K21 ["output"]
-     2469 MOVE                             R47 R42
-     2470 MOVE                             R48 R46
-     2471 CALL                             R47 1 0
-     2472 JUMP                             ; [+79]
-     2473 GETTABLEKS                       R47 R27 K50 ["index"]
-     2475 GETTABLEKS                       R48 R27 K52 ["start"]
-     2477 JUMPIFEQ                         R47 R48 ; [+9]
-     2479 GETTABLEKS                       R47 R31 K17 ["type"]
-     2481 JUMPIFEQKS                       R47 K147 ["slash"] ; [+5]
-     2483 GETTABLEKS                       R47 R31 K17 ["type"]
-     2485 JUMPIFNOTEQKS                    R47 K42 ["dot"] ; [+63]
-     2487 GETTABLEKS                       R47 R31 K17 ["type"]
-     2489 JUMPIFNOTEQKS                    R47 K42 ["dot"] ; [+14]
-     2491 GETTABLEKS                       R48 R27 K21 ["output"]
-     2493 MOVE                             R49 R17
-     2494 CONCAT                           R47 R48 R49
-     2495 SETTABLEKS                       R47 R27 K21 ["output"]
-     2497 GETTABLEKS                       R48 R31 K21 ["output"]
-     2499 MOVE                             R49 R17
-     2500 CONCAT                           R47 R48 R49
-     2501 SETTABLEKS                       R47 R31 K21 ["output"]
-     2503 JUMP                             ; [+29]
-     2504 GETTABLEKS                       R47 R2 K42 ["dot"]
-     2506 JUMPIFNOTEQKB                    R47 TRUE ; [+14]
-     2508 GETTABLEKS                       R48 R27 K21 ["output"]
-     2510 MOVE                             R49 R18
-     2511 CONCAT                           R47 R48 R49
-     2512 SETTABLEKS                       R47 R27 K21 ["output"]
-     2514 GETTABLEKS                       R48 R31 K21 ["output"]
-     2516 MOVE                             R49 R18
-     2517 CONCAT                           R47 R48 R49
-     2518 SETTABLEKS                       R47 R31 K21 ["output"]
-     2520 JUMP                             ; [+12]
-     2521 GETTABLEKS                       R48 R27 K21 ["output"]
-     2523 MOVE                             R49 R24
-     2524 CONCAT                           R47 R48 R49
-     2525 SETTABLEKS                       R47 R27 K21 ["output"]
-     2527 GETTABLEKS                       R48 R31 K21 ["output"]
-     2529 MOVE                             R49 R24
-     2530 CONCAT                           R47 R48 R49
-     2531 SETTABLEKS                       R47 R31 K21 ["output"]
-     2533 MOVE                             R47 R34
-     2534 CALL                             R47 0 1
-     2535 JUMPIFEQKS                       R47 K170 ["*"] ; [+13]
-     2537 GETTABLEKS                       R48 R27 K21 ["output"]
-     2539 MOVE                             R49 R14
-     2540 CONCAT                           R47 R48 R49
-     2541 SETTABLEKS                       R47 R27 K21 ["output"]
-     2543 GETTABLEKS                       R48 R31 K21 ["output"]
-     2545 MOVE                             R49 R14
-     2546 CONCAT                           R47 R48 R49
-     2547 SETTABLEKS                       R47 R31 K21 ["output"]
-     2549 MOVE                             R47 R42
-     2550 MOVE                             R48 R46
-     2551 CALL                             R47 1 0
-     2552 JUMPBACK                         ; [-2191]
-     2553 GETTABLEKS                       R45 R27 K59 ["brackets"]
-     2555 LOADN                            R46 0
-     2556 JUMPIFNOTLT                      R46 R45 ; [+40]
-     2558 GETTABLEKS                       R45 R2 K112 ["strictBrackets"]
-     2560 JUMPIFNOTEQKB                    R45 TRUE ; [+17]
-     2562 GETIMPORT                        R45 K4 [error]
-     2564 GETUPVAL                         R46 0
-     2565 GETTABLEKS                       R46 R46 K5 ["new"]
-     2567 LOADK                            R48 K113 ["SyntaxError: "]
-     2568 LOADK                            R49 K114 ["Missing %s: \"%s\" - use \"\\%s\" to match literal characters"]
-     2569 LOADK                            R51 K121 ["closing"]
-     2570 LOADK                            R52 K88 ["]"]
-     2571 LOADK                            R53 K88 ["]"]
-     2572 NAMECALL                         R49 R49 K16 ["format"]
-     2574 CALL                             R49 4 1
-     2575 CONCAT                           R47 R48 R49
-     2576 CALL                             R46 1 -1
-     2577 CALL                             R45 -1 0
-     2578 GETUPVAL                         R45 5
-     2579 GETTABLEKS                       R45 R45 K192 ["escapeLast"]
-     2581 GETTABLEKS                       R46 R27 K21 ["output"]
-     2583 LOADK                            R47 K89 ["["]
-     2584 CALL                             R45 2 1
-     2585 SETTABLEKS                       R45 R27 K21 ["output"]
-     2587 GETTABLEKS                       R45 R27 K59 ["brackets"]
-     2589 SUBK                             R45 R45 K53 [1]
-     2590 SETTABLEKS                       R45 R27 K59 ["brackets"]
-     2592 GETIMPORT                        R45 K117 [table.remove]
-     2594 MOVE                             R46 R30
-     2595 CALL                             R45 1 0
-     2596 JUMPBACK                         ; [-44]
-     2597 GETTABLEKS                       R45 R27 K61 ["parens"]
-     2599 LOADN                            R46 0
-     2600 JUMPIFNOTLT                      R46 R45 ; [+40]
-     2602 GETTABLEKS                       R45 R2 K112 ["strictBrackets"]
-     2604 JUMPIFNOTEQKB                    R45 TRUE ; [+17]
-     2606 GETIMPORT                        R45 K4 [error]
-     2608 GETUPVAL                         R46 0
-     2609 GETTABLEKS                       R46 R46 K5 ["new"]
-     2611 LOADK                            R48 K113 ["SyntaxError: "]
-     2612 LOADK                            R49 K114 ["Missing %s: \"%s\" - use \"\\%s\" to match literal characters"]
-     2613 LOADK                            R51 K121 ["closing"]
-     2614 LOADK                            R52 K111 [")"]
-     2615 LOADK                            R53 K111 [")"]
-     2616 NAMECALL                         R49 R49 K16 ["format"]
-     2618 CALL                             R49 4 1
-     2619 CONCAT                           R47 R48 R49
-     2620 CALL                             R46 1 -1
-     2621 CALL                             R45 -1 0
-     2622 GETUPVAL                         R45 5
-     2623 GETTABLEKS                       R45 R45 K192 ["escapeLast"]
-     2625 GETTABLEKS                       R46 R27 K21 ["output"]
-     2627 LOADK                            R47 K105 ["("]
-     2628 CALL                             R45 2 1
-     2629 SETTABLEKS                       R45 R27 K21 ["output"]
-     2631 GETTABLEKS                       R45 R27 K61 ["parens"]
-     2633 SUBK                             R45 R45 K53 [1]
-     2634 SETTABLEKS                       R45 R27 K61 ["parens"]
-     2636 GETIMPORT                        R45 K117 [table.remove]
-     2638 MOVE                             R46 R30
-     2639 CALL                             R45 1 0
-     2640 JUMPBACK                         ; [-44]
-     2641 GETTABLEKS                       R45 R27 K60 ["braces"]
-     2643 LOADN                            R46 0
-     2644 JUMPIFNOTLT                      R46 R45 ; [+40]
-     2646 GETTABLEKS                       R45 R2 K112 ["strictBrackets"]
-     2648 JUMPIFNOTEQKB                    R45 TRUE ; [+17]
-     2650 GETIMPORT                        R45 K4 [error]
-     2652 GETUPVAL                         R46 0
-     2653 GETTABLEKS                       R46 R46 K5 ["new"]
-     2655 LOADK                            R48 K113 ["SyntaxError: "]
-     2656 LOADK                            R49 K114 ["Missing %s: \"%s\" - use \"\\%s\" to match literal characters"]
-     2657 LOADK                            R51 K121 ["closing"]
-     2658 LOADK                            R52 K135 ["}"]
-     2659 LOADK                            R53 K135 ["}"]
-     2660 NAMECALL                         R49 R49 K16 ["format"]
-     2662 CALL                             R49 4 1
-     2663 CONCAT                           R47 R48 R49
-     2664 CALL                             R46 1 -1
-     2665 CALL                             R45 -1 0
-     2666 GETUPVAL                         R45 5
-     2667 GETTABLEKS                       R45 R45 K192 ["escapeLast"]
-     2669 GETTABLEKS                       R46 R27 K21 ["output"]
-     2671 LOADK                            R47 K129 ["{"]
-     2672 CALL                             R45 2 1
-     2673 SETTABLEKS                       R45 R27 K21 ["output"]
-     2675 GETTABLEKS                       R45 R27 K60 ["braces"]
-     2677 SUBK                             R45 R45 K53 [1]
-     2678 SETTABLEKS                       R45 R27 K60 ["braces"]
-     2680 GETIMPORT                        R45 K117 [table.remove]
-     2682 MOVE                             R46 R30
-     2683 CALL                             R45 1 0
-     2684 JUMPBACK                         ; [-44]
-     2685 GETTABLEKS                       R45 R2 K184 ["strictSlashes"]
-     2687 JUMPIFEQKB                       R45 TRUE ; [+19]
-     2689 GETTABLEKS                       R45 R31 K17 ["type"]
-     2691 JUMPIFEQKS                       R45 K174 ["star"] ; [+5]
-     2693 GETTABLEKS                       R45 R31 K17 ["type"]
-     2695 JUMPIFNOTEQKS                    R45 K122 ["bracket"] ; [+11]
-     2697 MOVE                             R45 R42
-     2698 DUPTABLE                         R46 K194 [{["type"] = "maybe_slash", ["value"] = "", ["output"]}]
-     2699 LOADK                            R47 K195 ["%s?"]
-     2700 MOVE                             R49 R13
-     2701 NAMECALL                         R47 R47 K16 ["format"]
-     2703 CALL                             R47 2 1
-     2704 SETTABLEKS                       R47 R46 K21 ["output"]
-     2706 CALL                             R45 1 0
-     2707 GETTABLEKS                       R45 R27 K56 ["backtrack"]
-     2709 JUMPIFNOTEQKB                    R45 TRUE ; [+36]
-     2711 LOADK                            R45 K20 [""]
-     2712 SETTABLEKS                       R45 R27 K21 ["output"]
-     2714 GETIMPORT                        R45 K141 [ipairs]
-     2716 GETTABLEKS                       R46 R27 K64 ["tokens"]
-     2718 CALL                             R45 1 3
-     2719 FORGPREP_INEXT                   R45
-     2720 GETTABLEKS                       R51 R27 K21 ["output"]
-     2722 GETTABLEKS                       R53 R49 K21 ["output"]
-     2724 JUMPIFEQKNIL                     R53 ; [+4]
-     2726 GETTABLEKS                       R52 R49 K21 ["output"]
-     2728 JUMP                             ; [+2]
-     2729 GETTABLEKS                       R52 R49 K19 ["value"]
-     2731 CONCAT                           R50 R51 R52
-     2732 SETTABLEKS                       R50 R27 K21 ["output"]
-     2734 GETTABLEKS                       R50 R49 K196 ["suffix"]
-     2736 JUMPIFNOT                        R50 ; [+7]
-     2737 GETTABLEKS                       R51 R27 K21 ["output"]
-     2739 GETTABLEKS                       R52 R49 K196 ["suffix"]
-     2741 CONCAT                           R50 R51 R52
-     2742 SETTABLEKS                       R50 R27 K21 ["output"]
-     2744 FORGLOOP                         R45 2 [inext] ; [-25]
-     2746 CLOSEUPVALS                      R0
-     2747 RETURN                           R27 1
+      361 GETTABLEKS                       R46 R27 K50 ["index"]
+      363 JUMPIFEQ                         R46 R4 ; [+2]
+      365 LOADB                            R45 0 +1
+      366 LOADB                            R45 1
+      367 JUMPIF                           R45 ; [+2184]
+      368 MOVE                             R45 R35
+      369 CALL                             R45 0 1
+      370 MOVE                             R32 R45
+      371 JUMPIFEQKS                       R32 K76 ["\0"] ; [+2179]
+      373 JUMPIFNOTEQKS                    R32 K77 ["\\"] ; [+86]
+      375 MOVE                             R45 R34
+      376 CALL                             R45 0 1
+      377 JUMPIFNOTEQKS                    R45 K78 ["/"] ; [+5]
+      379 GETTABLEKS                       R46 R2 K43 ["bash"]
+      381 JUMPIFNOTEQKB                    R46 TRUE ; [+2169]
+      383 JUMPIFEQKS                       R45 K79 ["."] ; [+2167]
+      385 JUMPIFEQKS                       R45 K80 [";"] ; [+2165]
+      387 GETUPVAL                         R46 4
+      388 GETTABLEKS                       R46 R46 K24 ["toJSBoolean"]
+      390 MOVE                             R47 R45
+      391 CALL                             R46 1 1
+      392 JUMPIF                           R46 ; [+9]
+      393 MOVE                             R46 R32
+      394 LOADK                            R47 K77 ["\\"]
+      395 CONCAT                           R32 R46 R47
+      396 MOVE                             R46 R42
+      397 DUPTABLE                         R47 K82 [{["type"] = "text", ["value"]}]
+      398 SETTABLEKS                       R32 R47 K19 ["value"]
+      400 CALL                             R46 1 0
+      401 JUMP                             ; [+2149]
+      402 GETUPVAL                         R46 8
+      403 LOADK                            R47 K83 ["^\\\\+"]
+      404 CALL                             R46 1 1
+      405 GETTABLEKS                       R51 R27 K50 ["index"]
+      407 ADDK                             R50 R51 K53 [1]
+      408 FASTCALL2                        STRING_SUB R0 R50 ; [+4]
+      410 MOVE                             R49 R0
+      411 GETIMPORT                        R48 K85 [string.sub]
+      413 CALL                             R48 2 1
+      414 NAMECALL                         R46 R46 K86 ["exec"]
+      416 CALL                             R46 2 1
+      417 LOADN                            R47 0
+      418 JUMPIFEQKNIL                     R46 ; [+19]
+      420 GETTABLEN                        R49 R46 1
+      421 LENGTH                           R48 R49
+      422 LOADN                            R49 2
+      423 JUMPIFNOTLT                      R49 R48 ; [+14]
+      425 GETTABLEN                        R48 R46 1
+      426 LENGTH                           R47 R48
+      427 GETTABLEKS                       R48 R27 K50 ["index"]
+      429 ADD                              R48 R48 R47
+      430 SETTABLEKS                       R48 R27 K50 ["index"]
+      432 MODK                             R48 R47 K87 [2]
+      433 JUMPIFEQKN                       R48 K51 [0] ; [+4]
+      435 MOVE                             R48 R32
+      436 LOADK                            R49 K77 ["\\"]
+      437 CONCAT                           R32 R48 R49
+      438 GETTABLEKS                       R48 R2 K72 ["unescape"]
+      440 JUMPIFNOTEQKB                    R48 TRUE ; [+5]
+      442 MOVE                             R48 R35
+      443 CALL                             R48 0 1
+      444 MOVE                             R32 R48
+      445 JUMP                             ; [+4]
+      446 MOVE                             R48 R32
+      447 MOVE                             R49 R35
+      448 CALL                             R49 0 1
+      449 CONCAT                           R32 R48 R49
+      450 GETTABLEKS                       R48 R27 K59 ["brackets"]
+      452 JUMPIFNOTEQKN                    R48 K51 [0] ; [+7]
+      454 MOVE                             R48 R42
+      455 DUPTABLE                         R49 K82 [{["type"] = "text", ["value"]}]
+      456 SETTABLEKS                       R32 R49 K19 ["value"]
+      458 CALL                             R48 1 0
+      459 JUMP                             ; [+2091]
+      460 GETTABLEKS                       R45 R27 K59 ["brackets"]
+      462 LOADN                            R46 0
+      463 JUMPIFNOTLT                      R46 R45 ; [+179]
+      465 JUMPIFNOTEQKS                    R32 K88 ["]"] ; [+9]
+      467 GETTABLEKS                       R45 R31 K19 ["value"]
+      469 JUMPIFEQKS                       R45 K89 ["["] ; [+5]
+      471 GETTABLEKS                       R45 R31 K19 ["value"]
+      473 JUMPIFNOTEQKS                    R45 K90 ["[^"] ; [+169]
+      475 GETTABLEKS                       R45 R2 K91 ["posix"]
+      477 JUMPIFEQKB                       R45 FALSE ; [+82]
+      479 JUMPIFNOTEQKS                    R32 K92 [":"] ; [+80]
+      481 GETUPVAL                         R45 7
+      482 GETTABLEKS                       R45 R45 K93 ["slice"]
+      484 GETTABLEKS                       R46 R31 K19 ["value"]
+      486 LOADN                            R47 1
+      487 CALL                             R45 2 1
+      488 LOADK                            R48 K89 ["["]
+      489 LOADN                            R49 1
+      490 LOADB                            R50 1
+      491 NAMECALL                         R46 R45 K94 ["find"]
+      493 CALL                             R46 4 1
+      494 JUMPIFEQKNIL                     R46 ; [+65]
+      496 LOADB                            R46 1
+      497 SETTABLEKS                       R46 R31 K91 ["posix"]
+      499 LOADK                            R48 K92 [":"]
+      500 LOADN                            R49 1
+      501 LOADB                            R50 1
+      502 NAMECALL                         R46 R45 K94 ["find"]
+      504 CALL                             R46 4 1
+      505 JUMPIFEQKNIL                     R46 ; [+54]
+      507 GETUPVAL                         R46 7
+      508 GETTABLEKS                       R46 R46 K95 ["lastIndexOf"]
+      510 GETTABLEKS                       R47 R31 K19 ["value"]
+      512 LOADK                            R48 K89 ["["]
+      513 CALL                             R46 2 1
+      514 GETUPVAL                         R47 7
+      515 GETTABLEKS                       R47 R47 K93 ["slice"]
+      517 GETTABLEKS                       R48 R31 K19 ["value"]
+      519 LOADN                            R49 1
+      520 MOVE                             R50 R46
+      521 CALL                             R47 3 1
+      522 GETUPVAL                         R48 7
+      523 GETTABLEKS                       R48 R48 K93 ["slice"]
+      525 GETTABLEKS                       R49 R31 K19 ["value"]
+      527 ADDK                             R50 R46 K87 [2]
+      528 CALL                             R48 2 1
+      529 GETUPVAL                         R50 12
+      530 GETTABLE                         R49 R50 R48
+      531 JUMPIFNOT                        R49 ; [+28]
+      532 MOVE                             R51 R47
+      533 MOVE                             R52 R49
+      534 CONCAT                           R50 R51 R52
+      535 SETTABLEKS                       R50 R31 K19 ["value"]
+      537 LOADB                            R50 1
+      538 SETTABLEKS                       R50 R27 K56 ["backtrack"]
+      540 MOVE                             R50 R35
+      541 CALL                             R50 0 0
+      542 GETUPVAL                         R50 4
+      543 GETTABLEKS                       R50 R50 K24 ["toJSBoolean"]
+      545 GETTABLEKS                       R51 R5 K21 ["output"]
+      547 CALL                             R50 1 1
+      548 JUMPIF                           R50 ; [+2002]
+      549 GETUPVAL                         R50 13
+      550 GETTABLEKS                       R50 R50 K96 ["indexOf"]
+      552 MOVE                             R51 R6
+      553 MOVE                             R52 R31
+      554 CALL                             R50 2 1
+      555 JUMPIFNOTEQKN                    R50 K87 [2] ; [+1995]
+      557 SETTABLEKS                       R14 R5 K21 ["output"]
+      559 JUMP                             ; [+1991]
+      560 JUMPIFNOTEQKS                    R32 K89 ["["] ; [+5]
+      562 MOVE                             R45 R34
+      563 CALL                             R45 0 1
+      564 JUMPIFNOTEQKS                    R45 K92 [":"] ; [+7]
+      566 JUMPIFNOTEQKS                    R32 K97 ["-"] ; [+11]
+      568 MOVE                             R45 R34
+      569 CALL                             R45 0 1
+      570 JUMPIFNOTEQKS                    R45 K88 ["]"] ; [+7]
+      572 LOADK                            R45 K98 ["\\%s"]
+      573 MOVE                             R47 R32
+      574 NAMECALL                         R45 R45 K16 ["format"]
+      576 CALL                             R45 2 1
+      577 MOVE                             R32 R45
+      578 JUMPIFNOTEQKS                    R32 K88 ["]"] ; [+15]
+      580 GETTABLEKS                       R45 R31 K19 ["value"]
+      582 JUMPIFEQKS                       R45 K89 ["["] ; [+5]
+      584 GETTABLEKS                       R45 R31 K19 ["value"]
+      586 JUMPIFNOTEQKS                    R45 K90 ["[^"] ; [+7]
+      588 LOADK                            R45 K98 ["\\%s"]
+      589 MOVE                             R47 R32
+      590 NAMECALL                         R45 R45 K16 ["format"]
+      592 CALL                             R45 2 1
+      593 MOVE                             R32 R45
+      594 GETTABLEKS                       R45 R2 K91 ["posix"]
+      596 JUMPIFNOTEQKB                    R45 TRUE ; [+8]
+      598 JUMPIFNOTEQKS                    R32 K99 ["!"] ; [+6]
+      600 GETTABLEKS                       R45 R31 K19 ["value"]
+      602 JUMPIFNOTEQKS                    R45 K89 ["["] ; [+2]
+      604 LOADK                            R32 K100 ["^"]
+      605 GETTABLEKS                       R46 R31 K19 ["value"]
+      607 MOVE                             R47 R32
+      608 CONCAT                           R45 R46 R47
+      609 SETTABLEKS                       R45 R31 K19 ["value"]
+      611 DUPTABLE                         R45 K101 [{"value"}]
+      612 SETTABLEKS                       R32 R45 K19 ["value"]
+      614 GETTABLEKS                       R47 R27 K21 ["output"]
+      616 GETTABLEKS                       R49 R45 K21 ["output"]
+      618 JUMPIFEQKNIL                     R49 ; [+4]
+      620 GETTABLEKS                       R48 R45 K21 ["output"]
+      622 JUMP                             ; [+2]
+      623 GETTABLEKS                       R48 R45 K19 ["value"]
+      625 CONCAT                           R46 R47 R48
+      626 SETTABLEKS                       R46 R27 K21 ["output"]
+      628 GETTABLEKS                       R46 R45 K19 ["value"]
+      630 ORK                              R47 R46 K20 [""]
+      631 GETTABLEKS                       R49 R27 K54 ["consumed"]
+      633 MOVE                             R50 R47
+      634 CONCAT                           R48 R49 R50
+      635 SETTABLEKS                       R48 R27 K54 ["consumed"]
+      637 GETTABLEKS                       R48 R27 K50 ["index"]
+      639 ADDK                             R48 R48 K51 [0]
+      640 SETTABLEKS                       R48 R27 K50 ["index"]
+      642 JUMP                             ; [+1908]
+      643 GETTABLEKS                       R45 R27 K62 ["quotes"]
+      645 JUMPIFNOTEQKN                    R45 K53 [1] ; [+47]
+      647 JUMPIFEQKS                       R32 K102 ["\""] ; [+45]
+      649 GETUPVAL                         R45 5
+      650 GETTABLEKS                       R45 R45 K103 ["escapeRegex"]
+      652 MOVE                             R46 R32
+      653 CALL                             R45 1 1
+      654 MOVE                             R32 R45
+      655 GETTABLEKS                       R46 R31 K19 ["value"]
+      657 MOVE                             R47 R32
+      658 CONCAT                           R45 R46 R47
+      659 SETTABLEKS                       R45 R31 K19 ["value"]
+      661 DUPTABLE                         R45 K101 [{"value"}]
+      662 SETTABLEKS                       R32 R45 K19 ["value"]
+      664 GETTABLEKS                       R47 R27 K21 ["output"]
+      666 GETTABLEKS                       R49 R45 K21 ["output"]
+      668 JUMPIFEQKNIL                     R49 ; [+4]
+      670 GETTABLEKS                       R48 R45 K21 ["output"]
+      672 JUMP                             ; [+2]
+      673 GETTABLEKS                       R48 R45 K19 ["value"]
+      675 CONCAT                           R46 R47 R48
+      676 SETTABLEKS                       R46 R27 K21 ["output"]
+      678 GETTABLEKS                       R46 R45 K19 ["value"]
+      680 ORK                              R47 R46 K20 [""]
+      681 GETTABLEKS                       R49 R27 K54 ["consumed"]
+      683 MOVE                             R50 R47
+      684 CONCAT                           R48 R49 R50
+      685 SETTABLEKS                       R48 R27 K54 ["consumed"]
+      687 GETTABLEKS                       R48 R27 K50 ["index"]
+      689 ADDK                             R48 R48 K51 [0]
+      690 SETTABLEKS                       R48 R27 K50 ["index"]
+      692 JUMP                             ; [+1858]
+      693 JUMPIFNOTEQKS                    R32 K102 ["\""] ; [+20]
+      695 GETTABLEKS                       R46 R27 K62 ["quotes"]
+      697 JUMPIFNOTEQKN                    R46 K53 [1] ; [+3]
+      699 LOADN                            R45 0
+      700 JUMP                             ; [+1]
+      701 LOADN                            R45 1
+      702 SETTABLEKS                       R45 R27 K62 ["quotes"]
+      704 GETTABLEKS                       R45 R2 K104 ["keepQuotes"]
+      706 JUMPIFNOTEQKB                    R45 TRUE ; [+1844]
+      708 MOVE                             R45 R42
+      709 DUPTABLE                         R46 K82 [{["type"] = "text", ["value"]}]
+      710 SETTABLEKS                       R32 R46 K19 ["value"]
+      712 CALL                             R45 1 0
+      713 JUMP                             ; [+1837]
+      714 JUMPIFNOTEQKS                    R32 K105 ["("] ; [+19]
+      716 GETTABLEKS                       R45 R27 K61 ["parens"]
+      718 ADDK                             R45 R45 K53 [1]
+      719 SETTABLEKS                       R45 R27 K61 ["parens"]
+      721 FASTCALL2K                       TABLE_INSERT R30 K61 ; [+5]
+      723 MOVE                             R46 R30
+      724 LOADK                            R47 K61 ["parens"]
+      725 GETIMPORT                        R45 K108 [table.insert]
+      727 CALL                             R45 2 0
+      728 MOVE                             R45 R42
+      729 DUPTABLE                         R46 K110 [{["type"] = "paren", ["value"]}]
+      730 SETTABLEKS                       R32 R46 K19 ["value"]
+      732 CALL                             R45 1 0
+      733 JUMP                             ; [+1817]
+      734 JUMPIFNOTEQKS                    R32 K111 [")"] ; [+70]
+      736 GETTABLEKS                       R45 R27 K61 ["parens"]
+      738 JUMPIFNOTEQKN                    R45 K51 [0] ; [+21]
+      740 GETTABLEKS                       R45 R2 K112 ["strictBrackets"]
+      742 JUMPIFNOTEQKB                    R45 TRUE ; [+17]
+      744 GETIMPORT                        R45 K4 [error]
+      746 GETUPVAL                         R46 0
+      747 GETTABLEKS                       R46 R46 K5 ["new"]
+      749 LOADK                            R48 K113 ["SyntaxError: "]
+      750 LOADK                            R49 K114 ["Missing %s: \"%s\" - use \"\\%s\" to match literal characters"]
+      751 LOADK                            R51 K115 ["opening"]
+      752 LOADK                            R52 K105 ["("]
+      753 LOADK                            R53 K105 ["("]
+      754 NAMECALL                         R49 R49 K16 ["format"]
+      756 CALL                             R49 4 1
+      757 CONCAT                           R47 R48 R49
+      758 CALL                             R46 1 -1
+      759 CALL                             R45 -1 0
+      760 LENGTH                           R46 R28
+      761 GETTABLE                         R45 R28 R46
+      762 JUMPIFEQKNIL                     R45 ; [+15]
+      764 GETTABLEKS                       R46 R27 K61 ["parens"]
+      766 GETTABLEKS                       R48 R45 K61 ["parens"]
+      768 ADDK                             R47 R48 K53 [1]
+      769 JUMPIFNOTEQ                      R46 R47 ; [+8]
+      771 MOVE                             R46 R44
+      772 GETIMPORT                        R47 K117 [table.remove]
+      774 MOVE                             R48 R28
+      775 CALL                             R47 1 1
+      776 CALL                             R46 1 0
+      777 JUMP                             ; [+1773]
+      778 MOVE                             R46 R42
+      779 DUPTABLE                         R47 K118 [{["type"] = "paren", ["value"], ["output"]}]
+      780 SETTABLEKS                       R32 R47 K19 ["value"]
+      782 GETUPVAL                         R49 4
+      783 GETTABLEKS                       R49 R49 K24 ["toJSBoolean"]
+      785 GETTABLEKS                       R50 R27 K61 ["parens"]
+      787 CALL                             R49 1 1
+      788 JUMPIFNOT                        R49 ; [+2]
+      789 LOADK                            R48 K111 [")"]
+      790 JUMP                             ; [+1]
+      791 LOADK                            R48 K119 ["\\)"]
+      792 SETTABLEKS                       R48 R47 K21 ["output"]
+      794 CALL                             R46 1 0
+      795 GETTABLEKS                       R46 R27 K61 ["parens"]
+      797 SUBK                             R46 R46 K53 [1]
+      798 SETTABLEKS                       R46 R27 K61 ["parens"]
+      800 GETIMPORT                        R46 K117 [table.remove]
+      802 MOVE                             R47 R30
+      803 CALL                             R46 1 0
+      804 JUMP                             ; [+1746]
+      805 JUMPIFNOTEQKS                    R32 K89 ["["] ; [+71]
+      807 GETTABLEKS                       R45 R2 K120 ["nobracket"]
+      809 JUMPIFEQKB                       R45 TRUE ; [+18]
+      811 GETTABLEKS                       R48 R27 K50 ["index"]
+      813 ADDK                             R47 R48 K53 [1]
+      814 FASTCALL2                        STRING_SUB R0 R47 ; [+4]
+      816 MOVE                             R46 R0
+      817 GETIMPORT                        R45 K85 [string.sub]
+      819 CALL                             R45 2 1
+      820 LOADK                            R47 K88 ["]"]
+      821 LOADN                            R48 1
+      822 LOADB                            R49 1
+      823 NAMECALL                         R45 R45 K94 ["find"]
+      825 CALL                             R45 4 1
+      826 JUMPIFNOTEQKNIL                  R45 ; [+32]
+      828 GETTABLEKS                       R45 R2 K120 ["nobracket"]
+      830 JUMPIFEQKB                       R45 TRUE ; [+21]
+      832 GETTABLEKS                       R45 R2 K112 ["strictBrackets"]
+      834 JUMPIFNOTEQKB                    R45 TRUE ; [+17]
+      836 GETIMPORT                        R45 K4 [error]
+      838 GETUPVAL                         R46 0
+      839 GETTABLEKS                       R46 R46 K5 ["new"]
+      841 LOADK                            R48 K113 ["SyntaxError: "]
+      842 LOADK                            R49 K114 ["Missing %s: \"%s\" - use \"\\%s\" to match literal characters"]
+      843 LOADK                            R51 K121 ["closing"]
+      844 LOADK                            R52 K88 ["]"]
+      845 LOADK                            R53 K88 ["]"]
+      846 NAMECALL                         R49 R49 K16 ["format"]
+      848 CALL                             R49 4 1
+      849 CONCAT                           R47 R48 R49
+      850 CALL                             R46 1 -1
+      851 CALL                             R45 -1 0
+      852 LOADK                            R45 K98 ["\\%s"]
+      853 MOVE                             R47 R32
+      854 NAMECALL                         R45 R45 K16 ["format"]
+      856 CALL                             R45 2 1
+      857 MOVE                             R32 R45
+      858 JUMP                             ; [+12]
+      859 GETTABLEKS                       R45 R27 K59 ["brackets"]
+      861 ADDK                             R45 R45 K53 [1]
+      862 SETTABLEKS                       R45 R27 K59 ["brackets"]
+      864 FASTCALL2K                       TABLE_INSERT R30 K59 ; [+5]
+      866 MOVE                             R46 R30
+      867 LOADK                            R47 K59 ["brackets"]
+      868 GETIMPORT                        R45 K108 [table.insert]
+      870 CALL                             R45 2 0
+      871 MOVE                             R45 R42
+      872 DUPTABLE                         R46 K123 [{["type"] = "bracket", ["value"]}]
+      873 SETTABLEKS                       R32 R46 K19 ["value"]
+      875 CALL                             R45 1 0
+      876 JUMP                             ; [+1674]
+      877 JUMPIFNOTEQKS                    R32 K88 ["]"] ; [+204]
+      879 GETTABLEKS                       R45 R2 K120 ["nobracket"]
+      881 JUMPIFEQKB                       R45 TRUE ; [+12]
+      883 JUMPIFEQKNIL                     R31 ; [+23]
+      885 GETTABLEKS                       R45 R31 K17 ["type"]
+      887 JUMPIFNOTEQKS                    R45 K122 ["bracket"] ; [+19]
+      889 GETTABLEKS                       R46 R31 K19 ["value"]
+      891 LENGTH                           R45 R46
+      892 JUMPIFNOTEQKN                    R45 K53 [1] ; [+14]
+      894 MOVE                             R45 R42
+      895 DUPTABLE                         R46 K124 [{["type"] = "text", ["value"], ["output"]}]
+      896 SETTABLEKS                       R32 R46 K19 ["value"]
+      898 LOADK                            R47 K98 ["\\%s"]
+      899 MOVE                             R49 R32
+      900 NAMECALL                         R47 R47 K16 ["format"]
+      902 CALL                             R47 2 1
+      903 SETTABLEKS                       R47 R46 K21 ["output"]
+      905 CALL                             R45 1 0
+      906 JUMP                             ; [+1644]
+      907 GETTABLEKS                       R45 R27 K59 ["brackets"]
+      909 JUMPIFNOTEQKN                    R45 K51 [0] ; [+34]
+      911 GETTABLEKS                       R45 R2 K112 ["strictBrackets"]
+      913 JUMPIFNOTEQKB                    R45 TRUE ; [+17]
+      915 GETIMPORT                        R45 K4 [error]
+      917 GETUPVAL                         R46 0
+      918 GETTABLEKS                       R46 R46 K5 ["new"]
+      920 LOADK                            R48 K113 ["SyntaxError: "]
+      921 LOADK                            R49 K114 ["Missing %s: \"%s\" - use \"\\%s\" to match literal characters"]
+      922 LOADK                            R51 K115 ["opening"]
+      923 LOADK                            R52 K89 ["["]
+      924 LOADK                            R53 K89 ["["]
+      925 NAMECALL                         R49 R49 K16 ["format"]
+      927 CALL                             R49 4 1
+      928 CONCAT                           R47 R48 R49
+      929 CALL                             R46 1 -1
+      930 CALL                             R45 -1 0
+      931 MOVE                             R45 R42
+      932 DUPTABLE                         R46 K124 [{["type"] = "text", ["value"], ["output"]}]
+      933 SETTABLEKS                       R32 R46 K19 ["value"]
+      935 LOADK                            R47 K98 ["\\%s"]
+      936 MOVE                             R49 R32
+      937 NAMECALL                         R47 R47 K16 ["format"]
+      939 CALL                             R47 2 1
+      940 SETTABLEKS                       R47 R46 K21 ["output"]
+      942 CALL                             R45 1 0
+      943 JUMP                             ; [+1607]
+      944 GETTABLEKS                       R45 R27 K59 ["brackets"]
+      946 SUBK                             R45 R45 K53 [1]
+      947 SETTABLEKS                       R45 R27 K59 ["brackets"]
+      949 GETIMPORT                        R45 K117 [table.remove]
+      951 MOVE                             R46 R30
+      952 CALL                             R45 1 0
+      953 GETUPVAL                         R45 7
+      954 GETTABLEKS                       R45 R45 K93 ["slice"]
+      956 GETTABLEKS                       R46 R31 K19 ["value"]
+      958 LOADN                            R47 2
+      959 CALL                             R45 2 1
+      960 GETTABLEKS                       R46 R31 K91 ["posix"]
+      962 JUMPIFEQKB                       R46 TRUE ; [+22]
+      964 LOADN                            R48 1
+      965 LOADN                            R49 1
+      966 NAMECALL                         R46 R45 K84 ["sub"]
+      968 CALL                             R46 3 1
+      969 JUMPIFNOTEQKS                    R46 K100 ["^"] ; [+15]
+      971 LOADK                            R48 K78 ["/"]
+      972 LOADN                            R49 1
+      973 LOADB                            R50 1
+      974 NAMECALL                         R46 R45 K94 ["find"]
+      976 CALL                             R46 4 1
+      977 JUMPIFNOTEQKNIL                  R46 ; [+7]
+      979 LOADK                            R46 K125 ["/%s"]
+      980 MOVE                             R48 R32
+      981 NAMECALL                         R46 R46 K16 ["format"]
+      983 CALL                             R46 2 1
+      984 MOVE                             R32 R46
+      985 GETTABLEKS                       R47 R31 K19 ["value"]
+      987 MOVE                             R48 R32
+      988 CONCAT                           R46 R47 R48
+      989 SETTABLEKS                       R46 R31 K19 ["value"]
+      991 DUPTABLE                         R46 K101 [{"value"}]
+      992 SETTABLEKS                       R32 R46 K19 ["value"]
+      994 GETTABLEKS                       R48 R27 K21 ["output"]
+      996 GETTABLEKS                       R50 R46 K21 ["output"]
+      998 JUMPIFEQKNIL                     R50 ; [+4]
+     1000 GETTABLEKS                       R49 R46 K21 ["output"]
+     1002 JUMP                             ; [+2]
+     1003 GETTABLEKS                       R49 R46 K19 ["value"]
+     1005 CONCAT                           R47 R48 R49
+     1006 SETTABLEKS                       R47 R27 K21 ["output"]
+     1008 GETTABLEKS                       R47 R46 K19 ["value"]
+     1010 ORK                              R48 R47 K20 [""]
+     1011 GETTABLEKS                       R50 R27 K54 ["consumed"]
+     1013 MOVE                             R51 R48
+     1014 CONCAT                           R49 R50 R51
+     1015 SETTABLEKS                       R49 R27 K54 ["consumed"]
+     1017 GETTABLEKS                       R49 R27 K50 ["index"]
+     1019 ADDK                             R49 R49 K51 [0]
+     1020 SETTABLEKS                       R49 R27 K50 ["index"]
+     1022 GETTABLEKS                       R46 R2 K126 ["literalBrackets"]
+     1024 JUMPIFEQKB                       R46 FALSE ; [+1526]
+     1026 GETUPVAL                         R46 5
+     1027 GETTABLEKS                       R46 R46 K127 ["hasRegexChars"]
+     1029 MOVE                             R47 R45
+     1030 CALL                             R46 1 1
+     1031 JUMPIF                           R46 ; [+1519]
+     1032 GETUPVAL                         R46 5
+     1033 GETTABLEKS                       R46 R46 K103 ["escapeRegex"]
+     1035 GETTABLEKS                       R47 R31 K19 ["value"]
+     1037 CALL                             R46 1 1
+     1038 GETUPVAL                         R47 7
+     1039 GETTABLEKS                       R47 R47 K93 ["slice"]
+     1041 GETTABLEKS                       R48 R27 K21 ["output"]
+     1043 LOADN                            R49 1
+     1044 GETTABLEKS                       R52 R31 K19 ["value"]
+     1046 LENGTH                           R51 R52
+     1047 MINUS                            R50 R51
+     1048 CALL                             R47 3 1
+     1049 SETTABLEKS                       R47 R27 K21 ["output"]
+     1051 GETTABLEKS                       R47 R2 K126 ["literalBrackets"]
+     1053 JUMPIFNOTEQKB                    R47 TRUE ; [+10]
+     1055 GETTABLEKS                       R48 R27 K21 ["output"]
+     1057 MOVE                             R49 R46
+     1058 CONCAT                           R47 R48 R49
+     1059 SETTABLEKS                       R47 R27 K21 ["output"]
+     1061 SETTABLEKS                       R46 R31 K19 ["value"]
+     1063 JUMP                             ; [+1487]
+     1064 LOADK                            R47 K128 ["(%s%s|%s)"]
+     1065 MOVE                             R49 R7
+     1066 MOVE                             R50 R46
+     1067 GETTABLEKS                       R51 R31 K19 ["value"]
+     1069 NAMECALL                         R47 R47 K16 ["format"]
+     1071 CALL                             R47 4 1
+     1072 SETTABLEKS                       R47 R31 K19 ["value"]
+     1074 GETTABLEKS                       R48 R27 K21 ["output"]
+     1076 GETTABLEKS                       R49 R31 K19 ["value"]
+     1078 CONCAT                           R47 R48 R49
+     1079 SETTABLEKS                       R47 R27 K21 ["output"]
+     1081 JUMP                             ; [+1469]
+     1082 JUMPIFNOTEQKS                    R32 K129 ["{"] ; [+41]
+     1084 GETTABLEKS                       R45 R2 K130 ["nobrace"]
+     1086 JUMPIFEQKB                       R45 TRUE ; [+37]
+     1088 GETTABLEKS                       R45 R27 K60 ["braces"]
+     1090 ADDK                             R45 R45 K53 [1]
+     1091 SETTABLEKS                       R45 R27 K60 ["braces"]
+     1093 FASTCALL2K                       TABLE_INSERT R30 K60 ; [+5]
+     1095 MOVE                             R46 R30
+     1096 LOADK                            R47 K60 ["braces"]
+     1097 GETIMPORT                        R45 K108 [table.insert]
+     1099 CALL                             R45 2 0
+     1100 DUPTABLE                         R45 K134 [{["type"] = "brace", ["value"], ["output"] = "(", ["outputIndex"], ["tokensIndex"]}]
+     1101 SETTABLEKS                       R32 R45 K19 ["value"]
+     1103 GETTABLEKS                       R47 R27 K21 ["output"]
+     1105 LENGTH                           R46 R47
+     1106 SETTABLEKS                       R46 R45 K132 ["outputIndex"]
+     1108 GETTABLEKS                       R47 R27 K64 ["tokens"]
+     1110 LENGTH                           R46 R47
+     1111 SETTABLEKS                       R46 R45 K133 ["tokensIndex"]
+     1113 FASTCALL2                        TABLE_INSERT R29 R45 ; [+5]
+     1115 MOVE                             R47 R29
+     1116 MOVE                             R48 R45
+     1117 GETIMPORT                        R46 K108 [table.insert]
+     1119 CALL                             R46 2 0
+     1120 MOVE                             R46 R42
+     1121 MOVE                             R47 R45
+     1122 CALL                             R46 1 0
+     1123 JUMP                             ; [+1427]
+     1124 JUMPIFNOTEQKS                    R32 K135 ["}"] ; [+151]
+     1126 LENGTH                           R46 R29
+     1127 GETTABLE                         R45 R29 R46
+     1128 GETTABLEKS                       R46 R2 K130 ["nobrace"]
+     1130 JUMPIFEQKB                       R46 TRUE ; [+7]
+     1132 GETUPVAL                         R46 4
+     1133 GETTABLEKS                       R46 R46 K24 ["toJSBoolean"]
+     1135 MOVE                             R47 R45
+     1136 CALL                             R46 1 1
+     1137 JUMPIF                           R46 ; [+8]
+     1138 MOVE                             R46 R42
+     1139 DUPTABLE                         R47 K124 [{["type"] = "text", ["value"], ["output"]}]
+     1140 SETTABLEKS                       R32 R47 K19 ["value"]
+     1142 SETTABLEKS                       R32 R47 K21 ["output"]
+     1144 CALL                             R46 1 0
+     1145 JUMP                             ; [+1405]
+     1146 LOADK                            R46 K111 [")"]
+     1147 GETTABLEKS                       R47 R45 K136 ["dots"]
+     1149 JUMPIFNOTEQKB                    R47 TRUE ; [+45]
+     1151 GETUPVAL                         R47 13
+     1152 GETTABLEKS                       R47 R47 K93 ["slice"]
+     1154 MOVE                             R48 R6
+     1155 CALL                             R47 1 1
+     1156 NEWTABLE                         R48 0 0
+     1158 LENGTH                           R51 R47
+     1159 LOADN                            R49 1
+     1160 LOADN                            R50 -1
+     1161 FORNPREP                         R49
+     1162 GETIMPORT                        R52 K117 [table.remove]
+     1164 MOVE                             R53 R6
+     1165 CALL                             R52 1 0
+     1166 GETTABLE                         R52 R47 R51
+     1167 GETTABLEKS                       R52 R52 K17 ["type"]
+     1169 JUMPIFEQKS                       R52 K131 ["brace"] ; [+17]
+     1171 GETTABLE                         R52 R47 R51
+     1172 GETTABLEKS                       R52 R52 K17 ["type"]
+     1174 JUMPIFEQKS                       R52 K136 ["dots"] ; [+11]
+     1176 LOADN                            R54 1
+     1177 GETTABLE                         R55 R47 R51
+     1178 GETTABLEKS                       R55 R55 K19 ["value"]
+     1180 FASTCALL3                        TABLE_INSERT R48 R54 R55
+     1182 MOVE                             R53 R48
+     1183 GETIMPORT                        R52 K108 [table.insert]
+     1185 CALL                             R52 3 0
+     1186 FORNLOOP                         R49
+     1187 GETUPVAL                         R49 14
+     1188 MOVE                             R50 R48
+     1189 MOVE                             R51 R2
+     1190 CALL                             R49 2 1
+     1191 MOVE                             R46 R49
+     1192 LOADB                            R49 1
+     1193 SETTABLEKS                       R49 R27 K56 ["backtrack"]
+     1195 GETTABLEKS                       R47 R45 K137 ["comma"]
+     1197 JUMPIFEQKB                       R47 TRUE ; [+57]
+     1199 GETTABLEKS                       R47 R45 K136 ["dots"]
+     1201 JUMPIFEQKB                       R47 TRUE ; [+53]
+     1203 GETUPVAL                         R47 7
+     1204 GETTABLEKS                       R47 R47 K93 ["slice"]
+     1206 GETTABLEKS                       R48 R27 K21 ["output"]
+     1208 LOADN                            R49 1
+     1209 GETTABLEKS                       R50 R45 K132 ["outputIndex"]
+     1211 CALL                             R47 3 1
+     1212 GETUPVAL                         R48 13
+     1213 GETTABLEKS                       R48 R48 K93 ["slice"]
+     1215 GETTABLEKS                       R49 R27 K64 ["tokens"]
+     1217 GETTABLEKS                       R50 R45 K133 ["tokensIndex"]
+     1219 CALL                             R48 2 1
+     1220 LOADK                            R49 K138 ["\\{"]
+     1221 SETTABLEKS                       R49 R45 K21 ["output"]
+     1223 GETTABLEKS                       R49 R45 K21 ["output"]
+     1225 SETTABLEKS                       R49 R45 K19 ["value"]
+     1227 LOADK                            R46 K139 ["\\}"]
+     1228 MOVE                             R32 R46
+     1229 SETTABLEKS                       R47 R27 K21 ["output"]
+     1231 GETIMPORT                        R49 K141 [ipairs]
+     1233 MOVE                             R50 R48
+     1234 CALL                             R49 1 3
+     1235 FORGPREP_INEXT                   R49
+     1236 GETTABLEKS                       R55 R27 K21 ["output"]
+     1238 GETUPVAL                         R57 4
+     1239 GETTABLEKS                       R57 R57 K24 ["toJSBoolean"]
+     1241 GETTABLEKS                       R58 R53 K21 ["output"]
+     1243 CALL                             R57 1 1
+     1244 JUMPIFNOT                        R57 ; [+3]
+     1245 GETTABLEKS                       R56 R53 K21 ["output"]
+     1247 JUMP                             ; [+2]
+     1248 GETTABLEKS                       R56 R53 K19 ["value"]
+     1250 CONCAT                           R54 R55 R56
+     1251 SETTABLEKS                       R54 R27 K21 ["output"]
+     1253 FORGLOOP                         R49 2 [inext] ; [-18]
+     1255 MOVE                             R47 R42
+     1256 DUPTABLE                         R48 K142 [{["type"] = "brace", ["value"], ["output"]}]
+     1257 SETTABLEKS                       R32 R48 K19 ["value"]
+     1259 SETTABLEKS                       R46 R48 K21 ["output"]
+     1261 CALL                             R47 1 0
+     1262 GETTABLEKS                       R47 R27 K60 ["braces"]
+     1264 SUBK                             R47 R47 K53 [1]
+     1265 SETTABLEKS                       R47 R27 K60 ["braces"]
+     1267 GETIMPORT                        R47 K117 [table.remove]
+     1269 MOVE                             R48 R30
+     1270 CALL                             R47 1 0
+     1271 GETIMPORT                        R47 K117 [table.remove]
+     1273 MOVE                             R48 R29
+     1274 CALL                             R47 1 0
+     1275 JUMP                             ; [+1275]
+     1276 JUMPIFNOTEQKS                    R32 K143 ["|"] ; [+18]
+     1278 LENGTH                           R45 R28
+     1279 LOADN                            R46 0
+     1280 JUMPIFNOTLT                      R46 R45 ; [+8]
+     1282 LENGTH                           R46 R28
+     1283 GETTABLE                         R45 R28 R46
+     1284 GETTABLEKS                       R46 R45 K144 ["conditions"]
+     1286 ADDK                             R46 R46 K53 [1]
+     1287 SETTABLEKS                       R46 R45 K144 ["conditions"]
+     1289 MOVE                             R45 R42
+     1290 DUPTABLE                         R46 K82 [{["type"] = "text", ["value"]}]
+     1291 SETTABLEKS                       R32 R46 K19 ["value"]
+     1293 CALL                             R45 1 0
+     1294 JUMP                             ; [+1256]
+     1295 JUMPIFNOTEQKS                    R32 K145 [","] ; [+26]
+     1297 MOVE                             R45 R32
+     1298 LENGTH                           R47 R29
+     1299 GETTABLE                         R46 R29 R47
+     1300 GETUPVAL                         R47 4
+     1301 GETTABLEKS                       R47 R47 K24 ["toJSBoolean"]
+     1303 MOVE                             R48 R46
+     1304 CALL                             R47 1 1
+     1305 JUMPIFNOT                        R47 ; [+8]
+     1306 LENGTH                           R48 R30
+     1307 GETTABLE                         R47 R30 R48
+     1308 JUMPIFNOTEQKS                    R47 K60 ["braces"] ; [+5]
+     1310 LOADB                            R47 1
+     1311 SETTABLEKS                       R47 R46 K137 ["comma"]
+     1313 LOADK                            R45 K143 ["|"]
+     1314 MOVE                             R47 R42
+     1315 DUPTABLE                         R48 K146 [{["type"] = "comma", ["value"], ["output"]}]
+     1316 SETTABLEKS                       R32 R48 K19 ["value"]
+     1318 SETTABLEKS                       R45 R48 K21 ["output"]
+     1320 CALL                             R47 1 0
+     1321 JUMP                             ; [+1229]
+     1322 JUMPIFNOTEQKS                    R32 K78 ["/"] ; [+37]
+     1324 GETTABLEKS                       R45 R31 K17 ["type"]
+     1326 JUMPIFNOTEQKS                    R45 K42 ["dot"] ; [+25]
+     1328 GETTABLEKS                       R45 R27 K50 ["index"]
+     1330 GETTABLEKS                       R47 R27 K52 ["start"]
+     1332 ADDK                             R46 R47 K53 [1]
+     1333 JUMPIFNOTEQ                      R45 R46 ; [+18]
+     1335 GETTABLEKS                       R46 R27 K50 ["index"]
+     1337 ADDK                             R45 R46 K53 [1]
+     1338 SETTABLEKS                       R45 R27 K52 ["start"]
+     1340 LOADK                            R45 K20 [""]
+     1341 SETTABLEKS                       R45 R27 K54 ["consumed"]
+     1343 LOADK                            R45 K20 [""]
+     1344 SETTABLEKS                       R45 R27 K21 ["output"]
+     1346 GETIMPORT                        R45 K117 [table.remove]
+     1348 MOVE                             R46 R6
+     1349 CALL                             R45 1 0
+     1350 MOVE                             R31 R5
+     1351 JUMP                             ; [+1199]
+     1352 MOVE                             R45 R42
+     1353 DUPTABLE                         R46 K148 [{["type"] = "slash", ["value"], ["output"]}]
+     1354 SETTABLEKS                       R32 R46 K19 ["value"]
+     1356 SETTABLEKS                       R13 R46 K21 ["output"]
+     1358 CALL                             R45 1 0
+     1359 JUMP                             ; [+1191]
+     1360 JUMPIFNOTEQKS                    R32 K79 ["."] ; [+68]
+     1362 GETTABLEKS                       R45 R27 K60 ["braces"]
+     1364 LOADN                            R46 0
+     1365 JUMPIFNOTLT                      R46 R45 ; [+32]
+     1367 GETTABLEKS                       R45 R31 K17 ["type"]
+     1369 JUMPIFNOTEQKS                    R45 K42 ["dot"] ; [+28]
+     1371 GETTABLEKS                       R45 R31 K19 ["value"]
+     1373 JUMPIFNOTEQKS                    R45 K79 ["."] ; [+3]
+     1375 SETTABLEKS                       R11 R31 K21 ["output"]
+     1377 LENGTH                           R46 R29
+     1378 GETTABLE                         R45 R29 R46
+     1379 LOADK                            R46 K136 ["dots"]
+     1380 SETTABLEKS                       R46 R31 K17 ["type"]
+     1382 GETTABLEKS                       R47 R31 K21 ["output"]
+     1384 MOVE                             R48 R32
+     1385 CONCAT                           R46 R47 R48
+     1386 SETTABLEKS                       R46 R31 K21 ["output"]
+     1388 GETTABLEKS                       R47 R31 K19 ["value"]
+     1390 MOVE                             R48 R32
+     1391 CONCAT                           R46 R47 R48
+     1392 SETTABLEKS                       R46 R31 K19 ["value"]
+     1394 LOADB                            R46 1
+     1395 SETTABLEKS                       R46 R45 K136 ["dots"]
+     1397 JUMP                             ; [+1153]
+     1398 GETTABLEKS                       R46 R27 K60 ["braces"]
+     1400 GETTABLEKS                       R47 R27 K61 ["parens"]
+     1402 ADD                              R45 R46 R47
+     1403 JUMPIFNOTEQKN                    R45 K51 [0] ; [+17]
+     1405 GETTABLEKS                       R45 R31 K17 ["type"]
+     1407 JUMPIFEQKS                       R45 K18 ["bos"] ; [+13]
+     1409 GETTABLEKS                       R45 R31 K17 ["type"]
+     1411 JUMPIFEQKS                       R45 K147 ["slash"] ; [+9]
+     1413 MOVE                             R45 R42
+     1414 DUPTABLE                         R46 K124 [{["type"] = "text", ["value"], ["output"]}]
+     1415 SETTABLEKS                       R32 R46 K19 ["value"]
+     1417 SETTABLEKS                       R11 R46 K21 ["output"]
+     1419 CALL                             R45 1 0
+     1420 JUMP                             ; [+1130]
+     1421 MOVE                             R45 R42
+     1422 DUPTABLE                         R46 K149 [{["type"] = "dot", ["value"], ["output"]}]
+     1423 SETTABLEKS                       R32 R46 K19 ["value"]
+     1425 SETTABLEKS                       R11 R46 K21 ["output"]
+     1427 CALL                             R45 1 0
+     1428 JUMP                             ; [+1122]
+     1429 JUMPIFNOTEQKS                    R32 K150 ["?"] ; [+136]
+     1431 GETUPVAL                         R45 4
+     1432 GETTABLEKS                       R45 R45 K24 ["toJSBoolean"]
+     1434 MOVE                             R46 R31
+     1435 CALL                             R45 1 1
+     1436 JUMPIFNOT                        R45 ; [+6]
+     1437 GETTABLEKS                       R46 R31 K19 ["value"]
+     1439 JUMPIFEQKS                       R46 K105 ["("] ; [+2]
+     1441 LOADB                            R45 0 +1
+     1442 LOADB                            R45 1
+     1443 JUMPIF                           R45 ; [+22]
+     1444 GETUPVAL                         R46 4
+     1445 GETTABLEKS                       R46 R46 K24 ["toJSBoolean"]
+     1447 GETTABLEKS                       R47 R2 K48 ["noextglob"]
+     1449 CALL                             R46 1 1
+     1450 JUMPIFEQKB                       R46 TRUE ; [+15]
+     1452 MOVE                             R46 R34
+     1453 CALL                             R46 0 1
+     1454 JUMPIFNOTEQKS                    R46 K105 ["("] ; [+11]
+     1456 MOVE                             R46 R34
+     1457 LOADN                            R47 2
+     1458 CALL                             R46 1 1
+     1459 JUMPIFEQKS                       R46 K150 ["?"] ; [+6]
+     1461 MOVE                             R46 R43
+     1462 LOADK                            R47 K151 ["qmark"]
+     1463 MOVE                             R48 R32
+     1464 CALL                             R46 2 0
+     1465 JUMP                             ; [+1085]
+     1466 GETUPVAL                         R46 4
+     1467 GETTABLEKS                       R46 R46 K24 ["toJSBoolean"]
+     1469 MOVE                             R47 R31
+     1470 CALL                             R46 1 1
+     1471 JUMPIFNOT                        R46 ; [+66]
+     1472 GETTABLEKS                       R46 R31 K17 ["type"]
+     1474 JUMPIFNOTEQKS                    R46 K109 ["paren"] ; [+63]
+     1476 MOVE                             R46 R34
+     1477 CALL                             R46 0 1
+     1478 MOVE                             R47 R32
+     1479 JUMPIFNOTEQKS                    R46 K152 ["<"] ; [+14]
+     1481 GETUPVAL                         R48 5
+     1482 GETTABLEKS                       R48 R48 K153 ["supportsLookbehinds"]
+     1484 CALL                             R48 0 1
+     1485 JUMPIF                           R48 ; [+8]
+     1486 GETIMPORT                        R48 K4 [error]
+     1488 GETUPVAL                         R49 0
+     1489 GETTABLEKS                       R49 R49 K5 ["new"]
+     1491 LOADK                            R50 K154 ["Node.js v10 or higher is required for regex lookbehinds"]
+     1492 CALL                             R49 1 -1
+     1493 CALL                             R48 -1 0
+     1494 GETTABLEKS                       R48 R31 K19 ["value"]
+     1496 JUMPIFNOTEQKS                    R48 K105 ["("] ; [+9]
+     1498 GETUPVAL                         R48 8
+     1499 LOADK                            R49 K155 ["[!=<:]"]
+     1500 CALL                             R48 1 1
+     1501 MOVE                             R50 R46
+     1502 NAMECALL                         R48 R48 K71 ["test"]
+     1504 CALL                             R48 2 1
+     1505 JUMPIFNOT                        R48 ; [+18]
+     1506 JUMPIFNOTEQKS                    R46 K152 ["<"] ; [+23]
+     1508 GETUPVAL                         R48 8
+     1509 LOADK                            R49 K156 ["<([!=]|\\w+>)"]
+     1510 CALL                             R48 1 1
+     1511 GETTABLEKS                       R53 R27 K50 ["index"]
+     1513 ADDK                             R52 R53 K53 [1]
+     1514 FASTCALL2                        STRING_SUB R0 R52 ; [+4]
+     1516 MOVE                             R51 R0
+     1517 GETIMPORT                        R50 K85 [string.sub]
+     1519 CALL                             R50 2 1
+     1520 NAMECALL                         R48 R48 K71 ["test"]
+     1522 CALL                             R48 2 1
+     1523 JUMPIF                           R48 ; [+6]
+     1524 LOADK                            R48 K98 ["\\%s"]
+     1525 MOVE                             R50 R32
+     1526 NAMECALL                         R48 R48 K16 ["format"]
+     1528 CALL                             R48 2 1
+     1529 MOVE                             R47 R48
+     1530 MOVE                             R48 R42
+     1531 DUPTABLE                         R49 K124 [{["type"] = "text", ["value"], ["output"]}]
+     1532 SETTABLEKS                       R32 R49 K19 ["value"]
+     1534 SETTABLEKS                       R47 R49 K21 ["output"]
+     1536 CALL                             R48 1 0
+     1537 JUMP                             ; [+1013]
+     1538 GETTABLEKS                       R46 R2 K42 ["dot"]
+     1540 JUMPIFEQKB                       R46 TRUE ; [+17]
+     1542 GETTABLEKS                       R46 R31 K17 ["type"]
+     1544 JUMPIFEQKS                       R46 K147 ["slash"] ; [+5]
+     1546 GETTABLEKS                       R46 R31 K17 ["type"]
+     1548 JUMPIFNOTEQKS                    R46 K18 ["bos"] ; [+9]
+     1550 MOVE                             R46 R42
+     1551 DUPTABLE                         R47 K157 [{["type"] = "qmark", ["value"], ["output"]}]
+     1552 SETTABLEKS                       R32 R47 K19 ["value"]
+     1554 SETTABLEKS                       R20 R47 K21 ["output"]
+     1556 CALL                             R46 1 0
+     1557 JUMP                             ; [+993]
+     1558 MOVE                             R46 R42
+     1559 DUPTABLE                         R47 K157 [{["type"] = "qmark", ["value"], ["output"]}]
+     1560 SETTABLEKS                       R32 R47 K19 ["value"]
+     1562 SETTABLEKS                       R19 R47 K21 ["output"]
+     1564 CALL                             R46 1 0
+     1565 JUMP                             ; [+985]
+     1566 JUMPIFNOTEQKS                    R32 K99 ["!"] ; [+44]
+     1568 GETUPVAL                         R45 4
+     1569 GETTABLEKS                       R45 R45 K24 ["toJSBoolean"]
+     1571 GETTABLEKS                       R46 R2 K48 ["noextglob"]
+     1573 CALL                             R45 1 1
+     1574 JUMPIFEQKB                       R45 TRUE ; [+25]
+     1576 MOVE                             R45 R34
+     1577 CALL                             R45 0 1
+     1578 JUMPIFNOTEQKS                    R45 K105 ["("] ; [+21]
+     1580 MOVE                             R45 R34
+     1581 LOADN                            R46 2
+     1582 CALL                             R45 1 1
+     1583 JUMPIFNOTEQKS                    R45 K150 ["?"] ; [+11]
+     1585 GETUPVAL                         R45 8
+     1586 LOADK                            R46 K155 ["[!=<:]"]
+     1587 CALL                             R45 1 1
+     1588 MOVE                             R47 R34
+     1589 LOADN                            R48 3
+     1590 CALL                             R47 1 -1
+     1591 NAMECALL                         R45 R45 K71 ["test"]
+     1593 CALL                             R45 -1 1
+     1594 JUMPIF                           R45 ; [+5]
+     1595 MOVE                             R45 R43
+     1596 LOADK                            R46 K158 ["negate"]
+     1597 MOVE                             R47 R32
+     1598 CALL                             R45 2 0
+     1599 JUMP                             ; [+951]
+     1600 GETTABLEKS                       R45 R2 K159 ["nonegate"]
+     1602 JUMPIFEQKB                       R45 TRUE ; [+8]
+     1604 GETTABLEKS                       R45 R27 K50 ["index"]
+     1606 JUMPIFNOTEQKN                    R45 K53 [1] ; [+4]
+     1608 MOVE                             R45 R39
+     1609 CALL                             R45 0 0
+     1610 JUMP                             ; [+940]
+     1611 JUMPIFNOTEQKS                    R32 K160 ["+"] ; [+72]
+     1613 GETUPVAL                         R45 4
+     1614 GETTABLEKS                       R45 R45 K24 ["toJSBoolean"]
+     1616 GETTABLEKS                       R46 R2 K48 ["noextglob"]
+     1618 CALL                             R45 1 1
+     1619 JUMPIFEQKB                       R45 TRUE ; [+15]
+     1621 MOVE                             R45 R34
+     1622 CALL                             R45 0 1
+     1623 JUMPIFNOTEQKS                    R45 K105 ["("] ; [+11]
+     1625 MOVE                             R45 R34
+     1626 LOADN                            R46 2
+     1627 CALL                             R45 1 1
+     1628 JUMPIFEQKS                       R45 K150 ["?"] ; [+6]
+     1630 MOVE                             R45 R43
+     1631 LOADK                            R46 K161 ["plus"]
+     1632 MOVE                             R47 R32
+     1633 CALL                             R45 2 0
+     1634 JUMP                             ; [+916]
+     1635 JUMPIFEQKNIL                     R31 ; [+5]
+     1637 GETTABLEKS                       R45 R31 K19 ["value"]
+     1639 JUMPIFEQKS                       R45 K105 ["("] ; [+5]
+     1641 GETTABLEKS                       R45 R2 K162 ["regex"]
+     1643 JUMPIFNOTEQKB                    R45 FALSE ; [+9]
+     1645 MOVE                             R45 R42
+     1646 DUPTABLE                         R46 K163 [{["type"] = "plus", ["value"], ["output"]}]
+     1647 SETTABLEKS                       R32 R46 K19 ["value"]
+     1649 SETTABLEKS                       R12 R46 K21 ["output"]
+     1651 CALL                             R45 1 0
+     1652 JUMP                             ; [+898]
+     1653 JUMPIFEQKNIL                     R31 ; [+13]
+     1655 GETTABLEKS                       R45 R31 K17 ["type"]
+     1657 JUMPIFEQKS                       R45 K122 ["bracket"] ; [+14]
+     1659 GETTABLEKS                       R45 R31 K17 ["type"]
+     1661 JUMPIFEQKS                       R45 K109 ["paren"] ; [+10]
+     1663 GETTABLEKS                       R45 R31 K17 ["type"]
+     1665 JUMPIFEQKS                       R45 K131 ["brace"] ; [+6]
+     1667 GETTABLEKS                       R45 R27 K61 ["parens"]
+     1669 LOADN                            R46 0
+     1670 JUMPIFNOTLT                      R46 R45 ; [+7]
+     1672 MOVE                             R45 R42
+     1673 DUPTABLE                         R46 K164 [{["type"] = "plus", ["value"]}]
+     1674 SETTABLEKS                       R32 R46 K19 ["value"]
+     1676 CALL                             R45 1 0
+     1677 JUMP                             ; [+873]
+     1678 MOVE                             R45 R42
+     1679 DUPTABLE                         R46 K164 [{["type"] = "plus", ["value"]}]
+     1680 SETTABLEKS                       R12 R46 K19 ["value"]
+     1682 CALL                             R45 1 0
+     1683 JUMP                             ; [+867]
+     1684 JUMPIFNOTEQKS                    R32 K165 ["@"] ; [+30]
+     1686 GETUPVAL                         R45 4
+     1687 GETTABLEKS                       R45 R45 K24 ["toJSBoolean"]
+     1689 GETTABLEKS                       R46 R2 K48 ["noextglob"]
+     1691 CALL                             R45 1 1
+     1692 JUMPIFEQKB                       R45 TRUE ; [+16]
+     1694 MOVE                             R45 R34
+     1695 CALL                             R45 0 1
+     1696 JUMPIFNOTEQKS                    R45 K105 ["("] ; [+12]
+     1698 MOVE                             R45 R34
+     1699 LOADN                            R46 2
+     1700 CALL                             R45 1 1
+     1701 JUMPIFEQKS                       R45 K150 ["?"] ; [+7]
+     1703 MOVE                             R45 R42
+     1704 DUPTABLE                         R46 K169 [{["type"] = "at", ["extglob"] = True, ["value"], ["output"] = ""}]
+     1705 SETTABLEKS                       R32 R46 K19 ["value"]
+     1707 CALL                             R45 1 0
+     1708 JUMP                             ; [+842]
+     1709 MOVE                             R45 R42
+     1710 DUPTABLE                         R46 K82 [{["type"] = "text", ["value"]}]
+     1711 SETTABLEKS                       R32 R46 K19 ["value"]
+     1713 CALL                             R45 1 0
+     1714 JUMP                             ; [+836]
+     1715 JUMPIFEQKS                       R32 K170 ["*"] ; [+41]
+     1717 JUMPIFEQKS                       R32 K171 ["$"] ; [+3]
+     1719 JUMPIFNOTEQKS                    R32 K100 ["^"] ; [+7]
+     1721 LOADK                            R45 K98 ["\\%s"]
+     1722 MOVE                             R47 R32
+     1723 NAMECALL                         R45 R45 K16 ["format"]
+     1725 CALL                             R45 2 1
+     1726 MOVE                             R32 R45
+     1727 GETIMPORT                        R45 K173 [string.match]
+     1729 GETTABLEKS                       R49 R27 K50 ["index"]
+     1731 ADDK                             R48 R49 K53 [1]
+     1732 FASTCALL2                        STRING_SUB R0 R48 ; [+4]
+     1734 MOVE                             R47 R0
+     1735 GETIMPORT                        R46 K85 [string.sub]
+     1737 CALL                             R46 2 1
+     1738 GETUPVAL                         R47 15
+     1739 CALL                             R45 2 1
+     1740 JUMPIFEQKNIL                     R45 ; [+10]
+     1742 MOVE                             R46 R32
+     1743 MOVE                             R47 R45
+     1744 CONCAT                           R32 R46 R47
+     1745 GETTABLEKS                       R46 R27 K50 ["index"]
+     1747 LENGTH                           R47 R45
+     1748 ADD                              R46 R46 R47
+     1749 SETTABLEKS                       R46 R27 K50 ["index"]
+     1751 MOVE                             R46 R42
+     1752 DUPTABLE                         R47 K82 [{["type"] = "text", ["value"]}]
+     1753 SETTABLEKS                       R32 R47 K19 ["value"]
+     1755 CALL                             R46 1 0
+     1756 JUMP                             ; [+794]
+     1757 JUMPIFEQKNIL                     R31 ; [+43]
+     1759 GETTABLEKS                       R45 R31 K17 ["type"]
+     1761 JUMPIFEQKS                       R45 K63 ["globstar"] ; [+5]
+     1763 GETTABLEKS                       R45 R31 K174 ["star"]
+     1765 JUMPIFNOTEQKB                    R45 TRUE ; [+35]
+     1767 LOADK                            R45 K174 ["star"]
+     1768 SETTABLEKS                       R45 R31 K17 ["type"]
+     1770 LOADB                            R45 1
+     1771 SETTABLEKS                       R45 R31 K174 ["star"]
+     1773 GETTABLEKS                       R46 R31 K19 ["value"]
+     1775 MOVE                             R47 R32
+     1776 CONCAT                           R45 R46 R47
+     1777 SETTABLEKS                       R45 R31 K19 ["value"]
+     1779 SETTABLEKS                       R26 R31 K21 ["output"]
+     1781 LOADB                            R45 1
+     1782 SETTABLEKS                       R45 R27 K56 ["backtrack"]
+     1784 LOADB                            R45 1
+     1785 SETTABLEKS                       R45 R27 K63 ["globstar"]
+     1787 MOVE                             R45 R32
+     1788 ORK                              R46 R45 K20 [""]
+     1789 GETTABLEKS                       R48 R27 K54 ["consumed"]
+     1791 MOVE                             R49 R46
+     1792 CONCAT                           R47 R48 R49
+     1793 SETTABLEKS                       R47 R27 K54 ["consumed"]
+     1795 GETTABLEKS                       R47 R27 K50 ["index"]
+     1797 ADDK                             R47 R47 K51 [0]
+     1798 SETTABLEKS                       R47 R27 K50 ["index"]
+     1800 JUMP                             ; [+750]
+     1801 GETTABLEKS                       R48 R27 K50 ["index"]
+     1803 ADDK                             R47 R48 K53 [1]
+     1804 FASTCALL2                        STRING_SUB R0 R47 ; [+4]
+     1806 MOVE                             R46 R0
+     1807 GETIMPORT                        R45 K85 [string.sub]
+     1809 CALL                             R45 2 1
+     1810 GETUPVAL                         R46 4
+     1811 GETTABLEKS                       R46 R46 K24 ["toJSBoolean"]
+     1813 GETTABLEKS                       R47 R2 K48 ["noextglob"]
+     1815 CALL                             R46 1 1
+     1816 JUMPIFEQKB                       R46 TRUE ; [+14]
+     1818 GETUPVAL                         R46 8
+     1819 LOADK                            R47 K175 ["^\\([^?]"]
+     1820 CALL                             R46 1 1
+     1821 MOVE                             R48 R45
+     1822 NAMECALL                         R46 R46 K71 ["test"]
+     1824 CALL                             R46 2 1
+     1825 JUMPIFNOT                        R46 ; [+5]
+     1826 MOVE                             R46 R43
+     1827 LOADK                            R47 K174 ["star"]
+     1828 MOVE                             R48 R32
+     1829 CALL                             R46 2 0
+     1830 JUMP                             ; [+720]
+     1831 GETTABLEKS                       R46 R31 K17 ["type"]
+     1833 JUMPIFNOTEQKS                    R46 K174 ["star"] ; [+588]
+     1835 GETTABLEKS                       R46 R2 K176 ["noglobstar"]
+     1837 JUMPIFNOTEQKB                    R46 TRUE ; [+15]
+     1839 MOVE                             R46 R32
+     1840 ORK                              R47 R46 K20 [""]
+     1841 GETTABLEKS                       R49 R27 K54 ["consumed"]
+     1843 MOVE                             R50 R47
+     1844 CONCAT                           R48 R49 R50
+     1845 SETTABLEKS                       R48 R27 K54 ["consumed"]
+     1847 GETTABLEKS                       R48 R27 K50 ["index"]
+     1849 ADDK                             R48 R48 K51 [0]
+     1850 SETTABLEKS                       R48 R27 K50 ["index"]
+     1852 JUMP                             ; [+698]
+     1853 GETTABLEKS                       R46 R31 K177 ["prev"]
+     1855 GETTABLEKS                       R47 R46 K177 ["prev"]
+     1857 LOADB                            R48 1
+     1858 GETTABLEKS                       R49 R46 K17 ["type"]
+     1860 JUMPIFEQKS                       R49 K147 ["slash"] ; [+7]
+     1862 GETTABLEKS                       R49 R46 K17 ["type"]
+     1864 JUMPIFEQKS                       R49 K18 ["bos"] ; [+2]
+     1866 LOADB                            R48 0 +1
+     1867 LOADB                            R48 1
+     1868 GETUPVAL                         R50 4
+     1869 GETTABLEKS                       R50 R50 K24 ["toJSBoolean"]
+     1871 MOVE                             R51 R47
+     1872 CALL                             R50 1 1
+     1873 JUMPIFNOT                        R50 ; [+12]
+     1874 LOADB                            R49 1
+     1875 GETTABLEKS                       R50 R47 K17 ["type"]
+     1877 JUMPIFEQKS                       R50 K174 ["star"] ; [+9]
+     1879 GETTABLEKS                       R50 R47 K17 ["type"]
+     1881 JUMPIFEQKS                       R50 K63 ["globstar"] ; [+2]
+     1883 LOADB                            R49 0 +1
+     1884 LOADB                            R49 1
+     1885 JUMP                             ; [+1]
+     1886 MOVE                             R49 R47
+     1887 GETTABLEKS                       R50 R2 K43 ["bash"]
+     1889 JUMPIFNOTEQKB                    R50 TRUE ; [+22]
+     1891 JUMPIFNOT                        R48 ; [+14]
+     1892 LOADN                            R52 1
+     1893 LOADN                            R53 1
+     1894 NAMECALL                         R50 R45 K84 ["sub"]
+     1896 CALL                             R50 3 1
+     1897 JUMPIFEQKNIL                     R50 ; [+14]
+     1899 LOADN                            R52 1
+     1900 LOADN                            R53 1
+     1901 NAMECALL                         R50 R45 K84 ["sub"]
+     1903 CALL                             R50 3 1
+     1904 JUMPIFEQKS                       R50 K78 ["/"] ; [+7]
+     1906 MOVE                             R50 R42
+     1907 DUPTABLE                         R51 K178 [{["type"] = "star", ["value"], ["output"] = ""}]
+     1908 SETTABLEKS                       R32 R51 K19 ["value"]
+     1910 CALL                             R50 1 0
+     1911 JUMP                             ; [+639]
+     1912 LOADB                            R50 0
+     1913 GETTABLEKS                       R51 R27 K60 ["braces"]
+     1915 LOADN                            R52 0
+     1916 JUMPIFNOTLT                      R52 R51 ; [+12]
+     1918 LOADB                            R50 1
+     1919 GETTABLEKS                       R51 R46 K17 ["type"]
+     1921 JUMPIFEQKS                       R51 K137 ["comma"] ; [+7]
+     1923 GETTABLEKS                       R51 R46 K17 ["type"]
+     1925 JUMPIFEQKS                       R51 K131 ["brace"] ; [+2]
+     1927 LOADB                            R50 0 +1
+     1928 LOADB                            R50 1
+     1929 LOADB                            R51 0
+     1930 LENGTH                           R52 R28
+     1931 LOADN                            R53 0
+     1932 JUMPIFNOTLT                      R53 R52 ; [+12]
+     1934 LOADB                            R51 1
+     1935 GETTABLEKS                       R52 R46 K17 ["type"]
+     1937 JUMPIFEQKS                       R52 K179 ["pipe"] ; [+7]
+     1939 GETTABLEKS                       R52 R46 K17 ["type"]
+     1941 JUMPIFEQKS                       R52 K109 ["paren"] ; [+2]
+     1943 LOADB                            R51 0 +1
+     1944 LOADB                            R51 1
+     1945 JUMPIF                           R48 ; [+12]
+     1946 GETTABLEKS                       R52 R46 K17 ["type"]
+     1948 JUMPIFEQKS                       R52 K109 ["paren"] ; [+9]
+     1950 JUMPIF                           R50 ; [+7]
+     1951 JUMPIF                           R51 ; [+6]
+     1952 MOVE                             R52 R42
+     1953 DUPTABLE                         R53 K178 [{["type"] = "star", ["value"], ["output"] = ""}]
+     1954 SETTABLEKS                       R32 R53 K19 ["value"]
+     1956 CALL                             R52 1 0
+     1957 JUMP                             ; [+593]
+     1958 GETUPVAL                         R52 7
+     1959 GETTABLEKS                       R52 R52 K93 ["slice"]
+     1961 MOVE                             R53 R45
+     1962 LOADN                            R54 1
+     1963 LOADN                            R55 4
+     1964 CALL                             R52 3 1
+     1965 JUMPIFNOTEQKS                    R52 K180 ["/**"] ; [+37]
+     1967 GETTABLEKS                       R55 R27 K50 ["index"]
+     1969 ADDK                             R54 R55 K181 [4]
+     1970 GETTABLEKS                       R56 R27 K50 ["index"]
+     1972 ADDK                             R55 R56 K181 [4]
+     1973 NAMECALL                         R52 R0 K84 ["sub"]
+     1975 CALL                             R52 3 1
+     1976 GETUPVAL                         R53 4
+     1977 GETTABLEKS                       R53 R53 K24 ["toJSBoolean"]
+     1979 MOVE                             R54 R52
+     1980 CALL                             R53 1 1
+     1981 JUMPIFNOT                        R53 ; [+2]
+     1982 JUMPIFNOTEQKS                    R52 K78 ["/"] ; [+20]
+     1984 GETUPVAL                         R53 7
+     1985 GETTABLEKS                       R53 R53 K93 ["slice"]
+     1987 MOVE                             R54 R45
+     1988 LOADN                            R55 4
+     1989 CALL                             R53 2 1
+     1990 MOVE                             R45 R53
+     1991 GETTABLEKS                       R54 R27 K54 ["consumed"]
+     1993 LOADK                            R55 K180 ["/**"]
+     1994 CONCAT                           R53 R54 R55
+     1995 SETTABLEKS                       R53 R27 K54 ["consumed"]
+     1997 GETTABLEKS                       R53 R27 K50 ["index"]
+     1999 ADDK                             R53 R53 K182 [3]
+     2000 SETTABLEKS                       R53 R27 K50 ["index"]
+     2002 JUMPBACK                         ; [-45]
+     2003 GETTABLEKS                       R52 R46 K17 ["type"]
+     2005 JUMPIFNOTEQKS                    R52 K18 ["bos"] ; [+56]
+     2007 GETTABLEKS                       R53 R27 K50 ["index"]
+     2009 JUMPIFEQ                         R53 R4 ; [+2]
+     2011 LOADB                            R52 0 +1
+     2012 LOADB                            R52 1
+     2013 JUMPIFNOT                        R52 ; [+48]
+     2014 LOADK                            R52 K63 ["globstar"]
+     2015 SETTABLEKS                       R52 R31 K17 ["type"]
+     2017 GETTABLEKS                       R53 R31 K19 ["value"]
+     2019 MOVE                             R54 R32
+     2020 CONCAT                           R52 R53 R54
+     2021 SETTABLEKS                       R52 R31 K19 ["value"]
+     2023 LOADK                            R52 K44 ["(%s(?:(?!%s%s).)*?)"]
+     2024 MOVE                             R54 R7
+     2025 MOVE                             R55 R22
+     2026 GETUPVAL                         R57 4
+     2027 GETTABLEKS                       R57 R57 K24 ["toJSBoolean"]
+     2029 GETTABLEKS                       R58 R2 K42 ["dot"]
+     2031 CALL                             R57 1 1
+     2032 JUMPIFNOT                        R57 ; [+2]
+     2033 MOVE                             R56 R15
+     2034 JUMP                             ; [+1]
+     2035 MOVE                             R56 R11
+     2036 NAMECALL                         R52 R52 K16 ["format"]
+     2038 CALL                             R52 4 1
+     2039 SETTABLEKS                       R52 R31 K21 ["output"]
+     2041 GETTABLEKS                       R52 R31 K21 ["output"]
+     2043 SETTABLEKS                       R52 R27 K21 ["output"]
+     2045 LOADB                            R52 1
+     2046 SETTABLEKS                       R52 R27 K63 ["globstar"]
+     2048 MOVE                             R52 R32
+     2049 ORK                              R53 R52 K20 [""]
+     2050 GETTABLEKS                       R55 R27 K54 ["consumed"]
+     2052 MOVE                             R56 R53
+     2053 CONCAT                           R54 R55 R56
+     2054 SETTABLEKS                       R54 R27 K54 ["consumed"]
+     2056 GETTABLEKS                       R54 R27 K50 ["index"]
+     2058 ADDK                             R54 R54 K51 [0]
+     2059 SETTABLEKS                       R54 R27 K50 ["index"]
+     2061 JUMP                             ; [+489]
+     2062 GETTABLEKS                       R52 R46 K17 ["type"]
+     2064 JUMPIFNOTEQKS                    R52 K147 ["slash"] ; [+105]
+     2066 GETTABLEKS                       R52 R46 K177 ["prev"]
+     2068 GETTABLEKS                       R52 R52 K17 ["type"]
+     2070 JUMPIFEQKS                       R52 K18 ["bos"] ; [+99]
+     2072 GETUPVAL                         R52 4
+     2073 GETTABLEKS                       R52 R52 K24 ["toJSBoolean"]
+     2075 MOVE                             R53 R49
+     2076 CALL                             R52 1 1
+     2077 JUMPIF                           R52 ; [+92]
+     2078 GETTABLEKS                       R53 R27 K50 ["index"]
+     2080 JUMPIFEQ                         R53 R4 ; [+2]
+     2082 LOADB                            R52 0 +1
+     2083 LOADB                            R52 1
+     2084 JUMPIFNOT                        R52 ; [+85]
+     2085 GETUPVAL                         R52 7
+     2086 GETTABLEKS                       R52 R52 K93 ["slice"]
+     2088 GETTABLEKS                       R53 R27 K21 ["output"]
+     2090 LOADN                            R54 1
+     2091 GETTABLEKS                       R58 R46 K21 ["output"]
+     2093 GETTABLEKS                       R59 R31 K21 ["output"]
+     2095 CONCAT                           R57 R58 R59
+     2096 LENGTH                           R56 R57
+     2097 MINUS                            R55 R56
+     2098 CALL                             R52 3 1
+     2099 SETTABLEKS                       R52 R27 K21 ["output"]
+     2101 LOADK                            R52 K183 ["(?:%s"]
+     2102 GETTABLEKS                       R54 R46 K21 ["output"]
+     2104 NAMECALL                         R52 R52 K16 ["format"]
+     2106 CALL                             R52 2 1
+     2107 SETTABLEKS                       R52 R46 K21 ["output"]
+     2109 LOADK                            R52 K63 ["globstar"]
+     2110 SETTABLEKS                       R52 R31 K17 ["type"]
+     2112 LOADK                            R55 K44 ["(%s(?:(?!%s%s).)*?)"]
+     2113 MOVE                             R57 R7
+     2114 MOVE                             R58 R22
+     2115 GETUPVAL                         R60 4
+     2116 GETTABLEKS                       R60 R60 K24 ["toJSBoolean"]
+     2118 GETTABLEKS                       R61 R2 K42 ["dot"]
+     2120 CALL                             R60 1 1
+     2121 JUMPIFNOT                        R60 ; [+2]
+     2122 MOVE                             R59 R15
+     2123 JUMP                             ; [+1]
+     2124 MOVE                             R59 R11
+     2125 NAMECALL                         R55 R55 K16 ["format"]
+     2127 CALL                             R55 4 1
+     2128 MOVE                             R53 R55
+     2129 GETTABLEKS                       R55 R2 K184 ["strictSlashes"]
+     2131 JUMPIFNOT                        R55 ; [+2]
+     2132 LOADK                            R54 K111 [")"]
+     2133 JUMP                             ; [+1]
+     2134 LOADK                            R54 K185 ["|$)"]
+     2135 CONCAT                           R52 R53 R54
+     2136 SETTABLEKS                       R52 R31 K21 ["output"]
+     2138 GETTABLEKS                       R53 R31 K19 ["value"]
+     2140 MOVE                             R54 R32
+     2141 CONCAT                           R52 R53 R54
+     2142 SETTABLEKS                       R52 R31 K19 ["value"]
+     2144 LOADB                            R52 1
+     2145 SETTABLEKS                       R52 R27 K63 ["globstar"]
+     2147 GETTABLEKS                       R53 R27 K21 ["output"]
+     2149 GETTABLEKS                       R54 R46 K21 ["output"]
+     2151 GETTABLEKS                       R55 R31 K21 ["output"]
+     2153 CONCAT                           R52 R53 R55
+     2154 SETTABLEKS                       R52 R27 K21 ["output"]
+     2156 MOVE                             R52 R32
+     2157 ORK                              R53 R52 K20 [""]
+     2158 GETTABLEKS                       R55 R27 K54 ["consumed"]
+     2160 MOVE                             R56 R53
+     2161 CONCAT                           R54 R55 R56
+     2162 SETTABLEKS                       R54 R27 K54 ["consumed"]
+     2164 GETTABLEKS                       R54 R27 K50 ["index"]
+     2166 ADDK                             R54 R54 K51 [0]
+     2167 SETTABLEKS                       R54 R27 K50 ["index"]
+     2169 JUMP                             ; [+381]
+     2170 GETTABLEKS                       R52 R46 K17 ["type"]
+     2172 JUMPIFNOTEQKS                    R52 K147 ["slash"] ; [+114]
+     2174 GETTABLEKS                       R52 R46 K177 ["prev"]
+     2176 GETTABLEKS                       R52 R52 K17 ["type"]
+     2178 JUMPIFEQKS                       R52 K18 ["bos"] ; [+108]
+     2180 LOADN                            R54 1
+     2181 LOADN                            R55 1
+     2182 NAMECALL                         R52 R45 K84 ["sub"]
+     2184 CALL                             R52 3 1
+     2185 JUMPIFNOTEQKS                    R52 K78 ["/"] ; [+101]
+     2187 LOADN                            R55 2
+     2188 LOADN                            R56 2
+     2189 NAMECALL                         R53 R45 K84 ["sub"]
+     2191 CALL                             R53 3 1
+     2192 JUMPIFEQKNIL                     R53 ; [+3]
+     2194 LOADK                            R52 K186 ["|$"]
+     2195 JUMP                             ; [+1]
+     2196 LOADK                            R52 K20 [""]
+     2197 GETUPVAL                         R53 7
+     2198 GETTABLEKS                       R53 R53 K93 ["slice"]
+     2200 GETTABLEKS                       R54 R27 K21 ["output"]
+     2202 LOADN                            R55 1
+     2203 GETTABLEKS                       R59 R46 K21 ["output"]
+     2205 GETTABLEKS                       R60 R31 K21 ["output"]
+     2207 CONCAT                           R58 R59 R60
+     2208 LENGTH                           R57 R58
+     2209 MINUS                            R56 R57
+     2210 CALL                             R53 3 1
+     2211 SETTABLEKS                       R53 R27 K21 ["output"]
+     2213 LOADK                            R53 K183 ["(?:%s"]
+     2214 GETTABLEKS                       R55 R46 K21 ["output"]
+     2216 NAMECALL                         R53 R53 K16 ["format"]
+     2218 CALL                             R53 2 1
+     2219 SETTABLEKS                       R53 R46 K21 ["output"]
+     2221 LOADK                            R53 K63 ["globstar"]
+     2222 SETTABLEKS                       R53 R31 K17 ["type"]
+     2224 LOADK                            R53 K187 ["%s%s|%s%s)"]
+     2225 LOADK                            R55 K44 ["(%s(?:(?!%s%s).)*?)"]
+     2226 MOVE                             R57 R7
+     2227 MOVE                             R58 R22
+     2228 GETUPVAL                         R60 4
+     2229 GETTABLEKS                       R60 R60 K24 ["toJSBoolean"]
+     2231 GETTABLEKS                       R61 R2 K42 ["dot"]
+     2233 CALL                             R60 1 1
+     2234 JUMPIFNOT                        R60 ; [+2]
+     2235 MOVE                             R59 R15
+     2236 JUMP                             ; [+1]
+     2237 MOVE                             R59 R11
+     2238 NAMECALL                         R55 R55 K16 ["format"]
+     2240 CALL                             R55 4 1
+     2241 MOVE                             R56 R13
+     2242 MOVE                             R57 R13
+     2243 MOVE                             R58 R52
+     2244 NAMECALL                         R53 R53 K16 ["format"]
+     2246 CALL                             R53 5 1
+     2247 SETTABLEKS                       R53 R31 K21 ["output"]
+     2249 GETTABLEKS                       R54 R31 K19 ["value"]
+     2251 MOVE                             R55 R32
+     2252 CONCAT                           R53 R54 R55
+     2253 SETTABLEKS                       R53 R31 K19 ["value"]
+     2255 GETTABLEKS                       R54 R27 K21 ["output"]
+     2257 GETTABLEKS                       R55 R46 K21 ["output"]
+     2259 GETTABLEKS                       R56 R31 K21 ["output"]
+     2261 CONCAT                           R53 R54 R56
+     2262 SETTABLEKS                       R53 R27 K21 ["output"]
+     2264 LOADB                            R53 1
+     2265 SETTABLEKS                       R53 R27 K63 ["globstar"]
+     2267 MOVE                             R54 R32
+     2268 MOVE                             R55 R35
+     2269 CALL                             R55 0 1
+     2270 CONCAT                           R53 R54 R55
+     2271 ORK                              R54 R53 K20 [""]
+     2272 GETTABLEKS                       R56 R27 K54 ["consumed"]
+     2274 MOVE                             R57 R54
+     2275 CONCAT                           R55 R56 R57
+     2276 SETTABLEKS                       R55 R27 K54 ["consumed"]
+     2278 GETTABLEKS                       R55 R27 K50 ["index"]
+     2280 ADDK                             R55 R55 K51 [0]
+     2281 SETTABLEKS                       R55 R27 K50 ["index"]
+     2283 MOVE                             R53 R42
+     2284 DUPTABLE                         R54 K188 [{["type"] = "slash", ["value"] = "/", ["output"] = ""}]
+     2285 CALL                             R53 1 0
+     2286 JUMP                             ; [+264]
+     2287 GETTABLEKS                       R52 R46 K17 ["type"]
+     2289 JUMPIFNOTEQKS                    R52 K18 ["bos"] ; [+68]
+     2291 LOADN                            R54 1
+     2292 LOADN                            R55 1
+     2293 NAMECALL                         R52 R45 K84 ["sub"]
+     2295 CALL                             R52 3 1
+     2296 JUMPIFNOTEQKS                    R52 K78 ["/"] ; [+61]
+     2298 LOADK                            R52 K63 ["globstar"]
+     2299 SETTABLEKS                       R52 R31 K17 ["type"]
+     2301 GETTABLEKS                       R53 R31 K19 ["value"]
+     2303 MOVE                             R54 R32
+     2304 CONCAT                           R52 R53 R54
+     2305 SETTABLEKS                       R52 R31 K19 ["value"]
+     2307 LOADK                            R52 K189 ["(?:^|%s|%s%s)"]
+     2308 MOVE                             R54 R13
+     2309 LOADK                            R55 K44 ["(%s(?:(?!%s%s).)*?)"]
+     2310 MOVE                             R57 R7
+     2311 MOVE                             R58 R22
+     2312 GETUPVAL                         R60 4
+     2313 GETTABLEKS                       R60 R60 K24 ["toJSBoolean"]
+     2315 GETTABLEKS                       R61 R2 K42 ["dot"]
+     2317 CALL                             R60 1 1
+     2318 JUMPIFNOT                        R60 ; [+2]
+     2319 MOVE                             R59 R15
+     2320 JUMP                             ; [+1]
+     2321 MOVE                             R59 R11
+     2322 NAMECALL                         R55 R55 K16 ["format"]
+     2324 CALL                             R55 4 1
+     2325 MOVE                             R56 R13
+     2326 NAMECALL                         R52 R52 K16 ["format"]
+     2328 CALL                             R52 4 1
+     2329 SETTABLEKS                       R52 R31 K21 ["output"]
+     2331 GETTABLEKS                       R52 R31 K21 ["output"]
+     2333 SETTABLEKS                       R52 R27 K21 ["output"]
+     2335 LOADB                            R52 1
+     2336 SETTABLEKS                       R52 R27 K63 ["globstar"]
+     2338 MOVE                             R53 R32
+     2339 MOVE                             R54 R35
+     2340 CALL                             R54 0 1
+     2341 CONCAT                           R52 R53 R54
+     2342 ORK                              R53 R52 K20 [""]
+     2343 GETTABLEKS                       R55 R27 K54 ["consumed"]
+     2345 MOVE                             R56 R53
+     2346 CONCAT                           R54 R55 R56
+     2347 SETTABLEKS                       R54 R27 K54 ["consumed"]
+     2349 GETTABLEKS                       R54 R27 K50 ["index"]
+     2351 ADDK                             R54 R54 K51 [0]
+     2352 SETTABLEKS                       R54 R27 K50 ["index"]
+     2354 MOVE                             R52 R42
+     2355 DUPTABLE                         R53 K188 [{["type"] = "slash", ["value"] = "/", ["output"] = ""}]
+     2356 CALL                             R52 1 0
+     2357 JUMP                             ; [+193]
+     2358 GETUPVAL                         R52 7
+     2359 GETTABLEKS                       R52 R52 K93 ["slice"]
+     2361 GETTABLEKS                       R53 R27 K21 ["output"]
+     2363 LOADN                            R54 1
+     2364 GETTABLEKS                       R57 R31 K21 ["output"]
+     2366 LENGTH                           R56 R57
+     2367 MINUS                            R55 R56
+     2368 CALL                             R52 3 1
+     2369 SETTABLEKS                       R52 R27 K21 ["output"]
+     2371 LOADK                            R52 K63 ["globstar"]
+     2372 SETTABLEKS                       R52 R31 K17 ["type"]
+     2374 LOADK                            R52 K44 ["(%s(?:(?!%s%s).)*?)"]
+     2375 MOVE                             R54 R7
+     2376 MOVE                             R55 R22
+     2377 GETUPVAL                         R57 4
+     2378 GETTABLEKS                       R57 R57 K24 ["toJSBoolean"]
+     2380 GETTABLEKS                       R58 R2 K42 ["dot"]
+     2382 CALL                             R57 1 1
+     2383 JUMPIFNOT                        R57 ; [+2]
+     2384 MOVE                             R56 R15
+     2385 JUMP                             ; [+1]
+     2386 MOVE                             R56 R11
+     2387 NAMECALL                         R52 R52 K16 ["format"]
+     2389 CALL                             R52 4 1
+     2390 SETTABLEKS                       R52 R31 K21 ["output"]
+     2392 GETTABLEKS                       R53 R31 K19 ["value"]
+     2394 MOVE                             R54 R32
+     2395 CONCAT                           R52 R53 R54
+     2396 SETTABLEKS                       R52 R31 K19 ["value"]
+     2398 GETTABLEKS                       R53 R27 K21 ["output"]
+     2400 GETTABLEKS                       R54 R31 K21 ["output"]
+     2402 CONCAT                           R52 R53 R54
+     2403 SETTABLEKS                       R52 R27 K21 ["output"]
+     2405 LOADB                            R52 1
+     2406 SETTABLEKS                       R52 R27 K63 ["globstar"]
+     2408 MOVE                             R52 R32
+     2409 ORK                              R53 R52 K20 [""]
+     2410 GETTABLEKS                       R55 R27 K54 ["consumed"]
+     2412 MOVE                             R56 R53
+     2413 CONCAT                           R54 R55 R56
+     2414 SETTABLEKS                       R54 R27 K54 ["consumed"]
+     2416 GETTABLEKS                       R54 R27 K50 ["index"]
+     2418 ADDK                             R54 R54 K51 [0]
+     2419 SETTABLEKS                       R54 R27 K50 ["index"]
+     2421 JUMP                             ; [+129]
+     2422 DUPTABLE                         R46 K190 [{["type"] = "star", ["value"], ["output"]}]
+     2423 SETTABLEKS                       R32 R46 K19 ["value"]
+     2425 SETTABLEKS                       R26 R46 K21 ["output"]
+     2427 GETTABLEKS                       R47 R2 K43 ["bash"]
+     2429 JUMPIFNOTEQKB                    R47 TRUE ; [+22]
+     2431 LOADK                            R47 K191 [".*?"]
+     2432 SETTABLEKS                       R47 R46 K21 ["output"]
+     2434 GETTABLEKS                       R47 R31 K17 ["type"]
+     2436 JUMPIFEQKS                       R47 K18 ["bos"] ; [+5]
+     2438 GETTABLEKS                       R47 R31 K17 ["type"]
+     2440 JUMPIFNOTEQKS                    R47 K147 ["slash"] ; [+7]
+     2442 MOVE                             R48 R24
+     2443 GETTABLEKS                       R49 R46 K21 ["output"]
+     2445 CONCAT                           R47 R48 R49
+     2446 SETTABLEKS                       R47 R46 K21 ["output"]
+     2448 MOVE                             R47 R42
+     2449 MOVE                             R48 R46
+     2450 CALL                             R47 1 0
+     2451 JUMP                             ; [+99]
+     2452 JUMPIFEQKNIL                     R31 ; [+19]
+     2454 GETTABLEKS                       R47 R31 K17 ["type"]
+     2456 JUMPIFEQKS                       R47 K122 ["bracket"] ; [+5]
+     2458 GETTABLEKS                       R47 R31 K17 ["type"]
+     2460 JUMPIFNOTEQKS                    R47 K109 ["paren"] ; [+11]
+     2462 GETTABLEKS                       R47 R2 K162 ["regex"]
+     2464 JUMPIFNOTEQKB                    R47 TRUE ; [+7]
+     2466 SETTABLEKS                       R32 R46 K21 ["output"]
+     2468 MOVE                             R47 R42
+     2469 MOVE                             R48 R46
+     2470 CALL                             R47 1 0
+     2471 JUMP                             ; [+79]
+     2472 GETTABLEKS                       R47 R27 K50 ["index"]
+     2474 GETTABLEKS                       R48 R27 K52 ["start"]
+     2476 JUMPIFEQ                         R47 R48 ; [+9]
+     2478 GETTABLEKS                       R47 R31 K17 ["type"]
+     2480 JUMPIFEQKS                       R47 K147 ["slash"] ; [+5]
+     2482 GETTABLEKS                       R47 R31 K17 ["type"]
+     2484 JUMPIFNOTEQKS                    R47 K42 ["dot"] ; [+63]
+     2486 GETTABLEKS                       R47 R31 K17 ["type"]
+     2488 JUMPIFNOTEQKS                    R47 K42 ["dot"] ; [+14]
+     2490 GETTABLEKS                       R48 R27 K21 ["output"]
+     2492 MOVE                             R49 R17
+     2493 CONCAT                           R47 R48 R49
+     2494 SETTABLEKS                       R47 R27 K21 ["output"]
+     2496 GETTABLEKS                       R48 R31 K21 ["output"]
+     2498 MOVE                             R49 R17
+     2499 CONCAT                           R47 R48 R49
+     2500 SETTABLEKS                       R47 R31 K21 ["output"]
+     2502 JUMP                             ; [+29]
+     2503 GETTABLEKS                       R47 R2 K42 ["dot"]
+     2505 JUMPIFNOTEQKB                    R47 TRUE ; [+14]
+     2507 GETTABLEKS                       R48 R27 K21 ["output"]
+     2509 MOVE                             R49 R18
+     2510 CONCAT                           R47 R48 R49
+     2511 SETTABLEKS                       R47 R27 K21 ["output"]
+     2513 GETTABLEKS                       R48 R31 K21 ["output"]
+     2515 MOVE                             R49 R18
+     2516 CONCAT                           R47 R48 R49
+     2517 SETTABLEKS                       R47 R31 K21 ["output"]
+     2519 JUMP                             ; [+12]
+     2520 GETTABLEKS                       R48 R27 K21 ["output"]
+     2522 MOVE                             R49 R24
+     2523 CONCAT                           R47 R48 R49
+     2524 SETTABLEKS                       R47 R27 K21 ["output"]
+     2526 GETTABLEKS                       R48 R31 K21 ["output"]
+     2528 MOVE                             R49 R24
+     2529 CONCAT                           R47 R48 R49
+     2530 SETTABLEKS                       R47 R31 K21 ["output"]
+     2532 MOVE                             R47 R34
+     2533 CALL                             R47 0 1
+     2534 JUMPIFEQKS                       R47 K170 ["*"] ; [+13]
+     2536 GETTABLEKS                       R48 R27 K21 ["output"]
+     2538 MOVE                             R49 R14
+     2539 CONCAT                           R47 R48 R49
+     2540 SETTABLEKS                       R47 R27 K21 ["output"]
+     2542 GETTABLEKS                       R48 R31 K21 ["output"]
+     2544 MOVE                             R49 R14
+     2545 CONCAT                           R47 R48 R49
+     2546 SETTABLEKS                       R47 R31 K21 ["output"]
+     2548 MOVE                             R47 R42
+     2549 MOVE                             R48 R46
+     2550 CALL                             R47 1 0
+     2551 JUMPBACK                         ; [-2191]
+     2552 GETTABLEKS                       R45 R27 K59 ["brackets"]
+     2554 LOADN                            R46 0
+     2555 JUMPIFNOTLT                      R46 R45 ; [+40]
+     2557 GETTABLEKS                       R45 R2 K112 ["strictBrackets"]
+     2559 JUMPIFNOTEQKB                    R45 TRUE ; [+17]
+     2561 GETIMPORT                        R45 K4 [error]
+     2563 GETUPVAL                         R46 0
+     2564 GETTABLEKS                       R46 R46 K5 ["new"]
+     2566 LOADK                            R48 K113 ["SyntaxError: "]
+     2567 LOADK                            R49 K114 ["Missing %s: \"%s\" - use \"\\%s\" to match literal characters"]
+     2568 LOADK                            R51 K121 ["closing"]
+     2569 LOADK                            R52 K88 ["]"]
+     2570 LOADK                            R53 K88 ["]"]
+     2571 NAMECALL                         R49 R49 K16 ["format"]
+     2573 CALL                             R49 4 1
+     2574 CONCAT                           R47 R48 R49
+     2575 CALL                             R46 1 -1
+     2576 CALL                             R45 -1 0
+     2577 GETUPVAL                         R45 5
+     2578 GETTABLEKS                       R45 R45 K192 ["escapeLast"]
+     2580 GETTABLEKS                       R46 R27 K21 ["output"]
+     2582 LOADK                            R47 K89 ["["]
+     2583 CALL                             R45 2 1
+     2584 SETTABLEKS                       R45 R27 K21 ["output"]
+     2586 GETTABLEKS                       R45 R27 K59 ["brackets"]
+     2588 SUBK                             R45 R45 K53 [1]
+     2589 SETTABLEKS                       R45 R27 K59 ["brackets"]
+     2591 GETIMPORT                        R45 K117 [table.remove]
+     2593 MOVE                             R46 R30
+     2594 CALL                             R45 1 0
+     2595 JUMPBACK                         ; [-44]
+     2596 GETTABLEKS                       R45 R27 K61 ["parens"]
+     2598 LOADN                            R46 0
+     2599 JUMPIFNOTLT                      R46 R45 ; [+40]
+     2601 GETTABLEKS                       R45 R2 K112 ["strictBrackets"]
+     2603 JUMPIFNOTEQKB                    R45 TRUE ; [+17]
+     2605 GETIMPORT                        R45 K4 [error]
+     2607 GETUPVAL                         R46 0
+     2608 GETTABLEKS                       R46 R46 K5 ["new"]
+     2610 LOADK                            R48 K113 ["SyntaxError: "]
+     2611 LOADK                            R49 K114 ["Missing %s: \"%s\" - use \"\\%s\" to match literal characters"]
+     2612 LOADK                            R51 K121 ["closing"]
+     2613 LOADK                            R52 K111 [")"]
+     2614 LOADK                            R53 K111 [")"]
+     2615 NAMECALL                         R49 R49 K16 ["format"]
+     2617 CALL                             R49 4 1
+     2618 CONCAT                           R47 R48 R49
+     2619 CALL                             R46 1 -1
+     2620 CALL                             R45 -1 0
+     2621 GETUPVAL                         R45 5
+     2622 GETTABLEKS                       R45 R45 K192 ["escapeLast"]
+     2624 GETTABLEKS                       R46 R27 K21 ["output"]
+     2626 LOADK                            R47 K105 ["("]
+     2627 CALL                             R45 2 1
+     2628 SETTABLEKS                       R45 R27 K21 ["output"]
+     2630 GETTABLEKS                       R45 R27 K61 ["parens"]
+     2632 SUBK                             R45 R45 K53 [1]
+     2633 SETTABLEKS                       R45 R27 K61 ["parens"]
+     2635 GETIMPORT                        R45 K117 [table.remove]
+     2637 MOVE                             R46 R30
+     2638 CALL                             R45 1 0
+     2639 JUMPBACK                         ; [-44]
+     2640 GETTABLEKS                       R45 R27 K60 ["braces"]
+     2642 LOADN                            R46 0
+     2643 JUMPIFNOTLT                      R46 R45 ; [+40]
+     2645 GETTABLEKS                       R45 R2 K112 ["strictBrackets"]
+     2647 JUMPIFNOTEQKB                    R45 TRUE ; [+17]
+     2649 GETIMPORT                        R45 K4 [error]
+     2651 GETUPVAL                         R46 0
+     2652 GETTABLEKS                       R46 R46 K5 ["new"]
+     2654 LOADK                            R48 K113 ["SyntaxError: "]
+     2655 LOADK                            R49 K114 ["Missing %s: \"%s\" - use \"\\%s\" to match literal characters"]
+     2656 LOADK                            R51 K121 ["closing"]
+     2657 LOADK                            R52 K135 ["}"]
+     2658 LOADK                            R53 K135 ["}"]
+     2659 NAMECALL                         R49 R49 K16 ["format"]
+     2661 CALL                             R49 4 1
+     2662 CONCAT                           R47 R48 R49
+     2663 CALL                             R46 1 -1
+     2664 CALL                             R45 -1 0
+     2665 GETUPVAL                         R45 5
+     2666 GETTABLEKS                       R45 R45 K192 ["escapeLast"]
+     2668 GETTABLEKS                       R46 R27 K21 ["output"]
+     2670 LOADK                            R47 K129 ["{"]
+     2671 CALL                             R45 2 1
+     2672 SETTABLEKS                       R45 R27 K21 ["output"]
+     2674 GETTABLEKS                       R45 R27 K60 ["braces"]
+     2676 SUBK                             R45 R45 K53 [1]
+     2677 SETTABLEKS                       R45 R27 K60 ["braces"]
+     2679 GETIMPORT                        R45 K117 [table.remove]
+     2681 MOVE                             R46 R30
+     2682 CALL                             R45 1 0
+     2683 JUMPBACK                         ; [-44]
+     2684 GETTABLEKS                       R45 R2 K184 ["strictSlashes"]
+     2686 JUMPIFEQKB                       R45 TRUE ; [+19]
+     2688 GETTABLEKS                       R45 R31 K17 ["type"]
+     2690 JUMPIFEQKS                       R45 K174 ["star"] ; [+5]
+     2692 GETTABLEKS                       R45 R31 K17 ["type"]
+     2694 JUMPIFNOTEQKS                    R45 K122 ["bracket"] ; [+11]
+     2696 MOVE                             R45 R42
+     2697 DUPTABLE                         R46 K194 [{["type"] = "maybe_slash", ["value"] = "", ["output"]}]
+     2698 LOADK                            R47 K195 ["%s?"]
+     2699 MOVE                             R49 R13
+     2700 NAMECALL                         R47 R47 K16 ["format"]
+     2702 CALL                             R47 2 1
+     2703 SETTABLEKS                       R47 R46 K21 ["output"]
+     2705 CALL                             R45 1 0
+     2706 GETTABLEKS                       R45 R27 K56 ["backtrack"]
+     2708 JUMPIFNOTEQKB                    R45 TRUE ; [+36]
+     2710 LOADK                            R45 K20 [""]
+     2711 SETTABLEKS                       R45 R27 K21 ["output"]
+     2713 GETIMPORT                        R45 K141 [ipairs]
+     2715 GETTABLEKS                       R46 R27 K64 ["tokens"]
+     2717 CALL                             R45 1 3
+     2718 FORGPREP_INEXT                   R45
+     2719 GETTABLEKS                       R51 R27 K21 ["output"]
+     2721 GETTABLEKS                       R53 R49 K21 ["output"]
+     2723 JUMPIFEQKNIL                     R53 ; [+4]
+     2725 GETTABLEKS                       R52 R49 K21 ["output"]
+     2727 JUMP                             ; [+2]
+     2728 GETTABLEKS                       R52 R49 K19 ["value"]
+     2730 CONCAT                           R50 R51 R52
+     2731 SETTABLEKS                       R50 R27 K21 ["output"]
+     2733 GETTABLEKS                       R50 R49 K196 ["suffix"]
+     2735 JUMPIFNOT                        R50 ; [+7]
+     2736 GETTABLEKS                       R51 R27 K21 ["output"]
+     2738 GETTABLEKS                       R52 R49 K196 ["suffix"]
+     2740 CONCAT                           R50 R51 R52
+     2741 SETTABLEKS                       R50 R27 K21 ["output"]
+     2743 FORGLOOP                         R45 2 [inext] ; [-25]
+     2745 CLOSEUPVALS                      R0
+     2746 RETURN                           R27 1
 
 PROTO_21:
         0 GETTABLEKS                       R1 R0 K0 ["noglobstar"]

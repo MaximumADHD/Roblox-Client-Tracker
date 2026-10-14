@@ -1341,68 +1341,121 @@ MAIN:
        62 CALL                             R9 2 1
        63 DUPCLOSURE                       R10 K19 [PROTO_0]
        64 DUPCLOSURE                       R11 K20 [PROTO_2]
-       65 DUPCLOSURE                       R12 K21 [PROTO_3]
-       66 CALL                             R12 0 1
-       67 DUPTABLE                         R13 K24 [{"Normal", "Hover"}]
-       68 NEWTABLE                         R14 8 0
-       70 LOADK                            R15 K25 ["rbxasset://textures/ViewSelector/front.png"]
-       71 SETTABLEKS                       R15 R14 K26 ["00n"]
-       73 LOADK                            R15 K27 ["rbxasset://textures/ViewSelector/back.png"]
-       74 SETTABLEKS                       R15 R14 K28 ["00p"]
-       76 LOADK                            R15 K29 ["rbxasset://textures/ViewSelector/bottom.png"]
-       77 SETTABLEKS                       R15 R14 K30 ["0n0"]
-       79 LOADK                            R15 K31 ["rbxasset://textures/ViewSelector/top.png"]
-       80 SETTABLEKS                       R15 R14 K32 ["0p0"]
-       82 LOADK                            R15 K33 ["rbxasset://textures/ViewSelector/left.png"]
-       83 SETTABLEKS                       R15 R14 K34 ["n00"]
-       85 LOADK                            R15 K35 ["rbxasset://textures/ViewSelector/right.png"]
-       86 SETTABLEKS                       R15 R14 K36 ["p00"]
-       88 SETTABLEKS                       R14 R13 K22 ["Normal"]
-       90 NEWTABLE                         R14 8 0
-       92 LOADK                            R15 K37 ["rbxasset://textures/ViewSelector/front_hover.png"]
-       93 SETTABLEKS                       R15 R14 K26 ["00n"]
-       95 LOADK                            R15 K38 ["rbxasset://textures/ViewSelector/back_hover.png"]
-       96 SETTABLEKS                       R15 R14 K28 ["00p"]
-       98 LOADK                            R15 K39 ["rbxasset://textures/ViewSelector/bottom_hover.png"]
-       99 SETTABLEKS                       R15 R14 K30 ["0n0"]
-      101 LOADK                            R15 K40 ["rbxasset://textures/ViewSelector/top_hover.png"]
-      102 SETTABLEKS                       R15 R14 K32 ["0p0"]
-      104 LOADK                            R15 K41 ["rbxasset://textures/ViewSelector/left_hover.png"]
-      105 SETTABLEKS                       R15 R14 K34 ["n00"]
-      107 LOADK                            R15 K42 ["rbxasset://textures/ViewSelector/right_hover.png"]
-      108 SETTABLEKS                       R15 R14 K36 ["p00"]
-      110 SETTABLEKS                       R14 R13 K23 ["Hover"]
-      112 DUPCLOSURE                       R14 K43 [PROTO_4]
-      113 CAPTURE                          VAL R13
-      114 DUPCLOSURE                       R15 K44 [PROTO_5]
-      115 CAPTURE                          VAL R13
-      116 DUPCLOSURE                       R16 K45 [PROTO_7]
-      117 GETTABLEKS                       R17 R1 K46 ["Component"]
-      119 LOADK                            R19 K47 ["ViewSelector"]
-      120 NAMECALL                         R17 R17 K48 ["extend"]
-      122 CALL                             R17 2 1
-      123 DUPCLOSURE                       R18 K49 [PROTO_8]
-      124 CAPTURE                          VAL R1
-      125 SETTABLEKS                       R18 R17 K50 ["init"]
-      127 LOADNIL                          R18
-      128 NEWCLOSURE                       R19 P7
-      129 CAPTURE                          REF R18
-      130 CAPTURE                          VAL R7
-      131 CAPTURE                          VAL R5
-      132 CAPTURE                          VAL R13
-      133 CAPTURE                          VAL R4
-      134 CAPTURE                          VAL R11
-      135 CAPTURE                          VAL R16
-      136 CAPTURE                          VAL R9
-      137 CAPTURE                          VAL R12
-      138 CAPTURE                          VAL R3
-      139 CAPTURE                          VAL R6
-      140 SETTABLEKS                       R19 R17 K51 ["didMount"]
-      142 DUPCLOSURE                       R19 K52 [PROTO_32]
-      143 CAPTURE                          VAL R3
-      144 SETTABLEKS                       R19 R17 K53 ["willUnmount"]
-      146 DUPCLOSURE                       R19 K54 [PROTO_33]
-      147 CAPTURE                          VAL R1
-      148 SETTABLEKS                       R19 R17 K55 ["render"]
-      150 CLOSEUPVALS                      R18
-      151 RETURN                           R17 1
+       65 NEWTABLE                         R13 0 3
+       67 LOADK                            R14 K21 ["n"]
+       68 LOADK                            R15 K22 ["0"]
+       69 LOADK                            R16 K23 ["p"]
+       70 SETLIST                          R13 R14 3 [1]
+       72 NEWTABLE                         R14 0 0
+       74 LOADN                            R17 -1
+       75 LOADN                            R15 1
+       76 LOADN                            R16 1
+       77 FORNPREP                         R15
+       78 LOADN                            R20 -1
+       79 LOADN                            R18 1
+       80 LOADN                            R19 1
+       81 FORNPREP                         R18
+       82 LOADN                            R23 -1
+       83 LOADN                            R21 1
+       84 LOADN                            R22 1
+       85 FORNPREP                         R21
+       86 ADDK                             R28 R17 K24 [2]
+       87 GETTABLE                         R25 R13 R28
+       88 ADDK                             R28 R20 K24 [2]
+       89 GETTABLE                         R26 R13 R28
+       90 ADDK                             R28 R23 K24 [2]
+       91 GETTABLE                         R27 R13 R28
+       92 CONCAT                           R24 R25 R27
+       93 GETIMPORT                        R25 K27 [CFrame.new]
+       95 FASTCALL                         VECTOR ; [+2]
+       96 GETIMPORT                        R26 K29 [Vector3.new]
+       98 CALL                             R26 0 1
+       99 FASTCALL3                        VECTOR R17 R20 R23
+      101 MOVE                             R29 R17
+      102 MOVE                             R30 R20
+      103 MOVE                             R31 R23
+      104 GETIMPORT                        R28 K29 [Vector3.new]
+      106 CALL                             R28 3 1
+      107 GETTABLEKS                       R28 R28 K30 ["Unit"]
+      109 MINUS                            R27 R28
+      110 CALL                             R25 2 1
+      111 SETTABLE                         R25 R14 R24
+      112 FORNLOOP                         R21
+      113 FORNLOOP                         R18
+      114 FORNLOOP                         R15
+      115 GETIMPORT                        R15 K32 [CFrame.fromEulerAnglesYXZ]
+      117 LOADK                            R16 K33 [-1.5707963267949]
+      118 LOADK                            R17 K34 [3.14159265358979]
+      119 LOADN                            R18 0
+      120 CALL                             R15 3 1
+      121 SETTABLEKS                       R15 R14 K35 ["0p0"]
+      123 GETIMPORT                        R15 K37 [CFrame.fromEulerAnglesXYZ]
+      125 LOADK                            R16 K33 [-1.5707963267949]
+      126 LOADK                            R17 K34 [3.14159265358979]
+      127 LOADN                            R18 0
+      128 CALL                             R15 3 1
+      129 SETTABLEKS                       R15 R14 K38 ["0n0"]
+      131 MOVE                             R12 R14
+      132 DUPTABLE                         R13 K41 [{"Normal", "Hover"}]
+      133 NEWTABLE                         R14 8 0
+      135 LOADK                            R15 K42 ["rbxasset://textures/ViewSelector/front.png"]
+      136 SETTABLEKS                       R15 R14 K43 ["00n"]
+      138 LOADK                            R15 K44 ["rbxasset://textures/ViewSelector/back.png"]
+      139 SETTABLEKS                       R15 R14 K45 ["00p"]
+      141 LOADK                            R15 K46 ["rbxasset://textures/ViewSelector/bottom.png"]
+      142 SETTABLEKS                       R15 R14 K38 ["0n0"]
+      144 LOADK                            R15 K47 ["rbxasset://textures/ViewSelector/top.png"]
+      145 SETTABLEKS                       R15 R14 K35 ["0p0"]
+      147 LOADK                            R15 K48 ["rbxasset://textures/ViewSelector/left.png"]
+      148 SETTABLEKS                       R15 R14 K49 ["n00"]
+      150 LOADK                            R15 K50 ["rbxasset://textures/ViewSelector/right.png"]
+      151 SETTABLEKS                       R15 R14 K51 ["p00"]
+      153 SETTABLEKS                       R14 R13 K39 ["Normal"]
+      155 NEWTABLE                         R14 8 0
+      157 LOADK                            R15 K52 ["rbxasset://textures/ViewSelector/front_hover.png"]
+      158 SETTABLEKS                       R15 R14 K43 ["00n"]
+      160 LOADK                            R15 K53 ["rbxasset://textures/ViewSelector/back_hover.png"]
+      161 SETTABLEKS                       R15 R14 K45 ["00p"]
+      163 LOADK                            R15 K54 ["rbxasset://textures/ViewSelector/bottom_hover.png"]
+      164 SETTABLEKS                       R15 R14 K38 ["0n0"]
+      166 LOADK                            R15 K55 ["rbxasset://textures/ViewSelector/top_hover.png"]
+      167 SETTABLEKS                       R15 R14 K35 ["0p0"]
+      169 LOADK                            R15 K56 ["rbxasset://textures/ViewSelector/left_hover.png"]
+      170 SETTABLEKS                       R15 R14 K49 ["n00"]
+      172 LOADK                            R15 K57 ["rbxasset://textures/ViewSelector/right_hover.png"]
+      173 SETTABLEKS                       R15 R14 K51 ["p00"]
+      175 SETTABLEKS                       R14 R13 K40 ["Hover"]
+      177 DUPCLOSURE                       R14 K58 [PROTO_4]
+      178 CAPTURE                          VAL R13
+      179 DUPCLOSURE                       R15 K59 [PROTO_5]
+      180 CAPTURE                          VAL R13
+      181 DUPCLOSURE                       R16 K60 [PROTO_7]
+      182 GETTABLEKS                       R17 R1 K61 ["Component"]
+      184 LOADK                            R19 K62 ["ViewSelector"]
+      185 NAMECALL                         R17 R17 K63 ["extend"]
+      187 CALL                             R17 2 1
+      188 DUPCLOSURE                       R18 K64 [PROTO_8]
+      189 CAPTURE                          VAL R1
+      190 SETTABLEKS                       R18 R17 K65 ["init"]
+      192 LOADNIL                          R18
+      193 NEWCLOSURE                       R19 P6
+      194 CAPTURE                          REF R18
+      195 CAPTURE                          VAL R7
+      196 CAPTURE                          VAL R5
+      197 CAPTURE                          VAL R13
+      198 CAPTURE                          VAL R4
+      199 CAPTURE                          VAL R11
+      200 CAPTURE                          VAL R16
+      201 CAPTURE                          VAL R9
+      202 CAPTURE                          VAL R12
+      203 CAPTURE                          VAL R3
+      204 CAPTURE                          VAL R6
+      205 SETTABLEKS                       R19 R17 K66 ["didMount"]
+      207 DUPCLOSURE                       R19 K67 [PROTO_32]
+      208 CAPTURE                          VAL R3
+      209 SETTABLEKS                       R19 R17 K68 ["willUnmount"]
+      211 DUPCLOSURE                       R19 K69 [PROTO_33]
+      212 CAPTURE                          VAL R1
+      213 SETTABLEKS                       R19 R17 K70 ["render"]
+      215 CLOSEUPVALS                      R18
+      216 RETURN                           R17 1

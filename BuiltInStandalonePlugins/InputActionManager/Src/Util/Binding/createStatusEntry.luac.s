@@ -23,7 +23,7 @@ PROTO_0:
        27 NAMECALL                         R6 R0 K3 ["getText"]
        29 CALL                             R6 4 1
        30 MOVE                             R5 R6
-       31 JUMP                             ; [+139]
+       31 JUMP                             ; [+131]
        32 JUMPIFNOTEQKS                    R1 K9 ["DUPLICATE_UI_BUTTON"] ; [+29]
        34 LOADK                            R8 K1 ["Status"]
        35 LOADK                            R9 K10 ["DuplicateUIButtonTitle"]
@@ -46,103 +46,95 @@ PROTO_0:
        57 NAMECALL                         R6 R0 K3 ["getText"]
        59 CALL                             R6 4 1
        60 MOVE                             R5 R6
-       61 JUMP                             ; [+109]
-       62 JUMPIFNOTEQKS                    R1 K15 ["MODIFIER_KEYCODE"] ; [+19]
+       61 JUMP                             ; [+101]
+       62 JUMPIFNOTEQKS                    R1 K15 ["MODIFIER_KEYCODE"] ; [+14]
        64 LOADK                            R8 K1 ["Status"]
        65 LOADK                            R9 K16 ["ModifierKeycodeTitle"]
        66 NAMECALL                         R6 R0 K3 ["getText"]
        68 CALL                             R6 3 1
        69 MOVE                             R4 R6
-       70 GETUPVAL                         R6 0
-       71 CALL                             R6 0 1
-       72 JUMPIFNOT                        R6 ; [+7]
-       73 LOADK                            R8 K1 ["Status"]
-       74 LOADK                            R9 K17 ["ModifierKeycodeDescription"]
-       75 NAMECALL                         R6 R0 K3 ["getText"]
-       77 CALL                             R6 3 1
-       78 MOVE                             R5 R6
-       79 JUMP                             ; [+91]
-       80 MOVE                             R5 R4
-       81 JUMP                             ; [+89]
-       82 JUMPIFNOTEQKS                    R1 K18 ["NO_KEYCODE"] ; [+32]
-       84 JUMPIFEQKNIL                     R3 ; [+17]
-       86 GETUPVAL                         R7 1
-       87 GETTABLE                         R6 R7 R3
-       88 JUMPIFNOT                        R6 ; [+13]
-       89 LOADK                            R8 K1 ["Status"]
-       90 LOADK                            R9 K19 ["MissingCompositeKeycodeTitle"]
-       91 NAMECALL                         R6 R0 K3 ["getText"]
-       93 CALL                             R6 3 1
-       94 MOVE                             R4 R6
-       95 LOADK                            R8 K1 ["Status"]
-       96 LOADK                            R9 K20 ["MissingCompositeKeycodeDescription"]
-       97 NAMECALL                         R6 R0 K3 ["getText"]
-       99 CALL                             R6 3 1
-      100 MOVE                             R5 R6
-      101 JUMP                             ; [+69]
-      102 LOADK                            R8 K1 ["Status"]
-      103 LOADK                            R9 K21 ["MissingKeycodeTitle"]
-      104 NAMECALL                         R6 R0 K3 ["getText"]
-      106 CALL                             R6 3 1
-      107 MOVE                             R4 R6
-      108 LOADK                            R8 K1 ["Status"]
-      109 LOADK                            R9 K22 ["MissingKeycodeDescription"]
-      110 NAMECALL                         R6 R0 K3 ["getText"]
-      112 CALL                             R6 3 1
-      113 MOVE                             R5 R6
-      114 JUMP                             ; [+56]
-      115 JUMPIFNOTEQKS                    R1 K23 ["COMPOSITE_KEYCODE"] ; [+29]
-      117 LOADK                            R8 K1 ["Status"]
-      118 LOADK                            R9 K24 ["CompositeKeycodeTitle"]
-      119 NAMECALL                         R6 R0 K3 ["getText"]
-      121 CALL                             R6 3 1
-      122 MOVE                             R4 R6
-      123 LOADK                            R8 K1 ["Status"]
-      124 LOADK                            R9 K25 ["CompositeKeycodeDescription"]
-      125 DUPTABLE                         R10 K27 [{"compositeProperty", "actions"}]
-      126 JUMPIFNOT                        R2 ; [+3]
-      127 GETTABLEKS                       R11 R2 K26 ["compositeProperty"]
-      129 JUMPIF                           R11 ; [+1]
-      130 LOADK                            R11 K8 [""]
-      131 SETTABLEKS                       R11 R10 K26 ["compositeProperty"]
-      133 JUMPIFNOT                        R2 ; [+3]
-      134 GETTABLEKS                       R11 R2 K6 ["actions"]
-      136 JUMPIF                           R11 ; [+1]
-      137 LOADK                            R11 K8 [""]
-      138 SETTABLEKS                       R11 R10 K6 ["actions"]
-      140 NAMECALL                         R6 R0 K3 ["getText"]
-      142 CALL                             R6 4 1
-      143 MOVE                             R5 R6
-      144 JUMP                             ; [+26]
-      145 GETUPVAL                         R6 0
-      146 CALL                             R6 0 1
-      147 JUMPIFNOT                        R6 ; [+15]
-      148 JUMPIFNOTEQKS                    R1 K28 ["MODIFIER_BUTTON"] ; [+14]
-      150 LOADK                            R8 K1 ["Status"]
-      151 LOADK                            R9 K29 ["ModifierButtonTitle"]
-      152 NAMECALL                         R6 R0 K3 ["getText"]
-      154 CALL                             R6 3 1
-      155 MOVE                             R4 R6
-      156 LOADK                            R8 K1 ["Status"]
-      157 LOADK                            R9 K30 ["ModifierButtonDescription"]
-      158 NAMECALL                         R6 R0 K3 ["getText"]
-      160 CALL                             R6 3 1
-      161 MOVE                             R5 R6
-      162 JUMP                             ; [+8]
-      163 GETIMPORT                        R6 K32 [error]
-      165 LOADK                            R7 K33 ["Unknown status type: %*"]
-      166 MOVE                             R9 R1
-      167 NAMECALL                         R7 R7 K34 ["format"]
-      169 CALL                             R7 2 1
-      170 CALL                             R6 1 0
-      171 DUPTABLE                         R6 K39 [{"Message", "Severity", "Title", "Type"}]
-      172 SETTABLEKS                       R5 R6 K35 ["Message"]
-      174 GETUPVAL                         R8 2
-      175 GETTABLE                         R7 R8 R1
-      176 SETTABLEKS                       R7 R6 K36 ["Severity"]
-      178 SETTABLEKS                       R4 R6 K37 ["Title"]
-      180 SETTABLEKS                       R1 R6 K38 ["Type"]
-      182 RETURN                           R6 1
+       70 LOADK                            R8 K1 ["Status"]
+       71 LOADK                            R9 K17 ["ModifierKeycodeDescription"]
+       72 NAMECALL                         R6 R0 K3 ["getText"]
+       74 CALL                             R6 3 1
+       75 MOVE                             R5 R6
+       76 JUMP                             ; [+86]
+       77 JUMPIFNOTEQKS                    R1 K18 ["NO_KEYCODE"] ; [+32]
+       79 JUMPIFEQKNIL                     R3 ; [+17]
+       81 GETUPVAL                         R7 0
+       82 GETTABLE                         R6 R7 R3
+       83 JUMPIFNOT                        R6 ; [+13]
+       84 LOADK                            R8 K1 ["Status"]
+       85 LOADK                            R9 K19 ["MissingCompositeKeycodeTitle"]
+       86 NAMECALL                         R6 R0 K3 ["getText"]
+       88 CALL                             R6 3 1
+       89 MOVE                             R4 R6
+       90 LOADK                            R8 K1 ["Status"]
+       91 LOADK                            R9 K20 ["MissingCompositeKeycodeDescription"]
+       92 NAMECALL                         R6 R0 K3 ["getText"]
+       94 CALL                             R6 3 1
+       95 MOVE                             R5 R6
+       96 JUMP                             ; [+66]
+       97 LOADK                            R8 K1 ["Status"]
+       98 LOADK                            R9 K21 ["MissingKeycodeTitle"]
+       99 NAMECALL                         R6 R0 K3 ["getText"]
+      101 CALL                             R6 3 1
+      102 MOVE                             R4 R6
+      103 LOADK                            R8 K1 ["Status"]
+      104 LOADK                            R9 K22 ["MissingKeycodeDescription"]
+      105 NAMECALL                         R6 R0 K3 ["getText"]
+      107 CALL                             R6 3 1
+      108 MOVE                             R5 R6
+      109 JUMP                             ; [+53]
+      110 JUMPIFNOTEQKS                    R1 K23 ["COMPOSITE_KEYCODE"] ; [+29]
+      112 LOADK                            R8 K1 ["Status"]
+      113 LOADK                            R9 K24 ["CompositeKeycodeTitle"]
+      114 NAMECALL                         R6 R0 K3 ["getText"]
+      116 CALL                             R6 3 1
+      117 MOVE                             R4 R6
+      118 LOADK                            R8 K1 ["Status"]
+      119 LOADK                            R9 K25 ["CompositeKeycodeDescription"]
+      120 DUPTABLE                         R10 K27 [{"compositeProperty", "actions"}]
+      121 JUMPIFNOT                        R2 ; [+3]
+      122 GETTABLEKS                       R11 R2 K26 ["compositeProperty"]
+      124 JUMPIF                           R11 ; [+1]
+      125 LOADK                            R11 K8 [""]
+      126 SETTABLEKS                       R11 R10 K26 ["compositeProperty"]
+      128 JUMPIFNOT                        R2 ; [+3]
+      129 GETTABLEKS                       R11 R2 K6 ["actions"]
+      131 JUMPIF                           R11 ; [+1]
+      132 LOADK                            R11 K8 [""]
+      133 SETTABLEKS                       R11 R10 K6 ["actions"]
+      135 NAMECALL                         R6 R0 K3 ["getText"]
+      137 CALL                             R6 4 1
+      138 MOVE                             R5 R6
+      139 JUMP                             ; [+23]
+      140 JUMPIFNOTEQKS                    R1 K28 ["MODIFIER_BUTTON"] ; [+14]
+      142 LOADK                            R8 K1 ["Status"]
+      143 LOADK                            R9 K29 ["ModifierButtonTitle"]
+      144 NAMECALL                         R6 R0 K3 ["getText"]
+      146 CALL                             R6 3 1
+      147 MOVE                             R4 R6
+      148 LOADK                            R8 K1 ["Status"]
+      149 LOADK                            R9 K30 ["ModifierButtonDescription"]
+      150 NAMECALL                         R6 R0 K3 ["getText"]
+      152 CALL                             R6 3 1
+      153 MOVE                             R5 R6
+      154 JUMP                             ; [+8]
+      155 GETIMPORT                        R6 K32 [error]
+      157 LOADK                            R7 K33 ["Unknown status type: %*"]
+      158 MOVE                             R9 R1
+      159 NAMECALL                         R7 R7 K34 ["format"]
+      161 CALL                             R7 2 1
+      162 CALL                             R6 1 0
+      163 DUPTABLE                         R6 K39 [{"Message", "Severity", "Title", "Type"}]
+      164 SETTABLEKS                       R5 R6 K35 ["Message"]
+      166 GETUPVAL                         R8 1
+      167 GETTABLE                         R7 R8 R1
+      168 SETTABLEKS                       R7 R6 K36 ["Severity"]
+      170 SETTABLEKS                       R4 R6 K37 ["Title"]
+      172 SETTABLEKS                       R1 R6 K38 ["Type"]
+      174 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -154,27 +146,21 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R2 R0 K6 ["Src"]
-       16 GETTABLEKS                       R2 R2 K8 ["Flags"]
-       18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R4 R2 K9 ["getFFlagIAMUIModifier"]
-       22 CALL                             R3 1 1
-       23 NEWTABLE                         R4 8 0
-       25 GETIMPORT                        R5 K13 [Enum.PropertyStatus.Error]
-       27 SETTABLEKS                       R5 R4 K14 ["DUPLICATE_KEYCODE"]
-       29 GETIMPORT                        R5 K16 [Enum.PropertyStatus.Warning]
-       31 SETTABLEKS                       R5 R4 K17 ["MODIFIER_KEYCODE"]
-       33 GETIMPORT                        R5 K16 [Enum.PropertyStatus.Warning]
-       35 SETTABLEKS                       R5 R4 K18 ["NO_KEYCODE"]
-       37 GETIMPORT                        R5 K13 [Enum.PropertyStatus.Error]
-       39 SETTABLEKS                       R5 R4 K19 ["DUPLICATE_UI_BUTTON"]
-       41 GETIMPORT                        R5 K13 [Enum.PropertyStatus.Error]
-       43 SETTABLEKS                       R5 R4 K20 ["COMPOSITE_KEYCODE"]
-       45 GETIMPORT                        R5 K16 [Enum.PropertyStatus.Warning]
-       47 SETTABLEKS                       R5 R4 K21 ["MODIFIER_BUTTON"]
-       49 DUPTABLE                         R5 K29 [{["up"] = True, ["down"] = True, ["left"] = True, ["right"] = True, ["forward"] = True, ["backward"] = True}]
-       50 DUPCLOSURE                       R6 K30 [PROTO_0]
-       51 CAPTURE                          VAL R3
-       52 CAPTURE                          VAL R5
-       53 CAPTURE                          VAL R4
-       54 RETURN                           R6 1
+       14 NEWTABLE                         R2 8 0
+       16 GETIMPORT                        R3 K11 [Enum.PropertyStatus.Error]
+       18 SETTABLEKS                       R3 R2 K12 ["DUPLICATE_KEYCODE"]
+       20 GETIMPORT                        R3 K14 [Enum.PropertyStatus.Warning]
+       22 SETTABLEKS                       R3 R2 K15 ["MODIFIER_KEYCODE"]
+       24 GETIMPORT                        R3 K14 [Enum.PropertyStatus.Warning]
+       26 SETTABLEKS                       R3 R2 K16 ["NO_KEYCODE"]
+       28 GETIMPORT                        R3 K11 [Enum.PropertyStatus.Error]
+       30 SETTABLEKS                       R3 R2 K17 ["DUPLICATE_UI_BUTTON"]
+       32 GETIMPORT                        R3 K11 [Enum.PropertyStatus.Error]
+       34 SETTABLEKS                       R3 R2 K18 ["COMPOSITE_KEYCODE"]
+       36 GETIMPORT                        R3 K14 [Enum.PropertyStatus.Warning]
+       38 SETTABLEKS                       R3 R2 K19 ["MODIFIER_BUTTON"]
+       40 DUPTABLE                         R3 K27 [{["up"] = True, ["down"] = True, ["left"] = True, ["right"] = True, ["forward"] = True, ["backward"] = True}]
+       41 DUPCLOSURE                       R4 K28 [PROTO_0]
+       42 CAPTURE                          VAL R3
+       43 CAPTURE                          VAL R2
+       44 RETURN                           R4 1

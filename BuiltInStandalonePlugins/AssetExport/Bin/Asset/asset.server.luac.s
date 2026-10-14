@@ -1,4 +1,14 @@
 PROTO_0:
+        0 GETIMPORT                        R0 K1 [plugin]
+        2 LOADK                            R2 K2 ["AssetExportController"]
+        3 NAMECALL                         R0 R0 K3 ["GetPluginComponent"]
+        5 CALL                             R0 2 1
+        6 GETUPVAL                         R2 0
+        7 NAMECALL                         R0 R0 K4 ["StartPermissionCheckAsync"]
+        9 CALL                             R0 2 0
+       10 RETURN                           R0 0
+
+PROTO_1:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+7]
         2 GETUPVAL                         R0 0
@@ -16,7 +26,7 @@ PROTO_0:
        16 FORGLOOP                         R0 2 ; [-4]
        18 RETURN                           R0 0
 
-PROTO_1:
+PROTO_2:
         0 GETIMPORT                        R0 K1 [plugin]
         2 GETTABLEKS                       R0 R0 K2 ["HostDataModelTypeIsCurrent"]
         4 JUMPIF                           R0 ; [+1]
@@ -119,21 +129,66 @@ MAIN:
        54 GETTABLEKS                       R5 R4 K22 ["FocusedDataModelSession"]
        56 GETIMPORT                        R6 K9 [require]
        58 GETTABLEKS                       R7 R0 K14 ["Src"]
-       60 GETTABLEKS                       R7 R7 K23 ["Asset"]
-       62 GETTABLEKS                       R7 R7 K24 ["setupAssetsDm"]
+       60 GETTABLEKS                       R7 R7 K23 ["Flags"]
+       62 GETTABLEKS                       R7 R7 K24 ["getFFlagAssetExportStandaloneLazyLoad"]
        64 CALL                             R6 1 1
-       65 MOVE                             R7 R6
-       66 GETIMPORT                        R8 K1 [plugin]
-       68 CALL                             R7 1 1
-       69 DUPCLOSURE                       R8 K25 [PROTO_1]
-       70 CAPTURE                          VAL R3
-       71 CAPTURE                          VAL R0
-       72 CAPTURE                          VAL R7
-       73 CAPTURE                          VAL R5
-       74 GETTABLEKS                       R9 R5 K26 ["CurrentDataModelTypeChanged"]
-       76 MOVE                             R11 R8
-       77 NAMECALL                         R9 R9 K27 ["Connect"]
-       79 CALL                             R9 2 0
-       80 MOVE                             R9 R8
-       81 CALL                             R9 0 0
-       82 RETURN                           R0 0
+       65 GETIMPORT                        R7 K9 [require]
+       67 GETTABLEKS                       R8 R0 K14 ["Src"]
+       69 GETTABLEKS                       R8 R8 K23 ["Flags"]
+       71 GETTABLEKS                       R8 R8 K25 ["getEngineFeatureStudioPreinitPayloadHandoff"]
+       73 CALL                             R7 1 1
+       74 GETIMPORT                        R8 K9 [require]
+       76 GETTABLEKS                       R9 R0 K14 ["Src"]
+       78 GETTABLEKS                       R9 R9 K23 ["Flags"]
+       80 GETTABLEKS                       R9 R9 K26 ["getFFlagAsyncObjExport"]
+       82 CALL                             R8 1 1
+       83 GETIMPORT                        R9 K9 [require]
+       85 GETTABLEKS                       R10 R0 K14 ["Src"]
+       87 GETTABLEKS                       R10 R10 K27 ["Asset"]
+       89 GETTABLEKS                       R10 R10 K28 ["setupAssetsDm"]
+       91 CALL                             R9 1 1
+       92 MOVE                             R10 R9
+       93 GETIMPORT                        R11 K1 [plugin]
+       95 CALL                             R10 1 1
+       96 MOVE                             R11 R6
+       97 CALL                             R11 0 1
+       98 JUMPIFNOT                        R11 ; [+37]
+       99 MOVE                             R11 R7
+      100 CALL                             R11 0 1
+      101 JUMPIFNOT                        R11 ; [+34]
+      102 MOVE                             R11 R8
+      103 CALL                             R11 0 1
+      104 JUMPIF                           R11 ; [+31]
+      105 GETIMPORT                        R11 K1 [plugin]
+      107 NAMECALL                         R11 R11 K29 ["GetPreinitPayload"]
+      109 CALL                             R11 1 1
+      110 FASTCALL1                        TYPE R11 ; [+3]
+      111 MOVE                             R14 R11
+      112 GETIMPORT                        R13 K31 [type]
+      114 CALL                             R13 1 1
+      115 JUMPIFNOTEQKS                    R13 K32 ["table"] ; [+4]
+      117 GETTABLEKS                       R12 R11 K33 ["pendingTrigger"]
+      119 JUMP                             ; [+1]
+      120 LOADNIL                          R12
+      121 JUMPIFEQKS                       R12 K34 ["selection"] ; [+5]
+      123 JUMPIFEQKS                       R12 K35 ["place"] ; [+3]
+      125 JUMPIFNOTEQKS                    R12 K36 ["animation"] ; [+10]
+      127 JUMPIFNOTEQKS                    R12 K35 ["place"] ; [+2]
+      129 LOADB                            R13 0 +1
+      130 LOADB                            R13 1
+      131 GETIMPORT                        R14 K39 [task.spawn]
+      133 DUPCLOSURE                       R15 K40 [PROTO_0]
+      134 CAPTURE                          VAL R13
+      135 CALL                             R14 1 0
+      136 DUPCLOSURE                       R11 K41 [PROTO_2]
+      137 CAPTURE                          VAL R3
+      138 CAPTURE                          VAL R0
+      139 CAPTURE                          VAL R10
+      140 CAPTURE                          VAL R5
+      141 GETTABLEKS                       R12 R5 K42 ["CurrentDataModelTypeChanged"]
+      143 MOVE                             R14 R11
+      144 NAMECALL                         R12 R12 K43 ["Connect"]
+      146 CALL                             R12 2 0
+      147 MOVE                             R12 R11
+      148 CALL                             R12 0 0
+      149 RETURN                           R0 0

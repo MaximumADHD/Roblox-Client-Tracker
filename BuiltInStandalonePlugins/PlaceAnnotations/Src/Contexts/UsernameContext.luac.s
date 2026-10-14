@@ -42,7 +42,7 @@ PROTO_3:
         6 RETURN                           R2 1
         7 GETTABLEKS                       R3 R0 K1 ["usernames"]
         9 GETTABLE                         R2 R3 R1
-       10 JUMPIF                           R2 ; [+26]
+       10 JUMPIF                           R2 ; [+25]
        11 LOADNIL                          R2
        12 GETIMPORT                        R3 K3 [pcall]
        14 NEWCLOSURE                       R4 P0
@@ -64,10 +64,9 @@ PROTO_3:
        33 CALL                             R5 3 -1
        34 CLOSEUPVALS                      R2
        35 RETURN                           R5 -1
-       36 CLOSEUPVALS                      R2
-       37 GETTABLEKS                       R3 R0 K1 ["usernames"]
-       39 GETTABLE                         R2 R3 R1
-       40 RETURN                           R2 1
+       36 GETTABLEKS                       R3 R0 K1 ["usernames"]
+       38 GETTABLE                         R2 R3 R1
+       39 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

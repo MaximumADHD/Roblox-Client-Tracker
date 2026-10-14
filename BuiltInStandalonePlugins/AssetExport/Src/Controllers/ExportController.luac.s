@@ -535,7 +535,48 @@ PROTO_14:
       313 FASTCALL                         TABLE_INSERT ; [+2]
       314 GETIMPORT                        R3 K46 [table.insert]
       316 CALL                             R3 -1 0
-      317 RETURN                           R2 1
+      317 GETUPVAL                         R3 7
+      318 CALL                             R3 0 1
+      319 JUMPIFNOT                        R3 ; [+54]
+      320 GETUPVAL                         R3 8
+      321 CALL                             R3 0 1
+      322 JUMPIFNOT                        R3 ; [+51]
+      323 GETTABLEKS                       R3 R2 K10 ["_plugin"]
+      325 NAMECALL                         R3 R3 K60 ["GetPreinitPayload"]
+      327 CALL                             R3 1 1
+      328 FASTCALL1                        TYPE R3 ; [+3]
+      329 MOVE                             R6 R3
+      330 GETIMPORT                        R5 K62 [type]
+      332 CALL                             R5 1 1
+      333 JUMPIFNOTEQKS                    R5 K44 ["table"] ; [+4]
+      335 GETTABLEKS                       R4 R3 K63 ["pendingTrigger"]
+      337 JUMP                             ; [+1]
+      338 LOADNIL                          R4
+      339 JUMPIFEQKS                       R4 K64 ["selection"] ; [+5]
+      341 JUMPIFEQKS                       R4 K65 ["place"] ; [+3]
+      343 JUMPIFNOTEQKS                    R4 K66 ["animation"] ; [+20]
+      345 JUMPIFNOTEQKS                    R4 K66 ["animation"] ; [+7]
+      347 GETUPVAL                         R5 6
+      348 CALL                             R5 0 1
+      349 JUMPIFNOT                        R5 ; [+3]
+      350 LOADB                            R5 1
+      351 SETTABLEKS                       R5 R2 K21 ["_isAnimationExportPending"]
+      353 JUMPIFNOTEQKS                    R4 K65 ["place"] ; [+2]
+      355 LOADB                            R7 0 +1
+      356 LOADB                            R7 1
+      357 NAMECALL                         R5 R2 K67 ["setOnlySelection"]
+      359 CALL                             R5 2 0
+      360 LOADB                            R7 1
+      361 NAMECALL                         R5 R2 K68 ["setExportEnabled"]
+      363 CALL                             R5 2 0
+      364 GETUPVAL                         R5 9
+      365 GETTABLEKS                       R5 R5 K69 ["fire"]
+      367 GETTABLEKS                       R6 R2 K10 ["_plugin"]
+      369 GETUPVAL                         R7 10
+      370 GETTABLEKS                       R7 R7 K70 ["STANDALONE_LOADED"]
+      372 MOVE                             R8 R4
+      373 CALL                             R5 3 0
+      374 RETURN                           R2 1
 
 PROTO_15:
         0 GETUPVAL                         R1 0
@@ -1205,136 +1246,160 @@ MAIN:
        71 CALL                             R9 1 1
        72 GETIMPORT                        R10 K5 [require]
        74 GETTABLEKS                       R11 R0 K10 ["Src"]
-       76 GETTABLEKS                       R11 R11 K18 ["Util"]
-       78 GETTABLEKS                       R11 R11 K19 ["createAssetUrl"]
+       76 GETTABLEKS                       R11 R11 K11 ["Flags"]
+       78 GETTABLEKS                       R11 R11 K18 ["getEngineFeatureStudioPreinitPayloadHandoff"]
        80 CALL                             R10 1 1
        81 GETIMPORT                        R11 K5 [require]
        83 GETTABLEKS                       R12 R0 K10 ["Src"]
-       85 GETTABLEKS                       R12 R12 K18 ["Util"]
-       87 GETTABLEKS                       R12 R12 K20 ["ExportFormat"]
+       85 GETTABLEKS                       R12 R12 K11 ["Flags"]
+       87 GETTABLEKS                       R12 R12 K19 ["getFFlagAssetExportStandaloneLazyLoad"]
        89 CALL                             R11 1 1
-       90 GETTABLEKS                       R12 R1 K18 ["Util"]
-       92 GETTABLEKS                       R13 R12 K21 ["Signal"]
-       94 GETIMPORT                        R14 K23 [game]
-       96 LOADK                            R16 K24 ["BrowserService"]
-       97 NAMECALL                         R14 R14 K25 ["GetService"]
-       99 CALL                             R14 2 1
-      100 LOADK                            R17 K26 ["ExportController"]
-      101 NAMECALL                         R15 R3 K27 ["extend"]
-      103 CALL                             R15 2 1
-      104 DUPCLOSURE                       R16 K28 [PROTO_14]
-      105 CAPTURE                          VAL R8
-      106 CAPTURE                          VAL R13
-      107 CAPTURE                          VAL R15
-      108 CAPTURE                          VAL R5
-      109 CAPTURE                          VAL R6
-      110 CAPTURE                          VAL R9
-      111 CAPTURE                          VAL R7
-      112 SETTABLEKS                       R16 R15 K29 ["new"]
-      114 DUPCLOSURE                       R16 K30 [PROTO_15]
-      115 CAPTURE                          VAL R15
-      116 SETTABLEKS                       R16 R15 K31 ["mock"]
-      118 DUPCLOSURE                       R16 K32 [PROTO_16]
-      119 CAPTURE                          VAL R8
-      120 CAPTURE                          VAL R11
-      121 SETTABLEKS                       R16 R15 K33 ["formatSettings"]
-      123 DUPCLOSURE                       R16 K34 [PROTO_17]
-      124 SETTABLEKS                       R16 R15 K35 ["cleanupExport"]
-      126 DUPCLOSURE                       R16 K36 [PROTO_18]
-      127 SETTABLEKS                       R16 R15 K37 ["getSettingValue"]
-      129 DUPCLOSURE                       R16 K38 [PROTO_19]
-      130 SETTABLEKS                       R16 R15 K39 ["getSettingEvent"]
-      132 DUPCLOSURE                       R16 K40 [PROTO_20]
-      133 SETTABLEKS                       R16 R15 K41 ["checkCleanupStatus"]
-      135 DUPCLOSURE                       R16 K42 [PROTO_21]
-      136 SETTABLEKS                       R16 R15 K43 ["isExportReady"]
-      138 DUPCLOSURE                       R16 K44 [PROTO_22]
-      139 CAPTURE                          VAL R8
-      140 CAPTURE                          VAL R5
-      141 SETTABLEKS                       R16 R15 K45 ["cancelExport"]
-      143 DUPCLOSURE                       R16 K46 [PROTO_23]
-      144 SETTABLEKS                       R16 R15 K47 ["toggleSetting"]
-      146 MOVE                             R16 R8
-      147 CALL                             R16 0 1
-      148 JUMPIFNOT                        R16 ; [+14]
-      149 DUPCLOSURE                       R16 K48 [PROTO_24]
-      150 SETTABLEKS                       R16 R15 K49 ["setSettingValue"]
-      152 DUPCLOSURE                       R16 K50 [PROTO_25]
-      153 CAPTURE                          VAL R11
-      154 CAPTURE                          VAL R13
-      155 SETTABLEKS                       R16 R15 K51 ["setFormat"]
-      157 DUPCLOSURE                       R16 K52 [PROTO_26]
-      158 SETTABLEKS                       R16 R15 K53 ["getFormat"]
-      160 DUPCLOSURE                       R16 K54 [PROTO_27]
-      161 SETTABLEKS                       R16 R15 K55 ["getSettingNames"]
-      163 DUPCLOSURE                       R16 K56 [PROTO_28]
-      164 SETTABLEKS                       R16 R15 K57 ["setOnlySelection"]
-      166 DUPCLOSURE                       R16 K58 [PROTO_29]
-      167 SETTABLEKS                       R16 R15 K59 ["getOnlySelection"]
-      169 DUPCLOSURE                       R16 K60 [PROTO_30]
-      170 SETTABLEKS                       R16 R15 K61 ["setPermissionsReady"]
-      172 DUPCLOSURE                       R16 K62 [PROTO_31]
-      173 SETTABLEKS                       R16 R15 K63 ["getPermissionsReady"]
-      175 DUPCLOSURE                       R16 K64 [PROTO_32]
-      176 SETTABLEKS                       R16 R15 K65 ["getViewState"]
-      178 DUPCLOSURE                       R16 K66 [PROTO_33]
-      179 SETTABLEKS                       R16 R15 K67 ["getExportEnabled"]
-      181 DUPCLOSURE                       R16 K68 [PROTO_34]
-      182 SETTABLEKS                       R16 R15 K69 ["setExportEnabled"]
-      184 DUPCLOSURE                       R16 K70 [PROTO_35]
-      185 SETTABLEKS                       R16 R15 K71 ["getExportProcessing"]
-      187 DUPCLOSURE                       R16 K72 [PROTO_36]
-      188 SETTABLEKS                       R16 R15 K73 ["setExportProcessing"]
-      190 DUPCLOSURE                       R16 K74 [PROTO_37]
-      191 SETTABLEKS                       R16 R15 K75 ["_changeViewState"]
-      193 DUPCLOSURE                       R16 K76 [PROTO_38]
-      194 SETTABLEKS                       R16 R15 K77 ["openMain"]
-      196 DUPCLOSURE                       R16 K78 [PROTO_39]
-      197 SETTABLEKS                       R16 R15 K79 ["openPermissions"]
-      199 DUPCLOSURE                       R16 K80 [PROTO_40]
-      200 SETTABLEKS                       R16 R15 K81 ["getPermissionFailures"]
-      202 DUPCLOSURE                       R16 K82 [PROTO_41]
-      203 SETTABLEKS                       R16 R15 K83 ["setPermissionFailures"]
-      205 DUPCLOSURE                       R16 K84 [PROTO_42]
-      206 SETTABLEKS                       R16 R15 K85 ["viewInExplorer"]
-      208 DUPCLOSURE                       R16 K86 [PROTO_43]
-      209 CAPTURE                          VAL R14
-      210 CAPTURE                          VAL R10
-      211 SETTABLEKS                       R16 R15 K87 ["openInBrowser"]
-      213 DUPCLOSURE                       R16 K88 [PROTO_44]
-      214 CAPTURE                          VAL R14
-      215 CAPTURE                          VAL R4
-      216 SETTABLEKS                       R16 R15 K89 ["openLearnPage"]
-      218 DUPCLOSURE                       R16 K90 [PROTO_45]
-      219 SETTABLEKS                       R16 R15 K91 ["getExportProgress"]
-      221 DUPCLOSURE                       R16 K92 [PROTO_46]
-      222 SETTABLEKS                       R16 R15 K93 ["setExportProgress"]
-      224 DUPCLOSURE                       R16 K94 [PROTO_47]
-      225 SETTABLEKS                       R16 R15 K95 ["_containsReleventPermissionFailure"]
-      227 DUPCLOSURE                       R16 K96 [PROTO_48]
-      228 CAPTURE                          VAL R8
-      229 CAPTURE                          VAL R11
-      230 SETTABLEKS                       R16 R15 K97 ["exportRequested"]
-      232 DUPCLOSURE                       R16 K98 [PROTO_49]
-      233 CAPTURE                          VAL R8
-      234 SETTABLEKS                       R16 R15 K99 ["triggerFilePathSelection"]
-      236 DUPCLOSURE                       R16 K100 [PROTO_50]
-      237 CAPTURE                          VAL R6
-      238 CAPTURE                          VAL R8
-      239 SETTABLEKS                       R16 R15 K101 ["_dispatchExport"]
-      241 DUPCLOSURE                       R16 K102 [PROTO_51]
-      242 CAPTURE                          VAL R5
-      243 CAPTURE                          VAL R6
-      244 CAPTURE                          VAL R8
-      245 SETTABLEKS                       R16 R15 K103 ["export"]
-      247 DUPCLOSURE                       R16 K104 [PROTO_52]
-      248 SETTABLEKS                       R16 R15 K105 ["showFinishedPage"]
-      250 DUPCLOSURE                       R16 K106 [PROTO_53]
-      251 SETTABLEKS                       R16 R15 K107 ["closeExport"]
-      253 DUPCLOSURE                       R16 K108 [PROTO_54]
-      254 CAPTURE                          VAL R9
-      255 CAPTURE                          VAL R8
-      256 SETTABLEKS                       R16 R15 K109 ["endExport"]
-      258 DUPCLOSURE                       R16 K110 [PROTO_55]
-      259 SETTABLEKS                       R16 R15 K111 ["destroy"]
-      261 RETURN                           R15 1
+       90 GETIMPORT                        R12 K5 [require]
+       92 GETTABLEKS                       R13 R0 K10 ["Src"]
+       94 GETTABLEKS                       R13 R13 K20 ["Util"]
+       96 GETTABLEKS                       R13 R13 K21 ["createAssetUrl"]
+       98 CALL                             R12 1 1
+       99 GETIMPORT                        R13 K5 [require]
+      101 GETTABLEKS                       R14 R0 K10 ["Src"]
+      103 GETTABLEKS                       R14 R14 K20 ["Util"]
+      105 GETTABLEKS                       R14 R14 K22 ["CrossDmSignals"]
+      107 CALL                             R13 1 1
+      108 GETIMPORT                        R14 K5 [require]
+      110 GETTABLEKS                       R15 R0 K10 ["Src"]
+      112 GETTABLEKS                       R15 R15 K20 ["Util"]
+      114 GETTABLEKS                       R15 R15 K23 ["ExportFormat"]
+      116 CALL                             R14 1 1
+      117 GETIMPORT                        R15 K5 [require]
+      119 GETTABLEKS                       R16 R0 K6 ["Packages"]
+      121 GETTABLEKS                       R16 R16 K24 ["PluginLoader"]
+      123 CALL                             R15 1 1
+      124 GETTABLEKS                       R15 R15 K25 ["QueuedOneShotCrossDMPluginInvoke"]
+      126 GETTABLEKS                       R16 R1 K20 ["Util"]
+      128 GETTABLEKS                       R17 R16 K26 ["Signal"]
+      130 GETIMPORT                        R18 K28 [game]
+      132 LOADK                            R20 K29 ["BrowserService"]
+      133 NAMECALL                         R18 R18 K30 ["GetService"]
+      135 CALL                             R18 2 1
+      136 LOADK                            R21 K31 ["ExportController"]
+      137 NAMECALL                         R19 R3 K32 ["extend"]
+      139 CALL                             R19 2 1
+      140 DUPCLOSURE                       R20 K33 [PROTO_14]
+      141 CAPTURE                          VAL R8
+      142 CAPTURE                          VAL R17
+      143 CAPTURE                          VAL R19
+      144 CAPTURE                          VAL R5
+      145 CAPTURE                          VAL R6
+      146 CAPTURE                          VAL R9
+      147 CAPTURE                          VAL R7
+      148 CAPTURE                          VAL R11
+      149 CAPTURE                          VAL R10
+      150 CAPTURE                          VAL R15
+      151 CAPTURE                          VAL R13
+      152 SETTABLEKS                       R20 R19 K34 ["new"]
+      154 DUPCLOSURE                       R20 K35 [PROTO_15]
+      155 CAPTURE                          VAL R19
+      156 SETTABLEKS                       R20 R19 K36 ["mock"]
+      158 DUPCLOSURE                       R20 K37 [PROTO_16]
+      159 CAPTURE                          VAL R8
+      160 CAPTURE                          VAL R14
+      161 SETTABLEKS                       R20 R19 K38 ["formatSettings"]
+      163 DUPCLOSURE                       R20 K39 [PROTO_17]
+      164 SETTABLEKS                       R20 R19 K40 ["cleanupExport"]
+      166 DUPCLOSURE                       R20 K41 [PROTO_18]
+      167 SETTABLEKS                       R20 R19 K42 ["getSettingValue"]
+      169 DUPCLOSURE                       R20 K43 [PROTO_19]
+      170 SETTABLEKS                       R20 R19 K44 ["getSettingEvent"]
+      172 DUPCLOSURE                       R20 K45 [PROTO_20]
+      173 SETTABLEKS                       R20 R19 K46 ["checkCleanupStatus"]
+      175 DUPCLOSURE                       R20 K47 [PROTO_21]
+      176 SETTABLEKS                       R20 R19 K48 ["isExportReady"]
+      178 DUPCLOSURE                       R20 K49 [PROTO_22]
+      179 CAPTURE                          VAL R8
+      180 CAPTURE                          VAL R5
+      181 SETTABLEKS                       R20 R19 K50 ["cancelExport"]
+      183 DUPCLOSURE                       R20 K51 [PROTO_23]
+      184 SETTABLEKS                       R20 R19 K52 ["toggleSetting"]
+      186 MOVE                             R20 R8
+      187 CALL                             R20 0 1
+      188 JUMPIFNOT                        R20 ; [+14]
+      189 DUPCLOSURE                       R20 K53 [PROTO_24]
+      190 SETTABLEKS                       R20 R19 K54 ["setSettingValue"]
+      192 DUPCLOSURE                       R20 K55 [PROTO_25]
+      193 CAPTURE                          VAL R14
+      194 CAPTURE                          VAL R17
+      195 SETTABLEKS                       R20 R19 K56 ["setFormat"]
+      197 DUPCLOSURE                       R20 K57 [PROTO_26]
+      198 SETTABLEKS                       R20 R19 K58 ["getFormat"]
+      200 DUPCLOSURE                       R20 K59 [PROTO_27]
+      201 SETTABLEKS                       R20 R19 K60 ["getSettingNames"]
+      203 DUPCLOSURE                       R20 K61 [PROTO_28]
+      204 SETTABLEKS                       R20 R19 K62 ["setOnlySelection"]
+      206 DUPCLOSURE                       R20 K63 [PROTO_29]
+      207 SETTABLEKS                       R20 R19 K64 ["getOnlySelection"]
+      209 DUPCLOSURE                       R20 K65 [PROTO_30]
+      210 SETTABLEKS                       R20 R19 K66 ["setPermissionsReady"]
+      212 DUPCLOSURE                       R20 K67 [PROTO_31]
+      213 SETTABLEKS                       R20 R19 K68 ["getPermissionsReady"]
+      215 DUPCLOSURE                       R20 K69 [PROTO_32]
+      216 SETTABLEKS                       R20 R19 K70 ["getViewState"]
+      218 DUPCLOSURE                       R20 K71 [PROTO_33]
+      219 SETTABLEKS                       R20 R19 K72 ["getExportEnabled"]
+      221 DUPCLOSURE                       R20 K73 [PROTO_34]
+      222 SETTABLEKS                       R20 R19 K74 ["setExportEnabled"]
+      224 DUPCLOSURE                       R20 K75 [PROTO_35]
+      225 SETTABLEKS                       R20 R19 K76 ["getExportProcessing"]
+      227 DUPCLOSURE                       R20 K77 [PROTO_36]
+      228 SETTABLEKS                       R20 R19 K78 ["setExportProcessing"]
+      230 DUPCLOSURE                       R20 K79 [PROTO_37]
+      231 SETTABLEKS                       R20 R19 K80 ["_changeViewState"]
+      233 DUPCLOSURE                       R20 K81 [PROTO_38]
+      234 SETTABLEKS                       R20 R19 K82 ["openMain"]
+      236 DUPCLOSURE                       R20 K83 [PROTO_39]
+      237 SETTABLEKS                       R20 R19 K84 ["openPermissions"]
+      239 DUPCLOSURE                       R20 K85 [PROTO_40]
+      240 SETTABLEKS                       R20 R19 K86 ["getPermissionFailures"]
+      242 DUPCLOSURE                       R20 K87 [PROTO_41]
+      243 SETTABLEKS                       R20 R19 K88 ["setPermissionFailures"]
+      245 DUPCLOSURE                       R20 K89 [PROTO_42]
+      246 SETTABLEKS                       R20 R19 K90 ["viewInExplorer"]
+      248 DUPCLOSURE                       R20 K91 [PROTO_43]
+      249 CAPTURE                          VAL R18
+      250 CAPTURE                          VAL R12
+      251 SETTABLEKS                       R20 R19 K92 ["openInBrowser"]
+      253 DUPCLOSURE                       R20 K93 [PROTO_44]
+      254 CAPTURE                          VAL R18
+      255 CAPTURE                          VAL R4
+      256 SETTABLEKS                       R20 R19 K94 ["openLearnPage"]
+      258 DUPCLOSURE                       R20 K95 [PROTO_45]
+      259 SETTABLEKS                       R20 R19 K96 ["getExportProgress"]
+      261 DUPCLOSURE                       R20 K97 [PROTO_46]
+      262 SETTABLEKS                       R20 R19 K98 ["setExportProgress"]
+      264 DUPCLOSURE                       R20 K99 [PROTO_47]
+      265 SETTABLEKS                       R20 R19 K100 ["_containsReleventPermissionFailure"]
+      267 DUPCLOSURE                       R20 K101 [PROTO_48]
+      268 CAPTURE                          VAL R8
+      269 CAPTURE                          VAL R14
+      270 SETTABLEKS                       R20 R19 K102 ["exportRequested"]
+      272 DUPCLOSURE                       R20 K103 [PROTO_49]
+      273 CAPTURE                          VAL R8
+      274 SETTABLEKS                       R20 R19 K104 ["triggerFilePathSelection"]
+      276 DUPCLOSURE                       R20 K105 [PROTO_50]
+      277 CAPTURE                          VAL R6
+      278 CAPTURE                          VAL R8
+      279 SETTABLEKS                       R20 R19 K106 ["_dispatchExport"]
+      281 DUPCLOSURE                       R20 K107 [PROTO_51]
+      282 CAPTURE                          VAL R5
+      283 CAPTURE                          VAL R6
+      284 CAPTURE                          VAL R8
+      285 SETTABLEKS                       R20 R19 K108 ["export"]
+      287 DUPCLOSURE                       R20 K109 [PROTO_52]
+      288 SETTABLEKS                       R20 R19 K110 ["showFinishedPage"]
+      290 DUPCLOSURE                       R20 K111 [PROTO_53]
+      291 SETTABLEKS                       R20 R19 K112 ["closeExport"]
+      293 DUPCLOSURE                       R20 K113 [PROTO_54]
+      294 CAPTURE                          VAL R9
+      295 CAPTURE                          VAL R8
+      296 SETTABLEKS                       R20 R19 K114 ["endExport"]
+      298 DUPCLOSURE                       R20 K115 [PROTO_55]
+      299 SETTABLEKS                       R20 R19 K116 ["destroy"]
+      301 RETURN                           R19 1

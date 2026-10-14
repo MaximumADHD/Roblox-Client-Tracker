@@ -246,78 +246,76 @@ MAIN:
         3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R0 K3 ["Packages"]
-       11 GETTABLEKS                       R1 R1 K4 ["DraggerFramework"]
-       13 GETIMPORT                        R2 K6 [require]
-       15 GETTABLEKS                       R3 R0 K3 ["Packages"]
-       17 GETTABLEKS                       R3 R3 K7 ["Roact"]
-       19 CALL                             R2 1 1
-       20 GETIMPORT                        R3 K6 [require]
-       22 GETTABLEKS                       R4 R0 K3 ["Packages"]
-       24 GETTABLEKS                       R4 R4 K8 ["DraggerSchemaCore"]
-       26 GETTABLEKS                       R4 R4 K9 ["getSelectableWithCache"]
-       28 CALL                             R3 1 1
-       29 GETIMPORT                        R4 K6 [require]
-       31 GETTABLEKS                       R5 R0 K10 ["Src"]
-       33 GETTABLEKS                       R5 R5 K11 ["Utility"]
-       35 GETTABLEKS                       R5 R5 K12 ["setWorldPivot"]
-       37 CALL                             R4 1 1
-       38 GETIMPORT                        R5 K6 [require]
-       40 GETTABLEKS                       R6 R0 K10 ["Src"]
-       42 GETTABLEKS                       R6 R6 K11 ["Utility"]
-       44 GETTABLEKS                       R6 R6 K13 ["computeSnapPointsForInstance"]
-       46 CALL                             R5 1 1
-       47 GETIMPORT                        R6 K6 [require]
-       49 GETTABLEKS                       R7 R0 K10 ["Src"]
-       51 GETTABLEKS                       R7 R7 K14 ["Components"]
-       53 GETTABLEKS                       R7 R7 K15 ["SnapPoints"]
-       55 CALL                             R6 1 1
-       56 GETIMPORT                        R7 K6 [require]
-       58 GETTABLEKS                       R8 R1 K14 ["Components"]
-       60 GETTABLEKS                       R8 R8 K16 ["DraggedPivot"]
-       62 CALL                             R7 1 1
-       63 GETIMPORT                        R8 K6 [require]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["DraggerFramework"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Roact"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K4 [require]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["DraggerSchemaCore"]
+       29 CALL                             R3 1 1
+       30 GETTABLEKS                       R3 R3 K9 ["getSelectableWithCache"]
+       32 GETIMPORT                        R4 K4 [require]
+       34 GETTABLEKS                       R5 R0 K10 ["Src"]
+       36 GETTABLEKS                       R5 R5 K11 ["Utility"]
+       38 GETTABLEKS                       R5 R5 K12 ["setWorldPivot"]
+       40 CALL                             R4 1 1
+       41 GETIMPORT                        R5 K4 [require]
+       43 GETTABLEKS                       R6 R0 K10 ["Src"]
+       45 GETTABLEKS                       R6 R6 K11 ["Utility"]
+       47 GETTABLEKS                       R6 R6 K13 ["computeSnapPointsForInstance"]
+       49 CALL                             R5 1 1
+       50 GETIMPORT                        R6 K4 [require]
+       52 GETTABLEKS                       R7 R0 K10 ["Src"]
+       54 GETTABLEKS                       R7 R7 K14 ["Components"]
+       56 GETTABLEKS                       R7 R7 K15 ["SnapPoints"]
+       58 CALL                             R6 1 1
+       59 GETTABLEKS                       R7 R1 K14 ["Components"]
+       61 GETTABLEKS                       R7 R7 K16 ["DraggedPivot"]
+       63 GETIMPORT                        R8 K4 [require]
        65 GETTABLEKS                       R9 R0 K10 ["Src"]
        67 GETTABLEKS                       R9 R9 K11 ["Utility"]
        69 GETTABLEKS                       R9 R9 K17 ["classifyInstancePivot"]
        71 CALL                             R8 1 1
-       72 GETIMPORT                        R9 K6 [require]
-       74 GETTABLEKS                       R10 R1 K11 ["Utility"]
-       76 GETTABLEKS                       R10 R10 K18 ["getSoftSnaps"]
-       78 CALL                             R9 1 1
-       79 NEWTABLE                         R10 16 0
-       81 SETTABLEKS                       R10 R10 K19 ["__index"]
-       83 DUPCLOSURE                       R11 K20 [PROTO_0]
-       84 CAPTURE                          VAL R10
-       85 SETTABLEKS                       R11 R10 K21 ["new"]
-       87 DUPCLOSURE                       R11 K22 [PROTO_1]
-       88 CAPTURE                          VAL R9
-       89 SETTABLEKS                       R11 R10 K18 ["getSoftSnaps"]
-       91 DUPCLOSURE                       R11 K23 [PROTO_2]
-       92 SETTABLEKS                       R11 R10 K24 ["_selectedIsActive"]
-       94 DUPCLOSURE                       R11 K25 [PROTO_3]
-       95 CAPTURE                          VAL R5
-       96 SETTABLEKS                       R11 R10 K26 ["_setCurrentSnap"]
-       98 DUPCLOSURE                       R11 K27 [PROTO_4]
-       99 SETTABLEKS                       R11 R10 K28 ["beginDrag"]
-      101 DUPCLOSURE                       R11 K29 [PROTO_5]
-      102 CAPTURE                          VAL R3
-      103 DUPCLOSURE                       R12 K30 [PROTO_6]
-      104 CAPTURE                          VAL R11
-      105 SETTABLEKS                       R12 R10 K31 ["_findNewSnapTargetImpl"]
-      107 DUPCLOSURE                       R12 K32 [PROTO_7]
-      108 SETTABLEKS                       R12 R10 K33 ["_findNewSnapTargetViaCollision"]
-      110 DUPCLOSURE                       R12 K34 [PROTO_8]
-      111 CAPTURE                          VAL R4
-      112 SETTABLEKS                       R12 R10 K35 ["updateDrag"]
-      114 DUPCLOSURE                       R12 K36 [PROTO_9]
-      115 CAPTURE                          VAL R8
-      116 SETTABLEKS                       R12 R10 K37 ["endDrag"]
-      118 DUPCLOSURE                       R12 K38 [PROTO_10]
-      119 SETTABLEKS                       R12 R10 K39 ["getSnapPoints"]
-      121 DUPCLOSURE                       R12 K40 [PROTO_11]
-      122 CAPTURE                          VAL R2
-      123 CAPTURE                          VAL R7
-      124 CAPTURE                          VAL R6
-      125 SETTABLEKS                       R12 R10 K41 ["render"]
-      127 RETURN                           R10 1
+       72 GETTABLEKS                       R9 R1 K11 ["Utility"]
+       74 GETTABLEKS                       R9 R9 K18 ["getSoftSnaps"]
+       76 NEWTABLE                         R10 16 0
+       78 SETTABLEKS                       R10 R10 K19 ["__index"]
+       80 DUPCLOSURE                       R11 K20 [PROTO_0]
+       81 CAPTURE                          VAL R10
+       82 SETTABLEKS                       R11 R10 K21 ["new"]
+       84 DUPCLOSURE                       R11 K22 [PROTO_1]
+       85 CAPTURE                          VAL R9
+       86 SETTABLEKS                       R11 R10 K18 ["getSoftSnaps"]
+       88 DUPCLOSURE                       R11 K23 [PROTO_2]
+       89 SETTABLEKS                       R11 R10 K24 ["_selectedIsActive"]
+       91 DUPCLOSURE                       R11 K25 [PROTO_3]
+       92 CAPTURE                          VAL R5
+       93 SETTABLEKS                       R11 R10 K26 ["_setCurrentSnap"]
+       95 DUPCLOSURE                       R11 K27 [PROTO_4]
+       96 SETTABLEKS                       R11 R10 K28 ["beginDrag"]
+       98 DUPCLOSURE                       R11 K29 [PROTO_5]
+       99 CAPTURE                          VAL R3
+      100 DUPCLOSURE                       R12 K30 [PROTO_6]
+      101 CAPTURE                          VAL R11
+      102 SETTABLEKS                       R12 R10 K31 ["_findNewSnapTargetImpl"]
+      104 DUPCLOSURE                       R12 K32 [PROTO_7]
+      105 SETTABLEKS                       R12 R10 K33 ["_findNewSnapTargetViaCollision"]
+      107 DUPCLOSURE                       R12 K34 [PROTO_8]
+      108 CAPTURE                          VAL R4
+      109 SETTABLEKS                       R12 R10 K35 ["updateDrag"]
+      111 DUPCLOSURE                       R12 K36 [PROTO_9]
+      112 CAPTURE                          VAL R8
+      113 SETTABLEKS                       R12 R10 K37 ["endDrag"]
+      115 DUPCLOSURE                       R12 K38 [PROTO_10]
+      116 SETTABLEKS                       R12 R10 K39 ["getSnapPoints"]
+      118 DUPCLOSURE                       R12 K40 [PROTO_11]
+      119 CAPTURE                          VAL R2
+      120 CAPTURE                          VAL R7
+      121 CAPTURE                          VAL R6
+      122 SETTABLEKS                       R12 R10 K41 ["render"]
+      124 RETURN                           R10 1

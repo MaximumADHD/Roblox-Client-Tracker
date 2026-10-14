@@ -251,50 +251,34 @@ PROTO_4:
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R1 R1 K1 ["Localization"]
-        4 GETUPVAL                         R2 0
-        5 JUMPIFNOT                        R2 ; [+20]
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R2 R2 K2 ["getAreCustomIconsAndEmojiAllowed"]
-        9 CALL                             R2 0 1
-       10 JUMPIF                           R2 ; [+15]
-       11 NEWTABLE                         R2 0 1
-       13 DUPTABLE                         R3 K6 [{["Key"] = "Icons", ["Label"]}]
-       14 LOADK                            R6 K7 ["IconPicker"]
-       15 LOADK                            R7 K4 ["Icons"]
-       16 NAMECALL                         R4 R1 K8 ["getText"]
-       18 CALL                             R4 3 1
-       19 SETTABLEKS                       R4 R3 K5 ["Label"]
-       21 SETLIST                          R2 R3 1 [1]
-       23 SETTABLEKS                       R2 R0 K9 ["tabs"]
-       25 JUMP                             ; [+30]
-       26 NEWTABLE                         R2 0 3
-       28 DUPTABLE                         R3 K11 [{["Key"] = "Emoji", ["Label"]}]
-       29 LOADK                            R6 K7 ["IconPicker"]
-       30 LOADK                            R7 K10 ["Emoji"]
-       31 NAMECALL                         R4 R1 K8 ["getText"]
-       33 CALL                             R4 3 1
-       34 SETTABLEKS                       R4 R3 K5 ["Label"]
-       36 DUPTABLE                         R4 K6 [{["Key"] = "Icons", ["Label"]}]
-       37 LOADK                            R7 K7 ["IconPicker"]
-       38 LOADK                            R8 K4 ["Icons"]
-       39 NAMECALL                         R5 R1 K8 ["getText"]
-       41 CALL                             R5 3 1
-       42 SETTABLEKS                       R5 R4 K5 ["Label"]
-       44 DUPTABLE                         R5 K13 [{["Key"] = "Custom", ["Label"]}]
-       45 LOADK                            R8 K7 ["IconPicker"]
-       46 LOADK                            R9 K12 ["Custom"]
-       47 NAMECALL                         R6 R1 K8 ["getText"]
-       49 CALL                             R6 3 1
-       50 SETTABLEKS                       R6 R5 K5 ["Label"]
-       52 SETLIST                          R2 R3 3 [1]
-       54 SETTABLEKS                       R2 R0 K9 ["tabs"]
-       56 DUPTABLE                         R4 K15 [{"selectedTab"}]
-       57 GETTABLEKS                       R6 R0 K9 ["tabs"]
-       59 GETTABLEN                        R5 R6 1
-       60 SETTABLEKS                       R5 R4 K14 ["selectedTab"]
-       62 NAMECALL                         R2 R0 K16 ["setState"]
-       64 CALL                             R2 2 0
-       65 RETURN                           R0 0
+        4 NEWTABLE                         R2 0 3
+        6 DUPTABLE                         R3 K5 [{["Key"] = "Emoji", ["Label"]}]
+        7 LOADK                            R6 K6 ["IconPicker"]
+        8 LOADK                            R7 K3 ["Emoji"]
+        9 NAMECALL                         R4 R1 K7 ["getText"]
+       11 CALL                             R4 3 1
+       12 SETTABLEKS                       R4 R3 K4 ["Label"]
+       14 DUPTABLE                         R4 K9 [{["Key"] = "Icons", ["Label"]}]
+       15 LOADK                            R7 K6 ["IconPicker"]
+       16 LOADK                            R8 K8 ["Icons"]
+       17 NAMECALL                         R5 R1 K7 ["getText"]
+       19 CALL                             R5 3 1
+       20 SETTABLEKS                       R5 R4 K4 ["Label"]
+       22 DUPTABLE                         R5 K11 [{["Key"] = "Custom", ["Label"]}]
+       23 LOADK                            R8 K6 ["IconPicker"]
+       24 LOADK                            R9 K10 ["Custom"]
+       25 NAMECALL                         R6 R1 K7 ["getText"]
+       27 CALL                             R6 3 1
+       28 SETTABLEKS                       R6 R5 K4 ["Label"]
+       30 SETLIST                          R2 R3 3 [1]
+       32 SETTABLEKS                       R2 R0 K12 ["tabs"]
+       34 DUPTABLE                         R4 K14 [{"selectedTab"}]
+       35 GETTABLEKS                       R6 R0 K12 ["tabs"]
+       37 GETTABLEN                        R5 R6 1
+       38 SETTABLEKS                       R5 R4 K13 ["selectedTab"]
+       40 NAMECALL                         R2 R0 K15 ["setState"]
+       42 CALL                             R2 2 0
+       43 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R2 R0 K0 ["IconPicker"]
@@ -415,55 +399,43 @@ MAIN:
        95 GETIMPORT                        R22 K1 [script]
        97 GETTABLEKS                       R22 R22 K29 ["CustomPage"]
        99 CALL                             R21 1 1
-      100 GETIMPORT                        R22 K4 [require]
-      102 GETTABLEKS                       R23 R0 K22 ["Src"]
-      104 GETTABLEKS                       R23 R23 K20 ["Util"]
-      106 GETTABLEKS                       R23 R23 K30 ["TagEditorPluginPolicy"]
-      108 CALL                             R22 1 1
-      109 GETIMPORT                        R23 K32 [game]
-      111 LOADK                            R25 K33 ["TagEditorLuobuIconFixes2"]
-      112 LOADB                            R26 0
-      113 NAMECALL                         R23 R23 K34 ["DefineFastFlag"]
-      115 CALL                             R23 3 1
-      116 GETTABLEKS                       R24 R1 K35 ["PureComponent"]
-      118 LOADK                            R26 K36 ["IconPicker"]
-      119 NAMECALL                         R24 R24 K37 ["extend"]
-      121 CALL                             R24 2 1
-      122 DUPCLOSURE                       R25 K38 [PROTO_2]
-      123 SETTABLEKS                       R25 R24 K39 ["init"]
-      125 DUPCLOSURE                       R25 K40 [PROTO_4]
-      126 CAPTURE                          VAL R15
-      127 CAPTURE                          VAL R19
-      128 CAPTURE                          VAL R20
-      129 CAPTURE                          VAL R21
-      130 CAPTURE                          VAL R1
-      131 CAPTURE                          VAL R10
-      132 CAPTURE                          VAL R9
-      133 CAPTURE                          VAL R13
-      134 CAPTURE                          VAL R17
-      135 CAPTURE                          VAL R12
-      136 CAPTURE                          VAL R11
-      137 SETTABLEKS                       R25 R24 K41 ["render"]
-      139 DUPCLOSURE                       R25 K42 [PROTO_5]
-      140 CAPTURE                          VAL R23
-      141 CAPTURE                          VAL R22
-      142 SETTABLEKS                       R25 R24 K43 ["didMount"]
-      144 MOVE                             R25 R5
-      145 DUPTABLE                         R26 K44 [{"Localization", "Stylizer"}]
-      146 SETTABLEKS                       R6 R26 K11 ["Localization"]
-      148 SETTABLEKS                       R7 R26 K13 ["Stylizer"]
-      150 CALL                             R25 1 1
-      151 MOVE                             R26 R24
-      152 CALL                             R25 1 1
-      153 MOVE                             R24 R25
-      154 DUPCLOSURE                       R25 K45 [PROTO_6]
-      155 DUPCLOSURE                       R26 K46 [PROTO_10]
-      156 CAPTURE                          VAL R16
-      157 GETTABLEKS                       R27 R2 K47 ["connect"]
-      159 MOVE                             R28 R25
-      160 MOVE                             R29 R26
-      161 CALL                             R27 2 1
-      162 MOVE                             R28 R24
-      163 CALL                             R27 1 1
-      164 MOVE                             R24 R27
-      165 RETURN                           R24 1
+      100 GETTABLEKS                       R22 R1 K30 ["PureComponent"]
+      102 LOADK                            R24 K31 ["IconPicker"]
+      103 NAMECALL                         R22 R22 K32 ["extend"]
+      105 CALL                             R22 2 1
+      106 DUPCLOSURE                       R23 K33 [PROTO_2]
+      107 SETTABLEKS                       R23 R22 K34 ["init"]
+      109 DUPCLOSURE                       R23 K35 [PROTO_4]
+      110 CAPTURE                          VAL R15
+      111 CAPTURE                          VAL R19
+      112 CAPTURE                          VAL R20
+      113 CAPTURE                          VAL R21
+      114 CAPTURE                          VAL R1
+      115 CAPTURE                          VAL R10
+      116 CAPTURE                          VAL R9
+      117 CAPTURE                          VAL R13
+      118 CAPTURE                          VAL R17
+      119 CAPTURE                          VAL R12
+      120 CAPTURE                          VAL R11
+      121 SETTABLEKS                       R23 R22 K36 ["render"]
+      123 DUPCLOSURE                       R23 K37 [PROTO_5]
+      124 SETTABLEKS                       R23 R22 K38 ["didMount"]
+      126 MOVE                             R23 R5
+      127 DUPTABLE                         R24 K39 [{"Localization", "Stylizer"}]
+      128 SETTABLEKS                       R6 R24 K11 ["Localization"]
+      130 SETTABLEKS                       R7 R24 K13 ["Stylizer"]
+      132 CALL                             R23 1 1
+      133 MOVE                             R24 R22
+      134 CALL                             R23 1 1
+      135 MOVE                             R22 R23
+      136 DUPCLOSURE                       R23 K40 [PROTO_6]
+      137 DUPCLOSURE                       R24 K41 [PROTO_10]
+      138 CAPTURE                          VAL R16
+      139 GETTABLEKS                       R25 R2 K42 ["connect"]
+      141 MOVE                             R26 R23
+      142 MOVE                             R27 R24
+      143 CALL                             R25 2 1
+      144 MOVE                             R26 R22
+      145 CALL                             R25 1 1
+      146 MOVE                             R22 R25
+      147 RETURN                           R22 1

@@ -674,81 +674,82 @@ MAIN:
       110 GETTABLEKS                       R21 R18 K32 ["UpdateRootInstance"]
       112 CALL                             R20 1 1
       113 GETIMPORT                        R21 K11 [require]
-      115 GETTABLEKS                       R22 R3 K33 ["LuaFlags"]
-      117 GETTABLEKS                       R22 R22 K34 ["GetFFlagControlRig"]
-      119 CALL                             R21 1 1
-      120 GETTABLEKS                       R22 R4 K35 ["PureComponent"]
-      122 LOADK                            R24 K36 ["InstanceSelector"]
-      123 NAMECALL                         R22 R22 K37 ["extend"]
-      125 CALL                             R22 2 1
-      126 DUPCLOSURE                       R23 K38 [PROTO_0]
-      127 CAPTURE                          VAL R23
-      128 DUPCLOSURE                       R24 K39 [PROTO_1]
-      129 DUPCLOSURE                       R25 K40 [PROTO_2]
-      130 CAPTURE                          VAL R2
-      131 DUPCLOSURE                       R26 K41 [PROTO_3]
-      132 DUPCLOSURE                       R27 K42 [PROTO_4]
-      133 CAPTURE                          VAL R14
-      134 DUPCLOSURE                       R28 K43 [PROTO_5]
-      135 SETTABLEKS                       R28 R22 K44 ["isCurrentRootInstance"]
-      137 DUPCLOSURE                       R28 K45 [PROTO_6]
-      138 CAPTURE                          VAL R23
-      139 CAPTURE                          VAL R14
-      140 SETTABLEKS                       R28 R22 K46 ["selectValidInstance"]
-      142 DUPCLOSURE                       R28 K47 [PROTO_7]
-      143 CAPTURE                          VAL R17
-      144 CAPTURE                          VAL R4
-      145 CAPTURE                          VAL R11
-      146 CAPTURE                          VAL R13
-      147 SETTABLEKS                       R28 R22 K48 ["showErrorDialogs_DEPRECATED"]
-      149 DUPCLOSURE                       R28 K49 [PROTO_8]
-      150 CAPTURE                          VAL R17
-      151 CAPTURE                          VAL R4
-      152 CAPTURE                          VAL R11
-      153 CAPTURE                          VAL R13
-      154 SETTABLEKS                       R28 R22 K50 ["showErrorDialogs"]
-      156 DUPCLOSURE                       R28 K51 [PROTO_15]
-      157 CAPTURE                          VAL R2
-      158 CAPTURE                          VAL R4
-      159 CAPTURE                          VAL R21
-      160 CAPTURE                          VAL R23
-      161 CAPTURE                          VAL R14
-      162 CAPTURE                          VAL R15
-      163 SETTABLEKS                       R28 R22 K52 ["init"]
-      165 DUPCLOSURE                       R28 K53 [PROTO_18]
-      166 CAPTURE                          VAL R0
-      167 SETTABLEKS                       R28 R22 K54 ["didMount"]
-      169 DUPCLOSURE                       R28 K55 [PROTO_19]
-      170 CAPTURE                          VAL R1
-      171 CAPTURE                          VAL R16
-      172 CAPTURE                          VAL R4
-      173 SETTABLEKS                       R28 R22 K56 ["render"]
-      175 DUPCLOSURE                       R28 K57 [PROTO_20]
-      176 CAPTURE                          VAL R13
-      177 SETTABLEKS                       R28 R22 K58 ["willUnmount"]
-      179 MOVE                             R28 R8
-      180 DUPTABLE                         R29 K63 [{"Plugin", "Mouse", "Analytics", "Localization", "Signals"}]
-      181 GETTABLEKS                       R30 R7 K59 ["Plugin"]
-      183 SETTABLEKS                       R30 R29 K59 ["Plugin"]
-      185 GETTABLEKS                       R30 R7 K60 ["Mouse"]
-      187 SETTABLEKS                       R30 R29 K60 ["Mouse"]
-      189 GETTABLEKS                       R30 R7 K61 ["Analytics"]
-      191 SETTABLEKS                       R30 R29 K61 ["Analytics"]
-      193 GETTABLEKS                       R30 R7 K62 ["Localization"]
-      195 SETTABLEKS                       R30 R29 K62 ["Localization"]
-      197 SETTABLEKS                       R9 R29 K20 ["Signals"]
-      199 CALL                             R28 1 1
-      200 MOVE                             R29 R22
+      115 GETTABLEKS                       R22 R3 K18 ["Src"]
+      117 GETTABLEKS                       R22 R22 K33 ["Flags"]
+      119 GETTABLEKS                       R22 R22 K34 ["getFFlagControlRig"]
+      121 CALL                             R21 1 1
+      122 GETTABLEKS                       R22 R4 K35 ["PureComponent"]
+      124 LOADK                            R24 K36 ["InstanceSelector"]
+      125 NAMECALL                         R22 R22 K37 ["extend"]
+      127 CALL                             R22 2 1
+      128 DUPCLOSURE                       R23 K38 [PROTO_0]
+      129 CAPTURE                          VAL R23
+      130 DUPCLOSURE                       R24 K39 [PROTO_1]
+      131 DUPCLOSURE                       R25 K40 [PROTO_2]
+      132 CAPTURE                          VAL R2
+      133 DUPCLOSURE                       R26 K41 [PROTO_3]
+      134 DUPCLOSURE                       R27 K42 [PROTO_4]
+      135 CAPTURE                          VAL R14
+      136 DUPCLOSURE                       R28 K43 [PROTO_5]
+      137 SETTABLEKS                       R28 R22 K44 ["isCurrentRootInstance"]
+      139 DUPCLOSURE                       R28 K45 [PROTO_6]
+      140 CAPTURE                          VAL R23
+      141 CAPTURE                          VAL R14
+      142 SETTABLEKS                       R28 R22 K46 ["selectValidInstance"]
+      144 DUPCLOSURE                       R28 K47 [PROTO_7]
+      145 CAPTURE                          VAL R17
+      146 CAPTURE                          VAL R4
+      147 CAPTURE                          VAL R11
+      148 CAPTURE                          VAL R13
+      149 SETTABLEKS                       R28 R22 K48 ["showErrorDialogs_DEPRECATED"]
+      151 DUPCLOSURE                       R28 K49 [PROTO_8]
+      152 CAPTURE                          VAL R17
+      153 CAPTURE                          VAL R4
+      154 CAPTURE                          VAL R11
+      155 CAPTURE                          VAL R13
+      156 SETTABLEKS                       R28 R22 K50 ["showErrorDialogs"]
+      158 DUPCLOSURE                       R28 K51 [PROTO_15]
+      159 CAPTURE                          VAL R2
+      160 CAPTURE                          VAL R4
+      161 CAPTURE                          VAL R21
+      162 CAPTURE                          VAL R23
+      163 CAPTURE                          VAL R14
+      164 CAPTURE                          VAL R15
+      165 SETTABLEKS                       R28 R22 K52 ["init"]
+      167 DUPCLOSURE                       R28 K53 [PROTO_18]
+      168 CAPTURE                          VAL R0
+      169 SETTABLEKS                       R28 R22 K54 ["didMount"]
+      171 DUPCLOSURE                       R28 K55 [PROTO_19]
+      172 CAPTURE                          VAL R1
+      173 CAPTURE                          VAL R16
+      174 CAPTURE                          VAL R4
+      175 SETTABLEKS                       R28 R22 K56 ["render"]
+      177 DUPCLOSURE                       R28 K57 [PROTO_20]
+      178 CAPTURE                          VAL R13
+      179 SETTABLEKS                       R28 R22 K58 ["willUnmount"]
+      181 MOVE                             R28 R8
+      182 DUPTABLE                         R29 K63 [{"Plugin", "Mouse", "Analytics", "Localization", "Signals"}]
+      183 GETTABLEKS                       R30 R7 K59 ["Plugin"]
+      185 SETTABLEKS                       R30 R29 K59 ["Plugin"]
+      187 GETTABLEKS                       R30 R7 K60 ["Mouse"]
+      189 SETTABLEKS                       R30 R29 K60 ["Mouse"]
+      191 GETTABLEKS                       R30 R7 K61 ["Analytics"]
+      193 SETTABLEKS                       R30 R29 K61 ["Analytics"]
+      195 GETTABLEKS                       R30 R7 K62 ["Localization"]
+      197 SETTABLEKS                       R30 R29 K62 ["Localization"]
+      199 SETTABLEKS                       R9 R29 K20 ["Signals"]
       201 CALL                             R28 1 1
-      202 MOVE                             R22 R28
-      203 DUPCLOSURE                       R28 K64 [PROTO_21]
-      204 DUPCLOSURE                       R29 K65 [PROTO_24]
-      205 CAPTURE                          VAL R19
-      206 CAPTURE                          VAL R20
-      207 GETTABLEKS                       R30 R5 K66 ["connect"]
-      209 MOVE                             R31 R28
-      210 MOVE                             R32 R29
-      211 CALL                             R30 2 1
-      212 MOVE                             R31 R22
-      213 CALL                             R30 1 -1
-      214 RETURN                           R30 -1
+      202 MOVE                             R29 R22
+      203 CALL                             R28 1 1
+      204 MOVE                             R22 R28
+      205 DUPCLOSURE                       R28 K64 [PROTO_21]
+      206 DUPCLOSURE                       R29 K65 [PROTO_24]
+      207 CAPTURE                          VAL R19
+      208 CAPTURE                          VAL R20
+      209 GETTABLEKS                       R30 R5 K66 ["connect"]
+      211 MOVE                             R31 R28
+      212 MOVE                             R32 R29
+      213 CALL                             R30 2 1
+      214 MOVE                             R31 R22
+      215 CALL                             R30 1 -1
+      216 RETURN                           R30 -1

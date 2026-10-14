@@ -16,214 +16,194 @@ MAIN:
        24 LOADK                            R6 K13 ["ImprovedCursors"]
        25 NAMECALL                         R4 R4 K14 ["GetFastFlag"]
        27 CALL                             R4 2 1
-       28 GETIMPORT                        R5 K5 [require]
-       30 GETTABLEKS                       R6 R0 K15 ["Bin"]
-       32 GETTABLEKS                       R6 R6 K16 ["Common"]
-       34 GETTABLEKS                       R6 R6 K17 ["defineLuaFlags"]
-       36 CALL                             R5 1 1
-       37 GETTABLEKS                       R5 R5 K18 ["getFFlagAudioCompressorEditorFontFix"]
-       39 CALL                             R5 0 1
-       40 DUPTABLE                         R6 K37 [{["ColorControlPoint"], ["ColorControlPointHovered"], ["ColorControlPointPressed"], ["ColorControlLine"], ["ColorAnalyzerCurveIn"], ["ColorAnalyzerCurveOut"], ["ColorAnalyzerCurveGain"], ["ColorAnalyzerCurveSidechain"], ["ColorCurve"], ["ColorCurveDisabled"], ["ColorGridLine"], ["ColorKnobArc"], ["ColorKnobTick"], ["CursorOpenedHand"], ["CursorHorizontal"] = "SizeEW", ["CursorVertical"] = "SizeNS"}]
-       41 GETIMPORT                        R7 K40 [Color3.fromRGB]
-       43 LOADN                            R8 255
-       44 LOADN                            R9 100
-       45 LOADN                            R10 100
-       46 CALL                             R7 3 1
-       47 SETTABLEKS                       R7 R6 K19 ["ColorControlPoint"]
-       49 GETIMPORT                        R7 K40 [Color3.fromRGB]
-       51 LOADN                            R8 175
-       52 LOADN                            R9 70
-       53 LOADN                            R10 75
-       54 CALL                             R7 3 1
-       55 SETTABLEKS                       R7 R6 K20 ["ColorControlPointHovered"]
-       57 GETIMPORT                        R7 K40 [Color3.fromRGB]
-       59 LOADN                            R8 100
-       60 LOADN                            R9 30
-       61 LOADN                            R10 50
-       62 CALL                             R7 3 1
-       63 SETTABLEKS                       R7 R6 K21 ["ColorControlPointPressed"]
-       65 GETIMPORT                        R7 K40 [Color3.fromRGB]
-       67 LOADN                            R8 100
-       68 LOADN                            R9 200
-       69 LOADN                            R10 100
-       70 CALL                             R7 3 1
-       71 SETTABLEKS                       R7 R6 K22 ["ColorControlLine"]
-       73 GETIMPORT                        R7 K40 [Color3.fromRGB]
-       75 LOADN                            R8 150
-       76 LOADN                            R9 100
-       77 LOADN                            R10 50
-       78 CALL                             R7 3 1
-       79 SETTABLEKS                       R7 R6 K23 ["ColorAnalyzerCurveIn"]
-       81 GETIMPORT                        R7 K40 [Color3.fromRGB]
-       83 LOADN                            R8 200
-       84 LOADN                            R9 150
-       85 LOADN                            R10 75
-       86 CALL                             R7 3 1
-       87 SETTABLEKS                       R7 R6 K24 ["ColorAnalyzerCurveOut"]
-       89 GETIMPORT                        R7 K40 [Color3.fromRGB]
-       91 LOADN                            R8 150
-       92 LOADN                            R9 200
-       93 LOADN                            R10 75
-       94 CALL                             R7 3 1
-       95 SETTABLEKS                       R7 R6 K25 ["ColorAnalyzerCurveGain"]
-       97 GETIMPORT                        R7 K40 [Color3.fromRGB]
-       99 LOADN                            R8 150
-      100 LOADN                            R9 75
-      101 LOADN                            R10 225
-      102 CALL                             R7 3 1
-      103 SETTABLEKS                       R7 R6 K26 ["ColorAnalyzerCurveSidechain"]
-      105 GETIMPORT                        R7 K40 [Color3.fromRGB]
-      107 LOADN                            R8 255
-      108 LOADN                            R9 100
-      109 LOADN                            R10 100
-      110 CALL                             R7 3 1
-      111 SETTABLEKS                       R7 R6 K27 ["ColorCurve"]
-      113 GETIMPORT                        R7 K40 [Color3.fromRGB]
-      115 LOADN                            R8 155
-      116 LOADN                            R9 100
-      117 LOADN                            R10 100
-      118 CALL                             R7 3 1
-      119 SETTABLEKS                       R7 R6 K28 ["ColorCurveDisabled"]
-      121 GETIMPORT                        R7 K40 [Color3.fromRGB]
-      123 LOADN                            R8 155
-      124 LOADN                            R9 155
-      125 LOADN                            R10 155
-      126 CALL                             R7 3 1
-      127 SETTABLEKS                       R7 R6 K29 ["ColorGridLine"]
-      129 GETIMPORT                        R7 K40 [Color3.fromRGB]
-      131 LOADN                            R8 0
-      132 LOADN                            R9 155
-      133 LOADN                            R10 255
-      134 CALL                             R7 3 1
-      135 SETTABLEKS                       R7 R6 K30 ["ColorKnobArc"]
-      137 GETIMPORT                        R7 K40 [Color3.fromRGB]
-      139 LOADN                            R8 0
-      140 LOADN                            R9 155
-      141 LOADN                            R10 255
-      142 CALL                             R7 3 1
-      143 SETTABLEKS                       R7 R6 K31 ["ColorKnobTick"]
-      145 JUMPIFNOT                        R4 ; [+2]
-      146 LOADK                            R7 K41 ["rbxasset://textures/Cursors/DragDetector/HoverCursor.png"]
-      147 JUMP                             ; [+1]
-      148 LOADK                            R7 K42 ["rbxasset://textures/advCursor-openedHand.png"]
-      149 SETTABLEKS                       R7 R6 K32 ["CursorOpenedHand"]
-      151 NEWTABLE                         R7 0 20
-      153 MOVE                             R8 R2
-      154 LOADK                            R9 K43 ["TextLabel, TextButton, TextBox"]
-      155 DUPTABLE                         R10 K46 [{"FontFace", "Font"}]
-      156 JUMPIFNOT                        R5 ; [+2]
-      157 LOADNIL                          R11
-      158 JUMP                             ; [+2]
-      159 GETIMPORT                        R11 K49 [Enum.Font.SourceSans]
-      161 SETTABLEKS                       R11 R10 K44 ["FontFace"]
-      163 JUMPIFNOT                        R5 ; [+3]
-      164 GETIMPORT                        R11 K49 [Enum.Font.SourceSans]
-      166 JUMP                             ; [+1]
-      167 LOADNIL                          R11
-      168 SETTABLEKS                       R11 R10 K45 ["Font"]
-      170 CALL                             R8 2 1
-      171 MOVE                             R9 R2
-      172 LOADK                            R10 K50 [".Input"]
-      173 DUPTABLE                         R11 K53 [{["BackgroundColor3"] = "$ColorInputBox"}]
-      174 CALL                             R9 2 1
-      175 MOVE                             R10 R2
-      176 LOADK                            R11 K54 [".GridLine"]
-      177 DUPTABLE                         R12 K60 [{["BorderSizePixel"] = 0, ["ZIndex"] = 2, ["BackgroundColor3"] = "$ColorGridLine"}]
-      178 CALL                             R10 2 1
-      179 MOVE                             R11 R2
-      180 LOADK                            R12 K61 [".GridLabel"]
-      181 DUPTABLE                         R13 K66 [{["BackgroundTransparency"] = 1, ["TextColor3"] = "$ColorGridLine", ["TextSize"]}]
-      182 JUMPIFNOT                        R5 ; [+2]
-      183 LOADN                            R14 18
-      184 JUMP                             ; [+1]
-      185 LOADN                            R14 10
-      186 SETTABLEKS                       R14 R13 K65 ["TextSize"]
-      188 NEWTABLE                         R14 0 1
-      190 MOVE                             R15 R2
-      191 LOADK                            R16 K67 [".ControlLabel"]
-      192 DUPTABLE                         R17 K69 [{["TextColor3"] = "$ColorControlLine"}]
-      193 CALL                             R15 2 -1
-      194 SETLIST                          R14 R15 -1 [1]
-      196 CALL                             R11 3 1
-      197 MOVE                             R12 R2
-      198 LOADK                            R13 K70 [".AnalyzerCurveSidechain"]
-      199 DUPTABLE                         R14 K74 [{["ZIndex"] = 4, ["Color3"] = "$ColorAnalyzerCurveSidechain", ["Thickness"] = 1}]
-      200 CALL                             R12 2 1
-      201 MOVE                             R13 R2
-      202 LOADK                            R14 K75 [".AnalyzerCurveIn"]
-      203 DUPTABLE                         R15 K78 [{["ZIndex"] = 5, ["Color3"] = "$ColorAnalyzerCurveIn", ["Thickness"] = 1}]
-      204 CALL                             R13 2 1
-      205 MOVE                             R14 R2
-      206 LOADK                            R15 K79 [".AnalyzerCurveOut"]
-      207 DUPTABLE                         R16 K82 [{["ZIndex"] = 6, ["Color3"] = "$ColorAnalyzerCurveOut", ["Thickness"] = 1}]
-      208 CALL                             R14 2 1
-      209 MOVE                             R15 R2
-      210 LOADK                            R16 K83 [".AnalyzerCurveGain"]
-      211 DUPTABLE                         R17 K86 [{["ZIndex"] = 7, ["Color3"] = "$ColorAnalyzerCurveGain", ["Thickness"] = 1}]
-      212 CALL                             R15 2 1
-      213 MOVE                             R16 R2
-      214 LOADK                            R17 K87 [".Curve"]
-      215 DUPTABLE                         R18 K90 [{["ZIndex"] = 10, ["Color3"] = "$ColorCurve", ["Thickness"] = 2}]
-      216 CALL                             R16 2 1
-      217 MOVE                             R17 R2
-      218 LOADK                            R18 K91 [".CurveDisabled"]
-      219 DUPTABLE                         R19 K93 [{["ZIndex"] = 10, ["Color3"] = "$ColorCurveDisabled", ["Thickness"] = 2}]
-      220 CALL                             R17 2 1
-      221 MOVE                             R18 R2
-      222 LOADK                            R19 K94 [".ControlPoint"]
-      223 DUPTABLE                         R20 K102 [{["AnchorPoint"], ["BackgroundTransparency"] = 1, ["Image"] = "rbxasset://textures/smallWhiteCircle.png", ["ImageColor3"] = "$ColorControlPoint", ["Size"], ["ZIndex"] = 20}]
-      224 GETIMPORT                        R21 K105 [Vector2.new]
-      226 LOADK                            R22 K106 [0.5]
-      227 LOADK                            R23 K106 [0.5]
-      228 CALL                             R21 2 1
-      229 SETTABLEKS                       R21 R20 K95 ["AnchorPoint"]
-      231 GETIMPORT                        R21 K109 [UDim2.fromOffset]
-      233 LOADN                            R22 12
-      234 LOADN                            R23 12
-      235 CALL                             R21 2 1
-      236 SETTABLEKS                       R21 R20 K100 ["Size"]
-      238 CALL                             R18 2 1
-      239 MOVE                             R19 R2
-      240 LOADK                            R20 K110 [".ControlLine"]
-      241 DUPTABLE                         R21 K111 [{["BorderSizePixel"] = 0, ["ZIndex"] = 20, ["BackgroundColor3"] = "$ColorControlLine"}]
-      242 CALL                             R19 2 1
-      243 MOVE                             R20 R2
-      244 LOADK                            R21 K112 [".GridCurve"]
-      245 DUPTABLE                         R22 K113 [{["Color3"] = "$ColorGridLine", ["Thickness"] = 2}]
-      246 CALL                             R20 2 1
-      247 MOVE                             R21 R2
-      248 LOADK                            R22 K114 [".GuideCurve"]
-      249 DUPTABLE                         R23 K115 [{["Color3"] = "$ColorControlLine", ["Thickness"] = 1}]
-      250 CALL                             R21 2 1
-      251 MOVE                             R22 R2
-      252 LOADK                            R23 K116 [".Knob"]
-      253 DUPTABLE                         R24 K118 [{["BackgroundTransparency"] = 1, ["Image"] = "rbxasset://textures/smallWhiteCircle.png", ["ImageColor3"] = "$ColorKnob"}]
-      254 CALL                             R22 2 1
-      255 MOVE                             R23 R2
-      256 LOADK                            R24 K119 [".KnobBackArc"]
-      257 DUPTABLE                         R25 K122 [{["Color3"] = "$ColorKnobBackArc", ["Thickness"] = 3}]
-      258 CALL                             R23 2 1
-      259 SETLIST                          R7 R8 16 [1]
-      261 MOVE                             R8 R2
-      262 LOADK                            R9 K123 [".KnobArc"]
-      263 DUPTABLE                         R10 K125 [{["Color3"] = "$ColorKnobArc", ["Thickness"] = 3}]
-      264 CALL                             R8 2 1
-      265 MOVE                             R9 R2
-      266 LOADK                            R10 K126 [".KnobTick"]
-      267 DUPTABLE                         R11 K128 [{["Color3"] = "$ColorKnobTick", ["Thickness"] = 3}]
-      268 CALL                             R9 2 1
-      269 MOVE                             R10 R2
-      270 LOADK                            R11 K129 [".TopButton"]
-      271 DUPTABLE                         R12 K131 [{["BackgroundTransparency"] = 0, ["BackgroundColor3"] = "$ColorTopButton"}]
-      272 CALL                             R10 2 1
-      273 MOVE                             R11 R2
-      274 LOADK                            R12 K132 [".DoubleArrowButton"]
-      275 NEWTABLE                         R13 0 0
-      277 CALL                             R11 2 -1
-      278 SETLIST                          R7 R8 -1 [17]
-      280 MOVE                             R8 R3
-      281 LOADK                            R9 K2 ["AudioCompressorEditor"]
-      282 MOVE                             R10 R7
-      283 MOVE                             R11 R6
-      284 CALL                             R8 3 -1
-      285 RETURN                           R8 -1
+       28 DUPTABLE                         R5 K33 [{["ColorControlPoint"], ["ColorControlPointHovered"], ["ColorControlPointPressed"], ["ColorControlLine"], ["ColorAnalyzerCurveIn"], ["ColorAnalyzerCurveOut"], ["ColorAnalyzerCurveGain"], ["ColorAnalyzerCurveSidechain"], ["ColorCurve"], ["ColorCurveDisabled"], ["ColorGridLine"], ["ColorKnobArc"], ["ColorKnobTick"], ["CursorOpenedHand"], ["CursorHorizontal"] = "SizeEW", ["CursorVertical"] = "SizeNS"}]
+       29 GETIMPORT                        R6 K36 [Color3.fromRGB]
+       31 LOADN                            R7 255
+       32 LOADN                            R8 100
+       33 LOADN                            R9 100
+       34 CALL                             R6 3 1
+       35 SETTABLEKS                       R6 R5 K15 ["ColorControlPoint"]
+       37 GETIMPORT                        R6 K36 [Color3.fromRGB]
+       39 LOADN                            R7 175
+       40 LOADN                            R8 70
+       41 LOADN                            R9 75
+       42 CALL                             R6 3 1
+       43 SETTABLEKS                       R6 R5 K16 ["ColorControlPointHovered"]
+       45 GETIMPORT                        R6 K36 [Color3.fromRGB]
+       47 LOADN                            R7 100
+       48 LOADN                            R8 30
+       49 LOADN                            R9 50
+       50 CALL                             R6 3 1
+       51 SETTABLEKS                       R6 R5 K17 ["ColorControlPointPressed"]
+       53 GETIMPORT                        R6 K36 [Color3.fromRGB]
+       55 LOADN                            R7 100
+       56 LOADN                            R8 200
+       57 LOADN                            R9 100
+       58 CALL                             R6 3 1
+       59 SETTABLEKS                       R6 R5 K18 ["ColorControlLine"]
+       61 GETIMPORT                        R6 K36 [Color3.fromRGB]
+       63 LOADN                            R7 150
+       64 LOADN                            R8 100
+       65 LOADN                            R9 50
+       66 CALL                             R6 3 1
+       67 SETTABLEKS                       R6 R5 K19 ["ColorAnalyzerCurveIn"]
+       69 GETIMPORT                        R6 K36 [Color3.fromRGB]
+       71 LOADN                            R7 200
+       72 LOADN                            R8 150
+       73 LOADN                            R9 75
+       74 CALL                             R6 3 1
+       75 SETTABLEKS                       R6 R5 K20 ["ColorAnalyzerCurveOut"]
+       77 GETIMPORT                        R6 K36 [Color3.fromRGB]
+       79 LOADN                            R7 150
+       80 LOADN                            R8 200
+       81 LOADN                            R9 75
+       82 CALL                             R6 3 1
+       83 SETTABLEKS                       R6 R5 K21 ["ColorAnalyzerCurveGain"]
+       85 GETIMPORT                        R6 K36 [Color3.fromRGB]
+       87 LOADN                            R7 150
+       88 LOADN                            R8 75
+       89 LOADN                            R9 225
+       90 CALL                             R6 3 1
+       91 SETTABLEKS                       R6 R5 K22 ["ColorAnalyzerCurveSidechain"]
+       93 GETIMPORT                        R6 K36 [Color3.fromRGB]
+       95 LOADN                            R7 255
+       96 LOADN                            R8 100
+       97 LOADN                            R9 100
+       98 CALL                             R6 3 1
+       99 SETTABLEKS                       R6 R5 K23 ["ColorCurve"]
+      101 GETIMPORT                        R6 K36 [Color3.fromRGB]
+      103 LOADN                            R7 155
+      104 LOADN                            R8 100
+      105 LOADN                            R9 100
+      106 CALL                             R6 3 1
+      107 SETTABLEKS                       R6 R5 K24 ["ColorCurveDisabled"]
+      109 GETIMPORT                        R6 K36 [Color3.fromRGB]
+      111 LOADN                            R7 155
+      112 LOADN                            R8 155
+      113 LOADN                            R9 155
+      114 CALL                             R6 3 1
+      115 SETTABLEKS                       R6 R5 K25 ["ColorGridLine"]
+      117 GETIMPORT                        R6 K36 [Color3.fromRGB]
+      119 LOADN                            R7 0
+      120 LOADN                            R8 155
+      121 LOADN                            R9 255
+      122 CALL                             R6 3 1
+      123 SETTABLEKS                       R6 R5 K26 ["ColorKnobArc"]
+      125 GETIMPORT                        R6 K36 [Color3.fromRGB]
+      127 LOADN                            R7 0
+      128 LOADN                            R8 155
+      129 LOADN                            R9 255
+      130 CALL                             R6 3 1
+      131 SETTABLEKS                       R6 R5 K27 ["ColorKnobTick"]
+      133 JUMPIFNOT                        R4 ; [+2]
+      134 LOADK                            R6 K37 ["rbxasset://textures/Cursors/DragDetector/HoverCursor.png"]
+      135 JUMP                             ; [+1]
+      136 LOADK                            R6 K38 ["rbxasset://textures/advCursor-openedHand.png"]
+      137 SETTABLEKS                       R6 R5 K28 ["CursorOpenedHand"]
+      139 NEWTABLE                         R6 0 20
+      141 MOVE                             R7 R2
+      142 LOADK                            R8 K39 ["TextLabel, TextButton, TextBox"]
+      143 DUPTABLE                         R9 K41 [{"Font"}]
+      144 GETIMPORT                        R10 K44 [Enum.Font.SourceSans]
+      146 SETTABLEKS                       R10 R9 K40 ["Font"]
+      148 CALL                             R7 2 1
+      149 MOVE                             R8 R2
+      150 LOADK                            R9 K45 [".Input"]
+      151 DUPTABLE                         R10 K48 [{["BackgroundColor3"] = "$ColorInputBox"}]
+      152 CALL                             R8 2 1
+      153 MOVE                             R9 R2
+      154 LOADK                            R10 K49 [".GridLine"]
+      155 DUPTABLE                         R11 K55 [{["BorderSizePixel"] = 0, ["ZIndex"] = 2, ["BackgroundColor3"] = "$ColorGridLine"}]
+      156 CALL                             R9 2 1
+      157 MOVE                             R10 R2
+      158 LOADK                            R11 K56 [".GridLabel"]
+      159 DUPTABLE                         R12 K62 [{["BackgroundTransparency"] = 1, ["TextColor3"] = "$ColorGridLine", ["TextSize"] = 18}]
+      160 NEWTABLE                         R13 0 1
+      162 MOVE                             R14 R2
+      163 LOADK                            R15 K63 [".ControlLabel"]
+      164 DUPTABLE                         R16 K65 [{["TextColor3"] = "$ColorControlLine"}]
+      165 CALL                             R14 2 -1
+      166 SETLIST                          R13 R14 -1 [1]
+      168 CALL                             R10 3 1
+      169 MOVE                             R11 R2
+      170 LOADK                            R12 K66 [".AnalyzerCurveSidechain"]
+      171 DUPTABLE                         R13 K70 [{["ZIndex"] = 4, ["Color3"] = "$ColorAnalyzerCurveSidechain", ["Thickness"] = 1}]
+      172 CALL                             R11 2 1
+      173 MOVE                             R12 R2
+      174 LOADK                            R13 K71 [".AnalyzerCurveIn"]
+      175 DUPTABLE                         R14 K74 [{["ZIndex"] = 5, ["Color3"] = "$ColorAnalyzerCurveIn", ["Thickness"] = 1}]
+      176 CALL                             R12 2 1
+      177 MOVE                             R13 R2
+      178 LOADK                            R14 K75 [".AnalyzerCurveOut"]
+      179 DUPTABLE                         R15 K78 [{["ZIndex"] = 6, ["Color3"] = "$ColorAnalyzerCurveOut", ["Thickness"] = 1}]
+      180 CALL                             R13 2 1
+      181 MOVE                             R14 R2
+      182 LOADK                            R15 K79 [".AnalyzerCurveGain"]
+      183 DUPTABLE                         R16 K82 [{["ZIndex"] = 7, ["Color3"] = "$ColorAnalyzerCurveGain", ["Thickness"] = 1}]
+      184 CALL                             R14 2 1
+      185 MOVE                             R15 R2
+      186 LOADK                            R16 K83 [".Curve"]
+      187 DUPTABLE                         R17 K86 [{["ZIndex"] = 10, ["Color3"] = "$ColorCurve", ["Thickness"] = 2}]
+      188 CALL                             R15 2 1
+      189 MOVE                             R16 R2
+      190 LOADK                            R17 K87 [".CurveDisabled"]
+      191 DUPTABLE                         R18 K89 [{["ZIndex"] = 10, ["Color3"] = "$ColorCurveDisabled", ["Thickness"] = 2}]
+      192 CALL                             R16 2 1
+      193 MOVE                             R17 R2
+      194 LOADK                            R18 K90 [".ControlPoint"]
+      195 DUPTABLE                         R19 K98 [{["AnchorPoint"], ["BackgroundTransparency"] = 1, ["Image"] = "rbxasset://textures/smallWhiteCircle.png", ["ImageColor3"] = "$ColorControlPoint", ["Size"], ["ZIndex"] = 20}]
+      196 GETIMPORT                        R20 K101 [Vector2.new]
+      198 LOADK                            R21 K102 [0.5]
+      199 LOADK                            R22 K102 [0.5]
+      200 CALL                             R20 2 1
+      201 SETTABLEKS                       R20 R19 K91 ["AnchorPoint"]
+      203 GETIMPORT                        R20 K105 [UDim2.fromOffset]
+      205 LOADN                            R21 12
+      206 LOADN                            R22 12
+      207 CALL                             R20 2 1
+      208 SETTABLEKS                       R20 R19 K96 ["Size"]
+      210 CALL                             R17 2 1
+      211 MOVE                             R18 R2
+      212 LOADK                            R19 K106 [".ControlLine"]
+      213 DUPTABLE                         R20 K107 [{["BorderSizePixel"] = 0, ["ZIndex"] = 20, ["BackgroundColor3"] = "$ColorControlLine"}]
+      214 CALL                             R18 2 1
+      215 MOVE                             R19 R2
+      216 LOADK                            R20 K108 [".GridCurve"]
+      217 DUPTABLE                         R21 K109 [{["Color3"] = "$ColorGridLine", ["Thickness"] = 2}]
+      218 CALL                             R19 2 1
+      219 MOVE                             R20 R2
+      220 LOADK                            R21 K110 [".GuideCurve"]
+      221 DUPTABLE                         R22 K111 [{["Color3"] = "$ColorControlLine", ["Thickness"] = 1}]
+      222 CALL                             R20 2 1
+      223 MOVE                             R21 R2
+      224 LOADK                            R22 K112 [".Knob"]
+      225 DUPTABLE                         R23 K114 [{["BackgroundTransparency"] = 1, ["Image"] = "rbxasset://textures/smallWhiteCircle.png", ["ImageColor3"] = "$ColorKnob"}]
+      226 CALL                             R21 2 1
+      227 MOVE                             R22 R2
+      228 LOADK                            R23 K115 [".KnobBackArc"]
+      229 DUPTABLE                         R24 K118 [{["Color3"] = "$ColorKnobBackArc", ["Thickness"] = 3}]
+      230 CALL                             R22 2 1
+      231 SETLIST                          R6 R7 16 [1]
+      233 MOVE                             R7 R2
+      234 LOADK                            R8 K119 [".KnobArc"]
+      235 DUPTABLE                         R9 K121 [{["Color3"] = "$ColorKnobArc", ["Thickness"] = 3}]
+      236 CALL                             R7 2 1
+      237 MOVE                             R8 R2
+      238 LOADK                            R9 K122 [".KnobTick"]
+      239 DUPTABLE                         R10 K124 [{["Color3"] = "$ColorKnobTick", ["Thickness"] = 3}]
+      240 CALL                             R8 2 1
+      241 MOVE                             R9 R2
+      242 LOADK                            R10 K125 [".TopButton"]
+      243 DUPTABLE                         R11 K127 [{["BackgroundTransparency"] = 0, ["BackgroundColor3"] = "$ColorTopButton"}]
+      244 CALL                             R9 2 1
+      245 MOVE                             R10 R2
+      246 LOADK                            R11 K128 [".DoubleArrowButton"]
+      247 NEWTABLE                         R12 0 0
+      249 CALL                             R10 2 -1
+      250 SETLIST                          R6 R7 -1 [17]
+      252 MOVE                             R7 R3
+      253 LOADK                            R8 K2 ["AudioCompressorEditor"]
+      254 MOVE                             R9 R6
+      255 MOVE                             R10 R5
+      256 CALL                             R7 3 -1
+      257 RETURN                           R7 -1

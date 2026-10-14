@@ -83,6 +83,44 @@ PROTO_8:
         8 RETURN                           R0 0
 
 PROTO_9:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantDisableApplyEditDataModelAvailability"]
+        3 JUMPIFNOT                        R1 ; [+4]
+        4 GETUPVAL                         R1 1
+        5 CALL                             R1 0 1
+        6 JUMPIF                           R1 ; [+1]
+        7 RETURN                           R0 0
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantRestoreMostRecentThread"]
+       11 JUMPIFNOT                        R1 ; [+9]
+       12 SETUPVAL                         R0 2
+       13 GETUPVAL                         R1 3
+       14 JUMPIFNOT                        R1 ; [+7]
+       15 GETUPVAL                         R1 3
+       16 MOVE                             R3 R0
+       17 NAMECALL                         R1 R1 K2 ["Fire"]
+       19 CALL                             R1 2 0
+       20 JUMP                             ; [+1]
+       21 SETUPVAL                         R0 2
+       22 GETUPVAL                         R1 0
+       23 GETTABLEKS                       R1 R1 K3 ["FFlagDebugLogAssistantUI"]
+       25 JUMPIFNOT                        R1 ; [+16]
+       26 GETUPVAL                         R2 0
+       27 GETTABLEKS                       R2 R2 K0 ["FFlagAssistantDisableApplyEditDataModelAvailability"]
+       29 JUMPIFNOT                        R2 ; [+2]
+       30 LOADK                            R1 K4 ["[Remote ACP]"]
+       31 JUMP                             ; [+1]
+       32 LOADK                            R1 K5 ["[Assistant]"]
+       33 GETIMPORT                        R2 K7 [print]
+       35 LOADK                            R3 K8 ["%* EditDataModelAvailabilityChanged: %*"]
+       36 MOVE                             R5 R1
+       37 MOVE                             R6 R0
+       38 NAMECALL                         R3 R3 K9 ["format"]
+       40 CALL                             R3 3 1
+       41 CALL                             R2 1 0
+       42 RETURN                           R0 0
+
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -92,7 +130,7 @@ PROTO_9:
         6 FORGLOOP                         R0 2 ; [-3]
         8 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["FFlagAssistantDisableApplyEditDataModelAvailability"]
         3 JUMPIFNOT                        R2 ; [+4]
@@ -130,7 +168,51 @@ PROTO_10:
        41 CALL                             R3 1 0
        42 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
+
+PROTO_13:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["FFlagAssistantDisableApplyEditDataModelAvailability"]
+        3 JUMPIFNOT                        R2 ; [+4]
+        4 GETUPVAL                         R2 1
+        5 CALL                             R2 0 1
+        6 JUMPIF                           R2 ; [+1]
+        7 RETURN                           R0 0
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K1 ["FFlagAssistantRestoreMostRecentThread"]
+       11 JUMPIFNOT                        R2 ; [+9]
+       12 SETUPVAL                         R1 2
+       13 GETUPVAL                         R2 3
+       14 JUMPIFNOT                        R2 ; [+7]
+       15 GETUPVAL                         R2 3
+       16 MOVE                             R4 R1
+       17 NAMECALL                         R2 R2 K2 ["Fire"]
+       19 CALL                             R2 2 0
+       20 JUMP                             ; [+1]
+       21 SETUPVAL                         R1 2
+       22 GETUPVAL                         R2 0
+       23 GETTABLEKS                       R2 R2 K3 ["FFlagDebugLogAssistantUI"]
+       25 JUMPIFNOT                        R2 ; [+16]
+       26 GETUPVAL                         R3 0
+       27 GETTABLEKS                       R3 R3 K0 ["FFlagAssistantDisableApplyEditDataModelAvailability"]
+       29 JUMPIFNOT                        R3 ; [+2]
+       30 LOADK                            R2 K4 ["[Remote ACP]"]
+       31 JUMP                             ; [+1]
+       32 LOADK                            R2 K5 ["[Assistant]"]
+       33 GETIMPORT                        R3 K7 [print]
+       35 LOADK                            R4 K8 ["%* EditDataModelAvailabilityChanged: %*"]
+       36 MOVE                             R6 R2
+       37 MOVE                             R7 R1
+       38 NAMECALL                         R4 R4 K9 ["format"]
+       40 CALL                             R4 3 1
+       41 CALL                             R3 1 0
+       42 RETURN                           R0 0
+
+PROTO_14:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -155,7 +237,7 @@ PROTO_11:
        27 SETUPVAL                         R0 2
        28 RETURN                           R0 0
 
-PROTO_12:
+PROTO_15:
         0 LOADN                            R1 0
         1 GETUPVAL                         R2 0
         2 NAMECALL                         R2 R2 K0 ["GetChildren"]
@@ -190,7 +272,7 @@ PROTO_12:
        42 CALL                             R2 1 0
        43 RETURN                           R0 0
 
-PROTO_13:
+PROTO_16:
         0 GETUPVAL                         R2 0
         1 GETTABLE                         R1 R2 R0
         2 JUMPIFNOT                        R1 ; [+1]
@@ -203,7 +285,7 @@ PROTO_13:
        11 SETTABLE                         R2 R1 R0
        12 RETURN                           R0 0
 
-PROTO_14:
+PROTO_17:
         0 LOADK                            R4 K0 ["DataModelSession"]
         1 NAMECALL                         R2 R0 K1 ["IsA"]
         3 CALL                             R2 2 -1
@@ -224,7 +306,7 @@ PROTO_14:
        21 CALL                             R1 0 0
        22 RETURN                           R0 0
 
-PROTO_15:
+PROTO_18:
         0 LOADK                            R4 K0 ["DataModelSession"]
         1 NAMECALL                         R2 R0 K1 ["IsA"]
         3 CALL                             R2 2 -1
@@ -244,7 +326,7 @@ PROTO_15:
        19 CALL                             R2 1 0
        20 RETURN                           R0 0
 
-PROTO_16:
+PROTO_19:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 0
         2 JUMPIF                           R0 ; [+7]
@@ -299,14 +381,14 @@ PROTO_16:
        63 CALL                             R3 0 0
        64 RETURN                           R0 0
 
-PROTO_17:
+PROTO_20:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETTABLEKS                       R1 R1 K0 ["MultipleDocumentInterfaceInstance"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_18:
+PROTO_21:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
@@ -314,60 +396,91 @@ PROTO_18:
         5 CALL                             R0 0 0
         6 RETURN                           R0 0
 
-PROTO_19:
+PROTO_22:
         0 SETUPVAL                         R0 0
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R2 R2 K0 ["Unloading"]
-        4 DUPCLOSURE                       R4 K1 [PROTO_9]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K0 ["Unloading"]
+        4 DUPCLOSURE                       R5 K1 [PROTO_10]
         5 CAPTURE                          UPVAL U1
-        6 NAMECALL                         R2 R2 K2 ["Connect"]
-        8 CALL                             R2 2 0
-        9 GETUPVAL                         R4 2
-       10 GETTABLEKS                       R4 R4 K3 ["EditDataModelAvailabilityChangedEventKey"]
-       12 NEWCLOSURE                       R5 P1
-       13 CAPTURE                          UPVAL U3
-       14 CAPTURE                          UPVAL U4
-       15 CAPTURE                          UPVAL U5
-       16 CAPTURE                          UPVAL U6
-       17 NAMECALL                         R2 R1 K4 ["OnGuestEvent"]
-       19 CALL                             R2 3 0
-       20 NEWTABLE                         R2 2 0
-       22 NEWTABLE                         R3 0 0
-       24 NEWCLOSURE                       R4 P2
-       25 CAPTURE                          VAL R2
-       26 CAPTURE                          VAL R3
-       27 CAPTURE                          UPVAL U7
-       28 NEWCLOSURE                       R5 P3
-       29 CAPTURE                          VAL R4
-       30 CAPTURE                          UPVAL U8
-       31 CAPTURE                          UPVAL U7
-       32 CAPTURE                          VAL R3
-       33 CAPTURE                          VAL R2
-       34 MOVE                             R6 R5
-       35 GETUPVAL                         R7 0
-       36 GETTABLEKS                       R7 R7 K5 ["MultipleDocumentInterfaceInstance"]
-       38 CALL                             R6 1 0
-       39 GETUPVAL                         R6 0
-       40 LOADK                            R8 K5 ["MultipleDocumentInterfaceInstance"]
-       41 NAMECALL                         R6 R6 K6 ["GetPropertyChangedSignal"]
-       43 CALL                             R6 2 1
-       44 NEWCLOSURE                       R8 P4
-       45 CAPTURE                          VAL R5
-       46 CAPTURE                          UPVAL U0
-       47 NAMECALL                         R6 R6 K2 ["Connect"]
-       49 CALL                             R6 2 1
-       50 GETUPVAL                         R7 1
-       51 NEWCLOSURE                       R8 P5
-       52 CAPTURE                          VAL R6
-       53 CAPTURE                          VAL R4
-       54 SETTABLEKS                       R8 R7 K7 ["mdiBinding"]
-       56 RETURN                           R0 0
+        6 NAMECALL                         R3 R3 K2 ["Connect"]
+        8 CALL                             R3 2 0
+        9 GETUPVAL                         R3 2
+       10 GETTABLEKS                       R3 R3 K3 ["FFlagAssistantUseNewDMNetworking"]
+       12 JUMPIFNOT                        R3 ; [+29]
+       13 FASTCALL2K                       ASSERT R2 K4 ; [+5]
+       15 MOVE                             R4 R2
+       16 LOADK                            R5 K4 ["StudioState requires the new networking when FFlagAssistantUseNewDMNetworking is on"]
+       17 GETIMPORT                        R3 K6 [assert]
+       19 CALL                             R3 2 0
+       20 GETUPVAL                         R3 3
+       21 GETTABLEKS                       R3 R3 K7 ["event"]
+       23 MOVE                             R4 R2
+       24 GETUPVAL                         R5 4
+       25 GETTABLEKS                       R5 R5 K8 ["EditDataModelAvailabilityChangedEventKey"]
+       27 CALL                             R3 2 1
+       28 NEWCLOSURE                       R6 P1
+       29 CAPTURE                          UPVAL U2
+       30 CAPTURE                          UPVAL U5
+       31 CAPTURE                          UPVAL U6
+       32 CAPTURE                          UPVAL U7
+       33 NAMECALL                         R4 R3 K2 ["Connect"]
+       35 CALL                             R4 2 1
+       36 GETUPVAL                         R5 1
+       37 NEWCLOSURE                       R6 P2
+       38 CAPTURE                          VAL R4
+       39 SETTABLEKS                       R6 R5 K9 ["editDataModelAvailability"]
+       41 JUMP                             ; [+18]
+       42 FASTCALL2K                       ASSERT R1 K10 ; [+5]
+       44 MOVE                             R4 R1
+       45 LOADK                            R5 K10 ["StudioState requires networking"]
+       46 GETIMPORT                        R3 K6 [assert]
+       48 CALL                             R3 2 0
+       49 GETUPVAL                         R5 4
+       50 GETTABLEKS                       R5 R5 K8 ["EditDataModelAvailabilityChangedEventKey"]
+       52 NEWCLOSURE                       R6 P3
+       53 CAPTURE                          UPVAL U2
+       54 CAPTURE                          UPVAL U5
+       55 CAPTURE                          UPVAL U6
+       56 CAPTURE                          UPVAL U7
+       57 NAMECALL                         R3 R1 K11 ["OnGuestEvent"]
+       59 CALL                             R3 3 0
+       60 NEWTABLE                         R3 2 0
+       62 NEWTABLE                         R4 0 0
+       64 NEWCLOSURE                       R5 P4
+       65 CAPTURE                          VAL R3
+       66 CAPTURE                          VAL R4
+       67 CAPTURE                          UPVAL U8
+       68 NEWCLOSURE                       R6 P5
+       69 CAPTURE                          VAL R5
+       70 CAPTURE                          UPVAL U9
+       71 CAPTURE                          UPVAL U8
+       72 CAPTURE                          VAL R4
+       73 CAPTURE                          VAL R3
+       74 MOVE                             R7 R6
+       75 GETUPVAL                         R8 0
+       76 GETTABLEKS                       R8 R8 K12 ["MultipleDocumentInterfaceInstance"]
+       78 CALL                             R7 1 0
+       79 GETUPVAL                         R7 0
+       80 LOADK                            R9 K12 ["MultipleDocumentInterfaceInstance"]
+       81 NAMECALL                         R7 R7 K13 ["GetPropertyChangedSignal"]
+       83 CALL                             R7 2 1
+       84 NEWCLOSURE                       R9 P6
+       85 CAPTURE                          VAL R6
+       86 CAPTURE                          UPVAL U0
+       87 NAMECALL                         R7 R7 K2 ["Connect"]
+       89 CALL                             R7 2 1
+       90 GETUPVAL                         R8 1
+       91 NEWCLOSURE                       R9 P7
+       92 CAPTURE                          VAL R7
+       93 CAPTURE                          VAL R5
+       94 SETTABLEKS                       R9 R8 K14 ["mdiBinding"]
+       96 RETURN                           R0 0
 
-PROTO_20:
+PROTO_23:
         0 GETUPVAL                         R0 0
         1 RETURN                           R0 1
 
-PROTO_21:
+PROTO_24:
         0 GETUPVAL                         R0 0
         1 JUMPIF                           R0 ; [+3]
         2 GETIMPORT                        R0 K3 [Enum.StudioDataModelType.None]
@@ -383,7 +496,7 @@ PROTO_21:
        17 GETTABLEKS                       R1 R1 K6 ["CurrentDataModelType"]
        19 RETURN                           R1 1
 
-PROTO_22:
+PROTO_25:
         0 GETUPVAL                         R1 0
         1 JUMPIF                           R1 ; [+3]
         2 GETIMPORT                        R0 K3 [Enum.StudioDataModelType.None]
@@ -442,84 +555,95 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K9 ["DMNetworking"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETIMPORT                        R4 K1 [script]
-       25 GETTABLEKS                       R4 R4 K10 ["Parent"]
-       27 GETTABLEKS                       R4 R4 K10 ["Parent"]
-       29 GETTABLEKS                       R4 R4 K10 ["Parent"]
-       31 GETTABLEKS                       R4 R4 K8 ["Packages"]
-       33 GETTABLEKS                       R4 R4 K11 ["_Index"]
-       35 GETTABLEKS                       R4 R4 K12 ["AssistantUI"]
-       37 GETTABLEKS                       R4 R4 K12 ["AssistantUI"]
-       39 GETTABLEKS                       R4 R4 K13 ["Util"]
-       41 GETTABLEKS                       R4 R4 K14 ["DataModelType"]
-       43 CALL                             R3 1 1
-       44 GETIMPORT                        R4 K5 [require]
-       46 GETTABLEKS                       R5 R0 K8 ["Packages"]
-       48 GETTABLEKS                       R5 R5 K15 ["Signal"]
+       23 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K10 ["DMNetworkingOLD"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETIMPORT                        R5 K1 [script]
+       32 GETTABLEKS                       R5 R5 K11 ["Parent"]
+       34 GETTABLEKS                       R5 R5 K11 ["Parent"]
+       36 GETTABLEKS                       R5 R5 K11 ["Parent"]
+       38 GETTABLEKS                       R5 R5 K8 ["Packages"]
+       40 GETTABLEKS                       R5 R5 K12 ["_Index"]
+       42 GETTABLEKS                       R5 R5 K13 ["AssistantUI"]
+       44 GETTABLEKS                       R5 R5 K13 ["AssistantUI"]
+       46 GETTABLEKS                       R5 R5 K14 ["Util"]
+       48 GETTABLEKS                       R5 R5 K15 ["DataModelType"]
        50 CALL                             R4 1 1
        51 GETIMPORT                        R5 K5 [require]
-       53 GETIMPORT                        R6 K1 [script]
-       55 GETTABLEKS                       R6 R6 K10 ["Parent"]
-       57 GETTABLEKS                       R6 R6 K10 ["Parent"]
-       59 GETTABLEKS                       R6 R6 K10 ["Parent"]
-       61 GETTABLEKS                       R6 R6 K8 ["Packages"]
-       63 GETTABLEKS                       R6 R6 K11 ["_Index"]
-       65 GETTABLEKS                       R6 R6 K12 ["AssistantUI"]
-       67 GETTABLEKS                       R6 R6 K12 ["AssistantUI"]
-       69 GETTABLEKS                       R6 R6 K16 ["FlagUtils"]
-       71 GETTABLEKS                       R6 R6 K17 ["getIsAssistantUseRemoteService"]
-       73 CALL                             R5 1 1
-       74 GETTABLEKS                       R5 R5 K18 ["get"]
-       76 GETIMPORT                        R6 K5 [require]
-       78 GETTABLEKS                       R7 R0 K6 ["Src"]
-       80 GETTABLEKS                       R7 R7 K19 ["Flags"]
-       82 CALL                             R6 1 1
-       83 NEWTABLE                         R7 1 0
-       85 LOADB                            R8 0
-       86 LOADNIL                          R9
-       87 LOADB                            R10 0
-       88 LOADNIL                          R11
-       89 LOADNIL                          R12
-       90 NEWCLOSURE                       R13 P0
-       91 CAPTURE                          REF R10
-       92 NEWCLOSURE                       R14 P1
-       93 CAPTURE                          REF R11
-       94 CAPTURE                          VAL R4
-       95 NEWCLOSURE                       R15 P2
-       96 CAPTURE                          REF R10
-       97 CAPTURE                          REF R11
-       98 NEWCLOSURE                       R16 P3
-       99 CAPTURE                          REF R12
-      100 CAPTURE                          VAL R4
-      101 NEWCLOSURE                       R17 P4
-      102 CAPTURE                          REF R12
-      103 DUPCLOSURE                       R18 K20 [PROTO_7]
-      104 DUPCLOSURE                       R19 K21 [PROTO_8]
-      105 CAPTURE                          VAL R7
-      106 NEWCLOSURE                       R20 P7
-      107 CAPTURE                          REF R9
-      108 CAPTURE                          VAL R7
-      109 CAPTURE                          VAL R1
-      110 CAPTURE                          VAL R6
-      111 CAPTURE                          VAL R5
-      112 CAPTURE                          REF R10
-      113 CAPTURE                          REF R11
-      114 CAPTURE                          REF R8
-      115 CAPTURE                          REF R12
-      116 NEWCLOSURE                       R21 P8
-      117 CAPTURE                          REF R8
-      118 NEWCLOSURE                       R22 P9
-      119 CAPTURE                          REF R9
-      120 NEWCLOSURE                       R23 P10
-      121 CAPTURE                          REF R9
-      122 CAPTURE                          VAL R3
-      123 DUPTABLE                         R24 K29 [{"init", "getStudioPlayState", "getFocusedDataModelEnum", "getFocusedDataModelType", "isEditDataModelAvailable", "subscribeEditDataModelAvailabilityChanged", "subscribeFocusedDataModelTypeChanged"}]
-      124 SETTABLEKS                       R20 R24 K22 ["init"]
-      126 SETTABLEKS                       R21 R24 K23 ["getStudioPlayState"]
-      128 SETTABLEKS                       R22 R24 K24 ["getFocusedDataModelEnum"]
-      130 SETTABLEKS                       R23 R24 K25 ["getFocusedDataModelType"]
-      132 SETTABLEKS                       R13 R24 K26 ["isEditDataModelAvailable"]
-      134 SETTABLEKS                       R14 R24 K27 ["subscribeEditDataModelAvailabilityChanged"]
-      136 SETTABLEKS                       R16 R24 K28 ["subscribeFocusedDataModelTypeChanged"]
-      138 CLOSEUPVALS                      R8
-      139 RETURN                           R24 1
+       53 GETTABLEKS                       R6 R0 K8 ["Packages"]
+       55 GETTABLEKS                       R6 R6 K16 ["Signal"]
+       57 CALL                             R5 1 1
+       58 GETIMPORT                        R6 K5 [require]
+       60 GETIMPORT                        R7 K1 [script]
+       62 GETTABLEKS                       R7 R7 K11 ["Parent"]
+       64 GETTABLEKS                       R7 R7 K11 ["Parent"]
+       66 GETTABLEKS                       R7 R7 K11 ["Parent"]
+       68 GETTABLEKS                       R7 R7 K8 ["Packages"]
+       70 GETTABLEKS                       R7 R7 K12 ["_Index"]
+       72 GETTABLEKS                       R7 R7 K13 ["AssistantUI"]
+       74 GETTABLEKS                       R7 R7 K13 ["AssistantUI"]
+       76 GETTABLEKS                       R7 R7 K17 ["FlagUtils"]
+       78 GETTABLEKS                       R7 R7 K18 ["getIsAssistantUseRemoteService"]
+       80 CALL                             R6 1 1
+       81 GETTABLEKS                       R6 R6 K19 ["get"]
+       83 GETIMPORT                        R7 K5 [require]
+       85 GETTABLEKS                       R8 R0 K6 ["Src"]
+       87 GETTABLEKS                       R8 R8 K20 ["Flags"]
+       89 CALL                             R7 1 1
+       90 GETTABLEKS                       R8 R2 K21 ["Remote"]
+       92 NEWTABLE                         R9 2 0
+       94 LOADB                            R10 0
+       95 LOADNIL                          R11
+       96 LOADB                            R12 0
+       97 LOADNIL                          R13
+       98 LOADNIL                          R14
+       99 NEWCLOSURE                       R15 P0
+      100 CAPTURE                          REF R12
+      101 NEWCLOSURE                       R16 P1
+      102 CAPTURE                          REF R13
+      103 CAPTURE                          VAL R5
+      104 NEWCLOSURE                       R17 P2
+      105 CAPTURE                          REF R12
+      106 CAPTURE                          REF R13
+      107 NEWCLOSURE                       R18 P3
+      108 CAPTURE                          REF R14
+      109 CAPTURE                          VAL R5
+      110 NEWCLOSURE                       R19 P4
+      111 CAPTURE                          REF R14
+      112 DUPCLOSURE                       R20 K22 [PROTO_7]
+      113 DUPCLOSURE                       R21 K23 [PROTO_8]
+      114 CAPTURE                          VAL R9
+      115 NEWCLOSURE                       R22 P7
+      116 CAPTURE                          VAL R7
+      117 CAPTURE                          VAL R6
+      118 CAPTURE                          REF R12
+      119 CAPTURE                          REF R13
+      120 NEWCLOSURE                       R23 P8
+      121 CAPTURE                          REF R11
+      122 CAPTURE                          VAL R9
+      123 CAPTURE                          VAL R7
+      124 CAPTURE                          VAL R8
+      125 CAPTURE                          VAL R1
+      126 CAPTURE                          VAL R6
+      127 CAPTURE                          REF R12
+      128 CAPTURE                          REF R13
+      129 CAPTURE                          REF R10
+      130 CAPTURE                          REF R14
+      131 NEWCLOSURE                       R24 P9
+      132 CAPTURE                          REF R10
+      133 NEWCLOSURE                       R25 P10
+      134 CAPTURE                          REF R11
+      135 NEWCLOSURE                       R26 P11
+      136 CAPTURE                          REF R11
+      137 CAPTURE                          VAL R4
+      138 DUPTABLE                         R27 K31 [{"init", "getStudioPlayState", "getFocusedDataModelEnum", "getFocusedDataModelType", "isEditDataModelAvailable", "subscribeEditDataModelAvailabilityChanged", "subscribeFocusedDataModelTypeChanged"}]
+      139 SETTABLEKS                       R23 R27 K24 ["init"]
+      141 SETTABLEKS                       R24 R27 K25 ["getStudioPlayState"]
+      143 SETTABLEKS                       R25 R27 K26 ["getFocusedDataModelEnum"]
+      145 SETTABLEKS                       R26 R27 K27 ["getFocusedDataModelType"]
+      147 SETTABLEKS                       R15 R27 K28 ["isEditDataModelAvailable"]
+      149 SETTABLEKS                       R16 R27 K29 ["subscribeEditDataModelAvailabilityChanged"]
+      151 SETTABLEKS                       R18 R27 K30 ["subscribeFocusedDataModelTypeChanged"]
+      153 CLOSEUPVALS                      R10
+      154 RETURN                           R27 1

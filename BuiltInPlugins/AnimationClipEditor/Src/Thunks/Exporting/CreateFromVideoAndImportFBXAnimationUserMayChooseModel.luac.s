@@ -302,91 +302,92 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["LuaFlags"]
-       11 GETTABLEKS                       R2 R2 K7 ["GetFFlagACEAnimationFromVideoCreatorServiceWithAssetImport"]
-       13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R3 K9 ["Util"]
-       20 GETTABLEKS                       R3 R3 K10 ["AssetImportServiceWrapper"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K8 ["Src"]
-       27 GETTABLEKS                       R4 R4 K9 ["Util"]
-       29 GETTABLEKS                       R4 R4 K11 ["AnimationFromVideoCreatorStudioServiceWrapper"]
-       31 CALL                             R3 1 1
-       32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R5 R0 K8 ["Src"]
-       36 GETTABLEKS                       R5 R5 K9 ["Util"]
-       38 GETTABLEKS                       R5 R5 K12 ["Constants"]
-       40 CALL                             R4 1 1
-       41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R6 R0 K8 ["Src"]
-       45 GETTABLEKS                       R6 R6 K9 ["Util"]
-       47 GETTABLEKS                       R6 R6 K13 ["RigSerialization"]
-       49 CALL                             R5 1 1
-       50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R7 R0 K8 ["Src"]
-       54 GETTABLEKS                       R7 R7 K14 ["Thunks"]
-       56 GETTABLEKS                       R7 R7 K15 ["Exporting"]
-       58 GETTABLEKS                       R7 R7 K16 ["ImportLoadedFBXAnimation"]
-       60 CALL                             R6 1 1
-       61 GETIMPORT                        R7 K5 [require]
-       63 GETTABLEKS                       R8 R0 K8 ["Src"]
-       65 GETTABLEKS                       R8 R8 K14 ["Thunks"]
-       67 GETTABLEKS                       R8 R8 K17 ["LoadAnimationData"]
-       69 CALL                             R7 1 1
-       70 GETIMPORT                        R8 K5 [require]
-       72 GETTABLEKS                       R9 R0 K8 ["Src"]
-       74 GETTABLEKS                       R9 R9 K18 ["Actions"]
-       76 GETTABLEKS                       R9 R9 K19 ["SetIsDirty"]
-       78 CALL                             R8 1 1
-       79 GETIMPORT                        R9 K5 [require]
-       81 GETTABLEKS                       R10 R0 K8 ["Src"]
-       83 GETTABLEKS                       R10 R10 K18 ["Actions"]
-       85 GETTABLEKS                       R10 R10 K20 ["SetIsLegacyAnimSaves"]
-       87 CALL                             R9 1 1
-       88 GETIMPORT                        R10 K5 [require]
-       90 GETTABLEKS                       R11 R0 K8 ["Src"]
-       92 GETTABLEKS                       R11 R11 K18 ["Actions"]
-       94 GETTABLEKS                       R11 R11 K21 ["SetAnimationImportProgress"]
-       96 CALL                             R10 1 1
-       97 GETIMPORT                        R11 K5 [require]
-       99 GETTABLEKS                       R12 R0 K8 ["Src"]
-      101 GETTABLEKS                       R12 R12 K18 ["Actions"]
-      103 GETTABLEKS                       R12 R12 K22 ["SetAnimationImportStatus"]
-      105 CALL                             R11 1 1
-      106 GETIMPORT                        R12 K5 [require]
-      108 GETTABLEKS                       R13 R0 K8 ["Src"]
-      110 GETTABLEKS                       R13 R13 K18 ["Actions"]
-      112 GETTABLEKS                       R13 R13 K23 ["SetCreatingAnimationFromVideo"]
-      114 CALL                             R12 1 1
-      115 GETIMPORT                        R13 K5 [require]
-      117 GETTABLEKS                       R14 R0 K8 ["Src"]
-      119 GETTABLEKS                       R14 R14 K18 ["Actions"]
-      121 GETTABLEKS                       R14 R14 K24 ["SetAnimationFromVideoUploadStartTime"]
-      123 CALL                             R13 1 1
-      124 GETIMPORT                        R14 K5 [require]
-      126 GETTABLEKS                       R15 R0 K8 ["Src"]
-      128 GETTABLEKS                       R15 R15 K18 ["Actions"]
-      130 GETTABLEKS                       R15 R15 K25 ["SetAnimationFromVideoErroredOut"]
-      132 CALL                             R14 1 1
-      133 DUPCLOSURE                       R15 K26 [PROTO_2]
-      134 CAPTURE                          VAL R1
-      135 CAPTURE                          VAL R2
-      136 CAPTURE                          VAL R6
-      137 CAPTURE                          VAL R5
-      138 CAPTURE                          VAL R4
-      139 CAPTURE                          VAL R7
-      140 CAPTURE                          VAL R8
-      141 CAPTURE                          VAL R9
-      142 DUPCLOSURE                       R16 K27 [PROTO_6]
-      143 CAPTURE                          VAL R14
-      144 CAPTURE                          VAL R11
-      145 CAPTURE                          VAL R4
-      146 CAPTURE                          VAL R10
-      147 CAPTURE                          VAL R12
-      148 CAPTURE                          VAL R13
-      149 CAPTURE                          VAL R3
-      150 CAPTURE                          VAL R15
-      151 RETURN                           R16 1
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFFlagACEAnimationFromVideoCreatorServiceWithAssetImport"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Util"]
+       22 GETTABLEKS                       R3 R3 K10 ["AssetImportServiceWrapper"]
+       24 CALL                             R2 1 1
+       25 GETIMPORT                        R3 K5 [require]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K9 ["Util"]
+       31 GETTABLEKS                       R4 R4 K11 ["AnimationFromVideoCreatorStudioServiceWrapper"]
+       33 CALL                             R3 1 1
+       34 GETIMPORT                        R4 K5 [require]
+       36 GETTABLEKS                       R5 R0 K6 ["Src"]
+       38 GETTABLEKS                       R5 R5 K9 ["Util"]
+       40 GETTABLEKS                       R5 R5 K12 ["Constants"]
+       42 CALL                             R4 1 1
+       43 GETIMPORT                        R5 K5 [require]
+       45 GETTABLEKS                       R6 R0 K6 ["Src"]
+       47 GETTABLEKS                       R6 R6 K9 ["Util"]
+       49 GETTABLEKS                       R6 R6 K13 ["RigSerialization"]
+       51 CALL                             R5 1 1
+       52 GETIMPORT                        R6 K5 [require]
+       54 GETTABLEKS                       R7 R0 K6 ["Src"]
+       56 GETTABLEKS                       R7 R7 K14 ["Thunks"]
+       58 GETTABLEKS                       R7 R7 K15 ["Exporting"]
+       60 GETTABLEKS                       R7 R7 K16 ["ImportLoadedFBXAnimation"]
+       62 CALL                             R6 1 1
+       63 GETIMPORT                        R7 K5 [require]
+       65 GETTABLEKS                       R8 R0 K6 ["Src"]
+       67 GETTABLEKS                       R8 R8 K14 ["Thunks"]
+       69 GETTABLEKS                       R8 R8 K17 ["LoadAnimationData"]
+       71 CALL                             R7 1 1
+       72 GETIMPORT                        R8 K5 [require]
+       74 GETTABLEKS                       R9 R0 K6 ["Src"]
+       76 GETTABLEKS                       R9 R9 K18 ["Actions"]
+       78 GETTABLEKS                       R9 R9 K19 ["SetIsDirty"]
+       80 CALL                             R8 1 1
+       81 GETIMPORT                        R9 K5 [require]
+       83 GETTABLEKS                       R10 R0 K6 ["Src"]
+       85 GETTABLEKS                       R10 R10 K18 ["Actions"]
+       87 GETTABLEKS                       R10 R10 K20 ["SetIsLegacyAnimSaves"]
+       89 CALL                             R9 1 1
+       90 GETIMPORT                        R10 K5 [require]
+       92 GETTABLEKS                       R11 R0 K6 ["Src"]
+       94 GETTABLEKS                       R11 R11 K18 ["Actions"]
+       96 GETTABLEKS                       R11 R11 K21 ["SetAnimationImportProgress"]
+       98 CALL                             R10 1 1
+       99 GETIMPORT                        R11 K5 [require]
+      101 GETTABLEKS                       R12 R0 K6 ["Src"]
+      103 GETTABLEKS                       R12 R12 K18 ["Actions"]
+      105 GETTABLEKS                       R12 R12 K22 ["SetAnimationImportStatus"]
+      107 CALL                             R11 1 1
+      108 GETIMPORT                        R12 K5 [require]
+      110 GETTABLEKS                       R13 R0 K6 ["Src"]
+      112 GETTABLEKS                       R13 R13 K18 ["Actions"]
+      114 GETTABLEKS                       R13 R13 K23 ["SetCreatingAnimationFromVideo"]
+      116 CALL                             R12 1 1
+      117 GETIMPORT                        R13 K5 [require]
+      119 GETTABLEKS                       R14 R0 K6 ["Src"]
+      121 GETTABLEKS                       R14 R14 K18 ["Actions"]
+      123 GETTABLEKS                       R14 R14 K24 ["SetAnimationFromVideoUploadStartTime"]
+      125 CALL                             R13 1 1
+      126 GETIMPORT                        R14 K5 [require]
+      128 GETTABLEKS                       R15 R0 K6 ["Src"]
+      130 GETTABLEKS                       R15 R15 K18 ["Actions"]
+      132 GETTABLEKS                       R15 R15 K25 ["SetAnimationFromVideoErroredOut"]
+      134 CALL                             R14 1 1
+      135 DUPCLOSURE                       R15 K26 [PROTO_2]
+      136 CAPTURE                          VAL R1
+      137 CAPTURE                          VAL R2
+      138 CAPTURE                          VAL R6
+      139 CAPTURE                          VAL R5
+      140 CAPTURE                          VAL R4
+      141 CAPTURE                          VAL R7
+      142 CAPTURE                          VAL R8
+      143 CAPTURE                          VAL R9
+      144 DUPCLOSURE                       R16 K27 [PROTO_6]
+      145 CAPTURE                          VAL R14
+      146 CAPTURE                          VAL R11
+      147 CAPTURE                          VAL R4
+      148 CAPTURE                          VAL R10
+      149 CAPTURE                          VAL R12
+      150 CAPTURE                          VAL R13
+      151 CAPTURE                          VAL R3
+      152 CAPTURE                          VAL R15
+      153 RETURN                           R16 1

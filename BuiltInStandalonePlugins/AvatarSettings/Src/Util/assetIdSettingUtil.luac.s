@@ -135,7 +135,43 @@ PROTO_6:
        22 CAPTURE                          VAL R2
        23 SETTABLEKS                       R6 R5 K4 ["set"]
        25 SETTABLEKS                       R5 R4 K1 ["assetId"]
-       27 RETURN                           R4 1
+       27 GETUPVAL                         R5 0
+       28 CALL                             R5 0 1
+       29 JUMPIFNOT                        R5 ; [+6]
+       30 GETUPVAL                         R5 1
+       31 GETTABLEKS                       R5 R5 K6 ["addSnapshotSetter"]
+       33 MOVE                             R6 R4
+       34 MOVE                             R7 R0
+       35 CALL                             R5 2 0
+       36 RETURN                           R4 1
+
+PROTO_7:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["assetId"]
+        3 GETTABLEKS                       R2 R2 K1 ["set"]
+        5 MOVE                             R3 R0
+        6 LOADB                            R4 1
+        7 CALL                             R2 2 0
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K2 ["enabled"]
+       11 GETTABLEKS                       R2 R2 K1 ["set"]
+       13 MOVE                             R3 R1
+       14 LOADB                            R4 1
+       15 CALL                             R2 2 0
+       16 GETUPVAL                         R2 1
+       17 GETTABLEKS                       R2 R2 K0 ["assetId"]
+       19 SETTABLEKS                       R0 R2 K3 ["value"]
+       21 GETUPVAL                         R2 1
+       22 GETTABLEKS                       R2 R2 K2 ["enabled"]
+       24 SETTABLEKS                       R1 R2 K3 ["value"]
+       26 RETURN                           R0 0
+
+PROTO_8:
+        0 NEWCLOSURE                       R2 P0
+        1 CAPTURE                          VAL R1
+        2 CAPTURE                          VAL R0
+        3 SETTABLEKS                       R2 R0 K0 ["syncFromAssetDm"]
+        5 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -155,25 +191,34 @@ MAIN:
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
        27 GETTABLEKS                       R4 R0 K6 ["Src"]
-       29 GETTABLEKS                       R4 R4 K7 ["Util"]
-       31 GETTABLEKS                       R4 R4 K10 ["InvokeKeys"]
+       29 GETTABLEKS                       R4 R4 K10 ["Flags"]
+       31 GETTABLEKS                       R4 R4 K11 ["getFFlagAvatarSettingsSyncPublishedSnapshot"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
        36 GETTABLEKS                       R5 R0 K6 ["Src"]
        38 GETTABLEKS                       R5 R5 K7 ["Util"]
-       40 GETTABLEKS                       R5 R5 K11 ["settingUtil"]
+       40 GETTABLEKS                       R5 R5 K12 ["InvokeKeys"]
        42 CALL                             R4 1 1
-       43 GETTABLEKS                       R5 R4 K12 ["useSetting"]
-       45 NEWTABLE                         R6 4 0
-       47 DUPCLOSURE                       R7 K13 [PROTO_0]
-       48 SETTABLEKS                       R7 R6 K14 ["createAssetIdSettingInvokeArgs"]
-       50 DUPCLOSURE                       R7 K15 [PROTO_1]
-       51 CAPTURE                          VAL R4
-       52 CAPTURE                          VAL R5
-       53 SETTABLEKS                       R7 R6 K16 ["useAssetIdSetting"]
-       55 DUPCLOSURE                       R7 K17 [PROTO_4]
-       56 CAPTURE                          VAL R2
-       57 SETTABLEKS                       R7 R6 K18 ["generateCategoryAssetIdSetting"]
-       59 DUPCLOSURE                       R7 K19 [PROTO_6]
-       60 SETTABLEKS                       R7 R6 K20 ["generateCategoryChildAssetIdSetter"]
-       62 RETURN                           R6 1
+       43 GETIMPORT                        R5 K5 [require]
+       45 GETTABLEKS                       R6 R0 K6 ["Src"]
+       47 GETTABLEKS                       R6 R6 K7 ["Util"]
+       49 GETTABLEKS                       R6 R6 K13 ["settingUtil"]
+       51 CALL                             R5 1 1
+       52 GETTABLEKS                       R6 R5 K14 ["useSetting"]
+       54 NEWTABLE                         R7 8 0
+       56 DUPCLOSURE                       R8 K15 [PROTO_0]
+       57 SETTABLEKS                       R8 R7 K16 ["createAssetIdSettingInvokeArgs"]
+       59 DUPCLOSURE                       R8 K17 [PROTO_1]
+       60 CAPTURE                          VAL R5
+       61 CAPTURE                          VAL R6
+       62 SETTABLEKS                       R8 R7 K18 ["useAssetIdSetting"]
+       64 DUPCLOSURE                       R8 K19 [PROTO_4]
+       65 CAPTURE                          VAL R2
+       66 SETTABLEKS                       R8 R7 K20 ["generateCategoryAssetIdSetting"]
+       68 DUPCLOSURE                       R8 K21 [PROTO_6]
+       69 CAPTURE                          VAL R3
+       70 CAPTURE                          VAL R7
+       71 SETTABLEKS                       R8 R7 K22 ["generateCategoryChildAssetIdSetter"]
+       73 DUPCLOSURE                       R8 K23 [PROTO_8]
+       74 SETTABLEKS                       R8 R7 K24 ["addSnapshotSetter"]
+       76 RETURN                           R7 1

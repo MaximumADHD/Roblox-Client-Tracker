@@ -158,13 +158,14 @@ MAIN:
        28 GETTABLEKS                       R4 R4 K13 ["RigVisualization"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K9 [require]
-       33 GETTABLEKS                       R5 R1 K14 ["LuaFlags"]
-       35 GETTABLEKS                       R5 R5 K15 ["GetFFlagRootMotion"]
-       37 CALL                             R4 1 1
-       38 DUPCLOSURE                       R5 K16 [PROTO_0]
-       39 DUPCLOSURE                       R6 K17 [PROTO_1]
-       40 CAPTURE                          VAL R4
-       41 CAPTURE                          VAL R2
-       42 CAPTURE                          VAL R0
-       43 CAPTURE                          VAL R3
-       44 RETURN                           R6 1
+       33 GETTABLEKS                       R5 R1 K10 ["Src"]
+       35 GETTABLEKS                       R5 R5 K14 ["Flags"]
+       37 GETTABLEKS                       R5 R5 K15 ["getFFlagRootMotion"]
+       39 CALL                             R4 1 1
+       40 DUPCLOSURE                       R5 K16 [PROTO_0]
+       41 DUPCLOSURE                       R6 K17 [PROTO_1]
+       42 CAPTURE                          VAL R4
+       43 CAPTURE                          VAL R2
+       44 CAPTURE                          VAL R0
+       45 CAPTURE                          VAL R3
+       46 RETURN                           R6 1

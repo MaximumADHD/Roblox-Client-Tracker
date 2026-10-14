@@ -7,8 +7,8 @@ MAIN:
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["DraggerSchemaCore"]
-       15 GETTABLEKS                       R3 R3 K7 ["DraggerSchema"]
-       17 CALL                             R2 1 1
+       15 CALL                             R2 1 1
+       16 GETTABLEKS                       R2 R2 K7 ["DraggerSchema"]
        18 DUPTABLE                         R3 K26 [{"SelectionInfo", "BoundsChangedTracker", "dispatchWorldClick", "MoveHandlesImplementation", "RotateHandlesImplementation", "FreeformDragger", "isExclusiveSelectable", "getMouseTarget", "getNextSelectables", "getSelectableWithCache", "Selection", "getSelectionBoxComponent", "HoverEscapeDetector", "setHover", "setActivePoint", "beginBoxSelect", "endBoxSelect", "addUndoWaypoint"}]
        19 GETIMPORT                        R4 K5 [require]
        21 GETIMPORT                        R5 K1 [script]

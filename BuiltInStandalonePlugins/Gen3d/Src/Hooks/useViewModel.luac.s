@@ -1,12 +1,16 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K11 [{[1] = "Idle", ["requestId"] = "", ["prompt"] = "", ["model"], ["slots"], ["pickedSlotIndex"] = , ["errorMessage"] = , ["failureReason"] = }]
+        0 DUPTABLE                         R0 K12 [{[1] = "Idle", ["requestId"] = "", ["prompt"] = "", ["model"], ["autoSelectView"], ["slots"], ["pickedSlotIndex"] = , ["errorMessage"] = , ["failureReason"] = }]
         1 GETUPVAL                         R1 0
-        2 GETTABLEKS                       R1 R1 K12 ["Constants"]
-        4 GETTABLEKS                       R1 R1 K13 ["DEFAULT_TEXTURE_GEN_MODEL"]
+        2 GETTABLEKS                       R1 R1 K13 ["Constants"]
+        4 GETTABLEKS                       R1 R1 K14 ["DEFAULT_TEXTURE_GEN_MODEL"]
         6 SETTABLEKS                       R1 R0 K5 ["model"]
-        8 NEWTABLE                         R1 0 0
-       10 SETTABLEKS                       R1 R0 K6 ["slots"]
-       12 RETURN                           R0 1
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K15 ["getFFlagTextureGenAutoSelectView"]
+       11 CALL                             R1 0 1
+       12 SETTABLEKS                       R1 R0 K6 ["autoSelectView"]
+       14 NEWTABLE                         R1 0 0
+       16 SETTABLEKS                       R1 R0 K7 ["slots"]
+       18 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -25,16 +29,17 @@ PROTO_2:
         9 RETURN                           R0 1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["View"]
-        3 GETTABLEKS                       R2 R2 K1 ["sendIntent"]
-        5 GETUPVAL                         R3 1
-        6 GETUPVAL                         R4 2
-        7 GETTABLEKS                       R4 R4 K2 ["StartGeneration"]
-        9 MOVE                             R5 R0
-       10 MOVE                             R6 R1
-       11 CALL                             R2 4 0
-       12 RETURN                           R0 0
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["View"]
+        3 GETTABLEKS                       R3 R3 K1 ["sendIntent"]
+        5 GETUPVAL                         R4 1
+        6 GETUPVAL                         R5 2
+        7 GETTABLEKS                       R5 R5 K2 ["StartGeneration"]
+        9 MOVE                             R6 R0
+       10 MOVE                             R7 R1
+       11 MOVE                             R8 R2
+       12 CALL                             R3 5 0
+       13 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -92,6 +97,17 @@ PROTO_8:
        11 RETURN                           R0 0
 
 PROTO_9:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["View"]
+        3 GETTABLEKS                       R1 R1 K1 ["sendIntent"]
+        5 GETUPVAL                         R2 1
+        6 GETUPVAL                         R3 2
+        7 GETTABLEKS                       R3 R3 K2 ["SetAutoSelectView"]
+        9 MOVE                             R4 R0
+       10 CALL                             R1 3 0
+       11 RETURN                           R0 0
+
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["View"]
         3 GETTABLEKS                       R0 R0 K1 ["sendIntent"]
@@ -101,7 +117,7 @@ PROTO_9:
         9 CALL                             R0 2 0
        10 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["View"]
         3 GETTABLEKS                       R0 R0 K1 ["sendIntent"]
@@ -111,8 +127,8 @@ PROTO_10:
         9 CALL                             R0 2 0
        10 RETURN                           R0 0
 
-PROTO_11:
-        0 DUPTABLE                         R0 K8 [{"startGeneration", "pickSlot", "cancel", "startBatch", "setPrompt", "setModel", "pickReferenceImage", "clearReferenceImage"}]
+PROTO_12:
+        0 DUPTABLE                         R0 K9 [{"startGeneration", "pickSlot", "cancel", "startBatch", "setPrompt", "setModel", "setAutoSelectView", "pickReferenceImage", "clearReferenceImage"}]
         1 NEWCLOSURE                       R1 P0
         2 CAPTURE                          UPVAL U0
         3 CAPTURE                          UPVAL U1
@@ -147,19 +163,24 @@ PROTO_11:
        38 CAPTURE                          UPVAL U0
        39 CAPTURE                          UPVAL U1
        40 CAPTURE                          UPVAL U2
-       41 SETTABLEKS                       R1 R0 K6 ["pickReferenceImage"]
+       41 SETTABLEKS                       R1 R0 K6 ["setAutoSelectView"]
        43 NEWCLOSURE                       R1 P7
        44 CAPTURE                          UPVAL U0
        45 CAPTURE                          UPVAL U1
        46 CAPTURE                          UPVAL U2
-       47 SETTABLEKS                       R1 R0 K7 ["clearReferenceImage"]
-       49 RETURN                           R0 1
+       47 SETTABLEKS                       R1 R0 K7 ["pickReferenceImage"]
+       49 NEWCLOSURE                       R1 P8
+       50 CAPTURE                          UPVAL U0
+       51 CAPTURE                          UPVAL U1
+       52 CAPTURE                          UPVAL U2
+       53 SETTABLEKS                       R1 R0 K8 ["clearReferenceImage"]
+       55 RETURN                           R0 1
 
-PROTO_12:
+PROTO_13:
         0 DUPTABLE                         R0 K7 [{"selection", "generation", "batch", "activeGenerationUniqueIds", "referenceImage", "pickReferenceImage", "clearReferenceImage"}]
         1 GETUPVAL                         R1 0
         2 SETTABLEKS                       R1 R0 K0 ["selection"]
-        4 DUPTABLE                         R1 K14 [{"state", "startGeneration", "setPrompt", "setModel", "pickSlot", "cancel"}]
+        4 DUPTABLE                         R1 K15 [{"state", "startGeneration", "setPrompt", "setModel", "setAutoSelectView", "pickSlot", "cancel"}]
         5 GETUPVAL                         R2 1
         6 SETTABLEKS                       R2 R1 K8 ["state"]
         8 GETUPVAL                         R2 2
@@ -172,30 +193,33 @@ PROTO_12:
        19 GETTABLEKS                       R2 R2 K11 ["setModel"]
        21 SETTABLEKS                       R2 R1 K11 ["setModel"]
        23 GETUPVAL                         R2 2
-       24 GETTABLEKS                       R2 R2 K12 ["pickSlot"]
-       26 SETTABLEKS                       R2 R1 K12 ["pickSlot"]
+       24 GETTABLEKS                       R2 R2 K12 ["setAutoSelectView"]
+       26 SETTABLEKS                       R2 R1 K12 ["setAutoSelectView"]
        28 GETUPVAL                         R2 2
-       29 GETTABLEKS                       R2 R2 K13 ["cancel"]
-       31 SETTABLEKS                       R2 R1 K13 ["cancel"]
-       33 SETTABLEKS                       R1 R0 K1 ["generation"]
-       35 DUPTABLE                         R1 K16 [{"startBatch"}]
-       36 GETUPVAL                         R2 2
-       37 GETTABLEKS                       R2 R2 K15 ["startBatch"]
-       39 SETTABLEKS                       R2 R1 K15 ["startBatch"]
-       41 SETTABLEKS                       R1 R0 K2 ["batch"]
-       43 GETUPVAL                         R1 3
-       44 SETTABLEKS                       R1 R0 K3 ["activeGenerationUniqueIds"]
-       46 GETUPVAL                         R1 4
-       47 SETTABLEKS                       R1 R0 K4 ["referenceImage"]
-       49 GETUPVAL                         R1 2
-       50 GETTABLEKS                       R1 R1 K5 ["pickReferenceImage"]
-       52 SETTABLEKS                       R1 R0 K5 ["pickReferenceImage"]
+       29 GETTABLEKS                       R2 R2 K13 ["pickSlot"]
+       31 SETTABLEKS                       R2 R1 K13 ["pickSlot"]
+       33 GETUPVAL                         R2 2
+       34 GETTABLEKS                       R2 R2 K14 ["cancel"]
+       36 SETTABLEKS                       R2 R1 K14 ["cancel"]
+       38 SETTABLEKS                       R1 R0 K1 ["generation"]
+       40 DUPTABLE                         R1 K17 [{"startBatch"}]
+       41 GETUPVAL                         R2 2
+       42 GETTABLEKS                       R2 R2 K16 ["startBatch"]
+       44 SETTABLEKS                       R2 R1 K16 ["startBatch"]
+       46 SETTABLEKS                       R1 R0 K2 ["batch"]
+       48 GETUPVAL                         R1 3
+       49 SETTABLEKS                       R1 R0 K3 ["activeGenerationUniqueIds"]
+       51 GETUPVAL                         R1 4
+       52 SETTABLEKS                       R1 R0 K4 ["referenceImage"]
        54 GETUPVAL                         R1 2
-       55 GETTABLEKS                       R1 R1 K6 ["clearReferenceImage"]
-       57 SETTABLEKS                       R1 R0 K6 ["clearReferenceImage"]
-       59 RETURN                           R0 1
+       55 GETTABLEKS                       R1 R1 K5 ["pickReferenceImage"]
+       57 SETTABLEKS                       R1 R0 K5 ["pickReferenceImage"]
+       59 GETUPVAL                         R1 2
+       60 GETTABLEKS                       R1 R1 K6 ["clearReferenceImage"]
+       62 SETTABLEKS                       R1 R0 K6 ["clearReferenceImage"]
+       64 RETURN                           R0 1
 
-PROTO_13:
+PROTO_14:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["useState"]
         3 LOADNIL                          R3
@@ -299,16 +323,22 @@ MAIN:
        41 GETTABLEKS                       R6 R0 K6 ["Packages"]
        43 GETTABLEKS                       R6 R6 K14 ["Gen3dCore"]
        45 CALL                             R5 1 1
-       46 GETTABLEKS                       R6 R3 K15 ["Intents"]
-       48 DUPTABLE                         R7 K20 [{["kind"] = "none", ["count"] = 0}]
-       49 DUPTABLE                         R8 K23 [{["status"] = "None"}]
-       50 DUPCLOSURE                       R9 K24 [PROTO_0]
-       51 CAPTURE                          VAL R5
-       52 DUPCLOSURE                       R10 K25 [PROTO_13]
-       53 CAPTURE                          VAL R1
-       54 CAPTURE                          VAL R3
-       55 CAPTURE                          VAL R6
-       56 CAPTURE                          VAL R7
-       57 CAPTURE                          VAL R9
-       58 CAPTURE                          VAL R8
-       59 RETURN                           R10 1
+       46 GETIMPORT                        R6 K5 [require]
+       48 GETTABLEKS                       R7 R0 K15 ["Bin"]
+       50 GETTABLEKS                       R7 R7 K16 ["Common"]
+       52 GETTABLEKS                       R7 R7 K17 ["defineLuaFlags"]
+       54 CALL                             R6 1 1
+       55 GETTABLEKS                       R7 R3 K18 ["Intents"]
+       57 DUPTABLE                         R8 K23 [{["kind"] = "none", ["count"] = 0}]
+       58 DUPTABLE                         R9 K26 [{["status"] = "None"}]
+       59 DUPCLOSURE                       R10 K27 [PROTO_0]
+       60 CAPTURE                          VAL R5
+       61 CAPTURE                          VAL R6
+       62 DUPCLOSURE                       R11 K28 [PROTO_14]
+       63 CAPTURE                          VAL R1
+       64 CAPTURE                          VAL R3
+       65 CAPTURE                          VAL R7
+       66 CAPTURE                          VAL R8
+       67 CAPTURE                          VAL R10
+       68 CAPTURE                          VAL R9
+       69 RETURN                           R11 1

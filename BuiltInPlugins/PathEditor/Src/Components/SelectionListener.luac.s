@@ -82,40 +82,38 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+4]
-        2 GETUPVAL                         R0 1
-        3 GETTABLEKS                       R0 R0 K0 ["LogUsageReport"]
-        5 CALL                             R0 0 0
-        6 GETUPVAL                         R0 1
-        7 GETTABLEKS                       R0 R0 K1 ["dispatchSelectPathCleared"]
-        9 CALL                             R0 0 0
-       10 GETUPVAL                         R0 2
-       11 GETUPVAL                         R2 2
-       12 GETTABLEKS                       R2 R2 K2 ["Actions"]
-       14 NAMECALL                         R0 R0 K3 ["disableActions"]
-       16 CALL                             R0 2 0
-       17 GETUPVAL                         R0 2
-       18 GETTABLEKS                       R0 R0 K4 ["state"]
-       20 GETTABLEKS                       R0 R0 K5 ["selectedObjectChangedConn"]
-       22 JUMPIFEQKNIL                     R0 ; [+9]
-       24 GETUPVAL                         R0 2
-       25 GETTABLEKS                       R0 R0 K4 ["state"]
-       27 GETTABLEKS                       R0 R0 K5 ["selectedObjectChangedConn"]
-       29 NAMECALL                         R0 R0 K6 ["Disconnect"]
-       31 CALL                             R0 1 0
-       32 GETUPVAL                         R0 2
-       33 GETTABLEKS                       R0 R0 K4 ["state"]
-       35 GETTABLEKS                       R0 R0 K7 ["selectedObjectParentChangedConn"]
-       37 JUMPIFEQKNIL                     R0 ; [+9]
-       39 GETUPVAL                         R0 2
-       40 GETTABLEKS                       R0 R0 K4 ["state"]
-       42 GETTABLEKS                       R0 R0 K7 ["selectedObjectParentChangedConn"]
-       44 NAMECALL                         R0 R0 K6 ["Disconnect"]
-       46 CALL                             R0 1 0
-       47 GETUPVAL                         R0 2
-       48 LOADNIL                          R1
-       49 SETTABLEKS                       R1 R0 K8 ["selectedObject"]
-       51 RETURN                           R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["LogUsageReport"]
+        3 CALL                             R0 0 0
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K1 ["dispatchSelectPathCleared"]
+        7 CALL                             R0 0 0
+        8 GETUPVAL                         R0 1
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K2 ["Actions"]
+       12 NAMECALL                         R0 R0 K3 ["disableActions"]
+       14 CALL                             R0 2 0
+       15 GETUPVAL                         R0 1
+       16 GETTABLEKS                       R0 R0 K4 ["state"]
+       18 GETTABLEKS                       R0 R0 K5 ["selectedObjectChangedConn"]
+       20 JUMPIFEQKNIL                     R0 ; [+9]
+       22 GETUPVAL                         R0 1
+       23 GETTABLEKS                       R0 R0 K4 ["state"]
+       25 GETTABLEKS                       R0 R0 K5 ["selectedObjectChangedConn"]
+       27 NAMECALL                         R0 R0 K6 ["Disconnect"]
+       29 CALL                             R0 1 0
+       30 GETUPVAL                         R0 1
+       31 GETTABLEKS                       R0 R0 K4 ["state"]
+       33 GETTABLEKS                       R0 R0 K7 ["selectedObjectParentChangedConn"]
+       35 JUMPIFEQKNIL                     R0 ; [+9]
+       37 GETUPVAL                         R0 1
+       38 GETTABLEKS                       R0 R0 K4 ["state"]
+       40 GETTABLEKS                       R0 R0 K7 ["selectedObjectParentChangedConn"]
+       42 NAMECALL                         R0 R0 K6 ["Disconnect"]
+       44 CALL                             R0 1 0
+       45 GETUPVAL                         R0 1
+       46 LOADNIL                          R1
+       47 SETTABLEKS                       R1 R0 K8 ["selectedObject"]
+       49 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -250,31 +248,30 @@ PROTO_8:
         6 NEWCLOSURE                       R2 P1
         7 CAPTURE                          VAL R1
         8 NEWCLOSURE                       R3 P2
-        9 CAPTURE                          UPVAL U0
-       10 CAPTURE                          VAL R1
-       11 CAPTURE                          VAL R0
-       12 NEWCLOSURE                       R4 P3
-       13 CAPTURE                          VAL R0
-       14 CAPTURE                          VAL R1
-       15 CAPTURE                          VAL R2
-       16 CAPTURE                          UPVAL U1
-       17 GETUPVAL                         R5 2
-       18 GETTABLEKS                       R5 R5 K2 ["SelectionChanged"]
-       20 NEWCLOSURE                       R7 P4
-       21 CAPTURE                          UPVAL U2
-       22 CAPTURE                          UPVAL U1
-       23 CAPTURE                          VAL R1
-       24 CAPTURE                          VAL R0
-       25 CAPTURE                          VAL R4
-       26 CAPTURE                          VAL R2
-       27 CAPTURE                          VAL R3
-       28 NAMECALL                         R5 R5 K3 ["Connect"]
-       30 CALL                             R5 2 1
-       31 DUPTABLE                         R8 K5 [{"selectionChangedConn"}]
-       32 SETTABLEKS                       R5 R8 K4 ["selectionChangedConn"]
-       34 NAMECALL                         R6 R0 K6 ["setState"]
-       36 CALL                             R6 2 0
-       37 RETURN                           R0 0
+        9 CAPTURE                          VAL R1
+       10 CAPTURE                          VAL R0
+       11 NEWCLOSURE                       R4 P3
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          VAL R1
+       14 CAPTURE                          VAL R2
+       15 CAPTURE                          UPVAL U0
+       16 GETUPVAL                         R5 1
+       17 GETTABLEKS                       R5 R5 K2 ["SelectionChanged"]
+       19 NEWCLOSURE                       R7 P4
+       20 CAPTURE                          UPVAL U1
+       21 CAPTURE                          UPVAL U0
+       22 CAPTURE                          VAL R1
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          VAL R4
+       25 CAPTURE                          VAL R2
+       26 CAPTURE                          VAL R3
+       27 NAMECALL                         R5 R5 K3 ["Connect"]
+       29 CALL                             R5 2 1
+       30 DUPTABLE                         R8 K5 [{"selectionChangedConn"}]
+       31 SETTABLEKS                       R5 R8 K4 ["selectionChangedConn"]
+       33 NAMECALL                         R6 R0 K6 ["setState"]
+       35 CALL                             R6 2 0
+       36 RETURN                           R0 0
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -585,54 +582,49 @@ MAIN:
       104 GETIMPORT                        R20 K4 [require]
       106 GETTABLEKS                       R21 R18 K29 ["isHierarchyValidForPath2D"]
       108 CALL                             R20 1 1
-      109 GETIMPORT                        R21 K12 [game]
-      111 LOADK                            R23 K30 ["PathEditorRBXTelemetryFixes"]
-      112 NAMECALL                         R21 R21 K31 ["GetFastFlag"]
+      109 GETTABLEKS                       R21 R2 K30 ["PureComponent"]
+      111 LOADK                            R23 K31 ["SelectionListener"]
+      112 NAMECALL                         R21 R21 K32 ["extend"]
       114 CALL                             R21 2 1
-      115 GETTABLEKS                       R22 R2 K32 ["PureComponent"]
-      117 LOADK                            R24 K33 ["SelectionListener"]
-      118 NAMECALL                         R22 R22 K34 ["extend"]
-      120 CALL                             R22 2 1
-      121 DUPCLOSURE                       R23 K35 [PROTO_0]
-      122 SETTABLEKS                       R23 R22 K36 ["addAction"]
-      124 DUPCLOSURE                       R23 K37 [PROTO_1]
-      125 SETTABLEKS                       R23 R22 K38 ["enableActions"]
-      127 DUPCLOSURE                       R23 K39 [PROTO_2]
-      128 SETTABLEKS                       R23 R22 K40 ["disableActions"]
-      130 DUPCLOSURE                       R23 K41 [PROTO_8]
-      131 CAPTURE                          VAL R21
-      132 CAPTURE                          VAL R20
-      133 CAPTURE                          VAL R5
-      134 SETTABLEKS                       R23 R22 K42 ["init"]
-      136 DUPCLOSURE                       R23 K43 [PROTO_9]
-      137 SETTABLEKS                       R23 R22 K44 ["didMount"]
-      139 DUPCLOSURE                       R23 K45 [PROTO_10]
-      140 SETTABLEKS                       R23 R22 K46 ["willUnmount"]
-      142 DUPCLOSURE                       R23 K47 [PROTO_11]
-      143 SETTABLEKS                       R23 R22 K48 ["render"]
-      145 MOVE                             R23 R7
-      146 DUPTABLE                         R24 K51 [{"PluginActions", "Mouse"}]
-      147 GETTABLEKS                       R25 R6 K49 ["PluginActions"]
-      149 SETTABLEKS                       R25 R24 K49 ["PluginActions"]
-      151 GETTABLEKS                       R25 R6 K50 ["Mouse"]
-      153 SETTABLEKS                       R25 R24 K50 ["Mouse"]
-      155 CALL                             R23 1 1
-      156 MOVE                             R24 R22
-      157 CALL                             R23 1 1
-      158 MOVE                             R22 R23
-      159 GETTABLEKS                       R23 R3 K52 ["connect"]
-      161 DUPCLOSURE                       R24 K53 [PROTO_12]
-      162 DUPCLOSURE                       R25 K54 [PROTO_21]
-      163 CAPTURE                          VAL R15
-      164 CAPTURE                          VAL R19
-      165 CAPTURE                          VAL R12
-      166 CAPTURE                          VAL R14
-      167 CAPTURE                          VAL R13
-      168 CAPTURE                          VAL R11
-      169 CAPTURE                          VAL R9
-      170 CAPTURE                          VAL R10
-      171 CAPTURE                          VAL R17
-      172 CALL                             R23 2 1
-      173 MOVE                             R24 R22
-      174 CALL                             R23 1 -1
-      175 RETURN                           R23 -1
+      115 DUPCLOSURE                       R22 K33 [PROTO_0]
+      116 SETTABLEKS                       R22 R21 K34 ["addAction"]
+      118 DUPCLOSURE                       R22 K35 [PROTO_1]
+      119 SETTABLEKS                       R22 R21 K36 ["enableActions"]
+      121 DUPCLOSURE                       R22 K37 [PROTO_2]
+      122 SETTABLEKS                       R22 R21 K38 ["disableActions"]
+      124 DUPCLOSURE                       R22 K39 [PROTO_8]
+      125 CAPTURE                          VAL R20
+      126 CAPTURE                          VAL R5
+      127 SETTABLEKS                       R22 R21 K40 ["init"]
+      129 DUPCLOSURE                       R22 K41 [PROTO_9]
+      130 SETTABLEKS                       R22 R21 K42 ["didMount"]
+      132 DUPCLOSURE                       R22 K43 [PROTO_10]
+      133 SETTABLEKS                       R22 R21 K44 ["willUnmount"]
+      135 DUPCLOSURE                       R22 K45 [PROTO_11]
+      136 SETTABLEKS                       R22 R21 K46 ["render"]
+      138 MOVE                             R22 R7
+      139 DUPTABLE                         R23 K49 [{"PluginActions", "Mouse"}]
+      140 GETTABLEKS                       R24 R6 K47 ["PluginActions"]
+      142 SETTABLEKS                       R24 R23 K47 ["PluginActions"]
+      144 GETTABLEKS                       R24 R6 K48 ["Mouse"]
+      146 SETTABLEKS                       R24 R23 K48 ["Mouse"]
+      148 CALL                             R22 1 1
+      149 MOVE                             R23 R21
+      150 CALL                             R22 1 1
+      151 MOVE                             R21 R22
+      152 GETTABLEKS                       R22 R3 K50 ["connect"]
+      154 DUPCLOSURE                       R23 K51 [PROTO_12]
+      155 DUPCLOSURE                       R24 K52 [PROTO_21]
+      156 CAPTURE                          VAL R15
+      157 CAPTURE                          VAL R19
+      158 CAPTURE                          VAL R12
+      159 CAPTURE                          VAL R14
+      160 CAPTURE                          VAL R13
+      161 CAPTURE                          VAL R11
+      162 CAPTURE                          VAL R9
+      163 CAPTURE                          VAL R10
+      164 CAPTURE                          VAL R17
+      165 CALL                             R22 2 1
+      166 MOVE                             R23 R21
+      167 CALL                             R22 1 -1
+      168 RETURN                           R22 -1

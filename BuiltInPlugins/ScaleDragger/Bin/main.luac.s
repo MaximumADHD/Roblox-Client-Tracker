@@ -173,66 +173,60 @@ PROTO_6:
         0 GETIMPORT                        R2 K1 [script]
         2 GETTABLEKS                       R2 R2 K2 ["Parent"]
         4 GETTABLEKS                       R2 R2 K2 ["Parent"]
-        6 GETTABLEKS                       R3 R2 K3 ["Packages"]
-        8 GETTABLEKS                       R3 R3 K4 ["DraggerFramework"]
-       10 GETIMPORT                        R4 K6 [require]
-       12 GETTABLEKS                       R5 R2 K3 ["Packages"]
-       14 GETTABLEKS                       R5 R5 K7 ["Roact"]
-       16 CALL                             R4 1 1
-       17 GETIMPORT                        R5 K6 [require]
-       19 GETTABLEKS                       R6 R3 K8 ["Implementation"]
-       21 GETTABLEKS                       R6 R6 K9 ["DraggerContext_PluginImpl"]
-       23 CALL                             R5 1 1
-       24 GETIMPORT                        R6 K6 [require]
-       26 GETTABLEKS                       R7 R3 K10 ["DraggerTools"]
-       28 GETTABLEKS                       R7 R7 K11 ["DraggerToolComponent"]
-       30 CALL                             R6 1 1
-       31 GETIMPORT                        R7 K6 [require]
-       33 GETTABLEKS                       R8 R3 K12 ["Flags"]
-       35 GETTABLEKS                       R8 R8 K13 ["getFFlagDraggerHandlesIsEnabledFunction"]
-       37 CALL                             R7 1 1
-       38 GETIMPORT                        R8 K6 [require]
-       40 GETTABLEKS                       R9 R3 K14 ["Handles"]
-       42 GETTABLEKS                       R9 R9 K15 ["ExtrudeHandles"]
-       44 CALL                             R8 1 1
-       45 GETTABLEKS                       R9 R2 K3 ["Packages"]
-       47 GETTABLEKS                       R9 R9 K16 ["DraggerSchemaCore"]
-       49 GETIMPORT                        R10 K6 [require]
-       51 GETTABLEKS                       R11 R9 K17 ["DraggerSchema"]
-       53 CALL                             R10 1 1
-       54 LOADNIL                          R11
-       55 LOADB                            R12 0
-       56 LOADNIL                          R13
-       57 NEWCLOSURE                       R14 P0
-       58 CAPTURE                          REF R13
-       59 CAPTURE                          REF R12
-       60 CAPTURE                          VAL R0
+        6 GETIMPORT                        R3 K4 [require]
+        8 GETTABLEKS                       R4 R2 K5 ["Packages"]
+       10 GETTABLEKS                       R4 R4 K6 ["DraggerFramework"]
+       12 CALL                             R3 1 1
+       13 GETIMPORT                        R4 K4 [require]
+       15 GETTABLEKS                       R5 R2 K5 ["Packages"]
+       17 GETTABLEKS                       R5 R5 K7 ["Roact"]
+       19 CALL                             R4 1 1
+       20 GETTABLEKS                       R5 R3 K8 ["Implementation"]
+       22 GETTABLEKS                       R5 R5 K9 ["DraggerContext_PluginImpl"]
+       24 GETTABLEKS                       R6 R3 K10 ["DraggerTools"]
+       26 GETTABLEKS                       R6 R6 K11 ["DraggerToolComponent"]
+       28 GETTABLEKS                       R7 R3 K12 ["Flags"]
+       30 GETTABLEKS                       R7 R7 K13 ["getFFlagDraggerHandlesIsEnabledFunction"]
+       32 GETTABLEKS                       R8 R3 K14 ["Handles"]
+       34 GETTABLEKS                       R8 R8 K15 ["ExtrudeHandles"]
+       36 GETIMPORT                        R9 K4 [require]
+       38 GETTABLEKS                       R10 R2 K5 ["Packages"]
+       40 GETTABLEKS                       R10 R10 K16 ["DraggerSchemaCore"]
+       42 CALL                             R9 1 1
+       43 GETTABLEKS                       R10 R9 K17 ["DraggerSchema"]
+       45 LOADNIL                          R11
+       46 LOADB                            R12 0
+       47 LOADNIL                          R13
+       48 NEWCLOSURE                       R14 P0
+       49 CAPTURE                          REF R13
+       50 CAPTURE                          REF R12
+       51 CAPTURE                          VAL R0
+       52 CAPTURE                          VAL R1
+       53 CAPTURE                          VAL R7
+       54 CAPTURE                          VAL R4
+       55 CAPTURE                          VAL R6
+       56 CAPTURE                          REF R11
+       57 CAPTURE                          VAL R10
+       58 CAPTURE                          VAL R8
+       59 NEWCLOSURE                       R15 P1
+       60 CAPTURE                          REF R12
        61 CAPTURE                          VAL R1
-       62 CAPTURE                          VAL R7
+       62 CAPTURE                          REF R13
        63 CAPTURE                          VAL R4
-       64 CAPTURE                          VAL R6
-       65 CAPTURE                          REF R11
-       66 CAPTURE                          VAL R10
-       67 CAPTURE                          VAL R8
-       68 NEWCLOSURE                       R15 P1
+       64 NEWCLOSURE                       R16 P2
+       65 CAPTURE                          VAL R0
+       66 CAPTURE                          REF R11
+       67 CAPTURE                          VAL R5
+       68 CAPTURE                          VAL R10
        69 CAPTURE                          REF R12
        70 CAPTURE                          VAL R1
        71 CAPTURE                          REF R13
        72 CAPTURE                          VAL R4
-       73 NEWCLOSURE                       R16 P2
-       74 CAPTURE                          VAL R0
-       75 CAPTURE                          REF R11
-       76 CAPTURE                          VAL R5
-       77 CAPTURE                          VAL R10
-       78 CAPTURE                          REF R12
-       79 CAPTURE                          VAL R1
-       80 CAPTURE                          REF R13
-       81 CAPTURE                          VAL R4
-       82 CAPTURE                          VAL R14
-       83 MOVE                             R17 R16
-       84 CALL                             R17 0 0
-       85 CLOSEUPVALS                      R11
-       86 RETURN                           R0 0
+       73 CAPTURE                          VAL R14
+       74 MOVE                             R17 R16
+       75 CALL                             R17 0 0
+       76 CLOSEUPVALS                      R11
+       77 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

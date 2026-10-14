@@ -144,9 +144,9 @@ MAIN:
        31 GETIMPORT                        R4 K8 [require]
        33 GETTABLEKS                       R5 R0 K9 ["Packages"]
        35 GETTABLEKS                       R5 R5 K14 ["DraggerFramework"]
-       37 GETTABLEKS                       R5 R5 K15 ["Flags"]
-       39 GETTABLEKS                       R5 R5 K16 ["getFFlagDraggerEditProcModels"]
-       41 CALL                             R4 1 1
+       37 CALL                             R4 1 1
+       38 GETTABLEKS                       R4 R4 K15 ["Flags"]
+       40 GETTABLEKS                       R4 R4 K16 ["getFFlagDraggerEditProcModels"]
        42 DUPCLOSURE                       R5 K17 [PROTO_0]
        43 GETTABLEKS                       R6 R2 K18 ["PureComponent"]
        45 LOADK                            R8 K19 ["SelectionUpdater"]

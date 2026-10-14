@@ -247,40 +247,42 @@ MAIN:
       123 GETTABLEKS                       R25 R20 K31 ["TrackUtils"]
       125 CALL                             R24 1 1
       126 GETIMPORT                        R25 K7 [require]
-      128 GETTABLEKS                       R26 R0 K32 ["LuaFlags"]
-      130 GETTABLEKS                       R26 R26 K33 ["GetFFlagEngineAnimator"]
-      132 CALL                             R25 1 1
-      133 GETIMPORT                        R26 K7 [require]
-      135 GETTABLEKS                       R27 R0 K32 ["LuaFlags"]
-      137 GETTABLEKS                       R27 R27 K34 ["GetFFlagControlRig"]
-      139 CALL                             R26 1 1
-      140 GETIMPORT                        R27 K36 [game]
-      142 LOADK                            R29 K37 ["LiveAnimationUpdateSupport"]
-      143 NAMECALL                         R27 R27 K38 ["GetFastFlag"]
-      145 CALL                             R27 2 1
-      146 DUPCLOSURE                       R28 K39 [PROTO_1]
-      147 CAPTURE                          VAL R5
-      148 CAPTURE                          VAL R2
-      149 CAPTURE                          VAL R13
-      150 CAPTURE                          VAL R4
-      151 CAPTURE                          VAL R6
-      152 CAPTURE                          VAL R7
-      153 CAPTURE                          VAL R15
-      154 CAPTURE                          VAL R27
-      155 CAPTURE                          VAL R9
-      156 CAPTURE                          VAL R17
-      157 CAPTURE                          VAL R21
-      158 CAPTURE                          VAL R25
-      159 CAPTURE                          VAL R23
-      160 CAPTURE                          VAL R18
-      161 CAPTURE                          VAL R26
-      162 CAPTURE                          VAL R12
-      163 CAPTURE                          VAL R24
-      164 CAPTURE                          VAL R11
-      165 CAPTURE                          VAL R14
-      166 CAPTURE                          VAL R16
-      167 CAPTURE                          VAL R3
-      168 CAPTURE                          VAL R19
-      169 CAPTURE                          VAL R8
-      170 CAPTURE                          VAL R22
-      171 RETURN                           R28 1
+      128 GETTABLEKS                       R26 R0 K4 ["Src"]
+      130 GETTABLEKS                       R26 R26 K32 ["Flags"]
+      132 GETTABLEKS                       R26 R26 K33 ["getFFlagEngineAnimator"]
+      134 CALL                             R25 1 1
+      135 GETIMPORT                        R26 K7 [require]
+      137 GETTABLEKS                       R27 R0 K4 ["Src"]
+      139 GETTABLEKS                       R27 R27 K32 ["Flags"]
+      141 GETTABLEKS                       R27 R27 K34 ["getFFlagControlRig"]
+      143 CALL                             R26 1 1
+      144 GETIMPORT                        R27 K36 [game]
+      146 LOADK                            R29 K37 ["LiveAnimationUpdateSupport"]
+      147 NAMECALL                         R27 R27 K38 ["GetFastFlag"]
+      149 CALL                             R27 2 1
+      150 DUPCLOSURE                       R28 K39 [PROTO_1]
+      151 CAPTURE                          VAL R5
+      152 CAPTURE                          VAL R2
+      153 CAPTURE                          VAL R13
+      154 CAPTURE                          VAL R4
+      155 CAPTURE                          VAL R6
+      156 CAPTURE                          VAL R7
+      157 CAPTURE                          VAL R15
+      158 CAPTURE                          VAL R27
+      159 CAPTURE                          VAL R9
+      160 CAPTURE                          VAL R17
+      161 CAPTURE                          VAL R21
+      162 CAPTURE                          VAL R25
+      163 CAPTURE                          VAL R23
+      164 CAPTURE                          VAL R18
+      165 CAPTURE                          VAL R26
+      166 CAPTURE                          VAL R12
+      167 CAPTURE                          VAL R24
+      168 CAPTURE                          VAL R11
+      169 CAPTURE                          VAL R14
+      170 CAPTURE                          VAL R16
+      171 CAPTURE                          VAL R3
+      172 CAPTURE                          VAL R19
+      173 CAPTURE                          VAL R8
+      174 CAPTURE                          VAL R22
+      175 RETURN                           R28 1

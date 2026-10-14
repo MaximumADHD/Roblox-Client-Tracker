@@ -67,24 +67,26 @@ PROTO_1:
        75 LOADN                            R13 2
        76 CALL                             R11 2 1
        77 SETTABLEKS                       R11 R10 K26 ["CornerRadius"]
-       79 GETTABLEKS                       R12 R0 K39 ["initialDistance"]
-       81 ORK                              R11 R12 K38 [4.12]
-       82 SETTABLEKS                       R11 R10 K27 ["InitialDistance"]
-       84 SETTABLEKS                       R1 R10 K24 ["Material"]
-       86 GETUPVAL                         R11 4
-       87 GETTABLEKS                       R11 R11 K40 ["CubeCornerOn"]
-       89 SETTABLEKS                       R11 R10 K28 ["MaterialPreviewGeometryType"]
-       91 SETTABLEKS                       R2 R10 K29 ["OverrideColor"]
-       93 SETTABLEKS                       R3 R10 K30 ["OverrideTransparency"]
-       95 GETIMPORT                        R11 K42 [UDim2.fromScale]
-       97 LOADN                            R12 1
-       98 LOADN                            R13 1
-       99 CALL                             R11 2 1
-      100 SETTABLEKS                       R11 R10 K10 ["Size"]
-      102 CALL                             R8 2 1
-      103 SETTABLEKS                       R8 R7 K24 ["Material"]
-      105 CALL                             R4 3 -1
-      106 RETURN                           R4 -1
+       79 GETTABLEKS                       R11 R0 K38 ["initialDistance"]
+       81 JUMPIF                           R11 ; [+3]
+       82 GETUPVAL                         R11 4
+       83 GETTABLEKS                       R11 R11 K39 ["MATERIAL_PREVIEW_CAMERA_DISTANCE"]
+       85 SETTABLEKS                       R11 R10 K27 ["InitialDistance"]
+       87 SETTABLEKS                       R1 R10 K24 ["Material"]
+       89 GETUPVAL                         R11 5
+       90 GETTABLEKS                       R11 R11 K40 ["CubeCornerOn"]
+       92 SETTABLEKS                       R11 R10 K28 ["MaterialPreviewGeometryType"]
+       94 SETTABLEKS                       R2 R10 K29 ["OverrideColor"]
+       96 SETTABLEKS                       R3 R10 K30 ["OverrideTransparency"]
+       98 GETIMPORT                        R11 K42 [UDim2.fromScale]
+      100 LOADN                            R12 1
+      101 LOADN                            R13 1
+      102 CALL                             R11 2 1
+      103 SETTABLEKS                       R11 R10 K10 ["Size"]
+      105 CALL                             R8 2 1
+      106 SETTABLEKS                       R8 R7 K24 ["Material"]
+      108 CALL                             R4 3 -1
+      109 RETURN                           R4 -1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -221,27 +223,33 @@ MAIN:
        30 GETTABLEKS                       R5 R0 K6 ["Packages"]
        32 GETTABLEKS                       R5 R5 K10 ["TerrainPalette"]
        34 CALL                             R4 1 1
-       35 GETTABLEKS                       R5 R2 K11 ["Components"]
-       37 GETTABLEKS                       R5 R5 K12 ["MaterialPreview"]
-       39 GETTABLEKS                       R6 R2 K13 ["Enums"]
-       41 GETTABLEKS                       R6 R6 K14 ["MaterialPreviewGeometryType"]
-       43 GETTABLEKS                       R7 R1 K13 ["Enums"]
-       45 GETTABLEKS                       R7 R7 K15 ["ControlState"]
-       47 GETTABLEKS                       R8 R1 K16 ["View"]
-       49 DUPCLOSURE                       R9 K17 [PROTO_0]
-       50 CAPTURE                          VAL R4
-       51 DUPCLOSURE                       R10 K18 [PROTO_1]
-       52 CAPTURE                          VAL R4
-       53 CAPTURE                          VAL R3
-       54 CAPTURE                          VAL R8
-       55 CAPTURE                          VAL R5
-       56 CAPTURE                          VAL R6
-       57 DUPCLOSURE                       R11 K19 [PROTO_3]
-       58 CAPTURE                          VAL R1
-       59 CAPTURE                          VAL R3
-       60 CAPTURE                          VAL R7
-       61 CAPTURE                          VAL R8
-       62 DUPTABLE                         R12 K22 [{"Container", "Preview"}]
-       63 SETTABLEKS                       R11 R12 K20 ["Container"]
-       65 SETTABLEKS                       R10 R12 K21 ["Preview"]
-       67 RETURN                           R12 1
+       35 GETIMPORT                        R5 K5 [require]
+       37 GETTABLEKS                       R6 R0 K11 ["Src"]
+       39 GETTABLEKS                       R6 R6 K12 ["Constants"]
+       41 GETTABLEKS                       R6 R6 K13 ["TERRAIN_CUSTOM_MATERIALS"]
+       43 CALL                             R5 1 1
+       44 GETTABLEKS                       R6 R2 K14 ["Components"]
+       46 GETTABLEKS                       R6 R6 K15 ["MaterialPreview"]
+       48 GETTABLEKS                       R7 R2 K16 ["Enums"]
+       50 GETTABLEKS                       R7 R7 K17 ["MaterialPreviewGeometryType"]
+       52 GETTABLEKS                       R8 R1 K16 ["Enums"]
+       54 GETTABLEKS                       R8 R8 K18 ["ControlState"]
+       56 GETTABLEKS                       R9 R1 K19 ["View"]
+       58 DUPCLOSURE                       R10 K20 [PROTO_0]
+       59 CAPTURE                          VAL R4
+       60 DUPCLOSURE                       R11 K21 [PROTO_1]
+       61 CAPTURE                          VAL R4
+       62 CAPTURE                          VAL R3
+       63 CAPTURE                          VAL R9
+       64 CAPTURE                          VAL R6
+       65 CAPTURE                          VAL R5
+       66 CAPTURE                          VAL R7
+       67 DUPCLOSURE                       R12 K22 [PROTO_3]
+       68 CAPTURE                          VAL R1
+       69 CAPTURE                          VAL R3
+       70 CAPTURE                          VAL R8
+       71 CAPTURE                          VAL R9
+       72 DUPTABLE                         R13 K25 [{"Container", "Preview"}]
+       73 SETTABLEKS                       R12 R13 K23 ["Container"]
+       75 SETTABLEKS                       R11 R13 K24 ["Preview"]
+       77 RETURN                           R13 1

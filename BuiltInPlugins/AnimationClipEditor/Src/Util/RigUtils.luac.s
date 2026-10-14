@@ -766,124 +766,126 @@ MAIN:
        29 NAMECALL                         R4 R4 K11 ["DefineFastFlag"]
        31 CALL                             R4 3 1
        32 GETIMPORT                        R5 K13 [require]
-       34 GETTABLEKS                       R6 R3 K14 ["LuaFlags"]
-       36 GETTABLEKS                       R6 R6 K15 ["GetFFlagEngineAnimator"]
-       38 CALL                             R5 1 1
-       39 GETIMPORT                        R6 K1 [game]
-       41 LOADK                            R8 K16 ["AnimRigLoadFromModel2"]
-       42 LOADB                            R9 0
-       43 NAMECALL                         R6 R6 K11 ["DefineFastFlag"]
-       45 CALL                             R6 3 1
-       46 GETIMPORT                        R7 K1 [game]
-       48 LOADK                            R9 K17 ["ACESimulatedAnimationConstraints"]
-       49 LOADB                            R10 0
-       50 NAMECALL                         R7 R7 K11 ["DefineFastFlag"]
-       52 CALL                             R7 3 1
-       53 GETIMPORT                        R8 K1 [game]
-       55 LOADK                            R10 K18 ["ACEPreserveAnimatorOnReset"]
-       56 LOADB                            R11 0
-       57 NAMECALL                         R8 R8 K11 ["DefineFastFlag"]
-       59 CALL                             R8 3 1
-       60 GETIMPORT                        R9 K13 [require]
-       62 GETTABLEKS                       R10 R3 K19 ["Packages"]
-       64 GETTABLEKS                       R10 R10 K20 ["Thumbnailing"]
-       66 CALL                             R9 1 1
-       67 JUMPIFNOT                        R4 ; [+10]
-       68 GETIMPORT                        R10 K13 [require]
-       70 GETTABLEKS                       R11 R3 K21 ["Src"]
-       72 GETTABLEKS                       R11 R11 K22 ["Util"]
-       74 GETTABLEKS                       R11 R11 K23 ["CharacterUtility"]
-       76 CALL                             R10 1 1
-       77 JUMP                             ; [+2]
-       78 GETTABLEKS                       R10 R9 K23 ["CharacterUtility"]
-       80 JUMPIFNOT                        R4 ; [+10]
-       81 GETIMPORT                        R11 K13 [require]
-       83 GETTABLEKS                       R12 R3 K21 ["Src"]
-       85 GETTABLEKS                       R12 R12 K22 ["Util"]
-       87 GETTABLEKS                       R12 R12 K24 ["CFrameUtility"]
-       89 CALL                             R11 1 1
-       90 JUMP                             ; [+2]
-       91 GETTABLEKS                       R11 R9 K24 ["CFrameUtility"]
-       93 GETIMPORT                        R12 K13 [require]
-       95 GETTABLEKS                       R13 R3 K21 ["Src"]
-       97 GETTABLEKS                       R13 R13 K22 ["Util"]
-       99 GETTABLEKS                       R13 R13 K25 ["KeyframeUtils"]
-      101 CALL                             R12 1 1
-      102 GETIMPORT                        R13 K13 [require]
-      104 GETTABLEKS                       R14 R3 K21 ["Src"]
-      106 GETTABLEKS                       R14 R14 K22 ["Util"]
-      108 GETTABLEKS                       R14 R14 K26 ["RigInfo"]
-      110 CALL                             R13 1 1
-      111 GETIMPORT                        R14 K13 [require]
-      113 GETTABLEKS                       R15 R3 K21 ["Src"]
-      115 GETTABLEKS                       R15 R15 K22 ["Util"]
-      117 GETTABLEKS                       R15 R15 K27 ["Constants"]
-      119 CALL                             R14 1 1
-      120 GETIMPORT                        R15 K13 [require]
-      122 GETTABLEKS                       R16 R3 K14 ["LuaFlags"]
-      124 GETTABLEKS                       R16 R16 K28 ["GetFFlagRootMotion"]
-      126 CALL                             R15 1 1
-      127 NEWTABLE                         R16 16 0
-      129 DUPCLOSURE                       R17 K29 [PROTO_0]
-      130 CAPTURE                          VAL R13
-      131 SETTABLEKS                       R17 R16 K30 ["canUseFaceControlsEditor"]
-      133 DUPCLOSURE                       R17 K31 [PROTO_1]
+       34 GETTABLEKS                       R6 R3 K14 ["Src"]
+       36 GETTABLEKS                       R6 R6 K15 ["Flags"]
+       38 GETTABLEKS                       R6 R6 K16 ["getFFlagEngineAnimator"]
+       40 CALL                             R5 1 1
+       41 GETIMPORT                        R6 K1 [game]
+       43 LOADK                            R8 K17 ["AnimRigLoadFromModel2"]
+       44 LOADB                            R9 0
+       45 NAMECALL                         R6 R6 K11 ["DefineFastFlag"]
+       47 CALL                             R6 3 1
+       48 GETIMPORT                        R7 K1 [game]
+       50 LOADK                            R9 K18 ["ACESimulatedAnimationConstraints"]
+       51 LOADB                            R10 0
+       52 NAMECALL                         R7 R7 K11 ["DefineFastFlag"]
+       54 CALL                             R7 3 1
+       55 GETIMPORT                        R8 K1 [game]
+       57 LOADK                            R10 K19 ["ACEPreserveAnimatorOnReset"]
+       58 LOADB                            R11 0
+       59 NAMECALL                         R8 R8 K11 ["DefineFastFlag"]
+       61 CALL                             R8 3 1
+       62 GETIMPORT                        R9 K13 [require]
+       64 GETTABLEKS                       R10 R3 K20 ["Packages"]
+       66 GETTABLEKS                       R10 R10 K21 ["Thumbnailing"]
+       68 CALL                             R9 1 1
+       69 JUMPIFNOT                        R4 ; [+10]
+       70 GETIMPORT                        R10 K13 [require]
+       72 GETTABLEKS                       R11 R3 K14 ["Src"]
+       74 GETTABLEKS                       R11 R11 K22 ["Util"]
+       76 GETTABLEKS                       R11 R11 K23 ["CharacterUtility"]
+       78 CALL                             R10 1 1
+       79 JUMP                             ; [+2]
+       80 GETTABLEKS                       R10 R9 K23 ["CharacterUtility"]
+       82 JUMPIFNOT                        R4 ; [+10]
+       83 GETIMPORT                        R11 K13 [require]
+       85 GETTABLEKS                       R12 R3 K14 ["Src"]
+       87 GETTABLEKS                       R12 R12 K22 ["Util"]
+       89 GETTABLEKS                       R12 R12 K24 ["CFrameUtility"]
+       91 CALL                             R11 1 1
+       92 JUMP                             ; [+2]
+       93 GETTABLEKS                       R11 R9 K24 ["CFrameUtility"]
+       95 GETIMPORT                        R12 K13 [require]
+       97 GETTABLEKS                       R13 R3 K14 ["Src"]
+       99 GETTABLEKS                       R13 R13 K22 ["Util"]
+      101 GETTABLEKS                       R13 R13 K25 ["KeyframeUtils"]
+      103 CALL                             R12 1 1
+      104 GETIMPORT                        R13 K13 [require]
+      106 GETTABLEKS                       R14 R3 K14 ["Src"]
+      108 GETTABLEKS                       R14 R14 K22 ["Util"]
+      110 GETTABLEKS                       R14 R14 K26 ["RigInfo"]
+      112 CALL                             R13 1 1
+      113 GETIMPORT                        R14 K13 [require]
+      115 GETTABLEKS                       R15 R3 K14 ["Src"]
+      117 GETTABLEKS                       R15 R15 K22 ["Util"]
+      119 GETTABLEKS                       R15 R15 K27 ["Constants"]
+      121 CALL                             R14 1 1
+      122 GETIMPORT                        R15 K13 [require]
+      124 GETTABLEKS                       R16 R3 K14 ["Src"]
+      126 GETTABLEKS                       R16 R16 K15 ["Flags"]
+      128 GETTABLEKS                       R16 R16 K28 ["getFFlagRootMotion"]
+      130 CALL                             R15 1 1
+      131 NEWTABLE                         R16 16 0
+      133 DUPCLOSURE                       R17 K29 [PROTO_0]
       134 CAPTURE                          VAL R13
-      135 CAPTURE                          VAL R14
-      136 SETTABLEKS                       R17 R16 K32 ["getJoints"]
-      138 DUPCLOSURE                       R17 K33 [PROTO_2]
-      139 CAPTURE                          VAL R16
-      140 CAPTURE                          VAL R13
-      141 CAPTURE                          VAL R14
-      142 SETTABLEKS                       R17 R16 K34 ["resetAllFacsValuesInFaceControls"]
-      144 MOVE                             R17 R5
-      145 CALL                             R17 0 1
-      146 JUMPIF                           R17 ; [+7]
-      147 DUPCLOSURE                       R17 K35 [PROTO_3]
-      148 CAPTURE                          VAL R13
-      149 CAPTURE                          VAL R12
-      150 CAPTURE                          VAL R14
-      151 CAPTURE                          VAL R0
-      152 SETTABLEKS                       R17 R16 K36 ["stepRigAnimation"]
-      154 DUPCLOSURE                       R17 K37 [PROTO_4]
-      155 CAPTURE                          VAL R5
-      156 CAPTURE                          VAL R16
-      157 CAPTURE                          VAL R13
-      158 CAPTURE                          VAL R0
-      159 SETTABLEKS                       R17 R16 K38 ["clearPose"]
-      161 DUPCLOSURE                       R17 K39 [PROTO_5]
-      162 CAPTURE                          VAL R13
-      163 DUPCLOSURE                       R18 K40 [PROTO_7]
-      164 CAPTURE                          VAL R7
-      165 CAPTURE                          VAL R13
-      166 SETTABLEKS                       R18 R16 K41 ["updateSimulatedAnimConstraintParts"]
-      168 DUPCLOSURE                       R18 K42 [PROTO_8]
-      169 CAPTURE                          VAL R2
-      170 CAPTURE                          VAL R14
-      171 SETTABLEKS                       R18 R16 K43 ["findOrCreateServerAnimSaves"]
-      173 DUPCLOSURE                       R18 K44 [PROTO_9]
-      174 CAPTURE                          VAL R16
-      175 SETTABLEKS                       R18 R16 K45 ["getAnimSavesFolder"]
-      177 DUPCLOSURE                       R18 K46 [PROTO_11]
+      135 SETTABLEKS                       R17 R16 K30 ["canUseFaceControlsEditor"]
+      137 DUPCLOSURE                       R17 K31 [PROTO_1]
+      138 CAPTURE                          VAL R13
+      139 CAPTURE                          VAL R14
+      140 SETTABLEKS                       R17 R16 K32 ["getJoints"]
+      142 DUPCLOSURE                       R17 K33 [PROTO_2]
+      143 CAPTURE                          VAL R16
+      144 CAPTURE                          VAL R13
+      145 CAPTURE                          VAL R14
+      146 SETTABLEKS                       R17 R16 K34 ["resetAllFacsValuesInFaceControls"]
+      148 MOVE                             R17 R5
+      149 CALL                             R17 0 1
+      150 JUMPIF                           R17 ; [+7]
+      151 DUPCLOSURE                       R17 K35 [PROTO_3]
+      152 CAPTURE                          VAL R13
+      153 CAPTURE                          VAL R12
+      154 CAPTURE                          VAL R14
+      155 CAPTURE                          VAL R0
+      156 SETTABLEKS                       R17 R16 K36 ["stepRigAnimation"]
+      158 DUPCLOSURE                       R17 K37 [PROTO_4]
+      159 CAPTURE                          VAL R5
+      160 CAPTURE                          VAL R16
+      161 CAPTURE                          VAL R13
+      162 CAPTURE                          VAL R0
+      163 SETTABLEKS                       R17 R16 K38 ["clearPose"]
+      165 DUPCLOSURE                       R17 K39 [PROTO_5]
+      166 CAPTURE                          VAL R13
+      167 DUPCLOSURE                       R18 K40 [PROTO_7]
+      168 CAPTURE                          VAL R7
+      169 CAPTURE                          VAL R13
+      170 SETTABLEKS                       R18 R16 K41 ["updateSimulatedAnimConstraintParts"]
+      172 DUPCLOSURE                       R18 K42 [PROTO_8]
+      173 CAPTURE                          VAL R2
+      174 CAPTURE                          VAL R14
+      175 SETTABLEKS                       R18 R16 K43 ["findOrCreateServerAnimSaves"]
+      177 DUPCLOSURE                       R18 K44 [PROTO_9]
       178 CAPTURE                          VAL R16
-      179 SETTABLEKS                       R18 R16 K47 ["getAnimSaves"]
-      181 DUPCLOSURE                       R18 K48 [PROTO_12]
-      182 CAPTURE                          VAL R1
-      183 CAPTURE                          VAL R15
-      184 CAPTURE                          VAL R13
-      185 SETTABLEKS                       R18 R16 K49 ["focusCamera"]
-      187 DUPCLOSURE                       R18 K50 [PROTO_13]
+      179 SETTABLEKS                       R18 R16 K45 ["getAnimSavesFolder"]
+      181 DUPCLOSURE                       R18 K46 [PROTO_11]
+      182 CAPTURE                          VAL R16
+      183 SETTABLEKS                       R18 R16 K47 ["getAnimSaves"]
+      185 DUPCLOSURE                       R18 K48 [PROTO_12]
+      186 CAPTURE                          VAL R1
+      187 CAPTURE                          VAL R15
       188 CAPTURE                          VAL R13
-      189 CAPTURE                          VAL R1
-      190 CAPTURE                          VAL R11
-      191 CAPTURE                          VAL R10
-      192 SETTABLEKS                       R18 R16 K51 ["focusCameraOnFace"]
-      194 DUPCLOSURE                       R18 K52 [PROTO_14]
-      195 CAPTURE                          VAL R13
-      196 CAPTURE                          VAL R8
-      197 SETTABLEKS                       R18 R16 K53 ["resetAnimator"]
-      199 DUPCLOSURE                       R18 K54 [PROTO_15]
-      200 CAPTURE                          VAL R6
-      201 CAPTURE                          VAL R13
-      202 SETTABLEKS                       R18 R16 K55 ["addAnimationRigToAnimationClip"]
-      204 RETURN                           R16 1
+      189 SETTABLEKS                       R18 R16 K49 ["focusCamera"]
+      191 DUPCLOSURE                       R18 K50 [PROTO_13]
+      192 CAPTURE                          VAL R13
+      193 CAPTURE                          VAL R1
+      194 CAPTURE                          VAL R11
+      195 CAPTURE                          VAL R10
+      196 SETTABLEKS                       R18 R16 K51 ["focusCameraOnFace"]
+      198 DUPCLOSURE                       R18 K52 [PROTO_14]
+      199 CAPTURE                          VAL R13
+      200 CAPTURE                          VAL R8
+      201 SETTABLEKS                       R18 R16 K53 ["resetAnimator"]
+      203 DUPCLOSURE                       R18 K54 [PROTO_15]
+      204 CAPTURE                          VAL R6
+      205 CAPTURE                          VAL R13
+      206 SETTABLEKS                       R18 R16 K55 ["addAnimationRigToAnimationClip"]
+      208 RETURN                           R16 1

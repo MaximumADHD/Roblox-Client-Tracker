@@ -920,79 +920,80 @@ MAIN:
       194 GETTABLEKS                       R28 R28 K40 ["Types"]
       196 CALL                             R27 1 1
       197 GETIMPORT                        R28 K5 [require]
-      199 GETTABLEKS                       R29 R0 K41 ["LuaFlags"]
-      201 GETTABLEKS                       R29 R29 K42 ["GetFFlagRootMotion"]
-      203 CALL                             R28 1 1
-      204 GETTABLEKS                       R29 R3 K43 ["PureComponent"]
-      206 LOADK                            R31 K44 ["ReduceKeyframesDialog"]
-      207 NAMECALL                         R29 R29 K45 ["extend"]
-      209 CALL                             R29 2 1
-      210 DUPCLOSURE                       R30 K46 [PROTO_2]
-      211 CAPTURE                          VAL R11
-      212 SETTABLEKS                       R30 R29 K47 ["init"]
-      214 DUPCLOSURE                       R30 K48 [PROTO_3]
-      215 CAPTURE                          VAL R17
-      216 DUPCLOSURE                       R31 K49 [PROTO_4]
-      217 CAPTURE                          VAL R15
-      218 CAPTURE                          VAL R31
-      219 DUPCLOSURE                       R32 K50 [PROTO_5]
-      220 DUPCLOSURE                       R33 K51 [PROTO_6]
-      221 CAPTURE                          VAL R28
-      222 CAPTURE                          VAL R17
-      223 CAPTURE                          VAL R18
-      224 CAPTURE                          VAL R30
-      225 CAPTURE                          VAL R1
-      226 CAPTURE                          VAL R15
-      227 CAPTURE                          VAL R12
-      228 CAPTURE                          VAL R31
-      229 CAPTURE                          VAL R19
-      230 SETTABLEKS                       R33 R29 K52 ["calculateVisvalingamWhyatt"]
-      232 DUPCLOSURE                       R33 K53 [PROTO_8]
-      233 CAPTURE                          VAL R1
-      234 CAPTURE                          VAL R18
-      235 CAPTURE                          VAL R11
-      236 SETTABLEKS                       R33 R29 K54 ["previewVisvalingamWhyatt"]
-      238 DUPCLOSURE                       R33 K55 [PROTO_10]
-      239 CAPTURE                          VAL R14
-      240 CAPTURE                          VAL R13
-      241 CAPTURE                          VAL R11
-      242 CAPTURE                          VAL R18
-      243 SETTABLEKS                       R33 R29 K56 ["didMount"]
-      245 DUPCLOSURE                       R33 K57 [PROTO_11]
-      246 SETTABLEKS                       R33 R29 K58 ["willUnmount"]
-      248 DUPCLOSURE                       R33 K59 [PROTO_12]
-      249 CAPTURE                          VAL R3
-      250 CAPTURE                          VAL R26
-      251 CAPTURE                          VAL R23
-      252 CAPTURE                          VAL R25
-      253 CAPTURE                          VAL R24
-      254 SETTABLEKS                       R33 R29 K60 ["render"]
-      256 DUPCLOSURE                       R33 K61 [PROTO_13]
-      257 DUPCLOSURE                       R34 K62 [PROTO_20]
-      258 CAPTURE                          VAL R8
-      259 CAPTURE                          VAL R5
-      260 CAPTURE                          VAL R6
-      261 CAPTURE                          VAL R7
-      262 CAPTURE                          VAL R9
-      263 CAPTURE                          VAL R10
-      264 MOVE                             R35 R21
-      265 DUPTABLE                         R36 K67 [{"Analytics", "Localization", "Plugin", "Stylizer"}]
-      266 GETTABLEKS                       R37 R20 K63 ["Analytics"]
-      268 SETTABLEKS                       R37 R36 K63 ["Analytics"]
-      270 GETTABLEKS                       R37 R20 K64 ["Localization"]
-      272 SETTABLEKS                       R37 R36 K64 ["Localization"]
-      274 GETTABLEKS                       R37 R20 K65 ["Plugin"]
-      276 SETTABLEKS                       R37 R36 K65 ["Plugin"]
-      278 GETTABLEKS                       R37 R20 K66 ["Stylizer"]
-      280 SETTABLEKS                       R37 R36 K66 ["Stylizer"]
-      282 CALL                             R35 1 1
-      283 MOVE                             R36 R29
+      199 GETTABLEKS                       R29 R0 K11 ["Src"]
+      201 GETTABLEKS                       R29 R29 K41 ["Flags"]
+      203 GETTABLEKS                       R29 R29 K42 ["getFFlagRootMotion"]
+      205 CALL                             R28 1 1
+      206 GETTABLEKS                       R29 R3 K43 ["PureComponent"]
+      208 LOADK                            R31 K44 ["ReduceKeyframesDialog"]
+      209 NAMECALL                         R29 R29 K45 ["extend"]
+      211 CALL                             R29 2 1
+      212 DUPCLOSURE                       R30 K46 [PROTO_2]
+      213 CAPTURE                          VAL R11
+      214 SETTABLEKS                       R30 R29 K47 ["init"]
+      216 DUPCLOSURE                       R30 K48 [PROTO_3]
+      217 CAPTURE                          VAL R17
+      218 DUPCLOSURE                       R31 K49 [PROTO_4]
+      219 CAPTURE                          VAL R15
+      220 CAPTURE                          VAL R31
+      221 DUPCLOSURE                       R32 K50 [PROTO_5]
+      222 DUPCLOSURE                       R33 K51 [PROTO_6]
+      223 CAPTURE                          VAL R28
+      224 CAPTURE                          VAL R17
+      225 CAPTURE                          VAL R18
+      226 CAPTURE                          VAL R30
+      227 CAPTURE                          VAL R1
+      228 CAPTURE                          VAL R15
+      229 CAPTURE                          VAL R12
+      230 CAPTURE                          VAL R31
+      231 CAPTURE                          VAL R19
+      232 SETTABLEKS                       R33 R29 K52 ["calculateVisvalingamWhyatt"]
+      234 DUPCLOSURE                       R33 K53 [PROTO_8]
+      235 CAPTURE                          VAL R1
+      236 CAPTURE                          VAL R18
+      237 CAPTURE                          VAL R11
+      238 SETTABLEKS                       R33 R29 K54 ["previewVisvalingamWhyatt"]
+      240 DUPCLOSURE                       R33 K55 [PROTO_10]
+      241 CAPTURE                          VAL R14
+      242 CAPTURE                          VAL R13
+      243 CAPTURE                          VAL R11
+      244 CAPTURE                          VAL R18
+      245 SETTABLEKS                       R33 R29 K56 ["didMount"]
+      247 DUPCLOSURE                       R33 K57 [PROTO_11]
+      248 SETTABLEKS                       R33 R29 K58 ["willUnmount"]
+      250 DUPCLOSURE                       R33 K59 [PROTO_12]
+      251 CAPTURE                          VAL R3
+      252 CAPTURE                          VAL R26
+      253 CAPTURE                          VAL R23
+      254 CAPTURE                          VAL R25
+      255 CAPTURE                          VAL R24
+      256 SETTABLEKS                       R33 R29 K60 ["render"]
+      258 DUPCLOSURE                       R33 K61 [PROTO_13]
+      259 DUPCLOSURE                       R34 K62 [PROTO_20]
+      260 CAPTURE                          VAL R8
+      261 CAPTURE                          VAL R5
+      262 CAPTURE                          VAL R6
+      263 CAPTURE                          VAL R7
+      264 CAPTURE                          VAL R9
+      265 CAPTURE                          VAL R10
+      266 MOVE                             R35 R21
+      267 DUPTABLE                         R36 K67 [{"Analytics", "Localization", "Plugin", "Stylizer"}]
+      268 GETTABLEKS                       R37 R20 K63 ["Analytics"]
+      270 SETTABLEKS                       R37 R36 K63 ["Analytics"]
+      272 GETTABLEKS                       R37 R20 K64 ["Localization"]
+      274 SETTABLEKS                       R37 R36 K64 ["Localization"]
+      276 GETTABLEKS                       R37 R20 K65 ["Plugin"]
+      278 SETTABLEKS                       R37 R36 K65 ["Plugin"]
+      280 GETTABLEKS                       R37 R20 K66 ["Stylizer"]
+      282 SETTABLEKS                       R37 R36 K66 ["Stylizer"]
       284 CALL                             R35 1 1
-      285 MOVE                             R29 R35
-      286 GETTABLEKS                       R35 R4 K68 ["connect"]
-      288 MOVE                             R36 R33
-      289 MOVE                             R37 R34
-      290 CALL                             R35 2 1
-      291 MOVE                             R36 R29
-      292 CALL                             R35 1 -1
-      293 RETURN                           R35 -1
+      285 MOVE                             R36 R29
+      286 CALL                             R35 1 1
+      287 MOVE                             R29 R35
+      288 GETTABLEKS                       R35 R4 K68 ["connect"]
+      290 MOVE                             R36 R33
+      291 MOVE                             R37 R34
+      292 CALL                             R35 2 1
+      293 MOVE                             R36 R29
+      294 CALL                             R35 1 -1
+      295 RETURN                           R35 -1

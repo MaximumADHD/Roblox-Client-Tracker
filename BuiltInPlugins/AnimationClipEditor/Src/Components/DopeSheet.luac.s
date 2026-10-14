@@ -384,36 +384,37 @@ MAIN:
        63 GETTABLEKS                       R8 R8 K16 ["Constants"]
        65 CALL                             R7 1 1
        66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R9 R0 K17 ["LuaFlags"]
-       70 GETTABLEKS                       R9 R9 K18 ["GetFFlagControlRig"]
-       72 CALL                             R8 1 1
-       73 GETTABLEKS                       R9 R1 K19 ["PureComponent"]
-       75 LOADK                            R11 K20 ["DopeSheet"]
-       76 NAMECALL                         R9 R9 K21 ["extend"]
-       78 CALL                             R9 2 1
-       79 DUPCLOSURE                       R10 K22 [PROTO_0]
-       80 CAPTURE                          VAL R1
-       81 CAPTURE                          VAL R3
-       82 SETTABLEKS                       R10 R9 K23 ["renderSummaryTrack"]
-       84 DUPCLOSURE                       R10 K24 [PROTO_1]
-       85 CAPTURE                          VAL R2
-       86 CAPTURE                          VAL R1
-       87 CAPTURE                          VAL R4
-       88 CAPTURE                          VAL R8
-       89 CAPTURE                          VAL R6
-       90 CAPTURE                          VAL R7
-       91 SETTABLEKS                       R10 R9 K25 ["renderTrackHierarchy"]
-       93 DUPCLOSURE                       R10 K26 [PROTO_3]
-       94 CAPTURE                          VAL R1
-       95 CAPTURE                          VAL R4
-       96 CAPTURE                          VAL R6
-       97 CAPTURE                          VAL R5
-       98 SETTABLEKS                       R10 R9 K27 ["renderTracks"]
-      100 DUPCLOSURE                       R10 K28 [PROTO_4]
-      101 CAPTURE                          VAL R6
-      102 SETTABLEKS                       R10 R9 K29 ["countKeyframes"]
-      104 DUPCLOSURE                       R10 K30 [PROTO_5]
-      105 CAPTURE                          VAL R7
-      106 CAPTURE                          VAL R1
-      107 SETTABLEKS                       R10 R9 K31 ["render"]
-      109 RETURN                           R9 1
+       68 GETTABLEKS                       R9 R0 K9 ["Src"]
+       70 GETTABLEKS                       R9 R9 K17 ["Flags"]
+       72 GETTABLEKS                       R9 R9 K18 ["getFFlagControlRig"]
+       74 CALL                             R8 1 1
+       75 GETTABLEKS                       R9 R1 K19 ["PureComponent"]
+       77 LOADK                            R11 K20 ["DopeSheet"]
+       78 NAMECALL                         R9 R9 K21 ["extend"]
+       80 CALL                             R9 2 1
+       81 DUPCLOSURE                       R10 K22 [PROTO_0]
+       82 CAPTURE                          VAL R1
+       83 CAPTURE                          VAL R3
+       84 SETTABLEKS                       R10 R9 K23 ["renderSummaryTrack"]
+       86 DUPCLOSURE                       R10 K24 [PROTO_1]
+       87 CAPTURE                          VAL R2
+       88 CAPTURE                          VAL R1
+       89 CAPTURE                          VAL R4
+       90 CAPTURE                          VAL R8
+       91 CAPTURE                          VAL R6
+       92 CAPTURE                          VAL R7
+       93 SETTABLEKS                       R10 R9 K25 ["renderTrackHierarchy"]
+       95 DUPCLOSURE                       R10 K26 [PROTO_3]
+       96 CAPTURE                          VAL R1
+       97 CAPTURE                          VAL R4
+       98 CAPTURE                          VAL R6
+       99 CAPTURE                          VAL R5
+      100 SETTABLEKS                       R10 R9 K27 ["renderTracks"]
+      102 DUPCLOSURE                       R10 K28 [PROTO_4]
+      103 CAPTURE                          VAL R6
+      104 SETTABLEKS                       R10 R9 K29 ["countKeyframes"]
+      106 DUPCLOSURE                       R10 K30 [PROTO_5]
+      107 CAPTURE                          VAL R7
+      108 CAPTURE                          VAL R1
+      109 SETTABLEKS                       R10 R9 K31 ["render"]
+      111 RETURN                           R9 1

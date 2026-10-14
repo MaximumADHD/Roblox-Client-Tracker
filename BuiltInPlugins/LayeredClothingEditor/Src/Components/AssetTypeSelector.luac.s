@@ -229,8 +229,8 @@ PROTO_8:
        35 MOVE                             R6 R2
        36 CALL                             R4 2 0
        37 RETURN                           R0 0
-       38 JUMPIFNOTEQKS                    R0 K11 ["Clothing"] ; [+11]
-       40 JUMPIFNOT                        R3 ; [+9]
+       38 JUMPIFNOTEQKS                    R0 K11 ["Clothing"] ; [+12]
+       40 JUMPIFNOT                        R3 ; [+10]
        41 GETUPVAL                         R4 0
        42 GETTABLEKS                       R4 R4 K12 ["onClickClothingType"]
        44 GETUPVAL                         R6 0
@@ -239,6 +239,22 @@ PROTO_8:
        48 MOVE                             R6 R3
        49 CALL                             R4 2 0
        50 RETURN                           R0 0
+       51 GETUPVAL                         R4 2
+       52 CALL                             R4 0 1
+       53 JUMPIFNOT                        R4 ; [+15]
+       54 GETUPVAL                         R4 3
+       55 MOVE                             R5 R0
+       56 MOVE                             R6 R2
+       57 MOVE                             R7 R3
+       58 CALL                             R4 3 1
+       59 JUMPIFNOT                        R4 ; [+9]
+       60 GETUPVAL                         R4 0
+       61 GETTABLEKS                       R4 R4 K14 ["props"]
+       63 GETTABLEKS                       R4 R4 K15 ["SetAccessoryTypeInfo"]
+       65 GETUPVAL                         R5 4
+       66 GETTABLEKS                       R5 R5 K6 ["None"]
+       68 CALL                             R4 1 0
+       69 RETURN                           R0 0
 
 PROTO_9:
         0 JUMPIF                           R1 ; [+1]
@@ -416,33 +432,36 @@ PROTO_14:
        10 NEWCLOSURE                       R1 P0
        11 CAPTURE                          VAL R0
        12 CAPTURE                          UPVAL U0
-       13 SETTABLEKS                       R1 R0 K10 ["onRadioButtonClick"]
-       15 NEWCLOSURE                       R1 P1
-       16 CAPTURE                          VAL R0
-       17 CAPTURE                          UPVAL U1
-       18 CAPTURE                          UPVAL U2
-       19 SETTABLEKS                       R1 R0 K11 ["setAttachment"]
-       21 NEWCLOSURE                       R1 P2
-       22 CAPTURE                          VAL R0
-       23 CAPTURE                          UPVAL U3
-       24 SETTABLEKS                       R1 R0 K12 ["onClickAttachment"]
-       26 NEWCLOSURE                       R1 P3
-       27 CAPTURE                          VAL R0
-       28 CAPTURE                          UPVAL U1
-       29 CAPTURE                          UPVAL U0
-       30 CAPTURE                          UPVAL U4
-       31 SETTABLEKS                       R1 R0 K13 ["onClickAssetType"]
-       33 NEWCLOSURE                       R1 P4
-       34 CAPTURE                          VAL R0
-       35 CAPTURE                          UPVAL U3
-       36 CAPTURE                          UPVAL U5
-       37 SETTABLEKS                       R1 R0 K14 ["onClickAccessoryType"]
-       39 NEWCLOSURE                       R1 P5
-       40 CAPTURE                          VAL R0
-       41 CAPTURE                          UPVAL U3
-       42 CAPTURE                          UPVAL U5
-       43 SETTABLEKS                       R1 R0 K15 ["onClickClothingType"]
-       45 RETURN                           R0 0
+       13 CAPTURE                          UPVAL U1
+       14 CAPTURE                          UPVAL U2
+       15 CAPTURE                          UPVAL U3
+       16 SETTABLEKS                       R1 R0 K10 ["onRadioButtonClick"]
+       18 NEWCLOSURE                       R1 P1
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          UPVAL U3
+       21 CAPTURE                          UPVAL U4
+       22 SETTABLEKS                       R1 R0 K11 ["setAttachment"]
+       24 NEWCLOSURE                       R1 P2
+       25 CAPTURE                          VAL R0
+       26 CAPTURE                          UPVAL U5
+       27 SETTABLEKS                       R1 R0 K12 ["onClickAttachment"]
+       29 NEWCLOSURE                       R1 P3
+       30 CAPTURE                          VAL R0
+       31 CAPTURE                          UPVAL U3
+       32 CAPTURE                          UPVAL U0
+       33 CAPTURE                          UPVAL U6
+       34 SETTABLEKS                       R1 R0 K13 ["onClickAssetType"]
+       36 NEWCLOSURE                       R1 P4
+       37 CAPTURE                          VAL R0
+       38 CAPTURE                          UPVAL U5
+       39 CAPTURE                          UPVAL U7
+       40 SETTABLEKS                       R1 R0 K14 ["onClickAccessoryType"]
+       42 NEWCLOSURE                       R1 P5
+       43 CAPTURE                          VAL R0
+       44 CAPTURE                          UPVAL U5
+       45 CAPTURE                          UPVAL U7
+       46 SETTABLEKS                       R1 R0 K15 ["onClickClothingType"]
+       48 RETURN                           R0 0
 
 PROTO_15:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -576,81 +595,93 @@ MAIN:
        99 GETIMPORT                        R22 K4 [require]
       101 GETTABLEKS                       R23 R0 K25 ["Src"]
       103 GETTABLEKS                       R23 R23 K16 ["Util"]
-      105 GETTABLEKS                       R23 R23 K30 ["makeDropdownList"]
+      105 GETTABLEKS                       R23 R23 K30 ["isAssetTypeListUnselected"]
       107 CALL                             R22 1 1
       108 GETIMPORT                        R23 K4 [require]
       110 GETTABLEKS                       R24 R0 K25 ["Src"]
       112 GETTABLEKS                       R24 R24 K16 ["Util"]
-      114 GETTABLEKS                       R24 R24 K31 ["makeRadioButtonList"]
+      114 GETTABLEKS                       R24 R24 K31 ["makeDropdownList"]
       116 CALL                             R23 1 1
-      117 GETTABLEKS                       R24 R7 K32 ["Contexts"]
-      119 GETTABLEKS                       R24 R24 K33 ["EditingItemContext"]
-      121 GETTABLEKS                       R25 R4 K16 ["Util"]
-      123 GETTABLEKS                       R26 R25 K34 ["Typecheck"]
-      125 GETTABLEKS                       R27 R25 K35 ["LayoutOrderIterator"]
-      127 GETTABLEKS                       R28 R25 K36 ["StyleModifier"]
-      129 GETTABLEKS                       R29 R1 K37 ["PureComponent"]
-      131 LOADK                            R31 K38 ["AssetTypeSelector"]
-      132 NAMECALL                         R29 R29 K39 ["extend"]
-      134 CALL                             R29 2 1
-      135 GETTABLEKS                       R30 R26 K40 ["wrap"]
-      137 MOVE                             R31 R29
-      138 GETIMPORT                        R32 K1 [script]
-      140 CALL                             R30 2 0
-      141 DUPCLOSURE                       R30 K41 [PROTO_0]
-      142 CAPTURE                          VAL R3
-      143 DUPCLOSURE                       R31 K42 [PROTO_1]
-      144 CAPTURE                          VAL R12
-      145 SETTABLEKS                       R31 R29 K43 ["getInitialRadioButtonListKey"]
-      147 DUPCLOSURE                       R31 K44 [PROTO_2]
-      148 CAPTURE                          VAL R3
-      149 CAPTURE                          VAL R22
-      150 SETTABLEKS                       R31 R29 K45 ["setInitialSelectionInfo"]
-      152 DUPCLOSURE                       R31 K46 [PROTO_3]
-      153 CAPTURE                          VAL R12
-      154 CAPTURE                          VAL R3
-      155 SETTABLEKS                       R31 R29 K47 ["initWithPreviousAssetTypeInfo"]
-      157 DUPCLOSURE                       R31 K48 [PROTO_4]
-      158 SETTABLEKS                       R31 R29 K49 ["getAssetTypeDropdownProps"]
-      160 DUPCLOSURE                       R31 K50 [PROTO_6]
-      161 SETTABLEKS                       R31 R29 K51 ["getAttachmentDropdownProps"]
-      163 DUPCLOSURE                       R31 K52 [PROTO_7]
-      164 CAPTURE                          VAL R22
-      165 CAPTURE                          VAL R12
-      166 SETTABLEKS                       R31 R29 K53 ["didMount"]
-      168 DUPCLOSURE                       R31 K54 [PROTO_14]
-      169 CAPTURE                          VAL R1
-      170 CAPTURE                          VAL R3
-      171 CAPTURE                          VAL R13
-      172 CAPTURE                          VAL R21
-      173 CAPTURE                          VAL R22
-      174 CAPTURE                          VAL R12
-      175 SETTABLEKS                       R31 R29 K55 ["init"]
-      177 DUPCLOSURE                       R31 K56 [PROTO_15]
-      178 CAPTURE                          VAL R27
-      179 CAPTURE                          VAL R23
-      180 CAPTURE                          VAL R12
-      181 CAPTURE                          VAL R3
-      182 CAPTURE                          VAL R1
-      183 CAPTURE                          VAL R10
-      184 SETTABLEKS                       R31 R29 K57 ["render"]
-      186 MOVE                             R31 R6
-      187 DUPTABLE                         R32 K59 [{"Localization", "EditingItemContext"}]
-      188 GETTABLEKS                       R33 R5 K58 ["Localization"]
-      190 SETTABLEKS                       R33 R32 K58 ["Localization"]
-      192 SETTABLEKS                       R24 R32 K33 ["EditingItemContext"]
-      194 CALL                             R31 1 1
-      195 MOVE                             R32 R29
-      196 CALL                             R31 1 1
-      197 MOVE                             R29 R31
-      198 DUPCLOSURE                       R31 K60 [PROTO_16]
-      199 DUPCLOSURE                       R32 K61 [PROTO_19]
-      200 CAPTURE                          VAL R19
-      201 CAPTURE                          VAL R20
-      202 GETTABLEKS                       R33 R2 K62 ["connect"]
-      204 MOVE                             R34 R31
-      205 MOVE                             R35 R32
-      206 CALL                             R33 2 1
-      207 MOVE                             R34 R29
-      208 CALL                             R33 1 -1
-      209 RETURN                           R33 -1
+      117 GETIMPORT                        R24 K4 [require]
+      119 GETTABLEKS                       R25 R0 K25 ["Src"]
+      121 GETTABLEKS                       R25 R25 K16 ["Util"]
+      123 GETTABLEKS                       R25 R25 K32 ["makeRadioButtonList"]
+      125 CALL                             R24 1 1
+      126 GETIMPORT                        R25 K4 [require]
+      128 GETTABLEKS                       R26 R0 K25 ["Src"]
+      130 GETTABLEKS                       R26 R26 K33 ["Flags"]
+      132 GETTABLEKS                       R26 R26 K34 ["getFFlagLayeredClothingEditorBlockUncagedClothing"]
+      134 CALL                             R25 1 1
+      135 GETTABLEKS                       R26 R7 K35 ["Contexts"]
+      137 GETTABLEKS                       R26 R26 K36 ["EditingItemContext"]
+      139 GETTABLEKS                       R27 R4 K16 ["Util"]
+      141 GETTABLEKS                       R28 R27 K37 ["Typecheck"]
+      143 GETTABLEKS                       R29 R27 K38 ["LayoutOrderIterator"]
+      145 GETTABLEKS                       R30 R27 K39 ["StyleModifier"]
+      147 GETTABLEKS                       R31 R1 K40 ["PureComponent"]
+      149 LOADK                            R33 K41 ["AssetTypeSelector"]
+      150 NAMECALL                         R31 R31 K42 ["extend"]
+      152 CALL                             R31 2 1
+      153 GETTABLEKS                       R32 R28 K43 ["wrap"]
+      155 MOVE                             R33 R31
+      156 GETIMPORT                        R34 K1 [script]
+      158 CALL                             R32 2 0
+      159 DUPCLOSURE                       R32 K44 [PROTO_0]
+      160 CAPTURE                          VAL R3
+      161 DUPCLOSURE                       R33 K45 [PROTO_1]
+      162 CAPTURE                          VAL R12
+      163 SETTABLEKS                       R33 R31 K46 ["getInitialRadioButtonListKey"]
+      165 DUPCLOSURE                       R33 K47 [PROTO_2]
+      166 CAPTURE                          VAL R3
+      167 CAPTURE                          VAL R23
+      168 SETTABLEKS                       R33 R31 K48 ["setInitialSelectionInfo"]
+      170 DUPCLOSURE                       R33 K49 [PROTO_3]
+      171 CAPTURE                          VAL R12
+      172 CAPTURE                          VAL R3
+      173 SETTABLEKS                       R33 R31 K50 ["initWithPreviousAssetTypeInfo"]
+      175 DUPCLOSURE                       R33 K51 [PROTO_4]
+      176 SETTABLEKS                       R33 R31 K52 ["getAssetTypeDropdownProps"]
+      178 DUPCLOSURE                       R33 K53 [PROTO_6]
+      179 SETTABLEKS                       R33 R31 K54 ["getAttachmentDropdownProps"]
+      181 DUPCLOSURE                       R33 K55 [PROTO_7]
+      182 CAPTURE                          VAL R23
+      183 CAPTURE                          VAL R12
+      184 SETTABLEKS                       R33 R31 K56 ["didMount"]
+      186 DUPCLOSURE                       R33 K57 [PROTO_14]
+      187 CAPTURE                          VAL R1
+      188 CAPTURE                          VAL R25
+      189 CAPTURE                          VAL R22
+      190 CAPTURE                          VAL R3
+      191 CAPTURE                          VAL R13
+      192 CAPTURE                          VAL R21
+      193 CAPTURE                          VAL R23
+      194 CAPTURE                          VAL R12
+      195 SETTABLEKS                       R33 R31 K58 ["init"]
+      197 DUPCLOSURE                       R33 K59 [PROTO_15]
+      198 CAPTURE                          VAL R29
+      199 CAPTURE                          VAL R24
+      200 CAPTURE                          VAL R12
+      201 CAPTURE                          VAL R3
+      202 CAPTURE                          VAL R1
+      203 CAPTURE                          VAL R10
+      204 SETTABLEKS                       R33 R31 K60 ["render"]
+      206 MOVE                             R33 R6
+      207 DUPTABLE                         R34 K62 [{"Localization", "EditingItemContext"}]
+      208 GETTABLEKS                       R35 R5 K61 ["Localization"]
+      210 SETTABLEKS                       R35 R34 K61 ["Localization"]
+      212 SETTABLEKS                       R26 R34 K36 ["EditingItemContext"]
+      214 CALL                             R33 1 1
+      215 MOVE                             R34 R31
+      216 CALL                             R33 1 1
+      217 MOVE                             R31 R33
+      218 DUPCLOSURE                       R33 K63 [PROTO_16]
+      219 DUPCLOSURE                       R34 K64 [PROTO_19]
+      220 CAPTURE                          VAL R19
+      221 CAPTURE                          VAL R20
+      222 GETTABLEKS                       R35 R2 K65 ["connect"]
+      224 MOVE                             R36 R33
+      225 MOVE                             R37 R34
+      226 CALL                             R35 2 1
+      227 MOVE                             R36 R31
+      228 CALL                             R35 1 -1
+      229 RETURN                           R35 -1

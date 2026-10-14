@@ -49,12 +49,6 @@ PROTO_2:
         2 RETURN                           R0 1
 
 PROTO_3:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["logUsageReport"]
-        3 CALL                             R0 0 0
-        4 RETURN                           R0 0
-
-PROTO_4:
         0 NEWTABLE                         R2 0 0
         2 SETTABLEKS                       R2 R0 K0 ["state"]
         4 GETUPVAL                         R2 0
@@ -100,30 +94,19 @@ PROTO_4:
        61 NEWTABLE                         R4 0 0
        63 CALL                             R2 2 1
        64 SETTABLEKS                       R2 R0 K17 ["analytics"]
-       66 GETUPVAL                         R2 10
-       67 NAMECALL                         R2 R2 K18 ["IsClient"]
-       69 CALL                             R2 1 1
-       70 JUMPIF                           R2 ; [+9]
-       71 GETUPVAL                         R2 11
-       72 JUMPIF                           R2 ; [+7]
-       73 GETIMPORT                        R2 K20 [game]
-       75 NEWCLOSURE                       R4 P3
-       76 CAPTURE                          VAL R0
-       77 NAMECALL                         R2 R2 K21 ["BindToClose"]
-       79 CALL                             R2 2 0
-       80 GETUPVAL                         R2 2
-       81 GETTABLEKS                       R2 R2 K22 ["PluginActions"]
-       83 GETTABLEKS                       R2 R2 K2 ["new"]
-       85 GETTABLEKS                       R3 R1 K23 ["Plugin"]
-       87 GETUPVAL                         R4 12
-       88 GETTABLEKS                       R5 R1 K24 ["plugin"]
-       90 GETTABLEKS                       R6 R0 K11 ["localization"]
-       92 CALL                             R4 2 -1
-       93 CALL                             R2 -1 1
-       94 SETTABLEKS                       R2 R0 K25 ["actions"]
-       96 RETURN                           R0 0
+       66 GETUPVAL                         R2 2
+       67 GETTABLEKS                       R2 R2 K18 ["PluginActions"]
+       69 GETTABLEKS                       R2 R2 K2 ["new"]
+       71 GETTABLEKS                       R3 R1 K19 ["Plugin"]
+       73 GETUPVAL                         R4 10
+       74 GETTABLEKS                       R5 R1 K20 ["plugin"]
+       76 GETTABLEKS                       R6 R0 K11 ["localization"]
+       78 CALL                             R4 2 -1
+       79 CALL                             R2 -1 1
+       80 SETTABLEKS                       R2 R0 K21 ["actions"]
+       82 RETURN                           R0 0
 
-PROTO_5:
+PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Plugin"]
         4 GETUPVAL                         R3 0
@@ -191,16 +174,12 @@ PROTO_5:
        91 GETTABLEKS                       R6 R6 K15 ["createElement"]
        93 GETUPVAL                         R7 13
        94 DUPTABLE                         R8 K26 [{"LogUsageReport"}]
-       95 GETUPVAL                         R10 14
-       96 JUMPIFNOT                        R10 ; [+3]
-       97 GETTABLEKS                       R9 R0 K27 ["logUsageReport"]
-       99 JUMP                             ; [+1]
-      100 LOADNIL                          R9
-      101 SETTABLEKS                       R9 R8 K25 ["LogUsageReport"]
-      103 CALL                             R6 2 1
-      104 SETTABLEKS                       R6 R5 K10 ["SelectionListener"]
-      106 CALL                             R3 2 -1
-      107 RETURN                           R3 -1
+       95 GETTABLEKS                       R9 R0 K27 ["logUsageReport"]
+       97 SETTABLEKS                       R9 R8 K25 ["LogUsageReport"]
+       99 CALL                             R6 2 1
+      100 SETTABLEKS                       R6 R5 K10 ["SelectionListener"]
+      102 CALL                             R3 2 -1
+      103 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -235,114 +214,103 @@ MAIN:
        50 LOADK                            R9 K16 ["RbxAnalyticsService"]
        51 NAMECALL                         R7 R7 K15 ["GetService"]
        53 CALL                             R7 2 1
-       54 GETIMPORT                        R8 K13 [game]
-       56 LOADK                            R10 K17 ["RunService"]
-       57 NAMECALL                         R8 R8 K15 ["GetService"]
-       59 CALL                             R8 2 1
-       60 GETIMPORT                        R9 K4 [require]
-       62 GETTABLEKS                       R10 R0 K7 ["Packages"]
-       64 GETTABLEKS                       R10 R10 K18 ["Framework"]
-       66 CALL                             R9 1 1
-       67 GETTABLEKS                       R10 R9 K19 ["ContextServices"]
-       69 GETTABLEKS                       R11 R10 K20 ["Plugin"]
-       71 GETTABLEKS                       R12 R10 K21 ["Mouse"]
-       73 GETTABLEKS                       R13 R10 K22 ["Store"]
-       75 GETIMPORT                        R14 K4 [require]
-       77 GETTABLEKS                       R15 R0 K5 ["Src"]
-       79 GETTABLEKS                       R15 R15 K23 ["Reducers"]
-       81 GETTABLEKS                       R15 R15 K24 ["MainReducer"]
-       83 CALL                             R14 1 1
-       84 GETIMPORT                        R15 K4 [require]
-       86 GETTABLEKS                       R16 R0 K5 ["Src"]
-       88 GETTABLEKS                       R16 R16 K25 ["Resources"]
-       90 GETTABLEKS                       R16 R16 K26 ["MakeTheme"]
-       92 CALL                             R15 1 1
-       93 GETTABLEKS                       R16 R0 K5 ["Src"]
-       95 GETTABLEKS                       R16 R16 K25 ["Resources"]
-       97 GETTABLEKS                       R16 R16 K27 ["Localization"]
-       99 GETTABLEKS                       R16 R16 K28 ["SourceStrings"]
-      101 GETTABLEKS                       R17 R0 K5 ["Src"]
-      103 GETTABLEKS                       R17 R17 K25 ["Resources"]
-      105 GETTABLEKS                       R17 R17 K27 ["Localization"]
-      107 GETTABLEKS                       R17 R17 K29 ["LocalizedStrings"]
-      109 GETTABLEKS                       R18 R0 K5 ["Src"]
-      111 GETTABLEKS                       R18 R18 K30 ["Util"]
-      113 GETIMPORT                        R19 K4 [require]
-      115 GETTABLEKS                       R20 R18 K31 ["MakePluginActions"]
-      117 CALL                             R19 1 1
-      118 GETIMPORT                        R20 K4 [require]
-      120 GETTABLEKS                       R21 R18 K32 ["TelemetryGlobals"]
-      122 CALL                             R20 1 1
-      123 GETIMPORT                        R21 K4 [require]
-      125 GETTABLEKS                       R22 R18 K33 ["Telemetry"]
-      127 GETTABLEKS                       R22 R22 K34 ["Path2dToolUsage"]
-      129 CALL                             R21 1 1
-      130 GETIMPORT                        R22 K4 [require]
-      132 GETTABLEKS                       R23 R18 K33 ["Telemetry"]
-      134 GETTABLEKS                       R23 R23 K35 ["TelemetryProtocol"]
-      136 CALL                             R22 1 1
-      137 GETIMPORT                        R23 K4 [require]
-      139 GETTABLEKS                       R24 R18 K33 ["Telemetry"]
-      141 GETTABLEKS                       R24 R24 K36 ["TelemetryProtocolTypes"]
-      143 CALL                             R23 1 1
-      144 GETTABLEKS                       R24 R0 K5 ["Src"]
-      146 GETTABLEKS                       R24 R24 K37 ["Components"]
-      148 GETIMPORT                        R25 K4 [require]
-      150 GETTABLEKS                       R26 R24 K38 ["ControlPointEditGui"]
-      152 CALL                             R25 1 1
-      153 GETIMPORT                        R26 K4 [require]
-      155 GETTABLEKS                       R27 R24 K39 ["SelectionListener"]
-      157 CALL                             R26 1 1
-      158 GETIMPORT                        R27 K4 [require]
-      160 GETTABLEKS                       R28 R24 K40 ["PathToolbar"]
-      162 CALL                             R27 1 1
-      163 GETIMPORT                        R28 K4 [require]
-      165 GETTABLEKS                       R29 R24 K41 ["MoveBaseGui"]
-      167 CALL                             R28 1 1
-      168 GETIMPORT                        R29 K4 [require]
-      170 GETTABLEKS                       R30 R24 K42 ["VisualizationGui"]
-      172 CALL                             R29 1 1
-      173 GETIMPORT                        R30 K4 [require]
-      175 GETTABLEKS                       R31 R24 K43 ["AddPointComponent"]
-      177 CALL                             R30 1 1
-      178 GETTABLEKS                       R31 R2 K44 ["PureComponent"]
-      180 LOADK                            R33 K45 ["MainPlugin"]
-      181 NAMECALL                         R31 R31 K46 ["extend"]
-      183 CALL                             R31 2 1
-      184 GETIMPORT                        R32 K13 [game]
-      186 LOADK                            R34 K47 ["PathEditorRBXTelemetryFixes"]
-      187 NAMECALL                         R32 R32 K48 ["GetFastFlag"]
-      189 CALL                             R32 2 1
-      190 DUPCLOSURE                       R33 K49 [PROTO_4]
-      191 CAPTURE                          VAL R4
-      192 CAPTURE                          VAL R14
-      193 CAPTURE                          VAL R10
-      194 CAPTURE                          VAL R16
-      195 CAPTURE                          VAL R17
-      196 CAPTURE                          VAL R5
-      197 CAPTURE                          VAL R7
-      198 CAPTURE                          VAL R20
-      199 CAPTURE                          VAL R21
-      200 CAPTURE                          VAL R22
-      201 CAPTURE                          VAL R8
-      202 CAPTURE                          VAL R32
-      203 CAPTURE                          VAL R19
-      204 SETTABLEKS                       R33 R31 K50 ["init"]
-      206 DUPCLOSURE                       R33 K51 [PROTO_5]
-      207 CAPTURE                          VAL R10
-      208 CAPTURE                          VAL R11
-      209 CAPTURE                          VAL R13
-      210 CAPTURE                          VAL R12
-      211 CAPTURE                          VAL R15
-      212 CAPTURE                          VAL R3
-      213 CAPTURE                          VAL R2
-      214 CAPTURE                          VAL R25
-      215 CAPTURE                          VAL R27
-      216 CAPTURE                          VAL R28
-      217 CAPTURE                          VAL R29
-      218 CAPTURE                          VAL R30
-      219 CAPTURE                          VAL R6
-      220 CAPTURE                          VAL R26
-      221 CAPTURE                          VAL R32
-      222 SETTABLEKS                       R33 R31 K52 ["render"]
-      224 RETURN                           R31 1
+       54 GETIMPORT                        R8 K4 [require]
+       56 GETTABLEKS                       R9 R0 K7 ["Packages"]
+       58 GETTABLEKS                       R9 R9 K17 ["Framework"]
+       60 CALL                             R8 1 1
+       61 GETTABLEKS                       R9 R8 K18 ["ContextServices"]
+       63 GETTABLEKS                       R10 R9 K19 ["Plugin"]
+       65 GETTABLEKS                       R11 R9 K20 ["Mouse"]
+       67 GETTABLEKS                       R12 R9 K21 ["Store"]
+       69 GETIMPORT                        R13 K4 [require]
+       71 GETTABLEKS                       R14 R0 K5 ["Src"]
+       73 GETTABLEKS                       R14 R14 K22 ["Reducers"]
+       75 GETTABLEKS                       R14 R14 K23 ["MainReducer"]
+       77 CALL                             R13 1 1
+       78 GETIMPORT                        R14 K4 [require]
+       80 GETTABLEKS                       R15 R0 K5 ["Src"]
+       82 GETTABLEKS                       R15 R15 K24 ["Resources"]
+       84 GETTABLEKS                       R15 R15 K25 ["MakeTheme"]
+       86 CALL                             R14 1 1
+       87 GETTABLEKS                       R15 R0 K5 ["Src"]
+       89 GETTABLEKS                       R15 R15 K24 ["Resources"]
+       91 GETTABLEKS                       R15 R15 K26 ["Localization"]
+       93 GETTABLEKS                       R15 R15 K27 ["SourceStrings"]
+       95 GETTABLEKS                       R16 R0 K5 ["Src"]
+       97 GETTABLEKS                       R16 R16 K24 ["Resources"]
+       99 GETTABLEKS                       R16 R16 K26 ["Localization"]
+      101 GETTABLEKS                       R16 R16 K28 ["LocalizedStrings"]
+      103 GETTABLEKS                       R17 R0 K5 ["Src"]
+      105 GETTABLEKS                       R17 R17 K29 ["Util"]
+      107 GETIMPORT                        R18 K4 [require]
+      109 GETTABLEKS                       R19 R17 K30 ["MakePluginActions"]
+      111 CALL                             R18 1 1
+      112 GETIMPORT                        R19 K4 [require]
+      114 GETTABLEKS                       R20 R17 K31 ["TelemetryGlobals"]
+      116 CALL                             R19 1 1
+      117 GETIMPORT                        R20 K4 [require]
+      119 GETTABLEKS                       R21 R17 K32 ["Telemetry"]
+      121 GETTABLEKS                       R21 R21 K33 ["Path2dToolUsage"]
+      123 CALL                             R20 1 1
+      124 GETIMPORT                        R21 K4 [require]
+      126 GETTABLEKS                       R22 R17 K32 ["Telemetry"]
+      128 GETTABLEKS                       R22 R22 K34 ["TelemetryProtocol"]
+      130 CALL                             R21 1 1
+      131 GETIMPORT                        R22 K4 [require]
+      133 GETTABLEKS                       R23 R17 K32 ["Telemetry"]
+      135 GETTABLEKS                       R23 R23 K35 ["TelemetryProtocolTypes"]
+      137 CALL                             R22 1 1
+      138 GETTABLEKS                       R23 R0 K5 ["Src"]
+      140 GETTABLEKS                       R23 R23 K36 ["Components"]
+      142 GETIMPORT                        R24 K4 [require]
+      144 GETTABLEKS                       R25 R23 K37 ["ControlPointEditGui"]
+      146 CALL                             R24 1 1
+      147 GETIMPORT                        R25 K4 [require]
+      149 GETTABLEKS                       R26 R23 K38 ["SelectionListener"]
+      151 CALL                             R25 1 1
+      152 GETIMPORT                        R26 K4 [require]
+      154 GETTABLEKS                       R27 R23 K39 ["PathToolbar"]
+      156 CALL                             R26 1 1
+      157 GETIMPORT                        R27 K4 [require]
+      159 GETTABLEKS                       R28 R23 K40 ["MoveBaseGui"]
+      161 CALL                             R27 1 1
+      162 GETIMPORT                        R28 K4 [require]
+      164 GETTABLEKS                       R29 R23 K41 ["VisualizationGui"]
+      166 CALL                             R28 1 1
+      167 GETIMPORT                        R29 K4 [require]
+      169 GETTABLEKS                       R30 R23 K42 ["AddPointComponent"]
+      171 CALL                             R29 1 1
+      172 GETTABLEKS                       R30 R2 K43 ["PureComponent"]
+      174 LOADK                            R32 K44 ["MainPlugin"]
+      175 NAMECALL                         R30 R30 K45 ["extend"]
+      177 CALL                             R30 2 1
+      178 DUPCLOSURE                       R31 K46 [PROTO_3]
+      179 CAPTURE                          VAL R4
+      180 CAPTURE                          VAL R13
+      181 CAPTURE                          VAL R9
+      182 CAPTURE                          VAL R15
+      183 CAPTURE                          VAL R16
+      184 CAPTURE                          VAL R5
+      185 CAPTURE                          VAL R7
+      186 CAPTURE                          VAL R19
+      187 CAPTURE                          VAL R20
+      188 CAPTURE                          VAL R21
+      189 CAPTURE                          VAL R18
+      190 SETTABLEKS                       R31 R30 K47 ["init"]
+      192 DUPCLOSURE                       R31 K48 [PROTO_4]
+      193 CAPTURE                          VAL R9
+      194 CAPTURE                          VAL R10
+      195 CAPTURE                          VAL R12
+      196 CAPTURE                          VAL R11
+      197 CAPTURE                          VAL R14
+      198 CAPTURE                          VAL R3
+      199 CAPTURE                          VAL R2
+      200 CAPTURE                          VAL R24
+      201 CAPTURE                          VAL R26
+      202 CAPTURE                          VAL R27
+      203 CAPTURE                          VAL R28
+      204 CAPTURE                          VAL R29
+      205 CAPTURE                          VAL R6
+      206 CAPTURE                          VAL R25
+      207 SETTABLEKS                       R31 R30 K49 ["render"]
+      209 RETURN                           R30 1

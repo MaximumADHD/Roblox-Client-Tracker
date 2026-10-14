@@ -490,12 +490,12 @@ MAIN:
        17 GETTABLEKS                       R3 R1 K9 ["Packages"]
        19 GETTABLEKS                       R3 R3 K10 ["Roact"]
        21 CALL                             R2 1 1
-       22 GETTABLEKS                       R3 R1 K9 ["Packages"]
-       24 GETTABLEKS                       R3 R3 K11 ["DraggerFramework"]
-       26 GETIMPORT                        R4 K8 [require]
-       28 GETTABLEKS                       R5 R3 K12 ["Utility"]
-       30 GETTABLEKS                       R5 R5 K13 ["BoundingBox"]
-       32 CALL                             R4 1 1
+       22 GETIMPORT                        R3 K8 [require]
+       24 GETTABLEKS                       R4 R1 K9 ["Packages"]
+       26 GETTABLEKS                       R4 R4 K11 ["DraggerFramework"]
+       28 CALL                             R3 1 1
+       29 GETTABLEKS                       R4 R3 K12 ["Utility"]
+       31 GETTABLEKS                       R4 R4 K13 ["BoundingBox"]
        33 GETIMPORT                        R5 K8 [require]
        35 GETTABLEKS                       R6 R1 K14 ["Src"]
        37 GETTABLEKS                       R6 R6 K12 ["Utility"]

@@ -179,45 +179,43 @@ MAIN:
         5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K2 ["Parent"]
-       11 GETTABLEKS                       R2 R0 K3 ["Packages"]
-       13 GETTABLEKS                       R2 R2 K4 ["DraggerFramework"]
-       15 GETIMPORT                        R3 K6 [require]
-       17 GETTABLEKS                       R4 R2 K7 ["Utility"]
-       19 GETTABLEKS                       R4 R4 K8 ["BoundingBox"]
-       21 CALL                             R3 1 1
-       22 GETIMPORT                        R4 K6 [require]
-       24 GETTABLEKS                       R5 R2 K7 ["Utility"]
-       26 GETTABLEKS                       R5 R5 K9 ["JointMaker"]
-       28 CALL                             R4 1 1
-       29 GETIMPORT                        R5 K6 [require]
-       31 GETTABLEKS                       R6 R0 K10 ["Src"]
-       33 GETTABLEKS                       R6 R6 K7 ["Utility"]
-       35 GETTABLEKS                       R6 R6 K11 ["AlignmentMode"]
-       37 CALL                             R5 1 1
-       38 GETIMPORT                        R6 K6 [require]
-       40 GETTABLEKS                       R7 R0 K10 ["Src"]
-       42 GETTABLEKS                       R7 R7 K7 ["Utility"]
-       44 GETTABLEKS                       R7 R7 K12 ["AlignmentSpace"]
-       46 CALL                             R6 1 1
-       47 GETIMPORT                        R7 K6 [require]
-       49 GETTABLEKS                       R8 R0 K10 ["Src"]
-       51 GETTABLEKS                       R8 R8 K7 ["Utility"]
-       53 GETTABLEKS                       R8 R8 K13 ["getAlignableObjects"]
-       55 CALL                             R7 1 1
-       56 GETIMPORT                        R8 K6 [require]
-       58 GETTABLEKS                       R9 R0 K10 ["Src"]
-       60 GETTABLEKS                       R9 R9 K7 ["Utility"]
-       62 GETTABLEKS                       R9 R9 K14 ["getDefaultBasisForObjects"]
-       64 CALL                             R8 1 1
-       65 DUPCLOSURE                       R9 K15 [PROTO_0]
-       66 DUPCLOSURE                       R10 K16 [PROTO_1]
-       67 CAPTURE                          VAL R1
-       68 DUPCLOSURE                       R11 K17 [PROTO_2]
-       69 CAPTURE                          VAL R6
-       70 CAPTURE                          VAL R8
-       71 CAPTURE                          VAL R3
-       72 CAPTURE                          VAL R7
-       73 CAPTURE                          VAL R4
-       74 CAPTURE                          VAL R5
-       75 CAPTURE                          VAL R1
-       76 RETURN                           R11 1
+       11 GETIMPORT                        R2 K4 [require]
+       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K6 ["DraggerFramework"]
+       17 CALL                             R2 1 1
+       18 GETTABLEKS                       R3 R2 K7 ["Utility"]
+       20 GETTABLEKS                       R3 R3 K8 ["BoundingBox"]
+       22 GETTABLEKS                       R4 R2 K7 ["Utility"]
+       24 GETTABLEKS                       R4 R4 K9 ["JointMaker"]
+       26 GETIMPORT                        R5 K4 [require]
+       28 GETTABLEKS                       R6 R0 K10 ["Src"]
+       30 GETTABLEKS                       R6 R6 K7 ["Utility"]
+       32 GETTABLEKS                       R6 R6 K11 ["AlignmentMode"]
+       34 CALL                             R5 1 1
+       35 GETIMPORT                        R6 K4 [require]
+       37 GETTABLEKS                       R7 R0 K10 ["Src"]
+       39 GETTABLEKS                       R7 R7 K7 ["Utility"]
+       41 GETTABLEKS                       R7 R7 K12 ["AlignmentSpace"]
+       43 CALL                             R6 1 1
+       44 GETIMPORT                        R7 K4 [require]
+       46 GETTABLEKS                       R8 R0 K10 ["Src"]
+       48 GETTABLEKS                       R8 R8 K7 ["Utility"]
+       50 GETTABLEKS                       R8 R8 K13 ["getAlignableObjects"]
+       52 CALL                             R7 1 1
+       53 GETIMPORT                        R8 K4 [require]
+       55 GETTABLEKS                       R9 R0 K10 ["Src"]
+       57 GETTABLEKS                       R9 R9 K7 ["Utility"]
+       59 GETTABLEKS                       R9 R9 K14 ["getDefaultBasisForObjects"]
+       61 CALL                             R8 1 1
+       62 DUPCLOSURE                       R9 K15 [PROTO_0]
+       63 DUPCLOSURE                       R10 K16 [PROTO_1]
+       64 CAPTURE                          VAL R1
+       65 DUPCLOSURE                       R11 K17 [PROTO_2]
+       66 CAPTURE                          VAL R6
+       67 CAPTURE                          VAL R8
+       68 CAPTURE                          VAL R3
+       69 CAPTURE                          VAL R7
+       70 CAPTURE                          VAL R4
+       71 CAPTURE                          VAL R5
+       72 CAPTURE                          VAL R1
+       73 RETURN                           R11 1

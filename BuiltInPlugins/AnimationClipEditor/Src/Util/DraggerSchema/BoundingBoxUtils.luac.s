@@ -778,12 +778,12 @@ MAIN:
         9 LOADK                            R3 K6 ["AnimationClipEditor"]
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
-       13 GETTABLEKS                       R2 R1 K8 ["Packages"]
-       15 GETTABLEKS                       R2 R2 K9 ["DraggerFramework"]
-       17 GETIMPORT                        R3 K11 [require]
-       19 GETTABLEKS                       R4 R2 K12 ["Utility"]
-       21 GETTABLEKS                       R4 R4 K13 ["shouldDragAsFace"]
-       23 CALL                             R3 1 1
+       13 GETIMPORT                        R2 K9 [require]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["DraggerFramework"]
+       19 CALL                             R2 1 1
+       20 GETTABLEKS                       R3 R2 K12 ["Utility"]
+       22 GETTABLEKS                       R3 R3 K13 ["shouldDragAsFace"]
        24 NEWTABLE                         R4 8 0
        26 DUPCLOSURE                       R5 K14 [PROTO_0]
        27 CAPTURE                          VAL R0

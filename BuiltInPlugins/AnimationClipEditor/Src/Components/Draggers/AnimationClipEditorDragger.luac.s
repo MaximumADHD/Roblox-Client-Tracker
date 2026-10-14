@@ -85,35 +85,31 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
        11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       16 GETTABLEKS                       R2 R2 K8 ["DraggerFramework"]
-       18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R4 R2 K9 ["DraggerTools"]
-       22 GETTABLEKS                       R4 R4 K10 ["DraggerToolComponent"]
-       24 CALL                             R3 1 1
-       25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R5 R2 K11 ["Handles"]
-       29 GETTABLEKS                       R5 R5 K12 ["MoveHandles"]
-       31 CALL                             R4 1 1
-       32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R6 R2 K11 ["Handles"]
-       36 GETTABLEKS                       R6 R6 K13 ["RotateHandles"]
-       38 CALL                             R5 1 1
-       39 GETIMPORT                        R6 K5 [require]
-       41 GETTABLEKS                       R7 R0 K14 ["Src"]
-       43 GETTABLEKS                       R7 R7 K15 ["Util"]
-       45 GETTABLEKS                       R7 R7 K16 ["DraggerSchema"]
-       47 GETTABLEKS                       R7 R7 K16 ["DraggerSchema"]
-       49 CALL                             R6 1 1
-       50 GETTABLEKS                       R7 R1 K17 ["PureComponent"]
-       52 LOADK                            R9 K18 ["AnimationClipEditorDragger"]
-       53 NAMECALL                         R7 R7 K19 ["extend"]
-       55 CALL                             R7 2 1
-       56 DUPCLOSURE                       R8 K20 [PROTO_2]
-       57 CAPTURE                          VAL R4
-       58 CAPTURE                          VAL R6
-       59 CAPTURE                          VAL R5
-       60 CAPTURE                          VAL R1
-       61 CAPTURE                          VAL R3
-       62 SETTABLEKS                       R8 R7 K21 ["render"]
-       64 RETURN                           R7 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["DraggerFramework"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R3 R2 K9 ["DraggerTools"]
+       23 GETTABLEKS                       R3 R3 K10 ["DraggerToolComponent"]
+       25 GETTABLEKS                       R4 R2 K11 ["Handles"]
+       27 GETTABLEKS                       R4 R4 K12 ["MoveHandles"]
+       29 GETTABLEKS                       R5 R2 K11 ["Handles"]
+       31 GETTABLEKS                       R5 R5 K13 ["RotateHandles"]
+       33 GETIMPORT                        R6 K5 [require]
+       35 GETTABLEKS                       R7 R0 K14 ["Src"]
+       37 GETTABLEKS                       R7 R7 K15 ["Util"]
+       39 GETTABLEKS                       R7 R7 K16 ["DraggerSchema"]
+       41 GETTABLEKS                       R7 R7 K16 ["DraggerSchema"]
+       43 CALL                             R6 1 1
+       44 GETTABLEKS                       R7 R1 K17 ["PureComponent"]
+       46 LOADK                            R9 K18 ["AnimationClipEditorDragger"]
+       47 NAMECALL                         R7 R7 K19 ["extend"]
+       49 CALL                             R7 2 1
+       50 DUPCLOSURE                       R8 K20 [PROTO_2]
+       51 CAPTURE                          VAL R4
+       52 CAPTURE                          VAL R6
+       53 CAPTURE                          VAL R5
+       54 CAPTURE                          VAL R1
+       55 CAPTURE                          VAL R3
+       56 SETTABLEKS                       R8 R7 K21 ["render"]
+       58 RETURN                           R7 1

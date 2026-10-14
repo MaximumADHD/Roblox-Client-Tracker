@@ -238,122 +238,118 @@ MAIN:
        18 GETTABLEKS                       R3 R0 K5 ["Packages"]
        20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       25 GETTABLEKS                       R3 R3 K8 ["DraggerFramework"]
-       27 GETIMPORT                        R4 K4 [require]
-       29 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       31 GETTABLEKS                       R5 R5 K9 ["Framework"]
-       33 CALL                             R4 1 1
-       34 GETTABLEKS                       R4 R4 K10 ["ContextServices"]
-       36 GETTABLEKS                       R5 R4 K11 ["withContext"]
-       38 GETIMPORT                        R6 K4 [require]
-       40 GETTABLEKS                       R7 R3 K12 ["DraggerTools"]
-       42 GETTABLEKS                       R7 R7 K13 ["DraggerToolComponent"]
-       44 CALL                             R6 1 1
-       45 GETIMPORT                        R7 K4 [require]
-       47 GETTABLEKS                       R8 R3 K14 ["Handles"]
-       49 GETTABLEKS                       R8 R8 K15 ["MoveHandles"]
-       51 CALL                             R7 1 1
-       52 GETIMPORT                        R8 K4 [require]
-       54 GETTABLEKS                       R9 R3 K14 ["Handles"]
-       56 GETTABLEKS                       R9 R9 K16 ["RotateHandles"]
-       58 CALL                             R8 1 1
-       59 GETIMPORT                        R9 K4 [require]
-       61 GETTABLEKS                       R10 R0 K17 ["Src"]
-       63 GETTABLEKS                       R10 R10 K18 ["DraggerSchemaPivot"]
-       65 GETTABLEKS                       R10 R10 K19 ["PivotHandle"]
-       67 CALL                             R9 1 1
-       68 GETIMPORT                        R10 K4 [require]
-       70 GETTABLEKS                       R11 R0 K17 ["Src"]
-       72 GETTABLEKS                       R11 R11 K18 ["DraggerSchemaPivot"]
-       74 GETTABLEKS                       R11 R11 K20 ["DraggerSchema"]
-       76 CALL                             R10 1 1
-       77 GETIMPORT                        R11 K4 [require]
-       79 GETTABLEKS                       R12 R0 K17 ["Src"]
-       81 GETTABLEKS                       R12 R12 K18 ["DraggerSchemaPivot"]
-       83 GETTABLEKS                       R12 R12 K21 ["DraggerContext_Pivot"]
-       85 CALL                             R11 1 1
-       86 GETIMPORT                        R12 K4 [require]
-       88 GETTABLEKS                       R13 R0 K17 ["Src"]
-       90 GETTABLEKS                       R13 R13 K22 ["RoduxComponents"]
-       92 GETTABLEKS                       R13 R13 K23 ["SelectionUpdaterBound"]
-       94 CALL                             R12 1 1
-       95 GETIMPORT                        R13 K4 [require]
-       97 GETTABLEKS                       R14 R0 K17 ["Src"]
-       99 GETTABLEKS                       R14 R14 K24 ["Actions"]
-      101 GETTABLEKS                       R14 R14 K25 ["BeginSelectingPivot"]
-      103 CALL                             R13 1 1
-      104 GETIMPORT                        R14 K4 [require]
-      106 GETTABLEKS                       R15 R0 K17 ["Src"]
-      108 GETTABLEKS                       R15 R15 K24 ["Actions"]
-      110 GETTABLEKS                       R15 R15 K26 ["DoneSelectingPivot"]
-      112 CALL                             R14 1 1
-      113 GETIMPORT                        R15 K4 [require]
-      115 GETTABLEKS                       R16 R0 K17 ["Src"]
-      117 GETTABLEKS                       R16 R16 K27 ["Utility"]
-      119 GETTABLEKS                       R16 R16 K28 ["EditingMode"]
-      121 CALL                             R15 1 1
-      122 GETIMPORT                        R16 K4 [require]
-      124 GETTABLEKS                       R17 R0 K17 ["Src"]
-      126 GETTABLEKS                       R17 R17 K27 ["Utility"]
-      128 GETTABLEKS                       R17 R17 K29 ["StatusMessage"]
-      130 CALL                             R16 1 1
-      131 GETIMPORT                        R17 K4 [require]
-      133 GETTABLEKS                       R18 R0 K17 ["Src"]
-      135 GETTABLEKS                       R18 R18 K27 ["Utility"]
-      137 GETTABLEKS                       R18 R18 K30 ["ToastNotification"]
-      139 CALL                             R17 1 1
-      140 GETTABLEKS                       R18 R1 K31 ["PureComponent"]
-      142 LOADK                            R20 K32 ["EditPivotSession"]
-      143 NAMECALL                         R18 R18 K33 ["extend"]
-      145 CALL                             R18 2 1
-      146 DUPCLOSURE                       R19 K34 [PROTO_0]
-      147 CAPTURE                          VAL R16
-      148 DUPCLOSURE                       R20 K35 [PROTO_1]
-      149 CAPTURE                          VAL R11
-      150 CAPTURE                          VAL R10
-      151 SETTABLEKS                       R20 R18 K36 ["init"]
-      153 DUPCLOSURE                       R20 K37 [PROTO_2]
-      154 CAPTURE                          VAL R16
-      155 SETTABLEKS                       R20 R18 K38 ["didMount"]
-      157 DUPCLOSURE                       R20 K39 [PROTO_3]
-      158 CAPTURE                          VAL R15
-      159 CAPTURE                          VAL R7
-      160 CAPTURE                          VAL R10
-      161 CAPTURE                          VAL R8
-      162 CAPTURE                          VAL R9
-      163 SETTABLEKS                       R20 R18 K40 ["_getCurrentDraggerHandles"]
-      165 DUPCLOSURE                       R20 K41 [PROTO_4]
-      166 CAPTURE                          VAL R15
-      167 CAPTURE                          VAL R1
-      168 CAPTURE                          VAL R6
-      169 CAPTURE                          VAL R10
-      170 CAPTURE                          VAL R12
-      171 SETTABLEKS                       R20 R18 K42 ["render"]
-      173 DUPCLOSURE                       R20 K43 [PROTO_5]
-      174 CAPTURE                          VAL R16
-      175 SETTABLEKS                       R20 R18 K44 ["didUpdate"]
-      177 DUPCLOSURE                       R20 K45 [PROTO_6]
-      178 SETTABLEKS                       R20 R18 K46 ["willUnmount"]
-      180 MOVE                             R20 R5
-      181 DUPTABLE                         R21 K49 [{"Localization", "Plugin", "ToastNotification"}]
-      182 GETTABLEKS                       R22 R4 K47 ["Localization"]
-      184 SETTABLEKS                       R22 R21 K47 ["Localization"]
-      186 GETTABLEKS                       R22 R4 K48 ["Plugin"]
-      188 SETTABLEKS                       R22 R21 K48 ["Plugin"]
-      190 SETTABLEKS                       R17 R21 K30 ["ToastNotification"]
-      192 CALL                             R20 1 1
-      193 MOVE                             R21 R18
-      194 CALL                             R20 1 1
-      195 MOVE                             R18 R20
-      196 DUPCLOSURE                       R20 K50 [PROTO_7]
-      197 DUPCLOSURE                       R21 K51 [PROTO_10]
-      198 CAPTURE                          VAL R13
-      199 CAPTURE                          VAL R14
-      200 GETTABLEKS                       R22 R2 K52 ["connect"]
-      202 MOVE                             R23 R20
-      203 MOVE                             R24 R21
-      204 CALL                             R22 2 1
-      205 MOVE                             R23 R18
-      206 CALL                             R22 1 -1
-      207 RETURN                           R22 -1
+       23 GETIMPORT                        R3 K4 [require]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["DraggerFramework"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K4 [require]
+       32 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K9 ["Framework"]
+       36 CALL                             R4 1 1
+       37 GETTABLEKS                       R4 R4 K10 ["ContextServices"]
+       39 GETTABLEKS                       R5 R4 K11 ["withContext"]
+       41 GETTABLEKS                       R6 R3 K12 ["DraggerTools"]
+       43 GETTABLEKS                       R6 R6 K13 ["DraggerToolComponent"]
+       45 GETTABLEKS                       R7 R3 K14 ["Handles"]
+       47 GETTABLEKS                       R7 R7 K15 ["MoveHandles"]
+       49 GETTABLEKS                       R8 R3 K14 ["Handles"]
+       51 GETTABLEKS                       R8 R8 K16 ["RotateHandles"]
+       53 GETIMPORT                        R9 K4 [require]
+       55 GETTABLEKS                       R10 R0 K17 ["Src"]
+       57 GETTABLEKS                       R10 R10 K18 ["DraggerSchemaPivot"]
+       59 GETTABLEKS                       R10 R10 K19 ["PivotHandle"]
+       61 CALL                             R9 1 1
+       62 GETIMPORT                        R10 K4 [require]
+       64 GETTABLEKS                       R11 R0 K17 ["Src"]
+       66 GETTABLEKS                       R11 R11 K18 ["DraggerSchemaPivot"]
+       68 GETTABLEKS                       R11 R11 K20 ["DraggerSchema"]
+       70 CALL                             R10 1 1
+       71 GETIMPORT                        R11 K4 [require]
+       73 GETTABLEKS                       R12 R0 K17 ["Src"]
+       75 GETTABLEKS                       R12 R12 K18 ["DraggerSchemaPivot"]
+       77 GETTABLEKS                       R12 R12 K21 ["DraggerContext_Pivot"]
+       79 CALL                             R11 1 1
+       80 GETIMPORT                        R12 K4 [require]
+       82 GETTABLEKS                       R13 R0 K17 ["Src"]
+       84 GETTABLEKS                       R13 R13 K22 ["RoduxComponents"]
+       86 GETTABLEKS                       R13 R13 K23 ["SelectionUpdaterBound"]
+       88 CALL                             R12 1 1
+       89 GETIMPORT                        R13 K4 [require]
+       91 GETTABLEKS                       R14 R0 K17 ["Src"]
+       93 GETTABLEKS                       R14 R14 K24 ["Actions"]
+       95 GETTABLEKS                       R14 R14 K25 ["BeginSelectingPivot"]
+       97 CALL                             R13 1 1
+       98 GETIMPORT                        R14 K4 [require]
+      100 GETTABLEKS                       R15 R0 K17 ["Src"]
+      102 GETTABLEKS                       R15 R15 K24 ["Actions"]
+      104 GETTABLEKS                       R15 R15 K26 ["DoneSelectingPivot"]
+      106 CALL                             R14 1 1
+      107 GETIMPORT                        R15 K4 [require]
+      109 GETTABLEKS                       R16 R0 K17 ["Src"]
+      111 GETTABLEKS                       R16 R16 K27 ["Utility"]
+      113 GETTABLEKS                       R16 R16 K28 ["EditingMode"]
+      115 CALL                             R15 1 1
+      116 GETIMPORT                        R16 K4 [require]
+      118 GETTABLEKS                       R17 R0 K17 ["Src"]
+      120 GETTABLEKS                       R17 R17 K27 ["Utility"]
+      122 GETTABLEKS                       R17 R17 K29 ["StatusMessage"]
+      124 CALL                             R16 1 1
+      125 GETIMPORT                        R17 K4 [require]
+      127 GETTABLEKS                       R18 R0 K17 ["Src"]
+      129 GETTABLEKS                       R18 R18 K27 ["Utility"]
+      131 GETTABLEKS                       R18 R18 K30 ["ToastNotification"]
+      133 CALL                             R17 1 1
+      134 GETTABLEKS                       R18 R1 K31 ["PureComponent"]
+      136 LOADK                            R20 K32 ["EditPivotSession"]
+      137 NAMECALL                         R18 R18 K33 ["extend"]
+      139 CALL                             R18 2 1
+      140 DUPCLOSURE                       R19 K34 [PROTO_0]
+      141 CAPTURE                          VAL R16
+      142 DUPCLOSURE                       R20 K35 [PROTO_1]
+      143 CAPTURE                          VAL R11
+      144 CAPTURE                          VAL R10
+      145 SETTABLEKS                       R20 R18 K36 ["init"]
+      147 DUPCLOSURE                       R20 K37 [PROTO_2]
+      148 CAPTURE                          VAL R16
+      149 SETTABLEKS                       R20 R18 K38 ["didMount"]
+      151 DUPCLOSURE                       R20 K39 [PROTO_3]
+      152 CAPTURE                          VAL R15
+      153 CAPTURE                          VAL R7
+      154 CAPTURE                          VAL R10
+      155 CAPTURE                          VAL R8
+      156 CAPTURE                          VAL R9
+      157 SETTABLEKS                       R20 R18 K40 ["_getCurrentDraggerHandles"]
+      159 DUPCLOSURE                       R20 K41 [PROTO_4]
+      160 CAPTURE                          VAL R15
+      161 CAPTURE                          VAL R1
+      162 CAPTURE                          VAL R6
+      163 CAPTURE                          VAL R10
+      164 CAPTURE                          VAL R12
+      165 SETTABLEKS                       R20 R18 K42 ["render"]
+      167 DUPCLOSURE                       R20 K43 [PROTO_5]
+      168 CAPTURE                          VAL R16
+      169 SETTABLEKS                       R20 R18 K44 ["didUpdate"]
+      171 DUPCLOSURE                       R20 K45 [PROTO_6]
+      172 SETTABLEKS                       R20 R18 K46 ["willUnmount"]
+      174 MOVE                             R20 R5
+      175 DUPTABLE                         R21 K49 [{"Localization", "Plugin", "ToastNotification"}]
+      176 GETTABLEKS                       R22 R4 K47 ["Localization"]
+      178 SETTABLEKS                       R22 R21 K47 ["Localization"]
+      180 GETTABLEKS                       R22 R4 K48 ["Plugin"]
+      182 SETTABLEKS                       R22 R21 K48 ["Plugin"]
+      184 SETTABLEKS                       R17 R21 K30 ["ToastNotification"]
+      186 CALL                             R20 1 1
+      187 MOVE                             R21 R18
+      188 CALL                             R20 1 1
+      189 MOVE                             R18 R20
+      190 DUPCLOSURE                       R20 K50 [PROTO_7]
+      191 DUPCLOSURE                       R21 K51 [PROTO_10]
+      192 CAPTURE                          VAL R13
+      193 CAPTURE                          VAL R14
+      194 GETTABLEKS                       R22 R2 K52 ["connect"]
+      196 MOVE                             R23 R20
+      197 MOVE                             R24 R21
+      198 CALL                             R22 2 1
+      199 MOVE                             R23 R18
+      200 CALL                             R22 1 -1
+      201 RETURN                           R22 -1

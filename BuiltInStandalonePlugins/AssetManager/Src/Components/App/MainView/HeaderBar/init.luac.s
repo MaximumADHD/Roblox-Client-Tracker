@@ -187,7 +187,7 @@ PROTO_3:
        55 SETTABLEKS                       R18 R17 K5 ["LayoutOrder"]
        57 CALL                             R15 2 1
        58 SETTABLEKS                       R15 R14 K8 ["NavButtons"]
-       60 GETTABLEKS                       R16 R7 K9 ["ShowSearchOptions"]
+       60 GETTABLEKS                       R16 R7 K9 ["IsSearchRequested"]
        62 JUMPIFNOT                        R16 ; [+6]
        63 LOADK                            R17 K10 ["SearchOptions"]
        64 LOADK                            R18 K11 ["SearchResults"]
@@ -199,7 +199,7 @@ PROTO_3:
        71 MOVE                             R17 R1
        72 CALL                             R15 2 1
        73 LOADNIL                          R16
-       74 GETTABLEKS                       R17 R7 K9 ["ShowSearchOptions"]
+       74 GETTABLEKS                       R17 R7 K9 ["IsSearchRequested"]
        76 JUMPIF                           R17 ; [+11]
        77 GETTABLEKS                       R18 R6 K13 ["Type"]
        79 GETUPVAL                         R19 14
@@ -208,7 +208,7 @@ PROTO_3:
        84 JUMPIFEQ                         R18 R19 ; [+2]
        86 LOADB                            R17 0 +1
        87 LOADB                            R17 1
-       88 GETTABLEKS                       R18 R7 K9 ["ShowSearchOptions"]
+       88 GETTABLEKS                       R18 R7 K9 ["IsSearchRequested"]
        90 JUMPIFNOT                        R18 ; [+8]
        91 GETUPVAL                         R18 15
        92 GETTABLEKS                       R18 R18 K16 ["Enums"]
@@ -227,7 +227,7 @@ PROTO_3:
       112 JUMPIF                           R17 ; [+3]
       113 JUMPIFEQKS                       R4 K2 [""] ; [+2]
       115 MOVE                             R16 R4
-      116 GETTABLEKS                       R18 R7 K9 ["ShowSearchOptions"]
+      116 GETTABLEKS                       R18 R7 K9 ["IsSearchRequested"]
       118 JUMPIF                           R18 ; [+31]
       119 GETTABLEKS                       R18 R6 K13 ["Type"]
       121 GETUPVAL                         R19 14

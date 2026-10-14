@@ -165,36 +165,36 @@ PROTO_2:
       195 GETUPVAL                         R14 1
       196 GETTABLEKS                       R14 R14 K0 ["createElement"]
       198 GETUPVAL                         R15 23
-      199 DUPTABLE                         R16 K47 [{"tutorialId", "stepId", "anchorInstance", "side", "align"}]
+      199 DUPTABLE                         R16 K49 [{["tutorialId"], ["stepId"], ["anchorInstance"], ["side"], ["align"], ["hasArrow"] = False}]
       200 GETUPVAL                         R17 24
-      201 GETTABLEKS                       R17 R17 K48 ["TutorialId"]
-      203 GETTABLEKS                       R17 R17 K49 ["Intro"]
+      201 GETTABLEKS                       R17 R17 K50 ["TutorialId"]
+      203 GETTABLEKS                       R17 R17 K51 ["Intro"]
       205 SETTABLEKS                       R17 R16 K42 ["tutorialId"]
       207 GETUPVAL                         R17 24
-      208 GETTABLEKS                       R17 R17 K50 ["TutorialStepId"]
-      210 GETTABLEKS                       R17 R17 K51 ["Welcome"]
+      208 GETTABLEKS                       R17 R17 K52 ["TutorialStepId"]
+      210 GETTABLEKS                       R17 R17 K53 ["Welcome"]
       212 SETTABLEKS                       R17 R16 K43 ["stepId"]
       214 SETTABLEKS                       R8 R16 K44 ["anchorInstance"]
       216 GETUPVAL                         R17 22
-      217 GETTABLEKS                       R17 R17 K52 ["Enums"]
-      219 GETTABLEKS                       R17 R17 K53 ["PopoverSide"]
-      221 GETTABLEKS                       R17 R17 K54 ["Top"]
+      217 GETTABLEKS                       R17 R17 K54 ["Enums"]
+      219 GETTABLEKS                       R17 R17 K55 ["PopoverSide"]
+      221 GETTABLEKS                       R17 R17 K56 ["Top"]
       223 SETTABLEKS                       R17 R16 K45 ["side"]
       225 GETUPVAL                         R17 22
-      226 GETTABLEKS                       R17 R17 K52 ["Enums"]
-      228 GETTABLEKS                       R17 R17 K55 ["PopoverAlign"]
-      230 GETTABLEKS                       R17 R17 K56 ["Start"]
+      226 GETTABLEKS                       R17 R17 K54 ["Enums"]
+      228 GETTABLEKS                       R17 R17 K57 ["PopoverAlign"]
+      230 GETTABLEKS                       R17 R17 K58 ["Start"]
       232 SETTABLEKS                       R17 R16 K46 ["align"]
       234 CALL                             R14 2 1
-      235 SETTABLEKS                       R14 R12 K57 ["IntroTutorialTooltip"]
+      235 SETTABLEKS                       R14 R12 K59 ["IntroTutorialTooltip"]
       237 GETUPVAL                         R14 1
       238 GETTABLEKS                       R14 R14 K0 ["createElement"]
       240 GETUPVAL                         R15 25
       241 NEWTABLE                         R16 2 0
-      243 SETTABLEKS                       R7 R16 K58 ["ForwardRef"]
+      243 SETTABLEKS                       R7 R16 K60 ["ForwardRef"]
       245 GETUPVAL                         R17 1
       246 GETTABLEKS                       R17 R17 K19 ["Tag"]
-      248 LOADK                            R18 K59 ["App X-Fill"]
+      248 LOADK                            R18 K61 ["App X-Fill"]
       249 SETTABLE                         R18 R16 R17
       250 MOVE                             R17 R12
       251 CALL                             R14 3 -1

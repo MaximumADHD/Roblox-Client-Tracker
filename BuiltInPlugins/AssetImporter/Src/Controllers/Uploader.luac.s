@@ -35,31 +35,38 @@ PROTO_1:
        33 LOADN                            R5 2000
        34 LOADK                            R6 K13 ["application/json"]
        35 GETIMPORT                        R7 K15 [Enum.AssetType.Video]
-       37 JUMP                             ; [+19]
+       37 JUMP                             ; [+30]
        38 GETUPVAL                         R8 1
        39 GETTABLEKS                       R8 R8 K11 ["FileType"]
        41 GETTABLEKS                       R8 R8 K16 ["Audio"]
        43 JUMPIFNOTEQ                      R2 R8 ; [+4]
        45 GETIMPORT                        R7 K17 [Enum.AssetType.Audio]
-       47 JUMP                             ; [+9]
+       47 JUMP                             ; [+20]
        48 GETUPVAL                         R8 1
        49 GETTABLEKS                       R8 R8 K11 ["FileType"]
        51 GETTABLEKS                       R8 R8 K18 ["Image"]
-       53 JUMPIFNOTEQ                      R2 R8 ; [+3]
+       53 JUMPIFNOTEQ                      R2 R8 ; [+4]
        55 GETIMPORT                        R7 K19 [Enum.AssetType.Image]
-       57 FASTCALL2K                       ASSERT R7 K20 ; [+5]
-       59 MOVE                             R9 R7
-       60 LOADK                            R10 K20 ["Must be given an asset targettype"]
-       61 GETIMPORT                        R8 K22 [assert]
-       63 CALL                             R8 2 0
-       64 DUPTABLE                         R8 K33 [{["creatorId"], ["creatorType"], ["targetType"], ["assetDescription"] = "", ["assetId"] = 0, ["assetName"], ["contentType"], ["expectedPrice"], ["token"] = ""}]
-       65 SETTABLEKS                       R3 R8 K23 ["creatorId"]
-       67 SETTABLEKS                       R4 R8 K24 ["creatorType"]
-       69 SETTABLEKS                       R7 R8 K25 ["targetType"]
-       71 SETTABLEKS                       R1 R8 K29 ["assetName"]
-       73 SETTABLEKS                       R6 R8 K30 ["contentType"]
-       75 SETTABLEKS                       R5 R8 K31 ["expectedPrice"]
-       77 RETURN                           R8 1
+       57 JUMP                             ; [+10]
+       58 GETUPVAL                         R8 1
+       59 GETTABLEKS                       R8 R8 K11 ["FileType"]
+       61 GETTABLEKS                       R8 R8 K20 ["Text"]
+       63 JUMPIFNOTEQ                      R2 R8 ; [+4]
+       65 LOADK                            R6 K21 ["application/octet-stream"]
+       66 GETIMPORT                        R7 K23 [Enum.AssetType.TextDocument]
+       68 FASTCALL2K                       ASSERT R7 K24 ; [+5]
+       70 MOVE                             R9 R7
+       71 LOADK                            R10 K24 ["Must be given an asset targettype"]
+       72 GETIMPORT                        R8 K26 [assert]
+       74 CALL                             R8 2 0
+       75 DUPTABLE                         R8 K37 [{["creatorId"], ["creatorType"], ["targetType"], ["assetDescription"] = "", ["assetId"] = 0, ["assetName"], ["contentType"], ["expectedPrice"], ["token"] = ""}]
+       76 SETTABLEKS                       R3 R8 K27 ["creatorId"]
+       78 SETTABLEKS                       R4 R8 K28 ["creatorType"]
+       80 SETTABLEKS                       R7 R8 K29 ["targetType"]
+       82 SETTABLEKS                       R1 R8 K33 ["assetName"]
+       84 SETTABLEKS                       R6 R8 K34 ["contentType"]
+       86 SETTABLEKS                       R5 R8 K35 ["expectedPrice"]
+       88 RETURN                           R8 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -252,6 +259,20 @@ PROTO_13:
        18 RETURN                           R3 -1
 
 PROTO_14:
+        0 GETTABLEKS                       R4 R1 K0 ["assetName"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R5 R5 K1 ["FileType"]
+        5 GETTABLEKS                       R5 R5 K2 ["Text"]
+        7 GETTABLEKS                       R6 R1 K3 ["creatorId"]
+        9 NAMECALL                         R2 R0 K4 ["_createAssetRequestParams"]
+       11 CALL                             R2 4 1
+       12 GETTABLEKS                       R3 R0 K5 ["_createPromiseHelper"]
+       14 GETTABLEKS                       R4 R1 K6 ["filepath"]
+       16 MOVE                             R5 R2
+       17 CALL                             R3 2 -1
+       18 RETURN                           R3 -1
+
+PROTO_15:
         0 GETTABLEKS                       R5 R1 K0 ["assetName"]
         2 GETUPVAL                         R6 0
         3 GETTABLEKS                       R6 R6 K1 ["FileType"]
@@ -337,5 +358,8 @@ MAIN:
       101 SETTABLEKS                       R10 R9 K35 ["createAudioPromise"]
       103 DUPCLOSURE                       R10 K36 [PROTO_14]
       104 CAPTURE                          VAL R6
-      105 SETTABLEKS                       R10 R9 K37 ["createVideoPromise"]
-      107 RETURN                           R9 1
+      105 SETTABLEKS                       R10 R9 K37 ["createTextPromise"]
+      107 DUPCLOSURE                       R10 K38 [PROTO_15]
+      108 CAPTURE                          VAL R6
+      109 SETTABLEKS                       R10 R9 K39 ["createVideoPromise"]
+      111 RETURN                           R9 1

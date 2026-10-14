@@ -364,7 +364,7 @@ PROTO_25:
 
 PROTO_26:
         0 GETUPVAL                         R3 0
-        1 JUMPIFNOT                        R3 ; [+19]
+        1 JUMPIFNOT                        R3 ; [+18]
         2 LOADNIL                          R3
         3 MOVE                             R6 R1
         4 DUPTABLE                         R7 K1 [{"privateServerPrice"}]
@@ -379,13 +379,12 @@ PROTO_26:
        17 CALL                             R4 1 0
        18 CLOSEUPVALS                      R3
        19 RETURN                           R3 1
-       20 CLOSEUPVALS                      R3
-       21 MOVE                             R5 R1
-       22 DUPTABLE                         R6 K1 [{"privateServerPrice"}]
-       23 SETTABLEKS                       R2 R6 K0 ["privateServerPrice"]
-       25 NAMECALL                         R3 R0 K2 ["configurationV2PATCH"]
-       27 CALL                             R3 3 0
-       28 RETURN                           R0 0
+       20 MOVE                             R5 R1
+       21 DUPTABLE                         R6 K1 [{"privateServerPrice"}]
+       22 SETTABLEKS                       R2 R6 K0 ["privateServerPrice"]
+       24 NAMECALL                         R3 R0 K2 ["configurationV2PATCH"]
+       26 CALL                             R3 3 0
+       27 RETURN                           R0 0
 
 PROTO_27:
         0 MOVE                             R4 R1

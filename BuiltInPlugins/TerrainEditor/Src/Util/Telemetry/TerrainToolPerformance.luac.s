@@ -1,3 +1,11 @@
+PROTO_0:
+        0 DUPTABLE                         R1 K9 [{[1] = "TerrainEditor_ToolPerformance", ["backends"], ["throttlingPercentage"] = 10000, ["lastUpdated"] = "2026-09-28", ["description"] = "Normalized Terrain Editor tool operation time by material implementation."}]
+        1 NEWTABLE                         R2 0 1
+        3 MOVE                             R3 R0
+        4 SETLIST                          R2 R3 1 [1]
+        6 SETTABLEKS                       R2 R1 K2 ["backends"]
+        8 RETURN                           R1 1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -8,12 +16,24 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
        11 GETTABLEKS                       R2 R2 K7 ["Analytics"]
        13 CALL                             R1 1 1
-       14 DUPTABLE                         R2 K17 [{["eventName"] = "TerrainEditor_ToolPerformance", ["backends"], ["throttlingPercentage"] = 10000, ["lastUpdated"] = "2026-09-08", ["description"] = "Normalized Terrain Editor tool operation time by material implementation."}]
-       15 NEWTABLE                         R3 0 1
-       17 LOADK                            R4 K18 ["RobloxTelemetryStat"]
-       18 SETLIST                          R3 R4 1 [1]
-       20 SETTABLEKS                       R3 R2 K10 ["backends"]
-       22 GETIMPORT                        R3 K21 [table.freeze]
-       24 MOVE                             R4 R2
-       25 CALL                             R3 1 -1
-       26 RETURN                           R3 -1
+       14 DUPCLOSURE                       R2 K8 [PROTO_0]
+       15 GETIMPORT                        R3 K11 [table.freeze]
+       17 DUPTABLE                         R4 K14 [{"RobloxTelemetryStat", "RobloxTelemetry"}]
+       18 GETIMPORT                        R5 K11 [table.freeze]
+       20 DUPTABLE                         R6 K24 [{["eventName"] = "TerrainEditor_ToolPerformance", ["backends"], ["throttlingPercentage"] = 10000, ["lastUpdated"] = "2026-09-28", ["description"] = "Normalized Terrain Editor tool operation time by material implementation."}]
+       21 NEWTABLE                         R7 0 1
+       23 LOADK                            R8 K12 ["RobloxTelemetryStat"]
+       24 SETLIST                          R7 R8 1 [1]
+       26 SETTABLEKS                       R7 R6 K17 ["backends"]
+       28 CALL                             R5 1 1
+       29 SETTABLEKS                       R5 R4 K12 ["RobloxTelemetryStat"]
+       31 GETIMPORT                        R5 K11 [table.freeze]
+       33 DUPTABLE                         R6 K24 [{["eventName"] = "TerrainEditor_ToolPerformance", ["backends"], ["throttlingPercentage"] = 10000, ["lastUpdated"] = "2026-09-28", ["description"] = "Normalized Terrain Editor tool operation time by material implementation."}]
+       34 NEWTABLE                         R7 0 1
+       36 LOADK                            R8 K25 ["EventIngest"]
+       37 SETLIST                          R7 R8 1 [1]
+       39 SETTABLEKS                       R7 R6 K17 ["backends"]
+       41 CALL                             R5 1 1
+       42 SETTABLEKS                       R5 R4 K13 ["RobloxTelemetry"]
+       44 CALL                             R3 1 -1
+       45 RETURN                           R3 -1

@@ -41,90 +41,105 @@ PROTO_1:
        22 OR                               R12 R13 R10
        23 GETTABLEKS                       R14 R2 K4 ["Data"]
        25 GETTABLE                         R13 R14 R12
-       26 JUMPIFNOTEQKNIL                  R13 ; [+6]
-       28 JUMPIFEQ                         R12 R10 ; [+4]
-       30 GETTABLEKS                       R14 R2 K4 ["Data"]
-       32 GETTABLE                         R13 R14 R10
-       33 GETUPVAL                         R14 0
-       34 GETTABLEKS                       R14 R14 K5 ["join"]
-       36 DUPTABLE                         R15 K10 [{"Hidden", "Label", "Layout", "Value"}]
-       37 GETTABLEKS                       R18 R2 K4 ["Data"]
-       39 GETTABLE                         R17 R18 R10
-       40 JUMPIFEQKNIL                     R17 ; [+2]
-       42 LOADB                            R16 0 +1
-       43 LOADB                            R16 1
-       44 SETTABLEKS                       R16 R15 K6 ["Hidden"]
-       46 GETTABLEKS                       R18 R2 K11 ["Category"]
-       48 MOVE                             R19 R10
-       49 NAMECALL                         R16 R3 K12 ["getText"]
-       51 CALL                             R16 3 1
-       52 SETTABLEKS                       R16 R15 K7 ["Label"]
-       54 GETTABLEKS                       R17 R9 K13 ["Schema"]
-       56 GETTABLEKS                       R17 R17 K14 ["Type"]
-       58 JUMPIFEQKS                       R17 K15 ["Checkbox"] ; [+22]
-       60 GETTABLEKS                       R17 R9 K13 ["Schema"]
-       62 GETTABLEKS                       R17 R17 K14 ["Type"]
-       64 JUMPIFEQKS                       R17 K16 ["Number"] ; [+16]
-       66 GETTABLEKS                       R17 R9 K13 ["Schema"]
-       68 GETTABLEKS                       R17 R17 K14 ["Type"]
-       70 JUMPIFEQKS                       R17 K17 ["Button"] ; [+10]
-       72 GETTABLEKS                       R17 R0 K18 ["Tool"]
-       74 NAMECALL                         R17 R17 K19 ["getShouldBeCompact"]
-       76 CALL                             R17 1 1
-       77 JUMPIFNOT                        R17 ; [+3]
-       78 GETIMPORT                        R16 K23 [Enum.FillDirection.Vertical]
-       80 JUMP                             ; [+1]
-       81 LOADNIL                          R16
-       82 SETTABLEKS                       R16 R15 K8 ["Layout"]
-       84 SETTABLEKS                       R13 R15 K9 ["Value"]
-       86 MOVE                             R16 R9
-       87 CALL                             R14 2 1
-       88 SETTABLE                         R14 R4 R8
-       89 JUMPIFNOT                        R11 ; [+20]
-       90 GETUPVAL                         R14 1
-       91 GETTABLE                         R15 R4 R8
-       92 MOVE                             R16 R11
-       93 CALL                             R14 2 1
-       94 SETTABLE                         R14 R4 R8
-       95 GETTABLEKS                       R14 R11 K13 ["Schema"]
-       97 JUMPIFNOT                        R14 ; [+12]
-       98 GETTABLE                         R14 R4 R8
-       99 GETUPVAL                         R15 0
-      100 GETTABLEKS                       R15 R15 K5 ["join"]
-      102 GETTABLE                         R16 R4 R8
-      103 GETTABLEKS                       R16 R16 K13 ["Schema"]
-      105 GETTABLEKS                       R17 R11 K13 ["Schema"]
-      107 CALL                             R15 2 1
-      108 SETTABLEKS                       R15 R14 K13 ["Schema"]
-      110 GETTABLE                         R14 R4 R8
-      111 GETTABLEKS                       R14 R14 K24 ["Validate"]
-      113 JUMPIFNOT                        R14 ; [+33]
-      114 GETTABLEKS                       R14 R0 K18 ["Tool"]
-      116 GETTABLEKS                       R16 R2 K11 ["Category"]
-      118 MOVE                             R17 R10
-      119 NAMECALL                         R14 R14 K25 ["getValidateFunction"]
-      121 CALL                             R14 3 1
-      122 JUMPIFNOT                        R14 ; [+4]
-      123 GETTABLE                         R15 R4 R8
-      124 SETTABLEKS                       R14 R15 K24 ["Validate"]
-      126 JUMP                             ; [+20]
-      127 GETTABLE                         R15 R4 R8
-      128 GETTABLEKS                       R15 R15 K24 ["Validate"]
-      130 NEWCLOSURE                       R16 P0
-      131 CAPTURE                          VAL R15
-      132 CAPTURE                          VAL R0
-      133 CAPTURE                          VAL R2
-      134 CAPTURE                          VAL R10
-      135 GETTABLEKS                       R17 R0 K18 ["Tool"]
-      137 GETTABLEKS                       R19 R2 K11 ["Category"]
-      139 MOVE                             R20 R10
-      140 MOVE                             R21 R16
-      141 NAMECALL                         R17 R17 K26 ["setValidateFunction"]
-      143 CALL                             R17 4 0
-      144 GETTABLE                         R17 R4 R8
-      145 SETTABLEKS                       R16 R17 K24 ["Validate"]
-      147 FORGLOOP                         R5 2 ; [-140]
-      149 RETURN                           R4 1
+       26 JUMPIFNOT                        R11 ; [+7]
+       27 GETTABLEKS                       R15 R11 K5 ["ValueWhenNil"]
+       29 JUMPIFEQKNIL                     R15 ; [+4]
+       31 GETTABLEKS                       R14 R11 K5 ["ValueWhenNil"]
+       33 JUMP                             ; [+2]
+       34 GETTABLEKS                       R14 R9 K5 ["ValueWhenNil"]
+       36 JUMPIFNOT                        R11 ; [+3]
+       37 GETTABLEKS                       R15 R11 K6 ["UseDataIdValueOnly"]
+       39 JUMPIF                           R15 ; [+2]
+       40 GETTABLEKS                       R15 R9 K6 ["UseDataIdValueOnly"]
+       42 JUMPIFNOTEQKNIL                  R13 ; [+5]
+       44 JUMPIFEQKNIL                     R14 ; [+3]
+       46 MOVE                             R13 R14
+       47 JUMP                             ; [+8]
+       48 JUMPIFNOTEQKNIL                  R13 ; [+7]
+       50 JUMPIFEQ                         R12 R10 ; [+5]
+       52 JUMPIF                           R15 ; [+3]
+       53 GETTABLEKS                       R16 R2 K4 ["Data"]
+       55 GETTABLE                         R13 R16 R10
+       56 GETUPVAL                         R16 0
+       57 GETTABLEKS                       R16 R16 K7 ["join"]
+       59 DUPTABLE                         R17 K12 [{"Hidden", "Label", "Layout", "Value"}]
+       60 GETTABLEKS                       R20 R2 K4 ["Data"]
+       62 GETTABLE                         R19 R20 R10
+       63 JUMPIFEQKNIL                     R19 ; [+2]
+       65 LOADB                            R18 0 +1
+       66 LOADB                            R18 1
+       67 SETTABLEKS                       R18 R17 K8 ["Hidden"]
+       69 GETTABLEKS                       R20 R2 K13 ["Category"]
+       71 MOVE                             R21 R10
+       72 NAMECALL                         R18 R3 K14 ["getText"]
+       74 CALL                             R18 3 1
+       75 SETTABLEKS                       R18 R17 K9 ["Label"]
+       77 GETTABLEKS                       R19 R9 K15 ["Schema"]
+       79 GETTABLEKS                       R19 R19 K16 ["Type"]
+       81 JUMPIFEQKS                       R19 K17 ["Checkbox"] ; [+22]
+       83 GETTABLEKS                       R19 R9 K15 ["Schema"]
+       85 GETTABLEKS                       R19 R19 K16 ["Type"]
+       87 JUMPIFEQKS                       R19 K18 ["Number"] ; [+16]
+       89 GETTABLEKS                       R19 R9 K15 ["Schema"]
+       91 GETTABLEKS                       R19 R19 K16 ["Type"]
+       93 JUMPIFEQKS                       R19 K19 ["Button"] ; [+10]
+       95 GETTABLEKS                       R19 R0 K20 ["Tool"]
+       97 NAMECALL                         R19 R19 K21 ["getShouldBeCompact"]
+       99 CALL                             R19 1 1
+      100 JUMPIFNOT                        R19 ; [+3]
+      101 GETIMPORT                        R18 K25 [Enum.FillDirection.Vertical]
+      103 JUMP                             ; [+1]
+      104 LOADNIL                          R18
+      105 SETTABLEKS                       R18 R17 K10 ["Layout"]
+      107 SETTABLEKS                       R13 R17 K11 ["Value"]
+      109 MOVE                             R18 R9
+      110 CALL                             R16 2 1
+      111 SETTABLE                         R16 R4 R8
+      112 JUMPIFNOT                        R11 ; [+20]
+      113 GETUPVAL                         R16 1
+      114 GETTABLE                         R17 R4 R8
+      115 MOVE                             R18 R11
+      116 CALL                             R16 2 1
+      117 SETTABLE                         R16 R4 R8
+      118 GETTABLEKS                       R16 R11 K15 ["Schema"]
+      120 JUMPIFNOT                        R16 ; [+12]
+      121 GETTABLE                         R16 R4 R8
+      122 GETUPVAL                         R17 0
+      123 GETTABLEKS                       R17 R17 K7 ["join"]
+      125 GETTABLE                         R18 R4 R8
+      126 GETTABLEKS                       R18 R18 K15 ["Schema"]
+      128 GETTABLEKS                       R19 R11 K15 ["Schema"]
+      130 CALL                             R17 2 1
+      131 SETTABLEKS                       R17 R16 K15 ["Schema"]
+      133 GETTABLE                         R16 R4 R8
+      134 GETTABLEKS                       R16 R16 K26 ["Validate"]
+      136 JUMPIFNOT                        R16 ; [+33]
+      137 GETTABLEKS                       R16 R0 K20 ["Tool"]
+      139 GETTABLEKS                       R18 R2 K13 ["Category"]
+      141 MOVE                             R19 R10
+      142 NAMECALL                         R16 R16 K27 ["getValidateFunction"]
+      144 CALL                             R16 3 1
+      145 JUMPIFNOT                        R16 ; [+4]
+      146 GETTABLE                         R17 R4 R8
+      147 SETTABLEKS                       R16 R17 K26 ["Validate"]
+      149 JUMP                             ; [+20]
+      150 GETTABLE                         R17 R4 R8
+      151 GETTABLEKS                       R17 R17 K26 ["Validate"]
+      153 NEWCLOSURE                       R18 P0
+      154 CAPTURE                          VAL R17
+      155 CAPTURE                          VAL R0
+      156 CAPTURE                          VAL R2
+      157 CAPTURE                          VAL R10
+      158 GETTABLEKS                       R19 R0 K20 ["Tool"]
+      160 GETTABLEKS                       R21 R2 K13 ["Category"]
+      162 MOVE                             R22 R10
+      163 MOVE                             R23 R18
+      164 NAMECALL                         R19 R19 K28 ["setValidateFunction"]
+      166 CALL                             R19 4 0
+      167 GETTABLE                         R19 R4 R8
+      168 SETTABLEKS                       R18 R19 K26 ["Validate"]
+      170 FORGLOOP                         R5 2 ; [-163]
+      172 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

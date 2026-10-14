@@ -1,4 +1,18 @@
 PROTO_0:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["mounted"]
+        3 JUMPIFNOT                        R0 ; [+11]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K1 ["copyToken"]
+        7 GETUPVAL                         R1 1
+        8 JUMPIFNOTEQ                      R0 R1 ; [+6]
+       10 GETUPVAL                         R0 0
+       11 DUPTABLE                         R2 K4 [{["copied"] = False}]
+       12 NAMECALL                         R0 R0 K5 ["setState"]
+       14 CALL                             R0 2 0
+       15 RETURN                           R0 0
+
+PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R4 1
         2 GETTABLEKS                       R4 R4 K0 ["props"]
@@ -9,159 +23,160 @@ PROTO_0:
        10 NAMECALL                         R1 R1 K4 ["CopyToClipboard"]
        12 CALL                             R1 2 0
        13 GETUPVAL                         R1 1
-       14 DUPTABLE                         R3 K7 [{["copied"] = True}]
-       15 NAMECALL                         R1 R1 K8 ["setState"]
-       17 CALL                             R1 2 0
-       18 RETURN                           R0 0
-
-PROTO_1:
-        0 DUPTABLE                         R1 K2 [{[1] = False}]
-        1 SETTABLEKS                       R1 R0 K3 ["state"]
-        3 NEWCLOSURE                       R1 P0
-        4 CAPTURE                          UPVAL U0
-        5 CAPTURE                          VAL R0
-        6 SETTABLEKS                       R1 R0 K4 ["onCopyClicked"]
-        8 RETURN                           R0 0
+       14 GETTABLEKS                       R2 R1 K5 ["copyToken"]
+       16 ADDK                             R2 R2 K6 [1]
+       17 SETTABLEKS                       R2 R1 K5 ["copyToken"]
+       19 GETUPVAL                         R1 1
+       20 GETTABLEKS                       R1 R1 K5 ["copyToken"]
+       22 GETUPVAL                         R2 1
+       23 DUPTABLE                         R4 K9 [{["copied"] = True}]
+       24 NAMECALL                         R2 R2 K10 ["setState"]
+       26 CALL                             R2 2 0
+       27 GETIMPORT                        R2 K13 [task.delay]
+       29 LOADN                            R3 2
+       30 NEWCLOSURE                       R4 P0
+       31 CAPTURE                          UPVAL U1
+       32 CAPTURE                          VAL R1
+       33 CALL                             R2 2 0
+       34 RETURN                           R0 0
 
 PROTO_2:
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 LOADB                            R1 1
+        4 SETTABLEKS                       R1 R0 K4 ["mounted"]
+        6 LOADN                            R1 0
+        7 SETTABLEKS                       R1 R0 K5 ["copyToken"]
+        9 NEWCLOSURE                       R1 P0
+       10 CAPTURE                          UPVAL U0
+       11 CAPTURE                          VAL R0
+       12 SETTABLEKS                       R1 R0 K6 ["onCopyClicked"]
+       14 RETURN                           R0 0
+
+PROTO_3:
+        0 LOADB                            R1 0
+        1 SETTABLEKS                       R1 R0 K0 ["mounted"]
+        3 RETURN                           R0 0
+
+PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R2 R0 K1 ["state"]
-        4 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
-        6 GETTABLEKS                       R4 R2 K3 ["copied"]
-        8 GETTABLEKS                       R5 R1 K4 ["YPos"]
-       10 GETTABLEKS                       R6 R1 K5 ["AssetId"]
-       12 GETUPVAL                         R7 0
-       13 GETTABLEKS                       R7 R7 K6 ["createElement"]
-       15 GETUPVAL                         R8 1
-       16 GETTABLEKS                       R8 R8 K7 ["View"]
-       18 DUPTABLE                         R9 K11 [{"Position", "AnchorPoint", "Size"}]
-       19 GETIMPORT                        R10 K14 [UDim2.new]
-       21 LOADK                            R11 K15 [0.5]
-       22 LOADN                            R12 0
-       23 LOADN                            R13 0
-       24 MOVE                             R14 R5
-       25 CALL                             R10 4 1
-       26 SETTABLEKS                       R10 R9 K8 ["Position"]
-       28 GETIMPORT                        R10 K17 [Vector2.new]
-       30 LOADK                            R11 K15 [0.5]
-       31 LOADN                            R12 0
-       32 CALL                             R10 2 1
-       33 SETTABLEKS                       R10 R9 K9 ["AnchorPoint"]
-       35 GETIMPORT                        R10 K14 [UDim2.new]
-       37 LOADN                            R11 0
-       38 LOADN                            R12 145
-       39 LOADN                            R13 0
-       40 LOADN                            R14 24
-       41 CALL                             R10 4 1
-       42 SETTABLEKS                       R10 R9 K10 ["Size"]
-       44 DUPTABLE                         R10 K20 [{"Row", "CopiedLabel"}]
-       45 GETUPVAL                         R11 0
-       46 GETTABLEKS                       R11 R11 K6 ["createElement"]
-       48 GETUPVAL                         R12 1
-       49 GETTABLEKS                       R12 R12 K7 ["View"]
-       51 DUPTABLE                         R13 K23 [{["tag"] = "row align-x-center align-y-center gap-xsmall", ["Size"]}]
-       52 GETIMPORT                        R14 K14 [UDim2.new]
-       54 LOADN                            R15 1
-       55 LOADN                            R16 0
-       56 LOADN                            R17 1
-       57 LOADN                            R18 0
-       58 CALL                             R14 4 1
-       59 SETTABLEKS                       R14 R13 K10 ["Size"]
-       61 DUPTABLE                         R14 K26 [{"IDLabel", "CopyButton"}]
-       62 GETUPVAL                         R15 0
-       63 GETTABLEKS                       R15 R15 K6 ["createElement"]
-       65 GETUPVAL                         R16 1
-       66 GETTABLEKS                       R16 R16 K27 ["Text"]
-       68 DUPTABLE                         R17 K32 [{["tag"] = "text-body-medium text-align-x-right", ["Text"], ["textStyle"], ["Size"], ["LayoutOrder"] = 1}]
-       69 LOADK                            R19 K33 ["ID: "]
-       70 MOVE                             R20 R6
-       71 CONCAT                           R18 R19 R20
-       72 SETTABLEKS                       R18 R17 K27 ["Text"]
-       74 DUPTABLE                         R18 K35 [{"Color3"}]
-       75 GETTABLEKS                       R19 R3 K36 ["uploadResult"]
-       77 GETTABLEKS                       R19 R19 K37 ["idText"]
-       79 SETTABLEKS                       R19 R18 K34 ["Color3"]
-       81 SETTABLEKS                       R18 R17 K29 ["textStyle"]
-       83 GETIMPORT                        R18 K14 [UDim2.new]
-       85 LOADN                            R19 0
-       86 LOADN                            R20 120
-       87 LOADN                            R21 1
-       88 LOADN                            R22 0
-       89 CALL                             R18 4 1
-       90 SETTABLEKS                       R18 R17 K10 ["Size"]
-       92 CALL                             R15 2 1
-       93 SETTABLEKS                       R15 R14 K24 ["IDLabel"]
-       95 GETUPVAL                         R15 0
-       96 GETTABLEKS                       R15 R15 K6 ["createElement"]
-       98 LOADK                            R16 K38 ["ImageButton"]
-       99 NEWTABLE                         R17 8 0
-      101 GETIMPORT                        R18 K14 [UDim2.new]
-      103 LOADN                            R19 0
-      104 LOADN                            R20 20
-      105 LOADN                            R21 0
-      106 LOADN                            R22 20
-      107 CALL                             R18 4 1
-      108 SETTABLEKS                       R18 R17 K10 ["Size"]
-      110 LOADK                            R18 K39 ["rbxasset://textures/StudioToolbox/AssetConfig/copy_2x.png"]
-      111 SETTABLEKS                       R18 R17 K40 ["Image"]
-      113 GETTABLEKS                       R18 R3 K36 ["uploadResult"]
-      115 GETTABLEKS                       R18 R18 K41 ["buttonColor"]
-      117 SETTABLEKS                       R18 R17 K42 ["ImageColor3"]
-      119 LOADN                            R18 1
-      120 SETTABLEKS                       R18 R17 K43 ["BackgroundTransparency"]
-      122 LOADN                            R18 2
-      123 SETTABLEKS                       R18 R17 K30 ["LayoutOrder"]
-      125 GETUPVAL                         R18 0
-      126 GETTABLEKS                       R18 R18 K44 ["Event"]
-      128 GETTABLEKS                       R18 R18 K45 ["MouseButton1Click"]
-      130 GETTABLEKS                       R19 R0 K46 ["onCopyClicked"]
-      132 SETTABLE                         R19 R17 R18
-      133 CALL                             R15 2 1
-      134 SETTABLEKS                       R15 R14 K25 ["CopyButton"]
-      136 CALL                             R11 3 1
-      137 SETTABLEKS                       R11 R10 K18 ["Row"]
-      139 JUMPIFNOT                        R4 ; [+52]
-      140 GETUPVAL                         R11 0
-      141 GETTABLEKS                       R11 R11 K6 ["createElement"]
-      143 GETUPVAL                         R12 1
-      144 GETTABLEKS                       R12 R12 K27 ["Text"]
-      146 DUPTABLE                         R13 K48 [{["tag"] = "text-body-medium text-align-x-center", ["Text"], ["textStyle"], ["Size"], ["AnchorPoint"], ["Position"]}]
-      147 GETTABLEKS                       R14 R1 K49 ["Localization"]
-      149 LOADK                            R16 K50 ["AssetConfigUpload"]
-      150 LOADK                            R17 K51 ["IDCopied"]
-      151 NAMECALL                         R14 R14 K52 ["getText"]
-      153 CALL                             R14 3 1
-      154 SETTABLEKS                       R14 R13 K27 ["Text"]
-      156 DUPTABLE                         R14 K35 [{"Color3"}]
-      157 GETTABLEKS                       R15 R3 K36 ["uploadResult"]
-      159 GETTABLEKS                       R15 R15 K53 ["greenText"]
-      161 SETTABLEKS                       R15 R14 K34 ["Color3"]
-      163 SETTABLEKS                       R14 R13 K29 ["textStyle"]
-      165 GETIMPORT                        R14 K14 [UDim2.new]
-      167 LOADN                            R15 0
-      168 LOADN                            R16 64
-      169 LOADN                            R17 1
-      170 LOADN                            R18 0
-      171 CALL                             R14 4 1
-      172 SETTABLEKS                       R14 R13 K10 ["Size"]
-      174 GETIMPORT                        R14 K17 [Vector2.new]
-      176 LOADN                            R15 0
-      177 LOADK                            R16 K15 [0.5]
-      178 CALL                             R14 2 1
-      179 SETTABLEKS                       R14 R13 K9 ["AnchorPoint"]
-      181 GETIMPORT                        R14 K14 [UDim2.new]
-      183 LOADN                            R15 0
-      184 LOADN                            R16 150
-      185 LOADK                            R17 K15 [0.5]
-      186 LOADN                            R18 0
-      187 CALL                             R14 4 1
-      188 SETTABLEKS                       R14 R13 K8 ["Position"]
-      190 CALL                             R11 2 1
-      191 JUMPIF                           R11 ; [+1]
-      192 LOADNIL                          R11
-      193 SETTABLEKS                       R11 R10 K19 ["CopiedLabel"]
-      195 CALL                             R7 3 -1
-      196 RETURN                           R7 -1
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["new"]
+        7 CALL                             R3 0 1
+        8 GETTABLEKS                       R4 R0 K3 ["state"]
+       10 GETTABLEKS                       R4 R4 K4 ["copied"]
+       12 GETTABLEKS                       R5 R1 K5 ["YPos"]
+       14 GETTABLEKS                       R6 R1 K6 ["AssetId"]
+       16 GETUPVAL                         R7 1
+       17 GETTABLEKS                       R7 R7 K7 ["createElement"]
+       19 GETUPVAL                         R8 2
+       20 GETTABLEKS                       R8 R8 K8 ["View"]
+       22 DUPTABLE                         R9 K14 [{["tag"] = "row auto-x align-y-center gap-xsmall", ["Position"], ["AnchorPoint"], ["Size"]}]
+       23 GETIMPORT                        R10 K16 [UDim2.new]
+       25 LOADK                            R11 K17 [0.5]
+       26 LOADN                            R12 0
+       27 LOADN                            R13 0
+       28 MOVE                             R14 R5
+       29 CALL                             R10 4 1
+       30 SETTABLEKS                       R10 R9 K11 ["Position"]
+       32 GETIMPORT                        R10 K19 [Vector2.new]
+       34 LOADK                            R11 K17 [0.5]
+       35 LOADN                            R12 0
+       36 CALL                             R10 2 1
+       37 SETTABLEKS                       R10 R9 K12 ["AnchorPoint"]
+       39 GETIMPORT                        R10 K21 [UDim2.fromOffset]
+       41 LOADN                            R11 0
+       42 LOADN                            R12 24
+       43 CALL                             R10 2 1
+       44 SETTABLEKS                       R10 R9 K13 ["Size"]
+       46 DUPTABLE                         R10 K24 [{"IDLabel", "CopyButton"}]
+       47 GETUPVAL                         R11 1
+       48 GETTABLEKS                       R11 R11 K7 ["createElement"]
+       50 GETUPVAL                         R12 2
+       51 GETTABLEKS                       R12 R12 K25 ["Text"]
+       53 DUPTABLE                         R13 K29 [{["tag"] = "auto-xy text-body-medium", ["Text"], ["textStyle"], ["LayoutOrder"]}]
+       54 GETTABLEKS                       R18 R1 K31 ["Label"]
+       56 ORK                              R15 R18 K30 ["ID:"]
+       57 LOADK                            R16 K32 [" "]
+       58 FASTCALL1                        TOSTRING R6 ; [+3]
+       59 MOVE                             R18 R6
+       60 GETIMPORT                        R17 K34 [tostring]
+       62 CALL                             R17 1 1
+       63 CONCAT                           R14 R15 R17
+       64 SETTABLEKS                       R14 R13 K25 ["Text"]
+       66 DUPTABLE                         R14 K36 [{"Color3"}]
+       67 GETTABLEKS                       R15 R2 K37 ["uploadResult"]
+       69 GETTABLEKS                       R15 R15 K38 ["idText"]
+       71 SETTABLEKS                       R15 R14 K35 ["Color3"]
+       73 SETTABLEKS                       R14 R13 K27 ["textStyle"]
+       75 NAMECALL                         R14 R3 K39 ["getNextOrder"]
+       77 CALL                             R14 1 1
+       78 SETTABLEKS                       R14 R13 K28 ["LayoutOrder"]
+       80 CALL                             R11 2 1
+       81 SETTABLEKS                       R11 R10 K22 ["IDLabel"]
+       83 GETUPVAL                         R11 1
+       84 GETTABLEKS                       R11 R11 K7 ["createElement"]
+       86 LOADK                            R12 K40 ["ImageButton"]
+       87 NEWTABLE                         R13 8 0
+       89 GETIMPORT                        R14 K21 [UDim2.fromOffset]
+       91 LOADN                            R15 20
+       92 LOADN                            R16 20
+       93 CALL                             R14 2 1
+       94 SETTABLEKS                       R14 R13 K13 ["Size"]
+       96 LOADK                            R14 K41 ["rbxasset://textures/StudioToolbox/AssetConfig/copy_2x.png"]
+       97 SETTABLEKS                       R14 R13 K42 ["Image"]
+       99 GETTABLEKS                       R14 R2 K37 ["uploadResult"]
+      101 GETTABLEKS                       R14 R14 K43 ["buttonColor"]
+      103 SETTABLEKS                       R14 R13 K44 ["ImageColor3"]
+      105 LOADN                            R14 1
+      106 SETTABLEKS                       R14 R13 K45 ["BackgroundTransparency"]
+      108 NAMECALL                         R14 R3 K39 ["getNextOrder"]
+      110 CALL                             R14 1 1
+      111 SETTABLEKS                       R14 R13 K28 ["LayoutOrder"]
+      113 GETUPVAL                         R14 1
+      114 GETTABLEKS                       R14 R14 K46 ["Event"]
+      116 GETTABLEKS                       R14 R14 K47 ["MouseButton1Click"]
+      118 GETTABLEKS                       R15 R0 K48 ["onCopyClicked"]
+      120 SETTABLE                         R15 R13 R14
+      121 DUPTABLE                         R14 K50 [{"CopiedLabel"}]
+      122 JUMPIFNOT                        R4 ; [+43]
+      123 GETUPVAL                         R15 1
+      124 GETTABLEKS                       R15 R15 K7 ["createElement"]
+      126 GETUPVAL                         R16 2
+      127 GETTABLEKS                       R16 R16 K25 ["Text"]
+      129 DUPTABLE                         R17 K51 [{["tag"] = "auto-xy text-body-medium", ["Text"], ["textStyle"], ["AnchorPoint"], ["Position"]}]
+      130 GETTABLEKS                       R18 R1 K52 ["Localization"]
+      132 LOADK                            R20 K53 ["AssetConfigUpload"]
+      133 LOADK                            R21 K54 ["IDCopied"]
+      134 NAMECALL                         R18 R18 K55 ["getText"]
+      136 CALL                             R18 3 1
+      137 SETTABLEKS                       R18 R17 K25 ["Text"]
+      139 DUPTABLE                         R18 K36 [{"Color3"}]
+      140 GETTABLEKS                       R19 R2 K37 ["uploadResult"]
+      142 GETTABLEKS                       R19 R19 K56 ["greenText"]
+      144 SETTABLEKS                       R19 R18 K35 ["Color3"]
+      146 SETTABLEKS                       R18 R17 K27 ["textStyle"]
+      148 GETIMPORT                        R18 K19 [Vector2.new]
+      150 LOADN                            R19 0
+      151 LOADK                            R20 K17 [0.5]
+      152 CALL                             R18 2 1
+      153 SETTABLEKS                       R18 R17 K12 ["AnchorPoint"]
+      155 GETIMPORT                        R18 K16 [UDim2.new]
+      157 LOADN                            R19 1
+      158 LOADN                            R20 8
+      159 LOADK                            R21 K17 [0.5]
+      160 LOADN                            R22 0
+      161 CALL                             R18 4 1
+      162 SETTABLEKS                       R18 R17 K11 ["Position"]
+      164 CALL                             R15 2 1
+      165 JUMPIF                           R15 ; [+1]
+      166 LOADNIL                          R15
+      167 SETTABLEKS                       R15 R14 K49 ["CopiedLabel"]
+      169 CALL                             R11 3 1
+      170 SETTABLEKS                       R11 R10 K23 ["CopyButton"]
+      172 CALL                             R7 3 -1
+      173 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -187,27 +202,35 @@ MAIN:
        34 GETIMPORT                        R6 K9 [require]
        36 GETTABLEKS                       R7 R2 K13 ["Framework"]
        38 CALL                             R6 1 1
-       39 GETTABLEKS                       R6 R6 K14 ["ContextServices"]
-       41 GETTABLEKS                       R7 R6 K15 ["withContext"]
-       43 GETTABLEKS                       R8 R3 K16 ["PureComponent"]
-       45 LOADK                            R10 K17 ["CopyID"]
-       46 NAMECALL                         R8 R8 K18 ["extend"]
-       48 CALL                             R8 2 1
-       49 DUPCLOSURE                       R9 K19 [PROTO_1]
-       50 CAPTURE                          VAL R1
-       51 SETTABLEKS                       R9 R8 K20 ["init"]
-       53 DUPCLOSURE                       R9 K21 [PROTO_2]
-       54 CAPTURE                          VAL R4
-       55 CAPTURE                          VAL R5
-       56 SETTABLEKS                       R9 R8 K22 ["render"]
-       58 MOVE                             R9 R7
-       59 DUPTABLE                         R10 K25 [{"Stylizer", "Localization"}]
-       60 GETTABLEKS                       R11 R6 K23 ["Stylizer"]
-       62 SETTABLEKS                       R11 R10 K23 ["Stylizer"]
-       64 GETTABLEKS                       R11 R6 K24 ["Localization"]
-       66 SETTABLEKS                       R11 R10 K24 ["Localization"]
-       68 CALL                             R9 1 1
-       69 MOVE                             R10 R8
-       70 CALL                             R9 1 1
-       71 MOVE                             R8 R9
-       72 RETURN                           R8 1
+       39 GETTABLEKS                       R7 R6 K14 ["Util"]
+       41 GETTABLEKS                       R7 R7 K15 ["LayoutOrderIterator"]
+       43 GETIMPORT                        R8 K9 [require]
+       45 GETTABLEKS                       R9 R2 K13 ["Framework"]
+       47 CALL                             R8 1 1
+       48 GETTABLEKS                       R8 R8 K16 ["ContextServices"]
+       50 GETTABLEKS                       R9 R8 K17 ["withContext"]
+       52 GETTABLEKS                       R10 R3 K18 ["PureComponent"]
+       54 LOADK                            R12 K19 ["CopyID"]
+       55 NAMECALL                         R10 R10 K20 ["extend"]
+       57 CALL                             R10 2 1
+       58 DUPCLOSURE                       R11 K21 [PROTO_2]
+       59 CAPTURE                          VAL R1
+       60 SETTABLEKS                       R11 R10 K22 ["init"]
+       62 DUPCLOSURE                       R11 K23 [PROTO_3]
+       63 SETTABLEKS                       R11 R10 K24 ["willUnmount"]
+       65 DUPCLOSURE                       R11 K25 [PROTO_4]
+       66 CAPTURE                          VAL R7
+       67 CAPTURE                          VAL R4
+       68 CAPTURE                          VAL R5
+       69 SETTABLEKS                       R11 R10 K26 ["render"]
+       71 MOVE                             R11 R9
+       72 DUPTABLE                         R12 K29 [{"Stylizer", "Localization"}]
+       73 GETTABLEKS                       R13 R8 K27 ["Stylizer"]
+       75 SETTABLEKS                       R13 R12 K27 ["Stylizer"]
+       77 GETTABLEKS                       R13 R8 K28 ["Localization"]
+       79 SETTABLEKS                       R13 R12 K28 ["Localization"]
+       81 CALL                             R11 1 1
+       82 MOVE                             R12 R10
+       83 CALL                             R11 1 1
+       84 MOVE                             R10 R11
+       85 RETURN                           R10 1

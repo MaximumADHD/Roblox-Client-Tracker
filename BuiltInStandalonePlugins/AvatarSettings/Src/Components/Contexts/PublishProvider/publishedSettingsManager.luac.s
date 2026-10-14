@@ -162,6 +162,49 @@ PROTO_4:
        74 RETURN                           R0 0
 
 PROTO_5:
+        0 GETTABLEKS                       R2 R0 K0 ["settings"]
+        2 FASTCALL1                        ASSERT R2 ; [+2]
+        3 GETIMPORT                        R1 K2 [assert]
+        5 CALL                             R1 1 1
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K3 ["primaryPreset"]
+        9 CALL                             R2 0 1
+       10 GETTABLEKS                       R3 R1 K4 ["navigationBarSettings"]
+       12 GETTABLEKS                       R3 R3 K5 ["avatarType"]
+       14 GETTABLEKS                       R3 R3 K6 ["value"]
+       16 SETTABLEKS                       R3 R2 K5 ["avatarType"]
+       18 GETUPVAL                         R3 1
+       19 GETTABLEKS                       R3 R3 K7 ["setPublishedBodySetting"]
+       21 GETTABLEKS                       R4 R1 K8 ["bodySettings"]
+       23 GETTABLEKS                       R5 R2 K8 ["bodySettings"]
+       25 CALL                             R3 2 0
+       26 GETUPVAL                         R3 2
+       27 GETTABLEKS                       R3 R3 K9 ["setPublishedMovementSetting"]
+       29 GETTABLEKS                       R4 R1 K10 ["movementSettings"]
+       31 GETTABLEKS                       R5 R2 K10 ["movementSettings"]
+       33 CALL                             R3 2 0
+       34 GETUPVAL                         R3 3
+       35 GETTABLEKS                       R3 R3 K11 ["setPublishedAnimationSetting"]
+       37 GETTABLEKS                       R4 R1 K12 ["animationSettings"]
+       39 GETTABLEKS                       R5 R2 K12 ["animationSettings"]
+       41 CALL                             R3 2 0
+       42 GETUPVAL                         R3 4
+       43 GETTABLEKS                       R3 R3 K13 ["setPublishedAccessoriesSetting"]
+       45 GETTABLEKS                       R4 R1 K14 ["accessoriesSettings"]
+       47 GETTABLEKS                       R5 R2 K14 ["accessoriesSettings"]
+       49 CALL                             R3 2 0
+       50 GETUPVAL                         R3 5
+       51 GETTABLEKS                       R3 R3 K15 ["setPublishedClothingSetting"]
+       53 GETTABLEKS                       R4 R1 K16 ["clothingSettings"]
+       55 GETTABLEKS                       R5 R2 K16 ["clothingSettings"]
+       57 CALL                             R3 2 0
+       58 RETURN                           R2 1
+
+PROTO_6:
+        0 SETUPVAL                         R0 0
+        1 RETURN                           R0 0
+
+PROTO_7:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["isInitialized"]
         3 CALL                             R1 0 1
@@ -311,14 +354,25 @@ MAIN:
       152 CAPTURE                          VAL R4
       153 CAPTURE                          VAL R7
       154 SETTABLEKS                       R11 R10 K23 ["saveUnpublishedSettings"]
-      156 NEWCLOSURE                       R11 P5
-      157 CAPTURE                          VAL R10
-      158 CAPTURE                          REF R9
-      159 CAPTURE                          VAL R6
-      160 CAPTURE                          VAL R8
-      161 CAPTURE                          VAL R5
-      162 CAPTURE                          VAL R4
-      163 CAPTURE                          VAL R7
-      164 SETTABLEKS                       R11 R10 K24 ["discardUnpublishedSettings"]
-      166 CLOSEUPVALS                      R9
-      167 RETURN                           R10 1
+      156 DUPCLOSURE                       R11 K24 [PROTO_5]
+      157 CAPTURE                          VAL R3
+      158 CAPTURE                          VAL R6
+      159 CAPTURE                          VAL R8
+      160 CAPTURE                          VAL R5
+      161 CAPTURE                          VAL R4
+      162 CAPTURE                          VAL R7
+      163 SETTABLEKS                       R11 R10 K25 ["captureCurrentSettings"]
+      165 NEWCLOSURE                       R11 P6
+      166 CAPTURE                          REF R9
+      167 SETTABLEKS                       R11 R10 K26 ["setPublishedSnapshot"]
+      169 NEWCLOSURE                       R11 P7
+      170 CAPTURE                          VAL R10
+      171 CAPTURE                          REF R9
+      172 CAPTURE                          VAL R6
+      173 CAPTURE                          VAL R8
+      174 CAPTURE                          VAL R5
+      175 CAPTURE                          VAL R4
+      176 CAPTURE                          VAL R7
+      177 SETTABLEKS                       R11 R10 K27 ["discardUnpublishedSettings"]
+      179 CLOSEUPVALS                      R9
+      180 RETURN                           R10 1

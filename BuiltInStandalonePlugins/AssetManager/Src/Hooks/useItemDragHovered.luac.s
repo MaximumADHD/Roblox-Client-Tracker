@@ -147,7 +147,7 @@ PROTO_7:
        16 CALL                             R5 1 2
        17 GETUPVAL                         R7 4
        18 CALL                             R7 0 1
-       19 GETTABLEKS                       R7 R7 K2 ["ShowSearchOptions"]
+       19 GETTABLEKS                       R7 R7 K2 ["IsSearchRequested"]
        21 GETUPVAL                         R8 3
        22 GETTABLEKS                       R8 R8 K3 ["useMemo"]
        24 NEWCLOSURE                       R9 P0

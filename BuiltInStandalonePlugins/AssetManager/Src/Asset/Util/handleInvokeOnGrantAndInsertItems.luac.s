@@ -449,104 +449,102 @@ PROTO_10:
        74 MOVE                             R12 R5
        75 GETUPVAL                         R13 8
        76 CALL                             R13 0 1
-       77 JUMPIFNOT                        R13 ; [+80]
+       77 JUMPIFNOT                        R13 ; [+75]
        78 NEWTABLE                         R13 0 0
-       80 MOVE                             R14 R6
+       80 MOVE                             R14 R5
        81 LOADNIL                          R15
        82 LOADNIL                          R16
        83 FORGPREP                         R14
-       84 GETTABLEKS                       R19 R18 K12 ["Creator"]
-       86 JUMPIFNOT                        R19 ; [+10]
-       87 DUPTABLE                         R20 K15 [{"CreatorType", "CreatorId"}]
-       88 GETTABLEKS                       R21 R19 K16 ["Type"]
-       90 SETTABLEKS                       R21 R20 K13 ["CreatorType"]
-       92 GETTABLEKS                       R21 R19 K17 ["Id"]
-       94 SETTABLEKS                       R21 R20 K14 ["CreatorId"]
-       96 SETTABLE                         R20 R13 R17
-       97 FORGLOOP                         R14 2 ; [-14]
-       99 GETUPVAL                         R14 9
-      100 MOVE                             R15 R4
-      101 MOVE                             R16 R5
-      102 GETIMPORT                        R17 K19 [game]
-      104 GETTABLEKS                       R17 R17 K13 ["CreatorType"]
-      106 GETIMPORT                        R18 K19 [game]
-      108 GETTABLEKS                       R18 R18 K14 ["CreatorId"]
-      110 MOVE                             R19 R13
-      111 CALL                             R14 5 1
-      112 GETIMPORT                        R15 K21 [next]
-      114 MOVE                             R16 R14
-      115 CALL                             R15 1 1
-      116 JUMPIFEQKNIL                     R15 ; [+25]
-      118 NEWTABLE                         R12 0 0
-      120 MOVE                             R15 R5
-      121 LOADNIL                          R16
-      122 LOADNIL                          R17
-      123 FORGPREP                         R15
-      124 GETTABLE                         R20 R14 R19
-      125 JUMPIFNOT                        R20 ; [+7]
-      126 GETTABLE                         R20 R6 R19
-      127 JUMPIF                           R20 ; [+1]
-      128 JUMP                             ; [+11]
-      129 LOADNIL                          R21
-      130 SETTABLE                         R21 R6 R19
-      131 SUBK                             R8 R8 K22 [1]
-      132 JUMP                             ; [+7]
-      133 FASTCALL2                        TABLE_INSERT R12 R19 ; [+5]
-      135 MOVE                             R21 R12
-      136 MOVE                             R22 R19
-      137 GETIMPORT                        R20 K25 [table.insert]
-      139 CALL                             R20 2 0
-      140 FORGLOOP                         R15 2 ; [-17]
-      142 GETUPVAL                         R15 10
-      143 LOADK                            R16 K26 ["insert: granting %* of %* asset(s) after the publish gate"]
-      144 LENGTH                           R18 R12
-      145 LENGTH                           R19 R5
-      146 NAMECALL                         R16 R16 K27 ["format"]
-      148 CALL                             R16 3 1
-      149 CALL                             R15 1 0
-      150 LENGTH                           R15 R12
-      151 JUMPIFNOTEQKN                    R15 K6 [0] ; [+6]
-      153 GETUPVAL                         R15 10
-      154 LOADK                            R16 K28 ["insert: nothing left to grant or insert after the publish gate"]
-      155 CALL                             R15 1 0
-      156 CLOSEUPVALS                      R8
-      157 RETURN                           R0 0
-      158 LOADNIL                          R13
-      159 NEWCLOSURE                       R14 P1
-      160 CAPTURE                          REF R13
-      161 GETUPVAL                         R15 11
-      162 GETTABLEKS                       R15 R15 K29 ["new"]
-      164 NEWCLOSURE                       R16 P2
-      165 CAPTURE                          VAL R14
-      166 CAPTURE                          REF R13
-      167 CAPTURE                          VAL R4
-      168 CAPTURE                          UPVAL U5
-      169 CAPTURE                          VAL R6
-      170 CAPTURE                          VAL R9
-      171 CAPTURE                          REF R8
-      172 CAPTURE                          REF R12
-      173 CAPTURE                          UPVAL U12
-      174 CALL                             R15 1 1
-      175 MOVE                             R18 R10
-      176 NAMECALL                         R16 R15 K30 ["timeout"]
-      178 CALL                             R16 2 1
-      179 NEWCLOSURE                       R18 P3
-      180 CAPTURE                          UPVAL U11
-      181 CAPTURE                          VAL R6
-      182 CAPTURE                          VAL R10
-      183 CAPTURE                          VAL R9
-      184 NAMECALL                         R16 R16 K31 ["catch"]
-      186 CALL                             R16 2 1
-      187 NEWCLOSURE                       R18 P4
-      188 CAPTURE                          REF R13
-      189 CAPTURE                          UPVAL U10
-      190 CAPTURE                          VAL R9
-      191 CAPTURE                          UPVAL U4
-      192 CAPTURE                          VAL R7
-      193 NAMECALL                         R16 R16 K32 ["finally"]
-      195 CALL                             R16 2 0
-      196 CLOSEUPVALS                      R8
-      197 RETURN                           R0 0
+       84 GETTABLE                         R19 R6 R18
+       85 JUMPIFNOT                        R19 ; [+6]
+       86 GETTABLEKS                       R20 R19 K12 ["Creator"]
+       88 JUMPIFNOT                        R20 ; [+3]
+       89 GETTABLEKS                       R20 R19 K12 ["Creator"]
+       91 SETTABLE                         R20 R13 R17
+       92 FORGLOOP                         R14 2 ; [-9]
+       94 GETUPVAL                         R14 9
+       95 MOVE                             R15 R4
+       96 MOVE                             R16 R5
+       97 GETIMPORT                        R17 K14 [game]
+       99 GETTABLEKS                       R17 R17 K15 ["CreatorType"]
+      101 GETIMPORT                        R18 K14 [game]
+      103 GETTABLEKS                       R18 R18 K16 ["CreatorId"]
+      105 MOVE                             R19 R13
+      106 CALL                             R14 5 1
+      107 GETIMPORT                        R15 K18 [next]
+      109 MOVE                             R16 R14
+      110 CALL                             R15 1 1
+      111 JUMPIFEQKNIL                     R15 ; [+25]
+      113 NEWTABLE                         R12 0 0
+      115 MOVE                             R15 R5
+      116 LOADNIL                          R16
+      117 LOADNIL                          R17
+      118 FORGPREP                         R15
+      119 GETTABLE                         R20 R14 R19
+      120 JUMPIFNOT                        R20 ; [+7]
+      121 GETTABLE                         R20 R6 R19
+      122 JUMPIF                           R20 ; [+1]
+      123 JUMP                             ; [+11]
+      124 LOADNIL                          R21
+      125 SETTABLE                         R21 R6 R19
+      126 SUBK                             R8 R8 K19 [1]
+      127 JUMP                             ; [+7]
+      128 FASTCALL2                        TABLE_INSERT R12 R19 ; [+5]
+      130 MOVE                             R21 R12
+      131 MOVE                             R22 R19
+      132 GETIMPORT                        R20 K22 [table.insert]
+      134 CALL                             R20 2 0
+      135 FORGLOOP                         R15 2 ; [-17]
+      137 GETUPVAL                         R15 10
+      138 LOADK                            R16 K23 ["insert: granting %* of %* asset(s) after the publish gate"]
+      139 LENGTH                           R18 R12
+      140 LENGTH                           R19 R5
+      141 NAMECALL                         R16 R16 K24 ["format"]
+      143 CALL                             R16 3 1
+      144 CALL                             R15 1 0
+      145 LENGTH                           R15 R12
+      146 JUMPIFNOTEQKN                    R15 K6 [0] ; [+6]
+      148 GETUPVAL                         R15 10
+      149 LOADK                            R16 K25 ["insert: nothing left to grant or insert after the publish gate"]
+      150 CALL                             R15 1 0
+      151 CLOSEUPVALS                      R8
+      152 RETURN                           R0 0
+      153 LOADNIL                          R13
+      154 NEWCLOSURE                       R14 P1
+      155 CAPTURE                          REF R13
+      156 GETUPVAL                         R15 11
+      157 GETTABLEKS                       R15 R15 K26 ["new"]
+      159 NEWCLOSURE                       R16 P2
+      160 CAPTURE                          VAL R14
+      161 CAPTURE                          REF R13
+      162 CAPTURE                          VAL R4
+      163 CAPTURE                          UPVAL U5
+      164 CAPTURE                          VAL R6
+      165 CAPTURE                          VAL R9
+      166 CAPTURE                          REF R8
+      167 CAPTURE                          REF R12
+      168 CAPTURE                          UPVAL U12
+      169 CALL                             R15 1 1
+      170 MOVE                             R18 R10
+      171 NAMECALL                         R16 R15 K27 ["timeout"]
+      173 CALL                             R16 2 1
+      174 NEWCLOSURE                       R18 P3
+      175 CAPTURE                          UPVAL U11
+      176 CAPTURE                          VAL R6
+      177 CAPTURE                          VAL R10
+      178 CAPTURE                          VAL R9
+      179 NAMECALL                         R16 R16 K28 ["catch"]
+      181 CALL                             R16 2 1
+      182 NEWCLOSURE                       R18 P4
+      183 CAPTURE                          REF R13
+      184 CAPTURE                          UPVAL U10
+      185 CAPTURE                          VAL R9
+      186 CAPTURE                          UPVAL U4
+      187 CAPTURE                          VAL R7
+      188 NAMECALL                         R16 R16 K29 ["finally"]
+      190 CALL                             R16 2 0
+      191 CLOSEUPVALS                      R8
+      192 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -585,7 +583,7 @@ MAIN:
        58 GETTABLEKS                       R7 R0 K6 ["Src"]
        60 GETTABLEKS                       R7 R7 K9 ["Asset"]
        62 GETTABLEKS                       R7 R7 K10 ["Util"]
-       64 GETTABLEKS                       R7 R7 K14 ["publishDraftAssets"]
+       64 GETTABLEKS                       R7 R7 K14 ["publishDraftAssetsForInsert"]
        66 CALL                             R6 1 1
        67 GETIMPORT                        R7 K5 [require]
        69 GETTABLEKS                       R8 R0 K6 ["Src"]

@@ -258,6 +258,22 @@ PROTO_9:
        23 RETURN                           R0 0
 
 PROTO_10:
+        0 GETTABLEKS                       R2 R0 K0 ["_currentSoundId"]
+        2 JUMPIFEQ                         R2 R1 ; [+6]
+        4 MOVE                             R4 R1
+        5 NAMECALL                         R2 R0 K1 ["play"]
+        7 CALL                             R2 2 0
+        8 RETURN                           R0 0
+        9 GETTABLEKS                       R2 R0 K2 ["_isPlaying"]
+       11 JUMPIFNOT                        R2 ; [+4]
+       12 NAMECALL                         R2 R0 K3 ["pause"]
+       14 CALL                             R2 1 0
+       15 RETURN                           R0 0
+       16 NAMECALL                         R2 R0 K4 ["resume"]
+       18 CALL                             R2 1 0
+       19 RETURN                           R0 0
+
+PROTO_11:
         0 DUPTABLE                         R1 K4 [{"CurrentSoundId", "IsPlaying", "IsLoading", "TotalTime"}]
         1 GETTABLEKS                       R2 R0 K5 ["_currentSoundId"]
         3 SETTABLEKS                       R2 R1 K0 ["CurrentSoundId"]
@@ -317,5 +333,7 @@ MAIN:
        67 DUPCLOSURE                       R7 K30 [PROTO_9]
        68 SETTABLEKS                       R7 R6 K31 ["stop"]
        70 DUPCLOSURE                       R7 K32 [PROTO_10]
-       71 SETTABLEKS                       R7 R6 K33 ["getState"]
-       73 RETURN                           R6 1
+       71 SETTABLEKS                       R7 R6 K33 ["togglePlayback"]
+       73 DUPCLOSURE                       R7 K34 [PROTO_11]
+       74 SETTABLEKS                       R7 R6 K35 ["getState"]
+       76 RETURN                           R6 1

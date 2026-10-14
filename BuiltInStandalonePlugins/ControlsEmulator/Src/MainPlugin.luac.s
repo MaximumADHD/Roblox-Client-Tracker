@@ -158,60 +158,47 @@ PROTO_11:
         9 MOVE                             R4 R1
        10 CALL                             R2 2 0
        11 GETUPVAL                         R2 1
-       12 GETTABLEKS                       R3 R1 K6 ["platform"]
-       14 GETTABLEKS                       R4 R1 K7 ["deviceId"]
-       16 CALL                             R2 2 1
-       17 GETUPVAL                         R3 2
-       18 GETTABLEKS                       R3 R3 K8 ["getFFlagStudioDeviceSimulatorAndroidTV"]
-       20 CALL                             R3 0 1
-       21 JUMPIFNOT                        R3 ; [+9]
-       22 GETTABLEKS                       R4 R1 K7 ["deviceId"]
-       24 GETUPVAL                         R5 3
-       25 GETTABLEKS                       R5 R5 K9 ["ANDROID_TV_1080_EMULATED_DEVICE_ID"]
-       27 JUMPIFEQ                         R4 R5 ; [+2]
-       29 LOADB                            R3 0 +1
-       30 LOADB                            R3 1
-       31 GETUPVAL                         R4 2
-       32 GETTABLEKS                       R4 R4 K10 ["getFFlagRemoveAutoOpenBehavior"]
-       34 CALL                             R4 0 1
-       35 JUMPIF                           R4 ; [+6]
-       36 JUMPIFNOT                        R2 ; [+5]
-       37 GETUPVAL                         R4 4
-       38 DUPTABLE                         R6 K13 [{["enabled"] = True}]
-       39 NAMECALL                         R4 R4 K14 ["setState"]
-       41 CALL                             R4 2 0
-       42 JUMPIFNOT                        R0 ; [+36]
-       43 GETUPVAL                         R4 2
-       44 GETTABLEKS                       R4 R4 K15 ["getFFlagReconnectDeviceSignalOnReopen"]
-       46 CALL                             R4 0 1
-       47 JUMPIFNOT                        R4 ; [+31]
-       48 GETUPVAL                         R4 4
-       49 GETTABLEKS                       R4 R4 K16 ["reconnectEmulatedDeviceChanged"]
-       51 CALL                             R4 0 0
-       52 GETUPVAL                         R4 4
-       53 GETTABLEKS                       R4 R4 K17 ["callbacksRef"]
-       55 JUMPIFNOT                        R4 ; [+23]
-       56 GETUPVAL                         R4 4
-       57 GETTABLEKS                       R4 R4 K17 ["callbacksRef"]
-       59 GETTABLEKS                       R4 R4 K18 ["current"]
-       61 JUMPIFNOT                        R4 ; [+17]
-       62 GETUPVAL                         R4 4
-       63 GETTABLEKS                       R4 R4 K17 ["callbacksRef"]
-       65 GETTABLEKS                       R4 R4 K18 ["current"]
-       67 GETTABLEKS                       R4 R4 K19 ["changeEmulatedDevice"]
-       69 JUMPIFNOT                        R4 ; [+9]
-       70 GETUPVAL                         R4 4
-       71 GETTABLEKS                       R4 R4 K17 ["callbacksRef"]
-       73 GETTABLEKS                       R4 R4 K18 ["current"]
-       75 GETTABLEKS                       R4 R4 K19 ["changeEmulatedDevice"]
-       77 MOVE                             R5 R1
-       78 CALL                             R4 1 0
-       79 GETUPVAL                         R4 4
-       80 DUPTABLE                         R6 K22 [{["uiDmLoaded"] = True, ["isTVMode"]}]
-       81 SETTABLEKS                       R3 R6 K21 ["isTVMode"]
-       83 NAMECALL                         R4 R4 K14 ["setState"]
-       85 CALL                             R4 2 0
-       86 RETURN                           R0 0
+       12 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioDeviceSimulatorAndroidTV"]
+       14 CALL                             R2 0 1
+       15 JUMPIFNOT                        R2 ; [+9]
+       16 GETTABLEKS                       R3 R1 K7 ["deviceId"]
+       18 GETUPVAL                         R4 2
+       19 GETTABLEKS                       R4 R4 K8 ["ANDROID_TV_1080_EMULATED_DEVICE_ID"]
+       21 JUMPIFEQ                         R3 R4 ; [+2]
+       23 LOADB                            R2 0 +1
+       24 LOADB                            R2 1
+       25 JUMPIFNOT                        R0 ; [+36]
+       26 GETUPVAL                         R3 1
+       27 GETTABLEKS                       R3 R3 K9 ["getFFlagReconnectDeviceSignalOnReopen"]
+       29 CALL                             R3 0 1
+       30 JUMPIFNOT                        R3 ; [+31]
+       31 GETUPVAL                         R3 3
+       32 GETTABLEKS                       R3 R3 K10 ["reconnectEmulatedDeviceChanged"]
+       34 CALL                             R3 0 0
+       35 GETUPVAL                         R3 3
+       36 GETTABLEKS                       R3 R3 K11 ["callbacksRef"]
+       38 JUMPIFNOT                        R3 ; [+23]
+       39 GETUPVAL                         R3 3
+       40 GETTABLEKS                       R3 R3 K11 ["callbacksRef"]
+       42 GETTABLEKS                       R3 R3 K12 ["current"]
+       44 JUMPIFNOT                        R3 ; [+17]
+       45 GETUPVAL                         R3 3
+       46 GETTABLEKS                       R3 R3 K11 ["callbacksRef"]
+       48 GETTABLEKS                       R3 R3 K12 ["current"]
+       50 GETTABLEKS                       R3 R3 K13 ["changeEmulatedDevice"]
+       52 JUMPIFNOT                        R3 ; [+9]
+       53 GETUPVAL                         R3 3
+       54 GETTABLEKS                       R3 R3 K11 ["callbacksRef"]
+       56 GETTABLEKS                       R3 R3 K12 ["current"]
+       58 GETTABLEKS                       R3 R3 K13 ["changeEmulatedDevice"]
+       60 MOVE                             R4 R1
+       61 CALL                             R3 1 0
+       62 GETUPVAL                         R3 3
+       63 DUPTABLE                         R5 K17 [{["uiDmLoaded"] = True, ["isTVMode"]}]
+       64 SETTABLEKS                       R2 R5 K16 ["isTVMode"]
+       66 NAMECALL                         R3 R3 K18 ["setState"]
+       68 CALL                             R3 2 0
+       69 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R0 0
@@ -222,57 +209,39 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R2 R0 K0 ["platform"]
-        3 GETTABLEKS                       R3 R0 K1 ["deviceId"]
-        5 CALL                             R1 2 1
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R2 R2 K2 ["callbacksRef"]
-        9 JUMPIFNOT                        R2 ; [+23]
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R2 R2 K2 ["callbacksRef"]
-       13 GETTABLEKS                       R2 R2 K3 ["current"]
-       15 JUMPIFNOT                        R2 ; [+17]
-       16 GETUPVAL                         R2 1
-       17 GETTABLEKS                       R2 R2 K2 ["callbacksRef"]
-       19 GETTABLEKS                       R2 R2 K3 ["current"]
-       21 GETTABLEKS                       R2 R2 K4 ["changeEmulatedDevice"]
-       23 JUMPIFNOT                        R2 ; [+9]
-       24 GETUPVAL                         R2 1
-       25 GETTABLEKS                       R2 R2 K2 ["callbacksRef"]
-       27 GETTABLEKS                       R2 R2 K3 ["current"]
-       29 GETTABLEKS                       R2 R2 K4 ["changeEmulatedDevice"]
-       31 MOVE                             R3 R0
-       32 CALL                             R2 1 0
-       33 GETUPVAL                         R2 2
-       34 GETTABLEKS                       R2 R2 K5 ["getFFlagStudioDeviceSimulatorAndroidTV"]
-       36 CALL                             R2 0 1
-       37 JUMPIFNOT                        R2 ; [+9]
-       38 GETTABLEKS                       R3 R0 K1 ["deviceId"]
-       40 GETUPVAL                         R4 3
-       41 GETTABLEKS                       R4 R4 K6 ["ANDROID_TV_1080_EMULATED_DEVICE_ID"]
-       43 JUMPIFEQ                         R3 R4 ; [+2]
-       45 LOADB                            R2 0 +1
-       46 LOADB                            R2 1
-       47 GETUPVAL                         R3 2
-       48 GETTABLEKS                       R3 R3 K7 ["getFFlagRemoveAutoOpenBehavior"]
-       50 CALL                             R3 0 1
-       51 JUMPIF                           R3 ; [+14]
-       52 GETUPVAL                         R3 1
-       53 DUPTABLE                         R5 K10 [{"enabled", "isTVMode"}]
-       54 JUMPIFNOTEQKNIL                  R1 ; [+2]
-       56 LOADB                            R6 0 +1
-       57 LOADB                            R6 1
-       58 SETTABLEKS                       R6 R5 K8 ["enabled"]
-       60 SETTABLEKS                       R2 R5 K9 ["isTVMode"]
-       62 NAMECALL                         R3 R3 K11 ["setState"]
-       64 CALL                             R3 2 0
-       65 RETURN                           R0 0
-       66 GETUPVAL                         R3 1
-       67 DUPTABLE                         R5 K12 [{"isTVMode"}]
-       68 SETTABLEKS                       R2 R5 K9 ["isTVMode"]
-       70 NAMECALL                         R3 R3 K11 ["setState"]
-       72 CALL                             R3 2 0
-       73 RETURN                           R0 0
+        1 GETTABLEKS                       R1 R1 K0 ["callbacksRef"]
+        3 JUMPIFNOT                        R1 ; [+23]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K0 ["callbacksRef"]
+        7 GETTABLEKS                       R1 R1 K1 ["current"]
+        9 JUMPIFNOT                        R1 ; [+17]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K0 ["callbacksRef"]
+       13 GETTABLEKS                       R1 R1 K1 ["current"]
+       15 GETTABLEKS                       R1 R1 K2 ["changeEmulatedDevice"]
+       17 JUMPIFNOT                        R1 ; [+9]
+       18 GETUPVAL                         R1 0
+       19 GETTABLEKS                       R1 R1 K0 ["callbacksRef"]
+       21 GETTABLEKS                       R1 R1 K1 ["current"]
+       23 GETTABLEKS                       R1 R1 K2 ["changeEmulatedDevice"]
+       25 MOVE                             R2 R0
+       26 CALL                             R1 1 0
+       27 GETUPVAL                         R1 1
+       28 GETTABLEKS                       R1 R1 K3 ["getFFlagStudioDeviceSimulatorAndroidTV"]
+       30 CALL                             R1 0 1
+       31 JUMPIFNOT                        R1 ; [+9]
+       32 GETTABLEKS                       R2 R0 K4 ["deviceId"]
+       34 GETUPVAL                         R3 2
+       35 GETTABLEKS                       R3 R3 K5 ["ANDROID_TV_1080_EMULATED_DEVICE_ID"]
+       37 JUMPIFEQ                         R2 R3 ; [+2]
+       39 LOADB                            R1 0 +1
+       40 LOADB                            R1 1
+       41 GETUPVAL                         R2 0
+       42 DUPTABLE                         R4 K7 [{"isTVMode"}]
+       43 SETTABLEKS                       R1 R4 K6 ["isTVMode"]
+       45 NAMECALL                         R2 R2 K8 ["setState"]
+       47 CALL                             R2 2 0
+       48 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R1 0
@@ -411,51 +380,49 @@ PROTO_20:
        77 NEWCLOSURE                       R6 P6
        78 CAPTURE                          UPVAL U2
        79 CAPTURE                          UPVAL U4
-       80 CAPTURE                          UPVAL U5
-       81 CAPTURE                          UPVAL U0
-       82 CAPTURE                          VAL R0
-       83 SETTABLEKS                       R6 R0 K37 ["placeOpened"]
-       85 NEWCLOSURE                       R6 P7
-       86 CAPTURE                          VAL R0
-       87 SETTABLEKS                       R6 R0 K38 ["placeClosed"]
-       89 NEWCLOSURE                       R6 P8
+       80 CAPTURE                          UPVAL U0
+       81 CAPTURE                          VAL R0
+       82 SETTABLEKS                       R6 R0 K37 ["placeOpened"]
+       84 NEWCLOSURE                       R6 P7
+       85 CAPTURE                          VAL R0
+       86 SETTABLEKS                       R6 R0 K38 ["placeClosed"]
+       88 NEWCLOSURE                       R6 P8
+       89 CAPTURE                          VAL R0
        90 CAPTURE                          UPVAL U4
-       91 CAPTURE                          VAL R0
-       92 CAPTURE                          UPVAL U5
-       93 CAPTURE                          UPVAL U0
-       94 SETTABLEKS                       R6 R0 K39 ["onEmulatedDeviceChanged"]
-       96 NEWCLOSURE                       R6 P9
-       97 CAPTURE                          VAL R0
-       98 CAPTURE                          UPVAL U2
-       99 SETTABLEKS                       R6 R0 K40 ["reconnectEmulatedDeviceChanged"]
-      101 NEWCLOSURE                       R6 P10
-      102 CAPTURE                          UPVAL U2
-      103 CAPTURE                          VAL R0
-      104 CAPTURE                          UPVAL U0
-      105 SETTABLEKS                       R6 R0 K41 ["connectGamepad"]
-      107 NEWCLOSURE                       R6 P11
-      108 CAPTURE                          UPVAL U2
-      109 CAPTURE                          VAL R0
-      110 SETTABLEKS                       R6 R0 K42 ["disconnectGamepad"]
-      112 GETGLOBAL                        R6 K43 ["getLocalization"]
-      114 CALL                             R6 0 1
-      115 SETTABLEKS                       R6 R0 K44 ["localization"]
-      117 GETUPVAL                         R6 6
-      118 GETTABLEKS                       R6 R6 K45 ["Analytics"]
-      120 GETTABLEKS                       R6 R6 K46 ["new"]
-      122 DUPCLOSURE                       R7 K47 [PROTO_19]
-      123 NEWTABLE                         R8 0 0
-      125 CALL                             R6 2 1
-      126 SETTABLEKS                       R6 R0 K48 ["analytics"]
-      128 GETUPVAL                         R6 7
-      129 GETTABLEKS                       R6 R6 K46 ["new"]
-      131 CALL                             R6 0 1
-      132 SETTABLEKS                       R6 R0 K49 ["DEPRECATED_stylizer"]
-      134 GETUPVAL                         R6 8
-      135 GETTABLEKS                       R7 R1 K0 ["Plugin"]
-      137 CALL                             R6 1 1
-      138 SETTABLEKS                       R6 R0 K50 ["design"]
-      140 RETURN                           R0 0
+       91 CAPTURE                          UPVAL U0
+       92 SETTABLEKS                       R6 R0 K39 ["onEmulatedDeviceChanged"]
+       94 NEWCLOSURE                       R6 P9
+       95 CAPTURE                          VAL R0
+       96 CAPTURE                          UPVAL U2
+       97 SETTABLEKS                       R6 R0 K40 ["reconnectEmulatedDeviceChanged"]
+       99 NEWCLOSURE                       R6 P10
+      100 CAPTURE                          UPVAL U2
+      101 CAPTURE                          VAL R0
+      102 CAPTURE                          UPVAL U0
+      103 SETTABLEKS                       R6 R0 K41 ["connectGamepad"]
+      105 NEWCLOSURE                       R6 P11
+      106 CAPTURE                          UPVAL U2
+      107 CAPTURE                          VAL R0
+      108 SETTABLEKS                       R6 R0 K42 ["disconnectGamepad"]
+      110 GETGLOBAL                        R6 K43 ["getLocalization"]
+      112 CALL                             R6 0 1
+      113 SETTABLEKS                       R6 R0 K44 ["localization"]
+      115 GETUPVAL                         R6 5
+      116 GETTABLEKS                       R6 R6 K45 ["Analytics"]
+      118 GETTABLEKS                       R6 R6 K46 ["new"]
+      120 DUPCLOSURE                       R7 K47 [PROTO_19]
+      121 NEWTABLE                         R8 0 0
+      123 CALL                             R6 2 1
+      124 SETTABLEKS                       R6 R0 K48 ["analytics"]
+      126 GETUPVAL                         R6 6
+      127 GETTABLEKS                       R6 R6 K46 ["new"]
+      129 CALL                             R6 0 1
+      130 SETTABLEKS                       R6 R0 K49 ["DEPRECATED_stylizer"]
+      132 GETUPVAL                         R6 7
+      133 GETTABLEKS                       R7 R1 K0 ["Plugin"]
+      135 CALL                             R6 1 1
+      136 SETTABLEKS                       R6 R0 K50 ["design"]
+      138 RETURN                           R0 0
 
 PROTO_21:
         0 GETTABLEKS                       R1 R0 K0 ["isVRConnected"]
@@ -1322,73 +1289,67 @@ MAIN:
       195 GETTABLEKS                       R32 R32 K33 ["Components"]
       197 GETTABLEKS                       R32 R32 K47 ["VRControls"]
       199 CALL                             R31 1 1
-      200 GETIMPORT                        R32 K5 [require]
-      202 GETTABLEKS                       R33 R0 K22 ["Src"]
-      204 GETTABLEKS                       R33 R33 K16 ["Util"]
-      206 GETTABLEKS                       R33 R33 K48 ["devicePlatformEnumToControllerType"]
-      208 CALL                             R32 1 1
-      209 GETTABLEKS                       R33 R1 K49 ["PureComponent"]
-      211 LOADK                            R35 K50 ["MainPlugin"]
-      212 NAMECALL                         R33 R33 K51 ["extend"]
-      214 CALL                             R33 2 1
-      215 GETIMPORT                        R34 K5 [require]
-      217 GETTABLEKS                       R35 R0 K22 ["Src"]
-      219 GETTABLEKS                       R35 R35 K16 ["Util"]
-      221 GETTABLEKS                       R35 R35 K52 ["DmBridge"]
-      223 CALL                             R34 1 1
-      224 LOADNIL                          R35
-      225 NEWCLOSURE                       R36 P0
-      226 CAPTURE                          REF R35
-      227 CAPTURE                          VAL R9
-      228 CAPTURE                          VAL R16
-      229 CAPTURE                          VAL R17
-      230 SETGLOBAL                        R36 K53 ["getLocalization"]
-      232 DUPCLOSURE                       R36 K54 [PROTO_20]
-      233 CAPTURE                          VAL R22
-      234 CAPTURE                          VAL R1
-      235 CAPTURE                          VAL R27
-      236 CAPTURE                          VAL R30
-      237 CAPTURE                          VAL R32
-      238 CAPTURE                          VAL R4
-      239 CAPTURE                          VAL R9
-      240 CAPTURE                          VAL R13
-      241 CAPTURE                          VAL R14
-      242 SETTABLEKS                       R36 R33 K55 ["init"]
-      244 DUPCLOSURE                       R36 K56 [PROTO_22]
-      245 CAPTURE                          VAL R22
-      246 SETTABLEKS                       R36 R33 K57 ["didUpdate"]
-      248 DUPCLOSURE                       R36 K58 [PROTO_33]
-      249 CAPTURE                          VAL R34
-      250 CAPTURE                          VAL R4
-      251 CAPTURE                          VAL R27
-      252 CAPTURE                          VAL R3
-      253 CAPTURE                          VAL R22
-      254 SETTABLEKS                       R36 R33 K59 ["didMount"]
-      256 DUPCLOSURE                       R36 K60 [PROTO_34]
-      257 SETTABLEKS                       R36 R33 K61 ["willUnmount"]
-      259 DUPCLOSURE                       R36 K62 [PROTO_40]
-      260 CAPTURE                          VAL R1
-      261 CAPTURE                          VAL R26
-      262 CAPTURE                          VAL R25
-      263 CAPTURE                          VAL R9
-      264 CAPTURE                          VAL R10
-      265 CAPTURE                          VAL R11
-      266 CAPTURE                          VAL R12
-      267 CAPTURE                          VAL R5
-      268 CAPTURE                          VAL R21
-      269 CAPTURE                          VAL R8
-      270 CAPTURE                          VAL R20
-      271 CAPTURE                          VAL R23
-      272 CAPTURE                          VAL R29
-      273 CAPTURE                          VAL R22
-      274 CAPTURE                          VAL R19
-      275 CAPTURE                          VAL R31
-      276 CAPTURE                          VAL R6
-      277 CAPTURE                          VAL R28
-      278 SETTABLEKS                       R36 R33 K63 ["render"]
-      280 DUPCLOSURE                       R36 K64 [PROTO_41]
-      281 CAPTURE                          VAL R1
-      282 CAPTURE                          VAL R24
-      283 CAPTURE                          VAL R33
-      284 CLOSEUPVALS                      R35
-      285 RETURN                           R36 1
+      200 GETTABLEKS                       R32 R1 K48 ["PureComponent"]
+      202 LOADK                            R34 K49 ["MainPlugin"]
+      203 NAMECALL                         R32 R32 K50 ["extend"]
+      205 CALL                             R32 2 1
+      206 GETIMPORT                        R33 K5 [require]
+      208 GETTABLEKS                       R34 R0 K22 ["Src"]
+      210 GETTABLEKS                       R34 R34 K16 ["Util"]
+      212 GETTABLEKS                       R34 R34 K51 ["DmBridge"]
+      214 CALL                             R33 1 1
+      215 LOADNIL                          R34
+      216 NEWCLOSURE                       R35 P0
+      217 CAPTURE                          REF R34
+      218 CAPTURE                          VAL R9
+      219 CAPTURE                          VAL R16
+      220 CAPTURE                          VAL R17
+      221 SETGLOBAL                        R35 K52 ["getLocalization"]
+      223 DUPCLOSURE                       R35 K53 [PROTO_20]
+      224 CAPTURE                          VAL R22
+      225 CAPTURE                          VAL R1
+      226 CAPTURE                          VAL R27
+      227 CAPTURE                          VAL R30
+      228 CAPTURE                          VAL R4
+      229 CAPTURE                          VAL R9
+      230 CAPTURE                          VAL R13
+      231 CAPTURE                          VAL R14
+      232 SETTABLEKS                       R35 R32 K54 ["init"]
+      234 DUPCLOSURE                       R35 K55 [PROTO_22]
+      235 CAPTURE                          VAL R22
+      236 SETTABLEKS                       R35 R32 K56 ["didUpdate"]
+      238 DUPCLOSURE                       R35 K57 [PROTO_33]
+      239 CAPTURE                          VAL R33
+      240 CAPTURE                          VAL R4
+      241 CAPTURE                          VAL R27
+      242 CAPTURE                          VAL R3
+      243 CAPTURE                          VAL R22
+      244 SETTABLEKS                       R35 R32 K58 ["didMount"]
+      246 DUPCLOSURE                       R35 K59 [PROTO_34]
+      247 SETTABLEKS                       R35 R32 K60 ["willUnmount"]
+      249 DUPCLOSURE                       R35 K61 [PROTO_40]
+      250 CAPTURE                          VAL R1
+      251 CAPTURE                          VAL R26
+      252 CAPTURE                          VAL R25
+      253 CAPTURE                          VAL R9
+      254 CAPTURE                          VAL R10
+      255 CAPTURE                          VAL R11
+      256 CAPTURE                          VAL R12
+      257 CAPTURE                          VAL R5
+      258 CAPTURE                          VAL R21
+      259 CAPTURE                          VAL R8
+      260 CAPTURE                          VAL R20
+      261 CAPTURE                          VAL R23
+      262 CAPTURE                          VAL R29
+      263 CAPTURE                          VAL R22
+      264 CAPTURE                          VAL R19
+      265 CAPTURE                          VAL R31
+      266 CAPTURE                          VAL R6
+      267 CAPTURE                          VAL R28
+      268 SETTABLEKS                       R35 R32 K62 ["render"]
+      270 DUPCLOSURE                       R35 K63 [PROTO_41]
+      271 CAPTURE                          VAL R1
+      272 CAPTURE                          VAL R24
+      273 CAPTURE                          VAL R32
+      274 CLOSEUPVALS                      R34
+      275 RETURN                           R35 1

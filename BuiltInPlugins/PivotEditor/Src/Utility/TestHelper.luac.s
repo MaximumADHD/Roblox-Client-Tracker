@@ -120,11 +120,11 @@ MAIN:
        11 GETTABLEKS                       R2 R0 K5 ["Packages"]
        13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R2 R0 K5 ["Packages"]
-       18 GETTABLEKS                       R2 R2 K7 ["DraggerSchemaCore"]
-       20 GETIMPORT                        R3 K4 [require]
-       22 GETTABLEKS                       R4 R2 K8 ["DraggerSchema"]
-       24 CALL                             R3 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["DraggerSchemaCore"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R2 K8 ["DraggerSchema"]
        25 GETIMPORT                        R4 K4 [require]
        27 GETTABLEKS                       R5 R0 K9 ["Src"]
        29 GETTABLEKS                       R5 R5 K10 ["Reducers"]

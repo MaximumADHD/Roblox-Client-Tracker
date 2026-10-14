@@ -194,44 +194,43 @@ PROTO_6:
        47 CALL                             R5 2 1
        48 SETTABLEKS                       R5 R4 K9 ["errorMessage"]
        50 RETURN                           R4 1
-       51 GETUPVAL                         R3 5
-       52 GETTABLEKS                       R3 R3 K17 ["toGetStatusResult"]
-       54 LOADB                            R4 1
-       55 GETTABLEKS                       R5 R2 K5 ["httpDetails"]
-       57 GETTABLEKS                       R5 R5 K6 ["statusCode"]
-       59 GETTABLEKS                       R6 R2 K18 ["data"]
-       61 GETUPVAL                         R7 5
-       62 GETTABLEKS                       R7 R7 K19 ["extractFailureMessage"]
-       64 GETTABLEKS                       R8 R2 K18 ["data"]
-       66 DUPCLOSURE                       R9 K20 [PROTO_5]
+       51 GETTABLEKS                       R3 R2 K17 ["data"]
+       53 GETUPVAL                         R4 5
+       54 GETTABLEKS                       R4 R4 K18 ["toGetStatusResult"]
+       56 LOADB                            R5 1
+       57 GETTABLEKS                       R6 R2 K5 ["httpDetails"]
+       59 GETTABLEKS                       R6 R6 K6 ["statusCode"]
+       61 MOVE                             R7 R3
+       62 GETUPVAL                         R8 5
+       63 GETTABLEKS                       R8 R8 K19 ["extractFailureMessage"]
+       65 MOVE                             R9 R3
+       66 DUPCLOSURE                       R10 K20 [PROTO_5]
        67 CAPTURE                          UPVAL U4
-       68 CALL                             R7 2 -1
-       69 CALL                             R3 -1 1
-       70 RETURN                           R3 1
+       68 CALL                             R8 2 -1
+       69 CALL                             R4 -1 1
+       70 RETURN                           R4 1
 
 PROTO_7:
-        0 MOVE                             R1 R0
-        1 JUMPIF                           R1 ; [+3]
-        2 GETUPVAL                         R1 0
-        3 GETTABLEKS                       R1 R1 K0 ["ImageGeneration"]
-        5 DUPTABLE                         R2 K3 [{"startAsync", "getStatusAsync"}]
-        6 NEWCLOSURE                       R3 P0
-        7 CAPTURE                          UPVAL U1
-        8 CAPTURE                          UPVAL U2
-        9 CAPTURE                          VAL R1
-       10 CAPTURE                          UPVAL U3
-       11 CAPTURE                          UPVAL U4
-       12 CAPTURE                          UPVAL U5
-       13 SETTABLEKS                       R3 R2 K1 ["startAsync"]
-       15 NEWCLOSURE                       R3 P1
-       16 CAPTURE                          UPVAL U1
-       17 CAPTURE                          UPVAL U2
-       18 CAPTURE                          VAL R1
-       19 CAPTURE                          UPVAL U3
-       20 CAPTURE                          UPVAL U5
-       21 CAPTURE                          UPVAL U6
-       22 SETTABLEKS                       R3 R2 K2 ["getStatusAsync"]
-       24 RETURN                           R2 1
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["ImageGeneration"]
+        3 DUPTABLE                         R1 K3 [{"startAsync", "getStatusAsync"}]
+        4 NEWCLOSURE                       R2 P0
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          UPVAL U2
+        7 CAPTURE                          VAL R0
+        8 CAPTURE                          UPVAL U3
+        9 CAPTURE                          UPVAL U4
+       10 CAPTURE                          UPVAL U5
+       11 SETTABLEKS                       R2 R1 K1 ["startAsync"]
+       13 NEWCLOSURE                       R2 P1
+       14 CAPTURE                          UPVAL U1
+       15 CAPTURE                          UPVAL U2
+       16 CAPTURE                          VAL R0
+       17 CAPTURE                          UPVAL U3
+       18 CAPTURE                          UPVAL U5
+       19 CAPTURE                          UPVAL U6
+       20 SETTABLEKS                       R2 R1 K2 ["getStatusAsync"]
+       22 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

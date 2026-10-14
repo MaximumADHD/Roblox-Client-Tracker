@@ -2040,121 +2040,122 @@ MAIN:
       172 GETTABLEKS                       R27 R3 K15 ["Util"]
       174 GETTABLEKS                       R28 R27 K44 ["StyleModifier"]
       176 GETIMPORT                        R29 K5 [require]
-      178 GETTABLEKS                       R30 R0 K45 ["LuaFlags"]
-      180 GETTABLEKS                       R30 R30 K46 ["GetFFlagFacialAnimationRecordingInStudio"]
-      182 CALL                             R29 1 1
-      183 DUPCLOSURE                       R30 K47 [PROTO_7]
-      184 CAPTURE                          VAL R8
-      185 SETTABLEKS                       R30 R11 K48 ["init"]
-      187 DUPCLOSURE                       R30 K49 [PROTO_8]
-      188 SETTABLEKS                       R30 R11 K50 ["addAction"]
-      190 DUPCLOSURE                       R30 K51 [PROTO_10]
-      191 CAPTURE                          VAL R29
-      192 CAPTURE                          VAL R9
-      193 SETTABLEKS                       R30 R11 K52 ["didMount"]
-      195 DUPCLOSURE                       R30 K53 [PROTO_11]
-      196 SETTABLEKS                       R30 R11 K54 ["willUnmount"]
-      198 DUPCLOSURE                       R30 K55 [PROTO_13]
-      199 CAPTURE                          VAL R8
-      200 CAPTURE                          VAL R25
-      201 SETGLOBAL                        R30 K56 ["getFacsListData"]
-      203 DUPCLOSURE                       R30 K57 [PROTO_14]
-      204 CAPTURE                          VAL R8
-      205 SETGLOBAL                        R30 K58 ["formatNumber"]
-      207 DUPCLOSURE                       R30 K59 [PROTO_15]
-      208 CAPTURE                          VAL R8
-      209 SETGLOBAL                        R30 K60 ["prepAndTriggerSliderContextMenu"]
-      211 DUPCLOSURE                       R30 K61 [PROTO_16]
-      212 CAPTURE                          VAL R8
-      213 SETGLOBAL                        R30 K62 ["getSliderTooltipText"]
-      215 DUPCLOSURE                       R30 K63 [PROTO_17]
-      216 CAPTURE                          VAL R26
-      217 CAPTURE                          VAL R8
-      218 SETGLOBAL                        R30 K64 ["handleSliderOnValueChanged"]
-      220 DUPCLOSURE                       R30 K65 [PROTO_21]
-      221 CAPTURE                          VAL R8
-      222 CAPTURE                          VAL R26
-      223 CAPTURE                          VAL R1
-      224 CAPTURE                          VAL R14
-      225 SETGLOBAL                        R30 K66 ["makeFacsOnFaceDiagramSliderUIItems"]
-      227 DUPCLOSURE                       R30 K67 [PROTO_22]
-      228 CAPTURE                          VAL R8
-      229 SETGLOBAL                        R30 K68 ["triggerValueChanged"]
-      231 DUPCLOSURE                       R30 K69 [PROTO_26]
-      232 CAPTURE                          VAL R26
-      233 CAPTURE                          VAL R1
-      234 CAPTURE                          VAL R15
-      235 CAPTURE                          VAL R8
-      236 SETGLOBAL                        R30 K70 ["makeEyesControlDragBox"]
-      238 DUPCLOSURE                       R30 K71 [PROTO_27]
-      239 CAPTURE                          VAL R8
-      240 CAPTURE                          VAL R26
-      241 CAPTURE                          VAL R23
-      242 SETGLOBAL                        R30 K72 ["getTrackValuesForEyeDragBox"]
-      244 DUPCLOSURE                       R30 K73 [PROTO_29]
-      245 SETTABLEKS                       R30 R11 K74 ["makeContextMenuActions"]
-      247 DUPCLOSURE                       R30 K75 [PROTO_30]
-      248 CAPTURE                          VAL R10
-      249 CAPTURE                          VAL R8
-      250 CAPTURE                          VAL R26
-      251 CAPTURE                          VAL R23
-      252 SETTABLEKS                       R30 R11 K76 ["getCurrentValues"]
-      254 DUPCLOSURE                       R30 K77 [PROTO_31]
-      255 CAPTURE                          VAL R26
-      256 SETGLOBAL                        R30 K78 ["resetAllValuesInMapping"]
-      258 DUPCLOSURE                       R30 K79 [PROTO_32]
-      259 CAPTURE                          VAL R9
-      260 SETTABLEKS                       R30 R11 K80 ["willUpdate"]
-      262 DUPCLOSURE                       R30 K81 [PROTO_33]
-      263 CAPTURE                          VAL R8
-      264 CAPTURE                          VAL R23
-      265 SETGLOBAL                        R30 K82 ["getFacsKeysWithNonZerovalueCount"]
-      267 DUPCLOSURE                       R30 K83 [PROTO_34]
-      268 CAPTURE                          VAL R29
-      269 CAPTURE                          VAL R9
-      270 SETGLOBAL                        R30 K84 ["handleFocusFace"]
-      272 DUPCLOSURE                       R30 K85 [PROTO_35]
-      273 CAPTURE                          VAL R10
-      274 SETGLOBAL                        R30 K86 ["focusFace"]
-      276 DUPCLOSURE                       R30 K87 [PROTO_39]
-      277 CAPTURE                          VAL R9
-      278 CAPTURE                          VAL R28
-      279 CAPTURE                          VAL R1
-      280 CAPTURE                          VAL R5
-      281 CAPTURE                          VAL R12
-      282 CAPTURE                          VAL R13
-      283 CAPTURE                          VAL R17
-      284 CAPTURE                          VAL R8
-      285 CAPTURE                          VAL R24
-      286 CAPTURE                          VAL R16
-      287 CAPTURE                          VAL R25
-      288 CAPTURE                          VAL R18
-      289 CAPTURE                          VAL R23
-      290 SETTABLEKS                       R30 R11 K88 ["render"]
-      292 DUPCLOSURE                       R30 K89 [PROTO_40]
-      293 DUPCLOSURE                       R31 K90 [PROTO_45]
-      294 CAPTURE                          VAL R19
-      295 CAPTURE                          VAL R20
-      296 CAPTURE                          VAL R21
-      297 CAPTURE                          VAL R22
-      298 MOVE                             R32 R7
-      299 DUPTABLE                         R33 K95 [{"Stylizer", "Localization", "Plugin", "PluginActions"}]
-      300 GETTABLEKS                       R34 R6 K91 ["Stylizer"]
-      302 SETTABLEKS                       R34 R33 K91 ["Stylizer"]
-      304 GETTABLEKS                       R34 R6 K92 ["Localization"]
-      306 SETTABLEKS                       R34 R33 K92 ["Localization"]
-      308 GETTABLEKS                       R34 R6 K93 ["Plugin"]
-      310 SETTABLEKS                       R34 R33 K93 ["Plugin"]
-      312 GETTABLEKS                       R34 R6 K94 ["PluginActions"]
-      314 SETTABLEKS                       R34 R33 K94 ["PluginActions"]
-      316 CALL                             R32 1 1
-      317 MOVE                             R33 R11
+      178 GETTABLEKS                       R30 R0 K14 ["Src"]
+      180 GETTABLEKS                       R30 R30 K45 ["Flags"]
+      182 GETTABLEKS                       R30 R30 K46 ["getFFlagFacialAnimationRecordingInStudio"]
+      184 CALL                             R29 1 1
+      185 DUPCLOSURE                       R30 K47 [PROTO_7]
+      186 CAPTURE                          VAL R8
+      187 SETTABLEKS                       R30 R11 K48 ["init"]
+      189 DUPCLOSURE                       R30 K49 [PROTO_8]
+      190 SETTABLEKS                       R30 R11 K50 ["addAction"]
+      192 DUPCLOSURE                       R30 K51 [PROTO_10]
+      193 CAPTURE                          VAL R29
+      194 CAPTURE                          VAL R9
+      195 SETTABLEKS                       R30 R11 K52 ["didMount"]
+      197 DUPCLOSURE                       R30 K53 [PROTO_11]
+      198 SETTABLEKS                       R30 R11 K54 ["willUnmount"]
+      200 DUPCLOSURE                       R30 K55 [PROTO_13]
+      201 CAPTURE                          VAL R8
+      202 CAPTURE                          VAL R25
+      203 SETGLOBAL                        R30 K56 ["getFacsListData"]
+      205 DUPCLOSURE                       R30 K57 [PROTO_14]
+      206 CAPTURE                          VAL R8
+      207 SETGLOBAL                        R30 K58 ["formatNumber"]
+      209 DUPCLOSURE                       R30 K59 [PROTO_15]
+      210 CAPTURE                          VAL R8
+      211 SETGLOBAL                        R30 K60 ["prepAndTriggerSliderContextMenu"]
+      213 DUPCLOSURE                       R30 K61 [PROTO_16]
+      214 CAPTURE                          VAL R8
+      215 SETGLOBAL                        R30 K62 ["getSliderTooltipText"]
+      217 DUPCLOSURE                       R30 K63 [PROTO_17]
+      218 CAPTURE                          VAL R26
+      219 CAPTURE                          VAL R8
+      220 SETGLOBAL                        R30 K64 ["handleSliderOnValueChanged"]
+      222 DUPCLOSURE                       R30 K65 [PROTO_21]
+      223 CAPTURE                          VAL R8
+      224 CAPTURE                          VAL R26
+      225 CAPTURE                          VAL R1
+      226 CAPTURE                          VAL R14
+      227 SETGLOBAL                        R30 K66 ["makeFacsOnFaceDiagramSliderUIItems"]
+      229 DUPCLOSURE                       R30 K67 [PROTO_22]
+      230 CAPTURE                          VAL R8
+      231 SETGLOBAL                        R30 K68 ["triggerValueChanged"]
+      233 DUPCLOSURE                       R30 K69 [PROTO_26]
+      234 CAPTURE                          VAL R26
+      235 CAPTURE                          VAL R1
+      236 CAPTURE                          VAL R15
+      237 CAPTURE                          VAL R8
+      238 SETGLOBAL                        R30 K70 ["makeEyesControlDragBox"]
+      240 DUPCLOSURE                       R30 K71 [PROTO_27]
+      241 CAPTURE                          VAL R8
+      242 CAPTURE                          VAL R26
+      243 CAPTURE                          VAL R23
+      244 SETGLOBAL                        R30 K72 ["getTrackValuesForEyeDragBox"]
+      246 DUPCLOSURE                       R30 K73 [PROTO_29]
+      247 SETTABLEKS                       R30 R11 K74 ["makeContextMenuActions"]
+      249 DUPCLOSURE                       R30 K75 [PROTO_30]
+      250 CAPTURE                          VAL R10
+      251 CAPTURE                          VAL R8
+      252 CAPTURE                          VAL R26
+      253 CAPTURE                          VAL R23
+      254 SETTABLEKS                       R30 R11 K76 ["getCurrentValues"]
+      256 DUPCLOSURE                       R30 K77 [PROTO_31]
+      257 CAPTURE                          VAL R26
+      258 SETGLOBAL                        R30 K78 ["resetAllValuesInMapping"]
+      260 DUPCLOSURE                       R30 K79 [PROTO_32]
+      261 CAPTURE                          VAL R9
+      262 SETTABLEKS                       R30 R11 K80 ["willUpdate"]
+      264 DUPCLOSURE                       R30 K81 [PROTO_33]
+      265 CAPTURE                          VAL R8
+      266 CAPTURE                          VAL R23
+      267 SETGLOBAL                        R30 K82 ["getFacsKeysWithNonZerovalueCount"]
+      269 DUPCLOSURE                       R30 K83 [PROTO_34]
+      270 CAPTURE                          VAL R29
+      271 CAPTURE                          VAL R9
+      272 SETGLOBAL                        R30 K84 ["handleFocusFace"]
+      274 DUPCLOSURE                       R30 K85 [PROTO_35]
+      275 CAPTURE                          VAL R10
+      276 SETGLOBAL                        R30 K86 ["focusFace"]
+      278 DUPCLOSURE                       R30 K87 [PROTO_39]
+      279 CAPTURE                          VAL R9
+      280 CAPTURE                          VAL R28
+      281 CAPTURE                          VAL R1
+      282 CAPTURE                          VAL R5
+      283 CAPTURE                          VAL R12
+      284 CAPTURE                          VAL R13
+      285 CAPTURE                          VAL R17
+      286 CAPTURE                          VAL R8
+      287 CAPTURE                          VAL R24
+      288 CAPTURE                          VAL R16
+      289 CAPTURE                          VAL R25
+      290 CAPTURE                          VAL R18
+      291 CAPTURE                          VAL R23
+      292 SETTABLEKS                       R30 R11 K88 ["render"]
+      294 DUPCLOSURE                       R30 K89 [PROTO_40]
+      295 DUPCLOSURE                       R31 K90 [PROTO_45]
+      296 CAPTURE                          VAL R19
+      297 CAPTURE                          VAL R20
+      298 CAPTURE                          VAL R21
+      299 CAPTURE                          VAL R22
+      300 MOVE                             R32 R7
+      301 DUPTABLE                         R33 K95 [{"Stylizer", "Localization", "Plugin", "PluginActions"}]
+      302 GETTABLEKS                       R34 R6 K91 ["Stylizer"]
+      304 SETTABLEKS                       R34 R33 K91 ["Stylizer"]
+      306 GETTABLEKS                       R34 R6 K92 ["Localization"]
+      308 SETTABLEKS                       R34 R33 K92 ["Localization"]
+      310 GETTABLEKS                       R34 R6 K93 ["Plugin"]
+      312 SETTABLEKS                       R34 R33 K93 ["Plugin"]
+      314 GETTABLEKS                       R34 R6 K94 ["PluginActions"]
+      316 SETTABLEKS                       R34 R33 K94 ["PluginActions"]
       318 CALL                             R32 1 1
-      319 MOVE                             R11 R32
-      320 GETTABLEKS                       R32 R2 K96 ["connect"]
-      322 MOVE                             R33 R30
-      323 MOVE                             R34 R31
-      324 CALL                             R32 2 1
-      325 MOVE                             R33 R11
-      326 CALL                             R32 1 -1
-      327 RETURN                           R32 -1
+      319 MOVE                             R33 R11
+      320 CALL                             R32 1 1
+      321 MOVE                             R11 R32
+      322 GETTABLEKS                       R32 R2 K96 ["connect"]
+      324 MOVE                             R33 R30
+      325 MOVE                             R34 R31
+      326 CALL                             R32 2 1
+      327 MOVE                             R33 R11
+      328 CALL                             R32 1 -1
+      329 RETURN                           R32 -1

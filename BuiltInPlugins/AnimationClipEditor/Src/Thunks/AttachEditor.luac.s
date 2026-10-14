@@ -174,27 +174,29 @@ MAIN:
        86 GETTABLEKS                       R17 R14 K27 ["RigVisualization"]
        88 CALL                             R16 1 1
        89 GETIMPORT                        R17 K9 [require]
-       91 GETTABLEKS                       R18 R1 K28 ["LuaFlags"]
-       93 GETTABLEKS                       R18 R18 K29 ["GetFFlagKeepHistoryService"]
-       95 CALL                             R17 1 1
-       96 GETIMPORT                        R18 K9 [require]
-       98 GETTABLEKS                       R19 R1 K28 ["LuaFlags"]
-      100 GETTABLEKS                       R19 R19 K30 ["GetFFlagRootMotion"]
-      102 CALL                             R18 1 1
-      103 DUPCLOSURE                       R19 K31 [PROTO_1]
-      104 CAPTURE                          VAL R4
-      105 CAPTURE                          VAL R17
-      106 CAPTURE                          VAL R0
-      107 CAPTURE                          VAL R15
-      108 CAPTURE                          VAL R8
-      109 CAPTURE                          VAL R2
-      110 CAPTURE                          VAL R12
-      111 CAPTURE                          VAL R9
-      112 CAPTURE                          VAL R5
-      113 CAPTURE                          VAL R11
-      114 CAPTURE                          VAL R6
-      115 CAPTURE                          VAL R18
-      116 CAPTURE                          VAL R7
-      117 CAPTURE                          VAL R16
-      118 CAPTURE                          VAL R13
-      119 RETURN                           R19 1
+       91 GETTABLEKS                       R18 R1 K12 ["Src"]
+       93 GETTABLEKS                       R18 R18 K28 ["Flags"]
+       95 GETTABLEKS                       R18 R18 K29 ["getFFlagKeepHistoryService"]
+       97 CALL                             R17 1 1
+       98 GETIMPORT                        R18 K9 [require]
+      100 GETTABLEKS                       R19 R1 K12 ["Src"]
+      102 GETTABLEKS                       R19 R19 K28 ["Flags"]
+      104 GETTABLEKS                       R19 R19 K30 ["getFFlagRootMotion"]
+      106 CALL                             R18 1 1
+      107 DUPCLOSURE                       R19 K31 [PROTO_1]
+      108 CAPTURE                          VAL R4
+      109 CAPTURE                          VAL R17
+      110 CAPTURE                          VAL R0
+      111 CAPTURE                          VAL R15
+      112 CAPTURE                          VAL R8
+      113 CAPTURE                          VAL R2
+      114 CAPTURE                          VAL R12
+      115 CAPTURE                          VAL R9
+      116 CAPTURE                          VAL R5
+      117 CAPTURE                          VAL R11
+      118 CAPTURE                          VAL R6
+      119 CAPTURE                          VAL R18
+      120 CAPTURE                          VAL R7
+      121 CAPTURE                          VAL R16
+      122 CAPTURE                          VAL R13
+      123 RETURN                           R19 1

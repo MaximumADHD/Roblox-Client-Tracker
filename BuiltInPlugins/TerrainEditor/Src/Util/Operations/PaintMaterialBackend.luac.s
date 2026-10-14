@@ -23,6 +23,24 @@ PROTO_0:
        27 RETURN                           R10 1
 
 PROTO_1:
+        0 LOADNIL                          R1
+        1 GETUPVAL                         R2 0
+        2 JUMPIFNOTEQKNIL                  R2 ; [+9]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K0 ["getInvalidSlotIndices"]
+        7 GETUPVAL                         R3 2
+        8 CALL                             R2 1 1
+        9 MOVE                             R1 R2
+       10 SETUPVAL                         R1 0
+       11 JUMP                             ; [+1]
+       12 GETUPVAL                         R1 0
+       13 GETTABLE                         R3 R1 R0
+       14 JUMPIFEQKB                       R3 TRUE ; [+2]
+       16 LOADB                            R2 0 +1
+       17 LOADB                            R2 1
+       18 RETURN                           R2 1
+
+PROTO_2:
         0 JUMPIFNOT                        R1 ; [+8]
         1 GETUPVAL                         R2 0
         2 GETTABLEKS                       R2 R2 K0 ["WATER_SLOT_INDEX"]
@@ -32,7 +50,7 @@ PROTO_1:
         8 SETTABLE                         R3 R2 R0
         9 RETURN                           R0 0
 
-PROTO_2:
+PROTO_3:
         0 GETUPVAL                         R8 0
         1 GETTABLE                         R7 R8 R1
         2 GETTABLE                         R6 R7 R2
@@ -68,7 +86,7 @@ PROTO_2:
        38 SETTABLE                         R8 R7 R4
        39 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R9 0
         1 GETTABLEKS                       R9 R9 K0 ["SolidMaterialIndex"]
         3 GETTABLE                         R8 R9 R1
@@ -110,18 +128,18 @@ PROTO_3:
        52 GETTABLE                         R18 R17 R3
        53 JUMPIFNOTEQKN                    R18 K6 [1] ; [+3]
        55 LOADB                            R13 0
-       56 JUMP                             ; [+191]
+       56 JUMP                             ; [+215]
        57 SETTABLE                         R10 R15 R3
        58 SETTABLE                         R11 R16 R3
        59 LOADN                            R18 1
        60 SETTABLE                         R18 R17 R3
        61 LOADB                            R13 1
-       62 JUMP                             ; [+185]
+       62 JUMP                             ; [+209]
        63 GETUPVAL                         R14 1
        64 GETTABLEKS                       R14 R14 K4 ["WATER_SLOT_INDEX"]
-       66 JUMPIFNOTLT                      R14 R5 ; [+181]
-       68 JUMPIFNOTEQKN                    R11 K5 [0] ; [+179]
-       70 JUMPIFNOTEQKN                    R12 K5 [0] ; [+177]
+       66 JUMPIFNOTLT                      R14 R5 ; [+205]
+       68 JUMPIFNOTEQKN                    R11 K5 [0] ; [+203]
+       70 JUMPIFNOTEQKN                    R12 K5 [0] ; [+201]
        72 GETUPVAL                         R14 0
        73 GETTABLEKS                       R17 R14 K0 ["SolidMaterialIndex"]
        75 GETTABLE                         R16 R17 R1
@@ -139,20 +157,20 @@ PROTO_3:
        91 GETTABLE                         R18 R17 R3
        92 JUMPIFNOTEQKN                    R18 K5 [0] ; [+3]
        94 LOADB                            R13 0
-       95 JUMP                             ; [+152]
+       95 JUMP                             ; [+176]
        96 SETTABLE                         R5 R15 R3
        97 LOADN                            R18 1
        98 SETTABLE                         R18 R16 R3
        99 LOADN                            R18 0
       100 SETTABLE                         R18 R17 R3
       101 LOADB                            R13 1
-      102 JUMP                             ; [+145]
+      102 JUMP                             ; [+169]
       103 GETUPVAL                         R14 1
       104 GETTABLEKS                       R14 R14 K4 ["WATER_SLOT_INDEX"]
       106 JUMPIFNOTEQ                      R4 R14 ; [+108]
       108 LOADN                            R14 0
-      109 JUMPIFNOTLT                      R14 R12 ; [+138]
-      111 JUMPIF                           R6 ; [+136]
+      109 JUMPIFNOTLT                      R14 R12 ; [+162]
+      111 JUMPIF                           R6 ; [+160]
       112 GETUPVAL                         R14 1
       113 GETTABLEKS                       R14 R14 K3 ["AIR_SLOT_INDEX"]
       115 JUMPIFNOTEQ                      R5 R14 ; [+31]
@@ -173,16 +191,16 @@ PROTO_3:
       136 GETTABLE                         R18 R17 R3
       137 JUMPIFNOTEQKN                    R18 K5 [0] ; [+3]
       139 LOADB                            R13 0
-      140 JUMP                             ; [+107]
+      140 JUMP                             ; [+131]
       141 SETTABLE                         R10 R15 R3
       142 SETTABLE                         R11 R16 R3
       143 LOADN                            R18 0
       144 SETTABLE                         R18 R17 R3
       145 LOADB                            R13 1
-      146 JUMP                             ; [+101]
+      146 JUMP                             ; [+125]
       147 GETUPVAL                         R14 1
       148 GETTABLEKS                       R14 R14 K4 ["WATER_SLOT_INDEX"]
-      150 JUMPIFNOTLT                      R14 R5 ; [+97]
+      150 JUMPIFNOTLT                      R14 R5 ; [+121]
       152 LOADN                            R14 0
       153 JUMPIFNOTLT                      R14 R11 ; [+31]
       155 GETUPVAL                         R14 0
@@ -202,13 +220,13 @@ PROTO_3:
       174 GETTABLE                         R18 R17 R3
       175 JUMPIFNOTEQKN                    R18 K5 [0] ; [+3]
       177 LOADB                            R13 0
-      178 JUMP                             ; [+69]
+      178 JUMP                             ; [+93]
       179 SETTABLE                         R10 R15 R3
       180 SETTABLE                         R11 R16 R3
       181 LOADN                            R18 0
       182 SETTABLE                         R18 R17 R3
       183 LOADB                            R13 1
-      184 JUMP                             ; [+63]
+      184 JUMP                             ; [+87]
       185 GETUPVAL                         R14 0
       186 GETTABLEKS                       R17 R14 K0 ["SolidMaterialIndex"]
       188 GETTABLE                         R16 R17 R1
@@ -226,51 +244,71 @@ PROTO_3:
       204 GETTABLE                         R18 R17 R3
       205 JUMPIFNOTEQKN                    R18 K5 [0] ; [+3]
       207 LOADB                            R13 0
-      208 JUMP                             ; [+39]
+      208 JUMP                             ; [+63]
       209 SETTABLE                         R5 R15 R3
       210 SETTABLE                         R12 R16 R3
       211 LOADN                            R18 0
       212 SETTABLE                         R18 R17 R3
       213 LOADB                            R13 1
-      214 JUMP                             ; [+33]
+      214 JUMP                             ; [+57]
       215 LOADN                            R14 0
-      216 JUMPIFNOTLT                      R14 R11 ; [+31]
-      218 JUMPIFNOTEQ                      R10 R4 ; [+29]
-      220 GETUPVAL                         R14 1
-      221 GETTABLEKS                       R14 R14 K4 ["WATER_SLOT_INDEX"]
-      223 JUMPIFNOTEQ                      R5 R14 ; [+13]
-      225 GETUPVAL                         R14 1
-      226 GETTABLEKS                       R14 R14 K7 ["transitionAt"]
-      228 GETUPVAL                         R15 0
-      229 MOVE                             R16 R1
-      230 MOVE                             R17 R2
-      231 MOVE                             R18 R3
-      232 MOVE                             R19 R5
-      233 MOVE                             R20 R11
-      234 CALL                             R14 6 1
-      235 MOVE                             R13 R14
-      236 JUMP                             ; [+11]
-      237 GETUPVAL                         R14 1
-      238 GETTABLEKS                       R14 R14 K8 ["transitionAtWithWaterMerge"]
-      240 GETUPVAL                         R15 0
-      241 MOVE                             R16 R1
-      242 MOVE                             R17 R2
-      243 MOVE                             R18 R3
-      244 MOVE                             R19 R5
-      245 MOVE                             R20 R11
-      246 CALL                             R14 6 1
-      247 MOVE                             R13 R14
-      248 MOVE                             R14 R13
-      249 JUMPIFNOT                        R14 ; [+8]
-      250 GETUPVAL                         R15 1
-      251 GETTABLEKS                       R15 R15 K4 ["WATER_SLOT_INDEX"]
-      253 JUMPIFNOTLT                      R15 R5 ; [+4]
-      255 GETUPVAL                         R15 2
-      256 LOADB                            R16 1
-      257 SETTABLE                         R16 R15 R5
-      258 RETURN                           R0 0
+      216 JUMPIFNOTLT                      R14 R11 ; [+55]
+      218 JUMPIFNOTEQKNIL                  R4 ; [+20]
+      220 LOADNIL                          R15
+      221 GETUPVAL                         R16 2
+      222 JUMPIFNOTEQKNIL                  R16 ; [+9]
+      224 GETUPVAL                         R16 1
+      225 GETTABLEKS                       R16 R16 K7 ["getInvalidSlotIndices"]
+      227 GETUPVAL                         R17 3
+      228 CALL                             R16 1 1
+      229 MOVE                             R15 R16
+      230 SETUPVAL                         R15 2
+      231 JUMP                             ; [+1]
+      232 GETUPVAL                         R15 2
+      233 GETTABLE                         R16 R15 R10
+      234 JUMPIFEQKB                       R16 TRUE ; [+2]
+      236 LOADB                            R14 0 +1
+      237 LOADB                            R14 1
+      238 JUMP                             ; [+4]
+      239 JUMPIFEQ                         R10 R4 ; [+2]
+      241 LOADB                            R14 0 +1
+      242 LOADB                            R14 1
+      243 JUMPIFNOT                        R14 ; [+28]
+      244 GETUPVAL                         R14 1
+      245 GETTABLEKS                       R14 R14 K4 ["WATER_SLOT_INDEX"]
+      247 JUMPIFNOTEQ                      R5 R14 ; [+13]
+      249 GETUPVAL                         R14 1
+      250 GETTABLEKS                       R14 R14 K8 ["transitionAt"]
+      252 GETUPVAL                         R15 0
+      253 MOVE                             R16 R1
+      254 MOVE                             R17 R2
+      255 MOVE                             R18 R3
+      256 MOVE                             R19 R5
+      257 MOVE                             R20 R11
+      258 CALL                             R14 6 1
+      259 MOVE                             R13 R14
+      260 JUMP                             ; [+11]
+      261 GETUPVAL                         R14 1
+      262 GETTABLEKS                       R14 R14 K9 ["transitionAtWithWaterMerge"]
+      264 GETUPVAL                         R15 0
+      265 MOVE                             R16 R1
+      266 MOVE                             R17 R2
+      267 MOVE                             R18 R3
+      268 MOVE                             R19 R5
+      269 MOVE                             R20 R11
+      270 CALL                             R14 6 1
+      271 MOVE                             R13 R14
+      272 MOVE                             R14 R13
+      273 JUMPIFNOT                        R14 ; [+8]
+      274 GETUPVAL                         R15 1
+      275 GETTABLEKS                       R15 R15 K4 ["WATER_SLOT_INDEX"]
+      277 JUMPIFNOTLT                      R15 R5 ; [+4]
+      279 GETUPVAL                         R15 4
+      280 LOADB                            R16 1
+      281 SETTABLE                         R16 R15 R5
+      282 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["assertSlotsValid"]
         3 GETUPVAL                         R3 1
@@ -284,7 +322,7 @@ PROTO_4:
        12 CALL                             R2 3 0
        13 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["read"]
         3 MOVE                             R3 R0
@@ -329,32 +367,40 @@ PROTO_5:
        48 FORGLOOP                         R11 2 ; [-21]
        50 FORGLOOP                         R5 2 ; [-32]
        52 NEWTABLE                         R5 0 0
-       54 NEWCLOSURE                       R6 P0
-       55 CAPTURE                          UPVAL U0
-       56 CAPTURE                          VAL R5
-       57 DUPTABLE                         R7 K11 [{"materials", "occupancies", "paint", "replace", "write"}]
-       58 SETTABLEKS                       R3 R7 K6 ["materials"]
-       60 SETTABLEKS                       R4 R7 K7 ["occupancies"]
-       62 NEWCLOSURE                       R8 P1
-       63 CAPTURE                          VAL R4
-       64 CAPTURE                          UPVAL U0
-       65 CAPTURE                          VAL R2
-       66 CAPTURE                          VAL R5
-       67 SETTABLEKS                       R8 R7 K8 ["paint"]
-       69 NEWCLOSURE                       R8 P2
+       54 LOADNIL                          R6
+       55 NEWCLOSURE                       R7 P0
+       56 CAPTURE                          REF R6
+       57 CAPTURE                          UPVAL U0
+       58 CAPTURE                          VAL R0
+       59 NEWCLOSURE                       R8 P1
+       60 CAPTURE                          UPVAL U0
+       61 CAPTURE                          VAL R5
+       62 DUPTABLE                         R9 K11 [{"materials", "occupancies", "paint", "replace", "write"}]
+       63 SETTABLEKS                       R3 R9 K6 ["materials"]
+       65 SETTABLEKS                       R4 R9 K7 ["occupancies"]
+       67 NEWCLOSURE                       R10 P2
+       68 CAPTURE                          VAL R4
+       69 CAPTURE                          UPVAL U0
        70 CAPTURE                          VAL R2
-       71 CAPTURE                          UPVAL U0
-       72 CAPTURE                          VAL R5
-       73 SETTABLEKS                       R8 R7 K9 ["replace"]
-       75 NEWCLOSURE                       R8 P3
+       71 CAPTURE                          VAL R5
+       72 SETTABLEKS                       R10 R9 K8 ["paint"]
+       74 NEWCLOSURE                       R10 P3
+       75 CAPTURE                          VAL R2
        76 CAPTURE                          UPVAL U0
-       77 CAPTURE                          VAL R0
-       78 CAPTURE                          VAL R5
-       79 CAPTURE                          VAL R2
-       80 SETTABLEKS                       R8 R7 K10 ["write"]
-       82 RETURN                           R7 1
+       77 CAPTURE                          REF R6
+       78 CAPTURE                          VAL R0
+       79 CAPTURE                          VAL R5
+       80 SETTABLEKS                       R10 R9 K9 ["replace"]
+       82 NEWCLOSURE                       R10 P4
+       83 CAPTURE                          UPVAL U0
+       84 CAPTURE                          VAL R0
+       85 CAPTURE                          VAL R5
+       86 CAPTURE                          VAL R2
+       87 SETTABLEKS                       R10 R9 K10 ["write"]
+       89 CLOSEUPVALS                      R6
+       90 RETURN                           R9 1
 
-PROTO_6:
+PROTO_7:
         0 LOADB                            R2 0
         1 FASTCALL1                        TYPEOF R1 ; [+3]
         2 MOVE                             R4 R1
@@ -368,14 +414,14 @@ PROTO_6:
        13 CALL                             R2 2 1
        14 RETURN                           R2 1
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R2 0
         1 GETUPVAL                         R3 1
         2 MOVE                             R4 R1
         3 CALL                             R2 2 1
         4 RETURN                           R2 1
 
-PROTO_8:
+PROTO_9:
         0 DUPTABLE                         R1 K4 [{"air", "water", "isMaterialValid", "readRegion"}]
         1 GETUPVAL                         R2 0
         2 GETTABLEKS                       R2 R2 K5 ["AIR_SLOT_INDEX"]
@@ -405,9 +451,9 @@ MAIN:
        13 GETTABLEKS                       R2 R2 K8 ["TerrainVoxelChannels"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K9 [PROTO_0]
-       17 DUPCLOSURE                       R3 K10 [PROTO_5]
+       17 DUPCLOSURE                       R3 K10 [PROTO_6]
        18 CAPTURE                          VAL R1
-       19 DUPCLOSURE                       R4 K11 [PROTO_8]
+       19 DUPCLOSURE                       R4 K11 [PROTO_9]
        20 CAPTURE                          VAL R1
        21 CAPTURE                          VAL R3
        22 DUPTABLE                         R5 K13 [{"new"}]

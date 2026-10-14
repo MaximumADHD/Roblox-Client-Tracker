@@ -1,13 +1,14 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+6]
+        1 JUMPIFNOT                        R0 ; [+7]
         2 GETUPVAL                         R0 0
         3 GETUPVAL                         R1 1
         4 GETUPVAL                         R2 2
         5 GETUPVAL                         R3 3
         6 GETUPVAL                         R4 4
-        7 CALL                             R0 4 0
-        8 RETURN                           R0 0
+        7 GETUPVAL                         R5 5
+        8 CALL                             R0 5 0
+        9 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R3 0
@@ -155,23 +156,24 @@ PROTO_1:
       198 CAPTURE                          VAL R5
       199 CAPTURE                          VAL R7
       200 CAPTURE                          VAL R3
-      201 CALL                             R18 1 2
-      202 GETUPVAL                         R20 19
-      203 GETTABLEKS                       R20 R20 K34 ["unmount"]
-      205 MOVE                             R21 R17
-      206 CALL                             R20 1 0
-      207 NAMECALL                         R20 R1 K35 ["Destroy"]
-      209 CALL                             R20 1 0
-      210 NAMECALL                         R20 R5 K36 ["destruct"]
-      212 CALL                             R20 1 0
-      213 GETUPVAL                         R20 20
-      214 GETTABLEKS                       R20 R20 K37 ["cleanTempInstances"]
-      216 CALL                             R20 0 0
-      217 JUMPIF                           R18 ; [+4]
-      218 GETIMPORT                        R20 K39 [error]
-      220 MOVE                             R21 R19
-      221 CALL                             R20 1 0
-      222 RETURN                           R0 0
+      201 CAPTURE                          VAL R15
+      202 CALL                             R18 1 2
+      203 GETUPVAL                         R20 19
+      204 GETTABLEKS                       R20 R20 K34 ["unmount"]
+      206 MOVE                             R21 R17
+      207 CALL                             R20 1 0
+      208 NAMECALL                         R20 R1 K35 ["Destroy"]
+      210 CALL                             R20 1 0
+      211 NAMECALL                         R20 R5 K36 ["destruct"]
+      213 CALL                             R20 1 0
+      214 GETUPVAL                         R20 20
+      215 GETTABLEKS                       R20 R20 K37 ["cleanTempInstances"]
+      217 CALL                             R20 0 0
+      218 JUMPIF                           R18 ; [+4]
+      219 GETIMPORT                        R20 K39 [error]
+      221 MOVE                             R21 R19
+      222 CALL                             R20 1 0
+      223 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0

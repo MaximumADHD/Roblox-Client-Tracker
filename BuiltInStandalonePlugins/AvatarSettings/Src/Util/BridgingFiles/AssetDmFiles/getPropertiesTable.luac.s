@@ -113,7 +113,12 @@ PROTO_3:
        22 SETTABLEKS                       R2 R1 K6 ["AvatarSettingsLegacyCollisionMode"]
        24 GETTABLEKS                       R2 R0 K7 ["SingleColliderSize"]
        26 SETTABLEKS                       R2 R1 K7 ["SingleColliderSize"]
-       28 RETURN                           R1 1
+       28 GETUPVAL                         R2 1
+       29 CALL                             R2 0 1
+       30 JUMPIFNOT                        R2 ; [+4]
+       31 GETTABLEKS                       R2 R0 K10 ["BodyPartsCollidableOnDeath"]
+       33 SETTABLEKS                       R2 R1 K10 ["BodyPartsCollidableOnDeath"]
+       35 RETURN                           R1 1
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -391,42 +396,27 @@ PROTO_9:
        12 GETUPVAL                         R1 1
        13 CALL                             R1 0 1
        14 SETTABLEKS                       R1 R0 K1 ["AvatarBodyRules"]
-       16 GETUPVAL                         R2 0
-       17 GETTABLEKS                       R2 R2 K12 ["avatarCollisionRules"]
-       19 CALL                             R2 0 1
-       20 FASTCALL2K                       ASSERT R2 K13 ; [+5]
-       22 MOVE                             R4 R2
-       23 LOADK                            R5 K13 ["AvatarCollisionRules not found"]
-       24 GETIMPORT                        R3 K15 [assert]
-       26 CALL                             R3 2 0
-       27 DUPTABLE                         R1 K20 [{"CollisionMode", "HitAndTouchDetectionMode", "AvatarSettingsLegacyCollisionMode", "SingleColliderSize"}]
-       28 GETTABLEKS                       R3 R2 K16 ["CollisionMode"]
-       30 SETTABLEKS                       R3 R1 K16 ["CollisionMode"]
-       32 GETTABLEKS                       R3 R2 K17 ["HitAndTouchDetectionMode"]
-       34 SETTABLEKS                       R3 R1 K17 ["HitAndTouchDetectionMode"]
-       36 GETTABLEKS                       R3 R2 K21 ["LegacyCollisionMode"]
-       38 SETTABLEKS                       R3 R1 K18 ["AvatarSettingsLegacyCollisionMode"]
-       40 GETTABLEKS                       R3 R2 K19 ["SingleColliderSize"]
-       42 SETTABLEKS                       R3 R1 K19 ["SingleColliderSize"]
-       44 SETTABLEKS                       R1 R0 K2 ["AvatarCollisionRules"]
-       46 GETUPVAL                         R1 2
-       47 CALL                             R1 0 1
-       48 SETTABLEKS                       R1 R0 K3 ["AvatarAbilityRules"]
-       50 GETUPVAL                         R1 3
-       51 CALL                             R1 0 1
-       52 SETTABLEKS                       R1 R0 K4 ["AvatarAnimationRules"]
-       54 GETUPVAL                         R1 4
-       55 CALL                             R1 0 1
-       56 SETTABLEKS                       R1 R0 K5 ["AvatarAccessoryRules"]
-       58 GETUPVAL                         R1 5
-       59 CALL                             R1 0 1
-       60 SETTABLEKS                       R1 R0 K6 ["AvatarClothingRules"]
-       62 DUPTABLE                         R1 K23 [{"Gravity"}]
-       63 GETUPVAL                         R2 6
-       64 GETTABLEKS                       R2 R2 K22 ["Gravity"]
-       66 SETTABLEKS                       R2 R1 K22 ["Gravity"]
-       68 SETTABLEKS                       R1 R0 K7 ["OtherProperties"]
-       70 RETURN                           R0 1
+       16 GETUPVAL                         R1 2
+       17 CALL                             R1 0 1
+       18 SETTABLEKS                       R1 R0 K2 ["AvatarCollisionRules"]
+       20 GETUPVAL                         R1 3
+       21 CALL                             R1 0 1
+       22 SETTABLEKS                       R1 R0 K3 ["AvatarAbilityRules"]
+       24 GETUPVAL                         R1 4
+       25 CALL                             R1 0 1
+       26 SETTABLEKS                       R1 R0 K4 ["AvatarAnimationRules"]
+       28 GETUPVAL                         R1 5
+       29 CALL                             R1 0 1
+       30 SETTABLEKS                       R1 R0 K5 ["AvatarAccessoryRules"]
+       32 GETUPVAL                         R1 6
+       33 CALL                             R1 0 1
+       34 SETTABLEKS                       R1 R0 K6 ["AvatarClothingRules"]
+       36 DUPTABLE                         R1 K13 [{"Gravity"}]
+       37 GETUPVAL                         R2 7
+       38 GETTABLEKS                       R2 R2 K12 ["Gravity"]
+       40 SETTABLEKS                       R2 R1 K12 ["Gravity"]
+       42 SETTABLEKS                       R1 R0 K7 ["OtherProperties"]
+       44 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -460,44 +450,51 @@ MAIN:
        48 GETIMPORT                        R5 K9 [require]
        50 GETTABLEKS                       R6 R0 K10 ["Src"]
        52 GETTABLEKS                       R6 R6 K17 ["Flags"]
-       54 GETTABLEKS                       R6 R6 K18 ["getFFlagAvatarSettingsCrouchSprintStrafe"]
+       54 GETTABLEKS                       R6 R6 K18 ["getEngineFeatureAvatarSettingsBodyPartsCollidableOnDeath"]
        56 CALL                             R5 1 1
        57 GETIMPORT                        R6 K9 [require]
        59 GETTABLEKS                       R7 R0 K10 ["Src"]
        61 GETTABLEKS                       R7 R7 K17 ["Flags"]
-       63 GETTABLEKS                       R7 R7 K19 ["getFFlagAvatarSettingsReachHold"]
+       63 GETTABLEKS                       R7 R7 K19 ["getFFlagAvatarSettingsCrouchSprintStrafe"]
        65 CALL                             R6 1 1
        66 GETIMPORT                        R7 K9 [require]
        68 GETTABLEKS                       R8 R0 K10 ["Src"]
        70 GETTABLEKS                       R8 R8 K17 ["Flags"]
-       72 GETTABLEKS                       R8 R8 K20 ["getFFlagAvatarSettingsTurning"]
+       72 GETTABLEKS                       R8 R8 K20 ["getFFlagAvatarSettingsReachHold"]
        74 CALL                             R7 1 1
-       75 DUPCLOSURE                       R8 K21 [PROTO_0]
-       76 DUPCLOSURE                       R9 K22 [PROTO_1]
-       77 CAPTURE                          VAL R4
-       78 DUPCLOSURE                       R10 K23 [PROTO_2]
-       79 CAPTURE                          VAL R4
-       80 DUPCLOSURE                       R11 K24 [PROTO_3]
-       81 CAPTURE                          VAL R4
-       82 DUPCLOSURE                       R12 K25 [PROTO_4]
-       83 CAPTURE                          VAL R4
-       84 CAPTURE                          VAL R5
-       85 CAPTURE                          VAL R6
-       86 CAPTURE                          VAL R7
-       87 DUPCLOSURE                       R13 K26 [PROTO_5]
+       75 GETIMPORT                        R8 K9 [require]
+       77 GETTABLEKS                       R9 R0 K10 ["Src"]
+       79 GETTABLEKS                       R9 R9 K17 ["Flags"]
+       81 GETTABLEKS                       R9 R9 K21 ["getFFlagAvatarSettingsTurning"]
+       83 CALL                             R8 1 1
+       84 DUPCLOSURE                       R9 K22 [PROTO_0]
+       85 DUPCLOSURE                       R10 K23 [PROTO_1]
+       86 CAPTURE                          VAL R4
+       87 DUPCLOSURE                       R11 K24 [PROTO_2]
        88 CAPTURE                          VAL R4
-       89 DUPCLOSURE                       R14 K27 [PROTO_6]
+       89 DUPCLOSURE                       R12 K25 [PROTO_3]
        90 CAPTURE                          VAL R4
-       91 DUPCLOSURE                       R15 K28 [PROTO_7]
-       92 CAPTURE                          VAL R4
-       93 DUPCLOSURE                       R16 K29 [PROTO_8]
-       94 CAPTURE                          VAL R1
-       95 DUPCLOSURE                       R17 K30 [PROTO_9]
-       96 CAPTURE                          VAL R4
-       97 CAPTURE                          VAL R10
-       98 CAPTURE                          VAL R12
-       99 CAPTURE                          VAL R13
-      100 CAPTURE                          VAL R14
-      101 CAPTURE                          VAL R15
-      102 CAPTURE                          VAL R1
-      103 RETURN                           R17 1
+       91 CAPTURE                          VAL R5
+       92 DUPCLOSURE                       R13 K26 [PROTO_4]
+       93 CAPTURE                          VAL R4
+       94 CAPTURE                          VAL R6
+       95 CAPTURE                          VAL R7
+       96 CAPTURE                          VAL R8
+       97 DUPCLOSURE                       R14 K27 [PROTO_5]
+       98 CAPTURE                          VAL R4
+       99 DUPCLOSURE                       R15 K28 [PROTO_6]
+      100 CAPTURE                          VAL R4
+      101 DUPCLOSURE                       R16 K29 [PROTO_7]
+      102 CAPTURE                          VAL R4
+      103 DUPCLOSURE                       R17 K30 [PROTO_8]
+      104 CAPTURE                          VAL R1
+      105 DUPCLOSURE                       R18 K31 [PROTO_9]
+      106 CAPTURE                          VAL R4
+      107 CAPTURE                          VAL R11
+      108 CAPTURE                          VAL R12
+      109 CAPTURE                          VAL R13
+      110 CAPTURE                          VAL R14
+      111 CAPTURE                          VAL R15
+      112 CAPTURE                          VAL R16
+      113 CAPTURE                          VAL R1
+      114 RETURN                           R18 1

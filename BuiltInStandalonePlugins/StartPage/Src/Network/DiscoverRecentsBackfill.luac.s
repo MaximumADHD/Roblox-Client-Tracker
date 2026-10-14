@@ -11,64 +11,70 @@ PROTO_0:
        13 LOADNIL                          R6
        14 FORGPREP                         R4
        15 GETTABLEKS                       R9 R8 K1 ["name"]
-       17 JUMPIFNOT                        R9 ; [+63]
+       17 JUMPIFNOT                        R9 ; [+71]
        18 GETTABLEKS                       R9 R8 K2 ["id"]
-       20 JUMPIFNOT                        R9 ; [+60]
+       20 JUMPIFNOT                        R9 ; [+68]
        21 GETTABLEKS                       R9 R8 K3 ["rootPlaceId"]
-       23 JUMPIFNOT                        R9 ; [+57]
+       23 JUMPIFNOT                        R9 ; [+65]
        24 GETUPVAL                         R10 1
        25 GETTABLEKS                       R11 R8 K2 ["id"]
        27 GETTABLE                         R9 R10 R11
-       28 JUMPIF                           R9 ; [+52]
+       28 JUMPIF                           R9 ; [+60]
        29 GETTABLEKS                       R9 R8 K2 ["id"]
-       31 DUPTABLE                         R10 K18 [{["IsGame"] = True, ["Name"], ["CreatorName"], ["CreatorType"], ["CreatorTargetId"], ["Type"] = "Experience", ["Description"], ["Created"], ["Updated"], ["Audiences"], ["Id"], ["RootPlaceId"]}]
+       31 DUPTABLE                         R10 K19 [{["IsGame"] = True, ["Name"], ["CreatorName"], ["CreatorType"], ["CreatorTargetId"], ["Type"] = "Experience", ["Description"], ["Created"], ["Updated"], ["Audiences"], ["ReachStatus"], ["Id"], ["RootPlaceId"]}]
        32 GETTABLEKS                       R11 R8 K1 ["name"]
        34 SETTABLEKS                       R11 R10 K6 ["Name"]
-       36 GETTABLEKS                       R11 R8 K19 ["creatorName"]
+       36 GETTABLEKS                       R11 R8 K20 ["creatorName"]
        38 SETTABLEKS                       R11 R10 K7 ["CreatorName"]
-       40 GETTABLEKS                       R11 R8 K20 ["creatorType"]
+       40 GETTABLEKS                       R11 R8 K21 ["creatorType"]
        42 SETTABLEKS                       R11 R10 K8 ["CreatorType"]
-       44 GETTABLEKS                       R11 R8 K21 ["creatorTargetId"]
+       44 GETTABLEKS                       R11 R8 K22 ["creatorTargetId"]
        46 SETTABLEKS                       R11 R10 K9 ["CreatorTargetId"]
-       48 GETTABLEKS                       R11 R8 K22 ["description"]
+       48 GETTABLEKS                       R11 R8 K23 ["description"]
        50 SETTABLEKS                       R11 R10 K12 ["Description"]
-       52 GETTABLEKS                       R11 R8 K23 ["created"]
+       52 GETTABLEKS                       R11 R8 K24 ["created"]
        54 SETTABLEKS                       R11 R10 K13 ["Created"]
-       56 GETTABLEKS                       R11 R8 K24 ["updated"]
+       56 GETTABLEKS                       R11 R8 K25 ["updated"]
        58 SETTABLEKS                       R11 R10 K14 ["Updated"]
-       60 GETTABLEKS                       R11 R8 K25 ["audiences"]
+       60 GETTABLEKS                       R11 R8 K26 ["audiences"]
        62 SETTABLEKS                       R11 R10 K15 ["Audiences"]
-       64 GETTABLEKS                       R11 R8 K2 ["id"]
-       66 SETTABLEKS                       R11 R10 K16 ["Id"]
-       68 GETTABLEKS                       R11 R8 K3 ["rootPlaceId"]
-       70 SETTABLEKS                       R11 R10 K17 ["RootPlaceId"]
-       72 SETTABLE                         R10 R2 R9
-       73 GETTABLEKS                       R11 R8 K2 ["id"]
-       75 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
-       77 MOVE                             R10 R3
-       78 GETIMPORT                        R9 K28 [table.insert]
-       80 CALL                             R9 2 0
-       81 FORGLOOP                         R4 2 ; [-67]
-       83 NEWTABLE                         R4 0 0
-       85 MOVE                             R5 R3
-       86 LOADNIL                          R6
-       87 LOADNIL                          R7
-       88 FORGPREP                         R5
-       89 GETTABLE                         R12 R2 R9
-       90 FASTCALL2                        TABLE_INSERT R4 R12 ; [+4]
-       92 MOVE                             R11 R4
-       93 GETIMPORT                        R10 K28 [table.insert]
-       95 CALL                             R10 2 0
-       96 FORGLOOP                         R5 2 ; [-8]
-       98 GETUPVAL                         R5 2
-       99 JUMPIFNOT                        R5 ; [+7]
-      100 LENGTH                           R5 R3
-      101 LOADN                            R6 0
-      102 JUMPIFNOTLT                      R6 R5 ; [+4]
-      104 GETUPVAL                         R5 3
-      105 MOVE                             R6 R3
-      106 CALL                             R5 1 0
-      107 RETURN                           R4 1
+       64 GETUPVAL                         R12 2
+       65 JUMPIFNOT                        R12 ; [+3]
+       66 GETTABLEKS                       R11 R8 K27 ["reachStatus"]
+       68 JUMP                             ; [+1]
+       69 LOADNIL                          R11
+       70 SETTABLEKS                       R11 R10 K16 ["ReachStatus"]
+       72 GETTABLEKS                       R11 R8 K2 ["id"]
+       74 SETTABLEKS                       R11 R10 K17 ["Id"]
+       76 GETTABLEKS                       R11 R8 K3 ["rootPlaceId"]
+       78 SETTABLEKS                       R11 R10 K18 ["RootPlaceId"]
+       80 SETTABLE                         R10 R2 R9
+       81 GETTABLEKS                       R11 R8 K2 ["id"]
+       83 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
+       85 MOVE                             R10 R3
+       86 GETIMPORT                        R9 K30 [table.insert]
+       88 CALL                             R9 2 0
+       89 FORGLOOP                         R4 2 ; [-75]
+       91 NEWTABLE                         R4 0 0
+       93 MOVE                             R5 R3
+       94 LOADNIL                          R6
+       95 LOADNIL                          R7
+       96 FORGPREP                         R5
+       97 GETTABLE                         R12 R2 R9
+       98 FASTCALL2                        TABLE_INSERT R4 R12 ; [+4]
+      100 MOVE                             R11 R4
+      101 GETIMPORT                        R10 K30 [table.insert]
+      103 CALL                             R10 2 0
+      104 FORGLOOP                         R5 2 ; [-8]
+      106 GETUPVAL                         R5 3
+      107 JUMPIFNOT                        R5 ; [+7]
+      108 LENGTH                           R5 R3
+      109 LOADN                            R6 0
+      110 JUMPIFNOTLT                      R6 R5 ; [+4]
+      112 GETUPVAL                         R5 4
+      113 MOVE                             R6 R3
+      114 CALL                             R5 1 0
+      115 RETURN                           R4 1
 
 PROTO_1:
         0 GETUPVAL                         R3 0
@@ -114,20 +120,26 @@ PROTO_1:
        58 LOADK                            R6 K23 ["&needsAssetOptions=true"]
        59 CONCAT                           R4 R5 R6
        60 GETUPVAL                         R5 4
-       61 GETUPVAL                         R7 4
-       62 MOVE                             R9 R4
-       63 NAMECALL                         R7 R7 K24 ["get"]
-       65 CALL                             R7 2 -1
-       66 NAMECALL                         R5 R5 K25 ["parseJson"]
-       68 CALL                             R5 -1 1
-       69 NEWCLOSURE                       R7 P0
-       70 CAPTURE                          UPVAL U5
-       71 CAPTURE                          VAL R1
-       72 CAPTURE                          UPVAL U6
-       73 CAPTURE                          UPVAL U7
-       74 NAMECALL                         R5 R5 K26 ["andThen"]
-       76 CALL                             R5 2 -1
-       77 RETURN                           R5 -1
+       61 JUMPIFNOT                        R5 ; [+3]
+       62 MOVE                             R5 R4
+       63 LOADK                            R6 K24 ["&needsReachStatus=true"]
+       64 CONCAT                           R4 R5 R6
+       65 GETUPVAL                         R5 5
+       66 GETUPVAL                         R7 5
+       67 MOVE                             R9 R4
+       68 NAMECALL                         R7 R7 K25 ["get"]
+       70 CALL                             R7 2 -1
+       71 NAMECALL                         R5 R5 K26 ["parseJson"]
+       73 CALL                             R5 -1 1
+       74 NEWCLOSURE                       R7 P0
+       75 CAPTURE                          UPVAL U6
+       76 CAPTURE                          VAL R1
+       77 CAPTURE                          UPVAL U4
+       78 CAPTURE                          UPVAL U7
+       79 CAPTURE                          UPVAL U8
+       80 NAMECALL                         R5 R5 K27 ["andThen"]
+       82 CALL                             R5 2 -1
+       83 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -193,22 +205,29 @@ MAIN:
       104 GETTABLEKS                       R12 R12 K23 ["getFFlagLuaStartPageCoreContentStatus"]
       106 CALL                             R11 1 1
       107 CALL                             R11 0 1
-      108 GETTABLEKS                       R12 R4 K24 ["RobloxAPI"]
-      110 GETTABLEKS                       R12 R12 K25 ["Url"]
-      112 GETTABLEKS                       R13 R8 K26 ["new"]
-      114 DUPTABLE                         R14 K30 [{["isInternal"] = True, ["loggingLevel"]}]
-      115 SETTABLEKS                       R1 R14 K29 ["loggingLevel"]
-      117 CALL                             R13 1 1
-      118 MOVE                             R14 R9
-      119 GETTABLEKS                       R15 R6 K31 ["validate"]
-      121 CALL                             R14 1 1
-      122 DUPCLOSURE                       R15 K32 [PROTO_1]
-      123 CAPTURE                          VAL R2
-      124 CAPTURE                          VAL R12
-      125 CAPTURE                          VAL R7
-      126 CAPTURE                          VAL R11
-      127 CAPTURE                          VAL R13
-      128 CAPTURE                          VAL R14
-      129 CAPTURE                          VAL R3
-      130 CAPTURE                          VAL R10
-      131 RETURN                           R15 1
+      108 GETIMPORT                        R12 K5 [require]
+      110 GETTABLEKS                       R13 R0 K6 ["Src"]
+      112 GETTABLEKS                       R13 R13 K7 ["SharedFlags"]
+      114 GETTABLEKS                       R13 R13 K24 ["getFFlagLuaStartPageReachStatus"]
+      116 CALL                             R12 1 1
+      117 CALL                             R12 0 1
+      118 GETTABLEKS                       R13 R4 K25 ["RobloxAPI"]
+      120 GETTABLEKS                       R13 R13 K26 ["Url"]
+      122 GETTABLEKS                       R14 R8 K27 ["new"]
+      124 DUPTABLE                         R15 K31 [{["isInternal"] = True, ["loggingLevel"]}]
+      125 SETTABLEKS                       R1 R15 K30 ["loggingLevel"]
+      127 CALL                             R14 1 1
+      128 MOVE                             R15 R9
+      129 GETTABLEKS                       R16 R6 K32 ["validate"]
+      131 CALL                             R15 1 1
+      132 DUPCLOSURE                       R16 K33 [PROTO_1]
+      133 CAPTURE                          VAL R2
+      134 CAPTURE                          VAL R13
+      135 CAPTURE                          VAL R7
+      136 CAPTURE                          VAL R11
+      137 CAPTURE                          VAL R12
+      138 CAPTURE                          VAL R14
+      139 CAPTURE                          VAL R15
+      140 CAPTURE                          VAL R3
+      141 CAPTURE                          VAL R10
+      142 RETURN                           R16 1

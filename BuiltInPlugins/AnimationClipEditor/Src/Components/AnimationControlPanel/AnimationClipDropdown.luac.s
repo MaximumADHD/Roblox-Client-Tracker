@@ -1842,230 +1842,236 @@ MAIN:
        37 GETTABLEKS                       R8 R8 K13 ["Framework"]
        39 CALL                             R7 1 1
        40 GETIMPORT                        R8 K11 [require]
-       42 GETTABLEKS                       R9 R6 K14 ["LuaFlags"]
-       44 GETTABLEKS                       R9 R9 K15 ["GetFFlagACEImportCancelButton"]
-       46 CALL                             R8 1 1
-       47 GETIMPORT                        R9 K11 [require]
-       49 GETTABLEKS                       R10 R6 K14 ["LuaFlags"]
-       51 GETTABLEKS                       R10 R10 K16 ["GetFFlagACEImportRigType"]
-       53 CALL                             R9 1 1
-       54 GETIMPORT                        R10 K11 [require]
-       56 GETTABLEKS                       R11 R6 K14 ["LuaFlags"]
-       58 GETTABLEKS                       R11 R11 K17 ["GetFFlagACEImportSettingsDefaults"]
-       60 CALL                             R10 1 1
-       61 GETIMPORT                        R11 K11 [require]
-       63 GETTABLEKS                       R12 R6 K12 ["Packages"]
-       65 GETTABLEKS                       R12 R12 K18 ["Roact"]
-       67 CALL                             R11 1 1
-       68 GETIMPORT                        R12 K11 [require]
-       70 GETTABLEKS                       R13 R6 K12 ["Packages"]
-       72 GETTABLEKS                       R13 R13 K19 ["RoactRodux"]
-       74 CALL                             R12 1 1
-       75 GETIMPORT                        R13 K11 [require]
-       77 GETTABLEKS                       R14 R6 K20 ["Src"]
-       79 GETTABLEKS                       R14 R14 K21 ["Util"]
-       81 GETTABLEKS                       R14 R14 K22 ["Constants"]
-       83 CALL                             R13 1 1
-       84 GETIMPORT                        R14 K11 [require]
-       86 GETTABLEKS                       R15 R6 K20 ["Src"]
-       88 GETTABLEKS                       R15 R15 K21 ["Util"]
-       90 GETTABLEKS                       R15 R15 K23 ["RigSerialization"]
-       92 CALL                             R14 1 1
-       93 GETIMPORT                        R15 K26 [UDim.new]
-       95 LOADN                            R16 0
-       96 GETTABLEKS                       R17 R13 K27 ["INDENT_PADDING"]
-       98 CALL                             R15 2 1
-       99 GETTABLEKS                       R16 R7 K28 ["ContextServices"]
-      101 GETTABLEKS                       R17 R16 K29 ["withContext"]
-      103 GETTABLEKS                       R18 R6 K20 ["Src"]
-      105 GETTABLEKS                       R18 R18 K30 ["Actions"]
-      107 GETIMPORT                        R19 K11 [require]
-      109 GETTABLEKS                       R20 R18 K31 ["SetInReviewState"]
-      111 CALL                             R19 1 1
-      112 GETIMPORT                        R20 K11 [require]
-      114 GETTABLEKS                       R21 R18 K32 ["SetIsDirty"]
-      116 CALL                             R20 1 1
-      117 GETIMPORT                        R21 K11 [require]
-      119 GETTABLEKS                       R22 R18 K33 ["SetIsLegacyAnimSaves"]
-      121 CALL                             R21 1 1
-      122 GETIMPORT                        R22 K11 [require]
-      124 GETTABLEKS                       R23 R18 K34 ["SetPlayState"]
-      126 CALL                             R22 1 1
-      127 GETIMPORT                        R23 K11 [require]
-      129 GETTABLEKS                       R24 R18 K35 ["SetReduceKeyframesDialogMode"]
-      131 CALL                             R23 1 1
-      132 GETTABLEKS                       R24 R6 K20 ["Src"]
-      134 GETTABLEKS                       R24 R24 K36 ["Components"]
-      136 GETIMPORT                        R25 K11 [require]
-      138 GETTABLEKS                       R26 R24 K37 ["Toast"]
-      140 GETTABLEKS                       R26 R26 K38 ["ActionToast"]
-      142 CALL                             R25 1 1
-      143 GETIMPORT                        R26 K11 [require]
-      145 GETTABLEKS                       R27 R24 K39 ["AnimationClipMenu"]
-      147 CALL                             R26 1 1
-      148 GETIMPORT                        R27 K11 [require]
-      150 GETTABLEKS                       R28 R24 K40 ["ContextButton"]
-      152 CALL                             R27 1 1
-      153 GETIMPORT                        R28 K11 [require]
-      155 GETTABLEKS                       R29 R24 K41 ["EditEventsDialog"]
-      157 GETTABLEKS                       R29 R29 K42 ["FocusedPrompt"]
-      159 CALL                             R28 1 1
-      160 GETIMPORT                        R29 K11 [require]
-      162 GETTABLEKS                       R30 R24 K43 ["MultipleOptionPrompt"]
-      164 CALL                             R29 1 1
-      165 GETIMPORT                        R30 K11 [require]
-      167 GETTABLEKS                       R31 R24 K44 ["InProgressCover"]
-      169 CALL                             R30 1 1
-      170 GETIMPORT                        R31 K11 [require]
-      172 GETTABLEKS                       R32 R24 K45 ["TextEntryPrompt"]
-      174 CALL                             R31 1 1
-      175 GETTABLEKS                       R32 R6 K20 ["Src"]
-      177 GETTABLEKS                       R32 R32 K46 ["Thunks"]
-      179 GETIMPORT                        R33 K11 [require]
-      181 GETTABLEKS                       R34 R32 K47 ["Exporting"]
-      183 GETTABLEKS                       R34 R34 K48 ["CreateFromVideoAndImportFBXAnimationUserMayChooseModel"]
-      185 CALL                             R33 1 1
-      186 GETIMPORT                        R34 K11 [require]
-      188 GETTABLEKS                       R35 R32 K49 ["CreateNewAnimation"]
-      190 CALL                             R34 1 1
-      191 GETIMPORT                        R35 K11 [require]
-      193 GETTABLEKS                       R36 R32 K50 ["GenerateControlRigData"]
-      195 CALL                             R35 1 1
-      196 GETIMPORT                        R36 K11 [require]
-      198 GETTABLEKS                       R37 R32 K47 ["Exporting"]
-      200 GETTABLEKS                       R37 R37 K51 ["ImportFBXAnimationUserMayChooseModel"]
-      202 CALL                             R36 1 1
-      203 GETIMPORT                        R37 K11 [require]
-      205 GETTABLEKS                       R38 R32 K47 ["Exporting"]
-      207 GETTABLEKS                       R38 R38 K52 ["ImportKeyframeSequence"]
-      209 CALL                             R37 1 1
-      210 GETIMPORT                        R38 K11 [require]
-      212 GETTABLEKS                       R39 R32 K47 ["Exporting"]
-      214 GETTABLEKS                       R39 R39 K53 ["ImportLoadedFBXAnimation"]
-      216 CALL                             R38 1 1
-      217 GETIMPORT                        R39 K11 [require]
-      219 GETTABLEKS                       R40 R32 K47 ["Exporting"]
-      221 GETTABLEKS                       R40 R40 K54 ["LoadAnimation"]
-      223 CALL                             R39 1 1
-      224 GETIMPORT                        R40 K11 [require]
-      226 GETTABLEKS                       R41 R32 K55 ["LoadAnimationData"]
-      228 CALL                             R40 1 1
-      229 GETIMPORT                        R41 K11 [require]
-      231 GETTABLEKS                       R42 R32 K56 ["SanitizeAnimation"]
-      233 CALL                             R41 1 1
-      234 GETIMPORT                        R42 K11 [require]
-      236 GETTABLEKS                       R43 R32 K47 ["Exporting"]
-      238 GETTABLEKS                       R43 R43 K57 ["SaveAnimation"]
-      240 CALL                             R42 1 1
-      241 GETIMPORT                        R43 K11 [require]
-      243 GETTABLEKS                       R44 R32 K58 ["UpdateMetadata"]
-      245 CALL                             R43 1 1
-      246 GETIMPORT                        R44 K11 [require]
-      248 GETTABLEKS                       R45 R32 K47 ["Exporting"]
-      250 GETTABLEKS                       R45 R45 K59 ["LoadImportedKeyframeSequence"]
-      252 CALL                             R44 1 1
-      253 GETIMPORT                        R45 K11 [require]
-      255 GETTABLEKS                       R46 R32 K47 ["Exporting"]
-      257 GETTABLEKS                       R46 R46 K60 ["SavePassedInAnimation"]
-      259 CALL                             R45 1 1
-      260 GETTABLEKS                       R46 R7 K61 ["UI"]
-      262 GETTABLEKS                       R47 R46 K62 ["Pane"]
-      264 GETTABLEKS                       R48 R46 K63 ["TextInput"]
-      266 GETIMPORT                        R49 K11 [require]
-      268 GETTABLEKS                       R50 R6 K14 ["LuaFlags"]
-      270 GETTABLEKS                       R50 R50 K64 ["GetFFlagACEExtendedRestPoseOptions"]
-      272 CALL                             R49 1 1
-      273 GETIMPORT                        R50 K11 [require]
-      275 GETTABLEKS                       R51 R6 K20 ["Src"]
-      277 GETTABLEKS                       R51 R51 K21 ["Util"]
-      279 GETTABLEKS                       R51 R51 K65 ["RestPoseUtils"]
-      281 CALL                             R50 1 1
-      282 GETIMPORT                        R51 K11 [require]
-      284 GETTABLEKS                       R52 R6 K14 ["LuaFlags"]
-      286 GETTABLEKS                       R52 R52 K66 ["GetFFlagAnimationExportSupport"]
-      288 CALL                             R51 1 1
-      289 GETIMPORT                        R52 K11 [require]
-      291 GETTABLEKS                       R53 R6 K14 ["LuaFlags"]
-      293 GETTABLEKS                       R53 R53 K67 ["GetFFlagACEImportTrackSelection"]
-      295 CALL                             R52 1 1
-      296 GETTABLEKS                       R53 R11 K68 ["PureComponent"]
-      298 LOADK                            R55 K69 ["AnimationClipDropdown"]
-      299 NAMECALL                         R53 R53 K70 ["extend"]
-      301 CALL                             R53 2 1
-      302 DUPCLOSURE                       R54 K71 [PROTO_37]
-      303 CAPTURE                          VAL R13
-      304 CAPTURE                          VAL R11
-      305 CAPTURE                          VAL R10
-      306 CAPTURE                          VAL R2
-      307 CAPTURE                          VAL R3
-      308 CAPTURE                          VAL R0
-      309 CAPTURE                          VAL R4
-      310 CAPTURE                          VAL R49
-      311 CAPTURE                          VAL R50
-      312 CAPTURE                          VAL R5
-      313 CAPTURE                          VAL R1
-      314 SETTABLEKS                       R54 R53 K72 ["init"]
-      316 DUPCLOSURE                       R54 K73 [PROTO_49]
-      317 CAPTURE                          VAL R11
-      318 CAPTURE                          VAL R13
-      319 CAPTURE                          VAL R15
-      320 CAPTURE                          VAL R47
-      321 CAPTURE                          VAL R48
-      322 CAPTURE                          VAL R27
-      323 CAPTURE                          VAL R26
-      324 CAPTURE                          VAL R31
-      325 CAPTURE                          VAL R25
-      326 CAPTURE                          VAL R29
-      327 CAPTURE                          VAL R49
-      328 CAPTURE                          VAL R50
-      329 CAPTURE                          VAL R10
-      330 CAPTURE                          VAL R52
-      331 CAPTURE                          VAL R0
-      332 CAPTURE                          VAL R9
-      333 CAPTURE                          VAL R14
-      334 CAPTURE                          VAL R30
-      335 CAPTURE                          VAL R8
-      336 CAPTURE                          VAL R28
-      337 SETTABLEKS                       R54 R53 K74 ["render"]
-      339 MOVE                             R54 R17
-      340 DUPTABLE                         R55 K79 [{"Stylizer", "Localization", "Plugin", "Analytics"}]
-      341 GETTABLEKS                       R56 R16 K75 ["Stylizer"]
-      343 SETTABLEKS                       R56 R55 K75 ["Stylizer"]
-      345 GETTABLEKS                       R56 R16 K76 ["Localization"]
-      347 SETTABLEKS                       R56 R55 K76 ["Localization"]
-      349 GETTABLEKS                       R56 R16 K77 ["Plugin"]
-      351 SETTABLEKS                       R56 R55 K77 ["Plugin"]
-      353 GETTABLEKS                       R56 R16 K78 ["Analytics"]
-      355 SETTABLEKS                       R56 R55 K78 ["Analytics"]
-      357 CALL                             R54 1 1
-      358 MOVE                             R55 R53
-      359 CALL                             R54 1 1
-      360 MOVE                             R53 R54
-      361 DUPCLOSURE                       R54 K80 [PROTO_50]
-      362 CAPTURE                          VAL R51
-      363 DUPCLOSURE                       R55 K81 [PROTO_69]
-      364 CAPTURE                          VAL R34
-      365 CAPTURE                          VAL R40
-      366 CAPTURE                          VAL R39
-      367 CAPTURE                          VAL R42
-      368 CAPTURE                          VAL R45
-      369 CAPTURE                          VAL R37
-      370 CAPTURE                          VAL R36
-      371 CAPTURE                          VAL R33
-      372 CAPTURE                          VAL R35
-      373 CAPTURE                          VAL R38
-      374 CAPTURE                          VAL R41
-      375 CAPTURE                          VAL R43
-      376 CAPTURE                          VAL R19
-      377 CAPTURE                          VAL R20
-      378 CAPTURE                          VAL R21
-      379 CAPTURE                          VAL R22
-      380 CAPTURE                          VAL R23
-      381 CAPTURE                          VAL R44
-      382 GETTABLEKS                       R56 R12 K82 ["connect"]
-      384 MOVE                             R57 R54
-      385 MOVE                             R58 R55
-      386 CALL                             R56 2 1
-      387 MOVE                             R57 R53
-      388 CALL                             R56 1 -1
-      389 RETURN                           R56 -1
+       42 GETTABLEKS                       R9 R6 K14 ["Src"]
+       44 GETTABLEKS                       R9 R9 K15 ["Flags"]
+       46 GETTABLEKS                       R9 R9 K16 ["getFFlagACEImportCancelButton"]
+       48 CALL                             R8 1 1
+       49 GETIMPORT                        R9 K11 [require]
+       51 GETTABLEKS                       R10 R6 K14 ["Src"]
+       53 GETTABLEKS                       R10 R10 K15 ["Flags"]
+       55 GETTABLEKS                       R10 R10 K17 ["getFFlagACEImportRigType"]
+       57 CALL                             R9 1 1
+       58 GETIMPORT                        R10 K11 [require]
+       60 GETTABLEKS                       R11 R6 K14 ["Src"]
+       62 GETTABLEKS                       R11 R11 K15 ["Flags"]
+       64 GETTABLEKS                       R11 R11 K18 ["getFFlagACEImportSettingsDefaults"]
+       66 CALL                             R10 1 1
+       67 GETIMPORT                        R11 K11 [require]
+       69 GETTABLEKS                       R12 R6 K12 ["Packages"]
+       71 GETTABLEKS                       R12 R12 K19 ["Roact"]
+       73 CALL                             R11 1 1
+       74 GETIMPORT                        R12 K11 [require]
+       76 GETTABLEKS                       R13 R6 K12 ["Packages"]
+       78 GETTABLEKS                       R13 R13 K20 ["RoactRodux"]
+       80 CALL                             R12 1 1
+       81 GETIMPORT                        R13 K11 [require]
+       83 GETTABLEKS                       R14 R6 K14 ["Src"]
+       85 GETTABLEKS                       R14 R14 K21 ["Util"]
+       87 GETTABLEKS                       R14 R14 K22 ["Constants"]
+       89 CALL                             R13 1 1
+       90 GETIMPORT                        R14 K11 [require]
+       92 GETTABLEKS                       R15 R6 K14 ["Src"]
+       94 GETTABLEKS                       R15 R15 K21 ["Util"]
+       96 GETTABLEKS                       R15 R15 K23 ["RigSerialization"]
+       98 CALL                             R14 1 1
+       99 GETIMPORT                        R15 K26 [UDim.new]
+      101 LOADN                            R16 0
+      102 GETTABLEKS                       R17 R13 K27 ["INDENT_PADDING"]
+      104 CALL                             R15 2 1
+      105 GETTABLEKS                       R16 R7 K28 ["ContextServices"]
+      107 GETTABLEKS                       R17 R16 K29 ["withContext"]
+      109 GETTABLEKS                       R18 R6 K14 ["Src"]
+      111 GETTABLEKS                       R18 R18 K30 ["Actions"]
+      113 GETIMPORT                        R19 K11 [require]
+      115 GETTABLEKS                       R20 R18 K31 ["SetInReviewState"]
+      117 CALL                             R19 1 1
+      118 GETIMPORT                        R20 K11 [require]
+      120 GETTABLEKS                       R21 R18 K32 ["SetIsDirty"]
+      122 CALL                             R20 1 1
+      123 GETIMPORT                        R21 K11 [require]
+      125 GETTABLEKS                       R22 R18 K33 ["SetIsLegacyAnimSaves"]
+      127 CALL                             R21 1 1
+      128 GETIMPORT                        R22 K11 [require]
+      130 GETTABLEKS                       R23 R18 K34 ["SetPlayState"]
+      132 CALL                             R22 1 1
+      133 GETIMPORT                        R23 K11 [require]
+      135 GETTABLEKS                       R24 R18 K35 ["SetReduceKeyframesDialogMode"]
+      137 CALL                             R23 1 1
+      138 GETTABLEKS                       R24 R6 K14 ["Src"]
+      140 GETTABLEKS                       R24 R24 K36 ["Components"]
+      142 GETIMPORT                        R25 K11 [require]
+      144 GETTABLEKS                       R26 R24 K37 ["Toast"]
+      146 GETTABLEKS                       R26 R26 K38 ["ActionToast"]
+      148 CALL                             R25 1 1
+      149 GETIMPORT                        R26 K11 [require]
+      151 GETTABLEKS                       R27 R24 K39 ["AnimationClipMenu"]
+      153 CALL                             R26 1 1
+      154 GETIMPORT                        R27 K11 [require]
+      156 GETTABLEKS                       R28 R24 K40 ["ContextButton"]
+      158 CALL                             R27 1 1
+      159 GETIMPORT                        R28 K11 [require]
+      161 GETTABLEKS                       R29 R24 K41 ["EditEventsDialog"]
+      163 GETTABLEKS                       R29 R29 K42 ["FocusedPrompt"]
+      165 CALL                             R28 1 1
+      166 GETIMPORT                        R29 K11 [require]
+      168 GETTABLEKS                       R30 R24 K43 ["MultipleOptionPrompt"]
+      170 CALL                             R29 1 1
+      171 GETIMPORT                        R30 K11 [require]
+      173 GETTABLEKS                       R31 R24 K44 ["InProgressCover"]
+      175 CALL                             R30 1 1
+      176 GETIMPORT                        R31 K11 [require]
+      178 GETTABLEKS                       R32 R24 K45 ["TextEntryPrompt"]
+      180 CALL                             R31 1 1
+      181 GETTABLEKS                       R32 R6 K14 ["Src"]
+      183 GETTABLEKS                       R32 R32 K46 ["Thunks"]
+      185 GETIMPORT                        R33 K11 [require]
+      187 GETTABLEKS                       R34 R32 K47 ["Exporting"]
+      189 GETTABLEKS                       R34 R34 K48 ["CreateFromVideoAndImportFBXAnimationUserMayChooseModel"]
+      191 CALL                             R33 1 1
+      192 GETIMPORT                        R34 K11 [require]
+      194 GETTABLEKS                       R35 R32 K49 ["CreateNewAnimation"]
+      196 CALL                             R34 1 1
+      197 GETIMPORT                        R35 K11 [require]
+      199 GETTABLEKS                       R36 R32 K50 ["GenerateControlRigData"]
+      201 CALL                             R35 1 1
+      202 GETIMPORT                        R36 K11 [require]
+      204 GETTABLEKS                       R37 R32 K47 ["Exporting"]
+      206 GETTABLEKS                       R37 R37 K51 ["ImportFBXAnimationUserMayChooseModel"]
+      208 CALL                             R36 1 1
+      209 GETIMPORT                        R37 K11 [require]
+      211 GETTABLEKS                       R38 R32 K47 ["Exporting"]
+      213 GETTABLEKS                       R38 R38 K52 ["ImportKeyframeSequence"]
+      215 CALL                             R37 1 1
+      216 GETIMPORT                        R38 K11 [require]
+      218 GETTABLEKS                       R39 R32 K47 ["Exporting"]
+      220 GETTABLEKS                       R39 R39 K53 ["ImportLoadedFBXAnimation"]
+      222 CALL                             R38 1 1
+      223 GETIMPORT                        R39 K11 [require]
+      225 GETTABLEKS                       R40 R32 K47 ["Exporting"]
+      227 GETTABLEKS                       R40 R40 K54 ["LoadAnimation"]
+      229 CALL                             R39 1 1
+      230 GETIMPORT                        R40 K11 [require]
+      232 GETTABLEKS                       R41 R32 K55 ["LoadAnimationData"]
+      234 CALL                             R40 1 1
+      235 GETIMPORT                        R41 K11 [require]
+      237 GETTABLEKS                       R42 R32 K56 ["SanitizeAnimation"]
+      239 CALL                             R41 1 1
+      240 GETIMPORT                        R42 K11 [require]
+      242 GETTABLEKS                       R43 R32 K47 ["Exporting"]
+      244 GETTABLEKS                       R43 R43 K57 ["SaveAnimation"]
+      246 CALL                             R42 1 1
+      247 GETIMPORT                        R43 K11 [require]
+      249 GETTABLEKS                       R44 R32 K58 ["UpdateMetadata"]
+      251 CALL                             R43 1 1
+      252 GETIMPORT                        R44 K11 [require]
+      254 GETTABLEKS                       R45 R32 K47 ["Exporting"]
+      256 GETTABLEKS                       R45 R45 K59 ["LoadImportedKeyframeSequence"]
+      258 CALL                             R44 1 1
+      259 GETIMPORT                        R45 K11 [require]
+      261 GETTABLEKS                       R46 R32 K47 ["Exporting"]
+      263 GETTABLEKS                       R46 R46 K60 ["SavePassedInAnimation"]
+      265 CALL                             R45 1 1
+      266 GETTABLEKS                       R46 R7 K61 ["UI"]
+      268 GETTABLEKS                       R47 R46 K62 ["Pane"]
+      270 GETTABLEKS                       R48 R46 K63 ["TextInput"]
+      272 GETIMPORT                        R49 K11 [require]
+      274 GETTABLEKS                       R50 R6 K14 ["Src"]
+      276 GETTABLEKS                       R50 R50 K15 ["Flags"]
+      278 GETTABLEKS                       R50 R50 K64 ["getFFlagACEExtendedRestPoseOptions"]
+      280 CALL                             R49 1 1
+      281 GETIMPORT                        R50 K11 [require]
+      283 GETTABLEKS                       R51 R6 K14 ["Src"]
+      285 GETTABLEKS                       R51 R51 K21 ["Util"]
+      287 GETTABLEKS                       R51 R51 K65 ["RestPoseUtils"]
+      289 CALL                             R50 1 1
+      290 GETIMPORT                        R51 K11 [require]
+      292 GETTABLEKS                       R52 R6 K14 ["Src"]
+      294 GETTABLEKS                       R52 R52 K15 ["Flags"]
+      296 GETTABLEKS                       R52 R52 K66 ["getFFlagAnimationExportSupport"]
+      298 CALL                             R51 1 1
+      299 GETIMPORT                        R52 K11 [require]
+      301 GETTABLEKS                       R53 R6 K14 ["Src"]
+      303 GETTABLEKS                       R53 R53 K15 ["Flags"]
+      305 GETTABLEKS                       R53 R53 K67 ["getFFlagACEImportTrackSelection"]
+      307 CALL                             R52 1 1
+      308 GETTABLEKS                       R53 R11 K68 ["PureComponent"]
+      310 LOADK                            R55 K69 ["AnimationClipDropdown"]
+      311 NAMECALL                         R53 R53 K70 ["extend"]
+      313 CALL                             R53 2 1
+      314 DUPCLOSURE                       R54 K71 [PROTO_37]
+      315 CAPTURE                          VAL R13
+      316 CAPTURE                          VAL R11
+      317 CAPTURE                          VAL R10
+      318 CAPTURE                          VAL R2
+      319 CAPTURE                          VAL R3
+      320 CAPTURE                          VAL R0
+      321 CAPTURE                          VAL R4
+      322 CAPTURE                          VAL R49
+      323 CAPTURE                          VAL R50
+      324 CAPTURE                          VAL R5
+      325 CAPTURE                          VAL R1
+      326 SETTABLEKS                       R54 R53 K72 ["init"]
+      328 DUPCLOSURE                       R54 K73 [PROTO_49]
+      329 CAPTURE                          VAL R11
+      330 CAPTURE                          VAL R13
+      331 CAPTURE                          VAL R15
+      332 CAPTURE                          VAL R47
+      333 CAPTURE                          VAL R48
+      334 CAPTURE                          VAL R27
+      335 CAPTURE                          VAL R26
+      336 CAPTURE                          VAL R31
+      337 CAPTURE                          VAL R25
+      338 CAPTURE                          VAL R29
+      339 CAPTURE                          VAL R49
+      340 CAPTURE                          VAL R50
+      341 CAPTURE                          VAL R10
+      342 CAPTURE                          VAL R52
+      343 CAPTURE                          VAL R0
+      344 CAPTURE                          VAL R9
+      345 CAPTURE                          VAL R14
+      346 CAPTURE                          VAL R30
+      347 CAPTURE                          VAL R8
+      348 CAPTURE                          VAL R28
+      349 SETTABLEKS                       R54 R53 K74 ["render"]
+      351 MOVE                             R54 R17
+      352 DUPTABLE                         R55 K79 [{"Stylizer", "Localization", "Plugin", "Analytics"}]
+      353 GETTABLEKS                       R56 R16 K75 ["Stylizer"]
+      355 SETTABLEKS                       R56 R55 K75 ["Stylizer"]
+      357 GETTABLEKS                       R56 R16 K76 ["Localization"]
+      359 SETTABLEKS                       R56 R55 K76 ["Localization"]
+      361 GETTABLEKS                       R56 R16 K77 ["Plugin"]
+      363 SETTABLEKS                       R56 R55 K77 ["Plugin"]
+      365 GETTABLEKS                       R56 R16 K78 ["Analytics"]
+      367 SETTABLEKS                       R56 R55 K78 ["Analytics"]
+      369 CALL                             R54 1 1
+      370 MOVE                             R55 R53
+      371 CALL                             R54 1 1
+      372 MOVE                             R53 R54
+      373 DUPCLOSURE                       R54 K80 [PROTO_50]
+      374 CAPTURE                          VAL R51
+      375 DUPCLOSURE                       R55 K81 [PROTO_69]
+      376 CAPTURE                          VAL R34
+      377 CAPTURE                          VAL R40
+      378 CAPTURE                          VAL R39
+      379 CAPTURE                          VAL R42
+      380 CAPTURE                          VAL R45
+      381 CAPTURE                          VAL R37
+      382 CAPTURE                          VAL R36
+      383 CAPTURE                          VAL R33
+      384 CAPTURE                          VAL R35
+      385 CAPTURE                          VAL R38
+      386 CAPTURE                          VAL R41
+      387 CAPTURE                          VAL R43
+      388 CAPTURE                          VAL R19
+      389 CAPTURE                          VAL R20
+      390 CAPTURE                          VAL R21
+      391 CAPTURE                          VAL R22
+      392 CAPTURE                          VAL R23
+      393 CAPTURE                          VAL R44
+      394 GETTABLEKS                       R56 R12 K82 ["connect"]
+      396 MOVE                             R57 R54
+      397 MOVE                             R58 R55
+      398 CALL                             R56 2 1
+      399 MOVE                             R57 R53
+      400 CALL                             R56 1 -1
+      401 RETURN                           R56 -1

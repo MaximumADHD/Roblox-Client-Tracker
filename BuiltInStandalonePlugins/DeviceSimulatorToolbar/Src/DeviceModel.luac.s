@@ -73,45 +73,85 @@ PROTO_3:
        15 RETURN                           R2 1
 
 PROTO_4:
-        0 NEWTABLE                         R3 0 0
-        2 GETIMPORT                        R7 K2 [table.clone]
-        4 MOVE                             R8 R0
-        5 CALL                             R7 1 1
-        6 GETIMPORT                        R8 K4 [table.sort]
-        8 MOVE                             R9 R7
-        9 DUPCLOSURE                       R10 K5 [PROTO_0]
-       10 CALL                             R8 2 0
-       11 MOVE                             R4 R7
-       12 LOADNIL                          R5
-       13 LOADNIL                          R6
-       14 FORGPREP                         R4
-       15 DUPTABLE                         R11 K9 [{"id", "text", "isChecked"}]
-       16 GETTABLEKS                       R12 R8 K10 ["deviceId"]
-       18 SETTABLEKS                       R12 R11 K6 ["id"]
-       20 GETTABLEKS                       R13 R8 K10 ["deviceId"]
-       22 GETUPVAL                         R14 0
-       23 GETTABLEKS                       R14 R14 K11 ["DEFAULT_DEVICE_ID"]
-       25 JUMPIFNOTEQ                      R13 R14 ; [+7]
-       27 LOADK                            R14 K12 ["DeviceMenu"]
-       28 LOADK                            R15 K13 ["CurrentDevice"]
-       29 NAMECALL                         R12 R2 K14 ["getText"]
-       31 CALL                             R12 3 1
-       32 JUMP                             ; [+2]
-       33 GETTABLEKS                       R12 R8 K15 ["deviceName"]
-       35 SETTABLEKS                       R12 R11 K7 ["text"]
-       37 GETTABLEKS                       R13 R8 K10 ["deviceId"]
-       39 JUMPIFEQ                         R13 R1 ; [+2]
-       41 LOADB                            R12 0 +1
-       42 LOADB                            R12 1
-       43 SETTABLEKS                       R12 R11 K8 ["isChecked"]
-       45 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
-       47 MOVE                             R10 R3
-       48 GETIMPORT                        R9 K17 [table.insert]
-       50 CALL                             R9 2 0
-       51 FORGLOOP                         R4 2 ; [-37]
-       53 RETURN                           R3 1
+        0 GETTABLEKS                       R1 R0 K0 ["width"]
+        2 LOADN                            R2 0
+        3 JUMPIFLE                         R1 R2 ; [+6]
+        5 GETTABLEKS                       R1 R0 K1 ["height"]
+        7 LOADN                            R2 0
+        8 JUMPIFNOTLE                      R1 R2 ; [+3]
+       10 LOADNIL                          R1
+       11 RETURN                           R1 1
+       12 DUPTABLE                         R1 K5 [{["type"] = "Hint", ["text"]}]
+       13 LOADK                            R2 K6 ["%* × %*"]
+       14 GETTABLEKS                       R4 R0 K0 ["width"]
+       16 GETTABLEKS                       R5 R0 K1 ["height"]
+       18 NAMECALL                         R2 R2 K7 ["format"]
+       20 CALL                             R2 3 1
+       21 SETTABLEKS                       R2 R1 K4 ["text"]
+       23 RETURN                           R1 1
 
 PROTO_5:
+        0 NEWTABLE                         R3 0 0
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K0 ["getFFlagDeviceSimulatorDropdownResolutionHint"]
+        5 CALL                             R4 0 1
+        6 GETIMPORT                        R8 K3 [table.clone]
+        8 MOVE                             R9 R0
+        9 CALL                             R8 1 1
+       10 GETIMPORT                        R9 K5 [table.sort]
+       12 MOVE                             R10 R8
+       13 DUPCLOSURE                       R11 K6 [PROTO_0]
+       14 CALL                             R9 2 0
+       15 MOVE                             R5 R8
+       16 LOADNIL                          R6
+       17 LOADNIL                          R7
+       18 FORGPREP                         R5
+       19 DUPTABLE                         R12 K11 [{"id", "text", "isChecked", "trailing"}]
+       20 GETTABLEKS                       R13 R9 K12 ["deviceId"]
+       22 SETTABLEKS                       R13 R12 K7 ["id"]
+       24 GETTABLEKS                       R14 R9 K12 ["deviceId"]
+       26 GETUPVAL                         R15 1
+       27 GETTABLEKS                       R15 R15 K13 ["DEFAULT_DEVICE_ID"]
+       29 JUMPIFNOTEQ                      R14 R15 ; [+7]
+       31 LOADK                            R15 K14 ["DeviceMenu"]
+       32 LOADK                            R16 K15 ["CurrentDevice"]
+       33 NAMECALL                         R13 R2 K16 ["getText"]
+       35 CALL                             R13 3 1
+       36 JUMP                             ; [+2]
+       37 GETTABLEKS                       R13 R9 K17 ["deviceName"]
+       39 SETTABLEKS                       R13 R12 K8 ["text"]
+       41 GETTABLEKS                       R14 R9 K12 ["deviceId"]
+       43 JUMPIFEQ                         R14 R1 ; [+2]
+       45 LOADB                            R13 0 +1
+       46 LOADB                            R13 1
+       47 SETTABLEKS                       R13 R12 K9 ["isChecked"]
+       49 JUMPIFNOT                        R4 ; [+24]
+       50 GETTABLEKS                       R14 R9 K18 ["width"]
+       52 LOADN                            R15 0
+       53 JUMPIFLE                         R14 R15 ; [+6]
+       55 GETTABLEKS                       R14 R9 K19 ["height"]
+       57 LOADN                            R15 0
+       58 JUMPIFNOTLE                      R14 R15 ; [+3]
+       60 LOADNIL                          R13
+       61 JUMP                             ; [+13]
+       62 DUPTABLE                         R13 K22 [{["type"] = "Hint", ["text"]}]
+       63 LOADK                            R14 K23 ["%* × %*"]
+       64 GETTABLEKS                       R16 R9 K18 ["width"]
+       66 GETTABLEKS                       R17 R9 K19 ["height"]
+       68 NAMECALL                         R14 R14 K24 ["format"]
+       70 CALL                             R14 3 1
+       71 SETTABLEKS                       R14 R13 K8 ["text"]
+       73 JUMP                             ; [+1]
+       74 LOADNIL                          R13
+       75 SETTABLEKS                       R13 R12 K10 ["trailing"]
+       77 FASTCALL2                        TABLE_INSERT R3 R12 ; [+4]
+       79 MOVE                             R11 R3
+       80 GETIMPORT                        R10 K26 [table.insert]
+       82 CALL                             R10 2 0
+       83 FORGLOOP                         R5 2 ; [-65]
+       85 RETURN                           R3 1
+
+PROTO_6:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["formValue"]
         3 GETTABLEKS                       R2 R0 K1 ["deviceForm"]
@@ -123,7 +163,7 @@ PROTO_5:
        10 GETTABLE                         R2 R3 R1
        11 RETURN                           R2 1
 
-PROTO_6:
+PROTO_7:
         0 NEWTABLE                         R1 0 0
         2 MOVE                             R2 R0
         3 LOADNIL                          R3
@@ -138,7 +178,7 @@ PROTO_6:
        15 SETTABLE                         R3 R1 R2
        16 RETURN                           R1 1
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R4 R4 K0 ["entriesById"]
         3 MOVE                             R5 R1
@@ -162,7 +202,7 @@ PROTO_7:
        27 CALL                             R4 3 1
        28 RETURN                           R4 1
 
-PROTO_8:
+PROTO_9:
         0 GETUPVAL                         R5 0
         1 MOVE                             R6 R0
         2 MOVE                             R7 R1
@@ -373,7 +413,39 @@ PROTO_8:
       285 CALL                             R7 2 0
       286 RETURN                           R6 1
 
-PROTO_9:
+PROTO_10:
+        0 NEWTABLE                         R3 0 0
+        2 MOVE                             R4 R0
+        3 LOADNIL                          R5
+        4 LOADNIL                          R6
+        5 FORGPREP                         R4
+        6 GETTABLEKS                       R9 R8 K0 ["items"]
+        8 LOADNIL                          R10
+        9 LOADNIL                          R11
+       10 FORGPREP                         R9
+       11 GETTABLEKS                       R14 R13 K1 ["id"]
+       13 GETUPVAL                         R15 0
+       14 GETTABLEKS                       R15 R15 K2 ["MANAGE_DEVICES_ID"]
+       16 JUMPIFEQ                         R14 R15 ; [+9]
+       18 GETTABLEKS                       R16 R13 K1 ["id"]
+       20 FASTCALL2                        TABLE_INSERT R3 R16 ; [+4]
+       22 MOVE                             R15 R3
+       23 GETIMPORT                        R14 K5 [table.insert]
+       25 CALL                             R14 2 0
+       26 FORGLOOP                         R9 2 ; [-16]
+       28 FORGLOOP                         R4 2 ; [-23]
+       30 GETIMPORT                        R4 K7 [table.find]
+       32 MOVE                             R5 R3
+       33 MOVE                             R6 R1
+       34 CALL                             R4 2 1
+       35 JUMPIFNOTEQKNIL                  R4 ; [+3]
+       37 LOADNIL                          R5
+       38 RETURN                           R5 1
+       39 ADD                              R6 R4 R2
+       40 GETTABLE                         R5 R3 R6
+       41 RETURN                           R5 1
+
+PROTO_11:
         0 DUPTABLE                         R4 K4 [{"initialTab", "devices", "selectedDeviceId", "hiddenDeviceIds"}]
         1 GETUPVAL                         R6 0
         2 GETTABLE                         R5 R6 R0
@@ -383,7 +455,7 @@ PROTO_9:
         9 SETTABLEKS                       R3 R4 K3 ["hiddenDeviceIds"]
        11 RETURN                           R4 1
 
-PROTO_10:
+PROTO_12:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R0
         2 MOVE                             R5 R1
@@ -414,7 +486,7 @@ PROTO_10:
        33 LOADNIL                          R4
        34 RETURN                           R4 1
 
-PROTO_11:
+PROTO_13:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["getDefaultDeviceId"]
         3 MOVE                             R4 R0
@@ -452,139 +524,149 @@ MAIN:
        39 GETTABLEKS                       R6 R0 K8 ["Src"]
        41 GETTABLEKS                       R6 R6 K13 ["Localization"]
        43 CALL                             R5 1 1
-       44 NEWTABLE                         R6 16 0
-       46 LOADK                            R7 K14 ["default"]
-       47 SETTABLEKS                       R7 R6 K15 ["DEFAULT_DEVICE_ID"]
-       49 LOADK                            R7 K16 ["__manage_devices__"]
-       50 SETTABLEKS                       R7 R6 K17 ["MANAGE_DEVICES_ID"]
-       52 NEWTABLE                         R7 8 0
-       54 GETIMPORT                        R8 K21 [Enum.DeviceForm.Phone]
-       56 GETTABLEKS                       R8 R8 K22 ["Value"]
-       58 GETTABLEKS                       R9 R2 K23 ["Category"]
-       60 GETTABLEKS                       R9 R9 K24 ["PHONE_TABLET"]
-       62 SETTABLE                         R9 R7 R8
-       63 GETIMPORT                        R8 K26 [Enum.DeviceForm.Tablet]
-       65 GETTABLEKS                       R8 R8 K22 ["Value"]
-       67 GETTABLEKS                       R9 R2 K23 ["Category"]
-       69 GETTABLEKS                       R9 R9 K24 ["PHONE_TABLET"]
-       71 SETTABLE                         R9 R7 R8
-       72 GETIMPORT                        R8 K28 [Enum.DeviceForm.Desktop]
-       74 GETTABLEKS                       R8 R8 K22 ["Value"]
-       76 GETTABLEKS                       R9 R2 K23 ["Category"]
-       78 GETTABLEKS                       R9 R9 K29 ["DESKTOP"]
-       80 SETTABLE                         R9 R7 R8
-       81 GETIMPORT                        R8 K31 [Enum.DeviceForm.Console]
-       83 GETTABLEKS                       R8 R8 K22 ["Value"]
-       85 GETTABLEKS                       R9 R2 K23 ["Category"]
-       87 GETTABLEKS                       R9 R9 K32 ["CONSOLE"]
-       89 SETTABLE                         R9 R7 R8
-       90 GETIMPORT                        R8 K34 [Enum.DeviceForm.VR]
-       92 GETTABLEKS                       R8 R8 K22 ["Value"]
-       94 GETTABLEKS                       R9 R2 K23 ["Category"]
-       96 GETTABLEKS                       R9 R9 K33 ["VR"]
-       98 SETTABLE                         R9 R7 R8
-       99 NEWTABLE                         R8 4 0
-      101 GETTABLEKS                       R9 R2 K23 ["Category"]
-      103 GETTABLEKS                       R9 R9 K24 ["PHONE_TABLET"]
-      105 LOADK                            R10 K35 ["iphone_17_pro"]
-      106 SETTABLE                         R10 R8 R9
-      107 GETTABLEKS                       R9 R2 K23 ["Category"]
-      109 GETTABLEKS                       R9 R9 K29 ["DESKTOP"]
-      111 GETTABLEKS                       R10 R6 K15 ["DEFAULT_DEVICE_ID"]
-      113 SETTABLE                         R10 R8 R9
-      114 GETTABLEKS                       R9 R2 K23 ["Category"]
-      116 GETTABLEKS                       R9 R9 K32 ["CONSOLE"]
-      118 LOADK                            R10 K36 ["ps5"]
-      119 SETTABLE                         R10 R8 R9
-      120 GETTABLEKS                       R9 R2 K23 ["Category"]
-      122 GETTABLEKS                       R9 R9 K33 ["VR"]
-      124 LOADK                            R10 K37 ["meta_quest_3"]
-      125 SETTABLE                         R10 R8 R9
-      126 NEWTABLE                         R9 4 0
-      128 GETTABLEKS                       R10 R2 K23 ["Category"]
-      130 GETTABLEKS                       R10 R10 K29 ["DESKTOP"]
-      132 LOADK                            R11 K38 ["DesktopComputer"]
-      133 SETTABLE                         R11 R9 R10
-      134 GETTABLEKS                       R10 R2 K23 ["Category"]
-      136 GETTABLEKS                       R10 R10 K32 ["CONSOLE"]
-      138 LOADK                            R11 K30 ["Console"]
-      139 SETTABLE                         R11 R9 R10
-      140 GETTABLEKS                       R10 R2 K23 ["Category"]
-      142 GETTABLEKS                       R10 R10 K33 ["VR"]
-      144 LOADK                            R11 K39 ["Headset"]
-      145 SETTABLE                         R11 R9 R10
-      146 NEWTABLE                         R10 0 3
-      148 DUPTABLE                         R11 K43 [{["tier"], ["key"] = "Flagship"}]
-      149 GETTABLEKS                       R12 R2 K44 ["Tier"]
-      151 GETTABLEKS                       R12 R12 K45 ["HIGH"]
-      153 SETTABLEKS                       R12 R11 K40 ["tier"]
-      155 DUPTABLE                         R12 K47 [{["tier"], ["key"] = "MidRange"}]
-      156 GETTABLEKS                       R13 R2 K44 ["Tier"]
-      158 GETTABLEKS                       R13 R13 K48 ["MID"]
-      160 SETTABLEKS                       R13 R12 K40 ["tier"]
-      162 DUPTABLE                         R13 K50 [{["tier"], ["key"] = "EntryLevel"}]
-      163 GETTABLEKS                       R14 R2 K44 ["Tier"]
-      165 GETTABLEKS                       R14 R14 K51 ["LOW"]
-      167 SETTABLEKS                       R14 R13 K40 ["tier"]
-      169 SETLIST                          R10 R11 3 [1]
-      171 NEWTABLE                         R11 4 0
-      173 GETTABLEKS                       R12 R2 K44 ["Tier"]
-      175 GETTABLEKS                       R12 R12 K45 ["HIGH"]
-      177 LOADB                            R13 1
-      178 SETTABLE                         R13 R11 R12
-      179 GETTABLEKS                       R12 R2 K44 ["Tier"]
-      181 GETTABLEKS                       R12 R12 K48 ["MID"]
-      183 LOADB                            R13 1
-      184 SETTABLE                         R13 R11 R12
-      185 GETTABLEKS                       R12 R2 K44 ["Tier"]
-      187 GETTABLEKS                       R12 R12 K51 ["LOW"]
-      189 LOADB                            R13 1
-      190 SETTABLE                         R13 R11 R12
-      191 DUPTABLE                         R12 K58 [{["phone_tablet"] = "mobile", ["desktop"] = "desktop", ["console"] = "console", ["vr"] = "headset"}]
-      192 DUPTABLE                         R13 K73 [{["deviceForm"], ["deviceName"] = "", ["deviceId"], ["dpi"] = 0, ["height"] = 0, ["isCustom"] = False, ["landscapeKeyboardHeight"] = 0, ["memoryMB"] = 0, ["platform"], ["portraitKeyboardHeight"] = 0, ["tier"] = "", ["width"] = 0}]
-      193 GETIMPORT                        R14 K28 [Enum.DeviceForm.Desktop]
-      195 SETTABLEKS                       R14 R13 K59 ["deviceForm"]
-      197 GETTABLEKS                       R14 R6 K15 ["DEFAULT_DEVICE_ID"]
-      199 SETTABLEKS                       R14 R13 K62 ["deviceId"]
-      201 GETIMPORT                        R14 K76 [Enum.Platform.None]
-      203 SETTABLEKS                       R14 R13 K70 ["platform"]
-      205 DUPCLOSURE                       R14 K77 [PROTO_1]
-      206 DUPCLOSURE                       R15 K78 [PROTO_2]
-      207 CAPTURE                          VAL R6
-      208 CAPTURE                          VAL R2
-      209 CAPTURE                          VAL R13
-      210 DUPCLOSURE                       R16 K79 [PROTO_3]
-      211 CAPTURE                          VAL R6
-      212 DUPCLOSURE                       R17 K80 [PROTO_4]
-      213 CAPTURE                          VAL R6
-      214 DUPCLOSURE                       R18 K81 [PROTO_5]
-      215 CAPTURE                          VAL R3
+       44 GETIMPORT                        R6 K5 [require]
+       46 GETTABLEKS                       R7 R0 K14 ["Bin"]
+       48 GETTABLEKS                       R7 R7 K15 ["Common"]
+       50 GETTABLEKS                       R7 R7 K16 ["defineLuaFlags"]
+       52 CALL                             R6 1 1
+       53 NEWTABLE                         R7 16 0
+       55 LOADK                            R8 K17 ["default"]
+       56 SETTABLEKS                       R8 R7 K18 ["DEFAULT_DEVICE_ID"]
+       58 LOADK                            R8 K19 ["__manage_devices__"]
+       59 SETTABLEKS                       R8 R7 K20 ["MANAGE_DEVICES_ID"]
+       61 NEWTABLE                         R8 8 0
+       63 GETIMPORT                        R9 K24 [Enum.DeviceForm.Phone]
+       65 GETTABLEKS                       R9 R9 K25 ["Value"]
+       67 GETTABLEKS                       R10 R2 K26 ["Category"]
+       69 GETTABLEKS                       R10 R10 K27 ["PHONE_TABLET"]
+       71 SETTABLE                         R10 R8 R9
+       72 GETIMPORT                        R9 K29 [Enum.DeviceForm.Tablet]
+       74 GETTABLEKS                       R9 R9 K25 ["Value"]
+       76 GETTABLEKS                       R10 R2 K26 ["Category"]
+       78 GETTABLEKS                       R10 R10 K27 ["PHONE_TABLET"]
+       80 SETTABLE                         R10 R8 R9
+       81 GETIMPORT                        R9 K31 [Enum.DeviceForm.Desktop]
+       83 GETTABLEKS                       R9 R9 K25 ["Value"]
+       85 GETTABLEKS                       R10 R2 K26 ["Category"]
+       87 GETTABLEKS                       R10 R10 K32 ["DESKTOP"]
+       89 SETTABLE                         R10 R8 R9
+       90 GETIMPORT                        R9 K34 [Enum.DeviceForm.Console]
+       92 GETTABLEKS                       R9 R9 K25 ["Value"]
+       94 GETTABLEKS                       R10 R2 K26 ["Category"]
+       96 GETTABLEKS                       R10 R10 K35 ["CONSOLE"]
+       98 SETTABLE                         R10 R8 R9
+       99 GETIMPORT                        R9 K37 [Enum.DeviceForm.VR]
+      101 GETTABLEKS                       R9 R9 K25 ["Value"]
+      103 GETTABLEKS                       R10 R2 K26 ["Category"]
+      105 GETTABLEKS                       R10 R10 K36 ["VR"]
+      107 SETTABLE                         R10 R8 R9
+      108 NEWTABLE                         R9 4 0
+      110 GETTABLEKS                       R10 R2 K26 ["Category"]
+      112 GETTABLEKS                       R10 R10 K27 ["PHONE_TABLET"]
+      114 LOADK                            R11 K38 ["iphone_17_pro"]
+      115 SETTABLE                         R11 R9 R10
+      116 GETTABLEKS                       R10 R2 K26 ["Category"]
+      118 GETTABLEKS                       R10 R10 K32 ["DESKTOP"]
+      120 GETTABLEKS                       R11 R7 K18 ["DEFAULT_DEVICE_ID"]
+      122 SETTABLE                         R11 R9 R10
+      123 GETTABLEKS                       R10 R2 K26 ["Category"]
+      125 GETTABLEKS                       R10 R10 K35 ["CONSOLE"]
+      127 LOADK                            R11 K39 ["ps5"]
+      128 SETTABLE                         R11 R9 R10
+      129 GETTABLEKS                       R10 R2 K26 ["Category"]
+      131 GETTABLEKS                       R10 R10 K36 ["VR"]
+      133 LOADK                            R11 K40 ["meta_quest_3"]
+      134 SETTABLE                         R11 R9 R10
+      135 NEWTABLE                         R10 4 0
+      137 GETTABLEKS                       R11 R2 K26 ["Category"]
+      139 GETTABLEKS                       R11 R11 K32 ["DESKTOP"]
+      141 LOADK                            R12 K41 ["DesktopComputer"]
+      142 SETTABLE                         R12 R10 R11
+      143 GETTABLEKS                       R11 R2 K26 ["Category"]
+      145 GETTABLEKS                       R11 R11 K35 ["CONSOLE"]
+      147 LOADK                            R12 K33 ["Console"]
+      148 SETTABLE                         R12 R10 R11
+      149 GETTABLEKS                       R11 R2 K26 ["Category"]
+      151 GETTABLEKS                       R11 R11 K36 ["VR"]
+      153 LOADK                            R12 K42 ["Headset"]
+      154 SETTABLE                         R12 R10 R11
+      155 NEWTABLE                         R11 0 3
+      157 DUPTABLE                         R12 K46 [{["tier"], ["key"] = "Flagship"}]
+      158 GETTABLEKS                       R13 R2 K47 ["Tier"]
+      160 GETTABLEKS                       R13 R13 K48 ["HIGH"]
+      162 SETTABLEKS                       R13 R12 K43 ["tier"]
+      164 DUPTABLE                         R13 K50 [{["tier"], ["key"] = "MidRange"}]
+      165 GETTABLEKS                       R14 R2 K47 ["Tier"]
+      167 GETTABLEKS                       R14 R14 K51 ["MID"]
+      169 SETTABLEKS                       R14 R13 K43 ["tier"]
+      171 DUPTABLE                         R14 K53 [{["tier"], ["key"] = "EntryLevel"}]
+      172 GETTABLEKS                       R15 R2 K47 ["Tier"]
+      174 GETTABLEKS                       R15 R15 K54 ["LOW"]
+      176 SETTABLEKS                       R15 R14 K43 ["tier"]
+      178 SETLIST                          R11 R12 3 [1]
+      180 NEWTABLE                         R12 4 0
+      182 GETTABLEKS                       R13 R2 K47 ["Tier"]
+      184 GETTABLEKS                       R13 R13 K48 ["HIGH"]
+      186 LOADB                            R14 1
+      187 SETTABLE                         R14 R12 R13
+      188 GETTABLEKS                       R13 R2 K47 ["Tier"]
+      190 GETTABLEKS                       R13 R13 K51 ["MID"]
+      192 LOADB                            R14 1
+      193 SETTABLE                         R14 R12 R13
+      194 GETTABLEKS                       R13 R2 K47 ["Tier"]
+      196 GETTABLEKS                       R13 R13 K54 ["LOW"]
+      198 LOADB                            R14 1
+      199 SETTABLE                         R14 R12 R13
+      200 DUPTABLE                         R13 K61 [{["phone_tablet"] = "mobile", ["desktop"] = "desktop", ["console"] = "console", ["vr"] = "headset"}]
+      201 DUPTABLE                         R14 K76 [{["deviceForm"], ["deviceName"] = "", ["deviceId"], ["dpi"] = 0, ["height"] = 0, ["isCustom"] = False, ["landscapeKeyboardHeight"] = 0, ["memoryMB"] = 0, ["platform"], ["portraitKeyboardHeight"] = 0, ["tier"] = "", ["width"] = 0}]
+      202 GETIMPORT                        R15 K31 [Enum.DeviceForm.Desktop]
+      204 SETTABLEKS                       R15 R14 K62 ["deviceForm"]
+      206 GETTABLEKS                       R15 R7 K18 ["DEFAULT_DEVICE_ID"]
+      208 SETTABLEKS                       R15 R14 K65 ["deviceId"]
+      210 GETIMPORT                        R15 K79 [Enum.Platform.None]
+      212 SETTABLEKS                       R15 R14 K73 ["platform"]
+      214 DUPCLOSURE                       R15 K80 [PROTO_1]
+      215 DUPCLOSURE                       R16 K81 [PROTO_2]
       216 CAPTURE                          VAL R7
-      217 SETTABLEKS                       R18 R6 K82 ["categoryForDevice"]
-      219 DUPCLOSURE                       R18 K83 [PROTO_6]
-      220 CAPTURE                          VAL R6
-      221 CAPTURE                          VAL R13
-      222 SETTABLEKS                       R18 R6 K84 ["entriesById"]
-      224 DUPCLOSURE                       R18 K85 [PROTO_7]
-      225 CAPTURE                          VAL R6
-      226 SETTABLEKS                       R18 R6 K86 ["getDeviceName"]
-      228 DUPCLOSURE                       R18 K87 [PROTO_8]
-      229 CAPTURE                          VAL R15
-      230 CAPTURE                          VAL R2
-      231 CAPTURE                          VAL R10
-      232 CAPTURE                          VAL R17
-      233 CAPTURE                          VAL R11
-      234 CAPTURE                          VAL R9
-      235 CAPTURE                          VAL R6
-      236 SETTABLEKS                       R18 R6 K88 ["getMenuGroups"]
-      238 DUPCLOSURE                       R18 K89 [PROTO_9]
-      239 CAPTURE                          VAL R12
-      240 SETTABLEKS                       R18 R6 K90 ["getDeviceManagerInput"]
-      242 DUPCLOSURE                       R18 K91 [PROTO_10]
-      243 CAPTURE                          VAL R15
-      244 CAPTURE                          VAL R8
-      245 SETTABLEKS                       R18 R6 K92 ["getDefaultDeviceId"]
-      247 DUPCLOSURE                       R18 K93 [PROTO_11]
-      248 CAPTURE                          VAL R6
-      249 SETTABLEKS                       R18 R6 K94 ["hasChoices"]
-      251 RETURN                           R6 1
+      217 CAPTURE                          VAL R2
+      218 CAPTURE                          VAL R14
+      219 DUPCLOSURE                       R17 K82 [PROTO_3]
+      220 CAPTURE                          VAL R7
+      221 DUPCLOSURE                       R18 K83 [PROTO_4]
+      222 DUPCLOSURE                       R19 K84 [PROTO_5]
+      223 CAPTURE                          VAL R6
+      224 CAPTURE                          VAL R7
+      225 DUPCLOSURE                       R20 K85 [PROTO_6]
+      226 CAPTURE                          VAL R3
+      227 CAPTURE                          VAL R8
+      228 SETTABLEKS                       R20 R7 K86 ["categoryForDevice"]
+      230 DUPCLOSURE                       R20 K87 [PROTO_7]
+      231 CAPTURE                          VAL R7
+      232 CAPTURE                          VAL R14
+      233 SETTABLEKS                       R20 R7 K88 ["entriesById"]
+      235 DUPCLOSURE                       R20 K89 [PROTO_8]
+      236 CAPTURE                          VAL R7
+      237 SETTABLEKS                       R20 R7 K90 ["getDeviceName"]
+      239 DUPCLOSURE                       R20 K91 [PROTO_9]
+      240 CAPTURE                          VAL R16
+      241 CAPTURE                          VAL R2
+      242 CAPTURE                          VAL R11
+      243 CAPTURE                          VAL R19
+      244 CAPTURE                          VAL R12
+      245 CAPTURE                          VAL R10
+      246 CAPTURE                          VAL R7
+      247 SETTABLEKS                       R20 R7 K92 ["getMenuGroups"]
+      249 DUPCLOSURE                       R20 K93 [PROTO_10]
+      250 CAPTURE                          VAL R7
+      251 SETTABLEKS                       R20 R7 K94 ["getAdjacentDeviceId"]
+      253 DUPCLOSURE                       R20 K95 [PROTO_11]
+      254 CAPTURE                          VAL R13
+      255 SETTABLEKS                       R20 R7 K96 ["getDeviceManagerInput"]
+      257 DUPCLOSURE                       R20 K97 [PROTO_12]
+      258 CAPTURE                          VAL R16
+      259 CAPTURE                          VAL R9
+      260 SETTABLEKS                       R20 R7 K98 ["getDefaultDeviceId"]
+      262 DUPCLOSURE                       R20 K99 [PROTO_13]
+      263 CAPTURE                          VAL R7
+      264 SETTABLEKS                       R20 R7 K100 ["hasChoices"]
+      266 RETURN                           R7 1

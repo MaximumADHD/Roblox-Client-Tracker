@@ -7,14 +7,13 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["record"]
-        3 GETUPVAL                         R2 1
-        4 MOVE                             R3 R0
-        5 CALL                             R1 2 0
-        6 GETUPVAL                         R1 2
-        7 GETTABLEKS                       R1 R1 K1 ["onSlotSelected"]
-        9 MOVE                             R2 R0
-       10 CALL                             R1 1 0
-       11 RETURN                           R0 0
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 0
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K1 ["onSlotSelected"]
+        8 MOVE                             R2 R0
+        9 CALL                             R1 1 0
+       10 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -93,14 +92,13 @@ PROTO_5:
        61 RETURN                           R4 2
        62 GETUPVAL                         R4 4
        63 GETTABLEKS                       R4 R4 K24 ["record"]
-       65 GETUPVAL                         R5 5
-       66 MOVE                             R6 R3
-       67 CALL                             R4 2 0
-       68 GETUPVAL                         R4 3
-       69 GETTABLEKS                       R4 R4 K25 ["onSlotCreated"]
-       71 MOVE                             R5 R3
-       72 CALL                             R4 1 0
-       73 RETURN                           R3 1
+       65 MOVE                             R5 R3
+       66 CALL                             R4 1 0
+       67 GETUPVAL                         R4 3
+       68 GETTABLEKS                       R4 R4 K25 ["onSlotCreated"]
+       70 MOVE                             R5 R3
+       71 CALL                             R4 1 0
+       72 RETURN                           R3 1
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -110,72 +108,67 @@ PROTO_6:
         7 GETTABLEKS                       R5 R0 K3 ["onCatalogRead"]
         9 GETTABLEKS                       R6 R0 K4 ["onCatalogReadFailed"]
        11 CALL                             R1 5 1
-       12 GETIMPORT                        R2 K6 [workspace]
-       14 GETTABLEKS                       R2 R2 K7 ["Terrain"]
-       16 GETUPVAL                         R3 1
-       17 GETTABLEKS                       R3 R3 K8 ["read"]
-       19 MOVE                             R4 R2
-       20 CALL                             R3 1 1
-       21 GETUPVAL                         R4 2
-       22 NEWCLOSURE                       R5 P0
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K5 ["read"]
+       15 CALL                             R2 0 1
+       16 GETUPVAL                         R3 2
+       17 NEWCLOSURE                       R4 P0
+       18 CAPTURE                          VAL R0
+       19 CALL                             R3 1 1
+       20 GETUPVAL                         R4 2
+       21 NEWCLOSURE                       R5 P1
+       22 CAPTURE                          UPVAL U1
        23 CAPTURE                          VAL R0
        24 CALL                             R4 1 1
-       25 GETUPVAL                         R5 2
-       26 NEWCLOSURE                       R6 P1
-       27 CAPTURE                          UPVAL U1
-       28 CAPTURE                          VAL R2
-       29 CAPTURE                          VAL R0
-       30 CALL                             R5 1 1
-       31 GETUPVAL                         R6 3
-       32 GETTABLEKS                       R6 R6 K9 ["useEffect"]
-       34 NEWCLOSURE                       R7 P2
-       35 CAPTURE                          UPVAL U4
-       36 CAPTURE                          VAL R4
-       37 NEWTABLE                         R8 0 1
-       39 MOVE                             R9 R4
-       40 SETLIST                          R8 R9 1 [1]
-       42 CALL                             R6 2 0
-       43 GETUPVAL                         R6 2
-       44 NEWCLOSURE                       R7 P3
-       45 CAPTURE                          VAL R1
-       46 CAPTURE                          UPVAL U5
-       47 CAPTURE                          UPVAL U4
-       48 CAPTURE                          VAL R0
-       49 CAPTURE                          UPVAL U1
-       50 CAPTURE                          VAL R2
-       51 CALL                             R6 1 1
-       52 GETUPVAL                         R7 3
-       53 GETTABLEKS                       R7 R7 K10 ["createElement"]
-       55 GETUPVAL                         R8 6
-       56 DUPTABLE                         R9 K26 [{"catalog", "onCreateSlot", "onEditSlot", "onInvalidSourceChanged", "onQuickAddOpened", "onQuickAddResult", "onSlotSelected", "onSearchNoResults", "onSearchUsed", "onSortTypeChanged", "onViewTypeChanged", "recentlyUsedSlots", "request", "sortType", "viewType"}]
-       57 SETTABLEKS                       R1 R9 K11 ["catalog"]
-       59 SETTABLEKS                       R6 R9 K12 ["onCreateSlot"]
-       61 GETTABLEKS                       R10 R0 K13 ["onEditSlot"]
-       63 SETTABLEKS                       R10 R9 K13 ["onEditSlot"]
-       65 GETTABLEKS                       R10 R0 K14 ["onInvalidSourceChanged"]
-       67 SETTABLEKS                       R10 R9 K14 ["onInvalidSourceChanged"]
-       69 GETTABLEKS                       R10 R0 K15 ["onQuickAddOpened"]
-       71 SETTABLEKS                       R10 R9 K15 ["onQuickAddOpened"]
-       73 GETTABLEKS                       R10 R0 K16 ["onQuickAddResult"]
-       75 SETTABLEKS                       R10 R9 K16 ["onQuickAddResult"]
-       77 SETTABLEKS                       R5 R9 K17 ["onSlotSelected"]
-       79 GETTABLEKS                       R10 R0 K18 ["onSearchNoResults"]
-       81 SETTABLEKS                       R10 R9 K18 ["onSearchNoResults"]
-       83 GETTABLEKS                       R10 R0 K19 ["onSearchUsed"]
-       85 SETTABLEKS                       R10 R9 K19 ["onSearchUsed"]
-       87 GETTABLEKS                       R10 R0 K20 ["onSortTypeChanged"]
-       89 SETTABLEKS                       R10 R9 K20 ["onSortTypeChanged"]
-       91 GETTABLEKS                       R10 R0 K21 ["onViewTypeChanged"]
-       93 SETTABLEKS                       R10 R9 K21 ["onViewTypeChanged"]
-       95 SETTABLEKS                       R3 R9 K22 ["recentlyUsedSlots"]
-       97 GETTABLEKS                       R10 R0 K23 ["request"]
-       99 SETTABLEKS                       R10 R9 K23 ["request"]
-      101 GETTABLEKS                       R10 R0 K24 ["sortType"]
-      103 SETTABLEKS                       R10 R9 K24 ["sortType"]
-      105 GETTABLEKS                       R10 R0 K25 ["viewType"]
-      107 SETTABLEKS                       R10 R9 K25 ["viewType"]
-      109 CALL                             R7 2 -1
-      110 RETURN                           R7 -1
+       25 GETUPVAL                         R5 3
+       26 GETTABLEKS                       R5 R5 K6 ["useEffect"]
+       28 NEWCLOSURE                       R6 P2
+       29 CAPTURE                          UPVAL U4
+       30 CAPTURE                          VAL R3
+       31 NEWTABLE                         R7 0 1
+       33 MOVE                             R8 R3
+       34 SETLIST                          R7 R8 1 [1]
+       36 CALL                             R5 2 0
+       37 GETUPVAL                         R5 2
+       38 NEWCLOSURE                       R6 P3
+       39 CAPTURE                          VAL R1
+       40 CAPTURE                          UPVAL U5
+       41 CAPTURE                          UPVAL U4
+       42 CAPTURE                          VAL R0
+       43 CAPTURE                          UPVAL U1
+       44 CALL                             R5 1 1
+       45 GETUPVAL                         R6 3
+       46 GETTABLEKS                       R6 R6 K7 ["createElement"]
+       48 GETUPVAL                         R7 6
+       49 DUPTABLE                         R8 K23 [{"catalog", "onCreateSlot", "onEditSlot", "onInvalidSourceChanged", "onQuickAddOpened", "onQuickAddResult", "onSlotSelected", "onSearchNoResults", "onSearchUsed", "onSortTypeChanged", "onViewTypeChanged", "recentlyUsedSlots", "request", "sortType", "viewType"}]
+       50 SETTABLEKS                       R1 R8 K8 ["catalog"]
+       52 SETTABLEKS                       R5 R8 K9 ["onCreateSlot"]
+       54 GETTABLEKS                       R9 R0 K10 ["onEditSlot"]
+       56 SETTABLEKS                       R9 R8 K10 ["onEditSlot"]
+       58 GETTABLEKS                       R9 R0 K11 ["onInvalidSourceChanged"]
+       60 SETTABLEKS                       R9 R8 K11 ["onInvalidSourceChanged"]
+       62 GETTABLEKS                       R9 R0 K12 ["onQuickAddOpened"]
+       64 SETTABLEKS                       R9 R8 K12 ["onQuickAddOpened"]
+       66 GETTABLEKS                       R9 R0 K13 ["onQuickAddResult"]
+       68 SETTABLEKS                       R9 R8 K13 ["onQuickAddResult"]
+       70 SETTABLEKS                       R4 R8 K14 ["onSlotSelected"]
+       72 GETTABLEKS                       R9 R0 K15 ["onSearchNoResults"]
+       74 SETTABLEKS                       R9 R8 K15 ["onSearchNoResults"]
+       76 GETTABLEKS                       R9 R0 K16 ["onSearchUsed"]
+       78 SETTABLEKS                       R9 R8 K16 ["onSearchUsed"]
+       80 GETTABLEKS                       R9 R0 K17 ["onSortTypeChanged"]
+       82 SETTABLEKS                       R9 R8 K17 ["onSortTypeChanged"]
+       84 GETTABLEKS                       R9 R0 K18 ["onViewTypeChanged"]
+       86 SETTABLEKS                       R9 R8 K18 ["onViewTypeChanged"]
+       88 SETTABLEKS                       R2 R8 K19 ["recentlyUsedSlots"]
+       90 GETTABLEKS                       R9 R0 K20 ["request"]
+       92 SETTABLEKS                       R9 R8 K20 ["request"]
+       94 GETTABLEKS                       R9 R0 K21 ["sortType"]
+       96 SETTABLEKS                       R9 R8 K21 ["sortType"]
+       98 GETTABLEKS                       R9 R0 K22 ["viewType"]
+      100 SETTABLEKS                       R9 R8 K22 ["viewType"]
+      102 CALL                             R6 2 -1
+      103 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -42,7 +42,12 @@ PROTO_0:
        42 GETUPVAL                         R0 14
        43 GETUPVAL                         R1 4
        44 CALL                             R0 1 0
-       45 RETURN                           R0 0
+       45 GETUPVAL                         R0 15
+       46 JUMPIFNOT                        R0 ; [+3]
+       47 GETUPVAL                         R0 16
+       48 GETUPVAL                         R1 4
+       49 CALL                             R0 1 0
+       50 RETURN                           R0 0
 
 PROTO_1:
         0 JUMPIFNOT                        R0 ; [+49]
@@ -108,8 +113,8 @@ PROTO_3:
        16 CALL                             R8 1 1
        17 LOADN                            R9 0
        18 GETTABLEKS                       R10 R0 K4 ["getRecentAPIGames"]
-       20 JUMPIFNOT                        R10 ; [+82]
-       21 JUMPIFNOT                        R5 ; [+81]
+       20 JUMPIFNOT                        R10 ; [+84]
+       21 JUMPIFNOT                        R5 ; [+83]
        22 NEWTABLE                         R10 0 0
        24 MOVE                             R11 R5
        25 LOADNIL                          R12
@@ -151,7 +156,7 @@ PROTO_3:
        76 CALL                             R11 1 0
        77 LENGTH                           R11 R6
        78 LOADN                            R12 0
-       79 JUMPIFNOTLT                      R12 R11 ; [+23]
+       79 JUMPIFNOTLT                      R12 R11 ; [+25]
        81 GETUPVAL                         R11 2
        82 MOVE                             R12 R6
        83 CALL                             R11 1 1
@@ -171,79 +176,81 @@ PROTO_3:
        97 CAPTURE                          UPVAL U12
        98 CAPTURE                          UPVAL U13
        99 CAPTURE                          UPVAL U14
-      100 NAMECALL                         R11 R11 K20 ["andThen"]
-      102 CALL                             R11 2 0
-      103 GETTABLEKS                       R10 R0 K21 ["getRecentLocalFiles"]
-      105 JUMPIFNOT                        R10 ; [+42]
-      106 GETUPVAL                         R10 0
-      107 NAMECALL                         R10 R10 K22 ["getLocalGamesFromRegistry"]
-      109 CALL                             R10 1 1
-      110 JUMPIFNOT                        R10 ; [+37]
-      111 LENGTH                           R13 R10
-      112 LOADN                            R11 1
-      113 LOADN                            R12 -1
-      114 FORNPREP                         R11
-      115 GETTABLE                         R14 R10 R13
-      116 GETTABLEKS                       R14 R14 K5 ["Name"]
-      118 NAMECALL                         R14 R14 K3 ["lower"]
-      120 CALL                             R14 1 1
-      121 GETIMPORT                        R15 K8 [string.find]
-      123 MOVE                             R16 R14
-      124 MOVE                             R17 R8
-      125 CALL                             R15 2 1
-      126 JUMPIF                           R15 ; [+5]
-      127 GETIMPORT                        R15 K24 [table.remove]
-      129 MOVE                             R16 R10
-      130 MOVE                             R17 R13
-      131 CALL                             R15 2 0
-      132 FORNLOOP                         R11
-      133 LENGTH                           R9 R10
-      134 GETUPVAL                         R11 3
-      135 MOVE                             R13 R2
-      136 LOADN                            R14 0
-      137 MOVE                             R15 R10
-      138 NAMECALL                         R11 R11 K25 ["upsertItemsForList"]
-      140 CALL                             R11 4 0
-      141 GETUPVAL                         R11 3
-      142 MOVE                             R13 R2
-      143 LENGTH                           R15 R6
-      144 ADD                              R14 R15 R9
-      145 NAMECALL                         R11 R11 K26 ["setTargetCount"]
-      147 CALL                             R11 3 0
-      148 GETUPVAL                         R10 15
-      149 JUMPIFNOT                        R10 ; [+36]
-      150 NEWTABLE                         R10 0 0
-      152 JUMPIFNOT                        R5 ; [+15]
-      153 MOVE                             R11 R5
-      154 LOADNIL                          R12
-      155 LOADNIL                          R13
-      156 FORGPREP                         R11
-      157 GETTABLEKS                       R17 R15 K9 ["Id"]
-      159 FASTCALL1                        TONUMBER R17 ; [+2]
-      160 GETIMPORT                        R16 K11 [tonumber]
-      162 CALL                             R16 1 1
-      163 JUMPIFNOT                        R16 ; [+2]
-      164 LOADB                            R17 1
-      165 SETTABLE                         R17 R10 R16
-      166 FORGLOOP                         R11 2 ; [-10]
-      168 GETUPVAL                         R11 16
-      169 MOVE                             R12 R0
-      170 MOVE                             R13 R10
-      171 CALL                             R11 2 1
-      172 JUMPIFNOT                        R11 ; [+13]
-      173 NEWCLOSURE                       R14 P1
-      174 CAPTURE                          UPVAL U3
-      175 CAPTURE                          VAL R2
-      176 CAPTURE                          VAL R6
-      177 CAPTURE                          REF R9
-      178 CAPTURE                          UPVAL U4
-      179 NAMECALL                         R12 R11 K20 ["andThen"]
-      181 CALL                             R12 2 1
-      182 DUPCLOSURE                       R14 K27 [PROTO_2]
-      183 NAMECALL                         R12 R12 K28 ["catch"]
-      185 CALL                             R12 2 0
-      186 CLOSEUPVALS                      R9
-      187 RETURN                           R0 0
+      100 CAPTURE                          UPVAL U15
+      101 CAPTURE                          UPVAL U16
+      102 NAMECALL                         R11 R11 K20 ["andThen"]
+      104 CALL                             R11 2 0
+      105 GETTABLEKS                       R10 R0 K21 ["getRecentLocalFiles"]
+      107 JUMPIFNOT                        R10 ; [+42]
+      108 GETUPVAL                         R10 0
+      109 NAMECALL                         R10 R10 K22 ["getLocalGamesFromRegistry"]
+      111 CALL                             R10 1 1
+      112 JUMPIFNOT                        R10 ; [+37]
+      113 LENGTH                           R13 R10
+      114 LOADN                            R11 1
+      115 LOADN                            R12 -1
+      116 FORNPREP                         R11
+      117 GETTABLE                         R14 R10 R13
+      118 GETTABLEKS                       R14 R14 K5 ["Name"]
+      120 NAMECALL                         R14 R14 K3 ["lower"]
+      122 CALL                             R14 1 1
+      123 GETIMPORT                        R15 K8 [string.find]
+      125 MOVE                             R16 R14
+      126 MOVE                             R17 R8
+      127 CALL                             R15 2 1
+      128 JUMPIF                           R15 ; [+5]
+      129 GETIMPORT                        R15 K24 [table.remove]
+      131 MOVE                             R16 R10
+      132 MOVE                             R17 R13
+      133 CALL                             R15 2 0
+      134 FORNLOOP                         R11
+      135 LENGTH                           R9 R10
+      136 GETUPVAL                         R11 3
+      137 MOVE                             R13 R2
+      138 LOADN                            R14 0
+      139 MOVE                             R15 R10
+      140 NAMECALL                         R11 R11 K25 ["upsertItemsForList"]
+      142 CALL                             R11 4 0
+      143 GETUPVAL                         R11 3
+      144 MOVE                             R13 R2
+      145 LENGTH                           R15 R6
+      146 ADD                              R14 R15 R9
+      147 NAMECALL                         R11 R11 K26 ["setTargetCount"]
+      149 CALL                             R11 3 0
+      150 GETUPVAL                         R10 17
+      151 JUMPIFNOT                        R10 ; [+36]
+      152 NEWTABLE                         R10 0 0
+      154 JUMPIFNOT                        R5 ; [+15]
+      155 MOVE                             R11 R5
+      156 LOADNIL                          R12
+      157 LOADNIL                          R13
+      158 FORGPREP                         R11
+      159 GETTABLEKS                       R17 R15 K9 ["Id"]
+      161 FASTCALL1                        TONUMBER R17 ; [+2]
+      162 GETIMPORT                        R16 K11 [tonumber]
+      164 CALL                             R16 1 1
+      165 JUMPIFNOT                        R16 ; [+2]
+      166 LOADB                            R17 1
+      167 SETTABLE                         R17 R10 R16
+      168 FORGLOOP                         R11 2 ; [-10]
+      170 GETUPVAL                         R11 18
+      171 MOVE                             R12 R0
+      172 MOVE                             R13 R10
+      173 CALL                             R11 2 1
+      174 JUMPIFNOT                        R11 ; [+13]
+      175 NEWCLOSURE                       R14 P1
+      176 CAPTURE                          UPVAL U3
+      177 CAPTURE                          VAL R2
+      178 CAPTURE                          VAL R6
+      179 CAPTURE                          REF R9
+      180 CAPTURE                          UPVAL U4
+      181 NAMECALL                         R12 R11 K20 ["andThen"]
+      183 CALL                             R12 2 1
+      184 DUPCLOSURE                       R14 K27 [PROTO_2]
+      185 NAMECALL                         R12 R12 K28 ["catch"]
+      187 CALL                             R12 2 0
+      188 CLOSEUPVALS                      R9
+      189 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -337,54 +344,67 @@ MAIN:
       115 GETIMPORT                        R13 K5 [require]
       117 GETTABLEKS                       R14 R0 K6 ["Src"]
       119 GETTABLEKS                       R14 R14 K17 ["SharedFlags"]
-      121 GETTABLEKS                       R14 R14 K21 ["getFFlagStartPageBackfillRecentsFromCloud"]
+      121 GETTABLEKS                       R14 R14 K21 ["getFFlagLuaStartPageReachStatus"]
       123 CALL                             R13 1 1
       124 CALL                             R13 0 1
       125 GETIMPORT                        R14 K5 [require]
       127 GETTABLEKS                       R15 R0 K6 ["Src"]
       129 GETTABLEKS                       R15 R15 K8 ["Network"]
-      131 GETTABLEKS                       R15 R15 K22 ["DiscoverRecentsBackfill"]
+      131 GETTABLEKS                       R15 R15 K22 ["DiscoverReachStatus"]
       133 CALL                             R14 1 1
       134 GETIMPORT                        R15 K5 [require]
       136 GETTABLEKS                       R16 R0 K6 ["Src"]
       138 GETTABLEKS                       R16 R16 K17 ["SharedFlags"]
-      140 GETTABLEKS                       R16 R16 K23 ["getFFlagStartPageAddBuildSealBadge"]
+      140 GETTABLEKS                       R16 R16 K23 ["getFFlagStartPageBackfillRecentsFromCloud"]
       142 CALL                             R15 1 1
       143 CALL                             R15 0 1
       144 GETIMPORT                        R16 K5 [require]
       146 GETTABLEKS                       R17 R0 K6 ["Src"]
       148 GETTABLEKS                       R17 R17 K8 ["Network"]
-      150 GETTABLEKS                       R17 R17 K24 ["DiscoverBuildSealStatus"]
+      150 GETTABLEKS                       R17 R17 K24 ["DiscoverRecentsBackfill"]
       152 CALL                             R16 1 1
       153 GETIMPORT                        R17 K5 [require]
       155 GETTABLEKS                       R18 R0 K6 ["Src"]
-      157 GETTABLEKS                       R18 R18 K25 ["Util"]
-      159 GETTABLEKS                       R18 R18 K26 ["Services"]
+      157 GETTABLEKS                       R18 R18 K17 ["SharedFlags"]
+      159 GETTABLEKS                       R18 R18 K25 ["getFFlagStartPageAddBuildSealBadge"]
       161 CALL                             R17 1 1
-      162 GETTABLEKS                       R18 R17 K27 ["StartPageManager"]
-      164 GETIMPORT                        R19 K5 [require]
-      166 GETTABLEKS                       R20 R0 K6 ["Src"]
-      168 GETTABLEKS                       R20 R20 K8 ["Network"]
-      170 GETTABLEKS                       R20 R20 K28 ["GameCache"]
-      172 CALL                             R19 1 1
-      173 DUPCLOSURE                       R20 K29 [PROTO_3]
-      174 CAPTURE                          VAL R18
-      175 CAPTURE                          VAL R2
-      176 CAPTURE                          VAL R6
-      177 CAPTURE                          VAL R19
-      178 CAPTURE                          VAL R3
-      179 CAPTURE                          VAL R4
-      180 CAPTURE                          VAL R5
-      181 CAPTURE                          VAL R7
-      182 CAPTURE                          VAL R10
-      183 CAPTURE                          VAL R8
-      184 CAPTURE                          VAL R11
-      185 CAPTURE                          VAL R9
-      186 CAPTURE                          VAL R12
-      187 CAPTURE                          VAL R15
-      188 CAPTURE                          VAL R16
-      189 CAPTURE                          VAL R13
-      190 CAPTURE                          VAL R14
-      191 DUPCLOSURE                       R21 K30 [PROTO_5]
-      192 CAPTURE                          VAL R20
-      193 RETURN                           R21 1
+      162 CALL                             R17 0 1
+      163 GETIMPORT                        R18 K5 [require]
+      165 GETTABLEKS                       R19 R0 K6 ["Src"]
+      167 GETTABLEKS                       R19 R19 K8 ["Network"]
+      169 GETTABLEKS                       R19 R19 K26 ["DiscoverBuildSealStatus"]
+      171 CALL                             R18 1 1
+      172 GETIMPORT                        R19 K5 [require]
+      174 GETTABLEKS                       R20 R0 K6 ["Src"]
+      176 GETTABLEKS                       R20 R20 K27 ["Util"]
+      178 GETTABLEKS                       R20 R20 K28 ["Services"]
+      180 CALL                             R19 1 1
+      181 GETTABLEKS                       R20 R19 K29 ["StartPageManager"]
+      183 GETIMPORT                        R21 K5 [require]
+      185 GETTABLEKS                       R22 R0 K6 ["Src"]
+      187 GETTABLEKS                       R22 R22 K8 ["Network"]
+      189 GETTABLEKS                       R22 R22 K30 ["GameCache"]
+      191 CALL                             R21 1 1
+      192 DUPCLOSURE                       R22 K31 [PROTO_3]
+      193 CAPTURE                          VAL R20
+      194 CAPTURE                          VAL R2
+      195 CAPTURE                          VAL R6
+      196 CAPTURE                          VAL R21
+      197 CAPTURE                          VAL R3
+      198 CAPTURE                          VAL R4
+      199 CAPTURE                          VAL R5
+      200 CAPTURE                          VAL R7
+      201 CAPTURE                          VAL R10
+      202 CAPTURE                          VAL R8
+      203 CAPTURE                          VAL R11
+      204 CAPTURE                          VAL R9
+      205 CAPTURE                          VAL R12
+      206 CAPTURE                          VAL R13
+      207 CAPTURE                          VAL R14
+      208 CAPTURE                          VAL R17
+      209 CAPTURE                          VAL R18
+      210 CAPTURE                          VAL R15
+      211 CAPTURE                          VAL R16
+      212 DUPCLOSURE                       R23 K32 [PROTO_5]
+      213 CAPTURE                          VAL R22
+      214 RETURN                           R23 1

@@ -2422,98 +2422,99 @@ MAIN:
       365 GETTABLEKS                       R42 R42 K57 ["TrackUtils"]
       367 CALL                             R41 1 1
       368 GETIMPORT                        R42 K5 [require]
-      370 GETTABLEKS                       R43 R0 K58 ["LuaFlags"]
-      372 GETTABLEKS                       R43 R43 K59 ["GetFFlagFixDynamicTrackSelection"]
-      374 CALL                             R42 1 1
-      375 GETTABLEKS                       R43 R1 K60 ["Component"]
-      377 LOADK                            R45 K61 ["DopeSheetController"]
-      378 NAMECALL                         R43 R43 K62 ["extend"]
-      380 CALL                             R43 2 1
-      381 DUPCLOSURE                       R44 K63 [PROTO_26]
-      382 CAPTURE                          VAL R1
-      383 CAPTURE                          VAL R41
-      384 CAPTURE                          VAL R34
-      385 CAPTURE                          VAL R38
-      386 CAPTURE                          VAL R42
-      387 CAPTURE                          VAL R39
-      388 CAPTURE                          VAL R35
-      389 CAPTURE                          VAL R37
-      390 CAPTURE                          VAL R3
-      391 CAPTURE                          VAL R40
-      392 CAPTURE                          VAL R5
-      393 SETTABLEKS                       R44 R43 K64 ["init"]
-      395 DUPCLOSURE                       R44 K65 [PROTO_27]
-      396 CAPTURE                          VAL R37
-      397 SETTABLEKS                       R44 R43 K66 ["hasSelectedKeyframes"]
-      399 DUPCLOSURE                       R44 K67 [PROTO_28]
-      400 CAPTURE                          VAL R5
-      401 SETTABLEKS                       R44 R43 K68 ["multipleFramesSelected"]
-      403 DUPCLOSURE                       R44 K69 [PROTO_29]
-      404 CAPTURE                          VAL R36
-      405 SETTABLEKS                       R44 R43 K70 ["handleTimelineInputBegan"]
-      407 DUPCLOSURE                       R44 K71 [PROTO_30]
-      408 CAPTURE                          VAL R36
-      409 CAPTURE                          VAL R42
-      410 CAPTURE                          VAL R41
-      411 SETTABLEKS                       R44 R43 K72 ["handleTimelineInputEnded"]
-      413 DUPCLOSURE                       R44 K73 [PROTO_31]
-      414 CAPTURE                          VAL R37
-      415 SETTABLEKS                       R44 R43 K74 ["handleKeyframeRightClick"]
-      417 DUPCLOSURE                       R44 K75 [PROTO_32]
-      418 SETTABLEKS                       R44 R43 K76 ["handleKeyframeInputBegan"]
-      420 DUPCLOSURE                       R44 K77 [PROTO_33]
-      421 SETTABLEKS                       R44 R43 K78 ["handleKeyframeInputEnded"]
-      423 DUPCLOSURE                       R44 K79 [PROTO_35]
-      424 CAPTURE                          VAL R4
-      425 SETTABLEKS                       R44 R43 K80 ["makeTracks"]
-      427 DUPCLOSURE                       R44 K81 [PROTO_36]
-      428 SETTABLEKS                       R44 R43 K82 ["shouldUpdate"]
-      430 DUPCLOSURE                       R44 K83 [PROTO_50]
-      431 CAPTURE                          VAL R5
-      432 CAPTURE                          VAL R34
-      433 CAPTURE                          VAL R1
-      434 CAPTURE                          VAL R18
-      435 CAPTURE                          VAL R10
-      436 CAPTURE                          VAL R16
-      437 CAPTURE                          VAL R7
-      438 CAPTURE                          VAL R19
-      439 CAPTURE                          VAL R20
-      440 CAPTURE                          VAL R21
-      441 CAPTURE                          VAL R22
-      442 CAPTURE                          VAL R23
-      443 CAPTURE                          VAL R17
-      444 SETTABLEKS                       R44 R43 K84 ["render"]
-      446 MOVE                             R44 R9
-      447 DUPTABLE                         R45 K87 [{"Localization", "Analytics"}]
-      448 GETTABLEKS                       R46 R8 K85 ["Localization"]
-      450 SETTABLEKS                       R46 R45 K85 ["Localization"]
-      452 GETTABLEKS                       R46 R8 K86 ["Analytics"]
-      454 SETTABLEKS                       R46 R45 K86 ["Analytics"]
-      456 CALL                             R44 1 1
-      457 MOVE                             R45 R43
+      370 GETTABLEKS                       R43 R0 K10 ["Src"]
+      372 GETTABLEKS                       R43 R43 K58 ["Flags"]
+      374 GETTABLEKS                       R43 R43 K59 ["getFFlagFixDynamicTrackSelection"]
+      376 CALL                             R42 1 1
+      377 GETTABLEKS                       R43 R1 K60 ["Component"]
+      379 LOADK                            R45 K61 ["DopeSheetController"]
+      380 NAMECALL                         R43 R43 K62 ["extend"]
+      382 CALL                             R43 2 1
+      383 DUPCLOSURE                       R44 K63 [PROTO_26]
+      384 CAPTURE                          VAL R1
+      385 CAPTURE                          VAL R41
+      386 CAPTURE                          VAL R34
+      387 CAPTURE                          VAL R38
+      388 CAPTURE                          VAL R42
+      389 CAPTURE                          VAL R39
+      390 CAPTURE                          VAL R35
+      391 CAPTURE                          VAL R37
+      392 CAPTURE                          VAL R3
+      393 CAPTURE                          VAL R40
+      394 CAPTURE                          VAL R5
+      395 SETTABLEKS                       R44 R43 K64 ["init"]
+      397 DUPCLOSURE                       R44 K65 [PROTO_27]
+      398 CAPTURE                          VAL R37
+      399 SETTABLEKS                       R44 R43 K66 ["hasSelectedKeyframes"]
+      401 DUPCLOSURE                       R44 K67 [PROTO_28]
+      402 CAPTURE                          VAL R5
+      403 SETTABLEKS                       R44 R43 K68 ["multipleFramesSelected"]
+      405 DUPCLOSURE                       R44 K69 [PROTO_29]
+      406 CAPTURE                          VAL R36
+      407 SETTABLEKS                       R44 R43 K70 ["handleTimelineInputBegan"]
+      409 DUPCLOSURE                       R44 K71 [PROTO_30]
+      410 CAPTURE                          VAL R36
+      411 CAPTURE                          VAL R42
+      412 CAPTURE                          VAL R41
+      413 SETTABLEKS                       R44 R43 K72 ["handleTimelineInputEnded"]
+      415 DUPCLOSURE                       R44 K73 [PROTO_31]
+      416 CAPTURE                          VAL R37
+      417 SETTABLEKS                       R44 R43 K74 ["handleKeyframeRightClick"]
+      419 DUPCLOSURE                       R44 K75 [PROTO_32]
+      420 SETTABLEKS                       R44 R43 K76 ["handleKeyframeInputBegan"]
+      422 DUPCLOSURE                       R44 K77 [PROTO_33]
+      423 SETTABLEKS                       R44 R43 K78 ["handleKeyframeInputEnded"]
+      425 DUPCLOSURE                       R44 K79 [PROTO_35]
+      426 CAPTURE                          VAL R4
+      427 SETTABLEKS                       R44 R43 K80 ["makeTracks"]
+      429 DUPCLOSURE                       R44 K81 [PROTO_36]
+      430 SETTABLEKS                       R44 R43 K82 ["shouldUpdate"]
+      432 DUPCLOSURE                       R44 K83 [PROTO_50]
+      433 CAPTURE                          VAL R5
+      434 CAPTURE                          VAL R34
+      435 CAPTURE                          VAL R1
+      436 CAPTURE                          VAL R18
+      437 CAPTURE                          VAL R10
+      438 CAPTURE                          VAL R16
+      439 CAPTURE                          VAL R7
+      440 CAPTURE                          VAL R19
+      441 CAPTURE                          VAL R20
+      442 CAPTURE                          VAL R21
+      443 CAPTURE                          VAL R22
+      444 CAPTURE                          VAL R23
+      445 CAPTURE                          VAL R17
+      446 SETTABLEKS                       R44 R43 K84 ["render"]
+      448 MOVE                             R44 R9
+      449 DUPTABLE                         R45 K87 [{"Localization", "Analytics"}]
+      450 GETTABLEKS                       R46 R8 K85 ["Localization"]
+      452 SETTABLEKS                       R46 R45 K85 ["Localization"]
+      454 GETTABLEKS                       R46 R8 K86 ["Analytics"]
+      456 SETTABLEKS                       R46 R45 K86 ["Analytics"]
       458 CALL                             R44 1 1
-      459 MOVE                             R43 R44
-      460 DUPCLOSURE                       R44 K88 [PROTO_51]
-      461 DUPCLOSURE                       R45 K89 [PROTO_69]
-      462 CAPTURE                          VAL R24
-      463 CAPTURE                          VAL R29
-      464 CAPTURE                          VAL R30
-      465 CAPTURE                          VAL R26
-      466 CAPTURE                          VAL R15
-      467 CAPTURE                          VAL R25
-      468 CAPTURE                          VAL R27
-      469 CAPTURE                          VAL R28
-      470 CAPTURE                          VAL R14
-      471 CAPTURE                          VAL R13
-      472 CAPTURE                          VAL R31
-      473 CAPTURE                          VAL R33
-      474 CAPTURE                          VAL R11
-      475 CAPTURE                          VAL R32
-      476 CAPTURE                          VAL R12
-      477 GETTABLEKS                       R46 R2 K90 ["connect"]
-      479 MOVE                             R47 R44
-      480 MOVE                             R48 R45
-      481 CALL                             R46 2 1
-      482 MOVE                             R47 R43
-      483 CALL                             R46 1 -1
-      484 RETURN                           R46 -1
+      459 MOVE                             R45 R43
+      460 CALL                             R44 1 1
+      461 MOVE                             R43 R44
+      462 DUPCLOSURE                       R44 K88 [PROTO_51]
+      463 DUPCLOSURE                       R45 K89 [PROTO_69]
+      464 CAPTURE                          VAL R24
+      465 CAPTURE                          VAL R29
+      466 CAPTURE                          VAL R30
+      467 CAPTURE                          VAL R26
+      468 CAPTURE                          VAL R15
+      469 CAPTURE                          VAL R25
+      470 CAPTURE                          VAL R27
+      471 CAPTURE                          VAL R28
+      472 CAPTURE                          VAL R14
+      473 CAPTURE                          VAL R13
+      474 CAPTURE                          VAL R31
+      475 CAPTURE                          VAL R33
+      476 CAPTURE                          VAL R11
+      477 CAPTURE                          VAL R32
+      478 CAPTURE                          VAL R12
+      479 GETTABLEKS                       R46 R2 K90 ["connect"]
+      481 MOVE                             R47 R44
+      482 MOVE                             R48 R45
+      483 CALL                             R46 2 1
+      484 MOVE                             R47 R43
+      485 CALL                             R46 1 -1
+      486 RETURN                           R46 -1

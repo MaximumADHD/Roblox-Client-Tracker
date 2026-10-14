@@ -317,14 +317,29 @@ PROTO_11:
        39 RETURN                           R3 1
 
 PROTO_12:
-        0 NEWTABLE                         R1 0 0
-        2 RETURN                           R1 1
+        0 GETIMPORT                        R1 K2 [Instance.new]
+        2 LOADK                            R2 K3 ["TextDocument"]
+        3 CALL                             R1 1 1
+        4 GETTABLEKS                       R2 R0 K4 ["DisplayName"]
+        6 SETTABLEKS                       R2 R1 K5 ["Name"]
+        8 GETIMPORT                        R2 K8 [Content.fromAssetId]
+       10 GETTABLEKS                       R3 R0 K9 ["AssetId"]
+       12 CALL                             R2 1 1
+       13 SETTABLEKS                       R2 R1 K10 ["TextContent"]
+       15 NEWTABLE                         R2 0 1
+       17 MOVE                             R3 R1
+       18 SETLIST                          R2 R3 1 [1]
+       20 RETURN                           R2 1
 
 PROTO_13:
         0 NEWTABLE                         R1 0 0
         2 RETURN                           R1 1
 
 PROTO_14:
+        0 NEWTABLE                         R1 0 0
+        2 RETURN                           R1 1
+
+PROTO_15:
         0 NEWTABLE                         R1 0 0
         2 RETURN                           R1 1
 
@@ -429,15 +444,19 @@ MAIN:
       144 CAPTURE                          VAL R12
       145 SETTABLE                         R15 R13 R14
       146 GETTABLEKS                       R14 R7 K25 ["AssetType"]
-      148 GETTABLEKS                       R14 R14 K42 ["Plugin"]
+      148 GETTABLEKS                       R14 R14 K42 ["TextDocument"]
       150 DUPCLOSURE                       R15 K43 [PROTO_12]
       151 SETTABLE                         R15 R13 R14
       152 GETTABLEKS                       R14 R7 K25 ["AssetType"]
-      154 GETTABLEKS                       R14 R14 K44 ["FontFamily"]
+      154 GETTABLEKS                       R14 R14 K44 ["Plugin"]
       156 DUPCLOSURE                       R15 K45 [PROTO_13]
       157 SETTABLE                         R15 R13 R14
       158 GETTABLEKS                       R14 R7 K25 ["AssetType"]
-      160 GETTABLEKS                       R14 R14 K46 ["Place"]
+      160 GETTABLEKS                       R14 R14 K46 ["FontFamily"]
       162 DUPCLOSURE                       R15 K47 [PROTO_14]
       163 SETTABLE                         R15 R13 R14
-      164 RETURN                           R13 1
+      164 GETTABLEKS                       R14 R7 K25 ["AssetType"]
+      166 GETTABLEKS                       R14 R14 K48 ["Place"]
+      168 DUPCLOSURE                       R15 K49 [PROTO_15]
+      169 SETTABLE                         R15 R13 R14
+      170 RETURN                           R13 1

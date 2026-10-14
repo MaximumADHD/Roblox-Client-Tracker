@@ -104,125 +104,171 @@ PROTO_5:
         9 GETTABLEKS                       R3 R3 K3 ["isSelectedInstanceValid"]
        11 MOVE                             R4 R2
        12 CALL                             R3 1 1
-       13 JUMPIF                           R3 ; [+34]
-       14 GETUPVAL                         R4 0
-       15 DUPTABLE                         R6 K6 [{["invalidSelected"] = True, ["selectedPart"]}]
-       16 GETUPVAL                         R7 1
-       17 GETTABLEKS                       R7 R7 K7 ["None"]
-       19 SETTABLEKS                       R7 R6 K2 ["selectedPart"]
-       21 NAMECALL                         R4 R4 K8 ["setState"]
-       23 CALL                             R4 2 0
-       24 GETUPVAL                         R4 2
-       25 GETTABLEKS                       R5 R1 K9 ["Plugin"]
-       27 GETTABLEKS                       R6 R1 K10 ["Localization"]
-       29 GETUPVAL                         R7 3
-       30 DUPTABLE                         R8 K13 [{"Text", "OnClose"}]
-       31 GETUPVAL                         R9 0
-       32 GETTABLEKS                       R9 R9 K1 ["props"]
-       34 GETTABLEKS                       R9 R9 K10 ["Localization"]
-       36 LOADK                            R11 K14 ["Select"]
-       37 LOADK                            R12 K15 ["Invalid"]
-       38 NAMECALL                         R9 R9 K16 ["getText"]
-       40 CALL                             R9 3 1
-       41 SETTABLEKS                       R9 R8 K11 ["Text"]
-       43 DUPCLOSURE                       R9 K17 [PROTO_4]
-       44 SETTABLEKS                       R9 R8 K12 ["OnClose"]
-       46 CALL                             R4 4 0
-       47 RETURN                           R0 0
-       48 JUMPIFNOT                        R2 ; [+19]
-       49 GETTABLEKS                       R4 R1 K18 ["EditingItemContext"]
-       51 NAMECALL                         R4 R4 K19 ["getSourceItem"]
-       53 CALL                             R4 1 1
-       54 JUMPIFNOT                        R4 ; [+2]
-       55 JUMPIFNOTEQ                      R4 R2 ; [+7]
-       57 GETUPVAL                         R5 0
-       58 GETTABLEKS                       R5 R5 K20 ["setSourceItem"]
-       60 MOVE                             R6 R2
-       61 CALL                             R5 1 0
-       62 RETURN                           R0 0
-       63 GETUPVAL                         R5 0
-       64 GETTABLEKS                       R5 R5 K21 ["onSelectNewItem"]
-       66 MOVE                             R6 R2
-       67 CALL                             R5 1 0
-       68 RETURN                           R0 0
+       13 JUMPIF                           R3 ; [+63]
+       14 GETUPVAL                         R5 1
+       15 CALL                             R5 0 1
+       16 JUMPIFNOT                        R5 ; [+6]
+       17 GETUPVAL                         R4 0
+       18 GETTABLEKS                       R4 R4 K4 ["getRejectionReason"]
+       20 MOVE                             R5 R2
+       21 CALL                             R4 1 1
+       22 JUMP                             ; [+1]
+       23 LOADNIL                          R4
+       24 GETUPVAL                         R5 0
+       25 DUPTABLE                         R7 K8 [{["invalidSelected"] = True, ["selectedPart"], ["rejectionReason"]}]
+       26 GETUPVAL                         R8 2
+       27 GETTABLEKS                       R8 R8 K9 ["None"]
+       29 SETTABLEKS                       R8 R7 K2 ["selectedPart"]
+       31 MOVE                             R8 R4
+       32 JUMPIF                           R8 ; [+3]
+       33 GETUPVAL                         R8 2
+       34 GETTABLEKS                       R8 R8 K9 ["None"]
+       36 SETTABLEKS                       R8 R7 K7 ["rejectionReason"]
+       38 NAMECALL                         R5 R5 K10 ["setState"]
+       40 CALL                             R5 2 0
+       41 GETUPVAL                         R5 3
+       42 GETTABLEKS                       R6 R1 K11 ["Plugin"]
+       44 GETTABLEKS                       R7 R1 K12 ["Localization"]
+       46 GETUPVAL                         R8 4
+       47 DUPTABLE                         R9 K15 [{"Text", "OnClose"}]
+       48 JUMPIFNOT                        R4 ; [+11]
+       49 GETUPVAL                         R10 0
+       50 GETTABLEKS                       R10 R10 K1 ["props"]
+       52 GETTABLEKS                       R10 R10 K12 ["Localization"]
+       54 LOADK                            R12 K16 ["Select"]
+       55 MOVE                             R13 R4
+       56 NAMECALL                         R10 R10 K17 ["getText"]
+       58 CALL                             R10 3 1
+       59 JUMP                             ; [+10]
+       60 GETUPVAL                         R10 0
+       61 GETTABLEKS                       R10 R10 K1 ["props"]
+       63 GETTABLEKS                       R10 R10 K12 ["Localization"]
+       65 LOADK                            R12 K16 ["Select"]
+       66 LOADK                            R13 K18 ["Invalid"]
+       67 NAMECALL                         R10 R10 K17 ["getText"]
+       69 CALL                             R10 3 1
+       70 SETTABLEKS                       R10 R9 K13 ["Text"]
+       72 DUPCLOSURE                       R10 K19 [PROTO_4]
+       73 SETTABLEKS                       R10 R9 K14 ["OnClose"]
+       75 CALL                             R5 4 0
+       76 RETURN                           R0 0
+       77 JUMPIFNOT                        R2 ; [+19]
+       78 GETTABLEKS                       R4 R1 K20 ["EditingItemContext"]
+       80 NAMECALL                         R4 R4 K21 ["getSourceItem"]
+       82 CALL                             R4 1 1
+       83 JUMPIFNOT                        R4 ; [+2]
+       84 JUMPIFNOTEQ                      R4 R2 ; [+7]
+       86 GETUPVAL                         R5 0
+       87 GETTABLEKS                       R5 R5 K22 ["setSourceItem"]
+       89 MOVE                             R6 R2
+       90 CALL                             R5 1 0
+       91 RETURN                           R0 0
+       92 GETUPVAL                         R5 0
+       93 GETTABLEKS                       R5 R5 K23 ["onSelectNewItem"]
+       95 MOVE                             R6 R2
+       96 CALL                             R5 1 0
+       97 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["props"]
-        3 GETTABLEKS                       R2 R1 K1 ["EditingItemContext"]
-        5 NAMECALL                         R2 R2 K2 ["getItem"]
-        7 CALL                             R2 1 1
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R3 R3 K3 ["isPotentialLayeredClothingItem"]
-       11 MOVE                             R4 R0
-       12 CALL                             R3 1 1
-       13 JUMPIF                           R3 ; [+2]
-       14 LOADB                            R3 0
-       15 RETURN                           R3 1
-       16 GETUPVAL                         R3 1
-       17 GETTABLEKS                       R3 R3 K4 ["hasInvalidCage"]
-       19 MOVE                             R4 R0
-       20 CALL                             R3 1 1
-       21 JUMPIFNOT                        R3 ; [+2]
-       22 LOADB                            R3 0
-       23 RETURN                           R3 1
-       24 GETUPVAL                         R3 1
-       25 GETTABLEKS                       R3 R3 K5 ["isAvatar"]
-       27 MOVE                             R4 R0
-       28 CALL                             R3 1 1
-       29 LOADK                            R6 K6 ["MeshPart"]
-       30 NAMECALL                         R4 R0 K7 ["IsA"]
-       32 CALL                             R4 2 1
-       33 JUMPIFNOT                        R4 ; [+4]
-       34 LOADK                            R6 K8 ["WrapTarget"]
-       35 NAMECALL                         R4 R0 K9 ["FindFirstChildWhichIsA"]
-       37 CALL                             R4 2 1
-       38 JUMPIF                           R3 ; [+1]
-       39 JUMPIFNOT                        R4 ; [+2]
-       40 LOADB                            R5 0
-       41 RETURN                           R5 1
-       42 LOADK                            R8 K10 ["LayeredClothingEditorPreview"]
-       43 NAMECALL                         R6 R0 K11 ["FindFirstAncestor"]
-       45 CALL                             R6 2 1
-       46 JUMPIFNOTEQKNIL                  R6 ; [+2]
-       48 LOADB                            R5 0 +1
-       49 LOADB                            R5 1
-       50 JUMPIFEQ                         R0 R2 ; [+2]
-       52 LOADB                            R6 0 +1
-       53 LOADB                            R6 1
-       54 MOVE                             R7 R2
-       55 JUMPIFNOT                        R7 ; [+6]
-       56 GETTABLEKS                       R8 R2 K12 ["Parent"]
-       58 JUMPIFEQ                         R0 R8 ; [+2]
-       60 LOADB                            R7 0 +1
-       61 LOADB                            R7 1
-       62 MOVE                             R8 R2
-       63 JUMPIFNOT                        R8 ; [+5]
-       64 GETTABLEKS                       R10 R2 K13 ["Name"]
-       66 NAMECALL                         R8 R0 K11 ["FindFirstAncestor"]
-       68 CALL                             R8 2 1
-       69 MOVE                             R9 R0
-       70 JUMPIFNOT                        R9 ; [+10]
-       71 MOVE                             R9 R2
-       72 JUMPIFNOT                        R9 ; [+8]
-       73 GETTABLEKS                       R10 R0 K12 ["Parent"]
-       75 GETTABLEKS                       R11 R2 K12 ["Parent"]
-       77 JUMPIFEQ                         R10 R11 ; [+2]
-       79 LOADB                            R9 0 +1
-       80 LOADB                            R9 1
-       81 MOVE                             R11 R5
-       82 JUMPIF                           R11 ; [+7]
-       83 MOVE                             R11 R6
-       84 JUMPIF                           R11 ; [+5]
-       85 MOVE                             R11 R7
-       86 JUMPIF                           R11 ; [+3]
-       87 MOVE                             R11 R9
-       88 JUMPIF                           R11 ; [+1]
-       89 MOVE                             R11 R8
-       90 NOT                              R10 R11
-       91 RETURN                           R10 1
+        1 GETTABLEKS                       R1 R1 K0 ["getReason"]
+        3 MOVE                             R2 R0
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K1 ["props"]
+        7 GETTABLEKS                       R3 R3 K2 ["EditingItemContext"]
+        9 NAMECALL                         R3 R3 K3 ["getItem"]
+       11 CALL                             R3 1 -1
+       12 CALL                             R1 -1 -1
+       13 RETURN                           R1 -1
 
 PROTO_7:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETUPVAL                         R2 1
+        4 CALL                             R2 0 1
+        5 JUMPIFNOT                        R2 ; [+10]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K1 ["getRejectionReason"]
+        9 MOVE                             R4 R0
+       10 CALL                             R3 1 1
+       11 JUMPIFEQKNIL                     R3 ; [+2]
+       13 LOADB                            R2 0 +1
+       14 LOADB                            R2 1
+       15 RETURN                           R2 1
+       16 GETTABLEKS                       R2 R1 K2 ["EditingItemContext"]
+       18 NAMECALL                         R2 R2 K3 ["getItem"]
+       20 CALL                             R2 1 1
+       21 GETUPVAL                         R3 2
+       22 GETTABLEKS                       R3 R3 K4 ["isPotentialLayeredClothingItem"]
+       24 MOVE                             R4 R0
+       25 CALL                             R3 1 1
+       26 JUMPIF                           R3 ; [+2]
+       27 LOADB                            R3 0
+       28 RETURN                           R3 1
+       29 GETUPVAL                         R3 2
+       30 GETTABLEKS                       R3 R3 K5 ["hasInvalidCage"]
+       32 MOVE                             R4 R0
+       33 CALL                             R3 1 1
+       34 JUMPIFNOT                        R3 ; [+2]
+       35 LOADB                            R3 0
+       36 RETURN                           R3 1
+       37 GETUPVAL                         R3 2
+       38 GETTABLEKS                       R3 R3 K6 ["isAvatar"]
+       40 MOVE                             R4 R0
+       41 CALL                             R3 1 1
+       42 LOADK                            R6 K7 ["MeshPart"]
+       43 NAMECALL                         R4 R0 K8 ["IsA"]
+       45 CALL                             R4 2 1
+       46 JUMPIFNOT                        R4 ; [+4]
+       47 LOADK                            R6 K9 ["WrapTarget"]
+       48 NAMECALL                         R4 R0 K10 ["FindFirstChildWhichIsA"]
+       50 CALL                             R4 2 1
+       51 JUMPIF                           R3 ; [+1]
+       52 JUMPIFNOT                        R4 ; [+2]
+       53 LOADB                            R5 0
+       54 RETURN                           R5 1
+       55 LOADK                            R8 K11 ["LayeredClothingEditorPreview"]
+       56 NAMECALL                         R6 R0 K12 ["FindFirstAncestor"]
+       58 CALL                             R6 2 1
+       59 JUMPIFNOTEQKNIL                  R6 ; [+2]
+       61 LOADB                            R5 0 +1
+       62 LOADB                            R5 1
+       63 JUMPIFEQ                         R0 R2 ; [+2]
+       65 LOADB                            R6 0 +1
+       66 LOADB                            R6 1
+       67 MOVE                             R7 R2
+       68 JUMPIFNOT                        R7 ; [+6]
+       69 GETTABLEKS                       R8 R2 K13 ["Parent"]
+       71 JUMPIFEQ                         R0 R8 ; [+2]
+       73 LOADB                            R7 0 +1
+       74 LOADB                            R7 1
+       75 MOVE                             R8 R2
+       76 JUMPIFNOT                        R8 ; [+5]
+       77 GETTABLEKS                       R10 R2 K14 ["Name"]
+       79 NAMECALL                         R8 R0 K12 ["FindFirstAncestor"]
+       81 CALL                             R8 2 1
+       82 MOVE                             R9 R0
+       83 JUMPIFNOT                        R9 ; [+10]
+       84 MOVE                             R9 R2
+       85 JUMPIFNOT                        R9 ; [+8]
+       86 GETTABLEKS                       R10 R0 K13 ["Parent"]
+       88 GETTABLEKS                       R11 R2 K13 ["Parent"]
+       90 JUMPIFEQ                         R10 R11 ; [+2]
+       92 LOADB                            R9 0 +1
+       93 LOADB                            R9 1
+       94 MOVE                             R11 R5
+       95 JUMPIF                           R11 ; [+7]
+       96 MOVE                             R11 R6
+       97 JUMPIF                           R11 ; [+5]
+       98 MOVE                             R11 R7
+       99 JUMPIF                           R11 ; [+3]
+      100 MOVE                             R11 R9
+      101 JUMPIF                           R11 ; [+1]
+      102 MOVE                             R11 R8
+      103 NOT                              R10 R11
+      104 RETURN                           R10 1
+
+PROTO_8:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K3 [{[1], ["invalidSelected"] = False}]
         2 GETUPVAL                         R3 1
@@ -239,44 +285,60 @@ PROTO_7:
        18 SETTABLEKS                       R1 R0 K6 ["ancestryChangedHandle"]
        20 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R3 K3 [{[1], ["invalidSelected"] = False}]
+        1 DUPTABLE                         R3 K4 [{[1], ["invalidSelected"] = False, ["rejectionReason"]}]
         2 GETUPVAL                         R4 1
-        3 GETTABLEKS                       R4 R4 K4 ["getHandle"]
+        3 GETTABLEKS                       R4 R4 K5 ["getHandle"]
         5 MOVE                             R5 R0
         6 CALL                             R4 1 1
         7 SETTABLEKS                       R4 R3 K0 ["selectedPart"]
-        9 NAMECALL                         R1 R1 K5 ["setState"]
-       11 CALL                             R1 2 0
-       12 GETUPVAL                         R1 0
-       13 GETTABLEKS                       R1 R1 K6 ["ancestryChangedHandle"]
-       15 JUMPIFNOT                        R1 ; [+6]
-       16 GETUPVAL                         R1 0
-       17 GETTABLEKS                       R1 R1 K6 ["ancestryChangedHandle"]
-       19 NAMECALL                         R1 R1 K7 ["Disconnect"]
-       21 CALL                             R1 1 0
-       22 GETUPVAL                         R1 0
-       23 GETTABLEKS                       R2 R0 K8 ["AncestryChanged"]
-       25 NEWCLOSURE                       R4 P0
-       26 CAPTURE                          UPVAL U0
-       27 CAPTURE                          UPVAL U2
-       28 NAMECALL                         R2 R2 K9 ["Connect"]
-       30 CALL                             R2 2 1
-       31 SETTABLEKS                       R2 R1 K6 ["ancestryChangedHandle"]
-       33 RETURN                           R0 0
-
-PROTO_9:
-        0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K3 [{[1] = True, ["selectedPart"]}]
-        2 GETUPVAL                         R3 1
-        3 GETTABLEKS                       R3 R3 K4 ["None"]
-        5 SETTABLEKS                       R3 R2 K2 ["selectedPart"]
-        7 NAMECALL                         R0 R0 K5 ["setState"]
-        9 CALL                             R0 2 0
-       10 RETURN                           R0 0
+        9 GETUPVAL                         R4 2
+       10 GETTABLEKS                       R4 R4 K6 ["None"]
+       12 SETTABLEKS                       R4 R3 K3 ["rejectionReason"]
+       14 NAMECALL                         R1 R1 K7 ["setState"]
+       16 CALL                             R1 2 0
+       17 GETUPVAL                         R1 0
+       18 GETTABLEKS                       R1 R1 K8 ["ancestryChangedHandle"]
+       20 JUMPIFNOT                        R1 ; [+6]
+       21 GETUPVAL                         R1 0
+       22 GETTABLEKS                       R1 R1 K8 ["ancestryChangedHandle"]
+       24 NAMECALL                         R1 R1 K9 ["Disconnect"]
+       26 CALL                             R1 1 0
+       27 GETUPVAL                         R1 0
+       28 GETTABLEKS                       R2 R0 K10 ["AncestryChanged"]
+       30 NEWCLOSURE                       R4 P0
+       31 CAPTURE                          UPVAL U0
+       32 CAPTURE                          UPVAL U2
+       33 NAMECALL                         R2 R2 K11 ["Connect"]
+       35 CALL                             R2 2 1
+       36 SETTABLEKS                       R2 R1 K8 ["ancestryChangedHandle"]
+       38 RETURN                           R0 0
 
 PROTO_10:
+        0 GETUPVAL                         R1 0
+        1 DUPTABLE                         R3 K4 [{[1] = True, ["selectedPart"], ["rejectionReason"]}]
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R4 R4 K5 ["None"]
+        5 SETTABLEKS                       R4 R3 K2 ["selectedPart"]
+        7 GETUPVAL                         R5 2
+        8 CALL                             R5 0 1
+        9 JUMPIFNOT                        R5 ; [+10]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K6 ["getRejectionReason"]
+       13 MOVE                             R5 R0
+       14 CALL                             R4 1 1
+       15 JUMPIF                           R4 ; [+5]
+       16 GETUPVAL                         R4 1
+       17 GETTABLEKS                       R4 R4 K5 ["None"]
+       19 JUMP                             ; [+1]
+       20 LOADNIL                          R4
+       21 SETTABLEKS                       R4 R3 K3 ["rejectionReason"]
+       23 NAMECALL                         R1 R1 K7 ["setState"]
+       25 CALL                             R1 2 0
+       26 RETURN                           R0 0
+
+PROTO_11:
         0 DUPTABLE                         R1 K4 [{[1] = , ["invalidSelected"] = False}]
         1 SETTABLEKS                       R1 R0 K5 ["state"]
         3 NEWCLOSURE                       R1 P0
@@ -296,25 +358,32 @@ PROTO_10:
        20 NEWCLOSURE                       R1 P3
        21 CAPTURE                          VAL R0
        22 CAPTURE                          UPVAL U5
-       23 CAPTURE                          UPVAL U3
-       24 CAPTURE                          UPVAL U6
-       25 SETTABLEKS                       R1 R0 K9 ["onConfirmSelection"]
-       27 NEWCLOSURE                       R1 P4
-       28 CAPTURE                          VAL R0
-       29 CAPTURE                          UPVAL U0
-       30 SETTABLEKS                       R1 R0 K10 ["isSelectedInstanceValid"]
-       32 NEWCLOSURE                       R1 P5
-       33 CAPTURE                          VAL R0
-       34 CAPTURE                          UPVAL U0
+       23 CAPTURE                          UPVAL U6
+       24 CAPTURE                          UPVAL U3
+       25 CAPTURE                          UPVAL U7
+       26 SETTABLEKS                       R1 R0 K9 ["onConfirmSelection"]
+       28 NEWCLOSURE                       R1 P4
+       29 CAPTURE                          UPVAL U8
+       30 CAPTURE                          VAL R0
+       31 SETTABLEKS                       R1 R0 K10 ["getRejectionReason"]
+       33 NEWCLOSURE                       R1 P5
+       34 CAPTURE                          VAL R0
        35 CAPTURE                          UPVAL U5
-       36 SETTABLEKS                       R1 R0 K11 ["onSelectValidInstance"]
-       38 NEWCLOSURE                       R1 P6
-       39 CAPTURE                          VAL R0
-       40 CAPTURE                          UPVAL U5
-       41 SETTABLEKS                       R1 R0 K12 ["onInvalidSelectionInstance"]
-       43 RETURN                           R0 0
+       36 CAPTURE                          UPVAL U0
+       37 SETTABLEKS                       R1 R0 K11 ["isSelectedInstanceValid"]
+       39 NEWCLOSURE                       R1 P6
+       40 CAPTURE                          VAL R0
+       41 CAPTURE                          UPVAL U0
+       42 CAPTURE                          UPVAL U6
+       43 SETTABLEKS                       R1 R0 K12 ["onSelectValidInstance"]
+       45 NEWCLOSURE                       R1 P7
+       46 CAPTURE                          VAL R0
+       47 CAPTURE                          UPVAL U6
+       48 CAPTURE                          UPVAL U5
+       49 SETTABLEKS                       R1 R0 K13 ["onInvalidSelectionInstance"]
+       51 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R1 R1 K1 ["EditingItemContext"]
         4 NAMECALL                         R1 R1 K2 ["getSourceItem"]
@@ -326,7 +395,7 @@ PROTO_11:
        13 CALL                             R2 2 0
        14 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R4 R2 K2 ["selectedPart"]
@@ -348,46 +417,66 @@ PROTO_12:
        28 CALL                             R8 3 1
        29 JUMPIF                           R8 ; [+1]
        30 MOVE                             R8 R3
-       31 GETUPVAL                         R9 0
-       32 GETTABLEKS                       R9 R9 K11 ["createElement"]
-       34 LOADK                            R10 K12 ["Frame"]
-       35 DUPTABLE                         R11 K17 [{["Size"], ["BackgroundColor3"], ["BorderSizePixel"] = 0}]
-       36 GETIMPORT                        R12 K20 [UDim2.new]
-       38 LOADN                            R13 1
-       39 LOADN                            R14 0
-       40 LOADN                            R15 1
-       41 LOADN                            R16 0
-       42 CALL                             R12 4 1
-       43 SETTABLEKS                       R12 R11 K13 ["Size"]
-       45 GETTABLEKS                       R12 R6 K21 ["BackgroundColor"]
-       47 SETTABLEKS                       R12 R11 K14 ["BackgroundColor3"]
-       49 DUPTABLE                         R12 K24 [{"SelectFrame", "InstanceSelector"}]
-       50 GETUPVAL                         R13 0
-       51 GETTABLEKS                       R13 R13 K11 ["createElement"]
-       53 GETUPVAL                         R14 1
-       54 DUPTABLE                         R15 K28 [{"PartName", "ButtonEnabled", "OnConfirmSelection"}]
-       55 SETTABLEKS                       R8 R15 K25 ["PartName"]
-       57 SETTABLEKS                       R5 R15 K26 ["ButtonEnabled"]
-       59 GETTABLEKS                       R16 R0 K29 ["onConfirmSelection"]
-       61 SETTABLEKS                       R16 R15 K27 ["OnConfirmSelection"]
-       63 CALL                             R13 2 1
-       64 SETTABLEKS                       R13 R12 K22 ["SelectFrame"]
-       66 GETUPVAL                         R13 0
-       67 GETTABLEKS                       R13 R13 K11 ["createElement"]
-       69 GETUPVAL                         R14 2
-       70 DUPTABLE                         R15 K33 [{"IsSelectedInstanceValid", "OnValidSelection", "OnInvalidSelection"}]
-       71 GETTABLEKS                       R16 R0 K34 ["isSelectedInstanceValid"]
-       73 SETTABLEKS                       R16 R15 K30 ["IsSelectedInstanceValid"]
-       75 GETTABLEKS                       R16 R0 K35 ["onSelectValidInstance"]
-       77 SETTABLEKS                       R16 R15 K31 ["OnValidSelection"]
-       79 GETTABLEKS                       R16 R0 K36 ["onInvalidSelectionInstance"]
-       81 SETTABLEKS                       R16 R15 K32 ["OnInvalidSelection"]
-       83 CALL                             R13 2 1
-       84 SETTABLEKS                       R13 R12 K23 ["InstanceSelector"]
-       86 CALL                             R9 3 -1
-       87 RETURN                           R9 -1
+       31 GETUPVAL                         R10 0
+       32 CALL                             R10 0 1
+       33 JUMPIFNOT                        R10 ; [+11]
+       34 JUMPIFNOT                        R4 ; [+10]
+       35 GETTABLEKS                       R10 R2 K11 ["rejectionReason"]
+       37 JUMPIFNOT                        R10 ; [+7]
+       38 LOADK                            R11 K8 ["Select"]
+       39 GETTABLEKS                       R12 R2 K11 ["rejectionReason"]
+       41 NAMECALL                         R9 R7 K10 ["getText"]
+       43 CALL                             R9 3 1
+       44 JUMP                             ; [+1]
+       45 LOADNIL                          R9
+       46 GETUPVAL                         R10 1
+       47 GETTABLEKS                       R10 R10 K12 ["createElement"]
+       49 LOADK                            R11 K13 ["Frame"]
+       50 DUPTABLE                         R12 K18 [{["Size"], ["BackgroundColor3"], ["BorderSizePixel"] = 0}]
+       51 GETIMPORT                        R13 K21 [UDim2.new]
+       53 LOADN                            R14 1
+       54 LOADN                            R15 0
+       55 LOADN                            R16 1
+       56 LOADN                            R17 0
+       57 CALL                             R13 4 1
+       58 SETTABLEKS                       R13 R12 K14 ["Size"]
+       60 GETTABLEKS                       R13 R6 K22 ["BackgroundColor"]
+       62 SETTABLEKS                       R13 R12 K15 ["BackgroundColor3"]
+       64 DUPTABLE                         R13 K25 [{"SelectFrame", "InstanceSelector"}]
+       65 GETUPVAL                         R14 1
+       66 GETTABLEKS                       R14 R14 K12 ["createElement"]
+       68 GETUPVAL                         R15 2
+       69 DUPTABLE                         R16 K30 [{"PartName", "ButtonEnabled", "OnConfirmSelection", "RejectionReasonText"}]
+       70 SETTABLEKS                       R8 R16 K26 ["PartName"]
+       72 SETTABLEKS                       R5 R16 K27 ["ButtonEnabled"]
+       74 GETTABLEKS                       R17 R0 K31 ["onConfirmSelection"]
+       76 SETTABLEKS                       R17 R16 K28 ["OnConfirmSelection"]
+       78 SETTABLEKS                       R9 R16 K29 ["RejectionReasonText"]
+       80 CALL                             R14 2 1
+       81 SETTABLEKS                       R14 R13 K23 ["SelectFrame"]
+       83 GETUPVAL                         R14 1
+       84 GETTABLEKS                       R14 R14 K12 ["createElement"]
+       86 GETUPVAL                         R15 3
+       87 DUPTABLE                         R16 K36 [{"IsSelectedInstanceValid", "OnValidSelection", "OnInvalidSelection", "OnInvalidClickSelection"}]
+       88 GETTABLEKS                       R17 R0 K37 ["isSelectedInstanceValid"]
+       90 SETTABLEKS                       R17 R16 K32 ["IsSelectedInstanceValid"]
+       92 GETTABLEKS                       R17 R0 K38 ["onSelectValidInstance"]
+       94 SETTABLEKS                       R17 R16 K33 ["OnValidSelection"]
+       96 GETTABLEKS                       R17 R0 K39 ["onInvalidSelectionInstance"]
+       98 SETTABLEKS                       R17 R16 K34 ["OnInvalidSelection"]
+      100 GETUPVAL                         R18 0
+      101 CALL                             R18 0 1
+      102 JUMPIFNOT                        R18 ; [+3]
+      103 GETTABLEKS                       R17 R0 K39 ["onInvalidSelectionInstance"]
+      105 JUMP                             ; [+1]
+      106 LOADNIL                          R17
+      107 SETTABLEKS                       R17 R16 K35 ["OnInvalidClickSelection"]
+      109 CALL                             R14 2 1
+      110 SETTABLEKS                       R14 R13 K24 ["InstanceSelector"]
+      112 CALL                             R10 3 -1
+      113 RETURN                           R10 -1
 
-PROTO_13:
+PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["ancestryChangedHandle"]
         2 JUMPIFNOT                        R1 ; [+8]
         3 GETTABLEKS                       R1 R0 K0 ["ancestryChangedHandle"]
@@ -397,7 +486,7 @@ PROTO_13:
         9 SETTABLEKS                       R1 R0 K0 ["ancestryChangedHandle"]
        11 RETURN                           R0 0
 
-PROTO_14:
+PROTO_15:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 MOVE                             R3 R0
@@ -405,7 +494,7 @@ PROTO_14:
         4 CALL                             R1 -1 0
         5 RETURN                           R0 0
 
-PROTO_15:
+PROTO_16:
         0 GETUPVAL                         R2 0
         1 GETUPVAL                         R3 1
         2 MOVE                             R4 R0
@@ -414,7 +503,7 @@ PROTO_15:
         5 CALL                             R2 -1 0
         6 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 DUPTABLE                         R1 K2 [{"SetToolMode", "AddUserAddedAssetForPreview"}]
         1 NEWCLOSURE                       R2 P0
         2 CAPTURE                          VAL R0
@@ -486,54 +575,67 @@ MAIN:
       103 GETTABLEKS                       R20 R20 K9 ["Util"]
       105 GETTABLEKS                       R20 R20 K29 ["Constants"]
       107 CALL                             R19 1 1
-      108 GETTABLEKS                       R20 R1 K30 ["PureComponent"]
-      110 LOADK                            R22 K31 ["SelectItemScreen"]
-      111 NAMECALL                         R20 R20 K32 ["extend"]
-      113 CALL                             R20 2 1
-      114 GETTABLEKS                       R21 R11 K9 ["Util"]
-      116 GETTABLEKS                       R22 R21 K33 ["Typecheck"]
-      118 GETTABLEKS                       R23 R22 K34 ["wrap"]
-      120 MOVE                             R24 R20
-      121 GETIMPORT                        R25 K1 [script]
-      123 CALL                             R23 2 0
-      124 DUPCLOSURE                       R23 K35 [PROTO_10]
-      125 CAPTURE                          VAL R5
-      126 CAPTURE                          VAL R6
-      127 CAPTURE                          VAL R19
-      128 CAPTURE                          VAL R18
-      129 CAPTURE                          VAL R9
-      130 CAPTURE                          VAL R1
-      131 CAPTURE                          VAL R8
-      132 SETTABLEKS                       R23 R20 K36 ["init"]
-      134 DUPCLOSURE                       R23 K37 [PROTO_11]
-      135 SETTABLEKS                       R23 R20 K38 ["didMount"]
-      137 DUPCLOSURE                       R23 K39 [PROTO_12]
-      138 CAPTURE                          VAL R1
-      139 CAPTURE                          VAL R17
-      140 CAPTURE                          VAL R10
-      141 SETTABLEKS                       R23 R20 K40 ["render"]
-      143 DUPCLOSURE                       R23 K41 [PROTO_13]
-      144 SETTABLEKS                       R23 R20 K42 ["willUnmount"]
-      146 MOVE                             R23 R13
-      147 DUPTABLE                         R24 K46 [{"Plugin", "Stylizer", "Localization", "EditingItemContext"}]
-      148 GETTABLEKS                       R25 R12 K43 ["Plugin"]
-      150 SETTABLEKS                       R25 R24 K43 ["Plugin"]
-      152 GETTABLEKS                       R25 R12 K44 ["Stylizer"]
-      154 SETTABLEKS                       R25 R24 K44 ["Stylizer"]
-      156 GETTABLEKS                       R25 R12 K45 ["Localization"]
-      158 SETTABLEKS                       R25 R24 K45 ["Localization"]
-      160 SETTABLEKS                       R14 R24 K21 ["EditingItemContext"]
-      162 CALL                             R23 1 1
-      163 MOVE                             R24 R20
-      164 CALL                             R23 1 1
-      165 MOVE                             R20 R23
-      166 DUPCLOSURE                       R23 K47 [PROTO_16]
-      167 CAPTURE                          VAL R15
-      168 CAPTURE                          VAL R16
-      169 GETTABLEKS                       R24 R2 K48 ["connect"]
-      171 LOADNIL                          R25
-      172 MOVE                             R26 R23
-      173 CALL                             R24 2 1
-      174 MOVE                             R25 R20
-      175 CALL                             R24 1 -1
-      176 RETURN                           R24 -1
+      108 GETIMPORT                        R20 K4 [require]
+      110 GETTABLEKS                       R21 R0 K22 ["Src"]
+      112 GETTABLEKS                       R21 R21 K9 ["Util"]
+      114 GETTABLEKS                       R21 R21 K30 ["SelectionRejection"]
+      116 CALL                             R20 1 1
+      117 GETIMPORT                        R21 K4 [require]
+      119 GETTABLEKS                       R22 R0 K22 ["Src"]
+      121 GETTABLEKS                       R22 R22 K31 ["Flags"]
+      123 GETTABLEKS                       R22 R22 K32 ["getFFlagLayeredClothingEditorSelectionRejectionReasons"]
+      125 CALL                             R21 1 1
+      126 GETTABLEKS                       R22 R1 K33 ["PureComponent"]
+      128 LOADK                            R24 K34 ["SelectItemScreen"]
+      129 NAMECALL                         R22 R22 K35 ["extend"]
+      131 CALL                             R22 2 1
+      132 GETTABLEKS                       R23 R11 K9 ["Util"]
+      134 GETTABLEKS                       R24 R23 K36 ["Typecheck"]
+      136 GETTABLEKS                       R25 R24 K37 ["wrap"]
+      138 MOVE                             R26 R22
+      139 GETIMPORT                        R27 K1 [script]
+      141 CALL                             R25 2 0
+      142 DUPCLOSURE                       R25 K38 [PROTO_11]
+      143 CAPTURE                          VAL R5
+      144 CAPTURE                          VAL R6
+      145 CAPTURE                          VAL R19
+      146 CAPTURE                          VAL R18
+      147 CAPTURE                          VAL R9
+      148 CAPTURE                          VAL R21
+      149 CAPTURE                          VAL R1
+      150 CAPTURE                          VAL R8
+      151 CAPTURE                          VAL R20
+      152 SETTABLEKS                       R25 R22 K39 ["init"]
+      154 DUPCLOSURE                       R25 K40 [PROTO_12]
+      155 SETTABLEKS                       R25 R22 K41 ["didMount"]
+      157 DUPCLOSURE                       R25 K42 [PROTO_13]
+      158 CAPTURE                          VAL R21
+      159 CAPTURE                          VAL R1
+      160 CAPTURE                          VAL R17
+      161 CAPTURE                          VAL R10
+      162 SETTABLEKS                       R25 R22 K43 ["render"]
+      164 DUPCLOSURE                       R25 K44 [PROTO_14]
+      165 SETTABLEKS                       R25 R22 K45 ["willUnmount"]
+      167 MOVE                             R25 R13
+      168 DUPTABLE                         R26 K49 [{"Plugin", "Stylizer", "Localization", "EditingItemContext"}]
+      169 GETTABLEKS                       R27 R12 K46 ["Plugin"]
+      171 SETTABLEKS                       R27 R26 K46 ["Plugin"]
+      173 GETTABLEKS                       R27 R12 K47 ["Stylizer"]
+      175 SETTABLEKS                       R27 R26 K47 ["Stylizer"]
+      177 GETTABLEKS                       R27 R12 K48 ["Localization"]
+      179 SETTABLEKS                       R27 R26 K48 ["Localization"]
+      181 SETTABLEKS                       R14 R26 K21 ["EditingItemContext"]
+      183 CALL                             R25 1 1
+      184 MOVE                             R26 R22
+      185 CALL                             R25 1 1
+      186 MOVE                             R22 R25
+      187 DUPCLOSURE                       R25 K50 [PROTO_17]
+      188 CAPTURE                          VAL R15
+      189 CAPTURE                          VAL R16
+      190 GETTABLEKS                       R26 R2 K51 ["connect"]
+      192 LOADNIL                          R27
+      193 MOVE                             R28 R25
+      194 CALL                             R26 2 1
+      195 MOVE                             R27 R22
+      196 CALL                             R26 1 -1
+      197 RETURN                           R26 -1

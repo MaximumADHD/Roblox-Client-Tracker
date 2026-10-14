@@ -46,7 +46,7 @@ PROTO_0:
        60 JUMPIFNOT                        R7 ; [+4]
        61 NAMECALL                         R7 R6 K16 ["Destroy"]
        63 CALL                             R7 1 0
-       64 JUMP                             ; [+72]
+       64 JUMP                             ; [+69]
        65 LOADK                            R9 K17 ["BasePart"]
        66 NAMECALL                         R7 R6 K7 ["IsA"]
        68 CALL                             R7 2 1
@@ -78,30 +78,27 @@ PROTO_0:
       104 LOADK                            R9 K25 ["SurfaceAppearance"]
       105 CALL                             R8 1 1
       106 SETTABLEKS                       R6 R8 K5 ["Parent"]
-      108 GETUPVAL                         R8 2
-      109 CALL                             R8 0 1
-      110 JUMPIFNOT                        R8 ; [+26]
-      111 LOADK                            R10 K22 ["MeshPart"]
-      112 NAMECALL                         R8 R6 K7 ["IsA"]
-      114 CALL                             R8 2 1
-      115 JUMPIF                           R8 ; [+5]
-      116 LOADK                            R10 K30 ["Part"]
-      117 NAMECALL                         R8 R6 K7 ["IsA"]
-      119 CALL                             R8 2 1
-      120 JUMPIFNOT                        R8 ; [+16]
-      121 GETTABLEKS                       R8 R6 K8 ["Name"]
-      123 JUMPIFNOTEQKS                    R8 K31 ["Handle"] ; [+13]
-      125 JUMPIFNOT                        R7 ; [+11]
-      126 NAMECALL                         R8 R6 K32 ["GetAttributes"]
-      128 CALL                             R8 1 3
-      129 FORGPREP                         R8
-      130 MOVE                             R15 R11
-      131 LOADNIL                          R16
-      132 NAMECALL                         R13 R6 K33 ["SetAttribute"]
-      134 CALL                             R13 3 0
-      135 FORGLOOP                         R8 1 ; [-6]
-      137 FORGLOOP                         R2 2 ; [-116]
-      139 RETURN                           R0 0
+      108 LOADK                            R10 K22 ["MeshPart"]
+      109 NAMECALL                         R8 R6 K7 ["IsA"]
+      111 CALL                             R8 2 1
+      112 JUMPIF                           R8 ; [+5]
+      113 LOADK                            R10 K30 ["Part"]
+      114 NAMECALL                         R8 R6 K7 ["IsA"]
+      116 CALL                             R8 2 1
+      117 JUMPIFNOT                        R8 ; [+16]
+      118 GETTABLEKS                       R8 R6 K8 ["Name"]
+      120 JUMPIFNOTEQKS                    R8 K31 ["Handle"] ; [+13]
+      122 JUMPIFNOT                        R7 ; [+11]
+      123 NAMECALL                         R8 R6 K32 ["GetAttributes"]
+      125 CALL                             R8 1 3
+      126 FORGPREP                         R8
+      127 MOVE                             R15 R11
+      128 LOADNIL                          R16
+      129 NAMECALL                         R13 R6 K33 ["SetAttribute"]
+      131 CALL                             R13 3 0
+      132 FORGLOOP                         R8 1 ; [-6]
+      134 FORGLOOP                         R2 2 ; [-113]
+      136 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -116,15 +113,9 @@ MAIN:
        14 GETIMPORT                        R3 K6 [require]
        16 GETTABLEKS                       R4 R0 K8 ["Src"]
        18 GETTABLEKS                       R4 R4 K9 ["Flags"]
-       20 GETTABLEKS                       R4 R4 K10 ["getFFlagRemoveAttributesForAccessoryParts"]
+       20 GETTABLEKS                       R4 R4 K10 ["getEngineFeatureEngineSplitHumanoidRigDescriptionInUpload"]
        22 CALL                             R3 1 1
-       23 GETIMPORT                        R4 K6 [require]
-       25 GETTABLEKS                       R5 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R5 K9 ["Flags"]
-       29 GETTABLEKS                       R5 R5 K11 ["getEngineFeatureEngineSplitHumanoidRigDescriptionInUpload"]
-       31 CALL                             R4 1 1
-       32 DUPCLOSURE                       R5 K12 [PROTO_0]
-       33 CAPTURE                          VAL R4
-       34 CAPTURE                          VAL R2
-       35 CAPTURE                          VAL R3
-       36 RETURN                           R5 1
+       23 DUPCLOSURE                       R4 K11 [PROTO_0]
+       24 CAPTURE                          VAL R3
+       25 CAPTURE                          VAL R2
+       26 RETURN                           R4 1

@@ -440,12 +440,12 @@ MAIN:
        54 GETTABLEKS                       R10 R8 K17 ["Draggers"]
        56 GETTABLEKS                       R10 R10 K18 ["AnimationClipEditorDragger"]
        58 CALL                             R9 1 1
-       59 GETTABLEKS                       R10 R0 K6 ["Packages"]
-       61 GETTABLEKS                       R10 R10 K19 ["DraggerFramework"]
-       63 GETIMPORT                        R11 K5 [require]
-       65 GETTABLEKS                       R12 R10 K20 ["Implementation"]
-       67 GETTABLEKS                       R12 R12 K21 ["DraggerContext_PluginImpl"]
-       69 CALL                             R11 1 1
+       59 GETIMPORT                        R10 K5 [require]
+       61 GETTABLEKS                       R11 R0 K6 ["Packages"]
+       63 GETTABLEKS                       R11 R11 K19 ["DraggerFramework"]
+       65 CALL                             R10 1 1
+       66 GETTABLEKS                       R11 R10 K20 ["Implementation"]
+       68 GETTABLEKS                       R11 R11 K21 ["DraggerContext_PluginImpl"]
        70 GETTABLEKS                       R12 R0 K13 ["Src"]
        72 GETTABLEKS                       R12 R12 K22 ["Thunks"]
        74 GETIMPORT                        R13 K5 [require]
@@ -477,60 +477,61 @@ MAIN:
       119 GETTABLEKS                       R22 R16 K32 ["IKControlManager"]
       121 CALL                             R21 1 1
       122 GETIMPORT                        R22 K5 [require]
-      124 GETTABLEKS                       R23 R0 K33 ["LuaFlags"]
-      126 GETTABLEKS                       R23 R23 K34 ["GetFFlagUseIKControls"]
-      128 CALL                             R22 1 1
-      129 GETTABLEKS                       R23 R1 K35 ["PureComponent"]
-      131 LOADK                            R25 K36 ["DraggerWrapper"]
-      132 NAMECALL                         R23 R23 K37 ["extend"]
-      134 CALL                             R23 2 1
-      135 DUPCLOSURE                       R24 K38 [PROTO_0]
-      136 CAPTURE                          VAL R18
-      137 CAPTURE                          VAL R22
-      138 CAPTURE                          VAL R21
-      139 SETTABLEKS                       R24 R23 K39 ["didUpdate"]
-      141 DUPCLOSURE                       R24 K40 [PROTO_3]
-      142 CAPTURE                          VAL R18
-      143 CAPTURE                          VAL R17
-      144 CAPTURE                          VAL R20
-      145 CAPTURE                          VAL R3
-      146 DUPCLOSURE                       R25 K41 [PROTO_5]
-      147 CAPTURE                          VAL R18
-      148 CAPTURE                          VAL R19
-      149 CAPTURE                          VAL R11
-      150 DUPCLOSURE                       R26 K42 [PROTO_6]
-      151 CAPTURE                          VAL R25
-      152 CAPTURE                          VAL R24
-      153 CAPTURE                          VAL R1
-      154 CAPTURE                          VAL R9
-      155 SETTABLEKS                       R26 R23 K43 ["render"]
-      157 DUPCLOSURE                       R26 K44 [PROTO_7]
-      158 DUPCLOSURE                       R27 K45 [PROTO_11]
-      159 CAPTURE                          VAL R14
-      160 CAPTURE                          VAL R15
-      161 CAPTURE                          VAL R13
-      162 DUPCLOSURE                       R28 K46 [PROTO_12]
-      163 CAPTURE                          VAL R22
-      164 SETTABLEKS                       R28 R23 K47 ["willUnmount"]
-      166 MOVE                             R28 R6
-      167 DUPTABLE                         R29 K52 [{"Plugin", "PluginActions", "Signals", "Mouse", "Analytics"}]
-      168 GETTABLEKS                       R30 R5 K48 ["Plugin"]
-      170 SETTABLEKS                       R30 R29 K48 ["Plugin"]
-      172 GETTABLEKS                       R30 R5 K49 ["PluginActions"]
-      174 SETTABLEKS                       R30 R29 K49 ["PluginActions"]
-      176 SETTABLEKS                       R7 R29 K15 ["Signals"]
-      178 GETTABLEKS                       R30 R5 K50 ["Mouse"]
-      180 SETTABLEKS                       R30 R29 K50 ["Mouse"]
-      182 GETTABLEKS                       R30 R5 K51 ["Analytics"]
-      184 SETTABLEKS                       R30 R29 K51 ["Analytics"]
-      186 CALL                             R28 1 1
-      187 MOVE                             R29 R23
+      124 GETTABLEKS                       R23 R0 K13 ["Src"]
+      126 GETTABLEKS                       R23 R23 K33 ["Flags"]
+      128 GETTABLEKS                       R23 R23 K34 ["getFFlagUseIKControls"]
+      130 CALL                             R22 1 1
+      131 GETTABLEKS                       R23 R1 K35 ["PureComponent"]
+      133 LOADK                            R25 K36 ["DraggerWrapper"]
+      134 NAMECALL                         R23 R23 K37 ["extend"]
+      136 CALL                             R23 2 1
+      137 DUPCLOSURE                       R24 K38 [PROTO_0]
+      138 CAPTURE                          VAL R18
+      139 CAPTURE                          VAL R22
+      140 CAPTURE                          VAL R21
+      141 SETTABLEKS                       R24 R23 K39 ["didUpdate"]
+      143 DUPCLOSURE                       R24 K40 [PROTO_3]
+      144 CAPTURE                          VAL R18
+      145 CAPTURE                          VAL R17
+      146 CAPTURE                          VAL R20
+      147 CAPTURE                          VAL R3
+      148 DUPCLOSURE                       R25 K41 [PROTO_5]
+      149 CAPTURE                          VAL R18
+      150 CAPTURE                          VAL R19
+      151 CAPTURE                          VAL R11
+      152 DUPCLOSURE                       R26 K42 [PROTO_6]
+      153 CAPTURE                          VAL R25
+      154 CAPTURE                          VAL R24
+      155 CAPTURE                          VAL R1
+      156 CAPTURE                          VAL R9
+      157 SETTABLEKS                       R26 R23 K43 ["render"]
+      159 DUPCLOSURE                       R26 K44 [PROTO_7]
+      160 DUPCLOSURE                       R27 K45 [PROTO_11]
+      161 CAPTURE                          VAL R14
+      162 CAPTURE                          VAL R15
+      163 CAPTURE                          VAL R13
+      164 DUPCLOSURE                       R28 K46 [PROTO_12]
+      165 CAPTURE                          VAL R22
+      166 SETTABLEKS                       R28 R23 K47 ["willUnmount"]
+      168 MOVE                             R28 R6
+      169 DUPTABLE                         R29 K52 [{"Plugin", "PluginActions", "Signals", "Mouse", "Analytics"}]
+      170 GETTABLEKS                       R30 R5 K48 ["Plugin"]
+      172 SETTABLEKS                       R30 R29 K48 ["Plugin"]
+      174 GETTABLEKS                       R30 R5 K49 ["PluginActions"]
+      176 SETTABLEKS                       R30 R29 K49 ["PluginActions"]
+      178 SETTABLEKS                       R7 R29 K15 ["Signals"]
+      180 GETTABLEKS                       R30 R5 K50 ["Mouse"]
+      182 SETTABLEKS                       R30 R29 K50 ["Mouse"]
+      184 GETTABLEKS                       R30 R5 K51 ["Analytics"]
+      186 SETTABLEKS                       R30 R29 K51 ["Analytics"]
       188 CALL                             R28 1 1
-      189 MOVE                             R23 R28
-      190 GETTABLEKS                       R28 R2 K53 ["connect"]
-      192 MOVE                             R29 R26
-      193 MOVE                             R30 R27
-      194 CALL                             R28 2 1
-      195 MOVE                             R29 R23
-      196 CALL                             R28 1 -1
-      197 RETURN                           R28 -1
+      189 MOVE                             R29 R23
+      190 CALL                             R28 1 1
+      191 MOVE                             R23 R28
+      192 GETTABLEKS                       R28 R2 K53 ["connect"]
+      194 MOVE                             R29 R26
+      195 MOVE                             R30 R27
+      196 CALL                             R28 2 1
+      197 MOVE                             R29 R23
+      198 CALL                             R28 1 -1
+      199 RETURN                           R28 -1

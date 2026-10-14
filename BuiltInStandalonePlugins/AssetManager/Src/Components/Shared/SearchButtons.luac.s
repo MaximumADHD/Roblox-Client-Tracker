@@ -1,6 +1,6 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 NAMECALL                         R0 R0 K0 ["hideSearchOptions"]
+        1 NAMECALL                         R0 R0 K0 ["endSearchSession"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 

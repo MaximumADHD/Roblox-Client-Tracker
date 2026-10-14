@@ -57,9 +57,13 @@ MAIN:
        83 GETIMPORT                        R4 K29 [Enum.AssetType.Plugin]
        85 SETTABLE                         R4 R2 R3
        86 GETTABLEKS                       R3 R1 K8 ["AssetType"]
-       88 GETTABLEKS                       R3 R3 K30 ["Video"]
-       90 GETIMPORT                        R4 K31 [Enum.AssetType.Video]
+       88 GETTABLEKS                       R3 R3 K30 ["TextDocument"]
+       90 GETIMPORT                        R4 K31 [Enum.AssetType.TextDocument]
        92 SETTABLE                         R4 R2 R3
-       93 DUPCLOSURE                       R3 K32 [PROTO_0]
-       94 CAPTURE                          VAL R2
-       95 RETURN                           R3 1
+       93 GETTABLEKS                       R3 R1 K8 ["AssetType"]
+       95 GETTABLEKS                       R3 R3 K32 ["Video"]
+       97 GETIMPORT                        R4 K33 [Enum.AssetType.Video]
+       99 SETTABLE                         R4 R2 R3
+      100 DUPCLOSURE                       R3 K34 [PROTO_0]
+      101 CAPTURE                          VAL R2
+      102 RETURN                           R3 1

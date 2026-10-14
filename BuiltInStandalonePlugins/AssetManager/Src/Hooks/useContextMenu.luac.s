@@ -40,49 +40,62 @@ PROTO_0:
        51 RETURN                           R0 0
 
 PROTO_1:
-        0 DUPTABLE                         R2 K7 [{"ItemsController", "SearchController", "ExplorerController", "PluginController", "LayoutController", "Networking", "Localization"}]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R3 R3 K8 ["use"]
-        4 CALL                             R3 0 1
-        5 SETTABLEKS                       R3 R2 K0 ["ItemsController"]
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R3 R3 K8 ["use"]
-       10 CALL                             R3 0 1
-       11 SETTABLEKS                       R3 R2 K1 ["SearchController"]
-       13 GETUPVAL                         R3 2
-       14 GETTABLEKS                       R3 R3 K8 ["use"]
-       16 CALL                             R3 0 1
-       17 SETTABLEKS                       R3 R2 K2 ["ExplorerController"]
-       19 GETUPVAL                         R3 3
-       20 GETTABLEKS                       R3 R3 K8 ["use"]
-       22 CALL                             R3 0 1
-       23 SETTABLEKS                       R3 R2 K3 ["PluginController"]
-       25 GETUPVAL                         R3 4
-       26 GETTABLEKS                       R3 R3 K8 ["use"]
-       28 CALL                             R3 0 1
-       29 SETTABLEKS                       R3 R2 K4 ["LayoutController"]
-       31 GETUPVAL                         R3 5
-       32 GETTABLEKS                       R3 R3 K8 ["use"]
-       34 CALL                             R3 0 1
-       35 SETTABLEKS                       R3 R2 K5 ["Networking"]
-       37 GETUPVAL                         R3 6
-       38 GETTABLEKS                       R3 R3 K8 ["use"]
-       40 CALL                             R3 0 1
-       41 SETTABLEKS                       R3 R2 K6 ["Localization"]
-       43 GETUPVAL                         R3 7
-       44 GETTABLEKS                       R3 R3 K9 ["useCallback"]
-       46 NEWCLOSURE                       R4 P0
-       47 CAPTURE                          UPVAL U8
-       48 CAPTURE                          UPVAL U9
-       49 CAPTURE                          VAL R0
-       50 CAPTURE                          VAL R2
-       51 CAPTURE                          VAL R1
-       52 NEWTABLE                         R5 0 2
-       54 MOVE                             R6 R0
-       55 MOVE                             R7 R1
-       56 SETLIST                          R5 R6 2 [1]
-       58 CALL                             R3 2 -1
-       59 RETURN                           R3 -1
+        0 GETUPVAL                         R3 0
+        1 GETUPVAL                         R4 1
+        2 GETTABLEKS                       R4 R4 K0 ["IxpVariable"]
+        4 GETTABLEKS                       R4 R4 K1 ["Omnisearch"]
+        6 CALL                             R3 1 1
+        7 GETUPVAL                         R4 1
+        8 GETTABLEKS                       R4 R4 K2 ["IxpValue"]
+       10 GETTABLEKS                       R4 R4 K3 ["Experiment"]
+       12 JUMPIFEQ                         R3 R4 ; [+2]
+       14 LOADB                            R2 0 +1
+       15 LOADB                            R2 1
+       16 DUPTABLE                         R3 K12 [{"ItemsController", "SearchController", "ExplorerController", "PluginController", "LayoutController", "Networking", "Localization", "IsOmnisearchEnabled"}]
+       17 GETUPVAL                         R4 2
+       18 GETTABLEKS                       R4 R4 K13 ["use"]
+       20 CALL                             R4 0 1
+       21 SETTABLEKS                       R4 R3 K4 ["ItemsController"]
+       23 GETUPVAL                         R4 3
+       24 GETTABLEKS                       R4 R4 K13 ["use"]
+       26 CALL                             R4 0 1
+       27 SETTABLEKS                       R4 R3 K5 ["SearchController"]
+       29 GETUPVAL                         R4 4
+       30 GETTABLEKS                       R4 R4 K13 ["use"]
+       32 CALL                             R4 0 1
+       33 SETTABLEKS                       R4 R3 K6 ["ExplorerController"]
+       35 GETUPVAL                         R4 5
+       36 GETTABLEKS                       R4 R4 K13 ["use"]
+       38 CALL                             R4 0 1
+       39 SETTABLEKS                       R4 R3 K7 ["PluginController"]
+       41 GETUPVAL                         R4 6
+       42 GETTABLEKS                       R4 R4 K13 ["use"]
+       44 CALL                             R4 0 1
+       45 SETTABLEKS                       R4 R3 K8 ["LayoutController"]
+       47 GETUPVAL                         R4 7
+       48 GETTABLEKS                       R4 R4 K13 ["use"]
+       50 CALL                             R4 0 1
+       51 SETTABLEKS                       R4 R3 K9 ["Networking"]
+       53 GETUPVAL                         R4 8
+       54 GETTABLEKS                       R4 R4 K13 ["use"]
+       56 CALL                             R4 0 1
+       57 SETTABLEKS                       R4 R3 K10 ["Localization"]
+       59 SETTABLEKS                       R2 R3 K11 ["IsOmnisearchEnabled"]
+       61 GETUPVAL                         R4 9
+       62 GETTABLEKS                       R4 R4 K14 ["useCallback"]
+       64 NEWCLOSURE                       R5 P0
+       65 CAPTURE                          UPVAL U10
+       66 CAPTURE                          UPVAL U11
+       67 CAPTURE                          VAL R0
+       68 CAPTURE                          VAL R3
+       69 CAPTURE                          VAL R1
+       70 NEWTABLE                         R6 0 3
+       72 MOVE                             R7 R0
+       73 MOVE                             R8 R1
+       74 MOVE                             R9 R2
+       75 SETLIST                          R6 R7 3 [1]
+       77 CALL                             R4 2 -1
+       78 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -145,15 +158,22 @@ MAIN:
       101 GETTABLEKS                       R14 R14 K17 ["Controllers"]
       103 GETTABLEKS                       R14 R14 K23 ["SearchController"]
       105 CALL                             R13 1 1
-      106 DUPCLOSURE                       R14 K24 [PROTO_1]
-      107 CAPTURE                          VAL R9
-      108 CAPTURE                          VAL R13
-      109 CAPTURE                          VAL R8
-      110 CAPTURE                          VAL R12
-      111 CAPTURE                          VAL R10
-      112 CAPTURE                          VAL R11
-      113 CAPTURE                          VAL R5
-      114 CAPTURE                          VAL R2
-      115 CAPTURE                          VAL R6
-      116 CAPTURE                          VAL R7
-      117 RETURN                           R14 1
+      106 GETIMPORT                        R14 K5 [require]
+      108 GETTABLEKS                       R15 R0 K9 ["Src"]
+      110 GETTABLEKS                       R15 R15 K24 ["Hooks"]
+      112 GETTABLEKS                       R15 R15 K25 ["useIxpValue"]
+      114 CALL                             R14 1 1
+      115 DUPCLOSURE                       R15 K26 [PROTO_1]
+      116 CAPTURE                          VAL R14
+      117 CAPTURE                          VAL R3
+      118 CAPTURE                          VAL R9
+      119 CAPTURE                          VAL R13
+      120 CAPTURE                          VAL R8
+      121 CAPTURE                          VAL R12
+      122 CAPTURE                          VAL R10
+      123 CAPTURE                          VAL R11
+      124 CAPTURE                          VAL R5
+      125 CAPTURE                          VAL R2
+      126 CAPTURE                          VAL R6
+      127 CAPTURE                          VAL R7
+      128 RETURN                           R15 1

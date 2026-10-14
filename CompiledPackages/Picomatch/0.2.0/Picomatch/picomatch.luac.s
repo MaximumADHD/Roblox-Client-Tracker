@@ -149,7 +149,7 @@ PROTO_8:
         2 GETTABLEKS                       R4 R4 K1 ["isArray"]
         4 MOVE                             R5 R0
         5 CALL                             R4 1 1
-        6 JUMPIFNOT                        R4 ; [+27]
+        6 JUMPIFNOT                        R4 ; [+26]
         7 GETUPVAL                         R4 0
         8 GETTABLEKS                       R4 R4 K2 ["map"]
        10 MOVE                             R5 R0
@@ -171,119 +171,118 @@ PROTO_8:
        30 CAPTURE                          VAL R4
        31 CLOSEUPVALS                      R5
        32 RETURN                           R6 1
-       33 CLOSEUPVALS                      R5
-       34 LOADB                            R4 0
-       35 FASTCALL1                        TYPEOF R0 ; [+3]
-       36 MOVE                             R6 R0
-       37 GETIMPORT                        R5 K8 [typeof]
-       39 CALL                             R5 1 1
-       40 JUMPIFNOTEQKS                    R5 K9 ["table"] ; [+7]
-       42 GETUPVAL                         R5 0
-       43 GETTABLEKS                       R5 R5 K1 ["isArray"]
-       45 MOVE                             R6 R0
-       46 CALL                             R5 1 1
-       47 NOT                              R4 R5
-       48 JUMPIFNOT                        R4 ; [+13]
-       49 GETUPVAL                         R4 2
-       50 GETTABLEKS                       R4 R4 K10 ["toJSBoolean"]
-       52 GETTABLEKS                       R5 R0 K11 ["tokens"]
-       54 CALL                             R4 1 1
-       55 JUMPIFNOT                        R4 ; [+6]
-       56 GETUPVAL                         R4 2
-       57 GETTABLEKS                       R4 R4 K10 ["toJSBoolean"]
-       59 GETTABLEKS                       R5 R0 K12 ["input"]
-       61 CALL                             R4 1 1
-       62 JUMPIFEQKS                       R0 K13 [""] ; [+9]
-       64 FASTCALL1                        TYPEOF R0 ; [+3]
-       65 MOVE                             R6 R0
-       66 GETIMPORT                        R5 K8 [typeof]
-       68 CALL                             R5 1 1
-       69 JUMPIFEQKS                       R5 K14 ["string"] ; [+10]
-       71 JUMPIF                           R4 ; [+8]
-       72 GETIMPORT                        R5 K16 [error]
-       74 GETUPVAL                         R6 3
-       75 GETTABLEKS                       R6 R6 K17 ["new"]
-       77 LOADK                            R7 K18 ["TypeError: Expected pattern to be a non-empty string"]
-       78 CALL                             R6 1 -1
-       79 CALL                             R5 -1 0
-       80 MOVE                             R5 R1
-       81 JUMPIF                           R5 ; [+2]
-       82 NEWTABLE                         R5 0 0
-       84 GETUPVAL                         R6 4
-       85 GETTABLEKS                       R6 R6 K19 ["isWindows"]
-       87 MOVE                             R7 R1
-       88 CALL                             R6 1 1
-       89 JUMPIFNOT                        R4 ; [+7]
-       90 GETUPVAL                         R7 1
-       91 GETTABLEKS                       R7 R7 K20 ["compileRe"]
-       93 MOVE                             R8 R0
-       94 MOVE                             R9 R1
-       95 CALL                             R7 2 1
-       96 JUMP                             ; [+8]
-       97 GETUPVAL                         R7 1
-       98 GETTABLEKS                       R7 R7 K21 ["makeRe"]
-      100 MOVE                             R8 R0
-      101 MOVE                             R9 R1
-      102 LOADB                            R10 0
-      103 LOADB                            R11 1
-      104 CALL                             R7 4 1
-      105 GETTABLEKS                       R8 R7 K22 ["state"]
-      107 LOADNIL                          R9
-      108 SETTABLEKS                       R9 R7 K22 ["state"]
-      110 LOADNIL                          R9
-      111 DUPCLOSURE                       R9 K23 [PROTO_5]
-      112 GETUPVAL                         R10 2
-      113 GETTABLEKS                       R10 R10 K10 ["toJSBoolean"]
-      115 GETTABLEKS                       R11 R5 K24 ["ignore"]
-      117 CALL                             R10 1 1
-      118 JUMPIFNOT                        R10 ; [+30]
-      119 GETUPVAL                         R10 5
-      120 GETTABLEKS                       R10 R10 K25 ["assign"]
-      122 NEWTABLE                         R11 0 0
-      124 MOVE                             R12 R1
-      125 DUPTABLE                         R13 K28 [{"ignore", "onMatch", "onResult"}]
-      126 GETUPVAL                         R14 5
-      127 GETTABLEKS                       R14 R14 K29 ["None"]
-      129 SETTABLEKS                       R14 R13 K24 ["ignore"]
-      131 GETUPVAL                         R14 5
-      132 GETTABLEKS                       R14 R14 K29 ["None"]
-      134 SETTABLEKS                       R14 R13 K26 ["onMatch"]
-      136 GETUPVAL                         R14 5
-      137 GETTABLEKS                       R14 R14 K29 ["None"]
-      139 SETTABLEKS                       R14 R13 K27 ["onResult"]
-      141 CALL                             R10 3 1
-      142 GETUPVAL                         R11 1
-      143 GETTABLEKS                       R12 R5 K24 ["ignore"]
-      145 MOVE                             R13 R10
-      146 MOVE                             R14 R3
-      147 CALL                             R11 3 1
-      148 MOVE                             R9 R11
-      149 LOADNIL                          R10
-      150 NEWTABLE                         R12 1 0
-      152 DUPTABLE                         R13 K4 [{"__call"}]
-      153 NEWCLOSURE                       R14 P4
-      154 CAPTURE                          REF R10
-      155 SETTABLEKS                       R14 R13 K3 ["__call"]
-      157 FASTCALL2                        SETMETATABLE R12 R13 ; [+3]
-      159 GETIMPORT                        R11 K6 [setmetatable]
-      161 CALL                             R11 2 1
-      162 NEWCLOSURE                       R10 P5
-      163 CAPTURE                          UPVAL U1
-      164 CAPTURE                          VAL R7
-      165 CAPTURE                          VAL R1
-      166 CAPTURE                          VAL R0
-      167 CAPTURE                          VAL R6
-      168 CAPTURE                          VAL R8
-      169 CAPTURE                          VAL R5
-      170 CAPTURE                          REF R9
-      171 GETUPVAL                         R12 2
-      172 GETTABLEKS                       R12 R12 K10 ["toJSBoolean"]
-      174 MOVE                             R13 R3
-      175 CALL                             R12 1 1
-      176 JUMPIFNOT                        R12 ; [+2]
-      177 SETTABLEKS                       R8 R11 K22 ["state"]
-      179 CLOSEUPVALS                      R9
-      180 RETURN                           R11 1
+       33 LOADB                            R4 0
+       34 FASTCALL1                        TYPEOF R0 ; [+3]
+       35 MOVE                             R6 R0
+       36 GETIMPORT                        R5 K8 [typeof]
+       38 CALL                             R5 1 1
+       39 JUMPIFNOTEQKS                    R5 K9 ["table"] ; [+7]
+       41 GETUPVAL                         R5 0
+       42 GETTABLEKS                       R5 R5 K1 ["isArray"]
+       44 MOVE                             R6 R0
+       45 CALL                             R5 1 1
+       46 NOT                              R4 R5
+       47 JUMPIFNOT                        R4 ; [+13]
+       48 GETUPVAL                         R4 2
+       49 GETTABLEKS                       R4 R4 K10 ["toJSBoolean"]
+       51 GETTABLEKS                       R5 R0 K11 ["tokens"]
+       53 CALL                             R4 1 1
+       54 JUMPIFNOT                        R4 ; [+6]
+       55 GETUPVAL                         R4 2
+       56 GETTABLEKS                       R4 R4 K10 ["toJSBoolean"]
+       58 GETTABLEKS                       R5 R0 K12 ["input"]
+       60 CALL                             R4 1 1
+       61 JUMPIFEQKS                       R0 K13 [""] ; [+9]
+       63 FASTCALL1                        TYPEOF R0 ; [+3]
+       64 MOVE                             R6 R0
+       65 GETIMPORT                        R5 K8 [typeof]
+       67 CALL                             R5 1 1
+       68 JUMPIFEQKS                       R5 K14 ["string"] ; [+10]
+       70 JUMPIF                           R4 ; [+8]
+       71 GETIMPORT                        R5 K16 [error]
+       73 GETUPVAL                         R6 3
+       74 GETTABLEKS                       R6 R6 K17 ["new"]
+       76 LOADK                            R7 K18 ["TypeError: Expected pattern to be a non-empty string"]
+       77 CALL                             R6 1 -1
+       78 CALL                             R5 -1 0
+       79 MOVE                             R5 R1
+       80 JUMPIF                           R5 ; [+2]
+       81 NEWTABLE                         R5 0 0
+       83 GETUPVAL                         R6 4
+       84 GETTABLEKS                       R6 R6 K19 ["isWindows"]
+       86 MOVE                             R7 R1
+       87 CALL                             R6 1 1
+       88 JUMPIFNOT                        R4 ; [+7]
+       89 GETUPVAL                         R7 1
+       90 GETTABLEKS                       R7 R7 K20 ["compileRe"]
+       92 MOVE                             R8 R0
+       93 MOVE                             R9 R1
+       94 CALL                             R7 2 1
+       95 JUMP                             ; [+8]
+       96 GETUPVAL                         R7 1
+       97 GETTABLEKS                       R7 R7 K21 ["makeRe"]
+       99 MOVE                             R8 R0
+      100 MOVE                             R9 R1
+      101 LOADB                            R10 0
+      102 LOADB                            R11 1
+      103 CALL                             R7 4 1
+      104 GETTABLEKS                       R8 R7 K22 ["state"]
+      106 LOADNIL                          R9
+      107 SETTABLEKS                       R9 R7 K22 ["state"]
+      109 LOADNIL                          R9
+      110 DUPCLOSURE                       R9 K23 [PROTO_5]
+      111 GETUPVAL                         R10 2
+      112 GETTABLEKS                       R10 R10 K10 ["toJSBoolean"]
+      114 GETTABLEKS                       R11 R5 K24 ["ignore"]
+      116 CALL                             R10 1 1
+      117 JUMPIFNOT                        R10 ; [+30]
+      118 GETUPVAL                         R10 5
+      119 GETTABLEKS                       R10 R10 K25 ["assign"]
+      121 NEWTABLE                         R11 0 0
+      123 MOVE                             R12 R1
+      124 DUPTABLE                         R13 K28 [{"ignore", "onMatch", "onResult"}]
+      125 GETUPVAL                         R14 5
+      126 GETTABLEKS                       R14 R14 K29 ["None"]
+      128 SETTABLEKS                       R14 R13 K24 ["ignore"]
+      130 GETUPVAL                         R14 5
+      131 GETTABLEKS                       R14 R14 K29 ["None"]
+      133 SETTABLEKS                       R14 R13 K26 ["onMatch"]
+      135 GETUPVAL                         R14 5
+      136 GETTABLEKS                       R14 R14 K29 ["None"]
+      138 SETTABLEKS                       R14 R13 K27 ["onResult"]
+      140 CALL                             R10 3 1
+      141 GETUPVAL                         R11 1
+      142 GETTABLEKS                       R12 R5 K24 ["ignore"]
+      144 MOVE                             R13 R10
+      145 MOVE                             R14 R3
+      146 CALL                             R11 3 1
+      147 MOVE                             R9 R11
+      148 LOADNIL                          R10
+      149 NEWTABLE                         R12 1 0
+      151 DUPTABLE                         R13 K4 [{"__call"}]
+      152 NEWCLOSURE                       R14 P4
+      153 CAPTURE                          REF R10
+      154 SETTABLEKS                       R14 R13 K3 ["__call"]
+      156 FASTCALL2                        SETMETATABLE R12 R13 ; [+3]
+      158 GETIMPORT                        R11 K6 [setmetatable]
+      160 CALL                             R11 2 1
+      161 NEWCLOSURE                       R10 P5
+      162 CAPTURE                          UPVAL U1
+      163 CAPTURE                          VAL R7
+      164 CAPTURE                          VAL R1
+      165 CAPTURE                          VAL R0
+      166 CAPTURE                          VAL R6
+      167 CAPTURE                          VAL R8
+      168 CAPTURE                          VAL R5
+      169 CAPTURE                          REF R9
+      170 GETUPVAL                         R12 2
+      171 GETTABLEKS                       R12 R12 K10 ["toJSBoolean"]
+      173 MOVE                             R13 R3
+      174 CALL                             R12 1 1
+      175 JUMPIFNOT                        R12 ; [+2]
+      176 SETTABLEKS                       R8 R11 K22 ["state"]
+      178 CLOSEUPVALS                      R9
+      179 RETURN                           R11 1
 
 PROTO_9:
         0 MOVE                             R4 R3

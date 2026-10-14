@@ -359,45 +359,47 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K10 ["Constants"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K11 ["LuaFlags"]
-       27 GETTABLEKS                       R4 R4 K12 ["GetFFlagACEImportScale"]
-       29 CALL                             R3 1 1
-       30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R5 R0 K11 ["LuaFlags"]
-       34 GETTABLEKS                       R5 R5 K13 ["GetFFlagACEFixPromptTextClipping"]
-       36 CALL                             R4 1 1
-       37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       41 GETTABLEKS                       R6 R6 K14 ["Framework"]
-       43 CALL                             R5 1 1
-       44 GETTABLEKS                       R6 R5 K15 ["UI"]
-       46 GETTABLEKS                       R6 R6 K16 ["Button"]
-       48 GETTABLEKS                       R7 R5 K15 ["UI"]
-       50 GETTABLEKS                       R7 R7 K17 ["CaptureFocus"]
-       52 GETTABLEKS                       R8 R5 K18 ["ContextServices"]
-       54 GETTABLEKS                       R9 R8 K19 ["withContext"]
-       56 GETTABLEKS                       R10 R1 K20 ["PureComponent"]
-       58 LOADK                            R12 K21 ["FocusedPrompt"]
-       59 NAMECALL                         R10 R10 K22 ["extend"]
-       61 CALL                             R10 2 1
-       62 DUPCLOSURE                       R11 K23 [PROTO_1]
-       63 CAPTURE                          VAL R2
-       64 CAPTURE                          VAL R1
-       65 CAPTURE                          VAL R6
-       66 SETTABLEKS                       R11 R10 K24 ["renderButton"]
-       68 DUPCLOSURE                       R11 K25 [PROTO_2]
-       69 CAPTURE                          VAL R2
-       70 CAPTURE                          VAL R3
-       71 CAPTURE                          VAL R4
-       72 CAPTURE                          VAL R1
-       73 CAPTURE                          VAL R7
-       74 SETTABLEKS                       R11 R10 K26 ["render"]
-       76 MOVE                             R11 R9
-       77 DUPTABLE                         R12 K28 [{"Stylizer"}]
-       78 GETTABLEKS                       R13 R8 K27 ["Stylizer"]
-       80 SETTABLEKS                       R13 R12 K27 ["Stylizer"]
-       82 CALL                             R11 1 1
-       83 MOVE                             R12 R10
-       84 CALL                             R11 1 1
-       85 MOVE                             R10 R11
-       86 RETURN                           R10 1
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Flags"]
+       29 GETTABLEKS                       R4 R4 K12 ["getFFlagACEImportScale"]
+       31 CALL                             R3 1 1
+       32 GETIMPORT                        R4 K5 [require]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K11 ["Flags"]
+       38 GETTABLEKS                       R5 R5 K13 ["getFFlagACEFixPromptTextClipping"]
+       40 CALL                             R4 1 1
+       41 GETIMPORT                        R5 K5 [require]
+       43 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       45 GETTABLEKS                       R6 R6 K14 ["Framework"]
+       47 CALL                             R5 1 1
+       48 GETTABLEKS                       R6 R5 K15 ["UI"]
+       50 GETTABLEKS                       R6 R6 K16 ["Button"]
+       52 GETTABLEKS                       R7 R5 K15 ["UI"]
+       54 GETTABLEKS                       R7 R7 K17 ["CaptureFocus"]
+       56 GETTABLEKS                       R8 R5 K18 ["ContextServices"]
+       58 GETTABLEKS                       R9 R8 K19 ["withContext"]
+       60 GETTABLEKS                       R10 R1 K20 ["PureComponent"]
+       62 LOADK                            R12 K21 ["FocusedPrompt"]
+       63 NAMECALL                         R10 R10 K22 ["extend"]
+       65 CALL                             R10 2 1
+       66 DUPCLOSURE                       R11 K23 [PROTO_1]
+       67 CAPTURE                          VAL R2
+       68 CAPTURE                          VAL R1
+       69 CAPTURE                          VAL R6
+       70 SETTABLEKS                       R11 R10 K24 ["renderButton"]
+       72 DUPCLOSURE                       R11 K25 [PROTO_2]
+       73 CAPTURE                          VAL R2
+       74 CAPTURE                          VAL R3
+       75 CAPTURE                          VAL R4
+       76 CAPTURE                          VAL R1
+       77 CAPTURE                          VAL R7
+       78 SETTABLEKS                       R11 R10 K26 ["render"]
+       80 MOVE                             R11 R9
+       81 DUPTABLE                         R12 K28 [{"Stylizer"}]
+       82 GETTABLEKS                       R13 R8 K27 ["Stylizer"]
+       84 SETTABLEKS                       R13 R12 K27 ["Stylizer"]
+       86 CALL                             R11 1 1
+       87 MOVE                             R12 R10
+       88 CALL                             R11 1 1
+       89 MOVE                             R10 R11
+       90 RETURN                           R10 1

@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
-        2 GETTABLEKS                       R2 R1 K0 ["ShowSearchOptions"]
+        2 GETTABLEKS                       R2 R1 K0 ["IsSearchInitiated"]
         4 NEWTABLE                         R3 1 0
         6 JUMPIFNOT                        R2 ; [+8]
         7 GETUPVAL                         R4 1

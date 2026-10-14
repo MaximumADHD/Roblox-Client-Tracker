@@ -95,24 +95,24 @@ MAIN:
         3 LOADK                            R2 K2 ["TerrainEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
-        9 GETTABLEKS                       R1 R1 K5 ["DraggerFramework"]
-       11 GETIMPORT                        R2 K7 [require]
-       13 GETTABLEKS                       R3 R0 K4 ["Packages"]
-       15 GETTABLEKS                       R3 R3 K8 ["Framework"]
-       17 CALL                             R2 1 1
-       18 GETIMPORT                        R3 K7 [require]
-       20 GETTABLEKS                       R4 R0 K4 ["Packages"]
-       22 GETTABLEKS                       R4 R4 K9 ["React"]
-       24 CALL                             R3 1 1
-       25 GETTABLEKS                       R4 R3 K10 ["useEffect"]
-       27 GETTABLEKS                       R5 R2 K11 ["UI"]
-       29 GETTABLEKS                       R5 R5 K12 ["Pane"]
-       31 GETIMPORT                        R6 K7 [require]
-       33 GETTABLEKS                       R7 R1 K13 ["DraggerTools"]
-       35 GETTABLEKS                       R7 R7 K14 ["DraggerToolComponent"]
-       37 CALL                             R6 1 1
-       38 GETIMPORT                        R7 K7 [require]
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["DraggerFramework"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["React"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R4 R3 K10 ["useEffect"]
+       30 GETTABLEKS                       R5 R2 K11 ["UI"]
+       32 GETTABLEKS                       R5 R5 K12 ["Pane"]
+       34 GETTABLEKS                       R6 R1 K13 ["DraggerTools"]
+       36 GETTABLEKS                       R6 R6 K14 ["DraggerToolComponent"]
+       38 GETIMPORT                        R7 K5 [require]
        40 GETTABLEKS                       R8 R0 K15 ["Src"]
        42 GETTABLEKS                       R8 R8 K16 ["Components"]
        44 GETTABLEKS                       R8 R8 K17 ["Gizmos"]
@@ -120,16 +120,16 @@ MAIN:
        48 CALL                             R7 1 1
        49 GETTABLEKS                       R8 R0 K15 ["Src"]
        51 GETTABLEKS                       R8 R8 K19 ["Hooks"]
-       53 GETIMPORT                        R9 K7 [require]
+       53 GETIMPORT                        R9 K5 [require]
        55 GETTABLEKS                       R10 R8 K20 ["useLines"]
        57 CALL                             R9 1 1
-       58 GETIMPORT                        R10 K7 [require]
+       58 GETIMPORT                        R10 K5 [require]
        60 GETTABLEKS                       R11 R8 K21 ["useRegion"]
        62 CALL                             R10 1 1
-       63 GETIMPORT                        R11 K7 [require]
+       63 GETIMPORT                        R11 K5 [require]
        65 GETTABLEKS                       R12 R8 K22 ["useTerrain"]
        67 CALL                             R11 1 1
-       68 GETIMPORT                        R12 K7 [require]
+       68 GETIMPORT                        R12 K5 [require]
        70 GETTABLEKS                       R13 R0 K15 ["Src"]
        72 GETTABLEKS                       R13 R13 K23 ["Types"]
        74 CALL                             R12 1 1

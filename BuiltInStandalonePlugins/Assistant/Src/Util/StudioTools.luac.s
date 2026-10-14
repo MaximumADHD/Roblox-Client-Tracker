@@ -184,232 +184,242 @@ MAIN:
       274 GETTABLEKS                       R9 R4 K56 ["UserMouseInput"]
       276 GETTABLE                         R8 R5 R9
       277 SETTABLE                         R8 R6 R7
-      278 GETTABLEKS                       R7 R2 K57 ["FFlagAssistantReplaceJobRunWithAsyncArg"]
-      280 JUMPIF                           R7 ; [+6]
-      281 GETTABLEKS                       R7 R4 K58 ["JobRun"]
-      283 GETTABLEKS                       R9 R4 K58 ["JobRun"]
+      278 GETTABLEKS                       R7 R2 K57 ["FFlagAssistantMultiPlayerAgents"]
+      280 JUMPIFNOT                        R7 ; [+24]
+      281 GETTABLEKS                       R7 R4 K58 ["StartMultiPlayerAgents"]
+      283 GETTABLEKS                       R9 R4 K58 ["StartMultiPlayerAgents"]
       285 GETTABLE                         R8 R5 R9
       286 SETTABLE                         R8 R6 R7
-      287 GETTABLEKS                       R7 R2 K59 ["FFlagAssistantMultiPlayerAgents"]
-      289 JUMPIFNOT                        R7 ; [+24]
-      290 GETTABLEKS                       R7 R4 K60 ["StartMultiPlayerAgents"]
-      292 GETTABLEKS                       R9 R4 K60 ["StartMultiPlayerAgents"]
-      294 GETTABLE                         R8 R5 R9
-      295 SETTABLE                         R8 R6 R7
-      296 GETTABLEKS                       R7 R4 K61 ["StopMultiPlayerAgents"]
-      298 GETTABLEKS                       R9 R4 K61 ["StopMultiPlayerAgents"]
-      300 GETTABLE                         R8 R5 R9
-      301 SETTABLE                         R8 R6 R7
-      302 GETTABLEKS                       R7 R4 K62 ["MultiPlayerAgentsCommunication"]
-      304 GETTABLEKS                       R9 R4 K62 ["MultiPlayerAgentsCommunication"]
-      306 GETTABLE                         R8 R5 R9
-      307 SETTABLE                         R8 R6 R7
-      308 GETTABLEKS                       R7 R4 K63 ["WaitForMultiPlayerAgentsCommunication"]
-      310 GETTABLEKS                       R9 R4 K63 ["WaitForMultiPlayerAgentsCommunication"]
+      287 GETTABLEKS                       R7 R4 K59 ["StopMultiPlayerAgents"]
+      289 GETTABLEKS                       R9 R4 K59 ["StopMultiPlayerAgents"]
+      291 GETTABLE                         R8 R5 R9
+      292 SETTABLE                         R8 R6 R7
+      293 GETTABLEKS                       R7 R4 K60 ["MultiPlayerAgentsCommunication"]
+      295 GETTABLEKS                       R9 R4 K60 ["MultiPlayerAgentsCommunication"]
+      297 GETTABLE                         R8 R5 R9
+      298 SETTABLE                         R8 R6 R7
+      299 GETTABLEKS                       R7 R4 K61 ["WaitForMultiPlayerAgentsCommunication"]
+      301 GETTABLEKS                       R9 R4 K61 ["WaitForMultiPlayerAgentsCommunication"]
+      303 GETTABLE                         R8 R5 R9
+      304 SETTABLE                         R8 R6 R7
+      305 GETTABLEKS                       R7 R2 K62 ["FFlagAssistantVideoCaptureTool"]
+      307 JUMPIFNOT                        R7 ; [+6]
+      308 GETTABLEKS                       R7 R4 K63 ["VideoCapture"]
+      310 GETTABLEKS                       R9 R4 K63 ["VideoCapture"]
       312 GETTABLE                         R8 R5 R9
       313 SETTABLE                         R8 R6 R7
-      314 GETTABLEKS                       R7 R2 K64 ["FFlagAssistantVideoCaptureTool"]
-      316 JUMPIFNOT                        R7 ; [+6]
-      317 GETTABLEKS                       R7 R4 K65 ["VideoCapture"]
-      319 GETTABLEKS                       R9 R4 K65 ["VideoCapture"]
+      314 GETTABLEKS                       R7 R2 K64 ["FFlagAssistantCapturePluginGuiTool"]
+      316 JUMPIFNOT                        R7 ; [+12]
+      317 GETTABLEKS                       R7 R4 K65 ["ListPluginGuis"]
+      319 GETTABLEKS                       R9 R4 K65 ["ListPluginGuis"]
       321 GETTABLE                         R8 R5 R9
       322 SETTABLE                         R8 R6 R7
-      323 GETTABLEKS                       R7 R2 K66 ["FFlagUseStudioSideListTool"]
-      325 JUMPIFNOT                        R7 ; [+6]
-      326 GETTABLEKS                       R7 R4 K67 ["ListRobloxStudios"]
-      328 GETTABLEKS                       R9 R4 K67 ["ListRobloxStudios"]
-      330 GETTABLE                         R8 R5 R9
-      331 SETTABLE                         R8 R6 R7
-      332 GETTABLEKS                       R7 R2 K68 ["FFlagPlaytestVision"]
-      334 JUMPIFNOT                        R7 ; [+6]
-      335 GETTABLEKS                       R7 R4 K69 ["PlaytestLook"]
-      337 GETTABLEKS                       R9 R4 K69 ["PlaytestLook"]
-      339 GETTABLE                         R8 R5 R9
-      340 SETTABLE                         R8 R6 R7
-      341 NEWTABLE                         R7 2 0
-      343 GETTABLEKS                       R8 R4 K70 ["ScreenCapture"]
-      345 GETTABLEKS                       R10 R4 K70 ["ScreenCapture"]
-      347 GETTABLE                         R9 R5 R10
-      348 SETTABLE                         R9 R7 R8
-      349 GETTABLEKS                       R8 R4 K71 ["UploadImage"]
-      351 GETTABLEKS                       R10 R2 K72 ["FFlagEnableAssistantImageUpload"]
-      353 JUMPIFNOT                        R10 ; [+4]
-      354 GETTABLEKS                       R10 R4 K71 ["UploadImage"]
-      356 GETTABLE                         R9 R5 R10
-      357 JUMP                             ; [+1]
-      358 LOADNIL                          R9
-      359 SETTABLE                         R9 R7 R8
-      360 NEWTABLE                         R8 0 0
-      362 NEWTABLE                         R9 1 0
-      364 GETTABLEKS                       R10 R3 K73 ["Agent"]
-      366 NEWTABLE                         R11 0 32
-      368 GETTABLEKS                       R12 R4 K27 ["ExecuteLuau"]
-      370 GETTABLEKS                       R13 R4 K28 ["FileSearch"]
-      372 GETTABLEKS                       R14 R4 K31 ["GameTree"]
-      374 GETTABLEKS                       R15 R4 K36 ["GrepSearch"]
-      376 GETTABLEKS                       R16 R4 K19 ["AssetInsert"]
-      378 GETTABLEKS                       R17 R4 K20 ["AssetSearch"]
-      380 GETTABLEKS                       R18 R4 K38 ["InspectInstance"]
-      382 GETTABLEKS                       R19 R4 K40 ["MaterialGen"]
-      384 GETTABLEKS                       R20 R4 K41 ["MeshGen"]
-      386 GETTABLEKS                       R21 R4 K42 ["MultiEdit"]
-      388 GETTABLEKS                       R22 R4 K45 ["ReadFile"]
-      390 GETTABLEKS                       R23 R4 K43 ["PrimitiveGen"]
-      392 GETTABLEKS                       R24 R4 K48 ["Skill"]
-      394 GETTABLEKS                       R25 R4 K51 ["Subagent"]
-      396 GETTABLEKS                       R26 R4 K70 ["ScreenCapture"]
-      398 GETTABLEKS                       R27 R4 K71 ["UploadImage"]
-      400 SETLIST                          R11 R12 16 [1]
-      402 GETTABLEKS                       R12 R4 K60 ["StartMultiPlayerAgents"]
-      404 GETTABLEKS                       R13 R4 K61 ["StopMultiPlayerAgents"]
-      406 GETTABLEKS                       R14 R4 K62 ["MultiPlayerAgentsCommunication"]
-      408 GETTABLEKS                       R15 R4 K63 ["WaitForMultiPlayerAgentsCommunication"]
-      410 GETTABLEKS                       R16 R4 K37 ["HttpGet"]
-      412 GETTABLEKS                       R17 R4 K30 ["FromHistory"]
-      414 GETTABLEKS                       R18 R4 K49 ["StartStopPlay"]
-      416 GETTABLEKS                       R19 R4 K34 ["GetConsoleOutput"]
-      418 GETTABLEKS                       R20 R4 K55 ["UserKeyboardInput"]
-      420 GETTABLEKS                       R21 R4 K56 ["UserMouseInput"]
-      422 GETTABLEKS                       R22 R4 K23 ["CharacterNavigation"]
-      424 GETTABLEKS                       R23 R4 K65 ["VideoCapture"]
-      426 GETTABLEKS                       R24 R4 K44 ["QuestionAnswer"]
-      428 GETTABLEKS                       R25 R4 K24 ["CompleteTodoItems"]
-      430 GETTABLEKS                       R26 R4 K39 ["JobWait"]
-      432 GETTABLEKS                       R27 R4 K35 ["GetStudioState"]
-      434 SETLIST                          R11 R12 16 [17]
-      436 SETTABLE                         R11 R9 R10
-      437 GETTABLEKS                       R10 R2 K57 ["FFlagAssistantReplaceJobRunWithAsyncArg"]
-      439 JUMPIF                           R10 ; [+10]
-      440 GETTABLEKS                       R12 R3 K73 ["Agent"]
-      442 GETTABLE                         R11 R9 R12
-      443 GETTABLEKS                       R12 R4 K58 ["JobRun"]
-      445 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
-      447 GETIMPORT                        R10 K76 [table.insert]
-      449 CALL                             R10 2 0
-      450 GETTABLEKS                       R12 R3 K73 ["Agent"]
-      452 GETTABLE                         R11 R9 R12
-      453 GETTABLEKS                       R12 R4 K50 ["StoreImage"]
-      455 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
-      457 GETIMPORT                        R10 K76 [table.insert]
-      459 CALL                             R10 2 0
-      460 GETTABLEKS                       R10 R2 K17 ["FFlagAssistantAnimationGenTool"]
-      462 JUMPIFNOT                        R10 ; [+10]
-      463 GETTABLEKS                       R12 R3 K73 ["Agent"]
-      465 GETTABLE                         R11 R9 R12
-      466 GETTABLEKS                       R12 R4 K16 ["AnimationGen"]
-      468 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
-      470 GETIMPORT                        R10 K76 [table.insert]
-      472 CALL                             R10 2 0
-      473 GETTABLEKS                       R10 R2 K22 ["FFlagAssistantAvatarAutoSetupTool"]
-      475 JUMPIFNOT                        R10 ; [+10]
-      476 GETTABLEKS                       R12 R3 K73 ["Agent"]
-      478 GETTABLE                         R11 R9 R12
-      479 GETTABLEKS                       R12 R4 K21 ["AvatarAutoSetup"]
-      481 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
-      483 GETIMPORT                        R10 K76 [table.insert]
-      485 CALL                             R10 2 0
-      486 GETTABLEKS                       R12 R3 K73 ["Agent"]
-      488 GETTABLE                         R11 R9 R12
-      489 GETTABLEKS                       R12 R4 K54 ["UpdatePlan"]
-      491 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
-      493 GETIMPORT                        R10 K76 [table.insert]
-      495 CALL                             R10 2 0
-      496 GETTABLEKS                       R12 R3 K73 ["Agent"]
-      498 GETTABLE                         R11 R9 R12
-      499 GETTABLEKS                       R12 R4 K25 ["CreateSkill"]
-      501 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
-      503 GETIMPORT                        R10 K76 [table.insert]
-      505 CALL                             R10 2 0
-      506 GETTABLEKS                       R12 R3 K73 ["Agent"]
-      508 GETTABLE                         R11 R9 R12
-      509 GETTABLEKS                       R12 R4 K26 ["EditSkill"]
-      511 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
-      513 GETIMPORT                        R10 K76 [table.insert]
-      515 CALL                             R10 2 0
-      516 GETTABLEKS                       R10 R2 K47 ["FFlagAssistantSegmentMeshTool"]
-      518 JUMPIFNOT                        R10 ; [+10]
-      519 GETTABLEKS                       R12 R3 K73 ["Agent"]
-      521 GETTABLE                         R11 R9 R12
-      522 GETTABLEKS                       R12 R4 K46 ["SegmentMesh"]
-      524 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
-      526 GETIMPORT                        R10 K76 [table.insert]
-      528 CALL                             R10 2 0
-      529 GETTABLEKS                       R10 R2 K53 ["FFlagAssistantTextureGenTool"]
-      531 JUMPIFNOT                        R10 ; [+10]
-      532 GETTABLEKS                       R12 R3 K73 ["Agent"]
-      534 GETTABLE                         R11 R9 R12
-      535 GETTABLEKS                       R12 R4 K52 ["TextureGen"]
-      537 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
-      539 GETIMPORT                        R10 K76 [table.insert]
-      541 CALL                             R10 2 0
-      542 GETTABLEKS                       R10 R2 K33 ["FFlagAssistantGenerateLayoutTool"]
-      544 JUMPIFNOT                        R10 ; [+10]
-      545 GETTABLEKS                       R12 R3 K73 ["Agent"]
-      547 GETTABLE                         R11 R9 R12
-      548 GETTABLEKS                       R12 R4 K32 ["GenerateLayout"]
-      550 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
-      552 GETIMPORT                        R10 K76 [table.insert]
-      554 CALL                             R10 2 0
-      555 GETTABLEKS                       R10 R2 K77 ["FFlagAssistantAskInputToolLLM"]
-      557 JUMPIFNOT                        R10 ; [+10]
-      558 GETTABLEKS                       R12 R3 K73 ["Agent"]
-      560 GETTABLE                         R11 R9 R12
-      561 GETTABLEKS                       R12 R4 K18 ["AskInput"]
-      563 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
-      565 GETIMPORT                        R10 K76 [table.insert]
-      567 CALL                             R10 2 0
-      568 GETTABLEKS                       R10 R3 K78 ["Plan"]
-      570 NEWTABLE                         R11 0 9
-      572 GETTABLEKS                       R12 R4 K45 ["ReadFile"]
-      574 GETTABLEKS                       R13 R4 K28 ["FileSearch"]
-      576 GETTABLEKS                       R14 R4 K36 ["GrepSearch"]
-      578 GETTABLEKS                       R15 R4 K31 ["GameTree"]
-      580 GETTABLEKS                       R16 R4 K38 ["InspectInstance"]
-      582 GETTABLEKS                       R17 R4 K70 ["ScreenCapture"]
-      584 GETTABLEKS                       R18 R4 K44 ["QuestionAnswer"]
-      586 GETTABLEKS                       R19 R4 K29 ["FinalizePlan"]
-      588 GETTABLEKS                       R20 R4 K54 ["UpdatePlan"]
-      590 SETLIST                          R11 R12 9 [1]
-      592 SETTABLE                         R11 R9 R10
-      593 GETTABLEKS                       R10 R2 K77 ["FFlagAssistantAskInputToolLLM"]
-      595 JUMPIFNOT                        R10 ; [+10]
-      596 GETTABLEKS                       R12 R3 K78 ["Plan"]
-      598 GETTABLE                         R11 R9 R12
-      599 GETTABLEKS                       R12 R4 K18 ["AskInput"]
-      601 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
-      603 GETIMPORT                        R10 K76 [table.insert]
-      605 CALL                             R10 2 0
-      606 NEWTABLE                         R10 0 16
-      608 GETTABLEKS                       R11 R4 K27 ["ExecuteLuau"]
-      610 GETTABLEKS                       R12 R4 K28 ["FileSearch"]
-      612 GETTABLEKS                       R13 R4 K31 ["GameTree"]
-      614 GETTABLEKS                       R14 R4 K36 ["GrepSearch"]
-      616 GETTABLEKS                       R15 R4 K38 ["InspectInstance"]
-      618 GETTABLEKS                       R16 R4 K45 ["ReadFile"]
-      620 GETTABLEKS                       R17 R4 K48 ["Skill"]
-      622 GETTABLEKS                       R18 R4 K51 ["Subagent"]
-      624 GETTABLEKS                       R19 R4 K70 ["ScreenCapture"]
-      626 GETTABLEKS                       R20 R4 K34 ["GetConsoleOutput"]
-      628 GETTABLEKS                       R21 R4 K55 ["UserKeyboardInput"]
-      630 GETTABLEKS                       R22 R4 K56 ["UserMouseInput"]
-      632 GETTABLEKS                       R23 R4 K23 ["CharacterNavigation"]
-      634 GETTABLEKS                       R24 R4 K62 ["MultiPlayerAgentsCommunication"]
-      636 GETTABLEKS                       R25 R4 K63 ["WaitForMultiPlayerAgentsCommunication"]
-      638 GETTABLEKS                       R26 R4 K35 ["GetStudioState"]
-      640 SETLIST                          R10 R11 16 [1]
-      642 NEWTABLE                         R11 0 0
-      644 GETTABLEKS                       R12 R2 K68 ["FFlagPlaytestVision"]
-      646 JUMPIFNOT                        R12 ; [+8]
-      647 GETTABLEKS                       R14 R4 K69 ["PlaytestLook"]
-      649 FASTCALL2                        TABLE_INSERT R11 R14 ; [+4]
-      651 MOVE                             R13 R11
-      652 GETIMPORT                        R12 K76 [table.insert]
-      654 CALL                             R12 2 0
-      655 DUPTABLE                         R12 K85 [{"DefaultTools", "ExperimentalTools", "ExperimentFeatureTools", "AssistantModeToolsAllowlist", "MultiPlayerTestTools", "SubagentOnlyTools"}]
-      656 SETTABLEKS                       R6 R12 K79 ["DefaultTools"]
-      658 SETTABLEKS                       R7 R12 K80 ["ExperimentalTools"]
-      660 SETTABLEKS                       R8 R12 K81 ["ExperimentFeatureTools"]
-      662 SETTABLEKS                       R9 R12 K82 ["AssistantModeToolsAllowlist"]
-      664 SETTABLEKS                       R10 R12 K83 ["MultiPlayerTestTools"]
-      666 SETTABLEKS                       R11 R12 K84 ["SubagentOnlyTools"]
-      668 RETURN                           R12 1
+      323 GETTABLEKS                       R7 R4 K66 ["CapturePluginGui"]
+      325 GETTABLEKS                       R9 R4 K66 ["CapturePluginGui"]
+      327 GETTABLE                         R8 R5 R9
+      328 SETTABLE                         R8 R6 R7
+      329 GETTABLEKS                       R7 R2 K67 ["FFlagUseStudioSideListTool"]
+      331 JUMPIFNOT                        R7 ; [+6]
+      332 GETTABLEKS                       R7 R4 K68 ["ListRobloxStudios"]
+      334 GETTABLEKS                       R9 R4 K68 ["ListRobloxStudios"]
+      336 GETTABLE                         R8 R5 R9
+      337 SETTABLE                         R8 R6 R7
+      338 GETTABLEKS                       R7 R2 K69 ["FFlagPlaytestVision"]
+      340 JUMPIFNOT                        R7 ; [+6]
+      341 GETTABLEKS                       R7 R4 K70 ["PlaytestLook"]
+      343 GETTABLEKS                       R9 R4 K70 ["PlaytestLook"]
+      345 GETTABLE                         R8 R5 R9
+      346 SETTABLE                         R8 R6 R7
+      347 NEWTABLE                         R7 2 0
+      349 GETTABLEKS                       R8 R4 K71 ["ScreenCapture"]
+      351 GETTABLEKS                       R10 R4 K71 ["ScreenCapture"]
+      353 GETTABLE                         R9 R5 R10
+      354 SETTABLE                         R9 R7 R8
+      355 GETTABLEKS                       R8 R4 K72 ["UploadImage"]
+      357 GETTABLEKS                       R10 R2 K73 ["FFlagEnableAssistantImageUpload"]
+      359 JUMPIFNOT                        R10 ; [+4]
+      360 GETTABLEKS                       R10 R4 K72 ["UploadImage"]
+      362 GETTABLE                         R9 R5 R10
+      363 JUMP                             ; [+1]
+      364 LOADNIL                          R9
+      365 SETTABLE                         R9 R7 R8
+      366 NEWTABLE                         R8 0 0
+      368 NEWTABLE                         R9 1 0
+      370 GETTABLEKS                       R10 R3 K74 ["Agent"]
+      372 NEWTABLE                         R11 0 32
+      374 GETTABLEKS                       R12 R4 K27 ["ExecuteLuau"]
+      376 GETTABLEKS                       R13 R4 K28 ["FileSearch"]
+      378 GETTABLEKS                       R14 R4 K31 ["GameTree"]
+      380 GETTABLEKS                       R15 R4 K36 ["GrepSearch"]
+      382 GETTABLEKS                       R16 R4 K19 ["AssetInsert"]
+      384 GETTABLEKS                       R17 R4 K20 ["AssetSearch"]
+      386 GETTABLEKS                       R18 R4 K38 ["InspectInstance"]
+      388 GETTABLEKS                       R19 R4 K40 ["MaterialGen"]
+      390 GETTABLEKS                       R20 R4 K41 ["MeshGen"]
+      392 GETTABLEKS                       R21 R4 K42 ["MultiEdit"]
+      394 GETTABLEKS                       R22 R4 K45 ["ReadFile"]
+      396 GETTABLEKS                       R23 R4 K43 ["PrimitiveGen"]
+      398 GETTABLEKS                       R24 R4 K48 ["Skill"]
+      400 GETTABLEKS                       R25 R4 K51 ["Subagent"]
+      402 GETTABLEKS                       R26 R4 K71 ["ScreenCapture"]
+      404 GETTABLEKS                       R27 R4 K72 ["UploadImage"]
+      406 SETLIST                          R11 R12 16 [1]
+      408 GETTABLEKS                       R12 R4 K58 ["StartMultiPlayerAgents"]
+      410 GETTABLEKS                       R13 R4 K59 ["StopMultiPlayerAgents"]
+      412 GETTABLEKS                       R14 R4 K60 ["MultiPlayerAgentsCommunication"]
+      414 GETTABLEKS                       R15 R4 K61 ["WaitForMultiPlayerAgentsCommunication"]
+      416 GETTABLEKS                       R16 R4 K37 ["HttpGet"]
+      418 GETTABLEKS                       R17 R4 K30 ["FromHistory"]
+      420 GETTABLEKS                       R18 R4 K49 ["StartStopPlay"]
+      422 GETTABLEKS                       R19 R4 K34 ["GetConsoleOutput"]
+      424 GETTABLEKS                       R20 R4 K55 ["UserKeyboardInput"]
+      426 GETTABLEKS                       R21 R4 K56 ["UserMouseInput"]
+      428 GETTABLEKS                       R22 R4 K23 ["CharacterNavigation"]
+      430 GETTABLEKS                       R23 R4 K63 ["VideoCapture"]
+      432 GETTABLEKS                       R24 R4 K44 ["QuestionAnswer"]
+      434 GETTABLEKS                       R25 R4 K24 ["CompleteTodoItems"]
+      436 GETTABLEKS                       R26 R4 K39 ["JobWait"]
+      438 GETTABLEKS                       R27 R4 K35 ["GetStudioState"]
+      440 SETLIST                          R11 R12 16 [17]
+      442 SETTABLE                         R11 R9 R10
+      443 GETTABLEKS                       R12 R3 K74 ["Agent"]
+      445 GETTABLE                         R11 R9 R12
+      446 GETTABLEKS                       R12 R4 K50 ["StoreImage"]
+      448 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
+      450 GETIMPORT                        R10 K77 [table.insert]
+      452 CALL                             R10 2 0
+      453 GETTABLEKS                       R10 R2 K17 ["FFlagAssistantAnimationGenTool"]
+      455 JUMPIFNOT                        R10 ; [+10]
+      456 GETTABLEKS                       R12 R3 K74 ["Agent"]
+      458 GETTABLE                         R11 R9 R12
+      459 GETTABLEKS                       R12 R4 K16 ["AnimationGen"]
+      461 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
+      463 GETIMPORT                        R10 K77 [table.insert]
+      465 CALL                             R10 2 0
+      466 GETTABLEKS                       R10 R2 K22 ["FFlagAssistantAvatarAutoSetupTool"]
+      468 JUMPIFNOT                        R10 ; [+10]
+      469 GETTABLEKS                       R12 R3 K74 ["Agent"]
+      471 GETTABLE                         R11 R9 R12
+      472 GETTABLEKS                       R12 R4 K21 ["AvatarAutoSetup"]
+      474 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
+      476 GETIMPORT                        R10 K77 [table.insert]
+      478 CALL                             R10 2 0
+      479 GETTABLEKS                       R12 R3 K74 ["Agent"]
+      481 GETTABLE                         R11 R9 R12
+      482 GETTABLEKS                       R12 R4 K54 ["UpdatePlan"]
+      484 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
+      486 GETIMPORT                        R10 K77 [table.insert]
+      488 CALL                             R10 2 0
+      489 GETTABLEKS                       R12 R3 K74 ["Agent"]
+      491 GETTABLE                         R11 R9 R12
+      492 GETTABLEKS                       R12 R4 K25 ["CreateSkill"]
+      494 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
+      496 GETIMPORT                        R10 K77 [table.insert]
+      498 CALL                             R10 2 0
+      499 GETTABLEKS                       R12 R3 K74 ["Agent"]
+      501 GETTABLE                         R11 R9 R12
+      502 GETTABLEKS                       R12 R4 K26 ["EditSkill"]
+      504 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
+      506 GETIMPORT                        R10 K77 [table.insert]
+      508 CALL                             R10 2 0
+      509 GETTABLEKS                       R10 R2 K47 ["FFlagAssistantSegmentMeshTool"]
+      511 JUMPIFNOT                        R10 ; [+10]
+      512 GETTABLEKS                       R12 R3 K74 ["Agent"]
+      514 GETTABLE                         R11 R9 R12
+      515 GETTABLEKS                       R12 R4 K46 ["SegmentMesh"]
+      517 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
+      519 GETIMPORT                        R10 K77 [table.insert]
+      521 CALL                             R10 2 0
+      522 GETTABLEKS                       R10 R2 K53 ["FFlagAssistantTextureGenTool"]
+      524 JUMPIFNOT                        R10 ; [+10]
+      525 GETTABLEKS                       R12 R3 K74 ["Agent"]
+      527 GETTABLE                         R11 R9 R12
+      528 GETTABLEKS                       R12 R4 K52 ["TextureGen"]
+      530 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
+      532 GETIMPORT                        R10 K77 [table.insert]
+      534 CALL                             R10 2 0
+      535 GETTABLEKS                       R10 R2 K64 ["FFlagAssistantCapturePluginGuiTool"]
+      537 JUMPIFNOT                        R10 ; [+20]
+      538 GETTABLEKS                       R12 R3 K74 ["Agent"]
+      540 GETTABLE                         R11 R9 R12
+      541 GETTABLEKS                       R12 R4 K65 ["ListPluginGuis"]
+      543 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
+      545 GETIMPORT                        R10 K77 [table.insert]
+      547 CALL                             R10 2 0
+      548 GETTABLEKS                       R12 R3 K74 ["Agent"]
+      550 GETTABLE                         R11 R9 R12
+      551 GETTABLEKS                       R12 R4 K66 ["CapturePluginGui"]
+      553 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
+      555 GETIMPORT                        R10 K77 [table.insert]
+      557 CALL                             R10 2 0
+      558 GETTABLEKS                       R10 R2 K33 ["FFlagAssistantGenerateLayoutTool"]
+      560 JUMPIFNOT                        R10 ; [+10]
+      561 GETTABLEKS                       R12 R3 K74 ["Agent"]
+      563 GETTABLE                         R11 R9 R12
+      564 GETTABLEKS                       R12 R4 K32 ["GenerateLayout"]
+      566 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
+      568 GETIMPORT                        R10 K77 [table.insert]
+      570 CALL                             R10 2 0
+      571 GETTABLEKS                       R10 R2 K78 ["FFlagAssistantAskInputToolLLM"]
+      573 JUMPIFNOT                        R10 ; [+10]
+      574 GETTABLEKS                       R12 R3 K74 ["Agent"]
+      576 GETTABLE                         R11 R9 R12
+      577 GETTABLEKS                       R12 R4 K18 ["AskInput"]
+      579 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
+      581 GETIMPORT                        R10 K77 [table.insert]
+      583 CALL                             R10 2 0
+      584 GETTABLEKS                       R10 R3 K79 ["Plan"]
+      586 NEWTABLE                         R11 0 9
+      588 GETTABLEKS                       R12 R4 K45 ["ReadFile"]
+      590 GETTABLEKS                       R13 R4 K28 ["FileSearch"]
+      592 GETTABLEKS                       R14 R4 K36 ["GrepSearch"]
+      594 GETTABLEKS                       R15 R4 K31 ["GameTree"]
+      596 GETTABLEKS                       R16 R4 K38 ["InspectInstance"]
+      598 GETTABLEKS                       R17 R4 K71 ["ScreenCapture"]
+      600 GETTABLEKS                       R18 R4 K44 ["QuestionAnswer"]
+      602 GETTABLEKS                       R19 R4 K29 ["FinalizePlan"]
+      604 GETTABLEKS                       R20 R4 K54 ["UpdatePlan"]
+      606 SETLIST                          R11 R12 9 [1]
+      608 SETTABLE                         R11 R9 R10
+      609 GETTABLEKS                       R10 R2 K78 ["FFlagAssistantAskInputToolLLM"]
+      611 JUMPIFNOT                        R10 ; [+10]
+      612 GETTABLEKS                       R12 R3 K79 ["Plan"]
+      614 GETTABLE                         R11 R9 R12
+      615 GETTABLEKS                       R12 R4 K18 ["AskInput"]
+      617 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
+      619 GETIMPORT                        R10 K77 [table.insert]
+      621 CALL                             R10 2 0
+      622 NEWTABLE                         R10 0 16
+      624 GETTABLEKS                       R11 R4 K27 ["ExecuteLuau"]
+      626 GETTABLEKS                       R12 R4 K28 ["FileSearch"]
+      628 GETTABLEKS                       R13 R4 K31 ["GameTree"]
+      630 GETTABLEKS                       R14 R4 K36 ["GrepSearch"]
+      632 GETTABLEKS                       R15 R4 K38 ["InspectInstance"]
+      634 GETTABLEKS                       R16 R4 K45 ["ReadFile"]
+      636 GETTABLEKS                       R17 R4 K48 ["Skill"]
+      638 GETTABLEKS                       R18 R4 K51 ["Subagent"]
+      640 GETTABLEKS                       R19 R4 K71 ["ScreenCapture"]
+      642 GETTABLEKS                       R20 R4 K34 ["GetConsoleOutput"]
+      644 GETTABLEKS                       R21 R4 K55 ["UserKeyboardInput"]
+      646 GETTABLEKS                       R22 R4 K56 ["UserMouseInput"]
+      648 GETTABLEKS                       R23 R4 K23 ["CharacterNavigation"]
+      650 GETTABLEKS                       R24 R4 K60 ["MultiPlayerAgentsCommunication"]
+      652 GETTABLEKS                       R25 R4 K61 ["WaitForMultiPlayerAgentsCommunication"]
+      654 GETTABLEKS                       R26 R4 K35 ["GetStudioState"]
+      656 SETLIST                          R10 R11 16 [1]
+      658 NEWTABLE                         R11 0 0
+      660 GETTABLEKS                       R12 R2 K69 ["FFlagPlaytestVision"]
+      662 JUMPIFNOT                        R12 ; [+8]
+      663 GETTABLEKS                       R14 R4 K70 ["PlaytestLook"]
+      665 FASTCALL2                        TABLE_INSERT R11 R14 ; [+4]
+      667 MOVE                             R13 R11
+      668 GETIMPORT                        R12 K77 [table.insert]
+      670 CALL                             R12 2 0
+      671 DUPTABLE                         R12 K86 [{"DefaultTools", "ExperimentalTools", "ExperimentFeatureTools", "AssistantModeToolsAllowlist", "MultiPlayerTestTools", "SubagentOnlyTools"}]
+      672 SETTABLEKS                       R6 R12 K80 ["DefaultTools"]
+      674 SETTABLEKS                       R7 R12 K81 ["ExperimentalTools"]
+      676 SETTABLEKS                       R8 R12 K82 ["ExperimentFeatureTools"]
+      678 SETTABLEKS                       R9 R12 K83 ["AssistantModeToolsAllowlist"]
+      680 SETTABLEKS                       R10 R12 K84 ["MultiPlayerTestTools"]
+      682 SETTABLEKS                       R11 R12 K85 ["SubagentOnlyTools"]
+      684 RETURN                           R12 1

@@ -32,6 +32,16 @@ PROTO_1:
        21 CALL                             R0 3 0
        22 RETURN                           R0 0
 
+PROTO_2:
+        0 GETIMPORT                        R0 K1 [plugin]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K2 ["onPlaceSaved"]
+        5 GETIMPORT                        R3 K4 [game]
+        7 GETTABLEKS                       R3 R3 K5 ["GameId"]
+        9 NAMECALL                         R0 R0 K6 ["Invoke"]
+       11 CALL                             R0 3 0
+       12 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
@@ -98,25 +108,60 @@ MAIN:
        97 MOVE                             R8 R7
        98 GETIMPORT                        R9 K5 [plugin]
       100 CALL                             R8 1 0
-      101 GETTABLEKS                       R8 R6 K33 ["get"]
-      103 CALL                             R8 0 1
-      104 GETTABLEKS                       R9 R6 K34 ["Asset"]
-      106 JUMPIFEQ                         R8 R9 ; [+3]
-      108 CLOSEUPVALS                      R5
-      109 RETURN                           R0 0
-      110 GETIMPORT                        R8 K11 [require]
-      112 GETTABLEKS                       R9 R1 K25 ["Bin"]
-      114 GETTABLEKS                       R9 R9 K26 ["Common"]
-      116 GETTABLEKS                       R9 R9 K35 ["setup"]
-      118 CALL                             R8 1 1
-      119 GETIMPORT                        R9 K11 [require]
-      121 GETTABLEKS                       R10 R1 K25 ["Bin"]
-      123 GETTABLEKS                       R10 R10 K26 ["Common"]
-      125 GETTABLEKS                       R10 R10 K36 ["setupMain"]
-      127 CALL                             R9 1 1
-      128 MOVE                             R10 R8
-      129 GETIMPORT                        R11 K5 [plugin]
-      131 MOVE                             R12 R9
-      132 CALL                             R10 2 0
-      133 CLOSEUPVALS                      R5
-      134 RETURN                           R0 0
+      101 GETIMPORT                        R8 K11 [require]
+      103 GETTABLEKS                       R9 R1 K15 ["Src"]
+      105 GETTABLEKS                       R9 R9 K33 ["Flags"]
+      107 GETTABLEKS                       R9 R9 K34 ["getFFlagAvatarSettingsWarnOnPlaceSave"]
+      109 CALL                             R8 1 1
+      110 MOVE                             R9 R8
+      111 CALL                             R9 0 1
+      112 JUMPIFNOT                        R9 ; [+42]
+      113 NAMECALL                         R9 R0 K35 ["IsEdit"]
+      115 CALL                             R9 1 1
+      116 JUMPIFNOT                        R9 ; [+38]
+      117 GETIMPORT                        R9 K11 [require]
+      119 GETTABLEKS                       R10 R1 K15 ["Src"]
+      121 GETTABLEKS                       R10 R10 K17 ["Util"]
+      123 GETTABLEKS                       R10 R10 K36 ["connectPlaceSaveCompleted"]
+      125 CALL                             R9 1 1
+      126 GETIMPORT                        R10 K11 [require]
+      128 GETTABLEKS                       R11 R1 K15 ["Src"]
+      130 GETTABLEKS                       R11 R11 K17 ["Util"]
+      132 GETTABLEKS                       R11 R11 K37 ["InvokeKeys"]
+      134 CALL                             R10 1 1
+      135 MOVE                             R11 R9
+      136 GETIMPORT                        R12 K5 [plugin]
+      138 GETIMPORT                        R13 K1 [game]
+      140 LOADK                            R15 K38 ["StudioPublishService"]
+      141 NAMECALL                         R13 R13 K3 ["GetService"]
+      143 CALL                             R13 2 1
+      144 DUPCLOSURE                       R14 K39 [PROTO_2]
+      145 CAPTURE                          VAL R10
+      146 CALL                             R11 3 1
+      147 GETIMPORT                        R12 K5 [plugin]
+      149 GETTABLEKS                       R12 R12 K40 ["Unloading"]
+      151 MOVE                             R14 R11
+      152 NAMECALL                         R12 R12 K23 ["Connect"]
+      154 CALL                             R12 2 0
+      155 GETTABLEKS                       R9 R6 K41 ["get"]
+      157 CALL                             R9 0 1
+      158 GETTABLEKS                       R10 R6 K42 ["Asset"]
+      160 JUMPIFEQ                         R9 R10 ; [+3]
+      162 CLOSEUPVALS                      R5
+      163 RETURN                           R0 0
+      164 GETIMPORT                        R9 K11 [require]
+      166 GETTABLEKS                       R10 R1 K25 ["Bin"]
+      168 GETTABLEKS                       R10 R10 K26 ["Common"]
+      170 GETTABLEKS                       R10 R10 K43 ["setup"]
+      172 CALL                             R9 1 1
+      173 GETIMPORT                        R10 K11 [require]
+      175 GETTABLEKS                       R11 R1 K25 ["Bin"]
+      177 GETTABLEKS                       R11 R11 K26 ["Common"]
+      179 GETTABLEKS                       R11 R11 K44 ["setupMain"]
+      181 CALL                             R10 1 1
+      182 MOVE                             R11 R9
+      183 GETIMPORT                        R12 K5 [plugin]
+      185 MOVE                             R13 R10
+      186 CALL                             R11 2 0
+      187 CLOSEUPVALS                      R5
+      188 RETURN                           R0 0

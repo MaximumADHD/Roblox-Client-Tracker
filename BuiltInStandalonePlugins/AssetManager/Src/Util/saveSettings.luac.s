@@ -20,47 +20,60 @@ PROTO_0:
        26 GETTABLEKS                       R4 R1 K0 ["LayoutController"]
        28 NAMECALL                         R4 R4 K6 ["getSidebarWidth"]
        30 CALL                             R4 1 1
-       31 DUPTABLE                         R5 K9 [{"Layout", "Tutorial"}]
-       32 DUPTABLE                         R6 K15 [{"ShowSidebar", "SidebarWidth", "BrowserLayout", "Columns", "ColumnWidths"}]
+       31 DUPTABLE                         R5 K10 [{"Layout", "Explorer", "Tutorial"}]
+       32 DUPTABLE                         R6 K16 [{"ShowSidebar", "SidebarWidth", "BrowserLayout", "Columns", "ColumnWidths"}]
        33 GETTABLEKS                       R7 R1 K0 ["LayoutController"]
-       35 NAMECALL                         R7 R7 K16 ["getShowSidebar"]
+       35 NAMECALL                         R7 R7 K17 ["getShowSidebar"]
        37 CALL                             R7 1 1
-       38 SETTABLEKS                       R7 R6 K10 ["ShowSidebar"]
-       40 SETTABLEKS                       R4 R6 K11 ["SidebarWidth"]
-       42 DUPTABLE                         R7 K19 [{"GridSize", "ViewType", "ListRowHeight"}]
-       43 GETTABLEKS                       R8 R2 K17 ["GridSize"]
-       45 SETTABLEKS                       R8 R7 K17 ["GridSize"]
+       38 SETTABLEKS                       R7 R6 K11 ["ShowSidebar"]
+       40 SETTABLEKS                       R4 R6 K12 ["SidebarWidth"]
+       42 DUPTABLE                         R7 K20 [{"GridSize", "ViewType", "ListRowHeight"}]
+       43 GETTABLEKS                       R8 R2 K18 ["GridSize"]
+       45 SETTABLEKS                       R8 R7 K18 ["GridSize"]
        47 SETTABLEKS                       R3 R7 K2 ["ViewType"]
-       49 GETTABLEKS                       R8 R2 K18 ["ListRowHeight"]
-       51 SETTABLEKS                       R8 R7 K18 ["ListRowHeight"]
-       53 SETTABLEKS                       R7 R6 K12 ["BrowserLayout"]
+       49 GETTABLEKS                       R8 R2 K19 ["ListRowHeight"]
+       51 SETTABLEKS                       R8 R7 K19 ["ListRowHeight"]
+       53 SETTABLEKS                       R7 R6 K13 ["BrowserLayout"]
        55 GETTABLEKS                       R7 R1 K0 ["LayoutController"]
-       57 NAMECALL                         R7 R7 K20 ["getColumns"]
+       57 NAMECALL                         R7 R7 K21 ["getColumns"]
        59 CALL                             R7 1 1
-       60 SETTABLEKS                       R7 R6 K13 ["Columns"]
+       60 SETTABLEKS                       R7 R6 K14 ["Columns"]
        62 GETTABLEKS                       R7 R1 K0 ["LayoutController"]
-       64 NAMECALL                         R7 R7 K21 ["getColumnWidths"]
+       64 NAMECALL                         R7 R7 K22 ["getColumnWidths"]
        66 CALL                             R7 1 1
-       67 SETTABLEKS                       R7 R6 K14 ["ColumnWidths"]
+       67 SETTABLEKS                       R7 R6 K15 ["ColumnWidths"]
        69 SETTABLEKS                       R6 R5 K7 ["Layout"]
        71 GETUPVAL                         R7 2
        72 CALL                             R7 0 1
-       73 JUMPIFNOT                        R7 ; [+6]
-       74 GETTABLEKS                       R6 R1 K22 ["TutorialController"]
-       76 NAMECALL                         R6 R6 K23 ["getFinishedTutorials"]
-       78 CALL                             R6 1 1
-       79 JUMP                             ; [+1]
-       80 LOADNIL                          R6
-       81 SETTABLEKS                       R6 R5 K8 ["Tutorial"]
-       83 GETUPVAL                         R6 3
-       84 MOVE                             R8 R5
-       85 NAMECALL                         R6 R6 K24 ["JSONEncode"]
-       87 CALL                             R6 2 1
-       88 LOADK                            R9 K25 ["AssetManager_Settings"]
-       89 MOVE                             R10 R6
-       90 NAMECALL                         R7 R0 K26 ["SetSetting"]
-       92 CALL                             R7 3 0
-       93 RETURN                           R0 0
+       73 JUMPIFNOT                        R7 ; [+9]
+       74 DUPTABLE                         R6 K24 [{"HiddenInventories"}]
+       75 GETTABLEKS                       R7 R1 K25 ["ExplorerController"]
+       77 NAMECALL                         R7 R7 K26 ["getHiddenInventories"]
+       79 CALL                             R7 1 1
+       80 SETTABLEKS                       R7 R6 K23 ["HiddenInventories"]
+       82 JUMP                             ; [+1]
+       83 LOADNIL                          R6
+       84 SETTABLEKS                       R6 R5 K8 ["Explorer"]
+       86 GETUPVAL                         R7 3
+       87 CALL                             R7 0 1
+       88 JUMPIFNOT                        R7 ; [+9]
+       89 DUPTABLE                         R6 K28 [{"FinishedTutorials"}]
+       90 GETTABLEKS                       R7 R1 K29 ["TutorialController"]
+       92 NAMECALL                         R7 R7 K30 ["getFinishedTutorials"]
+       94 CALL                             R7 1 1
+       95 SETTABLEKS                       R7 R6 K27 ["FinishedTutorials"]
+       97 JUMP                             ; [+1]
+       98 LOADNIL                          R6
+       99 SETTABLEKS                       R6 R5 K9 ["Tutorial"]
+      101 GETUPVAL                         R6 4
+      102 MOVE                             R8 R5
+      103 NAMECALL                         R6 R6 K31 ["JSONEncode"]
+      105 CALL                             R6 2 1
+      106 LOADK                            R9 K32 ["AssetManager_Settings"]
+      107 MOVE                             R10 R6
+      108 NAMECALL                         R7 R0 K33 ["SetSetting"]
+      110 CALL                             R7 3 0
+      111 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -86,9 +99,15 @@ MAIN:
        33 GETTABLEKS                       R5 R5 K12 ["Flags"]
        35 GETTABLEKS                       R5 R5 K14 ["getFFlagAmrEnableTutorials"]
        37 CALL                             R4 1 1
-       38 DUPCLOSURE                       R5 K15 [PROTO_0]
-       39 CAPTURE                          VAL R2
-       40 CAPTURE                          VAL R3
-       41 CAPTURE                          VAL R4
-       42 CAPTURE                          VAL R0
-       43 RETURN                           R5 1
+       38 GETIMPORT                        R5 K9 [require]
+       40 GETTABLEKS                       R6 R1 K10 ["Src"]
+       42 GETTABLEKS                       R6 R6 K12 ["Flags"]
+       44 GETTABLEKS                       R6 R6 K15 ["getFFlagAmrSaveToggledGroups"]
+       46 CALL                             R5 1 1
+       47 DUPCLOSURE                       R6 K16 [PROTO_0]
+       48 CAPTURE                          VAL R2
+       49 CAPTURE                          VAL R3
+       50 CAPTURE                          VAL R5
+       51 CAPTURE                          VAL R4
+       52 CAPTURE                          VAL R0
+       53 RETURN                           R6 1

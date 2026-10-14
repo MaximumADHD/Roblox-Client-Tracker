@@ -334,33 +334,33 @@ PROTO_3:
       425 GETUPVAL                         R21 8
       426 GETTABLEKS                       R21 R21 K5 ["createElement"]
       428 GETUPVAL                         R22 25
-      429 DUPTABLE                         R23 K90 [{"tutorialId", "stepId", "anchorInstance", "side", "align"}]
+      429 DUPTABLE                         R23 K92 [{["tutorialId"], ["stepId"], ["anchorInstance"], ["side"], ["align"], ["hasArrow"] = False}]
       430 GETUPVAL                         R24 26
-      431 GETTABLEKS                       R24 R24 K91 ["TutorialId"]
-      433 GETTABLEKS                       R24 R24 K92 ["Intro"]
+      431 GETTABLEKS                       R24 R24 K93 ["TutorialId"]
+      433 GETTABLEKS                       R24 R24 K94 ["Intro"]
       435 SETTABLEKS                       R24 R23 K85 ["tutorialId"]
       437 GETUPVAL                         R24 26
-      438 GETTABLEKS                       R24 R24 K93 ["TutorialStepId"]
-      440 GETTABLEKS                       R24 R24 K94 ["Welcome"]
+      438 GETTABLEKS                       R24 R24 K95 ["TutorialStepId"]
+      440 GETTABLEKS                       R24 R24 K96 ["Welcome"]
       442 SETTABLEKS                       R24 R23 K86 ["stepId"]
       444 SETTABLEKS                       R9 R23 K87 ["anchorInstance"]
       446 GETUPVAL                         R24 14
       447 GETTABLEKS                       R24 R24 K51 ["Enums"]
-      449 GETTABLEKS                       R24 R24 K95 ["PopoverSide"]
-      451 GETTABLEKS                       R24 R24 K96 ["Top"]
+      449 GETTABLEKS                       R24 R24 K97 ["PopoverSide"]
+      451 GETTABLEKS                       R24 R24 K98 ["Top"]
       453 SETTABLEKS                       R24 R23 K88 ["side"]
       455 GETUPVAL                         R24 14
       456 GETTABLEKS                       R24 R24 K51 ["Enums"]
-      458 GETTABLEKS                       R24 R24 K97 ["PopoverAlign"]
-      460 GETTABLEKS                       R24 R24 K98 ["Start"]
+      458 GETTABLEKS                       R24 R24 K99 ["PopoverAlign"]
+      460 GETTABLEKS                       R24 R24 K100 ["Start"]
       462 SETTABLEKS                       R24 R23 K89 ["align"]
       464 CALL                             R21 2 1
-      465 SETTABLEKS                       R21 R13 K99 ["IntroTutorialTooltip"]
+      465 SETTABLEKS                       R21 R13 K101 ["IntroTutorialTooltip"]
       467 GETUPVAL                         R21 8
       468 GETTABLEKS                       R21 R21 K5 ["createElement"]
       470 GETUPVAL                         R22 14
       471 GETTABLEKS                       R22 R22 K36 ["View"]
-      473 DUPTABLE                         R23 K101 [{["ref"], ["tag"] = "size-full App"}]
+      473 DUPTABLE                         R23 K103 [{["ref"], ["tag"] = "size-full App"}]
       474 SETTABLEKS                       R8 R23 K79 ["ref"]
       476 MOVE                             R24 R13
       477 CALL                             R21 3 -1

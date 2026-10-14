@@ -17,7 +17,7 @@ MAIN:
        26 GETTABLEKS                       R5 R5 K12 ["Flags"]
        28 GETTABLEKS                       R5 R5 K13 ["getFFlagAvatarSettingsRemoveMouseDownNavbarColor"]
        30 CALL                             R4 1 1
-       31 NEWTABLE                         R5 0 40
+       31 NEWTABLE                         R5 0 42
        33 MOVE                             R6 R2
        34 LOADK                            R7 K14 [".Component-CategoryList"]
        35 DUPTABLE                         R8 K21 [{["Size"], ["BackgroundColor3"] = "$BackgroundPaper", ["BackgroundTransparency"] = 0, ["AutomaticSize"]}]
@@ -453,230 +453,255 @@ MAIN:
       590 SETTABLEKS                       R14 R13 K20 ["AutomaticSize"]
       592 CALL                             R11 2 1
       593 MOVE                             R12 R2
-      594 LOADK                            R13 K168 [".RadioButtonContainer >> TextLabel #DescriptionTextLabel"]
-      595 DUPTABLE                         R14 K170 [{["TextSize"] = 16, ["TextColor3"] = "$TextSecondary"}]
+      594 LOADK                            R13 K168 [".AvatarSettings-DeathCollisionCheckbox >> TextLabel"]
+      595 DUPTABLE                         R14 K169 [{["TextSize"] = 18}]
       596 CALL                             R12 2 1
       597 MOVE                             R13 R2
-      598 LOADK                            R14 K171 [".PresetHoverTooltipDivider"]
-      599 DUPTABLE                         R15 K172 [{["Size"], ["BackgroundTransparency"] = 0, ["BackgroundColor3"] = "$TextPrimary"}]
-      600 GETIMPORT                        R16 K76 [UDim2.new]
-      602 LOADN                            R17 1
-      603 LOADN                            R18 0
-      604 LOADN                            R19 0
-      605 LOADN                            R20 1
-      606 CALL                             R16 4 1
-      607 SETTABLEKS                       R16 R15 K15 ["Size"]
-      609 CALL                             R13 2 1
-      610 MOVE                             R14 R2
-      611 LOADK                            R15 K173 [".Separator"]
-      612 DUPTABLE                         R16 K175 [{["Size"], ["BackgroundTransparency"] = 0, ["BackgroundColor3"] = "$OtherDivider"}]
-      613 GETIMPORT                        R17 K76 [UDim2.new]
-      615 LOADN                            R18 1
-      616 LOADN                            R19 0
-      617 LOADN                            R20 0
-      618 LOADN                            R21 1
-      619 CALL                             R17 4 1
-      620 SETTABLEKS                       R17 R16 K15 ["Size"]
-      622 CALL                             R14 2 1
-      623 MOVE                             R15 R2
-      624 LOADK                            R16 K176 [".PresetHoverTooltip"]
-      625 NEWTABLE                         R17 0 0
-      627 NEWTABLE                         R18 0 2
-      629 MOVE                             R19 R2
-      630 LOADK                            R20 K177 [">> Frame #ContentPane"]
-      631 DUPTABLE                         R21 K178 [{"AutomaticSize"}]
-      632 GETIMPORT                        R22 K94 [Enum.AutomaticSize.XY]
-      634 SETTABLEKS                       R22 R21 K20 ["AutomaticSize"]
-      636 CALL                             R19 2 1
-      637 MOVE                             R20 R2
-      638 LOADK                            R21 K179 [">> ImageLabel #DropShadow"]
-      639 DUPTABLE                         R22 K178 [{"AutomaticSize"}]
-      640 GETIMPORT                        R23 K94 [Enum.AutomaticSize.XY]
-      642 SETTABLEKS                       R23 R22 K20 ["AutomaticSize"]
-      644 CALL                             R20 2 -1
-      645 SETLIST                          R18 R19 -1 [1]
-      647 CALL                             R15 3 1
-      648 MOVE                             R16 R2
-      649 LOADK                            R17 K180 [".PresetHoverTooltipCheckImage"]
-      650 DUPTABLE                         R18 K182 [{["Image"] = "$PresetTooltipCheckImage"}]
-      651 CALL                             R16 2 1
-      652 MOVE                             R17 R2
-      653 LOADK                            R18 K183 [".PresetHoverTooltipXImage"]
-      654 DUPTABLE                         R19 K185 [{["Image"] = "$PresetTooltipXImage"}]
-      655 CALL                             R17 2 1
-      656 MOVE                             R18 R2
-      657 LOADK                            R19 K186 [".GeneralSettingsGameplayDescriptionImage"]
-      658 DUPTABLE                         R20 K188 [{["Image"] = "$PresetInfoImage"}]
-      659 CALL                             R18 2 1
-      660 MOVE                             R19 R2
-      661 LOADK                            R20 K189 [".ColumnSpacing-Standard ::UIListLayout"]
-      662 DUPTABLE                         R21 K117 [{"Padding"}]
-      663 GETIMPORT                        R22 K82 [UDim.new]
-      665 LOADN                            R23 0
-      666 LOADN                            R24 8
-      667 CALL                             R22 2 1
-      668 SETTABLEKS                       R22 R21 K116 ["Padding"]
-      670 CALL                             R19 2 1
-      671 MOVE                             R20 R2
-      672 LOADK                            R21 K190 [".VerticalFlex-Fill ::UIListLayout"]
-      673 DUPTABLE                         R22 K192 [{"VerficalFlex"}]
-      674 GETIMPORT                        R23 K195 [Enum.UIFlexAlignment.Fill]
-      676 SETTABLEKS                       R23 R22 K191 ["VerficalFlex"]
-      678 CALL                             R20 2 1
-      679 MOVE                             R21 R2
-      680 LOADK                            R22 K196 [".AvatarSettings-BodyOnlyDialog >> TextLabel #Heading"]
-      681 DUPTABLE                         R23 K199 [{["Visible"] = False}]
-      682 CALL                             R21 2 1
-      683 SETLIST                          R5 R6 16 [17]
-      685 MOVE                             R6 R2
-      686 LOADK                            R7 K200 [".PublishBar"]
-      687 DUPTABLE                         R8 K201 [{["BackgroundTransparency"] = 1}]
-      688 NEWTABLE                         R9 0 3
-      690 MOVE                             R10 R2
-      691 LOADK                            R11 K95 ["::UIStroke"]
-      692 DUPTABLE                         R12 K202 [{["Color"] = "$Divider"}]
-      693 CALL                             R10 2 1
-      694 MOVE                             R11 R2
-      695 LOADK                            R12 K77 ["::UIPadding"]
-      696 DUPTABLE                         R13 K203 [{"PaddingRight"}]
-      697 GETIMPORT                        R14 K82 [UDim.new]
-      699 LOADN                            R15 0
-      700 LOADN                            R16 8
-      701 CALL                             R14 2 1
-      702 SETTABLEKS                       R14 R13 K160 ["PaddingRight"]
-      704 CALL                             R11 2 1
-      705 MOVE                             R12 R2
-      706 LOADK                            R13 K115 ["::UIListLayout"]
-      707 DUPTABLE                         R14 K117 [{"Padding"}]
-      708 GETIMPORT                        R15 K82 [UDim.new]
-      710 LOADN                            R16 0
-      711 LOADN                            R17 8
-      712 CALL                             R15 2 1
-      713 SETTABLEKS                       R15 R14 K116 ["Padding"]
-      715 CALL                             R12 2 -1
-      716 SETLIST                          R9 R10 -1 [1]
-      718 CALL                             R6 3 1
-      719 MOVE                             R7 R2
-      720 LOADK                            R8 K204 [".TitledComponentLabel"]
-      721 DUPTABLE                         R9 K206 [{"FontFace"}]
-      722 GETIMPORT                        R10 K208 [Font.new]
-      724 LOADK                            R11 K209 ["rbxasset://fonts/families/SourceSansPro.json"]
-      725 GETIMPORT                        R12 K212 [Enum.FontWeight.Regular]
-      727 GETIMPORT                        R13 K215 [Enum.FontStyle.Normal]
-      729 CALL                             R10 3 1
-      730 SETTABLEKS                       R10 R9 K205 ["FontFace"]
-      732 CALL                             R7 2 1
-      733 MOVE                             R8 R2
-      734 LOADK                            R9 K216 [".PresetImage"]
-      735 NEWTABLE                         R10 0 0
-      737 NEWTABLE                         R11 0 3
-      739 MOVE                             R12 R2
-      740 LOADK                            R13 K77 ["::UIPadding"]
-      741 DUPTABLE                         R14 K80 [{"PaddingTop", "PaddingBottom"}]
-      742 GETIMPORT                        R15 K82 [UDim.new]
-      744 LOADN                            R16 0
-      745 LOADN                            R17 8
-      746 CALL                             R15 2 1
-      747 SETTABLEKS                       R15 R14 K78 ["PaddingTop"]
-      749 GETIMPORT                        R15 K82 [UDim.new]
-      751 LOADN                            R16 0
-      752 LOADN                            R17 8
-      753 CALL                             R15 2 1
-      754 SETTABLEKS                       R15 R14 K79 ["PaddingBottom"]
-      756 CALL                             R12 2 1
-      757 MOVE                             R13 R2
-      758 LOADK                            R14 K217 [".PlayerChoice"]
-      759 DUPTABLE                         R15 K219 [{["Image"] = "$PlayerChoicePresetImage"}]
-      760 CALL                             R13 2 1
-      761 MOVE                             R14 R2
-      762 LOADK                            R15 K220 [".Consistent"]
-      763 DUPTABLE                         R16 K222 [{["Image"] = "$ConsistentPresetImage"}]
-      764 CALL                             R14 2 -1
-      765 SETLIST                          R11 R12 -1 [1]
-      767 CALL                             R8 3 1
-      768 MOVE                             R9 R2
-      769 LOADK                            R10 K223 [".HoverTooltipPresetImage"]
-      770 NEWTABLE                         R11 0 0
-      772 NEWTABLE                         R12 0 2
-      774 MOVE                             R13 R2
-      775 LOADK                            R14 K217 [".PlayerChoice"]
-      776 DUPTABLE                         R15 K219 [{["Image"] = "$PlayerChoicePresetImage"}]
-      777 CALL                             R13 2 1
-      778 MOVE                             R14 R2
-      779 LOADK                            R15 K220 [".Consistent"]
-      780 DUPTABLE                         R16 K222 [{["Image"] = "$ConsistentPresetImage"}]
-      781 CALL                             R14 2 -1
-      782 SETLIST                          R12 R13 -1 [1]
-      784 CALL                             R9 3 1
-      785 MOVE                             R10 R2
-      786 LOADK                            R11 K224 [".SaveToRobloxButton"]
-      787 NEWTABLE                         R12 0 0
-      789 NEWTABLE                         R13 0 1
-      791 MOVE                             R14 R2
-      792 LOADK                            R15 K225 [">> TextLabel"]
-      793 DUPTABLE                         R16 K227 [{["TextSize"] = 20, ["FontFace"]}]
-      794 GETIMPORT                        R17 K208 [Font.new]
-      796 LOADK                            R18 K209 ["rbxasset://fonts/families/SourceSansPro.json"]
-      797 GETIMPORT                        R19 K229 [Enum.FontWeight.Bold]
-      799 GETIMPORT                        R20 K215 [Enum.FontStyle.Normal]
-      801 CALL                             R17 3 1
-      802 SETTABLEKS                       R17 R16 K205 ["FontFace"]
-      804 NEWTABLE                         R17 0 1
-      806 MOVE                             R18 R2
-      807 LOADK                            R19 K230 ["UIPadding"]
-      808 DUPTABLE                         R20 K80 [{"PaddingTop", "PaddingBottom"}]
-      809 GETIMPORT                        R21 K82 [UDim.new]
-      811 LOADN                            R22 0
-      812 LOADN                            R23 4
-      813 CALL                             R21 2 1
-      814 SETTABLEKS                       R21 R20 K78 ["PaddingTop"]
-      816 GETIMPORT                        R21 K82 [UDim.new]
-      818 LOADN                            R22 0
-      819 LOADN                            R23 4
-      820 CALL                             R21 2 1
-      821 SETTABLEKS                       R21 R20 K79 ["PaddingBottom"]
-      823 CALL                             R18 2 -1
-      824 SETLIST                          R17 R18 -1 [1]
-      826 CALL                             R14 3 -1
-      827 SETLIST                          R13 R14 -1 [1]
-      829 CALL                             R10 3 1
-      830 MOVE                             R11 R2
-      831 LOADK                            R12 K231 ["TextLabel"]
-      832 NEWTABLE                         R13 0 0
-      834 NEWTABLE                         R14 0 1
-      836 MOVE                             R15 R2
-      837 LOADK                            R16 K232 [".Bold"]
-      838 DUPTABLE                         R17 K206 [{"FontFace"}]
-      839 GETIMPORT                        R18 K208 [Font.new]
-      841 LOADK                            R19 K209 ["rbxasset://fonts/families/SourceSansPro.json"]
-      842 GETIMPORT                        R20 K229 [Enum.FontWeight.Bold]
-      844 GETIMPORT                        R21 K215 [Enum.FontStyle.Normal]
-      846 CALL                             R18 3 1
-      847 SETTABLEKS                       R18 R17 K205 ["FontFace"]
-      849 CALL                             R15 2 -1
-      850 SETLIST                          R14 R15 -1 [1]
-      852 CALL                             R11 3 1
-      853 MOVE                             R12 R2
-      854 LOADK                            R13 K233 ["TextButton"]
-      855 DUPTABLE                         R14 K234 [{["FontFace"], ["TextSize"] = 18}]
-      856 GETIMPORT                        R15 K208 [Font.new]
-      858 LOADK                            R16 K209 ["rbxasset://fonts/families/SourceSansPro.json"]
-      859 GETIMPORT                        R17 K236 [Enum.FontWeight.Medium]
-      861 GETIMPORT                        R18 K215 [Enum.FontStyle.Normal]
-      863 CALL                             R15 3 1
-      864 SETTABLEKS                       R15 R14 K205 ["FontFace"]
-      866 CALL                             R12 2 1
-      867 MOVE                             R13 R2
-      868 LOADK                            R14 K237 ["UIListLayout"]
-      869 DUPTABLE                         R15 K239 [{"SortOrder"}]
-      870 GETIMPORT                        R16 K241 [Enum.SortOrder.LayoutOrder]
-      872 SETTABLEKS                       R16 R15 K238 ["SortOrder"]
-      874 CALL                             R13 2 -1
-      875 SETLIST                          R5 R6 -1 [33]
-      877 NEWTABLE                         R6 0 0
-      879 MOVE                             R7 R3
-      880 LOADK                            R8 K2 ["AvatarSettings"]
-      881 MOVE                             R9 R5
-      882 MOVE                             R10 R6
-      883 CALL                             R7 3 -1
-      884 RETURN                           R7 -1
+      598 LOADK                            R14 K170 [".AvatarSettings-DeathCollisionDescription"]
+      599 DUPTABLE                         R15 K172 [{["TextSize"] = 16, ["TextColor3"] = "$TextSecondary", ["TextXAlignment"], ["TextYAlignment"], ["TextWrapped"] = True, ["AutomaticSize"]}]
+      600 GETIMPORT                        R16 K35 [Enum.TextXAlignment.Left]
+      602 SETTABLEKS                       R16 R15 K30 ["TextXAlignment"]
+      604 GETIMPORT                        R16 K167 [Enum.TextYAlignment.Top]
+      606 SETTABLEKS                       R16 R15 K154 ["TextYAlignment"]
+      608 GETIMPORT                        R16 K124 [Enum.AutomaticSize.Y]
+      610 SETTABLEKS                       R16 R15 K20 ["AutomaticSize"]
+      612 NEWTABLE                         R16 0 1
+      614 MOVE                             R17 R2
+      615 LOADK                            R18 K77 ["::UIPadding"]
+      616 DUPTABLE                         R19 K128 [{"PaddingLeft"}]
+      617 GETIMPORT                        R20 K82 [UDim.new]
+      619 LOADN                            R21 0
+      620 LOADN                            R22 24
+      621 CALL                             R20 2 1
+      622 SETTABLEKS                       R20 R19 K127 ["PaddingLeft"]
+      624 CALL                             R17 2 -1
+      625 SETLIST                          R16 R17 -1 [1]
+      627 CALL                             R13 3 1
+      628 MOVE                             R14 R2
+      629 LOADK                            R15 K173 [".RadioButtonContainer >> TextLabel #DescriptionTextLabel"]
+      630 DUPTABLE                         R16 K174 [{["TextSize"] = 16, ["TextColor3"] = "$TextSecondary"}]
+      631 CALL                             R14 2 1
+      632 MOVE                             R15 R2
+      633 LOADK                            R16 K175 [".PresetHoverTooltipDivider"]
+      634 DUPTABLE                         R17 K176 [{["Size"], ["BackgroundTransparency"] = 0, ["BackgroundColor3"] = "$TextPrimary"}]
+      635 GETIMPORT                        R18 K76 [UDim2.new]
+      637 LOADN                            R19 1
+      638 LOADN                            R20 0
+      639 LOADN                            R21 0
+      640 LOADN                            R22 1
+      641 CALL                             R18 4 1
+      642 SETTABLEKS                       R18 R17 K15 ["Size"]
+      644 CALL                             R15 2 1
+      645 MOVE                             R16 R2
+      646 LOADK                            R17 K177 [".Separator"]
+      647 DUPTABLE                         R18 K179 [{["Size"], ["BackgroundTransparency"] = 0, ["BackgroundColor3"] = "$OtherDivider"}]
+      648 GETIMPORT                        R19 K76 [UDim2.new]
+      650 LOADN                            R20 1
+      651 LOADN                            R21 0
+      652 LOADN                            R22 0
+      653 LOADN                            R23 1
+      654 CALL                             R19 4 1
+      655 SETTABLEKS                       R19 R18 K15 ["Size"]
+      657 CALL                             R16 2 1
+      658 MOVE                             R17 R2
+      659 LOADK                            R18 K180 [".PresetHoverTooltip"]
+      660 NEWTABLE                         R19 0 0
+      662 NEWTABLE                         R20 0 2
+      664 MOVE                             R21 R2
+      665 LOADK                            R22 K181 [">> Frame #ContentPane"]
+      666 DUPTABLE                         R23 K182 [{"AutomaticSize"}]
+      667 GETIMPORT                        R24 K94 [Enum.AutomaticSize.XY]
+      669 SETTABLEKS                       R24 R23 K20 ["AutomaticSize"]
+      671 CALL                             R21 2 1
+      672 MOVE                             R22 R2
+      673 LOADK                            R23 K183 [">> ImageLabel #DropShadow"]
+      674 DUPTABLE                         R24 K182 [{"AutomaticSize"}]
+      675 GETIMPORT                        R25 K94 [Enum.AutomaticSize.XY]
+      677 SETTABLEKS                       R25 R24 K20 ["AutomaticSize"]
+      679 CALL                             R22 2 -1
+      680 SETLIST                          R20 R21 -1 [1]
+      682 CALL                             R17 3 1
+      683 MOVE                             R18 R2
+      684 LOADK                            R19 K184 [".PresetHoverTooltipCheckImage"]
+      685 DUPTABLE                         R20 K186 [{["Image"] = "$PresetTooltipCheckImage"}]
+      686 CALL                             R18 2 1
+      687 MOVE                             R19 R2
+      688 LOADK                            R20 K187 [".PresetHoverTooltipXImage"]
+      689 DUPTABLE                         R21 K189 [{["Image"] = "$PresetTooltipXImage"}]
+      690 CALL                             R19 2 1
+      691 MOVE                             R20 R2
+      692 LOADK                            R21 K190 [".GeneralSettingsGameplayDescriptionImage"]
+      693 DUPTABLE                         R22 K192 [{["Image"] = "$PresetInfoImage"}]
+      694 CALL                             R20 2 1
+      695 MOVE                             R21 R2
+      696 LOADK                            R22 K193 [".ColumnSpacing-Standard ::UIListLayout"]
+      697 DUPTABLE                         R23 K117 [{"Padding"}]
+      698 GETIMPORT                        R24 K82 [UDim.new]
+      700 LOADN                            R25 0
+      701 LOADN                            R26 8
+      702 CALL                             R24 2 1
+      703 SETTABLEKS                       R24 R23 K116 ["Padding"]
+      705 CALL                             R21 2 1
+      706 SETLIST                          R5 R6 16 [17]
+      708 MOVE                             R6 R2
+      709 LOADK                            R7 K194 [".VerticalFlex-Fill ::UIListLayout"]
+      710 DUPTABLE                         R8 K196 [{"VerficalFlex"}]
+      711 GETIMPORT                        R9 K199 [Enum.UIFlexAlignment.Fill]
+      713 SETTABLEKS                       R9 R8 K195 ["VerficalFlex"]
+      715 CALL                             R6 2 1
+      716 MOVE                             R7 R2
+      717 LOADK                            R8 K200 [".AvatarSettings-BodyOnlyDialog >> TextLabel #Heading"]
+      718 DUPTABLE                         R9 K203 [{["Visible"] = False}]
+      719 CALL                             R7 2 1
+      720 MOVE                             R8 R2
+      721 LOADK                            R9 K204 [".PublishBar"]
+      722 DUPTABLE                         R10 K205 [{["BackgroundTransparency"] = 1}]
+      723 NEWTABLE                         R11 0 3
+      725 MOVE                             R12 R2
+      726 LOADK                            R13 K95 ["::UIStroke"]
+      727 DUPTABLE                         R14 K206 [{["Color"] = "$Divider"}]
+      728 CALL                             R12 2 1
+      729 MOVE                             R13 R2
+      730 LOADK                            R14 K77 ["::UIPadding"]
+      731 DUPTABLE                         R15 K207 [{"PaddingRight"}]
+      732 GETIMPORT                        R16 K82 [UDim.new]
+      734 LOADN                            R17 0
+      735 LOADN                            R18 8
+      736 CALL                             R16 2 1
+      737 SETTABLEKS                       R16 R15 K160 ["PaddingRight"]
+      739 CALL                             R13 2 1
+      740 MOVE                             R14 R2
+      741 LOADK                            R15 K115 ["::UIListLayout"]
+      742 DUPTABLE                         R16 K117 [{"Padding"}]
+      743 GETIMPORT                        R17 K82 [UDim.new]
+      745 LOADN                            R18 0
+      746 LOADN                            R19 8
+      747 CALL                             R17 2 1
+      748 SETTABLEKS                       R17 R16 K116 ["Padding"]
+      750 CALL                             R14 2 -1
+      751 SETLIST                          R11 R12 -1 [1]
+      753 CALL                             R8 3 1
+      754 MOVE                             R9 R2
+      755 LOADK                            R10 K208 [".TitledComponentLabel"]
+      756 DUPTABLE                         R11 K210 [{"FontFace"}]
+      757 GETIMPORT                        R12 K212 [Font.new]
+      759 LOADK                            R13 K213 ["rbxasset://fonts/families/SourceSansPro.json"]
+      760 GETIMPORT                        R14 K216 [Enum.FontWeight.Regular]
+      762 GETIMPORT                        R15 K219 [Enum.FontStyle.Normal]
+      764 CALL                             R12 3 1
+      765 SETTABLEKS                       R12 R11 K209 ["FontFace"]
+      767 CALL                             R9 2 1
+      768 MOVE                             R10 R2
+      769 LOADK                            R11 K220 [".PresetImage"]
+      770 NEWTABLE                         R12 0 0
+      772 NEWTABLE                         R13 0 3
+      774 MOVE                             R14 R2
+      775 LOADK                            R15 K77 ["::UIPadding"]
+      776 DUPTABLE                         R16 K80 [{"PaddingTop", "PaddingBottom"}]
+      777 GETIMPORT                        R17 K82 [UDim.new]
+      779 LOADN                            R18 0
+      780 LOADN                            R19 8
+      781 CALL                             R17 2 1
+      782 SETTABLEKS                       R17 R16 K78 ["PaddingTop"]
+      784 GETIMPORT                        R17 K82 [UDim.new]
+      786 LOADN                            R18 0
+      787 LOADN                            R19 8
+      788 CALL                             R17 2 1
+      789 SETTABLEKS                       R17 R16 K79 ["PaddingBottom"]
+      791 CALL                             R14 2 1
+      792 MOVE                             R15 R2
+      793 LOADK                            R16 K221 [".PlayerChoice"]
+      794 DUPTABLE                         R17 K223 [{["Image"] = "$PlayerChoicePresetImage"}]
+      795 CALL                             R15 2 1
+      796 MOVE                             R16 R2
+      797 LOADK                            R17 K224 [".Consistent"]
+      798 DUPTABLE                         R18 K226 [{["Image"] = "$ConsistentPresetImage"}]
+      799 CALL                             R16 2 -1
+      800 SETLIST                          R13 R14 -1 [1]
+      802 CALL                             R10 3 1
+      803 MOVE                             R11 R2
+      804 LOADK                            R12 K227 [".HoverTooltipPresetImage"]
+      805 NEWTABLE                         R13 0 0
+      807 NEWTABLE                         R14 0 2
+      809 MOVE                             R15 R2
+      810 LOADK                            R16 K221 [".PlayerChoice"]
+      811 DUPTABLE                         R17 K223 [{["Image"] = "$PlayerChoicePresetImage"}]
+      812 CALL                             R15 2 1
+      813 MOVE                             R16 R2
+      814 LOADK                            R17 K224 [".Consistent"]
+      815 DUPTABLE                         R18 K226 [{["Image"] = "$ConsistentPresetImage"}]
+      816 CALL                             R16 2 -1
+      817 SETLIST                          R14 R15 -1 [1]
+      819 CALL                             R11 3 1
+      820 MOVE                             R12 R2
+      821 LOADK                            R13 K228 [".SaveToRobloxButton"]
+      822 NEWTABLE                         R14 0 0
+      824 NEWTABLE                         R15 0 1
+      826 MOVE                             R16 R2
+      827 LOADK                            R17 K229 [">> TextLabel"]
+      828 DUPTABLE                         R18 K231 [{["TextSize"] = 20, ["FontFace"]}]
+      829 GETIMPORT                        R19 K212 [Font.new]
+      831 LOADK                            R20 K213 ["rbxasset://fonts/families/SourceSansPro.json"]
+      832 GETIMPORT                        R21 K233 [Enum.FontWeight.Bold]
+      834 GETIMPORT                        R22 K219 [Enum.FontStyle.Normal]
+      836 CALL                             R19 3 1
+      837 SETTABLEKS                       R19 R18 K209 ["FontFace"]
+      839 NEWTABLE                         R19 0 1
+      841 MOVE                             R20 R2
+      842 LOADK                            R21 K234 ["UIPadding"]
+      843 DUPTABLE                         R22 K80 [{"PaddingTop", "PaddingBottom"}]
+      844 GETIMPORT                        R23 K82 [UDim.new]
+      846 LOADN                            R24 0
+      847 LOADN                            R25 4
+      848 CALL                             R23 2 1
+      849 SETTABLEKS                       R23 R22 K78 ["PaddingTop"]
+      851 GETIMPORT                        R23 K82 [UDim.new]
+      853 LOADN                            R24 0
+      854 LOADN                            R25 4
+      855 CALL                             R23 2 1
+      856 SETTABLEKS                       R23 R22 K79 ["PaddingBottom"]
+      858 CALL                             R20 2 -1
+      859 SETLIST                          R19 R20 -1 [1]
+      861 CALL                             R16 3 -1
+      862 SETLIST                          R15 R16 -1 [1]
+      864 CALL                             R12 3 1
+      865 MOVE                             R13 R2
+      866 LOADK                            R14 K235 ["TextLabel"]
+      867 NEWTABLE                         R15 0 0
+      869 NEWTABLE                         R16 0 1
+      871 MOVE                             R17 R2
+      872 LOADK                            R18 K236 [".Bold"]
+      873 DUPTABLE                         R19 K210 [{"FontFace"}]
+      874 GETIMPORT                        R20 K212 [Font.new]
+      876 LOADK                            R21 K213 ["rbxasset://fonts/families/SourceSansPro.json"]
+      877 GETIMPORT                        R22 K233 [Enum.FontWeight.Bold]
+      879 GETIMPORT                        R23 K219 [Enum.FontStyle.Normal]
+      881 CALL                             R20 3 1
+      882 SETTABLEKS                       R20 R19 K209 ["FontFace"]
+      884 CALL                             R17 2 -1
+      885 SETLIST                          R16 R17 -1 [1]
+      887 CALL                             R13 3 1
+      888 MOVE                             R14 R2
+      889 LOADK                            R15 K237 ["TextButton"]
+      890 DUPTABLE                         R16 K238 [{["FontFace"], ["TextSize"] = 18}]
+      891 GETIMPORT                        R17 K212 [Font.new]
+      893 LOADK                            R18 K213 ["rbxasset://fonts/families/SourceSansPro.json"]
+      894 GETIMPORT                        R19 K240 [Enum.FontWeight.Medium]
+      896 GETIMPORT                        R20 K219 [Enum.FontStyle.Normal]
+      898 CALL                             R17 3 1
+      899 SETTABLEKS                       R17 R16 K209 ["FontFace"]
+      901 CALL                             R14 2 1
+      902 MOVE                             R15 R2
+      903 LOADK                            R16 K241 ["UIListLayout"]
+      904 DUPTABLE                         R17 K243 [{"SortOrder"}]
+      905 GETIMPORT                        R18 K245 [Enum.SortOrder.LayoutOrder]
+      907 SETTABLEKS                       R18 R17 K242 ["SortOrder"]
+      909 CALL                             R15 2 -1
+      910 SETLIST                          R5 R6 -1 [33]
+      912 NEWTABLE                         R6 0 0
+      914 MOVE                             R7 R3
+      915 LOADK                            R8 K2 ["AvatarSettings"]
+      916 MOVE                             R9 R5
+      917 MOVE                             R10 R6
+      918 CALL                             R7 3 -1
+      919 RETURN                           R7 -1

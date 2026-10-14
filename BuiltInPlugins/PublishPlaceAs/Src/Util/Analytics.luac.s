@@ -19,52 +19,45 @@ PROTO_1:
        14 CALL                             R3 1 1
        15 SETTABLEKS                       R3 R2 K3 ["studioSid"]
        17 LOADB                            R3 0
-       18 GETUPVAL                         R4 2
-       19 JUMPIFNOT                        R4 ; [+26]
-       20 GETIMPORT                        R4 K8 [script]
-       22 LOADK                            R6 K9 ["Plugin"]
-       23 NAMECALL                         R4 R4 K10 ["FindFirstAncestorWhichIsA"]
-       25 CALL                             R4 2 1
-       26 MOVE                             R5 R4
-       27 JUMPIFNOT                        R5 ; [+4]
-       28 LOADK                            R7 K11 ["PlaceSessionContextBridge"]
-       29 NAMECALL                         R5 R4 K12 ["GetPluginComponent"]
-       31 CALL                             R5 2 1
-       32 JUMPIFNOT                        R5 ; [+18]
-       33 GETIMPORT                        R6 K14 [pcall]
-       35 NEWCLOSURE                       R7 P0
-       36 CAPTURE                          VAL R5
-       37 CALL                             R6 1 2
-       38 MOVE                             R8 R6
-       39 JUMPIFNOT                        R8 ; [+4]
-       40 JUMPIFEQKB                       R7 TRUE ; [+2]
-       42 LOADB                            R8 0 +1
-       43 LOADB                            R8 1
-       44 MOVE                             R3 R8
-       45 JUMP                             ; [+5]
-       46 GETUPVAL                         R4 0
-       47 NAMECALL                         R4 R4 K15 ["GetPlaceIsPersistedToCloud"]
-       49 CALL                             R4 1 1
-       50 MOVE                             R3 R4
-       51 JUMPIFNOT                        R3 ; [+15]
-       52 GETUPVAL                         R4 3
-       53 GETTABLEKS                       R4 R4 K16 ["Dictionary"]
-       55 GETTABLEKS                       R4 R4 K17 ["join"]
-       57 MOVE                             R5 R2
-       58 DUPTABLE                         R6 K19 [{"placeId"}]
-       59 GETIMPORT                        R7 K21 [game]
-       61 GETTABLEKS                       R7 R7 K22 ["PlaceId"]
-       63 SETTABLEKS                       R7 R6 K18 ["placeId"]
-       65 CALL                             R4 2 1
-       66 MOVE                             R2 R4
-       67 GETUPVAL                         R4 1
-       68 LOADK                            R6 K23 ["studio"]
-       69 LOADK                            R7 K24 ["TeamCreate"]
-       70 MOVE                             R8 R1
-       71 MOVE                             R9 R2
-       72 NAMECALL                         R4 R4 K25 ["SendEventDeferred"]
-       74 CALL                             R4 5 0
-       75 RETURN                           R0 0
+       18 GETIMPORT                        R4 K8 [script]
+       20 LOADK                            R6 K9 ["Plugin"]
+       21 NAMECALL                         R4 R4 K10 ["FindFirstAncestorWhichIsA"]
+       23 CALL                             R4 2 1
+       24 MOVE                             R5 R4
+       25 JUMPIFNOT                        R5 ; [+4]
+       26 LOADK                            R7 K11 ["PlaceSessionContextBridge"]
+       27 NAMECALL                         R5 R4 K12 ["GetPluginComponent"]
+       29 CALL                             R5 2 1
+       30 JUMPIFNOT                        R5 ; [+12]
+       31 GETIMPORT                        R6 K14 [pcall]
+       33 NEWCLOSURE                       R7 P0
+       34 CAPTURE                          VAL R5
+       35 CALL                             R6 1 2
+       36 MOVE                             R8 R6
+       37 JUMPIFNOT                        R8 ; [+4]
+       38 JUMPIFEQKB                       R7 TRUE ; [+2]
+       40 LOADB                            R8 0 +1
+       41 LOADB                            R8 1
+       42 MOVE                             R3 R8
+       43 JUMPIFNOT                        R3 ; [+15]
+       44 GETUPVAL                         R6 2
+       45 GETTABLEKS                       R6 R6 K15 ["Dictionary"]
+       47 GETTABLEKS                       R6 R6 K16 ["join"]
+       49 MOVE                             R7 R2
+       50 DUPTABLE                         R8 K18 [{"placeId"}]
+       51 GETIMPORT                        R9 K20 [game]
+       53 GETTABLEKS                       R9 R9 K21 ["PlaceId"]
+       55 SETTABLEKS                       R9 R8 K17 ["placeId"]
+       57 CALL                             R6 2 1
+       58 MOVE                             R2 R6
+       59 GETUPVAL                         R6 1
+       60 LOADK                            R8 K22 ["studio"]
+       61 LOADK                            R9 K23 ["TeamCreate"]
+       62 MOVE                             R10 R1
+       63 MOVE                             R11 R2
+       64 NAMECALL                         R6 R6 K24 ["SendEventDeferred"]
+       66 CALL                             R6 5 0
+       67 RETURN                           R0 0
 
 PROTO_2:
         0 DUPTABLE                         R4 K5 [{"userId", "dataSharingFetchState", "dataSharingEnabled", "universeId", "groupId"}]
@@ -165,34 +158,29 @@ MAIN:
        25 GETTABLEKS                       R4 R4 K11 ["Cryo"]
        27 CALL                             R3 1 1
        28 NEWTABLE                         R4 4 0
-       30 GETIMPORT                        R5 K1 [game]
-       32 LOADK                            R7 K12 ["AddGetPlaceIsPersistedToCloudPscBridge"]
-       33 NAMECALL                         R5 R5 K13 ["GetEngineFeature"]
-       35 CALL                             R5 2 1
-       36 GETIMPORT                        R6 K9 [require]
-       38 GETTABLEKS                       R7 R2 K14 ["Src"]
-       40 GETTABLEKS                       R7 R7 K15 ["Flags"]
-       42 GETTABLEKS                       R7 R7 K16 ["getEngineFeatureStudioUnifiedPublishAction"]
-       44 CALL                             R6 1 1
-       45 DUPCLOSURE                       R7 K17 [PROTO_1]
+       30 GETIMPORT                        R5 K9 [require]
+       32 GETTABLEKS                       R6 R2 K12 ["Src"]
+       34 GETTABLEKS                       R6 R6 K13 ["Flags"]
+       36 GETTABLEKS                       R6 R6 K14 ["getEngineFeatureStudioUnifiedPublishAction"]
+       38 CALL                             R5 1 1
+       39 DUPCLOSURE                       R6 K15 [PROTO_1]
+       40 CAPTURE                          VAL R1
+       41 CAPTURE                          VAL R0
+       42 CAPTURE                          VAL R3
+       43 SETTABLEKS                       R6 R4 K16 ["reportSaveCancel"]
+       45 DUPCLOSURE                       R6 K17 [PROTO_2]
        46 CAPTURE                          VAL R1
        47 CAPTURE                          VAL R0
-       48 CAPTURE                          VAL R5
-       49 CAPTURE                          VAL R3
-       50 SETTABLEKS                       R7 R4 K18 ["reportSaveCancel"]
-       52 DUPCLOSURE                       R7 K19 [PROTO_2]
-       53 CAPTURE                          VAL R1
-       54 CAPTURE                          VAL R0
-       55 SETTABLEKS                       R7 R4 K20 ["reportDataSharingToEventIngest"]
-       57 DUPCLOSURE                       R7 K21 [PROTO_3]
+       48 SETTABLEKS                       R6 R4 K18 ["reportDataSharingToEventIngest"]
+       50 DUPCLOSURE                       R6 K19 [PROTO_3]
+       51 CAPTURE                          VAL R3
+       52 CAPTURE                          VAL R1
+       53 CAPTURE                          VAL R0
+       54 SETTABLEKS                       R6 R4 K20 ["sendEventDeferred"]
+       56 DUPCLOSURE                       R6 K21 [PROTO_4]
+       57 CAPTURE                          VAL R5
        58 CAPTURE                          VAL R3
        59 CAPTURE                          VAL R1
        60 CAPTURE                          VAL R0
-       61 SETTABLEKS                       R7 R4 K22 ["sendEventDeferred"]
-       63 DUPCLOSURE                       R7 K23 [PROTO_4]
-       64 CAPTURE                          VAL R6
-       65 CAPTURE                          VAL R3
-       66 CAPTURE                          VAL R1
-       67 CAPTURE                          VAL R0
-       68 SETTABLEKS                       R7 R4 K24 ["reportFirstPublishFlow"]
-       70 RETURN                           R4 1
+       61 SETTABLEKS                       R6 R4 K22 ["reportFirstPublishFlow"]
+       63 RETURN                           R4 1

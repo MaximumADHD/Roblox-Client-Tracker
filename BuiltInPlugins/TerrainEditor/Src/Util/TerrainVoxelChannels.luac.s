@@ -193,6 +193,21 @@ PROTO_8:
        30 RETURN                           R2 1
 
 PROTO_9:
+        0 NEWTABLE                         R1 0 0
+        2 LOADN                            R4 2
+        3 LOADN                            R2 63
+        4 LOADN                            R3 1
+        5 FORNPREP                         R2
+        6 MOVE                             R7 R4
+        7 NAMECALL                         R5 R0 K0 ["IsMaterialSlotInvalid"]
+        9 CALL                             R5 2 1
+       10 JUMPIFNOT                        R5 ; [+2]
+       11 LOADB                            R5 1
+       12 SETTABLE                         R5 R1 R4
+       13 FORNLOOP                         R2
+       14 RETURN                           R1 1
+
+PROTO_10:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["isSlotValid"]
         3 MOVE                             R4 R0
@@ -207,7 +222,7 @@ PROTO_9:
        15 CALL                             R2 2 0
        16 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 MOVE                             R2 R1
         1 LOADNIL                          R3
         2 LOADNIL                          R4
@@ -220,7 +235,7 @@ PROTO_10:
        10 FORGLOOP                         R2 1 ; [-7]
        12 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 MOVE                             R4 R1
         1 GETUPVAL                         R5 0
         2 GETTABLEKS                       R5 R5 K0 ["VoxelResolution"]
@@ -236,7 +251,7 @@ PROTO_11:
        19 SETTABLEKS                       R4 R3 K4 ["LiquidOccupancy"]
        21 RETURN                           R3 1
 
-PROTO_12:
+PROTO_13:
         0 MOVE                             R5 R1
         1 GETUPVAL                         R6 0
         2 GETTABLEKS                       R6 R6 K0 ["VoxelResolution"]
@@ -245,7 +260,7 @@ PROTO_12:
         7 CALL                             R3 4 0
         8 RETURN                           R0 0
 
-PROTO_13:
+PROTO_14:
         0 MOVE                             R4 R2
         1 LOADNIL                          R5
         2 LOADNIL                          R6
@@ -273,7 +288,7 @@ PROTO_13:
        28 CALL                             R6 3 0
        29 RETURN                           R5 1
 
-PROTO_14:
+PROTO_15:
         0 LOADB                            R4 0
         1 MODK                             R5 R1 K0 [1]
         2 JUMPIFNOTEQKN                    R5 K1 [0] ; [+10]
@@ -346,7 +361,7 @@ PROTO_14:
        98 MOVE                             R7 R5
        99 RETURN                           R6 2
 
-PROTO_15:
+PROTO_16:
         0 GETUPVAL                         R6 0
         1 GETTABLEKS                       R6 R6 K0 ["transition"]
         3 GETUPVAL                         R7 0
@@ -370,7 +385,7 @@ PROTO_15:
        23 CALL                             R8 5 0
        24 RETURN                           R7 1
 
-PROTO_16:
+PROTO_17:
         0 LOADB                            R7 0
         1 MODK                             R8 R4 K0 [1]
         2 JUMPIFNOTEQKN                    R8 K1 [0] ; [+10]
@@ -504,26 +519,28 @@ MAIN:
        48 DUPCLOSURE                       R5 K32 [PROTO_8]
        49 SETTABLEKS                       R5 R3 K33 ["isSlotValid"]
        51 DUPCLOSURE                       R5 K34 [PROTO_9]
-       52 CAPTURE                          VAL R3
-       53 SETTABLEKS                       R5 R3 K35 ["assertSlotValid"]
-       55 DUPCLOSURE                       R5 K36 [PROTO_10]
-       56 CAPTURE                          VAL R3
-       57 SETTABLEKS                       R5 R3 K37 ["assertSlotsValid"]
-       59 DUPCLOSURE                       R5 K38 [PROTO_11]
-       60 CAPTURE                          VAL R1
-       61 CAPTURE                          VAL R2
-       62 SETTABLEKS                       R5 R3 K39 ["read"]
-       64 DUPCLOSURE                       R5 K40 [PROTO_12]
-       65 CAPTURE                          VAL R1
-       66 SETTABLEKS                       R5 R3 K41 ["write"]
-       68 DUPCLOSURE                       R5 K42 [PROTO_13]
-       69 CAPTURE                          VAL R3
-       70 SETTABLEKS                       R5 R3 K43 ["edit"]
-       72 DUPCLOSURE                       R5 K44 [PROTO_14]
-       73 SETTABLEKS                       R5 R3 K45 ["transition"]
+       52 SETTABLEKS                       R5 R3 K35 ["getInvalidSlotIndices"]
+       54 DUPCLOSURE                       R5 K36 [PROTO_10]
+       55 CAPTURE                          VAL R3
+       56 SETTABLEKS                       R5 R3 K37 ["assertSlotValid"]
+       58 DUPCLOSURE                       R5 K38 [PROTO_11]
+       59 CAPTURE                          VAL R3
+       60 SETTABLEKS                       R5 R3 K39 ["assertSlotsValid"]
+       62 DUPCLOSURE                       R5 K40 [PROTO_12]
+       63 CAPTURE                          VAL R1
+       64 CAPTURE                          VAL R2
+       65 SETTABLEKS                       R5 R3 K41 ["read"]
+       67 DUPCLOSURE                       R5 K42 [PROTO_13]
+       68 CAPTURE                          VAL R1
+       69 SETTABLEKS                       R5 R3 K43 ["write"]
+       71 DUPCLOSURE                       R5 K44 [PROTO_14]
+       72 CAPTURE                          VAL R3
+       73 SETTABLEKS                       R5 R3 K45 ["edit"]
        75 DUPCLOSURE                       R5 K46 [PROTO_15]
-       76 CAPTURE                          VAL R3
-       77 SETTABLEKS                       R5 R3 K47 ["transitionAt"]
-       79 DUPCLOSURE                       R5 K48 [PROTO_16]
-       80 SETTABLEKS                       R5 R3 K49 ["transitionAtWithWaterMerge"]
-       82 RETURN                           R3 1
+       76 SETTABLEKS                       R5 R3 K47 ["transition"]
+       78 DUPCLOSURE                       R5 K48 [PROTO_16]
+       79 CAPTURE                          VAL R3
+       80 SETTABLEKS                       R5 R3 K49 ["transitionAt"]
+       82 DUPCLOSURE                       R5 K50 [PROTO_17]
+       83 SETTABLEKS                       R5 R3 K51 ["transitionAtWithWaterMerge"]
+       85 RETURN                           R3 1

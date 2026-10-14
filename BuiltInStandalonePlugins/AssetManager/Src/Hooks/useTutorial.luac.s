@@ -26,9 +26,14 @@ PROTO_2:
        10 GETUPVAL                         R2 1
        11 NAMECALL                         R0 R0 K1 ["Connect"]
        13 CALL                             R0 2 1
-       14 NEWCLOSURE                       R1 P0
-       15 CAPTURE                          VAL R0
-       16 RETURN                           R1 1
+       14 GETUPVAL                         R1 1
+       15 GETUPVAL                         R2 0
+       16 NAMECALL                         R2 R2 K2 ["getTutorialState"]
+       18 CALL                             R2 1 -1
+       19 CALL                             R1 -1 0
+       20 NEWCLOSURE                       R1 P0
+       21 CAPTURE                          VAL R0
+       22 RETURN                           R1 1
 
 PROTO_3:
         0 GETUPVAL                         R0 0

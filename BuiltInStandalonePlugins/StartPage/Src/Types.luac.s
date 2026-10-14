@@ -13,5 +13,10 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K9 ["Constants"]
        20 GETTABLEKS                       R3 R3 K10 ["Audience"]
        22 CALL                             R2 1 1
-       23 NEWTABLE                         R3 0 0
-       25 RETURN                           R3 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Models"]
+       29 GETTABLEKS                       R4 R4 K12 ["UniverseReachStatusResponse"]
+       31 CALL                             R3 1 1
+       32 NEWTABLE                         R4 0 0
+       34 RETURN                           R4 1

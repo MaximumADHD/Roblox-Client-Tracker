@@ -833,131 +833,125 @@ MAIN:
         3 LOADK                            R2 K2 ["TerrainEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
-        9 GETTABLEKS                       R1 R1 K5 ["DraggerFramework"]
-       11 GETIMPORT                        R2 K7 [require]
-       13 GETTABLEKS                       R3 R0 K4 ["Packages"]
-       15 GETTABLEKS                       R3 R3 K8 ["React"]
-       17 CALL                             R2 1 1
-       18 GETTABLEKS                       R3 R2 K9 ["useCallback"]
-       20 GETTABLEKS                       R4 R2 K10 ["useEffect"]
-       22 GETTABLEKS                       R5 R2 K11 ["useMemo"]
-       24 GETTABLEKS                       R6 R2 K12 ["useState"]
-       26 GETIMPORT                        R7 K7 [require]
-       28 GETTABLEKS                       R8 R0 K13 ["Src"]
-       30 GETTABLEKS                       R8 R8 K14 ["Schemas"]
-       32 GETTABLEKS                       R8 R8 K15 ["Region"]
-       34 CALL                             R7 1 1
-       35 GETIMPORT                        R8 K7 [require]
-       37 GETTABLEKS                       R9 R1 K16 ["Implementation"]
-       39 GETTABLEKS                       R9 R9 K17 ["DraggerContext_PluginImpl"]
-       41 CALL                             R8 1 1
-       42 GETIMPORT                        R9 K7 [require]
-       44 GETTABLEKS                       R10 R1 K18 ["Handles"]
-       46 GETTABLEKS                       R10 R10 K19 ["MoveHandles"]
-       48 CALL                             R9 1 1
-       49 GETIMPORT                        R10 K7 [require]
-       51 GETTABLEKS                       R11 R1 K18 ["Handles"]
-       53 GETTABLEKS                       R11 R11 K20 ["RotateHandles"]
-       55 CALL                             R10 1 1
-       56 GETIMPORT                        R11 K7 [require]
-       58 GETTABLEKS                       R12 R1 K18 ["Handles"]
-       60 GETTABLEKS                       R12 R12 K21 ["ExtrudeHandles"]
-       62 CALL                             R11 1 1
-       63 GETIMPORT                        R12 K7 [require]
-       65 GETTABLEKS                       R13 R0 K13 ["Src"]
-       67 GETTABLEKS                       R13 R13 K22 ["Util"]
-       69 GETTABLEKS                       R13 R13 K23 ["getVoxelAlignedRegion"]
-       71 CALL                             R12 1 1
-       72 GETTABLEKS                       R13 R0 K13 ["Src"]
-       74 GETTABLEKS                       R13 R13 K24 ["Hooks"]
-       76 GETIMPORT                        R14 K7 [require]
-       78 GETTABLEKS                       R15 R13 K25 ["useHistory"]
-       80 CALL                             R14 1 1
-       81 GETIMPORT                        R15 K7 [require]
-       83 GETTABLEKS                       R16 R0 K13 ["Src"]
-       85 GETTABLEKS                       R16 R16 K26 ["Resources"]
-       87 GETTABLEKS                       R16 R16 K27 ["Constants"]
-       89 CALL                             R15 1 1
-       90 GETIMPORT                        R16 K7 [require]
-       92 GETTABLEKS                       R17 R0 K13 ["Src"]
-       94 GETTABLEKS                       R17 R17 K28 ["Types"]
-       96 CALL                             R16 1 1
-       97 GETTABLEKS                       R17 R16 K29 ["Category"]
-       99 GETTABLEKS                       R18 R16 K30 ["OperationSource"]
-      101 GETTABLEKS                       R19 R16 K31 ["SeaLevelSettings"]
-      103 GETTABLEKS                       R20 R16 K32 ["SelectionSettings"]
-      105 GETTABLEKS                       R21 R16 K33 ["Tool"]
-      107 GETTABLEKS                       R22 R16 K34 ["TransformMode"]
-      109 GETTABLEKS                       R23 R16 K35 ["TransformSettings"]
-      111 GETIMPORT                        R24 K7 [require]
-      113 GETTABLEKS                       R25 R0 K13 ["Src"]
-      115 GETTABLEKS                       R25 R25 K36 ["Controllers"]
-      117 GETTABLEKS                       R25 R25 K37 ["PluginController"]
-      119 CALL                             R24 1 1
-      120 GETIMPORT                        R25 K39 [game]
-      122 LOADK                            R27 K40 ["StudioService"]
-      123 NAMECALL                         R25 R25 K41 ["GetService"]
-      125 CALL                             R25 2 1
-      126 NEWTABLE                         R26 8 0
-      128 GETTABLEKS                       R27 R21 K42 ["Transform"]
-      130 GETTABLEKS                       R28 R17 K35 ["TransformSettings"]
-      132 SETTABLE                         R28 R26 R27
-      133 GETTABLEKS                       R27 R21 K43 ["Select"]
-      135 GETTABLEKS                       R28 R17 K32 ["SelectionSettings"]
-      137 SETTABLE                         R28 R26 R27
-      138 GETTABLEKS                       R27 R21 K44 ["Generate"]
-      140 GETTABLEKS                       R28 R17 K32 ["SelectionSettings"]
-      142 SETTABLE                         R28 R26 R27
-      143 GETTABLEKS                       R27 R21 K45 ["Fill"]
-      145 GETTABLEKS                       R28 R17 K32 ["SelectionSettings"]
-      147 SETTABLE                         R28 R26 R27
-      148 GETTABLEKS                       R27 R21 K46 ["Import"]
-      150 GETTABLEKS                       R28 R17 K32 ["SelectionSettings"]
-      152 SETTABLE                         R28 R26 R27
-      153 GETTABLEKS                       R27 R21 K47 ["SeaLevel"]
-      155 GETTABLEKS                       R28 R17 K31 ["SeaLevelSettings"]
-      157 SETTABLE                         R28 R26 R27
-      158 GETTABLEKS                       R27 R21 K48 ["Mock"]
-      160 GETTABLEKS                       R28 R17 K32 ["SelectionSettings"]
-      162 SETTABLE                         R28 R26 R27
-      163 NEWTABLE                         R27 8 0
-      165 GETTABLEKS                       R28 R21 K42 ["Transform"]
-      167 SETTABLE                         R23 R27 R28
-      168 GETTABLEKS                       R28 R21 K43 ["Select"]
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["DraggerFramework"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R3 R2 K9 ["useCallback"]
+       23 GETTABLEKS                       R4 R2 K10 ["useEffect"]
+       25 GETTABLEKS                       R5 R2 K11 ["useMemo"]
+       27 GETTABLEKS                       R6 R2 K12 ["useState"]
+       29 GETIMPORT                        R7 K5 [require]
+       31 GETTABLEKS                       R8 R0 K13 ["Src"]
+       33 GETTABLEKS                       R8 R8 K14 ["Schemas"]
+       35 GETTABLEKS                       R8 R8 K15 ["Region"]
+       37 CALL                             R7 1 1
+       38 GETTABLEKS                       R8 R1 K16 ["Implementation"]
+       40 GETTABLEKS                       R8 R8 K17 ["DraggerContext_PluginImpl"]
+       42 GETTABLEKS                       R9 R1 K18 ["Handles"]
+       44 GETTABLEKS                       R9 R9 K19 ["MoveHandles"]
+       46 GETTABLEKS                       R10 R1 K18 ["Handles"]
+       48 GETTABLEKS                       R10 R10 K20 ["RotateHandles"]
+       50 GETTABLEKS                       R11 R1 K18 ["Handles"]
+       52 GETTABLEKS                       R11 R11 K21 ["ExtrudeHandles"]
+       54 GETIMPORT                        R12 K5 [require]
+       56 GETTABLEKS                       R13 R0 K13 ["Src"]
+       58 GETTABLEKS                       R13 R13 K22 ["Util"]
+       60 GETTABLEKS                       R13 R13 K23 ["getVoxelAlignedRegion"]
+       62 CALL                             R12 1 1
+       63 GETTABLEKS                       R13 R0 K13 ["Src"]
+       65 GETTABLEKS                       R13 R13 K24 ["Hooks"]
+       67 GETIMPORT                        R14 K5 [require]
+       69 GETTABLEKS                       R15 R13 K25 ["useHistory"]
+       71 CALL                             R14 1 1
+       72 GETIMPORT                        R15 K5 [require]
+       74 GETTABLEKS                       R16 R0 K13 ["Src"]
+       76 GETTABLEKS                       R16 R16 K26 ["Resources"]
+       78 GETTABLEKS                       R16 R16 K27 ["Constants"]
+       80 CALL                             R15 1 1
+       81 GETIMPORT                        R16 K5 [require]
+       83 GETTABLEKS                       R17 R0 K13 ["Src"]
+       85 GETTABLEKS                       R17 R17 K28 ["Types"]
+       87 CALL                             R16 1 1
+       88 GETTABLEKS                       R17 R16 K29 ["Category"]
+       90 GETTABLEKS                       R18 R16 K30 ["OperationSource"]
+       92 GETTABLEKS                       R19 R16 K31 ["SeaLevelSettings"]
+       94 GETTABLEKS                       R20 R16 K32 ["SelectionSettings"]
+       96 GETTABLEKS                       R21 R16 K33 ["Tool"]
+       98 GETTABLEKS                       R22 R16 K34 ["TransformMode"]
+      100 GETTABLEKS                       R23 R16 K35 ["TransformSettings"]
+      102 GETIMPORT                        R24 K5 [require]
+      104 GETTABLEKS                       R25 R0 K13 ["Src"]
+      106 GETTABLEKS                       R25 R25 K36 ["Controllers"]
+      108 GETTABLEKS                       R25 R25 K37 ["PluginController"]
+      110 CALL                             R24 1 1
+      111 GETIMPORT                        R25 K39 [game]
+      113 LOADK                            R27 K40 ["StudioService"]
+      114 NAMECALL                         R25 R25 K41 ["GetService"]
+      116 CALL                             R25 2 1
+      117 NEWTABLE                         R26 8 0
+      119 GETTABLEKS                       R27 R21 K42 ["Transform"]
+      121 GETTABLEKS                       R28 R17 K35 ["TransformSettings"]
+      123 SETTABLE                         R28 R26 R27
+      124 GETTABLEKS                       R27 R21 K43 ["Select"]
+      126 GETTABLEKS                       R28 R17 K32 ["SelectionSettings"]
+      128 SETTABLE                         R28 R26 R27
+      129 GETTABLEKS                       R27 R21 K44 ["Generate"]
+      131 GETTABLEKS                       R28 R17 K32 ["SelectionSettings"]
+      133 SETTABLE                         R28 R26 R27
+      134 GETTABLEKS                       R27 R21 K45 ["Fill"]
+      136 GETTABLEKS                       R28 R17 K32 ["SelectionSettings"]
+      138 SETTABLE                         R28 R26 R27
+      139 GETTABLEKS                       R27 R21 K46 ["Import"]
+      141 GETTABLEKS                       R28 R17 K32 ["SelectionSettings"]
+      143 SETTABLE                         R28 R26 R27
+      144 GETTABLEKS                       R27 R21 K47 ["SeaLevel"]
+      146 GETTABLEKS                       R28 R17 K31 ["SeaLevelSettings"]
+      148 SETTABLE                         R28 R26 R27
+      149 GETTABLEKS                       R27 R21 K48 ["Mock"]
+      151 GETTABLEKS                       R28 R17 K32 ["SelectionSettings"]
+      153 SETTABLE                         R28 R26 R27
+      154 NEWTABLE                         R27 8 0
+      156 GETTABLEKS                       R28 R21 K42 ["Transform"]
+      158 SETTABLE                         R23 R27 R28
+      159 GETTABLEKS                       R28 R21 K43 ["Select"]
+      161 SETTABLE                         R20 R27 R28
+      162 GETTABLEKS                       R28 R21 K44 ["Generate"]
+      164 SETTABLE                         R20 R27 R28
+      165 GETTABLEKS                       R28 R21 K45 ["Fill"]
+      167 SETTABLE                         R20 R27 R28
+      168 GETTABLEKS                       R28 R21 K46 ["Import"]
       170 SETTABLE                         R20 R27 R28
-      171 GETTABLEKS                       R28 R21 K44 ["Generate"]
-      173 SETTABLE                         R20 R27 R28
-      174 GETTABLEKS                       R28 R21 K45 ["Fill"]
+      171 GETTABLEKS                       R28 R21 K47 ["SeaLevel"]
+      173 SETTABLE                         R19 R27 R28
+      174 GETTABLEKS                       R28 R21 K48 ["Mock"]
       176 SETTABLE                         R20 R27 R28
-      177 GETTABLEKS                       R28 R21 K46 ["Import"]
-      179 SETTABLE                         R20 R27 R28
-      180 GETTABLEKS                       R28 R21 K47 ["SeaLevel"]
-      182 SETTABLE                         R19 R27 R28
-      183 GETTABLEKS                       R28 R21 K48 ["Mock"]
-      185 SETTABLE                         R20 R27 R28
-      186 DUPCLOSURE                       R28 K49 [PROTO_15]
-      187 CAPTURE                          VAL R24
-      188 CAPTURE                          VAL R6
-      189 CAPTURE                          VAL R26
-      190 CAPTURE                          VAL R27
-      191 CAPTURE                          VAL R5
-      192 CAPTURE                          VAL R7
-      193 CAPTURE                          VAL R3
-      194 CAPTURE                          VAL R21
-      195 CAPTURE                          VAL R17
-      196 CAPTURE                          VAL R20
-      197 CAPTURE                          VAL R23
-      198 CAPTURE                          VAL R22
-      199 CAPTURE                          VAL R14
-      200 CAPTURE                          VAL R18
-      201 CAPTURE                          VAL R25
-      202 CAPTURE                          VAL R8
-      203 CAPTURE                          VAL R0
-      204 CAPTURE                          VAL R11
-      205 CAPTURE                          VAL R15
-      206 CAPTURE                          VAL R9
-      207 CAPTURE                          VAL R10
-      208 CAPTURE                          VAL R4
-      209 CAPTURE                          VAL R12
-      210 RETURN                           R28 1
+      177 DUPCLOSURE                       R28 K49 [PROTO_15]
+      178 CAPTURE                          VAL R24
+      179 CAPTURE                          VAL R6
+      180 CAPTURE                          VAL R26
+      181 CAPTURE                          VAL R27
+      182 CAPTURE                          VAL R5
+      183 CAPTURE                          VAL R7
+      184 CAPTURE                          VAL R3
+      185 CAPTURE                          VAL R21
+      186 CAPTURE                          VAL R17
+      187 CAPTURE                          VAL R20
+      188 CAPTURE                          VAL R23
+      189 CAPTURE                          VAL R22
+      190 CAPTURE                          VAL R14
+      191 CAPTURE                          VAL R18
+      192 CAPTURE                          VAL R25
+      193 CAPTURE                          VAL R8
+      194 CAPTURE                          VAL R0
+      195 CAPTURE                          VAL R11
+      196 CAPTURE                          VAL R15
+      197 CAPTURE                          VAL R9
+      198 CAPTURE                          VAL R10
+      199 CAPTURE                          VAL R4
+      200 CAPTURE                          VAL R12
+      201 RETURN                           R28 1

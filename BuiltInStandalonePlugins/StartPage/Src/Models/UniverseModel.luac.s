@@ -213,8 +213,23 @@ PROTO_0:
       304 NAMECALL                         R2 R2 K4 ["format"]
       306 CALL                             R2 2 1
       307 RETURN                           R2 1
-      308 LOADNIL                          R2
-      309 RETURN                           R2 1
+      308 GETUPVAL                         R2 1
+      309 CALL                             R2 0 1
+      310 JUMPIFNOT                        R2 ; [+17]
+      311 GETTABLEKS                       R2 R0 K33 ["reachStatus"]
+      313 JUMPIFEQKNIL                     R2 ; [+14]
+      315 GETUPVAL                         R2 2
+      316 GETTABLEKS                       R2 R2 K34 ["validate"]
+      318 GETTABLEKS                       R3 R0 K33 ["reachStatus"]
+      320 CALL                             R2 1 1
+      321 JUMPIFNOT                        R2 ; [+6]
+      322 LOADK                            R3 K35 ["\"reachStatus\" > %*"]
+      323 MOVE                             R5 R2
+      324 NAMECALL                         R3 R3 K4 ["format"]
+      326 CALL                             R3 2 1
+      327 RETURN                           R3 1
+      328 LOADNIL                          R2
+      329 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -233,8 +248,20 @@ MAIN:
        22 GETTABLEKS                       R3 R3 K10 ["getFFlagLuaStartPageAudiencesReplacement"]
        24 CALL                             R2 1 1
        25 CALL                             R2 0 1
-       26 DUPCLOSURE                       R3 K11 [PROTO_0]
-       27 CAPTURE                          VAL R2
-       28 DUPTABLE                         R4 K13 [{"validate"}]
-       29 SETTABLEKS                       R3 R4 K12 ["validate"]
-       31 RETURN                           R4 1
+       26 GETIMPORT                        R3 K5 [require]
+       28 GETTABLEKS                       R4 R0 K6 ["Src"]
+       30 GETTABLEKS                       R4 R4 K9 ["SharedFlags"]
+       32 GETTABLEKS                       R4 R4 K11 ["getFFlagLuaStartPageReachStatus"]
+       34 CALL                             R3 1 1
+       35 GETIMPORT                        R4 K5 [require]
+       37 GETTABLEKS                       R5 R0 K6 ["Src"]
+       39 GETTABLEKS                       R5 R5 K12 ["Models"]
+       41 GETTABLEKS                       R5 R5 K13 ["UniverseReachStatusResponse"]
+       43 CALL                             R4 1 1
+       44 DUPCLOSURE                       R5 K14 [PROTO_0]
+       45 CAPTURE                          VAL R2
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R4
+       48 DUPTABLE                         R6 K16 [{"validate"}]
+       49 SETTABLEKS                       R5 R6 K15 ["validate"]
+       51 RETURN                           R6 1

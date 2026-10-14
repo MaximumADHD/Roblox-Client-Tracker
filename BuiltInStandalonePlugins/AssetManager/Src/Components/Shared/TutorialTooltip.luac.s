@@ -79,22 +79,22 @@ PROTO_1:
        95 LOADK                            R15 K19 ["Next"]
        96 NAMECALL                         R12 R1 K20 ["getText"]
        98 CALL                             R12 3 1
-       99 DUPTABLE                         R13 K30 [{"title", "text", "isOpen", "anchorRef", "side", "align", "steps", "actions", "onClose", "onPressedOutside"}]
+       99 DUPTABLE                         R13 K31 [{"title", "text", "isOpen", "anchorRef", "side", "align", "hasArrow", "steps", "actions", "onClose", "onPressedOutside"}]
       100 JUMPIFNOT                        R9 ; [+10]
       101 LOADK                            R16 K17 ["Tutorial"]
-      102 GETTABLEKS                       R17 R0 K31 ["titleKeyOverride"]
+      102 GETTABLEKS                       R17 R0 K32 ["titleKeyOverride"]
       104 JUMPIF                           R17 ; [+2]
-      105 GETTABLEKS                       R17 R9 K32 ["titleKey"]
+      105 GETTABLEKS                       R17 R9 K33 ["titleKey"]
       107 NAMECALL                         R14 R1 K20 ["getText"]
       109 CALL                             R14 3 1
       110 JUMP                             ; [+1]
-      111 LOADK                            R14 K33 [""]
+      111 LOADK                            R14 K34 [""]
       112 SETTABLEKS                       R14 R13 K21 ["title"]
       114 JUMPIFNOT                        R9 ; [+10]
       115 LOADK                            R16 K17 ["Tutorial"]
-      116 GETTABLEKS                       R17 R0 K34 ["textKeyOverride"]
+      116 GETTABLEKS                       R17 R0 K35 ["textKeyOverride"]
       118 JUMPIF                           R17 ; [+2]
-      119 GETTABLEKS                       R17 R9 K35 ["textKey"]
+      119 GETTABLEKS                       R17 R9 K36 ["textKey"]
       121 NAMECALL                         R14 R1 K20 ["getText"]
       123 CALL                             R14 3 1
       124 JUMP                             ; [+1]
@@ -106,43 +106,48 @@ PROTO_1:
       134 SETTABLEKS                       R14 R13 K25 ["side"]
       136 GETTABLEKS                       R14 R0 K26 ["align"]
       138 SETTABLEKS                       R14 R13 K26 ["align"]
-      140 JUMPIFNOT                        R3 ; [+10]
-      141 DUPTABLE                         R14 K36 [{"current", "total"}]
-      142 GETTABLEKS                       R15 R3 K9 ["index"]
-      144 SETTABLEKS                       R15 R14 K6 ["current"]
-      146 GETTABLEKS                       R15 R3 K16 ["total"]
-      148 SETTABLEKS                       R15 R14 K16 ["total"]
-      150 JUMP                             ; [+1]
-      151 LOADNIL                          R14
-      152 SETTABLEKS                       R14 R13 K8 ["steps"]
-      154 NEWTABLE                         R14 0 1
-      156 DUPTABLE                         R15 K39 [{"text", "variant", "onActivated"}]
-      157 SETTABLEKS                       R12 R15 K22 ["text"]
-      159 GETUPVAL                         R16 6
-      160 GETTABLEKS                       R16 R16 K40 ["Enums"]
-      162 GETTABLEKS                       R16 R16 K41 ["ButtonVariant"]
-      164 GETTABLEKS                       R16 R16 K42 ["Emphasis"]
-      166 SETTABLEKS                       R16 R15 K37 ["variant"]
-      168 GETTABLEKS                       R16 R2 K43 ["advance"]
-      170 SETTABLEKS                       R16 R15 K38 ["onActivated"]
-      172 SETLIST                          R14 R15 1 [1]
-      174 SETTABLEKS                       R14 R13 K27 ["actions"]
-      176 GETTABLEKS                       R14 R2 K44 ["dismiss"]
-      178 SETTABLEKS                       R14 R13 K28 ["onClose"]
-      180 JUMPIFNOT                        R10 ; [+4]
-      181 NEWCLOSURE                       R14 P0
-      182 CAPTURE                          VAL R2
-      183 CAPTURE                          UPVAL U5
-      184 JUMP                             ; [+1]
-      185 LOADNIL                          R14
-      186 SETTABLEKS                       R14 R13 K29 ["onPressedOutside"]
-      188 GETUPVAL                         R14 3
-      189 GETTABLEKS                       R14 R14 K45 ["createElement"]
-      191 GETUPVAL                         R15 6
-      192 GETTABLEKS                       R15 R15 K46 ["EducationalTooltip"]
-      194 MOVE                             R16 R13
-      195 CALL                             R14 2 -1
-      196 RETURN                           R14 -1
+      140 GETTABLEKS                       R15 R0 K27 ["hasArrow"]
+      142 JUMPIFNOTEQKB                    R15 FALSE ; [+2]
+      144 LOADB                            R14 0 +1
+      145 LOADB                            R14 1
+      146 SETTABLEKS                       R14 R13 K27 ["hasArrow"]
+      148 JUMPIFNOT                        R3 ; [+10]
+      149 DUPTABLE                         R14 K37 [{"current", "total"}]
+      150 GETTABLEKS                       R15 R3 K9 ["index"]
+      152 SETTABLEKS                       R15 R14 K6 ["current"]
+      154 GETTABLEKS                       R15 R3 K16 ["total"]
+      156 SETTABLEKS                       R15 R14 K16 ["total"]
+      158 JUMP                             ; [+1]
+      159 LOADNIL                          R14
+      160 SETTABLEKS                       R14 R13 K8 ["steps"]
+      162 NEWTABLE                         R14 0 1
+      164 DUPTABLE                         R15 K40 [{"text", "variant", "onActivated"}]
+      165 SETTABLEKS                       R12 R15 K22 ["text"]
+      167 GETUPVAL                         R16 6
+      168 GETTABLEKS                       R16 R16 K41 ["Enums"]
+      170 GETTABLEKS                       R16 R16 K42 ["ButtonVariant"]
+      172 GETTABLEKS                       R16 R16 K43 ["Emphasis"]
+      174 SETTABLEKS                       R16 R15 K38 ["variant"]
+      176 GETTABLEKS                       R16 R2 K44 ["advance"]
+      178 SETTABLEKS                       R16 R15 K39 ["onActivated"]
+      180 SETLIST                          R14 R15 1 [1]
+      182 SETTABLEKS                       R14 R13 K28 ["actions"]
+      184 GETTABLEKS                       R14 R2 K45 ["dismiss"]
+      186 SETTABLEKS                       R14 R13 K29 ["onClose"]
+      188 JUMPIFNOT                        R10 ; [+4]
+      189 NEWCLOSURE                       R14 P0
+      190 CAPTURE                          VAL R2
+      191 CAPTURE                          UPVAL U5
+      192 JUMP                             ; [+1]
+      193 LOADNIL                          R14
+      194 SETTABLEKS                       R14 R13 K30 ["onPressedOutside"]
+      196 GETUPVAL                         R14 3
+      197 GETTABLEKS                       R14 R14 K46 ["createElement"]
+      199 GETUPVAL                         R15 6
+      200 GETTABLEKS                       R15 R15 K47 ["EducationalTooltip"]
+      202 MOVE                             R16 R13
+      203 CALL                             R14 2 -1
+      204 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0

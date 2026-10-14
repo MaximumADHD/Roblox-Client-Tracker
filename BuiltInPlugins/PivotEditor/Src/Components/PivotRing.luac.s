@@ -82,9 +82,9 @@ MAIN:
        16 GETIMPORT                        R2 K4 [require]
        18 GETTABLEKS                       R3 R0 K5 ["Packages"]
        20 GETTABLEKS                       R3 R3 K7 ["DraggerFramework"]
-       22 GETTABLEKS                       R3 R3 K8 ["Utility"]
-       24 GETTABLEKS                       R3 R3 K9 ["Colors"]
-       26 CALL                             R2 1 1
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R2 R2 K8 ["Utility"]
+       25 GETTABLEKS                       R2 R2 K9 ["Colors"]
        27 GETTABLEKS                       R3 R1 K10 ["Component"]
        29 LOADK                            R5 K11 ["PivotRing"]
        30 NAMECALL                         R3 R3 K12 ["extend"]

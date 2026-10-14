@@ -821,6 +821,32 @@ PROTO_44:
         2 RETURN                           R0 0
 
 PROTO_45:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 NAMECALL                         R0 R0 K0 ["SetDeviceAndPersistAsync"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
+
+PROTO_46:
+        0 GETIMPORT                        R1 K1 [pcall]
+        2 NEWCLOSURE                       R2 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          VAL R0
+        5 CALL                             R1 1 2
+        6 JUMPIF                           R1 ; [+12]
+        7 GETIMPORT                        R3 K3 [warn]
+        9 LOADK                            R5 K4 ["[DeviceSimulatorToolbar] Failed to select device '"]
+       10 MOVE                             R6 R0
+       11 LOADK                            R7 K5 ["': "]
+       12 FASTCALL1                        TOSTRING R2 ; [+3]
+       13 MOVE                             R9 R2
+       14 GETIMPORT                        R8 K7 [tostring]
+       16 CALL                             R8 1 1
+       17 CONCAT                           R4 R5 R8
+       18 CALL                             R3 1 0
+       19 RETURN                           R1 1
+
+PROTO_47:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 GETTABLEKS                       R2 R0 K0 ["simulatorService"]
@@ -1212,222 +1238,250 @@ PROTO_45:
       490 JUMP                             ; [+1]
       491 LOADNIL                          R63
       492 CALL                             R58 5 1
-      493 JUMPIFNOT                        R35 ; [+6]
-      494 LOADK                            R61 K34 ["Toolbar"]
-      495 LOADK                            R62 K35 ["ServerLabel"]
-      496 NAMECALL                         R59 R1 K36 ["getText"]
-      498 CALL                             R59 3 1
-      499 JUMP                             ; [+7]
-      500 GETUPVAL                         R59 6
-      501 GETTABLEKS                       R59 R59 K37 ["getDeviceName"]
-      503 MOVE                             R60 R57
-      504 MOVE                             R61 R8
-      505 MOVE                             R62 R1
-      506 CALL                             R59 3 1
-      507 NEWTABLE                         R60 4 0
-      509 GETUPVAL                         R61 7
-      510 GETTABLEKS                       R61 R61 K23 ["Category"]
-      512 GETTABLEKS                       R61 R61 K38 ["PHONE_TABLET"]
-      514 GETUPVAL                         R63 6
-      515 GETTABLEKS                       R63 R63 K39 ["hasChoices"]
-      517 GETUPVAL                         R64 7
-      518 GETTABLEKS                       R64 R64 K23 ["Category"]
-      520 GETTABLEKS                       R64 R64 K38 ["PHONE_TABLET"]
-      522 MOVE                             R65 R8
-      523 CALL                             R63 2 1
-      524 NOT                              R62 R63
-      525 SETTABLE                         R62 R60 R61
-      526 GETUPVAL                         R61 7
-      527 GETTABLEKS                       R61 R61 K23 ["Category"]
-      529 GETTABLEKS                       R61 R61 K24 ["DESKTOP"]
-      531 GETUPVAL                         R63 6
-      532 GETTABLEKS                       R63 R63 K39 ["hasChoices"]
-      534 GETUPVAL                         R64 7
-      535 GETTABLEKS                       R64 R64 K23 ["Category"]
-      537 GETTABLEKS                       R64 R64 K24 ["DESKTOP"]
-      539 MOVE                             R65 R8
-      540 CALL                             R63 2 1
-      541 NOT                              R62 R63
-      542 SETTABLE                         R62 R60 R61
-      543 GETUPVAL                         R61 7
-      544 GETTABLEKS                       R61 R61 K23 ["Category"]
-      546 GETTABLEKS                       R61 R61 K40 ["CONSOLE"]
-      548 GETUPVAL                         R63 6
-      549 GETTABLEKS                       R63 R63 K39 ["hasChoices"]
-      551 GETUPVAL                         R64 7
-      552 GETTABLEKS                       R64 R64 K23 ["Category"]
-      554 GETTABLEKS                       R64 R64 K40 ["CONSOLE"]
-      556 MOVE                             R65 R8
-      557 CALL                             R63 2 1
-      558 NOT                              R62 R63
-      559 SETTABLE                         R62 R60 R61
-      560 GETUPVAL                         R61 7
-      561 GETTABLEKS                       R61 R61 K23 ["Category"]
-      563 GETTABLEKS                       R61 R61 K41 ["VR"]
-      565 GETUPVAL                         R63 6
-      566 GETTABLEKS                       R63 R63 K39 ["hasChoices"]
-      568 GETUPVAL                         R64 7
-      569 GETTABLEKS                       R64 R64 K23 ["Category"]
-      571 GETTABLEKS                       R64 R64 K41 ["VR"]
-      573 MOVE                             R65 R8
-      574 CALL                             R63 2 1
-      575 NOT                              R62 R63
-      576 SETTABLE                         R62 R60 R61
-      577 GETUPVAL                         R61 2
-      578 GETTABLEKS                       R61 R61 K42 ["getEngineFeatureStudioDeviceEmulatorDefaultScreenDpiFromSystem"]
-      580 CALL                             R61 0 1
-      581 GETUPVAL                         R62 3
-      582 GETTABLEKS                       R62 R62 K43 ["createElement"]
-      584 GETUPVAL                         R63 3
-      585 GETTABLEKS                       R63 R63 K44 ["Fragment"]
-      587 LOADNIL                          R64
-      588 DUPTABLE                         R65 K48 [{"Toolbar", "DeviceManagerDialog", "CalibratePhysicalScalingDialog", "SavePresetDialog"}]
-      589 GETUPVAL                         R66 3
-      590 GETTABLEKS                       R66 R66 K43 ["createElement"]
-      592 GETUPVAL                         R67 13
-      593 DUPTABLE                         R68 K51 [{["tag"] = "row align-y-center gap-small size-full padding-x-small bg-surface-0"}]
-      594 DUPTABLE                         R69 K56 [{"Categories", "Spacer", "RightControls", "SimulatorPills"}]
-      595 GETUPVAL                         R70 3
-      596 GETTABLEKS                       R70 R70 K43 ["createElement"]
-      598 GETUPVAL                         R71 14
-      599 DUPTABLE                         R72 K70 [{["LayoutOrder"] = 1, ["categories"], ["activeCategory"], ["activeDeviceName"], ["serverDisabled"], ["disabledCategories"], ["onCategoryClick"], ["onChipClick"], ["isMenuOpen"], ["menuItems"], ["onMenuActivated"], ["onPressedOutside"]}]
-      600 SETTABLEKS                       R6 R72 K59 ["categories"]
-      602 SETTABLEKS                       R36 R72 K60 ["activeCategory"]
-      604 SETTABLEKS                       R59 R72 K61 ["activeDeviceName"]
-      606 GETTABLEKS                       R73 R33 K71 ["serverButtonDisabled"]
-      608 SETTABLEKS                       R73 R72 K62 ["serverDisabled"]
-      610 SETTABLEKS                       R60 R72 K63 ["disabledCategories"]
-      612 SETTABLEKS                       R46 R72 K64 ["onCategoryClick"]
-      614 SETTABLEKS                       R47 R72 K65 ["onChipClick"]
-      616 SETTABLEKS                       R27 R72 K66 ["isMenuOpen"]
-      618 SETTABLEKS                       R58 R72 K67 ["menuItems"]
-      620 SETTABLEKS                       R48 R72 K68 ["onMenuActivated"]
-      622 SETTABLEKS                       R56 R72 K69 ["onPressedOutside"]
-      624 CALL                             R70 2 1
-      625 SETTABLEKS                       R70 R69 K52 ["Categories"]
-      627 GETUPVAL                         R70 3
-      628 GETTABLEKS                       R70 R70 K43 ["createElement"]
-      630 GETUPVAL                         R71 13
-      631 DUPTABLE                         R72 K74 [{["LayoutOrder"] = 2, ["tag"] = "grow"}]
-      632 CALL                             R70 2 1
-      633 SETTABLEKS                       R70 R69 K53 ["Spacer"]
-      635 GETUPVAL                         R70 3
-      636 GETTABLEKS                       R70 R70 K43 ["createElement"]
-      638 GETUPVAL                         R71 15
-      639 DUPTABLE                         R72 K82 [{["LayoutOrder"] = 3, ["activeCategory"], ["currentDevice"], ["isClientView"], [5], ["actions"], ["scalingMode"], ["onScalingModeChanged"], ["onCalibrateScaling"], ["onToggleAutoDetectScaling"], ["isAutoDetectScaling"]}]
-      640 SETTABLEKS                       R36 R72 K60 ["activeCategory"]
-      642 SETTABLEKS                       R14 R72 K20 ["currentDevice"]
-      644 GETTABLEKS                       R73 R33 K76 ["isClientView"]
-      646 SETTABLEKS                       R73 R72 K76 ["isClientView"]
-      648 SETTABLEKS                       R2 R72 K0 ["simulatorService"]
-      650 GETTABLEKS                       R73 R0 K18 ["actions"]
-      652 SETTABLEKS                       R73 R72 K18 ["actions"]
-      654 SETTABLEKS                       R22 R72 K77 ["scalingMode"]
-      656 SETTABLEKS                       R50 R72 K78 ["onScalingModeChanged"]
-      658 SETTABLEKS                       R51 R72 K79 ["onCalibrateScaling"]
-      660 JUMPIFNOT                        R61 ; [+2]
-      661 MOVE                             R73 R55
-      662 JUMP                             ; [+1]
-      663 LOADNIL                          R73
-      664 SETTABLEKS                       R73 R72 K80 ["onToggleAutoDetectScaling"]
-      666 JUMPIFNOT                        R61 ; [+2]
-      667 MOVE                             R73 R25
-      668 JUMP                             ; [+1]
-      669 LOADNIL                          R73
-      670 SETTABLEKS                       R73 R72 K81 ["isAutoDetectScaling"]
-      672 CALL                             R70 2 1
-      673 SETTABLEKS                       R70 R69 K54 ["RightControls"]
-      675 JUMPIFNOT                        R37 ; [+41]
-      676 GETUPVAL                         R70 3
-      677 GETTABLEKS                       R70 R70 K43 ["createElement"]
-      679 GETUPVAL                         R71 16
-      680 DUPTABLE                         R72 K93 [{["LayoutOrder"] = 4, ["simulators"], ["viewModelsByName"], ["onControlChanged"], ["onApply"], ["onDismiss"], ["saveDialogSimulatorName"], ["onReset"], ["onRequestSave"], ["onDeleteSavedPreset"]}]
-      681 GETTABLEKS                       R73 R39 K84 ["simulators"]
-      683 SETTABLEKS                       R73 R72 K84 ["simulators"]
-      685 GETTABLEKS                       R73 R39 K85 ["viewModelsByName"]
-      687 SETTABLEKS                       R73 R72 K85 ["viewModelsByName"]
-      689 GETTABLEKS                       R73 R39 K94 ["changeControl"]
-      691 SETTABLEKS                       R73 R72 K86 ["onControlChanged"]
-      693 GETTABLEKS                       R73 R39 K95 ["applyPending"]
-      695 SETTABLEKS                       R73 R72 K87 ["onApply"]
-      697 GETTABLEKS                       R73 R39 K96 ["discardPending"]
-      699 SETTABLEKS                       R73 R72 K88 ["onDismiss"]
-      701 GETTABLEKS                       R73 R20 K14 ["simulatorName"]
-      703 SETTABLEKS                       R73 R72 K89 ["saveDialogSimulatorName"]
-      705 GETTABLEKS                       R73 R39 K97 ["resetToDefault"]
-      707 SETTABLEKS                       R73 R72 K90 ["onReset"]
-      709 SETTABLEKS                       R52 R72 K91 ["onRequestSave"]
-      711 GETTABLEKS                       R73 R39 K98 ["deleteSavedPreset"]
-      713 SETTABLEKS                       R73 R72 K92 ["onDeleteSavedPreset"]
-      715 CALL                             R70 2 1
-      716 JUMP                             ; [+1]
-      717 LOADNIL                          R70
-      718 SETTABLEKS                       R70 R69 K55 ["SimulatorPills"]
-      720 CALL                             R66 3 1
-      721 SETTABLEKS                       R66 R65 K34 ["Toolbar"]
-      723 GETTABLEKS                       R67 R16 K9 ["input"]
-      725 JUMPIFNOT                        R67 ; [+13]
-      726 GETUPVAL                         R66 3
-      727 GETTABLEKS                       R66 R66 K43 ["createElement"]
-      729 GETUPVAL                         R67 17
-      730 DUPTABLE                         R68 K100 [{"input", "onResolved"}]
-      731 GETTABLEKS                       R69 R16 K9 ["input"]
-      733 SETTABLEKS                       R69 R68 K9 ["input"]
-      735 SETTABLEKS                       R49 R68 K99 ["onResolved"]
-      737 CALL                             R66 2 1
-      738 JUMP                             ; [+1]
-      739 LOADNIL                          R66
-      740 SETTABLEKS                       R66 R65 K45 ["DeviceManagerDialog"]
-      742 GETTABLEKS                       R67 R18 K12 ["initialDpi"]
-      744 JUMPIFNOT                        R67 ; [+13]
-      745 GETUPVAL                         R66 3
-      746 GETTABLEKS                       R66 R66 K43 ["createElement"]
-      748 MOVE                             R67 R3
-      749 DUPTABLE                         R68 K101 [{"initialDpi", "onResolved"}]
-      750 GETTABLEKS                       R69 R18 K12 ["initialDpi"]
-      752 SETTABLEKS                       R69 R68 K12 ["initialDpi"]
-      754 SETTABLEKS                       R54 R68 K99 ["onResolved"]
-      756 CALL                             R66 2 1
-      757 JUMP                             ; [+1]
-      758 LOADNIL                          R66
-      759 SETTABLEKS                       R66 R65 K46 ["CalibratePhysicalScalingDialog"]
-      761 GETTABLEKS                       R67 R20 K14 ["simulatorName"]
-      763 JUMPIFNOT                        R67 ; [+51]
-      764 GETUPVAL                         R66 3
-      765 GETTABLEKS                       R66 R66 K43 ["createElement"]
-      767 GETUPVAL                         R67 18
-      768 DUPTABLE                         R68 K104 [{"simulatorName", "existingNames", "reservedNames", "onResolved"}]
-      769 GETTABLEKS                       R69 R20 K14 ["simulatorName"]
-      771 SETTABLEKS                       R69 R68 K14 ["simulatorName"]
-      773 GETTABLEKS                       R71 R39 K85 ["viewModelsByName"]
-      775 GETTABLEKS                       R72 R20 K14 ["simulatorName"]
-      777 GETTABLE                         R70 R71 R72
-      778 JUMPIFEQKNIL                     R70 ; [+9]
-      780 GETTABLEKS                       R70 R39 K85 ["viewModelsByName"]
-      782 GETTABLEKS                       R71 R20 K14 ["simulatorName"]
-      784 GETTABLE                         R69 R70 R71
-      785 GETTABLEKS                       R69 R69 K105 ["savedPresetNames"]
-      787 JUMP                             ; [+2]
-      788 NEWTABLE                         R69 0 0
-      790 SETTABLEKS                       R69 R68 K102 ["existingNames"]
-      792 GETTABLEKS                       R71 R39 K85 ["viewModelsByName"]
-      794 GETTABLEKS                       R72 R20 K14 ["simulatorName"]
-      796 GETTABLE                         R70 R71 R72
-      797 JUMPIFEQKNIL                     R70 ; [+9]
-      799 GETTABLEKS                       R70 R39 K85 ["viewModelsByName"]
-      801 GETTABLEKS                       R71 R20 K14 ["simulatorName"]
-      803 GETTABLE                         R69 R70 R71
-      804 GETTABLEKS                       R69 R69 K106 ["reservedPresetNames"]
-      806 JUMP                             ; [+2]
-      807 NEWTABLE                         R69 0 0
-      809 SETTABLEKS                       R69 R68 K103 ["reservedNames"]
-      811 SETTABLEKS                       R53 R68 K99 ["onResolved"]
-      813 CALL                             R66 2 1
-      814 JUMP                             ; [+1]
-      815 LOADNIL                          R66
-      816 SETTABLEKS                       R66 R65 K47 ["SavePresetDialog"]
-      818 CALL                             R62 3 -1
-      819 RETURN                           R62 -1
+      493 GETUPVAL                         R59 2
+      494 GETTABLEKS                       R59 R59 K34 ["getFFlagDeviceSimulatorWheelCycleDevice"]
+      496 CALL                             R59 0 1
+      497 GETUPVAL                         R60 3
+      498 GETTABLEKS                       R60 R60 K29 ["useCallback"]
+      500 NEWCLOSURE                       R61 P21
+      501 CAPTURE                          VAL R2
+      502 NEWTABLE                         R62 0 1
+      504 MOVE                             R63 R2
+      505 SETLIST                          R62 R63 1 [1]
+      507 CALL                             R60 2 1
+      508 GETUPVAL                         R61 13
+      509 DUPTABLE                         R62 K39 [{"menuGroups", "selectedDeviceId", "isEnabled", "applyDevice"}]
+      510 SETTABLEKS                       R58 R62 K35 ["menuGroups"]
+      512 SETTABLEKS                       R57 R62 K36 ["selectedDeviceId"]
+      514 MOVE                             R63 R59
+      515 JUMPIFNOT                        R63 ; [+3]
+      516 NOT                              R63 R27
+      517 JUMPIFNOT                        R63 ; [+1]
+      518 NOT                              R63 R35
+      519 SETTABLEKS                       R63 R62 K37 ["isEnabled"]
+      521 SETTABLEKS                       R60 R62 K38 ["applyDevice"]
+      523 CALL                             R61 1 1
+      524 JUMPIFNOT                        R35 ; [+6]
+      525 LOADK                            R64 K40 ["Toolbar"]
+      526 LOADK                            R65 K41 ["ServerLabel"]
+      527 NAMECALL                         R62 R1 K42 ["getText"]
+      529 CALL                             R62 3 1
+      530 JUMP                             ; [+7]
+      531 GETUPVAL                         R62 6
+      532 GETTABLEKS                       R62 R62 K43 ["getDeviceName"]
+      534 MOVE                             R63 R57
+      535 MOVE                             R64 R8
+      536 MOVE                             R65 R1
+      537 CALL                             R62 3 1
+      538 NEWTABLE                         R63 4 0
+      540 GETUPVAL                         R64 7
+      541 GETTABLEKS                       R64 R64 K23 ["Category"]
+      543 GETTABLEKS                       R64 R64 K44 ["PHONE_TABLET"]
+      545 GETUPVAL                         R66 6
+      546 GETTABLEKS                       R66 R66 K45 ["hasChoices"]
+      548 GETUPVAL                         R67 7
+      549 GETTABLEKS                       R67 R67 K23 ["Category"]
+      551 GETTABLEKS                       R67 R67 K44 ["PHONE_TABLET"]
+      553 MOVE                             R68 R8
+      554 CALL                             R66 2 1
+      555 NOT                              R65 R66
+      556 SETTABLE                         R65 R63 R64
+      557 GETUPVAL                         R64 7
+      558 GETTABLEKS                       R64 R64 K23 ["Category"]
+      560 GETTABLEKS                       R64 R64 K24 ["DESKTOP"]
+      562 GETUPVAL                         R66 6
+      563 GETTABLEKS                       R66 R66 K45 ["hasChoices"]
+      565 GETUPVAL                         R67 7
+      566 GETTABLEKS                       R67 R67 K23 ["Category"]
+      568 GETTABLEKS                       R67 R67 K24 ["DESKTOP"]
+      570 MOVE                             R68 R8
+      571 CALL                             R66 2 1
+      572 NOT                              R65 R66
+      573 SETTABLE                         R65 R63 R64
+      574 GETUPVAL                         R64 7
+      575 GETTABLEKS                       R64 R64 K23 ["Category"]
+      577 GETTABLEKS                       R64 R64 K46 ["CONSOLE"]
+      579 GETUPVAL                         R66 6
+      580 GETTABLEKS                       R66 R66 K45 ["hasChoices"]
+      582 GETUPVAL                         R67 7
+      583 GETTABLEKS                       R67 R67 K23 ["Category"]
+      585 GETTABLEKS                       R67 R67 K46 ["CONSOLE"]
+      587 MOVE                             R68 R8
+      588 CALL                             R66 2 1
+      589 NOT                              R65 R66
+      590 SETTABLE                         R65 R63 R64
+      591 GETUPVAL                         R64 7
+      592 GETTABLEKS                       R64 R64 K23 ["Category"]
+      594 GETTABLEKS                       R64 R64 K47 ["VR"]
+      596 GETUPVAL                         R66 6
+      597 GETTABLEKS                       R66 R66 K45 ["hasChoices"]
+      599 GETUPVAL                         R67 7
+      600 GETTABLEKS                       R67 R67 K23 ["Category"]
+      602 GETTABLEKS                       R67 R67 K47 ["VR"]
+      604 MOVE                             R68 R8
+      605 CALL                             R66 2 1
+      606 NOT                              R65 R66
+      607 SETTABLE                         R65 R63 R64
+      608 GETUPVAL                         R64 2
+      609 GETTABLEKS                       R64 R64 K48 ["getEngineFeatureStudioDeviceEmulatorDefaultScreenDpiFromSystem"]
+      611 CALL                             R64 0 1
+      612 GETUPVAL                         R65 3
+      613 GETTABLEKS                       R65 R65 K49 ["createElement"]
+      615 GETUPVAL                         R66 3
+      616 GETTABLEKS                       R66 R66 K50 ["Fragment"]
+      618 LOADNIL                          R67
+      619 DUPTABLE                         R68 K54 [{"Toolbar", "DeviceManagerDialog", "CalibratePhysicalScalingDialog", "SavePresetDialog"}]
+      620 GETUPVAL                         R69 3
+      621 GETTABLEKS                       R69 R69 K49 ["createElement"]
+      623 GETUPVAL                         R70 14
+      624 DUPTABLE                         R71 K57 [{["tag"] = "row align-y-center gap-small size-full padding-x-small bg-surface-0"}]
+      625 DUPTABLE                         R72 K62 [{"Categories", "Spacer", "RightControls", "SimulatorPills"}]
+      626 GETUPVAL                         R73 3
+      627 GETTABLEKS                       R73 R73 K49 ["createElement"]
+      629 GETUPVAL                         R74 15
+      630 DUPTABLE                         R75 K77 [{["LayoutOrder"] = 1, ["categories"], ["activeCategory"], ["activeDeviceName"], ["serverDisabled"], ["disabledCategories"], ["onCategoryClick"], ["onChipClick"], ["isMenuOpen"], ["menuItems"], ["onMenuActivated"], ["onPressedOutside"], ["onChipWheel"]}]
+      631 SETTABLEKS                       R6 R75 K65 ["categories"]
+      633 SETTABLEKS                       R36 R75 K66 ["activeCategory"]
+      635 SETTABLEKS                       R62 R75 K67 ["activeDeviceName"]
+      637 GETTABLEKS                       R76 R33 K78 ["serverButtonDisabled"]
+      639 SETTABLEKS                       R76 R75 K68 ["serverDisabled"]
+      641 SETTABLEKS                       R63 R75 K69 ["disabledCategories"]
+      643 SETTABLEKS                       R46 R75 K70 ["onCategoryClick"]
+      645 SETTABLEKS                       R47 R75 K71 ["onChipClick"]
+      647 SETTABLEKS                       R27 R75 K72 ["isMenuOpen"]
+      649 SETTABLEKS                       R58 R75 K73 ["menuItems"]
+      651 SETTABLEKS                       R48 R75 K74 ["onMenuActivated"]
+      653 SETTABLEKS                       R56 R75 K75 ["onPressedOutside"]
+      655 JUMPIFNOT                        R59 ; [+2]
+      656 MOVE                             R76 R61
+      657 JUMP                             ; [+1]
+      658 LOADNIL                          R76
+      659 SETTABLEKS                       R76 R75 K76 ["onChipWheel"]
+      661 CALL                             R73 2 1
+      662 SETTABLEKS                       R73 R72 K58 ["Categories"]
+      664 GETUPVAL                         R73 3
+      665 GETTABLEKS                       R73 R73 K49 ["createElement"]
+      667 GETUPVAL                         R74 14
+      668 DUPTABLE                         R75 K81 [{["LayoutOrder"] = 2, ["tag"] = "grow"}]
+      669 CALL                             R73 2 1
+      670 SETTABLEKS                       R73 R72 K59 ["Spacer"]
+      672 GETUPVAL                         R73 3
+      673 GETTABLEKS                       R73 R73 K49 ["createElement"]
+      675 GETUPVAL                         R74 16
+      676 DUPTABLE                         R75 K89 [{["LayoutOrder"] = 3, ["activeCategory"], ["currentDevice"], ["isClientView"], [5], ["actions"], ["scalingMode"], ["onScalingModeChanged"], ["onCalibrateScaling"], ["onToggleAutoDetectScaling"], ["isAutoDetectScaling"]}]
+      677 SETTABLEKS                       R36 R75 K66 ["activeCategory"]
+      679 SETTABLEKS                       R14 R75 K20 ["currentDevice"]
+      681 GETTABLEKS                       R76 R33 K83 ["isClientView"]
+      683 SETTABLEKS                       R76 R75 K83 ["isClientView"]
+      685 SETTABLEKS                       R2 R75 K0 ["simulatorService"]
+      687 GETTABLEKS                       R76 R0 K18 ["actions"]
+      689 SETTABLEKS                       R76 R75 K18 ["actions"]
+      691 SETTABLEKS                       R22 R75 K84 ["scalingMode"]
+      693 SETTABLEKS                       R50 R75 K85 ["onScalingModeChanged"]
+      695 SETTABLEKS                       R51 R75 K86 ["onCalibrateScaling"]
+      697 JUMPIFNOT                        R64 ; [+2]
+      698 MOVE                             R76 R55
+      699 JUMP                             ; [+1]
+      700 LOADNIL                          R76
+      701 SETTABLEKS                       R76 R75 K87 ["onToggleAutoDetectScaling"]
+      703 JUMPIFNOT                        R64 ; [+2]
+      704 MOVE                             R76 R25
+      705 JUMP                             ; [+1]
+      706 LOADNIL                          R76
+      707 SETTABLEKS                       R76 R75 K88 ["isAutoDetectScaling"]
+      709 CALL                             R73 2 1
+      710 SETTABLEKS                       R73 R72 K60 ["RightControls"]
+      712 JUMPIFNOT                        R37 ; [+41]
+      713 GETUPVAL                         R73 3
+      714 GETTABLEKS                       R73 R73 K49 ["createElement"]
+      716 GETUPVAL                         R74 17
+      717 DUPTABLE                         R75 K100 [{["LayoutOrder"] = 4, ["simulators"], ["viewModelsByName"], ["onControlChanged"], ["onApply"], ["onDismiss"], ["saveDialogSimulatorName"], ["onReset"], ["onRequestSave"], ["onDeleteSavedPreset"]}]
+      718 GETTABLEKS                       R76 R39 K91 ["simulators"]
+      720 SETTABLEKS                       R76 R75 K91 ["simulators"]
+      722 GETTABLEKS                       R76 R39 K92 ["viewModelsByName"]
+      724 SETTABLEKS                       R76 R75 K92 ["viewModelsByName"]
+      726 GETTABLEKS                       R76 R39 K101 ["changeControl"]
+      728 SETTABLEKS                       R76 R75 K93 ["onControlChanged"]
+      730 GETTABLEKS                       R76 R39 K102 ["applyPending"]
+      732 SETTABLEKS                       R76 R75 K94 ["onApply"]
+      734 GETTABLEKS                       R76 R39 K103 ["discardPending"]
+      736 SETTABLEKS                       R76 R75 K95 ["onDismiss"]
+      738 GETTABLEKS                       R76 R20 K14 ["simulatorName"]
+      740 SETTABLEKS                       R76 R75 K96 ["saveDialogSimulatorName"]
+      742 GETTABLEKS                       R76 R39 K104 ["resetToDefault"]
+      744 SETTABLEKS                       R76 R75 K97 ["onReset"]
+      746 SETTABLEKS                       R52 R75 K98 ["onRequestSave"]
+      748 GETTABLEKS                       R76 R39 K105 ["deleteSavedPreset"]
+      750 SETTABLEKS                       R76 R75 K99 ["onDeleteSavedPreset"]
+      752 CALL                             R73 2 1
+      753 JUMP                             ; [+1]
+      754 LOADNIL                          R73
+      755 SETTABLEKS                       R73 R72 K61 ["SimulatorPills"]
+      757 CALL                             R69 3 1
+      758 SETTABLEKS                       R69 R68 K40 ["Toolbar"]
+      760 GETTABLEKS                       R70 R16 K9 ["input"]
+      762 JUMPIFNOT                        R70 ; [+13]
+      763 GETUPVAL                         R69 3
+      764 GETTABLEKS                       R69 R69 K49 ["createElement"]
+      766 GETUPVAL                         R70 18
+      767 DUPTABLE                         R71 K107 [{"input", "onResolved"}]
+      768 GETTABLEKS                       R72 R16 K9 ["input"]
+      770 SETTABLEKS                       R72 R71 K9 ["input"]
+      772 SETTABLEKS                       R49 R71 K106 ["onResolved"]
+      774 CALL                             R69 2 1
+      775 JUMP                             ; [+1]
+      776 LOADNIL                          R69
+      777 SETTABLEKS                       R69 R68 K51 ["DeviceManagerDialog"]
+      779 GETTABLEKS                       R70 R18 K12 ["initialDpi"]
+      781 JUMPIFNOT                        R70 ; [+13]
+      782 GETUPVAL                         R69 3
+      783 GETTABLEKS                       R69 R69 K49 ["createElement"]
+      785 MOVE                             R70 R3
+      786 DUPTABLE                         R71 K108 [{"initialDpi", "onResolved"}]
+      787 GETTABLEKS                       R72 R18 K12 ["initialDpi"]
+      789 SETTABLEKS                       R72 R71 K12 ["initialDpi"]
+      791 SETTABLEKS                       R54 R71 K106 ["onResolved"]
+      793 CALL                             R69 2 1
+      794 JUMP                             ; [+1]
+      795 LOADNIL                          R69
+      796 SETTABLEKS                       R69 R68 K52 ["CalibratePhysicalScalingDialog"]
+      798 GETTABLEKS                       R70 R20 K14 ["simulatorName"]
+      800 JUMPIFNOT                        R70 ; [+51]
+      801 GETUPVAL                         R69 3
+      802 GETTABLEKS                       R69 R69 K49 ["createElement"]
+      804 GETUPVAL                         R70 19
+      805 DUPTABLE                         R71 K111 [{"simulatorName", "existingNames", "reservedNames", "onResolved"}]
+      806 GETTABLEKS                       R72 R20 K14 ["simulatorName"]
+      808 SETTABLEKS                       R72 R71 K14 ["simulatorName"]
+      810 GETTABLEKS                       R74 R39 K92 ["viewModelsByName"]
+      812 GETTABLEKS                       R75 R20 K14 ["simulatorName"]
+      814 GETTABLE                         R73 R74 R75
+      815 JUMPIFEQKNIL                     R73 ; [+9]
+      817 GETTABLEKS                       R73 R39 K92 ["viewModelsByName"]
+      819 GETTABLEKS                       R74 R20 K14 ["simulatorName"]
+      821 GETTABLE                         R72 R73 R74
+      822 GETTABLEKS                       R72 R72 K112 ["savedPresetNames"]
+      824 JUMP                             ; [+2]
+      825 NEWTABLE                         R72 0 0
+      827 SETTABLEKS                       R72 R71 K109 ["existingNames"]
+      829 GETTABLEKS                       R74 R39 K92 ["viewModelsByName"]
+      831 GETTABLEKS                       R75 R20 K14 ["simulatorName"]
+      833 GETTABLE                         R73 R74 R75
+      834 JUMPIFEQKNIL                     R73 ; [+9]
+      836 GETTABLEKS                       R73 R39 K92 ["viewModelsByName"]
+      838 GETTABLEKS                       R74 R20 K14 ["simulatorName"]
+      840 GETTABLE                         R72 R73 R74
+      841 GETTABLEKS                       R72 R72 K113 ["reservedPresetNames"]
+      843 JUMP                             ; [+2]
+      844 NEWTABLE                         R72 0 0
+      846 SETTABLEKS                       R72 R71 K110 ["reservedNames"]
+      848 SETTABLEKS                       R53 R71 K106 ["onResolved"]
+      850 CALL                             R69 2 1
+      851 JUMP                             ; [+1]
+      852 LOADNIL                          R69
+      853 SETTABLEKS                       R69 R68 K53 ["SavePresetDialog"]
+      855 CALL                             R65 3 -1
+      856 RETURN                           R65 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1502,57 +1556,63 @@ MAIN:
       121 GETIMPORT                        R16 K5 [require]
       123 GETTABLEKS                       R17 R0 K13 ["Src"]
       125 GETTABLEKS                       R17 R17 K27 ["Hooks"]
-      127 GETTABLEKS                       R17 R17 K28 ["useServerView"]
+      127 GETTABLEKS                       R17 R17 K28 ["useDeviceWheelCycling"]
       129 CALL                             R16 1 1
       130 GETIMPORT                        R17 K5 [require]
       132 GETTABLEKS                       R18 R0 K13 ["Src"]
       134 GETTABLEKS                       R18 R18 K27 ["Hooks"]
-      136 GETTABLEKS                       R18 R18 K29 ["useLocalization"]
+      136 GETTABLEKS                       R18 R18 K29 ["useServerView"]
       138 CALL                             R17 1 1
       139 GETIMPORT                        R18 K5 [require]
       141 GETTABLEKS                       R19 R0 K13 ["Src"]
-      143 GETTABLEKS                       R19 R19 K23 ["SimulatorRegistry"]
-      145 GETTABLEKS                       R19 R19 K30 ["useSimulatorRegistry"]
+      143 GETTABLEKS                       R19 R19 K27 ["Hooks"]
+      145 GETTABLEKS                       R19 R19 K30 ["useLocalization"]
       147 CALL                             R18 1 1
       148 GETIMPORT                        R19 K5 [require]
       150 GETTABLEKS                       R20 R0 K13 ["Src"]
-      152 GETTABLEKS                       R20 R20 K31 ["DeviceModel"]
-      154 CALL                             R19 1 1
-      155 NEWTABLE                         R20 4 0
-      157 GETIMPORT                        R21 K35 [Enum.DeviceSimulatorScalingMode.ScaleToPhysicalSize]
-      159 LOADK                            R22 K36 ["physical"]
-      160 SETTABLE                         R22 R20 R21
-      161 GETIMPORT                        R21 K38 [Enum.DeviceSimulatorScalingMode.ActualResolution]
-      163 LOADK                            R22 K39 ["actual"]
-      164 SETTABLE                         R22 R20 R21
-      165 GETIMPORT                        R21 K41 [Enum.DeviceSimulatorScalingMode.FitToWindow]
-      167 LOADK                            R22 K42 ["fit"]
-      168 SETTABLE                         R22 R20 R21
-      169 DUPTABLE                         R21 K43 [{"physical", "actual", "fit"}]
-      170 GETIMPORT                        R22 K35 [Enum.DeviceSimulatorScalingMode.ScaleToPhysicalSize]
-      172 SETTABLEKS                       R22 R21 K36 ["physical"]
-      174 GETIMPORT                        R22 K38 [Enum.DeviceSimulatorScalingMode.ActualResolution]
-      176 SETTABLEKS                       R22 R21 K39 ["actual"]
-      178 GETIMPORT                        R22 K41 [Enum.DeviceSimulatorScalingMode.FitToWindow]
-      180 SETTABLEKS                       R22 R21 K42 ["fit"]
-      182 DUPCLOSURE                       R22 K44 [PROTO_45]
-      183 CAPTURE                          VAL R17
-      184 CAPTURE                          VAL R6
-      185 CAPTURE                          VAL R4
-      186 CAPTURE                          VAL R1
-      187 CAPTURE                          VAL R5
-      188 CAPTURE                          VAL R16
-      189 CAPTURE                          VAL R19
-      190 CAPTURE                          VAL R7
-      191 CAPTURE                          VAL R15
+      152 GETTABLEKS                       R20 R20 K23 ["SimulatorRegistry"]
+      154 GETTABLEKS                       R20 R20 K31 ["useSimulatorRegistry"]
+      156 CALL                             R19 1 1
+      157 GETIMPORT                        R20 K5 [require]
+      159 GETTABLEKS                       R21 R0 K13 ["Src"]
+      161 GETTABLEKS                       R21 R21 K32 ["DeviceModel"]
+      163 CALL                             R20 1 1
+      164 NEWTABLE                         R21 4 0
+      166 GETIMPORT                        R22 K36 [Enum.DeviceSimulatorScalingMode.ScaleToPhysicalSize]
+      168 LOADK                            R23 K37 ["physical"]
+      169 SETTABLE                         R23 R21 R22
+      170 GETIMPORT                        R22 K39 [Enum.DeviceSimulatorScalingMode.ActualResolution]
+      172 LOADK                            R23 K40 ["actual"]
+      173 SETTABLE                         R23 R21 R22
+      174 GETIMPORT                        R22 K42 [Enum.DeviceSimulatorScalingMode.FitToWindow]
+      176 LOADK                            R23 K43 ["fit"]
+      177 SETTABLE                         R23 R21 R22
+      178 DUPTABLE                         R22 K44 [{"physical", "actual", "fit"}]
+      179 GETIMPORT                        R23 K36 [Enum.DeviceSimulatorScalingMode.ScaleToPhysicalSize]
+      181 SETTABLEKS                       R23 R22 K37 ["physical"]
+      183 GETIMPORT                        R23 K39 [Enum.DeviceSimulatorScalingMode.ActualResolution]
+      185 SETTABLEKS                       R23 R22 K40 ["actual"]
+      187 GETIMPORT                        R23 K42 [Enum.DeviceSimulatorScalingMode.FitToWindow]
+      189 SETTABLEKS                       R23 R22 K43 ["fit"]
+      191 DUPCLOSURE                       R23 K45 [PROTO_47]
       192 CAPTURE                          VAL R18
-      193 CAPTURE                          VAL R20
-      194 CAPTURE                          VAL R8
-      195 CAPTURE                          VAL R21
-      196 CAPTURE                          VAL R3
-      197 CAPTURE                          VAL R9
-      198 CAPTURE                          VAL R12
-      199 CAPTURE                          VAL R13
-      200 CAPTURE                          VAL R10
-      201 CAPTURE                          VAL R14
-      202 RETURN                           R22 1
+      193 CAPTURE                          VAL R6
+      194 CAPTURE                          VAL R4
+      195 CAPTURE                          VAL R1
+      196 CAPTURE                          VAL R5
+      197 CAPTURE                          VAL R17
+      198 CAPTURE                          VAL R20
+      199 CAPTURE                          VAL R7
+      200 CAPTURE                          VAL R15
+      201 CAPTURE                          VAL R19
+      202 CAPTURE                          VAL R21
+      203 CAPTURE                          VAL R8
+      204 CAPTURE                          VAL R22
+      205 CAPTURE                          VAL R16
+      206 CAPTURE                          VAL R3
+      207 CAPTURE                          VAL R9
+      208 CAPTURE                          VAL R12
+      209 CAPTURE                          VAL R13
+      210 CAPTURE                          VAL R10
+      211 CAPTURE                          VAL R14
+      212 RETURN                           R23 1

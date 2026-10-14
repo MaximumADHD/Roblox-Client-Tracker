@@ -447,37 +447,38 @@ MAIN:
        62 GETTABLEKS                       R11 R11 K20 ["IKTreeRow"]
        64 CALL                             R10 1 1
        65 GETIMPORT                        R11 K5 [require]
-       67 GETTABLEKS                       R12 R0 K21 ["LuaFlags"]
-       69 GETTABLEKS                       R12 R12 K22 ["GetFFlagRootMotion"]
-       71 CALL                             R11 1 1
-       72 GETTABLEKS                       R12 R4 K23 ["PureComponent"]
-       74 LOADK                            R14 K24 ["IKTreeView"]
-       75 NAMECALL                         R12 R12 K25 ["extend"]
-       77 CALL                             R12 2 1
-       78 DUPCLOSURE                       R13 K26 [PROTO_9]
-       79 CAPTURE                          VAL R3
-       80 CAPTURE                          VAL R11
-       81 CAPTURE                          VAL R2
-       82 CAPTURE                          VAL R1
-       83 SETTABLEKS                       R13 R12 K27 ["init"]
-       85 DUPCLOSURE                       R13 K28 [PROTO_10]
-       86 SETTABLEKS                       R13 R12 K29 ["didMount"]
-       88 DUPCLOSURE                       R13 K30 [PROTO_11]
-       89 SETTABLEKS                       R13 R12 K31 ["didUpdate"]
-       91 DUPCLOSURE                       R13 K32 [PROTO_12]
-       92 CAPTURE                          VAL R11
-       93 CAPTURE                          VAL R3
-       94 CAPTURE                          VAL R4
-       95 CAPTURE                          VAL R7
-       96 CAPTURE                          VAL R10
-       97 CAPTURE                          VAL R2
-       98 SETTABLEKS                       R13 R12 K33 ["render"]
-      100 MOVE                             R13 R9
-      101 DUPTABLE                         R14 K35 [{"Stylizer"}]
-      102 GETTABLEKS                       R15 R8 K34 ["Stylizer"]
-      104 SETTABLEKS                       R15 R14 K34 ["Stylizer"]
-      106 CALL                             R13 1 1
-      107 MOVE                             R14 R12
+       67 GETTABLEKS                       R12 R0 K8 ["Src"]
+       69 GETTABLEKS                       R12 R12 K21 ["Flags"]
+       71 GETTABLEKS                       R12 R12 K22 ["getFFlagRootMotion"]
+       73 CALL                             R11 1 1
+       74 GETTABLEKS                       R12 R4 K23 ["PureComponent"]
+       76 LOADK                            R14 K24 ["IKTreeView"]
+       77 NAMECALL                         R12 R12 K25 ["extend"]
+       79 CALL                             R12 2 1
+       80 DUPCLOSURE                       R13 K26 [PROTO_9]
+       81 CAPTURE                          VAL R3
+       82 CAPTURE                          VAL R11
+       83 CAPTURE                          VAL R2
+       84 CAPTURE                          VAL R1
+       85 SETTABLEKS                       R13 R12 K27 ["init"]
+       87 DUPCLOSURE                       R13 K28 [PROTO_10]
+       88 SETTABLEKS                       R13 R12 K29 ["didMount"]
+       90 DUPCLOSURE                       R13 K30 [PROTO_11]
+       91 SETTABLEKS                       R13 R12 K31 ["didUpdate"]
+       93 DUPCLOSURE                       R13 K32 [PROTO_12]
+       94 CAPTURE                          VAL R11
+       95 CAPTURE                          VAL R3
+       96 CAPTURE                          VAL R4
+       97 CAPTURE                          VAL R7
+       98 CAPTURE                          VAL R10
+       99 CAPTURE                          VAL R2
+      100 SETTABLEKS                       R13 R12 K33 ["render"]
+      102 MOVE                             R13 R9
+      103 DUPTABLE                         R14 K35 [{"Stylizer"}]
+      104 GETTABLEKS                       R15 R8 K34 ["Stylizer"]
+      106 SETTABLEKS                       R15 R14 K34 ["Stylizer"]
       108 CALL                             R13 1 1
-      109 MOVE                             R12 R13
-      110 RETURN                           R12 1
+      109 MOVE                             R14 R12
+      110 CALL                             R13 1 1
+      111 MOVE                             R12 R13
+      112 RETURN                           R12 1

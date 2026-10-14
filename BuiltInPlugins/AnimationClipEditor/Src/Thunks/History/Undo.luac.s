@@ -173,19 +173,20 @@ MAIN:
        72 GETTABLEKS                       R14 R12 K20 ["TrackSelectionUtils"]
        74 CALL                             R13 1 1
        75 GETIMPORT                        R14 K5 [require]
-       77 GETTABLEKS                       R15 R0 K21 ["LuaFlags"]
-       79 GETTABLEKS                       R15 R15 K22 ["GetFFlagFacialAnimationRecordingInStudio"]
-       81 CALL                             R14 1 1
-       82 DUPCLOSURE                       R15 K23 [PROTO_2]
-       83 CAPTURE                          VAL R14
-       84 CAPTURE                          VAL R5
-       85 CAPTURE                          VAL R2
-       86 CAPTURE                          VAL R4
-       87 CAPTURE                          VAL R11
-       88 CAPTURE                          VAL R10
-       89 CAPTURE                          VAL R7
-       90 CAPTURE                          VAL R13
-       91 CAPTURE                          VAL R9
-       92 CAPTURE                          VAL R6
-       93 CAPTURE                          VAL R1
-       94 RETURN                           R15 1
+       77 GETTABLEKS                       R15 R0 K6 ["Src"]
+       79 GETTABLEKS                       R15 R15 K21 ["Flags"]
+       81 GETTABLEKS                       R15 R15 K22 ["getFFlagFacialAnimationRecordingInStudio"]
+       83 CALL                             R14 1 1
+       84 DUPCLOSURE                       R15 K23 [PROTO_2]
+       85 CAPTURE                          VAL R14
+       86 CAPTURE                          VAL R5
+       87 CAPTURE                          VAL R2
+       88 CAPTURE                          VAL R4
+       89 CAPTURE                          VAL R11
+       90 CAPTURE                          VAL R10
+       91 CAPTURE                          VAL R7
+       92 CAPTURE                          VAL R13
+       93 CAPTURE                          VAL R9
+       94 CAPTURE                          VAL R6
+       95 CAPTURE                          VAL R1
+       96 RETURN                           R15 1

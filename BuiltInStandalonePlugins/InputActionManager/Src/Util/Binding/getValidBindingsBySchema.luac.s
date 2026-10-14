@@ -10,7 +10,7 @@ PROTO_0:
         9 FORGPREP                         R3
        10 GETTABLE                         R8 R0 R7
        11 JUMPIFEQKNIL                     R8 ; [+5]
-       13 GETIMPORT                        R9 K3 [Enum.KeyCode.Unknown]
+       13 GETIMPORT                        R9 K3 [Enum.KeyCode.None]
        15 JUMPIFNOTEQ                      R8 R9 ; [+3]
        17 LOADB                            R9 0
        18 RETURN                           R9 1

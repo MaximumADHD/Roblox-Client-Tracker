@@ -23,7 +23,7 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R3 R0 K0 ["__metadataCache"]
         2 GETTABLE                         R2 R3 R1
-        3 JUMPIF                           R2 ; [+36]
+        3 JUMPIF                           R2 ; [+40]
         4 MOVE                             R4 R1
         5 NAMECALL                         R2 R0 K1 ["universesV1GET"]
         7 CALL                             R2 2 1
@@ -31,47 +31,56 @@ PROTO_2:
        10 CALL                             R2 1 1
        11 GETTABLEKS                       R4 R0 K0 ["__metadataCache"]
        13 GETTABLE                         R3 R4 R1
-       14 JUMPIF                           R3 ; [+25]
+       14 JUMPIF                           R3 ; [+29]
        15 GETTABLEKS                       R3 R2 K3 ["responseBody"]
        17 GETTABLEKS                       R4 R0 K0 ["__metadataCache"]
-       19 DUPTABLE                         R5 K8 [{"rootPlaceId", "creatorId", "creatorName", "creatorType"}]
-       20 GETTABLEKS                       R6 R3 K4 ["rootPlaceId"]
-       22 SETTABLEKS                       R6 R5 K4 ["rootPlaceId"]
-       24 GETTABLEKS                       R6 R3 K9 ["creatorTargetId"]
-       26 SETTABLEKS                       R6 R5 K5 ["creatorId"]
-       28 GETTABLEKS                       R6 R3 K6 ["creatorName"]
-       30 SETTABLEKS                       R6 R5 K6 ["creatorName"]
-       32 GETIMPORT                        R7 K12 [Enum.CreatorType]
-       34 GETTABLEKS                       R8 R3 K7 ["creatorType"]
-       36 GETTABLE                         R6 R7 R8
-       37 SETTABLEKS                       R6 R5 K7 ["creatorType"]
-       39 SETTABLE                         R5 R4 R1
-       40 GETTABLEKS                       R3 R0 K0 ["__metadataCache"]
-       42 GETTABLE                         R2 R3 R1
-       43 RETURN                           R2 1
+       19 DUPTABLE                         R5 K9 [{"name", "rootPlaceId", "creatorId", "creatorName", "creatorType"}]
+       20 GETTABLEKS                       R6 R3 K4 ["name"]
+       22 SETTABLEKS                       R6 R5 K4 ["name"]
+       24 GETTABLEKS                       R6 R3 K5 ["rootPlaceId"]
+       26 SETTABLEKS                       R6 R5 K5 ["rootPlaceId"]
+       28 GETTABLEKS                       R6 R3 K10 ["creatorTargetId"]
+       30 SETTABLEKS                       R6 R5 K6 ["creatorId"]
+       32 GETTABLEKS                       R6 R3 K7 ["creatorName"]
+       34 SETTABLEKS                       R6 R5 K7 ["creatorName"]
+       36 GETIMPORT                        R7 K13 [Enum.CreatorType]
+       38 GETTABLEKS                       R8 R3 K8 ["creatorType"]
+       40 GETTABLE                         R6 R7 R8
+       41 SETTABLEKS                       R6 R5 K8 ["creatorType"]
+       43 SETTABLE                         R5 R4 R1
+       44 GETTABLEKS                       R3 R0 K0 ["__metadataCache"]
+       46 GETTABLE                         R2 R3 R1
+       47 RETURN                           R2 1
 
 PROTO_3:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["getUniverseMetadata"]
         3 CALL                             R2 2 1
-        4 GETTABLEKS                       R3 R2 K1 ["rootPlaceId"]
+        4 GETTABLEKS                       R3 R2 K1 ["name"]
         6 RETURN                           R3 1
 
 PROTO_4:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["getUniverseMetadata"]
         3 CALL                             R2 2 1
-        4 GETTABLEKS                       R3 R2 K1 ["creatorId"]
+        4 GETTABLEKS                       R3 R2 K1 ["rootPlaceId"]
         6 RETURN                           R3 1
 
 PROTO_5:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["getUniverseMetadata"]
         3 CALL                             R2 2 1
-        4 GETTABLEKS                       R3 R2 K1 ["creatorName"]
+        4 GETTABLEKS                       R3 R2 K1 ["creatorId"]
         6 RETURN                           R3 1
 
 PROTO_6:
+        0 MOVE                             R4 R1
+        1 NAMECALL                         R2 R0 K0 ["getUniverseMetadata"]
+        3 CALL                             R2 2 1
+        4 GETTABLEKS                       R3 R2 K1 ["creatorName"]
+        6 RETURN                           R3 1
+
+PROTO_7:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["getUniverseMetadata"]
         3 CALL                             R2 2 1
@@ -80,7 +89,7 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 8 0
+        1 NEWTABLE                         R0 16 0
         3 SETTABLEKS                       R0 R0 K0 ["__index"]
         5 DUPCLOSURE                       R1 K1 [PROTO_0]
         6 CAPTURE                          VAL R0
@@ -90,11 +99,13 @@ MAIN:
        12 DUPCLOSURE                       R1 K5 [PROTO_2]
        13 SETTABLEKS                       R1 R0 K6 ["getUniverseMetadata"]
        15 DUPCLOSURE                       R1 K7 [PROTO_3]
-       16 SETTABLEKS                       R1 R0 K8 ["getRootPlace"]
+       16 SETTABLEKS                       R1 R0 K8 ["getName"]
        18 DUPCLOSURE                       R1 K9 [PROTO_4]
-       19 SETTABLEKS                       R1 R0 K10 ["getCreatorId"]
+       19 SETTABLEKS                       R1 R0 K10 ["getRootPlace"]
        21 DUPCLOSURE                       R1 K11 [PROTO_5]
-       22 SETTABLEKS                       R1 R0 K12 ["getCreatorName"]
+       22 SETTABLEKS                       R1 R0 K12 ["getCreatorId"]
        24 DUPCLOSURE                       R1 K13 [PROTO_6]
-       25 SETTABLEKS                       R1 R0 K14 ["getCreatorType"]
-       27 RETURN                           R0 1
+       25 SETTABLEKS                       R1 R0 K14 ["getCreatorName"]
+       27 DUPCLOSURE                       R1 K15 [PROTO_7]
+       28 SETTABLEKS                       R1 R0 K16 ["getCreatorType"]
+       30 RETURN                           R0 1

@@ -148,127 +148,119 @@ PROTO_1:
        87 MINUS                            R23 R24
        88 NAMECALL                         R19 R19 K16 ["rotate"]
        90 CALL                             R19 4 1
-       91 GETUPVAL                         R20 2
-       92 JUMPIFNOT                        R20 ; [+8]
-       93 LOADK                            R22 K18 ["ScrollingFrame"]
-       94 NAMECALL                         R20 R5 K19 ["IsA"]
-       96 CALL                             R20 2 1
-       97 JUMPIFNOT                        R20 ; [+3]
-       98 GETTABLEKS                       R20 R5 K20 ["CanvasPosition"]
-      100 ADD                              R19 R19 R20
-      101 LOADNIL                          R20
-      102 GETUPVAL                         R21 3
-      103 JUMPIFNOT                        R21 ; [+84]
-      104 LOADK                            R23 K18 ["ScrollingFrame"]
-      105 NAMECALL                         R21 R5 K19 ["IsA"]
-      107 CALL                             R21 2 1
-      108 JUMPIFNOT                        R21 ; [+74]
-      109 GETUPVAL                         R21 2
-      110 JUMPIFNOT                        R21 ; [+67]
-      111 GETTABLEKS                       R21 R5 K21 ["CanvasSize"]
-      113 GETTABLEKS                       R23 R5 K22 ["Parent"]
-      115 JUMPIFNOT                        R23 ; [+5]
-      116 GETTABLEKS                       R22 R5 K22 ["Parent"]
-      118 GETTABLEKS                       R22 R22 K10 ["AbsoluteSize"]
-      120 JUMPIF                           R22 ; [+2]
-      121 GETTABLEKS                       R22 R5 K10 ["AbsoluteSize"]
-      123 GETIMPORT                        R23 K23 [Vector2.new]
-      125 GETTABLEKS                       R26 R21 K24 ["X"]
-      127 GETTABLEKS                       R26 R26 K25 ["Scale"]
-      129 GETTABLEKS                       R27 R22 K24 ["X"]
-      131 MUL                              R25 R26 R27
-      132 GETTABLEKS                       R26 R21 K24 ["X"]
-      134 GETTABLEKS                       R26 R26 K26 ["Offset"]
-      136 ADD                              R24 R25 R26
-      137 GETTABLEKS                       R27 R21 K27 ["Y"]
-      139 GETTABLEKS                       R27 R27 K25 ["Scale"]
-      141 GETTABLEKS                       R28 R22 K27 ["Y"]
-      143 MUL                              R26 R27 R28
-      144 GETTABLEKS                       R27 R21 K27 ["Y"]
-      146 GETTABLEKS                       R27 R27 K26 ["Offset"]
-      148 ADD                              R25 R26 R27
-      149 CALL                             R23 2 1
-      150 GETIMPORT                        R25 K23 [Vector2.new]
-      152 GETTABLEKS                       R27 R23 K24 ["X"]
-      154 GETTABLEKS                       R28 R5 K10 ["AbsoluteSize"]
-      156 GETTABLEKS                       R28 R28 K24 ["X"]
-      158 FASTCALL2                        MATH_MAX R27 R28 ; [+3]
-      160 GETIMPORT                        R26 K30 [math.max]
-      162 CALL                             R26 2 1
-      163 GETTABLEKS                       R28 R23 K27 ["Y"]
-      165 GETTABLEKS                       R29 R5 K10 ["AbsoluteSize"]
-      167 GETTABLEKS                       R29 R29 K27 ["Y"]
-      169 FASTCALL2                        MATH_MAX R28 R29 ; [+3]
-      171 GETIMPORT                        R27 K30 [math.max]
-      173 CALL                             R27 2 1
-      174 CALL                             R25 2 1
-      175 SUB                              R24 R25 R9
-      176 SUB                              R20 R24 R10
-      177 JUMP                             ; [+14]
-      178 GETTABLEKS                       R22 R5 K31 ["AbsoluteCanvasSize"]
-      180 SUB                              R21 R22 R9
-      181 SUB                              R20 R21 R10
-      182 JUMP                             ; [+9]
-      183 GETTABLEKS                       R22 R5 K10 ["AbsoluteSize"]
-      185 SUB                              R21 R22 R9
-      186 SUB                              R20 R21 R10
-      187 JUMP                             ; [+4]
-      188 GETTABLEKS                       R22 R5 K10 ["AbsoluteSize"]
-      190 SUB                              R21 R22 R9
-      191 SUB                              R20 R21 R10
-      192 LOADN                            R21 1
-      193 LOADN                            R22 1
-      194 GETTABLEKS                       R23 R20 K24 ["X"]
-      196 JUMPIFEQKN                       R23 K32 [0] ; [+3]
-      198 GETTABLEKS                       R21 R20 K24 ["X"]
-      200 GETTABLEKS                       R23 R20 K27 ["Y"]
-      202 JUMPIFEQKN                       R23 K32 [0] ; [+3]
-      204 GETTABLEKS                       R22 R20 K27 ["Y"]
-      206 GETIMPORT                        R23 K23 [Vector2.new]
-      208 MOVE                             R24 R21
-      209 MOVE                             R25 R22
-      210 CALL                             R23 2 1
-      211 MOVE                             R20 R23
-      212 JUMPIFNOT                        R1 ; [+31]
-      213 GETIMPORT                        R23 K23 [Vector2.new]
-      215 GETTABLEKS                       R24 R4 K24 ["X"]
-      217 GETTABLEKS                       R24 R24 K26 ["Offset"]
-      219 GETTABLEKS                       R25 R4 K27 ["Y"]
-      221 GETTABLEKS                       R25 R25 K26 ["Offset"]
-      223 CALL                             R23 2 1
-      224 SUB                              R26 R19 R9
-      225 SUB                              R25 R26 R23
-      226 DIV                              R24 R25 R20
-      227 GETIMPORT                        R25 K7 [UDim2.new]
-      229 GETTABLEKS                       R26 R24 K24 ["X"]
-      231 GETTABLEKS                       R27 R4 K24 ["X"]
-      233 GETTABLEKS                       R27 R27 K26 ["Offset"]
-      235 GETTABLEKS                       R28 R24 K27 ["Y"]
-      237 GETTABLEKS                       R29 R4 K27 ["Y"]
-      239 GETTABLEKS                       R29 R29 K26 ["Offset"]
-      241 CALL                             R25 4 1
-      242 MOVE                             R7 R25
-      243 RETURN                           R7 1
-      244 GETIMPORT                        R24 K23 [Vector2.new]
-      246 GETTABLEKS                       R25 R4 K24 ["X"]
-      248 GETTABLEKS                       R25 R25 K25 ["Scale"]
-      250 GETTABLEKS                       R26 R4 K27 ["Y"]
-      252 GETTABLEKS                       R26 R26 K25 ["Scale"]
-      254 CALL                             R24 2 1
-      255 GETTABLEKS                       R25 R5 K10 ["AbsoluteSize"]
-      257 MUL                              R23 R24 R25
-      258 SUB                              R25 R19 R9
-      259 SUB                              R24 R25 R23
-      260 GETIMPORT                        R25 K7 [UDim2.new]
-      262 GETTABLEKS                       R26 R4 K24 ["X"]
-      264 GETTABLEKS                       R26 R26 K25 ["Scale"]
-      266 GETTABLEKS                       R27 R24 K24 ["X"]
-      268 GETTABLEKS                       R28 R4 K27 ["Y"]
-      270 GETTABLEKS                       R28 R28 K25 ["Scale"]
-      272 GETTABLEKS                       R29 R24 K27 ["Y"]
-      274 CALL                             R25 4 1
-      275 MOVE                             R7 R25
-      276 RETURN                           R7 1
+       91 LOADK                            R22 K18 ["ScrollingFrame"]
+       92 NAMECALL                         R20 R5 K19 ["IsA"]
+       94 CALL                             R20 2 1
+       95 JUMPIFNOT                        R20 ; [+3]
+       96 GETTABLEKS                       R20 R5 K20 ["CanvasPosition"]
+       98 ADD                              R19 R19 R20
+       99 LOADNIL                          R20
+      100 GETUPVAL                         R21 2
+      101 JUMPIFNOT                        R21 ; [+77]
+      102 LOADK                            R23 K18 ["ScrollingFrame"]
+      103 NAMECALL                         R21 R5 K19 ["IsA"]
+      105 CALL                             R21 2 1
+      106 JUMPIFNOT                        R21 ; [+67]
+      107 GETTABLEKS                       R21 R5 K21 ["CanvasSize"]
+      109 GETTABLEKS                       R23 R5 K22 ["Parent"]
+      111 JUMPIFNOT                        R23 ; [+5]
+      112 GETTABLEKS                       R22 R5 K22 ["Parent"]
+      114 GETTABLEKS                       R22 R22 K10 ["AbsoluteSize"]
+      116 JUMPIF                           R22 ; [+2]
+      117 GETTABLEKS                       R22 R5 K10 ["AbsoluteSize"]
+      119 GETIMPORT                        R23 K23 [Vector2.new]
+      121 GETTABLEKS                       R26 R21 K24 ["X"]
+      123 GETTABLEKS                       R26 R26 K25 ["Scale"]
+      125 GETTABLEKS                       R27 R22 K24 ["X"]
+      127 MUL                              R25 R26 R27
+      128 GETTABLEKS                       R26 R21 K24 ["X"]
+      130 GETTABLEKS                       R26 R26 K26 ["Offset"]
+      132 ADD                              R24 R25 R26
+      133 GETTABLEKS                       R27 R21 K27 ["Y"]
+      135 GETTABLEKS                       R27 R27 K25 ["Scale"]
+      137 GETTABLEKS                       R28 R22 K27 ["Y"]
+      139 MUL                              R26 R27 R28
+      140 GETTABLEKS                       R27 R21 K27 ["Y"]
+      142 GETTABLEKS                       R27 R27 K26 ["Offset"]
+      144 ADD                              R25 R26 R27
+      145 CALL                             R23 2 1
+      146 GETIMPORT                        R25 K23 [Vector2.new]
+      148 GETTABLEKS                       R27 R23 K24 ["X"]
+      150 GETTABLEKS                       R28 R5 K10 ["AbsoluteSize"]
+      152 GETTABLEKS                       R28 R28 K24 ["X"]
+      154 FASTCALL2                        MATH_MAX R27 R28 ; [+3]
+      156 GETIMPORT                        R26 K30 [math.max]
+      158 CALL                             R26 2 1
+      159 GETTABLEKS                       R28 R23 K27 ["Y"]
+      161 GETTABLEKS                       R29 R5 K10 ["AbsoluteSize"]
+      163 GETTABLEKS                       R29 R29 K27 ["Y"]
+      165 FASTCALL2                        MATH_MAX R28 R29 ; [+3]
+      167 GETIMPORT                        R27 K30 [math.max]
+      169 CALL                             R27 2 1
+      170 CALL                             R25 2 1
+      171 SUB                              R24 R25 R9
+      172 SUB                              R20 R24 R10
+      173 JUMP                             ; [+9]
+      174 GETTABLEKS                       R22 R5 K10 ["AbsoluteSize"]
+      176 SUB                              R21 R22 R9
+      177 SUB                              R20 R21 R10
+      178 JUMP                             ; [+4]
+      179 GETTABLEKS                       R22 R5 K10 ["AbsoluteSize"]
+      181 SUB                              R21 R22 R9
+      182 SUB                              R20 R21 R10
+      183 LOADN                            R21 1
+      184 LOADN                            R22 1
+      185 GETTABLEKS                       R23 R20 K24 ["X"]
+      187 JUMPIFEQKN                       R23 K31 [0] ; [+3]
+      189 GETTABLEKS                       R21 R20 K24 ["X"]
+      191 GETTABLEKS                       R23 R20 K27 ["Y"]
+      193 JUMPIFEQKN                       R23 K31 [0] ; [+3]
+      195 GETTABLEKS                       R22 R20 K27 ["Y"]
+      197 GETIMPORT                        R23 K23 [Vector2.new]
+      199 MOVE                             R24 R21
+      200 MOVE                             R25 R22
+      201 CALL                             R23 2 1
+      202 MOVE                             R20 R23
+      203 JUMPIFNOT                        R1 ; [+31]
+      204 GETIMPORT                        R23 K23 [Vector2.new]
+      206 GETTABLEKS                       R24 R4 K24 ["X"]
+      208 GETTABLEKS                       R24 R24 K26 ["Offset"]
+      210 GETTABLEKS                       R25 R4 K27 ["Y"]
+      212 GETTABLEKS                       R25 R25 K26 ["Offset"]
+      214 CALL                             R23 2 1
+      215 SUB                              R26 R19 R9
+      216 SUB                              R25 R26 R23
+      217 DIV                              R24 R25 R20
+      218 GETIMPORT                        R25 K7 [UDim2.new]
+      220 GETTABLEKS                       R26 R24 K24 ["X"]
+      222 GETTABLEKS                       R27 R4 K24 ["X"]
+      224 GETTABLEKS                       R27 R27 K26 ["Offset"]
+      226 GETTABLEKS                       R28 R24 K27 ["Y"]
+      228 GETTABLEKS                       R29 R4 K27 ["Y"]
+      230 GETTABLEKS                       R29 R29 K26 ["Offset"]
+      232 CALL                             R25 4 1
+      233 MOVE                             R7 R25
+      234 RETURN                           R7 1
+      235 GETIMPORT                        R24 K23 [Vector2.new]
+      237 GETTABLEKS                       R25 R4 K24 ["X"]
+      239 GETTABLEKS                       R25 R25 K25 ["Scale"]
+      241 GETTABLEKS                       R26 R4 K27 ["Y"]
+      243 GETTABLEKS                       R26 R26 K25 ["Scale"]
+      245 CALL                             R24 2 1
+      246 GETTABLEKS                       R25 R5 K10 ["AbsoluteSize"]
+      248 MUL                              R23 R24 R25
+      249 SUB                              R25 R19 R9
+      250 SUB                              R24 R25 R23
+      251 GETIMPORT                        R25 K7 [UDim2.new]
+      253 GETTABLEKS                       R26 R4 K24 ["X"]
+      255 GETTABLEKS                       R26 R26 K25 ["Scale"]
+      257 GETTABLEKS                       R27 R24 K24 ["X"]
+      259 GETTABLEKS                       R28 R4 K27 ["Y"]
+      261 GETTABLEKS                       R28 R28 K25 ["Scale"]
+      263 GETTABLEKS                       R29 R24 K27 ["Y"]
+      265 CALL                             R25 4 1
+      266 MOVE                             R7 R25
+      267 RETURN                           R7 1
 
 PROTO_2:
         0 MOVE                             R11 R1
@@ -305,22 +297,16 @@ MAIN:
        24 LOADB                            R5 0
        25 NAMECALL                         R2 R2 K11 ["DefineFastFlag"]
        27 CALL                             R2 3 1
-       28 GETIMPORT                        R3 K9 [game]
-       30 LOADK                            R5 K12 ["UIEditorFixScrollingFrameOffset"]
-       31 LOADB                            R6 0
-       32 NAMECALL                         R3 R3 K11 ["DefineFastFlag"]
-       34 CALL                             R3 3 1
-       35 NEWTABLE                         R4 4 0
-       37 DUPCLOSURE                       R5 K13 [PROTO_0]
-       38 CAPTURE                          VAL R1
-       39 CAPTURE                          VAL R0
-       40 SETTABLEKS                       R5 R4 K14 ["convertAbsoluteSizeToScaleOrOffset"]
-       42 DUPCLOSURE                       R5 K15 [PROTO_1]
-       43 CAPTURE                          VAL R1
-       44 CAPTURE                          VAL R0
-       45 CAPTURE                          VAL R3
-       46 CAPTURE                          VAL R2
-       47 SETTABLEKS                       R5 R4 K16 ["convertAbsolutePositionToScaleOrOffset"]
-       49 DUPCLOSURE                       R5 K17 [PROTO_2]
-       50 SETTABLEKS                       R5 R4 K18 ["convertAbsoluteToScaleOrOffset"]
-       52 RETURN                           R4 1
+       28 NEWTABLE                         R3 4 0
+       30 DUPCLOSURE                       R4 K12 [PROTO_0]
+       31 CAPTURE                          VAL R1
+       32 CAPTURE                          VAL R0
+       33 SETTABLEKS                       R4 R3 K13 ["convertAbsoluteSizeToScaleOrOffset"]
+       35 DUPCLOSURE                       R4 K14 [PROTO_1]
+       36 CAPTURE                          VAL R1
+       37 CAPTURE                          VAL R0
+       38 CAPTURE                          VAL R2
+       39 SETTABLEKS                       R4 R3 K15 ["convertAbsolutePositionToScaleOrOffset"]
+       41 DUPCLOSURE                       R4 K16 [PROTO_2]
+       42 SETTABLEKS                       R4 R3 K17 ["convertAbsoluteToScaleOrOffset"]
+       44 RETURN                           R3 1

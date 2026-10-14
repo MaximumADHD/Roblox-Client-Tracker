@@ -481,36 +481,37 @@ MAIN:
        71 GETTABLEKS                       R10 R10 K19 ["Tooltip"]
        73 CALL                             R9 1 1
        74 GETIMPORT                        R10 K5 [require]
-       76 GETTABLEKS                       R11 R0 K20 ["LuaFlags"]
-       78 GETTABLEKS                       R11 R11 K21 ["GetFFlagControlRig"]
-       80 CALL                             R10 1 1
-       81 GETIMPORT                        R11 K5 [require]
-       83 GETTABLEKS                       R12 R0 K8 ["Src"]
-       85 GETTABLEKS                       R12 R12 K9 ["Util"]
-       87 GETTABLEKS                       R12 R12 K22 ["Constants"]
-       89 CALL                             R11 1 1
-       90 GETTABLEKS                       R12 R1 K23 ["PureComponent"]
-       92 LOADK                            R14 K24 ["Track"]
-       93 NAMECALL                         R12 R12 K25 ["extend"]
-       95 CALL                             R12 2 1
-       96 DUPCLOSURE                       R13 K26 [PROTO_4]
-       97 CAPTURE                          VAL R2
-       98 SETTABLEKS                       R13 R12 K27 ["init"]
-      100 DUPCLOSURE                       R13 K28 [PROTO_7]
-      101 CAPTURE                          VAL R11
-      102 CAPTURE                          VAL R1
-      103 CAPTURE                          VAL R10
-      104 CAPTURE                          VAL R9
-      105 CAPTURE                          VAL R8
-      106 CAPTURE                          VAL R7
-      107 CAPTURE                          VAL R6
-      108 SETTABLEKS                       R13 R12 K29 ["render"]
-      110 MOVE                             R13 R5
-      111 DUPTABLE                         R14 K31 [{"Stylizer"}]
-      112 GETTABLEKS                       R15 R4 K30 ["Stylizer"]
-      114 SETTABLEKS                       R15 R14 K30 ["Stylizer"]
-      116 CALL                             R13 1 1
-      117 MOVE                             R14 R12
+       76 GETTABLEKS                       R11 R0 K8 ["Src"]
+       78 GETTABLEKS                       R11 R11 K20 ["Flags"]
+       80 GETTABLEKS                       R11 R11 K21 ["getFFlagControlRig"]
+       82 CALL                             R10 1 1
+       83 GETIMPORT                        R11 K5 [require]
+       85 GETTABLEKS                       R12 R0 K8 ["Src"]
+       87 GETTABLEKS                       R12 R12 K9 ["Util"]
+       89 GETTABLEKS                       R12 R12 K22 ["Constants"]
+       91 CALL                             R11 1 1
+       92 GETTABLEKS                       R12 R1 K23 ["PureComponent"]
+       94 LOADK                            R14 K24 ["Track"]
+       95 NAMECALL                         R12 R12 K25 ["extend"]
+       97 CALL                             R12 2 1
+       98 DUPCLOSURE                       R13 K26 [PROTO_4]
+       99 CAPTURE                          VAL R2
+      100 SETTABLEKS                       R13 R12 K27 ["init"]
+      102 DUPCLOSURE                       R13 K28 [PROTO_7]
+      103 CAPTURE                          VAL R11
+      104 CAPTURE                          VAL R1
+      105 CAPTURE                          VAL R10
+      106 CAPTURE                          VAL R9
+      107 CAPTURE                          VAL R8
+      108 CAPTURE                          VAL R7
+      109 CAPTURE                          VAL R6
+      110 SETTABLEKS                       R13 R12 K29 ["render"]
+      112 MOVE                             R13 R5
+      113 DUPTABLE                         R14 K31 [{"Stylizer"}]
+      114 GETTABLEKS                       R15 R4 K30 ["Stylizer"]
+      116 SETTABLEKS                       R15 R14 K30 ["Stylizer"]
       118 CALL                             R13 1 1
-      119 MOVE                             R12 R13
-      120 RETURN                           R12 1
+      119 MOVE                             R14 R12
+      120 CALL                             R13 1 1
+      121 MOVE                             R12 R13
+      122 RETURN                           R12 1

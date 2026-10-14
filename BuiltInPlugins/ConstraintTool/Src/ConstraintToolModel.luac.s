@@ -1733,280 +1733,276 @@ MAIN:
        15 LOADK                            R4 K7 ["ConstraintTool"]
        16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
        18 CALL                             R2 2 1
-       19 GETTABLEKS                       R3 R2 K9 ["Packages"]
-       21 GETTABLEKS                       R3 R3 K10 ["DraggerFramework"]
-       23 GETIMPORT                        R4 K12 [require]
-       25 GETTABLEKS                       R5 R2 K9 ["Packages"]
-       27 GETTABLEKS                       R5 R5 K13 ["Roact"]
-       29 CALL                             R4 1 1
-       30 GETIMPORT                        R5 K12 [require]
-       32 GETTABLEKS                       R6 R3 K14 ["Flags"]
-       34 GETTABLEKS                       R6 R6 K15 ["getEngineFeatureDraggerServiceUseBoundingBoxes"]
-       36 CALL                             R5 1 1
-       37 GETIMPORT                        R6 K12 [require]
+       19 GETIMPORT                        R3 K10 [require]
+       21 GETTABLEKS                       R4 R2 K11 ["Packages"]
+       23 GETTABLEKS                       R4 R4 K12 ["DraggerFramework"]
+       25 CALL                             R3 1 1
+       26 GETIMPORT                        R4 K10 [require]
+       28 GETTABLEKS                       R5 R2 K11 ["Packages"]
+       30 GETTABLEKS                       R5 R5 K13 ["Roact"]
+       32 CALL                             R4 1 1
+       33 GETTABLEKS                       R5 R3 K14 ["Flags"]
+       35 GETTABLEKS                       R5 R5 K15 ["getEngineFeatureDraggerServiceUseBoundingBoxes"]
+       37 GETIMPORT                        R6 K10 [require]
        39 GETTABLEKS                       R7 R2 K16 ["Src"]
        41 GETTABLEKS                       R7 R7 K17 ["Resources"]
        43 GETTABLEKS                       R7 R7 K18 ["ConstraintData"]
        45 CALL                             R6 1 1
-       46 GETIMPORT                        R7 K12 [require]
+       46 GETIMPORT                        R7 K10 [require]
        48 GETTABLEKS                       R8 R2 K16 ["Src"]
        50 GETTABLEKS                       R8 R8 K19 ["Util"]
        52 GETTABLEKS                       R8 R8 K20 ["AttachmentMover"]
        54 CALL                             R7 1 1
-       55 GETIMPORT                        R8 K12 [require]
-       57 GETTABLEKS                       R9 R3 K21 ["Utility"]
-       59 GETTABLEKS                       R9 R9 K22 ["DragHelper"]
-       61 CALL                             R8 1 1
-       62 GETIMPORT                        R9 K12 [require]
-       64 GETTABLEKS                       R10 R3 K21 ["Utility"]
-       66 GETTABLEKS                       R10 R10 K23 ["roundRotation"]
-       68 CALL                             R9 1 1
-       69 GETIMPORT                        R10 K12 [require]
-       71 GETTABLEKS                       R11 R2 K16 ["Src"]
-       73 GETTABLEKS                       R11 R11 K24 ["Components"]
-       75 GETTABLEKS                       R11 R11 K25 ["setVisible"]
-       77 CALL                             R10 1 1
-       78 GETIMPORT                        R11 K12 [require]
-       80 GETTABLEKS                       R12 R2 K16 ["Src"]
-       82 GETTABLEKS                       R12 R12 K19 ["Util"]
-       84 GETTABLEKS                       R12 R12 K26 ["AttachmentToolRenderer"]
-       86 CALL                             R11 1 1
-       87 GETIMPORT                        R12 K12 [require]
-       89 GETTABLEKS                       R13 R2 K16 ["Src"]
-       91 GETTABLEKS                       R13 R13 K19 ["Util"]
-       93 GETTABLEKS                       R13 R13 K27 ["AttachmentToolAnimator"]
-       95 CALL                             R12 1 1
-       96 GETIMPORT                        R13 K1 [game]
-       98 LOADK                            R15 K28 ["EnableConstraintToolGhostAssemblyFeature"]
-       99 NAMECALL                         R13 R13 K29 ["GetFastFlag"]
-      101 CALL                             R13 2 1
-      102 GETIMPORT                        R14 K1 [game]
-      104 LOADK                            R16 K30 ["EnableConstraintToolPartPassthroughFeature"]
-      105 NAMECALL                         R14 R14 K29 ["GetFastFlag"]
-      107 CALL                             R14 2 1
-      108 NEWTABLE                         R15 64 0
-      110 SETTABLEKS                       R15 R15 K31 ["__index"]
-      112 LOADK                            R16 K32 [""]
-      113 GETIMPORT                        R17 K35 [Color3.fromRGB]
-      115 LOADN                            R18 255
-      116 LOADN                            R19 255
-      117 LOADN                            R20 0
-      118 CALL                             R17 3 1
-      119 GETIMPORT                        R18 K35 [Color3.fromRGB]
-      121 LOADN                            R19 255
-      122 LOADN                            R20 170
-      123 LOADN                            R21 0
-      124 CALL                             R18 3 1
-      125 GETIMPORT                        R19 K35 [Color3.fromRGB]
-      127 LOADN                            R20 0
-      128 LOADN                            R21 255
-      129 LOADN                            R22 0
-      130 CALL                             R19 3 1
-      131 GETIMPORT                        R20 K35 [Color3.fromRGB]
-      133 LOADN                            R21 255
-      134 LOADN                            R22 0
-      135 LOADN                            R23 0
-      136 CALL                             R20 3 1
-      137 GETIMPORT                        R21 K35 [Color3.fromRGB]
-      139 LOADN                            R22 121
-      140 LOADN                            R23 172
-      141 LOADN                            R24 255
-      142 CALL                             R21 3 1
-      143 GETIMPORT                        R22 K35 [Color3.fromRGB]
-      145 LOADN                            R23 255
-      146 LOADN                            R24 0
-      147 LOADN                            R25 0
-      148 CALL                             R22 3 1
-      149 GETIMPORT                        R23 K35 [Color3.fromRGB]
-      151 LOADN                            R24 108
-      152 LOADN                            R25 107
-      153 LOADN                            R26 107
-      154 CALL                             R23 3 1
-      155 GETIMPORT                        R24 K38 [table.freeze]
-      157 DUPTABLE                         R25 K46 [{["AllowDragSelect"] = True, ["ShowLocalSpaceIndicator"] = False, ["WasAutoSelected"] = False, ["ShowPivotIndicator"] = False, ["ShowDragSelect"] = True}]
-      158 CALL                             R24 1 1
-      159 GETIMPORT                        R25 K38 [table.freeze]
-      161 DUPTABLE                         R26 K48 [{["AnalyticsName"] = True}]
-      162 CALL                             R25 1 1
-      163 GETIMPORT                        R26 K38 [table.freeze]
-      165 DUPTABLE                         R27 K51 [{["WeldConstraint"] = True, ["NoCollisionConstraint"] = True}]
-      166 CALL                             R26 1 1
-      167 GETIMPORT                        R27 K38 [table.freeze]
-      169 NEWTABLE                         R28 0 6
-      171 LOADK                            R29 K52 [{1, 0, 0}]
-      172 LOADK                            R30 K53 [{-1, 0, 0}]
-      173 LOADK                            R31 K54 [{0, 1, 0}]
-      174 LOADK                            R32 K55 [{0, -1, 0}]
-      175 LOADK                            R33 K56 [{0, 0, 1}]
-      176 LOADK                            R34 K57 [{0, 0, -1}]
-      177 SETLIST                          R28 R29 6 [1]
-      179 CALL                             R27 1 1
-      180 GETIMPORT                        R28 K60 [CFrame.new]
-      182 LOADN                            R29 0
-      183 LOADN                            R30 0
-      184 LOADN                            R31 0
-      185 LOADN                            R32 0
-      186 LOADN                            R33 1
-      187 LOADN                            R34 0
-      188 LOADN                            R35 1
-      189 LOADN                            R36 0
-      190 LOADN                            R37 0
-      191 LOADN                            R38 0
-      192 LOADN                            R39 0
-      193 LOADN                            R40 -1
-      194 CALL                             R28 12 1
-      195 NEWCLOSURE                       R29 P0
-      196 CAPTURE                          VAL R24
-      197 CAPTURE                          VAL R25
-      198 CAPTURE                          VAL R7
-      199 CAPTURE                          VAL R28
-      200 CAPTURE                          VAL R15
-      201 CAPTURE                          VAL R11
-      202 CAPTURE                          VAL R12
-      203 CAPTURE                          REF R16
-      204 SETTABLEKS                       R29 R15 K59 ["new"]
-      206 DUPCLOSURE                       R29 K61 [PROTO_3]
-      207 SETTABLEKS                       R29 R15 K62 ["_connectGizmoScale"]
-      209 DUPCLOSURE                       R29 K63 [PROTO_4]
-      210 SETTABLEKS                       R29 R15 K64 ["_onUndo"]
-      212 DUPCLOSURE                       R29 K65 [PROTO_5]
-      213 SETTABLEKS                       R29 R15 K66 ["_onRedo"]
-      215 DUPCLOSURE                       R29 K67 [PROTO_6]
-      216 SETTABLEKS                       R29 R15 K68 ["_resizeAttachmentAdorns"]
-      218 DUPCLOSURE                       R29 K69 [PROTO_7]
-      219 CAPTURE                          VAL R19
-      220 SETTABLEKS                       R29 R15 K70 ["_createAttachmentAdornment"]
-      222 DUPCLOSURE                       R29 K71 [PROTO_8]
+       55 GETTABLEKS                       R8 R3 K21 ["Utility"]
+       57 GETTABLEKS                       R8 R8 K22 ["DragHelper"]
+       59 GETTABLEKS                       R9 R3 K21 ["Utility"]
+       61 GETTABLEKS                       R9 R9 K23 ["roundRotation"]
+       63 GETIMPORT                        R10 K10 [require]
+       65 GETTABLEKS                       R11 R2 K16 ["Src"]
+       67 GETTABLEKS                       R11 R11 K24 ["Components"]
+       69 GETTABLEKS                       R11 R11 K25 ["setVisible"]
+       71 CALL                             R10 1 1
+       72 GETIMPORT                        R11 K10 [require]
+       74 GETTABLEKS                       R12 R2 K16 ["Src"]
+       76 GETTABLEKS                       R12 R12 K19 ["Util"]
+       78 GETTABLEKS                       R12 R12 K26 ["AttachmentToolRenderer"]
+       80 CALL                             R11 1 1
+       81 GETIMPORT                        R12 K10 [require]
+       83 GETTABLEKS                       R13 R2 K16 ["Src"]
+       85 GETTABLEKS                       R13 R13 K19 ["Util"]
+       87 GETTABLEKS                       R13 R13 K27 ["AttachmentToolAnimator"]
+       89 CALL                             R12 1 1
+       90 GETIMPORT                        R13 K1 [game]
+       92 LOADK                            R15 K28 ["EnableConstraintToolGhostAssemblyFeature"]
+       93 NAMECALL                         R13 R13 K29 ["GetFastFlag"]
+       95 CALL                             R13 2 1
+       96 GETIMPORT                        R14 K1 [game]
+       98 LOADK                            R16 K30 ["EnableConstraintToolPartPassthroughFeature"]
+       99 NAMECALL                         R14 R14 K29 ["GetFastFlag"]
+      101 CALL                             R14 2 1
+      102 NEWTABLE                         R15 64 0
+      104 SETTABLEKS                       R15 R15 K31 ["__index"]
+      106 LOADK                            R16 K32 [""]
+      107 GETIMPORT                        R17 K35 [Color3.fromRGB]
+      109 LOADN                            R18 255
+      110 LOADN                            R19 255
+      111 LOADN                            R20 0
+      112 CALL                             R17 3 1
+      113 GETIMPORT                        R18 K35 [Color3.fromRGB]
+      115 LOADN                            R19 255
+      116 LOADN                            R20 170
+      117 LOADN                            R21 0
+      118 CALL                             R18 3 1
+      119 GETIMPORT                        R19 K35 [Color3.fromRGB]
+      121 LOADN                            R20 0
+      122 LOADN                            R21 255
+      123 LOADN                            R22 0
+      124 CALL                             R19 3 1
+      125 GETIMPORT                        R20 K35 [Color3.fromRGB]
+      127 LOADN                            R21 255
+      128 LOADN                            R22 0
+      129 LOADN                            R23 0
+      130 CALL                             R20 3 1
+      131 GETIMPORT                        R21 K35 [Color3.fromRGB]
+      133 LOADN                            R22 121
+      134 LOADN                            R23 172
+      135 LOADN                            R24 255
+      136 CALL                             R21 3 1
+      137 GETIMPORT                        R22 K35 [Color3.fromRGB]
+      139 LOADN                            R23 255
+      140 LOADN                            R24 0
+      141 LOADN                            R25 0
+      142 CALL                             R22 3 1
+      143 GETIMPORT                        R23 K35 [Color3.fromRGB]
+      145 LOADN                            R24 108
+      146 LOADN                            R25 107
+      147 LOADN                            R26 107
+      148 CALL                             R23 3 1
+      149 GETIMPORT                        R24 K38 [table.freeze]
+      151 DUPTABLE                         R25 K46 [{["AllowDragSelect"] = True, ["ShowLocalSpaceIndicator"] = False, ["WasAutoSelected"] = False, ["ShowPivotIndicator"] = False, ["ShowDragSelect"] = True}]
+      152 CALL                             R24 1 1
+      153 GETIMPORT                        R25 K38 [table.freeze]
+      155 DUPTABLE                         R26 K48 [{["AnalyticsName"] = True}]
+      156 CALL                             R25 1 1
+      157 GETIMPORT                        R26 K38 [table.freeze]
+      159 DUPTABLE                         R27 K51 [{["WeldConstraint"] = True, ["NoCollisionConstraint"] = True}]
+      160 CALL                             R26 1 1
+      161 GETIMPORT                        R27 K38 [table.freeze]
+      163 NEWTABLE                         R28 0 6
+      165 LOADK                            R29 K52 [{1, 0, 0}]
+      166 LOADK                            R30 K53 [{-1, 0, 0}]
+      167 LOADK                            R31 K54 [{0, 1, 0}]
+      168 LOADK                            R32 K55 [{0, -1, 0}]
+      169 LOADK                            R33 K56 [{0, 0, 1}]
+      170 LOADK                            R34 K57 [{0, 0, -1}]
+      171 SETLIST                          R28 R29 6 [1]
+      173 CALL                             R27 1 1
+      174 GETIMPORT                        R28 K60 [CFrame.new]
+      176 LOADN                            R29 0
+      177 LOADN                            R30 0
+      178 LOADN                            R31 0
+      179 LOADN                            R32 0
+      180 LOADN                            R33 1
+      181 LOADN                            R34 0
+      182 LOADN                            R35 1
+      183 LOADN                            R36 0
+      184 LOADN                            R37 0
+      185 LOADN                            R38 0
+      186 LOADN                            R39 0
+      187 LOADN                            R40 -1
+      188 CALL                             R28 12 1
+      189 NEWCLOSURE                       R29 P0
+      190 CAPTURE                          VAL R24
+      191 CAPTURE                          VAL R25
+      192 CAPTURE                          VAL R7
+      193 CAPTURE                          VAL R28
+      194 CAPTURE                          VAL R15
+      195 CAPTURE                          VAL R11
+      196 CAPTURE                          VAL R12
+      197 CAPTURE                          REF R16
+      198 SETTABLEKS                       R29 R15 K59 ["new"]
+      200 DUPCLOSURE                       R29 K61 [PROTO_3]
+      201 SETTABLEKS                       R29 R15 K62 ["_connectGizmoScale"]
+      203 DUPCLOSURE                       R29 K63 [PROTO_4]
+      204 SETTABLEKS                       R29 R15 K64 ["_onUndo"]
+      206 DUPCLOSURE                       R29 K65 [PROTO_5]
+      207 SETTABLEKS                       R29 R15 K66 ["_onRedo"]
+      209 DUPCLOSURE                       R29 K67 [PROTO_6]
+      210 SETTABLEKS                       R29 R15 K68 ["_resizeAttachmentAdorns"]
+      212 DUPCLOSURE                       R29 K69 [PROTO_7]
+      213 CAPTURE                          VAL R19
+      214 SETTABLEKS                       R29 R15 K70 ["_createAttachmentAdornment"]
+      216 DUPCLOSURE                       R29 K71 [PROTO_8]
+      217 CAPTURE                          VAL R1
+      218 SETTABLEKS                       R29 R15 K72 ["_initAttachmentAdornment"]
+      220 DUPCLOSURE                       R29 K73 [PROTO_9]
+      221 CAPTURE                          VAL R21
+      222 CAPTURE                          VAL R26
       223 CAPTURE                          VAL R1
-      224 SETTABLEKS                       R29 R15 K72 ["_initAttachmentAdornment"]
-      226 DUPCLOSURE                       R29 K73 [PROTO_9]
-      227 CAPTURE                          VAL R21
-      228 CAPTURE                          VAL R26
-      229 CAPTURE                          VAL R1
-      230 SETTABLEKS                       R29 R15 K74 ["_initSelectionHighlight"]
-      232 DUPCLOSURE                       R29 K75 [PROTO_10]
-      233 CAPTURE                          VAL R17
-      234 CAPTURE                          VAL R18
-      235 SETTABLEKS                       R29 R15 K76 ["_createAttachmentAdornmentArrows"]
-      237 DUPCLOSURE                       R29 K77 [PROTO_11]
-      238 SETTABLEKS                       R29 R15 K78 ["_orientAttachmentAdornment"]
-      240 DUPCLOSURE                       R29 K79 [PROTO_12]
-      241 SETTABLEKS                       R29 R15 K80 ["setMouseCursor"]
-      243 DUPCLOSURE                       R29 K81 [PROTO_13]
-      244 CAPTURE                          VAL R26
-      245 CAPTURE                          VAL R4
-      246 SETTABLEKS                       R29 R15 K82 ["render"]
-      248 DUPCLOSURE                       R29 K83 [PROTO_14]
-      249 SETTABLEKS                       R29 R15 K84 ["update"]
-      251 DUPCLOSURE                       R29 K85 [PROTO_15]
-      252 SETTABLEKS                       R29 R15 K86 ["getSchema"]
-      254 DUPCLOSURE                       R29 K87 [PROTO_16]
-      255 SETTABLEKS                       R29 R15 K88 ["doesAllowDragSelect"]
-      257 DUPCLOSURE                       R29 K89 [PROTO_17]
-      258 SETTABLEKS                       R29 R15 K90 ["shouldShowDragSelect"]
-      260 DUPCLOSURE                       R29 K91 [PROTO_18]
-      261 SETTABLEKS                       R29 R15 K92 ["shouldShowLocalSpaceIndicator"]
-      263 DUPCLOSURE                       R29 K93 [PROTO_19]
-      264 SETTABLEKS                       R29 R15 K94 ["shouldShowSelectionDot"]
-      266 DUPCLOSURE                       R29 K95 [PROTO_20]
-      267 SETTABLEKS                       R29 R15 K96 ["shouldUseCollisionTransparency"]
-      269 DUPCLOSURE                       R29 K97 [PROTO_21]
-      270 SETTABLEKS                       R29 R15 K98 ["shouldAlignDraggedObjects"]
-      272 DUPCLOSURE                       R29 K99 [PROTO_22]
-      273 CAPTURE                          VAL R13
-      274 SETTABLEKS                       R29 R15 K100 ["getRaycastIgnoreList"]
-      276 DUPCLOSURE                       R29 K101 [PROTO_23]
-      277 CAPTURE                          VAL R26
-      278 SETTABLEKS                       R29 R15 K102 ["_setInitialInstanceTransparency"]
-      280 DUPCLOSURE                       R29 K103 [PROTO_24]
-      281 CAPTURE                          VAL R26
-      282 CAPTURE                          VAL R8
-      283 CAPTURE                          VAL R21
-      284 CAPTURE                          VAL R22
-      285 CAPTURE                          VAL R23
-      286 CAPTURE                          VAL R5
-      287 CAPTURE                          VAL R13
-      288 CAPTURE                          VAL R19
-      289 CAPTURE                          VAL R20
-      290 SETTABLEKS                       R29 R15 K104 ["_updateAttachment"]
-      292 DUPCLOSURE                       R29 K105 [PROTO_25]
-      293 CAPTURE                          VAL R27
-      294 CAPTURE                          VAL R9
-      295 SETTABLEKS                       R29 R15 K106 ["_rotateAttachment"]
-      297 DUPCLOSURE                       R29 K107 [PROTO_26]
-      298 CAPTURE                          VAL R26
-      299 CAPTURE                          VAL R0
-      300 CAPTURE                          VAL R13
-      301 SETTABLEKS                       R29 R15 K108 ["_closeTool"]
-      303 DUPCLOSURE                       R29 K109 [PROTO_28]
-      304 CAPTURE                          VAL R1
-      305 SETTABLEKS                       R29 R15 K110 ["_processSelected"]
-      307 DUPCLOSURE                       R29 K111 [PROTO_29]
-      308 SETTABLEKS                       R29 R15 K112 ["_processDeselected"]
-      310 DUPCLOSURE                       R29 K113 [PROTO_30]
-      311 SETTABLEKS                       R29 R15 K114 ["_processSelectionChanged"]
-      313 DUPCLOSURE                       R29 K115 [PROTO_31]
-      314 SETTABLEKS                       R29 R15 K116 ["_setConstraintType"]
-      316 DUPCLOSURE                       R29 K117 [PROTO_32]
-      317 CAPTURE                          VAL R6
-      318 SETTABLEKS                       R29 R15 K118 ["_getConstraintData"]
-      320 DUPCLOSURE                       R29 K119 [PROTO_33]
-      321 SETTABLEKS                       R29 R15 K120 ["_createConstraintVisuals"]
-      323 DUPCLOSURE                       R29 K121 [PROTO_34]
-      324 SETTABLEKS                       R29 R15 K122 ["_removeConstraintVisuals"]
-      326 DUPCLOSURE                       R29 K123 [PROTO_35]
-      327 SETTABLEKS                       R29 R15 K124 ["_removeAttachmentAdorns"]
-      329 GETIMPORT                        R29 K38 [table.freeze]
-      331 NEWTABLE                         R30 8 0
-      333 GETIMPORT                        R31 K128 [Enum.KeyCode.RightShift]
-      335 LOADB                            R32 1
-      336 SETTABLE                         R32 R30 R31
-      337 GETIMPORT                        R31 K130 [Enum.KeyCode.LeftShift]
-      339 LOADB                            R32 1
-      340 SETTABLE                         R32 R30 R31
-      341 GETIMPORT                        R31 K132 [Enum.KeyCode.RightControl]
-      343 LOADB                            R32 1
-      344 SETTABLE                         R32 R30 R31
-      345 GETIMPORT                        R31 K134 [Enum.KeyCode.LeftControl]
-      347 LOADB                            R32 1
-      348 SETTABLE                         R32 R30 R31
-      349 GETIMPORT                        R31 K136 [Enum.KeyCode.RightAlt]
-      351 LOADB                            R32 1
-      352 SETTABLE                         R32 R30 R31
-      353 GETIMPORT                        R31 K138 [Enum.KeyCode.LeftAlt]
-      355 LOADB                            R32 1
-      356 SETTABLE                         R32 R30 R31
-      357 CALL                             R29 1 1
-      358 DUPCLOSURE                       R30 K139 [PROTO_36]
-      359 CAPTURE                          VAL R14
-      360 CAPTURE                          VAL R29
-      361 SETTABLEKS                       R30 R15 K140 ["_processKeyDown"]
-      363 DUPCLOSURE                       R30 K141 [PROTO_37]
-      364 CAPTURE                          VAL R29
-      365 SETTABLEKS                       R30 R15 K142 ["_processKeyUp"]
-      367 DUPCLOSURE                       R30 K143 [PROTO_38]
-      368 CAPTURE                          VAL R26
-      369 SETTABLEKS                       R30 R15 K144 ["_clearInitialInstance"]
-      371 DUPCLOSURE                       R30 K145 [PROTO_40]
-      372 CAPTURE                          VAL R26
-      373 SETTABLEKS                       R30 R15 K146 ["_selectInitialInstance"]
-      375 DUPCLOSURE                       R30 K147 [PROTO_41]
+      224 SETTABLEKS                       R29 R15 K74 ["_initSelectionHighlight"]
+      226 DUPCLOSURE                       R29 K75 [PROTO_10]
+      227 CAPTURE                          VAL R17
+      228 CAPTURE                          VAL R18
+      229 SETTABLEKS                       R29 R15 K76 ["_createAttachmentAdornmentArrows"]
+      231 DUPCLOSURE                       R29 K77 [PROTO_11]
+      232 SETTABLEKS                       R29 R15 K78 ["_orientAttachmentAdornment"]
+      234 DUPCLOSURE                       R29 K79 [PROTO_12]
+      235 SETTABLEKS                       R29 R15 K80 ["setMouseCursor"]
+      237 DUPCLOSURE                       R29 K81 [PROTO_13]
+      238 CAPTURE                          VAL R26
+      239 CAPTURE                          VAL R4
+      240 SETTABLEKS                       R29 R15 K82 ["render"]
+      242 DUPCLOSURE                       R29 K83 [PROTO_14]
+      243 SETTABLEKS                       R29 R15 K84 ["update"]
+      245 DUPCLOSURE                       R29 K85 [PROTO_15]
+      246 SETTABLEKS                       R29 R15 K86 ["getSchema"]
+      248 DUPCLOSURE                       R29 K87 [PROTO_16]
+      249 SETTABLEKS                       R29 R15 K88 ["doesAllowDragSelect"]
+      251 DUPCLOSURE                       R29 K89 [PROTO_17]
+      252 SETTABLEKS                       R29 R15 K90 ["shouldShowDragSelect"]
+      254 DUPCLOSURE                       R29 K91 [PROTO_18]
+      255 SETTABLEKS                       R29 R15 K92 ["shouldShowLocalSpaceIndicator"]
+      257 DUPCLOSURE                       R29 K93 [PROTO_19]
+      258 SETTABLEKS                       R29 R15 K94 ["shouldShowSelectionDot"]
+      260 DUPCLOSURE                       R29 K95 [PROTO_20]
+      261 SETTABLEKS                       R29 R15 K96 ["shouldUseCollisionTransparency"]
+      263 DUPCLOSURE                       R29 K97 [PROTO_21]
+      264 SETTABLEKS                       R29 R15 K98 ["shouldAlignDraggedObjects"]
+      266 DUPCLOSURE                       R29 K99 [PROTO_22]
+      267 CAPTURE                          VAL R13
+      268 SETTABLEKS                       R29 R15 K100 ["getRaycastIgnoreList"]
+      270 DUPCLOSURE                       R29 K101 [PROTO_23]
+      271 CAPTURE                          VAL R26
+      272 SETTABLEKS                       R29 R15 K102 ["_setInitialInstanceTransparency"]
+      274 DUPCLOSURE                       R29 K103 [PROTO_24]
+      275 CAPTURE                          VAL R26
+      276 CAPTURE                          VAL R8
+      277 CAPTURE                          VAL R21
+      278 CAPTURE                          VAL R22
+      279 CAPTURE                          VAL R23
+      280 CAPTURE                          VAL R5
+      281 CAPTURE                          VAL R13
+      282 CAPTURE                          VAL R19
+      283 CAPTURE                          VAL R20
+      284 SETTABLEKS                       R29 R15 K104 ["_updateAttachment"]
+      286 DUPCLOSURE                       R29 K105 [PROTO_25]
+      287 CAPTURE                          VAL R27
+      288 CAPTURE                          VAL R9
+      289 SETTABLEKS                       R29 R15 K106 ["_rotateAttachment"]
+      291 DUPCLOSURE                       R29 K107 [PROTO_26]
+      292 CAPTURE                          VAL R26
+      293 CAPTURE                          VAL R0
+      294 CAPTURE                          VAL R13
+      295 SETTABLEKS                       R29 R15 K108 ["_closeTool"]
+      297 DUPCLOSURE                       R29 K109 [PROTO_28]
+      298 CAPTURE                          VAL R1
+      299 SETTABLEKS                       R29 R15 K110 ["_processSelected"]
+      301 DUPCLOSURE                       R29 K111 [PROTO_29]
+      302 SETTABLEKS                       R29 R15 K112 ["_processDeselected"]
+      304 DUPCLOSURE                       R29 K113 [PROTO_30]
+      305 SETTABLEKS                       R29 R15 K114 ["_processSelectionChanged"]
+      307 DUPCLOSURE                       R29 K115 [PROTO_31]
+      308 SETTABLEKS                       R29 R15 K116 ["_setConstraintType"]
+      310 DUPCLOSURE                       R29 K117 [PROTO_32]
+      311 CAPTURE                          VAL R6
+      312 SETTABLEKS                       R29 R15 K118 ["_getConstraintData"]
+      314 DUPCLOSURE                       R29 K119 [PROTO_33]
+      315 SETTABLEKS                       R29 R15 K120 ["_createConstraintVisuals"]
+      317 DUPCLOSURE                       R29 K121 [PROTO_34]
+      318 SETTABLEKS                       R29 R15 K122 ["_removeConstraintVisuals"]
+      320 DUPCLOSURE                       R29 K123 [PROTO_35]
+      321 SETTABLEKS                       R29 R15 K124 ["_removeAttachmentAdorns"]
+      323 GETIMPORT                        R29 K38 [table.freeze]
+      325 NEWTABLE                         R30 8 0
+      327 GETIMPORT                        R31 K128 [Enum.KeyCode.RightShift]
+      329 LOADB                            R32 1
+      330 SETTABLE                         R32 R30 R31
+      331 GETIMPORT                        R31 K130 [Enum.KeyCode.LeftShift]
+      333 LOADB                            R32 1
+      334 SETTABLE                         R32 R30 R31
+      335 GETIMPORT                        R31 K132 [Enum.KeyCode.RightControl]
+      337 LOADB                            R32 1
+      338 SETTABLE                         R32 R30 R31
+      339 GETIMPORT                        R31 K134 [Enum.KeyCode.LeftControl]
+      341 LOADB                            R32 1
+      342 SETTABLE                         R32 R30 R31
+      343 GETIMPORT                        R31 K136 [Enum.KeyCode.RightAlt]
+      345 LOADB                            R32 1
+      346 SETTABLE                         R32 R30 R31
+      347 GETIMPORT                        R31 K138 [Enum.KeyCode.LeftAlt]
+      349 LOADB                            R32 1
+      350 SETTABLE                         R32 R30 R31
+      351 CALL                             R29 1 1
+      352 DUPCLOSURE                       R30 K139 [PROTO_36]
+      353 CAPTURE                          VAL R14
+      354 CAPTURE                          VAL R29
+      355 SETTABLEKS                       R30 R15 K140 ["_processKeyDown"]
+      357 DUPCLOSURE                       R30 K141 [PROTO_37]
+      358 CAPTURE                          VAL R29
+      359 SETTABLEKS                       R30 R15 K142 ["_processKeyUp"]
+      361 DUPCLOSURE                       R30 K143 [PROTO_38]
+      362 CAPTURE                          VAL R26
+      363 SETTABLEKS                       R30 R15 K144 ["_clearInitialInstance"]
+      365 DUPCLOSURE                       R30 K145 [PROTO_40]
+      366 CAPTURE                          VAL R26
+      367 SETTABLEKS                       R30 R15 K146 ["_selectInitialInstance"]
+      369 DUPCLOSURE                       R30 K147 [PROTO_41]
+      370 CAPTURE                          VAL R26
+      371 SETTABLEKS                       R30 R15 K148 ["_canMouseDown"]
+      373 NEWCLOSURE                       R30 P38
+      374 CAPTURE                          VAL R0
+      375 CAPTURE                          REF R16
       376 CAPTURE                          VAL R26
-      377 SETTABLEKS                       R30 R15 K148 ["_canMouseDown"]
-      379 NEWCLOSURE                       R30 P38
-      380 CAPTURE                          VAL R0
-      381 CAPTURE                          REF R16
-      382 CAPTURE                          VAL R26
-      383 CAPTURE                          VAL R1
-      384 CAPTURE                          VAL R10
-      385 CAPTURE                          VAL R13
-      386 SETTABLEKS                       R30 R15 K149 ["_processMouseDown"]
-      388 DUPCLOSURE                       R30 K150 [PROTO_43]
-      389 CAPTURE                          VAL R0
-      390 SETTABLEKS                       R30 R15 K151 ["_processMouseUp"]
-      392 DUPCLOSURE                       R30 K152 [PROTO_44]
-      393 SETTABLEKS                       R30 R15 K153 ["_processViewChanged"]
-      395 DUPCLOSURE                       R30 K154 [PROTO_45]
-      396 SETTABLEKS                       R30 R15 K155 ["_scheduleRender"]
-      398 CLOSEUPVALS                      R16
-      399 RETURN                           R15 1
+      377 CAPTURE                          VAL R1
+      378 CAPTURE                          VAL R10
+      379 CAPTURE                          VAL R13
+      380 SETTABLEKS                       R30 R15 K149 ["_processMouseDown"]
+      382 DUPCLOSURE                       R30 K150 [PROTO_43]
+      383 CAPTURE                          VAL R0
+      384 SETTABLEKS                       R30 R15 K151 ["_processMouseUp"]
+      386 DUPCLOSURE                       R30 K152 [PROTO_44]
+      387 SETTABLEKS                       R30 R15 K153 ["_processViewChanged"]
+      389 DUPCLOSURE                       R30 K154 [PROTO_45]
+      390 SETTABLEKS                       R30 R15 K155 ["_scheduleRender"]
+      392 CLOSEUPVALS                      R16
+      393 RETURN                           R15 1

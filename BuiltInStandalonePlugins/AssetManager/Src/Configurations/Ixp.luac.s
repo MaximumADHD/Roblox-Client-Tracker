@@ -22,24 +22,41 @@ MAIN:
        27 GETTABLEKS                       R4 R4 K10 ["Flags"]
        29 GETTABLEKS                       R4 R4 K11 ["getFFlagAmrEnableOmnisearch"]
        31 CALL                             R3 1 1
-       32 NEWTABLE                         R4 0 0
-       34 MOVE                             R5 R3
-       35 CALL                             R5 0 1
-       36 JUMPIFNOT                        R5 ; [+17]
-       37 GETTABLEKS                       R5 R1 K12 ["IxpVariable"]
-       39 GETTABLEKS                       R5 R5 K13 ["Omnisearch"]
-       41 NEWTABLE                         R6 0 2
-       43 GETTABLEKS                       R7 R1 K14 ["IxpValue"]
-       45 GETTABLEKS                       R7 R7 K15 ["Control"]
-       47 GETTABLEKS                       R8 R1 K14 ["IxpValue"]
-       49 GETTABLEKS                       R8 R8 K16 ["Experiment"]
-       51 SETLIST                          R6 R7 2 [1]
-       53 SETTABLE                         R6 R4 R5
-       54 MOVE                             R5 R2
-       55 MOVE                             R6 R4
-       56 CALL                             R5 1 0
-       57 DUPCLOSURE                       R5 K17 [PROTO_0]
-       58 CAPTURE                          VAL R4
-       59 DUPTABLE                         R6 K19 [{"getIxpExperimentDefinitions"}]
-       60 SETTABLEKS                       R5 R6 K18 ["getIxpExperimentDefinitions"]
-       62 RETURN                           R6 1
+       32 GETIMPORT                        R4 K5 [require]
+       34 GETTABLEKS                       R5 R0 K6 ["Src"]
+       36 GETTABLEKS                       R5 R5 K10 ["Flags"]
+       38 GETTABLEKS                       R5 R5 K12 ["getFFlagAmrEnableIntroTutorial"]
+       40 CALL                             R4 1 1
+       41 NEWTABLE                         R5 0 0
+       43 MOVE                             R6 R3
+       44 CALL                             R6 0 1
+       45 JUMPIFNOT                        R6 ; [+17]
+       46 GETTABLEKS                       R6 R1 K13 ["IxpVariable"]
+       48 GETTABLEKS                       R6 R6 K14 ["Omnisearch"]
+       50 NEWTABLE                         R7 0 2
+       52 GETTABLEKS                       R8 R1 K15 ["IxpValue"]
+       54 GETTABLEKS                       R8 R8 K16 ["Control"]
+       56 GETTABLEKS                       R9 R1 K15 ["IxpValue"]
+       58 GETTABLEKS                       R9 R9 K17 ["Experiment"]
+       60 SETLIST                          R7 R8 2 [1]
+       62 SETTABLE                         R7 R5 R6
+       63 MOVE                             R6 R4
+       64 CALL                             R6 0 1
+       65 JUMPIFNOT                        R6 ; [+17]
+       66 GETTABLEKS                       R6 R1 K13 ["IxpVariable"]
+       68 GETTABLEKS                       R6 R6 K18 ["IntroTutorial"]
+       70 NEWTABLE                         R7 0 2
+       72 GETTABLEKS                       R8 R1 K15 ["IxpValue"]
+       74 GETTABLEKS                       R8 R8 K16 ["Control"]
+       76 GETTABLEKS                       R9 R1 K15 ["IxpValue"]
+       78 GETTABLEKS                       R9 R9 K17 ["Experiment"]
+       80 SETLIST                          R7 R8 2 [1]
+       82 SETTABLE                         R7 R5 R6
+       83 MOVE                             R6 R2
+       84 MOVE                             R7 R5
+       85 CALL                             R6 1 0
+       86 DUPCLOSURE                       R6 K19 [PROTO_0]
+       87 CAPTURE                          VAL R5
+       88 DUPTABLE                         R7 K21 [{"getIxpExperimentDefinitions"}]
+       89 SETTABLEKS                       R6 R7 K20 ["getIxpExperimentDefinitions"]
+       91 RETURN                           R7 1

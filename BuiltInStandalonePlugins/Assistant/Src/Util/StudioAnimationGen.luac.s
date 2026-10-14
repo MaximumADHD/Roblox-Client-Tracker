@@ -1,15 +1,33 @@
 PROTO_0:
-        0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"Prompt"}]
-        2 GETUPVAL                         R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["Prompt"]
-        5 GETUPVAL                         R3 2
-        6 LOADNIL                          R4
-        7 NAMECALL                         R0 R0 K2 ["GenerateAnimationAsync"]
-        9 CALL                             R0 4 -1
-       10 RETURN                           R0 -1
+        0 NEWTABLE                         R1 0 0
+        2 MOVE                             R2 R0
+        3 LOADNIL                          R3
+        4 LOADNIL                          R4
+        5 FORGPREP                         R2
+        6 GETTABLEKS                       R7 R6 K0 ["Name"]
+        8 LOADK                            R9 K1 ["Reach_(%d+)$"]
+        9 NAMECALL                         R7 R7 K2 ["match"]
+       11 CALL                             R7 2 1
+       12 JUMPIFEQKNIL                     R7 ; [+8]
+       14 FASTCALL1                        TONUMBER R7 ; [+3]
+       15 MOVE                             R10 R7
+       16 GETIMPORT                        R9 K5 [tonumber]
+       18 CALL                             R9 1 1
+       19 DIVK                             R8 R9 K3 [100]
+       20 SETTABLE                         R6 R1 R8
+       21 FORGLOOP                         R2 2 ; [-16]
+       23 RETURN                           R1 1
 
 PROTO_1:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 GETUPVAL                         R3 2
+        3 LOADNIL                          R4
+        4 NAMECALL                         R0 R0 K0 ["GenerateAnimationAsync"]
+        6 CALL                             R0 4 -1
+        7 RETURN                           R0 -1
+
+PROTO_2:
         0 GETUPVAL                         R2 0
         1 JUMPIFNOT                        R2 ; [+2]
         2 GETUPVAL                         R2 1
@@ -39,70 +57,91 @@ PROTO_1:
        35 JUMPIFNOT                        R4 ; [+2]
        36 GETTABLEKS                       R4 R1 K14 ["priorJobId"]
        38 SETTABLEKS                       R4 R3 K9 ["PriorJobId"]
-       40 GETIMPORT                        R4 K16 [pcall]
-       42 NEWCLOSURE                       R5 P0
-       43 CAPTURE                          UPVAL U0
-       44 CAPTURE                          VAL R0
-       45 CAPTURE                          VAL R3
-       46 CALL                             R4 1 3
-       47 JUMPIF                           R4 ; [+10]
-       48 GETIMPORT                        R7 K1 [error]
-       50 LOADK                            R9 K17 ["GenerateAnimationAsync failed: "]
-       51 FASTCALL1                        TOSTRING R5 ; [+3]
-       52 MOVE                             R11 R5
-       53 GETIMPORT                        R10 K19 [tostring]
-       55 CALL                             R10 1 1
-       56 CONCAT                           R8 R9 R10
-       57 CALL                             R7 1 0
-       58 JUMPIFEQKNIL                     R5 ; [+3]
-       60 JUMPIFNOTEQKS                    R5 K20 [""] ; [+5]
-       62 GETIMPORT                        R7 K1 [error]
-       64 LOADK                            R8 K21 ["Animation generation failed: no FBX file returned"]
-       65 CALL                             R7 1 0
-       66 GETUPVAL                         R7 1
-       67 MOVE                             R9 R5
-       68 NAMECALL                         R7 R7 K22 ["StartSessionWithPathAsync"]
-       70 CALL                             R7 2 1
-       71 NAMECALL                         R8 R7 K23 ["GetKeyframeSequences"]
-       73 CALL                             R8 1 1
-       74 NAMECALL                         R9 R7 K24 ["Destroy"]
-       76 CALL                             R9 1 0
-       77 LENGTH                           R9 R8
-       78 JUMPIFNOTEQKN                    R9 K25 [0] ; [+5]
-       80 GETIMPORT                        R9 K1 [error]
-       82 LOADK                            R10 K26 ["Animation generation failed: no KeyframeSequence extracted from FBX"]
-       83 CALL                             R9 1 0
-       84 JUMPIFEQKNIL                     R5 ; [+11]
-       86 LOADK                            R11 K27 ["([^/\\]+)%.fbx$"]
-       87 NAMECALL                         R9 R5 K28 ["match"]
-       89 CALL                             R9 2 1
-       90 JUMPIF                           R9 ; [+6]
-       91 LOADK                            R11 K29 ["([^/\\]+)$"]
-       92 NAMECALL                         R9 R5 K28 ["match"]
-       94 CALL                             R9 2 1
-       95 JUMP                             ; [+1]
-       96 LOADK                            R9 K30 ["GeneratedAnim"]
-       97 GETTABLEN                        R10 R8 1
-       98 SETTABLEKS                       R9 R10 K31 ["Name"]
-      100 GETUPVAL                         R10 2
-      101 GETTABLEKS                       R10 R10 K32 ["FFlagDebugLogAssistantUI"]
-      103 JUMPIFNOT                        R10 ; [+10]
-      104 GETIMPORT                        R10 K34 [print]
-      106 LOADK                            R12 K35 ["[AnimationGen] FBX saved: "]
-      107 FASTCALL1                        TOSTRING R5 ; [+3]
-      108 MOVE                             R14 R5
-      109 GETIMPORT                        R13 K19 [tostring]
-      111 CALL                             R13 1 1
-      112 CONCAT                           R11 R12 R13
-      113 CALL                             R10 1 0
-      114 DUPTABLE                         R10 K39 [{"animationClip", "contextId", "fbxFilePath"}]
-      115 GETTABLEN                        R11 R8 1
-      116 SETTABLEKS                       R11 R10 K36 ["animationClip"]
-      118 SETTABLEKS                       R6 R10 K37 ["contextId"]
-      120 SETTABLEKS                       R5 R10 K38 ["fbxFilePath"]
-      122 RETURN                           R10 1
+       40 DUPTABLE                         R4 K16 [{"Prompt"}]
+       41 SETTABLEKS                       R0 R4 K15 ["Prompt"]
+       43 JUMPIFNOT                        R1 ; [+7]
+       44 GETTABLEKS                       R5 R1 K17 ["keyframes"]
+       46 JUMPIFNOT                        R5 ; [+4]
+       47 GETTABLEKS                       R5 R1 K17 ["keyframes"]
+       49 SETTABLEKS                       R5 R4 K18 ["Animation"]
+       51 GETIMPORT                        R5 K20 [pcall]
+       53 NEWCLOSURE                       R6 P0
+       54 CAPTURE                          UPVAL U0
+       55 CAPTURE                          VAL R4
+       56 CAPTURE                          VAL R3
+       57 CALL                             R5 1 3
+       58 JUMPIF                           R5 ; [+10]
+       59 GETIMPORT                        R8 K1 [error]
+       61 LOADK                            R10 K21 ["GenerateAnimationAsync failed: "]
+       62 FASTCALL1                        TOSTRING R6 ; [+3]
+       63 MOVE                             R12 R6
+       64 GETIMPORT                        R11 K23 [tostring]
+       66 CALL                             R11 1 1
+       67 CONCAT                           R9 R10 R11
+       68 CALL                             R8 1 0
+       69 JUMPIFEQKNIL                     R6 ; [+3]
+       71 JUMPIFNOTEQKS                    R6 K24 [""] ; [+5]
+       73 GETIMPORT                        R8 K1 [error]
+       75 LOADK                            R9 K25 ["Animation generation failed: no FBX file returned"]
+       76 CALL                             R8 1 0
+       77 GETUPVAL                         R8 1
+       78 MOVE                             R10 R6
+       79 NAMECALL                         R8 R8 K26 ["StartSessionWithPathAsync"]
+       81 CALL                             R8 2 1
+       82 NAMECALL                         R9 R8 K27 ["GetKeyframeSequences"]
+       84 CALL                             R9 1 1
+       85 NAMECALL                         R10 R8 K28 ["Destroy"]
+       87 CALL                             R10 1 0
+       88 LENGTH                           R10 R9
+       89 JUMPIFNOTEQKN                    R10 K29 [0] ; [+5]
+       91 GETIMPORT                        R10 K1 [error]
+       93 LOADK                            R11 K30 ["Animation generation failed: no KeyframeSequence extracted from FBX"]
+       94 CALL                             R10 1 0
+       95 GETTABLEN                        R10 R9 1
+       96 LOADNIL                          R11
+       97 JUMPIFNOT                        R1 ; [+15]
+       98 GETTABLEKS                       R12 R1 K31 ["includeReachTakes"]
+      100 JUMPIFNOT                        R12 ; [+12]
+      101 GETUPVAL                         R12 2
+      102 MOVE                             R13 R9
+      103 CALL                             R12 1 1
+      104 GETIMPORT                        R13 K33 [next]
+      106 MOVE                             R14 R12
+      107 CALL                             R13 1 1
+      108 JUMPIFEQKNIL                     R13 ; [+4]
+      110 MOVE                             R11 R12
+      111 GETTABLEN                        R13 R12 1
+      112 OR                               R10 R13 R10
+      113 JUMPIFEQKNIL                     R6 ; [+11]
+      115 LOADK                            R14 K34 ["([^/\\]+)%.fbx$"]
+      116 NAMECALL                         R12 R6 K35 ["match"]
+      118 CALL                             R12 2 1
+      119 JUMPIF                           R12 ; [+6]
+      120 LOADK                            R14 K36 ["([^/\\]+)$"]
+      121 NAMECALL                         R12 R6 K35 ["match"]
+      123 CALL                             R12 2 1
+      124 JUMP                             ; [+1]
+      125 LOADK                            R12 K37 ["GeneratedAnim"]
+      126 SETTABLEKS                       R12 R10 K38 ["Name"]
+      128 GETUPVAL                         R13 3
+      129 GETTABLEKS                       R13 R13 K39 ["FFlagDebugLogAssistantUI"]
+      131 JUMPIFNOT                        R13 ; [+10]
+      132 GETIMPORT                        R13 K41 [print]
+      134 LOADK                            R15 K42 ["[AnimationGen] FBX saved: "]
+      135 FASTCALL1                        TOSTRING R6 ; [+3]
+      136 MOVE                             R17 R6
+      137 GETIMPORT                        R16 K23 [tostring]
+      139 CALL                             R16 1 1
+      140 CONCAT                           R14 R15 R16
+      141 CALL                             R13 1 0
+      142 DUPTABLE                         R13 K47 [{"animationClip", "contextId", "fbxFilePath", "reachTakes"}]
+      143 SETTABLEKS                       R10 R13 K43 ["animationClip"]
+      145 SETTABLEKS                       R7 R13 K44 ["contextId"]
+      147 SETTABLEKS                       R6 R13 K45 ["fbxFilePath"]
+      149 SETTABLEKS                       R11 R13 K46 ["reachTakes"]
+      151 RETURN                           R13 1
 
-PROTO_2:
+PROTO_3:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["Actions"]
         2 NAMECALL                         R0 R0 K1 ["GetPluginComponent"]
@@ -127,7 +166,7 @@ PROTO_2:
        30 CALL                             R4 2 0
        31 RETURN                           R3 1
 
-PROTO_3:
+PROTO_4:
         0 NEWCLOSURE                       R1 P0
         1 CAPTURE                          VAL R0
         2 CAPTURE                          UPVAL U0
@@ -163,13 +202,15 @@ MAIN:
        36 GETTABLEKS                       R7 R4 K15 ["Packages"]
        38 GETTABLEKS                       R7 R7 K16 ["StudioFoundation"]
        40 CALL                             R6 1 1
-       41 DUPCLOSURE                       R7 K17 [PROTO_1]
-       42 CAPTURE                          VAL R3
-       43 CAPTURE                          VAL R1
-       44 CAPTURE                          VAL R5
-       45 DUPCLOSURE                       R8 K18 [PROTO_3]
-       46 CAPTURE                          VAL R6
-       47 CAPTURE                          VAL R7
-       48 DUPTABLE                         R9 K20 [{"create"}]
-       49 SETTABLEKS                       R8 R9 K19 ["create"]
-       51 RETURN                           R9 1
+       41 DUPCLOSURE                       R7 K17 [PROTO_0]
+       42 DUPCLOSURE                       R8 K18 [PROTO_2]
+       43 CAPTURE                          VAL R3
+       44 CAPTURE                          VAL R1
+       45 CAPTURE                          VAL R7
+       46 CAPTURE                          VAL R5
+       47 DUPCLOSURE                       R9 K19 [PROTO_4]
+       48 CAPTURE                          VAL R6
+       49 CAPTURE                          VAL R8
+       50 DUPTABLE                         R10 K21 [{"create"}]
+       51 SETTABLEKS                       R9 R10 K20 ["create"]
+       53 RETURN                           R10 1

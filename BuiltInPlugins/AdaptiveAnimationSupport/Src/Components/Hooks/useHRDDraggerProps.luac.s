@@ -200,12 +200,12 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K9 ["Flags"]
        20 GETTABLEKS                       R3 R3 K10 ["getFFlagAdaptiveAnimationHandRigQoL"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R3 R3 K11 ["DraggerFramework"]
-       27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R5 R3 K12 ["Implementation"]
-       31 GETTABLEKS                       R5 R5 K13 ["DraggerContext_PluginImpl"]
-       33 CALL                             R4 1 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K11 ["DraggerFramework"]
+       29 CALL                             R3 1 1
+       30 GETTABLEKS                       R4 R3 K12 ["Implementation"]
+       32 GETTABLEKS                       R4 R4 K13 ["DraggerContext_PluginImpl"]
        34 GETIMPORT                        R5 K5 [require]
        36 GETTABLEKS                       R6 R0 K8 ["Src"]
        38 GETTABLEKS                       R6 R6 K14 ["Schemas"]
@@ -223,25 +223,21 @@ MAIN:
        60 CALL                             R7 1 1
        61 GETTABLEKS                       R7 R7 K18 ["ContextServices"]
        63 GETTABLEKS                       R8 R7 K19 ["Plugin"]
-       65 GETIMPORT                        R9 K5 [require]
-       67 GETTABLEKS                       R10 R3 K20 ["Handles"]
-       69 GETTABLEKS                       R10 R10 K21 ["MoveHandles"]
-       71 CALL                             R9 1 1
-       72 GETIMPORT                        R10 K5 [require]
-       74 GETTABLEKS                       R11 R3 K20 ["Handles"]
-       76 GETTABLEKS                       R11 R11 K22 ["RotateHandles"]
-       78 CALL                             R10 1 1
-       79 GETIMPORT                        R11 K5 [require]
-       81 GETTABLEKS                       R12 R0 K8 ["Src"]
-       83 GETTABLEKS                       R12 R12 K23 ["Types"]
-       85 CALL                             R11 1 1
-       86 DUPCLOSURE                       R12 K24 [PROTO_4]
-       87 CAPTURE                          VAL R8
-       88 CAPTURE                          VAL R1
-       89 CAPTURE                          VAL R2
-       90 CAPTURE                          VAL R6
-       91 CAPTURE                          VAL R4
-       92 CAPTURE                          VAL R5
-       93 CAPTURE                          VAL R9
-       94 CAPTURE                          VAL R10
-       95 RETURN                           R12 1
+       65 GETTABLEKS                       R9 R3 K20 ["Handles"]
+       67 GETTABLEKS                       R9 R9 K21 ["MoveHandles"]
+       69 GETTABLEKS                       R10 R3 K20 ["Handles"]
+       71 GETTABLEKS                       R10 R10 K22 ["RotateHandles"]
+       73 GETIMPORT                        R11 K5 [require]
+       75 GETTABLEKS                       R12 R0 K8 ["Src"]
+       77 GETTABLEKS                       R12 R12 K23 ["Types"]
+       79 CALL                             R11 1 1
+       80 DUPCLOSURE                       R12 K24 [PROTO_4]
+       81 CAPTURE                          VAL R8
+       82 CAPTURE                          VAL R1
+       83 CAPTURE                          VAL R2
+       84 CAPTURE                          VAL R6
+       85 CAPTURE                          VAL R4
+       86 CAPTURE                          VAL R5
+       87 CAPTURE                          VAL R9
+       88 CAPTURE                          VAL R10
+       89 RETURN                           R12 1

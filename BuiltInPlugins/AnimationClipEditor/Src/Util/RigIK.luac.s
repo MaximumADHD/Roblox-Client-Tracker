@@ -1075,59 +1075,60 @@ MAIN:
        29 GETTABLEKS                       R4 R4 K11 ["Constants"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R5 R0 K12 ["LuaFlags"]
-       36 GETTABLEKS                       R5 R5 K13 ["GetFFlagRootMotion"]
-       38 CALL                             R4 1 1
-       39 NEWTABLE                         R5 8 0
-       41 DUPCLOSURE                       R6 K14 [PROTO_0]
-       42 DUPCLOSURE                       R7 K15 [PROTO_1]
-       43 CAPTURE                          VAL R2
-       44 CAPTURE                          VAL R3
-       45 CAPTURE                          VAL R6
-       46 SETTABLEKS                       R7 R5 K16 ["buildR15Constraints"]
-       48 DUPCLOSURE                       R7 K17 [PROTO_2]
-       49 CAPTURE                          VAL R2
-       50 CAPTURE                          VAL R3
-       51 CAPTURE                          VAL R6
-       52 SETTABLEKS                       R7 R5 K18 ["canUseIK"]
-       54 DUPCLOSURE                       R7 K19 [PROTO_3]
-       55 CAPTURE                          VAL R2
-       56 DUPCLOSURE                       R8 K20 [PROTO_4]
-       57 DUPCLOSURE                       R9 K21 [PROTO_5]
-       58 DUPCLOSURE                       R10 K22 [PROTO_6]
-       59 DUPCLOSURE                       R11 K23 [PROTO_7]
-       60 DUPCLOSURE                       R12 K24 [PROTO_8]
-       61 CAPTURE                          VAL R2
-       62 DUPCLOSURE                       R13 K25 [PROTO_10]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K12 ["Flags"]
+       38 GETTABLEKS                       R5 R5 K13 ["getFFlagRootMotion"]
+       40 CALL                             R4 1 1
+       41 NEWTABLE                         R5 8 0
+       43 DUPCLOSURE                       R6 K14 [PROTO_0]
+       44 DUPCLOSURE                       R7 K15 [PROTO_1]
+       45 CAPTURE                          VAL R2
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R6
+       48 SETTABLEKS                       R7 R5 K16 ["buildR15Constraints"]
+       50 DUPCLOSURE                       R7 K17 [PROTO_2]
+       51 CAPTURE                          VAL R2
+       52 CAPTURE                          VAL R3
+       53 CAPTURE                          VAL R6
+       54 SETTABLEKS                       R7 R5 K18 ["canUseIK"]
+       56 DUPCLOSURE                       R7 K19 [PROTO_3]
+       57 CAPTURE                          VAL R2
+       58 DUPCLOSURE                       R8 K20 [PROTO_4]
+       59 DUPCLOSURE                       R9 K21 [PROTO_5]
+       60 DUPCLOSURE                       R10 K22 [PROTO_6]
+       61 DUPCLOSURE                       R11 K23 [PROTO_7]
+       62 DUPCLOSURE                       R12 K24 [PROTO_8]
        63 CAPTURE                          VAL R2
-       64 CAPTURE                          VAL R12
-       65 DUPCLOSURE                       R14 K26 [PROTO_11]
-       66 CAPTURE                          VAL R7
-       67 CAPTURE                          VAL R13
-       68 CAPTURE                          VAL R4
-       69 CAPTURE                          VAL R2
-       70 SETTABLEKS                       R14 R5 K27 ["ikDragEnd"]
-       72 DUPCLOSURE                       R14 K28 [PROTO_12]
-       73 DUPCLOSURE                       R15 K29 [PROTO_13]
-       74 DUPCLOSURE                       R16 K30 [PROTO_14]
-       75 CAPTURE                          VAL R2
-       76 DUPCLOSURE                       R17 K31 [PROTO_15]
+       64 DUPCLOSURE                       R13 K25 [PROTO_10]
+       65 CAPTURE                          VAL R2
+       66 CAPTURE                          VAL R12
+       67 DUPCLOSURE                       R14 K26 [PROTO_11]
+       68 CAPTURE                          VAL R7
+       69 CAPTURE                          VAL R13
+       70 CAPTURE                          VAL R4
+       71 CAPTURE                          VAL R2
+       72 SETTABLEKS                       R14 R5 K27 ["ikDragEnd"]
+       74 DUPCLOSURE                       R14 K28 [PROTO_12]
+       75 DUPCLOSURE                       R15 K29 [PROTO_13]
+       76 DUPCLOSURE                       R16 K30 [PROTO_14]
        77 CAPTURE                          VAL R2
-       78 DUPCLOSURE                       R18 K32 [PROTO_16]
-       79 CAPTURE                          VAL R3
-       80 CAPTURE                          VAL R2
-       81 SETTABLEKS                       R18 R5 K33 ["pinForLimbMode"]
-       83 DUPCLOSURE                       R18 K34 [PROTO_17]
-       84 CAPTURE                          VAL R2
-       85 SETTABLEKS                       R18 R5 K35 ["getPoseCFrames"]
-       87 DUPCLOSURE                       R18 K36 [PROTO_18]
-       88 CAPTURE                          VAL R1
-       89 CAPTURE                          VAL R2
-       90 DUPCLOSURE                       R19 K37 [PROTO_21]
+       78 DUPCLOSURE                       R17 K31 [PROTO_15]
+       79 CAPTURE                          VAL R2
+       80 DUPCLOSURE                       R18 K32 [PROTO_16]
+       81 CAPTURE                          VAL R3
+       82 CAPTURE                          VAL R2
+       83 SETTABLEKS                       R18 R5 K33 ["pinForLimbMode"]
+       85 DUPCLOSURE                       R18 K34 [PROTO_17]
+       86 CAPTURE                          VAL R2
+       87 SETTABLEKS                       R18 R5 K35 ["getPoseCFrames"]
+       89 DUPCLOSURE                       R18 K36 [PROTO_18]
+       90 CAPTURE                          VAL R1
        91 CAPTURE                          VAL R2
-       92 CAPTURE                          VAL R5
-       93 CAPTURE                          VAL R14
-       94 CAPTURE                          VAL R15
-       95 CAPTURE                          VAL R18
-       96 SETTABLEKS                       R19 R5 K38 ["ikDragStart"]
-       98 RETURN                           R5 1
+       92 DUPCLOSURE                       R19 K37 [PROTO_21]
+       93 CAPTURE                          VAL R2
+       94 CAPTURE                          VAL R5
+       95 CAPTURE                          VAL R14
+       96 CAPTURE                          VAL R15
+       97 CAPTURE                          VAL R18
+       98 SETTABLEKS                       R19 R5 K38 ["ikDragStart"]
+      100 RETURN                           R5 1

@@ -62,20 +62,40 @@ PROTO_3:
        25 JUMPIFNOTEQKNIL                  R6 ; [+2]
        27 LOADB                            R5 0 +1
        28 LOADB                            R5 1
-       29 JUMPIFEQ                         R1 R3 ; [+2]
-       31 LOADB                            R6 0 +1
-       32 LOADB                            R6 1
-       33 GETTABLEKS                       R8 R3 K7 ["Parent"]
-       35 JUMPIFEQ                         R1 R8 ; [+2]
-       37 LOADB                            R7 0 +1
-       38 LOADB                            R7 1
-       39 MOVE                             R9 R5
-       40 JUMPIF                           R9 ; [+3]
-       41 MOVE                             R9 R6
-       42 JUMPIF                           R9 ; [+1]
-       43 MOVE                             R9 R7
-       44 NOT                              R8 R9
-       45 RETURN                           R8 1
+       29 GETUPVAL                         R6 2
+       30 CALL                             R6 0 1
+       31 JUMPIFNOT                        R6 ; [+19]
+       32 GETUPVAL                         R6 3
+       33 GETTABLEKS                       R6 R6 K7 ["isEditingItem"]
+       35 MOVE                             R7 R1
+       36 MOVE                             R8 R3
+       37 CALL                             R6 2 1
+       38 GETUPVAL                         R7 3
+       39 GETTABLEKS                       R7 R7 K8 ["isMannequin"]
+       41 MOVE                             R8 R1
+       42 MOVE                             R9 R3
+       43 CALL                             R7 2 1
+       44 MOVE                             R9 R5
+       45 JUMPIF                           R9 ; [+3]
+       46 MOVE                             R9 R6
+       47 JUMPIF                           R9 ; [+1]
+       48 MOVE                             R9 R7
+       49 NOT                              R8 R9
+       50 RETURN                           R8 1
+       51 JUMPIFEQ                         R1 R3 ; [+2]
+       53 LOADB                            R6 0 +1
+       54 LOADB                            R6 1
+       55 GETTABLEKS                       R8 R3 K9 ["Parent"]
+       57 JUMPIFEQ                         R1 R8 ; [+2]
+       59 LOADB                            R7 0 +1
+       60 LOADB                            R7 1
+       61 MOVE                             R9 R5
+       62 JUMPIF                           R9 ; [+3]
+       63 MOVE                             R9 R6
+       64 JUMPIF                           R9 ; [+1]
+       65 MOVE                             R9 R7
+       66 NOT                              R8 R9
+       67 RETURN                           R8 1
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -220,21 +240,23 @@ PROTO_8:
        20 NEWCLOSURE                       R1 P3
        21 CAPTURE                          VAL R0
        22 CAPTURE                          UPVAL U2
-       23 SETTABLEKS                       R1 R0 K5 ["isInstanceValidForTab"]
-       25 NEWCLOSURE                       R1 P4
-       26 CAPTURE                          VAL R0
-       27 SETTABLEKS                       R1 R0 K6 ["isSelectedInstanceValid"]
-       29 NEWCLOSURE                       R1 P5
-       30 CAPTURE                          VAL R0
-       31 CAPTURE                          UPVAL U3
-       32 CAPTURE                          UPVAL U4
-       33 SETTABLEKS                       R1 R0 K7 ["onInstanceSelectorValidSelection"]
-       35 NEWCLOSURE                       R1 P6
-       36 CAPTURE                          VAL R0
-       37 CAPTURE                          UPVAL U3
-       38 CAPTURE                          UPVAL U5
-       39 SETTABLEKS                       R1 R0 K8 ["onInstanceSelectorInvalidSelection"]
-       41 RETURN                           R0 0
+       23 CAPTURE                          UPVAL U3
+       24 CAPTURE                          UPVAL U4
+       25 SETTABLEKS                       R1 R0 K5 ["isInstanceValidForTab"]
+       27 NEWCLOSURE                       R1 P4
+       28 CAPTURE                          VAL R0
+       29 SETTABLEKS                       R1 R0 K6 ["isSelectedInstanceValid"]
+       31 NEWCLOSURE                       R1 P5
+       32 CAPTURE                          VAL R0
+       33 CAPTURE                          UPVAL U5
+       34 CAPTURE                          UPVAL U6
+       35 SETTABLEKS                       R1 R0 K7 ["onInstanceSelectorValidSelection"]
+       37 NEWCLOSURE                       R1 P6
+       38 CAPTURE                          VAL R0
+       39 CAPTURE                          UPVAL U5
+       40 CAPTURE                          UPVAL U7
+       41 SETTABLEKS                       R1 R0 K8 ["onInstanceSelectorInvalidSelection"]
+       43 RETURN                           R0 0
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -436,52 +458,64 @@ MAIN:
       138 GETTABLEKS                       R28 R28 K14 ["Util"]
       140 GETTABLEKS                       R28 R28 K35 ["ShowDialog"]
       142 CALL                             R27 1 1
-      143 GETTABLEKS                       R28 R1 K36 ["PureComponent"]
-      145 LOADK                            R30 K37 ["PreviewTopBarWrapper"]
-      146 NAMECALL                         R28 R28 K38 ["extend"]
-      148 CALL                             R28 2 1
-      149 GETTABLEKS                       R29 R19 K39 ["wrap"]
-      151 MOVE                             R30 R28
-      152 GETIMPORT                        R31 K1 [script]
-      154 CALL                             R29 2 0
-      155 DUPCLOSURE                       R29 K40 [PROTO_8]
-      156 CAPTURE                          VAL R13
-      157 CAPTURE                          VAL R26
-      158 CAPTURE                          VAL R12
-      159 CAPTURE                          VAL R27
-      160 CAPTURE                          VAL R6
-      161 CAPTURE                          VAL R7
-      162 SETTABLEKS                       R29 R28 K41 ["init"]
-      164 DUPCLOSURE                       R29 K42 [PROTO_9]
-      165 CAPTURE                          VAL R1
-      166 CAPTURE                          VAL R8
-      167 SETTABLEKS                       R29 R28 K43 ["render"]
-      169 DUPCLOSURE                       R29 K44 [PROTO_10]
-      170 SETTABLEKS                       R29 R28 K45 ["didMount"]
-      172 MOVE                             R29 R16
-      173 DUPTABLE                         R30 K49 [{"Stylizer", "Localization", "Plugin", "EditingItemContext"}]
-      174 GETTABLEKS                       R31 R15 K46 ["Stylizer"]
-      176 SETTABLEKS                       R31 R30 K46 ["Stylizer"]
-      178 GETTABLEKS                       R31 R15 K47 ["Localization"]
-      180 SETTABLEKS                       R31 R30 K47 ["Localization"]
-      182 GETTABLEKS                       R31 R15 K48 ["Plugin"]
-      184 SETTABLEKS                       R31 R30 K48 ["Plugin"]
-      186 SETTABLEKS                       R25 R30 K34 ["EditingItemContext"]
-      188 CALL                             R29 1 1
-      189 MOVE                             R30 R28
-      190 CALL                             R29 1 1
-      191 MOVE                             R28 R29
-      192 DUPCLOSURE                       R29 K50 [PROTO_11]
-      193 DUPCLOSURE                       R30 K51 [PROTO_17]
-      194 CAPTURE                          VAL R20
-      195 CAPTURE                          VAL R21
-      196 CAPTURE                          VAL R22
-      197 CAPTURE                          VAL R23
-      198 CAPTURE                          VAL R24
-      199 GETTABLEKS                       R31 R2 K52 ["connect"]
-      201 MOVE                             R32 R29
-      202 MOVE                             R33 R30
-      203 CALL                             R31 2 1
-      204 MOVE                             R32 R28
-      205 CALL                             R31 1 -1
-      206 RETURN                           R31 -1
+      143 GETIMPORT                        R28 K4 [require]
+      145 GETTABLEKS                       R29 R0 K25 ["Src"]
+      147 GETTABLEKS                       R29 R29 K14 ["Util"]
+      149 GETTABLEKS                       R29 R29 K36 ["PreviewEditingItemUtil"]
+      151 CALL                             R28 1 1
+      152 GETIMPORT                        R29 K4 [require]
+      154 GETTABLEKS                       R30 R0 K25 ["Src"]
+      156 GETTABLEKS                       R30 R30 K37 ["Flags"]
+      158 GETTABLEKS                       R30 R30 K38 ["getFFlagLayeredClothingEditorPreviewAfterGenerate"]
+      160 CALL                             R29 1 1
+      161 GETTABLEKS                       R30 R1 K39 ["PureComponent"]
+      163 LOADK                            R32 K40 ["PreviewTopBarWrapper"]
+      164 NAMECALL                         R30 R30 K41 ["extend"]
+      166 CALL                             R30 2 1
+      167 GETTABLEKS                       R31 R19 K42 ["wrap"]
+      169 MOVE                             R32 R30
+      170 GETIMPORT                        R33 K1 [script]
+      172 CALL                             R31 2 0
+      173 DUPCLOSURE                       R31 K43 [PROTO_8]
+      174 CAPTURE                          VAL R13
+      175 CAPTURE                          VAL R26
+      176 CAPTURE                          VAL R12
+      177 CAPTURE                          VAL R29
+      178 CAPTURE                          VAL R28
+      179 CAPTURE                          VAL R27
+      180 CAPTURE                          VAL R6
+      181 CAPTURE                          VAL R7
+      182 SETTABLEKS                       R31 R30 K44 ["init"]
+      184 DUPCLOSURE                       R31 K45 [PROTO_9]
+      185 CAPTURE                          VAL R1
+      186 CAPTURE                          VAL R8
+      187 SETTABLEKS                       R31 R30 K46 ["render"]
+      189 DUPCLOSURE                       R31 K47 [PROTO_10]
+      190 SETTABLEKS                       R31 R30 K48 ["didMount"]
+      192 MOVE                             R31 R16
+      193 DUPTABLE                         R32 K52 [{"Stylizer", "Localization", "Plugin", "EditingItemContext"}]
+      194 GETTABLEKS                       R33 R15 K49 ["Stylizer"]
+      196 SETTABLEKS                       R33 R32 K49 ["Stylizer"]
+      198 GETTABLEKS                       R33 R15 K50 ["Localization"]
+      200 SETTABLEKS                       R33 R32 K50 ["Localization"]
+      202 GETTABLEKS                       R33 R15 K51 ["Plugin"]
+      204 SETTABLEKS                       R33 R32 K51 ["Plugin"]
+      206 SETTABLEKS                       R25 R32 K34 ["EditingItemContext"]
+      208 CALL                             R31 1 1
+      209 MOVE                             R32 R30
+      210 CALL                             R31 1 1
+      211 MOVE                             R30 R31
+      212 DUPCLOSURE                       R31 K53 [PROTO_11]
+      213 DUPCLOSURE                       R32 K54 [PROTO_17]
+      214 CAPTURE                          VAL R20
+      215 CAPTURE                          VAL R21
+      216 CAPTURE                          VAL R22
+      217 CAPTURE                          VAL R23
+      218 CAPTURE                          VAL R24
+      219 GETTABLEKS                       R33 R2 K55 ["connect"]
+      221 MOVE                             R34 R31
+      222 MOVE                             R35 R32
+      223 CALL                             R33 2 1
+      224 MOVE                             R34 R30
+      225 CALL                             R33 1 -1
+      226 RETURN                           R33 -1

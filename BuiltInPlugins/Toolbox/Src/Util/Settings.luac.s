@@ -211,6 +211,24 @@ PROTO_14:
         9 RETURN                           R2 -1
 
 PROTO_15:
+        0 LOADK                            R5 K1 ["Toolbox_InventoryDeprecationBannerDismissedAt"]
+        1 LOADN                            R6 0
+        2 NAMECALL                         R3 R0 K2 ["_getSetting"]
+        4 CALL                             R3 3 -1
+        5 FASTCALL                         TONUMBER ; [+2]
+        6 GETIMPORT                        R2 K4 [tonumber]
+        8 CALL                             R2 -1 1
+        9 ORK                              R1 R2 K0 [0]
+       10 RETURN                           R1 1
+
+PROTO_16:
+        0 LOADK                            R4 K0 ["Toolbox_InventoryDeprecationBannerDismissedAt"]
+        1 MOVE                             R5 R1
+        2 NAMECALL                         R2 R0 K1 ["_setSetting"]
+        4 CALL                             R2 3 -1
+        5 RETURN                           R2 -1
+
+PROTO_17:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["shouldLogSettings"]
         3 CALL                             R2 0 1
@@ -229,7 +247,7 @@ PROTO_15:
        23 CALL                             R2 2 0
        24 RETURN                           R0 0
 
-PROTO_16:
+PROTO_18:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["shouldLogSettings"]
         3 CALL                             R1 0 1
@@ -336,52 +354,65 @@ MAIN:
        77 GETTABLEKS                       R9 R9 K16 ["SharedFlags"]
        79 GETTABLEKS                       R9 R9 K17 ["getFFlagToolboxEnableAssetRows"]
        81 CALL                             R8 1 1
-       82 DUPCLOSURE                       R9 K18 [PROTO_0]
-       83 CAPTURE                          VAL R5
-       84 SETTABLEKS                       R9 R5 K19 ["new"]
-       86 DUPCLOSURE                       R9 K20 [PROTO_1]
-       87 CAPTURE                          VAL R1
-       88 SETTABLEKS                       R9 R5 K21 ["_getSetting"]
-       90 DUPCLOSURE                       R9 K22 [PROTO_2]
-       91 CAPTURE                          VAL R1
-       92 SETTABLEKS                       R9 R5 K23 ["_setSetting"]
-       94 DUPCLOSURE                       R9 K24 [PROTO_3]
-       95 CAPTURE                          VAL R2
-       96 SETTABLEKS                       R9 R5 K25 ["getSelectedCategoryName"]
-       98 DUPCLOSURE                       R9 K26 [PROTO_4]
-       99 SETTABLEKS                       R9 R5 K27 ["setSelectedCategoryName"]
-      101 DUPCLOSURE                       R9 K28 [PROTO_5]
-      102 SETTABLEKS                       R9 R5 K29 ["getSelectedSearchTerm"]
-      104 DUPCLOSURE                       R9 K30 [PROTO_6]
-      105 SETTABLEKS                       R9 R5 K31 ["setSelectedSearchTerm"]
-      107 DUPCLOSURE                       R9 K32 [PROTO_7]
-      108 SETTABLEKS                       R9 R5 K33 ["getSelectedSortIndex"]
-      110 DUPCLOSURE                       R9 K34 [PROTO_8]
-      111 SETTABLEKS                       R9 R5 K35 ["setSelectedSortIndex"]
-      113 DUPCLOSURE                       R9 K36 [PROTO_9]
-      114 SETTABLEKS                       R9 R5 K37 ["getShowScriptWarning"]
-      116 DUPCLOSURE                       R9 K38 [PROTO_10]
-      117 SETTABLEKS                       R9 R5 K39 ["setShowScriptWarning"]
-      119 DUPCLOSURE                       R9 K40 [PROTO_11]
-      120 SETTABLEKS                       R9 R5 K41 ["getLastAnnouncementViewedKey"]
-      122 DUPCLOSURE                       R9 K42 [PROTO_12]
-      123 SETTABLEKS                       R9 R5 K43 ["setLastAnnouncementViewedKey"]
-      125 MOVE                             R9 R8
-      126 CALL                             R9 0 1
-      127 JUMPIFNOT                        R9 ; [+7]
-      128 DUPCLOSURE                       R9 K44 [PROTO_13]
-      129 CAPTURE                          VAL R4
-      130 SETTABLEKS                       R9 R5 K45 ["getLayoutMode"]
-      132 DUPCLOSURE                       R9 K46 [PROTO_14]
-      133 SETTABLEKS                       R9 R5 K47 ["setLayoutMode"]
-      135 DUPCLOSURE                       R9 K48 [PROTO_15]
-      136 CAPTURE                          VAL R1
-      137 SETTABLEKS                       R9 R5 K49 ["updateFromPageInfo"]
-      139 DUPCLOSURE                       R9 K50 [PROTO_16]
-      140 CAPTURE                          VAL R1
-      141 CAPTURE                          VAL R6
-      142 CAPTURE                          VAL R2
-      143 CAPTURE                          VAL R7
-      144 CAPTURE                          VAL R3
-      145 SETTABLEKS                       R9 R5 K51 ["loadInitialSettings"]
-      147 RETURN                           R5 1
+       82 GETIMPORT                        R9 K4 [require]
+       84 GETTABLEKS                       R10 R0 K5 ["Src"]
+       86 GETTABLEKS                       R10 R10 K6 ["Util"]
+       88 GETTABLEKS                       R10 R10 K16 ["SharedFlags"]
+       90 GETTABLEKS                       R10 R10 K18 ["getFFlagToolboxInventoryDeprecationBanner"]
+       92 CALL                             R9 1 1
+       93 DUPCLOSURE                       R10 K19 [PROTO_0]
+       94 CAPTURE                          VAL R5
+       95 SETTABLEKS                       R10 R5 K20 ["new"]
+       97 DUPCLOSURE                       R10 K21 [PROTO_1]
+       98 CAPTURE                          VAL R1
+       99 SETTABLEKS                       R10 R5 K22 ["_getSetting"]
+      101 DUPCLOSURE                       R10 K23 [PROTO_2]
+      102 CAPTURE                          VAL R1
+      103 SETTABLEKS                       R10 R5 K24 ["_setSetting"]
+      105 DUPCLOSURE                       R10 K25 [PROTO_3]
+      106 CAPTURE                          VAL R2
+      107 SETTABLEKS                       R10 R5 K26 ["getSelectedCategoryName"]
+      109 DUPCLOSURE                       R10 K27 [PROTO_4]
+      110 SETTABLEKS                       R10 R5 K28 ["setSelectedCategoryName"]
+      112 DUPCLOSURE                       R10 K29 [PROTO_5]
+      113 SETTABLEKS                       R10 R5 K30 ["getSelectedSearchTerm"]
+      115 DUPCLOSURE                       R10 K31 [PROTO_6]
+      116 SETTABLEKS                       R10 R5 K32 ["setSelectedSearchTerm"]
+      118 DUPCLOSURE                       R10 K33 [PROTO_7]
+      119 SETTABLEKS                       R10 R5 K34 ["getSelectedSortIndex"]
+      121 DUPCLOSURE                       R10 K35 [PROTO_8]
+      122 SETTABLEKS                       R10 R5 K36 ["setSelectedSortIndex"]
+      124 DUPCLOSURE                       R10 K37 [PROTO_9]
+      125 SETTABLEKS                       R10 R5 K38 ["getShowScriptWarning"]
+      127 DUPCLOSURE                       R10 K39 [PROTO_10]
+      128 SETTABLEKS                       R10 R5 K40 ["setShowScriptWarning"]
+      130 DUPCLOSURE                       R10 K41 [PROTO_11]
+      131 SETTABLEKS                       R10 R5 K42 ["getLastAnnouncementViewedKey"]
+      133 DUPCLOSURE                       R10 K43 [PROTO_12]
+      134 SETTABLEKS                       R10 R5 K44 ["setLastAnnouncementViewedKey"]
+      136 MOVE                             R10 R8
+      137 CALL                             R10 0 1
+      138 JUMPIFNOT                        R10 ; [+7]
+      139 DUPCLOSURE                       R10 K45 [PROTO_13]
+      140 CAPTURE                          VAL R4
+      141 SETTABLEKS                       R10 R5 K46 ["getLayoutMode"]
+      143 DUPCLOSURE                       R10 K47 [PROTO_14]
+      144 SETTABLEKS                       R10 R5 K48 ["setLayoutMode"]
+      146 MOVE                             R10 R9
+      147 CALL                             R10 0 1
+      148 JUMPIFNOT                        R10 ; [+6]
+      149 DUPCLOSURE                       R10 K49 [PROTO_15]
+      150 SETTABLEKS                       R10 R5 K50 ["getInventoryDeprecationBannerDismissedAt"]
+      152 DUPCLOSURE                       R10 K51 [PROTO_16]
+      153 SETTABLEKS                       R10 R5 K52 ["setInventoryDeprecationBannerDismissedAt"]
+      155 DUPCLOSURE                       R10 K53 [PROTO_17]
+      156 CAPTURE                          VAL R1
+      157 SETTABLEKS                       R10 R5 K54 ["updateFromPageInfo"]
+      159 DUPCLOSURE                       R10 K55 [PROTO_18]
+      160 CAPTURE                          VAL R1
+      161 CAPTURE                          VAL R6
+      162 CAPTURE                          VAL R2
+      163 CAPTURE                          VAL R7
+      164 CAPTURE                          VAL R3
+      165 SETTABLEKS                       R10 R5 K56 ["loadInitialSettings"]
+      167 RETURN                           R5 1

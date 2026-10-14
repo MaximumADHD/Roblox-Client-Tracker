@@ -262,92 +262,101 @@ PROTO_17:
        70 CALL                             R6 3 0
        71 GETTABLEKS                       R6 R0 K20 ["communication"]
        73 GETUPVAL                         R8 3
-       74 GETTABLEKS                       R8 R8 K25 ["CPC_EVENTS"]
-       76 GETTABLEKS                       R8 R8 K26 ["TERRAIN_EDITOR_SOURCE_MATERIAL_CHANGED"]
-       78 NEWCLOSURE                       R9 P3
-       79 CAPTURE                          VAL R5
-       80 NAMECALL                         R6 R6 K27 ["Connect"]
-       82 CALL                             R6 3 0
-       83 NEWCLOSURE                       R6 P4
-       84 CAPTURE                          VAL R0
-       85 CAPTURE                          UPVAL U3
-       86 SETTABLEKS                       R6 R0 K28 ["onSelectionChanged"]
-       88 GETTABLEKS                       R6 R0 K20 ["communication"]
-       90 GETUPVAL                         R8 3
-       91 GETTABLEKS                       R8 R8 K25 ["CPC_EVENTS"]
-       93 GETTABLEKS                       R8 R8 K29 ["TERRAIN_EDITOR_READY"]
-       95 NEWCLOSURE                       R9 P5
-       96 CAPTURE                          VAL R0
-       97 NAMECALL                         R6 R6 K27 ["Connect"]
-       99 CALL                             R6 3 0
-      100 GETTABLEKS                       R6 R0 K20 ["communication"]
-      102 GETUPVAL                         R8 3
-      103 GETTABLEKS                       R8 R8 K25 ["CPC_EVENTS"]
-      105 GETTABLEKS                       R8 R8 K30 ["TERRAIN_PALETTE_EDITOR_READY"]
-      107 NAMECALL                         R6 R6 K31 ["Fire"]
-      109 CALL                             R6 2 0
-      110 GETIMPORT                        R6 K34 [task.spawn]
-      112 NEWCLOSURE                       R7 P6
-      113 CAPTURE                          VAL R4
-      114 CAPTURE                          UPVAL U5
-      115 CAPTURE                          VAL R0
-      116 CALL                             R6 1 0
-      117 NEWCLOSURE                       R6 P7
-      118 CAPTURE                          VAL R0
-      119 CAPTURE                          VAL R4
-      120 CAPTURE                          UPVAL U5
-      121 SETTABLEKS                       R6 R0 K35 ["onClose"]
-      123 NEWCLOSURE                       R6 P8
-      124 CAPTURE                          VAL R0
-      125 CAPTURE                          VAL R4
-      126 CAPTURE                          UPVAL U5
-      127 SETTABLEKS                       R6 R0 K36 ["onRestore"]
-      129 NEWCLOSURE                       R6 P9
-      130 CAPTURE                          VAL R0
-      131 CAPTURE                          VAL R4
-      132 CAPTURE                          UPVAL U5
-      133 SETTABLEKS                       R6 R0 K37 ["onWidgetEnabledChanged"]
-      135 GETUPVAL                         R6 6
-      136 GETTABLEKS                       R6 R6 K38 ["Localization"]
-      138 GETTABLEKS                       R6 R6 K14 ["new"]
-      140 DUPTABLE                         R7 K43 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "TerrainPaletteEditor"}]
-      141 GETUPVAL                         R8 7
-      142 SETTABLEKS                       R8 R7 K39 ["stringResourceTable"]
-      144 GETUPVAL                         R8 8
-      145 SETTABLEKS                       R8 R7 K40 ["translationResourceTable"]
-      147 CALL                             R6 1 1
-      148 SETTABLEKS                       R6 R0 K44 ["localizationLEGACY"]
-      150 GETUPVAL                         R6 4
-      151 GETTABLEKS                       R6 R6 K38 ["Localization"]
-      153 GETTABLEKS                       R6 R6 K45 ["createLocalization"]
-      155 CALL                             R6 0 1
-      156 SETTABLEKS                       R6 R0 K46 ["localization"]
-      158 GETUPVAL                         R6 9
-      159 GETTABLEKS                       R6 R6 K47 ["Util"]
-      161 GETTABLEKS                       R6 R6 K48 ["createFoundationDesignBinding"]
-      163 CALL                             R6 0 2
-      164 SETTABLEKS                       R7 R0 K49 ["onFoundationStyleSheetChange"]
-      166 GETUPVAL                         R8 10
-      167 MOVE                             R9 R2
-      168 LOADNIL                          R10
-      169 LOADNIL                          R11
-      170 NEWTABLE                         R12 0 1
-      172 MOVE                             R13 R6
-      173 SETLIST                          R12 R13 1 [1]
-      175 CALL                             R8 4 1
-      176 SETTABLEKS                       R8 R0 K50 ["design"]
-      178 GETUPVAL                         R8 11
-      179 GETTABLEKS                       R8 R8 K14 ["new"]
-      181 CALL                             R8 0 1
-      182 SETTABLEKS                       R8 R0 K51 ["catalogChangePublisher"]
-      184 GETUPVAL                         R8 12
-      185 GETTABLEKS                       R8 R8 K14 ["new"]
-      187 NEWCLOSURE                       R9 P10
-      188 CAPTURE                          VAL R0
-      189 CAPTURE                          UPVAL U13
-      190 CALL                             R8 1 1
-      191 SETTABLEKS                       R8 R0 K52 ["catalogChangeSubscriber"]
-      193 RETURN                           R0 0
+       74 GETTABLEKS                       R8 R8 K22 ["CPC_CALLBACKS"]
+       76 GETTABLEKS                       R8 R8 K23 ["SELECT_SLOT"]
+       78 NAMECALL                         R6 R6 K25 ["getFunction"]
+       80 CALL                             R6 2 1
+       81 SETTABLEKS                       R6 R0 K26 ["selectSlotFunction"]
+       83 GETTABLEKS                       R6 R0 K20 ["communication"]
+       85 GETUPVAL                         R8 3
+       86 GETTABLEKS                       R8 R8 K27 ["CPC_EVENTS"]
+       88 GETTABLEKS                       R8 R8 K28 ["TERRAIN_EDITOR_SOURCE_MATERIAL_CHANGED"]
+       90 NEWCLOSURE                       R9 P3
+       91 CAPTURE                          VAL R5
+       92 NAMECALL                         R6 R6 K29 ["Connect"]
+       94 CALL                             R6 3 1
+       95 SETTABLEKS                       R6 R0 K30 ["sourceMaterialChangedConnection"]
+       97 NEWCLOSURE                       R6 P4
+       98 CAPTURE                          VAL R0
+       99 CAPTURE                          UPVAL U3
+      100 SETTABLEKS                       R6 R0 K31 ["onSelectionChanged"]
+      102 GETTABLEKS                       R6 R0 K20 ["communication"]
+      104 GETUPVAL                         R8 3
+      105 GETTABLEKS                       R8 R8 K27 ["CPC_EVENTS"]
+      107 GETTABLEKS                       R8 R8 K32 ["TERRAIN_EDITOR_READY"]
+      109 NEWCLOSURE                       R9 P5
+      110 CAPTURE                          VAL R0
+      111 NAMECALL                         R6 R6 K29 ["Connect"]
+      113 CALL                             R6 3 1
+      114 SETTABLEKS                       R6 R0 K33 ["terrainEditorReadyConnection"]
+      116 GETTABLEKS                       R6 R0 K20 ["communication"]
+      118 GETUPVAL                         R8 3
+      119 GETTABLEKS                       R8 R8 K27 ["CPC_EVENTS"]
+      121 GETTABLEKS                       R8 R8 K34 ["TERRAIN_PALETTE_EDITOR_READY"]
+      123 NAMECALL                         R6 R6 K35 ["Fire"]
+      125 CALL                             R6 2 0
+      126 GETIMPORT                        R6 K38 [task.spawn]
+      128 NEWCLOSURE                       R7 P6
+      129 CAPTURE                          VAL R4
+      130 CAPTURE                          UPVAL U5
+      131 CAPTURE                          VAL R0
+      132 CALL                             R6 1 0
+      133 NEWCLOSURE                       R6 P7
+      134 CAPTURE                          VAL R0
+      135 CAPTURE                          VAL R4
+      136 CAPTURE                          UPVAL U5
+      137 SETTABLEKS                       R6 R0 K39 ["onClose"]
+      139 NEWCLOSURE                       R6 P8
+      140 CAPTURE                          VAL R0
+      141 CAPTURE                          VAL R4
+      142 CAPTURE                          UPVAL U5
+      143 SETTABLEKS                       R6 R0 K40 ["onRestore"]
+      145 NEWCLOSURE                       R6 P9
+      146 CAPTURE                          VAL R0
+      147 CAPTURE                          VAL R4
+      148 CAPTURE                          UPVAL U5
+      149 SETTABLEKS                       R6 R0 K41 ["onWidgetEnabledChanged"]
+      151 GETUPVAL                         R6 6
+      152 GETTABLEKS                       R6 R6 K42 ["Localization"]
+      154 GETTABLEKS                       R6 R6 K14 ["new"]
+      156 DUPTABLE                         R7 K47 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "TerrainPaletteEditor"}]
+      157 GETUPVAL                         R8 7
+      158 SETTABLEKS                       R8 R7 K43 ["stringResourceTable"]
+      160 GETUPVAL                         R8 8
+      161 SETTABLEKS                       R8 R7 K44 ["translationResourceTable"]
+      163 CALL                             R6 1 1
+      164 SETTABLEKS                       R6 R0 K48 ["localizationLEGACY"]
+      166 GETUPVAL                         R6 4
+      167 GETTABLEKS                       R6 R6 K42 ["Localization"]
+      169 GETTABLEKS                       R6 R6 K49 ["createLocalization"]
+      171 CALL                             R6 0 1
+      172 SETTABLEKS                       R6 R0 K50 ["localization"]
+      174 GETUPVAL                         R6 9
+      175 GETTABLEKS                       R6 R6 K51 ["Util"]
+      177 GETTABLEKS                       R6 R6 K52 ["createFoundationDesignBinding"]
+      179 CALL                             R6 0 2
+      180 SETTABLEKS                       R7 R0 K53 ["onFoundationStyleSheetChange"]
+      182 GETUPVAL                         R8 10
+      183 MOVE                             R9 R2
+      184 LOADNIL                          R10
+      185 LOADNIL                          R11
+      186 NEWTABLE                         R12 0 1
+      188 MOVE                             R13 R6
+      189 SETLIST                          R12 R13 1 [1]
+      191 CALL                             R8 4 1
+      192 SETTABLEKS                       R8 R0 K54 ["design"]
+      194 GETUPVAL                         R8 11
+      195 GETTABLEKS                       R8 R8 K14 ["new"]
+      197 CALL                             R8 0 1
+      198 SETTABLEKS                       R8 R0 K55 ["catalogChangePublisher"]
+      200 GETUPVAL                         R8 12
+      201 GETTABLEKS                       R8 R8 K14 ["new"]
+      203 NEWCLOSURE                       R9 P10
+      204 CAPTURE                          VAL R0
+      205 CAPTURE                          UPVAL U13
+      206 CALL                             R8 1 1
+      207 SETTABLEKS                       R8 R0 K56 ["catalogChangeSubscriber"]
+      209 RETURN                           R0 0
 
 PROTO_18:
         0 GETTABLEKS                       R3 R2 K0 ["enabled"]
@@ -465,21 +474,40 @@ PROTO_20:
       159 RETURN                           R4 -1
 
 PROTO_21:
+        0 LOADB                            R0 0
+        1 RETURN                           R0 1
+
+PROTO_22:
         0 GETTABLEKS                       R1 R0 K0 ["syncStateWithActionConnection"]
         2 JUMPIFNOT                        R1 ; [+5]
         3 GETTABLEKS                       R1 R0 K0 ["syncStateWithActionConnection"]
         5 NAMECALL                         R1 R1 K1 ["Disconnect"]
         7 CALL                             R1 1 0
-        8 GETTABLEKS                       R1 R0 K2 ["communication"]
-       10 NAMECALL                         R1 R1 K3 ["cleanup"]
-       12 CALL                             R1 1 0
-       13 GETTABLEKS                       R1 R0 K4 ["localization"]
-       15 NAMECALL                         R1 R1 K5 ["destroy"]
-       17 CALL                             R1 1 0
-       18 GETTABLEKS                       R1 R0 K6 ["catalogChangeSubscriber"]
-       20 GETTABLEKS                       R1 R1 K3 ["cleanup"]
-       22 CALL                             R1 0 0
-       23 RETURN                           R0 0
+        8 GETTABLEKS                       R1 R0 K2 ["selectSlotFunction"]
+       10 GETTABLEKS                       R1 R1 K3 ["Parent"]
+       12 JUMPIFEQKNIL                     R1 ; [+6]
+       14 GETTABLEKS                       R1 R0 K2 ["selectSlotFunction"]
+       16 DUPCLOSURE                       R2 K4 [PROTO_21]
+       17 SETTABLEKS                       R2 R1 K5 ["OnInvoke"]
+       19 LOADNIL                          R1
+       20 SETTABLEKS                       R1 R0 K2 ["selectSlotFunction"]
+       22 GETTABLEKS                       R1 R0 K6 ["sourceMaterialChangedConnection"]
+       24 JUMPIFNOT                        R1 ; [+5]
+       25 GETTABLEKS                       R1 R0 K6 ["sourceMaterialChangedConnection"]
+       27 NAMECALL                         R1 R1 K1 ["Disconnect"]
+       29 CALL                             R1 1 0
+       30 GETTABLEKS                       R1 R0 K7 ["terrainEditorReadyConnection"]
+       32 JUMPIFNOT                        R1 ; [+5]
+       33 GETTABLEKS                       R1 R0 K7 ["terrainEditorReadyConnection"]
+       35 NAMECALL                         R1 R1 K1 ["Disconnect"]
+       37 CALL                             R1 1 0
+       38 GETTABLEKS                       R1 R0 K8 ["localization"]
+       40 NAMECALL                         R1 R1 K9 ["destroy"]
+       42 CALL                             R1 1 0
+       43 GETTABLEKS                       R1 R0 K10 ["catalogChangeSubscriber"]
+       45 GETTABLEKS                       R1 R1 K11 ["cleanup"]
+       47 CALL                             R1 0 0
+       48 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -583,6 +611,6 @@ MAIN:
       155 CAPTURE                          VAL R6
       156 CAPTURE                          VAL R15
       157 SETTABLEKS                       R26 R25 K46 ["render"]
-      159 DUPCLOSURE                       R26 K47 [PROTO_21]
+      159 DUPCLOSURE                       R26 K47 [PROTO_22]
       160 SETTABLEKS                       R26 R25 K48 ["willUnmount"]
       162 RETURN                           R25 1

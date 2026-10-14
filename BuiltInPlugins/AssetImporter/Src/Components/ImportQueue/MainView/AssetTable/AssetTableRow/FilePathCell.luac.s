@@ -1,100 +1,81 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 MOVE                             R3 R0
-        2 GETUPVAL                         R4 1
-        3 GETTABLEKS                       R4 R4 K0 ["FontSize"]
-        5 GETUPVAL                         R5 1
-        6 GETTABLEKS                       R5 R5 K1 ["Font"]
-        8 GETIMPORT                        R6 K4 [Vector2.new]
-       10 LOADK                            R7 K5 [∞]
-       11 LOADK                            R8 K5 [∞]
-       12 CALL                             R6 2 -1
-       13 NAMECALL                         R1 R1 K6 ["GetTextSize"]
+        0 GETUPVAL                         R2 0
+        1 JUMPIFNOT                        R2 ; [+17]
+        2 GETUPVAL                         R1 1
+        3 MOVE                             R2 R0
+        4 GETUPVAL                         R3 2
+        5 GETTABLEKS                       R3 R3 K0 ["FontSize"]
+        7 GETUPVAL                         R4 2
+        8 GETTABLEKS                       R4 R4 K1 ["Font"]
+       10 GETIMPORT                        R5 K4 [Vector2.new]
+       12 LOADK                            R6 K5 [∞]
+       13 LOADK                            R7 K5 [∞]
+       14 CALL                             R5 2 -1
        15 CALL                             R1 -1 1
-       16 GETTABLEKS                       R1 R1 K7 ["x"]
+       16 GETTABLEKS                       R1 R1 K6 ["X"]
        18 RETURN                           R1 1
+       19 GETUPVAL                         R1 3
+       20 MOVE                             R3 R0
+       21 GETUPVAL                         R4 2
+       22 GETTABLEKS                       R4 R4 K0 ["FontSize"]
+       24 GETUPVAL                         R5 2
+       25 GETTABLEKS                       R5 R5 K1 ["Font"]
+       27 GETIMPORT                        R6 K4 [Vector2.new]
+       29 LOADK                            R7 K5 [∞]
+       30 LOADK                            R8 K5 [∞]
+       31 CALL                             R6 2 -1
+       32 NAMECALL                         R1 R1 K7 ["GetTextSize"]
+       34 CALL                             R1 -1 1
+       35 GETTABLEKS                       R1 R1 K8 ["x"]
+       37 RETURN                           R1 1
 
 PROTO_1:
         0 NEWCLOSURE                       R3 P0
         1 CAPTURE                          UPVAL U0
-        2 CAPTURE                          VAL R2
-        3 GETUPVAL                         R4 0
-        4 MOVE                             R6 R1
-        5 GETTABLEKS                       R7 R2 K0 ["FontSize"]
-        7 GETTABLEKS                       R8 R2 K1 ["Font"]
-        9 GETIMPORT                        R9 K4 [Vector2.new]
-       11 LOADK                            R10 K5 [∞]
-       12 LOADK                            R11 K5 [∞]
-       13 CALL                             R9 2 -1
-       14 NAMECALL                         R4 R4 K6 ["GetTextSize"]
-       16 CALL                             R4 -1 1
-       17 GETTABLEKS                       R4 R4 K7 ["x"]
-       19 GETTABLEKS                       R5 R0 K8 ["AbsoluteSize"]
-       21 GETTABLEKS                       R5 R5 K9 ["X"]
-       23 LENGTH                           R6 R1
-       24 JUMPIFEQKN                       R6 K10 [0] ; [+3]
-       26 JUMPIFNOTLE                      R4 R5 ; [+2]
-       28 RETURN                           R1 1
-       29 GETUPVAL                         R7 1
-       30 GETUPVAL                         R8 0
-       31 MOVE                             R10 R7
-       32 GETTABLEKS                       R11 R2 K0 ["FontSize"]
-       34 GETTABLEKS                       R12 R2 K1 ["Font"]
-       36 GETIMPORT                        R13 K4 [Vector2.new]
-       38 LOADK                            R14 K5 [∞]
-       39 LOADK                            R15 K5 [∞]
-       40 CALL                             R13 2 -1
-       41 NAMECALL                         R8 R8 K6 ["GetTextSize"]
-       43 CALL                             R8 -1 1
-       44 MOVE                             R6 R8
-       45 GETTABLEKS                       R6 R6 K7 ["x"]
-       47 FASTCALL2K                       STRING_SUB R1 K11 ; [+5]
-       49 MOVE                             R9 R1
-       50 LOADK                            R10 K11 [-1]
-       51 GETIMPORT                        R8 K14 [string.sub]
-       53 CALL                             R8 2 1
-       54 GETUPVAL                         R9 0
-       55 MOVE                             R11 R8
-       56 GETTABLEKS                       R12 R2 K0 ["FontSize"]
-       58 GETTABLEKS                       R13 R2 K1 ["Font"]
-       60 GETIMPORT                        R14 K4 [Vector2.new]
-       62 LOADK                            R15 K5 [∞]
-       63 LOADK                            R16 K5 [∞]
-       64 CALL                             R14 2 -1
-       65 NAMECALL                         R9 R9 K6 ["GetTextSize"]
-       67 CALL                             R9 -1 1
-       68 MOVE                             R7 R9
-       69 GETTABLEKS                       R7 R7 K7 ["x"]
-       71 ADD                              R8 R6 R7
-       72 LOADK                            R9 K15 [""]
-       73 LENGTH                           R12 R1
-       74 LOADN                            R10 1
-       75 LOADN                            R11 -1
-       76 FORNPREP                         R10
-       77 LENGTH                           R16 R1
-       78 FASTCALL3                        STRING_SUB R1 R12 R16
-       80 MOVE                             R14 R1
-       81 MOVE                             R15 R12
-       82 GETIMPORT                        R13 K14 [string.sub]
-       84 CALL                             R13 3 1
-       85 GETUPVAL                         R14 0
-       86 MOVE                             R16 R13
-       87 GETTABLEKS                       R17 R2 K0 ["FontSize"]
-       89 GETTABLEKS                       R18 R2 K1 ["Font"]
-       91 GETIMPORT                        R19 K4 [Vector2.new]
-       93 LOADK                            R20 K5 [∞]
-       94 LOADK                            R21 K5 [∞]
-       95 CALL                             R19 2 -1
-       96 NAMECALL                         R14 R14 K6 ["GetTextSize"]
-       98 CALL                             R14 -1 1
-       99 GETTABLEKS                       R14 R14 K7 ["x"]
-      101 ADD                              R15 R14 R8
-      102 JUMPIFLT                         R5 R15 ; [+5]
-      104 GETUPVAL                         R15 1
-      105 MOVE                             R16 R13
-      106 CONCAT                           R9 R15 R16
-      107 FORNLOOP                         R10
-      108 RETURN                           R9 1
+        2 CAPTURE                          UPVAL U1
+        3 CAPTURE                          VAL R2
+        4 CAPTURE                          UPVAL U2
+        5 MOVE                             R4 R3
+        6 MOVE                             R5 R1
+        7 CALL                             R4 1 1
+        8 GETTABLEKS                       R5 R0 K0 ["AbsoluteSize"]
+       10 GETTABLEKS                       R5 R5 K1 ["X"]
+       12 LENGTH                           R6 R1
+       13 JUMPIFEQKN                       R6 K2 [0] ; [+3]
+       15 JUMPIFNOTLE                      R4 R5 ; [+2]
+       17 RETURN                           R1 1
+       18 MOVE                             R6 R3
+       19 GETUPVAL                         R7 3
+       20 CALL                             R6 1 1
+       21 MOVE                             R7 R3
+       22 FASTCALL2K                       STRING_SUB R1 K3 ; [+5]
+       24 MOVE                             R9 R1
+       25 LOADK                            R10 K3 [-1]
+       26 GETIMPORT                        R8 K6 [string.sub]
+       28 CALL                             R8 2 1
+       29 CALL                             R7 1 1
+       30 ADD                              R8 R6 R7
+       31 LOADK                            R9 K7 [""]
+       32 LENGTH                           R12 R1
+       33 LOADN                            R10 1
+       34 LOADN                            R11 -1
+       35 FORNPREP                         R10
+       36 LENGTH                           R16 R1
+       37 FASTCALL3                        STRING_SUB R1 R12 R16
+       39 MOVE                             R14 R1
+       40 MOVE                             R15 R12
+       41 GETIMPORT                        R13 K6 [string.sub]
+       43 CALL                             R13 3 1
+       44 MOVE                             R14 R3
+       45 MOVE                             R15 R13
+       46 CALL                             R14 1 1
+       47 ADD                              R15 R14 R8
+       48 JUMPIFLT                         R5 R15 ; [+5]
+       50 GETUPVAL                         R15 3
+       51 MOVE                             R16 R13
+       52 CONCAT                           R9 R15 R16
+       53 FORNLOOP                         R10
+       54 RETURN                           R9 1
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["Sessions"]
@@ -287,32 +268,43 @@ MAIN:
        31 GETTABLEKS                       R6 R0 K11 ["Packages"]
        33 GETTABLEKS                       R6 R6 K14 ["Foundation"]
        35 CALL                             R5 1 1
-       36 GETIMPORT                        R6 K5 [require]
-       38 GETTABLEKS                       R7 R0 K6 ["Src"]
-       40 GETTABLEKS                       R7 R7 K15 ["Controllers"]
-       42 GETTABLEKS                       R7 R7 K16 ["FileController"]
-       44 CALL                             R6 1 1
-       45 GETIMPORT                        R7 K5 [require]
-       47 GETTABLEKS                       R8 R0 K6 ["Src"]
-       49 GETTABLEKS                       R8 R8 K17 ["Hooks"]
-       51 GETTABLEKS                       R8 R8 K18 ["useSelector"]
-       53 CALL                             R7 1 1
-       54 GETIMPORT                        R8 K5 [require]
-       56 GETTABLEKS                       R9 R0 K6 ["Src"]
-       58 GETTABLEKS                       R9 R9 K19 ["Types"]
-       60 GETTABLEKS                       R9 R9 K20 ["QueuedSession"]
-       62 CALL                             R8 1 1
-       63 GETIMPORT                        R9 K23 [utf8.char]
-       65 LOADN                            R10 8230
-       66 CALL                             R9 1 1
-       67 DUPCLOSURE                       R10 K24 [PROTO_1]
-       68 CAPTURE                          VAL R2
-       69 CAPTURE                          VAL R9
-       70 DUPCLOSURE                       R11 K25 [PROTO_8]
-       71 CAPTURE                          VAL R6
-       72 CAPTURE                          VAL R7
-       73 CAPTURE                          VAL R5
-       74 CAPTURE                          VAL R3
-       75 CAPTURE                          VAL R10
-       76 CAPTURE                          VAL R4
-       77 RETURN                           R11 1
+       36 GETTABLEKS                       R6 R5 K7 ["Utility"]
+       38 GETTABLEKS                       R6 R6 K15 ["Flags"]
+       40 GETTABLEKS                       R6 R6 K16 ["FoundationStudioFontFaceMigration"]
+       42 GETIMPORT                        R7 K5 [require]
+       44 GETTABLEKS                       R8 R0 K11 ["Packages"]
+       46 GETTABLEKS                       R8 R8 K17 ["Framework"]
+       48 CALL                             R7 1 1
+       49 GETTABLEKS                       R8 R7 K18 ["Util"]
+       51 GETTABLEKS                       R8 R8 K19 ["GetTextSize"]
+       53 GETIMPORT                        R9 K5 [require]
+       55 GETTABLEKS                       R10 R0 K6 ["Src"]
+       57 GETTABLEKS                       R10 R10 K20 ["Controllers"]
+       59 GETTABLEKS                       R10 R10 K21 ["FileController"]
+       61 CALL                             R9 1 1
+       62 GETIMPORT                        R10 K5 [require]
+       64 GETTABLEKS                       R11 R0 K6 ["Src"]
+       66 GETTABLEKS                       R11 R11 K22 ["Hooks"]
+       68 GETTABLEKS                       R11 R11 K23 ["useSelector"]
+       70 CALL                             R10 1 1
+       71 GETIMPORT                        R11 K5 [require]
+       73 GETTABLEKS                       R12 R0 K6 ["Src"]
+       75 GETTABLEKS                       R12 R12 K24 ["Types"]
+       77 GETTABLEKS                       R12 R12 K25 ["QueuedSession"]
+       79 CALL                             R11 1 1
+       80 GETIMPORT                        R12 K28 [utf8.char]
+       82 LOADN                            R13 8230
+       83 CALL                             R12 1 1
+       84 DUPCLOSURE                       R13 K29 [PROTO_1]
+       85 CAPTURE                          VAL R6
+       86 CAPTURE                          VAL R8
+       87 CAPTURE                          VAL R2
+       88 CAPTURE                          VAL R12
+       89 DUPCLOSURE                       R14 K30 [PROTO_8]
+       90 CAPTURE                          VAL R9
+       91 CAPTURE                          VAL R10
+       92 CAPTURE                          VAL R5
+       93 CAPTURE                          VAL R3
+       94 CAPTURE                          VAL R13
+       95 CAPTURE                          VAL R4
+       96 RETURN                           R14 1

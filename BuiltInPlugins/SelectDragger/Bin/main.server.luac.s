@@ -153,69 +153,65 @@ MAIN:
         7 GETIMPORT                        R1 K5 [script]
         9 GETTABLEKS                       R1 R1 K6 ["Parent"]
        11 GETTABLEKS                       R1 R1 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R1 K7 ["Packages"]
-       15 GETTABLEKS                       R2 R2 K8 ["DraggerFramework"]
-       17 GETIMPORT                        R3 K10 [require]
-       19 GETTABLEKS                       R4 R1 K7 ["Packages"]
-       21 GETTABLEKS                       R4 R4 K11 ["Roact"]
-       23 CALL                             R3 1 1
-       24 GETTABLEKS                       R4 R1 K7 ["Packages"]
-       26 GETTABLEKS                       R4 R4 K12 ["DraggerSchemaCore"]
-       28 GETIMPORT                        R5 K10 [require]
-       30 GETTABLEKS                       R6 R4 K13 ["DraggerSchema"]
-       32 CALL                             R5 1 1
-       33 GETIMPORT                        R6 K10 [require]
-       35 GETTABLEKS                       R7 R2 K14 ["Implementation"]
-       37 GETTABLEKS                       R7 R7 K15 ["DraggerContext_PluginImpl"]
-       39 CALL                             R6 1 1
-       40 GETIMPORT                        R7 K10 [require]
-       42 GETTABLEKS                       R8 R2 K16 ["DraggerTools"]
-       44 GETTABLEKS                       R8 R8 K17 ["DraggerToolComponent"]
-       46 CALL                             R7 1 1
-       47 GETIMPORT                        R8 K10 [require]
-       49 GETTABLEKS                       R9 R2 K18 ["Utility"]
-       51 GETTABLEKS                       R9 R9 K19 ["isCli"]
-       53 CALL                             R8 1 1
-       54 MOVE                             R9 R8
-       55 CALL                             R9 0 1
-       56 JUMPIFNOT                        R9 ; [+1]
-       57 RETURN                           R0 0
-       58 LOADNIL                          R9
-       59 LOADB                            R10 0
-       60 LOADNIL                          R11
-       61 LOADNIL                          R12
-       62 NEWCLOSURE                       R13 P0
-       63 CAPTURE                          REF R11
-       64 CAPTURE                          REF R10
-       65 CAPTURE                          REF R12
-       66 CAPTURE                          VAL R3
-       67 CAPTURE                          VAL R7
-       68 CAPTURE                          REF R9
-       69 CAPTURE                          VAL R5
-       70 NEWCLOSURE                       R14 P1
-       71 CAPTURE                          REF R10
-       72 CAPTURE                          REF R12
-       73 CAPTURE                          REF R11
-       74 CAPTURE                          VAL R3
-       75 NEWCLOSURE                       R15 P2
-       76 CAPTURE                          REF R12
-       77 CAPTURE                          REF R9
-       78 CAPTURE                          VAL R6
-       79 CAPTURE                          VAL R5
-       80 CAPTURE                          REF R10
-       81 CAPTURE                          REF R11
-       82 CAPTURE                          VAL R3
-       83 CAPTURE                          VAL R13
-       84 MOVE                             R16 R15
-       85 CALL                             R16 0 0
-       86 NAMECALL                         R16 R0 K20 ["IsRunning"]
-       88 CALL                             R16 1 1
-       89 JUMPIFNOT                        R16 ; [+4]
-       90 NAMECALL                         R16 R0 K21 ["IsRunMode"]
-       92 CALL                             R16 1 1
-       93 JUMPIFNOT                        R16 ; [+3]
-       94 MOVE                             R16 R13
-       95 LOADB                            R17 1
-       96 CALL                             R16 1 0
-       97 CLOSEUPVALS                      R9
-       98 RETURN                           R0 0
+       13 GETIMPORT                        R2 K8 [require]
+       15 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K10 ["DraggerFramework"]
+       19 CALL                             R2 1 1
+       20 GETIMPORT                        R3 K8 [require]
+       22 GETTABLEKS                       R4 R1 K9 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K11 ["Roact"]
+       26 CALL                             R3 1 1
+       27 GETIMPORT                        R4 K8 [require]
+       29 GETTABLEKS                       R5 R1 K9 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K12 ["DraggerSchemaCore"]
+       33 CALL                             R4 1 1
+       34 GETTABLEKS                       R5 R4 K13 ["DraggerSchema"]
+       36 GETTABLEKS                       R6 R2 K14 ["Implementation"]
+       38 GETTABLEKS                       R6 R6 K15 ["DraggerContext_PluginImpl"]
+       40 GETTABLEKS                       R7 R2 K16 ["DraggerTools"]
+       42 GETTABLEKS                       R7 R7 K17 ["DraggerToolComponent"]
+       44 GETTABLEKS                       R8 R2 K18 ["Utility"]
+       46 GETTABLEKS                       R8 R8 K19 ["isCli"]
+       48 MOVE                             R9 R8
+       49 CALL                             R9 0 1
+       50 JUMPIFNOT                        R9 ; [+1]
+       51 RETURN                           R0 0
+       52 LOADNIL                          R9
+       53 LOADB                            R10 0
+       54 LOADNIL                          R11
+       55 LOADNIL                          R12
+       56 NEWCLOSURE                       R13 P0
+       57 CAPTURE                          REF R11
+       58 CAPTURE                          REF R10
+       59 CAPTURE                          REF R12
+       60 CAPTURE                          VAL R3
+       61 CAPTURE                          VAL R7
+       62 CAPTURE                          REF R9
+       63 CAPTURE                          VAL R5
+       64 NEWCLOSURE                       R14 P1
+       65 CAPTURE                          REF R10
+       66 CAPTURE                          REF R12
+       67 CAPTURE                          REF R11
+       68 CAPTURE                          VAL R3
+       69 NEWCLOSURE                       R15 P2
+       70 CAPTURE                          REF R12
+       71 CAPTURE                          REF R9
+       72 CAPTURE                          VAL R6
+       73 CAPTURE                          VAL R5
+       74 CAPTURE                          REF R10
+       75 CAPTURE                          REF R11
+       76 CAPTURE                          VAL R3
+       77 CAPTURE                          VAL R13
+       78 MOVE                             R16 R15
+       79 CALL                             R16 0 0
+       80 NAMECALL                         R16 R0 K20 ["IsRunning"]
+       82 CALL                             R16 1 1
+       83 JUMPIFNOT                        R16 ; [+4]
+       84 NAMECALL                         R16 R0 K21 ["IsRunMode"]
+       86 CALL                             R16 1 1
+       87 JUMPIFNOT                        R16 ; [+3]
+       88 MOVE                             R16 R13
+       89 LOADB                            R17 1
+       90 CALL                             R16 1 0
+       91 CLOSEUPVALS                      R9
+       92 RETURN                           R0 0

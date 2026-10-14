@@ -1,145 +1,154 @@
 PROTO_0:
         0 GETUPVAL                         R2 0
-        1 JUMPIF                           R2 ; [+4]
-        2 GETTABLEKS                       R3 R0 K1 ["PrivacyType"]
-        4 ORK                              R2 R3 K0 [""]
-        5 RETURN                           R2 1
-        6 LOADNIL                          R2
-        7 LOADNIL                          R3
-        8 GETUPVAL                         R4 1
-        9 JUMPIFNOT                        R4 ; [+21]
-       10 GETTABLEKS                       R4 R0 K2 ["Audiences"]
-       12 JUMPIFEQKNIL                     R4 ; [+18]
-       14 GETTABLEKS                       R4 R0 K2 ["Audiences"]
-       16 GETUPVAL                         R5 2
-       17 MOVE                             R6 R4
-       18 CALL                             R5 1 1
-       19 NOT                              R2 R5
-       20 MOVE                             R5 R2
-       21 JUMPIFNOT                        R5 ; [+7]
-       22 GETUPVAL                         R6 3
-       23 MOVE                             R7 R4
-       24 GETUPVAL                         R8 4
-       25 GETTABLEKS                       R8 R8 K3 ["Public"]
-       27 CALL                             R6 2 1
-       28 NOT                              R5 R6
-       29 MOVE                             R3 R5
-       30 JUMP                             ; [+8]
-       31 GETTABLEKS                       R4 R0 K1 ["PrivacyType"]
-       33 JUMPIFEQKS                       R4 K3 ["Public"] ; [+2]
-       35 LOADB                            R2 0 +1
-       36 LOADB                            R2 1
-       37 GETTABLEKS                       R3 R0 K4 ["IsFriendsOnly"]
-       39 JUMPIF                           R2 ; [+6]
-       40 LOADK                            R6 K5 ["Plugin"]
-       41 LOADK                            R7 K6 ["PrivacyType.Private"]
-       42 NAMECALL                         R4 R1 K7 ["getText"]
-       44 CALL                             R4 3 -1
-       45 RETURN                           R4 -1
-       46 GETTABLEKS                       R5 R0 K8 ["ContentMaturity"]
-       48 JUMPIFEQKS                       R5 K9 ["unrated"] ; [+2]
-       50 LOADB                            R4 0 +1
-       51 LOADB                            R4 1
-       52 GETTABLEKS                       R5 R0 K10 ["IsSequestered"]
-       54 JUMPIFNOT                        R2 ; [+8]
-       55 JUMPIF                           R4 ; [+1]
-       56 JUMPIFNOT                        R5 ; [+6]
-       57 LOADK                            R8 K5 ["Plugin"]
-       58 LOADK                            R9 K11 ["PrivacyType.Unplayable"]
-       59 NAMECALL                         R6 R1 K7 ["getText"]
-       61 CALL                             R6 3 -1
-       62 RETURN                           R6 -1
-       63 JUMPIFNOT                        R2 ; [+9]
-       64 GETTABLEKS                       R6 R0 K12 ["IsDiscoveryBlocked"]
-       66 JUMPIFNOT                        R6 ; [+6]
-       67 LOADK                            R8 K5 ["Plugin"]
-       68 LOADK                            R9 K13 ["PrivacyType.NeedsAttention"]
-       69 NAMECALL                         R6 R1 K7 ["getText"]
-       71 CALL                             R6 3 -1
-       72 RETURN                           R6 -1
-       73 GETTABLEKS                       R6 R0 K14 ["AgeRecommendation"]
-       75 MOVE                             R7 R2
-       76 JUMPIFNOT                        R7 ; [+8]
-       77 NOT                              R7 R4
-       78 JUMPIFNOT                        R7 ; [+6]
-       79 GETTABLEKS                       R8 R0 K15 ["CoreContentSelectStatus"]
-       81 JUMPIFEQKS                       R8 K16 ["Eligible"] ; [+2]
-       83 LOADB                            R7 0 +1
-       84 LOADB                            R7 1
-       85 MOVE                             R8 R7
-       86 JUMPIFNOT                        R8 ; [+13]
-       87 LOADB                            R8 0
-       88 GETTABLEKS                       R9 R0 K17 ["CoreContentReasons"]
-       90 JUMPIFEQKNIL                     R9 ; [+9]
-       92 GETTABLEKS                       R10 R0 K17 ["CoreContentReasons"]
-       94 LENGTH                           R9 R10
-       95 LOADN                            R10 0
-       96 JUMPIFLT                         R10 R9 ; [+2]
-       98 LOADB                            R8 0 +1
-       99 LOADB                            R8 1
-      100 JUMPIFNOT                        R2 ; [+13]
-      101 JUMPIFEQKNIL                     R6 ; [+4]
-      103 GETUPVAL                         R9 5
-      104 JUMPIFNOTLT                      R6 R9 ; [+9]
-      106 JUMPIFNOT                        R7 ; [+7]
-      107 JUMPIFNOT                        R8 ; [+6]
-      108 LOADK                            R11 K5 ["Plugin"]
-      109 LOADK                            R12 K13 ["PrivacyType.NeedsAttention"]
-      110 NAMECALL                         R9 R1 K7 ["getText"]
-      112 CALL                             R9 3 -1
-      113 RETURN                           R9 -1
-      114 JUMPIFNOT                        R2 ; [+7]
-      115 JUMPIFNOT                        R3 ; [+6]
-      116 LOADK                            R11 K5 ["Plugin"]
-      117 LOADK                            R12 K18 ["PrivacyType.Limited"]
-      118 NAMECALL                         R9 R1 K7 ["getText"]
-      120 CALL                             R9 3 -1
-      121 RETURN                           R9 -1
-      122 LOADNIL                          R9
-      123 JUMPIFNOT                        R7 ; [+6]
-      124 JUMPIFEQKNIL                     R6 ; [+3]
-      126 MOVE                             R9 R6
-      127 JUMP                             ; [+14]
-      128 LOADN                            R9 0
-      129 JUMP                             ; [+12]
-      130 GETUPVAL                         R11 5
-      131 JUMPIFEQKNIL                     R6 ; [+3]
-      133 MOVE                             R12 R6
-      134 JUMP                             ; [+1]
-      135 LOADN                            R12 0
-      136 FASTCALL2                        MATH_MAX R11 R12 ; [+3]
-      138 GETIMPORT                        R10 K21 [math.max]
-      140 CALL                             R10 2 1
-      141 MOVE                             R9 R10
-      142 LOADNIL                          R10
-      143 GETUPVAL                         R11 5
-      144 JUMPIFNOTLE                      R11 R9 ; [+8]
-      146 GETUPVAL                         R12 5
-      147 FASTCALL1                        TOSTRING R12 ; [+2]
-      148 GETIMPORT                        R11 K23 [tostring]
-      150 CALL                             R11 1 1
-      151 MOVE                             R10 R11
-      152 JUMP                             ; [+9]
-      153 GETUPVAL                         R11 6
-      154 JUMPIFNOTLE                      R11 R9 ; [+7]
-      156 GETUPVAL                         R12 6
-      157 FASTCALL1                        TOSTRING R12 ; [+2]
-      158 GETIMPORT                        R11 K23 [tostring]
-      160 CALL                             R11 1 1
-      161 MOVE                             R10 R11
-      162 JUMPIFEQKNIL                     R10 ; [+10]
-      164 LOADK                            R13 K5 ["Plugin"]
-      165 LOADK                            R14 K24 ["PrivacyType.PublicAgeGated"]
-      166 DUPTABLE                         R15 K26 [{"minAge"}]
-      167 SETTABLEKS                       R10 R15 K25 ["minAge"]
-      169 NAMECALL                         R11 R1 K7 ["getText"]
-      171 CALL                             R11 4 -1
-      172 RETURN                           R11 -1
-      173 LOADK                            R13 K5 ["Plugin"]
-      174 LOADK                            R14 K27 ["PrivacyType.PublicAllAges"]
-      175 NAMECALL                         R11 R1 K7 ["getText"]
-      177 CALL                             R11 3 -1
-      178 RETURN                           R11 -1
+        1 CALL                             R2 0 1
+        2 JUMPIFNOT                        R2 ; [+8]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R3 R0 K0 ["ReachStatus"]
+        6 CALL                             R2 1 1
+        7 JUMPIFNOT                        R2 ; [+3]
+        8 GETTABLEKS                       R3 R2 K1 ["label"]
+       10 RETURN                           R3 1
+       11 GETUPVAL                         R2 2
+       12 JUMPIF                           R2 ; [+4]
+       13 GETTABLEKS                       R3 R0 K3 ["PrivacyType"]
+       15 ORK                              R2 R3 K2 [""]
+       16 RETURN                           R2 1
+       17 LOADNIL                          R2
+       18 LOADNIL                          R3
+       19 GETUPVAL                         R4 3
+       20 JUMPIFNOT                        R4 ; [+21]
+       21 GETTABLEKS                       R4 R0 K4 ["Audiences"]
+       23 JUMPIFEQKNIL                     R4 ; [+18]
+       25 GETTABLEKS                       R4 R0 K4 ["Audiences"]
+       27 GETUPVAL                         R5 4
+       28 MOVE                             R6 R4
+       29 CALL                             R5 1 1
+       30 NOT                              R2 R5
+       31 MOVE                             R5 R2
+       32 JUMPIFNOT                        R5 ; [+7]
+       33 GETUPVAL                         R6 5
+       34 MOVE                             R7 R4
+       35 GETUPVAL                         R8 6
+       36 GETTABLEKS                       R8 R8 K5 ["Public"]
+       38 CALL                             R6 2 1
+       39 NOT                              R5 R6
+       40 MOVE                             R3 R5
+       41 JUMP                             ; [+8]
+       42 GETTABLEKS                       R4 R0 K3 ["PrivacyType"]
+       44 JUMPIFEQKS                       R4 K5 ["Public"] ; [+2]
+       46 LOADB                            R2 0 +1
+       47 LOADB                            R2 1
+       48 GETTABLEKS                       R3 R0 K6 ["IsFriendsOnly"]
+       50 JUMPIF                           R2 ; [+6]
+       51 LOADK                            R6 K7 ["Plugin"]
+       52 LOADK                            R7 K8 ["PrivacyType.Private"]
+       53 NAMECALL                         R4 R1 K9 ["getText"]
+       55 CALL                             R4 3 -1
+       56 RETURN                           R4 -1
+       57 GETTABLEKS                       R5 R0 K10 ["ContentMaturity"]
+       59 JUMPIFEQKS                       R5 K11 ["unrated"] ; [+2]
+       61 LOADB                            R4 0 +1
+       62 LOADB                            R4 1
+       63 GETTABLEKS                       R5 R0 K12 ["IsSequestered"]
+       65 JUMPIFNOT                        R2 ; [+8]
+       66 JUMPIF                           R4 ; [+1]
+       67 JUMPIFNOT                        R5 ; [+6]
+       68 LOADK                            R8 K7 ["Plugin"]
+       69 LOADK                            R9 K13 ["PrivacyType.Unplayable"]
+       70 NAMECALL                         R6 R1 K9 ["getText"]
+       72 CALL                             R6 3 -1
+       73 RETURN                           R6 -1
+       74 JUMPIFNOT                        R2 ; [+9]
+       75 GETTABLEKS                       R6 R0 K14 ["IsDiscoveryBlocked"]
+       77 JUMPIFNOT                        R6 ; [+6]
+       78 LOADK                            R8 K7 ["Plugin"]
+       79 LOADK                            R9 K15 ["PrivacyType.NeedsAttention"]
+       80 NAMECALL                         R6 R1 K9 ["getText"]
+       82 CALL                             R6 3 -1
+       83 RETURN                           R6 -1
+       84 GETTABLEKS                       R6 R0 K16 ["AgeRecommendation"]
+       86 MOVE                             R7 R2
+       87 JUMPIFNOT                        R7 ; [+8]
+       88 NOT                              R7 R4
+       89 JUMPIFNOT                        R7 ; [+6]
+       90 GETTABLEKS                       R8 R0 K17 ["CoreContentSelectStatus"]
+       92 JUMPIFEQKS                       R8 K18 ["Eligible"] ; [+2]
+       94 LOADB                            R7 0 +1
+       95 LOADB                            R7 1
+       96 MOVE                             R8 R7
+       97 JUMPIFNOT                        R8 ; [+13]
+       98 LOADB                            R8 0
+       99 GETTABLEKS                       R9 R0 K19 ["CoreContentReasons"]
+      101 JUMPIFEQKNIL                     R9 ; [+9]
+      103 GETTABLEKS                       R10 R0 K19 ["CoreContentReasons"]
+      105 LENGTH                           R9 R10
+      106 LOADN                            R10 0
+      107 JUMPIFLT                         R10 R9 ; [+2]
+      109 LOADB                            R8 0 +1
+      110 LOADB                            R8 1
+      111 JUMPIFNOT                        R2 ; [+13]
+      112 JUMPIFEQKNIL                     R6 ; [+4]
+      114 GETUPVAL                         R9 7
+      115 JUMPIFNOTLT                      R6 R9 ; [+9]
+      117 JUMPIFNOT                        R7 ; [+7]
+      118 JUMPIFNOT                        R8 ; [+6]
+      119 LOADK                            R11 K7 ["Plugin"]
+      120 LOADK                            R12 K15 ["PrivacyType.NeedsAttention"]
+      121 NAMECALL                         R9 R1 K9 ["getText"]
+      123 CALL                             R9 3 -1
+      124 RETURN                           R9 -1
+      125 JUMPIFNOT                        R2 ; [+7]
+      126 JUMPIFNOT                        R3 ; [+6]
+      127 LOADK                            R11 K7 ["Plugin"]
+      128 LOADK                            R12 K20 ["PrivacyType.Limited"]
+      129 NAMECALL                         R9 R1 K9 ["getText"]
+      131 CALL                             R9 3 -1
+      132 RETURN                           R9 -1
+      133 LOADNIL                          R9
+      134 JUMPIFNOT                        R7 ; [+6]
+      135 JUMPIFEQKNIL                     R6 ; [+3]
+      137 MOVE                             R9 R6
+      138 JUMP                             ; [+14]
+      139 LOADN                            R9 0
+      140 JUMP                             ; [+12]
+      141 GETUPVAL                         R11 7
+      142 JUMPIFEQKNIL                     R6 ; [+3]
+      144 MOVE                             R12 R6
+      145 JUMP                             ; [+1]
+      146 LOADN                            R12 0
+      147 FASTCALL2                        MATH_MAX R11 R12 ; [+3]
+      149 GETIMPORT                        R10 K23 [math.max]
+      151 CALL                             R10 2 1
+      152 MOVE                             R9 R10
+      153 LOADNIL                          R10
+      154 GETUPVAL                         R11 7
+      155 JUMPIFNOTLE                      R11 R9 ; [+8]
+      157 GETUPVAL                         R12 7
+      158 FASTCALL1                        TOSTRING R12 ; [+2]
+      159 GETIMPORT                        R11 K25 [tostring]
+      161 CALL                             R11 1 1
+      162 MOVE                             R10 R11
+      163 JUMP                             ; [+9]
+      164 GETUPVAL                         R11 8
+      165 JUMPIFNOTLE                      R11 R9 ; [+7]
+      167 GETUPVAL                         R12 8
+      168 FASTCALL1                        TOSTRING R12 ; [+2]
+      169 GETIMPORT                        R11 K25 [tostring]
+      171 CALL                             R11 1 1
+      172 MOVE                             R10 R11
+      173 JUMPIFEQKNIL                     R10 ; [+10]
+      175 LOADK                            R13 K7 ["Plugin"]
+      176 LOADK                            R14 K26 ["PrivacyType.PublicAgeGated"]
+      177 DUPTABLE                         R15 K28 [{"minAge"}]
+      178 SETTABLEKS                       R10 R15 K27 ["minAge"]
+      180 NAMECALL                         R11 R1 K9 ["getText"]
+      182 CALL                             R11 4 -1
+      183 RETURN                           R11 -1
+      184 LOADK                            R13 K7 ["Plugin"]
+      185 LOADK                            R14 K29 ["PrivacyType.PublicAllAges"]
+      186 NAMECALL                         R11 R1 K9 ["getText"]
+      188 CALL                             R11 3 -1
+      189 RETURN                           R11 -1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -1447,202 +1456,214 @@ MAIN:
       290 CALL                             R40 1 1
       291 GETIMPORT                        R41 K5 [require]
       293 GETTABLEKS                       R42 R0 K16 ["Src"]
-      295 GETTABLEKS                       R42 R42 K17 ["Util"]
-      297 GETTABLEKS                       R42 R42 K56 ["CoreContentStatusConstants"]
+      295 GETTABLEKS                       R42 R42 K21 ["SharedFlags"]
+      297 GETTABLEKS                       R42 R42 K56 ["getFFlagLuaStartPageReachStatus"]
       299 CALL                             R41 1 1
-      300 GETTABLEKS                       R42 R41 K57 ["NEEDS_ATTENTION_AGE_THRESHOLD"]
-      302 GETTABLEKS                       R43 R41 K58 ["AGE_BRACKET_9"]
-      304 DUPCLOSURE                       R44 K59 [PROTO_0]
-      305 CAPTURE                          VAL R14
-      306 CAPTURE                          VAL R16
-      307 CAPTURE                          VAL R23
-      308 CAPTURE                          VAL R24
-      309 CAPTURE                          VAL R21
-      310 CAPTURE                          VAL R42
-      311 CAPTURE                          VAL R43
-      312 NEWTABLE                         R45 0 7
-      314 DUPTABLE                         R46 K67 [{["Name"] = "", ["Key"] = "Icon", ["Width"], ["ShouldSort"] = False}]
-      315 GETIMPORT                        R47 K70 [UDim.new]
-      317 LOADN                            R48 0
-      318 LOADN                            R49 64
-      319 CALL                             R47 2 1
-      320 SETTABLEKS                       R47 R46 K64 ["Width"]
-      322 DUPTABLE                         R47 K74 [{["Name"] = "Name", ["Key"] = "Name", ["Width"], ["ShouldSort"] = True, ["SortParam"] = "GameName"}]
-      323 JUMPIFNOT                        R13 ; [+6]
-      324 GETIMPORT                        R48 K70 [UDim.new]
-      326 LOADK                            R49 K75 [0.25]
-      327 LOADN                            R50 -136
-      328 CALL                             R48 2 1
-      329 JUMP                             ; [+5]
-      330 GETIMPORT                        R48 K70 [UDim.new]
-      332 LOADK                            R49 K75 [0.25]
-      333 LOADN                            R50 -64
-      334 CALL                             R48 2 1
-      335 SETTABLEKS                       R48 R47 K64 ["Width"]
-      337 DUPTABLE                         R48 K77 [{["Name"] = "Description", ["Key"] = "Description", ["Width"], ["ShouldSort"] = False}]
-      338 GETIMPORT                        R49 K70 [UDim.new]
-      340 LOADK                            R50 K75 [0.25]
-      341 LOADN                            R51 0
-      342 CALL                             R49 2 1
-      343 SETTABLEKS                       R49 R48 K64 ["Width"]
-      345 DUPTABLE                         R49 K81 [{["Name"] = "Last Edited", ["Key"] = "Edited", ["Width"], ["ShouldSort"] = True, ["SortParam"] = "LastUpdated"}]
-      346 GETIMPORT                        R50 K70 [UDim.new]
-      348 LOADK                            R51 K82 [0.15]
-      349 LOADN                            R52 0
-      350 CALL                             R50 2 1
-      351 SETTABLEKS                       R50 R49 K64 ["Width"]
-      353 DUPTABLE                         R50 K86 [{["Name"] = "Date Created", ["Key"] = "Created", ["Width"], ["ShouldSort"] = True, ["SortParam"] = "GameCreated"}]
-      354 GETIMPORT                        R51 K70 [UDim.new]
-      356 LOADK                            R52 K82 [0.15]
-      357 LOADN                            R53 0
-      358 CALL                             R51 2 1
-      359 SETTABLEKS                       R51 R50 K64 ["Width"]
-      361 DUPTABLE                         R51 K88 [{["Name"] = "Playability", ["Key"] = "Playability", ["Width"], ["ShouldSort"] = False}]
-      362 GETIMPORT                        R52 K70 [UDim.new]
-      364 LOADK                            R53 K89 [0.1]
-      365 LOADN                            R54 0
-      366 CALL                             R52 2 1
-      367 SETTABLEKS                       R52 R51 K64 ["Width"]
-      369 DUPTABLE                         R52 K92 [{["Name"] = "Team Create", ["Key"] = "TeamCreate", ["Width"], ["ShouldSort"] = False}]
-      370 GETIMPORT                        R53 K70 [UDim.new]
-      372 LOADK                            R54 K89 [0.1]
-      373 LOADN                            R55 0
-      374 CALL                             R53 2 1
-      375 SETTABLEKS                       R53 R52 K64 ["Width"]
-      377 SETLIST                          R45 R46 7 [1]
-      379 JUMPIFNOT                        R13 ; [+14]
-      380 DUPTABLE                         R48 K94 [{["Name"] = "", ["Key"] = "KebabMenu", ["Width"], ["ShouldSort"] = False}]
-      381 GETIMPORT                        R49 K70 [UDim.new]
-      383 LOADN                            R50 0
-      384 LOADN                            R51 72
-      385 CALL                             R49 2 1
-      386 SETTABLEKS                       R49 R48 K64 ["Width"]
-      388 FASTCALL2                        TABLE_INSERT R45 R48 ; [+4]
-      390 MOVE                             R47 R45
-      391 GETIMPORT                        R46 K97 [table.insert]
-      393 CALL                             R46 2 0
-      394 NEWTABLE                         R46 4 0
-      396 LOADN                            R47 2
-      397 SETTABLEKS                       R47 R46 K73 ["GameName"]
-      399 LOADN                            R47 4
-      400 SETTABLEKS                       R47 R46 K80 ["LastUpdated"]
-      402 LOADN                            R47 5
-      403 SETTABLEKS                       R47 R46 K85 ["GameCreated"]
-      405 DUPCLOSURE                       R47 K98 [PROTO_1]
-      406 CAPTURE                          VAL R1
-      407 CAPTURE                          VAL R36
-      408 DUPCLOSURE                       R48 K99 [PROTO_2]
-      409 CAPTURE                          VAL R1
-      410 CAPTURE                          VAL R36
-      411 DUPTABLE                         R49 K101 [{"Icon", "Name", "Description", "Edited", "Created", "Playability", "Type", "TeamCreate", "KebabMenu"}]
-      412 DUPTABLE                         R50 K105 [{["Value"] = "", ["Schema"], ["Renderers"]}]
-      413 DUPTABLE                         R51 K107 [{["Type"] = "Placeholder"}]
-      414 SETTABLEKS                       R51 R50 K103 ["Schema"]
-      416 DUPTABLE                         R51 K108 [{"Placeholder"}]
-      417 SETTABLEKS                       R48 R51 K106 ["Placeholder"]
-      419 SETTABLEKS                       R51 R50 K104 ["Renderers"]
-      421 SETTABLEKS                       R50 R49 K63 ["Icon"]
-      423 DUPTABLE                         R50 K105 [{["Value"] = "", ["Schema"], ["Renderers"]}]
-      424 DUPTABLE                         R51 K107 [{["Type"] = "Placeholder"}]
-      425 SETTABLEKS                       R51 R50 K103 ["Schema"]
-      427 DUPTABLE                         R51 K108 [{"Placeholder"}]
-      428 SETTABLEKS                       R47 R51 K106 ["Placeholder"]
-      430 SETTABLEKS                       R51 R50 K104 ["Renderers"]
-      432 SETTABLEKS                       R50 R49 K60 ["Name"]
-      434 DUPTABLE                         R50 K105 [{["Value"] = "", ["Schema"], ["Renderers"]}]
-      435 DUPTABLE                         R51 K107 [{["Type"] = "Placeholder"}]
-      436 SETTABLEKS                       R51 R50 K103 ["Schema"]
-      438 DUPTABLE                         R51 K108 [{"Placeholder"}]
-      439 SETTABLEKS                       R47 R51 K106 ["Placeholder"]
-      441 SETTABLEKS                       R51 R50 K104 ["Renderers"]
-      443 SETTABLEKS                       R50 R49 K76 ["Description"]
-      445 DUPTABLE                         R50 K105 [{["Value"] = "", ["Schema"], ["Renderers"]}]
-      446 DUPTABLE                         R51 K107 [{["Type"] = "Placeholder"}]
-      447 SETTABLEKS                       R51 R50 K103 ["Schema"]
-      449 DUPTABLE                         R51 K108 [{"Placeholder"}]
-      450 SETTABLEKS                       R47 R51 K106 ["Placeholder"]
-      452 SETTABLEKS                       R51 R50 K104 ["Renderers"]
-      454 SETTABLEKS                       R50 R49 K79 ["Edited"]
-      456 DUPTABLE                         R50 K105 [{["Value"] = "", ["Schema"], ["Renderers"]}]
-      457 DUPTABLE                         R51 K107 [{["Type"] = "Placeholder"}]
-      458 SETTABLEKS                       R51 R50 K103 ["Schema"]
-      460 DUPTABLE                         R51 K108 [{"Placeholder"}]
-      461 SETTABLEKS                       R47 R51 K106 ["Placeholder"]
-      463 SETTABLEKS                       R51 R50 K104 ["Renderers"]
-      465 SETTABLEKS                       R50 R49 K84 ["Created"]
-      467 DUPTABLE                         R50 K105 [{["Value"] = "", ["Schema"], ["Renderers"]}]
-      468 DUPTABLE                         R51 K107 [{["Type"] = "Placeholder"}]
-      469 SETTABLEKS                       R51 R50 K103 ["Schema"]
-      471 DUPTABLE                         R51 K108 [{"Placeholder"}]
-      472 SETTABLEKS                       R47 R51 K106 ["Placeholder"]
-      474 SETTABLEKS                       R51 R50 K104 ["Renderers"]
-      476 SETTABLEKS                       R50 R49 K87 ["Playability"]
-      478 DUPTABLE                         R50 K105 [{["Value"] = "", ["Schema"], ["Renderers"]}]
-      479 DUPTABLE                         R51 K107 [{["Type"] = "Placeholder"}]
-      480 SETTABLEKS                       R51 R50 K103 ["Schema"]
-      482 DUPTABLE                         R51 K108 [{"Placeholder"}]
-      483 SETTABLEKS                       R47 R51 K106 ["Placeholder"]
-      485 SETTABLEKS                       R51 R50 K104 ["Renderers"]
-      487 SETTABLEKS                       R50 R49 K100 ["Type"]
-      489 DUPTABLE                         R50 K105 [{["Value"] = "", ["Schema"], ["Renderers"]}]
-      490 DUPTABLE                         R51 K107 [{["Type"] = "Placeholder"}]
-      491 SETTABLEKS                       R51 R50 K103 ["Schema"]
-      493 DUPTABLE                         R51 K108 [{"Placeholder"}]
-      494 SETTABLEKS                       R47 R51 K106 ["Placeholder"]
-      496 SETTABLEKS                       R51 R50 K104 ["Renderers"]
-      498 SETTABLEKS                       R50 R49 K91 ["TeamCreate"]
-      500 JUMPIFNOT                        R13 ; [+2]
-      501 DUPTABLE                         R50 K109 [{["Value"] = ""}]
-      502 JUMP                             ; [+1]
-      503 LOADNIL                          R50
-      504 SETTABLEKS                       R50 R49 K93 ["KebabMenu"]
-      506 DUPCLOSURE                       R50 K110 [PROTO_3]
-      507 DUPCLOSURE                       R51 K111 [PROTO_4]
-      508 CAPTURE                          VAL R31
-      509 DUPCLOSURE                       R52 K112 [PROTO_5]
-      510 CAPTURE                          VAL R32
-      511 DUPCLOSURE                       R53 K113 [PROTO_7]
-      512 CAPTURE                          VAL R25
-      513 CAPTURE                          VAL R13
-      514 CAPTURE                          VAL R26
-      515 CAPTURE                          VAL R4
-      516 CAPTURE                          VAL R1
-      517 CAPTURE                          VAL R37
-      518 DUPCLOSURE                       R54 K114 [PROTO_21]
-      519 CAPTURE                          VAL R18
-      520 CAPTURE                          VAL R2
-      521 CAPTURE                          VAL R6
-      522 CAPTURE                          VAL R1
-      523 CAPTURE                          VAL R12
-      524 CAPTURE                          VAL R13
-      525 CAPTURE                          VAL R39
-      526 CAPTURE                          VAL R3
-      527 CAPTURE                          VAL R40
-      528 CAPTURE                          VAL R44
-      529 CAPTURE                          VAL R17
-      530 CAPTURE                          VAL R19
-      531 CAPTURE                          VAL R20
-      532 CAPTURE                          VAL R8
-      533 CAPTURE                          VAL R49
-      534 CAPTURE                          VAL R48
-      535 CAPTURE                          VAL R15
-      536 CAPTURE                          VAL R38
-      537 CAPTURE                          VAL R32
-      538 CAPTURE                          VAL R31
-      539 CAPTURE                          VAL R29
-      540 CAPTURE                          VAL R30
-      541 CAPTURE                          VAL R9
-      542 CAPTURE                          VAL R35
-      543 CAPTURE                          VAL R45
-      544 CAPTURE                          VAL R52
-      545 CAPTURE                          VAL R28
-      546 CAPTURE                          VAL R27
-      547 CAPTURE                          VAL R51
-      548 CAPTURE                          VAL R50
-      549 CAPTURE                          VAL R10
-      550 CAPTURE                          VAL R46
-      551 CAPTURE                          VAL R37
-      552 CAPTURE                          VAL R53
-      553 SETGLOBAL                        R54 K115 ["DEPRECATED_ExperiencesTable"]
-      555 GETGLOBAL                        R54 K115 ["DEPRECATED_ExperiencesTable"]
-      557 RETURN                           R54 1
+      300 GETIMPORT                        R42 K5 [require]
+      302 GETTABLEKS                       R43 R0 K16 ["Src"]
+      304 GETTABLEKS                       R43 R43 K17 ["Util"]
+      306 GETTABLEKS                       R43 R43 K57 ["getReachStatusBadgePresentation"]
+      308 CALL                             R42 1 1
+      309 GETIMPORT                        R43 K5 [require]
+      311 GETTABLEKS                       R44 R0 K16 ["Src"]
+      313 GETTABLEKS                       R44 R44 K17 ["Util"]
+      315 GETTABLEKS                       R44 R44 K58 ["CoreContentStatusConstants"]
+      317 CALL                             R43 1 1
+      318 GETTABLEKS                       R44 R43 K59 ["NEEDS_ATTENTION_AGE_THRESHOLD"]
+      320 GETTABLEKS                       R45 R43 K60 ["AGE_BRACKET_9"]
+      322 DUPCLOSURE                       R46 K61 [PROTO_0]
+      323 CAPTURE                          VAL R41
+      324 CAPTURE                          VAL R42
+      325 CAPTURE                          VAL R14
+      326 CAPTURE                          VAL R16
+      327 CAPTURE                          VAL R23
+      328 CAPTURE                          VAL R24
+      329 CAPTURE                          VAL R21
+      330 CAPTURE                          VAL R44
+      331 CAPTURE                          VAL R45
+      332 NEWTABLE                         R47 0 7
+      334 DUPTABLE                         R48 K69 [{["Name"] = "", ["Key"] = "Icon", ["Width"], ["ShouldSort"] = False}]
+      335 GETIMPORT                        R49 K72 [UDim.new]
+      337 LOADN                            R50 0
+      338 LOADN                            R51 64
+      339 CALL                             R49 2 1
+      340 SETTABLEKS                       R49 R48 K66 ["Width"]
+      342 DUPTABLE                         R49 K76 [{["Name"] = "Name", ["Key"] = "Name", ["Width"], ["ShouldSort"] = True, ["SortParam"] = "GameName"}]
+      343 JUMPIFNOT                        R13 ; [+6]
+      344 GETIMPORT                        R50 K72 [UDim.new]
+      346 LOADK                            R51 K77 [0.25]
+      347 LOADN                            R52 -136
+      348 CALL                             R50 2 1
+      349 JUMP                             ; [+5]
+      350 GETIMPORT                        R50 K72 [UDim.new]
+      352 LOADK                            R51 K77 [0.25]
+      353 LOADN                            R52 -64
+      354 CALL                             R50 2 1
+      355 SETTABLEKS                       R50 R49 K66 ["Width"]
+      357 DUPTABLE                         R50 K79 [{["Name"] = "Description", ["Key"] = "Description", ["Width"], ["ShouldSort"] = False}]
+      358 GETIMPORT                        R51 K72 [UDim.new]
+      360 LOADK                            R52 K77 [0.25]
+      361 LOADN                            R53 0
+      362 CALL                             R51 2 1
+      363 SETTABLEKS                       R51 R50 K66 ["Width"]
+      365 DUPTABLE                         R51 K83 [{["Name"] = "Last Edited", ["Key"] = "Edited", ["Width"], ["ShouldSort"] = True, ["SortParam"] = "LastUpdated"}]
+      366 GETIMPORT                        R52 K72 [UDim.new]
+      368 LOADK                            R53 K84 [0.15]
+      369 LOADN                            R54 0
+      370 CALL                             R52 2 1
+      371 SETTABLEKS                       R52 R51 K66 ["Width"]
+      373 DUPTABLE                         R52 K88 [{["Name"] = "Date Created", ["Key"] = "Created", ["Width"], ["ShouldSort"] = True, ["SortParam"] = "GameCreated"}]
+      374 GETIMPORT                        R53 K72 [UDim.new]
+      376 LOADK                            R54 K84 [0.15]
+      377 LOADN                            R55 0
+      378 CALL                             R53 2 1
+      379 SETTABLEKS                       R53 R52 K66 ["Width"]
+      381 DUPTABLE                         R53 K90 [{["Name"] = "Playability", ["Key"] = "Playability", ["Width"], ["ShouldSort"] = False}]
+      382 GETIMPORT                        R54 K72 [UDim.new]
+      384 LOADK                            R55 K91 [0.1]
+      385 LOADN                            R56 0
+      386 CALL                             R54 2 1
+      387 SETTABLEKS                       R54 R53 K66 ["Width"]
+      389 DUPTABLE                         R54 K94 [{["Name"] = "Team Create", ["Key"] = "TeamCreate", ["Width"], ["ShouldSort"] = False}]
+      390 GETIMPORT                        R55 K72 [UDim.new]
+      392 LOADK                            R56 K91 [0.1]
+      393 LOADN                            R57 0
+      394 CALL                             R55 2 1
+      395 SETTABLEKS                       R55 R54 K66 ["Width"]
+      397 SETLIST                          R47 R48 7 [1]
+      399 JUMPIFNOT                        R13 ; [+14]
+      400 DUPTABLE                         R50 K96 [{["Name"] = "", ["Key"] = "KebabMenu", ["Width"], ["ShouldSort"] = False}]
+      401 GETIMPORT                        R51 K72 [UDim.new]
+      403 LOADN                            R52 0
+      404 LOADN                            R53 72
+      405 CALL                             R51 2 1
+      406 SETTABLEKS                       R51 R50 K66 ["Width"]
+      408 FASTCALL2                        TABLE_INSERT R47 R50 ; [+4]
+      410 MOVE                             R49 R47
+      411 GETIMPORT                        R48 K99 [table.insert]
+      413 CALL                             R48 2 0
+      414 NEWTABLE                         R48 4 0
+      416 LOADN                            R49 2
+      417 SETTABLEKS                       R49 R48 K75 ["GameName"]
+      419 LOADN                            R49 4
+      420 SETTABLEKS                       R49 R48 K82 ["LastUpdated"]
+      422 LOADN                            R49 5
+      423 SETTABLEKS                       R49 R48 K87 ["GameCreated"]
+      425 DUPCLOSURE                       R49 K100 [PROTO_1]
+      426 CAPTURE                          VAL R1
+      427 CAPTURE                          VAL R36
+      428 DUPCLOSURE                       R50 K101 [PROTO_2]
+      429 CAPTURE                          VAL R1
+      430 CAPTURE                          VAL R36
+      431 DUPTABLE                         R51 K103 [{"Icon", "Name", "Description", "Edited", "Created", "Playability", "Type", "TeamCreate", "KebabMenu"}]
+      432 DUPTABLE                         R52 K107 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      433 DUPTABLE                         R53 K109 [{["Type"] = "Placeholder"}]
+      434 SETTABLEKS                       R53 R52 K105 ["Schema"]
+      436 DUPTABLE                         R53 K110 [{"Placeholder"}]
+      437 SETTABLEKS                       R50 R53 K108 ["Placeholder"]
+      439 SETTABLEKS                       R53 R52 K106 ["Renderers"]
+      441 SETTABLEKS                       R52 R51 K65 ["Icon"]
+      443 DUPTABLE                         R52 K107 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      444 DUPTABLE                         R53 K109 [{["Type"] = "Placeholder"}]
+      445 SETTABLEKS                       R53 R52 K105 ["Schema"]
+      447 DUPTABLE                         R53 K110 [{"Placeholder"}]
+      448 SETTABLEKS                       R49 R53 K108 ["Placeholder"]
+      450 SETTABLEKS                       R53 R52 K106 ["Renderers"]
+      452 SETTABLEKS                       R52 R51 K62 ["Name"]
+      454 DUPTABLE                         R52 K107 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      455 DUPTABLE                         R53 K109 [{["Type"] = "Placeholder"}]
+      456 SETTABLEKS                       R53 R52 K105 ["Schema"]
+      458 DUPTABLE                         R53 K110 [{"Placeholder"}]
+      459 SETTABLEKS                       R49 R53 K108 ["Placeholder"]
+      461 SETTABLEKS                       R53 R52 K106 ["Renderers"]
+      463 SETTABLEKS                       R52 R51 K78 ["Description"]
+      465 DUPTABLE                         R52 K107 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      466 DUPTABLE                         R53 K109 [{["Type"] = "Placeholder"}]
+      467 SETTABLEKS                       R53 R52 K105 ["Schema"]
+      469 DUPTABLE                         R53 K110 [{"Placeholder"}]
+      470 SETTABLEKS                       R49 R53 K108 ["Placeholder"]
+      472 SETTABLEKS                       R53 R52 K106 ["Renderers"]
+      474 SETTABLEKS                       R52 R51 K81 ["Edited"]
+      476 DUPTABLE                         R52 K107 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      477 DUPTABLE                         R53 K109 [{["Type"] = "Placeholder"}]
+      478 SETTABLEKS                       R53 R52 K105 ["Schema"]
+      480 DUPTABLE                         R53 K110 [{"Placeholder"}]
+      481 SETTABLEKS                       R49 R53 K108 ["Placeholder"]
+      483 SETTABLEKS                       R53 R52 K106 ["Renderers"]
+      485 SETTABLEKS                       R52 R51 K86 ["Created"]
+      487 DUPTABLE                         R52 K107 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      488 DUPTABLE                         R53 K109 [{["Type"] = "Placeholder"}]
+      489 SETTABLEKS                       R53 R52 K105 ["Schema"]
+      491 DUPTABLE                         R53 K110 [{"Placeholder"}]
+      492 SETTABLEKS                       R49 R53 K108 ["Placeholder"]
+      494 SETTABLEKS                       R53 R52 K106 ["Renderers"]
+      496 SETTABLEKS                       R52 R51 K89 ["Playability"]
+      498 DUPTABLE                         R52 K107 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      499 DUPTABLE                         R53 K109 [{["Type"] = "Placeholder"}]
+      500 SETTABLEKS                       R53 R52 K105 ["Schema"]
+      502 DUPTABLE                         R53 K110 [{"Placeholder"}]
+      503 SETTABLEKS                       R49 R53 K108 ["Placeholder"]
+      505 SETTABLEKS                       R53 R52 K106 ["Renderers"]
+      507 SETTABLEKS                       R52 R51 K102 ["Type"]
+      509 DUPTABLE                         R52 K107 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      510 DUPTABLE                         R53 K109 [{["Type"] = "Placeholder"}]
+      511 SETTABLEKS                       R53 R52 K105 ["Schema"]
+      513 DUPTABLE                         R53 K110 [{"Placeholder"}]
+      514 SETTABLEKS                       R49 R53 K108 ["Placeholder"]
+      516 SETTABLEKS                       R53 R52 K106 ["Renderers"]
+      518 SETTABLEKS                       R52 R51 K93 ["TeamCreate"]
+      520 JUMPIFNOT                        R13 ; [+2]
+      521 DUPTABLE                         R52 K111 [{["Value"] = ""}]
+      522 JUMP                             ; [+1]
+      523 LOADNIL                          R52
+      524 SETTABLEKS                       R52 R51 K95 ["KebabMenu"]
+      526 DUPCLOSURE                       R52 K112 [PROTO_3]
+      527 DUPCLOSURE                       R53 K113 [PROTO_4]
+      528 CAPTURE                          VAL R31
+      529 DUPCLOSURE                       R54 K114 [PROTO_5]
+      530 CAPTURE                          VAL R32
+      531 DUPCLOSURE                       R55 K115 [PROTO_7]
+      532 CAPTURE                          VAL R25
+      533 CAPTURE                          VAL R13
+      534 CAPTURE                          VAL R26
+      535 CAPTURE                          VAL R4
+      536 CAPTURE                          VAL R1
+      537 CAPTURE                          VAL R37
+      538 DUPCLOSURE                       R56 K116 [PROTO_21]
+      539 CAPTURE                          VAL R18
+      540 CAPTURE                          VAL R2
+      541 CAPTURE                          VAL R6
+      542 CAPTURE                          VAL R1
+      543 CAPTURE                          VAL R12
+      544 CAPTURE                          VAL R13
+      545 CAPTURE                          VAL R39
+      546 CAPTURE                          VAL R3
+      547 CAPTURE                          VAL R40
+      548 CAPTURE                          VAL R46
+      549 CAPTURE                          VAL R17
+      550 CAPTURE                          VAL R19
+      551 CAPTURE                          VAL R20
+      552 CAPTURE                          VAL R8
+      553 CAPTURE                          VAL R51
+      554 CAPTURE                          VAL R50
+      555 CAPTURE                          VAL R15
+      556 CAPTURE                          VAL R38
+      557 CAPTURE                          VAL R32
+      558 CAPTURE                          VAL R31
+      559 CAPTURE                          VAL R29
+      560 CAPTURE                          VAL R30
+      561 CAPTURE                          VAL R9
+      562 CAPTURE                          VAL R35
+      563 CAPTURE                          VAL R47
+      564 CAPTURE                          VAL R54
+      565 CAPTURE                          VAL R28
+      566 CAPTURE                          VAL R27
+      567 CAPTURE                          VAL R53
+      568 CAPTURE                          VAL R52
+      569 CAPTURE                          VAL R10
+      570 CAPTURE                          VAL R48
+      571 CAPTURE                          VAL R37
+      572 CAPTURE                          VAL R55
+      573 SETGLOBAL                        R56 K117 ["DEPRECATED_ExperiencesTable"]
+      575 GETGLOBAL                        R56 K117 ["DEPRECATED_ExperiencesTable"]
+      577 RETURN                           R56 1

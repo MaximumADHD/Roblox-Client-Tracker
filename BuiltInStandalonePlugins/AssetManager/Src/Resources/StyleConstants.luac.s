@@ -139,7 +139,7 @@ MAIN:
       201 LOADK                            R1 K66 [26.5]
       202 SETTABLEKS                       R1 R0 K67 ["CompactScopeListItemHeight"]
       204 LOADN                            R1 330
-      205 SETTABLEKS                       R1 R0 K68 ["AssetStatePopoverWidth"]
+      205 SETTABLEKS                       R1 R0 K68 ["AssetStatusPopoverWidth"]
       207 GETIMPORT                        R1 K40 [UDim2.fromOffset]
       209 GETTABLEKS                       R2 R0 K6 ["IconWidthXSmall"]
       211 GETTABLEKS                       R3 R0 K6 ["IconWidthXSmall"]

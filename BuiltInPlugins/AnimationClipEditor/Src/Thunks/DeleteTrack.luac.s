@@ -172,17 +172,18 @@ MAIN:
        66 GETTABLEKS                       R12 R8 K18 ["RigUtils"]
        68 CALL                             R11 1 1
        69 GETIMPORT                        R12 K5 [require]
-       71 GETTABLEKS                       R13 R0 K19 ["LuaFlags"]
-       73 GETTABLEKS                       R13 R13 K20 ["GetFFlagEngineAnimator"]
-       75 CALL                             R12 1 1
-       76 DUPCLOSURE                       R13 K21 [PROTO_1]
-       77 CAPTURE                          VAL R6
-       78 CAPTURE                          VAL R1
-       79 CAPTURE                          VAL R5
-       80 CAPTURE                          VAL R12
-       81 CAPTURE                          VAL R11
-       82 CAPTURE                          VAL R10
-       83 CAPTURE                          VAL R9
-       84 CAPTURE                          VAL R7
-       85 CAPTURE                          VAL R3
-       86 RETURN                           R13 1
+       71 GETTABLEKS                       R13 R0 K8 ["Src"]
+       73 GETTABLEKS                       R13 R13 K19 ["Flags"]
+       75 GETTABLEKS                       R13 R13 K20 ["getFFlagEngineAnimator"]
+       77 CALL                             R12 1 1
+       78 DUPCLOSURE                       R13 K21 [PROTO_1]
+       79 CAPTURE                          VAL R6
+       80 CAPTURE                          VAL R1
+       81 CAPTURE                          VAL R5
+       82 CAPTURE                          VAL R12
+       83 CAPTURE                          VAL R11
+       84 CAPTURE                          VAL R10
+       85 CAPTURE                          VAL R9
+       86 CAPTURE                          VAL R7
+       87 CAPTURE                          VAL R3
+       88 RETURN                           R13 1

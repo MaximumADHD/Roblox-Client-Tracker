@@ -264,9 +264,9 @@ MAIN:
        45 GETIMPORT                        R10 K9 [require]
        47 GETTABLEKS                       R11 R2 K10 ["Packages"]
        49 GETTABLEKS                       R11 R11 K18 ["DraggerFramework"]
-       51 GETTABLEKS                       R11 R11 K19 ["Utility"]
-       53 GETTABLEKS                       R11 R11 K20 ["Analytics"]
-       55 CALL                             R10 1 1
+       51 CALL                             R10 1 1
+       52 GETTABLEKS                       R10 R10 K19 ["Utility"]
+       54 GETTABLEKS                       R10 R10 K20 ["Analytics"]
        56 GETIMPORT                        R11 K9 [require]
        58 GETTABLEKS                       R12 R2 K21 ["Src"]
        60 GETTABLEKS                       R12 R12 K22 ["RoduxComponents"]
@@ -294,9 +294,9 @@ MAIN:
        98 GETIMPORT                        R16 K9 [require]
       100 GETTABLEKS                       R17 R2 K10 ["Packages"]
       102 GETTABLEKS                       R17 R17 K18 ["DraggerFramework"]
-      104 GETTABLEKS                       R17 R17 K29 ["Flags"]
-      106 GETTABLEKS                       R17 R17 K31 ["getFFlagDraggerEditProcModels"]
-      108 CALL                             R16 1 1
+      104 CALL                             R16 1 1
+      105 GETTABLEKS                       R16 R16 K29 ["Flags"]
+      107 GETTABLEKS                       R16 R16 K31 ["getFFlagDraggerEditProcModels"]
       109 DUPCLOSURE                       R17 K32 [PROTO_1]
       110 CAPTURE                          VAL R15
       111 SETTABLEKS                       R17 R14 K33 ["init"]

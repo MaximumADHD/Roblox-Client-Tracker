@@ -108,6 +108,16 @@ PROTO_6:
         8 RETURN                           R3 1
 
 PROTO_7:
+        0 GETUPVAL                         R3 0
+        1 GETTABLE                         R2 R3 R1
+        2 RETURN                           R2 1
+
+PROTO_8:
+        0 GETUPVAL                         R3 0
+        1 SETTABLE                         R2 R3 R1
+        2 RETURN                           R0 0
+
+PROTO_9:
         0 NEWTABLE                         R0 8 0
         2 NEWTABLE                         R1 0 0
         4 NEWTABLE                         R2 0 0
@@ -143,7 +153,20 @@ PROTO_7:
        45 CAPTURE                          VAL R3
        46 CALL                             R4 1 1
        47 SETTABLEKS                       R4 R0 K5 ["OnInvoke"]
-       49 RETURN                           R0 1
+       49 NEWTABLE                         R4 0 0
+       51 GETUPVAL                         R5 0
+       52 GETTABLEKS                       R5 R5 K0 ["fn"]
+       54 NEWCLOSURE                       R6 P5
+       55 CAPTURE                          VAL R4
+       56 CALL                             R5 1 1
+       57 SETTABLEKS                       R5 R0 K6 ["GetSetting"]
+       59 GETUPVAL                         R5 0
+       60 GETTABLEKS                       R5 R5 K0 ["fn"]
+       62 NEWCLOSURE                       R6 P6
+       63 CAPTURE                          VAL R4
+       64 CALL                             R5 1 1
+       65 SETTABLEKS                       R5 R0 K7 ["SetSetting"]
+       67 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -157,6 +180,6 @@ MAIN:
        13 GETTABLEKS                       R2 R2 K8 ["JestGlobals"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["jest"]
-       18 DUPCLOSURE                       R3 K10 [PROTO_7]
+       18 DUPCLOSURE                       R3 K10 [PROTO_9]
        19 CAPTURE                          VAL R2
        20 RETURN                           R3 1

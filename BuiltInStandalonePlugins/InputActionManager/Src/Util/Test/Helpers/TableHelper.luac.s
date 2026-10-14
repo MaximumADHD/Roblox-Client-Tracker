@@ -110,17 +110,17 @@ MAIN:
        32 NEWTABLE                         R5 8 0
        34 DUPCLOSURE                       R6 K13 [PROTO_0]
        35 CAPTURE                          VAL R4
-       36 SETTABLEKS                       R6 R5 K14 ["GetAction"]
+       36 SETTABLEKS                       R6 R5 K14 ["getAction"]
        38 DUPCLOSURE                       R6 K15 [PROTO_1]
        39 CAPTURE                          VAL R4
-       40 SETTABLEKS                       R6 R5 K16 ["GetKeycode"]
+       40 SETTABLEKS                       R6 R5 K16 ["getKeycode"]
        42 DUPCLOSURE                       R6 K17 [PROTO_2]
        43 CAPTURE                          VAL R4
-       44 SETTABLEKS                       R6 R5 K18 ["GetComposite"]
+       44 SETTABLEKS                       R6 R5 K18 ["getComposite"]
        46 DUPCLOSURE                       R6 K19 [PROTO_3]
        47 CAPTURE                          VAL R4
-       48 SETTABLEKS                       R6 R5 K20 ["GetPropertyCell"]
+       48 SETTABLEKS                       R6 R5 K20 ["getPropertyCell"]
        50 DUPCLOSURE                       R6 K21 [PROTO_4]
        51 CAPTURE                          VAL R4
-       52 SETTABLEKS                       R6 R5 K22 ["GetSummary"]
+       52 SETTABLEKS                       R6 R5 K22 ["getSummary"]
        54 RETURN                           R5 1

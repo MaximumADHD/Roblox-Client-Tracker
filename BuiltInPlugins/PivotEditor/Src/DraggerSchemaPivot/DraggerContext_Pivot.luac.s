@@ -27,9 +27,9 @@ MAIN:
        15 GETIMPORT                        R2 K8 [require]
        17 GETTABLEKS                       R3 R1 K9 ["Packages"]
        19 GETTABLEKS                       R3 R3 K10 ["DraggerFramework"]
-       21 GETTABLEKS                       R3 R3 K11 ["Implementation"]
-       23 GETTABLEKS                       R3 R3 K12 ["DraggerContext_PluginImpl"]
-       25 CALL                             R2 1 1
+       21 CALL                             R2 1 1
+       22 GETTABLEKS                       R2 R2 K11 ["Implementation"]
+       24 GETTABLEKS                       R2 R2 K12 ["DraggerContext_PluginImpl"]
        26 NEWTABLE                         R3 1 0
        28 DUPCLOSURE                       R4 K13 [PROTO_1]
        29 CAPTURE                          VAL R2

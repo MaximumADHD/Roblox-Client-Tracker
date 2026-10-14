@@ -16,30 +16,28 @@ PROTO_1:
         5 MOVE                             R5 R0
         6 MOVE                             R6 R2
         7 CALL                             R4 2 1
-        8 DUPTABLE                         R5 K10 [{"Destroy", "GetContextsAsync", "DEPRECATED_getIconAsync", "Request", "ResetSelection", "UpdateContext", "UpdateAction", "UpdateBinding", "DuplicateContext", "DuplicateAction"}]
+        8 DUPTABLE                         R5 K9 [{"Destroy", "GetContextsAsync", "Request", "ResetSelection", "UpdateContext", "UpdateAction", "UpdateBinding", "DuplicateContext", "DuplicateAction"}]
         9 NEWCLOSURE                       R6 P0
        10 CAPTURE                          VAL R3
        11 CAPTURE                          VAL R4
        12 SETTABLEKS                       R6 R5 K0 ["Destroy"]
        14 GETTABLEKS                       R6 R4 K1 ["GetContextsAsync"]
        16 SETTABLEKS                       R6 R5 K1 ["GetContextsAsync"]
-       18 GETTABLEKS                       R6 R3 K2 ["DEPRECATED_getIconAsync"]
-       20 SETTABLEKS                       R6 R5 K2 ["DEPRECATED_getIconAsync"]
-       22 GETTABLEKS                       R6 R4 K3 ["Request"]
-       24 SETTABLEKS                       R6 R5 K3 ["Request"]
-       26 GETTABLEKS                       R6 R3 K4 ["ResetSelection"]
-       28 SETTABLEKS                       R6 R5 K4 ["ResetSelection"]
-       30 GETTABLEKS                       R6 R4 K5 ["UpdateContext"]
-       32 SETTABLEKS                       R6 R5 K5 ["UpdateContext"]
-       34 GETTABLEKS                       R6 R4 K6 ["UpdateAction"]
-       36 SETTABLEKS                       R6 R5 K6 ["UpdateAction"]
-       38 GETTABLEKS                       R6 R4 K7 ["UpdateBinding"]
-       40 SETTABLEKS                       R6 R5 K7 ["UpdateBinding"]
-       42 GETTABLEKS                       R6 R4 K8 ["DuplicateContext"]
-       44 SETTABLEKS                       R6 R5 K8 ["DuplicateContext"]
-       46 GETTABLEKS                       R6 R4 K9 ["DuplicateAction"]
-       48 SETTABLEKS                       R6 R5 K9 ["DuplicateAction"]
-       50 RETURN                           R5 1
+       18 GETTABLEKS                       R6 R4 K2 ["Request"]
+       20 SETTABLEKS                       R6 R5 K2 ["Request"]
+       22 GETTABLEKS                       R6 R3 K3 ["ResetSelection"]
+       24 SETTABLEKS                       R6 R5 K3 ["ResetSelection"]
+       26 GETTABLEKS                       R6 R4 K4 ["UpdateContext"]
+       28 SETTABLEKS                       R6 R5 K4 ["UpdateContext"]
+       30 GETTABLEKS                       R6 R4 K5 ["UpdateAction"]
+       32 SETTABLEKS                       R6 R5 K5 ["UpdateAction"]
+       34 GETTABLEKS                       R6 R4 K6 ["UpdateBinding"]
+       36 SETTABLEKS                       R6 R5 K6 ["UpdateBinding"]
+       38 GETTABLEKS                       R6 R4 K7 ["DuplicateContext"]
+       40 SETTABLEKS                       R6 R5 K7 ["DuplicateContext"]
+       42 GETTABLEKS                       R6 R4 K8 ["DuplicateAction"]
+       44 SETTABLEKS                       R6 R5 K8 ["DuplicateAction"]
+       46 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -11,7 +11,6 @@ MAIN:
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R3 R0 K8 ["Packages"]
        18 GETTABLEKS                       R3 R3 K9 ["DraggerFramework"]
-       20 GETTABLEKS                       R3 R3 K7 ["Types"]
-       22 CALL                             R2 1 1
-       23 LOADNIL                          R3
-       24 RETURN                           R3 1
+       20 CALL                             R2 1 1
+       21 LOADNIL                          R3
+       22 RETURN                           R3 1

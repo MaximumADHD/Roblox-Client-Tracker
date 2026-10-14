@@ -134,13 +134,14 @@ MAIN:
        46 GETTABLEKS                       R9 R9 K15 ["Types"]
        48 CALL                             R8 1 1
        49 GETIMPORT                        R9 K5 [require]
-       51 GETTABLEKS                       R10 R0 K16 ["LuaFlags"]
-       53 GETTABLEKS                       R10 R10 K17 ["GetFFlagControlRig"]
-       55 CALL                             R9 1 1
-       56 DUPCLOSURE                       R10 K18 [PROTO_2]
-       57 CAPTURE                          VAL R5
-       58 CAPTURE                          VAL R9
-       59 CAPTURE                          VAL R7
-       60 CAPTURE                          VAL R1
-       61 CAPTURE                          VAL R3
-       62 RETURN                           R10 1
+       51 GETTABLEKS                       R10 R0 K8 ["Src"]
+       53 GETTABLEKS                       R10 R10 K16 ["Flags"]
+       55 GETTABLEKS                       R10 R10 K17 ["getFFlagControlRig"]
+       57 CALL                             R9 1 1
+       58 DUPCLOSURE                       R10 K18 [PROTO_2]
+       59 CAPTURE                          VAL R5
+       60 CAPTURE                          VAL R9
+       61 CAPTURE                          VAL R7
+       62 CAPTURE                          VAL R1
+       63 CAPTURE                          VAL R3
+       64 RETURN                           R10 1

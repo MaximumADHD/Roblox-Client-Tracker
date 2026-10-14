@@ -183,31 +183,32 @@ MAIN:
        42 GETTABLEKS                       R9 R6 K18 ["RigInfo"]
        44 CALL                             R8 1 1
        45 GETIMPORT                        R9 K9 [require]
-       47 GETTABLEKS                       R10 R1 K19 ["LuaFlags"]
-       49 GETTABLEKS                       R10 R10 K20 ["GetFFlagRootMotion"]
-       51 CALL                             R9 1 1
-       52 GETTABLEKS                       R10 R2 K21 ["PureComponent"]
-       54 LOADK                            R12 K22 ["FloorGrid"]
-       55 NAMECALL                         R10 R10 K23 ["extend"]
-       57 CALL                             R10 2 1
-       58 DUPCLOSURE                       R11 K24 [PROTO_0]
-       59 CAPTURE                          VAL R2
-       60 SETTABLEKS                       R11 R10 K25 ["renderLine"]
-       62 DUPCLOSURE                       R11 K26 [PROTO_1]
-       63 CAPTURE                          VAL R7
-       64 SETTABLEKS                       R11 R10 K27 ["renderLines"]
-       66 DUPCLOSURE                       R11 K28 [PROTO_2]
-       67 CAPTURE                          VAL R0
-       68 CAPTURE                          VAL R9
-       69 CAPTURE                          VAL R8
-       70 CAPTURE                          VAL R2
-       71 SETTABLEKS                       R11 R10 K29 ["render"]
-       73 MOVE                             R11 R5
-       74 DUPTABLE                         R12 K31 [{"Stylizer"}]
-       75 GETTABLEKS                       R13 R4 K30 ["Stylizer"]
-       77 SETTABLEKS                       R13 R12 K30 ["Stylizer"]
-       79 CALL                             R11 1 1
-       80 MOVE                             R12 R10
+       47 GETTABLEKS                       R10 R1 K15 ["Src"]
+       49 GETTABLEKS                       R10 R10 K19 ["Flags"]
+       51 GETTABLEKS                       R10 R10 K20 ["getFFlagRootMotion"]
+       53 CALL                             R9 1 1
+       54 GETTABLEKS                       R10 R2 K21 ["PureComponent"]
+       56 LOADK                            R12 K22 ["FloorGrid"]
+       57 NAMECALL                         R10 R10 K23 ["extend"]
+       59 CALL                             R10 2 1
+       60 DUPCLOSURE                       R11 K24 [PROTO_0]
+       61 CAPTURE                          VAL R2
+       62 SETTABLEKS                       R11 R10 K25 ["renderLine"]
+       64 DUPCLOSURE                       R11 K26 [PROTO_1]
+       65 CAPTURE                          VAL R7
+       66 SETTABLEKS                       R11 R10 K27 ["renderLines"]
+       68 DUPCLOSURE                       R11 K28 [PROTO_2]
+       69 CAPTURE                          VAL R0
+       70 CAPTURE                          VAL R9
+       71 CAPTURE                          VAL R8
+       72 CAPTURE                          VAL R2
+       73 SETTABLEKS                       R11 R10 K29 ["render"]
+       75 MOVE                             R11 R5
+       76 DUPTABLE                         R12 K31 [{"Stylizer"}]
+       77 GETTABLEKS                       R13 R4 K30 ["Stylizer"]
+       79 SETTABLEKS                       R13 R12 K30 ["Stylizer"]
        81 CALL                             R11 1 1
-       82 MOVE                             R10 R11
-       83 RETURN                           R10 1
+       82 MOVE                             R12 R10
+       83 CALL                             R11 1 1
+       84 MOVE                             R10 R11
+       85 RETURN                           R10 1

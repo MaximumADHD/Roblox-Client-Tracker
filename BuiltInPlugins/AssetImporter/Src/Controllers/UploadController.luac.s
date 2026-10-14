@@ -560,7 +560,7 @@ PROTO_17:
        25 NAMECALL                         R6 R0 K4 ["uploadScene"]
        27 CALL                             R6 3 1
        28 MOVE                             R3 R6
-       29 JUMP                             ; [+74]
+       29 JUMP                             ; [+91]
        30 LOADNIL                          R6
        31 GETTABLEKS                       R7 R1 K0 ["fileType"]
        33 GETUPVAL                         R8 0
@@ -572,7 +572,7 @@ PROTO_17:
        43 NAMECALL                         R7 R7 K7 ["createImagePromise"]
        45 CALL                             R7 2 1
        46 MOVE                             R6 R7
-       47 JUMP                             ; [+45]
+       47 JUMP                             ; [+62]
        48 GETTABLEKS                       R7 R1 K0 ["fileType"]
        50 GETUPVAL                         R8 0
        51 GETTABLEKS                       R8 R8 K1 ["FileType"]
@@ -583,59 +583,70 @@ PROTO_17:
        60 NAMECALL                         R7 R7 K9 ["createAudioPromise"]
        62 CALL                             R7 2 1
        63 MOVE                             R6 R7
-       64 JUMP                             ; [+28]
+       64 JUMP                             ; [+45]
        65 GETTABLEKS                       R7 R1 K0 ["fileType"]
        67 GETUPVAL                         R8 0
        68 GETTABLEKS                       R8 R8 K1 ["FileType"]
-       70 GETTABLEKS                       R8 R8 K2 ["Video"]
-       72 JUMPIFNOTEQ                      R7 R8 ; [+17]
-       74 JUMPIFNOT                        R4 ; [+5]
-       75 NEWCLOSURE                       R7 P0
-       76 CAPTURE                          VAL R0
-       77 CAPTURE                          REF R5
-       78 CAPTURE                          UPVAL U2
-       79 JUMP                             ; [+1]
-       80 LOADNIL                          R7
-       81 GETTABLEKS                       R8 R0 K6 ["uploader"]
-       83 MOVE                             R10 R1
-       84 MOVE                             R11 R7
-       85 NAMECALL                         R8 R8 K10 ["createVideoPromise"]
-       87 CALL                             R8 3 1
-       88 MOVE                             R6 R8
-       89 JUMP                             ; [+3]
-       90 LOADNIL                          R7
-       91 CLOSEUPVALS                      R5
-       92 RETURN                           R7 1
-       93 GETTABLEKS                       R7 R0 K11 ["_inFlightPromises"]
-       95 GETTABLEKS                       R8 R1 K12 ["filepath"]
-       97 SETTABLE                         R6 R7 R8
-       98 MOVE                             R9 R1
-       99 MOVE                             R10 R6
-      100 NAMECALL                         R7 R0 K13 ["_promiseHandler"]
-      102 CALL                             R7 3 1
-      103 MOVE                             R3 R7
-      104 JUMPIF                           R3 ; [+3]
-      105 LOADNIL                          R6
-      106 CLOSEUPVALS                      R5
-      107 RETURN                           R6 1
-      108 NEWCLOSURE                       R8 P1
-      109 CAPTURE                          VAL R0
-      110 CAPTURE                          UPVAL U3
-      111 CAPTURE                          VAL R1
-      112 CAPTURE                          UPVAL U0
-      113 NAMECALL                         R6 R3 K14 ["catch"]
-      115 CALL                             R6 2 1
-      116 MOVE                             R3 R6
-      117 JUMPIFNOT                        R4 ; [+8]
-      118 NEWCLOSURE                       R8 P2
-      119 CAPTURE                          VAL R0
-      120 CAPTURE                          REF R5
-      121 CAPTURE                          UPVAL U2
-      122 NAMECALL                         R6 R3 K15 ["finally"]
-      124 CALL                             R6 2 1
-      125 MOVE                             R3 R6
-      126 CLOSEUPVALS                      R5
-      127 RETURN                           R3 1
+       70 GETTABLEKS                       R8 R8 K10 ["Text"]
+       72 JUMPIFNOTEQ                      R7 R8 ; [+9]
+       74 GETTABLEKS                       R7 R0 K6 ["uploader"]
+       76 MOVE                             R9 R1
+       77 NAMECALL                         R7 R7 K11 ["createTextPromise"]
+       79 CALL                             R7 2 1
+       80 MOVE                             R6 R7
+       81 JUMP                             ; [+28]
+       82 GETTABLEKS                       R7 R1 K0 ["fileType"]
+       84 GETUPVAL                         R8 0
+       85 GETTABLEKS                       R8 R8 K1 ["FileType"]
+       87 GETTABLEKS                       R8 R8 K2 ["Video"]
+       89 JUMPIFNOTEQ                      R7 R8 ; [+17]
+       91 JUMPIFNOT                        R4 ; [+5]
+       92 NEWCLOSURE                       R7 P0
+       93 CAPTURE                          VAL R0
+       94 CAPTURE                          REF R5
+       95 CAPTURE                          UPVAL U2
+       96 JUMP                             ; [+1]
+       97 LOADNIL                          R7
+       98 GETTABLEKS                       R8 R0 K6 ["uploader"]
+      100 MOVE                             R10 R1
+      101 MOVE                             R11 R7
+      102 NAMECALL                         R8 R8 K12 ["createVideoPromise"]
+      104 CALL                             R8 3 1
+      105 MOVE                             R6 R8
+      106 JUMP                             ; [+3]
+      107 LOADNIL                          R7
+      108 CLOSEUPVALS                      R5
+      109 RETURN                           R7 1
+      110 GETTABLEKS                       R7 R0 K13 ["_inFlightPromises"]
+      112 GETTABLEKS                       R8 R1 K14 ["filepath"]
+      114 SETTABLE                         R6 R7 R8
+      115 MOVE                             R9 R1
+      116 MOVE                             R10 R6
+      117 NAMECALL                         R7 R0 K15 ["_promiseHandler"]
+      119 CALL                             R7 3 1
+      120 MOVE                             R3 R7
+      121 JUMPIF                           R3 ; [+3]
+      122 LOADNIL                          R6
+      123 CLOSEUPVALS                      R5
+      124 RETURN                           R6 1
+      125 NEWCLOSURE                       R8 P1
+      126 CAPTURE                          VAL R0
+      127 CAPTURE                          UPVAL U3
+      128 CAPTURE                          VAL R1
+      129 CAPTURE                          UPVAL U0
+      130 NAMECALL                         R6 R3 K16 ["catch"]
+      132 CALL                             R6 2 1
+      133 MOVE                             R3 R6
+      134 JUMPIFNOT                        R4 ; [+8]
+      135 NEWCLOSURE                       R8 P2
+      136 CAPTURE                          VAL R0
+      137 CAPTURE                          REF R5
+      138 CAPTURE                          UPVAL U2
+      139 NAMECALL                         R6 R3 K17 ["finally"]
+      141 CALL                             R6 2 1
+      142 MOVE                             R3 R6
+      143 CLOSEUPVALS                      R5
+      144 RETURN                           R3 1
 
 PROTO_18:
         0 FASTCALL2K                       ASSERT R0 K0 ; [+5]

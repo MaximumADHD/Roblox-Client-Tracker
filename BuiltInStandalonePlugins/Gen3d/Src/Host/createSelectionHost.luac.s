@@ -41,23 +41,51 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+9]
+        2 GETUPVAL                         R0 1
+        3 GETUPVAL                         R2 2
+        4 GETTABLEKS                       R2 R2 K0 ["HostSessionStarted"]
+        6 LOADNIL                          R3
+        7 GETUPVAL                         R4 0
+        8 NAMECALL                         R0 R0 K1 ["FireGuest"]
+       10 CALL                             R0 4 0
+       11 RETURN                           R0 0
+
+PROTO_4:
+        0 GETUPVAL                         R1 0
+        1 JUMPIFNOT                        R1 ; [+9]
+        2 GETUPVAL                         R1 1
+        3 GETUPVAL                         R3 2
+        4 GETTABLEKS                       R3 R3 K0 ["HostSessionStarted"]
+        6 LOADNIL                          R4
+        7 GETUPVAL                         R5 0
+        8 NAMECALL                         R1 R1 K1 ["FireGuest"]
+       10 CALL                             R1 4 0
+       11 RETURN                           R0 0
+
+PROTO_5:
+        0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
         4 GETUPVAL                         R0 1
         5 JUMPIFNOT                        R0 ; [+2]
         6 GETUPVAL                         R0 1
         7 CALL                             R0 0 0
-        8 RETURN                           R0 0
-
-PROTO_4:
-        0 GETUPVAL                         R0 0
-        1 RETURN                           R0 1
-
-PROTO_5:
-        0 GETUPVAL                         R0 0
-        1 RETURN                           R0 1
+        8 GETUPVAL                         R0 2
+        9 JUMPIFNOT                        R0 ; [+2]
+       10 GETUPVAL                         R0 2
+       11 CALL                             R0 0 0
+       12 RETURN                           R0 0
 
 PROTO_6:
+        0 GETUPVAL                         R0 0
+        1 RETURN                           R0 1
+
+PROTO_7:
+        0 GETUPVAL                         R0 0
+        1 RETURN                           R0 1
+
+PROTO_8:
         0 GETUPVAL                         R3 0
         1 GETUPVAL                         R4 1
         2 NAMECALL                         R4 R4 K0 ["Get"]
@@ -93,32 +121,45 @@ PROTO_6:
        36 CAPTURE                          REF R4
        37 NAMECALL                         R8 R0 K4 ["OnHostEvent"]
        39 CALL                             R8 3 2
-       40 GETUPVAL                         R12 3
-       41 GETTABLEKS                       R12 R12 K1 ["SelectionChanged"]
-       43 LOADNIL                          R13
-       44 MOVE                             R14 R4
-       45 NAMECALL                         R10 R0 K5 ["FireGuest"]
-       47 CALL                             R10 4 0
-       48 JUMPIFNOT                        R2 ; [+8]
-       49 GETUPVAL                         R12 3
-       50 GETTABLEKS                       R12 R12 K6 ["HostSessionStarted"]
-       52 LOADNIL                          R13
-       53 MOVE                             R14 R2
-       54 NAMECALL                         R10 R0 K5 ["FireGuest"]
-       56 CALL                             R10 4 0
-       57 NEWCLOSURE                       R10 P3
-       58 CAPTURE                          VAL R7
-       59 CAPTURE                          VAL R9
-       60 DUPTABLE                         R11 K10 [{"getClassified", "getSummary", "destroy"}]
-       61 NEWCLOSURE                       R12 P4
-       62 CAPTURE                          REF R3
-       63 SETTABLEKS                       R12 R11 K7 ["getClassified"]
-       65 NEWCLOSURE                       R12 P5
-       66 CAPTURE                          REF R4
-       67 SETTABLEKS                       R12 R11 K8 ["getSummary"]
-       69 SETTABLEKS                       R10 R11 K9 ["destroy"]
-       71 CLOSEUPVALS                      R3
-       72 RETURN                           R11 1
+       40 NEWCLOSURE                       R10 P3
+       41 CAPTURE                          VAL R2
+       42 CAPTURE                          VAL R0
+       43 CAPTURE                          UPVAL U3
+       44 GETUPVAL                         R13 3
+       45 GETTABLEKS                       R13 R13 K5 ["RequestHostSession"]
+       47 NEWCLOSURE                       R14 P4
+       48 CAPTURE                          VAL R2
+       49 CAPTURE                          VAL R0
+       50 CAPTURE                          UPVAL U3
+       51 NAMECALL                         R11 R0 K4 ["OnHostEvent"]
+       53 CALL                             R11 3 2
+       54 GETUPVAL                         R15 3
+       55 GETTABLEKS                       R15 R15 K1 ["SelectionChanged"]
+       57 LOADNIL                          R16
+       58 MOVE                             R17 R4
+       59 NAMECALL                         R13 R0 K6 ["FireGuest"]
+       61 CALL                             R13 4 0
+       62 JUMPIFNOT                        R2 ; [+8]
+       63 GETUPVAL                         R15 3
+       64 GETTABLEKS                       R15 R15 K7 ["HostSessionStarted"]
+       66 LOADNIL                          R16
+       67 MOVE                             R17 R2
+       68 NAMECALL                         R13 R0 K6 ["FireGuest"]
+       70 CALL                             R13 4 0
+       71 NEWCLOSURE                       R13 P5
+       72 CAPTURE                          VAL R7
+       73 CAPTURE                          VAL R9
+       74 CAPTURE                          VAL R12
+       75 DUPTABLE                         R14 K11 [{"getClassified", "getSummary", "destroy"}]
+       76 NEWCLOSURE                       R15 P6
+       77 CAPTURE                          REF R3
+       78 SETTABLEKS                       R15 R14 K8 ["getClassified"]
+       80 NEWCLOSURE                       R15 P7
+       81 CAPTURE                          REF R4
+       82 SETTABLEKS                       R15 R14 K9 ["getSummary"]
+       84 SETTABLEKS                       R13 R14 K10 ["destroy"]
+       86 CLOSEUPVALS                      R3
+       87 RETURN                           R14 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -153,7 +194,7 @@ MAIN:
        49 GETTABLEKS                       R7 R7 K17 ["Networking"]
        51 GETTABLEKS                       R7 R7 K18 ["Events"]
        53 CALL                             R6 1 1
-       54 DUPCLOSURE                       R7 K19 [PROTO_6]
+       54 DUPCLOSURE                       R7 K19 [PROTO_8]
        55 CAPTURE                          VAL R4
        56 CAPTURE                          VAL R0
        57 CAPTURE                          VAL R5

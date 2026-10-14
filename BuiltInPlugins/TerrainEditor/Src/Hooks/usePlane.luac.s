@@ -223,61 +223,57 @@ MAIN:
         3 LOADK                            R2 K2 ["TerrainEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
-        9 GETTABLEKS                       R1 R1 K5 ["DraggerFramework"]
-       11 GETIMPORT                        R2 K7 [require]
-       13 GETTABLEKS                       R3 R0 K4 ["Packages"]
-       15 GETTABLEKS                       R3 R3 K8 ["React"]
-       17 CALL                             R2 1 1
-       18 GETTABLEKS                       R3 R2 K9 ["useCallback"]
-       20 GETTABLEKS                       R4 R2 K10 ["useEffect"]
-       22 GETTABLEKS                       R5 R2 K11 ["useMemo"]
-       24 GETTABLEKS                       R6 R2 K12 ["useState"]
-       26 GETIMPORT                        R7 K7 [require]
-       28 GETTABLEKS                       R8 R0 K13 ["Src"]
-       30 GETTABLEKS                       R8 R8 K14 ["Controllers"]
-       32 GETTABLEKS                       R8 R8 K15 ["PluginController"]
-       34 CALL                             R7 1 1
-       35 GETIMPORT                        R8 K7 [require]
-       37 GETTABLEKS                       R9 R0 K13 ["Src"]
-       39 GETTABLEKS                       R9 R9 K14 ["Controllers"]
-       41 GETTABLEKS                       R9 R9 K16 ["ShortcutController"]
-       43 CALL                             R8 1 1
-       44 GETIMPORT                        R9 K7 [require]
-       46 GETTABLEKS                       R10 R0 K13 ["Src"]
-       48 GETTABLEKS                       R10 R10 K17 ["Schemas"]
-       50 GETTABLEKS                       R10 R10 K18 ["Plane"]
-       52 CALL                             R9 1 1
-       53 GETIMPORT                        R10 K7 [require]
-       55 GETTABLEKS                       R11 R1 K19 ["Implementation"]
-       57 GETTABLEKS                       R11 R11 K20 ["DraggerContext_PluginImpl"]
-       59 CALL                             R10 1 1
-       60 GETIMPORT                        R11 K7 [require]
-       62 GETTABLEKS                       R12 R1 K21 ["Handles"]
-       64 GETTABLEKS                       R12 R12 K22 ["MoveHandles"]
-       66 CALL                             R11 1 1
-       67 GETIMPORT                        R12 K7 [require]
-       69 GETTABLEKS                       R13 R1 K21 ["Handles"]
-       71 GETTABLEKS                       R13 R13 K23 ["RotateHandles"]
-       73 CALL                             R12 1 1
-       74 GETIMPORT                        R13 K7 [require]
-       76 GETTABLEKS                       R14 R0 K13 ["Src"]
-       78 GETTABLEKS                       R14 R14 K24 ["Types"]
-       80 CALL                             R13 1 1
-       81 GETTABLEKS                       R14 R13 K25 ["BrushSettings"]
-       83 GETTABLEKS                       R15 R13 K26 ["Category"]
-       85 DUPCLOSURE                       R16 K27 [PROTO_7]
-       86 CAPTURE                          VAL R7
-       87 CAPTURE                          VAL R8
-       88 CAPTURE                          VAL R5
-       89 CAPTURE                          VAL R9
-       90 CAPTURE                          VAL R15
-       91 CAPTURE                          VAL R14
-       92 CAPTURE                          VAL R6
-       93 CAPTURE                          VAL R3
-       94 CAPTURE                          VAL R10
-       95 CAPTURE                          VAL R0
-       96 CAPTURE                          VAL R11
-       97 CAPTURE                          VAL R12
-       98 CAPTURE                          VAL R4
-       99 RETURN                           R16 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["DraggerFramework"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R3 R2 K9 ["useCallback"]
+       23 GETTABLEKS                       R4 R2 K10 ["useEffect"]
+       25 GETTABLEKS                       R5 R2 K11 ["useMemo"]
+       27 GETTABLEKS                       R6 R2 K12 ["useState"]
+       29 GETIMPORT                        R7 K5 [require]
+       31 GETTABLEKS                       R8 R0 K13 ["Src"]
+       33 GETTABLEKS                       R8 R8 K14 ["Controllers"]
+       35 GETTABLEKS                       R8 R8 K15 ["PluginController"]
+       37 CALL                             R7 1 1
+       38 GETIMPORT                        R8 K5 [require]
+       40 GETTABLEKS                       R9 R0 K13 ["Src"]
+       42 GETTABLEKS                       R9 R9 K14 ["Controllers"]
+       44 GETTABLEKS                       R9 R9 K16 ["ShortcutController"]
+       46 CALL                             R8 1 1
+       47 GETIMPORT                        R9 K5 [require]
+       49 GETTABLEKS                       R10 R0 K13 ["Src"]
+       51 GETTABLEKS                       R10 R10 K17 ["Schemas"]
+       53 GETTABLEKS                       R10 R10 K18 ["Plane"]
+       55 CALL                             R9 1 1
+       56 GETTABLEKS                       R10 R1 K19 ["Implementation"]
+       58 GETTABLEKS                       R10 R10 K20 ["DraggerContext_PluginImpl"]
+       60 GETTABLEKS                       R11 R1 K21 ["Handles"]
+       62 GETTABLEKS                       R11 R11 K22 ["MoveHandles"]
+       64 GETTABLEKS                       R12 R1 K21 ["Handles"]
+       66 GETTABLEKS                       R12 R12 K23 ["RotateHandles"]
+       68 GETIMPORT                        R13 K5 [require]
+       70 GETTABLEKS                       R14 R0 K13 ["Src"]
+       72 GETTABLEKS                       R14 R14 K24 ["Types"]
+       74 CALL                             R13 1 1
+       75 GETTABLEKS                       R14 R13 K25 ["BrushSettings"]
+       77 GETTABLEKS                       R15 R13 K26 ["Category"]
+       79 DUPCLOSURE                       R16 K27 [PROTO_7]
+       80 CAPTURE                          VAL R7
+       81 CAPTURE                          VAL R8
+       82 CAPTURE                          VAL R5
+       83 CAPTURE                          VAL R9
+       84 CAPTURE                          VAL R15
+       85 CAPTURE                          VAL R14
+       86 CAPTURE                          VAL R6
+       87 CAPTURE                          VAL R3
+       88 CAPTURE                          VAL R10
+       89 CAPTURE                          VAL R0
+       90 CAPTURE                          VAL R11
+       91 CAPTURE                          VAL R12
+       92 CAPTURE                          VAL R4
+       93 RETURN                           R16 1

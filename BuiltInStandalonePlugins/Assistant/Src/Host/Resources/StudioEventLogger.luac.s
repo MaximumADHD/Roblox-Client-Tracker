@@ -1105,6 +1105,49 @@ PROTO_28:
        52 RETURN                           R0 0
 
 PROTO_29:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["logCounter"]
+        3 GETUPVAL                         R1 1
+        4 LOADN                            R2 1
+        5 DUPTABLE                         R3 K2 [{"customFields"}]
+        6 NEWTABLE                         R5 0 0
+        8 GETUPVAL                         R6 2
+        9 GETTABLEKS                       R6 R6 K3 ["join"]
+       11 MOVE                             R7 R5
+       12 DUPTABLE                         R8 K6 [{"experimentationGroup", "featureTag"}]
+       13 GETUPVAL                         R10 3
+       14 NAMECALL                         R10 R10 K7 ["get"]
+       16 CALL                             R10 1 1
+       17 JUMPIFNOTEQKNIL                  R10 ; [+3]
+       19 LOADNIL                          R9
+       20 JUMP                             ; [+16]
+       21 GETUPVAL                         R12 4
+       22 GETTABLE                         R11 R10 R12
+       23 JUMPIFNOTEQKNIL                  R11 ; [+3]
+       25 GETTABLEKS                       R11 R10 K8 ["generatedExperimentVariantDistributionVariable"]
+       27 JUMPIFNOTEQKNIL                  R11 ; [+3]
+       29 LOADNIL                          R9
+       30 JUMP                             ; [+6]
+       31 FASTCALL1                        TOSTRING R11 ; [+3]
+       32 MOVE                             R13 R11
+       33 GETIMPORT                        R12 K10 [tostring]
+       35 CALL                             R12 1 1
+       36 MOVE                             R9 R12
+       37 SETTABLEKS                       R9 R8 K4 ["experimentationGroup"]
+       39 GETUPVAL                         R10 5
+       40 CALL                             R10 0 1
+       41 JUMPIFNOT                        R10 ; [+2]
+       42 LOADK                            R9 K11 ["Remote"]
+       43 JUMP                             ; [+1]
+       44 LOADK                            R9 K12 ["Local"]
+       45 SETTABLEKS                       R9 R8 K5 ["featureTag"]
+       47 CALL                             R6 2 1
+       48 MOVE                             R4 R6
+       49 SETTABLEKS                       R4 R3 K1 ["customFields"]
+       51 CALL                             R0 3 0
+       52 RETURN                           R0 0
+
+PROTO_30:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logEvent"]
         3 GETUPVAL                         R2 1
@@ -1115,7 +1158,7 @@ PROTO_29:
        10 CALL                             R1 2 0
        11 RETURN                           R0 0
 
-PROTO_30:
+PROTO_31:
         0 DUPTABLE                         R2 K2 [{"requestId", "conversationId"}]
         1 GETTABLEKS                       R3 R0 K3 ["messageGuid"]
         3 SETTABLEKS                       R3 R2 K0 ["requestId"]
@@ -1162,7 +1205,7 @@ PROTO_30:
        61 CALL                             R2 3 0
        62 RETURN                           R0 0
 
-PROTO_31:
+PROTO_32:
         0 DUPTABLE                         R2 K2 [{"requestId", "conversationId"}]
         1 GETTABLEKS                       R3 R0 K3 ["messageGuid"]
         3 SETTABLEKS                       R3 R2 K0 ["requestId"]
@@ -1200,7 +1243,7 @@ PROTO_31:
        49 CALL                             R2 2 0
        50 RETURN                           R0 0
 
-PROTO_32:
+PROTO_33:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logCounter"]
         3 GETUPVAL                         R2 1
@@ -1371,7 +1414,7 @@ PROTO_32:
       247 CALL                             R3 2 0
       248 RETURN                           R0 0
 
-PROTO_33:
+PROTO_34:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logCounter"]
         3 GETUPVAL                         R2 1
@@ -1517,7 +1560,7 @@ PROTO_33:
       228 CALL                             R4 2 0
       229 RETURN                           R0 0
 
-PROTO_34:
+PROTO_35:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logCounter"]
         3 GETUPVAL                         R2 1
@@ -1617,7 +1660,7 @@ PROTO_34:
       144 CALL                             R1 2 0
       145 RETURN                           R0 0
 
-PROTO_35:
+PROTO_36:
         0 DUPTABLE                         R2 K4 [{"requestId", "toolName", "warningMessage", "serverName"}]
         1 GETTABLEKS                       R3 R0 K5 ["messageGuid"]
         3 SETTABLEKS                       R3 R2 K0 ["requestId"]
@@ -1659,7 +1702,7 @@ PROTO_35:
        57 CALL                             R2 2 0
        58 RETURN                           R0 0
 
-PROTO_36:
+PROTO_37:
         0 DUPTABLE                         R2 K2 [{"requestId", "result"}]
         1 GETTABLEKS                       R3 R0 K3 ["messageGuid"]
         3 SETTABLEKS                       R3 R2 K0 ["requestId"]
@@ -1697,21 +1740,21 @@ PROTO_36:
        49 CALL                             R2 2 0
        50 RETURN                           R0 0
 
-PROTO_37:
+PROTO_38:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logStat"]
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R3 R0 K1 ["requestJourneyDuration"]
         6 DUPTABLE                         R4 K3 [{"customFields"}]
-        7 DUPTABLE                         R6 K5 [{"requestId"}]
-        8 GETTABLEKS                       R7 R0 K6 ["requestEndReason"]
-       10 SETTABLEKS                       R7 R6 K4 ["requestId"]
+        7 DUPTABLE                         R6 K5 [{"requestEndReason"}]
+        8 GETTABLEKS                       R7 R0 K4 ["requestEndReason"]
+       10 SETTABLEKS                       R7 R6 K4 ["requestEndReason"]
        12 GETUPVAL                         R7 2
-       13 GETTABLEKS                       R7 R7 K7 ["join"]
+       13 GETTABLEKS                       R7 R7 K6 ["join"]
        15 MOVE                             R8 R6
-       16 DUPTABLE                         R9 K10 [{"experimentationGroup", "featureTag"}]
+       16 DUPTABLE                         R9 K9 [{"experimentationGroup", "featureTag"}]
        17 GETUPVAL                         R11 3
-       18 NAMECALL                         R11 R11 K11 ["get"]
+       18 NAMECALL                         R11 R11 K10 ["get"]
        20 CALL                             R11 1 1
        21 JUMPIFNOTEQKNIL                  R11 ; [+3]
        23 LOADNIL                          R10
@@ -1719,44 +1762,44 @@ PROTO_37:
        25 GETUPVAL                         R13 4
        26 GETTABLE                         R12 R11 R13
        27 JUMPIFNOTEQKNIL                  R12 ; [+3]
-       29 GETTABLEKS                       R12 R11 K12 ["generatedExperimentVariantDistributionVariable"]
+       29 GETTABLEKS                       R12 R11 K11 ["generatedExperimentVariantDistributionVariable"]
        31 JUMPIFNOTEQKNIL                  R12 ; [+3]
        33 LOADNIL                          R10
        34 JUMP                             ; [+6]
        35 FASTCALL1                        TOSTRING R12 ; [+3]
        36 MOVE                             R14 R12
-       37 GETIMPORT                        R13 K14 [tostring]
+       37 GETIMPORT                        R13 K13 [tostring]
        39 CALL                             R13 1 1
        40 MOVE                             R10 R13
-       41 SETTABLEKS                       R10 R9 K8 ["experimentationGroup"]
+       41 SETTABLEKS                       R10 R9 K7 ["experimentationGroup"]
        43 GETUPVAL                         R11 5
        44 CALL                             R11 0 1
        45 JUMPIFNOT                        R11 ; [+2]
-       46 LOADK                            R10 K15 ["Remote"]
+       46 LOADK                            R10 K14 ["Remote"]
        47 JUMP                             ; [+1]
-       48 LOADK                            R10 K16 ["Local"]
-       49 SETTABLEKS                       R10 R9 K9 ["featureTag"]
+       48 LOADK                            R10 K15 ["Local"]
+       49 SETTABLEKS                       R10 R9 K8 ["featureTag"]
        51 CALL                             R7 2 1
        52 MOVE                             R5 R7
        53 SETTABLEKS                       R5 R4 K2 ["customFields"]
        55 CALL                             R1 3 0
        56 DUPTABLE                         R2 K21 [{"requestId", "conversationId", "threadId", "acpSessionId", "requestEndReason", "requestJourneyDuration", "message", "experimentationGroup"}]
        57 GETTABLEKS                       R3 R0 K22 ["messageGuid"]
-       59 SETTABLEKS                       R3 R2 K4 ["requestId"]
+       59 SETTABLEKS                       R3 R2 K16 ["requestId"]
        61 GETTABLEKS                       R3 R0 K23 ["sessionId"]
        63 SETTABLEKS                       R3 R2 K17 ["conversationId"]
        65 GETTABLEKS                       R3 R0 K18 ["threadId"]
        67 SETTABLEKS                       R3 R2 K18 ["threadId"]
        69 GETTABLEKS                       R3 R0 K19 ["acpSessionId"]
        71 SETTABLEKS                       R3 R2 K19 ["acpSessionId"]
-       73 GETTABLEKS                       R3 R0 K6 ["requestEndReason"]
-       75 SETTABLEKS                       R3 R2 K6 ["requestEndReason"]
+       73 GETTABLEKS                       R3 R0 K4 ["requestEndReason"]
+       75 SETTABLEKS                       R3 R2 K4 ["requestEndReason"]
        77 GETTABLEKS                       R3 R0 K1 ["requestJourneyDuration"]
        79 SETTABLEKS                       R3 R2 K1 ["requestJourneyDuration"]
        81 GETTABLEKS                       R3 R0 K20 ["message"]
        83 SETTABLEKS                       R3 R2 K20 ["message"]
        85 GETUPVAL                         R4 3
-       86 NAMECALL                         R4 R4 K11 ["get"]
+       86 NAMECALL                         R4 R4 K10 ["get"]
        88 CALL                             R4 1 1
        89 JUMPIFNOTEQKNIL                  R4 ; [+3]
        91 LOADNIL                          R3
@@ -1764,16 +1807,16 @@ PROTO_37:
        93 GETUPVAL                         R6 4
        94 GETTABLE                         R5 R4 R6
        95 JUMPIFNOTEQKNIL                  R5 ; [+3]
-       97 GETTABLEKS                       R5 R4 K12 ["generatedExperimentVariantDistributionVariable"]
+       97 GETTABLEKS                       R5 R4 K11 ["generatedExperimentVariantDistributionVariable"]
        99 JUMPIFNOTEQKNIL                  R5 ; [+3]
       101 LOADNIL                          R3
       102 JUMP                             ; [+6]
       103 FASTCALL1                        TOSTRING R5 ; [+3]
       104 MOVE                             R7 R5
-      105 GETIMPORT                        R6 K14 [tostring]
+      105 GETIMPORT                        R6 K13 [tostring]
       107 CALL                             R6 1 1
       108 MOVE                             R3 R6
-      109 SETTABLEKS                       R3 R2 K8 ["experimentationGroup"]
+      109 SETTABLEKS                       R3 R2 K7 ["experimentationGroup"]
       111 GETUPVAL                         R3 2
       112 GETTABLEKS                       R3 R3 K24 ["assign"]
       114 MOVE                             R4 R2
@@ -1814,7 +1857,7 @@ PROTO_37:
       162 CALL                             R2 2 0
       163 RETURN                           R0 0
 
-PROTO_38:
+PROTO_39:
         0 DUPTABLE                         R2 K3 [{"requestId", "model", "statusCode"}]
         1 GETTABLEKS                       R3 R0 K4 ["messageGuid"]
         3 SETTABLEKS                       R3 R2 K0 ["requestId"]
@@ -1854,7 +1897,7 @@ PROTO_38:
        53 CALL                             R2 2 0
        54 RETURN                           R0 0
 
-PROTO_39:
+PROTO_40:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["logCounter"]
         3 GETUPVAL                         R1 1
@@ -1897,7 +1940,7 @@ PROTO_39:
        51 CALL                             R0 3 0
        52 RETURN                           R0 0
 
-PROTO_40:
+PROTO_41:
         0 GETTABLEKS                       R1 R0 K0 ["success"]
         2 JUMPIFNOT                        R1 ; [+53]
         3 GETUPVAL                         R1 0
@@ -2058,7 +2101,7 @@ PROTO_40:
       217 CALL                             R2 2 0
       218 RETURN                           R0 0
 
-PROTO_41:
+PROTO_42:
         0 GETTABLEKS                       R1 R0 K0 ["success"]
         2 JUMPIFNOT                        R1 ; [+53]
         3 GETUPVAL                         R1 0
@@ -2187,7 +2230,7 @@ PROTO_41:
       173 CALL                             R2 2 0
       174 RETURN                           R0 0
 
-PROTO_42:
+PROTO_43:
         0 GETTABLEKS                       R1 R0 K0 ["success"]
         2 JUMPIFNOT                        R1 ; [+53]
         3 GETUPVAL                         R1 0
@@ -2316,7 +2359,7 @@ PROTO_42:
       173 CALL                             R2 2 0
       174 RETURN                           R0 0
 
-PROTO_43:
+PROTO_44:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logCounter"]
         3 GETUPVAL                         R2 1
@@ -2448,7 +2491,7 @@ PROTO_43:
       188 CALL                             R2 2 0
       189 RETURN                           R0 0
 
-PROTO_44:
+PROTO_45:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["logEvent"]
         3 GETUPVAL                         R3 1
@@ -2484,7 +2527,7 @@ PROTO_44:
        45 CALL                             R2 2 0
        46 RETURN                           R0 0
 
-PROTO_45:
+PROTO_46:
         0 DUPTABLE                         R2 K2 [{"clientJobId", "setupType"}]
         1 SETTABLEKS                       R1 R2 K0 ["clientJobId"]
         3 GETTABLEKS                       R3 R0 K3 ["SetupType"]
@@ -2530,7 +2573,7 @@ PROTO_45:
        66 CALL                             R3 2 0
        67 RETURN                           R0 0
 
-PROTO_46:
+PROTO_47:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["logEvent"]
         3 GETUPVAL                         R3 1
@@ -2565,83 +2608,6 @@ PROTO_46:
        43 SETTABLEKS                       R5 R4 K2 ["standardizedFields"]
        45 CALL                             R2 2 0
        46 RETURN                           R0 0
-
-PROTO_47:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R3 R3 K0 ["logEvent"]
-        3 GETUPVAL                         R4 1
-        4 DUPTABLE                         R5 K3 [{"customFields", "standardizedFields"}]
-        5 DUPTABLE                         R7 K7 [{"assetUrl", "assetHash", "timeToComplete"}]
-        6 SETTABLEKS                       R1 R7 K4 ["assetUrl"]
-        8 SETTABLEKS                       R2 R7 K5 ["assetHash"]
-       10 SETTABLEKS                       R0 R7 K6 ["timeToComplete"]
-       12 GETUPVAL                         R8 2
-       13 GETTABLEKS                       R8 R8 K8 ["assign"]
-       15 MOVE                             R9 R7
-       16 DUPTABLE                         R10 K10 [{"timestampMilliseconds"}]
-       17 GETUPVAL                         R11 3
-       18 GETTABLEKS                       R11 R11 K11 ["getTimestampMilliseconds"]
-       20 CALL                             R11 0 1
-       21 SETTABLEKS                       R11 R10 K9 ["timestampMilliseconds"]
-       23 CALL                             R8 2 1
-       24 MOVE                             R6 R8
-       25 SETTABLEKS                       R6 R5 K1 ["customFields"]
-       27 NEWTABLE                         R7 0 0
-       29 GETUPVAL                         R8 4
-       30 GETTABLEKS                       R8 R8 K12 ["StandardizedFields"]
-       32 LOADNIL                          R9
-       33 LOADNIL                          R10
-       34 FORGPREP                         R8
-       35 FASTCALL2                        TABLE_INSERT R7 R12 ; [+5]
-       37 MOVE                             R14 R7
-       38 MOVE                             R15 R12
-       39 GETIMPORT                        R13 K15 [table.insert]
-       41 CALL                             R13 2 0
-       42 FORGLOOP                         R8 2 ; [-8]
-       44 MOVE                             R6 R7
-       45 SETTABLEKS                       R6 R5 K2 ["standardizedFields"]
-       47 CALL                             R3 2 0
-       48 GETUPVAL                         R3 0
-       49 GETTABLEKS                       R3 R3 K16 ["logCounter"]
-       51 GETUPVAL                         R4 5
-       52 LOADN                            R5 1
-       53 DUPTABLE                         R6 K17 [{"customFields"}]
-       54 NEWTABLE                         R8 0 0
-       56 GETUPVAL                         R9 2
-       57 GETTABLEKS                       R9 R9 K18 ["join"]
-       59 MOVE                             R10 R8
-       60 DUPTABLE                         R11 K21 [{"experimentationGroup", "featureTag"}]
-       61 GETUPVAL                         R13 6
-       62 NAMECALL                         R13 R13 K22 ["get"]
-       64 CALL                             R13 1 1
-       65 JUMPIFNOTEQKNIL                  R13 ; [+3]
-       67 LOADNIL                          R12
-       68 JUMP                             ; [+16]
-       69 GETUPVAL                         R15 7
-       70 GETTABLE                         R14 R13 R15
-       71 JUMPIFNOTEQKNIL                  R14 ; [+3]
-       73 GETTABLEKS                       R14 R13 K23 ["generatedExperimentVariantDistributionVariable"]
-       75 JUMPIFNOTEQKNIL                  R14 ; [+3]
-       77 LOADNIL                          R12
-       78 JUMP                             ; [+6]
-       79 FASTCALL1                        TOSTRING R14 ; [+3]
-       80 MOVE                             R16 R14
-       81 GETIMPORT                        R15 K25 [tostring]
-       83 CALL                             R15 1 1
-       84 MOVE                             R12 R15
-       85 SETTABLEKS                       R12 R11 K19 ["experimentationGroup"]
-       87 GETUPVAL                         R13 8
-       88 CALL                             R13 0 1
-       89 JUMPIFNOT                        R13 ; [+2]
-       90 LOADK                            R12 K26 ["Remote"]
-       91 JUMP                             ; [+1]
-       92 LOADK                            R12 K27 ["Local"]
-       93 SETTABLEKS                       R12 R11 K20 ["featureTag"]
-       95 CALL                             R9 2 1
-       96 MOVE                             R7 R9
-       97 SETTABLEKS                       R7 R6 K1 ["customFields"]
-       99 CALL                             R3 3 0
-      100 RETURN                           R0 0
 
 PROTO_48:
         0 GETUPVAL                         R3 0
@@ -2721,6 +2687,83 @@ PROTO_48:
       100 RETURN                           R0 0
 
 PROTO_49:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["logEvent"]
+        3 GETUPVAL                         R4 1
+        4 DUPTABLE                         R5 K3 [{"customFields", "standardizedFields"}]
+        5 DUPTABLE                         R7 K7 [{"assetUrl", "assetHash", "timeToComplete"}]
+        6 SETTABLEKS                       R1 R7 K4 ["assetUrl"]
+        8 SETTABLEKS                       R2 R7 K5 ["assetHash"]
+       10 SETTABLEKS                       R0 R7 K6 ["timeToComplete"]
+       12 GETUPVAL                         R8 2
+       13 GETTABLEKS                       R8 R8 K8 ["assign"]
+       15 MOVE                             R9 R7
+       16 DUPTABLE                         R10 K10 [{"timestampMilliseconds"}]
+       17 GETUPVAL                         R11 3
+       18 GETTABLEKS                       R11 R11 K11 ["getTimestampMilliseconds"]
+       20 CALL                             R11 0 1
+       21 SETTABLEKS                       R11 R10 K9 ["timestampMilliseconds"]
+       23 CALL                             R8 2 1
+       24 MOVE                             R6 R8
+       25 SETTABLEKS                       R6 R5 K1 ["customFields"]
+       27 NEWTABLE                         R7 0 0
+       29 GETUPVAL                         R8 4
+       30 GETTABLEKS                       R8 R8 K12 ["StandardizedFields"]
+       32 LOADNIL                          R9
+       33 LOADNIL                          R10
+       34 FORGPREP                         R8
+       35 FASTCALL2                        TABLE_INSERT R7 R12 ; [+5]
+       37 MOVE                             R14 R7
+       38 MOVE                             R15 R12
+       39 GETIMPORT                        R13 K15 [table.insert]
+       41 CALL                             R13 2 0
+       42 FORGLOOP                         R8 2 ; [-8]
+       44 MOVE                             R6 R7
+       45 SETTABLEKS                       R6 R5 K2 ["standardizedFields"]
+       47 CALL                             R3 2 0
+       48 GETUPVAL                         R3 0
+       49 GETTABLEKS                       R3 R3 K16 ["logCounter"]
+       51 GETUPVAL                         R4 5
+       52 LOADN                            R5 1
+       53 DUPTABLE                         R6 K17 [{"customFields"}]
+       54 NEWTABLE                         R8 0 0
+       56 GETUPVAL                         R9 2
+       57 GETTABLEKS                       R9 R9 K18 ["join"]
+       59 MOVE                             R10 R8
+       60 DUPTABLE                         R11 K21 [{"experimentationGroup", "featureTag"}]
+       61 GETUPVAL                         R13 6
+       62 NAMECALL                         R13 R13 K22 ["get"]
+       64 CALL                             R13 1 1
+       65 JUMPIFNOTEQKNIL                  R13 ; [+3]
+       67 LOADNIL                          R12
+       68 JUMP                             ; [+16]
+       69 GETUPVAL                         R15 7
+       70 GETTABLE                         R14 R13 R15
+       71 JUMPIFNOTEQKNIL                  R14 ; [+3]
+       73 GETTABLEKS                       R14 R13 K23 ["generatedExperimentVariantDistributionVariable"]
+       75 JUMPIFNOTEQKNIL                  R14 ; [+3]
+       77 LOADNIL                          R12
+       78 JUMP                             ; [+6]
+       79 FASTCALL1                        TOSTRING R14 ; [+3]
+       80 MOVE                             R16 R14
+       81 GETIMPORT                        R15 K25 [tostring]
+       83 CALL                             R15 1 1
+       84 MOVE                             R12 R15
+       85 SETTABLEKS                       R12 R11 K19 ["experimentationGroup"]
+       87 GETUPVAL                         R13 8
+       88 CALL                             R13 0 1
+       89 JUMPIFNOT                        R13 ; [+2]
+       90 LOADK                            R12 K26 ["Remote"]
+       91 JUMP                             ; [+1]
+       92 LOADK                            R12 K27 ["Local"]
+       93 SETTABLEKS                       R12 R11 K20 ["featureTag"]
+       95 CALL                             R9 2 1
+       96 MOVE                             R7 R9
+       97 SETTABLEKS                       R7 R6 K1 ["customFields"]
+       99 CALL                             R3 3 0
+      100 RETURN                           R0 0
+
+PROTO_50:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantGen3DTelemetryV2"]
         3 JUMPIF                           R1 ; [+1]
@@ -2771,7 +2814,7 @@ PROTO_49:
        63 CALL                             R1 3 0
        64 RETURN                           R0 0
 
-PROTO_50:
+PROTO_51:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantGen3DTelemetryV2"]
         3 JUMPIF                           R1 ; [+1]
@@ -2817,7 +2860,7 @@ PROTO_50:
        62 CALL                             R1 2 0
        63 RETURN                           R0 0
 
-PROTO_51:
+PROTO_52:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantGen3DImagePreviewTelemetry"]
         3 JUMPIF                           R1 ; [+1]
@@ -2877,7 +2920,7 @@ PROTO_51:
        80 CALL                             R1 2 0
        81 RETURN                           R0 0
 
-PROTO_52:
+PROTO_53:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantGen3DImagePreviewTelemetry"]
         3 JUMPIF                           R1 ; [+1]
@@ -2969,7 +3012,7 @@ PROTO_52:
       125 CALL                             R1 2 0
       126 RETURN                           R0 0
 
-PROTO_53:
+PROTO_54:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantGen3DAssetPublishTracking"]
         3 JUMPIF                           R1 ; [+1]
@@ -3053,7 +3096,117 @@ PROTO_53:
       109 CALL                             R1 2 0
       110 RETURN                           R0 0
 
-PROTO_54:
+PROTO_55:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["logCounter"]
+        3 GETUPVAL                         R2 1
+        4 LOADN                            R3 1
+        5 DUPTABLE                         R4 K2 [{"customFields"}]
+        6 DUPTABLE                         R6 K7 [{"success", "failureReason", "model", "cameraSource"}]
+        7 GETTABLEKS                       R7 R0 K3 ["success"]
+        9 SETTABLEKS                       R7 R6 K3 ["success"]
+       11 GETTABLEKS                       R7 R0 K4 ["failureReason"]
+       13 SETTABLEKS                       R7 R6 K4 ["failureReason"]
+       15 GETTABLEKS                       R7 R0 K5 ["model"]
+       17 SETTABLEKS                       R7 R6 K5 ["model"]
+       19 GETTABLEKS                       R7 R0 K6 ["cameraSource"]
+       21 SETTABLEKS                       R7 R6 K6 ["cameraSource"]
+       23 GETUPVAL                         R7 2
+       24 GETTABLEKS                       R7 R7 K8 ["join"]
+       26 MOVE                             R8 R6
+       27 DUPTABLE                         R9 K11 [{"experimentationGroup", "featureTag"}]
+       28 GETUPVAL                         R11 3
+       29 NAMECALL                         R11 R11 K12 ["get"]
+       31 CALL                             R11 1 1
+       32 JUMPIFNOTEQKNIL                  R11 ; [+3]
+       34 LOADNIL                          R10
+       35 JUMP                             ; [+16]
+       36 GETUPVAL                         R13 4
+       37 GETTABLE                         R12 R11 R13
+       38 JUMPIFNOTEQKNIL                  R12 ; [+3]
+       40 GETTABLEKS                       R12 R11 K13 ["generatedExperimentVariantDistributionVariable"]
+       42 JUMPIFNOTEQKNIL                  R12 ; [+3]
+       44 LOADNIL                          R10
+       45 JUMP                             ; [+6]
+       46 FASTCALL1                        TOSTRING R12 ; [+3]
+       47 MOVE                             R14 R12
+       48 GETIMPORT                        R13 K15 [tostring]
+       50 CALL                             R13 1 1
+       51 MOVE                             R10 R13
+       52 SETTABLEKS                       R10 R9 K9 ["experimentationGroup"]
+       54 GETUPVAL                         R11 5
+       55 CALL                             R11 0 1
+       56 JUMPIFNOT                        R11 ; [+2]
+       57 LOADK                            R10 K16 ["Remote"]
+       58 JUMP                             ; [+1]
+       59 LOADK                            R10 K17 ["Local"]
+       60 SETTABLEKS                       R10 R9 K10 ["featureTag"]
+       62 CALL                             R7 2 1
+       63 MOVE                             R5 R7
+       64 SETTABLEKS                       R5 R4 K1 ["customFields"]
+       66 CALL                             R1 3 0
+       67 GETUPVAL                         R1 0
+       68 GETTABLEKS                       R1 R1 K18 ["logEvent"]
+       70 GETUPVAL                         R2 6
+       71 DUPTABLE                         R3 K20 [{"customFields", "standardizedFields"}]
+       72 DUPTABLE                         R5 K31 [{"requestId", "generationId", "success", "errorMessage", "failureReason", "surface", "isManualRun", "conversationId", "model", "cameraSource", "hasPrompt", "hasHintImage", "isMultiMesh", "durationMilliseconds"}]
+       73 GETTABLEKS                       R6 R0 K21 ["requestId"]
+       75 SETTABLEKS                       R6 R5 K21 ["requestId"]
+       77 GETTABLEKS                       R6 R0 K22 ["generationId"]
+       79 SETTABLEKS                       R6 R5 K22 ["generationId"]
+       81 GETTABLEKS                       R6 R0 K3 ["success"]
+       83 SETTABLEKS                       R6 R5 K3 ["success"]
+       85 GETTABLEKS                       R6 R0 K23 ["errorMessage"]
+       87 SETTABLEKS                       R6 R5 K23 ["errorMessage"]
+       89 GETTABLEKS                       R6 R0 K4 ["failureReason"]
+       91 SETTABLEKS                       R6 R5 K4 ["failureReason"]
+       93 GETTABLEKS                       R6 R0 K24 ["surface"]
+       95 SETTABLEKS                       R6 R5 K24 ["surface"]
+       97 GETTABLEKS                       R6 R0 K25 ["isManualRun"]
+       99 SETTABLEKS                       R6 R5 K25 ["isManualRun"]
+      101 GETTABLEKS                       R6 R0 K26 ["conversationId"]
+      103 SETTABLEKS                       R6 R5 K26 ["conversationId"]
+      105 GETTABLEKS                       R6 R0 K5 ["model"]
+      107 SETTABLEKS                       R6 R5 K5 ["model"]
+      109 GETTABLEKS                       R6 R0 K6 ["cameraSource"]
+      111 SETTABLEKS                       R6 R5 K6 ["cameraSource"]
+      113 GETTABLEKS                       R6 R0 K27 ["hasPrompt"]
+      115 SETTABLEKS                       R6 R5 K27 ["hasPrompt"]
+      117 GETTABLEKS                       R6 R0 K28 ["hasHintImage"]
+      119 SETTABLEKS                       R6 R5 K28 ["hasHintImage"]
+      121 GETTABLEKS                       R6 R0 K29 ["isMultiMesh"]
+      123 SETTABLEKS                       R6 R5 K29 ["isMultiMesh"]
+      125 GETTABLEKS                       R6 R0 K30 ["durationMilliseconds"]
+      127 SETTABLEKS                       R6 R5 K30 ["durationMilliseconds"]
+      129 GETUPVAL                         R6 2
+      130 GETTABLEKS                       R6 R6 K32 ["assign"]
+      132 MOVE                             R7 R5
+      133 DUPTABLE                         R8 K34 [{"timestampMilliseconds"}]
+      134 GETUPVAL                         R9 7
+      135 GETTABLEKS                       R9 R9 K35 ["getTimestampMilliseconds"]
+      137 CALL                             R9 0 1
+      138 SETTABLEKS                       R9 R8 K33 ["timestampMilliseconds"]
+      140 CALL                             R6 2 1
+      141 MOVE                             R4 R6
+      142 SETTABLEKS                       R4 R3 K1 ["customFields"]
+      144 NEWTABLE                         R5 0 0
+      146 GETUPVAL                         R6 8
+      147 GETTABLEKS                       R6 R6 K36 ["StandardizedFields"]
+      149 LOADNIL                          R7
+      150 LOADNIL                          R8
+      151 FORGPREP                         R6
+      152 FASTCALL2                        TABLE_INSERT R5 R10 ; [+5]
+      154 MOVE                             R12 R5
+      155 MOVE                             R13 R10
+      156 GETIMPORT                        R11 K39 [table.insert]
+      158 CALL                             R11 2 0
+      159 FORGLOOP                         R6 2 ; [-8]
+      161 MOVE                             R4 R5
+      162 SETTABLEKS                       R4 R3 K19 ["standardizedFields"]
+      164 CALL                             R1 2 0
+      165 RETURN                           R0 0
+
+PROTO_56:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logEvent"]
         3 GETUPVAL                         R2 1
@@ -3085,7 +3238,7 @@ PROTO_54:
        39 CALL                             R1 2 0
        40 RETURN                           R0 0
 
-PROTO_55:
+PROTO_57:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logEvent"]
         3 GETUPVAL                         R2 1
@@ -3157,7 +3310,185 @@ PROTO_55:
        91 CALL                             R1 3 0
        92 RETURN                           R0 0
 
-PROTO_56:
+PROTO_58:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["logEvent"]
+        3 GETUPVAL                         R2 1
+        4 DUPTABLE                         R3 K3 [{"customFields", "standardizedFields"}]
+        5 DUPTABLE                         R5 K6 [{"outcome", "errorMessage"}]
+        6 GETTABLEKS                       R6 R0 K4 ["outcome"]
+        8 SETTABLEKS                       R6 R5 K4 ["outcome"]
+       10 GETTABLEKS                       R7 R0 K5 ["errorMessage"]
+       12 JUMPIFNOTEQKNIL                  R7 ; [+3]
+       14 LOADNIL                          R6
+       15 JUMP                             ; [+13]
+       16 LENGTH                           R8 R7
+       17 LOADN                            R9 500
+       18 JUMPIFNOTLE                      R8 R9 ; [+3]
+       20 MOVE                             R6 R7
+       21 JUMP                             ; [+7]
+       22 GETUPVAL                         R8 2
+       23 MOVE                             R9 R7
+       24 LOADN                            R10 500
+       25 CALL                             R8 2 1
+       26 MOVE                             R9 R8
+       27 LOADK                            R10 K7 ["..."]
+       28 CONCAT                           R6 R9 R10
+       29 SETTABLEKS                       R6 R5 K5 ["errorMessage"]
+       31 GETUPVAL                         R6 3
+       32 GETTABLEKS                       R6 R6 K8 ["assign"]
+       34 MOVE                             R7 R5
+       35 DUPTABLE                         R8 K10 [{"timestampMilliseconds"}]
+       36 GETUPVAL                         R9 4
+       37 GETTABLEKS                       R9 R9 K11 ["getTimestampMilliseconds"]
+       39 CALL                             R9 0 1
+       40 SETTABLEKS                       R9 R8 K9 ["timestampMilliseconds"]
+       42 CALL                             R6 2 1
+       43 MOVE                             R4 R6
+       44 SETTABLEKS                       R4 R3 K1 ["customFields"]
+       46 NEWTABLE                         R5 0 0
+       48 GETUPVAL                         R6 5
+       49 GETTABLEKS                       R6 R6 K12 ["StandardizedFields"]
+       51 LOADNIL                          R7
+       52 LOADNIL                          R8
+       53 FORGPREP                         R6
+       54 FASTCALL2                        TABLE_INSERT R5 R10 ; [+5]
+       56 MOVE                             R12 R5
+       57 MOVE                             R13 R10
+       58 GETIMPORT                        R11 K15 [table.insert]
+       60 CALL                             R11 2 0
+       61 FORGLOOP                         R6 2 ; [-8]
+       63 MOVE                             R4 R5
+       64 SETTABLEKS                       R4 R3 K2 ["standardizedFields"]
+       66 CALL                             R1 2 0
+       67 GETUPVAL                         R1 0
+       68 GETTABLEKS                       R1 R1 K16 ["logCounter"]
+       70 GETUPVAL                         R2 6
+       71 LOADN                            R3 1
+       72 DUPTABLE                         R4 K17 [{"customFields"}]
+       73 DUPTABLE                         R6 K18 [{"outcome"}]
+       74 GETTABLEKS                       R7 R0 K4 ["outcome"]
+       76 SETTABLEKS                       R7 R6 K4 ["outcome"]
+       78 GETUPVAL                         R7 3
+       79 GETTABLEKS                       R7 R7 K19 ["join"]
+       81 MOVE                             R8 R6
+       82 DUPTABLE                         R9 K22 [{"experimentationGroup", "featureTag"}]
+       83 GETUPVAL                         R11 7
+       84 NAMECALL                         R11 R11 K23 ["get"]
+       86 CALL                             R11 1 1
+       87 JUMPIFNOTEQKNIL                  R11 ; [+3]
+       89 LOADNIL                          R10
+       90 JUMP                             ; [+16]
+       91 GETUPVAL                         R13 8
+       92 GETTABLE                         R12 R11 R13
+       93 JUMPIFNOTEQKNIL                  R12 ; [+3]
+       95 GETTABLEKS                       R12 R11 K24 ["generatedExperimentVariantDistributionVariable"]
+       97 JUMPIFNOTEQKNIL                  R12 ; [+3]
+       99 LOADNIL                          R10
+      100 JUMP                             ; [+6]
+      101 FASTCALL1                        TOSTRING R12 ; [+3]
+      102 MOVE                             R14 R12
+      103 GETIMPORT                        R13 K26 [tostring]
+      105 CALL                             R13 1 1
+      106 MOVE                             R10 R13
+      107 SETTABLEKS                       R10 R9 K20 ["experimentationGroup"]
+      109 GETUPVAL                         R11 9
+      110 CALL                             R11 0 1
+      111 JUMPIFNOT                        R11 ; [+2]
+      112 LOADK                            R10 K27 ["Remote"]
+      113 JUMP                             ; [+1]
+      114 LOADK                            R10 K28 ["Local"]
+      115 SETTABLEKS                       R10 R9 K21 ["featureTag"]
+      117 CALL                             R7 2 1
+      118 MOVE                             R5 R7
+      119 SETTABLEKS                       R5 R4 K1 ["customFields"]
+      121 CALL                             R1 3 0
+      122 RETURN                           R0 0
+
+PROTO_59:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["logEvent"]
+        3 GETUPVAL                         R2 1
+        4 DUPTABLE                         R3 K3 [{"customFields", "standardizedFields"}]
+        5 DUPTABLE                         R5 K6 [{"sendTokenEnabled", "tokenOutcome"}]
+        6 GETTABLEKS                       R6 R0 K4 ["sendTokenEnabled"]
+        8 SETTABLEKS                       R6 R5 K4 ["sendTokenEnabled"]
+       10 GETTABLEKS                       R6 R0 K5 ["tokenOutcome"]
+       12 SETTABLEKS                       R6 R5 K5 ["tokenOutcome"]
+       14 GETUPVAL                         R6 2
+       15 GETTABLEKS                       R6 R6 K7 ["assign"]
+       17 MOVE                             R7 R5
+       18 DUPTABLE                         R8 K9 [{"timestampMilliseconds"}]
+       19 GETUPVAL                         R9 3
+       20 GETTABLEKS                       R9 R9 K10 ["getTimestampMilliseconds"]
+       22 CALL                             R9 0 1
+       23 SETTABLEKS                       R9 R8 K8 ["timestampMilliseconds"]
+       25 CALL                             R6 2 1
+       26 MOVE                             R4 R6
+       27 SETTABLEKS                       R4 R3 K1 ["customFields"]
+       29 NEWTABLE                         R5 0 0
+       31 GETUPVAL                         R6 4
+       32 GETTABLEKS                       R6 R6 K11 ["StandardizedFields"]
+       34 LOADNIL                          R7
+       35 LOADNIL                          R8
+       36 FORGPREP                         R6
+       37 FASTCALL2                        TABLE_INSERT R5 R10 ; [+5]
+       39 MOVE                             R12 R5
+       40 MOVE                             R13 R10
+       41 GETIMPORT                        R11 K14 [table.insert]
+       43 CALL                             R11 2 0
+       44 FORGLOOP                         R6 2 ; [-8]
+       46 MOVE                             R4 R5
+       47 SETTABLEKS                       R4 R3 K2 ["standardizedFields"]
+       49 CALL                             R1 2 0
+       50 GETUPVAL                         R1 0
+       51 GETTABLEKS                       R1 R1 K15 ["logCounter"]
+       53 GETUPVAL                         R2 5
+       54 LOADN                            R3 1
+       55 DUPTABLE                         R4 K16 [{"customFields"}]
+       56 DUPTABLE                         R6 K17 [{"sendTokenEnabled"}]
+       57 GETTABLEKS                       R8 R0 K4 ["sendTokenEnabled"]
+       59 FASTCALL1                        TOSTRING R8 ; [+2]
+       60 GETIMPORT                        R7 K19 [tostring]
+       62 CALL                             R7 1 1
+       63 SETTABLEKS                       R7 R6 K4 ["sendTokenEnabled"]
+       65 GETUPVAL                         R7 2
+       66 GETTABLEKS                       R7 R7 K20 ["join"]
+       68 MOVE                             R8 R6
+       69 DUPTABLE                         R9 K23 [{"experimentationGroup", "featureTag"}]
+       70 GETUPVAL                         R11 6
+       71 NAMECALL                         R11 R11 K24 ["get"]
+       73 CALL                             R11 1 1
+       74 JUMPIFNOTEQKNIL                  R11 ; [+3]
+       76 LOADNIL                          R10
+       77 JUMP                             ; [+16]
+       78 GETUPVAL                         R13 7
+       79 GETTABLE                         R12 R11 R13
+       80 JUMPIFNOTEQKNIL                  R12 ; [+3]
+       82 GETTABLEKS                       R12 R11 K25 ["generatedExperimentVariantDistributionVariable"]
+       84 JUMPIFNOTEQKNIL                  R12 ; [+3]
+       86 LOADNIL                          R10
+       87 JUMP                             ; [+6]
+       88 FASTCALL1                        TOSTRING R12 ; [+3]
+       89 MOVE                             R14 R12
+       90 GETIMPORT                        R13 K19 [tostring]
+       92 CALL                             R13 1 1
+       93 MOVE                             R10 R13
+       94 SETTABLEKS                       R10 R9 K21 ["experimentationGroup"]
+       96 GETUPVAL                         R11 8
+       97 CALL                             R11 0 1
+       98 JUMPIFNOT                        R11 ; [+2]
+       99 LOADK                            R10 K26 ["Remote"]
+      100 JUMP                             ; [+1]
+      101 LOADK                            R10 K27 ["Local"]
+      102 SETTABLEKS                       R10 R9 K22 ["featureTag"]
+      104 CALL                             R7 2 1
+      105 MOVE                             R5 R7
+      106 SETTABLEKS                       R5 R4 K1 ["customFields"]
+      108 CALL                             R1 3 0
+      109 RETURN                           R0 0
+
+PROTO_60:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logCounter"]
         3 GETUPVAL                         R2 1
@@ -3253,7 +3584,7 @@ PROTO_56:
       136 CALL                             R2 2 0
       137 RETURN                           R0 0
 
-PROTO_57:
+PROTO_61:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logCounter"]
         3 GETUPVAL                         R2 1
@@ -3347,7 +3678,7 @@ PROTO_57:
       132 CALL                             R2 2 0
       133 RETURN                           R0 0
 
-PROTO_58:
+PROTO_62:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["logCounter"]
         3 GETUPVAL                         R1 1
@@ -3355,7 +3686,7 @@ PROTO_58:
         5 CALL                             R0 2 0
         6 RETURN                           R0 0
 
-PROTO_59:
+PROTO_63:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logEvent"]
         3 GETUPVAL                         R2 1
@@ -3403,7 +3734,7 @@ PROTO_59:
        69 CALL                             R1 2 0
        70 RETURN                           R0 0
 
-PROTO_60:
+PROTO_64:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logEvent"]
         3 GETUPVAL                         R2 1
@@ -3447,7 +3778,7 @@ PROTO_60:
        61 CALL                             R1 2 0
        62 RETURN                           R0 0
 
-PROTO_61:
+PROTO_65:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logEvent"]
         3 GETUPVAL                         R2 1
@@ -3487,7 +3818,7 @@ PROTO_61:
        53 CALL                             R1 2 0
        54 RETURN                           R0 0
 
-PROTO_62:
+PROTO_66:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logEvent"]
         3 GETUPVAL                         R2 1
@@ -3527,7 +3858,7 @@ PROTO_62:
        53 CALL                             R1 2 0
        54 RETURN                           R0 0
 
-PROTO_63:
+PROTO_67:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logEvent"]
         3 GETUPVAL                         R2 1
@@ -3571,7 +3902,7 @@ PROTO_63:
        61 CALL                             R1 2 0
        62 RETURN                           R0 0
 
-PROTO_64:
+PROTO_68:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logEvent"]
         3 GETUPVAL                         R2 1
@@ -3609,7 +3940,7 @@ PROTO_64:
        49 CALL                             R1 2 0
        50 RETURN                           R0 0
 
-PROTO_65:
+PROTO_69:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logEvent"]
         3 GETUPVAL                         R2 1
@@ -3651,7 +3982,7 @@ PROTO_65:
        57 CALL                             R1 2 0
        58 RETURN                           R0 0
 
-PROTO_66:
+PROTO_70:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logCounter"]
         3 GETUPVAL                         R2 1
@@ -3729,7 +4060,7 @@ PROTO_66:
       101 CALL                             R1 2 0
       102 RETURN                           R0 0
 
-PROTO_67:
+PROTO_71:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logCounter"]
         3 GETUPVAL                         R2 1
@@ -3809,7 +4140,7 @@ PROTO_67:
       105 CALL                             R1 2 0
       106 RETURN                           R0 0
 
-PROTO_68:
+PROTO_72:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logEvent"]
         3 GETUPVAL                         R2 1
@@ -3854,7 +4185,7 @@ PROTO_68:
        62 CALL                             R1 2 0
        63 RETURN                           R0 0
 
-PROTO_69:
+PROTO_73:
         0 GETTABLEKS                       R1 R0 K0 ["thinkingText"]
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K1 ["logEvent"]
@@ -3907,7 +4238,7 @@ PROTO_69:
        75 CALL                             R2 2 0
        76 RETURN                           R0 0
 
-PROTO_70:
+PROTO_74:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["logStat"]
         3 GETUPVAL                         R2 1
@@ -4005,7 +4336,7 @@ PROTO_70:
       128 CALL                             R2 3 0
       129 RETURN                           R0 0
 
-PROTO_71:
+PROTO_75:
         0 NEWCLOSURE                       R1 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          UPVAL U1
@@ -4075,90 +4406,90 @@ PROTO_71:
        66 DUPCLOSURE                       R8 K4 [PROTO_29]
        67 CAPTURE                          UPVAL U4
        68 CAPTURE                          UPVAL U19
-       69 NEWCLOSURE                       R9 P8
-       70 CAPTURE                          UPVAL U6
-       71 CAPTURE                          UPVAL U8
-       72 CAPTURE                          UPVAL U4
-       73 CAPTURE                          UPVAL U20
-       74 CAPTURE                          UPVAL U10
-       75 CAPTURE                          VAL R0
-       76 DUPCLOSURE                       R10 K5 [PROTO_31]
+       69 CAPTURE                          UPVAL U6
+       70 CAPTURE                          UPVAL U0
+       71 CAPTURE                          UPVAL U1
+       72 CAPTURE                          UPVAL U7
+       73 DUPCLOSURE                       R9 K5 [PROTO_30]
+       74 CAPTURE                          UPVAL U4
+       75 CAPTURE                          UPVAL U20
+       76 NEWCLOSURE                       R10 P9
        77 CAPTURE                          UPVAL U6
        78 CAPTURE                          UPVAL U8
        79 CAPTURE                          UPVAL U4
        80 CAPTURE                          UPVAL U21
        81 CAPTURE                          UPVAL U10
-       82 DUPCLOSURE                       R11 K6 [PROTO_32]
-       83 CAPTURE                          UPVAL U4
-       84 CAPTURE                          UPVAL U22
-       85 CAPTURE                          UPVAL U6
-       86 CAPTURE                          UPVAL U0
-       87 CAPTURE                          UPVAL U1
-       88 CAPTURE                          UPVAL U7
-       89 CAPTURE                          UPVAL U8
-       90 CAPTURE                          UPVAL U23
-       91 CAPTURE                          UPVAL U24
-       92 CAPTURE                          UPVAL U25
-       93 CAPTURE                          UPVAL U10
-       94 DUPCLOSURE                       R12 K7 [PROTO_33]
-       95 CAPTURE                          UPVAL U4
-       96 CAPTURE                          UPVAL U26
-       97 CAPTURE                          UPVAL U6
-       98 CAPTURE                          UPVAL U0
-       99 CAPTURE                          UPVAL U1
-      100 CAPTURE                          UPVAL U7
-      101 CAPTURE                          UPVAL U8
-      102 CAPTURE                          UPVAL U27
-      103 CAPTURE                          UPVAL U28
-      104 CAPTURE                          UPVAL U29
-      105 CAPTURE                          UPVAL U10
-      106 DUPCLOSURE                       R13 K8 [PROTO_34]
-      107 CAPTURE                          UPVAL U4
-      108 CAPTURE                          UPVAL U30
-      109 CAPTURE                          UPVAL U6
-      110 CAPTURE                          UPVAL U0
-      111 CAPTURE                          UPVAL U1
-      112 CAPTURE                          UPVAL U7
-      113 CAPTURE                          UPVAL U31
-      114 CAPTURE                          UPVAL U8
-      115 CAPTURE                          UPVAL U10
-      116 DUPCLOSURE                       R14 K9 [PROTO_35]
-      117 CAPTURE                          UPVAL U6
-      118 CAPTURE                          UPVAL U8
-      119 CAPTURE                          UPVAL U4
+       82 CAPTURE                          VAL R0
+       83 DUPCLOSURE                       R11 K6 [PROTO_32]
+       84 CAPTURE                          UPVAL U6
+       85 CAPTURE                          UPVAL U8
+       86 CAPTURE                          UPVAL U4
+       87 CAPTURE                          UPVAL U22
+       88 CAPTURE                          UPVAL U10
+       89 DUPCLOSURE                       R12 K7 [PROTO_33]
+       90 CAPTURE                          UPVAL U4
+       91 CAPTURE                          UPVAL U23
+       92 CAPTURE                          UPVAL U6
+       93 CAPTURE                          UPVAL U0
+       94 CAPTURE                          UPVAL U1
+       95 CAPTURE                          UPVAL U7
+       96 CAPTURE                          UPVAL U8
+       97 CAPTURE                          UPVAL U24
+       98 CAPTURE                          UPVAL U25
+       99 CAPTURE                          UPVAL U26
+      100 CAPTURE                          UPVAL U10
+      101 DUPCLOSURE                       R13 K8 [PROTO_34]
+      102 CAPTURE                          UPVAL U4
+      103 CAPTURE                          UPVAL U27
+      104 CAPTURE                          UPVAL U6
+      105 CAPTURE                          UPVAL U0
+      106 CAPTURE                          UPVAL U1
+      107 CAPTURE                          UPVAL U7
+      108 CAPTURE                          UPVAL U8
+      109 CAPTURE                          UPVAL U28
+      110 CAPTURE                          UPVAL U29
+      111 CAPTURE                          UPVAL U30
+      112 CAPTURE                          UPVAL U10
+      113 DUPCLOSURE                       R14 K9 [PROTO_35]
+      114 CAPTURE                          UPVAL U4
+      115 CAPTURE                          UPVAL U31
+      116 CAPTURE                          UPVAL U6
+      117 CAPTURE                          UPVAL U0
+      118 CAPTURE                          UPVAL U1
+      119 CAPTURE                          UPVAL U7
       120 CAPTURE                          UPVAL U32
-      121 CAPTURE                          UPVAL U10
-      122 DUPCLOSURE                       R15 K10 [PROTO_36]
-      123 CAPTURE                          UPVAL U6
-      124 CAPTURE                          UPVAL U8
-      125 CAPTURE                          UPVAL U4
-      126 CAPTURE                          UPVAL U33
-      127 CAPTURE                          UPVAL U10
-      128 DUPCLOSURE                       R16 K11 [PROTO_37]
-      129 CAPTURE                          UPVAL U4
-      130 CAPTURE                          UPVAL U34
-      131 CAPTURE                          UPVAL U6
-      132 CAPTURE                          UPVAL U0
-      133 CAPTURE                          UPVAL U1
-      134 CAPTURE                          UPVAL U7
-      135 CAPTURE                          UPVAL U8
-      136 CAPTURE                          UPVAL U2
-      137 CAPTURE                          UPVAL U3
-      138 CAPTURE                          UPVAL U35
-      139 CAPTURE                          UPVAL U10
-      140 DUPCLOSURE                       R17 K12 [PROTO_38]
-      141 CAPTURE                          UPVAL U6
+      121 CAPTURE                          UPVAL U8
+      122 CAPTURE                          UPVAL U10
+      123 DUPCLOSURE                       R15 K10 [PROTO_36]
+      124 CAPTURE                          UPVAL U6
+      125 CAPTURE                          UPVAL U8
+      126 CAPTURE                          UPVAL U4
+      127 CAPTURE                          UPVAL U33
+      128 CAPTURE                          UPVAL U10
+      129 DUPCLOSURE                       R16 K11 [PROTO_37]
+      130 CAPTURE                          UPVAL U6
+      131 CAPTURE                          UPVAL U8
+      132 CAPTURE                          UPVAL U4
+      133 CAPTURE                          UPVAL U34
+      134 CAPTURE                          UPVAL U10
+      135 DUPCLOSURE                       R17 K12 [PROTO_38]
+      136 CAPTURE                          UPVAL U4
+      137 CAPTURE                          UPVAL U35
+      138 CAPTURE                          UPVAL U6
+      139 CAPTURE                          UPVAL U0
+      140 CAPTURE                          UPVAL U1
+      141 CAPTURE                          UPVAL U7
       142 CAPTURE                          UPVAL U8
-      143 CAPTURE                          UPVAL U4
-      144 CAPTURE                          UPVAL U36
-      145 CAPTURE                          UPVAL U10
-      146 DUPCLOSURE                       R18 K13 [PROTO_39]
-      147 CAPTURE                          UPVAL U4
-      148 CAPTURE                          UPVAL U37
-      149 CAPTURE                          UPVAL U6
-      150 CAPTURE                          UPVAL U0
-      151 CAPTURE                          UPVAL U1
-      152 CAPTURE                          UPVAL U7
+      143 CAPTURE                          UPVAL U2
+      144 CAPTURE                          UPVAL U3
+      145 CAPTURE                          UPVAL U36
+      146 CAPTURE                          UPVAL U10
+      147 DUPCLOSURE                       R18 K13 [PROTO_39]
+      148 CAPTURE                          UPVAL U6
+      149 CAPTURE                          UPVAL U8
+      150 CAPTURE                          UPVAL U4
+      151 CAPTURE                          UPVAL U37
+      152 CAPTURE                          UPVAL U10
       153 DUPCLOSURE                       R19 K14 [PROTO_40]
       154 CAPTURE                          UPVAL U4
       155 CAPTURE                          UPVAL U38
@@ -4166,302 +4497,344 @@ PROTO_71:
       157 CAPTURE                          UPVAL U0
       158 CAPTURE                          UPVAL U1
       159 CAPTURE                          UPVAL U7
-      160 CAPTURE                          UPVAL U39
-      161 CAPTURE                          UPVAL U23
-      162 CAPTURE                          UPVAL U8
-      163 CAPTURE                          UPVAL U40
-      164 CAPTURE                          UPVAL U10
-      165 DUPCLOSURE                       R20 K15 [PROTO_41]
-      166 CAPTURE                          UPVAL U4
-      167 CAPTURE                          UPVAL U41
-      168 CAPTURE                          UPVAL U6
-      169 CAPTURE                          UPVAL U0
-      170 CAPTURE                          UPVAL U1
-      171 CAPTURE                          UPVAL U7
-      172 CAPTURE                          UPVAL U42
-      173 CAPTURE                          UPVAL U8
-      174 CAPTURE                          UPVAL U43
-      175 CAPTURE                          UPVAL U10
-      176 DUPCLOSURE                       R21 K16 [PROTO_42]
-      177 CAPTURE                          UPVAL U4
-      178 CAPTURE                          UPVAL U44
-      179 CAPTURE                          UPVAL U6
-      180 CAPTURE                          UPVAL U0
-      181 CAPTURE                          UPVAL U1
-      182 CAPTURE                          UPVAL U7
-      183 CAPTURE                          UPVAL U45
-      184 CAPTURE                          UPVAL U8
-      185 CAPTURE                          UPVAL U46
-      186 CAPTURE                          UPVAL U10
-      187 DUPCLOSURE                       R22 K17 [PROTO_43]
-      188 CAPTURE                          UPVAL U4
-      189 CAPTURE                          UPVAL U47
-      190 CAPTURE                          UPVAL U6
-      191 CAPTURE                          UPVAL U0
-      192 CAPTURE                          UPVAL U1
-      193 CAPTURE                          UPVAL U7
-      194 CAPTURE                          UPVAL U23
-      195 CAPTURE                          UPVAL U8
+      160 DUPCLOSURE                       R20 K15 [PROTO_41]
+      161 CAPTURE                          UPVAL U4
+      162 CAPTURE                          UPVAL U39
+      163 CAPTURE                          UPVAL U6
+      164 CAPTURE                          UPVAL U0
+      165 CAPTURE                          UPVAL U1
+      166 CAPTURE                          UPVAL U7
+      167 CAPTURE                          UPVAL U40
+      168 CAPTURE                          UPVAL U24
+      169 CAPTURE                          UPVAL U8
+      170 CAPTURE                          UPVAL U41
+      171 CAPTURE                          UPVAL U10
+      172 DUPCLOSURE                       R21 K16 [PROTO_42]
+      173 CAPTURE                          UPVAL U4
+      174 CAPTURE                          UPVAL U42
+      175 CAPTURE                          UPVAL U6
+      176 CAPTURE                          UPVAL U0
+      177 CAPTURE                          UPVAL U1
+      178 CAPTURE                          UPVAL U7
+      179 CAPTURE                          UPVAL U43
+      180 CAPTURE                          UPVAL U8
+      181 CAPTURE                          UPVAL U44
+      182 CAPTURE                          UPVAL U10
+      183 DUPCLOSURE                       R22 K17 [PROTO_43]
+      184 CAPTURE                          UPVAL U4
+      185 CAPTURE                          UPVAL U45
+      186 CAPTURE                          UPVAL U6
+      187 CAPTURE                          UPVAL U0
+      188 CAPTURE                          UPVAL U1
+      189 CAPTURE                          UPVAL U7
+      190 CAPTURE                          UPVAL U46
+      191 CAPTURE                          UPVAL U8
+      192 CAPTURE                          UPVAL U47
+      193 CAPTURE                          UPVAL U10
+      194 DUPCLOSURE                       R23 K18 [PROTO_44]
+      195 CAPTURE                          UPVAL U4
       196 CAPTURE                          UPVAL U48
-      197 CAPTURE                          UPVAL U10
-      198 DUPCLOSURE                       R23 K18 [PROTO_44]
-      199 CAPTURE                          UPVAL U4
-      200 CAPTURE                          UPVAL U49
-      201 CAPTURE                          UPVAL U6
+      197 CAPTURE                          UPVAL U6
+      198 CAPTURE                          UPVAL U0
+      199 CAPTURE                          UPVAL U1
+      200 CAPTURE                          UPVAL U7
+      201 CAPTURE                          UPVAL U24
       202 CAPTURE                          UPVAL U8
-      203 CAPTURE                          UPVAL U10
-      204 DUPCLOSURE                       R24 K19 [PROTO_45]
-      205 CAPTURE                          UPVAL U4
-      206 CAPTURE                          UPVAL U50
-      207 CAPTURE                          UPVAL U6
-      208 CAPTURE                          UPVAL U8
-      209 CAPTURE                          UPVAL U10
-      210 DUPCLOSURE                       R25 K20 [PROTO_46]
-      211 CAPTURE                          UPVAL U4
-      212 CAPTURE                          UPVAL U51
-      213 CAPTURE                          UPVAL U6
-      214 CAPTURE                          UPVAL U8
-      215 CAPTURE                          UPVAL U10
-      216 DUPCLOSURE                       R26 K21 [PROTO_47]
-      217 CAPTURE                          UPVAL U4
-      218 CAPTURE                          UPVAL U52
-      219 CAPTURE                          UPVAL U6
-      220 CAPTURE                          UPVAL U8
-      221 CAPTURE                          UPVAL U10
-      222 CAPTURE                          UPVAL U53
-      223 CAPTURE                          UPVAL U0
-      224 CAPTURE                          UPVAL U1
-      225 CAPTURE                          UPVAL U7
-      226 DUPCLOSURE                       R27 K22 [PROTO_48]
-      227 CAPTURE                          UPVAL U4
-      228 CAPTURE                          UPVAL U54
-      229 CAPTURE                          UPVAL U6
-      230 CAPTURE                          UPVAL U8
-      231 CAPTURE                          UPVAL U10
-      232 CAPTURE                          UPVAL U55
-      233 CAPTURE                          UPVAL U0
-      234 CAPTURE                          UPVAL U1
-      235 CAPTURE                          UPVAL U7
-      236 DUPCLOSURE                       R28 K23 [PROTO_49]
-      237 CAPTURE                          UPVAL U3
-      238 CAPTURE                          UPVAL U4
+      203 CAPTURE                          UPVAL U49
+      204 CAPTURE                          UPVAL U10
+      205 DUPCLOSURE                       R24 K19 [PROTO_45]
+      206 CAPTURE                          UPVAL U4
+      207 CAPTURE                          UPVAL U50
+      208 CAPTURE                          UPVAL U6
+      209 CAPTURE                          UPVAL U8
+      210 CAPTURE                          UPVAL U10
+      211 DUPCLOSURE                       R25 K20 [PROTO_46]
+      212 CAPTURE                          UPVAL U4
+      213 CAPTURE                          UPVAL U51
+      214 CAPTURE                          UPVAL U6
+      215 CAPTURE                          UPVAL U8
+      216 CAPTURE                          UPVAL U10
+      217 DUPCLOSURE                       R26 K21 [PROTO_47]
+      218 CAPTURE                          UPVAL U4
+      219 CAPTURE                          UPVAL U52
+      220 CAPTURE                          UPVAL U6
+      221 CAPTURE                          UPVAL U8
+      222 CAPTURE                          UPVAL U10
+      223 DUPCLOSURE                       R27 K22 [PROTO_48]
+      224 CAPTURE                          UPVAL U4
+      225 CAPTURE                          UPVAL U53
+      226 CAPTURE                          UPVAL U6
+      227 CAPTURE                          UPVAL U8
+      228 CAPTURE                          UPVAL U10
+      229 CAPTURE                          UPVAL U54
+      230 CAPTURE                          UPVAL U0
+      231 CAPTURE                          UPVAL U1
+      232 CAPTURE                          UPVAL U7
+      233 DUPCLOSURE                       R28 K23 [PROTO_49]
+      234 CAPTURE                          UPVAL U4
+      235 CAPTURE                          UPVAL U55
+      236 CAPTURE                          UPVAL U6
+      237 CAPTURE                          UPVAL U8
+      238 CAPTURE                          UPVAL U10
       239 CAPTURE                          UPVAL U56
-      240 CAPTURE                          UPVAL U6
-      241 CAPTURE                          UPVAL U0
-      242 CAPTURE                          UPVAL U1
-      243 CAPTURE                          UPVAL U7
-      244 DUPCLOSURE                       R29 K24 [PROTO_50]
-      245 CAPTURE                          UPVAL U3
-      246 CAPTURE                          UPVAL U4
-      247 CAPTURE                          UPVAL U57
-      248 CAPTURE                          UPVAL U6
-      249 CAPTURE                          UPVAL U8
-      250 CAPTURE                          UPVAL U10
+      240 CAPTURE                          UPVAL U0
+      241 CAPTURE                          UPVAL U1
+      242 CAPTURE                          UPVAL U7
+      243 DUPCLOSURE                       R29 K24 [PROTO_50]
+      244 CAPTURE                          UPVAL U3
+      245 CAPTURE                          UPVAL U4
+      246 CAPTURE                          UPVAL U57
+      247 CAPTURE                          UPVAL U6
+      248 CAPTURE                          UPVAL U0
+      249 CAPTURE                          UPVAL U1
+      250 CAPTURE                          UPVAL U7
       251 DUPCLOSURE                       R30 K25 [PROTO_51]
       252 CAPTURE                          UPVAL U3
       253 CAPTURE                          UPVAL U4
       254 CAPTURE                          UPVAL U58
-      255 CAPTURE                          UPVAL U23
-      256 CAPTURE                          UPVAL U6
-      257 CAPTURE                          UPVAL U8
-      258 CAPTURE                          UPVAL U10
-      259 DUPCLOSURE                       R31 K26 [PROTO_52]
-      260 CAPTURE                          UPVAL U3
-      261 CAPTURE                          UPVAL U4
-      262 CAPTURE                          UPVAL U59
+      255 CAPTURE                          UPVAL U6
+      256 CAPTURE                          UPVAL U8
+      257 CAPTURE                          UPVAL U10
+      258 DUPCLOSURE                       R31 K26 [PROTO_52]
+      259 CAPTURE                          UPVAL U3
+      260 CAPTURE                          UPVAL U4
+      261 CAPTURE                          UPVAL U59
+      262 CAPTURE                          UPVAL U24
       263 CAPTURE                          UPVAL U6
-      264 CAPTURE                          UPVAL U0
-      265 CAPTURE                          UPVAL U1
-      266 CAPTURE                          UPVAL U7
-      267 CAPTURE                          UPVAL U60
-      268 CAPTURE                          UPVAL U8
-      269 CAPTURE                          UPVAL U10
-      270 DUPCLOSURE                       R32 K27 [PROTO_53]
-      271 CAPTURE                          UPVAL U3
-      272 CAPTURE                          UPVAL U4
-      273 CAPTURE                          UPVAL U61
-      274 CAPTURE                          UPVAL U6
-      275 CAPTURE                          UPVAL U0
-      276 CAPTURE                          UPVAL U1
-      277 CAPTURE                          UPVAL U7
-      278 CAPTURE                          UPVAL U62
-      279 CAPTURE                          UPVAL U8
-      280 CAPTURE                          UPVAL U10
-      281 DUPCLOSURE                       R33 K28 [PROTO_54]
-      282 CAPTURE                          UPVAL U4
-      283 CAPTURE                          UPVAL U63
-      284 CAPTURE                          UPVAL U6
-      285 CAPTURE                          UPVAL U8
-      286 CAPTURE                          UPVAL U10
-      287 DUPCLOSURE                       R34 K29 [PROTO_55]
-      288 CAPTURE                          UPVAL U4
-      289 CAPTURE                          UPVAL U64
-      290 CAPTURE                          UPVAL U6
-      291 CAPTURE                          UPVAL U8
-      292 CAPTURE                          UPVAL U10
-      293 CAPTURE                          UPVAL U65
-      294 CAPTURE                          UPVAL U0
-      295 CAPTURE                          UPVAL U1
-      296 CAPTURE                          UPVAL U7
-      297 DUPCLOSURE                       R35 K30 [PROTO_56]
-      298 CAPTURE                          UPVAL U4
-      299 CAPTURE                          UPVAL U66
-      300 CAPTURE                          UPVAL U6
-      301 CAPTURE                          UPVAL U0
-      302 CAPTURE                          UPVAL U1
-      303 CAPTURE                          UPVAL U7
-      304 CAPTURE                          UPVAL U8
-      305 CAPTURE                          UPVAL U67
-      306 CAPTURE                          UPVAL U10
-      307 DUPCLOSURE                       R36 K31 [PROTO_57]
-      308 CAPTURE                          UPVAL U4
-      309 CAPTURE                          UPVAL U68
-      310 CAPTURE                          UPVAL U6
+      264 CAPTURE                          UPVAL U8
+      265 CAPTURE                          UPVAL U10
+      266 DUPCLOSURE                       R32 K27 [PROTO_53]
+      267 CAPTURE                          UPVAL U3
+      268 CAPTURE                          UPVAL U4
+      269 CAPTURE                          UPVAL U60
+      270 CAPTURE                          UPVAL U6
+      271 CAPTURE                          UPVAL U0
+      272 CAPTURE                          UPVAL U1
+      273 CAPTURE                          UPVAL U7
+      274 CAPTURE                          UPVAL U61
+      275 CAPTURE                          UPVAL U8
+      276 CAPTURE                          UPVAL U10
+      277 DUPCLOSURE                       R33 K28 [PROTO_54]
+      278 CAPTURE                          UPVAL U3
+      279 CAPTURE                          UPVAL U4
+      280 CAPTURE                          UPVAL U62
+      281 CAPTURE                          UPVAL U6
+      282 CAPTURE                          UPVAL U0
+      283 CAPTURE                          UPVAL U1
+      284 CAPTURE                          UPVAL U7
+      285 CAPTURE                          UPVAL U63
+      286 CAPTURE                          UPVAL U8
+      287 CAPTURE                          UPVAL U10
+      288 DUPCLOSURE                       R34 K29 [PROTO_55]
+      289 CAPTURE                          UPVAL U4
+      290 CAPTURE                          UPVAL U64
+      291 CAPTURE                          UPVAL U6
+      292 CAPTURE                          UPVAL U0
+      293 CAPTURE                          UPVAL U1
+      294 CAPTURE                          UPVAL U7
+      295 CAPTURE                          UPVAL U65
+      296 CAPTURE                          UPVAL U8
+      297 CAPTURE                          UPVAL U10
+      298 DUPCLOSURE                       R35 K30 [PROTO_56]
+      299 CAPTURE                          UPVAL U4
+      300 CAPTURE                          UPVAL U66
+      301 CAPTURE                          UPVAL U6
+      302 CAPTURE                          UPVAL U8
+      303 CAPTURE                          UPVAL U10
+      304 DUPCLOSURE                       R36 K31 [PROTO_57]
+      305 CAPTURE                          UPVAL U4
+      306 CAPTURE                          UPVAL U67
+      307 CAPTURE                          UPVAL U6
+      308 CAPTURE                          UPVAL U8
+      309 CAPTURE                          UPVAL U10
+      310 CAPTURE                          UPVAL U68
       311 CAPTURE                          UPVAL U0
       312 CAPTURE                          UPVAL U1
       313 CAPTURE                          UPVAL U7
-      314 CAPTURE                          UPVAL U8
-      315 CAPTURE                          UPVAL U69
-      316 CAPTURE                          UPVAL U10
-      317 DUPCLOSURE                       R37 K32 [PROTO_58]
-      318 CAPTURE                          UPVAL U4
-      319 CAPTURE                          UPVAL U70
-      320 DUPCLOSURE                       R38 K33 [PROTO_59]
-      321 CAPTURE                          UPVAL U4
-      322 CAPTURE                          UPVAL U71
-      323 CAPTURE                          UPVAL U6
-      324 CAPTURE                          UPVAL U8
-      325 CAPTURE                          UPVAL U10
-      326 DUPCLOSURE                       R39 K34 [PROTO_60]
-      327 CAPTURE                          UPVAL U4
-      328 CAPTURE                          UPVAL U72
-      329 CAPTURE                          UPVAL U6
-      330 CAPTURE                          UPVAL U8
-      331 CAPTURE                          UPVAL U10
-      332 DUPCLOSURE                       R40 K35 [PROTO_61]
-      333 CAPTURE                          UPVAL U4
-      334 CAPTURE                          UPVAL U73
-      335 CAPTURE                          UPVAL U6
-      336 CAPTURE                          UPVAL U8
-      337 CAPTURE                          UPVAL U10
-      338 DUPCLOSURE                       R41 K36 [PROTO_62]
-      339 CAPTURE                          UPVAL U4
-      340 CAPTURE                          UPVAL U74
-      341 CAPTURE                          UPVAL U6
+      314 DUPCLOSURE                       R37 K32 [PROTO_58]
+      315 CAPTURE                          UPVAL U4
+      316 CAPTURE                          UPVAL U69
+      317 CAPTURE                          UPVAL U25
+      318 CAPTURE                          UPVAL U6
+      319 CAPTURE                          UPVAL U8
+      320 CAPTURE                          UPVAL U10
+      321 CAPTURE                          UPVAL U70
+      322 CAPTURE                          UPVAL U0
+      323 CAPTURE                          UPVAL U1
+      324 CAPTURE                          UPVAL U7
+      325 DUPCLOSURE                       R38 K33 [PROTO_59]
+      326 CAPTURE                          UPVAL U4
+      327 CAPTURE                          UPVAL U71
+      328 CAPTURE                          UPVAL U6
+      329 CAPTURE                          UPVAL U8
+      330 CAPTURE                          UPVAL U10
+      331 CAPTURE                          UPVAL U72
+      332 CAPTURE                          UPVAL U0
+      333 CAPTURE                          UPVAL U1
+      334 CAPTURE                          UPVAL U7
+      335 DUPCLOSURE                       R39 K34 [PROTO_60]
+      336 CAPTURE                          UPVAL U4
+      337 CAPTURE                          UPVAL U73
+      338 CAPTURE                          UPVAL U6
+      339 CAPTURE                          UPVAL U0
+      340 CAPTURE                          UPVAL U1
+      341 CAPTURE                          UPVAL U7
       342 CAPTURE                          UPVAL U8
-      343 CAPTURE                          UPVAL U10
-      344 DUPCLOSURE                       R42 K37 [PROTO_63]
-      345 CAPTURE                          UPVAL U4
-      346 CAPTURE                          UPVAL U75
-      347 CAPTURE                          UPVAL U6
-      348 CAPTURE                          UPVAL U8
-      349 CAPTURE                          UPVAL U10
-      350 DUPCLOSURE                       R43 K38 [PROTO_64]
-      351 CAPTURE                          UPVAL U4
-      352 CAPTURE                          UPVAL U76
-      353 CAPTURE                          UPVAL U6
-      354 CAPTURE                          UPVAL U8
-      355 CAPTURE                          UPVAL U10
-      356 DUPCLOSURE                       R44 K39 [PROTO_65]
-      357 CAPTURE                          UPVAL U4
-      358 CAPTURE                          UPVAL U77
-      359 CAPTURE                          UPVAL U6
-      360 CAPTURE                          UPVAL U8
-      361 CAPTURE                          UPVAL U10
-      362 DUPCLOSURE                       R45 K40 [PROTO_66]
-      363 CAPTURE                          UPVAL U4
-      364 CAPTURE                          UPVAL U78
-      365 CAPTURE                          UPVAL U6
-      366 CAPTURE                          UPVAL U0
-      367 CAPTURE                          UPVAL U1
-      368 CAPTURE                          UPVAL U7
-      369 CAPTURE                          UPVAL U79
-      370 CAPTURE                          UPVAL U8
-      371 CAPTURE                          UPVAL U10
-      372 DUPCLOSURE                       R46 K41 [PROTO_67]
-      373 CAPTURE                          UPVAL U4
-      374 CAPTURE                          UPVAL U80
-      375 CAPTURE                          UPVAL U6
-      376 CAPTURE                          UPVAL U0
-      377 CAPTURE                          UPVAL U1
-      378 CAPTURE                          UPVAL U7
-      379 CAPTURE                          UPVAL U81
+      343 CAPTURE                          UPVAL U74
+      344 CAPTURE                          UPVAL U10
+      345 DUPCLOSURE                       R40 K35 [PROTO_61]
+      346 CAPTURE                          UPVAL U4
+      347 CAPTURE                          UPVAL U75
+      348 CAPTURE                          UPVAL U6
+      349 CAPTURE                          UPVAL U0
+      350 CAPTURE                          UPVAL U1
+      351 CAPTURE                          UPVAL U7
+      352 CAPTURE                          UPVAL U8
+      353 CAPTURE                          UPVAL U76
+      354 CAPTURE                          UPVAL U10
+      355 DUPCLOSURE                       R41 K36 [PROTO_62]
+      356 CAPTURE                          UPVAL U4
+      357 CAPTURE                          UPVAL U77
+      358 DUPCLOSURE                       R42 K37 [PROTO_63]
+      359 CAPTURE                          UPVAL U4
+      360 CAPTURE                          UPVAL U78
+      361 CAPTURE                          UPVAL U6
+      362 CAPTURE                          UPVAL U8
+      363 CAPTURE                          UPVAL U10
+      364 DUPCLOSURE                       R43 K38 [PROTO_64]
+      365 CAPTURE                          UPVAL U4
+      366 CAPTURE                          UPVAL U79
+      367 CAPTURE                          UPVAL U6
+      368 CAPTURE                          UPVAL U8
+      369 CAPTURE                          UPVAL U10
+      370 DUPCLOSURE                       R44 K39 [PROTO_65]
+      371 CAPTURE                          UPVAL U4
+      372 CAPTURE                          UPVAL U80
+      373 CAPTURE                          UPVAL U6
+      374 CAPTURE                          UPVAL U8
+      375 CAPTURE                          UPVAL U10
+      376 DUPCLOSURE                       R45 K40 [PROTO_66]
+      377 CAPTURE                          UPVAL U4
+      378 CAPTURE                          UPVAL U81
+      379 CAPTURE                          UPVAL U6
       380 CAPTURE                          UPVAL U8
       381 CAPTURE                          UPVAL U10
-      382 DUPCLOSURE                       R47 K42 [PROTO_68]
+      382 DUPCLOSURE                       R46 K41 [PROTO_67]
       383 CAPTURE                          UPVAL U4
       384 CAPTURE                          UPVAL U82
       385 CAPTURE                          UPVAL U6
       386 CAPTURE                          UPVAL U8
       387 CAPTURE                          UPVAL U10
-      388 DUPCLOSURE                       R48 K43 [PROTO_69]
+      388 DUPCLOSURE                       R47 K42 [PROTO_68]
       389 CAPTURE                          UPVAL U4
       390 CAPTURE                          UPVAL U83
       391 CAPTURE                          UPVAL U6
       392 CAPTURE                          UPVAL U8
       393 CAPTURE                          UPVAL U10
-      394 DUPCLOSURE                       R49 K44 [PROTO_70]
+      394 DUPCLOSURE                       R48 K43 [PROTO_69]
       395 CAPTURE                          UPVAL U4
       396 CAPTURE                          UPVAL U84
       397 CAPTURE                          UPVAL U6
-      398 CAPTURE                          UPVAL U0
-      399 CAPTURE                          UPVAL U1
-      400 CAPTURE                          UPVAL U7
-      401 CAPTURE                          UPVAL U85
-      402 CAPTURE                          UPVAL U86
-      403 NEWTABLE                         R50 64 0
-      405 SETTABLEKS                       R1 R50 K45 ["logUserMessageSent"]
-      407 SETTABLEKS                       R2 R50 K46 ["logAssistantMessageSent"]
-      409 SETTABLEKS                       R3 R50 K47 ["logApiKeyAdded"]
-      411 SETTABLEKS                       R4 R50 K48 ["logErrorEvent"]
-      413 SETTABLEKS                       R17 R50 K49 ["logExternalAPIError"]
-      415 SETTABLEKS                       R5 R50 K50 ["logThumbsUp"]
-      417 SETTABLEKS                       R6 R50 K51 ["logThumbsDown"]
-      419 SETTABLEKS                       R7 R50 K52 ["logInitialResponseLatency"]
-      421 SETTABLEKS                       R8 R50 K53 ["logMarkdownError"]
-      423 SETTABLEKS                       R9 R50 K54 ["logRetry"]
-      425 SETTABLEKS                       R10 R50 K55 ["logStopGeneration"]
-      427 SETTABLEKS                       R11 R50 K56 ["logToolStarted"]
-      429 SETTABLEKS                       R12 R50 K57 ["logToolEnded"]
-      431 SETTABLEKS                       R13 R50 K58 ["logFailedToolInvocation"]
-      433 SETTABLEKS                       R14 R50 K59 ["logToolConfirmationShown"]
-      435 SETTABLEKS                       R15 R50 K60 ["logToolConfirmationResult"]
-      437 SETTABLEKS                       R16 R50 K61 ["logRequestJourney"]
-      439 SETTABLEKS                       R18 R50 K62 ["logMeshGenActivated"]
-      441 SETTABLEKS                       R19 R50 K63 ["logMeshGenCompleted"]
-      443 SETTABLEKS                       R20 R50 K64 ["logMeshGenPublishedAssets"]
-      445 SETTABLEKS                       R21 R50 K65 ["logMeshGenMeshInserted"]
-      447 SETTABLEKS                       R22 R50 K66 ["logPrimitiveGen"]
-      449 SETTABLEKS                       R23 R50 K67 ["logAvatarAutoSetupRequested"]
-      451 SETTABLEKS                       R24 R50 K68 ["logAvatarAutoSetupOptions"]
-      453 SETTABLEKS                       R25 R50 K69 ["logAvatarAutoSetupJobInitialized"]
-      455 SETTABLEKS                       R26 R50 K70 ["logAvatarAutoSetupFinish"]
-      457 SETTABLEKS                       R27 R50 K71 ["logAvatarAutoSetupFailure"]
-      459 SETTABLEKS                       R28 R50 K72 ["logGen3DSegmentationRefresh"]
-      461 SETTABLEKS                       R29 R50 K73 ["logGen3DInstanceDeleted"]
-      463 SETTABLEKS                       R30 R50 K74 ["logGen3DImageImpression"]
-      465 SETTABLEKS                       R31 R50 K75 ["logGen3DImageAction"]
-      467 SETTABLEKS                       R32 R50 K76 ["logGen3DAssetPublished"]
-      469 SETTABLEKS                       R33 R50 K77 ["logIntegrationEvent"]
-      471 SETTABLEKS                       R34 R50 K78 ["logExternalServerConnected"]
-      473 SETTABLEKS                       R35 R50 K79 ["logQuestionAnswerCompleted"]
-      475 SETTABLEKS                       R36 R50 K80 ["logPlanDecision"]
-      477 SETTABLEKS                       R43 R50 K81 ["logQuickSetupToggled"]
-      479 SETTABLEKS                       R37 R50 K82 ["logMaterialGeneratorSavedMaterial"]
-      481 SETTABLEKS                       R45 R50 K83 ["logCompactionSuccess"]
-      483 SETTABLEKS                       R46 R50 K84 ["logCompactionFallback"]
-      485 SETTABLEKS                       R47 R50 K85 ["logUserSkillEvent"]
-      487 SETTABLEKS                       R48 R50 K86 ["logThinkingBlock"]
-      489 SETTABLEKS                       R38 R50 K87 ["logThreadCreated"]
-      491 SETTABLEKS                       R39 R50 K88 ["logThreadRenamed"]
-      493 SETTABLEKS                       R40 R50 K89 ["logThreadPinnedChanged"]
-      495 SETTABLEKS                       R41 R50 K90 ["logThreadDeleted"]
-      497 SETTABLEKS                       R42 R50 K91 ["logThreadDuplicated"]
-      499 SETTABLEKS                       R44 R50 K92 ["logThreadSwitched"]
-      501 SETTABLEKS                       R49 R50 K93 ["logPersistenceOperation"]
-      503 RETURN                           R50 1
+      398 CAPTURE                          UPVAL U8
+      399 CAPTURE                          UPVAL U10
+      400 DUPCLOSURE                       R49 K44 [PROTO_70]
+      401 CAPTURE                          UPVAL U4
+      402 CAPTURE                          UPVAL U85
+      403 CAPTURE                          UPVAL U6
+      404 CAPTURE                          UPVAL U0
+      405 CAPTURE                          UPVAL U1
+      406 CAPTURE                          UPVAL U7
+      407 CAPTURE                          UPVAL U86
+      408 CAPTURE                          UPVAL U8
+      409 CAPTURE                          UPVAL U10
+      410 DUPCLOSURE                       R50 K45 [PROTO_71]
+      411 CAPTURE                          UPVAL U4
+      412 CAPTURE                          UPVAL U87
+      413 CAPTURE                          UPVAL U6
+      414 CAPTURE                          UPVAL U0
+      415 CAPTURE                          UPVAL U1
+      416 CAPTURE                          UPVAL U7
+      417 CAPTURE                          UPVAL U88
+      418 CAPTURE                          UPVAL U8
+      419 CAPTURE                          UPVAL U10
+      420 DUPCLOSURE                       R51 K46 [PROTO_72]
+      421 CAPTURE                          UPVAL U4
+      422 CAPTURE                          UPVAL U89
+      423 CAPTURE                          UPVAL U6
+      424 CAPTURE                          UPVAL U8
+      425 CAPTURE                          UPVAL U10
+      426 DUPCLOSURE                       R52 K47 [PROTO_73]
+      427 CAPTURE                          UPVAL U4
+      428 CAPTURE                          UPVAL U90
+      429 CAPTURE                          UPVAL U6
+      430 CAPTURE                          UPVAL U8
+      431 CAPTURE                          UPVAL U10
+      432 DUPCLOSURE                       R53 K48 [PROTO_74]
+      433 CAPTURE                          UPVAL U4
+      434 CAPTURE                          UPVAL U91
+      435 CAPTURE                          UPVAL U6
+      436 CAPTURE                          UPVAL U0
+      437 CAPTURE                          UPVAL U1
+      438 CAPTURE                          UPVAL U7
+      439 CAPTURE                          UPVAL U92
+      440 CAPTURE                          UPVAL U93
+      441 NEWTABLE                         R54 64 0
+      443 SETTABLEKS                       R1 R54 K49 ["logUserMessageSent"]
+      445 SETTABLEKS                       R2 R54 K50 ["logAssistantMessageSent"]
+      447 SETTABLEKS                       R3 R54 K51 ["logApiKeyAdded"]
+      449 SETTABLEKS                       R4 R54 K52 ["logErrorEvent"]
+      451 SETTABLEKS                       R18 R54 K53 ["logExternalAPIError"]
+      453 SETTABLEKS                       R5 R54 K54 ["logThumbsUp"]
+      455 SETTABLEKS                       R6 R54 K55 ["logThumbsDown"]
+      457 SETTABLEKS                       R7 R54 K56 ["logInitialResponseLatency"]
+      459 SETTABLEKS                       R8 R54 K57 ["logNotificationGapSkipped"]
+      461 SETTABLEKS                       R9 R54 K58 ["logMarkdownError"]
+      463 SETTABLEKS                       R10 R54 K59 ["logRetry"]
+      465 SETTABLEKS                       R11 R54 K60 ["logStopGeneration"]
+      467 SETTABLEKS                       R12 R54 K61 ["logToolStarted"]
+      469 SETTABLEKS                       R13 R54 K62 ["logToolEnded"]
+      471 SETTABLEKS                       R14 R54 K63 ["logFailedToolInvocation"]
+      473 SETTABLEKS                       R15 R54 K64 ["logToolConfirmationShown"]
+      475 SETTABLEKS                       R16 R54 K65 ["logToolConfirmationResult"]
+      477 SETTABLEKS                       R17 R54 K66 ["logRequestJourney"]
+      479 SETTABLEKS                       R19 R54 K67 ["logMeshGenActivated"]
+      481 SETTABLEKS                       R20 R54 K68 ["logMeshGenCompleted"]
+      483 SETTABLEKS                       R21 R54 K69 ["logMeshGenPublishedAssets"]
+      485 SETTABLEKS                       R22 R54 K70 ["logMeshGenMeshInserted"]
+      487 SETTABLEKS                       R23 R54 K71 ["logPrimitiveGen"]
+      489 SETTABLEKS                       R24 R54 K72 ["logAvatarAutoSetupRequested"]
+      491 SETTABLEKS                       R25 R54 K73 ["logAvatarAutoSetupOptions"]
+      493 SETTABLEKS                       R26 R54 K74 ["logAvatarAutoSetupJobInitialized"]
+      495 SETTABLEKS                       R27 R54 K75 ["logAvatarAutoSetupFinish"]
+      497 SETTABLEKS                       R28 R54 K76 ["logAvatarAutoSetupFailure"]
+      499 SETTABLEKS                       R29 R54 K77 ["logGen3DSegmentationRefresh"]
+      501 SETTABLEKS                       R30 R54 K78 ["logGen3DInstanceDeleted"]
+      503 SETTABLEKS                       R31 R54 K79 ["logGen3DImageImpression"]
+      505 SETTABLEKS                       R32 R54 K80 ["logGen3DImageAction"]
+      507 SETTABLEKS                       R33 R54 K81 ["logGen3DAssetPublished"]
+      509 SETTABLEKS                       R34 R54 K82 ["logTextureGenCompleted"]
+      511 SETTABLEKS                       R35 R54 K83 ["logIntegrationEvent"]
+      513 SETTABLEKS                       R36 R54 K84 ["logExternalServerConnected"]
+      515 SETTABLEKS                       R37 R54 K85 ["logMCPProxyTokenRead"]
+      517 SETTABLEKS                       R38 R54 K86 ["logMCPProxyAuthRejected"]
+      519 SETTABLEKS                       R39 R54 K87 ["logQuestionAnswerCompleted"]
+      521 SETTABLEKS                       R40 R54 K88 ["logPlanDecision"]
+      523 SETTABLEKS                       R47 R54 K89 ["logQuickSetupToggled"]
+      525 SETTABLEKS                       R41 R54 K90 ["logMaterialGeneratorSavedMaterial"]
+      527 SETTABLEKS                       R49 R54 K91 ["logCompactionSuccess"]
+      529 SETTABLEKS                       R50 R54 K92 ["logCompactionFallback"]
+      531 SETTABLEKS                       R51 R54 K93 ["logUserSkillEvent"]
+      533 SETTABLEKS                       R52 R54 K94 ["logThinkingBlock"]
+      535 SETTABLEKS                       R42 R54 K95 ["logThreadCreated"]
+      537 SETTABLEKS                       R43 R54 K96 ["logThreadRenamed"]
+      539 SETTABLEKS                       R44 R54 K97 ["logThreadPinnedChanged"]
+      541 SETTABLEKS                       R45 R54 K98 ["logThreadDeleted"]
+      543 SETTABLEKS                       R46 R54 K99 ["logThreadDuplicated"]
+      545 SETTABLEKS                       R48 R54 K100 ["logThreadSwitched"]
+      547 SETTABLEKS                       R53 R54 K101 ["logPersistenceOperation"]
+      549 RETURN                           R54 1
 
-PROTO_72:
+PROTO_76:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 1
@@ -4520,41 +4893,47 @@ PROTO_72:
       107 SETTABLEKS                       R3 R2 K25 ["logGen3DImageAction"]
       109 GETTABLEKS                       R3 R1 K26 ["logGen3DAssetPublished"]
       111 SETTABLEKS                       R3 R2 K26 ["logGen3DAssetPublished"]
-      113 GETTABLEKS                       R3 R1 K27 ["logIntegrationEvent"]
-      115 SETTABLEKS                       R3 R2 K27 ["logIntegrationEvent"]
-      117 GETTABLEKS                       R3 R1 K28 ["logExternalServerConnected"]
-      119 SETTABLEKS                       R3 R2 K28 ["logExternalServerConnected"]
-      121 GETTABLEKS                       R3 R1 K29 ["logQuestionAnswerCompleted"]
-      123 SETTABLEKS                       R3 R2 K29 ["logQuestionAnswerCompleted"]
-      125 GETTABLEKS                       R3 R1 K30 ["logPlanDecision"]
-      127 SETTABLEKS                       R3 R2 K30 ["logPlanDecision"]
-      129 GETTABLEKS                       R3 R1 K31 ["logQuickSetupToggled"]
-      131 SETTABLEKS                       R3 R2 K31 ["logQuickSetupToggled"]
-      133 GETTABLEKS                       R3 R1 K32 ["logMaterialGeneratorSavedMaterial"]
-      135 SETTABLEKS                       R3 R2 K32 ["logMaterialGeneratorSavedMaterial"]
-      137 GETTABLEKS                       R3 R1 K33 ["logCompactionSuccess"]
-      139 SETTABLEKS                       R3 R2 K33 ["logCompactionSuccess"]
-      141 GETTABLEKS                       R3 R1 K34 ["logCompactionFallback"]
-      143 SETTABLEKS                       R3 R2 K34 ["logCompactionFallback"]
-      145 GETTABLEKS                       R3 R1 K35 ["logUserSkillEvent"]
-      147 SETTABLEKS                       R3 R2 K35 ["logUserSkillEvent"]
-      149 GETTABLEKS                       R3 R1 K36 ["logThinkingBlock"]
-      151 SETTABLEKS                       R3 R2 K36 ["logThinkingBlock"]
-      153 GETTABLEKS                       R3 R1 K37 ["logThreadCreated"]
-      155 SETTABLEKS                       R3 R2 K37 ["logThreadCreated"]
-      157 GETTABLEKS                       R3 R1 K38 ["logThreadRenamed"]
-      159 SETTABLEKS                       R3 R2 K38 ["logThreadRenamed"]
-      161 GETTABLEKS                       R3 R1 K39 ["logThreadPinnedChanged"]
-      163 SETTABLEKS                       R3 R2 K39 ["logThreadPinnedChanged"]
-      165 GETTABLEKS                       R3 R1 K40 ["logThreadDeleted"]
-      167 SETTABLEKS                       R3 R2 K40 ["logThreadDeleted"]
-      169 GETTABLEKS                       R3 R1 K41 ["logThreadDuplicated"]
-      171 SETTABLEKS                       R3 R2 K41 ["logThreadDuplicated"]
-      173 GETTABLEKS                       R3 R1 K42 ["logThreadSwitched"]
-      175 SETTABLEKS                       R3 R2 K42 ["logThreadSwitched"]
-      177 GETTABLEKS                       R3 R1 K43 ["logPersistenceOperation"]
-      179 SETTABLEKS                       R3 R2 K43 ["logPersistenceOperation"]
-      181 RETURN                           R2 1
+      113 GETTABLEKS                       R3 R1 K27 ["logTextureGenCompleted"]
+      115 SETTABLEKS                       R3 R2 K27 ["logTextureGenCompleted"]
+      117 GETTABLEKS                       R3 R1 K28 ["logIntegrationEvent"]
+      119 SETTABLEKS                       R3 R2 K28 ["logIntegrationEvent"]
+      121 GETTABLEKS                       R3 R1 K29 ["logExternalServerConnected"]
+      123 SETTABLEKS                       R3 R2 K29 ["logExternalServerConnected"]
+      125 GETTABLEKS                       R3 R1 K30 ["logMCPProxyTokenRead"]
+      127 SETTABLEKS                       R3 R2 K30 ["logMCPProxyTokenRead"]
+      129 GETTABLEKS                       R3 R1 K31 ["logMCPProxyAuthRejected"]
+      131 SETTABLEKS                       R3 R2 K31 ["logMCPProxyAuthRejected"]
+      133 GETTABLEKS                       R3 R1 K32 ["logQuestionAnswerCompleted"]
+      135 SETTABLEKS                       R3 R2 K32 ["logQuestionAnswerCompleted"]
+      137 GETTABLEKS                       R3 R1 K33 ["logPlanDecision"]
+      139 SETTABLEKS                       R3 R2 K33 ["logPlanDecision"]
+      141 GETTABLEKS                       R3 R1 K34 ["logQuickSetupToggled"]
+      143 SETTABLEKS                       R3 R2 K34 ["logQuickSetupToggled"]
+      145 GETTABLEKS                       R3 R1 K35 ["logMaterialGeneratorSavedMaterial"]
+      147 SETTABLEKS                       R3 R2 K35 ["logMaterialGeneratorSavedMaterial"]
+      149 GETTABLEKS                       R3 R1 K36 ["logCompactionSuccess"]
+      151 SETTABLEKS                       R3 R2 K36 ["logCompactionSuccess"]
+      153 GETTABLEKS                       R3 R1 K37 ["logCompactionFallback"]
+      155 SETTABLEKS                       R3 R2 K37 ["logCompactionFallback"]
+      157 GETTABLEKS                       R3 R1 K38 ["logUserSkillEvent"]
+      159 SETTABLEKS                       R3 R2 K38 ["logUserSkillEvent"]
+      161 GETTABLEKS                       R3 R1 K39 ["logThinkingBlock"]
+      163 SETTABLEKS                       R3 R2 K39 ["logThinkingBlock"]
+      165 GETTABLEKS                       R3 R1 K40 ["logThreadCreated"]
+      167 SETTABLEKS                       R3 R2 K40 ["logThreadCreated"]
+      169 GETTABLEKS                       R3 R1 K41 ["logThreadRenamed"]
+      171 SETTABLEKS                       R3 R2 K41 ["logThreadRenamed"]
+      173 GETTABLEKS                       R3 R1 K42 ["logThreadPinnedChanged"]
+      175 SETTABLEKS                       R3 R2 K42 ["logThreadPinnedChanged"]
+      177 GETTABLEKS                       R3 R1 K43 ["logThreadDeleted"]
+      179 SETTABLEKS                       R3 R2 K43 ["logThreadDeleted"]
+      181 GETTABLEKS                       R3 R1 K44 ["logThreadDuplicated"]
+      183 SETTABLEKS                       R3 R2 K44 ["logThreadDuplicated"]
+      185 GETTABLEKS                       R3 R1 K45 ["logThreadSwitched"]
+      187 SETTABLEKS                       R3 R2 K45 ["logThreadSwitched"]
+      189 GETTABLEKS                       R3 R1 K46 ["logPersistenceOperation"]
+      191 SETTABLEKS                       R3 R2 K46 ["logPersistenceOperation"]
+      193 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -4761,432 +5140,432 @@ MAIN:
       314 SETTABLEKS                       R41 R40 K58 ["lastUpdated"]
       316 CALL                             R39 1 1
       317 GETIMPORT                        R40 K48 [table.freeze]
-      319 DUPTABLE                         R41 K87 [{["eventName"], ["backends"], ["description"] = "User request journey duration in seconds. Time between sending first message to request ended.", ["lastUpdated"]}]
-      320 LOADK                            R42 K88 ["StudioAssistantRequestJourney"]
+      319 DUPTABLE                         R41 K87 [{["eventName"], ["backends"], ["description"] = "Count of LLM stream notification gaps that were skipped.", ["lastUpdated"]}]
+      320 LOADK                            R42 K88 ["StudioAssistantNotificationGapSkippedCount"]
       321 SETTABLEKS                       R42 R41 K54 ["eventName"]
       323 NEWTABLE                         R42 0 1
       325 GETTABLEKS                       R43 R8 K49 ["Backends"]
-      327 GETTABLEKS                       R43 R43 K85 ["RobloxTelemetryStat"]
+      327 GETTABLEKS                       R43 R43 K61 ["RobloxTelemetryCounter"]
       329 SETLIST                          R42 R43 1 [1]
       331 SETTABLEKS                       R42 R41 K55 ["backends"]
       333 NEWTABLE                         R42 0 3
-      335 LOADN                            R43 25
+      335 LOADN                            R43 26
       336 LOADN                            R44 10
-      337 LOADN                            R45 22
+      337 LOADN                            R45 5
       338 SETLIST                          R42 R43 3 [1]
       340 SETTABLEKS                       R42 R41 K58 ["lastUpdated"]
       342 CALL                             R40 1 1
       343 GETIMPORT                        R41 K48 [table.freeze]
-      345 DUPTABLE                         R42 K91 [{["eventName"] = "CAPRequestJourney", ["backends"], ["description"] = "User request journey detail.", ["lastUpdated"]}]
-      346 SETTABLEKS                       R31 R42 K55 ["backends"]
-      348 NEWTABLE                         R43 0 3
-      350 LOADN                            R44 25
-      351 LOADN                            R45 11
-      352 LOADN                            R46 1
-      353 SETLIST                          R43 R44 3 [1]
-      355 SETTABLEKS                       R43 R42 K58 ["lastUpdated"]
-      357 CALL                             R41 1 1
-      358 GETIMPORT                        R42 K48 [table.freeze]
-      360 DUPTABLE                         R43 K93 [{["eventName"], ["backends"], ["description"] = "Incrementing count of error events with error type attached.", ["lastUpdated"]}]
-      361 LOADK                            R44 K94 ["StudioAssistantErrorEvent"]
-      362 SETTABLEKS                       R44 R43 K54 ["eventName"]
-      364 NEWTABLE                         R44 0 1
-      366 GETTABLEKS                       R45 R8 K49 ["Backends"]
-      368 GETTABLEKS                       R45 R45 K61 ["RobloxTelemetryCounter"]
-      370 SETLIST                          R44 R45 1 [1]
-      372 SETTABLEKS                       R44 R43 K55 ["backends"]
+      345 DUPTABLE                         R42 K90 [{["eventName"], ["backends"], ["description"] = "User request journey duration in seconds. Time between sending first message to request ended.", ["lastUpdated"]}]
+      346 LOADK                            R43 K91 ["StudioAssistantRequestJourney"]
+      347 SETTABLEKS                       R43 R42 K54 ["eventName"]
+      349 NEWTABLE                         R43 0 1
+      351 GETTABLEKS                       R44 R8 K49 ["Backends"]
+      353 GETTABLEKS                       R44 R44 K85 ["RobloxTelemetryStat"]
+      355 SETLIST                          R43 R44 1 [1]
+      357 SETTABLEKS                       R43 R42 K55 ["backends"]
+      359 NEWTABLE                         R43 0 3
+      361 LOADN                            R44 25
+      362 LOADN                            R45 10
+      363 LOADN                            R46 22
+      364 SETLIST                          R43 R44 3 [1]
+      366 SETTABLEKS                       R43 R42 K58 ["lastUpdated"]
+      368 CALL                             R41 1 1
+      369 GETIMPORT                        R42 K48 [table.freeze]
+      371 DUPTABLE                         R43 K94 [{["eventName"] = "CAPRequestJourney", ["backends"], ["description"] = "User request journey detail.", ["lastUpdated"]}]
+      372 SETTABLEKS                       R31 R43 K55 ["backends"]
       374 NEWTABLE                         R44 0 3
       376 LOADN                            R45 25
-      377 LOADN                            R46 7
-      378 LOADN                            R47 21
+      377 LOADN                            R46 11
+      378 LOADN                            R47 1
       379 SETLIST                          R44 R45 3 [1]
       381 SETTABLEKS                       R44 R43 K58 ["lastUpdated"]
       383 CALL                             R42 1 1
       384 GETIMPORT                        R43 K48 [table.freeze]
-      386 DUPTABLE                         R44 K97 [{["eventName"] = "CAPErrorEvent", ["backends"], ["description"] = "Assistant error detail.", ["lastUpdated"]}]
-      387 SETTABLEKS                       R31 R44 K55 ["backends"]
-      389 NEWTABLE                         R45 0 3
-      391 LOADN                            R46 26
-      392 LOADN                            R47 7
-      393 LOADN                            R48 26
-      394 SETLIST                          R45 R46 3 [1]
-      396 SETTABLEKS                       R45 R44 K58 ["lastUpdated"]
-      398 CALL                             R43 1 1
-      399 GETIMPORT                        R44 K48 [table.freeze]
-      401 DUPTABLE                         R45 K99 [{["eventName"], ["backends"], ["description"] = "Collection of markdown error events, with markdown attached.", ["throttlingPercentage"], ["lastUpdated"]}]
-      402 LOADK                            R46 K100 ["StudioAssistantMarkdownError"]
-      403 SETTABLEKS                       R46 R45 K54 ["eventName"]
-      405 NEWTABLE                         R46 0 1
-      407 GETTABLEKS                       R47 R8 K49 ["Backends"]
-      409 GETTABLEKS                       R47 R47 K53 ["Points"]
-      411 SETLIST                          R46 R47 1 [1]
-      413 SETTABLEKS                       R46 R45 K55 ["backends"]
-      415 GETTABLEKS                       R46 R7 K101 ["FIntMarkdownErrorEventThrottlingHundredthPercent"]
-      417 SETTABLEKS                       R46 R45 K64 ["throttlingPercentage"]
-      419 NEWTABLE                         R46 0 3
-      421 LOADN                            R47 25
-      422 LOADN                            R48 7
-      423 LOADN                            R49 21
-      424 SETLIST                          R46 R47 3 [1]
-      426 SETTABLEKS                       R46 R45 K58 ["lastUpdated"]
-      428 CALL                             R44 1 1
-      429 GETIMPORT                        R45 K48 [table.freeze]
-      431 DUPTABLE                         R46 K104 [{["eventName"] = "CAPMessageResubmitted", ["backends"], ["description"] = "User message retry/resubmit event with request ID.", ["lastUpdated"]}]
-      432 SETTABLEKS                       R31 R46 K55 ["backends"]
-      434 NEWTABLE                         R47 0 3
-      436 LOADN                            R48 25
-      437 LOADN                            R49 8
-      438 LOADN                            R50 7
-      439 SETLIST                          R47 R48 3 [1]
-      441 SETTABLEKS                       R47 R46 K58 ["lastUpdated"]
-      443 CALL                             R45 1 1
-      444 GETIMPORT                        R46 K48 [table.freeze]
-      446 DUPTABLE                         R47 K107 [{["eventName"] = "CAPStopGeneration", ["backends"], ["description"] = "User stop generation event with request ID.", ["lastUpdated"]}]
-      447 SETTABLEKS                       R31 R47 K55 ["backends"]
-      449 NEWTABLE                         R48 0 3
-      451 LOADN                            R49 25
-      452 LOADN                            R50 8
-      453 LOADN                            R51 7
-      454 SETLIST                          R48 R49 3 [1]
-      456 SETTABLEKS                       R48 R47 K58 ["lastUpdated"]
-      458 CALL                             R46 1 1
-      459 GETIMPORT                        R47 K48 [table.freeze]
-      461 DUPTABLE                         R48 K110 [{["eventName"] = "CAPToolEnded", ["backends"], ["description"] = "Tool invocation ended event with request ID and tool name", ["lastUpdated"]}]
-      462 SETTABLEKS                       R31 R48 K55 ["backends"]
-      464 NEWTABLE                         R49 0 3
-      466 LOADN                            R50 25
-      467 LOADN                            R51 7
-      468 LOADN                            R52 21
-      469 SETLIST                          R49 R50 3 [1]
-      471 SETTABLEKS                       R49 R48 K58 ["lastUpdated"]
-      473 CALL                             R47 1 1
-      474 GETIMPORT                        R48 K48 [table.freeze]
-      476 DUPTABLE                         R49 K113 [{["eventName"] = "StudioAssistantToolEndedCount", ["backends"], ["description"] = "Count of completed tool invocations.", ["lastUpdated"]}]
-      477 NEWTABLE                         R50 0 1
-      479 GETTABLEKS                       R51 R8 K49 ["Backends"]
-      481 GETTABLEKS                       R51 R51 K61 ["RobloxTelemetryCounter"]
-      483 SETLIST                          R50 R51 1 [1]
-      485 SETTABLEKS                       R50 R49 K55 ["backends"]
-      487 NEWTABLE                         R50 0 3
-      489 LOADN                            R51 26
-      490 LOADN                            R52 7
-      491 LOADN                            R53 24
-      492 SETLIST                          R50 R51 3 [1]
-      494 SETTABLEKS                       R50 R49 K58 ["lastUpdated"]
-      496 CALL                             R48 1 1
-      497 GETIMPORT                        R49 K48 [table.freeze]
-      499 DUPTABLE                         R50 K116 [{["eventName"] = "CAPToolStarted", ["backends"], ["description"] = "Tool invocation started event with request ID and tool name.", ["lastUpdated"]}]
-      500 SETTABLEKS                       R31 R50 K55 ["backends"]
-      502 NEWTABLE                         R51 0 3
-      504 LOADN                            R52 25
-      505 LOADN                            R53 8
-      506 LOADN                            R54 7
-      507 SETLIST                          R51 R52 3 [1]
-      509 SETTABLEKS                       R51 R50 K58 ["lastUpdated"]
-      511 CALL                             R49 1 1
-      512 GETIMPORT                        R50 K48 [table.freeze]
-      514 DUPTABLE                         R51 K119 [{["eventName"] = "StudioAssistantToolStartedCount", ["backends"], ["description"] = "Count of started tool invocations.", ["lastUpdated"]}]
-      515 NEWTABLE                         R52 0 1
-      517 GETTABLEKS                       R53 R8 K49 ["Backends"]
-      519 GETTABLEKS                       R53 R53 K61 ["RobloxTelemetryCounter"]
-      521 SETLIST                          R52 R53 1 [1]
-      523 SETTABLEKS                       R52 R51 K55 ["backends"]
-      525 NEWTABLE                         R52 0 3
-      527 LOADN                            R53 26
-      528 LOADN                            R54 7
-      529 LOADN                            R55 24
-      530 SETLIST                          R52 R53 3 [1]
-      532 SETTABLEKS                       R52 R51 K58 ["lastUpdated"]
-      534 CALL                             R50 1 1
-      535 GETIMPORT                        R51 K48 [table.freeze]
-      537 DUPTABLE                         R52 K122 [{["eventName"] = "StudioAssistantFailedToolInvocation", ["backends"], ["description"] = "Tool invocation failed before local execution began.", ["lastUpdated"]}]
-      538 SETTABLEKS                       R31 R52 K55 ["backends"]
-      540 NEWTABLE                         R53 0 3
-      542 LOADN                            R54 26
-      543 LOADN                            R55 7
-      544 LOADN                            R56 24
-      545 SETLIST                          R53 R54 3 [1]
-      547 SETTABLEKS                       R53 R52 K58 ["lastUpdated"]
-      549 CALL                             R51 1 1
-      550 GETIMPORT                        R52 K48 [table.freeze]
-      552 DUPTABLE                         R53 K125 [{["eventName"] = "StudioAssistantFailedToolInvocationCount", ["backends"], ["description"] = "Count of tool invocations that failed before local execution began.", ["lastUpdated"]}]
-      553 NEWTABLE                         R54 0 1
-      555 GETTABLEKS                       R55 R8 K49 ["Backends"]
-      557 GETTABLEKS                       R55 R55 K61 ["RobloxTelemetryCounter"]
-      559 SETLIST                          R54 R55 1 [1]
-      561 SETTABLEKS                       R54 R53 K55 ["backends"]
-      563 NEWTABLE                         R54 0 3
-      565 LOADN                            R55 26
-      566 LOADN                            R56 7
-      567 LOADN                            R57 24
-      568 SETLIST                          R54 R55 3 [1]
-      570 SETTABLEKS                       R54 R53 K58 ["lastUpdated"]
-      572 CALL                             R52 1 1
-      573 GETIMPORT                        R53 K48 [table.freeze]
-      575 DUPTABLE                         R54 K128 [{["eventName"] = "CAPToolConfirmationShown", ["backends"], ["description"] = "Tool confirmation dialog shown event with request ID, tool name, and warning message.", ["lastUpdated"]}]
-      576 SETTABLEKS                       R31 R54 K55 ["backends"]
-      578 NEWTABLE                         R55 0 3
-      580 LOADN                            R56 25
-      581 LOADN                            R57 9
-      582 LOADN                            R58 19
-      583 SETLIST                          R55 R56 3 [1]
-      585 SETTABLEKS                       R55 R54 K58 ["lastUpdated"]
-      587 CALL                             R53 1 1
-      588 GETIMPORT                        R54 K48 [table.freeze]
-      590 DUPTABLE                         R55 K131 [{["eventName"] = "CAPToolConfirmationResult", ["backends"], ["description"] = "Tool confirmation dialog result event with request ID and user choice.", ["lastUpdated"]}]
-      591 SETTABLEKS                       R31 R55 K55 ["backends"]
-      593 NEWTABLE                         R56 0 3
-      595 LOADN                            R57 25
-      596 LOADN                            R58 9
-      597 LOADN                            R59 19
-      598 SETLIST                          R56 R57 3 [1]
-      600 SETTABLEKS                       R56 R55 K58 ["lastUpdated"]
-      602 CALL                             R54 1 1
-      603 GETIMPORT                        R55 K48 [table.freeze]
-      605 DUPTABLE                         R56 K134 [{["eventName"] = "CAPExternalAPIError", ["backends"], ["description"] = "External LLM API error event with request ID, model, and HTTP status code.", ["lastUpdated"]}]
-      606 SETTABLEKS                       R31 R56 K55 ["backends"]
-      608 NEWTABLE                         R57 0 3
-      610 LOADN                            R58 25
-      611 LOADN                            R59 12
-      612 LOADN                            R60 16
-      613 SETLIST                          R57 R58 3 [1]
-      615 SETTABLEKS                       R57 R56 K58 ["lastUpdated"]
-      617 CALL                             R55 1 1
-      618 GETIMPORT                        R56 K48 [table.freeze]
-      620 DUPTABLE                         R57 K137 [{["eventName"] = "CAPMeshGenActivated", ["backends"], ["description"] = "Count of MeshGen tool activations.", ["lastUpdated"]}]
-      621 NEWTABLE                         R58 0 1
-      623 GETTABLEKS                       R59 R8 K49 ["Backends"]
-      625 GETTABLEKS                       R59 R59 K61 ["RobloxTelemetryCounter"]
-      627 SETLIST                          R58 R59 1 [1]
-      629 SETTABLEKS                       R58 R57 K55 ["backends"]
-      631 NEWTABLE                         R58 0 3
-      633 LOADN                            R59 26
-      634 LOADN                            R60 2
-      635 LOADN                            R61 6
-      636 SETLIST                          R58 R59 3 [1]
-      638 SETTABLEKS                       R58 R57 K58 ["lastUpdated"]
-      640 CALL                             R56 1 1
-      641 GETIMPORT                        R57 K48 [table.freeze]
-      643 DUPTABLE                         R58 K140 [{["eventName"] = "CAPMeshGenCompletedSuccess", ["backends"], ["description"] = "Count of successful MeshGen completions.", ["lastUpdated"]}]
-      644 NEWTABLE                         R59 0 1
-      646 GETTABLEKS                       R60 R8 K49 ["Backends"]
-      648 GETTABLEKS                       R60 R60 K61 ["RobloxTelemetryCounter"]
-      650 SETLIST                          R59 R60 1 [1]
-      652 SETTABLEKS                       R59 R58 K55 ["backends"]
-      654 NEWTABLE                         R59 0 3
-      656 LOADN                            R60 26
-      657 LOADN                            R61 2
-      658 LOADN                            R62 6
-      659 SETLIST                          R59 R60 3 [1]
-      661 SETTABLEKS                       R59 R58 K58 ["lastUpdated"]
-      663 CALL                             R57 1 1
-      664 GETIMPORT                        R58 K48 [table.freeze]
-      666 DUPTABLE                         R59 K143 [{["eventName"] = "CAPMeshGenCompletedFailure", ["backends"], ["description"] = "Count of failed MeshGen completions.", ["lastUpdated"]}]
-      667 NEWTABLE                         R60 0 1
-      669 GETTABLEKS                       R61 R8 K49 ["Backends"]
-      671 GETTABLEKS                       R61 R61 K61 ["RobloxTelemetryCounter"]
-      673 SETLIST                          R60 R61 1 [1]
-      675 SETTABLEKS                       R60 R59 K55 ["backends"]
-      677 NEWTABLE                         R60 0 3
-      679 LOADN                            R61 26
-      680 LOADN                            R62 2
-      681 LOADN                            R63 6
-      682 SETLIST                          R60 R61 3 [1]
-      684 SETTABLEKS                       R60 R59 K58 ["lastUpdated"]
-      686 CALL                             R58 1 1
-      687 GETIMPORT                        R59 K48 [table.freeze]
-      689 DUPTABLE                         R60 K146 [{["eventName"] = "CAPMeshGenCompleted", ["backends"], ["description"] = "MeshGen generation completed event with details.", ["lastUpdated"]}]
-      690 SETTABLEKS                       R31 R60 K55 ["backends"]
-      692 NEWTABLE                         R61 0 3
-      694 LOADN                            R62 26
-      695 LOADN                            R63 2
-      696 LOADN                            R64 6
-      697 SETLIST                          R61 R62 3 [1]
-      699 SETTABLEKS                       R61 R60 K58 ["lastUpdated"]
-      701 CALL                             R59 1 1
-      702 GETIMPORT                        R60 K48 [table.freeze]
-      704 DUPTABLE                         R61 K149 [{["eventName"] = "CAPMeshGenPublishedAssetsSuccess", ["backends"], ["description"] = "Count of successful MeshGen asset publications.", ["lastUpdated"]}]
-      705 NEWTABLE                         R62 0 1
-      707 GETTABLEKS                       R63 R8 K49 ["Backends"]
-      709 GETTABLEKS                       R63 R63 K61 ["RobloxTelemetryCounter"]
-      711 SETLIST                          R62 R63 1 [1]
-      713 SETTABLEKS                       R62 R61 K55 ["backends"]
-      715 NEWTABLE                         R62 0 3
-      717 LOADN                            R63 26
-      718 LOADN                            R64 2
-      719 LOADN                            R65 6
-      720 SETLIST                          R62 R63 3 [1]
-      722 SETTABLEKS                       R62 R61 K58 ["lastUpdated"]
-      724 CALL                             R60 1 1
-      725 GETIMPORT                        R61 K48 [table.freeze]
-      727 DUPTABLE                         R62 K152 [{["eventName"] = "CAPMeshGenPublishedAssetsFailure", ["backends"], ["description"] = "Count of failed MeshGen asset publications.", ["lastUpdated"]}]
-      728 NEWTABLE                         R63 0 1
-      730 GETTABLEKS                       R64 R8 K49 ["Backends"]
-      732 GETTABLEKS                       R64 R64 K61 ["RobloxTelemetryCounter"]
-      734 SETLIST                          R63 R64 1 [1]
-      736 SETTABLEKS                       R63 R62 K55 ["backends"]
-      738 NEWTABLE                         R63 0 3
-      740 LOADN                            R64 26
-      741 LOADN                            R65 2
-      742 LOADN                            R66 6
-      743 SETLIST                          R63 R64 3 [1]
-      745 SETTABLEKS                       R63 R62 K58 ["lastUpdated"]
-      747 CALL                             R61 1 1
-      748 GETIMPORT                        R62 K48 [table.freeze]
-      750 DUPTABLE                         R63 K155 [{["eventName"] = "CAPMeshGenPublishedAssets", ["backends"], ["description"] = "MeshGen assets published event with details.", ["lastUpdated"]}]
-      751 SETTABLEKS                       R31 R63 K55 ["backends"]
-      753 NEWTABLE                         R64 0 3
-      755 LOADN                            R65 26
-      756 LOADN                            R66 2
-      757 LOADN                            R67 6
-      758 SETLIST                          R64 R65 3 [1]
-      760 SETTABLEKS                       R64 R63 K58 ["lastUpdated"]
-      762 CALL                             R62 1 1
-      763 GETIMPORT                        R63 K48 [table.freeze]
-      765 DUPTABLE                         R64 K158 [{["eventName"] = "CAPMeshGenMeshInsertedSuccess", ["backends"], ["description"] = "Count of successful MeshGen mesh insertions.", ["lastUpdated"]}]
-      766 NEWTABLE                         R65 0 1
-      768 GETTABLEKS                       R66 R8 K49 ["Backends"]
-      770 GETTABLEKS                       R66 R66 K61 ["RobloxTelemetryCounter"]
-      772 SETLIST                          R65 R66 1 [1]
-      774 SETTABLEKS                       R65 R64 K55 ["backends"]
-      776 NEWTABLE                         R65 0 3
-      778 LOADN                            R66 26
-      779 LOADN                            R67 2
-      780 LOADN                            R68 6
-      781 SETLIST                          R65 R66 3 [1]
-      783 SETTABLEKS                       R65 R64 K58 ["lastUpdated"]
-      785 CALL                             R63 1 1
-      786 GETIMPORT                        R64 K48 [table.freeze]
-      788 DUPTABLE                         R65 K161 [{["eventName"] = "CAPMeshGenMeshInsertedFailure", ["backends"], ["description"] = "Count of failed MeshGen mesh insertions.", ["lastUpdated"]}]
-      789 NEWTABLE                         R66 0 1
-      791 GETTABLEKS                       R67 R8 K49 ["Backends"]
-      793 GETTABLEKS                       R67 R67 K61 ["RobloxTelemetryCounter"]
-      795 SETLIST                          R66 R67 1 [1]
-      797 SETTABLEKS                       R66 R65 K55 ["backends"]
-      799 NEWTABLE                         R66 0 3
-      801 LOADN                            R67 26
-      802 LOADN                            R68 2
-      803 LOADN                            R69 6
-      804 SETLIST                          R66 R67 3 [1]
-      806 SETTABLEKS                       R66 R65 K58 ["lastUpdated"]
-      808 CALL                             R64 1 1
-      809 GETIMPORT                        R65 K48 [table.freeze]
-      811 DUPTABLE                         R66 K164 [{["eventName"] = "CAPMeshGenMeshInserted", ["backends"], ["description"] = "MeshGen mesh inserted event with details.", ["lastUpdated"]}]
-      812 SETTABLEKS                       R31 R66 K55 ["backends"]
-      814 NEWTABLE                         R67 0 3
-      816 LOADN                            R68 26
-      817 LOADN                            R69 2
-      818 LOADN                            R70 6
-      819 SETLIST                          R67 R68 3 [1]
-      821 SETTABLEKS                       R67 R66 K58 ["lastUpdated"]
-      823 CALL                             R65 1 1
-      824 GETIMPORT                        R66 K48 [table.freeze]
-      826 DUPTABLE                         R67 K166 [{["eventName"], ["backends"], ["description"] = "Count of PrimitiveGen completions with success status.", ["lastUpdated"]}]
-      827 LOADK                            R68 K167 ["StudioAssistantPrimitiveGenCompletedCount"]
-      828 SETTABLEKS                       R68 R67 K54 ["eventName"]
-      830 NEWTABLE                         R68 0 1
-      832 GETTABLEKS                       R69 R8 K49 ["Backends"]
-      834 GETTABLEKS                       R69 R69 K61 ["RobloxTelemetryCounter"]
-      836 SETLIST                          R68 R69 1 [1]
-      838 SETTABLEKS                       R68 R67 K55 ["backends"]
+      386 DUPTABLE                         R44 K96 [{["eventName"], ["backends"], ["description"] = "Incrementing count of error events with error type attached.", ["lastUpdated"]}]
+      387 LOADK                            R45 K97 ["StudioAssistantErrorEvent"]
+      388 SETTABLEKS                       R45 R44 K54 ["eventName"]
+      390 NEWTABLE                         R45 0 1
+      392 GETTABLEKS                       R46 R8 K49 ["Backends"]
+      394 GETTABLEKS                       R46 R46 K61 ["RobloxTelemetryCounter"]
+      396 SETLIST                          R45 R46 1 [1]
+      398 SETTABLEKS                       R45 R44 K55 ["backends"]
+      400 NEWTABLE                         R45 0 3
+      402 LOADN                            R46 25
+      403 LOADN                            R47 7
+      404 LOADN                            R48 21
+      405 SETLIST                          R45 R46 3 [1]
+      407 SETTABLEKS                       R45 R44 K58 ["lastUpdated"]
+      409 CALL                             R43 1 1
+      410 GETIMPORT                        R44 K48 [table.freeze]
+      412 DUPTABLE                         R45 K100 [{["eventName"] = "CAPErrorEvent", ["backends"], ["description"] = "Assistant error detail.", ["lastUpdated"]}]
+      413 SETTABLEKS                       R31 R45 K55 ["backends"]
+      415 NEWTABLE                         R46 0 3
+      417 LOADN                            R47 26
+      418 LOADN                            R48 7
+      419 LOADN                            R49 26
+      420 SETLIST                          R46 R47 3 [1]
+      422 SETTABLEKS                       R46 R45 K58 ["lastUpdated"]
+      424 CALL                             R44 1 1
+      425 GETIMPORT                        R45 K48 [table.freeze]
+      427 DUPTABLE                         R46 K102 [{["eventName"], ["backends"], ["description"] = "Collection of markdown error events, with markdown attached.", ["throttlingPercentage"], ["lastUpdated"]}]
+      428 LOADK                            R47 K103 ["StudioAssistantMarkdownError"]
+      429 SETTABLEKS                       R47 R46 K54 ["eventName"]
+      431 NEWTABLE                         R47 0 1
+      433 GETTABLEKS                       R48 R8 K49 ["Backends"]
+      435 GETTABLEKS                       R48 R48 K53 ["Points"]
+      437 SETLIST                          R47 R48 1 [1]
+      439 SETTABLEKS                       R47 R46 K55 ["backends"]
+      441 GETTABLEKS                       R47 R7 K104 ["FIntMarkdownErrorEventThrottlingHundredthPercent"]
+      443 SETTABLEKS                       R47 R46 K64 ["throttlingPercentage"]
+      445 NEWTABLE                         R47 0 3
+      447 LOADN                            R48 25
+      448 LOADN                            R49 7
+      449 LOADN                            R50 21
+      450 SETLIST                          R47 R48 3 [1]
+      452 SETTABLEKS                       R47 R46 K58 ["lastUpdated"]
+      454 CALL                             R45 1 1
+      455 GETIMPORT                        R46 K48 [table.freeze]
+      457 DUPTABLE                         R47 K107 [{["eventName"] = "CAPMessageResubmitted", ["backends"], ["description"] = "User message retry/resubmit event with request ID.", ["lastUpdated"]}]
+      458 SETTABLEKS                       R31 R47 K55 ["backends"]
+      460 NEWTABLE                         R48 0 3
+      462 LOADN                            R49 25
+      463 LOADN                            R50 8
+      464 LOADN                            R51 7
+      465 SETLIST                          R48 R49 3 [1]
+      467 SETTABLEKS                       R48 R47 K58 ["lastUpdated"]
+      469 CALL                             R46 1 1
+      470 GETIMPORT                        R47 K48 [table.freeze]
+      472 DUPTABLE                         R48 K110 [{["eventName"] = "CAPStopGeneration", ["backends"], ["description"] = "User stop generation event with request ID.", ["lastUpdated"]}]
+      473 SETTABLEKS                       R31 R48 K55 ["backends"]
+      475 NEWTABLE                         R49 0 3
+      477 LOADN                            R50 25
+      478 LOADN                            R51 8
+      479 LOADN                            R52 7
+      480 SETLIST                          R49 R50 3 [1]
+      482 SETTABLEKS                       R49 R48 K58 ["lastUpdated"]
+      484 CALL                             R47 1 1
+      485 GETIMPORT                        R48 K48 [table.freeze]
+      487 DUPTABLE                         R49 K113 [{["eventName"] = "CAPToolEnded", ["backends"], ["description"] = "Tool invocation ended event with request ID and tool name", ["lastUpdated"]}]
+      488 SETTABLEKS                       R31 R49 K55 ["backends"]
+      490 NEWTABLE                         R50 0 3
+      492 LOADN                            R51 25
+      493 LOADN                            R52 7
+      494 LOADN                            R53 21
+      495 SETLIST                          R50 R51 3 [1]
+      497 SETTABLEKS                       R50 R49 K58 ["lastUpdated"]
+      499 CALL                             R48 1 1
+      500 GETIMPORT                        R49 K48 [table.freeze]
+      502 DUPTABLE                         R50 K116 [{["eventName"] = "StudioAssistantToolEndedCount", ["backends"], ["description"] = "Count of completed tool invocations.", ["lastUpdated"]}]
+      503 NEWTABLE                         R51 0 1
+      505 GETTABLEKS                       R52 R8 K49 ["Backends"]
+      507 GETTABLEKS                       R52 R52 K61 ["RobloxTelemetryCounter"]
+      509 SETLIST                          R51 R52 1 [1]
+      511 SETTABLEKS                       R51 R50 K55 ["backends"]
+      513 NEWTABLE                         R51 0 3
+      515 LOADN                            R52 26
+      516 LOADN                            R53 7
+      517 LOADN                            R54 24
+      518 SETLIST                          R51 R52 3 [1]
+      520 SETTABLEKS                       R51 R50 K58 ["lastUpdated"]
+      522 CALL                             R49 1 1
+      523 GETIMPORT                        R50 K48 [table.freeze]
+      525 DUPTABLE                         R51 K119 [{["eventName"] = "CAPToolStarted", ["backends"], ["description"] = "Tool invocation started event with request ID and tool name.", ["lastUpdated"]}]
+      526 SETTABLEKS                       R31 R51 K55 ["backends"]
+      528 NEWTABLE                         R52 0 3
+      530 LOADN                            R53 25
+      531 LOADN                            R54 8
+      532 LOADN                            R55 7
+      533 SETLIST                          R52 R53 3 [1]
+      535 SETTABLEKS                       R52 R51 K58 ["lastUpdated"]
+      537 CALL                             R50 1 1
+      538 GETIMPORT                        R51 K48 [table.freeze]
+      540 DUPTABLE                         R52 K122 [{["eventName"] = "StudioAssistantToolStartedCount", ["backends"], ["description"] = "Count of started tool invocations.", ["lastUpdated"]}]
+      541 NEWTABLE                         R53 0 1
+      543 GETTABLEKS                       R54 R8 K49 ["Backends"]
+      545 GETTABLEKS                       R54 R54 K61 ["RobloxTelemetryCounter"]
+      547 SETLIST                          R53 R54 1 [1]
+      549 SETTABLEKS                       R53 R52 K55 ["backends"]
+      551 NEWTABLE                         R53 0 3
+      553 LOADN                            R54 26
+      554 LOADN                            R55 7
+      555 LOADN                            R56 24
+      556 SETLIST                          R53 R54 3 [1]
+      558 SETTABLEKS                       R53 R52 K58 ["lastUpdated"]
+      560 CALL                             R51 1 1
+      561 GETIMPORT                        R52 K48 [table.freeze]
+      563 DUPTABLE                         R53 K125 [{["eventName"] = "StudioAssistantFailedToolInvocation", ["backends"], ["description"] = "Tool invocation failed before local execution began.", ["lastUpdated"]}]
+      564 SETTABLEKS                       R31 R53 K55 ["backends"]
+      566 NEWTABLE                         R54 0 3
+      568 LOADN                            R55 26
+      569 LOADN                            R56 7
+      570 LOADN                            R57 24
+      571 SETLIST                          R54 R55 3 [1]
+      573 SETTABLEKS                       R54 R53 K58 ["lastUpdated"]
+      575 CALL                             R52 1 1
+      576 GETIMPORT                        R53 K48 [table.freeze]
+      578 DUPTABLE                         R54 K128 [{["eventName"] = "StudioAssistantFailedToolInvocationCount", ["backends"], ["description"] = "Count of tool invocations that failed before local execution began.", ["lastUpdated"]}]
+      579 NEWTABLE                         R55 0 1
+      581 GETTABLEKS                       R56 R8 K49 ["Backends"]
+      583 GETTABLEKS                       R56 R56 K61 ["RobloxTelemetryCounter"]
+      585 SETLIST                          R55 R56 1 [1]
+      587 SETTABLEKS                       R55 R54 K55 ["backends"]
+      589 NEWTABLE                         R55 0 3
+      591 LOADN                            R56 26
+      592 LOADN                            R57 7
+      593 LOADN                            R58 24
+      594 SETLIST                          R55 R56 3 [1]
+      596 SETTABLEKS                       R55 R54 K58 ["lastUpdated"]
+      598 CALL                             R53 1 1
+      599 GETIMPORT                        R54 K48 [table.freeze]
+      601 DUPTABLE                         R55 K131 [{["eventName"] = "CAPToolConfirmationShown", ["backends"], ["description"] = "Tool confirmation dialog shown event with request ID, tool name, and warning message.", ["lastUpdated"]}]
+      602 SETTABLEKS                       R31 R55 K55 ["backends"]
+      604 NEWTABLE                         R56 0 3
+      606 LOADN                            R57 25
+      607 LOADN                            R58 9
+      608 LOADN                            R59 19
+      609 SETLIST                          R56 R57 3 [1]
+      611 SETTABLEKS                       R56 R55 K58 ["lastUpdated"]
+      613 CALL                             R54 1 1
+      614 GETIMPORT                        R55 K48 [table.freeze]
+      616 DUPTABLE                         R56 K134 [{["eventName"] = "CAPToolConfirmationResult", ["backends"], ["description"] = "Tool confirmation dialog result event with request ID and user choice.", ["lastUpdated"]}]
+      617 SETTABLEKS                       R31 R56 K55 ["backends"]
+      619 NEWTABLE                         R57 0 3
+      621 LOADN                            R58 25
+      622 LOADN                            R59 9
+      623 LOADN                            R60 19
+      624 SETLIST                          R57 R58 3 [1]
+      626 SETTABLEKS                       R57 R56 K58 ["lastUpdated"]
+      628 CALL                             R55 1 1
+      629 GETIMPORT                        R56 K48 [table.freeze]
+      631 DUPTABLE                         R57 K137 [{["eventName"] = "CAPExternalAPIError", ["backends"], ["description"] = "External LLM API error event with request ID, model, and HTTP status code.", ["lastUpdated"]}]
+      632 SETTABLEKS                       R31 R57 K55 ["backends"]
+      634 NEWTABLE                         R58 0 3
+      636 LOADN                            R59 25
+      637 LOADN                            R60 12
+      638 LOADN                            R61 16
+      639 SETLIST                          R58 R59 3 [1]
+      641 SETTABLEKS                       R58 R57 K58 ["lastUpdated"]
+      643 CALL                             R56 1 1
+      644 GETIMPORT                        R57 K48 [table.freeze]
+      646 DUPTABLE                         R58 K140 [{["eventName"] = "CAPMeshGenActivated", ["backends"], ["description"] = "Count of MeshGen tool activations.", ["lastUpdated"]}]
+      647 NEWTABLE                         R59 0 1
+      649 GETTABLEKS                       R60 R8 K49 ["Backends"]
+      651 GETTABLEKS                       R60 R60 K61 ["RobloxTelemetryCounter"]
+      653 SETLIST                          R59 R60 1 [1]
+      655 SETTABLEKS                       R59 R58 K55 ["backends"]
+      657 NEWTABLE                         R59 0 3
+      659 LOADN                            R60 26
+      660 LOADN                            R61 2
+      661 LOADN                            R62 6
+      662 SETLIST                          R59 R60 3 [1]
+      664 SETTABLEKS                       R59 R58 K58 ["lastUpdated"]
+      666 CALL                             R57 1 1
+      667 GETIMPORT                        R58 K48 [table.freeze]
+      669 DUPTABLE                         R59 K143 [{["eventName"] = "CAPMeshGenCompletedSuccess", ["backends"], ["description"] = "Count of successful MeshGen completions.", ["lastUpdated"]}]
+      670 NEWTABLE                         R60 0 1
+      672 GETTABLEKS                       R61 R8 K49 ["Backends"]
+      674 GETTABLEKS                       R61 R61 K61 ["RobloxTelemetryCounter"]
+      676 SETLIST                          R60 R61 1 [1]
+      678 SETTABLEKS                       R60 R59 K55 ["backends"]
+      680 NEWTABLE                         R60 0 3
+      682 LOADN                            R61 26
+      683 LOADN                            R62 2
+      684 LOADN                            R63 6
+      685 SETLIST                          R60 R61 3 [1]
+      687 SETTABLEKS                       R60 R59 K58 ["lastUpdated"]
+      689 CALL                             R58 1 1
+      690 GETIMPORT                        R59 K48 [table.freeze]
+      692 DUPTABLE                         R60 K146 [{["eventName"] = "CAPMeshGenCompletedFailure", ["backends"], ["description"] = "Count of failed MeshGen completions.", ["lastUpdated"]}]
+      693 NEWTABLE                         R61 0 1
+      695 GETTABLEKS                       R62 R8 K49 ["Backends"]
+      697 GETTABLEKS                       R62 R62 K61 ["RobloxTelemetryCounter"]
+      699 SETLIST                          R61 R62 1 [1]
+      701 SETTABLEKS                       R61 R60 K55 ["backends"]
+      703 NEWTABLE                         R61 0 3
+      705 LOADN                            R62 26
+      706 LOADN                            R63 2
+      707 LOADN                            R64 6
+      708 SETLIST                          R61 R62 3 [1]
+      710 SETTABLEKS                       R61 R60 K58 ["lastUpdated"]
+      712 CALL                             R59 1 1
+      713 GETIMPORT                        R60 K48 [table.freeze]
+      715 DUPTABLE                         R61 K149 [{["eventName"] = "CAPMeshGenCompleted", ["backends"], ["description"] = "MeshGen generation completed event with details.", ["lastUpdated"]}]
+      716 SETTABLEKS                       R31 R61 K55 ["backends"]
+      718 NEWTABLE                         R62 0 3
+      720 LOADN                            R63 26
+      721 LOADN                            R64 2
+      722 LOADN                            R65 6
+      723 SETLIST                          R62 R63 3 [1]
+      725 SETTABLEKS                       R62 R61 K58 ["lastUpdated"]
+      727 CALL                             R60 1 1
+      728 GETIMPORT                        R61 K48 [table.freeze]
+      730 DUPTABLE                         R62 K152 [{["eventName"] = "CAPMeshGenPublishedAssetsSuccess", ["backends"], ["description"] = "Count of successful MeshGen asset publications.", ["lastUpdated"]}]
+      731 NEWTABLE                         R63 0 1
+      733 GETTABLEKS                       R64 R8 K49 ["Backends"]
+      735 GETTABLEKS                       R64 R64 K61 ["RobloxTelemetryCounter"]
+      737 SETLIST                          R63 R64 1 [1]
+      739 SETTABLEKS                       R63 R62 K55 ["backends"]
+      741 NEWTABLE                         R63 0 3
+      743 LOADN                            R64 26
+      744 LOADN                            R65 2
+      745 LOADN                            R66 6
+      746 SETLIST                          R63 R64 3 [1]
+      748 SETTABLEKS                       R63 R62 K58 ["lastUpdated"]
+      750 CALL                             R61 1 1
+      751 GETIMPORT                        R62 K48 [table.freeze]
+      753 DUPTABLE                         R63 K155 [{["eventName"] = "CAPMeshGenPublishedAssetsFailure", ["backends"], ["description"] = "Count of failed MeshGen asset publications.", ["lastUpdated"]}]
+      754 NEWTABLE                         R64 0 1
+      756 GETTABLEKS                       R65 R8 K49 ["Backends"]
+      758 GETTABLEKS                       R65 R65 K61 ["RobloxTelemetryCounter"]
+      760 SETLIST                          R64 R65 1 [1]
+      762 SETTABLEKS                       R64 R63 K55 ["backends"]
+      764 NEWTABLE                         R64 0 3
+      766 LOADN                            R65 26
+      767 LOADN                            R66 2
+      768 LOADN                            R67 6
+      769 SETLIST                          R64 R65 3 [1]
+      771 SETTABLEKS                       R64 R63 K58 ["lastUpdated"]
+      773 CALL                             R62 1 1
+      774 GETIMPORT                        R63 K48 [table.freeze]
+      776 DUPTABLE                         R64 K158 [{["eventName"] = "CAPMeshGenPublishedAssets", ["backends"], ["description"] = "MeshGen assets published event with details.", ["lastUpdated"]}]
+      777 SETTABLEKS                       R31 R64 K55 ["backends"]
+      779 NEWTABLE                         R65 0 3
+      781 LOADN                            R66 26
+      782 LOADN                            R67 2
+      783 LOADN                            R68 6
+      784 SETLIST                          R65 R66 3 [1]
+      786 SETTABLEKS                       R65 R64 K58 ["lastUpdated"]
+      788 CALL                             R63 1 1
+      789 GETIMPORT                        R64 K48 [table.freeze]
+      791 DUPTABLE                         R65 K161 [{["eventName"] = "CAPMeshGenMeshInsertedSuccess", ["backends"], ["description"] = "Count of successful MeshGen mesh insertions.", ["lastUpdated"]}]
+      792 NEWTABLE                         R66 0 1
+      794 GETTABLEKS                       R67 R8 K49 ["Backends"]
+      796 GETTABLEKS                       R67 R67 K61 ["RobloxTelemetryCounter"]
+      798 SETLIST                          R66 R67 1 [1]
+      800 SETTABLEKS                       R66 R65 K55 ["backends"]
+      802 NEWTABLE                         R66 0 3
+      804 LOADN                            R67 26
+      805 LOADN                            R68 2
+      806 LOADN                            R69 6
+      807 SETLIST                          R66 R67 3 [1]
+      809 SETTABLEKS                       R66 R65 K58 ["lastUpdated"]
+      811 CALL                             R64 1 1
+      812 GETIMPORT                        R65 K48 [table.freeze]
+      814 DUPTABLE                         R66 K164 [{["eventName"] = "CAPMeshGenMeshInsertedFailure", ["backends"], ["description"] = "Count of failed MeshGen mesh insertions.", ["lastUpdated"]}]
+      815 NEWTABLE                         R67 0 1
+      817 GETTABLEKS                       R68 R8 K49 ["Backends"]
+      819 GETTABLEKS                       R68 R68 K61 ["RobloxTelemetryCounter"]
+      821 SETLIST                          R67 R68 1 [1]
+      823 SETTABLEKS                       R67 R66 K55 ["backends"]
+      825 NEWTABLE                         R67 0 3
+      827 LOADN                            R68 26
+      828 LOADN                            R69 2
+      829 LOADN                            R70 6
+      830 SETLIST                          R67 R68 3 [1]
+      832 SETTABLEKS                       R67 R66 K58 ["lastUpdated"]
+      834 CALL                             R65 1 1
+      835 GETIMPORT                        R66 K48 [table.freeze]
+      837 DUPTABLE                         R67 K167 [{["eventName"] = "CAPMeshGenMeshInserted", ["backends"], ["description"] = "MeshGen mesh inserted event with details.", ["lastUpdated"]}]
+      838 SETTABLEKS                       R31 R67 K55 ["backends"]
       840 NEWTABLE                         R68 0 3
       842 LOADN                            R69 26
-      843 LOADN                            R70 3
-      844 LOADN                            R71 12
+      843 LOADN                            R70 2
+      844 LOADN                            R71 6
       845 SETLIST                          R68 R69 3 [1]
       847 SETTABLEKS                       R68 R67 K58 ["lastUpdated"]
       849 CALL                             R66 1 1
       850 GETIMPORT                        R67 K48 [table.freeze]
-      852 DUPTABLE                         R68 K169 [{["eventName"], ["backends"], ["description"] = "PrimitiveGen completion event with generation, prompt, render latency, and dependency details.", ["lastUpdated"]}]
-      853 LOADK                            R69 K170 ["StudioAssistantPrimitiveGenCompleted"]
+      852 DUPTABLE                         R68 K169 [{["eventName"], ["backends"], ["description"] = "Count of PrimitiveGen completions with success status.", ["lastUpdated"]}]
+      853 LOADK                            R69 K170 ["StudioAssistantPrimitiveGenCompletedCount"]
       854 SETTABLEKS                       R69 R68 K54 ["eventName"]
-      856 SETTABLEKS                       R31 R68 K55 ["backends"]
-      858 NEWTABLE                         R69 0 3
-      860 LOADN                            R70 26
-      861 LOADN                            R71 3
-      862 LOADN                            R72 12
-      863 SETLIST                          R69 R70 3 [1]
-      865 SETTABLEKS                       R69 R68 K58 ["lastUpdated"]
-      867 CALL                             R67 1 1
-      868 GETIMPORT                        R68 K48 [table.freeze]
-      870 DUPTABLE                         R69 K172 [{["eventName"], ["backends"], ["description"] = "MCP `auto_setup_avatar` tool call started.", ["lastUpdated"]}]
-      871 LOADK                            R70 K173 ["StudioAssistantAvatarAutoSetupRequested"]
-      872 SETTABLEKS                       R70 R69 K54 ["eventName"]
-      874 SETTABLEKS                       R31 R69 K55 ["backends"]
-      876 NEWTABLE                         R70 0 3
-      878 LOADN                            R71 26
-      879 LOADN                            R72 7
-      880 LOADN                            R73 22
-      881 SETLIST                          R70 R71 3 [1]
-      883 SETTABLEKS                       R70 R69 K58 ["lastUpdated"]
-      885 CALL                             R68 1 1
-      886 GETIMPORT                        R69 K48 [table.freeze]
-      888 DUPTABLE                         R70 K175 [{["eventName"], ["backends"], ["description"] = "Auto-setup options used for an MCP `auto_setup_avatar` call.", ["lastUpdated"]}]
-      889 LOADK                            R71 K176 ["StudioAssistantAvatarAutoSetupOptions"]
-      890 SETTABLEKS                       R71 R70 K54 ["eventName"]
-      892 SETTABLEKS                       R31 R70 K55 ["backends"]
-      894 NEWTABLE                         R71 0 3
-      896 LOADN                            R72 26
-      897 LOADN                            R73 7
-      898 LOADN                            R74 22
-      899 SETLIST                          R71 R72 3 [1]
-      901 SETTABLEKS                       R71 R70 K58 ["lastUpdated"]
-      903 CALL                             R69 1 1
-      904 GETIMPORT                        R70 K48 [table.freeze]
-      906 DUPTABLE                         R71 K178 [{["eventName"], ["backends"], ["description"] = "Engine assigned a job id to an MCP `auto_setup_avatar` call.", ["lastUpdated"]}]
-      907 LOADK                            R72 K179 ["StudioAssistantAvatarAutoSetupJobInitialized"]
-      908 SETTABLEKS                       R72 R71 K54 ["eventName"]
-      910 SETTABLEKS                       R31 R71 K55 ["backends"]
-      912 NEWTABLE                         R72 0 3
-      914 LOADN                            R73 26
-      915 LOADN                            R74 7
-      916 LOADN                            R75 22
-      917 SETLIST                          R72 R73 3 [1]
-      919 SETTABLEKS                       R72 R71 K58 ["lastUpdated"]
-      921 CALL                             R70 1 1
-      922 GETIMPORT                        R71 K48 [table.freeze]
-      924 DUPTABLE                         R72 K181 [{["eventName"], ["backends"], ["description"] = "MCP `auto_setup_avatar` tool call completed successfully.", ["lastUpdated"]}]
-      925 LOADK                            R73 K182 ["StudioAssistantAvatarAutoSetupFinish"]
-      926 SETTABLEKS                       R73 R72 K54 ["eventName"]
-      928 SETTABLEKS                       R31 R72 K55 ["backends"]
-      930 NEWTABLE                         R73 0 3
-      932 LOADN                            R74 26
-      933 LOADN                            R75 7
-      934 LOADN                            R76 22
-      935 SETLIST                          R73 R74 3 [1]
-      937 SETTABLEKS                       R73 R72 K58 ["lastUpdated"]
-      939 CALL                             R71 1 1
-      940 GETIMPORT                        R72 K48 [table.freeze]
-      942 DUPTABLE                         R73 K184 [{["eventName"], ["backends"], ["description"] = "MCP `auto_setup_avatar` tool call failed before returning a model.", ["lastUpdated"]}]
-      943 LOADK                            R74 K185 ["StudioAssistantAvatarAutoSetupFailure"]
-      944 SETTABLEKS                       R74 R73 K54 ["eventName"]
-      946 SETTABLEKS                       R31 R73 K55 ["backends"]
-      948 NEWTABLE                         R74 0 3
-      950 LOADN                            R75 26
-      951 LOADN                            R76 7
-      952 LOADN                            R77 22
-      953 SETLIST                          R74 R75 3 [1]
-      955 SETTABLEKS                       R74 R73 K58 ["lastUpdated"]
-      957 CALL                             R72 1 1
-      958 GETIMPORT                        R73 K48 [table.freeze]
-      960 DUPTABLE                         R74 K187 [{["eventName"], ["backends"], ["description"] = "Count of successful MCP `auto_setup_avatar` tool calls.", ["lastUpdated"]}]
-      961 LOADK                            R75 K188 ["StudioAssistantAvatarAutoSetupFinishCount"]
-      962 SETTABLEKS                       R75 R74 K54 ["eventName"]
-      964 NEWTABLE                         R75 0 1
-      966 GETTABLEKS                       R76 R8 K49 ["Backends"]
-      968 GETTABLEKS                       R76 R76 K61 ["RobloxTelemetryCounter"]
-      970 SETLIST                          R75 R76 1 [1]
-      972 SETTABLEKS                       R75 R74 K55 ["backends"]
+      856 NEWTABLE                         R69 0 1
+      858 GETTABLEKS                       R70 R8 K49 ["Backends"]
+      860 GETTABLEKS                       R70 R70 K61 ["RobloxTelemetryCounter"]
+      862 SETLIST                          R69 R70 1 [1]
+      864 SETTABLEKS                       R69 R68 K55 ["backends"]
+      866 NEWTABLE                         R69 0 3
+      868 LOADN                            R70 26
+      869 LOADN                            R71 3
+      870 LOADN                            R72 12
+      871 SETLIST                          R69 R70 3 [1]
+      873 SETTABLEKS                       R69 R68 K58 ["lastUpdated"]
+      875 CALL                             R67 1 1
+      876 GETIMPORT                        R68 K48 [table.freeze]
+      878 DUPTABLE                         R69 K172 [{["eventName"], ["backends"], ["description"] = "PrimitiveGen completion event with generation, prompt, render latency, and dependency details.", ["lastUpdated"]}]
+      879 LOADK                            R70 K173 ["StudioAssistantPrimitiveGenCompleted"]
+      880 SETTABLEKS                       R70 R69 K54 ["eventName"]
+      882 SETTABLEKS                       R31 R69 K55 ["backends"]
+      884 NEWTABLE                         R70 0 3
+      886 LOADN                            R71 26
+      887 LOADN                            R72 3
+      888 LOADN                            R73 12
+      889 SETLIST                          R70 R71 3 [1]
+      891 SETTABLEKS                       R70 R69 K58 ["lastUpdated"]
+      893 CALL                             R68 1 1
+      894 GETIMPORT                        R69 K48 [table.freeze]
+      896 DUPTABLE                         R70 K175 [{["eventName"], ["backends"], ["description"] = "MCP `auto_setup_avatar` tool call started.", ["lastUpdated"]}]
+      897 LOADK                            R71 K176 ["StudioAssistantAvatarAutoSetupRequested"]
+      898 SETTABLEKS                       R71 R70 K54 ["eventName"]
+      900 SETTABLEKS                       R31 R70 K55 ["backends"]
+      902 NEWTABLE                         R71 0 3
+      904 LOADN                            R72 26
+      905 LOADN                            R73 7
+      906 LOADN                            R74 22
+      907 SETLIST                          R71 R72 3 [1]
+      909 SETTABLEKS                       R71 R70 K58 ["lastUpdated"]
+      911 CALL                             R69 1 1
+      912 GETIMPORT                        R70 K48 [table.freeze]
+      914 DUPTABLE                         R71 K178 [{["eventName"], ["backends"], ["description"] = "Auto-setup options used for an MCP `auto_setup_avatar` call.", ["lastUpdated"]}]
+      915 LOADK                            R72 K179 ["StudioAssistantAvatarAutoSetupOptions"]
+      916 SETTABLEKS                       R72 R71 K54 ["eventName"]
+      918 SETTABLEKS                       R31 R71 K55 ["backends"]
+      920 NEWTABLE                         R72 0 3
+      922 LOADN                            R73 26
+      923 LOADN                            R74 7
+      924 LOADN                            R75 22
+      925 SETLIST                          R72 R73 3 [1]
+      927 SETTABLEKS                       R72 R71 K58 ["lastUpdated"]
+      929 CALL                             R70 1 1
+      930 GETIMPORT                        R71 K48 [table.freeze]
+      932 DUPTABLE                         R72 K181 [{["eventName"], ["backends"], ["description"] = "Engine assigned a job id to an MCP `auto_setup_avatar` call.", ["lastUpdated"]}]
+      933 LOADK                            R73 K182 ["StudioAssistantAvatarAutoSetupJobInitialized"]
+      934 SETTABLEKS                       R73 R72 K54 ["eventName"]
+      936 SETTABLEKS                       R31 R72 K55 ["backends"]
+      938 NEWTABLE                         R73 0 3
+      940 LOADN                            R74 26
+      941 LOADN                            R75 7
+      942 LOADN                            R76 22
+      943 SETLIST                          R73 R74 3 [1]
+      945 SETTABLEKS                       R73 R72 K58 ["lastUpdated"]
+      947 CALL                             R71 1 1
+      948 GETIMPORT                        R72 K48 [table.freeze]
+      950 DUPTABLE                         R73 K184 [{["eventName"], ["backends"], ["description"] = "MCP `auto_setup_avatar` tool call completed successfully.", ["lastUpdated"]}]
+      951 LOADK                            R74 K185 ["StudioAssistantAvatarAutoSetupFinish"]
+      952 SETTABLEKS                       R74 R73 K54 ["eventName"]
+      954 SETTABLEKS                       R31 R73 K55 ["backends"]
+      956 NEWTABLE                         R74 0 3
+      958 LOADN                            R75 26
+      959 LOADN                            R76 7
+      960 LOADN                            R77 22
+      961 SETLIST                          R74 R75 3 [1]
+      963 SETTABLEKS                       R74 R73 K58 ["lastUpdated"]
+      965 CALL                             R72 1 1
+      966 GETIMPORT                        R73 K48 [table.freeze]
+      968 DUPTABLE                         R74 K187 [{["eventName"], ["backends"], ["description"] = "MCP `auto_setup_avatar` tool call failed before returning a model.", ["lastUpdated"]}]
+      969 LOADK                            R75 K188 ["StudioAssistantAvatarAutoSetupFailure"]
+      970 SETTABLEKS                       R75 R74 K54 ["eventName"]
+      972 SETTABLEKS                       R31 R74 K55 ["backends"]
       974 NEWTABLE                         R75 0 3
       976 LOADN                            R76 26
       977 LOADN                            R77 7
-      978 LOADN                            R78 29
+      978 LOADN                            R78 22
       979 SETLIST                          R75 R76 3 [1]
       981 SETTABLEKS                       R75 R74 K58 ["lastUpdated"]
       983 CALL                             R73 1 1
       984 GETIMPORT                        R74 K48 [table.freeze]
-      986 DUPTABLE                         R75 K190 [{["eventName"], ["backends"], ["description"] = "Count of failed MCP `auto_setup_avatar` tool calls.", ["lastUpdated"]}]
-      987 LOADK                            R76 K191 ["StudioAssistantAvatarAutoSetupFailureCount"]
+      986 DUPTABLE                         R75 K190 [{["eventName"], ["backends"], ["description"] = "Count of successful MCP `auto_setup_avatar` tool calls.", ["lastUpdated"]}]
+      987 LOADK                            R76 K191 ["StudioAssistantAvatarAutoSetupFinishCount"]
       988 SETTABLEKS                       R76 R75 K54 ["eventName"]
       990 NEWTABLE                         R76 0 1
       992 GETTABLEKS                       R77 R8 K49 ["Backends"]
@@ -5201,8 +5580,8 @@ MAIN:
      1007 SETTABLEKS                       R76 R75 K58 ["lastUpdated"]
      1009 CALL                             R74 1 1
      1010 GETIMPORT                        R75 K48 [table.freeze]
-     1012 DUPTABLE                         R76 K193 [{["eventName"], ["backends"], ["description"] = "Count of user clicks on the 'refresh' button of the suggest-segmentation row, labelled by modelFlow and inputFormat.", ["lastUpdated"]}]
-     1013 LOADK                            R77 K194 ["StudioAssistantGen3DSegmentationRefresh"]
+     1012 DUPTABLE                         R76 K193 [{["eventName"], ["backends"], ["description"] = "Count of failed MCP `auto_setup_avatar` tool calls.", ["lastUpdated"]}]
+     1013 LOADK                            R77 K194 ["StudioAssistantAvatarAutoSetupFailureCount"]
      1014 SETTABLEKS                       R77 R76 K54 ["eventName"]
      1016 NEWTABLE                         R77 0 1
      1018 GETTABLEKS                       R78 R8 K49 ["Backends"]
@@ -5211,44 +5590,44 @@ MAIN:
      1024 SETTABLEKS                       R77 R76 K55 ["backends"]
      1026 NEWTABLE                         R77 0 3
      1028 LOADN                            R78 26
-     1029 LOADN                            R79 6
-     1030 LOADN                            R80 9
+     1029 LOADN                            R79 7
+     1030 LOADN                            R80 29
      1031 SETLIST                          R77 R78 3 [1]
      1033 SETTABLEKS                       R77 R76 K58 ["lastUpdated"]
      1035 CALL                             R75 1 1
      1036 GETIMPORT                        R76 K48 [table.freeze]
-     1038 DUPTABLE                         R77 K196 [{["eventName"], ["backends"], ["description"] = "Fired when a tagged AI-generated instance is destroyed within the current Studio session. Join with the inserted event on generationId to compute % deleted within session.", ["lastUpdated"]}]
-     1039 LOADK                            R78 K197 ["StudioAssistantGen3DInstanceDeleted"]
+     1038 DUPTABLE                         R77 K196 [{["eventName"], ["backends"], ["description"] = "Count of user clicks on the 'refresh' button of the suggest-segmentation row, labelled by modelFlow and inputFormat.", ["lastUpdated"]}]
+     1039 LOADK                            R78 K197 ["StudioAssistantGen3DSegmentationRefresh"]
      1040 SETTABLEKS                       R78 R77 K54 ["eventName"]
-     1042 SETTABLEKS                       R31 R77 K55 ["backends"]
-     1044 NEWTABLE                         R78 0 3
-     1046 LOADN                            R79 26
-     1047 LOADN                            R80 6
-     1048 LOADN                            R81 9
-     1049 SETLIST                          R78 R79 3 [1]
-     1051 SETTABLEKS                       R78 R77 K58 ["lastUpdated"]
-     1053 CALL                             R76 1 1
-     1054 GETIMPORT                        R77 K48 [table.freeze]
-     1056 DUPTABLE                         R78 K199 [{["eventName"], ["backends"], ["description"] = "Fired once per image-preview batch (MeshGen/PrimitiveGen picker) with the option ids shown to the user.", ["lastUpdated"]}]
-     1057 LOADK                            R79 K200 ["StudioAssistantGen3DImageImpression"]
-     1058 SETTABLEKS                       R79 R78 K54 ["eventName"]
-     1060 SETTABLEKS                       R31 R78 K55 ["backends"]
-     1062 NEWTABLE                         R79 0 3
-     1064 LOADN                            R80 26
-     1065 LOADN                            R81 7
-     1066 LOADN                            R82 30
-     1067 SETLIST                          R79 R80 3 [1]
-     1069 SETTABLEKS                       R79 R78 K58 ["lastUpdated"]
-     1071 CALL                             R77 1 1
-     1072 GETIMPORT                        R78 K48 [table.freeze]
-     1074 DUPTABLE                         R79 K202 [{["eventName"], ["backends"], ["description"] = "Count of image-preview picker actions (select/refresh/refine/back), labelled by action and modelFlow.", ["lastUpdated"]}]
-     1075 LOADK                            R80 K203 ["StudioAssistantGen3DImageActionCount"]
-     1076 SETTABLEKS                       R80 R79 K54 ["eventName"]
-     1078 NEWTABLE                         R80 0 1
-     1080 GETTABLEKS                       R81 R8 K49 ["Backends"]
-     1082 GETTABLEKS                       R81 R81 K61 ["RobloxTelemetryCounter"]
-     1084 SETLIST                          R80 R81 1 [1]
-     1086 SETTABLEKS                       R80 R79 K55 ["backends"]
+     1042 NEWTABLE                         R78 0 1
+     1044 GETTABLEKS                       R79 R8 K49 ["Backends"]
+     1046 GETTABLEKS                       R79 R79 K61 ["RobloxTelemetryCounter"]
+     1048 SETLIST                          R78 R79 1 [1]
+     1050 SETTABLEKS                       R78 R77 K55 ["backends"]
+     1052 NEWTABLE                         R78 0 3
+     1054 LOADN                            R79 26
+     1055 LOADN                            R80 6
+     1056 LOADN                            R81 9
+     1057 SETLIST                          R78 R79 3 [1]
+     1059 SETTABLEKS                       R78 R77 K58 ["lastUpdated"]
+     1061 CALL                             R76 1 1
+     1062 GETIMPORT                        R77 K48 [table.freeze]
+     1064 DUPTABLE                         R78 K199 [{["eventName"], ["backends"], ["description"] = "Fired when a tagged AI-generated instance is destroyed within the current Studio session. Join with the inserted event on generationId to compute % deleted within session.", ["lastUpdated"]}]
+     1065 LOADK                            R79 K200 ["StudioAssistantGen3DInstanceDeleted"]
+     1066 SETTABLEKS                       R79 R78 K54 ["eventName"]
+     1068 SETTABLEKS                       R31 R78 K55 ["backends"]
+     1070 NEWTABLE                         R79 0 3
+     1072 LOADN                            R80 26
+     1073 LOADN                            R81 6
+     1074 LOADN                            R82 9
+     1075 SETLIST                          R79 R80 3 [1]
+     1077 SETTABLEKS                       R79 R78 K58 ["lastUpdated"]
+     1079 CALL                             R77 1 1
+     1080 GETIMPORT                        R78 K48 [table.freeze]
+     1082 DUPTABLE                         R79 K202 [{["eventName"], ["backends"], ["description"] = "Fired once per image-preview batch (MeshGen/PrimitiveGen picker) with the option ids shown to the user.", ["lastUpdated"]}]
+     1083 LOADK                            R80 K203 ["StudioAssistantGen3DImageImpression"]
+     1084 SETTABLEKS                       R80 R79 K54 ["eventName"]
+     1086 SETTABLEKS                       R31 R79 K55 ["backends"]
      1088 NEWTABLE                         R80 0 3
      1090 LOADN                            R81 26
      1091 LOADN                            R82 7
@@ -5257,38 +5636,38 @@ MAIN:
      1095 SETTABLEKS                       R80 R79 K58 ["lastUpdated"]
      1097 CALL                             R78 1 1
      1098 GETIMPORT                        R79 K48 [table.freeze]
-     1100 DUPTABLE                         R80 K205 [{["eventName"], ["backends"], ["description"] = "Fired for each user action taken on the image-preview picker (MeshGen/PrimitiveGen).", ["lastUpdated"]}]
-     1101 LOADK                            R81 K206 ["StudioAssistantGen3DImageAction"]
+     1100 DUPTABLE                         R80 K205 [{["eventName"], ["backends"], ["description"] = "Count of image-preview picker actions (select/refresh/refine/back), labelled by action and modelFlow.", ["lastUpdated"]}]
+     1101 LOADK                            R81 K206 ["StudioAssistantGen3DImageActionCount"]
      1102 SETTABLEKS                       R81 R80 K54 ["eventName"]
-     1104 SETTABLEKS                       R31 R80 K55 ["backends"]
-     1106 NEWTABLE                         R81 0 3
-     1108 LOADN                            R82 26
-     1109 LOADN                            R83 7
-     1110 LOADN                            R84 30
-     1111 SETLIST                          R81 R82 3 [1]
-     1113 SETTABLEKS                       R81 R80 K58 ["lastUpdated"]
-     1115 CALL                             R79 1 1
-     1116 GETIMPORT                        R80 K48 [table.freeze]
-     1118 DUPTABLE                         R81 K208 [{["eventName"], ["backends"], ["description"] = "Fired per distinct generationId still tagged in the DataModel when a place publish starts. Shared across MeshGen, PrimitiveGen, and future Gen3D-style tools.", ["lastUpdated"]}]
-     1119 LOADK                            R82 K209 ["StudioAssistantGen3DAssetPublished"]
-     1120 SETTABLEKS                       R82 R81 K54 ["eventName"]
-     1122 SETTABLEKS                       R31 R81 K55 ["backends"]
-     1124 NEWTABLE                         R82 0 3
-     1126 LOADN                            R83 26
-     1127 LOADN                            R84 7
-     1128 LOADN                            R85 30
-     1129 SETLIST                          R82 R83 3 [1]
-     1131 SETTABLEKS                       R82 R81 K58 ["lastUpdated"]
-     1133 CALL                             R80 1 1
-     1134 GETIMPORT                        R81 K48 [table.freeze]
-     1136 DUPTABLE                         R82 K211 [{["eventName"], ["backends"], ["description"] = "Count of AI-generated assets still present at publish time, labelled by modelFlow.", ["lastUpdated"]}]
-     1137 LOADK                            R83 K212 ["StudioAssistantGen3DAssetPublishedCount"]
-     1138 SETTABLEKS                       R83 R82 K54 ["eventName"]
-     1140 NEWTABLE                         R83 0 1
-     1142 GETTABLEKS                       R84 R8 K49 ["Backends"]
-     1144 GETTABLEKS                       R84 R84 K61 ["RobloxTelemetryCounter"]
-     1146 SETLIST                          R83 R84 1 [1]
-     1148 SETTABLEKS                       R83 R82 K55 ["backends"]
+     1104 NEWTABLE                         R81 0 1
+     1106 GETTABLEKS                       R82 R8 K49 ["Backends"]
+     1108 GETTABLEKS                       R82 R82 K61 ["RobloxTelemetryCounter"]
+     1110 SETLIST                          R81 R82 1 [1]
+     1112 SETTABLEKS                       R81 R80 K55 ["backends"]
+     1114 NEWTABLE                         R81 0 3
+     1116 LOADN                            R82 26
+     1117 LOADN                            R83 7
+     1118 LOADN                            R84 30
+     1119 SETLIST                          R81 R82 3 [1]
+     1121 SETTABLEKS                       R81 R80 K58 ["lastUpdated"]
+     1123 CALL                             R79 1 1
+     1124 GETIMPORT                        R80 K48 [table.freeze]
+     1126 DUPTABLE                         R81 K208 [{["eventName"], ["backends"], ["description"] = "Fired for each user action taken on the image-preview picker (MeshGen/PrimitiveGen).", ["lastUpdated"]}]
+     1127 LOADK                            R82 K209 ["StudioAssistantGen3DImageAction"]
+     1128 SETTABLEKS                       R82 R81 K54 ["eventName"]
+     1130 SETTABLEKS                       R31 R81 K55 ["backends"]
+     1132 NEWTABLE                         R82 0 3
+     1134 LOADN                            R83 26
+     1135 LOADN                            R84 7
+     1136 LOADN                            R85 30
+     1137 SETLIST                          R82 R83 3 [1]
+     1139 SETTABLEKS                       R82 R81 K58 ["lastUpdated"]
+     1141 CALL                             R80 1 1
+     1142 GETIMPORT                        R81 K48 [table.freeze]
+     1144 DUPTABLE                         R82 K211 [{["eventName"], ["backends"], ["description"] = "Fired per distinct generationId still tagged in the DataModel when a place publish starts. Shared across MeshGen, PrimitiveGen, and future Gen3D-style tools.", ["lastUpdated"]}]
+     1145 LOADK                            R83 K212 ["StudioAssistantGen3DAssetPublished"]
+     1146 SETTABLEKS                       R83 R82 K54 ["eventName"]
+     1148 SETTABLEKS                       R31 R82 K55 ["backends"]
      1150 NEWTABLE                         R83 0 3
      1152 LOADN                            R84 26
      1153 LOADN                            R85 7
@@ -5297,428 +5676,535 @@ MAIN:
      1157 SETTABLEKS                       R83 R82 K58 ["lastUpdated"]
      1159 CALL                             R81 1 1
      1160 GETIMPORT                        R82 K48 [table.freeze]
-     1162 DUPTABLE                         R83 K214 [{["eventName"], ["backends"], ["description"] = "Integration event with action, label, and URL.", ["lastUpdated"]}]
-     1163 LOADK                            R84 K215 ["StudioAssistantIntegrationAction"]
+     1162 DUPTABLE                         R83 K214 [{["eventName"], ["backends"], ["description"] = "Count of AI-generated assets still present at publish time, labelled by modelFlow.", ["lastUpdated"]}]
+     1163 LOADK                            R84 K215 ["StudioAssistantGen3DAssetPublishedCount"]
      1164 SETTABLEKS                       R84 R83 K54 ["eventName"]
-     1166 SETTABLEKS                       R31 R83 K55 ["backends"]
-     1168 NEWTABLE                         R84 0 3
-     1170 LOADN                            R85 26
-     1171 LOADN                            R86 2
-     1172 LOADN                            R87 3
-     1173 SETLIST                          R84 R85 3 [1]
-     1175 SETTABLEKS                       R84 R83 K58 ["lastUpdated"]
-     1177 CALL                             R82 1 1
-     1178 GETIMPORT                        R83 K48 [table.freeze]
-     1180 DUPTABLE                         R84 K217 [{["eventName"], ["backends"], ["description"] = "External server connected event with session ID", ["lastUpdated"]}]
-     1181 LOADK                            R85 K218 ["StudioAssistantExternalServerConnectedEvent"]
-     1182 SETTABLEKS                       R85 R84 K54 ["eventName"]
-     1184 SETTABLEKS                       R31 R84 K55 ["backends"]
-     1186 NEWTABLE                         R85 0 3
-     1188 LOADN                            R86 26
-     1189 LOADN                            R87 2
-     1190 LOADN                            R88 25
-     1191 SETLIST                          R85 R86 3 [1]
-     1193 SETTABLEKS                       R85 R84 K58 ["lastUpdated"]
-     1195 CALL                             R83 1 1
-     1196 GETIMPORT                        R84 K48 [table.freeze]
-     1198 DUPTABLE                         R85 K217 [{["eventName"], ["backends"], ["description"] = "External server connected event with session ID", ["lastUpdated"]}]
-     1199 LOADK                            R86 K219 ["StudioAssistantExternalServerConnectedCounter"]
-     1200 SETTABLEKS                       R86 R85 K54 ["eventName"]
-     1202 NEWTABLE                         R86 0 1
-     1204 GETTABLEKS                       R87 R8 K49 ["Backends"]
-     1206 GETTABLEKS                       R87 R87 K61 ["RobloxTelemetryCounter"]
-     1208 SETLIST                          R86 R87 1 [1]
-     1210 SETTABLEKS                       R86 R85 K55 ["backends"]
-     1212 NEWTABLE                         R86 0 3
-     1214 LOADN                            R87 26
-     1215 LOADN                            R88 2
-     1216 LOADN                            R89 25
-     1217 SETLIST                          R86 R87 3 [1]
-     1219 SETTABLEKS                       R86 R85 K58 ["lastUpdated"]
-     1221 CALL                             R84 1 1
-     1222 GETIMPORT                        R85 K48 [table.freeze]
-     1224 DUPTABLE                         R86 K222 [{["eventName"] = "CAPQuestionAnswerCompleted", ["backends"], ["description"] = "Question answer tool completed event with full question/answer context.", ["lastUpdated"]}]
-     1225 SETTABLEKS                       R31 R86 K55 ["backends"]
-     1227 NEWTABLE                         R87 0 3
-     1229 LOADN                            R88 26
-     1230 LOADN                            R89 4
-     1231 LOADN                            R90 1
-     1232 SETLIST                          R87 R88 3 [1]
-     1234 SETTABLEKS                       R87 R86 K58 ["lastUpdated"]
-     1236 CALL                             R85 1 1
-     1237 GETIMPORT                        R86 K48 [table.freeze]
-     1239 DUPTABLE                         R87 K224 [{["eventName"], ["backends"], ["description"] = "Count of question answer tool completions.", ["lastUpdated"]}]
-     1240 LOADK                            R88 K225 ["StudioAssistantQuestionAnswerCompleted"]
-     1241 SETTABLEKS                       R88 R87 K54 ["eventName"]
-     1243 NEWTABLE                         R88 0 1
-     1245 GETTABLEKS                       R89 R8 K49 ["Backends"]
-     1247 GETTABLEKS                       R89 R89 K61 ["RobloxTelemetryCounter"]
-     1249 SETLIST                          R88 R89 1 [1]
-     1251 SETTABLEKS                       R88 R87 K55 ["backends"]
-     1253 NEWTABLE                         R88 0 3
-     1255 LOADN                            R89 26
-     1256 LOADN                            R90 4
-     1257 LOADN                            R91 1
-     1258 SETLIST                          R88 R89 3 [1]
-     1260 SETTABLEKS                       R88 R87 K58 ["lastUpdated"]
-     1262 CALL                             R86 1 1
-     1263 GETIMPORT                        R87 K48 [table.freeze]
-     1265 DUPTABLE                         R88 K228 [{["eventName"] = "CAPPlanDecision", ["backends"], ["description"] = "Plan decision event with full plan context when user accepts or rejects a plan.", ["lastUpdated"]}]
-     1266 SETTABLEKS                       R31 R88 K55 ["backends"]
-     1268 NEWTABLE                         R89 0 3
-     1270 LOADN                            R90 26
-     1271 LOADN                            R91 4
-     1272 LOADN                            R92 1
-     1273 SETLIST                          R89 R90 3 [1]
-     1275 SETTABLEKS                       R89 R88 K58 ["lastUpdated"]
-     1277 CALL                             R87 1 1
-     1278 GETIMPORT                        R88 K48 [table.freeze]
-     1280 DUPTABLE                         R89 K230 [{["eventName"], ["backends"], ["description"] = "Count of plan decisions.", ["lastUpdated"]}]
-     1281 LOADK                            R90 K231 ["StudioAssistantPlanDecision"]
-     1282 SETTABLEKS                       R90 R89 K54 ["eventName"]
-     1284 NEWTABLE                         R90 0 1
-     1286 GETTABLEKS                       R91 R8 K49 ["Backends"]
-     1288 GETTABLEKS                       R91 R91 K61 ["RobloxTelemetryCounter"]
-     1290 SETLIST                          R90 R91 1 [1]
-     1292 SETTABLEKS                       R90 R89 K55 ["backends"]
-     1294 NEWTABLE                         R90 0 3
-     1296 LOADN                            R91 26
-     1297 LOADN                            R92 4
-     1298 LOADN                            R93 1
-     1299 SETLIST                          R90 R91 3 [1]
-     1301 SETTABLEKS                       R90 R89 K58 ["lastUpdated"]
-     1303 CALL                             R88 1 1
-     1304 GETIMPORT                        R89 K48 [table.freeze]
-     1306 DUPTABLE                         R90 K234 [{["eventName"] = "SBT_MaterialGeneratorSavedMaterial", ["backends"], ["description"] = "Counter to track number of saved materials", ["lastUpdated"]}]
-     1307 NEWTABLE                         R91 0 1
-     1309 GETTABLEKS                       R92 R8 K49 ["Backends"]
-     1311 GETTABLEKS                       R92 R92 K61 ["RobloxTelemetryCounter"]
-     1313 SETLIST                          R91 R92 1 [1]
-     1315 SETTABLEKS                       R91 R90 K55 ["backends"]
-     1317 NEWTABLE                         R91 0 3
-     1319 LOADN                            R92 24
-     1320 LOADN                            R93 10
-     1321 LOADN                            R94 15
-     1322 SETLIST                          R91 R92 3 [1]
-     1324 SETTABLEKS                       R91 R90 K58 ["lastUpdated"]
-     1326 CALL                             R89 1 1
-     1327 GETIMPORT                        R90 K48 [table.freeze]
-     1329 DUPTABLE                         R91 K236 [{["eventName"], ["backends"], ["description"] = "Thread created event with details.", ["lastUpdated"]}]
-     1330 LOADK                            R92 K237 ["StudioAssistantThreadCreated"]
-     1331 SETTABLEKS                       R92 R91 K54 ["eventName"]
-     1333 SETTABLEKS                       R31 R91 K55 ["backends"]
-     1335 NEWTABLE                         R92 0 3
-     1337 LOADN                            R93 26
-     1338 LOADN                            R94 3
-     1339 LOADN                            R95 10
-     1340 SETLIST                          R92 R93 3 [1]
-     1342 SETTABLEKS                       R92 R91 K58 ["lastUpdated"]
-     1344 CALL                             R90 1 1
-     1345 GETIMPORT                        R91 K48 [table.freeze]
-     1347 DUPTABLE                         R92 K239 [{["eventName"], ["backends"], ["description"] = "Thread named event with details.", ["lastUpdated"]}]
-     1348 LOADK                            R93 K240 ["StudioAssistantThreadRenamed"]
-     1349 SETTABLEKS                       R93 R92 K54 ["eventName"]
-     1351 SETTABLEKS                       R31 R92 K55 ["backends"]
-     1353 NEWTABLE                         R93 0 3
-     1355 LOADN                            R94 26
-     1356 LOADN                            R95 3
-     1357 LOADN                            R96 10
-     1358 SETLIST                          R93 R94 3 [1]
-     1360 SETTABLEKS                       R93 R92 K58 ["lastUpdated"]
-     1362 CALL                             R91 1 1
-     1363 GETIMPORT                        R92 K48 [table.freeze]
-     1365 DUPTABLE                         R93 K242 [{["eventName"], ["backends"], ["description"] = "Thread pinned changed event with details.", ["lastUpdated"]}]
-     1366 LOADK                            R94 K243 ["StudioAssistantThreadPinnedChanged"]
-     1367 SETTABLEKS                       R94 R93 K54 ["eventName"]
-     1369 SETTABLEKS                       R31 R93 K55 ["backends"]
-     1371 NEWTABLE                         R94 0 3
-     1373 LOADN                            R95 26
-     1374 LOADN                            R96 3
-     1375 LOADN                            R97 10
-     1376 SETLIST                          R94 R95 3 [1]
-     1378 SETTABLEKS                       R94 R93 K58 ["lastUpdated"]
-     1380 CALL                             R92 1 1
-     1381 GETIMPORT                        R93 K48 [table.freeze]
-     1383 DUPTABLE                         R94 K245 [{["eventName"], ["backends"], ["description"] = "Thread deleted event with details.", ["lastUpdated"]}]
-     1384 LOADK                            R95 K246 ["StudioAssistantThreadDeleted"]
-     1385 SETTABLEKS                       R95 R94 K54 ["eventName"]
-     1387 SETTABLEKS                       R31 R94 K55 ["backends"]
-     1389 NEWTABLE                         R95 0 3
-     1391 LOADN                            R96 26
-     1392 LOADN                            R97 3
-     1393 LOADN                            R98 10
-     1394 SETLIST                          R95 R96 3 [1]
-     1396 SETTABLEKS                       R95 R94 K58 ["lastUpdated"]
-     1398 CALL                             R93 1 1
-     1399 GETIMPORT                        R94 K48 [table.freeze]
-     1401 DUPTABLE                         R95 K248 [{["eventName"], ["backends"], ["description"] = "Thread duplicated event with details.", ["lastUpdated"]}]
-     1402 LOADK                            R96 K249 ["StudioAssistantThreadDuplicated"]
-     1403 SETTABLEKS                       R96 R95 K54 ["eventName"]
-     1405 SETTABLEKS                       R31 R95 K55 ["backends"]
-     1407 NEWTABLE                         R96 0 3
-     1409 LOADN                            R97 26
-     1410 LOADN                            R98 3
-     1411 LOADN                            R99 10
-     1412 SETLIST                          R96 R97 3 [1]
-     1414 SETTABLEKS                       R96 R95 K58 ["lastUpdated"]
-     1416 CALL                             R94 1 1
-     1417 GETIMPORT                        R95 K48 [table.freeze]
-     1419 DUPTABLE                         R96 K251 [{["eventName"], ["backends"], ["description"] = "Context compaction summarizer completed successfully.", ["lastUpdated"]}]
-     1420 LOADK                            R97 K252 ["StudioAssistantCompactionSuccess"]
-     1421 SETTABLEKS                       R97 R96 K54 ["eventName"]
-     1423 SETTABLEKS                       R31 R96 K55 ["backends"]
-     1425 NEWTABLE                         R97 0 3
-     1427 LOADN                            R98 26
-     1428 LOADN                            R99 4
-     1429 LOADN                            R100 28
-     1430 SETLIST                          R97 R98 3 [1]
-     1432 SETTABLEKS                       R97 R96 K58 ["lastUpdated"]
-     1434 CALL                             R95 1 1
-     1435 GETIMPORT                        R96 K48 [table.freeze]
-     1437 DUPTABLE                         R97 K254 [{["eventName"], ["backends"], ["description"] = "Count of successful compaction events.", ["lastUpdated"]}]
-     1438 LOADK                            R98 K255 ["StudioAssistantCompactionSuccessCount"]
-     1439 SETTABLEKS                       R98 R97 K54 ["eventName"]
-     1441 NEWTABLE                         R98 0 1
-     1443 GETTABLEKS                       R99 R8 K49 ["Backends"]
-     1445 GETTABLEKS                       R99 R99 K61 ["RobloxTelemetryCounter"]
-     1447 SETLIST                          R98 R99 1 [1]
-     1449 SETTABLEKS                       R98 R97 K55 ["backends"]
-     1451 NEWTABLE                         R98 0 3
-     1453 LOADN                            R99 26
-     1454 LOADN                            R100 4
-     1455 LOADN                            R101 28
-     1456 SETLIST                          R98 R99 3 [1]
-     1458 SETTABLEKS                       R98 R97 K58 ["lastUpdated"]
-     1460 CALL                             R96 1 1
-     1461 GETIMPORT                        R97 K48 [table.freeze]
-     1463 DUPTABLE                         R98 K257 [{["eventName"], ["backends"], ["description"] = "Context compaction summarizer failed, fell back to generic summary.", ["lastUpdated"]}]
-     1464 LOADK                            R99 K258 ["StudioAssistantCompactionFallback"]
-     1465 SETTABLEKS                       R99 R98 K54 ["eventName"]
-     1467 SETTABLEKS                       R31 R98 K55 ["backends"]
-     1469 NEWTABLE                         R99 0 3
-     1471 LOADN                            R100 26
-     1472 LOADN                            R101 4
-     1473 LOADN                            R102 28
-     1474 SETLIST                          R99 R100 3 [1]
-     1476 SETTABLEKS                       R99 R98 K58 ["lastUpdated"]
-     1478 CALL                             R97 1 1
-     1479 GETIMPORT                        R98 K48 [table.freeze]
-     1481 DUPTABLE                         R99 K260 [{["eventName"], ["backends"], ["description"] = "Count of compaction fallback events.", ["lastUpdated"]}]
-     1482 LOADK                            R100 K261 ["StudioAssistantCompactionFallbackCount"]
-     1483 SETTABLEKS                       R100 R99 K54 ["eventName"]
-     1485 NEWTABLE                         R100 0 1
-     1487 GETTABLEKS                       R101 R8 K49 ["Backends"]
-     1489 GETTABLEKS                       R101 R101 K61 ["RobloxTelemetryCounter"]
-     1491 SETLIST                          R100 R101 1 [1]
-     1493 SETTABLEKS                       R100 R99 K55 ["backends"]
-     1495 NEWTABLE                         R100 0 3
-     1497 LOADN                            R101 26
-     1498 LOADN                            R102 4
-     1499 LOADN                            R103 28
-     1500 SETLIST                          R100 R101 3 [1]
-     1502 SETTABLEKS                       R100 R99 K58 ["lastUpdated"]
-     1504 CALL                             R98 1 1
-     1505 GETIMPORT                        R99 K48 [table.freeze]
-     1507 DUPTABLE                         R100 K263 [{["eventName"], ["backends"], ["description"] = "Quick setup toggled/copied.", ["lastUpdated"]}]
-     1508 LOADK                            R101 K264 ["StudioAssistantMCPQuickSetup"]
-     1509 SETTABLEKS                       R101 R100 K54 ["eventName"]
-     1511 SETTABLEKS                       R31 R100 K55 ["backends"]
-     1513 NEWTABLE                         R101 0 3
-     1515 LOADN                            R102 26
-     1516 LOADN                            R103 4
-     1517 LOADN                            R104 15
-     1518 SETLIST                          R101 R102 3 [1]
-     1520 SETTABLEKS                       R101 R100 K58 ["lastUpdated"]
-     1522 CALL                             R99 1 1
-     1523 GETIMPORT                        R100 K48 [table.freeze]
-     1525 DUPTABLE                         R101 K266 [{["eventName"], ["backends"], ["description"] = "Thread switched event with details.", ["lastUpdated"]}]
-     1526 LOADK                            R102 K267 ["StudioAssistantThreadSwitched"]
-     1527 SETTABLEKS                       R102 R101 K54 ["eventName"]
-     1529 SETTABLEKS                       R31 R101 K55 ["backends"]
-     1531 NEWTABLE                         R102 0 3
-     1533 LOADN                            R103 26
-     1534 LOADN                            R104 3
-     1535 LOADN                            R105 10
-     1536 SETLIST                          R102 R103 3 [1]
-     1538 SETTABLEKS                       R102 R101 K58 ["lastUpdated"]
-     1540 CALL                             R100 1 1
-     1541 GETIMPORT                        R101 K48 [table.freeze]
-     1543 DUPTABLE                         R102 K270 [{["eventName"] = "CAPUserSkillEvent", ["backends"], ["description"] = "User skill created or updated event with skill name and action.", ["lastUpdated"]}]
-     1544 SETTABLEKS                       R31 R102 K55 ["backends"]
-     1546 NEWTABLE                         R103 0 3
-     1548 LOADN                            R104 26
-     1549 LOADN                            R105 6
-     1550 LOADN                            R106 24
-     1551 SETLIST                          R103 R104 3 [1]
-     1553 SETTABLEKS                       R103 R102 K58 ["lastUpdated"]
-     1555 CALL                             R101 1 1
-     1556 GETIMPORT                        R102 K48 [table.freeze]
-     1558 DUPTABLE                         R103 K273 [{["eventName"] = "CAPThinkingBlock", ["backends"], ["description"] = "Thinking block completed event with thinking text, subagent attribution.", ["lastUpdated"]}]
-     1559 SETTABLEKS                       R31 R103 K55 ["backends"]
-     1561 NEWTABLE                         R104 0 3
-     1563 LOADN                            R105 26
-     1564 LOADN                            R106 7
-     1565 LOADN                            R107 22
-     1566 SETLIST                          R104 R105 3 [1]
-     1568 SETTABLEKS                       R104 R103 K58 ["lastUpdated"]
-     1570 CALL                             R102 1 1
-     1571 GETIMPORT                        R103 K48 [table.freeze]
-     1573 DUPTABLE                         R104 K275 [{["eventName"], ["backends"], ["description"] = "Count of successful persistence operations.", ["lastUpdated"]}]
-     1574 LOADK                            R105 K276 ["StudioAssistantPersistenceSuccess"]
-     1575 SETTABLEKS                       R105 R104 K54 ["eventName"]
-     1577 NEWTABLE                         R105 0 1
-     1579 GETTABLEKS                       R106 R8 K49 ["Backends"]
-     1581 GETTABLEKS                       R106 R106 K61 ["RobloxTelemetryCounter"]
-     1583 SETLIST                          R105 R106 1 [1]
-     1585 SETTABLEKS                       R105 R104 K55 ["backends"]
-     1587 NEWTABLE                         R105 0 3
-     1589 LOADN                            R106 26
-     1590 LOADN                            R107 3
-     1591 LOADN                            R108 10
-     1592 SETLIST                          R105 R106 3 [1]
-     1594 SETTABLEKS                       R105 R104 K58 ["lastUpdated"]
-     1596 CALL                             R103 1 1
-     1597 GETIMPORT                        R104 K48 [table.freeze]
-     1599 DUPTABLE                         R105 K278 [{["eventName"], ["backends"], ["description"] = "Count of failed persistence operations.", ["lastUpdated"]}]
-     1600 LOADK                            R106 K279 ["StudioAssistantPersistenceFailure"]
-     1601 SETTABLEKS                       R106 R105 K54 ["eventName"]
-     1603 NEWTABLE                         R106 0 1
-     1605 GETTABLEKS                       R107 R8 K49 ["Backends"]
-     1607 GETTABLEKS                       R107 R107 K61 ["RobloxTelemetryCounter"]
-     1609 SETLIST                          R106 R107 1 [1]
-     1611 SETTABLEKS                       R106 R105 K55 ["backends"]
-     1613 NEWTABLE                         R106 0 3
-     1615 LOADN                            R107 26
-     1616 LOADN                            R108 3
-     1617 LOADN                            R109 10
-     1618 SETLIST                          R106 R107 3 [1]
-     1620 SETTABLEKS                       R106 R105 K58 ["lastUpdated"]
-     1622 CALL                             R104 1 1
-     1623 GETIMPORT                        R105 K48 [table.freeze]
-     1625 DUPTABLE                         R106 K281 [{["eventName"], ["backends"], ["description"] = "Persistence operation latency in milliseconds.", ["lastUpdated"]}]
-     1626 LOADK                            R107 K282 ["StudioAssistantPersistenceLatencyMs"]
-     1627 SETTABLEKS                       R107 R106 K54 ["eventName"]
-     1629 NEWTABLE                         R107 0 1
-     1631 GETTABLEKS                       R108 R8 K49 ["Backends"]
-     1633 GETTABLEKS                       R108 R108 K85 ["RobloxTelemetryStat"]
-     1635 SETLIST                          R107 R108 1 [1]
-     1637 SETTABLEKS                       R107 R106 K55 ["backends"]
-     1639 NEWTABLE                         R107 0 3
-     1641 LOADN                            R108 26
-     1642 LOADN                            R109 3
-     1643 LOADN                            R110 10
-     1644 SETLIST                          R107 R108 3 [1]
-     1646 SETTABLEKS                       R107 R106 K58 ["lastUpdated"]
-     1648 CALL                             R105 1 1
-     1649 DUPCLOSURE                       R106 K283 [PROTO_18]
-     1650 CAPTURE                          VAL R5
-     1651 CAPTURE                          VAL R10
-     1652 GETTABLEKS                       R107 R7 K284 ["FStringAssistantGroupNameKey"]
-     1654 GETTABLEKS                       R108 R6 K285 ["new"]
-     1656 MOVE                             R109 R2
-     1657 GETTABLEKS                       R110 R7 K286 ["FStringNewAssistantExperimentLayer"]
-     1659 CALL                             R108 2 1
-     1660 DUPCLOSURE                       R109 K287 [PROTO_19]
-     1661 CAPTURE                          VAL R108
-     1662 CAPTURE                          VAL R107
-     1663 DUPCLOSURE                       R110 K288 [PROTO_20]
-     1664 CAPTURE                          VAL R14
-     1665 DUPCLOSURE                       R111 K289 [PROTO_21]
-     1666 CAPTURE                          VAL R5
-     1667 CAPTURE                          VAL R108
-     1668 CAPTURE                          VAL R107
-     1669 CAPTURE                          VAL R14
-     1670 DUPCLOSURE                       R112 K290 [PROTO_71]
-     1671 CAPTURE                          VAL R108
-     1672 CAPTURE                          VAL R107
-     1673 CAPTURE                          VAL R13
-     1674 CAPTURE                          VAL R7
-     1675 CAPTURE                          VAL R8
-     1676 CAPTURE                          VAL R32
-     1677 CAPTURE                          VAL R5
-     1678 CAPTURE                          VAL R14
-     1679 CAPTURE                          VAL R10
-     1680 CAPTURE                          VAL R33
-     1681 CAPTURE                          VAL R9
-     1682 CAPTURE                          VAL R34
-     1683 CAPTURE                          VAL R42
-     1684 CAPTURE                          VAL R43
-     1685 CAPTURE                          VAL R37
-     1686 CAPTURE                          VAL R35
-     1687 CAPTURE                          VAL R38
-     1688 CAPTURE                          VAL R36
-     1689 CAPTURE                          VAL R39
-     1690 CAPTURE                          VAL R44
-     1691 CAPTURE                          VAL R45
-     1692 CAPTURE                          VAL R46
-     1693 CAPTURE                          VAL R50
-     1694 CAPTURE                          VAL R1
-     1695 CAPTURE                          VAL R12
-     1696 CAPTURE                          VAL R49
-     1697 CAPTURE                          VAL R48
-     1698 CAPTURE                          VAL R24
-     1699 CAPTURE                          VAL R27
-     1700 CAPTURE                          VAL R47
-     1701 CAPTURE                          VAL R52
-     1702 CAPTURE                          VAL R51
-     1703 CAPTURE                          VAL R53
-     1704 CAPTURE                          VAL R54
-     1705 CAPTURE                          VAL R40
-     1706 CAPTURE                          VAL R41
-     1707 CAPTURE                          VAL R55
-     1708 CAPTURE                          VAL R56
-     1709 CAPTURE                          VAL R57
-     1710 CAPTURE                          VAL R58
-     1711 CAPTURE                          VAL R59
-     1712 CAPTURE                          VAL R60
-     1713 CAPTURE                          VAL R61
-     1714 CAPTURE                          VAL R62
-     1715 CAPTURE                          VAL R63
-     1716 CAPTURE                          VAL R64
-     1717 CAPTURE                          VAL R65
-     1718 CAPTURE                          VAL R66
-     1719 CAPTURE                          VAL R67
-     1720 CAPTURE                          VAL R68
-     1721 CAPTURE                          VAL R69
-     1722 CAPTURE                          VAL R70
-     1723 CAPTURE                          VAL R71
-     1724 CAPTURE                          VAL R73
-     1725 CAPTURE                          VAL R72
-     1726 CAPTURE                          VAL R74
-     1727 CAPTURE                          VAL R75
-     1728 CAPTURE                          VAL R76
-     1729 CAPTURE                          VAL R77
-     1730 CAPTURE                          VAL R78
-     1731 CAPTURE                          VAL R79
-     1732 CAPTURE                          VAL R81
-     1733 CAPTURE                          VAL R80
-     1734 CAPTURE                          VAL R82
-     1735 CAPTURE                          VAL R83
-     1736 CAPTURE                          VAL R84
-     1737 CAPTURE                          VAL R86
-     1738 CAPTURE                          VAL R85
-     1739 CAPTURE                          VAL R88
-     1740 CAPTURE                          VAL R87
-     1741 CAPTURE                          VAL R89
-     1742 CAPTURE                          VAL R90
-     1743 CAPTURE                          VAL R91
-     1744 CAPTURE                          VAL R92
-     1745 CAPTURE                          VAL R93
-     1746 CAPTURE                          VAL R94
-     1747 CAPTURE                          VAL R99
-     1748 CAPTURE                          VAL R100
-     1749 CAPTURE                          VAL R96
-     1750 CAPTURE                          VAL R95
-     1751 CAPTURE                          VAL R98
-     1752 CAPTURE                          VAL R97
-     1753 CAPTURE                          VAL R101
-     1754 CAPTURE                          VAL R102
-     1755 CAPTURE                          VAL R105
-     1756 CAPTURE                          VAL R103
-     1757 CAPTURE                          VAL R104
-     1758 DUPCLOSURE                       R113 K291 [PROTO_72]
-     1759 CAPTURE                          VAL R112
-     1760 DUPTABLE                         R114 K294 [{"makeStudioTelemetryEvents", "createStudioEventLogger"}]
-     1761 SETTABLEKS                       R112 R114 K292 ["makeStudioTelemetryEvents"]
-     1763 SETTABLEKS                       R113 R114 K293 ["createStudioEventLogger"]
-     1765 RETURN                           R114 1
+     1166 NEWTABLE                         R84 0 1
+     1168 GETTABLEKS                       R85 R8 K49 ["Backends"]
+     1170 GETTABLEKS                       R85 R85 K61 ["RobloxTelemetryCounter"]
+     1172 SETLIST                          R84 R85 1 [1]
+     1174 SETTABLEKS                       R84 R83 K55 ["backends"]
+     1176 NEWTABLE                         R84 0 3
+     1178 LOADN                            R85 26
+     1179 LOADN                            R86 7
+     1180 LOADN                            R87 30
+     1181 SETLIST                          R84 R85 3 [1]
+     1183 SETTABLEKS                       R84 R83 K58 ["lastUpdated"]
+     1185 CALL                             R82 1 1
+     1186 GETIMPORT                        R83 K48 [table.freeze]
+     1188 DUPTABLE                         R84 K217 [{["eventName"], ["backends"], ["description"] = "Fired once per texture generation request (success, failure, or cancel) with the model and camera source used.", ["lastUpdated"]}]
+     1189 LOADK                            R85 K218 ["StudioAssistantGen3DTextureGenCompleted"]
+     1190 SETTABLEKS                       R85 R84 K54 ["eventName"]
+     1192 SETTABLEKS                       R31 R84 K55 ["backends"]
+     1194 NEWTABLE                         R85 0 3
+     1196 LOADN                            R86 26
+     1197 LOADN                            R87 10
+     1198 LOADN                            R88 1
+     1199 SETLIST                          R85 R86 3 [1]
+     1201 SETTABLEKS                       R85 R84 K58 ["lastUpdated"]
+     1203 CALL                             R83 1 1
+     1204 GETIMPORT                        R84 K48 [table.freeze]
+     1206 DUPTABLE                         R85 K220 [{["eventName"], ["backends"], ["description"] = "Count of texture generation requests, labelled by success, failureReason, model, and cameraSource.", ["lastUpdated"]}]
+     1207 LOADK                            R86 K221 ["StudioAssistantGen3DTextureGenCompletedCount"]
+     1208 SETTABLEKS                       R86 R85 K54 ["eventName"]
+     1210 NEWTABLE                         R86 0 1
+     1212 GETTABLEKS                       R87 R8 K49 ["Backends"]
+     1214 GETTABLEKS                       R87 R87 K61 ["RobloxTelemetryCounter"]
+     1216 SETLIST                          R86 R87 1 [1]
+     1218 SETTABLEKS                       R86 R85 K55 ["backends"]
+     1220 NEWTABLE                         R86 0 3
+     1222 LOADN                            R87 26
+     1223 LOADN                            R88 10
+     1224 LOADN                            R89 1
+     1225 SETLIST                          R86 R87 3 [1]
+     1227 SETTABLEKS                       R86 R85 K58 ["lastUpdated"]
+     1229 CALL                             R84 1 1
+     1230 GETIMPORT                        R85 K48 [table.freeze]
+     1232 DUPTABLE                         R86 K223 [{["eventName"], ["backends"], ["description"] = "Integration event with action, label, and URL.", ["lastUpdated"]}]
+     1233 LOADK                            R87 K224 ["StudioAssistantIntegrationAction"]
+     1234 SETTABLEKS                       R87 R86 K54 ["eventName"]
+     1236 SETTABLEKS                       R31 R86 K55 ["backends"]
+     1238 NEWTABLE                         R87 0 3
+     1240 LOADN                            R88 26
+     1241 LOADN                            R89 2
+     1242 LOADN                            R90 3
+     1243 SETLIST                          R87 R88 3 [1]
+     1245 SETTABLEKS                       R87 R86 K58 ["lastUpdated"]
+     1247 CALL                             R85 1 1
+     1248 GETIMPORT                        R86 K48 [table.freeze]
+     1250 DUPTABLE                         R87 K226 [{["eventName"], ["backends"], ["description"] = "External server connected event with session ID", ["lastUpdated"]}]
+     1251 LOADK                            R88 K227 ["StudioAssistantExternalServerConnectedEvent"]
+     1252 SETTABLEKS                       R88 R87 K54 ["eventName"]
+     1254 SETTABLEKS                       R31 R87 K55 ["backends"]
+     1256 NEWTABLE                         R88 0 3
+     1258 LOADN                            R89 26
+     1259 LOADN                            R90 2
+     1260 LOADN                            R91 25
+     1261 SETLIST                          R88 R89 3 [1]
+     1263 SETTABLEKS                       R88 R87 K58 ["lastUpdated"]
+     1265 CALL                             R86 1 1
+     1266 GETIMPORT                        R87 K48 [table.freeze]
+     1268 DUPTABLE                         R88 K226 [{["eventName"], ["backends"], ["description"] = "External server connected event with session ID", ["lastUpdated"]}]
+     1269 LOADK                            R89 K228 ["StudioAssistantExternalServerConnectedCounter"]
+     1270 SETTABLEKS                       R89 R88 K54 ["eventName"]
+     1272 NEWTABLE                         R89 0 1
+     1274 GETTABLEKS                       R90 R8 K49 ["Backends"]
+     1276 GETTABLEKS                       R90 R90 K61 ["RobloxTelemetryCounter"]
+     1278 SETLIST                          R89 R90 1 [1]
+     1280 SETTABLEKS                       R89 R88 K55 ["backends"]
+     1282 NEWTABLE                         R89 0 3
+     1284 LOADN                            R90 26
+     1285 LOADN                            R91 2
+     1286 LOADN                            R92 25
+     1287 SETLIST                          R89 R90 3 [1]
+     1289 SETTABLEKS                       R89 R88 K58 ["lastUpdated"]
+     1291 CALL                             R87 1 1
+     1292 GETIMPORT                        R88 K48 [table.freeze]
+     1294 DUPTABLE                         R89 K230 [{["eventName"], ["backends"], ["description"] = "Studio read of the StudioMCP loopback token. outcome is ok, missing (no file), or threw.", ["lastUpdated"]}]
+     1295 LOADK                            R90 K231 ["StudioAssistantMCPProxyTokenReadEvent"]
+     1296 SETTABLEKS                       R90 R89 K54 ["eventName"]
+     1298 SETTABLEKS                       R31 R89 K55 ["backends"]
+     1300 NEWTABLE                         R90 0 3
+     1302 LOADN                            R91 26
+     1303 LOADN                            R92 9
+     1304 LOADN                            R93 18
+     1305 SETLIST                          R90 R91 3 [1]
+     1307 SETTABLEKS                       R90 R89 K58 ["lastUpdated"]
+     1309 CALL                             R88 1 1
+     1310 GETIMPORT                        R89 K48 [table.freeze]
+     1312 DUPTABLE                         R90 K233 [{["eventName"], ["backends"], ["description"] = "Count of StudioMCP loopback token reads, labelled by outcome (ok, missing, threw).", ["lastUpdated"]}]
+     1313 LOADK                            R91 K234 ["StudioAssistantMCPProxyTokenReadCounter"]
+     1314 SETTABLEKS                       R91 R90 K54 ["eventName"]
+     1316 NEWTABLE                         R91 0 1
+     1318 GETTABLEKS                       R92 R8 K49 ["Backends"]
+     1320 GETTABLEKS                       R92 R92 K61 ["RobloxTelemetryCounter"]
+     1322 SETLIST                          R91 R92 1 [1]
+     1324 SETTABLEKS                       R91 R90 K55 ["backends"]
+     1326 NEWTABLE                         R91 0 3
+     1328 LOADN                            R92 26
+     1329 LOADN                            R93 9
+     1330 LOADN                            R94 18
+     1331 SETLIST                          R91 R92 3 [1]
+     1333 SETTABLEKS                       R91 R90 K58 ["lastUpdated"]
+     1335 CALL                             R89 1 1
+     1336 GETIMPORT                        R90 K48 [table.freeze]
+     1338 DUPTABLE                         R91 K236 [{["eventName"], ["backends"], ["description"] = "StudioMCP proxy rejected the Studio WebSocket with 401. Logged once per rejection streak, with whether this Studio sends the token and the last token read outcome.", ["lastUpdated"]}]
+     1339 LOADK                            R92 K237 ["StudioAssistantMCPProxyAuthRejectedEvent"]
+     1340 SETTABLEKS                       R92 R91 K54 ["eventName"]
+     1342 SETTABLEKS                       R31 R91 K55 ["backends"]
+     1344 NEWTABLE                         R92 0 3
+     1346 LOADN                            R93 26
+     1347 LOADN                            R94 10
+     1348 LOADN                            R95 2
+     1349 SETLIST                          R92 R93 3 [1]
+     1351 SETTABLEKS                       R92 R91 K58 ["lastUpdated"]
+     1353 CALL                             R90 1 1
+     1354 GETIMPORT                        R91 K48 [table.freeze]
+     1356 DUPTABLE                         R92 K239 [{["eventName"], ["backends"], ["description"] = "Count of StudioMCP proxy 401 rejection streaks, labelled by whether this Studio sends the token.", ["lastUpdated"]}]
+     1357 LOADK                            R93 K240 ["StudioAssistantMCPProxyAuthRejectedCounter"]
+     1358 SETTABLEKS                       R93 R92 K54 ["eventName"]
+     1360 NEWTABLE                         R93 0 1
+     1362 GETTABLEKS                       R94 R8 K49 ["Backends"]
+     1364 GETTABLEKS                       R94 R94 K61 ["RobloxTelemetryCounter"]
+     1366 SETLIST                          R93 R94 1 [1]
+     1368 SETTABLEKS                       R93 R92 K55 ["backends"]
+     1370 NEWTABLE                         R93 0 3
+     1372 LOADN                            R94 26
+     1373 LOADN                            R95 10
+     1374 LOADN                            R96 2
+     1375 SETLIST                          R93 R94 3 [1]
+     1377 SETTABLEKS                       R93 R92 K58 ["lastUpdated"]
+     1379 CALL                             R91 1 1
+     1380 GETIMPORT                        R92 K48 [table.freeze]
+     1382 DUPTABLE                         R93 K243 [{["eventName"] = "CAPQuestionAnswerCompleted", ["backends"], ["description"] = "Question answer tool completed event with full question/answer context.", ["lastUpdated"]}]
+     1383 SETTABLEKS                       R31 R93 K55 ["backends"]
+     1385 NEWTABLE                         R94 0 3
+     1387 LOADN                            R95 26
+     1388 LOADN                            R96 4
+     1389 LOADN                            R97 1
+     1390 SETLIST                          R94 R95 3 [1]
+     1392 SETTABLEKS                       R94 R93 K58 ["lastUpdated"]
+     1394 CALL                             R92 1 1
+     1395 GETIMPORT                        R93 K48 [table.freeze]
+     1397 DUPTABLE                         R94 K245 [{["eventName"], ["backends"], ["description"] = "Count of question answer tool completions.", ["lastUpdated"]}]
+     1398 LOADK                            R95 K246 ["StudioAssistantQuestionAnswerCompleted"]
+     1399 SETTABLEKS                       R95 R94 K54 ["eventName"]
+     1401 NEWTABLE                         R95 0 1
+     1403 GETTABLEKS                       R96 R8 K49 ["Backends"]
+     1405 GETTABLEKS                       R96 R96 K61 ["RobloxTelemetryCounter"]
+     1407 SETLIST                          R95 R96 1 [1]
+     1409 SETTABLEKS                       R95 R94 K55 ["backends"]
+     1411 NEWTABLE                         R95 0 3
+     1413 LOADN                            R96 26
+     1414 LOADN                            R97 4
+     1415 LOADN                            R98 1
+     1416 SETLIST                          R95 R96 3 [1]
+     1418 SETTABLEKS                       R95 R94 K58 ["lastUpdated"]
+     1420 CALL                             R93 1 1
+     1421 GETIMPORT                        R94 K48 [table.freeze]
+     1423 DUPTABLE                         R95 K249 [{["eventName"] = "CAPPlanDecision", ["backends"], ["description"] = "Plan decision event with full plan context when user accepts or rejects a plan.", ["lastUpdated"]}]
+     1424 SETTABLEKS                       R31 R95 K55 ["backends"]
+     1426 NEWTABLE                         R96 0 3
+     1428 LOADN                            R97 26
+     1429 LOADN                            R98 4
+     1430 LOADN                            R99 1
+     1431 SETLIST                          R96 R97 3 [1]
+     1433 SETTABLEKS                       R96 R95 K58 ["lastUpdated"]
+     1435 CALL                             R94 1 1
+     1436 GETIMPORT                        R95 K48 [table.freeze]
+     1438 DUPTABLE                         R96 K251 [{["eventName"], ["backends"], ["description"] = "Count of plan decisions.", ["lastUpdated"]}]
+     1439 LOADK                            R97 K252 ["StudioAssistantPlanDecision"]
+     1440 SETTABLEKS                       R97 R96 K54 ["eventName"]
+     1442 NEWTABLE                         R97 0 1
+     1444 GETTABLEKS                       R98 R8 K49 ["Backends"]
+     1446 GETTABLEKS                       R98 R98 K61 ["RobloxTelemetryCounter"]
+     1448 SETLIST                          R97 R98 1 [1]
+     1450 SETTABLEKS                       R97 R96 K55 ["backends"]
+     1452 NEWTABLE                         R97 0 3
+     1454 LOADN                            R98 26
+     1455 LOADN                            R99 4
+     1456 LOADN                            R100 1
+     1457 SETLIST                          R97 R98 3 [1]
+     1459 SETTABLEKS                       R97 R96 K58 ["lastUpdated"]
+     1461 CALL                             R95 1 1
+     1462 GETIMPORT                        R96 K48 [table.freeze]
+     1464 DUPTABLE                         R97 K255 [{["eventName"] = "SBT_MaterialGeneratorSavedMaterial", ["backends"], ["description"] = "Counter to track number of saved materials", ["lastUpdated"]}]
+     1465 NEWTABLE                         R98 0 1
+     1467 GETTABLEKS                       R99 R8 K49 ["Backends"]
+     1469 GETTABLEKS                       R99 R99 K61 ["RobloxTelemetryCounter"]
+     1471 SETLIST                          R98 R99 1 [1]
+     1473 SETTABLEKS                       R98 R97 K55 ["backends"]
+     1475 NEWTABLE                         R98 0 3
+     1477 LOADN                            R99 24
+     1478 LOADN                            R100 10
+     1479 LOADN                            R101 15
+     1480 SETLIST                          R98 R99 3 [1]
+     1482 SETTABLEKS                       R98 R97 K58 ["lastUpdated"]
+     1484 CALL                             R96 1 1
+     1485 GETIMPORT                        R97 K48 [table.freeze]
+     1487 DUPTABLE                         R98 K257 [{["eventName"], ["backends"], ["description"] = "Thread created event with details.", ["lastUpdated"]}]
+     1488 LOADK                            R99 K258 ["StudioAssistantThreadCreated"]
+     1489 SETTABLEKS                       R99 R98 K54 ["eventName"]
+     1491 SETTABLEKS                       R31 R98 K55 ["backends"]
+     1493 NEWTABLE                         R99 0 3
+     1495 LOADN                            R100 26
+     1496 LOADN                            R101 3
+     1497 LOADN                            R102 10
+     1498 SETLIST                          R99 R100 3 [1]
+     1500 SETTABLEKS                       R99 R98 K58 ["lastUpdated"]
+     1502 CALL                             R97 1 1
+     1503 GETIMPORT                        R98 K48 [table.freeze]
+     1505 DUPTABLE                         R99 K260 [{["eventName"], ["backends"], ["description"] = "Thread named event with details.", ["lastUpdated"]}]
+     1506 LOADK                            R100 K261 ["StudioAssistantThreadRenamed"]
+     1507 SETTABLEKS                       R100 R99 K54 ["eventName"]
+     1509 SETTABLEKS                       R31 R99 K55 ["backends"]
+     1511 NEWTABLE                         R100 0 3
+     1513 LOADN                            R101 26
+     1514 LOADN                            R102 3
+     1515 LOADN                            R103 10
+     1516 SETLIST                          R100 R101 3 [1]
+     1518 SETTABLEKS                       R100 R99 K58 ["lastUpdated"]
+     1520 CALL                             R98 1 1
+     1521 GETIMPORT                        R99 K48 [table.freeze]
+     1523 DUPTABLE                         R100 K263 [{["eventName"], ["backends"], ["description"] = "Thread pinned changed event with details.", ["lastUpdated"]}]
+     1524 LOADK                            R101 K264 ["StudioAssistantThreadPinnedChanged"]
+     1525 SETTABLEKS                       R101 R100 K54 ["eventName"]
+     1527 SETTABLEKS                       R31 R100 K55 ["backends"]
+     1529 NEWTABLE                         R101 0 3
+     1531 LOADN                            R102 26
+     1532 LOADN                            R103 3
+     1533 LOADN                            R104 10
+     1534 SETLIST                          R101 R102 3 [1]
+     1536 SETTABLEKS                       R101 R100 K58 ["lastUpdated"]
+     1538 CALL                             R99 1 1
+     1539 GETIMPORT                        R100 K48 [table.freeze]
+     1541 DUPTABLE                         R101 K266 [{["eventName"], ["backends"], ["description"] = "Thread deleted event with details.", ["lastUpdated"]}]
+     1542 LOADK                            R102 K267 ["StudioAssistantThreadDeleted"]
+     1543 SETTABLEKS                       R102 R101 K54 ["eventName"]
+     1545 SETTABLEKS                       R31 R101 K55 ["backends"]
+     1547 NEWTABLE                         R102 0 3
+     1549 LOADN                            R103 26
+     1550 LOADN                            R104 3
+     1551 LOADN                            R105 10
+     1552 SETLIST                          R102 R103 3 [1]
+     1554 SETTABLEKS                       R102 R101 K58 ["lastUpdated"]
+     1556 CALL                             R100 1 1
+     1557 GETIMPORT                        R101 K48 [table.freeze]
+     1559 DUPTABLE                         R102 K269 [{["eventName"], ["backends"], ["description"] = "Thread duplicated event with details.", ["lastUpdated"]}]
+     1560 LOADK                            R103 K270 ["StudioAssistantThreadDuplicated"]
+     1561 SETTABLEKS                       R103 R102 K54 ["eventName"]
+     1563 SETTABLEKS                       R31 R102 K55 ["backends"]
+     1565 NEWTABLE                         R103 0 3
+     1567 LOADN                            R104 26
+     1568 LOADN                            R105 3
+     1569 LOADN                            R106 10
+     1570 SETLIST                          R103 R104 3 [1]
+     1572 SETTABLEKS                       R103 R102 K58 ["lastUpdated"]
+     1574 CALL                             R101 1 1
+     1575 GETIMPORT                        R102 K48 [table.freeze]
+     1577 DUPTABLE                         R103 K272 [{["eventName"], ["backends"], ["description"] = "Context compaction summarizer completed successfully.", ["lastUpdated"]}]
+     1578 LOADK                            R104 K273 ["StudioAssistantCompactionSuccess"]
+     1579 SETTABLEKS                       R104 R103 K54 ["eventName"]
+     1581 SETTABLEKS                       R31 R103 K55 ["backends"]
+     1583 NEWTABLE                         R104 0 3
+     1585 LOADN                            R105 26
+     1586 LOADN                            R106 4
+     1587 LOADN                            R107 28
+     1588 SETLIST                          R104 R105 3 [1]
+     1590 SETTABLEKS                       R104 R103 K58 ["lastUpdated"]
+     1592 CALL                             R102 1 1
+     1593 GETIMPORT                        R103 K48 [table.freeze]
+     1595 DUPTABLE                         R104 K275 [{["eventName"], ["backends"], ["description"] = "Count of successful compaction events.", ["lastUpdated"]}]
+     1596 LOADK                            R105 K276 ["StudioAssistantCompactionSuccessCount"]
+     1597 SETTABLEKS                       R105 R104 K54 ["eventName"]
+     1599 NEWTABLE                         R105 0 1
+     1601 GETTABLEKS                       R106 R8 K49 ["Backends"]
+     1603 GETTABLEKS                       R106 R106 K61 ["RobloxTelemetryCounter"]
+     1605 SETLIST                          R105 R106 1 [1]
+     1607 SETTABLEKS                       R105 R104 K55 ["backends"]
+     1609 NEWTABLE                         R105 0 3
+     1611 LOADN                            R106 26
+     1612 LOADN                            R107 4
+     1613 LOADN                            R108 28
+     1614 SETLIST                          R105 R106 3 [1]
+     1616 SETTABLEKS                       R105 R104 K58 ["lastUpdated"]
+     1618 CALL                             R103 1 1
+     1619 GETIMPORT                        R104 K48 [table.freeze]
+     1621 DUPTABLE                         R105 K278 [{["eventName"], ["backends"], ["description"] = "Context compaction summarizer failed, fell back to generic summary.", ["lastUpdated"]}]
+     1622 LOADK                            R106 K279 ["StudioAssistantCompactionFallback"]
+     1623 SETTABLEKS                       R106 R105 K54 ["eventName"]
+     1625 SETTABLEKS                       R31 R105 K55 ["backends"]
+     1627 NEWTABLE                         R106 0 3
+     1629 LOADN                            R107 26
+     1630 LOADN                            R108 4
+     1631 LOADN                            R109 28
+     1632 SETLIST                          R106 R107 3 [1]
+     1634 SETTABLEKS                       R106 R105 K58 ["lastUpdated"]
+     1636 CALL                             R104 1 1
+     1637 GETIMPORT                        R105 K48 [table.freeze]
+     1639 DUPTABLE                         R106 K281 [{["eventName"], ["backends"], ["description"] = "Count of compaction fallback events.", ["lastUpdated"]}]
+     1640 LOADK                            R107 K282 ["StudioAssistantCompactionFallbackCount"]
+     1641 SETTABLEKS                       R107 R106 K54 ["eventName"]
+     1643 NEWTABLE                         R107 0 1
+     1645 GETTABLEKS                       R108 R8 K49 ["Backends"]
+     1647 GETTABLEKS                       R108 R108 K61 ["RobloxTelemetryCounter"]
+     1649 SETLIST                          R107 R108 1 [1]
+     1651 SETTABLEKS                       R107 R106 K55 ["backends"]
+     1653 NEWTABLE                         R107 0 3
+     1655 LOADN                            R108 26
+     1656 LOADN                            R109 4
+     1657 LOADN                            R110 28
+     1658 SETLIST                          R107 R108 3 [1]
+     1660 SETTABLEKS                       R107 R106 K58 ["lastUpdated"]
+     1662 CALL                             R105 1 1
+     1663 GETIMPORT                        R106 K48 [table.freeze]
+     1665 DUPTABLE                         R107 K284 [{["eventName"], ["backends"], ["description"] = "Quick setup toggled/copied.", ["lastUpdated"]}]
+     1666 LOADK                            R108 K285 ["StudioAssistantMCPQuickSetup"]
+     1667 SETTABLEKS                       R108 R107 K54 ["eventName"]
+     1669 SETTABLEKS                       R31 R107 K55 ["backends"]
+     1671 NEWTABLE                         R108 0 3
+     1673 LOADN                            R109 26
+     1674 LOADN                            R110 4
+     1675 LOADN                            R111 15
+     1676 SETLIST                          R108 R109 3 [1]
+     1678 SETTABLEKS                       R108 R107 K58 ["lastUpdated"]
+     1680 CALL                             R106 1 1
+     1681 GETIMPORT                        R107 K48 [table.freeze]
+     1683 DUPTABLE                         R108 K287 [{["eventName"], ["backends"], ["description"] = "Thread switched event with details.", ["lastUpdated"]}]
+     1684 LOADK                            R109 K288 ["StudioAssistantThreadSwitched"]
+     1685 SETTABLEKS                       R109 R108 K54 ["eventName"]
+     1687 SETTABLEKS                       R31 R108 K55 ["backends"]
+     1689 NEWTABLE                         R109 0 3
+     1691 LOADN                            R110 26
+     1692 LOADN                            R111 3
+     1693 LOADN                            R112 10
+     1694 SETLIST                          R109 R110 3 [1]
+     1696 SETTABLEKS                       R109 R108 K58 ["lastUpdated"]
+     1698 CALL                             R107 1 1
+     1699 GETIMPORT                        R108 K48 [table.freeze]
+     1701 DUPTABLE                         R109 K291 [{["eventName"] = "CAPUserSkillEvent", ["backends"], ["description"] = "User skill created or updated event with skill name and action.", ["lastUpdated"]}]
+     1702 SETTABLEKS                       R31 R109 K55 ["backends"]
+     1704 NEWTABLE                         R110 0 3
+     1706 LOADN                            R111 26
+     1707 LOADN                            R112 6
+     1708 LOADN                            R113 24
+     1709 SETLIST                          R110 R111 3 [1]
+     1711 SETTABLEKS                       R110 R109 K58 ["lastUpdated"]
+     1713 CALL                             R108 1 1
+     1714 GETIMPORT                        R109 K48 [table.freeze]
+     1716 DUPTABLE                         R110 K294 [{["eventName"] = "CAPThinkingBlock", ["backends"], ["description"] = "Thinking block completed event with thinking text, subagent attribution.", ["lastUpdated"]}]
+     1717 SETTABLEKS                       R31 R110 K55 ["backends"]
+     1719 NEWTABLE                         R111 0 3
+     1721 LOADN                            R112 26
+     1722 LOADN                            R113 7
+     1723 LOADN                            R114 22
+     1724 SETLIST                          R111 R112 3 [1]
+     1726 SETTABLEKS                       R111 R110 K58 ["lastUpdated"]
+     1728 CALL                             R109 1 1
+     1729 GETIMPORT                        R110 K48 [table.freeze]
+     1731 DUPTABLE                         R111 K296 [{["eventName"], ["backends"], ["description"] = "Count of successful persistence operations.", ["lastUpdated"]}]
+     1732 LOADK                            R112 K297 ["StudioAssistantPersistenceSuccess"]
+     1733 SETTABLEKS                       R112 R111 K54 ["eventName"]
+     1735 NEWTABLE                         R112 0 1
+     1737 GETTABLEKS                       R113 R8 K49 ["Backends"]
+     1739 GETTABLEKS                       R113 R113 K61 ["RobloxTelemetryCounter"]
+     1741 SETLIST                          R112 R113 1 [1]
+     1743 SETTABLEKS                       R112 R111 K55 ["backends"]
+     1745 NEWTABLE                         R112 0 3
+     1747 LOADN                            R113 26
+     1748 LOADN                            R114 3
+     1749 LOADN                            R115 10
+     1750 SETLIST                          R112 R113 3 [1]
+     1752 SETTABLEKS                       R112 R111 K58 ["lastUpdated"]
+     1754 CALL                             R110 1 1
+     1755 GETIMPORT                        R111 K48 [table.freeze]
+     1757 DUPTABLE                         R112 K299 [{["eventName"], ["backends"], ["description"] = "Count of failed persistence operations.", ["lastUpdated"]}]
+     1758 LOADK                            R113 K300 ["StudioAssistantPersistenceFailure"]
+     1759 SETTABLEKS                       R113 R112 K54 ["eventName"]
+     1761 NEWTABLE                         R113 0 1
+     1763 GETTABLEKS                       R114 R8 K49 ["Backends"]
+     1765 GETTABLEKS                       R114 R114 K61 ["RobloxTelemetryCounter"]
+     1767 SETLIST                          R113 R114 1 [1]
+     1769 SETTABLEKS                       R113 R112 K55 ["backends"]
+     1771 NEWTABLE                         R113 0 3
+     1773 LOADN                            R114 26
+     1774 LOADN                            R115 3
+     1775 LOADN                            R116 10
+     1776 SETLIST                          R113 R114 3 [1]
+     1778 SETTABLEKS                       R113 R112 K58 ["lastUpdated"]
+     1780 CALL                             R111 1 1
+     1781 GETIMPORT                        R112 K48 [table.freeze]
+     1783 DUPTABLE                         R113 K302 [{["eventName"], ["backends"], ["description"] = "Persistence operation latency in milliseconds.", ["lastUpdated"]}]
+     1784 LOADK                            R114 K303 ["StudioAssistantPersistenceLatencyMs"]
+     1785 SETTABLEKS                       R114 R113 K54 ["eventName"]
+     1787 NEWTABLE                         R114 0 1
+     1789 GETTABLEKS                       R115 R8 K49 ["Backends"]
+     1791 GETTABLEKS                       R115 R115 K85 ["RobloxTelemetryStat"]
+     1793 SETLIST                          R114 R115 1 [1]
+     1795 SETTABLEKS                       R114 R113 K55 ["backends"]
+     1797 NEWTABLE                         R114 0 3
+     1799 LOADN                            R115 26
+     1800 LOADN                            R116 3
+     1801 LOADN                            R117 10
+     1802 SETLIST                          R114 R115 3 [1]
+     1804 SETTABLEKS                       R114 R113 K58 ["lastUpdated"]
+     1806 CALL                             R112 1 1
+     1807 DUPCLOSURE                       R113 K304 [PROTO_18]
+     1808 CAPTURE                          VAL R5
+     1809 CAPTURE                          VAL R10
+     1810 GETTABLEKS                       R114 R7 K305 ["FStringAssistantGroupNameKey"]
+     1812 GETTABLEKS                       R115 R6 K306 ["new"]
+     1814 MOVE                             R116 R2
+     1815 GETTABLEKS                       R117 R7 K307 ["FStringNewAssistantExperimentLayer"]
+     1817 CALL                             R115 2 1
+     1818 DUPCLOSURE                       R116 K308 [PROTO_19]
+     1819 CAPTURE                          VAL R115
+     1820 CAPTURE                          VAL R114
+     1821 DUPCLOSURE                       R117 K309 [PROTO_20]
+     1822 CAPTURE                          VAL R14
+     1823 DUPCLOSURE                       R118 K310 [PROTO_21]
+     1824 CAPTURE                          VAL R5
+     1825 CAPTURE                          VAL R115
+     1826 CAPTURE                          VAL R114
+     1827 CAPTURE                          VAL R14
+     1828 DUPCLOSURE                       R119 K311 [PROTO_75]
+     1829 CAPTURE                          VAL R115
+     1830 CAPTURE                          VAL R114
+     1831 CAPTURE                          VAL R13
+     1832 CAPTURE                          VAL R7
+     1833 CAPTURE                          VAL R8
+     1834 CAPTURE                          VAL R32
+     1835 CAPTURE                          VAL R5
+     1836 CAPTURE                          VAL R14
+     1837 CAPTURE                          VAL R10
+     1838 CAPTURE                          VAL R33
+     1839 CAPTURE                          VAL R9
+     1840 CAPTURE                          VAL R34
+     1841 CAPTURE                          VAL R43
+     1842 CAPTURE                          VAL R44
+     1843 CAPTURE                          VAL R37
+     1844 CAPTURE                          VAL R35
+     1845 CAPTURE                          VAL R38
+     1846 CAPTURE                          VAL R36
+     1847 CAPTURE                          VAL R39
+     1848 CAPTURE                          VAL R40
+     1849 CAPTURE                          VAL R45
+     1850 CAPTURE                          VAL R46
+     1851 CAPTURE                          VAL R47
+     1852 CAPTURE                          VAL R51
+     1853 CAPTURE                          VAL R1
+     1854 CAPTURE                          VAL R12
+     1855 CAPTURE                          VAL R50
+     1856 CAPTURE                          VAL R49
+     1857 CAPTURE                          VAL R24
+     1858 CAPTURE                          VAL R27
+     1859 CAPTURE                          VAL R48
+     1860 CAPTURE                          VAL R53
+     1861 CAPTURE                          VAL R52
+     1862 CAPTURE                          VAL R54
+     1863 CAPTURE                          VAL R55
+     1864 CAPTURE                          VAL R41
+     1865 CAPTURE                          VAL R42
+     1866 CAPTURE                          VAL R56
+     1867 CAPTURE                          VAL R57
+     1868 CAPTURE                          VAL R58
+     1869 CAPTURE                          VAL R59
+     1870 CAPTURE                          VAL R60
+     1871 CAPTURE                          VAL R61
+     1872 CAPTURE                          VAL R62
+     1873 CAPTURE                          VAL R63
+     1874 CAPTURE                          VAL R64
+     1875 CAPTURE                          VAL R65
+     1876 CAPTURE                          VAL R66
+     1877 CAPTURE                          VAL R67
+     1878 CAPTURE                          VAL R68
+     1879 CAPTURE                          VAL R69
+     1880 CAPTURE                          VAL R70
+     1881 CAPTURE                          VAL R71
+     1882 CAPTURE                          VAL R72
+     1883 CAPTURE                          VAL R74
+     1884 CAPTURE                          VAL R73
+     1885 CAPTURE                          VAL R75
+     1886 CAPTURE                          VAL R76
+     1887 CAPTURE                          VAL R77
+     1888 CAPTURE                          VAL R78
+     1889 CAPTURE                          VAL R79
+     1890 CAPTURE                          VAL R80
+     1891 CAPTURE                          VAL R82
+     1892 CAPTURE                          VAL R81
+     1893 CAPTURE                          VAL R84
+     1894 CAPTURE                          VAL R83
+     1895 CAPTURE                          VAL R85
+     1896 CAPTURE                          VAL R86
+     1897 CAPTURE                          VAL R87
+     1898 CAPTURE                          VAL R88
+     1899 CAPTURE                          VAL R89
+     1900 CAPTURE                          VAL R90
+     1901 CAPTURE                          VAL R91
+     1902 CAPTURE                          VAL R93
+     1903 CAPTURE                          VAL R92
+     1904 CAPTURE                          VAL R95
+     1905 CAPTURE                          VAL R94
+     1906 CAPTURE                          VAL R96
+     1907 CAPTURE                          VAL R97
+     1908 CAPTURE                          VAL R98
+     1909 CAPTURE                          VAL R99
+     1910 CAPTURE                          VAL R100
+     1911 CAPTURE                          VAL R101
+     1912 CAPTURE                          VAL R106
+     1913 CAPTURE                          VAL R107
+     1914 CAPTURE                          VAL R103
+     1915 CAPTURE                          VAL R102
+     1916 CAPTURE                          VAL R105
+     1917 CAPTURE                          VAL R104
+     1918 CAPTURE                          VAL R108
+     1919 CAPTURE                          VAL R109
+     1920 CAPTURE                          VAL R112
+     1921 CAPTURE                          VAL R110
+     1922 CAPTURE                          VAL R111
+     1923 DUPCLOSURE                       R120 K312 [PROTO_76]
+     1924 CAPTURE                          VAL R119
+     1925 DUPTABLE                         R121 K315 [{"makeStudioTelemetryEvents", "createStudioEventLogger"}]
+     1926 SETTABLEKS                       R119 R121 K313 ["makeStudioTelemetryEvents"]
+     1928 SETTABLEKS                       R120 R121 K314 ["createStudioEventLogger"]
+     1930 RETURN                           R121 1

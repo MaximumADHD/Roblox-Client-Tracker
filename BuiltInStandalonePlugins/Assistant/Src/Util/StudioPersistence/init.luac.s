@@ -195,51 +195,62 @@ PROTO_13:
        10 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R3 0
-        1 MOVE                             R4 R0
-        2 CALL                             R3 1 2
-        3 GETUPVAL                         R5 1
-        4 CALL                             R5 0 2
-        5 GETUPVAL                         R7 2
-        6 GETTABLEKS                       R7 R7 K0 ["createTelemetryIO"]
-        8 GETUPVAL                         R8 3
-        9 GETTABLEKS                       R8 R8 K1 ["createCloudIO"]
-       11 CALL                             R8 0 1
-       12 MOVE                             R9 R2
-       13 CALL                             R7 2 1
-       14 GETUPVAL                         R8 4
-       15 GETTABLEKS                       R8 R8 K2 ["create"]
-       17 CALL                             R8 0 1
-       18 GETUPVAL                         R9 4
-       19 GETTABLEKS                       R9 R9 K3 ["trackSessions"]
-       21 DUPTABLE                         R10 K13 [{"dataModel", "networking", "io", "coordinator", "getCurrentSessionId", "sessionStartedSignal", "sessionEndedSignal", "publishStartedSignal", "publishEndedSignal"}]
-       22 GETIMPORT                        R11 K15 [game]
-       24 SETTABLEKS                       R11 R10 K4 ["dataModel"]
-       26 SETTABLEKS                       R1 R10 K5 ["networking"]
-       28 SETTABLEKS                       R7 R10 K6 ["io"]
-       30 GETTABLEKS                       R11 R8 K7 ["coordinator"]
-       32 SETTABLEKS                       R11 R10 K7 ["coordinator"]
-       34 GETTABLEKS                       R11 R3 K8 ["getCurrentSessionId"]
-       36 SETTABLEKS                       R11 R10 K8 ["getCurrentSessionId"]
-       38 GETTABLEKS                       R11 R3 K9 ["sessionStartedSignal"]
-       40 SETTABLEKS                       R11 R10 K9 ["sessionStartedSignal"]
-       42 GETTABLEKS                       R11 R3 K10 ["sessionEndedSignal"]
-       44 SETTABLEKS                       R11 R10 K10 ["sessionEndedSignal"]
-       46 GETTABLEKS                       R11 R5 K11 ["publishStartedSignal"]
-       48 SETTABLEKS                       R11 R10 K11 ["publishStartedSignal"]
-       50 GETTABLEKS                       R11 R5 K12 ["publishEndedSignal"]
-       52 SETTABLEKS                       R11 R10 K12 ["publishEndedSignal"]
-       54 CALL                             R9 1 1
-       55 SETUPVAL                         R9 5
-       56 GETTABLEKS                       R10 R1 K16 ["Destroying"]
-       58 NEWCLOSURE                       R12 P0
-       59 CAPTURE                          UPVAL U5
-       60 CAPTURE                          VAL R9
-       61 CAPTURE                          VAL R4
-       62 CAPTURE                          VAL R6
-       63 NAMECALL                         R10 R10 K17 ["Once"]
-       65 CALL                             R10 2 0
-       66 RETURN                           R0 0
+        0 GETUPVAL                         R4 0
+        1 MOVE                             R5 R0
+        2 CALL                             R4 1 2
+        3 GETUPVAL                         R6 1
+        4 CALL                             R6 0 2
+        5 GETUPVAL                         R8 2
+        6 GETTABLEKS                       R8 R8 K0 ["createTelemetryIO"]
+        8 GETUPVAL                         R9 3
+        9 GETTABLEKS                       R9 R9 K1 ["createCloudIO"]
+       11 CALL                             R9 0 1
+       12 MOVE                             R10 R3
+       13 CALL                             R8 2 1
+       14 GETUPVAL                         R9 4
+       15 GETTABLEKS                       R9 R9 K2 ["create"]
+       17 CALL                             R9 0 1
+       18 GETUPVAL                         R10 4
+       19 GETTABLEKS                       R10 R10 K3 ["trackSessions"]
+       21 DUPTABLE                         R11 K15 [{"dataModel", "networkingOLD", "net", "environment", "io", "coordinator", "getCurrentSessionId", "sessionStartedSignal", "sessionEndedSignal", "publishStartedSignal", "publishEndedSignal"}]
+       22 GETIMPORT                        R12 K17 [game]
+       24 SETTABLEKS                       R12 R11 K4 ["dataModel"]
+       26 SETTABLEKS                       R1 R11 K5 ["networkingOLD"]
+       28 SETTABLEKS                       R2 R11 K6 ["net"]
+       30 SETTABLEKS                       R3 R11 K7 ["environment"]
+       32 SETTABLEKS                       R8 R11 K8 ["io"]
+       34 GETTABLEKS                       R12 R9 K9 ["coordinator"]
+       36 SETTABLEKS                       R12 R11 K9 ["coordinator"]
+       38 GETTABLEKS                       R12 R4 K10 ["getCurrentSessionId"]
+       40 SETTABLEKS                       R12 R11 K10 ["getCurrentSessionId"]
+       42 GETTABLEKS                       R12 R4 K11 ["sessionStartedSignal"]
+       44 SETTABLEKS                       R12 R11 K11 ["sessionStartedSignal"]
+       46 GETTABLEKS                       R12 R4 K12 ["sessionEndedSignal"]
+       48 SETTABLEKS                       R12 R11 K12 ["sessionEndedSignal"]
+       50 GETTABLEKS                       R12 R6 K13 ["publishStartedSignal"]
+       52 SETTABLEKS                       R12 R11 K13 ["publishStartedSignal"]
+       54 GETTABLEKS                       R12 R6 K14 ["publishEndedSignal"]
+       56 SETTABLEKS                       R12 R11 K14 ["publishEndedSignal"]
+       58 CALL                             R10 1 1
+       59 SETUPVAL                         R10 5
+       60 NEWCLOSURE                       R11 P0
+       61 CAPTURE                          UPVAL U5
+       62 CAPTURE                          VAL R10
+       63 CAPTURE                          VAL R5
+       64 CAPTURE                          VAL R7
+       65 GETUPVAL                         R12 6
+       66 GETTABLEKS                       R12 R12 K18 ["FFlagAssistantUseNewDMNetworking"]
+       68 JUMPIFNOT                        R12 ; [+7]
+       69 GETTABLEKS                       R12 R3 K19 ["Destroying"]
+       71 MOVE                             R14 R11
+       72 NAMECALL                         R12 R12 K20 ["Once"]
+       74 CALL                             R12 2 0
+       75 RETURN                           R0 0
+       76 GETTABLEKS                       R12 R1 K19 ["Destroying"]
+       78 MOVE                             R14 R11
+       79 NAMECALL                         R12 R12 K20 ["Once"]
+       81 CALL                             R12 2 0
+       82 RETURN                           R0 0
 
 PROTO_15:
         0 GETUPVAL                         R0 0
@@ -267,34 +278,43 @@ MAIN:
        30 CALL                             R4 1 1
        31 GETIMPORT                        R5 K11 [require]
        33 GETTABLEKS                       R6 R0 K12 ["Packages"]
-       35 GETTABLEKS                       R6 R6 K15 ["Signal"]
+       35 GETTABLEKS                       R6 R6 K15 ["DMNetworkingOLD"]
        37 CALL                             R5 1 1
        38 GETIMPORT                        R6 K11 [require]
-       40 GETIMPORT                        R7 K1 [script]
-       42 GETTABLEKS                       R7 R7 K16 ["CloudIO"]
+       40 GETTABLEKS                       R7 R0 K16 ["Src"]
+       42 GETTABLEKS                       R7 R7 K17 ["Flags"]
        44 CALL                             R6 1 1
        45 GETIMPORT                        R7 K11 [require]
-       47 GETIMPORT                        R8 K1 [script]
-       49 GETTABLEKS                       R8 R8 K17 ["TelemetryIO"]
+       47 GETTABLEKS                       R8 R0 K12 ["Packages"]
+       49 GETTABLEKS                       R8 R8 K18 ["Signal"]
        51 CALL                             R7 1 1
-       52 GETTABLEKS                       R8 R3 K18 ["Persistence"]
-       54 LOADNIL                          R9
-       55 DUPCLOSURE                       R10 K19 [PROTO_8]
-       56 CAPTURE                          VAL R5
-       57 DUPCLOSURE                       R11 K20 [PROTO_12]
-       58 CAPTURE                          VAL R5
-       59 CAPTURE                          VAL R2
-       60 NEWCLOSURE                       R12 P2
-       61 CAPTURE                          VAL R10
-       62 CAPTURE                          VAL R11
-       63 CAPTURE                          VAL R7
-       64 CAPTURE                          VAL R6
-       65 CAPTURE                          VAL R8
-       66 CAPTURE                          REF R9
-       67 DUPTABLE                         R13 K23 [{"connect", "getAgentPersistenceAccess"}]
-       68 SETTABLEKS                       R12 R13 K21 ["connect"]
-       70 NEWCLOSURE                       R14 P3
-       71 CAPTURE                          REF R9
-       72 SETTABLEKS                       R14 R13 K22 ["getAgentPersistenceAccess"]
-       74 CLOSEUPVALS                      R9
-       75 RETURN                           R13 1
+       52 GETIMPORT                        R8 K11 [require]
+       54 GETIMPORT                        R9 K1 [script]
+       56 GETTABLEKS                       R9 R9 K19 ["CloudIO"]
+       58 CALL                             R8 1 1
+       59 GETIMPORT                        R9 K11 [require]
+       61 GETIMPORT                        R10 K1 [script]
+       63 GETTABLEKS                       R10 R10 K20 ["TelemetryIO"]
+       65 CALL                             R9 1 1
+       66 GETTABLEKS                       R10 R3 K21 ["Persistence"]
+       68 LOADNIL                          R11
+       69 DUPCLOSURE                       R12 K22 [PROTO_8]
+       70 CAPTURE                          VAL R7
+       71 DUPCLOSURE                       R13 K23 [PROTO_12]
+       72 CAPTURE                          VAL R7
+       73 CAPTURE                          VAL R2
+       74 NEWCLOSURE                       R14 P2
+       75 CAPTURE                          VAL R12
+       76 CAPTURE                          VAL R13
+       77 CAPTURE                          VAL R9
+       78 CAPTURE                          VAL R8
+       79 CAPTURE                          VAL R10
+       80 CAPTURE                          REF R11
+       81 CAPTURE                          VAL R6
+       82 DUPTABLE                         R15 K26 [{"connect", "getAgentPersistenceAccess"}]
+       83 SETTABLEKS                       R14 R15 K24 ["connect"]
+       85 NEWCLOSURE                       R16 P3
+       86 CAPTURE                          REF R11
+       87 SETTABLEKS                       R16 R15 K25 ["getAgentPersistenceAccess"]
+       89 CLOSEUPVALS                      R11
+       90 RETURN                           R15 1

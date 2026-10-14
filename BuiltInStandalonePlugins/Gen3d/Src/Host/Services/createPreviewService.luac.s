@@ -104,9 +104,28 @@ PROTO_7:
        21 RETURN                           R3 -1
 
 PROTO_8:
-        0 RETURN                           R0 0
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["CurrentCamera"]
+        3 JUMPIFNOTEQKNIL                  R0 ; [+3]
+        5 LOADNIL                          R1
+        6 RETURN                           R1 1
+        7 DUPTABLE                         R1 K5 [{"cframe", "fieldOfView", "viewportWidthPx", "viewportHeightPx"}]
+        8 GETTABLEKS                       R2 R0 K6 ["CFrame"]
+       10 SETTABLEKS                       R2 R1 K1 ["cframe"]
+       12 GETTABLEKS                       R2 R0 K7 ["FieldOfView"]
+       14 SETTABLEKS                       R2 R1 K2 ["fieldOfView"]
+       16 GETTABLEKS                       R2 R0 K8 ["ViewportSize"]
+       18 GETTABLEKS                       R2 R2 K9 ["X"]
+       20 SETTABLEKS                       R2 R1 K3 ["viewportWidthPx"]
+       22 GETTABLEKS                       R2 R0 K8 ["ViewportSize"]
+       24 GETTABLEKS                       R2 R2 K10 ["Y"]
+       26 SETTABLEKS                       R2 R1 K4 ["viewportHeightPx"]
+       28 RETURN                           R1 1
 
 PROTO_9:
+        0 RETURN                           R0 0
+
+PROTO_10:
         0 GETUPVAL                         R3 0
         1 JUMPIFEQKNIL                     R3 ; [+3]
         3 GETUPVAL                         R2 0
@@ -134,7 +153,7 @@ PROTO_9:
        30 CALL                             R3 3 -1
        31 RETURN                           R3 -1
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R2 0
         1 JUMPIFEQKNIL                     R2 ; [+3]
         3 GETUPVAL                         R1 0
@@ -161,29 +180,32 @@ PROTO_10:
        29 CALL                             R2 2 -1
        30 RETURN                           R2 -1
 
-PROTO_11:
+PROTO_12:
         0 LOADNIL                          R1
         1 NEWCLOSURE                       R2 P0
         2 CAPTURE                          REF R1
         3 CAPTURE                          VAL R0
-        4 DUPTABLE                         R3 K4 [{"captureSinglePreviewImageAsync", "capturePreviewImages", "getImageDataBase64Async", "convertImageDataToTempIdAsync"}]
-        5 DUPCLOSURE                       R4 K5 [PROTO_7]
+        4 DUPTABLE                         R3 K5 [{"captureSinglePreviewImageAsync", "getStudioCamera", "capturePreviewImages", "getImageDataBase64Async", "convertImageDataToTempIdAsync"}]
+        5 DUPCLOSURE                       R4 K6 [PROTO_7]
         6 CAPTURE                          UPVAL U0
         7 CAPTURE                          UPVAL U1
         8 CAPTURE                          UPVAL U2
         9 SETTABLEKS                       R4 R3 K0 ["captureSinglePreviewImageAsync"]
-       11 DUPCLOSURE                       R4 K6 [PROTO_8]
-       12 SETTABLEKS                       R4 R3 K1 ["capturePreviewImages"]
-       14 NEWCLOSURE                       R4 P3
-       15 CAPTURE                          REF R1
-       16 CAPTURE                          VAL R0
-       17 SETTABLEKS                       R4 R3 K2 ["getImageDataBase64Async"]
-       19 NEWCLOSURE                       R4 P4
-       20 CAPTURE                          REF R1
-       21 CAPTURE                          VAL R0
-       22 SETTABLEKS                       R4 R3 K3 ["convertImageDataToTempIdAsync"]
-       24 CLOSEUPVALS                      R1
-       25 RETURN                           R3 1
+       11 DUPCLOSURE                       R4 K7 [PROTO_8]
+       12 CAPTURE                          UPVAL U3
+       13 SETTABLEKS                       R4 R3 K1 ["getStudioCamera"]
+       15 DUPCLOSURE                       R4 K8 [PROTO_9]
+       16 SETTABLEKS                       R4 R3 K2 ["capturePreviewImages"]
+       18 NEWCLOSURE                       R4 P4
+       19 CAPTURE                          REF R1
+       20 CAPTURE                          VAL R0
+       21 SETTABLEKS                       R4 R3 K3 ["getImageDataBase64Async"]
+       23 NEWCLOSURE                       R4 P5
+       24 CAPTURE                          REF R1
+       25 CAPTURE                          VAL R0
+       26 SETTABLEKS                       R4 R3 K4 ["convertImageDataToTempIdAsync"]
+       28 CLOSEUPVALS                      R1
+       29 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -205,37 +227,32 @@ MAIN:
        24 CALL                             R3 2 1
        25 GETIMPORT                        R4 K11 [require]
        27 GETTABLEKS                       R5 R3 K12 ["Packages"]
-       29 GETTABLEKS                       R5 R5 K13 ["AssistantUI"]
+       29 GETTABLEKS                       R5 R5 K13 ["Gen3dCore"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K11 [require]
-       34 GETTABLEKS                       R6 R3 K12 ["Packages"]
-       36 GETTABLEKS                       R6 R6 K14 ["Gen3dCore"]
-       38 CALL                             R5 1 1
-       39 GETIMPORT                        R6 K11 [require]
-       41 GETTABLEKS                       R7 R3 K15 ["Bin"]
-       43 GETTABLEKS                       R7 R7 K16 ["Common"]
-       45 GETTABLEKS                       R7 R7 K17 ["defineLuaFlags"]
-       47 CALL                             R6 1 1
-       48 GETTABLEKS                       R7 R4 K18 ["Utils"]
-       50 GETTABLEKS                       R7 R7 K19 ["Tools"]
-       52 GETTABLEKS                       R8 R5 K20 ["PreviewCaptureOps"]
-       54 DUPCLOSURE                       R9 K21 [PROTO_0]
-       55 DUPTABLE                         R10 K26 [{"parentPreviewGui", "getStudioCameraCFrame", "cloneForCapture", "captureSnapshotAsync"}]
-       56 DUPCLOSURE                       R11 K27 [PROTO_1]
-       57 CAPTURE                          VAL R0
-       58 CAPTURE                          VAL R1
-       59 SETTABLEKS                       R11 R10 K22 ["parentPreviewGui"]
-       61 DUPCLOSURE                       R11 K28 [PROTO_2]
-       62 CAPTURE                          VAL R2
-       63 SETTABLEKS                       R11 R10 K23 ["getStudioCameraCFrame"]
-       65 SETTABLEKS                       R9 R10 K24 ["cloneForCapture"]
-       67 DUPCLOSURE                       R11 K29 [PROTO_3]
-       68 CAPTURE                          VAL R7
-       69 SETTABLEKS                       R11 R10 K25 ["captureSnapshotAsync"]
-       71 DUPCLOSURE                       R11 K30 [PROTO_4]
-       72 CAPTURE                          VAL R6
-       73 DUPCLOSURE                       R12 K31 [PROTO_11]
-       74 CAPTURE                          VAL R8
-       75 CAPTURE                          VAL R10
-       76 CAPTURE                          VAL R6
-       77 RETURN                           R12 1
+       34 GETTABLEKS                       R6 R3 K14 ["Bin"]
+       36 GETTABLEKS                       R6 R6 K15 ["Common"]
+       38 GETTABLEKS                       R6 R6 K16 ["defineLuaFlags"]
+       40 CALL                             R5 1 1
+       41 GETTABLEKS                       R6 R4 K17 ["PreviewCaptureOps"]
+       43 DUPCLOSURE                       R7 K18 [PROTO_0]
+       44 DUPTABLE                         R8 K23 [{"parentPreviewGui", "getStudioCameraCFrame", "cloneForCapture", "captureSnapshotAsync"}]
+       45 DUPCLOSURE                       R9 K24 [PROTO_1]
+       46 CAPTURE                          VAL R0
+       47 CAPTURE                          VAL R1
+       48 SETTABLEKS                       R9 R8 K19 ["parentPreviewGui"]
+       50 DUPCLOSURE                       R9 K25 [PROTO_2]
+       51 CAPTURE                          VAL R2
+       52 SETTABLEKS                       R9 R8 K20 ["getStudioCameraCFrame"]
+       54 SETTABLEKS                       R7 R8 K21 ["cloneForCapture"]
+       56 DUPCLOSURE                       R9 K26 [PROTO_3]
+       57 CAPTURE                          VAL R6
+       58 SETTABLEKS                       R9 R8 K22 ["captureSnapshotAsync"]
+       60 DUPCLOSURE                       R9 K27 [PROTO_4]
+       61 CAPTURE                          VAL R5
+       62 DUPCLOSURE                       R10 K28 [PROTO_12]
+       63 CAPTURE                          VAL R6
+       64 CAPTURE                          VAL R8
+       65 CAPTURE                          VAL R5
+       66 CAPTURE                          VAL R2
+       67 RETURN                           R10 1

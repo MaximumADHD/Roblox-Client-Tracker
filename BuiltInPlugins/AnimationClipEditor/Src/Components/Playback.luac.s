@@ -254,35 +254,36 @@ MAIN:
        56 GETTABLEKS                       R7 R7 K17 ["Constants"]
        58 CALL                             R6 1 1
        59 GETIMPORT                        R7 K5 [require]
-       61 GETTABLEKS                       R8 R0 K18 ["LuaFlags"]
-       63 GETTABLEKS                       R8 R8 K19 ["GetFFlagFacialAnimationRecordingInStudio"]
-       65 CALL                             R7 1 1
-       66 GETIMPORT                        R8 K21 [game]
-       68 LOADK                            R10 K22 ["RunService"]
-       69 NAMECALL                         R8 R8 K23 ["GetService"]
-       71 CALL                             R8 2 1
-       72 GETTABLEKS                       R9 R1 K24 ["PureComponent"]
-       74 LOADK                            R11 K11 ["Playback"]
-       75 NAMECALL                         R9 R9 K25 ["extend"]
-       77 CALL                             R9 2 1
-       78 DUPCLOSURE                       R10 K26 [PROTO_1]
-       79 CAPTURE                          VAL R8
-       80 CAPTURE                          VAL R7
-       81 CAPTURE                          VAL R6
-       82 SETTABLEKS                       R10 R9 K27 ["didMount"]
-       84 DUPCLOSURE                       R10 K28 [PROTO_2]
-       85 SETTABLEKS                       R10 R9 K29 ["render"]
-       87 DUPCLOSURE                       R10 K30 [PROTO_3]
-       88 SETTABLEKS                       R10 R9 K31 ["willUnmount"]
-       90 DUPCLOSURE                       R10 K32 [PROTO_4]
-       91 DUPCLOSURE                       R11 K33 [PROTO_8]
-       92 CAPTURE                          VAL R3
-       93 CAPTURE                          VAL R5
-       94 CAPTURE                          VAL R4
-       95 GETTABLEKS                       R12 R2 K34 ["connect"]
-       97 MOVE                             R13 R10
-       98 MOVE                             R14 R11
-       99 CALL                             R12 2 1
-      100 MOVE                             R13 R9
-      101 CALL                             R12 1 -1
-      102 RETURN                           R12 -1
+       61 GETTABLEKS                       R8 R0 K9 ["Src"]
+       63 GETTABLEKS                       R8 R8 K18 ["Flags"]
+       65 GETTABLEKS                       R8 R8 K19 ["getFFlagFacialAnimationRecordingInStudio"]
+       67 CALL                             R7 1 1
+       68 GETIMPORT                        R8 K21 [game]
+       70 LOADK                            R10 K22 ["RunService"]
+       71 NAMECALL                         R8 R8 K23 ["GetService"]
+       73 CALL                             R8 2 1
+       74 GETTABLEKS                       R9 R1 K24 ["PureComponent"]
+       76 LOADK                            R11 K11 ["Playback"]
+       77 NAMECALL                         R9 R9 K25 ["extend"]
+       79 CALL                             R9 2 1
+       80 DUPCLOSURE                       R10 K26 [PROTO_1]
+       81 CAPTURE                          VAL R8
+       82 CAPTURE                          VAL R7
+       83 CAPTURE                          VAL R6
+       84 SETTABLEKS                       R10 R9 K27 ["didMount"]
+       86 DUPCLOSURE                       R10 K28 [PROTO_2]
+       87 SETTABLEKS                       R10 R9 K29 ["render"]
+       89 DUPCLOSURE                       R10 K30 [PROTO_3]
+       90 SETTABLEKS                       R10 R9 K31 ["willUnmount"]
+       92 DUPCLOSURE                       R10 K32 [PROTO_4]
+       93 DUPCLOSURE                       R11 K33 [PROTO_8]
+       94 CAPTURE                          VAL R3
+       95 CAPTURE                          VAL R5
+       96 CAPTURE                          VAL R4
+       97 GETTABLEKS                       R12 R2 K34 ["connect"]
+       99 MOVE                             R13 R10
+      100 MOVE                             R14 R11
+      101 CALL                             R12 2 1
+      102 MOVE                             R13 R9
+      103 CALL                             R12 1 -1
+      104 RETURN                           R12 -1

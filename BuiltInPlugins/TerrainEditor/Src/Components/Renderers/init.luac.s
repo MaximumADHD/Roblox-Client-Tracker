@@ -70,7 +70,7 @@ MAIN:
       114 JUMPIFNOT                        R5 ; [+8]
       115 GETIMPORT                        R4 K5 [require]
       117 GETIMPORT                        R5 K1 [script]
-      119 GETTABLEKS                       R5 R5 K19 ["TerrainMaterialPicker"]
+      119 GETTABLEKS                       R5 R5 K22 ["TerrainMaterialPickerRenderer"]
       121 CALL                             R4 1 1
       122 JUMP                             ; [+1]
       123 LOADNIL                          R4

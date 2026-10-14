@@ -274,28 +274,29 @@ MAIN:
        44 GETTABLEKS                       R8 R3 K15 ["TrackUtils"]
        46 CALL                             R7 1 1
        47 GETIMPORT                        R8 K5 [require]
-       49 GETTABLEKS                       R9 R0 K16 ["LuaFlags"]
-       51 GETTABLEKS                       R9 R9 K17 ["GetFFlagFixDynamicTrackSelection"]
-       53 CALL                             R8 1 1
-       54 DUPCLOSURE                       R9 K18 [PROTO_0]
-       55 CAPTURE                          VAL R9
-       56 DUPCLOSURE                       R10 K19 [PROTO_1]
-       57 CAPTURE                          VAL R1
-       58 CAPTURE                          VAL R10
-       59 DUPCLOSURE                       R11 K20 [PROTO_3]
+       49 GETTABLEKS                       R9 R0 K8 ["Src"]
+       51 GETTABLEKS                       R9 R9 K16 ["Flags"]
+       53 GETTABLEKS                       R9 R9 K17 ["getFFlagFixDynamicTrackSelection"]
+       55 CALL                             R8 1 1
+       56 DUPCLOSURE                       R9 K18 [PROTO_0]
+       57 CAPTURE                          VAL R9
+       58 DUPCLOSURE                       R10 K19 [PROTO_1]
+       59 CAPTURE                          VAL R1
        60 CAPTURE                          VAL R10
-       61 CAPTURE                          VAL R9
-       62 DUPCLOSURE                       R12 K21 [PROTO_5]
+       61 DUPCLOSURE                       R11 K20 [PROTO_3]
+       62 CAPTURE                          VAL R10
        63 CAPTURE                          VAL R9
-       64 DUPCLOSURE                       R13 K22 [PROTO_8]
-       65 CAPTURE                          VAL R6
-       66 CAPTURE                          VAL R10
-       67 CAPTURE                          VAL R9
-       68 CAPTURE                          VAL R5
-       69 CAPTURE                          VAL R1
-       70 CAPTURE                          VAL R12
-       71 CAPTURE                          VAL R8
-       72 CAPTURE                          VAL R4
-       73 CAPTURE                          VAL R7
-       74 CAPTURE                          VAL R2
-       75 RETURN                           R13 1
+       64 DUPCLOSURE                       R12 K21 [PROTO_5]
+       65 CAPTURE                          VAL R9
+       66 DUPCLOSURE                       R13 K22 [PROTO_8]
+       67 CAPTURE                          VAL R6
+       68 CAPTURE                          VAL R10
+       69 CAPTURE                          VAL R9
+       70 CAPTURE                          VAL R5
+       71 CAPTURE                          VAL R1
+       72 CAPTURE                          VAL R12
+       73 CAPTURE                          VAL R8
+       74 CAPTURE                          VAL R4
+       75 CAPTURE                          VAL R7
+       76 CAPTURE                          VAL R2
+       77 RETURN                           R13 1

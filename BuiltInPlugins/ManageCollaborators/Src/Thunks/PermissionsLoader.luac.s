@@ -1,4 +1,22 @@
 PROTO_0:
+        0 LOADB                            R1 0
+        1 FASTCALL1                        TYPEOF R0 ; [+3]
+        2 MOVE                             R3 R0
+        3 GETIMPORT                        R2 K1 [typeof]
+        5 CALL                             R2 1 1
+        6 JUMPIFNOTEQKS                    R2 K2 ["string"] ; [+12]
+        8 GETIMPORT                        R2 K4 [string.find]
+       10 MOVE                             R3 R0
+       11 LOADK                            R4 K5 ["responseCode = 403"]
+       12 LOADN                            R5 1
+       13 LOADB                            R6 1
+       14 CALL                             R2 4 1
+       15 JUMPIFNOTEQKNIL                  R2 ; [+2]
+       17 LOADB                            R1 0 +1
+       18 LOADB                            R1 1
+       19 RETURN                           R1 1
+
+PROTO_1:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["getCreatorId"]
@@ -32,7 +50,7 @@ PROTO_0:
        36 CALL                             R2 -1 0
        37 RETURN                           R0 0
 
-PROTO_1:
+PROTO_2:
         0 GETTABLEKS                       R2 R1 K0 ["gameMetadataController"]
         2 GETTABLEKS                       R3 R1 K1 ["socialController"]
         4 GETIMPORT                        R4 K3 [game]
@@ -47,31 +65,34 @@ PROTO_1:
        15 CAPTURE                          UPVAL U2
        16 RETURN                           R5 1
 
-PROTO_2:
+PROTO_3:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["fflagManageCollaboratorsActionNeededLabel"]
-        3 JUMPIF                           R2 ; [+17]
+        3 JUMPIF                           R2 ; [+21]
         4 GETUPVAL                         R2 0
         5 GETTABLEKS                       R2 R2 K1 ["fflagManageCollaboratorsOutsideAgeBucketAlert"]
-        7 JUMPIF                           R2 ; [+13]
+        7 JUMPIF                           R2 ; [+17]
         8 GETUPVAL                         R2 0
         9 GETTABLEKS                       R2 R2 K2 ["fflagManageCollaboratorsEditorBlockingBanner"]
-       11 JUMPIF                           R2 ; [+9]
+       11 JUMPIF                           R2 ; [+13]
        12 GETUPVAL                         R2 0
        13 GETTABLEKS                       R2 R2 K3 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
-       15 JUMPIF                           R2 ; [+5]
+       15 JUMPIF                           R2 ; [+9]
        16 GETUPVAL                         R2 0
        17 GETTABLEKS                       R2 R2 K4 ["fflagManageCollaboratorsOwnerCountryBlocked"]
-       19 JUMPIF                           R2 ; [+1]
-       20 RETURN                           R0 0
-       21 GETUPVAL                         R4 1
-       22 MOVE                             R5 R1
-       23 CALL                             R4 1 -1
-       24 NAMECALL                         R2 R0 K5 ["dispatch"]
-       26 CALL                             R2 -1 0
-       27 RETURN                           R0 0
+       19 JUMPIF                           R2 ; [+5]
+       20 GETUPVAL                         R2 0
+       21 GETTABLEKS                       R2 R2 K5 ["fflagGroupGameEarlyTesters"]
+       23 JUMPIF                           R2 ; [+1]
+       24 RETURN                           R0 0
+       25 GETUPVAL                         R4 1
+       26 MOVE                             R5 R1
+       27 CALL                             R4 1 -1
+       28 NAMECALL                         R2 R0 K6 ["dispatch"]
+       30 CALL                             R2 -1 0
+       31 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["RoleSubjectKey"]
         3 GETTABLE                         R2 R0 R3
@@ -99,7 +120,7 @@ PROTO_3:
        34 CALL                             R4 2 -1
        35 RETURN                           R4 -1
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["getCreatorName"]
@@ -152,33 +173,36 @@ PROTO_4:
        63 CALL                             R5 -1 0
        64 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETUPVAL                         R2 2
         3 GETTABLEKS                       R2 R2 K0 ["fflagManageCollaboratorsActionNeededLabel"]
-        5 JUMPIF                           R2 ; [+17]
+        5 JUMPIF                           R2 ; [+21]
         6 GETUPVAL                         R2 2
         7 GETTABLEKS                       R2 R2 K1 ["fflagManageCollaboratorsOutsideAgeBucketAlert"]
-        9 JUMPIF                           R2 ; [+13]
+        9 JUMPIF                           R2 ; [+17]
        10 GETUPVAL                         R2 2
        11 GETTABLEKS                       R2 R2 K2 ["fflagManageCollaboratorsEditorBlockingBanner"]
-       13 JUMPIF                           R2 ; [+9]
+       13 JUMPIF                           R2 ; [+13]
        14 GETUPVAL                         R2 2
        15 GETTABLEKS                       R2 R2 K3 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
-       17 JUMPIF                           R2 ; [+5]
+       17 JUMPIF                           R2 ; [+9]
        18 GETUPVAL                         R2 2
        19 GETTABLEKS                       R2 R2 K4 ["fflagManageCollaboratorsOwnerCountryBlocked"]
-       21 JUMPIF                           R2 ; [+1]
-       22 RETURN                           R0 0
-       23 GETUPVAL                         R4 3
-       24 MOVE                             R5 R1
-       25 CALL                             R4 1 -1
-       26 NAMECALL                         R2 R0 K5 ["dispatch"]
-       28 CALL                             R2 -1 0
-       29 RETURN                           R0 0
+       21 JUMPIF                           R2 ; [+5]
+       22 GETUPVAL                         R2 2
+       23 GETTABLEKS                       R2 R2 K5 ["fflagGroupGameEarlyTesters"]
+       25 JUMPIF                           R2 ; [+1]
+       26 RETURN                           R0 0
+       27 GETUPVAL                         R4 3
+       28 MOVE                             R5 R1
+       29 CALL                             R4 1 -1
+       30 NAMECALL                         R2 R0 K6 ["dispatch"]
+       32 CALL                             R2 -1 0
+       33 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["getCreatorName"]
@@ -267,76 +291,82 @@ PROTO_6:
       106 CALL                             R7 -1 0
       107 GETUPVAL                         R7 2
       108 GETTABLEKS                       R7 R7 K15 ["fflagManageCollaboratorsActionNeededLabel"]
-      110 JUMPIF                           R7 ; [+17]
+      110 JUMPIF                           R7 ; [+21]
       111 GETUPVAL                         R7 2
       112 GETTABLEKS                       R7 R7 K16 ["fflagManageCollaboratorsOutsideAgeBucketAlert"]
-      114 JUMPIF                           R7 ; [+13]
+      114 JUMPIF                           R7 ; [+17]
       115 GETUPVAL                         R7 2
       116 GETTABLEKS                       R7 R7 K17 ["fflagManageCollaboratorsEditorBlockingBanner"]
-      118 JUMPIF                           R7 ; [+9]
+      118 JUMPIF                           R7 ; [+13]
       119 GETUPVAL                         R7 2
       120 GETTABLEKS                       R7 R7 K18 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
-      122 JUMPIF                           R7 ; [+5]
+      122 JUMPIF                           R7 ; [+9]
       123 GETUPVAL                         R7 2
       124 GETTABLEKS                       R7 R7 K19 ["fflagManageCollaboratorsOwnerCountryBlocked"]
-      126 JUMPIF                           R7 ; [+1]
-      127 RETURN                           R0 0
-      128 NEWTABLE                         R7 0 0
-      130 GETUPVAL                         R9 11
-      131 GETTABLEKS                       R9 R9 K20 ["UserSubjectKey"]
-      133 GETTABLE                         R8 R5 R9
-      134 JUMPIFNOT                        R8 ; [+17]
-      135 GETIMPORT                        R8 K22 [pairs]
-      137 GETUPVAL                         R11 11
-      138 GETTABLEKS                       R11 R11 K20 ["UserSubjectKey"]
-      140 GETTABLE                         R9 R5 R11
-      141 CALL                             R8 1 3
-      142 FORGPREP_NEXT                    R8
-      143 FASTCALL2                        TABLE_INSERT R7 R11 ; [+5]
-      145 MOVE                             R14 R7
-      146 MOVE                             R15 R11
-      147 GETIMPORT                        R13 K25 [table.insert]
-      149 CALL                             R13 2 0
-      150 FORGLOOP                         R8 2 ; [-8]
-      152 GETIMPORT                        R8 K7 [Enum.CreatorType.Group]
-      154 JUMPIFNOTEQ                      R2 R8 ; [+37]
-      156 MOVE                             R8 R3
-      157 JUMPIFNOTEQKNIL                  R8 ; [+19]
-      159 GETUPVAL                         R9 2
-      160 GETTABLEKS                       R9 R9 K3 ["fflagOwnerRolesetDeprecation2"]
-      162 JUMPIF                           R9 ; [+14]
+      126 JUMPIF                           R7 ; [+5]
+      127 GETUPVAL                         R7 2
+      128 GETTABLEKS                       R7 R7 K20 ["fflagGroupGameEarlyTesters"]
+      130 JUMPIF                           R7 ; [+1]
+      131 RETURN                           R0 0
+      132 NEWTABLE                         R7 0 0
+      134 GETUPVAL                         R9 11
+      135 GETTABLEKS                       R9 R9 K21 ["UserSubjectKey"]
+      137 GETTABLE                         R8 R5 R9
+      138 JUMPIFNOT                        R8 ; [+17]
+      139 GETIMPORT                        R8 K23 [pairs]
+      141 GETUPVAL                         R11 11
+      142 GETTABLEKS                       R11 R11 K21 ["UserSubjectKey"]
+      144 GETTABLE                         R9 R5 R11
+      145 CALL                             R8 1 3
+      146 FORGPREP_NEXT                    R8
+      147 FASTCALL2                        TABLE_INSERT R7 R11 ; [+5]
+      149 MOVE                             R14 R7
+      150 MOVE                             R15 R11
+      151 GETIMPORT                        R13 K26 [table.insert]
+      153 CALL                             R13 2 0
+      154 FORGLOOP                         R8 2 ; [-8]
+      156 GETIMPORT                        R8 K7 [Enum.CreatorType.Group]
+      158 JUMPIFNOTEQ                      R2 R8 ; [+41]
+      160 MOVE                             R8 R3
+      161 JUMPIFNOTEQKNIL                  R8 ; [+23]
       163 GETUPVAL                         R9 2
-      164 GETTABLEKS                       R9 R9 K18 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
-      166 JUMPIF                           R9 ; [+4]
+      164 GETTABLEKS                       R9 R9 K3 ["fflagOwnerRolesetDeprecation2"]
+      166 JUMPIF                           R9 ; [+18]
       167 GETUPVAL                         R9 2
-      168 GETTABLEKS                       R9 R9 K19 ["fflagManageCollaboratorsOwnerCountryBlocked"]
-      170 JUMPIFNOT                        R9 ; [+6]
-      171 GETUPVAL                         R9 3
-      172 MOVE                             R11 R1
-      173 NAMECALL                         R9 R9 K8 ["getOwnerId"]
-      175 CALL                             R9 2 1
-      176 MOVE                             R8 R9
-      177 JUMPIFEQKNIL                     R8 ; [+14]
-      179 GETUPVAL                         R9 12
-      180 NAMECALL                         R9 R9 K26 ["GetUserId"]
-      182 CALL                             R9 1 1
-      183 JUMPIFNOTEQ                      R8 R9 ; [+8]
-      185 FASTCALL2                        TABLE_INSERT R7 R8 ; [+5]
-      187 MOVE                             R10 R7
-      188 MOVE                             R11 R8
-      189 GETIMPORT                        R9 K25 [table.insert]
-      191 CALL                             R9 2 0
-      192 GETIMPORT                        R8 K29 [coroutine.wrap]
-      194 NEWCLOSURE                       R9 P0
-      195 CAPTURE                          UPVAL U8
-      196 CAPTURE                          VAL R7
-      197 CAPTURE                          UPVAL U2
-      198 CAPTURE                          UPVAL U13
-      199 CALL                             R8 1 1
-      200 CALL                             R8 0 0
-      201 RETURN                           R0 0
+      168 GETTABLEKS                       R9 R9 K18 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
+      170 JUMPIF                           R9 ; [+8]
+      171 GETUPVAL                         R9 2
+      172 GETTABLEKS                       R9 R9 K19 ["fflagManageCollaboratorsOwnerCountryBlocked"]
+      174 JUMPIF                           R9 ; [+4]
+      175 GETUPVAL                         R9 2
+      176 GETTABLEKS                       R9 R9 K20 ["fflagGroupGameEarlyTesters"]
+      178 JUMPIFNOT                        R9 ; [+6]
+      179 GETUPVAL                         R9 3
+      180 MOVE                             R11 R1
+      181 NAMECALL                         R9 R9 K8 ["getOwnerId"]
+      183 CALL                             R9 2 1
+      184 MOVE                             R8 R9
+      185 JUMPIFEQKNIL                     R8 ; [+14]
+      187 GETUPVAL                         R9 12
+      188 NAMECALL                         R9 R9 K27 ["GetUserId"]
+      190 CALL                             R9 1 1
+      191 JUMPIFNOTEQ                      R8 R9 ; [+8]
+      193 FASTCALL2                        TABLE_INSERT R7 R8 ; [+5]
+      195 MOVE                             R10 R7
+      196 MOVE                             R11 R8
+      197 GETIMPORT                        R9 K26 [table.insert]
+      199 CALL                             R9 2 0
+      200 GETIMPORT                        R8 K30 [coroutine.wrap]
+      202 NEWCLOSURE                       R9 P0
+      203 CAPTURE                          UPVAL U8
+      204 CAPTURE                          VAL R7
+      205 CAPTURE                          UPVAL U2
+      206 CAPTURE                          UPVAL U13
+      207 CALL                             R8 1 1
+      208 CALL                             R8 0 0
+      209 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["getCreatorType"]
@@ -387,7 +417,7 @@ PROTO_7:
        61 CALL                             R1 0 0
        62 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["getCreatorName"]
@@ -400,7 +430,7 @@ PROTO_8:
        11 CALL                             R1 -1 0
        12 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["getCreatorId"]
@@ -413,7 +443,7 @@ PROTO_9:
        11 CALL                             R1 -1 0
        12 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["fflagAddPlayTesterPermission"]
         3 JUMPIFNOT                        R0 ; [+21]
@@ -435,7 +465,7 @@ PROTO_10:
        24 CALL                             R1 -1 0
        25 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["getMinimumAgeRecommendation"]
@@ -449,7 +479,113 @@ PROTO_11:
        12 CALL                             R1 -1 0
        13 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 GETUPVAL                         R3 2
+        3 NAMECALL                         R0 R0 K0 ["getAssignment"]
+        5 CALL                             R0 3 -1
+        6 RETURN                           R0 -1
+
+PROTO_14:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 GETUPVAL                         R3 2
+        3 GETTABLEKS                       R3 R3 K0 ["id"]
+        5 NAMECALL                         R0 R0 K1 ["getRoleMembers"]
+        7 CALL                             R0 3 -1
+        8 RETURN                           R0 -1
+
+PROTO_15:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 NAMECALL                         R0 R0 K0 ["getCreatorType"]
+        4 CALL                             R0 2 1
+        5 GETUPVAL                         R1 2
+        6 GETTABLEKS                       R1 R1 K1 ["fflagGroupGameEarlyTesters"]
+        8 JUMPIFNOT                        R1 ; [+14]
+        9 GETUPVAL                         R1 2
+       10 GETTABLEKS                       R1 R1 K2 ["fflagCollabPV2GroupMigration"]
+       12 JUMPIFNOT                        R1 ; [+10]
+       13 GETIMPORT                        R1 K6 [Enum.CreatorType.Group]
+       15 JUMPIFNOTEQ                      R0 R1 ; [+7]
+       17 GETUPVAL                         R1 3
+       18 GETUPVAL                         R2 4
+       19 GETTABLEKS                       R2 R2 K7 ["MIGRATED"]
+       21 JUMPIFEQ                         R1 R2 ; [+2]
+       23 RETURN                           R0 0
+       24 GETUPVAL                         R1 5
+       25 GETTABLEKS                       R1 R1 K8 ["earlyTesterController"]
+       27 GETUPVAL                         R2 0
+       28 GETUPVAL                         R4 1
+       29 NAMECALL                         R2 R2 K9 ["getCreatorId"]
+       31 CALL                             R2 2 1
+       32 GETIMPORT                        R3 K11 [pcall]
+       34 NEWCLOSURE                       R4 P0
+       35 CAPTURE                          VAL R1
+       36 CAPTURE                          VAL R2
+       37 CAPTURE                          UPVAL U1
+       38 CALL                             R3 1 2
+       39 JUMPIF                           R3 ; [+34]
+       40 LOADB                            R5 0
+       41 FASTCALL1                        TYPEOF R4 ; [+3]
+       42 MOVE                             R7 R4
+       43 GETIMPORT                        R6 K13 [typeof]
+       45 CALL                             R6 1 1
+       46 JUMPIFNOTEQKS                    R6 K14 ["string"] ; [+12]
+       48 GETIMPORT                        R6 K16 [string.find]
+       50 MOVE                             R7 R4
+       51 LOADK                            R8 K17 ["responseCode = 403"]
+       52 LOADN                            R9 1
+       53 LOADB                            R10 1
+       54 CALL                             R6 4 1
+       55 JUMPIFNOTEQKNIL                  R6 ; [+2]
+       57 LOADB                            R5 0 +1
+       58 LOADB                            R5 1
+       59 JUMPIFNOT                        R5 ; [+1]
+       60 RETURN                           R0 0
+       61 GETIMPORT                        R5 K19 [warn]
+       63 LOADK                            R6 K20 ["getAssignment failed"]
+       64 MOVE                             R7 R4
+       65 CALL                             R5 2 0
+       66 GETUPVAL                         R5 6
+       67 GETUPVAL                         R7 7
+       68 LOADB                            R8 1
+       69 CALL                             R7 1 -1
+       70 NAMECALL                         R5 R5 K21 ["dispatch"]
+       72 CALL                             R5 -1 0
+       73 RETURN                           R0 0
+       74 NEWTABLE                         R5 0 0
+       76 JUMPIFEQKNIL                     R4 ; [+23]
+       78 GETIMPORT                        R6 K11 [pcall]
+       80 NEWCLOSURE                       R7 P1
+       81 CAPTURE                          VAL R1
+       82 CAPTURE                          VAL R2
+       83 CAPTURE                          VAL R4
+       84 CALL                             R6 1 2
+       85 JUMPIF                           R6 ; [+13]
+       86 GETIMPORT                        R8 K19 [warn]
+       88 LOADK                            R9 K22 ["getRoleMembers failed"]
+       89 MOVE                             R10 R7
+       90 CALL                             R8 2 0
+       91 GETUPVAL                         R8 6
+       92 GETUPVAL                         R10 7
+       93 LOADB                            R11 1
+       94 CALL                             R10 1 -1
+       95 NAMECALL                         R8 R8 K21 ["dispatch"]
+       97 CALL                             R8 -1 0
+       98 RETURN                           R0 0
+       99 MOVE                             R5 R7
+      100 GETUPVAL                         R6 6
+      101 GETUPVAL                         R8 8
+      102 MOVE                             R9 R4
+      103 MOVE                             R10 R5
+      104 CALL                             R8 2 -1
+      105 NAMECALL                         R6 R6 K21 ["dispatch"]
+      107 CALL                             R6 -1 0
+      108 RETURN                           R0 0
+
+PROTO_16:
         0 GETTABLEKS                       R3 R1 K0 ["gameMetadataController"]
         2 GETTABLEKS                       R4 R1 K1 ["groupMetadataController"]
         4 GETTABLEKS                       R5 R1 K2 ["groupRolePermisionsController"]
@@ -462,7 +598,7 @@ PROTO_12:
        18 MOVE                             R11 R0
        19 MOVE                             R12 R1
        20 CALL                             R10 2 1
-       21 NEWTABLE                         R11 0 7
+       21 NEWTABLE                         R11 0 8
        23 NEWCLOSURE                       R12 P0
        24 CAPTURE                          VAL R3
        25 CAPTURE                          VAL R9
@@ -520,16 +656,26 @@ PROTO_12:
        77 CAPTURE                          VAL R9
        78 CAPTURE                          VAL R0
        79 CAPTURE                          UPVAL U15
-       80 SETLIST                          R11 R12 7 [1]
-       82 RETURN                           R11 1
+       80 NEWCLOSURE                       R19 P7
+       81 CAPTURE                          VAL R3
+       82 CAPTURE                          VAL R9
+       83 CAPTURE                          UPVAL U0
+       84 CAPTURE                          VAL R2
+       85 CAPTURE                          UPVAL U1
+       86 CAPTURE                          VAL R1
+       87 CAPTURE                          VAL R0
+       88 CAPTURE                          UPVAL U16
+       89 CAPTURE                          UPVAL U17
+       90 SETLIST                          R11 R12 8 [1]
+       92 RETURN                           R11 1
 
-PROTO_13:
+PROTO_17:
         0 GETIMPORT                        R0 K1 [pcall]
         2 GETUPVAL                         R1 0
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_14:
+PROTO_18:
         0 GETGLOBAL                        R2 K0 ["GetLoadFriendsJob"]
         2 MOVE                             R3 R0
         3 MOVE                             R4 R1
@@ -542,11 +688,11 @@ PROTO_14:
        11 CALL                             R4 0 0
        12 RETURN                           R0 0
 
-PROTO_15:
-        0 DUPCLOSURE                       R1 K0 [PROTO_14]
+PROTO_19:
+        0 DUPCLOSURE                       R1 K0 [PROTO_18]
         1 RETURN                           R1 1
 
-PROTO_16:
+PROTO_20:
         0 GETIMPORT                        R0 K1 [pcall]
         2 GETUPVAL                         R1 0
         3 CALL                             R0 1 2
@@ -584,7 +730,7 @@ PROTO_16:
        41 CALL                             R2 -1 0
        42 RETURN                           R0 0
 
-PROTO_17:
+PROTO_21:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["NOT_MIGRATED"]
         3 GETUPVAL                         R3 1
@@ -656,8 +802,8 @@ PROTO_17:
        87 CLOSEUPVALS                      R3
        88 RETURN                           R0 0
 
-PROTO_18:
-        0 DUPCLOSURE                       R1 K0 [PROTO_17]
+PROTO_22:
+        0 DUPCLOSURE                       R1 K0 [PROTO_21]
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          UPVAL U1
         3 CAPTURE                          UPVAL U2
@@ -782,46 +928,59 @@ MAIN:
       200 GETTABLEKS                       R24 R24 K36 ["SetGroupMigrationStatus"]
       202 CALL                             R23 1 1
       203 GETIMPORT                        R24 K4 [require]
-      205 GETTABLEKS                       R25 R1 K37 ["Packages"]
-      207 GETTABLEKS                       R25 R25 K38 ["Cryo"]
-      209 CALL                             R24 1 1
-      210 DUPCLOSURE                       R25 K39 [PROTO_1]
-      211 CAPTURE                          VAL R20
-      212 CAPTURE                          VAL R4
-      213 CAPTURE                          VAL R15
-      214 SETGLOBAL                        R25 K40 ["GetLoadFriendsJob"]
-      216 DUPCLOSURE                       R25 K41 [PROTO_2]
-      217 CAPTURE                          VAL R2
-      218 CAPTURE                          VAL R19
-      219 DUPCLOSURE                       R26 K42 [PROTO_3]
-      220 CAPTURE                          VAL R7
-      221 CAPTURE                          VAL R24
-      222 DUPCLOSURE                       R27 K43 [PROTO_12]
-      223 CAPTURE                          VAL R2
-      224 CAPTURE                          VAL R21
-      225 CAPTURE                          VAL R10
-      226 CAPTURE                          VAL R26
-      227 CAPTURE                          VAL R8
-      228 CAPTURE                          VAL R11
-      229 CAPTURE                          VAL R7
-      230 CAPTURE                          VAL R3
-      231 CAPTURE                          VAL R19
-      232 CAPTURE                          VAL R12
-      233 CAPTURE                          VAL R16
-      234 CAPTURE                          VAL R17
-      235 CAPTURE                          VAL R13
-      236 CAPTURE                          VAL R14
-      237 CAPTURE                          VAL R9
-      238 CAPTURE                          VAL R18
-      239 SETGLOBAL                        R27 K44 ["GetPermissionsLoadJobs"]
-      241 DUPCLOSURE                       R27 K45 [PROTO_15]
-      242 SETTABLEKS                       R27 R0 K46 ["LoadFriends"]
-      244 DUPCLOSURE                       R27 K47 [PROTO_18]
-      245 CAPTURE                          VAL R21
-      246 CAPTURE                          VAL R2
-      247 CAPTURE                          VAL R22
-      248 CAPTURE                          VAL R23
-      249 CAPTURE                          VAL R5
-      250 CAPTURE                          VAL R6
-      251 SETTABLEKS                       R27 R0 K48 ["LoadPermissions"]
-      253 RETURN                           R0 1
+      205 GETTABLEKS                       R25 R1 K12 ["Src"]
+      207 GETTABLEKS                       R25 R25 K13 ["Actions"]
+      209 GETTABLEKS                       R25 R25 K37 ["SetEarlyTesterLoadedData"]
+      211 CALL                             R24 1 1
+      212 GETIMPORT                        R25 K4 [require]
+      214 GETTABLEKS                       R26 R1 K12 ["Src"]
+      216 GETTABLEKS                       R26 R26 K13 ["Actions"]
+      218 GETTABLEKS                       R26 R26 K38 ["SetEarlyTesterLoadError"]
+      220 CALL                             R25 1 1
+      221 GETIMPORT                        R26 K4 [require]
+      223 GETTABLEKS                       R27 R1 K39 ["Packages"]
+      225 GETTABLEKS                       R27 R27 K40 ["Cryo"]
+      227 CALL                             R26 1 1
+      228 DUPCLOSURE                       R27 K41 [PROTO_0]
+      229 DUPCLOSURE                       R28 K42 [PROTO_2]
+      230 CAPTURE                          VAL R20
+      231 CAPTURE                          VAL R4
+      232 CAPTURE                          VAL R15
+      233 SETGLOBAL                        R28 K43 ["GetLoadFriendsJob"]
+      235 DUPCLOSURE                       R28 K44 [PROTO_3]
+      236 CAPTURE                          VAL R2
+      237 CAPTURE                          VAL R19
+      238 DUPCLOSURE                       R29 K45 [PROTO_4]
+      239 CAPTURE                          VAL R7
+      240 CAPTURE                          VAL R26
+      241 DUPCLOSURE                       R30 K46 [PROTO_16]
+      242 CAPTURE                          VAL R2
+      243 CAPTURE                          VAL R21
+      244 CAPTURE                          VAL R10
+      245 CAPTURE                          VAL R29
+      246 CAPTURE                          VAL R8
+      247 CAPTURE                          VAL R11
+      248 CAPTURE                          VAL R7
+      249 CAPTURE                          VAL R3
+      250 CAPTURE                          VAL R19
+      251 CAPTURE                          VAL R12
+      252 CAPTURE                          VAL R16
+      253 CAPTURE                          VAL R17
+      254 CAPTURE                          VAL R13
+      255 CAPTURE                          VAL R14
+      256 CAPTURE                          VAL R9
+      257 CAPTURE                          VAL R18
+      258 CAPTURE                          VAL R25
+      259 CAPTURE                          VAL R24
+      260 SETGLOBAL                        R30 K47 ["GetPermissionsLoadJobs"]
+      262 DUPCLOSURE                       R30 K48 [PROTO_19]
+      263 SETTABLEKS                       R30 R0 K49 ["LoadFriends"]
+      265 DUPCLOSURE                       R30 K50 [PROTO_22]
+      266 CAPTURE                          VAL R21
+      267 CAPTURE                          VAL R2
+      268 CAPTURE                          VAL R22
+      269 CAPTURE                          VAL R23
+      270 CAPTURE                          VAL R5
+      271 CAPTURE                          VAL R6
+      272 SETTABLEKS                       R30 R0 K51 ["LoadPermissions"]
+      274 RETURN                           R0 1

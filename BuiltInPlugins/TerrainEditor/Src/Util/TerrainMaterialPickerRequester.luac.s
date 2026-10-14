@@ -1,18 +1,19 @@
 PROTO_0:
-        0 DUPTABLE                         R3 K2 [{"communication", "onSlotSelected"}]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R4 R4 K3 ["new"]
-        4 GETUPVAL                         R5 1
-        5 GETTABLEKS                       R5 R5 K4 ["MATERIAL_PICKER_CPC_ID"]
-        7 MOVE                             R6 R1
-        8 CALL                             R4 2 1
-        9 SETTABLEKS                       R4 R3 K0 ["communication"]
-       11 SETTABLEKS                       R0 R3 K1 ["onSlotSelected"]
-       13 GETUPVAL                         R4 2
-       14 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
-       16 GETIMPORT                        R2 K6 [setmetatable]
-       18 CALL                             R2 2 1
-       19 RETURN                           R2 1
+        0 DUPTABLE                         R4 K3 [{"communication", "onInvalidSourceChanged", "onSlotSelected"}]
+        1 GETUPVAL                         R5 0
+        2 GETTABLEKS                       R5 R5 K4 ["new"]
+        4 GETUPVAL                         R6 1
+        5 GETTABLEKS                       R6 R6 K5 ["MATERIAL_PICKER_CPC_ID"]
+        7 MOVE                             R7 R1
+        8 CALL                             R5 2 1
+        9 SETTABLEKS                       R5 R4 K0 ["communication"]
+       11 SETTABLEKS                       R2 R4 K1 ["onInvalidSourceChanged"]
+       13 SETTABLEKS                       R0 R4 K2 ["onSlotSelected"]
+       15 GETUPVAL                         R5 2
+       16 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
+       18 GETIMPORT                        R3 K7 [setmetatable]
+       20 CALL                             R3 2 1
+       21 RETURN                           R3 1
 
 PROTO_1:
         0 LOADNIL                          R1
@@ -62,10 +63,20 @@ PROTO_3:
        40 GETTABLEKS                       R2 R0 K6 ["slotIndex"]
        42 CALL                             R1 1 0
        43 RETURN                           R0 0
-       44 GETUPVAL                         R1 0
-       45 NAMECALL                         R1 R1 K4 ["cancel"]
-       47 CALL                             R1 1 0
-       48 RETURN                           R0 0
+       44 GETTABLEKS                       R1 R0 K2 ["outcome"]
+       46 JUMPIFNOTEQKS                    R1 K8 ["invalidSourceChanged"] ; [+12]
+       48 GETUPVAL                         R1 0
+       49 GETTABLEKS                       R1 R1 K9 ["onInvalidSourceChanged"]
+       51 JUMPIFNOT                        R1 ; [+11]
+       52 GETUPVAL                         R1 0
+       53 GETTABLEKS                       R1 R1 K9 ["onInvalidSourceChanged"]
+       55 GETTABLEKS                       R2 R0 K10 ["invalidSourceSelected"]
+       57 CALL                             R1 1 0
+       58 RETURN                           R0 0
+       59 GETUPVAL                         R1 0
+       60 NAMECALL                         R1 R1 K4 ["cancel"]
+       62 CALL                             R1 1 0
+       63 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -118,7 +129,7 @@ PROTO_6:
         4 LOADB                            R4 0
         5 NAMECALL                         R2 R2 K1 ["GenerateGUID"]
         7 CALL                             R2 2 1
-        8 DUPTABLE                         R3 K10 [{["requestId"], ["selectedSlotIndex"], ["allowAir"], ["allowWater"], ["allowInvalidSource"] = False, ["invalidSourceSelected"] = False, ["anchorWidgetUri"]}]
+        8 DUPTABLE                         R3 K9 [{"requestId", "selectedSlotIndex", "allowAir", "allowWater", "allowInvalidSource", "invalidSourceSelected", "anchorWidgetUri"}]
         9 SETTABLEKS                       R2 R3 K2 ["requestId"]
        11 GETTABLEKS                       R4 R1 K3 ["selectedSlotIndex"]
        13 SETTABLEKS                       R4 R3 K3 ["selectedSlotIndex"]
@@ -126,36 +137,40 @@ PROTO_6:
        17 SETTABLEKS                       R4 R3 K4 ["allowAir"]
        19 GETTABLEKS                       R4 R1 K5 ["allowWater"]
        21 SETTABLEKS                       R4 R3 K5 ["allowWater"]
-       23 GETTABLEKS                       R4 R1 K9 ["anchorWidgetUri"]
-       25 SETTABLEKS                       R4 R3 K9 ["anchorWidgetUri"]
-       27 GETUPVAL                         R5 1
-       28 GETTABLEKS                       R5 R5 K11 ["isValidRequest"]
-       30 MOVE                             R6 R3
-       31 CALL                             R5 1 1
-       32 FASTCALL2K                       ASSERT R5 K12 ; [+4]
-       34 LOADK                            R6 K12 ["Invalid Terrain material picker request"]
-       35 GETIMPORT                        R4 K14 [assert]
-       37 CALL                             R4 2 0
-       38 SETTABLEKS                       R2 R0 K2 ["requestId"]
-       40 GETTABLEKS                       R4 R0 K15 ["communication"]
-       42 GETUPVAL                         R6 2
-       43 GETTABLEKS                       R6 R6 K16 ["CPC_EVENTS"]
-       45 GETTABLEKS                       R6 R6 K17 ["MATERIAL_PICKER_RESPONSE"]
-       47 NEWCLOSURE                       R7 P0
-       48 CAPTURE                          VAL R0
-       49 CAPTURE                          VAL R2
-       50 CAPTURE                          UPVAL U1
-       51 NAMECALL                         R4 R4 K18 ["Connect"]
-       53 CALL                             R4 3 1
-       54 SETTABLEKS                       R4 R0 K19 ["responseConnection"]
-       56 GETIMPORT                        R4 K22 [task.spawn]
-       58 NEWCLOSURE                       R5 P1
-       59 CAPTURE                          VAL R0
-       60 CAPTURE                          VAL R2
-       61 CAPTURE                          UPVAL U2
-       62 CAPTURE                          VAL R3
-       63 CALL                             R4 1 0
-       64 RETURN                           R2 1
+       23 GETTABLEKS                       R4 R1 K6 ["allowInvalidSource"]
+       25 SETTABLEKS                       R4 R3 K6 ["allowInvalidSource"]
+       27 GETTABLEKS                       R4 R1 K7 ["invalidSourceSelected"]
+       29 SETTABLEKS                       R4 R3 K7 ["invalidSourceSelected"]
+       31 GETTABLEKS                       R4 R1 K8 ["anchorWidgetUri"]
+       33 SETTABLEKS                       R4 R3 K8 ["anchorWidgetUri"]
+       35 GETUPVAL                         R5 1
+       36 GETTABLEKS                       R5 R5 K10 ["isValidRequest"]
+       38 MOVE                             R6 R3
+       39 CALL                             R5 1 1
+       40 FASTCALL2K                       ASSERT R5 K11 ; [+4]
+       42 LOADK                            R6 K11 ["Invalid Terrain material picker request"]
+       43 GETIMPORT                        R4 K13 [assert]
+       45 CALL                             R4 2 0
+       46 SETTABLEKS                       R2 R0 K2 ["requestId"]
+       48 GETTABLEKS                       R4 R0 K14 ["communication"]
+       50 GETUPVAL                         R6 2
+       51 GETTABLEKS                       R6 R6 K15 ["CPC_EVENTS"]
+       53 GETTABLEKS                       R6 R6 K16 ["MATERIAL_PICKER_RESPONSE"]
+       55 NEWCLOSURE                       R7 P0
+       56 CAPTURE                          VAL R0
+       57 CAPTURE                          VAL R2
+       58 CAPTURE                          UPVAL U1
+       59 NAMECALL                         R4 R4 K17 ["Connect"]
+       61 CALL                             R4 3 1
+       62 SETTABLEKS                       R4 R0 K18 ["responseConnection"]
+       64 GETIMPORT                        R4 K21 [task.spawn]
+       66 NEWCLOSURE                       R5 P1
+       67 CAPTURE                          VAL R0
+       68 CAPTURE                          VAL R2
+       69 CAPTURE                          UPVAL U2
+       70 CAPTURE                          VAL R3
+       71 CALL                             R4 1 0
+       72 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -42,15 +42,17 @@ PROTO_2:
        18 GETTABLEKS                       R3 R1 K1 ["StatusCode"]
        20 SETTABLEKS                       R3 R2 K1 ["StatusCode"]
        22 GETTABLEKS                       R3 R1 K2 ["StatusMessage"]
-       24 SETTABLEKS                       R3 R2 K2 ["StatusMessage"]
-       26 GETTABLEKS                       R3 R1 K3 ["Headers"]
-       28 SETTABLEKS                       R3 R2 K3 ["Headers"]
-       30 GETTABLEKS                       R3 R1 K4 ["Body"]
-       32 SETTABLEKS                       R3 R2 K4 ["Body"]
-       34 GETUPVAL                         R3 0
-       35 MOVE                             R4 R2
-       36 CALL                             R3 1 0
-       37 RETURN                           R0 0
+       24 JUMPIF                           R3 ; [+2]
+       25 GETTABLEKS                       R3 R1 K6 ["HttpError"]
+       27 SETTABLEKS                       R3 R2 K2 ["StatusMessage"]
+       29 GETTABLEKS                       R3 R1 K3 ["Headers"]
+       31 SETTABLEKS                       R3 R2 K3 ["Headers"]
+       33 GETTABLEKS                       R3 R1 K4 ["Body"]
+       35 SETTABLEKS                       R3 R2 K4 ["Body"]
+       37 GETUPVAL                         R3 0
+       38 MOVE                             R4 R2
+       39 CALL                             R3 1 0
+       40 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R2 0
@@ -75,6 +77,20 @@ PROTO_4:
        14 RETURN                           R3 1
 
 PROTO_5:
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R4 R0
+        2 NAMECALL                         R2 R2 K0 ["JSONEncode"]
+        4 CALL                             R2 2 -1
+        5 RETURN                           R2 -1
+
+PROTO_6:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K0 ["JSONDecode"]
+        4 CALL                             R1 2 -1
+        5 RETURN                           R1 -1
+
+PROTO_7:
         0 GETUPVAL                         R2 0
         1 JUMPIFEQKNIL                     R2 ; [+3]
         3 GETUPVAL                         R1 0
@@ -107,7 +123,7 @@ PROTO_5:
        37 CALL                             R2 -1 -1
        38 RETURN                           R2 -1
 
-PROTO_6:
+PROTO_8:
         0 GETUPVAL                         R2 0
         1 JUMPIFEQKNIL                     R2 ; [+3]
         3 GETUPVAL                         R1 0
@@ -171,14 +187,14 @@ PROTO_6:
        77 CALL                             R3 1 0
        78 RETURN                           R2 1
 
-PROTO_7:
+PROTO_9:
         0 GETUPVAL                         R0 1
         1 NAMECALL                         R0 R0 K0 ["GetUserId"]
         3 CALL                             R0 1 1
         4 SETUPVAL                         R0 0
         5 RETURN                           R0 0
 
-PROTO_8:
+PROTO_10:
         0 LOADN                            R0 0
         1 GETIMPORT                        R1 K1 [pcall]
         3 NEWCLOSURE                       R2 P0
@@ -188,58 +204,73 @@ PROTO_8:
         7 CLOSEUPVALS                      R0
         8 RETURN                           R0 1
 
-PROTO_9:
+PROTO_11:
         0 LOADB                            R0 1
         1 RETURN                           R0 1
 
-PROTO_10:
+PROTO_12:
         0 GETIMPORT                        R1 K1 [game]
         2 MOVE                             R3 R0
         3 NAMECALL                         R1 R1 K2 ["GetEngineFeature"]
         5 CALL                             R1 2 -1
         6 RETURN                           R1 -1
 
-PROTO_11:
+PROTO_13:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["Guest"]
-        3 GETTABLEKS                       R1 R1 K1 ["Environment"]
-        5 GETTABLEKS                       R1 R1 K2 ["new"]
-        7 CALL                             R1 0 1
-        8 LOADNIL                          R2
-        9 NEWCLOSURE                       R3 P0
-       10 CAPTURE                          REF R2
-       11 CAPTURE                          VAL R0
-       12 GETTABLEKS                       R4 R1 K3 ["http"]
-       14 DUPCLOSURE                       R5 K4 [PROTO_4]
-       15 CAPTURE                          UPVAL U1
-       16 CAPTURE                          UPVAL U2
-       17 SETTABLEKS                       R5 R4 K5 ["requestAsync"]
-       19 GETUPVAL                         R4 3
-       20 CALL                             R4 0 1
-       21 DUPTABLE                         R5 K8 [{"startAsync", "getStatusAsync"}]
-       22 GETTABLEKS                       R6 R4 K6 ["startAsync"]
-       24 SETTABLEKS                       R6 R5 K6 ["startAsync"]
-       26 GETTABLEKS                       R6 R4 K7 ["getStatusAsync"]
-       28 SETTABLEKS                       R6 R5 K7 ["getStatusAsync"]
-       30 SETTABLEKS                       R5 R1 K9 ["imageGeneration"]
-       32 NEWCLOSURE                       R5 P2
-       33 CAPTURE                          REF R2
-       34 CAPTURE                          VAL R0
-       35 CAPTURE                          UPVAL U4
-       36 SETTABLEKS                       R5 R1 K10 ["base64EncodeAsync"]
-       38 NEWCLOSURE                       R5 P3
-       39 CAPTURE                          REF R2
-       40 CAPTURE                          VAL R0
-       41 SETTABLEKS                       R5 R1 K11 ["convertImageDataToTempIdAsync"]
-       43 DUPCLOSURE                       R5 K12 [PROTO_8]
-       44 CAPTURE                          UPVAL U5
-       45 SETTABLEKS                       R5 R1 K13 ["getUserId"]
-       47 DUPCLOSURE                       R5 K14 [PROTO_9]
-       48 SETTABLEKS                       R5 R1 K15 ["isRobloxScriptSecurity"]
-       50 DUPCLOSURE                       R5 K16 [PROTO_10]
-       51 SETTABLEKS                       R5 R1 K17 ["getEngineFeature"]
-       53 CLOSEUPVALS                      R2
-       54 RETURN                           R1 1
+        1 GETTABLEKS                       R1 R1 K0 ["patchCubeGenerationGatewayHost"]
+        3 GETUPVAL                         R2 1
+        4 GETUPVAL                         R3 2
+        5 GETTABLEKS                       R3 R3 K1 ["getFStringCubeGenerationGatewayBaseUrlOverride"]
+        7 CALL                             R3 0 -1
+        8 CALL                             R1 -1 0
+        9 LOADNIL                          R1
+       10 NEWCLOSURE                       R2 P0
+       11 CAPTURE                          REF R1
+       12 CAPTURE                          VAL R0
+       13 GETUPVAL                         R3 3
+       14 CALL                             R3 0 1
+       15 DUPTABLE                         R4 K11 [{"http", "json", "imageGeneration", "texturePreview", "base64EncodeAsync", "convertImageDataToTempIdAsync", "getUserId", "isRobloxScriptSecurity", "getEngineFeature"}]
+       16 DUPTABLE                         R5 K13 [{"requestAsync"}]
+       17 DUPCLOSURE                       R6 K14 [PROTO_4]
+       18 CAPTURE                          UPVAL U4
+       19 CAPTURE                          UPVAL U5
+       20 SETTABLEKS                       R6 R5 K12 ["requestAsync"]
+       22 SETTABLEKS                       R5 R4 K2 ["http"]
+       24 DUPTABLE                         R5 K17 [{"encodeAsync", "decodeAsync"}]
+       25 DUPCLOSURE                       R6 K18 [PROTO_5]
+       26 CAPTURE                          UPVAL U4
+       27 SETTABLEKS                       R6 R5 K15 ["encodeAsync"]
+       29 DUPCLOSURE                       R6 K19 [PROTO_6]
+       30 CAPTURE                          UPVAL U4
+       31 SETTABLEKS                       R6 R5 K16 ["decodeAsync"]
+       33 SETTABLEKS                       R5 R4 K3 ["json"]
+       35 DUPTABLE                         R5 K22 [{"startAsync", "getStatusAsync"}]
+       36 GETTABLEKS                       R6 R3 K20 ["startAsync"]
+       38 SETTABLEKS                       R6 R5 K20 ["startAsync"]
+       40 GETTABLEKS                       R6 R3 K21 ["getStatusAsync"]
+       42 SETTABLEKS                       R6 R5 K21 ["getStatusAsync"]
+       44 SETTABLEKS                       R5 R4 K4 ["imageGeneration"]
+       46 GETUPVAL                         R5 6
+       47 CALL                             R5 0 1
+       48 SETTABLEKS                       R5 R4 K5 ["texturePreview"]
+       50 NEWCLOSURE                       R5 P4
+       51 CAPTURE                          REF R1
+       52 CAPTURE                          VAL R0
+       53 CAPTURE                          UPVAL U7
+       54 SETTABLEKS                       R5 R4 K6 ["base64EncodeAsync"]
+       56 NEWCLOSURE                       R5 P5
+       57 CAPTURE                          REF R1
+       58 CAPTURE                          VAL R0
+       59 SETTABLEKS                       R5 R4 K7 ["convertImageDataToTempIdAsync"]
+       61 DUPCLOSURE                       R5 K23 [PROTO_10]
+       62 CAPTURE                          UPVAL U8
+       63 SETTABLEKS                       R5 R4 K8 ["getUserId"]
+       65 DUPCLOSURE                       R5 K24 [PROTO_11]
+       66 SETTABLEKS                       R5 R4 K9 ["isRobloxScriptSecurity"]
+       68 DUPCLOSURE                       R5 K25 [PROTO_12]
+       69 SETTABLEKS                       R5 R4 K10 ["getEngineFeature"]
+       71 CLOSEUPVALS                      R1
+       72 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -261,23 +292,46 @@ MAIN:
        24 CALL                             R3 2 1
        25 GETIMPORT                        R4 K11 [require]
        27 GETTABLEKS                       R5 R0 K12 ["Packages"]
-       29 GETTABLEKS                       R5 R5 K13 ["AssistantUI"]
+       29 GETTABLEKS                       R5 R5 K13 ["Gen3dCore"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K11 [require]
-       34 GETTABLEKS                       R6 R0 K12 ["Packages"]
-       36 GETTABLEKS                       R6 R6 K14 ["Promise"]
-       38 CALL                             R5 1 1
-       39 GETIMPORT                        R6 K11 [require]
-       41 GETTABLEKS                       R7 R0 K15 ["Src"]
-       43 GETTABLEKS                       R7 R7 K16 ["Host"]
-       45 GETTABLEKS                       R7 R7 K17 ["Services"]
-       47 GETTABLEKS                       R7 R7 K18 ["createImageGenerationService"]
-       49 CALL                             R6 1 1
-       50 DUPCLOSURE                       R7 K19 [PROTO_11]
-       51 CAPTURE                          VAL R4
-       52 CAPTURE                          VAL R2
-       53 CAPTURE                          VAL R5
-       54 CAPTURE                          VAL R6
-       55 CAPTURE                          VAL R1
-       56 CAPTURE                          VAL R3
-       57 RETURN                           R7 1
+       34 GETTABLEKS                       R6 R0 K14 ["Src"]
+       36 GETTABLEKS                       R6 R6 K15 ["Guest"]
+       38 GETTABLEKS                       R6 R6 K16 ["GuestEnvironmentStore"]
+       40 CALL                             R5 1 1
+       41 GETIMPORT                        R6 K11 [require]
+       43 GETTABLEKS                       R7 R0 K12 ["Packages"]
+       45 GETTABLEKS                       R7 R7 K17 ["HttpWrapper"]
+       47 CALL                             R6 1 1
+       48 GETIMPORT                        R7 K11 [require]
+       50 GETTABLEKS                       R8 R0 K12 ["Packages"]
+       52 GETTABLEKS                       R8 R8 K18 ["Promise"]
+       54 CALL                             R7 1 1
+       55 GETIMPORT                        R8 K11 [require]
+       57 GETTABLEKS                       R9 R0 K14 ["Src"]
+       59 GETTABLEKS                       R9 R9 K19 ["Host"]
+       61 GETTABLEKS                       R9 R9 K20 ["Services"]
+       63 GETTABLEKS                       R9 R9 K21 ["createImageGenerationService"]
+       65 CALL                             R8 1 1
+       66 GETIMPORT                        R9 K11 [require]
+       68 GETTABLEKS                       R10 R0 K14 ["Src"]
+       70 GETTABLEKS                       R10 R10 K19 ["Host"]
+       72 GETTABLEKS                       R10 R10 K20 ["Services"]
+       74 GETTABLEKS                       R10 R10 K22 ["createTexturePreviewService"]
+       76 CALL                             R9 1 1
+       77 GETIMPORT                        R10 K11 [require]
+       79 GETTABLEKS                       R11 R0 K23 ["Bin"]
+       81 GETTABLEKS                       R11 R11 K24 ["Common"]
+       83 GETTABLEKS                       R11 R11 K25 ["defineLuaFlags"]
+       85 CALL                             R10 1 1
+       86 DUPCLOSURE                       R11 K26 [PROTO_13]
+       87 CAPTURE                          VAL R4
+       88 CAPTURE                          VAL R6
+       89 CAPTURE                          VAL R10
+       90 CAPTURE                          VAL R8
+       91 CAPTURE                          VAL R2
+       92 CAPTURE                          VAL R7
+       93 CAPTURE                          VAL R9
+       94 CAPTURE                          VAL R1
+       95 CAPTURE                          VAL R3
+       96 RETURN                           R11 1

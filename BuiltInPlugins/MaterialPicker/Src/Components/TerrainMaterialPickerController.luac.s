@@ -229,7 +229,7 @@ PROTO_15:
       108 RETURN                           R5 1
 
 PROTO_16:
-        0 DUPTABLE                         R4 K9 [{[1], ["refreshKey"] = 0, ["request"] = False, ["sortType"] = "slotNumber", ["viewType"] = "grid"}]
+        0 DUPTABLE                         R4 K9 [{[1], ["refreshKey"] = 0, ["request"] = False, ["sortType"] = "recentlyUsed", ["viewType"] = "grid"}]
         1 GETIMPORT                        R5 K12 [table.freeze]
         3 NEWTABLE                         R6 0 0
         5 CALL                             R5 1 1

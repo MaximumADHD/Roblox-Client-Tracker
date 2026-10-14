@@ -3822,12 +3822,12 @@ MAIN:
       132 GETTABLEKS                       R17 R17 K26 ["Hooks"]
       134 GETTABLEKS                       R17 R17 K27 ["useHRDDraggerProps"]
       136 CALL                             R16 1 1
-      137 GETTABLEKS                       R17 R0 K6 ["Packages"]
-      139 GETTABLEKS                       R17 R17 K28 ["DraggerFramework"]
-      141 GETIMPORT                        R18 K5 [require]
-      143 GETTABLEKS                       R19 R17 K29 ["DraggerTools"]
-      145 GETTABLEKS                       R19 R19 K30 ["DraggerToolComponent"]
-      147 CALL                             R18 1 1
+      137 GETIMPORT                        R17 K5 [require]
+      139 GETTABLEKS                       R18 R0 K6 ["Packages"]
+      141 GETTABLEKS                       R18 R18 K28 ["DraggerFramework"]
+      143 CALL                             R17 1 1
+      144 GETTABLEKS                       R18 R17 K29 ["DraggerTools"]
+      146 GETTABLEKS                       R18 R18 K30 ["DraggerToolComponent"]
       148 GETIMPORT                        R19 K5 [require]
       150 GETTABLEKS                       R20 R0 K11 ["Src"]
       152 GETTABLEKS                       R20 R20 K31 ["Types"]

@@ -1,4 +1,49 @@
 PROTO_0:
+        0 GETTABLEKS                       R1 R0 K0 ["Mode"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["CreatingNew"]
+        5 JUMPIFNOTEQ                      R1 R2 ; [+11]
+        7 GETIMPORT                        R2 K3 [next]
+        9 GETTABLEKS                       R3 R0 K4 ["PendingMembers"]
+       11 CALL                             R2 1 1
+       12 JUMPIFNOTEQKNIL                  R2 ; [+2]
+       14 LOADB                            R1 0 +1
+       15 LOADB                            R1 1
+       16 RETURN                           R1 1
+       17 GETTABLEKS                       R1 R0 K0 ["Mode"]
+       19 GETUPVAL                         R2 0
+       20 GETTABLEKS                       R2 R2 K5 ["UsingExisting"]
+       22 JUMPIFNOTEQ                      R1 R2 ; [+3]
+       24 LOADB                            R1 1
+       25 RETURN                           R1 1
+       26 GETTABLEKS                       R1 R0 K0 ["Mode"]
+       28 GETUPVAL                         R2 0
+       29 GETTABLEKS                       R2 R2 K6 ["EditingAssigned"]
+       31 JUMPIFNOTEQ                      R1 R2 ; [+28]
+       33 GETTABLEKS                       R1 R0 K4 ["PendingMembers"]
+       35 LOADNIL                          R2
+       36 LOADNIL                          R3
+       37 FORGPREP                         R1
+       38 GETTABLEKS                       R7 R0 K7 ["ExistingMemberIds"]
+       40 GETTABLE                         R6 R7 R4
+       41 JUMPIF                           R6 ; [+2]
+       42 LOADB                            R6 1
+       43 RETURN                           R6 1
+       44 FORGLOOP                         R1 1 ; [-7]
+       46 GETTABLEKS                       R1 R0 K7 ["ExistingMemberIds"]
+       48 LOADNIL                          R2
+       49 LOADNIL                          R3
+       50 FORGPREP                         R1
+       51 GETTABLEKS                       R7 R0 K4 ["PendingMembers"]
+       53 GETTABLE                         R6 R7 R4
+       54 JUMPIFNOTEQKNIL                  R6 ; [+3]
+       56 LOADB                            R6 1
+       57 RETURN                           R6 1
+       58 FORGLOOP                         R1 1 ; [-8]
+       60 LOADB                            R1 0
+       61 RETURN                           R1 1
+
+PROTO_1:
         0 GETIMPORT                        R2 K1 [pairs]
         2 MOVE                             R3 R0
         3 CALL                             R2 1 3
@@ -28,7 +73,7 @@ PROTO_0:
        35 LOADB                            R2 0
        36 RETURN                           R2 1
 
-PROTO_1:
+PROTO_2:
         0 LOADB                            R1 0
         1 GETTABLEKS                       R2 R0 K0 ["Permissions"]
         3 GETTABLEKS                       R2 R2 K1 ["NewPermissions"]
@@ -75,14 +120,21 @@ PROTO_1:
        64 JUMPIFNOTEQKNIL                  R3 ; [+2]
        66 LOADB                            R1 0 +1
        67 LOADB                            R1 1
-       68 JUMPIF                           R1 ; [+10]
-       69 GETTABLEKS                       R2 R0 K10 ["PendingPlayTesters"]
-       71 JUMPIFNOT                        R2 ; [+7]
-       72 GETTABLEKS                       R2 R0 K10 ["PendingPlayTesters"]
-       74 GETTABLEKS                       R2 R2 K11 ["NewPlayTesters"]
-       76 JUMPIFEQKNIL                     R2 ; [+2]
-       78 LOADB                            R1 1
-       79 RETURN                           R1 1
+       68 GETTABLEKS                       R2 R0 K10 ["EarlyTesters"]
+       70 JUMPIFEQKNIL                     R2 ; [+7]
+       72 JUMPIF                           R1 ; [+5]
+       73 GETUPVAL                         R2 1
+       74 GETTABLEKS                       R3 R0 K10 ["EarlyTesters"]
+       76 CALL                             R2 1 1
+       77 MOVE                             R1 R2
+       78 JUMPIF                           R1 ; [+10]
+       79 GETTABLEKS                       R2 R0 K11 ["PendingPlayTesters"]
+       81 JUMPIFNOT                        R2 ; [+7]
+       82 GETTABLEKS                       R2 R0 K11 ["PendingPlayTesters"]
+       84 GETTABLEKS                       R2 R2 K12 ["NewPlayTesters"]
+       86 JUMPIFEQKNIL                     R2 ; [+2]
+       88 LOADB                            R1 1
+       89 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -95,9 +147,17 @@ MAIN:
        13 GETTABLEKS                       R2 R2 K6 ["Util"]
        15 GETTABLEKS                       R2 R2 K7 ["PermissionsConstants"]
        17 CALL                             R1 1 1
-       18 DUPCLOSURE                       R2 K8 [PROTO_0]
-       19 CAPTURE                          VAL R1
-       20 SETGLOBAL                        R2 K9 ["checkForDifferenceInCollaborators"]
-       22 DUPCLOSURE                       R2 K10 [PROTO_1]
-       23 CAPTURE                          VAL R1
-       24 RETURN                           R2 1
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K6 ["Util"]
+       24 GETTABLEKS                       R3 R3 K8 ["EarlyTesterMode"]
+       26 CALL                             R2 1 1
+       27 DUPCLOSURE                       R3 K9 [PROTO_0]
+       28 CAPTURE                          VAL R2
+       29 DUPCLOSURE                       R4 K10 [PROTO_1]
+       30 CAPTURE                          VAL R1
+       31 SETGLOBAL                        R4 K11 ["checkForDifferenceInCollaborators"]
+       33 DUPCLOSURE                       R4 K12 [PROTO_2]
+       34 CAPTURE                          VAL R1
+       35 CAPTURE                          VAL R3
+       36 RETURN                           R4 1

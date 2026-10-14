@@ -58,7 +58,7 @@ MAIN:
        62 JUMPIFEQ                         R8 R9 ; [+2]
        64 LOADB                            R7 0 +1
        65 LOADB                            R7 1
-       66 JUMPIFNOT                        R7 ; [+177]
+       66 JUMPIFNOT                        R7 ; [+238]
        67 GETIMPORT                        R8 K6 [require]
        69 GETTABLEKS                       R9 R1 K21 ["ReactDeveloperTools"]
        71 CALL                             R8 1 1
@@ -74,98 +74,140 @@ MAIN:
        87 GETTABLEKS                       R11 R11 K30 ["ConsoleOutputManager"]
        89 CALL                             R10 1 1
        90 GETIMPORT                        R11 K6 [require]
-       92 GETTABLEKS                       R12 R0 K28 ["Src"]
-       94 GETTABLEKS                       R12 R12 K31 ["Flags"]
-       96 CALL                             R11 1 1
-       97 GETTABLEKS                       R12 R9 K32 ["Utils"]
-       99 GETTABLEKS                       R12 R12 K33 ["DataModelType"]
-      101 GETTABLEKS                       R12 R12 K34 ["setIsStandalone"]
-      103 LOADB                            R13 1
-      104 CALL                             R12 1 0
-      105 GETIMPORT                        R12 K6 [require]
-      107 GETTABLEKS                       R13 R0 K28 ["Src"]
-      109 GETTABLEKS                       R13 R13 K29 ["Util"]
-      111 GETTABLEKS                       R13 R13 K35 ["StudioNetworking"]
-      113 CALL                             R12 1 1
-      114 GETTABLEKS                       R13 R12 K36 ["create"]
-      116 DUPTABLE                         R14 K43 [{["plugin"], ["isGuest"], ["isHost"] = False, ["identity"], ["useSuspendOverride"] = True}]
-      117 GETIMPORT                        R15 K44 [plugin]
-      119 SETTABLEKS                       R15 R14 K37 ["plugin"]
-      121 SETTABLEKS                       R7 R14 K38 ["isGuest"]
-      123 GETTABLEKS                       R15 R9 K32 ["Utils"]
-      125 GETTABLEKS                       R15 R15 K33 ["DataModelType"]
-      127 GETTABLEKS                       R15 R15 K45 ["Types"]
-      129 GETTABLEKS                       R15 R15 K20 ["Standalone"]
-      131 SETTABLEKS                       R15 R14 K40 ["identity"]
-      133 CALL                             R13 1 1
-      134 GETTABLEKS                       R14 R11 K46 ["FFlagAssistantConsoleOutputTailFromEnd"]
-      136 JUMPIFNOT                        R14 ; [+6]
-      137 GETTABLEKS                       R14 R10 K47 ["init"]
-      139 GETIMPORT                        R15 K44 [plugin]
-      141 MOVE                             R16 R13
-      142 CALL                             R14 2 0
-      143 GETTABLEKS                       R14 R11 K48 ["FFlagAssistantMultiPlayerAgents"]
-      145 JUMPIFNOT                        R14 ; [+17]
-      146 GETTABLEKS                       R14 R9 K32 ["Utils"]
-      148 GETTABLEKS                       R14 R14 K49 ["MultiPlayersAgentClient"]
-      150 GETTABLEKS                       R15 R14 K47 ["init"]
-      152 MOVE                             R16 R13
-      153 CALL                             R15 1 0
-      154 GETIMPORT                        R15 K44 [plugin]
-      156 GETTABLEKS                       R15 R15 K50 ["Unloading"]
-      158 DUPCLOSURE                       R17 K51 [PROTO_0]
-      159 CAPTURE                          VAL R14
-      160 NAMECALL                         R15 R15 K52 ["Connect"]
-      162 CALL                             R15 2 0
-      163 GETIMPORT                        R14 K6 [require]
-      165 GETTABLEKS                       R15 R0 K28 ["Src"]
-      167 GETTABLEKS                       R15 R15 K29 ["Util"]
-      169 GETTABLEKS                       R15 R15 K53 ["StudioState"]
-      171 CALL                             R14 1 1
-      172 GETTABLEKS                       R15 R14 K47 ["init"]
-      174 GETIMPORT                        R16 K44 [plugin]
-      176 MOVE                             R17 R13
-      177 CALL                             R15 2 0
-      178 GETIMPORT                        R15 K6 [require]
-      180 GETTABLEKS                       R16 R0 K28 ["Src"]
-      182 GETTABLEKS                       R16 R16 K54 ["toolInit"]
-      184 CALL                             R15 1 1
-      185 MOVE                             R16 R15
-      186 GETIMPORT                        R17 K44 [plugin]
-      188 MOVE                             R18 R13
-      189 CALL                             R16 2 1
-      190 GETTABLEKS                       R17 R11 K55 ["FFlagAssistantEval"]
-      192 JUMPIFNOT                        R17 ; [+25]
-      193 GETTABLEKS                       R17 R9 K56 ["Guest"]
-      195 GETTABLEKS                       R17 R17 K57 ["Environment"]
-      197 GETIMPORT                        R18 K6 [require]
-      199 GETTABLEKS                       R19 R0 K28 ["Src"]
-      201 GETTABLEKS                       R19 R19 K58 ["EvalDriver"]
-      203 GETTABLEKS                       R19 R19 K59 ["ExternalEvalDriver"]
-      205 CALL                             R18 1 1
-      206 GETTABLEKS                       R19 R18 K47 ["init"]
-      208 GETIMPORT                        R20 K44 [plugin]
-      210 MOVE                             R21 R13
-      211 GETTABLEKS                       R22 R17 K19 ["get"]
-      213 CALL                             R22 0 1
-      214 GETTABLEKS                       R22 R22 K60 ["getStudioSessionId"]
-      216 CALL                             R22 0 -1
-      217 CALL                             R19 -1 0
-      218 GETIMPORT                        R17 K6 [require]
-      220 GETTABLEKS                       R18 R0 K15 ["Bin"]
-      222 GETTABLEKS                       R18 R18 K16 ["Common"]
-      224 GETTABLEKS                       R18 R18 K61 ["setup"]
-      226 CALL                             R17 1 1
-      227 GETIMPORT                        R18 K6 [require]
-      229 GETTABLEKS                       R19 R0 K15 ["Bin"]
-      231 GETTABLEKS                       R19 R19 K16 ["Common"]
-      233 GETTABLEKS                       R19 R19 K62 ["setupMain"]
-      235 CALL                             R18 1 1
-      236 MOVE                             R19 R17
-      237 GETIMPORT                        R20 K44 [plugin]
-      239 DUPCLOSURE                       R21 K63 [PROTO_1]
-      240 CAPTURE                          VAL R18
-      241 CAPTURE                          VAL R16
-      242 LOADB                            R22 1
-      243 CALL                             R19 3 0
-      244 RETURN                           R0 0
+       92 GETTABLEKS                       R12 R1 K31 ["DMNetworking"]
+       94 CALL                             R11 1 1
+       95 GETIMPORT                        R12 K6 [require]
+       97 GETTABLEKS                       R13 R0 K28 ["Src"]
+       99 GETTABLEKS                       R13 R13 K32 ["Flags"]
+      101 CALL                             R12 1 1
+      102 GETTABLEKS                       R13 R9 K33 ["Utils"]
+      104 GETTABLEKS                       R13 R13 K34 ["DataModelType"]
+      106 GETTABLEKS                       R13 R13 K35 ["setIsStandalone"]
+      108 LOADB                            R14 1
+      109 CALL                             R13 1 0
+      110 GETIMPORT                        R13 K6 [require]
+      112 GETTABLEKS                       R14 R0 K28 ["Src"]
+      114 GETTABLEKS                       R14 R14 K29 ["Util"]
+      116 GETTABLEKS                       R14 R14 K36 ["StudioNetworkingOLD"]
+      118 CALL                             R13 1 1
+      119 LOADNIL                          R14
+      120 LOADNIL                          R15
+      121 GETTABLEKS                       R16 R12 K37 ["FFlagAssistantUseNewDMNetworking"]
+      123 JUMPIFNOT                        R16 ; [+44]
+      124 LOADNIL                          R16
+      125 GETTABLEKS                       R17 R12 K38 ["FFlagDebugLogAssistantUI"]
+      127 JUMPIFNOT                        R17 ; [+19]
+      128 GETTABLEKS                       R17 R11 K39 ["LogLevel"]
+      130 GETTABLEKS                       R18 R12 K40 ["FStringDebugLogAssistantUILogLevel"]
+      132 GETTABLE                         R16 R17 R18
+      133 JUMPIF                           R16 ; [+13]
+      134 GETIMPORT                        R17 K42 [warn]
+      136 LOADK                            R18 K43 ["[Assistant] Unknown FStringDebugLogAssistantUILogLevel \"%*\"; using Debug"]
+      137 GETTABLEKS                       R20 R12 K40 ["FStringDebugLogAssistantUILogLevel"]
+      139 NAMECALL                         R18 R18 K44 ["format"]
+      141 CALL                             R18 2 1
+      142 CALL                             R17 1 0
+      143 GETTABLEKS                       R17 R11 K39 ["LogLevel"]
+      145 GETTABLEKS                       R16 R17 K45 ["Debug"]
+      147 GETTABLEKS                       R17 R11 K46 ["new"]
+      149 DUPTABLE                         R18 K52 [{["plugin"], ["identity"], ["logLevel"], ["useSuspendOverride"] = True}]
+      150 GETIMPORT                        R19 K53 [plugin]
+      152 SETTABLEKS                       R19 R18 K47 ["plugin"]
+      154 GETTABLEKS                       R19 R9 K33 ["Utils"]
+      156 GETTABLEKS                       R19 R19 K54 ["NetworkingIdentity"]
+      158 GETTABLEKS                       R19 R19 K55 ["getSelfIdentity"]
+      160 CALL                             R19 0 1
+      161 SETTABLEKS                       R19 R18 K48 ["identity"]
+      163 SETTABLEKS                       R16 R18 K49 ["logLevel"]
+      165 CALL                             R17 1 1
+      166 MOVE                             R15 R17
+      167 JUMP                             ; [+21]
+      168 GETTABLEKS                       R16 R13 K56 ["create"]
+      170 DUPTABLE                         R17 K59 [{["plugin"], ["isGuest"], ["isHost"] = False, ["identity"], ["useSuspendOverride"] = True}]
+      171 GETIMPORT                        R18 K53 [plugin]
+      173 SETTABLEKS                       R18 R17 K47 ["plugin"]
+      175 SETTABLEKS                       R7 R17 K57 ["isGuest"]
+      177 GETTABLEKS                       R18 R9 K33 ["Utils"]
+      179 GETTABLEKS                       R18 R18 K34 ["DataModelType"]
+      181 GETTABLEKS                       R18 R18 K60 ["Types"]
+      183 GETTABLEKS                       R18 R18 K20 ["Standalone"]
+      185 SETTABLEKS                       R18 R17 K48 ["identity"]
+      187 CALL                             R16 1 1
+      188 MOVE                             R14 R16
+      189 GETTABLEKS                       R16 R12 K61 ["FFlagAssistantConsoleOutputTailFromEnd"]
+      191 JUMPIFNOT                        R16 ; [+7]
+      192 GETTABLEKS                       R16 R10 K62 ["init"]
+      194 GETIMPORT                        R17 K53 [plugin]
+      196 MOVE                             R18 R14
+      197 MOVE                             R19 R15
+      198 CALL                             R16 3 0
+      199 GETTABLEKS                       R16 R12 K63 ["FFlagAssistantMultiPlayerAgents"]
+      201 JUMPIFNOT                        R16 ; [+18]
+      202 GETTABLEKS                       R16 R9 K33 ["Utils"]
+      204 GETTABLEKS                       R16 R16 K64 ["MultiPlayersAgentClient"]
+      206 GETTABLEKS                       R17 R16 K62 ["init"]
+      208 MOVE                             R18 R14
+      209 MOVE                             R19 R15
+      210 CALL                             R17 2 0
+      211 GETIMPORT                        R17 K53 [plugin]
+      213 GETTABLEKS                       R17 R17 K65 ["Unloading"]
+      215 DUPCLOSURE                       R19 K66 [PROTO_0]
+      216 CAPTURE                          VAL R16
+      217 NAMECALL                         R17 R17 K67 ["Connect"]
+      219 CALL                             R17 2 0
+      220 GETIMPORT                        R16 K6 [require]
+      222 GETTABLEKS                       R17 R0 K28 ["Src"]
+      224 GETTABLEKS                       R17 R17 K29 ["Util"]
+      226 GETTABLEKS                       R17 R17 K68 ["StudioState"]
+      228 CALL                             R16 1 1
+      229 GETTABLEKS                       R17 R16 K62 ["init"]
+      231 GETIMPORT                        R18 K53 [plugin]
+      233 MOVE                             R19 R14
+      234 MOVE                             R20 R15
+      235 CALL                             R17 3 0
+      236 GETIMPORT                        R17 K6 [require]
+      238 GETTABLEKS                       R18 R0 K28 ["Src"]
+      240 GETTABLEKS                       R18 R18 K69 ["toolInit"]
+      242 CALL                             R17 1 1
+      243 MOVE                             R18 R17
+      244 GETIMPORT                        R19 K53 [plugin]
+      246 MOVE                             R20 R14
+      247 MOVE                             R21 R15
+      248 MOVE                             R22 R7
+      249 CALL                             R18 4 1
+      250 GETTABLEKS                       R19 R12 K70 ["FFlagAssistantEval"]
+      252 JUMPIFNOT                        R19 ; [+26]
+      253 GETTABLEKS                       R19 R9 K71 ["Guest"]
+      255 GETTABLEKS                       R19 R19 K72 ["Environment"]
+      257 GETIMPORT                        R20 K6 [require]
+      259 GETTABLEKS                       R21 R0 K28 ["Src"]
+      261 GETTABLEKS                       R21 R21 K73 ["EvalDriver"]
+      263 GETTABLEKS                       R21 R21 K74 ["ExternalEvalDriver"]
+      265 CALL                             R20 1 1
+      266 GETTABLEKS                       R21 R20 K62 ["init"]
+      268 GETIMPORT                        R22 K53 [plugin]
+      270 MOVE                             R23 R14
+      271 MOVE                             R24 R15
+      272 GETTABLEKS                       R25 R19 K19 ["get"]
+      274 CALL                             R25 0 1
+      275 GETTABLEKS                       R25 R25 K75 ["getStudioSessionId"]
+      277 CALL                             R25 0 -1
+      278 CALL                             R21 -1 0
+      279 GETIMPORT                        R19 K6 [require]
+      281 GETTABLEKS                       R20 R0 K15 ["Bin"]
+      283 GETTABLEKS                       R20 R20 K16 ["Common"]
+      285 GETTABLEKS                       R20 R20 K76 ["setup"]
+      287 CALL                             R19 1 1
+      288 GETIMPORT                        R20 K6 [require]
+      290 GETTABLEKS                       R21 R0 K15 ["Bin"]
+      292 GETTABLEKS                       R21 R21 K16 ["Common"]
+      294 GETTABLEKS                       R21 R21 K77 ["setupMain"]
+      296 CALL                             R20 1 1
+      297 MOVE                             R21 R19
+      298 GETIMPORT                        R22 K53 [plugin]
+      300 DUPCLOSURE                       R23 K78 [PROTO_1]
+      301 CAPTURE                          VAL R20
+      302 CAPTURE                          VAL R18
+      303 LOADB                            R24 1
+      304 CALL                             R21 3 0
+      305 RETURN                           R0 0

@@ -105,15 +105,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["LuaFlags"]
-       11 GETTABLEKS                       R2 R2 K7 ["GetFFlagACEImportSettingsDefaults"]
-       13 CALL                             R1 1 1
-       14 NEWTABLE                         R2 4 0
-       16 DUPCLOSURE                       R3 K8 [PROTO_0]
-       17 CAPTURE                          VAL R1
-       18 SETTABLEKS                       R3 R2 K9 ["buildRestPoseOptions"]
-       20 DUPCLOSURE                       R3 K10 [PROTO_1]
-       21 SETTABLEKS                       R3 R2 K11 ["mapRestPoseKeyToEnum"]
-       23 DUPCLOSURE                       R3 K12 [PROTO_2]
-       24 SETTABLEKS                       R3 R2 K13 ["buildClipNamesFromSequences"]
-       26 RETURN                           R2 1
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFFlagACEImportSettingsDefaults"]
+       15 CALL                             R1 1 1
+       16 NEWTABLE                         R2 4 0
+       18 DUPCLOSURE                       R3 K9 [PROTO_0]
+       19 CAPTURE                          VAL R1
+       20 SETTABLEKS                       R3 R2 K10 ["buildRestPoseOptions"]
+       22 DUPCLOSURE                       R3 K11 [PROTO_1]
+       23 SETTABLEKS                       R3 R2 K12 ["mapRestPoseKeyToEnum"]
+       25 DUPCLOSURE                       R3 K13 [PROTO_2]
+       26 SETTABLEKS                       R3 R2 K14 ["buildClipNamesFromSequences"]
+       28 RETURN                           R2 1

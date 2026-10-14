@@ -269,34 +269,35 @@ MAIN:
        74 GETTABLEKS                       R9 R9 K18 ["Tooltip"]
        76 CALL                             R8 1 1
        77 GETIMPORT                        R9 K5 [require]
-       79 GETTABLEKS                       R10 R0 K19 ["LuaFlags"]
-       81 GETTABLEKS                       R10 R10 K20 ["GetFFlagControlRig"]
-       83 CALL                             R9 1 1
-       84 GETTABLEKS                       R10 R1 K21 ["PureComponent"]
-       86 LOADK                            R12 K22 ["SummaryTrack"]
-       87 NAMECALL                         R10 R10 K23 ["extend"]
-       89 CALL                             R10 2 1
-       90 DUPCLOSURE                       R11 K24 [PROTO_0]
-       91 CAPTURE                          VAL R5
-       92 CAPTURE                          VAL R9
-       93 SETTABLEKS                       R11 R10 K25 ["getSummaryKeyframes"]
-       95 DUPCLOSURE                       R11 K26 [PROTO_4]
-       96 CAPTURE                          VAL R1
-       97 CAPTURE                          VAL R6
-       98 CAPTURE                          VAL R4
-       99 CAPTURE                          VAL R8
-      100 SETTABLEKS                       R11 R10 K27 ["renderKeyframe"]
-      102 DUPCLOSURE                       R11 K28 [PROTO_5]
-      103 CAPTURE                          VAL R1
-      104 CAPTURE                          VAL R7
-      105 SETTABLEKS                       R11 R10 K29 ["renderKeyframeCluster"]
-      107 DUPCLOSURE                       R11 K30 [PROTO_6]
-      108 CAPTURE                          VAL R5
-      109 CAPTURE                          VAL R4
-      110 SETTABLEKS                       R11 R10 K31 ["renderKeyframes"]
-      112 DUPCLOSURE                       R11 K32 [PROTO_7]
-      113 CAPTURE                          VAL R2
-      114 CAPTURE                          VAL R1
-      115 CAPTURE                          VAL R3
-      116 SETTABLEKS                       R11 R10 K33 ["render"]
-      118 RETURN                           R10 1
+       79 GETTABLEKS                       R10 R0 K9 ["Src"]
+       81 GETTABLEKS                       R10 R10 K19 ["Flags"]
+       83 GETTABLEKS                       R10 R10 K20 ["getFFlagControlRig"]
+       85 CALL                             R9 1 1
+       86 GETTABLEKS                       R10 R1 K21 ["PureComponent"]
+       88 LOADK                            R12 K22 ["SummaryTrack"]
+       89 NAMECALL                         R10 R10 K23 ["extend"]
+       91 CALL                             R10 2 1
+       92 DUPCLOSURE                       R11 K24 [PROTO_0]
+       93 CAPTURE                          VAL R5
+       94 CAPTURE                          VAL R9
+       95 SETTABLEKS                       R11 R10 K25 ["getSummaryKeyframes"]
+       97 DUPCLOSURE                       R11 K26 [PROTO_4]
+       98 CAPTURE                          VAL R1
+       99 CAPTURE                          VAL R6
+      100 CAPTURE                          VAL R4
+      101 CAPTURE                          VAL R8
+      102 SETTABLEKS                       R11 R10 K27 ["renderKeyframe"]
+      104 DUPCLOSURE                       R11 K28 [PROTO_5]
+      105 CAPTURE                          VAL R1
+      106 CAPTURE                          VAL R7
+      107 SETTABLEKS                       R11 R10 K29 ["renderKeyframeCluster"]
+      109 DUPCLOSURE                       R11 K30 [PROTO_6]
+      110 CAPTURE                          VAL R5
+      111 CAPTURE                          VAL R4
+      112 SETTABLEKS                       R11 R10 K31 ["renderKeyframes"]
+      114 DUPCLOSURE                       R11 K32 [PROTO_7]
+      115 CAPTURE                          VAL R2
+      116 CAPTURE                          VAL R1
+      117 CAPTURE                          VAL R3
+      118 SETTABLEKS                       R11 R10 K33 ["render"]
+      120 RETURN                           R10 1

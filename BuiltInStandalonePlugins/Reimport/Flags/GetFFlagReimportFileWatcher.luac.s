@@ -5,10 +5,10 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Flags"]
-       11 GETTABLEKS                       R2 R2 K7 ["CreateGetSafeFFlag"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["SafeFlags"]
        13 CALL                             R1 1 1
-       14 MOVE                             R2 R1
-       15 LOADK                            R3 K8 ["ReimportFileWatcher"]
-       16 CALL                             R2 1 -1
-       17 RETURN                           R2 -1
+       14 GETTABLEKS                       R2 R1 K8 ["createGetFFlag"]
+       16 LOADK                            R3 K9 ["ReimportFileWatcher"]
+       17 CALL                             R2 1 -1
+       18 RETURN                           R2 -1

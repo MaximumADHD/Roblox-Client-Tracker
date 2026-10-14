@@ -176,44 +176,56 @@ PROTO_5:
       189 SETTABLEKS                       R22 R21 K69 ["RichText"]
       191 LOADB                            R22 1
       192 SETTABLEKS                       R22 R21 K70 ["Interactable"]
-      194 GETTABLEKS                       R22 R2 K71 ["Font"]
-      196 SETTABLEKS                       R22 R21 K71 ["Font"]
-      198 GETTABLEKS                       R22 R2 K72 ["FontSize"]
-      200 SETTABLEKS                       R22 R21 K73 ["TextSize"]
-      202 GETTABLEKS                       R22 R2 K74 ["LineHeight"]
-      204 SETTABLEKS                       R22 R21 K74 ["LineHeight"]
-      206 GETTABLEKS                       R22 R3 K48 ["Color3"]
-      208 SETTABLEKS                       R22 R21 K75 ["TextColor3"]
-      210 LOADN                            R22 1
-      211 SETTABLEKS                       R22 R21 K35 ["BackgroundTransparency"]
-      213 LOADN                            R22 0
-      214 SETTABLEKS                       R22 R21 K37 ["BorderSizePixel"]
-      216 GETUPVAL                         R22 1
-      217 GETTABLEKS                       R22 R22 K76 ["Change"]
-      219 GETTABLEKS                       R22 R22 K54 ["Text"]
-      221 SETTABLE                         R8 R21 R22
-      222 GETUPVAL                         R22 1
-      223 GETTABLEKS                       R22 R22 K77 ["Event"]
-      225 GETTABLEKS                       R22 R22 K78 ["Focused"]
-      227 SETTABLE                         R9 R21 R22
-      228 GETUPVAL                         R22 1
-      229 GETTABLEKS                       R22 R22 K77 ["Event"]
-      231 GETTABLEKS                       R22 R22 K79 ["FocusLost"]
-      233 SETTABLE                         R10 R21 R22
-      234 CALL                             R19 2 1
-      235 SETTABLEKS                       R19 R18 K49 ["TextBox"]
-      237 GETUPVAL                         R19 1
-      238 GETTABLEKS                       R19 R19 K15 ["createElement"]
-      240 LOADK                            R20 K50 ["UIFlexItem"]
-      241 DUPTABLE                         R21 K81 [{"FlexMode"}]
-      242 GETIMPORT                        R22 K84 [Enum.UIFlexMode.Fill]
-      244 SETTABLEKS                       R22 R21 K80 ["FlexMode"]
-      246 CALL                             R19 2 1
-      247 SETTABLEKS                       R19 R18 K50 ["UIFlexItem"]
-      249 CALL                             R15 3 1
-      250 SETTABLEKS                       R15 R14 K27 ["ScrollingFrame"]
-      252 CALL                             R11 3 -1
-      253 RETURN                           R11 -1
+      194 GETUPVAL                         R23 6
+      195 JUMPIFNOT                        R23 ; [+2]
+      196 LOADNIL                          R22
+      197 JUMP                             ; [+2]
+      198 GETTABLEKS                       R22 R2 K71 ["Font"]
+      200 SETTABLEKS                       R22 R21 K71 ["Font"]
+      202 GETUPVAL                         R23 6
+      203 JUMPIFNOT                        R23 ; [+5]
+      204 GETUPVAL                         R22 7
+      205 GETTABLEKS                       R23 R2 K71 ["Font"]
+      207 CALL                             R22 1 1
+      208 JUMP                             ; [+1]
+      209 LOADNIL                          R22
+      210 SETTABLEKS                       R22 R21 K72 ["FontFace"]
+      212 GETTABLEKS                       R22 R2 K73 ["FontSize"]
+      214 SETTABLEKS                       R22 R21 K74 ["TextSize"]
+      216 GETTABLEKS                       R22 R2 K75 ["LineHeight"]
+      218 SETTABLEKS                       R22 R21 K75 ["LineHeight"]
+      220 GETTABLEKS                       R22 R3 K48 ["Color3"]
+      222 SETTABLEKS                       R22 R21 K76 ["TextColor3"]
+      224 LOADN                            R22 1
+      225 SETTABLEKS                       R22 R21 K35 ["BackgroundTransparency"]
+      227 LOADN                            R22 0
+      228 SETTABLEKS                       R22 R21 K37 ["BorderSizePixel"]
+      230 GETUPVAL                         R22 1
+      231 GETTABLEKS                       R22 R22 K77 ["Change"]
+      233 GETTABLEKS                       R22 R22 K54 ["Text"]
+      235 SETTABLE                         R8 R21 R22
+      236 GETUPVAL                         R22 1
+      237 GETTABLEKS                       R22 R22 K78 ["Event"]
+      239 GETTABLEKS                       R22 R22 K79 ["Focused"]
+      241 SETTABLE                         R9 R21 R22
+      242 GETUPVAL                         R22 1
+      243 GETTABLEKS                       R22 R22 K78 ["Event"]
+      245 GETTABLEKS                       R22 R22 K80 ["FocusLost"]
+      247 SETTABLE                         R10 R21 R22
+      248 CALL                             R19 2 1
+      249 SETTABLEKS                       R19 R18 K49 ["TextBox"]
+      251 GETUPVAL                         R19 1
+      252 GETTABLEKS                       R19 R19 K15 ["createElement"]
+      254 LOADK                            R20 K50 ["UIFlexItem"]
+      255 DUPTABLE                         R21 K82 [{"FlexMode"}]
+      256 GETIMPORT                        R22 K85 [Enum.UIFlexMode.Fill]
+      258 SETTABLEKS                       R22 R21 K81 ["FlexMode"]
+      260 CALL                             R19 2 1
+      261 SETTABLEKS                       R19 R18 K50 ["UIFlexItem"]
+      263 CALL                             R15 3 1
+      264 SETTABLEKS                       R15 R14 K27 ["ScrollingFrame"]
+      266 CALL                             R11 3 -1
+      267 RETURN                           R11 -1
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -309,43 +321,50 @@ MAIN:
        23 GETTABLEKS                       R4 R0 K6 ["Packages"]
        25 GETTABLEKS                       R4 R4 K9 ["Foundation"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R4 R2 K10 ["createNextOrder"]
-       30 GETIMPORT                        R5 K13 [UDim2.new]
-       32 LOADN                            R6 1
-       33 LOADN                            R7 0
-       34 LOADN                            R8 0
-       35 LOADN                            R9 0
-       36 CALL                             R5 4 1
-       37 GETIMPORT                        R6 K13 [UDim2.new]
-       39 LOADN                            R7 1
-       40 LOADN                            R8 0
-       41 LOADN                            R9 1
-       42 LOADN                            R10 0
-       43 CALL                             R6 4 1
-       44 GETIMPORT                        R7 K13 [UDim2.new]
-       46 LOADN                            R8 1
-       47 LOADN                            R9 0
-       48 LOADN                            R10 0
-       49 LOADN                            R11 17
-       50 CALL                             R7 4 1
-       51 GETIMPORT                        R8 K13 [UDim2.new]
-       53 LOADN                            R9 1
-       54 LOADN                            R10 0
-       55 LOADN                            R11 0
-       56 LOADN                            R12 0
-       57 CALL                             R8 4 1
-       58 DUPCLOSURE                       R9 K14 [PROTO_0]
-       59 DUPCLOSURE                       R10 K15 [PROTO_1]
-       60 DUPCLOSURE                       R11 K16 [PROTO_5]
-       61 CAPTURE                          VAL R3
-       62 CAPTURE                          VAL R1
-       63 CAPTURE                          VAL R5
-       64 CAPTURE                          VAL R8
-       65 CAPTURE                          VAL R7
-       66 CAPTURE                          VAL R6
-       67 DUPCLOSURE                       R12 K17 [PROTO_6]
-       68 CAPTURE                          VAL R4
-       69 CAPTURE                          VAL R1
-       70 CAPTURE                          VAL R3
-       71 CAPTURE                          VAL R11
-       72 RETURN                           R12 1
+       28 GETTABLEKS                       R4 R3 K10 ["Utility"]
+       30 GETTABLEKS                       R4 R4 K11 ["Flags"]
+       32 GETTABLEKS                       R4 R4 K12 ["FoundationStudioFontFaceMigration"]
+       34 GETTABLEKS                       R5 R3 K10 ["Utility"]
+       36 GETTABLEKS                       R5 R5 K13 ["normalizeFontFace"]
+       38 GETTABLEKS                       R6 R2 K14 ["createNextOrder"]
+       40 GETIMPORT                        R7 K17 [UDim2.new]
+       42 LOADN                            R8 1
+       43 LOADN                            R9 0
+       44 LOADN                            R10 0
+       45 LOADN                            R11 0
+       46 CALL                             R7 4 1
+       47 GETIMPORT                        R8 K17 [UDim2.new]
+       49 LOADN                            R9 1
+       50 LOADN                            R10 0
+       51 LOADN                            R11 1
+       52 LOADN                            R12 0
+       53 CALL                             R8 4 1
+       54 GETIMPORT                        R9 K17 [UDim2.new]
+       56 LOADN                            R10 1
+       57 LOADN                            R11 0
+       58 LOADN                            R12 0
+       59 LOADN                            R13 17
+       60 CALL                             R9 4 1
+       61 GETIMPORT                        R10 K17 [UDim2.new]
+       63 LOADN                            R11 1
+       64 LOADN                            R12 0
+       65 LOADN                            R13 0
+       66 LOADN                            R14 0
+       67 CALL                             R10 4 1
+       68 DUPCLOSURE                       R11 K18 [PROTO_0]
+       69 DUPCLOSURE                       R12 K19 [PROTO_1]
+       70 DUPCLOSURE                       R13 K20 [PROTO_5]
+       71 CAPTURE                          VAL R3
+       72 CAPTURE                          VAL R1
+       73 CAPTURE                          VAL R7
+       74 CAPTURE                          VAL R10
+       75 CAPTURE                          VAL R9
+       76 CAPTURE                          VAL R8
+       77 CAPTURE                          VAL R4
+       78 CAPTURE                          VAL R5
+       79 DUPCLOSURE                       R14 K21 [PROTO_6]
+       80 CAPTURE                          VAL R6
+       81 CAPTURE                          VAL R1
+       82 CAPTURE                          VAL R3
+       83 CAPTURE                          VAL R13
+       84 RETURN                           R14 1

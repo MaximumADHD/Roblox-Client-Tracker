@@ -5,20 +5,19 @@ PROTO_0:
         5 MOVE                             R2 R0
         6 DUPTABLE                         R3 K7 [{"historyTracker", "selection", "reflection", "instancePicker", "assetAccessController"}]
         7 GETUPVAL                         R4 1
-        8 CALL                             R4 0 1
-        9 SETTABLEKS                       R4 R3 K2 ["historyTracker"]
-       11 GETUPVAL                         R4 2
-       12 CALL                             R4 0 1
-       13 SETTABLEKS                       R4 R3 K3 ["selection"]
-       15 GETUPVAL                         R4 3
-       16 CALL                             R4 0 1
-       17 SETTABLEKS                       R4 R3 K4 ["reflection"]
-       19 GETUPVAL                         R4 4
-       20 SETTABLEKS                       R4 R3 K5 ["instancePicker"]
-       22 GETUPVAL                         R4 5
-       23 SETTABLEKS                       R4 R3 K6 ["assetAccessController"]
-       25 CALL                             R1 2 -1
-       26 RETURN                           R1 -1
+        8 SETTABLEKS                       R4 R3 K2 ["historyTracker"]
+       10 GETUPVAL                         R4 2
+       11 CALL                             R4 0 1
+       12 SETTABLEKS                       R4 R3 K3 ["selection"]
+       14 GETUPVAL                         R4 3
+       15 CALL                             R4 0 1
+       16 SETTABLEKS                       R4 R3 K4 ["reflection"]
+       18 GETUPVAL                         R4 4
+       19 SETTABLEKS                       R4 R3 K5 ["instancePicker"]
+       21 GETUPVAL                         R4 5
+       22 SETTABLEKS                       R4 R3 K6 ["assetAccessController"]
+       24 CALL                             R1 2 -1
+       25 RETURN                           R1 -1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -29,7 +28,9 @@ PROTO_1:
         5 CALL                             R0 0 0
         6 GETUPVAL                         R0 3
         7 CALL                             R0 0 0
-        8 RETURN                           R0 0
+        8 GETUPVAL                         R0 4
+        9 CALL                             R0 0 0
+       10 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -42,28 +43,31 @@ PROTO_2:
         7 MOVE                             R6 R0
         8 CALL                             R5 1 2
         9 GETUPVAL                         R7 3
-       10 GETTABLEKS                       R7 R7 K0 ["Guest"]
-       12 GETTABLEKS                       R7 R7 K1 ["startGuest"]
-       14 DUPTABLE                         R8 K4 [{"guestConnectionObservable", "createInstanceGuestRPCInterface"}]
-       15 SETTABLEKS                       R1 R8 K2 ["guestConnectionObservable"]
-       17 NEWCLOSURE                       R9 P0
-       18 CAPTURE                          UPVAL U3
-       19 CAPTURE                          UPVAL U4
-       20 CAPTURE                          UPVAL U5
-       21 CAPTURE                          UPVAL U6
-       22 CAPTURE                          VAL R3
-       23 CAPTURE                          VAL R5
-       24 SETTABLEKS                       R9 R8 K3 ["createInstanceGuestRPCInterface"]
-       26 CALL                             R7 1 1
-       27 GETTABLEKS                       R8 R0 K5 ["Unloading"]
-       29 NEWCLOSURE                       R10 P1
-       30 CAPTURE                          VAL R7
-       31 CAPTURE                          VAL R2
-       32 CAPTURE                          VAL R4
-       33 CAPTURE                          VAL R6
-       34 NAMECALL                         R8 R8 K6 ["Connect"]
-       36 CALL                             R8 2 0
-       37 RETURN                           R0 0
+       10 CALL                             R7 0 2
+       11 GETUPVAL                         R9 4
+       12 GETTABLEKS                       R9 R9 K0 ["Guest"]
+       14 GETTABLEKS                       R9 R9 K1 ["startGuest"]
+       16 DUPTABLE                         R10 K4 [{"guestConnectionObservable", "createInstanceGuestRPCInterface"}]
+       17 SETTABLEKS                       R1 R10 K2 ["guestConnectionObservable"]
+       19 NEWCLOSURE                       R11 P0
+       20 CAPTURE                          UPVAL U4
+       21 CAPTURE                          VAL R7
+       22 CAPTURE                          UPVAL U5
+       23 CAPTURE                          UPVAL U6
+       24 CAPTURE                          VAL R3
+       25 CAPTURE                          VAL R5
+       26 SETTABLEKS                       R11 R10 K3 ["createInstanceGuestRPCInterface"]
+       28 CALL                             R9 1 1
+       29 GETTABLEKS                       R10 R0 K5 ["Unloading"]
+       31 NEWCLOSURE                       R12 P1
+       32 CAPTURE                          VAL R9
+       33 CAPTURE                          VAL R2
+       34 CAPTURE                          VAL R4
+       35 CAPTURE                          VAL R6
+       36 CAPTURE                          VAL R8
+       37 NAMECALL                         R10 R10 K6 ["Connect"]
+       39 CALL                             R10 2 0
+       40 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -106,8 +110,8 @@ MAIN:
        64 CAPTURE                          VAL R3
        65 CAPTURE                          VAL R5
        66 CAPTURE                          VAL R2
-       67 CAPTURE                          VAL R1
-       68 CAPTURE                          VAL R4
+       67 CAPTURE                          VAL R4
+       68 CAPTURE                          VAL R1
        69 CAPTURE                          VAL R6
        70 CAPTURE                          VAL R7
        71 RETURN                           R8 1

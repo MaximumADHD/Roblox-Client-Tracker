@@ -129,30 +129,31 @@ MAIN:
        31 GETTABLEKS                       R6 R6 K13 ["Constants"]
        33 CALL                             R5 1 1
        34 GETIMPORT                        R6 K5 [require]
-       36 GETTABLEKS                       R7 R0 K14 ["LuaFlags"]
-       38 GETTABLEKS                       R7 R7 K15 ["GetFFlagFixDynamicTrackSelection"]
-       40 CALL                             R6 1 1
-       41 NEWTABLE                         R7 8 0
-       43 DUPCLOSURE                       R8 K16 [PROTO_0]
-       44 SETTABLEKS                       R8 R7 K17 ["getRelativePath"]
-       46 DUPCLOSURE                       R8 K18 [PROTO_1]
-       47 CAPTURE                          VAL R3
-       48 SETTABLEKS                       R8 R7 K19 ["getParentPath"]
-       50 MOVE                             R8 R6
-       51 CALL                             R8 0 1
-       52 JUMPIF                           R8 ; [+4]
-       53 DUPCLOSURE                       R8 K20 [PROTO_2]
-       54 CAPTURE                          VAL R5
-       55 SETTABLEKS                       R8 R7 K21 ["getPathValue"]
-       57 DUPCLOSURE                       R8 K22 [PROTO_3]
-       58 SETTABLEKS                       R8 R7 K23 ["equals"]
-       60 DUPCLOSURE                       R8 K24 [PROTO_4]
-       61 CAPTURE                          VAL R7
-       62 SETTABLEKS                       R8 R7 K25 ["findPath"]
-       64 DUPCLOSURE                       R8 K26 [PROTO_5]
-       65 CAPTURE                          VAL R7
-       66 CAPTURE                          VAL R4
-       67 SETTABLEKS                       R8 R7 K27 ["removePath"]
-       69 DUPCLOSURE                       R8 K28 [PROTO_6]
-       70 SETTABLEKS                       R8 R7 K29 ["toString"]
-       72 RETURN                           R7 1
+       36 GETTABLEKS                       R7 R0 K11 ["Src"]
+       38 GETTABLEKS                       R7 R7 K14 ["Flags"]
+       40 GETTABLEKS                       R7 R7 K15 ["getFFlagFixDynamicTrackSelection"]
+       42 CALL                             R6 1 1
+       43 NEWTABLE                         R7 8 0
+       45 DUPCLOSURE                       R8 K16 [PROTO_0]
+       46 SETTABLEKS                       R8 R7 K17 ["getRelativePath"]
+       48 DUPCLOSURE                       R8 K18 [PROTO_1]
+       49 CAPTURE                          VAL R3
+       50 SETTABLEKS                       R8 R7 K19 ["getParentPath"]
+       52 MOVE                             R8 R6
+       53 CALL                             R8 0 1
+       54 JUMPIF                           R8 ; [+4]
+       55 DUPCLOSURE                       R8 K20 [PROTO_2]
+       56 CAPTURE                          VAL R5
+       57 SETTABLEKS                       R8 R7 K21 ["getPathValue"]
+       59 DUPCLOSURE                       R8 K22 [PROTO_3]
+       60 SETTABLEKS                       R8 R7 K23 ["equals"]
+       62 DUPCLOSURE                       R8 K24 [PROTO_4]
+       63 CAPTURE                          VAL R7
+       64 SETTABLEKS                       R8 R7 K25 ["findPath"]
+       66 DUPCLOSURE                       R8 K26 [PROTO_5]
+       67 CAPTURE                          VAL R7
+       68 CAPTURE                          VAL R4
+       69 SETTABLEKS                       R8 R7 K27 ["removePath"]
+       71 DUPCLOSURE                       R8 K28 [PROTO_6]
+       72 SETTABLEKS                       R8 R7 K29 ["toString"]
+       74 RETURN                           R7 1

@@ -598,87 +598,87 @@ MAIN:
         3 LOADK                            R2 K2 ["AnimationClipEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
-        9 GETTABLEKS                       R1 R1 K5 ["DraggerFramework"]
-       11 GETIMPORT                        R2 K7 [require]
-       13 GETTABLEKS                       R3 R0 K8 ["Src"]
-       15 GETTABLEKS                       R3 R3 K9 ["Util"]
-       17 GETTABLEKS                       R3 R3 K10 ["Constants"]
-       19 CALL                             R2 1 1
-       20 GETIMPORT                        R3 K7 [require]
-       22 GETTABLEKS                       R4 R1 K11 ["Utility"]
-       24 GETTABLEKS                       R4 R4 K12 ["PartMover"]
-       26 CALL                             R3 1 1
-       27 GETIMPORT                        R4 K7 [require]
-       29 GETTABLEKS                       R5 R1 K11 ["Utility"]
-       31 GETTABLEKS                       R5 R5 K13 ["AttachmentMover"]
-       33 CALL                             R4 1 1
-       34 GETIMPORT                        R5 K7 [require]
-       36 GETTABLEKS                       R6 R0 K8 ["Src"]
-       38 GETTABLEKS                       R6 R6 K9 ["Util"]
-       40 GETTABLEKS                       R6 R6 K14 ["RigIK"]
-       42 CALL                             R5 1 1
-       43 GETIMPORT                        R6 K7 [require]
-       45 GETTABLEKS                       R7 R0 K8 ["Src"]
-       47 GETTABLEKS                       R7 R7 K9 ["Util"]
-       49 GETTABLEKS                       R7 R7 K15 ["RigUtils"]
-       51 CALL                             R6 1 1
-       52 GETIMPORT                        R7 K7 [require]
-       54 GETTABLEKS                       R8 R0 K8 ["Src"]
-       56 GETTABLEKS                       R8 R8 K9 ["Util"]
-       58 GETTABLEKS                       R8 R8 K16 ["RigInfo"]
-       60 CALL                             R7 1 1
-       61 GETIMPORT                        R8 K18 [game]
-       63 LOADK                            R10 K19 ["Workspace"]
-       64 NAMECALL                         R8 R8 K20 ["GetService"]
-       66 CALL                             R8 2 1
-       67 GETIMPORT                        R9 K7 [require]
-       69 GETTABLEKS                       R10 R0 K21 ["LuaFlags"]
-       71 GETTABLEKS                       R10 R10 K22 ["GetFFlagUseIKControls"]
-       73 CALL                             R9 1 1
-       74 NEWTABLE                         R10 16 0
-       76 SETTABLEKS                       R10 R10 K23 ["__index"]
-       78 GETIMPORT                        R11 K7 [require]
-       80 GETTABLEKS                       R12 R0 K21 ["LuaFlags"]
-       82 GETTABLEKS                       R12 R12 K24 ["GetFFlagRootMotion"]
-       84 CALL                             R11 1 1
-       85 DUPCLOSURE                       R12 K25 [PROTO_0]
-       86 CAPTURE                          VAL R3
-       87 CAPTURE                          VAL R4
-       88 CAPTURE                          VAL R10
-       89 SETTABLEKS                       R12 R10 K26 ["new"]
-       91 DUPCLOSURE                       R12 K27 [PROTO_1]
-       92 DUPCLOSURE                       R13 K28 [PROTO_2]
-       93 CAPTURE                          VAL R6
-       94 CAPTURE                          VAL R2
-       95 CAPTURE                          VAL R11
-       96 CAPTURE                          VAL R5
-       97 SETTABLEKS                       R13 R10 K29 ["beginDrag"]
-       99 DUPCLOSURE                       R13 K30 [PROTO_3]
-      100 DUPCLOSURE                       R14 K31 [PROTO_4]
-      101 DUPCLOSURE                       R15 K32 [PROTO_5]
-      102 SETTABLEKS                       R15 R10 K33 ["applyWorldTransformToPart"]
-      104 DUPCLOSURE                       R15 K34 [PROTO_6]
-      105 SETTABLEKS                       R15 R10 K35 ["applyWorldTransformToBone"]
-      107 DUPCLOSURE                       R15 K36 [PROTO_7]
-      108 SETTABLEKS                       R15 R10 K37 ["applyWorldTransformToAnimConstraint"]
-      110 DUPCLOSURE                       R15 K38 [PROTO_8]
-      111 CAPTURE                          VAL R2
-      112 CAPTURE                          VAL R11
-      113 CAPTURE                          VAL R7
-      114 CAPTURE                          VAL R8
-      115 SETTABLEKS                       R15 R10 K39 ["updateDrag"]
-      117 DUPCLOSURE                       R15 K40 [PROTO_9]
-      118 CAPTURE                          VAL R5
-      119 SETTABLEKS                       R15 R10 K41 ["endDrag"]
-      121 DUPCLOSURE                       R15 K42 [PROTO_10]
-      122 SETTABLEKS                       R15 R10 K43 ["render"]
-      124 DUPCLOSURE                       R15 K44 [PROTO_11]
-      125 SETTABLEKS                       R15 R10 K45 ["_toLocalTransform"]
-      127 DUPCLOSURE                       R15 K46 [PROTO_12]
-      128 SETTABLEKS                       R15 R10 K47 ["_shouldSolveConstraints"]
-      130 DUPCLOSURE                       R15 K48 [PROTO_13]
-      131 CAPTURE                          VAL R9
-      132 CAPTURE                          VAL R2
-      133 SETTABLEKS                       R15 R10 K49 ["_useFFlagUseIKControls"]
-      135 RETURN                           R10 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["DraggerFramework"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["Constants"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R1 K11 ["Utility"]
+       25 GETTABLEKS                       R3 R3 K12 ["PartMover"]
+       27 GETTABLEKS                       R4 R1 K11 ["Utility"]
+       29 GETTABLEKS                       R4 R4 K13 ["AttachmentMover"]
+       31 GETIMPORT                        R5 K5 [require]
+       33 GETTABLEKS                       R6 R0 K8 ["Src"]
+       35 GETTABLEKS                       R6 R6 K9 ["Util"]
+       37 GETTABLEKS                       R6 R6 K14 ["RigIK"]
+       39 CALL                             R5 1 1
+       40 GETIMPORT                        R6 K5 [require]
+       42 GETTABLEKS                       R7 R0 K8 ["Src"]
+       44 GETTABLEKS                       R7 R7 K9 ["Util"]
+       46 GETTABLEKS                       R7 R7 K15 ["RigUtils"]
+       48 CALL                             R6 1 1
+       49 GETIMPORT                        R7 K5 [require]
+       51 GETTABLEKS                       R8 R0 K8 ["Src"]
+       53 GETTABLEKS                       R8 R8 K9 ["Util"]
+       55 GETTABLEKS                       R8 R8 K16 ["RigInfo"]
+       57 CALL                             R7 1 1
+       58 GETIMPORT                        R8 K18 [game]
+       60 LOADK                            R10 K19 ["Workspace"]
+       61 NAMECALL                         R8 R8 K20 ["GetService"]
+       63 CALL                             R8 2 1
+       64 GETIMPORT                        R9 K5 [require]
+       66 GETTABLEKS                       R10 R0 K8 ["Src"]
+       68 GETTABLEKS                       R10 R10 K21 ["Flags"]
+       70 GETTABLEKS                       R10 R10 K22 ["getFFlagUseIKControls"]
+       72 CALL                             R9 1 1
+       73 NEWTABLE                         R10 16 0
+       75 SETTABLEKS                       R10 R10 K23 ["__index"]
+       77 GETIMPORT                        R11 K5 [require]
+       79 GETTABLEKS                       R12 R0 K8 ["Src"]
+       81 GETTABLEKS                       R12 R12 K21 ["Flags"]
+       83 GETTABLEKS                       R12 R12 K24 ["getFFlagRootMotion"]
+       85 CALL                             R11 1 1
+       86 DUPCLOSURE                       R12 K25 [PROTO_0]
+       87 CAPTURE                          VAL R3
+       88 CAPTURE                          VAL R4
+       89 CAPTURE                          VAL R10
+       90 SETTABLEKS                       R12 R10 K26 ["new"]
+       92 DUPCLOSURE                       R12 K27 [PROTO_1]
+       93 DUPCLOSURE                       R13 K28 [PROTO_2]
+       94 CAPTURE                          VAL R6
+       95 CAPTURE                          VAL R2
+       96 CAPTURE                          VAL R11
+       97 CAPTURE                          VAL R5
+       98 SETTABLEKS                       R13 R10 K29 ["beginDrag"]
+      100 DUPCLOSURE                       R13 K30 [PROTO_3]
+      101 DUPCLOSURE                       R14 K31 [PROTO_4]
+      102 DUPCLOSURE                       R15 K32 [PROTO_5]
+      103 SETTABLEKS                       R15 R10 K33 ["applyWorldTransformToPart"]
+      105 DUPCLOSURE                       R15 K34 [PROTO_6]
+      106 SETTABLEKS                       R15 R10 K35 ["applyWorldTransformToBone"]
+      108 DUPCLOSURE                       R15 K36 [PROTO_7]
+      109 SETTABLEKS                       R15 R10 K37 ["applyWorldTransformToAnimConstraint"]
+      111 DUPCLOSURE                       R15 K38 [PROTO_8]
+      112 CAPTURE                          VAL R2
+      113 CAPTURE                          VAL R11
+      114 CAPTURE                          VAL R7
+      115 CAPTURE                          VAL R8
+      116 SETTABLEKS                       R15 R10 K39 ["updateDrag"]
+      118 DUPCLOSURE                       R15 K40 [PROTO_9]
+      119 CAPTURE                          VAL R5
+      120 SETTABLEKS                       R15 R10 K41 ["endDrag"]
+      122 DUPCLOSURE                       R15 K42 [PROTO_10]
+      123 SETTABLEKS                       R15 R10 K43 ["render"]
+      125 DUPCLOSURE                       R15 K44 [PROTO_11]
+      126 SETTABLEKS                       R15 R10 K45 ["_toLocalTransform"]
+      128 DUPCLOSURE                       R15 K46 [PROTO_12]
+      129 SETTABLEKS                       R15 R10 K47 ["_shouldSolveConstraints"]
+      131 DUPCLOSURE                       R15 K48 [PROTO_13]
+      132 CAPTURE                          VAL R9
+      133 CAPTURE                          VAL R2
+      134 SETTABLEKS                       R15 R10 K49 ["_useFFlagUseIKControls"]
+      136 RETURN                           R10 1

@@ -149,126 +149,117 @@ PROTO_2:
       108 JUMPIFEQKN                       R18 K10 [0] ; [+2]
       110 LOADB                            R17 0 +1
       111 LOADB                            R17 1
-      112 GETUPVAL                         R18 4
-      113 CALL                             R18 0 1
-      114 JUMPIFNOT                        R18 ; [+27]
-      115 LOADB                            R18 0
-      116 GETTABLEKS                       R19 R10 K9 ["amount"]
-      118 JUMPIFNOTEQKN                    R19 K10 [0] ; [+23]
-      120 LOADB                            R18 0
-      121 GETTABLEKS                       R19 R9 K9 ["amount"]
-      123 JUMPIFNOTEQKN                    R19 K10 [0] ; [+18]
-      125 LOADB                            R18 0
-      126 GETTABLEKS                       R19 R11 K9 ["amount"]
-      128 JUMPIFNOTEQKN                    R19 K10 [0] ; [+13]
-      130 LOADB                            R18 0
-      131 GETTABLEKS                       R19 R12 K9 ["amount"]
-      133 JUMPIFNOTEQKN                    R19 K10 [0] ; [+8]
-      135 GETTABLEKS                       R19 R13 K9 ["amount"]
-      137 LOADN                            R20 0
-      138 JUMPIFLT                         R20 R19 ; [+2]
-      140 LOADB                            R18 0 +1
-      141 LOADB                            R18 1
-      142 DUPTABLE                         R19 K14 [{"shouldCreateTemplateBody", "shouldProcessAttachmentPoint", "assetClassification"}]
-      143 SETTABLEKS                       R17 R19 K11 ["shouldCreateTemplateBody"]
-      145 GETUPVAL                         R21 4
-      146 CALL                             R21 0 1
-      147 JUMPIFNOT                        R21 ; [+2]
-      148 MOVE                             R20 R18
-      149 JUMP                             ; [+1]
-      150 LOADNIL                          R20
-      151 SETTABLEKS                       R20 R19 K12 ["shouldProcessAttachmentPoint"]
-      153 DUPTABLE                         R20 K21 [{"bodyCount", "layeredCount", "eyeLayeredCount", "rigidCount", "avatarCount", "unselectedCount"}]
-      154 GETTABLEKS                       R21 R10 K9 ["amount"]
-      156 SETTABLEKS                       R21 R20 K15 ["bodyCount"]
-      158 GETTABLEKS                       R21 R11 K9 ["amount"]
-      160 SETTABLEKS                       R21 R20 K16 ["layeredCount"]
-      162 GETTABLEKS                       R21 R12 K9 ["amount"]
-      164 SETTABLEKS                       R21 R20 K17 ["eyeLayeredCount"]
-      166 GETTABLEKS                       R21 R13 K9 ["amount"]
-      168 SETTABLEKS                       R21 R20 K18 ["rigidCount"]
-      170 GETTABLEKS                       R21 R9 K9 ["amount"]
-      172 SETTABLEKS                       R21 R20 K19 ["avatarCount"]
-      174 GETTABLEKS                       R21 R8 K9 ["amount"]
-      176 SETTABLEKS                       R21 R20 K20 ["unselectedCount"]
-      178 SETTABLEKS                       R20 R19 K13 ["assetClassification"]
-      180 JUMPIFNOTEQKN                    R1 K22 [1] ; [+23]
-      182 DUPTABLE                         R20 K30 [{["SetupType"] = "Platform", ["AlignFrontAngle"], ["R15Plus"], ["ClothingOnly"], ["EnableAdditionalHeadProcessing"], ["DecalToDynamicHead"], ["shouldCreateTemplateBody"]}]
-      183 GETTABLEKS                       R21 R3 K31 ["enabled"]
-      185 SETTABLEKS                       R21 R20 K25 ["AlignFrontAngle"]
-      187 GETTABLEKS                       R21 R5 K31 ["enabled"]
-      189 SETTABLEKS                       R21 R20 K26 ["R15Plus"]
-      191 SETTABLEKS                       R16 R20 K27 ["ClothingOnly"]
-      193 GETTABLEKS                       R21 R4 K31 ["enabled"]
-      195 SETTABLEKS                       R21 R20 K28 ["EnableAdditionalHeadProcessing"]
-      197 GETTABLEKS                       R21 R7 K31 ["enabled"]
-      199 SETTABLEKS                       R21 R20 K29 ["DecalToDynamicHead"]
-      201 SETTABLEKS                       R17 R20 K11 ["shouldCreateTemplateBody"]
-      203 JUMP                             ; [+33]
-      204 JUMPIFNOTEQKN                    R1 K32 [2] ; [+31]
-      206 DUPTABLE                         R20 K35 [{["SetupType"] = "Development", ["AlignFrontAngle"], ["R15Plus"], ["DecimationOptions"], ["ClothingOnly"], ["EnableAdditionalHeadProcessing"], ["DecalToDynamicHead"], ["shouldCreateTemplateBody"]}]
-      207 GETTABLEKS                       R21 R3 K31 ["enabled"]
-      209 SETTABLEKS                       R21 R20 K25 ["AlignFrontAngle"]
-      211 GETTABLEKS                       R21 R5 K31 ["enabled"]
-      213 SETTABLEKS                       R21 R20 K26 ["R15Plus"]
-      215 GETTABLEKS                       R22 R6 K31 ["enabled"]
-      217 JUMPIFNOT                        R22 ; [+2]
-      218 LOADK                            R21 K36 ["EverythingEnabled"]
-      219 JUMP                             ; [+1]
-      220 LOADK                            R21 K37 ["Unspecified"]
-      221 SETTABLEKS                       R21 R20 K34 ["DecimationOptions"]
-      223 SETTABLEKS                       R16 R20 K27 ["ClothingOnly"]
-      225 GETTABLEKS                       R21 R4 K31 ["enabled"]
-      227 SETTABLEKS                       R21 R20 K28 ["EnableAdditionalHeadProcessing"]
-      229 GETTABLEKS                       R21 R7 K31 ["enabled"]
-      231 SETTABLEKS                       R21 R20 K29 ["DecalToDynamicHead"]
-      233 SETTABLEKS                       R17 R20 K11 ["shouldCreateTemplateBody"]
-      235 JUMP                             ; [+1]
-      236 DUPTABLE                         R20 K38 [{["SetupType"] = "Unspecified"}]
-      237 DUPTABLE                         R21 K45 [{"value", "set", "toggle", "options", "incrementCount", "decrementCount"}]
-      238 DUPTABLE                         R22 K52 [{"setupType", "alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles", "decalToDynamicHead"}]
-      239 SETTABLEKS                       R1 R22 K46 ["setupType"]
-      241 GETTABLEKS                       R23 R3 K31 ["enabled"]
-      243 SETTABLEKS                       R23 R22 K47 ["alignFrontAngle"]
-      245 GETTABLEKS                       R23 R4 K31 ["enabled"]
-      247 SETTABLEKS                       R23 R22 K48 ["enableAdditionalHeadProcessing"]
-      249 GETTABLEKS                       R23 R5 K31 ["enabled"]
-      251 SETTABLEKS                       R23 R22 K49 ["customHumanoid"]
-      253 GETTABLEKS                       R23 R6 K31 ["enabled"]
-      255 SETTABLEKS                       R23 R22 K50 ["reduceTriangles"]
-      257 GETTABLEKS                       R23 R7 K31 ["enabled"]
-      259 SETTABLEKS                       R23 R22 K51 ["decalToDynamicHead"]
-      261 SETTABLEKS                       R22 R21 K39 ["value"]
-      263 DUPTABLE                         R22 K53 [{"setupType"}]
-      264 SETTABLEKS                       R2 R22 K46 ["setupType"]
-      266 SETTABLEKS                       R22 R21 K40 ["set"]
-      268 DUPTABLE                         R22 K54 [{"alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles", "decalToDynamicHead"}]
-      269 GETTABLEKS                       R23 R3 K41 ["toggle"]
-      271 SETTABLEKS                       R23 R22 K47 ["alignFrontAngle"]
-      273 GETTABLEKS                       R23 R4 K41 ["toggle"]
-      275 SETTABLEKS                       R23 R22 K48 ["enableAdditionalHeadProcessing"]
-      277 GETTABLEKS                       R23 R5 K41 ["toggle"]
-      279 SETTABLEKS                       R23 R22 K49 ["customHumanoid"]
-      281 GETTABLEKS                       R23 R6 K41 ["toggle"]
-      283 SETTABLEKS                       R23 R22 K50 ["reduceTriangles"]
-      285 GETTABLEKS                       R23 R7 K41 ["toggle"]
-      287 SETTABLEKS                       R23 R22 K51 ["decalToDynamicHead"]
-      289 SETTABLEKS                       R22 R21 K41 ["toggle"]
-      291 DUPTABLE                         R22 K57 [{"settings", "info"}]
-      292 SETTABLEKS                       R20 R22 K55 ["settings"]
-      294 SETTABLEKS                       R19 R22 K56 ["info"]
-      296 SETTABLEKS                       R22 R21 K42 ["options"]
-      298 SETTABLEKS                       R14 R21 K43 ["incrementCount"]
-      300 SETTABLEKS                       R15 R21 K44 ["decrementCount"]
-      302 GETUPVAL                         R22 3
-      303 GETTABLEKS                       R22 R22 K58 ["createElement"]
-      305 GETUPVAL                         R23 5
-      306 GETTABLEKS                       R23 R23 K59 ["Provider"]
-      308 DUPTABLE                         R24 K60 [{"value"}]
-      309 SETTABLEKS                       R21 R24 K39 ["value"]
-      311 GETTABLEKS                       R25 R0 K61 ["children"]
-      313 CALL                             R22 3 -1
-      314 RETURN                           R22 -1
+      112 LOADB                            R18 0
+      113 GETTABLEKS                       R19 R10 K9 ["amount"]
+      115 JUMPIFNOTEQKN                    R19 K10 [0] ; [+23]
+      117 LOADB                            R18 0
+      118 GETTABLEKS                       R19 R9 K9 ["amount"]
+      120 JUMPIFNOTEQKN                    R19 K10 [0] ; [+18]
+      122 LOADB                            R18 0
+      123 GETTABLEKS                       R19 R11 K9 ["amount"]
+      125 JUMPIFNOTEQKN                    R19 K10 [0] ; [+13]
+      127 LOADB                            R18 0
+      128 GETTABLEKS                       R19 R12 K9 ["amount"]
+      130 JUMPIFNOTEQKN                    R19 K10 [0] ; [+8]
+      132 GETTABLEKS                       R19 R13 K9 ["amount"]
+      134 LOADN                            R20 0
+      135 JUMPIFLT                         R20 R19 ; [+2]
+      137 LOADB                            R18 0 +1
+      138 LOADB                            R18 1
+      139 DUPTABLE                         R19 K14 [{"shouldCreateTemplateBody", "shouldProcessAttachmentPoint", "assetClassification"}]
+      140 SETTABLEKS                       R17 R19 K11 ["shouldCreateTemplateBody"]
+      142 SETTABLEKS                       R18 R19 K12 ["shouldProcessAttachmentPoint"]
+      144 DUPTABLE                         R20 K21 [{"bodyCount", "layeredCount", "eyeLayeredCount", "rigidCount", "avatarCount", "unselectedCount"}]
+      145 GETTABLEKS                       R21 R10 K9 ["amount"]
+      147 SETTABLEKS                       R21 R20 K15 ["bodyCount"]
+      149 GETTABLEKS                       R21 R11 K9 ["amount"]
+      151 SETTABLEKS                       R21 R20 K16 ["layeredCount"]
+      153 GETTABLEKS                       R21 R12 K9 ["amount"]
+      155 SETTABLEKS                       R21 R20 K17 ["eyeLayeredCount"]
+      157 GETTABLEKS                       R21 R13 K9 ["amount"]
+      159 SETTABLEKS                       R21 R20 K18 ["rigidCount"]
+      161 GETTABLEKS                       R21 R9 K9 ["amount"]
+      163 SETTABLEKS                       R21 R20 K19 ["avatarCount"]
+      165 GETTABLEKS                       R21 R8 K9 ["amount"]
+      167 SETTABLEKS                       R21 R20 K20 ["unselectedCount"]
+      169 SETTABLEKS                       R20 R19 K13 ["assetClassification"]
+      171 JUMPIFNOTEQKN                    R1 K22 [1] ; [+23]
+      173 DUPTABLE                         R20 K30 [{["SetupType"] = "Platform", ["AlignFrontAngle"], ["R15Plus"], ["ClothingOnly"], ["EnableAdditionalHeadProcessing"], ["DecalToDynamicHead"], ["shouldCreateTemplateBody"]}]
+      174 GETTABLEKS                       R21 R3 K31 ["enabled"]
+      176 SETTABLEKS                       R21 R20 K25 ["AlignFrontAngle"]
+      178 GETTABLEKS                       R21 R5 K31 ["enabled"]
+      180 SETTABLEKS                       R21 R20 K26 ["R15Plus"]
+      182 SETTABLEKS                       R16 R20 K27 ["ClothingOnly"]
+      184 GETTABLEKS                       R21 R4 K31 ["enabled"]
+      186 SETTABLEKS                       R21 R20 K28 ["EnableAdditionalHeadProcessing"]
+      188 GETTABLEKS                       R21 R7 K31 ["enabled"]
+      190 SETTABLEKS                       R21 R20 K29 ["DecalToDynamicHead"]
+      192 SETTABLEKS                       R17 R20 K11 ["shouldCreateTemplateBody"]
+      194 JUMP                             ; [+33]
+      195 JUMPIFNOTEQKN                    R1 K32 [2] ; [+31]
+      197 DUPTABLE                         R20 K35 [{["SetupType"] = "Development", ["AlignFrontAngle"], ["R15Plus"], ["DecimationOptions"], ["ClothingOnly"], ["EnableAdditionalHeadProcessing"], ["DecalToDynamicHead"], ["shouldCreateTemplateBody"]}]
+      198 GETTABLEKS                       R21 R3 K31 ["enabled"]
+      200 SETTABLEKS                       R21 R20 K25 ["AlignFrontAngle"]
+      202 GETTABLEKS                       R21 R5 K31 ["enabled"]
+      204 SETTABLEKS                       R21 R20 K26 ["R15Plus"]
+      206 GETTABLEKS                       R22 R6 K31 ["enabled"]
+      208 JUMPIFNOT                        R22 ; [+2]
+      209 LOADK                            R21 K36 ["EverythingEnabled"]
+      210 JUMP                             ; [+1]
+      211 LOADK                            R21 K37 ["Unspecified"]
+      212 SETTABLEKS                       R21 R20 K34 ["DecimationOptions"]
+      214 SETTABLEKS                       R16 R20 K27 ["ClothingOnly"]
+      216 GETTABLEKS                       R21 R4 K31 ["enabled"]
+      218 SETTABLEKS                       R21 R20 K28 ["EnableAdditionalHeadProcessing"]
+      220 GETTABLEKS                       R21 R7 K31 ["enabled"]
+      222 SETTABLEKS                       R21 R20 K29 ["DecalToDynamicHead"]
+      224 SETTABLEKS                       R17 R20 K11 ["shouldCreateTemplateBody"]
+      226 JUMP                             ; [+1]
+      227 DUPTABLE                         R20 K38 [{["SetupType"] = "Unspecified"}]
+      228 DUPTABLE                         R21 K45 [{"value", "set", "toggle", "options", "incrementCount", "decrementCount"}]
+      229 DUPTABLE                         R22 K52 [{"setupType", "alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles", "decalToDynamicHead"}]
+      230 SETTABLEKS                       R1 R22 K46 ["setupType"]
+      232 GETTABLEKS                       R23 R3 K31 ["enabled"]
+      234 SETTABLEKS                       R23 R22 K47 ["alignFrontAngle"]
+      236 GETTABLEKS                       R23 R4 K31 ["enabled"]
+      238 SETTABLEKS                       R23 R22 K48 ["enableAdditionalHeadProcessing"]
+      240 GETTABLEKS                       R23 R5 K31 ["enabled"]
+      242 SETTABLEKS                       R23 R22 K49 ["customHumanoid"]
+      244 GETTABLEKS                       R23 R6 K31 ["enabled"]
+      246 SETTABLEKS                       R23 R22 K50 ["reduceTriangles"]
+      248 GETTABLEKS                       R23 R7 K31 ["enabled"]
+      250 SETTABLEKS                       R23 R22 K51 ["decalToDynamicHead"]
+      252 SETTABLEKS                       R22 R21 K39 ["value"]
+      254 DUPTABLE                         R22 K53 [{"setupType"}]
+      255 SETTABLEKS                       R2 R22 K46 ["setupType"]
+      257 SETTABLEKS                       R22 R21 K40 ["set"]
+      259 DUPTABLE                         R22 K54 [{"alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles", "decalToDynamicHead"}]
+      260 GETTABLEKS                       R23 R3 K41 ["toggle"]
+      262 SETTABLEKS                       R23 R22 K47 ["alignFrontAngle"]
+      264 GETTABLEKS                       R23 R4 K41 ["toggle"]
+      266 SETTABLEKS                       R23 R22 K48 ["enableAdditionalHeadProcessing"]
+      268 GETTABLEKS                       R23 R5 K41 ["toggle"]
+      270 SETTABLEKS                       R23 R22 K49 ["customHumanoid"]
+      272 GETTABLEKS                       R23 R6 K41 ["toggle"]
+      274 SETTABLEKS                       R23 R22 K50 ["reduceTriangles"]
+      276 GETTABLEKS                       R23 R7 K41 ["toggle"]
+      278 SETTABLEKS                       R23 R22 K51 ["decalToDynamicHead"]
+      280 SETTABLEKS                       R22 R21 K41 ["toggle"]
+      282 DUPTABLE                         R22 K57 [{"settings", "info"}]
+      283 SETTABLEKS                       R20 R22 K55 ["settings"]
+      285 SETTABLEKS                       R19 R22 K56 ["info"]
+      287 SETTABLEKS                       R22 R21 K42 ["options"]
+      289 SETTABLEKS                       R14 R21 K43 ["incrementCount"]
+      291 SETTABLEKS                       R15 R21 K44 ["decrementCount"]
+      293 GETUPVAL                         R22 3
+      294 GETTABLEKS                       R22 R22 K58 ["createElement"]
+      296 GETUPVAL                         R23 4
+      297 GETTABLEKS                       R23 R23 K59 ["Provider"]
+      299 DUPTABLE                         R24 K60 [{"value"}]
+      300 SETTABLEKS                       R21 R24 K39 ["value"]
+      302 GETTABLEKS                       R25 R0 K61 ["children"]
+      304 CALL                             R22 3 -1
+      305 RETURN                           R22 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -309,69 +300,63 @@ MAIN:
        61 GETTABLEKS                       R8 R8 K13 ["Hooks"]
        63 GETTABLEKS                       R8 R8 K16 ["useTogglePluginSetting"]
        65 CALL                             R7 1 1
-       66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R9 R0 K8 ["Src"]
-       70 GETTABLEKS                       R9 R9 K17 ["Flags"]
-       72 GETTABLEKS                       R9 R9 K18 ["getFFlagAvatarPreviewerProcessRigidOnly"]
-       74 CALL                             R8 1 1
-       75 DUPTABLE                         R9 K25 [{"value", "set", "toggle", "options", "incrementCount", "decrementCount"}]
-       76 DUPTABLE                         R10 K28 [{["setupType"] = 0}]
-       77 SETTABLEKS                       R10 R9 K19 ["value"]
-       79 DUPTABLE                         R10 K29 [{"setupType"}]
-       80 MOVE                             R11 R4
-       81 LOADK                            R12 K30 ["setSetupType"]
-       82 CALL                             R11 1 1
-       83 SETTABLEKS                       R11 R10 K26 ["setupType"]
-       85 SETTABLEKS                       R10 R9 K20 ["set"]
-       87 DUPTABLE                         R10 K36 [{"alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles", "decalToDynamicHead"}]
-       88 MOVE                             R11 R4
-       89 LOADK                            R12 K31 ["alignFrontAngle"]
-       90 CALL                             R11 1 1
-       91 SETTABLEKS                       R11 R10 K31 ["alignFrontAngle"]
-       93 MOVE                             R11 R4
-       94 LOADK                            R12 K32 ["enableAdditionalHeadProcessing"]
-       95 CALL                             R11 1 1
-       96 SETTABLEKS                       R11 R10 K32 ["enableAdditionalHeadProcessing"]
-       98 MOVE                             R11 R4
-       99 LOADK                            R12 K37 ["toggleCustomHumanoid"]
-      100 CALL                             R11 1 1
-      101 SETTABLEKS                       R11 R10 K33 ["customHumanoid"]
-      103 MOVE                             R11 R4
-      104 LOADK                            R12 K38 ["toggleReduceTriangles"]
-      105 CALL                             R11 1 1
-      106 SETTABLEKS                       R11 R10 K34 ["reduceTriangles"]
-      108 MOVE                             R11 R4
-      109 LOADK                            R12 K35 ["decalToDynamicHead"]
-      110 CALL                             R11 1 1
-      111 SETTABLEKS                       R11 R10 K35 ["decalToDynamicHead"]
-      113 SETTABLEKS                       R10 R9 K21 ["toggle"]
-      115 DUPTABLE                         R10 K41 [{"settings", "info"}]
-      116 DUPTABLE                         R11 K44 [{["SetupType"] = "Unspecified"}]
-      117 SETTABLEKS                       R11 R10 K39 ["settings"]
-      119 DUPTABLE                         R11 K46 [{"assetClassification"}]
-      120 DUPTABLE                         R12 K53 [{["bodyCount"] = 0, ["layeredCount"] = 0, ["eyeLayeredCount"] = 0, ["rigidCount"] = 0, ["avatarCount"] = 0, ["unselectedCount"] = 0}]
-      121 SETTABLEKS                       R12 R11 K45 ["assetClassification"]
-      123 SETTABLEKS                       R11 R10 K40 ["info"]
-      125 SETTABLEKS                       R10 R9 K22 ["options"]
-      127 MOVE                             R10 R4
-      128 LOADK                            R11 K23 ["incrementCount"]
-      129 CALL                             R10 1 1
-      130 SETTABLEKS                       R10 R9 K23 ["incrementCount"]
-      132 MOVE                             R10 R4
-      133 LOADK                            R11 K24 ["decrementCount"]
-      134 CALL                             R10 1 1
-      135 SETTABLEKS                       R10 R9 K24 ["decrementCount"]
-      137 GETTABLEKS                       R10 R1 K54 ["createContext"]
-      139 MOVE                             R11 R9
-      140 CALL                             R10 1 1
-      141 DUPCLOSURE                       R11 K55 [PROTO_2]
-      142 CAPTURE                          VAL R6
-      143 CAPTURE                          VAL R7
-      144 CAPTURE                          VAL R5
-      145 CAPTURE                          VAL R1
-      146 CAPTURE                          VAL R8
-      147 CAPTURE                          VAL R10
-      148 DUPTABLE                         R12 K58 [{"Context", "Provider"}]
-      149 SETTABLEKS                       R10 R12 K56 ["Context"]
-      151 SETTABLEKS                       R11 R12 K57 ["Provider"]
-      153 RETURN                           R12 1
+       66 DUPTABLE                         R8 K23 [{"value", "set", "toggle", "options", "incrementCount", "decrementCount"}]
+       67 DUPTABLE                         R9 K26 [{["setupType"] = 0}]
+       68 SETTABLEKS                       R9 R8 K17 ["value"]
+       70 DUPTABLE                         R9 K27 [{"setupType"}]
+       71 MOVE                             R10 R4
+       72 LOADK                            R11 K28 ["setSetupType"]
+       73 CALL                             R10 1 1
+       74 SETTABLEKS                       R10 R9 K24 ["setupType"]
+       76 SETTABLEKS                       R9 R8 K18 ["set"]
+       78 DUPTABLE                         R9 K34 [{"alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles", "decalToDynamicHead"}]
+       79 MOVE                             R10 R4
+       80 LOADK                            R11 K29 ["alignFrontAngle"]
+       81 CALL                             R10 1 1
+       82 SETTABLEKS                       R10 R9 K29 ["alignFrontAngle"]
+       84 MOVE                             R10 R4
+       85 LOADK                            R11 K30 ["enableAdditionalHeadProcessing"]
+       86 CALL                             R10 1 1
+       87 SETTABLEKS                       R10 R9 K30 ["enableAdditionalHeadProcessing"]
+       89 MOVE                             R10 R4
+       90 LOADK                            R11 K35 ["toggleCustomHumanoid"]
+       91 CALL                             R10 1 1
+       92 SETTABLEKS                       R10 R9 K31 ["customHumanoid"]
+       94 MOVE                             R10 R4
+       95 LOADK                            R11 K36 ["toggleReduceTriangles"]
+       96 CALL                             R10 1 1
+       97 SETTABLEKS                       R10 R9 K32 ["reduceTriangles"]
+       99 MOVE                             R10 R4
+      100 LOADK                            R11 K33 ["decalToDynamicHead"]
+      101 CALL                             R10 1 1
+      102 SETTABLEKS                       R10 R9 K33 ["decalToDynamicHead"]
+      104 SETTABLEKS                       R9 R8 K19 ["toggle"]
+      106 DUPTABLE                         R9 K39 [{"settings", "info"}]
+      107 DUPTABLE                         R10 K42 [{["SetupType"] = "Unspecified"}]
+      108 SETTABLEKS                       R10 R9 K37 ["settings"]
+      110 DUPTABLE                         R10 K44 [{"assetClassification"}]
+      111 DUPTABLE                         R11 K51 [{["bodyCount"] = 0, ["layeredCount"] = 0, ["eyeLayeredCount"] = 0, ["rigidCount"] = 0, ["avatarCount"] = 0, ["unselectedCount"] = 0}]
+      112 SETTABLEKS                       R11 R10 K43 ["assetClassification"]
+      114 SETTABLEKS                       R10 R9 K38 ["info"]
+      116 SETTABLEKS                       R9 R8 K20 ["options"]
+      118 MOVE                             R9 R4
+      119 LOADK                            R10 K21 ["incrementCount"]
+      120 CALL                             R9 1 1
+      121 SETTABLEKS                       R9 R8 K21 ["incrementCount"]
+      123 MOVE                             R9 R4
+      124 LOADK                            R10 K22 ["decrementCount"]
+      125 CALL                             R9 1 1
+      126 SETTABLEKS                       R9 R8 K22 ["decrementCount"]
+      128 GETTABLEKS                       R9 R1 K52 ["createContext"]
+      130 MOVE                             R10 R8
+      131 CALL                             R9 1 1
+      132 DUPCLOSURE                       R10 K53 [PROTO_2]
+      133 CAPTURE                          VAL R6
+      134 CAPTURE                          VAL R7
+      135 CAPTURE                          VAL R5
+      136 CAPTURE                          VAL R1
+      137 CAPTURE                          VAL R9
+      138 DUPTABLE                         R11 K56 [{"Context", "Provider"}]
+      139 SETTABLEKS                       R9 R11 K54 ["Context"]
+      141 SETTABLEKS                       R10 R11 K55 ["Provider"]
+      143 RETURN                           R11 1

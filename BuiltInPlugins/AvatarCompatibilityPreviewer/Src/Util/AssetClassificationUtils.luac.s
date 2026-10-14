@@ -66,51 +66,32 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R2 K8 ["getFFlagAvatarPreviewerEyeLayeredSetup"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["StringUtil"]
        15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R3 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R3 K9 ["Util"]
-       22 GETTABLEKS                       R3 R3 K10 ["StringUtil"]
-       24 CALL                             R2 1 1
-       25 NEWTABLE                         R3 8 0
-       27 LOADK                            R4 K11 ["Body"]
-       28 SETTABLEKS                       R4 R3 K12 ["DEFAULT_ASSET_CLASSIFICATION"]
-       30 MOVE                             R5 R1
-       31 CALL                             R5 0 1
-       32 JUMPIFNOT                        R5 ; [+9]
-       33 NEWTABLE                         R4 0 4
-       35 LOADK                            R5 K11 ["Body"]
-       36 LOADK                            R6 K13 ["Layered"]
-       37 LOADK                            R7 K14 ["EyeLayered"]
-       38 LOADK                            R8 K15 ["Rigid"]
-       39 SETLIST                          R4 R5 4 [1]
-       41 JUMP                             ; [+7]
-       42 NEWTABLE                         R4 0 3
-       44 LOADK                            R5 K11 ["Body"]
-       45 LOADK                            R6 K13 ["Layered"]
-       46 LOADK                            R7 K15 ["Rigid"]
-       47 SETLIST                          R4 R5 3 [1]
-       49 SETTABLEKS                       R4 R3 K16 ["ASSET_CLASSIFICATION_OPTIONS"]
-       51 MOVE                             R5 R1
-       52 CALL                             R5 0 1
-       53 JUMPIFNOT                        R5 ; [+2]
-       54 DUPTABLE                         R4 K24 [{["Automatic"] = "", ["Body"] = "RBX_BODY_", ["Layered"] = "RBX_LC_", ["EyeLayered"] = "RBX_EYE_LC_", ["Rigid"] = "RBX_RIGID_", ["Avatar"] = ""}]
-       55 JUMP                             ; [+1]
-       56 DUPTABLE                         R4 K25 [{["Automatic"] = "", ["Body"] = "RBX_BODY_", ["Layered"] = "RBX_LC_", ["Rigid"] = "RBX_RIGID_", ["Avatar"] = ""}]
-       57 DUPCLOSURE                       R5 K26 [PROTO_0]
-       58 CAPTURE                          VAL R4
-       59 SETTABLEKS                       R5 R3 K27 ["getAssetNamePrefix"]
-       61 DUPCLOSURE                       R5 K28 [PROTO_1]
-       62 CAPTURE                          VAL R4
-       63 CAPTURE                          VAL R2
-       64 SETTABLEKS                       R5 R3 K29 ["getInstanceNameWithoutClassification"]
-       66 DUPCLOSURE                       R5 K30 [PROTO_2]
-       67 CAPTURE                          VAL R3
-       68 SETTABLEKS                       R5 R3 K31 ["getNewInstanceNameWithPrefix"]
-       70 DUPCLOSURE                       R5 K32 [PROTO_3]
-       71 CAPTURE                          VAL R4
-       72 CAPTURE                          VAL R2
-       73 SETTABLEKS                       R5 R3 K33 ["getAssetClassificationFromName"]
-       75 RETURN                           R3 1
+       16 NEWTABLE                         R2 8 0
+       18 LOADK                            R3 K9 ["Body"]
+       19 SETTABLEKS                       R3 R2 K10 ["DEFAULT_ASSET_CLASSIFICATION"]
+       21 NEWTABLE                         R3 0 4
+       23 LOADK                            R4 K9 ["Body"]
+       24 LOADK                            R5 K11 ["Layered"]
+       25 LOADK                            R6 K12 ["EyeLayered"]
+       26 LOADK                            R7 K13 ["Rigid"]
+       27 SETLIST                          R3 R4 4 [1]
+       29 SETTABLEKS                       R3 R2 K14 ["ASSET_CLASSIFICATION_OPTIONS"]
+       31 DUPTABLE                         R3 K22 [{["Automatic"] = "", ["Body"] = "RBX_BODY_", ["Layered"] = "RBX_LC_", ["EyeLayered"] = "RBX_EYE_LC_", ["Rigid"] = "RBX_RIGID_", ["Avatar"] = ""}]
+       32 DUPCLOSURE                       R4 K23 [PROTO_0]
+       33 CAPTURE                          VAL R3
+       34 SETTABLEKS                       R4 R2 K24 ["getAssetNamePrefix"]
+       36 DUPCLOSURE                       R4 K25 [PROTO_1]
+       37 CAPTURE                          VAL R3
+       38 CAPTURE                          VAL R1
+       39 SETTABLEKS                       R4 R2 K26 ["getInstanceNameWithoutClassification"]
+       41 DUPCLOSURE                       R4 K27 [PROTO_2]
+       42 CAPTURE                          VAL R2
+       43 SETTABLEKS                       R4 R2 K28 ["getNewInstanceNameWithPrefix"]
+       45 DUPCLOSURE                       R4 K29 [PROTO_3]
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R1
+       48 SETTABLEKS                       R4 R2 K30 ["getAssetClassificationFromName"]
+       50 RETURN                           R2 1

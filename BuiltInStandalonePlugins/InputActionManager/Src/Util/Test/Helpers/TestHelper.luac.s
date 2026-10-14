@@ -141,6 +141,22 @@ PROTO_12:
        10 RETURN                           R0 0
 
 PROTO_13:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["keyDown"]
+        3 MOVE                             R4 R1
+        4 MOVE                             R5 R2
+        5 CALL                             R3 2 0
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K1 ["keyUp"]
+        9 MOVE                             R4 R0
+       10 MOVE                             R5 R2
+       11 CALL                             R3 2 0
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K2 ["awaitDeferAsync"]
+       15 CALL                             R3 0 0
+       16 RETURN                           R0 0
+
+PROTO_14:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["mouseEnter"]
         3 MOVE                             R2 R0
@@ -150,7 +166,44 @@ PROTO_13:
         8 CALL                             R1 0 0
         9 RETURN                           R0 0
 
-PROTO_14:
+PROTO_15:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["queryByTestId"]
+        3 MOVE                             R4 R0
+        4 MOVE                             R5 R1
+        5 LOADK                            R6 K1 ["Text box '%*' not found"]
+        6 MOVE                             R8 R1
+        7 NAMECALL                         R6 R6 K2 ["format"]
+        9 CALL                             R6 2 1
+       10 CALL                             R3 3 1
+       11 LOADK                            R7 K3 ["TextBox"]
+       12 NAMECALL                         R5 R3 K4 ["IsA"]
+       14 CALL                             R5 2 1
+       15 LOADK                            R6 K5 ["Expected '%*' to be a TextBox"]
+       16 MOVE                             R8 R1
+       17 NAMECALL                         R6 R6 K2 ["format"]
+       19 CALL                             R6 2 1
+       20 FASTCALL2                        ASSERT R5 R6 ; [+3]
+       22 GETIMPORT                        R4 K7 [assert]
+       24 CALL                             R4 2 0
+       25 GETUPVAL                         R4 0
+       26 GETTABLEKS                       R4 R4 K8 ["click"]
+       28 MOVE                             R5 R3
+       29 CALL                             R4 1 0
+       30 GETUPVAL                         R4 1
+       31 GETTABLEKS                       R4 R4 K9 ["change"]
+       33 MOVE                             R5 R3
+       34 DUPTABLE                         R6 K11 [{"target"}]
+       35 DUPTABLE                         R7 K13 [{"Text"}]
+       36 SETTABLEKS                       R2 R7 K12 ["Text"]
+       38 SETTABLEKS                       R7 R6 K10 ["target"]
+       40 CALL                             R4 2 0
+       41 GETUPVAL                         R4 0
+       42 GETTABLEKS                       R4 R4 K14 ["awaitDeferAsync"]
+       44 CALL                             R4 0 0
+       45 RETURN                           R3 1
+
+PROTO_16:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["queryByTestId"]
         3 MOVE                             R3 R0
@@ -158,7 +211,7 @@ PROTO_14:
         5 CALL                             R2 2 -1
         6 RETURN                           R2 -1
 
-PROTO_15:
+PROTO_17:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["tryQueryByTestId"]
         3 MOVE                             R4 R0
@@ -176,7 +229,7 @@ PROTO_15:
        18 CALL                             R4 2 0
        19 RETURN                           R3 1
 
-PROTO_16:
+PROTO_18:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["queryAllByTestId"]
         3 MOVE                             R3 R0
@@ -184,7 +237,7 @@ PROTO_16:
         5 CALL                             R2 2 -1
         6 RETURN                           R2 -1
 
-PROTO_17:
+PROTO_19:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["queryByText"]
         3 MOVE                             R4 R0
@@ -202,7 +255,7 @@ PROTO_17:
        18 CALL                             R4 2 0
        19 RETURN                           R3 1
 
-PROTO_18:
+PROTO_20:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["getAllByText"]
         3 MOVE                             R4 R0
@@ -224,94 +277,129 @@ PROTO_18:
        23 CALL                             R4 2 0
        24 RETURN                           R3 1
 
+PROTO_21:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K0 ["CreateDefaultPlayerModule"]
+        4 NOT                              R1 R2
+        5 SETTABLEKS                       R1 R0 K0 ["CreateDefaultPlayerModule"]
+        7 RETURN                           R0 0
+
+PROTO_22:
+        0 GETUPVAL                         R0 0
+        1 DUPCLOSURE                       R1 K0 [PROTO_21]
+        2 CAPTURE                          UPVAL U1
+        3 CALL                             R0 1 0
+        4 GETUPVAL                         R0 2
+        5 GETTABLEKS                       R0 R0 K1 ["awaitDeferAsync"]
+        7 CALL                             R0 0 0
+        8 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["StylingService"]
+        3 LOADK                            R2 K2 ["StarterPlayer"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [script]
-        9 LOADK                            R3 K6 ["InputActionManager"]
-       10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
+        7 GETIMPORT                        R1 K1 [game]
+        9 LOADK                            R3 K4 ["StylingService"]
+       10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R3 K11 ["React"]
-       19 CALL                             R2 1 1
-       20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R4 K12 ["Dev"]
-       26 GETTABLEKS                       R4 R4 K13 ["ReactTestingLibrary"]
-       28 CALL                             R3 1 1
-       29 GETIMPORT                        R4 K9 [require]
-       31 GETTABLEKS                       R5 R1 K14 ["Src"]
-       33 GETTABLEKS                       R5 R5 K15 ["Types"]
-       35 CALL                             R4 1 1
-       36 GETIMPORT                        R5 K9 [require]
-       38 GETTABLEKS                       R6 R1 K14 ["Src"]
-       40 GETTABLEKS                       R6 R6 K16 ["Util"]
-       42 GETTABLEKS                       R6 R6 K17 ["Test"]
-       44 GETTABLEKS                       R6 R6 K18 ["Mock"]
-       46 GETTABLEKS                       R6 R6 K19 ["mockNetworking"]
-       48 CALL                             R5 1 1
-       49 GETTABLEKS                       R6 R3 K20 ["act"]
-       51 GETTABLEKS                       R7 R3 K21 ["fireEvent"]
-       53 NEWTABLE                         R8 16 0
-       55 DUPCLOSURE                       R9 K22 [PROTO_0]
-       56 SETTABLEKS                       R9 R8 K23 ["awaitDeferAsync"]
-       58 DUPCLOSURE                       R9 K24 [PROTO_1]
-       59 CAPTURE                          VAL R6
-       60 CAPTURE                          VAL R8
-       61 SETTABLEKS                       R9 R8 K20 ["act"]
-       63 DUPCLOSURE                       R9 K25 [PROTO_3]
-       64 CAPTURE                          VAL R5
-       65 CAPTURE                          VAL R8
-       66 SETTABLEKS                       R9 R8 K26 ["fireDataModelTypeChanged"]
-       68 DUPCLOSURE                       R9 K27 [PROTO_5]
-       69 CAPTURE                          VAL R5
-       70 CAPTURE                          VAL R8
-       71 SETTABLEKS                       R9 R8 K28 ["fireStateChange"]
-       73 DUPCLOSURE                       R9 K29 [PROTO_7]
-       74 CAPTURE                          VAL R8
-       75 CAPTURE                          VAL R0
-       76 SETTABLEKS                       R9 R8 K30 ["updateStyling"]
-       78 DUPCLOSURE                       R9 K31 [PROTO_8]
-       79 CAPTURE                          VAL R7
-       80 CAPTURE                          VAL R8
-       81 SETTABLEKS                       R9 R8 K32 ["click"]
-       83 DUPCLOSURE                       R9 K33 [PROTO_9]
-       84 CAPTURE                          VAL R7
+       13 GETIMPORT                        R2 K6 [script]
+       15 LOADK                            R4 K7 ["InputActionManager"]
+       16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
+       18 CALL                             R2 2 1
+       19 GETIMPORT                        R3 K10 [require]
+       21 GETTABLEKS                       R4 R2 K11 ["Packages"]
+       23 GETTABLEKS                       R4 R4 K12 ["React"]
+       25 CALL                             R3 1 1
+       26 GETIMPORT                        R4 K10 [require]
+       28 GETTABLEKS                       R5 R2 K11 ["Packages"]
+       30 GETTABLEKS                       R5 R5 K13 ["Dev"]
+       32 GETTABLEKS                       R5 R5 K14 ["ReactTestingLibrary"]
+       34 CALL                             R4 1 1
+       35 GETIMPORT                        R5 K10 [require]
+       37 GETTABLEKS                       R6 R2 K15 ["Src"]
+       39 GETTABLEKS                       R6 R6 K16 ["Types"]
+       41 CALL                             R5 1 1
+       42 GETIMPORT                        R6 K10 [require]
+       44 GETTABLEKS                       R7 R2 K15 ["Src"]
+       46 GETTABLEKS                       R7 R7 K17 ["Util"]
+       48 GETTABLEKS                       R7 R7 K18 ["Test"]
+       50 GETTABLEKS                       R7 R7 K19 ["Mock"]
+       52 GETTABLEKS                       R7 R7 K20 ["mockNetworking"]
+       54 CALL                             R6 1 1
+       55 GETTABLEKS                       R7 R4 K21 ["act"]
+       57 GETTABLEKS                       R8 R4 K22 ["fireEvent"]
+       59 NEWTABLE                         R9 32 0
+       61 DUPCLOSURE                       R10 K23 [PROTO_0]
+       62 SETTABLEKS                       R10 R9 K24 ["awaitDeferAsync"]
+       64 DUPCLOSURE                       R10 K25 [PROTO_1]
+       65 CAPTURE                          VAL R7
+       66 CAPTURE                          VAL R9
+       67 SETTABLEKS                       R10 R9 K21 ["act"]
+       69 DUPCLOSURE                       R10 K26 [PROTO_3]
+       70 CAPTURE                          VAL R6
+       71 CAPTURE                          VAL R9
+       72 SETTABLEKS                       R10 R9 K27 ["fireDataModelTypeChanged"]
+       74 DUPCLOSURE                       R10 K28 [PROTO_5]
+       75 CAPTURE                          VAL R6
+       76 CAPTURE                          VAL R9
+       77 SETTABLEKS                       R10 R9 K29 ["fireStateChange"]
+       79 DUPCLOSURE                       R10 K30 [PROTO_7]
+       80 CAPTURE                          VAL R9
+       81 CAPTURE                          VAL R1
+       82 SETTABLEKS                       R10 R9 K31 ["updateStyling"]
+       84 DUPCLOSURE                       R10 K32 [PROTO_8]
        85 CAPTURE                          VAL R8
-       86 SETTABLEKS                       R9 R8 K34 ["contextMenu"]
-       88 DUPCLOSURE                       R9 K35 [PROTO_10]
-       89 CAPTURE                          VAL R7
+       86 CAPTURE                          VAL R9
+       87 SETTABLEKS                       R10 R9 K33 ["click"]
+       89 DUPCLOSURE                       R10 K34 [PROTO_9]
        90 CAPTURE                          VAL R8
-       91 SETTABLEKS                       R9 R8 K36 ["change"]
-       93 DUPCLOSURE                       R9 K37 [PROTO_11]
-       94 CAPTURE                          VAL R7
+       91 CAPTURE                          VAL R9
+       92 SETTABLEKS                       R10 R9 K35 ["contextMenu"]
+       94 DUPCLOSURE                       R10 K36 [PROTO_10]
        95 CAPTURE                          VAL R8
-       96 SETTABLEKS                       R9 R8 K38 ["keyDown"]
-       98 DUPCLOSURE                       R9 K39 [PROTO_12]
-       99 CAPTURE                          VAL R7
+       96 CAPTURE                          VAL R9
+       97 SETTABLEKS                       R10 R9 K37 ["change"]
+       99 DUPCLOSURE                       R10 K38 [PROTO_11]
       100 CAPTURE                          VAL R8
-      101 SETTABLEKS                       R9 R8 K40 ["keyUp"]
-      103 DUPCLOSURE                       R9 K41 [PROTO_13]
-      104 CAPTURE                          VAL R7
+      101 CAPTURE                          VAL R9
+      102 SETTABLEKS                       R10 R9 K39 ["keyDown"]
+      104 DUPCLOSURE                       R10 K40 [PROTO_12]
       105 CAPTURE                          VAL R8
-      106 SETTABLEKS                       R9 R8 K42 ["mouseEnter"]
-      108 DUPCLOSURE                       R9 K43 [PROTO_14]
-      109 CAPTURE                          VAL R3
-      110 SETTABLEKS                       R9 R8 K44 ["tryQueryByTestId"]
-      112 DUPCLOSURE                       R9 K45 [PROTO_15]
-      113 CAPTURE                          VAL R8
-      114 SETTABLEKS                       R9 R8 K46 ["queryByTestId"]
-      116 DUPCLOSURE                       R9 K47 [PROTO_16]
-      117 CAPTURE                          VAL R3
-      118 SETTABLEKS                       R9 R8 K48 ["queryAllByTestId"]
-      120 DUPCLOSURE                       R9 K49 [PROTO_17]
-      121 CAPTURE                          VAL R3
-      122 SETTABLEKS                       R9 R8 K50 ["queryByText"]
-      124 DUPCLOSURE                       R9 K51 [PROTO_18]
-      125 CAPTURE                          VAL R3
-      126 SETTABLEKS                       R9 R8 K52 ["getAllByText"]
-      128 RETURN                           R8 1
+      106 CAPTURE                          VAL R9
+      107 SETTABLEKS                       R10 R9 K41 ["keyUp"]
+      109 DUPCLOSURE                       R10 K42 [PROTO_13]
+      110 CAPTURE                          VAL R8
+      111 CAPTURE                          VAL R9
+      112 SETTABLEKS                       R10 R9 K43 ["keyPress"]
+      114 DUPCLOSURE                       R10 K44 [PROTO_14]
+      115 CAPTURE                          VAL R8
+      116 CAPTURE                          VAL R9
+      117 SETTABLEKS                       R10 R9 K45 ["mouseEnter"]
+      119 DUPCLOSURE                       R10 K46 [PROTO_15]
+      120 CAPTURE                          VAL R9
+      121 CAPTURE                          VAL R8
+      122 SETTABLEKS                       R10 R9 K47 ["setText"]
+      124 DUPCLOSURE                       R10 K48 [PROTO_16]
+      125 CAPTURE                          VAL R4
+      126 SETTABLEKS                       R10 R9 K49 ["tryQueryByTestId"]
+      128 DUPCLOSURE                       R10 K50 [PROTO_17]
+      129 CAPTURE                          VAL R9
+      130 SETTABLEKS                       R10 R9 K51 ["queryByTestId"]
+      132 DUPCLOSURE                       R10 K52 [PROTO_18]
+      133 CAPTURE                          VAL R4
+      134 SETTABLEKS                       R10 R9 K53 ["queryAllByTestId"]
+      136 DUPCLOSURE                       R10 K54 [PROTO_19]
+      137 CAPTURE                          VAL R4
+      138 SETTABLEKS                       R10 R9 K55 ["queryByText"]
+      140 DUPCLOSURE                       R10 K56 [PROTO_20]
+      141 CAPTURE                          VAL R4
+      142 SETTABLEKS                       R10 R9 K57 ["getAllByText"]
+      144 DUPCLOSURE                       R10 K58 [PROTO_22]
+      145 CAPTURE                          VAL R7
+      146 CAPTURE                          VAL R0
+      147 CAPTURE                          VAL R9
+      148 SETTABLEKS                       R10 R9 K59 ["toggleCreateDefaultPlayerModule"]
+      150 RETURN                           R9 1

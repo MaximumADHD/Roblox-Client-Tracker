@@ -308,20 +308,20 @@ MAIN:
        33 LOADK                            R7 K11 ["StudioService"]
        34 NAMECALL                         R5 R5 K7 ["GetService"]
        36 CALL                             R5 2 1
-       37 GETTABLEKS                       R6 R0 K12 ["Packages"]
-       39 GETTABLEKS                       R6 R6 K13 ["DraggerFramework"]
-       41 GETIMPORT                        R7 K15 [require]
-       43 GETTABLEKS                       R8 R0 K12 ["Packages"]
-       45 GETTABLEKS                       R8 R8 K16 ["Roact"]
-       47 CALL                             R7 1 1
-       48 GETIMPORT                        R8 K15 [require]
-       50 GETTABLEKS                       R9 R0 K17 ["Src"]
-       52 GETTABLEKS                       R9 R9 K18 ["ConstraintToolModel"]
-       54 CALL                             R8 1 1
-       55 GETIMPORT                        R9 K15 [require]
-       57 GETTABLEKS                       R10 R6 K19 ["Utility"]
-       59 GETTABLEKS                       R10 R10 K20 ["ViewChangeDetector"]
-       61 CALL                             R9 1 1
+       37 GETIMPORT                        R6 K13 [require]
+       39 GETTABLEKS                       R7 R0 K14 ["Packages"]
+       41 GETTABLEKS                       R7 R7 K15 ["DraggerFramework"]
+       43 CALL                             R6 1 1
+       44 GETIMPORT                        R7 K13 [require]
+       46 GETTABLEKS                       R8 R0 K14 ["Packages"]
+       48 GETTABLEKS                       R8 R8 K16 ["Roact"]
+       50 CALL                             R7 1 1
+       51 GETIMPORT                        R8 K13 [require]
+       53 GETTABLEKS                       R9 R0 K17 ["Src"]
+       55 GETTABLEKS                       R9 R9 K18 ["ConstraintToolModel"]
+       57 CALL                             R8 1 1
+       58 GETTABLEKS                       R9 R6 K19 ["Utility"]
+       60 GETTABLEKS                       R9 R9 K20 ["ViewChangeDetector"]
        62 GETTABLEKS                       R10 R7 K21 ["PureComponent"]
        64 LOADK                            R12 K22 ["ConstraintToolComponent"]
        65 NAMECALL                         R10 R10 K23 ["extend"]

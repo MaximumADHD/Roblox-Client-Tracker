@@ -709,45 +709,47 @@ MAIN:
        94 GETTABLEKS                       R13 R13 K22 ["Types"]
        96 CALL                             R12 1 1
        97 GETIMPORT                        R13 K5 [require]
-       99 GETTABLEKS                       R14 R0 K23 ["LuaFlags"]
-      101 GETTABLEKS                       R14 R14 K24 ["GetFFlagFixDynamicTrackSelection"]
-      103 CALL                             R13 1 1
-      104 GETIMPORT                        R14 K5 [require]
-      106 GETTABLEKS                       R15 R0 K23 ["LuaFlags"]
-      108 GETTABLEKS                       R15 R15 K25 ["GetFFlagControlRig"]
-      110 CALL                             R14 1 1
-      111 GETIMPORT                        R15 K28 [UDim2.new]
-      113 LOADN                            R16 0
-      114 LOADN                            R17 30
-      115 LOADN                            R18 0
-      116 LOADN                            R19 18
-      117 CALL                             R15 4 1
-      118 GETTABLEKS                       R16 R1 K29 ["PureComponent"]
-      120 LOADK                            R18 K29 ["PureComponent"]
-      121 NAMECALL                         R16 R16 K30 ["extend"]
-      123 CALL                             R16 2 1
-      124 DUPCLOSURE                       R17 K31 [PROTO_7]
-      125 CAPTURE                          VAL R13
-      126 CAPTURE                          VAL R7
-      127 CAPTURE                          VAL R14
-      128 CAPTURE                          VAL R6
-      129 CAPTURE                          VAL R8
-      130 CAPTURE                          VAL R2
-      131 SETTABLEKS                       R17 R16 K32 ["init"]
-      133 DUPCLOSURE                       R17 K33 [PROTO_8]
-      134 CAPTURE                          VAL R8
-      135 CAPTURE                          VAL R1
-      136 CAPTURE                          VAL R10
-      137 CAPTURE                          VAL R11
-      138 CAPTURE                          VAL R15
-      139 CAPTURE                          VAL R9
-      140 SETTABLEKS                       R17 R16 K34 ["render"]
-      142 MOVE                             R17 R5
-      143 DUPTABLE                         R18 K36 [{"Stylizer"}]
-      144 GETTABLEKS                       R19 R4 K35 ["Stylizer"]
-      146 SETTABLEKS                       R19 R18 K35 ["Stylizer"]
-      148 CALL                             R17 1 1
-      149 MOVE                             R18 R16
-      150 CALL                             R17 1 1
-      151 MOVE                             R16 R17
-      152 RETURN                           R16 1
+       99 GETTABLEKS                       R14 R0 K12 ["Src"]
+      101 GETTABLEKS                       R14 R14 K23 ["Flags"]
+      103 GETTABLEKS                       R14 R14 K24 ["getFFlagFixDynamicTrackSelection"]
+      105 CALL                             R13 1 1
+      106 GETIMPORT                        R14 K5 [require]
+      108 GETTABLEKS                       R15 R0 K12 ["Src"]
+      110 GETTABLEKS                       R15 R15 K23 ["Flags"]
+      112 GETTABLEKS                       R15 R15 K25 ["getFFlagControlRig"]
+      114 CALL                             R14 1 1
+      115 GETIMPORT                        R15 K28 [UDim2.new]
+      117 LOADN                            R16 0
+      118 LOADN                            R17 30
+      119 LOADN                            R18 0
+      120 LOADN                            R19 18
+      121 CALL                             R15 4 1
+      122 GETTABLEKS                       R16 R1 K29 ["PureComponent"]
+      124 LOADK                            R18 K29 ["PureComponent"]
+      125 NAMECALL                         R16 R16 K30 ["extend"]
+      127 CALL                             R16 2 1
+      128 DUPCLOSURE                       R17 K31 [PROTO_7]
+      129 CAPTURE                          VAL R13
+      130 CAPTURE                          VAL R7
+      131 CAPTURE                          VAL R14
+      132 CAPTURE                          VAL R6
+      133 CAPTURE                          VAL R8
+      134 CAPTURE                          VAL R2
+      135 SETTABLEKS                       R17 R16 K32 ["init"]
+      137 DUPCLOSURE                       R17 K33 [PROTO_8]
+      138 CAPTURE                          VAL R8
+      139 CAPTURE                          VAL R1
+      140 CAPTURE                          VAL R10
+      141 CAPTURE                          VAL R11
+      142 CAPTURE                          VAL R15
+      143 CAPTURE                          VAL R9
+      144 SETTABLEKS                       R17 R16 K34 ["render"]
+      146 MOVE                             R17 R5
+      147 DUPTABLE                         R18 K36 [{"Stylizer"}]
+      148 GETTABLEKS                       R19 R4 K35 ["Stylizer"]
+      150 SETTABLEKS                       R19 R18 K35 ["Stylizer"]
+      152 CALL                             R17 1 1
+      153 MOVE                             R18 R16
+      154 CALL                             R17 1 1
+      155 MOVE                             R16 R17
+      156 RETURN                           R16 1

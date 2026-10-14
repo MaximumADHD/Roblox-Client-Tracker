@@ -57,12 +57,24 @@ PROTO_2:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["concat"]
         3 MOVE                             R3 R0
-        4 NEWCLOSURE                       R4 P0
-        5 CAPTURE                          UPVAL U1
-        6 CAPTURE                          VAL R1
-        7 CALL                             R4 0 1
-        8 CALL                             R2 2 -1
-        9 RETURN                           R2 -1
+        4 NEWTABLE                         R5 0 0
+        6 GETUPVAL                         R6 1
+        7 LOADK                            R8 K1 ["%%$%s[%%.%%w]*"]
+        8 MOVE                             R10 R1
+        9 NAMECALL                         R8 R8 K2 ["format"]
+       11 CALL                             R8 2 -1
+       12 NAMECALL                         R6 R6 K3 ["gmatch"]
+       14 CALL                             R6 -1 3
+       15 FORGPREP                         R6
+       16 FASTCALL2                        TABLE_INSERT R5 R9 ; [+5]
+       18 MOVE                             R12 R5
+       19 MOVE                             R13 R9
+       20 GETIMPORT                        R11 K6 [table.insert]
+       22 CALL                             R11 2 0
+       23 FORGLOOP                         R6 1 ; [-8]
+       25 MOVE                             R4 R5
+       26 CALL                             R2 2 -1
+       27 RETURN                           R2 -1
 
 PROTO_3:
         0 NEWCLOSURE                       R1 P0

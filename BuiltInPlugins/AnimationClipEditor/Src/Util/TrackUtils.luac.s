@@ -2769,163 +2769,165 @@ MAIN:
        72 GETTABLEKS                       R9 R9 K16 ["Types"]
        74 CALL                             R8 1 1
        75 GETIMPORT                        R9 K5 [require]
-       77 GETTABLEKS                       R10 R0 K17 ["LuaFlags"]
-       79 GETTABLEKS                       R10 R10 K18 ["GetFFlagFixDynamicTrackSelection"]
-       81 CALL                             R9 1 1
-       82 GETIMPORT                        R10 K5 [require]
-       84 GETTABLEKS                       R11 R0 K17 ["LuaFlags"]
-       86 GETTABLEKS                       R11 R11 K19 ["GetFFlagControlRig"]
-       88 CALL                             R10 1 1
-       89 NEWTABLE                         R11 64 0
-       91 DUPCLOSURE                       R12 K20 [PROTO_0]
-       92 DUPCLOSURE                       R13 K21 [PROTO_2]
-       93 CAPTURE                          VAL R1
-       94 CAPTURE                          VAL R6
-       95 SETTABLEKS                       R13 R11 K22 ["traverseTracks"]
-       97 DUPCLOSURE                       R13 K23 [PROTO_3]
-       98 CAPTURE                          VAL R4
-       99 CAPTURE                          VAL R1
-      100 SETTABLEKS                       R13 R11 K24 ["getSortedComponents"]
-      102 DUPCLOSURE                       R13 K25 [PROTO_4]
-      103 CAPTURE                          VAL R10
-      104 CAPTURE                          VAL R2
-      105 SETTABLEKS                       R13 R11 K26 ["traverseKeyframeRange"]
-      107 DUPCLOSURE                       R13 K27 [PROTO_6]
-      108 CAPTURE                          VAL R11
-      109 CAPTURE                          VAL R2
-      110 SETTABLEKS                       R13 R11 K28 ["getNextKeyframe"]
-      112 DUPCLOSURE                       R13 K29 [PROTO_8]
-      113 CAPTURE                          VAL R11
-      114 CAPTURE                          VAL R2
-      115 SETTABLEKS                       R13 R11 K30 ["getPreviousKeyframe"]
-      117 DUPCLOSURE                       R13 K31 [PROTO_11]
-      118 CAPTURE                          VAL R11
-      119 CAPTURE                          VAL R6
-      120 CAPTURE                          VAL R1
-      121 SETTABLEKS                       R13 R11 K32 ["getSummaryKeyframes"]
-      123 DUPCLOSURE                       R13 K33 [PROTO_12]
-      124 SETTABLEKS                       R13 R11 K34 ["getScaledKeyframePosition"]
-      126 DUPCLOSURE                       R13 K35 [PROTO_13]
-      127 CAPTURE                          VAL R2
-      128 SETTABLEKS                       R13 R11 K36 ["getKeyframeFromPosition"]
-      130 DUPCLOSURE                       R13 K37 [PROTO_14]
-      131 CAPTURE                          VAL R11
-      132 CAPTURE                          VAL R2
-      133 SETTABLEKS                       R13 R11 K38 ["countVisibleKeyframes"]
-      135 DUPCLOSURE                       R13 K39 [PROTO_15]
+       77 GETTABLEKS                       R10 R0 K8 ["Src"]
+       79 GETTABLEKS                       R10 R10 K17 ["Flags"]
+       81 GETTABLEKS                       R10 R10 K18 ["getFFlagFixDynamicTrackSelection"]
+       83 CALL                             R9 1 1
+       84 GETIMPORT                        R10 K5 [require]
+       86 GETTABLEKS                       R11 R0 K8 ["Src"]
+       88 GETTABLEKS                       R11 R11 K17 ["Flags"]
+       90 GETTABLEKS                       R11 R11 K19 ["getFFlagControlRig"]
+       92 CALL                             R10 1 1
+       93 NEWTABLE                         R11 64 0
+       95 DUPCLOSURE                       R12 K20 [PROTO_0]
+       96 DUPCLOSURE                       R13 K21 [PROTO_2]
+       97 CAPTURE                          VAL R1
+       98 CAPTURE                          VAL R6
+       99 SETTABLEKS                       R13 R11 K22 ["traverseTracks"]
+      101 DUPCLOSURE                       R13 K23 [PROTO_3]
+      102 CAPTURE                          VAL R4
+      103 CAPTURE                          VAL R1
+      104 SETTABLEKS                       R13 R11 K24 ["getSortedComponents"]
+      106 DUPCLOSURE                       R13 K25 [PROTO_4]
+      107 CAPTURE                          VAL R10
+      108 CAPTURE                          VAL R2
+      109 SETTABLEKS                       R13 R11 K26 ["traverseKeyframeRange"]
+      111 DUPCLOSURE                       R13 K27 [PROTO_6]
+      112 CAPTURE                          VAL R11
+      113 CAPTURE                          VAL R2
+      114 SETTABLEKS                       R13 R11 K28 ["getNextKeyframe"]
+      116 DUPCLOSURE                       R13 K29 [PROTO_8]
+      117 CAPTURE                          VAL R11
+      118 CAPTURE                          VAL R2
+      119 SETTABLEKS                       R13 R11 K30 ["getPreviousKeyframe"]
+      121 DUPCLOSURE                       R13 K31 [PROTO_11]
+      122 CAPTURE                          VAL R11
+      123 CAPTURE                          VAL R6
+      124 CAPTURE                          VAL R1
+      125 SETTABLEKS                       R13 R11 K32 ["getSummaryKeyframes"]
+      127 DUPCLOSURE                       R13 K33 [PROTO_12]
+      128 SETTABLEKS                       R13 R11 K34 ["getScaledKeyframePosition"]
+      130 DUPCLOSURE                       R13 K35 [PROTO_13]
+      131 CAPTURE                          VAL R2
+      132 SETTABLEKS                       R13 R11 K36 ["getKeyframeFromPosition"]
+      134 DUPCLOSURE                       R13 K37 [PROTO_14]
+      135 CAPTURE                          VAL R11
       136 CAPTURE                          VAL R2
-      137 SETTABLEKS                       R13 R11 K40 ["getKeyframesExtents"]
-      139 DUPCLOSURE                       R13 K41 [PROTO_17]
-      140 CAPTURE                          VAL R4
-      141 SETTABLEKS                       R13 R11 K42 ["getExpandedSize"]
-      143 DUPCLOSURE                       R13 K43 [PROTO_18]
-      144 CAPTURE                          VAL R2
-      145 SETTABLEKS                       R13 R11 K44 ["getDefaultValue"]
-      147 DUPCLOSURE                       R13 K45 [PROTO_19]
-      148 SETTABLEKS                       R13 R11 K46 ["getTrackTypeFromName"]
-      150 DUPCLOSURE                       R13 K47 [PROTO_20]
-      151 CAPTURE                          VAL R10
-      152 CAPTURE                          VAL R11
-      153 CAPTURE                          VAL R3
-      154 SETTABLEKS                       R13 R11 K48 ["getComponentTypeFromPath"]
-      156 DUPCLOSURE                       R13 K49 [PROTO_21]
+      137 SETTABLEKS                       R13 R11 K38 ["countVisibleKeyframes"]
+      139 DUPCLOSURE                       R13 K39 [PROTO_15]
+      140 CAPTURE                          VAL R2
+      141 SETTABLEKS                       R13 R11 K40 ["getKeyframesExtents"]
+      143 DUPCLOSURE                       R13 K41 [PROTO_17]
+      144 CAPTURE                          VAL R4
+      145 SETTABLEKS                       R13 R11 K42 ["getExpandedSize"]
+      147 DUPCLOSURE                       R13 K43 [PROTO_18]
+      148 CAPTURE                          VAL R2
+      149 SETTABLEKS                       R13 R11 K44 ["getDefaultValue"]
+      151 DUPCLOSURE                       R13 K45 [PROTO_19]
+      152 SETTABLEKS                       R13 R11 K46 ["getTrackTypeFromName"]
+      154 DUPCLOSURE                       R13 K47 [PROTO_20]
+      155 CAPTURE                          VAL R10
+      156 CAPTURE                          VAL R11
       157 CAPTURE                          VAL R3
-      158 SETTABLEKS                       R13 R11 K50 ["getComponentFromPath"]
-      160 DUPCLOSURE                       R13 K51 [PROTO_22]
-      161 CAPTURE                          VAL R4
-      162 CAPTURE                          VAL R11
-      163 SETTABLEKS                       R13 R11 K52 ["getEulerAnglesOrder"]
-      165 DUPCLOSURE                       R13 K53 [PROTO_23]
-      166 CAPTURE                          VAL R4
-      167 SETTABLEKS                       R13 R11 K54 ["getRotationType"]
-      169 DUPCLOSURE                       R13 K55 [PROTO_24]
-      170 CAPTURE                          VAL R11
-      171 SETTABLEKS                       R13 R11 K56 ["getRotationTypeFromName"]
-      173 MOVE                             R13 R9
-      174 CALL                             R13 0 1
-      175 JUMPIF                           R13 ; [+12]
-      176 DUPCLOSURE                       R13 K57 [PROTO_25]
-      177 CAPTURE                          VAL R4
-      178 CAPTURE                          VAL R11
-      179 SETTABLEKS                       R13 R11 K58 ["getTrackFromPosition"]
-      181 DUPCLOSURE                       R13 K59 [PROTO_27]
-      182 CAPTURE                          VAL R4
-      183 CAPTURE                          VAL R11
-      184 CAPTURE                          VAL R10
-      185 CAPTURE                          VAL R1
-      186 SETTABLEKS                       R13 R11 K60 ["getTrackInfoFromPosition"]
-      188 MOVE                             R13 R9
-      189 CALL                             R13 0 1
-      190 JUMPIFNOT                        R13 ; [+7]
-      191 DUPCLOSURE                       R13 K61 [PROTO_29]
-      192 CAPTURE                          VAL R4
-      193 CAPTURE                          VAL R10
-      194 CAPTURE                          VAL R11
-      195 CAPTURE                          VAL R1
-      196 SETTABLEKS                       R13 R11 K60 ["getTrackInfoFromPosition"]
-      198 DUPCLOSURE                       R13 K62 [PROTO_30]
-      199 SETTABLEKS                       R13 R11 K63 ["getTrackIndex"]
-      201 DUPCLOSURE                       R13 K64 [PROTO_31]
-      202 CAPTURE                          VAL R4
-      203 CAPTURE                          VAL R11
-      204 SETTABLEKS                       R13 R11 K65 ["getTrackYPosition"]
-      206 DUPCLOSURE                       R13 K66 [PROTO_32]
+      158 SETTABLEKS                       R13 R11 K48 ["getComponentTypeFromPath"]
+      160 DUPCLOSURE                       R13 K49 [PROTO_21]
+      161 CAPTURE                          VAL R3
+      162 SETTABLEKS                       R13 R11 K50 ["getComponentFromPath"]
+      164 DUPCLOSURE                       R13 K51 [PROTO_22]
+      165 CAPTURE                          VAL R4
+      166 CAPTURE                          VAL R11
+      167 SETTABLEKS                       R13 R11 K52 ["getEulerAnglesOrder"]
+      169 DUPCLOSURE                       R13 K53 [PROTO_23]
+      170 CAPTURE                          VAL R4
+      171 SETTABLEKS                       R13 R11 K54 ["getRotationType"]
+      173 DUPCLOSURE                       R13 K55 [PROTO_24]
+      174 CAPTURE                          VAL R11
+      175 SETTABLEKS                       R13 R11 K56 ["getRotationTypeFromName"]
+      177 MOVE                             R13 R9
+      178 CALL                             R13 0 1
+      179 JUMPIF                           R13 ; [+12]
+      180 DUPCLOSURE                       R13 K57 [PROTO_25]
+      181 CAPTURE                          VAL R4
+      182 CAPTURE                          VAL R11
+      183 SETTABLEKS                       R13 R11 K58 ["getTrackFromPosition"]
+      185 DUPCLOSURE                       R13 K59 [PROTO_27]
+      186 CAPTURE                          VAL R4
+      187 CAPTURE                          VAL R11
+      188 CAPTURE                          VAL R10
+      189 CAPTURE                          VAL R1
+      190 SETTABLEKS                       R13 R11 K60 ["getTrackInfoFromPosition"]
+      192 MOVE                             R13 R9
+      193 CALL                             R13 0 1
+      194 JUMPIFNOT                        R13 ; [+7]
+      195 DUPCLOSURE                       R13 K61 [PROTO_29]
+      196 CAPTURE                          VAL R4
+      197 CAPTURE                          VAL R10
+      198 CAPTURE                          VAL R11
+      199 CAPTURE                          VAL R1
+      200 SETTABLEKS                       R13 R11 K60 ["getTrackInfoFromPosition"]
+      202 DUPCLOSURE                       R13 K62 [PROTO_30]
+      203 SETTABLEKS                       R13 R11 K63 ["getTrackIndex"]
+      205 DUPCLOSURE                       R13 K64 [PROTO_31]
+      206 CAPTURE                          VAL R4
       207 CAPTURE                          VAL R11
-      208 CAPTURE                          VAL R2
-      209 SETTABLEKS                       R13 R11 K67 ["getCurrentValue"]
-      211 DUPCLOSURE                       R13 K68 [PROTO_33]
+      208 SETTABLEKS                       R13 R11 K65 ["getTrackYPosition"]
+      210 DUPCLOSURE                       R13 K66 [PROTO_32]
+      211 CAPTURE                          VAL R11
       212 CAPTURE                          VAL R2
-      213 SETTABLEKS                       R13 R11 K69 ["getCurrentValueForPath"]
-      215 DUPCLOSURE                       R13 K70 [PROTO_35]
-      216 CAPTURE                          VAL R4
-      217 CAPTURE                          VAL R10
-      218 SETTABLEKS                       R13 R11 K71 ["getItemsForProperty"]
-      220 DUPCLOSURE                       R13 K72 [PROTO_36]
-      221 CAPTURE                          VAL R4
-      222 SETTABLEKS                       R13 R11 K73 ["getPropertyForItems"]
-      224 DUPCLOSURE                       R13 K74 [PROTO_37]
+      213 SETTABLEKS                       R13 R11 K67 ["getCurrentValue"]
+      215 DUPCLOSURE                       R13 K68 [PROTO_33]
+      216 CAPTURE                          VAL R2
+      217 SETTABLEKS                       R13 R11 K69 ["getCurrentValueForPath"]
+      219 DUPCLOSURE                       R13 K70 [PROTO_35]
+      220 CAPTURE                          VAL R4
+      221 CAPTURE                          VAL R10
+      222 SETTABLEKS                       R13 R11 K71 ["getItemsForProperty"]
+      224 DUPCLOSURE                       R13 K72 [PROTO_36]
       225 CAPTURE                          VAL R4
-      226 SETTABLEKS                       R13 R11 K75 ["getZoomRange"]
-      228 DUPCLOSURE                       R13 K76 [PROTO_38]
-      229 CAPTURE                          VAL R1
-      230 CAPTURE                          VAL R5
-      231 CAPTURE                          VAL R6
-      232 CAPTURE                          VAL R4
-      233 SETTABLEKS                       R13 R11 K77 ["adjustCurves"]
-      235 DUPCLOSURE                       R13 K78 [PROTO_41]
+      226 SETTABLEKS                       R13 R11 K73 ["getPropertyForItems"]
+      228 DUPCLOSURE                       R13 K74 [PROTO_37]
+      229 CAPTURE                          VAL R4
+      230 SETTABLEKS                       R13 R11 K75 ["getZoomRange"]
+      232 DUPCLOSURE                       R13 K76 [PROTO_38]
+      233 CAPTURE                          VAL R1
+      234 CAPTURE                          VAL R5
+      235 CAPTURE                          VAL R6
       236 CAPTURE                          VAL R4
-      237 CAPTURE                          VAL R10
-      238 CAPTURE                          VAL R7
-      239 CAPTURE                          VAL R1
-      240 CAPTURE                          VAL R11
-      241 SETTABLEKS                       R13 R11 K79 ["splitTrackComponents"]
-      243 DUPCLOSURE                       R13 K80 [PROTO_42]
-      244 CAPTURE                          VAL R4
-      245 CAPTURE                          VAL R7
-      246 CAPTURE                          VAL R11
-      247 SETTABLEKS                       R13 R11 K81 ["createTrackListEntryComponents"]
-      249 DUPCLOSURE                       R13 K82 [PROTO_45]
+      237 SETTABLEKS                       R13 R11 K77 ["adjustCurves"]
+      239 DUPCLOSURE                       R13 K78 [PROTO_41]
+      240 CAPTURE                          VAL R4
+      241 CAPTURE                          VAL R10
+      242 CAPTURE                          VAL R7
+      243 CAPTURE                          VAL R1
+      244 CAPTURE                          VAL R11
+      245 SETTABLEKS                       R13 R11 K79 ["splitTrackComponents"]
+      247 DUPCLOSURE                       R13 K80 [PROTO_42]
+      248 CAPTURE                          VAL R4
+      249 CAPTURE                          VAL R7
       250 CAPTURE                          VAL R11
-      251 SETTABLEKS                       R13 R11 K83 ["getComponentsInfo"]
-      253 DUPCLOSURE                       R13 K84 [PROTO_46]
-      254 SETTABLEKS                       R13 R11 K85 ["findTrackEntry"]
-      256 DUPCLOSURE                       R13 K86 [PROTO_48]
-      257 CAPTURE                          VAL R4
-      258 CAPTURE                          VAL R1
-      259 SETTABLEKS                       R13 R11 K87 ["traverseComponents"]
-      261 DUPCLOSURE                       R13 K88 [PROTO_50]
-      262 CAPTURE                          VAL R4
-      263 CAPTURE                          VAL R1
-      264 SETTABLEKS                       R13 R11 K89 ["traverseValue"]
-      266 DUPCLOSURE                       R13 K90 [PROTO_51]
-      267 CAPTURE                          VAL R2
-      268 SETTABLEKS                       R13 R11 K91 ["findPreviousKeyframe"]
-      270 DUPCLOSURE                       R13 K92 [PROTO_66]
-      271 CAPTURE                          VAL R4
-      272 CAPTURE                          VAL R7
-      273 CAPTURE                          VAL R1
-      274 SETTABLEKS                       R13 R11 K93 ["convertTrackToEulerAngles"]
-      276 DUPCLOSURE                       R13 K94 [PROTO_68]
-      277 CAPTURE                          VAL R11
-      278 SETTABLEKS                       R13 R11 K95 ["countKeyframes"]
-      280 RETURN                           R11 1
+      251 SETTABLEKS                       R13 R11 K81 ["createTrackListEntryComponents"]
+      253 DUPCLOSURE                       R13 K82 [PROTO_45]
+      254 CAPTURE                          VAL R11
+      255 SETTABLEKS                       R13 R11 K83 ["getComponentsInfo"]
+      257 DUPCLOSURE                       R13 K84 [PROTO_46]
+      258 SETTABLEKS                       R13 R11 K85 ["findTrackEntry"]
+      260 DUPCLOSURE                       R13 K86 [PROTO_48]
+      261 CAPTURE                          VAL R4
+      262 CAPTURE                          VAL R1
+      263 SETTABLEKS                       R13 R11 K87 ["traverseComponents"]
+      265 DUPCLOSURE                       R13 K88 [PROTO_50]
+      266 CAPTURE                          VAL R4
+      267 CAPTURE                          VAL R1
+      268 SETTABLEKS                       R13 R11 K89 ["traverseValue"]
+      270 DUPCLOSURE                       R13 K90 [PROTO_51]
+      271 CAPTURE                          VAL R2
+      272 SETTABLEKS                       R13 R11 K91 ["findPreviousKeyframe"]
+      274 DUPCLOSURE                       R13 K92 [PROTO_66]
+      275 CAPTURE                          VAL R4
+      276 CAPTURE                          VAL R7
+      277 CAPTURE                          VAL R1
+      278 SETTABLEKS                       R13 R11 K93 ["convertTrackToEulerAngles"]
+      280 DUPCLOSURE                       R13 K94 [PROTO_68]
+      281 CAPTURE                          VAL R11
+      282 SETTABLEKS                       R13 R11 K95 ["countKeyframes"]
+      284 RETURN                           R11 1

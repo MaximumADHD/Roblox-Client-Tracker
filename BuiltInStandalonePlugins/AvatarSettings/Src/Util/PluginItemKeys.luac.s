@@ -1,4 +1,4 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K2 [{[1] = "GameId"}]
+        1 DUPTABLE                         R0 K4 [{[1] = "GameId", ["legacyCollisionModeAvailable"] = "LegacyCollisionModeAvailable"}]
         2 RETURN                           R0 1

@@ -1,8 +1,12 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K11 [{[1] = "Idle", ["requestId"] = "", ["prompt"] = "", ["model"] = "", ["slots"], ["pickedSlotIndex"] = , ["errorMessage"] = , ["failureReason"] = }]
-        1 NEWTABLE                         R1 0 0
-        3 SETTABLEKS                       R1 R0 K6 ["slots"]
-        5 RETURN                           R0 1
+        0 DUPTABLE                         R0 K12 [{[1] = "Idle", ["requestId"] = "", ["prompt"] = "", ["model"] = "", ["autoSelectView"], ["slots"], ["pickedSlotIndex"] = , ["errorMessage"] = , ["failureReason"] = }]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K13 ["getFFlagTextureGenAutoSelectView"]
+        4 CALL                             R1 0 1
+        5 SETTABLEKS                       R1 R0 K6 ["autoSelectView"]
+        7 NEWTABLE                         R1 0 0
+        9 SETTABLEKS                       R1 R0 K7 ["slots"]
+       11 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -68,25 +72,31 @@ PROTO_4:
         6 GETTABLEKS                       R2 R2 K1 ["useRefToState"]
         8 MOVE                             R3 R0
         9 CALL                             R2 1 1
-       10 NEWCLOSURE                       R3 P0
-       11 CAPTURE                          VAL R1
-       12 CAPTURE                          UPVAL U3
-       13 GETUPVAL                         R4 0
-       14 GETTABLEKS                       R4 R4 K2 ["useMemo"]
-       16 NEWCLOSURE                       R5 P1
-       17 CAPTURE                          VAL R0
-       18 CAPTURE                          UPVAL U4
-       19 NEWTABLE                         R6 0 1
-       21 MOVE                             R7 R0
-       22 SETLIST                          R6 R7 1 [1]
-       24 CALL                             R4 2 1
-       25 DUPTABLE                         R5 K8 [{"sessions", "sessionsRef", "updateSession", "setSessions", "activeUniqueIds"}]
-       26 SETTABLEKS                       R0 R5 K3 ["sessions"]
-       28 SETTABLEKS                       R2 R5 K4 ["sessionsRef"]
-       30 SETTABLEKS                       R3 R5 K5 ["updateSession"]
-       32 SETTABLEKS                       R1 R5 K6 ["setSessions"]
-       34 SETTABLEKS                       R4 R5 K7 ["activeUniqueIds"]
-       36 RETURN                           R5 1
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K2 ["useRef"]
+       13 NEWTABLE                         R4 0 0
+       15 CALL                             R3 1 1
+       16 NEWCLOSURE                       R4 P0
+       17 CAPTURE                          VAL R1
+       18 CAPTURE                          UPVAL U3
+       19 GETUPVAL                         R5 0
+       20 GETTABLEKS                       R5 R5 K3 ["useMemo"]
+       22 NEWCLOSURE                       R6 P1
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          UPVAL U4
+       25 NEWTABLE                         R7 0 1
+       27 MOVE                             R8 R0
+       28 SETLIST                          R7 R8 1 [1]
+       30 CALL                             R5 2 1
+       31 DUPTABLE                         R6 K10 [{"sessions", "sessionsRef", "updateSession", "setSessions", "activeUniqueIds", "cancelledRequestIds"}]
+       32 SETTABLEKS                       R0 R6 K4 ["sessions"]
+       34 SETTABLEKS                       R2 R6 K5 ["sessionsRef"]
+       36 SETTABLEKS                       R4 R6 K6 ["updateSession"]
+       38 SETTABLEKS                       R1 R6 K7 ["setSessions"]
+       40 SETTABLEKS                       R5 R6 K8 ["activeUniqueIds"]
+       42 GETTABLEKS                       R7 R3 K11 ["current"]
+       44 SETTABLEKS                       R7 R6 K9 ["cancelledRequestIds"]
+       46 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -106,15 +116,21 @@ MAIN:
        23 GETTABLEKS                       R4 R0 K9 ["Src"]
        25 GETTABLEKS                       R4 R4 K10 ["Types"]
        27 CALL                             R3 1 1
-       28 DUPTABLE                         R4 K16 [{["GeneratingImages"] = True, ["PickingImage"] = True, ["GeneratingTexture"] = True, ["Inserting"] = True}]
-       29 GETIMPORT                        R5 K19 [table.freeze]
-       31 NEWTABLE                         R6 0 0
-       33 CALL                             R5 1 1
-       34 DUPCLOSURE                       R6 K20 [PROTO_0]
-       35 DUPCLOSURE                       R7 K21 [PROTO_4]
-       36 CAPTURE                          VAL R1
-       37 CAPTURE                          VAL R5
-       38 CAPTURE                          VAL R2
-       39 CAPTURE                          VAL R6
-       40 CAPTURE                          VAL R4
-       41 RETURN                           R7 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R5 R0 K11 ["Bin"]
+       32 GETTABLEKS                       R5 R5 K12 ["Common"]
+       34 GETTABLEKS                       R5 R5 K13 ["defineLuaFlags"]
+       36 CALL                             R4 1 1
+       37 DUPTABLE                         R5 K19 [{["GeneratingImages"] = True, ["PickingImage"] = True, ["GeneratingTexture"] = True, ["Inserting"] = True}]
+       38 GETIMPORT                        R6 K22 [table.freeze]
+       40 NEWTABLE                         R7 0 0
+       42 CALL                             R6 1 1
+       43 DUPCLOSURE                       R7 K23 [PROTO_0]
+       44 CAPTURE                          VAL R4
+       45 DUPCLOSURE                       R8 K24 [PROTO_4]
+       46 CAPTURE                          VAL R1
+       47 CAPTURE                          VAL R6
+       48 CAPTURE                          VAL R2
+       49 CAPTURE                          VAL R7
+       50 CAPTURE                          VAL R5
+       51 RETURN                           R8 1

@@ -124,12 +124,12 @@ MAIN:
         3 LOADK                            R2 K2 ["ConstraintTool"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
-        9 GETTABLEKS                       R1 R1 K5 ["DraggerFramework"]
-       11 GETIMPORT                        R2 K7 [require]
-       13 GETTABLEKS                       R3 R1 K8 ["Utility"]
-       15 GETTABLEKS                       R3 R3 K9 ["AnimationTask"]
-       17 CALL                             R2 1 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["DraggerFramework"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R2 R1 K8 ["Utility"]
+       16 GETTABLEKS                       R2 R2 K9 ["AnimationTask"]
        18 NEWTABLE                         R3 8 0
        20 SETTABLEKS                       R3 R3 K10 ["__index"]
        22 DUPCLOSURE                       R4 K11 [PROTO_1]

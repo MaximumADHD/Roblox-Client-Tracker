@@ -747,26 +747,22 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["DMNetworking"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Flags"]
        20 CALL                             R2 1 1
-       21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R4 R0 K9 ["Src"]
-       25 GETTABLEKS                       R4 R4 K10 ["Flags"]
-       27 CALL                             R3 1 1
-       28 GETTABLEKS                       R4 R1 K11 ["Utils"]
-       30 GETTABLEKS                       R4 R4 K12 ["Time"]
-       32 GETTABLEKS                       R5 R1 K13 ["Types"]
-       34 GETTABLEKS                       R5 R5 K14 ["PersistenceOperation"]
-       36 GETTABLEKS                       R6 R1 K13 ["Types"]
-       38 GETTABLEKS                       R6 R6 K15 ["ScopeTypes"]
-       40 DUPCLOSURE                       R7 K16 [PROTO_0]
-       41 CAPTURE                          VAL R4
-       42 DUPCLOSURE                       R8 K17 [PROTO_14]
-       43 CAPTURE                          VAL R4
-       44 CAPTURE                          VAL R3
-       45 CAPTURE                          VAL R5
-       46 CAPTURE                          VAL R6
-       47 DUPTABLE                         R9 K19 [{"createTelemetryIO"}]
-       48 SETTABLEKS                       R8 R9 K18 ["createTelemetryIO"]
-       50 RETURN                           R9 1
+       21 GETTABLEKS                       R3 R1 K10 ["Utils"]
+       23 GETTABLEKS                       R3 R3 K11 ["Time"]
+       25 GETTABLEKS                       R4 R1 K12 ["Types"]
+       27 GETTABLEKS                       R4 R4 K13 ["PersistenceOperation"]
+       29 GETTABLEKS                       R5 R1 K12 ["Types"]
+       31 GETTABLEKS                       R5 R5 K14 ["ScopeTypes"]
+       33 DUPCLOSURE                       R6 K15 [PROTO_0]
+       34 CAPTURE                          VAL R3
+       35 DUPCLOSURE                       R7 K16 [PROTO_14]
+       36 CAPTURE                          VAL R3
+       37 CAPTURE                          VAL R2
+       38 CAPTURE                          VAL R4
+       39 CAPTURE                          VAL R5
+       40 DUPTABLE                         R8 K18 [{"createTelemetryIO"}]
+       41 SETTABLEKS                       R7 R8 K17 ["createTelemetryIO"]
+       43 RETURN                           R8 1

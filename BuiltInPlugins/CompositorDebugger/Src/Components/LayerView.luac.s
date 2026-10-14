@@ -480,7 +480,7 @@ PROTO_20:
         0 GETTABLEKS                       R1 R0 K0 ["state"]
         2 GETTABLEKS                       R2 R0 K1 ["props"]
         4 GETTABLEKS                       R3 R2 K2 ["RawMode"]
-        6 JUMPIFNOT                        R3 ; [+86]
+        6 JUMPIFNOT                        R3 ; [+85]
         7 LOADNIL                          R3
         8 GETIMPORT                        R4 K4 [require]
        10 GETUPVAL                         R5 0
@@ -542,70 +542,69 @@ PROTO_20:
        89 CALL                             R5 2 -1
        90 CLOSEUPVALS                      R3
        91 RETURN                           R5 -1
-       92 CLOSEUPVALS                      R3
-       93 GETTABLEKS                       R3 R1 K9 ["LayerData"]
-       95 JUMPIFNOT                        R3 ; [+79]
-       96 GETUPVAL                         R3 3
-       97 GETTABLEKS                       R3 R3 K15 ["createElement"]
-       99 GETUPVAL                         R4 5
-      100 NEWTABLE                         R5 32 0
-      102 GETTABLEKS                       R6 R2 K20 ["LayoutOrder"]
-      104 SETTABLEKS                       R6 R5 K20 ["LayoutOrder"]
-      106 NEWTABLE                         R6 0 2
-      108 DUPTABLE                         R7 K28 [{["Name"] = "Name", ["Key"] = "name"}]
-      109 DUPTABLE                         R8 K31 [{["Name"] = "Value", ["Key"] = "value"}]
-      110 SETLIST                          R6 R7 2 [1]
-      112 SETTABLEKS                       R6 R5 K32 ["Columns"]
-      114 GETTABLEKS                       R6 R2 K33 ["ExpandedSections"]
-      116 SETTABLEKS                       R6 R5 K34 ["Expansion"]
-      118 NEWTABLE                         R6 0 0
-      120 SETTABLEKS                       R6 R5 K35 ["Selection"]
-      122 GETTABLEKS                       R6 R1 K9 ["LayerData"]
-      124 SETTABLEKS                       R6 R5 K36 ["RootItems"]
-      126 LOADB                            R6 0
-      127 SETTABLEKS                       R6 R5 K37 ["ShowHeader"]
-      129 GETTABLEKS                       R6 R0 K38 ["getChildren"]
-      131 SETTABLEKS                       R6 R5 K39 ["GetChildren"]
-      133 GETTABLEKS                       R6 R0 K40 ["getItemId"]
-      135 SETTABLEKS                       R6 R5 K41 ["GetItemId"]
-      137 LOADB                            R6 1
-      138 SETTABLEKS                       R6 R5 K42 ["FullSpan"]
-      140 LOADB                            R6 1
-      141 SETTABLEKS                       R6 R5 K43 ["FullSpanEmphasis"]
-      143 LOADB                            R6 1
-      144 SETTABLEKS                       R6 R5 K44 ["Scroll"]
-      146 GETUPVAL                         R6 6
-      147 SETTABLEKS                       R6 R5 K45 ["CellComponent"]
-      149 GETTABLEKS                       R6 R0 K46 ["onToggle"]
-      151 SETTABLEKS                       R6 R5 K47 ["OnExpansionChange"]
-      153 GETTABLEKS                       R6 R0 K48 ["onDoubleClick"]
-      155 SETTABLEKS                       R6 R5 K49 ["OnDoubleClick"]
-      157 GETTABLEKS                       R6 R0 K50 ["onCellEdited"]
-      159 SETTABLEKS                       R6 R5 K51 ["OnCellEdited"]
-      161 GETTABLEKS                       R6 R0 K52 ["onCellAction"]
-      163 SETTABLEKS                       R6 R5 K53 ["OnCellAction"]
-      165 GETUPVAL                         R6 3
-      166 GETTABLEKS                       R6 R6 K24 ["Tag"]
-      168 GETUPVAL                         R8 3
-      169 GETTABLEKS                       R8 R8 K24 ["Tag"]
-      171 GETTABLE                         R7 R2 R8
-      172 SETTABLE                         R7 R5 R6
-      173 CALL                             R3 2 -1
-      174 RETURN                           R3 -1
-      175 GETUPVAL                         R3 3
-      176 GETTABLEKS                       R3 R3 K15 ["createElement"]
-      178 GETUPVAL                         R4 7
-      179 NEWTABLE                         R5 2 0
-      181 GETTABLEKS                       R6 R2 K20 ["LayoutOrder"]
-      183 SETTABLEKS                       R6 R5 K20 ["LayoutOrder"]
-      185 GETUPVAL                         R6 3
-      186 GETTABLEKS                       R6 R6 K24 ["Tag"]
-      188 GETUPVAL                         R8 3
-      189 GETTABLEKS                       R8 R8 K24 ["Tag"]
-      191 GETTABLE                         R7 R2 R8
-      192 SETTABLE                         R7 R5 R6
-      193 CALL                             R3 2 -1
-      194 RETURN                           R3 -1
+       92 GETTABLEKS                       R3 R1 K9 ["LayerData"]
+       94 JUMPIFNOT                        R3 ; [+79]
+       95 GETUPVAL                         R3 3
+       96 GETTABLEKS                       R3 R3 K15 ["createElement"]
+       98 GETUPVAL                         R4 5
+       99 NEWTABLE                         R5 32 0
+      101 GETTABLEKS                       R6 R2 K20 ["LayoutOrder"]
+      103 SETTABLEKS                       R6 R5 K20 ["LayoutOrder"]
+      105 NEWTABLE                         R6 0 2
+      107 DUPTABLE                         R7 K28 [{["Name"] = "Name", ["Key"] = "name"}]
+      108 DUPTABLE                         R8 K31 [{["Name"] = "Value", ["Key"] = "value"}]
+      109 SETLIST                          R6 R7 2 [1]
+      111 SETTABLEKS                       R6 R5 K32 ["Columns"]
+      113 GETTABLEKS                       R6 R2 K33 ["ExpandedSections"]
+      115 SETTABLEKS                       R6 R5 K34 ["Expansion"]
+      117 NEWTABLE                         R6 0 0
+      119 SETTABLEKS                       R6 R5 K35 ["Selection"]
+      121 GETTABLEKS                       R6 R1 K9 ["LayerData"]
+      123 SETTABLEKS                       R6 R5 K36 ["RootItems"]
+      125 LOADB                            R6 0
+      126 SETTABLEKS                       R6 R5 K37 ["ShowHeader"]
+      128 GETTABLEKS                       R6 R0 K38 ["getChildren"]
+      130 SETTABLEKS                       R6 R5 K39 ["GetChildren"]
+      132 GETTABLEKS                       R6 R0 K40 ["getItemId"]
+      134 SETTABLEKS                       R6 R5 K41 ["GetItemId"]
+      136 LOADB                            R6 1
+      137 SETTABLEKS                       R6 R5 K42 ["FullSpan"]
+      139 LOADB                            R6 1
+      140 SETTABLEKS                       R6 R5 K43 ["FullSpanEmphasis"]
+      142 LOADB                            R6 1
+      143 SETTABLEKS                       R6 R5 K44 ["Scroll"]
+      145 GETUPVAL                         R6 6
+      146 SETTABLEKS                       R6 R5 K45 ["CellComponent"]
+      148 GETTABLEKS                       R6 R0 K46 ["onToggle"]
+      150 SETTABLEKS                       R6 R5 K47 ["OnExpansionChange"]
+      152 GETTABLEKS                       R6 R0 K48 ["onDoubleClick"]
+      154 SETTABLEKS                       R6 R5 K49 ["OnDoubleClick"]
+      156 GETTABLEKS                       R6 R0 K50 ["onCellEdited"]
+      158 SETTABLEKS                       R6 R5 K51 ["OnCellEdited"]
+      160 GETTABLEKS                       R6 R0 K52 ["onCellAction"]
+      162 SETTABLEKS                       R6 R5 K53 ["OnCellAction"]
+      164 GETUPVAL                         R6 3
+      165 GETTABLEKS                       R6 R6 K24 ["Tag"]
+      167 GETUPVAL                         R8 3
+      168 GETTABLEKS                       R8 R8 K24 ["Tag"]
+      170 GETTABLE                         R7 R2 R8
+      171 SETTABLE                         R7 R5 R6
+      172 CALL                             R3 2 -1
+      173 RETURN                           R3 -1
+      174 GETUPVAL                         R3 3
+      175 GETTABLEKS                       R3 R3 K15 ["createElement"]
+      177 GETUPVAL                         R4 7
+      178 NEWTABLE                         R5 2 0
+      180 GETTABLEKS                       R6 R2 K20 ["LayoutOrder"]
+      182 SETTABLEKS                       R6 R5 K20 ["LayoutOrder"]
+      184 GETUPVAL                         R6 3
+      185 GETTABLEKS                       R6 R6 K24 ["Tag"]
+      187 GETUPVAL                         R8 3
+      188 GETTABLEKS                       R8 R8 K24 ["Tag"]
+      190 GETTABLE                         R7 R2 R8
+      191 SETTABLE                         R7 R5 R6
+      192 CALL                             R3 2 -1
+      193 RETURN                           R3 -1
 
 PROTO_21:
         0 DUPTABLE                         R2 K2 [{"ExpandedSections", "HistoryField"}]

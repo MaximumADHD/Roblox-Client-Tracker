@@ -115,120 +115,118 @@ PROTO_3:
       134 SETTABLEKS                       R5 R4 K41 ["_overlaySidebarScrollFrame"]
       136 LOADB                            R5 0
       137 SETTABLEKS                       R5 R4 K42 ["_showDetailsDrawer"]
-      139 LOADNIL                          R5
-      140 SETTABLEKS                       R5 R4 K43 ["_selectedItemPath"]
-      142 LOADN                            R5 280
-      143 SETTABLEKS                       R5 R4 K44 ["_drawerDesiredWidth"]
-      145 LOADK                            R5 K45 [0.6]
-      146 SETTABLEKS                       R5 R4 K46 ["_compactDrawerHeightScale"]
-      148 LOADNIL                          R5
-      149 SETTABLEKS                       R5 R4 K47 ["_detailsDrawerFrame"]
-      151 NEWTABLE                         R5 0 0
-      153 SETTABLEKS                       R5 R4 K48 ["_connections"]
-      155 LOADB                            R5 0
-      156 SETTABLEKS                       R5 R4 K49 ["_destroyed"]
-      158 GETUPVAL                         R5 4
-      159 GETTABLEKS                       R5 R5 K10 ["new"]
-      161 CALL                             R5 0 1
-      162 SETTABLEKS                       R5 R4 K50 ["OnAppSizesChanged"]
-      164 GETUPVAL                         R5 4
-      165 GETTABLEKS                       R5 R5 K10 ["new"]
-      167 CALL                             R5 0 1
-      168 SETTABLEKS                       R5 R4 K51 ["OnCompactDrawerHeightChanged"]
-      170 GETUPVAL                         R5 4
-      171 GETTABLEKS                       R5 R5 K10 ["new"]
-      173 CALL                             R5 0 1
-      174 SETTABLEKS                       R5 R4 K52 ["OnDetailsDrawerChanged"]
-      176 GETUPVAL                         R5 4
-      177 GETTABLEKS                       R5 R5 K10 ["new"]
-      179 CALL                             R5 0 1
-      180 SETTABLEKS                       R5 R4 K53 ["OnBrowserLayoutChanged"]
-      182 GETUPVAL                         R5 4
-      183 GETTABLEKS                       R5 R5 K10 ["new"]
-      185 CALL                             R5 0 1
-      186 SETTABLEKS                       R5 R4 K54 ["OnColumnsChanged"]
-      188 GETUPVAL                         R5 4
-      189 GETTABLEKS                       R5 R5 K10 ["new"]
-      191 CALL                             R5 0 1
-      192 SETTABLEKS                       R5 R4 K55 ["OnColumnWidthsChanged"]
-      194 GETUPVAL                         R5 4
-      195 GETTABLEKS                       R5 R5 K10 ["new"]
-      197 CALL                             R5 0 1
-      198 SETTABLEKS                       R5 R4 K56 ["OnContentScrollChanged"]
-      200 GETUPVAL                         R5 4
-      201 GETTABLEKS                       R5 R5 K10 ["new"]
-      203 CALL                             R5 0 1
-      204 SETTABLEKS                       R5 R4 K57 ["OnGridStateUpdated"]
-      206 GETUPVAL                         R5 4
-      207 GETTABLEKS                       R5 R5 K10 ["new"]
-      209 CALL                             R5 0 1
-      210 SETTABLEKS                       R5 R4 K58 ["OnIsCompactChanged"]
-      212 GETUPVAL                         R5 4
-      213 GETTABLEKS                       R5 R5 K10 ["new"]
-      215 CALL                             R5 0 1
-      216 SETTABLEKS                       R5 R4 K59 ["OnLayoutFolderLimitChanged"]
-      218 GETUPVAL                         R5 4
-      219 GETTABLEKS                       R5 R5 K10 ["new"]
-      221 CALL                             R5 0 1
-      222 SETTABLEKS                       R5 R4 K60 ["OnPluginFrameSet"]
-      224 GETUPVAL                         R5 4
-      225 GETTABLEKS                       R5 R5 K10 ["new"]
-      227 CALL                             R5 0 1
-      228 SETTABLEKS                       R5 R4 K61 ["OnPluginHeightChanged"]
-      230 GETUPVAL                         R5 4
-      231 GETTABLEKS                       R5 R5 K10 ["new"]
-      233 CALL                             R5 0 1
-      234 SETTABLEKS                       R5 R4 K62 ["OnPluginWidthChanged"]
-      236 GETUPVAL                         R5 4
-      237 GETTABLEKS                       R5 R5 K10 ["new"]
-      239 CALL                             R5 0 1
-      240 SETTABLEKS                       R5 R4 K63 ["OnSidebarScrollableChanged"]
-      242 GETUPVAL                         R5 4
-      243 GETTABLEKS                       R5 R5 K10 ["new"]
-      245 CALL                             R5 0 1
-      246 SETTABLEKS                       R5 R4 K64 ["OnSidebarScrollChanged"]
-      248 GETUPVAL                         R5 4
-      249 GETTABLEKS                       R5 R5 K10 ["new"]
-      251 CALL                             R5 0 1
-      252 SETTABLEKS                       R5 R4 K65 ["OnSidebarToggled"]
-      254 GETUPVAL                         R7 5
-      255 FASTCALL2                        SETMETATABLE R4 R7 ; [+4]
-      257 MOVE                             R6 R4
-      258 GETIMPORT                        R5 K67 [setmetatable]
-      260 CALL                             R5 2 0
-      261 GETUPVAL                         R5 6
-      262 CALL                             R5 0 1
-      263 JUMPIFNOT                        R5 ; [+12]
-      264 GETTABLEKS                       R6 R4 K38 ["_columns"]
-      266 GETUPVAL                         R7 1
-      267 GETTABLEKS                       R7 R7 K32 ["AssetInfoField"]
-      269 GETTABLEKS                       R7 R7 K68 ["VersionNumber"]
-      271 FASTCALL2                        TABLE_INSERT R6 R7 ; [+3]
-      273 GETIMPORT                        R5 K71 [table.insert]
-      275 CALL                             R5 2 0
-      276 GETTABLEKS                       R5 R4 K38 ["_columns"]
-      278 LOADNIL                          R6
-      279 LOADNIL                          R7
-      280 FORGPREP                         R5
-      281 GETTABLEKS                       R10 R4 K31 ["_columnWidths"]
-      283 GETUPVAL                         R11 3
-      284 SETTABLE                         R11 R10 R8
-      285 FORGLOOP                         R5 2 ; [-5]
-      287 GETTABLEKS                       R5 R4 K48 ["_connections"]
-      289 GETTABLEKS                       R6 R1 K72 ["WindowFocused"]
-      291 NEWCLOSURE                       R8 P0
-      292 CAPTURE                          VAL R4
-      293 NAMECALL                         R6 R6 K73 ["Connect"]
-      295 CALL                             R6 2 1
-      296 SETTABLEKS                       R6 R5 K74 ["GuiWindowFocused"]
-      298 GETTABLEKS                       R5 R4 K48 ["_connections"]
-      300 GETTABLEKS                       R6 R1 K75 ["WindowFocusReleased"]
-      302 NEWCLOSURE                       R8 P1
-      303 CAPTURE                          VAL R4
-      304 NAMECALL                         R6 R6 K73 ["Connect"]
-      306 CALL                             R6 2 1
-      307 SETTABLEKS                       R6 R5 K76 ["GuiWindowFocusReleased"]
-      309 RETURN                           R4 1
+      139 LOADN                            R5 280
+      140 SETTABLEKS                       R5 R4 K43 ["_drawerDesiredWidth"]
+      142 LOADK                            R5 K44 [0.6]
+      143 SETTABLEKS                       R5 R4 K45 ["_compactDrawerHeightScale"]
+      145 LOADNIL                          R5
+      146 SETTABLEKS                       R5 R4 K46 ["_detailsDrawerFrame"]
+      148 NEWTABLE                         R5 0 0
+      150 SETTABLEKS                       R5 R4 K47 ["_connections"]
+      152 LOADB                            R5 0
+      153 SETTABLEKS                       R5 R4 K48 ["_destroyed"]
+      155 GETUPVAL                         R5 4
+      156 GETTABLEKS                       R5 R5 K10 ["new"]
+      158 CALL                             R5 0 1
+      159 SETTABLEKS                       R5 R4 K49 ["OnAppSizesChanged"]
+      161 GETUPVAL                         R5 4
+      162 GETTABLEKS                       R5 R5 K10 ["new"]
+      164 CALL                             R5 0 1
+      165 SETTABLEKS                       R5 R4 K50 ["OnCompactDrawerHeightChanged"]
+      167 GETUPVAL                         R5 4
+      168 GETTABLEKS                       R5 R5 K10 ["new"]
+      170 CALL                             R5 0 1
+      171 SETTABLEKS                       R5 R4 K51 ["OnDetailsDrawerChanged"]
+      173 GETUPVAL                         R5 4
+      174 GETTABLEKS                       R5 R5 K10 ["new"]
+      176 CALL                             R5 0 1
+      177 SETTABLEKS                       R5 R4 K52 ["OnBrowserLayoutChanged"]
+      179 GETUPVAL                         R5 4
+      180 GETTABLEKS                       R5 R5 K10 ["new"]
+      182 CALL                             R5 0 1
+      183 SETTABLEKS                       R5 R4 K53 ["OnColumnsChanged"]
+      185 GETUPVAL                         R5 4
+      186 GETTABLEKS                       R5 R5 K10 ["new"]
+      188 CALL                             R5 0 1
+      189 SETTABLEKS                       R5 R4 K54 ["OnColumnWidthsChanged"]
+      191 GETUPVAL                         R5 4
+      192 GETTABLEKS                       R5 R5 K10 ["new"]
+      194 CALL                             R5 0 1
+      195 SETTABLEKS                       R5 R4 K55 ["OnContentScrollChanged"]
+      197 GETUPVAL                         R5 4
+      198 GETTABLEKS                       R5 R5 K10 ["new"]
+      200 CALL                             R5 0 1
+      201 SETTABLEKS                       R5 R4 K56 ["OnGridStateUpdated"]
+      203 GETUPVAL                         R5 4
+      204 GETTABLEKS                       R5 R5 K10 ["new"]
+      206 CALL                             R5 0 1
+      207 SETTABLEKS                       R5 R4 K57 ["OnIsCompactChanged"]
+      209 GETUPVAL                         R5 4
+      210 GETTABLEKS                       R5 R5 K10 ["new"]
+      212 CALL                             R5 0 1
+      213 SETTABLEKS                       R5 R4 K58 ["OnLayoutFolderLimitChanged"]
+      215 GETUPVAL                         R5 4
+      216 GETTABLEKS                       R5 R5 K10 ["new"]
+      218 CALL                             R5 0 1
+      219 SETTABLEKS                       R5 R4 K59 ["OnPluginFrameSet"]
+      221 GETUPVAL                         R5 4
+      222 GETTABLEKS                       R5 R5 K10 ["new"]
+      224 CALL                             R5 0 1
+      225 SETTABLEKS                       R5 R4 K60 ["OnPluginHeightChanged"]
+      227 GETUPVAL                         R5 4
+      228 GETTABLEKS                       R5 R5 K10 ["new"]
+      230 CALL                             R5 0 1
+      231 SETTABLEKS                       R5 R4 K61 ["OnPluginWidthChanged"]
+      233 GETUPVAL                         R5 4
+      234 GETTABLEKS                       R5 R5 K10 ["new"]
+      236 CALL                             R5 0 1
+      237 SETTABLEKS                       R5 R4 K62 ["OnSidebarScrollableChanged"]
+      239 GETUPVAL                         R5 4
+      240 GETTABLEKS                       R5 R5 K10 ["new"]
+      242 CALL                             R5 0 1
+      243 SETTABLEKS                       R5 R4 K63 ["OnSidebarScrollChanged"]
+      245 GETUPVAL                         R5 4
+      246 GETTABLEKS                       R5 R5 K10 ["new"]
+      248 CALL                             R5 0 1
+      249 SETTABLEKS                       R5 R4 K64 ["OnSidebarToggled"]
+      251 GETUPVAL                         R7 5
+      252 FASTCALL2                        SETMETATABLE R4 R7 ; [+4]
+      254 MOVE                             R6 R4
+      255 GETIMPORT                        R5 K66 [setmetatable]
+      257 CALL                             R5 2 0
+      258 GETUPVAL                         R5 6
+      259 CALL                             R5 0 1
+      260 JUMPIFNOT                        R5 ; [+12]
+      261 GETTABLEKS                       R6 R4 K38 ["_columns"]
+      263 GETUPVAL                         R7 1
+      264 GETTABLEKS                       R7 R7 K32 ["AssetInfoField"]
+      266 GETTABLEKS                       R7 R7 K67 ["VersionNumber"]
+      268 FASTCALL2                        TABLE_INSERT R6 R7 ; [+3]
+      270 GETIMPORT                        R5 K70 [table.insert]
+      272 CALL                             R5 2 0
+      273 GETTABLEKS                       R5 R4 K38 ["_columns"]
+      275 LOADNIL                          R6
+      276 LOADNIL                          R7
+      277 FORGPREP                         R5
+      278 GETTABLEKS                       R10 R4 K31 ["_columnWidths"]
+      280 GETUPVAL                         R11 3
+      281 SETTABLE                         R11 R10 R8
+      282 FORGLOOP                         R5 2 ; [-5]
+      284 GETTABLEKS                       R5 R4 K47 ["_connections"]
+      286 GETTABLEKS                       R6 R1 K71 ["WindowFocused"]
+      288 NEWCLOSURE                       R8 P0
+      289 CAPTURE                          VAL R4
+      290 NAMECALL                         R6 R6 K72 ["Connect"]
+      292 CALL                             R6 2 1
+      293 SETTABLEKS                       R6 R5 K73 ["GuiWindowFocused"]
+      295 GETTABLEKS                       R5 R4 K47 ["_connections"]
+      297 GETTABLEKS                       R6 R1 K74 ["WindowFocusReleased"]
+      299 NEWCLOSURE                       R8 P1
+      300 CAPTURE                          VAL R4
+      301 NAMECALL                         R6 R6 K72 ["Connect"]
+      303 CALL                             R6 2 1
+      304 SETTABLEKS                       R6 R5 K75 ["GuiWindowFocusReleased"]
+      306 RETURN                           R4 1
 
 PROTO_4:
         0 DUPTABLE                         R2 K5 [{"WindowFocused", "WindowFocusReleased", "PluginDragEntered", "PluginDragLeft", "PluginDragDropped"}]
@@ -1530,19 +1528,19 @@ PROTO_70:
        54 RETURN                           R9 -1
 
 PROTO_71:
-        0 GETTABLEKS                       R2 R0 K0 ["_showDetailsDrawer"]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R0 K0 ["_showDetailsDrawer"]
-        5 SETTABLEKS                       R1 R0 K1 ["_selectedItemPath"]
-        7 GETTABLEKS                       R3 R0 K2 ["OnDetailsDrawerChanged"]
-        9 LOADB                            R5 1
-       10 NAMECALL                         R3 R3 K3 ["Fire"]
-       12 CALL                             R3 2 0
-       13 JUMPIF                           R2 ; [+5]
-       14 GETTABLEKS                       R3 R0 K4 ["OnAppSizesChanged"]
-       16 NAMECALL                         R3 R3 K3 ["Fire"]
-       18 CALL                             R3 1 0
-       19 RETURN                           R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["_showDetailsDrawer"]
+        2 JUMPIFNOT                        R1 ; [+1]
+        3 RETURN                           R0 0
+        4 LOADB                            R1 1
+        5 SETTABLEKS                       R1 R0 K0 ["_showDetailsDrawer"]
+        7 GETTABLEKS                       R1 R0 K1 ["OnDetailsDrawerChanged"]
+        9 LOADB                            R3 1
+       10 NAMECALL                         R1 R1 K2 ["Fire"]
+       12 CALL                             R1 2 0
+       13 GETTABLEKS                       R1 R0 K3 ["OnAppSizesChanged"]
+       15 NAMECALL                         R1 R1 K2 ["Fire"]
+       17 CALL                             R1 1 0
+       18 RETURN                           R0 0
 
 PROTO_72:
         0 GETTABLEKS                       R1 R0 K0 ["_showDetailsDrawer"]
@@ -1564,10 +1562,6 @@ PROTO_73:
         2 RETURN                           R1 1
 
 PROTO_74:
-        0 GETTABLEKS                       R1 R0 K0 ["_selectedItemPath"]
-        2 RETURN                           R1 1
-
-PROTO_75:
         0 DUPTABLE                         R1 K5 [{[1], ["MinWidth"] = 250, ["MaxWidth"] = ∞}]
         1 GETIMPORT                        R2 K8 [UDim2.new]
         3 LOADN                            R3 1
@@ -1579,7 +1573,7 @@ PROTO_75:
        10 SETTABLEKS                       R2 R1 K0 ["Size"]
        12 RETURN                           R1 1
 
-PROTO_76:
+PROTO_75:
         0 LOADN                            R3 150
         1 FASTCALL1                        MATH_ROUND R1 ; [+3]
         2 MOVE                             R5 R1
@@ -1597,11 +1591,11 @@ PROTO_76:
        22 CALL                             R3 1 0
        23 RETURN                           R0 0
 
-PROTO_77:
+PROTO_76:
         0 GETTABLEKS                       R1 R0 K0 ["_compactDrawerHeightScale"]
         2 RETURN                           R1 1
 
-PROTO_78:
+PROTO_77:
         0 LOADK                            R4 K0 [0.25]
         1 LOADK                            R5 K1 [0.9]
         2 FASTCALL3                        MATH_CLAMP R1 R4 R5
@@ -1618,11 +1612,11 @@ PROTO_78:
        20 CALL                             R3 2 0
        21 RETURN                           R0 0
 
-PROTO_79:
+PROTO_78:
         0 SETTABLEKS                       R1 R0 K0 ["_detailsDrawerFrame"]
         2 RETURN                           R0 0
 
-PROTO_80:
+PROTO_79:
         0 GETTABLEKS                       R1 R0 K0 ["_detailsDrawerFrame"]
         2 RETURN                           R1 1
 
@@ -1857,17 +1851,15 @@ MAIN:
       335 DUPCLOSURE                       R17 K155 [PROTO_73]
       336 SETTABLEKS                       R17 R14 K156 ["getShowDetailsDrawer"]
       338 DUPCLOSURE                       R17 K157 [PROTO_74]
-      339 SETTABLEKS                       R17 R14 K158 ["getSelectedItemPath"]
+      339 SETTABLEKS                       R17 R14 K158 ["getMainViewSizing"]
       341 DUPCLOSURE                       R17 K159 [PROTO_75]
-      342 SETTABLEKS                       R17 R14 K160 ["getMainViewSizing"]
+      342 SETTABLEKS                       R17 R14 K160 ["setDrawerDesiredWidth"]
       344 DUPCLOSURE                       R17 K161 [PROTO_76]
-      345 SETTABLEKS                       R17 R14 K162 ["setDrawerDesiredWidth"]
+      345 SETTABLEKS                       R17 R14 K162 ["getCompactDrawerHeightScale"]
       347 DUPCLOSURE                       R17 K163 [PROTO_77]
-      348 SETTABLEKS                       R17 R14 K164 ["getCompactDrawerHeightScale"]
+      348 SETTABLEKS                       R17 R14 K164 ["setCompactDrawerHeightScale"]
       350 DUPCLOSURE                       R17 K165 [PROTO_78]
-      351 SETTABLEKS                       R17 R14 K166 ["setCompactDrawerHeightScale"]
+      351 SETTABLEKS                       R17 R14 K166 ["setDetailsDrawerFrame"]
       353 DUPCLOSURE                       R17 K167 [PROTO_79]
-      354 SETTABLEKS                       R17 R14 K168 ["setDetailsDrawerFrame"]
-      356 DUPCLOSURE                       R17 K169 [PROTO_80]
-      357 SETTABLEKS                       R17 R14 K170 ["getDetailsDrawerFrame"]
-      359 RETURN                           R14 1
+      354 SETTABLEKS                       R17 R14 K168 ["getDetailsDrawerFrame"]
+      356 RETURN                           R14 1

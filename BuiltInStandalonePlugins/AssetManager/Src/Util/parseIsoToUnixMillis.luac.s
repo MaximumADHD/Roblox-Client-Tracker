@@ -202,53 +202,40 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+5]
-        3 GETUPVAL                         R1 1
-        4 MOVE                             R2 R0
-        5 CALL                             R1 1 1
-        6 JUMPIFNOT                        R1 ; [+1]
-        7 RETURN                           R1 1
-        8 GETIMPORT                        R1 K2 [DateTime.fromIsoDate]
-       10 MOVE                             R2 R0
-       11 CALL                             R1 1 1
-       12 JUMPIFNOT                        R1 ; [+3]
-       13 GETTABLEKS                       R2 R1 K3 ["UnixTimestampMillis"]
-       15 RETURN                           R2 1
-       16 LOADN                            R2 0
-       17 RETURN                           R2 1
+        1 MOVE                             R2 R0
+        2 CALL                             R1 1 1
+        3 JUMPIFNOT                        R1 ; [+1]
+        4 RETURN                           R1 1
+        5 GETIMPORT                        R2 K2 [DateTime.fromIsoDate]
+        7 MOVE                             R3 R0
+        8 CALL                             R2 1 1
+        9 JUMPIFNOT                        R2 ; [+3]
+       10 GETTABLEKS                       R3 R2 K3 ["UnixTimestampMillis"]
+       12 RETURN                           R3 1
+       13 LOADN                            R3 0
+       14 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [script]
-        3 LOADK                            R2 K2 ["AssetManager"]
-        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
-        6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R2 K8 ["getFFlagAmrFastIsoDateParse"]
-       15 CALL                             R1 1 1
-       16 DUPCLOSURE                       R2 K9 [PROTO_0]
-       17 NEWTABLE                         R3 0 12
-       19 LOADN                            R4 31
-       20 LOADN                            R5 28
-       21 LOADN                            R6 31
-       22 LOADN                            R7 30
-       23 LOADN                            R8 31
-       24 LOADN                            R9 30
-       25 LOADN                            R10 31
-       26 LOADN                            R11 31
-       27 LOADN                            R12 30
-       28 LOADN                            R13 31
-       29 LOADN                            R14 30
-       30 LOADN                            R15 31
-       31 SETLIST                          R3 R4 12 [1]
-       33 DUPCLOSURE                       R4 K10 [PROTO_1]
-       34 DUPCLOSURE                       R5 K11 [PROTO_2]
-       35 CAPTURE                          VAL R3
-       36 CAPTURE                          VAL R2
-       37 DUPCLOSURE                       R6 K12 [PROTO_3]
-       38 CAPTURE                          VAL R1
-       39 CAPTURE                          VAL R5
-       40 RETURN                           R6 1
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 NEWTABLE                         R1 0 12
+        4 LOADN                            R2 31
+        5 LOADN                            R3 28
+        6 LOADN                            R4 31
+        7 LOADN                            R5 30
+        8 LOADN                            R6 31
+        9 LOADN                            R7 30
+       10 LOADN                            R8 31
+       11 LOADN                            R9 31
+       12 LOADN                            R10 30
+       13 LOADN                            R11 31
+       14 LOADN                            R12 30
+       15 LOADN                            R13 31
+       16 SETLIST                          R1 R2 12 [1]
+       18 DUPCLOSURE                       R2 K1 [PROTO_1]
+       19 DUPCLOSURE                       R3 K2 [PROTO_2]
+       20 CAPTURE                          VAL R1
+       21 CAPTURE                          VAL R0
+       22 DUPCLOSURE                       R4 K3 [PROTO_3]
+       23 CAPTURE                          VAL R3
+       24 RETURN                           R4 1

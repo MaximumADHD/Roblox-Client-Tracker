@@ -14,7 +14,7 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K9 ["Types"]
        22 CALL                             R2 1 1
        23 DUPTABLE                         R3 K13 [{["Name"] = "LeftMezzanineTeamTest", ["Controls"]}]
-       24 NEWTABLE                         R4 0 12
+       24 NEWTABLE                         R4 0 13
        26 DUPTABLE                         R5 K19 [{["Id"] = "TestMode_TeamTest", ["Type"] = "SelectInput", ["Setting"]}]
        27 DUPTABLE                         R6 K28 [{["Category"] = "Settings", ["DataModel"] = "Standalone", ["ItemId"] = "TestMode", ["PluginId"] = "RunTools"}]
        28 SETTABLEKS                       R6 R5 K18 ["Setting"]
@@ -36,24 +36,37 @@ MAIN:
        50 DUPTABLE                         R11 K57 [{["Id"] = "EndSession_TeamTest", ["Type"] = "IconButton", ["Action"], ["IconOnly"] = True, ["Size"] = "Small"}]
        51 DUPTABLE                         R12 K59 [{["Category"] = "Actions", ["DataModel"] = "Standalone", ["ItemId"] = "CleanupServerAndClients", ["PluginId"] = "RunTools"}]
        52 SETTABLEKS                       R12 R11 K31 ["Action"]
-       54 DUPTABLE                         R12 K61 [{["Type"] = "Separator", ["Action"]}]
-       55 DUPTABLE                         R13 K63 [{["Category"] = "Actions", ["DataModel"] = "Standalone", ["ItemId"] = "RESTRICTED_SeparatorEditDMContext", ["PluginId"] = "Ribbon"}]
+       54 DUPTABLE                         R12 K62 [{["Id"] = "ToggleDM_TeamTest", ["Type"] = "IconButton", ["Action"], ["IconOnly"] = True, ["Size"] = "Small", ["FastFlag"]}]
+       55 DUPTABLE                         R13 K64 [{["Category"] = "Actions", ["DataModel"] = "Standalone", ["ItemId"] = "ToggleDM", ["PluginId"] = "RunTools"}]
        56 SETTABLEKS                       R13 R12 K31 ["Action"]
-       58 DUPTABLE                         R13 K65 [{["Id"] = "StepForwardPhysicsCurrent_TeamTest", ["Type"] = "IconButton", ["Action"], ["IconOnly"] = True, ["Size"] = "Small"}]
-       59 DUPTABLE                         R14 K67 [{["Category"] = "Actions", ["DataModel"] = "Standalone", ["ItemId"] = "StepForwardPhysicsCurrent", ["PluginId"] = "RunTools"}]
-       60 SETTABLEKS                       R14 R13 K31 ["Action"]
-       62 DUPTABLE                         R14 K69 [{["Id"] = "StepInto_TeamTest", ["Type"] = "IconButton", ["Action"], ["IconOnly"] = True, ["Size"] = "Small"}]
-       63 DUPTABLE                         R15 K72 [{["Category"] = "Actions", ["DataModel"] = "Standalone", ["ItemId"] = "StepInto", ["PluginId"] = "ScriptTools"}]
-       64 SETTABLEKS                       R15 R14 K31 ["Action"]
-       66 DUPTABLE                         R15 K74 [{["Id"] = "StepOver_TeamTest", ["Type"] = "IconButton", ["Action"], ["IconOnly"] = True, ["Size"] = "Small"}]
-       67 DUPTABLE                         R16 K76 [{["Category"] = "Actions", ["DataModel"] = "Standalone", ["ItemId"] = "StepOver", ["PluginId"] = "ScriptTools"}]
-       68 SETTABLEKS                       R16 R15 K31 ["Action"]
-       70 DUPTABLE                         R16 K78 [{["Id"] = "StepOut_TeamTest", ["Type"] = "IconButton", ["Action"], ["IconOnly"] = True, ["Size"] = "Small"}]
-       71 DUPTABLE                         R17 K80 [{["Category"] = "Actions", ["DataModel"] = "Standalone", ["ItemId"] = "StepOut", ["PluginId"] = "ScriptTools"}]
-       72 SETTABLEKS                       R17 R16 K31 ["Action"]
-       74 SETLIST                          R4 R5 12 [1]
-       76 SETTABLEKS                       R4 R3 K12 ["Controls"]
-       78 MOVE                             R4 R1
-       79 MOVE                             R5 R3
-       80 CALL                             R4 1 -1
-       81 RETURN                           R4 -1
+       58 DUPTABLE                         R13 K67 [{"EnableIfAll", "DisableIfAny"}]
+       59 NEWTABLE                         R14 0 1
+       61 LOADK                            R15 K68 ["StudioServerInspectionToggleEnabled"]
+       62 SETLIST                          R14 R15 1 [1]
+       64 SETTABLEKS                       R14 R13 K65 ["EnableIfAll"]
+       66 NEWTABLE                         R14 0 1
+       68 LOADK                            R15 K69 ["StudioClientServerMDI"]
+       69 SETLIST                          R14 R15 1 [1]
+       71 SETTABLEKS                       R14 R13 K66 ["DisableIfAny"]
+       73 SETTABLEKS                       R13 R12 K61 ["FastFlag"]
+       75 DUPTABLE                         R13 K71 [{["Type"] = "Separator", ["Action"]}]
+       76 DUPTABLE                         R14 K73 [{["Category"] = "Actions", ["DataModel"] = "Standalone", ["ItemId"] = "RESTRICTED_SeparatorEditDMContext", ["PluginId"] = "Ribbon"}]
+       77 SETTABLEKS                       R14 R13 K31 ["Action"]
+       79 DUPTABLE                         R14 K75 [{["Id"] = "StepForwardPhysicsCurrent_TeamTest", ["Type"] = "IconButton", ["Action"], ["IconOnly"] = True, ["Size"] = "Small"}]
+       80 DUPTABLE                         R15 K77 [{["Category"] = "Actions", ["DataModel"] = "Standalone", ["ItemId"] = "StepForwardPhysicsCurrent", ["PluginId"] = "RunTools"}]
+       81 SETTABLEKS                       R15 R14 K31 ["Action"]
+       83 DUPTABLE                         R15 K79 [{["Id"] = "StepInto_TeamTest", ["Type"] = "IconButton", ["Action"], ["IconOnly"] = True, ["Size"] = "Small"}]
+       84 DUPTABLE                         R16 K82 [{["Category"] = "Actions", ["DataModel"] = "Standalone", ["ItemId"] = "StepInto", ["PluginId"] = "ScriptTools"}]
+       85 SETTABLEKS                       R16 R15 K31 ["Action"]
+       87 DUPTABLE                         R16 K84 [{["Id"] = "StepOver_TeamTest", ["Type"] = "IconButton", ["Action"], ["IconOnly"] = True, ["Size"] = "Small"}]
+       88 DUPTABLE                         R17 K86 [{["Category"] = "Actions", ["DataModel"] = "Standalone", ["ItemId"] = "StepOver", ["PluginId"] = "ScriptTools"}]
+       89 SETTABLEKS                       R17 R16 K31 ["Action"]
+       91 DUPTABLE                         R17 K88 [{["Id"] = "StepOut_TeamTest", ["Type"] = "IconButton", ["Action"], ["IconOnly"] = True, ["Size"] = "Small"}]
+       92 DUPTABLE                         R18 K90 [{["Category"] = "Actions", ["DataModel"] = "Standalone", ["ItemId"] = "StepOut", ["PluginId"] = "ScriptTools"}]
+       93 SETTABLEKS                       R18 R17 K31 ["Action"]
+       95 SETLIST                          R4 R5 13 [1]
+       97 SETTABLEKS                       R4 R3 K12 ["Controls"]
+       99 MOVE                             R4 R1
+      100 MOVE                             R5 R3
+      101 CALL                             R4 1 -1
+      102 RETURN                           R4 -1

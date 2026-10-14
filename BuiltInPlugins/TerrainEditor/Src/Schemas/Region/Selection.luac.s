@@ -50,13 +50,13 @@ MAIN:
         3 LOADK                            R2 K2 ["TerrainEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
-        9 GETTABLEKS                       R1 R1 K5 ["DraggerFramework"]
-       11 GETIMPORT                        R2 K7 [require]
-       13 GETTABLEKS                       R3 R1 K8 ["Utility"]
-       15 GETTABLEKS                       R3 R3 K9 ["Signal"]
-       17 CALL                             R2 1 1
-       18 GETIMPORT                        R3 K7 [require]
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["DraggerFramework"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R2 R1 K8 ["Utility"]
+       16 GETTABLEKS                       R2 R2 K9 ["Signal"]
+       18 GETIMPORT                        R3 K5 [require]
        20 GETTABLEKS                       R4 R0 K10 ["Src"]
        22 GETTABLEKS                       R4 R4 K11 ["Types"]
        24 CALL                             R3 1 1

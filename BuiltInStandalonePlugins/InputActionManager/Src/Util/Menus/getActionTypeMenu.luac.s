@@ -128,42 +128,39 @@ PROTO_0:
       186 MOVE                             R3 R1
       187 GETIMPORT                        R2 K15 [table.insert]
       189 CALL                             R2 2 0
-      190 GETUPVAL                         R2 2
-      191 CALL                             R2 0 1
-      192 JUMPIFNOT                        R2 ; [+47]
-      193 DUPTABLE                         R4 K4 [{"icon", "id", "isChecked", "text"}]
-      194 GETUPVAL                         R6 0
-      195 JUMPIF                           R6 ; [+6]
-      196 GETIMPORT                        R6 K29 [Enum.InputActionType.ViewportPosition]
-      198 JUMPIFNOTEQ                      R0 R6 ; [+3]
-      200 LOADK                            R5 K9 ["circle-check"]
-      201 JUMP                             ; [+1]
-      202 LOADNIL                          R5
-      203 SETTABLEKS                       R5 R4 K0 ["icon"]
-      205 JUMPIFNOTEQKNIL                  R0 ; [+5]
-      207 GETUPVAL                         R5 1
-      208 GETTABLEKS                       R5 R5 K30 ["CREATE_ACTION_VIEWPORT_POSITION"]
-      210 JUMP                             ; [+3]
-      211 GETUPVAL                         R5 1
-      212 GETTABLEKS                       R5 R5 K31 ["EDIT_ACTION_VIEWPORT_POSITION"]
-      214 SETTABLEKS                       R5 R4 K1 ["id"]
-      216 GETUPVAL                         R6 0
-      217 JUMPIFNOT                        R6 ; [+7]
-      218 GETIMPORT                        R6 K29 [Enum.InputActionType.ViewportPosition]
-      220 JUMPIFEQ                         R0 R6 ; [+2]
-      222 LOADB                            R5 0 +1
-      223 LOADB                            R5 1
-      224 JUMP                             ; [+1]
-      225 LOADNIL                          R5
-      226 SETTABLEKS                       R5 R4 K2 ["isChecked"]
-      228 GETIMPORT                        R5 K29 [Enum.InputActionType.ViewportPosition]
-      230 GETTABLEKS                       R5 R5 K12 ["Name"]
-      232 SETTABLEKS                       R5 R4 K3 ["text"]
-      234 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
-      236 MOVE                             R3 R1
-      237 GETIMPORT                        R2 K15 [table.insert]
-      239 CALL                             R2 2 0
-      240 RETURN                           R1 1
+      190 DUPTABLE                         R4 K4 [{"icon", "id", "isChecked", "text"}]
+      191 GETUPVAL                         R6 0
+      192 JUMPIF                           R6 ; [+6]
+      193 GETIMPORT                        R6 K29 [Enum.InputActionType.ViewportPosition]
+      195 JUMPIFNOTEQ                      R0 R6 ; [+3]
+      197 LOADK                            R5 K9 ["circle-check"]
+      198 JUMP                             ; [+1]
+      199 LOADNIL                          R5
+      200 SETTABLEKS                       R5 R4 K0 ["icon"]
+      202 JUMPIFNOTEQKNIL                  R0 ; [+5]
+      204 GETUPVAL                         R5 1
+      205 GETTABLEKS                       R5 R5 K30 ["CREATE_ACTION_VIEWPORT_POSITION"]
+      207 JUMP                             ; [+3]
+      208 GETUPVAL                         R5 1
+      209 GETTABLEKS                       R5 R5 K31 ["EDIT_ACTION_VIEWPORT_POSITION"]
+      211 SETTABLEKS                       R5 R4 K1 ["id"]
+      213 GETUPVAL                         R6 0
+      214 JUMPIFNOT                        R6 ; [+7]
+      215 GETIMPORT                        R6 K29 [Enum.InputActionType.ViewportPosition]
+      217 JUMPIFEQ                         R0 R6 ; [+2]
+      219 LOADB                            R5 0 +1
+      220 LOADB                            R5 1
+      221 JUMP                             ; [+1]
+      222 LOADNIL                          R5
+      223 SETTABLEKS                       R5 R4 K2 ["isChecked"]
+      225 GETIMPORT                        R5 K29 [Enum.InputActionType.ViewportPosition]
+      227 GETTABLEKS                       R5 R5 K12 ["Name"]
+      229 SETTABLEKS                       R5 R4 K3 ["text"]
+      231 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
+      233 MOVE                             R3 R1
+      234 GETIMPORT                        R2 K15 [table.insert]
+      236 CALL                             R2 2 0
+      237 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -186,15 +183,9 @@ MAIN:
        29 GETTABLEKS                       R4 R4 K12 ["Flags"]
        31 GETTABLEKS                       R4 R4 K13 ["getFFlagIAMBooleanProperties"]
        33 CALL                             R3 1 1
-       34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R5 R0 K8 ["Src"]
-       38 GETTABLEKS                       R5 R5 K12 ["Flags"]
-       40 GETTABLEKS                       R5 R5 K14 ["getFFlagIAMViewportPositionType"]
-       42 CALL                             R4 1 1
-       43 MOVE                             R5 R3
-       44 CALL                             R5 0 1
-       45 DUPCLOSURE                       R6 K15 [PROTO_0]
-       46 CAPTURE                          VAL R5
-       47 CAPTURE                          VAL R2
-       48 CAPTURE                          VAL R4
-       49 RETURN                           R6 1
+       34 MOVE                             R4 R3
+       35 CALL                             R4 0 1
+       36 DUPCLOSURE                       R5 K14 [PROTO_0]
+       37 CAPTURE                          VAL R4
+       38 CAPTURE                          VAL R2
+       39 RETURN                           R5 1

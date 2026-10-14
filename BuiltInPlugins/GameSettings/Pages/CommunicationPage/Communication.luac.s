@@ -108,16 +108,7 @@ PROTO_6:
         4 GETTABLEKS                       R2 R2 K1 ["AvatarChatAudioEnabled"]
         6 NOT                              R1 R2
         7 CALL                             R0 1 0
-        8 GETUPVAL                         R0 1
-        9 JUMPIFNOT                        R0 ; [+9]
-       10 GETUPVAL                         R0 0
-       11 GETTABLEKS                       R0 R0 K2 ["AvatarChatVideoEnabled"]
-       13 JUMPIFNOT                        R0 ; [+5]
-       14 GETUPVAL                         R0 0
-       15 GETTABLEKS                       R0 R0 K3 ["AvatarChatVideoEnabledChanged"]
-       17 LOADB                            R1 0
-       18 CALL                             R0 1 0
-       19 RETURN                           R0 0
+        8 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -190,145 +181,138 @@ PROTO_14:
        21 SETTABLEKS                       R3 R2 K6 ["Selected"]
        23 NEWCLOSURE                       R3 P0
        24 CAPTURE                          VAL R0
-       25 CAPTURE                          UPVAL U2
-       26 SETTABLEKS                       R3 R2 K7 ["OnClick"]
-       28 DUPTABLE                         R3 K17 [{"Text", "LinkText", "OnLinkClicked"}]
-       29 LOADK                            R6 K9 ["AvatarChat"]
-       30 LOADK                            R7 K18 ["AudioBodyV2"]
-       31 NAMECALL                         R4 R1 K11 ["getText"]
-       33 CALL                             R4 3 1
-       34 SETTABLEKS                       R4 R3 K14 ["Text"]
-       36 LOADK                            R6 K19 ["General"]
-       37 LOADK                            R7 K20 ["LearnMoreLink"]
-       38 NAMECALL                         R4 R1 K11 ["getText"]
-       40 CALL                             R4 3 1
-       41 SETTABLEKS                       R4 R3 K15 ["LinkText"]
-       43 DUPCLOSURE                       R4 K21 [PROTO_7]
+       25 SETTABLEKS                       R3 R2 K7 ["OnClick"]
+       27 DUPTABLE                         R3 K17 [{"Text", "LinkText", "OnLinkClicked"}]
+       28 LOADK                            R6 K9 ["AvatarChat"]
+       29 LOADK                            R7 K18 ["AudioBodyV2"]
+       30 NAMECALL                         R4 R1 K11 ["getText"]
+       32 CALL                             R4 3 1
+       33 SETTABLEKS                       R4 R3 K14 ["Text"]
+       35 LOADK                            R6 K19 ["General"]
+       36 LOADK                            R7 K20 ["LearnMoreLink"]
+       37 NAMECALL                         R4 R1 K11 ["getText"]
+       39 CALL                             R4 3 1
+       40 SETTABLEKS                       R4 R3 K15 ["LinkText"]
+       42 DUPCLOSURE                       R4 K21 [PROTO_7]
+       43 CAPTURE                          UPVAL U2
        44 CAPTURE                          UPVAL U3
-       45 CAPTURE                          UPVAL U4
-       46 SETTABLEKS                       R4 R3 K16 ["OnLinkClicked"]
-       48 SETTABLEKS                       R3 R2 K22 ["LinkProps"]
-       50 DUPTABLE                         R3 K23 [{"Title", "LayoutOrder", "Disabled", "Selected", "OnClick"}]
-       51 LOADK                            R6 K9 ["AvatarChat"]
-       52 LOADK                            R7 K24 ["VideoTitle"]
-       53 NAMECALL                         R4 R1 K11 ["getText"]
-       55 CALL                             R4 3 1
-       56 SETTABLEKS                       R4 R3 K2 ["Title"]
-       58 GETUPVAL                         R4 1
-       59 NAMECALL                         R4 R4 K12 ["getNextOrder"]
-       61 CALL                             R4 1 1
-       62 SETTABLEKS                       R4 R3 K3 ["LayoutOrder"]
-       64 GETUPVAL                         R4 5
-       65 SETTABLEKS                       R4 R3 K4 ["Disabled"]
-       67 GETUPVAL                         R5 2
-       68 JUMPIFNOT                        R5 ; [+3]
-       69 GETTABLEKS                       R4 R0 K13 ["AvatarChatAudioEnabled"]
-       71 JUMPIFNOT                        R4 ; [+2]
-       72 GETTABLEKS                       R4 R0 K25 ["AvatarChatVideoEnabled"]
-       74 SETTABLEKS                       R4 R3 K6 ["Selected"]
-       76 NEWCLOSURE                       R4 P2
-       77 CAPTURE                          VAL R0
-       78 SETTABLEKS                       R4 R3 K7 ["OnClick"]
-       80 DUPTABLE                         R4 K17 [{"Text", "LinkText", "OnLinkClicked"}]
-       81 LOADK                            R7 K9 ["AvatarChat"]
-       82 LOADK                            R8 K26 ["VideoBody"]
-       83 NAMECALL                         R5 R1 K11 ["getText"]
-       85 CALL                             R5 3 1
-       86 SETTABLEKS                       R5 R4 K14 ["Text"]
-       88 LOADK                            R7 K19 ["General"]
-       89 LOADK                            R8 K20 ["LearnMoreLink"]
-       90 NAMECALL                         R5 R1 K11 ["getText"]
-       92 CALL                             R5 3 1
-       93 SETTABLEKS                       R5 R4 K15 ["LinkText"]
-       95 DUPCLOSURE                       R5 K27 [PROTO_9]
-       96 CAPTURE                          UPVAL U3
-       97 CAPTURE                          UPVAL U6
-       98 SETTABLEKS                       R5 R4 K16 ["OnLinkClicked"]
-      100 SETTABLEKS                       R4 R3 K22 ["LinkProps"]
-      102 DUPTABLE                         R4 K30 [{["Title"], ["Description"], ["LayoutOrder"], ["Disabled"] = False, ["Selected"], ["OnClick"], ["LinkText"], ["LinkMap"]}]
-      103 LOADK                            R7 K31 ["ChatGroup"]
-      104 LOADK                            R8 K32 ["ApiTitle"]
-      105 NAMECALL                         R5 R1 K11 ["getText"]
-      107 CALL                             R5 3 1
-      108 SETTABLEKS                       R5 R4 K2 ["Title"]
-      110 LOADK                            R7 K31 ["ChatGroup"]
-      111 LOADK                            R8 K33 ["ApiBody1"]
-      112 NAMECALL                         R5 R1 K11 ["getText"]
-      114 CALL                             R5 3 1
-      115 SETTABLEKS                       R5 R4 K28 ["Description"]
-      117 GETUPVAL                         R5 1
-      118 NAMECALL                         R5 R5 K12 ["getNextOrder"]
-      120 CALL                             R5 1 1
-      121 SETTABLEKS                       R5 R4 K3 ["LayoutOrder"]
-      123 GETTABLEKS                       R5 R0 K34 ["ChatGroupApiEnabled"]
-      125 SETTABLEKS                       R5 R4 K6 ["Selected"]
-      127 NEWCLOSURE                       R5 P4
-      128 CAPTURE                          VAL R0
-      129 SETTABLEKS                       R5 R4 K7 ["OnClick"]
-      131 LOADK                            R7 K31 ["ChatGroup"]
-      132 LOADK                            R8 K35 ["ApiBody2"]
-      133 NAMECALL                         R5 R1 K11 ["getText"]
-      135 CALL                             R5 3 1
-      136 SETTABLEKS                       R5 R4 K15 ["LinkText"]
-      138 NEWTABLE                         R5 4 0
-      140 DUPTABLE                         R6 K37 [{"LinkText", "LinkCallback"}]
-      141 LOADK                            R9 K19 ["General"]
-      142 LOADK                            R10 K38 ["TermsOfUseLink"]
-      143 NAMECALL                         R7 R1 K11 ["getText"]
-      145 CALL                             R7 3 1
-      146 SETTABLEKS                       R7 R6 K15 ["LinkText"]
-      148 DUPCLOSURE                       R7 K39 [PROTO_11]
-      149 CAPTURE                          UPVAL U3
-      150 CAPTURE                          UPVAL U7
-      151 SETTABLEKS                       R7 R6 K36 ["LinkCallback"]
-      153 SETTABLEKS                       R6 R5 K40 ["[link1]"]
-      155 DUPTABLE                         R6 K37 [{"LinkText", "LinkCallback"}]
-      156 LOADK                            R9 K19 ["General"]
-      157 LOADK                            R10 K41 ["CommunityStandardsLink"]
-      158 NAMECALL                         R7 R1 K11 ["getText"]
-      160 CALL                             R7 3 1
-      161 SETTABLEKS                       R7 R6 K15 ["LinkText"]
-      163 DUPCLOSURE                       R7 K42 [PROTO_12]
-      164 CAPTURE                          UPVAL U3
-      165 CAPTURE                          UPVAL U8
-      166 SETTABLEKS                       R7 R6 K36 ["LinkCallback"]
-      168 SETTABLEKS                       R6 R5 K43 ["[link2]"]
-      170 DUPTABLE                         R6 K37 [{"LinkText", "LinkCallback"}]
-      171 GETUPVAL                         R8 9
-      172 JUMPIFEQKS                       R8 K44 [""] ; [+7]
-      174 LOADK                            R9 K19 ["General"]
-      175 LOADK                            R10 K20 ["LearnMoreLink"]
-      176 NAMECALL                         R7 R1 K11 ["getText"]
-      178 CALL                             R7 3 1
-      179 JUMP                             ; [+1]
-      180 LOADK                            R7 K44 [""]
-      181 SETTABLEKS                       R7 R6 K15 ["LinkText"]
-      183 DUPCLOSURE                       R7 K45 [PROTO_13]
-      184 CAPTURE                          UPVAL U3
-      185 CAPTURE                          UPVAL U9
-      186 SETTABLEKS                       R7 R6 K36 ["LinkCallback"]
-      188 SETTABLEKS                       R6 R5 K46 ["[link3]"]
-      190 SETTABLEKS                       R5 R4 K29 ["LinkMap"]
-      192 DUPTABLE                         R5 K50 [{"EnableAvatarChatAudio", "EnableAvatarChatVideo", "EnableChatGroupApi"}]
-      193 GETUPVAL                         R6 10
-      194 GETTABLEKS                       R6 R6 K51 ["createElement"]
-      196 GETUPVAL                         R7 11
-      197 MOVE                             R8 R2
-      198 CALL                             R6 2 1
-      199 SETTABLEKS                       R6 R5 K47 ["EnableAvatarChatAudio"]
-      201 GETUPVAL                         R6 10
-      202 GETTABLEKS                       R6 R6 K51 ["createElement"]
-      204 GETUPVAL                         R7 11
-      205 MOVE                             R8 R3
-      206 CALL                             R6 2 1
-      207 SETTABLEKS                       R6 R5 K48 ["EnableAvatarChatVideo"]
-      209 GETUPVAL                         R6 10
-      210 GETTABLEKS                       R6 R6 K51 ["createElement"]
-      212 GETUPVAL                         R7 11
-      213 MOVE                             R8 R4
-      214 CALL                             R6 2 1
-      215 SETTABLEKS                       R6 R5 K49 ["EnableChatGroupApi"]
-      217 RETURN                           R5 1
+       45 SETTABLEKS                       R4 R3 K16 ["OnLinkClicked"]
+       47 SETTABLEKS                       R3 R2 K22 ["LinkProps"]
+       49 DUPTABLE                         R3 K8 [{["Title"], ["LayoutOrder"], ["Disabled"] = False, ["Selected"], ["OnClick"]}]
+       50 LOADK                            R6 K9 ["AvatarChat"]
+       51 LOADK                            R7 K23 ["VideoTitle"]
+       52 NAMECALL                         R4 R1 K11 ["getText"]
+       54 CALL                             R4 3 1
+       55 SETTABLEKS                       R4 R3 K2 ["Title"]
+       57 GETUPVAL                         R4 1
+       58 NAMECALL                         R4 R4 K12 ["getNextOrder"]
+       60 CALL                             R4 1 1
+       61 SETTABLEKS                       R4 R3 K3 ["LayoutOrder"]
+       63 GETTABLEKS                       R4 R0 K24 ["AvatarChatVideoEnabled"]
+       65 SETTABLEKS                       R4 R3 K6 ["Selected"]
+       67 NEWCLOSURE                       R4 P2
+       68 CAPTURE                          VAL R0
+       69 SETTABLEKS                       R4 R3 K7 ["OnClick"]
+       71 DUPTABLE                         R4 K17 [{"Text", "LinkText", "OnLinkClicked"}]
+       72 LOADK                            R7 K9 ["AvatarChat"]
+       73 LOADK                            R8 K25 ["VideoBody"]
+       74 NAMECALL                         R5 R1 K11 ["getText"]
+       76 CALL                             R5 3 1
+       77 SETTABLEKS                       R5 R4 K14 ["Text"]
+       79 LOADK                            R7 K19 ["General"]
+       80 LOADK                            R8 K20 ["LearnMoreLink"]
+       81 NAMECALL                         R5 R1 K11 ["getText"]
+       83 CALL                             R5 3 1
+       84 SETTABLEKS                       R5 R4 K15 ["LinkText"]
+       86 DUPCLOSURE                       R5 K26 [PROTO_9]
+       87 CAPTURE                          UPVAL U2
+       88 CAPTURE                          UPVAL U4
+       89 SETTABLEKS                       R5 R4 K16 ["OnLinkClicked"]
+       91 SETTABLEKS                       R4 R3 K22 ["LinkProps"]
+       93 DUPTABLE                         R4 K29 [{["Title"], ["Description"], ["LayoutOrder"], ["Disabled"] = False, ["Selected"], ["OnClick"], ["LinkText"], ["LinkMap"]}]
+       94 LOADK                            R7 K30 ["ChatGroup"]
+       95 LOADK                            R8 K31 ["ApiTitle"]
+       96 NAMECALL                         R5 R1 K11 ["getText"]
+       98 CALL                             R5 3 1
+       99 SETTABLEKS                       R5 R4 K2 ["Title"]
+      101 LOADK                            R7 K30 ["ChatGroup"]
+      102 LOADK                            R8 K32 ["ApiBody1"]
+      103 NAMECALL                         R5 R1 K11 ["getText"]
+      105 CALL                             R5 3 1
+      106 SETTABLEKS                       R5 R4 K27 ["Description"]
+      108 GETUPVAL                         R5 1
+      109 NAMECALL                         R5 R5 K12 ["getNextOrder"]
+      111 CALL                             R5 1 1
+      112 SETTABLEKS                       R5 R4 K3 ["LayoutOrder"]
+      114 GETTABLEKS                       R5 R0 K33 ["ChatGroupApiEnabled"]
+      116 SETTABLEKS                       R5 R4 K6 ["Selected"]
+      118 NEWCLOSURE                       R5 P4
+      119 CAPTURE                          VAL R0
+      120 SETTABLEKS                       R5 R4 K7 ["OnClick"]
+      122 LOADK                            R7 K30 ["ChatGroup"]
+      123 LOADK                            R8 K34 ["ApiBody2"]
+      124 NAMECALL                         R5 R1 K11 ["getText"]
+      126 CALL                             R5 3 1
+      127 SETTABLEKS                       R5 R4 K15 ["LinkText"]
+      129 NEWTABLE                         R5 4 0
+      131 DUPTABLE                         R6 K36 [{"LinkText", "LinkCallback"}]
+      132 LOADK                            R9 K19 ["General"]
+      133 LOADK                            R10 K37 ["TermsOfUseLink"]
+      134 NAMECALL                         R7 R1 K11 ["getText"]
+      136 CALL                             R7 3 1
+      137 SETTABLEKS                       R7 R6 K15 ["LinkText"]
+      139 DUPCLOSURE                       R7 K38 [PROTO_11]
+      140 CAPTURE                          UPVAL U2
+      141 CAPTURE                          UPVAL U5
+      142 SETTABLEKS                       R7 R6 K35 ["LinkCallback"]
+      144 SETTABLEKS                       R6 R5 K39 ["[link1]"]
+      146 DUPTABLE                         R6 K36 [{"LinkText", "LinkCallback"}]
+      147 LOADK                            R9 K19 ["General"]
+      148 LOADK                            R10 K40 ["CommunityStandardsLink"]
+      149 NAMECALL                         R7 R1 K11 ["getText"]
+      151 CALL                             R7 3 1
+      152 SETTABLEKS                       R7 R6 K15 ["LinkText"]
+      154 DUPCLOSURE                       R7 K41 [PROTO_12]
+      155 CAPTURE                          UPVAL U2
+      156 CAPTURE                          UPVAL U6
+      157 SETTABLEKS                       R7 R6 K35 ["LinkCallback"]
+      159 SETTABLEKS                       R6 R5 K42 ["[link2]"]
+      161 DUPTABLE                         R6 K36 [{"LinkText", "LinkCallback"}]
+      162 GETUPVAL                         R8 7
+      163 JUMPIFEQKS                       R8 K43 [""] ; [+7]
+      165 LOADK                            R9 K19 ["General"]
+      166 LOADK                            R10 K20 ["LearnMoreLink"]
+      167 NAMECALL                         R7 R1 K11 ["getText"]
+      169 CALL                             R7 3 1
+      170 JUMP                             ; [+1]
+      171 LOADK                            R7 K43 [""]
+      172 SETTABLEKS                       R7 R6 K15 ["LinkText"]
+      174 DUPCLOSURE                       R7 K44 [PROTO_13]
+      175 CAPTURE                          UPVAL U2
+      176 CAPTURE                          UPVAL U7
+      177 SETTABLEKS                       R7 R6 K35 ["LinkCallback"]
+      179 SETTABLEKS                       R6 R5 K45 ["[link3]"]
+      181 SETTABLEKS                       R5 R4 K28 ["LinkMap"]
+      183 DUPTABLE                         R5 K49 [{"EnableAvatarChatAudio", "EnableAvatarChatVideo", "EnableChatGroupApi"}]
+      184 GETUPVAL                         R6 8
+      185 GETTABLEKS                       R6 R6 K50 ["createElement"]
+      187 GETUPVAL                         R7 9
+      188 MOVE                             R8 R2
+      189 CALL                             R6 2 1
+      190 SETTABLEKS                       R6 R5 K46 ["EnableAvatarChatAudio"]
+      192 GETUPVAL                         R6 8
+      193 GETTABLEKS                       R6 R6 K50 ["createElement"]
+      195 GETUPVAL                         R7 9
+      196 MOVE                             R8 R3
+      197 CALL                             R6 2 1
+      198 SETTABLEKS                       R6 R5 K47 ["EnableAvatarChatVideo"]
+      200 GETUPVAL                         R6 8
+      201 GETTABLEKS                       R6 R6 K50 ["createElement"]
+      203 GETUPVAL                         R7 9
+      204 MOVE                             R8 R4
+      205 CALL                             R6 2 1
+      206 SETTABLEKS                       R6 R5 K48 ["EnableChatGroupApi"]
+      208 RETURN                           R5 1
 
 PROTO_15:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -336,46 +320,37 @@ PROTO_15:
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K2 ["new"]
         7 CALL                             R3 0 1
-        8 LOADB                            R4 0
-        9 GETUPVAL                         R5 1
-       10 JUMPIFNOT                        R5 ; [+4]
-       11 GETTABLEKS                       R5 R1 K3 ["AvatarChatAudioEnabled"]
-       13 JUMPIF                           R5 ; [+1]
-       14 LOADB                            R4 1
-       15 NEWCLOSURE                       R5 P0
-       16 CAPTURE                          VAL R0
-       17 CAPTURE                          VAL R3
-       18 CAPTURE                          UPVAL U1
-       19 CAPTURE                          UPVAL U2
-       20 CAPTURE                          UPVAL U3
-       21 CAPTURE                          REF R4
-       22 CAPTURE                          UPVAL U4
-       23 CAPTURE                          UPVAL U5
-       24 CAPTURE                          UPVAL U6
-       25 CAPTURE                          UPVAL U7
-       26 CAPTURE                          UPVAL U8
-       27 CAPTURE                          UPVAL U9
-       28 GETUPVAL                         R6 8
-       29 GETTABLEKS                       R6 R6 K4 ["createElement"]
-       31 GETUPVAL                         R7 10
-       32 DUPTABLE                         R8 K10 [{"SettingsLoadJobs", "SettingsSaveJobs", "Title", "PageId", "CreateChildren"}]
-       33 GETUPVAL                         R9 11
-       34 SETTABLEKS                       R9 R8 K5 ["SettingsLoadJobs"]
-       36 GETUPVAL                         R9 12
-       37 SETTABLEKS                       R9 R8 K6 ["SettingsSaveJobs"]
-       39 LOADK                            R11 K11 ["General"]
-       40 LOADK                            R13 K12 ["Category"]
-       41 GETUPVAL                         R14 13
-       42 CONCAT                           R12 R13 R14
-       43 NAMECALL                         R9 R2 K13 ["getText"]
-       45 CALL                             R9 3 1
-       46 SETTABLEKS                       R9 R8 K7 ["Title"]
-       48 GETUPVAL                         R9 13
-       49 SETTABLEKS                       R9 R8 K8 ["PageId"]
-       51 SETTABLEKS                       R5 R8 K9 ["CreateChildren"]
-       53 CALL                             R6 2 -1
-       54 CLOSEUPVALS                      R4
-       55 RETURN                           R6 -1
+        8 NEWCLOSURE                       R4 P0
+        9 CAPTURE                          VAL R0
+       10 CAPTURE                          VAL R3
+       11 CAPTURE                          UPVAL U1
+       12 CAPTURE                          UPVAL U2
+       13 CAPTURE                          UPVAL U3
+       14 CAPTURE                          UPVAL U4
+       15 CAPTURE                          UPVAL U5
+       16 CAPTURE                          UPVAL U6
+       17 CAPTURE                          UPVAL U7
+       18 CAPTURE                          UPVAL U8
+       19 GETUPVAL                         R5 7
+       20 GETTABLEKS                       R5 R5 K3 ["createElement"]
+       22 GETUPVAL                         R6 9
+       23 DUPTABLE                         R7 K9 [{"SettingsLoadJobs", "SettingsSaveJobs", "Title", "PageId", "CreateChildren"}]
+       24 GETUPVAL                         R8 10
+       25 SETTABLEKS                       R8 R7 K4 ["SettingsLoadJobs"]
+       27 GETUPVAL                         R8 11
+       28 SETTABLEKS                       R8 R7 K5 ["SettingsSaveJobs"]
+       30 LOADK                            R10 K10 ["General"]
+       31 LOADK                            R12 K11 ["Category"]
+       32 GETUPVAL                         R13 12
+       33 CONCAT                           R11 R12 R13
+       34 NAMECALL                         R8 R2 K12 ["getText"]
+       36 CALL                             R8 3 1
+       37 SETTABLEKS                       R8 R7 K6 ["Title"]
+       39 GETUPVAL                         R8 12
+       40 SETTABLEKS                       R8 R7 K7 ["PageId"]
+       42 SETTABLEKS                       R4 R7 K8 ["CreateChildren"]
+       44 CALL                             R5 2 -1
+       45 RETURN                           R5 -1
 
 PROTO_16:
         0 GETUPVAL                         R1 0
@@ -515,113 +490,107 @@ MAIN:
        98 NAMECALL                         R14 R14 K27 ["GetService"]
       100 CALL                             R14 2 1
       101 GETIMPORT                        R15 K25 [game]
-      103 LOADK                            R17 K28 ["AvatarChatMicCameraCouple"]
-      104 LOADB                            R18 0
-      105 NAMECALL                         R15 R15 K29 ["DefineFastFlag"]
+      103 LOADK                            R17 K28 ["AvatarChatSettingsAudioLink"]
+      104 LOADK                            R18 K29 ["https://developer.roblox.com/articles/chat-with-avatars-audio"]
+      105 NAMECALL                         R15 R15 K30 ["DefineFastString"]
       107 CALL                             R15 3 1
       108 GETIMPORT                        R16 K25 [game]
-      110 LOADK                            R18 K30 ["AvatarChatSettingsAudioLink"]
-      111 LOADK                            R19 K31 ["https://developer.roblox.com/articles/chat-with-avatars-audio"]
-      112 NAMECALL                         R16 R16 K32 ["DefineFastString"]
+      110 LOADK                            R18 K31 ["AvatarChatSettingsVideoLink"]
+      111 LOADK                            R19 K32 ["https://developer.roblox.com/articles/chat-with-avatars-video"]
+      112 NAMECALL                         R16 R16 K30 ["DefineFastString"]
       114 CALL                             R16 3 1
       115 GETIMPORT                        R17 K25 [game]
-      117 LOADK                            R19 K33 ["AvatarChatSettingsVideoLink"]
-      118 LOADK                            R20 K34 ["https://developer.roblox.com/articles/chat-with-avatars-video"]
-      119 NAMECALL                         R17 R17 K32 ["DefineFastString"]
+      117 LOADK                            R19 K33 ["ChatGroupApiLink1"]
+      118 LOADK                            R20 K34 ["https://help.roblox.com/hc/articles/115004647846-Roblox-Terms-of-Use"]
+      119 NAMECALL                         R17 R17 K30 ["DefineFastString"]
       121 CALL                             R17 3 1
       122 GETIMPORT                        R18 K25 [game]
-      124 LOADK                            R20 K35 ["ChatGroupApiLink1"]
-      125 LOADK                            R21 K36 ["https://help.roblox.com/hc/articles/115004647846-Roblox-Terms-of-Use"]
-      126 NAMECALL                         R18 R18 K32 ["DefineFastString"]
+      124 LOADK                            R20 K35 ["ChatGroupApiLink2"]
+      125 LOADK                            R21 K36 ["https://help.roblox.com/hc/articles/203313410-Roblox-Community-Standards"]
+      126 NAMECALL                         R18 R18 K30 ["DefineFastString"]
       128 CALL                             R18 3 1
       129 GETIMPORT                        R19 K25 [game]
-      131 LOADK                            R21 K37 ["ChatGroupApiLink2"]
-      132 LOADK                            R22 K38 ["https://help.roblox.com/hc/articles/203313410-Roblox-Community-Standards"]
-      133 NAMECALL                         R19 R19 K32 ["DefineFastString"]
+      131 LOADK                            R21 K37 ["ChatGroupApiLink3"]
+      132 LOADK                            R22 K38 [""]
+      133 NAMECALL                         R19 R19 K30 ["DefineFastString"]
       135 CALL                             R19 3 1
-      136 GETIMPORT                        R20 K25 [game]
-      138 LOADK                            R22 K39 ["ChatGroupApiLink3"]
-      139 LOADK                            R23 K40 [""]
-      140 NAMECALL                         R20 R20 K32 ["DefineFastString"]
-      142 CALL                             R20 3 1
-      143 GETTABLEKS                       R21 R13 K41 ["getAvatarChatAudioEnabledKeyName"]
-      145 MOVE                             R22 R21
-      146 CALL                             R22 0 1
-      147 GETTABLEKS                       R23 R13 K42 ["getAvatarChatVideoEnabledKeyName"]
-      149 MOVE                             R24 R23
-      150 CALL                             R24 0 1
-      151 GETTABLEKS                       R25 R13 K43 ["getChatGroupApiEnabledKeyName"]
-      153 MOVE                             R26 R25
-      154 CALL                             R26 0 1
-      155 GETIMPORT                        R27 K1 [script]
-      157 GETTABLEKS                       R27 R27 K44 ["Name"]
-      159 DUPCLOSURE                       R28 K45 [PROTO_1]
-      160 CAPTURE                          VAL R22
-      161 CAPTURE                          VAL R24
-      162 CAPTURE                          VAL R26
-      163 DUPCLOSURE                       R29 K46 [PROTO_3]
-      164 DUPCLOSURE                       R30 K47 [PROTO_4]
-      165 CAPTURE                          VAL R22
-      166 CAPTURE                          VAL R24
-      167 CAPTURE                          VAL R26
-      168 DUPCLOSURE                       R31 K48 [PROTO_5]
-      169 CAPTURE                          VAL R22
-      170 CAPTURE                          VAL R24
-      171 CAPTURE                          VAL R26
-      172 GETTABLEKS                       R32 R1 K49 ["PureComponent"]
-      174 GETIMPORT                        R34 K1 [script]
-      176 GETTABLEKS                       R34 R34 K44 ["Name"]
-      178 NAMECALL                         R32 R32 K50 ["extend"]
-      180 CALL                             R32 2 1
-      181 DUPCLOSURE                       R33 K51 [PROTO_15]
-      182 CAPTURE                          VAL R10
-      183 CAPTURE                          VAL R15
-      184 CAPTURE                          VAL R14
-      185 CAPTURE                          VAL R16
-      186 CAPTURE                          VAL R17
-      187 CAPTURE                          VAL R18
-      188 CAPTURE                          VAL R19
-      189 CAPTURE                          VAL R20
-      190 CAPTURE                          VAL R1
-      191 CAPTURE                          VAL R7
-      192 CAPTURE                          VAL R11
-      193 CAPTURE                          VAL R28
-      194 CAPTURE                          VAL R29
-      195 CAPTURE                          VAL R27
-      196 SETTABLEKS                       R33 R32 K52 ["render"]
-      198 MOVE                             R33 R6
-      199 DUPTABLE                         R34 K55 [{"Stylizer", "Localization", "Dialog"}]
-      200 JUMPIFNOT                        R4 ; [+2]
-      201 LOADNIL                          R35
-      202 JUMP                             ; [+2]
-      203 GETTABLEKS                       R35 R5 K53 ["Stylizer"]
-      205 SETTABLEKS                       R35 R34 K53 ["Stylizer"]
-      207 GETTABLEKS                       R35 R5 K54 ["Localization"]
-      209 SETTABLEKS                       R35 R34 K54 ["Localization"]
-      211 SETTABLEKS                       R8 R34 K16 ["Dialog"]
-      213 CALL                             R33 1 1
-      214 MOVE                             R34 R32
-      215 CALL                             R33 1 1
-      216 MOVE                             R32 R33
-      217 GETIMPORT                        R33 K4 [require]
-      219 GETTABLEKS                       R34 R0 K9 ["Src"]
-      221 GETTABLEKS                       R34 R34 K56 ["Networking"]
-      223 GETTABLEKS                       R34 R34 K57 ["settingFromState"]
-      225 CALL                             R33 1 1
-      226 GETTABLEKS                       R34 R2 K58 ["connect"]
-      228 DUPCLOSURE                       R35 K59 [PROTO_17]
-      229 CAPTURE                          VAL R33
-      230 CAPTURE                          VAL R22
-      231 CAPTURE                          VAL R24
-      232 CAPTURE                          VAL R26
-      233 DUPCLOSURE                       R36 K60 [PROTO_20]
-      234 CAPTURE                          VAL R12
-      235 CAPTURE                          VAL R22
-      236 CAPTURE                          VAL R24
-      237 CAPTURE                          VAL R26
-      238 CALL                             R34 2 1
-      239 MOVE                             R35 R32
-      240 CALL                             R34 1 1
-      241 MOVE                             R32 R34
-      242 SETTABLEKS                       R27 R32 K61 ["LocalizationId"]
-      244 RETURN                           R32 1
+      136 GETTABLEKS                       R20 R13 K39 ["getAvatarChatAudioEnabledKeyName"]
+      138 MOVE                             R21 R20
+      139 CALL                             R21 0 1
+      140 GETTABLEKS                       R22 R13 K40 ["getAvatarChatVideoEnabledKeyName"]
+      142 MOVE                             R23 R22
+      143 CALL                             R23 0 1
+      144 GETTABLEKS                       R24 R13 K41 ["getChatGroupApiEnabledKeyName"]
+      146 MOVE                             R25 R24
+      147 CALL                             R25 0 1
+      148 GETIMPORT                        R26 K1 [script]
+      150 GETTABLEKS                       R26 R26 K42 ["Name"]
+      152 DUPCLOSURE                       R27 K43 [PROTO_1]
+      153 CAPTURE                          VAL R21
+      154 CAPTURE                          VAL R23
+      155 CAPTURE                          VAL R25
+      156 DUPCLOSURE                       R28 K44 [PROTO_3]
+      157 DUPCLOSURE                       R29 K45 [PROTO_4]
+      158 CAPTURE                          VAL R21
+      159 CAPTURE                          VAL R23
+      160 CAPTURE                          VAL R25
+      161 DUPCLOSURE                       R30 K46 [PROTO_5]
+      162 CAPTURE                          VAL R21
+      163 CAPTURE                          VAL R23
+      164 CAPTURE                          VAL R25
+      165 GETTABLEKS                       R31 R1 K47 ["PureComponent"]
+      167 GETIMPORT                        R33 K1 [script]
+      169 GETTABLEKS                       R33 R33 K42 ["Name"]
+      171 NAMECALL                         R31 R31 K48 ["extend"]
+      173 CALL                             R31 2 1
+      174 DUPCLOSURE                       R32 K49 [PROTO_15]
+      175 CAPTURE                          VAL R10
+      176 CAPTURE                          VAL R14
+      177 CAPTURE                          VAL R15
+      178 CAPTURE                          VAL R16
+      179 CAPTURE                          VAL R17
+      180 CAPTURE                          VAL R18
+      181 CAPTURE                          VAL R19
+      182 CAPTURE                          VAL R1
+      183 CAPTURE                          VAL R7
+      184 CAPTURE                          VAL R11
+      185 CAPTURE                          VAL R27
+      186 CAPTURE                          VAL R28
+      187 CAPTURE                          VAL R26
+      188 SETTABLEKS                       R32 R31 K50 ["render"]
+      190 MOVE                             R32 R6
+      191 DUPTABLE                         R33 K53 [{"Stylizer", "Localization", "Dialog"}]
+      192 JUMPIFNOT                        R4 ; [+2]
+      193 LOADNIL                          R34
+      194 JUMP                             ; [+2]
+      195 GETTABLEKS                       R34 R5 K51 ["Stylizer"]
+      197 SETTABLEKS                       R34 R33 K51 ["Stylizer"]
+      199 GETTABLEKS                       R34 R5 K52 ["Localization"]
+      201 SETTABLEKS                       R34 R33 K52 ["Localization"]
+      203 SETTABLEKS                       R8 R33 K16 ["Dialog"]
+      205 CALL                             R32 1 1
+      206 MOVE                             R33 R31
+      207 CALL                             R32 1 1
+      208 MOVE                             R31 R32
+      209 GETIMPORT                        R32 K4 [require]
+      211 GETTABLEKS                       R33 R0 K9 ["Src"]
+      213 GETTABLEKS                       R33 R33 K54 ["Networking"]
+      215 GETTABLEKS                       R33 R33 K55 ["settingFromState"]
+      217 CALL                             R32 1 1
+      218 GETTABLEKS                       R33 R2 K56 ["connect"]
+      220 DUPCLOSURE                       R34 K57 [PROTO_17]
+      221 CAPTURE                          VAL R32
+      222 CAPTURE                          VAL R21
+      223 CAPTURE                          VAL R23
+      224 CAPTURE                          VAL R25
+      225 DUPCLOSURE                       R35 K58 [PROTO_20]
+      226 CAPTURE                          VAL R12
+      227 CAPTURE                          VAL R21
+      228 CAPTURE                          VAL R23
+      229 CAPTURE                          VAL R25
+      230 CALL                             R33 2 1
+      231 MOVE                             R34 R31
+      232 CALL                             R33 1 1
+      233 MOVE                             R31 R33
+      234 SETTABLEKS                       R26 R31 K59 ["LocalizationId"]
+      236 RETURN                           R31 1

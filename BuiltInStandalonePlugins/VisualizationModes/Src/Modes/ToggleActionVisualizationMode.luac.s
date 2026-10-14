@@ -10,17 +10,19 @@ PROTO_1:
         5 LOADB                            R4 0
         6 CALL                             R1 3 2
         7 GETUPVAL                         R3 1
-        8 DUPTABLE                         R4 K5 [{"Title", "ToolTip", "UseState"}]
+        8 DUPTABLE                         R4 K6 [{"Title", "ToolTip", "SortOrder", "UseState"}]
         9 GETTABLEKS                       R5 R0 K2 ["Title"]
        11 SETTABLEKS                       R5 R4 K2 ["Title"]
        13 GETTABLEKS                       R5 R0 K3 ["ToolTip"]
        15 SETTABLEKS                       R5 R4 K3 ["ToolTip"]
-       17 NEWCLOSURE                       R5 P0
-       18 CAPTURE                          VAL R1
-       19 CAPTURE                          VAL R2
-       20 SETTABLEKS                       R5 R4 K4 ["UseState"]
-       22 CALL                             R3 1 -1
-       23 RETURN                           R3 -1
+       17 GETTABLEKS                       R5 R0 K4 ["SortOrder"]
+       19 SETTABLEKS                       R5 R4 K4 ["SortOrder"]
+       21 NEWCLOSURE                       R5 P0
+       22 CAPTURE                          VAL R1
+       23 CAPTURE                          VAL R2
+       24 SETTABLEKS                       R5 R4 K5 ["UseState"]
+       26 CALL                             R3 1 -1
+       27 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

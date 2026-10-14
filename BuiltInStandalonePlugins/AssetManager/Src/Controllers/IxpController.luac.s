@@ -16,26 +16,26 @@ PROTO_1:
         6 RETURN                           R1 1
 
 PROTO_2:
-        0 DUPTABLE                         R2 K8 [{[1], ["_experimentDefinitions"], ["_variables"], ["_hasRegisteredLayer"] = False, ["_waitConnection"] = , ["OnVariablesChanged"]}]
+        0 DUPTABLE                         R2 K9 [{[1], ["_experimentDefinitions"], ["_variables"], ["_hasRegisteredLayer"] = False, ["_areIxpVariablesSettled"] = False, ["_waitConnection"] = , ["OnVariablesChanged"]}]
         1 SETTABLEKS                       R0 R2 K0 ["_isMock"]
         3 MOVE                             R3 R1
         4 JUMPIF                           R3 ; [+4]
         5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R3 R3 K9 ["getIxpExperimentDefinitions"]
+        6 GETTABLEKS                       R3 R3 K10 ["getIxpExperimentDefinitions"]
         8 CALL                             R3 0 1
         9 SETTABLEKS                       R3 R2 K1 ["_experimentDefinitions"]
        11 NEWTABLE                         R3 0 0
        13 SETTABLEKS                       R3 R2 K2 ["_variables"]
        15 GETUPVAL                         R3 1
-       16 GETTABLEKS                       R3 R3 K10 ["new"]
+       16 GETTABLEKS                       R3 R3 K11 ["new"]
        18 CALL                             R3 0 1
-       19 SETTABLEKS                       R3 R2 K7 ["OnVariablesChanged"]
+       19 SETTABLEKS                       R3 R2 K8 ["OnVariablesChanged"]
        21 GETUPVAL                         R5 2
        22 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
        24 MOVE                             R4 R2
-       25 GETIMPORT                        R3 K12 [setmetatable]
+       25 GETIMPORT                        R3 K13 [setmetatable]
        27 CALL                             R3 2 0
-       28 NAMECALL                         R3 R2 K13 ["_createDefaults"]
+       28 NAMECALL                         R3 R2 K14 ["_createDefaults"]
        30 CALL                             R3 1 1
        31 SETTABLEKS                       R3 R2 K2 ["_variables"]
        33 RETURN                           R2 1
@@ -67,6 +67,10 @@ PROTO_6:
         8 RETURN                           R2 1
 
 PROTO_7:
+        0 GETTABLEKS                       R1 R0 K0 ["_areIxpVariablesSettled"]
+        2 RETURN                           R1 1
+
+PROTO_8:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["Studio.AssetManager.General"]
         2 NAMECALL                         R0 R0 K1 ["GetUserStatusForLayer"]
@@ -112,105 +116,107 @@ PROTO_7:
        56 CALL                             R1 1 0
        57 RETURN                           R0 0
 
-PROTO_8:
-        0 NAMECALL                         R1 R0 K0 ["_disconnectWait"]
-        2 CALL                             R1 1 0
-        3 NAMECALL                         R1 R0 K1 ["_registerLayer"]
-        5 CALL                             R1 1 1
-        6 JUMPIF                           R1 ; [+8]
-        7 GETUPVAL                         R1 0
-        8 LOADK                            R2 K2 ["IxpController: failed to register layer Studio.AssetManager.General, using defaults"]
-        9 LOADK                            R3 K3 ["WARN"]
-       10 CALL                             R1 2 0
-       11 NAMECALL                         R1 R0 K4 ["_snapshot"]
-       13 CALL                             R1 1 0
-       14 RETURN                           R0 0
-       15 GETUPVAL                         R1 1
-       16 LOADK                            R3 K5 ["Studio.AssetManager.General"]
-       17 NAMECALL                         R1 R1 K6 ["GetUserStatusForLayer"]
-       19 CALL                             R1 2 1
-       20 GETIMPORT                        R3 K10 [Enum.IXPLoadingStatus.Initialized]
-       22 JUMPIFEQ                         R1 R3 ; [+2]
-       24 LOADB                            R2 0 +1
-       25 LOADB                            R2 1
-       26 JUMPIFNOT                        R2 ; [+7]
-       27 NAMECALL                         R2 R0 K4 ["_snapshot"]
-       29 CALL                             R2 1 0
-       30 NAMECALL                         R2 R0 K11 ["logExposure"]
-       32 CALL                             R2 1 0
-       33 RETURN                           R0 0
-       34 LOADB                            R2 1
-       35 GETIMPORT                        R3 K13 [Enum.IXPLoadingStatus.None]
-       37 JUMPIFEQ                         R1 R3 ; [+7]
-       39 GETIMPORT                        R3 K15 [Enum.IXPLoadingStatus.Pending]
-       41 JUMPIFEQ                         R1 R3 ; [+2]
-       43 LOADB                            R2 0 +1
-       44 LOADB                            R2 1
-       45 JUMPIF                           R2 ; [+16]
-       46 GETUPVAL                         R2 0
-       47 LOADK                            R3 K16 ["IxpController: layer fetch failed for Studio.AssetManager.General, status=%*"]
-       48 FASTCALL1                        TOSTRING R1 ; [+3]
-       49 MOVE                             R6 R1
-       50 GETIMPORT                        R5 K18 [tostring]
-       52 CALL                             R5 1 1
-       53 NAMECALL                         R3 R3 K19 ["format"]
-       55 CALL                             R3 2 1
-       56 LOADK                            R4 K3 ["WARN"]
-       57 CALL                             R2 2 0
-       58 NAMECALL                         R2 R0 K4 ["_snapshot"]
-       60 CALL                             R2 1 0
-       61 RETURN                           R0 0
-       62 GETUPVAL                         R2 1
-       63 GETTABLEKS                       R2 R2 K20 ["OnUserLayerLoadingStatusChanged"]
-       65 NEWCLOSURE                       R4 P0
-       66 CAPTURE                          UPVAL U1
-       67 CAPTURE                          VAL R0
-       68 CAPTURE                          UPVAL U0
-       69 NAMECALL                         R2 R2 K21 ["Connect"]
-       71 CALL                             R2 2 1
-       72 SETTABLEKS                       R2 R0 K22 ["_waitConnection"]
-       74 RETURN                           R0 0
-
 PROTO_9:
+        0 LOADB                            R1 0
+        1 SETTABLEKS                       R1 R0 K0 ["_areIxpVariablesSettled"]
+        3 NAMECALL                         R1 R0 K1 ["_disconnectWait"]
+        5 CALL                             R1 1 0
+        6 NAMECALL                         R1 R0 K2 ["_registerLayer"]
+        8 CALL                             R1 1 1
+        9 JUMPIF                           R1 ; [+8]
+       10 GETUPVAL                         R1 0
+       11 LOADK                            R2 K3 ["IxpController: failed to register layer Studio.AssetManager.General, using defaults"]
+       12 LOADK                            R3 K4 ["WARN"]
+       13 CALL                             R1 2 0
+       14 NAMECALL                         R1 R0 K5 ["_snapshot"]
+       16 CALL                             R1 1 0
+       17 RETURN                           R0 0
+       18 GETUPVAL                         R1 1
+       19 LOADK                            R3 K6 ["Studio.AssetManager.General"]
+       20 NAMECALL                         R1 R1 K7 ["GetUserStatusForLayer"]
+       22 CALL                             R1 2 1
+       23 GETIMPORT                        R3 K11 [Enum.IXPLoadingStatus.Initialized]
+       25 JUMPIFEQ                         R1 R3 ; [+2]
+       27 LOADB                            R2 0 +1
+       28 LOADB                            R2 1
+       29 JUMPIFNOT                        R2 ; [+7]
+       30 NAMECALL                         R2 R0 K5 ["_snapshot"]
+       32 CALL                             R2 1 0
+       33 NAMECALL                         R2 R0 K12 ["logExposure"]
+       35 CALL                             R2 1 0
+       36 RETURN                           R0 0
+       37 LOADB                            R2 1
+       38 GETIMPORT                        R3 K14 [Enum.IXPLoadingStatus.None]
+       40 JUMPIFEQ                         R1 R3 ; [+7]
+       42 GETIMPORT                        R3 K16 [Enum.IXPLoadingStatus.Pending]
+       44 JUMPIFEQ                         R1 R3 ; [+2]
+       46 LOADB                            R2 0 +1
+       47 LOADB                            R2 1
+       48 JUMPIF                           R2 ; [+16]
+       49 GETUPVAL                         R2 0
+       50 LOADK                            R3 K17 ["IxpController: layer fetch failed for Studio.AssetManager.General, status=%*"]
+       51 FASTCALL1                        TOSTRING R1 ; [+3]
+       52 MOVE                             R6 R1
+       53 GETIMPORT                        R5 K19 [tostring]
+       55 CALL                             R5 1 1
+       56 NAMECALL                         R3 R3 K20 ["format"]
+       58 CALL                             R3 2 1
+       59 LOADK                            R4 K4 ["WARN"]
+       60 CALL                             R2 2 0
+       61 NAMECALL                         R2 R0 K5 ["_snapshot"]
+       63 CALL                             R2 1 0
+       64 RETURN                           R0 0
+       65 GETUPVAL                         R2 1
+       66 GETTABLEKS                       R2 R2 K21 ["OnUserLayerLoadingStatusChanged"]
+       68 NEWCLOSURE                       R4 P0
+       69 CAPTURE                          UPVAL U1
+       70 CAPTURE                          VAL R0
+       71 CAPTURE                          UPVAL U0
+       72 NAMECALL                         R2 R2 K22 ["Connect"]
+       74 CALL                             R2 2 1
+       75 SETTABLEKS                       R2 R0 K23 ["_waitConnection"]
+       77 RETURN                           R0 0
+
+PROTO_10:
         0 NAMECALL                         R1 R0 K0 ["_disconnectWait"]
         2 CALL                             R1 1 0
         3 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["Studio.AssetManager.General"]
         2 NAMECALL                         R0 R0 K1 ["LogUserLayerExposure"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETIMPORT                        R1 K1 [pcall]
-        2 DUPCLOSURE                       R2 K2 [PROTO_10]
+        2 DUPCLOSURE                       R2 K2 [PROTO_11]
         3 CAPTURE                          UPVAL U0
         4 CALL                             R1 1 0
         5 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["Studio.AssetManager.General"]
         2 NAMECALL                         R0 R0 K1 ["RegisterUserLayers"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
-PROTO_13:
+PROTO_14:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["InitializeUserLayers"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
-PROTO_14:
+PROTO_15:
         0 GETTABLEKS                       R1 R0 K0 ["_hasRegisteredLayer"]
         2 JUMPIFNOT                        R1 ; [+2]
         3 LOADB                            R1 1
         4 RETURN                           R1 1
         5 GETIMPORT                        R1 K2 [pcall]
-        7 DUPCLOSURE                       R2 K3 [PROTO_12]
+        7 DUPCLOSURE                       R2 K3 [PROTO_13]
         8 CAPTURE                          UPVAL U0
         9 CALL                             R1 1 1
        10 JUMPIF                           R1 ; [+2]
@@ -242,7 +248,7 @@ PROTO_14:
        45 LOADB                            R3 1
        46 RETURN                           R3 1
 
-PROTO_15:
+PROTO_16:
         0 GETTABLEKS                       R1 R0 K0 ["_waitConnection"]
         2 JUMPIFNOT                        R1 ; [+8]
         3 GETTABLEKS                       R1 R0 K0 ["_waitConnection"]
@@ -252,7 +258,7 @@ PROTO_15:
         9 SETTABLEKS                       R1 R0 K0 ["_waitConnection"]
        11 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 GETTABLEKS                       R3 R0 K0 ["_experimentDefinitions"]
         2 GETTABLE                         R2 R3 R1
         3 JUMPIFNOT                        R2 ; [+4]
@@ -265,7 +271,7 @@ PROTO_16:
        11 GETTABLEKS                       R3 R3 K2 ["Control"]
        13 RETURN                           R3 1
 
-PROTO_17:
+PROTO_18:
         0 NEWTABLE                         R1 0 0
         2 GETTABLEKS                       R2 R0 K0 ["_experimentDefinitions"]
         4 LOADNIL                          R3
@@ -278,7 +284,7 @@ PROTO_17:
        12 FORGLOOP                         R2 2 ; [-6]
        14 RETURN                           R1 1
 
-PROTO_18:
+PROTO_19:
         0 JUMPIFNOTEQKNIL                  R2 ; [+16]
         2 GETUPVAL                         R4 0
         3 LOADK                            R5 K0 ["IxpController: variable %* not found in layer response: %*"]
@@ -320,7 +326,7 @@ PROTO_18:
        46 LOADB                            R5 0
        47 RETURN                           R5 1
 
-PROTO_19:
+PROTO_20:
         0 NAMECALL                         R2 R0 K0 ["_createDefaults"]
         2 CALL                             R2 1 1
         3 FASTCALL1                        TYPE R1 ; [+3]
@@ -348,7 +354,7 @@ PROTO_19:
        29 FORGLOOP                         R3 2 ; [-10]
        31 RETURN                           R2 1
 
-PROTO_20:
+PROTO_21:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["Studio.AssetManager.General"]
         2 NAMECALL                         R1 R1 K1 ["GetUserLayerVariables"]
@@ -357,24 +363,26 @@ PROTO_20:
         6 NAMECALL                         R2 R0 K2 ["_parseLayerVariables"]
         8 CALL                             R2 2 1
         9 SETTABLEKS                       R2 R0 K3 ["_variables"]
-       11 GETUPVAL                         R2 1
-       12 LOADK                            R3 K4 ["IxpController:_snapshot() -> raw variables: %*, parsed variables: %*"]
-       13 GETUPVAL                         R5 2
-       14 GETTABLEKS                       R5 R5 K5 ["pretty"]
-       16 MOVE                             R6 R1
-       17 CALL                             R5 1 1
-       18 GETUPVAL                         R6 2
-       19 GETTABLEKS                       R6 R6 K5 ["pretty"]
-       21 GETTABLEKS                       R7 R0 K3 ["_variables"]
-       23 CALL                             R6 1 1
-       24 NAMECALL                         R3 R3 K6 ["format"]
-       26 CALL                             R3 3 1
-       27 CALL                             R2 1 0
-       28 GETTABLEKS                       R2 R0 K7 ["OnVariablesChanged"]
-       30 GETTABLEKS                       R4 R0 K3 ["_variables"]
-       32 NAMECALL                         R2 R2 K8 ["Fire"]
-       34 CALL                             R2 2 0
-       35 RETURN                           R0 0
+       11 LOADB                            R2 1
+       12 SETTABLEKS                       R2 R0 K4 ["_areIxpVariablesSettled"]
+       14 GETUPVAL                         R2 1
+       15 LOADK                            R3 K5 ["IxpController:_snapshot() -> raw variables: %*, parsed variables: %*"]
+       16 GETUPVAL                         R5 2
+       17 GETTABLEKS                       R5 R5 K6 ["pretty"]
+       19 MOVE                             R6 R1
+       20 CALL                             R5 1 1
+       21 GETUPVAL                         R6 2
+       22 GETTABLEKS                       R6 R6 K6 ["pretty"]
+       24 GETTABLEKS                       R7 R0 K3 ["_variables"]
+       26 CALL                             R6 1 1
+       27 NAMECALL                         R3 R3 K7 ["format"]
+       29 CALL                             R3 3 1
+       30 CALL                             R2 1 0
+       31 GETTABLEKS                       R2 R0 K8 ["OnVariablesChanged"]
+       33 GETTABLEKS                       R4 R0 K3 ["_variables"]
+       35 NAMECALL                         R2 R2 K9 ["Fire"]
+       37 CALL                             R2 2 0
+       38 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -438,36 +446,38 @@ MAIN:
        91 SETTABLEKS                       R15 R14 K33 ["getVariables"]
        93 DUPCLOSURE                       R15 K34 [PROTO_6]
        94 SETTABLEKS                       R15 R14 K35 ["getValue"]
-       96 DUPCLOSURE                       R15 K36 [PROTO_8]
-       97 CAPTURE                          VAL R8
-       98 CAPTURE                          VAL R10
-       99 SETTABLEKS                       R15 R14 K37 ["refreshForSession"]
-      101 DUPCLOSURE                       R15 K38 [PROTO_9]
-      102 SETTABLEKS                       R15 R14 K39 ["cancelRefresh"]
-      104 DUPCLOSURE                       R15 K40 [PROTO_11]
-      105 CAPTURE                          VAL R10
-      106 SETTABLEKS                       R15 R14 K41 ["logExposure"]
-      108 DUPCLOSURE                       R15 K42 [PROTO_14]
-      109 CAPTURE                          VAL R10
-      110 CAPTURE                          VAL R11
-      111 SETTABLEKS                       R15 R14 K43 ["_registerLayer"]
-      113 DUPCLOSURE                       R15 K44 [PROTO_15]
-      114 SETTABLEKS                       R15 R14 K45 ["_disconnectWait"]
+       96 DUPCLOSURE                       R15 K36 [PROTO_7]
+       97 SETTABLEKS                       R15 R14 K37 ["areIxpVariablesSettled"]
+       99 DUPCLOSURE                       R15 K38 [PROTO_9]
+      100 CAPTURE                          VAL R8
+      101 CAPTURE                          VAL R10
+      102 SETTABLEKS                       R15 R14 K39 ["refreshForSession"]
+      104 DUPCLOSURE                       R15 K40 [PROTO_10]
+      105 SETTABLEKS                       R15 R14 K41 ["cancelRefresh"]
+      107 DUPCLOSURE                       R15 K42 [PROTO_12]
+      108 CAPTURE                          VAL R10
+      109 SETTABLEKS                       R15 R14 K43 ["logExposure"]
+      111 DUPCLOSURE                       R15 K44 [PROTO_15]
+      112 CAPTURE                          VAL R10
+      113 CAPTURE                          VAL R11
+      114 SETTABLEKS                       R15 R14 K45 ["_registerLayer"]
       116 DUPCLOSURE                       R15 K46 [PROTO_16]
-      117 CAPTURE                          VAL R5
-      118 SETTABLEKS                       R15 R14 K47 ["_getDefaultValue"]
-      120 DUPCLOSURE                       R15 K48 [PROTO_17]
-      121 SETTABLEKS                       R15 R14 K49 ["_createDefaults"]
+      117 SETTABLEKS                       R15 R14 K47 ["_disconnectWait"]
+      119 DUPCLOSURE                       R15 K48 [PROTO_17]
+      120 CAPTURE                          VAL R5
+      121 SETTABLEKS                       R15 R14 K49 ["_getDefaultValue"]
       123 DUPCLOSURE                       R15 K50 [PROTO_18]
-      124 CAPTURE                          VAL R8
-      125 CAPTURE                          VAL R9
-      126 SETTABLEKS                       R15 R14 K51 ["_isAllowedValue"]
-      128 DUPCLOSURE                       R15 K52 [PROTO_19]
-      129 CAPTURE                          VAL R8
-      130 SETTABLEKS                       R15 R14 K53 ["_parseLayerVariables"]
-      132 DUPCLOSURE                       R15 K54 [PROTO_20]
-      133 CAPTURE                          VAL R10
-      134 CAPTURE                          VAL R8
-      135 CAPTURE                          VAL R9
-      136 SETTABLEKS                       R15 R14 K55 ["_snapshot"]
-      138 RETURN                           R14 1
+      124 SETTABLEKS                       R15 R14 K51 ["_createDefaults"]
+      126 DUPCLOSURE                       R15 K52 [PROTO_19]
+      127 CAPTURE                          VAL R8
+      128 CAPTURE                          VAL R9
+      129 SETTABLEKS                       R15 R14 K53 ["_isAllowedValue"]
+      131 DUPCLOSURE                       R15 K54 [PROTO_20]
+      132 CAPTURE                          VAL R8
+      133 SETTABLEKS                       R15 R14 K55 ["_parseLayerVariables"]
+      135 DUPCLOSURE                       R15 K56 [PROTO_21]
+      136 CAPTURE                          VAL R10
+      137 CAPTURE                          VAL R8
+      138 CAPTURE                          VAL R9
+      139 SETTABLEKS                       R15 R14 K57 ["_snapshot"]
+      141 RETURN                           R14 1

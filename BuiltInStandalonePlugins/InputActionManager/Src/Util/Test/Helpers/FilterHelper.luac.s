@@ -98,16 +98,16 @@ MAIN:
        40 CAPTURE                          VAL R3
        41 CAPTURE                          VAL R6
        42 CAPTURE                          VAL R4
-       43 SETTABLEKS                       R10 R9 K17 ["Search"]
+       43 SETTABLEKS                       R10 R9 K17 ["search"]
        45 DUPCLOSURE                       R10 K18 [PROTO_2]
        46 CAPTURE                          VAL R7
        47 CAPTURE                          VAL R5
        48 CAPTURE                          VAL R4
-       49 SETTABLEKS                       R10 R9 K19 ["ToggleFilterMenu"]
+       49 SETTABLEKS                       R10 R9 K19 ["toggleFilterMenu"]
        51 DUPCLOSURE                       R10 K20 [PROTO_3]
        52 CAPTURE                          VAL R7
        53 CAPTURE                          VAL R8
        54 CAPTURE                          VAL R5
        55 CAPTURE                          VAL R4
-       56 SETTABLEKS                       R10 R9 K21 ["ToggleFilterItem"]
+       56 SETTABLEKS                       R10 R9 K21 ["toggleFilterItem"]
        58 RETURN                           R9 1

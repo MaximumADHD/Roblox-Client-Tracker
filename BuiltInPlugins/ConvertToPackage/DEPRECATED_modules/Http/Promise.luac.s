@@ -418,7 +418,7 @@ PROTO_22:
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K1 ["Status"]
         5 GETTABLEKS                       R2 R2 K2 ["Started"]
-        7 JUMPIFNOTEQ                      R1 R2 ; [+41]
+        7 JUMPIFNOTEQ                      R1 R2 ; [+40]
         9 LOADNIL                          R1
        10 GETIMPORT                        R2 K5 [Instance.new]
        12 LOADK                            R3 K6 ["BindableEvent"]
@@ -450,31 +450,30 @@ PROTO_22:
        45 CALL                             R4 1 -1
        46 CLOSEUPVALS                      R1
        47 RETURN                           R4 -1
-       48 CLOSEUPVALS                      R1
-       49 GETTABLEKS                       R1 R0 K0 ["_status"]
-       51 GETUPVAL                         R2 0
-       52 GETTABLEKS                       R2 R2 K1 ["Status"]
-       54 GETTABLEKS                       R2 R2 K17 ["Resolved"]
-       56 JUMPIFNOTEQ                      R1 R2 ; [+8]
-       58 GETTABLEKS                       R2 R0 K18 ["_value"]
-       60 FASTCALL1                        TABLE_UNPACK R2 ; [+2]
-       61 GETIMPORT                        R1 K16 [unpack]
-       63 CALL                             R1 1 -1
-       64 RETURN                           R1 -1
-       65 GETTABLEKS                       R1 R0 K0 ["_status"]
-       67 GETUPVAL                         R2 0
-       68 GETTABLEKS                       R2 R2 K1 ["Status"]
-       70 GETTABLEKS                       R2 R2 K19 ["Rejected"]
-       72 JUMPIFNOTEQ                      R1 R2 ; [+12]
-       74 GETIMPORT                        R1 K12 [error]
-       76 GETTABLEKS                       R4 R0 K18 ["_value"]
-       78 GETTABLEN                        R3 R4 1
-       79 FASTCALL1                        TOSTRING R3 ; [+2]
-       80 GETIMPORT                        R2 K14 [tostring]
-       82 CALL                             R2 1 1
-       83 LOADN                            R3 2
-       84 CALL                             R1 2 0
-       85 RETURN                           R0 0
+       48 GETTABLEKS                       R1 R0 K0 ["_status"]
+       50 GETUPVAL                         R2 0
+       51 GETTABLEKS                       R2 R2 K1 ["Status"]
+       53 GETTABLEKS                       R2 R2 K17 ["Resolved"]
+       55 JUMPIFNOTEQ                      R1 R2 ; [+8]
+       57 GETTABLEKS                       R2 R0 K18 ["_value"]
+       59 FASTCALL1                        TABLE_UNPACK R2 ; [+2]
+       60 GETIMPORT                        R1 K16 [unpack]
+       62 CALL                             R1 1 -1
+       63 RETURN                           R1 -1
+       64 GETTABLEKS                       R1 R0 K0 ["_status"]
+       66 GETUPVAL                         R2 0
+       67 GETTABLEKS                       R2 R2 K1 ["Status"]
+       69 GETTABLEKS                       R2 R2 K19 ["Rejected"]
+       71 JUMPIFNOTEQ                      R1 R2 ; [+12]
+       73 GETIMPORT                        R1 K12 [error]
+       75 GETTABLEKS                       R4 R0 K18 ["_value"]
+       77 GETTABLEN                        R3 R4 1
+       78 FASTCALL1                        TOSTRING R3 ; [+2]
+       79 GETIMPORT                        R2 K14 [tostring]
+       81 CALL                             R2 1 1
+       82 LOADN                            R3 2
+       83 CALL                             R1 2 0
+       84 RETURN                           R0 0
 
 PROTO_23:
         0 PREPVARARGS                      0

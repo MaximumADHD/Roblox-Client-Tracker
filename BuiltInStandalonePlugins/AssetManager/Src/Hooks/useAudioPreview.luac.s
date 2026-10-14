@@ -49,23 +49,11 @@ PROTO_3:
 PROTO_4:
         0 GETUPVAL                         R1 0
         1 MOVE                             R3 R0
-        2 NAMECALL                         R1 R1 K0 ["play"]
+        2 NAMECALL                         R1 R1 K0 ["togglePlayback"]
         4 CALL                             R1 2 0
         5 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R0 0
-        1 NAMECALL                         R0 R0 K0 ["pause"]
-        3 CALL                             R0 1 0
-        4 RETURN                           R0 0
-
-PROTO_6:
-        0 GETUPVAL                         R0 0
-        1 NAMECALL                         R0 R0 K0 ["resume"]
-        3 CALL                             R0 1 0
-        4 RETURN                           R0 0
-
-PROTO_7:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["use"]
         3 CALL                             R0 0 1
@@ -89,7 +77,7 @@ PROTO_7:
        26 CAPTURE                          UPVAL U2
        27 NEWTABLE                         R8 0 0
        29 CALL                             R6 2 0
-       30 DUPTABLE                         R6 K14 [{"CurrentSoundId", "IsPlaying", "IsLoading", "TotalTime", "ProgressBinding", "play", "pause", "resume"}]
+       30 DUPTABLE                         R6 K12 [{"CurrentSoundId", "IsPlaying", "IsLoading", "TotalTime", "ProgressBinding", "togglePlayback"}]
        31 GETTABLEKS                       R7 R2 K6 ["CurrentSoundId"]
        33 SETTABLEKS                       R7 R6 K6 ["CurrentSoundId"]
        35 GETTABLEKS                       R7 R2 K7 ["IsPlaying"]
@@ -101,14 +89,8 @@ PROTO_7:
        47 SETTABLEKS                       R4 R6 K10 ["ProgressBinding"]
        49 NEWCLOSURE                       R7 P1
        50 CAPTURE                          VAL R1
-       51 SETTABLEKS                       R7 R6 K11 ["play"]
-       53 NEWCLOSURE                       R7 P2
-       54 CAPTURE                          VAL R1
-       55 SETTABLEKS                       R7 R6 K12 ["pause"]
-       57 NEWCLOSURE                       R7 P3
-       58 CAPTURE                          VAL R1
-       59 SETTABLEKS                       R7 R6 K13 ["resume"]
-       61 RETURN                           R6 1
+       51 SETTABLEKS                       R7 R6 K11 ["togglePlayback"]
+       53 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -135,7 +117,7 @@ MAIN:
        36 GETTABLEKS                       R5 R5 K9 ["Controllers"]
        38 GETTABLEKS                       R5 R5 K13 ["AudioPreviewManager"]
        40 CALL                             R4 1 1
-       41 DUPCLOSURE                       R5 K14 [PROTO_7]
+       41 DUPCLOSURE                       R5 K14 [PROTO_5]
        42 CAPTURE                          VAL R2
        43 CAPTURE                          VAL R1
        44 CAPTURE                          VAL R3

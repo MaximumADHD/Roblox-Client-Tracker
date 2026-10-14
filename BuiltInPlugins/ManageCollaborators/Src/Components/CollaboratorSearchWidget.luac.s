@@ -964,162 +964,170 @@ PROTO_18:
       147 LOADK                            R30 K42 ["AddUsersGroups"]
       148 NAMECALL                         R27 R11 K25 ["getText"]
       150 CALL                             R27 3 1
-      151 GETUPVAL                         R28 6
-      152 GETTABLEKS                       R28 R28 K43 ["createElement"]
+      151 GETTABLEKS                       R28 R1 K43 ["HeaderText"]
+      153 JUMPIF                           R28 ; [+4]
       154 JUMPIFNOT                        R18 ; [+2]
-      155 GETUPVAL                         R29 7
-      156 JUMP                             ; [+1]
-      157 GETUPVAL                         R29 8
-      158 DUPTABLE                         R30 K46 [{["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
-      159 SETTABLEKS                       R2 R30 K1 ["LayoutOrder"]
-      161 DUPTABLE                         R31 K51 [{"Padding", "SearchCaption", "AgeWarningFrame", "Searchbar"}]
-      162 GETUPVAL                         R32 6
-      163 GETTABLEKS                       R32 R32 K43 ["createElement"]
-      165 LOADK                            R33 K52 ["UIPadding"]
-      166 DUPTABLE                         R34 K56 [{"PaddingTop", "PaddingLeft", "PaddingRight"}]
-      167 GETTABLEKS                       R35 R10 K57 ["searchWidget"]
-      169 GETTABLEKS                       R35 R35 K58 ["paddingTop"]
-      171 SETTABLEKS                       R35 R34 K53 ["PaddingTop"]
-      173 GETTABLEKS                       R35 R10 K57 ["searchWidget"]
-      175 GETTABLEKS                       R35 R35 K59 ["paddingHorizontal"]
-      177 SETTABLEKS                       R35 R34 K54 ["PaddingLeft"]
-      179 GETTABLEKS                       R35 R10 K57 ["searchWidget"]
-      181 GETTABLEKS                       R35 R35 K59 ["paddingHorizontal"]
-      183 SETTABLEKS                       R35 R34 K55 ["PaddingRight"]
-      185 CALL                             R32 2 1
-      186 SETTABLEKS                       R32 R31 K47 ["Padding"]
-      188 MOVE                             R32 R18
-      189 JUMPIFNOT                        R32 ; [+31]
-      190 GETUPVAL                         R32 6
-      191 GETTABLEKS                       R32 R32 K43 ["createElement"]
-      193 LOADK                            R33 K60 ["TextLabel"]
-      194 GETUPVAL                         R34 9
-      195 GETTABLEKS                       R34 R34 K61 ["Dictionary"]
-      197 GETTABLEKS                       R34 R34 K62 ["join"]
-      199 GETTABLEKS                       R35 R10 K63 ["fontStyle"]
-      201 GETTABLEKS                       R35 R35 K64 ["Subtext"]
-      203 DUPTABLE                         R36 K68 [{["LayoutOrder"] = 0, ["Size"], ["BackgroundTransparency"] = 1, ["Text"], ["TextXAlignment"]}]
-      204 GETIMPORT                        R37 K71 [UDim2.new]
-      206 LOADN                            R38 1
-      207 LOADN                            R39 0
-      208 LOADN                            R40 0
-      209 LOADN                            R41 14
-      210 CALL                             R37 4 1
-      211 SETTABLEKS                       R37 R36 K65 ["Size"]
-      213 SETTABLEKS                       R26 R36 K66 ["Text"]
-      215 GETIMPORT                        R37 K74 [Enum.TextXAlignment.Left]
-      217 SETTABLEKS                       R37 R36 K67 ["TextXAlignment"]
-      219 CALL                             R34 2 -1
-      220 CALL                             R32 -1 1
-      221 SETTABLEKS                       R32 R31 K48 ["SearchCaption"]
-      223 MOVE                             R32 R9
-      224 JUMPIFNOT                        R32 ; [+47]
-      225 GETUPVAL                         R32 6
-      226 GETTABLEKS                       R32 R32 K43 ["createElement"]
-      228 LOADK                            R33 K75 ["Frame"]
-      229 DUPTABLE                         R34 K77 [{["BackgroundTransparency"] = 1, ["LayoutOrder"] = 1, ["Size"], ["BorderSizePixel"] = 0}]
-      230 GETIMPORT                        R35 K71 [UDim2.new]
-      232 LOADN                            R36 1
-      233 LOADN                            R37 0
-      234 LOADN                            R38 0
-      235 GETTABLEKS                       R39 R10 K57 ["searchWidget"]
-      237 GETTABLEKS                       R39 R39 K78 ["ageWarning"]
-      239 GETTABLEKS                       R39 R39 K79 ["Height"]
-      241 CALL                             R35 4 1
-      242 SETTABLEKS                       R35 R34 K65 ["Size"]
-      244 DUPTABLE                         R35 K81 [{"AgeWarning"}]
-      245 GETUPVAL                         R36 6
-      246 GETTABLEKS                       R36 R36 K43 ["createElement"]
-      248 LOADK                            R37 K60 ["TextLabel"]
-      249 GETUPVAL                         R38 9
-      250 GETTABLEKS                       R38 R38 K61 ["Dictionary"]
-      252 GETTABLEKS                       R38 R38 K62 ["join"]
-      254 GETTABLEKS                       R39 R10 K57 ["searchWidget"]
-      256 GETTABLEKS                       R39 R39 K78 ["ageWarning"]
-      258 GETTABLEKS                       R39 R39 K63 ["fontStyle"]
-      260 DUPTABLE                         R40 K82 [{"Text", "TextXAlignment"}]
-      261 SETTABLEKS                       R25 R40 K66 ["Text"]
-      263 GETIMPORT                        R41 K74 [Enum.TextXAlignment.Left]
-      265 SETTABLEKS                       R41 R40 K67 ["TextXAlignment"]
-      267 CALL                             R38 2 -1
-      268 CALL                             R36 -1 1
-      269 SETTABLEKS                       R36 R35 K80 ["AgeWarning"]
-      271 CALL                             R32 3 1
-      272 SETTABLEKS                       R32 R31 K49 ["AgeWarningFrame"]
-      274 GETUPVAL                         R32 6
-      275 GETTABLEKS                       R32 R32 K43 ["createElement"]
-      277 GETUPVAL                         R33 10
-      278 DUPTABLE                         R34 K97 [{["LayoutOrder"] = 2, ["Enabled"], ["HeaderHeight"], ["ItemHeight"], ["ErrorText"], ["ErrorSubtitle"], ["DefaultText"], ["NoResultsText"], ["LoadingMore"], ["IsGroupGame"], ["onSearchRequested"], ["onTextChanged"], ["onTextBoxFocused"], ["OnItemClicked"], ["Results"], ["Is17PlusGame"]}]
-      279 MOVE                             R35 R3
-      280 JUMPIFNOT                        R35 ; [+5]
-      281 NOT                              R35 R16
-      282 JUMPIFNOT                        R35 ; [+3]
-      283 NOT                              R35 R20
-      284 JUMPIFNOT                        R35 ; [+1]
-      285 NOT                              R35 R23
-      286 SETTABLEKS                       R35 R34 K84 ["Enabled"]
-      288 GETTABLEKS                       R35 R10 K98 ["searchBar"]
-      290 GETTABLEKS                       R35 R35 K99 ["headerHeight"]
-      292 SETTABLEKS                       R35 R34 K85 ["HeaderHeight"]
-      294 GETTABLEKS                       R35 R10 K98 ["searchBar"]
-      296 GETTABLEKS                       R35 R35 K100 ["itemHeight"]
-      298 SETTABLEKS                       R35 R34 K86 ["ItemHeight"]
-      300 JUMPIFNOT                        R20 ; [+2]
-      301 MOVE                             R35 R22
-      302 JUMPIF                           R35 ; [+4]
-      303 JUMPIFNOT                        R16 ; [+2]
-      304 MOVE                             R35 R21
-      305 JUMPIF                           R35 ; [+1]
-      306 LOADNIL                          R35
-      307 SETTABLEKS                       R35 R34 K87 ["ErrorText"]
-      309 ORK                              R35 R24 K101 []
-      310 SETTABLEKS                       R35 R34 K88 ["ErrorSubtitle"]
-      312 SETTABLEKS                       R27 R34 K89 ["DefaultText"]
-      314 LOADK                            R37 K21 ["SearchBar"]
-      315 LOADK                            R38 K90 ["NoResultsText"]
-      316 NAMECALL                         R35 R11 K25 ["getText"]
-      318 CALL                             R35 3 1
-      319 SETTABLEKS                       R35 R34 K90 ["NoResultsText"]
-      321 SETTABLEKS                       R13 R34 K91 ["LoadingMore"]
-      323 SETTABLEKS                       R8 R34 K7 ["IsGroupGame"]
-      325 NEWCLOSURE                       R35 P0
-      326 CAPTURE                          VAL R6
-      327 SETTABLEKS                       R35 R34 K92 ["onSearchRequested"]
-      329 NEWCLOSURE                       R35 P1
-      330 CAPTURE                          VAL R0
-      331 CAPTURE                          VAL R6
-      332 SETTABLEKS                       R35 R34 K93 ["onTextChanged"]
-      334 NEWCLOSURE                       R35 P2
-      335 CAPTURE                          UPVAL U4
-      336 CAPTURE                          VAL R0
-      337 SETTABLEKS                       R35 R34 K94 ["onTextBoxFocused"]
-      339 NEWCLOSURE                       R35 P3
-      340 CAPTURE                          UPVAL U3
-      341 CAPTURE                          VAL R23
-      342 CAPTURE                          UPVAL U11
-      343 CAPTURE                          VAL R0
-      344 CAPTURE                          VAL R8
-      345 CAPTURE                          UPVAL U12
-      346 CAPTURE                          UPVAL U13
-      347 CAPTURE                          VAL R1
-      348 CAPTURE                          VAL R7
-      349 CAPTURE                          UPVAL U14
-      350 CAPTURE                          VAL R5
-      351 CAPTURE                          UPVAL U15
-      352 CAPTURE                          UPVAL U16
-      353 SETTABLEKS                       R35 R34 K95 ["OnItemClicked"]
-      355 GETUPVAL                         R36 3
-      356 JUMPIFNOT                        R36 ; [+4]
-      357 JUMPIFNOT                        R23 ; [+3]
-      358 NEWTABLE                         R35 0 0
-      360 JUMP                             ; [+1]
-      361 MOVE                             R35 R12
-      362 SETTABLEKS                       R35 R34 K96 ["Results"]
-      364 SETTABLEKS                       R9 R34 K8 ["Is17PlusGame"]
-      366 CALL                             R32 2 1
-      367 SETTABLEKS                       R32 R31 K50 ["Searchbar"]
-      369 CALL                             R28 3 -1
-      370 RETURN                           R28 -1
+      155 MOVE                             R28 R26
+      156 JUMPIF                           R28 ; [+1]
+      157 LOADNIL                          R28
+      158 GETUPVAL                         R29 6
+      159 GETTABLEKS                       R29 R29 K44 ["createElement"]
+      161 GETUPVAL                         R30 7
+      162 DUPTABLE                         R31 K59 [{["LayoutOrder"] = 2, ["Enabled"], ["HeaderHeight"], ["ItemHeight"], ["ErrorText"], ["ErrorSubtitle"], ["DefaultText"], ["NoResultsText"], ["LoadingMore"], ["IsGroupGame"], ["onSearchRequested"], ["onTextChanged"], ["onTextBoxFocused"], ["OnItemClicked"], ["Results"], ["Is17PlusGame"]}]
+      163 MOVE                             R32 R3
+      164 JUMPIFNOT                        R32 ; [+5]
+      165 NOT                              R32 R16
+      166 JUMPIFNOT                        R32 ; [+3]
+      167 NOT                              R32 R20
+      168 JUMPIFNOT                        R32 ; [+1]
+      169 NOT                              R32 R23
+      170 SETTABLEKS                       R32 R31 K46 ["Enabled"]
+      172 GETTABLEKS                       R32 R10 K60 ["searchBar"]
+      174 GETTABLEKS                       R32 R32 K61 ["headerHeight"]
+      176 SETTABLEKS                       R32 R31 K47 ["HeaderHeight"]
+      178 GETTABLEKS                       R32 R10 K60 ["searchBar"]
+      180 GETTABLEKS                       R32 R32 K62 ["itemHeight"]
+      182 SETTABLEKS                       R32 R31 K48 ["ItemHeight"]
+      184 JUMPIFNOT                        R20 ; [+2]
+      185 MOVE                             R32 R22
+      186 JUMPIF                           R32 ; [+4]
+      187 JUMPIFNOT                        R16 ; [+2]
+      188 MOVE                             R32 R21
+      189 JUMPIF                           R32 ; [+1]
+      190 LOADNIL                          R32
+      191 SETTABLEKS                       R32 R31 K49 ["ErrorText"]
+      193 ORK                              R32 R24 K63 []
+      194 SETTABLEKS                       R32 R31 K50 ["ErrorSubtitle"]
+      196 GETTABLEKS                       R33 R1 K51 ["DefaultText"]
+      198 OR                               R32 R33 R27
+      199 SETTABLEKS                       R32 R31 K51 ["DefaultText"]
+      201 LOADK                            R34 K21 ["SearchBar"]
+      202 LOADK                            R35 K52 ["NoResultsText"]
+      203 NAMECALL                         R32 R11 K25 ["getText"]
+      205 CALL                             R32 3 1
+      206 SETTABLEKS                       R32 R31 K52 ["NoResultsText"]
+      208 SETTABLEKS                       R13 R31 K53 ["LoadingMore"]
+      210 SETTABLEKS                       R8 R31 K7 ["IsGroupGame"]
+      212 NEWCLOSURE                       R32 P0
+      213 CAPTURE                          VAL R6
+      214 SETTABLEKS                       R32 R31 K54 ["onSearchRequested"]
+      216 NEWCLOSURE                       R32 P1
+      217 CAPTURE                          VAL R0
+      218 CAPTURE                          VAL R6
+      219 SETTABLEKS                       R32 R31 K55 ["onTextChanged"]
+      221 NEWCLOSURE                       R32 P2
+      222 CAPTURE                          UPVAL U4
+      223 CAPTURE                          VAL R0
+      224 SETTABLEKS                       R32 R31 K56 ["onTextBoxFocused"]
+      226 NEWCLOSURE                       R32 P3
+      227 CAPTURE                          UPVAL U3
+      228 CAPTURE                          VAL R23
+      229 CAPTURE                          UPVAL U8
+      230 CAPTURE                          VAL R0
+      231 CAPTURE                          VAL R8
+      232 CAPTURE                          UPVAL U9
+      233 CAPTURE                          UPVAL U10
+      234 CAPTURE                          VAL R1
+      235 CAPTURE                          VAL R7
+      236 CAPTURE                          UPVAL U11
+      237 CAPTURE                          VAL R5
+      238 CAPTURE                          UPVAL U12
+      239 CAPTURE                          UPVAL U13
+      240 SETTABLEKS                       R32 R31 K57 ["OnItemClicked"]
+      242 GETUPVAL                         R33 3
+      243 JUMPIFNOT                        R33 ; [+4]
+      244 JUMPIFNOT                        R23 ; [+3]
+      245 NEWTABLE                         R32 0 0
+      247 JUMP                             ; [+1]
+      248 MOVE                             R32 R12
+      249 SETTABLEKS                       R32 R31 K58 ["Results"]
+      251 SETTABLEKS                       R9 R31 K8 ["Is17PlusGame"]
+      253 CALL                             R29 2 1
+      254 GETUPVAL                         R30 6
+      255 GETTABLEKS                       R30 R30 K44 ["createElement"]
+      257 JUMPIFEQKNIL                     R28 ; [+3]
+      259 GETUPVAL                         R31 14
+      260 JUMP                             ; [+1]
+      261 GETUPVAL                         R31 15
+      262 DUPTABLE                         R32 K66 [{["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
+      263 SETTABLEKS                       R2 R32 K1 ["LayoutOrder"]
+      265 DUPTABLE                         R33 K71 [{"Padding", "SearchCaption", "AgeWarningFrame", "Searchbar"}]
+      266 GETUPVAL                         R34 6
+      267 GETTABLEKS                       R34 R34 K44 ["createElement"]
+      269 LOADK                            R35 K72 ["UIPadding"]
+      270 DUPTABLE                         R36 K76 [{"PaddingTop", "PaddingLeft", "PaddingRight"}]
+      271 GETTABLEKS                       R37 R10 K77 ["searchWidget"]
+      273 GETTABLEKS                       R37 R37 K78 ["paddingTop"]
+      275 SETTABLEKS                       R37 R36 K73 ["PaddingTop"]
+      277 GETTABLEKS                       R37 R10 K77 ["searchWidget"]
+      279 GETTABLEKS                       R37 R37 K79 ["paddingHorizontal"]
+      281 SETTABLEKS                       R37 R36 K74 ["PaddingLeft"]
+      283 GETTABLEKS                       R37 R10 K77 ["searchWidget"]
+      285 GETTABLEKS                       R37 R37 K79 ["paddingHorizontal"]
+      287 SETTABLEKS                       R37 R36 K75 ["PaddingRight"]
+      289 CALL                             R34 2 1
+      290 SETTABLEKS                       R34 R33 K67 ["Padding"]
+      292 LOADB                            R34 0
+      293 JUMPIFEQKNIL                     R28 ; [+32]
+      295 GETUPVAL                         R34 6
+      296 GETTABLEKS                       R34 R34 K44 ["createElement"]
+      298 LOADK                            R35 K80 ["TextLabel"]
+      299 GETUPVAL                         R36 16
+      300 GETTABLEKS                       R36 R36 K81 ["Dictionary"]
+      302 GETTABLEKS                       R36 R36 K82 ["join"]
+      304 GETTABLEKS                       R37 R10 K83 ["fontStyle"]
+      306 GETTABLEKS                       R37 R37 K84 ["Subtext"]
+      308 DUPTABLE                         R38 K88 [{["LayoutOrder"] = 0, ["Size"], ["BackgroundTransparency"] = 1, ["Text"], ["TextXAlignment"]}]
+      309 GETIMPORT                        R39 K91 [UDim2.new]
+      311 LOADN                            R40 1
+      312 LOADN                            R41 0
+      313 LOADN                            R42 0
+      314 LOADN                            R43 14
+      315 CALL                             R39 4 1
+      316 SETTABLEKS                       R39 R38 K85 ["Size"]
+      318 SETTABLEKS                       R28 R38 K86 ["Text"]
+      320 GETIMPORT                        R39 K94 [Enum.TextXAlignment.Left]
+      322 SETTABLEKS                       R39 R38 K87 ["TextXAlignment"]
+      324 CALL                             R36 2 -1
+      325 CALL                             R34 -1 1
+      326 SETTABLEKS                       R34 R33 K68 ["SearchCaption"]
+      328 MOVE                             R34 R9
+      329 JUMPIFNOT                        R34 ; [+47]
+      330 GETUPVAL                         R34 6
+      331 GETTABLEKS                       R34 R34 K44 ["createElement"]
+      333 LOADK                            R35 K95 ["Frame"]
+      334 DUPTABLE                         R36 K97 [{["BackgroundTransparency"] = 1, ["LayoutOrder"] = 1, ["Size"], ["BorderSizePixel"] = 0}]
+      335 GETIMPORT                        R37 K91 [UDim2.new]
+      337 LOADN                            R38 1
+      338 LOADN                            R39 0
+      339 LOADN                            R40 0
+      340 GETTABLEKS                       R41 R10 K77 ["searchWidget"]
+      342 GETTABLEKS                       R41 R41 K98 ["ageWarning"]
+      344 GETTABLEKS                       R41 R41 K99 ["Height"]
+      346 CALL                             R37 4 1
+      347 SETTABLEKS                       R37 R36 K85 ["Size"]
+      349 DUPTABLE                         R37 K101 [{"AgeWarning"}]
+      350 GETUPVAL                         R38 6
+      351 GETTABLEKS                       R38 R38 K44 ["createElement"]
+      353 LOADK                            R39 K80 ["TextLabel"]
+      354 GETUPVAL                         R40 16
+      355 GETTABLEKS                       R40 R40 K81 ["Dictionary"]
+      357 GETTABLEKS                       R40 R40 K82 ["join"]
+      359 GETTABLEKS                       R41 R10 K77 ["searchWidget"]
+      361 GETTABLEKS                       R41 R41 K98 ["ageWarning"]
+      363 GETTABLEKS                       R41 R41 K83 ["fontStyle"]
+      365 DUPTABLE                         R42 K102 [{"Text", "TextXAlignment"}]
+      366 SETTABLEKS                       R25 R42 K86 ["Text"]
+      368 GETIMPORT                        R43 K94 [Enum.TextXAlignment.Left]
+      370 SETTABLEKS                       R43 R42 K87 ["TextXAlignment"]
+      372 CALL                             R40 2 -1
+      373 CALL                             R38 -1 1
+      374 SETTABLEKS                       R38 R37 K100 ["AgeWarning"]
+      376 CALL                             R34 3 1
+      377 SETTABLEKS                       R34 R33 K69 ["AgeWarningFrame"]
+      379 SETTABLEKS                       R29 R33 K70 ["Searchbar"]
+      381 CALL                             R30 3 -1
+      382 RETURN                           R30 -1
 
 PROTO_19:
         0 GETUPVAL                         R2 0
@@ -1642,16 +1650,16 @@ MAIN:
       396 CAPTURE                          VAL R9
       397 CAPTURE                          VAL R38
       398 CAPTURE                          VAL R1
-      399 CAPTURE                          VAL R41
-      400 CAPTURE                          VAL R40
-      401 CAPTURE                          VAL R3
-      402 CAPTURE                          VAL R22
-      403 CAPTURE                          VAL R13
-      404 CAPTURE                          VAL R47
-      405 CAPTURE                          VAL R42
-      406 CAPTURE                          VAL R18
-      407 CAPTURE                          VAL R15
-      408 CAPTURE                          VAL R19
+      399 CAPTURE                          VAL R22
+      400 CAPTURE                          VAL R13
+      401 CAPTURE                          VAL R47
+      402 CAPTURE                          VAL R42
+      403 CAPTURE                          VAL R18
+      404 CAPTURE                          VAL R15
+      405 CAPTURE                          VAL R19
+      406 CAPTURE                          VAL R41
+      407 CAPTURE                          VAL R40
+      408 CAPTURE                          VAL R3
       409 SETTABLEKS                       R50 R49 K83 ["render"]
       411 MOVE                             R50 R7
       412 DUPTABLE                         R51 K85 [{"Stylizer", "Localization", "Mouse"}]

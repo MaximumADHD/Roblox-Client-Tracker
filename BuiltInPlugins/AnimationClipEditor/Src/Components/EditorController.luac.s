@@ -2458,111 +2458,113 @@ MAIN:
       358 GETTABLEKS                       R68 R60 K77 ["TrackUtils"]
       360 CALL                             R67 1 1
       361 GETIMPORT                        R68 K5 [require]
-      363 GETTABLEKS                       R69 R0 K78 ["LuaFlags"]
-      365 GETTABLEKS                       R69 R69 K79 ["GetFFlagFacialAnimationRecordingInStudio"]
-      367 CALL                             R68 1 1
-      368 GETIMPORT                        R69 K5 [require]
-      370 GETTABLEKS                       R70 R0 K78 ["LuaFlags"]
-      372 GETTABLEKS                       R70 R70 K80 ["GetFFlagControlRig"]
-      374 CALL                             R69 1 1
-      375 GETTABLEKS                       R70 R2 K81 ["PureComponent"]
-      377 LOADK                            R72 K82 ["EditorController"]
-      378 NAMECALL                         R70 R70 K83 ["extend"]
-      380 CALL                             R70 2 1
-      381 DUPCLOSURE                       R71 K84 [PROTO_30]
-      382 CAPTURE                          VAL R62
-      383 CAPTURE                          VAL R2
-      384 CAPTURE                          VAL R64
-      385 CAPTURE                          VAL R1
-      386 CAPTURE                          VAL R61
-      387 CAPTURE                          VAL R69
-      388 CAPTURE                          VAL R67
-      389 SETTABLEKS                       R71 R70 K85 ["init"]
-      391 DUPCLOSURE                       R71 K86 [PROTO_31]
-      392 CAPTURE                          VAL R65
-      393 CAPTURE                          VAL R62
-      394 SETTABLEKS                       R71 R70 K87 ["didUpdate"]
-      396 DUPCLOSURE                       R71 K88 [PROTO_38]
+      363 GETTABLEKS                       R69 R0 K15 ["Src"]
+      365 GETTABLEKS                       R69 R69 K78 ["Flags"]
+      367 GETTABLEKS                       R69 R69 K79 ["getFFlagFacialAnimationRecordingInStudio"]
+      369 CALL                             R68 1 1
+      370 GETIMPORT                        R69 K5 [require]
+      372 GETTABLEKS                       R70 R0 K15 ["Src"]
+      374 GETTABLEKS                       R70 R70 K78 ["Flags"]
+      376 GETTABLEKS                       R70 R70 K80 ["getFFlagControlRig"]
+      378 CALL                             R69 1 1
+      379 GETTABLEKS                       R70 R2 K81 ["PureComponent"]
+      381 LOADK                            R72 K82 ["EditorController"]
+      382 NAMECALL                         R70 R70 K83 ["extend"]
+      384 CALL                             R70 2 1
+      385 DUPCLOSURE                       R71 K84 [PROTO_30]
+      386 CAPTURE                          VAL R62
+      387 CAPTURE                          VAL R2
+      388 CAPTURE                          VAL R64
+      389 CAPTURE                          VAL R1
+      390 CAPTURE                          VAL R61
+      391 CAPTURE                          VAL R69
+      392 CAPTURE                          VAL R67
+      393 SETTABLEKS                       R71 R70 K85 ["init"]
+      395 DUPCLOSURE                       R71 K86 [PROTO_31]
+      396 CAPTURE                          VAL R65
       397 CAPTURE                          VAL R62
-      398 CAPTURE                          VAL R61
-      399 CAPTURE                          VAL R67
-      400 CAPTURE                          VAL R2
-      401 CAPTURE                          VAL R20
-      402 CAPTURE                          VAL R21
-      403 CAPTURE                          VAL R41
-      404 CAPTURE                          VAL R43
-      405 CAPTURE                          VAL R5
-      406 CAPTURE                          VAL R63
-      407 CAPTURE                          VAL R39
-      408 CAPTURE                          VAL R42
-      409 CAPTURE                          VAL R40
-      410 CAPTURE                          VAL R36
-      411 CAPTURE                          VAL R37
-      412 CAPTURE                          VAL R30
-      413 CAPTURE                          VAL R68
-      414 CAPTURE                          VAL R25
-      415 CAPTURE                          VAL R33
-      416 CAPTURE                          VAL R28
-      417 CAPTURE                          VAL R26
-      418 CAPTURE                          VAL R38
-      419 CAPTURE                          VAL R27
-      420 CAPTURE                          VAL R31
-      421 CAPTURE                          VAL R22
-      422 CAPTURE                          VAL R23
-      423 CAPTURE                          VAL R24
-      424 CAPTURE                          VAL R32
-      425 CAPTURE                          VAL R34
-      426 CAPTURE                          VAL R29
-      427 CAPTURE                          VAL R69
-      428 CAPTURE                          VAL R35
-      429 SETTABLEKS                       R71 R70 K89 ["render"]
-      431 DUPCLOSURE                       R71 K90 [PROTO_39]
-      432 CAPTURE                          VAL R62
-      433 SETTABLEKS                       R71 R70 K91 ["didMount"]
-      435 DUPCLOSURE                       R71 K92 [PROTO_40]
-      436 CAPTURE                          VAL R66
-      437 SETTABLEKS                       R71 R70 K93 ["willUnmount"]
-      439 DUPCLOSURE                       R71 K94 [PROTO_41]
-      440 DUPCLOSURE                       R72 K95 [PROTO_69]
-      441 CAPTURE                          VAL R45
-      442 CAPTURE                          VAL R15
-      443 CAPTURE                          VAL R57
-      444 CAPTURE                          VAL R55
-      445 CAPTURE                          VAL R50
-      446 CAPTURE                          VAL R47
-      447 CAPTURE                          VAL R46
-      448 CAPTURE                          VAL R18
-      449 CAPTURE                          VAL R59
-      450 CAPTURE                          VAL R48
-      451 CAPTURE                          VAL R52
-      452 CAPTURE                          VAL R12
-      453 CAPTURE                          VAL R13
-      454 CAPTURE                          VAL R14
-      455 CAPTURE                          VAL R54
-      456 CAPTURE                          VAL R51
-      457 CAPTURE                          VAL R11
-      458 CAPTURE                          VAL R53
-      459 CAPTURE                          VAL R16
-      460 CAPTURE                          VAL R17
-      461 CAPTURE                          VAL R58
-      462 CAPTURE                          VAL R10
-      463 CAPTURE                          VAL R49
-      464 CAPTURE                          VAL R56
-      465 MOVE                             R73 R7
-      466 DUPTABLE                         R74 K98 [{"Analytics", "Signals", "Stylizer"}]
-      467 GETTABLEKS                       R75 R6 K96 ["Analytics"]
-      469 SETTABLEKS                       R75 R74 K96 ["Analytics"]
-      471 SETTABLEKS                       R8 R74 K17 ["Signals"]
-      473 GETTABLEKS                       R75 R6 K97 ["Stylizer"]
-      475 SETTABLEKS                       R75 R74 K97 ["Stylizer"]
-      477 CALL                             R73 1 1
-      478 MOVE                             R74 R70
-      479 CALL                             R73 1 1
-      480 MOVE                             R70 R73
-      481 GETTABLEKS                       R73 R3 K99 ["connect"]
-      483 MOVE                             R74 R71
-      484 MOVE                             R75 R72
-      485 CALL                             R73 2 1
-      486 MOVE                             R74 R70
-      487 CALL                             R73 1 -1
-      488 RETURN                           R73 -1
+      398 SETTABLEKS                       R71 R70 K87 ["didUpdate"]
+      400 DUPCLOSURE                       R71 K88 [PROTO_38]
+      401 CAPTURE                          VAL R62
+      402 CAPTURE                          VAL R61
+      403 CAPTURE                          VAL R67
+      404 CAPTURE                          VAL R2
+      405 CAPTURE                          VAL R20
+      406 CAPTURE                          VAL R21
+      407 CAPTURE                          VAL R41
+      408 CAPTURE                          VAL R43
+      409 CAPTURE                          VAL R5
+      410 CAPTURE                          VAL R63
+      411 CAPTURE                          VAL R39
+      412 CAPTURE                          VAL R42
+      413 CAPTURE                          VAL R40
+      414 CAPTURE                          VAL R36
+      415 CAPTURE                          VAL R37
+      416 CAPTURE                          VAL R30
+      417 CAPTURE                          VAL R68
+      418 CAPTURE                          VAL R25
+      419 CAPTURE                          VAL R33
+      420 CAPTURE                          VAL R28
+      421 CAPTURE                          VAL R26
+      422 CAPTURE                          VAL R38
+      423 CAPTURE                          VAL R27
+      424 CAPTURE                          VAL R31
+      425 CAPTURE                          VAL R22
+      426 CAPTURE                          VAL R23
+      427 CAPTURE                          VAL R24
+      428 CAPTURE                          VAL R32
+      429 CAPTURE                          VAL R34
+      430 CAPTURE                          VAL R29
+      431 CAPTURE                          VAL R69
+      432 CAPTURE                          VAL R35
+      433 SETTABLEKS                       R71 R70 K89 ["render"]
+      435 DUPCLOSURE                       R71 K90 [PROTO_39]
+      436 CAPTURE                          VAL R62
+      437 SETTABLEKS                       R71 R70 K91 ["didMount"]
+      439 DUPCLOSURE                       R71 K92 [PROTO_40]
+      440 CAPTURE                          VAL R66
+      441 SETTABLEKS                       R71 R70 K93 ["willUnmount"]
+      443 DUPCLOSURE                       R71 K94 [PROTO_41]
+      444 DUPCLOSURE                       R72 K95 [PROTO_69]
+      445 CAPTURE                          VAL R45
+      446 CAPTURE                          VAL R15
+      447 CAPTURE                          VAL R57
+      448 CAPTURE                          VAL R55
+      449 CAPTURE                          VAL R50
+      450 CAPTURE                          VAL R47
+      451 CAPTURE                          VAL R46
+      452 CAPTURE                          VAL R18
+      453 CAPTURE                          VAL R59
+      454 CAPTURE                          VAL R48
+      455 CAPTURE                          VAL R52
+      456 CAPTURE                          VAL R12
+      457 CAPTURE                          VAL R13
+      458 CAPTURE                          VAL R14
+      459 CAPTURE                          VAL R54
+      460 CAPTURE                          VAL R51
+      461 CAPTURE                          VAL R11
+      462 CAPTURE                          VAL R53
+      463 CAPTURE                          VAL R16
+      464 CAPTURE                          VAL R17
+      465 CAPTURE                          VAL R58
+      466 CAPTURE                          VAL R10
+      467 CAPTURE                          VAL R49
+      468 CAPTURE                          VAL R56
+      469 MOVE                             R73 R7
+      470 DUPTABLE                         R74 K98 [{"Analytics", "Signals", "Stylizer"}]
+      471 GETTABLEKS                       R75 R6 K96 ["Analytics"]
+      473 SETTABLEKS                       R75 R74 K96 ["Analytics"]
+      475 SETTABLEKS                       R8 R74 K17 ["Signals"]
+      477 GETTABLEKS                       R75 R6 K97 ["Stylizer"]
+      479 SETTABLEKS                       R75 R74 K97 ["Stylizer"]
+      481 CALL                             R73 1 1
+      482 MOVE                             R74 R70
+      483 CALL                             R73 1 1
+      484 MOVE                             R70 R73
+      485 GETTABLEKS                       R73 R3 K99 ["connect"]
+      487 MOVE                             R74 R71
+      488 MOVE                             R75 R72
+      489 CALL                             R73 2 1
+      490 MOVE                             R74 R70
+      491 CALL                             R73 1 -1
+      492 RETURN                           R73 -1

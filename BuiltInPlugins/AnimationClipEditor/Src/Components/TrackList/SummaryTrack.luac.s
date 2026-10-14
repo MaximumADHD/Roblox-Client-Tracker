@@ -289,35 +289,36 @@ MAIN:
       104 GETTABLEKS                       R13 R13 K25 ["StringUtils"]
       106 CALL                             R12 1 1
       107 GETIMPORT                        R13 K5 [require]
-      109 GETTABLEKS                       R14 R0 K26 ["LuaFlags"]
-      111 GETTABLEKS                       R14 R14 K27 ["GetFFlagFacialAnimationRecordingInStudio"]
-      113 CALL                             R13 1 1
-      114 GETTABLEKS                       R14 R1 K28 ["PureComponent"]
-      116 LOADK                            R16 K29 ["SummaryTrack"]
-      117 NAMECALL                         R14 R14 K30 ["extend"]
-      119 CALL                             R14 2 1
-      120 DUPCLOSURE                       R15 K31 [PROTO_1]
-      121 SETTABLEKS                       R15 R14 K32 ["init"]
-      123 DUPCLOSURE                       R15 K33 [PROTO_2]
-      124 SETGLOBAL                        R15 K34 ["truncateAtMiddle"]
-      126 DUPCLOSURE                       R15 K35 [PROTO_3]
-      127 CAPTURE                          VAL R12
-      128 CAPTURE                          VAL R13
-      129 CAPTURE                          VAL R11
-      130 CAPTURE                          VAL R1
-      131 CAPTURE                          VAL R8
-      132 CAPTURE                          VAL R10
-      133 CAPTURE                          VAL R5
-      134 CAPTURE                          VAL R6
-      135 CAPTURE                          VAL R7
-      136 CAPTURE                          VAL R9
-      137 SETTABLEKS                       R15 R14 K36 ["render"]
-      139 MOVE                             R15 R4
-      140 DUPTABLE                         R16 K38 [{"Stylizer"}]
-      141 GETTABLEKS                       R17 R3 K37 ["Stylizer"]
-      143 SETTABLEKS                       R17 R16 K37 ["Stylizer"]
-      145 CALL                             R15 1 1
-      146 MOVE                             R16 R14
+      109 GETTABLEKS                       R14 R0 K11 ["Src"]
+      111 GETTABLEKS                       R14 R14 K26 ["Flags"]
+      113 GETTABLEKS                       R14 R14 K27 ["getFFlagFacialAnimationRecordingInStudio"]
+      115 CALL                             R13 1 1
+      116 GETTABLEKS                       R14 R1 K28 ["PureComponent"]
+      118 LOADK                            R16 K29 ["SummaryTrack"]
+      119 NAMECALL                         R14 R14 K30 ["extend"]
+      121 CALL                             R14 2 1
+      122 DUPCLOSURE                       R15 K31 [PROTO_1]
+      123 SETTABLEKS                       R15 R14 K32 ["init"]
+      125 DUPCLOSURE                       R15 K33 [PROTO_2]
+      126 SETGLOBAL                        R15 K34 ["truncateAtMiddle"]
+      128 DUPCLOSURE                       R15 K35 [PROTO_3]
+      129 CAPTURE                          VAL R12
+      130 CAPTURE                          VAL R13
+      131 CAPTURE                          VAL R11
+      132 CAPTURE                          VAL R1
+      133 CAPTURE                          VAL R8
+      134 CAPTURE                          VAL R10
+      135 CAPTURE                          VAL R5
+      136 CAPTURE                          VAL R6
+      137 CAPTURE                          VAL R7
+      138 CAPTURE                          VAL R9
+      139 SETTABLEKS                       R15 R14 K36 ["render"]
+      141 MOVE                             R15 R4
+      142 DUPTABLE                         R16 K38 [{"Stylizer"}]
+      143 GETTABLEKS                       R17 R3 K37 ["Stylizer"]
+      145 SETTABLEKS                       R17 R16 K37 ["Stylizer"]
       147 CALL                             R15 1 1
-      148 MOVE                             R14 R15
-      149 RETURN                           R14 1
+      148 MOVE                             R16 R14
+      149 CALL                             R15 1 1
+      150 MOVE                             R14 R15
+      151 RETURN                           R14 1
