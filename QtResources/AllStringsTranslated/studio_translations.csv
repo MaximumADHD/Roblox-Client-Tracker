@@ -9850,6 +9850,7 @@ Studio.AssetManager.Toast.PublishFailed,,,Some items could not be published.,Som
 Studio.AssetManager.AssetType.Assets,,,Assets,Assets
 Studio.AssetManager.AssetStatus.Restricted,,,Restricted,Restricted
 Studio.AssetManager.AssetStatus.Draft,,,Draft,Draft
+Studio.AssetManager.AssetSource.Unknown,,,Unknown,Unknown
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10244,6 +10245,14 @@ Studio.LayeredClothingEditor.EditingMode.AutoWeightPreserve,,,Auto Skinning Beha
 Studio.LayeredClothingEditor.EditingMode.AutoWeightOverride,,,Auto Skinning Behavior is set to EnabledOverride,Auto Skinning Behavior is set to EnabledOverride
 Studio.LayeredClothingEditor.Studio.LayeredClothingEditor.Dialog.OK,,,OK,OK
 Studio.LayeredClothingEditor.Buttons.CopyGameLink,,,Copy game link,Copy game link
+Studio.LayeredClothingEditor.AssetType.MissingCageWarning,,,"This object doesn't have a cage, so it can't become a layered clothing accessory. Add a cage to the object, or use the Avatar Auto Setup tool to make it a valid layered clothing asset.","This object doesn't have a cage, so it can't become a layered clothing accessory. Add a cage to the object, or use the Avatar Auto Setup tool to make it a valid layered clothing asset."
+Studio.LayeredClothingEditor.AssetType.MissingCageLearnMore,,,Learn more,Learn more
+Studio.LayeredClothingEditor.Select.RejectToolItem,,,Items created by the Accessory Fitting Tool can't be selected.,Items created by the Accessory Fitting Tool can't be selected.
+Studio.LayeredClothingEditor.Select.RejectNotInWorkspace,,,Move the item into the Workspace to select it.,Move the item into the Workspace to select it.
+Studio.LayeredClothingEditor.Select.RejectCharacter,,,Characters can't be selected. Select a MeshPart or an Accessory instead.,Characters can't be selected. Select a MeshPart or an Accessory instead.
+Studio.LayeredClothingEditor.Select.RejectBodyPart,,,"This MeshPart has a WrapTarget, so it's treated as a body part. Remove the WrapTarget to fit it as an accessory.","This MeshPart has a WrapTarget, so it's treated as a body part. Remove the WrapTarget to fit it as an accessory."
+Studio.LayeredClothingEditor.Select.RejectMissingCageMesh,,,"This item's cage is missing a mesh. Set CageMeshId and ReferenceMeshId on its WrapLayer, or remove the WrapLayer.","This item's cage is missing a mesh. Set CageMeshId and ReferenceMeshId on its WrapLayer, or remove the WrapLayer."
+Studio.LayeredClothingEditor.Select.RejectUnsupportedType,,,"Select a MeshPart, an Accessory, or a Part with a SpecialMesh.","Select a MeshPart, an Accessory, or a Part with a SpecialMesh."
 Studio.MeshImporter.Plugin.Name,,,MeshImporter,MeshImporter
 Studio.MeshImporter.Plugin.Toolbar,,,Mesh Importer,Mesh Importer
 Studio.MeshImporter.Plugin.Button,,,Import,Import
@@ -11391,6 +11400,8 @@ Studio.ManageCollaborators.Error.ReachedEarlyTesterLimit,,,You’ve reached the 
 Studio.ManageCollaborators.Button.GoToRoles,,,Go to roles,Go to roles
 Studio.ManageCollaborators.Action.ManageRoles,,,Manage roles,Manage roles
 Studio.ManageCollaborators.Action.Verify,,,Verify,Verify
+Studio.ManageCollaborators.SearchBar.CantInviteLabel,,,Can't invite,Can't invite
+Studio.ManageCollaborators.SearchBar.CantInviteTooltip,,,Not everyone can be an early tester,Not everyone can be an early tester
 Studio.DeviceEmulator.Plugin.Name,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Button,,,Toggle,Toggle
@@ -12652,9 +12663,9 @@ Studio.AvatarCompatibilityPreviewer.CageEditingTool.MirrorRight,,,Mirror from X+
 Studio.AvatarCompatibilityPreviewer.EditingTools.ResetEdits,,,Reset,Reset
 Studio.AvatarCompatibilityPreviewer.AvatarScreen.DEPRECATED_ErrorMultipleBodies,,,"Multiple meshes named _Geo. Either change your model to only have the main body named _Geo, or select the specific one you want.","Multiple meshes named _Geo. Either change your model to only have the main body named _Geo, or select the specific one you want."
 Studio.AvatarCompatibilityPreviewer.UGCValidation.OK,,,OK,OK
-Studio.AvatarCompatibilityPreviewer.AvatarSettings.RerunValidation,,,Re-run Avatar Validation,Re-run Avatar Validation
+Studio.AvatarCompatibilityPreviewer.AvatarSettings.RerunValidation,,,Try Again,Try Again
 Studio.AvatarCompatibilityPreviewer.UGCValidation.InProgressTooltip,,,Validating Avatar...,Validating Avatar...
-Studio.AvatarCompatibilityPreviewer.UGCValidation.RerunValidation,,,Re-run Validation,Re-run Validation
+Studio.AvatarCompatibilityPreviewer.UGCValidation.RerunValidation,,,Try Again,Try Again
 Studio.AvatarCompatibilityPreviewer.ProgressBar.CAGE_SPLIT,,,Caging body,Caging body
 Studio.AvatarCompatibilityPreviewer.ProgressBar.NOT_PROCESSING,,,Preparing model,Preparing model
 Studio.AvatarCompatibilityPreviewer.ProgressBar.ENTERING_PIPELINE,,,Preparing model,Preparing model
@@ -14015,6 +14026,8 @@ Studio.VisualizationModes.PhysicsSimulationSection.ShowQueryableParts,,,Show non
 Studio.VisualizationModes.PhysicsSimulationSection.ShowQueryablePartsToolTip,,,"When disabled, hides all parts with CanQuery = false","When disabled, hides all parts with CanQuery = false"
 Studio.VisualizationModes.PhysicsSimulationSection.ShowTouchableParts,,,Show non-touchable parts,Show non-touchable parts
 Studio.VisualizationModes.PhysicsSimulationSection.ShowTouchablePartsToolTip,,,"When disabled, hides all parts with CanTouch = false","When disabled, hides all parts with CanTouch = false"
+Studio.VisualizationModes.StudioModes.ShapecastsToolTip,,,Draw the swept volume and hit result of shapecast queries,Draw the swept volume and hit result of shapecast queries
+Studio.VisualizationModes.StudioModes.Shapecasts,,,Shapecasts,Shapecasts
 Studio.PlaceSessionConfiguration.ConnectingtoServer,,,Connecting to server...,Connecting to server...
 Studio.PlaceSessionConfiguration.InvalidArgument2,,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2
 Studio.PlaceSessionConfiguration.CloudTestFetchConfigFailed,,,Cannot fetch team test launch config.,Cannot fetch team test launch config.
@@ -15849,7 +15862,7 @@ Studio.AvatarSettings.PlaceSettingsDialog.SavedMessage,,,Place settings saved to
 Studio.AvatarSettings.PlaceSettingsDialog.SavedMessageWithRemoved,,,Place settings saved to ReplicatedStorage.PlaceAvatarRules. Removed {destroyed}.,Place settings saved to ReplicatedStorage.PlaceAvatarRules. Removed {destroyed}.
 Studio.AvatarSettings.ErrorText.AssetIdEmpty,,,Please enter an asset ID,Please enter an asset ID
 Studio.AvatarSettings.Unpublished.WaitingForDatabase,,,Loading Avatar Settings...,Loading Avatar Settings...
-Studio.AvatarSettings.Publish.CreatePlaceSettingsNoUniverseTooltip,,,Save this place to Roblox to create place settings,Save this place to Roblox to create place settings
+Studio.AvatarSettings.Publish.CreatePlaceSettingsNoUniverseTooltip,,,Settings are already saved in the placefile because it's not part of an experience,Settings are already saved in the placefile because it's not part of an experience
 Studio.AvatarSettings.AnimationSettings.StarterPlayerEmotesDisabled,,,"Emotes are still disabled in StarterPlayer, which prevents them from playing.","Emotes are still disabled in StarterPlayer, which prevents them from playing."
 Studio.AvatarSettings.AnimationSettings.EnableStarterPlayerEmotes,,,Enable in StarterPlayer,Enable in StarterPlayer
 Studio.AvatarSettings.MovementSettings.BodyPartCollisionsOnDeath,,,Enable body part collisions on death,Enable body part collisions on death
@@ -15857,6 +15870,12 @@ Studio.AvatarSettings.MovementSettings.CollisionSectionBodyPartsCollidableOnDeat
 Studio.AvatarSettings.PlaceSaveWarning.Title,,,Avatar Settings changes are not saved,Avatar Settings changes are not saved
 Studio.AvatarSettings.PlaceSaveWarning.Description,,,"Saving your place does not save pending Avatar Settings changes. To preserve them, click Save in Avatar Settings.","Saving your place does not save pending Avatar Settings changes. To preserve them, click Save in Avatar Settings."
 Studio.AvatarSettings.MovementSettings.CollisionSectionDeathCollisionDescription,,,Allow avatar body parts to collide with the environment after death.,Allow avatar body parts to collide with the environment after death.
+Studio.AvatarSettings.Publish.SaveChangesTooltip,,,Save settings to your experience - you can playtest before saving,Save settings to your experience - you can playtest before saving
+Studio.AvatarSettings.Publish.RevertChangesTooltip,,,Reset to your experience's settings,Reset to your experience's settings
+Studio.AvatarSettings.Publish.SaveChangesNoUniverseTooltip,,,This place's settings are saved in the placefile,This place's settings are saved in the placefile
+Studio.AvatarSettings.Publish.RevertChangesNoUniverseTooltip,,,This place's settings are saved in the placefile,This place's settings are saved in the placefile
+Studio.AvatarSettings.Publish.SaveChangesNoChangesTooltip,,,No changes to save,No changes to save
+Studio.AvatarSettings.Publish.RevertChangesNoChangesTooltip,,,No changes to reset,No changes to reset
 Studio.ExplorerLibrary.HistoryDropdown.TitleText,,,History,History
 Studio.ExplorerLibrary.SearchBar.PlaceholderText,,,Search,Search
 Studio.ExplorerLibrary.SearchBrowser.ResultCountSingular,,,1 match,1 match
@@ -16392,8 +16411,8 @@ Studio.ScriptEditor.NoDeclarationFoundParameterTooltip,,,No declaration found fo
 Studio.ScriptEditor.ReviewableChange.Accept,,,Keep,Keep
 Studio.ScriptEditor.ReviewableChange.Reject,,,Undo,Undo
 Studio.ScriptEditor.ReviewableChange.NavigationCounter,,,%1 of %2,%1 of %2
-Studio.ScriptEditor.ReviewableChange.KeepAll,,,Keep All,Keep All
-Studio.ScriptEditor.ReviewableChange.UndoAll,,,Undo All,Undo All
+Studio.ScriptEditor.ReviewableChange.KeepAll,,,Keep all,Keep all
+Studio.ScriptEditor.ReviewableChange.UndoAll,,,Undo all,Undo all
 Studio.ScriptEditor.ReviewableChange.ToolbarTitle,,,Reviewing proposed changes,Reviewing proposed changes
 Studio.ScriptEditor.ReviewableChange.PreviousCommand,,,Go To Previous Reviewable Change,Go To Previous Reviewable Change
 Studio.ScriptEditor.ReviewableChange.NextCommand,,,Go To Next Reviewable Change,Go To Next Reviewable Change
@@ -17131,10 +17150,10 @@ Studio.PublishPlace.Button.GrantPermissionsAndPublish,,,Grant Permissions and Pu
 Studio.PublishPlace.Description.AssetPermissions,,,"This place uses assets that the destination experience does not have permission to use. These permissions must be granted for the assets to load in the destination experience, otherwise they will be missing after publishing. Publishing continues as soon as the permissions are granted.","This place uses assets that the destination experience does not have permission to use. These permissions must be granted for the assets to load in the destination experience, otherwise they will be missing after publishing. Publishing continues as soon as the permissions are granted."
 Studio.PublishPlace.Title.AssetPermissions,,,Some assets need permission to load,Some assets need permission to load
 Studio.PublishPlace.Title.AvatarRules,,,Avatar settings differ from this experience,Avatar settings differ from this experience
-Studio.PublishPlace.Description.AvatarRules,,,"This place's avatar settings are different than the ones the destination experience uses. Choose which settings will be used for this place when published, or close this dialog to cancel publishing.","This place's avatar settings are different than the ones the destination experience uses. Choose which settings will be used for this place when published, or close this dialog to cancel publishing."
-Studio.PublishPlace.Button.UpdateExperienceAvatarRules,,,Replace experience,Replace experience
+Studio.PublishPlace.Description.AvatarRules,,,"This place's avatar settings are different from the ones the destination experience uses. Choose which settings will be used for this place when published, or close this dialog to cancel publishing.","This place's avatar settings are different from the ones the destination experience uses. Choose which settings will be used for this place when published, or close this dialog to cancel publishing."
+Studio.PublishPlace.Button.UpdateExperienceAvatarRules,,,Replace experience settings,Replace experience settings
 Studio.PublishPlace.Button.KeepPlaceAvatarRules,,,Keep for place only,Keep for place only
-Studio.PublishPlace.Button.UseExperienceAvatarRules,,,Use experience,Use experience
+Studio.PublishPlace.Button.UseExperienceAvatarRules,,,Use experience settings,Use experience settings
 Studio.ReactDevTools.Plugin.Name,,,React DevTools,React DevTools
 Studio.ReactDevTools.Plugin.Description,,,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.
 Studio.ReactDevTools.Plugin.Button,,,DevTools,DevTools
@@ -17489,6 +17508,7 @@ Studio.InputActionManager.Menu.Vector3Scale,,,Vector3 Scale,Vector3 Scale
 Studio.InputActionManager.Menu.ResponseCurve,,,Response Curve,Response Curve
 Studio.InputActionManager.Menu.Priority,,,Priority,Priority
 Studio.InputActionManager.Menu.Scriptable,,,Scriptable Binding,Scriptable Binding
+Studio.InputActionManager.Filter.PlayerScripts,,,PlayerScripts,PlayerScripts
 Studio.AdPlacementManager.Label.AdPlacementManagerTitle,,,Ad Placement Manager,Ad Placement Manager
 Studio.AdPlacementManager.Label.AdPlacementManagerTooltip,,,View Ad Placement Manager,View Ad Placement Manager
 Studio.AdPlacementManager.Plugin.Description,,,Manage ad placements in your experience.,Manage ad placements in your experience.
@@ -17624,3 +17644,32 @@ Studio.CollectionDebugger.Plugin.Description,,,Inspects collections and their ca
 Studio.CollectionDebugger.App.FilterPlaceholder,,,Filter collections,Filter collections
 Studio.CollectionDebugger.App.NoCollections,,,No active collections,No active collections
 Studio.CollectionDebugger.App.InstanceCount,,,{count} inst,{count} inst
+Studio.CapabilitiesEditor.App.NoData,,,No capability data,No capability data
+Studio.CapabilitiesEditor.Plugin.Name,,,Capabilities,Capabilities
+Studio.CapabilitiesEditor.Plugin.Description,,,Inspect and edit script capabilities of sandboxed instances,Inspect and edit script capabilities of sandboxed instances
+Studio.CapabilitiesEditor.App.SandboxesHeader,,,Sandboxes,Sandboxes
+Studio.CapabilitiesEditor.App.PermissionsHeader,,,Permissions,Permissions
+Studio.CapabilitiesEditor.App.SearchPlaceholder,,,Search,Search
+Studio.CapabilitiesEditor.App.SelectInstance,,,Select an instance to view its capabilities,Select an instance to view its capabilities
+Studio.CapabilitiesEditor.App.SelectSingle,,,Select a single instance,Select a single instance
+Studio.CapabilitiesEditor.App.NotSandboxable,,,This instance cannot be sandboxed,This instance cannot be sandboxed
+Studio.CapabilitiesEditor.App.NotSandboxedHint,,,Not sandboxed - enable Sandboxed in Properties to edit capabilities,Not sandboxed - enable Sandboxed in Properties to edit capabilities
+Studio.CapabilitiesEditor.App.ThisSuffix,,,(this),(this)
+Studio.CapabilitiesEditor.App.BlockedBy,,,blocked by {instance},blocked by {instance}
+Studio.CapabilitiesEditor.App.Close,,,Close,Close
+Studio.AnimatedImageImporter.Importer.NewClip,,,New clip,New clip
+Studio.AnimatedImageImporter.Importer.ClipSpeed,,,Clip speed,Clip speed
+Studio.AnimatedImageImporter.Importer.Filename,,,Filename,Filename
+Studio.AnimatedImageImporter.Importer.ClipDefaultName,,,Clip {number},Clip {number}
+Studio.AnimatedImageImporter.Importer.FrameCount,,,{count} frames,{count} frames
+Studio.AnimatedImageImporter.Importer.ClipCount,,,{count} clips,{count} clips
+Studio.AnimatedImageImporter.Common.Create,,,Create,Create
+Studio.AnimatedImageImporter.Common.Cancel,,,Cancel,Cancel
+Studio.AnimatedImageImporter.Common.Multiple,,,Multiple,Multiple
+Studio.MoveDragger.Plugin.Description,,,Move an Object,Move an Object
+Studio.RotateDragger.Plugin.Description,,,Rotate an Object,Rotate an Object
+Studio.ScaleDragger.Plugin.Description,,,Scale an Object,Scale an Object
+Studio.SplitApart.SplitApart,,,Split Apart,Split Apart
+Studio.SplitApart.SplitApartDisconnectedRegions,,,Split a union into its disconnected regions as independent parts,Split a union into its disconnected regions as independent parts
+Studio.SplitApart.SplitApartFailed,,,Split Apart failed,Split Apart failed
+Studio.SplitApart.NoDisconnectedRegionsToSplit,,,The selection has no disconnected regions to split apart.,The selection has no disconnected regions to split apart.
