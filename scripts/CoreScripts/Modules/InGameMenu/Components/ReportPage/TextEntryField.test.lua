@@ -25,6 +25,9 @@ local Style = require(CorePackages.Workspace.Packages.Style)
 local getTextSizeSpy = jest.spyOn(Style, "GetTextSize")
 
 local TextEntryField = require(script.Parent.TextEntryField)
+local DeferredLuaHelpers = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers
+local waitForEvents = DeferredLuaHelpers.waitForEvents
+local waitForEventsTimes = DeferredLuaHelpers.waitForEventsTimes
 
 local function expectTextMeasurementsWithoutTemporaryPadding()
 	expect(#getTextSizeSpy.mock.calls).toBeGreaterThan(0)
@@ -102,7 +105,7 @@ it("should call textChanged when the user enters text", function()
 	local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
 	textBox.Text = "Hello world!"
 	ReactRoblox.act(function()
-		task.wait(0.1)
+		waitForEvents()
 	end)
 
 	expect(textChangedSpy).toHaveBeenCalled()
@@ -146,7 +149,8 @@ it("should trim the text when it exceeds max text", function()
 	local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
 	textBox.Text = "Hello world!"
 	ReactRoblox.act(function()
-		task.wait(0.1)
+		-- The trim handler sets Text, which fires a second deferred change before textChanged runs.
+		waitForEventsTimes(2)
 	end)
 
 	expect(textChangedTo).toBe("Hello")
@@ -187,7 +191,8 @@ it("should trim multi-byte utf8 characters correctly when it exceeds max length 
 	local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
 	textBox.Text = "罗布乐思是世界最大的多人在线游戏"
 	ReactRoblox.act(function()
-		task.wait(0.1)
+		-- The trim handler sets Text, which fires a second deferred change before textChanged runs.
+		waitForEventsTimes(2)
 	end)
 
 	expect(textChangedTo).toBe("罗布乐思")

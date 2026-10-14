@@ -10,11 +10,13 @@ able to move the registry to a more global scope by using the DataModel as the s
 For now this was avoided to keep the change less disruptive, simpler, and likely much faster.
 Reading the DataModel to get state for every operation can be very slow, especially on Android.
 ]]
+-- Clip when Flags.FoundationDontParentToFoundationModule is enabled
 local Foundation = script:FindFirstAncestor("Foundation")
-local ColorMode = require(Foundation.Enums.ColorMode)
-local Device = require(Foundation.Enums.Device)
-local ThemeName = require(Foundation.Enums.ThemeName)
-local Tokens = require(Foundation.Providers.Style.Tokens)
+local FoundationRoot = script.Parent.Parent
+local ColorMode = require(FoundationRoot.Enums.ColorMode)
+local Device = require(FoundationRoot.Enums.Device)
+local ThemeName = require(FoundationRoot.Enums.ThemeName)
+local Tokens = require(FoundationRoot.Providers.Style.Tokens)
 local Types = require(script.Parent.Rules.Types)
 type ColorMode = ColorMode.ColorMode
 type Device = Device.Device
@@ -22,15 +24,29 @@ type ThemeName = ThemeName.ThemeName
 type TokenOverrides = Tokens.TokenOverrides
 type StyleRuleNoTag = Types.StyleRuleNoTag
 
-local Flags = require(Foundation.Utility.Flags)
-local getGeneratedRules = require(Foundation.Utility.getGeneratedRules)
+local Flags = require(FoundationRoot.Utility.Flags)
+local devAssert = require(FoundationRoot.Utility.devAssert)
+local getGeneratedRules = require(FoundationRoot.Utility.getGeneratedRules)
+local getMainGui = require(FoundationRoot.Utility.getMainGui)
 local getOverrideAttributes = require(script.Parent.getOverrideAttributes)
-local scaleValue = require(Foundation.Utility.scaleValue)
+local scaleValue = require(FoundationRoot.Utility.scaleValue)
 type OverrideAttributes = getOverrideAttributes.OverrideAttributes
 
+local http = game:GetService("HttpService")
 local registryFolder = Instance.new("Folder")
-registryFolder.Name = "FoundationStyleSheets"
-registryFolder.Parent = Foundation
+if Flags.FoundationDontParentToFoundationModule then
+	registryFolder.Name = "FoundationStyleSheets" .. http:GenerateGUID(false)
+else
+	registryFolder.Name = "FoundationStyleSheets"
+end
+
+if Flags.FoundationDontParentToFoundationModule then
+	local mainGui = getMainGui()
+	devAssert(mainGui ~= nil, "MainGui not found")
+	registryFolder.Parent = mainGui
+else
+	registryFolder.Parent = Foundation
+end
 
 type FoundationStyleSheet = {
 	themeName: ThemeName,

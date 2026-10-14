@@ -15,8 +15,6 @@ type InputSize = InputSize.InputSize
 local InputPlacement = require(Foundation.Enums.InputPlacement)
 type InputPlacement = InputPlacement.InputPlacement
 
-local Flags = require(Foundation.Utility.Flags)
-
 export type RadioGroupProps = {
 	-- The value of the currently checked radio item.
 	-- If `nil`, the radio group will be considered uncontrolled.
@@ -47,16 +45,14 @@ local function RadioGroup(radioGroupProps: RadioGroupProps, ref: React.Ref<GuiOb
 		props.onValueChanged(newValue)
 	end, { setValue, props.onValueChanged } :: { unknown })
 
-	local contextValue = if Flags.FoundationStableContextValues
-		then React.useMemo(function()
-			return {
-				value = value,
-				onValueChanged = onValueChanged,
-				Selectable = props.Selectable,
-				testId = props.testId,
-			}
-		end, { value, onValueChanged, props.Selectable, props.testId } :: { unknown })
-		else nil
+	local contextValue = React.useMemo(function()
+		return {
+			value = value,
+			onValueChanged = onValueChanged,
+			Selectable = props.Selectable,
+			testId = props.testId,
+		}
+	end, { value, onValueChanged, props.Selectable, props.testId } :: { unknown })
 	return React.createElement(
 		InternalInputGroup,
 		withCommonProps(props, {
@@ -67,14 +63,7 @@ local function RadioGroup(radioGroupProps: RadioGroupProps, ref: React.Ref<GuiOb
 		}),
 		{
 			RadioGroupContext = React.createElement(RadioGroupContext.Provider, {
-				value = if Flags.FoundationStableContextValues
-					then contextValue
-					else {
-						value = value,
-						onValueChanged = onValueChanged,
-						Selectable = props.Selectable,
-						testId = props.testId,
-					},
+				value = contextValue,
 			}, props.children :: React.ReactNode),
 		}
 	) :: React.ReactNode

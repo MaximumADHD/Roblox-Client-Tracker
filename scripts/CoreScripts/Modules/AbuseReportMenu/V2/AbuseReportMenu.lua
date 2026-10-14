@@ -30,7 +30,6 @@ local isAbuseReportMenuOpenCloseSignalEnabled = require(root.Flags.isAbuseReport
 local FFlagReportFocusNavCloseButton = require(root.Flags.FFlagReportFocusNavCloseButton)
 local FIntAbuseReportTabClearCapturedScreenshotOnCloseFixDelay =
 	require(root.Flags.FIntAbuseReportTabClearCapturedScreenshotOnCloseFixDelay)
-local isInWHAM1707Experiment = require(script.Parent.isInWHAM1707Experiment)
 local safetyServiceSignals = require(script.Parent.safetyServiceSignals)
 
 local inExpChatMessagesLoader = require(script.Parent.inExpChatMessagesLoader)
@@ -40,7 +39,7 @@ local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 local setTimeout = LuauPolyfill.setTimeout
 
 local function shouldEmitMenuOpenCloseSignal(): boolean
-	return isAbuseReportMenuOpenCloseSignalEnabled() and isInWHAM1707Experiment()
+	return isAbuseReportMenuOpenCloseSignalEnabled()
 end
 
 export type Props = {

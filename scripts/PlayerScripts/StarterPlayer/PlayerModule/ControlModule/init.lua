@@ -26,6 +26,7 @@ local ContextActionService = game:GetService("ContextActionService")
 -- Roblox User Input Control Modules - each returns a new() constructor function used to create controllers as needed
 local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
+local FFlagUserVRFixCameraCloseArticulation = FlagUtil.getUserFlag("UserVRFixCameraCloseArticulation")
 local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
 local FFlagUserPlayerScriptsBindActivateOnIAS = FlagUtil.getUserFlag("UserPlayerScriptsBindActivateOnIAS")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
@@ -37,6 +38,7 @@ local FFlagUserPlayerScriptsTaskDeferSimulation = FlagUtil.getUserFlag("UserPlay
 local FFlagUserPlayerScriptsFixSAuthRenderStepMove = FlagUtil.getUserFlag("UserPlayerScriptsFixSAuthRenderStepMove")
 local FFlagUserPlayerScriptsSupportMicroGamepad = FlagUtil.getUserFlag("UserPlayerScriptsSupportMicroGamepad")
 local FFlagUserAbilitiesUserInterfaceC = FlagUtil.getUserFlag("UserAbilitiesUserInterfaceC")
+local FFlagUserControlModuleEnabledAPI = FlagUtil.getUserFlag("UserControlModuleEnabledAPI")
 local FFlagUserPSUseBindToAnimation = FlagUtil.getUserFlag("UserPSUseBindToAnimation")
 local CONNECTIONS = {
 	SERVER_AUTHORITY_CHANGED = "SERVER_AUTHORITY_CHANGED",
@@ -73,6 +75,12 @@ local cameraRotationAction = cameraContext:WaitForChild("CameraRotationAction") 
 local CONTROL_ACTION_PRIORITY = Enum.ContextActionPriority.Medium.Value
 local NECK_OFFSET = -0.7
 local FIRST_PERSON_THRESHOLD_DISTANCE = 5
+
+local VRFirstPersonState = CommonUtils.get("VRFirstPersonState")
+-- Head-follow is trusted only while the camera stays within this HeadScale-scaled zoom of the avatar (first person).
+local MAX_VR_FIRST_PERSON_CAMERA_DISTANCE = 4
+-- Floor for that limit so the fixed first-person camera offset (0.5) never trips it on tiny avatars.
+local MIN_VR_FIRST_PERSON_CAMERA_DISTANCE = 1
 
 -- Mapping from movement mode enum values to control modules to avoid huge if elseif switching
 local movementEnumToModuleMap = {
@@ -691,10 +699,31 @@ function ControlModule:Update(data, playerData, dt)
 	assert(playerData.player)
 	assert(playerData.character)
 
+	if FFlagUserControlModuleEnabledAPI then
+		if not self.humanoid then return end
+
+		local controlAPI = playerData.playerModule.ControlModule
+
+		if not controlAPI.Enabled then
+			playerData.isJumping = false
+			playerData.moveVector = Vector2.new()
+			playerData.worldMoveVector = Vector3.new()
+			ActionController.update(playerData)
+			self.inputMoveVector = Vector3.new()
+			if self.vehicleController then
+				self.vehicleController:Update(Vector3.new(), true)
+			end
+			self:characterMove(data, playerData)
+			return
+		end
+	end
+
 	-- We may need to wait for actions to come from the server so we initialize again
 	ActionController.initializeActions(data, playerData)
-	if not playerData.actions["MoveAction"] or not playerData.actions["JumpAction"] then
-		return
+	if not FFlagUserControlModuleEnabledAPI then
+		if not playerData.actions["MoveAction"] or not playerData.actions["JumpAction"] then
+			return
+		end
 	end
 
 	if self.activeController and self.activeController.enabled and self.humanoid then
@@ -707,9 +736,8 @@ function ControlModule:Update(data, playerData, dt)
 		local moveVector = Vector3.new(playerData.moveVector.X, 0, -playerData.moveVector.Y)
 
 		-- Are we driving a vehicle ?
-		local vehicleConsumedInput = false
 		if self.vehicleController then
-			moveVector, vehicleConsumedInput = self.vehicleController:Update(moveVector, true)
+			moveVector, _ = self.vehicleController:Update(moveVector, true)
 		end
 
 		-- If not, move the player
@@ -723,22 +751,47 @@ function ControlModule:Update(data, playerData, dt)
 			moveVector = self:updateVRMoveVector(moveVector)
 		end
 
-		if FFlagUserPlayerScriptsPlayerControlState then
-			if not data.isServerAuthority then
-				if FFlagUserPlayerScriptsCCLIntegrationD and avatarAbilitiesInterface:isEnabled() then
-					InputReplication.writeInputToPCS(Players.LocalPlayer, self, false)
-				else
+		if FFlagUserControlModuleEnabledAPI then
+			playerData.worldMoveVector = moveVector
+			self:characterMove(data, playerData)
+		else
+			if FFlagUserPlayerScriptsPlayerControlState then
+				if not data.isServerAuthority then
+					if FFlagUserPlayerScriptsCCLIntegrationD and avatarAbilitiesInterface:isEnabled() then
+						InputReplication.writeInputToPCS(Players.LocalPlayer, self, false)
+					else
+						self.moveFunction(Players.LocalPlayer, moveVector, false)
+						self.humanoid.Jump = playerData.isJumping
+					end
+				end
+			else
+				if (not FFlagUserPlayerScriptsFixSAuthRenderStepMove or not data.isServerAuthority)
+					and (not FFlagUserPlayerScriptsCCLIntegrationD or not avatarAbilitiesInterface:isEnabled()) then
 					self.moveFunction(Players.LocalPlayer, moveVector, false)
+					-- And make them jump if needed
 					self.humanoid.Jump = playerData.isJumping
 				end
 			end
-		else
-			if (not FFlagUserPlayerScriptsFixSAuthRenderStepMove or not data.isServerAuthority)
-				and (not FFlagUserPlayerScriptsCCLIntegrationD or not avatarAbilitiesInterface:isEnabled()) then
-				self.moveFunction(Players.LocalPlayer, moveVector, false)
-				-- And make them jump if needed
+		end
+	end
+end
+
+function ControlModule:characterMove(data, playerData)
+	if FFlagUserPlayerScriptsPlayerControlState then
+		if not data.isServerAuthority then
+			if FFlagUserPlayerScriptsCCLIntegrationD and avatarAbilitiesInterface:isEnabled() then
+				InputReplication.writeInputToPCS(Players.LocalPlayer, self, false)
+			else
+				self.moveFunction(Players.LocalPlayer, playerData.worldMoveVector, false)
 				self.humanoid.Jump = playerData.isJumping
 			end
+		end
+	else
+		if (not FFlagUserPlayerScriptsFixSAuthRenderStepMove or not data.isServerAuthority)
+			and (not FFlagUserPlayerScriptsCCLIntegrationD or not avatarAbilitiesInterface:isEnabled()) then
+			self.moveFunction(Players.LocalPlayer, playerData.worldMoveVector, false)
+			-- And make them jump if needed
+			self.humanoid.Jump = playerData.isJumping
 		end
 	end
 end
@@ -748,7 +801,13 @@ function ControlModule:updateVRMoveVector(moveVector)
 
 	-- movement relative to VR frustum
 	local cameraDelta = curCamera.Focus.Position - curCamera.CFrame	.Position
-	local firstPerson = cameraDelta.Magnitude < FIRST_PERSON_THRESHOLD_DISTANCE and true
+	local firstPerson
+	if FFlagUserVRFixCameraCloseArticulation then
+		-- First-person intent from the camera, not the occlusion-fooled distance.
+		firstPerson = VRFirstPersonState.inFirstPerson
+	else
+		firstPerson = cameraDelta.Magnitude < FIRST_PERSON_THRESHOLD_DISTANCE and true
+	end
 
 	-- if the player is not moving via input in first person, follow the VRHead
 	if moveVector.Magnitude == 0 and firstPerson and VRService.AvatarGestures and self.humanoid 
@@ -762,7 +821,17 @@ function ControlModule:updateVRMoveVector(moveVector)
 		local vrHeadWorld = curCamera.CFrame * vrHeadOffset * CFrame.new(0, neck_offset, 0)
 
 		local moveOffset = vrHeadWorld.Position - self.humanoid.RootPart.CFrame.Position
-		return Vector3.new(moveOffset.x, 0, moveOffset.z)
+		local followVector = Vector3.new(moveOffset.x, 0, moveOffset.z)
+
+		if FFlagUserVRFixCameraCloseArticulation
+			and (curCamera.Focus.Position - curCamera.CFrame.Position).Magnitude
+				> math.max(MAX_VR_FIRST_PERSON_CAMERA_DISTANCE * curCamera.HeadScale, MIN_VR_FIRST_PERSON_CAMERA_DISTANCE) then
+			-- When in 1st person mode, avatar follows the user's head position by default (followVector).
+			-- If the camera is further than this from the avatar, it's actually in a 3rd person pose, so we return a 0 moveVector instead.
+			return moveVector
+		end
+
+		return followVector
 	end
 
 	return moveVector

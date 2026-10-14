@@ -24,6 +24,7 @@ local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 
 local FFlagUserVRRecenterOnExternalTeleport = FlagUtil.getUserFlag("UserVRRecenterOnExternalTeleport")
+local FFlagUserFixVRImmersionAutoRotate = FlagUtil.getUserFlag("UserFixVRImmersionAutoRotate")
 
 --[[ The Module ]]--
 local VRBaseCamera = require(script.Parent:WaitForChild("VRBaseCamera"))
@@ -38,7 +39,8 @@ function VRCamera.new()
 	self:Reset()
 
 	self.controlModule = require(PlayersService.LocalPlayer:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule"))
-	self.savedAutoRotate = true 
+	self.savedAutoRotate = true
+	self.autoRotateOverridden = false
 
 	return self
 end
@@ -193,8 +195,13 @@ function VRCamera:UpdateImmersionCamera(timeDelta, newCameraCFrame, newCameraFoc
 	if self.needsReset then
 		self.needsReset = false
 		
-		self.savedAutoRotate = humanoid.AutoRotate
-		humanoid.AutoRotate = false
+		if FFlagUserFixVRImmersionAutoRotate then
+			-- Capture/disable on entering immersion first person (idempotent; a recenter won't recapture).
+			self:updateImmersionAutoRotate()
+		else
+			self.savedAutoRotate = humanoid.AutoRotate
+			humanoid.AutoRotate = false
+		end
 
 		if FFlagUserVRRecenterOnExternalTeleport then
 			-- (Re)entering first person: recenter the head origin so the tracked origin matches the
@@ -435,6 +442,47 @@ function VRCamera:UpdateThirdPersonFollowTransform(timeDelta, newCameraCFrame, n
 	return newCameraCFrame, newCameraFocus
 end
 
+-- Force AutoRotate off while in first person with AvatarGestures on, restoring the player's value otherwise.
+-- Capture it once per override so a recenter (needsReset re-fires) can't recapture the already-false value.
+function VRCamera:updateImmersionAutoRotate()
+	local humanoid = self:GetHumanoid()
+	if not humanoid then
+		return
+	end
+
+	if self:IsInFirstPerson() and VRService.AvatarGestures then
+		if not self.autoRotateOverridden then
+			self.savedAutoRotate = humanoid.AutoRotate
+			self.autoRotateOverridden = true
+		end
+		humanoid.AutoRotate = false
+	elseif self.autoRotateOverridden then
+		humanoid.AutoRotate = self.savedAutoRotate
+		self.autoRotateOverridden = false
+	end
+end
+
+-- Immersion AutoRotate is reconciled on discrete events (first-person entry/exit and the AvatarGestures
+-- toggle), not per frame; listen for the toggle while this camera is active.
+function VRCamera:OnEnabledChanged()
+	VRBaseCamera.OnEnabledChanged(self)
+
+	if not FFlagUserFixVRImmersionAutoRotate then
+		return
+	end
+
+	if self.enabled then
+		if not self.avatarGesturesChangedConn then
+			self.avatarGesturesChangedConn = VRService:GetPropertyChangedSignal("AvatarGestures"):Connect(function()
+				self:updateImmersionAutoRotate()
+			end)
+		end
+	elseif self.avatarGesturesChangedConn then
+		self.avatarGesturesChangedConn:Disconnect()
+		self.avatarGesturesChangedConn = nil
+	end
+end
+
 function VRCamera:LeaveFirstPerson()
 	VRBaseCamera.LeaveFirstPerson(self)
 	
@@ -447,9 +495,14 @@ function VRCamera:LeaveFirstPerson()
 		self.characterOrientation.Enabled = false
 
 	end
-	local humanoid = self:GetHumanoid()
-	if humanoid then
-		humanoid.AutoRotate = self.savedAutoRotate
+	if FFlagUserFixVRImmersionAutoRotate then
+		-- Restore on first-person exit (inFirstPerson is already false here).
+		self:updateImmersionAutoRotate()
+	else
+		local humanoid = self:GetHumanoid()
+		if humanoid then
+			humanoid.AutoRotate = self.savedAutoRotate
+		end
 	end
 end
 

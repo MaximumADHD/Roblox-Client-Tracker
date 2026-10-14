@@ -1,15 +1,12 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Button = require(Foundation.Components.Button)
 local ButtonGroup = require(Foundation.Components.ButtonGroup)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local DialogSize = require(Foundation.Enums.DialogSize)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
-local Flags = require(Foundation.Utility.Flags)
 local Orientation = require(Foundation.Enums.Orientation)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
@@ -50,29 +47,7 @@ local function DialogActions(dialogActionsProps: DialogActionsProps)
 	local variants = useDialogVariants()
 	local dialogContext = useDialog()
 
-	local actions = React.useMemo(function()
-		if not props.actions then
-			return nil :: React.ReactNode
-		end
-		return React.createElement(
-			React.Fragment,
-			nil,
-			Dash.map(props.actions, function(actionProps, index)
-				return React.createElement(
-					Button,
-					Dash.join(actionProps, {
-						key = `{index}-{actionProps.text}`,
-						Name = actionProps.text,
-						LayoutOrder = index,
-						fillBehavior = FillBehavior.Fill,
-					})
-				)
-			end)
-		)
-	end, { props.actions })
-
 	local isSmall = dialogContext.responsiveSize == DialogSize.Small
-	local horizontalOrientation = props.orientation == Orientation.Horizontal or not isSmall
 	local verticalOrientation = props.orientation == Orientation.Vertical and isSmall
 
 	return React.createElement(View, {
@@ -80,25 +55,13 @@ local function DialogActions(dialogActionsProps: DialogActionsProps)
 		LayoutOrder = props.LayoutOrder,
 		testId = `{dialogContext.testId}--actions`,
 	}, {
-		ActionsContainer = if Flags.FoundationDialogBetaUpdate
-			then React.createElement(ButtonGroup, {
-				buttons = props.actions or {} :: any,
-				orientation = if verticalOrientation then Orientation.Vertical else Orientation.Horizontal,
-				fillBehavior = FillBehavior.Fill,
-				LayoutOrder = 1,
-				testId = `{dialogContext.testId}--actions-container`,
-			})
-			else React.createElement(View, {
-				tag = {
-					["gap-small size-full-0 auto-y"] = true,
-					["row wrap"] = horizontalOrientation,
-					["col flex-x-fill"] = verticalOrientation,
-				},
-				LayoutOrder = 1,
-				testId = `{dialogContext.testId}--actions-container`,
-			}, {
-				Actions = actions,
-			}),
+		ActionsContainer = React.createElement(ButtonGroup, {
+			buttons = props.actions or {} :: any,
+			orientation = if verticalOrientation then Orientation.Vertical else Orientation.Horizontal,
+			fillBehavior = FillBehavior.Fill,
+			LayoutOrder = 1,
+			testId = `{dialogContext.testId}--actions-container`,
+		}),
 		ActionsLabel = if props.label
 			then React.createElement(Text, {
 				Text = props.label,

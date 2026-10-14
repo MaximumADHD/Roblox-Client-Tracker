@@ -62,32 +62,30 @@ local function OptionSelectorGroupInner(innerProps: OptionSelectorGroupInnerProp
 	local variantProps =
 		useOptionSelectorGroupVariants(tokens, props.size or OptionSelectorGroupSize.Medium, props.orientation)
 
-	local contextValue = if Flags.FoundationStableContextValues
-		then React.useMemo(
-			function()
-				return {
-					value = innerProps.value,
-					onValueChanged = innerProps.onValueChanged,
-					orientation = props.orientation,
-					Selectable = props.Selectable,
-					testId = props.testId,
-					-- Only cascade when Root explicitly sets size; otherwise Items keep their own size.
-					size = innerProps.sizeOverride,
-					-- Only cascade when Root explicitly sets fillBehavior; otherwise Items keep their own.
-					fillBehavior = innerProps.fillBehaviorOverride,
-				}
-			end,
-			{
-				innerProps.value,
-				innerProps.onValueChanged,
-				props.orientation,
-				props.Selectable,
-				props.testId,
-				innerProps.sizeOverride,
-				innerProps.fillBehaviorOverride,
-			} :: { unknown }
-		)
-		else nil
+	local contextValue = React.useMemo(
+		function()
+			return {
+				value = innerProps.value,
+				onValueChanged = innerProps.onValueChanged,
+				orientation = props.orientation,
+				Selectable = props.Selectable,
+				testId = props.testId,
+				-- Only cascade when Root explicitly sets size; otherwise Items keep their own size.
+				size = innerProps.sizeOverride,
+				-- Only cascade when Root explicitly sets fillBehavior; otherwise Items keep their own.
+				fillBehavior = innerProps.fillBehaviorOverride,
+			}
+		end,
+		{
+			innerProps.value,
+			innerProps.onValueChanged,
+			props.orientation,
+			props.Selectable,
+			props.testId,
+			innerProps.sizeOverride,
+			innerProps.fillBehaviorOverride,
+		} :: { unknown }
+	)
 
 	return React.createElement(
 		View,
@@ -110,19 +108,7 @@ local function OptionSelectorGroupInner(innerProps: OptionSelectorGroupInnerProp
 				testId = `{props.testId}--list`,
 			}, {
 				OptionSelectorGroupContext = React.createElement(OptionSelectorGroupContext.Provider, {
-					value = if Flags.FoundationStableContextValues
-						then contextValue
-						else {
-							value = innerProps.value,
-							onValueChanged = innerProps.onValueChanged,
-							orientation = props.orientation,
-							Selectable = props.Selectable,
-							testId = props.testId,
-							-- Only cascade when Root explicitly sets size; otherwise Items keep their own size.
-							size = innerProps.sizeOverride,
-							-- Only cascade when Root explicitly sets fillBehavior; otherwise Items keep their own.
-							fillBehavior = innerProps.fillBehaviorOverride,
-						},
+					value = contextValue,
 				}, props.children),
 			}),
 		}
@@ -155,17 +141,15 @@ local function OptionSelectorGroup(optionSelectorGroupProps: OptionSelectorGroup
 		}) :: React.ReactElement
 	end
 
-	local contextValue = if Flags.FoundationStableContextValues
-		then React.useMemo(function()
-			return {
-				value = value,
-				onValueChanged = onValueChanged,
-				orientation = props.orientation,
-				Selectable = props.Selectable,
-				testId = props.testId,
-			}
-		end, { value, onValueChanged, props.orientation, props.Selectable, props.testId } :: { unknown })
-		else nil
+	local contextValue = React.useMemo(function()
+		return {
+			value = value,
+			onValueChanged = onValueChanged,
+			orientation = props.orientation,
+			Selectable = props.Selectable,
+			testId = props.testId,
+		}
+	end, { value, onValueChanged, props.orientation, props.Selectable, props.testId } :: { unknown })
 
 	return React.createElement(
 		View,
@@ -182,15 +166,7 @@ local function OptionSelectorGroup(optionSelectorGroupProps: OptionSelectorGroup
 		}),
 		{
 			OptionSelectorGroupContext = React.createElement(OptionSelectorGroupContext.Provider, {
-				value = if Flags.FoundationStableContextValues
-					then contextValue
-					else {
-						value = value,
-						onValueChanged = onValueChanged,
-						orientation = props.orientation,
-						Selectable = props.Selectable,
-						testId = props.testId,
-					},
+				value = contextValue,
 			}, props.children),
 		}
 	) :: React.ReactElement

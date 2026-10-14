@@ -6,21 +6,31 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local Breadcrumb = require(Foundation.Components.Breadcrumb)
+local Button = require(Foundation.Components.Button)
+local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local InputSize = require(Foundation.Enums.InputSize)
-local Text = require(Foundation.Components.Text)
+local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
+local Menu = require(Foundation.Components.Menu)
+local StoryIcons = require(Foundation.Utility.Stories.Shared.StoryIcons)
+local StorySection = require(Foundation.Utility.Stories.Shared.StorySection)
 local View = require(Foundation.Components.View)
 
 local IconName = BuilderIcons.Icon
+local IconVariant = BuilderIcons.IconVariant
+local LabeledCell = StorySection.LabeledCell
+local matrixLabel = MatrixGridShared.matrixLabel
+local Section = StorySection.Section
 
 type InputSize = InputSize.InputSize
 type BreadcrumbItem = Breadcrumb.BreadcrumbItem
+type MenuItem = Menu.MenuItem
 
 type Controls = {
+	itemCount: number,
+	leading: string,
+	leadingPosition: string,
 	size: InputSize,
-	separator: string,
-	maxItems: number,
-	itemsBeforeCollapse: number,
-	itemsAfterCollapse: number,
+	hasOnDropdownActivated: boolean,
 }
 
 local SIZE_ORDER: { InputSize } = {
@@ -29,205 +39,454 @@ local SIZE_ORDER: { InputSize } = {
 	InputSize.Large,
 }
 
+local ICON_TYPE_LABEL_COLUMN_WIDTH = 260
+local TWO_PAGE_COLUMN_WIDTH = 200
+local NAVIGATION_COUNT = 5
+local DROPDOWN_CHOICES = { "Option 1", "Option 2", "Option 3" }
+
 local function noop() end
 
-local DEFAULT_ITEMS: { BreadcrumbItem } = {
-	{ text = "Home", onActivated = noop },
-	{ text = "Games", onActivated = noop },
-	{ text = "Tower Defense Simulator" },
-}
-
-local PLAYGROUND_ITEMS: { BreadcrumbItem } = {
-	{ text = "Home", onActivated = noop },
-	{ text = "Games", onActivated = noop },
-	{ text = "Simulator", onActivated = noop },
-	{ text = "Worlds", onActivated = noop },
-	{ text = "Maps", onActivated = noop },
-	{ text = "Tower Defense Simulator", onActivated = noop },
-}
-
-local ICON_ITEMS: { BreadcrumbItem } = {
-	{ text = "Home", onActivated = noop, leading = IconName.House },
-	{ text = "Games", onActivated = noop, leading = IconName.Controller },
-	{ text = "Tower Defense Simulator", leading = IconName.Star },
-}
-
-local AVATAR_ITEMS: { BreadcrumbItem } = {
-	{ text = "Builderman", onActivated = noop, leading = { type = "Avatar", userId = 156 } },
-	{ text = "Games", onActivated = noop },
-	{ text = "Tower Defense Simulator" },
-}
-
-local TRAILING_ITEMS: { BreadcrumbItem } = {
-	{ text = "Home", onActivated = noop },
-	{ text = "Games", onActivated = noop, trailing = IconName.ChevronLargeDown },
-	{ text = "Tower Defense Simulator" },
-}
-
-local COLLAPSE_ITEMS: { BreadcrumbItem } = {
-	{ text = "Home", onActivated = noop },
-	{ text = "Games", onActivated = noop },
-	{ text = "Tower Defense", onActivated = noop },
-	{ text = "Maps", onActivated = noop },
-	{ text = "Hardcore Mode" },
-}
-
-local function Section(props: {
-	LayoutOrder: number,
-	name: string,
-	note: string?,
-	contentTag: string?,
-	children: React.ReactNode,
-})
-	return React.createElement(View, {
-		tag = "col gap-medium size-full-0 auto-y",
-		LayoutOrder = props.LayoutOrder,
-	}, {
-		Title = React.createElement(Text, {
-			Text = props.name,
-			tag = "auto-xy text-label-medium content-default",
-			LayoutOrder = 1,
-		}),
-		Note = if props.note
-			then React.createElement(Text, {
-				Text = props.note,
-				tag = "auto-xy text-caption-small text-wrap text-align-x-left content-muted",
-				LayoutOrder = 2,
-			})
-			else nil,
-		Content = React.createElement(View, {
-			tag = props.contentTag or "col gap-large size-full-0 auto-y",
-			LayoutOrder = 3,
-		}, props.children),
-	})
+local function makeItems(count: number): { BreadcrumbItem }
+	local items: { BreadcrumbItem } = {}
+	for index = 1, count do
+		table.insert(items, {
+			text = `Page {index}`,
+			onActivated = if index < count then noop else nil,
+		})
+	end
+	return items
 end
 
-local function LabeledBreadcrumb(props: {
-	label: string,
-	LayoutOrder: number,
-	size: InputSize?,
-	items: { BreadcrumbItem },
-})
-	return React.createElement(View, {
-		tag = "col gap-small auto-xy",
-		LayoutOrder = props.LayoutOrder,
-	}, {
-		Label = React.createElement(Text, {
-			Text = props.label,
-			tag = "auto-xy text-caption-small text-align-x-left content-default",
-			LayoutOrder = 1,
-		}),
-		Breadcrumb = React.createElement(Breadcrumb, {
-			size = props.size,
-			items = props.items,
-			LayoutOrder = 2,
-		}),
-	})
+local function itemsWithLeading(leading: string): { BreadcrumbItem }
+	local items = makeItems(2)
+	items[1].leading = leading
+	return items
+end
+
+local DEFAULT_ITEMS = makeItems(3)
+local REGULAR_ICON_ITEMS = itemsWithLeading(IconName.House)
+local IMAGE_ITEMS = itemsWithLeading("rbxassetid://103403748802347")
+local OVER_LIMIT_ITEMS = makeItems(5)
+local LEADING_COLUMN_WIDTH = 280
+local function itemsWithLeadingAt(count: number, atIndex: number?): { BreadcrumbItem }
+	local items = makeItems(count)
+	for index = 1, count do
+		if atIndex == nil or index == atIndex then
+			items[index].leading = IconName.House
+		end
+	end
+	return items
+end
+
+local FILLED_ICON_ITEMS = makeItems(2)
+FILLED_ICON_ITEMS[1].leading = { iconName = IconName.House, iconVariant = IconVariant.Filled }
+
+local AVATAR_ITEMS = makeItems(2)
+AVATAR_ITEMS[1].leading = { type = "Avatar", userId = 24813339 }
+
+local MIXED_LEADING_ITEMS = makeItems(4)
+MIXED_LEADING_ITEMS[1].leading = IconName.House
+MIXED_LEADING_ITEMS[2].leading = { type = "Avatar", userId = 24813339 }
+MIXED_LEADING_ITEMS[3].leading = "rbxassetid://103403748802347"
+
+local ITEM_COUNT_ORDER: { number } = { 2, 3, 4, 5 }
+local LEADING_ORDER: { string } = { "None", "Icon", "Avatar", "Image" }
+local LEADING_POSITION_ORDER: { string } = { "First", "Current", "All" }
+
+local function setLeading(item: BreadcrumbItem, leading: string)
+	if leading == "Icon" then
+		item.leading = IconName.House
+	elseif leading == "Avatar" then
+		item.leading = { type = "Avatar", userId = 24813339 }
+	elseif leading == "Image" then
+		item.leading = "rbxassetid://103403748802347"
+	end
+end
+
+local function playgroundItems(controls: Controls, count: number): { BreadcrumbItem }
+	local items = makeItems(count)
+	for index = 1, count do
+		local isTarget = controls.leadingPosition == "All"
+			or (controls.leadingPosition == "First" and index == 1)
+			or (controls.leadingPosition == "Current" and index == count)
+		if isTarget then
+			setLeading(items[index], controls.leading)
+		end
+	end
+	return items
 end
 
 local function PlaygroundStory(props: { controls: Controls }): React.ReactNode
 	local controls = props.controls
+	local depth, setDepth = React.useState(controls.itemCount)
+
+	React.useEffect(function()
+		setDepth(controls.itemCount)
+	end, { controls.itemCount })
+
+	local count = math.min(depth, controls.itemCount)
+	local items = playgroundItems(controls, count)
+	for index, item in items do
+		if index < count then
+			item.onActivated = function()
+				setDepth(index)
+			end
+		end
+	end
 
 	return React.createElement(View, {
-		tag = "col align-x-left gap-large size-full-0 auto-y padding-y-large bg-surface-0",
+		tag = `align-x-left {StorySection.STORY_PAGE_COL_TAG}`,
 	}, {
 		Breadcrumb = React.createElement(Breadcrumb, {
 			size = controls.size,
-			separator = controls.separator,
-			maxItems = controls.maxItems,
-			itemsBeforeCollapse = controls.itemsBeforeCollapse,
-			itemsAfterCollapse = controls.itemsAfterCollapse,
-			items = PLAYGROUND_ITEMS,
+			onDropdownActivated = if controls.hasOnDropdownActivated then noop else nil,
+			items = items,
 			LayoutOrder = 1,
 		}),
-	})
-end
-
-local function CollapsedStory(): React.ReactNode
-	return React.createElement(View, {
-		tag = "col align-x-left gap-large size-full-0 auto-y padding-y-large bg-surface-0",
-	}, {
-		Collapsed = React.createElement(Section, {
-			LayoutOrder = 1,
-			name = "Collapsed",
-			note = "When items exceed maxItems, the middle crumbs collapse into an overflow button; activating it reveals the full trail.",
-			contentTag = "col gap-large align-x-left auto-xy",
-		}, {
-			Breadcrumb = React.createElement(Breadcrumb, {
-				maxItems = 3,
-				items = COLLAPSE_ITEMS,
-				LayoutOrder = 1,
-			}),
-		}),
+		Reset = if count < controls.itemCount
+			then React.createElement(Button, {
+				text = "Reset trail",
+				variant = ButtonVariant.Standard,
+				onActivated = function()
+					setDepth(controls.itemCount)
+				end,
+				LayoutOrder = 2,
+			})
+			else nil,
 	})
 end
 
 local function SizingStory(): React.ReactNode
 	return React.createElement(View, {
-		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
+		tag = StorySection.STORY_PAGE_COL_TAG,
 	}, {
-		Size = React.createElement(
-			Section,
-			{
-				LayoutOrder = 1,
-				name = "Size",
-				contentTag = "col gap-large align-x-left auto-xy",
-			},
-			Dash.map(SIZE_ORDER, function(size, index)
-				return React.createElement(LabeledBreadcrumb, {
-					label = size :: string,
-					LayoutOrder = index,
-					size = size,
-					items = DEFAULT_ITEMS,
-				})
-			end)
-		),
-	})
-end
-
-local function ContentStory(): React.ReactNode
-	return React.createElement(View, {
-		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
-	}, {
-		Accessories = React.createElement(Section, {
+		Size = React.createElement(Section, {
 			LayoutOrder = 1,
-			name = "Accessories",
-			note = 'Each item can carry a leading and/or trailing accessory — an icon (name), an avatar ({ type = "Avatar", userId }), or a media image (asset string). The last item is always the current page.',
-			contentTag = "col gap-large align-x-left auto-xy",
+			name = "Size",
 		}, {
-			LeadingIcon = React.createElement(LabeledBreadcrumb, {
-				label = "Leading icon",
+			Small = React.createElement(LabeledCell, {
 				LayoutOrder = 1,
-				items = ICON_ITEMS,
+				label = "Small",
+			}, {
+				Breadcrumb = React.createElement(Breadcrumb, {
+					size = InputSize.Small,
+					items = DEFAULT_ITEMS,
+				}),
 			}),
-			LeadingAvatar = React.createElement(LabeledBreadcrumb, {
-				label = "Leading avatar",
+			Medium = React.createElement(LabeledCell, {
 				LayoutOrder = 2,
-				items = AVATAR_ITEMS,
+				label = "Medium",
+			}, {
+				Breadcrumb = React.createElement(Breadcrumb, {
+					items = DEFAULT_ITEMS,
+				}),
 			}),
-			Trailing = React.createElement(LabeledBreadcrumb, {
-				label = "Trailing accessory",
+			Large = React.createElement(LabeledCell, {
 				LayoutOrder = 3,
-				items = TRAILING_ITEMS,
+				label = "Large",
+			}, {
+				Breadcrumb = React.createElement(Breadcrumb, {
+					size = InputSize.Large,
+					items = DEFAULT_ITEMS,
+				}),
 			}),
 		}),
 	})
 end
 
+local function NavigationExample(props: { LayoutOrder: number })
+	local depth, setDepth = React.useState(NAVIGATION_COUNT)
+
+	local items: { BreadcrumbItem } = {}
+	local pageButtons: { [string]: React.ReactNode } = {}
+	for index = 1, NAVIGATION_COUNT do
+		local isCurrent = index == depth
+		if index <= depth then
+			table.insert(items, {
+				text = `Page {index}`,
+				onActivated = if isCurrent
+					then nil
+					else function()
+						setDepth(index)
+					end,
+			})
+		end
+		pageButtons[`Page{index}`] = React.createElement(Button, {
+			text = `Page {index}`,
+			variant = if isCurrent then ButtonVariant.Emphasis else ButtonVariant.Standard,
+			onActivated = function()
+				setDepth(index)
+			end,
+			LayoutOrder = index,
+		})
+	end
+
+	return React.createElement(View, {
+		tag = "col align-x-left gap-medium auto-xy",
+		LayoutOrder = props.LayoutOrder,
+	}, {
+		Breadcrumb = React.createElement(Breadcrumb, {
+			items = items,
+			LayoutOrder = 1,
+		}),
+		Pages = React.createElement(View, {
+			tag = "row gap-small auto-xy",
+			LayoutOrder = 2,
+		}, pageButtons),
+	})
+end
+
+local function DropdownExample(props: { LayoutOrder: number })
+	local currentPage, setCurrentPage = React.useState(DROPDOWN_CHOICES[1])
+	local isOpen, setIsOpen = React.useState(false)
+	local anchorRef = React.useRef(nil :: GuiObject?)
+
+	local menuItems: { MenuItem } = {}
+	for _, page in DROPDOWN_CHOICES do
+		table.insert(menuItems, {
+			id = page,
+			text = page,
+			isChecked = page == currentPage,
+		})
+	end
+
+	return React.createElement(View, {
+		tag = "col align-x-left auto-xy",
+		LayoutOrder = props.LayoutOrder,
+	}, {
+		Breadcrumb = React.createElement(Breadcrumb, {
+			items = {
+				{ text = "Page 1", onActivated = noop },
+				{ text = currentPage, ref = anchorRef },
+			} :: { BreadcrumbItem },
+			onDropdownActivated = function()
+				setIsOpen(function(open)
+					return not open
+				end)
+			end,
+			LayoutOrder = 1,
+		}),
+		Menu = React.createElement(Menu, {
+			isOpen = isOpen,
+			anchorRef = anchorRef,
+			items = menuItems,
+			onActivated = function(id)
+				setCurrentPage(tostring(id))
+				setIsOpen(false)
+			end,
+			onPressedOutside = function()
+				setIsOpen(false)
+			end,
+		}),
+	})
+end
+
+local function ControlledStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = StorySection.STORY_PAGE_COL_TAG,
+	}, {
+		Navigation = React.createElement(Section, {
+			LayoutOrder = 1,
+			name = "Navigation",
+			contentTag = "auto-xy",
+		}, {
+			Example = React.createElement(NavigationExample, {
+				LayoutOrder = 1,
+			}),
+		}),
+		Dropdown = React.createElement(Section, {
+			LayoutOrder = 2,
+			name = "Dropdown",
+			note = "Give the current item a ref and pass it as the menu's anchorRef to open the menu under the current crumb.",
+			contentTag = "auto-xy",
+		}, {
+			Example = React.createElement(DropdownExample, {
+				LayoutOrder = 1,
+			}),
+		}),
+	})
+end
+
+local function ContentStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = StorySection.STORY_PAGE_COL_TAG,
+	}, {
+		IconByType = React.createElement(StorySection.MatrixSection, {
+			LayoutOrder = 1,
+			name = "Icon by type",
+			labelColumnWidth = ICON_TYPE_LABEL_COLUMN_WIDTH,
+			columnHeaders = Dash.map(SIZE_ORDER, function(size): string
+				return size
+			end),
+			cellColumnWidth = TWO_PAGE_COLUMN_WIDTH,
+			rowGap = "xxlarge",
+			rows = StoryIcons.buildIconTypeMatrixRows(function(iconExample)
+				return Dash.map(SIZE_ORDER, function(size)
+					return React.createElement(Breadcrumb, {
+						size = size,
+						items = itemsWithLeading(iconExample.name),
+					})
+				end)
+			end),
+		}),
+		IconByVariant = React.createElement(Section, {
+			LayoutOrder = 2,
+			name = "Icon by variant",
+			note = "A name string is Regular; Filled is only available on the table arm.",
+		}, {
+			Regular = React.createElement(LabeledCell, {
+				LayoutOrder = 1,
+				label = "Regular",
+			}, {
+				Breadcrumb = React.createElement(Breadcrumb, {
+					items = REGULAR_ICON_ITEMS,
+				}),
+			}),
+			Filled = React.createElement(LabeledCell, {
+				LayoutOrder = 2,
+				label = "Filled",
+			}, {
+				Breadcrumb = React.createElement(Breadcrumb, {
+					items = FILLED_ICON_ITEMS,
+				}),
+			}),
+		}),
+		LeadingBySize = React.createElement(StorySection.MatrixSection, {
+			LayoutOrder = 3,
+			name = "Leading by size",
+			columnHeaders = { "Icon", "Avatar", "Image" },
+			cellColumnWidth = LEADING_COLUMN_WIDTH,
+			rows = Dash.map(SIZE_ORDER, function(size)
+				return {
+					label = matrixLabel(size),
+					cells = {
+						React.createElement(Breadcrumb, {
+							size = size,
+							items = REGULAR_ICON_ITEMS,
+						}),
+						React.createElement(Breadcrumb, {
+							size = size,
+							items = AVATAR_ITEMS,
+						}),
+						React.createElement(Breadcrumb, {
+							size = size,
+							items = IMAGE_ITEMS,
+						}),
+					},
+				}
+			end),
+		}),
+		MixedLeading = React.createElement(StorySection.MatrixSection, {
+			LayoutOrder = 4,
+			name = "Mixed leading",
+			columnHeaders = { "Icon, avatar, image, none" },
+			rows = Dash.map(SIZE_ORDER, function(size)
+				return {
+					label = matrixLabel(size),
+					cells = {
+						React.createElement(Breadcrumb, {
+							size = size,
+							items = MIXED_LEADING_ITEMS,
+						}),
+					},
+				}
+			end),
+		}),
+		LeadingByPosition = React.createElement(Section, {
+			LayoutOrder = 5,
+			name = "Leading by position",
+		}, {
+			First = React.createElement(LabeledCell, {
+				LayoutOrder = 1,
+				label = "First",
+			}, {
+				Breadcrumb = React.createElement(Breadcrumb, {
+					items = itemsWithLeadingAt(2, 1),
+				}),
+			}),
+			Current = React.createElement(LabeledCell, {
+				LayoutOrder = 2,
+				label = "Current",
+			}, {
+				Breadcrumb = React.createElement(Breadcrumb, {
+					items = itemsWithLeadingAt(2, 2),
+				}),
+			}),
+			All = React.createElement(LabeledCell, {
+				LayoutOrder = 3,
+				label = "All",
+			}, {
+				Breadcrumb = React.createElement(Breadcrumb, {
+					items = itemsWithLeadingAt(2),
+				}),
+			}),
+			AllFive = React.createElement(LabeledCell, {
+				LayoutOrder = 4,
+				label = "All 5 pages",
+			}, {
+				Breadcrumb = React.createElement(Breadcrumb, {
+					items = itemsWithLeadingAt(5),
+				}),
+			}),
+		}),
+		Overflow = React.createElement(StorySection.MatrixSection, {
+			LayoutOrder = 6,
+			name = "Overflow",
+			note = "The cap is fixed at four crumbs; separator, maxItems, itemsBeforeCollapse, itemsAfterCollapse, and trailing are deprecated and unread.",
+			columnHeaders = { "5 items" },
+			cellColumnWidth = LEADING_COLUMN_WIDTH,
+			rows = Dash.map(SIZE_ORDER, function(size)
+				return {
+					label = matrixLabel(size),
+					cells = {
+						React.createElement(Breadcrumb, {
+							size = size,
+							items = OVER_LIMIT_ITEMS,
+						}),
+					},
+				}
+			end),
+		}),
+		Dropdown = React.createElement(StorySection.MatrixSection, {
+			LayoutOrder = 7,
+			name = "Dropdown",
+			columnHeaders = { "No leading", "Leading" },
+			cellColumnWidth = LEADING_COLUMN_WIDTH,
+			rows = Dash.map(SIZE_ORDER, function(size)
+				return {
+					label = matrixLabel(size),
+					cells = {
+						React.createElement(Breadcrumb, {
+							size = size,
+							items = makeItems(2),
+							onDropdownActivated = noop,
+						}),
+						React.createElement(Breadcrumb, {
+							size = size,
+							items = itemsWithLeadingAt(2, 2),
+							onDropdownActivated = noop,
+						}),
+					},
+				}
+			end),
+		}),
+	})
+end
+
 return {
-	summary = "A list of links that shows a page's place in a hierarchy and lets users navigate to any ancestor.",
+	summary = "A trail of links that shows the current page's place in a hierarchy and navigates to an ancestor.",
 	stories = {
 		{
 			name = "Playground",
-			story = PlaygroundStory :: unknown,
+			story = PlaygroundStory,
 		},
 		{
 			name = "Sizing",
 			story = SizingStory,
 		},
 		{
-			name = "Collapsed",
-			story = CollapsedStory,
+			name = "Controlled component",
+			story = ControlledStory,
 		},
 		{
 			name = "Content",
@@ -235,10 +494,10 @@ return {
 		},
 	},
 	controls = {
+		itemCount = ITEM_COUNT_ORDER,
+		leading = LEADING_ORDER,
+		leadingPosition = LEADING_POSITION_ORDER,
 		size = SIZE_ORDER,
-		separator = { "/", "›" },
-		maxItems = { 8, 3, 4, 5 },
-		itemsBeforeCollapse = { 1, 2 },
-		itemsAfterCollapse = { 1, 2 },
+		hasOnDropdownActivated = false,
 	},
 }

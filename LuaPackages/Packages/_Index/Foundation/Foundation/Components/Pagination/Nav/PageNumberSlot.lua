@@ -12,7 +12,6 @@ local ChipSize = require(Foundation.Enums.ChipSize)
 type ChipSize = ChipSize.ChipSize
 local ChipVariant = require(Foundation.Enums.ChipVariant)
 local ColorNamespace = require(Foundation.Enums.ColorNamespace)
-local Flags = require(Foundation.Utility.Flags)
 local PaginationSize = require(Foundation.Enums.PaginationSize)
 type PaginationSize = PaginationSize.PaginationSize
 
@@ -106,12 +105,7 @@ local function PageNumberSlot(props: PageNumberSlotProps, ref: React.Ref<GuiObje
 				}),
 				{
 					Label = React.createElement(PresentationContext.Provider, {
-						value = if Flags.FoundationStableContextValues
-							then ICON_PRESENTATION
-							else {
-								colorNamespace = ColorNamespace.Color,
-								isIconSize = true,
-							},
+						value = ICON_PRESENTATION,
 					}, {
 						Text = React.createElement(PageNumberText, {
 							page = props.page,

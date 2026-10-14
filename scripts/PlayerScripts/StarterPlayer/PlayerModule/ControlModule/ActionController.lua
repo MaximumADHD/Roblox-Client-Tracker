@@ -2,6 +2,7 @@
 
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
+local FFlagUserControlModuleEnabledAPI = FlagUtil.getUserFlag("UserControlModuleEnabledAPI")
 
 local CONNECTIONS = {
 	SERVER_AUTHORITY_CHANGED = "SERVER_AUTHORITY_CHANGED",
@@ -55,6 +56,17 @@ function ActionController.initializeActions(data, playerData)
 end
 
 function ActionController.update(playerData)
+	if FFlagUserControlModuleEnabledAPI then
+		if not playerData.actions["MoveAction"] or not playerData.actions["JumpAction"] then
+			return
+		end
+
+		local controlAPI = playerData.playerModule.ControlModule
+
+		playerData.actions["MoveAction"].Enabled = controlAPI.Enabled
+		playerData.actions["JumpAction"].Enabled = controlAPI.Enabled
+	end
+
 	playerData.moveVector = playerData.actions.MoveAction:GetState()
 	playerData.isJumping = playerData.actions.JumpAction:GetState()
 end

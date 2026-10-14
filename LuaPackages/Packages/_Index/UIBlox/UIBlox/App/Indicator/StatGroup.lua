@@ -14,8 +14,6 @@ local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local useStyle = require(Core.Style.useStyle)
 local Fonts = require(App.Style.Fonts)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local RATING_ICON = "icons/status/games/rating_small"
@@ -33,25 +31,12 @@ local function renderStatItem(containerProps, icon, text, stylePalette)
 	local tokens = stylePalette.Tokens
 	local font: Fonts.FontPalette = stylePalette.Font
 	local textSize = font.BaseSize * font.Body.RelativeSize
-	local MaxTextSizeConstraint = textSize
-		+ (
-			if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_200
-				else tokens.Global.Size_100
-		)
+	local MaxTextSizeConstraint = textSize + tokens.Size.Size_200
 
-	local statSpacingGap = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-		then tokens.Size.Size_50
-		else tokens.Global.Space_25
-	local statIconSize = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-		then tokens.Size.Size_400
-		else tokens.Semantic.Icon.Size.Small
-	local statIconContentColor = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-		then tokens.Color.Content.Default
-		else tokens.Semantic.Color.Text.Default
-	local statLabelContentColor = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-		then tokens.Color.Content.Default
-		else tokens.Semantic.Color.Text.Default
+	local statSpacingGap = tokens.Size.Size_50
+	local statIconSize = tokens.Size.Size_400
+	local statIconContentColor = tokens.Color.Content.Default
+	local statLabelContentColor = tokens.Color.Content.Default
 
 	return React.createElement("Frame", containerProps, {
 		UIListLayout = React.createElement("UIListLayout", {
@@ -86,12 +71,7 @@ local function renderStatItem(containerProps, icon, text, stylePalette)
 			LayoutOrder = 2,
 		}, {
 			UISizeConstraint = React.createElement("UISizeConstraint", {
-				MaxSize = Vector2.new(
-					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-						then tokens.Size.Size_1400
-						else tokens.Global.Size_700,
-					math.huge
-				),
+				MaxSize = Vector2.new(tokens.Size.Size_1400, math.huge),
 			}),
 			UiTextSizeConstraint = React.createElement("UITextSizeConstraint", {
 				MaxTextSize = MaxTextSizeConstraint,
@@ -103,9 +83,7 @@ end
 local function StatGroup(props: Props)
 	local stylePalette = useStyle()
 
-	local spacingGap = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-		then stylePalette.Tokens.Size.Size_200
-		else stylePalette.Tokens.Global.Space_100
+	local spacingGap = stylePalette.Tokens.Size.Size_200
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),

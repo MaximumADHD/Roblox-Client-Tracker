@@ -25,6 +25,7 @@ local IconSize = require(Foundation.Enums.IconSize)
 
 type InputSize = InputSize.InputSize
 type Orientation = Orientation.Orientation
+type RangeSliderProps = Slider.RangeSliderProps
 type SingleSliderProps = Slider.SingleSliderProps
 type SliderType = SliderType.SliderType
 type SliderVariant = SliderVariant.SliderVariant
@@ -37,7 +38,6 @@ local StoryMatrixGrid = StorySection.StoryMatrixGrid
 local STORY_FRAME_TAG = StorySection.STORY_FRAME_TAG
 local STORY_PAGE_TAG = StorySection.STORY_PAGE_TAG
 local matrixLabel = MatrixGridShared.matrixLabel
-local MatrixGrid = MatrixGridShared.MatrixGrid
 
 local SIZE_ORDER: { InputSize } = {
 	InputSize.XSmall,
@@ -52,19 +52,6 @@ local VARIANT_ORDER: { SliderVariant } = {
 	SliderVariant.Utility,
 }
 
-type RangeColumn = { name: string, isDisabled: boolean }
-
-local RANGE_COLUMNS: { RangeColumn } = {
-	{ name = "Range", isDisabled = false },
-	{ name = "Range disabled", isDisabled = true },
-}
-
-local RANGE_LABEL_COLUMN_WIDTH = 80
-local RANGE_CELL_COLUMN_WIDTH = 420
-local RANGE_HORIZONTAL_SLIDER_WIDTH = UDim.new(0, 400)
-local VERTICAL_CELL_COLUMN_WIDTH = 80
-local VERTICAL_SLIDER_LENGTH = UDim.new(0, 240)
-
 local ORIENTATION_ORDER: { Orientation } = {
 	Orientation.Horizontal,
 	Orientation.Vertical,
@@ -74,16 +61,6 @@ local KNOB_VISIBILITY_ORDER: { Visibility } = {
 	Visibility.Always,
 	Visibility.Auto,
 	Visibility.None,
-}
-
-local ROTATION_ORDER: { number } = {
-	45,
-	90,
-	135,
-	180,
-	225,
-	270,
-	315,
 }
 
 local WIDTH_PRESET_FILL = "Fill"
@@ -116,9 +93,11 @@ local VARIANT_CELL_COLUMN_WIDTH = 200
 local SIZE_CELL_COLUMN_WIDTH = 200
 local VERTICAL_TRACK_LENGTH = UDim.new(0, 160)
 local VALUE_KNOB_RANGE = NumberRange.new(0, 100)
-local ROTATED_CELL_SIZE = 220
 local ROTATED_TRACK_HEIGHT = 40
+-- Bounding box of the TRACK_OFFSET × ROTATED_TRACK_HEIGHT frame rotated 45°.
+local ROTATED_CELL_SIZE = math.ceil((TRACK_OFFSET + ROTATED_TRACK_HEIGHT) * math.sqrt(0.5))
 
+type RangeSliderElementProps = RangeSliderProps & { key: string? }
 type SingleSliderElementProps = SingleSliderProps & { key: string? }
 
 local TYPE_ORDER: { SliderType } = {
@@ -167,6 +146,35 @@ local function StaticSlider(props: SingleSliderProps): React.ReactNode
 				end)
 			end,
 		}) :: SingleSliderElementProps
+	)
+end
+
+local DEFAULT_RANGE_VALUE = NumberRange.new(0.25, 0.75)
+
+local function StaticRangeSlider(props: {
+	isDisabled: boolean?,
+	width: UDim?,
+	LayoutOrder: number?,
+}): React.ReactNode
+	local remountKey, setRemountKey = React.useState(0)
+	local value = React.useBinding(DEFAULT_RANGE_VALUE)
+
+	return React.createElement(
+		Slider,
+		{
+			key = tostring(remountKey),
+			type = SliderType.Range,
+			value = value,
+			width = props.width or UDim.new(0, TRACK_OFFSET),
+			isDisabled = props.isDisabled,
+			knobVisibility = Visibility.Always,
+			LayoutOrder = props.LayoutOrder,
+			onDragEnded = function()
+				setRemountKey(function(key)
+					return key + 1
+				end)
+			end,
+		} :: RangeSliderElementProps
 	)
 end
 
@@ -361,54 +369,104 @@ local function SizingStory(): React.ReactNode
 end
 
 local function StatesStory(): React.ReactNode
+	local rows: { MatrixGridRow } = {
+		{
+			label = matrixLabel(if Flags.FoundationSliderBeta then "Single" else ""),
+			cells = {
+				React.createElement(StaticSlider, {
+					value = DEFAULT_VALUE,
+					width = UDim.new(0, TRACK_OFFSET),
+				}),
+				React.createElement(StaticSlider, {
+					value = DEFAULT_VALUE,
+					width = UDim.new(0, TRACK_OFFSET),
+					isDisabled = true,
+				}),
+			},
+		},
+	}
+
+	if Flags.FoundationSliderBeta then
+		table.insert(rows, {
+			label = matrixLabel("Range"),
+			cells = {
+				React.createElement(StaticRangeSlider, {}),
+				React.createElement(StaticRangeSlider, {
+					isDisabled = true,
+				}),
+			},
+		})
+	end
+
 	return React.createElement(View, {
 		tag = `col {STORY_PAGE_TAG}`,
 	}, {
 		Grid = React.createElement(StoryMatrixGrid, {
 			LayoutOrder = 1,
-			showLabelColumn = false,
+			showLabelColumn = Flags.FoundationSliderBeta,
 			columnHeaders = { "Enabled", "Disabled" },
 			cellColumnWidth = VARIANT_CELL_COLUMN_WIDTH,
-			rows = {
-				{
-					label = matrixLabel(""),
-					cells = {
-						React.createElement(StaticSlider, {
-							value = DEFAULT_VALUE,
-							width = UDim.new(0, TRACK_OFFSET),
-						}),
-						React.createElement(StaticSlider, {
-							value = DEFAULT_VALUE,
-							width = UDim.new(0, TRACK_OFFSET),
-							isDisabled = true,
-						}),
-					},
-				},
-			} :: { MatrixGridRow },
+			rows = rows,
+		}),
+	})
+end
+
+local function RotatedSliderFrame(props: {
+	LayoutOrder: number?,
+	rotation: number,
+	slider: React.ReactNode,
+}): React.ReactNode
+	return React.createElement(View, {
+		LayoutOrder = props.LayoutOrder,
+		Size = UDim2.fromOffset(ROTATED_CELL_SIZE, ROTATED_CELL_SIZE),
+	}, {
+		Rotated = React.createElement(View, {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+			Size = UDim2.fromOffset(TRACK_OFFSET, ROTATED_TRACK_HEIGHT),
+			Rotation = props.rotation,
+		}, {
+			Slider = props.slider,
 		}),
 	})
 end
 
 local function OrientationStory(): React.ReactNode
-	return React.createElement(
-		View,
-		{
-			tag = `row align-y-top gap-xxlarge auto-xy {STORY_FRAME_TAG}`,
-		},
-		Dash.map(ORIENTATION_ORDER, function(orientation, index)
-			local isVertical = orientation == Orientation.Vertical
-			return React.createElement(LabeledCell, {
-				LayoutOrder = index,
-				label = orientation,
-			}, {
-				Slider = React.createElement(StaticSlider, {
+	local cells = Dash.map(ORIENTATION_ORDER, function(orientation, index)
+		local isVertical = orientation == Orientation.Vertical
+		return React.createElement(LabeledCell, {
+			LayoutOrder = index,
+			label = orientation,
+		}, {
+			Slider = React.createElement(StaticSlider, {
+				value = DEFAULT_VALUE,
+				orientation = orientation,
+				width = if isVertical then VERTICAL_TRACK_LENGTH else UDim.new(0, TRACK_OFFSET),
+			}),
+		})
+	end)
+
+	table.insert(
+		cells,
+		React.createElement(LabeledCell, {
+			LayoutOrder = #ORIENTATION_ORDER + 1,
+			label = "Rotation",
+		}, {
+			Slider = React.createElement(RotatedSliderFrame, {
+				rotation = 45,
+				slider = React.createElement(StaticSlider, {
+					AnchorPoint = Vector2.new(0, 0.5),
+					Position = UDim2.fromScale(0, 0.5),
 					value = DEFAULT_VALUE,
-					orientation = orientation,
-					width = if isVertical then VERTICAL_TRACK_LENGTH else UDim.new(0, TRACK_OFFSET),
-				}),
-			})
-		end)
+					width = UDim.new(1, 0),
+				}) :: React.ReactNode,
+			}),
+		})
 	)
+
+	return React.createElement(View, {
+		tag = `row align-y-top gap-xxlarge auto-xy {STORY_FRAME_TAG}`,
+	}, cells)
 end
 
 local function ContainmentStory(): React.ReactNode
@@ -452,24 +510,41 @@ local function ControlledExample(props: {
 	range: NumberRange?,
 	knobVisibility: Visibility?,
 	showValue: boolean?,
+	orientation: Orientation?,
+	rotation: number?,
 }): React.ReactNode
 	local range = props.range or NumberRange.new(0, 1)
 	local value, setValue = React.useState(midpointForRange(range))
 	local showValue = if props.showValue == nil then true else props.showValue
+	local isVertical = props.orientation == Orientation.Vertical
+
+	local slider = React.createElement(Slider, {
+		value = value,
+		range = range,
+		step = props.step,
+		orientation = props.orientation,
+		width = if props.rotation
+			then UDim.new(1, 0)
+			elseif isVertical then VERTICAL_TRACK_LENGTH
+			else UDim.new(0, TRACK_OFFSET),
+		AnchorPoint = if props.rotation then Vector2.new(0, 0.5) else nil,
+		Position = if props.rotation then UDim2.fromScale(0, 0.5) else nil,
+		knobVisibility = props.knobVisibility or Visibility.Always,
+		onValueChanged = setValue,
+		LayoutOrder = 1,
+	})
 
 	return React.createElement(View, {
 		tag = "col gap-small auto-xy",
 		LayoutOrder = props.LayoutOrder,
 	}, {
-		Slider = React.createElement(Slider, {
-			value = value,
-			range = range,
-			step = props.step,
-			width = UDim.new(0, TRACK_OFFSET),
-			knobVisibility = props.knobVisibility or Visibility.Always,
-			onValueChanged = setValue,
-			LayoutOrder = 1,
-		}),
+		Slider = if props.rotation
+			then React.createElement(RotatedSliderFrame, {
+				LayoutOrder = 1,
+				rotation = props.rotation,
+				slider = slider :: React.ReactNode,
+			})
+			else slider,
 		Value = if showValue
 			then React.createElement(Text, {
 				Text = string.format("%.2f", value),
@@ -594,9 +669,32 @@ local function ControlledStory(): React.ReactNode
 				})
 			end)
 		),
+		Orientation = React.createElement(Section, {
+			LayoutOrder = 4,
+			name = "Orientation",
+		}, {
+			Vertical = React.createElement(LabeledCell, {
+				LayoutOrder = 1,
+				label = "Vertical",
+			}, {
+				Example = React.createElement(ControlledExample, {
+					LayoutOrder = 1,
+					orientation = Orientation.Vertical,
+				}),
+			}),
+			Rotation = React.createElement(LabeledCell, {
+				LayoutOrder = 2,
+				label = "45°",
+			}, {
+				Example = React.createElement(ControlledExample, {
+					LayoutOrder = 1,
+					rotation = 45,
+				}),
+			}),
+		}),
 		DirectionalCapture = if Flags.FoundationSliderCapture
 			then React.createElement(Section, {
-				LayoutOrder = 4,
+				LayoutOrder = 5,
 				name = "Directional capture",
 				note = "Focus a Slider, press A or Enter to capture it, use its value-axis directions to adjust, and press B or Backspace to return focus to the whole control. A or Enter toggles the active Range thumb while captured.",
 				contentTag = "col gap-large auto-xy",
@@ -612,55 +710,6 @@ local function ControlledStory(): React.ReactNode
 			})
 			else nil,
 	})
-end
-
-local function RotatedSliderExample(props: {
-	LayoutOrder: number,
-	rotation: number,
-}): React.ReactNode
-	local value, setValue = React.useBinding(DEFAULT_VALUE)
-
-	return React.createElement(LabeledCell, {
-		LayoutOrder = props.LayoutOrder,
-		label = `{props.rotation}°`,
-	}, {
-		Frame = React.createElement(View, {
-			LayoutOrder = 1,
-			tag = "stroke-standard stroke-neutral radius-medium bg-surface-100",
-			Size = UDim2.fromOffset(ROTATED_CELL_SIZE, ROTATED_CELL_SIZE),
-		}, {
-			Rotated = React.createElement(View, {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.fromScale(0.5, 0.5),
-				Size = UDim2.fromOffset(TRACK_OFFSET, ROTATED_TRACK_HEIGHT),
-				Rotation = props.rotation,
-			}, {
-				Slider = React.createElement(Slider, {
-					AnchorPoint = Vector2.new(0, 0.5),
-					Position = UDim2.fromScale(0, 0.5),
-					value = value,
-					width = UDim.new(1, 0),
-					knobVisibility = Visibility.Always,
-					onValueChanged = setValue,
-				}),
-			}),
-		}),
-	})
-end
-
-local function RotatedStory(): React.ReactNode
-	return React.createElement(
-		View,
-		{
-			tag = `row wrap align-y-top gap-large size-full-0 auto-y {STORY_FRAME_TAG}`,
-		},
-		Dash.map(ROTATION_ORDER, function(rotation, index)
-			return React.createElement(RotatedSliderExample, {
-				LayoutOrder = index,
-				rotation = rotation,
-			})
-		end)
-	)
 end
 
 local function ValueKnobExample(props: { LayoutOrder: number }): React.ReactNode
@@ -704,84 +753,26 @@ local function ContentStory(): React.ReactNode
 	})
 end
 
-local function RangeVisualsStory(): React.ReactNode
-	local horizontal = React.useBinding(NumberRange.new(0.25, 0.75))
-	local vertical = React.useBinding(NumberRange.new(0.2, 0.8))
-
-	local sections: { [string]: React.ReactNode } = {
-		Horizontal = React.createElement(View, {
-			tag = "col gap-small auto-xy",
-			LayoutOrder = 1,
-		}, {
-			Label = React.createElement(View, { tag = "auto-xy", LayoutOrder = 1 }, {
-				Text = matrixLabel("Horizontal"),
-			}),
-			Grid = React.createElement(View, { tag = "auto-xy", LayoutOrder = 2 }, {
-				Grid = React.createElement(MatrixGrid, {
-					labelColumnWidth = RANGE_LABEL_COLUMN_WIDTH,
-					columnHeaders = Dash.map(RANGE_COLUMNS, function(column)
-						return column.name
-					end),
-					cellColumnWidth = RANGE_CELL_COLUMN_WIDTH,
-					cellAlign = "left",
-					rowGap = "xxlarge",
-					rows = Dash.map(SIZE_ORDER, function(size): MatrixGridRow
-						return {
-							label = matrixLabel(size :: string),
-							cells = Dash.map(RANGE_COLUMNS, function(column)
-								return React.createElement(Slider, {
-									value = horizontal,
-									type = SliderType.Range,
-									size = size,
-									width = RANGE_HORIZONTAL_SLIDER_WIDTH,
-									isDisabled = column.isDisabled,
-									knobVisibility = Visibility.Always,
-								})
-							end),
-						}
-					end),
-				}),
-			}),
-		}),
-		Vertical = React.createElement(View, {
-			tag = "col gap-small auto-xy",
-			LayoutOrder = 2,
-		}, {
-			Label = React.createElement(View, { tag = "auto-xy", LayoutOrder = 1 }, {
-				Text = matrixLabel("Vertical"),
-			}),
-			Grid = React.createElement(View, { tag = "auto-xy", LayoutOrder = 2 }, {
-				Grid = React.createElement(MatrixGrid, {
-					labelColumnWidth = RANGE_LABEL_COLUMN_WIDTH,
-					columnHeaders = Dash.map(RANGE_COLUMNS, function(column)
-						return column.name
-					end),
-					cellColumnWidth = VERTICAL_CELL_COLUMN_WIDTH,
-					rowGap = "xxlarge",
-					rows = Dash.map(SIZE_ORDER, function(size): MatrixGridRow
-						return {
-							label = matrixLabel(size :: string),
-							cells = Dash.map(RANGE_COLUMNS, function(column)
-								return React.createElement(Slider, {
-									value = vertical,
-									type = SliderType.Range,
-									orientation = Orientation.Vertical,
-									size = size,
-									width = VERTICAL_SLIDER_LENGTH,
-									isDisabled = column.isDisabled,
-									knobVisibility = Visibility.Always,
-								})
-							end),
-						}
-					end),
-				}),
-			}),
-		}),
-	}
-
+local function TypeStory(): React.ReactNode
 	return React.createElement(View, {
-		tag = "col gap-xxlarge auto-xy",
-	}, sections)
+		tag = `row align-y-top gap-xxlarge auto-xy {STORY_FRAME_TAG}`,
+	}, {
+		Single = React.createElement(LabeledCell, {
+			LayoutOrder = 1,
+			label = "Single",
+		}, {
+			Slider = React.createElement(StaticSlider, {
+				value = DEFAULT_VALUE,
+				width = UDim.new(0, TRACK_OFFSET),
+			}),
+		}),
+		Range = React.createElement(LabeledCell, {
+			LayoutOrder = 2,
+			label = "Range",
+		}, {
+			Slider = React.createElement(StaticRangeSlider, {}),
+		}),
+	})
 end
 
 local stories = {
@@ -810,10 +801,6 @@ local stories = {
 		story = ControlledStory,
 	},
 	{
-		name = "Rotated",
-		story = RotatedStory,
-	},
-	{
 		name = "Content",
 		story = ContentStory,
 	},
@@ -825,8 +812,8 @@ if Flags.FoundationSliderBeta then
 		story = OrientationStory,
 	})
 	table.insert(stories, 4, {
-		name = "Range",
-		story = RangeVisualsStory,
+		name = "Type",
+		story = TypeStory,
 	})
 end
 

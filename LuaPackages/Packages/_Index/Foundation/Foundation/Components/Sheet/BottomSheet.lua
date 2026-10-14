@@ -16,6 +16,7 @@ local OwnerScope = require(Foundation.Providers.Elevation.ElevationProvider).Ele
 local ElevationLayer = require(Foundation.Enums.ElevationLayer)
 type ElevationLayer = ElevationLayer.ElevationLayer
 local Constants = require(Foundation.Constants)
+local Flags = require(Foundation.Utility.Flags)
 
 local SheetContext = require(script.Parent.SheetContext)
 local SheetTypes = require(script.Parent.Types)
@@ -37,6 +38,7 @@ local SPRING_OMEGA = 2 * math.pi * SPRING_FREQUENCY_HZ
 local VELOCITY_THRESHOLD = 1
 local POSITION_THRESHOLD = 0.5
 local SCROLL_AT_MAX_TOLERANCE = 1e-2
+local INNER_AT_END_TOLERANCE = 1
 local ENGINE_INERTIA_FRICTION = 2.35
 local BOTTOM_PADDING = 200
 
@@ -101,15 +103,22 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	end, { screenHeight })
 
 	local maxSheetHeight = 0
+	local minSnapHeight = math.huge
 	for _, snap in snapPoints do
 		local pixels = snapValueToPixels(snap)
 		if pixels > maxSheetHeight then
 			maxSheetHeight = pixels
 		end
+		if Flags.FoundationSheetReversedContent then
+			minSnapHeight = math.min(minSnapHeight, pixels)
+		end
 	end
 	maxSheetHeight = math.min(maxSheetHeight, screenHeight)
 	if overlayAvailableHeight > 0 then
 		maxSheetHeight = math.min(maxSheetHeight, overlayAvailableHeight)
+	end
+	if Flags.FoundationSheetReversedContent then
+		minSnapHeight = math.min(minSnapHeight, maxSheetHeight)
 	end
 
 	local safeAreaPadding = useHardwareInsets(overlay).bottom
@@ -143,6 +152,32 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local innerScrollY, setInnerScrollY = React.useBinding(0)
 	local innerScrollingRef = React.useRef(nil :: ScrollingFrame?)
 	local innerScrollingEnabled, setInnerScrollingEnabled = React.useBinding(false)
+
+	local isContentReversed = if Flags.FoundationSheetReversedContent then React.useRef(false) else nil :: never
+	local setIsContentReversed = if Flags.FoundationSheetReversedContent
+		then React.useCallback(function(value: boolean)
+			isContentReversed.current = value
+		end, {})
+		else nil
+
+	-- Distance the content has to move up so its bottom edge stays where it sits at the tallest snap point.
+	-- Clamped at the smallest snap point so opening and dismissing still slide the sheet as one piece.
+	-- Depends on whether snapPoints exists rather than its identity, so an inline snapPoints table doesn't
+	-- rebuild the binding (and the context value) every render; the values arrive through the snap heights.
+	local contentRevealOffset = if Flags.FoundationSheetReversedContent
+		then React.useMemo(
+			function(): React.Binding<number>?
+				if props.snapPoints == nil then
+					return nil
+				end
+				return sheetHeightAvailable:map(function(heightAvailable: number)
+					local revealedHeight = heightAvailable + tokens.Margin.Small
+					return maxSheetHeight - math.clamp(revealedHeight, minSnapHeight, maxSheetHeight)
+				end)
+			end,
+			{ props.snapPoints == nil, sheetHeightAvailable, minSnapHeight, maxSheetHeight, tokens.Margin.Small } :: { unknown }
+		)
+		else nil
 
 	local inputActive = React.useRef(false)
 	local scrollVelocity = React.useRef(0)
@@ -266,6 +301,26 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local updateInnerScrolling = React.useCallback(function()
 		local isAtTopOfInnerScroll = innerScrollY:getValue() <= 0
 		local isAtMaxOfOuterScroll = isOuterScrollAtMax()
+		-- Reversed content scrolls at every snap point. A drag hands off to the sheet only at the content's edges:
+		-- dragging up at the end expands the sheet, and dragging down at the top collapses or closes it.
+		if Flags.FoundationSheetReversedContent and isContentReversed.current then
+			if inputActive.current and not innerScrollingEnabled:getValue() and not isAtMaxOfOuterScroll then
+				-- This drag already moves the sheet; keep it until the drag ends.
+				return
+			end
+			local innerScrollingFrame = innerScrollingRef.current
+			local isAtEndOfInnerScroll = innerScrollingFrame == nil
+				or innerScrollY:getValue()
+					>= innerScrollingFrame.AbsoluteCanvasSize.Y - innerScrollingFrame.AbsoluteWindowSize.Y - INNER_AT_END_TOLERANCE
+			local velocity = scrollVelocity.current
+			local isHandingOff = inputActive.current
+				and (
+					(velocity > 0 and isAtTopOfInnerScroll)
+					or (velocity < 0 and isAtEndOfInnerScroll and not isAtMaxOfOuterScroll)
+				)
+			setInnerScrollingEnabled(not isHandingOff)
+			return
+		end
 		local isCollapsing = not isAtMaxOfOuterScroll and scrollVelocity.current < 0
 
 		if isCollapsing or (scrollVelocity.current > 0 and isAtTopOfInnerScroll and inputActive.current) then
@@ -323,7 +378,11 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 
 				-- Enable inner scrolling if starting at max snap point
 				local isAtMaxSnapPoint = snapValueToPixels(snapPoints[props.defaultSnapPointIndex]) >= maxSheetHeight
-				setInnerScrollingEnabled(isAtMaxSnapPoint)
+				setInnerScrollingEnabled(
+					if Flags.FoundationSheetReversedContent
+						then isAtMaxSnapPoint or isContentReversed.current
+						else isAtMaxSnapPoint
+				)
 			end
 			return function()
 				stopSpringSimulation()
@@ -387,6 +446,10 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 					else 0
 
 				scrollVelocity.current = outerScrollVelocityY
+
+				if Flags.FoundationSheetReversedContent and isContentReversed.current then
+					setInnerScrollingEnabled(true)
+				end
 
 				-- Don't handle snapping if outer scrolling is at maximum or sheet is closing
 				local shouldSkipSnapping = (isOuterScrollAtMax()) or isClosing.current
@@ -460,6 +523,8 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				contentStartRef = contentStartRef,
 				setContentStartRef = setContentStartRef,
 				isVerticalSheetGesture = isVerticalSheetGesture,
+				contentRevealOffset = contentRevealOffset,
+				setIsContentReversed = setIsContentReversed,
 			}
 		end,
 		{
@@ -472,6 +537,8 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			contentStartRef,
 			hasFullBleed,
 			isVerticalSheetGesture,
+			contentRevealOffset,
+			setIsContentReversed,
 		} :: { unknown }
 	)
 
@@ -491,7 +558,14 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			onActivated = function()
 				-- Cancel input ended if the gripper is pressed
 				inputActive.current = false
-				if innerScrollingRef.current then
+				if Flags.FoundationSheetReversedContent and isContentReversed.current and innerScrollingRef.current then
+					local innerScrollingFrame = innerScrollingRef.current
+					local innerScrollEnd =
+						math.max(0, innerScrollingFrame.AbsoluteCanvasSize.Y - innerScrollingFrame.AbsoluteWindowSize.Y)
+					setInnerScrollY(innerScrollEnd)
+					innerScrollingFrame.CanvasPosition = Vector2.new(0, innerScrollEnd)
+					innerScrollingFrame:ResetScrollVelocity()
+				elseif innerScrollingRef.current then
 					setInnerScrollY(0)
 					innerScrollingRef.current.CanvasPosition = Vector2.new(0, 0)
 					innerScrollingRef.current:ResetScrollVelocity()
@@ -504,7 +578,11 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 						springToSnapIndex(nextIndex)
 					end
 					local isAtMaxSnapPoint = snapValueToPixels(snapPoints[nextIndex]) >= maxSheetHeight
-					setInnerScrollingEnabled(isAtMaxSnapPoint)
+					setInnerScrollingEnabled(
+						if Flags.FoundationSheetReversedContent
+							then isAtMaxSnapPoint or isContentReversed.current
+							else isAtMaxSnapPoint
+					)
 				else
 					closeSheet()
 				end
@@ -534,7 +612,21 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 					ref = outerScrollingRef,
 					[React.Change.CanvasPosition] = function(instance: ScrollingFrame)
 						outerScrollY.current = instance.CanvasPosition.Y
+						local previousRevealOffset = if Flags.FoundationSheetReversedContent
+								and contentRevealOffset
+							then contentRevealOffset:getValue()
+							else nil
 						setSheetHeightAvailable(outerScrollY.current - safeAreaPadding - tokens.Margin.Small)
+						-- Reversed content pads the top of its canvas by the reveal offset; move the inner scroll by
+						-- the same amount in this step so the content stays put while the sheet moves.
+						if Flags.FoundationSheetReversedContent and contentRevealOffset and previousRevealOffset then
+							local innerScrollingFrame = innerScrollingRef.current
+							local revealOffsetDelta = contentRevealOffset:getValue() - previousRevealOffset
+							if isContentReversed.current and innerScrollingFrame and revealOffsetDelta ~= 0 then
+								innerScrollingFrame.CanvasPosition =
+									Vector2.new(0, innerScrollingFrame.CanvasPosition.Y + revealOffsetDelta)
+							end
+						end
 						updateInnerScrolling()
 						if outerScrollY.current <= 0 then
 							closeSheet()

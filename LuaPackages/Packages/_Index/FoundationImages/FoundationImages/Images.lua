@@ -1,12 +1,14 @@
 local FoundationImages = script.Parent
-
+local Flags = require(FoundationImages.Flags)
 local GetImageSetData = require(FoundationImages.Generated.GetImageSetData)
 local FALLBACK_IMAGES = require(FoundationImages.Generated.FallbackImages)
 
 local ImagesTypes = require(FoundationImages.ImagesTypes)
 local getResolutionScale = require(FoundationImages.getResolutionScale)
 
-local CorePackages = script:FindFirstAncestor("CorePackages")
+local CorePackages = if Flags.FoundationImagesStaticPath
+	then game:GetService("CorePackages")
+	else script:FindFirstAncestor("CorePackages")
 local resolutionScale = getResolutionScale()
 local sourceData, sourceScale
 -- sourceScale should match the exact image scale used
@@ -17,7 +19,8 @@ local BuilderIcons = require(Packages.BuilderIcons)
 local deprecatedUIBloxIcons = BuilderIcons.Migration["uiblox"]
 local whitelistedIconDeprecations = require(FoundationImages.whitelistedIconAssets)
 
-local function getPackagePath(): string?
+-- delete when FFlagFoundationImagesStaticPath is clipped
+local function getPackagePathDEPRECATED(): string?
 	local packageRoot = FoundationImages
 
 	if CorePackages == nil then
@@ -35,6 +38,16 @@ local function getPackagePath(): string?
 	return "LuaPackages/" .. table.concat(path, "/")
 end
 
+local function getStaticLuaAppsPackageDir(): string?
+	if CorePackages == nil then
+		-- We're not running in CI as a core script, no internal path
+		return nil
+	else
+		local staticPackagePath = "LuaPackages/Packages/_Index/FoundationImages/FoundationImages"
+		return staticPackagePath
+	end
+end
+
 local function getImagePath(packagePath: string?, imageName: string): string
 	if packagePath == nil then
 		-- fallback to an uploaded image
@@ -44,7 +57,9 @@ local function getImagePath(packagePath: string?, imageName: string): string
 	end
 end
 
-local packagePath = getPackagePath()
+local packagePath = if Flags.FoundationImagesStaticPath
+	then getStaticLuaAppsPackageDir()
+	else getPackagePathDEPRECATED()
 local Images = {}
 
 for key, value in sourceData do

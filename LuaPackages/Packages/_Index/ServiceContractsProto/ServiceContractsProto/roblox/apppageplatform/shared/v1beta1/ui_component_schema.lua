@@ -47,6 +47,8 @@ type _Messages =
 		HoldActionConfigProp_HoldActionConfig: _HoldActionConfigProp_HoldActionConfigMessage,
 		BadgeTileSchema: _BadgeTileSchemaMessage,
 		BadgeTileSchema_Props: _BadgeTileSchema_PropsMessage,
+		UserSearchTileSchema: _UserSearchTileSchemaMessage,
+		UserSearchTileSchema_Props: _UserSearchTileSchema_PropsMessage,
 		GameTileSchema: _GameTileSchemaMessage,
 		GameTileSchema_Props: _GameTileSchema_PropsMessage,
 		GameTileSchema_WebProps: _GameTileSchema_WebPropsMessage,
@@ -1696,6 +1698,65 @@ export type BadgeTileSchema_Props = typeof(setmetatable(
 ))
 type _BadgeTileSchema_PropsMessage = proto.Message<BadgeTileSchema_Props, _BadgeTileSchema_PropsPartialFields>
 
+type _UserSearchTileSchemaImpl = {
+	__index: _UserSearchTileSchemaImpl,
+	new: (fields: _UserSearchTileSchemaPartialFields?) -> UserSearchTileSchema,
+	encode: (self: UserSearchTileSchema) -> buffer,
+	decode: (input: buffer) -> UserSearchTileSchema,
+	jsonEncode: (self: UserSearchTileSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UserSearchTileSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _UserSearchTileSchemaFields = {
+	props: UserSearchTileSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+type _UserSearchTileSchemaPartialFields = {
+	props: UserSearchTileSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+export type UserSearchTileSchema = typeof(setmetatable(
+	{} :: _UserSearchTileSchemaFields,
+	{} :: _UserSearchTileSchemaImpl
+))
+type _UserSearchTileSchemaMessage = proto.Message<UserSearchTileSchema, _UserSearchTileSchemaPartialFields>
+
+type _UserSearchTileSchema_PropsImpl = {
+	__index: _UserSearchTileSchema_PropsImpl,
+	new: (fields: _UserSearchTileSchema_PropsPartialFields?) -> UserSearchTileSchema_Props,
+	encode: (self: UserSearchTileSchema_Props) -> buffer,
+	decode: (input: buffer) -> UserSearchTileSchema_Props,
+	jsonEncode: (self: UserSearchTileSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UserSearchTileSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _UserSearchTileSchema_PropsFields = {
+	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	previous_usernames: _roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp?,
+	name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	display_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _UserSearchTileSchema_PropsPartialFields = {
+	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	previous_usernames: _roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp?,
+	name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	display_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type UserSearchTileSchema_Props = typeof(setmetatable(
+	{} :: _UserSearchTileSchema_PropsFields,
+	{} :: _UserSearchTileSchema_PropsImpl
+))
+type _UserSearchTileSchema_PropsMessage = proto.Message<
+	UserSearchTileSchema_Props,
+	_UserSearchTileSchema_PropsPartialFields
+>
+
 type _GameTileSchemaImpl = {
 	__index: _GameTileSchemaImpl,
 	new: (fields: _GameTileSchemaPartialFields?) -> GameTileSchema,
@@ -2282,6 +2343,7 @@ type _TextSchema_WebPropsFields = {
 	max_lines: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	font_family: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	font_weight: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	class_names: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _TextSchema_WebPropsPartialFields = {
@@ -2290,6 +2352,7 @@ type _TextSchema_WebPropsPartialFields = {
 	max_lines: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	font_family: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	font_weight: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	class_names: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type TextSchema_WebProps = typeof(setmetatable({} :: _TextSchema_WebPropsFields, {} :: _TextSchema_WebPropsImpl))
@@ -4784,6 +4847,7 @@ type _VerticalFeedSchema_PropsFields = {
 	enable_back_to_top: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	progressive_fill_on_scroll: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	gap_after_first_feed_item: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	same_pool_feed_item_gap: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 type _VerticalFeedSchema_PropsPartialFields = {
@@ -4811,6 +4875,7 @@ type _VerticalFeedSchema_PropsPartialFields = {
 	enable_back_to_top: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	progressive_fill_on_scroll: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	gap_after_first_feed_item: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	same_pool_feed_item_gap: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 export type VerticalFeedSchema_Props = typeof(setmetatable(
@@ -6140,6 +6205,7 @@ type _VideoPlayerSchema_PropsFields = {
 	scale_type: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp?,
 	max_quality: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	adaptive_resolution: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	access_context: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _VideoPlayerSchema_PropsPartialFields = {
@@ -6152,6 +6218,7 @@ type _VideoPlayerSchema_PropsPartialFields = {
 	scale_type: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp?,
 	max_quality: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	adaptive_resolution: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	access_context: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type VideoPlayerSchema_Props = typeof(setmetatable(
@@ -6304,6 +6371,7 @@ type _CardSchema_PropsFields = {
 	image_component: NestedComponentProp?,
 	description_max_lines: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	image_scale_type: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp?,
+	background_on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 }
 
 type _CardSchema_PropsPartialFields = {
@@ -6323,6 +6391,7 @@ type _CardSchema_PropsPartialFields = {
 	image_component: NestedComponentProp?,
 	description_max_lines: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	image_scale_type: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp?,
+	background_on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 }
 
 export type CardSchema_Props = typeof(setmetatable({} :: _CardSchema_PropsFields, {} :: _CardSchema_PropsImpl))
@@ -9276,6 +9345,8 @@ type _LinkTextSchema_PropsFields = {
 	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp?,
 	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	link_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	is_link_bold: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	is_link_underlined: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _LinkTextSchema_PropsPartialFields = {
@@ -9298,6 +9369,8 @@ type _LinkTextSchema_PropsPartialFields = {
 	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp?,
 	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	link_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	is_link_bold: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	is_link_underlined: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type LinkTextSchema_Props = typeof(setmetatable(
@@ -9345,6 +9418,8 @@ type _MediaGallerySchema_MediaItemFieldsFields = {
 	video_hash: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	video_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	video_title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	video_access_context: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	attribution_component_config: LazyNestedComponentProp?,
 }
 
 type _MediaGallerySchema_MediaItemFieldsPartialFields = {
@@ -9353,6 +9428,8 @@ type _MediaGallerySchema_MediaItemFieldsPartialFields = {
 	video_hash: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	video_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	video_title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	video_access_context: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	attribution_component_config: LazyNestedComponentProp?,
 }
 
 export type MediaGallerySchema_MediaItemFields = typeof(setmetatable(
@@ -13012,6 +13089,7 @@ type _UiComponentSchemaFields = {
 		| { type: "catalog_item_card", value: CatalogItemCardSchema }
 		| { type: "progress", value: ProgressSchema }
 		| { type: "line_limited_text", value: LineLimitedTextSchema }
+		| { type: "user_search_tile", value: UserSearchTileSchema }
 	)?,
 }
 
@@ -13126,6 +13204,7 @@ type _UiComponentSchemaPartialFields = {
 		| { type: "catalog_item_card", value: CatalogItemCardSchema }
 		| { type: "progress", value: ProgressSchema }
 		| { type: "line_limited_text", value: LineLimitedTextSchema }
+		| { type: "user_search_tile", value: UserSearchTileSchema }
 	)?,
 }
 
@@ -20313,6 +20392,302 @@ do
 end
 
 do
+	local _UserSearchTileSchemaImpl = {}
+	_UserSearchTileSchemaImpl.__index = _UserSearchTileSchemaImpl
+
+	function _UserSearchTileSchemaImpl.new(data: _UserSearchTileSchemaPartialFields?): UserSearchTileSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+		}, _UserSearchTileSchemaImpl :: _UserSearchTileSchemaImpl)
+	end
+
+	function _UserSearchTileSchemaImpl.encode(self: UserSearchTileSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UserSearchTileSchemaImpl.decode(input: buffer): UserSearchTileSchema
+		local self = _UserSearchTileSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.UserSearchTileSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UserSearchTileSchemaImpl.jsonEncode(self: UserSearchTileSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _UserSearchTileSchemaImpl.jsonDecode(input: { [string]: any }): UserSearchTileSchema
+		local self = _UserSearchTileSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.UserSearchTileSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		return self
+	end
+
+	_UserSearchTileSchemaImpl.descriptor = {
+		name = "UserSearchTileSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UserSearchTileSchema",
+	}
+
+	messages.UserSearchTileSchema = _UserSearchTileSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UserSearchTileSchema)
+end
+
+do
+	local _UserSearchTileSchema_PropsImpl = {}
+	_UserSearchTileSchema_PropsImpl.__index = _UserSearchTileSchema_PropsImpl
+
+	function _UserSearchTileSchema_PropsImpl.new(
+		data: _UserSearchTileSchema_PropsPartialFields?
+	): UserSearchTileSchema_Props
+		return setmetatable({
+			user_id = if data == nil or data.user_id == nil then nil else data.user_id,
+			previous_usernames = if data == nil or data.previous_usernames == nil then nil else data.previous_usernames,
+			name = if data == nil or data.name == nil then nil else data.name,
+			display_name = if data == nil or data.display_name == nil then nil else data.display_name,
+		}, _UserSearchTileSchema_PropsImpl :: _UserSearchTileSchema_PropsImpl)
+	end
+
+	function _UserSearchTileSchema_PropsImpl.encode(self: UserSearchTileSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.user_id ~= nil then
+			local encoded = self.user_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.previous_usernames ~= nil then
+			local encoded = self.previous_usernames:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.name ~= nil then
+			local encoded = self.name:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.display_name ~= nil then
+			local encoded = self.display_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UserSearchTileSchema_PropsImpl.decode(input: buffer): UserSearchTileSchema_Props
+		local self = _UserSearchTileSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.previous_usernames =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.display_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UserSearchTileSchema_PropsImpl.jsonEncode(self: UserSearchTileSchema_Props): any
+		local output = {}
+
+		if self.user_id ~= nil then
+			output.userId = self.user_id:jsonEncode()
+		end
+
+		if self.previous_usernames ~= nil then
+			output.previousUsernames = self.previous_usernames:jsonEncode()
+		end
+
+		if self.name ~= nil then
+			output.name = self.name:jsonEncode()
+		end
+
+		if self.display_name ~= nil then
+			output.displayName = self.display_name:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _UserSearchTileSchema_PropsImpl.jsonDecode(input: { [string]: any }): UserSearchTileSchema_Props
+		local self = _UserSearchTileSchema_PropsImpl.new()
+
+		if input.user_id ~= nil then
+			self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.user_id)
+		end
+
+		if input.userId ~= nil then
+			self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.userId)
+		end
+
+		if input.previous_usernames ~= nil then
+			self.previous_usernames =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp.jsonDecode(input.previous_usernames)
+		end
+
+		if input.previousUsernames ~= nil then
+			self.previous_usernames =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp.jsonDecode(input.previousUsernames)
+		end
+
+		if input.name ~= nil then
+			self.name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.name)
+		end
+
+		if input.display_name ~= nil then
+			self.display_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.display_name)
+		end
+
+		if input.displayName ~= nil then
+			self.display_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.displayName)
+		end
+
+		return self
+	end
+
+	_UserSearchTileSchema_PropsImpl.descriptor = {
+		name = "UserSearchTileSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.UserSearchTileSchema_Props = _UserSearchTileSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UserSearchTileSchema_Props)
+end
+
+do
 	local _GameTileSchemaImpl = {}
 	_GameTileSchemaImpl.__index = _GameTileSchemaImpl
 
@@ -24822,6 +25197,7 @@ do
 			max_lines = if data == nil or data.max_lines == nil then nil else data.max_lines,
 			font_family = if data == nil or data.font_family == nil then nil else data.font_family,
 			font_weight = if data == nil or data.font_weight == nil then nil else data.font_weight,
+			class_names = if data == nil or data.class_names == nil then nil else data.class_names,
 		}, _TextSchema_WebPropsImpl :: _TextSchema_WebPropsImpl)
 	end
 
@@ -24856,6 +25232,12 @@ do
 		if self.font_weight ~= nil then
 			local encoded = self.font_weight:encode()
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.class_names ~= nil then
+			local encoded = self.class_names:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -24903,6 +25285,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.font_weight = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.class_names = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -24948,6 +25335,10 @@ do
 
 		if self.font_weight ~= nil then
 			output.fontWeight = self.font_weight:jsonEncode()
+		end
+
+		if self.class_names ~= nil then
+			output.classNames = self.class_names:jsonEncode()
 		end
 
 		return output
@@ -24999,6 +25390,15 @@ do
 
 		if input.fontWeight ~= nil then
 			self.font_weight = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.fontWeight)
+		end
+
+		if input.class_names ~= nil then
+			self.class_names =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.class_names)
+		end
+
+		if input.classNames ~= nil then
+			self.class_names = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.classNames)
 		end
 
 		return self
@@ -42933,6 +43333,9 @@ do
 			gap_after_first_feed_item = if data == nil or data.gap_after_first_feed_item == nil
 				then nil
 				else data.gap_after_first_feed_item,
+			same_pool_feed_item_gap = if data == nil or data.same_pool_feed_item_gap == nil
+				then nil
+				else data.same_pool_feed_item_gap,
 		}, _VerticalFeedSchema_PropsImpl :: _VerticalFeedSchema_PropsImpl)
 	end
 
@@ -43081,6 +43484,12 @@ do
 		if self.gap_after_first_feed_item ~= nil then
 			local encoded = self.gap_after_first_feed_item:encode()
 			output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.same_pool_feed_item_gap ~= nil then
+			local encoded = self.same_pool_feed_item_gap:encode()
+			output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -43235,6 +43644,12 @@ do
 					self.gap_after_first_feed_item =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
 					continue
+				elseif field == 25 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.same_pool_feed_item_gap =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
 				end
 
 				local length
@@ -43356,6 +43771,10 @@ do
 
 		if self.gap_after_first_feed_item ~= nil then
 			output.gapAfterFirstFeedItem = self.gap_after_first_feed_item:jsonEncode()
+		end
+
+		if self.same_pool_feed_item_gap ~= nil then
+			output.samePoolFeedItemGap = self.same_pool_feed_item_gap:jsonEncode()
 		end
 
 		return output
@@ -43609,6 +44028,16 @@ do
 		if input.gapAfterFirstFeedItem ~= nil then
 			self.gap_after_first_feed_item =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.gapAfterFirstFeedItem)
+		end
+
+		if input.same_pool_feed_item_gap ~= nil then
+			self.same_pool_feed_item_gap =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.same_pool_feed_item_gap)
+		end
+
+		if input.samePoolFeedItemGap ~= nil then
+			self.same_pool_feed_item_gap =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.samePoolFeedItemGap)
 		end
 
 		return self
@@ -51533,6 +51962,7 @@ do
 			adaptive_resolution = if data == nil or data.adaptive_resolution == nil
 				then nil
 				else data.adaptive_resolution,
+			access_context = if data == nil or data.access_context == nil then nil else data.access_context,
 		}, _VideoPlayerSchema_PropsImpl :: _VideoPlayerSchema_PropsImpl)
 	end
 
@@ -51591,6 +52021,12 @@ do
 		if self.adaptive_resolution ~= nil then
 			local encoded = self.adaptive_resolution:encode()
 			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.access_context ~= nil then
+			local encoded = self.access_context:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -51659,6 +52095,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.adaptive_resolution = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.access_context = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -51720,6 +52161,10 @@ do
 
 		if self.adaptive_resolution ~= nil then
 			output.adaptiveResolution = self.adaptive_resolution:jsonEncode()
+		end
+
+		if self.access_context ~= nil then
+			output.accessContext = self.access_context:jsonEncode()
 		end
 
 		return output
@@ -51803,6 +52248,16 @@ do
 		if input.adaptiveResolution ~= nil then
 			self.adaptive_resolution =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.adaptiveResolution)
+		end
+
+		if input.access_context ~= nil then
+			self.access_context =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.access_context)
+		end
+
+		if input.accessContext ~= nil then
+			self.access_context =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.accessContext)
 		end
 
 		return self
@@ -52570,6 +53025,9 @@ do
 				then nil
 				else data.description_max_lines,
 			image_scale_type = if data == nil or data.image_scale_type == nil then nil else data.image_scale_type,
+			background_on_activated = if data == nil or data.background_on_activated == nil
+				then nil
+				else data.background_on_activated,
 		}, _CardSchema_PropsImpl :: _CardSchema_PropsImpl)
 	end
 
@@ -52670,6 +53128,12 @@ do
 		if self.image_scale_type ~= nil then
 			local encoded = self.image_scale_type:encode()
 			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.background_on_activated ~= nil then
+			local encoded = self.background_on_activated:encode()
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -52775,6 +53239,12 @@ do
 					self.image_scale_type =
 						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp.decode(value)
 					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.background_on_activated =
+						_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
+					continue
 				end
 
 				local length
@@ -52864,6 +53334,10 @@ do
 
 		if self.image_scale_type ~= nil then
 			output.imageScaleType = self.image_scale_type:jsonEncode()
+		end
+
+		if self.background_on_activated ~= nil then
+			output.backgroundOnActivated = self.background_on_activated:jsonEncode()
 		end
 
 		return output
@@ -53014,6 +53488,16 @@ do
 		if input.imageScaleType ~= nil then
 			self.image_scale_type =
 				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp.jsonDecode(input.imageScaleType)
+		end
+
+		if input.background_on_activated ~= nil then
+			self.background_on_activated =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.background_on_activated)
+		end
+
+		if input.backgroundOnActivated ~= nil then
+			self.background_on_activated =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.backgroundOnActivated)
 		end
 
 		return self
@@ -68438,6 +68922,8 @@ do
 			automatic_size = if data == nil or data.automatic_size == nil then nil else data.automatic_size,
 			tag = if data == nil or data.tag == nil then nil else data.tag,
 			link_style = if data == nil or data.link_style == nil then nil else data.link_style,
+			is_link_bold = if data == nil or data.is_link_bold == nil then nil else data.is_link_bold,
+			is_link_underlined = if data == nil or data.is_link_underlined == nil then nil else data.is_link_underlined,
 		}, _LinkTextSchema_PropsImpl :: _LinkTextSchema_PropsImpl)
 	end
 
@@ -68559,6 +69045,18 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.is_link_bold ~= nil then
+			local encoded = self.is_link_bold:encode()
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.is_link_underlined ~= nil then
+			local encoded = self.is_link_underlined:encode()
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -68677,6 +69175,16 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.link_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
 					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.is_link_bold = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.is_link_underlined = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
 				end
 
 				local length
@@ -68778,6 +69286,14 @@ do
 
 		if self.link_style ~= nil then
 			output.linkStyle = self.link_style:jsonEncode()
+		end
+
+		if self.is_link_bold ~= nil then
+			output.isLinkBold = self.is_link_bold:jsonEncode()
+		end
+
+		if self.is_link_underlined ~= nil then
+			output.isLinkUnderlined = self.is_link_underlined:jsonEncode()
 		end
 
 		return output
@@ -68957,6 +69473,25 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.linkStyle)
 		end
 
+		if input.is_link_bold ~= nil then
+			self.is_link_bold =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.is_link_bold)
+		end
+
+		if input.isLinkBold ~= nil then
+			self.is_link_bold = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isLinkBold)
+		end
+
+		if input.is_link_underlined ~= nil then
+			self.is_link_underlined =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.is_link_underlined)
+		end
+
+		if input.isLinkUnderlined ~= nil then
+			self.is_link_underlined =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isLinkUnderlined)
+		end
+
 		return self
 	end
 
@@ -69102,6 +69637,12 @@ do
 			video_hash = if data == nil or data.video_hash == nil then nil else data.video_hash,
 			video_id = if data == nil or data.video_id == nil then nil else data.video_id,
 			video_title = if data == nil or data.video_title == nil then nil else data.video_title,
+			video_access_context = if data == nil or data.video_access_context == nil
+				then nil
+				else data.video_access_context,
+			attribution_component_config = if data == nil or data.attribution_component_config == nil
+				then nil
+				else data.attribution_component_config,
 		}, _MediaGallerySchema_MediaItemFieldsImpl :: _MediaGallerySchema_MediaItemFieldsImpl)
 	end
 
@@ -69136,6 +69677,18 @@ do
 		if self.video_title ~= nil then
 			local encoded = self.video_title:encode()
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.video_access_context ~= nil then
+			local encoded = self.video_access_context:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.attribution_component_config ~= nil then
+			local encoded = self.attribution_component_config:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -69183,6 +69736,17 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.video_title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.video_access_context =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.attribution_component_config = messages.LazyNestedComponentProp.decode(value)
+					continue
 				end
 
 				local length
@@ -69228,6 +69792,14 @@ do
 
 		if self.video_title ~= nil then
 			output.videoTitle = self.video_title:jsonEncode()
+		end
+
+		if self.video_access_context ~= nil then
+			output.videoAccessContext = self.video_access_context:jsonEncode()
+		end
+
+		if self.attribution_component_config ~= nil then
+			output.attributionComponentConfig = self.attribution_component_config:jsonEncode()
 		end
 
 		return output
@@ -69279,6 +69851,26 @@ do
 
 		if input.videoTitle ~= nil then
 			self.video_title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.videoTitle)
+		end
+
+		if input.video_access_context ~= nil then
+			self.video_access_context =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.video_access_context)
+		end
+
+		if input.videoAccessContext ~= nil then
+			self.video_access_context =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.videoAccessContext)
+		end
+
+		if input.attribution_component_config ~= nil then
+			self.attribution_component_config =
+				messages.LazyNestedComponentProp.jsonDecode(input.attribution_component_config)
+		end
+
+		if input.attributionComponentConfig ~= nil then
+			self.attribution_component_config =
+				messages.LazyNestedComponentProp.jsonDecode(input.attributionComponentConfig)
 		end
 
 		return self
@@ -90365,6 +90957,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 109, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "user_search_tile" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 110, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -90988,6 +91584,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "line_limited_text", value = messages.LineLimitedTextSchema.decode(value) }
 					continue
+				elseif field == 110 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "user_search_tile", value = messages.UserSearchTileSchema.decode(value) }
+					continue
 				end
 
 				local length
@@ -91234,6 +91835,8 @@ do
 				output.progress = self.kind.value:jsonEncode()
 			elseif self.kind.type == "line_limited_text" then
 				output.lineLimitedText = self.kind.value:jsonEncode()
+			elseif self.kind.type == "user_search_tile" then
+				output.userSearchTile = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -92305,6 +92908,16 @@ do
 				{ type = "line_limited_text", value = messages.LineLimitedTextSchema.jsonDecode(input.lineLimitedText) }
 		end
 
+		if input.user_search_tile ~= nil then
+			self.kind =
+				{ type = "user_search_tile", value = messages.UserSearchTileSchema.jsonDecode(input.user_search_tile) }
+		end
+
+		if input.userSearchTile ~= nil then
+			self.kind =
+				{ type = "user_search_tile", value = messages.UserSearchTileSchema.jsonDecode(input.userSearchTile) }
+		end
+
 		return self
 	end
 
@@ -92351,6 +92964,8 @@ return {
 	HoldActionConfigProp_HoldActionConfig = messages.HoldActionConfigProp_HoldActionConfig,
 	BadgeTileSchema = messages.BadgeTileSchema,
 	BadgeTileSchema_Props = messages.BadgeTileSchema_Props,
+	UserSearchTileSchema = messages.UserSearchTileSchema,
+	UserSearchTileSchema_Props = messages.UserSearchTileSchema_Props,
 	GameTileSchema = messages.GameTileSchema,
 	GameTileSchema_Props = messages.GameTileSchema_Props,
 	GameTileSchema_WebProps = messages.GameTileSchema_WebProps,

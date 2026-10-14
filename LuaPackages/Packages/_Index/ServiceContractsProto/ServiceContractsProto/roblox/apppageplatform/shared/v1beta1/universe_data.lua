@@ -54,6 +54,7 @@ type _UniverseDataFields = {
 	creation_source: string?,
 	promotional_text: string?,
 	moment_video_asset_id: number?,
+	is_community_licensed: boolean?,
 }
 
 type _UniverseDataPartialFields = {
@@ -87,6 +88,7 @@ type _UniverseDataPartialFields = {
 	creation_source: string?,
 	promotional_text: string?,
 	moment_video_asset_id: number?,
+	is_community_licensed: boolean?,
 }
 
 export type UniverseData = typeof(setmetatable({} :: _UniverseDataFields, {} :: _UniverseDataImpl))
@@ -140,6 +142,9 @@ do
 			moment_video_asset_id = if data == nil or data.moment_video_asset_id == nil
 				then nil
 				else data.moment_video_asset_id,
+			is_community_licensed = if data == nil or data.is_community_licensed == nil
+				then nil
+				else data.is_community_licensed,
 		}, _UniverseDataImpl :: _UniverseDataImpl)
 	end
 
@@ -297,6 +302,11 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, self.moment_video_asset_id)
 		end
 
+		if self.is_community_licensed ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 31, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_community_licensed then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -385,6 +395,11 @@ do
 					local value
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.moment_video_asset_id = value
+					continue
+				elseif field == 31 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_community_licensed = value ~= 0
 					continue
 				end
 
@@ -611,6 +626,10 @@ do
 
 		if self.moment_video_asset_id ~= nil then
 			output.momentVideoAssetId = self.moment_video_asset_id
+		end
+
+		if self.is_community_licensed ~= nil then
+			output.isCommunityLicensed = self.is_community_licensed
 		end
 
 		return output
@@ -845,6 +864,14 @@ do
 
 		if input.momentVideoAssetId ~= nil then
 			self.moment_video_asset_id = input.momentVideoAssetId
+		end
+
+		if input.is_community_licensed ~= nil then
+			self.is_community_licensed = input.is_community_licensed
+		end
+
+		if input.isCommunityLicensed ~= nil then
+			self.is_community_licensed = input.isCommunityLicensed
 		end
 
 		return self

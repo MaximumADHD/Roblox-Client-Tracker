@@ -11,14 +11,6 @@ local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
 local Roact = require(Packages.Roact)
 
-local GlobalPackages = UIBlox:FindFirstAncestor("Packages") or UIBlox:FindFirstAncestor("CorePackages") :: any
-
-local isJest = if GlobalPackages
-		and GlobalPackages:FindFirstChild("Dev")
-		and GlobalPackages.Dev:FindFirstChild("JestGlobals")
-	then pcall(require, GlobalPackages.Dev.JestGlobals)
-	else false
-
 local Foundation = require(Packages.Foundation)
 local FoundationProvider = Foundation.FoundationProvider
 
@@ -33,7 +25,6 @@ local StyleTypes = require(script.Parent.StyleTypes)
 local TokenPackage = require(script.Parent.Tokens)
 local StyleContext = require(UIBlox.Core.Style.StyleContext)
 local Logger = require(UIBlox.Logger)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local getTokens = TokenPackage.getTokens
 local getFoundationTokens = TokenPackage.getFoundationTokens
@@ -133,11 +124,7 @@ local function AppStyleProvider(props: Props)
 	end, { isMountedRef, style.themeName, setThemeName } :: { any })
 
 	React.useEffect(function()
-		local success, newTextSizeOffset = getTextSizeOffset(
-			if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Typography.BodyLarge.Font
-				else tokens.Semantic.Typography.Body.Font
-		)
+		local success, newTextSizeOffset = getTextSizeOffset(tokens.Typography.BodyLarge.Font)
 		if success then
 			setTextSizeOffset(newTextSizeOffset :: number)
 		end
@@ -177,13 +164,24 @@ local function AppStyleProvider(props: Props)
 	}, Roact.oneChild(props.children :: any))
 
 	if not foundationProviderPresent then
-		if not isJest and _G.__DEV__ then
-			Logger:warning(
-				debug.traceback(
-					"FoundationProvider not found. Please ensure that the FoundationProvider is present in the component tree."
+		if _G.ENVIRONMENT ~= "PRODUCTION" then
+			local GlobalPackages = UIBlox:FindFirstAncestor("Packages")
+				or UIBlox:FindFirstAncestor("CorePackages") :: any
+
+			local isJest = if GlobalPackages
+					and GlobalPackages:FindFirstChild("Dev")
+					and GlobalPackages.Dev:FindFirstChild("JestGlobals")
+				then pcall(require, GlobalPackages.Dev.JestGlobals)
+				else false
+			if not isJest then
+				Logger:warning(
+					debug.traceback(
+						"FoundationProvider not found. Please ensure that the FoundationProvider is present in the component tree."
+					)
 				)
-			)
+			end
 		end
+
 		return React.createElement(FoundationProvider, {
 			theme = FOUNDATION_THEME_MAP[themeName:lower()],
 			device = style.deviceType,

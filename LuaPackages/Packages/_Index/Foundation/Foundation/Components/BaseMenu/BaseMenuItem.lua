@@ -316,49 +316,9 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 		}
 	)
 
-	local submenuContextValue = if Flags.FoundationStableContextValues
-		then React.useMemo(
-			function()
-				return {
-					onActivated = context.onActivated,
-					onNestedLeafActivated = context.onNestedLeafActivated,
-					size = size,
-					hasLeading = submenuHasLeading,
-					setHasLeading = setSubmenuHasLeading,
-					hoverOpenPath = context.hoverOpenPath,
-					hoverOpenAtDepth = context.hoverOpenAtDepth,
-					hoverCloseAtDepth = context.hoverCloseAtDepth,
-					hoverReset = context.hoverReset,
-					depth = depth + 1,
-					maxHeight = context.maxHeight,
-				}
-			end,
-			{
-				context.onActivated,
-				context.onNestedLeafActivated,
-				size,
-				submenuHasLeading,
-				context.hoverOpenPath,
-				context.hoverOpenAtDepth,
-				context.hoverCloseAtDepth,
-				context.hoverReset,
-				depth,
-				context.maxHeight,
-			} :: { unknown }
-		)
-		else nil
-
-	if not isSubmenu then
-		return itemElement
-	end
-
-	local strokeThickness = tokens.Stroke.Standard
-	local groupPadding = variantProps.groupPadding.size
-
-	local submenuInner = React.createElement(BaseMenuContext.Provider, {
-		value = if Flags.FoundationStableContextValues
-			then submenuContextValue
-			else {
+	local submenuContextValue = React.useMemo(
+		function()
+			return {
 				onActivated = context.onActivated,
 				onNestedLeafActivated = context.onNestedLeafActivated,
 				size = size,
@@ -370,7 +330,31 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 				hoverReset = context.hoverReset,
 				depth = depth + 1,
 				maxHeight = context.maxHeight,
-			},
+			}
+		end,
+		{
+			context.onActivated,
+			context.onNestedLeafActivated,
+			size,
+			submenuHasLeading,
+			context.hoverOpenPath,
+			context.hoverOpenAtDepth,
+			context.hoverCloseAtDepth,
+			context.hoverReset,
+			depth,
+			context.maxHeight,
+		} :: { unknown }
+	)
+
+	if not isSubmenu then
+		return itemElement
+	end
+
+	local strokeThickness = tokens.Stroke.Standard
+	local groupPadding = variantProps.groupPadding.size
+
+	local submenuInner = React.createElement(BaseMenuContext.Provider, {
+		value = submenuContextValue,
 	}, props.children)
 
 	local submenuContent = if isSubmenuScrollable

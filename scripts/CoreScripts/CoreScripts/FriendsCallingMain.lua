@@ -14,9 +14,13 @@ local folder = Instance.new("Folder")
 folder.Name = "FriendsCalling"
 folder.Parent = CoreGui
 
+-- The overlay covers the chrome bar but stops below the hardware inset, so the
+-- experience stays visible in that strip.
 local IN_EXPERIENCE_HOST = {
 	displayOrder = CallPipDisplayOrder.InExperience,
+	exposesTopSafeArea = true,
 	followsAppColorMode = false,
+	screenInsets = Enum.ScreenInsets.None,
 }
 
 local root = ReactRoblox.createRoot(folder)

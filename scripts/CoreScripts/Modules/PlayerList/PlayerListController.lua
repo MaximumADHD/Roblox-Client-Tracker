@@ -66,6 +66,8 @@ local FFlagLuaSupportMicroGamepadPreferredInput =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaSupportMicroGamepadPreferredInput
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
+local FFlagEnableMobilePlayerListOnGamepad = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnGamepad
+local isReskinConsoleMobileRoute = PlayerListPackage.Common.isReskinConsoleMobileRoute
 local FFlagPlayerListUseMobileOnSmallDisplay = PlayerListPackage.Flags.FFlagPlayerListUseMobileOnSmallDisplay
 local FFlagPlayerListIgnoreDevGamepadBindings = PlayerListPackage.Flags.FFlagPlayerListIgnoreDevGamepadBindings
 local FFlagPlatformLeaderboardPersistStoreOnRemount =
@@ -89,56 +91,52 @@ end
 
 -- Foundation's useBreakpoint / usePreferredInput are React hooks (render-time only); these
 -- checks run imperatively at controller construction, so we compute them locally instead.
-local function isTouchOrGamepadInput(): boolean
-	return UserInputService.PreferredInput == Enum.PreferredInput.Touch
-		or UserInputService.PreferredInput == Enum.PreferredInput.Gamepad
+local function isTouchOrGamepadInput(preferredInput: Enum.PreferredInput): boolean
+	return preferredInput == Enum.PreferredInput.Touch
+		or preferredInput == Enum.PreferredInput.Gamepad
 		or (
 			FFlagLuaSupportMicroGamepadPreferredInput
-			and UserInputService.PreferredInput == Enum.PreferredInput.MicroGamepad
+			and preferredInput == Enum.PreferredInput.MicroGamepad
 		)
 end
 
--- Reskin console-mobile routing kicks in only when the device would otherwise be a
--- TenFoot user — Large display AND touch/gamepad input. Display size alone can
--- misclassify a desktop on a very large monitor (APPEXP-3482 established this on the
--- Small side; the Large side needs the symmetric check). Also requires
--- FFlagEnableMobilePlayerListOnConsole so a PC user with a gamepad is not treated
--- as console.
-local function isReskinConsoleMobileRoute(): boolean
-	return FFlagPlayerListReskin
-		and FFlagEnableMobilePlayerListOnConsole
-		and GuiService.ViewportDisplaySize == Enum.DisplaySize.Large
-		and isTouchOrGamepadInput()
+-- Reskin console-mobile routing: Large display plus touch/gamepad on console, or
+-- gamepad on PC (any display size) when FFlagEnableMobilePlayerListOnGamepad is on.
+local function isCurrentReskinConsoleMobileRoute(preferredInput: Enum.PreferredInput): boolean
+	return isReskinConsoleMobileRoute({
+		displaySize = GuiService.ViewportDisplaySize,
+		preferredInput = preferredInput,
+	})
 end
 
 -- 10-foot (TV) layout is suppressed when either the reskin console-mobile routing or
 -- master's mobile-on-console path applies. Otherwise fall back to TenFootInterface.
-local function resolveIsTenFoot(): boolean
-	return if isReskinConsoleMobileRoute() or FFlagEnableMobilePlayerListOnConsole
+local function resolveIsTenFoot(preferredInput: Enum.PreferredInput): boolean
+	return if isCurrentReskinConsoleMobileRoute(preferredInput) or FFlagEnableMobilePlayerListOnConsole
 		then false
 		else TenFootInterface:IsEnabled()
 end
 
 -- Uses ViewportDisplaySize rather than TenFootInterface — the latter is being retired
--- across PlayerList (see APPEXP-3354). Requires Large + touch/gamepad and
--- FFlagEnableMobilePlayerListOnConsole so a PC gamepad user is not treated as console
--- (see isReskinConsoleMobileRoute for rationale).
-local function isLargeConsoleLayout(): boolean
-	if GuiService.ViewportDisplaySize ~= Enum.DisplaySize.Large or not isTouchOrGamepadInput() then
+-- across PlayerList (see APPEXP-3354). Console requires Large + touch/gamepad and
+-- FFlagEnableMobilePlayerListOnConsole. PC gamepad uses the same layout on any display
+-- size when FFlagEnableMobilePlayerListOnGamepad is on (see isReskinConsoleMobileRoute).
+local function isLargeConsoleLayout(preferredInput: Enum.PreferredInput): boolean
+	if isCurrentReskinConsoleMobileRoute(preferredInput) then
+		return true
+	end
+	if GuiService.ViewportDisplaySize ~= Enum.DisplaySize.Large or not isTouchOrGamepadInput(preferredInput) then
 		return false
 	end
 	return FFlagEnableMobilePlayerListOnConsole
 end
 
-local function isSmallTouchScreen()
-	if isUnderTestEZ() then
-		return false
-	end
+local function isSmallTouchScreen(preferredInput: Enum.PreferredInput)
 	local isSmallDisplay = FFlagPlayerListUseMobileOnSmallDisplay
 		and GuiService.ViewportDisplaySize == Enum.DisplaySize.Small
 	return SettingsUtil:IsSmallTouchScreen()
-		or isLargeConsoleLayout()
-		or (isSmallDisplay and isTouchOrGamepadInput())
+		or isLargeConsoleLayout(preferredInput)
+		or (isSmallDisplay and isTouchOrGamepadInput(preferredInput))
 		or (FStringPlayerListOverrideType == "mobile")
 end
 
@@ -194,10 +192,10 @@ function PlayerListController.new()
 	end
 
 	coroutine.wrap(function()
-		self.store:dispatch(SetSmallTouchDevice(isSmallTouchScreen()))
+		self.store:dispatch(SetSmallTouchDevice(isSmallTouchScreen(UserInputService.PreferredInput)))
 	end)()
 
-	self.store:dispatch(SetTenFootInterface(resolveIsTenFoot()))
+	self.store:dispatch(SetTenFootInterface(resolveIsTenFoot(UserInputService.PreferredInput)))
 
 	coroutine.wrap(function()
 		self.store:dispatch(SetSubjectToChinaPolicies(CachedPolicyService:IsSubjectToChinaPolicies()))
@@ -254,7 +252,7 @@ function PlayerListController.new()
 	self.root = Roact.createElement(PlayerListContainer, {
 		leaderboardStore = LeaderboardStoreInstanceManager.getLeaderboardStoreInstance,
 		TopBarConstants = require(RobloxGui.Modules.TopBar.Constants),
-		isTenFoot = resolveIsTenFoot(),
+		isTenFoot = resolveIsTenFoot(UserInputService.PreferredInput),
 	}, {
 		PlayerListRoot = self.root,
 	})
@@ -305,7 +303,7 @@ function PlayerListController.new()
 end
 
 function PlayerListController:_updateMounted()
-	if not resolveIsTenFoot() then
+	if not resolveIsTenFoot(UserInputService.PreferredInput) then
 		local shouldMount = self.coreGuiEnabled and self.topBarEnabled
 		if shouldMount and not self.mounted then
 			self._mountLeaderboardStore()
@@ -345,7 +343,7 @@ end
 if FFlagAddNewPlayerListMobileFocusNav then
 	function PlayerListController:GetIsModal()
 		if FFlagPlayerListReskin then
-			return isSmallTouchScreen()
+			return isSmallTouchScreen(UserInputService.PreferredInput)
 		end
 		return self.store:getState().displayOptions.isSmallTouchDevice
 	end
@@ -379,23 +377,26 @@ function PlayerListController:_setupReskin()
 
 	local leaderboardTitle = translate("InGame.PlayerList.Leaderboard", "Leaderboard")
 
-	local isTenFoot = resolveIsTenFoot()
-	local isSmallTouchDevice = isSmallTouchScreen()
+	local preferredInput = UserInputService.PreferredInput
+	local isTenFoot = resolveIsTenFoot(preferredInput)
+	local isSmallTouchDevice = isSmallTouchScreen(preferredInput)
 
 	-- Foundation applies a 1.5x platform scale only for Device.Console (Foundation Tokens
 	-- getPlatformScale). Pass Device.Console for TV (isTenFoot) and mobile-on-console
 	-- (isLargeConsoleLayout — Large + touch/gamepad); desktop-Large-KB renders at desktop
 	-- size. Gating on ViewportDisplaySize alone would misclassify a desktop on a very
 	-- large monitor (same trap as APPEXP-3482 on the Small side).
-	local foundationDevice = if isTenFoot or isLargeConsoleLayout() then Device.Console else Device.Unknown
+	local foundationDevice = if isTenFoot or isLargeConsoleLayout(preferredInput) then Device.Console else Device.Unknown
+
+	local function restoreVisibilityOnDismiss()
+		if PlayerContextualMenuStore.takeSuppressNextDismissRestore() then
+			return
+		end
+		PlayerListVisibilityStore.setVisible(true)
+	end
 
 	if isSmallTouchDevice then
-		PlayerContextualMenuStore.setOnDismiss(function()
-			if PlayerContextualMenuStore.takeSuppressNextDismissRestore() then
-				return
-			end
-			PlayerListVisibilityStore.setVisible(true)
-		end)
+		PlayerContextualMenuStore.setOnDismiss(restoreVisibilityOnDismiss)
 	end
 
 	PlayerContextualMenuStore.setContextMenuOpener(function(player, anchorPosition, generation, friendStatusOverride)
@@ -691,6 +692,42 @@ function PlayerListController:_setupReskin()
 		self.mounted = true
 	else
 		self.mounted = false
+	end
+
+	-- A PC user can move between gamepad and mouse/keyboard mid-session, so re-resolve
+	-- the layout and remount when the preferred input flips the console route.
+	if FFlagEnableMobilePlayerListOnGamepad then
+		local function onPreferredInputChanged(nextPreferredInput: Enum.PreferredInput)
+			local nextIsSmallTouchDevice = isSmallTouchScreen(nextPreferredInput)
+			if nextIsSmallTouchDevice == isSmallTouchDevice then
+				return
+			end
+			if PlayerContextualMenuStore.getMenuData(false) ~= nil then
+				PlayerContextualMenuStore.closeContextMenu()
+			end
+			isSmallTouchDevice = nextIsSmallTouchDevice
+			foundationDevice = if isLargeConsoleLayout(nextPreferredInput)
+				then Device.Console
+				else Device.Unknown
+			PlayerContextualMenuStore.setOnDismiss(if isSmallTouchDevice then restoreVisibilityOnDismiss else nil)
+			if self.mounted then
+				unmountReskin()
+				setupVisibilityEffect()
+				mountReskin()
+			end
+			-- mountReskin refreshes persistence, but an unmounted leaderboard never reaches
+			-- it. Recompute before setVisible so a console default of hidden is not written
+			-- into GameSettings while the desktop list was never shown.
+			setStorePersistVisibility()
+			local initialVisible = PlayerListInitialVisibleState(nextPreferredInput)
+			PlayerListVisibilityStore.setVisible(initialVisible)
+			PlayerListVisibilityStore.setTempHideSnapshot(initialVisible)
+		end
+
+		self._onPreferredInputChanged = onPreferredInputChanged
+		self._reskinPreferredInputConn = UserInputService:GetPropertyChangedSignal("PreferredInput"):Connect(function()
+			onPreferredInputChanged(UserInputService.PreferredInput)
+		end)
 	end
 
 	self._reskinCoreGuiConn = StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, enabled)

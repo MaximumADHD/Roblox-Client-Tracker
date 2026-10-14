@@ -5,7 +5,6 @@
 --  The code is kept on the server and only replicated to the client to minimize security problems.
 
 local FFlagAllowLuobuFreecamGroup = game:DefineFastFlag("AllowLuobuFreecamGroup", false)
-local FFlagUseGetCanManageAsync = game:DefineFastFlag("UseGetCanManageAsync", false) and game:GetEngineFeature("LuaGetCanManageAsync")
 local FFlagFreeCameraToIAS = game:DefineFastFlag("FreeCameraToIAS", false) and game:GetEngineFeature("PlayerScriptStatusProperty")
 
 -- Users in the following groups have global Freecam permissions:
@@ -17,20 +16,14 @@ local LUOBU_FREECAM_GROUP_IDS = {
 	7842878,
 }
 
-local HttpRbxApiService = game:GetService("HttpRbxApiService")
-local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local PolicyService = game:GetService("PolicyService")
 local RunService = game:GetService("RunService")
 local StarterPlayer = game:GetService("StarterPlayer")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local CorePackages = game:GetService("CorePackages")
 
-local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 local ServerUtil = require(RobloxGui.Modules.Server.ServerUtil)
-local FFlagUserPresenceTokenRccCheckPermissionsLua =
-	require(RobloxGui.Modules.Common.Flags.FFlagUserPresenceTokenRccCheckPermissionsLua)
 
 local function Install()
 	local function WaitForChildOfClass(parent, class)
@@ -78,46 +71,10 @@ local function Install()
 			return false
 		end
 
-		if FFlagUseGetCanManageAsync then
-			local success, result = pcall(player.GetCanManageAsync, player)
+		local success, result = pcall(player.GetCanManageAsync, player)
 
-			if success and result then
-				return true
-			end
-		else
-			local success, result = pcall(function()
-				local apiPath = "asset-permissions-api/v1/rcc/assets/check-permissions"
-				local url = string.format(Url.APIS_URL..apiPath)
-
-				local request = HttpService:JSONEncode(
-					{
-						requests = {
-							{
-								subject = {
-									subjectType = "User",
-									subjectId = player.UserId
-								},
-								action = "Edit", -- check to see if this player has edit permissions on this placeId
-								assetId = game.PlaceId
-							}
-						}
-					}
-				)
-				local response
-				if FFlagUserPresenceTokenRccCheckPermissionsLua then
-					response = HttpRbxApiService:PostAsyncFullUrlForPlayer(url, request, player)
-				else
-					response = HttpRbxApiService:PostAsyncFullUrl(url, request)
-				end
-				return HttpService:JSONDecode(response)
-			end)
-
-			if success then
-				result = result.results[1]
-				if result.value and result.value.status == "HasPermission" then
-					return true
-				end
-			end
+		if success and result then
+			return true
 		end
 
 		for _, groupId in ipairs(FREECAM_GROUP_IDS) do

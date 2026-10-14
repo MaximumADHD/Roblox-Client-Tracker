@@ -11,11 +11,18 @@ local InExperienceShop = require(CorePackages.Workspace.Packages.InExperienceSho
 local InExperienceSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet)
 local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagEnableSideSheetRobuxWidget = require(Chrome.Flags.FFlagEnableSideSheetRobuxWidget)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagHideHeaderForBuyRobuxInExperienceShop = SharedFlags.FFlagHideHeaderForBuyRobuxInExperienceShop
 
 type SideSheetWidgetProps = ChromePackage.SideSheetWidgetProps
 
 local function openShop()
-	if ChromeService:isIntegrationValid(Constants.IN_EXPERIENCE_SHOP_ID) then
+	if
+		ChromeService:isIntegrationValid(Constants.IN_EXPERIENCE_SHOP_ID) or FFlagHideHeaderForBuyRobuxInExperienceShop
+	then
+		if FFlagHideHeaderForBuyRobuxInExperienceShop then
+			InExperienceShop.setOpenedFromBuyRobux(true)
+		end
 		if not ChromeService:isWindowOpen(Constants.IN_EXPERIENCE_SHOP_ID) then
 			InExperienceShop.requestOpenToRobuxTab()
 		end
@@ -32,6 +39,8 @@ local function RobuxWidgetIntegration(props: SideSheetWidgetProps): React.ReactN
 	})
 end
 
+-- TODO APPEXP-5642 (https://roblox.atlassian.net/browse/APPEXP-5642): Hide or
+-- disable Buy Robux widget while shop is empty/prefetching.
 local robuxWidgetIntegration = nil
 if FFlagEnableSideSheetRobuxWidget and isSideSheetEnabled then
 	robuxWidgetIntegration = ChromeService:register({

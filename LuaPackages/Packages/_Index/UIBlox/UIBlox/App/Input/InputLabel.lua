@@ -9,7 +9,6 @@ local Foundation = require(Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
 
 local useStyle = require(UIBlox.Core.Style.useStyle)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
@@ -36,12 +35,8 @@ end
 local function InputLabel(props: InputLabelProps)
 	local style = useStyle()
 
-	local typography = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-		then style.Tokens.Typography.BodySmall
-		else style.Tokens.Component.InputLabel.Base.Typography
-	local textColor = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-		then style.Tokens.Color.Content.Default
-		else style.Tokens.Component.InputLabel.Base.ContentColor
+	local typography = style.Tokens.Typography.BodySmall
+	local textColor = style.Tokens.Color.Content.Default
 
 	return React.createElement("TextLabel", {
 		Text = labelText(props.text, props.required),

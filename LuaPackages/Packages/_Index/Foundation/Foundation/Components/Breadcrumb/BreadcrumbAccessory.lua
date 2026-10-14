@@ -32,8 +32,7 @@ export type BreadcrumbAccessory = IconAccessoryConfig | AvatarAccessoryConfig
 export type BreadcrumbAccessoryVariant = {
 	iconSize: IconSize,
 	avatarSize: AvatarIconSize,
-	size: UDim2,
-	cornerRadius: UDim,
+	tag: string,
 	style: ColorStyleValue,
 }
 
@@ -75,8 +74,7 @@ local function BreadcrumbAccessory(props: BreadcrumbAccessoryProps): React.React
 
 	return React.createElement(Image, {
 		Image = iconName,
-		Size = variant.size,
-		cornerRadius = variant.cornerRadius,
+		tag = variant.tag,
 		LayoutOrder = props.LayoutOrder,
 		testId = props.testId,
 	})

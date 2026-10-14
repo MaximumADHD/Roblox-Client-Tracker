@@ -21,6 +21,8 @@ local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.Sh
 local FFlagUpdateRephraseSettingUI = game:DefineFastFlag("UpdateRephraseSettingUI", false)
 local FFlagChatSummariesSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagChatSummariesSettingEnabled
 local FFlagExpChatEnableFriendsTab = require(CorePackages.Workspace.Packages.SharedFlags).FFlagExpChatEnableFriendsTab
+local FFlagExpChatDictationVoiceTypingModeSetting =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagExpChatDictationVoiceTypingModeSetting
 local FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider =
 	require(Modules.Settings.Flags.FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider)
 
@@ -135,6 +137,9 @@ end
 if FFlagChatSummariesSettingEnabled then
 	SETTINGS_MENU_LAYOUT_ORDER.ChatSummariesFrame = 20
 end
+if FFlagExpChatDictationVoiceTypingModeSetting then
+	SETTINGS_MENU_LAYOUT_ORDER.VoiceTypingModeFrame = 16
+end
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRow = 200
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRowCustom = 200 -- Replaces "UiToggleRow" when FFlagUserShowGuiHideToggles == true
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRowBillboards = 201
@@ -160,6 +165,7 @@ if FFlagIEMSettingsGroups then
 		AudioDivider = nextOrder(),
 		
 		LanguageHeader = nextOrder(),
+		VoiceTypingModeFrame = if FFlagExpChatDictationVoiceTypingModeSetting then nextOrder() else nil,
 		ChatModerationFrame = nextOrder(),
 		VoiceConnectDisconnectSelector = nextOrder(),
 		VoiceConnectFrame = nextOrder(),

@@ -31,6 +31,7 @@ local FFlagPlatformLeaderboardRccEnabled =
 local FFlagDebugServerPlatformLeaderboardDevMock =
 	game:DefineFastFlag("DebugServerPlatformLeaderboardDevMock", false)
 local FFlagEmoteSkinningDisableEnabled = game:DefineFastFlag("EmoteSkinningDisableEnabled", false)
+local FFlagExpChatRemoveServerTenFootCheck = game:DefineFastFlag("ExpChatRemoveServerTenFootCheck", false)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 assert(RobloxGui ~= nil, "RobloxGui should exist")
@@ -123,9 +124,15 @@ if GetFFlagDisplayServerChannel() then
 	RemoteFunction_GetServerChannel.OnServerInvoke = getServerChannel
 end
 local function shouldLoadLuaChat()
+	if FFlagExpChatRemoveServerTenFootCheck then
+		return game:GetService("Chat").LoadDefaultChat
+			and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService
+	else
+		-- IsTenFootInterface() is always false on a server; console players are handled client-side in ClientChat.
 		return game:GetService("Chat").LoadDefaultChat
 			and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService
 			and (not game:GetService("GuiService"):IsTenFootInterface())
+	end
 end
 
 if shouldLoadLuaChat() then
@@ -175,6 +182,11 @@ end
 
 if game:DefineFastFlag("AppBuildReloadRemote", false) then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerBuildExperiencePlaytestTeleport", script.Parent)
+end
+
+local FStringRoCaptchaUniverseIds = require(RobloxGui.Modules.Common.Flags.FStringRoCaptchaUniverseIds)
+if game:DefineFastFlag("RoCaptchaServerHandlerEnabled", false) and FStringRoCaptchaUniverseIds ~= "" then
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerRoCaptchaHandler", script.Parent)
 end
 
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/PlayerViewCapability", script.Parent)

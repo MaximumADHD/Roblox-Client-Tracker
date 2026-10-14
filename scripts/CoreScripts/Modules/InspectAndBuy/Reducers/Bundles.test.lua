@@ -1,0 +1,138 @@
+local InspectAndBuyFolder = script.Parent.Parent
+local SetBundles = require(InspectAndBuyFolder.Actions.SetBundles)
+local Bundles = require(script.Parent.Bundles)
+local BundleInfo = require(InspectAndBuyFolder.Models.BundleInfo)
+
+local CorePackages = game:GetService("CorePackages")
+local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
+local FFlagAXMarketplaceLicensing =
+	require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXMarketplaceLicensing
+type ItemDetails = AvatarExperienceInspectAndBuy.ItemDetails
+
+local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
+local expect = JestGlobals.expect
+local describe = JestGlobals.describe
+local it = JestGlobals.it
+
+local MOCK_BUNDLE_1 = BundleInfo.mock()
+MOCK_BUNDLE_1.bundleId = "123"
+
+local MOCK_BUNDLE_2 = BundleInfo.mock()
+MOCK_BUNDLE_2.bundleId = "456"
+
+local function countKeys(t)
+	local count = 0
+	for _ in pairs(t) do
+		count = count + 1
+	end
+	return count
+end
+
+describe("SetBundles", function()
+	it("should set a bundle's information", function()
+		local newState = Bundles(
+			nil,
+			SetBundles({
+				[1] = MOCK_BUNDLE_1,
+			})
+		)
+
+		expect(newState[MOCK_BUNDLE_1.bundleId].bundleId).toBe(MOCK_BUNDLE_1.bundleId)
+		expect(countKeys(newState)).toBe(1)
+	end)
+
+	it("should set multiple bundles information", function()
+		local newState = Bundles(
+			nil,
+			SetBundles({
+				[1] = MOCK_BUNDLE_1,
+				[2] = MOCK_BUNDLE_2,
+			})
+		)
+
+		expect(newState[MOCK_BUNDLE_1.bundleId].bundleId).toBe(MOCK_BUNDLE_1.bundleId)
+		expect(newState[MOCK_BUNDLE_2.bundleId].bundleId).toBe(MOCK_BUNDLE_2.bundleId)
+		expect(countKeys(newState)).toBe(2)
+	end)
+
+	it("should update a bundle's information", function()
+		local bundle1 = MOCK_BUNDLE_1
+		local numFavorites = 500
+		local newState = Bundles(
+			nil,
+			SetBundles({
+				[1] = bundle1,
+			})
+		)
+
+		expect(newState[bundle1.bundleId].bundleId).toBe(bundle1.bundleId)
+
+		bundle1.numFavorites = numFavorites
+		newState = Bundles(
+			newState,
+			SetBundles({
+				[1] = bundle1,
+			})
+		)
+
+		expect(newState[bundle1.bundleId].numFavorites).toBe(numFavorites)
+		expect(countKeys(newState)).toBe(1)
+	end)
+
+	if FFlagAXMarketplaceLicensing then
+		local function itemDetails(itemLicensingInfo: any): ItemDetails
+			return {
+				id = 123,
+				isPurchasable = true,
+				itemType = "Bundle",
+				saleLocationType = "ShopOnly",
+				isOffSale = false,
+				itemLicensingInfo = itemLicensingInfo,
+			}
+		end
+
+		it("should clear licensing when V2 returns an unsupported license", function()
+			local newState = Bundles(
+				nil,
+				SetBundles({
+					BundleInfo.fromGetItemDetailsV2(itemDetails({
+						licenseType = "ThirdParty",
+					})),
+				})
+			)
+
+			newState = Bundles(
+				newState,
+				SetBundles({
+					BundleInfo.fromGetItemDetailsV2(itemDetails({
+						licenseType = "SecondParty",
+					})),
+				})
+			)
+
+			expect(newState["123"].itemLicensingInfo).toBeNil()
+		end)
+
+		it("should preserve licensing when V2 omits the license field", function()
+			local newState = Bundles(
+				nil,
+				SetBundles({
+					BundleInfo.fromGetItemDetailsV2(itemDetails({
+						licenseType = "ThirdParty",
+					})),
+				})
+			)
+
+			newState = Bundles(
+				newState,
+				SetBundles({
+					BundleInfo.fromGetItemDetailsV2(itemDetails(nil)),
+				})
+			)
+
+			expect(newState["123"].itemLicensingInfo).toEqual({
+				licenseType = "ThirdParty",
+			})
+		end)
+	end
+end)

@@ -2,7 +2,6 @@ local Navigation = script.Parent
 local App = Navigation.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
@@ -71,26 +70,16 @@ local function NavigationBar(providedProps: Props)
 	local props = Cryo.Dictionary.join(defaultProps, providedProps)
 	local style = useStyle()
 	local animationY, setAnimationY = React.useState(if props.size then props.size.Y.Offset else 0)
-	local paddingTop = if props.paddings and props.paddings.Top
-		then props.paddings.Top
-		else if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Size.Size_150
-			else style.Tokens.Global.Space_75
+	local paddingTop = if props.paddings and props.paddings.Top then props.paddings.Top else style.Tokens.Size.Size_150
 	local paddingBottom = if props.paddings and props.paddings.Bottom
 		then props.paddings.Bottom
-		else if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Size.Size_150
-			else style.Tokens.Global.Space_75
+		else style.Tokens.Size.Size_150
 	local paddingLeft = if props.paddings and props.paddings.Left
 		then props.paddings.Left
-		else if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Size.Size_150
-			else style.Tokens.Global.Space_75
+		else style.Tokens.Size.Size_150
 	local paddingRight = if props.paddings and props.paddings.Right
 		then props.paddings.Right
-		else if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Size.Size_150
-			else style.Tokens.Global.Space_75
+		else style.Tokens.Size.Size_150
 	local hAlignment = nil
 	local hFlex = nil
 	if props.alignment == NavigationBarAlignment.Left then

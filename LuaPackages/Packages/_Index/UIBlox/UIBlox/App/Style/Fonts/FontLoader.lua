@@ -9,7 +9,6 @@ local normalizeFontFace = Foundation.Utility.normalizeFontFace
 local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local Constants = require(Style.Constants)
 local StyleTypes = require(Style.StyleTypes)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local FONT_CONFIG = {
 	BASE_SIZE = 16,
@@ -49,12 +48,8 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 			FontFace = if FFlagFoundationFontFaceMigration
 				then normalizeFontFace(tokens.Typography.HeadingLarge.Font) :: Font
 				else nil,
-			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_700
-				else tokens.Global.Size_350) / baseSize,
-			RelativeMinSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_600
-				else tokens.Global.Size_300) / baseSize,
+			RelativeSize = tokens.Size.Size_700 / baseSize,
+			RelativeMinSize = tokens.Size.Size_600 / baseSize,
 		},
 		HeadingSmall = {
 			-- selene: allow(incorrect_standard_library_use)
@@ -62,12 +57,8 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 			FontFace = if FFlagFoundationFontFaceMigration
 				then normalizeFontFace(tokens.Typography.HeadingSmall.Font) :: Font
 				else nil,
-			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_500
-				else tokens.Global.Size_250) / baseSize,
-			RelativeMinSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_400
-				else tokens.Global.Size_200) / baseSize,
+			RelativeSize = tokens.Size.Size_500 / baseSize,
+			RelativeMinSize = tokens.Size.Size_400 / baseSize,
 		},
 		TitleLarge = {
 			-- selene: allow(incorrect_standard_library_use)
@@ -75,12 +66,8 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 			FontFace = if FFlagFoundationFontFaceMigration
 				then normalizeFontFace(tokens.Typography.TitleLarge.Font) :: Font
 				else nil,
-			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_400
-				else tokens.Global.Size_200) / baseSize,
-			RelativeMinSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_300
-				else tokens.Global.Size_150) / baseSize,
+			RelativeSize = tokens.Size.Size_400 / baseSize,
+			RelativeMinSize = tokens.Size.Size_300 / baseSize,
 		},
 		BodyLarge = {
 			-- selene: allow(incorrect_standard_library_use)
@@ -88,12 +75,8 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 			FontFace = if FFlagFoundationFontFaceMigration
 				then normalizeFontFace(tokens.Typography.BodyLarge.Font) :: Font
 				else nil,
-			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_400
-				else tokens.Global.Size_200) / baseSize,
-			RelativeMinSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_300
-				else tokens.Global.Size_150) / baseSize,
+			RelativeSize = tokens.Size.Size_400 / baseSize,
+			RelativeMinSize = tokens.Size.Size_300 / baseSize,
 		},
 		CaptionLarge = {
 			-- selene: allow(incorrect_standard_library_use)
@@ -101,12 +84,8 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 			FontFace = if FFlagFoundationFontFaceMigration
 				then normalizeFontFace(tokens.Typography.CaptionLarge.Font) :: Font
 				else nil,
-			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_300
-				else tokens.Global.Size_150) / baseSize,
-			RelativeMinSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_200
-				else tokens.Global.Size_100) / baseSize,
+			RelativeSize = tokens.Size.Size_300 / baseSize,
+			RelativeMinSize = tokens.Size.Size_200 / baseSize,
 		},
 		BodySmall = {
 			-- selene: allow(incorrect_standard_library_use)
@@ -114,12 +93,8 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 			FontFace = if FFlagFoundationFontFaceMigration
 				then normalizeFontFace(tokens.Typography.BodySmall.Font) :: Font
 				else nil,
-			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_300
-				else tokens.Global.Size_150) / baseSize,
-			RelativeMinSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_200
-				else tokens.Global.Size_100) / baseSize,
+			RelativeSize = tokens.Size.Size_300 / baseSize,
+			RelativeMinSize = tokens.Size.Size_200 / baseSize,
 		},
 		CaptionSmall = {
 			-- selene: allow(incorrect_standard_library_use)
@@ -127,12 +102,8 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 			FontFace = if FFlagFoundationFontFaceMigration
 				then normalizeFontFace(tokens.Typography.CaptionSmall.Font) :: Font
 				else nil,
-			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_250
-				else tokens.Global.Size_125) / baseSize,
-			RelativeMinSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_200
-				else tokens.Global.Size_100) / baseSize,
+			RelativeSize = tokens.Size.Size_250 / baseSize,
+			RelativeMinSize = tokens.Size.Size_200 / baseSize,
 		},
 	}
 

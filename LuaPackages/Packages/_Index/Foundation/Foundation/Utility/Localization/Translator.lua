@@ -1,23 +1,49 @@
 local Localization = script.Parent
+-- clip this when Flags.FoundationDontParentToFoundationModule is enabled
 local Foundation = script:FindFirstAncestor("Foundation")
+local FoundationRoot = script.Parent.Parent.Parent
+local Flags = require(FoundationRoot.Utility.Flags)
 
-local Wrappers = require(Foundation.Utility.Wrappers)
+local Wrappers = require(FoundationRoot.Utility.Wrappers)
 local LocalizationService = Wrappers.Services.LocalizationService
 
 local Constants = require(Localization.Constants)
-local GeneratedTranslations = require(Foundation.Generated.Translations.GeneratedTranslations)
+local GeneratedTranslations = require(FoundationRoot.Generated.Translations.GeneratedTranslations)
+local devAssert = require(FoundationRoot.Utility.devAssert)
+local getMainGui = require(FoundationRoot.Utility.getMainGui)
+local localizationTableParent: Instance
+if Flags.FoundationDontParentToFoundationModule then
+	local mainGui = getMainGui()
+	devAssert(mainGui ~= nil, "MainGui not found")
+	localizationTableParent = mainGui :: Instance
+else
+	localizationTableParent = Foundation
+end
 
-local localizationTableParent = Foundation
+local http = game:GetService("HttpService")
+local localizationTableName = Constants.LOCALIZATION_TABLE_NAME .. http:GenerateGUID(false)
+
 local function createFoundationLocalizationTable(parent: Instance): LocalizationTable | nil
-	local existingLocalizationTable = parent:FindFirstChild(Constants.LOCALIZATION_TABLE_NAME)
-	if existingLocalizationTable ~= nil and existingLocalizationTable:IsA("LocalizationTable") then
-		-- Overwrites the existing translations with this set
-		existingLocalizationTable:SetEntries(GeneratedTranslations)
-		return existingLocalizationTable
+	if Flags.FoundationDontParentToFoundationModule then
+		local existingLocalizationTable = parent:FindFirstChild(localizationTableName)
+		if existingLocalizationTable ~= nil and existingLocalizationTable:IsA("LocalizationTable") then
+			-- Overwrites the existing translations with this set
+			existingLocalizationTable:SetEntries(GeneratedTranslations)
+			return existingLocalizationTable
+		end
+	else
+		local existingLocalizationTable = parent:FindFirstChild(Constants.LOCALIZATION_TABLE_NAME)
+		if existingLocalizationTable ~= nil and existingLocalizationTable:IsA("LocalizationTable") then
+			-- Overwrites the existing translations with this set
+			existingLocalizationTable:SetEntries(GeneratedTranslations)
+			return existingLocalizationTable
+		end
 	end
 
 	local FoundationLocalizationTable = Instance.new("LocalizationTable")
-	FoundationLocalizationTable.Name = Constants.LOCALIZATION_TABLE_NAME
+	FoundationLocalizationTable.Name = if Flags.FoundationDontParentToFoundationModule
+		then localizationTableName
+		else Constants.LOCALIZATION_TABLE_NAME
 	FoundationLocalizationTable.Archivable = false
 	FoundationLocalizationTable.SourceLocaleId = "en-us"
 	FoundationLocalizationTable:SetEntries(GeneratedTranslations)
@@ -40,9 +66,16 @@ local function getTranslatorForLocale(locale)
 		return translator
 	end
 
-	translator = (localizationTableParent:FindFirstChild(Constants.LOCALIZATION_TABLE_NAME) :: LocalizationTable):GetTranslator(
-		locale
-	)
+	if Flags.FoundationDontParentToFoundationModule then
+		translator = (localizationTableParent:FindFirstChild(localizationTableName) :: LocalizationTable):GetTranslator(
+			locale
+		)
+	else
+		translator = (localizationTableParent:FindFirstChild(Constants.LOCALIZATION_TABLE_NAME) :: LocalizationTable):GetTranslator(
+			locale
+		)
+	end
+
 	translatorsCache[locale] = translator
 
 	return translator

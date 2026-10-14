@@ -30,6 +30,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_PLACEHOLDER_TILE"
 	| "UI_COMPONENT_TYPE_SPONSORED_TWO_BY_ONE_TILE"
 	| "UI_COMPONENT_TYPE_SPONSORED_ONE_BY_TWO_TILE"
+	| "UI_COMPONENT_TYPE_USER_SEARCH_TILE"
 	| "UI_COMPONENT_TYPE_BUTTON"
 	| "UI_COMPONENT_TYPE_IMAGE"
 	| "UI_COMPONENT_TYPE_TEXT"
@@ -163,6 +164,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SPONSORED_TWO_BY_ONE_TILE"
 		elseif value == 108 then
 			return "UI_COMPONENT_TYPE_SPONSORED_ONE_BY_TWO_TILE"
+		elseif value == 109 then
+			return "UI_COMPONENT_TYPE_USER_SEARCH_TILE"
 		elseif value == 200 then
 			return "UI_COMPONENT_TYPE_BUTTON"
 		elseif value == 201 then
@@ -393,6 +396,8 @@ messages.UiComponentType = {
 			return 107
 		elseif self == "UI_COMPONENT_TYPE_SPONSORED_ONE_BY_TWO_TILE" then
 			return 108
+		elseif self == "UI_COMPONENT_TYPE_USER_SEARCH_TILE" then
+			return 109
 		elseif self == "UI_COMPONENT_TYPE_BUTTON" then
 			return 200
 		elseif self == "UI_COMPONENT_TYPE_IMAGE" then
@@ -623,6 +628,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SPONSORED_TWO_BY_ONE_TILE"
 		elseif name == "UI_COMPONENT_TYPE_SPONSORED_ONE_BY_TWO_TILE" then
 			return "UI_COMPONENT_TYPE_SPONSORED_ONE_BY_TWO_TILE"
+		elseif name == "UI_COMPONENT_TYPE_USER_SEARCH_TILE" then
+			return "UI_COMPONENT_TYPE_USER_SEARCH_TILE"
 		elseif name == "UI_COMPONENT_TYPE_BUTTON" then
 			return "UI_COMPONENT_TYPE_BUTTON"
 		elseif name == "UI_COMPONENT_TYPE_IMAGE" then

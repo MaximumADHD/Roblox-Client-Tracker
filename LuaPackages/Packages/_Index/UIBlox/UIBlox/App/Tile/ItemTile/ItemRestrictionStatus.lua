@@ -4,7 +4,6 @@ local Tile = ItemTile.Parent
 local App = Tile.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -96,16 +95,7 @@ function ItemRestrictionStatus:render()
 			ImageTransparency = theme.UIDefault.Transparency,
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Rect.new(8, 8, 9, 9),
-			Position = UDim2.new(
-				0,
-				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-					then tokens.Size.Size_200
-					else tokens.Global.Size_100,
-				1,
-				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-					then -tokens.Size.Size_200
-					else -tokens.Global.Size_100
-			),
+			Position = UDim2.new(0, tokens.Size.Size_200, 1, -tokens.Size.Size_200),
 			Size = UDim2.new(0, xSize, 0, ySize),
 		}, {
 			Icon = icon and Roact.createElement(ImageSetComponent.Label, {

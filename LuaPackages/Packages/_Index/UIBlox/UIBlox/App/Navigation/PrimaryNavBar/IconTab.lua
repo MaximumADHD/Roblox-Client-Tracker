@@ -5,7 +5,6 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 -- Packages
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local React = require(Packages.React)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
@@ -50,13 +49,7 @@ local function IconTab(providedProps: Props)
 	local selected = props.selected
 	local style = useStyle()
 
-	local iconStyle = if selected
-		then (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Color.Content.Emphasis
-			else style.Tokens.Semantic.Color.Icon.Emphasis)
-		else (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Color.Content.Default
-			else style.Tokens.Semantic.Color.Icon.Default)
+	local iconStyle = if selected then style.Tokens.Color.Content.Emphasis else style.Tokens.Color.Content.Default
 	local iconSize = getIconSize(IconSize.Medium, style)
 	local roundedBackgroundHeight = Constants.ICON_TAB_HEIGHT - Constants.ICON_TAB_PADDING * 2
 	assert(item.icon == nil or item.iconComponent == nil, "icon or iconComponent cannot be assigned at same time")
@@ -112,9 +105,7 @@ local function IconTab(providedProps: Props)
 				Color = if selected then style.Theme.TextEmphasis.Color else style.Theme.TextDefault.Color,
 				Transparency = 0,
 			},
-			fontStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then style.Tokens.Typography.HeadingSmall
-				else style.Tokens.Semantic.Typography.Header,
+			fontStyle = style.Tokens.Typography.HeadingSmall,
 			TextTruncate = Enum.TextTruncate.AtEnd,
 			BackgroundTransparency = 1,
 		}),

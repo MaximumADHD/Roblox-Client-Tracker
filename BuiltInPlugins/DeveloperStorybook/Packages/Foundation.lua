@@ -64,6 +64,8 @@ export type InputSize = Package.InputSize
 export type InputVariant = Package.InputVariant
 export type LinkVariant = Package.LinkVariant
 export type ListItemInputType = Package.ListItemInputType
+export type MediaAspectRatio = Package.MediaAspectRatio
+export type MediaOrientation = Package.MediaOrientation
 export type NumberInputControlsVariant = Package.NumberInputControlsVariant
 export type ScrubBehavior = Package.ScrubBehavior
 export type OnChangeCallbackReason = Package.OnChangeCallbackReason
@@ -113,6 +115,8 @@ export type BaseMenuProps<Item = BaseMenuItem> = Package.BaseMenuProps<Item >
 export type BaseMenuItem = Package.BaseMenuItem
 export type BaseMenuItems<Item = BaseMenuItem> = Package.BaseMenuItems<Item > 
 export type BaseMenuItemGroup<Item = BaseMenuItem> = Package.BaseMenuItemGroup<Item > 
+export type BreadcrumbProps = Package.BreadcrumbProps
+export type BreadcrumbItem = Package.BreadcrumbItem
 export type ButtonProps = Package.ButtonProps
 export type ButtonGroupProps = Package.ButtonGroupProps
 export type ButtonGroupItem = Package.ButtonGroupItem
@@ -158,6 +162,9 @@ export type ListProps = Package.ListProps
 export type ListItemProps = Package.ListItemProps
 export type ListAccessoryProps = Package.ListAccessoryProps
 export type LoadingProps = Package.LoadingProps
+export type MediaProps = Package.MediaProps
+export type MediaContent = Package.MediaContent
+export type MediaImage = Package.MediaImage
 export type MenuProps = Package.MenuProps
 export type MenuItem = Package.MenuItem
 export type MenuItems = Package.MenuItems

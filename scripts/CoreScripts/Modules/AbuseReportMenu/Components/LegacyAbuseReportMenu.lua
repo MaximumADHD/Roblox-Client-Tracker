@@ -53,12 +53,9 @@ local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableS
 local isAbuseReportMenuOpenCloseSignalEnabled = require(root.Flags.isAbuseReportMenuOpenCloseSignalEnabled)
 local FIntAbuseReportTabClearCapturedScreenshotOnCloseFixDelay =
 	require(root.Flags.FIntAbuseReportTabClearCapturedScreenshotOnCloseFixDelay)
-local GetFFlagWHAM1707ExperimentForceEnabled = require(root.Flags.GetFFlagWHAM1707ExperimentForceEnabled)
-local IXPFieldWHAM1707 = require(root.Flags.FStringWHAM1707IXPField)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FStringReportMenuIXPLayer = SharedFlags.FStringReportMenuIXPLayer
-local FStringEARReportMenuIXPLayer = SharedFlags.FStringEARReportMenuIXPLayer
 local FStringSelectInSceneIXPField = SharedFlags.FStringSelectInSceneIXPField
 local FFlagHighlightModePreciseSelectionEnabled = SharedFlags.FFlagHighlightModePreciseSelectionEnabled
 local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
@@ -112,24 +109,6 @@ local function isInSelectInSceneExperiment(): boolean
 	return IXPData[FStringSelectInSceneIXPField]
 end
 
-local function isInWHAM1707Experiment(): boolean -- also need engine feature check
-	if GetFFlagWHAM1707ExperimentForceEnabled() then
-		return true
-	end
-
-	-- Getting IXP layer data
-	local success, IXPData = pcall(function()
-		return IXPService:GetUserLayerVariables(FStringEARReportMenuIXPLayer)
-	end)
-	if not success or not IXPData or IXPData[IXPFieldWHAM1707] == nil then
-		return false
-	end
-
-	-- Log user layer exposure (enrollment here)
-	IXPService:LogUserLayerExposure(FStringEARReportMenuIXPLayer)
-	return IXPData[IXPFieldWHAM1707]
-end
-
 local LegacyAbuseReportMenu = function(props: Props)
 	local isReportTabVisible, setIsReportTabVisible = React.useState(false)
 	local reportModeIndex, setReportModeIndex = React.useState(1)
@@ -165,7 +144,7 @@ local LegacyAbuseReportMenu = function(props: Props)
 		props.registerOnReportTabDisplayed(function()
 			setIsReportTabVisible(true)
 			-- only send menu open signal AFTER screenshot capture
-			if isAbuseReportMenuOpenCloseSignalEnabled() and isInWHAM1707Experiment() then
+			if isAbuseReportMenuOpenCloseSignalEnabled() then
 				if reportAnythingState.screenshotContentId ~= "" then
 					SafetyService:ReportMenuTabOpen()
 				end
@@ -176,7 +155,7 @@ local LegacyAbuseReportMenu = function(props: Props)
 			AnnotationModal.unmountAnnotationPage()
 			-- We need to unmount all modals when the report tab is closed to prevent weird open/close state bugs
 			ModalBasedSelectorDialogController.unmountModalSelector()
-			if isAbuseReportMenuOpenCloseSignalEnabled() and isInWHAM1707Experiment() then
+			if isAbuseReportMenuOpenCloseSignalEnabled() then
 				SafetyService:ReportMenuTabClose()
 			end
 		end)

@@ -33,6 +33,7 @@ type _Messages =
 		ExperienceActionModuleInputData_ConnectionPlayedUser: _ExperienceActionModuleInputData_ConnectionPlayedUserMessage,
 		ExperienceMediaGalleryInputData: _ExperienceMediaGalleryInputDataMessage,
 		ExperienceMediaGalleryInputData_MediaItem: _ExperienceMediaGalleryInputData_MediaItemMessage,
+		ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback: _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackMessage,
 		ExperienceDescriptionInputData: _ExperienceDescriptionInputDataMessage,
 		ExperienceStatRowInputData: _ExperienceStatRowInputDataMessage,
 		ExperienceInfoTableInputData: _ExperienceInfoTableInputDataMessage,
@@ -1008,10 +1009,14 @@ type _ExperienceMediaGalleryInputData_MediaItemImpl = {
 
 type _ExperienceMediaGalleryInputData_MediaItemFields = {
 	media_asset_id: string,
+	moment_video_playback: ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback?,
+	attribution_user_id: string,
 }
 
 type _ExperienceMediaGalleryInputData_MediaItemPartialFields = {
 	media_asset_id: string?,
+	moment_video_playback: ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback?,
+	attribution_user_id: string?,
 }
 
 export type ExperienceMediaGalleryInputData_MediaItem = typeof(setmetatable(
@@ -1021,6 +1026,37 @@ export type ExperienceMediaGalleryInputData_MediaItem = typeof(setmetatable(
 type _ExperienceMediaGalleryInputData_MediaItemMessage = proto.Message<
 	ExperienceMediaGalleryInputData_MediaItem,
 	_ExperienceMediaGalleryInputData_MediaItemPartialFields
+>
+
+type _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl = {
+	__index: _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl,
+	new: (
+		fields: _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackPartialFields?
+	) -> ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback,
+	encode: (self: ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback) -> buffer,
+	decode: (input: buffer) -> ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback,
+	jsonEncode: (self: ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackFields = {
+	asset_id: string,
+	asset_access_context: string,
+}
+
+type _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackPartialFields = {
+	asset_id: string?,
+	asset_access_context: string?,
+}
+
+export type ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback = typeof(setmetatable(
+	{} :: _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackFields,
+	{} :: _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl
+))
+type _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackMessage = proto.Message<
+	ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback,
+	_ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackPartialFields
 >
 
 type _ExperienceDescriptionInputDataImpl = {
@@ -1316,6 +1352,7 @@ type _ExperienceCarouselInputDataFields = {
 	collection_item_size: string?,
 	sort_sub_id: string?,
 	enable_game_tile_videos: boolean,
+	continues_previous_section: boolean?,
 }
 
 type _ExperienceCarouselInputDataPartialFields = {
@@ -1341,6 +1378,7 @@ type _ExperienceCarouselInputDataPartialFields = {
 	collection_item_size: string?,
 	sort_sub_id: string?,
 	enable_game_tile_videos: boolean?,
+	continues_previous_section: boolean?,
 }
 
 export type ExperienceCarouselInputData = typeof(setmetatable(
@@ -3268,6 +3306,7 @@ type _SearchResultsFeedInputDataFields = {
 	entry_order: { string },
 	content_pools: { [string]: ContentPool },
 	search_session_id: string,
+	search_query: string,
 }
 
 type _SearchResultsFeedInputDataPartialFields = {
@@ -3275,6 +3314,7 @@ type _SearchResultsFeedInputDataPartialFields = {
 	entry_order: { string }?,
 	content_pools: { [string]: ContentPool }?,
 	search_session_id: string?,
+	search_query: string?,
 }
 
 export type SearchResultsFeedInputData = typeof(setmetatable(
@@ -3453,10 +3493,12 @@ type _UserListInputData_UserItemImpl = {
 
 type _UserListInputData_UserItemFields = {
 	user_id: string,
+	previous_usernames: { string },
 }
 
 type _UserListInputData_UserItemPartialFields = {
 	user_id: string?,
+	previous_usernames: { string }?,
 }
 
 export type UserListInputData_UserItem = typeof(setmetatable(
@@ -9924,6 +9966,12 @@ do
 	): ExperienceMediaGalleryInputData_MediaItem
 		return setmetatable({
 			media_asset_id = if data == nil or data.media_asset_id == nil then "" else data.media_asset_id,
+			moment_video_playback = if data == nil or data.moment_video_playback == nil
+				then nil
+				else data.moment_video_playback,
+			attribution_user_id = if data == nil or data.attribution_user_id == nil
+				then ""
+				else data.attribution_user_id,
 		}, _ExperienceMediaGalleryInputData_MediaItemImpl :: _ExperienceMediaGalleryInputData_MediaItemImpl)
 	end
 
@@ -9936,6 +9984,17 @@ do
 		if self.media_asset_id ~= nil and self.media_asset_id ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.media_asset_id)
+		end
+
+		if self.moment_video_playback ~= nil then
+			local encoded = self.moment_video_playback:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.attribution_user_id ~= nil and self.attribution_user_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.attribution_user_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -9963,6 +10022,17 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.media_asset_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.moment_video_playback =
+						messages.ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.attribution_user_id = buffer.tostring(value)
 					continue
 				end
 
@@ -9997,6 +10067,14 @@ do
 			output.mediaAssetId = self.media_asset_id
 		end
 
+		if self.moment_video_playback ~= nil then
+			output.momentVideoPlayback = self.moment_video_playback:jsonEncode()
+		end
+
+		if self.attribution_user_id ~= nil and self.attribution_user_id ~= "" then
+			output.attributionUserId = self.attribution_user_id
+		end
+
 		return output
 	end
 
@@ -10013,6 +10091,28 @@ do
 			self.media_asset_id = input.mediaAssetId
 		end
 
+		if input.moment_video_playback ~= nil then
+			self.moment_video_playback =
+				messages.ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback.jsonDecode(
+					input.moment_video_playback
+				)
+		end
+
+		if input.momentVideoPlayback ~= nil then
+			self.moment_video_playback =
+				messages.ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback.jsonDecode(
+					input.momentVideoPlayback
+				)
+		end
+
+		if input.attribution_user_id ~= nil then
+			self.attribution_user_id = input.attribution_user_id
+		end
+
+		if input.attributionUserId ~= nil then
+			self.attribution_user_id = input.attributionUserId
+		end
+
 		return self
 	end
 
@@ -10024,6 +10124,147 @@ do
 	messages.ExperienceMediaGalleryInputData_MediaItem = _ExperienceMediaGalleryInputData_MediaItemImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.ExperienceMediaGalleryInputData_MediaItem)
+end
+
+do
+	local _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl = {}
+	_ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl.__index =
+		_ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl
+
+	function _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl.new(
+		data: _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackPartialFields?
+	): ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback
+		return setmetatable(
+			{
+				asset_id = if data == nil or data.asset_id == nil then "" else data.asset_id,
+				asset_access_context = if data == nil or data.asset_access_context == nil
+					then ""
+					else data.asset_access_context,
+			},
+			_ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl :: _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl
+		)
+	end
+
+	function _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl.encode(
+		self: ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.asset_id ~= nil and self.asset_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.asset_id)
+		end
+
+		if self.asset_access_context ~= nil and self.asset_access_context ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.asset_access_context)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl.decode(
+		input: buffer
+	): ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback
+		local self = _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.asset_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.asset_access_context = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl.jsonEncode(
+		self: ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback
+	): any
+		local output = {}
+
+		if self.asset_id ~= nil and self.asset_id ~= "" then
+			output.assetId = self.asset_id
+		end
+
+		if self.asset_access_context ~= nil and self.asset_access_context ~= "" then
+			output.assetAccessContext = self.asset_access_context
+		end
+
+		return output
+	end
+
+	function _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl.jsonDecode(
+		input: { [string]: any }
+	): ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback
+		local self = _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl.new()
+
+		if input.asset_id ~= nil then
+			self.asset_id = input.asset_id
+		end
+
+		if input.assetId ~= nil then
+			self.asset_id = input.assetId
+		end
+
+		if input.asset_access_context ~= nil then
+			self.asset_access_context = input.asset_access_context
+		end
+
+		if input.assetAccessContext ~= nil then
+			self.asset_access_context = input.assetAccessContext
+		end
+
+		return self
+	end
+
+	_ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl.descriptor = {
+		name = "ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MomentVideoPlayback",
+	}
+
+	messages.ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback =
+		_ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback)
 end
 
 do
@@ -11252,6 +11493,9 @@ do
 			enable_game_tile_videos = if data == nil or data.enable_game_tile_videos == nil
 				then false
 				else data.enable_game_tile_videos,
+			continues_previous_section = if data == nil or data.continues_previous_section == nil
+				then nil
+				else data.continues_previous_section,
 		}, _ExperienceCarouselInputDataImpl :: _ExperienceCarouselInputDataImpl)
 	end
 
@@ -11372,6 +11616,11 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, if self.enable_game_tile_videos then 1 else 0)
 		end
 
+		if self.continues_previous_section ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.continues_previous_section then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -11425,6 +11674,11 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.enable_game_tile_videos = value ~= 0
+					continue
+				elseif field == 23 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.continues_previous_section = value ~= 0
 					continue
 				end
 
@@ -11620,6 +11874,10 @@ do
 			output.enableGameTileVideos = self.enable_game_tile_videos
 		end
 
+		if self.continues_previous_section ~= nil then
+			output.continuesPreviousSection = self.continues_previous_section
+		end
+
 		return output
 	end
 
@@ -11802,6 +12060,14 @@ do
 
 		if input.enableGameTileVideos ~= nil then
 			self.enable_game_tile_videos = input.enableGameTileVideos
+		end
+
+		if input.continues_previous_section ~= nil then
+			self.continues_previous_section = input.continues_previous_section
+		end
+
+		if input.continuesPreviousSection ~= nil then
+			self.continues_previous_section = input.continuesPreviousSection
 		end
 
 		return self
@@ -22485,6 +22751,7 @@ do
 			entry_order = if data == nil or data.entry_order == nil then {} else data.entry_order,
 			content_pools = if data == nil or data.content_pools == nil then {} else data.content_pools,
 			search_session_id = if data == nil or data.search_session_id == nil then "" else data.search_session_id,
+			search_query = if data == nil or data.search_query == nil then "" else data.search_query,
 		}, _SearchResultsFeedInputDataImpl :: _SearchResultsFeedInputDataImpl)
 	end
 
@@ -22530,6 +22797,11 @@ do
 		if self.search_session_id ~= nil and self.search_session_id ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.search_session_id)
+		end
+
+		if self.search_query ~= nil and self.search_query ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.search_query)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -22585,6 +22857,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.search_session_id = buffer.tostring(value)
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.search_query = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -22638,6 +22915,10 @@ do
 
 		if self.search_session_id ~= nil and self.search_session_id ~= "" then
 			output.searchSessionId = self.search_session_id
+		end
+
+		if self.search_query ~= nil and self.search_query ~= "" then
+			output.searchQuery = self.search_query
 		end
 
 		return output
@@ -22706,6 +22987,14 @@ do
 
 		if input.searchSessionId ~= nil then
 			self.search_session_id = input.searchSessionId
+		end
+
+		if input.search_query ~= nil then
+			self.search_query = input.search_query
+		end
+
+		if input.searchQuery ~= nil then
+			self.search_query = input.searchQuery
 		end
 
 		return self
@@ -23547,6 +23836,7 @@ do
 	): UserListInputData_UserItem
 		return setmetatable({
 			user_id = if data == nil or data.user_id == nil then "" else data.user_id,
+			previous_usernames = if data == nil or data.previous_usernames == nil then {} else data.previous_usernames,
 		}, _UserListInputData_UserItemImpl :: _UserListInputData_UserItemImpl)
 	end
 
@@ -23557,6 +23847,13 @@ do
 		if self.user_id ~= nil and self.user_id ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.user_id)
+		end
+
+		if self.previous_usernames ~= nil and #self.previous_usernames > 0 then
+			for _, value in self.previous_usernames do
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -23582,6 +23879,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.user_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.previous_usernames, buffer.tostring(value))
 					continue
 				end
 
@@ -23614,6 +23916,14 @@ do
 			output.userId = self.user_id
 		end
 
+		if self.previous_usernames ~= nil and #self.previous_usernames > 0 then
+			local newOutput = {}
+			for _, value in self.previous_usernames do
+				table.insert(newOutput, value)
+			end
+			output.previousUsernames = newOutput
+		end
+
 		return output
 	end
 
@@ -23626,6 +23936,24 @@ do
 
 		if input.userId ~= nil then
 			self.user_id = input.userId
+		end
+
+		if input.previous_usernames ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.previous_usernames do
+				table.insert(newOutput, value)
+			end
+
+			self.previous_usernames = newOutput
+		end
+
+		if input.previousUsernames ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.previousUsernames do
+				table.insert(newOutput, value)
+			end
+
+			self.previous_usernames = newOutput
 		end
 
 		return self
@@ -29929,6 +30257,7 @@ return {
 	ExperienceActionModuleInputData_ConnectionPlayedUser = messages.ExperienceActionModuleInputData_ConnectionPlayedUser,
 	ExperienceMediaGalleryInputData = messages.ExperienceMediaGalleryInputData,
 	ExperienceMediaGalleryInputData_MediaItem = messages.ExperienceMediaGalleryInputData_MediaItem,
+	ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback = messages.ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback,
 	ExperienceDescriptionInputData = messages.ExperienceDescriptionInputData,
 	ExperienceStatRowInputData = messages.ExperienceStatRowInputData,
 	ExperienceInfoTableInputData = messages.ExperienceInfoTableInputData,

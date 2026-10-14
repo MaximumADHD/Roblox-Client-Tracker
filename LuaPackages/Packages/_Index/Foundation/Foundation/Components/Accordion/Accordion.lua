@@ -3,7 +3,6 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -44,26 +43,24 @@ local defaultProps = {
 local function Accordion(accordionProps: AccordionProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(accordionProps, defaultProps)
 
-	local contextValue = if Flags.FoundationStableContextValues
-		then React.useMemo(
-			function()
-				return {
-					onAccordionItemActivated = props.onActivated,
-					itemSize = props.size,
-					isContained = props.isContained,
-					chevronPosition = props.chevronPosition,
-					testId = props.testId,
-				}
-			end,
-			{
-				props.onActivated,
-				props.size,
-				props.isContained,
-				props.chevronPosition,
-				props.testId,
-			} :: { unknown }
-		)
-		else nil
+	local contextValue = React.useMemo(
+		function()
+			return {
+				onAccordionItemActivated = props.onActivated,
+				itemSize = props.size,
+				isContained = props.isContained,
+				chevronPosition = props.chevronPosition,
+				testId = props.testId,
+			}
+		end,
+		{
+			props.onActivated,
+			props.size,
+			props.isContained,
+			props.chevronPosition,
+			props.testId,
+		} :: { unknown }
+	)
 
 	return React.createElement(
 		View,
@@ -74,15 +71,7 @@ local function Accordion(accordionProps: AccordionProps, ref: React.Ref<GuiObjec
 		}),
 		{
 			AccordionContext = React.createElement(AccordionContext.Provider, {
-				value = if Flags.FoundationStableContextValues
-					then contextValue
-					else {
-						onAccordionItemActivated = props.onActivated,
-						itemSize = props.size,
-						isContained = props.isContained,
-						chevronPosition = props.chevronPosition,
-						testId = props.testId,
-					},
+				value = contextValue,
 			}, props.children),
 		}
 	)

@@ -58,6 +58,7 @@ if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 end
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagUserProfilePlatformProfile = SharedFlags.FFlagUserProfilePlatformProfile
 local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
 local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
@@ -2204,7 +2205,7 @@ local function Initialize()
 						end
 				end
 			end
-		end)
+		end, FFlagUserProfilePlatformProfile)
 
 		local frame = 0
 		if voiceChatServiceConnected and not renderSteppedConnected then

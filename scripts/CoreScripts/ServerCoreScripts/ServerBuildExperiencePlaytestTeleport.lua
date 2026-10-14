@@ -1,7 +1,14 @@
+--!nolint DeprecatedApi
+-- ShouldReserveServer (Used L70) is deprecated by game-engine CLI-227929; nolint until
+-- AccessCodeV2Teleports flag removal.
+
 local AssetService = game:GetService("AssetService")
+local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local TeleportService = game:GetService("TeleportService")
+
+local FFlagBuildPlaytestReservedServerId = game:DefineFastFlag("BuildPlaytestReservedServerId", false)
 
 local kMaxTeleportAttempts = 5
 local currentExperiencePlaceIds: { [number]: boolean }? = nil
@@ -63,6 +70,10 @@ RemotePlaytestTeleport.OnServerEvent:Connect(function(player, placeId)
 	end
 
 	local teleportOptions = Instance.new("TeleportOptions")
-	teleportOptions.ShouldReserveServer = true
+	if FFlagBuildPlaytestReservedServerId then
+		teleportOptions.ReservedServerId = HttpService:GenerateGUID(false)
+	else
+		teleportOptions.ShouldReserveServer = true
+	end
 	TeleportService:TeleportAsync(placeId, { player }, teleportOptions)
 end)

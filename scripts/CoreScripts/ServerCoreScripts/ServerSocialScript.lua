@@ -49,10 +49,6 @@ local FIntProfileSettingsRateLimitSeconds = game:DefineFastInt("ProfileSettingsR
 local FIntProfileSettingsMaxRequestsPerWindow = game:DefineFastInt("ProfileSettingsMaxRequestsPerWindow", 3)
 local FIntProfileSettingsRateLimitWindowSeconds = game:DefineFastInt("ProfileSettingsRateLimitWindowSeconds", 60)
 local FFlagDisableRCCAntiHarrasmentAllowList = game:DefineFastFlag("DisableRCCAntiHarrasmentAllowList", false)
-local FFlagUseGetCanManageAsync = game:DefineFastFlag("UseGetCanManageAsync", false)
-	and game:GetEngineFeature("LuaGetCanManageAsync")
-local FFlagUserPresenceTokenRccCheckPermissionsLua =
-	require(RobloxGui.Modules.Common.Flags.FFlagUserPresenceTokenRccCheckPermissionsLua)
 local shouldShowFriendJoinedPlayerToast = require(RobloxGui.Modules.Server.shouldShowFriendJoinedPlayerToast)
 local FFlagGatePrivateServerNudge = game:DefineFastFlag("GatePrivateServerNudge", false)
 local FFlagGlobalUserBlockingLuaReadsFromSCMCache = game:DefineFastFlag("GlobalUserBlockingLuaReadsFromSCMCache", false)
@@ -258,63 +254,20 @@ local function sendPlayerAllCanManage(player)
 end
 
 local function getPlayerCanManage(player)
-	if FFlagUseGetCanManageAsync then
-		if player.UserId <= 0 or not player.Parent then
-			return
-		end
-
-		local canManage = false
-		local success, result = pcall(player.GetCanManageAsync, player)
-
-		if success and result then
-			canManage = true
-		end
-
-		local uidStr = tostring(player.UserId)
-		PlayerToCanManageMap[uidStr] = canManage
-		RemoveEvent_NewPlayerCanManageDetails:FireAllClients(uidStr, canManage)
-	else
-		local canManage = false
-		if player.UserId > 0 then
-			local success, result = pcall(function()
-				local apiPath = "asset-permissions-api/v1/rcc/assets/check-permissions"
-				local url = string.format(Url.APIS_URL .. apiPath)
-
-				local request = HttpService:JSONEncode({
-					requests = {
-						{
-							subject = {
-								subjectType = "User",
-								subjectId = player.UserId,
-							},
-							action = "Edit", -- check to see if this player has edit permissions on this placeId
-							assetId = game.PlaceId,
-						},
-					},
-				})
-				local response
-				if FFlagUserPresenceTokenRccCheckPermissionsLua then
-					response = HttpRbxApiService:PostAsyncFullUrlForPlayer(url, request, player)
-				else
-					response = HttpRbxApiService:PostAsyncFullUrl(url, request)
-				end
-				return HttpService:JSONDecode(response)
-			end)
-
-			if success then
-				result = result.results[1]
-				if result.value and result.value.status == "HasPermission" then
-					canManage = true
-				end
-			end
-		end
-
-		if player.Parent then
-			local uidStr = tostring(player.UserId)
-			PlayerToCanManageMap[uidStr] = canManage
-			RemoveEvent_NewPlayerCanManageDetails:FireAllClients(uidStr, canManage)
-		end
+	if player.UserId <= 0 or not player.Parent then
+		return
 	end
+
+	local canManage = false
+	local success, result = pcall(player.GetCanManageAsync, player)
+
+	if success and result then
+		canManage = true
+	end
+
+	local uidStr = tostring(player.UserId)
+	PlayerToCanManageMap[uidStr] = canManage
+	RemoveEvent_NewPlayerCanManageDetails:FireAllClients(uidStr, canManage)
 end
 
 local fetchBlockList = function(player, playerIds)

@@ -63,34 +63,15 @@ local function TextField(props: TextFieldProps)
 	local hover, setHover = React.useState(false)
 	local focus, setFocus = React.useState(false)
 
-	local selectionBorderThickness = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-		then tokens.Stroke.Thick
-		else tokens.Semantic.Stroke.Focus
-	local iconSize = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-		then tokens.Size.Size_400
-		else tokens.Semantic.Icon.Size.Small
+	local selectionBorderThickness = tokens.Stroke.Thick
+	local iconSize = tokens.Size.Size_400
 
-	local outerBorderThickness = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-		then tokens.Stroke.Standard
-		else tokens.Semantic.Stroke.Input
+	local outerBorderThickness = tokens.Stroke.Standard
 	local outerBorderOffset = math.ceil(outerBorderThickness) * 2
-	local innerBorderThickness = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-		then tokens.Stroke.Thick
-		else tokens.Semantic.Stroke.Focus
+	local innerBorderThickness = tokens.Stroke.Thick
 	local innerBorderOffset = math.ceil(innerBorderThickness) * 2
 
-	local inputCursor = useCursor(
-		UDim.new(
-			0,
-			(
-				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-					then tokens.Radius.Medium
-					else tokens.Component.TextField.Base.Field.BorderRadius
-			)
-		),
-		selectionBorderThickness,
-		selectionBorderThickness
-	)
+	local inputCursor = useCursor(UDim.new(0, tokens.Radius.Medium), selectionBorderThickness, selectionBorderThickness)
 	local iconCursor = useCursor(UDim.new(0.5), iconSize / 2, selectionBorderThickness)
 
 	local width = if props.width ~= nil then props.width else defaultProps.width
@@ -108,15 +89,11 @@ local function TextField(props: TextFieldProps)
 		local offset = 0
 		if props.iconLeading then
 			offset -= iconSize
-			offset -= (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Gap.Small
-				else tokens.Component.TextField.Base.Field.Gap) * 2
+			offset -= tokens.Gap.Small * 2
 		end
 		if props.iconButton then
 			offset -= iconSize
-			offset -= (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Gap.Small
-				else tokens.Component.TextField.Base.Field.Gap) * 2
+			offset -= tokens.Gap.Small * 2
 		end
 		return offset
 	end
@@ -153,12 +130,7 @@ local function TextField(props: TextFieldProps)
 		Layout = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
 			SortOrder = Enum.SortOrder.LayoutOrder,
-			Padding = UDim.new(
-				0,
-				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-					then tokens.Size.Size_100
-					else tokens.Component.InputLabel.Base.Spacing.Bottom
-			),
+			Padding = UDim.new(0, tokens.Size.Size_100),
 		}),
 
 		InputLabel = if props.label
@@ -170,14 +142,7 @@ local function TextField(props: TextFieldProps)
 			else nil,
 
 		InputCanvas = React.createElement("CanvasGroup", {
-			Size = UDim2.new(
-				1,
-				0,
-				0,
-				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-					then tokens.Size.Size_1200
-					else tokens.Global.Size_600
-			),
+			Size = UDim2.new(1, 0, 0, tokens.Size.Size_1200),
 			BackgroundTransparency = 1,
 			LayoutOrder = 2,
 			GroupTransparency = if props.disabled then 1 - tokens.Component.TextField.Disabled.Field.Opacity else 0,
@@ -203,33 +168,16 @@ local function TextField(props: TextFieldProps)
 				end,
 			}, {
 				Corner = React.createElement("UICorner", {
-					CornerRadius = UDim.new(
-						0,
-						(
-							if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-								then tokens.Radius.Medium
-								else tokens.Component.TextField.Base.Field.BorderRadius
-						)
-					),
+					CornerRadius = UDim.new(0, tokens.Radius.Medium),
 				}),
 
 				Border = React.createElement("UIStroke", {
 					Color = if props.error
-						then (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-							then tokens.Color.ActionAlert.Border.Color3
-							else tokens.Component.TextField.Error.Field.BorderColor.Color3)
-						else (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-							then tokens.Color.Stroke.Emphasis.Color3
-							else tokens.Component.TextField.Base.Field.BorderColor.Color3),
+						then tokens.Color.ActionAlert.Border.Color3
+						else tokens.Color.Stroke.Emphasis.Color3,
 					Transparency = if props.error
-						then (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-							then tokens.Color.ActionAlert.Border.Transparency
-							else tokens.Component.TextField.Error.Field.BorderColor.Transparency)
-						else if focus
-							then 0
-							else (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-								then tokens.Color.Stroke.Emphasis.Transparency
-								else tokens.Component.TextField.Base.Field.BorderColor.Transparency),
+						then tokens.Color.ActionAlert.Border.Transparency
+						else if focus then 0 else tokens.Color.Stroke.Emphasis.Transparency,
 					Thickness = outerBorderThickness,
 				}),
 
@@ -239,55 +187,27 @@ local function TextField(props: TextFieldProps)
 					BackgroundTransparency = 1,
 				}, {
 					Corner = React.createElement("UICorner", {
-						CornerRadius = UDim.new(
-							0,
-							(
-								if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-									then tokens.Radius.Medium
-									else tokens.Component.TextField.Base.Field.BorderRadius
-							) - innerBorderOffset / 2
-						),
+						CornerRadius = UDim.new(0, tokens.Radius.Medium - innerBorderOffset / 2),
 					}),
 
 					Focus = if not props.disabled and (hover or focus)
 						then React.createElement("UIStroke", {
-							Color = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-								then tokens.Color.Stroke.Emphasis.Color3
-								else tokens.Component.TextField.Base.Field.BorderColor.Color3,
-							Transparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-								then 0.88
-								else tokens.Global.Opacity_12,
+							Color = tokens.Color.Stroke.Emphasis.Color3,
+							Transparency = 0.88,
 							Thickness = innerBorderThickness,
 						})
 						else nil,
 
 					Padding = React.createElement("UIPadding", {
-						PaddingLeft = UDim.new(
-							0,
-							if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-								then tokens.Size.Size_300
-								else tokens.Component.TextField.Base.Field.Spacing.Leading
-						),
-						PaddingRight = UDim.new(
-							0,
-							if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-								then tokens.Size.Size_300
-								else tokens.Component.TextField.Base.Field.Spacing.Trailing
-						),
+						PaddingLeft = UDim.new(0, tokens.Size.Size_300),
+						PaddingRight = UDim.new(0, tokens.Size.Size_300),
 					}),
 
 					Layout = React.createElement("UIListLayout", {
 						FillDirection = Enum.FillDirection.Horizontal,
 						VerticalAlignment = Enum.VerticalAlignment.Center,
 						SortOrder = Enum.SortOrder.LayoutOrder,
-						Padding = UDim.new(
-							0,
-							(
-								if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-									then tokens.Gap.Small
-									else tokens.Component.TextField.Base.Field.Gap
-							) * 2
-						),
+						Padding = UDim.new(0, tokens.Gap.Small * 2),
 					}),
 
 					IconLeading = if props.iconLeading
@@ -295,12 +215,8 @@ local function TextField(props: TextFieldProps)
 							BackgroundTransparency = 1,
 							Image = props.iconLeading,
 							Size = UDim2.new(0, iconSize, 0, iconSize),
-							ImageColor3 = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-								then tokens.Color.Content.Muted.Color3
-								else tokens.Component.TextField.Base.IconLeading.ContentColor.Color3,
-							ImageTransparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-								then tokens.Color.Content.Muted.Transparency
-								else tokens.Component.TextField.Base.IconLeading.ContentColor.Transparency,
+							ImageColor3 = tokens.Color.Content.Muted.Color3,
+							ImageTransparency = tokens.Color.Content.Muted.Transparency,
 							LayoutOrder = 1,
 						})
 						else nil,
@@ -315,36 +231,19 @@ local function TextField(props: TextFieldProps)
 						BackgroundTransparency = 1,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextYAlignment = Enum.TextYAlignment.Center,
-						Font = if FFlagFoundationFontFaceMigration
-							then nil
-							elseif
-								UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-							then tokens.Typography.BodyLarge.Font
-							else tokens.Component.TextField.Base.Field.Typography.Font,
+						Font = if FFlagFoundationFontFaceMigration then nil else tokens.Typography.BodyLarge.Font,
 						FontFace = if FFlagFoundationFontFaceMigration
-							then normalizeFontFace(
-								if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-									then tokens.Typography.BodyLarge.Font
-									else tokens.Component.TextField.Base.Field.Typography.Font
-							)
+							then normalizeFontFace(tokens.Typography.BodyLarge.Font)
 							else nil,
 						OpenTypeFeatures = if UIBloxConfig.enableOpenTypeSupport and props.openTypeFeatures
 							then props.openTypeFeatures
 							else nil,
-						TextSize = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-							then tokens.Typography.BodyLarge.FontSize
-							else tokens.Component.TextField.Base.Field.Typography.FontSize,
+						TextSize = tokens.Typography.BodyLarge.FontSize,
 						LineHeight = 1,
-						TextColor3 = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-							then tokens.Color.Content.Emphasis.Color3
-							else tokens.Component.TextField.Base.FieldValue.ContentColor.Color3,
-						TextTransparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-							then tokens.Color.Content.Emphasis.Transparency
-							else tokens.Component.TextField.Base.FieldValue.ContentColor.Transparency,
+						TextColor3 = tokens.Color.Content.Emphasis.Color3,
+						TextTransparency = tokens.Color.Content.Emphasis.Transparency,
 						PlaceholderText = props.placeholder,
-						PlaceholderColor3 = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-							then tokens.Color.Content.Default.Color3
-							else tokens.Semantic.Color.Text.Default.Color3,
+						PlaceholderColor3 = tokens.Color.Content.Default.Color3,
 						ClipsDescendants = true,
 						Selectable = false,
 						LayoutOrder = 2,
@@ -359,9 +258,7 @@ local function TextField(props: TextFieldProps)
 							BackgroundTransparency = 1,
 							Image = props.iconButton,
 							Size = UDim2.new(0, iconSize, 0, iconSize),
-							ImageColor3 = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-								then tokens.Color.Content.Muted.Color3
-								else tokens.Component.TextField.Base.IconLeading.ContentColor.Color3,
+							ImageColor3 = tokens.Color.Content.Muted.Color3,
 							Selectable = not props.disabled,
 							SelectionImageObject = iconCursor,
 							LayoutOrder = 3,

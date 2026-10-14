@@ -40,7 +40,6 @@ local mockSnapshotRef = {
 }
 
 local mockSignalEnabled = false
-local mockInExperiment = false
 
 local mockReportMenuTabOpen = jest.fn()
 local mockReportMenuTabClose = jest.fn()
@@ -69,12 +68,6 @@ end)
 jest.mock(root.Flags.isAbuseReportMenuOpenCloseSignalEnabled, function()
 	return function()
 		return mockSignalEnabled
-	end
-end)
-
-jest.mock(script.Parent.isInWHAM1707Experiment, function()
-	return function()
-		return mockInExperiment
 	end
 end)
 
@@ -150,7 +143,6 @@ describe("AbuseReportMenu V2", function()
 		mockCaptureState.isScreenshotTaken = true
 		mockCaptureState.isCaptureApplicable = true
 		mockSignalEnabled = false
-		mockInExperiment = false
 		mockReportMenuTabOpen.mockClear()
 		mockReportMenuTabClose.mockClear()
 	end)
@@ -241,7 +233,6 @@ describe("AbuseReportMenu V2", function()
 
 	it("emits the open signal immediately when capture is not applicable", function()
 		mockSignalEnabled = true
-		mockInExperiment = true
 		mockCaptureState.isCaptureApplicable = false
 		mockCaptureState.isScreenshotTaken = false
 
@@ -253,7 +244,6 @@ describe("AbuseReportMenu V2", function()
 
 	it("delays the open signal until the screenshot is taken when capture applies", function()
 		mockSignalEnabled = true
-		mockInExperiment = true
 		mockCaptureState.isCaptureApplicable = true
 		mockCaptureState.isScreenshotTaken = false
 
@@ -272,7 +262,6 @@ describe("AbuseReportMenu V2", function()
 
 	it("emits the close signal on a real close when enabled", function()
 		mockSignalEnabled = true
-		mockInExperiment = true
 
 		mount("AbuseReportMenuV2CloseSignalTest")
 
@@ -336,7 +325,6 @@ describe("AbuseReportMenu V2", function()
 
 	it("does not emit open/close signals when disabled", function()
 		mockSignalEnabled = false
-		mockInExperiment = false
 
 		mount("AbuseReportMenuV2SignalDisabledTest")
 

@@ -92,6 +92,9 @@ local FFlagDeferProgrammaticChange = game:DefineFastFlag("DeferProgrammaticChang
 local FFlagRenameVolumeToMainVolume = require(RobloxGui.Modules.Flags.FFlagRenameVolumeToMainVolume)
 local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAIRephraseSettingEnabled
 local FFlagChatSummariesSettingEnabled = SharedFlags.FFlagChatSummariesSettingEnabled
+-- Only meaningful where the dictation mic is actually available.
+local isVoiceTypingModeSettingEnabled = SharedFlags.FFlagExpChatDictationVoiceTypingModeSetting
+	and (SharedFlags.FFlagExpChatDictation or SharedFlags.FFlagExpChatContinuousDictation)
 local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
 local FFlagVoiceRewarmTelemetry = SharedFlags.FFlagVoiceRewarmTelemetry
 local FFlagDebounceVoiceSelectorIndexChange = game:DefineFastFlag("DebounceVoiceSelectorIndexChange", false)
@@ -3530,6 +3533,40 @@ local function Initialize()
 		end
 	end
 
+	local function createVoiceTypingModeSettingOptions()
+		-- Selector index -> ExpChat DictationMode value.
+		local MODES = { "standard", "continuous" }
+
+		this.VoiceTypingModeFrame, _, this.VoiceTypingModeSelector =
+			utility:AddNewRow(this, locales:Format("CoreScripts.InGameMenu.GameSettings.VoiceTypingMode"), "Selector", {
+				locales:Format("CoreScripts.InGameMenu.GameSettings.VoiceTypingModeStandard"),
+				locales:Format("CoreScripts.InGameMenu.GameSettings.VoiceTypingModeContinuous"),
+			}, 1)
+		this.VoiceTypingModeFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["VoiceTypingModeFrame"]
+
+		local getDictationModeSettingStore =
+			require(CorePackages.Workspace.Packages.ExpChat).Stores.GetDictationModeSettingStore
+		local dictationModeSettingStore = getDictationModeSettingStore(false)
+
+		-- We do not dispose of this effect since this menu is not unmounted.
+		this.VoiceTypingModeDisposeEffect = Signals.createEffect(function(scope)
+			local index = table.find(MODES, dictationModeSettingStore.getMode(scope)) or 1
+			if this.VoiceTypingModeSelector:GetSelectedIndex() ~= index then
+				this.VoiceTypingModeSelector:SetSelectionIndex(index)
+			end
+		end)
+
+		this.VoiceTypingModeSelector.IndexChanged:connect(function(newIndex)
+			local oldMode = dictationModeSettingStore.getMode(false)
+			local newMode = MODES[newIndex]
+			if newMode == nil or newMode == oldMode then
+				return
+			end
+			dictationModeSettingStore.setMode(newMode)
+			reportSettingsChangeForAnalytics("voice_typing_mode", oldMode, newMode)
+		end)
+	end
+
 	local function createChatNotificationsSettingOptions()
 		local ToastNotification = require(CorePackages.Workspace.Packages.ToastNotification)
 		local ToastNotificationSnoozeManager = ToastNotification.ToastNotificationSnoozeManager.default
@@ -4834,6 +4871,10 @@ local function Initialize()
 
 	if FFlagChatSummariesSettingEnabled then
 		createChatSummariesSettingOptions()
+	end
+
+	if isVoiceTypingModeSettingEnabled then
+		createVoiceTypingModeSettingOptions()
 	end
 
 	if FFlagExpChatEnableFriendsTab then

@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["ViewRecyclerReact"]["ViewRecyclerReact"])
+local Package = require(PackageIndex["ViewRecyclerReact-31ab8d40-0.2.6"]["ViewRecyclerReact"])
 
 export type DataSource<T> = Package.DataSource<T> 
 export type MutableSequence<T> = Package.MutableSequence<T> 

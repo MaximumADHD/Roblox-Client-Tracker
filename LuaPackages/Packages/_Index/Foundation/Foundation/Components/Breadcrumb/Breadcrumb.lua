@@ -13,13 +13,15 @@ type InputSize = InputSize.InputSize
 
 local LinkVariant = require(Foundation.Enums.LinkVariant)
 
+local Icon = require(Foundation.Components.Icon)
 local IconButton = require(Foundation.Components.IconButton)
 local Link = require(Foundation.Components.Link)
+local Menu = require(Foundation.Components.Menu)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
+type MenuItem = Menu.MenuItem
 
-local devAssert = require(Foundation.Utility.devAssert)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
@@ -30,17 +32,26 @@ local useBreadcrumbVariants = require(script.Parent.useBreadcrumbVariants)
 type BreadcrumbVariantProps = useBreadcrumbVariants.BreadcrumbVariantProps
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
+local MAX_ITEMS = 4
+local SEPARATOR = "/"
+
 export type BreadcrumbItem = {
 	text: string,
 	onActivated: (() -> ())?,
 	leading: (string | BreadcrumbAccessory)?,
-	trailing: (string | BreadcrumbAccessory)?,
+	ref: React.Ref<GuiObject>?,
 	testId: string?,
+
+	-- DEPRECATED
+	trailing: (string | BreadcrumbAccessory)?,
 }
 
 export type BreadcrumbProps = {
 	items: { BreadcrumbItem },
 	size: InputSize?,
+	onDropdownActivated: (() -> ())?,
+
+	-- DEPRECATED
 	separator: string?,
 	maxItems: number?,
 	itemsBeforeCollapse: number?,
@@ -51,16 +62,14 @@ type Entry = { item: BreadcrumbItem?, index: number?, overflow: boolean? }
 
 local defaultProps = {
 	size = InputSize.Medium,
-	separator = "/",
-	maxItems = 8,
-	itemsBeforeCollapse = 1,
-	itemsAfterCollapse = 1,
 	testId = "--foundation-breadcrumb",
 }
 
 type BreadcrumbItemProps = {
 	item: BreadcrumbItem,
 	isCurrent: boolean,
+	hasDropdown: boolean,
+	onDropdownActivated: (() -> ())?,
 	size: InputSize,
 	variantProps: BreadcrumbVariantProps,
 	LayoutOrder: number,
@@ -77,7 +86,6 @@ local function BreadcrumbItem(props: BreadcrumbItemProps)
 		text = React.createElement(Text, {
 			Text = item.text,
 			tag = if props.isCurrent then variantProps.current.tag else variantProps.label.tag,
-			textStyle = if props.isCurrent then variantProps.current.style else variantProps.label.style,
 			LayoutOrder = 1,
 			testId = `{testId}--text`,
 		})
@@ -95,6 +103,8 @@ local function BreadcrumbItem(props: BreadcrumbItemProps)
 
 	return React.createElement(View, {
 		tag = variantProps.item.tag,
+		ref = item.ref,
+		onActivated = if props.hasDropdown then props.onDropdownActivated else nil,
 		LayoutOrder = props.LayoutOrder,
 		testId = testId,
 	}, {
@@ -111,12 +121,13 @@ local function BreadcrumbItem(props: BreadcrumbItemProps)
 			LayoutOrder = 2,
 		}, {
 			Text = text,
-			Trailing = if item.trailing ~= nil
-				then React.createElement(BreadcrumbAccessory, {
-					config = item.trailing,
-					variant = variantProps.accessory,
+			Chevron = if props.hasDropdown
+				then React.createElement(Icon, {
+					name = IconName.ChevronLargeDown,
+					size = variantProps.accessory.iconSize,
+					style = variantProps.accessory.style,
 					LayoutOrder = 2,
-					testId = `{testId}--trailing`,
+					testId = `{testId}--chevron`,
 				})
 				else nil,
 		}),
@@ -128,88 +139,121 @@ local function Breadcrumb(breadcrumbProps: BreadcrumbProps, ref: React.Ref<GuiOb
 	local tokens = useTokens()
 	local variantProps = useBreadcrumbVariants(tokens, props.size)
 
-	devAssert(#props.items > 0, "Breadcrumb: `items` must contain at least one item.")
-
 	local count = #props.items
-	local expanded, setExpanded = React.useState(false)
-	local onExpand = React.useCallback(function()
-		setExpanded(true)
+	local isCollapsed = count > MAX_ITEMS
+	local overflowRef = React.useRef(nil :: GuiObject?)
+	local isMenuOpen, setIsMenuOpen = React.useState(false)
+
+	React.useEffect(function()
+		if not isCollapsed then
+			setIsMenuOpen(false)
+		end
+	end, { isCollapsed })
+
+	local toggleMenu = React.useCallback(function()
+		setIsMenuOpen(function(isOpen)
+			return not isOpen
+		end)
+	end, {})
+	local closeMenu = React.useCallback(function()
+		setIsMenuOpen(false)
 	end, {})
 
-	-- Re-collapse when the trail changes. Keyed on item count (stable across renders)
-	-- rather than the `items` table, which is often re-created every render.
-	local prevCount = React.useRef(count)
-	if prevCount.current ~= count then
-		prevCount.current = count
-		setExpanded(false)
-	end
+	local onMenuItemActivated = React.useCallback(function(id: Types.ItemId)
+		setIsMenuOpen(false)
+		local item = props.items[id :: number]
+		if item and item.onActivated then
+			item.onActivated()
+		end
+	end, { props.items })
 
-	local entries = React.useMemo(
-		function(): { Entry }
-			local before, after = props.itemsBeforeCollapse, props.itemsAfterCollapse
-			local result: { Entry } = {}
-			if not expanded and count > props.maxItems and before + after < count then
-				for index = 1, before do
-					table.insert(result, { item = props.items[index], index = index })
-				end
-				table.insert(result, { overflow = true })
-				for index = count - after + 1, count do
-					table.insert(result, { item = props.items[index], index = index })
-				end
-			else
-				for index, item in props.items do
-					table.insert(result, { item = item, index = index })
-				end
-			end
-			return result
-		end,
-		{ props.items, props.maxItems, props.itemsBeforeCollapse, props.itemsAfterCollapse, expanded, count } :: { unknown }
-	)
+	local entries = React.useMemo(function(): { Entry }
+		if isCollapsed then
+			return {
+				{ item = props.items[1], index = 1 },
+				{ overflow = true },
+				{ item = props.items[count], index = count },
+			}
+		end
+		local result: { Entry } = {}
+		for index, item in props.items do
+			table.insert(result, { item = item, index = index })
+		end
+		return result
+	end, { props.items, count, isCollapsed } :: { unknown })
 
-	local children = React.useMemo(function(): { [string]: React.ReactNode }
-		local result: { [string]: React.ReactNode } = {}
-		for i, entry in entries do
-			if entry.overflow then
-				result.Overflow = React.createElement(IconButton, {
-					icon = IconName.ThreeDotsHorizontal,
-					onActivated = onExpand,
-					size = variantProps.overflow.size,
-					variant = ButtonVariant.Standard,
-					LayoutOrder = 2 * i - 1,
-					testId = `{props.testId}--overflow`,
-				})
-			else
-				local item = entry.item :: BreadcrumbItem
-				local index = entry.index :: number
-				result[`Item{index}`] = React.createElement(BreadcrumbItem, {
-					item = item,
-					isCurrent = index == count,
-					size = props.size,
-					variantProps = variantProps,
-					LayoutOrder = 2 * i - 1,
-					testId = item.testId or `{props.testId}--item-{index}`,
-				})
-			end
-
-			if i ~= #entries then
-				local sepKey = if entry.overflow then "overflow" else entry.index
-				result[`Separator{sepKey}`] = React.createElement(View, {
-					tag = variantProps.separator.tag,
-					LayoutOrder = 2 * i,
-					testId = `{props.testId}--separator-{sepKey}`,
-				}, {
-					Slash = React.createElement(Text, {
-						Text = props.separator,
-						tag = variantProps.separator.textTag,
-						textStyle = variantProps.separator.style,
-						LayoutOrder = 1,
-						testId = `{props.testId}--separator-{sepKey}--text`,
-					}),
+	local menuItems = React.useMemo(function(): { MenuItem }
+		local result: { MenuItem } = {}
+		if isCollapsed then
+			for index = 2, count - 1 do
+				local item = props.items[index]
+				table.insert(result, {
+					id = index,
+					text = item.text,
+					isDisabled = item.onActivated == nil,
 				})
 			end
 		end
 		return result
-	end, { entries, variantProps, props.size, props.separator, props.testId, onExpand, count } :: { unknown })
+	end, { props.items, count, isCollapsed } :: { unknown })
+
+	local children: { [string]: React.ReactNode } = {}
+	for i, entry in entries do
+		if entry.overflow then
+			children.Overflow = React.createElement(IconButton, {
+				icon = IconName.ThreeDotsHorizontal,
+				onActivated = toggleMenu,
+				ref = overflowRef,
+				size = variantProps.overflow.size,
+				variant = ButtonVariant.Standard,
+				LayoutOrder = 2 * i - 1,
+				testId = `{props.testId}--overflow`,
+			})
+		else
+			local item = entry.item :: BreadcrumbItem
+			local index = entry.index :: number
+			local isCurrent = index == count
+			children[`Item{index}`] = React.createElement(BreadcrumbItem, {
+				item = item,
+				isCurrent = isCurrent,
+				hasDropdown = isCurrent and props.onDropdownActivated ~= nil,
+				onDropdownActivated = if isCurrent then props.onDropdownActivated else nil,
+				size = props.size,
+				variantProps = variantProps,
+				LayoutOrder = 2 * i - 1,
+				testId = item.testId or `{props.testId}--item-{index}`,
+			})
+		end
+
+		if i ~= #entries then
+			local sepKey = if entry.overflow then "overflow" else entry.index
+			children[`Separator{sepKey}`] = React.createElement(View, {
+				tag = variantProps.separator.tag,
+				LayoutOrder = 2 * i,
+				testId = `{props.testId}--separator-{sepKey}`,
+			}, {
+				Slash = React.createElement(Text, {
+					Text = SEPARATOR,
+					tag = variantProps.separator.textTag,
+					LayoutOrder = 1,
+					testId = `{props.testId}--separator-{sepKey}--text`,
+				}),
+			})
+		end
+	end
+
+	if isCollapsed then
+		children.OverflowMenu = React.createElement(Menu, {
+			isOpen = isMenuOpen,
+			items = menuItems,
+			size = props.size,
+			anchorRef = overflowRef,
+			onActivated = onMenuItemActivated,
+			onPressedOutside = closeMenu,
+			LayoutOrder = 2 * #entries,
+			testId = `{props.testId}--overflow-menu`,
+		})
+	end
 
 	return React.createElement(
 		View,

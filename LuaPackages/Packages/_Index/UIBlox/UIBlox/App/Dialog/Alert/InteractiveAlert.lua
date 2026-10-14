@@ -33,7 +33,6 @@ local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
 local GetFontFromFontStyle = require(UIBlox.Core.Text.GetFontFromFontStyle)
 local withStyle = require(UIBlox.Core.Style.withStyle)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local ButtonStack = require(AppRoot.Button.ButtonStack)
 
@@ -87,16 +86,8 @@ InteractiveAlert.defaultProps = {
 
 function InteractiveAlert:render()
 	return withStyle(function(stylePalette)
-		MIN_WIDTH = (
-			if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then stylePalette.Tokens.Size.Size_400
-				else stylePalette.Tokens.Global.Size_200
-		) * 17 -- 16 * 17 = 272
-		MAX_WIDTH = (
-			if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then stylePalette.Tokens.Size.Size_1000
-				else stylePalette.Tokens.Global.Size_500
-		) * 10 -- 40 * 10 = 400
+		MIN_WIDTH = stylePalette.Tokens.Size.Size_400 * 17 -- 16 * 17 = 272
+		MAX_WIDTH = stylePalette.Tokens.Size.Size_1000 * 10 -- 40 * 10 = 400
 		local theme = stylePalette.Theme
 		local font = stylePalette.Font
 		local textFont = if FFlagFoundationFontFaceMigration then GetFontFromFontStyle(font.Body) else font.Body.Font

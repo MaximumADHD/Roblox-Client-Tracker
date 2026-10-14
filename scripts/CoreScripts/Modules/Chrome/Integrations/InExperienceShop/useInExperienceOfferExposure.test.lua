@@ -191,12 +191,13 @@ describe("useInExperienceOfferExposure", function()
 	describe("hydrating the store", function()
 		it("SHOULD hand the store the tally device storage already holds", function()
 			local offerId = nextOfferId()
-			localStoreValues[STORAGE_KEY] = { [offerId] = exposure(2, COOLDOWN_SECONDS) }
+			local persistedTally = { [offerId] = exposure(2, COOLDOWN_SECONDS) }
+			localStoreValues[STORAGE_KEY] = persistedTally
 
 			mountTracker()
 
 			expect(hydrateMock).toHaveBeenCalledTimes(1)
-			expect(hydrateMock).toHaveBeenCalledWith({ [offerId] = exposure(2, COOLDOWN_SECONDS) })
+			expect(hydrateMock).toHaveBeenCalledWith(persistedTally)
 		end)
 
 		it("SHOULD hand the store an empty tally when storage has never been written", function()

@@ -103,6 +103,9 @@ end
 
 local FFlagUserPlayerConnectionMemoryLeak = FlagUtil.getUserFlag("UserPlayerConnectionMemoryLeak")
 local FFlagUserPSFixCameraControllerReset = FlagUtil.getUserFlag("UserPSFixCameraControllerReset")
+local FFlagUserVRFixCameraCloseArticulation = FlagUtil.getUserFlag("UserVRFixCameraCloseArticulation")
+
+local VRFirstPersonState = CommonUtils.get("VRFirstPersonState")
 
 -- Change this later as types are added for more classes
 type Generic = any
@@ -556,6 +559,10 @@ function CameraModule:Update(data, dt)
 
 		local newCameraCFrame, newCameraFocus = self.activeCameraController:Update(dt)
 
+		if FFlagUserVRFixCameraCloseArticulation and VRService.VREnabled and self.activeCameraController.IsInFirstPerson then
+			VRFirstPersonState.inFirstPerson = self.activeCameraController:IsInFirstPerson()
+		end
+
 		if self.activeOcclusionModule and not self.activeCameraController.skipOcclusion then
 			newCameraCFrame, newCameraFocus = self.activeOcclusionModule:Update(dt, newCameraCFrame, newCameraFocus)
 		end
@@ -569,6 +576,9 @@ function CameraModule:Update(data, dt)
 		if self.activeTransparencyController then
 			self.activeTransparencyController:Update(dt)
 		end
+	elseif FFlagUserVRFixCameraCloseArticulation and VRService.VREnabled then
+		-- No active controller (e.g. Scriptable camera) → fail safe to third person.
+		VRFirstPersonState.inFirstPerson = false
 	end
 end
 

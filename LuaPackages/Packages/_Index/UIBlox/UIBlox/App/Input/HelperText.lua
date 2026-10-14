@@ -8,7 +8,6 @@ local Foundation = require(Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
 
 local useStyle = require(UIBlox.Core.Style.useStyle)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
@@ -23,16 +22,10 @@ type HelperTextProps = {
 local function HelperText(props: HelperTextProps)
 	local style = useStyle()
 
-	local typography = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-		then style.Tokens.Typography.CaptionSmall
-		else style.Tokens.Component.HelperText.Base.Typography
+	local typography = style.Tokens.Typography.CaptionSmall
 	local textColor = if props.error
-		then (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Color.ActionAlert.Foreground
-			else style.Tokens.Component.HelperText.Error.ContentColor)
-		else (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Color.Content.Default
-			else style.Tokens.Component.HelperText.Base.ContentColor)
+		then style.Tokens.Color.ActionAlert.Foreground
+		else style.Tokens.Color.Content.Default
 
 	return React.createElement("TextLabel", {
 		Text = props.text,

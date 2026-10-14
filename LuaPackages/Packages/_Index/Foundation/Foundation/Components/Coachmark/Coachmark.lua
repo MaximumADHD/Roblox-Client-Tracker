@@ -101,11 +101,13 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 		then if props.media then scaledMinWidth else tokens.Size.Size_3000
 		else scaledMinWidth
 	-- Size constraint for text elements when close affordance is present
-	local textSizeConstraint = if props.onClose
-		then {
-			MaxSize = Vector2.new(maxXSize - tokens.Size.Size_1200, math.huge),
-		}
-		else nil
+	local textSizeConstraint = if Flags.FoundationEducationalTooltipMinMediaWidth
+		then nil
+		else if props.onClose
+			then {
+				MaxSize = Vector2.new(maxXSize - tokens.Size.Size_1200, math.huge),
+			}
+			else nil
 
 	local actionButtons = React.useMemo(function(): { ButtonGroupItem | React.Node }
 		local items: { ButtonGroupItem | React.Node } = {}
@@ -135,6 +137,18 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 		end
 		return items
 	end, { props.actions, props.testId } :: { unknown })
+
+	local needsCloseAffordancePadding = if Flags.FoundationEducationalTooltipMinMediaWidth
+		then props.onClose and not props.media
+		else nil
+	local isBodyOnlyContent = if Flags.FoundationEducationalTooltipBodyOnlyContentLayout
+		then props.title == ""
+			and props.text ~= nil
+			and props.text ~= ""
+			and props.media == nil
+			and props.steps == nil
+			and (props.actions == nil or #props.actions == 0)
+		else false
 
 	return React.createElement(Popover.Root, {
 		isOpen = props.isOpen,
@@ -168,9 +182,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 				PresentationContext.Provider,
 				{
 					-- lute-lint-ignore(noUnstableContextValue)
-					value = if Flags.FoundationStableContextValues
-						then INVERSE_PRESENTATION
-						else { colorNamespace = ColorNamespace.Inverse },
+					value = INVERSE_PRESENTATION,
 				},
 				React.createElement(View, {
 					testId = props.testId,
@@ -205,9 +217,52 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 						else nil,
 					ContentSection = React.createElement(View, {
 						LayoutOrder = 2,
-						tag = if Flags.FoundationEducationalTooltipRefresh
-							then "col auto-xy padding-medium"
-							else "col gap-xsmall auto-xy padding-x-medium padding-bottom-xsmall padding-top-medium",
+						tag = if Flags.FoundationEducationalTooltipMinMediaWidth
+							then {
+								[if Flags.FoundationEducationalTooltipRefresh
+									then "col auto-xy"
+									else "col gap-xsmall auto-xy"] = if Flags.FoundationEducationalTooltipBodyOnlyContentLayout
+									then not isBodyOnlyContent
+									else true,
+								["col align-y-center auto-xy"] = if Flags.FoundationEducationalTooltipBodyOnlyContentLayout
+									then isBodyOnlyContent
+									else false,
+								[if Flags.FoundationEducationalTooltipRefresh
+									then "padding-medium"
+									else "padding-x-medium padding-bottom-xsmall padding-top-medium"] = not needsCloseAffordancePadding
+									and not isBodyOnlyContent,
+							}
+							else if Flags.FoundationEducationalTooltipRefresh
+								then "col auto-xy padding-medium"
+								else "col gap-xsmall auto-xy padding-x-medium padding-bottom-xsmall padding-top-medium",
+						padding = if isBodyOnlyContent
+							then {
+								top = UDim.new(0, tokens.Padding.Small),
+								bottom = UDim.new(0, tokens.Padding.Small),
+								left = UDim.new(0, tokens.Padding.Medium),
+								right = UDim.new(
+									0,
+									if needsCloseAffordancePadding then tokens.Size.Size_1200 else tokens.Padding.Medium
+								),
+							}
+							else if Flags.FoundationEducationalTooltipMinMediaWidth
+									and needsCloseAffordancePadding
+								then {
+									top = UDim.new(0, tokens.Padding.Medium),
+									bottom = UDim.new(
+										0,
+										if Flags.FoundationEducationalTooltipRefresh
+											then tokens.Padding.Medium
+											else tokens.Padding.XSmall
+									),
+									left = UDim.new(0, tokens.Padding.Medium),
+									right = UDim.new(0, tokens.Size.Size_1200),
+								}
+								else nil,
+						-- Matches the Small CloseAffordance height so a single line centers against it
+						sizeConstraint = if isBodyOnlyContent
+							then { MinSize = Vector2.new(0, tokens.Size.Size_800) }
+							else nil,
 					}, {
 						StepIndicator = if props.steps
 							then React.createElement(Text, {
@@ -216,7 +271,9 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 								tag = if Flags.FoundationEducationalTooltipRefresh
 									then "auto-xy text-caption-medium text-align-x-left text-truncate-end content-inverse-default"
 									else "auto-xy text-label-small text-align-x-left text-truncate-end content-inverse-default",
-								sizeConstraint = textSizeConstraint,
+								sizeConstraint = if Flags.FoundationEducationalTooltipMinMediaWidth
+									then nil
+									else textSizeConstraint,
 								testId = `{props.testId}--step-indicator`,
 							})
 							else nil,
@@ -225,7 +282,9 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 								LayoutOrder = 2,
 								Text = props.title,
 								tag = "auto-xy text-title-large text-align-x-left text-truncate-split content-inverse-emphasis",
-								sizeConstraint = textSizeConstraint,
+								sizeConstraint = if Flags.FoundationEducationalTooltipMinMediaWidth
+									then nil
+									else textSizeConstraint,
 								testId = `{props.testId}--header`,
 							})
 							else nil,

@@ -14,7 +14,6 @@ local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtil
 local ChromeService = require(Chrome.Service)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
-local FFlagChatIntegrationFixShortcut = require(Chrome.Flags.FFlagChatIntegrationFixShortcut)
 local FocusSelectExpChat = require(Chrome.ChromeShared.Utility.FocusSelectExpChat)
 local ViewportUtil = require(Chrome.ChromeShared.Service.ViewportUtil)
 local MappedSignal = ChromeUtils.MappedSignal
@@ -69,7 +68,6 @@ local shouldRenderTextChannelInDefaultWindow = ExpChatShared.shouldRenderTextCha
 local getTextChannelDisplayMode = ExpChatShared.getTextChannelDisplayMode
 local FFlagExpChatSuppressWelcomeMessageUnibarUnread =
 	game:DefineFastFlag("ExpChatSuppressWelcomeMessageUnibarUnread", false)
-local FFlagExpChatUnibarThumbstickNavigate = game:DefineFastFlag("ExpChatUnibarThumbstickNavigate", false)
 local FFlagExpChatUnibarAvailabilityRefactor = game:DefineFastFlag("ExpChatUnibarAvailabilityRefactor", false)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -257,48 +255,35 @@ chatChromeIntegration = ChromeService:register({
 	isActivated = chatVisibilitySignal,
 	selected = if FFlagEnableConsoleExpControls
 		then function(self)
-			if FFlagExpChatUnibarThumbstickNavigate then
-				local connSelectedItem
-				local connInputChanged
-				local connInputBegan
+			local connSelectedItem
+			local connInputChanged
+			local connInputBegan
 
-				connSelectedItem = ChromeService:selectedItem():connect(function(selectedId)
-					-- Given signals behavior, this should just be called deselection occurs.
-					assert(selectedId ~= self.id, "Expected selectedId to not be self.id on selection")
+			connSelectedItem = ChromeService:selectedItem():connect(function(selectedId)
+				-- Given signals behavior, this should just be called deselection occurs.
+				assert(selectedId ~= self.id, "Expected selectedId to not be self.id on selection")
 
-					connSelectedItem:disconnect()
+				connSelectedItem:disconnect()
 
-					connInputChanged:Disconnect()
-					connInputBegan:Disconnect()
-				end)
+				connInputChanged:Disconnect()
+				connInputBegan:Disconnect()
+			end)
 
-				connInputChanged = UserInputService.InputChanged:Connect(function(input)
-					if input.KeyCode == Enum.KeyCode.Thumbstick1 then
-						local key = GamepadUtils.mapPositionToDirection(Vector2.new(input.Position.X, input.Position.Y))
-						if key == Enum.KeyCode.Down then
-							FocusSelectExpChat(chatChromeIntegration.id)
-						end
-					end
-				end)
-
-				connInputBegan = UserInputService.InputBegan:Connect(function(input)
-					local key = input.KeyCode
-					if key == Enum.KeyCode.DPadDown or key == Enum.KeyCode.Down then
+			connInputChanged = UserInputService.InputChanged:Connect(function(input)
+				if input.KeyCode == Enum.KeyCode.Thumbstick1 then
+					local key = GamepadUtils.mapPositionToDirection(Vector2.new(input.Position.X, input.Position.Y))
+					if key == Enum.KeyCode.Down then
 						FocusSelectExpChat(chatChromeIntegration.id)
 					end
-				end)
-			else
-				local chatSelectConn
-				chatSelectConn = UserInputService.InputEnded:Connect(function(input: InputObject)
-					local key = input.KeyCode
-					if key == Enum.KeyCode.DPadDown then
-						FocusSelectExpChat(chatChromeIntegration.id)
-					end
-					if chatSelectConn and ChromeService:selectedItem():get() ~= self.id then
-						chatSelectConn:Disconnect()
-					end
-				end)
-			end
+				end
+			end)
+
+			connInputBegan = UserInputService.InputBegan:Connect(function(input)
+				local key = input.KeyCode
+				if key == Enum.KeyCode.DPadDown or key == Enum.KeyCode.Down then
+					FocusSelectExpChat(chatChromeIntegration.id)
+				end
+			end)
 		end
 		else nil,
 	components = {
@@ -342,7 +327,7 @@ if FFlagExpChatUnibarAvailabilityRefactor then
 	end)
 end
 
-if FFlagChatIntegrationFixShortcut and FFlagEnableConsoleExpControls then
+if FFlagEnableConsoleExpControls then
 	SignalsUtils.createDetachedEffect(function(scope)
 		local isChatInputBarFocused = ExpChatFocusNavigationStore.getChatInputBarFocused(scope)
 		if isChatInputBarFocused then

@@ -3,12 +3,8 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local UserInputService = game:GetService("UserInputService")
 
-local Chrome = script:FindFirstAncestor("Chrome")
-local ChromeConstants = require(Chrome.ChromeShared.Unibar.Constants)
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local ChromeFocusUtils = ChromePackage.FocusUtils
-local ChromeService = require(Chrome.Service)
-local FFlagChatIntegrationFixShortcut = require(Chrome.Flags.FFlagChatIntegrationFixShortcut)
 
 local InputType = require(CorePackages.Workspace.Packages.InputType)
 local getInputGroup = InputType.getInputGroup
@@ -27,9 +23,6 @@ end
 return function(id: IntegrationId)
 	if ChatSelector:GetVisibility() and isUsingGamepad() then
 		ChromeFocusUtils.FocusOffChrome(function()
-			if not FFlagChatIntegrationFixShortcut then
-				ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
-			end
 			ExpChatFocusNavigationStore.focusChatInputBar()
 		end)
 	end

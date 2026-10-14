@@ -3,7 +3,6 @@ local TileRoot = ItemTileRoot.Parent
 local App = TileRoot.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local React = require(Packages.React)
 local useStyle = require(UIBlox.Core.Style.useStyle)
@@ -41,19 +40,10 @@ local function ItemTileStatusIcon(props: Props): React.Element<any>?
 	end
 
 	local iconSize = getIconSize(IconSize.Small)
-	local iconStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-		then tokens.Color.Content.Emphasis
-		else tokens.Semantic.Color.Icon.Emphasis
+	local iconStyle = tokens.Color.Content.Emphasis
 
 	return React.createElement(ImageSetComponent.Label, {
-		Position = UDim2.fromOffset(
-			if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_200
-				else tokens.Global.Size_100,
-			if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then tokens.Size.Size_200
-				else tokens.Global.Size_100
-		),
+		Position = UDim2.fromOffset(tokens.Size.Size_200, tokens.Size.Size_200),
 		Size = UDim2.fromOffset(iconSize, iconSize),
 		BackgroundTransparency = 1,
 		Image = Images[iconImage],

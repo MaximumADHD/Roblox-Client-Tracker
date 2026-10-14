@@ -50,6 +50,12 @@ local reactPackagePrefixes: { string }? = nil
 	These are siblings under the Packages folder.
 ]]
 local function getReactPackagePrefixes(): { string }
+	-- Production environments do not guarantee a DataModel instance tree
+	-- structure that we can use to determine the React package prefixes.
+	if _G.ENVIRONMENT == "PRODUCTION" then
+		return {}
+	end
+
 	if reactPackagePrefixes then
 		return reactPackagePrefixes
 	end

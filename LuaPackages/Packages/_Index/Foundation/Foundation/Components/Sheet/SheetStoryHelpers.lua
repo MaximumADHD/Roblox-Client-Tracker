@@ -40,6 +40,7 @@ export type SheetChildrenOptions = {
 	highlightedSlot: SheetSlot?,
 	headerHeight: number?,
 	isContentFullBleed: boolean?,
+	isContentReversed: boolean?,
 	actionCount: number?,
 	fullBleedMedia: string?,
 	fullBleedSticky: boolean?,
@@ -276,6 +277,7 @@ local function makeSheetChildren(options: SheetChildrenOptions?): { [string]: Re
 		Content = if showContent
 			then React.createElement(Sheet.Content, {
 				isContentFullBleed = config.isContentFullBleed,
+				isReversed = config.isContentReversed,
 			}, contentChildren)
 			else nil,
 		Actions = if showActions

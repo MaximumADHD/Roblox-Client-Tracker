@@ -15,7 +15,6 @@ local Tokens = require(Foundation.Providers.Style.Tokens)
 
 local AccessoryType = require(Foundation.Enums.AccessoryType)
 local ColorNamespace = require(Foundation.Enums.ColorNamespace)
-local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
 
 type Tokens = Tokens.Tokens
@@ -61,12 +60,7 @@ local function Accessory(props: AccessoryProps): React.ReactNode
 			testId = props.testId,
 		}, {
 			Avatar = React.createElement(PresentationContext.Provider, {
-				value = if Flags.FoundationStableContextValues
-					then ICON_PRESENTATION
-					else {
-						colorNamespace = ColorNamespace.Color,
-						isIconSize = true,
-					},
+				value = ICON_PRESENTATION,
 			}, {
 				Avatar = React.createElement(Avatar, {
 					userId = accessory.userId,

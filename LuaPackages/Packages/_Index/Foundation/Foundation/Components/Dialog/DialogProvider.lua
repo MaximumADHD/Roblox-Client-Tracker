@@ -6,8 +6,6 @@ local React = require(Packages.React)
 local DialogSize = require(Foundation.Enums.DialogSize)
 type DialogSize = DialogSize.DialogSize
 
-local Flags = require(Foundation.Utility.Flags)
-
 local getResponsiveSize = require(script.Parent.getResponsiveSize)
 local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -39,35 +37,9 @@ local function DialogProvider(props: DialogProviderProps)
 	local closeAffordanceRef = React.useRef<<React.Ref<GuiObject>?>>(nil)
 	local contentStartRef, setContentStartRef = React.useState(nil :: React.Ref<GuiObject>?)
 
-	local contextValue = if Flags.FoundationStableContextValues
-		then React.useMemo(
-			function()
-				return {
-					size = props.size,
-					responsiveSize = responsiveSize,
-					setResponsiveSize = setResponsiveSize,
-					hasHeroMedia = hasHeroMedia,
-					setHasHeroMedia = setHasHeroMedia,
-					testId = props.testId,
-					closeAffordanceRef = closeAffordanceRef,
-					contentStartRef = contentStartRef,
-					setContentStartRef = setContentStartRef,
-				}
-			end,
-			{
-				props.size,
-				responsiveSize,
-				hasHeroMedia,
-				props.testId,
-				contentStartRef,
-			} :: { unknown }
-		)
-		else nil
-
-	return React.createElement(DialogContext.Provider, {
-		value = if Flags.FoundationStableContextValues
-			then contextValue
-			else {
+	local contextValue = React.useMemo(
+		function()
+			return {
 				size = props.size,
 				responsiveSize = responsiveSize,
 				setResponsiveSize = setResponsiveSize,
@@ -77,7 +49,19 @@ local function DialogProvider(props: DialogProviderProps)
 				closeAffordanceRef = closeAffordanceRef,
 				contentStartRef = contentStartRef,
 				setContentStartRef = setContentStartRef,
-			},
+			}
+		end,
+		{
+			props.size,
+			responsiveSize,
+			hasHeroMedia,
+			props.testId,
+			contentStartRef,
+		} :: { unknown }
+	)
+
+	return React.createElement(DialogContext.Provider, {
+		value = contextValue,
 	}, props.children)
 end
 

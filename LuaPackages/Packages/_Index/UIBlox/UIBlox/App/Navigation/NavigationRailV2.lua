@@ -2,7 +2,6 @@ local Navigation = script.Parent
 local App = Navigation.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
@@ -66,26 +65,16 @@ local function NavigationRail(providedProps: Props)
 	assert(#providedProps.items > 0, "At least one item should be present!")
 	local props = Cryo.Dictionary.join(defaultProps, providedProps)
 	local style = useStyle()
-	local paddingTop = if props.paddings and props.paddings.Top
-		then props.paddings.Top
-		else if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Size.Size_150
-			else style.Tokens.Global.Space_75
+	local paddingTop = if props.paddings and props.paddings.Top then props.paddings.Top else style.Tokens.Size.Size_150
 	local paddingBottom = if props.paddings and props.paddings.Bottom
 		then props.paddings.Bottom
-		else if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Size.Size_150
-			else style.Tokens.Global.Space_75
+		else style.Tokens.Size.Size_150
 	local paddingLeft = if props.paddings and props.paddings.Left
 		then props.paddings.Left
-		else if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Size.Size_150
-			else style.Tokens.Global.Space_75
+		else style.Tokens.Size.Size_150
 	local paddingRight = if props.paddings and props.paddings.Right
 		then props.paddings.Right
-		else if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Size.Size_150
-			else style.Tokens.Global.Space_75
+		else style.Tokens.Size.Size_150
 	local vAlignment
 	if props.alignment == NavigationRailAlignment.Justified then
 		vAlignment = Enum.VerticalAlignment.Top
@@ -192,12 +181,7 @@ local function NavigationRail(providedProps: Props)
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
 					VerticalAlignment = vAlignment,
-					Padding = UDim.new(
-						0,
-						if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-							then style.Tokens.Size.Size_400
-							else style.Tokens.Global.Space_200
-					),
+					Padding = UDim.new(0, style.Tokens.Size.Size_400),
 				}),
 				PrimaryItems = React.createElement("Frame", {
 					BackgroundTransparency = 1,

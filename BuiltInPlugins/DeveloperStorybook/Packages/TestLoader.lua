@@ -6,6 +6,7 @@ local PackageIndex = script.Parent._Index
 local Package = require(PackageIndex["TestLoader"]["TestLoader"])
 
 export type DebugFlags = Package.DebugFlags
+export type RunJestConfig = Package.RunJestConfig
 
 
 return Package

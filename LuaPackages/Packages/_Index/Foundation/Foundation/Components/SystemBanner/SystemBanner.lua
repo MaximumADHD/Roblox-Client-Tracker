@@ -13,7 +13,6 @@ local BuilderIcons = require(Packages.BuilderIcons)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
-local Flags = require(Foundation.Utility.Flags)
 local Icon = require(Foundation.Components.Icon)
 local IconSize = require(Foundation.Enums.IconSize)
 local IconVariant = BuilderIcons.IconVariant
@@ -87,11 +86,9 @@ local function SystemBanner(systemBannerProps: SystemBannerProps, ref: React.Ref
 		}) :: any
 	end, { props.actions, props.testId, shouldWrapActions, tokens.Gap.Small } :: { unknown })
 
-	local presentationValue = if Flags.FoundationStableContextValues
-		then React.useMemo(function()
-			return { colorNamespace = variantProps.container.colorNamespace }
-		end, { variantProps.container.colorNamespace } :: { unknown })
-		else nil
+	local presentationValue = React.useMemo(function()
+		return { colorNamespace = variantProps.container.colorNamespace }
+	end, { variantProps.container.colorNamespace } :: { unknown })
 
 	return React.createElement(
 		View,
@@ -104,9 +101,7 @@ local function SystemBanner(systemBannerProps: SystemBannerProps, ref: React.Ref
 			ref = composedRef,
 		}),
 		React.createElement(PresentationContext.Provider, {
-			value = if Flags.FoundationStableContextValues
-				then presentationValue
-				else { colorNamespace = variantProps.container.colorNamespace },
+			value = presentationValue,
 		}, {
 			Icon = React.createElement(Icon, {
 				LayoutOrder = 1,

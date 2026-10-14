@@ -250,12 +250,15 @@ function PopoverManager._createPopoverAsync(
 	-- because Qt tooltip windows never gain OS-level window focus. We use
 	-- InputBegan instead to detect when the user clicks on a parent panel,
 	-- which dismisses any child popovers that Qt may have obscured without
-	-- firing BindToClose.
-	panel.InputBegan:Connect(function(input: InputObject)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 and newPopover.open then
-			self:_closeChildPopovers(newPopover)
-		end
-	end)
+	-- firing BindToClose. InputBegan exists on PluginGui, not on the ScreenGui
+	-- mocks CreateQWidgetPluginGui returns in DevFramework tests.
+	if panel:IsA("PluginGui") then
+		panel.InputBegan:Connect(function(input: InputObject)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 and newPopover.open then
+				self:_closeChildPopovers(newPopover)
+			end
+		end)
+	end
 
 	return newPopover
 end

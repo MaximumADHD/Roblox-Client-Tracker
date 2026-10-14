@@ -22,8 +22,6 @@ local BadgeVariant = require(script.Parent.Enum.BadgeVariant)
 
 local divideTransparency = require(UIBlox.Utility.divideTransparency)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local EMPTY_BADGE_WIDTH = 12
 local BADGE_MIN_WIDTH = 24
 local INNER_PADDING = 2
@@ -100,29 +98,17 @@ function Badge:render()
 			badgeHeight = EMPTY_BADGE_WIDTH
 		end
 
-		local badgeColor = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then stylePalette.Tokens.Color.System.Contrast
-			else stylePalette.Tokens.Semantic.Color.Common.Badge
+		local badgeColor = stylePalette.Tokens.Color.System.Contrast
 		local badgeContent = {
-			Color = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then stylePalette.Tokens.Inverse.Content.Emphasis.Color3
-				else stylePalette.Tokens.Semantic.Color.Common.BadgeContent.Color3,
-			Transparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then stylePalette.Tokens.Inverse.Content.Emphasis.Transparency
-				else stylePalette.Tokens.Semantic.Color.Common.BadgeContent.Transparency,
+			Color = stylePalette.Tokens.Inverse.Content.Emphasis.Color3,
+			Transparency = stylePalette.Tokens.Inverse.Content.Emphasis.Transparency,
 		}
 
 		if self.props.badgeVariant == BadgeVariant.Alert then
-			badgeColor = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then stylePalette.Tokens.Color.System.Alert
-				else stylePalette.Tokens.Semantic.Color.Common.Alert
+			badgeColor = stylePalette.Tokens.Color.System.Alert
 			badgeContent = {
-				Color = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-					then stylePalette.Tokens.Color.Extended.White.White_100.Color3
-					else stylePalette.Tokens.Global.Color.White.Color3,
-				Transparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-					then stylePalette.Tokens.Inverse.Content.Emphasis.Transparency
-					else stylePalette.Tokens.Semantic.Color.Common.BadgeContent.Transparency,
+				Color = stylePalette.Tokens.Color.Extended.White.White_100.Color3,
+				Transparency = stylePalette.Tokens.Inverse.Content.Emphasis.Transparency,
 			}
 		end
 

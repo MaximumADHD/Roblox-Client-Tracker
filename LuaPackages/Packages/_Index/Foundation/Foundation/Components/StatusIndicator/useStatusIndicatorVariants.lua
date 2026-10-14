@@ -1,7 +1,5 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local Flags = require(Foundation.Utility.Flags)
-
 local StatusIndicatorSize = require(Foundation.Enums.StatusIndicatorSize)
 type StatusIndicatorSize = StatusIndicatorSize.StatusIndicatorSize
 local StatusIndicatorVariant = require(Foundation.Enums.StatusIndicatorVariant)
@@ -69,27 +67,14 @@ function variantsFactory(tokens: Tokens)
 				style = tokens.LightMode.Content.Emphasis,
 			},
 		},
-		[StatusIndicatorVariant.Emphasis] = if Flags.FoundationActionEmphasisStatusIndicator
-			then {
-				container = {
-					tag = if Flags.FoundationSystemEmphasisNonActions
-						then "bg-system-emphasis"
-						else "bg-action-emphasis",
-				},
-				content = {
-					style = if Flags.FoundationSystemEmphasisNonActions
-						then tokens.DarkMode.Content.Emphasis
-						else tokens.Color.ActionEmphasis.Foreground,
-				},
-			}
-			else {
-				container = {
-					tag = "bg-system-emphasis",
-				},
-				content = {
-					style = tokens.DarkMode.Content.Emphasis,
-				},
+		[StatusIndicatorVariant.Emphasis] = {
+			container = {
+				tag = "bg-system-emphasis",
 			},
+			content = {
+				style = tokens.DarkMode.Content.Emphasis,
+			},
+		},
 		[StatusIndicatorVariant.Neutral] = {
 			container = {
 				tag = "bg-system-neutral",

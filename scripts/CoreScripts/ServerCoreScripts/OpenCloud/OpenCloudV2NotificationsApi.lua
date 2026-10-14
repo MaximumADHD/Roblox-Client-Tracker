@@ -12,6 +12,8 @@ local INVALID_ARGUMENT = "INVALID_ARGUMENT"
 local OPEN_CLOUD_V2 = "v2"
 local CURRENT_REQUEST_TYPE = "POST"
 
+local FFlagOpenCloudNotificationScheduledTimeEnabled = game:DefineFastFlag("OpenCloudNotificationScheduledTimeEnabled", false)
+
 local ContentProvider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
 local OpenCloudService = game:GetService("OpenCloudService")
@@ -101,6 +103,13 @@ function verifyPayload(payload) : any
 
     if payload.parameters ~= nil then
         local res = verifyParameters(payload.parameters)
+        if res ~= nil then
+            return res
+        end
+    end
+
+    if FFlagOpenCloudNotificationScheduledTimeEnabled and payload.scheduleTime ~= nil then
+        local res = verifyString(payload.scheduleTime)
         if res ~= nil then
             return res
         end

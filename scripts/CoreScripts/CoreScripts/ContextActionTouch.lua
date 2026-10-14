@@ -10,11 +10,7 @@ local contextActionService = game:GetService("ContextActionService")
 local userInputService = game:GetService("UserInputService")
 local playersService = game:GetService("Players")
 local guiService = game:GetService("GuiService")
-local FFlagFixCASGetButtonYielded = game:GetEngineFeature("FixCASGetButtonYielded")
-local FFlagFixCASMaxTouchButtons = game:DefineFastFlag("FixCASMaxTouchButtons", false)
 
--- remove with FFlagCASTouchButtonsUsePreferredInput
-local isTouchDevice = userInputService.TouchEnabled
 local functionTable = {}
 local buttonVector = {}
 local buttonScreenGui = nil
@@ -242,9 +238,6 @@ end
 
 function createButton( actionName, functionInfoTable )
 	local button
-	if not FFlagFixCASMaxTouchButtons then
-		button = createNewButton(actionName, functionInfoTable)
-	end
 
 	local position = nil
 	for i = 1,#buttonVector do
@@ -259,15 +252,11 @@ function createButton( actionName, functionInfoTable )
 	end
 
 	if position > maxButtons then
-		if FFlagFixCASMaxTouchButtons then 
-			warn("Maximum of 7 allowed touch buttons, new touch button not created for " .. actionName .. ".")
-		end
+		warn("Maximum of 7 allowed touch buttons, new touch button not created for " .. actionName .. ".")
 		return
 	end
 
-	if FFlagFixCASMaxTouchButtons then 
-		button = createNewButton(actionName, functionInfoTable)
-	end
+	button = createNewButton(actionName, functionInfoTable)
 
 	buttonVector[position] = button
 	functionTable[actionName]["button"] = button
@@ -357,10 +346,8 @@ local boundActions = contextActionService:GetAllBoundActionInfo()
 for actionName, actionData in pairs(boundActions) do
 	addAction(actionName,actionData["createTouchButton"],actionData)
 	
-	if FFlagFixCASGetButtonYielded then 
-		-- proactively fire all action buttons to resume yielded Lua callers before connections
-		if functionTable[actionName] and functionTable[actionName]["button"] then
-			contextActionService:FireActionButtonFoundSignal(actionName, functionTable[actionName]["button"])
-		end
+	-- proactively fire all action buttons to resume yielded Lua callers before connections
+	if functionTable[actionName] and functionTable[actionName]["button"] then
+		contextActionService:FireActionButtonFoundSignal(actionName, functionTable[actionName]["button"])
 	end
 end

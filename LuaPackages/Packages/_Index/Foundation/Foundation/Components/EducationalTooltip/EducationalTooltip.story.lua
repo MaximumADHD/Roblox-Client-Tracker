@@ -219,7 +219,6 @@ type SubpartCase = {
 	steps: Steps?,
 	hasMedia: boolean?,
 	actions: { ButtonGroupItem }?,
-	hasCloseAffordance: boolean?,
 }
 
 local SUBPART_ORDER: { SubpartCase } = {
@@ -230,7 +229,6 @@ local SUBPART_ORDER: { SubpartCase } = {
 	{ label = "Media", title = TITLE, text = TEXT, hasMedia = true },
 	{ label = "Primary action", title = TITLE, text = TEXT, actions = PRIMARY_ACTIONS },
 	{ label = "Primary + secondary", title = TITLE, text = TEXT, actions = PRIMARY_AND_SECONDARY_ACTIONS },
-	{ label = "Close affordance", title = TITLE, text = TEXT, hasCloseAffordance = true },
 }
 
 type PlaygroundControls = {
@@ -346,13 +344,62 @@ local function ContentStory(): React.ReactNode
 						steps = case.steps,
 						media = if case.hasMedia then mediaPlaceholder() else nil,
 						actions = case.actions,
-						hasCloseAffordance = case.hasCloseAffordance,
 					}),
 				})
 			end)
 		),
-		FullComposition = React.createElement(Section, {
+		CloseAffordance = React.createElement(Section, {
 			LayoutOrder = 2,
+			name = "Close affordance",
+		}, {
+			ShortText = React.createElement(LabeledCell, {
+				LayoutOrder = 1,
+				label = "Short title + text",
+			}, {
+				Target = React.createElement(EducationalTooltipTarget, {
+					LayoutOrder = 1,
+					title = TITLE,
+					text = TEXT,
+					hasCloseAffordance = true,
+				}),
+			}),
+			LongText = React.createElement(LabeledCell, {
+				LayoutOrder = 2,
+				label = "Long title + text",
+			}, {
+				Target = React.createElement(EducationalTooltipTarget, {
+					LayoutOrder = 1,
+					title = LONG_TITLE,
+					text = LONG_TEXT,
+					hasCloseAffordance = true,
+				}),
+			}),
+			Media = React.createElement(LabeledCell, {
+				LayoutOrder = 3,
+				label = "Media",
+			}, {
+				Target = React.createElement(EducationalTooltipTarget, {
+					LayoutOrder = 1,
+					title = TITLE,
+					text = TEXT,
+					media = mediaPlaceholder(),
+					hasCloseAffordance = true,
+				}),
+			}),
+			TextOnly = React.createElement(LabeledCell, {
+				LayoutOrder = 4,
+				label = "Text only",
+			}, {
+				Target = React.createElement(EducationalTooltipTarget, {
+					LayoutOrder = 1,
+					title = "",
+					text = TEXT,
+					hasCloseAffordance = true,
+				}),
+			}),
+		}),
+		FullComposition = React.createElement(Section, {
+			LayoutOrder = 3,
 			name = "Full composition",
 		}, {
 			Target = React.createElement(EducationalTooltipTarget, {
@@ -366,7 +413,7 @@ local function ContentStory(): React.ReactNode
 			}),
 		}),
 		Truncation = React.createElement(Section, {
-			LayoutOrder = 3,
+			LayoutOrder = 4,
 			name = "Truncation",
 		}, {
 			LongTitle = React.createElement(EducationalTooltipTarget, {
@@ -376,7 +423,7 @@ local function ContentStory(): React.ReactNode
 			}),
 		}),
 		Wrapping = React.createElement(Section, {
-			LayoutOrder = 4,
+			LayoutOrder = 5,
 			name = "Wrapping",
 		}, {
 			LongText = React.createElement(EducationalTooltipTarget, {
@@ -386,7 +433,7 @@ local function ContentStory(): React.ReactNode
 			}),
 		}),
 		Arrow = React.createElement(Section, {
-			LayoutOrder = 5,
+			LayoutOrder = 6,
 			name = "Arrow",
 		}, {
 			WithArrow = React.createElement(LabeledCell, {

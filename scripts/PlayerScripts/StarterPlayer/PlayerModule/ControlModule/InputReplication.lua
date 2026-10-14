@@ -5,6 +5,7 @@ local FFlagUserPlayerScriptsUseReplicatedCameraAPI = FlagUtil.getUserFlag("UserP
 local FFlagUserPlayerScriptsStopFireCameraAction = FlagUtil.getUserFlag("UserPlayerScriptsStopFireCameraAction")
 local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs2")
 local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
+local FFlagUserControlModuleEnabledAPI = FlagUtil.getUserFlag("UserControlModuleEnabledAPI")
 local StarterPlayer = game:GetService("StarterPlayer")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local Workspace = game:GetService("Workspace")
@@ -268,6 +269,11 @@ end
 
 -- very bloated right now and not final but get ControlModule values to send to server
 function InputReplication.writeInputToPCS(player: Player, controlModule, isServerAuthority: boolean)
+	local playerData
+	if FFlagUserControlModuleEnabledAPI then
+		playerData = controlModule.playerData
+	end
+
 	local character = player.Character
 	if not character then return end
 	local pcs
@@ -282,14 +288,25 @@ function InputReplication.writeInputToPCS(player: Player, controlModule, isServe
 	local input = if isServerAuthority then
 		player:FindFirstChild("InputContexts") else
 		script.Parent.Parent:FindFirstChild("InputContexts")
-	local characterContext = input and input:FindFirstChild("CharacterContext")
-	if not characterContext then return end
-	local moveAction = characterContext:FindFirstChild("MoveAction")
-	local jumpAction = characterContext:FindFirstChild("JumpAction")
-	local moveVector2D = if moveAction then moveAction:GetState() else Vector2.zero
-	local jumpBool = if jumpAction then jumpAction:GetState() else false
-	local worldMove = controlModule:calculateRawMoveVector(humanoid,
-		Vector3.new(moveVector2D.X, 0, -moveVector2D.Y))
+
+	local jumpBool
+	local worldMove 
+
+	if FFlagUserControlModuleEnabledAPI then
+		jumpBool = playerData.isJumping
+		worldMove = playerData.worldMoveVector
+	else
+		local characterContext = input and input:FindFirstChild("CharacterContext")
+		if not characterContext then return end
+		local moveAction = characterContext:FindFirstChild("MoveAction")
+		local jumpAction = characterContext:FindFirstChild("JumpAction")
+
+		local moveVector2D = if moveAction then moveAction:GetState() else Vector2.zero
+		jumpBool = if jumpAction then jumpAction:GetState() else false
+		worldMove = controlModule:calculateRawMoveVector(humanoid,
+			Vector3.new(moveVector2D.X, 0, -moveVector2D.Y))
+	end
+
 	local isRelative = UserGameSettings.RotationType == Enum.RotationType.CameraRelative
 	local camLook = Workspace.CurrentCamera and Workspace.CurrentCamera.CFrame.LookVector or Vector3.zAxis
 	local horiz = Vector3.new(camLook.X, 0, camLook.Z)

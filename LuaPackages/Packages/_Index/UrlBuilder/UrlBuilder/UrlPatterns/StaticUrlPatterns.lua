@@ -39,6 +39,9 @@ return function(UrlBuilder)
 		help = UrlBuilder.fromString(isQQ() and "corp:faq" or "www:help"),
 		safetyDashboard = {
 			main = UrlBuilder.fromString("www:safety-dashboard?t_source={source|app}"),
+			reportInbox = function(input)
+				return UrlBuilder.fromString("www:safety-dashboard?t_source={source|app}")(input) .. "#/report-inbox"
+			end,
 			violation = UrlBuilder.fromString("www:safety-dashboard?vid={id}&t_source={source|app}"),
 			violations = function(input)
 				return UrlBuilder.fromString("www:safety-dashboard?t_source={source|app}")(input) .. "#/violations"

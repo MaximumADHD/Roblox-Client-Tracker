@@ -3,7 +3,6 @@ local App = Menu.Parent
 local UIBlox = App.Parent
 
 local StyleTypes = require(UIBlox.App.Style.StyleTypes)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local getCellDefaultTokens = function(style: StyleTypes.AppStyle)
 	assert(style.Tokens ~= nil, "Design token support is not enabled!")
@@ -39,66 +38,35 @@ end
 
 local getDropdownMenuCellDefaultTokens = function(style: StyleTypes.AppStyle)
 	return {
-		iconSize = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Size.Size_900
-			else style.Tokens.Global.Size_450,
+		iconSize = style.Tokens.Size.Size_900,
 		containerPadding = {
-			left = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then style.Tokens.Size.Size_400
-				else style.Tokens.Global.Space_200,
-			right = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then style.Tokens.Size.Size_600
-				else style.Tokens.Global.Space_300,
+			left = style.Tokens.Size.Size_400,
+			right = style.Tokens.Size.Size_600,
 		},
-		textFont = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Typography.TitleLarge
-			else style.Tokens.Semantic.Typography.Subheader,
-		iconTextSpacing = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-			then style.Tokens.Size.Size_400
-			else style.Tokens.Global.Space_200,
+		textFont = style.Tokens.Typography.TitleLarge,
+		iconTextSpacing = style.Tokens.Size.Size_400,
 		border = {
-			cornerRadius = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then style.Tokens.Radius.Medium
-				else style.Tokens.Semantic.Radius.Medium,
-			size = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then style.Tokens.Stroke.Standard
-				else style.Tokens.Global.Stroke_100,
+			cornerRadius = style.Tokens.Radius.Medium,
+			size = style.Tokens.Stroke.Standard,
 		},
 	}
 end
 
 local getDropdownMenuDefaultTokens = function(style: StyleTypes.AppStyle)
 	return {
-		height = UDim.new(
-			0,
-			if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-				then style.Tokens.Size.Size_1200
-				else style.Tokens.Global.Size_600
-		),
+		height = UDim.new(0, style.Tokens.Size.Size_1200),
 		menuStateColors = {
 			buttonDefault = {
-				Color = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-					then style.Tokens.Color.ActionSubtle.Border.Color3
-					else style.Tokens.Semantic.Color.Action.Secondary.Border.Color3,
-				Transparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-					then style.Tokens.Color.ActionSubtle.Border.Transparency
-					else style.Tokens.Semantic.Color.Action.Secondary.Border.Transparency,
+				Color = style.Tokens.Color.ActionSubtle.Border.Color3,
+				Transparency = style.Tokens.Color.ActionSubtle.Border.Transparency,
 			},
 			contentDefault = {
-				Color = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-					then style.Tokens.Color.Content.Default.Color3
-					else style.Tokens.Semantic.Color.Text.Default.Color3,
-				Transparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-					then style.Tokens.Color.Content.Default.Transparency
-					else style.Tokens.Semantic.Color.Text.Default.Transparency,
+				Color = style.Tokens.Color.Content.Default.Color3,
+				Transparency = style.Tokens.Color.Content.Default.Transparency,
 			},
 			alert = {
-				Color = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-					then style.Tokens.Color.ActionAlert.Border.Color3
-					else style.Tokens.Semantic.Color.Action.Alert.Border.Color3,
-				Transparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
-					then style.Tokens.Color.ActionAlert.Border.Transparency
-					else style.Tokens.Semantic.Color.Action.Alert.Border.Transparency,
+				Color = style.Tokens.Color.ActionAlert.Border.Color3,
+				Transparency = style.Tokens.Color.ActionAlert.Border.Transparency,
 			},
 		},
 	}
